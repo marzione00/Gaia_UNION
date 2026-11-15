@@ -1,10 +1,18 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {fixture,bundle,layoutErrors} from '../tools/course-fixture.mjs';
-import {descriptor,trend} from '../src/models/curriculum.js';import {VSEPR_CHALLENGES,vseprInfo,STATEMENTS} from '../src/education/activities.js';
+import {descriptor,trend} from '../src/models/curriculum.js';import {VSEPR_CHALLENGES,vseprInfo,STATEMENTS,BISECTION_TASKS,IONIC_CHALLENGES,ion} from '../src/education/activities.js';
 /** Solve a prototype activity through its own buttons. */
 function solveActivity(f,kind){const A=f.E.activity;
  if(kind==='vsepr'){A.mode=1;for(let i=0;i<4;i++){const c=VSEPR_CHALLENGES[i];Object.assign(A,{challenge:i,x:c.x,e:c.e,shape:vseprInfo(c.x,c.e).shape});f.click('act-check');}}
  if(kind==='punnett'){A.mode=1;for(let i=0;i<3;i++){A.mystery={hidden:'Aa',viola:2,bianco:1};f.click('act-answer-Aa');assert.ok(A.revealed);f.click('act-new-mystery');}}
  if(kind==='logic')for(const [i,s] of STATEMENTS.slice(0,6).entries()){const counter=s.values.find(v=>!s.holds(v));Object.assign(A,{statement:i,verdict:s.truth?'vera':'falsa',tested:s.kind==='all'&&!s.truth?counter:null});f.click('act-check');}
+ if(kind==='bisection')for(let i=0;i<4;i++){A.task=i;A.startTask();const t=BISECTION_TASKS[i];f.click(t.guaranteed?'act-guarantee-yes':'act-guarantee-no');
+  for(let k=0;A.phase==='halve'&&k<10;k++){const m=(A.ba+A.bb)/2;f.click(t.f(A.ba)*t.f(m)<=0?'act-keep-left':'act-keep-right');}assert.equal(A.phase,'done',t.id);}
+ if(kind==='ionic')for(let i=0;i<6;i++){A.compound=i;A.startCompound();const c=IONIC_CHALLENGES[i],C=ion(c.cation),N=ion(c.anion);if(!C.polyatomic)f.click('act-qc-'+C.charge);if(!N.polyatomic)f.click('act-qa-'+(-N.charge));
+  let pair=null;for(let n=1;n<=4&&!pair;n++)for(let m=1;m<=4&&!pair;m++)if(n*C.charge+m*N.charge===0)pair=[n,m];for(let j=1;j<pair[0];j++)f.click('act-n-plus');for(let j=1;j<pair[1];j++)f.click('act-m-plus');
+  f.click('act-check');assert.ok(A.revealed,c.id);}
+ if(kind==='cards'){const def=f.E.definition.activity;for(let i=0;i<def.goal;i++){A.round=i;A.resetRound();const r=def.rounds[i];
+  if(r.type==='classify')for(const it of r.items){f.click('act-cat-'+r.categories.findIndex(c=>c.id===it.category));f.click('act-card-next');}
+  else{A.orders[r.id]=r.items.map(it=>it.id);f.click('act-check');}}}
  assert.ok(f.E.summary.activity.done,kind);}import {cleanState} from '../src/store.js';import {validateBundle} from '../src/education/course-engine.js';
 const sizes=[[1600,1000],[1280,820],[1280,720],[390,844],[320,568]];
 test('curriculum UI: 4.000 combinazioni moduli/stati/finestre senza comandi sovrapposti o fuori finestra',()=>{

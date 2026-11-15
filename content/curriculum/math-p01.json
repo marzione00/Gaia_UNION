@@ -5,21 +5,21 @@
   "title": "Ragionamento, conteggio e infinito",
   "sector": 0,
   "modelId": "math-p01",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Somme geometriche con ragione dichiarata",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Progressioni geometriche, somme parziali e somma di una serie geometrica",
+  "narrativeStatus": "L’archivio e la stazione sono immaginari; le somme e i limiti sono matematica reale.",
   "objectives": [
-    "Spiegare: somme geometriche con ragione dichiarata.",
-    "Applicare S_n = a(1-b^(n+1))/(1-b), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Riconoscere una progressione geometrica e calcolarne i termini.",
+    "Ricavare la formula della somma parziale con il metodo della sottrazione.",
+    "Stabilire quando una serie geometrica ha somma finita e calcolarla.",
+    "Spiegare con un controesempio perché termini che tendono a zero non bastano."
   ],
   "prerequisites": [
-    "math-c01",
-    "math-c10"
+    "math-c01"
   ],
   "connections": [
-    "math-p07"
+    "math-b"
   ],
   "sources": [
     "precalculus",
@@ -39,250 +39,335 @@
   },
   "glossary": [
     {
-      "term": "Indice n",
-      "definition": "Variabile indipendente, unità 1; intervallo [0; 20]."
+      "term": "Successione",
+      "definition": "Elenco ordinato e infinito di numeri, detti termini."
     },
     {
-      "term": "Somma parziale",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Progressione geometrica",
+      "definition": "Successione in cui ogni termine è il precedente moltiplicato per lo stesso numero, la ragione b."
     },
     {
-      "term": "Primo termine",
-      "definition": "Parametro a, unità 1; intervallo [1; 4]."
+      "term": "Somma parziale Sₙ",
+      "definition": "Somma dei primi n + 1 termini; per la progressione geometrica vale a(1 − bⁿ⁺¹)/(1 − b) se b ≠ 1."
     },
     {
-      "term": "Ragione",
-      "definition": "Parametro b, unità 1; intervallo [0; 1]."
+      "term": "Serie",
+      "definition": "Somma di infiniti termini, definita come limite delle somme parziali quando questo esiste."
+    },
+    {
+      "term": "Somma della serie geometrica",
+      "definition": "Con |b| < 1 vale a/(1 − b); con |b| ≥ 1 le somme parziali non hanno un limite finito, se a ≠ 0."
+    },
+    {
+      "term": "Serie armonica",
+      "definition": "1 + 1/2 + 1/3 + ...: i termini tendono a zero e la somma cresce senza limite."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Infiniti pezzi, quale totale?",
       "text": {
         "base": [
-          "Un archivio riceve pacchetti di dati sempre più piccoli. Il numero di pacchetti può crescere senza limite, ma la memoria totale deve necessariamente farlo? La risposta richiede distinguere termini e somme.",
-          "Una progressione geometrica moltiplica ogni termine per una ragione b. La somma dei primi n+1 termini, a+ab+...+ab^n, è una quantità finita. Quando |b|<1 le somme parziali possono tendere a un limite finito anche se i termini sono infiniti."
+          "Un archivio della stazione riceve pacchetti di dati sempre più piccoli: il primo occupa 1 megabyte, il secondo mezzo, il terzo un quarto, e così via. Il numero dei pacchetti cresce senza fine. La domanda del centro di controllo è se anche la memoria occupata debba crescere senza limite, oppure se resti sotto un valore che si possa prevedere.",
+          "Una successione è un elenco ordinato di numeri, detti termini: a₀, a₁, a₂, e così via. In una progressione geometrica ogni termine si ottiene dal precedente moltiplicando per lo stesso numero b, detto ragione. Con primo termine a = 1 e ragione b = 0,5 i termini sono 1; 0,5; 0,25; 0,125 e così via. Il termine di posto k vale a moltiplicato per b elevato alla k.",
+          "La somma parziale Sₙ è la somma dei primi n + 1 termini: S₀ = a, S₁ = a + ab, S₂ = a + ab + ab². Con a = 1 e b = 0,5 si ottiene S₀ = 1, S₁ = 1,5, S₂ = 1,75, S₃ = 1,875. Ogni somma parziale è un numero finito, perché è la somma di un numero finito di termini. La domanda interessante riguarda il loro comportamento quando n cresce senza limite.",
+          "Il filosofo Zenone di Elea sosteneva che per attraversare una stanza bisogna prima percorrerne metà, poi metà di quel che resta, poi metà del resto, e così via all’infinito; concludeva che la stanza non si attraversa mai. La matematica delle somme geometriche risolve il paradosso: 1/2 + 1/4 + 1/8 + ... ha infiniti termini, e le sue somme parziali si avvicinano a 1 quanto si vuole."
         ],
         "intermediate": [
-          "Un archivio riceve pacchetti di dati sempre più piccoli. Il numero di pacchetti può crescere senza limite, ma la memoria totale deve necessariamente farlo? La risposta richiede distinguere termini e somme.",
-          "Moltiplicando S_n per b e sottraendo ottieni (1-b)S_n=a(1-b^(n+1)). Se b≠1 puoi dividere per 1-b. Per b=1 devi trattare il caso separatamente: tutti i termini valgono a e S_n=a(n+1)."
+          "Un archivio della stazione riceve pacchetti di dati sempre più piccoli: il primo occupa 1 megabyte, il secondo mezzo, il terzo un quarto, e così via. Il numero dei pacchetti cresce senza fine. La domanda del centro di controllo è se anche la memoria occupata debba crescere senza limite, oppure se resti sotto un valore che si possa prevedere.",
+          "Una successione è un elenco ordinato di numeri, detti termini: a₀, a₁, a₂, e così via. In una progressione geometrica ogni termine si ottiene dal precedente moltiplicando per lo stesso numero b, detto ragione. Con primo termine a = 1 e ragione b = 0,5 i termini sono 1; 0,5; 0,25; 0,125 e così via. Il termine di posto k vale a moltiplicato per b elevato alla k.",
+          "La somma parziale Sₙ è la somma dei primi n + 1 termini: S₀ = a, S₁ = a + ab, S₂ = a + ab + ab². Con a = 1 e b = 0,5 si ottiene S₀ = 1, S₁ = 1,5, S₂ = 1,75, S₃ = 1,875. Ogni somma parziale è un numero finito, perché è la somma di un numero finito di termini. La domanda interessante riguarda il loro comportamento quando n cresce senza limite.",
+          "Un’antica storia racconta di un sovrano che promise a un saggio un chicco di riso sulla prima casella della scacchiera, due sulla seconda, quattro sulla terza, raddoppiando fino alla sessantaquattresima. La ragione qui è b = 2 e il totale è 1 + 2 + 4 + ... + 2⁶³ = 2⁶⁴ − 1, circa 1,8 · 10¹⁹ chicchi: molto più del riso prodotto nel mondo in un anno. Con ragione maggiore di 1 le somme crescono senza limite; con ragione compresa tra 0 e 1 accade qualcosa di diverso.",
+          "Il filosofo Zenone di Elea sosteneva che per attraversare una stanza bisogna prima percorrerne metà, poi metà di quel che resta, poi metà del resto, e così via all’infinito; concludeva che la stanza non si attraversa mai. La matematica delle somme geometriche risolve il paradosso: 1/2 + 1/4 + 1/8 + ... ha infiniti termini, e le sue somme parziali si avvicinano a 1 quanto si vuole."
         ],
         "advanced": [
-          "Un archivio riceve pacchetti di dati sempre più piccoli. Il numero di pacchetti può crescere senza limite, ma la memoria totale deve necessariamente farlo? La risposta richiede distinguere termini e somme.",
-          "Calcola il resto della serie geometrica per b<1. Trova quanti termini servono perché la memoria ancora da ricevere sia inferiore a una soglia prefissata.",
-          "Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo."
+          "Un archivio della stazione riceve pacchetti di dati sempre più piccoli: il primo occupa 1 megabyte, il secondo mezzo, il terzo un quarto, e così via. Il numero dei pacchetti cresce senza fine. La domanda del centro di controllo è se anche la memoria occupata debba crescere senza limite, oppure se resti sotto un valore che si possa prevedere.",
+          "La somma parziale Sₙ è la somma dei primi n + 1 termini: S₀ = a, S₁ = a + ab, S₂ = a + ab + ab². Con a = 1 e b = 0,5 si ottiene S₀ = 1, S₁ = 1,5, S₂ = 1,75, S₃ = 1,875. Ogni somma parziale è un numero finito, perché è la somma di un numero finito di termini. La domanda interessante riguarda il loro comportamento quando n cresce senza limite.",
+          "Un’antica storia racconta di un sovrano che promise a un saggio un chicco di riso sulla prima casella della scacchiera, due sulla seconda, quattro sulla terza, raddoppiando fino alla sessantaquattresima. La ragione qui è b = 2 e il totale è 1 + 2 + 4 + ... + 2⁶³ = 2⁶⁴ − 1, circa 1,8 · 10¹⁹ chicchi: molto più del riso prodotto nel mondo in un anno. Con ragione maggiore di 1 le somme crescono senza limite; con ragione compresa tra 0 e 1 accade qualcosa di diverso.",
+          "Il filosofo Zenone di Elea sosteneva che per attraversare una stanza bisogna prima percorrerne metà, poi metà di quel che resta, poi metà del resto, e così via all’infinito; concludeva che la stanza non si attraversa mai. La matematica delle somme geometriche risolve il paradosso: 1/2 + 1/4 + 1/8 + ... ha infiniti termini, e le sue somme parziali si avvicinano a 1 quanto si vuole."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Dalla sottrazione alla formula",
       "text": {
         "base": [
-          "Una progressione geometrica moltiplica ogni termine per una ragione b. La somma dei primi n+1 termini, a+ab+...+ab^n, è una quantità finita. Quando |b|<1 le somme parziali possono tendere a un limite finito anche se i termini sono infiniti.",
-          "Con a=1 e b=0,5, S_2=1+0,5+0,25=1,75. Il limite della serie è 2, ma nessuna di queste somme parziali lo raggiunge esattamente."
+          "Per sommare una progressione geometrica senza addizionare termine per termine si usa un ragionamento di sottrazione. Esempio con numeri: S = 1 + 2 + 4 + 8. Moltiplicando per 2 si ottiene 2S = 2 + 4 + 8 + 16. Sottraendo, quasi tutti i termini si cancellano: 2S − S = 16 − 1, quindi S = 15. Lo stesso trucco funziona per ogni ragione.",
+          "In generale: Sₙ = a + ab + ... + abⁿ. Moltiplicando per b si ottiene bSₙ = ab + ab² + ... + abⁿ⁺¹. Sottraendo la seconda uguaglianza dalla prima restano solo il primo e l’ultimo termine: (1 − b)Sₙ = a(1 − bⁿ⁺¹). Se b ≠ 1 si può dividere per 1 − b e si ottiene Sₙ = a(1 − bⁿ⁺¹)/(1 − b). Se b = 1 la divisione è vietata, e infatti tutti i termini valgono a: Sₙ = a(n + 1), che cresce senza limite.",
+          "Quando la ragione è compresa tra −1 e 1, la potenza bⁿ⁺¹ diventa piccola quanto si vuole al crescere di n: 0,5¹⁰ è circa 0,001 e 0,5²⁰ è circa un milionesimo. Allora Sₙ si avvicina ad a/(1 − b), che si chiama somma della serie. Con a = 1 e b = 0,5 il limite è 2: S₉ = 2 − 1/512 = 1,998046875. Nessuna somma parziale raggiunge esattamente 2, e tutte gli si avvicinano.",
+          "Torniamo all’archivio: con pacchetti di 1; 0,5; 0,25 megabyte e così via, la memoria totale resta sempre sotto 2 megabyte, anche se i pacchetti sono infiniti. Infiniti termini possono dare una somma finita, purché diventino piccoli abbastanza in fretta."
         ],
         "intermediate": [
-          "Moltiplicando S_n per b e sottraendo ottieni (1-b)S_n=a(1-b^(n+1)). Se b≠1 puoi dividere per 1-b. Per b=1 devi trattare il caso separatamente: tutti i termini valgono a e S_n=a(n+1).",
-          "La variabile Indice n è espressa in 1; Somma parziale in 1. Il dominio dello strumento è [0; 20], con soli valori interi. La relazione implementata è: S_n = a(1-b^(n+1))/(1-b).",
-          "Con a=1 e b=0,5, S_2=1+0,5+0,25=1,75. Il limite della serie è 2, ma nessuna di queste somme parziali lo raggiunge esattamente."
+          "Per sommare una progressione geometrica senza addizionare termine per termine si usa un ragionamento di sottrazione. Esempio con numeri: S = 1 + 2 + 4 + 8. Moltiplicando per 2 si ottiene 2S = 2 + 4 + 8 + 16. Sottraendo, quasi tutti i termini si cancellano: 2S − S = 16 − 1, quindi S = 15. Lo stesso trucco funziona per ogni ragione.",
+          "In generale: Sₙ = a + ab + ... + abⁿ. Moltiplicando per b si ottiene bSₙ = ab + ab² + ... + abⁿ⁺¹. Sottraendo la seconda uguaglianza dalla prima restano solo il primo e l’ultimo termine: (1 − b)Sₙ = a(1 − bⁿ⁺¹). Se b ≠ 1 si può dividere per 1 − b e si ottiene Sₙ = a(1 − bⁿ⁺¹)/(1 − b). Se b = 1 la divisione è vietata, e infatti tutti i termini valgono a: Sₙ = a(n + 1), che cresce senza limite.",
+          "Quando la ragione è compresa tra −1 e 1, la potenza bⁿ⁺¹ diventa piccola quanto si vuole al crescere di n: 0,5¹⁰ è circa 0,001 e 0,5²⁰ è circa un milionesimo. Allora Sₙ si avvicina ad a/(1 − b), che si chiama somma della serie. Con a = 1 e b = 0,5 il limite è 2: S₉ = 2 − 1/512 = 1,998046875. Nessuna somma parziale raggiunge esattamente 2, e tutte gli si avvicinano.",
+          "La differenza tra il limite e la somma parziale si calcola esattamente: a/(1 − b) − Sₙ = abⁿ⁺¹/(1 − b). Con a = 1 e b = 0,5, dopo n = 9 l’errore è 0,5¹⁰/0,5 = 1/512, circa 0,002. Questa formula permette di decidere in anticipo quanti termini servono per una precisione fissata.",
+          "Torniamo all’archivio: con pacchetti di 1; 0,5; 0,25 megabyte e così via, la memoria totale resta sempre sotto 2 megabyte, anche se i pacchetti sono infiniti. Infiniti termini possono dare una somma finita, purché diventino piccoli abbastanza in fretta."
         ],
         "advanced": [
-          "Moltiplicando S_n per b e sottraendo ottieni (1-b)S_n=a(1-b^(n+1)). Se b≠1 puoi dividere per 1-b. Per b=1 devi trattare il caso separatamente: tutti i termini valgono a e S_n=a(n+1).",
-          "Calcola il resto della serie geometrica per b<1. Trova quanti termini servono perché la memoria ancora da ricevere sia inferiore a una soglia prefissata.",
-          "Il fatto che i termini tendano a zero è necessario ma non sufficiente per la convergenza di una serie. Il laboratorio geometrico non dimostra la convergenza di qualsiasi successione di pacchetti."
+          "In generale: Sₙ = a + ab + ... + abⁿ. Moltiplicando per b si ottiene bSₙ = ab + ab² + ... + abⁿ⁺¹. Sottraendo la seconda uguaglianza dalla prima restano solo il primo e l’ultimo termine: (1 − b)Sₙ = a(1 − bⁿ⁺¹). Se b ≠ 1 si può dividere per 1 − b e si ottiene Sₙ = a(1 − bⁿ⁺¹)/(1 − b). Se b = 1 la divisione è vietata, e infatti tutti i termini valgono a: Sₙ = a(n + 1), che cresce senza limite.",
+          "La formula si può dimostrare anche per induzione. Per n = 0 si ha S₀ = a e a(1 − b)/(1 − b) = a. Se la formula vale per un certo n, allora Sₙ₊₁ = Sₙ + abⁿ⁺¹ = a(1 − bⁿ⁺¹)/(1 − b) + abⁿ⁺¹; riducendo allo stesso denominatore si ottiene a(1 − bⁿ⁺²)/(1 − b), cioè la formula per n + 1. Il primo caso e il passaggio da n a n + 1 bastano a coprire tutti i naturali.",
+          "Quando la ragione è compresa tra −1 e 1, la potenza bⁿ⁺¹ diventa piccola quanto si vuole al crescere di n: 0,5¹⁰ è circa 0,001 e 0,5²⁰ è circa un milionesimo. Allora Sₙ si avvicina ad a/(1 − b), che si chiama somma della serie. Con a = 1 e b = 0,5 il limite è 2: S₉ = 2 − 1/512 = 1,998046875. Nessuna somma parziale raggiunge esattamente 2, e tutte gli si avvicinano.",
+          "La differenza tra il limite e la somma parziale si calcola esattamente: a/(1 − b) − Sₙ = abⁿ⁺¹/(1 − b). Con a = 1 e b = 0,5, dopo n = 9 l’errore è 0,5¹⁰/0,5 = 1/512, circa 0,002. Questa formula permette di decidere in anticipo quanti termini servono per una precisione fissata.",
+          "Che i termini tendano a zero è necessario perché una serie abbia somma finita, e non basta. La serie armonica 1 + 1/2 + 1/3 + 1/4 + ... ha termini che tendono a zero, eppure le sue somme parziali superano qualunque numero. Raggruppando: 1/3 + 1/4 > 1/2, poi 1/5 + ... + 1/8 > 4 · 1/8 = 1/2, poi 1/9 + ... + 1/16 > 1/2, e così via. Si aggiunge infinite volte almeno 1/2, quindi la somma cresce senza limite. Il ragionamento risale a Nicola d’Oresme, nel Trecento.",
+          "Un numero decimale periodico è una serie geometrica. 0,999... significa 9/10 + 9/100 + 9/1000 + ..., con a = 9/10 e b = 1/10. La somma è (9/10)/(1 − 1/10) = 1. Quindi 0,999... e 1 sono lo stesso numero scritto in due modi. Allo stesso modo 0,333... = (3/10)/(9/10) = 1/3."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio delle somme",
       "text": {
         "base": [
-          "Nel laboratorio imposta Primo termine (a): 1 (adimensionale); Ragione (b): 0,5 (adimensionale). Prima di salvare A, prevedi come cambia Somma parziale fra Indice n=5 e 10 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con a=1 e b=0,5, S_2=1+0,5+0,25=1,75. Il limite della serie è 2, ma nessuna di queste somme parziali lo raggiunge esattamente.",
-          "La variabile Indice n è espressa in 1; Somma parziale in 1. Il dominio dello strumento è [0; 20], con soli valori interi. La relazione implementata è: S_n = a(1-b^(n+1))/(1-b)."
+          "Nel laboratorio il grafico mostra le somme parziali Sₙ per n da 0 a 20, come punti separati: n è un numero intero, quindi tra due punti non c’è nulla da disegnare. Nella scheda REGOLA cambi il primo termine a (da 1 a 4) e la ragione b (da 0 a 1); il cursore sull’asse orizzontale sceglie l’indice n di cui leggere il valore.",
+          "Protocollo. Imposta a = 1 e b = 0,5. Nella scheda A / B devi prevedere come cambia la somma parziale tra n = 5 e n = 10: scegli CRESCE, DIMINUISCE, UGUALE o NON DEFINITO, poi premi SALVA A. Cambia la ragione, per esempio b = 0,9, formula una nuova previsione e premi SALVA B. Il programma confronta le previsioni con i valori calcolati.",
+          "Che cosa osservare. Con b = 0,5 i punti salgono e si appiattiscono sotto la quota 2. Con b = 0,9 salgono più a lungo e si avvicinano a 10, perché 1/(1 − 0,9) = 10: con S₈ si è ancora intorno a 6,1. Con b = 0 tutti i termini dopo il primo valgono zero e la somma resta uguale ad a. Con b = 1 la somma cresce in linea retta, perché ogni termine vale a.",
+          "Prima di salvare, scrivi a parole perché ti aspetti quel risultato. Una previsione giustificata è più utile di una indovinata: se il risultato la smentisce, sai quale passo del ragionamento correggere."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Primo termine (a): 1 (adimensionale); Ragione (b): 0,5 (adimensionale). Prima di salvare A, prevedi come cambia Somma parziale fra Indice n=5 e 10 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Indice n è espressa in 1; Somma parziale in 1. Il dominio dello strumento è [0; 20], con soli valori interi. La relazione implementata è: S_n = a(1-b^(n+1))/(1-b).",
-          "Moltiplicando S_n per b e sottraendo ottieni (1-b)S_n=a(1-b^(n+1)). Se b≠1 puoi dividere per 1-b. Per b=1 devi trattare il caso separatamente: tutti i termini valgono a e S_n=a(n+1)."
+          "Nel laboratorio il grafico mostra le somme parziali Sₙ per n da 0 a 20, come punti separati: n è un numero intero, quindi tra due punti non c’è nulla da disegnare. Nella scheda REGOLA cambi il primo termine a (da 1 a 4) e la ragione b (da 0 a 1); il cursore sull’asse orizzontale sceglie l’indice n di cui leggere il valore.",
+          "Protocollo. Imposta a = 1 e b = 0,5. Nella scheda A / B devi prevedere come cambia la somma parziale tra n = 5 e n = 10: scegli CRESCE, DIMINUISCE, UGUALE o NON DEFINITO, poi premi SALVA A. Cambia la ragione, per esempio b = 0,9, formula una nuova previsione e premi SALVA B. Il programma confronta le previsioni con i valori calcolati.",
+          "Che cosa osservare. Con b = 0,5 i punti salgono e si appiattiscono sotto la quota 2. Con b = 0,9 salgono più a lungo e si avvicinano a 10, perché 1/(1 − 0,9) = 10: con S₈ si è ancora intorno a 6,1. Con b = 0 tutti i termini dopo il primo valgono zero e la somma resta uguale ad a. Con b = 1 la somma cresce in linea retta, perché ogni termine vale a.",
+          "Prima di salvare, scrivi a parole perché ti aspetti quel risultato. Una previsione giustificata è più utile di una indovinata: se il risultato la smentisce, sai quale passo del ragionamento correggere."
         ],
         "advanced": [
-          "Nel laboratorio imposta Primo termine (a): 1 (adimensionale); Ragione (b): 0,5 (adimensionale). Prima di salvare A, prevedi come cambia Somma parziale fra Indice n=5 e 10 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Calcola il resto della serie geometrica per b<1. Trova quanti termini servono perché la memoria ancora da ricevere sia inferiore a una soglia prefissata.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "Nel laboratorio il grafico mostra le somme parziali Sₙ per n da 0 a 20, come punti separati: n è un numero intero, quindi tra due punti non c’è nulla da disegnare. Nella scheda REGOLA cambi il primo termine a (da 1 a 4) e la ragione b (da 0 a 1); il cursore sull’asse orizzontale sceglie l’indice n di cui leggere il valore.",
+          "Protocollo. Imposta a = 1 e b = 0,5. Nella scheda A / B devi prevedere come cambia la somma parziale tra n = 5 e n = 10: scegli CRESCE, DIMINUISCE, UGUALE o NON DEFINITO, poi premi SALVA A. Cambia la ragione, per esempio b = 0,9, formula una nuova previsione e premi SALVA B. Il programma confronta le previsioni con i valori calcolati.",
+          "Che cosa osservare. Con b = 0,5 i punti salgono e si appiattiscono sotto la quota 2. Con b = 0,9 salgono più a lungo e si avvicinano a 10, perché 1/(1 − 0,9) = 10: con S₈ si è ancora intorno a 6,1. Con b = 0 tutti i termini dopo il primo valgono zero e la somma resta uguale ad a. Con b = 1 la somma cresce in linea retta, perché ogni termine vale a.",
+          "La differenza tra il limite e la somma parziale si calcola esattamente: a/(1 − b) − Sₙ = abⁿ⁺¹/(1 − b). Con a = 1 e b = 0,5, dopo n = 9 l’errore è 0,5¹⁰/0,5 = 1/512, circa 0,002. Questa formula permette di decidere in anticipo quanti termini servono per una precisione fissata."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Leggere il grafico e i suoi limiti",
       "text": {
         "base": [
-          "Il fatto che i termini tendano a zero è necessario ma non sufficiente per la convergenza di una serie. Il laboratorio geometrico non dimostra la convergenza di qualsiasi successione di pacchetti.",
-          "Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Leggere il grafico richiede attenzione. Un punto vicino alla linea del limite resta comunque sotto di essa: il grafico non può mostrare la differenza 1/1000 su una scala di 2 unità, e il valore numerico sotto il grafico sì. Inoltre il grafico arriva a n = 20; il comportamento per n molto grande si ricava dalla formula, che vale per ogni n.",
+          "Errore frequente: pensare che una somma di infiniti termini positivi debba essere infinita. La serie geometrica con ragione 0,5 lo smentisce. Errore opposto: pensare che basti avere termini sempre più piccoli. La serie armonica lo smentisce. Il criterio corretto per le serie geometriche è |b| < 1.",
+          "Il modello è un’idealizzazione. Un archivio reale registra dati in unità intere, i byte, e a un certo punto un pacchetto «metà del precedente» non esiste più. La serie infinita descrive bene le prime decine di passaggi e il valore limite, e smette di descrivere i dettagli quando i pacchetti diventano più piccoli di un byte."
         ],
         "intermediate": [
-          "Il fatto che i termini tendano a zero è necessario ma non sufficiente per la convergenza di una serie. Il laboratorio geometrico non dimostra la convergenza di qualsiasi successione di pacchetti.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "Leggere il grafico richiede attenzione. Un punto vicino alla linea del limite resta comunque sotto di essa: il grafico non può mostrare la differenza 1/1000 su una scala di 2 unità, e il valore numerico sotto il grafico sì. Inoltre il grafico arriva a n = 20; il comportamento per n molto grande si ricava dalla formula, che vale per ogni n.",
+          "Errore frequente: pensare che una somma di infiniti termini positivi debba essere infinita. La serie geometrica con ragione 0,5 lo smentisce. Errore opposto: pensare che basti avere termini sempre più piccoli. La serie armonica lo smentisce. Il criterio corretto per le serie geometriche è |b| < 1.",
+          "Che i termini tendano a zero è necessario perché una serie abbia somma finita, e non basta. La serie armonica 1 + 1/2 + 1/3 + 1/4 + ... ha termini che tendono a zero, eppure le sue somme parziali superano qualunque numero. Raggruppando: 1/3 + 1/4 > 1/2, poi 1/5 + ... + 1/8 > 4 · 1/8 = 1/2, poi 1/9 + ... + 1/16 > 1/2, e così via. Si aggiunge infinite volte almeno 1/2, quindi la somma cresce senza limite. Il ragionamento risale a Nicola d’Oresme, nel Trecento.",
+          "Il modello è un’idealizzazione. Un archivio reale registra dati in unità intere, i byte, e a un certo punto un pacchetto «metà del precedente» non esiste più. La serie infinita descrive bene le prime decine di passaggi e il valore limite, e smette di descrivere i dettagli quando i pacchetti diventano più piccoli di un byte."
         ],
         "advanced": [
-          "Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo.",
-          "Calcola il resto della serie geometrica per b<1. Trova quanti termini servono perché la memoria ancora da ricevere sia inferiore a una soglia prefissata.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Leggere il grafico richiede attenzione. Un punto vicino alla linea del limite resta comunque sotto di essa: il grafico non può mostrare la differenza 1/1000 su una scala di 2 unità, e il valore numerico sotto il grafico sì. Inoltre il grafico arriva a n = 20; il comportamento per n molto grande si ricava dalla formula, che vale per ogni n.",
+          "Il modello è un’idealizzazione. Un archivio reale registra dati in unità intere, i byte, e a un certo punto un pacchetto «metà del precedente» non esiste più. La serie infinita descrive bene le prime decine di passaggi e il valore limite, e smette di descrivere i dettagli quando i pacchetti diventano più piccoli di un byte.",
+          "Un numero decimale periodico è una serie geometrica. 0,999... significa 9/10 + 9/100 + 9/1000 + ..., con a = 9/10 e b = 1/10. La somma è (9/10)/(1 − 1/10) = 1. Quindi 0,999... e 1 sono lo stesso numero scritto in due modi. Allo stesso modo 0,333... = (3/10)/(9/10) = 1/3.",
+          "Le serie geometriche compaiono in molti campi. Un farmaco assunto a dosi regolari, di cui ogni volta resta in circolo una frazione fissa, raggiunge una quantità di equilibrio calcolabile con a/(1 − b). Anche il valore attuale di una rendita costante in economia e l’attenuazione di un’eco tra due pareti seguono la stessa struttura."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Una progressione geometrica moltiplica ogni termine per una ragione b. La somma dei primi n+1 termini, a+ab+...+ab^n, è una quantità finita. Quando |b|<1 le somme parziali possono tendere a un limite finito anche se i termini sono infiniti.",
-          "Con a=1 e b=0,5, S_2=1+0,5+0,25=1,75. Il limite della serie è 2, ma nessuna di queste somme parziali lo raggiunge esattamente."
+          "Prima della verifica ripassa: che cos’è la ragione di una progressione geometrica, come si scrive la somma parziale Sₙ = a(1 − bⁿ⁺¹)/(1 − b), perché il caso b = 1 va trattato a parte e perché, con |b| < 1, le somme si avvicinano ad a/(1 − b).",
+          "Mini esercizio: con a = 3 e b = 1/3 i termini sono 3; 1; 1/3; 1/9. La somma parziale S₂ vale 3 + 1 + 1/3 = 13/3, circa 4,33. Il limite vale 3/(1 − 1/3) = 3/(2/3) = 4,5.",
+          "Le domande contengono calcoli e domande di concetto. Nei calcoli conta i termini con attenzione: Sₙ ha n + 1 termini, da a fino ad abⁿ. Ogni commento alle opzioni sbagliate indica l’errore più probabile."
         ],
         "intermediate": [
-          "Moltiplicando S_n per b e sottraendo ottieni (1-b)S_n=a(1-b^(n+1)). Se b≠1 puoi dividere per 1-b. Per b=1 devi trattare il caso separatamente: tutti i termini valgono a e S_n=a(n+1).",
-          "La variabile Indice n è espressa in 1; Somma parziale in 1. Il dominio dello strumento è [0; 20], con soli valori interi. La relazione implementata è: S_n = a(1-b^(n+1))/(1-b)."
+          "Prima della verifica ripassa: che cos’è la ragione di una progressione geometrica, come si scrive la somma parziale Sₙ = a(1 − bⁿ⁺¹)/(1 − b), perché il caso b = 1 va trattato a parte e perché, con |b| < 1, le somme si avvicinano ad a/(1 − b).",
+          "Mini esercizio: con a = 3 e b = 1/3 i termini sono 3; 1; 1/3; 1/9. La somma parziale S₂ vale 3 + 1 + 1/3 = 13/3, circa 4,33. Il limite vale 3/(1 − 1/3) = 3/(2/3) = 4,5.",
+          "Le domande contengono calcoli e domande di concetto. Nei calcoli conta i termini con attenzione: Sₙ ha n + 1 termini, da a fino ad abⁿ. Ogni commento alle opzioni sbagliate indica l’errore più probabile."
         ],
         "advanced": [
-          "Calcola il resto della serie geometrica per b<1. Trova quanti termini servono perché la memoria ancora da ricevere sia inferiore a una soglia prefissata.",
-          "Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo."
+          "Prima della verifica ripassa: che cos’è la ragione di una progressione geometrica, come si scrive la somma parziale Sₙ = a(1 − bⁿ⁺¹)/(1 − b), perché il caso b = 1 va trattato a parte e perché, con |b| < 1, le somme si avvicinano ad a/(1 − b).",
+          "Mini esercizio: con a = 3 e b = 1/3 i termini sono 3; 1; 1/3; 1/9. La somma parziale S₂ vale 3 + 1 + 1/3 = 13/3, circa 4,33. Il limite vale 3/(1 − 1/3) = 3/(2/3) = 4,5.",
+          "Le domande contengono calcoli e domande di concetto. Nei calcoli conta i termini con attenzione: Sₙ ha n + 1 termini, da a fino ad abⁿ. Ogni commento alle opzioni sbagliate indica l’errore più probabile."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Somme geometriche con ragione dichiarata.",
-          "Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo.",
-          "Collegamento consigliato: math-p07. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le somme infinite sono il primo incontro con l’idea di limite, che torna nello studio delle funzioni e nel calcolo dell’area sotto una curva. L’unità «Esistenza, unicità e approssimazione» usa una progressione geometrica di ragione 1/2 per misurare quanto si restringe l’intervallo nel metodo di bisezione.",
+          "Le serie geometriche compaiono in molti campi. Un farmaco assunto a dosi regolari, di cui ogni volta resta in circolo una frazione fissa, raggiunge una quantità di equilibrio calcolabile con a/(1 − b). Anche il valore attuale di una rendita costante in economia e l’attenuazione di un’eco tra due pareti seguono la stessa struttura.",
+          "Nel diario registra le due configurazioni A e B, la previsione e il risultato. Aggiungi la somma della serie che ti aspettavi per ciascuna e una frase su ciò che il grafico non può mostrare."
         ],
         "intermediate": [
-          "Moltiplicando S_n per b e sottraendo ottieni (1-b)S_n=a(1-b^(n+1)). Se b≠1 puoi dividere per 1-b. Per b=1 devi trattare il caso separatamente: tutti i termini valgono a e S_n=a(n+1).",
-          "Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo.",
-          "Calcola il resto della serie geometrica per b<1. Trova quanti termini servono perché la memoria ancora da ricevere sia inferiore a una soglia prefissata."
+          "Le somme infinite sono il primo incontro con l’idea di limite, che torna nello studio delle funzioni e nel calcolo dell’area sotto una curva. L’unità «Esistenza, unicità e approssimazione» usa una progressione geometrica di ragione 1/2 per misurare quanto si restringe l’intervallo nel metodo di bisezione.",
+          "Le serie geometriche compaiono in molti campi. Un farmaco assunto a dosi regolari, di cui ogni volta resta in circolo una frazione fissa, raggiunge una quantità di equilibrio calcolabile con a/(1 − b). Anche il valore attuale di una rendita costante in economia e l’attenuazione di un’eco tra due pareti seguono la stessa struttura.",
+          "Nel diario registra le due configurazioni A e B, la previsione e il risultato. Aggiungi la somma della serie che ti aspettavi per ciascuna e una frase su ciò che il grafico non può mostrare."
         ],
         "advanced": [
-          "Calcola il resto della serie geometrica per b<1. Trova quanti termini servono perché la memoria ancora da ricevere sia inferiore a una soglia prefissata.",
-          "Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le somme infinite sono il primo incontro con l’idea di limite, che torna nello studio delle funzioni e nel calcolo dell’area sotto una curva. L’unità «Esistenza, unicità e approssimazione» usa una progressione geometrica di ragione 1/2 per misurare quanto si restringe l’intervallo nel metodo di bisezione.",
+          "Nel diario registra le due configurazioni A e B, la previsione e il risultato. Aggiungi la somma della serie che ti aspettavi per ciascuna e una frase su ciò che il grafico non può mostrare.",
+          "Scrivi anche come cambierebbe il risultato con una ragione negativa, per esempio b = −0,5: i termini cambiano segno a ogni passo, le somme parziali oscillano attorno al limite e la formula a/(1 − b) dà 1/1,5 = 2/3."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-p01-concept",
-      "prompt": "Per una serie geometrica con 0≤b<1 e primo termine a:",
+      "id": "math-p01-q1",
+      "prompt": "Con primo termine a = 1 e ragione b = 0,5, quanto vale la somma parziale S₃?",
       "options": [
         {
           "id": "A",
-          "text": "La somma è sempre infinita",
-          "feedback": "Il fatto che i termini tendano a zero è necessario ma non sufficiente per la convergenza di una serie. Il laboratorio geometrico non dimostra la convergenza di qualsiasi successione di pacchetti."
+          "text": "1,875",
+          "feedback": "Esatto: S₃ = 1 + 0,5 + 0,25 + 0,125 = 1,875, cioè quattro termini, da a fino ad ab³."
         },
         {
           "id": "B",
-          "text": "La somma infinita è ab",
-          "feedback": "Moltiplicando S_n per b e sottraendo ottieni (1-b)S_n=a(1-b^(n+1)). Se b≠1 puoi dividere per 1-b. Per b=1 devi trattare il caso separatamente: tutti i termini valgono a e S_n=a(n+1)."
+          "text": "1,75",
+          "feedback": "Questa è S₂: hai sommato tre termini. Sₙ contiene n + 1 termini, quindi S₃ ne contiene quattro."
         },
         {
           "id": "C",
-          "text": "La somma infinita è a/(1-b)",
-          "feedback": "Una progressione geometrica moltiplica ogni termine per una ragione b. La somma dei primi n+1 termini, a+ab+...+ab^n, è una quantità finita. Quando |b|<1 le somme parziali possono tendere a un limite finito anche se i termini sono infiniti."
+          "text": "2",
+          "feedback": "2 è il limite della serie. Nessuna somma parziale lo raggiunge: S₃ = 2 − 0,125."
+        },
+        {
+          "id": "D",
+          "text": "0,125",
+          "feedback": "0,125 è il termine ab³, cioè l’ultimo addendo di S₃, e non la somma."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-p01-q2",
+      "prompt": "Per quali valori della ragione b una serie geometrica con a ≠ 0 ha somma finita?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Per ogni b positivo",
+          "feedback": "Con b = 2 i termini raddoppiano e la somma cresce senza limite, come i chicchi sulla scacchiera."
+        },
+        {
+          "id": "B",
+          "text": "Per |b| < 1",
+          "feedback": "Esatto: in quel caso bⁿ⁺¹ tende a zero e Sₙ tende ad a/(1 − b)."
+        },
+        {
+          "id": "C",
+          "text": "Solo per b = 1",
+          "feedback": "Con b = 1 ogni termine vale a e Sₙ = a(n + 1) cresce senza limite."
+        },
+        {
+          "id": "D",
+          "text": "Per nessun valore: infiniti termini danno sempre somma infinita",
+          "feedback": "Con b = 0,5 e a = 1 le somme si avvicinano a 2: infiniti termini possono avere somma finita."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-p01-q3",
+      "prompt": "Quanto vale la somma 3 + 1 + 1/3 + 1/9 + ... con infiniti termini?",
+      "options": [
+        {
+          "id": "A",
+          "text": "4",
+          "feedback": "4 è la somma dei primi due termini. I termini successivi aggiungono ancora 1/3 + 1/9 + ... = 1/2."
+        },
+        {
+          "id": "B",
+          "text": "Infinito, perché i termini sono infiniti",
+          "feedback": "La ragione è 1/3, minore di 1 in valore assoluto: la somma è finita."
+        },
+        {
+          "id": "C",
+          "text": "4,5",
+          "feedback": "Esatto: a = 3, b = 1/3, quindi la somma è 3/(1 − 1/3) = 3/(2/3) = 4,5."
+        },
+        {
+          "id": "D",
+          "text": "3,5",
+          "feedback": "Hai probabilmente usato a/(1 + b) o sommato male i primi termini. La formula corretta è a/(1 − b)."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "math-p01-calculation",
-      "prompt": "Calcolo: Primo termine (a)=1 (adimensionale); Ragione (b)=0,5 (adimensionale). Per Indice n=2 (adimensionale), quanto vale Somma parziale?",
+      "id": "math-p01-q4",
+      "prompt": "Che numero è 0,999... con infinite cifre 9?",
       "options": [
         {
           "id": "A",
-          "text": "0,75 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. S_n = a(1-b^(n+1))/(1-b). Con Primo termine (a)=1 (adimensionale); Ragione (b)=0,5 (adimensionale) e Indice n=2 (adimensionale), il risultato è 1,75 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Un numero un po’ più piccolo di 1",
+          "feedback": "Se fosse più piccolo di 1, tra i due numeri ci sarebbe una differenza positiva; la serie mostra che la differenza è zero."
         },
         {
           "id": "B",
-          "text": "1,75 (adimensionale)",
-          "feedback": "S_n = a(1-b^(n+1))/(1-b). Con Primo termine (a)=1 (adimensionale); Ragione (b)=0,5 (adimensionale) e Indice n=2 (adimensionale), il risultato è 1,75 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Un numero che non esiste",
+          "feedback": "È una serie geometrica con a = 9/10 e b = 1/10, che ha somma finita."
         },
         {
           "id": "C",
-          "text": "2,75 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. S_n = a(1-b^(n+1))/(1-b). Con Primo termine (a)=1 (adimensionale); Ragione (b)=0,5 (adimensionale) e Indice n=2 (adimensionale), il risultato è 1,75 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Il numero 0,9",
+          "feedback": "0,9 è solo il primo termine della serie 9/10 + 9/100 + ..."
+        },
+        {
+          "id": "D",
+          "text": "Il numero 1",
+          "feedback": "Esatto: la somma è (9/10)/(1 − 1/10) = 1. Sono due scritture dello stesso numero."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 1,
-          "b": 0.5
-        },
-        "expected": 1.75,
-        "unit": "1"
-      }
+      "correct": "D"
     },
     {
-      "id": "math-p01-transfer",
-      "prompt": "Trasferimento: Primo termine (a)=2 (adimensionale); Ragione (b)=0,5 (adimensionale). Per Indice n=2 (adimensionale), quanto vale Somma parziale?",
+      "id": "math-p01-q5",
+      "prompt": "La serie armonica 1 + 1/2 + 1/3 + 1/4 + ... ha termini che tendono a zero. Ha somma finita?",
       "options": [
         {
           "id": "A",
-          "text": "3,5 (adimensionale)",
-          "feedback": "S_n = a(1-b^(n+1))/(1-b). Con Primo termine (a)=2 (adimensionale); Ragione (b)=0,5 (adimensionale) e Indice n=2 (adimensionale), il risultato è 3,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "No: le somme parziali superano qualunque numero",
+          "feedback": "Esatto: raggruppando i termini si aggiunge infinite volte almeno 1/2."
         },
         {
           "id": "B",
-          "text": "5,25 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. S_n = a(1-b^(n+1))/(1-b). Con Primo termine (a)=2 (adimensionale); Ragione (b)=0,5 (adimensionale) e Indice n=2 (adimensionale), il risultato è 3,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Sì, perché i termini tendono a zero",
+          "feedback": "È un errore classico: termini che tendono a zero sono necessari, e non sufficienti."
         },
         {
           "id": "C",
-          "text": "1,75 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. S_n = a(1-b^(n+1))/(1-b). Con Primo termine (a)=2 (adimensionale); Ragione (b)=0,5 (adimensionale) e Indice n=2 (adimensionale), il risultato è 3,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Sì, e la somma vale 2",
+          "feedback": "2 è la somma di 1 + 1/2 + 1/4 + ..., una serie diversa con termini molto più piccoli."
+        },
+        {
+          "id": "D",
+          "text": "Non si può stabilire",
+          "feedback": "Si può: il ragionamento di Oresme mostra che le somme crescono senza limite."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 2,
-          "b": 0.5
-        },
-        "expected": 3.5,
-        "unit": "1"
-      }
+      "correct": "A"
     },
     {
-      "id": "math-p01-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "math-p01-q6",
+      "prompt": "Nel laboratorio imposti b = 1. Che cosa mostra il grafico delle somme parziali?",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo."
+          "text": "Una retta di punti: Sₙ = a(n + 1) cresce senza limite",
+          "feedback": "Esatto: ogni termine vale a, quindi a ogni passo la somma aumenta di a."
         },
         {
           "id": "B",
-          "text": "Somme geometriche con ragione dichiarata",
-          "feedback": "Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo."
+          "text": "Punti che si avvicinano ad a/(1 − b)",
+          "feedback": "Con b = 1 il denominatore 1 − b vale zero: la formula del limite non si applica."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo."
+          "text": "Tutti i punti uguali ad a",
+          "feedback": "Questo accade con b = 0, quando i termini dopo il primo sono nulli."
+        },
+        {
+          "id": "D",
+          "text": "Nessun punto, perché la formula dà 0/0",
+          "feedback": "La formula con la divisione vale solo per b ≠ 1; il caso b = 1 si calcola direttamente sommando a per n + 1 volte."
         }
       ],
-      "correct": "B"
+      "correct": "A"
     }
   ]
 }

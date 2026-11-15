@@ -5,21 +5,21 @@
   "title": "Esistenza, unicità e approssimazione",
   "sector": 0,
   "modelId": "math-b",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Limite teorico con contenimento mantenuto",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Teorema degli zeri, unicità per monotonia e metodo di bisezione",
+  "narrativeStatus": "Il sensore e la stazione sono immaginari; le funzioni e i calcoli sono reali.",
   "objectives": [
-    "Spiegare: limite teorico con contenimento mantenuto.",
-    "Applicare Ampiezza(n) = a / 2^n, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Enunciare il teorema degli zeri e riconoscere quando le sue ipotesi valgono.",
+    "Mostrare con controesempi perché continuità e cambio di segno sono entrambi necessari.",
+    "Garantire l’unicità di una soluzione con la stretta monotonia.",
+    "Eseguire il metodo di bisezione e stimare l’errore dopo n passi."
   ],
   "prerequisites": [
-    "math-c04",
-    "math-c08"
+    "math-p01"
   ],
   "connections": [
-    "math-p08"
+    "math-p05"
   ],
   "sources": [
     "precalculus",
@@ -39,244 +39,336 @@
   },
   "glossary": [
     {
-      "term": "Iterazioni n",
-      "definition": "Variabile indipendente, unità 1; intervallo [0; 20]."
+      "term": "Funzione continua",
+      "definition": "Funzione il cui grafico, sull’intervallo considerato, non presenta salti né buchi."
     },
     {
-      "term": "Ampiezza intervallo",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Teorema degli zeri",
+      "definition": "Se f è continua su [a; b] e f(a) · f(b) < 0, esiste almeno un c tra a e b con f(c) = 0."
     },
     {
-      "term": "Ampiezza iniziale",
-      "definition": "Parametro a, unità 1; intervallo [1; 8]."
+      "term": "Unicità",
+      "definition": "Proprietà di avere una sola soluzione; per una funzione strettamente monotona lo zero, se esiste, è unico."
+    },
+    {
+      "term": "Bisezione",
+      "definition": "Metodo che dimezza ripetutamente un intervallo con cambio di segno, tenendo la metà in cui il segno cambia."
+    },
+    {
+      "term": "Tolleranza",
+      "definition": "Errore massimo accettato; nella bisezione si raggiunge in un numero di passi noto in anticipo."
+    },
+    {
+      "term": "Punto medio",
+      "definition": "m = (a + b)/2; come stima della soluzione ha errore al massimo (b − a)/2."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Tre domande su una soluzione",
       "text": {
         "base": [
-          "Un sensore segnala che una funzione continua assume segni opposti ai due estremi di un intervallo. La radice non ha una formula comoda. Il compito è localizzarla con un errore controllato.",
-          "Il metodo di bisezione dimezza un intervallo che contiene un cambio di segno. La continuità e i segni opposti garantiscono almeno una radice nell’intervallo. Non garantiscono che la radice sia unica: per questo serve un’ipotesi ulteriore, come la stretta monotonia."
+          "Un sensore della stazione misura una grandezza che dipende in modo continuo dalla temperatura. Il valore cercato è quello per cui la funzione f si annulla, e la sua equazione non ha una formula comoda. Il sensore sa solo calcolare f in un punto e leggerne il segno. Con questi strumenti bisogna rispondere a tre domande: la soluzione esiste? È una sola? Quanto vale, con quale errore?",
+          "Le tre domande hanno nomi precisi. Esistenza: c’è almeno un numero che risolve l’equazione? Unicità: ce n’è uno solo? Approssimazione: come si calcola un numero vicino alla soluzione, e quanto vicino? Un metodo di calcolo onesto risponde a tutte e tre.",
+          "L’idea di partenza è geometrica. Se il grafico di f sta sotto l’asse x in un punto a e sopra l’asse in un punto b, e si può tracciare senza staccare la matita dal foglio, allora deve attraversare l’asse da qualche parte tra a e b. Il punto di attraversamento è una soluzione di f(x) = 0."
         ],
         "intermediate": [
-          "Un sensore segnala che una funzione continua assume segni opposti ai due estremi di un intervallo. La radice non ha una formula comoda. Il compito è localizzarla con un errore controllato.",
-          "Dopo n dimezzamenti, l’ampiezza iniziale a diventa a/2^n. Se si usa il punto medio dell’intervallo finale, l’errore di localizzazione è al massimo metà dell’ampiezza. Il grafico del laboratorio mostra l’ampiezza, non il valore della radice."
+          "Un sensore della stazione misura una grandezza che dipende in modo continuo dalla temperatura. Il valore cercato è quello per cui la funzione f si annulla, e la sua equazione non ha una formula comoda. Il sensore sa solo calcolare f in un punto e leggerne il segno. Con questi strumenti bisogna rispondere a tre domande: la soluzione esiste? È una sola? Quanto vale, con quale errore?",
+          "Molte equazioni non si risolvono con una formula. Per x² = 2 la formula esiste, e la soluzione positiva è √2, che però va comunque approssimata per usarla in un calcolo. Per cos x = x non si conosce alcuna espressione della soluzione con radici, frazioni o funzioni note. Per le equazioni polinomiali di quinto grado si è dimostrato che una formula generale con le sole radici non esiste.",
+          "Le tre domande hanno nomi precisi. Esistenza: c’è almeno un numero che risolve l’equazione? Unicità: ce n’è uno solo? Approssimazione: come si calcola un numero vicino alla soluzione, e quanto vicino? Un metodo di calcolo onesto risponde a tutte e tre.",
+          "L’idea di partenza è geometrica. Se il grafico di f sta sotto l’asse x in un punto a e sopra l’asse in un punto b, e si può tracciare senza staccare la matita dal foglio, allora deve attraversare l’asse da qualche parte tra a e b. Il punto di attraversamento è una soluzione di f(x) = 0."
         ],
         "advanced": [
-          "Un sensore segnala che una funzione continua assume segni opposti ai due estremi di un intervallo. La radice non ha una formula comoda. Il compito è localizzarla con un errore controllato.",
-          "Determina il numero minimo di dimezzamenti per ottenere un errore del punto medio inferiore a una tolleranza scelta. Usa i logaritmi e arrotonda il conteggio all’intero superiore.",
-          "Il modello calcola il limite teorico sull’ampiezza, non esegue valutazioni di una funzione bersaglio. Non quantifica da solo gli errori di arrotondamento o di misura."
+          "Un sensore della stazione misura una grandezza che dipende in modo continuo dalla temperatura. Il valore cercato è quello per cui la funzione f si annulla, e la sua equazione non ha una formula comoda. Il sensore sa solo calcolare f in un punto e leggerne il segno. Con questi strumenti bisogna rispondere a tre domande: la soluzione esiste? È una sola? Quanto vale, con quale errore?",
+          "Molte equazioni non si risolvono con una formula. Per x² = 2 la formula esiste, e la soluzione positiva è √2, che però va comunque approssimata per usarla in un calcolo. Per cos x = x non si conosce alcuna espressione della soluzione con radici, frazioni o funzioni note. Per le equazioni polinomiali di quinto grado si è dimostrato che una formula generale con le sole radici non esiste.",
+          "Le tre domande hanno nomi precisi. Esistenza: c’è almeno un numero che risolve l’equazione? Unicità: ce n’è uno solo? Approssimazione: come si calcola un numero vicino alla soluzione, e quanto vicino? Un metodo di calcolo onesto risponde a tutte e tre."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Il teorema degli zeri e la bisezione",
       "text": {
         "base": [
-          "Il metodo di bisezione dimezza un intervallo che contiene un cambio di segno. La continuità e i segni opposti garantiscono almeno una radice nell’intervallo. Non garantiscono che la radice sia unica: per questo serve un’ipotesi ulteriore, come la stretta monotonia.",
-          "Partendo da un intervallo di ampiezza 2, dopo tre dimezzamenti resta 2/8=0,25. Il punto medio ha errore massimo 0,125, purché l’invariante di contenimento della radice sia stato mantenuto."
+          "Teorema degli zeri. Sia f una funzione continua sull’intervallo chiuso [a; b]. Se f(a) e f(b) hanno segni opposti, cioè f(a) · f(b) < 0, allora esiste almeno un punto c strettamente tra a e b con f(c) = 0. «Continua» vuol dire, in modo intuitivo, che il grafico non ha salti né buchi sull’intervallo.",
+          "Entrambe le ipotesi servono. Senza continuità il teorema cade: f(x) = 1/x vale −1 in x = −1 e 1 in x = 1, ma non è definita in 0 e non si annulla mai. Senza cambio di segno il teorema tace: f(x) = x² − 0,25 è positiva in −1 e in 1 e si annulla in −0,5 e in 0,5, mentre g(x) = x² + 1 è positiva agli estremi e non si annulla mai. Lo stesso segno agli estremi lascia aperte entrambe le possibilità.",
+          "Il metodo di bisezione trasforma il teorema in un procedimento di calcolo. Si parte da [a; b] con f(a) e f(b) di segno opposto. Si calcola il punto medio m = (a + b)/2 e il segno di f(m). Se f(a) e f(m) hanno segni opposti, la soluzione garantita sta in [a; m]; altrimenti sta in [m; b]. Si tiene la metà giusta e si ripete.",
+          "Esempio svolto con f(x) = x² − 2 su [1; 2]. f(1) = −1 e f(2) = 2. Punto medio 1,5: f(1,5) = 0,25 > 0, quindi si tiene [1; 1,5]. Punto medio 1,25: f(1,25) = −0,4375 < 0, si tiene [1,25; 1,5]. Punto medio 1,375: f(1,375) ≈ −0,109 < 0, si tiene [1,375; 1,5]. Dopo tre passi la soluzione √2 sta in un intervallo ampio 0,125."
         ],
         "intermediate": [
-          "Dopo n dimezzamenti, l’ampiezza iniziale a diventa a/2^n. Se si usa il punto medio dell’intervallo finale, l’errore di localizzazione è al massimo metà dell’ampiezza. Il grafico del laboratorio mostra l’ampiezza, non il valore della radice.",
-          "La variabile Iterazioni n è espressa in 1; Ampiezza intervallo in 1. Il dominio dello strumento è [0; 20], con soli valori interi. La relazione implementata è: Ampiezza(n) = a / 2^n.",
-          "Partendo da un intervallo di ampiezza 2, dopo tre dimezzamenti resta 2/8=0,25. Il punto medio ha errore massimo 0,125, purché l’invariante di contenimento della radice sia stato mantenuto."
+          "Teorema degli zeri. Sia f una funzione continua sull’intervallo chiuso [a; b]. Se f(a) e f(b) hanno segni opposti, cioè f(a) · f(b) < 0, allora esiste almeno un punto c strettamente tra a e b con f(c) = 0. «Continua» vuol dire, in modo intuitivo, che il grafico non ha salti né buchi sull’intervallo.",
+          "Entrambe le ipotesi servono. Senza continuità il teorema cade: f(x) = 1/x vale −1 in x = −1 e 1 in x = 1, ma non è definita in 0 e non si annulla mai. Senza cambio di segno il teorema tace: f(x) = x² − 0,25 è positiva in −1 e in 1 e si annulla in −0,5 e in 0,5, mentre g(x) = x² + 1 è positiva agli estremi e non si annulla mai. Lo stesso segno agli estremi lascia aperte entrambe le possibilità.",
+          "Il teorema garantisce almeno una soluzione e nulla dice sul numero delle soluzioni. Per avere l’unicità serve un’informazione in più. La più usata è la stretta monotonia: se f è strettamente crescente sull’intervallo, ogni valore, zero compreso, è assunto al massimo una volta. Con il cambio di segno si ha allora esattamente una soluzione.",
+          "Il metodo di bisezione trasforma il teorema in un procedimento di calcolo. Si parte da [a; b] con f(a) e f(b) di segno opposto. Si calcola il punto medio m = (a + b)/2 e il segno di f(m). Se f(a) e f(m) hanno segni opposti, la soluzione garantita sta in [a; m]; altrimenti sta in [m; b]. Si tiene la metà giusta e si ripete.",
+          "Esempio svolto con f(x) = x² − 2 su [1; 2]. f(1) = −1 e f(2) = 2. Punto medio 1,5: f(1,5) = 0,25 > 0, quindi si tiene [1; 1,5]. Punto medio 1,25: f(1,25) = −0,4375 < 0, si tiene [1,25; 1,5]. Punto medio 1,375: f(1,375) ≈ −0,109 < 0, si tiene [1,375; 1,5]. Dopo tre passi la soluzione √2 sta in un intervallo ampio 0,125.",
+          "A ogni passo l’ampiezza dell’intervallo si dimezza. Partendo da un’ampiezza L, dopo n passi resta L/2ⁿ. Se come stima si prende il punto medio dell’ultimo intervallo, l’errore è al massimo metà dell’ampiezza, cioè L/2ⁿ⁺¹. Con L = 1, dopo 10 passi l’ampiezza è 1/1024, meno di un millesimo."
         ],
         "advanced": [
-          "Dopo n dimezzamenti, l’ampiezza iniziale a diventa a/2^n. Se si usa il punto medio dell’intervallo finale, l’errore di localizzazione è al massimo metà dell’ampiezza. Il grafico del laboratorio mostra l’ampiezza, non il valore della radice.",
-          "Determina il numero minimo di dimezzamenti per ottenere un errore del punto medio inferiore a una tolleranza scelta. Usa i logaritmi e arrotonda il conteggio all’intero superiore.",
-          "Un’ampiezza piccola non prova che l’intervallo contenga davvero una radice. Se manca continuità, un salto può cambiare segno senza attraversare lo zero. Esistenza e unicità sono affermazioni diverse."
+          "Teorema degli zeri. Sia f una funzione continua sull’intervallo chiuso [a; b]. Se f(a) e f(b) hanno segni opposti, cioè f(a) · f(b) < 0, allora esiste almeno un punto c strettamente tra a e b con f(c) = 0. «Continua» vuol dire, in modo intuitivo, che il grafico non ha salti né buchi sull’intervallo.",
+          "Entrambe le ipotesi servono. Senza continuità il teorema cade: f(x) = 1/x vale −1 in x = −1 e 1 in x = 1, ma non è definita in 0 e non si annulla mai. Senza cambio di segno il teorema tace: f(x) = x² − 0,25 è positiva in −1 e in 1 e si annulla in −0,5 e in 0,5, mentre g(x) = x² + 1 è positiva agli estremi e non si annulla mai. Lo stesso segno agli estremi lascia aperte entrambe le possibilità.",
+          "Il teorema garantisce almeno una soluzione e nulla dice sul numero delle soluzioni. Per avere l’unicità serve un’informazione in più. La più usata è la stretta monotonia: se f è strettamente crescente sull’intervallo, ogni valore, zero compreso, è assunto al massimo una volta. Con il cambio di segno si ha allora esattamente una soluzione.",
+          "Esempio: f(x) = cos x − x su [0; 1]. f(0) = 1 > 0 e f(1) = cos 1 − 1 ≈ −0,46 < 0, quindi esiste una soluzione. La derivata f′(x) = −sin x − 1 è negativa su tutto l’intervallo, perché sin x ≥ 0 tra 0 e 1. La funzione è strettamente decrescente, e la soluzione è unica: vale circa 0,73909.",
+          "A ogni passo l’ampiezza dell’intervallo si dimezza. Partendo da un’ampiezza L, dopo n passi resta L/2ⁿ. Se come stima si prende il punto medio dell’ultimo intervallo, l’errore è al massimo metà dell’ampiezza, cioè L/2ⁿ⁺¹. Con L = 1, dopo 10 passi l’ampiezza è 1/1024, meno di un millesimo.",
+          "Quanti passi servono per una precisione fissata? Si impone L/2ⁿ⁺¹ ≤ tolleranza. Con L = 1 e tolleranza un milionesimo serve 2ⁿ⁺¹ ≥ 1 000 000; poiché 2²⁰ = 1 048 576, basta n + 1 = 20, cioè n = 19 passi. Il numero di passi si conosce prima di cominciare: è una garanzia rara tra i metodi numerici."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il banco della bisezione",
       "text": {
         "base": [
-          "Nel laboratorio imposta Ampiezza iniziale (a): 2 (adimensionale). Prima di salvare A, prevedi come cambia Ampiezza intervallo fra Iterazioni n=5 e 10 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Partendo da un intervallo di ampiezza 2, dopo tre dimezzamenti resta 2/8=0,25. Il punto medio ha errore massimo 0,125, purché l’invariante di contenimento della radice sia stato mantenuto.",
-          "La variabile Iterazioni n è espressa in 1; Ampiezza intervallo in 1. Il dominio dello strumento è [0; 20], con soli valori interi. La relazione implementata è: Ampiezza(n) = a / 2^n."
+          "Nel banco di prova trovi cinque funzioni, ciascuna su un intervallo. Per ogni funzione rispondi prima alla domanda di esistenza: il teorema degli zeri garantisce una soluzione nell’intervallo? Leggi i valori agli estremi, chiediti se la funzione è continua su tutto l’intervallo, poi scegli «SÌ, È GARANTITA» oppure «NO, NON È GARANTITA».",
+          "Quando la soluzione è garantita, comincia la bisezione. Il pannello mostra l’intervallo, il segno di f agli estremi e il valore di f nel punto medio m. Scegli la metà da tenere: quella in cui i segni agli estremi sono opposti. Il grafico evidenzia l’intervallo corrente e la linea verticale indica m. Dopo cinque dimezzamenti l’ampiezza è 1/32 di quella iniziale e ottieni la stima con il suo errore massimo.",
+          "Un consiglio pratico: guarda il segno di f(m) e confrontalo con quello di f(a). Se sono uguali, la soluzione garantita sta nella metà destra; se sono diversi, nella metà sinistra. Non serve calcolare altro.",
+          "Per completare l’attività risolvi quattro funzioni su cinque. Due funzioni contengono una trappola: leggi con attenzione le ipotesi del teorema prima di rispondere."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Ampiezza iniziale (a): 2 (adimensionale). Prima di salvare A, prevedi come cambia Ampiezza intervallo fra Iterazioni n=5 e 10 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Iterazioni n è espressa in 1; Ampiezza intervallo in 1. Il dominio dello strumento è [0; 20], con soli valori interi. La relazione implementata è: Ampiezza(n) = a / 2^n.",
-          "Dopo n dimezzamenti, l’ampiezza iniziale a diventa a/2^n. Se si usa il punto medio dell’intervallo finale, l’errore di localizzazione è al massimo metà dell’ampiezza. Il grafico del laboratorio mostra l’ampiezza, non il valore della radice."
+          "Nel banco di prova trovi cinque funzioni, ciascuna su un intervallo. Per ogni funzione rispondi prima alla domanda di esistenza: il teorema degli zeri garantisce una soluzione nell’intervallo? Leggi i valori agli estremi, chiediti se la funzione è continua su tutto l’intervallo, poi scegli «SÌ, È GARANTITA» oppure «NO, NON È GARANTITA».",
+          "Quando la soluzione è garantita, comincia la bisezione. Il pannello mostra l’intervallo, il segno di f agli estremi e il valore di f nel punto medio m. Scegli la metà da tenere: quella in cui i segni agli estremi sono opposti. Il grafico evidenzia l’intervallo corrente e la linea verticale indica m. Dopo cinque dimezzamenti l’ampiezza è 1/32 di quella iniziale e ottieni la stima con il suo errore massimo.",
+          "Un consiglio pratico: guarda il segno di f(m) e confrontalo con quello di f(a). Se sono uguali, la soluzione garantita sta nella metà destra; se sono diversi, nella metà sinistra. Non serve calcolare altro.",
+          "Per completare l’attività risolvi quattro funzioni su cinque. Due funzioni contengono una trappola: leggi con attenzione le ipotesi del teorema prima di rispondere."
         ],
         "advanced": [
-          "Nel laboratorio imposta Ampiezza iniziale (a): 2 (adimensionale). Prima di salvare A, prevedi come cambia Ampiezza intervallo fra Iterazioni n=5 e 10 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Determina il numero minimo di dimezzamenti per ottenere un errore del punto medio inferiore a una tolleranza scelta. Usa i logaritmi e arrotonda il conteggio all’intero superiore.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "Nel banco di prova trovi cinque funzioni, ciascuna su un intervallo. Per ogni funzione rispondi prima alla domanda di esistenza: il teorema degli zeri garantisce una soluzione nell’intervallo? Leggi i valori agli estremi, chiediti se la funzione è continua su tutto l’intervallo, poi scegli «SÌ, È GARANTITA» oppure «NO, NON È GARANTITA».",
+          "Quando la soluzione è garantita, comincia la bisezione. Il pannello mostra l’intervallo, il segno di f agli estremi e il valore di f nel punto medio m. Scegli la metà da tenere: quella in cui i segni agli estremi sono opposti. Il grafico evidenzia l’intervallo corrente e la linea verticale indica m. Dopo cinque dimezzamenti l’ampiezza è 1/32 di quella iniziale e ottieni la stima con il suo errore massimo.",
+          "Un consiglio pratico: guarda il segno di f(m) e confrontalo con quello di f(a). Se sono uguali, la soluzione garantita sta nella metà destra; se sono diversi, nella metà sinistra. Non serve calcolare altro.",
+          "Per completare l’attività risolvi quattro funzioni su cinque. Due funzioni contengono una trappola: leggi con attenzione le ipotesi del teorema prima di rispondere."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Che cosa garantisce il metodo",
       "text": {
         "base": [
-          "Un’ampiezza piccola non prova che l’intervallo contenga davvero una radice. Se manca continuità, un salto può cambiare segno senza attraversare lo zero. Esistenza e unicità sono affermazioni diverse.",
-          "Il modello calcola il limite teorico sull’ampiezza, non esegue valutazioni di una funzione bersaglio. Non quantifica da solo gli errori di arrotondamento o di misura.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "La bisezione restituisce un intervallo, e un intervallo vale più di un numero: dice dove sta la soluzione e con quale margine. Scrivere √2 ≈ 1,42 senza margine non dice quante cifre sono affidabili; scrivere «√2 sta tra 1,40625 e 1,4375» lo dice con certezza.",
+          "Se nell’intervallo ci sono più soluzioni, la bisezione ne trova una sola, e non è detto che sia quella cercata. Prima di calcolare conviene studiare la funzione: con la monotonia si isola un intervallo che contiene una sola soluzione.",
+          "A ogni passo l’ampiezza dell’intervallo si dimezza. Partendo da un’ampiezza L, dopo n passi resta L/2ⁿ. Se come stima si prende il punto medio dell’ultimo intervallo, l’errore è al massimo metà dell’ampiezza, cioè L/2ⁿ⁺¹. Con L = 1, dopo 10 passi l’ampiezza è 1/1024, meno di un millesimo."
         ],
         "intermediate": [
-          "Un’ampiezza piccola non prova che l’intervallo contenga davvero una radice. Se manca continuità, un salto può cambiare segno senza attraversare lo zero. Esistenza e unicità sono affermazioni diverse.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "La bisezione restituisce un intervallo, e un intervallo vale più di un numero: dice dove sta la soluzione e con quale margine. Scrivere √2 ≈ 1,42 senza margine non dice quante cifre sono affidabili; scrivere «√2 sta tra 1,40625 e 1,4375» lo dice con certezza.",
+          "Se nell’intervallo ci sono più soluzioni, la bisezione ne trova una sola, e non è detto che sia quella cercata. Prima di calcolare conviene studiare la funzione: con la monotonia si isola un intervallo che contiene una sola soluzione.",
+          "La bisezione è sicura e lenta. Ogni passo guadagna una cifra binaria; per guadagnare una cifra decimale servono in media circa 3,3 passi, perché 2³ = 8 e 2⁴ = 16 stanno a cavallo di 10. Il metodo di Newton, che l’unità «Radici, campi e nuovi sistemi numerici» presenta per le radici quadrate, vicino a una soluzione semplice raddoppia circa le cifre corrette a ogni passo, a patto di partire abbastanza vicino."
         ],
         "advanced": [
-          "Il modello calcola il limite teorico sull’ampiezza, non esegue valutazioni di una funzione bersaglio. Non quantifica da solo gli errori di arrotondamento o di misura.",
-          "Determina il numero minimo di dimezzamenti per ottenere un errore del punto medio inferiore a una tolleranza scelta. Usa i logaritmi e arrotonda il conteggio all’intero superiore.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "La bisezione restituisce un intervallo, e un intervallo vale più di un numero: dice dove sta la soluzione e con quale margine. Scrivere √2 ≈ 1,42 senza margine non dice quante cifre sono affidabili; scrivere «√2 sta tra 1,40625 e 1,4375» lo dice con certezza.",
+          "Se nell’intervallo ci sono più soluzioni, la bisezione ne trova una sola, e non è detto che sia quella cercata. Prima di calcolare conviene studiare la funzione: con la monotonia si isola un intervallo che contiene una sola soluzione.",
+          "La bisezione è sicura e lenta. Ogni passo guadagna una cifra binaria; per guadagnare una cifra decimale servono in media circa 3,3 passi, perché 2³ = 8 e 2⁴ = 16 stanno a cavallo di 10. Il metodo di Newton, che l’unità «Radici, campi e nuovi sistemi numerici» presenta per le radici quadrate, vicino a una soluzione semplice raddoppia circa le cifre corrette a ogni passo, a patto di partire abbastanza vicino.",
+          "Nel calcolo reale c’è un limite ulteriore: vicino alla soluzione f(m) diventa piccolissimo, e gli errori di arrotondamento del calcolatore possono sbagliarne il segno. Per questo i programmi si fermano a una tolleranza ragionevole e dichiarano l’errore residuo."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Il metodo di bisezione dimezza un intervallo che contiene un cambio di segno. La continuità e i segni opposti garantiscono almeno una radice nell’intervallo. Non garantiscono che la radice sia unica: per questo serve un’ipotesi ulteriore, come la stretta monotonia.",
-          "Partendo da un intervallo di ampiezza 2, dopo tre dimezzamenti resta 2/8=0,25. Il punto medio ha errore massimo 0,125, purché l’invariante di contenimento della radice sia stato mantenuto."
+          "Ripasso prima della verifica: enuncia il teorema degli zeri con le sue due ipotesi; spiega con un esempio perché ciascuna serve; descrivi un passo di bisezione; ricorda che dopo n passi l’ampiezza è L/2ⁿ e l’errore del punto medio al massimo L/2ⁿ⁺¹.",
+          "Mini esercizio: f(x) = x³ − x − 1 su [1; 2]. f(1) = −1 e f(2) = 5, quindi c’è una soluzione. Punto medio 1,5: f(1,5) = 3,375 − 1,5 − 1 = 0,875 > 0, si tiene [1; 1,5]. Punto medio 1,25: f(1,25) ≈ −0,297 < 0, si tiene [1,25; 1,5].",
+          "Per ogni domanda distingui che cosa è garantito, che cosa è possibile e che cosa è escluso. Le opzioni sbagliate confondono spesso «almeno una» con «esattamente una»."
         ],
         "intermediate": [
-          "Dopo n dimezzamenti, l’ampiezza iniziale a diventa a/2^n. Se si usa il punto medio dell’intervallo finale, l’errore di localizzazione è al massimo metà dell’ampiezza. Il grafico del laboratorio mostra l’ampiezza, non il valore della radice.",
-          "La variabile Iterazioni n è espressa in 1; Ampiezza intervallo in 1. Il dominio dello strumento è [0; 20], con soli valori interi. La relazione implementata è: Ampiezza(n) = a / 2^n."
+          "Ripasso prima della verifica: enuncia il teorema degli zeri con le sue due ipotesi; spiega con un esempio perché ciascuna serve; descrivi un passo di bisezione; ricorda che dopo n passi l’ampiezza è L/2ⁿ e l’errore del punto medio al massimo L/2ⁿ⁺¹.",
+          "Mini esercizio: f(x) = x³ − x − 1 su [1; 2]. f(1) = −1 e f(2) = 5, quindi c’è una soluzione. Punto medio 1,5: f(1,5) = 3,375 − 1,5 − 1 = 0,875 > 0, si tiene [1; 1,5]. Punto medio 1,25: f(1,25) ≈ −0,297 < 0, si tiene [1,25; 1,5].",
+          "Per ogni domanda distingui che cosa è garantito, che cosa è possibile e che cosa è escluso. Le opzioni sbagliate confondono spesso «almeno una» con «esattamente una»."
         ],
         "advanced": [
-          "Determina il numero minimo di dimezzamenti per ottenere un errore del punto medio inferiore a una tolleranza scelta. Usa i logaritmi e arrotonda il conteggio all’intero superiore.",
-          "Il modello calcola il limite teorico sull’ampiezza, non esegue valutazioni di una funzione bersaglio. Non quantifica da solo gli errori di arrotondamento o di misura."
+          "Ripasso prima della verifica: enuncia il teorema degli zeri con le sue due ipotesi; spiega con un esempio perché ciascuna serve; descrivi un passo di bisezione; ricorda che dopo n passi l’ampiezza è L/2ⁿ e l’errore del punto medio al massimo L/2ⁿ⁺¹.",
+          "Mini esercizio: f(x) = x³ − x − 1 su [1; 2]. f(1) = −1 e f(2) = 5, quindi c’è una soluzione. Punto medio 1,5: f(1,5) = 3,375 − 1,5 − 1 = 0,875 > 0, si tiene [1; 1,5]. Punto medio 1,25: f(1,25) ≈ −0,297 < 0, si tiene [1,25; 1,5].",
+          "Per ogni domanda distingui che cosa è garantito, che cosa è possibile e che cosa è escluso. Le opzioni sbagliate confondono spesso «almeno una» con «esattamente una»."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Limite teorico con contenimento mantenuto.",
-          "Il modello calcola il limite teorico sull’ampiezza, non esegue valutazioni di una funzione bersaglio. Non quantifica da solo gli errori di arrotondamento o di misura.",
-          "Collegamento consigliato: math-p08. Il completamento registra attività e autoverifica, non certifica competenze."
+          "L’idea di restringere un intervallo dimezzandolo è la stessa della ricerca binaria in informatica: in un elenco ordinato di un milione di nomi bastano al massimo 20 confronti per trovare quello cercato, perché 2²⁰ > 1 000 000.",
+          "L’unità successiva, «Radici, campi e nuovi sistemi numerici», mostra che √2 non è una frazione: per questo serve un metodo di approssimazione, e la bisezione è il più semplice da giustificare.",
+          "Nel diario scrivi una funzione dell’attività, la risposta alla domanda di esistenza con il motivo, e l’intervallo finale con la stima e l’errore massimo."
         ],
         "intermediate": [
-          "Dopo n dimezzamenti, l’ampiezza iniziale a diventa a/2^n. Se si usa il punto medio dell’intervallo finale, l’errore di localizzazione è al massimo metà dell’ampiezza. Il grafico del laboratorio mostra l’ampiezza, non il valore della radice.",
-          "Il modello calcola il limite teorico sull’ampiezza, non esegue valutazioni di una funzione bersaglio. Non quantifica da solo gli errori di arrotondamento o di misura.",
-          "Determina il numero minimo di dimezzamenti per ottenere un errore del punto medio inferiore a una tolleranza scelta. Usa i logaritmi e arrotonda il conteggio all’intero superiore."
+          "L’idea di restringere un intervallo dimezzandolo è la stessa della ricerca binaria in informatica: in un elenco ordinato di un milione di nomi bastano al massimo 20 confronti per trovare quello cercato, perché 2²⁰ > 1 000 000.",
+          "L’unità successiva, «Radici, campi e nuovi sistemi numerici», mostra che √2 non è una frazione: per questo serve un metodo di approssimazione, e la bisezione è il più semplice da giustificare.",
+          "Nel diario scrivi una funzione dell’attività, la risposta alla domanda di esistenza con il motivo, e l’intervallo finale con la stima e l’errore massimo."
         ],
         "advanced": [
-          "Determina il numero minimo di dimezzamenti per ottenere un errore del punto medio inferiore a una tolleranza scelta. Usa i logaritmi e arrotonda il conteggio all’intero superiore.",
-          "Il modello calcola il limite teorico sull’ampiezza, non esegue valutazioni di una funzione bersaglio. Non quantifica da solo gli errori di arrotondamento o di misura.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "L’idea di restringere un intervallo dimezzandolo è la stessa della ricerca binaria in informatica: in un elenco ordinato di un milione di nomi bastano al massimo 20 confronti per trovare quello cercato, perché 2²⁰ > 1 000 000.",
+          "L’unità successiva, «Radici, campi e nuovi sistemi numerici», mostra che √2 non è una frazione: per questo serve un metodo di approssimazione, e la bisezione è il più semplice da giustificare.",
+          "Nel diario scrivi una funzione dell’attività, la risposta alla domanda di esistenza con il motivo, e l’intervallo finale con la stima e l’errore massimo.",
+          "Aggiungi il numero di passi che servirebbero per ottenere sei cifre decimali corrette partendo da un intervallo di ampiezza 1, con il calcolo che lo giustifica."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-b-concept",
-      "prompt": "Dopo n bisezioni, l’ampiezza iniziale a diventa:",
+      "id": "math-b-q1",
+      "prompt": "f è continua su [0; 2], con f(0) = −3 e f(2) = 5. Che cosa si può concludere?",
       "options": [
         {
           "id": "A",
-          "text": "a/2^n",
-          "feedback": "Il metodo di bisezione dimezza un intervallo che contiene un cambio di segno. La continuità e i segni opposti garantiscono almeno una radice nell’intervallo. Non garantiscono che la radice sia unica: per questo serve un’ipotesi ulteriore, come la stretta monotonia."
+          "text": "Esiste esattamente una soluzione di f(x) = 0 tra 0 e 2",
+          "feedback": "Il teorema garantisce almeno una soluzione. Per «esattamente una» servirebbe un’ipotesi in più, come la monotonia."
         },
         {
           "id": "B",
-          "text": "a/n",
-          "feedback": "Un’ampiezza piccola non prova che l’intervallo contenga davvero una radice. Se manca continuità, un salto può cambiare segno senza attraversare lo zero. Esistenza e unicità sono affermazioni diverse."
+          "text": "Esiste almeno una soluzione di f(x) = 0 tra 0 e 2",
+          "feedback": "Esatto: la funzione è continua e cambia segno agli estremi, quindi attraversa l’asse almeno una volta."
         },
         {
           "id": "C",
-          "text": "a-n",
-          "feedback": "Dopo n dimezzamenti, l’ampiezza iniziale a diventa a/2^n. Se si usa il punto medio dell’intervallo finale, l’errore di localizzazione è al massimo metà dell’ampiezza. Il grafico del laboratorio mostra l’ampiezza, non il valore della radice."
+          "text": "La soluzione è x = 1, il punto medio",
+          "feedback": "Il punto medio è il primo punto da controllare; la soluzione può stare ovunque nell’intervallo."
+        },
+        {
+          "id": "D",
+          "text": "Non si può concludere nulla",
+          "feedback": "Le due ipotesi del teorema degli zeri sono soddisfatte, quindi una conclusione c’è."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-b-q2",
+      "prompt": "f(x) = 1/x vale −1 in x = −1 e 1 in x = 1, e non si annulla mai. Perché il teorema degli zeri non è contraddetto?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché f non è continua su [−1; 1]: non è definita in 0",
+          "feedback": "Esatto: manca un’ipotesi, quindi il teorema non si applica e non promette nulla."
+        },
+        {
+          "id": "B",
+          "text": "Perché i segni agli estremi sono uguali",
+          "feedback": "I segni agli estremi sono opposti: −1 e 1. L’ipotesi che manca è un’altra."
+        },
+        {
+          "id": "C",
+          "text": "Perché l’intervallo è troppo grande",
+          "feedback": "Il teorema vale su intervalli di qualunque ampiezza, purché la funzione sia continua."
+        },
+        {
+          "id": "D",
+          "text": "Perché 1/x si annulla in 0",
+          "feedback": "1/x in 0 non è definita, e nessun numero reale la rende nulla."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "math-b-calculation",
-      "prompt": "Calcolo: Ampiezza iniziale (a)=2 (adimensionale). Per Iterazioni n=3 (adimensionale), quanto vale Ampiezza intervallo?",
+      "id": "math-b-q3",
+      "prompt": "Si parte da un intervallo di ampiezza 2 e si fanno tre passi di bisezione. Quanto è ampio l’intervallo finale?",
       "options": [
         {
           "id": "A",
-          "text": "1,25 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. Ampiezza(n) = a / 2^n. Con Ampiezza iniziale (a)=2 (adimensionale) e Iterazioni n=3 (adimensionale), il risultato è 0,25 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "0,125",
+          "feedback": "Questa è l’ampiezza dopo quattro passi: 2/16. Dopo tre passi si divide per 2³ = 8."
         },
         {
           "id": "B",
-          "text": "-0,75 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. Ampiezza(n) = a / 2^n. Con Ampiezza iniziale (a)=2 (adimensionale) e Iterazioni n=3 (adimensionale), il risultato è 0,25 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "0,5",
+          "feedback": "Questa è l’ampiezza dopo due passi: 2/4."
         },
         {
           "id": "C",
-          "text": "0,25 (adimensionale)",
-          "feedback": "Ampiezza(n) = a / 2^n. Con Ampiezza iniziale (a)=2 (adimensionale) e Iterazioni n=3 (adimensionale), il risultato è 0,25 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "C",
-      "numeric": {
-        "x": 3,
-        "parameters": {
-          "a": 2
-        },
-        "expected": 0.25,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "math-b-transfer",
-      "prompt": "Trasferimento: Ampiezza iniziale (a)=3 (adimensionale). Per Iterazioni n=3 (adimensionale), quanto vale Ampiezza intervallo?",
-      "options": [
-        {
-          "id": "A",
-          "text": "-0,625 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. Ampiezza(n) = a / 2^n. Con Ampiezza iniziale (a)=3 (adimensionale) e Iterazioni n=3 (adimensionale), il risultato è 0,375 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "0,25",
+          "feedback": "Esatto: dopo tre dimezzamenti l’ampiezza è 2/2³ = 2/8 = 0,25."
         },
         {
-          "id": "B",
-          "text": "0,375 (adimensionale)",
-          "feedback": "Ampiezza(n) = a / 2^n. Con Ampiezza iniziale (a)=3 (adimensionale) e Iterazioni n=3 (adimensionale), il risultato è 0,375 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "C",
-          "text": "1,375 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. Ampiezza(n) = a / 2^n. Con Ampiezza iniziale (a)=3 (adimensionale) e Iterazioni n=3 (adimensionale), il risultato è 0,375 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 3,
-        "parameters": {
-          "a": 3
-        },
-        "expected": 0.375,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "math-b-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il modello calcola il limite teorico sull’ampiezza, non esegue valutazioni di una funzione bersaglio. Non quantifica da solo gli errori di arrotondamento o di misura."
-        },
-        {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il modello calcola il limite teorico sull’ampiezza, non esegue valutazioni di una funzione bersaglio. Non quantifica da solo gli errori di arrotondamento o di misura."
-        },
-        {
-          "id": "C",
-          "text": "Limite teorico con contenimento mantenuto",
-          "feedback": "Il modello calcola il limite teorico sull’ampiezza, non esegue valutazioni di una funzione bersaglio. Non quantifica da solo gli errori di arrotondamento o di misura."
+          "id": "D",
+          "text": "2/3",
+          "feedback": "La bisezione dimezza l’ampiezza: dopo tre passi si divide per 8, e la divisione per 3 non compare."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "math-b-q4",
+      "prompt": "Partendo da un intervallo di ampiezza 1, quanti passi di bisezione servono almeno per un’ampiezza minore di un millesimo?",
+      "options": [
+        {
+          "id": "A",
+          "text": "3",
+          "feedback": "Dopo 3 passi l’ampiezza è 1/8 = 0,125, ancora molto più di un millesimo."
+        },
+        {
+          "id": "B",
+          "text": "10",
+          "feedback": "Esatto: 2¹⁰ = 1024 > 1000, mentre 2⁹ = 512 non basta."
+        },
+        {
+          "id": "C",
+          "text": "100",
+          "feedback": "Bastano molti meno passi: l’ampiezza si dimezza a ogni passo, quindi decresce molto in fretta."
+        },
+        {
+          "id": "D",
+          "text": "1000",
+          "feedback": "Hai confuso il numero di passi con il fattore di riduzione: il fattore 1000 si ottiene con circa 10 dimezzamenti."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-b-q5",
+      "prompt": "Quale ipotesi aggiunta al teorema degli zeri garantisce che la soluzione nell’intervallo sia unica?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Che f(a) e f(b) abbiano segni opposti",
+          "feedback": "Questa ipotesi c’è già e garantisce l’esistenza, non l’unicità: x³ − x su [−2; 2] cambia segno e ha tre soluzioni."
+        },
+        {
+          "id": "B",
+          "text": "Che f sia continua",
+          "feedback": "Anche la continuità è già un’ipotesi del teorema, e non impedisce più attraversamenti dell’asse."
+        },
+        {
+          "id": "C",
+          "text": "Che f sia strettamente monotona sull’intervallo",
+          "feedback": "Esatto: una funzione strettamente crescente o decrescente assume ogni valore al massimo una volta."
+        },
+        {
+          "id": "D",
+          "text": "Che l’intervallo sia lungo meno di 1",
+          "feedback": "Anche in un intervallo corto una funzione può oscillare e annullarsi più volte."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "math-b-q6",
+      "prompt": "Bisezione per x² − 2: intervallo [1; 1,5], con f(1) = −1, f(1,25) = −0,4375, f(1,5) = 0,25. Qual è l’intervallo successivo?",
+      "options": [
+        {
+          "id": "A",
+          "text": "[1; 1,25]",
+          "feedback": "In [1; 1,25] la funzione è negativa a entrambi gli estremi: il teorema non garantisce nulla lì."
+        },
+        {
+          "id": "B",
+          "text": "[1,25; 1,5]",
+          "feedback": "Esatto: f(1,25) < 0 e f(1,5) > 0, il segno cambia nella metà destra."
+        },
+        {
+          "id": "C",
+          "text": "[1; 1,5], perché la soluzione potrebbe essere ovunque",
+          "feedback": "La bisezione restringe sempre l’intervallo: il cambio di segno indica quale metà tenere."
+        },
+        {
+          "id": "D",
+          "text": "[1,25; 2]",
+          "feedback": "L’intervallo successivo è una metà di quello corrente, [1; 1,5], e non può uscirne."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "bisection"
+  }
 }

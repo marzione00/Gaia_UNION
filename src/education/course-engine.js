@@ -1,7 +1,7 @@
 /** Guided curriculum state: all results are recomputed from declared models.
  * Importing a diary cannot inject executable content or claim arbitrary model outputs. */
 import {MODEL_IDS,defaults,parameters,parameterKey,value,probePoints,trend} from '../models/curriculum.js';
-import {ACTIVITY_KINDS,cleanActivity,activityProgress} from './activities.js';
+import {ACTIVITY_KINDS,cleanActivity,activityProgress,validateCards} from './activities.js';
 export const LEVELS=Object.freeze(['base','intermediate','advanced']);
 export const PREDICTIONS=Object.freeze(['increases','decreases','constant','undefined']);
 const ids=new Set(MODEL_IDS),plain=x=>!!x&&typeof x==='object'&&!Array.isArray(x);
@@ -33,8 +33,10 @@ export function validateBundle(bundle){
  const found=new Set(),sourceIds=new Set(bundle.sources.map(s=>s.id));
  for(const d of bundle.courses){
   const activity=d.activity!==undefined&&d.activity!==null;if(activity&&(!plain(d.activity)||!ACTIVITY_KINDS.includes(d.activity.kind)))throw Error('Attività non valida: '+d.id);
-  const qn=d.questions?.length,on=activity?[3,4]:[3];
-  if(!ids.has(d.id)||found.has(d.id)||d.modelId!==d.id||typeof d.title!=='string'||d.title.length>150||d.steps?.length!==6||!(activity?qn>=4&&qn<=8:qn===4))throw Error('Percorso non valido: '+d.id);
+  if(activity&&d.activity.kind==='cards')validateCards(d.activity);
+  // Generated units carry 4 questions with 3 options; hand-written units up to 8 questions with 3 or 4 options.
+  const qn=d.questions?.length,on=[3,4];
+  if(!ids.has(d.id)||found.has(d.id)||d.modelId!==d.id||typeof d.title!=='string'||d.title.length>150||d.steps?.length!==6||!(qn>=4&&qn<=8))throw Error('Percorso non valido: '+d.id);
   found.add(d.id);
   for(const s of d.steps)for(const l of LEVELS)if(!Array.isArray(s.text?.[l])||s.text[l].some(t=>typeof t!=='string'||!t.trim()))throw Error('Spiegazioni mancanti: '+d.id);
   const qs=new Set();for(const q of d.questions){const n=q.options?.length;if(qs.has(q.id)||!q.id.startsWith(d.id+'-')||!on.includes(n)||new Set(q.options.map(o=>o.id)).size!==n||q.options.some((o,i)=>o.id!=='ABCD'[i])||!q.options.some(o=>o.id===q.correct)||q.options.some(o=>typeof o.text!=='string'||typeof o.feedback!=='string'))throw Error('Verifica non valida: '+d.id);qs.add(q.id);}
@@ -61,7 +63,7 @@ export function answerCourse(d,r,id,choice){const q=d.questions.find(q=>q.id===i
 function signature(d,r,note){const s=JSON.stringify(d.activity?[d.version,r.answers,note.trim(),r.acknowledgedLimits,d.activity.kind,r.activity?.solved||[]]:[d.version,r.snapshots,r.answers,note.trim(),r.acknowledgedLimits]);let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return (h>>>0).toString(16).padStart(8,'0');}
 export function courseProgress(d,r,note=''){
  const correct=d.questions.filter(q=>r.answers[q.id]===q.correct).length,answered=d.questions.filter(q=>r.answers[q.id]).length;
- const activity=d.activity?activityProgress(d.activity.kind,r.activity):null,firstTry=d.questions.filter(q=>r.answers[q.id]===q.correct&&r.attempts?.[q.id]===1).length;
+ const activity=d.activity?activityProgress(d.activity,r.activity):null,firstTry=d.questions.filter(q=>r.answers[q.id]===q.correct&&r.attempts?.[q.id]===1).length;
  const experiments=activity?activity.done:!!r.snapshots.A&&!!r.snapshots.B&&parameterKey(d.id,r.snapshots.A.parameters)!==parameterKey(d.id,r.snapshots.B.parameters);
  const reflectionRecorded=typeof note==='string'&&note.trim().length>=60;
  const eligible=experiments&&correct===d.questions.length&&reflectionRecorded&&r.acknowledgedLimits;
