@@ -1,4 +1,6 @@
 import { CourseUI } from './education/course-ui.js';
+import { loadCurriculum } from './education/curriculum-loader.js';
+import { fetchJsonWithRetry } from './education/resource-loader.js';
 import { MissionUI } from './education/mission-ui.js';
 import { MIN_STARS, systemForPlanet, indicesForSystem, highlightSystemStars, HoverTarget } from './scene/systems.js';
 import { NavigationMemory } from './scene/navigation.js';
@@ -16,10 +18,7 @@ const asset = p => files[p]?.url || p;
 async function json(path) {
     if (files[path]?.json)
         return structuredClone(files[path].json);
-    const r = await fetch(path);
-    if (!r.ok)
-        throw new Error('Risorsa mancante: ' + path);
-    return r.json();
+    return fetchJsonWithRetry(path);
 }
 function image(path) { return new Promise((yes, no) => { const i = new Image(); i.onload = () => yes(i); i.onerror = () => no(Error('Texture mancante: ' + path)); i.src = asset(path); }); }
 const store = openStore();
@@ -1103,7 +1102,7 @@ async function init() {
         if (missionIndex.schemaVersion !== 1 || missionEntry?.path !== 'content/missions/echo08-signal.json')
             throw Error('Registro delle missioni non valido');
         const missionDefinition = await json(missionEntry.path);
-        const curriculum = await json('content/curriculum/bundle.json');
+        const curriculum = await loadCurriculum(json, { onFallback: reason => console.warn('GAIA: caricamento alternativo del curriculum:', reason) });
         const textures = {};
         for(const m of textureManifest){
             textures[m.id]=R.uploadTexture(await image(m.path));
@@ -1168,7 +1167,7 @@ async function init() {
     }
     catch (e) {
         console.error(e);
-        failure('GAIA richiede WebGL 2 e le risorse locali della repository. ' + e.message);
+        failure('Impossibile completare l’avvio di GAIA: ' + e.message);
     }
 }
 init();
