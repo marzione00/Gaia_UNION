@@ -20,6 +20,7 @@ Apri **http://localhost:8000**. Su Windows puoi avviare anche `AVVIA_WINDOWS.bat
 npm test
 npm run check
 npm run build
+npm run test:http
 node scripts/serve.mjs --dist
 ```
 
@@ -105,7 +106,17 @@ Vedi [sistemi e texture NASA](docs/PLANET_SYSTEMS.md), [architettura](docs/ARCHI
 
 ## Pubblicazione
 
-Il workflow `.github/workflows/pages.yml` esegue test, controlli e build prima della pubblicazione di `dist/`. Carica il contenuto di questa cartella nella root della repository e scegli **Settings → Pages → GitHub Actions**. Il workflow non è stato eseguito su un account remoto durante la consegna. L’uso pubblico dei materiali conserva le attribuzioni e le condizioni delle fonti: non viene assegnata loro una nuova licenza generale.
+Il workflow `.github/workflows/pages.yml` esegue test, controlli delle risorse, build e verifiche HTTP della cartella `dist/`. Le pull request eseguono i controlli senza pubblicare. Ogni push su `main`, o un avvio manuale su `main`, pubblica la distribuzione e verifica via HTTPS i file essenziali del sito.
+
+In **Settings → Pages → Build and deployment → Source** deve essere selezionato **GitHub Actions**; questa impostazione va attivata una sola volta per ogni nuovo repository. `configure-pages` viene eseguito nel job di deploy con i permessi Pages necessari. Non servono token personali o chiavi API. I deploy in corso non vengono interrotti da un nuovo push.
+
+La build include anche `LICENSE`, `LICENSE.md`, `THIRD_PARTY_NOTICES.md`, le note dei caratteri e i metadati di provenienza delle texture.
+
+## Licenza
+
+Le parti originali di GAIA — Beyond Knowledge sono distribuite con **Creative Commons Attribution 4.0 International (CC BY 4.0)**. Vedi [ambito e attribuzione](LICENSE.md), [testo integrale](LICENSE) e [licenza ufficiale](https://creativecommons.org/licenses/by/4.0/).
+
+Il PDF, le lezioni e i quesiti preesistenti, le risorse NASA e gli altri materiali di terzi conservano le condizioni delle rispettive fonti: la CC BY 4.0 del progetto non le sostituisce. I crediti sono in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ## Limiti da conoscere
 

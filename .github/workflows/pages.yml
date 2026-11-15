@@ -2,37 +2,58 @@ name: Test and deploy GAIA
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
-concurrency:
-  group: gaia-pages
-  cancel-in-progress: true
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: '22'
       - run: npm test
       - run: npm run check
       - run: npm run build
-      - uses: actions/configure-pages@v5
+      - run: npm run test:http
       - uses: actions/upload-pages-artifact@v4
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         with:
           path: dist
   deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: gaia-pages
+      cancel-in-progress: false
     permissions:
+      contents: read
       pages: write
       id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # Pages must be enabled once in Settings > Pages > GitHub Actions.
+      # This job has the Pages permissions required by configure-pages.
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify published site
+        env:
+          SITE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -euo pipefail
+          for path in index.html src/app.js src/scene/worker.js content/catalogue.json assets/glyph-atlas.png assets/scenes/manifest.json LICENSE LICENSE.md THIRD_PARTY_NOTICES.md; do
+            curl --fail --silent --show-error --retry 6 --retry-all-errors --retry-delay 10 \
+              "${SITE_URL%/}/$path" --output /dev/null
+          done
+          printf 'Sito verificato: %s\n' "$SITE_URL" >> "$GITHUB_STEP_SUMMARY"
