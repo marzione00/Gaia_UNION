@@ -1,4 +1,5 @@
 import {clamp} from '../renderer.js';
+import {scaledText} from '../navigation/text.js';
 import {C} from '../ui/toolkit.js';
 import {descriptor,defaults,value,samples,probePoints,parameterKey} from '../models/curriculum.js';
 import {LEVELS,PREDICTIONS,freshCourse,validateBundle,changeCourseParameters,predictCourse,captureCourse,answerCourse,experimentResult,courseProgress,completeCourse} from './course-engine.js';
@@ -77,11 +78,11 @@ export class CourseUI{
   if(!this.store.persistent)this.txt(U,'Solo sessione: esporta il diario prima di chiudere.',pad,R.h-97,'micro',C.amber);
  }
  readingUI(U,paragraphs,rect,heading,reserve=0){
-  const x=rect.x+14,w=rect.w-28,top=rect.y+10,rows=this.rows(paragraphs,w),line=23;
+  const scale=this.R.readingScale||1,x=rect.x+14,w=rect.w-28,top=rect.y+10,rows=this.rows(paragraphs,w/scale),line=23*scale;
   const hh=this.rows([heading],w,'mini').filter(Boolean).slice(0,2);hh.forEach((s,i)=>this.txt(U,s,x,top+i*18,'mini',C.lime));
   const y=top+hh.length*18+12,cap=Math.max(1,Math.floor((rect.y+rect.h-43-reserve-y)/line));
   const pages=Math.max(1,Math.ceil(rows.length/cap));this.page=clamp(this.page,0,pages-1);
-  rows.slice(this.page*cap,(this.page+1)*cap).forEach((t,i)=>this.txt(U,t,x,y+i*line));
+  rows.slice(this.page*cap,(this.page+1)*cap).forEach((t,i)=>scaledText(this.R,displayText(t),x,y+i*line,'body',C.pale,scale));
   const by=rect.y+rect.h-34-reserve;
   U.button('course-page-prev','◂',x,by,32,25,()=>this.page--,{disabled:this.page===0,small:true});
   U.button('course-focus',this.focusReading?'RIDUCI':'ESPANDI',x+40,by,74,25,()=>{this.focusReading=!this.focusReading;this.page=0;},{small:true});
