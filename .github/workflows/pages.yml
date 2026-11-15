@@ -36,7 +36,7 @@ jobs:
       - run: npm run build
       - name: Install browser test tools (CI only)
         run: |
-          python -m pip install playwright==1.57.0
+          python -m pip install playwright==1.64.1
           python -m playwright install --with-deps chromium
       - name: Real WebGL atlas interactions
         run: xvfb-run -a python tools/qa_atlas_browser.py --root dist
