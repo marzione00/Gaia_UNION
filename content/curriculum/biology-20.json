@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "biology-20",
+  "title": "Competizione ecologica",
+  "sector": 3,
+  "modelId": "biology-20",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Sezione a concorrente fissato, non sistema completo",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: sezione a concorrente fissato, non sistema completo.",
+    "Applicare g₁ = r(1-(N₁+α·20)/100), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "biology-19"
+  ],
+  "connections": [
+    "biology-19"
+  ],
+  "sources": [
+    "biology"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Popolazione N₁",
+      "definition": "Variabile indipendente, unità individui; intervallo [0; 100]."
+    },
+    {
+      "term": "Crescita pro capite",
+      "definition": "Risultato calcolato dal modello, unità 1/u.t.."
+    },
+    {
+      "term": "Tasso r",
+      "definition": "Parametro a, unità 1/u.t.; intervallo [0,1; 1]."
+    },
+    {
+      "term": "Competizione α",
+      "definition": "Parametro b, unità 1; intervallo [0; 3]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Due popolazioni condividono risorse. Per studiare l’effetto di una sull’altra, la stazione mantiene la seconda fissata e misura la crescita pro capite della prima.",
+          "Un modello di competizione può esprimere l’effetto di una specie in unità equivalenti dell’altra. Il coefficiente α pesa l’impatto di N₂ sulla crescita di N₁."
+        ],
+        "intermediate": [
+          "Due popolazioni condividono risorse. Per studiare l’effetto di una sull’altra, la stazione mantiene la seconda fissata e misura la crescita pro capite della prima.",
+          "La sezione del modello mostrata è g₁=r[1-(N₁+αN₂)/K₁], con N₂=20 e K₁=100. g₁ è la crescita pro capite, non l’aumento totale: per quello serve moltiplicare per N₁."
+        ],
+        "advanced": [
+          "Due popolazioni condividono risorse. Per studiare l’effetto di una sull’altra, la stazione mantiene la seconda fissata e misura la crescita pro capite della prima.",
+          "Ricava la retta di crescita nulla N₁+αN₂=K₁. Confrontala con una seconda isoclina solo dopo aver dichiarato anche l’equazione dell’altra specie.",
+          "Sezione a N₂ costante di un modello competitivo, non integrazione di due popolazioni accoppiate. Nessuna struttura spaziale."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Un modello di competizione può esprimere l’effetto di una specie in unità equivalenti dell’altra. Il coefficiente α pesa l’impatto di N₂ sulla crescita di N₁.",
+          "Con r=0,5, α=1 e N₁=40, g₁=0,5(1-60/100)=0,2 per unità di tempo. Se N₁=0, il tasso pro capite può essere positivo ma la crescita totale è zero."
+        ],
+        "intermediate": [
+          "La sezione del modello mostrata è g₁=r[1-(N₁+αN₂)/K₁], con N₂=20 e K₁=100. g₁ è la crescita pro capite, non l’aumento totale: per quello serve moltiplicare per N₁.",
+          "La variabile Popolazione N₁ è espressa in individui; Crescita pro capite in 1/u.t.. Il dominio dello strumento è [0; 100]. La relazione implementata è: g₁ = r(1-(N₁+α·20)/100).",
+          "Con r=0,5, α=1 e N₁=40, g₁=0,5(1-60/100)=0,2 per unità di tempo. Se N₁=0, il tasso pro capite può essere positivo ma la crescita totale è zero."
+        ],
+        "advanced": [
+          "La sezione del modello mostrata è g₁=r[1-(N₁+αN₂)/K₁], con N₂=20 e K₁=100. g₁ è la crescita pro capite, non l’aumento totale: per quello serve moltiplicare per N₁.",
+          "Ricava la retta di crescita nulla N₁+αN₂=K₁. Confrontala con una seconda isoclina solo dopo aver dichiarato anche l’equazione dell’altra specie.",
+          "Un coefficiente di competizione non è una misura universale di aggressività. Dal solo andamento di g₁ non si può concludere la coesistenza dinamica delle due specie."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Tasso r (a): 0,5 1/u.t.; Competizione α (b): 1 (adimensionale). Prima di salvare A, prevedi come cambia Crescita pro capite fra Popolazione N₁=25 e 50 individui. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con r=0,5, α=1 e N₁=40, g₁=0,5(1-60/100)=0,2 per unità di tempo. Se N₁=0, il tasso pro capite può essere positivo ma la crescita totale è zero.",
+          "La variabile Popolazione N₁ è espressa in individui; Crescita pro capite in 1/u.t.. Il dominio dello strumento è [0; 100]. La relazione implementata è: g₁ = r(1-(N₁+α·20)/100)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Tasso r (a): 0,5 1/u.t.; Competizione α (b): 1 (adimensionale). Prima di salvare A, prevedi come cambia Crescita pro capite fra Popolazione N₁=25 e 50 individui. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Popolazione N₁ è espressa in individui; Crescita pro capite in 1/u.t.. Il dominio dello strumento è [0; 100]. La relazione implementata è: g₁ = r(1-(N₁+α·20)/100).",
+          "La sezione del modello mostrata è g₁=r[1-(N₁+αN₂)/K₁], con N₂=20 e K₁=100. g₁ è la crescita pro capite, non l’aumento totale: per quello serve moltiplicare per N₁."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Tasso r (a): 0,5 1/u.t.; Competizione α (b): 1 (adimensionale). Prima di salvare A, prevedi come cambia Crescita pro capite fra Popolazione N₁=25 e 50 individui. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Ricava la retta di crescita nulla N₁+αN₂=K₁. Confrontala con una seconda isoclina solo dopo aver dichiarato anche l’equazione dell’altra specie.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Un coefficiente di competizione non è una misura universale di aggressività. Dal solo andamento di g₁ non si può concludere la coesistenza dinamica delle due specie.",
+          "Sezione a N₂ costante di un modello competitivo, non integrazione di due popolazioni accoppiate. Nessuna struttura spaziale.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Un coefficiente di competizione non è una misura universale di aggressività. Dal solo andamento di g₁ non si può concludere la coesistenza dinamica delle due specie.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Sezione a N₂ costante di un modello competitivo, non integrazione di due popolazioni accoppiate. Nessuna struttura spaziale.",
+          "Ricava la retta di crescita nulla N₁+αN₂=K₁. Confrontala con una seconda isoclina solo dopo aver dichiarato anche l’equazione dell’altra specie.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Un modello di competizione può esprimere l’effetto di una specie in unità equivalenti dell’altra. Il coefficiente α pesa l’impatto di N₂ sulla crescita di N₁.",
+          "Con r=0,5, α=1 e N₁=40, g₁=0,5(1-60/100)=0,2 per unità di tempo. Se N₁=0, il tasso pro capite può essere positivo ma la crescita totale è zero."
+        ],
+        "intermediate": [
+          "La sezione del modello mostrata è g₁=r[1-(N₁+αN₂)/K₁], con N₂=20 e K₁=100. g₁ è la crescita pro capite, non l’aumento totale: per quello serve moltiplicare per N₁.",
+          "La variabile Popolazione N₁ è espressa in individui; Crescita pro capite in 1/u.t.. Il dominio dello strumento è [0; 100]. La relazione implementata è: g₁ = r(1-(N₁+α·20)/100)."
+        ],
+        "advanced": [
+          "Ricava la retta di crescita nulla N₁+αN₂=K₁. Confrontala con una seconda isoclina solo dopo aver dichiarato anche l’equazione dell’altra specie.",
+          "Sezione a N₂ costante di un modello competitivo, non integrazione di due popolazioni accoppiate. Nessuna struttura spaziale."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Sezione a concorrente fissato, non sistema completo.",
+          "Sezione a N₂ costante di un modello competitivo, non integrazione di due popolazioni accoppiate. Nessuna struttura spaziale.",
+          "Collegamento consigliato: biology-19. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "La sezione del modello mostrata è g₁=r[1-(N₁+αN₂)/K₁], con N₂=20 e K₁=100. g₁ è la crescita pro capite, non l’aumento totale: per quello serve moltiplicare per N₁.",
+          "Sezione a N₂ costante di un modello competitivo, non integrazione di due popolazioni accoppiate. Nessuna struttura spaziale.",
+          "Ricava la retta di crescita nulla N₁+αN₂=K₁. Confrontala con una seconda isoclina solo dopo aver dichiarato anche l’equazione dell’altra specie."
+        ],
+        "advanced": [
+          "Ricava la retta di crescita nulla N₁+αN₂=K₁. Confrontala con una seconda isoclina solo dopo aver dichiarato anche l’equazione dell’altra specie.",
+          "Sezione a N₂ costante di un modello competitivo, non integrazione di due popolazioni accoppiate. Nessuna struttura spaziale.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "biology-20-concept",
+      "prompt": "Per ottenere la crescita totale da g₁ si deve:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Dividere sempre per N₂",
+          "feedback": "Un coefficiente di competizione non è una misura universale di aggressività. Dal solo andamento di g₁ non si può concludere la coesistenza dinamica delle due specie."
+        },
+        {
+          "id": "B",
+          "text": "Sommare la capacità portante",
+          "feedback": "La sezione del modello mostrata è g₁=r[1-(N₁+αN₂)/K₁], con N₂=20 e K₁=100. g₁ è la crescita pro capite, non l’aumento totale: per quello serve moltiplicare per N₁."
+        },
+        {
+          "id": "C",
+          "text": "Moltiplicare per N₁",
+          "feedback": "Un modello di competizione può esprimere l’effetto di una specie in unità equivalenti dell’altra. Il coefficiente α pesa l’impatto di N₂ sulla crescita di N₁."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "biology-20-calculation",
+      "prompt": "Calcolo: Tasso r (a)=0,5 1/u.t.; Competizione α (b)=1 (adimensionale). Per Popolazione N₁=40 individui, quanto vale Crescita pro capite?",
+      "options": [
+        {
+          "id": "A",
+          "text": "-0,8 1/u.t.",
+          "feedback": "Controlla sostituzione, segno e unità. g₁ = r(1-(N₁+α·20)/100). Con Tasso r (a)=0,5 1/u.t.; Competizione α (b)=1 (adimensionale) e Popolazione N₁=40 individui, il risultato è 0,2 1/u.t.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "0,2 1/u.t.",
+          "feedback": "g₁ = r(1-(N₁+α·20)/100). Con Tasso r (a)=0,5 1/u.t.; Competizione α (b)=1 (adimensionale) e Popolazione N₁=40 individui, il risultato è 0,2 1/u.t.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "1,2 1/u.t.",
+          "feedback": "Questo valore non soddisfa la relazione. g₁ = r(1-(N₁+α·20)/100). Con Tasso r (a)=0,5 1/u.t.; Competizione α (b)=1 (adimensionale) e Popolazione N₁=40 individui, il risultato è 0,2 1/u.t.. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 40,
+        "parameters": {
+          "a": 0.5,
+          "b": 1
+        },
+        "expected": 0.2,
+        "unit": "1/u.t."
+      }
+    },
+    {
+      "id": "biology-20-transfer",
+      "prompt": "Trasferimento: Tasso r (a)=0,6 1/u.t.; Competizione α (b)=1 (adimensionale). Per Popolazione N₁=40 individui, quanto vale Crescita pro capite?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0,24 1/u.t.",
+          "feedback": "g₁ = r(1-(N₁+α·20)/100). Con Tasso r (a)=0,6 1/u.t.; Competizione α (b)=1 (adimensionale) e Popolazione N₁=40 individui, il risultato è 0,24 1/u.t.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "1,24 1/u.t.",
+          "feedback": "Questo valore non soddisfa la relazione. g₁ = r(1-(N₁+α·20)/100). Con Tasso r (a)=0,6 1/u.t.; Competizione α (b)=1 (adimensionale) e Popolazione N₁=40 individui, il risultato è 0,24 1/u.t.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "-0,76 1/u.t.",
+          "feedback": "Controlla sostituzione, segno e unità. g₁ = r(1-(N₁+α·20)/100). Con Tasso r (a)=0,6 1/u.t.; Competizione α (b)=1 (adimensionale) e Popolazione N₁=40 individui, il risultato è 0,24 1/u.t.. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 40,
+        "parameters": {
+          "a": 0.6,
+          "b": 1
+        },
+        "expected": 0.24,
+        "unit": "1/u.t."
+      }
+    },
+    {
+      "id": "biology-20-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Sezione a N₂ costante di un modello competitivo, non integrazione di due popolazioni accoppiate. Nessuna struttura spaziale."
+        },
+        {
+          "id": "B",
+          "text": "Sezione a concorrente fissato, non sistema completo",
+          "feedback": "Sezione a N₂ costante di un modello competitivo, non integrazione di due popolazioni accoppiate. Nessuna struttura spaziale."
+        },
+        {
+          "id": "C",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Sezione a N₂ costante di un modello competitivo, non integrazione di due popolazioni accoppiate. Nessuna struttura spaziale."
+        }
+      ],
+      "correct": "B"
+    }
+  ]
+}

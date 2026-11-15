@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "biology-12",
+  "title": "Mutazioni e probabilità",
+  "sector": 3,
+  "modelId": "biology-12",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Eventi indipendenti con tasso uniforme",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: eventi indipendenti con tasso uniforme.",
+    "Applicare P(almeno una) = 1-(1-μ)^n, dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "biology-11"
+  ],
+  "connections": [
+    "math-p07"
+  ],
+  "sources": [
+    "biology"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Siti copiati n",
+      "definition": "Variabile indipendente, unità 1; intervallo [0; 10.000]."
+    },
+    {
+      "term": "Probabilità mutazione",
+      "definition": "Risultato calcolato dal modello, unità 1."
+    },
+    {
+      "term": "Errore per sito μ",
+      "definition": "Parametro a, unità 1; intervallo [1,00000e-5; 0,001]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Una copia di informazione contiene molti siti. Anche una piccola probabilità di errore per sito può diventare rilevante sull’intera sequenza. Devi distinguere un valore atteso dalla probabilità di almeno un evento.",
+          "Se ogni sito ha probabilità μ di mutare e gli eventi sono indipendenti, la probabilità che nessun sito muti è (1-μ)^n. Il complemento dà P(almeno una)=1-(1-μ)^n."
+        ],
+        "intermediate": [
+          "Una copia di informazione contiene molti siti. Anche una piccola probabilità di errore per sito può diventare rilevante sull’intera sequenza. Devi distinguere un valore atteso dalla probabilità di almeno un evento.",
+          "Il numero atteso di mutazioni è nμ, ma non è una probabilità e può superare uno. Per nμ piccolo, P(almeno una)≈nμ; l’approssimazione peggiora quando gli eventi diventano frequenti."
+        ],
+        "advanced": [
+          "Una copia di informazione contiene molti siti. Anche una piccola probabilità di errore per sito può diventare rilevante sull’intera sequenza. Devi distinguere un valore atteso dalla probabilità di almeno un evento.",
+          "Confronta la formula esatta con l’approssimazione di Poisson 1-exp(-nμ). Spiega perché le due si avvicinano per μ piccolo con nμ fissato.",
+          "Eventi indipendenti con probabilità uguale per sito. Non descrive meccanismi mutageni, sequenze reali o interventi biologici."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Se ogni sito ha probabilità μ di mutare e gli eventi sono indipendenti, la probabilità che nessun sito muti è (1-μ)^n. Il complemento dà P(almeno una)=1-(1-μ)^n.",
+          "Con un solo sito e μ=10⁻⁴, la probabilità è esattamente 10⁻⁴. Su molti siti la probabilità cresce ma non può superare uno."
+        ],
+        "intermediate": [
+          "Il numero atteso di mutazioni è nμ, ma non è una probabilità e può superare uno. Per nμ piccolo, P(almeno una)≈nμ; l’approssimazione peggiora quando gli eventi diventano frequenti.",
+          "La variabile Siti copiati n è espressa in 1; Probabilità mutazione in 1. Il dominio dello strumento è [0; 10.000], con soli valori interi. La relazione implementata è: P(almeno una) = 1-(1-μ)^n.",
+          "Con un solo sito e μ=10⁻⁴, la probabilità è esattamente 10⁻⁴. Su molti siti la probabilità cresce ma non può superare uno."
+        ],
+        "advanced": [
+          "Il numero atteso di mutazioni è nμ, ma non è una probabilità e può superare uno. Per nμ piccolo, P(almeno una)≈nμ; l’approssimazione peggiora quando gli eventi diventano frequenti.",
+          "Confronta la formula esatta con l’approssimazione di Poisson 1-exp(-nμ). Spiega perché le due si avvicinano per μ piccolo con nμ fissato.",
+          "Una mutazione non è necessariamente utile o dannosa: il suo effetto dipende dal contesto. Indipendenza e tasso uniforme sono assunzioni semplificatrici."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Errore per sito μ (a): 0,0001 (adimensionale). Prima di salvare A, prevedi come cambia Probabilità mutazione fra Siti copiati n=2500 e 5000 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con un solo sito e μ=10⁻⁴, la probabilità è esattamente 10⁻⁴. Su molti siti la probabilità cresce ma non può superare uno.",
+          "La variabile Siti copiati n è espressa in 1; Probabilità mutazione in 1. Il dominio dello strumento è [0; 10.000], con soli valori interi. La relazione implementata è: P(almeno una) = 1-(1-μ)^n."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Errore per sito μ (a): 0,0001 (adimensionale). Prima di salvare A, prevedi come cambia Probabilità mutazione fra Siti copiati n=2500 e 5000 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Siti copiati n è espressa in 1; Probabilità mutazione in 1. Il dominio dello strumento è [0; 10.000], con soli valori interi. La relazione implementata è: P(almeno una) = 1-(1-μ)^n.",
+          "Il numero atteso di mutazioni è nμ, ma non è una probabilità e può superare uno. Per nμ piccolo, P(almeno una)≈nμ; l’approssimazione peggiora quando gli eventi diventano frequenti."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Errore per sito μ (a): 0,0001 (adimensionale). Prima di salvare A, prevedi come cambia Probabilità mutazione fra Siti copiati n=2500 e 5000 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Confronta la formula esatta con l’approssimazione di Poisson 1-exp(-nμ). Spiega perché le due si avvicinano per μ piccolo con nμ fissato.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Una mutazione non è necessariamente utile o dannosa: il suo effetto dipende dal contesto. Indipendenza e tasso uniforme sono assunzioni semplificatrici.",
+          "Eventi indipendenti con probabilità uguale per sito. Non descrive meccanismi mutageni, sequenze reali o interventi biologici.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Una mutazione non è necessariamente utile o dannosa: il suo effetto dipende dal contesto. Indipendenza e tasso uniforme sono assunzioni semplificatrici.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+        ],
+        "advanced": [
+          "Eventi indipendenti con probabilità uguale per sito. Non descrive meccanismi mutageni, sequenze reali o interventi biologici.",
+          "Confronta la formula esatta con l’approssimazione di Poisson 1-exp(-nμ). Spiega perché le due si avvicinano per μ piccolo con nμ fissato.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Se ogni sito ha probabilità μ di mutare e gli eventi sono indipendenti, la probabilità che nessun sito muti è (1-μ)^n. Il complemento dà P(almeno una)=1-(1-μ)^n.",
+          "Con un solo sito e μ=10⁻⁴, la probabilità è esattamente 10⁻⁴. Su molti siti la probabilità cresce ma non può superare uno."
+        ],
+        "intermediate": [
+          "Il numero atteso di mutazioni è nμ, ma non è una probabilità e può superare uno. Per nμ piccolo, P(almeno una)≈nμ; l’approssimazione peggiora quando gli eventi diventano frequenti.",
+          "La variabile Siti copiati n è espressa in 1; Probabilità mutazione in 1. Il dominio dello strumento è [0; 10.000], con soli valori interi. La relazione implementata è: P(almeno una) = 1-(1-μ)^n."
+        ],
+        "advanced": [
+          "Confronta la formula esatta con l’approssimazione di Poisson 1-exp(-nμ). Spiega perché le due si avvicinano per μ piccolo con nμ fissato.",
+          "Eventi indipendenti con probabilità uguale per sito. Non descrive meccanismi mutageni, sequenze reali o interventi biologici."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Eventi indipendenti con tasso uniforme.",
+          "Eventi indipendenti con probabilità uguale per sito. Non descrive meccanismi mutageni, sequenze reali o interventi biologici.",
+          "Collegamento consigliato: math-p07. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Il numero atteso di mutazioni è nμ, ma non è una probabilità e può superare uno. Per nμ piccolo, P(almeno una)≈nμ; l’approssimazione peggiora quando gli eventi diventano frequenti.",
+          "Eventi indipendenti con probabilità uguale per sito. Non descrive meccanismi mutageni, sequenze reali o interventi biologici.",
+          "Confronta la formula esatta con l’approssimazione di Poisson 1-exp(-nμ). Spiega perché le due si avvicinano per μ piccolo con nμ fissato."
+        ],
+        "advanced": [
+          "Confronta la formula esatta con l’approssimazione di Poisson 1-exp(-nμ). Spiega perché le due si avvicinano per μ piccolo con nμ fissato.",
+          "Eventi indipendenti con probabilità uguale per sito. Non descrive meccanismi mutageni, sequenze reali o interventi biologici.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "biology-12-concept",
+      "prompt": "Il numero atteso nμ:",
+      "options": [
+        {
+          "id": "A",
+          "text": "È sempre uguale alla probabilità di almeno un evento",
+          "feedback": "Il numero atteso di mutazioni è nμ, ma non è una probabilità e può superare uno. Per nμ piccolo, P(almeno una)≈nμ; l’approssimazione peggiora quando gli eventi diventano frequenti."
+        },
+        {
+          "id": "B",
+          "text": "Può superare uno e non è una probabilità",
+          "feedback": "Se ogni sito ha probabilità μ di mutare e gli eventi sono indipendenti, la probabilità che nessun sito muti è (1-μ)^n. Il complemento dà P(almeno una)=1-(1-μ)^n."
+        },
+        {
+          "id": "C",
+          "text": "È sempre fra zero e uno",
+          "feedback": "Una mutazione non è necessariamente utile o dannosa: il suo effetto dipende dal contesto. Indipendenza e tasso uniforme sono assunzioni semplificatrici."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-12-calculation",
+      "prompt": "Calcolo: Errore per sito μ (a)=0,0001 (adimensionale). Per Siti copiati n=1 (adimensionale), quanto vale Probabilità mutazione?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0,0001 (adimensionale)",
+          "feedback": "P(almeno una) = 1-(1-μ)^n. Con Errore per sito μ (a)=0,0001 (adimensionale) e Siti copiati n=1 (adimensionale), il risultato è 0,0001 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "0,0003 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. P(almeno una) = 1-(1-μ)^n. Con Errore per sito μ (a)=0,0001 (adimensionale) e Siti copiati n=1 (adimensionale), il risultato è 0,0001 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "-0,0001 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. P(almeno una) = 1-(1-μ)^n. Con Errore per sito μ (a)=0,0001 (adimensionale) e Siti copiati n=1 (adimensionale), il risultato è 0,0001 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 1,
+        "parameters": {
+          "a": 0.0001
+        },
+        "expected": 0.0001,
+        "unit": "1"
+      }
+    },
+    {
+      "id": "biology-12-transfer",
+      "prompt": "Trasferimento: Errore per sito μ (a)=0,00011 (adimensionale). Per Siti copiati n=1 (adimensionale), quanto vale Probabilità mutazione?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0,00033 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. P(almeno una) = 1-(1-μ)^n. Con Errore per sito μ (a)=0,00011 (adimensionale) e Siti copiati n=1 (adimensionale), il risultato è 0,00011 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "-0,00011 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. P(almeno una) = 1-(1-μ)^n. Con Errore per sito μ (a)=0,00011 (adimensionale) e Siti copiati n=1 (adimensionale), il risultato è 0,00011 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "0,00011 (adimensionale)",
+          "feedback": "P(almeno una) = 1-(1-μ)^n. Con Errore per sito μ (a)=0,00011 (adimensionale) e Siti copiati n=1 (adimensionale), il risultato è 0,00011 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 1,
+        "parameters": {
+          "a": 0.00011
+        },
+        "expected": 0.00011,
+        "unit": "1"
+      }
+    },
+    {
+      "id": "biology-12-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Eventi indipendenti con tasso uniforme",
+          "feedback": "Eventi indipendenti con probabilità uguale per sito. Non descrive meccanismi mutageni, sequenze reali o interventi biologici."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Eventi indipendenti con probabilità uguale per sito. Non descrive meccanismi mutageni, sequenze reali o interventi biologici."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Eventi indipendenti con probabilità uguale per sito. Non descrive meccanismi mutageni, sequenze reali o interventi biologici."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
+}

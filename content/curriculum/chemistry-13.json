@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "chemistry-13",
+  "title": "Solubilità ed equilibrio eterogeneo",
+  "sector": 2,
+  "modelId": "chemistry-13",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Sale ideale 1:1 con un solo equilibrio",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: sale ideale 1:1 con un solo equilibrio.",
+    "Applicare s(s+c)=K_sp; asse x = log₁₀ K_sp, dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "chemistry-12"
+  ],
+  "connections": [
+    "math-c03"
+  ],
+  "sources": [
+    "chemistry",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "log₁₀ K_sp",
+      "definition": "Variabile indipendente, unità 1; intervallo [-12; -2]."
+    },
+    {
+      "term": "Solubilità s",
+      "definition": "Risultato calcolato dal modello, unità mol/L."
+    },
+    {
+      "term": "Ione comune c",
+      "definition": "Parametro a, unità mol/L; intervallo [0; 0,01]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Un sale ideale AB è a contatto con una soluzione che contiene già uno degli ioni. La solubilità non dipende soltanto dal prodotto di solubilità: conta la composizione iniziale.",
+          "Per AB(s)⇌A⁺+B⁻, usando concentrazioni ideali, K_sp=[A⁺][B⁻]. Se la soluzione contiene una concentrazione iniziale c di B⁻, sciogliere s mol/L produce [A⁺]=s e [B⁻]=s+c."
+        ],
+        "intermediate": [
+          "Un sale ideale AB è a contatto con una soluzione che contiene già uno degli ioni. La solubilità non dipende soltanto dal prodotto di solubilità: conta la composizione iniziale.",
+          "L’equazione s(s+c)=K_sp è quadratica. La radice fisicamente ammessa è positiva. Il codice usa una forma equivalente numericamente stabile, 2K_sp/(√(c²+4K_sp)+c), per evitare cancellazioni."
+        ],
+        "advanced": [
+          "Un sale ideale AB è a contatto con una soluzione che contiene già uno degli ioni. La solubilità non dipende soltanto dal prodotto di solubilità: conta la composizione iniziale.",
+          "Confronta la soluzione esatta con s≈K_sp/c quando c è molto maggiore di s. Stabilisci quando l’approssimazione è coerente con il risultato ottenuto.",
+          "Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Per AB(s)⇌A⁺+B⁻, usando concentrazioni ideali, K_sp=[A⁺][B⁻]. Se la soluzione contiene una concentrazione iniziale c di B⁻, sciogliere s mol/L produce [A⁺]=s e [B⁻]=s+c.",
+          "Senza ione comune e con K_sp=10⁻⁸, la solubilità è 10⁻⁴ mol/L. Introducendo uno ione comune, la stessa K_sp corrisponde a una solubilità inferiore."
+        ],
+        "intermediate": [
+          "L’equazione s(s+c)=K_sp è quadratica. La radice fisicamente ammessa è positiva. Il codice usa una forma equivalente numericamente stabile, 2K_sp/(√(c²+4K_sp)+c), per evitare cancellazioni.",
+          "La variabile log₁₀ K_sp è espressa in 1; Solubilità s in mol/L. Il dominio dello strumento è [-12; -2]. La relazione implementata è: s(s+c)=K_sp; asse x = log₁₀ K_sp.",
+          "Senza ione comune e con K_sp=10⁻⁸, la solubilità è 10⁻⁴ mol/L. Introducendo uno ione comune, la stessa K_sp corrisponde a una solubilità inferiore."
+        ],
+        "advanced": [
+          "L’equazione s(s+c)=K_sp è quadratica. La radice fisicamente ammessa è positiva. Il codice usa una forma equivalente numericamente stabile, 2K_sp/(√(c²+4K_sp)+c), per evitare cancellazioni.",
+          "Confronta la soluzione esatta con s≈K_sp/c quando c è molto maggiore di s. Stabilisci quando l’approssimazione è coerente con il risultato ottenuto.",
+          "K_sp non è sempre uguale alla solubilità e la stechiometria del sale cambia gli esponenti. La scala orizzontale è log₁₀K_sp: il valore -8 rappresenta 10⁻⁸, non una costante negativa."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Ione comune c (a): 0 mol/L. Prima di salvare A, prevedi come cambia Solubilità s fra log₁₀ K_sp=-9,5 e -7 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Senza ione comune e con K_sp=10⁻⁸, la solubilità è 10⁻⁴ mol/L. Introducendo uno ione comune, la stessa K_sp corrisponde a una solubilità inferiore.",
+          "La variabile log₁₀ K_sp è espressa in 1; Solubilità s in mol/L. Il dominio dello strumento è [-12; -2]. La relazione implementata è: s(s+c)=K_sp; asse x = log₁₀ K_sp."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Ione comune c (a): 0 mol/L. Prima di salvare A, prevedi come cambia Solubilità s fra log₁₀ K_sp=-9,5 e -7 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile log₁₀ K_sp è espressa in 1; Solubilità s in mol/L. Il dominio dello strumento è [-12; -2]. La relazione implementata è: s(s+c)=K_sp; asse x = log₁₀ K_sp.",
+          "L’equazione s(s+c)=K_sp è quadratica. La radice fisicamente ammessa è positiva. Il codice usa una forma equivalente numericamente stabile, 2K_sp/(√(c²+4K_sp)+c), per evitare cancellazioni."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Ione comune c (a): 0 mol/L. Prima di salvare A, prevedi come cambia Solubilità s fra log₁₀ K_sp=-9,5 e -7 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Confronta la soluzione esatta con s≈K_sp/c quando c è molto maggiore di s. Stabilisci quando l’approssimazione è coerente con il risultato ottenuto.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "K_sp non è sempre uguale alla solubilità e la stechiometria del sale cambia gli esponenti. La scala orizzontale è log₁₀K_sp: il valore -8 rappresenta 10⁻⁸, non una costante negativa.",
+          "Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "K_sp non è sempre uguale alla solubilità e la stechiometria del sale cambia gli esponenti. La scala orizzontale è log₁₀K_sp: il valore -8 rappresenta 10⁻⁸, non una costante negativa.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri.",
+          "Confronta la soluzione esatta con s≈K_sp/c quando c è molto maggiore di s. Stabilisci quando l’approssimazione è coerente con il risultato ottenuto.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Per AB(s)⇌A⁺+B⁻, usando concentrazioni ideali, K_sp=[A⁺][B⁻]. Se la soluzione contiene una concentrazione iniziale c di B⁻, sciogliere s mol/L produce [A⁺]=s e [B⁻]=s+c.",
+          "Senza ione comune e con K_sp=10⁻⁸, la solubilità è 10⁻⁴ mol/L. Introducendo uno ione comune, la stessa K_sp corrisponde a una solubilità inferiore."
+        ],
+        "intermediate": [
+          "L’equazione s(s+c)=K_sp è quadratica. La radice fisicamente ammessa è positiva. Il codice usa una forma equivalente numericamente stabile, 2K_sp/(√(c²+4K_sp)+c), per evitare cancellazioni.",
+          "La variabile log₁₀ K_sp è espressa in 1; Solubilità s in mol/L. Il dominio dello strumento è [-12; -2]. La relazione implementata è: s(s+c)=K_sp; asse x = log₁₀ K_sp."
+        ],
+        "advanced": [
+          "Confronta la soluzione esatta con s≈K_sp/c quando c è molto maggiore di s. Stabilisci quando l’approssimazione è coerente con il risultato ottenuto.",
+          "Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Sale ideale 1:1 con un solo equilibrio.",
+          "Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri.",
+          "Collegamento consigliato: math-c03. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "L’equazione s(s+c)=K_sp è quadratica. La radice fisicamente ammessa è positiva. Il codice usa una forma equivalente numericamente stabile, 2K_sp/(√(c²+4K_sp)+c), per evitare cancellazioni.",
+          "Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri.",
+          "Confronta la soluzione esatta con s≈K_sp/c quando c è molto maggiore di s. Stabilisci quando l’approssimazione è coerente con il risultato ottenuto."
+        ],
+        "advanced": [
+          "Confronta la soluzione esatta con s≈K_sp/c quando c è molto maggiore di s. Stabilisci quando l’approssimazione è coerente con il risultato ottenuto.",
+          "Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "chemistry-13-concept",
+      "prompt": "Per un sale 1:1 senza ione comune, s vale:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Sempre K_sp",
+          "feedback": "L’equazione s(s+c)=K_sp è quadratica. La radice fisicamente ammessa è positiva. Il codice usa una forma equivalente numericamente stabile, 2K_sp/(√(c²+4K_sp)+c), per evitare cancellazioni."
+        },
+        {
+          "id": "B",
+          "text": "√K_sp",
+          "feedback": "Per AB(s)⇌A⁺+B⁻, usando concentrazioni ideali, K_sp=[A⁺][B⁻]. Se la soluzione contiene una concentrazione iniziale c di B⁻, sciogliere s mol/L produce [A⁺]=s e [B⁻]=s+c."
+        },
+        {
+          "id": "C",
+          "text": "K_sp²",
+          "feedback": "K_sp non è sempre uguale alla solubilità e la stechiometria del sale cambia gli esponenti. La scala orizzontale è log₁₀K_sp: il valore -8 rappresenta 10⁻⁸, non una costante negativa."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "chemistry-13-calculation",
+      "prompt": "Calcolo: Ione comune c (a)=0 mol/L. Per log₁₀ K_sp=-8 (adimensionale), quanto vale Solubilità s?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0,0001 mol/L",
+          "feedback": "s(s+c)=K_sp; asse x = log₁₀ K_sp. Con Ione comune c (a)=0 mol/L e log₁₀ K_sp=-8 (adimensionale), il risultato è 0,0001 mol/L. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "0,0003 mol/L",
+          "feedback": "Questo valore non soddisfa la relazione. s(s+c)=K_sp; asse x = log₁₀ K_sp. Con Ione comune c (a)=0 mol/L e log₁₀ K_sp=-8 (adimensionale), il risultato è 0,0001 mol/L. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "-0,0001 mol/L",
+          "feedback": "Controlla sostituzione, segno e unità. s(s+c)=K_sp; asse x = log₁₀ K_sp. Con Ione comune c (a)=0 mol/L e log₁₀ K_sp=-8 (adimensionale), il risultato è 0,0001 mol/L. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": -8,
+        "parameters": {
+          "a": 0
+        },
+        "expected": 0.0001,
+        "unit": "mol/L"
+      }
+    },
+    {
+      "id": "chemistry-13-transfer",
+      "prompt": "Trasferimento: Ione comune c (a)=0,001 mol/L. Per log₁₀ K_sp=-8 (adimensionale), quanto vale Solubilità s?",
+      "options": [
+        {
+          "id": "A",
+          "text": "2,97059e-5 mol/L",
+          "feedback": "Questo valore non soddisfa la relazione. s(s+c)=K_sp; asse x = log₁₀ K_sp. Con Ione comune c (a)=0,001 mol/L e log₁₀ K_sp=-8 (adimensionale), il risultato è 9,90195e-6 mol/L. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "-9,90195e-6 mol/L",
+          "feedback": "Controlla sostituzione, segno e unità. s(s+c)=K_sp; asse x = log₁₀ K_sp. Con Ione comune c (a)=0,001 mol/L e log₁₀ K_sp=-8 (adimensionale), il risultato è 9,90195e-6 mol/L. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "9,90195e-6 mol/L",
+          "feedback": "s(s+c)=K_sp; asse x = log₁₀ K_sp. Con Ione comune c (a)=0,001 mol/L e log₁₀ K_sp=-8 (adimensionale), il risultato è 9,90195e-6 mol/L. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": -8,
+        "parameters": {
+          "a": 0.001
+        },
+        "expected": 0.000009901951359278485,
+        "unit": "mol/L"
+      }
+    },
+    {
+      "id": "chemistry-13-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Sale ideale 1:1 con un solo equilibrio",
+          "feedback": "Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
+}

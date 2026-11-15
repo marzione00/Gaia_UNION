@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "biology-04",
+  "title": "Enzimi e saturazione",
+  "sector": 3,
+  "modelId": "biology-04",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Michaelis-Menten nelle ipotesi dichiarate",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: michaelis-menten nelle ipotesi dichiarate.",
+    "Applicare v = V_max [S]/(K_m+[S]), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "biology-03"
+  ],
+  "connections": [
+    "math-c08"
+  ],
+  "sources": [
+    "biology"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Substrato",
+      "definition": "Variabile indipendente, unità mmol/L; intervallo [0; 10]."
+    },
+    {
+      "term": "Velocità iniziale",
+      "definition": "Risultato calcolato dal modello, unità μmol/min."
+    },
+    {
+      "term": "Velocità massima",
+      "definition": "Parametro a, unità μmol/min; intervallo [5; 30]."
+    },
+    {
+      "term": "Costante K_m",
+      "definition": "Parametro b, unità mmol/L; intervallo [0,5; 5]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Aumentando il substrato, la velocità iniziale cresce ma tende a saturare. La stazione deve distinguere scarsità di substrato e capacità limitata del sistema enzimatico.",
+          "Il modello di Michaelis-Menten descrive una velocità iniziale v=V_max[S]/(K_m+[S]). A substrato basso è quasi lineare; a substrato alto tende a V_max."
+        ],
+        "intermediate": [
+          "Aumentando il substrato, la velocità iniziale cresce ma tende a saturare. La stazione deve distinguere scarsità di substrato e capacità limitata del sistema enzimatico.",
+          "Ponendo [S]=K_m, numeratore e denominatore danno v=V_max/2. K_m ha unità di concentrazione. Il suo significato microscopico dipende dal meccanismo e non coincide sempre con una semplice misura di affinità."
+        ],
+        "advanced": [
+          "Aumentando il substrato, la velocità iniziale cresce ma tende a saturare. La stazione deve distinguere scarsità di substrato e capacità limitata del sistema enzimatico.",
+          "Confronta l’effetto di aumentare V_max con quello di cambiare K_m. Scrivi quale misura distinguerebbe le due ipotesi su una curva osservata.",
+          "Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Il modello di Michaelis-Menten descrive una velocità iniziale v=V_max[S]/(K_m+[S]). A substrato basso è quasi lineare; a substrato alto tende a V_max.",
+          "Con V_max=10 μmol/min e K_m=2 mmol/L, in [S]=2 mmol/L la velocità è 5 μmol/min. Raddoppiare ancora il substrato non raddoppia necessariamente la velocità."
+        ],
+        "intermediate": [
+          "Ponendo [S]=K_m, numeratore e denominatore danno v=V_max/2. K_m ha unità di concentrazione. Il suo significato microscopico dipende dal meccanismo e non coincide sempre con una semplice misura di affinità.",
+          "La variabile Substrato è espressa in mmol/L; Velocità iniziale in μmol/min. Il dominio dello strumento è [0; 10]. La relazione implementata è: v = V_max [S]/(K_m+[S]).",
+          "Con V_max=10 μmol/min e K_m=2 mmol/L, in [S]=2 mmol/L la velocità è 5 μmol/min. Raddoppiare ancora il substrato non raddoppia necessariamente la velocità."
+        ],
+        "advanced": [
+          "Ponendo [S]=K_m, numeratore e denominatore danno v=V_max/2. K_m ha unità di concentrazione. Il suo significato microscopico dipende dal meccanismo e non coincide sempre con una semplice misura di affinità.",
+          "Confronta l’effetto di aumentare V_max con quello di cambiare K_m. Scrivi quale misura distinguerebbe le due ipotesi su una curva osservata.",
+          "La saturazione non significa che l’enzima sia esaurito come un reagente stechiometrico. Il modello non può essere applicato automaticamente a ogni enzima o a ogni condizione."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Velocità massima (a): 10 μmol/min; Costante K_m (b): 2 mmol/L. Prima di salvare A, prevedi come cambia Velocità iniziale fra Substrato=2,5 e 5 mmol/L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con V_max=10 μmol/min e K_m=2 mmol/L, in [S]=2 mmol/L la velocità è 5 μmol/min. Raddoppiare ancora il substrato non raddoppia necessariamente la velocità.",
+          "La variabile Substrato è espressa in mmol/L; Velocità iniziale in μmol/min. Il dominio dello strumento è [0; 10]. La relazione implementata è: v = V_max [S]/(K_m+[S])."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Velocità massima (a): 10 μmol/min; Costante K_m (b): 2 mmol/L. Prima di salvare A, prevedi come cambia Velocità iniziale fra Substrato=2,5 e 5 mmol/L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Substrato è espressa in mmol/L; Velocità iniziale in μmol/min. Il dominio dello strumento è [0; 10]. La relazione implementata è: v = V_max [S]/(K_m+[S]).",
+          "Ponendo [S]=K_m, numeratore e denominatore danno v=V_max/2. K_m ha unità di concentrazione. Il suo significato microscopico dipende dal meccanismo e non coincide sempre con una semplice misura di affinità."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Velocità massima (a): 10 μmol/min; Costante K_m (b): 2 mmol/L. Prima di salvare A, prevedi come cambia Velocità iniziale fra Substrato=2,5 e 5 mmol/L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Confronta l’effetto di aumentare V_max con quello di cambiare K_m. Scrivi quale misura distinguerebbe le due ipotesi su una curva osservata.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "La saturazione non significa che l’enzima sia esaurito come un reagente stechiometrico. Il modello non può essere applicato automaticamente a ogni enzima o a ogni condizione.",
+          "Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "La saturazione non significa che l’enzima sia esaurito come un reagente stechiometrico. Il modello non può essere applicato automaticamente a ogni enzima o a ogni condizione.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse.",
+          "Confronta l’effetto di aumentare V_max con quello di cambiare K_m. Scrivi quale misura distinguerebbe le due ipotesi su una curva osservata.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Il modello di Michaelis-Menten descrive una velocità iniziale v=V_max[S]/(K_m+[S]). A substrato basso è quasi lineare; a substrato alto tende a V_max.",
+          "Con V_max=10 μmol/min e K_m=2 mmol/L, in [S]=2 mmol/L la velocità è 5 μmol/min. Raddoppiare ancora il substrato non raddoppia necessariamente la velocità."
+        ],
+        "intermediate": [
+          "Ponendo [S]=K_m, numeratore e denominatore danno v=V_max/2. K_m ha unità di concentrazione. Il suo significato microscopico dipende dal meccanismo e non coincide sempre con una semplice misura di affinità.",
+          "La variabile Substrato è espressa in mmol/L; Velocità iniziale in μmol/min. Il dominio dello strumento è [0; 10]. La relazione implementata è: v = V_max [S]/(K_m+[S])."
+        ],
+        "advanced": [
+          "Confronta l’effetto di aumentare V_max con quello di cambiare K_m. Scrivi quale misura distinguerebbe le due ipotesi su una curva osservata.",
+          "Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Michaelis-Menten nelle ipotesi dichiarate.",
+          "Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse.",
+          "Collegamento consigliato: math-c08. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Ponendo [S]=K_m, numeratore e denominatore danno v=V_max/2. K_m ha unità di concentrazione. Il suo significato microscopico dipende dal meccanismo e non coincide sempre con una semplice misura di affinità.",
+          "Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse.",
+          "Confronta l’effetto di aumentare V_max con quello di cambiare K_m. Scrivi quale misura distinguerebbe le due ipotesi su una curva osservata."
+        ],
+        "advanced": [
+          "Confronta l’effetto di aumentare V_max con quello di cambiare K_m. Scrivi quale misura distinguerebbe le due ipotesi su una curva osservata.",
+          "Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "biology-04-concept",
+      "prompt": "Quando [S]=K_m, la velocità vale:",
+      "options": [
+        {
+          "id": "A",
+          "text": "V_max/2",
+          "feedback": "Il modello di Michaelis-Menten descrive una velocità iniziale v=V_max[S]/(K_m+[S]). A substrato basso è quasi lineare; a substrato alto tende a V_max."
+        },
+        {
+          "id": "B",
+          "text": "V_max",
+          "feedback": "La saturazione non significa che l’enzima sia esaurito come un reagente stechiometrico. Il modello non può essere applicato automaticamente a ogni enzima o a ogni condizione."
+        },
+        {
+          "id": "C",
+          "text": "0",
+          "feedback": "Ponendo [S]=K_m, numeratore e denominatore danno v=V_max/2. K_m ha unità di concentrazione. Il suo significato microscopico dipende dal meccanismo e non coincide sempre con una semplice misura di affinità."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-04-calculation",
+      "prompt": "Calcolo: Velocità massima (a)=10 μmol/min; Costante K_m (b)=2 mmol/L. Per Substrato=2 mmol/L, quanto vale Velocità iniziale?",
+      "options": [
+        {
+          "id": "A",
+          "text": "7,5 μmol/min",
+          "feedback": "Questo valore non soddisfa la relazione. v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=10 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 5 μmol/min. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "2,5 μmol/min",
+          "feedback": "Controlla sostituzione, segno e unità. v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=10 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 5 μmol/min. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "5 μmol/min",
+          "feedback": "v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=10 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 5 μmol/min. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 2,
+        "parameters": {
+          "a": 10,
+          "b": 2
+        },
+        "expected": 5,
+        "unit": "μmol/min"
+      }
+    },
+    {
+      "id": "biology-04-transfer",
+      "prompt": "Trasferimento: Velocità massima (a)=15 μmol/min; Costante K_m (b)=2 mmol/L. Per Substrato=2 mmol/L, quanto vale Velocità iniziale?",
+      "options": [
+        {
+          "id": "A",
+          "text": "3,75 μmol/min",
+          "feedback": "Controlla sostituzione, segno e unità. v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=15 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 7,5 μmol/min. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "7,5 μmol/min",
+          "feedback": "v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=15 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 7,5 μmol/min. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "11,25 μmol/min",
+          "feedback": "Questo valore non soddisfa la relazione. v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=15 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 7,5 μmol/min. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 2,
+        "parameters": {
+          "a": 15,
+          "b": 2
+        },
+        "expected": 7.5,
+        "unit": "μmol/min"
+      }
+    },
+    {
+      "id": "biology-04-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse."
+        },
+        {
+          "id": "B",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse."
+        },
+        {
+          "id": "C",
+          "text": "Michaelis-Menten nelle ipotesi dichiarate",
+          "feedback": "Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse."
+        }
+      ],
+      "correct": "C"
+    }
+  ]
+}

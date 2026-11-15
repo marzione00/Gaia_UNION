@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "math-p06",
+  "title": "Geometrie, trasformazioni e simmetrie",
+  "sector": 0,
+  "modelId": "math-p06",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Rotazioni piane euclidee",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: rotazioni piane euclidee.",
+    "Applicare x′ = a cos(θ) - b sin(θ), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "math-c07",
+    "math-c09",
+    "math-p02",
+    "math-p03"
+  ],
+  "connections": [
+    "math-p03"
+  ],
+  "sources": [
+    "precalculus",
+    "calculus"
+  ],
+  "originalSource": {
+    "id": "math-2026",
+    "file": "materials/matematica-di-base.pdf",
+    "printedPages": [
+      549,
+      598
+    ],
+    "pdfPages": [
+      561,
+      610
+    ]
+  },
+  "glossary": [
+    {
+      "term": "Rotazione θ",
+      "definition": "Variabile indipendente, unità rad; intervallo [0; 6,28319]."
+    },
+    {
+      "term": "Ascissa ruotata",
+      "definition": "Risultato calcolato dal modello, unità u.l.."
+    },
+    {
+      "term": "Ascissa iniziale",
+      "definition": "Parametro a, unità u.l.; intervallo [-3; 3]."
+    },
+    {
+      "term": "Ordinata iniziale",
+      "definition": "Parametro b, unità u.l.; intervallo [-3; 3]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Una struttura viene ruotata nel laboratorio. La sua ombra sull’asse cambia, ma le distanze interne restano le stesse. Distingui ciò che dipende dalle coordinate da ciò che è invariabile.",
+          "Una rotazione del piano attorno all’origine trasforma (a,b) in (a cosθ-b sinθ, a sinθ+b cosθ). Le coordinate cambiano con θ, mentre la distanza dall’origine resta √(a²+b²)."
+        ],
+        "intermediate": [
+          "Una struttura viene ruotata nel laboratorio. La sua ombra sull’asse cambia, ma le distanze interne restano le stesse. Distingui ciò che dipende dalle coordinate da ciò che è invariabile.",
+          "La matrice di rotazione ha colonne ortonormali. Espandendo la somma dei quadrati delle nuove coordinate, i termini misti si cancellano e rimane a²+b². Questa è una prova algebrica della conservazione della lunghezza."
+        ],
+        "advanced": [
+          "Una struttura viene ruotata nel laboratorio. La sua ombra sull’asse cambia, ma le distanze interne restano le stesse. Distingui ciò che dipende dalle coordinate da ciò che è invariabile.",
+          "Componi due rotazioni e dimostra che gli angoli si sommano. Confronta poi il determinante di una rotazione con quello di una riflessione.",
+          "Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Una rotazione del piano attorno all’origine trasforma (a,b) in (a cosθ-b sinθ, a sinθ+b cosθ). Le coordinate cambiano con θ, mentre la distanza dall’origine resta √(a²+b²).",
+          "Il punto (1,0), ruotato di π/2, diventa (0,1). L’ascissa visualizzata vale zero, ma il vettore non è scomparso: il suo modulo resta 1."
+        ],
+        "intermediate": [
+          "La matrice di rotazione ha colonne ortonormali. Espandendo la somma dei quadrati delle nuove coordinate, i termini misti si cancellano e rimane a²+b². Questa è una prova algebrica della conservazione della lunghezza.",
+          "La variabile Rotazione θ è espressa in rad; Ascissa ruotata in u.l.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: x′ = a cos(θ) - b sin(θ).",
+          "Il punto (1,0), ruotato di π/2, diventa (0,1). L’ascissa visualizzata vale zero, ma il vettore non è scomparso: il suo modulo resta 1."
+        ],
+        "advanced": [
+          "La matrice di rotazione ha colonne ortonormali. Espandendo la somma dei quadrati delle nuove coordinate, i termini misti si cancellano e rimane a²+b². Questa è una prova algebrica della conservazione della lunghezza.",
+          "Componi due rotazioni e dimostra che gli angoli si sommano. Confronta poi il determinante di una rotazione con quello di una riflessione.",
+          "Una componente nulla non significa vettore nullo. Una rotazione non è una traslazione e non va confusa con uno stiramento, che può cambiare distanze e aree."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Ascissa iniziale (a): 1 u.l.; Ordinata iniziale (b): 0 u.l.. Prima di salvare A, prevedi come cambia Ascissa ruotata fra Rotazione θ=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Il punto (1,0), ruotato di π/2, diventa (0,1). L’ascissa visualizzata vale zero, ma il vettore non è scomparso: il suo modulo resta 1.",
+          "La variabile Rotazione θ è espressa in rad; Ascissa ruotata in u.l.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: x′ = a cos(θ) - b sin(θ)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Ascissa iniziale (a): 1 u.l.; Ordinata iniziale (b): 0 u.l.. Prima di salvare A, prevedi come cambia Ascissa ruotata fra Rotazione θ=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Rotazione θ è espressa in rad; Ascissa ruotata in u.l.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: x′ = a cos(θ) - b sin(θ).",
+          "La matrice di rotazione ha colonne ortonormali. Espandendo la somma dei quadrati delle nuove coordinate, i termini misti si cancellano e rimane a²+b². Questa è una prova algebrica della conservazione della lunghezza."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Ascissa iniziale (a): 1 u.l.; Ordinata iniziale (b): 0 u.l.. Prima di salvare A, prevedi come cambia Ascissa ruotata fra Rotazione θ=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Componi due rotazioni e dimostra che gli angoli si sommano. Confronta poi il determinante di una rotazione con quello di una riflessione.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Una componente nulla non significa vettore nullo. Una rotazione non è una traslazione e non va confusa con uno stiramento, che può cambiare distanze e aree.",
+          "Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Una componente nulla non significa vettore nullo. Una rotazione non è una traslazione e non va confusa con uno stiramento, che può cambiare distanze e aree.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto.",
+          "Componi due rotazioni e dimostra che gli angoli si sommano. Confronta poi il determinante di una rotazione con quello di una riflessione.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Una rotazione del piano attorno all’origine trasforma (a,b) in (a cosθ-b sinθ, a sinθ+b cosθ). Le coordinate cambiano con θ, mentre la distanza dall’origine resta √(a²+b²).",
+          "Il punto (1,0), ruotato di π/2, diventa (0,1). L’ascissa visualizzata vale zero, ma il vettore non è scomparso: il suo modulo resta 1."
+        ],
+        "intermediate": [
+          "La matrice di rotazione ha colonne ortonormali. Espandendo la somma dei quadrati delle nuove coordinate, i termini misti si cancellano e rimane a²+b². Questa è una prova algebrica della conservazione della lunghezza.",
+          "La variabile Rotazione θ è espressa in rad; Ascissa ruotata in u.l.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: x′ = a cos(θ) - b sin(θ)."
+        ],
+        "advanced": [
+          "Componi due rotazioni e dimostra che gli angoli si sommano. Confronta poi il determinante di una rotazione con quello di una riflessione.",
+          "Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Rotazioni piane euclidee.",
+          "Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto.",
+          "Collegamento consigliato: math-p03. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "La matrice di rotazione ha colonne ortonormali. Espandendo la somma dei quadrati delle nuove coordinate, i termini misti si cancellano e rimane a²+b². Questa è una prova algebrica della conservazione della lunghezza.",
+          "Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto.",
+          "Componi due rotazioni e dimostra che gli angoli si sommano. Confronta poi il determinante di una rotazione con quello di una riflessione."
+        ],
+        "advanced": [
+          "Componi due rotazioni e dimostra che gli angoli si sommano. Confronta poi il determinante di una rotazione con quello di una riflessione.",
+          "Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "math-p06-concept",
+      "prompt": "Una rotazione euclidea conserva:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Le distanze",
+          "feedback": "Una rotazione del piano attorno all’origine trasforma (a,b) in (a cosθ-b sinθ, a sinθ+b cosθ). Le coordinate cambiano con θ, mentre la distanza dall’origine resta √(a²+b²)."
+        },
+        {
+          "id": "B",
+          "text": "Ogni singola coordinata",
+          "feedback": "Una componente nulla non significa vettore nullo. Una rotazione non è una traslazione e non va confusa con uno stiramento, che può cambiare distanze e aree."
+        },
+        {
+          "id": "C",
+          "text": "Il segno di ogni componente",
+          "feedback": "La matrice di rotazione ha colonne ortonormali. Espandendo la somma dei quadrati delle nuove coordinate, i termini misti si cancellano e rimane a²+b². Questa è una prova algebrica della conservazione della lunghezza."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-p06-calculation",
+      "prompt": "Calcolo: Ascissa iniziale (a)=1 u.l.; Ordinata iniziale (b)=0 u.l.. Per Rotazione θ=1,5708 rad, quanto vale Ascissa ruotata?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1,00000e-8 u.l.",
+          "feedback": "Questo valore non soddisfa la relazione. x′ = a cos(θ) - b sin(θ). Con Ascissa iniziale (a)=1 u.l.; Ordinata iniziale (b)=0 u.l. e Rotazione θ=1,5708 rad, il risultato è 0 u.l.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "-1,00000e-8 u.l.",
+          "feedback": "Controlla sostituzione, segno e unità. x′ = a cos(θ) - b sin(θ). Con Ascissa iniziale (a)=1 u.l.; Ordinata iniziale (b)=0 u.l. e Rotazione θ=1,5708 rad, il risultato è 0 u.l.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "0 u.l.",
+          "feedback": "x′ = a cos(θ) - b sin(θ). Con Ascissa iniziale (a)=1 u.l.; Ordinata iniziale (b)=0 u.l. e Rotazione θ=1,5708 rad, il risultato è 0 u.l.. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 1.5707963267948966,
+        "parameters": {
+          "a": 1,
+          "b": 0
+        },
+        "expected": 0,
+        "unit": "u.l."
+      }
+    },
+    {
+      "id": "math-p06-transfer",
+      "prompt": "Trasferimento: Ascissa iniziale (a)=2 u.l.; Ordinata iniziale (b)=0 u.l.. Per Rotazione θ=1,5708 rad, quanto vale Ascissa ruotata?",
+      "options": [
+        {
+          "id": "A",
+          "text": "-1,00000e-8 u.l.",
+          "feedback": "Controlla sostituzione, segno e unità. x′ = a cos(θ) - b sin(θ). Con Ascissa iniziale (a)=2 u.l.; Ordinata iniziale (b)=0 u.l. e Rotazione θ=1,5708 rad, il risultato è 1,22465e-16 u.l.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "1,22465e-16 u.l.",
+          "feedback": "x′ = a cos(θ) - b sin(θ). Con Ascissa iniziale (a)=2 u.l.; Ordinata iniziale (b)=0 u.l. e Rotazione θ=1,5708 rad, il risultato è 1,22465e-16 u.l.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "1,00000e-8 u.l.",
+          "feedback": "Questo valore non soddisfa la relazione. x′ = a cos(θ) - b sin(θ). Con Ascissa iniziale (a)=2 u.l.; Ordinata iniziale (b)=0 u.l. e Rotazione θ=1,5708 rad, il risultato è 1,22465e-16 u.l.. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 1.5707963267948966,
+        "parameters": {
+          "a": 2,
+          "b": 0
+        },
+        "expected": 1.2246467991473532e-16,
+        "unit": "u.l."
+      }
+    },
+    {
+      "id": "math-p06-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto."
+        },
+        {
+          "id": "B",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto."
+        },
+        {
+          "id": "C",
+          "text": "Rotazioni piane euclidee",
+          "feedback": "Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto."
+        }
+      ],
+      "correct": "C"
+    }
+  ]
+}

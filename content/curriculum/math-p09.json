@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "math-p09",
+  "title": "Onde, frequenze e ricostruzione",
+  "sector": 0,
+  "modelId": "math-p09",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Somma finita di armoniche note",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: somma finita di armoniche note.",
+    "Applicare y = sin(x)+a sin(3x)/3+b sin(5x)/5, dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "math-c09",
+    "math-p02",
+    "math-p03",
+    "math-p04"
+  ],
+  "connections": [
+    "physics-17"
+  ],
+  "sources": [
+    "precalculus",
+    "calculus"
+  ],
+  "originalSource": {
+    "id": "math-2026",
+    "file": "materials/matematica-di-base.pdf",
+    "printedPages": [
+      651,
+      678
+    ],
+    "pdfPages": [
+      663,
+      690
+    ]
+  },
+  "glossary": [
+    {
+      "term": "Fase x",
+      "definition": "Variabile indipendente, unità rad; intervallo [0; 6,28319]."
+    },
+    {
+      "term": "Somma armoniche",
+      "definition": "Risultato calcolato dal modello, unità u.a.."
+    },
+    {
+      "term": "Terza armonica",
+      "definition": "Parametro a, unità 1; intervallo [0; 1]."
+    },
+    {
+      "term": "Quinta armonica",
+      "definition": "Parametro b, unità 1; intervallo [0; 1]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Un segnale apparentemente complesso viene ricostruito sommando oscillazioni semplici. Devi capire che cosa cambia aggiungendo armoniche, senza confondere maggiore dettaglio con una ricostruzione esatta.",
+          "Una combinazione di seni può rappresentare segnali periodici. Nel laboratorio la fondamentale sin(x) è affiancata dalla terza e quinta armonica, pesate da 1/3 e 1/5. Ogni armonica oscilla un numero intero di volte nel periodo fondamentale."
+        ],
+        "intermediate": [
+          "Un segnale apparentemente complesso viene ricostruito sommando oscillazioni semplici. Devi capire che cosa cambia aggiungendo armoniche, senza confondere maggiore dettaglio con una ricostruzione esatta.",
+          "La somma è sin(x)+a sin(3x)/3+b sin(5x)/5. La linearità permette di valutare separatamente i contributi e poi sommarli. Con a=b=1 è una somma parziale, non la serie infinita di un’onda quadra."
+        ],
+        "advanced": [
+          "Un segnale apparentemente complesso viene ricostruito sommando oscillazioni semplici. Devi capire che cosa cambia aggiungendo armoniche, senza confondere maggiore dettaglio con una ricostruzione esatta.",
+          "Confronta la forma della somma con una sola armonica. Studia in seguito il fenomeno di Gibbs e le condizioni del teorema di campionamento.",
+          "Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Una combinazione di seni può rappresentare segnali periodici. Nel laboratorio la fondamentale sin(x) è affiancata dalla terza e quinta armonica, pesate da 1/3 e 1/5. Ogni armonica oscilla un numero intero di volte nel periodo fondamentale.",
+          "In x=π/2, i tre contributi sono 1, -1/3 e 1/5. Il totale è 13/15≈0,866667. Sommare soltanto le ampiezze ignorerebbe le fasi in quel punto."
+        ],
+        "intermediate": [
+          "La somma è sin(x)+a sin(3x)/3+b sin(5x)/5. La linearità permette di valutare separatamente i contributi e poi sommarli. Con a=b=1 è una somma parziale, non la serie infinita di un’onda quadra.",
+          "La variabile Fase x è espressa in rad; Somma armoniche in u.a.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: y = sin(x)+a sin(3x)/3+b sin(5x)/5.",
+          "In x=π/2, i tre contributi sono 1, -1/3 e 1/5. Il totale è 13/15≈0,866667. Sommare soltanto le ampiezze ignorerebbe le fasi in quel punto."
+        ],
+        "advanced": [
+          "La somma è sin(x)+a sin(3x)/3+b sin(5x)/5. La linearità permette di valutare separatamente i contributi e poi sommarli. Con a=b=1 è una somma parziale, non la serie infinita di un’onda quadra.",
+          "Confronta la forma della somma con una sola armonica. Studia in seguito il fenomeno di Gibbs e le condizioni del teorema di campionamento.",
+          "Più armoniche non eliminano automaticamente tutti gli errori. Campionare troppo lentamente può rendere indistinguibili frequenze diverse: la visualizzazione di una curva continua non è una simulazione completa del campionamento."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Terza armonica (a): 1 (adimensionale); Quinta armonica (b): 1 (adimensionale). Prima di salvare A, prevedi come cambia Somma armoniche fra Fase x=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "In x=π/2, i tre contributi sono 1, -1/3 e 1/5. Il totale è 13/15≈0,866667. Sommare soltanto le ampiezze ignorerebbe le fasi in quel punto.",
+          "La variabile Fase x è espressa in rad; Somma armoniche in u.a.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: y = sin(x)+a sin(3x)/3+b sin(5x)/5."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Terza armonica (a): 1 (adimensionale); Quinta armonica (b): 1 (adimensionale). Prima di salvare A, prevedi come cambia Somma armoniche fra Fase x=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Fase x è espressa in rad; Somma armoniche in u.a.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: y = sin(x)+a sin(3x)/3+b sin(5x)/5.",
+          "La somma è sin(x)+a sin(3x)/3+b sin(5x)/5. La linearità permette di valutare separatamente i contributi e poi sommarli. Con a=b=1 è una somma parziale, non la serie infinita di un’onda quadra."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Terza armonica (a): 1 (adimensionale); Quinta armonica (b): 1 (adimensionale). Prima di salvare A, prevedi come cambia Somma armoniche fra Fase x=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Confronta la forma della somma con una sola armonica. Studia in seguito il fenomeno di Gibbs e le condizioni del teorema di campionamento.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Più armoniche non eliminano automaticamente tutti gli errori. Campionare troppo lentamente può rendere indistinguibili frequenze diverse: la visualizzazione di una curva continua non è una simulazione completa del campionamento.",
+          "Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Più armoniche non eliminano automaticamente tutti gli errori. Campionare troppo lentamente può rendere indistinguibili frequenze diverse: la visualizzazione di una curva continua non è una simulazione completa del campionamento.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita.",
+          "Confronta la forma della somma con una sola armonica. Studia in seguito il fenomeno di Gibbs e le condizioni del teorema di campionamento.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Una combinazione di seni può rappresentare segnali periodici. Nel laboratorio la fondamentale sin(x) è affiancata dalla terza e quinta armonica, pesate da 1/3 e 1/5. Ogni armonica oscilla un numero intero di volte nel periodo fondamentale.",
+          "In x=π/2, i tre contributi sono 1, -1/3 e 1/5. Il totale è 13/15≈0,866667. Sommare soltanto le ampiezze ignorerebbe le fasi in quel punto."
+        ],
+        "intermediate": [
+          "La somma è sin(x)+a sin(3x)/3+b sin(5x)/5. La linearità permette di valutare separatamente i contributi e poi sommarli. Con a=b=1 è una somma parziale, non la serie infinita di un’onda quadra.",
+          "La variabile Fase x è espressa in rad; Somma armoniche in u.a.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: y = sin(x)+a sin(3x)/3+b sin(5x)/5."
+        ],
+        "advanced": [
+          "Confronta la forma della somma con una sola armonica. Studia in seguito il fenomeno di Gibbs e le condizioni del teorema di campionamento.",
+          "Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Somma finita di armoniche note.",
+          "Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita.",
+          "Collegamento consigliato: physics-17. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "La somma è sin(x)+a sin(3x)/3+b sin(5x)/5. La linearità permette di valutare separatamente i contributi e poi sommarli. Con a=b=1 è una somma parziale, non la serie infinita di un’onda quadra.",
+          "Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita.",
+          "Confronta la forma della somma con una sola armonica. Studia in seguito il fenomeno di Gibbs e le condizioni del teorema di campionamento."
+        ],
+        "advanced": [
+          "Confronta la forma della somma con una sola armonica. Studia in seguito il fenomeno di Gibbs e le condizioni del teorema di campionamento.",
+          "Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "math-p09-concept",
+      "prompt": "La terza armonica rispetto a sin(x) è:",
+      "options": [
+        {
+          "id": "A",
+          "text": "sin(3x)",
+          "feedback": "Una combinazione di seni può rappresentare segnali periodici. Nel laboratorio la fondamentale sin(x) è affiancata dalla terza e quinta armonica, pesate da 1/3 e 1/5. Ogni armonica oscilla un numero intero di volte nel periodo fondamentale."
+        },
+        {
+          "id": "B",
+          "text": "sin(x/3)",
+          "feedback": "Più armoniche non eliminano automaticamente tutti gli errori. Campionare troppo lentamente può rendere indistinguibili frequenze diverse: la visualizzazione di una curva continua non è una simulazione completa del campionamento."
+        },
+        {
+          "id": "C",
+          "text": "3+sin(x)",
+          "feedback": "La somma è sin(x)+a sin(3x)/3+b sin(5x)/5. La linearità permette di valutare separatamente i contributi e poi sommarli. Con a=b=1 è una somma parziale, non la serie infinita di un’onda quadra."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-p09-calculation",
+      "prompt": "Calcolo: Terza armonica (a)=1 (adimensionale); Quinta armonica (b)=1 (adimensionale). Per Fase x=1,5708 rad, quanto vale Somma armoniche?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1,86667 u.a.",
+          "feedback": "Questo valore non soddisfa la relazione. y = sin(x)+a sin(3x)/3+b sin(5x)/5. Con Terza armonica (a)=1 (adimensionale); Quinta armonica (b)=1 (adimensionale) e Fase x=1,5708 rad, il risultato è 0,866667 u.a.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "-0,133333 u.a.",
+          "feedback": "Controlla sostituzione, segno e unità. y = sin(x)+a sin(3x)/3+b sin(5x)/5. Con Terza armonica (a)=1 (adimensionale); Quinta armonica (b)=1 (adimensionale) e Fase x=1,5708 rad, il risultato è 0,866667 u.a.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "0,866667 u.a.",
+          "feedback": "y = sin(x)+a sin(3x)/3+b sin(5x)/5. Con Terza armonica (a)=1 (adimensionale); Quinta armonica (b)=1 (adimensionale) e Fase x=1,5708 rad, il risultato è 0,866667 u.a.. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 1.5707963267948966,
+        "parameters": {
+          "a": 1,
+          "b": 1
+        },
+        "expected": 0.8666666666666667,
+        "unit": "u.a."
+      }
+    },
+    {
+      "id": "math-p09-transfer",
+      "prompt": "Trasferimento: Terza armonica (a)=0 (adimensionale); Quinta armonica (b)=1 (adimensionale). Per Fase x=1,5708 rad, quanto vale Somma armoniche?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0,2 u.a.",
+          "feedback": "Controlla sostituzione, segno e unità. y = sin(x)+a sin(3x)/3+b sin(5x)/5. Con Terza armonica (a)=0 (adimensionale); Quinta armonica (b)=1 (adimensionale) e Fase x=1,5708 rad, il risultato è 1,2 u.a.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "1,2 u.a.",
+          "feedback": "y = sin(x)+a sin(3x)/3+b sin(5x)/5. Con Terza armonica (a)=0 (adimensionale); Quinta armonica (b)=1 (adimensionale) e Fase x=1,5708 rad, il risultato è 1,2 u.a.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "2,2 u.a.",
+          "feedback": "Questo valore non soddisfa la relazione. y = sin(x)+a sin(3x)/3+b sin(5x)/5. Con Terza armonica (a)=0 (adimensionale); Quinta armonica (b)=1 (adimensionale) e Fase x=1,5708 rad, il risultato è 1,2 u.a.. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 1.5707963267948966,
+        "parameters": {
+          "a": 0,
+          "b": 1
+        },
+        "expected": 1.2,
+        "unit": "u.a."
+      }
+    },
+    {
+      "id": "math-p09-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita."
+        },
+        {
+          "id": "B",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita."
+        },
+        {
+          "id": "C",
+          "text": "Somma finita di armoniche note",
+          "feedback": "Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita."
+        }
+      ],
+      "correct": "C"
+    }
+  ]
+}

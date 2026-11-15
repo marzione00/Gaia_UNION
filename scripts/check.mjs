@@ -1,3 +1,5 @@
+import {checkCurriculum} from './check-curriculum.mjs';
+import {checkMissions} from './check-missions.mjs';
 /** Validate local references and rendering assets; optional HTTP smoke is separate. */
 import {readFileSync,existsSync,readdirSync,statSync,writeFileSync} from 'node:fs';
 import {resolve,dirname} from 'node:path';import {fileURLToPath} from 'node:url';
@@ -11,4 +13,6 @@ for(const p of json('assets/planets/manifest.json'))verify(p.path,existsSync(res
 const scan=dir=>readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?scan(resolve(dir,e.name)):[resolve(dir,e.name)]);
 for(const p of scan(resolve(root,'src')).filter(x=>x.endsWith('.js'))){const text=readFileSync(p,'utf8');for(const m of text.matchAll(/from\s+['"]([^'"]+)['"]/g))verify(p+' -> '+m[1],existsSync(resolve(dirname(p),m[1])));verify(p+' no eval',!text.includes('eval('));verify(p+' no Canvas2D',!/getContext\(['"]2d/.test(text));}
 verify('No font binaries',!scan(root).some(x=>/\.(ttf|otf|woff2?|eot)$/i.test(x)));
+const missionChecks=checkMissions(root);checks+=missionChecks.checks;errors.push(...missionChecks.errors);
+const curriculumChecks=checkCurriculum(root);checks+=curriculumChecks.checks;errors.push(...curriculumChecks.errors);
 const report={checks,passed:checks-errors.length,errors};writeFileSync(resolve(root,'docs/CHECK.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));if(errors.length)process.exitCode=1;

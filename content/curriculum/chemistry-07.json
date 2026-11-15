@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "chemistry-07",
+  "title": "Legame covalente ed energia di legame",
+  "sector": 2,
+  "modelId": "chemistry-07",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Potenziale fenomenologico di un solo legame",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: potenziale fenomenologico di un solo legame.",
+    "Applicare U = D(1-exp(-b(r/r₀-1)))²-D, dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "chemistry-06"
+  ],
+  "connections": [
+    "math-p12"
+  ],
+  "sources": [
+    "chemistry",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Distanza r/r₀",
+      "definition": "Variabile indipendente, unità 1; intervallo [0,4; 3]."
+    },
+    {
+      "term": "Potenziale di Morse",
+      "definition": "Risultato calcolato dal modello, unità kJ/mol."
+    },
+    {
+      "term": "Profondità D",
+      "definition": "Parametro a, unità kJ/mol; intervallo [50; 200]."
+    },
+    {
+      "term": "Larghezza b",
+      "definition": "Parametro b, unità 1; intervallo [1; 3]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Una coppia di atomi oscilla attorno a una distanza preferita. Per capire perché non si separa né collassa, osserva la forma di un potenziale, non una fotografia del legame.",
+          "Un potenziale di legame descrive come varia l’energia con la distanza internucleare. Il minimo identifica un equilibrio del modello. Nel potenziale di Morse, la curva è ripida in compressione e tende a un limite di dissociazione in allontanamento."
+        ],
+        "intermediate": [
+          "Una coppia di atomi oscilla attorno a una distanza preferita. Per capire perché non si separa né collassa, osserva la forma di un potenziale, non una fotografia del legame.",
+          "La formula U=D(1-exp(-b(r/r₀-1)))²-D ha minimo -D in r=r₀ e tende a zero per grandi distanze. D è la profondità del pozzo; b ne controlla la larghezza nella coordinata normalizzata."
+        ],
+        "advanced": [
+          "Una coppia di atomi oscilla attorno a una distanza preferita. Per capire perché non si separa né collassa, osserva la forma di un potenziale, non una fotografia del legame.",
+          "Approssima il potenziale vicino al minimo con una parabola e collega la curvatura alla frequenza di una piccola oscillazione. Spiega perché l’approssimazione perde validità lontano dal minimo.",
+          "Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Un potenziale di legame descrive come varia l’energia con la distanza internucleare. Il minimo identifica un equilibrio del modello. Nel potenziale di Morse, la curva è ripida in compressione e tende a un limite di dissociazione in allontanamento.",
+          "Con D=100 kJ/mol, in r/r₀=1 l’energia è -100 kJ/mol. Non è zero: lo zero è stato posto alla separazione infinita."
+        ],
+        "intermediate": [
+          "La formula U=D(1-exp(-b(r/r₀-1)))²-D ha minimo -D in r=r₀ e tende a zero per grandi distanze. D è la profondità del pozzo; b ne controlla la larghezza nella coordinata normalizzata.",
+          "La variabile Distanza r/r₀ è espressa in 1; Potenziale di Morse in kJ/mol. Il dominio dello strumento è [0,4; 3]. La relazione implementata è: U = D(1-exp(-b(r/r₀-1)))²-D.",
+          "Con D=100 kJ/mol, in r/r₀=1 l’energia è -100 kJ/mol. Non è zero: lo zero è stato posto alla separazione infinita."
+        ],
+        "advanced": [
+          "La formula U=D(1-exp(-b(r/r₀-1)))²-D ha minimo -D in r=r₀ e tende a zero per grandi distanze. D è la profondità del pozzo; b ne controlla la larghezza nella coordinata normalizzata.",
+          "Approssima il potenziale vicino al minimo con una parabola e collega la curvatura alla frequenza di una piccola oscillazione. Spiega perché l’approssimazione perde validità lontano dal minimo.",
+          "Una linea fra sfere non rappresenta una bacchetta materiale. Il potenziale non mostra direttamente orbitali o densità elettronica e i suoi parametri non identificano una molecola senza dati aggiuntivi."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Profondità D (a): 100 kJ/mol; Larghezza b (b): 2 (adimensionale). Prima di salvare A, prevedi come cambia Potenziale di Morse fra Distanza r/r₀=1,05 e 1,7 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con D=100 kJ/mol, in r/r₀=1 l’energia è -100 kJ/mol. Non è zero: lo zero è stato posto alla separazione infinita.",
+          "La variabile Distanza r/r₀ è espressa in 1; Potenziale di Morse in kJ/mol. Il dominio dello strumento è [0,4; 3]. La relazione implementata è: U = D(1-exp(-b(r/r₀-1)))²-D."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Profondità D (a): 100 kJ/mol; Larghezza b (b): 2 (adimensionale). Prima di salvare A, prevedi come cambia Potenziale di Morse fra Distanza r/r₀=1,05 e 1,7 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Distanza r/r₀ è espressa in 1; Potenziale di Morse in kJ/mol. Il dominio dello strumento è [0,4; 3]. La relazione implementata è: U = D(1-exp(-b(r/r₀-1)))²-D.",
+          "La formula U=D(1-exp(-b(r/r₀-1)))²-D ha minimo -D in r=r₀ e tende a zero per grandi distanze. D è la profondità del pozzo; b ne controlla la larghezza nella coordinata normalizzata."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Profondità D (a): 100 kJ/mol; Larghezza b (b): 2 (adimensionale). Prima di salvare A, prevedi come cambia Potenziale di Morse fra Distanza r/r₀=1,05 e 1,7 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Approssima il potenziale vicino al minimo con una parabola e collega la curvatura alla frequenza di una piccola oscillazione. Spiega perché l’approssimazione perde validità lontano dal minimo.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Una linea fra sfere non rappresenta una bacchetta materiale. Il potenziale non mostra direttamente orbitali o densità elettronica e i suoi parametri non identificano una molecola senza dati aggiuntivi.",
+          "Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Una linea fra sfere non rappresenta una bacchetta materiale. Il potenziale non mostra direttamente orbitali o densità elettronica e i suoi parametri non identificano una molecola senza dati aggiuntivi.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica.",
+          "Approssima il potenziale vicino al minimo con una parabola e collega la curvatura alla frequenza di una piccola oscillazione. Spiega perché l’approssimazione perde validità lontano dal minimo.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Un potenziale di legame descrive come varia l’energia con la distanza internucleare. Il minimo identifica un equilibrio del modello. Nel potenziale di Morse, la curva è ripida in compressione e tende a un limite di dissociazione in allontanamento.",
+          "Con D=100 kJ/mol, in r/r₀=1 l’energia è -100 kJ/mol. Non è zero: lo zero è stato posto alla separazione infinita."
+        ],
+        "intermediate": [
+          "La formula U=D(1-exp(-b(r/r₀-1)))²-D ha minimo -D in r=r₀ e tende a zero per grandi distanze. D è la profondità del pozzo; b ne controlla la larghezza nella coordinata normalizzata.",
+          "La variabile Distanza r/r₀ è espressa in 1; Potenziale di Morse in kJ/mol. Il dominio dello strumento è [0,4; 3]. La relazione implementata è: U = D(1-exp(-b(r/r₀-1)))²-D."
+        ],
+        "advanced": [
+          "Approssima il potenziale vicino al minimo con una parabola e collega la curvatura alla frequenza di una piccola oscillazione. Spiega perché l’approssimazione perde validità lontano dal minimo.",
+          "Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Potenziale fenomenologico di un solo legame.",
+          "Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica.",
+          "Collegamento consigliato: math-p12. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "La formula U=D(1-exp(-b(r/r₀-1)))²-D ha minimo -D in r=r₀ e tende a zero per grandi distanze. D è la profondità del pozzo; b ne controlla la larghezza nella coordinata normalizzata.",
+          "Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica.",
+          "Approssima il potenziale vicino al minimo con una parabola e collega la curvatura alla frequenza di una piccola oscillazione. Spiega perché l’approssimazione perde validità lontano dal minimo."
+        ],
+        "advanced": [
+          "Approssima il potenziale vicino al minimo con una parabola e collega la curvatura alla frequenza di una piccola oscillazione. Spiega perché l’approssimazione perde validità lontano dal minimo.",
+          "Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "chemistry-07-concept",
+      "prompt": "Nel potenziale di Morse, r=r₀ corrisponde a:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Una probabilità nulla di legame",
+          "feedback": "La formula U=D(1-exp(-b(r/r₀-1)))²-D ha minimo -D in r=r₀ e tende a zero per grandi distanze. D è la profondità del pozzo; b ne controlla la larghezza nella coordinata normalizzata."
+        },
+        {
+          "id": "B",
+          "text": "Un minimo di energia",
+          "feedback": "Un potenziale di legame descrive come varia l’energia con la distanza internucleare. Il minimo identifica un equilibrio del modello. Nel potenziale di Morse, la curva è ripida in compressione e tende a un limite di dissociazione in allontanamento."
+        },
+        {
+          "id": "C",
+          "text": "Una separazione infinita",
+          "feedback": "Una linea fra sfere non rappresenta una bacchetta materiale. Il potenziale non mostra direttamente orbitali o densità elettronica e i suoi parametri non identificano una molecola senza dati aggiuntivi."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "chemistry-07-calculation",
+      "prompt": "Calcolo: Profondità D (a)=100 kJ/mol; Larghezza b (b)=2 (adimensionale). Per Distanza r/r₀=1 (adimensionale), quanto vale Potenziale di Morse?",
+      "options": [
+        {
+          "id": "A",
+          "text": "-100 kJ/mol",
+          "feedback": "U = D(1-exp(-b(r/r₀-1)))²-D. Con Profondità D (a)=100 kJ/mol; Larghezza b (b)=2 (adimensionale) e Distanza r/r₀=1 (adimensionale), il risultato è -100 kJ/mol. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "-50 kJ/mol",
+          "feedback": "Questo valore non soddisfa la relazione. U = D(1-exp(-b(r/r₀-1)))²-D. Con Profondità D (a)=100 kJ/mol; Larghezza b (b)=2 (adimensionale) e Distanza r/r₀=1 (adimensionale), il risultato è -100 kJ/mol. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "-150 kJ/mol",
+          "feedback": "Controlla sostituzione, segno e unità. U = D(1-exp(-b(r/r₀-1)))²-D. Con Profondità D (a)=100 kJ/mol; Larghezza b (b)=2 (adimensionale) e Distanza r/r₀=1 (adimensionale), il risultato è -100 kJ/mol. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 1,
+        "parameters": {
+          "a": 100,
+          "b": 2
+        },
+        "expected": -100,
+        "unit": "kJ/mol"
+      }
+    },
+    {
+      "id": "chemistry-07-transfer",
+      "prompt": "Trasferimento: Profondità D (a)=125 kJ/mol; Larghezza b (b)=2 (adimensionale). Per Distanza r/r₀=1 (adimensionale), quanto vale Potenziale di Morse?",
+      "options": [
+        {
+          "id": "A",
+          "text": "-62,5 kJ/mol",
+          "feedback": "Questo valore non soddisfa la relazione. U = D(1-exp(-b(r/r₀-1)))²-D. Con Profondità D (a)=125 kJ/mol; Larghezza b (b)=2 (adimensionale) e Distanza r/r₀=1 (adimensionale), il risultato è -125 kJ/mol. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "-187,5 kJ/mol",
+          "feedback": "Controlla sostituzione, segno e unità. U = D(1-exp(-b(r/r₀-1)))²-D. Con Profondità D (a)=125 kJ/mol; Larghezza b (b)=2 (adimensionale) e Distanza r/r₀=1 (adimensionale), il risultato è -125 kJ/mol. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "-125 kJ/mol",
+          "feedback": "U = D(1-exp(-b(r/r₀-1)))²-D. Con Profondità D (a)=125 kJ/mol; Larghezza b (b)=2 (adimensionale) e Distanza r/r₀=1 (adimensionale), il risultato è -125 kJ/mol. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 1,
+        "parameters": {
+          "a": 125,
+          "b": 2
+        },
+        "expected": -125,
+        "unit": "kJ/mol"
+      }
+    },
+    {
+      "id": "chemistry-07-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Potenziale fenomenologico di un solo legame",
+          "feedback": "Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
+}

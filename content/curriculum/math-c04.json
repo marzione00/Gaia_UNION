@@ -1,0 +1,287 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "math-c04",
+  "title": "Equazioni e sistemi",
+  "sector": 0,
+  "modelId": "math-c04",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Due relazioni lineari esatte",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: due relazioni lineari esatte.",
+    "Applicare r(x) = ax+b - (-x+4), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "math-c02",
+    "math-c03"
+  ],
+  "connections": [
+    "math-p02"
+  ],
+  "sources": [
+    "precalculus"
+  ],
+  "originalSource": {
+    "id": "math-2026",
+    "file": "materials/matematica-di-base.pdf",
+    "printedPages": [
+      95,
+      128
+    ],
+    "pdfPages": [
+      107,
+      140
+    ]
+  },
+  "glossary": [
+    {
+      "term": "x",
+      "definition": "Variabile indipendente, unità 1; intervallo [-5; 5]."
+    },
+    {
+      "term": "Residuo",
+      "definition": "Risultato calcolato dal modello, unità 1."
+    },
+    {
+      "term": "Pendenza a",
+      "definition": "Parametro a, unità 1; intervallo [-2; 3]."
+    },
+    {
+      "term": "Intercetta b",
+      "definition": "Parametro b, unità 1; intervallo [-2; 4]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Due sensori stimano la posizione di un robot con leggi lineari diverse. La stazione vuole sapere dove le previsioni coincidono. Invece di scegliere il sensore più convincente, costruisci un residuo misurabile.",
+          "Un’equazione chiede per quali valori due espressioni coincidono. Nel laboratorio confronti y=ax+b con y=-x+4. Sottraendo la seconda espressione dalla prima ottieni un residuo r(x); una soluzione è un punto in cui il residuo è zero."
+        ],
+        "intermediate": [
+          "Due sensori stimano la posizione di un robot con leggi lineari diverse. La stazione vuole sapere dove le previsioni coincidono. Invece di scegliere il sensore più convincente, costruisci un residuo misurabile.",
+          "La condizione ax+b=-x+4 diventa (a+1)x=4-b. Se a≠-1 esiste una sola soluzione, x=(4-b)/(a+1). Se a=-1, la situazione dipende da b: per b=4 ogni x è soluzione, altrimenti non ve ne sono."
+        ],
+        "advanced": [
+          "Due sensori stimano la posizione di un robot con leggi lineari diverse. La stazione vuole sapere dove le previsioni coincidono. Invece di scegliere il sensore più convincente, costruisci un residuo misurabile.",
+          "Studia la sensibilità della soluzione quando a si avvicina a -1. Piccole variazioni dei dati possono spostare molto l’intersezione: collega il fenomeno al condizionamento numerico.",
+          "Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Un’equazione chiede per quali valori due espressioni coincidono. Nel laboratorio confronti y=ax+b con y=-x+4. Sottraendo la seconda espressione dalla prima ottieni un residuo r(x); una soluzione è un punto in cui il residuo è zero.",
+          "Con a=1 e b=0, l’equazione è x=-x+4, quindi x=2. Entrambe le rette danno y=2. Il residuo r(2)=0 conferma il controllo senza sostituire la dimostrazione algebrica."
+        ],
+        "intermediate": [
+          "La condizione ax+b=-x+4 diventa (a+1)x=4-b. Se a≠-1 esiste una sola soluzione, x=(4-b)/(a+1). Se a=-1, la situazione dipende da b: per b=4 ogni x è soluzione, altrimenti non ve ne sono.",
+          "La variabile x è espressa in 1; Residuo in 1. Il dominio dello strumento è [-5; 5]. La relazione implementata è: r(x) = ax+b - (-x+4).",
+          "Con a=1 e b=0, l’equazione è x=-x+4, quindi x=2. Entrambe le rette danno y=2. Il residuo r(2)=0 conferma il controllo senza sostituire la dimostrazione algebrica."
+        ],
+        "advanced": [
+          "La condizione ax+b=-x+4 diventa (a+1)x=4-b. Se a≠-1 esiste una sola soluzione, x=(4-b)/(a+1). Se a=-1, la situazione dipende da b: per b=4 ogni x è soluzione, altrimenti non ve ne sono.",
+          "Studia la sensibilità della soluzione quando a si avvicina a -1. Piccole variazioni dei dati possono spostare molto l’intersezione: collega il fenomeno al condizionamento numerico.",
+          "Dividere per a+1 senza controllare che non sia zero elimina i casi di rette parallele o coincidenti. Un grafico apparentemente senza intersezione può anche dipendere dalla finestra scelta."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Pendenza a (a): 1 (adimensionale); Intercetta b (b): 0 (adimensionale). Prima di salvare A, prevedi come cambia Residuo fra x=-2,5 e 0 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con a=1 e b=0, l’equazione è x=-x+4, quindi x=2. Entrambe le rette danno y=2. Il residuo r(2)=0 conferma il controllo senza sostituire la dimostrazione algebrica.",
+          "La variabile x è espressa in 1; Residuo in 1. Il dominio dello strumento è [-5; 5]. La relazione implementata è: r(x) = ax+b - (-x+4)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Pendenza a (a): 1 (adimensionale); Intercetta b (b): 0 (adimensionale). Prima di salvare A, prevedi come cambia Residuo fra x=-2,5 e 0 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile x è espressa in 1; Residuo in 1. Il dominio dello strumento è [-5; 5]. La relazione implementata è: r(x) = ax+b - (-x+4).",
+          "La condizione ax+b=-x+4 diventa (a+1)x=4-b. Se a≠-1 esiste una sola soluzione, x=(4-b)/(a+1). Se a=-1, la situazione dipende da b: per b=4 ogni x è soluzione, altrimenti non ve ne sono."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Pendenza a (a): 1 (adimensionale); Intercetta b (b): 0 (adimensionale). Prima di salvare A, prevedi come cambia Residuo fra x=-2,5 e 0 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Studia la sensibilità della soluzione quando a si avvicina a -1. Piccole variazioni dei dati possono spostare molto l’intersezione: collega il fenomeno al condizionamento numerico.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Dividere per a+1 senza controllare che non sia zero elimina i casi di rette parallele o coincidenti. Un grafico apparentemente senza intersezione può anche dipendere dalla finestra scelta.",
+          "Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Dividere per a+1 senza controllare che non sia zero elimina i casi di rette parallele o coincidenti. Un grafico apparentemente senza intersezione può anche dipendere dalla finestra scelta.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi.",
+          "Studia la sensibilità della soluzione quando a si avvicina a -1. Piccole variazioni dei dati possono spostare molto l’intersezione: collega il fenomeno al condizionamento numerico.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Un’equazione chiede per quali valori due espressioni coincidono. Nel laboratorio confronti y=ax+b con y=-x+4. Sottraendo la seconda espressione dalla prima ottieni un residuo r(x); una soluzione è un punto in cui il residuo è zero.",
+          "Con a=1 e b=0, l’equazione è x=-x+4, quindi x=2. Entrambe le rette danno y=2. Il residuo r(2)=0 conferma il controllo senza sostituire la dimostrazione algebrica."
+        ],
+        "intermediate": [
+          "La condizione ax+b=-x+4 diventa (a+1)x=4-b. Se a≠-1 esiste una sola soluzione, x=(4-b)/(a+1). Se a=-1, la situazione dipende da b: per b=4 ogni x è soluzione, altrimenti non ve ne sono.",
+          "La variabile x è espressa in 1; Residuo in 1. Il dominio dello strumento è [-5; 5]. La relazione implementata è: r(x) = ax+b - (-x+4)."
+        ],
+        "advanced": [
+          "Studia la sensibilità della soluzione quando a si avvicina a -1. Piccole variazioni dei dati possono spostare molto l’intersezione: collega il fenomeno al condizionamento numerico.",
+          "Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Due relazioni lineari esatte.",
+          "Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi.",
+          "Collegamento consigliato: math-p02. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "La condizione ax+b=-x+4 diventa (a+1)x=4-b. Se a≠-1 esiste una sola soluzione, x=(4-b)/(a+1). Se a=-1, la situazione dipende da b: per b=4 ogni x è soluzione, altrimenti non ve ne sono.",
+          "Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi.",
+          "Studia la sensibilità della soluzione quando a si avvicina a -1. Piccole variazioni dei dati possono spostare molto l’intersezione: collega il fenomeno al condizionamento numerico."
+        ],
+        "advanced": [
+          "Studia la sensibilità della soluzione quando a si avvicina a -1. Piccole variazioni dei dati possono spostare molto l’intersezione: collega il fenomeno al condizionamento numerico.",
+          "Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "math-c04-concept",
+      "prompt": "Se a=-1 e b=4, quante soluzioni ha il sistema?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Infinite: le rette coincidono",
+          "feedback": "Un’equazione chiede per quali valori due espressioni coincidono. Nel laboratorio confronti y=ax+b con y=-x+4. Sottraendo la seconda espressione dalla prima ottieni un residuo r(x); una soluzione è un punto in cui il residuo è zero."
+        },
+        {
+          "id": "B",
+          "text": "Nessuna",
+          "feedback": "Dividere per a+1 senza controllare che non sia zero elimina i casi di rette parallele o coincidenti. Un grafico apparentemente senza intersezione può anche dipendere dalla finestra scelta."
+        },
+        {
+          "id": "C",
+          "text": "Esattamente una",
+          "feedback": "La condizione ax+b=-x+4 diventa (a+1)x=4-b. Se a≠-1 esiste una sola soluzione, x=(4-b)/(a+1). Se a=-1, la situazione dipende da b: per b=4 ogni x è soluzione, altrimenti non ve ne sono."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-c04-calculation",
+      "prompt": "Calcolo: Pendenza a (a)=1 (adimensionale); Intercetta b (b)=0 (adimensionale). Per x=2 (adimensionale), quanto vale Residuo?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1,00000e-8 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. r(x) = ax+b - (-x+4). Con Pendenza a (a)=1 (adimensionale); Intercetta b (b)=0 (adimensionale) e x=2 (adimensionale), il risultato è 0 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "-1,00000e-8 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. r(x) = ax+b - (-x+4). Con Pendenza a (a)=1 (adimensionale); Intercetta b (b)=0 (adimensionale) e x=2 (adimensionale), il risultato è 0 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "0 (adimensionale)",
+          "feedback": "r(x) = ax+b - (-x+4). Con Pendenza a (a)=1 (adimensionale); Intercetta b (b)=0 (adimensionale) e x=2 (adimensionale), il risultato è 0 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 2,
+        "parameters": {
+          "a": 1,
+          "b": 0
+        },
+        "expected": 0,
+        "unit": "1"
+      }
+    },
+    {
+      "id": "math-c04-transfer",
+      "prompt": "Trasferimento: Pendenza a (a)=1,5 (adimensionale); Intercetta b (b)=0 (adimensionale). Per x=2 (adimensionale), quanto vale Residuo?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. r(x) = ax+b - (-x+4). Con Pendenza a (a)=1,5 (adimensionale); Intercetta b (b)=0 (adimensionale) e x=2 (adimensionale), il risultato è 1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "1 (adimensionale)",
+          "feedback": "r(x) = ax+b - (-x+4). Con Pendenza a (a)=1,5 (adimensionale); Intercetta b (b)=0 (adimensionale) e x=2 (adimensionale), il risultato è 1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "2 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. r(x) = ax+b - (-x+4). Con Pendenza a (a)=1,5 (adimensionale); Intercetta b (b)=0 (adimensionale) e x=2 (adimensionale), il risultato è 1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 2,
+        "parameters": {
+          "a": 1.5,
+          "b": 0
+        },
+        "expected": 1,
+        "unit": "1"
+      }
+    },
+    {
+      "id": "math-c04-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi."
+        },
+        {
+          "id": "B",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi."
+        },
+        {
+          "id": "C",
+          "text": "Due relazioni lineari esatte",
+          "feedback": "Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi."
+        }
+      ],
+      "correct": "C"
+    }
+  ]
+}

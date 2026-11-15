@@ -1,0 +1,288 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "math-p01",
+  "title": "Ragionamento, conteggio e infinito",
+  "sector": 0,
+  "modelId": "math-p01",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Somme geometriche con ragione dichiarata",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: somme geometriche con ragione dichiarata.",
+    "Applicare S_n = a(1-b^(n+1))/(1-b), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "math-c01",
+    "math-c10"
+  ],
+  "connections": [
+    "math-p07"
+  ],
+  "sources": [
+    "precalculus",
+    "calculus"
+  ],
+  "originalSource": {
+    "id": "math-2026",
+    "file": "materials/matematica-di-base.pdf",
+    "printedPages": [
+      403,
+      420
+    ],
+    "pdfPages": [
+      415,
+      432
+    ]
+  },
+  "glossary": [
+    {
+      "term": "Indice n",
+      "definition": "Variabile indipendente, unità 1; intervallo [0; 20]."
+    },
+    {
+      "term": "Somma parziale",
+      "definition": "Risultato calcolato dal modello, unità 1."
+    },
+    {
+      "term": "Primo termine",
+      "definition": "Parametro a, unità 1; intervallo [1; 4]."
+    },
+    {
+      "term": "Ragione",
+      "definition": "Parametro b, unità 1; intervallo [0; 1]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Un archivio riceve pacchetti di dati sempre più piccoli. Il numero di pacchetti può crescere senza limite, ma la memoria totale deve necessariamente farlo? La risposta richiede distinguere termini e somme.",
+          "Una progressione geometrica moltiplica ogni termine per una ragione b. La somma dei primi n+1 termini, a+ab+...+ab^n, è una quantità finita. Quando |b|<1 le somme parziali possono tendere a un limite finito anche se i termini sono infiniti."
+        ],
+        "intermediate": [
+          "Un archivio riceve pacchetti di dati sempre più piccoli. Il numero di pacchetti può crescere senza limite, ma la memoria totale deve necessariamente farlo? La risposta richiede distinguere termini e somme.",
+          "Moltiplicando S_n per b e sottraendo ottieni (1-b)S_n=a(1-b^(n+1)). Se b≠1 puoi dividere per 1-b. Per b=1 devi trattare il caso separatamente: tutti i termini valgono a e S_n=a(n+1)."
+        ],
+        "advanced": [
+          "Un archivio riceve pacchetti di dati sempre più piccoli. Il numero di pacchetti può crescere senza limite, ma la memoria totale deve necessariamente farlo? La risposta richiede distinguere termini e somme.",
+          "Calcola il resto della serie geometrica per b<1. Trova quanti termini servono perché la memoria ancora da ricevere sia inferiore a una soglia prefissata.",
+          "Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Una progressione geometrica moltiplica ogni termine per una ragione b. La somma dei primi n+1 termini, a+ab+...+ab^n, è una quantità finita. Quando |b|<1 le somme parziali possono tendere a un limite finito anche se i termini sono infiniti.",
+          "Con a=1 e b=0,5, S_2=1+0,5+0,25=1,75. Il limite della serie è 2, ma nessuna di queste somme parziali lo raggiunge esattamente."
+        ],
+        "intermediate": [
+          "Moltiplicando S_n per b e sottraendo ottieni (1-b)S_n=a(1-b^(n+1)). Se b≠1 puoi dividere per 1-b. Per b=1 devi trattare il caso separatamente: tutti i termini valgono a e S_n=a(n+1).",
+          "La variabile Indice n è espressa in 1; Somma parziale in 1. Il dominio dello strumento è [0; 20], con soli valori interi. La relazione implementata è: S_n = a(1-b^(n+1))/(1-b).",
+          "Con a=1 e b=0,5, S_2=1+0,5+0,25=1,75. Il limite della serie è 2, ma nessuna di queste somme parziali lo raggiunge esattamente."
+        ],
+        "advanced": [
+          "Moltiplicando S_n per b e sottraendo ottieni (1-b)S_n=a(1-b^(n+1)). Se b≠1 puoi dividere per 1-b. Per b=1 devi trattare il caso separatamente: tutti i termini valgono a e S_n=a(n+1).",
+          "Calcola il resto della serie geometrica per b<1. Trova quanti termini servono perché la memoria ancora da ricevere sia inferiore a una soglia prefissata.",
+          "Il fatto che i termini tendano a zero è necessario ma non sufficiente per la convergenza di una serie. Il laboratorio geometrico non dimostra la convergenza di qualsiasi successione di pacchetti."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Primo termine (a): 1 (adimensionale); Ragione (b): 0,5 (adimensionale). Prima di salvare A, prevedi come cambia Somma parziale fra Indice n=5 e 10 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con a=1 e b=0,5, S_2=1+0,5+0,25=1,75. Il limite della serie è 2, ma nessuna di queste somme parziali lo raggiunge esattamente.",
+          "La variabile Indice n è espressa in 1; Somma parziale in 1. Il dominio dello strumento è [0; 20], con soli valori interi. La relazione implementata è: S_n = a(1-b^(n+1))/(1-b)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Primo termine (a): 1 (adimensionale); Ragione (b): 0,5 (adimensionale). Prima di salvare A, prevedi come cambia Somma parziale fra Indice n=5 e 10 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Indice n è espressa in 1; Somma parziale in 1. Il dominio dello strumento è [0; 20], con soli valori interi. La relazione implementata è: S_n = a(1-b^(n+1))/(1-b).",
+          "Moltiplicando S_n per b e sottraendo ottieni (1-b)S_n=a(1-b^(n+1)). Se b≠1 puoi dividere per 1-b. Per b=1 devi trattare il caso separatamente: tutti i termini valgono a e S_n=a(n+1)."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Primo termine (a): 1 (adimensionale); Ragione (b): 0,5 (adimensionale). Prima di salvare A, prevedi come cambia Somma parziale fra Indice n=5 e 10 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Calcola il resto della serie geometrica per b<1. Trova quanti termini servono perché la memoria ancora da ricevere sia inferiore a una soglia prefissata.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Il fatto che i termini tendano a zero è necessario ma non sufficiente per la convergenza di una serie. Il laboratorio geometrico non dimostra la convergenza di qualsiasi successione di pacchetti.",
+          "Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Il fatto che i termini tendano a zero è necessario ma non sufficiente per la convergenza di una serie. Il laboratorio geometrico non dimostra la convergenza di qualsiasi successione di pacchetti.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+        ],
+        "advanced": [
+          "Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo.",
+          "Calcola il resto della serie geometrica per b<1. Trova quanti termini servono perché la memoria ancora da ricevere sia inferiore a una soglia prefissata.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Una progressione geometrica moltiplica ogni termine per una ragione b. La somma dei primi n+1 termini, a+ab+...+ab^n, è una quantità finita. Quando |b|<1 le somme parziali possono tendere a un limite finito anche se i termini sono infiniti.",
+          "Con a=1 e b=0,5, S_2=1+0,5+0,25=1,75. Il limite della serie è 2, ma nessuna di queste somme parziali lo raggiunge esattamente."
+        ],
+        "intermediate": [
+          "Moltiplicando S_n per b e sottraendo ottieni (1-b)S_n=a(1-b^(n+1)). Se b≠1 puoi dividere per 1-b. Per b=1 devi trattare il caso separatamente: tutti i termini valgono a e S_n=a(n+1).",
+          "La variabile Indice n è espressa in 1; Somma parziale in 1. Il dominio dello strumento è [0; 20], con soli valori interi. La relazione implementata è: S_n = a(1-b^(n+1))/(1-b)."
+        ],
+        "advanced": [
+          "Calcola il resto della serie geometrica per b<1. Trova quanti termini servono perché la memoria ancora da ricevere sia inferiore a una soglia prefissata.",
+          "Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Somme geometriche con ragione dichiarata.",
+          "Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo.",
+          "Collegamento consigliato: math-p07. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Moltiplicando S_n per b e sottraendo ottieni (1-b)S_n=a(1-b^(n+1)). Se b≠1 puoi dividere per 1-b. Per b=1 devi trattare il caso separatamente: tutti i termini valgono a e S_n=a(n+1).",
+          "Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo.",
+          "Calcola il resto della serie geometrica per b<1. Trova quanti termini servono perché la memoria ancora da ricevere sia inferiore a una soglia prefissata."
+        ],
+        "advanced": [
+          "Calcola il resto della serie geometrica per b<1. Trova quanti termini servono perché la memoria ancora da ricevere sia inferiore a una soglia prefissata.",
+          "Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "math-p01-concept",
+      "prompt": "Per una serie geometrica con 0≤b<1 e primo termine a:",
+      "options": [
+        {
+          "id": "A",
+          "text": "La somma è sempre infinita",
+          "feedback": "Il fatto che i termini tendano a zero è necessario ma non sufficiente per la convergenza di una serie. Il laboratorio geometrico non dimostra la convergenza di qualsiasi successione di pacchetti."
+        },
+        {
+          "id": "B",
+          "text": "La somma infinita è ab",
+          "feedback": "Moltiplicando S_n per b e sottraendo ottieni (1-b)S_n=a(1-b^(n+1)). Se b≠1 puoi dividere per 1-b. Per b=1 devi trattare il caso separatamente: tutti i termini valgono a e S_n=a(n+1)."
+        },
+        {
+          "id": "C",
+          "text": "La somma infinita è a/(1-b)",
+          "feedback": "Una progressione geometrica moltiplica ogni termine per una ragione b. La somma dei primi n+1 termini, a+ab+...+ab^n, è una quantità finita. Quando |b|<1 le somme parziali possono tendere a un limite finito anche se i termini sono infiniti."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "math-p01-calculation",
+      "prompt": "Calcolo: Primo termine (a)=1 (adimensionale); Ragione (b)=0,5 (adimensionale). Per Indice n=2 (adimensionale), quanto vale Somma parziale?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0,75 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. S_n = a(1-b^(n+1))/(1-b). Con Primo termine (a)=1 (adimensionale); Ragione (b)=0,5 (adimensionale) e Indice n=2 (adimensionale), il risultato è 1,75 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "1,75 (adimensionale)",
+          "feedback": "S_n = a(1-b^(n+1))/(1-b). Con Primo termine (a)=1 (adimensionale); Ragione (b)=0,5 (adimensionale) e Indice n=2 (adimensionale), il risultato è 1,75 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "2,75 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. S_n = a(1-b^(n+1))/(1-b). Con Primo termine (a)=1 (adimensionale); Ragione (b)=0,5 (adimensionale) e Indice n=2 (adimensionale), il risultato è 1,75 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 2,
+        "parameters": {
+          "a": 1,
+          "b": 0.5
+        },
+        "expected": 1.75,
+        "unit": "1"
+      }
+    },
+    {
+      "id": "math-p01-transfer",
+      "prompt": "Trasferimento: Primo termine (a)=2 (adimensionale); Ragione (b)=0,5 (adimensionale). Per Indice n=2 (adimensionale), quanto vale Somma parziale?",
+      "options": [
+        {
+          "id": "A",
+          "text": "3,5 (adimensionale)",
+          "feedback": "S_n = a(1-b^(n+1))/(1-b). Con Primo termine (a)=2 (adimensionale); Ragione (b)=0,5 (adimensionale) e Indice n=2 (adimensionale), il risultato è 3,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "5,25 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. S_n = a(1-b^(n+1))/(1-b). Con Primo termine (a)=2 (adimensionale); Ragione (b)=0,5 (adimensionale) e Indice n=2 (adimensionale), il risultato è 3,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "1,75 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. S_n = a(1-b^(n+1))/(1-b). Con Primo termine (a)=2 (adimensionale); Ragione (b)=0,5 (adimensionale) e Indice n=2 (adimensionale), il risultato è 3,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 2,
+        "parameters": {
+          "a": 2,
+          "b": 0.5
+        },
+        "expected": 3.5,
+        "unit": "1"
+      }
+    },
+    {
+      "id": "math-p01-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo."
+        },
+        {
+          "id": "B",
+          "text": "Somme geometriche con ragione dichiarata",
+          "feedback": "Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo."
+        },
+        {
+          "id": "C",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo."
+        }
+      ],
+      "correct": "B"
+    }
+  ]
+}

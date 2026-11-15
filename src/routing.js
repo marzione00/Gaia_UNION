@@ -5,11 +5,12 @@ export function resolveRoute(hash, modules, lessonIds) {
     const parts = path.split('/');
     const q = new URLSearchParams(query);
     const aliases = { study: 'theory', planet: 'orbit', archive: 'catalogue', notebook: 'journal' };
-    const allowed = ['galaxy', 'system', 'orbit', 'surface', 'research', 'catalogue', 'briefing', 'theory', 'pdf', 'lab', 'quiz', 'journal', 'sources'];
+    const allowed = ['galaxy', 'system', 'orbit', 'surface', 'research', 'catalogue', 'briefing', 'theory', 'pdf', 'lab', 'quiz', 'journal', 'sources', 'mission', 'pilot', 'paths'];
     const name = aliases[parts[0]] || parts[0];
     let scene = allowed.includes(name) ? name : 'galaxy';
     const moduleId = q.get('unit') || (['study', 'planet', 'briefing'].includes(parts[0]) ? parts[1] : null);
     let selected = Math.max(0, modules.findIndex(m => m.id === (moduleId || 'math-c08')));
+    if (scene === 'pilot') selected = Math.max(0, modules.findIndex(m => m.id === 'math-c08'));
     const unit = modules[selected];
     let reader = q.get('reader') || (parts[0] === 'study' ? parts[1] : null) || unit.id;
     const labs = ['daisyworld', 'transform', 'rectangle', 'radical', 'linear', 'reserve', 'rational'];
@@ -20,7 +21,8 @@ export function resolveRoute(hash, modules, lessonIds) {
         const n = Number(q.get(key));
         return q.has(key) && Number.isFinite(n) ? Math.max(min, Math.min(max, Math.floor(n))) : fallback;
     };
-    let pdfPage = integer('page', 245, 1, 769);
+    let pdfPage = integer('page', 245, 1, 769), courseStage = null;
+    if (scene === 'quiz' && unit.id !== 'math-c08' && unit.curriculum) { scene = 'mission'; courseStage = 4; }
     if (scene === 'theory' && !lessonIds.includes(reader)) {
         const target = modules.find(m => m.id === reader) || unit;
         if (target.source) {
@@ -28,10 +30,10 @@ export function resolveRoute(hash, modules, lessonIds) {
             pdfPage = target.source.pdfPages[0];
         }
         else
-            scene = 'briefing';
+            { scene = target.curriculum ? 'mission' : 'briefing'; if (scene === 'mission') courseStage = 1; }
         reader = 'math-c08';
     }
     let system=systemForPlanet(selected);
     if(scene==='system' && q.has('system')){system=integer('system',system,0,24);if(systemForPlanet(selected)!==system)selected=system;}
-    return { scene, selected, system, reader, section: integer('section', 0, 0, 100), pdfPage, lab };
+    return { scene, selected, system, reader, section: integer('section', 0, 0, 100), pdfPage, lab, courseStage };
 }

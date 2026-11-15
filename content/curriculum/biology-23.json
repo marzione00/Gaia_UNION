@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "biology-23",
+  "title": "Cicli biogeochimici e serbatoi",
+  "sector": 3,
+  "modelId": "biology-23",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Trasferimento ideale chiuso fra compartimenti",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: trasferimento ideale chiuso fra compartimenti.",
+    "Applicare C(t) = C₀ exp(-kt), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "biology-22"
+  ],
+  "connections": [
+    "chemistry-17"
+  ],
+  "sources": [
+    "biology"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Tempo",
+      "definition": "Variabile indipendente, unità anni modello; intervallo [0; 50]."
+    },
+    {
+      "term": "Carbonio nel serbatoio",
+      "definition": "Risultato calcolato dal modello, unità kg."
+    },
+    {
+      "term": "Carbonio iniziale",
+      "definition": "Parametro a, unità kg; intervallo [20; 200]."
+    },
+    {
+      "term": "Tasso trasferimento",
+      "definition": "Parametro b, unità 1/anno; intervallo [0,02; 0,2]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Il carbonio lascia un serbatoio e passa a un altro. Vedere diminuire la quantità nel primo non basta a concludere che la materia sia scomparsa.",
+          "I cicli biogeochimici seguono trasferimenti di elementi fra compartimenti. Un serbatoio può perdere una quantità proporzionale al contenuto, mentre un altro la riceve."
+        ],
+        "intermediate": [
+          "Il carbonio lascia un serbatoio e passa a un altro. Vedere diminuire la quantità nel primo non basta a concludere che la materia sia scomparsa.",
+          "Il laboratorio usa dC/dt=-kC, quindi C(t)=C₀exp(-kt). Se il materiale viene trasferito a un secondo compartimento chiuso inizialmente vuoto, il suo contenuto è C₀-C(t)."
+        ],
+        "advanced": [
+          "Il carbonio lascia un serbatoio e passa a un altro. Vedere diminuire la quantità nel primo non basta a concludere che la materia sia scomparsa.",
+          "Aggiungi simbolicamente un flusso in ingresso e trova il nuovo equilibrio. Distingui tempo di residenza, tempo di dimezzamento e tempo caratteristico.",
+          "Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "I cicli biogeochimici seguono trasferimenti di elementi fra compartimenti. Un serbatoio può perdere una quantità proporzionale al contenuto, mentre un altro la riceve.",
+          "Con C₀=100 kg e k=0,1 per anno del modello, il serbatoio parte da 100 kg. Il tempo caratteristico è 10 anni del modello, senza attribuirlo a un ecosistema specifico."
+        ],
+        "intermediate": [
+          "Il laboratorio usa dC/dt=-kC, quindi C(t)=C₀exp(-kt). Se il materiale viene trasferito a un secondo compartimento chiuso inizialmente vuoto, il suo contenuto è C₀-C(t).",
+          "La variabile Tempo è espressa in anni modello; Carbonio nel serbatoio in kg. Il dominio dello strumento è [0; 50]. La relazione implementata è: C(t) = C₀ exp(-kt).",
+          "Con C₀=100 kg e k=0,1 per anno del modello, il serbatoio parte da 100 kg. Il tempo caratteristico è 10 anni del modello, senza attribuirlo a un ecosistema specifico."
+        ],
+        "advanced": [
+          "Il laboratorio usa dC/dt=-kC, quindi C(t)=C₀exp(-kt). Se il materiale viene trasferito a un secondo compartimento chiuso inizialmente vuoto, il suo contenuto è C₀-C(t).",
+          "Aggiungi simbolicamente un flusso in ingresso e trova il nuovo equilibrio. Distingui tempo di residenza, tempo di dimezzamento e tempo caratteristico.",
+          "La perdita da un compartimento non è perdita dall’intero sistema. Una costante di trasferimento aggregata può nascondere molti processi e cambiare con l’ambiente."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Carbonio iniziale (a): 100 kg; Tasso trasferimento (b): 0,1 1/anno. Prima di salvare A, prevedi come cambia Carbonio nel serbatoio fra Tempo=12,5 e 25 anni modello. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con C₀=100 kg e k=0,1 per anno del modello, il serbatoio parte da 100 kg. Il tempo caratteristico è 10 anni del modello, senza attribuirlo a un ecosistema specifico.",
+          "La variabile Tempo è espressa in anni modello; Carbonio nel serbatoio in kg. Il dominio dello strumento è [0; 50]. La relazione implementata è: C(t) = C₀ exp(-kt)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Carbonio iniziale (a): 100 kg; Tasso trasferimento (b): 0,1 1/anno. Prima di salvare A, prevedi come cambia Carbonio nel serbatoio fra Tempo=12,5 e 25 anni modello. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Tempo è espressa in anni modello; Carbonio nel serbatoio in kg. Il dominio dello strumento è [0; 50]. La relazione implementata è: C(t) = C₀ exp(-kt).",
+          "Il laboratorio usa dC/dt=-kC, quindi C(t)=C₀exp(-kt). Se il materiale viene trasferito a un secondo compartimento chiuso inizialmente vuoto, il suo contenuto è C₀-C(t)."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Carbonio iniziale (a): 100 kg; Tasso trasferimento (b): 0,1 1/anno. Prima di salvare A, prevedi come cambia Carbonio nel serbatoio fra Tempo=12,5 e 25 anni modello. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Aggiungi simbolicamente un flusso in ingresso e trova il nuovo equilibrio. Distingui tempo di residenza, tempo di dimezzamento e tempo caratteristico.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "La perdita da un compartimento non è perdita dall’intero sistema. Una costante di trasferimento aggregata può nascondere molti processi e cambiare con l’ambiente.",
+          "Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "La perdita da un compartimento non è perdita dall’intero sistema. Una costante di trasferimento aggregata può nascondere molti processi e cambiare con l’ambiente.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata.",
+          "Aggiungi simbolicamente un flusso in ingresso e trova il nuovo equilibrio. Distingui tempo di residenza, tempo di dimezzamento e tempo caratteristico.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "I cicli biogeochimici seguono trasferimenti di elementi fra compartimenti. Un serbatoio può perdere una quantità proporzionale al contenuto, mentre un altro la riceve.",
+          "Con C₀=100 kg e k=0,1 per anno del modello, il serbatoio parte da 100 kg. Il tempo caratteristico è 10 anni del modello, senza attribuirlo a un ecosistema specifico."
+        ],
+        "intermediate": [
+          "Il laboratorio usa dC/dt=-kC, quindi C(t)=C₀exp(-kt). Se il materiale viene trasferito a un secondo compartimento chiuso inizialmente vuoto, il suo contenuto è C₀-C(t).",
+          "La variabile Tempo è espressa in anni modello; Carbonio nel serbatoio in kg. Il dominio dello strumento è [0; 50]. La relazione implementata è: C(t) = C₀ exp(-kt)."
+        ],
+        "advanced": [
+          "Aggiungi simbolicamente un flusso in ingresso e trova il nuovo equilibrio. Distingui tempo di residenza, tempo di dimezzamento e tempo caratteristico.",
+          "Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Trasferimento ideale chiuso fra compartimenti.",
+          "Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata.",
+          "Collegamento consigliato: chemistry-17. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Il laboratorio usa dC/dt=-kC, quindi C(t)=C₀exp(-kt). Se il materiale viene trasferito a un secondo compartimento chiuso inizialmente vuoto, il suo contenuto è C₀-C(t).",
+          "Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata.",
+          "Aggiungi simbolicamente un flusso in ingresso e trova il nuovo equilibrio. Distingui tempo di residenza, tempo di dimezzamento e tempo caratteristico."
+        ],
+        "advanced": [
+          "Aggiungi simbolicamente un flusso in ingresso e trova il nuovo equilibrio. Distingui tempo di residenza, tempo di dimezzamento e tempo caratteristico.",
+          "Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "biology-23-concept",
+      "prompt": "In un trasferimento chiuso fra due serbatoi, la diminuzione del primo:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Distrugge necessariamente gli atomi",
+          "feedback": "La perdita da un compartimento non è perdita dall’intero sistema. Una costante di trasferimento aggregata può nascondere molti processi e cambiare con l’ambiente."
+        },
+        {
+          "id": "B",
+          "text": "Implica energia totale nulla",
+          "feedback": "Il laboratorio usa dC/dt=-kC, quindi C(t)=C₀exp(-kt). Se il materiale viene trasferito a un secondo compartimento chiuso inizialmente vuoto, il suo contenuto è C₀-C(t)."
+        },
+        {
+          "id": "C",
+          "text": "Compare come aumento del secondo",
+          "feedback": "I cicli biogeochimici seguono trasferimenti di elementi fra compartimenti. Un serbatoio può perdere una quantità proporzionale al contenuto, mentre un altro la riceve."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "biology-23-calculation",
+      "prompt": "Calcolo: Carbonio iniziale (a)=100 kg; Tasso trasferimento (b)=0,1 1/anno. Per Tempo=0 anni modello, quanto vale Carbonio nel serbatoio?",
+      "options": [
+        {
+          "id": "A",
+          "text": "50 kg",
+          "feedback": "Controlla sostituzione, segno e unità. C(t) = C₀ exp(-kt). Con Carbonio iniziale (a)=100 kg; Tasso trasferimento (b)=0,1 1/anno e Tempo=0 anni modello, il risultato è 100 kg. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "100 kg",
+          "feedback": "C(t) = C₀ exp(-kt). Con Carbonio iniziale (a)=100 kg; Tasso trasferimento (b)=0,1 1/anno e Tempo=0 anni modello, il risultato è 100 kg. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "150 kg",
+          "feedback": "Questo valore non soddisfa la relazione. C(t) = C₀ exp(-kt). Con Carbonio iniziale (a)=100 kg; Tasso trasferimento (b)=0,1 1/anno e Tempo=0 anni modello, il risultato è 100 kg. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 0,
+        "parameters": {
+          "a": 100,
+          "b": 0.1
+        },
+        "expected": 100,
+        "unit": "kg"
+      }
+    },
+    {
+      "id": "biology-23-transfer",
+      "prompt": "Trasferimento: Carbonio iniziale (a)=120 kg; Tasso trasferimento (b)=0,1 1/anno. Per Tempo=0 anni modello, quanto vale Carbonio nel serbatoio?",
+      "options": [
+        {
+          "id": "A",
+          "text": "120 kg",
+          "feedback": "C(t) = C₀ exp(-kt). Con Carbonio iniziale (a)=120 kg; Tasso trasferimento (b)=0,1 1/anno e Tempo=0 anni modello, il risultato è 120 kg. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "180 kg",
+          "feedback": "Questo valore non soddisfa la relazione. C(t) = C₀ exp(-kt). Con Carbonio iniziale (a)=120 kg; Tasso trasferimento (b)=0,1 1/anno e Tempo=0 anni modello, il risultato è 120 kg. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "60 kg",
+          "feedback": "Controlla sostituzione, segno e unità. C(t) = C₀ exp(-kt). Con Carbonio iniziale (a)=120 kg; Tasso trasferimento (b)=0,1 1/anno e Tempo=0 anni modello, il risultato è 120 kg. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 0,
+        "parameters": {
+          "a": 120,
+          "b": 0.1
+        },
+        "expected": 120,
+        "unit": "kg"
+      }
+    },
+    {
+      "id": "biology-23-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata."
+        },
+        {
+          "id": "B",
+          "text": "Trasferimento ideale chiuso fra compartimenti",
+          "feedback": "Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata."
+        },
+        {
+          "id": "C",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata."
+        }
+      ],
+      "correct": "B"
+    }
+  ]
+}

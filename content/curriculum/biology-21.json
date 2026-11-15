@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "biology-21",
+  "title": "Predazione e risposta funzionale",
+  "sector": 3,
+  "modelId": "biology-21",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Risposta funzionale, non dinamica accoppiata",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: risposta funzionale, non dinamica accoppiata.",
+    "Applicare Consumo = aN/(1+ahN), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "biology-20"
+  ],
+  "connections": [
+    "biology-04"
+  ],
+  "sources": [
+    "biology"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Densità prede N",
+      "definition": "Variabile indipendente, unità prede/area; intervallo [0; 100]."
+    },
+    {
+      "term": "Consumo per predatore",
+      "definition": "Risultato calcolato dal modello, unità prede/u.t.."
+    },
+    {
+      "term": "Ricerca a",
+      "definition": "Parametro a, unità area/u.t.; intervallo [0,05; 0,5]."
+    },
+    {
+      "term": "Manipolazione h",
+      "definition": "Parametro b, unità u.t./preda; intervallo [0,1; 1]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Aumentando la densità di prede, il consumo di un predatore cresce ma raggiunge un limite. Il tempo necessario a gestire ogni preda riduce il tempo disponibile per cercarne altre.",
+          "La risposta funzionale di Holling di tipo II descrive un consumo saturante. Il parametro a rappresenta l’efficienza di ricerca e h il tempo di manipolazione per preda."
+        ],
+        "intermediate": [
+          "Aumentando la densità di prede, il consumo di un predatore cresce ma raggiunge un limite. Il tempo necessario a gestire ogni preda riduce il tempo disponibile per cercarne altre.",
+          "La relazione è C(N)=aN/(1+ahN). A bassa densità è quasi aN; ad alta densità tende a 1/h. Il limite nasce dal tempo di manipolazione, non dall’assenza di prede."
+        ],
+        "advanced": [
+          "Aumentando la densità di prede, il consumo di un predatore cresce ma raggiunge un limite. Il tempo necessario a gestire ogni preda riduce il tempo disponibile per cercarne altre.",
+          "Confronta l’effetto di cambiare a con quello di cambiare h. Il primo influenza soprattutto l’inizio della curva, il secondo ne determina anche il limite.",
+          "Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "La risposta funzionale di Holling di tipo II descrive un consumo saturante. Il parametro a rappresenta l’efficienza di ricerca e h il tempo di manipolazione per preda.",
+          "Con a=0,1 e h=0,5, a N=20 il consumo è 2/(1+1)=1 preda per unità di tempo. Il limite superiore è 2."
+        ],
+        "intermediate": [
+          "La relazione è C(N)=aN/(1+ahN). A bassa densità è quasi aN; ad alta densità tende a 1/h. Il limite nasce dal tempo di manipolazione, non dall’assenza di prede.",
+          "La variabile Densità prede N è espressa in prede/area; Consumo per predatore in prede/u.t.. Il dominio dello strumento è [0; 100]. La relazione implementata è: Consumo = aN/(1+ahN).",
+          "Con a=0,1 e h=0,5, a N=20 il consumo è 2/(1+1)=1 preda per unità di tempo. Il limite superiore è 2."
+        ],
+        "advanced": [
+          "La relazione è C(N)=aN/(1+ahN). A bassa densità è quasi aN; ad alta densità tende a 1/h. Il limite nasce dal tempo di manipolazione, non dall’assenza di prede.",
+          "Confronta l’effetto di cambiare a con quello di cambiare h. Il primo influenza soprattutto l’inizio della curva, il secondo ne determina anche il limite.",
+          "Una risposta funzionale non è l’intera dinamica predatore-preda. Non descrive da sola riproduzione, mortalità o cambiamenti della densità delle due popolazioni."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Ricerca a (a): 0,1 area/u.t.; Manipolazione h (b): 0,5 u.t./preda. Prima di salvare A, prevedi come cambia Consumo per predatore fra Densità prede N=25 e 50 prede/area. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con a=0,1 e h=0,5, a N=20 il consumo è 2/(1+1)=1 preda per unità di tempo. Il limite superiore è 2.",
+          "La variabile Densità prede N è espressa in prede/area; Consumo per predatore in prede/u.t.. Il dominio dello strumento è [0; 100]. La relazione implementata è: Consumo = aN/(1+ahN)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Ricerca a (a): 0,1 area/u.t.; Manipolazione h (b): 0,5 u.t./preda. Prima di salvare A, prevedi come cambia Consumo per predatore fra Densità prede N=25 e 50 prede/area. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Densità prede N è espressa in prede/area; Consumo per predatore in prede/u.t.. Il dominio dello strumento è [0; 100]. La relazione implementata è: Consumo = aN/(1+ahN).",
+          "La relazione è C(N)=aN/(1+ahN). A bassa densità è quasi aN; ad alta densità tende a 1/h. Il limite nasce dal tempo di manipolazione, non dall’assenza di prede."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Ricerca a (a): 0,1 area/u.t.; Manipolazione h (b): 0,5 u.t./preda. Prima di salvare A, prevedi come cambia Consumo per predatore fra Densità prede N=25 e 50 prede/area. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Confronta l’effetto di cambiare a con quello di cambiare h. Il primo influenza soprattutto l’inizio della curva, il secondo ne determina anche il limite.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Una risposta funzionale non è l’intera dinamica predatore-preda. Non descrive da sola riproduzione, mortalità o cambiamenti della densità delle due popolazioni.",
+          "Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Una risposta funzionale non è l’intera dinamica predatore-preda. Non descrive da sola riproduzione, mortalità o cambiamenti della densità delle due popolazioni.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata.",
+          "Confronta l’effetto di cambiare a con quello di cambiare h. Il primo influenza soprattutto l’inizio della curva, il secondo ne determina anche il limite.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "La risposta funzionale di Holling di tipo II descrive un consumo saturante. Il parametro a rappresenta l’efficienza di ricerca e h il tempo di manipolazione per preda.",
+          "Con a=0,1 e h=0,5, a N=20 il consumo è 2/(1+1)=1 preda per unità di tempo. Il limite superiore è 2."
+        ],
+        "intermediate": [
+          "La relazione è C(N)=aN/(1+ahN). A bassa densità è quasi aN; ad alta densità tende a 1/h. Il limite nasce dal tempo di manipolazione, non dall’assenza di prede.",
+          "La variabile Densità prede N è espressa in prede/area; Consumo per predatore in prede/u.t.. Il dominio dello strumento è [0; 100]. La relazione implementata è: Consumo = aN/(1+ahN)."
+        ],
+        "advanced": [
+          "Confronta l’effetto di cambiare a con quello di cambiare h. Il primo influenza soprattutto l’inizio della curva, il secondo ne determina anche il limite.",
+          "Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Risposta funzionale, non dinamica accoppiata.",
+          "Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata.",
+          "Collegamento consigliato: biology-04. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "La relazione è C(N)=aN/(1+ahN). A bassa densità è quasi aN; ad alta densità tende a 1/h. Il limite nasce dal tempo di manipolazione, non dall’assenza di prede.",
+          "Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata.",
+          "Confronta l’effetto di cambiare a con quello di cambiare h. Il primo influenza soprattutto l’inizio della curva, il secondo ne determina anche il limite."
+        ],
+        "advanced": [
+          "Confronta l’effetto di cambiare a con quello di cambiare h. Il primo influenza soprattutto l’inizio della curva, il secondo ne determina anche il limite.",
+          "Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "biology-21-concept",
+      "prompt": "Ad alta densità, il consumo tende a:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Infinito senza limite",
+          "feedback": "La relazione è C(N)=aN/(1+ahN). A bassa densità è quasi aN; ad alta densità tende a 1/h. Il limite nasce dal tempo di manipolazione, non dall’assenza di prede."
+        },
+        {
+          "id": "B",
+          "text": "1/h",
+          "feedback": "La risposta funzionale di Holling di tipo II descrive un consumo saturante. Il parametro a rappresenta l’efficienza di ricerca e h il tempo di manipolazione per preda."
+        },
+        {
+          "id": "C",
+          "text": "h",
+          "feedback": "Una risposta funzionale non è l’intera dinamica predatore-preda. Non descrive da sola riproduzione, mortalità o cambiamenti della densità delle due popolazioni."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-21-calculation",
+      "prompt": "Calcolo: Ricerca a (a)=0,1 area/u.t.; Manipolazione h (b)=0,5 u.t./preda. Per Densità prede N=20 prede/area, quanto vale Consumo per predatore?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1 prede/u.t.",
+          "feedback": "Consumo = aN/(1+ahN). Con Ricerca a (a)=0,1 area/u.t.; Manipolazione h (b)=0,5 u.t./preda e Densità prede N=20 prede/area, il risultato è 1 prede/u.t.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "2 prede/u.t.",
+          "feedback": "Questo valore non soddisfa la relazione. Consumo = aN/(1+ahN). Con Ricerca a (a)=0,1 area/u.t.; Manipolazione h (b)=0,5 u.t./preda e Densità prede N=20 prede/area, il risultato è 1 prede/u.t.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "0 prede/u.t.",
+          "feedback": "Controlla sostituzione, segno e unità. Consumo = aN/(1+ahN). Con Ricerca a (a)=0,1 area/u.t.; Manipolazione h (b)=0,5 u.t./preda e Densità prede N=20 prede/area, il risultato è 1 prede/u.t.. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 20,
+        "parameters": {
+          "a": 0.1,
+          "b": 0.5
+        },
+        "expected": 1,
+        "unit": "prede/u.t."
+      }
+    },
+    {
+      "id": "biology-21-transfer",
+      "prompt": "Trasferimento: Ricerca a (a)=0,15 area/u.t.; Manipolazione h (b)=0,5 u.t./preda. Per Densità prede N=20 prede/area, quanto vale Consumo per predatore?",
+      "options": [
+        {
+          "id": "A",
+          "text": "2,2 prede/u.t.",
+          "feedback": "Questo valore non soddisfa la relazione. Consumo = aN/(1+ahN). Con Ricerca a (a)=0,15 area/u.t.; Manipolazione h (b)=0,5 u.t./preda e Densità prede N=20 prede/area, il risultato è 1,2 prede/u.t.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "0,2 prede/u.t.",
+          "feedback": "Controlla sostituzione, segno e unità. Consumo = aN/(1+ahN). Con Ricerca a (a)=0,15 area/u.t.; Manipolazione h (b)=0,5 u.t./preda e Densità prede N=20 prede/area, il risultato è 1,2 prede/u.t.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "1,2 prede/u.t.",
+          "feedback": "Consumo = aN/(1+ahN). Con Ricerca a (a)=0,15 area/u.t.; Manipolazione h (b)=0,5 u.t./preda e Densità prede N=20 prede/area, il risultato è 1,2 prede/u.t.. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 20,
+        "parameters": {
+          "a": 0.15,
+          "b": 0.5
+        },
+        "expected": 1.2,
+        "unit": "prede/u.t."
+      }
+    },
+    {
+      "id": "biology-21-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Risposta funzionale, non dinamica accoppiata",
+          "feedback": "Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
+}

@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "chemistry-02",
+  "title": "Atomi, isotopi e massa media",
+  "sector": 2,
+  "modelId": "chemistry-02",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Miscela ipotetica di due isotopi",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: miscela ipotetica di due isotopi.",
+    "Applicare m_media = x m₁+(1-x)m₂, dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "chemistry-01"
+  ],
+  "connections": [
+    "math-c04"
+  ],
+  "sources": [
+    "chemistry",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Frazione isotopo 1",
+      "definition": "Variabile indipendente, unità 1; intervallo [0; 1]."
+    },
+    {
+      "term": "Massa media",
+      "definition": "Risultato calcolato dal modello, unità u."
+    },
+    {
+      "term": "Massa isotopo 1",
+      "definition": "Parametro a, unità u; intervallo [8; 12]."
+    },
+    {
+      "term": "Massa isotopo 2",
+      "definition": "Parametro b, unità u; intervallo [13; 16]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Un archivio riporta una massa atomica non intera. Non è un errore nel conteggio dei nucleoni: il campione contiene isotopi in proporzioni diverse.",
+          "Isotopi dello stesso elemento hanno lo stesso numero di protoni e un numero diverso di neutroni. La massa media di un campione è una media pesata delle masse isotopiche, con pesi pari alle frazioni di abbondanza."
+        ],
+        "intermediate": [
+          "Un archivio riporta una massa atomica non intera. Non è un errore nel conteggio dei nucleoni: il campione contiene isotopi in proporzioni diverse.",
+          "Per due isotopi con masse m₁ e m₂ e frazione x del primo, m_media=xm₁+(1-x)m₂. I pesi sono non negativi e sommano a uno, quindi la media sta fra le due masse."
+        ],
+        "advanced": [
+          "Un archivio riporta una massa atomica non intera. Non è un errore nel conteggio dei nucleoni: il campione contiene isotopi in proporzioni diverse.",
+          "Ricava l’abbondanza x conoscendo media e due masse. Controlla che il risultato sia nell’intervallo [0,1] prima di accettare l’interpretazione.",
+          "Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Isotopi dello stesso elemento hanno lo stesso numero di protoni e un numero diverso di neutroni. La massa media di un campione è una media pesata delle masse isotopiche, con pesi pari alle frazioni di abbondanza.",
+          "Per isotopi didattici di 10 u e 14 u, con x=0,25, la media è 0,25×10+0,75×14=13 u. Queste masse non identificano automaticamente un elemento reale."
+        ],
+        "intermediate": [
+          "Per due isotopi con masse m₁ e m₂ e frazione x del primo, m_media=xm₁+(1-x)m₂. I pesi sono non negativi e sommano a uno, quindi la media sta fra le due masse.",
+          "La variabile Frazione isotopo 1 è espressa in 1; Massa media in u. Il dominio dello strumento è [0; 1]. La relazione implementata è: m_media = x m₁+(1-x)m₂.",
+          "Per isotopi didattici di 10 u e 14 u, con x=0,25, la media è 0,25×10+0,75×14=13 u. Queste masse non identificano automaticamente un elemento reale."
+        ],
+        "advanced": [
+          "Per due isotopi con masse m₁ e m₂ e frazione x del primo, m_media=xm₁+(1-x)m₂. I pesi sono non negativi e sommano a uno, quindi la media sta fra le due masse.",
+          "Ricava l’abbondanza x conoscendo media e due masse. Controlla che il risultato sia nell’intervallo [0,1] prima di accettare l’interpretazione.",
+          "La massa atomica media non è necessariamente la massa di un singolo atomo del campione. Cambiare isotopo non cambia il numero atomico; cambiare il numero di protoni cambia elemento."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Massa isotopo 1 (a): 10 u; Massa isotopo 2 (b): 14 u. Prima di salvare A, prevedi come cambia Massa media fra Frazione isotopo 1=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Per isotopi didattici di 10 u e 14 u, con x=0,25, la media è 0,25×10+0,75×14=13 u. Queste masse non identificano automaticamente un elemento reale.",
+          "La variabile Frazione isotopo 1 è espressa in 1; Massa media in u. Il dominio dello strumento è [0; 1]. La relazione implementata è: m_media = x m₁+(1-x)m₂."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Massa isotopo 1 (a): 10 u; Massa isotopo 2 (b): 14 u. Prima di salvare A, prevedi come cambia Massa media fra Frazione isotopo 1=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Frazione isotopo 1 è espressa in 1; Massa media in u. Il dominio dello strumento è [0; 1]. La relazione implementata è: m_media = x m₁+(1-x)m₂.",
+          "Per due isotopi con masse m₁ e m₂ e frazione x del primo, m_media=xm₁+(1-x)m₂. I pesi sono non negativi e sommano a uno, quindi la media sta fra le due masse."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Massa isotopo 1 (a): 10 u; Massa isotopo 2 (b): 14 u. Prima di salvare A, prevedi come cambia Massa media fra Frazione isotopo 1=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Ricava l’abbondanza x conoscendo media e due masse. Controlla che il risultato sia nell’intervallo [0,1] prima di accettare l’interpretazione.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "La massa atomica media non è necessariamente la massa di un singolo atomo del campione. Cambiare isotopo non cambia il numero atomico; cambiare il numero di protoni cambia elemento.",
+          "Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "La massa atomica media non è necessariamente la massa di un singolo atomo del campione. Cambiare isotopo non cambia il numero atomico; cambiare il numero di protoni cambia elemento.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche.",
+          "Ricava l’abbondanza x conoscendo media e due masse. Controlla che il risultato sia nell’intervallo [0,1] prima di accettare l’interpretazione.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Isotopi dello stesso elemento hanno lo stesso numero di protoni e un numero diverso di neutroni. La massa media di un campione è una media pesata delle masse isotopiche, con pesi pari alle frazioni di abbondanza.",
+          "Per isotopi didattici di 10 u e 14 u, con x=0,25, la media è 0,25×10+0,75×14=13 u. Queste masse non identificano automaticamente un elemento reale."
+        ],
+        "intermediate": [
+          "Per due isotopi con masse m₁ e m₂ e frazione x del primo, m_media=xm₁+(1-x)m₂. I pesi sono non negativi e sommano a uno, quindi la media sta fra le due masse.",
+          "La variabile Frazione isotopo 1 è espressa in 1; Massa media in u. Il dominio dello strumento è [0; 1]. La relazione implementata è: m_media = x m₁+(1-x)m₂."
+        ],
+        "advanced": [
+          "Ricava l’abbondanza x conoscendo media e due masse. Controlla che il risultato sia nell’intervallo [0,1] prima di accettare l’interpretazione.",
+          "Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Miscela ipotetica di due isotopi.",
+          "Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche.",
+          "Collegamento consigliato: math-c04. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Per due isotopi con masse m₁ e m₂ e frazione x del primo, m_media=xm₁+(1-x)m₂. I pesi sono non negativi e sommano a uno, quindi la media sta fra le due masse.",
+          "Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche.",
+          "Ricava l’abbondanza x conoscendo media e due masse. Controlla che il risultato sia nell’intervallo [0,1] prima di accettare l’interpretazione."
+        ],
+        "advanced": [
+          "Ricava l’abbondanza x conoscendo media e due masse. Controlla che il risultato sia nell’intervallo [0,1] prima di accettare l’interpretazione.",
+          "Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "chemistry-02-concept",
+      "prompt": "Due isotopi dello stesso elemento hanno:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Lo stesso numero di protoni",
+          "feedback": "Isotopi dello stesso elemento hanno lo stesso numero di protoni e un numero diverso di neutroni. La massa media di un campione è una media pesata delle masse isotopiche, con pesi pari alle frazioni di abbondanza."
+        },
+        {
+          "id": "B",
+          "text": "Sempre lo stesso numero di neutroni",
+          "feedback": "La massa atomica media non è necessariamente la massa di un singolo atomo del campione. Cambiare isotopo non cambia il numero atomico; cambiare il numero di protoni cambia elemento."
+        },
+        {
+          "id": "C",
+          "text": "Numeri atomici diversi",
+          "feedback": "Per due isotopi con masse m₁ e m₂ e frazione x del primo, m_media=xm₁+(1-x)m₂. I pesi sono non negativi e sommano a uno, quindi la media sta fra le due masse."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-02-calculation",
+      "prompt": "Calcolo: Massa isotopo 1 (a)=10 u; Massa isotopo 2 (b)=14 u. Per Frazione isotopo 1=0,25 (adimensionale), quanto vale Massa media?",
+      "options": [
+        {
+          "id": "A",
+          "text": "19,5 u",
+          "feedback": "Questo valore non soddisfa la relazione. m_media = x m₁+(1-x)m₂. Con Massa isotopo 1 (a)=10 u; Massa isotopo 2 (b)=14 u e Frazione isotopo 1=0,25 (adimensionale), il risultato è 13 u. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "6,5 u",
+          "feedback": "Controlla sostituzione, segno e unità. m_media = x m₁+(1-x)m₂. Con Massa isotopo 1 (a)=10 u; Massa isotopo 2 (b)=14 u e Frazione isotopo 1=0,25 (adimensionale), il risultato è 13 u. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "13 u",
+          "feedback": "m_media = x m₁+(1-x)m₂. Con Massa isotopo 1 (a)=10 u; Massa isotopo 2 (b)=14 u e Frazione isotopo 1=0,25 (adimensionale), il risultato è 13 u. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 0.25,
+        "parameters": {
+          "a": 10,
+          "b": 14
+        },
+        "expected": 13,
+        "unit": "u"
+      }
+    },
+    {
+      "id": "chemistry-02-transfer",
+      "prompt": "Trasferimento: Massa isotopo 1 (a)=11 u; Massa isotopo 2 (b)=14 u. Per Frazione isotopo 1=0,25 (adimensionale), quanto vale Massa media?",
+      "options": [
+        {
+          "id": "A",
+          "text": "6,625 u",
+          "feedback": "Controlla sostituzione, segno e unità. m_media = x m₁+(1-x)m₂. Con Massa isotopo 1 (a)=11 u; Massa isotopo 2 (b)=14 u e Frazione isotopo 1=0,25 (adimensionale), il risultato è 13,25 u. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "13,25 u",
+          "feedback": "m_media = x m₁+(1-x)m₂. Con Massa isotopo 1 (a)=11 u; Massa isotopo 2 (b)=14 u e Frazione isotopo 1=0,25 (adimensionale), il risultato è 13,25 u. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "19,875 u",
+          "feedback": "Questo valore non soddisfa la relazione. m_media = x m₁+(1-x)m₂. Con Massa isotopo 1 (a)=11 u; Massa isotopo 2 (b)=14 u e Frazione isotopo 1=0,25 (adimensionale), il risultato è 13,25 u. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 0.25,
+        "parameters": {
+          "a": 11,
+          "b": 14
+        },
+        "expected": 13.25,
+        "unit": "u"
+      }
+    },
+    {
+      "id": "chemistry-02-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche."
+        },
+        {
+          "id": "B",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche."
+        },
+        {
+          "id": "C",
+          "text": "Miscela ipotetica di due isotopi",
+          "feedback": "Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche."
+        }
+      ],
+      "correct": "C"
+    }
+  ]
+}

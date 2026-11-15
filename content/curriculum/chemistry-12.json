@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "chemistry-12",
+  "title": "Soluzioni e concentrazione",
+  "sector": 2,
+  "modelId": "chemistry-12",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Diluizione senza reazione o perdita di soluto",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: diluizione senza reazione o perdita di soluto.",
+    "Applicare C_f = C_i V_i/V_f, dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "chemistry-11"
+  ],
+  "connections": [
+    "math-c01"
+  ],
+  "sources": [
+    "chemistry",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Volume finale",
+      "definition": "Variabile indipendente, unità L; intervallo [0,1; 2]."
+    },
+    {
+      "term": "Concentrazione finale",
+      "definition": "Risultato calcolato dal modello, unità mol/L."
+    },
+    {
+      "term": "Concentrazione iniziale",
+      "definition": "Parametro a, unità mol/L; intervallo [0,5; 3]."
+    },
+    {
+      "term": "Volume iniziale",
+      "definition": "Parametro b, unità L; intervallo [0,05; 0,2]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "La stazione vuole descrivere una diluizione senza confondere la quantità di soluto con la sua concentrazione. Aggiungere solvente cambia il volume, non crea nuove moli di soluto.",
+          "La concentrazione molare è quantità di soluto divisa per volume di soluzione. In una diluizione ideale senza perdite o reazioni, le moli restano costanti: C_iV_i=C_fV_f."
+        ],
+        "intermediate": [
+          "La stazione vuole descrivere una diluizione senza confondere la quantità di soluto con la sua concentrazione. Aggiungere solvente cambia il volume, non crea nuove moli di soluto.",
+          "Risolvendo per la concentrazione finale si ottiene C_f=C_iV_i/V_f. Il laboratorio ammette solo V_f≥V_i, così il processo rappresentato è una diluizione e non una concentrazione."
+        ],
+        "advanced": [
+          "La stazione vuole descrivere una diluizione senza confondere la quantità di soluto con la sua concentrazione. Aggiungere solvente cambia il volume, non crea nuove moli di soluto.",
+          "Imposta una serie di diluizioni e confronta il fattore complessivo con il prodotto dei fattori di ogni passaggio. Valuta come un errore di volume possa propagarsi.",
+          "Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "La concentrazione molare è quantità di soluto divisa per volume di soluzione. In una diluizione ideale senza perdite o reazioni, le moli restano costanti: C_iV_i=C_fV_f.",
+          "Con C_i=1 mol/L e V_i=0,1 L, sono presenti 0,1 mol. Portando il volume a 0,5 L, la concentrazione finale è 0,2 mol/L."
+        ],
+        "intermediate": [
+          "Risolvendo per la concentrazione finale si ottiene C_f=C_iV_i/V_f. Il laboratorio ammette solo V_f≥V_i, così il processo rappresentato è una diluizione e non una concentrazione.",
+          "La variabile Volume finale è espressa in L; Concentrazione finale in mol/L. Il dominio dello strumento è [0,1; 2]. La relazione implementata è: C_f = C_i V_i/V_f.",
+          "Con C_i=1 mol/L e V_i=0,1 L, sono presenti 0,1 mol. Portando il volume a 0,5 L, la concentrazione finale è 0,2 mol/L."
+        ],
+        "advanced": [
+          "Risolvendo per la concentrazione finale si ottiene C_f=C_iV_i/V_f. Il laboratorio ammette solo V_f≥V_i, così il processo rappresentato è una diluizione e non una concentrazione.",
+          "Imposta una serie di diluizioni e confronta il fattore complessivo con il prodotto dei fattori di ogni passaggio. Valuta come un errore di volume possa propagarsi.",
+          "Concentrazione e quantità di soluto non coincidono. La somma dei volumi dei componenti non è sempre il volume finale reale della soluzione."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Concentrazione iniziale (a): 1 mol/L; Volume iniziale (b): 0,1 L. Prima di salvare A, prevedi come cambia Concentrazione finale fra Volume finale=0,575 e 1,05 L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con C_i=1 mol/L e V_i=0,1 L, sono presenti 0,1 mol. Portando il volume a 0,5 L, la concentrazione finale è 0,2 mol/L.",
+          "La variabile Volume finale è espressa in L; Concentrazione finale in mol/L. Il dominio dello strumento è [0,1; 2]. La relazione implementata è: C_f = C_i V_i/V_f."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Concentrazione iniziale (a): 1 mol/L; Volume iniziale (b): 0,1 L. Prima di salvare A, prevedi come cambia Concentrazione finale fra Volume finale=0,575 e 1,05 L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Volume finale è espressa in L; Concentrazione finale in mol/L. Il dominio dello strumento è [0,1; 2]. La relazione implementata è: C_f = C_i V_i/V_f.",
+          "Risolvendo per la concentrazione finale si ottiene C_f=C_iV_i/V_f. Il laboratorio ammette solo V_f≥V_i, così il processo rappresentato è una diluizione e non una concentrazione."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Concentrazione iniziale (a): 1 mol/L; Volume iniziale (b): 0,1 L. Prima di salvare A, prevedi come cambia Concentrazione finale fra Volume finale=0,575 e 1,05 L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Imposta una serie di diluizioni e confronta il fattore complessivo con il prodotto dei fattori di ogni passaggio. Valuta come un errore di volume possa propagarsi.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Concentrazione e quantità di soluto non coincidono. La somma dei volumi dei componenti non è sempre il volume finale reale della soluzione.",
+          "Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Concentrazione e quantità di soluto non coincidono. La somma dei volumi dei componenti non è sempre il volume finale reale della soluzione.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze.",
+          "Imposta una serie di diluizioni e confronta il fattore complessivo con il prodotto dei fattori di ogni passaggio. Valuta come un errore di volume possa propagarsi.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "La concentrazione molare è quantità di soluto divisa per volume di soluzione. In una diluizione ideale senza perdite o reazioni, le moli restano costanti: C_iV_i=C_fV_f.",
+          "Con C_i=1 mol/L e V_i=0,1 L, sono presenti 0,1 mol. Portando il volume a 0,5 L, la concentrazione finale è 0,2 mol/L."
+        ],
+        "intermediate": [
+          "Risolvendo per la concentrazione finale si ottiene C_f=C_iV_i/V_f. Il laboratorio ammette solo V_f≥V_i, così il processo rappresentato è una diluizione e non una concentrazione.",
+          "La variabile Volume finale è espressa in L; Concentrazione finale in mol/L. Il dominio dello strumento è [0,1; 2]. La relazione implementata è: C_f = C_i V_i/V_f."
+        ],
+        "advanced": [
+          "Imposta una serie di diluizioni e confronta il fattore complessivo con il prodotto dei fattori di ogni passaggio. Valuta come un errore di volume possa propagarsi.",
+          "Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Diluizione senza reazione o perdita di soluto.",
+          "Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze.",
+          "Collegamento consigliato: math-c01. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Risolvendo per la concentrazione finale si ottiene C_f=C_iV_i/V_f. Il laboratorio ammette solo V_f≥V_i, così il processo rappresentato è una diluizione e non una concentrazione.",
+          "Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze.",
+          "Imposta una serie di diluizioni e confronta il fattore complessivo con il prodotto dei fattori di ogni passaggio. Valuta come un errore di volume possa propagarsi."
+        ],
+        "advanced": [
+          "Imposta una serie di diluizioni e confronta il fattore complessivo con il prodotto dei fattori di ogni passaggio. Valuta come un errore di volume possa propagarsi.",
+          "Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "chemistry-12-concept",
+      "prompt": "In una diluizione ideale si conserva:",
+      "options": [
+        {
+          "id": "A",
+          "text": "La concentrazione",
+          "feedback": "Concentrazione e quantità di soluto non coincidono. La somma dei volumi dei componenti non è sempre il volume finale reale della soluzione."
+        },
+        {
+          "id": "B",
+          "text": "Sempre il volume della soluzione",
+          "feedback": "Risolvendo per la concentrazione finale si ottiene C_f=C_iV_i/V_f. Il laboratorio ammette solo V_f≥V_i, così il processo rappresentato è una diluizione e non una concentrazione."
+        },
+        {
+          "id": "C",
+          "text": "La quantità di soluto",
+          "feedback": "La concentrazione molare è quantità di soluto divisa per volume di soluzione. In una diluizione ideale senza perdite o reazioni, le moli restano costanti: C_iV_i=C_fV_f."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "chemistry-12-calculation",
+      "prompt": "Calcolo: Concentrazione iniziale (a)=1 mol/L; Volume iniziale (b)=0,1 L. Per Volume finale=0,5 L, quanto vale Concentrazione finale?",
+      "options": [
+        {
+          "id": "A",
+          "text": "-0,8 mol/L",
+          "feedback": "Controlla sostituzione, segno e unità. C_f = C_i V_i/V_f. Con Concentrazione iniziale (a)=1 mol/L; Volume iniziale (b)=0,1 L e Volume finale=0,5 L, il risultato è 0,2 mol/L. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "0,2 mol/L",
+          "feedback": "C_f = C_i V_i/V_f. Con Concentrazione iniziale (a)=1 mol/L; Volume iniziale (b)=0,1 L e Volume finale=0,5 L, il risultato è 0,2 mol/L. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "1,2 mol/L",
+          "feedback": "Questo valore non soddisfa la relazione. C_f = C_i V_i/V_f. Con Concentrazione iniziale (a)=1 mol/L; Volume iniziale (b)=0,1 L e Volume finale=0,5 L, il risultato è 0,2 mol/L. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 0.5,
+        "parameters": {
+          "a": 1,
+          "b": 0.1
+        },
+        "expected": 0.2,
+        "unit": "mol/L"
+      }
+    },
+    {
+      "id": "chemistry-12-transfer",
+      "prompt": "Trasferimento: Concentrazione iniziale (a)=1,5 mol/L; Volume iniziale (b)=0,1 L. Per Volume finale=0,5 L, quanto vale Concentrazione finale?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0,3 mol/L",
+          "feedback": "C_f = C_i V_i/V_f. Con Concentrazione iniziale (a)=1,5 mol/L; Volume iniziale (b)=0,1 L e Volume finale=0,5 L, il risultato è 0,3 mol/L. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "1,3 mol/L",
+          "feedback": "Questo valore non soddisfa la relazione. C_f = C_i V_i/V_f. Con Concentrazione iniziale (a)=1,5 mol/L; Volume iniziale (b)=0,1 L e Volume finale=0,5 L, il risultato è 0,3 mol/L. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "-0,7 mol/L",
+          "feedback": "Controlla sostituzione, segno e unità. C_f = C_i V_i/V_f. Con Concentrazione iniziale (a)=1,5 mol/L; Volume iniziale (b)=0,1 L e Volume finale=0,5 L, il risultato è 0,3 mol/L. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 0.5,
+        "parameters": {
+          "a": 1.5,
+          "b": 0.1
+        },
+        "expected": 0.30000000000000004,
+        "unit": "mol/L"
+      }
+    },
+    {
+      "id": "chemistry-12-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze."
+        },
+        {
+          "id": "B",
+          "text": "Diluizione senza reazione o perdita di soluto",
+          "feedback": "Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze."
+        },
+        {
+          "id": "C",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze."
+        }
+      ],
+      "correct": "B"
+    }
+  ]
+}

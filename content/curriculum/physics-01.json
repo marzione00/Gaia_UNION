@@ -1,0 +1,268 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "physics-01",
+  "title": "Misure, unità e incertezza",
+  "sector": 1,
+  "modelId": "physics-01",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Letture indipendenti con dispersione costante",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: letture indipendenti con dispersione costante.",
+    "Applicare σ_media = a / √n, dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [],
+  "connections": [
+    "math-c10"
+  ],
+  "sources": [
+    "physics1",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Ripetizioni n",
+      "definition": "Variabile indipendente, unità 1; intervallo [1; 100]."
+    },
+    {
+      "term": "Errore standard",
+      "definition": "Risultato calcolato dal modello, unità mm."
+    },
+    {
+      "term": "Deviazione σ",
+      "definition": "Parametro a, unità mm; intervallo [0,5; 5]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "La stessa lunghezza viene misurata più volte. Il gruppo spera che cento letture eliminino ogni errore. Prima di calcolare la media, separa la dispersione casuale da uno strumento sistematicamente fuori taratura.",
+          "Una misura comprende un valore, un’unità e un’incertezza. Ripetizioni indipendenti con la stessa distribuzione permettono di ridurre l’incertezza casuale della media. Non correggono automaticamente un errore sistematico comune a tutte le letture."
+        ],
+        "intermediate": [
+          "La stessa lunghezza viene misurata più volte. Il gruppo spera che cento letture eliminino ogni errore. Prima di calcolare la media, separa la dispersione casuale da uno strumento sistematicamente fuori taratura.",
+          "Se ogni lettura ha deviazione standard σ, la varianza della media di n letture indipendenti è σ²/n. La deviazione standard della media è quindi σ/√n. Il divisore è la radice del numero di prove, non il numero stesso."
+        ],
+        "advanced": [
+          "La stessa lunghezza viene misurata più volte. Il gruppo spera che cento letture eliminino ogni errore. Prima di calcolare la media, separa la dispersione casuale da uno strumento sistematicamente fuori taratura.",
+          "Progetta un controllo con un riferimento noto per cercare un bias. Confronta l’errore standard con la deviazione delle singole letture e spiega quale descrive la variabilità di una nuova osservazione.",
+          "Il laboratorio assume σ nota, indipendenza e assenza di variazioni del fenomeno durante le misure. Non calcola un intervallo di confidenza da dati campionari."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Una misura comprende un valore, un’unità e un’incertezza. Ripetizioni indipendenti con la stessa distribuzione permettono di ridurre l’incertezza casuale della media. Non correggono automaticamente un errore sistematico comune a tutte le letture.",
+          "Con σ=2 mm e n=4, l’errore standard della media è 1 mm. Per dimezzarlo ancora servono 16 letture totali. Un errore di taratura di +3 mm resterebbe invece presente nella media."
+        ],
+        "intermediate": [
+          "Se ogni lettura ha deviazione standard σ, la varianza della media di n letture indipendenti è σ²/n. La deviazione standard della media è quindi σ/√n. Il divisore è la radice del numero di prove, non il numero stesso.",
+          "La variabile Ripetizioni n è espressa in 1; Errore standard in mm. Il dominio dello strumento è [1; 100], con soli valori interi. La relazione implementata è: σ_media = a / √n.",
+          "Con σ=2 mm e n=4, l’errore standard della media è 1 mm. Per dimezzarlo ancora servono 16 letture totali. Un errore di taratura di +3 mm resterebbe invece presente nella media."
+        ],
+        "advanced": [
+          "Se ogni lettura ha deviazione standard σ, la varianza della media di n letture indipendenti è σ²/n. La deviazione standard della media è quindi σ/√n. Il divisore è la radice del numero di prove, non il numero stesso.",
+          "Progetta un controllo con un riferimento noto per cercare un bias. Confronta l’errore standard con la deviazione delle singole letture e spiega quale descrive la variabilità di una nuova osservazione.",
+          "Più cifre sul display non implicano più accuratezza. Precisione, accuratezza e risoluzione sono concetti distinti; ripetere una misura correlata non dà lo stesso beneficio di nuove osservazioni indipendenti."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Deviazione σ (a): 2 mm. Prima di salvare A, prevedi come cambia Errore standard fra Ripetizioni n=26 e 51 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con σ=2 mm e n=4, l’errore standard della media è 1 mm. Per dimezzarlo ancora servono 16 letture totali. Un errore di taratura di +3 mm resterebbe invece presente nella media.",
+          "La variabile Ripetizioni n è espressa in 1; Errore standard in mm. Il dominio dello strumento è [1; 100], con soli valori interi. La relazione implementata è: σ_media = a / √n."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Deviazione σ (a): 2 mm. Prima di salvare A, prevedi come cambia Errore standard fra Ripetizioni n=26 e 51 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Ripetizioni n è espressa in 1; Errore standard in mm. Il dominio dello strumento è [1; 100], con soli valori interi. La relazione implementata è: σ_media = a / √n.",
+          "Se ogni lettura ha deviazione standard σ, la varianza della media di n letture indipendenti è σ²/n. La deviazione standard della media è quindi σ/√n. Il divisore è la radice del numero di prove, non il numero stesso."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Deviazione σ (a): 2 mm. Prima di salvare A, prevedi come cambia Errore standard fra Ripetizioni n=26 e 51 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Progetta un controllo con un riferimento noto per cercare un bias. Confronta l’errore standard con la deviazione delle singole letture e spiega quale descrive la variabilità di una nuova osservazione.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Più cifre sul display non implicano più accuratezza. Precisione, accuratezza e risoluzione sono concetti distinti; ripetere una misura correlata non dà lo stesso beneficio di nuove osservazioni indipendenti.",
+          "Il laboratorio assume σ nota, indipendenza e assenza di variazioni del fenomeno durante le misure. Non calcola un intervallo di confidenza da dati campionari.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Più cifre sul display non implicano più accuratezza. Precisione, accuratezza e risoluzione sono concetti distinti; ripetere una misura correlata non dà lo stesso beneficio di nuove osservazioni indipendenti.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+        ],
+        "advanced": [
+          "Il laboratorio assume σ nota, indipendenza e assenza di variazioni del fenomeno durante le misure. Non calcola un intervallo di confidenza da dati campionari.",
+          "Progetta un controllo con un riferimento noto per cercare un bias. Confronta l’errore standard con la deviazione delle singole letture e spiega quale descrive la variabilità di una nuova osservazione.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Una misura comprende un valore, un’unità e un’incertezza. Ripetizioni indipendenti con la stessa distribuzione permettono di ridurre l’incertezza casuale della media. Non correggono automaticamente un errore sistematico comune a tutte le letture.",
+          "Con σ=2 mm e n=4, l’errore standard della media è 1 mm. Per dimezzarlo ancora servono 16 letture totali. Un errore di taratura di +3 mm resterebbe invece presente nella media."
+        ],
+        "intermediate": [
+          "Se ogni lettura ha deviazione standard σ, la varianza della media di n letture indipendenti è σ²/n. La deviazione standard della media è quindi σ/√n. Il divisore è la radice del numero di prove, non il numero stesso.",
+          "La variabile Ripetizioni n è espressa in 1; Errore standard in mm. Il dominio dello strumento è [1; 100], con soli valori interi. La relazione implementata è: σ_media = a / √n."
+        ],
+        "advanced": [
+          "Progetta un controllo con un riferimento noto per cercare un bias. Confronta l’errore standard con la deviazione delle singole letture e spiega quale descrive la variabilità di una nuova osservazione.",
+          "Il laboratorio assume σ nota, indipendenza e assenza di variazioni del fenomeno durante le misure. Non calcola un intervallo di confidenza da dati campionari."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Letture indipendenti con dispersione costante.",
+          "Il laboratorio assume σ nota, indipendenza e assenza di variazioni del fenomeno durante le misure. Non calcola un intervallo di confidenza da dati campionari.",
+          "Collegamento consigliato: math-c10. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Se ogni lettura ha deviazione standard σ, la varianza della media di n letture indipendenti è σ²/n. La deviazione standard della media è quindi σ/√n. Il divisore è la radice del numero di prove, non il numero stesso.",
+          "Il laboratorio assume σ nota, indipendenza e assenza di variazioni del fenomeno durante le misure. Non calcola un intervallo di confidenza da dati campionari.",
+          "Progetta un controllo con un riferimento noto per cercare un bias. Confronta l’errore standard con la deviazione delle singole letture e spiega quale descrive la variabilità di una nuova osservazione."
+        ],
+        "advanced": [
+          "Progetta un controllo con un riferimento noto per cercare un bias. Confronta l’errore standard con la deviazione delle singole letture e spiega quale descrive la variabilità di una nuova osservazione.",
+          "Il laboratorio assume σ nota, indipendenza e assenza di variazioni del fenomeno durante le misure. Non calcola un intervallo di confidenza da dati campionari.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "physics-01-concept",
+      "prompt": "Per dimezzare σ/√n occorre:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Raddoppiare n",
+          "feedback": "Più cifre sul display non implicano più accuratezza. Precisione, accuratezza e risoluzione sono concetti distinti; ripetere una misura correlata non dà lo stesso beneficio di nuove osservazioni indipendenti."
+        },
+        {
+          "id": "B",
+          "text": "Dimezzare n",
+          "feedback": "Se ogni lettura ha deviazione standard σ, la varianza della media di n letture indipendenti è σ²/n. La deviazione standard della media è quindi σ/√n. Il divisore è la radice del numero di prove, non il numero stesso."
+        },
+        {
+          "id": "C",
+          "text": "Quadruplicare n",
+          "feedback": "Una misura comprende un valore, un’unità e un’incertezza. Ripetizioni indipendenti con la stessa distribuzione permettono di ridurre l’incertezza casuale della media. Non correggono automaticamente un errore sistematico comune a tutte le letture."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "physics-01-calculation",
+      "prompt": "Calcolo: Deviazione σ (a)=2 mm. Per Ripetizioni n=4 (adimensionale), quanto vale Errore standard?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0 mm",
+          "feedback": "Controlla sostituzione, segno e unità. σ_media = a / √n. Con Deviazione σ (a)=2 mm e Ripetizioni n=4 (adimensionale), il risultato è 1 mm. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "1 mm",
+          "feedback": "σ_media = a / √n. Con Deviazione σ (a)=2 mm e Ripetizioni n=4 (adimensionale), il risultato è 1 mm. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "2 mm",
+          "feedback": "Questo valore non soddisfa la relazione. σ_media = a / √n. Con Deviazione σ (a)=2 mm e Ripetizioni n=4 (adimensionale), il risultato è 1 mm. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 4,
+        "parameters": {
+          "a": 2
+        },
+        "expected": 1,
+        "unit": "mm"
+      }
+    },
+    {
+      "id": "physics-01-transfer",
+      "prompt": "Trasferimento: Deviazione σ (a)=2,5 mm. Per Ripetizioni n=4 (adimensionale), quanto vale Errore standard?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1,25 mm",
+          "feedback": "σ_media = a / √n. Con Deviazione σ (a)=2,5 mm e Ripetizioni n=4 (adimensionale), il risultato è 1,25 mm. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "2,25 mm",
+          "feedback": "Questo valore non soddisfa la relazione. σ_media = a / √n. Con Deviazione σ (a)=2,5 mm e Ripetizioni n=4 (adimensionale), il risultato è 1,25 mm. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "0,25 mm",
+          "feedback": "Controlla sostituzione, segno e unità. σ_media = a / √n. Con Deviazione σ (a)=2,5 mm e Ripetizioni n=4 (adimensionale), il risultato è 1,25 mm. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 4,
+        "parameters": {
+          "a": 2.5
+        },
+        "expected": 1.25,
+        "unit": "mm"
+      }
+    },
+    {
+      "id": "physics-01-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Il laboratorio assume σ nota, indipendenza e assenza di variazioni del fenomeno durante le misure. Non calcola un intervallo di confidenza da dati campionari."
+        },
+        {
+          "id": "B",
+          "text": "Letture indipendenti con dispersione costante",
+          "feedback": "Il laboratorio assume σ nota, indipendenza e assenza di variazioni del fenomeno durante le misure. Non calcola un intervallo di confidenza da dati campionari."
+        },
+        {
+          "id": "C",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il laboratorio assume σ nota, indipendenza e assenza di variazioni del fenomeno durante le misure. Non calcola un intervallo di confidenza da dati campionari."
+        }
+      ],
+      "correct": "B"
+    }
+  ]
+}

@@ -1,0 +1,1908 @@
+{
+  "schemaVersion": 1,
+  "language": "it",
+  "editorialStatus": "original-draft",
+  "note": "Testi originali; verifiche automatiche del modello, revisione scientifico-didattica umana non certificata. Ogni unità sviluppa il nucleo indicato, non esaurisce tutti i sottotemi della dispensa.",
+  "courses": [
+    {
+      "unitId": "math-c01",
+      "title": "Linguaggio e ragionamento matematico",
+      "story": "Il magazzino della spedizione annuncia un aumento del 20% delle scorte, seguito da una perdita del 20%. Il responsabile sostiene che le due operazioni si annullino. La tua missione è controllare il ragionamento prima di autorizzare il viaggio.",
+      "concept": "Una percentuale è un rapporto rispetto a una base dichiarata. Il 20% di 50 è 10, non 20. Aumentare una quantità del 20% significa moltiplicarla per 1,20; diminuirla del 20% significa moltiplicarla per 0,80. Le parole «di» e «rispetto a» individuano il denominatore del rapporto.",
+      "derivation": "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale.",
+      "example": "Parti da 50 unità. Con a=20 ottieni 60. Applicando poi una diminuzione del 20% a 60 ottieni 48. La differenza finale è -2 unità; dividendo per la base iniziale 50 trovi -0,04, cioè -4%.",
+      "misconception": "Sommare direttamente +20% e -20% ignora che le percentuali successive agiscono su basi diverse. Una conclusione generale richiede una dimostrazione; un solo controesempio basta invece a smentire «si annullano sempre».",
+      "limit": "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale.",
+      "extension": "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
+      "question": "Due variazioni successive del +20% e -20% producono:",
+      "answer": "Una perdita del 4% sul valore iniziale",
+      "wrong": [
+        "Nessuna variazione",
+        "Una perdita del 20%"
+      ],
+      "bound": "Variazioni percentuali con base esplicita",
+      "connection": "math-c06"
+    },
+    {
+      "unitId": "math-c02",
+      "title": "Algebra",
+      "story": "Un laboratorio deve ritagliare una cornice quadrata. Il lato esterno cambia, ma quello del foro resta fissato. Il tecnico ha due formule per l’area: sembrano diverse. Puoi dimostrare quando descrivono la stessa quantità?",
+      "concept": "Un’espressione algebrica può essere letta come somma o come prodotto. La differenza di quadrati x²-a² si scompone in (x-a)(x+a). La forma sviluppata facilita il calcolo di un valore; la forma fattorizzata mette in evidenza gli zeri e il segno.",
+      "derivation": "Applica la distributività: (x-a)(x+a)=x²+ax-ax-a². I termini misti si cancellano. Un prodotto reale è zero se almeno un fattore è zero: gli zeri sono x=a e x=-a, coincidenti quando a=0.",
+      "example": "Per a=2 e x=3, il calcolo sviluppato dà 9-4=5. Quello fattorizzato dà (3-2)(3+2)=1×5=5. In x=1 ottieni -3: il polinomio è valido, ma un’area di cornice richiede x≥a≥0.",
+      "misconception": "La differenza di quadrati non è il quadrato di una differenza: (x-a)² contiene anche il termine -2ax. Inoltre un’identità algebrica può valere su un dominio più ampio del problema geometrico che l’ha motivata.",
+      "limit": "Il grafico mostra il polinomio per valori reali. Solo la parte x≥a rappresenta la cornice con lati non negativi; il modello non impone automaticamente questa interpretazione fisica.",
+      "extension": "Usa i fattori per costruire una tabella dei segni, poi confrontala con il grafico. Il caso a=0 ha uno zero doppio: spiega perché la funzione tocca l’asse ma non cambia segno.",
+      "question": "Quale identità è corretta per ogni x e a reali?",
+      "answer": "(x-a)(x+a)=x²-a²",
+      "wrong": [
+        "(x-a)²=x²-a²",
+        "x²-a²=(x-a)(x-a)"
+      ],
+      "bound": "Polinomio reale; cornice solo per x≥a",
+      "connection": "math-a"
+    },
+    {
+      "unitId": "math-c03",
+      "title": "Radicali",
+      "story": "La sonda converte un margine di energia in una velocità mediante una radice quadrata. Alcune letture scompaiono dal grafico. Prima di parlare di un sensore guasto, devi controllare il dominio della conversione.",
+      "concept": "Nei numeri reali la radice quadrata principale di z esiste per z≥0 ed è non negativa. In √(x-a) il radicando è x-a: la condizione è quindi x≥a. Una regione vuota nel grafico non deve essere sostituita con valori inventati.",
+      "derivation": "Per risolvere y=√(x-a), imponi y≥0 e poi eleva al quadrato: y²=x-a. La trasformazione inversa x=y²+a conserva la relazione solo insieme alla condizione di segno. Senza di essa introdurresti anche valori negativi di y.",
+      "example": "Con a=1, in x=5 il radicando è 4 e la radice è 2. In x=0 il radicando è -1: il laboratorio restituisce «non definito nei reali». In x=1 il valore è zero, quindi il bordo del dominio è incluso.",
+      "misconception": "La formula √(u²)=u è falsa per u negativo: il risultato è |u|. Elevare al quadrato due membri può introdurre soluzioni estranee, che vanno controllate nell’equazione iniziale.",
+      "limit": "La scena lavora solo con numeri reali e con la radice principale. Non visualizza radici complesse né dimostra continuità usando i soli campioni del grafico.",
+      "extension": "Confronta radici di indice pari e dispari. Una radice cubica reale ammette anche radicandi negativi: quale parte del protocollo sul dominio cambierebbe?",
+      "question": "Il dominio reale di √(x-a) è:",
+      "answer": "x≥a",
+      "wrong": [
+        "Tutti i reali",
+        "x≤a"
+      ],
+      "bound": "Radice principale reale; x≥a",
+      "connection": "math-p05"
+    },
+    {
+      "unitId": "math-c04",
+      "title": "Equazioni e sistemi",
+      "story": "Due sensori stimano la posizione di un robot con leggi lineari diverse. La stazione vuole sapere dove le previsioni coincidono. Invece di scegliere il sensore più convincente, costruisci un residuo misurabile.",
+      "concept": "Un’equazione chiede per quali valori due espressioni coincidono. Nel laboratorio confronti y=ax+b con y=-x+4. Sottraendo la seconda espressione dalla prima ottieni un residuo r(x); una soluzione è un punto in cui il residuo è zero.",
+      "derivation": "La condizione ax+b=-x+4 diventa (a+1)x=4-b. Se a≠-1 esiste una sola soluzione, x=(4-b)/(a+1). Se a=-1, la situazione dipende da b: per b=4 ogni x è soluzione, altrimenti non ve ne sono.",
+      "example": "Con a=1 e b=0, l’equazione è x=-x+4, quindi x=2. Entrambe le rette danno y=2. Il residuo r(2)=0 conferma il controllo senza sostituire la dimostrazione algebrica.",
+      "misconception": "Dividere per a+1 senza controllare che non sia zero elimina i casi di rette parallele o coincidenti. Un grafico apparentemente senza intersezione può anche dipendere dalla finestra scelta.",
+      "limit": "Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi.",
+      "extension": "Studia la sensibilità della soluzione quando a si avvicina a -1. Piccole variazioni dei dati possono spostare molto l’intersezione: collega il fenomeno al condizionamento numerico.",
+      "question": "Se a=-1 e b=4, quante soluzioni ha il sistema?",
+      "answer": "Infinite: le rette coincidono",
+      "wrong": [
+        "Nessuna",
+        "Esattamente una"
+      ],
+      "bound": "Due relazioni lineari esatte",
+      "connection": "math-p02"
+    },
+    {
+      "unitId": "math-c05",
+      "title": "Disequazioni",
+      "story": "Un rover può attraversare una regione solo se il suo margine operativo resta non negativo. Il confine della regione non è un singolo valore da indovinare: serve descrivere l’intero insieme delle condizioni ammesse.",
+      "concept": "Una disequazione identifica un insieme di valori. Nel modello il margine è m(x)=ax+b e la condizione operativa è m(x)≥0. Gli zeri separano intervalli nei quali il segno resta costante, quando la funzione è continua e non attraversa altri zeri.",
+      "derivation": "Se a>0, dividere ax≥-b per a conserva il verso: x≥-b/a. Se a<0 il verso si inverte. Se a=0, conta solo b: tutti i valori sono ammessi quando b≥0, nessuno quando b<0.",
+      "example": "Con a=1 e b=-2, il margine vale zero in x=2. In x=3 vale 1 e il punto è ammesso; in x=1 vale -1 e non lo è. Poiché la condizione è ≥, il confine x=2 appartiene all’insieme soluzione.",
+      "misconception": "Moltiplicare una disuguaglianza per un numero negativo senza invertirne il verso produce un insieme soluzione errato. Uno zero non va escluso automaticamente: dipende dalla presenza di > oppure ≥.",
+      "limit": "Il margine è una relazione lineare didattica, non un criterio reale di sicurezza del rover. La finestra del grafico mostra solo una parte della retta reale.",
+      "extension": "Risolvi la stessa condizione con a negativo e controlla un punto di prova. Estendi poi il metodo a un prodotto di fattori, separando i punti esclusi dagli zeri ammessi.",
+      "question": "Quando si divide una disuguaglianza per un numero negativo:",
+      "answer": "Si inverte il verso",
+      "wrong": [
+        "Il verso non cambia",
+        "Si elimina sempre l’uguaglianza"
+      ],
+      "bound": "Margine lineare, non criterio di sicurezza reale",
+      "connection": "math-a"
+    },
+    {
+      "unitId": "math-c06",
+      "title": "Esponenziali e logaritmi",
+      "story": "Il deposito perde ogni intervallo la stessa frazione del materiale rimasto. Un operatore propone una sottrazione costante. Devi decidere quale legge traduce davvero il meccanismo descritto.",
+      "concept": "Una variazione proporzionale alla quantità presente conduce a un andamento esponenziale. Nel modello y=a exp(bx), a è il valore iniziale e b il tasso continuo. Per b positivo la quantità cresce; per b negativo decade; per b=0 resta costante.",
+      "derivation": "Il rapporto y(x+Δx)/y(x)=exp(bΔx) non dipende dall’istante iniziale. Per ricavare un tempo usa il logaritmo: x=ln(y/a)/b, con a>0, y>0 e b≠0. Il logaritmo annulla una moltiplicazione esponenziale, non una semplice somma.",
+      "example": "Con a=2 e b=0,2, al tempo zero ottieni 2. Dopo 5 unità di tempo hai 2e≈5,437. Il tempo di raddoppio è ln(2)/0,2≈3,466, uguale qualunque sia il valore iniziale positivo.",
+      "misconception": "Un tasso continuo b=0,20 non equivale esattamente a un aumento discreto del 20% per intervallo: il fattore è exp(0,20), non 1,20. Una crescita esponenziale non può essere estesa senza limiti a risorse finite.",
+      "limit": "Tasso e condizioni esterne sono costanti. Non sono modellati saturazione, capacità del deposito, rumore o ritardi. Il tempo è espresso in unità convenzionali, non necessariamente giorni.",
+      "extension": "Deriva il tempo di dimezzamento per b<0 e confrontalo con il tempo di raddoppio. Mostra che il grafico di ln(y) contro x è una retta di pendenza b.",
+      "question": "In y=a exp(bx), una crescita continua richiede:",
+      "answer": "a>0 e b>0",
+      "wrong": [
+        "a>0 e b<0",
+        "Sempre b=0"
+      ],
+      "bound": "Tasso costante e quantità iniziale positiva",
+      "connection": "biology-19"
+    },
+    {
+      "unitId": "math-c07",
+      "title": "Geometria analitica",
+      "story": "Una stazione radio si trova fuori dal tracciato rettilineo del rover. La qualità del collegamento dipende dalla distanza, non soltanto dalla differenza delle ascisse. Ricostruisci la geometria del problema.",
+      "concept": "Le coordinate traducono posizioni in numeri, ma una distanza richiede una regola geometrica. Tra il punto mobile (x,0) e la stazione (a,b), i cateti del triangolo rettangolo sono x-a e b. La distanza euclidea è la radice della somma dei loro quadrati.",
+      "derivation": "Dal teorema di Pitagora segue d²=(x-a)²+b². La distanza minima lungo il tracciato si ottiene in x=a ed è |b|. Per b=0 il grafico diventa |x-a|: non è una retta unica, pur essendo il percorso rettilineo.",
+      "example": "Con stazione (0,3) e rover (4,0), il calcolo è √(4²+3²)=5. Il percorso orizzontale di 4 unità non rappresenta la separazione radio di 5 unità.",
+      "misconception": "La differenza delle coordinate non va sommata senza quadrati. Anche cambiare unità su uno dei due assi altera il significato della formula: le componenti devono usare la stessa scala fisica.",
+      "limit": "Il piano è euclideo e il tracciato è orizzontale. Sono esclusi rilievi, ostacoli e curvatura planetaria. La rotazione della scena non cambia le coordinate del modello.",
+      "extension": "Descrivi i punti a distanza fissa dalla stazione e ricava l’equazione di una circonferenza. Confronta distanza in linea retta e distanza lungo una rete di percorsi.",
+      "question": "La distanza fra (0,3) e (4,0) è:",
+      "answer": "5 unità",
+      "wrong": [
+        "7 unità",
+        "1 unità"
+      ],
+      "bound": "Geometria euclidea con unità coerenti",
+      "connection": "physics-02"
+    },
+    {
+      "unitId": "math-c08",
+      "title": "Funzioni",
+      "story": "La stazione Simbiosi osserva una risposta che diminuisce e poi aumenta. La missione non consiste nel dare un nome alla curva: devi collegare input, output, dominio e trasformazioni del modello.",
+      "concept": "Una funzione associa a ogni input del dominio un solo output. Nella famiglia f(x)=a(x-b)², il parametro b sposta il vertice orizzontalmente e a modifica apertura e verso della parabola. Più input possono avere lo stesso output: ciò non viola la definizione di funzione.",
+      "derivation": "Il quadrato è non negativo. Se a>0 il minimo è zero in x=b; se a<0 è un massimo; se a=0 tutta la funzione è nulla. La simmetria è f(b-d)=f(b+d), che spiega perché l’inversa richiede una restrizione del dominio.",
+      "example": "Con a=1 e b=2, f(4)=4 e f(0)=4. Il vertice è (2,0). Sul dominio completo la funzione non è iniettiva; sulla semiretta x≥2 lo è.",
+      "misconception": "Dominio, codominio e immagine non sono sinonimi. La traslazione f(x-b) sposta il grafico verso destra per b positivo, non verso sinistra. La prospettiva 3D del grafico non aggiunge una terza variabile matematica.",
+      "limit": "Il laboratorio usa una famiglia quadratica esatta e un intervallo di input finito. Non stima parametri da osservazioni e non dimostra che una parabola sia una legge biologica della stazione.",
+      "extension": "Ricava l’inversa sul ramo x≥b con a>0: x=b+√(y/a). Confronta poi l’immagine della funzione sull’intervallo visualizzato con l’immagine su tutti i reali.",
+      "question": "Due input distinti con lo stesso output:",
+      "answer": "Possono appartenere a una funzione",
+      "wrong": [
+        "Impediscono sempre di avere una funzione",
+        "Dimostrano che la funzione è invertibile"
+      ],
+      "bound": "Famiglia quadratica, senza inferenza su dati reali",
+      "connection": "math-c03"
+    },
+    {
+      "unitId": "math-c09",
+      "title": "Trigonometria",
+      "story": "Un’antenna ruota mentre il segnale ricevuto oscilla. Per sincronizzare l’orientamento non basta contare i giri: occorre collegare angolo, fase e proiezione su un asse.",
+      "concept": "Sulla circonferenza unitaria, seno e coseno sono le coordinate di un punto individuato da un angolo. Il radiante misura il rapporto fra arco e raggio. Una rotazione completa corrisponde a 2π radianti, non a 360 radianti.",
+      "derivation": "Nella relazione y=a sin(x+b), a regola l’ampiezza e b la fase. Il periodo rispetto a x è 2π. Aggiungere b all’argomento anticipa la fase; il seno può essere negativo perché rappresenta una coordinata orientata.",
+      "example": "Per a=1 e b=0, in x=π/2 ottieni 1; in x=π ottieni 0; in x=3π/2 ottieni -1. L’ampiezza è 1, mentre la distanza tra massimo e minimo è 2.",
+      "misconception": "Ampiezza e valore picco-picco sono grandezze diverse. Usare gradi in una funzione programmata per radianti produce valori errati, anche se il grafico sembra regolare.",
+      "limit": "La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione.",
+      "extension": "Usa l’identità sin²x+cos²x=1 per controllare le coordinate. Collega una fase b a un ritardo temporale mediante una pulsazione ω e spiega il segno della trasformazione.",
+      "question": "Un giro completo corrisponde a:",
+      "answer": "2π radianti",
+      "wrong": [
+        "π radianti",
+        "360 radianti"
+      ],
+      "bound": "Angoli in radianti e proiezioni ideali",
+      "connection": "physics-17"
+    },
+    {
+      "unitId": "math-c10",
+      "title": "Combinatoria, probabilità e statistica",
+      "story": "Un banco prova conta quanti rilevatori rispondono correttamente in una serie di prove. Non vuoi conoscere una singola sequenza, ma la probabilità di ottenere esattamente k successi.",
+      "concept": "Una variabile binomiale conta i successi in n prove indipendenti, ciascuna con la stessa probabilità p. Una sequenza con k successi ha probabilità p^k(1-p)^(n-k). Il coefficiente binomiale conta quante sequenze distinte hanno quel numero di successi.",
+      "derivation": "La probabilità è C(n,k)p^k(1-p)^(n-k), con k intero fra 0 e n. La somma delle probabilità è 1 per il teorema binomiale. Il valore atteso è np, ma non è una promessa sul risultato di una singola serie.",
+      "example": "Per n=4 e p=0,5, esistono C(4,2)=6 sequenze con due successi. Ciascuna ha probabilità 1/16, quindi P(k=2)=6/16=0,375. Il risultato più plausibile non è comunque certo.",
+      "misconception": "Indipendenza e probabilità costante sono ipotesi, non conseguenze del fatto che le prove siano ripetute. La probabilità di una sequenza non coincide con quella di tutte le sequenze aventi lo stesso conteggio.",
+      "limit": "Il modello non si applica direttamente a prove dipendenti o a estrazioni senza reinserimento da una popolazione piccola. Le barre rappresentano probabilità esatte, non frequenze osservate.",
+      "extension": "Confronta n piccolo e grande mantenendo p fisso. Calcola media np e varianza np(1-p), poi spiega perché la variabilità assoluta e quella relativa si comportano diversamente.",
+      "question": "La distribuzione binomiale richiede:",
+      "answer": "Prove indipendenti con la stessa p",
+      "wrong": [
+        "Successi obbligatoriamente alternati",
+        "Una probabilità che cambia a ogni prova"
+      ],
+      "bound": "Prove indipendenti, stessa probabilità p",
+      "connection": "biology-08"
+    },
+    {
+      "unitId": "math-c11",
+      "title": "Geometria elementare",
+      "story": "La base deve costruire pannelli triangolari con basi differenti ma altezza comune. La vista prospettica fa sembrare alcuni pannelli più grandi. Determina l’area senza affidarti all’apparenza.",
+      "concept": "L’area di un triangolo è metà del prodotto tra una base e l’altezza relativa. L’altezza è la distanza perpendicolare dalla retta della base al vertice opposto: non coincide in generale con un lato obliquo.",
+      "derivation": "Due copie congruenti del triangolo formano un parallelogramma con area base×altezza. Ciascuna copia occupa metà dell’area. A parità di altezza, l’area dipende linearmente dalla base; raddoppiare entrambe le lunghezze quadruplica l’area.",
+      "example": "Con base 3 e altezza 4, l’area è 3×4/2=6 unità quadrate. Usare 5, la lunghezza di un eventuale lato obliquo, al posto dell’altezza darebbe un risultato sbagliato.",
+      "misconception": "Le unità di area sono quadrate: 1 m² non è uguale a 100 cm², ma a 10.000 cm². Una rotazione della figura non modifica l’area, anche se ne cambia la proiezione sullo schermo.",
+      "limit": "Il modello è un triangolo piano euclideo. Lo spessore visuale delle linee e la profondità della scena non entrano nel calcolo dell’area.",
+      "extension": "Costruisci triangoli diversi con la stessa base e la stessa altezza. Giustifica perché hanno la stessa area e collega questa invariabilità alle trasformazioni di taglio.",
+      "question": "Nella formula dell’area, l’altezza è:",
+      "answer": "Perpendicolare alla retta della base",
+      "wrong": [
+        "Sempre il lato più lungo",
+        "La metà del perimetro"
+      ],
+      "bound": "Triangolo piano; altezza perpendicolare",
+      "connection": "math-p06"
+    },
+    {
+      "unitId": "math-a",
+      "title": "Dagli zeri alla struttura di un polinomio",
+      "story": "La centrale osserva una curva che in un punto attraversa lo zero e in un altro lo sfiora. Entrambi sono zeri, ma raccontano strutture algebriche differenti.",
+      "concept": "La molteplicità di uno zero è il numero di volte in cui compare il corrispondente fattore. Nel polinomio (x-a)²(x+2), a è uno zero doppio e -2 è uno zero semplice, finché sono distinti. Un fattore quadratico non cambia segno attraversando il proprio zero.",
+      "derivation": "Vicino a una radice r, scrivi P(x)=(x-r)^m Q(x), con Q(r)≠0. Se m è pari, il fattore mantiene segno; se m è dispari lo cambia. Il comportamento di Q vicino a r non introduce un cambio di segno, perché è continuo e non nullo.",
+      "example": "Con a=1, in x=1 ottieni zero e la curva resta non negativa nelle sue vicinanze. In x=-2 lo zero è semplice e avviene un cambio di segno. La forma fattorizzata anticipa ciò che il grafico conferma.",
+      "misconception": "Contare le intersezioni visibili non basta a conoscere il grado: uno zero multiplo può apparire come un solo punto. Un minimo vicino all’asse non prova che il valore sia esattamente zero.",
+      "limit": "Il laboratorio usa un polinomio cubico esatto con radici già parametrizzate. Non ricostruisce un polinomio unico a partire da dati rumorosi.",
+      "extension": "Considera che cosa accadrebbe se a coincidesse con -2, oltre l’intervallo del controllo attuale: i fattori si unirebbero in uno zero triplo. Analizza anche il segno all’infinito.",
+      "question": "Uno zero di molteplicità pari, isolato dagli altri zeri:",
+      "answer": "Non produce un cambio di segno locale",
+      "wrong": [
+        "Produce sempre un cambio di segno",
+        "Non appartiene al grafico"
+      ],
+      "bound": "Polinomio esatto e radici parametrizzate",
+      "connection": "math-b"
+    },
+    {
+      "unitId": "math-b",
+      "title": "Esistenza, unicità e approssimazione",
+      "story": "Un sensore segnala che una funzione continua assume segni opposti ai due estremi di un intervallo. La radice non ha una formula comoda. Il compito è localizzarla con un errore controllato.",
+      "concept": "Il metodo di bisezione dimezza un intervallo che contiene un cambio di segno. La continuità e i segni opposti garantiscono almeno una radice nell’intervallo. Non garantiscono che la radice sia unica: per questo serve un’ipotesi ulteriore, come la stretta monotonia.",
+      "derivation": "Dopo n dimezzamenti, l’ampiezza iniziale a diventa a/2^n. Se si usa il punto medio dell’intervallo finale, l’errore di localizzazione è al massimo metà dell’ampiezza. Il grafico del laboratorio mostra l’ampiezza, non il valore della radice.",
+      "example": "Partendo da un intervallo di ampiezza 2, dopo tre dimezzamenti resta 2/8=0,25. Il punto medio ha errore massimo 0,125, purché l’invariante di contenimento della radice sia stato mantenuto.",
+      "misconception": "Un’ampiezza piccola non prova che l’intervallo contenga davvero una radice. Se manca continuità, un salto può cambiare segno senza attraversare lo zero. Esistenza e unicità sono affermazioni diverse.",
+      "limit": "Il modello calcola il limite teorico sull’ampiezza, non esegue valutazioni di una funzione bersaglio. Non quantifica da solo gli errori di arrotondamento o di misura.",
+      "extension": "Determina il numero minimo di dimezzamenti per ottenere un errore del punto medio inferiore a una tolleranza scelta. Usa i logaritmi e arrotonda il conteggio all’intero superiore.",
+      "question": "Dopo n bisezioni, l’ampiezza iniziale a diventa:",
+      "answer": "a/2^n",
+      "wrong": [
+        "a/n",
+        "a-n"
+      ],
+      "bound": "Limite teorico con contenimento mantenuto",
+      "connection": "math-p08"
+    },
+    {
+      "unitId": "math-p01",
+      "title": "Ragionamento, conteggio e infinito",
+      "story": "Un archivio riceve pacchetti di dati sempre più piccoli. Il numero di pacchetti può crescere senza limite, ma la memoria totale deve necessariamente farlo? La risposta richiede distinguere termini e somme.",
+      "concept": "Una progressione geometrica moltiplica ogni termine per una ragione b. La somma dei primi n+1 termini, a+ab+...+ab^n, è una quantità finita. Quando |b|<1 le somme parziali possono tendere a un limite finito anche se i termini sono infiniti.",
+      "derivation": "Moltiplicando S_n per b e sottraendo ottieni (1-b)S_n=a(1-b^(n+1)). Se b≠1 puoi dividere per 1-b. Per b=1 devi trattare il caso separatamente: tutti i termini valgono a e S_n=a(n+1).",
+      "example": "Con a=1 e b=0,5, S_2=1+0,5+0,25=1,75. Il limite della serie è 2, ma nessuna di queste somme parziali lo raggiunge esattamente.",
+      "misconception": "Il fatto che i termini tendano a zero è necessario ma non sufficiente per la convergenza di una serie. Il laboratorio geometrico non dimostra la convergenza di qualsiasi successione di pacchetti.",
+      "limit": "Il controllo esplora ragioni fra 0 e 1 e somme finite. Il punto b=1 è calcolato separatamente; il comportamento all’infinito è dedotto dalla formula, non osservato sullo schermo.",
+      "extension": "Calcola il resto della serie geometrica per b<1. Trova quanti termini servono perché la memoria ancora da ricevere sia inferiore a una soglia prefissata.",
+      "question": "Per una serie geometrica con 0≤b<1 e primo termine a:",
+      "answer": "La somma infinita è a/(1-b)",
+      "wrong": [
+        "La somma è sempre infinita",
+        "La somma infinita è ab"
+      ],
+      "bound": "Somme geometriche con ragione dichiarata",
+      "connection": "math-p07"
+    },
+    {
+      "unitId": "math-p02",
+      "title": "Vettori, matrici, dati e vincoli",
+      "story": "Due componenti di un sistema vengono ridimensionate a ogni ciclo. Una matrice compatta descrive l’operazione. Devi prevedere se il vettore si estinguerà, resterà limitato o crescerà.",
+      "concept": "Una matrice diagonale agisce separatamente sulle componenti di un vettore. Con M=diag(a,b) e v₀=(1,1), dopo n applicazioni hai v_n=(a^n,b^n). I due fattori sono gli autovalori; le direzioni degli assi sono autovettori.",
+      "derivation": "La norma euclidea è √(a^(2n)+b^(2n)). Quando entrambi i moduli sono minori di 1, le componenti tendono a zero. Se uno è maggiore di 1 e la componente iniziale corrispondente non è nulla, quel contributo cresce.",
+      "example": "Per a=0,8 e b=0,6, al primo ciclo v₁=(0,8;0,6). La norma è √(0,64+0,36)=1, contro √2 al ciclo zero.",
+      "misconception": "Il valore di un singolo elemento della matrice non misura da solo la crescita di un sistema generale. Per matrici non diagonali contano anche accoppiamenti e struttura degli autovettori.",
+      "limit": "Il laboratorio considera soltanto matrici diagonali reali non negative e vettore iniziale (1,1). Non è un risolutore generale di sistemi lineari o una procedura di analisi dei dati.",
+      "extension": "Collega la convergenza delle iterazioni al raggio spettrale. Cerca un esempio con un autovalore uguale a 1 e spiega perché la norma non tende necessariamente a zero.",
+      "question": "Per M=diag(a,b), gli autovalori sono:",
+      "answer": "a e b",
+      "wrong": [
+        "Soltanto a+b",
+        "Sempre 1 e 1"
+      ],
+      "bound": "Matrice diagonale e vettore iniziale fissato",
+      "connection": "math-p08"
+    },
+    {
+      "unitId": "math-p03",
+      "title": "Complessi, aritmetica e polinomi",
+      "story": "Il navigatore combina una rotazione e un ridimensionamento ripetuti. I numeri complessi permettono di trattare entrambe le operazioni con un’unica moltiplicazione.",
+      "concept": "Un numero complesso z=a(cos b+i sin b) ha modulo a e argomento b. Moltiplicare due numeri complessi moltiplica i moduli e somma gli argomenti. Le potenze ripetono quindi una trasformazione geometrica.",
+      "derivation": "La formula di De Moivre dà z^n=a^n(cos(nb)+i sin(nb)). Il laboratorio traccia la parte reale a^n cos(nb). La parte reale non coincide con il modulo: può essere negativa mentre il modulo resta non negativo.",
+      "example": "Con a=1 e b=π/3, la terza potenza ha argomento π. La parte reale è -1 e la parte immaginaria è zero. Dopo sei potenze il punto ritorna a 1.",
+      "misconception": "Il segno della parte reale non è il segno di un numero complesso: nei complessi non esiste un ordine compatibile con tutte le proprietà dell’ordine reale. Modulo e componente sono oggetti distinti.",
+      "limit": "Si esplorano potenze intere non negative. Il modello non sceglie rami di logaritmi complessi e non implementa crittografia o aritmetica modulare.",
+      "extension": "Quando a=1, determina per quali argomenti il punto ritorna esattamente alla posizione iniziale. Collega le rotazioni periodiche alle radici dell’unità e alla fattorizzazione di z^n-1.",
+      "question": "Moltiplicando numeri complessi in forma polare:",
+      "answer": "Si moltiplicano i moduli e si sommano gli argomenti",
+      "wrong": [
+        "Si sommano moduli e argomenti",
+        "Si annullano sempre le parti immaginarie"
+      ],
+      "bound": "Potenze intere e forma polare",
+      "connection": "math-p09"
+    },
+    {
+      "unitId": "math-p04",
+      "title": "Limiti, variazione e accumulazione",
+      "story": "Un misuratore registra una portata che cresce come il quadrato del tempo. La quantità accumulata non è la portata finale moltiplicata per la durata: devi sommare contributi variabili.",
+      "concept": "Un integrale definito misura un’accumulazione orientata. Per una portata f(t)=at², l’accumulo da 0 a x è A(x)=∫₀ˣ at²dt. La derivata esprime invece il tasso istantaneo di variazione.",
+      "derivation": "Una primitiva di at² è at³/3, perché la sua derivata è at². Valutando agli estremi ottieni A(x)=ax³/3. Il teorema fondamentale collega i due problemi: derivare l’accumulo restituisce la portata, nelle opportune ipotesi di continuità.",
+      "example": "Con a=1 e x=3, l’accumulo è 27/3=9. Usare la portata finale f(3)=9 per tutto l’intervallo darebbe 27 e sovrastimerebbe il totale.",
+      "misconception": "Valore della funzione, derivata e integrale hanno significati e spesso unità diverse. Una curva alta non implica da sola una derivata grande; conta come varia, non solo quanto vale.",
+      "limit": "Il laboratorio valuta la formula analitica dell’integrale di un polinomio. Non misura una portata reale e non usa quadrature numeriche per questa famiglia.",
+      "extension": "Approssima l’integrale con rettangoli e confronta somme sinistre e destre. Studia come l’errore cambia aumentando il numero di suddivisioni.",
+      "question": "La derivata dell’accumulo A(x)=ax³/3 è:",
+      "answer": "ax²",
+      "wrong": [
+        "3ax²",
+        "ax³"
+      ],
+      "bound": "Accumulo analitico di una portata polinomiale",
+      "connection": "physics-08"
+    },
+    {
+      "unitId": "math-p05",
+      "title": "Radici, campi e nuovi sistemi numerici",
+      "story": "Il sistema deve calcolare una radice quadrata senza una tabella precompilata. Una successione di stime migliora il risultato, ma serve capire quali condizioni rendono sensato il procedimento.",
+      "concept": "Il metodo babilonese per √a combina una stima positiva z con a/z. Se z è troppo grande, a/z è troppo piccolo. La media delle due quantità produce una nuova stima: z_successivo=(z+a/z)/2.",
+      "derivation": "Applicando il metodo di Newton alla funzione f(z)=z²-a ottieni z-f(z)/f′(z)=z-(z²-a)/(2z). La semplificazione conduce alla stessa formula. Sono indispensabili a>0 e z≠0; il laboratorio usa solo stime iniziali positive.",
+      "example": "Per a=2 e z₀=1, z₁=1,5. Il passo successivo è (1,5+2/1,5)/2≈1,416667. Un altro passo avvicina ancora √2.",
+      "misconception": "Una rappresentazione decimale finita non rende razionale la radice esatta. Inoltre l’uguaglianza di due cifre visualizzate non prova che l’errore numerico sia nullo.",
+      "limit": "La sequenza usa aritmetica a precisione finita e pochi passi. La convergenza di questa famiglia non garantisce il successo di Newton per funzioni arbitrarie o punti iniziali qualsiasi.",
+      "extension": "Calcola il residuo z_n²-a e confrontalo con l’errore z_n-√a. Giustifica perché un residuo piccolo deve essere interpretato anche alla luce della derivata della funzione.",
+      "question": "Il metodo z_successivo=(z+a/z)/2 richiede:",
+      "answer": "Una stima z diversa da zero",
+      "wrong": [
+        "Una stima necessariamente intera",
+        "Che a sia un quadrato perfetto"
+      ],
+      "bound": "Radicando e stima iniziale positivi",
+      "connection": "math-b"
+    },
+    {
+      "unitId": "math-p06",
+      "title": "Geometrie, trasformazioni e simmetrie",
+      "story": "Una struttura viene ruotata nel laboratorio. La sua ombra sull’asse cambia, ma le distanze interne restano le stesse. Distingui ciò che dipende dalle coordinate da ciò che è invariabile.",
+      "concept": "Una rotazione del piano attorno all’origine trasforma (a,b) in (a cosθ-b sinθ, a sinθ+b cosθ). Le coordinate cambiano con θ, mentre la distanza dall’origine resta √(a²+b²).",
+      "derivation": "La matrice di rotazione ha colonne ortonormali. Espandendo la somma dei quadrati delle nuove coordinate, i termini misti si cancellano e rimane a²+b². Questa è una prova algebrica della conservazione della lunghezza.",
+      "example": "Il punto (1,0), ruotato di π/2, diventa (0,1). L’ascissa visualizzata vale zero, ma il vettore non è scomparso: il suo modulo resta 1.",
+      "misconception": "Una componente nulla non significa vettore nullo. Una rotazione non è una traslazione e non va confusa con uno stiramento, che può cambiare distanze e aree.",
+      "limit": "Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto.",
+      "extension": "Componi due rotazioni e dimostra che gli angoli si sommano. Confronta poi il determinante di una rotazione con quello di una riflessione.",
+      "question": "Una rotazione euclidea conserva:",
+      "answer": "Le distanze",
+      "wrong": [
+        "Ogni singola coordinata",
+        "Il segno di ogni componente"
+      ],
+      "bound": "Rotazioni piane euclidee",
+      "connection": "math-p03"
+    },
+    {
+      "unitId": "math-p07",
+      "title": "Probabilità, informazione e fenomeni collettivi",
+      "story": "Un messaggio può assumere due esiti. Quando uno è quasi certo, il messaggio sorprende poco. Vuoi quantificare l’incertezza prima della ricezione, non il valore personale dell’informazione.",
+      "concept": "L’entropia binaria misura l’incertezza di un esito con probabilità p e 1-p. È la media dell’informazione -log(p) dei possibili esiti. Con logaritmi in base 2 l’unità è il bit.",
+      "derivation": "La formula è H=-p log_a p-(1-p)log_a(1-p). Agli estremi si usa il limite 0 log 0=0. L’entropia è massima quando gli esiti sono equiprobabili e nulla quando uno è certo.",
+      "example": "Per p=0,5 e base 2, ciascun termine vale 0,5 bit e il totale è 1 bit. Per p=0 o p=1, H=0. Cambiare base cambia l’unità numerica, non l’ordine delle incertezze.",
+      "misconception": "Entropia non significa ignoranza di una singola persona né qualità del contenuto. Un esito raro ha molta informazione individuale, ma la sua probabilità pesa poco nella media.",
+      "limit": "Il modello considera una sola variabile binaria con probabilità note. Non descrive dipendenze fra messaggi, compressione reale o significato semantico.",
+      "extension": "Deriva H rispetto a p per localizzare il massimo. Collega la concavità dell’entropia alla maggiore incertezza di una distribuzione più uniforme.",
+      "question": "L’entropia binaria in bit è massima quando:",
+      "answer": "p=0,5",
+      "wrong": [
+        "p=0",
+        "p=1"
+      ],
+      "bound": "Variabile binaria con probabilità note",
+      "connection": "biology-18"
+    },
+    {
+      "unitId": "math-p08",
+      "title": "Iterazioni, stabilità e precisione numerica",
+      "story": "Una regola semplice viene ripetuta a ogni ciclo e produce andamenti molto diversi. La missione è distinguere equilibrio, alternanza e sensibilità alle condizioni iniziali senza scambiare un grafico lungo per una prova.",
+      "concept": "La mappa logistica aggiorna lo stato con x_successivo=a x(1-x). Per 0≤a≤4 e 0≤x≤1, il risultato resta nell’intervallo unitario. Un punto fisso soddisfa f(x*)=x*; ciò non significa che gli stati vicini vi convergano.",
+      "derivation": "I punti fissi sono 0 e, quando a≠0, 1-1/a. La derivata è a(1-2x). La condizione locale |f′(x*)|<1 indica attrazione; un modulo maggiore di 1 indica instabilità locale.",
+      "example": "Con a=3,2 e x₀=0,2, il primo passo è 3,2×0,2×0,8=0,512. Iterare la regola è diverso dal valutare la stessa formula sul tempo come variabile continua.",
+      "misconception": "Un residuo piccolo in un singolo istante non dimostra stabilità. Due traiettorie che divergono possono essere sensibili ai dati iniziali, ma il solo disegno non è una certificazione matematica di caos.",
+      "limit": "Il modello è discreto, adimensionale e calcolato in virgola mobile. Non è una previsione quantitativa di una popolazione reale.",
+      "extension": "Confronta valori di a sotto e sopra 3 e studia il punto fisso non nullo. Ripeti con stati iniziali molto vicini annotando la precisione numerica.",
+      "question": "Un punto fisso x* soddisfa:",
+      "answer": "f(x*)=x*",
+      "wrong": [
+        "f(x*)=0 necessariamente",
+        "f′(x*)=1 necessariamente"
+      ],
+      "bound": "Mappa discreta adimensionale",
+      "connection": "biology-19"
+    },
+    {
+      "unitId": "math-p09",
+      "title": "Onde, frequenze e ricostruzione",
+      "story": "Un segnale apparentemente complesso viene ricostruito sommando oscillazioni semplici. Devi capire che cosa cambia aggiungendo armoniche, senza confondere maggiore dettaglio con una ricostruzione esatta.",
+      "concept": "Una combinazione di seni può rappresentare segnali periodici. Nel laboratorio la fondamentale sin(x) è affiancata dalla terza e quinta armonica, pesate da 1/3 e 1/5. Ogni armonica oscilla un numero intero di volte nel periodo fondamentale.",
+      "derivation": "La somma è sin(x)+a sin(3x)/3+b sin(5x)/5. La linearità permette di valutare separatamente i contributi e poi sommarli. Con a=b=1 è una somma parziale, non la serie infinita di un’onda quadra.",
+      "example": "In x=π/2, i tre contributi sono 1, -1/3 e 1/5. Il totale è 13/15≈0,866667. Sommare soltanto le ampiezze ignorerebbe le fasi in quel punto.",
+      "misconception": "Più armoniche non eliminano automaticamente tutti gli errori. Campionare troppo lentamente può rendere indistinguibili frequenze diverse: la visualizzazione di una curva continua non è una simulazione completa del campionamento.",
+      "limit": "Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita.",
+      "extension": "Confronta la forma della somma con una sola armonica. Studia in seguito il fenomeno di Gibbs e le condizioni del teorema di campionamento.",
+      "question": "La terza armonica rispetto a sin(x) è:",
+      "answer": "sin(3x)",
+      "wrong": [
+        "sin(x/3)",
+        "3+sin(x)"
+      ],
+      "bound": "Somma finita di armoniche note",
+      "connection": "physics-17"
+    },
+    {
+      "unitId": "math-p10",
+      "title": "Reti, conservazione e strategie",
+      "story": "Due percorsi resistivi collegano gli stessi nodi. Un tecnico sostiene che aggiungere un percorso aumenti sempre la resistenza. Il comportamento della rete permette di verificare l’affermazione.",
+      "concept": "In due resistori ideali in parallelo, la tensione ai capi è comune e le correnti si sommano. Per questo si sommano le conduttanze, cioè gli inversi delle resistenze, non le resistenze stesse.",
+      "derivation": "Da I=V/R₁+V/R₂ ottieni 1/R_eq=1/R₁+1/R₂. Riordinando, R_eq=R₁R₂/(R₁+R₂), per resistenze positive. Il valore equivalente è inferiore a ciascuna delle due resistenze.",
+      "example": "Con R₁=R₂=4 Ω, R_eq=16/8=2 Ω. Aggiungere il secondo percorso rende più facile il passaggio di corrente a tensione fissata.",
+      "misconception": "La somma R₁+R₂ vale per una serie, non per un parallelo. Il fatto che le resistenze si riducano in parallelo non viola la conservazione della corrente ai nodi.",
+      "limit": "Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione.",
+      "extension": "Generalizza a tre rami e collega il calcolo alla conservazione ai nodi di una rete. Studia i limiti quando un ramo ha resistenza molto grande o molto piccola.",
+      "question": "Due resistenze positive in parallelo hanno equivalente:",
+      "answer": "Minore di ciascuna delle due",
+      "wrong": [
+        "Uguale alla loro somma",
+        "Sempre maggiore della più grande"
+      ],
+      "bound": "Resistori ideali in regime stazionario",
+      "connection": "physics-23"
+    },
+    {
+      "unitId": "math-p11",
+      "title": "Scala, energia, equilibrio e trasformazioni",
+      "story": "Un contenitore caldo viene lasciato in un ambiente più freddo. Il raffreddamento rallenta avvicinandosi alla temperatura esterna. Una retta a pendenza costante non descrive questo comportamento.",
+      "concept": "Nel modello di raffreddamento lineare, la velocità di variazione della temperatura è proporzionale alla differenza rispetto all’ambiente. La differenza decade esponenzialmente; la temperatura tende a un riferimento, non necessariamente a zero.",
+      "derivation": "La legge T(t)=b+(80-b)exp(-at) risolve dT/dt=-a(T-b), con T(0)=80. Il parametro a ha dimensione di inverso del tempo, mentre b è la temperatura ambiente.",
+      "example": "Con b=20 °C e a=0,2 min⁻¹, il corpo parte da 80 °C. Dopo 5 minuti la differenza iniziale di 60 °C è ridotta a 60/e≈22,07 °C e T≈42,07 °C.",
+      "misconception": "Una costante esponenziale non può avere unità arbitrarie: at deve essere adimensionale. La temperatura di equilibrio è b, non il valore iniziale moltiplicato per zero.",
+      "limit": "Il corpo è trattato come termicamente uniforme e l’ambiente come costante. Il modello non risolve conduzione interna, cambi di fase o scambio radiativo esatto.",
+      "extension": "Riscrivi l’equazione usando la temperatura normalizzata (T-b)/(80-b). Confronta sistemi con a diversi usando il tempo adimensionale at.",
+      "question": "Per a>0, la temperatura tende a:",
+      "answer": "La temperatura ambiente b",
+      "wrong": [
+        "Sempre 0 °C",
+        "Sempre 80 °C"
+      ],
+      "bound": "Corpo uniforme e ambiente costante",
+      "connection": "physics-19"
+    },
+    {
+      "unitId": "math-p12",
+      "title": "Oscillazioni, molecole e quantizzazione",
+      "story": "Uno spettro ideale mostra livelli energetici equidistanti. La missione è riconoscere la struttura matematica dei livelli senza immaginare che una particella quantistica percorra semplicemente una piccola orbita classica.",
+      "concept": "Nell’oscillatore armonico quantistico ideale, i livelli sono E_n=ℏω(n+1/2), con n intero non negativo. La distanza fra livelli consecutivi è ℏω e lo stato fondamentale ha energia non nulla rispetto al minimo del potenziale classico.",
+      "derivation": "Nel laboratorio il parametro a rappresenta ℏω in unità di energia scelte. La relazione E_n=a(n+1/2) è affine nell’indice n, ma i valori ammessi dell’indice sono discreti. Il grafico non va interpretato come una continuità di stati intermedi.",
+      "example": "Con a=1, il livello n=0 ha energia 0,5 e il livello n=1 ha energia 1,5. La differenza è 1, non 1,5.",
+      "misconception": "Un’energia fondamentale non nulla non significa che sia possibile estrarre energia illimitata dal sistema. Le altezze delle linee non sono probabilità di occupazione dei livelli.",
+      "limit": "È lo spettro di un oscillatore armonico ideale, senza calcolo delle funzioni d’onda o delle intensità di transizione. Molecole reali possono richiedere correzioni anarmoniche.",
+      "extension": "Confronta questo spettro con quello dei livelli idrogenoidi, che non sono equidistanti. Individua quali aspetti dipendono dal potenziale assunto.",
+      "question": "Per E_n=a(n+1/2), l’energia fondamentale vale:",
+      "answer": "a/2",
+      "wrong": [
+        "0",
+        "a"
+      ],
+      "bound": "Oscillatore armonico quantistico ideale",
+      "connection": "chemistry-04"
+    },
+    {
+      "unitId": "physics-01",
+      "title": "Misure, unità e incertezza",
+      "story": "La stessa lunghezza viene misurata più volte. Il gruppo spera che cento letture eliminino ogni errore. Prima di calcolare la media, separa la dispersione casuale da uno strumento sistematicamente fuori taratura.",
+      "concept": "Una misura comprende un valore, un’unità e un’incertezza. Ripetizioni indipendenti con la stessa distribuzione permettono di ridurre l’incertezza casuale della media. Non correggono automaticamente un errore sistematico comune a tutte le letture.",
+      "derivation": "Se ogni lettura ha deviazione standard σ, la varianza della media di n letture indipendenti è σ²/n. La deviazione standard della media è quindi σ/√n. Il divisore è la radice del numero di prove, non il numero stesso.",
+      "example": "Con σ=2 mm e n=4, l’errore standard della media è 1 mm. Per dimezzarlo ancora servono 16 letture totali. Un errore di taratura di +3 mm resterebbe invece presente nella media.",
+      "misconception": "Più cifre sul display non implicano più accuratezza. Precisione, accuratezza e risoluzione sono concetti distinti; ripetere una misura correlata non dà lo stesso beneficio di nuove osservazioni indipendenti.",
+      "limit": "Il laboratorio assume σ nota, indipendenza e assenza di variazioni del fenomeno durante le misure. Non calcola un intervallo di confidenza da dati campionari.",
+      "extension": "Progetta un controllo con un riferimento noto per cercare un bias. Confronta l’errore standard con la deviazione delle singole letture e spiega quale descrive la variabilità di una nuova osservazione.",
+      "question": "Per dimezzare σ/√n occorre:",
+      "answer": "Quadruplicare n",
+      "wrong": [
+        "Raddoppiare n",
+        "Dimezzare n"
+      ],
+      "bound": "Letture indipendenti con dispersione costante",
+      "connection": "math-c10"
+    },
+    {
+      "unitId": "physics-02",
+      "title": "Vettori e sistemi di riferimento",
+      "story": "Il rover si muove verso est mentre il terreno trasporta lateralmente un sensore. Le componenti della velocità sono note: la velocità totale non si ottiene sommando semplicemente i numeri.",
+      "concept": "Un vettore possiede modulo, direzione e verso. Le componenti dipendono dagli assi scelti, mentre il modulo della velocità rispetto a uno stesso riferimento non cambia ruotando gli assi.",
+      "derivation": "Con componenti perpendicolari v_x e v_y, il teorema di Pitagora dà |v|=√(v_x²+v_y²). Le componenti possono essere negative; i quadrati assicurano un modulo non negativo.",
+      "example": "Per v_x=4 m/s e v_y=3 m/s il modulo è 5 m/s, non 7. La direzione può essere ricavata dall’angolo con l’asse orizzontale, controllando il quadrante.",
+      "misconception": "La somma dei moduli coincide con il modulo della somma solo in casi particolari. Una rotazione degli assi non va confusa con un cambio di osservatore in moto rispetto al primo.",
+      "limit": "Il modello considera due componenti ortogonali di una stessa velocità. Non include trasformazioni relativistiche o accelerazioni del riferimento.",
+      "extension": "Ruota gli assi di 90° e verifica che il modulo resti uguale. Confronta poi due velocità relative usando la composizione galileiana, dichiarando i riferimenti.",
+      "question": "Con componenti ortogonali 3 e 4 m/s il modulo è:",
+      "answer": "5 m/s",
+      "wrong": [
+        "7 m/s",
+        "1 m/s"
+      ],
+      "bound": "Componenti ortogonali nello stesso riferimento",
+      "connection": "math-p06"
+    },
+    {
+      "unitId": "physics-03",
+      "title": "Moto rettilineo uniforme",
+      "story": "Una navetta procede lungo un corridoio senza cambiare velocità. Il controllo deve prevedere quando passerà davanti a un portello e distinguere una posizione iniziale da uno spostamento.",
+      "concept": "Nel moto rettilineo uniforme la velocità è costante. La posizione segue s(t)=s₀+vt. La pendenza del grafico posizione-tempo è la velocità; l’intercetta è la posizione al tempo zero.",
+      "derivation": "Lo spostamento in un intervallo Δt è vΔt. Se v è negativo, la posizione diminuisce rispetto all’asse scelto: ciò non significa che il tempo scorra all’indietro. Per ricavare l’istante di passaggio risolvi t=(s-s₀)/v quando v≠0.",
+      "example": "Con s₀=1 m e v=2 m/s, dopo 3 s la posizione è 7 m e lo spostamento è 6 m. Le due quantità differiscono perché l’origine non coincide con la partenza.",
+      "misconception": "La quota del grafico non è la velocità. Una retta più in alto può descrivere lo stesso moto iniziato da una posizione diversa.",
+      "limit": "Velocità costante, traiettoria rettilinea e riferimento inerziale sono ipotesi. Avvio, frenata, urti e rumore delle misure non sono inclusi.",
+      "extension": "Calcola il tempo di incontro fra due navette con velocità e posizioni iniziali diverse. Tratta separatamente il caso di velocità uguali.",
+      "question": "Nel grafico posizione-tempo, la velocità è:",
+      "answer": "La pendenza",
+      "wrong": [
+        "L’intercetta",
+        "L’area sotto la retta"
+      ],
+      "bound": "Moto rettilineo a velocità costante",
+      "connection": "math-c04"
+    },
+    {
+      "unitId": "physics-04",
+      "title": "Moto uniformemente accelerato",
+      "story": "Un carrello viene accelerato lungo una guida. Le distanze percorse in intervalli uguali aumentano: una previsione fondata sulla sola velocità iniziale non basta.",
+      "concept": "Accelerazione significa variazione della velocità nel tempo. Quando è costante, v(t)=v₀+at. Lo spostamento si ottiene accumulando la velocità: Δs=v₀t+at²/2.",
+      "derivation": "L’area sotto il grafico velocità-tempo è un rettangolo v₀t più un triangolo at²/2. La derivata dello spostamento restituisce v₀+at e una seconda derivata restituisce a.",
+      "example": "Partendo da fermo con a=1 m/s², dopo 2 s lo spostamento è 2 m e la velocità è 2 m/s. Usare la velocità finale per tutto l’intervallo darebbe erroneamente 4 m.",
+      "misconception": "Accelerazione positiva non significa sempre aumento del modulo della velocità: conta anche il segno della velocità iniziale. Il parametro è costante solo nell’intervallo in cui l’ipotesi è ragionevole.",
+      "limit": "Si descrive un moto unidimensionale con accelerazione imposta. Non sono calcolate forze, attrito o limiti del motore.",
+      "extension": "Ricava la relazione v²-v₀²=2aΔs eliminando il tempo. Verifica le dimensioni di ogni termine e confronta frenata e accelerazione.",
+      "question": "Partendo da fermo con accelerazione costante:",
+      "answer": "Lo spostamento cresce come t²",
+      "wrong": [
+        "Lo spostamento è sempre costante",
+        "La velocità cresce come t²"
+      ],
+      "bound": "Accelerazione costante in una dimensione",
+      "connection": "physics-06"
+    },
+    {
+      "unitId": "physics-05",
+      "title": "Traiettorie e lanci",
+      "story": "Un campione deve raggiungere un bersaglio oltre un ostacolo. La stazione imposta velocità e inclinazione del lancio. Devi stimare la traiettoria e dichiarare quali effetti sono stati esclusi.",
+      "concept": "Nel lancio ideale senza resistenza, il moto orizzontale è uniforme e quello verticale ha accelerazione -g. Le due componenti condividono lo stesso tempo, ma evolvono secondo equazioni diverse.",
+      "derivation": "Da x=v₀cosθ·t e y=v₀sinθ·t-gt²/2 elimini t. Ottieni y=x tanθ-gx²/(2v₀²cos²θ). Il laboratorio usa g=9,81 m/s² e interrompe la curva dopo il ritorno alla quota del suolo.",
+      "example": "Con v₀=20 m/s e θ=45°, in x=10 m la quota è 10-9,81×100/400=7,5475 m. Questo è un valore del modello, non una misura di un lancio reale.",
+      "misconception": "La velocità verticale si annulla al culmine, ma la componente orizzontale non si annulla. Il proiettile non è in equilibrio al punto più alto: continua ad avere accelerazione verso il basso.",
+      "limit": "Assenza di aria, gravità uniforme e suolo piano sono ipotesi. La scena non va usata per progettare lanci o valutare la sicurezza di oggetti reali.",
+      "extension": "Ricava gittata e altezza massima. Spiega perché l’angolo di massima gittata cambia quando partenza e arrivo hanno quote diverse o quando interviene la resistenza.",
+      "question": "Al culmine del lancio ideale:",
+      "answer": "La velocità verticale è zero, l’accelerazione no",
+      "wrong": [
+        "Tutta l’accelerazione è zero",
+        "La velocità orizzontale è zero"
+      ],
+      "bound": "Lancio ideale senza resistenza dell’aria",
+      "connection": "math-c08"
+    },
+    {
+      "unitId": "physics-06",
+      "title": "Forze e leggi di Newton",
+      "story": "Due carrelli subiscono la stessa forza, ma non accelerano nello stesso modo. Per spiegare la differenza devi considerare la massa e sommare correttamente tutte le forze.",
+      "concept": "La seconda legge di Newton collega la forza risultante all’accelerazione: F_ris=ma, per massa costante in un riferimento inerziale. Una forza singola non basta se altre agiscono nello stesso momento.",
+      "derivation": "Il modello usa a=F/m. A massa fissata l’accelerazione è proporzionale alla forza; a forza fissata è inversamente proporzionale alla massa. Il rapporto N/kg equivale a m/s².",
+      "example": "Una forza risultante di 10 N su una massa di 2 kg produce 5 m/s². Raddoppiando la massa a 4 kg, la stessa forza produce 2,5 m/s².",
+      "misconception": "Il moto non richiede una forza risultante costante: una risultante nulla conserva la velocità, che può essere diversa da zero. Le forze di azione e reazione agiscono su corpi diversi.",
+      "limit": "Massa costante e meccanica classica non relativistica. Il laboratorio non costruisce automaticamente il diagramma completo delle forze del carrello.",
+      "extension": "Disegna un diagramma delle forze prima di inserire la risultante. Confronta una situazione in cui forze grandi si compensano con una in cui una sola forza è piccola ma non bilanciata.",
+      "question": "Una risultante nulla su massa costante implica:",
+      "answer": "Accelerazione nulla",
+      "wrong": [
+        "Velocità necessariamente nulla",
+        "Massa nulla"
+      ],
+      "bound": "Massa costante e riferimento inerziale",
+      "connection": "physics-07"
+    },
+    {
+      "unitId": "physics-07",
+      "title": "Attrito e vincoli",
+      "story": "Una cassa resta ferma mentre aumenta la spinta. La stazione deve capire quanto attrito può opporsi prima dello scorrimento, senza trattare il valore massimo come una forza sempre presente.",
+      "concept": "L’attrito statico si adatta entro un intervallo: il suo modulo può arrivare fino a μ_sN. Il coefficiente μ_s è adimensionale e N è la forza normale. La formula fornisce un massimo, non il valore effettivo in ogni situazione.",
+      "derivation": "Nel laboratorio F_s,max=μ_sN. Per una spinta tangenziale inferiore al limite, una cassa in equilibrio può avere un attrito uguale e contrario alla spinta. Dopo l’avvio dello scorrimento serve un modello di attrito dinamico distinto.",
+      "example": "Con μ_s=0,3 e N=20 N, il massimo statico è 6 N. Una spinta di 2 N può essere bilanciata da 2 N di attrito: non da 6 N.",
+      "misconception": "Confondere μ_sN con l’attrito effettivo porta a prevedere movimenti o accelerazioni inesistenti. La normale non coincide sempre con il peso: dipende dai vincoli e dalle altre forze.",
+      "limit": "Modello macroscopico di Coulomb con coefficiente costante. Non descrive adesione microscopica, lubrificazione, usura o transizione dettagliata allo scorrimento.",
+      "extension": "Analizza una superficie inclinata e ricava la condizione di equilibrio. Distingui componente del peso parallela e perpendicolare al piano.",
+      "question": "La quantità μ_sN rappresenta:",
+      "answer": "Il massimo attrito statico",
+      "wrong": [
+        "Sempre l’attrito effettivo",
+        "La massa della cassa"
+      ],
+      "bound": "Attrito statico ideale con coefficiente costante",
+      "connection": "physics-06"
+    },
+    {
+      "unitId": "physics-08",
+      "title": "Lavoro ed energia",
+      "story": "Una navetta raddoppia la velocità. Il responsabile del deposito prevede un consumo doppio per portarla a quel nuovo stato. L’energia cinetica permette di valutare questa intuizione.",
+      "concept": "L’energia cinetica classica di una massa puntiforme è K=mv²/2. Dipende dal quadrato della velocità, perciò è non negativa e cresce più rapidamente della velocità stessa.",
+      "derivation": "Il teorema dell’energia cinetica collega il lavoro della forza risultante alla variazione di K. Raddoppiare v, a massa costante, moltiplica K per quattro; raddoppiare m, a velocità costante, la raddoppia.",
+      "example": "Per m=2 kg e v=3 m/s, K=9 J. A 6 m/s, K=36 J. Il lavoro necessario a passare fra i due stati è 27 J nel bilancio meccanico ideale.",
+      "misconception": "L’energia cinetica finale non è sempre il lavoro totale richiesto da un motore: possono esserci energia iniziale, variazioni di quota e dissipazioni. L’energia è uno scalare, non una forza.",
+      "limit": "Meccanica classica e massa puntiforme. Sono escluse energia rotazionale, velocità relativistiche e perdite del sistema propulsivo.",
+      "extension": "Confronta energia cinetica e quantità di moto per due oggetti. Cerca coppie con stessa quantità di moto ma diversa energia cinetica.",
+      "question": "Raddoppiando la velocità a massa costante, K:",
+      "answer": "Quadruplica",
+      "wrong": [
+        "Raddoppia",
+        "Resta uguale"
+      ],
+      "bound": "Energia cinetica classica traslazionale",
+      "connection": "physics-09"
+    },
+    {
+      "unitId": "physics-09",
+      "title": "Quantità di moto e urti",
+      "story": "Due moduli scorrono in versi opposti lungo la stessa guida. Le loro energie sono entrambe positive, ma il bilancio del moto deve conservare l’informazione sul verso.",
+      "concept": "La quantità di moto è il vettore p=mv. In una dimensione il segno indica il verso rispetto all’asse. In un sistema isolato, la somma vettoriale delle quantità di moto si conserva anche quando l’energia cinetica cambia.",
+      "derivation": "L’impulso della forza risultante è la variazione di p. Per una forza costante, Δp=FΔt. Nel laboratorio massa e velocità determinano la quantità di moto di un singolo corpo, non l’esito automatico di un urto.",
+      "example": "Con m=2 kg e v=-3 m/s, p=-6 kg m/s. Un secondo corpo con p=+6 porta il totale a zero, pur avendo entrambi energia cinetica non nulla.",
+      "misconception": "Quantità di moto totale nulla non significa assenza di movimento. Negli urti anelastici può conservarsi la quantità di moto senza conservarsi l’energia cinetica.",
+      "limit": "Un solo corpo classico a massa costante. Per risolvere un urto servono le condizioni dell’intero sistema e una legge aggiuntiva sul tipo di collisione.",
+      "extension": "Imposta un urto completamente anelastico di due corpi che restano uniti. Ricava la velocità finale dal bilancio di p e calcola l’energia cinetica trasformata.",
+      "question": "Un totale di quantità di moto pari a zero:",
+      "answer": "Può includere corpi in moto opposto",
+      "wrong": [
+        "Implica che tutti i corpi siano fermi",
+        "Implica energia cinetica totale nulla"
+      ],
+      "bound": "Quantità di moto classica, asse dichiarato",
+      "connection": "math-p02"
+    },
+    {
+      "unitId": "physics-10",
+      "title": "Rotazione e momento d’inerzia",
+      "story": "Una massa viene spostata verso il bordo di un braccio rotante. La massa totale non cambia, ma la risposta alla rotazione sì. Devi identificare la grandezza che tiene conto della distribuzione.",
+      "concept": "Il momento d’inerzia di una massa puntiforme rispetto a un asse è I=mr², dove r è la distanza perpendicolare dall’asse. Per più masse si sommano i contributi, non soltanto le masse.",
+      "derivation": "La dipendenza quadratica da r rende molto importante la distribuzione. Per un asse fisso, la relazione dinamica τ=Iα ha un ruolo analogo a F=ma, ma non rende intercambiabili moto traslazionale e rotazionale.",
+      "example": "Con m=2 kg a r=2 m, I=8 kg m². Spostando la stessa massa a r=1 m, I scende a 2 kg m², cioè a un quarto.",
+      "misconception": "Il momento d’inerzia non è una proprietà del corpo senza specificare l’asse. Una sfera e un anello con la stessa massa e dimensione possono avere valori differenti.",
+      "limit": "Il modello tratta tutta la massa come puntiforme e ignora la massa del supporto. La circonferenza visualizzata indica la distanza dall’asse, non una simulazione dinamica.",
+      "extension": "Costruisci un sistema di due masse e somma i contributi. Confronta la distribuzione vicino all’asse con quella lontano, mantenendo la massa totale costante.",
+      "question": "Raddoppiando r a massa invariata, I:",
+      "answer": "Quadruplica",
+      "wrong": [
+        "Raddoppia",
+        "Si dimezza"
+      ],
+      "bound": "Massa puntiforme rispetto a un asse fissato",
+      "connection": "physics-11"
+    },
+    {
+      "unitId": "physics-11",
+      "title": "Momenti, leve ed equilibrio",
+      "story": "Una porta della stazione non ruota facilmente quando la forza è applicata quasi verso la cerniera. La stessa intensità può avere effetti diversi a seconda della direzione.",
+      "concept": "Il momento torcente misura l’effetto rotazionale di una forza rispetto a un asse. Il modulo è τ=rF sinθ, dove θ è l’angolo fra vettore posizione e forza. Conta la componente perpendicolare.",
+      "derivation": "Quando la forza è parallela al braccio, sinθ=0 e il momento è nullo. A 90° il modulo è massimo e vale rF. Il segno del momento richiede una convenzione di orientazione, qui non rappresentata dalla sola formula del modulo.",
+      "example": "Con r=2 m, F=10 N e θ=π/2, il momento è 20 N m. Con la stessa forza diretta lungo il braccio, il momento è zero.",
+      "misconception": "Un momento nullo rispetto a un asse non implica forza nulla. L’unità N m coincide dimensionalmente con il joule, ma momento ed energia sono grandezze differenti.",
+      "limit": "Il controllo mostra il modulo per angoli da 0 a π e braccio rigido. Non simula deformazioni, cerniere o l’intero equilibrio di un corpo.",
+      "extension": "Imponi sia somma delle forze nulla sia somma dei momenti nulla per un oggetto in equilibrio statico. Mostra perché una sola delle due condizioni non basta.",
+      "question": "Il momento di una forza è massimo quando forza e braccio sono:",
+      "answer": "Perpendicolari",
+      "wrong": [
+        "Paralleli",
+        "Sempre allineati con l’asse"
+      ],
+      "bound": "Braccio rigido e modulo del momento",
+      "connection": "math-c09"
+    },
+    {
+      "unitId": "physics-12",
+      "title": "Gravitazione",
+      "story": "Una sonda si allontana da una massa centrale. Il campo si indebolisce, ma non secondo una diminuzione costante per metro. Il rapporto fra distanze permette una previsione semplice.",
+      "concept": "Fuori da una massa sfericamente simmetrica, il modulo del campo gravitazionale newtoniano è g=GM/r². Il parametro μ=GM unisce costante gravitazionale e massa sorgente.",
+      "derivation": "Raddoppiare r riduce g a un quarto. La distanza va misurata dal centro della sorgente, non dalla sua superficie. Nel laboratorio μ è un parametro di un sistema ideale, non il valore di un pianeta reale.",
+      "example": "Con μ=10 m³/s² e r=2 m, g=10/4=2,5 m/s². A r=4 m vale 0,625 m/s². Raddoppiare la distanza divide il campo per quattro, non per due: il quadrato agisce su tutto il rapporto.",
+      "misconception": "Una sonda in orbita non si trova in assenza di gravità. La caduta libera orbitale richiede proprio un’accelerazione verso il centro.",
+      "limit": "Massa centrale puntiforme o sferica, regime newtoniano e posizione esterna. Non sono inclusi forma irregolare, altri corpi o relatività.",
+      "extension": "Integra il campo radiale per ricavare il potenziale con riferimento all’infinito. Distingui il modulo del campo dal segno dell’energia potenziale.",
+      "question": "Raddoppiando la distanza dal centro, il campo diventa:",
+      "answer": "Un quarto",
+      "wrong": [
+        "La metà",
+        "Il doppio"
+      ],
+      "bound": "Campo newtoniano esterno a sorgente sferica",
+      "connection": "physics-13"
+    },
+    {
+      "unitId": "physics-13",
+      "title": "Orbite circolari",
+      "story": "La sonda deve mantenere un’orbita circolare attorno a una sorgente ideale. Non basta scegliere una traiettoria rotonda: la velocità deve essere coerente con il campo gravitazionale.",
+      "concept": "In un’orbita circolare la gravità fornisce l’accelerazione centripeta. Uguagliando μ/r² a v²/r ottieni v=√(μ/r). La massa della sonda si semplifica nel modello a sorgente dominante.",
+      "derivation": "Il periodo orbitale è T=2πr/v, quindi T²=4π²r³/μ. Un raggio maggiore richiede una velocità circolare minore ma un periodo più lungo.",
+      "example": "Con μ=100 m³/s² e r=4 m, la velocità circolare è 5 m/s. Il sistema è didattico e non corrisponde a un’orbita terrestre.",
+      "misconception": "Il cerchio disegnato non prova che ogni velocità su quel raggio produca un’orbita circolare. Una velocità diversa può condurre a traiettorie eccentriche o non legate.",
+      "limit": "Formula analitica per un problema a due corpi con sorgente dominante, orbita circolare e assenza di perturbazioni. Nessun integratore orbitale è eseguito in questa scheda.",
+      "extension": "Confronta la velocità circolare con quella di fuga √(2μ/r). Spiega quale scelta del riferimento dell’energia permette di ottenere la seconda relazione.",
+      "question": "La velocità circolare a raggio maggiore è:",
+      "answer": "Minore, a μ costante",
+      "wrong": [
+        "Maggiore, a μ costante",
+        "Sempre identica"
+      ],
+      "bound": "Orbita circolare newtoniana non perturbata",
+      "connection": "math-c03"
+    },
+    {
+      "unitId": "physics-14",
+      "title": "Fluidi e pressione",
+      "story": "Un sensore viene immerso in un bacino. La pressione cresce con la profondità, ma il display deve distinguere l’incremento dovuto al fluido dalla pressione assoluta.",
+      "concept": "In un fluido statico di densità uniforme, l’incremento di pressione è Δp=ρgh. La pressione è forza per unità di area ed è espressa in pascal.",
+      "derivation": "Una colonna di fluido di sezione A e altezza h pesa ρAhg. Dividendo la forza per l’area A ottieni ρgh: la sezione si semplifica. La pressione assoluta richiede di aggiungere quella alla superficie.",
+      "example": "Con ρ=1000 kg/m³, g=9,81 m/s² e h=2 m, l’incremento è 19.620 Pa. Non è la pressione assoluta se alla superficie esiste già una pressione esterna.",
+      "misconception": "La pressione non è una forza: per ottenere la forza su una superficie devi considerare area e direzione. La densità non è necessariamente costante in ogni fluido reale.",
+      "limit": "Fluido in quiete, densità costante e gravità uniforme. Non sono calcolati flussi, compressibilità o variazioni atmosferiche.",
+      "extension": "Confronta due liquidi alla stessa profondità. Studia il caso di densità variabile come integrale di ρ(h)g.",
+      "question": "La relazione ρgh dà:",
+      "answer": "L’incremento rispetto alla superficie",
+      "wrong": [
+        "Sempre la pressione assoluta",
+        "La forza totale su qualunque parete"
+      ],
+      "bound": "Fluido statico con densità uniforme",
+      "connection": "physics-15"
+    },
+    {
+      "unitId": "physics-15",
+      "title": "Galleggiamento e Archimede",
+      "story": "Un oggetto viene immerso progressivamente. Il laboratorio vuole prevedere la spinta senza attribuirla alla forma apparente della mesh o al colore del fluido.",
+      "concept": "La spinta di Archimede è pari al peso del fluido spostato: F_A=ρgV_immerso. Dipende dal volume effettivamente immerso, non necessariamente dal volume totale del corpo.",
+      "derivation": "La differenza di pressione fra le parti basse e alte di un corpo produce una risultante verso l’alto. Nel galleggiamento statico, questa risultante bilancia il peso del corpo.",
+      "example": "Immergendo 0,001 m³ in acqua idealizzata con ρ=1000 kg/m³, la spinta è 9,81 N. Un volume doppio produce una spinta doppia, a densità costante.",
+      "misconception": "Galleggiare non significa avere massa nulla. Un oggetto cavo può avere densità media inferiore al fluido anche se il materiale della parete è più denso.",
+      "limit": "Fluido statico uniforme e volume spostato noto. La scena non risolve la posizione di equilibrio o l’assetto del corpo.",
+      "extension": "Per un corpo uniforme che galleggia, ricava la frazione immersa come rapporto fra densità media del corpo e densità del fluido.",
+      "question": "La spinta dipende direttamente da:",
+      "answer": "Il volume di fluido spostato",
+      "wrong": [
+        "Il colore dell’oggetto",
+        "La sola massa del recipiente"
+      ],
+      "bound": "Volume immerso noto e fluido statico",
+      "connection": "biology-01"
+    },
+    {
+      "unitId": "physics-16",
+      "title": "Oscillazioni armoniche",
+      "story": "Un sensore montato su una molla oscilla attorno a un punto di equilibrio. Il moto si ripete, ma ampiezza e rapidità delle oscillazioni non sono la stessa cosa.",
+      "concept": "Il moto armonico semplice è descritto da x(t)=A cos(ωt+φ). A è l’ampiezza, ω la pulsazione e φ la fase iniziale. Il laboratorio fissa φ=0.",
+      "derivation": "Il periodo è T=2π/ω. Derivando ottieni v=-Aω sin(ωt) e a=-Aω² cos(ωt)=-ω²x. L’accelerazione è sempre diretta verso l’equilibrio.",
+      "example": "Con A=1 m e ω=2 rad/s, al tempo zero x=1 m e v=0. Il periodo è π s. Al centro x=0, la velocità ha modulo massimo.",
+      "misconception": "Velocità nulla agli estremi non significa accelerazione nulla. L’ampiezza misura una distanza, mentre il periodo misura un tempo.",
+      "limit": "Oscillatore ideale senza smorzamento o forzanti. Non si modellano deformazioni non lineari della molla.",
+      "extension": "Ricava l’energia cinetica e potenziale per una molla ideale e verifica che la somma sia costante. Collega ω a massa e costante elastica.",
+      "question": "Nel moto armonico, l’accelerazione è:",
+      "answer": "Proporzionale a -x",
+      "wrong": [
+        "Sempre nulla al massimo spostamento",
+        "Costante nel tempo"
+      ],
+      "bound": "Oscillazione ideale senza smorzamento",
+      "connection": "math-p12"
+    },
+    {
+      "unitId": "physics-17",
+      "title": "Onde e sovrapposizione",
+      "story": "Una perturbazione attraversa una guida. Il profilo sembra muoversi, ma il materiale della guida non viaggia insieme all’onda per tutta la sua lunghezza.",
+      "concept": "Un’onda descrive una perturbazione che si propaga. La lunghezza d’onda λ è la distanza fra punti con la stessa fase; l’ampiezza A è il massimo spostamento rispetto all’equilibrio.",
+      "derivation": "Il laboratorio mostra l’istantanea a t=0 di y(x,t)=A sin(2πx/λ-ωt). Qui il controllo della posizione cambia il punto osservato, non il tempo. Per una propagazione con frequenza f, la velocità di fase è v=fλ.",
+      "example": "Con A=1 m e λ=4 m, in x=1 m il profilo vale 1 m. In x=2 m torna a zero. Il primo massimo è a un quarto della lunghezza d’onda.",
+      "misconception": "La velocità della perturbazione non coincide con la velocità trasversale di un elemento del mezzo. Un grafico spaziale non è un grafico temporale senza un collegamento esplicito.",
+      "limit": "Profilo sinusoidale ideale in un mezzo uniforme. Non sono calcolati dispersione, attenuazione o velocità del mezzo.",
+      "extension": "Somma due profili e osserva interferenza costruttiva e distruttiva. Distingui interferenza permanente e coincidenza momentanea delle creste.",
+      "question": "La lunghezza d’onda è:",
+      "answer": "La distanza fra punti con la stessa fase",
+      "wrong": [
+        "Il tempo di un’oscillazione",
+        "L’altezza massima della cresta"
+      ],
+      "bound": "Istantanea spaziale di un’onda sinusoidale",
+      "connection": "math-p09"
+    },
+    {
+      "unitId": "physics-18",
+      "title": "Gas ideali",
+      "story": "Il volume di una camera viene cambiato mantenendo costanti quantità di gas e temperatura. La pressione non diminuisce linearmente con il volume: segui il bilancio delle grandezze.",
+      "concept": "La legge dei gas ideali è pV=nRT. La temperatura deve essere assoluta, in kelvin. Nel laboratorio il volume si inserisce in litri, poi viene convertito in metri cubi per ottenere la pressione in pascal.",
+      "derivation": "A n e T costanti, p=nRT/V e il prodotto pV resta costante. Raddoppiare il volume dimezza la pressione. Il valore di R usato è circa 8,314462618 J/(mol K).",
+      "example": "Per n=1 mol, T=300 K e V=5 L=0,005 m³, p≈498.868 Pa. Omettere la conversione dei litri produrrebbe un errore di un fattore mille.",
+      "misconception": "Gradi Celsius e kelvin non sono intercambiabili nella legge. La temperatura negativa in Celsius non implica energia termica assoluta negativa.",
+      "limit": "Gas ideale in equilibrio, quantità e temperatura controllate. Ad alte densità o vicino a una transizione di fase servono modelli più completi.",
+      "extension": "Confronta trasformazioni isoterme e isobare. Indica quali variabili devono restare fissate prima di affermare una proporzionalità.",
+      "question": "A n e T costanti, raddoppiando V:",
+      "answer": "La pressione si dimezza",
+      "wrong": [
+        "La pressione raddoppia",
+        "La pressione non cambia"
+      ],
+      "bound": "Gas ideale in equilibrio con unità SI coerenti",
+      "connection": "chemistry-10"
+    },
+    {
+      "unitId": "physics-19",
+      "title": "Calore e capacità termica",
+      "story": "Due campioni ricevono la stessa energia ma mostrano aumenti di temperatura diversi. La differenza può dipendere dalla massa e dal calore specifico, non da un errore del sensore.",
+      "concept": "Quando non avvengono cambi di fase e il calore specifico è circa costante, Q=mcΔT. Il calore è energia trasferita; la temperatura è una variabile di stato, non una quantità di energia contenuta.",
+      "derivation": "La capacità termica del corpo è mc. La variazione di un kelvin equivale a una variazione di un grado Celsius, ma ciò non rende uguali le due scale assolute.",
+      "example": "Con m=0,2 kg, c=4184 J/(kg K) e ΔT=10 K, il calore assorbito è 8368 J. Raddoppiare la massa raddoppia l’energia necessaria per lo stesso aumento.",
+      "misconception": "La formula non descrive un cambiamento di fase a temperatura costante. Due oggetti alla stessa temperatura possono avere capacità termiche e energie interne diverse.",
+      "limit": "Calore specifico costante, campione uniforme e assenza di dispersioni o transizioni. Il modello non è una procedura di riscaldamento di materiali reali.",
+      "extension": "Costruisci un bilancio energetico fra due corpi isolati. Verifica che il calore ceduto da uno sia uguale in modulo a quello assorbito dall’altro.",
+      "question": "La capacità termica del campione è:",
+      "answer": "mc",
+      "wrong": [
+        "m/c",
+        "ΔT/Q"
+      ],
+      "bound": "Calore specifico costante senza transizioni",
+      "connection": "chemistry-11"
+    },
+    {
+      "unitId": "physics-20",
+      "title": "Termodinamica e rendimento",
+      "story": "Una macchina ideale usa una sorgente calda e una fredda. La stazione vuole sapere quale limite teorico deve rispettare prima di discutere perdite e dettagli costruttivi.",
+      "concept": "Il rendimento di una macchina termica è il lavoro ottenuto diviso il calore assorbito dalla sorgente calda. Fra due temperature fissate, il rendimento di Carnot è un limite per una macchina reversibile.",
+      "derivation": "La relazione è η_C=1-T_fredda/T_calda, con temperature in kelvin. Abbassare la temperatura fredda o alzare quella calda aumenta il limite, ma non garantisce che una macchina reale lo raggiunga.",
+      "example": "Con sorgenti a 300 K e 600 K, il limite è 0,5, cioè 50%. Usare 27 °C e 327 °C nel rapporto darebbe un risultato fisicamente scorretto.",
+      "misconception": "Rendimento limite non significa rendimento garantito. Un valore inferiore a uno non viola la conservazione dell’energia: una parte del calore viene ceduta alla sorgente fredda.",
+      "limit": "Due sorgenti ideali a temperature costanti e ciclo reversibile come riferimento. Non sono modellati potenza, scambiatori o attriti.",
+      "extension": "Spiega perché avvicinare le temperature delle sorgenti riduce il lavoro teoricamente estraibile. Collega il risultato al bilancio di entropia di un ciclo reversibile.",
+      "question": "Nel rapporto di Carnot si usano:",
+      "answer": "Temperature in kelvin",
+      "wrong": [
+        "Temperature in Celsius senza conversione",
+        "Soltanto differenze di temperatura"
+      ],
+      "bound": "Limite reversibile fra due sorgenti ideali",
+      "connection": "physics-19"
+    },
+    {
+      "unitId": "physics-21",
+      "title": "Cariche e campo elettrico",
+      "story": "Una piccola carica di prova esplora lo spazio attorno a una sorgente positiva. Devi distinguere il campo presente dalla forza che dipenderà anche dalla carica di prova.",
+      "concept": "Il campo elettrico è forza per unità di carica di prova. Per una sorgente puntiforme nel vuoto, il modulo è E=k|q|/r². La direzione è radiale.",
+      "derivation": "Il controllo esprime la carica sorgente in nanocoulomb. La conversione 1 nC=10⁻⁹ C trasforma k≈8,98755×10⁹ nel fattore numerico 8,98755 del calcolo visualizzato.",
+      "example": "Con q=1 nC e r=1 m, E≈8,98755 N/C. Una carica di prova doppia subirebbe forza doppia nello stesso campo, finché non lo perturba significativamente.",
+      "misconception": "Campo elettrico e forza non sono sinonimi. Cambiare la carica di prova non cambia automaticamente il campo della sorgente ideale.",
+      "limit": "Sorgente puntiforme positiva, vuoto e regime elettrostatico. Sono esclusi schermature, materiali e dimensioni finite degli elettrodi.",
+      "extension": "Confronta la legge con quella gravitazionale, evidenziando che le cariche possono avere segni opposti. Somma vettorialmente i campi di due sorgenti.",
+      "question": "La forza su una carica di prova q_t è:",
+      "answer": "q_t E",
+      "wrong": [
+        "E/q_t",
+        "Sempre E"
+      ],
+      "bound": "Carica puntiforme in vuoto elettrostatico",
+      "connection": "physics-22"
+    },
+    {
+      "unitId": "physics-22",
+      "title": "Potenziale ed energia elettrica",
+      "story": "Un trasportatore sposta piccole cariche fra zone a potenziale diverso. Un valore di tensione da solo non dice quanta energia viene trasferita: serve conoscere la carica.",
+      "concept": "Il potenziale è energia potenziale per unità di carica. Rispetto a un riferimento scelto, U=qV; per un trasferimento, ΔU=qΔV. Il segno dipende dalla carica e dalla differenza di potenziale.",
+      "derivation": "Nel laboratorio q è in microcoulomb e V in volt; il prodotto è in microjoule. Il potenziale zero è una scelta di riferimento, mentre le differenze di energia per uno stesso spostamento restano fisicamente significative.",
+      "example": "Con q=2 μC e V=100 V, U=200 μJ rispetto al riferimento. Non sono 200 J: il prefisso micro introduce un fattore 10⁻⁶.",
+      "misconception": "Tensione non è corrente e non è energia totale. Un potenziale costante nello spazio può essere non nullo mentre il campo locale, legato al gradiente, è nullo.",
+      "limit": "Carica positiva controllata e potenziale imposto. Nessun circuito o processo di scarica reale è simulato.",
+      "extension": "Collega il campo al gradiente del potenziale in una dimensione. Confronta il segno del lavoro del campo con quello della variazione di energia potenziale.",
+      "question": "Il prodotto di μC per V si esprime in:",
+      "answer": "μJ",
+      "wrong": [
+        "J senza prefisso",
+        "A"
+      ],
+      "bound": "Energia relativa a un riferimento di potenziale",
+      "connection": "physics-23"
+    },
+    {
+      "unitId": "physics-23",
+      "title": "Circuiti e legge di Ohm",
+      "story": "Una resistenza ideale viene collegata a tensioni diverse. Il controllo vuole capire se la corrente aumenta proporzionalmente e come cambia sostituendo il componente.",
+      "concept": "Per un resistore ohmico a condizioni costanti, V=RI. La resistenza misura il rapporto fra tensione e corrente. Nel laboratorio I=V/R e R è sempre positiva.",
+      "derivation": "La pendenza del grafico corrente-tensione è 1/R, chiamata conduttanza. La potenza dissipata è P=VI=V²/R=I²R, ma il valore di R può cambiare in un componente reale quando si riscalda.",
+      "example": "Con V=12 V e R=10 Ω, la corrente è 1,2 A. Raddoppiando R a tensione costante, I si dimezza.",
+      "misconception": "La legge di Ohm non è universale per ogni componente: un diodo non si comporta come una resistenza costante. Mantenere costante la tensione è diverso dal mantenere costante la corrente.",
+      "limit": "Resistore ideale con R costante e regime stazionario. Il laboratorio non valuta limiti di potenza o sicurezza di circuiti reali.",
+      "extension": "Combina resistori in serie e parallelo, poi verifica le correnti con le leggi di Kirchhoff. Distingui sempre il componente dal generatore.",
+      "question": "Nel grafico I contro V la pendenza vale:",
+      "answer": "1/R",
+      "wrong": [
+        "R",
+        "V+R"
+      ],
+      "bound": "Resistore ohmico a resistenza costante",
+      "connection": "math-p10"
+    },
+    {
+      "unitId": "physics-24",
+      "title": "Induzione elettromagnetica",
+      "story": "Il flusso magnetico attraverso una spira cambia periodicamente. Il massimo della forza elettromotrice non coincide con il massimo del flusso: serve ragionare sulla variazione.",
+      "concept": "La legge di Faraday collega la forza elettromotrice indotta alla derivata temporale del flusso concatenato. Per una spira, ε=-dΦ/dt. Il segno esprime l’orientazione e la legge di Lenz.",
+      "derivation": "Assumendo Φ(t)=Φ₀sin(ωt), si ottiene ε=-Φ₀ωcos(ωt). Un flusso momentaneamente nullo può avere derivata massima; un flusso al massimo ha derivata nulla.",
+      "example": "Con Φ₀=0,1 Wb e ω=2 rad/s, a t=0 la forza elettromotrice è -0,2 V. Il segno dipende dalla convenzione di orientazione scelta.",
+      "misconception": "Campo magnetico grande ma costante non produce necessariamente induzione in una spira ferma. La forza elettromotrice non è una forza meccanica misurata in newton.",
+      "limit": "Una spira ideale e flusso sinusoidale imposto. Non sono calcolati autoinduzione, resistenza, correnti o campo generato dalla spira.",
+      "extension": "Estendi la formula a N spire con lo stesso flusso per spira. Collega lo sfasamento fra seno e coseno al concetto di derivata.",
+      "question": "L’induzione dipende direttamente da:",
+      "answer": "La variazione temporale del flusso",
+      "wrong": [
+        "Il solo valore del flusso",
+        "Il colore del magnete"
+      ],
+      "bound": "Flusso sinusoidale imposto in una spira ideale",
+      "connection": "math-p04"
+    },
+    {
+      "unitId": "physics-25",
+      "title": "Fotoni ed energia quantizzata",
+      "story": "Due sorgenti emettono luce di colore diverso. A parità di numero di fotoni, le energie totali non sono uguali. Devi distinguere energia per fotone e intensità complessiva.",
+      "concept": "L’energia di un fotone è E=hf=hc/λ. Una lunghezza d’onda minore corrisponde a un’energia maggiore. Per n fotoni della stessa lunghezza d’onda, l’energia totale è n volte quella del singolo fotone.",
+      "derivation": "Usando λ in nanometri ed E in elettronvolt, hc≈1239,842 eV nm. Il parametro n è intero e conta fotoni, non modifica la loro frequenza.",
+      "example": "Per λ=500 nm, un fotone ha energia circa 2,47968 eV. Due fotoni uguali hanno energia totale circa 4,95937 eV, ma ciascuno conserva la stessa energia individuale.",
+      "misconception": "Aumentare il numero di fotoni non rende ciascun fotone più energetico. La luminosità totale non determina da sola la lunghezza d’onda.",
+      "limit": "Fotoni monocromatici nel vuoto. Il modello non descrive probabilità di emissione, polarizzazione o interazione con un rivelatore.",
+      "extension": "Confronta questa relazione con una soglia di transizione atomica. Spiega perché una grande quantità di fotoni a energia insufficiente non equivale automaticamente a un singolo fotone sopra soglia in un processo lineare.",
+      "question": "A numero di fotoni fisso, dimezzare λ:",
+      "answer": "Raddoppia l’energia totale",
+      "wrong": [
+        "Dimezza l’energia totale",
+        "Non cambia l’energia"
+      ],
+      "bound": "Fotoni monocromatici con energia hc/λ",
+      "connection": "chemistry-04"
+    },
+    {
+      "unitId": "chemistry-01",
+      "title": "Materia, proprietà e densità",
+      "story": "Due contenitori hanno volumi uguali ma masse diverse. La stazione vuole confrontare i materiali senza confondere quantità di sostanza e proprietà del campione.",
+      "concept": "La densità è il rapporto fra massa e volume, ρ=m/V. Per una sostanza omogenea in condizioni fissate, permette di confrontare campioni di dimensioni diverse. Massa e volume sono estensivi; la loro proporzione può essere intensiva.",
+      "derivation": "A massa fissata, una variazione del volume cambia la densità in modo inverso. Il laboratorio confronta configurazioni matematiche: modificare il volume non descrive automaticamente la compressione reale di uno stesso materiale.",
+      "example": "Con m=10 g e V=2 cm³, ρ=5 g/cm³. Con lo stesso valore di massa distribuito in 5 cm³, la densità sarebbe 2 g/cm³.",
+      "misconception": "Una densità elevata non implica necessariamente una massa totale elevata: un campione piccolo può essere molto denso ma leggero. Le unità del volume devono essere coerenti con quelle dichiarate.",
+      "limit": "Campione omogeneo e volume positivo. Non è una legge di compressibilità e non permette di identificare un materiale sconosciuto da un solo numero.",
+      "extension": "Confronta una proprietà intensiva con una estensiva dividendo un campione in due. Spiega quali misure supplementari servirebbero per distinguere sostanze con densità simili.",
+      "question": "La densità è:",
+      "answer": "Massa divisa per volume",
+      "wrong": [
+        "Massa moltiplicata per volume",
+        "Volume diviso per temperatura"
+      ],
+      "bound": "Campione omogeneo e volume positivo",
+      "connection": "physics-14"
+    },
+    {
+      "unitId": "chemistry-02",
+      "title": "Atomi, isotopi e massa media",
+      "story": "Un archivio riporta una massa atomica non intera. Non è un errore nel conteggio dei nucleoni: il campione contiene isotopi in proporzioni diverse.",
+      "concept": "Isotopi dello stesso elemento hanno lo stesso numero di protoni e un numero diverso di neutroni. La massa media di un campione è una media pesata delle masse isotopiche, con pesi pari alle frazioni di abbondanza.",
+      "derivation": "Per due isotopi con masse m₁ e m₂ e frazione x del primo, m_media=xm₁+(1-x)m₂. I pesi sono non negativi e sommano a uno, quindi la media sta fra le due masse.",
+      "example": "Per isotopi didattici di 10 u e 14 u, con x=0,25, la media è 0,25×10+0,75×14=13 u. Queste masse non identificano automaticamente un elemento reale.",
+      "misconception": "La massa atomica media non è necessariamente la massa di un singolo atomo del campione. Cambiare isotopo non cambia il numero atomico; cambiare il numero di protoni cambia elemento.",
+      "limit": "Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche.",
+      "extension": "Ricava l’abbondanza x conoscendo media e due masse. Controlla che il risultato sia nell’intervallo [0,1] prima di accettare l’interpretazione.",
+      "question": "Due isotopi dello stesso elemento hanno:",
+      "answer": "Lo stesso numero di protoni",
+      "wrong": [
+        "Sempre lo stesso numero di neutroni",
+        "Numeri atomici diversi"
+      ],
+      "bound": "Miscela ipotetica di due isotopi",
+      "connection": "math-c04"
+    },
+    {
+      "unitId": "chemistry-03",
+      "title": "Mole e quantità di sostanza",
+      "story": "Il magazzino registra grammi, mentre un bilancio di reazione richiede moli. La stazione deve tradurre fra massa e quantità di sostanza usando l’identità del materiale.",
+      "concept": "La mole è l’unità SI della quantità di sostanza. La massa molare M collega una massa m al numero di moli n=m/M. La stessa massa di sostanze diverse può corrispondere a quantità di sostanza diverse.",
+      "derivation": "Usando m in grammi e M in grammi per mole, il rapporto ha unità di mole. Il numero di entità si ottiene moltiplicando n per la costante di Avogadro, 6,02214076×10²³ mol⁻¹.",
+      "example": "Con massa molare didattica M=18 g/mol e massa m=36 g, n=2 mol. Il valore 18 è arrotondato: non è una misura ad alta precisione della massa molare dell’acqua.",
+      "misconception": "Mole e molecola non sono sinonimi. La mole conta entità specificate, che possono essere molecole, atomi o ioni; bisogna dire quali.",
+      "limit": "Sostanza pura, massa molare assegnata e nessuna impurità. Le sfere visualizzate non sono un conteggio uno-a-uno delle entità presenti.",
+      "extension": "Calcola quante entità corrispondono a una piccola frazione di mole. Spiega perché un modello che visualizza poche sfere può conservare i rapporti senza riprodurre il numero reale di particelle.",
+      "question": "Per convertire massa in moli si usa:",
+      "answer": "n=m/M",
+      "wrong": [
+        "n=mM",
+        "n=M/m"
+      ],
+      "bound": "Sostanza pura con massa molare dichiarata",
+      "connection": "chemistry-14"
+    },
+    {
+      "unitId": "chemistry-04",
+      "title": "Livelli atomici e spettri",
+      "story": "Uno spettro contiene righe separate, non tutti i colori possibili. La missione è collegare una riga a una differenza di energia fra stati, evitando il modello di una piccola orbita planetaria.",
+      "concept": "Negli ioni idrogenoidi con un solo elettrone, un modello non relativistico dà E_n≈-13,6 Z²/n² eV. Una transizione verso uno stato più basso può emettere un fotone con energia pari alla differenza fra i livelli.",
+      "derivation": "Per la transizione n→1, l’energia emessa è 13,6 Z²(1-1/n²) eV. L’indice n è un intero almeno pari a 2 nel laboratorio. I livelli non sono equidistanti.",
+      "example": "Per Z=1 e n=2, l’energia emessa è 13,6×3/4=10,2 eV. Non è l’energia assoluta del livello iniziale: è la differenza con quello finale.",
+      "misconception": "Le linee nello spazio 3D rappresentano livelli energetici, non traiettorie elettroniche. Un atomo con più elettroni non è descritto esattamente sostituendo semplicemente Z nella stessa formula.",
+      "limit": "Un solo elettrone, massa nucleare approssimata e correzioni fini trascurate. Le energie sono arrotondate e le intensità delle righe non sono calcolate.",
+      "extension": "Converti l’energia della transizione in lunghezza d’onda usando hc. Confronta la spaziatura dei livelli con quella di un oscillatore armonico.",
+      "question": "L’energia del fotone emesso è:",
+      "answer": "La differenza fra le energie dei livelli",
+      "wrong": [
+        "Sempre 13,6 eV",
+        "Il numero di neutroni"
+      ],
+      "bound": "Ione idrogenoide con un solo elettrone",
+      "connection": "physics-25"
+    },
+    {
+      "unitId": "chemistry-05",
+      "title": "Periodicità e carica efficace",
+      "story": "Nel catalogo atomico alcuni raggi si riducono nonostante aumenti il numero di protoni. Per interpretare una tendenza devi considerare attrazione nucleare, schermaggio e livello elettronico.",
+      "concept": "La struttura elettronica organizza molte proprietà periodiche. Un modello idrogenoide suggerisce una scala radiale proporzionale a n²/Z. Nei sistemi multielettronici, una carica efficace può riassumere parte dello schermaggio, ma non tutte le interazioni.",
+      "derivation": "Il laboratorio usa r=52,9 n²/Z_eff in picometri come scala del modello. A livello n fissato, aumentare Z_eff riduce r; a carica fissata, aumentare n lo fa crescere quadraticamente.",
+      "example": "Con n=1 e Z_eff=2, la scala è 26,45 pm. È un risultato del modello, non una tabella certificata dei raggi atomici reali.",
+      "misconception": "Un atomo non ha un bordo rigido come una sfera macroscopica. Raggio covalente, ionico e di van der Waals sono definizioni diverse e non vanno mescolate senza spiegazione.",
+      "limit": "Scala idrogenoide semplificata. Non calcola configurazioni multielettroniche, energie di ionizzazione o raggi sperimentali degli elementi.",
+      "extension": "Confronta l’effetto di cambiare livello e carica efficace. Discuta perché le tendenze periodiche hanno eccezioni e richiedono una descrizione elettronica più completa.",
+      "question": "A n fissato, aumentando Z_eff nel modello:",
+      "answer": "La scala radiale diminuisce",
+      "wrong": [
+        "La scala radiale aumenta",
+        "Il raggio resta invariato"
+      ],
+      "bound": "Scala idrogenoide, non raggio atomico misurato",
+      "connection": "chemistry-06"
+    },
+    {
+      "unitId": "chemistry-06",
+      "title": "Legame ionico e interazioni elettrostatiche",
+      "story": "Due ioni di segno opposto si avvicinano. La sola attrazione elettrostatica fa diminuire l’energia, ma non basta a individuare una distanza di legame stabile.",
+      "concept": "Per cariche puntiformi opposte, l’energia potenziale coulombiana è negativa rispetto alla separazione infinita. Il suo modulo aumenta diminuendo la distanza e aumentando il prodotto dei numeri di carica.",
+      "derivation": "Con distanza in nanometri ed energia molare in kJ/mol, la relazione usata è U=-138,935456|z₁z₂|/r. Il segno negativo indica attrazione; non è una probabilità.",
+      "example": "Per |z₁z₂|=1 e r=1 nm, U≈-138,935 kJ/mol. A metà distanza, il valore diventa due volte più negativo nel modello di cariche puntiformi.",
+      "misconception": "La sola legge attrattiva non ha un minimo a distanza finita. Una struttura stabile richiede contributi repulsivi e un contesto di molte particelle, non una collisione senza limite fra sfere.",
+      "limit": "Due cariche puntiformi nel vuoto e nessuno schermaggio. Non è l’energia reticolare completa di un cristallo né una simulazione di formazione di un sale.",
+      "extension": "Confronta il potenziale con un modello che includa una repulsione a breve distanza. Identifica il minimo e il ruolo della derivata come forza.",
+      "question": "La sola attrazione coulombiana fra cariche puntiformi opposte:",
+      "answer": "Non fissa una distanza stabile finita",
+      "wrong": [
+        "Produce sempre un minimo a 1 nm",
+        "Descrive l’intero reticolo cristallino"
+      ],
+      "bound": "Due cariche puntiformi senza schermaggio",
+      "connection": "chemistry-09"
+    },
+    {
+      "unitId": "chemistry-07",
+      "title": "Legame covalente ed energia di legame",
+      "story": "Una coppia di atomi oscilla attorno a una distanza preferita. Per capire perché non si separa né collassa, osserva la forma di un potenziale, non una fotografia del legame.",
+      "concept": "Un potenziale di legame descrive come varia l’energia con la distanza internucleare. Il minimo identifica un equilibrio del modello. Nel potenziale di Morse, la curva è ripida in compressione e tende a un limite di dissociazione in allontanamento.",
+      "derivation": "La formula U=D(1-exp(-b(r/r₀-1)))²-D ha minimo -D in r=r₀ e tende a zero per grandi distanze. D è la profondità del pozzo; b ne controlla la larghezza nella coordinata normalizzata.",
+      "example": "Con D=100 kJ/mol, in r/r₀=1 l’energia è -100 kJ/mol. Non è zero: lo zero è stato posto alla separazione infinita.",
+      "misconception": "Una linea fra sfere non rappresenta una bacchetta materiale. Il potenziale non mostra direttamente orbitali o densità elettronica e i suoi parametri non identificano una molecola senza dati aggiuntivi.",
+      "limit": "Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica.",
+      "extension": "Approssima il potenziale vicino al minimo con una parabola e collega la curvatura alla frequenza di una piccola oscillazione. Spiega perché l’approssimazione perde validità lontano dal minimo.",
+      "question": "Nel potenziale di Morse, r=r₀ corrisponde a:",
+      "answer": "Un minimo di energia",
+      "wrong": [
+        "Una separazione infinita",
+        "Una probabilità nulla di legame"
+      ],
+      "bound": "Potenziale fenomenologico di un solo legame",
+      "connection": "math-p12"
+    },
+    {
+      "unitId": "chemistry-08",
+      "title": "Geometria molecolare e VSEPR",
+      "story": "Il laboratorio costruisce un modello triatomico. Ruotarlo mostra che l’angolo fra i legami modifica la distanza fra gli atomi terminali, anche quando le lunghezze dei due legami restano costanti.",
+      "concept": "Le strutture di Lewis e il modello VSEPR aiutano a ragionare sulla disposizione dei domini elettronici. La geometria elettronica non coincide sempre con quella degli atomi, perché coppie non leganti possono occupare domini.",
+      "derivation": "Per due legami uguali di lunghezza l separati da angolo θ, il teorema del coseno dà d²=2l²(1-cosθ). Il laboratorio rende interattiva questa geometria; non calcola l’angolo di equilibrio di una molecola reale.",
+      "example": "Con l=1 Å e θ=60°, la distanza terminale è 1 Å. Con θ=180°, diventa 2 Å. L’angolo visualizzato si inserisce in gradi e viene convertito per il calcolo trigonometrico.",
+      "misconception": "Cambiare liberamente l’angolo nel modello non significa che una molecola reale possa assumere tutte le configurazioni senza costo energetico. Le sfere colorate e i bastoncini sono convenzioni.",
+      "limit": "Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare.",
+      "extension": "Confronta una disposizione lineare con una angolare. Spiega come la somma vettoriale dei dipoli di legame possa dipendere dalla simmetria, senza dedurre i dipoli dalle sole distanze.",
+      "question": "La distanza fra due atomi terminali dipende:",
+      "answer": "Dalle lunghezze dei legami e dall’angolo",
+      "wrong": [
+        "Solo dal colore delle sfere",
+        "Sempre soltanto dal numero di atomi"
+      ],
+      "bound": "Geometria triatomica, non equilibrio elettronico",
+      "connection": "math-c09"
+    },
+    {
+      "unitId": "chemistry-09",
+      "title": "Forze intermolecolari",
+      "story": "Due particelle neutre mostrano attrazione a una certa distanza e forte repulsione quando vengono avvicinate troppo. Il grafico dell’energia offre una sintesi del comportamento.",
+      "concept": "Il potenziale di Lennard-Jones è un modello efficace di interazioni non leganti. Combina un termine repulsivo proporzionale a r⁻¹² e uno attrattivo proporzionale a r⁻⁶.",
+      "derivation": "La relazione U=4ε[(σ/r)^12-(σ/r)^6] è zero in r=σ. Il minimo non è lì: si trova a r=2^(1/6)σ e vale -ε. La distanza di energia nulla e quella di equilibrio sono distinte.",
+      "example": "Con ε=1 e σ=1, in r=1 l’energia è zero. Spostandosi poco oltre, la curva scende al minimo; a grandi distanze torna verso zero dal basso.",
+      "misconception": "Il potenziale non è una descrizione universale di ogni legame a idrogeno o molecola. Il termine r⁻¹² è una scelta pratica, non una legge fondamentale della repulsione elettronica.",
+      "limit": "Due particelle isotrope con parametri in unità convenzionali. Nessun solvente, orientazione o interazione di molti corpi è incluso.",
+      "extension": "Calcola la derivata e verifica la posizione del minimo. Confronta energia e forza: al minimo la forza è zero, ma l’energia non lo è.",
+      "question": "Nel potenziale LJ, r=σ è:",
+      "answer": "Uno zero dell’energia, non il minimo",
+      "wrong": [
+        "Sempre il minimo di energia",
+        "La separazione infinita"
+      ],
+      "bound": "Interazione isotropa efficace fra due particelle",
+      "connection": "chemistry-07"
+    },
+    {
+      "unitId": "chemistry-10",
+      "title": "Gas e stato aeriforme",
+      "story": "Un campione gassoso viene confrontato a temperature diverse sotto la stessa pressione. Il volume cambia, ma per interpretarlo devi usare una scala termica assoluta.",
+      "concept": "A pressione costante, un gas ideale segue V=nRT/p. A quantità fissata il volume è proporzionale alla temperatura in kelvin. La relazione non è lineare rispetto a una temperatura Celsius con origine invariata.",
+      "derivation": "Qui p=1 atm e R≈0,082057366 L atm/(mol K). Il prodotto nRT/p fornisce litri. La pressione è dichiarata e non viene controllata da un modello di recipiente reale.",
+      "example": "Per n=1 mol e T=300 K, V≈24,6172 L. Raddoppiando n a stessa temperatura e pressione, il volume raddoppia.",
+      "misconception": "Non esiste un unico volume molare indipendente da temperatura e pressione. Una mole non occupa sempre lo stesso volume in ogni stato fisico.",
+      "limit": "Gas ideale con pressione mantenuta a 1 atm. Non considera condensazione, interazioni molecolari o capacità del contenitore.",
+      "extension": "Confronta questa trasformazione con quella a volume costante. Scrivi ogni volta quali grandezze sono controllate e quali rispondono.",
+      "question": "A pressione e quantità fissate, V è proporzionale a:",
+      "answer": "La temperatura in kelvin",
+      "wrong": [
+        "La temperatura Celsius senza correzione",
+        "L’inverso della temperatura"
+      ],
+      "bound": "Gas ideale a pressione di 1 atm",
+      "connection": "physics-18"
+    },
+    {
+      "unitId": "chemistry-11",
+      "title": "Stati della materia e transizioni",
+      "story": "Un campione assorbe energia durante una transizione ma la temperatura resta circa costante. Il grafico temperatura-energia non può essere interpretato sempre con Q=mcΔT.",
+      "concept": "Durante una transizione di fase ideale a pressione fissata, l’energia può modificare la fase senza aumentare la temperatura. Il calore latente specifico L collega energia e massa trasformata.",
+      "derivation": "La relazione Q=mL descrive il contributo di transizione. Per riscaldare prima o dopo la transizione servono termini separati con il calore specifico.",
+      "example": "Assumendo L=334 kJ/kg, trasformare 0,5 kg richiede 167 kJ. Il valore è un esempio arrotondato compatibile con la fusione del ghiaccio in condizioni prossime a quelle usuali, non una costante per ogni materiale.",
+      "misconception": "Temperatura costante non significa energia scambiata nulla. Il calore latente dipende da sostanza, transizione e condizioni.",
+      "limit": "Trasformazione ideale di massa nota, senza perdite, surriscaldamento o variazioni di pressione. Non è un protocollo sperimentale di trattamento dei materiali.",
+      "extension": "Costruisci un bilancio a tratti: riscaldamento del solido, fusione, riscaldamento del liquido. Mantieni coerenti le unità di massa e di energia.",
+      "question": "Durante una transizione ideale a temperatura costante:",
+      "answer": "Può essere assorbita energia",
+      "wrong": [
+        "Il calore scambiato è sempre zero",
+        "La massa deve necessariamente sparire"
+      ],
+      "bound": "Transizione ideale a pressione fissata",
+      "connection": "physics-19"
+    },
+    {
+      "unitId": "chemistry-12",
+      "title": "Soluzioni e concentrazione",
+      "story": "La stazione vuole descrivere una diluizione senza confondere la quantità di soluto con la sua concentrazione. Aggiungere solvente cambia il volume, non crea nuove moli di soluto.",
+      "concept": "La concentrazione molare è quantità di soluto divisa per volume di soluzione. In una diluizione ideale senza perdite o reazioni, le moli restano costanti: C_iV_i=C_fV_f.",
+      "derivation": "Risolvendo per la concentrazione finale si ottiene C_f=C_iV_i/V_f. Il laboratorio ammette solo V_f≥V_i, così il processo rappresentato è una diluizione e non una concentrazione.",
+      "example": "Con C_i=1 mol/L e V_i=0,1 L, sono presenti 0,1 mol. Portando il volume a 0,5 L, la concentrazione finale è 0,2 mol/L.",
+      "misconception": "Concentrazione e quantità di soluto non coincidono. La somma dei volumi dei componenti non è sempre il volume finale reale della soluzione.",
+      "limit": "Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze.",
+      "extension": "Imposta una serie di diluizioni e confronta il fattore complessivo con il prodotto dei fattori di ogni passaggio. Valuta come un errore di volume possa propagarsi.",
+      "question": "In una diluizione ideale si conserva:",
+      "answer": "La quantità di soluto",
+      "wrong": [
+        "La concentrazione",
+        "Sempre il volume della soluzione"
+      ],
+      "bound": "Diluizione senza reazione o perdita di soluto",
+      "connection": "math-c01"
+    },
+    {
+      "unitId": "chemistry-13",
+      "title": "Solubilità ed equilibrio eterogeneo",
+      "story": "Un sale ideale AB è a contatto con una soluzione che contiene già uno degli ioni. La solubilità non dipende soltanto dal prodotto di solubilità: conta la composizione iniziale.",
+      "concept": "Per AB(s)⇌A⁺+B⁻, usando concentrazioni ideali, K_sp=[A⁺][B⁻]. Se la soluzione contiene una concentrazione iniziale c di B⁻, sciogliere s mol/L produce [A⁺]=s e [B⁻]=s+c.",
+      "derivation": "L’equazione s(s+c)=K_sp è quadratica. La radice fisicamente ammessa è positiva. Il codice usa una forma equivalente numericamente stabile, 2K_sp/(√(c²+4K_sp)+c), per evitare cancellazioni.",
+      "example": "Senza ione comune e con K_sp=10⁻⁸, la solubilità è 10⁻⁴ mol/L. Introducendo uno ione comune, la stessa K_sp corrisponde a una solubilità inferiore.",
+      "misconception": "K_sp non è sempre uguale alla solubilità e la stechiometria del sale cambia gli esponenti. La scala orizzontale è log₁₀K_sp: il valore -8 rappresenta 10⁻⁸, non una costante negativa.",
+      "limit": "Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri.",
+      "extension": "Confronta la soluzione esatta con s≈K_sp/c quando c è molto maggiore di s. Stabilisci quando l’approssimazione è coerente con il risultato ottenuto.",
+      "question": "Per un sale 1:1 senza ione comune, s vale:",
+      "answer": "√K_sp",
+      "wrong": [
+        "K_sp²",
+        "Sempre K_sp"
+      ],
+      "bound": "Sale ideale 1:1 con un solo equilibrio",
+      "connection": "math-c03"
+    },
+    {
+      "unitId": "chemistry-14",
+      "title": "Stechiometria e reagente limitante",
+      "story": "Un bilancio digitale combina quantità di due reagenti. Uno può restare in eccesso mentre l’altro termina. Il risultato dipende dai rapporti della reazione, non dal confronto diretto delle moli.",
+      "concept": "Una reazione bilanciata conserva gli atomi e stabilisce rapporti stechiometrici. Per 2H₂+O₂→2H₂O, servono due moli di idrogeno per ogni mole di ossigeno.",
+      "derivation": "Il massimo avanzamento è min(n_H₂/2,n_O₂). Le moli teoriche di acqua sono due volte tale valore, cioè min(n_H₂,2n_O₂). La funzione ha un cambio di pendenza quando cambia il reagente limitante.",
+      "example": "Con 6 mol di H₂ e 2 mol di O₂, il massimo prodotto è 4 mol di H₂O. L’ossigeno è limitante e rimangono teoricamente 2 mol di H₂.",
+      "misconception": "Il reagente con meno moli non è automaticamente il limitante: bisogna dividere per il coefficiente stechiometrico. Bilanciare richiede modificare coefficienti, non indici delle formule.",
+      "limit": "Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali.",
+      "extension": "Calcola le quantità residue e verifica la conservazione degli atomi di entrambi gli elementi. Confronta i casi prima e dopo la soglia di limitazione.",
+      "question": "Il reagente limitante si individua confrontando:",
+      "answer": "Moli divise per coefficienti stechiometrici",
+      "wrong": [
+        "Soltanto le masse senza conversioni",
+        "Soltanto i volumi dei contenitori"
+      ],
+      "bound": "Bilancio stechiometrico ideale a conversione completa",
+      "connection": "chemistry-15"
+    },
+    {
+      "unitId": "chemistry-15",
+      "title": "Resa e bilanci di materia",
+      "story": "Il prodotto raccolto è inferiore a quello previsto dal bilancio. Prima di attribuire la differenza a una violazione della conservazione della materia, distingui prodotto teorico e prodotto recuperato.",
+      "concept": "La resa percentuale confronta quantità ottenuta e quantità teorica: resa=100×reale/teorica. Per la stessa sostanza si possono usare masse o moli, purché il confronto sia coerente.",
+      "derivation": "Il laboratorio ricava m_reale=resa×m_teorica/100. Una resa inferiore al 100% può riflettere conversione incompleta, reazioni concorrenti o perdite di recupero; la sola percentuale non distingue le cause.",
+      "example": "Con massa teorica di 40 g e resa del 75%, si ottengono 30 g. La differenza di 10 g non è automaticamente materia distrutta: il bilancio completo deve cercarne la destinazione.",
+      "misconception": "Una resa apparente superiore al 100% può indicare impurità, umidità o errori di misura. Non prova la creazione di materia e non è ammessa come parametro in questo modello ideale.",
+      "limit": "La resa è un dato assegnato, non una previsione cinetica. Il modello non distingue perdite chimiche e operative.",
+      "extension": "Imposta un bilancio con reagenti residui, prodotti secondari e prodotto recuperato. Chiediti quali misure servono per identificare la causa di una resa bassa.",
+      "question": "Con 40 g teorici e resa 75%, la massa ottenuta è:",
+      "answer": "30 g",
+      "wrong": [
+        "53,33 g",
+        "75 g"
+      ],
+      "bound": "Resa assegnata fra 0 e 100%",
+      "connection": "chemistry-14"
+    },
+    {
+      "unitId": "chemistry-16",
+      "title": "Termochimica e calorimetria",
+      "story": "Una trasformazione riscalda la soluzione che la circonda. Il calore della soluzione e quello della reazione hanno segni opposti in un bilancio idealmente isolato.",
+      "concept": "La calorimetria ricava uno scambio energetico dalla variazione di temperatura di un sistema di capacità termica nota. Nel modello q_soluzione=mcΔT e q_reazione=-q_soluzione.",
+      "derivation": "Il segno meno nasce dal bilancio energetico: se la soluzione assorbe calore, la reazione lo cede. Il codice usa c=4,184 J/(g K) e converte joule in kilojoule.",
+      "example": "Per 100 g di soluzione e aumento di 10 K, la soluzione assorbe 4184 J. Il calore della reazione nel modello è -4,184 kJ, quindi la trasformazione è esotermica rispetto alla soluzione.",
+      "misconception": "Un aumento della temperatura non significa q_reazione positivo. La capacità termica del recipiente e gli scambi con l’esterno possono rendere incompleto un calcolo basato solo sulla soluzione.",
+      "limit": "Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente.",
+      "extension": "Introduci simbolicamente una capacità termica del calorimetro e aggiorna il bilancio. Distingui calore a pressione costante e variazione di energia interna in altri vincoli.",
+      "question": "Se la soluzione si riscalda in un sistema ideale isolato, q_reazione è:",
+      "answer": "Negativo",
+      "wrong": [
+        "Sempre positivo",
+        "Necessariamente nullo"
+      ],
+      "bound": "Bilancio calorimetrico senza dispersioni",
+      "connection": "physics-19"
+    },
+    {
+      "unitId": "chemistry-17",
+      "title": "Velocità di reazione",
+      "story": "La concentrazione di un reagente diminuisce nel tempo. La stazione deve distinguere una perdita costante per minuto da una perdita proporzionale alla quantità ancora presente.",
+      "concept": "Una cinetica del primo ordine assume -d[A]/dt=k[A]. Il reagente decade esponenzialmente con costante k positiva. L’ordine è un’informazione sul modello cinetico, non si legge automaticamente dai coefficienti della reazione.",
+      "derivation": "Integrando si ottiene [A](t)=[A]₀exp(-kt). Il tempo di dimezzamento è ln(2)/k e non dipende dalla concentrazione iniziale in questo modello.",
+      "example": "Con [A]₀=1 mol/L e k=0,2 min⁻¹, al tempo zero la concentrazione è 1 mol/L. Dopo circa 3,466 minuti è 0,5 mol/L.",
+      "misconception": "La costante cinetica non è una costante di equilibrio. Una reazione rapida può avere un equilibrio poco favorevole ai prodotti e viceversa.",
+      "limit": "Primo ordine irreversibile, k costante e sistema omogeneo. Sono esclusi reazione inversa, variazioni di temperatura e limiti di trasporto.",
+      "extension": "Traccia ln[A] rispetto al tempo e ricava la pendenza. Spiega perché una retta apparente su pochi punti non basta a dimostrare un meccanismo microscopico.",
+      "question": "Per una cinetica del primo ordine il dimezzamento:",
+      "answer": "È indipendente da [A]₀ a k costante",
+      "wrong": [
+        "Raddoppia sempre con [A]₀",
+        "È uguale a k"
+      ],
+      "bound": "Primo ordine irreversibile a k costante",
+      "connection": "math-c06"
+    },
+    {
+      "unitId": "chemistry-18",
+      "title": "Temperatura e attivazione",
+      "story": "Un archivio mostra che la velocità caratteristica cambia molto con la temperatura. La stazione cerca una relazione fra barriera energetica e costante cinetica, senza dedurne automaticamente l’esito finale.",
+      "concept": "La legge di Arrhenius scrive k=A exp(-E_a/RT). A è un fattore preesponenziale ed E_a una barriera di attivazione del modello. La temperatura va espressa in kelvin.",
+      "derivation": "Il rapporto E_a/(RT) deve essere adimensionale. Il controllo usa E_a in kJ/mol e la converte in J/mol. A e k hanno la stessa unità, qui s⁻¹ per un esempio del primo ordine.",
+      "example": "Con A=10⁶ s⁻¹, E_a=50 kJ/mol e T=500 K, k≈5,979 s⁻¹. Inserire 50 senza convertirlo in 50.000 cambierebbe radicalmente il risultato.",
+      "misconception": "Una barriera di attivazione non è la differenza energetica fra reagenti e prodotti. Accelerare il raggiungimento dell’equilibrio non equivale a spostare l’equilibrio.",
+      "limit": "Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello.",
+      "extension": "Linearizza ln k contro 1/T e identifica pendenza e intercetta. Discuta quando una deviazione dalla retta potrebbe segnalare un cambio di meccanismo.",
+      "question": "Nell’esponente di Arrhenius, E_a/(RT) deve essere:",
+      "answer": "Adimensionale",
+      "wrong": [
+        "Espresso in kelvin",
+        "Espresso in secondi"
+      ],
+      "bound": "Parametri di Arrhenius costanti",
+      "connection": "chemistry-20"
+    },
+    {
+      "unitId": "chemistry-19",
+      "title": "Equilibrio chimico",
+      "story": "Due forme A e B si interconvertono in un sistema chiuso. Il fatto che le concentrazioni finali restino costanti non significa che ogni trasformazione microscopica si sia fermata.",
+      "concept": "Un equilibrio dinamico può mantenere costanti le concentrazioni mentre avvengono processi diretti e inversi. Per una semplice interconversione ideale A⇌B, K=[B]/[A].",
+      "derivation": "Con concentrazione totale C_tot=[A]+[B], sostituisci [B]=K[A]. Si ottiene [B]_eq=C_totK/(1+K). K grande favorisce B, ma non significa automaticamente che la trasformazione sia rapida.",
+      "example": "Con C_tot=1 mol/L e K=1, entrambe le forme hanno concentrazione 0,5 mol/L. Con K=9, B è 0,9 mol/L e A è 0,1 mol/L.",
+      "misconception": "Equilibrio non implica concentrazioni uguali, salvo casi particolari. La costante dipende dalla temperatura e dalla definizione delle attività, non dalle quantità iniziali per un dato modello.",
+      "limit": "Interconversione 1:1 ideale con totale conservato. Non sono inclusi altri reagenti, attività non ideali o un’evoluzione temporale.",
+      "extension": "Confronta il quoziente di reazione iniziale con K per stabilire il verso del cambiamento. Non usare questo confronto per stimare la velocità.",
+      "question": "All’equilibrio dinamico:",
+      "answer": "Le velocità diretta e inversa si bilanciano",
+      "wrong": [
+        "Ogni reazione microscopica si arresta",
+        "Le concentrazioni sono sempre uguali"
+      ],
+      "bound": "Interconversione ideale A⇌B in sistema chiuso",
+      "connection": "chemistry-20"
+    },
+    {
+      "unitId": "chemistry-20",
+      "title": "Perturbazioni dell’equilibrio",
+      "story": "La temperatura di un sistema all’equilibrio cambia. La stazione deve prevedere il verso della variazione della costante, distinguendolo da un semplice aumento della velocità.",
+      "concept": "La dipendenza di K dalla temperatura può essere descritta dalla relazione di van ’t Hoff. Per entalpia standard approssimata costante, ln(K/K₀)=-(ΔH/R)(1/T-1/T₀).",
+      "derivation": "Il laboratorio usa T₀=298,15 K. Per ΔH positiva, aumentare T rende l’esponente positivo e aumenta K. Per ΔH negativa avviene il contrario, mantenendo valide le ipotesi.",
+      "example": "Con K₀=1, a T=T₀ il termine 1/T-1/T₀ è zero e K=1 per qualunque ΔH. È un controllo utile della formula.",
+      "misconception": "Un catalizzatore non modifica K per il solo fatto di accelerare le reazioni diretta e inversa. Il principio di Le Châtelier non sostituisce un bilancio quantitativo quando servono concentrazioni precise.",
+      "limit": "Entalpia approssimata costante e stessa reazione nell’intervallo. Non sono inclusi cambi di fase o variazioni significative delle capacità termiche.",
+      "extension": "Confronta curve endoterme ed esoterme. Spiega perché le costanti cinetiche e la costante di equilibrio possono rispondere alla temperatura in modi collegati ma distinti.",
+      "question": "Per ΔH>0, aumentando la temperatura nel modello:",
+      "answer": "K aumenta",
+      "wrong": [
+        "K diminuisce sempre",
+        "K resta sempre uguale"
+      ],
+      "bound": "Entalpia approssimata costante",
+      "connection": "physics-20"
+    },
+    {
+      "unitId": "chemistry-21",
+      "title": "Acidi, basi e pH",
+      "story": "Una soluzione acida viene descritta a concentrazioni sempre più basse. La formula pH=-log C sembra prevedere valori oltre la neutralità. Il contributo dell’acqua non può essere ignorato indefinitamente.",
+      "concept": "Il pH è definito tramite l’attività degli ioni idrogeno; nelle soluzioni ideali diluite si usa una concentrazione riferita allo standard. Per un acido forte monoprotico, a diluizione estrema interviene anche l’autoionizzazione dell’acqua.",
+      "derivation": "Dall’elettroneutralità H=C+OH e da K_w=H·OH segue H²-CH-K_w=0. La radice positiva è H=(C+√(C²+4K_w))/2. L’asse x rappresenta -log₁₀C, non la concentrazione direttamente.",
+      "example": "Con C=10⁻³ mol/L e pK_w=14, il pH è quasi 3. Quando C diventa molto inferiore a 10⁻⁷ mol/L, il risultato si avvicina a 7 dal lato acido invece di crescere senza limite.",
+      "misconception": "pH neutro non è sempre esattamente 7: dipende da K_w e quindi dalle condizioni. Il controllo di pK_w è un parametro, non una misura automatica della temperatura.",
+      "limit": "Acido forte monoprotico ideale, nessun tampone o altro equilibrio. Non fornisce indicazioni di sicurezza o manipolazione di soluzioni.",
+      "extension": "Confronta la soluzione completa con l’approssimazione H≈C e identifica un intervallo in cui l’errore è trascurabile per una tolleranza scelta.",
+      "question": "A diluizione estrema bisogna considerare:",
+      "answer": "L’autoionizzazione dell’acqua",
+      "wrong": [
+        "Una concentrazione negativa",
+        "La scomparsa del bilancio di carica"
+      ],
+      "bound": "Acido forte ideale con autoionizzazione",
+      "connection": "chemistry-22"
+    },
+    {
+      "unitId": "chemistry-22",
+      "title": "Soluzioni tampone",
+      "story": "Una soluzione contiene una coppia acido-base coniugata. La stazione osserva che il rapporto fra le due forme è importante, ma vuole evitare di confondere pH e capacità di resistere a perturbazioni.",
+      "concept": "Un tampone contiene quantità apprezzabili di un acido debole e della sua base coniugata. La relazione di Henderson-Hasselbalch approssima pH=pK_a+log([A⁻]/[HA]) in condizioni appropriate.",
+      "derivation": "Quando il rapporto base/acido è uno, il logaritmo è zero e pH=pK_a. Moltiplicare il rapporto per dieci aumenta il pH di una unità nel modello.",
+      "example": "Con pK_a=4,8 e rapporto 1, il pH è 4,8. Con rapporto 10 è 5,8. Due tamponi con lo stesso rapporto ma concentrazioni totali diverse possono avere capacità tampone diverse.",
+      "misconception": "Il rapporto non dice quanta perturbazione la soluzione può assorbire. La formula non rende ogni miscela un tampone efficace, soprattutto quando una forma è quasi esaurita.",
+      "limit": "Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione.",
+      "extension": "Parti da K_a e ricava la relazione logaritmica. Discuta quando l’uso delle concentrazioni iniziali al posto di quelle di equilibrio è giustificato.",
+      "question": "Quando [A⁻]=[HA], il pH vale:",
+      "answer": "pK_a",
+      "wrong": [
+        "Sempre 7",
+        "Sempre 0"
+      ],
+      "bound": "Coppia acido-base dominante in soluzione ideale",
+      "connection": "math-c06"
+    },
+    {
+      "unitId": "chemistry-23",
+      "title": "Ossidazione, riduzione ed elettrochimica",
+      "story": "Il potenziale di una cella cambia quando cambiano le attività delle specie. La stazione deve collegare il potenziale al quoziente di reazione, non soltanto ai valori standard.",
+      "concept": "La relazione di Nernst collega il potenziale di equilibrio alle attività: E=E°-(RT/nF)ln Q. A 298,15 K può essere scritta con logaritmo decimale e coefficiente circa 0,05915935 V.",
+      "derivation": "Il numero n conta gli elettroni trasferiti nella reazione bilanciata. Q è adimensionale perché costruito con attività riferite a stati standard. In Q=1, il potenziale coincide con E°.",
+      "example": "Con E°=1 V, n=2 e Q=1, E=1 V. Portando Q a 10, il potenziale diminuisce di circa 0,02958 V.",
+      "misconception": "Potenziale standard e potenziale in qualunque miscela non coincidono necessariamente. La relazione di equilibrio non predice la corrente sotto carico o la velocità di una reazione elettrodica.",
+      "limit": "Temperatura fissata a 298,15 K e attività rappresentate dal quoziente assegnato. Sono escluse sovratensioni e resistenze interne.",
+      "extension": "Collega E alla variazione di energia libera ΔG=-nFE. Spiega perché il segno dipende da come è scritta la reazione.",
+      "question": "Quando Q=1, la relazione di Nernst dà:",
+      "answer": "E=E°",
+      "wrong": [
+        "E=0 sempre",
+        "E=nF"
+      ],
+      "bound": "Potenziale di equilibrio a 298,15 K",
+      "connection": "physics-22"
+    },
+    {
+      "unitId": "chemistry-24",
+      "title": "Chimica organica e scheletri carboniosi",
+      "story": "Il catalogo della materia contiene catene carboniose di lunghezza diversa. Un bilancio teorico permette di confrontarne la richiesta di ossigeno senza effettuare alcuna reazione.",
+      "concept": "Gli alcani aciclici saturi hanno formula C_nH_(2n+2). La formula conta gli atomi, ma non identifica sempre una sola struttura: per catene sufficientemente lunghe sono possibili isomeri.",
+      "derivation": "Nel bilancio di ossidazione completa a CO₂ e H₂O, una mole di alcano richiede (3n+1)/2 moli di O₂. Prima bilanci il carbonio, poi l’idrogeno, infine l’ossigeno.",
+      "example": "Per n=2, la formula è C₂H₆ e il coefficiente di O₂ per mole è 3,5. Moltiplicare tutta l’equazione per due elimina il coefficiente frazionario senza cambiarne i rapporti.",
+      "misconception": "La stessa formula molecolare non garantisce la stessa struttura o le stesse proprietà. Il modello geometrico mostra uno scheletro didattico, non una conformazione energeticamente ottimizzata.",
+      "limit": "Alcani aciclici saturi e bilancio di conversione completa. Non sono simulate combustione, condizioni operative o prodotti incompleti.",
+      "extension": "Confronta la formula degli alcani con quella di molecole contenenti cicli o insaturazioni. Spiega perché non si può riutilizzare lo stesso bilancio senza aggiornare la formula.",
+      "question": "Per un alcano aciclico saturo, gli idrogeni sono:",
+      "answer": "2n+2",
+      "wrong": [
+        "Sempre n",
+        "n-2"
+      ],
+      "bound": "Bilancio teorico per alcani aciclici saturi",
+      "connection": "chemistry-14"
+    },
+    {
+      "unitId": "chemistry-25",
+      "title": "Polimeri e materiali",
+      "story": "Un materiale è formato da catene con numeri diversi di unità ripetitive. La massa di una singola unità non basta a descrivere la catena né la distribuzione del campione.",
+      "concept": "Il grado di polimerizzazione conta le unità ripetitive di una catena. Trascurando i gruppi terminali, la massa molare della catena è circa n volte quella dell’unità ripetitiva.",
+      "derivation": "Il modello usa M_catena≈nM_unità. È un bilancio lineare su una catena ideale; un campione reale può richiedere medie diverse, come massa molare media numerica e ponderale.",
+      "example": "Con M_unità=28 g/mol e n=10, M_catena≈280 g/mol. Il valore dell’unità è arrotondato e non include i gruppi terminali.",
+      "misconception": "La massa molare media di un campione non significa che tutte le catene abbiano quella massa. Le proprietà dipendono anche da architettura, distribuzione, interazioni e struttura del materiale.",
+      "limit": "Catena ideale con unità identiche, gruppi terminali trascurati e nessuna distribuzione di lunghezze. La scena visualizza uno schema limitato di segmenti, non tutti gli atomi.",
+      "extension": "Confronta due campioni con la stessa media numerica ma distribuzioni diverse. Individua quali informazioni supplementari sarebbero necessarie per prevedere proprietà meccaniche.",
+      "question": "Il grado di polimerizzazione indica:",
+      "answer": "Il numero di unità ripetitive",
+      "wrong": [
+        "La temperatura del materiale",
+        "Il numero di elettroni liberi"
+      ],
+      "bound": "Catena ideale senza contributo dei gruppi terminali",
+      "connection": "biology-10"
+    },
+    {
+      "unitId": "biology-01",
+      "title": "Cellule, scala e superficie",
+      "story": "Una cellula ideale cresce mantenendo la stessa forma. Il volume aumenta più rapidamente della superficie disponibile per gli scambi. La missione è quantificare questo vincolo geometrico senza trasformarlo in una legge assoluta delle dimensioni cellulari.",
+      "concept": "Per una sfera, la superficie è 4πr² e il volume 4πr³/3. Il loro rapporto è 3/r, cioè 6/d. All’aumentare della dimensione, la superficie disponibile per unità di volume diminuisce.",
+      "derivation": "Il laboratorio imposta un diametro di riferimento a e un fattore di scala x: d=ax. Il rapporto S/V=6/(ax) ha unità di inverso della lunghezza. Non è una percentuale.",
+      "example": "Con diametro di riferimento 10 μm e fattore 2, d=20 μm e S/V=0,3 μm⁻¹. Raddoppiare il diametro raddoppia la superficie? No: la quadruplica, mentre il volume aumenta di otto volte.",
+      "misconception": "Il rapporto geometrico non determina da solo la dimensione massima di ogni cellula. Forma, membrane interne, trasporto attivo e metabolismo possono cambiare il problema.",
+      "limit": "Cellula sferica ideale senza organelli o membrane ripiegate. La sfera 3D è un modello di scala, non una ricostruzione microscopica.",
+      "extension": "Confronta una forma allungata o appiattita con una sfera di pari volume. Distingui il ruolo della distanza di diffusione da quello della superficie totale.",
+      "question": "Raddoppiando il diametro di una sfera, S/V:",
+      "answer": "Si dimezza",
+      "wrong": [
+        "Raddoppia",
+        "Resta uguale"
+      ],
+      "bound": "Geometria sferica, non limite universale cellulare",
+      "connection": "biology-02"
+    },
+    {
+      "unitId": "biology-02",
+      "title": "Membrane e diffusione",
+      "story": "Una membrana separa due compartimenti con concentrazioni diverse. La stazione osserva un flusso netto, anche se il movimento microscopico delle singole particelle continua in entrambe le direzioni.",
+      "concept": "La diffusione nasce dal moto termico e produce un trasporto netto lungo un gradiente. Per uno strato piano uniforme, la legge di Fick lega il flusso per area alla differenza di concentrazione e allo spessore.",
+      "derivation": "Il laboratorio usa il modulo J=DΔc/L, con Δc definita come concentrazione alta meno bassa. D è una diffusività in m²/s e L uno spessore in metri. Il verso è dal lato più concentrato a quello meno concentrato in questo modello.",
+      "example": "Con D=10⁻⁹ m²/s, L=10⁻⁶ m e Δc=2 mol/m³, J=0,002 mol/(m² s). Dimezzare lo spessore raddoppia il flusso a condizioni fissate.",
+      "misconception": "Equilibrio diffusivo non significa che le particelle smettano di muoversi: significa assenza di flusso netto. Membrane biologiche reali possono essere selettive e includere trasportatori.",
+      "limit": "Strato piano, gradiente stazionario e D costante. Non sono rappresentati canali ionici, potenziali elettrici o trasporto attivo.",
+      "extension": "Controlla le dimensioni della formula. Discuta perché una membrana più estesa aumenta il trasporto totale J×area senza cambiare necessariamente il flusso per unità di area.",
+      "question": "Nel modello, raddoppiando lo spessore L il flusso:",
+      "answer": "Si dimezza",
+      "wrong": [
+        "Raddoppia",
+        "Non cambia"
+      ],
+      "bound": "Diffusione stazionaria in uno strato uniforme",
+      "connection": "physics-14"
+    },
+    {
+      "unitId": "biology-03",
+      "title": "Osmosi e bilancio dell’acqua",
+      "story": "Due compartimenti separati da una membrana hanno concentrazioni diverse di soluto. Per interpretare il movimento dell’acqua occorre un modello della pressione osmotica, non soltanto il conteggio delle particelle visibili.",
+      "concept": "Per una soluzione ideale diluita di un soluto non dissociato, la pressione osmotica è Π=CRT. È la pressione che, nel modello, bilancia la tendenza al trasferimento del solvente attraverso una membrana appropriata.",
+      "derivation": "Il controllo usa C in mol/m³ e R in kPa m³/(mol K). La temperatura è assoluta. A C costante, Π cresce linearmente con T; a T costante, cresce linearmente con C.",
+      "example": "Con C=100 mol/m³ e T=300 K, Π≈249,434 kPa. Questo valore non è una prescrizione per cellule reali e non determina da solo il loro volume finale.",
+      "misconception": "Osmolarità e tonicità non sono sempre intercambiabili: conta se il soluto attraversa la membrana. Un soluto dissociato richiede un conteggio efficace delle particelle diverso.",
+      "limit": "Soluto non dissociato, soluzione ideale e membrana selettiva al solvente. Nessuna previsione clinica o cellulare specifica.",
+      "extension": "Confronta due soluzioni considerando quali soluti sono permeanti. Indica quali informazioni mancano per prevedere il comportamento di una cellula reale.",
+      "question": "Nella relazione Π=CRT, T si esprime in:",
+      "answer": "Kelvin",
+      "wrong": [
+        "Gradi Celsius senza conversione",
+        "Percentuale"
+      ],
+      "bound": "Soluzione ideale di soluto non dissociato",
+      "connection": "chemistry-12"
+    },
+    {
+      "unitId": "biology-04",
+      "title": "Enzimi e saturazione",
+      "story": "Aumentando il substrato, la velocità iniziale cresce ma tende a saturare. La stazione deve distinguere scarsità di substrato e capacità limitata del sistema enzimatico.",
+      "concept": "Il modello di Michaelis-Menten descrive una velocità iniziale v=V_max[S]/(K_m+[S]). A substrato basso è quasi lineare; a substrato alto tende a V_max.",
+      "derivation": "Ponendo [S]=K_m, numeratore e denominatore danno v=V_max/2. K_m ha unità di concentrazione. Il suo significato microscopico dipende dal meccanismo e non coincide sempre con una semplice misura di affinità.",
+      "example": "Con V_max=10 μmol/min e K_m=2 mmol/L, in [S]=2 mmol/L la velocità è 5 μmol/min. Raddoppiare ancora il substrato non raddoppia necessariamente la velocità.",
+      "misconception": "La saturazione non significa che l’enzima sia esaurito come un reagente stechiometrico. Il modello non può essere applicato automaticamente a ogni enzima o a ogni condizione.",
+      "limit": "Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse.",
+      "extension": "Confronta l’effetto di aumentare V_max con quello di cambiare K_m. Scrivi quale misura distinguerebbe le due ipotesi su una curva osservata.",
+      "question": "Quando [S]=K_m, la velocità vale:",
+      "answer": "V_max/2",
+      "wrong": [
+        "V_max",
+        "0"
+      ],
+      "bound": "Michaelis-Menten nelle ipotesi dichiarate",
+      "connection": "math-c08"
+    },
+    {
+      "unitId": "biology-05",
+      "title": "Metabolismo e bilanci energetici",
+      "story": "La stazione deve confrontare un flusso di glucosio con una produzione teorica di ATP. Il numero visualizzato è un bilancio sotto ipotesi, non un rendimento universale di tutte le cellule.",
+      "concept": "Le vie metaboliche trasformano materia ed energia mediante reazioni accoppiate. L’ATP partecipa al trasferimento energetico, ma il rendimento netto dipende da organismo, condizioni e processi di trasporto.",
+      "derivation": "Il laboratorio usa ATP=resa×glucosio. La resa è un parametro esplicito in moli di ATP per mole di glucosio; il controllo non la calcola da una catena respiratoria.",
+      "example": "Assumendo resa 30 mol/mol e 2 mmol di glucosio utilizzato, il bilancio produce 60 mmol di ATP. Cambiare la resa modifica la previsione senza cambiare la quantità di glucosio.",
+      "misconception": "Un valore convenzionale di resa non è una costante universale. La molecola di ATP non è una batteria che contiene una quantità fissa di energia indipendente dalle condizioni chimiche.",
+      "limit": "Bilancio aggregato con resa assegnata e nessuna cinetica metabolica. Non è una stima nutrizionale o fisiologica per persone o organismi specifici.",
+      "extension": "Separa produzione lorda, consumi di mantenimento e produzione netta. Elenca quali flussi dovrebbero essere misurati per sostituire il parametro di resa con un modello più realistico.",
+      "question": "La resa di ATP nel laboratorio è:",
+      "answer": "Un’ipotesi esplicita del bilancio",
+      "wrong": [
+        "Una costante universale di ogni cellula",
+        "Il numero di atomi del glucosio"
+      ],
+      "bound": "Bilancio aggregato con resa assegnata",
+      "connection": "chemistry-15"
+    },
+    {
+      "unitId": "biology-06",
+      "title": "Fotosintesi e luce",
+      "story": "Una coltura riceve luce crescente. L’assimilazione netta aumenta, ma non indefinitamente. Il punto in cui la curva attraversa zero separa condizioni con bilancio netto positivo e negativo.",
+      "concept": "La fotosintesi utilizza energia luminosa per processi di fissazione del carbonio, mentre la respirazione contribuisce al bilancio netto. Una curva di saturazione può rappresentare in modo fenomenologico la risposta alla luce.",
+      "derivation": "Il laboratorio usa A_net=A_max I/(K+I)-R_d, con R_d=2 nelle unità dichiarate. Il parametro K fissa una scala luminosa; non è una costante universale della fotosintesi.",
+      "example": "Con A_max=20, K=200 e I=200, il termine lordo è 10 e il netto è 8 μmol/(m² s). Al buio il netto del modello è -2, perché il termine di respirazione resta presente.",
+      "misconception": "La saturazione della curva non prova un singolo meccanismo limitante. Temperatura, acqua, CO₂ e acclimatazione possono cambiare la risposta.",
+      "limit": "Modello fenomenologico stazionario, respirazione costante e nessuna fotoinibizione. Non prevede la crescita di una specie reale.",
+      "extension": "Ricava l’intensità di compensazione imponendo A_net=0. Verifica che esista solo quando A_max è maggiore di R_d.",
+      "question": "Al buio, con respirazione R_d positiva, il netto del modello è:",
+      "answer": "-R_d",
+      "wrong": [
+        "A_max",
+        "Sempre zero"
+      ],
+      "bound": "Risposta luminosa fenomenologica stazionaria",
+      "connection": "physics-25"
+    },
+    {
+      "unitId": "biology-07",
+      "title": "Ciclo cellulare e proliferazione",
+      "story": "Una popolazione cellulare raddoppia in un intervallo regolare in condizioni ideali. Il numero crescente non deve essere confuso con una descrizione dettagliata delle fasi del ciclo.",
+      "concept": "Il ciclo cellulare comprende duplicazione del materiale genetico e divisione, con controlli che coordinano i processi. A livello di popolazione, un modello semplice usa un tempo di raddoppio costante.",
+      "derivation": "La legge N(t)=N₀2^(t/T_d) descrive un valore atteso continuo. Nei tempi multipli di T_d il fattore è una potenza intera di due. Non significa che ogni cellula si divida sincronamente in ogni istante.",
+      "example": "Con N₀=100 e T_d=8 h, dopo 8 h il numero atteso è 200; dopo 16 h è 400. La crescita assoluta nel secondo intervallo è maggiore della prima.",
+      "misconception": "Un tempo di raddoppio osservato in una fase non rimane necessariamente costante. Risorse, densità, morte cellulare e arresti del ciclo possono alterare la dinamica.",
+      "limit": "Risorse illimitate, nessuna mortalità e tempo di raddoppio costante. Le particelle 3D sono una rappresentazione aggregata, non singole cellule osservate.",
+      "extension": "Confronta l’esponenziale con una crescita logistica. Identifica quali dati permetterebbero di riconoscere l’inizio di un limite di risorse.",
+      "question": "Dopo due tempi di raddoppio, N diventa:",
+      "answer": "4N₀",
+      "wrong": [
+        "2N₀",
+        "N₀+2"
+      ],
+      "bound": "Crescita attesa senza limiti o mortalità",
+      "connection": "biology-19"
+    },
+    {
+      "unitId": "biology-08",
+      "title": "Meiosi e assortimento",
+      "story": "La formazione dei gameti combina cromosomi di origine materna e paterna. La stazione vuole contare possibilità e probabilità senza confondere assortimento indipendente e ricombinazione.",
+      "concept": "Nella meiosi, una copia di ciascuna coppia di cromosomi omologhi viene trasmessa a un gamete. Un modello di assortimento indipendente assegna probabilità 1/2 all’origine materna o paterna di ogni cromosoma.",
+      "derivation": "Con n coppie, il numero di combinazioni di origine è 2^n. Il numero k di cromosomi materni segue una binomiale con p=1/2: P(k)=C(n,k)/2^n.",
+      "example": "Per n=4, le combinazioni sono 16. Sei contengono esattamente due cromosomi materni, quindi la probabilità è 6/16=0,375.",
+      "misconception": "Questo conteggio non include le nuove combinazioni interne generate dal crossing-over. L’assortimento dei cromosomi non implica indipendenza di tutti i geni sullo stesso cromosoma.",
+      "limit": "Assortimento indipendente e origine cromosomica semplificata, senza crossing-over o errori meiotici. Non descrive l’intera variabilità dei gameti reali.",
+      "extension": "Confronta il numero di combinazioni con la distribuzione del conteggio k. Spiega perché molti assetti distinti possono avere lo stesso numero di cromosomi materni.",
+      "question": "Senza crossing-over, n coppie indipendenti danno:",
+      "answer": "2^n combinazioni di origine",
+      "wrong": [
+        "2n combinazioni soltanto",
+        "Sempre due combinazioni"
+      ],
+      "bound": "Assortimento indipendente senza crossing-over",
+      "connection": "math-c10"
+    },
+    {
+      "unitId": "biology-09",
+      "title": "Ereditarietà mendeliana",
+      "story": "Due genitori producono gameti con probabilità note per un allele. Il quadrato di Punnett è utile, ma la stazione vuole esprimere il risultato come prodotto di probabilità.",
+      "concept": "In un modello mendeliano a un locus, ogni discendente riceve un allele da ciascun genitore. Se la probabilità del gamete A è p nel primo e q nel secondo, la probabilità di aa è (1-p)(1-q).",
+      "derivation": "Il prodotto richiede indipendenza delle estrazioni dei gameti. Per due eterozigoti con segregazione regolare, p=q=1/2. Le probabilità di AA, Aa e aa sono rispettivamente 1/4, 1/2 e 1/4.",
+      "example": "Con p=q=0,5, P(aa)=0,25. È una probabilità per ciascun discendente nel modello, non l’obbligo che ogni gruppo di quattro abbia esattamente un individuo aa.",
+      "misconception": "Dominante non significa frequente, migliore o destinato a diffondersi. Genotipo e fenotipo coincidono solo dopo aver specificato una relazione biologica fra alleli e carattere.",
+      "limit": "Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche.",
+      "extension": "Ricava P(AA) e P(Aa) e controlla che le tre probabilità sommino a uno. Confronta un incrocio fra eterozigoti con uno fra eterozigote e omozigote.",
+      "question": "Per Aa×Aa con segregazione regolare, P(aa) è:",
+      "answer": "1/4",
+      "wrong": [
+        "1/2",
+        "1"
+      ],
+      "bound": "Un locus mendeliano con gameti indipendenti",
+      "connection": "biology-15"
+    },
+    {
+      "unitId": "biology-10",
+      "title": "DNA e replicazione",
+      "story": "Un modello di DNA viene duplicato per cicli successivi. Il conteggio delle molecole cresce, ma il meccanismo di copia deve restare distinto dalla semplice moltiplicazione numerica.",
+      "concept": "Il DNA conserva informazione nella sequenza delle basi. Nella replicazione semiconservativa, ciascuna molecola figlia contiene un filamento preesistente e uno nuovo.",
+      "derivation": "In un bilancio ideale di duplicazione completa, N_n=N₀2^n. La formula conta molecole dopo cicli interi; non calcola velocità degli enzimi, errori o disponibilità dei nucleotidi.",
+      "example": "Partendo da una molecola, dopo tre cicli ideali ne ottieni otto. Il fatto che il numero raddoppi non significa che i filamenti originari si moltiplichino fisicamente come oggetti identici.",
+      "misconception": "La doppia elica schematica non è una ricostruzione atomica e non codifica una sequenza reale. Replicazione e trascrizione sono processi differenti.",
+      "limit": "Duplicazione completa senza errori o limiti. Nessun protocollo di laboratorio o manipolazione genetica è incluso.",
+      "extension": "Segui simbolicamente due filamenti iniziali nei primi due cicli per verificare il significato di semiconservativo. Distingui conteggio delle molecole e storia dei singoli filamenti.",
+      "question": "Replicazione semiconservativa significa che ogni molecola figlia ha:",
+      "answer": "Un filamento vecchio e uno nuovo",
+      "wrong": [
+        "Due filamenti sempre nuovi",
+        "Due filamenti sempre vecchi"
+      ],
+      "bound": "Conteggio ideale di duplicazioni complete",
+      "connection": "chemistry-25"
+    },
+    {
+      "unitId": "biology-11",
+      "title": "Espressione genica",
+      "story": "Un gene viene attivato e il numero medio di trascritti cresce verso un livello. La stazione vuole capire perché una produzione continua non implica accumulo illimitato.",
+      "concept": "L’abbondanza di mRNA dipende da produzione e degradazione. Un modello semplice assume una produzione costante α e una perdita proporzionale alla quantità presente, δm.",
+      "derivation": "L’equazione dm/dt=α-δm, con m(0)=0, ha soluzione m(t)=α/δ(1-exp(-δt)). Il livello stazionario è α/δ; il tempo caratteristico è 1/δ.",
+      "example": "Con α=5 molecole/min e δ=0,2 min⁻¹, il limite è 25 molecole in media. A t=0 il valore è zero e la derivata iniziale è 5 molecole/min.",
+      "misconception": "Un valore medio non descrive le fluttuazioni di ogni singola cellula. Più mRNA non implica automaticamente una quantità proporzionale di proteina, perché intervengono altri processi.",
+      "limit": "Produzione e degradazione lineari costanti, nessun feedback o rumore. Nessuna sequenza genetica o procedura sperimentale è generata.",
+      "extension": "Confronta un aumento della produzione con una diminuzione della degradazione. Possono dare lo stesso livello finale ma tempi di risposta diversi: proponi come distinguerli.",
+      "question": "Il livello stazionario del modello è:",
+      "answer": "α/δ",
+      "wrong": [
+        "αδ",
+        "Sempre zero"
+      ],
+      "bound": "Produzione e degradazione lineari costanti",
+      "connection": "math-p11"
+    },
+    {
+      "unitId": "biology-12",
+      "title": "Mutazioni e probabilità",
+      "story": "Una copia di informazione contiene molti siti. Anche una piccola probabilità di errore per sito può diventare rilevante sull’intera sequenza. Devi distinguere un valore atteso dalla probabilità di almeno un evento.",
+      "concept": "Se ogni sito ha probabilità μ di mutare e gli eventi sono indipendenti, la probabilità che nessun sito muti è (1-μ)^n. Il complemento dà P(almeno una)=1-(1-μ)^n.",
+      "derivation": "Il numero atteso di mutazioni è nμ, ma non è una probabilità e può superare uno. Per nμ piccolo, P(almeno una)≈nμ; l’approssimazione peggiora quando gli eventi diventano frequenti.",
+      "example": "Con un solo sito e μ=10⁻⁴, la probabilità è esattamente 10⁻⁴. Su molti siti la probabilità cresce ma non può superare uno.",
+      "misconception": "Una mutazione non è necessariamente utile o dannosa: il suo effetto dipende dal contesto. Indipendenza e tasso uniforme sono assunzioni semplificatrici.",
+      "limit": "Eventi indipendenti con probabilità uguale per sito. Non descrive meccanismi mutageni, sequenze reali o interventi biologici.",
+      "extension": "Confronta la formula esatta con l’approssimazione di Poisson 1-exp(-nμ). Spiega perché le due si avvicinano per μ piccolo con nμ fissato.",
+      "question": "Il numero atteso nμ:",
+      "answer": "Può superare uno e non è una probabilità",
+      "wrong": [
+        "È sempre fra zero e uno",
+        "È sempre uguale alla probabilità di almeno un evento"
+      ],
+      "bound": "Eventi indipendenti con tasso uniforme",
+      "connection": "math-p07"
+    },
+    {
+      "unitId": "biology-13",
+      "title": "Selezione naturale",
+      "story": "Due varianti hanno contributi riproduttivi diversi in un ambiente. La stazione segue come cambia la frequenza relativa, non come un singolo organismo decide di adattarsi.",
+      "concept": "La selezione naturale può modificare le frequenze quando varianti ereditabili contribuiscono diversamente alle generazioni successive. Il successo è relativo a un ambiente e non indica superiorità assoluta.",
+      "derivation": "In un modello aploide con fitness 1+s per A e 1 per l’altra variante, p′=p(1+s)/(1+sp). Il denominatore normalizza i contributi: la nuova frequenza deve restare fra zero e uno.",
+      "example": "Con p=0,5 e s=0,2, p′=0,6/1,1≈0,54545. L’aumento non è semplicemente p+s, che ignorerebbe la normalizzazione.",
+      "misconception": "La selezione non crea intenzionalmente la variante necessaria. Una variante vantaggiosa in un ambiente può non esserlo in un altro.",
+      "limit": "Modello aploide deterministico di una generazione, senza mutazione, migrazione o deriva. Non è una previsione su una popolazione reale.",
+      "extension": "Studia il segno di p′-p per s positivo e negativo. Confronta l’esito deterministico con la possibile perdita casuale di una variante rara in popolazioni finite.",
+      "question": "Il denominatore 1+sp serve a:",
+      "answer": "Normalizzare le frequenze dopo la selezione",
+      "wrong": [
+        "Aggiungere nuove mutazioni",
+        "Rendere p′ sempre uguale a uno"
+      ],
+      "bound": "Selezione aploide deterministica",
+      "connection": "biology-14"
+    },
+    {
+      "unitId": "biology-14",
+      "title": "Deriva genetica",
+      "story": "Due popolazioni piccole con lo stesso stato iniziale possono evolvere diversamente anche senza vantaggi selettivi. La stazione vuole quantificare l’incertezza dovuta al campionamento.",
+      "concept": "La deriva genetica è variazione casuale delle frequenze dovuta a un numero finito di riproduttori. Nel modello neutrale di Wright-Fisher diploide, la generazione successiva campiona 2N copie alleliche.",
+      "derivation": "Con frequenza p, la varianza della frequenza nella generazione successiva è p(1-p)/(2N). Il laboratorio mostra la radice della varianza, non una singola traiettoria casuale.",
+      "example": "Per p=0,5 e N=100, la deviazione standard è √0,00125≈0,03536. Aumentando N di quattro volte, la deviazione si dimezza.",
+      "misconception": "Neutralità non significa assenza di cambiamenti. Il valore atteso può restare p mentre singole popolazioni si spostano in direzioni diverse.",
+      "limit": "Una generazione neutrale, campionamento ideale e dimensione diploide costante. La popolazione efficace reale può differire dal numero censito.",
+      "extension": "Confronta l’effetto di p vicino a 0,5 e vicino agli estremi. Distingui la variabilità di una generazione dalla probabilità di fissazione nel lungo periodo.",
+      "question": "A parità di p, la deriva per generazione è più intensa in:",
+      "answer": "Popolazioni più piccole",
+      "wrong": [
+        "Popolazioni più grandi",
+        "Popolazioni necessariamente selezionate"
+      ],
+      "bound": "Wright-Fisher neutrale diploide, una generazione",
+      "connection": "math-c10"
+    },
+    {
+      "unitId": "biology-15",
+      "title": "Equilibrio di Hardy-Weinberg",
+      "story": "Il censimento genetico registra una frequenza allelica e una proporzione di eterozigoti. Per confrontarle serve un riferimento teorico, non l’idea che dominante significhi più comune.",
+      "concept": "Con due alleli di frequenze p e q=1-p e unione casuale dei gameti, le frequenze genotipiche attese sono p², 2pq e q². L’eterozigosi è massima in p=0,5.",
+      "derivation": "Il controllo aggiunge un coefficiente F che riduce l’eterozigosi a H=2p(1-p)(1-F). Per F=0 recuperi il riferimento casuale. F non viene stimato da dati nel laboratorio.",
+      "example": "Con p=0,5 e F=0, H=0,5. Con F=0,2, il modello dà H=0,4. La frequenza p resta il valore inserito: cambiare la composizione genotipica non implica necessariamente cambiarla.",
+      "misconception": "Una deviazione dal riferimento non identifica da sola la causa. Struttura di popolazione, assortimento, selezione o errori possono richiedere analisi distinte.",
+      "limit": "Due alleli e parametro di deficit eterozigotico assegnato. Non rappresenta tutta la dinamica di un sistema evolutivo.",
+      "extension": "Ricostruisci anche le frequenze omozigoti con il termine Fpq e verifica sia la somma a uno sia la conservazione della frequenza allelica.",
+      "question": "Nel riferimento F=0, la frequenza degli eterozigoti è:",
+      "answer": "2p(1-p)",
+      "wrong": [
+        "p²",
+        "1-p"
+      ],
+      "bound": "Due alleli con F assegnato",
+      "connection": "biology-09"
+    },
+    {
+      "unitId": "biology-16",
+      "title": "Speciazione e barriere riproduttive",
+      "story": "Due gruppi incontrano ostacoli diversi al flusso genico. La stazione vuole evitare di sommare percentuali di isolamento come se agissero sempre sugli stessi individui.",
+      "concept": "La speciazione riguarda la divergenza delle linee evolutive e l’evoluzione delle relazioni riproduttive, con definizioni di specie adatte a contesti diversi. Qui si studia soltanto un bilancio di due barriere successive.",
+      "derivation": "Se la prima barriera impedisce la frazione b₁ dei passaggi e la seconda impedisce b₂ di quelli rimasti, la frazione che supera entrambe è (1-b₁)(1-b₂). L’impedimento totale è il suo complemento.",
+      "example": "Con b₁=0,5 e b₂=0,3, resta il 35% dei passaggi e l’isolamento aggregato è 65%. Sommare 50% e 30% darebbe 80% e conterebbe male la seconda base.",
+      "misconception": "Un valore alto del bilancio non certifica automaticamente l’esistenza di due specie. La dipendenza fra barriere e il contesto biologico possono modificare l’interpretazione.",
+      "limit": "Due frazioni operative successive, seconda frazione condizionata ai passaggi rimasti. Nessuna soglia universale di speciazione è imposta.",
+      "extension": "Confronta barriere prezigotiche e postzigotiche come concetti. Spiega quali osservazioni sarebbero necessarie per inferire isolamento riproduttivo in un caso reale.",
+      "question": "Due barriere del 50% e del 30% sui passaggi rimasti danno:",
+      "answer": "65% di impedimento totale",
+      "wrong": [
+        "80%",
+        "15%"
+      ],
+      "bound": "Bilancio di barriere, non criterio universale di specie",
+      "connection": "math-c01"
+    },
+    {
+      "unitId": "biology-17",
+      "title": "Filogenesi e cambiamenti molecolari",
+      "story": "Due sequenze molto divergenti possono mostrare differenze osservate simili. Più sostituzioni possono colpire lo stesso sito e nascondere parte della storia evolutiva.",
+      "concept": "La filogenesi ricostruisce relazioni di discendenza usando dati e modelli. Nel modello di sostituzione di Jukes-Cantor, le quattro basi sono simmetriche e i cambiamenti seguono tassi uniformi.",
+      "derivation": "Per divergenza d in sostituzioni attese per sito, la frazione di siti diversi è 3/4(1-exp(-4d/3)). Moltiplicando per una lunghezza L si ottiene il numero atteso di differenze osservate.",
+      "example": "Con d=0, le differenze attese sono zero. Per grandi d, la frazione tende a 3/4, non a uno: ulteriori sostituzioni possono ripristinare basi uguali per caso.",
+      "misconception": "Una differenza osservata non corrisponde sempre a una sola sostituzione storica. Una curva di distanza non ricostruisce da sola la topologia di un albero.",
+      "limit": "Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata.",
+      "extension": "Inverti la relazione per ricavare una distanza corretta dalla frazione osservata p<3/4. Spiega perché l’inversione diventa sensibile vicino alla saturazione.",
+      "question": "Nel modello simmetrico, la frazione di differenze a grande d tende a:",
+      "answer": "3/4",
+      "wrong": [
+        "1",
+        "0"
+      ],
+      "bound": "Sostituzioni simmetriche e siti indipendenti",
+      "connection": "math-b"
+    },
+    {
+      "unitId": "biology-18",
+      "title": "Biodiversità e misura delle comunità",
+      "story": "Due comunità hanno lo stesso numero di specie ma abbondanze molto diverse. Contare soltanto i nomi non coglie tutta la struttura della diversità.",
+      "concept": "La ricchezza conta le specie; l’equità descrive come gli individui sono distribuiti. L’indice di Shannon H=-Σp_i ln p_i combina queste informazioni, usando frequenze relative che sommano a uno.",
+      "derivation": "Il laboratorio assegna frequenza p alla prima specie e distribuisce 1-p equamente fra le altre S-1. H=-p ln p-(1-p)ln((1-p)/(S-1)), con i limiti corretti agli estremi.",
+      "example": "Con S=4 e p=0,25, tutte le specie sono equiprobabili e H=ln4≈1,38629 nat. Se una specie domina completamente, H tende a zero.",
+      "misconception": "Un indice numerico non sostituisce l’identità delle specie o il loro ruolo ecologico. Valori uguali possono corrispondere a comunità molto diverse.",
+      "limit": "Comunità sintetica con una specie variabile e altre equiripartite. Non include errori di campionamento, rarità non osservata o funzioni ecologiche.",
+      "extension": "Confronta ricchezza ed equità separatamente. Spiega perché aggiungere una specie estremamente rara può cambiare un indice meno che riequilibrare abbondanze già presenti.",
+      "question": "A ricchezza fissata, Shannon è massimo quando:",
+      "answer": "Le abbondanze sono uguali",
+      "wrong": [
+        "Una specie domina completamente",
+        "Ogni frequenza è maggiore di uno"
+      ],
+      "bound": "Comunità sintetica con frequenze note",
+      "connection": "math-p07"
+    },
+    {
+      "unitId": "biology-19",
+      "title": "Crescita delle popolazioni",
+      "story": "Una popolazione cresce rapidamente all’inizio e poi rallenta. La stazione confronta una crescita senza limiti con un modello che introduce dipendenza dalla densità.",
+      "concept": "La crescita logistica continua assume dN/dt=rN(1-N/K). K è una capacità portante del modello, non una proprietà immutabile di ogni ambiente. Quando N è piccolo rispetto a K, il comportamento è quasi esponenziale.",
+      "derivation": "Con N₀=10, la soluzione è N(t)=K/[1+(K/10-1)exp(-rt)]. Se r>0 e K>10, la popolazione cresce verso K. Il tasso pro capite diminuisce con N.",
+      "example": "Con K=100 e r=0,3, al tempo zero N=10. Il massimo incremento assoluto si colloca in N=K/2, non nel momento in cui N è massima.",
+      "misconception": "La capacità portante non è un tetto universale garantito. Ambiente variabile, ritardi o risorse multiple possono produrre dinamiche diverse dalla curva logistica.",
+      "limit": "Popolazione continua omogenea, r e K costanti, nessuna migrazione o struttura d’età. Le particelle della scena sono rappresentative, non un censimento.",
+      "extension": "Confronta crescita assoluta rN(1-N/K) e pro capite r(1-N/K). Spiega perché hanno massimi in punti diversi.",
+      "question": "Nel modello logistico, il massimo incremento assoluto si ha a:",
+      "answer": "N=K/2",
+      "wrong": [
+        "N=K",
+        "N=0"
+      ],
+      "bound": "Logistica continua con r e K costanti",
+      "connection": "math-p08"
+    },
+    {
+      "unitId": "biology-20",
+      "title": "Competizione ecologica",
+      "story": "Due popolazioni condividono risorse. Per studiare l’effetto di una sull’altra, la stazione mantiene la seconda fissata e misura la crescita pro capite della prima.",
+      "concept": "Un modello di competizione può esprimere l’effetto di una specie in unità equivalenti dell’altra. Il coefficiente α pesa l’impatto di N₂ sulla crescita di N₁.",
+      "derivation": "La sezione del modello mostrata è g₁=r[1-(N₁+αN₂)/K₁], con N₂=20 e K₁=100. g₁ è la crescita pro capite, non l’aumento totale: per quello serve moltiplicare per N₁.",
+      "example": "Con r=0,5, α=1 e N₁=40, g₁=0,5(1-60/100)=0,2 per unità di tempo. Se N₁=0, il tasso pro capite può essere positivo ma la crescita totale è zero.",
+      "misconception": "Un coefficiente di competizione non è una misura universale di aggressività. Dal solo andamento di g₁ non si può concludere la coesistenza dinamica delle due specie.",
+      "limit": "Sezione a N₂ costante di un modello competitivo, non integrazione di due popolazioni accoppiate. Nessuna struttura spaziale.",
+      "extension": "Ricava la retta di crescita nulla N₁+αN₂=K₁. Confrontala con una seconda isoclina solo dopo aver dichiarato anche l’equazione dell’altra specie.",
+      "question": "Per ottenere la crescita totale da g₁ si deve:",
+      "answer": "Moltiplicare per N₁",
+      "wrong": [
+        "Dividere sempre per N₂",
+        "Sommare la capacità portante"
+      ],
+      "bound": "Sezione a concorrente fissato, non sistema completo",
+      "connection": "biology-19"
+    },
+    {
+      "unitId": "biology-21",
+      "title": "Predazione e risposta funzionale",
+      "story": "Aumentando la densità di prede, il consumo di un predatore cresce ma raggiunge un limite. Il tempo necessario a gestire ogni preda riduce il tempo disponibile per cercarne altre.",
+      "concept": "La risposta funzionale di Holling di tipo II descrive un consumo saturante. Il parametro a rappresenta l’efficienza di ricerca e h il tempo di manipolazione per preda.",
+      "derivation": "La relazione è C(N)=aN/(1+ahN). A bassa densità è quasi aN; ad alta densità tende a 1/h. Il limite nasce dal tempo di manipolazione, non dall’assenza di prede.",
+      "example": "Con a=0,1 e h=0,5, a N=20 il consumo è 2/(1+1)=1 preda per unità di tempo. Il limite superiore è 2.",
+      "misconception": "Una risposta funzionale non è l’intera dinamica predatore-preda. Non descrive da sola riproduzione, mortalità o cambiamenti della densità delle due popolazioni.",
+      "limit": "Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata.",
+      "extension": "Confronta l’effetto di cambiare a con quello di cambiare h. Il primo influenza soprattutto l’inizio della curva, il secondo ne determina anche il limite.",
+      "question": "Ad alta densità, il consumo tende a:",
+      "answer": "1/h",
+      "wrong": [
+        "h",
+        "Infinito senza limite"
+      ],
+      "bound": "Risposta funzionale, non dinamica accoppiata",
+      "connection": "biology-04"
+    },
+    {
+      "unitId": "biology-22",
+      "title": "Reti trofiche ed energia",
+      "story": "L’energia viene trasferita lungo una catena alimentare. A ogni passaggio solo una frazione arriva al livello successivo. La stazione deve distinguere questo flusso dal riciclo della materia.",
+      "concept": "Le reti trofiche descrivono relazioni di alimentazione. In un bilancio semplificato di una catena, l’energia trasferita al livello successivo è una frazione η di quella disponibile al livello precedente.",
+      "derivation": "Con efficienza costante, E_n=E₀η^n. L’indice n conta passaggi, non tempo. Il valore η=0,1 è uno scenario didattico, non una regola universale di ogni ecosistema.",
+      "example": "Con E₀=10.000 kJ e η=0,1, dopo due passaggi restano 100 kJ nel bilancio di trasferimento. L’energia non è distrutta: una parte viene trasformata e dissipata, non trasferita al livello seguente.",
+      "misconception": "Il flusso di energia non è un ciclo chiuso analogo a quello degli atomi. Una piramide energetica non coincide necessariamente con una piramide del numero di organismi.",
+      "limit": "Catena lineare con efficienza costante e nessun detrito o percorso alternativo. Non è una rete trofica completa.",
+      "extension": "Confronta catene di lunghezze diverse e rendimenti diversi. Discuta quali flussi andrebbero aggiunti per includere decompositori e riciclo della materia.",
+      "question": "Il valore η=0,1 nel laboratorio è:",
+      "answer": "Uno scenario scelto, non una legge universale",
+      "wrong": [
+        "Una costante fondamentale",
+        "Il numero obbligatorio di livelli trofici"
+      ],
+      "bound": "Catena lineare con efficienza assegnata",
+      "connection": "math-c06"
+    },
+    {
+      "unitId": "biology-23",
+      "title": "Cicli biogeochimici e serbatoi",
+      "story": "Il carbonio lascia un serbatoio e passa a un altro. Vedere diminuire la quantità nel primo non basta a concludere che la materia sia scomparsa.",
+      "concept": "I cicli biogeochimici seguono trasferimenti di elementi fra compartimenti. Un serbatoio può perdere una quantità proporzionale al contenuto, mentre un altro la riceve.",
+      "derivation": "Il laboratorio usa dC/dt=-kC, quindi C(t)=C₀exp(-kt). Se il materiale viene trasferito a un secondo compartimento chiuso inizialmente vuoto, il suo contenuto è C₀-C(t).",
+      "example": "Con C₀=100 kg e k=0,1 per anno del modello, il serbatoio parte da 100 kg. Il tempo caratteristico è 10 anni del modello, senza attribuirlo a un ecosistema specifico.",
+      "misconception": "La perdita da un compartimento non è perdita dall’intero sistema. Una costante di trasferimento aggregata può nascondere molti processi e cambiare con l’ambiente.",
+      "limit": "Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata.",
+      "extension": "Aggiungi simbolicamente un flusso in ingresso e trova il nuovo equilibrio. Distingui tempo di residenza, tempo di dimezzamento e tempo caratteristico.",
+      "question": "In un trasferimento chiuso fra due serbatoi, la diminuzione del primo:",
+      "answer": "Compare come aumento del secondo",
+      "wrong": [
+        "Distrugge necessariamente gli atomi",
+        "Implica energia totale nulla"
+      ],
+      "bound": "Trasferimento ideale chiuso fra compartimenti",
+      "connection": "chemistry-17"
+    },
+    {
+      "unitId": "biology-24",
+      "title": "Omeostasi e retroazioni",
+      "story": "Dopo una perturbazione, una variabile torna verso un riferimento. La stazione vuole spiegare il processo senza attribuire intenzioni al sistema o confondere ogni feedback negativo con stabilità garantita.",
+      "concept": "Una retroazione negativa tende a contrastare una deviazione. In un modello lineare semplice, la velocità di recupero è proporzionale alla deviazione con segno opposto.",
+      "derivation": "La legge dΔy/dt=-kΔy produce Δy(t)=Δy₀exp(-kt) per k>0. Il segno iniziale può essere positivo o negativo; il modulo tende a zero.",
+      "example": "Con Δy₀=5 e k=0,3, il sistema parte da una deviazione di 5 unità convenzionali. Il tempo caratteristico è 1/0,3≈3,333 unità di tempo.",
+      "misconception": "Negativo e positivo descrivono il segno del feedback, non un giudizio di valore. Ritardi, saturazioni e accoppiamenti possono rendere instabile un sistema con componenti di feedback negativo.",
+      "limit": "Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico.",
+      "extension": "Confronta due guadagni k e misura il tempo per ridurre la deviazione a una frazione scelta. Spiega quali nuovi effetti introdurrebbe un ritardo nella risposta.",
+      "question": "Nel modello lineare con k>0, il modulo della deviazione:",
+      "answer": "Decade verso zero",
+      "wrong": [
+        "Cresce sempre",
+        "Resta sempre costante"
+      ],
+      "bound": "Feedback lineare senza ritardi",
+      "connection": "biology-25"
+    },
+    {
+      "unitId": "biology-25",
+      "title": "Biosfera, albedo e sistemi accoppiati",
+      "story": "La superficie di un mondo ideale riflette parte della radiazione incidente. La stazione deve separare un semplice bilancio radiativo da una biosfera che cambia attivamente la copertura.",
+      "concept": "L’albedo A è la frazione riflessa. Nel bilancio idealizzato σT⁴=SL(1-A), aumentare A a luminosità fissata riduce la temperatura radiativa. T va calcolata in kelvin prima della conversione in Celsius.",
+      "derivation": "Il laboratorio usa S=917 W/m² e σ=5,67×10⁻⁸ W/(m²K⁴), coerenti con il dossier Daisyworld del progetto. Qui A resta imposta: non viene calcolata da popolazioni chiare o scure.",
+      "example": "Con L=1 e A=0,5, il flusso assorbito del modello è 458,5 W/m². La temperatura si ottiene con una radice quarta, non dividendo semplicemente il flusso per σ.",
+      "misconception": "Un bilancio a albedo fissata non dimostra autoregolazione biologica. Le superfici 3D dei pianeti sono illustrative e non sono mappe climatiche o osservazioni della Terra.",
+      "limit": "Equilibrio radiativo istantaneo senza effetto serra, nubi, oceani o dinamica biologica. Il laboratorio Daisyworld già presente resta il percorso per studiare l’accoppiamento fra copertura e temperatura.",
+      "extension": "Confronta due albedo a stessa luminosità, poi visita Daisyworld e registra come cambia A quando le popolazioni rispondono alla temperatura. Distingui esplicitamente i due modelli.",
+      "question": "A luminosità fissata, aumentare l’albedo nel modello:",
+      "answer": "Riduce la temperatura radiativa",
+      "wrong": [
+        "Aumenta sempre la temperatura",
+        "Non modifica il flusso assorbito"
+      ],
+      "bound": "Bilancio radiativo ad albedo imposta",
+      "connection": "physics-20"
+    }
+  ]
+}

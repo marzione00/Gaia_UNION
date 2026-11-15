@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "physics-11",
+  "title": "Momenti, leve ed equilibrio",
+  "sector": 1,
+  "modelId": "physics-11",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Braccio rigido e modulo del momento",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: braccio rigido e modulo del momento.",
+    "Applicare τ = rF sin(θ), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "physics-10"
+  ],
+  "connections": [
+    "math-c09"
+  ],
+  "sources": [
+    "physics1",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Angolo",
+      "definition": "Variabile indipendente, unità rad; intervallo [0; 3,14159]."
+    },
+    {
+      "term": "Momento torcente",
+      "definition": "Risultato calcolato dal modello, unità N m."
+    },
+    {
+      "term": "Forza",
+      "definition": "Parametro a, unità N; intervallo [1; 20]."
+    },
+    {
+      "term": "Braccio r",
+      "definition": "Parametro b, unità m; intervallo [0,5; 4]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Una porta della stazione non ruota facilmente quando la forza è applicata quasi verso la cerniera. La stessa intensità può avere effetti diversi a seconda della direzione.",
+          "Il momento torcente misura l’effetto rotazionale di una forza rispetto a un asse. Il modulo è τ=rF sinθ, dove θ è l’angolo fra vettore posizione e forza. Conta la componente perpendicolare."
+        ],
+        "intermediate": [
+          "Una porta della stazione non ruota facilmente quando la forza è applicata quasi verso la cerniera. La stessa intensità può avere effetti diversi a seconda della direzione.",
+          "Quando la forza è parallela al braccio, sinθ=0 e il momento è nullo. A 90° il modulo è massimo e vale rF. Il segno del momento richiede una convenzione di orientazione, qui non rappresentata dalla sola formula del modulo."
+        ],
+        "advanced": [
+          "Una porta della stazione non ruota facilmente quando la forza è applicata quasi verso la cerniera. La stessa intensità può avere effetti diversi a seconda della direzione.",
+          "Imponi sia somma delle forze nulla sia somma dei momenti nulla per un oggetto in equilibrio statico. Mostra perché una sola delle due condizioni non basta.",
+          "Il controllo mostra il modulo per angoli da 0 a π e braccio rigido. Non simula deformazioni, cerniere o l’intero equilibrio di un corpo."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Il momento torcente misura l’effetto rotazionale di una forza rispetto a un asse. Il modulo è τ=rF sinθ, dove θ è l’angolo fra vettore posizione e forza. Conta la componente perpendicolare.",
+          "Con r=2 m, F=10 N e θ=π/2, il momento è 20 N m. Con la stessa forza diretta lungo il braccio, il momento è zero."
+        ],
+        "intermediate": [
+          "Quando la forza è parallela al braccio, sinθ=0 e il momento è nullo. A 90° il modulo è massimo e vale rF. Il segno del momento richiede una convenzione di orientazione, qui non rappresentata dalla sola formula del modulo.",
+          "La variabile Angolo è espressa in rad; Momento torcente in N m. Il dominio dello strumento è [0; 3,14159]. La relazione implementata è: τ = rF sin(θ).",
+          "Con r=2 m, F=10 N e θ=π/2, il momento è 20 N m. Con la stessa forza diretta lungo il braccio, il momento è zero."
+        ],
+        "advanced": [
+          "Quando la forza è parallela al braccio, sinθ=0 e il momento è nullo. A 90° il modulo è massimo e vale rF. Il segno del momento richiede una convenzione di orientazione, qui non rappresentata dalla sola formula del modulo.",
+          "Imponi sia somma delle forze nulla sia somma dei momenti nulla per un oggetto in equilibrio statico. Mostra perché una sola delle due condizioni non basta.",
+          "Un momento nullo rispetto a un asse non implica forza nulla. L’unità N m coincide dimensionalmente con il joule, ma momento ed energia sono grandezze differenti."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Forza (a): 10 N; Braccio r (b): 2 m. Prima di salvare A, prevedi come cambia Momento torcente fra Angolo=0,785398 e 1,5708 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con r=2 m, F=10 N e θ=π/2, il momento è 20 N m. Con la stessa forza diretta lungo il braccio, il momento è zero.",
+          "La variabile Angolo è espressa in rad; Momento torcente in N m. Il dominio dello strumento è [0; 3,14159]. La relazione implementata è: τ = rF sin(θ)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Forza (a): 10 N; Braccio r (b): 2 m. Prima di salvare A, prevedi come cambia Momento torcente fra Angolo=0,785398 e 1,5708 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Angolo è espressa in rad; Momento torcente in N m. Il dominio dello strumento è [0; 3,14159]. La relazione implementata è: τ = rF sin(θ).",
+          "Quando la forza è parallela al braccio, sinθ=0 e il momento è nullo. A 90° il modulo è massimo e vale rF. Il segno del momento richiede una convenzione di orientazione, qui non rappresentata dalla sola formula del modulo."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Forza (a): 10 N; Braccio r (b): 2 m. Prima di salvare A, prevedi come cambia Momento torcente fra Angolo=0,785398 e 1,5708 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Imponi sia somma delle forze nulla sia somma dei momenti nulla per un oggetto in equilibrio statico. Mostra perché una sola delle due condizioni non basta.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Un momento nullo rispetto a un asse non implica forza nulla. L’unità N m coincide dimensionalmente con il joule, ma momento ed energia sono grandezze differenti.",
+          "Il controllo mostra il modulo per angoli da 0 a π e braccio rigido. Non simula deformazioni, cerniere o l’intero equilibrio di un corpo.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Un momento nullo rispetto a un asse non implica forza nulla. L’unità N m coincide dimensionalmente con il joule, ma momento ed energia sono grandezze differenti.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Il controllo mostra il modulo per angoli da 0 a π e braccio rigido. Non simula deformazioni, cerniere o l’intero equilibrio di un corpo.",
+          "Imponi sia somma delle forze nulla sia somma dei momenti nulla per un oggetto in equilibrio statico. Mostra perché una sola delle due condizioni non basta.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Il momento torcente misura l’effetto rotazionale di una forza rispetto a un asse. Il modulo è τ=rF sinθ, dove θ è l’angolo fra vettore posizione e forza. Conta la componente perpendicolare.",
+          "Con r=2 m, F=10 N e θ=π/2, il momento è 20 N m. Con la stessa forza diretta lungo il braccio, il momento è zero."
+        ],
+        "intermediate": [
+          "Quando la forza è parallela al braccio, sinθ=0 e il momento è nullo. A 90° il modulo è massimo e vale rF. Il segno del momento richiede una convenzione di orientazione, qui non rappresentata dalla sola formula del modulo.",
+          "La variabile Angolo è espressa in rad; Momento torcente in N m. Il dominio dello strumento è [0; 3,14159]. La relazione implementata è: τ = rF sin(θ)."
+        ],
+        "advanced": [
+          "Imponi sia somma delle forze nulla sia somma dei momenti nulla per un oggetto in equilibrio statico. Mostra perché una sola delle due condizioni non basta.",
+          "Il controllo mostra il modulo per angoli da 0 a π e braccio rigido. Non simula deformazioni, cerniere o l’intero equilibrio di un corpo."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Braccio rigido e modulo del momento.",
+          "Il controllo mostra il modulo per angoli da 0 a π e braccio rigido. Non simula deformazioni, cerniere o l’intero equilibrio di un corpo.",
+          "Collegamento consigliato: math-c09. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Quando la forza è parallela al braccio, sinθ=0 e il momento è nullo. A 90° il modulo è massimo e vale rF. Il segno del momento richiede una convenzione di orientazione, qui non rappresentata dalla sola formula del modulo.",
+          "Il controllo mostra il modulo per angoli da 0 a π e braccio rigido. Non simula deformazioni, cerniere o l’intero equilibrio di un corpo.",
+          "Imponi sia somma delle forze nulla sia somma dei momenti nulla per un oggetto in equilibrio statico. Mostra perché una sola delle due condizioni non basta."
+        ],
+        "advanced": [
+          "Imponi sia somma delle forze nulla sia somma dei momenti nulla per un oggetto in equilibrio statico. Mostra perché una sola delle due condizioni non basta.",
+          "Il controllo mostra il modulo per angoli da 0 a π e braccio rigido. Non simula deformazioni, cerniere o l’intero equilibrio di un corpo.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "physics-11-concept",
+      "prompt": "Il momento di una forza è massimo quando forza e braccio sono:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Sempre allineati con l’asse",
+          "feedback": "Quando la forza è parallela al braccio, sinθ=0 e il momento è nullo. A 90° il modulo è massimo e vale rF. Il segno del momento richiede una convenzione di orientazione, qui non rappresentata dalla sola formula del modulo."
+        },
+        {
+          "id": "B",
+          "text": "Perpendicolari",
+          "feedback": "Il momento torcente misura l’effetto rotazionale di una forza rispetto a un asse. Il modulo è τ=rF sinθ, dove θ è l’angolo fra vettore posizione e forza. Conta la componente perpendicolare."
+        },
+        {
+          "id": "C",
+          "text": "Paralleli",
+          "feedback": "Un momento nullo rispetto a un asse non implica forza nulla. L’unità N m coincide dimensionalmente con il joule, ma momento ed energia sono grandezze differenti."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "physics-11-calculation",
+      "prompt": "Calcolo: Forza (a)=10 N; Braccio r (b)=2 m. Per Angolo=1,5708 rad, quanto vale Momento torcente?",
+      "options": [
+        {
+          "id": "A",
+          "text": "20 N m",
+          "feedback": "τ = rF sin(θ). Con Forza (a)=10 N; Braccio r (b)=2 m e Angolo=1,5708 rad, il risultato è 20 N m. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "30 N m",
+          "feedback": "Questo valore non soddisfa la relazione. τ = rF sin(θ). Con Forza (a)=10 N; Braccio r (b)=2 m e Angolo=1,5708 rad, il risultato è 20 N m. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "10 N m",
+          "feedback": "Controlla sostituzione, segno e unità. τ = rF sin(θ). Con Forza (a)=10 N; Braccio r (b)=2 m e Angolo=1,5708 rad, il risultato è 20 N m. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 1.5707963267948966,
+        "parameters": {
+          "a": 10,
+          "b": 2
+        },
+        "expected": 20,
+        "unit": "N m"
+      }
+    },
+    {
+      "id": "physics-11-transfer",
+      "prompt": "Trasferimento: Forza (a)=11 N; Braccio r (b)=2 m. Per Angolo=1,5708 rad, quanto vale Momento torcente?",
+      "options": [
+        {
+          "id": "A",
+          "text": "33 N m",
+          "feedback": "Questo valore non soddisfa la relazione. τ = rF sin(θ). Con Forza (a)=11 N; Braccio r (b)=2 m e Angolo=1,5708 rad, il risultato è 22 N m. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "11 N m",
+          "feedback": "Controlla sostituzione, segno e unità. τ = rF sin(θ). Con Forza (a)=11 N; Braccio r (b)=2 m e Angolo=1,5708 rad, il risultato è 22 N m. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "22 N m",
+          "feedback": "τ = rF sin(θ). Con Forza (a)=11 N; Braccio r (b)=2 m e Angolo=1,5708 rad, il risultato è 22 N m. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 1.5707963267948966,
+        "parameters": {
+          "a": 11,
+          "b": 2
+        },
+        "expected": 22,
+        "unit": "N m"
+      }
+    },
+    {
+      "id": "physics-11-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Braccio rigido e modulo del momento",
+          "feedback": "Il controllo mostra il modulo per angoli da 0 a π e braccio rigido. Non simula deformazioni, cerniere o l’intero equilibrio di un corpo."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il controllo mostra il modulo per angoli da 0 a π e braccio rigido. Non simula deformazioni, cerniere o l’intero equilibrio di un corpo."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Il controllo mostra il modulo per angoli da 0 a π e braccio rigido. Non simula deformazioni, cerniere o l’intero equilibrio di un corpo."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
+}

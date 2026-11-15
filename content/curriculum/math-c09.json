@@ -1,0 +1,288 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "math-c09",
+  "title": "Trigonometria",
+  "sector": 0,
+  "modelId": "math-c09",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Angoli in radianti e proiezioni ideali",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: angoli in radianti e proiezioni ideali.",
+    "Applicare y = a sin(x+b), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "math-c03",
+    "math-c07",
+    "math-c08"
+  ],
+  "connections": [
+    "physics-17"
+  ],
+  "sources": [
+    "precalculus"
+  ],
+  "originalSource": {
+    "id": "math-2026",
+    "file": "materials/matematica-di-base.pdf",
+    "printedPages": [
+      269,
+      306
+    ],
+    "pdfPages": [
+      281,
+      318
+    ]
+  },
+  "glossary": [
+    {
+      "term": "Angolo",
+      "definition": "Variabile indipendente, unità rad; intervallo [0; 6,28319]."
+    },
+    {
+      "term": "Ordinata",
+      "definition": "Risultato calcolato dal modello, unità u.l.."
+    },
+    {
+      "term": "Ampiezza",
+      "definition": "Parametro a, unità u.l.; intervallo [0,5; 3]."
+    },
+    {
+      "term": "Fase",
+      "definition": "Parametro b, unità rad; intervallo [0; 3,14159]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Un’antenna ruota mentre il segnale ricevuto oscilla. Per sincronizzare l’orientamento non basta contare i giri: occorre collegare angolo, fase e proiezione su un asse.",
+          "Sulla circonferenza unitaria, seno e coseno sono le coordinate di un punto individuato da un angolo. Il radiante misura il rapporto fra arco e raggio. Una rotazione completa corrisponde a 2π radianti, non a 360 radianti."
+        ],
+        "intermediate": [
+          "Un’antenna ruota mentre il segnale ricevuto oscilla. Per sincronizzare l’orientamento non basta contare i giri: occorre collegare angolo, fase e proiezione su un asse.",
+          "Nella relazione y=a sin(x+b), a regola l’ampiezza e b la fase. Il periodo rispetto a x è 2π. Aggiungere b all’argomento anticipa la fase; il seno può essere negativo perché rappresenta una coordinata orientata."
+        ],
+        "advanced": [
+          "Un’antenna ruota mentre il segnale ricevuto oscilla. Per sincronizzare l’orientamento non basta contare i giri: occorre collegare angolo, fase e proiezione su un asse.",
+          "Usa l’identità sin²x+cos²x=1 per controllare le coordinate. Collega una fase b a un ritardo temporale mediante una pulsazione ω e spiega il segno della trasformazione.",
+          "La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Sulla circonferenza unitaria, seno e coseno sono le coordinate di un punto individuato da un angolo. Il radiante misura il rapporto fra arco e raggio. Una rotazione completa corrisponde a 2π radianti, non a 360 radianti.",
+          "Per a=1 e b=0, in x=π/2 ottieni 1; in x=π ottieni 0; in x=3π/2 ottieni -1. L’ampiezza è 1, mentre la distanza tra massimo e minimo è 2."
+        ],
+        "intermediate": [
+          "Nella relazione y=a sin(x+b), a regola l’ampiezza e b la fase. Il periodo rispetto a x è 2π. Aggiungere b all’argomento anticipa la fase; il seno può essere negativo perché rappresenta una coordinata orientata.",
+          "La variabile Angolo è espressa in rad; Ordinata in u.l.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: y = a sin(x+b).",
+          "Per a=1 e b=0, in x=π/2 ottieni 1; in x=π ottieni 0; in x=3π/2 ottieni -1. L’ampiezza è 1, mentre la distanza tra massimo e minimo è 2."
+        ],
+        "advanced": [
+          "Nella relazione y=a sin(x+b), a regola l’ampiezza e b la fase. Il periodo rispetto a x è 2π. Aggiungere b all’argomento anticipa la fase; il seno può essere negativo perché rappresenta una coordinata orientata.",
+          "Usa l’identità sin²x+cos²x=1 per controllare le coordinate. Collega una fase b a un ritardo temporale mediante una pulsazione ω e spiega il segno della trasformazione.",
+          "Ampiezza e valore picco-picco sono grandezze diverse. Usare gradi in una funzione programmata per radianti produce valori errati, anche se il grafico sembra regolare."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Ampiezza (a): 1 u.l.; Fase (b): 0 rad. Prima di salvare A, prevedi come cambia Ordinata fra Angolo=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Per a=1 e b=0, in x=π/2 ottieni 1; in x=π ottieni 0; in x=3π/2 ottieni -1. L’ampiezza è 1, mentre la distanza tra massimo e minimo è 2.",
+          "La variabile Angolo è espressa in rad; Ordinata in u.l.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: y = a sin(x+b)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Ampiezza (a): 1 u.l.; Fase (b): 0 rad. Prima di salvare A, prevedi come cambia Ordinata fra Angolo=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Angolo è espressa in rad; Ordinata in u.l.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: y = a sin(x+b).",
+          "Nella relazione y=a sin(x+b), a regola l’ampiezza e b la fase. Il periodo rispetto a x è 2π. Aggiungere b all’argomento anticipa la fase; il seno può essere negativo perché rappresenta una coordinata orientata."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Ampiezza (a): 1 u.l.; Fase (b): 0 rad. Prima di salvare A, prevedi come cambia Ordinata fra Angolo=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Usa l’identità sin²x+cos²x=1 per controllare le coordinate. Collega una fase b a un ritardo temporale mediante una pulsazione ω e spiega il segno della trasformazione.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Ampiezza e valore picco-picco sono grandezze diverse. Usare gradi in una funzione programmata per radianti produce valori errati, anche se il grafico sembra regolare.",
+          "La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Ampiezza e valore picco-picco sono grandezze diverse. Usare gradi in una funzione programmata per radianti produce valori errati, anche se il grafico sembra regolare.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione.",
+          "Usa l’identità sin²x+cos²x=1 per controllare le coordinate. Collega una fase b a un ritardo temporale mediante una pulsazione ω e spiega il segno della trasformazione.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Sulla circonferenza unitaria, seno e coseno sono le coordinate di un punto individuato da un angolo. Il radiante misura il rapporto fra arco e raggio. Una rotazione completa corrisponde a 2π radianti, non a 360 radianti.",
+          "Per a=1 e b=0, in x=π/2 ottieni 1; in x=π ottieni 0; in x=3π/2 ottieni -1. L’ampiezza è 1, mentre la distanza tra massimo e minimo è 2."
+        ],
+        "intermediate": [
+          "Nella relazione y=a sin(x+b), a regola l’ampiezza e b la fase. Il periodo rispetto a x è 2π. Aggiungere b all’argomento anticipa la fase; il seno può essere negativo perché rappresenta una coordinata orientata.",
+          "La variabile Angolo è espressa in rad; Ordinata in u.l.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: y = a sin(x+b)."
+        ],
+        "advanced": [
+          "Usa l’identità sin²x+cos²x=1 per controllare le coordinate. Collega una fase b a un ritardo temporale mediante una pulsazione ω e spiega il segno della trasformazione.",
+          "La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Angoli in radianti e proiezioni ideali.",
+          "La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione.",
+          "Collegamento consigliato: physics-17. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Nella relazione y=a sin(x+b), a regola l’ampiezza e b la fase. Il periodo rispetto a x è 2π. Aggiungere b all’argomento anticipa la fase; il seno può essere negativo perché rappresenta una coordinata orientata.",
+          "La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione.",
+          "Usa l’identità sin²x+cos²x=1 per controllare le coordinate. Collega una fase b a un ritardo temporale mediante una pulsazione ω e spiega il segno della trasformazione."
+        ],
+        "advanced": [
+          "Usa l’identità sin²x+cos²x=1 per controllare le coordinate. Collega una fase b a un ritardo temporale mediante una pulsazione ω e spiega il segno della trasformazione.",
+          "La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "math-c09-concept",
+      "prompt": "Un giro completo corrisponde a:",
+      "options": [
+        {
+          "id": "A",
+          "text": "360 radianti",
+          "feedback": "Nella relazione y=a sin(x+b), a regola l’ampiezza e b la fase. Il periodo rispetto a x è 2π. Aggiungere b all’argomento anticipa la fase; il seno può essere negativo perché rappresenta una coordinata orientata."
+        },
+        {
+          "id": "B",
+          "text": "2π radianti",
+          "feedback": "Sulla circonferenza unitaria, seno e coseno sono le coordinate di un punto individuato da un angolo. Il radiante misura il rapporto fra arco e raggio. Una rotazione completa corrisponde a 2π radianti, non a 360 radianti."
+        },
+        {
+          "id": "C",
+          "text": "π radianti",
+          "feedback": "Ampiezza e valore picco-picco sono grandezze diverse. Usare gradi in una funzione programmata per radianti produce valori errati, anche se il grafico sembra regolare."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-c09-calculation",
+      "prompt": "Calcolo: Ampiezza (a)=1 u.l.; Fase (b)=0 rad. Per Angolo=1,5708 rad, quanto vale Ordinata?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1 u.l.",
+          "feedback": "y = a sin(x+b). Con Ampiezza (a)=1 u.l.; Fase (b)=0 rad e Angolo=1,5708 rad, il risultato è 1 u.l.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "2 u.l.",
+          "feedback": "Questo valore non soddisfa la relazione. y = a sin(x+b). Con Ampiezza (a)=1 u.l.; Fase (b)=0 rad e Angolo=1,5708 rad, il risultato è 1 u.l.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "0 u.l.",
+          "feedback": "Controlla sostituzione, segno e unità. y = a sin(x+b). Con Ampiezza (a)=1 u.l.; Fase (b)=0 rad e Angolo=1,5708 rad, il risultato è 1 u.l.. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 1.5707963267948966,
+        "parameters": {
+          "a": 1,
+          "b": 0
+        },
+        "expected": 1,
+        "unit": "u.l."
+      }
+    },
+    {
+      "id": "math-c09-transfer",
+      "prompt": "Trasferimento: Ampiezza (a)=1,5 u.l.; Fase (b)=0 rad. Per Angolo=1,5708 rad, quanto vale Ordinata?",
+      "options": [
+        {
+          "id": "A",
+          "text": "2,5 u.l.",
+          "feedback": "Questo valore non soddisfa la relazione. y = a sin(x+b). Con Ampiezza (a)=1,5 u.l.; Fase (b)=0 rad e Angolo=1,5708 rad, il risultato è 1,5 u.l.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "0,5 u.l.",
+          "feedback": "Controlla sostituzione, segno e unità. y = a sin(x+b). Con Ampiezza (a)=1,5 u.l.; Fase (b)=0 rad e Angolo=1,5708 rad, il risultato è 1,5 u.l.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "1,5 u.l.",
+          "feedback": "y = a sin(x+b). Con Ampiezza (a)=1,5 u.l.; Fase (b)=0 rad e Angolo=1,5708 rad, il risultato è 1,5 u.l.. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 1.5707963267948966,
+        "parameters": {
+          "a": 1.5,
+          "b": 0
+        },
+        "expected": 1.5,
+        "unit": "u.l."
+      }
+    },
+    {
+      "id": "math-c09-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Angoli in radianti e proiezioni ideali",
+          "feedback": "La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
+}

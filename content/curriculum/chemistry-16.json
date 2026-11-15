@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "chemistry-16",
+  "title": "Termochimica e calorimetria",
+  "sector": 2,
+  "modelId": "chemistry-16",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Bilancio calorimetrico senza dispersioni",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: bilancio calorimetrico senza dispersioni.",
+    "Applicare q_reazione = -m c ΔT; c=4,184 J/(g K), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "chemistry-15"
+  ],
+  "connections": [
+    "physics-19"
+  ],
+  "sources": [
+    "chemistry",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Aumento temperatura",
+      "definition": "Variabile indipendente, unità K; intervallo [0; 20]."
+    },
+    {
+      "term": "Calore reazione",
+      "definition": "Risultato calcolato dal modello, unità kJ."
+    },
+    {
+      "term": "Massa soluzione",
+      "definition": "Parametro a, unità g; intervallo [50; 500]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Una trasformazione riscalda la soluzione che la circonda. Il calore della soluzione e quello della reazione hanno segni opposti in un bilancio idealmente isolato.",
+          "La calorimetria ricava uno scambio energetico dalla variazione di temperatura di un sistema di capacità termica nota. Nel modello q_soluzione=mcΔT e q_reazione=-q_soluzione."
+        ],
+        "intermediate": [
+          "Una trasformazione riscalda la soluzione che la circonda. Il calore della soluzione e quello della reazione hanno segni opposti in un bilancio idealmente isolato.",
+          "Il segno meno nasce dal bilancio energetico: se la soluzione assorbe calore, la reazione lo cede. Il codice usa c=4,184 J/(g K) e converte joule in kilojoule."
+        ],
+        "advanced": [
+          "Una trasformazione riscalda la soluzione che la circonda. Il calore della soluzione e quello della reazione hanno segni opposti in un bilancio idealmente isolato.",
+          "Introduci simbolicamente una capacità termica del calorimetro e aggiorna il bilancio. Distingui calore a pressione costante e variazione di energia interna in altri vincoli.",
+          "Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "La calorimetria ricava uno scambio energetico dalla variazione di temperatura di un sistema di capacità termica nota. Nel modello q_soluzione=mcΔT e q_reazione=-q_soluzione.",
+          "Per 100 g di soluzione e aumento di 10 K, la soluzione assorbe 4184 J. Il calore della reazione nel modello è -4,184 kJ, quindi la trasformazione è esotermica rispetto alla soluzione."
+        ],
+        "intermediate": [
+          "Il segno meno nasce dal bilancio energetico: se la soluzione assorbe calore, la reazione lo cede. Il codice usa c=4,184 J/(g K) e converte joule in kilojoule.",
+          "La variabile Aumento temperatura è espressa in K; Calore reazione in kJ. Il dominio dello strumento è [0; 20]. La relazione implementata è: q_reazione = -m c ΔT; c=4,184 J/(g K).",
+          "Per 100 g di soluzione e aumento di 10 K, la soluzione assorbe 4184 J. Il calore della reazione nel modello è -4,184 kJ, quindi la trasformazione è esotermica rispetto alla soluzione."
+        ],
+        "advanced": [
+          "Il segno meno nasce dal bilancio energetico: se la soluzione assorbe calore, la reazione lo cede. Il codice usa c=4,184 J/(g K) e converte joule in kilojoule.",
+          "Introduci simbolicamente una capacità termica del calorimetro e aggiorna il bilancio. Distingui calore a pressione costante e variazione di energia interna in altri vincoli.",
+          "Un aumento della temperatura non significa q_reazione positivo. La capacità termica del recipiente e gli scambi con l’esterno possono rendere incompleto un calcolo basato solo sulla soluzione."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Massa soluzione (a): 100 g. Prima di salvare A, prevedi come cambia Calore reazione fra Aumento temperatura=5 e 10 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Per 100 g di soluzione e aumento di 10 K, la soluzione assorbe 4184 J. Il calore della reazione nel modello è -4,184 kJ, quindi la trasformazione è esotermica rispetto alla soluzione.",
+          "La variabile Aumento temperatura è espressa in K; Calore reazione in kJ. Il dominio dello strumento è [0; 20]. La relazione implementata è: q_reazione = -m c ΔT; c=4,184 J/(g K)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Massa soluzione (a): 100 g. Prima di salvare A, prevedi come cambia Calore reazione fra Aumento temperatura=5 e 10 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Aumento temperatura è espressa in K; Calore reazione in kJ. Il dominio dello strumento è [0; 20]. La relazione implementata è: q_reazione = -m c ΔT; c=4,184 J/(g K).",
+          "Il segno meno nasce dal bilancio energetico: se la soluzione assorbe calore, la reazione lo cede. Il codice usa c=4,184 J/(g K) e converte joule in kilojoule."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Massa soluzione (a): 100 g. Prima di salvare A, prevedi come cambia Calore reazione fra Aumento temperatura=5 e 10 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Introduci simbolicamente una capacità termica del calorimetro e aggiorna il bilancio. Distingui calore a pressione costante e variazione di energia interna in altri vincoli.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Un aumento della temperatura non significa q_reazione positivo. La capacità termica del recipiente e gli scambi con l’esterno possono rendere incompleto un calcolo basato solo sulla soluzione.",
+          "Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Un aumento della temperatura non significa q_reazione positivo. La capacità termica del recipiente e gli scambi con l’esterno possono rendere incompleto un calcolo basato solo sulla soluzione.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente.",
+          "Introduci simbolicamente una capacità termica del calorimetro e aggiorna il bilancio. Distingui calore a pressione costante e variazione di energia interna in altri vincoli.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "La calorimetria ricava uno scambio energetico dalla variazione di temperatura di un sistema di capacità termica nota. Nel modello q_soluzione=mcΔT e q_reazione=-q_soluzione.",
+          "Per 100 g di soluzione e aumento di 10 K, la soluzione assorbe 4184 J. Il calore della reazione nel modello è -4,184 kJ, quindi la trasformazione è esotermica rispetto alla soluzione."
+        ],
+        "intermediate": [
+          "Il segno meno nasce dal bilancio energetico: se la soluzione assorbe calore, la reazione lo cede. Il codice usa c=4,184 J/(g K) e converte joule in kilojoule.",
+          "La variabile Aumento temperatura è espressa in K; Calore reazione in kJ. Il dominio dello strumento è [0; 20]. La relazione implementata è: q_reazione = -m c ΔT; c=4,184 J/(g K)."
+        ],
+        "advanced": [
+          "Introduci simbolicamente una capacità termica del calorimetro e aggiorna il bilancio. Distingui calore a pressione costante e variazione di energia interna in altri vincoli.",
+          "Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Bilancio calorimetrico senza dispersioni.",
+          "Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente.",
+          "Collegamento consigliato: physics-19. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Il segno meno nasce dal bilancio energetico: se la soluzione assorbe calore, la reazione lo cede. Il codice usa c=4,184 J/(g K) e converte joule in kilojoule.",
+          "Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente.",
+          "Introduci simbolicamente una capacità termica del calorimetro e aggiorna il bilancio. Distingui calore a pressione costante e variazione di energia interna in altri vincoli."
+        ],
+        "advanced": [
+          "Introduci simbolicamente una capacità termica del calorimetro e aggiorna il bilancio. Distingui calore a pressione costante e variazione di energia interna in altri vincoli.",
+          "Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "chemistry-16-concept",
+      "prompt": "Se la soluzione si riscalda in un sistema ideale isolato, q_reazione è:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Necessariamente nullo",
+          "feedback": "Il segno meno nasce dal bilancio energetico: se la soluzione assorbe calore, la reazione lo cede. Il codice usa c=4,184 J/(g K) e converte joule in kilojoule."
+        },
+        {
+          "id": "B",
+          "text": "Negativo",
+          "feedback": "La calorimetria ricava uno scambio energetico dalla variazione di temperatura di un sistema di capacità termica nota. Nel modello q_soluzione=mcΔT e q_reazione=-q_soluzione."
+        },
+        {
+          "id": "C",
+          "text": "Sempre positivo",
+          "feedback": "Un aumento della temperatura non significa q_reazione positivo. La capacità termica del recipiente e gli scambi con l’esterno possono rendere incompleto un calcolo basato solo sulla soluzione."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "chemistry-16-calculation",
+      "prompt": "Calcolo: Massa soluzione (a)=100 g. Per Aumento temperatura=10 K, quanto vale Calore reazione?",
+      "options": [
+        {
+          "id": "A",
+          "text": "-4,184 kJ",
+          "feedback": "q_reazione = -m c ΔT; c=4,184 J/(g K). Con Massa soluzione (a)=100 g e Aumento temperatura=10 K, il risultato è -4,184 kJ. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "-2,092 kJ",
+          "feedback": "Questo valore non soddisfa la relazione. q_reazione = -m c ΔT; c=4,184 J/(g K). Con Massa soluzione (a)=100 g e Aumento temperatura=10 K, il risultato è -4,184 kJ. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "-6,276 kJ",
+          "feedback": "Controlla sostituzione, segno e unità. q_reazione = -m c ΔT; c=4,184 J/(g K). Con Massa soluzione (a)=100 g e Aumento temperatura=10 K, il risultato è -4,184 kJ. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 10,
+        "parameters": {
+          "a": 100
+        },
+        "expected": -4.184,
+        "unit": "kJ"
+      }
+    },
+    {
+      "id": "chemistry-16-transfer",
+      "prompt": "Trasferimento: Massa soluzione (a)=150 g. Per Aumento temperatura=10 K, quanto vale Calore reazione?",
+      "options": [
+        {
+          "id": "A",
+          "text": "-3,138 kJ",
+          "feedback": "Questo valore non soddisfa la relazione. q_reazione = -m c ΔT; c=4,184 J/(g K). Con Massa soluzione (a)=150 g e Aumento temperatura=10 K, il risultato è -6,276 kJ. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "-9,414 kJ",
+          "feedback": "Controlla sostituzione, segno e unità. q_reazione = -m c ΔT; c=4,184 J/(g K). Con Massa soluzione (a)=150 g e Aumento temperatura=10 K, il risultato è -6,276 kJ. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "-6,276 kJ",
+          "feedback": "q_reazione = -m c ΔT; c=4,184 J/(g K). Con Massa soluzione (a)=150 g e Aumento temperatura=10 K, il risultato è -6,276 kJ. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 10,
+        "parameters": {
+          "a": 150
+        },
+        "expected": -6.276,
+        "unit": "kJ"
+      }
+    },
+    {
+      "id": "chemistry-16-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Bilancio calorimetrico senza dispersioni",
+          "feedback": "Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
+}

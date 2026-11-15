@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "physics-15",
+  "title": "Galleggiamento e Archimede",
+  "sector": 1,
+  "modelId": "physics-15",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Volume immerso noto e fluido statico",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: volume immerso noto e fluido statico.",
+    "Applicare F_A = ρ g V, dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "physics-14"
+  ],
+  "connections": [
+    "biology-01"
+  ],
+  "sources": [
+    "physics1",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Volume immerso",
+      "definition": "Variabile indipendente, unità m³; intervallo [0; 0,02]."
+    },
+    {
+      "term": "Spinta di Archimede",
+      "definition": "Risultato calcolato dal modello, unità N."
+    },
+    {
+      "term": "Densità fluido",
+      "definition": "Parametro a, unità kg/m³; intervallo [500; 1500]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Un oggetto viene immerso progressivamente. Il laboratorio vuole prevedere la spinta senza attribuirla alla forma apparente della mesh o al colore del fluido.",
+          "La spinta di Archimede è pari al peso del fluido spostato: F_A=ρgV_immerso. Dipende dal volume effettivamente immerso, non necessariamente dal volume totale del corpo."
+        ],
+        "intermediate": [
+          "Un oggetto viene immerso progressivamente. Il laboratorio vuole prevedere la spinta senza attribuirla alla forma apparente della mesh o al colore del fluido.",
+          "La differenza di pressione fra le parti basse e alte di un corpo produce una risultante verso l’alto. Nel galleggiamento statico, questa risultante bilancia il peso del corpo."
+        ],
+        "advanced": [
+          "Un oggetto viene immerso progressivamente. Il laboratorio vuole prevedere la spinta senza attribuirla alla forma apparente della mesh o al colore del fluido.",
+          "Per un corpo uniforme che galleggia, ricava la frazione immersa come rapporto fra densità media del corpo e densità del fluido.",
+          "Fluido statico uniforme e volume spostato noto. La scena non risolve la posizione di equilibrio o l’assetto del corpo."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "La spinta di Archimede è pari al peso del fluido spostato: F_A=ρgV_immerso. Dipende dal volume effettivamente immerso, non necessariamente dal volume totale del corpo.",
+          "Immergendo 0,001 m³ in acqua idealizzata con ρ=1000 kg/m³, la spinta è 9,81 N. Un volume doppio produce una spinta doppia, a densità costante."
+        ],
+        "intermediate": [
+          "La differenza di pressione fra le parti basse e alte di un corpo produce una risultante verso l’alto. Nel galleggiamento statico, questa risultante bilancia il peso del corpo.",
+          "La variabile Volume immerso è espressa in m³; Spinta di Archimede in N. Il dominio dello strumento è [0; 0,02]. La relazione implementata è: F_A = ρ g V.",
+          "Immergendo 0,001 m³ in acqua idealizzata con ρ=1000 kg/m³, la spinta è 9,81 N. Un volume doppio produce una spinta doppia, a densità costante."
+        ],
+        "advanced": [
+          "La differenza di pressione fra le parti basse e alte di un corpo produce una risultante verso l’alto. Nel galleggiamento statico, questa risultante bilancia il peso del corpo.",
+          "Per un corpo uniforme che galleggia, ricava la frazione immersa come rapporto fra densità media del corpo e densità del fluido.",
+          "Galleggiare non significa avere massa nulla. Un oggetto cavo può avere densità media inferiore al fluido anche se il materiale della parete è più denso."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Densità fluido (a): 1000 kg/m³. Prima di salvare A, prevedi come cambia Spinta di Archimede fra Volume immerso=0,005 e 0,01 m³. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Immergendo 0,001 m³ in acqua idealizzata con ρ=1000 kg/m³, la spinta è 9,81 N. Un volume doppio produce una spinta doppia, a densità costante.",
+          "La variabile Volume immerso è espressa in m³; Spinta di Archimede in N. Il dominio dello strumento è [0; 0,02]. La relazione implementata è: F_A = ρ g V."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Densità fluido (a): 1000 kg/m³. Prima di salvare A, prevedi come cambia Spinta di Archimede fra Volume immerso=0,005 e 0,01 m³. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Volume immerso è espressa in m³; Spinta di Archimede in N. Il dominio dello strumento è [0; 0,02]. La relazione implementata è: F_A = ρ g V.",
+          "La differenza di pressione fra le parti basse e alte di un corpo produce una risultante verso l’alto. Nel galleggiamento statico, questa risultante bilancia il peso del corpo."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Densità fluido (a): 1000 kg/m³. Prima di salvare A, prevedi come cambia Spinta di Archimede fra Volume immerso=0,005 e 0,01 m³. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Per un corpo uniforme che galleggia, ricava la frazione immersa come rapporto fra densità media del corpo e densità del fluido.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Galleggiare non significa avere massa nulla. Un oggetto cavo può avere densità media inferiore al fluido anche se il materiale della parete è più denso.",
+          "Fluido statico uniforme e volume spostato noto. La scena non risolve la posizione di equilibrio o l’assetto del corpo.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Galleggiare non significa avere massa nulla. Un oggetto cavo può avere densità media inferiore al fluido anche se il materiale della parete è più denso.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Fluido statico uniforme e volume spostato noto. La scena non risolve la posizione di equilibrio o l’assetto del corpo.",
+          "Per un corpo uniforme che galleggia, ricava la frazione immersa come rapporto fra densità media del corpo e densità del fluido.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "La spinta di Archimede è pari al peso del fluido spostato: F_A=ρgV_immerso. Dipende dal volume effettivamente immerso, non necessariamente dal volume totale del corpo.",
+          "Immergendo 0,001 m³ in acqua idealizzata con ρ=1000 kg/m³, la spinta è 9,81 N. Un volume doppio produce una spinta doppia, a densità costante."
+        ],
+        "intermediate": [
+          "La differenza di pressione fra le parti basse e alte di un corpo produce una risultante verso l’alto. Nel galleggiamento statico, questa risultante bilancia il peso del corpo.",
+          "La variabile Volume immerso è espressa in m³; Spinta di Archimede in N. Il dominio dello strumento è [0; 0,02]. La relazione implementata è: F_A = ρ g V."
+        ],
+        "advanced": [
+          "Per un corpo uniforme che galleggia, ricava la frazione immersa come rapporto fra densità media del corpo e densità del fluido.",
+          "Fluido statico uniforme e volume spostato noto. La scena non risolve la posizione di equilibrio o l’assetto del corpo."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Volume immerso noto e fluido statico.",
+          "Fluido statico uniforme e volume spostato noto. La scena non risolve la posizione di equilibrio o l’assetto del corpo.",
+          "Collegamento consigliato: biology-01. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "La differenza di pressione fra le parti basse e alte di un corpo produce una risultante verso l’alto. Nel galleggiamento statico, questa risultante bilancia il peso del corpo.",
+          "Fluido statico uniforme e volume spostato noto. La scena non risolve la posizione di equilibrio o l’assetto del corpo.",
+          "Per un corpo uniforme che galleggia, ricava la frazione immersa come rapporto fra densità media del corpo e densità del fluido."
+        ],
+        "advanced": [
+          "Per un corpo uniforme che galleggia, ricava la frazione immersa come rapporto fra densità media del corpo e densità del fluido.",
+          "Fluido statico uniforme e volume spostato noto. La scena non risolve la posizione di equilibrio o l’assetto del corpo.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "physics-15-concept",
+      "prompt": "La spinta dipende direttamente da:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Il volume di fluido spostato",
+          "feedback": "La spinta di Archimede è pari al peso del fluido spostato: F_A=ρgV_immerso. Dipende dal volume effettivamente immerso, non necessariamente dal volume totale del corpo."
+        },
+        {
+          "id": "B",
+          "text": "Il colore dell’oggetto",
+          "feedback": "Galleggiare non significa avere massa nulla. Un oggetto cavo può avere densità media inferiore al fluido anche se il materiale della parete è più denso."
+        },
+        {
+          "id": "C",
+          "text": "La sola massa del recipiente",
+          "feedback": "La differenza di pressione fra le parti basse e alte di un corpo produce una risultante verso l’alto. Nel galleggiamento statico, questa risultante bilancia il peso del corpo."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-15-calculation",
+      "prompt": "Calcolo: Densità fluido (a)=1000 kg/m³. Per Volume immerso=0,001 m³, quanto vale Spinta di Archimede?",
+      "options": [
+        {
+          "id": "A",
+          "text": "14,715 N",
+          "feedback": "Questo valore non soddisfa la relazione. F_A = ρ g V. Con Densità fluido (a)=1000 kg/m³ e Volume immerso=0,001 m³, il risultato è 9,81 N. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "4,905 N",
+          "feedback": "Controlla sostituzione, segno e unità. F_A = ρ g V. Con Densità fluido (a)=1000 kg/m³ e Volume immerso=0,001 m³, il risultato è 9,81 N. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "9,81 N",
+          "feedback": "F_A = ρ g V. Con Densità fluido (a)=1000 kg/m³ e Volume immerso=0,001 m³, il risultato è 9,81 N. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 0.001,
+        "parameters": {
+          "a": 1000
+        },
+        "expected": 9.81,
+        "unit": "N"
+      }
+    },
+    {
+      "id": "physics-15-transfer",
+      "prompt": "Trasferimento: Densità fluido (a)=1100 kg/m³. Per Volume immerso=0,001 m³, quanto vale Spinta di Archimede?",
+      "options": [
+        {
+          "id": "A",
+          "text": "5,3955 N",
+          "feedback": "Controlla sostituzione, segno e unità. F_A = ρ g V. Con Densità fluido (a)=1100 kg/m³ e Volume immerso=0,001 m³, il risultato è 10,791 N. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "10,791 N",
+          "feedback": "F_A = ρ g V. Con Densità fluido (a)=1100 kg/m³ e Volume immerso=0,001 m³, il risultato è 10,791 N. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "16,1865 N",
+          "feedback": "Questo valore non soddisfa la relazione. F_A = ρ g V. Con Densità fluido (a)=1100 kg/m³ e Volume immerso=0,001 m³, il risultato è 10,791 N. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 0.001,
+        "parameters": {
+          "a": 1100
+        },
+        "expected": 10.791,
+        "unit": "N"
+      }
+    },
+    {
+      "id": "physics-15-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Fluido statico uniforme e volume spostato noto. La scena non risolve la posizione di equilibrio o l’assetto del corpo."
+        },
+        {
+          "id": "B",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Fluido statico uniforme e volume spostato noto. La scena non risolve la posizione di equilibrio o l’assetto del corpo."
+        },
+        {
+          "id": "C",
+          "text": "Volume immerso noto e fluido statico",
+          "feedback": "Fluido statico uniforme e volume spostato noto. La scena non risolve la posizione di equilibrio o l’assetto del corpo."
+        }
+      ],
+      "correct": "C"
+    }
+  ]
+}
