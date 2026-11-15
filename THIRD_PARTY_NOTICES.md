@@ -1,5 +1,7 @@
 # Componenti e attribuzioni
 
+Le parti originali del progetto sono distribuite con CC BY 4.0; per ambito ed esclusioni vedere [LICENSE.md](LICENSE.md). I materiali elencati di seguito conservano le condizioni delle rispettive fonti.
+
 ## Contenuti didattici
 
 *Matematica di base — Forme e connessioni*, Marzio De Corato e Danilo Liuzzi, bozza di 769 pagine fornita dall’utente. PDF preservato; le rielaborazioni narrative precedenti rimangono in `sources/v7/`. L’adattamento GAIA cambia la cornice narrativa e non le formule testate.
@@ -15,7 +17,7 @@ Le superfici planetarie usano esclusivamente mappe esterne NASA. Non sono usate 
 - Io, Europa, Saturno e anelli, Mercurio, Venere, Nettuno: mappe incorporate nei modelli **NASA Visualization Technology Applications and Development (VTAD)**. Risoluzioni native e URL di ogni modello sono in `assets/planets/manifest.json`. Per gli atlanti UV di Mercurio e Saturno è conservata la mappatura della geometria NASA.
 - Nuvole terrestri: **NASA Earth Observatory / Reto Stöckli**, Blue Marble, mappa originale 2048 × 1024. https://science.nasa.gov/earth/earth-observatory/the-blue-marble-true-color-global-imagery-at-1km-resolution/
 
-I file originali sono in `sources/nasa/`. Sono applicati soltanto estrazione dai GLB, decodifica, ridimensionamento verso il basso e codifica PNG senza perdita. Non si applicano ricolorazione, upscaling o generazione di dettagli. Le sole forme, le disposizioni orbitali e gli effetti di illuminazione sono calcolati dal progetto.
+I metadati di provenienza sono in `sources/nasa/`; gli originali ad alta risoluzione sono nell'archivio opzionale indicato in `sources/nasa/LEGGIMI.md`. Sono applicati soltanto estrazione dai GLB, decodifica, ridimensionamento verso il basso e codifica PNG senza perdita. Non si applicano ricolorazione, upscaling o generazione di dettagli. Le sole forme, le disposizioni orbitali e gli effetti di illuminazione sono calcolati dal progetto.
 
 Uso e crediti seguono le [NASA Images and Media Usage Guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/). GAIA è un progetto didattico indipendente: non è approvato, sponsorizzato o certificato da NASA, ESA, JPL o USGS. Le mappe rappresentano analoghi del Sistema Solare applicati a mondi immaginari; non sono osservazioni di quegli esopianeti.
 
