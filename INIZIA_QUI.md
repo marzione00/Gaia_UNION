@@ -9,9 +9,10 @@ Non serve npm install. Il doppio clic su index.html non è sufficiente. Il primo
 
 ## Dalla galassia alla superficie
 
-- **Galassia:** un milione di stelle 3D; 25 sono sistemi esplorabili. Passa il mouse su una stella evidenziata per la descrizione, fai un solo clic per entrare. Puoi anche usare ESPLORA IL SISTEMA.
-- **Sistema:** da 5 a 12 pianeti, con quattro esplorabili. Passa su un pianeta per identificarlo; un clic su una destinazione esplorabile avvicina la camera. Gli altri mostrano una descrizione e restano senza accesso alla superficie.
-- **Pianeta:** SCENDI ALLA STAZIONE apre il bioma. Echo 08 mostra Simbiosi; Echo 02 Marea; Echo 03 e 04 Esodo.
+- **Ingresso:** cerca un argomento, segui un percorso o esplora la galassia.
+- **Galassia:** quattro bracci, uno per disciplina; 25 aree tematiche in ordine di studio dal centro verso l’esterno. La scheda elenca le unità dell’area: APRI L’UNITÀ apre la lezione, SISTEMA 3D mostra i pianeti.
+- **Sistema:** un pianeta per unità, dall’orbita interna a quella esterna; gli altri pianeti sono di contorno.
+- **Pianeta:** APRI L’UNITÀ o SCENDI IN SUPERFICIE. Le quattro stazioni aprono lezione, laboratorio, verifica e collegamenti dell’unità.
 - I pulsanti di ritorno e Esc risalgono i livelli conservando rotazione e zoom. Le quattro stazioni si selezionano con S1–S4 o le etichette.
 
 Trascina per ruotare; usa rotella o +/− per lo zoom. Su touch il primo tocco descrive, il secondo entra. Tab e Invio raggiungono sistemi, pianeti e controlli. Spazio sospende il movimento e rende immediati gli zoom.

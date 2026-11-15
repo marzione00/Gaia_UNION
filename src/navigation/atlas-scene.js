@@ -2,6 +2,8 @@
 import { transform, project, mul, perspective, lookAt } from '../renderer.js';
 import { tubePath, mergeMeshes } from '../education/geometry.js';
 import { contains, edgeIndicator, routeSystems } from './atlas-model.js';
+import { AREAS } from '../scene/systems.js';
+const ARM_TINTS=[[.89,.76,.55,1],[.45,.85,.83,1],[.69,.64,.87,1],[.71,.84,.64,1]];
 const norm=v=>{const l=Math.hypot(...v)||1;return v.map(n=>n/l);};
 const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
 export function billboard(position, eye, target, scale) {
@@ -40,8 +42,8 @@ export class AtlasScene {
             if(!contains(layout.map,point.x,point.y))continue;
             const active=point.index===selected,highlighted=point.index===hover,visibleRadius=active||highlighted?radius+3:radius;
             const scale=2*point.depth*Math.tan(world.fov/2)*visibleRadius/R.h;
-            const onPath=!path||selectedIds.has(point.index),tint=active?[1,.84,.45,1]:highlighted?[.8,1,.72,1]:onPath?[.35,.88,.88,1]:[.48,.64,.67,1];
-            R.drawMesh('atlas-hex',world.vp,billboard(world.systems[point.index].position,world.eye,world.target,scale),{eye:world.eye,tint,emission:contrast?1.2:.7,opacity:onPath||active?1:.65});
+            const sector=AREAS[point.index]?.sector??0,filtered=state.sector>=0&&state.sector!==sector,onPath=(!path||selectedIds.has(point.index))&&!filtered,tint=active?[1,1,1,1]:highlighted?[.85,1,.8,1]:onPath?ARM_TINTS[sector]:[.36,.45,.48,1];
+            R.drawMesh('atlas-hex',world.vp,billboard(world.systems[point.index].position,world.eye,world.target,scale),{eye:world.eye,tint,emission:contrast?1.2:.7,opacity:onPath||active?1:filtered?.28:.65});
             if(active)R.drawMesh('atlas-hex',world.vp,billboard(world.systems[point.index].position,world.eye,world.target,scale*1.22),{eye:world.eye,tint,emission:.6,opacity:.7});
             this.drawn++;
         }

@@ -1,3 +1,15 @@
+# 1.7.0 — Navigazione tematica
+
+- Mappa riorganizzata: un braccio della galassia per disciplina e 25 aree tematiche in ordine di studio, dal centro verso l’esterno. Ogni sistema raccoglie da tre a sei unità della stessa area.
+- Nomi delle aree e titoli delle unità al posto dei codici ECHO e F08.
+- Schermata d’ingresso con tre scelte: cerca un argomento, segui un percorso, esplora la galassia; RIPRENDI quando c’è un’unità aperta.
+- Scheda dell’area con l’elenco delle unità e il pulsante APRI L’UNITÀ: dalla mappa all’unità con un clic.
+- Pulsanti per evidenziare il braccio di una disciplina; percorso di navigazione sempre visibile.
+- Guida in cinque passi disegnata sopra gli elementi reali della mappa.
+- Menu principale ridotto a cinque voci: Mappa, Argomenti, Percorsi, Laboratori, Diario.
+- In superficie le quattro stazioni aprono lezione, laboratorio, verifica e collegamenti dell’unità del pianeta.
+- Test di sistemi, atlante e browser aggiornati alla nuova organizzazione.
+
 # 1.4.0 — Ambiente cosmico continuo
 
 - Cinque regioni persistenti e quindici volumi 3D: nebulose, filamenti, resti stellari e galassie lontane.
