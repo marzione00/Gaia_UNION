@@ -1,5 +1,6 @@
 import { asteroidBelt, cometTail } from './minor-bodies.js';
 import { createCosmos, enrichCosmicStars, regionAt } from './cosmos.js';
+import { galaxyCamera } from '../navigation/atlas-model.js';
 import { MIN_STARS, SYSTEM_SCALE, buildSystems, bodyAtTime, systemArchitecture, systemPlanet, systemForPlanet, indicesForSystem, pickProjected } from './systems.js';
 import { viewKey } from './navigation.js';
 import { mesh, sphereMesh, transform, perspective, lookAt, mul, project, TAU } from '../renderer.js';
@@ -138,7 +139,7 @@ export class World {
     desiredCamera(scene,s) {
         const w=this.R.w,h=this.R.h,system=s.system??systemForPlanet(s.selected);let eye,target=[0,0,0],fov=.84,space='other';
         if(scene==='galaxy'){
-            const distance=s.distance;eye=[Math.sin(s.yaw)*distance*Math.cos(s.pitch),distance*Math.sin(s.pitch),Math.cos(s.yaw)*distance*Math.cos(s.pitch)];space='galaxy';
+            ({eye,target}=galaxyCamera(s,w,h));space='galaxy';
         }else if(scene==='system'){
             const distance=s.distance*Math.max(1,systemArchitecture(system).outerRadius/13)*Math.max(1,1.05/(w/h)),pitch=s.pitch;
             eye=[Math.sin(s.yaw)*distance*Math.cos(pitch),distance*Math.sin(pitch),Math.cos(s.yaw)*distance*Math.cos(pitch)];target=w<850?[0,0,0]:[2.4,0,0];fov=.78;space='system';

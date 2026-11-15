@@ -1,5 +1,5 @@
 /** Static, offline runtime distribution. It does not redownload assets. */
-import { cp, mkdir, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdir, rm, writeFile, readFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
@@ -12,4 +12,6 @@ for(const item of ['LICENSE','LICENSE.md','THIRD_PARTY_NOTICES.md','docs/license
     await cp(resolve(root,item),resolve(dest,item),{recursive:true});
 }
 await writeFile(resolve(dest,'.nojekyll'),'');
+const metadata=JSON.parse(await readFile(resolve(root,'package.json'),'utf8'));
+await writeFile(resolve(dest,'build-info.json'),JSON.stringify({version:metadata.version,commit:process.env.GITHUB_SHA||'local',features:['atlas-navigation','curriculum-recovery']},null,2)+'\n');
 console.log('Distribuzione generata in dist/ (risorse già incluse, nessun download).');

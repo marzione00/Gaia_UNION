@@ -1,3 +1,4 @@
+import { AtlasUI } from './navigation/atlas-ui.js';
 import { CourseUI } from './education/course-ui.js';
 import { loadCurriculum } from './education/curriculum-loader.js';
 import { fetchJsonWithRetry } from './education/resource-loader.js';
@@ -23,7 +24,7 @@ async function json(path) {
 function image(path) { return new Promise((yes, no) => { const i = new Image(); i.onload = () => yes(i); i.onerror = () => no(Error('Texture mancante: ' + path)); i.src = asset(path); }); }
 const store = openStore();
 const S = { scene: 'galaxy', selected: 7, system: 7, hoveredTarget: null, observedBody: null, sector: -1, node: 0, station: 0, quality: MIN_STARS, graphics: store.data.preferences.graphics, yaw: 0, pitch: .45, distance: 60, time: 0, paused: !store.data.preferences.motion || matchMedia('(prefers-reduced-motion: reduce)').matches, scroll: 0, maxScroll: 0, reader: 'math-c08', section: 0, light: false, pdfPage: 245, pdfZoom: 1, lab: 'daisyworld', lum: 1, death: .3, sim: null, sweep: null, labValues: { p: 80, x: 13, base: 'quadratic', a: 1, b: 1, h: 0, k: 0, index: 2, mode: 'root', m1: 1, q1: 0, m2: -1, q2: 5, initial: 100, loss: .1, t: 10, zeroA: -2, zeroB: 1, pole: 3 }, labCompare: null, quizIndex: 0, quizFilter: null, quizMode: 'training', examSubmitted: false, exam: {}, quizSolution: false, catalogPage: 0, query: '', editing: null, journalTab: 'general', menu: false, settings: false, popup: null, loaded: false, contextLost: false, lastFrameMs: 0, toast: '', toastUntil: 0, focusId: null };
-let education, pilotEducation;
+let education, pilotEducation, atlas;
 function activeEducation(){return S.scene==='pilot'?pilotEducation:education;}
 function openCourse(id,stage=null){const m=moduleById(id);if(!m)return;selectIndex(m.planetIndex);education.select(id);if(stage!==null)education.setStage(stage);route('mission');}
 function openExternal(url){if(!education.bundle.sources.some(s=>s.url===url))throw Error('Fonte non registrata');window.open(url,'_blank','noopener,noreferrer');}
@@ -57,6 +58,7 @@ function route(scene, extra = {}) {
     if (scene === 'lab')
         computeLab();
     updateHash('push');
+    atlas?.onRoute(S.scene);
     semanticSignature = '';
 }
 function enterSystem(id=S.system) { route('system',{system:id}); }
@@ -181,26 +183,7 @@ function common() {
     U.text('GAIA / ATLANTE SCIENTIFICO', 26, h - 25, 'micro', C.dim, { track: .7 });
     U.text(mobile ? 'WEBGL 2' : 'WEBGL 2 · ' + (['galaxy','system','orbit'].includes(S.scene) ? R.frameStats.stars.toLocaleString('it-IT') + ' STELLE 3D' : 'GRAFICA GPU'), w - 25, h - 25, 'micro', C.dim, { align: 'right', track: .6 });
 }
-function galaxyUI() {
-    const w=R.w,h=R.h,mobile=w<850,system=W.systems[S.system]||W.systems[7];
-    title('01 / GALASSIA DELLA CONOSCENZA','UN UNIVERSO DA COMPRENDERE',mobile?'Tocca una stella per scoprire il sistema.':'Un milione di stelle 3D. Passa sui sistemi per scoprirli, fai clic per entrare.');
-    const px=mobile?18:w-337,pw=mobile?w-36:304,py=mobile?h-306:245,ph=mobile?222:365;
-    U.panel(px,py,pw,ph,C.amber,.80);U.tag('SISTEMA STELLARE / '+String(system.id+1).padStart(2,'0'),px+18,py+19,C.amber);
-    U.text(system.name,px+18,py+50,'sub',C.pale);U.text(system.count+' PIANETI · 4 ESPLORABILI',px+18,py+100,'micro',C.lime,{track:.6});
-    if(!mobile){wrapClipText(system.description,px+18,py+130,pw-36,'body',C.muted,5);U.text('25 SISTEMI ESPLORABILI / 100 UNITÀ',px+18,py+260,'micro',C.dim);}
-    else wrapClipText(system.description,px+18,py+124,pw-36,'mini',C.muted,2);
-    U.button('enter-system','ESPLORA IL SISTEMA',px+16,py+ph-56,pw-32,40,()=>enterSystem(),{active:true});
-    if(!mobile){
-        U.panel(32,300,248,276,C.cyan,.48);U.tag('DISCIPLINE',50,319);
-        sectors.forEach((label,i)=>U.button('sector-'+i,label.toUpperCase()+'  ·  25',49,349+i*44,214,36,()=>{S.sector=S.sector===i?-1:i;selectIndex(S.system+(S.sector<0?0:S.sector)*25);},{active:S.sector===i}));
-        U.button('sector-all','TUTTE LE DISCIPLINE',49,531,214,29,()=>S.sector=-1,{small:true});
-    }else{
-        const bw=(w-42)/4;sectors.forEach((label,i)=>U.button('sector-'+i,['MAT','FIS','CHI','BIO'][i],18+i*(bw+2),239,bw,32,()=>{S.sector=S.sector===i?-1:i;selectIndex(S.system+(S.sector<0?0:S.sector)*25);},{active:S.sector===i,small:true}));
-    }
-    const by=h-77;U.button('zoom-in','+',w/2-66,by,34,30,()=>changeZoom(.86));U.button('zoom-out','−',w/2-26,by,34,30,()=>changeZoom(1/.86));
-    U.button('reset-camera','CENTRA',w/2+14,by,80,30,()=>{S.yaw=0;S.pitch=.45;S.distance=60;},{small:true});
-    if(!mobile)U.text('TRASCINA PER ORBITARE  ·  ROTELLA PER ZOOM  ·  CLIC SU UNA STELLA PER ENTRARE',34,h-105,'micro',C.muted,{track:.4});
-}
+function galaxyUI() { atlas.draw(U); }
 function systemUI() {
     const w=R.w,h=R.h,mobile=w<850,system=W.systems[S.system],m=selected(),observed=S.observedBody===null?null:system.bodies[S.observedBody];
     title('02 / SISTEMA STELLARE',system.name,mobile?system.count+' pianeti · 4 esplorabili.':system.count+' pianeti in orbita, quattro esplorabili. Passa su un mondo per identificarlo.');
@@ -222,6 +205,7 @@ function systemUI() {
     if(!mobile)U.button('system-reset','CENTRA',w/2+14,h-77,80,30,()=>{S.yaw=0;S.pitch=.48;S.distance=34;},{small:true});
 }
 function sceneBlocked(x,y) {
+    if(S.scene==='galaxy'&&atlas)return atlas.blocked(x,y);
     const w=R.w,h=R.h,mobile=w<850;
     if(S.menu||S.settings||S.editing||y<235||y>h-115)return true;
     if(mobile)return y<278||y>h-306;
@@ -230,11 +214,12 @@ function sceneBlocked(x,y) {
 }
 function sceneActions() {
     if(S.menu||S.settings||W.cameraProgress<1)return [];
-    if(S.scene==='galaxy')return W.systems.map(system=>({id:'scene-system-'+system.id,label:'Sistema '+system.name+', '+system.count+' pianeti, quattro esplorabili. '+system.description,action:()=>enterSystem(system.id)}));
+    if(S.scene==='galaxy'&&atlas)return atlas.actions();
     if(S.scene==='system')return W.systems[S.system].planets.map(index=>({id:'scene-planet-'+index,label:'Pianeta '+data.modules[index].planetName+', '+data.modules[index].title,action:()=>enterPlanet(index)}));
     return [];
 }
 function drawHover() {
+    if(S.scene==='galaxy')return;
     if(!['galaxy','system'].includes(S.scene)){S.hoveredTarget=null;hover.clear();return;}
     const focus=/^scene-(system|planet)-(\d+)$/.exec(U.focus||'');let hit=null;
     if(focus&&focus[1]===(S.scene==='galaxy'?'system':'planet')&&!S.menu&&!S.settings){const index=Number(focus[2]);hit=W.projections.find(p=>p.type===focus[1]&&p.index===index)||{type:focus[1],index,x:R.w*.5,y:R.h*.45,depth:1,r:14};}
@@ -804,17 +789,18 @@ function overlay() {
     const w = R.w, h = R.h;
     if (S.menu) {
         U.panel(15, 108, w - 30, h - 161, C.cyan, .97);
-        nav.forEach(([id, label], i) => U.button('mobile-' + id, label, 35, 132 + i * 49, w - 70, 40, () => route(id), { active: S.scene === id }));
-        U.button('mobile-sources', 'FONTI E LIMITI', 35, 132 + nav.length * 49, w - 70, 40, () => route('sources'));
+        const entries=[...nav,['sources','FONTI'],['access','ACCESSIBILITÀ']],rows=Math.max(1,Math.floor((h-195)/50)),columns=Math.ceil(entries.length/rows),bw=(w-70-(columns-1)*8)/columns;
+        entries.forEach(([id,label],i)=>U.button('mobile-'+id,label,35+Math.floor(i/rows)*(bw+8),132+(i%rows)*50,bw,44,()=>id==='access'?atlas.open('access'):route(id),{active:S.scene===id,small:columns>1}));
     }
     if (S.settings) {
         const pw = Math.min(480, w - 32), x = w - pw - 16, y = 111;
-        U.panel(x, y, pw, 369, C.cyan, .97);
+        U.panel(x, y, pw, 416, C.cyan, .97);
         U.tag('RENDERING E ACCESSIBILITÀ', x + 19, y + 21);
         [['high','DETTAGLIO ALTO · 1.000.000 STELLE'],['balanced','BILANCIATO · 1.000.000 STELLE'],['low','LEGGERO · 1.000.000 STELLE']].forEach(([mode,label],i)=>U.button('graphics-'+mode,label,x+18,y+61+i*45,pw-36,36,()=>{S.graphics=mode;store.data.preferences.graphics=mode;store.data.preferences.quality=MIN_STARS;store.save();},{active:S.graphics===mode}));
         U.button('toggle-motion', S.paused ? 'ATTIVA IL MOVIMENTO' : 'RIDUCI IL MOVIMENTO', x + 18, y + 208, pw - 36, 36, () => { S.paused = !S.paused; store.data.preferences.motion = !S.paused; store.save(); });
         U.button('open-sources', 'FONTI, MATERIALI E LIMITI', x + 18, y + 254, pw - 36, 36, () => route('sources'));
-        U.button('close-settings', 'CHIUDI', x + 18, y + 304, pw - 36, 36, () => S.settings = false);
+        U.button('open-access', 'TESTO, CONTRASTO E NAVIGAZIONE', x + 18, y + 300, pw - 36, 44, () => atlas.open('access'));
+        U.button('close-settings', 'CHIUDI', x + 18, y + 352, pw - 36, 44, () => S.settings = false);
     }
     if (S.editing === 'page') {
         const x = Math.max(15, (w - 420) / 2), pw = Math.min(420, w - 30);
@@ -851,7 +837,9 @@ function draw() {
         return;
     R.sceneQuality=S.graphics;R.hoverStarIndex=S.hoveredTarget?.type==='system'?W.systems[S.hoveredTarget.index]?.starIndex:-1;
     R.begin();
+    atlas?.tick(performance.now());
     W.draw(S.scene, S, data);
+    atlas?.draw3D(S,hoverPointer,pointer,U?.focus);
     if(S.scene==='pilot')pilotEducation.draw3D({...S,scene:'mission'});else education.draw3D(S);
     drawMathObjects();
     common();
@@ -859,13 +847,14 @@ function draw() {
     (screens[S.scene] || galaxyUI)();
     drawHover();
     overlay();
+    atlas?.drawOverlay(U);
     R.drawUI();
     frameCount++;
     syncSemantic();
 }
 function syncSemantic() {
-    const accessibleButtons=[...U.buttons,...sceneActions()];
-    const signature = S.scene + '|' + accessibleButtons.map(b => b.id + ':' + b.label + ':' + Boolean(b.disabled)).join('|');
+    const accessibleButtons=atlas?.sheet ? [...U.buttons] : [...U.buttons,...sceneActions()];
+    const signature = S.scene + '|' + (atlas?.sheet||'') + '|' + accessibleButtons.map(b => b.id + ':' + b.label + ':' + Boolean(b.disabled)).join('|');
     if (signature !== semanticSignature) {
         const focused = document.activeElement?.dataset?.id;
         semantic.replaceChildren();
@@ -892,7 +881,7 @@ function syncSemantic() {
                 el.disabled = Boolean(b.disabled);
                 el.onclick = () => [...U.buttons,...sceneActions()].find(x => x.id === b.id)?.action?.();
             }
-            el.onfocus = () => { U.focus = b.id; };
+            el.onfocus = () => { U.focus = b.id; const match=/^scene-system-(\d+)$/.exec(b.id);if(S.scene==='galaxy'&&match)atlas?.focusKey(Number(match[1])); };
             el.onblur = () => {
                 if (U.focus === b.id)
                     U.focus = null;
@@ -910,11 +899,11 @@ function syncSemantic() {
         if (e && document.activeElement !== e)
             e.value = b.value;
     }
-    const key = S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
+    const key = (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticKey():S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
     if (key !== textSignature) {
         const el = document.querySelector('#semantic-text');
         if (el)
-            el.textContent = S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndex[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
+            el.textContent = (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndex[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
         textSignature = key;
     }
 }
@@ -944,6 +933,7 @@ function events() {
             U.activate(current, x);
         }
         else if (pointer.moved && !pointer.blocked) {
+            atlas?.cancelFlight();
             if (['galaxy', 'system', 'orbit', 'surface', 'research'].includes(S.scene) || (['mission','pilot'].includes(S.scene) && activeEducation().scene.contains(pointer.startX, pointer.startY) && !S.menu && !S.settings)) {
                 S.yaw += dx * .006;
                 S.pitch = clamp(S.pitch + dy * .003, .1, 1.2);
@@ -985,6 +975,7 @@ function events() {
             S.scroll = clamp(S.scroll + e.deltaY * .7, 0, S.maxScroll);
     }, { passive: false });
     window.addEventListener('keydown', e => {
+        if(atlas?.key(e))return;
         if (e.target === editor) {
             if (e.key === 'Escape' || (S.editing === 'page' && e.key === 'Enter')) {
                 e.preventDefault();
@@ -1086,8 +1077,8 @@ function failure(msg) { error.style.display = 'block'; error.replaceChildren(); 
 async function init() {
     try {
         R = new GPU(canvas);
-        const [metrics, atlas] = await Promise.all([json('assets/glyphs.json'), image('assets/glyph-atlas.png')]);
-        R.setFontAtlas(atlas, metrics);
+        const [metrics, fontAtlas] = await Promise.all([json('assets/glyphs.json'), image('assets/glyph-atlas.png')]);
+        R.setFontAtlas(fontAtlas, metrics);
         R.begin();
         R.text('GAIA', 42, 40, 'display', C.pale);
         R.text('PREPARAZIONE DELLA SPEDIZIONE…', 44, 150, 'sub', C.cyan);
@@ -1140,11 +1131,17 @@ async function init() {
         computeLab();
         events();
         S.loaded = true;
-        window.GAIA = { version: '1.5.0-curriculum', state: S, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0), planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndex.length, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
+        window.GAIA = { version: '1.6.0-atlas', state: S, get atlas() { return atlas; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0), planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndex.length, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
         U = new UI(R);
         pilotEducation = new MissionUI(R, store, missionDefinition, { state:S, route, openTheory, openPDF, download, say });
         education = new CourseUI(R,store,curriculum,{state:S,route,openCourse,openTheory,openPDF,openExternal,download,say,currentUnit:()=>selected().id});
         education.select(selected().id);
+        atlas = new AtlasUI(R,W,store,data,curriculum,{state:S,selectIndex,enterSystem,openCourse,route,zoom:changeZoom,updateHash,say,
+            invalidate:()=>{semanticSignature='';textSignature='';},focusCanvas:()=>canvas.focus(),reducedMotion:()=>matchMedia('(prefers-reduced-motion: reduce)').matches});
+        atlas.onRoute(S.scene);
+        const motionQuery=matchMedia('(prefers-reduced-motion: reduce)');
+        motionQuery.addEventListener?.('change',e=>{if(e.matches){S.paused=true;atlas.cancelFlight();}});
+
         if(S.courseStage!==null && S.courseStage!==undefined)education.setStage(S.courseStage);
         const frame = now => {
             if (S.contextLost)

@@ -6,7 +6,7 @@ export class UI {
     text(t, x, y, s = 'body', c = C.pale, o = {}) { this.R.text(t, x, y, s, c, o); }
     tag(t, x, y, c = C.cyan) { this.text(t.toUpperCase(), x, y, 'mini', c, { track: 1.4 }); }
     wrap(t, x, y, w, c = C.muted, line = 25, max = 99, style = 'body') { return this.R.multiline(t, x, y, w, style, c, line, max); }
-    panel(x, y, w, h, c = C.cyan, alpha = .66) { this.R.roundRect(x, y, w, h, 16, color('#061b28', alpha), [...c.slice(0, 3), .48], 4); this.R.line([x + 17, y + 1], [x + Math.min(w * .35, 145), y + 1], [...c.slice(0, 3), .80], 1.8, 4); }
+    panel(x, y, w, h, c = C.cyan, alpha = .66) { this.R.roundRect(x, y, w, h, 16, color('#061b28', this.R.highContrast ? 1 : alpha), [...c.slice(0, 3), .48], 4); this.R.line([x + 17, y + 1], [x + Math.min(w * .35, 145), y + 1], [...c.slice(0, 3), .80], 1.8, 4); }
     button(id, label, x, y, w, h, action, { active = false, disabled = false, small = false } = {}) {
         const c = active ? C.lime : C.cyan, hover = this.hover === id, focus = this.focus === id;
         this.R.roundRect(x, y, w, h, 8, color(active ? '#1f4145' : '#0a2934', hover ? .88 : .65), [...c.slice(0, 3), focus ? 1 : active ? .8 : .4], focus ? 7 : 2);

@@ -24,9 +24,32 @@ jobs:
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         with:
           path: dist
+  browser:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - run: npm run build
+      - name: Install browser test tools (CI only)
+        run: |
+          python -m pip install playwright==1.64.1
+          python -m playwright install --with-deps chromium
+      - name: Real WebGL atlas interactions
+        run: xvfb-run -a python tools/qa_atlas_browser.py --root dist
+      - name: Save browser report and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: atlas-browser-report
+          path: qa-atlas/browser
+          retention-days: 7
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-    needs: build
+    needs: [build, browser]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     concurrency:
@@ -52,7 +75,7 @@ jobs:
           SITE_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
           set -euo pipefail
-          for path in index.html src/app.js src/education/curriculum-loader.js src/education/resource-loader.js src/scene/worker.js content/catalogue.json content/curriculum/index.json content/curriculum/bundle.json content/curriculum/sources.json content/curriculum/paths.json content/curriculum/math-c01.json content/curriculum/physics-01.json content/curriculum/chemistry-01.json content/curriculum/biology-01.json assets/glyph-atlas.png assets/scenes/manifest.json LICENSE LICENSE.md THIRD_PARTY_NOTICES.md; do
+          for path in build-info.json src/navigation/atlas-model.js src/navigation/atlas-scene.js src/navigation/atlas-ui.js src/navigation/text.js index.html src/app.js src/education/curriculum-loader.js src/education/resource-loader.js src/scene/worker.js content/catalogue.json content/curriculum/index.json content/curriculum/bundle.json content/curriculum/sources.json content/curriculum/paths.json content/curriculum/math-c01.json content/curriculum/physics-01.json content/curriculum/chemistry-01.json content/curriculum/biology-01.json assets/glyph-atlas.png assets/scenes/manifest.json LICENSE LICENSE.md THIRD_PARTY_NOTICES.md; do
             curl --fail --silent --show-error --retry 6 --retry-all-errors --retry-delay 10 \
               "${SITE_URL%/}/$path" --output /dev/null
           done
@@ -60,4 +83,7 @@ jobs:
           curl --fail --silent --show-error --retry 6 --retry-all-errors --retry-delay 10 \
             "${SITE_URL%/}/content/curriculum/bundle.json" --output /tmp/gaia-live-bundle.json
           node --input-type=module -e "import fs from 'node:fs'; const d = JSON.parse(fs.readFileSync('/tmp/gaia-live-bundle.json','utf8')); if (d.schemaVersion !== 1 || d.courses?.length !== 100 || d.paths?.length !== 7 || d.sources?.length < 1) process.exit(1); console.log('100 corsi, 7 percorsi e fonti verificati sul sito pubblico')"
+          curl --fail --silent --show-error --retry 6 --retry-all-errors --retry-delay 10 \
+            "${SITE_URL%/}/build-info.json?commit=${GITHUB_SHA}" --output /tmp/gaia-build-info.json
+          node --input-type=module -e "import fs from 'node:fs'; const d=JSON.parse(fs.readFileSync('/tmp/gaia-build-info.json','utf8')); if(d.commit!==process.env.GITHUB_SHA||d.version!=='1.6.0')process.exit(1); console.log('Versione e commit pubblicati verificati:',d.version,d.commit)"
           printf 'Sito verificato: %s\n' "$SITE_URL" >> "$GITHUB_STEP_SUMMARY"

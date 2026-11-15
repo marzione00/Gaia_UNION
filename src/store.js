@@ -1,7 +1,8 @@
+import { cleanAtlas } from './navigation/atlas-model.js';
 import { cleanCourseRecords } from './education/course-engine.js';
 import { cleanMissionRecords } from './education/mission-engine.js';
 export const STORE_KEY = 'gaia.beyond-knowledge.v1';
-export function fresh() { return { schema: 1, notes: {}, read: [], quiz: {}, missions: {}, courses: {}, bookmarks: [], scenarios: [], preferences: { quality: 1000000, graphics: 'high', motion: true }, updatedAt: null }; }
+export function fresh() { return { schema: 1, notes: {}, read: [], quiz: {}, missions: {}, courses: {}, atlas: cleanAtlas(), bookmarks: [], scenarios: [], preferences: { quality: 1000000, graphics: 'high', motion: true }, updatedAt: null }; }
 export function cleanState(value) {
     if (!value || typeof value !== 'object' || value.schema !== 1)
         throw new TypeError('Formato del diario non riconosciuto');
@@ -23,6 +24,7 @@ export function cleanState(value) {
     o.preferences.motion = value.preferences?.motion !== false;
     o.missions = cleanMissionRecords(value.missions);
     o.courses = cleanCourseRecords(value.courses);
+    o.atlas = cleanAtlas(value.atlas);
     return o;
 }
 export function openStore(storage) {
