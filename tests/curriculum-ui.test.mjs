@@ -1,5 +1,11 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {fixture,bundle,layoutErrors} from '../tools/course-fixture.mjs';
-import {descriptor,trend} from '../src/models/curriculum.js';import {cleanState} from '../src/store.js';import {validateBundle} from '../src/education/course-engine.js';
+import {descriptor,trend} from '../src/models/curriculum.js';import {VSEPR_CHALLENGES,vseprInfo,STATEMENTS} from '../src/education/activities.js';
+/** Solve a prototype activity through its own buttons. */
+function solveActivity(f,kind){const A=f.E.activity;
+ if(kind==='vsepr'){A.mode=1;for(let i=0;i<4;i++){const c=VSEPR_CHALLENGES[i];Object.assign(A,{challenge:i,x:c.x,e:c.e,shape:vseprInfo(c.x,c.e).shape});f.click('act-check');}}
+ if(kind==='punnett'){A.mode=1;for(let i=0;i<3;i++){A.mystery={hidden:'Aa',viola:2,bianco:1};f.click('act-answer-Aa');assert.ok(A.revealed);f.click('act-new-mystery');}}
+ if(kind==='logic')for(const [i,s] of STATEMENTS.slice(0,6).entries()){const counter=s.values.find(v=>!s.holds(v));Object.assign(A,{statement:i,verdict:s.truth?'vera':'falsa',tested:s.kind==='all'&&!s.truth?counter:null});f.click('act-check');}
+ assert.ok(f.E.summary.activity.done,kind);}import {cleanState} from '../src/store.js';import {validateBundle} from '../src/education/course-engine.js';
 const sizes=[[1600,1000],[1280,820],[1280,720],[390,844],[320,568]];
 test('curriculum UI: 4.000 combinazioni moduli/stati/finestre senza comandi sovrapposti o fuori finestra',()=>{
  let count=0;for(const [w,h]of sizes){const f=fixture(w,h);for(const d of bundle.courses){f.state.unit=d.id;f.E.select(d.id);for(const [stage,view,tab]of [[0,'lesson',0],[1,'lesson',0],[4,'lesson',0],[2,'lab',0],[2,'controls',0],[2,'controls',1],[5,'controls',2],[0,'sources',0]]){Object.assign(f.E,{view,controlTab:tab,focusReading:false,page:0});f.E.record.stage=stage;f.draw();assert.deepEqual(layoutErrors(f),[],d.id+'/'+w+'/'+view+'/'+stage);count++;}}}assert.equal(count,4000);
@@ -9,6 +15,7 @@ test('curriculum UI: tutti i quesiti e feedback in lettura espansa su 320x568',(
 });
 test('curriculum UI: laboratorio, diario, esportazione e completamento per tutte le cento unità',()=>{
  const f=fixture(1280,900);for(const d of bundle.courses){f.state.unit=d.id;f.E.select(d.id);f.E.controlTab=1;f.E.view='controls';const m=descriptor(d.id);
+ if(d.activity){assert.equal(f.E.summary.experiments,false);solveActivity(f,d.activity.kind);for(const q of d.questions)f.E.answer(q.id,q.correct);f.store.data.notes[f.E.noteKey]='Ho risolto l’attività e controllato ogni risposta. Il modello ha limiti dichiarati che riporto nel diario.';f.click('course-ack');assert.ok(f.E.summary.eligible);f.click('course-complete');assert.ok(f.E.summary.completed);f.click('course-report');assert.equal(f.api.downloaded.data.unitId,d.id);assert.ok(f.api.downloaded.data.activity.solved.length>=f.E.summary.activity.goal);f.click('course-csv');assert.match(f.api.downloaded.data,/^attività/);f.click('course-journal');assert.equal(f.state.journalTab,'course:'+d.id);f.state.scene='mission';continue;}
  f.click('course-predict-'+trend(d.id,f.E.record.parameters));f.click('course-capture-A');const original=JSON.stringify(f.E.record.snapshots.A);const c=m.controls[0];f.E.setParameters({[c.key]:c.value===c.min?c.max:c.min});assert.equal(f.E.record.prediction,null);assert.equal(JSON.stringify(f.E.record.snapshots.A),original);
  f.click('course-predict-'+trend(d.id,f.E.record.parameters));f.click('course-capture-B');assert.ok(f.E.summary.experiments);assert.equal(f.E.summary.eligible,false);
  for(const q of d.questions)f.E.answer(q.id,q.correct);f.store.data.notes[f.E.noteKey]='Ho confrontato due configurazioni. Registro parametri, previsione, risultati e limiti; il modello non coincide con ogni dettaglio della realtà.';f.E.controlTab=2;f.click('course-ack');assert.ok(f.E.summary.eligible);f.click('course-complete');assert.ok(f.E.summary.completed);f.click('course-report');assert.equal(f.api.downloaded.data.unitId,d.id);assert.ok(f.api.downloaded.data.experiments.A);f.click('course-csv');assert.match(f.api.downloaded.data,/^x \[/);f.click('course-journal');assert.equal(f.state.journalTab,'course:'+d.id);f.state.scene='mission';
@@ -24,6 +31,6 @@ test('curriculum UI: fonti e materiale originale, niente richiesta di rete autom
  const f=fixture(1280,900);f.E.view='sources';f.click('course-source-open');assert.match(f.api.external,/^https:\/\//);f.click('course-original');assert.equal(f.api.pdf,f.E.definition.originalSource.pdfPages[0]);f.E.sourceIndex=f.E.definition.sources.length;f.click('course-source-open');assert.equal(f.state.scene,'pilot');f.state.unit='physics-01';f.state.scene='mission';f.E.select('physics-01');f.E.view='sources';f.click('course-original');assert.match(f.api.downloaded.name,/_testo\.txt$/);
 });
 test('curriculum UI: passaggio di unità rilascia le mesh, non cento scene residenti',()=>{
- const f=fixture(1280,900);for(const d of bundle.courses){f.state.unit=d.id;f.E.select(d.id);f.draw(true);assert.ok(f.R.meshes.size>0&&f.R.meshes.size<=8);f.E.scene.dispose();assert.equal(f.R.meshes.size,0);}
+ const f=fixture(1280,900);for(const d of bundle.courses){f.state.unit=d.id;f.E.select(d.id);f.draw(true);if(d.activity)assert.equal(f.R.meshes.size,0,d.id);else assert.ok(f.R.meshes.size>0&&f.R.meshes.size<=8);f.E.scene.dispose();assert.equal(f.R.meshes.size,0);}
 });
 test('curriculum: percorsi con riferimenti mancanti rifiutati',()=>{const b=structuredClone(bundle);b.paths[0].units[0]='nonsense';assert.throws(()=>validateBundle(b));});

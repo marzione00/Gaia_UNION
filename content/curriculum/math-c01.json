@@ -5,18 +5,19 @@
   "title": "Linguaggio e ragionamento matematico",
   "sector": 0,
   "modelId": "math-c01",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Variazioni percentuali con base esplicita",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "prototype-draft",
+  "scope": "Proposizioni con quantificatori sui numeri naturali, interi e reali",
+  "narrativeStatus": "La stazione e il pianeta sono immaginari; i numeri e le regole della logica sono quelli di sempre.",
   "objectives": [
-    "Spiegare: variazioni percentuali con base esplicita.",
-    "Applicare y = x(1+a/100), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Distinguere una proposizione universale («per ogni») da una esistenziale («esiste»).",
+    "Mostrare che una proposizione universale è falsa con un controesempio.",
+    "Spiegare perché molti esempi non dimostrano una proposizione universale.",
+    "Scrivere la negazione di una proposizione con quantificatori."
   ],
   "prerequisites": [],
   "connections": [
-    "math-c06"
+    "math-p01"
   ],
   "sources": [
     "precalculus"
@@ -35,244 +36,312 @@
   },
   "glossary": [
     {
-      "term": "Valore iniziale",
-      "definition": "Variabile indipendente, unità u.a.; intervallo [0; 100]."
+      "term": "Proposizione",
+      "definition": "Enunciato di cui si può dire se è vero o falso."
     },
     {
-      "term": "Valore finale",
-      "definition": "Risultato calcolato dal modello, unità u.a.."
+      "term": "Quantificatore universale",
+      "definition": "«Per ogni» (∀): la proposizione deve valere per tutti gli elementi del dominio."
     },
     {
-      "term": "Variazione",
-      "definition": "Parametro a, unità %; intervallo [-50; 100]."
+      "term": "Quantificatore esistenziale",
+      "definition": "«Esiste» (∃): la proposizione deve valere per almeno un elemento del dominio."
+    },
+    {
+      "term": "Controesempio",
+      "definition": "Caso particolare che rende falsa una proposizione universale."
+    },
+    {
+      "term": "Negazione",
+      "definition": "Proposizione vera esattamente quando quella di partenza è falsa; scambia «per ogni» con «esiste»."
+    },
+    {
+      "term": "Implicazione inversa",
+      "definition": "Data «se P allora Q», l’inversa è «se Q allora P». Può essere falsa anche quando la prima è vera."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Vero sempre, vero a volte",
       "text": {
         "base": [
-          "Il magazzino della spedizione annuncia un aumento del 20% delle scorte, seguito da una perdita del 20%. Il responsabile sostiene che le due operazioni si annullino. La tua missione è controllare il ragionamento prima di autorizzare il viaggio.",
-          "Una percentuale è un rapporto rispetto a una base dichiarata. Il 20% di 50 è 10, non 20. Aumentare una quantità del 20% significa moltiplicarla per 1,20; diminuirla del 20% significa moltiplicarla per 0,80. Le parole «di» e «rispetto a» individuano il denominatore del rapporto."
+          "Alla stazione del pianeta glaciale arrivano messaggi automatici scritti come affermazioni sui numeri. Prima di usarli, il centro di controllo deve decidere quali sono veri in ogni caso e quali sono falsi, e per quelli falsi deve mostrare il caso che lo prova.",
+          "L’affermazione «per ogni numero naturale n, n² ≥ n» vale sempre. L’affermazione «per ogni intero n, n² > n» le somiglia, eppure è falsa: per n = 0 si ottiene 0 > 0."
         ],
         "intermediate": [
-          "Il magazzino della spedizione annuncia un aumento del 20% delle scorte, seguito da una perdita del 20%. Il responsabile sostiene che le due operazioni si annullino. La tua missione è controllare il ragionamento prima di autorizzare il viaggio.",
-          "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale."
+          "Alla stazione del pianeta glaciale arrivano messaggi automatici scritti come affermazioni sui numeri. Prima di usarli, il centro di controllo deve decidere quali sono veri in ogni caso e quali sono falsi, e per quelli falsi deve mostrare il caso che lo prova.",
+          "L’affermazione «per ogni numero naturale n, n² ≥ n» vale sempre. L’affermazione «per ogni intero n, n² > n» le somiglia, eppure è falsa: per n = 0 si ottiene 0 > 0.",
+          "Una proposizione è un enunciato vero o falso. I quantificatori dicono per quali oggetti vale: «per ogni» (∀) chiede che valga in tutti i casi, «esiste» (∃) chiede almeno un caso."
         ],
         "advanced": [
-          "Il magazzino della spedizione annuncia un aumento del 20% delle scorte, seguito da una perdita del 20%. Il responsabile sostiene che le due operazioni si annullino. La tua missione è controllare il ragionamento prima di autorizzare il viaggio.",
-          "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
-          "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale."
+          "Alla stazione del pianeta glaciale arrivano messaggi automatici scritti come affermazioni sui numeri. Prima di usarli, il centro di controllo deve decidere quali sono veri in ogni caso e quali sono falsi, e per quelli falsi deve mostrare il caso che lo prova.",
+          "Una proposizione è un enunciato vero o falso. I quantificatori dicono per quali oggetti vale: «per ogni» (∀) chiede che valga in tutti i casi, «esiste» (∃) chiede almeno un caso.",
+          "Il dominio fa parte dell’enunciato: «esiste x tale che x² = 2» è falsa tra i numeri razionali e vera tra i reali."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Esempi e controesempi",
       "text": {
         "base": [
-          "Una percentuale è un rapporto rispetto a una base dichiarata. Il 20% di 50 è 10, non 20. Aumentare una quantità del 20% significa moltiplicarla per 1,20; diminuirla del 20% significa moltiplicarla per 0,80. Le parole «di» e «rispetto a» individuano il denominatore del rapporto.",
-          "Parti da 50 unità. Con a=20 ottieni 60. Applicando poi una diminuzione del 20% a 60 ottieni 48. La differenza finale è -2 unità; dividendo per la base iniziale 50 trovi -0,04, cioè -4%."
+          "Per mostrare che una proposizione universale è falsa basta un controesempio, cioè un caso in cui l’enunciato non vale. Per mostrarla vera gli esempi non bastano mai: serve un ragionamento che valga per tutti i casi.",
+          "Per una proposizione esistenziale vale il contrario: un esempio basta a mostrarla vera, mentre per mostrarla falsa serve un argomento valido per tutti i casi."
         ],
         "intermediate": [
-          "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale.",
-          "La variabile Valore iniziale è espressa in u.a.; Valore finale in u.a.. Il dominio dello strumento è [0; 100]. La relazione implementata è: y = x(1+a/100).",
-          "Parti da 50 unità. Con a=20 ottieni 60. Applicando poi una diminuzione del 20% a 60 ottieni 48. La differenza finale è -2 unità; dividendo per la base iniziale 50 trovi -0,04, cioè -4%."
+          "Per mostrare che una proposizione universale è falsa basta un controesempio, cioè un caso in cui l’enunciato non vale. Per mostrarla vera gli esempi non bastano mai: serve un ragionamento che valga per tutti i casi.",
+          "Per una proposizione esistenziale vale il contrario: un esempio basta a mostrarla vera, mentre per mostrarla falsa serve un argomento valido per tutti i casi.",
+          "Esempio: «per ogni naturale n, n² + n + 41 è primo» vale per n = 0, 1, 2 e così via fino a 39. Per n = 40 si ottiene 40² + 40 + 41 = 1681 = 41 · 41, che non è primo."
         ],
         "advanced": [
-          "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale.",
-          "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
-          "Sommare direttamente +20% e -20% ignora che le percentuali successive agiscono su basi diverse. Una conclusione generale richiede una dimostrazione; un solo controesempio basta invece a smentire «si annullano sempre»."
+          "Per mostrare che una proposizione universale è falsa basta un controesempio, cioè un caso in cui l’enunciato non vale. Per mostrarla vera gli esempi non bastano mai: serve un ragionamento che valga per tutti i casi.",
+          "Esempio: «per ogni naturale n, n² + n + 41 è primo» vale per n = 0, 1, 2 e così via fino a 39. Per n = 40 si ottiene 40² + 40 + 41 = 1681 = 41 · 41, che non è primo.",
+          "La negazione scambia i quantificatori: la negazione di «per ogni n vale P(n)» è «esiste n per cui P(n) è falsa». Un controesempio è il testimone di questa negazione."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il banco di prova",
       "text": {
         "base": [
-          "Nel laboratorio imposta Variazione (a): 20 %. Prima di salvare A, prevedi come cambia Valore finale fra Valore iniziale=25 e 50 u.a.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Parti da 50 unità. Con a=20 ottieni 60. Applicando poi una diminuzione del 20% a 60 ottieni 48. La differenza finale è -2 unità; dividendo per la base iniziale 50 trovi -0,04, cioè -4%.",
-          "La variabile Valore iniziale è espressa in u.a.; Valore finale in u.a.. Il dominio dello strumento è [0; 100]. La relazione implementata è: y = x(1+a/100)."
+          "Nel laboratorio trovi otto proposizioni. Per ciascuna puoi provare alcuni valori e vedere se l’enunciato vale. Poi decidi se è vera o falsa; se è un «per ogni» falso, scegli anche un controesempio.",
+          "Per completare l’attività classifica correttamente sei proposizioni."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Variazione (a): 20 %. Prima di salvare A, prevedi come cambia Valore finale fra Valore iniziale=25 e 50 u.a.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Valore iniziale è espressa in u.a.; Valore finale in u.a.. Il dominio dello strumento è [0; 100]. La relazione implementata è: y = x(1+a/100).",
-          "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale."
+          "Nel laboratorio trovi otto proposizioni. Per ciascuna puoi provare alcuni valori e vedere se l’enunciato vale. Poi decidi se è vera o falsa; se è un «per ogni» falso, scegli anche un controesempio.",
+          "Prova sempre lo zero, i numeri negativi e i valori più piccoli del dominio: sono i casi in cui le proposizioni sbagliate cedono più spesso.",
+          "Per completare l’attività classifica correttamente sei proposizioni."
         ],
         "advanced": [
-          "Nel laboratorio imposta Variazione (a): 20 %. Prima di salvare A, prevedi come cambia Valore finale fra Valore iniziale=25 e 50 u.a.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio trovi otto proposizioni. Per ciascuna puoi provare alcuni valori e vedere se l’enunciato vale. Poi decidi se è vera o falsa; se è un «per ogni» falso, scegli anche un controesempio.",
+          "Per le proposizioni che ritieni vere scrivi nel diario un argomento generale. Esempio: se n è pari si scrive n = 2k, quindi n² = 4k² = 2(2k²) è pari.",
+          "Per completare l’attività classifica correttamente sei proposizioni."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Che cosa prova un esempio",
       "text": {
         "base": [
-          "Sommare direttamente +20% e -20% ignora che le percentuali successive agiscono su basi diverse. Una conclusione generale richiede una dimostrazione; un solo controesempio basta invece a smentire «si annullano sempre».",
-          "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Se un valore rende vero un enunciato universale, hai trovato solo un caso favorevole. Una proposizione può reggere a tutti i valori provati ed essere falsa per un numero più grande, come n² + n + 41 per n = 40.",
+          "Errore frequente: confondere un’implicazione con la sua inversa. «Se n è divisibile per 4, allora n è pari» è vera; «se n è pari, allora n è divisibile per 4» è falsa, come mostra n = 2."
         ],
         "intermediate": [
-          "Sommare direttamente +20% e -20% ignora che le percentuali successive agiscono su basi diverse. Una conclusione generale richiede una dimostrazione; un solo controesempio basta invece a smentire «si annullano sempre».",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Se un valore rende vero un enunciato universale, hai trovato solo un caso favorevole. Una proposizione può reggere a tutti i valori provati ed essere falsa per un numero più grande, come n² + n + 41 per n = 40.",
+          "Errore frequente: confondere un’implicazione con la sua inversa. «Se n è divisibile per 4, allora n è pari» è vera; «se n è pari, allora n è divisibile per 4» è falsa, come mostra n = 2.",
+          "La negazione di «tutti i numeri primi sono dispari» è «esiste un numero primo pari». È vera, e il testimone è 2."
         ],
         "advanced": [
-          "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale.",
-          "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: confondere un’implicazione con la sua inversa. «Se n è divisibile per 4, allora n è pari» è vera; «se n è pari, allora n è divisibile per 4» è falsa, come mostra n = 2.",
+          "La negazione di «tutti i numeri primi sono dispari» è «esiste un numero primo pari». È vera, e il testimone è 2.",
+          "Alcune affermazioni universali vere non si possono controllare caso per caso, perché i casi sono infiniti: servono la dimostrazione diretta, quella per assurdo o quella per induzione."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Una percentuale è un rapporto rispetto a una base dichiarata. Il 20% di 50 è 10, non 20. Aumentare una quantità del 20% significa moltiplicarla per 1,20; diminuirla del 20% significa moltiplicarla per 0,80. Le parole «di» e «rispetto a» individuano il denominatore del rapporto.",
-          "Parti da 50 unità. Con a=20 ottieni 60. Applicando poi una diminuzione del 20% a 60 ottieni 48. La differenza finale è -2 unità; dividendo per la base iniziale 50 trovi -0,04, cioè -4%."
+          "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
         ],
         "intermediate": [
-          "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale.",
-          "La variabile Valore iniziale è espressa in u.a.; Valore finale in u.a.. Il dominio dello strumento è [0; 100]. La relazione implementata è: y = x(1+a/100)."
+          "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
         ],
         "advanced": [
-          "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
-          "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale."
+          "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Variazioni percentuali con base esplicita.",
-          "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale.",
-          "Collegamento consigliato: math-c06. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Il linguaggio dei quantificatori ritorna in ogni capitolo, nelle definizioni di funzione, di limite e di probabilità.",
+          "Nel diario scrivi una proposizione falsa con il suo controesempio e una proposizione vera con il motivo per cui vale."
         ],
         "intermediate": [
-          "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale.",
-          "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale.",
-          "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto."
+          "Il linguaggio dei quantificatori ritorna in ogni capitolo, nelle definizioni di funzione, di limite e di probabilità.",
+          "Nella dispensa il capitolo sul linguaggio matematico approfondisce connettivi, tavole di verità e insiemi.",
+          "Nel diario scrivi una proposizione falsa con il suo controesempio e una proposizione vera con il motivo per cui vale."
         ],
         "advanced": [
-          "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
-          "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Il linguaggio dei quantificatori ritorna in ogni capitolo, nelle definizioni di funzione, di limite e di probabilità.",
+          "La logica dei quantificatori è anche alla base della programmazione: un ciclo che controlla tutti gli elementi di una lista verifica un «per ogni», un ciclo che si ferma al primo elemento adatto verifica un «esiste».",
+          "Nel diario scrivi una proposizione falsa con il suo controesempio e una proposizione vera con il motivo per cui vale."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-c01-concept",
-      "prompt": "Due variazioni successive del +20% e -20% producono:",
+      "id": "math-c01-q1",
+      "prompt": "Quale valore è un controesempio a «per ogni intero n, n² > n»?",
       "options": [
         {
           "id": "A",
-          "text": "Una perdita del 4% sul valore iniziale",
-          "feedback": "Una percentuale è un rapporto rispetto a una base dichiarata. Il 20% di 50 è 10, non 20. Aumentare una quantità del 20% significa moltiplicarla per 1,20; diminuirla del 20% significa moltiplicarla per 0,80. Le parole «di» e «rispetto a» individuano il denominatore del rapporto."
+          "text": "n = 2",
+          "feedback": "Per n = 2 si ha 4 > 2, che è vero. Un controesempio deve rendere falso l’enunciato."
         },
         {
           "id": "B",
-          "text": "Nessuna variazione",
-          "feedback": "Sommare direttamente +20% e -20% ignora che le percentuali successive agiscono su basi diverse. Una conclusione generale richiede una dimostrazione; un solo controesempio basta invece a smentire «si annullano sempre»."
+          "text": "n = −3",
+          "feedback": "Per n = −3 si ha 9 > −3, che è vero: i negativi qui non creano problemi."
         },
         {
           "id": "C",
-          "text": "Una perdita del 20%",
-          "feedback": "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale."
+          "text": "n = 10",
+          "feedback": "Per n = 10 si ha 100 > 10, che è vero. Prova i valori più piccoli."
+        },
+        {
+          "id": "D",
+          "text": "n = 1",
+          "feedback": "Esatto: per n = 1 si ottiene 1 > 1, che è falso. Basta questo caso per smentire l’enunciato."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "math-c01-q2",
+      "prompt": "Hai verificato che una proprietà vale per i primi mille numeri naturali. Che cosa puoi concludere sulla proprietà «per ogni naturale»?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Che è vera per tutti i naturali",
+          "feedback": "Mille casi favorevoli restano casi particolari: n² + n + 41 è primo per quaranta valori di fila e poi smette."
+        },
+        {
+          "id": "B",
+          "text": "Nulla di definitivo: per una proposizione universale serve una dimostrazione",
+          "feedback": "Esatto: gli esempi possono suggerire una congettura, ma solo un ragionamento valido per tutti i casi la dimostra."
+        },
+        {
+          "id": "C",
+          "text": "Che è vera con probabilità molto alta",
+          "feedback": "In matematica una proposizione è vera o falsa: il numero dei casi controllati non ne misura la verità."
+        },
+        {
+          "id": "D",
+          "text": "Che è falsa",
+          "feedback": "Nessun caso la smentisce: senza un controesempio non puoi dire che è falsa."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-c01-q3",
+      "prompt": "Qual è la negazione di «ogni studente della classe ha consegnato il compito»?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Almeno uno studente non ha consegnato il compito",
+          "feedback": "Esatto: la negazione di un «per ogni» è un «esiste» con la proprietà negata."
+        },
+        {
+          "id": "B",
+          "text": "Nessuno studente ha consegnato il compito",
+          "feedback": "Questa affermazione è più forte della negazione: basterebbe un solo studente senza compito per rendere falsa quella di partenza."
+        },
+        {
+          "id": "C",
+          "text": "Ogni studente non ha consegnato il compito",
+          "feedback": "È un altro modo di dire «nessuno ha consegnato»: hai negato la proprietà senza cambiare il quantificatore."
+        },
+        {
+          "id": "D",
+          "text": "Almeno uno studente ha consegnato il compito",
+          "feedback": "Questa frase può essere vera insieme a quella di partenza, quindi non ne è la negazione."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "math-c01-calculation",
-      "prompt": "Calcolo: Variazione (a)=20 %. Per Valore iniziale=50 u.a., quanto vale Valore finale?",
+      "id": "math-c01-q4",
+      "prompt": "«Se n è pari, allora n² è pari» è vera. Che cosa si può dire di «se n² è pari, allora n è pari»?",
       "options": [
         {
           "id": "A",
-          "text": "90 u.a.",
-          "feedback": "Questo valore non soddisfa la relazione. y = x(1+a/100). Con Variazione (a)=20 % e Valore iniziale=50 u.a., il risultato è 60 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "È vera, perché è l’inversa di una proposizione vera",
+          "feedback": "L’inversa di un’implicazione vera può essere falsa: «se n è divisibile per 4 allora è pari» è vera, la sua inversa no."
         },
         {
           "id": "B",
-          "text": "30 u.a.",
-          "feedback": "Controlla sostituzione, segno e unità. y = x(1+a/100). Con Variazione (a)=20 % e Valore iniziale=50 u.a., il risultato è 60 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "È falsa, perché l’inversa di una proposizione vera è sempre falsa",
+          "feedback": "Non esiste una regola del genere: l’inversa va studiata a parte, e in questo caso è vera."
         },
         {
           "id": "C",
-          "text": "60 u.a.",
-          "feedback": "y = x(1+a/100). Con Variazione (a)=20 % e Valore iniziale=50 u.a., il risultato è 60 u.a.. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "C",
-      "numeric": {
-        "x": 50,
-        "parameters": {
-          "a": 20
-        },
-        "expected": 60,
-        "unit": "u.a."
-      }
-    },
-    {
-      "id": "math-c01-transfer",
-      "prompt": "Trasferimento: Variazione (a)=25 %. Per Valore iniziale=50 u.a., quanto vale Valore finale?",
-      "options": [
-        {
-          "id": "A",
-          "text": "31,25 u.a.",
-          "feedback": "Controlla sostituzione, segno e unità. y = x(1+a/100). Con Variazione (a)=25 % e Valore iniziale=50 u.a., il risultato è 62,5 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "È vera anch’essa, ma va dimostrata a parte",
+          "feedback": "Esatto: se n fosse dispari, n² sarebbe dispari. Quindi n² pari implica n pari, e la dimostrazione è indipendente dalla prima."
         },
         {
-          "id": "B",
-          "text": "62,5 u.a.",
-          "feedback": "y = x(1+a/100). Con Variazione (a)=25 % e Valore iniziale=50 u.a., il risultato è 62,5 u.a.. Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "C",
-          "text": "93,75 u.a.",
-          "feedback": "Questo valore non soddisfa la relazione. y = x(1+a/100). Con Variazione (a)=25 % e Valore iniziale=50 u.a., il risultato è 62,5 u.a.. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 50,
-        "parameters": {
-          "a": 25
-        },
-        "expected": 62.5,
-        "unit": "u.a."
-      }
-    },
-    {
-      "id": "math-c01-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale."
-        },
-        {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale."
-        },
-        {
-          "id": "C",
-          "text": "Variazioni percentuali con base esplicita",
-          "feedback": "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale."
+          "id": "D",
+          "text": "Non è una proposizione",
+          "feedback": "È una proposizione: per ogni intero afferma qualcosa che è vero o falso."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "math-c01-q5",
+      "prompt": "Come si dimostra che «esiste un numero primo pari» è vera?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Verificando che tutti i numeri pari sono primi",
+          "feedback": "Questa sarebbe una proposizione universale, ed è falsa: 4 è pari e non è primo."
+        },
+        {
+          "id": "B",
+          "text": "Trovando un numero pari che non è primo",
+          "feedback": "Un numero pari non primo non dice nulla sull’esistenza di un primo pari."
+        },
+        {
+          "id": "C",
+          "text": "Non si può dimostrare",
+          "feedback": "Una proposizione esistenziale si dimostra mostrando un caso: qui il caso esiste."
+        },
+        {
+          "id": "D",
+          "text": "Mostrando il numero 2",
+          "feedback": "Esatto: 2 è primo ed è pari. Per un «esiste» basta un testimone."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "math-c01-q6",
+      "prompt": "La proposizione «esiste x tale che x² = 2» è vera?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Dipende dal dominio: è falsa tra i numeri razionali e vera tra i reali",
+          "feedback": "Esatto: √2 è reale ma non razionale. Il dominio fa parte della proposizione."
+        },
+        {
+          "id": "B",
+          "text": "È sempre vera",
+          "feedback": "Tra i razionali nessun numero ha quadrato 2: la verità dipende dal dominio scelto."
+        },
+        {
+          "id": "C",
+          "text": "È sempre falsa",
+          "feedback": "Tra i reali il numero √2 soddisfa x² = 2."
+        },
+        {
+          "id": "D",
+          "text": "È vera tra gli interi",
+          "feedback": "Nessun intero ha quadrato 2: 1² = 1 e 2² = 4."
+        }
+      ],
+      "correct": "A"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "logic"
+  }
 }

@@ -1,3 +1,15 @@
+# 1.8.0 — Tre pianeti prototipo
+
+- Tre unità riscritte a mano, ciascuna con un’attività diversa al posto del grafico di una formula:
+  - Matematica, «Linguaggio e ragionamento matematico»: banco di prova per proposizioni con quantificatori, verdetto e controesempio (otto proposizioni, sei da risolvere).
+  - Chimica, «Geometria molecolare e VSEPR»: costruzione della molecola con domini e coppie solitarie, modello che ruota, sfida su dieci molecole (quattro da risolvere).
+  - Biologia, «Ereditarietà mendeliana»: quadrato di Punnett, semine da 20, 100 e 1000 semi con chi quadro, reincroci su piante misteriose (tre da risolvere).
+- Sei domande per unità con quattro alternative; ogni risposta sbagliata spiega l’errore che rappresenta. Viene registrato anche il numero di risposte giuste al primo tentativo.
+- Pianeti a tema: mondo glaciale per la logica, vulcanico per le molecole, terrestre per la serra di Mendel.
+- Il completamento delle unità prototipo richiede l’attività risolta al posto dei due esperimenti A e B.
+- Gli esponenti da ⁰ a ⁵ restano scritti come esponenti (n², (3/4)⁴); gli altri usano ancora la forma ^( ).
+- Contenuti in `content/curriculum/prototypes.json`, integrati da `npm run build:curriculum`; logica in `src/education/activities.js`, interfaccia in `src/education/activity-ui.js`.
+
 # 1.7.0 — Navigazione tematica
 
 - Mappa riorganizzata: un braccio della galassia per disciplina e 25 aree tematiche in ordine di studio, dal centro verso l’esterno. Ogni sistema raccoglie da tre a sei unità della stessa area.

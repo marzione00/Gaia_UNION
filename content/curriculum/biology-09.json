@@ -5,14 +5,15 @@
   "title": "Ereditarietà mendeliana",
   "sector": 3,
   "modelId": "biology-09",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Un locus mendeliano con gameti indipendenti",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "prototype-draft",
+  "scope": "Un gene con due alleli, dominanza completa e gameti indipendenti",
+  "narrativeStatus": "La serra e il pianeta sono immaginari; la genetica è quella dei piselli di Mendel.",
   "objectives": [
-    "Spiegare: un locus mendeliano con gameti indipendenti.",
-    "Applicare P(aa) = (1-p)(1-q), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Distinguere genotipo e fenotipo, omozigote ed eterozigote.",
+    "Prevedere con il quadrato di Punnett i rapporti attesi di un incrocio monoibrido.",
+    "Confrontare frequenze osservate e attese e spiegare perché differiscono nei campioni piccoli.",
+    "Usare il reincrocio con una pianta aa per scoprire il genotipo di una pianta a fiori viola."
   ],
   "prerequisites": [
     "biology-08"
@@ -26,244 +27,308 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Gameti A genitore 1",
-      "definition": "Variabile indipendente, unità 1; intervallo [0; 1]."
+      "term": "Allele",
+      "definition": "Variante di un gene. Nel pisello di Mendel l’allele A dà fiori viola, l’allele a fiori bianchi."
     },
     {
-      "term": "Probabilità aa",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Genotipo",
+      "definition": "Coppia di alleli posseduta da un individuo, per esempio Aa."
     },
     {
-      "term": "Gameti A genitore 2",
-      "definition": "Parametro a, unità 1; intervallo [0; 1]."
+      "term": "Fenotipo",
+      "definition": "Carattere osservabile prodotto dal genotipo, per esempio il colore viola dei fiori."
+    },
+    {
+      "term": "Omozigote ed eterozigote",
+      "definition": "Un omozigote ha due alleli uguali (AA o aa), un eterozigote due alleli diversi (Aa)."
+    },
+    {
+      "term": "Dominante e recessivo",
+      "definition": "L’allele dominante si manifesta anche in una sola copia; quello recessivo solo in due copie."
+    },
+    {
+      "term": "Reincrocio",
+      "definition": "Incrocio con un omozigote recessivo aa, usato per scoprire il genotipo di un individuo a fenotipo dominante."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Fiori viola, fiori bianchi",
       "text": {
         "base": [
-          "Due genitori producono gameti con probabilità note per un allele. Il quadrato di Punnett è utile, ma la stazione vuole esprimere il risultato come prodotto di probabilità.",
-          "In un modello mendeliano a un locus, ogni discendente riceve un allele da ciascun genitore. Se la probabilità del gamete A è p nel primo e q nel secondo, la probabilità di aa è (1-p)(1-q)."
+          "Nella serra della stazione crescono piante di pisello nate da semi portati dalla Terra. Alcune hanno fiori viola, altre fiori bianchi. I botanici vogliono prevedere il colore dei fiori nelle prossime generazioni e scoprire quali piante viola nascondono l’allele del bianco.",
+          "Incrociando due piante viola nascono a volte piante bianche. Il bianco era nascosto in entrambi i genitori e riappare nei figli."
         ],
         "intermediate": [
-          "Due genitori producono gameti con probabilità note per un allele. Il quadrato di Punnett è utile, ma la stazione vuole esprimere il risultato come prodotto di probabilità.",
-          "Il prodotto richiede indipendenza delle estrazioni dei gameti. Per due eterozigoti con segregazione regolare, p=q=1/2. Le probabilità di AA, Aa e aa sono rispettivamente 1/4, 1/2 e 1/4."
+          "Nella serra della stazione crescono piante di pisello nate da semi portati dalla Terra. Alcune hanno fiori viola, altre fiori bianchi. I botanici vogliono prevedere il colore dei fiori nelle prossime generazioni e scoprire quali piante viola nascondono l’allele del bianco.",
+          "Mendel osservò questo comportamento con il pisello e pubblicò i risultati nel 1866. Incrociando piante ibride a fiori viola ottenne 705 piante viola e 224 bianche, circa 3 a 1."
         ],
         "advanced": [
-          "Due genitori producono gameti con probabilità note per un allele. Il quadrato di Punnett è utile, ma la stazione vuole esprimere il risultato come prodotto di probabilità.",
-          "Ricava P(AA) e P(Aa) e controlla che le tre probabilità sommino a uno. Confronta un incrocio fra eterozigoti con uno fra eterozigote e omozigote.",
-          "Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche."
+          "Nella serra della stazione crescono piante di pisello nate da semi portati dalla Terra. Alcune hanno fiori viola, altre fiori bianchi. I botanici vogliono prevedere il colore dei fiori nelle prossime generazioni e scoprire quali piante viola nascondono l’allele del bianco.",
+          "Mendel osservò questo comportamento con il pisello e pubblicò i risultati nel 1866. Incrociando piante ibride a fiori viola ottenne 705 piante viola e 224 bianche, circa 3 a 1.",
+          "Il rapporto 3:1 nasce dalla separazione dei due alleli nei gameti e dalla loro unione casuale. Oggi sappiamo che il gene del colore studiato da Mendel controlla la produzione dei pigmenti antociani nei petali."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Alleli, genotipi, fenotipi",
       "text": {
         "base": [
-          "In un modello mendeliano a un locus, ogni discendente riceve un allele da ciascun genitore. Se la probabilità del gamete A è p nel primo e q nel secondo, la probabilità di aa è (1-p)(1-q).",
-          "Con p=q=0,5, P(aa)=0,25. È una probabilità per ciascun discendente nel modello, non l’obbligo che ogni gruppo di quattro abbia esattamente un individuo aa."
+          "Ogni pianta ha due copie del gene del colore, una ricevuta dal polline e una dall’ovulo. Le varianti del gene si chiamano alleli: A per il viola, a per il bianco.",
+          "A è dominante: basta una copia per avere fiori viola. Le piante AA e Aa sono viola, solo le aa sono bianche. Il genotipo è la coppia di alleli, il fenotipo è il carattere osservato."
         ],
         "intermediate": [
-          "Il prodotto richiede indipendenza delle estrazioni dei gameti. Per due eterozigoti con segregazione regolare, p=q=1/2. Le probabilità di AA, Aa e aa sono rispettivamente 1/4, 1/2 e 1/4.",
-          "La variabile Gameti A genitore 1 è espressa in 1; Probabilità aa in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: P(aa) = (1-p)(1-q).",
-          "Con p=q=0,5, P(aa)=0,25. È una probabilità per ciascun discendente nel modello, non l’obbligo che ogni gruppo di quattro abbia esattamente un individuo aa."
+          "Ogni pianta ha due copie del gene del colore, una ricevuta dal polline e una dall’ovulo. Le varianti del gene si chiamano alleli: A per il viola, a per il bianco.",
+          "A è dominante: basta una copia per avere fiori viola. Le piante AA e Aa sono viola, solo le aa sono bianche. Il genotipo è la coppia di alleli, il fenotipo è il carattere osservato.",
+          "Nella meiosi le due copie si separano: ogni gamete riceve un solo allele. Una pianta Aa produce gameti A e gameti a con la stessa probabilità, 1/2 ciascuno. È la legge della segregazione."
         ],
         "advanced": [
-          "Il prodotto richiede indipendenza delle estrazioni dei gameti. Per due eterozigoti con segregazione regolare, p=q=1/2. Le probabilità di AA, Aa e aa sono rispettivamente 1/4, 1/2 e 1/4.",
-          "Ricava P(AA) e P(Aa) e controlla che le tre probabilità sommino a uno. Confronta un incrocio fra eterozigoti con uno fra eterozigote e omozigote.",
-          "Dominante non significa frequente, migliore o destinato a diffondersi. Genotipo e fenotipo coincidono solo dopo aver specificato una relazione biologica fra alleli e carattere."
+          "Nella meiosi le due copie si separano: ogni gamete riceve un solo allele. Una pianta Aa produce gameti A e gameti a con la stessa probabilità, 1/2 ciascuno. È la legge della segregazione.",
+          "Il quadrato di Punnett è una tabella di probabilità: le righe sono i gameti di un genitore, le colonne quelli dell’altro. Con due genitori Aa ogni cella vale 1/4, e sommando le celle uguali si ottiene 1/4 AA, 1/2 Aa, 1/4 aa."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Incroci nella serra",
       "text": {
         "base": [
-          "Nel laboratorio imposta Gameti A genitore 2 (a): 0,5 (adimensionale). Prima di salvare A, prevedi come cambia Probabilità aa fra Gameti A genitore 1=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con p=q=0,5, P(aa)=0,25. È una probabilità per ciascun discendente nel modello, non l’obbligo che ogni gruppo di quattro abbia esattamente un individuo aa.",
-          "La variabile Gameti A genitore 1 è espressa in 1; Probabilità aa in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: P(aa) = (1-p)(1-q)."
+          "Scegli il genotipo dei due genitori e leggi il quadrato di Punnett. Poi semina 20, 100 o 1000 semi e confronta i conteggi osservati con quelli attesi.",
+          "Nella seconda parte ricevi piante viola misteriose: incrociale con una pianta bianca aa e decidi se sono AA o Aa. Per completare l’attività risolvi tre piante misteriose."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Gameti A genitore 2 (a): 0,5 (adimensionale). Prima di salvare A, prevedi come cambia Probabilità aa fra Gameti A genitore 1=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Gameti A genitore 1 è espressa in 1; Probabilità aa in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: P(aa) = (1-p)(1-q).",
-          "Il prodotto richiede indipendenza delle estrazioni dei gameti. Per due eterozigoti con segregazione regolare, p=q=1/2. Le probabilità di AA, Aa e aa sono rispettivamente 1/4, 1/2 e 1/4."
+          "Scegli il genotipo dei due genitori e leggi il quadrato di Punnett. Poi semina 20, 100 o 1000 semi e confronta i conteggi osservati con quelli attesi.",
+          "Prima di seminare scrivi nel diario la percentuale di piante bianche che ti aspetti. Ripeti più volte la semina da 20 semi e osserva quanto variano i risultati.",
+          "Nella seconda parte ricevi piante viola misteriose: incrociale con una pianta bianca aa e decidi se sono AA o Aa. Per completare l’attività risolvi tre piante misteriose."
         ],
         "advanced": [
-          "Nel laboratorio imposta Gameti A genitore 2 (a): 0,5 (adimensionale). Prima di salvare A, prevedi come cambia Probabilità aa fra Gameti A genitore 1=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Ricava P(AA) e P(Aa) e controlla che le tre probabilità sommino a uno. Confronta un incrocio fra eterozigoti con uno fra eterozigote e omozigote.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Scegli il genotipo dei due genitori e leggi il quadrato di Punnett. Poi semina 20, 100 o 1000 semi e confronta i conteggi osservati con quelli attesi.",
+          "Usa la statistica chi quadro calcolata dal laboratorio. Con due classi di fenotipo, un valore superiore a 3,84 significa che uno scarto così grande dal rapporto atteso avrebbe probabilità inferiore al 5% se il modello fosse corretto.",
+          "Nella seconda parte ricevi piante viola misteriose: incrociale con una pianta bianca aa e decidi se sono AA o Aa. Per completare l’attività risolvi tre piante misteriose."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Attesi e osservati",
       "text": {
         "base": [
-          "Dominante non significa frequente, migliore o destinato a diffondersi. Genotipo e fenotipo coincidono solo dopo aver specificato una relazione biologica fra alleli e carattere.",
-          "Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il rapporto 3:1 descrive una probabilità, e un singolo raccolto può discostarsene. Con 4 figli di due genitori Aa può capitare di non trovare piante bianche: succede con probabilità (3/4)⁴, circa 32%.",
+          "Più semi semini, più la frazione osservata si avvicina a quella attesa. È la legge dei grandi numeri."
         ],
         "intermediate": [
-          "Dominante non significa frequente, migliore o destinato a diffondersi. Genotipo e fenotipo coincidono solo dopo aver specificato una relazione biologica fra alleli e carattere.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il rapporto 3:1 descrive una probabilità, e un singolo raccolto può discostarsene. Con 4 figli di due genitori Aa può capitare di non trovare piante bianche: succede con probabilità (3/4)⁴, circa 32%.",
+          "Una pianta viola può essere AA o Aa. Incrociata con una pianta bianca aa, una pianta AA dà solo figli viola, mentre una pianta Aa dà in media metà figli bianchi. Basta un figlio bianco per concludere che il genitore viola è Aa."
         ],
         "advanced": [
-          "Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche.",
-          "Ricava P(AA) e P(Aa) e controlla che le tre probabilità sommino a uno. Confronta un incrocio fra eterozigoti con uno fra eterozigote e omozigote.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Una pianta viola può essere AA o Aa. Incrociata con una pianta bianca aa, una pianta AA dà solo figli viola, mentre una pianta Aa dà in media metà figli bianchi. Basta un figlio bianco per concludere che il genitore viola è Aa.",
+          "Il ragionamento opposto è più delicato: 10 figli tutti viola non dimostrano che il genitore è AA. Se fosse Aa, quel risultato avrebbe probabilità (1/2)¹⁰, circa 0,1%: abbastanza piccola per decidere, mai nulla."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "In un modello mendeliano a un locus, ogni discendente riceve un allele da ciascun genitore. Se la probabilità del gamete A è p nel primo e q nel secondo, la probabilità di aa è (1-p)(1-q).",
-          "Con p=q=0,5, P(aa)=0,25. È una probabilità per ciascun discendente nel modello, non l’obbligo che ogni gruppo di quattro abbia esattamente un individuo aa."
+          "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
         ],
         "intermediate": [
-          "Il prodotto richiede indipendenza delle estrazioni dei gameti. Per due eterozigoti con segregazione regolare, p=q=1/2. Le probabilità di AA, Aa e aa sono rispettivamente 1/4, 1/2 e 1/4.",
-          "La variabile Gameti A genitore 1 è espressa in 1; Probabilità aa in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: P(aa) = (1-p)(1-q)."
+          "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
         ],
         "advanced": [
-          "Ricava P(AA) e P(Aa) e controlla che le tre probabilità sommino a uno. Confronta un incrocio fra eterozigoti con uno fra eterozigote e omozigote.",
-          "Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche."
+          "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Un locus mendeliano con gameti indipendenti.",
-          "Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche.",
-          "Collegamento consigliato: biology-15. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La segregazione degli alleli è una conseguenza della meiosi, studiata nell’unità precedente. Le stesse probabilità tornano nell’equilibrio di Hardy-Weinberg, quando si passa da una famiglia a un’intera popolazione.",
+          "Nel diario scrivi un incrocio, il rapporto atteso, i conteggi osservati e una frase su quanto si discostano."
         ],
         "intermediate": [
-          "Il prodotto richiede indipendenza delle estrazioni dei gameti. Per due eterozigoti con segregazione regolare, p=q=1/2. Le probabilità di AA, Aa e aa sono rispettivamente 1/4, 1/2 e 1/4.",
-          "Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche.",
-          "Ricava P(AA) e P(Aa) e controlla che le tre probabilità sommino a uno. Confronta un incrocio fra eterozigoti con uno fra eterozigote e omozigote."
+          "La segregazione degli alleli è una conseguenza della meiosi, studiata nell’unità precedente. Le stesse probabilità tornano nell’equilibrio di Hardy-Weinberg, quando si passa da una famiglia a un’intera popolazione.",
+          "Molti caratteri seguono regole diverse: nella bocca di leone l’eterozigote ha fiori rosa (dominanza incompleta), e nei gruppi sanguigni AB0 gli alleli A e B si esprimono entrambi (codominanza).",
+          "Nel diario scrivi un incrocio, il rapporto atteso, i conteggi osservati e una frase su quanto si discostano."
         ],
         "advanced": [
-          "Ricava P(AA) e P(Aa) e controlla che le tre probabilità sommino a uno. Confronta un incrocio fra eterozigoti con uno fra eterozigote e omozigote.",
-          "Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Il modello vale per un gene con due alleli e gameti indipendenti. Geni vicini sullo stesso cromosoma vengono ereditati insieme più spesso del previsto: è l’associazione genica.",
+          "Molti caratteri seguono regole diverse: nella bocca di leone l’eterozigote ha fiori rosa (dominanza incompleta), e nei gruppi sanguigni AB0 gli alleli A e B si esprimono entrambi (codominanza).",
+          "Nel diario scrivi un incrocio, il rapporto atteso, i conteggi osservati e una frase su quanto si discostano."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-09-concept",
-      "prompt": "Per Aa×Aa con segregazione regolare, P(aa) è:",
+      "id": "biology-09-q1",
+      "prompt": "Una pianta di pisello con genotipo Aa ha fiori:",
       "options": [
         {
           "id": "A",
-          "text": "1",
-          "feedback": "Il prodotto richiede indipendenza delle estrazioni dei gameti. Per due eterozigoti con segregazione regolare, p=q=1/2. Le probabilità di AA, Aa e aa sono rispettivamente 1/4, 1/2 e 1/4."
+          "text": "Bianchi",
+          "feedback": "Il bianco compare solo nel genotipo aa. Con un allele A la pianta produce il pigmento viola."
         },
         {
           "id": "B",
-          "text": "1/4",
-          "feedback": "In un modello mendeliano a un locus, ogni discendente riceve un allele da ciascun genitore. Se la probabilità del gamete A è p nel primo e q nel secondo, la probabilità di aa è (1-p)(1-q)."
+          "text": "Rosa, a metà tra viola e bianco",
+          "feedback": "Questo accade con la dominanza incompleta, come nella bocca di leone. Per il colore del pisello la dominanza è completa."
         },
         {
           "id": "C",
+          "text": "Viola",
+          "feedback": "Esatto: A è dominante e una sola copia basta per produrre il pigmento."
+        },
+        {
+          "id": "D",
+          "text": "Metà viola e metà bianchi",
+          "feedback": "Ogni pianta ha un solo fenotipo per questo carattere. Il genotipo Aa produce fiori tutti viola."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "biology-09-q2",
+      "prompt": "Incroci due piante Aa. Quale frazione dei figli ti aspetti con fiori bianchi?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1/4",
+          "feedback": "Esatto: solo la cella aa del quadrato di Punnett dà fiori bianchi, e vale 1/4."
+        },
+        {
+          "id": "B",
           "text": "1/2",
-          "feedback": "Dominante non significa frequente, migliore o destinato a diffondersi. Genotipo e fenotipo coincidono solo dopo aver specificato una relazione biologica fra alleli e carattere."
+          "feedback": "1/2 è la frazione attesa degli eterozigoti Aa, che però hanno fiori viola."
+        },
+        {
+          "id": "C",
+          "text": "3/4",
+          "feedback": "3/4 è la frazione attesa dei fiori viola. Hai scambiato i due fenotipi."
+        },
+        {
+          "id": "D",
+          "text": "Nessuna, perché i genitori sono viola",
+          "feedback": "I genitori portano entrambi l’allele a: un figlio che lo riceve da tutti e due è aa e ha fiori bianchi."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-09-q3",
+      "prompt": "Incroci una pianta Aa con una pianta aa. Che rapporto viola : bianco ti aspetti?",
+      "options": [
+        {
+          "id": "A",
+          "text": "3 : 1",
+          "feedback": "Il 3:1 vale per l’incrocio Aa × Aa. Qui la pianta aa produce solo gameti a."
+        },
+        {
+          "id": "B",
+          "text": "1 : 1",
+          "feedback": "Esatto: la pianta Aa produce gameti A e a in parti uguali, la pianta aa solo gameti a. Metà dei figli è Aa, metà aa."
+        },
+        {
+          "id": "C",
+          "text": "Tutti viola",
+          "feedback": "Tutti i figli sarebbero viola solo se il genitore viola fosse AA."
+        },
+        {
+          "id": "D",
+          "text": "1 : 2 : 1",
+          "feedback": "1:2:1 è il rapporto dei genotipi nell’incrocio Aa × Aa, e qui i fenotipi possibili sono solo due."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "biology-09-calculation",
-      "prompt": "Calcolo: Gameti A genitore 2 (a)=0,5 (adimensionale). Per Gameti A genitore 1=0,5 (adimensionale), quanto vale Probabilità aa?",
+      "id": "biology-09-q4",
+      "prompt": "Da due genitori Aa nascono 8 piante, tutte viola. Che cosa puoi concludere?",
       "options": [
         {
           "id": "A",
-          "text": "0,25 (adimensionale)",
-          "feedback": "P(aa) = (1-p)(1-q). Con Gameti A genitore 2 (a)=0,5 (adimensionale) e Gameti A genitore 1=0,5 (adimensionale), il risultato è 0,25 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Il modello è sbagliato: dovevano esserci 2 piante bianche",
+          "feedback": "2 è il valore atteso, e il modello prevede probabilità. Un campione piccolo può scostarsi dal valore atteso."
         },
         {
           "id": "B",
-          "text": "1,25 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. P(aa) = (1-p)(1-q). Con Gameti A genitore 2 (a)=0,5 (adimensionale) e Gameti A genitore 1=0,5 (adimensionale), il risultato è 0,25 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "L’allele a è scomparso",
+          "feedback": "Gli alleli non scompaiono: i genitori sono Aa e continuano a produrre gameti a."
         },
         {
           "id": "C",
-          "text": "-0,75 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. P(aa) = (1-p)(1-q). Con Gameti A genitore 2 (a)=0,5 (adimensionale) e Gameti A genitore 1=0,5 (adimensionale), il risultato è 0,25 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Uno dei genitori era in realtà AA",
+          "feedback": "È un’ipotesi possibile, ma il dato non basta a sostenerla: con genitori Aa il risultato ha una probabilità non trascurabile."
+        },
+        {
+          "id": "D",
+          "text": "Il risultato è compatibile con il modello: succede con probabilità (3/4)⁸, circa 10%",
+          "feedback": "Esatto: ogni figlio è viola con probabilità 3/4, e otto figli viola su otto capitano circa una volta su dieci."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 0.5,
-        "parameters": {
-          "a": 0.5
-        },
-        "expected": 0.25,
-        "unit": "1"
-      }
+      "correct": "D"
     },
     {
-      "id": "biology-09-transfer",
-      "prompt": "Trasferimento: Gameti A genitore 2 (a)=0,75 (adimensionale). Per Gameti A genitore 1=0,5 (adimensionale), quanto vale Probabilità aa?",
+      "id": "biology-09-q5",
+      "prompt": "Una pianta viola incrociata con una bianca dà 12 figli, tre dei quali bianchi. Qual è il genotipo della pianta viola?",
       "options": [
         {
           "id": "A",
-          "text": "1,125 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. P(aa) = (1-p)(1-q). Con Gameti A genitore 2 (a)=0,75 (adimensionale) e Gameti A genitore 1=0,5 (adimensionale), il risultato è 0,125 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Aa",
+          "feedback": "Esatto: un figlio bianco aa riceve a da entrambi i genitori, quindi la pianta viola porta l’allele a."
         },
         {
           "id": "B",
-          "text": "-0,875 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. P(aa) = (1-p)(1-q). Con Gameti A genitore 2 (a)=0,75 (adimensionale) e Gameti A genitore 1=0,5 (adimensionale), il risultato è 0,125 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "AA",
+          "feedback": "Una pianta AA darebbe solo figli Aa, cioè viola. Un solo figlio bianco basta a escluderla."
         },
         {
           "id": "C",
-          "text": "0,125 (adimensionale)",
-          "feedback": "P(aa) = (1-p)(1-q). Con Gameti A genitore 2 (a)=0,75 (adimensionale) e Gameti A genitore 1=0,5 (adimensionale), il risultato è 0,125 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "C",
-      "numeric": {
-        "x": 0.5,
-        "parameters": {
-          "a": 0.75
-        },
-        "expected": 0.125,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "biology-09-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Un locus mendeliano con gameti indipendenti",
-          "feedback": "Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche."
+          "text": "aa",
+          "feedback": "Una pianta aa ha fiori bianchi. Il genitore descritto ha fiori viola."
         },
         {
-          "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche."
-        },
-        {
-          "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche."
+          "id": "D",
+          "text": "Non si può dire senza altri figli",
+          "feedback": "Per escludere AA basta un figlio bianco. Servono molti figli solo quando sono tutti viola."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "biology-09-q6",
+      "prompt": "Quale situazione esce dai limiti del modello di questa unità?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Un incrocio Aa × Aa",
+          "feedback": "È il caso tipico del modello: un gene, due alleli, dominanza completa."
+        },
+        {
+          "id": "B",
+          "text": "Un reincrocio con una pianta aa",
+          "feedback": "Il reincrocio è un incrocio monoibrido e rientra nel modello."
+        },
+        {
+          "id": "C",
+          "text": "Due geni vicini sullo stesso cromosoma",
+          "feedback": "Esatto: geni associati non si separano in modo indipendente, e le previsioni del modello non valgono più."
+        },
+        {
+          "id": "D",
+          "text": "Un incrocio AA × aa",
+          "feedback": "Anche questo rientra nel modello: tutti i figli sono Aa e hanno fiori viola."
+        }
+      ],
+      "correct": "C"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "punnett"
+  }
 }

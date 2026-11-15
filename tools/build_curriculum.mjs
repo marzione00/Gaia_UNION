@@ -6,7 +6,7 @@ import {MODELS,MODEL_IDS,defaults,value,probePoints} from '../src/models/curricu
 const root=fileURLToPath(new URL('../',import.meta.url));
 const load=p=>JSON.parse(fs.readFileSync(root+p,'utf8'));
 const write=(p,v)=>fs.writeFileSync(root+p,JSON.stringify(v,null,2)+'\n');
-const authored=load('content/curriculum/authored.json'),catalogue=load('content/catalogue.json');
+const authored=load('content/curriculum/authored.json'),catalogue=load('content/catalogue.json'),prototypes=new Map(load('content/curriculum/prototypes.json').units.map(p=>[p.id,p]));
 const sources=[
  {id:'precalculus',title:'OpenStax — Precalculus 2e',url:'https://openstax.org/books/precalculus-2e/pages/preface'},
  {id:'calculus',title:'OpenStax — Calculus Volume 1',url:'https://openstax.org/books/calculus-volume-1/pages/preface'},
@@ -73,9 +73,13 @@ for(const [i,a] of authored.courses.entries()){
    {label:titles[4],title:'Verifica ragionamento e calcolo',text:levels([a.concept,a.example],[a.derivation,measure],[a.extension,a.limit])},
    {label:titles[5],title:'Conclusione e nuova domanda',text:levels([`Nel diario distingui previsione, risultato e interpretazione. ${a.bound}.`,a.limit,`Collegamento consigliato: ${a.connection}. Il completamento registra attività e autoverifica, non certifica competenze.`],[a.derivation,a.limit,a.extension],[a.extension,a.limit,'Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale.'])}
   ],questions};
+ // Prototype units replace the generated text, questions and lab with hand-written content and an activity.
+ const proto=prototypes.get(unit.id);
+ if(proto){for(const key of ['title','scope','narrativeStatus','objectives','prerequisites','connections','sources','glossary','steps','questions','activity'])definition[key]=structuredClone(proto[key]);definition.coverage='guided-activity';definition.editorialStatus='prototype-draft';}
  definitions.push(definition);
- unit.curriculum={path:`content/curriculum/${unit.id}.json`,modelId:unit.id,coverage:'guided-foundation'};
+ unit.curriculum={path:`content/curriculum/${unit.id}.json`,modelId:unit.id,coverage:definition.coverage};
  if(unit.sector>0){unit.title=a.title;unit.status='guided';unit.coverage='guided-foundation';unit.description=a.concept;unit.prerequisites=definition.prerequisites;unit.tags=[['Matematica','Fisica','Chimica','Biologia'][unit.sector],a.title,a.bound];}
+ if(proto&&unit.sector>0){unit.title=proto.title;unit.description=proto.description;unit.coverage='guided-activity';unit.prerequisites=definition.prerequisites;unit.tags=[['Matematica','Fisica','Chimica','Biologia'][unit.sector],proto.title,proto.scope];}
  write(`content/curriculum/${unit.id}.json`,definition);
 }
 if(definitions.length!==100||MODEL_IDS.some(id=>!definitions.some(c=>c.id===id)))throw Error('Copertura incompleta');
