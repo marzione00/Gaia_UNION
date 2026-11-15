@@ -1,4 +1,5 @@
 /** Deterministic atlas navigation. No renderer, network, or inferred learning credit. */
+import { systemForPlanet, AREAS } from '../scene/systems.js';
 export const DISCIPLINES = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
 export const TEXT_SCALES = [1, 1.2, 1.4];
 export const normalize = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('it').trim();
@@ -6,10 +7,10 @@ const integer = (n, min, max) => Number.isInteger(n) && n >= min && n <= max;
 const safeId = id => typeof id === 'string' && /^(math-(?:c\d{2}|p\d{2}|a|b)|(?:physics|chemistry|biology)-\d{2})$/.test(id);
 export function cleanAtlas(value = {}) {
     return {
-        version: 1,
+        version: 2,
         textScale: TEXT_SCALES.includes(value?.textScale) ? value.textScale : 1,
         contrast: value?.contrast === true,
-        visited: Array.isArray(value?.visited) ? [...new Set(value.visited.filter(n => integer(n, 0, 24)))].slice(0,25) : [],
+        visited: value?.version === 2 && Array.isArray(value?.visited) ? [...new Set(value.visited.filter(n => integer(n, 0, 24)))].slice(0,25) : [],
         recent: Array.isArray(value?.recent) ? [...new Set(value.recent.filter(safeId))].slice(0,12) : [],
         lastUnit: safeId(value?.lastUnit) ? value.lastUnit : null,
         guideDone: value?.guideDone === true,
@@ -17,13 +18,12 @@ export function cleanAtlas(value = {}) {
     };
 }
 export function searchModules(modules, query = '', sector = -1, path = null) {
-    const normalized=normalize(query),echo=/\becho[\s-]*0?(\d{1,2})\b/.exec(normalized);
-    const words = normalized.replace(/\becho[\s-]*0?\d{1,2}\b/, '').split(/\s+/).filter(Boolean);
+    const words = normalize(query).split(/\s+/).filter(Boolean);
     const allowed = path ? new Set(path.units) : null;
-    const found = modules.filter(m => (sector < 0 || m.sector === sector) && (!echo || m.planetIndex%25+1===Number(echo[1])) && (!allowed || allowed.has(m.id)))
+    const found = modules.filter(m => (sector < 0 || m.sector === sector) && (!allowed || allowed.has(m.id)))
         .map(m => {
-            const echo = 'echo ' + String(m.planetIndex % 25 + 1).padStart(2, '0');
-            const title = normalize(m.title), hay = normalize([echo, echo.replace(' ', '-'), m.code, m.id, m.title, m.description, DISCIPLINES[m.sector], ...(m.tags || [])].join(' '));
+            const area = AREAS[systemForPlanet(m.planetIndex)].name;
+            const title = normalize(m.title), hay = normalize([area, m.code, m.id, m.title, m.description, DISCIPLINES[m.sector], ...(m.tags || [])].join(' '));
             return { module: m, match: words.every(w => hay.includes(w)), rank: words.reduce((n,w) => n + (title.includes(w) ? 3 : 0), 0) };
         }).filter(r => r.match);
     return found.sort((a,b) => b.rank - a.rank || (path ? path.units.indexOf(a.module.id) - path.units.indexOf(b.module.id) : a.module.planetIndex - b.module.planetIndex)).map(r => r.module);
@@ -33,11 +33,12 @@ export function unitStatus(module, data) {
     if (record?.completedAt && record?.completionSignature) return { code: 'complete', label: 'Percorso completato' };
     if (record?.snapshots?.A || record?.snapshots?.B) return { code: 'experiment', label: 'Esperimento registrato' };
     if (record && (record.stage > 0 || Object.keys(record.answers || {}).length || data.notes?.['course:' + module.id]?.trim())) return { code: 'started', label: 'Percorso iniziato' };
-    return data.atlas?.visited?.includes(module.planetIndex % 25) ? { code: 'visited', label: 'Sistema visitato' } : { code: 'new', label: 'Da esplorare' };
+    return data.atlas?.visited?.includes(systemForPlanet(module.planetIndex)) ? { code: 'visited', label: 'Sistema visitato' } : { code: 'new', label: 'Da esplorare' };
 }
 export function rememberVisit(data, module, enteredSystem = false) {
     data.atlas = cleanAtlas(data.atlas);
-    if (enteredSystem && !data.atlas.visited.includes(module.planetIndex % 25)) data.atlas.visited.push(module.planetIndex % 25);
+    const system = systemForPlanet(module.planetIndex);
+    if (enteredSystem && !data.atlas.visited.includes(system)) data.atlas.visited.push(system);
     data.atlas.recent = [module.id, ...data.atlas.recent.filter(id => id !== module.id)].slice(0,12);
     data.atlas.lastUnit = module.id;
 }
@@ -58,11 +59,11 @@ export function atlasLayout(w, h, scale = 1) {
 export const contains = (r,x,y) => !!r && x >= r.x && y >= r.y && x <= r.x+r.w && y <= r.y+r.h;
 export const overlaps = (a,b,gap=0) => a.x < b.x+b.w+gap && a.x+a.w+gap > b.x && a.y < b.y+b.h+gap && a.y+a.h+gap > b.y;
 /** Greedy stable labels: selected/focused systems get first choice, never move the star. */
-export function placeLabels(points, bounds, selected, measure, radius=22) {
+export function placeLabels(points, bounds, selected, measure, radius=22, nameOf=index=>AREAS[index]?.name||'') {
     const result = [], occupied = points.filter(p=>p.depth>0).map(p=>({x:p.x-radius,y:p.y-radius,w:radius*2,h:radius*2}));
     const sorted = [...points].filter(p=>p.depth>0 && contains(bounds,p.x,p.y)).sort((a,b)=>(b.index===selected)-(a.index===selected)||a.index-b.index);
     for (const p of sorted) {
-        const text = 'ECHO '+String(p.index+1).padStart(2,'0'), w=measure(text)+10, h=22;
+        const text = nameOf(p.index), w=measure(text)+10, h=22;
         const positions = [[p.x+radius+4,p.y-11],[p.x-w-radius-4,p.y-11],[p.x-w/2,p.y-radius-h-4],[p.x-w/2,p.y+radius+4]];
         for (const [x,y] of positions) {
             const r={x,y,w,h};
@@ -83,15 +84,15 @@ export function edgeIndicator(point, bounds) {
     return {x:cx+dx*k,y:cy+dy*k,angle:Math.atan2(dy,dx)};
 }
 export function routeSystems(path, modules) {
-    const lookup = new Map(modules.map(m=>[m.id,m.planetIndex%25]));
+    const lookup = new Map(modules.map(m=>[m.id,systemForPlanet(m.planetIndex)]));
     return (path?.units || []).map(id=>lookup.get(id)).filter((n,i,a)=>Number.isInteger(n)&&(i===0||a[i-1]!==n));
 }
 export const GUIDE = [
-    { title:'1 / Trova i sistemi', text:'I 25 esagoni indicano i sistemi ECHO. Ogni sistema offre quattro destinazioni didattiche. Gli altri punti sono stelle illustrative.', action:'map' },
-    { title:'2 / Scegli senza precisione', text:'Usa ELENCO per cercare un argomento. Il risultato seleziona e centra il sistema. Puoi navigare anche con Tab e Invio.', action:'list' },
-    { title:'3 / Quattro discipline', text:'Nella scheda trovi un argomento per disciplina. Il primo tocco seleziona; il pulsante ENTRA apre il sistema. La visita non assegna competenze.', action:'detail' },
-    { title:'4 / Segui un percorso', text:'ROTTE mostra collegamenti didattici temporanei tra i sistemi. Sono relazioni tra concetti, non traiettorie astronomiche.', action:'routes' },
-    { title:'5 / Adatta e riprendi', text:'In ACCESSO scegli testo, contrasto e movimento. RIPRENDI conserva le ultime unità aperte sul dispositivo. La guida può essere riaperta.', action:'access' }
+    { title:'1 / Quattro bracci, quattro discipline', text:'Ogni braccio della galassia è una disciplina, riconoscibile dal colore. Ogni esagono è un\u2019area tematica: dal centro verso l\u2019esterno le aree seguono l\u2019ordine di studio.', target:'map' },
+    { title:'2 / Scegli una disciplina', text:'Questi quattro pulsanti evidenziano un braccio e limitano la ricerca a quella disciplina. Toccalo di nuovo per vederle tutte.', target:'legend' },
+    { title:'3 / Apri un\u2019unità', text:'La scheda elenca le unità dell\u2019area selezionata. Scegline una e premi APRI L\u2019UNITÀ, oppure SISTEMA 3D per visitare i pianeti.', target:'card' },
+    { title:'4 / Cerca per nome', text:'CERCA trova un argomento scrivendone il nome, per esempio \u00abgas\u00bb o \u00abgenetica\u00bb, e porta la mappa sulla sua area.', target:'list' },
+    { title:'5 / Percorsi e ripresa', text:'PERCORSI collega unità di discipline diverse. RIPRENDI riapre le ultime unità studiate su questo dispositivo. La guida si riapre da GUIDA.', target:'routes' }
 ];
 /** Frame the galaxy inside the usable map rectangle, without moving any star. */
 export function galaxyCamera(s,w,h) {

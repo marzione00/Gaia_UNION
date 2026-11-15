@@ -1,4 +1,4 @@
-import { systemForPlanet } from './scene/systems.js';
+import { systemForPlanet, indicesForSystem } from './scene/systems.js';
 /** Resolve current and previous-edition deep links without trusting URL numbers. */
 export function resolveRoute(hash, modules, lessonIds) {
     const [path = '', query = ''] = String(hash).replace(/^#\/?/, '').split('?');
@@ -34,6 +34,6 @@ export function resolveRoute(hash, modules, lessonIds) {
         reader = 'math-c08';
     }
     let system=systemForPlanet(selected);
-    if(scene==='system' && q.has('system')){system=integer('system',system,0,24);if(systemForPlanet(selected)!==system)selected=system;}
+    if(scene==='system' && q.has('system')){system=integer('system',system,0,24);if(systemForPlanet(selected)!==system)selected=indicesForSystem(system)[0];}
     return { scene, selected, system, reader, section: integer('section', 0, 0, 100), pdfPage, lab, courseStage };
 }

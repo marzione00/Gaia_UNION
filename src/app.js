@@ -3,7 +3,7 @@ import { CourseUI } from './education/course-ui.js';
 import { loadCurriculum } from './education/curriculum-loader.js';
 import { fetchJsonWithRetry } from './education/resource-loader.js';
 import { MissionUI } from './education/mission-ui.js';
-import { MIN_STARS, systemForPlanet, indicesForSystem, highlightSystemStars, HoverTarget } from './scene/systems.js';
+import { MIN_STARS, systemForPlanet, indicesForSystem, areaOf, unitPlace, highlightSystemStars, HoverTarget } from './scene/systems.js';
 import { NavigationMemory } from './scene/navigation.js';
 import { loadScenes, planetProfile, PlanetTextures } from './scene/assets.js';
 import { resolveRoute } from './routing.js';
@@ -15,6 +15,7 @@ import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
+const initialHash = location.hash;
 const asset = p => files[p]?.url || p;
 async function json(path) {
     if (files[path]?.json)
@@ -23,7 +24,7 @@ async function json(path) {
 }
 function image(path) { return new Promise((yes, no) => { const i = new Image(); i.onload = () => yes(i); i.onerror = () => no(Error('Texture mancante: ' + path)); i.src = asset(path); }); }
 const store = openStore();
-const S = { scene: 'galaxy', selected: 7, system: 7, hoveredTarget: null, observedBody: null, sector: -1, node: 0, station: 0, quality: MIN_STARS, graphics: store.data.preferences.graphics, yaw: 0, pitch: .45, distance: 60, time: 0, paused: !store.data.preferences.motion || matchMedia('(prefers-reduced-motion: reduce)').matches, scroll: 0, maxScroll: 0, reader: 'math-c08', section: 0, light: false, pdfPage: 245, pdfZoom: 1, lab: 'daisyworld', lum: 1, death: .3, sim: null, sweep: null, labValues: { p: 80, x: 13, base: 'quadratic', a: 1, b: 1, h: 0, k: 0, index: 2, mode: 'root', m1: 1, q1: 0, m2: -1, q2: 5, initial: 100, loss: .1, t: 10, zeroA: -2, zeroB: 1, pole: 3 }, labCompare: null, quizIndex: 0, quizFilter: null, quizMode: 'training', examSubmitted: false, exam: {}, quizSolution: false, catalogPage: 0, query: '', editing: null, journalTab: 'general', menu: false, settings: false, popup: null, loaded: false, contextLost: false, lastFrameMs: 0, toast: '', toastUntil: 0, focusId: null };
+const S = { scene: 'galaxy', selected: 7, system: systemForPlanet(7), hoveredTarget: null, observedBody: null, sector: -1, node: 0, station: 0, quality: MIN_STARS, graphics: store.data.preferences.graphics, yaw: 0, pitch: .45, distance: 60, time: 0, paused: !store.data.preferences.motion || matchMedia('(prefers-reduced-motion: reduce)').matches, scroll: 0, maxScroll: 0, reader: 'math-c08', section: 0, light: false, pdfPage: 245, pdfZoom: 1, lab: 'daisyworld', lum: 1, death: .3, sim: null, sweep: null, labValues: { p: 80, x: 13, base: 'quadratic', a: 1, b: 1, h: 0, k: 0, index: 2, mode: 'root', m1: 1, q1: 0, m2: -1, q2: 5, initial: 100, loss: .1, t: 10, zeroA: -2, zeroB: 1, pole: 3 }, labCompare: null, quizIndex: 0, quizFilter: null, quizMode: 'training', examSubmitted: false, exam: {}, quizSolution: false, catalogPage: 0, query: '', editing: null, journalTab: 'general', menu: false, settings: false, popup: null, loaded: false, contextLost: false, lastFrameMs: 0, toast: '', toastUntil: 0, focusId: null };
 let education, pilotEducation, atlas;
 function activeEducation(){return S.scene==='pilot'?pilotEducation:education;}
 function openCourse(id,stage=null){const m=moduleById(id);if(!m)return;selectIndex(m.planetIndex);education.select(id);if(stage!==null)education.setStage(stage);route('mission');}
@@ -33,7 +34,10 @@ const navigation = new NavigationMemory(), hover = new HoverTarget();
 let hoverPointer = null, touchTarget = null;
 const sectors = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
 const sectorColors = [C.amber, C.cyan, C.purple, C.lime];
-const nav = [['galaxy', 'ATLANTE'], ['surface', 'SUPERFICIE'], ['research', 'RICERCA'], ['catalogue', 'CATALOGO'], ['theory', 'TEORIA'], ['mission', 'MISSIONI'], ['lab', 'LABORATORI'], ['quiz', 'VERIFICA'], ['journal', 'DIARIO']];
+const nav = [['galaxy', 'MAPPA'], ['catalogue', 'ARGOMENTI'], ['paths', 'PERCORSI'], ['lab', 'LABORATORI'], ['journal', 'DIARIO']];
+const navGroups = { galaxy: ['galaxy', 'system', 'orbit', 'surface'], catalogue: ['catalogue', 'mission', 'briefing', 'theory', 'pdf', 'quiz', 'sources', 'research', 'pilot'], paths: ['paths'], lab: ['lab'], journal: ['journal'] };
+const sceneNames = { system: 'MAPPA', orbit: 'MAPPA', surface: 'MAPPA', mission: 'UNITÀ', briefing: 'UNITÀ', theory: 'TEORIA', pdf: 'DISPENSA', quiz: 'VERIFICA', sources: 'FONTI', research: 'RICERCA', pilot: 'MISSIONE' };
+const areaTrail = (m, extra = []) => { const a = areaOf(m.planetIndex); return ['GALASSIA', sectors[a.sector].toUpperCase(), a.name.toUpperCase(), ...extra].join(' ▸ '); };
 const labNames = { daisyworld: 'Daisyworld', transform: 'Trasformazioni', rectangle: 'Area a perimetro fissato', radical: 'Dominio dei radicali', linear: 'Due vincoli lineari', reserve: 'Riserve e decadimento', rational: 'Zeri, segni e punti esclusi' };
 const labIds = Object.keys(labNames);
 const sourceLabs = { 'function-transform': 'transform', 'rectangle-area': 'rectangle', 'radical-domain': 'radical', 'linear-system': 'linear', 'exponential-reserve': 'reserve', 'rational-signs': 'rational' };
@@ -45,7 +49,7 @@ function route(scene, extra = {}) {
     const targetModule = Number.isInteger(extra.selected) ? data.modules[extra.selected] || selected() : selected();
     if(scene==='quiz' && targetModule.id!=='math-c08'){openCourse(targetModule.id,4);return;}
     if(scene==='briefing' && education)education.page=0;
-    if (scene === 'pilot') extra = { ...extra, selected: 7, system: 7, reader: 'math-c08' };
+    if (scene === 'pilot') extra = { ...extra, selected: 7, system: systemForPlanet(7), reader: 'math-c08' };
     if (scene === 'theory' && !extra.reader) {
         openTheory(targetModule.id);
         return;
@@ -146,14 +150,16 @@ function exportLab(csv = false) {
         download('GAIA_' + S.lab + '.json', { lab: S.lab, parameters: S.labValues, scenarioA: S.labCompare });
 }
 function title(kicker, heading, sub) {
-    U.tag(kicker, 36, 110, C.lime);
+    let trail = String(kicker);
+    while (trail.includes(' ▸ ') && R.textWidth(trail.toUpperCase(), 'mini', 1.4) > R.w - 72) trail = trail.slice(trail.indexOf(' ▸ ') + 3);
+    U.tag(trail, 36, 110, C.lime);
     U.wrap(heading, 34, 140, R.w - 68, C.pale, R.w < 700 ? 25 : 39, 2, R.w < 700 ? 'sub' : 'head');
     if (sub)
         U.wrap(sub, 35, 190, Math.min(R.w - 70, 680), C.muted, 24, 2);
 }
 function wrapClipText(s, x, y, w, style = 'body', c = C.muted, max = 3) { return U.wrap(s, x, y, w, c, style === 'body' ? 25 : 19, max, style); }
 function coverage(m) { if(m.curriculum)return m.source?'PERCORSO GUIDATO + FONTE PDF':'PERCORSO GUIDATO 3D';return m.status === 'planned' ? 'IN PREPARAZIONE' : m.lesson ? (['theory-complete', 'full-theory'].includes(m.coverage) ? 'TEORIA WEB' : 'LEZIONE WEB + FONTE') : 'DISPENSA COMPLETA'; }
-function buttonsModule(m, x, y, w) { U.button('briefing', 'DOSSIER DELL’UNITÀ', x, y, w, 42, () => route('briefing'), { active: true }); U.button('read-unit', m.curriculum ? 'APRI IL PERCORSO 3D' : m.lesson ? 'LEGGI LA TEORIA' : 'CONSULTA LA FONTE', x, y + 51, w, 42, () => m.curriculum?openCourse(m.id):openTheory(m.id), { disabled: m.status === 'planned' }); }
+function buttonsModule(m, x, y, w) { U.button('read-unit', m.curriculum ? 'APRI L’UNITÀ' : m.lesson ? 'LEGGI LA TEORIA' : 'CONSULTA LA FONTE', x, y, w, 42, () => m.curriculum?openCourse(m.id):openTheory(m.id), { active: true, disabled: m.status === 'planned' }); U.button('briefing', 'SCHEDA DELL’UNITÀ', x, y + 51, w, 42, () => route('briefing')); }
 function common() {
     const w = R.w, h = R.h, mobile = w < 850;
     U.begin();
@@ -164,7 +170,7 @@ function common() {
         U.tag('BEYOND KNOWLEDGE', 28, 63, C.lime);
     if (mobile) {
         U.button('menu', 'MENU', w - 90, 16, 66, 35, () => S.menu = !S.menu);
-        U.text(nav.find(x => x[0] === S.scene)?.[1] || ({system:'SISTEMA',orbit:'ORBITA',paths:'PERCORSI',pilot:'PILOTA'}[S.scene]||S.scene.toUpperCase()), 28, 69, 'mini', C.lime, { track: 1.1 });
+        U.text(nav.find(x => x[0] === S.scene)?.[1] || sceneNames[S.scene] || S.scene.toUpperCase(), 28, 69, 'mini', C.lime, { track: 1.1 });
         U.button('settings', 'QUALITÀ', w - 180, 58, 82, 29, () => S.settings = !S.settings, { small: true });
     }
     else {
@@ -173,7 +179,7 @@ function common() {
             const ww = R.textWidth(label, 'mini') + 22;
             if (x + ww > w - 75)
                 break;
-            U.button('nav-' + id, label, x, 24, ww, 34, () => route(id), { active: S.scene === id || id === 'galaxy' && ['system','orbit'].includes(S.scene) });
+            U.button('nav-' + id, label, x, 24, ww, 34, () => route(id), { active: navGroups[id].includes(S.scene) });
             x += ww + 6;
         }
         U.button('settings', '⚙', w - 52, 25, 30, 32, () => S.settings = !S.settings);
@@ -184,23 +190,26 @@ function common() {
     U.text(mobile ? 'WEBGL 2' : 'WEBGL 2 · ' + (['galaxy','system','orbit'].includes(S.scene) ? R.frameStats.stars.toLocaleString('it-IT') + ' STELLE 3D' : 'GRAFICA GPU'), w - 25, h - 25, 'micro', C.dim, { align: 'right', track: .6 });
 }
 function galaxyUI() { atlas.draw(U); }
+function systemPanel(system){ const mobile=R.w<850; return mobile?null:{x:32,y:300,w:268,h:64+system.planets.length*44}; }
 function systemUI() {
-    const w=R.w,h=R.h,mobile=w<850,system=W.systems[S.system],m=selected(),observed=S.observedBody===null?null:system.bodies[S.observedBody];
-    title('02 / SISTEMA STELLARE',system.name,mobile?system.count+' pianeti · 4 esplorabili.':system.count+' pianeti in orbita, quattro esplorabili. Passa su un mondo per identificarlo.');
+    const w=R.w,h=R.h,mobile=w<850,system=W.systems[S.system],m=selected(),observed=S.observedBody===null?null:system.bodies[S.observedBody],place=unitPlace(S.selected),tint=sectorColors[system.sector];
+    title(areaTrail(m),system.name,mobile?system.planets.length+' unità · dall’orbita interna a quella esterna.':system.planets.length+' unità di '+system.discipline.toLowerCase()+' in ordine di studio, dall’orbita interna a quella esterna. Gli altri pianeti sono di contorno.');
     const px=mobile?18:w-337,pw=mobile?w-36:304,py=mobile?h-306:245,ph=mobile?222:365;
-    U.panel(px,py,pw,ph,sectorColors[m.sector],.80);U.tag(observed?'OSSERVAZIONE ORBITALE':sectors[m.sector]+' / '+m.code,px+18,py+19,sectorColors[m.sector]);
-    wrapClipText(observed?observed.profile.name:m.planetName,px+18,py+50,pw-36,'sub',C.pale,2);U.text(observed?'NON ESPLORABILE':planetProfile(S.selected).name+' · '+coverage(m),px+18,py+100,'micro',C.lime);
-    if(!mobile){wrapClipText(observed?observed.profile.name+' con '+observed.moons+' lune'+(observed.rings?' e anelli.':'.')+' Nessun accesso alla superficie.':m.title+' — '+m.description,px+18,py+130,pw-36,'body',C.muted,5);U.text(system.count+' PIANETI · '+system.architecture.toUpperCase(),px+18,py+260,'micro',C.dim);}
-    else wrapClipText(observed?'Corpo celeste visibile in orbita. Nessun accesso alla superficie.':m.title+' — '+m.description,px+18,py+124,pw-36,'mini',C.muted,2);
-    U.button('orbit-unit',observed?'NON ESPLORABILE':'ESPLORA IL PIANETA',px+16,py+ph-56,pw-32,40,()=>enterPlanet(),{active:!observed,disabled:!!observed||W.cameraProgress<1});
-    if(!mobile){
-        U.panel(32,300,248,276,C.cyan,.48);U.tag('QUATTRO MONDI ESPLORABILI',50,319);
-        system.planets.forEach((index,i)=>{const m=data.modules[index];U.button('system-planet-'+index,sectors[m.sector].toUpperCase()+' · '+m.code,49,349+i*44,214,36,()=>enterPlanet(index),{active:S.selected===index,disabled:W.cameraProgress<1});});
-        U.text('ORBITA E DISTANZE ILLUSTRATIVE',50,541,'micro',C.dim);
+    U.panel(px,py,pw,ph,tint,.80);U.tag(observed?'PIANETA DI CONTORNO':'UNITÀ '+place.position+' DI '+place.count,px+18,py+19,tint);
+    wrapClipText(observed?observed.profile.name:m.title,px+18,py+50,pw-36,'sub',C.pale,2);U.text(observed?'NESSUNA UNITÀ':planetProfile(S.selected).name+' · '+coverage(m),px+18,py+100,'micro',C.lime);
+    if(!mobile)wrapClipText(observed?'Un pianeta del sistema senza unità di studio.':m.description,px+18,py+130,pw-36,'body',C.muted,5);
+    else wrapClipText(observed?'Pianeta senza unità di studio.':m.description,px+18,py+124,pw-36,'mini',C.muted,2);
+    const bw=(pw-38)/2;
+    U.button('orbit-unit','PIANETA 3D',px+16,py+ph-56,bw,40,()=>enterPlanet(),{disabled:!!observed||W.cameraProgress<1});
+    U.button('system-open-unit','APRI L’UNITÀ',px+22+bw,py+ph-56,bw,40,()=>openCourse(m.id),{active:!observed,disabled:!!observed});
+    const list=systemPanel(system);
+    if(list){
+        U.panel(list.x,list.y,list.w,list.h,tint,.48);U.tag('UNITÀ DELL’AREA',list.x+18,list.y+19,tint);
+        system.planets.forEach((index,i)=>{const unit=data.modules[index];U.button('system-planet-'+index,(i+1)+'. '+unit.title,list.x+17,list.y+46+i*44,list.w-34,36,()=>{selectIndex(index);S.observedBody=null;},{active:S.selected===index,disabled:W.cameraProgress<1});});
     }else{
-        const bw=(w-42)/4;system.planets.forEach((index,i)=>U.button('system-planet-'+index,['MAT','FIS','CHI','BIO'][i],18+i*(bw+2),239,bw,32,()=>{selectIndex(index);touchTarget={type:'planet',index};},{active:S.selected===index,small:true,disabled:W.cameraProgress<1}));
+        const n=system.planets.length,bw2=(w-36-(n-1)*4)/n;system.planets.forEach((index,i)=>U.button('system-planet-'+index,String(i+1),18+i*(bw2+4),239,bw2,32,()=>{selectIndex(index);touchTarget={type:'planet',index};},{active:S.selected===index,small:true,disabled:W.cameraProgress<1}));
     }
-    U.button('back-galaxy','TORNA ALL’ATLANTE',35,h-88,mobile?180:220,39,()=>route('galaxy'));
+    U.button('back-galaxy','TORNA ALLA MAPPA',35,h-88,mobile?180:220,39,()=>route('galaxy'));
     U.button('system-zoom-in','+',mobile?w-154:w/2-66,h-77,34,30,()=>changeZoom(.86));U.button('system-zoom-out','−',mobile?w-112:w/2-26,h-77,34,30,()=>changeZoom(1/.86));
     if(!mobile)U.button('system-reset','CENTRA',w/2+14,h-77,80,30,()=>{S.yaw=0;S.pitch=.48;S.distance=34;},{small:true});
 }
@@ -209,13 +218,13 @@ function sceneBlocked(x,y) {
     const w=R.w,h=R.h,mobile=w<850;
     if(S.menu||S.settings||S.editing||y<235||y>h-115)return true;
     if(mobile)return y<278||y>h-306;
-    if(['galaxy','system'].includes(S.scene))return (x>=w-337&&x<=w-33&&y>=245&&y<=610)||(x>=32&&x<=280&&y>=300&&y<=576);
+    if(['galaxy','system'].includes(S.scene)){const list=S.scene==='system'?systemPanel(W.systems[S.system]):null;return (x>=w-337&&x<=w-33&&y>=245&&y<=610)||(!!list&&x>=list.x&&x<=list.x+list.w&&y>=list.y&&y<=list.y+list.h);}
     return false;
 }
 function sceneActions() {
     if(S.menu||S.settings||W.cameraProgress<1)return [];
     if(S.scene==='galaxy'&&atlas)return atlas.actions();
-    if(S.scene==='system')return W.systems[S.system].planets.map(index=>({id:'scene-planet-'+index,label:'Pianeta '+data.modules[index].planetName+', '+data.modules[index].title,action:()=>enterPlanet(index)}));
+    if(S.scene==='system')return W.systems[S.system].planets.map((index,i)=>({id:'scene-planet-'+index,label:'Pianeta dell’unità '+(i+1)+': '+data.modules[index].title,action:()=>enterPlanet(index)}));
     return [];
 }
 function drawHover() {
@@ -239,58 +248,54 @@ function drawHover() {
     x=clamp(x,20,R.w-pw-20);y=clamp(y,238,R.h-ph-118);
     U.panel(x,y,pw,ph,C.lime,.97);
     if(hit.type==='system'){
-        const system=W.systems[hit.index];U.tag('SISTEMA '+system.name,x+16,y+16,C.amber);U.text(system.count+' pianeti · 4 esplorabili',x+16,y+45,'mini',C.pale);
+        const system=W.systems[hit.index];U.tag(system.discipline+' · '+system.name,x+16,y+16,sectorColors[system.sector]);U.text(system.planets.length+' unità in ordine di studio',x+16,y+45,'mini',C.pale);
         wrapClipText(system.description,x+16,y+73,pw-32,'mini',C.muted,4);
-        U.text('CLIC PER ENTRARE NEL SISTEMA',x+16,y+ph-26,'micro',C.lime);
+        U.text('CLIC PER SCEGLIERE L’AREA',x+16,y+ph-26,'micro',C.lime);
     }else if(hit.type==='ambient'){
         const body=W.systems[S.system].bodies[hit.index];U.tag('CORPO '+String(body.slot+1).padStart(2,'0')+' / '+body.profile.name.toUpperCase(),x+16,y+16,C.muted);
-        U.text('Osservazione orbitale',x+16,y+45,'mini',C.pale);wrapClipText(body.profile.name+' con '+body.moons+' lune'+(body.rings?' e anelli.':'.')+' Destinazione non esplorabile.',x+16,y+73,pw-32,'mini',C.muted,4);
-        U.text('NESSUN ACCESSO ALLA SUPERFICIE',x+16,y+ph-26,'micro',C.dim);
+        U.text('Pianeta di contorno',x+16,y+45,'mini',C.pale);wrapClipText(body.profile.name+' con '+body.moons+' lune'+(body.rings?' e anelli.':'.')+' Non contiene unità di studio.',x+16,y+73,pw-32,'mini',C.muted,4);
+        U.text('NESSUNA UNITÀ',x+16,y+ph-26,'micro',C.dim);
     }else{
-        const m=data.modules[hit.index];U.tag(m.planetName,x+16,y+16,sectorColors[m.sector]);U.text(sectors[m.sector]+' · '+coverage(m),x+16,y+45,'micro',C.pale);
-        wrapClipText(m.title+' — '+m.description,x+16,y+73,pw-32,'mini',C.muted,4);
-        U.text('CLIC PER ESPLORARE IL PIANETA',x+16,y+ph-26,'micro',C.lime);
+        const m=data.modules[hit.index],place=unitPlace(hit.index);U.tag('UNITÀ '+place.position+' DI '+place.count,x+16,y+16,sectorColors[m.sector]);U.text(m.title,x+16,y+45,'mini',C.pale);
+        wrapClipText(m.description,x+16,y+73,pw-32,'mini',C.muted,4);
+        U.text('CLIC PER AVVICINARTI AL PIANETA',x+16,y+ph-26,'micro',C.lime);
     }
 }
 function orbitUI() {
     const w = R.w, h = R.h, m = selected(), mobile = w < 850;
-    title('03 / DOSSIER ORBITALE', m.planetName, m.title);
+    title(areaTrail(m), m.title, 'Unità '+unitPlace(S.selected).position+' di '+unitPlace(S.selected).count+' dell’area '+areaOf(S.selected).name+'.');
     const px = mobile ? 18 : w - 370, pw = mobile ? w - 36 : 334, py = mobile ? h - 360 : 247, ph = mobile ? 276 : h - 337;
     U.panel(px, py, pw, ph, sectorColors[m.sector], .76);
-    U.tag(sectors[m.sector] + ' / ' + m.code, px + 20, py + 19);
+    U.tag(sectors[m.sector] + ' · ' + areaOf(S.selected).name, px + 20, py + 19, sectorColors[m.sector]);
     wrapClipText(m.title, px + 20, py + 50, pw - 40, 'sub', C.pale, 2);
     U.text(coverage(m), px + 20, py + 100, 'mini', C.lime);
     if (!mobile) {
-        wrapClipText(m.description, px + 20, py + 139, pw - 40, 'body', C.muted, 5);
-        U.text('Non una misura astronomica', px + 20, py + 285, 'mini', C.amber);
-        wrapClipText(planetProfile(S.selected).name + ' · mappa NASA di riferimento. Sistema immaginario, superficie basata su un analogo del Sistema Solare.', px + 20, py + 310, pw - 40, 'micro', C.muted, 3);
+        const room = ph - 110 - 139, lines = Math.max(1, Math.min(5, Math.floor((room - 64) / 25)));
+        wrapClipText(m.description, px + 20, py + 139, pw - 40, 'body', C.muted, lines);
+        const y = py + 139 + lines * 25 + 10;
+        if (y + 54 < py + ph - 110) { U.text('NELL’UNITÀ', px + 20, y, 'mini', C.amber); wrapClipText('Lezione su tre livelli · laboratorio · quattro domande · fonti', px + 20, y + 22, pw - 40, 'micro', C.muted, 2); }
     }
     buttonsModule(m, px + 18, py + ph - 110, pw - 36);
-    U.button('surface', mobile?'SUPERFICIE':'SCENDI ALLA STAZIONE', mobile?18:35, h-88, mobile?(w-48)/2:230,39,()=>route('surface'));
-    U.button('back-system',mobile?'AL SISTEMA':'TORNA AL SISTEMA',mobile?w/2+6:277,h-88,mobile?(w-48)/2:220,39,()=>route('system',{system:S.system}));
+    U.button('surface', mobile?'SUPERFICIE':'SCENDI IN SUPERFICIE', mobile?18:35, h-88, mobile?(w-48)/2:230,39,()=>route('surface'));
+    U.button('back-system',mobile?'ALL’AREA':'TORNA ALL’AREA',mobile?w/2+6:277,h-88,mobile?(w-48)/2:220,39,()=>route('system',{system:S.system}));
 }
 function surfaceUI() {
-    const w = R.w, h = R.h, mobile = w < 850;
-    title('04 / OSSERVAZIONE PLANETARIA', 'LA STAZIONE ECHO', W.biome.toUpperCase() + ' · ambiente 3D illustrativo. Non è una mappa climatica osservata.');
-    let wet = Array.from(W.terrain.height.values()).filter(x => x.wet).length;
-    const names = ['OSSERVATORIO DEI MODELLI', 'STAZIONE ENERGETICA', 'LABORATORIO DELLA MATERIA', 'OSSERVATORIO DELLA VITA'];
-    const desc = ['Matematica: relazioni, strutture e dimostrazioni.', 'Fisica: misure, leggi e modelli ideali.', 'Chimica: composizione, trasformazioni ed equilibrio.', 'Biologia: organizzazione, popolazioni ed evoluzione.'];
-    const px = mobile ? 18 : w - 353, pw = mobile ? w - 36 : 320, py = mobile ? h - 304 : 258, ph = mobile ? 220 : 370;
-    U.panel(px, py, pw, ph, sectorColors[S.station], .78);
-    U.tag('STAZIONE ' + (S.station + 1).toString().padStart(2, '0'), px + 18, py + 20);
+    const w = R.w, h = R.h, mobile = w < 850, m = selected(), tint = sectorColors[m.sector];
+    title(areaTrail(m, ['SUPERFICIE']), m.title, 'Quattro stazioni, una per ogni attività dell’unità.');
+    const names = ['STAZIONE DELLA LEZIONE', 'LABORATORIO', 'STAZIONE DI VERIFICA', 'STAZIONE DEI COLLEGAMENTI'];
+    const desc = ['La spiegazione su tre livelli: Base, Applica, Approfondisci.', 'Prevedi, cambia i parametri e confronta due esperimenti.', 'Quattro domande con la spiegazione di ogni risposta.', 'Le unità collegate e le fonti per approfondire.'];
+    const stages = [0, 2, 4, 5];
+    const px = mobile ? 18 : w - 353, pw = mobile ? w - 36 : 320, py = mobile ? h - 304 : 258, ph = mobile ? 220 : 300;
+    U.panel(px, py, pw, ph, tint, .78);
+    U.tag('STAZIONE ' + (S.station + 1).toString().padStart(2, '0'), px + 18, py + 20, tint);
     wrapClipText(names[S.station], px + 18, py + 52, pw - 36, 'sub', C.pale, 2);
     wrapClipText(desc[S.station], px + 18, py + 112, pw - 36, 'body', C.muted, 3);
-    if (!mobile) {
-        U.text('GEOMETRIA DELLA SCENA', px + 18, py + 218, 'mini', C.lime);
-        U.text('875 celle / ' + wet + ' aree d’acqua', px + 18, py + 249, 'body', C.pale);
-        U.text('4 stazioni / ' + W.trees.length + ' elementi vegetali', px + 18, py + 278, 'micro', C.muted);
-    }
-    U.button('enter-station', 'APRI IL PERCORSO', px + 16, py + ph - 55, pw - 32, 40, () => {
-        openCourse(data.modules[S.system + S.station * 25].id);
+    U.button('enter-station', 'APRI QUESTA ATTIVITÀ', px + 16, py + ph - 55, pw - 32, 40, () => {
+        if (m.curriculum) openCourse(m.id, stages[S.station]); else openTheory(m.id);
     }, { active: true });
     if (!mobile)
         for (const p of W.projections) {
-            U.tag('S' + (p.index + 1), p.x + 18, p.y - 10, sectorColors[p.index]);
+            U.tag('S' + (p.index + 1), p.x + 18, p.y - 10, tint);
         }
     U.button('back-planet',mobile?'ORBITA':'TORNA AL PIANETA',mobile?294:307,h-86,mobile?Math.max(65,w-312):190,36,()=>route('orbit'),{small:mobile});
     for (let i = 0; i < 4; i++)
@@ -329,7 +334,7 @@ function researchUI() {
 }
 function catalogueUI() {
     const w = R.w, h = R.h, mobile = w < 850;
-    title('05 / CATALOGO DIDATTICO', 'CENTO DESTINAZIONI', '100 nuclei guidati con spiegazioni, modelli 3D, esperimenti e autoverifica. Le fonti matematiche originali restano disponibili.');
+    title('ARGOMENTI', 'Tutte le 100 unità', 'Cerca per nome o filtra per disciplina. Ogni scheda indica l’area della mappa a cui appartiene.');
     const x = 34, ww = w - 68;
     const pathsW=mobile?96:150,searchW=ww-pathsW-8;
     U.button('search',education.short('CERCA: '+(S.query||'argomento o codice'),searchW-18,'mini'),x,245,searchW,42,()=>startEdit('search'),{active:S.editing==='search'});
@@ -340,7 +345,7 @@ function catalogueUI() {
     const cols = mobile ? 1 : w > 1400 ? 3 : 2, rows = Math.max(1, Math.floor((h - 449) / 94)), per = cols * rows, pages = Math.max(1, Math.ceil(items.length / per));
     S.catalogPage = clamp(S.catalogPage, 0, pages - 1);
     const tileW = (ww - (cols - 1) * 12) / cols;
-    items.slice(S.catalogPage * per, (S.catalogPage + 1) * per).forEach((m, i) => { const xx = x + (i % cols) * (tileW + 12), yy = 348 + Math.floor(i / cols) * 94; U.panel(xx, yy, tileW, 82, sectorColors[m.sector], m.planetIndex === S.selected ? .82 : .55); U.text(m.code, xx + 14, yy + 14, 'sub', sectorColors[m.sector]); wrapClipText(m.title, xx + 66, yy + 13, tileW - 120, 'body', C.pale, 1); U.text(coverage(m), xx + 66, yy + 50, 'micro', C.muted, { track: .4 }); U.button('catalog-unit-' + m.id, '▸', xx + tileW - 44, yy + 24, 32, 32, () => { selectIndex(m.planetIndex); route('briefing'); }, { small: true }); U.buttons.push({ id: 'catalog-row-' + m.id, label: m.code + ' ' + m.title, x: xx, y: yy, w: tileW - 50, h: 82, action: () => { selectIndex(m.planetIndex); route('briefing'); } }); });
+    items.slice(S.catalogPage * per, (S.catalogPage + 1) * per).forEach((m, i) => { const xx = x + (i % cols) * (tileW + 12), yy = 348 + Math.floor(i / cols) * 94; U.panel(xx, yy, tileW, 82, sectorColors[m.sector], m.planetIndex === S.selected ? .82 : .55); U.text(m.code, xx + 14, yy + 14, 'sub', sectorColors[m.sector]); wrapClipText(m.title, xx + 66, yy + 13, tileW - 120, 'body', C.pale, 1); U.text((sectors[m.sector] + ' · ' + areaOf(m.planetIndex).name).toUpperCase(), xx + 66, yy + 50, 'micro', C.muted, { track: .4 }); const go = () => { if (m.curriculum) openCourse(m.id); else { selectIndex(m.planetIndex); route('briefing'); } }; U.button('catalog-unit-' + m.id, '▸', xx + tileW - 44, yy + 24, 32, 32, go, { small: true }); U.buttons.at(-1).label = 'Apri l’unità ' + m.title; U.buttons.push({ id: 'catalog-row-' + m.id, label: m.title + ', ' + sectors[m.sector] + ', area ' + areaOf(m.planetIndex).name, x: xx, y: yy, w: tileW - 50, h: 82, action: go }); });
     U.button('catalog-prev', 'PRECEDENTI', x, h - 85, 126, 36, () => S.catalogPage--, { disabled: S.catalogPage === 0 });
     U.button('catalog-next', 'SUCCESSIVE', w - 160, h - 85, 126, 36, () => S.catalogPage++, { disabled: S.catalogPage >= pages - 1 });
     U.text(`${items.length} RISULTATI · ${S.catalogPage + 1}/${pages}`, w / 2, h - 72, 'micro', C.muted, { align: 'center' });
@@ -790,7 +795,7 @@ function overlay() {
     if (S.menu) {
         U.panel(15, 108, w - 30, h - 161, C.cyan, .97);
         const entries=[...nav,['sources','FONTI'],['access','ACCESSIBILITÀ']],rows=Math.max(1,Math.floor((h-195)/50)),columns=Math.ceil(entries.length/rows),bw=(w-70-(columns-1)*8)/columns;
-        entries.forEach(([id,label],i)=>U.button('mobile-'+id,label,35+Math.floor(i/rows)*(bw+8),132+(i%rows)*50,bw,44,()=>id==='access'?atlas.open('access'):route(id),{active:S.scene===id,small:columns>1}));
+        entries.forEach(([id,label],i)=>U.button('mobile-'+id,label,35+Math.floor(i/rows)*(bw+8),132+(i%rows)*50,bw,44,()=>id==='access'?atlas.open('access'):route(id),{active:(navGroups[id]||[id]).includes(S.scene),small:columns>1}));
     }
     if (S.settings) {
         const pw = Math.min(480, w - 32), x = w - pw - 16, y = 111;
@@ -954,7 +959,7 @@ function events() {
                 const hit=W.pick(x,y,S);
                 if(hit?.type==='system'||hit?.type==='planet'){
                     const touch=pointer.pointerType==='touch',same=touchTarget?.type===hit.type&&touchTarget?.index===hit.index;
-                    if(touch&&!same){touchTarget=hit;S.hoveredTarget=hit;if(hit.type==='system'){S.system=hit.index;selectIndex(hit.index+(S.sector>=0?S.sector:0)*25);}else selectIndex(hit.index);updateHash();}
+                    if(touch&&!same){touchTarget=hit;S.hoveredTarget=hit;if(hit.type==='system'){const units=indicesForSystem(hit.index);selectIndex(units.includes(S.selected)?S.selected:units[0]);}else selectIndex(hit.index);updateHash();}
                     else if(hit.type==='system')enterSystem(hit.index);else enterPlanet(hit.index);
                 }else if(hit?.type==='ambient'){touchTarget=hit;S.observedBody=hit.index;say(hit.body.profile.name+' · destinazione non esplorabile');}
                 else if(hit?.type==='node')S.node=hit.index;
@@ -1131,7 +1136,7 @@ async function init() {
         computeLab();
         events();
         S.loaded = true;
-        window.GAIA = { version: '1.6.0-atlas', state: S, get atlas() { return atlas; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0), planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndex.length, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
+        window.GAIA = { version: '1.7.0-navigazione', state: S, get atlas() { return atlas; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0), planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndex.length, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
         U = new UI(R);
         pilotEducation = new MissionUI(R, store, missionDefinition, { state:S, route, openTheory, openPDF, download, say });
         education = new CourseUI(R,store,curriculum,{state:S,route,openCourse,openTheory,openPDF,openExternal,download,say,currentUnit:()=>selected().id});
@@ -1139,6 +1144,7 @@ async function init() {
         atlas = new AtlasUI(R,W,store,data,curriculum,{state:S,selectIndex,enterSystem,openCourse,route,zoom:changeZoom,updateHash,say,
             invalidate:()=>{semanticSignature='';textSignature='';},focusCanvas:()=>canvas.focus(),reducedMotion:()=>matchMedia('(prefers-reduced-motion: reduce)').matches});
         atlas.onRoute(S.scene);
+        if(S.scene==='galaxy'&&!/[a-z]/i.test(initialHash.replace(/^#\/?(galaxy)?/,'')))atlas.open('welcome');
         const motionQuery=matchMedia('(prefers-reduced-motion: reduce)');
         motionQuery.addEventListener?.('change',e=>{if(e.matches){S.paused=true;atlas.cancelFlight();}});
 

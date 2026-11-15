@@ -53,7 +53,7 @@ L'interfaccia conserva navigazione, pannelli, controlli e tipografia della versi
 - Ombre filtrate, riflessi planari delle strutture sull'acqua, increspature animate, materiali con metallo/rugosità/emissione. Antialiasing e bloom agiscono sulla scena prima dei pannelli.
 - Transizioni della camera, pausa del movimento, selezione delle stazioni e collegamenti di ricerca evidenziati. La preferenza di movimento ridotto viene rispettata.
 
-Echo 08 / Funzioni parte da Simbiosi. Echo 02 conduce a Marea; Echo 03 o Echo 04 a Esodo. Il bioma è illustrativo e non indica il contenuto scientifico o lo stato di completamento del corso.
+Funzioni parte da Simbiosi, Algebra da Marea, Radicali ed Equazioni da Esodo. Il bioma è illustrativo e non indica il contenuto scientifico o lo stato di completamento del corso.
 
 Non vengono usate immagini generate da IA come ambienti o texture. Le vecchie mappe planetarie procedurali sono sostituite da mappe NASA, con originali e attribuzioni in `sources/nasa/`. I livelli di dettaglio sono riduzioni delle mappe esterne, senza pittura, ricolorazione o upscaling. I mondi immaginari usano analoghi del Sistema Solare, non osservazioni di esopianeti. Non vengono caricati screenshot dei render al posto delle scene. L'illuminazione WebGL è un'approssimazione in tempo reale: non è un render Cycles identico pixel per pixel.
 
@@ -67,9 +67,9 @@ Il catalogo permette ricerca e filtro senza selezionare piccoli oggetti 3D. I li
 
 ## Controlli
 
-Trascina nella scena per ruotare la camera; usa rotellina o +/− per lo zoom. Nell’atlante passa sulle stelle navigabili per leggere la descrizione e fai un solo clic per entrare nel sistema. Un clic su uno dei quattro pianeti esplorabili avvicina la camera al globo. Gli altri mostrano tipo e caratteristiche, con accesso disabilitato. Il numero e la composizione casuale dei sistemi restano stabili dopo una riapertura. I pulsanti di ritorno e Esc risalgono da superficie a pianeta, sistema e atlante, ripristinando le camere. Su touch il primo tocco seleziona e descrive, il secondo entra; il pulsante del pannello offre la stessa azione.
+Alla prima apertura una schermata propone tre ingressi: cerca un argomento, segui un percorso, esplora la galassia. Nella mappa ogni braccio della galassia è una disciplina (matematica, fisica, chimica, biologia) e ogni esagono è un’area tematica; dal centro verso l’esterno le aree seguono l’ordine di studio. I pulsanti in basso evidenziano un braccio. La scheda a destra elenca le unità dell’area: APRI L’UNITÀ apre la lezione, SISTEMA 3D porta ai pianeti, uno per unità, dall’orbita interna a quella esterna. GUIDA mostra cinque passi direttamente sulla mappa. Trascina per ruotare la camera; usa rotellina o +/− per lo zoom.
 
-Tab e Invio raggiungono anche i 25 sistemi e i pianeti, senza dover centrare punti piccoli. Frecce e Page Up/Down scorrono il lettore; rotellina e trascinamento funzionano anche sui documenti. Ctrl/Cmd+K apre la ricerca. Spazio sospende o riprende il movimento; la pausa rende immediati gli avvicinamenti.
+Tab e Invio raggiungono anche le 25 aree e i pianeti, senza dover centrare punti piccoli. Frecce e Page Up/Down scorrono il lettore; rotellina e trascinamento funzionano anche sui documenti. Ctrl/Cmd+K apre la ricerca. Spazio sospende o riprende il movimento; la pausa rende immediati gli avvicinamenti.
 
 **Il milione di stelle è fisso in tutte le viste cosmiche e durante gli zoom.** Alta, bilanciata e ridotta modificano risoluzione interna della scena e bloom, mantenendo la UI a piena risoluzione. Le vecchie preferenze da 250.000/60.000 vengono migrate; non riducono più le stelle. Il contatore proviene dalle chiamate di disegno effettive. I punti sono procedurali e non costituiscono un catalogo astronomico osservato; il numero sottoposto alla GPU non significa che ogni punto sia distinguibile o dentro il campo visivo.
 
