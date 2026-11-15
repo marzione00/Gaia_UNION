@@ -62,18 +62,19 @@
       "title": "Linguaggio e ragionamento matematico",
       "sector": 0,
       "modelId": "math-c01",
-      "coverage": "guided-foundation",
-      "editorialStatus": "original-draft",
-      "scope": "Variazioni percentuali con base esplicita",
-      "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+      "coverage": "guided-activity",
+      "editorialStatus": "prototype-draft",
+      "scope": "Proposizioni con quantificatori sui numeri naturali, interi e reali",
+      "narrativeStatus": "La stazione e il pianeta sono immaginari; i numeri e le regole della logica sono quelli di sempre.",
       "objectives": [
-        "Spiegare: variazioni percentuali con base esplicita.",
-        "Applicare y = x(1+a/100), dichiarando variabili e unità.",
-        "Confrontare due configurazioni e discutere i limiti del modello."
+        "Distinguere una proposizione universale («per ogni») da una esistenziale («esiste»).",
+        "Mostrare che una proposizione universale è falsa con un controesempio.",
+        "Spiegare perché molti esempi non dimostrano una proposizione universale.",
+        "Scrivere la negazione di una proposizione con quantificatori."
       ],
       "prerequisites": [],
       "connections": [
-        "math-c06"
+        "math-p01"
       ],
       "sources": [
         "precalculus"
@@ -92,246 +93,314 @@
       },
       "glossary": [
         {
-          "term": "Valore iniziale",
-          "definition": "Variabile indipendente, unità u.a.; intervallo [0; 100]."
+          "term": "Proposizione",
+          "definition": "Enunciato di cui si può dire se è vero o falso."
         },
         {
-          "term": "Valore finale",
-          "definition": "Risultato calcolato dal modello, unità u.a.."
+          "term": "Quantificatore universale",
+          "definition": "«Per ogni» (∀): la proposizione deve valere per tutti gli elementi del dominio."
         },
         {
-          "term": "Variazione",
-          "definition": "Parametro a, unità %; intervallo [-50; 100]."
+          "term": "Quantificatore esistenziale",
+          "definition": "«Esiste» (∃): la proposizione deve valere per almeno un elemento del dominio."
+        },
+        {
+          "term": "Controesempio",
+          "definition": "Caso particolare che rende falsa una proposizione universale."
+        },
+        {
+          "term": "Negazione",
+          "definition": "Proposizione vera esattamente quando quella di partenza è falsa; scambia «per ogni» con «esiste»."
+        },
+        {
+          "term": "Implicazione inversa",
+          "definition": "Data «se P allora Q», l’inversa è «se Q allora P». Può essere falsa anche quando la prima è vera."
         }
       ],
       "steps": [
         {
           "label": "SCOPRI",
-          "title": "La domanda della spedizione",
+          "title": "Vero sempre, vero a volte",
           "text": {
             "base": [
-              "Il magazzino della spedizione annuncia un aumento del 20% delle scorte, seguito da una perdita del 20%. Il responsabile sostiene che le due operazioni si annullino. La tua missione è controllare il ragionamento prima di autorizzare il viaggio.",
-              "Una percentuale è un rapporto rispetto a una base dichiarata. Il 20% di 50 è 10, non 20. Aumentare una quantità del 20% significa moltiplicarla per 1,20; diminuirla del 20% significa moltiplicarla per 0,80. Le parole «di» e «rispetto a» individuano il denominatore del rapporto."
+              "Alla stazione del pianeta glaciale arrivano messaggi automatici scritti come affermazioni sui numeri. Prima di usarli, il centro di controllo deve decidere quali sono veri in ogni caso e quali sono falsi, e per quelli falsi deve mostrare il caso che lo prova.",
+              "L’affermazione «per ogni numero naturale n, n² ≥ n» vale sempre. L’affermazione «per ogni intero n, n² > n» le somiglia, eppure è falsa: per n = 0 si ottiene 0 > 0."
             ],
             "intermediate": [
-              "Il magazzino della spedizione annuncia un aumento del 20% delle scorte, seguito da una perdita del 20%. Il responsabile sostiene che le due operazioni si annullino. La tua missione è controllare il ragionamento prima di autorizzare il viaggio.",
-              "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale."
+              "Alla stazione del pianeta glaciale arrivano messaggi automatici scritti come affermazioni sui numeri. Prima di usarli, il centro di controllo deve decidere quali sono veri in ogni caso e quali sono falsi, e per quelli falsi deve mostrare il caso che lo prova.",
+              "L’affermazione «per ogni numero naturale n, n² ≥ n» vale sempre. L’affermazione «per ogni intero n, n² > n» le somiglia, eppure è falsa: per n = 0 si ottiene 0 > 0.",
+              "Una proposizione è un enunciato vero o falso. I quantificatori dicono per quali oggetti vale: «per ogni» (∀) chiede che valga in tutti i casi, «esiste» (∃) chiede almeno un caso."
             ],
             "advanced": [
-              "Il magazzino della spedizione annuncia un aumento del 20% delle scorte, seguito da una perdita del 20%. Il responsabile sostiene che le due operazioni si annullino. La tua missione è controllare il ragionamento prima di autorizzare il viaggio.",
-              "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
-              "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale."
+              "Alla stazione del pianeta glaciale arrivano messaggi automatici scritti come affermazioni sui numeri. Prima di usarli, il centro di controllo deve decidere quali sono veri in ogni caso e quali sono falsi, e per quelli falsi deve mostrare il caso che lo prova.",
+              "Una proposizione è un enunciato vero o falso. I quantificatori dicono per quali oggetti vale: «per ogni» (∀) chiede che valga in tutti i casi, «esiste» (∃) chiede almeno un caso.",
+              "Il dominio fa parte dell’enunciato: «esiste x tale che x² = 2» è falsa tra i numeri razionali e vera tra i reali."
             ]
           }
         },
         {
           "label": "CAPISCI",
-          "title": "Dall’intuizione alla relazione",
+          "title": "Esempi e controesempi",
           "text": {
             "base": [
-              "Una percentuale è un rapporto rispetto a una base dichiarata. Il 20% di 50 è 10, non 20. Aumentare una quantità del 20% significa moltiplicarla per 1,20; diminuirla del 20% significa moltiplicarla per 0,80. Le parole «di» e «rispetto a» individuano il denominatore del rapporto.",
-              "Parti da 50 unità. Con a=20 ottieni 60. Applicando poi una diminuzione del 20% a 60 ottieni 48. La differenza finale è -2 unità; dividendo per la base iniziale 50 trovi -0,04, cioè -4%."
+              "Per mostrare che una proposizione universale è falsa basta un controesempio, cioè un caso in cui l’enunciato non vale. Per mostrarla vera gli esempi non bastano mai: serve un ragionamento che valga per tutti i casi.",
+              "Per una proposizione esistenziale vale il contrario: un esempio basta a mostrarla vera, mentre per mostrarla falsa serve un argomento valido per tutti i casi."
             ],
             "intermediate": [
-              "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale.",
-              "La variabile Valore iniziale è espressa in u.a.; Valore finale in u.a.. Il dominio dello strumento è [0; 100]. La relazione implementata è: y = x(1+a/100).",
-              "Parti da 50 unità. Con a=20 ottieni 60. Applicando poi una diminuzione del 20% a 60 ottieni 48. La differenza finale è -2 unità; dividendo per la base iniziale 50 trovi -0,04, cioè -4%."
+              "Per mostrare che una proposizione universale è falsa basta un controesempio, cioè un caso in cui l’enunciato non vale. Per mostrarla vera gli esempi non bastano mai: serve un ragionamento che valga per tutti i casi.",
+              "Per una proposizione esistenziale vale il contrario: un esempio basta a mostrarla vera, mentre per mostrarla falsa serve un argomento valido per tutti i casi.",
+              "Esempio: «per ogni naturale n, n² + n + 41 è primo» vale per n = 0, 1, 2 e così via fino a 39. Per n = 40 si ottiene 40² + 40 + 41 = 1681 = 41 · 41, che non è primo."
             ],
             "advanced": [
-              "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale.",
-              "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
-              "Sommare direttamente +20% e -20% ignora che le percentuali successive agiscono su basi diverse. Una conclusione generale richiede una dimostrazione; un solo controesempio basta invece a smentire «si annullano sempre»."
+              "Per mostrare che una proposizione universale è falsa basta un controesempio, cioè un caso in cui l’enunciato non vale. Per mostrarla vera gli esempi non bastano mai: serve un ragionamento che valga per tutti i casi.",
+              "Esempio: «per ogni naturale n, n² + n + 41 è primo» vale per n = 0, 1, 2 e così via fino a 39. Per n = 40 si ottiene 40² + 40 + 41 = 1681 = 41 · 41, che non è primo.",
+              "La negazione scambia i quantificatori: la negazione di «per ogni n vale P(n)» è «esiste n per cui P(n) è falsa». Un controesempio è il testimone di questa negazione."
             ]
           }
         },
         {
           "label": "SPERIMENTA",
-          "title": "Prevedi, modifica, confronta",
+          "title": "Il banco di prova",
           "text": {
             "base": [
-              "Nel laboratorio imposta Variazione (a): 20 %. Prima di salvare A, prevedi come cambia Valore finale fra Valore iniziale=25 e 50 u.a.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Parti da 50 unità. Con a=20 ottieni 60. Applicando poi una diminuzione del 20% a 60 ottieni 48. La differenza finale è -2 unità; dividendo per la base iniziale 50 trovi -0,04, cioè -4%.",
-              "La variabile Valore iniziale è espressa in u.a.; Valore finale in u.a.. Il dominio dello strumento è [0; 100]. La relazione implementata è: y = x(1+a/100)."
+              "Nel laboratorio trovi otto proposizioni. Per ciascuna puoi provare alcuni valori e vedere se l’enunciato vale. Poi decidi se è vera o falsa; se è un «per ogni» falso, scegli anche un controesempio.",
+              "Per completare l’attività classifica correttamente sei proposizioni."
             ],
             "intermediate": [
-              "Nel laboratorio imposta Variazione (a): 20 %. Prima di salvare A, prevedi come cambia Valore finale fra Valore iniziale=25 e 50 u.a.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "La variabile Valore iniziale è espressa in u.a.; Valore finale in u.a.. Il dominio dello strumento è [0; 100]. La relazione implementata è: y = x(1+a/100).",
-              "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale."
+              "Nel laboratorio trovi otto proposizioni. Per ciascuna puoi provare alcuni valori e vedere se l’enunciato vale. Poi decidi se è vera o falsa; se è un «per ogni» falso, scegli anche un controesempio.",
+              "Prova sempre lo zero, i numeri negativi e i valori più piccoli del dominio: sono i casi in cui le proposizioni sbagliate cedono più spesso.",
+              "Per completare l’attività classifica correttamente sei proposizioni."
             ],
             "advanced": [
-              "Nel laboratorio imposta Variazione (a): 20 %. Prima di salvare A, prevedi come cambia Valore finale fra Valore iniziale=25 e 50 u.a.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Nel laboratorio trovi otto proposizioni. Per ciascuna puoi provare alcuni valori e vedere se l’enunciato vale. Poi decidi se è vera o falsa; se è un «per ogni» falso, scegli anche un controesempio.",
+              "Per le proposizioni che ritieni vere scrivi nel diario un argomento generale. Esempio: se n è pari si scrive n = 2k, quindi n² = 4k² = 2(2k²) è pari.",
+              "Per completare l’attività classifica correttamente sei proposizioni."
             ]
           }
         },
         {
           "label": "INTERPRETA",
-          "title": "Leggere senza sovrainterpretare",
+          "title": "Che cosa prova un esempio",
           "text": {
             "base": [
-              "Sommare direttamente +20% e -20% ignora che le percentuali successive agiscono su basi diverse. Una conclusione generale richiede una dimostrazione; un solo controesempio basta invece a smentire «si annullano sempre».",
-              "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Se un valore rende vero un enunciato universale, hai trovato solo un caso favorevole. Una proposizione può reggere a tutti i valori provati ed essere falsa per un numero più grande, come n² + n + 41 per n = 40.",
+              "Errore frequente: confondere un’implicazione con la sua inversa. «Se n è divisibile per 4, allora n è pari» è vera; «se n è pari, allora n è divisibile per 4» è falsa, come mostra n = 2."
             ],
             "intermediate": [
-              "Sommare direttamente +20% e -20% ignora che le percentuali successive agiscono su basi diverse. Una conclusione generale richiede una dimostrazione; un solo controesempio basta invece a smentire «si annullano sempre».",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Se un valore rende vero un enunciato universale, hai trovato solo un caso favorevole. Una proposizione può reggere a tutti i valori provati ed essere falsa per un numero più grande, come n² + n + 41 per n = 40.",
+              "Errore frequente: confondere un’implicazione con la sua inversa. «Se n è divisibile per 4, allora n è pari» è vera; «se n è pari, allora n è divisibile per 4» è falsa, come mostra n = 2.",
+              "La negazione di «tutti i numeri primi sono dispari» è «esiste un numero primo pari». È vera, e il testimone è 2."
             ],
             "advanced": [
-              "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale.",
-              "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Errore frequente: confondere un’implicazione con la sua inversa. «Se n è divisibile per 4, allora n è pari» è vera; «se n è pari, allora n è divisibile per 4» è falsa, come mostra n = 2.",
+              "La negazione di «tutti i numeri primi sono dispari» è «esiste un numero primo pari». È vera, e il testimone è 2.",
+              "Alcune affermazioni universali vere non si possono controllare caso per caso, perché i casi sono infiniti: servono la dimostrazione diretta, quella per assurdo o quella per induzione."
             ]
           }
         },
         {
           "label": "VERIFICA",
-          "title": "Verifica ragionamento e calcolo",
+          "title": "Verifica",
           "text": {
             "base": [
-              "Una percentuale è un rapporto rispetto a una base dichiarata. Il 20% di 50 è 10, non 20. Aumentare una quantità del 20% significa moltiplicarla per 1,20; diminuirla del 20% significa moltiplicarla per 0,80. Le parole «di» e «rispetto a» individuano il denominatore del rapporto.",
-              "Parti da 50 unità. Con a=20 ottieni 60. Applicando poi una diminuzione del 20% a 60 ottieni 48. La differenza finale è -2 unità; dividendo per la base iniziale 50 trovi -0,04, cioè -4%."
+              "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
             ],
             "intermediate": [
-              "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale.",
-              "La variabile Valore iniziale è espressa in u.a.; Valore finale in u.a.. Il dominio dello strumento è [0; 100]. La relazione implementata è: y = x(1+a/100)."
+              "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
             ],
             "advanced": [
-              "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
-              "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale."
+              "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
             ]
           }
         },
         {
           "label": "COLLEGA",
-          "title": "Conclusione e nuova domanda",
+          "title": "Collegamenti",
           "text": {
             "base": [
-              "Nel diario distingui previsione, risultato e interpretazione. Variazioni percentuali con base esplicita.",
-              "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale.",
-              "Collegamento consigliato: math-c06. Il completamento registra attività e autoverifica, non certifica competenze."
+              "Il linguaggio dei quantificatori ritorna in ogni capitolo, nelle definizioni di funzione, di limite e di probabilità.",
+              "Nel diario scrivi una proposizione falsa con il suo controesempio e una proposizione vera con il motivo per cui vale."
             ],
             "intermediate": [
-              "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale.",
-              "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale.",
-              "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto."
+              "Il linguaggio dei quantificatori ritorna in ogni capitolo, nelle definizioni di funzione, di limite e di probabilità.",
+              "Nella dispensa il capitolo sul linguaggio matematico approfondisce connettivi, tavole di verità e insiemi.",
+              "Nel diario scrivi una proposizione falsa con il suo controesempio e una proposizione vera con il motivo per cui vale."
             ],
             "advanced": [
-              "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
-              "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale.",
-              "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+              "Il linguaggio dei quantificatori ritorna in ogni capitolo, nelle definizioni di funzione, di limite e di probabilità.",
+              "La logica dei quantificatori è anche alla base della programmazione: un ciclo che controlla tutti gli elementi di una lista verifica un «per ogni», un ciclo che si ferma al primo elemento adatto verifica un «esiste».",
+              "Nel diario scrivi una proposizione falsa con il suo controesempio e una proposizione vera con il motivo per cui vale."
             ]
           }
         }
       ],
       "questions": [
         {
-          "id": "math-c01-concept",
-          "prompt": "Due variazioni successive del +20% e -20% producono:",
+          "id": "math-c01-q1",
+          "prompt": "Quale valore è un controesempio a «per ogni intero n, n² > n»?",
           "options": [
             {
               "id": "A",
-              "text": "Una perdita del 4% sul valore iniziale",
-              "feedback": "Una percentuale è un rapporto rispetto a una base dichiarata. Il 20% di 50 è 10, non 20. Aumentare una quantità del 20% significa moltiplicarla per 1,20; diminuirla del 20% significa moltiplicarla per 0,80. Le parole «di» e «rispetto a» individuano il denominatore del rapporto."
+              "text": "n = 2",
+              "feedback": "Per n = 2 si ha 4 > 2, che è vero. Un controesempio deve rendere falso l’enunciato."
             },
             {
               "id": "B",
-              "text": "Nessuna variazione",
-              "feedback": "Sommare direttamente +20% e -20% ignora che le percentuali successive agiscono su basi diverse. Una conclusione generale richiede una dimostrazione; un solo controesempio basta invece a smentire «si annullano sempre»."
+              "text": "n = −3",
+              "feedback": "Per n = −3 si ha 9 > −3, che è vero: i negativi qui non creano problemi."
             },
             {
               "id": "C",
-              "text": "Una perdita del 20%",
-              "feedback": "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale."
+              "text": "n = 10",
+              "feedback": "Per n = 10 si ha 100 > 10, che è vero. Prova i valori più piccoli."
+            },
+            {
+              "id": "D",
+              "text": "n = 1",
+              "feedback": "Esatto: per n = 1 si ottiene 1 > 1, che è falso. Basta questo caso per smentire l’enunciato."
+            }
+          ],
+          "correct": "D"
+        },
+        {
+          "id": "math-c01-q2",
+          "prompt": "Hai verificato che una proprietà vale per i primi mille numeri naturali. Che cosa puoi concludere sulla proprietà «per ogni naturale»?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Che è vera per tutti i naturali",
+              "feedback": "Mille casi favorevoli restano casi particolari: n² + n + 41 è primo per quaranta valori di fila e poi smette."
+            },
+            {
+              "id": "B",
+              "text": "Nulla di definitivo: per una proposizione universale serve una dimostrazione",
+              "feedback": "Esatto: gli esempi possono suggerire una congettura, ma solo un ragionamento valido per tutti i casi la dimostra."
+            },
+            {
+              "id": "C",
+              "text": "Che è vera con probabilità molto alta",
+              "feedback": "In matematica una proposizione è vera o falsa: il numero dei casi controllati non ne misura la verità."
+            },
+            {
+              "id": "D",
+              "text": "Che è falsa",
+              "feedback": "Nessun caso la smentisce: senza un controesempio non puoi dire che è falsa."
+            }
+          ],
+          "correct": "B"
+        },
+        {
+          "id": "math-c01-q3",
+          "prompt": "Qual è la negazione di «ogni studente della classe ha consegnato il compito»?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Almeno uno studente non ha consegnato il compito",
+              "feedback": "Esatto: la negazione di un «per ogni» è un «esiste» con la proprietà negata."
+            },
+            {
+              "id": "B",
+              "text": "Nessuno studente ha consegnato il compito",
+              "feedback": "Questa affermazione è più forte della negazione: basterebbe un solo studente senza compito per rendere falsa quella di partenza."
+            },
+            {
+              "id": "C",
+              "text": "Ogni studente non ha consegnato il compito",
+              "feedback": "È un altro modo di dire «nessuno ha consegnato»: hai negato la proprietà senza cambiare il quantificatore."
+            },
+            {
+              "id": "D",
+              "text": "Almeno uno studente ha consegnato il compito",
+              "feedback": "Questa frase può essere vera insieme a quella di partenza, quindi non ne è la negazione."
             }
           ],
           "correct": "A"
         },
         {
-          "id": "math-c01-calculation",
-          "prompt": "Calcolo: Variazione (a)=20 %. Per Valore iniziale=50 u.a., quanto vale Valore finale?",
+          "id": "math-c01-q4",
+          "prompt": "«Se n è pari, allora n² è pari» è vera. Che cosa si può dire di «se n² è pari, allora n è pari»?",
           "options": [
             {
               "id": "A",
-              "text": "90 u.a.",
-              "feedback": "Questo valore non soddisfa la relazione. y = x(1+a/100). Con Variazione (a)=20 % e Valore iniziale=50 u.a., il risultato è 60 u.a.. Conserva le unità e arrotonda solo alla fine."
+              "text": "È vera, perché è l’inversa di una proposizione vera",
+              "feedback": "L’inversa di un’implicazione vera può essere falsa: «se n è divisibile per 4 allora è pari» è vera, la sua inversa no."
             },
             {
               "id": "B",
-              "text": "30 u.a.",
-              "feedback": "Controlla sostituzione, segno e unità. y = x(1+a/100). Con Variazione (a)=20 % e Valore iniziale=50 u.a., il risultato è 60 u.a.. Conserva le unità e arrotonda solo alla fine."
+              "text": "È falsa, perché l’inversa di una proposizione vera è sempre falsa",
+              "feedback": "Non esiste una regola del genere: l’inversa va studiata a parte, e in questo caso è vera."
             },
             {
               "id": "C",
-              "text": "60 u.a.",
-              "feedback": "y = x(1+a/100). Con Variazione (a)=20 % e Valore iniziale=50 u.a., il risultato è 60 u.a.. Conserva le unità e arrotonda solo alla fine."
-            }
-          ],
-          "correct": "C",
-          "numeric": {
-            "x": 50,
-            "parameters": {
-              "a": 20
-            },
-            "expected": 60,
-            "unit": "u.a."
-          }
-        },
-        {
-          "id": "math-c01-transfer",
-          "prompt": "Trasferimento: Variazione (a)=25 %. Per Valore iniziale=50 u.a., quanto vale Valore finale?",
-          "options": [
-            {
-              "id": "A",
-              "text": "31,25 u.a.",
-              "feedback": "Controlla sostituzione, segno e unità. y = x(1+a/100). Con Variazione (a)=25 % e Valore iniziale=50 u.a., il risultato è 62,5 u.a.. Conserva le unità e arrotonda solo alla fine."
+              "text": "È vera anch’essa, ma va dimostrata a parte",
+              "feedback": "Esatto: se n fosse dispari, n² sarebbe dispari. Quindi n² pari implica n pari, e la dimostrazione è indipendente dalla prima."
             },
             {
-              "id": "B",
-              "text": "62,5 u.a.",
-              "feedback": "y = x(1+a/100). Con Variazione (a)=25 % e Valore iniziale=50 u.a., il risultato è 62,5 u.a.. Conserva le unità e arrotonda solo alla fine."
-            },
-            {
-              "id": "C",
-              "text": "93,75 u.a.",
-              "feedback": "Questo valore non soddisfa la relazione. y = x(1+a/100). Con Variazione (a)=25 % e Valore iniziale=50 u.a., il risultato è 62,5 u.a.. Conserva le unità e arrotonda solo alla fine."
-            }
-          ],
-          "correct": "B",
-          "numeric": {
-            "x": 50,
-            "parameters": {
-              "a": 25
-            },
-            "expected": 62.5,
-            "unit": "u.a."
-          }
-        },
-        {
-          "id": "math-c01-limits",
-          "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-          "options": [
-            {
-              "id": "A",
-              "text": "Riproduce ogni dettaglio del pianeta reale",
-              "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale."
-            },
-            {
-              "id": "B",
-              "text": "Basta il grafico per provare una legge universale",
-              "feedback": "Una visualizzazione non è una dimostrazione universale. Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale."
-            },
-            {
-              "id": "C",
-              "text": "Variazioni percentuali con base esplicita",
-              "feedback": "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale."
+              "id": "D",
+              "text": "Non è una proposizione",
+              "feedback": "È una proposizione: per ogni intero afferma qualcosa che è vero o falso."
             }
           ],
           "correct": "C"
+        },
+        {
+          "id": "math-c01-q5",
+          "prompt": "Come si dimostra che «esiste un numero primo pari» è vera?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Verificando che tutti i numeri pari sono primi",
+              "feedback": "Questa sarebbe una proposizione universale, ed è falsa: 4 è pari e non è primo."
+            },
+            {
+              "id": "B",
+              "text": "Trovando un numero pari che non è primo",
+              "feedback": "Un numero pari non primo non dice nulla sull’esistenza di un primo pari."
+            },
+            {
+              "id": "C",
+              "text": "Non si può dimostrare",
+              "feedback": "Una proposizione esistenziale si dimostra mostrando un caso: qui il caso esiste."
+            },
+            {
+              "id": "D",
+              "text": "Mostrando il numero 2",
+              "feedback": "Esatto: 2 è primo ed è pari. Per un «esiste» basta un testimone."
+            }
+          ],
+          "correct": "D"
+        },
+        {
+          "id": "math-c01-q6",
+          "prompt": "La proposizione «esiste x tale che x² = 2» è vera?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Dipende dal dominio: è falsa tra i numeri razionali e vera tra i reali",
+              "feedback": "Esatto: √2 è reale ma non razionale. Il dominio fa parte della proposizione."
+            },
+            {
+              "id": "B",
+              "text": "È sempre vera",
+              "feedback": "Tra i razionali nessun numero ha quadrato 2: la verità dipende dal dominio scelto."
+            },
+            {
+              "id": "C",
+              "text": "È sempre falsa",
+              "feedback": "Tra i reali il numero √2 soddisfa x² = 2."
+            },
+            {
+              "id": "D",
+              "text": "È vera tra gli interi",
+              "feedback": "Nessun intero ha quadrato 2: 1² = 1 e 2² = 4."
+            }
+          ],
+          "correct": "A"
         }
-      ]
+      ],
+      "activity": {
+        "kind": "logic"
+      }
     },
     {
       "schemaVersion": 1,
@@ -15898,268 +15967,329 @@
       "title": "Geometria molecolare e VSEPR",
       "sector": 2,
       "modelId": "chemistry-08",
-      "coverage": "guided-foundation",
-      "editorialStatus": "original-draft",
-      "scope": "Geometria triatomica, non equilibrio elettronico",
-      "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+      "coverage": "guided-activity",
+      "editorialStatus": "prototype-draft",
+      "scope": "Forma delle molecole con un solo atomo centrale secondo il modello VSEPR",
+      "narrativeStatus": "La stazione e il pianeta sono immaginari; la chimica delle molecole è quella reale.",
       "objectives": [
-        "Spiegare: geometria triatomica, non equilibrio elettronico.",
-        "Applicare d = √(2 l²(1-cos θ)), dichiarando variabili e unità.",
-        "Confrontare due configurazioni e discutere i limiti del modello."
+        "Contare i domini elettronici dell’atomo centrale a partire dalla struttura di Lewis.",
+        "Prevedere geometria elettronica e forma della molecola con la notazione AXₘEₙ.",
+        "Spiegare perché le coppie solitarie riducono gli angoli di legame.",
+        "Collegare la forma della molecola alla sua polarità."
       ],
       "prerequisites": [
         "chemistry-07"
       ],
       "connections": [
-        "math-c09"
+        "chemistry-09"
       ],
       "sources": [
-        "chemistry",
-        "si"
+        "chemistry"
       ],
       "originalSource": null,
       "glossary": [
         {
-          "term": "Angolo θ",
-          "definition": "Variabile indipendente, unità °; intervallo [0; 180]."
+          "term": "Dominio elettronico",
+          "definition": "Regione attorno all’atomo centrale occupata da elettroni: un legame semplice, un legame multiplo o una coppia solitaria contano ciascuno come un dominio."
         },
         {
-          "term": "Distanza terminali",
-          "definition": "Risultato calcolato dal modello, unità Å."
+          "term": "Coppia solitaria",
+          "definition": "Coppia di elettroni di valenza dell’atomo centrale che non forma legami; occupa più spazio di una coppia di legame."
         },
         {
-          "term": "Lunghezza legame l",
-          "definition": "Parametro a, unità Å; intervallo [0,5; 2]."
+          "term": "Geometria elettronica",
+          "definition": "Disposizione di tutti i domini attorno all’atomo centrale, coppie solitarie comprese."
+        },
+        {
+          "term": "Forma della molecola",
+          "definition": "Disposizione dei soli nuclei atomici: è la geometria che si misura sperimentalmente."
+        },
+        {
+          "term": "Notazione AXₘEₙ",
+          "definition": "A è l’atomo centrale, m il numero di atomi legati, n il numero di coppie solitarie."
         }
       ],
       "steps": [
         {
           "label": "SCOPRI",
-          "title": "La domanda della spedizione",
+          "title": "Che forma ha una molecola?",
           "text": {
             "base": [
-              "Il laboratorio costruisce un modello triatomico. Ruotarlo mostra che l’angolo fra i legami modifica la distanza fra gli atomi terminali, anche quando le lunghezze dei due legami restano costanti.",
-              "Le strutture di Lewis e il modello VSEPR aiutano a ragionare sulla disposizione dei domini elettronici. La geometria elettronica non coincide sempre con quella degli atomi, perché coppie non leganti possono occupare domini."
+              "Dalle fumarole del pianeta vulcanico escono vapore acqueo, anidride carbonica e diossido di zolfo. La stazione deve sapere quali di queste molecole sono polari, perché le molecole polari si sciolgono nelle goccioline d’acqua e restano nell’aria più a lungo. Per saperlo deve prima conoscerne la forma.",
+              "La formula chimica dice quali atomi ci sono e quanti, ma tace sulla loro disposizione nello spazio. CO₂ è lineare e H₂O è piegata, anche se entrambe hanno un atomo centrale e due atomi legati."
             ],
             "intermediate": [
-              "Il laboratorio costruisce un modello triatomico. Ruotarlo mostra che l’angolo fra i legami modifica la distanza fra gli atomi terminali, anche quando le lunghezze dei due legami restano costanti.",
-              "Per due legami uguali di lunghezza l separati da angolo θ, il teorema del coseno dà d²=2l²(1-cosθ). Il laboratorio rende interattiva questa geometria; non calcola l’angolo di equilibrio di una molecola reale."
+              "Dalle fumarole del pianeta vulcanico escono vapore acqueo, anidride carbonica e diossido di zolfo. La stazione deve sapere quali di queste molecole sono polari, perché le molecole polari si sciolgono nelle goccioline d’acqua e restano nell’aria più a lungo. Per saperlo deve prima conoscerne la forma.",
+              "Il modello VSEPR (dall’inglese Valence Shell Electron Pair Repulsion, repulsione delle coppie elettroniche di valenza) parte da un’idea semplice: le regioni ricche di elettroni attorno all’atomo centrale si respingono e si dispongono il più lontano possibile le une dalle altre."
             ],
             "advanced": [
-              "Il laboratorio costruisce un modello triatomico. Ruotarlo mostra che l’angolo fra i legami modifica la distanza fra gli atomi terminali, anche quando le lunghezze dei due legami restano costanti.",
-              "Confronta una disposizione lineare con una angolare. Spiega come la somma vettoriale dei dipoli di legame possa dipendere dalla simmetria, senza dedurre i dipoli dalle sole distanze.",
-              "Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare."
+              "Dalle fumarole del pianeta vulcanico escono vapore acqueo, anidride carbonica e diossido di zolfo. La stazione deve sapere quali di queste molecole sono polari, perché le molecole polari si sciolgono nelle goccioline d’acqua e restano nell’aria più a lungo. Per saperlo deve prima conoscerne la forma.",
+              "Il modello VSEPR (dall’inglese Valence Shell Electron Pair Repulsion, repulsione delle coppie elettroniche di valenza) parte da un’idea semplice: le regioni ricche di elettroni attorno all’atomo centrale si respingono e si dispongono il più lontano possibile le une dalle altre.",
+              "Il modello si limita a previsioni qualitative, senza calcolare energie od orbitali, e funziona bene per le molecole con un atomo centrale degli elementi dei gruppi principali."
             ]
           }
         },
         {
           "label": "CAPISCI",
-          "title": "Dall’intuizione alla relazione",
+          "title": "Contare i domini",
           "text": {
             "base": [
-              "Le strutture di Lewis e il modello VSEPR aiutano a ragionare sulla disposizione dei domini elettronici. La geometria elettronica non coincide sempre con quella degli atomi, perché coppie non leganti possono occupare domini.",
-              "Con l=1 Å e θ=60°, la distanza terminale è 1 Å. Con θ=180°, diventa 2 Å. L’angolo visualizzato si inserisce in gradi e viene convertito per il calcolo trigonometrico."
+              "Si parte dalla struttura di Lewis e si contano i domini elettronici dell’atomo centrale. Ogni atomo legato conta come un dominio, qualunque sia l’ordine del legame: un doppio o un triplo legame occupano una sola direzione. Ogni coppia solitaria dell’atomo centrale conta come un altro dominio.",
+              "Il numero di domini fissa la geometria elettronica: con 2 domini è lineare, con 3 trigonale planare, con 4 tetraedrica, con 5 bipiramidale trigonale, con 6 ottaedrica."
             ],
             "intermediate": [
-              "Per due legami uguali di lunghezza l separati da angolo θ, il teorema del coseno dà d²=2l²(1-cosθ). Il laboratorio rende interattiva questa geometria; non calcola l’angolo di equilibrio di una molecola reale.",
-              "La variabile Angolo θ è espressa in °; Distanza terminali in Å. Il dominio dello strumento è [0; 180]. La relazione implementata è: d = √(2 l²(1-cos θ)).",
-              "Con l=1 Å e θ=60°, la distanza terminale è 1 Å. Con θ=180°, diventa 2 Å. L’angolo visualizzato si inserisce in gradi e viene convertito per il calcolo trigonometrico."
+              "Si parte dalla struttura di Lewis e si contano i domini elettronici dell’atomo centrale. Ogni atomo legato conta come un dominio, qualunque sia l’ordine del legame: un doppio o un triplo legame occupano una sola direzione. Ogni coppia solitaria dell’atomo centrale conta come un altro dominio.",
+              "Il numero di domini fissa la geometria elettronica: con 2 domini è lineare, con 3 trigonale planare, con 4 tetraedrica, con 5 bipiramidale trigonale, con 6 ottaedrica.",
+              "La forma della molecola descrive solo le posizioni dei nuclei, perché le coppie solitarie non si osservano. In NH₃ i domini sono quattro, tre legami e una coppia solitaria: la geometria elettronica è tetraedrica, la molecola è una piramide a base triangolare."
             ],
             "advanced": [
-              "Per due legami uguali di lunghezza l separati da angolo θ, il teorema del coseno dà d²=2l²(1-cosθ). Il laboratorio rende interattiva questa geometria; non calcola l’angolo di equilibrio di una molecola reale.",
-              "Confronta una disposizione lineare con una angolare. Spiega come la somma vettoriale dei dipoli di legame possa dipendere dalla simmetria, senza dedurre i dipoli dalle sole distanze.",
-              "Cambiare liberamente l’angolo nel modello non significa che una molecola reale possa assumere tutte le configurazioni senza costo energetico. Le sfere colorate e i bastoncini sono convenzioni."
+              "Si parte dalla struttura di Lewis e si contano i domini elettronici dell’atomo centrale. Ogni atomo legato conta come un dominio, qualunque sia l’ordine del legame: un doppio o un triplo legame occupano una sola direzione. Ogni coppia solitaria dell’atomo centrale conta come un altro dominio.",
+              "Le coppie solitarie respingono più delle coppie di legame, perché sono trattenute da un solo nucleo e si allargano vicino all’atomo centrale. L’ordine delle repulsioni è: solitaria-solitaria, poi solitaria-legame, poi legame-legame. Per questo l’angolo H-N-H in NH₃ (circa 107°) e l’angolo H-O-H in H₂O (circa 104,5°) sono minori di 109,5°.",
+              "Con cinque domini le posizioni non sono equivalenti. Una posizione assiale ha tre vicini a 90°, una equatoriale solo due: le coppie solitarie scelgono le posizioni equatoriali. Ne derivano le forme ad altalena (SF₄), a T (ClF₃) e lineare (XeF₂)."
             ]
           }
         },
         {
           "label": "SPERIMENTA",
-          "title": "Prevedi, modifica, confronta",
+          "title": "Costruisci la molecola",
           "text": {
             "base": [
-              "Nel laboratorio imposta Lunghezza legame l (a): 1 Å. Prima di salvare A, prevedi come cambia Distanza terminali fra Angolo θ=45 e 90 °. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Con l=1 Å e θ=60°, la distanza terminale è 1 Å. Con θ=180°, diventa 2 Å. L’angolo visualizzato si inserisce in gradi e viene convertito per il calcolo trigonometrico.",
-              "La variabile Angolo θ è espressa in °; Distanza terminali in Å. Il dominio dello strumento è [0; 180]. La relazione implementata è: d = √(2 l²(1-cos θ))."
+              "Nel laboratorio scegli quanti atomi sono legati all’atomo centrale e quante coppie solitarie possiede. Il modello ruota nello spazio e mostra la geometria elettronica, la forma della molecola e l’angolo di legame.",
+              "Nella sfida leggi la descrizione della struttura di Lewis di una molecola, imposta i domini, scegli il nome della forma e premi VERIFICA. Per completare l’attività risolvi quattro molecole diverse."
             ],
             "intermediate": [
-              "Nel laboratorio imposta Lunghezza legame l (a): 1 Å. Prima di salvare A, prevedi come cambia Distanza terminali fra Angolo θ=45 e 90 °. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "La variabile Angolo θ è espressa in °; Distanza terminali in Å. Il dominio dello strumento è [0; 180]. La relazione implementata è: d = √(2 l²(1-cos θ)).",
-              "Per due legami uguali di lunghezza l separati da angolo θ, il teorema del coseno dà d²=2l²(1-cosθ). Il laboratorio rende interattiva questa geometria; non calcola l’angolo di equilibrio di una molecola reale."
+              "Nel laboratorio scegli quanti atomi sono legati all’atomo centrale e quante coppie solitarie possiede. Il modello ruota nello spazio e mostra la geometria elettronica, la forma della molecola e l’angolo di legame.",
+              "Confronta CH₄, NH₃ e H₂O: i domini restano quattro, cambia il numero di coppie solitarie. Osserva come cambia la forma e come si stringe l’angolo di legame.",
+              "Nella sfida leggi la descrizione della struttura di Lewis di una molecola, imposta i domini, scegli il nome della forma e premi VERIFICA. Per completare l’attività risolvi quattro molecole diverse."
             ],
             "advanced": [
-              "Nel laboratorio imposta Lunghezza legame l (a): 1 Å. Prima di salvare A, prevedi come cambia Distanza terminali fra Angolo θ=45 e 90 °. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Confronta una disposizione lineare con una angolare. Spiega come la somma vettoriale dei dipoli di legame possa dipendere dalla simmetria, senza dedurre i dipoli dalle sole distanze.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Esplora le combinazioni con cinque e sei domini. Immagina di mettere una coppia solitaria di SF₄ in posizione assiale: conta le repulsioni a 90° che si creerebbero e confrontale con la posizione equatoriale.",
+              "Nella sfida leggi la descrizione della struttura di Lewis di una molecola, imposta i domini, scegli il nome della forma e premi VERIFICA. Per completare l’attività risolvi quattro molecole diverse."
             ]
           }
         },
         {
           "label": "INTERPRETA",
-          "title": "Leggere senza sovrainterpretare",
+          "title": "Dalla forma alla polarità",
           "text": {
             "base": [
-              "Cambiare liberamente l’angolo nel modello non significa che una molecola reale possa assumere tutte le configurazioni senza costo energetico. Le sfere colorate e i bastoncini sono convenzioni.",
-              "Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Una molecola è polare se i dipoli dei suoi legami non si annullano. In CO₂ i due legami C=O sono polari, ma la molecola è lineare e i due dipoli, uguali e opposti, si compensano: CO₂ è apolare.",
+              "In H₂O i due legami O-H formano un angolo di circa 104,5°: i dipoli si sommano e la molecola è polare. Per questo l’acqua scioglie molti sali e trattiene le molecole polari delle fumarole."
             ],
             "intermediate": [
-              "Cambiare liberamente l’angolo nel modello non significa che una molecola reale possa assumere tutte le configurazioni senza costo energetico. Le sfere colorate e i bastoncini sono convenzioni.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Una molecola è polare se i dipoli dei suoi legami non si annullano. In CO₂ i due legami C=O sono polari, ma la molecola è lineare e i due dipoli, uguali e opposti, si compensano: CO₂ è apolare.",
+              "In H₂O i due legami O-H formano un angolo di circa 104,5°: i dipoli si sommano e la molecola è polare. Per questo l’acqua scioglie molti sali e trattiene le molecole polari delle fumarole.",
+              "Errore frequente: contare il doppio legame come due domini. CO₂ diventerebbe AX₄, con una geometria tetraedrica impossibile: due ossigeni sono due atomi e occupano due sole direzioni."
             ],
             "advanced": [
-              "Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare.",
-              "Confronta una disposizione lineare con una angolare. Spiega come la somma vettoriale dei dipoli di legame possa dipendere dalla simmetria, senza dedurre i dipoli dalle sole distanze.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "SO₂ e CO₂ hanno entrambe due atomi legati, ma lo zolfo possiede anche una coppia solitaria. SO₂ è AX₂E, angolata (circa 119°) e polare. La differenza si vede nelle temperature: SO₂ bolle a circa −10 °C, mentre CO₂ passa direttamente a gas a circa −78 °C.",
+              "Il modello VSEPR prevede la forma in modo qualitativo. Non calcola energie e lunghezze di legame, stima gli angoli solo per confronto e funziona male per molti composti dei metalli di transizione."
             ]
           }
         },
         {
           "label": "VERIFICA",
-          "title": "Verifica ragionamento e calcolo",
+          "title": "Verifica",
           "text": {
             "base": [
-              "Le strutture di Lewis e il modello VSEPR aiutano a ragionare sulla disposizione dei domini elettronici. La geometria elettronica non coincide sempre con quella degli atomi, perché coppie non leganti possono occupare domini.",
-              "Con l=1 Å e θ=60°, la distanza terminale è 1 Å. Con θ=180°, diventa 2 Å. L’angolo visualizzato si inserisce in gradi e viene convertito per il calcolo trigonometrico."
+              "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
             ],
             "intermediate": [
-              "Per due legami uguali di lunghezza l separati da angolo θ, il teorema del coseno dà d²=2l²(1-cosθ). Il laboratorio rende interattiva questa geometria; non calcola l’angolo di equilibrio di una molecola reale.",
-              "La variabile Angolo θ è espressa in °; Distanza terminali in Å. Il dominio dello strumento è [0; 180]. La relazione implementata è: d = √(2 l²(1-cos θ))."
+              "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
             ],
             "advanced": [
-              "Confronta una disposizione lineare con una angolare. Spiega come la somma vettoriale dei dipoli di legame possa dipendere dalla simmetria, senza dedurre i dipoli dalle sole distanze.",
-              "Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare."
+              "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
             ]
           }
         },
         {
           "label": "COLLEGA",
-          "title": "Conclusione e nuova domanda",
+          "title": "Collegamenti",
           "text": {
             "base": [
-              "Nel diario distingui previsione, risultato e interpretazione. Geometria triatomica, non equilibrio elettronico.",
-              "Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare.",
-              "Collegamento consigliato: math-c09. Il completamento registra attività e autoverifica, non certifica competenze."
+              "La forma della molecola decide la sua polarità, e la polarità decide come le molecole si attraggono tra loro: è il tema dell’unità sulle forze intermolecolari.",
+              "Nel diario scrivi una molecola della sfida, i suoi domini e la forma che hai previsto, con una frase che spieghi il perché."
             ],
             "intermediate": [
-              "Per due legami uguali di lunghezza l separati da angolo θ, il teorema del coseno dà d²=2l²(1-cosθ). Il laboratorio rende interattiva questa geometria; non calcola l’angolo di equilibrio di una molecola reale.",
-              "Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare.",
-              "Confronta una disposizione lineare con una angolare. Spiega come la somma vettoriale dei dipoli di legame possa dipendere dalla simmetria, senza dedurre i dipoli dalle sole distanze."
+              "La forma della molecola decide la sua polarità, e la polarità decide come le molecole si attraggono tra loro: è il tema dell’unità sulle forze intermolecolari.",
+              "Le stesse geometrie tornano nella chimica organica: il carbonio legato a quattro atomi è tetraedrico, e la forma delle molecole biologiche dipende da questa disposizione.",
+              "Nel diario scrivi una molecola della sfida, i suoi domini e la forma che hai previsto, con una frase che spieghi il perché."
             ],
             "advanced": [
-              "Confronta una disposizione lineare con una angolare. Spiega come la somma vettoriale dei dipoli di legame possa dipendere dalla simmetria, senza dedurre i dipoli dalle sole distanze.",
-              "Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare.",
-              "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+              "La forma della molecola decide la sua polarità, e la polarità decide come le molecole si attraggono tra loro: è il tema dell’unità sulle forze intermolecolari.",
+              "Per gli angoli esatti servono metodi quantistici o misure spettroscopiche. Il VSEPR resta lo strumento rapido per una previsione qualitativa.",
+              "Nel diario scrivi una molecola della sfida, i suoi domini e la forma che hai previsto, con una frase che spieghi il perché."
             ]
           }
         }
       ],
       "questions": [
         {
-          "id": "chemistry-08-concept",
-          "prompt": "La distanza fra due atomi terminali dipende:",
+          "id": "chemistry-08-q1",
+          "prompt": "Quanti domini elettronici ci sono attorno al carbonio in CO₂ (O=C=O)?",
           "options": [
             {
               "id": "A",
-              "text": "Dalle lunghezze dei legami e dall’angolo",
-              "feedback": "Le strutture di Lewis e il modello VSEPR aiutano a ragionare sulla disposizione dei domini elettronici. La geometria elettronica non coincide sempre con quella degli atomi, perché coppie non leganti possono occupare domini."
+              "text": "2",
+              "feedback": "Esatto: ogni doppio legame occupa una sola direzione e il carbonio non ha coppie solitarie. Due domini danno una geometria lineare."
             },
             {
               "id": "B",
-              "text": "Solo dal colore delle sfere",
-              "feedback": "Cambiare liberamente l’angolo nel modello non significa che una molecola reale possa assumere tutte le configurazioni senza costo energetico. Le sfere colorate e i bastoncini sono convenzioni."
+              "text": "4",
+              "feedback": "Hai contato ogni doppio legame come due domini. Un legame multiplo conta come un solo dominio, perché i suoi elettroni stanno tutti tra gli stessi due nuclei."
             },
             {
               "id": "C",
-              "text": "Sempre soltanto dal numero di atomi",
-              "feedback": "Per due legami uguali di lunghezza l separati da angolo θ, il teorema del coseno dà d²=2l²(1-cosθ). Il laboratorio rende interattiva questa geometria; non calcola l’angolo di equilibrio di una molecola reale."
+              "text": "3",
+              "feedback": "Hai aggiunto una coppia solitaria al carbonio. Nella struttura di Lewis di CO₂ il carbonio usa tutti e quattro gli elettroni di valenza nei legami."
+            },
+            {
+              "id": "D",
+              "text": "6",
+              "feedback": "Hai contato anche le coppie solitarie degli ossigeni. Per la forma della molecola contano solo i domini dell’atomo centrale."
             }
           ],
           "correct": "A"
         },
         {
-          "id": "chemistry-08-calculation",
-          "prompt": "Calcolo: Lunghezza legame l (a)=1 Å. Per Angolo θ=60 °, quanto vale Distanza terminali?",
+          "id": "chemistry-08-q2",
+          "prompt": "In NH₃ l’azoto ha tre legami semplici e una coppia solitaria. Che forma ha la molecola?",
           "options": [
             {
               "id": "A",
-              "text": "2 Å",
-              "feedback": "Questo valore non soddisfa la relazione. d = √(2 l²(1-cos θ)). Con Lunghezza legame l (a)=1 Å e Angolo θ=60 °, il risultato è 1 Å. Conserva le unità e arrotonda solo alla fine."
+              "text": "Tetraedrica",
+              "feedback": "Tetraedrica è la geometria elettronica, cioè la disposizione dei quattro domini. La coppia solitaria non si vede: gli atomi formano una piramide."
             },
             {
               "id": "B",
-              "text": "0 Å",
-              "feedback": "Controlla sostituzione, segno e unità. d = √(2 l²(1-cos θ)). Con Lunghezza legame l (a)=1 Å e Angolo θ=60 °, il risultato è 1 Å. Conserva le unità e arrotonda solo alla fine."
+              "text": "Trigonale planare",
+              "feedback": "Hai ignorato la coppia solitaria. I domini sono quattro, quindi la disposizione di partenza è tetraedrica, e i tre idrogeni restano sotto il vertice occupato dalla coppia."
             },
             {
               "id": "C",
-              "text": "1 Å",
-              "feedback": "d = √(2 l²(1-cos θ)). Con Lunghezza legame l (a)=1 Å e Angolo θ=60 °, il risultato è 1 Å. Conserva le unità e arrotonda solo alla fine."
+              "text": "Piramidale trigonale",
+              "feedback": "Esatto: quattro domini in geometria tetraedrica, uno è una coppia solitaria, e i tre atomi di idrogeno formano la base di una piramide con l’azoto al vertice."
+            },
+            {
+              "id": "D",
+              "text": "A T",
+              "feedback": "La forma a T richiede cinque domini, tre legami e due coppie solitarie, come in ClF₃. L’azoto in NH₃ ne ha quattro."
             }
           ],
-          "correct": "C",
-          "numeric": {
-            "x": 60,
-            "parameters": {
-              "a": 1
-            },
-            "expected": 1,
-            "unit": "Å"
-          }
+          "correct": "C"
         },
         {
-          "id": "chemistry-08-transfer",
-          "prompt": "Trasferimento: Lunghezza legame l (a)=1,1 Å. Per Angolo θ=60 °, quanto vale Distanza terminali?",
+          "id": "chemistry-08-q3",
+          "prompt": "Perché l’angolo H-O-H nell’acqua (circa 104,5°) è minore dell’angolo del tetraedro (109,5°)?",
           "options": [
             {
               "id": "A",
-              "text": "0,1 Å",
-              "feedback": "Controlla sostituzione, segno e unità. d = √(2 l²(1-cos θ)). Con Lunghezza legame l (a)=1,1 Å e Angolo θ=60 °, il risultato è 1,1 Å. Conserva le unità e arrotonda solo alla fine."
+              "text": "Gli atomi di idrogeno si attraggono tra loro",
+              "feedback": "I due idrogeni portano una parziale carica positiva e si respingono. La causa della chiusura dell’angolo sta nelle coppie solitarie dell’ossigeno."
             },
             {
               "id": "B",
-              "text": "1,1 Å",
-              "feedback": "d = √(2 l²(1-cos θ)). Con Lunghezza legame l (a)=1,1 Å e Angolo θ=60 °, il risultato è 1,1 Å. Conserva le unità e arrotonda solo alla fine."
+              "text": "Le due coppie solitarie dell’ossigeno respingono più delle coppie di legame",
+              "feedback": "Esatto: le coppie solitarie, trattenute da un solo nucleo, occupano più spazio e spingono i legami O-H l’uno verso l’altro."
             },
             {
               "id": "C",
-              "text": "2,1 Å",
-              "feedback": "Questo valore non soddisfa la relazione. d = √(2 l²(1-cos θ)). Con Lunghezza legame l (a)=1,1 Å e Angolo θ=60 °, il risultato è 1,1 Å. Conserva le unità e arrotonda solo alla fine."
+              "text": "L’ossigeno forma doppi legami con gli idrogeni",
+              "feedback": "Ogni idrogeno forma un solo legame semplice. Inoltre il numero dei legami multipli non cambia il numero dei domini."
+            },
+            {
+              "id": "D",
+              "text": "La molecola è lineare, ma vibra",
+              "feedback": "L’acqua è angolata anche nella sua geometria media. Se fosse lineare i due dipoli si annullerebbero e l’acqua sarebbe apolare."
             }
           ],
-          "correct": "B",
-          "numeric": {
-            "x": 60,
-            "parameters": {
-              "a": 1.1
-            },
-            "expected": 1.1,
-            "unit": "Å"
-          }
+          "correct": "B"
         },
         {
-          "id": "chemistry-08-limits",
-          "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+          "id": "chemistry-08-q4",
+          "prompt": "Quale di queste molecole è apolare pur avendo legami polari?",
           "options": [
             {
               "id": "A",
-              "text": "Riproduce ogni dettaglio del pianeta reale",
-              "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare."
+              "text": "H₂O",
+              "feedback": "L’acqua è angolata: i due dipoli O-H si sommano invece di annullarsi, e la molecola è polare."
             },
             {
               "id": "B",
-              "text": "Basta il grafico per provare una legge universale",
-              "feedback": "Una visualizzazione non è una dimostrazione universale. Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare."
+              "text": "NH₃",
+              "feedback": "L’ammoniaca è una piramide: i tre dipoli N-H hanno una risultante diretta verso la coppia solitaria, quindi è polare."
             },
             {
               "id": "C",
-              "text": "Geometria triatomica, non equilibrio elettronico",
-              "feedback": "Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare."
+              "text": "SO₂",
+              "feedback": "Lo zolfo ha una coppia solitaria e la molecola è angolata: i dipoli S-O non si compensano e SO₂ è polare."
+            },
+            {
+              "id": "D",
+              "text": "CO₂",
+              "feedback": "Esatto: i due legami C=O sono polari, ma la molecola è lineare e i due dipoli uguali e opposti si annullano."
+            }
+          ],
+          "correct": "D"
+        },
+        {
+          "id": "chemistry-08-q5",
+          "prompt": "SF₄ ha quattro legami semplici e una coppia solitaria sullo zolfo. Dove va la coppia solitaria e che forma ne risulta?",
+          "options": [
+            {
+              "id": "A",
+              "text": "In posizione equatoriale: forma ad altalena",
+              "feedback": "Esatto: in posizione equatoriale la coppia ha solo due vicini a 90°, contro i tre di una posizione assiale. Gli atomi formano un’altalena."
+            },
+            {
+              "id": "B",
+              "text": "In posizione assiale: piramide trigonale",
+              "feedback": "Una coppia assiale avrebbe tre vicini a 90°, una equatoriale solo due. Il modello sceglie la posizione con meno repulsioni forti."
+            },
+            {
+              "id": "C",
+              "text": "Nessuna posizione: la molecola è tetraedrica",
+              "feedback": "I domini sono cinque, quattro legami e una coppia solitaria. Ignorare la coppia porta alla forma sbagliata."
+            },
+            {
+              "id": "D",
+              "text": "Sopra il piano: forma planare quadrata",
+              "feedback": "La forma planare quadrata richiede sei domini con due coppie solitarie opposte, come in XeF₄."
+            }
+          ],
+          "correct": "A"
+        },
+        {
+          "id": "chemistry-08-q6",
+          "prompt": "Quale affermazione sul modello VSEPR è corretta?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Calcola gli angoli di legame esatti di ogni molecola",
+              "feedback": "Il modello prevede gli angoli solo per confronto, per esempio «meno di 109,5°». Gli angoli esatti si misurano o si calcolano con la meccanica quantistica."
+            },
+            {
+              "id": "B",
+              "text": "Funziona allo stesso modo per tutti i composti dei metalli di transizione",
+              "feedback": "Per molti composti dei metalli di transizione il modello sbaglia: gli elettroni d seguono regole diverse."
+            },
+            {
+              "id": "C",
+              "text": "Prevede la forma in modo qualitativo, senza calcolare energie o lunghezze di legame",
+              "feedback": "Esatto: è un modello di previsione qualitativa, utile e rapido, con limiti dichiarati."
+            },
+            {
+              "id": "D",
+              "text": "Descrive la forma degli orbitali atomici",
+              "feedback": "Il modello descrive la disposizione dei domini attorno a un atomo. Gli orbitali sono oggetto della meccanica quantistica."
             }
           ],
           "correct": "C"
         }
-      ]
+      ],
+      "activity": {
+        "kind": "vsepr"
+      }
     },
     {
       "schemaVersion": 1,
@@ -22968,14 +23098,15 @@
       "title": "Ereditarietà mendeliana",
       "sector": 3,
       "modelId": "biology-09",
-      "coverage": "guided-foundation",
-      "editorialStatus": "original-draft",
-      "scope": "Un locus mendeliano con gameti indipendenti",
-      "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+      "coverage": "guided-activity",
+      "editorialStatus": "prototype-draft",
+      "scope": "Un gene con due alleli, dominanza completa e gameti indipendenti",
+      "narrativeStatus": "La serra e il pianeta sono immaginari; la genetica è quella dei piselli di Mendel.",
       "objectives": [
-        "Spiegare: un locus mendeliano con gameti indipendenti.",
-        "Applicare P(aa) = (1-p)(1-q), dichiarando variabili e unità.",
-        "Confrontare due configurazioni e discutere i limiti del modello."
+        "Distinguere genotipo e fenotipo, omozigote ed eterozigote.",
+        "Prevedere con il quadrato di Punnett i rapporti attesi di un incrocio monoibrido.",
+        "Confrontare frequenze osservate e attese e spiegare perché differiscono nei campioni piccoli.",
+        "Usare il reincrocio con una pianta aa per scoprire il genotipo di una pianta a fiori viola."
       ],
       "prerequisites": [
         "biology-08"
@@ -22989,246 +23120,310 @@
       "originalSource": null,
       "glossary": [
         {
-          "term": "Gameti A genitore 1",
-          "definition": "Variabile indipendente, unità 1; intervallo [0; 1]."
+          "term": "Allele",
+          "definition": "Variante di un gene. Nel pisello di Mendel l’allele A dà fiori viola, l’allele a fiori bianchi."
         },
         {
-          "term": "Probabilità aa",
-          "definition": "Risultato calcolato dal modello, unità 1."
+          "term": "Genotipo",
+          "definition": "Coppia di alleli posseduta da un individuo, per esempio Aa."
         },
         {
-          "term": "Gameti A genitore 2",
-          "definition": "Parametro a, unità 1; intervallo [0; 1]."
+          "term": "Fenotipo",
+          "definition": "Carattere osservabile prodotto dal genotipo, per esempio il colore viola dei fiori."
+        },
+        {
+          "term": "Omozigote ed eterozigote",
+          "definition": "Un omozigote ha due alleli uguali (AA o aa), un eterozigote due alleli diversi (Aa)."
+        },
+        {
+          "term": "Dominante e recessivo",
+          "definition": "L’allele dominante si manifesta anche in una sola copia; quello recessivo solo in due copie."
+        },
+        {
+          "term": "Reincrocio",
+          "definition": "Incrocio con un omozigote recessivo aa, usato per scoprire il genotipo di un individuo a fenotipo dominante."
         }
       ],
       "steps": [
         {
           "label": "SCOPRI",
-          "title": "La domanda della spedizione",
+          "title": "Fiori viola, fiori bianchi",
           "text": {
             "base": [
-              "Due genitori producono gameti con probabilità note per un allele. Il quadrato di Punnett è utile, ma la stazione vuole esprimere il risultato come prodotto di probabilità.",
-              "In un modello mendeliano a un locus, ogni discendente riceve un allele da ciascun genitore. Se la probabilità del gamete A è p nel primo e q nel secondo, la probabilità di aa è (1-p)(1-q)."
+              "Nella serra della stazione crescono piante di pisello nate da semi portati dalla Terra. Alcune hanno fiori viola, altre fiori bianchi. I botanici vogliono prevedere il colore dei fiori nelle prossime generazioni e scoprire quali piante viola nascondono l’allele del bianco.",
+              "Incrociando due piante viola nascono a volte piante bianche. Il bianco era nascosto in entrambi i genitori e riappare nei figli."
             ],
             "intermediate": [
-              "Due genitori producono gameti con probabilità note per un allele. Il quadrato di Punnett è utile, ma la stazione vuole esprimere il risultato come prodotto di probabilità.",
-              "Il prodotto richiede indipendenza delle estrazioni dei gameti. Per due eterozigoti con segregazione regolare, p=q=1/2. Le probabilità di AA, Aa e aa sono rispettivamente 1/4, 1/2 e 1/4."
+              "Nella serra della stazione crescono piante di pisello nate da semi portati dalla Terra. Alcune hanno fiori viola, altre fiori bianchi. I botanici vogliono prevedere il colore dei fiori nelle prossime generazioni e scoprire quali piante viola nascondono l’allele del bianco.",
+              "Mendel osservò questo comportamento con il pisello e pubblicò i risultati nel 1866. Incrociando piante ibride a fiori viola ottenne 705 piante viola e 224 bianche, circa 3 a 1."
             ],
             "advanced": [
-              "Due genitori producono gameti con probabilità note per un allele. Il quadrato di Punnett è utile, ma la stazione vuole esprimere il risultato come prodotto di probabilità.",
-              "Ricava P(AA) e P(Aa) e controlla che le tre probabilità sommino a uno. Confronta un incrocio fra eterozigoti con uno fra eterozigote e omozigote.",
-              "Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche."
+              "Nella serra della stazione crescono piante di pisello nate da semi portati dalla Terra. Alcune hanno fiori viola, altre fiori bianchi. I botanici vogliono prevedere il colore dei fiori nelle prossime generazioni e scoprire quali piante viola nascondono l’allele del bianco.",
+              "Mendel osservò questo comportamento con il pisello e pubblicò i risultati nel 1866. Incrociando piante ibride a fiori viola ottenne 705 piante viola e 224 bianche, circa 3 a 1.",
+              "Il rapporto 3:1 nasce dalla separazione dei due alleli nei gameti e dalla loro unione casuale. Oggi sappiamo che il gene del colore studiato da Mendel controlla la produzione dei pigmenti antociani nei petali."
             ]
           }
         },
         {
           "label": "CAPISCI",
-          "title": "Dall’intuizione alla relazione",
+          "title": "Alleli, genotipi, fenotipi",
           "text": {
             "base": [
-              "In un modello mendeliano a un locus, ogni discendente riceve un allele da ciascun genitore. Se la probabilità del gamete A è p nel primo e q nel secondo, la probabilità di aa è (1-p)(1-q).",
-              "Con p=q=0,5, P(aa)=0,25. È una probabilità per ciascun discendente nel modello, non l’obbligo che ogni gruppo di quattro abbia esattamente un individuo aa."
+              "Ogni pianta ha due copie del gene del colore, una ricevuta dal polline e una dall’ovulo. Le varianti del gene si chiamano alleli: A per il viola, a per il bianco.",
+              "A è dominante: basta una copia per avere fiori viola. Le piante AA e Aa sono viola, solo le aa sono bianche. Il genotipo è la coppia di alleli, il fenotipo è il carattere osservato."
             ],
             "intermediate": [
-              "Il prodotto richiede indipendenza delle estrazioni dei gameti. Per due eterozigoti con segregazione regolare, p=q=1/2. Le probabilità di AA, Aa e aa sono rispettivamente 1/4, 1/2 e 1/4.",
-              "La variabile Gameti A genitore 1 è espressa in 1; Probabilità aa in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: P(aa) = (1-p)(1-q).",
-              "Con p=q=0,5, P(aa)=0,25. È una probabilità per ciascun discendente nel modello, non l’obbligo che ogni gruppo di quattro abbia esattamente un individuo aa."
+              "Ogni pianta ha due copie del gene del colore, una ricevuta dal polline e una dall’ovulo. Le varianti del gene si chiamano alleli: A per il viola, a per il bianco.",
+              "A è dominante: basta una copia per avere fiori viola. Le piante AA e Aa sono viola, solo le aa sono bianche. Il genotipo è la coppia di alleli, il fenotipo è il carattere osservato.",
+              "Nella meiosi le due copie si separano: ogni gamete riceve un solo allele. Una pianta Aa produce gameti A e gameti a con la stessa probabilità, 1/2 ciascuno. È la legge della segregazione."
             ],
             "advanced": [
-              "Il prodotto richiede indipendenza delle estrazioni dei gameti. Per due eterozigoti con segregazione regolare, p=q=1/2. Le probabilità di AA, Aa e aa sono rispettivamente 1/4, 1/2 e 1/4.",
-              "Ricava P(AA) e P(Aa) e controlla che le tre probabilità sommino a uno. Confronta un incrocio fra eterozigoti con uno fra eterozigote e omozigote.",
-              "Dominante non significa frequente, migliore o destinato a diffondersi. Genotipo e fenotipo coincidono solo dopo aver specificato una relazione biologica fra alleli e carattere."
+              "Nella meiosi le due copie si separano: ogni gamete riceve un solo allele. Una pianta Aa produce gameti A e gameti a con la stessa probabilità, 1/2 ciascuno. È la legge della segregazione.",
+              "Il quadrato di Punnett è una tabella di probabilità: le righe sono i gameti di un genitore, le colonne quelli dell’altro. Con due genitori Aa ogni cella vale 1/4, e sommando le celle uguali si ottiene 1/4 AA, 1/2 Aa, 1/4 aa."
             ]
           }
         },
         {
           "label": "SPERIMENTA",
-          "title": "Prevedi, modifica, confronta",
+          "title": "Incroci nella serra",
           "text": {
             "base": [
-              "Nel laboratorio imposta Gameti A genitore 2 (a): 0,5 (adimensionale). Prima di salvare A, prevedi come cambia Probabilità aa fra Gameti A genitore 1=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Con p=q=0,5, P(aa)=0,25. È una probabilità per ciascun discendente nel modello, non l’obbligo che ogni gruppo di quattro abbia esattamente un individuo aa.",
-              "La variabile Gameti A genitore 1 è espressa in 1; Probabilità aa in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: P(aa) = (1-p)(1-q)."
+              "Scegli il genotipo dei due genitori e leggi il quadrato di Punnett. Poi semina 20, 100 o 1000 semi e confronta i conteggi osservati con quelli attesi.",
+              "Nella seconda parte ricevi piante viola misteriose: incrociale con una pianta bianca aa e decidi se sono AA o Aa. Per completare l’attività risolvi tre piante misteriose."
             ],
             "intermediate": [
-              "Nel laboratorio imposta Gameti A genitore 2 (a): 0,5 (adimensionale). Prima di salvare A, prevedi come cambia Probabilità aa fra Gameti A genitore 1=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "La variabile Gameti A genitore 1 è espressa in 1; Probabilità aa in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: P(aa) = (1-p)(1-q).",
-              "Il prodotto richiede indipendenza delle estrazioni dei gameti. Per due eterozigoti con segregazione regolare, p=q=1/2. Le probabilità di AA, Aa e aa sono rispettivamente 1/4, 1/2 e 1/4."
+              "Scegli il genotipo dei due genitori e leggi il quadrato di Punnett. Poi semina 20, 100 o 1000 semi e confronta i conteggi osservati con quelli attesi.",
+              "Prima di seminare scrivi nel diario la percentuale di piante bianche che ti aspetti. Ripeti più volte la semina da 20 semi e osserva quanto variano i risultati.",
+              "Nella seconda parte ricevi piante viola misteriose: incrociale con una pianta bianca aa e decidi se sono AA o Aa. Per completare l’attività risolvi tre piante misteriose."
             ],
             "advanced": [
-              "Nel laboratorio imposta Gameti A genitore 2 (a): 0,5 (adimensionale). Prima di salvare A, prevedi come cambia Probabilità aa fra Gameti A genitore 1=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Ricava P(AA) e P(Aa) e controlla che le tre probabilità sommino a uno. Confronta un incrocio fra eterozigoti con uno fra eterozigote e omozigote.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Scegli il genotipo dei due genitori e leggi il quadrato di Punnett. Poi semina 20, 100 o 1000 semi e confronta i conteggi osservati con quelli attesi.",
+              "Usa la statistica chi quadro calcolata dal laboratorio. Con due classi di fenotipo, un valore superiore a 3,84 significa che uno scarto così grande dal rapporto atteso avrebbe probabilità inferiore al 5% se il modello fosse corretto.",
+              "Nella seconda parte ricevi piante viola misteriose: incrociale con una pianta bianca aa e decidi se sono AA o Aa. Per completare l’attività risolvi tre piante misteriose."
             ]
           }
         },
         {
           "label": "INTERPRETA",
-          "title": "Leggere senza sovrainterpretare",
+          "title": "Attesi e osservati",
           "text": {
             "base": [
-              "Dominante non significa frequente, migliore o destinato a diffondersi. Genotipo e fenotipo coincidono solo dopo aver specificato una relazione biologica fra alleli e carattere.",
-              "Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Il rapporto 3:1 descrive una probabilità, e un singolo raccolto può discostarsene. Con 4 figli di due genitori Aa può capitare di non trovare piante bianche: succede con probabilità (3/4)⁴, circa 32%.",
+              "Più semi semini, più la frazione osservata si avvicina a quella attesa. È la legge dei grandi numeri."
             ],
             "intermediate": [
-              "Dominante non significa frequente, migliore o destinato a diffondersi. Genotipo e fenotipo coincidono solo dopo aver specificato una relazione biologica fra alleli e carattere.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Il rapporto 3:1 descrive una probabilità, e un singolo raccolto può discostarsene. Con 4 figli di due genitori Aa può capitare di non trovare piante bianche: succede con probabilità (3/4)⁴, circa 32%.",
+              "Una pianta viola può essere AA o Aa. Incrociata con una pianta bianca aa, una pianta AA dà solo figli viola, mentre una pianta Aa dà in media metà figli bianchi. Basta un figlio bianco per concludere che il genitore viola è Aa."
             ],
             "advanced": [
-              "Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche.",
-              "Ricava P(AA) e P(Aa) e controlla che le tre probabilità sommino a uno. Confronta un incrocio fra eterozigoti con uno fra eterozigote e omozigote.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Una pianta viola può essere AA o Aa. Incrociata con una pianta bianca aa, una pianta AA dà solo figli viola, mentre una pianta Aa dà in media metà figli bianchi. Basta un figlio bianco per concludere che il genitore viola è Aa.",
+              "Il ragionamento opposto è più delicato: 10 figli tutti viola non dimostrano che il genitore è AA. Se fosse Aa, quel risultato avrebbe probabilità (1/2)¹⁰, circa 0,1%: abbastanza piccola per decidere, mai nulla."
             ]
           }
         },
         {
           "label": "VERIFICA",
-          "title": "Verifica ragionamento e calcolo",
+          "title": "Verifica",
           "text": {
             "base": [
-              "In un modello mendeliano a un locus, ogni discendente riceve un allele da ciascun genitore. Se la probabilità del gamete A è p nel primo e q nel secondo, la probabilità di aa è (1-p)(1-q).",
-              "Con p=q=0,5, P(aa)=0,25. È una probabilità per ciascun discendente nel modello, non l’obbligo che ogni gruppo di quattro abbia esattamente un individuo aa."
+              "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
             ],
             "intermediate": [
-              "Il prodotto richiede indipendenza delle estrazioni dei gameti. Per due eterozigoti con segregazione regolare, p=q=1/2. Le probabilità di AA, Aa e aa sono rispettivamente 1/4, 1/2 e 1/4.",
-              "La variabile Gameti A genitore 1 è espressa in 1; Probabilità aa in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: P(aa) = (1-p)(1-q)."
+              "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
             ],
             "advanced": [
-              "Ricava P(AA) e P(Aa) e controlla che le tre probabilità sommino a uno. Confronta un incrocio fra eterozigoti con uno fra eterozigote e omozigote.",
-              "Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche."
+              "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
             ]
           }
         },
         {
           "label": "COLLEGA",
-          "title": "Conclusione e nuova domanda",
+          "title": "Collegamenti",
           "text": {
             "base": [
-              "Nel diario distingui previsione, risultato e interpretazione. Un locus mendeliano con gameti indipendenti.",
-              "Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche.",
-              "Collegamento consigliato: biology-15. Il completamento registra attività e autoverifica, non certifica competenze."
+              "La segregazione degli alleli è una conseguenza della meiosi, studiata nell’unità precedente. Le stesse probabilità tornano nell’equilibrio di Hardy-Weinberg, quando si passa da una famiglia a un’intera popolazione.",
+              "Nel diario scrivi un incrocio, il rapporto atteso, i conteggi osservati e una frase su quanto si discostano."
             ],
             "intermediate": [
-              "Il prodotto richiede indipendenza delle estrazioni dei gameti. Per due eterozigoti con segregazione regolare, p=q=1/2. Le probabilità di AA, Aa e aa sono rispettivamente 1/4, 1/2 e 1/4.",
-              "Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche.",
-              "Ricava P(AA) e P(Aa) e controlla che le tre probabilità sommino a uno. Confronta un incrocio fra eterozigoti con uno fra eterozigote e omozigote."
+              "La segregazione degli alleli è una conseguenza della meiosi, studiata nell’unità precedente. Le stesse probabilità tornano nell’equilibrio di Hardy-Weinberg, quando si passa da una famiglia a un’intera popolazione.",
+              "Molti caratteri seguono regole diverse: nella bocca di leone l’eterozigote ha fiori rosa (dominanza incompleta), e nei gruppi sanguigni AB0 gli alleli A e B si esprimono entrambi (codominanza).",
+              "Nel diario scrivi un incrocio, il rapporto atteso, i conteggi osservati e una frase su quanto si discostano."
             ],
             "advanced": [
-              "Ricava P(AA) e P(Aa) e controlla che le tre probabilità sommino a uno. Confronta un incrocio fra eterozigoti con uno fra eterozigote e omozigote.",
-              "Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche.",
-              "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+              "Il modello vale per un gene con due alleli e gameti indipendenti. Geni vicini sullo stesso cromosoma vengono ereditati insieme più spesso del previsto: è l’associazione genica.",
+              "Molti caratteri seguono regole diverse: nella bocca di leone l’eterozigote ha fiori rosa (dominanza incompleta), e nei gruppi sanguigni AB0 gli alleli A e B si esprimono entrambi (codominanza).",
+              "Nel diario scrivi un incrocio, il rapporto atteso, i conteggi osservati e una frase su quanto si discostano."
             ]
           }
         }
       ],
       "questions": [
         {
-          "id": "biology-09-concept",
-          "prompt": "Per Aa×Aa con segregazione regolare, P(aa) è:",
+          "id": "biology-09-q1",
+          "prompt": "Una pianta di pisello con genotipo Aa ha fiori:",
           "options": [
             {
               "id": "A",
-              "text": "1",
-              "feedback": "Il prodotto richiede indipendenza delle estrazioni dei gameti. Per due eterozigoti con segregazione regolare, p=q=1/2. Le probabilità di AA, Aa e aa sono rispettivamente 1/4, 1/2 e 1/4."
+              "text": "Bianchi",
+              "feedback": "Il bianco compare solo nel genotipo aa. Con un allele A la pianta produce il pigmento viola."
             },
             {
               "id": "B",
-              "text": "1/4",
-              "feedback": "In un modello mendeliano a un locus, ogni discendente riceve un allele da ciascun genitore. Se la probabilità del gamete A è p nel primo e q nel secondo, la probabilità di aa è (1-p)(1-q)."
+              "text": "Rosa, a metà tra viola e bianco",
+              "feedback": "Questo accade con la dominanza incompleta, come nella bocca di leone. Per il colore del pisello la dominanza è completa."
             },
             {
               "id": "C",
+              "text": "Viola",
+              "feedback": "Esatto: A è dominante e una sola copia basta per produrre il pigmento."
+            },
+            {
+              "id": "D",
+              "text": "Metà viola e metà bianchi",
+              "feedback": "Ogni pianta ha un solo fenotipo per questo carattere. Il genotipo Aa produce fiori tutti viola."
+            }
+          ],
+          "correct": "C"
+        },
+        {
+          "id": "biology-09-q2",
+          "prompt": "Incroci due piante Aa. Quale frazione dei figli ti aspetti con fiori bianchi?",
+          "options": [
+            {
+              "id": "A",
+              "text": "1/4",
+              "feedback": "Esatto: solo la cella aa del quadrato di Punnett dà fiori bianchi, e vale 1/4."
+            },
+            {
+              "id": "B",
               "text": "1/2",
-              "feedback": "Dominante non significa frequente, migliore o destinato a diffondersi. Genotipo e fenotipo coincidono solo dopo aver specificato una relazione biologica fra alleli e carattere."
+              "feedback": "1/2 è la frazione attesa degli eterozigoti Aa, che però hanno fiori viola."
+            },
+            {
+              "id": "C",
+              "text": "3/4",
+              "feedback": "3/4 è la frazione attesa dei fiori viola. Hai scambiato i due fenotipi."
+            },
+            {
+              "id": "D",
+              "text": "Nessuna, perché i genitori sono viola",
+              "feedback": "I genitori portano entrambi l’allele a: un figlio che lo riceve da tutti e due è aa e ha fiori bianchi."
+            }
+          ],
+          "correct": "A"
+        },
+        {
+          "id": "biology-09-q3",
+          "prompt": "Incroci una pianta Aa con una pianta aa. Che rapporto viola : bianco ti aspetti?",
+          "options": [
+            {
+              "id": "A",
+              "text": "3 : 1",
+              "feedback": "Il 3:1 vale per l’incrocio Aa × Aa. Qui la pianta aa produce solo gameti a."
+            },
+            {
+              "id": "B",
+              "text": "1 : 1",
+              "feedback": "Esatto: la pianta Aa produce gameti A e a in parti uguali, la pianta aa solo gameti a. Metà dei figli è Aa, metà aa."
+            },
+            {
+              "id": "C",
+              "text": "Tutti viola",
+              "feedback": "Tutti i figli sarebbero viola solo se il genitore viola fosse AA."
+            },
+            {
+              "id": "D",
+              "text": "1 : 2 : 1",
+              "feedback": "1:2:1 è il rapporto dei genotipi nell’incrocio Aa × Aa, e qui i fenotipi possibili sono solo due."
             }
           ],
           "correct": "B"
         },
         {
-          "id": "biology-09-calculation",
-          "prompt": "Calcolo: Gameti A genitore 2 (a)=0,5 (adimensionale). Per Gameti A genitore 1=0,5 (adimensionale), quanto vale Probabilità aa?",
+          "id": "biology-09-q4",
+          "prompt": "Da due genitori Aa nascono 8 piante, tutte viola. Che cosa puoi concludere?",
           "options": [
             {
               "id": "A",
-              "text": "0,25 (adimensionale)",
-              "feedback": "P(aa) = (1-p)(1-q). Con Gameti A genitore 2 (a)=0,5 (adimensionale) e Gameti A genitore 1=0,5 (adimensionale), il risultato è 0,25 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+              "text": "Il modello è sbagliato: dovevano esserci 2 piante bianche",
+              "feedback": "2 è il valore atteso, e il modello prevede probabilità. Un campione piccolo può scostarsi dal valore atteso."
             },
             {
               "id": "B",
-              "text": "1,25 (adimensionale)",
-              "feedback": "Questo valore non soddisfa la relazione. P(aa) = (1-p)(1-q). Con Gameti A genitore 2 (a)=0,5 (adimensionale) e Gameti A genitore 1=0,5 (adimensionale), il risultato è 0,25 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+              "text": "L’allele a è scomparso",
+              "feedback": "Gli alleli non scompaiono: i genitori sono Aa e continuano a produrre gameti a."
             },
             {
               "id": "C",
-              "text": "-0,75 (adimensionale)",
-              "feedback": "Controlla sostituzione, segno e unità. P(aa) = (1-p)(1-q). Con Gameti A genitore 2 (a)=0,5 (adimensionale) e Gameti A genitore 1=0,5 (adimensionale), il risultato è 0,25 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+              "text": "Uno dei genitori era in realtà AA",
+              "feedback": "È un’ipotesi possibile, ma il dato non basta a sostenerla: con genitori Aa il risultato ha una probabilità non trascurabile."
+            },
+            {
+              "id": "D",
+              "text": "Il risultato è compatibile con il modello: succede con probabilità (3/4)⁸, circa 10%",
+              "feedback": "Esatto: ogni figlio è viola con probabilità 3/4, e otto figli viola su otto capitano circa una volta su dieci."
             }
           ],
-          "correct": "A",
-          "numeric": {
-            "x": 0.5,
-            "parameters": {
-              "a": 0.5
-            },
-            "expected": 0.25,
-            "unit": "1"
-          }
+          "correct": "D"
         },
         {
-          "id": "biology-09-transfer",
-          "prompt": "Trasferimento: Gameti A genitore 2 (a)=0,75 (adimensionale). Per Gameti A genitore 1=0,5 (adimensionale), quanto vale Probabilità aa?",
+          "id": "biology-09-q5",
+          "prompt": "Una pianta viola incrociata con una bianca dà 12 figli, tre dei quali bianchi. Qual è il genotipo della pianta viola?",
           "options": [
             {
               "id": "A",
-              "text": "1,125 (adimensionale)",
-              "feedback": "Questo valore non soddisfa la relazione. P(aa) = (1-p)(1-q). Con Gameti A genitore 2 (a)=0,75 (adimensionale) e Gameti A genitore 1=0,5 (adimensionale), il risultato è 0,125 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+              "text": "Aa",
+              "feedback": "Esatto: un figlio bianco aa riceve a da entrambi i genitori, quindi la pianta viola porta l’allele a."
             },
             {
               "id": "B",
-              "text": "-0,875 (adimensionale)",
-              "feedback": "Controlla sostituzione, segno e unità. P(aa) = (1-p)(1-q). Con Gameti A genitore 2 (a)=0,75 (adimensionale) e Gameti A genitore 1=0,5 (adimensionale), il risultato è 0,125 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+              "text": "AA",
+              "feedback": "Una pianta AA darebbe solo figli Aa, cioè viola. Un solo figlio bianco basta a escluderla."
             },
             {
               "id": "C",
-              "text": "0,125 (adimensionale)",
-              "feedback": "P(aa) = (1-p)(1-q). Con Gameti A genitore 2 (a)=0,75 (adimensionale) e Gameti A genitore 1=0,5 (adimensionale), il risultato è 0,125 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-            }
-          ],
-          "correct": "C",
-          "numeric": {
-            "x": 0.5,
-            "parameters": {
-              "a": 0.75
-            },
-            "expected": 0.125,
-            "unit": "1"
-          }
-        },
-        {
-          "id": "biology-09-limits",
-          "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-          "options": [
-            {
-              "id": "A",
-              "text": "Un locus mendeliano con gameti indipendenti",
-              "feedback": "Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche."
+              "text": "aa",
+              "feedback": "Una pianta aa ha fiori bianchi. Il genitore descritto ha fiori viola."
             },
             {
-              "id": "B",
-              "text": "Riproduce ogni dettaglio del pianeta reale",
-              "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche."
-            },
-            {
-              "id": "C",
-              "text": "Basta il grafico per provare una legge universale",
-              "feedback": "Una visualizzazione non è una dimostrazione universale. Un locus, due alleli, gameti indipendenti e nessuna distorsione di segregazione. Non si fanno previsioni genetiche individuali o cliniche."
+              "id": "D",
+              "text": "Non si può dire senza altri figli",
+              "feedback": "Per escludere AA basta un figlio bianco. Servono molti figli solo quando sono tutti viola."
             }
           ],
           "correct": "A"
+        },
+        {
+          "id": "biology-09-q6",
+          "prompt": "Quale situazione esce dai limiti del modello di questa unità?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Un incrocio Aa × Aa",
+              "feedback": "È il caso tipico del modello: un gene, due alleli, dominanza completa."
+            },
+            {
+              "id": "B",
+              "text": "Un reincrocio con una pianta aa",
+              "feedback": "Il reincrocio è un incrocio monoibrido e rientra nel modello."
+            },
+            {
+              "id": "C",
+              "text": "Due geni vicini sullo stesso cromosoma",
+              "feedback": "Esatto: geni associati non si separano in modo indipendente, e le previsioni del modello non valgono più."
+            },
+            {
+              "id": "D",
+              "text": "Un incrocio AA × aa",
+              "feedback": "Anche questo rientra nel modello: tutti i figli sono Aa e hanno fiori viola."
+            }
+          ],
+          "correct": "C"
         }
-      ]
+      ],
+      "activity": {
+        "kind": "punnett"
+      }
     },
     {
       "schemaVersion": 1,

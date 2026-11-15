@@ -39,8 +39,9 @@ export const indicesForSystem = index => [...(AREAS[Math.max(0, Math.min(SYSTEM_
 export const areaOf = index => AREAS[systemForPlanet(index)];
 /** Position of a unit inside its area, counted from 1, and the area's unit count. */
 export function unitPlace(index) { const area = areaOf(index); return { position: area.units.indexOf(index) + 1, count: area.units.length }; }
-// Planet families already tied to the landing surfaces of the four web lessons.
-const UNIT_ANCHORS = { 1:'oceanic', 2:'desert', 3:'volcanic', 7:'terrestrial' };
+// Planet families tied to the landing surfaces of the four web lessons and to the prototype units:
+// a glacial world for logic, a volcanic one for molecular shapes, a living one for Mendel's greenhouse.
+const UNIT_ANCHORS = { 1:'oceanic', 2:'desert', 3:'volcanic', 7:'terrestrial', 0:'arctic', 57:'volcanic', 83:'terrestrial' };
 
 export const SYSTEM_SEED = 0x47414941;
 const architectureCache=new Map();

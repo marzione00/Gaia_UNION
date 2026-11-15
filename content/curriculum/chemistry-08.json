@@ -5,266 +5,327 @@
   "title": "Geometria molecolare e VSEPR",
   "sector": 2,
   "modelId": "chemistry-08",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Geometria triatomica, non equilibrio elettronico",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "prototype-draft",
+  "scope": "Forma delle molecole con un solo atomo centrale secondo il modello VSEPR",
+  "narrativeStatus": "La stazione e il pianeta sono immaginari; la chimica delle molecole è quella reale.",
   "objectives": [
-    "Spiegare: geometria triatomica, non equilibrio elettronico.",
-    "Applicare d = √(2 l²(1-cos θ)), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Contare i domini elettronici dell’atomo centrale a partire dalla struttura di Lewis.",
+    "Prevedere geometria elettronica e forma della molecola con la notazione AXₘEₙ.",
+    "Spiegare perché le coppie solitarie riducono gli angoli di legame.",
+    "Collegare la forma della molecola alla sua polarità."
   ],
   "prerequisites": [
     "chemistry-07"
   ],
   "connections": [
-    "math-c09"
+    "chemistry-09"
   ],
   "sources": [
-    "chemistry",
-    "si"
+    "chemistry"
   ],
   "originalSource": null,
   "glossary": [
     {
-      "term": "Angolo θ",
-      "definition": "Variabile indipendente, unità °; intervallo [0; 180]."
+      "term": "Dominio elettronico",
+      "definition": "Regione attorno all’atomo centrale occupata da elettroni: un legame semplice, un legame multiplo o una coppia solitaria contano ciascuno come un dominio."
     },
     {
-      "term": "Distanza terminali",
-      "definition": "Risultato calcolato dal modello, unità Å."
+      "term": "Coppia solitaria",
+      "definition": "Coppia di elettroni di valenza dell’atomo centrale che non forma legami; occupa più spazio di una coppia di legame."
     },
     {
-      "term": "Lunghezza legame l",
-      "definition": "Parametro a, unità Å; intervallo [0,5; 2]."
+      "term": "Geometria elettronica",
+      "definition": "Disposizione di tutti i domini attorno all’atomo centrale, coppie solitarie comprese."
+    },
+    {
+      "term": "Forma della molecola",
+      "definition": "Disposizione dei soli nuclei atomici: è la geometria che si misura sperimentalmente."
+    },
+    {
+      "term": "Notazione AXₘEₙ",
+      "definition": "A è l’atomo centrale, m il numero di atomi legati, n il numero di coppie solitarie."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Che forma ha una molecola?",
       "text": {
         "base": [
-          "Il laboratorio costruisce un modello triatomico. Ruotarlo mostra che l’angolo fra i legami modifica la distanza fra gli atomi terminali, anche quando le lunghezze dei due legami restano costanti.",
-          "Le strutture di Lewis e il modello VSEPR aiutano a ragionare sulla disposizione dei domini elettronici. La geometria elettronica non coincide sempre con quella degli atomi, perché coppie non leganti possono occupare domini."
+          "Dalle fumarole del pianeta vulcanico escono vapore acqueo, anidride carbonica e diossido di zolfo. La stazione deve sapere quali di queste molecole sono polari, perché le molecole polari si sciolgono nelle goccioline d’acqua e restano nell’aria più a lungo. Per saperlo deve prima conoscerne la forma.",
+          "La formula chimica dice quali atomi ci sono e quanti, ma tace sulla loro disposizione nello spazio. CO₂ è lineare e H₂O è piegata, anche se entrambe hanno un atomo centrale e due atomi legati."
         ],
         "intermediate": [
-          "Il laboratorio costruisce un modello triatomico. Ruotarlo mostra che l’angolo fra i legami modifica la distanza fra gli atomi terminali, anche quando le lunghezze dei due legami restano costanti.",
-          "Per due legami uguali di lunghezza l separati da angolo θ, il teorema del coseno dà d²=2l²(1-cosθ). Il laboratorio rende interattiva questa geometria; non calcola l’angolo di equilibrio di una molecola reale."
+          "Dalle fumarole del pianeta vulcanico escono vapore acqueo, anidride carbonica e diossido di zolfo. La stazione deve sapere quali di queste molecole sono polari, perché le molecole polari si sciolgono nelle goccioline d’acqua e restano nell’aria più a lungo. Per saperlo deve prima conoscerne la forma.",
+          "Il modello VSEPR (dall’inglese Valence Shell Electron Pair Repulsion, repulsione delle coppie elettroniche di valenza) parte da un’idea semplice: le regioni ricche di elettroni attorno all’atomo centrale si respingono e si dispongono il più lontano possibile le une dalle altre."
         ],
         "advanced": [
-          "Il laboratorio costruisce un modello triatomico. Ruotarlo mostra che l’angolo fra i legami modifica la distanza fra gli atomi terminali, anche quando le lunghezze dei due legami restano costanti.",
-          "Confronta una disposizione lineare con una angolare. Spiega come la somma vettoriale dei dipoli di legame possa dipendere dalla simmetria, senza dedurre i dipoli dalle sole distanze.",
-          "Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare."
+          "Dalle fumarole del pianeta vulcanico escono vapore acqueo, anidride carbonica e diossido di zolfo. La stazione deve sapere quali di queste molecole sono polari, perché le molecole polari si sciolgono nelle goccioline d’acqua e restano nell’aria più a lungo. Per saperlo deve prima conoscerne la forma.",
+          "Il modello VSEPR (dall’inglese Valence Shell Electron Pair Repulsion, repulsione delle coppie elettroniche di valenza) parte da un’idea semplice: le regioni ricche di elettroni attorno all’atomo centrale si respingono e si dispongono il più lontano possibile le une dalle altre.",
+          "Il modello si limita a previsioni qualitative, senza calcolare energie od orbitali, e funziona bene per le molecole con un atomo centrale degli elementi dei gruppi principali."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Contare i domini",
       "text": {
         "base": [
-          "Le strutture di Lewis e il modello VSEPR aiutano a ragionare sulla disposizione dei domini elettronici. La geometria elettronica non coincide sempre con quella degli atomi, perché coppie non leganti possono occupare domini.",
-          "Con l=1 Å e θ=60°, la distanza terminale è 1 Å. Con θ=180°, diventa 2 Å. L’angolo visualizzato si inserisce in gradi e viene convertito per il calcolo trigonometrico."
+          "Si parte dalla struttura di Lewis e si contano i domini elettronici dell’atomo centrale. Ogni atomo legato conta come un dominio, qualunque sia l’ordine del legame: un doppio o un triplo legame occupano una sola direzione. Ogni coppia solitaria dell’atomo centrale conta come un altro dominio.",
+          "Il numero di domini fissa la geometria elettronica: con 2 domini è lineare, con 3 trigonale planare, con 4 tetraedrica, con 5 bipiramidale trigonale, con 6 ottaedrica."
         ],
         "intermediate": [
-          "Per due legami uguali di lunghezza l separati da angolo θ, il teorema del coseno dà d²=2l²(1-cosθ). Il laboratorio rende interattiva questa geometria; non calcola l’angolo di equilibrio di una molecola reale.",
-          "La variabile Angolo θ è espressa in °; Distanza terminali in Å. Il dominio dello strumento è [0; 180]. La relazione implementata è: d = √(2 l²(1-cos θ)).",
-          "Con l=1 Å e θ=60°, la distanza terminale è 1 Å. Con θ=180°, diventa 2 Å. L’angolo visualizzato si inserisce in gradi e viene convertito per il calcolo trigonometrico."
+          "Si parte dalla struttura di Lewis e si contano i domini elettronici dell’atomo centrale. Ogni atomo legato conta come un dominio, qualunque sia l’ordine del legame: un doppio o un triplo legame occupano una sola direzione. Ogni coppia solitaria dell’atomo centrale conta come un altro dominio.",
+          "Il numero di domini fissa la geometria elettronica: con 2 domini è lineare, con 3 trigonale planare, con 4 tetraedrica, con 5 bipiramidale trigonale, con 6 ottaedrica.",
+          "La forma della molecola descrive solo le posizioni dei nuclei, perché le coppie solitarie non si osservano. In NH₃ i domini sono quattro, tre legami e una coppia solitaria: la geometria elettronica è tetraedrica, la molecola è una piramide a base triangolare."
         ],
         "advanced": [
-          "Per due legami uguali di lunghezza l separati da angolo θ, il teorema del coseno dà d²=2l²(1-cosθ). Il laboratorio rende interattiva questa geometria; non calcola l’angolo di equilibrio di una molecola reale.",
-          "Confronta una disposizione lineare con una angolare. Spiega come la somma vettoriale dei dipoli di legame possa dipendere dalla simmetria, senza dedurre i dipoli dalle sole distanze.",
-          "Cambiare liberamente l’angolo nel modello non significa che una molecola reale possa assumere tutte le configurazioni senza costo energetico. Le sfere colorate e i bastoncini sono convenzioni."
+          "Si parte dalla struttura di Lewis e si contano i domini elettronici dell’atomo centrale. Ogni atomo legato conta come un dominio, qualunque sia l’ordine del legame: un doppio o un triplo legame occupano una sola direzione. Ogni coppia solitaria dell’atomo centrale conta come un altro dominio.",
+          "Le coppie solitarie respingono più delle coppie di legame, perché sono trattenute da un solo nucleo e si allargano vicino all’atomo centrale. L’ordine delle repulsioni è: solitaria-solitaria, poi solitaria-legame, poi legame-legame. Per questo l’angolo H-N-H in NH₃ (circa 107°) e l’angolo H-O-H in H₂O (circa 104,5°) sono minori di 109,5°.",
+          "Con cinque domini le posizioni non sono equivalenti. Una posizione assiale ha tre vicini a 90°, una equatoriale solo due: le coppie solitarie scelgono le posizioni equatoriali. Ne derivano le forme ad altalena (SF₄), a T (ClF₃) e lineare (XeF₂)."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Costruisci la molecola",
       "text": {
         "base": [
-          "Nel laboratorio imposta Lunghezza legame l (a): 1 Å. Prima di salvare A, prevedi come cambia Distanza terminali fra Angolo θ=45 e 90 °. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con l=1 Å e θ=60°, la distanza terminale è 1 Å. Con θ=180°, diventa 2 Å. L’angolo visualizzato si inserisce in gradi e viene convertito per il calcolo trigonometrico.",
-          "La variabile Angolo θ è espressa in °; Distanza terminali in Å. Il dominio dello strumento è [0; 180]. La relazione implementata è: d = √(2 l²(1-cos θ))."
+          "Nel laboratorio scegli quanti atomi sono legati all’atomo centrale e quante coppie solitarie possiede. Il modello ruota nello spazio e mostra la geometria elettronica, la forma della molecola e l’angolo di legame.",
+          "Nella sfida leggi la descrizione della struttura di Lewis di una molecola, imposta i domini, scegli il nome della forma e premi VERIFICA. Per completare l’attività risolvi quattro molecole diverse."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Lunghezza legame l (a): 1 Å. Prima di salvare A, prevedi come cambia Distanza terminali fra Angolo θ=45 e 90 °. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Angolo θ è espressa in °; Distanza terminali in Å. Il dominio dello strumento è [0; 180]. La relazione implementata è: d = √(2 l²(1-cos θ)).",
-          "Per due legami uguali di lunghezza l separati da angolo θ, il teorema del coseno dà d²=2l²(1-cosθ). Il laboratorio rende interattiva questa geometria; non calcola l’angolo di equilibrio di una molecola reale."
+          "Nel laboratorio scegli quanti atomi sono legati all’atomo centrale e quante coppie solitarie possiede. Il modello ruota nello spazio e mostra la geometria elettronica, la forma della molecola e l’angolo di legame.",
+          "Confronta CH₄, NH₃ e H₂O: i domini restano quattro, cambia il numero di coppie solitarie. Osserva come cambia la forma e come si stringe l’angolo di legame.",
+          "Nella sfida leggi la descrizione della struttura di Lewis di una molecola, imposta i domini, scegli il nome della forma e premi VERIFICA. Per completare l’attività risolvi quattro molecole diverse."
         ],
         "advanced": [
-          "Nel laboratorio imposta Lunghezza legame l (a): 1 Å. Prima di salvare A, prevedi come cambia Distanza terminali fra Angolo θ=45 e 90 °. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta una disposizione lineare con una angolare. Spiega come la somma vettoriale dei dipoli di legame possa dipendere dalla simmetria, senza dedurre i dipoli dalle sole distanze.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Esplora le combinazioni con cinque e sei domini. Immagina di mettere una coppia solitaria di SF₄ in posizione assiale: conta le repulsioni a 90° che si creerebbero e confrontale con la posizione equatoriale.",
+          "Nella sfida leggi la descrizione della struttura di Lewis di una molecola, imposta i domini, scegli il nome della forma e premi VERIFICA. Per completare l’attività risolvi quattro molecole diverse."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Dalla forma alla polarità",
       "text": {
         "base": [
-          "Cambiare liberamente l’angolo nel modello non significa che una molecola reale possa assumere tutte le configurazioni senza costo energetico. Le sfere colorate e i bastoncini sono convenzioni.",
-          "Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Una molecola è polare se i dipoli dei suoi legami non si annullano. In CO₂ i due legami C=O sono polari, ma la molecola è lineare e i due dipoli, uguali e opposti, si compensano: CO₂ è apolare.",
+          "In H₂O i due legami O-H formano un angolo di circa 104,5°: i dipoli si sommano e la molecola è polare. Per questo l’acqua scioglie molti sali e trattiene le molecole polari delle fumarole."
         ],
         "intermediate": [
-          "Cambiare liberamente l’angolo nel modello non significa che una molecola reale possa assumere tutte le configurazioni senza costo energetico. Le sfere colorate e i bastoncini sono convenzioni.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Una molecola è polare se i dipoli dei suoi legami non si annullano. In CO₂ i due legami C=O sono polari, ma la molecola è lineare e i due dipoli, uguali e opposti, si compensano: CO₂ è apolare.",
+          "In H₂O i due legami O-H formano un angolo di circa 104,5°: i dipoli si sommano e la molecola è polare. Per questo l’acqua scioglie molti sali e trattiene le molecole polari delle fumarole.",
+          "Errore frequente: contare il doppio legame come due domini. CO₂ diventerebbe AX₄, con una geometria tetraedrica impossibile: due ossigeni sono due atomi e occupano due sole direzioni."
         ],
         "advanced": [
-          "Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare.",
-          "Confronta una disposizione lineare con una angolare. Spiega come la somma vettoriale dei dipoli di legame possa dipendere dalla simmetria, senza dedurre i dipoli dalle sole distanze.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "SO₂ e CO₂ hanno entrambe due atomi legati, ma lo zolfo possiede anche una coppia solitaria. SO₂ è AX₂E, angolata (circa 119°) e polare. La differenza si vede nelle temperature: SO₂ bolle a circa −10 °C, mentre CO₂ passa direttamente a gas a circa −78 °C.",
+          "Il modello VSEPR prevede la forma in modo qualitativo. Non calcola energie e lunghezze di legame, stima gli angoli solo per confronto e funziona male per molti composti dei metalli di transizione."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Le strutture di Lewis e il modello VSEPR aiutano a ragionare sulla disposizione dei domini elettronici. La geometria elettronica non coincide sempre con quella degli atomi, perché coppie non leganti possono occupare domini.",
-          "Con l=1 Å e θ=60°, la distanza terminale è 1 Å. Con θ=180°, diventa 2 Å. L’angolo visualizzato si inserisce in gradi e viene convertito per il calcolo trigonometrico."
+          "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
         ],
         "intermediate": [
-          "Per due legami uguali di lunghezza l separati da angolo θ, il teorema del coseno dà d²=2l²(1-cosθ). Il laboratorio rende interattiva questa geometria; non calcola l’angolo di equilibrio di una molecola reale.",
-          "La variabile Angolo θ è espressa in °; Distanza terminali in Å. Il dominio dello strumento è [0; 180]. La relazione implementata è: d = √(2 l²(1-cos θ))."
+          "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
         ],
         "advanced": [
-          "Confronta una disposizione lineare con una angolare. Spiega come la somma vettoriale dei dipoli di legame possa dipendere dalla simmetria, senza dedurre i dipoli dalle sole distanze.",
-          "Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare."
+          "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Geometria triatomica, non equilibrio elettronico.",
-          "Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare.",
-          "Collegamento consigliato: math-c09. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La forma della molecola decide la sua polarità, e la polarità decide come le molecole si attraggono tra loro: è il tema dell’unità sulle forze intermolecolari.",
+          "Nel diario scrivi una molecola della sfida, i suoi domini e la forma che hai previsto, con una frase che spieghi il perché."
         ],
         "intermediate": [
-          "Per due legami uguali di lunghezza l separati da angolo θ, il teorema del coseno dà d²=2l²(1-cosθ). Il laboratorio rende interattiva questa geometria; non calcola l’angolo di equilibrio di una molecola reale.",
-          "Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare.",
-          "Confronta una disposizione lineare con una angolare. Spiega come la somma vettoriale dei dipoli di legame possa dipendere dalla simmetria, senza dedurre i dipoli dalle sole distanze."
+          "La forma della molecola decide la sua polarità, e la polarità decide come le molecole si attraggono tra loro: è il tema dell’unità sulle forze intermolecolari.",
+          "Le stesse geometrie tornano nella chimica organica: il carbonio legato a quattro atomi è tetraedrico, e la forma delle molecole biologiche dipende da questa disposizione.",
+          "Nel diario scrivi una molecola della sfida, i suoi domini e la forma che hai previsto, con una frase che spieghi il perché."
         ],
         "advanced": [
-          "Confronta una disposizione lineare con una angolare. Spiega come la somma vettoriale dei dipoli di legame possa dipendere dalla simmetria, senza dedurre i dipoli dalle sole distanze.",
-          "Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La forma della molecola decide la sua polarità, e la polarità decide come le molecole si attraggono tra loro: è il tema dell’unità sulle forze intermolecolari.",
+          "Per gli angoli esatti servono metodi quantistici o misure spettroscopiche. Il VSEPR resta lo strumento rapido per una previsione qualitativa.",
+          "Nel diario scrivi una molecola della sfida, i suoi domini e la forma che hai previsto, con una frase che spieghi il perché."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-08-concept",
-      "prompt": "La distanza fra due atomi terminali dipende:",
+      "id": "chemistry-08-q1",
+      "prompt": "Quanti domini elettronici ci sono attorno al carbonio in CO₂ (O=C=O)?",
       "options": [
         {
           "id": "A",
-          "text": "Dalle lunghezze dei legami e dall’angolo",
-          "feedback": "Le strutture di Lewis e il modello VSEPR aiutano a ragionare sulla disposizione dei domini elettronici. La geometria elettronica non coincide sempre con quella degli atomi, perché coppie non leganti possono occupare domini."
+          "text": "2",
+          "feedback": "Esatto: ogni doppio legame occupa una sola direzione e il carbonio non ha coppie solitarie. Due domini danno una geometria lineare."
         },
         {
           "id": "B",
-          "text": "Solo dal colore delle sfere",
-          "feedback": "Cambiare liberamente l’angolo nel modello non significa che una molecola reale possa assumere tutte le configurazioni senza costo energetico. Le sfere colorate e i bastoncini sono convenzioni."
+          "text": "4",
+          "feedback": "Hai contato ogni doppio legame come due domini. Un legame multiplo conta come un solo dominio, perché i suoi elettroni stanno tutti tra gli stessi due nuclei."
         },
         {
           "id": "C",
-          "text": "Sempre soltanto dal numero di atomi",
-          "feedback": "Per due legami uguali di lunghezza l separati da angolo θ, il teorema del coseno dà d²=2l²(1-cosθ). Il laboratorio rende interattiva questa geometria; non calcola l’angolo di equilibrio di una molecola reale."
+          "text": "3",
+          "feedback": "Hai aggiunto una coppia solitaria al carbonio. Nella struttura di Lewis di CO₂ il carbonio usa tutti e quattro gli elettroni di valenza nei legami."
+        },
+        {
+          "id": "D",
+          "text": "6",
+          "feedback": "Hai contato anche le coppie solitarie degli ossigeni. Per la forma della molecola contano solo i domini dell’atomo centrale."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "chemistry-08-calculation",
-      "prompt": "Calcolo: Lunghezza legame l (a)=1 Å. Per Angolo θ=60 °, quanto vale Distanza terminali?",
+      "id": "chemistry-08-q2",
+      "prompt": "In NH₃ l’azoto ha tre legami semplici e una coppia solitaria. Che forma ha la molecola?",
       "options": [
         {
           "id": "A",
-          "text": "2 Å",
-          "feedback": "Questo valore non soddisfa la relazione. d = √(2 l²(1-cos θ)). Con Lunghezza legame l (a)=1 Å e Angolo θ=60 °, il risultato è 1 Å. Conserva le unità e arrotonda solo alla fine."
+          "text": "Tetraedrica",
+          "feedback": "Tetraedrica è la geometria elettronica, cioè la disposizione dei quattro domini. La coppia solitaria non si vede: gli atomi formano una piramide."
         },
         {
           "id": "B",
-          "text": "0 Å",
-          "feedback": "Controlla sostituzione, segno e unità. d = √(2 l²(1-cos θ)). Con Lunghezza legame l (a)=1 Å e Angolo θ=60 °, il risultato è 1 Å. Conserva le unità e arrotonda solo alla fine."
+          "text": "Trigonale planare",
+          "feedback": "Hai ignorato la coppia solitaria. I domini sono quattro, quindi la disposizione di partenza è tetraedrica, e i tre idrogeni restano sotto il vertice occupato dalla coppia."
         },
         {
           "id": "C",
-          "text": "1 Å",
-          "feedback": "d = √(2 l²(1-cos θ)). Con Lunghezza legame l (a)=1 Å e Angolo θ=60 °, il risultato è 1 Å. Conserva le unità e arrotonda solo alla fine."
+          "text": "Piramidale trigonale",
+          "feedback": "Esatto: quattro domini in geometria tetraedrica, uno è una coppia solitaria, e i tre atomi di idrogeno formano la base di una piramide con l’azoto al vertice."
+        },
+        {
+          "id": "D",
+          "text": "A T",
+          "feedback": "La forma a T richiede cinque domini, tre legami e due coppie solitarie, come in ClF₃. L’azoto in NH₃ ne ha quattro."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 60,
-        "parameters": {
-          "a": 1
-        },
-        "expected": 1,
-        "unit": "Å"
-      }
+      "correct": "C"
     },
     {
-      "id": "chemistry-08-transfer",
-      "prompt": "Trasferimento: Lunghezza legame l (a)=1,1 Å. Per Angolo θ=60 °, quanto vale Distanza terminali?",
+      "id": "chemistry-08-q3",
+      "prompt": "Perché l’angolo H-O-H nell’acqua (circa 104,5°) è minore dell’angolo del tetraedro (109,5°)?",
       "options": [
         {
           "id": "A",
-          "text": "0,1 Å",
-          "feedback": "Controlla sostituzione, segno e unità. d = √(2 l²(1-cos θ)). Con Lunghezza legame l (a)=1,1 Å e Angolo θ=60 °, il risultato è 1,1 Å. Conserva le unità e arrotonda solo alla fine."
+          "text": "Gli atomi di idrogeno si attraggono tra loro",
+          "feedback": "I due idrogeni portano una parziale carica positiva e si respingono. La causa della chiusura dell’angolo sta nelle coppie solitarie dell’ossigeno."
         },
         {
           "id": "B",
-          "text": "1,1 Å",
-          "feedback": "d = √(2 l²(1-cos θ)). Con Lunghezza legame l (a)=1,1 Å e Angolo θ=60 °, il risultato è 1,1 Å. Conserva le unità e arrotonda solo alla fine."
+          "text": "Le due coppie solitarie dell’ossigeno respingono più delle coppie di legame",
+          "feedback": "Esatto: le coppie solitarie, trattenute da un solo nucleo, occupano più spazio e spingono i legami O-H l’uno verso l’altro."
         },
         {
           "id": "C",
-          "text": "2,1 Å",
-          "feedback": "Questo valore non soddisfa la relazione. d = √(2 l²(1-cos θ)). Con Lunghezza legame l (a)=1,1 Å e Angolo θ=60 °, il risultato è 1,1 Å. Conserva le unità e arrotonda solo alla fine."
+          "text": "L’ossigeno forma doppi legami con gli idrogeni",
+          "feedback": "Ogni idrogeno forma un solo legame semplice. Inoltre il numero dei legami multipli non cambia il numero dei domini."
+        },
+        {
+          "id": "D",
+          "text": "La molecola è lineare, ma vibra",
+          "feedback": "L’acqua è angolata anche nella sua geometria media. Se fosse lineare i due dipoli si annullerebbero e l’acqua sarebbe apolare."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 60,
-        "parameters": {
-          "a": 1.1
-        },
-        "expected": 1.1,
-        "unit": "Å"
-      }
+      "correct": "B"
     },
     {
-      "id": "chemistry-08-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "chemistry-08-q4",
+      "prompt": "Quale di queste molecole è apolare pur avendo legami polari?",
       "options": [
         {
           "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare."
+          "text": "H₂O",
+          "feedback": "L’acqua è angolata: i due dipoli O-H si sommano invece di annullarsi, e la molecola è polare."
         },
         {
           "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare."
+          "text": "NH₃",
+          "feedback": "L’ammoniaca è una piramide: i tre dipoli N-H hanno una risultante diretta verso la coppia solitaria, quindi è polare."
         },
         {
           "id": "C",
-          "text": "Geometria triatomica, non equilibrio elettronico",
-          "feedback": "Modello geometrico di tre centri con due legami uguali. Non include coppie elettroniche, energia, orbitali o dinamica molecolare."
+          "text": "SO₂",
+          "feedback": "Lo zolfo ha una coppia solitaria e la molecola è angolata: i dipoli S-O non si compensano e SO₂ è polare."
+        },
+        {
+          "id": "D",
+          "text": "CO₂",
+          "feedback": "Esatto: i due legami C=O sono polari, ma la molecola è lineare e i due dipoli uguali e opposti si annullano."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "chemistry-08-q5",
+      "prompt": "SF₄ ha quattro legami semplici e una coppia solitaria sullo zolfo. Dove va la coppia solitaria e che forma ne risulta?",
+      "options": [
+        {
+          "id": "A",
+          "text": "In posizione equatoriale: forma ad altalena",
+          "feedback": "Esatto: in posizione equatoriale la coppia ha solo due vicini a 90°, contro i tre di una posizione assiale. Gli atomi formano un’altalena."
+        },
+        {
+          "id": "B",
+          "text": "In posizione assiale: piramide trigonale",
+          "feedback": "Una coppia assiale avrebbe tre vicini a 90°, una equatoriale solo due. Il modello sceglie la posizione con meno repulsioni forti."
+        },
+        {
+          "id": "C",
+          "text": "Nessuna posizione: la molecola è tetraedrica",
+          "feedback": "I domini sono cinque, quattro legami e una coppia solitaria. Ignorare la coppia porta alla forma sbagliata."
+        },
+        {
+          "id": "D",
+          "text": "Sopra il piano: forma planare quadrata",
+          "feedback": "La forma planare quadrata richiede sei domini con due coppie solitarie opposte, come in XeF₄."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-08-q6",
+      "prompt": "Quale affermazione sul modello VSEPR è corretta?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Calcola gli angoli di legame esatti di ogni molecola",
+          "feedback": "Il modello prevede gli angoli solo per confronto, per esempio «meno di 109,5°». Gli angoli esatti si misurano o si calcolano con la meccanica quantistica."
+        },
+        {
+          "id": "B",
+          "text": "Funziona allo stesso modo per tutti i composti dei metalli di transizione",
+          "feedback": "Per molti composti dei metalli di transizione il modello sbaglia: gli elettroni d seguono regole diverse."
+        },
+        {
+          "id": "C",
+          "text": "Prevede la forma in modo qualitativo, senza calcolare energie o lunghezze di legame",
+          "feedback": "Esatto: è un modello di previsione qualitativa, utile e rapido, con limiti dichiarati."
+        },
+        {
+          "id": "D",
+          "text": "Descrive la forma degli orbitali atomici",
+          "feedback": "Il modello descrive la disposizione dei domini attorno a un atomo. Gli orbitali sono oggetto della meccanica quantistica."
         }
       ],
       "correct": "C"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "vsepr"
+  }
 }
