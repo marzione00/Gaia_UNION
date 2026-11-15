@@ -1,3 +1,15 @@
+# 1.11.0: Tutte le unità di chimica scritte per intero
+
+- Le 25 unità di chimica hanno ora testi scritti a mano ai tre livelli, sei domande commentate, un riepilogo finale e un ripasso guidato con un mini esercizio. Le 21 unità nuove coprono le aree «Materia e atomi», «Stati e soluzioni», «Reazioni e quantità», «Velocità ed equilibrio» e «Acidi, redox e carbonio».
+- Attività delle 21 unità nuove, distribuite in modo che ogni area ne alterni almeno tre tipi:
+  - carte da classificare o ordinare (6 unità): classificazione della materia, andamenti periodici, transizioni di fase, cause di una resa bassa, perturbazioni dell’equilibrio e colore del complesso di cobalto, gruppi funzionali e isomeri;
+  - problemi guidati (6 unità): mole e formula minima, preparazione di soluzioni e diluizioni, stechiometria e reagente limitante, equazione di Arrhenius, tamponi con Henderson-Hasselbalch, masse molari dei polimeri;
+  - adattamento del modello ai dati (2 unità): legge dei gas ideali V = nRT/p e cinetica del primo ordine;
+  - laboratorio del modello con confronto A/B (7 unità): massa atomica media, transizioni dell’idrogeno, prodotto di solubilità con ione comune, calorimetria, equilibrio A ⇌ B, pH con il prodotto ionico dell’acqua, equazione di Nernst.
+- I pulsanti delle categorie nelle serie di carte si allargano sull’etichetta più lunga e vanno a capo su schermi stretti, invece di troncarla.
+- Valori numerici controllati con calcolo: masse isotopiche e media del cloro, energie delle serie di Lyman e Balmer, costante di Avogadro, volume molare, calori latenti dell’acqua, K_sp di AgCl, entalpia di neutralizzazione, fattori di Arrhenius, potenziali standard della pila di Daniell, temperature di ebollizione degli alcani, unità ripetitiva del nylon-6,6.
+- Atlante dei glifi esteso con ν, ₀, ₁, ≪, ≫, ø, Ø.
+
 # 1.10.0: Tutte le unità di matematica scritte per intero
 
 - Le 25 unità di matematica hanno ora testi scritti a mano ai tre livelli, sei domande commentate, un riepilogo finale e un ripasso guidato con un mini esercizio. Le 21 unità nuove coprono le aree «Algebra ed equazioni», «Funzioni e variazione», «Geometria e trasformazioni», «Probabilità e dati» e «Matematica per le scienze».

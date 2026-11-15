@@ -5,19 +5,21 @@
   "title": "Perturbazioni dell’equilibrio",
   "sector": 2,
   "modelId": "chemistry-20",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Entalpia approssimata costante",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Principio di Le Chatelier, effetti di concentrazione, pressione e temperatura, van ’t Hoff, processo Haber-Bosch",
+  "narrativeStatus": "La storia del processo Haber-Bosch e gli esperimenti citati sono reali.",
   "objectives": [
-    "Spiegare: entalpia approssimata costante.",
-    "Applicare K(T) = K₀ exp[-ΔH/R(1/T-1/T₀)], dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Applicare il principio di Le Chatelier a variazioni di concentrazione e pressione.",
+    "Prevedere l’effetto della temperatura su K dal segno di ΔH.",
+    "Distinguere perturbazioni che spostano l’equilibrio da quelle che cambiano K.",
+    "Spiegare i compromessi del processo Haber-Bosch."
   ],
   "prerequisites": [
     "chemistry-19"
   ],
   "connections": [
+    "chemistry-21",
     "physics-20"
   ],
   "sources": [
@@ -27,250 +29,575 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Temperatura",
-      "definition": "Variabile indipendente, unità K; intervallo [273; 500]."
+      "term": "Principio di Le Chatelier",
+      "definition": "Un equilibrio perturbato si sposta in modo da contrastare in parte la perturbazione."
     },
     {
-      "term": "Costante K",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Equazione di van ’t Hoff",
+      "definition": "ln(K₂/K₁) = −(ΔH/R)(1/T₂ − 1/T₁)."
     },
     {
-      "term": "K₀ a 298,15 K",
-      "definition": "Parametro a, unità 1; intervallo [0,5; 3]."
+      "term": "Processo Haber-Bosch",
+      "definition": "Sintesi industriale dell’ammoniaca da azoto e idrogeno."
     },
     {
-      "term": "Entalpia ΔH",
-      "definition": "Parametro b, unità kJ/mol; intervallo [-40; 40]."
+      "term": "Gas inerte",
+      "definition": "Gas che non partecipa alla reazione."
+    },
+    {
+      "term": "Compromesso industriale",
+      "definition": "Scelta di condizioni che bilanciano resa e velocità."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Ammoniaca dall’aria",
       "text": {
         "base": [
-          "La temperatura di un sistema all’equilibrio cambia. La stazione deve prevedere il verso della variazione della costante, distinguendolo da un semplice aumento della velocità.",
-          "La dipendenza di K dalla temperatura può essere descritta dalla relazione di van ’t Hoff. Per entalpia standard approssimata costante, ln(K/K₀)=-(ΔH/R)(1/T-1/T₀)."
+          "All’inizio del Novecento fertilizzanti azotati ed esplosivi dipendevano dai nitrati estratti in Cile, una fonte lontana e destinata a esaurirsi. Fritz Haber e Carl Bosch trovarono il modo di produrre ammoniaca dall’azoto dell’aria. La chiave era convincere un equilibrio sfavorevole a spostarsi verso il prodotto. Si stima che oggi circa metà dell’azoto nelle proteine umane sia passato per quel processo.",
+          "Nel 1884 Henry Le Chatelier formulò il principio che porta il suo nome: se un sistema all’equilibrio subisce una perturbazione, si sposta nel verso che la contrasta in parte. Aggiungere un reagente sposta l’equilibrio verso i prodotti; togliere un prodotto, anche. Il nuovo equilibrio ha concentrazioni diverse, ma lo stesso K."
         ],
         "intermediate": [
-          "La temperatura di un sistema all’equilibrio cambia. La stazione deve prevedere il verso della variazione della costante, distinguendolo da un semplice aumento della velocità.",
-          "Il laboratorio usa T₀=298,15 K. Per ΔH positiva, aumentare T rende l’esponente positivo e aumenta K. Per ΔH negativa avviene il contrario, mantenendo valide le ipotesi."
+          "All’inizio del Novecento fertilizzanti azotati ed esplosivi dipendevano dai nitrati estratti in Cile, una fonte lontana e destinata a esaurirsi. Fritz Haber e Carl Bosch trovarono il modo di produrre ammoniaca dall’azoto dell’aria. La chiave era convincere un equilibrio sfavorevole a spostarsi verso il prodotto. Si stima che oggi circa metà dell’azoto nelle proteine umane sia passato per quel processo.",
+          "Nel 1884 Henry Le Chatelier formulò il principio che porta il suo nome: se un sistema all’equilibrio subisce una perturbazione, si sposta nel verso che la contrasta in parte. Aggiungere un reagente sposta l’equilibrio verso i prodotti; togliere un prodotto, anche. Il nuovo equilibrio ha concentrazioni diverse, ma lo stesso K."
         ],
         "advanced": [
-          "La temperatura di un sistema all’equilibrio cambia. La stazione deve prevedere il verso della variazione della costante, distinguendolo da un semplice aumento della velocità.",
-          "Confronta curve endoterme ed esoterme. Spiega perché le costanti cinetiche e la costante di equilibrio possono rispondere alla temperatura in modi collegati ma distinti.",
-          "Entalpia approssimata costante e stessa reazione nell’intervallo. Non sono inclusi cambi di fase o variazioni significative delle capacità termiche."
+          "All’inizio del Novecento fertilizzanti azotati ed esplosivi dipendevano dai nitrati estratti in Cile, una fonte lontana e destinata a esaurirsi. Fritz Haber e Carl Bosch trovarono il modo di produrre ammoniaca dall’azoto dell’aria. La chiave era convincere un equilibrio sfavorevole a spostarsi verso il prodotto. Si stima che oggi circa metà dell’azoto nelle proteine umane sia passato per quel processo.",
+          "Nel 1884 Henry Le Chatelier formulò il principio che porta il suo nome: se un sistema all’equilibrio subisce una perturbazione, si sposta nel verso che la contrasta in parte. Aggiungere un reagente sposta l’equilibrio verso i prodotti; togliere un prodotto, anche. Il nuovo equilibrio ha concentrazioni diverse, ma lo stesso K."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Concentrazione, pressione, temperatura",
       "text": {
         "base": [
-          "La dipendenza di K dalla temperatura può essere descritta dalla relazione di van ’t Hoff. Per entalpia standard approssimata costante, ln(K/K₀)=-(ΔH/R)(1/T-1/T₀).",
-          "Con K₀=1, a T=T₀ il termine 1/T-1/T₀ è zero e K=1 per qualunque ΔH. È un controllo utile della formula."
+          "Per le reazioni tra gas conta il numero di moli. Comprimere il sistema, cioè aumentare la pressione riducendo il volume, sposta l’equilibrio verso il lato con meno moli di gas. In N₂ + 3 H₂ ⇌ 2 NH₃ si passa da 4 a 2 moli: la pressione alta favorisce l’ammoniaca. Aggiungere un gas inerte a volume costante non cambia le pressioni parziali e non sposta nulla.",
+          "La temperatura è diversa dalle altre perturbazioni: cambia K. Per una reazione esotermica il calore è come un prodotto, e riscaldare sposta verso i reagenti, riducendo K; per una endotermica accade il contrario. L’equazione di van ’t Hoff lo rende quantitativo: ln(K₂/K₁) = −(ΔH/R)(1/T₂ − 1/T₁). Un catalizzatore invece fa raggiungere prima l’equilibrio, senza spostarlo.",
+          "Nella sintesi dell’ammoniaca ΔH ≈ −92 kJ per 2 mol di NH₃: la resa sarebbe massima a bassa temperatura, dove però la reazione è lentissima. Il processo industriale usa un compromesso, intorno a 400-450 °C e 150-250 atm, con un catalizzatore a base di ferro; l’ammoniaca viene liquefatta e rimossa, e i gas non reagiti tornano nel reattore."
         ],
         "intermediate": [
-          "Il laboratorio usa T₀=298,15 K. Per ΔH positiva, aumentare T rende l’esponente positivo e aumenta K. Per ΔH negativa avviene il contrario, mantenendo valide le ipotesi.",
-          "La variabile Temperatura è espressa in K; Costante K in 1. Il dominio dello strumento è [273; 500]. La relazione implementata è: K(T) = K₀ exp[-ΔH/R(1/T-1/T₀)].",
-          "Con K₀=1, a T=T₀ il termine 1/T-1/T₀ è zero e K=1 per qualunque ΔH. È un controllo utile della formula."
+          "Per le reazioni tra gas conta il numero di moli. Comprimere il sistema, cioè aumentare la pressione riducendo il volume, sposta l’equilibrio verso il lato con meno moli di gas. In N₂ + 3 H₂ ⇌ 2 NH₃ si passa da 4 a 2 moli: la pressione alta favorisce l’ammoniaca. Aggiungere un gas inerte a volume costante non cambia le pressioni parziali e non sposta nulla.",
+          "La temperatura è diversa dalle altre perturbazioni: cambia K. Per una reazione esotermica il calore è come un prodotto, e riscaldare sposta verso i reagenti, riducendo K; per una endotermica accade il contrario. L’equazione di van ’t Hoff lo rende quantitativo: ln(K₂/K₁) = −(ΔH/R)(1/T₂ − 1/T₁). Un catalizzatore invece fa raggiungere prima l’equilibrio, senza spostarlo.",
+          "Nella sintesi dell’ammoniaca ΔH ≈ −92 kJ per 2 mol di NH₃: la resa sarebbe massima a bassa temperatura, dove però la reazione è lentissima. Il processo industriale usa un compromesso, intorno a 400-450 °C e 150-250 atm, con un catalizzatore a base di ferro; l’ammoniaca viene liquefatta e rimossa, e i gas non reagiti tornano nel reattore.",
+          "Un esperimento classico mostra il principio a colori. In soluzione con ioni cloruro: [Co(H₂O)₆]²⁺, rosa, + 4 Cl⁻ ⇌ [CoCl₄]²⁻, blu, + 6 H₂O, con ΔH > 0. Scaldando la soluzione diventa blu, raffreddandola rosa; aggiungendo acido cloridrico vira al blu, aggiungendo acqua al rosa."
         ],
         "advanced": [
-          "Il laboratorio usa T₀=298,15 K. Per ΔH positiva, aumentare T rende l’esponente positivo e aumenta K. Per ΔH negativa avviene il contrario, mantenendo valide le ipotesi.",
-          "Confronta curve endoterme ed esoterme. Spiega perché le costanti cinetiche e la costante di equilibrio possono rispondere alla temperatura in modi collegati ma distinti.",
-          "Un catalizzatore non modifica K per il solo fatto di accelerare le reazioni diretta e inversa. Il principio di Le Châtelier non sostituisce un bilancio quantitativo quando servono concentrazioni precise."
+          "Per le reazioni tra gas conta il numero di moli. Comprimere il sistema, cioè aumentare la pressione riducendo il volume, sposta l’equilibrio verso il lato con meno moli di gas. In N₂ + 3 H₂ ⇌ 2 NH₃ si passa da 4 a 2 moli: la pressione alta favorisce l’ammoniaca. Aggiungere un gas inerte a volume costante non cambia le pressioni parziali e non sposta nulla.",
+          "La temperatura è diversa dalle altre perturbazioni: cambia K. Per una reazione esotermica il calore è come un prodotto, e riscaldare sposta verso i reagenti, riducendo K; per una endotermica accade il contrario. L’equazione di van ’t Hoff lo rende quantitativo: ln(K₂/K₁) = −(ΔH/R)(1/T₂ − 1/T₁). Un catalizzatore invece fa raggiungere prima l’equilibrio, senza spostarlo.",
+          "Nella sintesi dell’ammoniaca ΔH ≈ −92 kJ per 2 mol di NH₃: la resa sarebbe massima a bassa temperatura, dove però la reazione è lentissima. Il processo industriale usa un compromesso, intorno a 400-450 °C e 150-250 atm, con un catalizzatore a base di ferro; l’ammoniaca viene liquefatta e rimossa, e i gas non reagiti tornano nel reattore.",
+          "Un esperimento classico mostra il principio a colori. In soluzione con ioni cloruro: [Co(H₂O)₆]²⁺, rosa, + 4 Cl⁻ ⇌ [CoCl₄]²⁻, blu, + 6 H₂O, con ΔH > 0. Scaldando la soluzione diventa blu, raffreddandola rosa; aggiungendo acido cloridrico vira al blu, aggiungendo acqua al rosa.",
+          "Il modello del programma calcola K(T) con l’equazione di van ’t Hoff, con K₀ a 298,15 K e ΔH regolabili: con ΔH = +20 kJ/mol, K cresce scaldando; con ΔH negativo diminuisce. Con K₀ = 1 e ΔH = +20 kJ/mol a 350 K K ≈ 3,3."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Carte delle perturbazioni",
       "text": {
         "base": [
-          "Nel laboratorio imposta K₀ a 298,15 K (a): 1 (adimensionale); Entalpia ΔH (b): 20 kJ/mol. Prima di salvare A, prevedi come cambia Costante K fra Temperatura=329,75 e 386,5 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con K₀=1, a T=T₀ il termine 1/T-1/T₀ è zero e K=1 per qualunque ΔH. È un controllo utile della formula.",
-          "La variabile Temperatura è espressa in K; Costante K in 1. Il dominio dello strumento è [273; 500]. La relazione implementata è: K(T) = K₀ exp[-ΔH/R(1/T-1/T₀)]."
+          "L’attività ha quattro serie di carte: perturbazioni della sintesi dell’ammoniaca da classificare per verso dello spostamento; perturbazioni che cambiano o non cambiano K; il colore della soluzione di cobalto; le scelte del processo industriale, per resa o per velocità. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte, una sola nelle serie più brevi.",
+          "Per ogni perturbazione chiediti che cosa è stato aggiunto o tolto, e scegli il verso che lo consuma o lo ripristina. Per la temperatura tratta il calore come un reagente se ΔH > 0, come un prodotto se ΔH < 0.",
+          "Un esperimento classico mostra il principio a colori. In soluzione con ioni cloruro: [Co(H₂O)₆]²⁺, rosa, + 4 Cl⁻ ⇌ [CoCl₄]²⁻, blu, + 6 H₂O, con ΔH > 0. Scaldando la soluzione diventa blu, raffreddandola rosa; aggiungendo acido cloridrico vira al blu, aggiungendo acqua al rosa."
         ],
         "intermediate": [
-          "Nel laboratorio imposta K₀ a 298,15 K (a): 1 (adimensionale); Entalpia ΔH (b): 20 kJ/mol. Prima di salvare A, prevedi come cambia Costante K fra Temperatura=329,75 e 386,5 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Temperatura è espressa in K; Costante K in 1. Il dominio dello strumento è [273; 500]. La relazione implementata è: K(T) = K₀ exp[-ΔH/R(1/T-1/T₀)].",
-          "Il laboratorio usa T₀=298,15 K. Per ΔH positiva, aumentare T rende l’esponente positivo e aumenta K. Per ΔH negativa avviene il contrario, mantenendo valide le ipotesi."
+          "L’attività ha quattro serie di carte: perturbazioni della sintesi dell’ammoniaca da classificare per verso dello spostamento; perturbazioni che cambiano o non cambiano K; il colore della soluzione di cobalto; le scelte del processo industriale, per resa o per velocità. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte, una sola nelle serie più brevi.",
+          "Per ogni perturbazione chiediti che cosa è stato aggiunto o tolto, e scegli il verso che lo consuma o lo ripristina. Per la temperatura tratta il calore come un reagente se ΔH > 0, come un prodotto se ΔH < 0.",
+          "Il modello del programma calcola K(T) con l’equazione di van ’t Hoff, con K₀ a 298,15 K e ΔH regolabili: con ΔH = +20 kJ/mol, K cresce scaldando; con ΔH negativo diminuisce. Con K₀ = 1 e ΔH = +20 kJ/mol a 350 K K ≈ 3,3."
         ],
         "advanced": [
-          "Nel laboratorio imposta K₀ a 298,15 K (a): 1 (adimensionale); Entalpia ΔH (b): 20 kJ/mol. Prima di salvare A, prevedi come cambia Costante K fra Temperatura=329,75 e 386,5 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta curve endoterme ed esoterme. Spiega perché le costanti cinetiche e la costante di equilibrio possono rispondere alla temperatura in modi collegati ma distinti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività ha quattro serie di carte: perturbazioni della sintesi dell’ammoniaca da classificare per verso dello spostamento; perturbazioni che cambiano o non cambiano K; il colore della soluzione di cobalto; le scelte del processo industriale, per resa o per velocità. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte, una sola nelle serie più brevi.",
+          "Per ogni perturbazione chiediti che cosa è stato aggiunto o tolto, e scegli il verso che lo consuma o lo ripristina. Per la temperatura tratta il calore come un reagente se ΔH > 0, come un prodotto se ΔH < 0."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "Un catalizzatore non modifica K per il solo fatto di accelerare le reazioni diretta e inversa. Il principio di Le Châtelier non sostituisce un bilancio quantitativo quando servono concentrazioni precise.",
-          "Entalpia approssimata costante e stessa reazione nell’intervallo. Non sono inclusi cambi di fase o variazioni significative delle capacità termiche.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che aggiungere un reagente cambi K. Cambiano le concentrazioni del nuovo equilibrio; il loro rapporto, scritto con la legge di azione di massa, torna allo stesso valore di prima.",
+          "Secondo errore: aspettarsi che un catalizzatore aumenti la resa all’equilibrio. Accelera allo stesso modo la reazione diretta e quella inversa: si arriva prima allo stesso equilibrio.",
+          "Il modello del programma calcola K(T) con l’equazione di van ’t Hoff, con K₀ a 298,15 K e ΔH regolabili: con ΔH = +20 kJ/mol, K cresce scaldando; con ΔH negativo diminuisce. Con K₀ = 1 e ΔH = +20 kJ/mol a 350 K K ≈ 3,3."
         ],
         "intermediate": [
-          "Un catalizzatore non modifica K per il solo fatto di accelerare le reazioni diretta e inversa. Il principio di Le Châtelier non sostituisce un bilancio quantitativo quando servono concentrazioni precise.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che aggiungere un reagente cambi K. Cambiano le concentrazioni del nuovo equilibrio; il loro rapporto, scritto con la legge di azione di massa, torna allo stesso valore di prima.",
+          "Secondo errore: aspettarsi che un catalizzatore aumenti la resa all’equilibrio. Accelera allo stesso modo la reazione diretta e quella inversa: si arriva prima allo stesso equilibrio.",
+          "Il modello del programma calcola K(T) con l’equazione di van ’t Hoff, con K₀ a 298,15 K e ΔH regolabili: con ΔH = +20 kJ/mol, K cresce scaldando; con ΔH negativo diminuisce. Con K₀ = 1 e ΔH = +20 kJ/mol a 350 K K ≈ 3,3."
         ],
         "advanced": [
-          "Entalpia approssimata costante e stessa reazione nell’intervallo. Non sono inclusi cambi di fase o variazioni significative delle capacità termiche.",
-          "Confronta curve endoterme ed esoterme. Spiega perché le costanti cinetiche e la costante di equilibrio possono rispondere alla temperatura in modi collegati ma distinti.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che aggiungere un reagente cambi K. Cambiano le concentrazioni del nuovo equilibrio; il loro rapporto, scritto con la legge di azione di massa, torna allo stesso valore di prima.",
+          "Secondo errore: aspettarsi che un catalizzatore aumenti la resa all’equilibrio. Accelera allo stesso modo la reazione diretta e quella inversa: si arriva prima allo stesso equilibrio.",
+          "Nella sintesi dell’ammoniaca ΔH ≈ −92 kJ per 2 mol di NH₃: la resa sarebbe massima a bassa temperatura, dove però la reazione è lentissima. Il processo industriale usa un compromesso, intorno a 400-450 °C e 150-250 atm, con un catalizzatore a base di ferro; l’ammoniaca viene liquefatta e rimossa, e i gas non reagiti tornano nel reattore."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "La dipendenza di K dalla temperatura può essere descritta dalla relazione di van ’t Hoff. Per entalpia standard approssimata costante, ln(K/K₀)=-(ΔH/R)(1/T-1/T₀).",
-          "Con K₀=1, a T=T₀ il termine 1/T-1/T₀ è zero e K=1 per qualunque ΔH. È un controllo utile della formula."
+          "Ripasso: principio di Le Chatelier; effetto di concentrazione, pressione e gas inerti; effetto della temperatura su K e equazione di van ’t Hoff; ruolo del catalizzatore; compromessi del processo Haber-Bosch.",
+          "Mini esercizio: in 2 SO₂ + O₂ ⇌ 2 SO₃, ΔH < 0, la compressione favorisce SO₃, il riscaldamento lo sfavorisce.",
+          "Nelle domande su Le Chatelier distingui sempre le perturbazioni che spostano l’equilibrio da quelle che cambiano K."
         ],
         "intermediate": [
-          "Il laboratorio usa T₀=298,15 K. Per ΔH positiva, aumentare T rende l’esponente positivo e aumenta K. Per ΔH negativa avviene il contrario, mantenendo valide le ipotesi.",
-          "La variabile Temperatura è espressa in K; Costante K in 1. Il dominio dello strumento è [273; 500]. La relazione implementata è: K(T) = K₀ exp[-ΔH/R(1/T-1/T₀)]."
+          "Ripasso: principio di Le Chatelier; effetto di concentrazione, pressione e gas inerti; effetto della temperatura su K e equazione di van ’t Hoff; ruolo del catalizzatore; compromessi del processo Haber-Bosch.",
+          "Mini esercizio: in 2 SO₂ + O₂ ⇌ 2 SO₃, ΔH < 0, la compressione favorisce SO₃, il riscaldamento lo sfavorisce.",
+          "Nelle domande su Le Chatelier distingui sempre le perturbazioni che spostano l’equilibrio da quelle che cambiano K."
         ],
         "advanced": [
-          "Confronta curve endoterme ed esoterme. Spiega perché le costanti cinetiche e la costante di equilibrio possono rispondere alla temperatura in modi collegati ma distinti.",
-          "Entalpia approssimata costante e stessa reazione nell’intervallo. Non sono inclusi cambi di fase o variazioni significative delle capacità termiche."
+          "Ripasso: principio di Le Chatelier; effetto di concentrazione, pressione e gas inerti; effetto della temperatura su K e equazione di van ’t Hoff; ruolo del catalizzatore; compromessi del processo Haber-Bosch.",
+          "Mini esercizio: in 2 SO₂ + O₂ ⇌ 2 SO₃, ΔH < 0, la compressione favorisce SO₃, il riscaldamento lo sfavorisce.",
+          "Nelle domande su Le Chatelier distingui sempre le perturbazioni che spostano l’equilibrio da quelle che cambiano K."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Entalpia approssimata costante.",
-          "Entalpia approssimata costante e stessa reazione nell’intervallo. Non sono inclusi cambi di fase o variazioni significative delle capacità termiche.",
-          "Collegamento consigliato: physics-20. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Il calore come grandezza che sposta gli equilibri richiama l’unità di fisica «Termodinamica e rendimento». In chimica gli equilibri in acqua tornano nell’unità «Acidi, basi e pH».",
+          "Riepilogo dell’unità: un equilibrio perturbato si sposta in modo da contrastare in parte la perturbazione; la pressione favorisce il lato con meno moli di gas; la temperatura cambia K secondo il segno di ΔH; il catalizzatore non sposta l’equilibrio; il processo Haber-Bosch è un compromesso tra resa e velocità.",
+          "Nel diario spiega perché nel processo Haber-Bosch non si lavora alla temperatura che darebbe la resa massima."
         ],
         "intermediate": [
-          "Il laboratorio usa T₀=298,15 K. Per ΔH positiva, aumentare T rende l’esponente positivo e aumenta K. Per ΔH negativa avviene il contrario, mantenendo valide le ipotesi.",
-          "Entalpia approssimata costante e stessa reazione nell’intervallo. Non sono inclusi cambi di fase o variazioni significative delle capacità termiche.",
-          "Confronta curve endoterme ed esoterme. Spiega perché le costanti cinetiche e la costante di equilibrio possono rispondere alla temperatura in modi collegati ma distinti."
+          "Il calore come grandezza che sposta gli equilibri richiama l’unità di fisica «Termodinamica e rendimento». In chimica gli equilibri in acqua tornano nell’unità «Acidi, basi e pH».",
+          "Riepilogo dell’unità: un equilibrio perturbato si sposta in modo da contrastare in parte la perturbazione; la pressione favorisce il lato con meno moli di gas; la temperatura cambia K secondo il segno di ΔH; il catalizzatore non sposta l’equilibrio; il processo Haber-Bosch è un compromesso tra resa e velocità.",
+          "Nel diario spiega perché nel processo Haber-Bosch non si lavora alla temperatura che darebbe la resa massima."
         ],
         "advanced": [
-          "Confronta curve endoterme ed esoterme. Spiega perché le costanti cinetiche e la costante di equilibrio possono rispondere alla temperatura in modi collegati ma distinti.",
-          "Entalpia approssimata costante e stessa reazione nell’intervallo. Non sono inclusi cambi di fase o variazioni significative delle capacità termiche.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Il calore come grandezza che sposta gli equilibri richiama l’unità di fisica «Termodinamica e rendimento». In chimica gli equilibri in acqua tornano nell’unità «Acidi, basi e pH».",
+          "Riepilogo dell’unità: un equilibrio perturbato si sposta in modo da contrastare in parte la perturbazione; la pressione favorisce il lato con meno moli di gas; la temperatura cambia K secondo il segno di ΔH; il catalizzatore non sposta l’equilibrio; il processo Haber-Bosch è un compromesso tra resa e velocità.",
+          "Nel diario spiega perché nel processo Haber-Bosch non si lavora alla temperatura che darebbe la resa massima."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-20-concept",
-      "prompt": "Per ΔH>0, aumentando la temperatura nel modello:",
+      "id": "chemistry-20-q1",
+      "prompt": "Che cosa afferma il principio di Le Chatelier?",
       "options": [
         {
           "id": "A",
-          "text": "K aumenta",
-          "feedback": "La dipendenza di K dalla temperatura può essere descritta dalla relazione di van ’t Hoff. Per entalpia standard approssimata costante, ln(K/K₀)=-(ΔH/R)(1/T-1/T₀)."
+          "text": "Che un equilibrio perturbato si sposta contrastando in parte la perturbazione",
+          "feedback": "Esatto: il sistema reagisce consumando ciò che è stato aggiunto o ripristinando ciò che è stato tolto."
         },
         {
           "id": "B",
-          "text": "K diminuisce sempre",
-          "feedback": "Un catalizzatore non modifica K per il solo fatto di accelerare le reazioni diretta e inversa. Il principio di Le Châtelier non sostituisce un bilancio quantitativo quando servono concentrazioni precise."
+          "text": "Che K cambia sempre dopo una perturbazione",
+          "feedback": "K cambia solo con la temperatura, non con le concentrazioni."
         },
         {
           "id": "C",
-          "text": "K resta sempre uguale",
-          "feedback": "Il laboratorio usa T₀=298,15 K. Per ΔH positiva, aumentare T rende l’esponente positivo e aumenta K. Per ΔH negativa avviene il contrario, mantenendo valide le ipotesi."
+          "text": "Che le reazioni vanno sempre a completamento",
+          "feedback": "Il principio riguarda proprio le reazioni che si fermano all’equilibrio."
+        },
+        {
+          "id": "D",
+          "text": "Che un catalizzatore sposta l’equilibrio",
+          "feedback": "Il catalizzatore accelera senza spostare."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "chemistry-20-calculation",
-      "prompt": "Calcolo: K₀ a 298,15 K (a)=1 (adimensionale); Entalpia ΔH (b)=20 kJ/mol. Per Temperatura=298,15 K, quanto vale Costante K?",
+      "id": "chemistry-20-q2",
+      "prompt": "Che cosa accade aggiungendo ammoniaca all’equilibrio N₂ + 3 H₂ ⇌ 2 NH₃?",
       "options": [
         {
           "id": "A",
-          "text": "2 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. K(T) = K₀ exp[-ΔH/R(1/T-1/T₀)]. Con K₀ a 298,15 K (a)=1 (adimensionale); Entalpia ΔH (b)=20 kJ/mol e Temperatura=298,15 K, il risultato è 1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Si forma altra ammoniaca",
+          "feedback": "Il sistema contrasta l’aggiunta consumando ammoniaca."
         },
         {
           "id": "B",
-          "text": "0 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. K(T) = K₀ exp[-ΔH/R(1/T-1/T₀)]. Con K₀ a 298,15 K (a)=1 (adimensionale); Entalpia ΔH (b)=20 kJ/mol e Temperatura=298,15 K, il risultato è 1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Si sposta verso azoto e idrogeno",
+          "feedback": "Esatto: una parte dell’ammoniaca aggiunta si decompone."
         },
         {
           "id": "C",
-          "text": "1 (adimensionale)",
-          "feedback": "K(T) = K₀ exp[-ΔH/R(1/T-1/T₀)]. Con K₀ a 298,15 K (a)=1 (adimensionale); Entalpia ΔH (b)=20 kJ/mol e Temperatura=298,15 K, il risultato è 1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "K aumenta",
+          "feedback": "Aggiungere una sostanza cambia le concentrazioni, non K."
+        },
+        {
+          "id": "D",
+          "text": "Non accade nulla",
+          "feedback": "Q supera K e il sistema reagisce consumando ammoniaca."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 298.15,
-        "parameters": {
-          "a": 1,
-          "b": 20
-        },
-        "expected": 1,
-        "unit": "1"
-      }
+      "correct": "B"
     },
     {
-      "id": "chemistry-20-transfer",
-      "prompt": "Trasferimento: K₀ a 298,15 K (a)=1,5 (adimensionale); Entalpia ΔH (b)=20 kJ/mol. Per Temperatura=298,15 K, quanto vale Costante K?",
+      "id": "chemistry-20-q3",
+      "prompt": "Perché la pressione alta favorisce l’ammoniaca?",
       "options": [
         {
           "id": "A",
-          "text": "0,5 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. K(T) = K₀ exp[-ΔH/R(1/T-1/T₀)]. Con K₀ a 298,15 K (a)=1,5 (adimensionale); Entalpia ΔH (b)=20 kJ/mol e Temperatura=298,15 K, il risultato è 1,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché aumenta la temperatura",
+          "feedback": "Il ragionamento vale anche a temperatura costante."
         },
         {
           "id": "B",
-          "text": "1,5 (adimensionale)",
-          "feedback": "K(T) = K₀ exp[-ΔH/R(1/T-1/T₀)]. Con K₀ a 298,15 K (a)=1,5 (adimensionale); Entalpia ΔH (b)=20 kJ/mol e Temperatura=298,15 K, il risultato è 1,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché l’ammoniaca è più pesante",
+          "feedback": "Conta il numero di moli di gas, non la massa."
         },
         {
           "id": "C",
-          "text": "2,5 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. K(T) = K₀ exp[-ΔH/R(1/T-1/T₀)]. Con K₀ a 298,15 K (a)=1,5 (adimensionale); Entalpia ΔH (b)=20 kJ/mol e Temperatura=298,15 K, il risultato è 1,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 298.15,
-        "parameters": {
-          "a": 1.5,
-          "b": 20
-        },
-        "expected": 1.5,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "chemistry-20-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Entalpia approssimata costante e stessa reazione nell’intervallo. Non sono inclusi cambi di fase o variazioni significative delle capacità termiche."
+          "text": "Perché i prodotti hanno meno moli di gas",
+          "feedback": "Esatto: da 4 moli di reagenti si passa a 2 di prodotto."
         },
         {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Entalpia approssimata costante e stessa reazione nell’intervallo. Non sono inclusi cambi di fase o variazioni significative delle capacità termiche."
-        },
-        {
-          "id": "C",
-          "text": "Entalpia approssimata costante",
-          "feedback": "Entalpia approssimata costante e stessa reazione nell’intervallo. Non sono inclusi cambi di fase o variazioni significative delle capacità termiche."
+          "id": "D",
+          "text": "Perché attiva il catalizzatore",
+          "feedback": "L’effetto sulla posizione dell’equilibrio non dipende dal catalizzatore."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "chemistry-20-q4",
+      "prompt": "Riscaldando una reazione esotermica all’equilibrio, K:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Aumenta",
+          "feedback": "Aumenta per le reazioni endotermiche."
+        },
+        {
+          "id": "B",
+          "text": "Resta uguale",
+          "feedback": "La temperatura è l’unica perturbazione che cambia K."
+        },
+        {
+          "id": "C",
+          "text": "Diventa zero",
+          "feedback": "K diminuisce senza annullarsi: resta sempre un po’ di prodotto."
+        },
+        {
+          "id": "D",
+          "text": "Diminuisce",
+          "feedback": "Esatto: il calore agisce come un prodotto aggiunto."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "chemistry-20-q5",
+      "prompt": "Che effetto ha un catalizzatore su un equilibrio?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Lo fa raggiungere prima, senza spostarlo",
+          "feedback": "Esatto: accelera allo stesso modo le due reazioni."
+        },
+        {
+          "id": "B",
+          "text": "Lo sposta verso i prodotti",
+          "feedback": "Le due direzioni sono accelerate allo stesso modo."
+        },
+        {
+          "id": "C",
+          "text": "Aumenta K",
+          "feedback": "K dipende solo dalla temperatura, e il catalizzatore non la cambia."
+        },
+        {
+          "id": "D",
+          "text": "Lo sposta verso i reagenti",
+          "feedback": "Il catalizzatore non favorisce nessuna delle due direzioni."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-20-q6",
+      "prompt": "Perché il processo Haber-Bosch lavora intorno a 400-450 °C?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché lì la resa è massima",
+          "feedback": "La resa all’equilibrio è maggiore a temperature più basse."
+        },
+        {
+          "id": "B",
+          "text": "Per compromesso tra resa e velocità",
+          "feedback": "Esatto: a bassa temperatura la reazione sarebbe troppo lenta."
+        },
+        {
+          "id": "C",
+          "text": "Perché l’ammoniaca fonde a quella temperatura",
+          "feedback": "L’ammoniaca è un gas in quelle condizioni."
+        },
+        {
+          "id": "D",
+          "text": "Perché la reazione è endotermica",
+          "feedback": "La reazione è esotermica, ΔH ≈ −92 kJ."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "cards",
+    "goal": 3,
+    "rounds": [
+      {
+        "id": "ammoniaca",
+        "type": "classify",
+        "title": "Da che parte si sposta?",
+        "prompt": "Per N₂ + 3 H₂ ⇌ 2 NH₃, con ΔH < 0, classifica le perturbazioni.",
+        "categories": [
+          {
+            "id": "prodotti",
+            "label": "VERSO I PRODOTTI"
+          },
+          {
+            "id": "reagenti",
+            "label": "VERSO I REAGENTI"
+          },
+          {
+            "id": "nessuno",
+            "label": "NESSUNO SPOSTAMENTO"
+          }
+        ],
+        "items": [
+          {
+            "id": "azoto",
+            "text": "Si aggiunge azoto",
+            "why": "Il sistema consuma l’azoto aggiunto.",
+            "category": "prodotti"
+          },
+          {
+            "id": "togli-nh3",
+            "text": "Si toglie ammoniaca",
+            "why": "Il sistema ripristina l’ammoniaca tolta.",
+            "category": "prodotti"
+          },
+          {
+            "id": "comprimi",
+            "text": "Si comprime il recipiente",
+            "why": "Il lato dei prodotti ha meno moli di gas.",
+            "category": "prodotti"
+          },
+          {
+            "id": "raffredda",
+            "text": "Si raffredda",
+            "why": "Per una reazione esotermica il calore è un prodotto: toglierlo sposta a destra.",
+            "category": "prodotti"
+          },
+          {
+            "id": "scalda",
+            "text": "Si riscalda",
+            "why": "Il calore aggiunto viene consumato dalla reazione inversa.",
+            "category": "reagenti"
+          },
+          {
+            "id": "togli-h2",
+            "text": "Si toglie idrogeno",
+            "why": "Il sistema ripristina l’idrogeno tolto.",
+            "category": "reagenti"
+          },
+          {
+            "id": "espandi",
+            "text": "Si aumenta il volume",
+            "why": "Il lato dei reagenti ha più moli di gas.",
+            "category": "reagenti"
+          },
+          {
+            "id": "catalizzatore",
+            "text": "Si aggiunge un catalizzatore",
+            "why": "Accelera le due reazioni allo stesso modo.",
+            "category": "nessuno"
+          },
+          {
+            "id": "argon",
+            "text": "Si aggiunge argon a volume costante",
+            "why": "Le pressioni parziali dei gas che reagiscono restano uguali.",
+            "category": "nessuno"
+          }
+        ],
+        "explain": "Il sistema contrasta la perturbazione: consuma ciò che si aggiunge, ripristina ciò che si toglie.",
+        "maxErrors": 2
+      },
+      {
+        "id": "costante",
+        "type": "classify",
+        "title": "K cambia?",
+        "prompt": "Decidi l’effetto di ogni perturbazione sulla costante di equilibrio.",
+        "categories": [
+          {
+            "id": "aumenta",
+            "label": "K AUMENTA"
+          },
+          {
+            "id": "diminuisce",
+            "label": "K DIMINUISCE"
+          },
+          {
+            "id": "uguale",
+            "label": "K NON CAMBIA"
+          }
+        ],
+        "items": [
+          {
+            "id": "endo-caldo",
+            "text": "Riscaldare una reazione endotermica",
+            "why": "Con ΔH > 0 la costante cresce con la temperatura.",
+            "category": "aumenta"
+          },
+          {
+            "id": "eso-freddo",
+            "text": "Raffreddare una reazione esotermica",
+            "why": "Con ΔH < 0 la costante cresce raffreddando.",
+            "category": "aumenta"
+          },
+          {
+            "id": "eso-caldo",
+            "text": "Riscaldare una reazione esotermica",
+            "why": "Con ΔH < 0 la costante diminuisce scaldando.",
+            "category": "diminuisce"
+          },
+          {
+            "id": "endo-freddo",
+            "text": "Raffreddare una reazione endotermica",
+            "why": "Con ΔH > 0 la costante diminuisce raffreddando.",
+            "category": "diminuisce"
+          },
+          {
+            "id": "reagente",
+            "text": "Aggiungere un reagente",
+            "why": "Cambiano le concentrazioni, non la costante.",
+            "category": "uguale"
+          },
+          {
+            "id": "pressione",
+            "text": "Comprimere il recipiente",
+            "why": "L’equilibrio si sposta, K resta la stessa.",
+            "category": "uguale"
+          },
+          {
+            "id": "catal",
+            "text": "Aggiungere un catalizzatore",
+            "why": "Il catalizzatore non cambia né K né la posizione dell’equilibrio.",
+            "category": "uguale"
+          }
+        ],
+        "explain": "Solo la temperatura cambia K; le altre perturbazioni spostano l’equilibrio senza cambiarla.",
+        "maxErrors": 2
+      },
+      {
+        "id": "cobalto",
+        "type": "classify",
+        "title": "Rosa o blu?",
+        "prompt": "Per [Co(H₂O)₆]²⁺ (rosa) + 4 Cl⁻ ⇌ [CoCl₄]²⁻ (blu) + 6 H₂O, con ΔH > 0, prevedi il colore.",
+        "categories": [
+          {
+            "id": "blu",
+            "label": "PIÙ BLU"
+          },
+          {
+            "id": "rosa",
+            "label": "PIÙ ROSA"
+          }
+        ],
+        "items": [
+          {
+            "id": "caldo",
+            "text": "Si immerge la provetta in acqua calda",
+            "why": "Il calore è un reagente: lo spostamento va verso il complesso blu.",
+            "category": "blu"
+          },
+          {
+            "id": "ghiaccio",
+            "text": "Si immerge la provetta nel ghiaccio",
+            "why": "Togliere calore sposta verso il complesso rosa.",
+            "category": "rosa"
+          },
+          {
+            "id": "hcl",
+            "text": "Si aggiunge acido cloridrico concentrato",
+            "why": "Più ioni cloruro: si forma il complesso blu.",
+            "category": "blu"
+          },
+          {
+            "id": "acqua",
+            "text": "Si aggiunge acqua",
+            "why": "L’acqua è un prodotto e diluisce i cloruri: verso il rosa.",
+            "category": "rosa"
+          },
+          {
+            "id": "argento",
+            "text": "Si aggiunge nitrato d’argento",
+            "why": "Precipita AgCl e i cloruri diminuiscono: verso il rosa.",
+            "category": "rosa"
+          },
+          {
+            "id": "sale",
+            "text": "Si scioglie altro cloruro di sodio",
+            "why": "Più ioni cloruro: verso il blu.",
+            "category": "blu"
+          }
+        ],
+        "explain": "Ogni variazione di colore è uno spostamento dell’equilibrio: cloruri e calore spingono verso il blu.",
+        "maxErrors": 1
+      },
+      {
+        "id": "industria",
+        "type": "classify",
+        "title": "Resa o velocità?",
+        "prompt": "Classifica le scelte del processo Haber-Bosch.",
+        "categories": [
+          {
+            "id": "resa",
+            "label": "FAVORISCE LA RESA"
+          },
+          {
+            "id": "velocita",
+            "label": "FAVORISCE LA VELOCITÀ"
+          },
+          {
+            "id": "entrambe",
+            "label": "FAVORISCE ENTRAMBE"
+          }
+        ],
+        "items": [
+          {
+            "id": "pressione",
+            "text": "Pressione di circa 200 atm",
+            "why": "Sposta verso l’ammoniaca e aumenta la frequenza degli urti.",
+            "category": "entrambe"
+          },
+          {
+            "id": "bassa",
+            "text": "Temperatura bassa",
+            "why": "Favorisce il prodotto di una reazione esotermica, ma rallenta tutto.",
+            "category": "resa"
+          },
+          {
+            "id": "alta",
+            "text": "Circa 450 °C invece di 200 °C",
+            "why": "Più urti efficaci, a costo di una resa minore.",
+            "category": "velocita"
+          },
+          {
+            "id": "ferro",
+            "text": "Catalizzatore a base di ferro",
+            "why": "Abbassa la barriera senza spostare l’equilibrio.",
+            "category": "velocita"
+          },
+          {
+            "id": "liquefare",
+            "text": "Liquefare e rimuovere l’ammoniaca",
+            "why": "Togliere il prodotto sposta l’equilibrio verso destra.",
+            "category": "resa"
+          }
+        ],
+        "explain": "Il processo industriale combina scelte che migliorano la resa con altre che servono alla velocità.",
+        "maxErrors": 1
+      }
+    ]
+  }
 }

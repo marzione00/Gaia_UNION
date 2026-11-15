@@ -5,14 +5,15 @@
   "title": "Periodicità e carica efficace",
   "sector": 2,
   "modelId": "chemistry-05",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Scala idrogenoide, non raggio atomico misurato",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Struttura della tavola periodica, configurazione elettronica, carica efficace e andamenti periodici",
+  "narrativeStatus": "La storia di Mendeleev e i valori di ionizzazione sono reali.",
   "objectives": [
-    "Spiegare: scala idrogenoide, non raggio atomico misurato.",
-    "Applicare r = 52,9 n²/Z_eff, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Collegare la posizione nella tavola agli elettroni di valenza.",
+    "Spiegare la carica nucleare efficace.",
+    "Prevedere gli andamenti di raggio, energia di ionizzazione ed elettronegatività.",
+    "Distinguere metalli, non metalli e semimetalli."
   ],
   "prerequisites": [
     "chemistry-04"
@@ -21,250 +22,564 @@
     "chemistry-06"
   ],
   "sources": [
-    "chemistry",
-    "si"
+    "chemistry"
   ],
   "originalSource": null,
   "glossary": [
     {
-      "term": "Carica efficace",
-      "definition": "Variabile indipendente, unità 1; intervallo [1; 10]."
+      "term": "Periodo e gruppo",
+      "definition": "Riga e colonna della tavola periodica."
     },
     {
-      "term": "Raggio del modello",
-      "definition": "Risultato calcolato dal modello, unità pm."
+      "term": "Elettroni di valenza",
+      "definition": "Elettroni del livello più esterno, che decidono il comportamento chimico."
     },
     {
-      "term": "Livello n",
-      "definition": "Parametro a, unità 1; intervallo [1; 4]."
+      "term": "Carica nucleare efficace",
+      "definition": "Carica sentita da un elettrone esterno, Z meno lo schermo degli elettroni interni."
+    },
+    {
+      "term": "Energia di prima ionizzazione",
+      "definition": "Energia per strappare un elettrone a un atomo gassoso isolato."
+    },
+    {
+      "term": "Semimetallo",
+      "definition": "Elemento con proprietà intermedie tra metalli e non metalli, come il silicio."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Le caselle vuote di Mendeleev",
       "text": {
         "base": [
-          "Nel catalogo atomico alcuni raggi si riducono nonostante aumenti il numero di protoni. Per interpretare una tendenza devi considerare attrazione nucleare, schermaggio e livello elettronico.",
-          "La struttura elettronica organizza molte proprietà periodiche. Un modello idrogenoide suggerisce una scala radiale proporzionale a n²/Z. Nei sistemi multielettronici, una carica efficace può riassumere parte dello schermaggio, ma non tutte le interazioni."
+          "Tra il 1869 e il 1871 Dmitrij Mendeleev lasciò caselle vuote nella sua tavola degli elementi e ne previde le proprietà. Nel 1886 fu scoperto il germanio, con densità e massa atomica vicinissime a quelle previste per il suo «eka-silicio». La tavola periodica funziona perché le proprietà degli elementi si ripetono con regolarità, e la ragione sta negli elettroni più esterni.",
+          "La tavola periodica moderna ordina gli elementi per numero atomico Z. Le righe sono i periodi, le colonne i gruppi: gli elementi di uno stesso gruppo hanno lo stesso numero di elettroni nel livello più esterno, e quindi proprietà chimiche simili. I metalli alcalini del gruppo 1 reagiscono violentemente con l’acqua; i gas nobili del gruppo 18 quasi non reagiscono."
         ],
         "intermediate": [
-          "Nel catalogo atomico alcuni raggi si riducono nonostante aumenti il numero di protoni. Per interpretare una tendenza devi considerare attrazione nucleare, schermaggio e livello elettronico.",
-          "Il laboratorio usa r=52,9 n²/Z_eff in picometri come scala del modello. A livello n fissato, aumentare Z_eff riduce r; a carica fissata, aumentare n lo fa crescere quadraticamente."
+          "Tra il 1869 e il 1871 Dmitrij Mendeleev lasciò caselle vuote nella sua tavola degli elementi e ne previde le proprietà. Nel 1886 fu scoperto il germanio, con densità e massa atomica vicinissime a quelle previste per il suo «eka-silicio». La tavola periodica funziona perché le proprietà degli elementi si ripetono con regolarità, e la ragione sta negli elettroni più esterni.",
+          "La tavola periodica moderna ordina gli elementi per numero atomico Z. Le righe sono i periodi, le colonne i gruppi: gli elementi di uno stesso gruppo hanno lo stesso numero di elettroni nel livello più esterno, e quindi proprietà chimiche simili. I metalli alcalini del gruppo 1 reagiscono violentemente con l’acqua; i gas nobili del gruppo 18 quasi non reagiscono."
         ],
         "advanced": [
-          "Nel catalogo atomico alcuni raggi si riducono nonostante aumenti il numero di protoni. Per interpretare una tendenza devi considerare attrazione nucleare, schermaggio e livello elettronico.",
-          "Confronta l’effetto di cambiare livello e carica efficace. Discuta perché le tendenze periodiche hanno eccezioni e richiedono una descrizione elettronica più completa.",
-          "Scala idrogenoide semplificata. Non calcola configurazioni multielettroniche, energie di ionizzazione o raggi sperimentali degli elementi."
+          "Tra il 1869 e il 1871 Dmitrij Mendeleev lasciò caselle vuote nella sua tavola degli elementi e ne previde le proprietà. Nel 1886 fu scoperto il germanio, con densità e massa atomica vicinissime a quelle previste per il suo «eka-silicio». La tavola periodica funziona perché le proprietà degli elementi si ripetono con regolarità, e la ragione sta negli elettroni più esterni.",
+          "La tavola periodica moderna ordina gli elementi per numero atomico Z. Le righe sono i periodi, le colonne i gruppi: gli elementi di uno stesso gruppo hanno lo stesso numero di elettroni nel livello più esterno, e quindi proprietà chimiche simili. I metalli alcalini del gruppo 1 reagiscono violentemente con l’acqua; i gas nobili del gruppo 18 quasi non reagiscono."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Configurazione, carica efficace, andamenti",
       "text": {
         "base": [
-          "La struttura elettronica organizza molte proprietà periodiche. Un modello idrogenoide suggerisce una scala radiale proporzionale a n²/Z. Nei sistemi multielettronici, una carica efficace può riassumere parte dello schermaggio, ma non tutte le interazioni.",
-          "Con n=1 e Z_eff=2, la scala è 26,45 pm. È un risultato del modello, non una tabella certificata dei raggi atomici reali."
+          "Gli elettroni occupano livelli e sottolivelli in ordine di energia crescente. Il sodio, con 11 elettroni, ha configurazione 1s² 2s² 2p⁶ 3s¹: un elettrone nel terzo livello sopra un «nocciolo» uguale a quello del neon. Gli elettroni di valenza sono quelli del livello più esterno, e per i gruppi principali il loro numero si legge dal gruppo.",
+          "Un elettrone esterno non sente l’intera carica del nucleo: gli elettroni interni la schermano. La carica nucleare efficace è approssimativamente Z_eff = Z − S, dove S misura lo schermo. Lungo un periodo Z aumenta di uno a ogni elemento, mentre gli elettroni aggiunti nello stesso livello schermano poco: Z_eff cresce e gli elettroni esterni sono attratti di più.",
+          "Da Z_eff e dal livello derivano gli andamenti periodici. Il raggio atomico diminuisce lungo un periodo, da sinistra a destra, perché Z_eff cresce; aumenta scendendo in un gruppo, perché si aggiunge un livello più esterno. L’energia di prima ionizzazione segue l’andamento opposto: nel gruppo 1 vale circa 520 kJ/mol per il litio, 496 per il sodio, 419 per il potassio, 403 per il rubidio, 376 per il cesio. Anche l’elettronegatività cresce lungo un periodo e diminuisce lungo un gruppo.",
+          "I metalli, a sinistra e al centro della tavola, cedono facilmente elettroni, conducono e sono lucenti. I non metalli, in alto a destra, tendono ad acquistarli. Lungo la linea a scaletta tra i due gruppi stanno i semimetalli, come boro, silicio e germanio, con proprietà intermedie: il silicio è un semiconduttore, la base dell’elettronica."
         ],
         "intermediate": [
-          "Il laboratorio usa r=52,9 n²/Z_eff in picometri come scala del modello. A livello n fissato, aumentare Z_eff riduce r; a carica fissata, aumentare n lo fa crescere quadraticamente.",
-          "La variabile Carica efficace è espressa in 1; Raggio del modello in pm. Il dominio dello strumento è [1; 10]. La relazione implementata è: r = 52,9 n²/Z_eff.",
-          "Con n=1 e Z_eff=2, la scala è 26,45 pm. È un risultato del modello, non una tabella certificata dei raggi atomici reali."
+          "Gli elettroni occupano livelli e sottolivelli in ordine di energia crescente. Il sodio, con 11 elettroni, ha configurazione 1s² 2s² 2p⁶ 3s¹: un elettrone nel terzo livello sopra un «nocciolo» uguale a quello del neon. Gli elettroni di valenza sono quelli del livello più esterno, e per i gruppi principali il loro numero si legge dal gruppo.",
+          "Un elettrone esterno non sente l’intera carica del nucleo: gli elettroni interni la schermano. La carica nucleare efficace è approssimativamente Z_eff = Z − S, dove S misura lo schermo. Lungo un periodo Z aumenta di uno a ogni elemento, mentre gli elettroni aggiunti nello stesso livello schermano poco: Z_eff cresce e gli elettroni esterni sono attratti di più.",
+          "Da Z_eff e dal livello derivano gli andamenti periodici. Il raggio atomico diminuisce lungo un periodo, da sinistra a destra, perché Z_eff cresce; aumenta scendendo in un gruppo, perché si aggiunge un livello più esterno. L’energia di prima ionizzazione segue l’andamento opposto: nel gruppo 1 vale circa 520 kJ/mol per il litio, 496 per il sodio, 419 per il potassio, 403 per il rubidio, 376 per il cesio. Anche l’elettronegatività cresce lungo un periodo e diminuisce lungo un gruppo.",
+          "I metalli, a sinistra e al centro della tavola, cedono facilmente elettroni, conducono e sono lucenti. I non metalli, in alto a destra, tendono ad acquistarli. Lungo la linea a scaletta tra i due gruppi stanno i semimetalli, come boro, silicio e germanio, con proprietà intermedie: il silicio è un semiconduttore, la base dell’elettronica.",
+          "Il modello del programma stima il raggio di un livello con la formula di tipo Bohr r = 52,9 pm · n²/Z_eff: aumentando Z_eff il raggio diminuisce, aumentando n cresce con il quadrato. È una stima di tendenza e non riproduce i raggi misurati."
         ],
         "advanced": [
-          "Il laboratorio usa r=52,9 n²/Z_eff in picometri come scala del modello. A livello n fissato, aumentare Z_eff riduce r; a carica fissata, aumentare n lo fa crescere quadraticamente.",
-          "Confronta l’effetto di cambiare livello e carica efficace. Discuta perché le tendenze periodiche hanno eccezioni e richiedono una descrizione elettronica più completa.",
-          "Un atomo non ha un bordo rigido come una sfera macroscopica. Raggio covalente, ionico e di van der Waals sono definizioni diverse e non vanno mescolate senza spiegazione."
+          "Gli elettroni occupano livelli e sottolivelli in ordine di energia crescente. Il sodio, con 11 elettroni, ha configurazione 1s² 2s² 2p⁶ 3s¹: un elettrone nel terzo livello sopra un «nocciolo» uguale a quello del neon. Gli elettroni di valenza sono quelli del livello più esterno, e per i gruppi principali il loro numero si legge dal gruppo.",
+          "Un elettrone esterno non sente l’intera carica del nucleo: gli elettroni interni la schermano. La carica nucleare efficace è approssimativamente Z_eff = Z − S, dove S misura lo schermo. Lungo un periodo Z aumenta di uno a ogni elemento, mentre gli elettroni aggiunti nello stesso livello schermano poco: Z_eff cresce e gli elettroni esterni sono attratti di più.",
+          "Da Z_eff e dal livello derivano gli andamenti periodici. Il raggio atomico diminuisce lungo un periodo, da sinistra a destra, perché Z_eff cresce; aumenta scendendo in un gruppo, perché si aggiunge un livello più esterno. L’energia di prima ionizzazione segue l’andamento opposto: nel gruppo 1 vale circa 520 kJ/mol per il litio, 496 per il sodio, 419 per il potassio, 403 per il rubidio, 376 per il cesio. Anche l’elettronegatività cresce lungo un periodo e diminuisce lungo un gruppo.",
+          "I metalli, a sinistra e al centro della tavola, cedono facilmente elettroni, conducono e sono lucenti. I non metalli, in alto a destra, tendono ad acquistarli. Lungo la linea a scaletta tra i due gruppi stanno i semimetalli, come boro, silicio e germanio, con proprietà intermedie: il silicio è un semiconduttore, la base dell’elettronica.",
+          "Il modello del programma stima il raggio di un livello con la formula di tipo Bohr r = 52,9 pm · n²/Z_eff: aumentando Z_eff il raggio diminuisce, aumentando n cresce con il quadrato. È una stima di tendenza e non riproduce i raggi misurati."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Carte della tavola",
       "text": {
         "base": [
-          "Nel laboratorio imposta Livello n (a): 1 (adimensionale). Prima di salvare A, prevedi come cambia Raggio del modello fra Carica efficace=3,25 e 5,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con n=1 e Z_eff=2, la scala è 26,45 pm. È un risultato del modello, non una tabella certificata dei raggi atomici reali.",
-          "La variabile Carica efficace è espressa in 1; Raggio del modello in pm. Il dominio dello strumento è [1; 10]. La relazione implementata è: r = 52,9 n²/Z_eff."
+          "L’attività ha quattro serie di carte: gli elementi del terzo periodo da ordinare per raggio decrescente; i metalli alcalini da ordinare per energia di ionizzazione crescente; elementi da classificare come metalli, non metalli o semimetalli; elementi da classificare per numero di elettroni di valenza. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per i raggi e le ionizzazioni ragiona con due domande: quanti livelli ha l’atomo? Quanto è grande Z_eff? Il livello conta di più scendendo nei gruppi, Z_eff lungo i periodi."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Livello n (a): 1 (adimensionale). Prima di salvare A, prevedi come cambia Raggio del modello fra Carica efficace=3,25 e 5,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Carica efficace è espressa in 1; Raggio del modello in pm. Il dominio dello strumento è [1; 10]. La relazione implementata è: r = 52,9 n²/Z_eff.",
-          "Il laboratorio usa r=52,9 n²/Z_eff in picometri come scala del modello. A livello n fissato, aumentare Z_eff riduce r; a carica fissata, aumentare n lo fa crescere quadraticamente."
+          "L’attività ha quattro serie di carte: gli elementi del terzo periodo da ordinare per raggio decrescente; i metalli alcalini da ordinare per energia di ionizzazione crescente; elementi da classificare come metalli, non metalli o semimetalli; elementi da classificare per numero di elettroni di valenza. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per i raggi e le ionizzazioni ragiona con due domande: quanti livelli ha l’atomo? Quanto è grande Z_eff? Il livello conta di più scendendo nei gruppi, Z_eff lungo i periodi."
         ],
         "advanced": [
-          "Nel laboratorio imposta Livello n (a): 1 (adimensionale). Prima di salvare A, prevedi come cambia Raggio del modello fra Carica efficace=3,25 e 5,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta l’effetto di cambiare livello e carica efficace. Discuta perché le tendenze periodiche hanno eccezioni e richiedono una descrizione elettronica più completa.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività ha quattro serie di carte: gli elementi del terzo periodo da ordinare per raggio decrescente; i metalli alcalini da ordinare per energia di ionizzazione crescente; elementi da classificare come metalli, non metalli o semimetalli; elementi da classificare per numero di elettroni di valenza. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per i raggi e le ionizzazioni ragiona con due domande: quanti livelli ha l’atomo? Quanto è grande Z_eff? Il livello conta di più scendendo nei gruppi, Z_eff lungo i periodi."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "Un atomo non ha un bordo rigido come una sfera macroscopica. Raggio covalente, ionico e di van der Waals sono definizioni diverse e non vanno mescolate senza spiegazione.",
-          "Scala idrogenoide semplificata. Non calcola configurazioni multielettroniche, energie di ionizzazione o raggi sperimentali degli elementi.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che un atomo con più protoni sia sempre più grande. Il cloro ha più protoni del sodio ed è più piccolo: i suoi elettroni esterni stanno nello stesso livello e sono attratti da una carica efficace maggiore.",
+          "Secondo errore: confondere ionizzazione ed elettronegatività. La prima misura l’energia per strappare un elettrone a un atomo isolato; la seconda la tendenza di un atomo legato ad attirare gli elettroni di legame. Gli andamenti sono simili, i concetti diversi.",
+          "Il modello del programma stima il raggio di un livello con la formula di tipo Bohr r = 52,9 pm · n²/Z_eff: aumentando Z_eff il raggio diminuisce, aumentando n cresce con il quadrato. È una stima di tendenza e non riproduce i raggi misurati."
         ],
         "intermediate": [
-          "Un atomo non ha un bordo rigido come una sfera macroscopica. Raggio covalente, ionico e di van der Waals sono definizioni diverse e non vanno mescolate senza spiegazione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che un atomo con più protoni sia sempre più grande. Il cloro ha più protoni del sodio ed è più piccolo: i suoi elettroni esterni stanno nello stesso livello e sono attratti da una carica efficace maggiore.",
+          "Secondo errore: confondere ionizzazione ed elettronegatività. La prima misura l’energia per strappare un elettrone a un atomo isolato; la seconda la tendenza di un atomo legato ad attirare gli elettroni di legame. Gli andamenti sono simili, i concetti diversi.",
+          "Il modello del programma stima il raggio di un livello con la formula di tipo Bohr r = 52,9 pm · n²/Z_eff: aumentando Z_eff il raggio diminuisce, aumentando n cresce con il quadrato. È una stima di tendenza e non riproduce i raggi misurati."
         ],
         "advanced": [
-          "Scala idrogenoide semplificata. Non calcola configurazioni multielettroniche, energie di ionizzazione o raggi sperimentali degli elementi.",
-          "Confronta l’effetto di cambiare livello e carica efficace. Discuta perché le tendenze periodiche hanno eccezioni e richiedono una descrizione elettronica più completa.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che un atomo con più protoni sia sempre più grande. Il cloro ha più protoni del sodio ed è più piccolo: i suoi elettroni esterni stanno nello stesso livello e sono attratti da una carica efficace maggiore.",
+          "Secondo errore: confondere ionizzazione ed elettronegatività. La prima misura l’energia per strappare un elettrone a un atomo isolato; la seconda la tendenza di un atomo legato ad attirare gli elettroni di legame. Gli andamenti sono simili, i concetti diversi.",
+          "Il modello del programma stima il raggio di un livello con la formula di tipo Bohr r = 52,9 pm · n²/Z_eff: aumentando Z_eff il raggio diminuisce, aumentando n cresce con il quadrato. È una stima di tendenza e non riproduce i raggi misurati."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "La struttura elettronica organizza molte proprietà periodiche. Un modello idrogenoide suggerisce una scala radiale proporzionale a n²/Z. Nei sistemi multielettronici, una carica efficace può riassumere parte dello schermaggio, ma non tutte le interazioni.",
-          "Con n=1 e Z_eff=2, la scala è 26,45 pm. È un risultato del modello, non una tabella certificata dei raggi atomici reali."
+          "Ripasso: organizzazione della tavola in periodi e gruppi; configurazione elettronica ed elettroni di valenza; carica nucleare efficace; andamenti di raggio, energia di ionizzazione ed elettronegatività; metalli, non metalli e semimetalli.",
+          "Mini esercizio: tra magnesio e cloro, nello stesso periodo, il cloro ha raggio minore e energia di ionizzazione maggiore.",
+          "Nelle domande sugli andamenti chiediti prima se i due elementi stanno nello stesso periodo o nello stesso gruppo."
         ],
         "intermediate": [
-          "Il laboratorio usa r=52,9 n²/Z_eff in picometri come scala del modello. A livello n fissato, aumentare Z_eff riduce r; a carica fissata, aumentare n lo fa crescere quadraticamente.",
-          "La variabile Carica efficace è espressa in 1; Raggio del modello in pm. Il dominio dello strumento è [1; 10]. La relazione implementata è: r = 52,9 n²/Z_eff."
+          "Ripasso: organizzazione della tavola in periodi e gruppi; configurazione elettronica ed elettroni di valenza; carica nucleare efficace; andamenti di raggio, energia di ionizzazione ed elettronegatività; metalli, non metalli e semimetalli.",
+          "Mini esercizio: tra magnesio e cloro, nello stesso periodo, il cloro ha raggio minore e energia di ionizzazione maggiore.",
+          "Nelle domande sugli andamenti chiediti prima se i due elementi stanno nello stesso periodo o nello stesso gruppo."
         ],
         "advanced": [
-          "Confronta l’effetto di cambiare livello e carica efficace. Discuta perché le tendenze periodiche hanno eccezioni e richiedono una descrizione elettronica più completa.",
-          "Scala idrogenoide semplificata. Non calcola configurazioni multielettroniche, energie di ionizzazione o raggi sperimentali degli elementi."
+          "Ripasso: organizzazione della tavola in periodi e gruppi; configurazione elettronica ed elettroni di valenza; carica nucleare efficace; andamenti di raggio, energia di ionizzazione ed elettronegatività; metalli, non metalli e semimetalli.",
+          "Mini esercizio: tra magnesio e cloro, nello stesso periodo, il cloro ha raggio minore e energia di ionizzazione maggiore.",
+          "Nelle domande sugli andamenti chiediti prima se i due elementi stanno nello stesso periodo o nello stesso gruppo."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Scala idrogenoide, non raggio atomico misurato.",
-          "Scala idrogenoide semplificata. Non calcola configurazioni multielettroniche, energie di ionizzazione o raggi sperimentali degli elementi.",
-          "Collegamento consigliato: chemistry-06. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Gli andamenti periodici spiegano i legami: elementi con elettronegatività molto diverse formano composti ionici, trattati nell’unità «Legame ionico e interazioni elettrostatiche».",
+          "Riepilogo dell’unità: la tavola ordina gli elementi per Z, e i gruppi riuniscono elementi con gli stessi elettroni di valenza; la carica efficace cresce lungo un periodo; il raggio diminuisce lungo un periodo e cresce lungo un gruppo, l’energia di ionizzazione fa il contrario; i semimetalli stanno al confine tra metalli e non metalli.",
+          "Nel diario spiega con la carica efficace perché il sodio è più grande del cloro, pur avendo meno protoni."
         ],
         "intermediate": [
-          "Il laboratorio usa r=52,9 n²/Z_eff in picometri come scala del modello. A livello n fissato, aumentare Z_eff riduce r; a carica fissata, aumentare n lo fa crescere quadraticamente.",
-          "Scala idrogenoide semplificata. Non calcola configurazioni multielettroniche, energie di ionizzazione o raggi sperimentali degli elementi.",
-          "Confronta l’effetto di cambiare livello e carica efficace. Discuta perché le tendenze periodiche hanno eccezioni e richiedono una descrizione elettronica più completa."
+          "Gli andamenti periodici spiegano i legami: elementi con elettronegatività molto diverse formano composti ionici, trattati nell’unità «Legame ionico e interazioni elettrostatiche».",
+          "Riepilogo dell’unità: la tavola ordina gli elementi per Z, e i gruppi riuniscono elementi con gli stessi elettroni di valenza; la carica efficace cresce lungo un periodo; il raggio diminuisce lungo un periodo e cresce lungo un gruppo, l’energia di ionizzazione fa il contrario; i semimetalli stanno al confine tra metalli e non metalli.",
+          "Nel diario spiega con la carica efficace perché il sodio è più grande del cloro, pur avendo meno protoni."
         ],
         "advanced": [
-          "Confronta l’effetto di cambiare livello e carica efficace. Discuta perché le tendenze periodiche hanno eccezioni e richiedono una descrizione elettronica più completa.",
-          "Scala idrogenoide semplificata. Non calcola configurazioni multielettroniche, energie di ionizzazione o raggi sperimentali degli elementi.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Gli andamenti periodici spiegano i legami: elementi con elettronegatività molto diverse formano composti ionici, trattati nell’unità «Legame ionico e interazioni elettrostatiche».",
+          "Riepilogo dell’unità: la tavola ordina gli elementi per Z, e i gruppi riuniscono elementi con gli stessi elettroni di valenza; la carica efficace cresce lungo un periodo; il raggio diminuisce lungo un periodo e cresce lungo un gruppo, l’energia di ionizzazione fa il contrario; i semimetalli stanno al confine tra metalli e non metalli.",
+          "Nel diario spiega con la carica efficace perché il sodio è più grande del cloro, pur avendo meno protoni."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-05-concept",
-      "prompt": "A n fissato, aumentando Z_eff nel modello:",
+      "id": "chemistry-05-q1",
+      "prompt": "Che cosa hanno in comune gli elementi di uno stesso gruppo?",
       "options": [
         {
           "id": "A",
-          "text": "La scala radiale diminuisce",
-          "feedback": "La struttura elettronica organizza molte proprietà periodiche. Un modello idrogenoide suggerisce una scala radiale proporzionale a n²/Z. Nei sistemi multielettronici, una carica efficace può riassumere parte dello schermaggio, ma non tutte le interazioni."
+          "text": "Il numero di elettroni di valenza",
+          "feedback": "Esatto: per questo hanno proprietà chimiche simili."
         },
         {
           "id": "B",
-          "text": "La scala radiale aumenta",
-          "feedback": "Un atomo non ha un bordo rigido come una sfera macroscopica. Raggio covalente, ionico e di van der Waals sono definizioni diverse e non vanno mescolate senza spiegazione."
+          "text": "Il numero atomico",
+          "feedback": "Il numero atomico cambia da un elemento all’altro."
         },
         {
           "id": "C",
-          "text": "Il raggio resta invariato",
-          "feedback": "Il laboratorio usa r=52,9 n²/Z_eff in picometri come scala del modello. A livello n fissato, aumentare Z_eff riduce r; a carica fissata, aumentare n lo fa crescere quadraticamente."
+          "text": "Il numero di livelli occupati",
+          "feedback": "Lo stesso numero di livelli lo hanno gli elementi di uno stesso periodo."
+        },
+        {
+          "id": "D",
+          "text": "La massa atomica",
+          "feedback": "Le masse crescono scendendo nel gruppo."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "chemistry-05-calculation",
-      "prompt": "Calcolo: Livello n (a)=1 (adimensionale). Per Carica efficace=2 (adimensionale), quanto vale Raggio del modello?",
+      "id": "chemistry-05-q2",
+      "prompt": "Lungo il terzo periodo, dal sodio al cloro, il raggio atomico:",
       "options": [
         {
           "id": "A",
-          "text": "39,675 pm",
-          "feedback": "Questo valore non soddisfa la relazione. r = 52,9 n²/Z_eff. Con Livello n (a)=1 (adimensionale) e Carica efficace=2 (adimensionale), il risultato è 26,45 pm. Conserva le unità e arrotonda solo alla fine."
+          "text": "Aumenta, perché aumentano i protoni",
+          "feedback": "Più protoni nello stesso livello attirano di più gli elettroni."
         },
         {
           "id": "B",
-          "text": "13,225 pm",
-          "feedback": "Controlla sostituzione, segno e unità. r = 52,9 n²/Z_eff. Con Livello n (a)=1 (adimensionale) e Carica efficace=2 (adimensionale), il risultato è 26,45 pm. Conserva le unità e arrotonda solo alla fine."
+          "text": "Diminuisce, perché cresce la carica efficace",
+          "feedback": "Esatto: gli elettroni esterni stanno nello stesso livello e sono attratti di più."
         },
         {
           "id": "C",
-          "text": "26,45 pm",
-          "feedback": "r = 52,9 n²/Z_eff. Con Livello n (a)=1 (adimensionale) e Carica efficace=2 (adimensionale), il risultato è 26,45 pm. Conserva le unità e arrotonda solo alla fine."
+          "text": "Resta uguale",
+          "feedback": "Il raggio cambia in modo evidente lungo il periodo."
+        },
+        {
+          "id": "D",
+          "text": "Aumenta, perché si aggiungono livelli",
+          "feedback": "I livelli aumentano scendendo nei gruppi, non lungo il periodo."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 1
-        },
-        "expected": 26.45,
-        "unit": "pm"
-      }
+      "correct": "B"
     },
     {
-      "id": "chemistry-05-transfer",
-      "prompt": "Trasferimento: Livello n (a)=2 (adimensionale). Per Carica efficace=2 (adimensionale), quanto vale Raggio del modello?",
+      "id": "chemistry-05-q3",
+      "prompt": "Quale metallo alcalino ha l’energia di prima ionizzazione più bassa?",
       "options": [
         {
           "id": "A",
-          "text": "52,9 pm",
-          "feedback": "Controlla sostituzione, segno e unità. r = 52,9 n²/Z_eff. Con Livello n (a)=2 (adimensionale) e Carica efficace=2 (adimensionale), il risultato è 105,8 pm. Conserva le unità e arrotonda solo alla fine."
+          "text": "Litio",
+          "feedback": "Il litio ha l’elettrone esterno più vicino al nucleo: valore più alto, circa 520 kJ/mol."
         },
         {
           "id": "B",
-          "text": "105,8 pm",
-          "feedback": "r = 52,9 n²/Z_eff. Con Livello n (a)=2 (adimensionale) e Carica efficace=2 (adimensionale), il risultato è 105,8 pm. Conserva le unità e arrotonda solo alla fine."
+          "text": "Sodio",
+          "feedback": "Il sodio, 496 kJ/mol, sta sopra potassio, rubidio e cesio."
         },
         {
           "id": "C",
-          "text": "158,7 pm",
-          "feedback": "Questo valore non soddisfa la relazione. r = 52,9 n²/Z_eff. Con Livello n (a)=2 (adimensionale) e Carica efficace=2 (adimensionale), il risultato è 105,8 pm. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 2
-        },
-        "expected": 105.8,
-        "unit": "pm"
-      }
-    },
-    {
-      "id": "chemistry-05-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Scala idrogenoide semplificata. Non calcola configurazioni multielettroniche, energie di ionizzazione o raggi sperimentali degli elementi."
+          "text": "Cesio",
+          "feedback": "Esatto: circa 376 kJ/mol, l’elettrone esterno è molto lontano dal nucleo."
         },
         {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Scala idrogenoide semplificata. Non calcola configurazioni multielettroniche, energie di ionizzazione o raggi sperimentali degli elementi."
-        },
-        {
-          "id": "C",
-          "text": "Scala idrogenoide, non raggio atomico misurato",
-          "feedback": "Scala idrogenoide semplificata. Non calcola configurazioni multielettroniche, energie di ionizzazione o raggi sperimentali degli elementi."
+          "id": "D",
+          "text": "Potassio",
+          "feedback": "Il potassio, 419 kJ/mol, sta sopra rubidio e cesio."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "chemistry-05-q4",
+      "prompt": "Quale elemento è un semimetallo?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Sodio",
+          "feedback": "Il sodio è un metallo alcalino, nel gruppo 1."
+        },
+        {
+          "id": "B",
+          "text": "Cloro",
+          "feedback": "Il cloro è un non metallo, nel gruppo degli alogeni."
+        },
+        {
+          "id": "C",
+          "text": "Ferro",
+          "feedback": "Il ferro è un metallo di transizione."
+        },
+        {
+          "id": "D",
+          "text": "Silicio",
+          "feedback": "Esatto: è un semiconduttore, al confine tra metalli e non metalli."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "chemistry-05-q5",
+      "prompt": "Quanti elettroni di valenza ha lo zolfo, nel gruppo 16?",
+      "options": [
+        {
+          "id": "A",
+          "text": "6",
+          "feedback": "Esatto: per i gruppi da 13 a 18 si sottrae 10 dal numero del gruppo."
+        },
+        {
+          "id": "B",
+          "text": "16",
+          "feedback": "16 è il numero atomico dello zolfo, non i suoi elettroni di valenza."
+        },
+        {
+          "id": "C",
+          "text": "2",
+          "feedback": "Due elettroni di valenza li hanno gli elementi del gruppo 2."
+        },
+        {
+          "id": "D",
+          "text": "8",
+          "feedback": "Otto elettroni li ha il livello completo dei gas nobili."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-05-q6",
+      "prompt": "Che cosa previde Mendeleev con l’«eka-silicio»?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Un errore nella sua tavola",
+          "feedback": "Le caselle vuote erano previsioni, poi confermate."
+        },
+        {
+          "id": "B",
+          "text": "Le proprietà di un elemento non ancora scoperto, il germanio",
+          "feedback": "Esatto: densità e massa previste risultarono molto vicine a quelle misurate."
+        },
+        {
+          "id": "C",
+          "text": "La struttura dell’atomo",
+          "feedback": "La struttura dell’atomo fu scoperta decenni dopo."
+        },
+        {
+          "id": "D",
+          "text": "Il numero dei gas nobili",
+          "feedback": "I gas nobili non erano ancora noti."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "cards",
+    "goal": 3,
+    "rounds": [
+      {
+        "id": "raggio",
+        "type": "order",
+        "title": "Dal più grande al più piccolo",
+        "prompt": "Ordina gli elementi del terzo periodo per raggio atomico decrescente.",
+        "items": [
+          {
+            "id": "na",
+            "text": "Na, sodio",
+            "why": "Il sodio, primo del periodo, ha la carica efficace più bassa."
+          },
+          {
+            "id": "mg",
+            "text": "Mg, magnesio",
+            "why": "Un protone in più del sodio, stesso livello: raggio minore."
+          },
+          {
+            "id": "al",
+            "text": "Al, alluminio",
+            "why": "La carica efficace continua a crescere."
+          },
+          {
+            "id": "si",
+            "text": "Si, silicio",
+            "why": "A metà periodo il raggio continua a diminuire."
+          },
+          {
+            "id": "p",
+            "text": "P, fosforo",
+            "why": "Più protoni, stesso livello, raggio minore."
+          },
+          {
+            "id": "s",
+            "text": "S, zolfo",
+            "why": "Lo zolfo precede il cloro: carica efficace un po’ minore, raggio un po’ maggiore."
+          },
+          {
+            "id": "cl",
+            "text": "Cl, cloro",
+            "why": "Tra questi elementi il cloro ha la carica efficace più alta: raggio minimo."
+          }
+        ],
+        "explain": "Lungo un periodo gli elettroni esterni restano nello stesso livello mentre la carica efficace cresce: il raggio diminuisce."
+      },
+      {
+        "id": "ionizzazione",
+        "type": "order",
+        "title": "Strappare un elettrone",
+        "prompt": "Ordina i metalli alcalini per energia di prima ionizzazione crescente.",
+        "items": [
+          {
+            "id": "cs",
+            "text": "Cs, cesio",
+            "why": "Circa 376 kJ/mol: l’elettrone esterno è il più lontano."
+          },
+          {
+            "id": "rb",
+            "text": "Rb, rubidio",
+            "why": "Circa 403 kJ/mol."
+          },
+          {
+            "id": "k",
+            "text": "K, potassio",
+            "why": "Circa 419 kJ/mol."
+          },
+          {
+            "id": "na",
+            "text": "Na, sodio",
+            "why": "Circa 496 kJ/mol."
+          },
+          {
+            "id": "li",
+            "text": "Li, litio",
+            "why": "Circa 520 kJ/mol: l’elettrone esterno è il più vicino al nucleo."
+          }
+        ],
+        "explain": "Scendendo nel gruppo l’elettrone esterno occupa un livello sempre più lontano e si strappa più facilmente."
+      },
+      {
+        "id": "metalli",
+        "type": "classify",
+        "title": "Metallo, non metallo o semimetallo?",
+        "prompt": "Classifica gli elementi.",
+        "categories": [
+          {
+            "id": "metallo",
+            "label": "METALLO"
+          },
+          {
+            "id": "non-metallo",
+            "label": "NON METALLO"
+          },
+          {
+            "id": "semimetallo",
+            "label": "SEMIMETALLO"
+          }
+        ],
+        "items": [
+          {
+            "id": "na",
+            "text": "Sodio",
+            "why": "Metallo alcalino, cede facilmente un elettrone.",
+            "category": "metallo"
+          },
+          {
+            "id": "fe",
+            "text": "Ferro",
+            "why": "Metallo di transizione, conduttore e lucente.",
+            "category": "metallo"
+          },
+          {
+            "id": "cu",
+            "text": "Rame",
+            "why": "Metallo, ottimo conduttore elettrico.",
+            "category": "metallo"
+          },
+          {
+            "id": "si",
+            "text": "Silicio",
+            "why": "Semimetallo semiconduttore, lungo la linea a scaletta.",
+            "category": "semimetallo"
+          },
+          {
+            "id": "b",
+            "text": "Boro",
+            "why": "Semimetallo all’inizio della linea a scaletta.",
+            "category": "semimetallo"
+          },
+          {
+            "id": "ge",
+            "text": "Germanio",
+            "why": "Semimetallo, l’«eka-silicio» di Mendeleev.",
+            "category": "semimetallo"
+          },
+          {
+            "id": "s",
+            "text": "Zolfo",
+            "why": "Non metallo, solido giallo e isolante.",
+            "category": "non-metallo"
+          },
+          {
+            "id": "cl",
+            "text": "Cloro",
+            "why": "Non metallo, gas che acquista elettroni.",
+            "category": "non-metallo"
+          },
+          {
+            "id": "o",
+            "text": "Ossigeno",
+            "why": "Non metallo molto elettronegativo.",
+            "category": "non-metallo"
+          }
+        ],
+        "explain": "I metalli stanno a sinistra, i non metalli in alto a destra, i semimetalli lungo la linea che li separa.",
+        "maxErrors": 2
+      },
+      {
+        "id": "valenza",
+        "type": "classify",
+        "title": "Elettroni di valenza",
+        "prompt": "Per ogni elemento scegli il numero di elettroni di valenza.",
+        "categories": [
+          {
+            "id": "uno",
+            "label": "1"
+          },
+          {
+            "id": "due",
+            "label": "2"
+          },
+          {
+            "id": "sei",
+            "label": "6"
+          },
+          {
+            "id": "sette",
+            "label": "7"
+          }
+        ],
+        "items": [
+          {
+            "id": "na",
+            "text": "Sodio, gruppo 1",
+            "why": "Gruppo 1: un elettrone di valenza.",
+            "category": "uno"
+          },
+          {
+            "id": "k",
+            "text": "Potassio, gruppo 1",
+            "why": "Gruppo 1: un elettrone di valenza.",
+            "category": "uno"
+          },
+          {
+            "id": "li",
+            "text": "Litio, gruppo 1",
+            "why": "Gruppo 1: un elettrone di valenza.",
+            "category": "uno"
+          },
+          {
+            "id": "mg",
+            "text": "Magnesio, gruppo 2",
+            "why": "Gruppo 2: due elettroni di valenza.",
+            "category": "due"
+          },
+          {
+            "id": "ca",
+            "text": "Calcio, gruppo 2",
+            "why": "Gruppo 2: due elettroni di valenza.",
+            "category": "due"
+          },
+          {
+            "id": "o",
+            "text": "Ossigeno, gruppo 16",
+            "why": "Gruppo 16: sei elettroni di valenza.",
+            "category": "sei"
+          },
+          {
+            "id": "s",
+            "text": "Zolfo, gruppo 16",
+            "why": "Gruppo 16: sei elettroni di valenza.",
+            "category": "sei"
+          },
+          {
+            "id": "f",
+            "text": "Fluoro, gruppo 17",
+            "why": "Gruppo 17: sette elettroni di valenza.",
+            "category": "sette"
+          },
+          {
+            "id": "cl",
+            "text": "Cloro, gruppo 17",
+            "why": "Gruppo 17: sette elettroni di valenza.",
+            "category": "sette"
+          }
+        ],
+        "explain": "Per i gruppi principali gli elettroni di valenza si leggono dal gruppo: 1 e 2, poi da 13 a 18 togliendo 10.",
+        "maxErrors": 2
+      }
+    ]
+  }
 }

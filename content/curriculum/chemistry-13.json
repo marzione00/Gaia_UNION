@@ -5,19 +5,21 @@
   "title": "Solubilità ed equilibrio eterogeneo",
   "sector": 2,
   "modelId": "chemistry-13",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Sale ideale 1:1 con un solo equilibrio",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Soluzioni sature, prodotto di solubilità, relazione con la solubilità, ione comune e precipitazione",
+  "narrativeStatus": "Grotte e laboratori fotografici sono esempi reali; il valore di K_sp di AgCl è di riferimento.",
   "objectives": [
-    "Spiegare: sale ideale 1:1 con un solo equilibrio.",
-    "Applicare s(s+c)=K_sp; asse x = log₁₀ K_sp, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Descrivere una soluzione satura come equilibrio dinamico.",
+    "Scrivere K_sp e calcolare la solubilità di sali AB e AB₂.",
+    "Spiegare l’effetto dello ione comune.",
+    "Prevedere una precipitazione con il quoziente ionico."
   ],
   "prerequisites": [
     "chemistry-12"
   ],
   "connections": [
+    "chemistry-14",
     "math-c03"
   ],
   "sources": [
@@ -27,244 +29,315 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "log₁₀ K_sp",
-      "definition": "Variabile indipendente, unità 1; intervallo [-12; -2]."
+      "term": "Equilibrio eterogeneo",
+      "definition": "Equilibrio tra sostanze in fasi diverse, come un solido e i suoi ioni in soluzione."
     },
     {
-      "term": "Solubilità s",
-      "definition": "Risultato calcolato dal modello, unità mol/L."
+      "term": "Prodotto di solubilità",
+      "definition": "K_sp: prodotto delle concentrazioni ioniche all’equilibrio, elevate ai coefficienti."
     },
     {
-      "term": "Ione comune c",
-      "definition": "Parametro a, unità mol/L; intervallo [0; 0,01]."
+      "term": "Solubilità molare",
+      "definition": "Moli di sale che si sciolgono in un litro di soluzione satura."
+    },
+    {
+      "term": "Ione comune",
+      "definition": "Ione già presente in soluzione che riduce la solubilità di un sale."
+    },
+    {
+      "term": "Quoziente ionico",
+      "definition": "Prodotto delle concentrazioni del momento; si confronta con K_sp."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Stalattiti e precipitati",
       "text": {
         "base": [
-          "Un sale ideale AB è a contatto con una soluzione che contiene già uno degli ioni. La solubilità non dipende soltanto dal prodotto di solubilità: conta la composizione iniziale.",
-          "Per AB(s)⇌A⁺+B⁻, usando concentrazioni ideali, K_sp=[A⁺][B⁻]. Se la soluzione contiene una concentrazione iniziale c di B⁻, sciogliere s mol/L produce [A⁺]=s e [B⁻]=s+c."
+          "Nelle grotte carsiche le stalattiti crescono in media di frazioni di millimetro all’anno: l’acqua che gocciola deposita carbonato di calcio, un sale quasi insolubile. Nei laboratori fotografici di un tempo, il cloruro d’argento precipitava come una polvere bianca. Quanto di questi sali resta in soluzione? La risposta è un equilibrio.",
+          "In una soluzione satura di un sale poco solubile il solido si scioglie e si riforma continuamente con la stessa velocità: è un equilibrio dinamico tra due fasi, detto eterogeneo. Per il cloruro d’argento: AgCl(s) ⇌ Ag⁺(aq) + Cl⁻(aq)."
         ],
         "intermediate": [
-          "Un sale ideale AB è a contatto con una soluzione che contiene già uno degli ioni. La solubilità non dipende soltanto dal prodotto di solubilità: conta la composizione iniziale.",
-          "L’equazione s(s+c)=K_sp è quadratica. La radice fisicamente ammessa è positiva. Il codice usa una forma equivalente numericamente stabile, 2K_sp/(√(c²+4K_sp)+c), per evitare cancellazioni."
+          "Nelle grotte carsiche le stalattiti crescono in media di frazioni di millimetro all’anno: l’acqua che gocciola deposita carbonato di calcio, un sale quasi insolubile. Nei laboratori fotografici di un tempo, il cloruro d’argento precipitava come una polvere bianca. Quanto di questi sali resta in soluzione? La risposta è un equilibrio.",
+          "In una soluzione satura di un sale poco solubile il solido si scioglie e si riforma continuamente con la stessa velocità: è un equilibrio dinamico tra due fasi, detto eterogeneo. Per il cloruro d’argento: AgCl(s) ⇌ Ag⁺(aq) + Cl⁻(aq)."
         ],
         "advanced": [
-          "Un sale ideale AB è a contatto con una soluzione che contiene già uno degli ioni. La solubilità non dipende soltanto dal prodotto di solubilità: conta la composizione iniziale.",
-          "Confronta la soluzione esatta con s≈K_sp/c quando c è molto maggiore di s. Stabilisci quando l’approssimazione è coerente con il risultato ottenuto.",
-          "Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri."
+          "Nelle grotte carsiche le stalattiti crescono in media di frazioni di millimetro all’anno: l’acqua che gocciola deposita carbonato di calcio, un sale quasi insolubile. Nei laboratori fotografici di un tempo, il cloruro d’argento precipitava come una polvere bianca. Quanto di questi sali resta in soluzione? La risposta è un equilibrio.",
+          "In una soluzione satura di un sale poco solubile il solido si scioglie e si riforma continuamente con la stessa velocità: è un equilibrio dinamico tra due fasi, detto eterogeneo. Per il cloruro d’argento: AgCl(s) ⇌ Ag⁺(aq) + Cl⁻(aq)."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Prodotto di solubilità",
       "text": {
         "base": [
-          "Per AB(s)⇌A⁺+B⁻, usando concentrazioni ideali, K_sp=[A⁺][B⁻]. Se la soluzione contiene una concentrazione iniziale c di B⁻, sciogliere s mol/L produce [A⁺]=s e [B⁻]=s+c.",
-          "Senza ione comune e con K_sp=10⁻⁸, la solubilità è 10⁻⁴ mol/L. Introducendo uno ione comune, la stessa K_sp corrisponde a una solubilità inferiore."
+          "La costante del prodotto di solubilità K_sp è il prodotto delle concentrazioni degli ioni all’equilibrio, ciascuna elevata al suo coefficiente; il solido non compare. Per AgCl: K_sp = [Ag⁺][Cl⁻] ≈ 1,8 · 10⁻¹⁰ a 25 °C. Se s è la solubilità in mol/L, [Ag⁺] = [Cl⁻] = s e s² = K_sp: s = √(1,8 · 10⁻¹⁰) ≈ 1,3 · 10⁻⁵ mol/L, circa 1,9 mg per litro.",
+          "Se nella soluzione c’è già uno degli ioni, la solubilità diminuisce: è l’effetto dello ione comune. In una soluzione di NaCl 0,01 M, per AgCl vale s(s + 0,01) = K_sp; poiché s è piccolissima, s ≈ K_sp/0,01 = 1,8 · 10⁻⁸ mol/L, circa settecento volte meno che in acqua pura. È una conseguenza del principio di Le Chatelier.",
+          "Il quoziente ionico Q si calcola come K_sp con le concentrazioni del momento. Se Q < K_sp la soluzione non è satura e altro sale può sciogliersi; se Q = K_sp è satura; se Q > K_sp il sale precipita finché Q torna uguale a K_sp. Mescolando soluzioni si può così prevedere se comparirà un precipitato."
         ],
         "intermediate": [
-          "L’equazione s(s+c)=K_sp è quadratica. La radice fisicamente ammessa è positiva. Il codice usa una forma equivalente numericamente stabile, 2K_sp/(√(c²+4K_sp)+c), per evitare cancellazioni.",
-          "La variabile log₁₀ K_sp è espressa in 1; Solubilità s in mol/L. Il dominio dello strumento è [-12; -2]. La relazione implementata è: s(s+c)=K_sp; asse x = log₁₀ K_sp.",
-          "Senza ione comune e con K_sp=10⁻⁸, la solubilità è 10⁻⁴ mol/L. Introducendo uno ione comune, la stessa K_sp corrisponde a una solubilità inferiore."
+          "La costante del prodotto di solubilità K_sp è il prodotto delle concentrazioni degli ioni all’equilibrio, ciascuna elevata al suo coefficiente; il solido non compare. Per AgCl: K_sp = [Ag⁺][Cl⁻] ≈ 1,8 · 10⁻¹⁰ a 25 °C. Se s è la solubilità in mol/L, [Ag⁺] = [Cl⁻] = s e s² = K_sp: s = √(1,8 · 10⁻¹⁰) ≈ 1,3 · 10⁻⁵ mol/L, circa 1,9 mg per litro.",
+          "Per sali con formule diverse cambia il legame tra s e K_sp. Per il fluoruro di calcio CaF₂ ⇌ Ca²⁺ + 2 F⁻ si ha [Ca²⁺] = s, [F⁻] = 2s, quindi K_sp = s(2s)² = 4s³. Per questo i valori di K_sp si confrontano direttamente solo tra sali con la stessa stechiometria.",
+          "Se nella soluzione c’è già uno degli ioni, la solubilità diminuisce: è l’effetto dello ione comune. In una soluzione di NaCl 0,01 M, per AgCl vale s(s + 0,01) = K_sp; poiché s è piccolissima, s ≈ K_sp/0,01 = 1,8 · 10⁻⁸ mol/L, circa settecento volte meno che in acqua pura. È una conseguenza del principio di Le Chatelier.",
+          "Il quoziente ionico Q si calcola come K_sp con le concentrazioni del momento. Se Q < K_sp la soluzione non è satura e altro sale può sciogliersi; se Q = K_sp è satura; se Q > K_sp il sale precipita finché Q torna uguale a K_sp. Mescolando soluzioni si può così prevedere se comparirà un precipitato."
         ],
         "advanced": [
-          "L’equazione s(s+c)=K_sp è quadratica. La radice fisicamente ammessa è positiva. Il codice usa una forma equivalente numericamente stabile, 2K_sp/(√(c²+4K_sp)+c), per evitare cancellazioni.",
-          "Confronta la soluzione esatta con s≈K_sp/c quando c è molto maggiore di s. Stabilisci quando l’approssimazione è coerente con il risultato ottenuto.",
-          "K_sp non è sempre uguale alla solubilità e la stechiometria del sale cambia gli esponenti. La scala orizzontale è log₁₀K_sp: il valore -8 rappresenta 10⁻⁸, non una costante negativa."
+          "La costante del prodotto di solubilità K_sp è il prodotto delle concentrazioni degli ioni all’equilibrio, ciascuna elevata al suo coefficiente; il solido non compare. Per AgCl: K_sp = [Ag⁺][Cl⁻] ≈ 1,8 · 10⁻¹⁰ a 25 °C. Se s è la solubilità in mol/L, [Ag⁺] = [Cl⁻] = s e s² = K_sp: s = √(1,8 · 10⁻¹⁰) ≈ 1,3 · 10⁻⁵ mol/L, circa 1,9 mg per litro.",
+          "Per sali con formule diverse cambia il legame tra s e K_sp. Per il fluoruro di calcio CaF₂ ⇌ Ca²⁺ + 2 F⁻ si ha [Ca²⁺] = s, [F⁻] = 2s, quindi K_sp = s(2s)² = 4s³. Per questo i valori di K_sp si confrontano direttamente solo tra sali con la stessa stechiometria.",
+          "Se nella soluzione c’è già uno degli ioni, la solubilità diminuisce: è l’effetto dello ione comune. In una soluzione di NaCl 0,01 M, per AgCl vale s(s + 0,01) = K_sp; poiché s è piccolissima, s ≈ K_sp/0,01 = 1,8 · 10⁻⁸ mol/L, circa settecento volte meno che in acqua pura. È una conseguenza del principio di Le Chatelier.",
+          "Il quoziente ionico Q si calcola come K_sp con le concentrazioni del momento. Se Q < K_sp la soluzione non è satura e altro sale può sciogliersi; se Q = K_sp è satura; se Q > K_sp il sale precipita finché Q torna uguale a K_sp. Mescolando soluzioni si può così prevedere se comparirà un precipitato."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio della solubilità",
       "text": {
         "base": [
-          "Nel laboratorio imposta Ione comune c (a): 0 mol/L. Prima di salvare A, prevedi come cambia Solubilità s fra log₁₀ K_sp=-9,5 e -7 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Senza ione comune e con K_sp=10⁻⁸, la solubilità è 10⁻⁴ mol/L. Introducendo uno ione comune, la stessa K_sp corrisponde a una solubilità inferiore.",
-          "La variabile log₁₀ K_sp è espressa in 1; Solubilità s in mol/L. Il dominio dello strumento è [-12; -2]. La relazione implementata è: s(s+c)=K_sp; asse x = log₁₀ K_sp."
+          "Nel laboratorio il grafico mostra la solubilità s in funzione del logaritmo di K_sp, da −12 a −2; nella scheda REGOLA scegli la concentrazione c dello ione comune, da 0 a 0,01 mol/L. Il modello risolve s(s + c) = K_sp.",
+          "Protocollo. La previsione riguarda il passaggio da log₁₀ K_sp = −9,5 a −7. Con c = 0 prevedi e salva A. Poi porta c a 0,01 mol/L, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con c = 0 la solubilità passa da circa 1,8 · 10⁻⁵ a 3,2 · 10⁻⁴ mol/L: cresce, e un aumento di K_sp di 10^2,5 volte fa crescere s di circa 10^1,25 volte, perché s = √K_sp. Con c = 0,01 cresce ancora, da circa 3,2 · 10⁻⁸ a 1,0 · 10⁻⁵ mol/L, ma i valori sono molto più bassi: qui s ≈ K_sp/c."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Ione comune c (a): 0 mol/L. Prima di salvare A, prevedi come cambia Solubilità s fra log₁₀ K_sp=-9,5 e -7 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile log₁₀ K_sp è espressa in 1; Solubilità s in mol/L. Il dominio dello strumento è [-12; -2]. La relazione implementata è: s(s+c)=K_sp; asse x = log₁₀ K_sp.",
-          "L’equazione s(s+c)=K_sp è quadratica. La radice fisicamente ammessa è positiva. Il codice usa una forma equivalente numericamente stabile, 2K_sp/(√(c²+4K_sp)+c), per evitare cancellazioni."
+          "Nel laboratorio il grafico mostra la solubilità s in funzione del logaritmo di K_sp, da −12 a −2; nella scheda REGOLA scegli la concentrazione c dello ione comune, da 0 a 0,01 mol/L. Il modello risolve s(s + c) = K_sp.",
+          "Protocollo. La previsione riguarda il passaggio da log₁₀ K_sp = −9,5 a −7. Con c = 0 prevedi e salva A. Poi porta c a 0,01 mol/L, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con c = 0 la solubilità passa da circa 1,8 · 10⁻⁵ a 3,2 · 10⁻⁴ mol/L: cresce, e un aumento di K_sp di 10^2,5 volte fa crescere s di circa 10^1,25 volte, perché s = √K_sp. Con c = 0,01 cresce ancora, da circa 3,2 · 10⁻⁸ a 1,0 · 10⁻⁵ mol/L, ma i valori sono molto più bassi: qui s ≈ K_sp/c."
         ],
         "advanced": [
-          "Nel laboratorio imposta Ione comune c (a): 0 mol/L. Prima di salvare A, prevedi come cambia Solubilità s fra log₁₀ K_sp=-9,5 e -7 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta la soluzione esatta con s≈K_sp/c quando c è molto maggiore di s. Stabilisci quando l’approssimazione è coerente con il risultato ottenuto.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra la solubilità s in funzione del logaritmo di K_sp, da −12 a −2; nella scheda REGOLA scegli la concentrazione c dello ione comune, da 0 a 0,01 mol/L. Il modello risolve s(s + c) = K_sp.",
+          "Protocollo. La previsione riguarda il passaggio da log₁₀ K_sp = −9,5 a −7. Con c = 0 prevedi e salva A. Poi porta c a 0,01 mol/L, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con c = 0 la solubilità passa da circa 1,8 · 10⁻⁵ a 3,2 · 10⁻⁴ mol/L: cresce, e un aumento di K_sp di 10^2,5 volte fa crescere s di circa 10^1,25 volte, perché s = √K_sp. Con c = 0,01 cresce ancora, da circa 3,2 · 10⁻⁸ a 1,0 · 10⁻⁵ mol/L, ma i valori sono molto più bassi: qui s ≈ K_sp/c."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "K_sp non è sempre uguale alla solubilità e la stechiometria del sale cambia gli esponenti. La scala orizzontale è log₁₀K_sp: il valore -8 rappresenta 10⁻⁸, non una costante negativa.",
-          "Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: credere che un K_sp più piccolo indichi sempre un sale meno solubile. Vale solo a parità di stechiometria: un sale AB₂ può avere K_sp minore di un sale AB ed essere più solubile.",
+          "Secondo errore: includere il solido nell’espressione di K_sp. La concentrazione di un solido puro non cambia, e il suo contributo è già incluso nella costante.",
+          "Il quoziente ionico Q si calcola come K_sp con le concentrazioni del momento. Se Q < K_sp la soluzione non è satura e altro sale può sciogliersi; se Q = K_sp è satura; se Q > K_sp il sale precipita finché Q torna uguale a K_sp. Mescolando soluzioni si può così prevedere se comparirà un precipitato."
         ],
         "intermediate": [
-          "K_sp non è sempre uguale alla solubilità e la stechiometria del sale cambia gli esponenti. La scala orizzontale è log₁₀K_sp: il valore -8 rappresenta 10⁻⁸, non una costante negativa.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: credere che un K_sp più piccolo indichi sempre un sale meno solubile. Vale solo a parità di stechiometria: un sale AB₂ può avere K_sp minore di un sale AB ed essere più solubile.",
+          "Secondo errore: includere il solido nell’espressione di K_sp. La concentrazione di un solido puro non cambia, e il suo contributo è già incluso nella costante.",
+          "Per sali con formule diverse cambia il legame tra s e K_sp. Per il fluoruro di calcio CaF₂ ⇌ Ca²⁺ + 2 F⁻ si ha [Ca²⁺] = s, [F⁻] = 2s, quindi K_sp = s(2s)² = 4s³. Per questo i valori di K_sp si confrontano direttamente solo tra sali con la stessa stechiometria."
         ],
         "advanced": [
-          "Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri.",
-          "Confronta la soluzione esatta con s≈K_sp/c quando c è molto maggiore di s. Stabilisci quando l’approssimazione è coerente con il risultato ottenuto.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: credere che un K_sp più piccolo indichi sempre un sale meno solubile. Vale solo a parità di stechiometria: un sale AB₂ può avere K_sp minore di un sale AB ed essere più solubile.",
+          "Secondo errore: includere il solido nell’espressione di K_sp. La concentrazione di un solido puro non cambia, e il suo contributo è già incluso nella costante.",
+          "Per sali con formule diverse cambia il legame tra s e K_sp. Per il fluoruro di calcio CaF₂ ⇌ Ca²⁺ + 2 F⁻ si ha [Ca²⁺] = s, [F⁻] = 2s, quindi K_sp = s(2s)² = 4s³. Per questo i valori di K_sp si confrontano direttamente solo tra sali con la stessa stechiometria."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Per AB(s)⇌A⁺+B⁻, usando concentrazioni ideali, K_sp=[A⁺][B⁻]. Se la soluzione contiene una concentrazione iniziale c di B⁻, sciogliere s mol/L produce [A⁺]=s e [B⁻]=s+c.",
-          "Senza ione comune e con K_sp=10⁻⁸, la solubilità è 10⁻⁴ mol/L. Introducendo uno ione comune, la stessa K_sp corrisponde a una solubilità inferiore."
+          "Ripasso: equilibrio eterogeneo; espressione di K_sp; relazione tra s e K_sp per sali AB e AB₂; effetto dello ione comune; quoziente ionico e previsione della precipitazione.",
+          "Mini esercizio: un sale AB ha K_sp = 1,0 · 10⁻⁸. In acqua pura s = 1,0 · 10⁻⁴ mol/L; in presenza di 0,1 M di ione comune s ≈ 1,0 · 10⁻⁷ mol/L.",
+          "Nelle domande sulla solubilità scrivi prima l’equilibrio con i coefficienti, poi l’espressione di K_sp."
         ],
         "intermediate": [
-          "L’equazione s(s+c)=K_sp è quadratica. La radice fisicamente ammessa è positiva. Il codice usa una forma equivalente numericamente stabile, 2K_sp/(√(c²+4K_sp)+c), per evitare cancellazioni.",
-          "La variabile log₁₀ K_sp è espressa in 1; Solubilità s in mol/L. Il dominio dello strumento è [-12; -2]. La relazione implementata è: s(s+c)=K_sp; asse x = log₁₀ K_sp."
+          "Ripasso: equilibrio eterogeneo; espressione di K_sp; relazione tra s e K_sp per sali AB e AB₂; effetto dello ione comune; quoziente ionico e previsione della precipitazione.",
+          "Mini esercizio: un sale AB ha K_sp = 1,0 · 10⁻⁸. In acqua pura s = 1,0 · 10⁻⁴ mol/L; in presenza di 0,1 M di ione comune s ≈ 1,0 · 10⁻⁷ mol/L.",
+          "Nelle domande sulla solubilità scrivi prima l’equilibrio con i coefficienti, poi l’espressione di K_sp."
         ],
         "advanced": [
-          "Confronta la soluzione esatta con s≈K_sp/c quando c è molto maggiore di s. Stabilisci quando l’approssimazione è coerente con il risultato ottenuto.",
-          "Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri."
+          "Ripasso: equilibrio eterogeneo; espressione di K_sp; relazione tra s e K_sp per sali AB e AB₂; effetto dello ione comune; quoziente ionico e previsione della precipitazione.",
+          "Mini esercizio: un sale AB ha K_sp = 1,0 · 10⁻⁸. In acqua pura s = 1,0 · 10⁻⁴ mol/L; in presenza di 0,1 M di ione comune s ≈ 1,0 · 10⁻⁷ mol/L.",
+          "Nelle domande sulla solubilità scrivi prima l’equilibrio con i coefficienti, poi l’espressione di K_sp."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Sale ideale 1:1 con un solo equilibrio.",
-          "Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri.",
-          "Collegamento consigliato: math-c03. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La radice quadrata che lega s e K_sp richiama l’unità di matematica «Radicali». In chimica la costante di equilibrio torna in forma generale nell’unità «Equilibrio chimico», dopo le unità su stechiometria e velocità.",
+          "Riepilogo dell’unità: una soluzione satura è un equilibrio dinamico tra solido e ioni; K_sp è il prodotto delle concentrazioni ioniche elevate ai coefficienti; per AgCl s = √K_sp; uno ione comune riduce la solubilità; se Q supera K_sp il sale precipita.",
+          "Nel diario registra A e B con le previsioni e spiega perché con lo ione comune la solubilità è circa K_sp/c."
         ],
         "intermediate": [
-          "L’equazione s(s+c)=K_sp è quadratica. La radice fisicamente ammessa è positiva. Il codice usa una forma equivalente numericamente stabile, 2K_sp/(√(c²+4K_sp)+c), per evitare cancellazioni.",
-          "Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri.",
-          "Confronta la soluzione esatta con s≈K_sp/c quando c è molto maggiore di s. Stabilisci quando l’approssimazione è coerente con il risultato ottenuto."
+          "La radice quadrata che lega s e K_sp richiama l’unità di matematica «Radicali». In chimica la costante di equilibrio torna in forma generale nell’unità «Equilibrio chimico», dopo le unità su stechiometria e velocità.",
+          "Riepilogo dell’unità: una soluzione satura è un equilibrio dinamico tra solido e ioni; K_sp è il prodotto delle concentrazioni ioniche elevate ai coefficienti; per AgCl s = √K_sp; uno ione comune riduce la solubilità; se Q supera K_sp il sale precipita.",
+          "Nel diario registra A e B con le previsioni e spiega perché con lo ione comune la solubilità è circa K_sp/c."
         ],
         "advanced": [
-          "Confronta la soluzione esatta con s≈K_sp/c quando c è molto maggiore di s. Stabilisci quando l’approssimazione è coerente con il risultato ottenuto.",
-          "Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La radice quadrata che lega s e K_sp richiama l’unità di matematica «Radicali». In chimica la costante di equilibrio torna in forma generale nell’unità «Equilibrio chimico», dopo le unità su stechiometria e velocità.",
+          "Riepilogo dell’unità: una soluzione satura è un equilibrio dinamico tra solido e ioni; K_sp è il prodotto delle concentrazioni ioniche elevate ai coefficienti; per AgCl s = √K_sp; uno ione comune riduce la solubilità; se Q supera K_sp il sale precipita.",
+          "Nel diario registra A e B con le previsioni e spiega perché con lo ione comune la solubilità è circa K_sp/c."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-13-concept",
-      "prompt": "Per un sale 1:1 senza ione comune, s vale:",
+      "id": "chemistry-13-q1",
+      "prompt": "Per AgCl K_sp ≈ 1,8 · 10⁻¹⁰. Qual è circa la solubilità in acqua pura?",
       "options": [
         {
           "id": "A",
-          "text": "Sempre K_sp",
-          "feedback": "L’equazione s(s+c)=K_sp è quadratica. La radice fisicamente ammessa è positiva. Il codice usa una forma equivalente numericamente stabile, 2K_sp/(√(c²+4K_sp)+c), per evitare cancellazioni."
+          "text": "1,8 · 10⁻¹⁰ mol/L",
+          "feedback": "Questa è la costante: la solubilità è la sua radice quadrata."
         },
         {
           "id": "B",
-          "text": "√K_sp",
-          "feedback": "Per AB(s)⇌A⁺+B⁻, usando concentrazioni ideali, K_sp=[A⁺][B⁻]. Se la soluzione contiene una concentrazione iniziale c di B⁻, sciogliere s mol/L produce [A⁺]=s e [B⁻]=s+c."
+          "text": "9 · 10⁻¹¹ mol/L",
+          "feedback": "Hai diviso K_sp per 2: per un sale AB vale s² = K_sp."
         },
         {
           "id": "C",
-          "text": "K_sp²",
-          "feedback": "K_sp non è sempre uguale alla solubilità e la stechiometria del sale cambia gli esponenti. La scala orizzontale è log₁₀K_sp: il valore -8 rappresenta 10⁻⁸, non una costante negativa."
+          "text": "1,3 · 10⁻⁵ mol/L",
+          "feedback": "Esatto: per un sale AB vale s² = K_sp, quindi s = √K_sp."
+        },
+        {
+          "id": "D",
+          "text": "0,13 mol/L",
+          "feedback": "Il valore è troppo grande di diecimila volte: ricontrolla la radice."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "chemistry-13-q2",
+      "prompt": "Che cosa accade aggiungendo NaCl a una soluzione satura di AgCl?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Precipita altro AgCl",
+          "feedback": "Esatto: lo ione Cl⁻ in più porta Q sopra K_sp."
+        },
+        {
+          "id": "B",
+          "text": "Si scioglie altro AgCl",
+          "feedback": "Lo ione comune sposta l’equilibrio verso il solido."
+        },
+        {
+          "id": "C",
+          "text": "Non accade nulla",
+          "feedback": "Il quoziente ionico cambia e l’equilibrio si sposta."
+        },
+        {
+          "id": "D",
+          "text": "K_sp aumenta",
+          "feedback": "K_sp dipende solo dalla temperatura."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-13-q3",
+      "prompt": "Quando si forma un precipitato?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Quando Q < K_sp",
+          "feedback": "In questo caso la soluzione non è satura e il sale si scioglie."
+        },
+        {
+          "id": "B",
+          "text": "Quando Q > K_sp",
+          "feedback": "Esatto: il sale precipita finché Q torna uguale a K_sp."
+        },
+        {
+          "id": "C",
+          "text": "Sempre, mescolando due soluzioni",
+          "feedback": "Serve che il prodotto delle concentrazioni superi K_sp."
+        },
+        {
+          "id": "D",
+          "text": "Solo se si scalda la soluzione",
+          "feedback": "La precipitazione dipende dalle concentrazioni, anche a temperatura costante."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "chemistry-13-calculation",
-      "prompt": "Calcolo: Ione comune c (a)=0 mol/L. Per log₁₀ K_sp=-8 (adimensionale), quanto vale Solubilità s?",
+      "id": "chemistry-13-q4",
+      "prompt": "Come si scrive K_sp di CaF₂ in funzione della solubilità s?",
       "options": [
         {
           "id": "A",
-          "text": "0,0001 mol/L",
-          "feedback": "s(s+c)=K_sp; asse x = log₁₀ K_sp. Con Ione comune c (a)=0 mol/L e log₁₀ K_sp=-8 (adimensionale), il risultato è 0,0001 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "s²",
+          "feedback": "s² vale per sali AB, con un catione e un anione."
         },
         {
           "id": "B",
-          "text": "0,0003 mol/L",
-          "feedback": "Questo valore non soddisfa la relazione. s(s+c)=K_sp; asse x = log₁₀ K_sp. Con Ione comune c (a)=0 mol/L e log₁₀ K_sp=-8 (adimensionale), il risultato è 0,0001 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "2s²",
+          "feedback": "Il coefficiente 2 va dentro la parentesi e poi al quadrato."
         },
         {
           "id": "C",
-          "text": "-0,0001 mol/L",
-          "feedback": "Controlla sostituzione, segno e unità. s(s+c)=K_sp; asse x = log₁₀ K_sp. Con Ione comune c (a)=0 mol/L e log₁₀ K_sp=-8 (adimensionale), il risultato è 0,0001 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "s³",
+          "feedback": "Manca il fattore 4 che nasce da (2s)²."
+        },
+        {
+          "id": "D",
+          "text": "4s³",
+          "feedback": "Esatto: [Ca²⁺] = s e [F⁻] = 2s, quindi s · (2s)² = 4s³."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": -8,
-        "parameters": {
-          "a": 0
-        },
-        "expected": 0.0001,
-        "unit": "mol/L"
-      }
+      "correct": "D"
     },
     {
-      "id": "chemistry-13-transfer",
-      "prompt": "Trasferimento: Ione comune c (a)=0,001 mol/L. Per log₁₀ K_sp=-8 (adimensionale), quanto vale Solubilità s?",
+      "id": "chemistry-13-q5",
+      "prompt": "Nel laboratorio, con c = 0, passando da log₁₀ K_sp = −9,5 a −7 la solubilità:",
       "options": [
         {
           "id": "A",
-          "text": "2,97059e-5 mol/L",
-          "feedback": "Questo valore non soddisfa la relazione. s(s+c)=K_sp; asse x = log₁₀ K_sp. Con Ione comune c (a)=0,001 mol/L e log₁₀ K_sp=-8 (adimensionale), il risultato è 9,90195e-6 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "Cresce",
+          "feedback": "Esatto: da circa 1,8 · 10⁻⁵ a 3,2 · 10⁻⁴ mol/L."
         },
         {
           "id": "B",
-          "text": "-9,90195e-6 mol/L",
-          "feedback": "Controlla sostituzione, segno e unità. s(s+c)=K_sp; asse x = log₁₀ K_sp. Con Ione comune c (a)=0,001 mol/L e log₁₀ K_sp=-8 (adimensionale), il risultato è 9,90195e-6 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "Diminuisce",
+          "feedback": "Un K_sp più grande significa un sale più solubile."
         },
         {
           "id": "C",
-          "text": "9,90195e-6 mol/L",
-          "feedback": "s(s+c)=K_sp; asse x = log₁₀ K_sp. Con Ione comune c (a)=0,001 mol/L e log₁₀ K_sp=-8 (adimensionale), il risultato è 9,90195e-6 mol/L. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "C",
-      "numeric": {
-        "x": -8,
-        "parameters": {
-          "a": 0.001
-        },
-        "expected": 0.000009901951359278485,
-        "unit": "mol/L"
-      }
-    },
-    {
-      "id": "chemistry-13-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Sale ideale 1:1 con un solo equilibrio",
-          "feedback": "Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri."
+          "text": "Resta uguale",
+          "feedback": "La solubilità segue la radice di K_sp e cambia."
         },
         {
-          "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri."
-        },
-        {
-          "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Sale 1:1 ideale, attività approssimate con concentrazioni e temperatura fissata. Sono esclusi complessi, pH accoppiato e altri equilibri."
+          "id": "D",
+          "text": "Non è definita",
+          "feedback": "Il modello è definito in tutto l’intervallo."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "chemistry-13-q6",
+      "prompt": "Perché non si possono confrontare direttamente i K_sp di AgCl e di CaF₂?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché uno è un fluoruro",
+          "feedback": "Il problema non è l’anione, è la formula del sale."
+        },
+        {
+          "id": "B",
+          "text": "Perché hanno stechiometrie diverse",
+          "feedback": "Esatto: s² e 4s³ crescono in modo diverso con s."
+        },
+        {
+          "id": "C",
+          "text": "Perché K_sp di CaF₂ non esiste",
+          "feedback": "Anche CaF₂ ha il suo prodotto di solubilità."
+        },
+        {
+          "id": "D",
+          "text": "Perché si misurano a temperature diverse",
+          "feedback": "Il confronto non regge nemmeno alla stessa temperatura."
+        }
+      ],
+      "correct": "B"
     }
   ]
 }

@@ -5,19 +5,21 @@
   "title": "Velocità di reazione",
   "sector": 2,
   "modelId": "chemistry-17",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Primo ordine irreversibile a k costante",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Velocità di reazione, teoria degli urti, legge cinetica, primo ordine e tempo di dimezzamento",
+  "narrativeStatus": "Le serie di misure sono simulate con il modello del primo ordine e piccoli scarti.",
   "objectives": [
-    "Spiegare: primo ordine irreversibile a k costante.",
-    "Applicare [A](t) = [A]₀ exp(-kt), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Definire la velocità di reazione.",
+    "Spiegare i fattori che la influenzano con la teoria degli urti.",
+    "Usare la legge del primo ordine [A] = [A]₀ e^(−kt).",
+    "Calcolare e interpretare il tempo di dimezzamento."
   ],
   "prerequisites": [
     "chemistry-16"
   ],
   "connections": [
+    "chemistry-18",
     "math-c06"
   ],
   "sources": [
@@ -27,250 +29,423 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Tempo",
-      "definition": "Variabile indipendente, unità min; intervallo [0; 20]."
+      "term": "Velocità di reazione",
+      "definition": "Variazione della concentrazione nel tempo, in mol/(L·s)."
     },
     {
-      "term": "Concentrazione reagente",
-      "definition": "Risultato calcolato dal modello, unità mol/L."
+      "term": "Teoria degli urti",
+      "definition": "Le particelle reagiscono se si urtano con energia e orientazione adatte."
     },
     {
-      "term": "Concentrazione iniziale",
-      "definition": "Parametro a, unità mol/L; intervallo [0,5; 3]."
+      "term": "Costante cinetica",
+      "definition": "Costante k della legge cinetica; dipende dalla temperatura."
     },
     {
-      "term": "Costante k",
-      "definition": "Parametro b, unità 1/min; intervallo [0,05; 0,5]."
+      "term": "Ordine di reazione",
+      "definition": "Esponente della concentrazione nella legge cinetica, determinato sperimentalmente."
+    },
+    {
+      "term": "Tempo di dimezzamento",
+      "definition": "Tempo in cui la concentrazione si dimezza; nel primo ordine ln 2/k."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Fiammiferi, chiodi e statue",
       "text": {
         "base": [
-          "La concentrazione di un reagente diminuisce nel tempo. La stazione deve distinguere una perdita costante per minuto da una perdita proporzionale alla quantità ancora presente.",
-          "Una cinetica del primo ordine assume -d[A]/dt=k[A]. Il reagente decade esponenzialmente con costante k positiva. L’ordine è un’informazione sul modello cinetico, non si legge automaticamente dai coefficienti della reazione."
+          "Un fiammifero brucia in un secondo, un chiodo arrugginisce in mesi, una statua di marmo si consuma sotto la pioggia acida in secoli. Tutte sono reazioni chimiche, con velocità diversissime. La cinetica chimica studia quanto in fretta avviene una reazione e da che cosa dipende.",
+          "La velocità di reazione misura quanto rapidamente cambia la concentrazione di un reagente o di un prodotto: v = −Δ[A]/Δt per un reagente, in mol/(L·s). Il segno meno rende positiva la velocità, perché la concentrazione del reagente diminuisce. In genere la velocità è massima all’inizio e cala man mano che i reagenti si consumano."
         ],
         "intermediate": [
-          "La concentrazione di un reagente diminuisce nel tempo. La stazione deve distinguere una perdita costante per minuto da una perdita proporzionale alla quantità ancora presente.",
-          "Integrando si ottiene [A](t)=[A]₀exp(-kt). Il tempo di dimezzamento è ln(2)/k e non dipende dalla concentrazione iniziale in questo modello."
+          "Un fiammifero brucia in un secondo, un chiodo arrugginisce in mesi, una statua di marmo si consuma sotto la pioggia acida in secoli. Tutte sono reazioni chimiche, con velocità diversissime. La cinetica chimica studia quanto in fretta avviene una reazione e da che cosa dipende.",
+          "La velocità di reazione misura quanto rapidamente cambia la concentrazione di un reagente o di un prodotto: v = −Δ[A]/Δt per un reagente, in mol/(L·s). Il segno meno rende positiva la velocità, perché la concentrazione del reagente diminuisce. In genere la velocità è massima all’inizio e cala man mano che i reagenti si consumano."
         ],
         "advanced": [
-          "La concentrazione di un reagente diminuisce nel tempo. La stazione deve distinguere una perdita costante per minuto da una perdita proporzionale alla quantità ancora presente.",
-          "Traccia ln[A] rispetto al tempo e ricava la pendenza. Spiega perché una retta apparente su pochi punti non basta a dimostrare un meccanismo microscopico.",
-          "Primo ordine irreversibile, k costante e sistema omogeneo. Sono esclusi reazione inversa, variazioni di temperatura e limiti di trasporto."
+          "Un fiammifero brucia in un secondo, un chiodo arrugginisce in mesi, una statua di marmo si consuma sotto la pioggia acida in secoli. Tutte sono reazioni chimiche, con velocità diversissime. La cinetica chimica studia quanto in fretta avviene una reazione e da che cosa dipende.",
+          "La velocità di reazione misura quanto rapidamente cambia la concentrazione di un reagente o di un prodotto: v = −Δ[A]/Δt per un reagente, in mol/(L·s). Il segno meno rende positiva la velocità, perché la concentrazione del reagente diminuisce. In genere la velocità è massima all’inizio e cala man mano che i reagenti si consumano."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Urti, leggi e dimezzamenti",
       "text": {
         "base": [
-          "Una cinetica del primo ordine assume -d[A]/dt=k[A]. Il reagente decade esponenzialmente con costante k positiva. L’ordine è un’informazione sul modello cinetico, non si legge automaticamente dai coefficienti della reazione.",
-          "Con [A]₀=1 mol/L e k=0,2 min⁻¹, al tempo zero la concentrazione è 1 mol/L. Dopo circa 3,466 minuti è 0,5 mol/L."
+          "La teoria degli urti spiega i fattori che contano. Perché due particelle reagiscano devono urtarsi, con energia sufficiente e con l’orientazione giusta. Più concentrazione significa urti più frequenti; una temperatura più alta, urti più frequenti e soprattutto più energetici; un solido ridotto in polvere offre più superficie. Un catalizzatore apre una strada con energia di attivazione minore e non si consuma.",
+          "La legge cinetica lega la velocità alle concentrazioni: v = k[A]^m, dove k è la costante cinetica e m l’ordine di reazione, che si determina sperimentalmente. In una reazione del primo ordine v = k[A], e la concentrazione diminuisce in modo esponenziale: [A] = [A]₀ e^(−kt). Con k = 0,2 min⁻¹, dopo 5 minuti resta e⁻¹ ≈ 36,8% del reagente; dopo 10 minuti circa il 13,5%.",
+          "Il tempo di dimezzamento t½ è il tempo in cui la concentrazione si dimezza. Nel primo ordine t½ = ln 2/k e non dipende dalla concentrazione iniziale: con k = 0,2 min⁻¹, t½ ≈ 3,47 min, sia partendo da 1 mol/L sia da 3. Dopo tre tempi di dimezzamento resta un ottavo. Il decadimento radioattivo segue la stessa legge."
         ],
         "intermediate": [
-          "Integrando si ottiene [A](t)=[A]₀exp(-kt). Il tempo di dimezzamento è ln(2)/k e non dipende dalla concentrazione iniziale in questo modello.",
-          "La variabile Tempo è espressa in min; Concentrazione reagente in mol/L. Il dominio dello strumento è [0; 20]. La relazione implementata è: [A](t) = [A]₀ exp(-kt).",
-          "Con [A]₀=1 mol/L e k=0,2 min⁻¹, al tempo zero la concentrazione è 1 mol/L. Dopo circa 3,466 minuti è 0,5 mol/L."
+          "La teoria degli urti spiega i fattori che contano. Perché due particelle reagiscano devono urtarsi, con energia sufficiente e con l’orientazione giusta. Più concentrazione significa urti più frequenti; una temperatura più alta, urti più frequenti e soprattutto più energetici; un solido ridotto in polvere offre più superficie. Un catalizzatore apre una strada con energia di attivazione minore e non si consuma.",
+          "La legge cinetica lega la velocità alle concentrazioni: v = k[A]^m, dove k è la costante cinetica e m l’ordine di reazione, che si determina sperimentalmente. In una reazione del primo ordine v = k[A], e la concentrazione diminuisce in modo esponenziale: [A] = [A]₀ e^(−kt). Con k = 0,2 min⁻¹, dopo 5 minuti resta e⁻¹ ≈ 36,8% del reagente; dopo 10 minuti circa il 13,5%.",
+          "Il tempo di dimezzamento t½ è il tempo in cui la concentrazione si dimezza. Nel primo ordine t½ = ln 2/k e non dipende dalla concentrazione iniziale: con k = 0,2 min⁻¹, t½ ≈ 3,47 min, sia partendo da 1 mol/L sia da 3. Dopo tre tempi di dimezzamento resta un ottavo. Il decadimento radioattivo segue la stessa legge."
         ],
         "advanced": [
-          "Integrando si ottiene [A](t)=[A]₀exp(-kt). Il tempo di dimezzamento è ln(2)/k e non dipende dalla concentrazione iniziale in questo modello.",
-          "Traccia ln[A] rispetto al tempo e ricava la pendenza. Spiega perché una retta apparente su pochi punti non basta a dimostrare un meccanismo microscopico.",
-          "La costante cinetica non è una costante di equilibrio. Una reazione rapida può avere un equilibrio poco favorevole ai prodotti e viceversa."
+          "La teoria degli urti spiega i fattori che contano. Perché due particelle reagiscano devono urtarsi, con energia sufficiente e con l’orientazione giusta. Più concentrazione significa urti più frequenti; una temperatura più alta, urti più frequenti e soprattutto più energetici; un solido ridotto in polvere offre più superficie. Un catalizzatore apre una strada con energia di attivazione minore e non si consuma.",
+          "La legge cinetica lega la velocità alle concentrazioni: v = k[A]^m, dove k è la costante cinetica e m l’ordine di reazione, che si determina sperimentalmente. In una reazione del primo ordine v = k[A], e la concentrazione diminuisce in modo esponenziale: [A] = [A]₀ e^(−kt). Con k = 0,2 min⁻¹, dopo 5 minuti resta e⁻¹ ≈ 36,8% del reagente; dopo 10 minuti circa il 13,5%.",
+          "Il tempo di dimezzamento t½ è il tempo in cui la concentrazione si dimezza. Nel primo ordine t½ = ln 2/k e non dipende dalla concentrazione iniziale: con k = 0,2 min⁻¹, t½ ≈ 3,47 min, sia partendo da 1 mol/L sia da 3. Dopo tre tempi di dimezzamento resta un ottavo. Il decadimento radioattivo segue la stessa legge.",
+          "Che cosa mostra il grafico. Una curva esponenziale decrescente: ogni intervallo di tempo uguale riduce la concentrazione dello stesso fattore. Riportando ln[A] contro il tempo si otterrebbe una retta di pendenza −k: è il modo in cui in laboratorio si riconosce una reazione del primo ordine."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Adatta il modello alle misure",
       "text": {
         "base": [
-          "Nel laboratorio imposta Concentrazione iniziale (a): 1 mol/L; Costante k (b): 0,2 1/min. Prima di salvare A, prevedi come cambia Concentrazione reagente fra Tempo=5 e 10 min. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con [A]₀=1 mol/L e k=0,2 min⁻¹, al tempo zero la concentrazione è 1 mol/L. Dopo circa 3,466 minuti è 0,5 mol/L.",
-          "La variabile Tempo è espressa in min; Concentrazione reagente in mol/L. Il dominio dello strumento è [0; 20]. La relazione implementata è: [A](t) = [A]₀ exp(-kt)."
+          "L’attività presenta tre serie di misure della concentrazione di un reagente nel tempo. Il modello è [A] = [A]₀ e^(−kt): nella prima serie regoli la costante k, nella seconda la concentrazione iniziale, nella terza entrambe. Per completare l’attività adatta il modello a due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
+          "Suggerimento: la concentrazione iniziale si legge dove la curva incontra l’asse verticale. Per k cerca il tempo in cui la concentrazione si è dimezzata e usa k = ln 2/t½ ≈ 0,693/t½."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Concentrazione iniziale (a): 1 mol/L; Costante k (b): 0,2 1/min. Prima di salvare A, prevedi come cambia Concentrazione reagente fra Tempo=5 e 10 min. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Tempo è espressa in min; Concentrazione reagente in mol/L. Il dominio dello strumento è [0; 20]. La relazione implementata è: [A](t) = [A]₀ exp(-kt).",
-          "Integrando si ottiene [A](t)=[A]₀exp(-kt). Il tempo di dimezzamento è ln(2)/k e non dipende dalla concentrazione iniziale in questo modello."
+          "L’attività presenta tre serie di misure della concentrazione di un reagente nel tempo. Il modello è [A] = [A]₀ e^(−kt): nella prima serie regoli la costante k, nella seconda la concentrazione iniziale, nella terza entrambe. Per completare l’attività adatta il modello a due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
+          "Suggerimento: la concentrazione iniziale si legge dove la curva incontra l’asse verticale. Per k cerca il tempo in cui la concentrazione si è dimezzata e usa k = ln 2/t½ ≈ 0,693/t½."
         ],
         "advanced": [
-          "Nel laboratorio imposta Concentrazione iniziale (a): 1 mol/L; Costante k (b): 0,2 1/min. Prima di salvare A, prevedi come cambia Concentrazione reagente fra Tempo=5 e 10 min. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Traccia ln[A] rispetto al tempo e ricava la pendenza. Spiega perché una retta apparente su pochi punti non basta a dimostrare un meccanismo microscopico.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività presenta tre serie di misure della concentrazione di un reagente nel tempo. Il modello è [A] = [A]₀ e^(−kt): nella prima serie regoli la costante k, nella seconda la concentrazione iniziale, nella terza entrambe. Per completare l’attività adatta il modello a due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
+          "Suggerimento: la concentrazione iniziale si legge dove la curva incontra l’asse verticale. Per k cerca il tempo in cui la concentrazione si è dimezzata e usa k = ln 2/t½ ≈ 0,693/t½."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Leggere il grafico ed evitare errori",
       "text": {
         "base": [
-          "La costante cinetica non è una costante di equilibrio. Una reazione rapida può avere un equilibrio poco favorevole ai prodotti e viceversa.",
-          "Primo ordine irreversibile, k costante e sistema omogeneo. Sono esclusi reazione inversa, variazioni di temperatura e limiti di trasporto.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Che cosa mostra il grafico. Una curva esponenziale decrescente: ogni intervallo di tempo uguale riduce la concentrazione dello stesso fattore. Riportando ln[A] contro il tempo si otterrebbe una retta di pendenza −k: è il modo in cui in laboratorio si riconosce una reazione del primo ordine.",
+          "Errore frequente: pensare che una reazione si fermi dopo due tempi di dimezzamento. Nel primo ordine ogni dimezzamento lascia metà di ciò che c’era: dopo due resta un quarto, dopo tre un ottavo, e così via.",
+          "Secondo errore: credere che l’ordine di reazione si legga dai coefficienti dell’equazione. L’ordine si misura; coincide con i coefficienti solo per le reazioni che avvengono in un solo stadio."
         ],
         "intermediate": [
-          "La costante cinetica non è una costante di equilibrio. Una reazione rapida può avere un equilibrio poco favorevole ai prodotti e viceversa.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Che cosa mostra il grafico. Una curva esponenziale decrescente: ogni intervallo di tempo uguale riduce la concentrazione dello stesso fattore. Riportando ln[A] contro il tempo si otterrebbe una retta di pendenza −k: è il modo in cui in laboratorio si riconosce una reazione del primo ordine.",
+          "Errore frequente: pensare che una reazione si fermi dopo due tempi di dimezzamento. Nel primo ordine ogni dimezzamento lascia metà di ciò che c’era: dopo due resta un quarto, dopo tre un ottavo, e così via.",
+          "Secondo errore: credere che l’ordine di reazione si legga dai coefficienti dell’equazione. L’ordine si misura; coincide con i coefficienti solo per le reazioni che avvengono in un solo stadio."
         ],
         "advanced": [
-          "Primo ordine irreversibile, k costante e sistema omogeneo. Sono esclusi reazione inversa, variazioni di temperatura e limiti di trasporto.",
-          "Traccia ln[A] rispetto al tempo e ricava la pendenza. Spiega perché una retta apparente su pochi punti non basta a dimostrare un meccanismo microscopico.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Che cosa mostra il grafico. Una curva esponenziale decrescente: ogni intervallo di tempo uguale riduce la concentrazione dello stesso fattore. Riportando ln[A] contro il tempo si otterrebbe una retta di pendenza −k: è il modo in cui in laboratorio si riconosce una reazione del primo ordine.",
+          "Errore frequente: pensare che una reazione si fermi dopo due tempi di dimezzamento. Nel primo ordine ogni dimezzamento lascia metà di ciò che c’era: dopo due resta un quarto, dopo tre un ottavo, e così via.",
+          "Secondo errore: credere che l’ordine di reazione si legga dai coefficienti dell’equazione. L’ordine si misura; coincide con i coefficienti solo per le reazioni che avvengono in un solo stadio."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Una cinetica del primo ordine assume -d[A]/dt=k[A]. Il reagente decade esponenzialmente con costante k positiva. L’ordine è un’informazione sul modello cinetico, non si legge automaticamente dai coefficienti della reazione.",
-          "Con [A]₀=1 mol/L e k=0,2 min⁻¹, al tempo zero la concentrazione è 1 mol/L. Dopo circa 3,466 minuti è 0,5 mol/L."
+          "Ripasso: definizione di velocità; teoria degli urti e fattori che influenzano la velocità; legge cinetica e ordine; decadimento esponenziale nel primo ordine; tempo di dimezzamento t½ = ln 2/k.",
+          "Mini esercizio: k = 0,1 min⁻¹. t½ = 0,693/0,1 ≈ 6,9 min; dopo circa 20,8 min, tre tempi di dimezzamento, resta un ottavo.",
+          "Nelle domande sul primo ordine usa t½ = ln 2/k: è il modo più rapido per stimare k da un grafico."
         ],
         "intermediate": [
-          "Integrando si ottiene [A](t)=[A]₀exp(-kt). Il tempo di dimezzamento è ln(2)/k e non dipende dalla concentrazione iniziale in questo modello.",
-          "La variabile Tempo è espressa in min; Concentrazione reagente in mol/L. Il dominio dello strumento è [0; 20]. La relazione implementata è: [A](t) = [A]₀ exp(-kt)."
+          "Ripasso: definizione di velocità; teoria degli urti e fattori che influenzano la velocità; legge cinetica e ordine; decadimento esponenziale nel primo ordine; tempo di dimezzamento t½ = ln 2/k.",
+          "Mini esercizio: k = 0,1 min⁻¹. t½ = 0,693/0,1 ≈ 6,9 min; dopo circa 20,8 min, tre tempi di dimezzamento, resta un ottavo.",
+          "Nelle domande sul primo ordine usa t½ = ln 2/k: è il modo più rapido per stimare k da un grafico."
         ],
         "advanced": [
-          "Traccia ln[A] rispetto al tempo e ricava la pendenza. Spiega perché una retta apparente su pochi punti non basta a dimostrare un meccanismo microscopico.",
-          "Primo ordine irreversibile, k costante e sistema omogeneo. Sono esclusi reazione inversa, variazioni di temperatura e limiti di trasporto."
+          "Ripasso: definizione di velocità; teoria degli urti e fattori che influenzano la velocità; legge cinetica e ordine; decadimento esponenziale nel primo ordine; tempo di dimezzamento t½ = ln 2/k.",
+          "Mini esercizio: k = 0,1 min⁻¹. t½ = 0,693/0,1 ≈ 6,9 min; dopo circa 20,8 min, tre tempi di dimezzamento, resta un ottavo.",
+          "Nelle domande sul primo ordine usa t½ = ln 2/k: è il modo più rapido per stimare k da un grafico."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Primo ordine irreversibile a k costante.",
-          "Primo ordine irreversibile, k costante e sistema omogeneo. Sono esclusi reazione inversa, variazioni di temperatura e limiti di trasporto.",
-          "Collegamento consigliato: math-c06. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La funzione esponenziale e il logaritmo sono il tema dell’unità di matematica «Esponenziali e logaritmi». In chimica l’unità «Temperatura e attivazione» spiega perché k cresce così tanto con la temperatura.",
+          "Riepilogo dell’unità: la velocità misura la variazione di concentrazione nel tempo; dipende da concentrazione, temperatura, superficie e catalizzatori, come spiega la teoria degli urti; nel primo ordine [A] = [A]₀ e^(−kt) e t½ = ln 2/k non dipende dalla concentrazione iniziale.",
+          "Nel diario annota i valori di k e [A]₀ trovati e calcola per ciascuna serie il tempo di dimezzamento."
         ],
         "intermediate": [
-          "Integrando si ottiene [A](t)=[A]₀exp(-kt). Il tempo di dimezzamento è ln(2)/k e non dipende dalla concentrazione iniziale in questo modello.",
-          "Primo ordine irreversibile, k costante e sistema omogeneo. Sono esclusi reazione inversa, variazioni di temperatura e limiti di trasporto.",
-          "Traccia ln[A] rispetto al tempo e ricava la pendenza. Spiega perché una retta apparente su pochi punti non basta a dimostrare un meccanismo microscopico."
+          "La funzione esponenziale e il logaritmo sono il tema dell’unità di matematica «Esponenziali e logaritmi». In chimica l’unità «Temperatura e attivazione» spiega perché k cresce così tanto con la temperatura.",
+          "Riepilogo dell’unità: la velocità misura la variazione di concentrazione nel tempo; dipende da concentrazione, temperatura, superficie e catalizzatori, come spiega la teoria degli urti; nel primo ordine [A] = [A]₀ e^(−kt) e t½ = ln 2/k non dipende dalla concentrazione iniziale.",
+          "Nel diario annota i valori di k e [A]₀ trovati e calcola per ciascuna serie il tempo di dimezzamento."
         ],
         "advanced": [
-          "Traccia ln[A] rispetto al tempo e ricava la pendenza. Spiega perché una retta apparente su pochi punti non basta a dimostrare un meccanismo microscopico.",
-          "Primo ordine irreversibile, k costante e sistema omogeneo. Sono esclusi reazione inversa, variazioni di temperatura e limiti di trasporto.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La funzione esponenziale e il logaritmo sono il tema dell’unità di matematica «Esponenziali e logaritmi». In chimica l’unità «Temperatura e attivazione» spiega perché k cresce così tanto con la temperatura.",
+          "Riepilogo dell’unità: la velocità misura la variazione di concentrazione nel tempo; dipende da concentrazione, temperatura, superficie e catalizzatori, come spiega la teoria degli urti; nel primo ordine [A] = [A]₀ e^(−kt) e t½ = ln 2/k non dipende dalla concentrazione iniziale.",
+          "Nel diario annota i valori di k e [A]₀ trovati e calcola per ciascuna serie il tempo di dimezzamento."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-17-concept",
-      "prompt": "Per una cinetica del primo ordine il dimezzamento:",
+      "id": "chemistry-17-q1",
+      "prompt": "Una reazione del primo ordine ha k = 0,2 min⁻¹. Qual è il tempo di dimezzamento?",
       "options": [
         {
           "id": "A",
-          "text": "È indipendente da [A]₀ a k costante",
-          "feedback": "Una cinetica del primo ordine assume -d[A]/dt=k[A]. Il reagente decade esponenzialmente con costante k positiva. L’ordine è un’informazione sul modello cinetico, non si legge automaticamente dai coefficienti della reazione."
+          "text": "Circa 3,5 min",
+          "feedback": "Esatto: nel primo ordine t½ = ln 2/k = 0,693/0,2."
         },
         {
           "id": "B",
-          "text": "Raddoppia sempre con [A]₀",
-          "feedback": "La costante cinetica non è una costante di equilibrio. Una reazione rapida può avere un equilibrio poco favorevole ai prodotti e viceversa."
+          "text": "5 min",
+          "feedback": "5 min è 1/k, il tempo in cui resta circa il 37%."
         },
         {
           "id": "C",
-          "text": "È uguale a k",
-          "feedback": "Integrando si ottiene [A](t)=[A]₀exp(-kt). Il tempo di dimezzamento è ln(2)/k e non dipende dalla concentrazione iniziale in questo modello."
+          "text": "0,14 min",
+          "feedback": "Hai moltiplicato ln 2 per k invece di dividere."
+        },
+        {
+          "id": "D",
+          "text": "10 min",
+          "feedback": "Con 10 minuti resterebbe circa il 13,5% del reagente."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "chemistry-17-calculation",
-      "prompt": "Calcolo: Concentrazione iniziale (a)=1 mol/L; Costante k (b)=0,2 1/min. Per Tempo=0 min, quanto vale Concentrazione reagente?",
+      "id": "chemistry-17-q2",
+      "prompt": "Dopo tre tempi di dimezzamento, che frazione del reagente resta?",
       "options": [
         {
           "id": "A",
-          "text": "2 mol/L",
-          "feedback": "Questo valore non soddisfa la relazione. [A](t) = [A]₀ exp(-kt). Con Concentrazione iniziale (a)=1 mol/L; Costante k (b)=0,2 1/min e Tempo=0 min, il risultato è 1 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "Un terzo",
+          "feedback": "Ogni dimezzamento divide per 2, non sottrae una parte fissa."
         },
         {
           "id": "B",
-          "text": "0 mol/L",
-          "feedback": "Controlla sostituzione, segno e unità. [A](t) = [A]₀ exp(-kt). Con Concentrazione iniziale (a)=1 mol/L; Costante k (b)=0,2 1/min e Tempo=0 min, il risultato è 1 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "Un ottavo",
+          "feedback": "Esatto: ogni dimezzamento divide per 2, 1/2 · 1/2 · 1/2 = 1/8."
         },
         {
           "id": "C",
-          "text": "1 mol/L",
-          "feedback": "[A](t) = [A]₀ exp(-kt). Con Concentrazione iniziale (a)=1 mol/L; Costante k (b)=0,2 1/min e Tempo=0 min, il risultato è 1 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "Niente",
+          "feedback": "Ogni dimezzamento lascia metà di ciò che c’era."
+        },
+        {
+          "id": "D",
+          "text": "Un sesto",
+          "feedback": "I fattori 1/2 si moltiplicano, non si sommano."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 1,
-          "b": 0.2
-        },
-        "expected": 1,
-        "unit": "mol/L"
-      }
+      "correct": "B"
     },
     {
-      "id": "chemistry-17-transfer",
-      "prompt": "Trasferimento: Concentrazione iniziale (a)=1,5 mol/L; Costante k (b)=0,2 1/min. Per Tempo=0 min, quanto vale Concentrazione reagente?",
+      "id": "chemistry-17-q3",
+      "prompt": "Perché un aumento di temperatura accelera le reazioni?",
       "options": [
         {
           "id": "A",
-          "text": "0,5 mol/L",
-          "feedback": "Controlla sostituzione, segno e unità. [A](t) = [A]₀ exp(-kt). Con Concentrazione iniziale (a)=1,5 mol/L; Costante k (b)=0,2 1/min e Tempo=0 min, il risultato è 1,5 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché aumenta la concentrazione",
+          "feedback": "Riscaldando la concentrazione resta quasi la stessa."
         },
         {
           "id": "B",
-          "text": "1,5 mol/L",
-          "feedback": "[A](t) = [A]₀ exp(-kt). Con Concentrazione iniziale (a)=1,5 mol/L; Costante k (b)=0,2 1/min e Tempo=0 min, il risultato è 1,5 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché le molecole diventano più grandi",
+          "feedback": "Le dimensioni delle molecole non cambiano."
         },
         {
           "id": "C",
-          "text": "2,5 mol/L",
-          "feedback": "Questo valore non soddisfa la relazione. [A](t) = [A]₀ exp(-kt). Con Concentrazione iniziale (a)=1,5 mol/L; Costante k (b)=0,2 1/min e Tempo=0 min, il risultato è 1,5 mol/L. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 1.5,
-          "b": 0.2
-        },
-        "expected": 1.5,
-        "unit": "mol/L"
-      }
-    },
-    {
-      "id": "chemistry-17-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Primo ordine irreversibile, k costante e sistema omogeneo. Sono esclusi reazione inversa, variazioni di temperatura e limiti di trasporto."
+          "text": "Perché aumentano gli urti con energia sufficiente",
+          "feedback": "Esatto: cresce soprattutto la frazione di urti efficaci."
         },
         {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Primo ordine irreversibile, k costante e sistema omogeneo. Sono esclusi reazione inversa, variazioni di temperatura e limiti di trasporto."
-        },
-        {
-          "id": "C",
-          "text": "Primo ordine irreversibile a k costante",
-          "feedback": "Primo ordine irreversibile, k costante e sistema omogeneo. Sono esclusi reazione inversa, variazioni di temperatura e limiti di trasporto."
+          "id": "D",
+          "text": "Perché si forma un catalizzatore",
+          "feedback": "Il catalizzatore è una sostanza aggiunta, non un effetto del calore."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "chemistry-17-q4",
+      "prompt": "Che cosa fa un catalizzatore?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Si consuma durante la reazione",
+          "feedback": "Il catalizzatore si ritrova intatto alla fine."
+        },
+        {
+          "id": "B",
+          "text": "Aumenta l’energia dei reagenti",
+          "feedback": "Il catalizzatore non fornisce energia."
+        },
+        {
+          "id": "C",
+          "text": "Cambia i prodotti della reazione",
+          "feedback": "I prodotti restano gli stessi: cambia solo il percorso."
+        },
+        {
+          "id": "D",
+          "text": "Offre un percorso con energia di attivazione minore",
+          "feedback": "Esatto: più urti diventano efficaci."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "chemistry-17-q5",
+      "prompt": "Perché lo zucchero a velo si scioglie più in fretta di una zolletta?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché offre più superficie di contatto",
+          "feedback": "Esatto: più particelle sono esposte al solvente."
+        },
+        {
+          "id": "B",
+          "text": "Perché è una sostanza diversa",
+          "feedback": "È lo stesso saccarosio, solo macinato."
+        },
+        {
+          "id": "C",
+          "text": "Perché è più caldo",
+          "feedback": "Le due forme sono alla stessa temperatura."
+        },
+        {
+          "id": "D",
+          "text": "Perché contiene un catalizzatore",
+          "feedback": "Lo zucchero a velo contiene al più un antiagglomerante."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-17-q6",
+      "prompt": "In una reazione del primo ordine, raddoppiando la concentrazione iniziale il tempo di dimezzamento:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Raddoppia",
+          "feedback": "Nel primo ordine t½ = ln 2/k non contiene la concentrazione."
+        },
+        {
+          "id": "B",
+          "text": "Resta uguale",
+          "feedback": "Esatto: t½ = ln 2/k dipende solo dalla costante k."
+        },
+        {
+          "id": "C",
+          "text": "Si dimezza",
+          "feedback": "Raddoppia la velocità iniziale, mentre il tempo di dimezzamento resta lo stesso."
+        },
+        {
+          "id": "D",
+          "text": "Quadruplica",
+          "feedback": "La concentrazione iniziale non compare nella formula di t½."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "fit",
+    "goal": 2,
+    "rounds": [
+      {
+        "id": "costante",
+        "title": "Quanto vale k?",
+        "prompt": "La concentrazione iniziale è nota. Regola la costante cinetica finché la curva segue le misure.",
+        "model": "chemistry-17",
+        "x": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16
+        ],
+        "noise": [
+          0.03,
+          -0.03,
+          0.02,
+          -0.02,
+          0.02,
+          -0.015,
+          0.01,
+          -0.01,
+          0.01
+        ],
+        "hidden": {
+          "a": 2,
+          "b": 0.15
+        },
+        "fit": [
+          "b"
+        ],
+        "explain": "k = 0,15 min⁻¹: il tempo di dimezzamento è circa 4,6 min."
+      },
+      {
+        "id": "iniziale",
+        "title": "Da dove si parte?",
+        "prompt": "La costante cinetica è nota, ma la prima misura è stata fatta dopo un minuto. Stima la concentrazione iniziale.",
+        "model": "chemistry-17",
+        "x": [
+          1,
+          2,
+          3,
+          5,
+          7,
+          9,
+          12
+        ],
+        "noise": [
+          0.02,
+          -0.02,
+          0.015,
+          -0.01,
+          0.01,
+          -0.01,
+          0.005
+        ],
+        "hidden": {
+          "a": 1.5,
+          "b": 0.3
+        },
+        "fit": [
+          "a"
+        ],
+        "explain": "[A]₀ = 1,5 mol/L: la curva prolungata incontra l’asse a 1,5."
+      },
+      {
+        "id": "entrambi",
+        "title": "Due parametri insieme",
+        "prompt": "Né la concentrazione iniziale né la costante sono note. Regola prima [A]₀, poi k.",
+        "model": "chemistry-17",
+        "x": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          14,
+          18
+        ],
+        "noise": [
+          0.03,
+          -0.02,
+          0.02,
+          -0.03,
+          0.02,
+          -0.01,
+          0.01,
+          -0.01
+        ],
+        "hidden": {
+          "a": 2.5,
+          "b": 0.1
+        },
+        "fit": [
+          "a",
+          "b"
+        ],
+        "explain": "[A]₀ = 2,5 mol/L e k = 0,1 min⁻¹: dopo circa 6,9 min resta metà del reagente."
+      }
+    ]
+  }
 }

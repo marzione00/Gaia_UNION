@@ -5,19 +5,21 @@
   "title": "Resa e bilanci di materia",
   "sector": 2,
   "modelId": "chemistry-15",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Resa assegnata fra 0 e 100%",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Resa teorica, effettiva e percentuale, cause delle perdite, sintesi a più passaggi, bilanci ed economia atomica",
+  "narrativeStatus": "La sintesi è immaginaria; il dato sul processo Haber è un valore tipico citato nei testi.",
   "objectives": [
-    "Spiegare: resa assegnata fra 0 e 100%.",
-    "Applicare m_reale = resa × m_teorica / 100, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Calcolare resa teorica, effettiva e percentuale.",
+    "Classificare le cause di una resa incompleta.",
+    "Calcolare la resa complessiva di una sintesi a più passaggi.",
+    "Spiegare bilanci di materia ed economia atomica."
   ],
   "prerequisites": [
     "chemistry-14"
   ],
   "connections": [
+    "chemistry-16",
     "chemistry-14"
   ],
   "sources": [
@@ -27,244 +29,540 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Massa teorica",
-      "definition": "Variabile indipendente, unità g; intervallo [0; 100]."
+      "term": "Resa teorica",
+      "definition": "Quantità di prodotto prevista dalla stechiometria."
     },
     {
-      "term": "Massa ottenuta",
-      "definition": "Risultato calcolato dal modello, unità g."
+      "term": "Resa percentuale",
+      "definition": "Massa ottenuta divisa per la massa teorica, per 100."
     },
     {
-      "term": "Resa",
-      "definition": "Parametro a, unità %; intervallo [10; 100]."
+      "term": "Reazione secondaria",
+      "definition": "Reazione parallela che consuma reagenti formando sottoprodotti."
+    },
+    {
+      "term": "Bilancio di materia",
+      "definition": "Conto di tutto ciò che entra ed esce da un processo."
+    },
+    {
+      "term": "Economia atomica",
+      "definition": "Frazione della massa dei reagenti che finisce nel prodotto desiderato."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "I grammi mancanti",
       "text": {
         "base": [
-          "Il prodotto raccolto è inferiore a quello previsto dal bilancio. Prima di attribuire la differenza a una violazione della conservazione della materia, distingui prodotto teorico e prodotto recuperato.",
-          "La resa percentuale confronta quantità ottenuta e quantità teorica: resa=100×reale/teorica. Per la stessa sostanza si possono usare masse o moli, purché il confronto sia coerente."
+          "Nel laboratorio della stazione si sintetizza un farmaco. I calcoli stechiometrici promettono 40 g di prodotto; dopo filtrazione, lavaggio ed essiccazione la bilancia ne segna 30. Dove sono finiti gli altri 10 grammi? E come si progetta un processo che ne perda il meno possibile?",
+          "La resa teorica è la quantità di prodotto prevista dalla stechiometria, a partire dal reagente limitante. La resa effettiva è quella ottenuta davvero. La resa percentuale è il loro rapporto: resa = m_effettiva/m_teorica · 100. Nell’esempio: 30/40 · 100 = 75%. Al contrario, con resa nota si stima la massa attesa: m_effettiva = resa · m_teorica/100."
         ],
         "intermediate": [
-          "Il prodotto raccolto è inferiore a quello previsto dal bilancio. Prima di attribuire la differenza a una violazione della conservazione della materia, distingui prodotto teorico e prodotto recuperato.",
-          "Il laboratorio ricava m_reale=resa×m_teorica/100. Una resa inferiore al 100% può riflettere conversione incompleta, reazioni concorrenti o perdite di recupero; la sola percentuale non distingue le cause."
+          "Nel laboratorio della stazione si sintetizza un farmaco. I calcoli stechiometrici promettono 40 g di prodotto; dopo filtrazione, lavaggio ed essiccazione la bilancia ne segna 30. Dove sono finiti gli altri 10 grammi? E come si progetta un processo che ne perda il meno possibile?",
+          "La resa teorica è la quantità di prodotto prevista dalla stechiometria, a partire dal reagente limitante. La resa effettiva è quella ottenuta davvero. La resa percentuale è il loro rapporto: resa = m_effettiva/m_teorica · 100. Nell’esempio: 30/40 · 100 = 75%. Al contrario, con resa nota si stima la massa attesa: m_effettiva = resa · m_teorica/100."
         ],
         "advanced": [
-          "Il prodotto raccolto è inferiore a quello previsto dal bilancio. Prima di attribuire la differenza a una violazione della conservazione della materia, distingui prodotto teorico e prodotto recuperato.",
-          "Imposta un bilancio con reagenti residui, prodotti secondari e prodotto recuperato. Chiediti quali misure servono per identificare la causa di una resa bassa.",
-          "La resa è un dato assegnato, non una previsione cinetica. Il modello non distingue perdite chimiche e operative."
+          "Nel laboratorio della stazione si sintetizza un farmaco. I calcoli stechiometrici promettono 40 g di prodotto; dopo filtrazione, lavaggio ed essiccazione la bilancia ne segna 30. Dove sono finiti gli altri 10 grammi? E come si progetta un processo che ne perda il meno possibile?",
+          "La resa teorica è la quantità di prodotto prevista dalla stechiometria, a partire dal reagente limitante. La resa effettiva è quella ottenuta davvero. La resa percentuale è il loro rapporto: resa = m_effettiva/m_teorica · 100. Nell’esempio: 30/40 · 100 = 75%. Al contrario, con resa nota si stima la massa attesa: m_effettiva = resa · m_teorica/100."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Perdite, passaggi e bilanci",
       "text": {
         "base": [
-          "La resa percentuale confronta quantità ottenuta e quantità teorica: resa=100×reale/teorica. Per la stessa sostanza si possono usare masse o moli, purché il confronto sia coerente.",
-          "Con massa teorica di 40 g e resa del 75%, si ottengono 30 g. La differenza di 10 g non è automaticamente materia distrutta: il bilancio completo deve cercarne la destinazione."
+          "Le cause di una resa inferiore al 100% sono di tre tipi. La reazione può restare incompleta, perché raggiunge un equilibrio o perché dura troppo poco. Una parte dei reagenti può prendere strade diverse, in reazioni secondarie che formano sottoprodotti. Infine si perde materiale nelle operazioni: travasi, filtrazioni, lavaggi in cui il prodotto si scioglie in parte.",
+          "In una sintesi a più passaggi le rese si moltiplicano. Tre passaggi all’80% danno 0,8³ = 0,512, cioè il 51,2%; dieci passaggi al 90% solo il 34,9%. Per questo la chimica farmaceutica cerca percorsi brevi, e un passaggio in meno può valere più di molti miglioramenti di resa.",
+          "Il modello del programma calcola la massa ottenuta in funzione della massa teorica, con la resa regolabile dal 10 al 100%: una retta che passa per l’origine con pendenza resa/100. Con resa 75% e 40 g teorici si ottengono 30 g."
         ],
         "intermediate": [
-          "Il laboratorio ricava m_reale=resa×m_teorica/100. Una resa inferiore al 100% può riflettere conversione incompleta, reazioni concorrenti o perdite di recupero; la sola percentuale non distingue le cause.",
-          "La variabile Massa teorica è espressa in g; Massa ottenuta in g. Il dominio dello strumento è [0; 100]. La relazione implementata è: m_reale = resa × m_teorica / 100.",
-          "Con massa teorica di 40 g e resa del 75%, si ottengono 30 g. La differenza di 10 g non è automaticamente materia distrutta: il bilancio completo deve cercarne la destinazione."
+          "Le cause di una resa inferiore al 100% sono di tre tipi. La reazione può restare incompleta, perché raggiunge un equilibrio o perché dura troppo poco. Una parte dei reagenti può prendere strade diverse, in reazioni secondarie che formano sottoprodotti. Infine si perde materiale nelle operazioni: travasi, filtrazioni, lavaggi in cui il prodotto si scioglie in parte.",
+          "In una sintesi a più passaggi le rese si moltiplicano. Tre passaggi all’80% danno 0,8³ = 0,512, cioè il 51,2%; dieci passaggi al 90% solo il 34,9%. Per questo la chimica farmaceutica cerca percorsi brevi, e un passaggio in meno può valere più di molti miglioramenti di resa.",
+          "Un bilancio di materia conta tutto ciò che entra e tutto ciò che esce da un processo: la massa totale si conserva anche se il prodotto è poco. Nell’industria i reagenti non convertiti si separano e si riciclano. Nel processo Haber per l’ammoniaca, a ogni passaggio nel reattore si converte solo una frazione dei gas, intorno al 15%; il resto torna nel reattore, e la conversione complessiva diventa molto alta."
         ],
         "advanced": [
-          "Il laboratorio ricava m_reale=resa×m_teorica/100. Una resa inferiore al 100% può riflettere conversione incompleta, reazioni concorrenti o perdite di recupero; la sola percentuale non distingue le cause.",
-          "Imposta un bilancio con reagenti residui, prodotti secondari e prodotto recuperato. Chiediti quali misure servono per identificare la causa di una resa bassa.",
-          "Una resa apparente superiore al 100% può indicare impurità, umidità o errori di misura. Non prova la creazione di materia e non è ammessa come parametro in questo modello ideale."
+          "Le cause di una resa inferiore al 100% sono di tre tipi. La reazione può restare incompleta, perché raggiunge un equilibrio o perché dura troppo poco. Una parte dei reagenti può prendere strade diverse, in reazioni secondarie che formano sottoprodotti. Infine si perde materiale nelle operazioni: travasi, filtrazioni, lavaggi in cui il prodotto si scioglie in parte.",
+          "In una sintesi a più passaggi le rese si moltiplicano. Tre passaggi all’80% danno 0,8³ = 0,512, cioè il 51,2%; dieci passaggi al 90% solo il 34,9%. Per questo la chimica farmaceutica cerca percorsi brevi, e un passaggio in meno può valere più di molti miglioramenti di resa.",
+          "Un bilancio di materia conta tutto ciò che entra e tutto ciò che esce da un processo: la massa totale si conserva anche se il prodotto è poco. Nell’industria i reagenti non convertiti si separano e si riciclano. Nel processo Haber per l’ammoniaca, a ogni passaggio nel reattore si converte solo una frazione dei gas, intorno al 15%; il resto torna nel reattore, e la conversione complessiva diventa molto alta.",
+          "L’economia atomica misura quanta parte della massa dei reagenti finisce nel prodotto desiderato: massa molare del prodotto divisa per la somma delle masse molari dei reagenti. Una reazione può avere resa del 100% e cattiva economia atomica, se produce molti scarti. È uno dei criteri della chimica verde."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Carte della resa",
       "text": {
         "base": [
-          "Nel laboratorio imposta Resa (a): 75 %. Prima di salvare A, prevedi come cambia Massa ottenuta fra Massa teorica=25 e 50 g. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con massa teorica di 40 g e resa del 75%, si ottengono 30 g. La differenza di 10 g non è automaticamente materia distrutta: il bilancio completo deve cercarne la destinazione.",
-          "La variabile Massa teorica è espressa in g; Massa ottenuta in g. Il dominio dello strumento è [0; 100]. La relazione implementata è: m_reale = resa × m_teorica / 100."
+          "L’attività ha quattro serie di carte: le cause di una resa bassa da classificare; sintesi a più passaggi da ordinare per resa complessiva; risultati di laboratorio da classificare per resa percentuale; i passaggi del calcolo della resa da mettere in ordine. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per le sintesi a più passaggi moltiplica le rese espresse come decimali: due passaggi al 90% danno 0,9 · 0,9 = 0,81, cioè 81%."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Resa (a): 75 %. Prima di salvare A, prevedi come cambia Massa ottenuta fra Massa teorica=25 e 50 g. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Massa teorica è espressa in g; Massa ottenuta in g. Il dominio dello strumento è [0; 100]. La relazione implementata è: m_reale = resa × m_teorica / 100.",
-          "Il laboratorio ricava m_reale=resa×m_teorica/100. Una resa inferiore al 100% può riflettere conversione incompleta, reazioni concorrenti o perdite di recupero; la sola percentuale non distingue le cause."
+          "L’attività ha quattro serie di carte: le cause di una resa bassa da classificare; sintesi a più passaggi da ordinare per resa complessiva; risultati di laboratorio da classificare per resa percentuale; i passaggi del calcolo della resa da mettere in ordine. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per le sintesi a più passaggi moltiplica le rese espresse come decimali: due passaggi al 90% danno 0,9 · 0,9 = 0,81, cioè 81%.",
+          "Il modello del programma calcola la massa ottenuta in funzione della massa teorica, con la resa regolabile dal 10 al 100%: una retta che passa per l’origine con pendenza resa/100. Con resa 75% e 40 g teorici si ottengono 30 g."
         ],
         "advanced": [
-          "Nel laboratorio imposta Resa (a): 75 %. Prima di salvare A, prevedi come cambia Massa ottenuta fra Massa teorica=25 e 50 g. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Imposta un bilancio con reagenti residui, prodotti secondari e prodotto recuperato. Chiediti quali misure servono per identificare la causa di una resa bassa.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività ha quattro serie di carte: le cause di una resa bassa da classificare; sintesi a più passaggi da ordinare per resa complessiva; risultati di laboratorio da classificare per resa percentuale; i passaggi del calcolo della resa da mettere in ordine. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per le sintesi a più passaggi moltiplica le rese espresse come decimali: due passaggi al 90% danno 0,9 · 0,9 = 0,81, cioè 81%.",
+          "Il modello del programma calcola la massa ottenuta in funzione della massa teorica, con la resa regolabile dal 10 al 100%: una retta che passa per l’origine con pendenza resa/100. Con resa 75% e 40 g teorici si ottengono 30 g."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "Una resa apparente superiore al 100% può indicare impurità, umidità o errori di misura. Non prova la creazione di materia e non è ammessa come parametro in questo modello ideale.",
-          "La resa è un dato assegnato, non una previsione cinetica. Il modello non distingue perdite chimiche e operative.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: calcolare la resa rispetto al reagente in eccesso. La resa teorica si calcola sempre dal reagente limitante, l’unico che fissa quanto prodotto può formarsi.",
+          "Secondo errore: accettare una resa superiore al 100%. Non è un successo: indica un prodotto ancora umido, impuro o pesato male, e va ricontrollato.",
+          "Per le sintesi a più passaggi moltiplica le rese espresse come decimali: due passaggi al 90% danno 0,9 · 0,9 = 0,81, cioè 81%."
         ],
         "intermediate": [
-          "Una resa apparente superiore al 100% può indicare impurità, umidità o errori di misura. Non prova la creazione di materia e non è ammessa come parametro in questo modello ideale.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: calcolare la resa rispetto al reagente in eccesso. La resa teorica si calcola sempre dal reagente limitante, l’unico che fissa quanto prodotto può formarsi.",
+          "Secondo errore: accettare una resa superiore al 100%. Non è un successo: indica un prodotto ancora umido, impuro o pesato male, e va ricontrollato.",
+          "L’economia atomica misura quanta parte della massa dei reagenti finisce nel prodotto desiderato: massa molare del prodotto divisa per la somma delle masse molari dei reagenti. Una reazione può avere resa del 100% e cattiva economia atomica, se produce molti scarti. È uno dei criteri della chimica verde."
         ],
         "advanced": [
-          "La resa è un dato assegnato, non una previsione cinetica. Il modello non distingue perdite chimiche e operative.",
-          "Imposta un bilancio con reagenti residui, prodotti secondari e prodotto recuperato. Chiediti quali misure servono per identificare la causa di una resa bassa.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: calcolare la resa rispetto al reagente in eccesso. La resa teorica si calcola sempre dal reagente limitante, l’unico che fissa quanto prodotto può formarsi.",
+          "Secondo errore: accettare una resa superiore al 100%. Non è un successo: indica un prodotto ancora umido, impuro o pesato male, e va ricontrollato.",
+          "L’economia atomica misura quanta parte della massa dei reagenti finisce nel prodotto desiderato: massa molare del prodotto divisa per la somma delle masse molari dei reagenti. Una reazione può avere resa del 100% e cattiva economia atomica, se produce molti scarti. È uno dei criteri della chimica verde."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "La resa percentuale confronta quantità ottenuta e quantità teorica: resa=100×reale/teorica. Per la stessa sostanza si possono usare masse o moli, purché il confronto sia coerente.",
-          "Con massa teorica di 40 g e resa del 75%, si ottengono 30 g. La differenza di 10 g non è automaticamente materia distrutta: il bilancio completo deve cercarne la destinazione."
+          "Ripasso: resa teorica, effettiva e percentuale; cause della resa incompleta; rese di sintesi a più passaggi; bilanci di materia e riciclo; economia atomica.",
+          "Mini esercizio: resa teorica 80 g, resa 75%: si attendono 0,75 · 80 = 60 g. Se se ne ottengono 68 g la resa è 85%.",
+          "Nelle domande sulla resa controlla che il risultato sia tra 0 e 100%: un valore fuori indica un errore."
         ],
         "intermediate": [
-          "Il laboratorio ricava m_reale=resa×m_teorica/100. Una resa inferiore al 100% può riflettere conversione incompleta, reazioni concorrenti o perdite di recupero; la sola percentuale non distingue le cause.",
-          "La variabile Massa teorica è espressa in g; Massa ottenuta in g. Il dominio dello strumento è [0; 100]. La relazione implementata è: m_reale = resa × m_teorica / 100."
+          "Ripasso: resa teorica, effettiva e percentuale; cause della resa incompleta; rese di sintesi a più passaggi; bilanci di materia e riciclo; economia atomica.",
+          "Mini esercizio: resa teorica 80 g, resa 75%: si attendono 0,75 · 80 = 60 g. Se se ne ottengono 68 g la resa è 85%.",
+          "Nelle domande sulla resa controlla che il risultato sia tra 0 e 100%: un valore fuori indica un errore."
         ],
         "advanced": [
-          "Imposta un bilancio con reagenti residui, prodotti secondari e prodotto recuperato. Chiediti quali misure servono per identificare la causa di una resa bassa.",
-          "La resa è un dato assegnato, non una previsione cinetica. Il modello non distingue perdite chimiche e operative."
+          "Ripasso: resa teorica, effettiva e percentuale; cause della resa incompleta; rese di sintesi a più passaggi; bilanci di materia e riciclo; economia atomica.",
+          "Mini esercizio: resa teorica 80 g, resa 75%: si attendono 0,75 · 80 = 60 g. Se se ne ottengono 68 g la resa è 85%.",
+          "Nelle domande sulla resa controlla che il risultato sia tra 0 e 100%: un valore fuori indica un errore."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Resa assegnata fra 0 e 100%.",
-          "La resa è un dato assegnato, non una previsione cinetica. Il modello non distingue perdite chimiche e operative.",
-          "Collegamento consigliato: chemistry-14. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La resa dipende spesso dal calore liberato o assorbito e dalle condizioni del reattore: l’unità «Termochimica e calorimetria» spiega come si misurano gli scambi di energia.",
+          "Riepilogo dell’unità: la resa percentuale confronta la massa ottenuta con quella teorica; le rese si riducono per reazioni incomplete, reazioni secondarie e perdite; nelle sintesi a più passaggi le rese si moltiplicano; un bilancio di materia conta tutto ciò che entra ed esce; l’economia atomica misura gli scarti.",
+          "Nel diario elenca tre operazioni di laboratorio in cui si perde prodotto e proponi per ciascuna un rimedio."
         ],
         "intermediate": [
-          "Il laboratorio ricava m_reale=resa×m_teorica/100. Una resa inferiore al 100% può riflettere conversione incompleta, reazioni concorrenti o perdite di recupero; la sola percentuale non distingue le cause.",
-          "La resa è un dato assegnato, non una previsione cinetica. Il modello non distingue perdite chimiche e operative.",
-          "Imposta un bilancio con reagenti residui, prodotti secondari e prodotto recuperato. Chiediti quali misure servono per identificare la causa di una resa bassa."
+          "La resa dipende spesso dal calore liberato o assorbito e dalle condizioni del reattore: l’unità «Termochimica e calorimetria» spiega come si misurano gli scambi di energia.",
+          "Riepilogo dell’unità: la resa percentuale confronta la massa ottenuta con quella teorica; le rese si riducono per reazioni incomplete, reazioni secondarie e perdite; nelle sintesi a più passaggi le rese si moltiplicano; un bilancio di materia conta tutto ciò che entra ed esce; l’economia atomica misura gli scarti.",
+          "Nel diario elenca tre operazioni di laboratorio in cui si perde prodotto e proponi per ciascuna un rimedio."
         ],
         "advanced": [
-          "Imposta un bilancio con reagenti residui, prodotti secondari e prodotto recuperato. Chiediti quali misure servono per identificare la causa di una resa bassa.",
-          "La resa è un dato assegnato, non una previsione cinetica. Il modello non distingue perdite chimiche e operative.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La resa dipende spesso dal calore liberato o assorbito e dalle condizioni del reattore: l’unità «Termochimica e calorimetria» spiega come si misurano gli scambi di energia.",
+          "Riepilogo dell’unità: la resa percentuale confronta la massa ottenuta con quella teorica; le rese si riducono per reazioni incomplete, reazioni secondarie e perdite; nelle sintesi a più passaggi le rese si moltiplicano; un bilancio di materia conta tutto ciò che entra ed esce; l’economia atomica misura gli scarti.",
+          "Nel diario elenca tre operazioni di laboratorio in cui si perde prodotto e proponi per ciascuna un rimedio."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-15-concept",
-      "prompt": "Con 40 g teorici e resa 75%, la massa ottenuta è:",
+      "id": "chemistry-15-q1",
+      "prompt": "La resa teorica è 40 g e si ottengono 30 g. Qual è la resa percentuale?",
       "options": [
         {
           "id": "A",
-          "text": "53,33 g",
-          "feedback": "Una resa apparente superiore al 100% può indicare impurità, umidità o errori di misura. Non prova la creazione di materia e non è ammessa come parametro in questo modello ideale."
+          "text": "75%",
+          "feedback": "Esatto: 30/40 · 100, la massa ottenuta divisa per quella teorica."
         },
         {
           "id": "B",
-          "text": "75 g",
-          "feedback": "Il laboratorio ricava m_reale=resa×m_teorica/100. Una resa inferiore al 100% può riflettere conversione incompleta, reazioni concorrenti o perdite di recupero; la sola percentuale non distingue le cause."
+          "text": "133%",
+          "feedback": "Hai diviso la massa teorica per quella ottenuta."
         },
         {
           "id": "C",
-          "text": "30 g",
-          "feedback": "La resa percentuale confronta quantità ottenuta e quantità teorica: resa=100×reale/teorica. Per la stessa sostanza si possono usare masse o moli, purché il confronto sia coerente."
+          "text": "25%",
+          "feedback": "25% è la frazione persa, non quella ottenuta."
+        },
+        {
+          "id": "D",
+          "text": "10%",
+          "feedback": "La differenza in grammi non è una percentuale."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-15-q2",
+      "prompt": "Con resa del 75% e resa teorica di 80 g, quanto prodotto si attende?",
+      "options": [
+        {
+          "id": "A",
+          "text": "75 g",
+          "feedback": "La resa è una percentuale della massa teorica, non una massa."
+        },
+        {
+          "id": "B",
+          "text": "60 g",
+          "feedback": "Esatto: si moltiplica la resa teorica per 0,75, cioè 0,75 · 80 g."
+        },
+        {
+          "id": "C",
+          "text": "107 g",
+          "feedback": "Hai diviso per 0,75: la massa attesa è minore di quella teorica."
+        },
+        {
+          "id": "D",
+          "text": "5 g",
+          "feedback": "Hai sottratto 75 da 80: la resa va moltiplicata."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "chemistry-15-q3",
+      "prompt": "Una resa calcolata del 112% che cosa indica di solito?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Una reazione molto efficiente",
+          "feedback": "Non si può ottenere più prodotto di quanto la stechiometria consente."
+        },
+        {
+          "id": "B",
+          "text": "Un errore nella resa teorica",
+          "feedback": "Può capitare, ma la causa più comune è un’altra."
+        },
+        {
+          "id": "C",
+          "text": "Un prodotto ancora umido o impuro",
+          "feedback": "Esatto: acqua o impurezze aggiungono massa."
+        },
+        {
+          "id": "D",
+          "text": "Che si è creata materia",
+          "feedback": "La massa si conserva: la materia non si crea."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "chemistry-15-calculation",
-      "prompt": "Calcolo: Resa (a)=75 %. Per Massa teorica=40 g, quanto vale Massa ottenuta?",
+      "id": "chemistry-15-q4",
+      "prompt": "Qual è la resa complessiva di tre passaggi all’80% ciascuno?",
       "options": [
         {
           "id": "A",
-          "text": "15 g",
-          "feedback": "Controlla sostituzione, segno e unità. m_reale = resa × m_teorica / 100. Con Resa (a)=75 % e Massa teorica=40 g, il risultato è 30 g. Conserva le unità e arrotonda solo alla fine."
+          "text": "80%",
+          "feedback": "Le perdite di ogni passaggio si accumulano."
         },
         {
           "id": "B",
-          "text": "30 g",
-          "feedback": "m_reale = resa × m_teorica / 100. Con Resa (a)=75 % e Massa teorica=40 g, il risultato è 30 g. Conserva le unità e arrotonda solo alla fine."
+          "text": "240%",
+          "feedback": "Le rese si moltiplicano, non si sommano."
         },
         {
           "id": "C",
-          "text": "45 g",
-          "feedback": "Questo valore non soddisfa la relazione. m_reale = resa × m_teorica / 100. Con Resa (a)=75 % e Massa teorica=40 g, il risultato è 30 g. Conserva le unità e arrotonda solo alla fine."
+          "text": "60%",
+          "feedback": "Togliere 20% tre volte dal totale non è il calcolo giusto."
+        },
+        {
+          "id": "D",
+          "text": "51,2%",
+          "feedback": "Esatto: le rese si moltiplicano, 0,8 · 0,8 · 0,8 = 0,512."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 40,
-        "parameters": {
-          "a": 75
-        },
-        "expected": 30,
-        "unit": "g"
-      }
+      "correct": "D"
     },
     {
-      "id": "chemistry-15-transfer",
-      "prompt": "Trasferimento: Resa (a)=80 %. Per Massa teorica=40 g, quanto vale Massa ottenuta?",
+      "id": "chemistry-15-q5",
+      "prompt": "In una reazione che raggiunge l’equilibrio, perché la resa resta sotto il 100%?",
       "options": [
         {
           "id": "A",
-          "text": "32 g",
-          "feedback": "m_reale = resa × m_teorica / 100. Con Resa (a)=80 % e Massa teorica=40 g, il risultato è 32 g. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché la reazione resta incompleta",
+          "feedback": "Esatto: all’equilibrio restano reagenti non convertiti."
         },
         {
           "id": "B",
-          "text": "48 g",
-          "feedback": "Questo valore non soddisfa la relazione. m_reale = resa × m_teorica / 100. Con Resa (a)=80 % e Massa teorica=40 g, il risultato è 32 g. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché si perde prodotto nei travasi",
+          "feedback": "Le perdite meccaniche esistono, ma qui la causa è chimica."
         },
         {
           "id": "C",
-          "text": "16 g",
-          "feedback": "Controlla sostituzione, segno e unità. m_reale = resa × m_teorica / 100. Con Resa (a)=80 % e Massa teorica=40 g, il risultato è 32 g. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché il reagente limitante è in eccesso",
+          "feedback": "Il limitante, per definizione, non è in eccesso."
+        },
+        {
+          "id": "D",
+          "text": "Perché la massa non si conserva",
+          "feedback": "La massa si conserva sempre, anche quando la resa è bassa."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 40,
-        "parameters": {
-          "a": 80
-        },
-        "expected": 32,
-        "unit": "g"
-      }
+      "correct": "A"
     },
     {
-      "id": "chemistry-15-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "chemistry-15-q6",
+      "prompt": "Che cosa misura l’economia atomica?",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. La resa è un dato assegnato, non una previsione cinetica. Il modello non distingue perdite chimiche e operative."
+          "text": "La velocità della reazione",
+          "feedback": "La velocità è un altro aspetto di un processo."
         },
         {
           "id": "B",
-          "text": "Resa assegnata fra 0 e 100%",
-          "feedback": "La resa è un dato assegnato, non una previsione cinetica. Il modello non distingue perdite chimiche e operative."
+          "text": "La parte della massa dei reagenti che finisce nel prodotto desiderato",
+          "feedback": "Esatto: misura quanti scarti produce una reazione."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. La resa è un dato assegnato, non una previsione cinetica. Il modello non distingue perdite chimiche e operative."
+          "text": "Il numero di atomi nella molecola prodotta",
+          "feedback": "Conta la frazione di massa utilizzata, non il numero di atomi."
+        },
+        {
+          "id": "D",
+          "text": "Il costo dei reagenti",
+          "feedback": "L’indice riguarda le masse, non i prezzi."
         }
       ],
       "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "cards",
+    "goal": 3,
+    "rounds": [
+      {
+        "id": "cause",
+        "type": "classify",
+        "title": "Perché la resa è bassa?",
+        "prompt": "Classifica le cause di una resa incompleta.",
+        "categories": [
+          {
+            "id": "incompleta",
+            "label": "REAZIONE INCOMPLETA"
+          },
+          {
+            "id": "secondaria",
+            "label": "REAZIONE SECONDARIA"
+          },
+          {
+            "id": "perdita",
+            "label": "PERDITA NELLE OPERAZIONI"
+          }
+        ],
+        "items": [
+          {
+            "id": "equilibrio",
+            "text": "La reazione raggiunge un equilibrio",
+            "why": "All’equilibrio restano reagenti non convertiti.",
+            "category": "incompleta"
+          },
+          {
+            "id": "tempo",
+            "text": "Il tempo di reazione è troppo breve",
+            "why": "La reazione non ha avuto il tempo di completarsi.",
+            "category": "incompleta"
+          },
+          {
+            "id": "sottoprodotto",
+            "text": "Una parte dei reagenti forma un sottoprodotto",
+            "why": "I reagenti prendono un’altra strada.",
+            "category": "secondaria"
+          },
+          {
+            "id": "monossido",
+            "text": "Il combustibile brucia formando CO invece di CO₂",
+            "why": "Una combustione incompleta segue una via diversa.",
+            "category": "secondaria"
+          },
+          {
+            "id": "decompone",
+            "text": "Il prodotto si decompone in parte",
+            "why": "Il prodotto stesso si trasforma in altre sostanze.",
+            "category": "secondaria"
+          },
+          {
+            "id": "filtro",
+            "text": "Parte del solido resta sul filtro",
+            "why": "Il prodotto si è formato, ma si perde nell’operazione.",
+            "category": "perdita"
+          },
+          {
+            "id": "lavaggio",
+            "text": "Il prodotto si scioglie nell’acqua di lavaggio",
+            "why": "Una frazione se ne va con il solvente.",
+            "category": "perdita"
+          },
+          {
+            "id": "travaso",
+            "text": "Gocce di soluzione restano nel becher",
+            "why": "Ogni travaso lascia un po’ di materiale.",
+            "category": "perdita"
+          }
+        ],
+        "explain": "Le perdite chimiche avvengono durante la reazione, quelle meccaniche dopo.",
+        "maxErrors": 2
+      },
+      {
+        "id": "passaggi",
+        "type": "order",
+        "title": "Sintesi a più passaggi",
+        "prompt": "Ordina le sintesi dalla resa complessiva più alta alla più bassa.",
+        "items": [
+          {
+            "id": "uno",
+            "text": "Un passaggio al 95%",
+            "why": "Resa complessiva 95%."
+          },
+          {
+            "id": "due",
+            "text": "Due passaggi al 90%",
+            "why": "0,9² = 0,81: 81%."
+          },
+          {
+            "id": "quattro",
+            "text": "Quattro passaggi al 90%",
+            "why": "0,9⁴ ≈ 0,656: circa 65,6%."
+          },
+          {
+            "id": "tre",
+            "text": "Tre passaggi all’80%",
+            "why": "0,8³ = 0,512: 51,2%."
+          },
+          {
+            "id": "dieci",
+            "text": "Dieci passaggi al 90%",
+            "why": "0,9¹⁰ ≈ 0,349: circa 34,9%."
+          }
+        ],
+        "explain": "Le rese si moltiplicano: molti passaggi, anche buoni, portano a rese complessive basse."
+      },
+      {
+        "id": "risultati",
+        "type": "classify",
+        "title": "Quale resa?",
+        "prompt": "Classifica i risultati di laboratorio per resa percentuale.",
+        "categories": [
+          {
+            "id": "bassa",
+            "label": "MENO DEL 50%"
+          },
+          {
+            "id": "media",
+            "label": "TRA 50% E 90%"
+          },
+          {
+            "id": "alta",
+            "label": "PIÙ DEL 90%"
+          },
+          {
+            "id": "oltre",
+            "label": "OLTRE IL 100%"
+          }
+        ],
+        "items": [
+          {
+            "id": "a",
+            "text": "30 g su 40 g teorici",
+            "why": "30/40 = 75%.",
+            "category": "media"
+          },
+          {
+            "id": "b",
+            "text": "12 g su 30 g teorici",
+            "why": "12/30 = 40%.",
+            "category": "bassa"
+          },
+          {
+            "id": "c",
+            "text": "7 g su 20 g teorici",
+            "why": "7/20 = 35%.",
+            "category": "bassa"
+          },
+          {
+            "id": "d",
+            "text": "9,5 g su 10 g teorici",
+            "why": "9,5/10 = 95%.",
+            "category": "alta"
+          },
+          {
+            "id": "e",
+            "text": "46 g su 50 g teorici",
+            "why": "46/50 = 92%.",
+            "category": "alta"
+          },
+          {
+            "id": "f",
+            "text": "33 g su 60 g teorici",
+            "why": "33/60 = 55%.",
+            "category": "media"
+          },
+          {
+            "id": "g",
+            "text": "45 g su 40 g teorici",
+            "why": "45/40 = 112,5%: prodotto umido o impuro.",
+            "category": "oltre"
+          },
+          {
+            "id": "h",
+            "text": "22 g su 25 g teorici",
+            "why": "22/25 = 88%.",
+            "category": "media"
+          }
+        ],
+        "explain": "La resa percentuale è la massa ottenuta divisa per quella teorica; oltre il 100% c’è un errore da cercare.",
+        "maxErrors": 2
+      },
+      {
+        "id": "calcolo",
+        "type": "order",
+        "title": "Calcolare una resa",
+        "prompt": "Metti in ordine i passaggi per calcolare la resa percentuale di una sintesi.",
+        "items": [
+          {
+            "id": "equazione",
+            "text": "Scrivere l’equazione bilanciata",
+            "why": "Senza coefficienti non si conoscono i rapporti tra moli."
+          },
+          {
+            "id": "moli",
+            "text": "Calcolare le moli dei reagenti",
+            "why": "Si dividono le masse pesate per le masse molari."
+          },
+          {
+            "id": "limitante",
+            "text": "Individuare il reagente limitante",
+            "why": "Fissa la quantità massima di prodotto."
+          },
+          {
+            "id": "teorica",
+            "text": "Calcolare la massa teorica del prodotto",
+            "why": "Dalle moli del limitante con il rapporto stechiometrico."
+          },
+          {
+            "id": "pesare",
+            "text": "Pesare il prodotto secco",
+            "why": "Il prodotto va asciugato, altrimenti la resa risulta gonfiata."
+          },
+          {
+            "id": "rapporto",
+            "text": "Dividere la massa ottenuta per quella teorica",
+            "why": "Moltiplicando per 100 si ottiene la resa percentuale."
+          }
+        ],
+        "explain": "Il calcolo della resa parte dalla stechiometria e finisce sulla bilancia."
+      }
+    ]
+  }
 }

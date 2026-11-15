@@ -5,14 +5,15 @@
   "title": "Acidi, basi e pH",
   "sector": 2,
   "modelId": "chemistry-21",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Acido forte ideale con autoionizzazione",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Definizioni di acido e base, coppie coniugate, prodotto ionico dell’acqua, pH, acidi forti e deboli, indicatori",
+  "narrativeStatus": "Gli esempi di cucina e i valori di pH sono reali e tipici.",
   "objectives": [
-    "Spiegare: acido forte ideale con autoionizzazione.",
-    "Applicare [H⁺]=(C+√(C²+4K_w))/2; pH=-log₁₀[H⁺], dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Usare le definizioni di Arrhenius e di Brønsted-Lowry.",
+    "Spiegare il prodotto ionico dell’acqua.",
+    "Calcolare il pH di soluzioni di acidi forti e deboli.",
+    "Interpretare la scala logaritmica e gli indicatori."
   ],
   "prerequisites": [
     "chemistry-20"
@@ -27,241 +28,311 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "-log₁₀ C",
-      "definition": "Variabile indipendente, unità 1; intervallo [1; 9]."
+      "term": "Acido di Brønsted",
+      "definition": "Specie che cede un protone."
     },
     {
-      "term": "pH ideale",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Base coniugata",
+      "definition": "Specie che resta quando un acido ha ceduto il protone."
     },
     {
-      "term": "pK_w",
-      "definition": "Parametro a, unità 1; intervallo [12; 16]."
+      "term": "Prodotto ionico dell’acqua",
+      "definition": "K_w = [H₃O⁺][OH⁻], 1,0 · 10⁻¹⁴ a 25 °C."
+    },
+    {
+      "term": "pH",
+      "definition": "Meno il logaritmo in base 10 della concentrazione di H₃O⁺."
+    },
+    {
+      "term": "Costante di acidità",
+      "definition": "K_a: costante di equilibrio della dissociazione di un acido debole."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Limoni, sapone e cavolo rosso",
       "text": {
         "base": [
-          "Una soluzione acida viene descritta a concentrazioni sempre più basse. La formula pH=-log C sembra prevedere valori oltre la neutralità. Il contributo dell’acqua non può essere ignorato indefinitamente.",
-          "Il pH è definito tramite l’attività degli ioni idrogeno; nelle soluzioni ideali diluite si usa una concentrazione riferita allo standard. Per un acido forte monoprotico, a diluizione estrema interviene anche l’autoionizzazione dell’acqua."
+          "Il succo di limone è aspro, il sapone scivoloso; il cavolo rosso cambia colore se si aggiunge aceto o bicarbonato. Acidi e basi sono tra le sostanze più comuni in cucina, nel corpo umano e nell’industria. Per confrontarli serve una scala che vada dalle soluzioni più acide alle più basiche: la scala del pH.",
+          "Per Arrhenius un acido libera ioni H⁺ in acqua e una base ioni OH⁻. Nel 1923 Brønsted e Lowry diedero una definizione più generale: un acido cede un protone, una base lo accetta. In acqua il protone non resta libero e si lega a una molecola d’acqua formando H₃O⁺. Quando un acido cede il protone diventa la sua base coniugata: l’acido acetico CH₃COOH ha come base coniugata lo ione acetato CH₃COO⁻."
         ],
         "intermediate": [
-          "Una soluzione acida viene descritta a concentrazioni sempre più basse. La formula pH=-log C sembra prevedere valori oltre la neutralità. Il contributo dell’acqua non può essere ignorato indefinitamente.",
-          "Dall’elettroneutralità H=C+OH e da K_w=H·OH segue H²-CH-K_w=0. La radice positiva è H=(C+√(C²+4K_w))/2. L’asse x rappresenta -log₁₀C, non la concentrazione direttamente."
+          "Il succo di limone è aspro, il sapone scivoloso; il cavolo rosso cambia colore se si aggiunge aceto o bicarbonato. Acidi e basi sono tra le sostanze più comuni in cucina, nel corpo umano e nell’industria. Per confrontarli serve una scala che vada dalle soluzioni più acide alle più basiche: la scala del pH.",
+          "Per Arrhenius un acido libera ioni H⁺ in acqua e una base ioni OH⁻. Nel 1923 Brønsted e Lowry diedero una definizione più generale: un acido cede un protone, una base lo accetta. In acqua il protone non resta libero e si lega a una molecola d’acqua formando H₃O⁺. Quando un acido cede il protone diventa la sua base coniugata: l’acido acetico CH₃COOH ha come base coniugata lo ione acetato CH₃COO⁻."
         ],
         "advanced": [
-          "Una soluzione acida viene descritta a concentrazioni sempre più basse. La formula pH=-log C sembra prevedere valori oltre la neutralità. Il contributo dell’acqua non può essere ignorato indefinitamente.",
-          "Confronta la soluzione completa con l’approssimazione H≈C e identifica un intervallo in cui l’errore è trascurabile per una tolleranza scelta.",
-          "Acido forte monoprotico ideale, nessun tampone o altro equilibrio. Non fornisce indicazioni di sicurezza o manipolazione di soluzioni."
+          "Il succo di limone è aspro, il sapone scivoloso; il cavolo rosso cambia colore se si aggiunge aceto o bicarbonato. Acidi e basi sono tra le sostanze più comuni in cucina, nel corpo umano e nell’industria. Per confrontarli serve una scala che vada dalle soluzioni più acide alle più basiche: la scala del pH.",
+          "Per Arrhenius un acido libera ioni H⁺ in acqua e una base ioni OH⁻. Nel 1923 Brønsted e Lowry diedero una definizione più generale: un acido cede un protone, una base lo accetta. In acqua il protone non resta libero e si lega a una molecola d’acqua formando H₃O⁺. Quando un acido cede il protone diventa la sua base coniugata: l’acido acetico CH₃COOH ha come base coniugata lo ione acetato CH₃COO⁻."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Acqua, pH, forza degli acidi",
       "text": {
         "base": [
-          "Il pH è definito tramite l’attività degli ioni idrogeno; nelle soluzioni ideali diluite si usa una concentrazione riferita allo standard. Per un acido forte monoprotico, a diluizione estrema interviene anche l’autoionizzazione dell’acqua.",
-          "Con C=10⁻³ mol/L e pK_w=14, il pH è quasi 3. Quando C diventa molto inferiore a 10⁻⁷ mol/L, il risultato si avvicina a 7 dal lato acido invece di crescere senza limite."
+          "Anche l’acqua pura contiene pochi ioni: 2 H₂O ⇌ H₃O⁺ + OH⁻. Il prodotto ionico K_w = [H₃O⁺][OH⁻] vale 1,0 · 10⁻¹⁴ a 25 °C, quindi in acqua pura [H₃O⁺] = [OH⁻] = 10⁻⁷ mol/L. K_w cresce con la temperatura: a 100 °C il pH neutro scende a circa 6,1, senza che l’acqua diventi acida.",
+          "Il pH è definito come pH = −log₁₀[H₃O⁺]. A 25 °C una soluzione neutra ha pH 7, una acida pH minore di 7, una basica maggiore. Poiché la scala è logaritmica, una unità di pH corrisponde a un fattore 10: una soluzione a pH 3 ha cento volte più ioni H₃O⁺ di una a pH 5. Allo stesso modo si definisce pOH, e a 25 °C pH + pOH = 14.",
+          "Gli acidi forti, come HCl e HNO₃, sono dissociati quasi del tutto: in HCl 0,01 M [H₃O⁺] = 0,01 mol/L e pH = 2. Gli acidi deboli si dissociano poco: l’acido acetico ha K_a ≈ 1,8 · 10⁻⁵ (pK_a 4,76), e in una soluzione 0,10 M [H₃O⁺] ≈ √(K_a C) ≈ 1,3 · 10⁻³ mol/L, pH ≈ 2,9. Valori tipici: succo gastrico 1,5-3,5, limone circa 2, caffè circa 5, sangue 7,35-7,45, acqua di mare circa 8,1, ammoniaca per uso domestico circa 11."
         ],
         "intermediate": [
-          "Dall’elettroneutralità H=C+OH e da K_w=H·OH segue H²-CH-K_w=0. La radice positiva è H=(C+√(C²+4K_w))/2. L’asse x rappresenta -log₁₀C, non la concentrazione direttamente.",
-          "La variabile -log₁₀ C è espressa in 1; pH ideale in 1. Il dominio dello strumento è [1; 9]. La relazione implementata è: [H⁺]=(C+√(C²+4K_w))/2; pH=-log₁₀[H⁺].",
-          "Con C=10⁻³ mol/L e pK_w=14, il pH è quasi 3. Quando C diventa molto inferiore a 10⁻⁷ mol/L, il risultato si avvicina a 7 dal lato acido invece di crescere senza limite."
+          "Anche l’acqua pura contiene pochi ioni: 2 H₂O ⇌ H₃O⁺ + OH⁻. Il prodotto ionico K_w = [H₃O⁺][OH⁻] vale 1,0 · 10⁻¹⁴ a 25 °C, quindi in acqua pura [H₃O⁺] = [OH⁻] = 10⁻⁷ mol/L. K_w cresce con la temperatura: a 100 °C il pH neutro scende a circa 6,1, senza che l’acqua diventi acida.",
+          "Il pH è definito come pH = −log₁₀[H₃O⁺]. A 25 °C una soluzione neutra ha pH 7, una acida pH minore di 7, una basica maggiore. Poiché la scala è logaritmica, una unità di pH corrisponde a un fattore 10: una soluzione a pH 3 ha cento volte più ioni H₃O⁺ di una a pH 5. Allo stesso modo si definisce pOH, e a 25 °C pH + pOH = 14.",
+          "Gli acidi forti, come HCl e HNO₃, sono dissociati quasi del tutto: in HCl 0,01 M [H₃O⁺] = 0,01 mol/L e pH = 2. Gli acidi deboli si dissociano poco: l’acido acetico ha K_a ≈ 1,8 · 10⁻⁵ (pK_a 4,76), e in una soluzione 0,10 M [H₃O⁺] ≈ √(K_a C) ≈ 1,3 · 10⁻³ mol/L, pH ≈ 2,9. Valori tipici: succo gastrico 1,5-3,5, limone circa 2, caffè circa 5, sangue 7,35-7,45, acqua di mare circa 8,1, ammoniaca per uso domestico circa 11.",
+          "Gli indicatori sono acidi deboli che cambiano colore quando cedono il protone. La fenolftaleina è incolore sotto pH 8,2 e rosa sopra circa 10; la cartina di tornasole è rossa in ambiente acido e blu in ambiente basico; il succo di cavolo rosso passa per vari colori dal rosso al verde. Un pH-metro misura invece il pH con un elettrodo, con precisione molto maggiore."
         ],
         "advanced": [
-          "Dall’elettroneutralità H=C+OH e da K_w=H·OH segue H²-CH-K_w=0. La radice positiva è H=(C+√(C²+4K_w))/2. L’asse x rappresenta -log₁₀C, non la concentrazione direttamente.",
-          "Confronta la soluzione completa con l’approssimazione H≈C e identifica un intervallo in cui l’errore è trascurabile per una tolleranza scelta.",
-          "pH neutro non è sempre esattamente 7: dipende da K_w e quindi dalle condizioni. Il controllo di pK_w è un parametro, non una misura automatica della temperatura."
+          "Anche l’acqua pura contiene pochi ioni: 2 H₂O ⇌ H₃O⁺ + OH⁻. Il prodotto ionico K_w = [H₃O⁺][OH⁻] vale 1,0 · 10⁻¹⁴ a 25 °C, quindi in acqua pura [H₃O⁺] = [OH⁻] = 10⁻⁷ mol/L. K_w cresce con la temperatura: a 100 °C il pH neutro scende a circa 6,1, senza che l’acqua diventi acida.",
+          "Il pH è definito come pH = −log₁₀[H₃O⁺]. A 25 °C una soluzione neutra ha pH 7, una acida pH minore di 7, una basica maggiore. Poiché la scala è logaritmica, una unità di pH corrisponde a un fattore 10: una soluzione a pH 3 ha cento volte più ioni H₃O⁺ di una a pH 5. Allo stesso modo si definisce pOH, e a 25 °C pH + pOH = 14.",
+          "Gli acidi forti, come HCl e HNO₃, sono dissociati quasi del tutto: in HCl 0,01 M [H₃O⁺] = 0,01 mol/L e pH = 2. Gli acidi deboli si dissociano poco: l’acido acetico ha K_a ≈ 1,8 · 10⁻⁵ (pK_a 4,76), e in una soluzione 0,10 M [H₃O⁺] ≈ √(K_a C) ≈ 1,3 · 10⁻³ mol/L, pH ≈ 2,9. Valori tipici: succo gastrico 1,5-3,5, limone circa 2, caffè circa 5, sangue 7,35-7,45, acqua di mare circa 8,1, ammoniaca per uso domestico circa 11.",
+          "Gli indicatori sono acidi deboli che cambiano colore quando cedono il protone. La fenolftaleina è incolore sotto pH 8,2 e rosa sopra circa 10; la cartina di tornasole è rossa in ambiente acido e blu in ambiente basico; il succo di cavolo rosso passa per vari colori dal rosso al verde. Un pH-metro misura invece il pH con un elettrodo, con precisione molto maggiore."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio del pH",
       "text": {
         "base": [
-          "Nel laboratorio imposta pK_w (a): 14 (adimensionale). Prima di salvare A, prevedi come cambia pH ideale fra -log₁₀ C=3 e 5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con C=10⁻³ mol/L e pK_w=14, il pH è quasi 3. Quando C diventa molto inferiore a 10⁻⁷ mol/L, il risultato si avvicina a 7 dal lato acido invece di crescere senza limite.",
-          "La variabile -log₁₀ C è espressa in 1; pH ideale in 1. Il dominio dello strumento è [1; 9]. La relazione implementata è: [H⁺]=(C+√(C²+4K_w))/2; pH=-log₁₀[H⁺]."
+          "Nel laboratorio il grafico mostra il pH di una soluzione di acido forte in funzione di −log₁₀ C, da 1 a 9; nella scheda REGOLA cambi pK_w, da 12 a 16, come se cambiasse la temperatura. Il modello tiene conto anche degli ioni dell’acqua: [H₃O⁺] = (C + √(C² + 4K_w))/2.",
+          "Protocollo. La previsione riguarda il passaggio da −log₁₀ C = 3 a 5. Con pK_w = 14 prevedi e salva A. Poi porta pK_w a 12, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con pK_w = 14 il pH passa da 3 a 5: cresce, perché l’acido è cento volte più diluito. Con pK_w = 12 cresce ancora, da 3,000 a circa 4,996: gli ioni dell’acqua cominciano a contare. Spostando il cursore verso 9 la curva si appiattisce vicino a pK_w/2: diluendo un acido il pH si avvicina alla neutralità, senza superarla."
         ],
         "intermediate": [
-          "Nel laboratorio imposta pK_w (a): 14 (adimensionale). Prima di salvare A, prevedi come cambia pH ideale fra -log₁₀ C=3 e 5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile -log₁₀ C è espressa in 1; pH ideale in 1. Il dominio dello strumento è [1; 9]. La relazione implementata è: [H⁺]=(C+√(C²+4K_w))/2; pH=-log₁₀[H⁺].",
-          "Dall’elettroneutralità H=C+OH e da K_w=H·OH segue H²-CH-K_w=0. La radice positiva è H=(C+√(C²+4K_w))/2. L’asse x rappresenta -log₁₀C, non la concentrazione direttamente."
+          "Nel laboratorio il grafico mostra il pH di una soluzione di acido forte in funzione di −log₁₀ C, da 1 a 9; nella scheda REGOLA cambi pK_w, da 12 a 16, come se cambiasse la temperatura. Il modello tiene conto anche degli ioni dell’acqua: [H₃O⁺] = (C + √(C² + 4K_w))/2.",
+          "Protocollo. La previsione riguarda il passaggio da −log₁₀ C = 3 a 5. Con pK_w = 14 prevedi e salva A. Poi porta pK_w a 12, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con pK_w = 14 il pH passa da 3 a 5: cresce, perché l’acido è cento volte più diluito. Con pK_w = 12 cresce ancora, da 3,000 a circa 4,996: gli ioni dell’acqua cominciano a contare. Spostando il cursore verso 9 la curva si appiattisce vicino a pK_w/2: diluendo un acido il pH si avvicina alla neutralità, senza superarla."
         ],
         "advanced": [
-          "Nel laboratorio imposta pK_w (a): 14 (adimensionale). Prima di salvare A, prevedi come cambia pH ideale fra -log₁₀ C=3 e 5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta la soluzione completa con l’approssimazione H≈C e identifica un intervallo in cui l’errore è trascurabile per una tolleranza scelta.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra il pH di una soluzione di acido forte in funzione di −log₁₀ C, da 1 a 9; nella scheda REGOLA cambi pK_w, da 12 a 16, come se cambiasse la temperatura. Il modello tiene conto anche degli ioni dell’acqua: [H₃O⁺] = (C + √(C² + 4K_w))/2.",
+          "Protocollo. La previsione riguarda il passaggio da −log₁₀ C = 3 a 5. Con pK_w = 14 prevedi e salva A. Poi porta pK_w a 12, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con pK_w = 14 il pH passa da 3 a 5: cresce, perché l’acido è cento volte più diluito. Con pK_w = 12 cresce ancora, da 3,000 a circa 4,996: gli ioni dell’acqua cominciano a contare. Spostando il cursore verso 9 la curva si appiattisce vicino a pK_w/2: diluendo un acido il pH si avvicina alla neutralità, senza superarla."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "pH neutro non è sempre esattamente 7: dipende da K_w e quindi dalle condizioni. Il controllo di pK_w è un parametro, non una misura automatica della temperatura.",
-          "Acido forte monoprotico ideale, nessun tampone o altro equilibrio. Non fornisce indicazioni di sicurezza o manipolazione di soluzioni.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che un acido diluito moltissimo possa diventare basico. Una soluzione di HCl 10⁻⁹ M non ha pH 9: gli ioni H₃O⁺ dell’acqua, 10⁻⁷ mol/L, prevalgono e il pH è circa 6,998.",
+          "Secondo errore: confondere acido forte e acido concentrato. «Forte» indica che l’acido si dissocia del tutto; «concentrato» che ce n’è molto. Un acido debole concentrato può essere più acido di un acido forte molto diluito.",
+          "Gli indicatori sono acidi deboli che cambiano colore quando cedono il protone. La fenolftaleina è incolore sotto pH 8,2 e rosa sopra circa 10; la cartina di tornasole è rossa in ambiente acido e blu in ambiente basico; il succo di cavolo rosso passa per vari colori dal rosso al verde. Un pH-metro misura invece il pH con un elettrodo, con precisione molto maggiore."
         ],
         "intermediate": [
-          "pH neutro non è sempre esattamente 7: dipende da K_w e quindi dalle condizioni. Il controllo di pK_w è un parametro, non una misura automatica della temperatura.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che un acido diluito moltissimo possa diventare basico. Una soluzione di HCl 10⁻⁹ M non ha pH 9: gli ioni H₃O⁺ dell’acqua, 10⁻⁷ mol/L, prevalgono e il pH è circa 6,998.",
+          "Secondo errore: confondere acido forte e acido concentrato. «Forte» indica che l’acido si dissocia del tutto; «concentrato» che ce n’è molto. Un acido debole concentrato può essere più acido di un acido forte molto diluito.",
+          "Gli indicatori sono acidi deboli che cambiano colore quando cedono il protone. La fenolftaleina è incolore sotto pH 8,2 e rosa sopra circa 10; la cartina di tornasole è rossa in ambiente acido e blu in ambiente basico; il succo di cavolo rosso passa per vari colori dal rosso al verde. Un pH-metro misura invece il pH con un elettrodo, con precisione molto maggiore."
         ],
         "advanced": [
-          "Acido forte monoprotico ideale, nessun tampone o altro equilibrio. Non fornisce indicazioni di sicurezza o manipolazione di soluzioni.",
-          "Confronta la soluzione completa con l’approssimazione H≈C e identifica un intervallo in cui l’errore è trascurabile per una tolleranza scelta.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che un acido diluito moltissimo possa diventare basico. Una soluzione di HCl 10⁻⁹ M non ha pH 9: gli ioni H₃O⁺ dell’acqua, 10⁻⁷ mol/L, prevalgono e il pH è circa 6,998.",
+          "Secondo errore: confondere acido forte e acido concentrato. «Forte» indica che l’acido si dissocia del tutto; «concentrato» che ce n’è molto. Un acido debole concentrato può essere più acido di un acido forte molto diluito."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Il pH è definito tramite l’attività degli ioni idrogeno; nelle soluzioni ideali diluite si usa una concentrazione riferita allo standard. Per un acido forte monoprotico, a diluizione estrema interviene anche l’autoionizzazione dell’acqua.",
-          "Con C=10⁻³ mol/L e pK_w=14, il pH è quasi 3. Quando C diventa molto inferiore a 10⁻⁷ mol/L, il risultato si avvicina a 7 dal lato acido invece di crescere senza limite."
+          "Ripasso: definizioni di Arrhenius e di Brønsted-Lowry; coppie coniugate; prodotto ionico dell’acqua; definizione di pH e scala logaritmica; acidi forti e deboli, K_a e pK_a; indicatori.",
+          "Mini esercizio: HNO₃ 0,001 M ha pH 3. Diluita dieci volte arriva a pH 4; mille volte, a pH circa 6.",
+          "Nelle domande sul pH ricorda il fattore 10 per ogni unità: due unità di differenza sono un fattore 100."
         ],
         "intermediate": [
-          "Dall’elettroneutralità H=C+OH e da K_w=H·OH segue H²-CH-K_w=0. La radice positiva è H=(C+√(C²+4K_w))/2. L’asse x rappresenta -log₁₀C, non la concentrazione direttamente.",
-          "La variabile -log₁₀ C è espressa in 1; pH ideale in 1. Il dominio dello strumento è [1; 9]. La relazione implementata è: [H⁺]=(C+√(C²+4K_w))/2; pH=-log₁₀[H⁺]."
+          "Ripasso: definizioni di Arrhenius e di Brønsted-Lowry; coppie coniugate; prodotto ionico dell’acqua; definizione di pH e scala logaritmica; acidi forti e deboli, K_a e pK_a; indicatori.",
+          "Mini esercizio: HNO₃ 0,001 M ha pH 3. Diluita dieci volte arriva a pH 4; mille volte, a pH circa 6.",
+          "Nelle domande sul pH ricorda il fattore 10 per ogni unità: due unità di differenza sono un fattore 100."
         ],
         "advanced": [
-          "Confronta la soluzione completa con l’approssimazione H≈C e identifica un intervallo in cui l’errore è trascurabile per una tolleranza scelta.",
-          "Acido forte monoprotico ideale, nessun tampone o altro equilibrio. Non fornisce indicazioni di sicurezza o manipolazione di soluzioni."
+          "Ripasso: definizioni di Arrhenius e di Brønsted-Lowry; coppie coniugate; prodotto ionico dell’acqua; definizione di pH e scala logaritmica; acidi forti e deboli, K_a e pK_a; indicatori.",
+          "Mini esercizio: HNO₃ 0,001 M ha pH 3. Diluita dieci volte arriva a pH 4; mille volte, a pH circa 6.",
+          "Nelle domande sul pH ricorda il fattore 10 per ogni unità: due unità di differenza sono un fattore 100."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Acido forte ideale con autoionizzazione.",
-          "Acido forte monoprotico ideale, nessun tampone o altro equilibrio. Non fornisce indicazioni di sicurezza o manipolazione di soluzioni.",
-          "Collegamento consigliato: chemistry-22. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Una soluzione che resiste ai cambiamenti di pH è il tema dell’unità «Soluzioni tampone», da cui dipende anche il pH del sangue.",
+          "Riepilogo dell’unità: un acido cede protoni e una base li accetta; K_w = 1,0 · 10⁻¹⁴ a 25 °C; pH = −log₁₀[H₃O⁺] e ogni unità è un fattore 10; gli acidi forti si dissociano del tutto, quelli deboli in parte, secondo K_a; diluendo un acido il pH si avvicina alla neutralità senza superarla.",
+          "Nel diario registra A e B con le previsioni e spiega perché una soluzione di acido molto diluita non può avere pH maggiore di 7."
         ],
         "intermediate": [
-          "Dall’elettroneutralità H=C+OH e da K_w=H·OH segue H²-CH-K_w=0. La radice positiva è H=(C+√(C²+4K_w))/2. L’asse x rappresenta -log₁₀C, non la concentrazione direttamente.",
-          "Acido forte monoprotico ideale, nessun tampone o altro equilibrio. Non fornisce indicazioni di sicurezza o manipolazione di soluzioni.",
-          "Confronta la soluzione completa con l’approssimazione H≈C e identifica un intervallo in cui l’errore è trascurabile per una tolleranza scelta."
+          "Una soluzione che resiste ai cambiamenti di pH è il tema dell’unità «Soluzioni tampone», da cui dipende anche il pH del sangue.",
+          "Riepilogo dell’unità: un acido cede protoni e una base li accetta; K_w = 1,0 · 10⁻¹⁴ a 25 °C; pH = −log₁₀[H₃O⁺] e ogni unità è un fattore 10; gli acidi forti si dissociano del tutto, quelli deboli in parte, secondo K_a; diluendo un acido il pH si avvicina alla neutralità senza superarla.",
+          "Nel diario registra A e B con le previsioni e spiega perché una soluzione di acido molto diluita non può avere pH maggiore di 7."
         ],
         "advanced": [
-          "Confronta la soluzione completa con l’approssimazione H≈C e identifica un intervallo in cui l’errore è trascurabile per una tolleranza scelta.",
-          "Acido forte monoprotico ideale, nessun tampone o altro equilibrio. Non fornisce indicazioni di sicurezza o manipolazione di soluzioni.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Una soluzione che resiste ai cambiamenti di pH è il tema dell’unità «Soluzioni tampone», da cui dipende anche il pH del sangue.",
+          "Riepilogo dell’unità: un acido cede protoni e una base li accetta; K_w = 1,0 · 10⁻¹⁴ a 25 °C; pH = −log₁₀[H₃O⁺] e ogni unità è un fattore 10; gli acidi forti si dissociano del tutto, quelli deboli in parte, secondo K_a; diluendo un acido il pH si avvicina alla neutralità senza superarla.",
+          "Nel diario registra A e B con le previsioni e spiega perché una soluzione di acido molto diluita non può avere pH maggiore di 7."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-21-concept",
-      "prompt": "A diluizione estrema bisogna considerare:",
+      "id": "chemistry-21-q1",
+      "prompt": "Qual è il pH di una soluzione di HCl 0,01 M?",
       "options": [
         {
           "id": "A",
-          "text": "Una concentrazione negativa",
-          "feedback": "pH neutro non è sempre esattamente 7: dipende da K_w e quindi dalle condizioni. Il controllo di pK_w è un parametro, non una misura automatica della temperatura."
+          "text": "2",
+          "feedback": "Esatto: l’acido forte è dissociato del tutto e −log₁₀ 0,01 = 2."
         },
         {
           "id": "B",
-          "text": "La scomparsa del bilancio di carica",
-          "feedback": "Dall’elettroneutralità H=C+OH e da K_w=H·OH segue H²-CH-K_w=0. La radice positiva è H=(C+√(C²+4K_w))/2. L’asse x rappresenta -log₁₀C, non la concentrazione direttamente."
+          "text": "0,01",
+          "feedback": "Questa è la concentrazione, non il pH."
         },
         {
           "id": "C",
-          "text": "L’autoionizzazione dell’acqua",
-          "feedback": "Il pH è definito tramite l’attività degli ioni idrogeno; nelle soluzioni ideali diluite si usa una concentrazione riferita allo standard. Per un acido forte monoprotico, a diluizione estrema interviene anche l’autoionizzazione dell’acqua."
+          "text": "12",
+          "feedback": "12 sarebbe il pH di una base, NaOH 0,01 M."
+        },
+        {
+          "id": "D",
+          "text": "1",
+          "feedback": "Il pH 1 corrisponde a 0,1 mol/L di H₃O⁺."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-21-q2",
+      "prompt": "Una soluzione ha pH 4. Quanto vale [H₃O⁺]?",
+      "options": [
+        {
+          "id": "A",
+          "text": "4 mol/L",
+          "feedback": "Il pH è un logaritmo: va invertito con una potenza di 10."
+        },
+        {
+          "id": "B",
+          "text": "10⁻⁴ mol/L",
+          "feedback": "Esatto: si inverte il logaritmo, [H₃O⁺] = 10^(−pH)."
+        },
+        {
+          "id": "C",
+          "text": "10⁴ mol/L",
+          "feedback": "L’esponente è negativo: le concentrazioni sono piccole."
+        },
+        {
+          "id": "D",
+          "text": "10⁻¹⁰ mol/L",
+          "feedback": "10⁻¹⁰ mol/L è la concentrazione degli ioni OH⁻ a 25 °C."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "chemistry-21-q3",
+      "prompt": "Secondo Brønsted e Lowry, che cos’è una base?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Una sostanza che cede protoni",
+          "feedback": "Chi cede protoni è un acido secondo Brønsted e Lowry."
+        },
+        {
+          "id": "B",
+          "text": "Una sostanza che libera sempre OH⁻",
+          "feedback": "Questa è la definizione più ristretta di Arrhenius."
+        },
+        {
+          "id": "C",
+          "text": "Una sostanza che accetta protoni",
+          "feedback": "Esatto: l’ammoniaca è una base anche senza contenere OH⁻."
+        },
+        {
+          "id": "D",
+          "text": "Una sostanza con pH 7",
+          "feedback": "Il pH 7 indica una soluzione neutra a 25 °C."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "chemistry-21-calculation",
-      "prompt": "Calcolo: pK_w (a)=14 (adimensionale). Per -log₁₀ C=3 (adimensionale), quanto vale pH ideale?",
+      "id": "chemistry-21-q4",
+      "prompt": "Quante volte è più concentrato in H₃O⁺ un liquido a pH 3 rispetto a uno a pH 5?",
       "options": [
         {
           "id": "A",
-          "text": "1,5 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. [H⁺]=(C+√(C²+4K_w))/2; pH=-log₁₀[H⁺]. Con pK_w (a)=14 (adimensionale) e -log₁₀ C=3 (adimensionale), il risultato è 3 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "2 volte",
+          "feedback": "La scala è logaritmica: due unità non sono un fattore 2."
         },
         {
           "id": "B",
-          "text": "3 (adimensionale)",
-          "feedback": "[H⁺]=(C+√(C²+4K_w))/2; pH=-log₁₀[H⁺]. Con pK_w (a)=14 (adimensionale) e -log₁₀ C=3 (adimensionale), il risultato è 3 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "20 volte",
+          "feedback": "Ogni unità vale un fattore 10, e i fattori si moltiplicano."
         },
         {
           "id": "C",
-          "text": "4,5 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. [H⁺]=(C+√(C²+4K_w))/2; pH=-log₁₀[H⁺]. Con pK_w (a)=14 (adimensionale) e -log₁₀ C=3 (adimensionale), il risultato è 3 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "1000 volte",
+          "feedback": "Un fattore 1000 corrisponde a tre unità di pH."
+        },
+        {
+          "id": "D",
+          "text": "100 volte",
+          "feedback": "Esatto: due unità di pH, cioè 10 · 10."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 3,
-        "parameters": {
-          "a": 14
-        },
-        "expected": 2.999999995657055,
-        "unit": "1"
-      }
+      "correct": "D"
     },
     {
-      "id": "chemistry-21-transfer",
-      "prompt": "Trasferimento: pK_w (a)=15 (adimensionale). Per -log₁₀ C=3 (adimensionale), quanto vale pH ideale?",
+      "id": "chemistry-21-q5",
+      "prompt": "Che pH ha circa una soluzione di HCl 10⁻⁹ M?",
       "options": [
         {
           "id": "A",
-          "text": "3 (adimensionale)",
-          "feedback": "[H⁺]=(C+√(C²+4K_w))/2; pH=-log₁₀[H⁺]. Con pK_w (a)=15 (adimensionale) e -log₁₀ C=3 (adimensionale), il risultato è 3 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Circa 7, appena sotto",
+          "feedback": "Esatto: prevalgono gli ioni dell’acqua e il pH è circa 6,998."
         },
         {
           "id": "B",
-          "text": "4,5 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. [H⁺]=(C+√(C²+4K_w))/2; pH=-log₁₀[H⁺]. Con pK_w (a)=15 (adimensionale) e -log₁₀ C=3 (adimensionale), il risultato è 3 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "9",
+          "feedback": "Un acido non può rendere basica una soluzione."
         },
         {
           "id": "C",
-          "text": "1,5 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. [H⁺]=(C+√(C²+4K_w))/2; pH=-log₁₀[H⁺]. Con pK_w (a)=15 (adimensionale) e -log₁₀ C=3 (adimensionale), il risultato è 3 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "5",
+          "feedback": "La concentrazione di acido è cento volte minore di quella degli ioni dell’acqua."
+        },
+        {
+          "id": "D",
+          "text": "Non si può definire",
+          "feedback": "Il pH è definito per qualunque soluzione acquosa."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 3,
-        "parameters": {
-          "a": 15
-        },
-        "expected": 2.9999999995657056,
-        "unit": "1"
-      }
+      "correct": "A"
     },
     {
-      "id": "chemistry-21-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "chemistry-21-q6",
+      "prompt": "Che differenza c’è tra un acido forte e un acido concentrato?",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Acido forte monoprotico ideale, nessun tampone o altro equilibrio. Non fornisce indicazioni di sicurezza o manipolazione di soluzioni."
+          "text": "Nessuna, sono sinonimi",
+          "feedback": "Le due parole indicano proprietà diverse."
         },
         {
           "id": "B",
-          "text": "Acido forte ideale con autoionizzazione",
-          "feedback": "Acido forte monoprotico ideale, nessun tampone o altro equilibrio. Non fornisce indicazioni di sicurezza o manipolazione di soluzioni."
+          "text": "Forte indica la dissociazione completa, concentrato la quantità presente",
+          "feedback": "Esatto: un acido forte può essere molto diluito."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Acido forte monoprotico ideale, nessun tampone o altro equilibrio. Non fornisce indicazioni di sicurezza o manipolazione di soluzioni."
+          "text": "Un acido forte è sempre più pericoloso",
+          "feedback": "Il pericolo dipende anche dalla concentrazione."
+        },
+        {
+          "id": "D",
+          "text": "Concentrato indica un pK_a alto",
+          "feedback": "Il pK_a misura la forza, non la concentrazione."
         }
       ],
       "correct": "B"

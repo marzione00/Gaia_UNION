@@ -5,19 +5,21 @@
   "title": "Soluzioni tampone",
   "sector": 2,
   "modelId": "chemistry-22",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Coppia acido-base dominante in soluzione ideale",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Composizione e funzionamento dei tamponi, equazione di Henderson-Hasselbalch, capacità tamponante, tampone del sangue",
+  "narrativeStatus": "I valori del sangue e dei tamponi sono reali e di riferimento.",
   "objectives": [
-    "Spiegare: coppia acido-base dominante in soluzione ideale.",
-    "Applicare pH = pK_a + log₁₀([A⁻]/[HA]), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Descrivere la composizione di un tampone.",
+    "Spiegare come un tampone neutralizza acidi e basi aggiunti.",
+    "Usare l’equazione di Henderson-Hasselbalch.",
+    "Spiegare il tampone bicarbonato del sangue."
   ],
   "prerequisites": [
     "chemistry-21"
   ],
   "connections": [
+    "chemistry-23",
     "math-c06"
   ],
   "sources": [
@@ -27,244 +29,547 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Rapporto base/acido",
-      "definition": "Variabile indipendente, unità 1; intervallo [0,1; 10]."
+      "term": "Tampone",
+      "definition": "Soluzione di un acido debole e della sua base coniugata che resiste alle variazioni di pH."
     },
     {
-      "term": "pH del tampone",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Equazione di Henderson-Hasselbalch",
+      "definition": "pH = pK_a + log₁₀([A⁻]/[HA])."
+    },
+    {
+      "term": "Capacità tamponante",
+      "definition": "Quantità di acido o base che un tampone assorbe senza cambiare molto il pH."
+    },
+    {
+      "term": "Bicarbonato",
+      "definition": "HCO₃⁻, la base coniugata dell’acido carbonico; principale tampone del sangue."
     },
     {
       "term": "pK_a",
-      "definition": "Parametro a, unità 1; intervallo [3; 7]."
+      "definition": "Meno il logaritmo in base 10 della costante di acidità."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Il pH del sangue",
       "text": {
         "base": [
-          "Una soluzione contiene una coppia acido-base coniugata. La stazione osserva che il rapporto fra le due forme è importante, ma vuole evitare di confondere pH e capacità di resistere a perturbazioni.",
-          "Un tampone contiene quantità apprezzabili di un acido debole e della sua base coniugata. La relazione di Henderson-Hasselbalch approssima pH=pK_a+log([A⁻]/[HA]) in condizioni appropriate."
+          "Il pH del sangue umano resta tra 7,35 e 7,45, anche dopo uno sforzo che produce acido lattico o un pasto abbondante. Basta uscire di poco da questo intervallo per stare male. Il merito è di soluzioni speciali, i tamponi, che assorbono acidi e basi senza cambiare quasi il pH.",
+          "Un tampone contiene un acido debole e la sua base coniugata in quantità comparabili, per esempio acido acetico e acetato di sodio. Se si aggiunge un acido forte, la base coniugata cattura i protoni: CH₃COO⁻ + H₃O⁺ → CH₃COOH + H₂O. Se si aggiunge una base forte, l’acido debole la neutralizza: CH₃COOH + OH⁻ → CH₃COO⁻ + H₂O. In entrambi i casi il rapporto tra le due forme cambia poco."
         ],
         "intermediate": [
-          "Una soluzione contiene una coppia acido-base coniugata. La stazione osserva che il rapporto fra le due forme è importante, ma vuole evitare di confondere pH e capacità di resistere a perturbazioni.",
-          "Quando il rapporto base/acido è uno, il logaritmo è zero e pH=pK_a. Moltiplicare il rapporto per dieci aumenta il pH di una unità nel modello."
+          "Il pH del sangue umano resta tra 7,35 e 7,45, anche dopo uno sforzo che produce acido lattico o un pasto abbondante. Basta uscire di poco da questo intervallo per stare male. Il merito è di soluzioni speciali, i tamponi, che assorbono acidi e basi senza cambiare quasi il pH.",
+          "Un tampone contiene un acido debole e la sua base coniugata in quantità comparabili, per esempio acido acetico e acetato di sodio. Se si aggiunge un acido forte, la base coniugata cattura i protoni: CH₃COO⁻ + H₃O⁺ → CH₃COOH + H₂O. Se si aggiunge una base forte, l’acido debole la neutralizza: CH₃COOH + OH⁻ → CH₃COO⁻ + H₂O. In entrambi i casi il rapporto tra le due forme cambia poco."
         ],
         "advanced": [
-          "Una soluzione contiene una coppia acido-base coniugata. La stazione osserva che il rapporto fra le due forme è importante, ma vuole evitare di confondere pH e capacità di resistere a perturbazioni.",
-          "Parti da K_a e ricava la relazione logaritmica. Discuta quando l’uso delle concentrazioni iniziali al posto di quelle di equilibrio è giustificato.",
-          "Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione."
+          "Il pH del sangue umano resta tra 7,35 e 7,45, anche dopo uno sforzo che produce acido lattico o un pasto abbondante. Basta uscire di poco da questo intervallo per stare male. Il merito è di soluzioni speciali, i tamponi, che assorbono acidi e basi senza cambiare quasi il pH.",
+          "Un tampone contiene un acido debole e la sua base coniugata in quantità comparabili, per esempio acido acetico e acetato di sodio. Se si aggiunge un acido forte, la base coniugata cattura i protoni: CH₃COO⁻ + H₃O⁺ → CH₃COOH + H₂O. Se si aggiunge una base forte, l’acido debole la neutralizza: CH₃COOH + OH⁻ → CH₃COO⁻ + H₂O. In entrambi i casi il rapporto tra le due forme cambia poco."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Henderson-Hasselbalch",
       "text": {
         "base": [
-          "Un tampone contiene quantità apprezzabili di un acido debole e della sua base coniugata. La relazione di Henderson-Hasselbalch approssima pH=pK_a+log([A⁻]/[HA]) in condizioni appropriate.",
-          "Con pK_a=4,8 e rapporto 1, il pH è 4,8. Con rapporto 10 è 5,8. Due tamponi con lo stesso rapporto ma concentrazioni totali diverse possono avere capacità tampone diverse."
+          "Dalla costante di acidità si ricava l’equazione di Henderson-Hasselbalch: pH = pK_a + log₁₀([A⁻]/[HA]). Quando acido e base coniugata hanno la stessa concentrazione il logaritmo è zero e pH = pK_a. Se la base è dieci volte più concentrata, pH = pK_a + 1; se l’acido è dieci volte più concentrato, pH = pK_a − 1.",
+          "Un tampone funziona bene finché il rapporto [A⁻]/[HA] resta tra 0,1 e 10, cioè in un intervallo di pH pK_a ± 1. Per scegliere un tampone si sceglie quindi un acido con pK_a vicino al pH desiderato: acetato intorno a 4,8, fosfato (H₂PO₄⁻/HPO₄²⁻, pK_a ≈ 7,2) intorno a 7. La capacità tamponante cresce con le concentrazioni: un tampone più concentrato assorbe più acido prima di esaurirsi.",
+          "Esempio svolto. Un litro di tampone contiene 0,10 mol di acido acetico e 0,10 mol di acetato: pH = 4,76. Si aggiungono 0,010 mol di HCl: l’acetato scende a 0,090 mol e l’acido sale a 0,110 mol. pH = 4,76 + log₁₀(0,090/0,110) ≈ 4,76 − 0,09 = 4,67. La stessa quantità di HCl in un litro di acqua pura porterebbe il pH da 7 a 2."
         ],
         "intermediate": [
-          "Quando il rapporto base/acido è uno, il logaritmo è zero e pH=pK_a. Moltiplicare il rapporto per dieci aumenta il pH di una unità nel modello.",
-          "La variabile Rapporto base/acido è espressa in 1; pH del tampone in 1. Il dominio dello strumento è [0,1; 10]. La relazione implementata è: pH = pK_a + log₁₀([A⁻]/[HA]).",
-          "Con pK_a=4,8 e rapporto 1, il pH è 4,8. Con rapporto 10 è 5,8. Due tamponi con lo stesso rapporto ma concentrazioni totali diverse possono avere capacità tampone diverse."
+          "Dalla costante di acidità si ricava l’equazione di Henderson-Hasselbalch: pH = pK_a + log₁₀([A⁻]/[HA]). Quando acido e base coniugata hanno la stessa concentrazione il logaritmo è zero e pH = pK_a. Se la base è dieci volte più concentrata, pH = pK_a + 1; se l’acido è dieci volte più concentrato, pH = pK_a − 1.",
+          "Un tampone funziona bene finché il rapporto [A⁻]/[HA] resta tra 0,1 e 10, cioè in un intervallo di pH pK_a ± 1. Per scegliere un tampone si sceglie quindi un acido con pK_a vicino al pH desiderato: acetato intorno a 4,8, fosfato (H₂PO₄⁻/HPO₄²⁻, pK_a ≈ 7,2) intorno a 7. La capacità tamponante cresce con le concentrazioni: un tampone più concentrato assorbe più acido prima di esaurirsi.",
+          "Esempio svolto. Un litro di tampone contiene 0,10 mol di acido acetico e 0,10 mol di acetato: pH = 4,76. Si aggiungono 0,010 mol di HCl: l’acetato scende a 0,090 mol e l’acido sale a 0,110 mol. pH = 4,76 + log₁₀(0,090/0,110) ≈ 4,76 − 0,09 = 4,67. La stessa quantità di HCl in un litro di acqua pura porterebbe il pH da 7 a 2.",
+          "Il sangue usa soprattutto la coppia acido carbonico e bicarbonato, con pK_a efficace circa 6,1. A pH 7,4 il rapporto bicarbonato/acido è 10^1,3 ≈ 20. Il sistema funziona anche lontano dal pK_a perché è aperto: i polmoni eliminano CO₂ e i reni regolano il bicarbonato. Respirare troppo in fretta abbassa la CO₂ e alza il pH."
         ],
         "advanced": [
-          "Quando il rapporto base/acido è uno, il logaritmo è zero e pH=pK_a. Moltiplicare il rapporto per dieci aumenta il pH di una unità nel modello.",
-          "Parti da K_a e ricava la relazione logaritmica. Discuta quando l’uso delle concentrazioni iniziali al posto di quelle di equilibrio è giustificato.",
-          "Il rapporto non dice quanta perturbazione la soluzione può assorbire. La formula non rende ogni miscela un tampone efficace, soprattutto quando una forma è quasi esaurita."
+          "Dalla costante di acidità si ricava l’equazione di Henderson-Hasselbalch: pH = pK_a + log₁₀([A⁻]/[HA]). Quando acido e base coniugata hanno la stessa concentrazione il logaritmo è zero e pH = pK_a. Se la base è dieci volte più concentrata, pH = pK_a + 1; se l’acido è dieci volte più concentrato, pH = pK_a − 1.",
+          "Un tampone funziona bene finché il rapporto [A⁻]/[HA] resta tra 0,1 e 10, cioè in un intervallo di pH pK_a ± 1. Per scegliere un tampone si sceglie quindi un acido con pK_a vicino al pH desiderato: acetato intorno a 4,8, fosfato (H₂PO₄⁻/HPO₄²⁻, pK_a ≈ 7,2) intorno a 7. La capacità tamponante cresce con le concentrazioni: un tampone più concentrato assorbe più acido prima di esaurirsi.",
+          "Esempio svolto. Un litro di tampone contiene 0,10 mol di acido acetico e 0,10 mol di acetato: pH = 4,76. Si aggiungono 0,010 mol di HCl: l’acetato scende a 0,090 mol e l’acido sale a 0,110 mol. pH = 4,76 + log₁₀(0,090/0,110) ≈ 4,76 − 0,09 = 4,67. La stessa quantità di HCl in un litro di acqua pura porterebbe il pH da 7 a 2.",
+          "Il sangue usa soprattutto la coppia acido carbonico e bicarbonato, con pK_a efficace circa 6,1. A pH 7,4 il rapporto bicarbonato/acido è 10^1,3 ≈ 20. Il sistema funziona anche lontano dal pK_a perché è aperto: i polmoni eliminano CO₂ e i reni regolano il bicarbonato. Respirare troppo in fretta abbassa la CO₂ e alza il pH.",
+          "Il modello del programma calcola il pH in funzione del rapporto base/acido, da 0,1 a 10, con pK_a regolabile: con pK_a = 4,8 e rapporto 1 il pH vale 4,8. La curva è logaritmica: moltiplicare il rapporto per 10 aggiunge una unità di pH."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Problemi guidati",
       "text": {
         "base": [
-          "Nel laboratorio imposta pK_a (a): 4,8 (adimensionale). Prima di salvare A, prevedi come cambia pH del tampone fra Rapporto base/acido=2,575 e 5,05 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con pK_a=4,8 e rapporto 1, il pH è 4,8. Con rapporto 10 è 5,8. Due tamponi con lo stesso rapporto ma concentrazioni totali diverse possono avere capacità tampone diverse.",
-          "La variabile Rapporto base/acido è espressa in 1; pH del tampone in 1. Il dominio dello strumento è [0,1; 10]. La relazione implementata è: pH = pK_a + log₁₀([A⁻]/[HA])."
+          "L’attività propone quattro problemi guidati: il pH di un tampone acetato con concentrazioni uguali; il pH con rapporto 2 : 1; il rapporto bicarbonato/acido nel sangue; l’effetto di un’aggiunta di acido. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "In Henderson-Hasselbalch il rapporto è sempre base su acido. Se nell’aggiunta di acido o base reagiscono moli, aggiorna prima le moli di HA e A⁻, poi calcola il rapporto.",
+          "Il modello del programma calcola il pH in funzione del rapporto base/acido, da 0,1 a 10, con pK_a regolabile: con pK_a = 4,8 e rapporto 1 il pH vale 4,8. La curva è logaritmica: moltiplicare il rapporto per 10 aggiunge una unità di pH."
         ],
         "intermediate": [
-          "Nel laboratorio imposta pK_a (a): 4,8 (adimensionale). Prima di salvare A, prevedi come cambia pH del tampone fra Rapporto base/acido=2,575 e 5,05 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Rapporto base/acido è espressa in 1; pH del tampone in 1. Il dominio dello strumento è [0,1; 10]. La relazione implementata è: pH = pK_a + log₁₀([A⁻]/[HA]).",
-          "Quando il rapporto base/acido è uno, il logaritmo è zero e pH=pK_a. Moltiplicare il rapporto per dieci aumenta il pH di una unità nel modello."
+          "L’attività propone quattro problemi guidati: il pH di un tampone acetato con concentrazioni uguali; il pH con rapporto 2 : 1; il rapporto bicarbonato/acido nel sangue; l’effetto di un’aggiunta di acido. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "In Henderson-Hasselbalch il rapporto è sempre base su acido. Se nell’aggiunta di acido o base reagiscono moli, aggiorna prima le moli di HA e A⁻, poi calcola il rapporto.",
+          "Il modello del programma calcola il pH in funzione del rapporto base/acido, da 0,1 a 10, con pK_a regolabile: con pK_a = 4,8 e rapporto 1 il pH vale 4,8. La curva è logaritmica: moltiplicare il rapporto per 10 aggiunge una unità di pH."
         ],
         "advanced": [
-          "Nel laboratorio imposta pK_a (a): 4,8 (adimensionale). Prima di salvare A, prevedi come cambia pH del tampone fra Rapporto base/acido=2,575 e 5,05 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Parti da K_a e ricava la relazione logaritmica. Discuta quando l’uso delle concentrazioni iniziali al posto di quelle di equilibrio è giustificato.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività propone quattro problemi guidati: il pH di un tampone acetato con concentrazioni uguali; il pH con rapporto 2 : 1; il rapporto bicarbonato/acido nel sangue; l’effetto di un’aggiunta di acido. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "In Henderson-Hasselbalch il rapporto è sempre base su acido. Se nell’aggiunta di acido o base reagiscono moli, aggiorna prima le moli di HA e A⁻, poi calcola il rapporto."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e sangue",
       "text": {
         "base": [
-          "Il rapporto non dice quanta perturbazione la soluzione può assorbire. La formula non rende ogni miscela un tampone efficace, soprattutto quando una forma è quasi esaurita.",
-          "Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che un tampone mantenga il pH costante per qualunque aggiunta. Quando una delle due forme si esaurisce il tampone smette di funzionare, e il pH cambia bruscamente.",
+          "Secondo errore: invertire il rapporto nell’equazione. Con più base che acido il pH deve essere maggiore del pK_a: se il calcolo dà il contrario, numeratore e denominatore sono scambiati.",
+          "Il sangue usa soprattutto la coppia acido carbonico e bicarbonato, con pK_a efficace circa 6,1. A pH 7,4 il rapporto bicarbonato/acido è 10^1,3 ≈ 20. Il sistema funziona anche lontano dal pK_a perché è aperto: i polmoni eliminano CO₂ e i reni regolano il bicarbonato. Respirare troppo in fretta abbassa la CO₂ e alza il pH."
         ],
         "intermediate": [
-          "Il rapporto non dice quanta perturbazione la soluzione può assorbire. La formula non rende ogni miscela un tampone efficace, soprattutto quando una forma è quasi esaurita.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che un tampone mantenga il pH costante per qualunque aggiunta. Quando una delle due forme si esaurisce il tampone smette di funzionare, e il pH cambia bruscamente.",
+          "Secondo errore: invertire il rapporto nell’equazione. Con più base che acido il pH deve essere maggiore del pK_a: se il calcolo dà il contrario, numeratore e denominatore sono scambiati.",
+          "Il sangue usa soprattutto la coppia acido carbonico e bicarbonato, con pK_a efficace circa 6,1. A pH 7,4 il rapporto bicarbonato/acido è 10^1,3 ≈ 20. Il sistema funziona anche lontano dal pK_a perché è aperto: i polmoni eliminano CO₂ e i reni regolano il bicarbonato. Respirare troppo in fretta abbassa la CO₂ e alza il pH."
         ],
         "advanced": [
-          "Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione.",
-          "Parti da K_a e ricava la relazione logaritmica. Discuta quando l’uso delle concentrazioni iniziali al posto di quelle di equilibrio è giustificato.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che un tampone mantenga il pH costante per qualunque aggiunta. Quando una delle due forme si esaurisce il tampone smette di funzionare, e il pH cambia bruscamente.",
+          "Secondo errore: invertire il rapporto nell’equazione. Con più base che acido il pH deve essere maggiore del pK_a: se il calcolo dà il contrario, numeratore e denominatore sono scambiati.",
+          "Il sangue usa soprattutto la coppia acido carbonico e bicarbonato, con pK_a efficace circa 6,1. A pH 7,4 il rapporto bicarbonato/acido è 10^1,3 ≈ 20. Il sistema funziona anche lontano dal pK_a perché è aperto: i polmoni eliminano CO₂ e i reni regolano il bicarbonato. Respirare troppo in fretta abbassa la CO₂ e alza il pH."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Un tampone contiene quantità apprezzabili di un acido debole e della sua base coniugata. La relazione di Henderson-Hasselbalch approssima pH=pK_a+log([A⁻]/[HA]) in condizioni appropriate.",
-          "Con pK_a=4,8 e rapporto 1, il pH è 4,8. Con rapporto 10 è 5,8. Due tamponi con lo stesso rapporto ma concentrazioni totali diverse possono avere capacità tampone diverse."
+          "Ripasso: composizione di un tampone; reazioni con acidi e basi aggiunti; equazione di Henderson-Hasselbalch; intervallo pK_a ± 1 e capacità tamponante; tampone bicarbonato del sangue.",
+          "Mini esercizio: tampone fosfato con [HPO₄²⁻] = [H₂PO₄⁻]: pH ≈ 7,2. Con base dieci volte più concentrata, pH ≈ 8,2.",
+          "Nelle domande sui tamponi parti dal caso semplice, rapporto 1 e pH = pK_a, poi aggiungi il logaritmo."
         ],
         "intermediate": [
-          "Quando il rapporto base/acido è uno, il logaritmo è zero e pH=pK_a. Moltiplicare il rapporto per dieci aumenta il pH di una unità nel modello.",
-          "La variabile Rapporto base/acido è espressa in 1; pH del tampone in 1. Il dominio dello strumento è [0,1; 10]. La relazione implementata è: pH = pK_a + log₁₀([A⁻]/[HA])."
+          "Ripasso: composizione di un tampone; reazioni con acidi e basi aggiunti; equazione di Henderson-Hasselbalch; intervallo pK_a ± 1 e capacità tamponante; tampone bicarbonato del sangue.",
+          "Mini esercizio: tampone fosfato con [HPO₄²⁻] = [H₂PO₄⁻]: pH ≈ 7,2. Con base dieci volte più concentrata, pH ≈ 8,2.",
+          "Nelle domande sui tamponi parti dal caso semplice, rapporto 1 e pH = pK_a, poi aggiungi il logaritmo."
         ],
         "advanced": [
-          "Parti da K_a e ricava la relazione logaritmica. Discuta quando l’uso delle concentrazioni iniziali al posto di quelle di equilibrio è giustificato.",
-          "Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione."
+          "Ripasso: composizione di un tampone; reazioni con acidi e basi aggiunti; equazione di Henderson-Hasselbalch; intervallo pK_a ± 1 e capacità tamponante; tampone bicarbonato del sangue.",
+          "Mini esercizio: tampone fosfato con [HPO₄²⁻] = [H₂PO₄⁻]: pH ≈ 7,2. Con base dieci volte più concentrata, pH ≈ 8,2.",
+          "Nelle domande sui tamponi parti dal caso semplice, rapporto 1 e pH = pK_a, poi aggiungi il logaritmo."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Coppia acido-base dominante in soluzione ideale.",
-          "Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione.",
-          "Collegamento consigliato: math-c06. Il completamento registra attività e autoverifica, non certifica competenze."
+          "L’equazione di Henderson-Hasselbalch è un logaritmo di un rapporto, come nell’unità di matematica «Esponenziali e logaritmi». In chimica il passo successivo è «Ossidazione, riduzione ed elettrochimica», dove si trasferiscono elettroni invece di protoni.",
+          "Riepilogo dell’unità: un tampone contiene un acido debole e la sua base coniugata; assorbe acidi e basi convertendo una forma nell’altra; pH = pK_a + log₁₀([A⁻]/[HA]); funziona in un intervallo pK_a ± 1; il sangue usa il sistema bicarbonato, aiutato da polmoni e reni.",
+          "Nel diario spiega perché il tampone bicarbonato funziona nel sangue anche se il pH è lontano dal suo pK_a."
         ],
         "intermediate": [
-          "Quando il rapporto base/acido è uno, il logaritmo è zero e pH=pK_a. Moltiplicare il rapporto per dieci aumenta il pH di una unità nel modello.",
-          "Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione.",
-          "Parti da K_a e ricava la relazione logaritmica. Discuta quando l’uso delle concentrazioni iniziali al posto di quelle di equilibrio è giustificato."
+          "L’equazione di Henderson-Hasselbalch è un logaritmo di un rapporto, come nell’unità di matematica «Esponenziali e logaritmi». In chimica il passo successivo è «Ossidazione, riduzione ed elettrochimica», dove si trasferiscono elettroni invece di protoni.",
+          "Riepilogo dell’unità: un tampone contiene un acido debole e la sua base coniugata; assorbe acidi e basi convertendo una forma nell’altra; pH = pK_a + log₁₀([A⁻]/[HA]); funziona in un intervallo pK_a ± 1; il sangue usa il sistema bicarbonato, aiutato da polmoni e reni.",
+          "Nel diario spiega perché il tampone bicarbonato funziona nel sangue anche se il pH è lontano dal suo pK_a."
         ],
         "advanced": [
-          "Parti da K_a e ricava la relazione logaritmica. Discuta quando l’uso delle concentrazioni iniziali al posto di quelle di equilibrio è giustificato.",
-          "Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "L’equazione di Henderson-Hasselbalch è un logaritmo di un rapporto, come nell’unità di matematica «Esponenziali e logaritmi». In chimica il passo successivo è «Ossidazione, riduzione ed elettrochimica», dove si trasferiscono elettroni invece di protoni.",
+          "Riepilogo dell’unità: un tampone contiene un acido debole e la sua base coniugata; assorbe acidi e basi convertendo una forma nell’altra; pH = pK_a + log₁₀([A⁻]/[HA]); funziona in un intervallo pK_a ± 1; il sangue usa il sistema bicarbonato, aiutato da polmoni e reni.",
+          "Nel diario spiega perché il tampone bicarbonato funziona nel sangue anche se il pH è lontano dal suo pK_a."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-22-concept",
-      "prompt": "Quando [A⁻]=[HA], il pH vale:",
+      "id": "chemistry-22-q1",
+      "prompt": "Che cosa contiene una soluzione tampone?",
       "options": [
         {
           "id": "A",
-          "text": "Sempre 0",
-          "feedback": "Quando il rapporto base/acido è uno, il logaritmo è zero e pH=pK_a. Moltiplicare il rapporto per dieci aumenta il pH di una unità nel modello."
+          "text": "Un acido debole e la sua base coniugata",
+          "feedback": "Esatto: le due forme assorbono rispettivamente basi e acidi."
         },
         {
           "id": "B",
-          "text": "pK_a",
-          "feedback": "Un tampone contiene quantità apprezzabili di un acido debole e della sua base coniugata. La relazione di Henderson-Hasselbalch approssima pH=pK_a+log([A⁻]/[HA]) in condizioni appropriate."
+          "text": "Un acido forte e una base forte",
+          "feedback": "Acido e base forti si neutralizzano tra loro."
         },
         {
           "id": "C",
-          "text": "Sempre 7",
-          "feedback": "Il rapporto non dice quanta perturbazione la soluzione può assorbire. La formula non rende ogni miscela un tampone efficace, soprattutto quando una forma è quasi esaurita."
+          "text": "Solo acqua distillata",
+          "feedback": "L’acqua pura cambia pH con piccolissime aggiunte."
+        },
+        {
+          "id": "D",
+          "text": "Un sale qualsiasi",
+          "feedback": "Serve una coppia acido-base coniugata."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-22-q2",
+      "prompt": "Che pH ha un tampone con [A⁻] = [HA] e pK_a = 4,76?",
+      "options": [
+        {
+          "id": "A",
+          "text": "7",
+          "feedback": "Il tampone non è neutro: il suo pH dipende dal pK_a."
+        },
+        {
+          "id": "B",
+          "text": "4,76",
+          "feedback": "Esatto: il logaritmo di 1 è zero e pH = pK_a."
+        },
+        {
+          "id": "C",
+          "text": "5,76",
+          "feedback": "Questo valore richiede una base dieci volte più concentrata."
+        },
+        {
+          "id": "D",
+          "text": "3,76",
+          "feedback": "Questo valore richiede un acido dieci volte più concentrato."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "chemistry-22-calculation",
-      "prompt": "Calcolo: pK_a (a)=4,8 (adimensionale). Per Rapporto base/acido=1 (adimensionale), quanto vale pH del tampone?",
+      "id": "chemistry-22-q3",
+      "prompt": "Un tampone ha [A⁻]/[HA] = 10. Quanto vale il pH?",
       "options": [
         {
           "id": "A",
-          "text": "4,8 (adimensionale)",
-          "feedback": "pH = pK_a + log₁₀([A⁻]/[HA]). Con pK_a (a)=4,8 (adimensionale) e Rapporto base/acido=1 (adimensionale), il risultato è 4,8 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "pK_a − 1",
+          "feedback": "Con più base che acido il pH è maggiore del pK_a."
         },
         {
           "id": "B",
-          "text": "7,2 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. pH = pK_a + log₁₀([A⁻]/[HA]). Con pK_a (a)=4,8 (adimensionale) e Rapporto base/acido=1 (adimensionale), il risultato è 4,8 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "10 · pK_a",
+          "feedback": "Nell’equazione compare il logaritmo del rapporto."
         },
         {
           "id": "C",
-          "text": "2,4 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. pH = pK_a + log₁₀([A⁻]/[HA]). Con pK_a (a)=4,8 (adimensionale) e Rapporto base/acido=1 (adimensionale), il risultato è 4,8 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "pK_a + 1",
+          "feedback": "Esatto: log₁₀ 10 = 1, quindi pH = pK_a + 1."
+        },
+        {
+          "id": "D",
+          "text": "pK_a",
+          "feedback": "Il pH vale pK_a solo con rapporto 1."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 4.8
-        },
-        "expected": 4.8,
-        "unit": "1"
-      }
+      "correct": "C"
     },
     {
-      "id": "chemistry-22-transfer",
-      "prompt": "Trasferimento: pK_a (a)=5 (adimensionale). Per Rapporto base/acido=1 (adimensionale), quanto vale pH del tampone?",
+      "id": "chemistry-22-q4",
+      "prompt": "In quale intervallo di pH funziona bene un tampone?",
       "options": [
         {
           "id": "A",
-          "text": "7,5 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. pH = pK_a + log₁₀([A⁻]/[HA]). Con pK_a (a)=5 (adimensionale) e Rapporto base/acido=1 (adimensionale), il risultato è 5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Tra 0 e 14",
+          "feedback": "Fuori da un intervallo ristretto una delle due forme è troppo scarsa."
         },
         {
           "id": "B",
-          "text": "2,5 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. pH = pK_a + log₁₀([A⁻]/[HA]). Con pK_a (a)=5 (adimensionale) e Rapporto base/acido=1 (adimensionale), il risultato è 5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Solo esattamente a pH = pK_a",
+          "feedback": "Il tampone funziona anche intorno al pK_a."
         },
         {
           "id": "C",
-          "text": "5 (adimensionale)",
-          "feedback": "pH = pK_a + log₁₀([A⁻]/[HA]). Con pK_a (a)=5 (adimensionale) e Rapporto base/acido=1 (adimensionale), il risultato è 5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Tra 6 e 8 per qualunque acido",
+          "feedback": "L’intervallo dipende dall’acido scelto."
+        },
+        {
+          "id": "D",
+          "text": "Circa tra pK_a − 1 e pK_a + 1",
+          "feedback": "Esatto: il rapporto base/acido resta tra 0,1 e 10."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 5
-        },
-        "expected": 5,
-        "unit": "1"
-      }
+      "correct": "D"
     },
     {
-      "id": "chemistry-22-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "chemistry-22-q5",
+      "prompt": "Nel sangue, a pH 7,4 e pK_a ≈ 6,1, quanto vale circa il rapporto bicarbonato/acido?",
       "options": [
         {
           "id": "A",
-          "text": "Coppia acido-base dominante in soluzione ideale",
-          "feedback": "Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione."
+          "text": "Circa 20",
+          "feedback": "Esatto: il rapporto è 10^(7,4 − 6,1) = 10^1,3 ≈ 20."
         },
         {
           "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione."
+          "text": "1,3",
+          "feedback": "1,3 è il logaritmo del rapporto, non il rapporto."
         },
         {
           "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione."
+          "text": "Circa 2",
+          "feedback": "Il rapporto è 10 elevato alla differenza tra pH e pK_a."
+        },
+        {
+          "id": "D",
+          "text": "Circa 0,05",
+          "feedback": "Hai invertito il rapporto: prevale il bicarbonato."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "chemistry-22-q6",
+      "prompt": "Perché aggiungendo poco acido forte a un tampone acetato il pH cambia poco?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché l’acido evapora",
+          "feedback": "L’acido aggiunto reagisce: non evapora."
+        },
+        {
+          "id": "B",
+          "text": "Perché l’acetato cattura i protoni formando acido acetico",
+          "feedback": "Esatto: il rapporto tra le due forme cambia poco."
+        },
+        {
+          "id": "C",
+          "text": "Perché l’acqua neutralizza l’acido",
+          "feedback": "L’acqua da sola non basta: il pH cambierebbe molto."
+        },
+        {
+          "id": "D",
+          "text": "Perché il pK_a si sposta",
+          "feedback": "Il pK_a è una costante a temperatura fissa."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "steps",
+    "goal": 3,
+    "problems": [
+      {
+        "id": "uguali",
+        "title": "Concentrazioni uguali",
+        "text": "Un tampone contiene acido acetico 0,10 M e acetato di sodio 0,10 M (pK_a = 4,76). Che pH ha?",
+        "maxErrors": 1,
+        "explain": "Con concentrazioni uguali il logaritmo si annulla.",
+        "steps": [
+          {
+            "prompt": "Rapporto [A⁻]/[HA]?",
+            "options": [
+              {
+                "text": "1",
+                "feedback": "Giusto: 0,10/0,10."
+              },
+              {
+                "text": "0,10",
+                "feedback": "Il rapporto confronta le due concentrazioni tra loro."
+              },
+              {
+                "text": "0,01",
+                "feedback": "Le concentrazioni si dividono, non si moltiplicano."
+              }
+            ],
+            "correct": 0,
+            "result": "Rapporto = 1."
+          },
+          {
+            "prompt": "Quanto vale log₁₀ 1?",
+            "options": [
+              {
+                "text": "0",
+                "feedback": "Giusto: 10⁰ = 1."
+              },
+              {
+                "text": "1",
+                "feedback": "log₁₀ 10 vale 1; log₁₀ 1 vale 0."
+              },
+              {
+                "text": "10",
+                "feedback": "Il logaritmo di 1 in qualunque base è zero."
+              }
+            ],
+            "correct": 0,
+            "result": "log₁₀ 1 = 0."
+          },
+          {
+            "prompt": "pH del tampone?",
+            "options": [
+              {
+                "text": "4,76",
+                "feedback": "Giusto: pH = pK_a."
+              },
+              {
+                "text": "7",
+                "feedback": "Il tampone acetato non è neutro."
+              },
+              {
+                "text": "5,76",
+                "feedback": "Hai aggiunto 1 invece di 0."
+              }
+            ],
+            "correct": 0,
+            "result": "pH = 4,76."
+          }
+        ]
+      },
+      {
+        "id": "doppio",
+        "title": "Più base che acido",
+        "text": "Lo stesso tampone ha ora acetato 0,20 M e acido acetico 0,10 M. Che pH ha?",
+        "maxErrors": 1,
+        "explain": "Il rapporto è 2 e log₁₀ 2 ≈ 0,30.",
+        "steps": [
+          {
+            "prompt": "Rapporto base/acido?",
+            "options": [
+              {
+                "text": "2",
+                "feedback": "Giusto: 0,20/0,10."
+              },
+              {
+                "text": "0,5",
+                "feedback": "Hai messo l’acido al numeratore."
+              },
+              {
+                "text": "0,02",
+                "feedback": "Le concentrazioni si dividono, non si moltiplicano."
+              }
+            ],
+            "correct": 0,
+            "result": "Rapporto = 2."
+          },
+          {
+            "prompt": "pH del tampone?",
+            "options": [
+              {
+                "text": "Circa 5,06",
+                "feedback": "Giusto: 4,76 + 0,30."
+              },
+              {
+                "text": "Circa 4,46",
+                "feedback": "Con più base il pH sale: hai invertito il rapporto."
+              },
+              {
+                "text": "6,76",
+                "feedback": "Hai sommato il rapporto invece del suo logaritmo."
+              }
+            ],
+            "correct": 0,
+            "result": "pH ≈ 5,06."
+          }
+        ]
+      },
+      {
+        "id": "sangue",
+        "title": "Il rapporto nel sangue",
+        "text": "Il sangue ha pH 7,40 e il sistema bicarbonato ha pK_a efficace 6,10. Quanto vale [HCO₃⁻]/[acido]?",
+        "maxErrors": 1,
+        "explain": "Si inverte l’equazione: rapporto = 10^(pH − pK_a).",
+        "steps": [
+          {
+            "prompt": "Quanto vale log₁₀ del rapporto?",
+            "options": [
+              {
+                "text": "1,30",
+                "feedback": "Giusto: 7,40 − 6,10."
+              },
+              {
+                "text": "13,5",
+                "feedback": "Le due grandezze si sottraggono, non si sommano."
+              },
+              {
+                "text": "−1,30",
+                "feedback": "Il pH è maggiore del pK_a: il logaritmo è positivo."
+              }
+            ],
+            "correct": 0,
+            "result": "log₁₀ rapporto = 1,30."
+          },
+          {
+            "prompt": "Rapporto bicarbonato/acido?",
+            "options": [
+              {
+                "text": "Circa 20",
+                "feedback": "Giusto: 10^1,30 ≈ 19,95."
+              },
+              {
+                "text": "1,30",
+                "feedback": "Questo è il logaritmo: il rapporto è 10 elevato a 1,30."
+              },
+              {
+                "text": "Circa 3,7",
+                "feedback": "Hai usato il logaritmo naturale: qui la base è 10."
+              }
+            ],
+            "correct": 0,
+            "result": "Nel sangue c’è circa 20 volte più bicarbonato che acido."
+          }
+        ]
+      },
+      {
+        "id": "aggiunta",
+        "title": "Un’aggiunta di acido",
+        "text": "Un litro di tampone ha 0,10 mol di acido acetico e 0,10 mol di acetato. Si aggiungono 0,010 mol di HCl. Che pH si ottiene?",
+        "maxErrors": 1,
+        "explain": "L’acido aggiunto converte acetato in acido acetico.",
+        "steps": [
+          {
+            "prompt": "Moli dopo la reazione?",
+            "options": [
+              {
+                "text": "Acetato 0,090; acido 0,110",
+                "feedback": "Giusto: ogni mole di H₃O⁺ trasforma una mole di acetato in acido."
+              },
+              {
+                "text": "Acetato 0,110; acido 0,090",
+                "feedback": "L’acido aggiunto consuma la base, non l’acido."
+              },
+              {
+                "text": "Acetato 0,10; acido 0,11",
+                "feedback": "L’acetato che reagisce scompare: va sottratto."
+              }
+            ],
+            "correct": 0,
+            "result": "A⁻ = 0,090 mol; HA = 0,110 mol."
+          },
+          {
+            "prompt": "Nuovo pH?",
+            "options": [
+              {
+                "text": "Circa 4,67",
+                "feedback": "Giusto: 4,76 + log₁₀(0,090/0,110) ≈ 4,76 − 0,09."
+              },
+              {
+                "text": "Circa 2",
+                "feedback": "Questo sarebbe il pH senza tampone."
+              },
+              {
+                "text": "Circa 4,85",
+                "feedback": "Aggiungendo acido il pH deve scendere."
+              }
+            ],
+            "correct": 0,
+            "result": "pH ≈ 4,67."
+          },
+          {
+            "prompt": "Che pH darebbe la stessa aggiunta in un litro d’acqua pura?",
+            "options": [
+              {
+                "text": "Circa 2",
+                "feedback": "Giusto: [H₃O⁺] = 0,010 mol/L."
+              },
+              {
+                "text": "Circa 4,7",
+                "feedback": "Senza tampone nessuna base cattura i protoni."
+              },
+              {
+                "text": "7",
+                "feedback": "L’acido cloridrico si dissocia del tutto e abbassa il pH."
+              }
+            ],
+            "correct": 0,
+            "result": "In acqua pura il pH scenderebbe da 7 a 2: il tampone lo ha spostato di 0,09."
+          }
+        ]
+      }
+    ]
+  }
 }

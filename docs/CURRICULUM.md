@@ -58,7 +58,7 @@ Prima del merge: eseguire l'intera suite nella repository completa; verificare F
 
 ## Unità scritte per intero (1.9)
 
-Le unità scritte a mano hanno testi, glossario e domande in `content/curriculum/prototypes.json`: dalla versione 1.10 tutte le 25 unità di matematica e, nelle versioni precedenti, chemistry-06, chemistry-07, chemistry-08, chemistry-09, biology-07, biology-08, biology-09. `npm run build:curriculum` sostituisce con questi i testi generati; il campo `editorialStatus` vale `hand-written-draft`.
+Le unità scritte a mano hanno testi, glossario e domande in `content/curriculum/prototypes.json`: dalla versione 1.10 tutte le 25 unità di matematica, dalla versione 1.11 tutte le 25 unità di chimica e, nelle versioni precedenti, biology-07, biology-08, biology-09. `npm run build:curriculum` sostituisce con questi i testi generati; il campo `editorialStatus` vale `hand-written-draft`.
 
 Le unità con il campo `activity` sostituiscono il laboratorio del modello con un’attività: `logic`, `bisection`, `ionic`, `vsepr`, `punnett` hanno contenuti in `src/education/activities.js`; `cards`, `fit` e `steps` leggono i contenuti dal file dell’unità. Ogni serie di `cards` è `classify` (carte, da due a quattro categorie, numero massimo di errori) oppure `order` (carte nell’ordine corretto). Ogni serie di `fit` indica il modello, le ascisse, gli scarti fissati delle misure, i parametri nascosti e quelli da regolare. Ogni problema di `steps` ha da due a sei passaggi con opzioni, indice della risposta corretta e risultato del passaggio. `validateCards`, `validateFit` e `validateSteps` rifiutano contenuti malformati al caricamento del registro. Le unità senza `activity` mantengono il laboratorio e il confronto A/B.
 
