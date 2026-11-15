@@ -1,0 +1,16 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {DEFAULTS,validate,growth,environment,derivative,simulate,sweep} from '../src/models/daisyworld.js';
+const close=(a,b,t=1e-8)=>assert.ok(Math.abs(a-b)<t,`${a} vs ${b}`);
+test('Daisyworld: parametri finiti, luminosità positiva, albedo ordinate',()=>{for(const bad of [{luminosity:0},{death:-1},{initialBlack:.8,initialWhite:.3},{q:1e15},{dt:1},{curvature:-1},{luminosity:NaN},{blackAlbedo:.6}])assert.throws(()=>validate(bad));assert.equal(validate().q,2e9)});
+test('Daisyworld: crescita massima all’ottimo e zero fuori intervallo',()=>{assert.equal(growth(22.5),1);assert.equal(growth(-20),0);assert.equal(growth(70),0);close(growth(20),growth(25));});
+test('Daisyworld: frazioni e albedo ponderata conservate',()=>{const e=environment(.2,.3);close(e.ground,.5);close(e.albedo,.2*.25+.3*.75+.5*.5)});
+test('Daisyworld: bilancio energetico radiativo',()=>{for(const luminosity of [.6,.8,1,1.4,1.6]){const p=validate({luminosity}),e=environment(.2,.1,p);close(e.absorbed,e.emitted,1e-9);assert.ok(e.temperatureK>0);assert.ok(e.blackC>e.temperatureC&&e.whiteC<e.temperatureC);}});
+test('Daisyworld: senza semi non emerge vita dal nulla',()=>{const r=simulate({initialBlack:0,initialWhite:0});assert.equal(r.final.black,0);assert.equal(r.final.white,0);close(r.final.temperatureC,r.final.bareC);});
+test('Daisyworld: nessuna specie riappare da copertura zero',()=>{const r=simulate({initialWhite:0});assert.equal(r.final.white,0);assert.ok(r.final.black>0)});
+for(const luminosity of [.6,.8,1,1.2,1.6])test(`Daisyworld: positività e simplex per L=${luminosity}`,()=>{const r=simulate({luminosity});for(const e of r.trace){assert.ok(e.black>=0&&e.white>=0&&e.ground>=-1e-10);close(e.black+e.white+e.ground,1);assert.ok(Number.isFinite(e.temperatureC))}assert.equal(r.trace.at(-1).t,300)});
+test('Daisyworld: equilibrio e residuo, non soltanto animazione',()=>{const r=simulate();assert.ok(r.converged);assert.ok(r.residual<1e-7);assert.ok(r.final.black>.1&&r.final.white>.1);assert.ok(Math.abs(r.final.temperatureC-22.5)<1)});
+test('Daisyworld: passo dimezzato produce lo stesso risultato',()=>{const a=simulate(),b=simulate({dt:.05});close(a.final.temperatureC,b.final.temperatureC,1e-6);close(a.final.black,b.final.black,1e-7)});
+test('Daisyworld: ultimo passo si ferma alla durata richiesta',()=>{const r=simulate({duration:1.05,dt:.1});assert.equal(r.trace.at(-1).t,1.05)});
+test('Daisyworld: perturbazione simmetrica delle popolazioni e derivative',()=>{const d=derivative(.1,.2,DEFAULTS);assert.equal(d.length,2);assert.ok(d.every(Number.isFinite));});
+test('Daisyworld: scansione indipendente non chiamata traiettoria temporale',()=>{const s=sweep({},11);assert.equal(s.length,11);close(s[0].luminosity,.6);close(s.at(-1).luminosity,1.6);for(const p of s){const r=simulate({luminosity:p.luminosity});close(p.black,r.final.black);close(p.white,r.final.white)}assert.throws(()=>sweep({},1))});

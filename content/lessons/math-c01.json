@@ -1,0 +1,173 @@
+{
+  "id": "math-c01",
+  "moduleId": "math-c01",
+  "disciplineId": "mathematics",
+  "worldId": "arrakis",
+  "title": "Linguaggio e ragionamento matematico",
+  "subtitle": "ECHO-01 · Un rapporto che si può verificare",
+  "source": {
+    "printedPages": [
+      3,
+      13
+    ],
+    "pdfPages": [
+      15,
+      25
+    ],
+    "sections": [
+      "1.1",
+      "1.2",
+      "1.3",
+      "1.4",
+      "1.5",
+      "1.6",
+      "1.7",
+      "1.8",
+      "1.9"
+    ]
+  },
+  "coverage": {
+    "kind": "introductory-path",
+    "note": "Percorso introduttivo sviluppato sui nuclei del capitolo 1. Non è una trascrizione integrale: il capitolo originale, tutte le attività e i 40 quesiti restano consultabili nel PDF."
+  },
+  "intro": "Su ECHO-01 un convoglio consegna rapporti scritti con unità, intervalli e convenzioni differenti. Il tuo primo compito come allievo coordinatore scientifico è rendere le affermazioni confrontabili e controllabili. Questo percorso introduttivo sviluppa numeri, condizioni, implicazioni, modelli e percentuali; la dispensa offre il capitolo completo e l’intero apparato di esercizi. Personaggi e situazioni sono un adattamento narrativo originale.",
+  "objectives": [
+    "Dichiarare grandezze, unità e valori ammessi.",
+    "Tradurre condizioni in insiemi e intervalli.",
+    "Distinguere implicazione, equivalenza ed esempio.",
+    "Conservare dominio e soluzioni nelle trasformazioni.",
+    "Interpretare variazioni percentuali successive."
+  ],
+  "prerequisites": [
+    "Quattro operazioni",
+    "Frazioni e potenze intere elementari"
+  ],
+  "conclusion": "Il rapporto di ECHO-01 può ora specificare quantità, condizioni e motivi dei passaggi. Queste abitudini accompagneranno algebra, equazioni e funzioni; saranno riutilizzabili anche per le future osservazioni di fisica, chimica e biologia. Nel diario conserva un esempio di condizione necessaria e uno di controesempio, indicando sempre l’insieme nel quale stai ragionando.",
+  "sections": [
+    {
+      "id": "math-c01-s01",
+      "title": "Dalle quantità ai numeri",
+      "sourceSection": "1.1",
+      "printedPage": 4,
+      "lead": "Una cassa si conta; il suo contenuto si misura. La scelta dei numeri dipende dalla domanda.",
+      "html": "<div class=\"narrative\"><p>Il registro del deposito riporta trenta contenitori e una quantità d'acqua per ciascuno. Il numero di contenitori integri si descrive con interi non negativi; il volume può richiedere frazioni. Confondere queste due situazioni significherebbe ammettere, nello stesso modello, mezzi contenitori dove si stanno contando oggetti indivisibili.</p></div>\n<p>I naturali, nella convenzione della dispensa, sono \\(\\mathbb N=\\{0,1,2,\\ldots\\}\\). Gli interi \\(\\mathbb Z\\) aggiungono i negativi; i razionali \\(\\mathbb Q\\) sono rapporti \\(p/q\\) di interi con \\(q\\ne0\\). I reali \\(\\mathbb R\\) comprendono anche valori irrazionali come \\(\\sqrt2\\). Le inclusioni sono \\(\\mathbb N\\subset\\mathbb Z\\subset\\mathbb Q\\subset\\mathbb R\\).</p>\n<p>La scrittura e il numero non coincidono: \\(6/3\\) rappresenta il naturale \\(2\\). Il decimale finito \\(1{,}41\\) è invece un razionale che approssima \\(\\sqrt2\\), senza uguagliarlo. Una lunga sequenza di cifre non è automaticamente un valore esatto.</p>\n<div class=\"example\"><p>Per sottrarre \\(2/3-1/4\\), si sceglie una stessa unità frazionaria: \\(8/12-3/12=5/12\\). Sottrarre separatamente numeratori e denominatori cambierebbe l'operazione. Anche le parentesi conservano informazione: \\((-3)^2=9\\), mentre \\(-3^2=-9\\), perché nel secondo caso la potenza precede il segno.</p></div>\n<p>Il primo controllo di un rapporto consiste quindi nello stabilire che cosa rappresenta ciascun numero e quale operazione è stata realmente scritta. Prima del risultato viene la costruzione del significato.</p>",
+      "checkpoint": {
+        "prompt": "Il numero \\(12/4\\) appartiene soltanto ai razionali?",
+        "answer": "No: vale \\(3\\), quindi appartiene anche ai naturali e agli interi, oltre che ai razionali e ai reali."
+      }
+    },
+    {
+      "id": "math-c01-s02",
+      "title": "Insiemi e intervalli",
+      "sourceSection": "1.2",
+      "printedPage": 5,
+      "lead": "I limiti di una procedura diventano condizioni precise sulla retta reale.",
+      "html": "<p>Supponiamo che una misura sia accettata quando è maggiore di \\(-2\\) e al massimo \\(5\\). Le parole diventano \\(-2&lt;x\\leq5\\), cioè l'intervallo \\((-2,5]\\). La parentesi tonda esclude l'estremo, quella quadra lo include. In un intervallo reale sono compresi anche tutti i valori non interi fra gli estremi.</p>\n<p>L'infinito indica una direzione senza limite: non è un numero da includere con una parentesi quadra. La condizione \\(x\\geq3\\) si scrive quindi \\([3,+\\infty)\\). Il punto \\(3\\) appartiene all'insieme; non esiste un «ultimo elemento» chiamato infinito.</p>\n<p>L'intersezione \\(A\\cap B\\) esprime richieste simultanee; l'unione \\(A\\cup B\\) raccoglie chi soddisfa almeno una delle due; la differenza \\(A\\setminus B\\) conserva gli elementi di \\(A\\) che non sono in \\(B\\).</p>\n<div class=\"example\"><p>Per \\(A=[-1,3]\\), \\(B=(1,5)\\), l'intersezione è \\((1,3]\\), l'unione \\([-1,5)\\), la differenza \\(A\\setminus B=[-1,1]\\). Il punto \\(1\\) resta nella differenza perché appartiene ad \\(A\\) ma non a \\(B\\). Non basta disegnare il tratto centrale: gli estremi vanno controllati uno per uno.</p></div>\n<p>Nel deposito, una procedura può richiedere sia un volume ammesso sia una temperatura ammessa. Per una singola variabile, le condizioni simultanee si combinano per intersezione; se basta soddisfare una fra due possibilità, si usa l'unione. Riconoscere il connettivo nel testo prepara il lavoro sulle disequazioni.</p>",
+      "checkpoint": {
+        "prompt": "Per \\(A=[-1,5)\\) e \\(B=[2,7]\\), qual è \\(A\\cap B\\)? Il valore \\(5\\) è incluso?",
+        "answer": "L’intersezione è \\([2,5)\\). Il valore \\(2\\) appartiene a entrambi gli insiemi; \\(5\\) non appartiene ad \\(A\\), quindi è escluso."
+      }
+    },
+    {
+      "id": "math-c01-s03",
+      "title": "Ipotesi, conclusioni e controesempi",
+      "sourceSection": "1.3–1.4",
+      "printedPage": 6,
+      "lead": "Una conclusione deve funzionare per tutti i casi dichiarati, e un controesempio deve rispettare le ipotesi.",
+      "html": "<div class=\"narrative\"><p>Un rapporto sostiene: «Se il valore registrato è minore di tre, il suo quadrato è minore di nove». Tre letture positive sembrano confermarlo. Il coordinatore scientifico considera però anche gli ingressi negativi ammessi dal rapporto e sceglie \\(-4\\): la premessa è vera, mentre il quadrato vale \\(16\\). Il controllo ha individuato una condizione mancante.</p></div>\n<p>L'implicazione \\(P\\Rightarrow Q\\) afferma che ogni volta che \\(P\\) è vera lo è anche \\(Q\\). L'equivalenza \\(P\\Leftrightarrow Q\\) comprende entrambi i versi. Da \\(x=3\\) segue \\(x^2=9\\); dal quadrato uguale a nove seguono invece \\(x=3\\) <em>oppure</em> \\(x=-3\\).</p>\n<p>Essere multiplo di quattro è sufficiente per essere pari: \\(4k=2(2k)\\). Essere pari è necessario per essere multiplo di quattro. La condizione «pari» da sola non è sufficiente, perché \\(6\\) è pari senza essere multiplo di quattro. Specificare da quale lato si legge la relazione evita di confondere necessario e sufficiente.</p>\n<p>Un controesempio a un'implicazione mantiene vera la premessa e rende falsa la conclusione. Il valore \\(4\\) non confuta «se \\(x&lt;3\\), allora \\(x^2&lt;9\\)», perché non soddisfa la premessa. Il valore \\(-4\\) la confuta. Molti esempi favorevoli provano soltanto quei casi; una dimostrazione deve coprire l'intero insieme dichiarato.</p>\n<div class=\"example\"><p>Due interi dispari si scrivono \\(2h+1\\) e \\(2k+1\\). La loro somma è \\(2(h+k+1)\\), dunque è pari. Le lettere rendono il ragionamento valido per qualsiasi coppia di interi \\(h,k\\), anche negativi.</p></div>\n<p>Negare «tutti gli elementi hanno la proprietà» significa affermare che almeno uno non la possiede. Negare «esiste un elemento con la proprietà» significa affermare che nessuno la possiede. Inoltre la negazione di \\(1&lt;x&lt;4\\) è \\(x\\leq1\\) oppure \\(x\\geq4\\): basta che fallisca una delle due richieste simultanee.</p>",
+      "checkpoint": {
+        "prompt": "Qual è la negazione di «tutti i campioni hanno valore positivo»?",
+        "answer": "«Esiste almeno un campione con valore non positivo». Non occorre che tutti i campioni siano non positivi."
+      }
+    },
+    {
+      "id": "math-c01-s04",
+      "title": "Espressioni e trasformazioni ammesse",
+      "sourceSection": "1.5",
+      "printedPage": 8,
+      "lead": "Ogni passaggio del calcolo deve conservare ciò che stiamo cercando, oppure dichiarare come lo modifica.",
+      "html": "<p>Il dominio di un'espressione raccoglie gli ingressi per i quali tutte le operazioni hanno significato. Per \\(5/(x-3)\\) serve \\(x\\ne3\\). Nessun numero moltiplicato per zero restituisce cinque, quindi quel rapporto non può essere definito. Anche \\(0/0\\) resta indefinito: ogni numero moltiplicato per zero dà zero, e manca un quoziente unico.</p>\n<p>Una trasformazione utile conserva le soluzioni o descrive con precisione i casi che vengono aggiunti o persi. Nell'equazione \\(x(x-2)=0\\), dividere immediatamente per \\(x\\) eliminerebbe la soluzione \\(0\\). La proprietà di annullamento del prodotto dà invece \\(x=0\\) oppure \\(x=2\\).</p>\n<p>La verifica finale dei valori trovati non può recuperare un valore che il procedimento ha già escluso. Il controllo deve accompagnare i passaggi: prima di dividere per una quantità variabile, si separa il caso nel quale essa è nulla.</p>\n<div class=\"example\"><p>Per \\((x^2-1)/(x-1)\\), il dominio esclude \\(1\\). Scomponendo il numeratore, si ottiene \\(x+1\\) per tutti gli ingressi originariamente ammessi. L'espressione semplificata ha un valore anche in \\(1\\), ma quel punto non torna a far parte del dominio della formula iniziale. La condizione deve rimanere scritta accanto al risultato.</p></div>\n<p>Nel rapporto di ECHO-01 il calcolo è quindi una catena di affermazioni motivate. Una riga corretta numericamente può essere usata in modo scorretto se viene applicata fuori dalle condizioni che la rendono valida.</p>",
+      "checkpoint": {
+        "prompt": "Perché verificare \\(x=2\\) non rende completo il procedimento che divide \\(x(x-2)=0\\) per \\(x\\)?",
+        "answer": "La verifica conferma \\(2\\), ma il procedimento ha perso \\(x=0\\), che è anch’esso soluzione. Bisogna considerare il caso \\(x=0\\) prima di dividere."
+      }
+    },
+    {
+      "id": "math-c01-s05",
+      "title": "Una quantità dipende da un’altra",
+      "sourceSection": "1.6",
+      "printedPage": 8,
+      "lead": "La stessa formula può descrivere una raccolta di punti o una variazione continua: decide il modello degli ingressi.",
+      "html": "<p>Un rettangolo con perimetro \\(20\\) ha lati \\(x\\) e \\(10-x\\), con \\(0&lt;x&lt;10\\). La sua area è \\(A(x)=x(10-x)\\). Agli ingressi \\(1,2,5,8\\) corrispondono le aree \\(9,16,25,16\\). Ogni ingresso produce una sola area, perciò la dipendenza è una funzione.</p>\n<p>Ingressi diversi possono avere la stessa uscita: \\(2\\) e \\(8\\) scambiano le lunghezze dei lati. La definizione di funzione richiede unicità dell'uscita per ciascun ingresso; non richiede che ogni uscita abbia un solo ingresso.</p>\n<p>La tabella dimostra che lo stesso perimetro può corrispondere ad aree differenti. Non dimostra ancora che \\(25\\) sia l'area massima: sono stati esaminati quattro rettangoli, mentre il dominio contiene infiniti valori. Il capitolo Funzioni dimostrerà il massimo attraverso \\(A(x)=25-(x-5)^2\\).</p>\n<div class=\"narrative\"><p>Nel deposito, la legge \\(Q(n)=3n\\) può descrivere il contenuto totale di \\(n\\) contenitori identici. Se i contenitori si contano, \\(n\\) assume valori interi non negativi e il grafico consiste in punti separati. La stessa legge, applicata a una lunghezza misurabile, potrebbe ammettere valori intermedi. Collegare i punti con una curva introduce quindi un'assunzione sul dominio.</p></div>\n<p>Il modello deve dichiarare che cosa cambia, come viene misurato e quali valori sono possibili. La formula organizza le relazioni; il contesto ne fissa il significato e i vincoli.</p>",
+      "checkpoint": {
+        "prompt": "Una tabella riporta cinque ingressi diversi con la stessa uscita. Questo impedisce di definirla funzione?",
+        "answer": "No. È sufficiente che ciascun ingresso abbia una sola uscita. Più ingressi possono condividere lo stesso risultato."
+      }
+    },
+    {
+      "id": "math-c01-s06",
+      "title": "Unità, scala e approssimazioni",
+      "sourceSection": "1.7",
+      "printedPage": 9,
+      "lead": "Un numero senza unità può nascondere un errore di scala anche quando le operazioni sembrano corrette.",
+      "html": "<p>Le unità fanno parte del risultato. Una lunghezza si esprime in metri, un'area in metri quadrati; una variazione di scala non agisce nello stesso modo su entrambe. Se tutte le lunghezze di una figura simile vengono moltiplicate per \\(k&gt;0\\), le aree vengono moltiplicate per \\(k^2\\).</p>\n<p>Poiché \\(1\\ \\mathrm m=100\\ \\mathrm{cm}\\), un quadrato di un metro di lato ha area \\(100\\cdot100=10\\,000\\ \\mathrm{cm}^2\\). Quindi \\(0{,}3\\ \\mathrm m^2=3000\\ \\mathrm{cm}^2\\). Moltiplicare soltanto per cento convertirebbe una lunghezza, non un'area.</p>\n<p>Un'approssimazione va distinta da un'uguaglianza esatta. Il simbolo \\(\\approx\\) segnala che il valore è stato sostituito da uno vicino. L'errore assoluto è la distanza fra valore esatto e approssimato. Nell'arrotondamento al centesimo più vicino, l'errore è al massimo \\(0{,}005\\).</p>\n<div class=\"example\"><p>Seguendo la convenzione della dispensa, \\(-1{,}236\\) si arrotonda a \\(-1{,}24\\): si arrotonda il valore assoluto osservando la cifra dei millesimi e si riapplica il segno. Il valore è cambiato, quindi si scrive \\(-1{,}236\\approx-1{,}24\\), non un'uguaglianza.</p></div>\n<p>Prima di consegnare un risultato, controlla unità, segno e ordine di grandezza. Sono verifiche del significato che possono rivelare un errore anche prima di ripetere tutti i calcoli.</p>",
+      "checkpoint": {
+        "prompt": "Se i lati di una figura vengono triplicati mantenendone la forma, come cambia l’area?",
+        "answer": "Viene moltiplicata per \\(3^2=9\\). La superficie dipende dal prodotto di due lunghezze."
+      }
+    },
+    {
+      "id": "math-c01-s07",
+      "title": "Percentuali e variazioni successive",
+      "sourceSection": "1.8",
+      "printedPage": 10,
+      "lead": "Ogni variazione usa come riferimento la quantità sulla quale viene applicata in quel momento.",
+      "html": "<div class=\"narrative\"><p>Una scorta viene aucoordinatore scientificoa del venti per cento e successivamente ridotta del venti per cento. Il responsabile presume che le due operazioni si annullino. Il coordinatore scientifico ricostruisce le quantità su cui sono state calcolate: la seconda variazione usa una scorta già modificata.</p></div>\n<p>Il \\(p\\%\\) di una quantità \\(Q\\) vale \\(Qp/100\\). Un aumento produce \\(Q(1+p/100)\\); una riduzione produce \\(Q(1-p/100)\\), nel contesto in cui la riduzione considerata è ammissibile. I fattori di variazioni successive si moltiplicano.</p>\n<div class=\"example\"><p>Da \\(100\\) unità si passa a \\(120\\), poi a \\(96\\): \\(100\\cdot1{,}2\\cdot0{,}8=96\\). La prima variazione aggiunge \\(20\\); la seconda toglie \\(24\\), perché il suo riferimento è \\(120\\). La variazione netta rispetto al valore iniziale è una riduzione del \\(4\\%\\).</p></div>\n<p>In generale, un aumento e una riduzione della stessa frazione \\(r\\), con \\(0&lt;r&lt;1\\), producono il fattore \\((1+r)(1-r)=1-r^2&lt;1\\). La differenza non è un caso particolare dei numeri scelti: segue dalla differenza di quadrati.</p>\n<p>Per annullare un fattore \\(a&gt;0\\) si usa il reciproco \\(1/a\\). Tornare da \\(120\\) a \\(100\\) richiede il fattore \\(5/6\\), cioè una riduzione di \\(1/6\\), pari a \\(16\\frac23\\%\\). La quantità recuperata è la stessa, ma la base della percentuale è cambiata.</p>\n<details><summary>Autoverifica del percorso</summary><p>Un valore aumenta del \\(10\\%\\) e diminuisce poi del \\(10\\%\\). Partendo da \\(100\\), ricostruisci le due quantità e la variazione netta. Dopo uno sconto del \\(25\\%\\), quale aumento percentuale recupera il valore originario?</p><details><summary>Soluzione ragionata</summary><p>\\(100\\to110\\to99\\): riduzione netta dell'1%. Lo sconto del 25% usa il fattore \\(3/4\\); il ritorno richiede \\(4/3=1+1/3\\), quindi un aumento del \\(33\\frac13\\%\\) sul valore scontato.</p></details></details>\n<p>Il rapporto finale deve conservare la quantità di riferimento di ciascuna percentuale. Lo stesso criterio accompagnerà la crescita esponenziale e le future misure di concentrazione o di popolazione.</p>\n<h3>Ripasso del rapporto di ECHO-01</h3>\n<p>Prima di archiviare una conclusione, prova a ricostruire il suo percorso in una frase: «Per gli ingressi che rispettano queste condizioni, applicando queste operazioni, ottengo questo risultato». La frase costringe a rendere visibili le informazioni che una successione di numeri può nascondere. Se una condizione riguarda tutti i casi, chiediti quale argomento li comprende; se sostieni che qualcosa esiste, cerca un esempio che soddisfi davvero tutte le richieste.</p>\n<p>Per un calcolo percentuale, infine, nomina la quantità di riferimento di ogni passaggio. La stessa percentuale può descrivere quantità assolute differenti, come accade quando si confrontano scorte di dimensioni diverse. Un rapporto completo distingue la quota, la quantità corrispondente e il riferimento usato.</p>\n",
+      "checkpoint": {
+        "prompt": "Una quantità passa da \\(80\\) a \\(60\\). Quale percentuale di aumento, calcolata su \\(60\\), la riporta a \\(80\\)?",
+        "answer": "Occorre aggiungere \\(20\\), cioè \\(20/60=1/3\\) del valore corrente. L’aumento è \\(33\\frac13\\%\\)."
+      }
+    }
+  ],
+  "references": [
+    {
+      "label": "§1.1 · Dalle quantità ai numeri",
+      "printedPage": 4,
+      "pdfPage": 16
+    },
+    {
+      "label": "§1.2 · Insiemi e intervalli",
+      "printedPage": 5,
+      "pdfPage": 17
+    },
+    {
+      "label": "§1.3–1.4 · Ipotesi, conclusioni e controesempi",
+      "printedPage": 6,
+      "pdfPage": 18
+    },
+    {
+      "label": "§1.5 · Espressioni e trasformazioni ammesse",
+      "printedPage": 8,
+      "pdfPage": 20
+    },
+    {
+      "label": "§1.6 · Una quantità dipende da un’altra",
+      "printedPage": 8,
+      "pdfPage": 20
+    },
+    {
+      "label": "§1.7 · Unità, scala e approssimazioni",
+      "printedPage": 9,
+      "pdfPage": 21
+    },
+    {
+      "label": "§1.8 · Percentuali e variazioni successive",
+      "printedPage": 10,
+      "pdfPage": 22
+    }
+  ],
+  "editorialAdaptation": {
+    "basis": "sources/v7/lessons/math-c01.json",
+    "scope": "Solo nomi e voce narrativa. Formule, struttura e metadati delle fonti preservati."
+  }
+}

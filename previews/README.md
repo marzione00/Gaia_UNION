@@ -1,0 +1,1 @@
+Catture del renderer 1.3.0 ottenute riproducendo le chiamate WebGL effettive su EGL / OpenGL ES 3.2. 43 viste: galassia, hover, zoom, sistema, pianeta, biomi e schermate didattiche. Non sono mockup o sfondi usati dal runtime. Metodo e limiti in ../docs/QA.md.

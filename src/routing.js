@@ -1,0 +1,37 @@
+import { systemForPlanet } from './scene/systems.js';
+/** Resolve current and previous-edition deep links without trusting URL numbers. */
+export function resolveRoute(hash, modules, lessonIds) {
+    const [path = '', query = ''] = String(hash).replace(/^#\/?/, '').split('?');
+    const parts = path.split('/');
+    const q = new URLSearchParams(query);
+    const aliases = { study: 'theory', planet: 'orbit', archive: 'catalogue', notebook: 'journal' };
+    const allowed = ['galaxy', 'system', 'orbit', 'surface', 'research', 'catalogue', 'briefing', 'theory', 'pdf', 'lab', 'quiz', 'journal', 'sources'];
+    const name = aliases[parts[0]] || parts[0];
+    let scene = allowed.includes(name) ? name : 'galaxy';
+    const moduleId = q.get('unit') || (['study', 'planet', 'briefing'].includes(parts[0]) ? parts[1] : null);
+    let selected = Math.max(0, modules.findIndex(m => m.id === (moduleId || 'math-c08')));
+    const unit = modules[selected];
+    let reader = q.get('reader') || (parts[0] === 'study' ? parts[1] : null) || unit.id;
+    const labs = ['daisyworld', 'transform', 'rectangle', 'radical', 'linear', 'reserve', 'rational'];
+    const oldLabs = { 'function-transform': 'transform', 'rectangle-area': 'rectangle', 'radical-domain': 'radical', 'linear-system': 'linear', 'exponential-reserve': 'reserve', 'rational-signs': 'rational' };
+    const candidate = q.get('model') || oldLabs[parts[1]];
+    const lab = labs.includes(candidate) ? candidate : 'daisyworld';
+    const integer = (key, fallback, min, max) => {
+        const n = Number(q.get(key));
+        return q.has(key) && Number.isFinite(n) ? Math.max(min, Math.min(max, Math.floor(n))) : fallback;
+    };
+    let pdfPage = integer('page', 245, 1, 769);
+    if (scene === 'theory' && !lessonIds.includes(reader)) {
+        const target = modules.find(m => m.id === reader) || unit;
+        if (target.source) {
+            scene = 'pdf';
+            pdfPage = target.source.pdfPages[0];
+        }
+        else
+            scene = 'briefing';
+        reader = 'math-c08';
+    }
+    let system=systemForPlanet(selected);
+    if(scene==='system' && q.has('system')){system=integer('system',system,0,24);if(systemForPlanet(selected)!==system)selected=system;}
+    return { scene, selected, system, reader, section: integer('section', 0, 0, 100), pdfPage, lab };
+}

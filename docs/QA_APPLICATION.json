@@ -1,0 +1,3139 @@
+{
+  "version": "1.4.0",
+  "kind": "DOM shim, actual application event handlers and renderer",
+  "checks": [
+    "Galaxy: 25 systems, no planet meshes, one million actual POINTS",
+    "System hover: description after 130 ms",
+    "Panels block underlying scene picking",
+    "Drag rotates, never enters a system",
+    "One mouse click enters a system in 1.75 seconds with 1M points in every transition frame",
+    "Planet hover and single-click orbital approach",
+    "Return restores camera, zoom and discipline exactly",
+    "Keyboard focus describes systems; activation opens them",
+    "All three quality modes retain 1M submitted stars and full-resolution UI",
+    "Extra planets describe their type but cannot enter orbit or surface",
+    "Touch first tap selects and describes, second tap enters",
+    "Five persistent regions, 15 world-space volumes, eight asteroid belts, three comets; same catalogue in galaxy/system/orbit"
+  ],
+  "diagnostics": {
+    "webgl": "Recorded WebGL commands",
+    "renderer": "Recorded WebGL commands",
+    "starsGenerated": 1000000,
+    "starsDrawn": 1000000,
+    "starDrawCalls": 1,
+    "navigableSystems": 25,
+    "systemStarIndices": [
+      648937,
+      951018,
+      956319,
+      17453,
+      163107,
+      84276,
+      399182,
+      717603,
+      654409,
+      192006,
+      276784,
+      515861,
+      464675,
+      892213,
+      565926,
+      433363,
+      717945,
+      337983,
+      180796,
+      560549,
+      399752,
+      627581,
+      786402,
+      379479,
+      913474
+    ],
+    "activeSystem": 7,
+    "cosmicRegion": 1,
+    "cosmicVolumes": 15,
+    "volumeSteps": 72,
+    "cameraProgress": 1,
+    "biome": "simbiosi",
+    "sceneTriangles": 389980,
+    "planets": 100,
+    "mathModules": 25,
+    "planned": 75,
+    "lessonSections": 39,
+    "questions": 40,
+    "sourcePages": 769,
+    "terrainCells": 875,
+    "webglError": 0,
+    "textureErrors": [],
+    "planetCounts": [
+      12,
+      9,
+      9,
+      8,
+      7,
+      6,
+      11,
+      5,
+      10,
+      12,
+      5,
+      9,
+      10,
+      12,
+      11,
+      10,
+      6,
+      12,
+      12,
+      10,
+      6,
+      9,
+      11,
+      11,
+      9
+    ],
+    "totalPlanetBodies": 232,
+    "explorablePlanets": 100,
+    "persistent": true,
+    "allVisiblePixelsWebGL": true,
+    "graphicsBackend": "WebGL 2 (API browser, non OpenGL desktop)",
+    "timeUnit": "tempo del modello",
+    "frameCount": 305
+  },
+  "frames": [
+    {
+      "name": "galaxy-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "galaxy",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "hover-pending",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "hover-system",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "hover-panel",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "galaxy-before-entry",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-00",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-01",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-02",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-03",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-04",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-05",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-06",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-07",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-08",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-09",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-10",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-11",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-12",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-13",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-14",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-15",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-16",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-17",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-18",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-19",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-20",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-21",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-22",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "system",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "system-camera",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "planet-hover-pending",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "hover-planet",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-00",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-01",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-02",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-03",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-04",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-05",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-06",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-07",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-08",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-09",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-10",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-11",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-12",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "orbit",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "system-return",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "galaxy-return",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "keyboard-system",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "keyboard-enter",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "galaxy-quality-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "galaxy-quality",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "quality-open",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "quality-low",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "quality-balanced",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "quality-high",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "quality-close",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "system-many-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "system-many",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "ambient-pending",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "ambient-description",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "ambient-click",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "system-few-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "system-few",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-desert-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-desert",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-arctic-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-arctic",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-volcanic-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-volcanic",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-barren-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-barren",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-oceanic-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-oceanic",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "biosfera-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "biosfera",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "simbiosi-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "surface",
+      "starSubmissions": []
+    },
+    {
+      "name": "simbiosi",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "surface",
+      "starSubmissions": []
+    },
+    {
+      "name": "oceanico-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "oceanico",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "marea-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "surface",
+      "starSubmissions": []
+    },
+    {
+      "name": "marea",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "surface",
+      "starSubmissions": []
+    },
+    {
+      "name": "primordiale-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "primordiale",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "esodo-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "surface",
+      "starSubmissions": []
+    },
+    {
+      "name": "esodo",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "surface",
+      "starSubmissions": []
+    },
+    {
+      "name": "research-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "research",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "research",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "research",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "lab-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "lab",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "lab",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "lab",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "theory-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "theory",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "theory",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "theory",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "pdf-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "pdf",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "pdf",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "pdf",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "quiz-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "quiz",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "quiz",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "quiz",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "mobile-galaxy-load",
+      "width": 390,
+      "height": 844,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "mobile-galaxy",
+      "width": 390,
+      "height": 844,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "mobile-description",
+      "width": 390,
+      "height": 844,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "mobile-system",
+      "width": 390,
+      "height": 844,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "mobile-surface-load",
+      "width": 390,
+      "height": 844,
+      "snapshot": false,
+      "scene": "surface",
+      "starSubmissions": []
+    },
+    {
+      "name": "mobile-surface",
+      "width": 390,
+      "height": 844,
+      "snapshot": true,
+      "scene": "surface",
+      "starSubmissions": []
+    },
+    {
+      "name": "cosmos-system-7-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "cosmos-system-7",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "cosmos-system-13-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "cosmos-system-13",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "cosmos-system-20-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "cosmos-system-20",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "cosmos-system-5-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "cosmos-system-5",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "cosmos-system-9-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "cosmos-system-9",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "cosmos-system-18-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "cosmos-system-18",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "cosmos-system-3-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "cosmos-system-3",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "cosmos-mobile-orbit-load",
+      "width": 390,
+      "height": 844,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "cosmos-mobile-orbit",
+      "width": 390,
+      "height": 844,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-start-load",
+      "width": 1280,
+      "height": 800,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-start",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-000",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-001",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-002",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-003",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-004",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-005",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-006",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-007",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-008",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-009",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-010",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-011",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-012",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-013",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-014",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-015",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-016",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-017",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-018",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-019",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-020",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-021",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-022",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-023",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-024",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-025",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-026",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-027",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-028",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-029",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-030",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-031",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-032",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-033",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-034",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-035",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-036",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-037",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-038",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-039",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-040",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-041",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-042",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-043",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-044",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-045",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-046",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-047",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-048",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-049",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-050",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-051",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-052",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-053",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-054",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-055",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-056",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-057",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-058",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-galaxy-059",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-start-load",
+      "width": 1280,
+      "height": 800,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-start",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-000",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-001",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-002",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-003",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-004",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-005",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-006",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-007",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-008",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-009",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-010",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-011",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-012",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-013",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-014",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-015",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-016",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-017",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-018",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-019",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-020",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-021",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-022",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-023",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-024",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-025",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-026",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-027",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-028",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-029",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-030",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-031",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-032",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-033",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-034",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-035",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-036",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-037",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-038",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-039",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-040",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-041",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-042",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-043",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-044",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-045",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-046",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-047",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-048",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-049",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-050",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-051",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-052",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-053",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-054",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-055",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-056",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-057",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-058",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-system-059",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-start-load",
+      "width": 1280,
+      "height": 800,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-start",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-000",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-001",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-002",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-003",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-004",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-005",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-006",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-007",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-008",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-009",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-010",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-011",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-012",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-013",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-014",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-015",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-016",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-017",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-018",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-019",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-020",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-021",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-022",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-023",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-024",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-025",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-026",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-027",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-028",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-029",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-030",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-031",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-032",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-033",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-034",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-035",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-036",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-037",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-038",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-039",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-040",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-041",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-042",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-043",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-044",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-045",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-046",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-047",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-048",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-049",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-050",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-051",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-052",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-053",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-054",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-055",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-056",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-057",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-058",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "video-planet-059",
+      "width": 1280,
+      "height": 800,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    }
+  ]
+}

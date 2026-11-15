@@ -1,0 +1,17 @@
+# Sistemi e mappe NASA — 1.3.0
+
+Ogni sistema ha da 5 a 12 pianeti, generati da un PRNG con seed stabile. Nel catalogo consegnato ci sono 232 corpi planetari; esattamente 100 (quattro per ciascuno dei 25 sistemi) sono esplorabili. I quattro indici didattici restano i, i+25, i+50, i+75, ma occupano quattro orbite scelte casualmente. Ritornare al sistema, ricaricare o aprire un permalink non cambia le destinazioni. Cambiare il seed del generatore produce un’altra distribuzione.
+
+Le famiglie riprendono il principio di varietà di Haegemonia: terrestri, oceanici, desertici, craterizzati, glaciali, vulcanici, rocciosi, atmosfere acide, giganti gassosi, giganti con anelli e giganti ghiacciati. È un’interpretazione del progetto, non una replica degli asset del gioco. I quattro mondi esplorabili appartengono a quattro famiglie differenti e usano mappe con almeno 4096 pixel orizzontali nativi. I giganti e i corpi aggiuntivi restano osservabili senza apertura del dossier o della superficie.
+
+Varia anche la distribuzione di raggi, inclinazioni, eccentricità, fasi, velocità, obliquità, lune e anelli. Le orbite ellittiche sono campionate dallo stesso calcolo che posiziona i corpi; il test delle distanze impedisce l’intersezione degli inviluppi planetari. Il raggio della stella cambia da sistema a sistema. La camera adatta l’inquadratura all’estensione effettiva del sistema. Non si tratta di un integratore gravitazionale o di una simulazione astronomica in scala.
+
+## Mappe esterne e dettaglio
+
+`planet-types.js` definisce famiglie e riferimenti alle mappe. `systems.js` genera i corpi; `assets.js` fornisce i profili e la cache del dettaglio. Il materiale planetario legge il colore dalla texture NASA; non sintetizza continenti, oceani, crateri o fratture. Anche le nuvole provengono da una mappa NASA. Atmosfera, luce giorno/notte, riflessi e movimento restano calcoli 3D. Le tre superfici di atterraggio mantengono le geometrie approvate delle versioni precedenti.
+
+Le mappe sono precaricate a una dimensione massima di 2048 pixel. Nell’avvicinamento al pianeta vengono richiesti i livelli 4096/8192 in base al limite reale `MAX_TEXTURE_SIZE` della GPU, senza bloccare la navigazione. La cache conserva al massimo due texture ad alto dettaglio e rilascia le precedenti. Se il dettaglio superiore non si carica, resta visibile la mappa NASA di base e l’errore è disponibile nella diagnostica.
+
+Terra, Luna e Marte arrivano a 8192 pixel; Io ed Europa a 4096. Giove conserva 3600 pixel nativi. Le mappe di alcuni corpi non esplorabili (Mercurio, Venere, Nettuno) hanno risoluzione inferiore, dichiarata nel manifest: non vengono ingrandite per fingere un dettaglio maggiore. Le texture sono analoghi reali su mondi immaginari; una famiglia oceanica usa la mappa terrestre invernale, senza cancellarne i continenti. Le categorie non sono misure del clima o dell’abitabilità.
+
+`tools/prepare_planet_assets.py` rigenera i livelli dai file originali in `sources/nasa`. `mars-tiles.json` conserva coordinate e SHA-256 delle 512 tessere NASA Trek del mosaico marziano. Il manifest registra le dimensioni, i crediti, gli URL e gli hash degli originali e dei livelli di visualizzazione. Tutto il runtime resta locale: non richiede servizi NASA durante l’uso.

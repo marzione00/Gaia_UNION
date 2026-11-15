@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {resolveRoute} from '../src/routing.js';
+const modules=JSON.parse(fs.readFileSync(new URL('../content/catalogue.json',import.meta.url))).modules;
+const lessons=['math-c01','math-c03','math-c04','math-c08','gaia'];const resolve=h=>resolveRoute(h,modules,lessons);
+test('Rotte: ingresso nella galassia e Funzioni selezionata',()=>{const s=resolve('');assert.equal(s.scene,'galaxy');assert.equal(s.selected,7)});
+test('Rotte: permalink sezione originale',()=>{const s=resolve('#/theory?unit=math-c08&reader=math-c08&section=8');assert.equal(s.reader,'math-c08');assert.equal(s.section,8)});
+test('Rotte: compatibilità con link studio della V7',()=>{const s=resolve('#/study/math-c08?section=8');assert.equal(s.scene,'theory');assert.equal(s.reader,'math-c08');assert.equal(s.section,8)});
+test('Rotte: capitolo non rielaborato apre la fonte corretta',()=>{const s=resolve('#/study/math-c02');assert.equal(s.scene,'pdf');assert.equal(s.pdfPage,modules[1].source.pdfPages[0])});
+test('Rotte: i corsi futuri non ereditano una lezione matematica falsa',()=>{assert.equal(resolve('#/theory?unit=physics-01').scene,'briefing')});
+test('Rotte: numeri malformati non causano indici fuori array',()=>{assert.equal(resolve('#/pdf?page=NaN').pdfPage,245);assert.equal(resolve('#/pdf?page=9999').pdfPage,769);assert.equal(resolve('#/pdf?page=256.6').pdfPage,256);assert.equal(resolve('#/theory?section=Infinity').section,0)});
+test('Rotte: laboratorio storico ed entrata non riconosciuta',()=>{assert.equal(resolve('#/lab/rectangle-area').lab,'rectangle');assert.equal(resolve('#/inventato').scene,'galaxy')});

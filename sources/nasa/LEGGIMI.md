@@ -1,0 +1,1 @@
+Gli originali NASA non sono necessari per eseguire l’app: le mappe runtime sono tutte incluse in assets/planets. Per ricostruirle, usare la cartella sources/nasa dell’archivio GAIA_v1.3.0_ORIGINALI_NASA.zip già consegnato e copiarla qui. I dati e gli hash dei file NASA non sono cambiati nella 1.4.0.

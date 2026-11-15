@@ -1,0 +1,1115 @@
+{
+  "version": "1.3.0",
+  "kind": "DOM shim, actual application event handlers and renderer",
+  "checks": [
+    "Galaxy: 25 systems, no planet meshes, one million actual POINTS",
+    "System hover: description after 130 ms",
+    "Panels block underlying scene picking",
+    "Drag rotates, never enters a system",
+    "One mouse click enters a system in 1.75 seconds with 1M points in every transition frame",
+    "Planet hover and single-click orbital approach",
+    "Return restores camera, zoom and discipline exactly",
+    "Keyboard focus describes systems; activation opens them",
+    "All three quality modes retain 1M submitted stars and full-resolution UI",
+    "Extra planets describe their type but cannot enter orbit or surface",
+    "Touch first tap selects and describes, second tap enters"
+  ],
+  "diagnostics": {
+    "webgl": "Recorded WebGL commands",
+    "renderer": "Recorded WebGL commands",
+    "starsGenerated": 1000000,
+    "starsDrawn": 0,
+    "starDrawCalls": 0,
+    "navigableSystems": 25,
+    "systemStarIndices": [
+      648937,
+      951018,
+      956319,
+      17453,
+      163107,
+      84276,
+      399182,
+      717603,
+      654409,
+      192006,
+      276784,
+      515861,
+      464675,
+      892213,
+      565926,
+      433363,
+      717945,
+      337983,
+      180796,
+      560549,
+      399752,
+      627581,
+      786402,
+      379479,
+      913474
+    ],
+    "activeSystem": 7,
+    "cameraProgress": 1,
+    "biome": "simbiosi",
+    "sceneTriangles": 389980,
+    "planets": 100,
+    "mathModules": 25,
+    "planned": 75,
+    "lessonSections": 39,
+    "questions": 40,
+    "sourcePages": 769,
+    "terrainCells": 875,
+    "webglError": 0,
+    "textureErrors": [],
+    "planetCounts": [
+      12,
+      9,
+      9,
+      8,
+      7,
+      6,
+      11,
+      5,
+      10,
+      12,
+      5,
+      9,
+      10,
+      12,
+      11,
+      10,
+      6,
+      12,
+      12,
+      10,
+      6,
+      9,
+      11,
+      11,
+      9
+    ],
+    "totalPlanetBodies": 232,
+    "explorablePlanets": 100,
+    "persistent": true,
+    "allVisiblePixelsWebGL": true,
+    "graphicsBackend": "WebGL 2 (API browser, non OpenGL desktop)",
+    "timeUnit": "tempo del modello",
+    "frameCount": 103
+  },
+  "frames": [
+    {
+      "name": "galaxy-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "galaxy",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "hover-pending",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "hover-system",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "hover-panel",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "galaxy-before-entry",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-00",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-01",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-02",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-03",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-04",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-05",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-06",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-07",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-08",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-09",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-10",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-11",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-12",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-13",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-14",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-15",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-16",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-17",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-18",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-19",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-20",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-21",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-system-22",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "system",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "system-camera",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "planet-hover-pending",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "hover-planet",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-00",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-01",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-02",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-03",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-04",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-05",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-06",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-07",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-08",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-09",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-10",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-11",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "zoom-planet-12",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "orbit",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "system-return",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "galaxy-return",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "keyboard-system",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "keyboard-enter",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "galaxy-quality-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "galaxy-quality",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "quality-open",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "quality-low",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "quality-balanced",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "quality-high",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "quality-close",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "system-many-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "system-many",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "ambient-pending",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "ambient-description",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "ambient-click",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "system-few-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "system-few",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-desert-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-desert",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-arctic-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-arctic",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-volcanic-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-volcanic",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-barren-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-barren",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-oceanic-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "type-oceanic",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "biosfera-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "biosfera",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "simbiosi-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "surface",
+      "starSubmissions": []
+    },
+    {
+      "name": "simbiosi",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "surface",
+      "starSubmissions": []
+    },
+    {
+      "name": "oceanico-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "oceanico",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "marea-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "surface",
+      "starSubmissions": []
+    },
+    {
+      "name": "marea",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "surface",
+      "starSubmissions": []
+    },
+    {
+      "name": "primordiale-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "primordiale",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "orbit",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "esodo-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "surface",
+      "starSubmissions": []
+    },
+    {
+      "name": "esodo",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "surface",
+      "starSubmissions": []
+    },
+    {
+      "name": "research-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "research",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "research",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "research",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "lab-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "lab",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "lab",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "lab",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "theory-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "theory",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "theory",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "theory",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "pdf-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "pdf",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "pdf",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "pdf",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "quiz-load",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": false,
+      "scene": "quiz",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "quiz",
+      "width": 1600,
+      "height": 1000,
+      "snapshot": true,
+      "scene": "quiz",
+      "starSubmissions": [
+        6000
+      ]
+    },
+    {
+      "name": "mobile-galaxy-load",
+      "width": 390,
+      "height": 844,
+      "snapshot": false,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "mobile-galaxy",
+      "width": 390,
+      "height": 844,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "mobile-description",
+      "width": 390,
+      "height": 844,
+      "snapshot": true,
+      "scene": "galaxy",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "mobile-system",
+      "width": 390,
+      "height": 844,
+      "snapshot": true,
+      "scene": "system",
+      "starSubmissions": [
+        1000000
+      ]
+    },
+    {
+      "name": "mobile-surface-load",
+      "width": 390,
+      "height": 844,
+      "snapshot": false,
+      "scene": "surface",
+      "starSubmissions": []
+    },
+    {
+      "name": "mobile-surface",
+      "width": 390,
+      "height": 844,
+      "snapshot": true,
+      "scene": "surface",
+      "starSubmissions": []
+    }
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "id": "math-c04",
+  "moduleId": "math-c04",
+  "disciplineId": "mathematics",
+  "worldId": "giedi-prime",
+  "title": "Equazioni e sistemi",
+  "subtitle": "ECHO-04 · Ricostruire un bilancio",
+  "source": {
+    "printedPages": [
+      95,
+      108
+    ],
+    "pdfPages": [
+      107,
+      120
+    ],
+    "sections": [
+      "4.1",
+      "4.2",
+      "4.3",
+      "4.4",
+      "4.5",
+      "4.6",
+      "4.7",
+      "4.8",
+      "4.9",
+      "4.10"
+    ]
+  },
+  "coverage": {
+    "kind": "introductory-path",
+    "note": "Percorso introduttivo sviluppato su equazioni, trasformazioni, parametri e sistemi. La dispensa contiene il capitolo integrale, ulteriori figure e attività e i 40 quesiti originali."
+  },
+  "intro": "Un impianto di ECHO-04 ha registrato quantità complessive e differenze fra due linee di produzione. Il compito del coordinatore scientifico è ricostruire i valori compatibili con tutti i rapporti, conservando vincoli e condizioni. In questo scenario originale, equazioni e sistemi diventano strumenti per ricostruire un bilancio e riconoscere quando i dati non determinano una soluzione unica.",
+  "objectives": [
+    "Distinguere identità, equazione e insieme soluzione.",
+    "Eseguire trasformazioni equivalenti e controllare i candidati.",
+    "Separare i casi degeneri quando compare un parametro.",
+    "Ricavare e usare il completamento del quadrato.",
+    "Risolvere sistemi e verificare tutte le condizioni simultaneamente."
+  ],
+  "prerequisites": [
+    "Prodotti notevoli e scomposizioni",
+    "Dominio delle espressioni",
+    "Radicali e valore assoluto"
+  ],
+  "conclusion": "Il bilancio dell’impianto è accompagnato da un insieme soluzione, dai vincoli del modello e dalla verifica dei passaggi. Il prossimo capitolo sostituirà l’uguaglianza con confronti di ordine; P02 e P10 riprenderanno sistemi e conservazione in strutture più articolate. Il metodo di dichiarare incognite, unità e condizioni sarà comune anche ai futuri moduli scientifici.",
+  "sections": [
+    {
+      "id": "math-c04-s01",
+      "title": "Uguaglianze e insieme soluzione",
+      "sourceSection": "4.1",
+      "printedPage": 95,
+      "lead": "Un rapporto può descrivere una proprietà sempre vera oppure una condizione che seleziona soltanto alcuni valori.",
+      "html": "<div class=\"narrative\"><p>Due linee dell'impianto hanno tempi di utilizzo diversi. Una scheda registra il consumo totale, un'altra la differenza fra i tempi. Prima di calcolare, il coordinatore scientifico assegna un simbolo a ciascuna incognita e stabilisce che le durate devono essere non negative. Le formule ricevute diventano condizioni da soddisfare insieme.</p></div>\n<p>Un'equazione è un'uguaglianza nella quale cerchiamo i valori dell'incognita che la rendono vera. L'<strong>insieme soluzione</strong> raccoglie tutti questi valori nel dominio considerato. Un'identità, invece, è vera per ogni valore ammesso: \\(2(x+1)=2x+2\\) è un'identità su \\(\\mathbb R\\). L'equazione \\(2x+1=5\\) seleziona soltanto \\(x=2\\).</p>\n<p>Il dominio viene prima delle trasformazioni. Per \\((x-1)/(x+2)=2\\), il punto \\(-2\\) è escluso. Moltiplicando per il denominatore non nullo sul dominio, otteniamo \\(x-1=2x+4\\), quindi \\(x=-5\\). Il valore è ammesso e restituisce \\(2\\) nel rapporto iniziale.</p>\n<p>Una soluzione matematica deve inoltre rispettare i vincoli del problema. Se \\(x\\) rappresenta una durata, il valore negativo può soddisfare un'equazione ottenuta correttamente ma restare incompatibile con il modello. Per questo si distingue l'insieme in cui si risolve l'equazione dall'insieme delle risposte ammissibili nella situazione iniziale.</p>",
+      "checkpoint": {
+        "prompt": "L’uguaglianza \\(x+2=2+x\\) e l’uguaglianza \\(x+2=7\\) hanno lo stesso ruolo?",
+        "answer": "La prima è un’identità sui reali; la seconda è un’equazione con insieme soluzione \\(\\{5\\}\\)."
+      }
+    },
+    {
+      "id": "math-c04-s02",
+      "title": "Trasformazioni equivalenti",
+      "sourceSection": "4.2",
+      "printedPage": 96,
+      "lead": "Un passaggio affidabile conserva tutte le soluzioni; se non è reversibile, occorre controllare che cosa ha aggiunto o perso.",
+      "html": "<p>Due equazioni sono equivalenti sul dominio assegnato quando hanno lo stesso insieme soluzione. Aggiungere o sottrarre la stessa espressione definita ai due membri conserva l'equivalenza. Anche moltiplicare o dividere per una quantità sicuramente non nulla è reversibile. Quando la quantità può annullarsi, bisogna prima separare i casi.</p>\n<div class=\"example\"><p>Per \\(x(x-2)=0\\), la proprietà di annullamento del prodotto dà \\(x=0\\) oppure \\(x=2\\). Dividendo subito per \\(x\\) si troverebbe soltanto \\(2\\), perdendo la soluzione \\(0\\). Il controllo finale di \\(2\\) non può recuperare il valore eliminato.</p></div>\n<p>Elevare al quadrato produce un'implicazione: da \\(x=2\\) segue \\(x^2=4\\). Il ritorno non vale senza una condizione di segno, perché l'equazione quadrata ammette anche \\(-2\\). Se entrambi i membri sono non negativi, il quadrato è reversibile; altrimenti i valori ottenuti restano candidati da verificare.</p>\n<p>Il simbolo \\(\\Leftrightarrow\\) va usato quando entrambi i versi sono giustificati. Se il procedimento produce soltanto \\(\\Rightarrow\\), la raccolta dei candidati può essere più ampia. La verifica per sostituzione controlla le soluzioni aggiunte, mentre il mantenimento dei casi durante il calcolo evita quelle perse.</p>\n<p>Nel rapporto dell'impianto ogni passaggio deve dunque indicare l'operazione e la ragione per cui è ammessa. Il procedimento è parte della risposta, perché mostra se siano state considerate tutte le configurazioni possibili.</p>",
+      "checkpoint": {
+        "prompt": "Risolvi \\(x(x-4)=0\\) conservando tutte le soluzioni.",
+        "answer": "Un prodotto è zero quando almeno un fattore è zero: \\(x=0\\) oppure \\(x=4\\). Non si divide per \\(x\\) senza separare il caso nullo."
+      }
+    },
+    {
+      "id": "math-c04-s03",
+      "title": "Equazioni lineari e parametri",
+      "sourceSection": "4.3",
+      "printedPage": 96,
+      "lead": "Un coefficiente lasciato variabile descrive molti impianti possibili; alcuni valori cambiano la natura del problema.",
+      "html": "<p>Nell'equazione \\(ax+b=0\\), se \\(a\\ne0\\) si divide per \\(a\\) e si ottiene l'unica soluzione \\(x=-b/a\\). Se \\(a=0\\), bisogna invece controllare \\(b\\): quando anche \\(b=0\\), ogni valore del dominio è soluzione; quando \\(b\\ne0\\), non esiste alcuna soluzione.</p>\n<p>Questi casi non sono eccezioni da correggere dopo il calcolo: stabiliscono se la divisione sia possibile. Un parametro è un numero lasciato variabile per descrivere una famiglia di equazioni. Non svolge lo stesso ruolo dell'incognita di cui cerchiamo il valore.</p>\n<div class=\"example\"><p>Per \\((m+1)x+m-2=0\\), il coefficiente di \\(x\\) si annulla in \\(m=-1\\). In quel caso resta \\(-3=0\\), impossibile. Per \\(m\\ne-1\\), la soluzione è \\(x=(2-m)/(m+1)\\). La formula vale soltanto nel caso in cui il suo denominatore è non nullo.</p></div>\n<p>Nel grafico di \\(y=ax+b\\), le soluzioni sono le intersezioni con l'asse orizzontale. Per \\(a\\ne0\\) ce n'è una; per \\(a=0,b\\ne0\\), la retta è parallela all'asse e distinta da esso; per \\(a=b=0\\), coincide con l'asse. La rappresentazione collega la classificazione algebrica a una lettura geometrica.</p>",
+      "checkpoint": {
+        "prompt": "Discuti \\((m-1)x=2\\) al variare di \\(m\\).",
+        "answer": "Per \\(m=1\\) si ottiene \\(0=2\\), quindi nessuna soluzione. Per \\(m\\ne1\\), l’unica soluzione è \\(x=2/(m-1)\\)."
+      }
+    },
+    {
+      "id": "math-c04-s04",
+      "title": "Completare il quadrato",
+      "sourceSection": "4.4",
+      "printedPage": 97,
+      "lead": "Riconoscere una struttura permette di derivare la formula risolutiva e comprenderne le condizioni.",
+      "html": "<p>Per \\(x^2+6x+5=0\\), isoliamo \\(x^2+6x=-5\\). Un quadrato \\((x+h)^2\\) contiene il termine \\(2hx\\), quindi scegliamo \\(h=3\\). Aggiungendo \\(9\\) ai due membri otteniamo \\((x+3)^2=4\\). Da \\(x+3=\\pm2\\) seguono le soluzioni \\(-1\\) e \\(-5\\), che verificano l'equazione iniziale.</p>\n<p>L'idea geometrica è completare un quadrato aggiungendo l'area mancante. Il disegno usa lunghezze positive; l'identità algebrica, verificata sviluppando il prodotto, vale per tutti i reali. Il ragionamento non dipende dalla possibilità di rappresentare una lunghezza negativa.</p>\n<h3>La formula generale e il discriminante</h3>\n<p>Per \\(ax^2+bx+c=0\\), controlliamo prima \\(a\\ne0\\). Dividendo per \\(a\\) e aggiungendo il quadrato della metà del coefficiente lineare, si ricava</p>\n\\[\\left(x+\\frac{b}{2a}\\right)^2=\\frac{b^2-4ac}{4a^2},\\qquad (2ax+b)^2=b^2-4ac.\\]\n<p>Posto \\(\\Delta=b^2-4ac\\), se \\(\\Delta&lt;0\\) non ci sono soluzioni reali; se \\(\\Delta=0\\) c'è una radice doppia; se \\(\\Delta&gt;0\\) ci sono due radici reali distinte:</p>\n\\[x=\\frac{-b\\pm\\sqrt\\Delta}{2a}.\\]\n<p>Il controllo di \\(a\\) precede quello del discriminante. Una scomposizione può comunque essere più breve: \\(x^2-5x+6=(x-2)(x-3)\\), quindi le radici sono \\(2\\) e \\(3\\).</p>\n<p>Se le radici reali sono \\(r_1,r_2\\), dal confronto fra \\(a(x-r_1)(x-r_2)\\) e il polinomio iniziale si ottengono \\(r_1+r_2=-b/a\\) e \\(r_1r_2=c/a\\). Prima di discutere il loro segno va controllata l'esistenza di radici reali. Un prodotto negativo garantisce radici reali di segno opposto, perché \\(ac&lt;0\\) rende il discriminante positivo.</p>",
+      "checkpoint": {
+        "prompt": "Risolvi \\(x^2-6x+5=0\\) completando il quadrato.",
+        "answer": "\\(x^2-6x=-5\\); aggiungendo \\(9\\), \\((x-3)^2=4\\). Quindi \\(x=3\\pm2\\), cioè \\(1\\) e \\(5\\)."
+      }
+    },
+    {
+      "id": "math-c04-s05",
+      "title": "Ridurre la struttura e controllare i candidati",
+      "sourceSection": "4.5–4.6",
+      "printedPage": 100,
+      "lead": "Una sostituzione può semplificare l’equazione, ma introduce condizioni da riportare nella risposta.",
+      "html": "<p>Per \\(x^4-5x^2+4=0\\), poniamo \\(t=x^2\\geq0\\). L'equazione diventa \\((t-1)(t-4)=0\\), quindi \\(t=1\\) oppure \\(4\\). Entrambi sono ammessi e restituiscono \\(x=\\pm1,\\pm2\\). Un eventuale valore negativo di \\(t\\) sarebbe incompatibile con la sostituzione nei reali.</p>\n<p>Il valore assoluto descrive una distanza. L'equazione \\(|x-a|=k\\) ha soluzioni \\(a+k,a-k\\) per \\(k&gt;0\\), la sola \\(a\\) per \\(k=0\\), nessuna per \\(k&lt;0\\). Per \\(|f(x)|=g(x)\\), si impone \\(g(x)\\geq0\\) e si risolvono i due casi \\(f(x)=g(x)\\) e \\(f(x)=-g(x)\\).</p>\n<div class=\"example\"><p>Per \\(|2x-1|=x+2\\), serve \\(x\\geq-2\\). I casi \\(2x-1=x+2\\) e \\(2x-1=-x-2\\) danno \\(x=3\\) e \\(x=-1/3\\). Entrambi rispettano il vincolo e verificano l'equazione.</p></div>\n<p>Per una radice, \\(\\sqrt{f(x)}=g(x)\\) equivale a \\(g(x)\\geq0\\) e \\(f(x)=g(x)^2\\), mantenendo definite tutte le espressioni. L'ultima uguaglianza rende il radicando non negativo.</p>\n<p>Nell'esempio \\(\\sqrt{x-1}=x-3\\), il dominio impone \\(x\\geq1\\), ma il segno del membro destro restringe a \\(x\\geq3\\). Il quadrato dà \\((x-5)(x-2)=0\\). Il candidato \\(2\\) viola il segno e nell'originale produce \\(1=-1\\); il candidato \\(5\\) verifica \\(2=2\\). La soluzione è soltanto \\(5\\).</p>\n<p>Quando rimangono altri radicali dopo il primo quadrato, ogni nuova uguaglianza richiede nuovamente il controllo del segno. La regola operativa è isolare il radicale, registrare le condizioni, trasformare e verificare nell'originale.</p>\n<h3>Quando rimangono due radicali</h3>\n<p>Consideriamo \\(\\sqrt{x+1}+\\sqrt{x-1}=2\\). Il dominio richiede \\(x\\geq1\\). I due membri sono non negativi, quindi il primo quadrato è reversibile e dà \\(2x+2\\sqrt{x^2-1}=4\\), da cui \\(\\sqrt{x^2-1}=2-x\\). La nuova uguaglianza impone \\(x\\leq2\\): abbiamo ora l'intervallo \\(1\\leq x\\leq2\\).</p>\n<p>Su questo intervallo entrambi i membri sono non negativi. Quadrando ancora, \\(x^2-1=(2-x)^2=4-4x+x^2\\), quindi \\(4x=5\\) e \\(x=5/4\\). Il valore appartiene all'intervallo e, nell'equazione originale, produce \\(\\sqrt{9/4}+\\sqrt{1/4}=3/2+1/2=2\\).</p>\n<p>Il secondo vincolo di segno nasce dopo il primo passaggio: non era sufficiente aver controllato una volta il dominio iniziale. Il coordinatore scientifico registra ogni nuova condizione nel punto in cui compare, così il procedimento conserva l'equivalenza e rende chiaro il motivo della verifica finale.</p>\n",
+      "checkpoint": {
+        "prompt": "Risolvi \\(\\sqrt{x+6}=x\\), distinguendo candidati e soluzione.",
+        "answer": "Serve \\(x\\geq0\\). Il quadrato dà \\(x^2-x-6=0\\), con candidati \\(3,-2\\). Resta \\(3\\), che verifica \\(\\sqrt9=3\\)."
+      }
+    },
+    {
+      "id": "math-c04-s06",
+      "title": "Sistemi: soddisfare tutte le condizioni",
+      "sourceSection": "4.7",
+      "printedPage": 103,
+      "lead": "Due rapporti descrivono lo stesso impianto: la soluzione deve appartenere contemporaneamente a entrambi.",
+      "html": "<div class=\"narrative\"><p>Nel modello dell'impianto, \\(x\\) e \\(y\\) rappresentano due durate in ore. Il primo rapporto impone \\(2x+y=5\\); il secondo registra \\(x-y=1\\). Cercare un valore che soddisfi soltanto una riga lascerebbe irrisolto il bilancio. Servono una coppia ordinata e la verifica di entrambe le condizioni.</p></div>\n<p>Sommando le equazioni si elimina \\(y\\): \\(3x=6\\), dunque \\(x=2\\). Dalla seconda segue \\(y=1\\). Il controllo è \\(2\\cdot2+1=5\\) e \\(2-1=1\\). Le durate sono inoltre non negative, come richiesto dal modello.</p>\n<p>Il metodo usato è la <strong>riduzione</strong>. Per sostituzione si potrebbe isolare \\(y=x-1\\) nella seconda equazione e inserirla nella prima, ottenendo \\(2x+x-1=5\\). Il confronto uguaglia invece due espressioni della stessa variabile. La scelta del metodo dipende dalla struttura dei coefficienti e dalla semplicità dei passaggi.</p>\n<h3>Intersezione di rette e classificazione</h3>\n<p>Due equazioni lineari non degeneri descrivono due rette. Se si incontrano, il sistema ha una sola coppia soluzione; se sono parallele distinte, non ne ha; se coincidono, ha infinite coppie. Nel laboratorio confronta questi casi e controlla sia la figura sia i coefficienti.</p>\n<p>Per \\(a_1x+b_1y=c_1\\), \\(a_2x+b_2y=c_2\\), con ciascuna coppia \\((a_i,b_i)\\) non nulla, il determinante \\(D=a_1b_2-a_2b_1\\) distingue il caso unico. Se \\(D\\ne0\\),</p>\n\\[x=\\frac{c_1b_2-c_2b_1}{D},\\qquad y=\\frac{a_1c_2-a_2c_1}{D}.\\]\n<p>Se \\(D=0\\), le rette sono parallele o coincidenti: si controlla la compatibilità delle equazioni. Un'equazione degenere come \\(0=0\\) o \\(0=1\\) va discussa direttamente prima di applicare la classificazione geometrica.</p>\n<p>Un sistema non lineare mantiene lo stesso significato. Da \\(y=x\\) e \\(x^2+y^2=2\\) otteniamo \\(2x^2=2\\), quindi le coppie \\((1,1)\\) e \\((-1,-1)\\). Non possiamo scegliere indipendentemente i segni delle due coordinate: la relazione \\(y=x\\) deve continuare a valere.</p>\n<h3>Rapporti e proporzioni</h3>\n<p>Una proporzione \\(a/b=c/d\\) richiede \\(b,d\\ne0\\). Moltiplicando l'uguaglianza per \\(bd\\) si ottiene \\(ad=bc\\); il cosiddetto prodotto incrociato è quindi una normale trasformazione equivalente sul dominio ammesso. Non rende definiti rapporti che in origine avevano denominatore nullo.</p>\n<p>Per \\((x+1)/(x-2)=3\\), si esclude prima \\(2\\), poi si ricava \\(x+1=3x-6\\), dunque \\(x=7/2\\). Il risultato è ammesso e verifica il rapporto. Nei sistemi le condizioni sui denominatori vanno raccolte da tutte le equazioni prima di combinarle.</p>\n",
+      "checkpoint": {
+        "prompt": "Risolvi \\(x+y=5\\), \\(x-y=1\\) e verifica la coppia.",
+        "answer": "Sommando: \\(2x=6\\), quindi \\(x=3\\), \\(y=2\\). Entrambi i controlli sono veri: \\(3+2=5\\) e \\(3-2=1\\)."
+      },
+      "labId": "linear-system"
+    },
+    {
+      "id": "math-c04-s07",
+      "title": "Quando un parametro cambia il grado",
+      "sourceSection": "4.8",
+      "printedPage": 105,
+      "lead": "Una procedura applicabile a una quadratica deve riconoscere il valore che la trasforma in una retta.",
+      "html": "<p>Consideriamo la famiglia \\((m+1)x^2-(m+2)x+m=0\\). Per \\(m=-1\\), il termine quadratico scompare e rimane \\(-x-1=0\\): l'unica soluzione è \\(-1\\). Quel caso si risolve prima di usare la formula quadratica.</p>\n<p>Per \\(m\\ne-1\\), il discriminante è \\((m+2)^2-4m(m+1)=4-3m^2\\). Ci sono due radici reali distinte se \\(|m|&lt;2/\\sqrt3\\), una radice doppia se \\(|m|=2/\\sqrt3\\), nessuna radice reale se \\(|m|&gt;2/\\sqrt3\\), sempre mantenendo separato \\(m=-1\\).</p>\n<p>Quando il discriminante è non negativo e \\(m\\ne-1\\), le radici sono</p>\n\\[x=\\frac{m+2\\pm\\sqrt{4-3m^2}}{2(m+1)}.\\]\n<p>Il denominatore evidenzia la condizione che rende possibile la formula. Il discriminante positivo in \\(m=-1\\) non autorizza a descrivere quel caso come una quadratica con due radici: la formula deriva da una divisione allora vietata.</p>\n<p>Nel rapporto dell'impianto, cambiare un parametro può quindi cambiare la classe del modello. Una procedura automatica deve dichiarare e gestire questi passaggi, invece di produrre un numero fuori dalle proprie ipotesi.</p>",
+      "checkpoint": {
+        "prompt": "Perché il discriminante non basta a classificare \\((m+1)x^2-(m+2)x+m=0\\)?",
+        "answer": "Bisogna prima verificare \\(m+1\\ne0\\). Per \\(m=-1\\) l’equazione è lineare, \\(-x-1=0\\), e la formula quadratica non è applicabile."
+      }
+    },
+    {
+      "id": "math-c04-s08",
+      "title": "Costruire il modello e verificare la risposta",
+      "sourceSection": "4.9–4.10",
+      "printedPage": 105,
+      "lead": "La soluzione torna alla domanda iniziale con il proprio significato e le proprie unità.",
+      "html": "<p>Un rettangolo ha area \\(24\\ \\mathrm{cm}^2\\) e un lato supera l'altro di \\(2\\ \\mathrm{cm}\\). Se \\(x&gt;0\\) è la misura del lato minore, l'altro vale \\(x+2\\). L'equazione è \\(x(x+2)=24\\), cioè \\((x+6)(x-4)=0\\). I candidati sono \\(-6\\) e \\(4\\); soltanto \\(4\\) soddisfa il vincolo sulla lunghezza. I lati \\(4\\) e \\(6\\) verificano area e differenza richieste.</p>\n<p>Per costruire il modello si dichiara l'incognita, si traducono le condizioni e si specifica l'insieme ammesso. Per controllarlo si torna a tutte le richieste originali. La soluzione di un'equazione trasformata diventa una risposta al problema soltanto dopo questi controlli.</p>\n<details><summary>Tre domande per il rapporto finale</summary><p>Quale condizione potrebbe essere stata persa dividendo? Quale soluzione estranea potrebbe essere stata introdotta elevando al quadrato? Quali valori del parametro cambiano il grado o rendono degenere un'equazione?</p><p>La risposta dipende dal problema, ma il controllo è comune: registra le condizioni accanto alle operazioni e verifica i candidati nell'originale. Nei sistemi considera la coppia intera e tutte le equazioni insieme.</p></details>\n<p>Nel diario scrivi un problema risolto e indica il primo passaggio che richiede un'ipotesi. Il percorso completo nel PDF amplia esempi e attività; la destinazione successiva sulle disequazioni studierà i confronti che stabiliscono quando un valore è maggiore, minore o compreso entro un vincolo.</p>\n<p>Quando due metodi producono risposte differenti, confronta il primo passaggio in cui i procedimenti divergono. Una sostituzione, per esempio, deve sostituire ogni occorrenza della variabile eliminata e mantenere la relazione dalla quale era stata isolata. Una coppia letta dal grafico è un candidato da controllare nelle formule. Questi confronti aiutano a localizzare un errore preciso e a correggere il procedimento, invece di limitarsi a sostituire il risultato finale.</p>\n",
+      "checkpoint": {
+        "prompt": "Un candidato negativo che soddisfa l’equazione può essere la lunghezza cercata nel problema del rettangolo?",
+        "answer": "No. L’equazione va risolta insieme al vincolo che le lunghezze siano positive. Il candidato algebrico deve essere confrontato con il modello iniziale."
+      }
+    }
+  ],
+  "references": [
+    {
+      "label": "§4.1 · Uguaglianze e insieme soluzione",
+      "printedPage": 95,
+      "pdfPage": 107
+    },
+    {
+      "label": "§4.2 · Trasformazioni equivalenti",
+      "printedPage": 96,
+      "pdfPage": 108
+    },
+    {
+      "label": "§4.3 · Equazioni lineari e parametri",
+      "printedPage": 96,
+      "pdfPage": 108
+    },
+    {
+      "label": "§4.4 · Completare il quadrato",
+      "printedPage": 97,
+      "pdfPage": 109
+    },
+    {
+      "label": "§4.5–4.6 · Ridurre la struttura e controllare i candidati",
+      "printedPage": 100,
+      "pdfPage": 112
+    },
+    {
+      "label": "§4.7 · Sistemi: soddisfare tutte le condizioni",
+      "printedPage": 103,
+      "pdfPage": 115
+    },
+    {
+      "label": "§4.8 · Quando un parametro cambia il grado",
+      "printedPage": 105,
+      "pdfPage": 117
+    },
+    {
+      "label": "§4.9–4.10 · Costruire il modello e verificare la risposta",
+      "printedPage": 105,
+      "pdfPage": 117
+    }
+  ],
+  "editorialAdaptation": {
+    "basis": "sources/v7/lessons/math-c04.json",
+    "scope": "Solo nomi e voce narrativa. Formule, struttura e metadati delle fonti preservati."
+  }
+}
