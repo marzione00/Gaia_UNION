@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "physics-23",
+  "title": "Circuiti e legge di Ohm",
+  "sector": 1,
+  "modelId": "physics-23",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Resistore ohmico a resistenza costante",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: resistore ohmico a resistenza costante.",
+    "Applicare I = V/R, dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "physics-22"
+  ],
+  "connections": [
+    "math-p10"
+  ],
+  "sources": [
+    "physics2",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Tensione",
+      "definition": "Variabile indipendente, unità V; intervallo [0; 24]."
+    },
+    {
+      "term": "Corrente",
+      "definition": "Risultato calcolato dal modello, unità A."
+    },
+    {
+      "term": "Resistenza R",
+      "definition": "Parametro a, unità Ω; intervallo [1; 20]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Una resistenza ideale viene collegata a tensioni diverse. Il controllo vuole capire se la corrente aumenta proporzionalmente e come cambia sostituendo il componente.",
+          "Per un resistore ohmico a condizioni costanti, V=RI. La resistenza misura il rapporto fra tensione e corrente. Nel laboratorio I=V/R e R è sempre positiva."
+        ],
+        "intermediate": [
+          "Una resistenza ideale viene collegata a tensioni diverse. Il controllo vuole capire se la corrente aumenta proporzionalmente e come cambia sostituendo il componente.",
+          "La pendenza del grafico corrente-tensione è 1/R, chiamata conduttanza. La potenza dissipata è P=VI=V²/R=I²R, ma il valore di R può cambiare in un componente reale quando si riscalda."
+        ],
+        "advanced": [
+          "Una resistenza ideale viene collegata a tensioni diverse. Il controllo vuole capire se la corrente aumenta proporzionalmente e come cambia sostituendo il componente.",
+          "Combina resistori in serie e parallelo, poi verifica le correnti con le leggi di Kirchhoff. Distingui sempre il componente dal generatore.",
+          "Resistore ideale con R costante e regime stazionario. Il laboratorio non valuta limiti di potenza o sicurezza di circuiti reali."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Per un resistore ohmico a condizioni costanti, V=RI. La resistenza misura il rapporto fra tensione e corrente. Nel laboratorio I=V/R e R è sempre positiva.",
+          "Con V=12 V e R=10 Ω, la corrente è 1,2 A. Raddoppiando R a tensione costante, I si dimezza."
+        ],
+        "intermediate": [
+          "La pendenza del grafico corrente-tensione è 1/R, chiamata conduttanza. La potenza dissipata è P=VI=V²/R=I²R, ma il valore di R può cambiare in un componente reale quando si riscalda.",
+          "La variabile Tensione è espressa in V; Corrente in A. Il dominio dello strumento è [0; 24]. La relazione implementata è: I = V/R.",
+          "Con V=12 V e R=10 Ω, la corrente è 1,2 A. Raddoppiando R a tensione costante, I si dimezza."
+        ],
+        "advanced": [
+          "La pendenza del grafico corrente-tensione è 1/R, chiamata conduttanza. La potenza dissipata è P=VI=V²/R=I²R, ma il valore di R può cambiare in un componente reale quando si riscalda.",
+          "Combina resistori in serie e parallelo, poi verifica le correnti con le leggi di Kirchhoff. Distingui sempre il componente dal generatore.",
+          "La legge di Ohm non è universale per ogni componente: un diodo non si comporta come una resistenza costante. Mantenere costante la tensione è diverso dal mantenere costante la corrente."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Resistenza R (a): 10 Ω. Prima di salvare A, prevedi come cambia Corrente fra Tensione=6 e 12 V. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con V=12 V e R=10 Ω, la corrente è 1,2 A. Raddoppiando R a tensione costante, I si dimezza.",
+          "La variabile Tensione è espressa in V; Corrente in A. Il dominio dello strumento è [0; 24]. La relazione implementata è: I = V/R."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Resistenza R (a): 10 Ω. Prima di salvare A, prevedi come cambia Corrente fra Tensione=6 e 12 V. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Tensione è espressa in V; Corrente in A. Il dominio dello strumento è [0; 24]. La relazione implementata è: I = V/R.",
+          "La pendenza del grafico corrente-tensione è 1/R, chiamata conduttanza. La potenza dissipata è P=VI=V²/R=I²R, ma il valore di R può cambiare in un componente reale quando si riscalda."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Resistenza R (a): 10 Ω. Prima di salvare A, prevedi come cambia Corrente fra Tensione=6 e 12 V. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Combina resistori in serie e parallelo, poi verifica le correnti con le leggi di Kirchhoff. Distingui sempre il componente dal generatore.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "La legge di Ohm non è universale per ogni componente: un diodo non si comporta come una resistenza costante. Mantenere costante la tensione è diverso dal mantenere costante la corrente.",
+          "Resistore ideale con R costante e regime stazionario. Il laboratorio non valuta limiti di potenza o sicurezza di circuiti reali.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "La legge di Ohm non è universale per ogni componente: un diodo non si comporta come una resistenza costante. Mantenere costante la tensione è diverso dal mantenere costante la corrente.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Resistore ideale con R costante e regime stazionario. Il laboratorio non valuta limiti di potenza o sicurezza di circuiti reali.",
+          "Combina resistori in serie e parallelo, poi verifica le correnti con le leggi di Kirchhoff. Distingui sempre il componente dal generatore.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Per un resistore ohmico a condizioni costanti, V=RI. La resistenza misura il rapporto fra tensione e corrente. Nel laboratorio I=V/R e R è sempre positiva.",
+          "Con V=12 V e R=10 Ω, la corrente è 1,2 A. Raddoppiando R a tensione costante, I si dimezza."
+        ],
+        "intermediate": [
+          "La pendenza del grafico corrente-tensione è 1/R, chiamata conduttanza. La potenza dissipata è P=VI=V²/R=I²R, ma il valore di R può cambiare in un componente reale quando si riscalda.",
+          "La variabile Tensione è espressa in V; Corrente in A. Il dominio dello strumento è [0; 24]. La relazione implementata è: I = V/R."
+        ],
+        "advanced": [
+          "Combina resistori in serie e parallelo, poi verifica le correnti con le leggi di Kirchhoff. Distingui sempre il componente dal generatore.",
+          "Resistore ideale con R costante e regime stazionario. Il laboratorio non valuta limiti di potenza o sicurezza di circuiti reali."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Resistore ohmico a resistenza costante.",
+          "Resistore ideale con R costante e regime stazionario. Il laboratorio non valuta limiti di potenza o sicurezza di circuiti reali.",
+          "Collegamento consigliato: math-p10. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "La pendenza del grafico corrente-tensione è 1/R, chiamata conduttanza. La potenza dissipata è P=VI=V²/R=I²R, ma il valore di R può cambiare in un componente reale quando si riscalda.",
+          "Resistore ideale con R costante e regime stazionario. Il laboratorio non valuta limiti di potenza o sicurezza di circuiti reali.",
+          "Combina resistori in serie e parallelo, poi verifica le correnti con le leggi di Kirchhoff. Distingui sempre il componente dal generatore."
+        ],
+        "advanced": [
+          "Combina resistori in serie e parallelo, poi verifica le correnti con le leggi di Kirchhoff. Distingui sempre il componente dal generatore.",
+          "Resistore ideale con R costante e regime stazionario. Il laboratorio non valuta limiti di potenza o sicurezza di circuiti reali.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "physics-23-concept",
+      "prompt": "Nel grafico I contro V la pendenza vale:",
+      "options": [
+        {
+          "id": "A",
+          "text": "V+R",
+          "feedback": "La pendenza del grafico corrente-tensione è 1/R, chiamata conduttanza. La potenza dissipata è P=VI=V²/R=I²R, ma il valore di R può cambiare in un componente reale quando si riscalda."
+        },
+        {
+          "id": "B",
+          "text": "1/R",
+          "feedback": "Per un resistore ohmico a condizioni costanti, V=RI. La resistenza misura il rapporto fra tensione e corrente. Nel laboratorio I=V/R e R è sempre positiva."
+        },
+        {
+          "id": "C",
+          "text": "R",
+          "feedback": "La legge di Ohm non è universale per ogni componente: un diodo non si comporta come una resistenza costante. Mantenere costante la tensione è diverso dal mantenere costante la corrente."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "physics-23-calculation",
+      "prompt": "Calcolo: Resistenza R (a)=10 Ω. Per Tensione=12 V, quanto vale Corrente?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1,2 A",
+          "feedback": "I = V/R. Con Resistenza R (a)=10 Ω e Tensione=12 V, il risultato è 1,2 A. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "2,2 A",
+          "feedback": "Questo valore non soddisfa la relazione. I = V/R. Con Resistenza R (a)=10 Ω e Tensione=12 V, il risultato è 1,2 A. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "0,2 A",
+          "feedback": "Controlla sostituzione, segno e unità. I = V/R. Con Resistenza R (a)=10 Ω e Tensione=12 V, il risultato è 1,2 A. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 12,
+        "parameters": {
+          "a": 10
+        },
+        "expected": 1.2,
+        "unit": "A"
+      }
+    },
+    {
+      "id": "physics-23-transfer",
+      "prompt": "Trasferimento: Resistenza R (a)=11 Ω. Per Tensione=12 V, quanto vale Corrente?",
+      "options": [
+        {
+          "id": "A",
+          "text": "2,09091 A",
+          "feedback": "Questo valore non soddisfa la relazione. I = V/R. Con Resistenza R (a)=11 Ω e Tensione=12 V, il risultato è 1,09091 A. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "0,0909091 A",
+          "feedback": "Controlla sostituzione, segno e unità. I = V/R. Con Resistenza R (a)=11 Ω e Tensione=12 V, il risultato è 1,09091 A. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "1,09091 A",
+          "feedback": "I = V/R. Con Resistenza R (a)=11 Ω e Tensione=12 V, il risultato è 1,09091 A. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 12,
+        "parameters": {
+          "a": 11
+        },
+        "expected": 1.0909090909090908,
+        "unit": "A"
+      }
+    },
+    {
+      "id": "physics-23-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Resistore ohmico a resistenza costante",
+          "feedback": "Resistore ideale con R costante e regime stazionario. Il laboratorio non valuta limiti di potenza o sicurezza di circuiti reali."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Resistore ideale con R costante e regime stazionario. Il laboratorio non valuta limiti di potenza o sicurezza di circuiti reali."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Resistore ideale con R costante e regime stazionario. Il laboratorio non valuta limiti di potenza o sicurezza di circuiti reali."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
+}

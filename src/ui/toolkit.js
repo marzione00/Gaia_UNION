@@ -23,7 +23,8 @@ export class UI {
             return;
         if (b.slider) {
             const v = clamp(b.min + clamp((x - b.x) / b.w, 0, 1) * (b.max - b.min), b.min, b.max);
-            b.action(Number((Math.round(v / b.step) * b.step).toFixed(6)));
+            const stepped = b.min + Math.round((v - b.min) / b.step) * b.step;
+            b.action(Number(clamp(stepped, b.min, b.max).toPrecision(12)));
         }
         else
             b.action?.();

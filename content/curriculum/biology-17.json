@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "biology-17",
+  "title": "Filogenesi e cambiamenti molecolari",
+  "sector": 3,
+  "modelId": "biology-17",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Sostituzioni simmetriche e siti indipendenti",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: sostituzioni simmetriche e siti indipendenti.",
+    "Applicare Differenze attese = L × 3/4(1-exp(-4d/3)), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "biology-16"
+  ],
+  "connections": [
+    "math-b"
+  ],
+  "sources": [
+    "biology"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Divergenza d",
+      "definition": "Variabile indipendente, unità sostituzioni/sito; intervallo [0; 3]."
+    },
+    {
+      "term": "Siti diversi attesi",
+      "definition": "Risultato calcolato dal modello, unità siti."
+    },
+    {
+      "term": "Lunghezza sequenza L",
+      "definition": "Parametro a, unità siti; intervallo [20; 1000]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Due sequenze molto divergenti possono mostrare differenze osservate simili. Più sostituzioni possono colpire lo stesso sito e nascondere parte della storia evolutiva.",
+          "La filogenesi ricostruisce relazioni di discendenza usando dati e modelli. Nel modello di sostituzione di Jukes-Cantor, le quattro basi sono simmetriche e i cambiamenti seguono tassi uniformi."
+        ],
+        "intermediate": [
+          "Due sequenze molto divergenti possono mostrare differenze osservate simili. Più sostituzioni possono colpire lo stesso sito e nascondere parte della storia evolutiva.",
+          "Per divergenza d in sostituzioni attese per sito, la frazione di siti diversi è 3/4(1-exp(-4d/3)). Moltiplicando per una lunghezza L si ottiene il numero atteso di differenze osservate."
+        ],
+        "advanced": [
+          "Due sequenze molto divergenti possono mostrare differenze osservate simili. Più sostituzioni possono colpire lo stesso sito e nascondere parte della storia evolutiva.",
+          "Inverti la relazione per ricavare una distanza corretta dalla frazione osservata p<3/4. Spiega perché l’inversione diventa sensibile vicino alla saturazione.",
+          "Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "La filogenesi ricostruisce relazioni di discendenza usando dati e modelli. Nel modello di sostituzione di Jukes-Cantor, le quattro basi sono simmetriche e i cambiamenti seguono tassi uniformi.",
+          "Con d=0, le differenze attese sono zero. Per grandi d, la frazione tende a 3/4, non a uno: ulteriori sostituzioni possono ripristinare basi uguali per caso."
+        ],
+        "intermediate": [
+          "Per divergenza d in sostituzioni attese per sito, la frazione di siti diversi è 3/4(1-exp(-4d/3)). Moltiplicando per una lunghezza L si ottiene il numero atteso di differenze osservate.",
+          "La variabile Divergenza d è espressa in sostituzioni/sito; Siti diversi attesi in siti. Il dominio dello strumento è [0; 3]. La relazione implementata è: Differenze attese = L × 3/4(1-exp(-4d/3)).",
+          "Con d=0, le differenze attese sono zero. Per grandi d, la frazione tende a 3/4, non a uno: ulteriori sostituzioni possono ripristinare basi uguali per caso."
+        ],
+        "advanced": [
+          "Per divergenza d in sostituzioni attese per sito, la frazione di siti diversi è 3/4(1-exp(-4d/3)). Moltiplicando per una lunghezza L si ottiene il numero atteso di differenze osservate.",
+          "Inverti la relazione per ricavare una distanza corretta dalla frazione osservata p<3/4. Spiega perché l’inversione diventa sensibile vicino alla saturazione.",
+          "Una differenza osservata non corrisponde sempre a una sola sostituzione storica. Una curva di distanza non ricostruisce da sola la topologia di un albero."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Lunghezza sequenza L (a): 100 siti. Prima di salvare A, prevedi come cambia Siti diversi attesi fra Divergenza d=0,75 e 1,5 sostituzioni/sito. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con d=0, le differenze attese sono zero. Per grandi d, la frazione tende a 3/4, non a uno: ulteriori sostituzioni possono ripristinare basi uguali per caso.",
+          "La variabile Divergenza d è espressa in sostituzioni/sito; Siti diversi attesi in siti. Il dominio dello strumento è [0; 3]. La relazione implementata è: Differenze attese = L × 3/4(1-exp(-4d/3))."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Lunghezza sequenza L (a): 100 siti. Prima di salvare A, prevedi come cambia Siti diversi attesi fra Divergenza d=0,75 e 1,5 sostituzioni/sito. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Divergenza d è espressa in sostituzioni/sito; Siti diversi attesi in siti. Il dominio dello strumento è [0; 3]. La relazione implementata è: Differenze attese = L × 3/4(1-exp(-4d/3)).",
+          "Per divergenza d in sostituzioni attese per sito, la frazione di siti diversi è 3/4(1-exp(-4d/3)). Moltiplicando per una lunghezza L si ottiene il numero atteso di differenze osservate."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Lunghezza sequenza L (a): 100 siti. Prima di salvare A, prevedi come cambia Siti diversi attesi fra Divergenza d=0,75 e 1,5 sostituzioni/sito. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Inverti la relazione per ricavare una distanza corretta dalla frazione osservata p<3/4. Spiega perché l’inversione diventa sensibile vicino alla saturazione.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Una differenza osservata non corrisponde sempre a una sola sostituzione storica. Una curva di distanza non ricostruisce da sola la topologia di un albero.",
+          "Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Una differenza osservata non corrisponde sempre a una sola sostituzione storica. Una curva di distanza non ricostruisce da sola la topologia di un albero.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata.",
+          "Inverti la relazione per ricavare una distanza corretta dalla frazione osservata p<3/4. Spiega perché l’inversione diventa sensibile vicino alla saturazione.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "La filogenesi ricostruisce relazioni di discendenza usando dati e modelli. Nel modello di sostituzione di Jukes-Cantor, le quattro basi sono simmetriche e i cambiamenti seguono tassi uniformi.",
+          "Con d=0, le differenze attese sono zero. Per grandi d, la frazione tende a 3/4, non a uno: ulteriori sostituzioni possono ripristinare basi uguali per caso."
+        ],
+        "intermediate": [
+          "Per divergenza d in sostituzioni attese per sito, la frazione di siti diversi è 3/4(1-exp(-4d/3)). Moltiplicando per una lunghezza L si ottiene il numero atteso di differenze osservate.",
+          "La variabile Divergenza d è espressa in sostituzioni/sito; Siti diversi attesi in siti. Il dominio dello strumento è [0; 3]. La relazione implementata è: Differenze attese = L × 3/4(1-exp(-4d/3))."
+        ],
+        "advanced": [
+          "Inverti la relazione per ricavare una distanza corretta dalla frazione osservata p<3/4. Spiega perché l’inversione diventa sensibile vicino alla saturazione.",
+          "Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Sostituzioni simmetriche e siti indipendenti.",
+          "Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata.",
+          "Collegamento consigliato: math-b. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Per divergenza d in sostituzioni attese per sito, la frazione di siti diversi è 3/4(1-exp(-4d/3)). Moltiplicando per una lunghezza L si ottiene il numero atteso di differenze osservate.",
+          "Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata.",
+          "Inverti la relazione per ricavare una distanza corretta dalla frazione osservata p<3/4. Spiega perché l’inversione diventa sensibile vicino alla saturazione."
+        ],
+        "advanced": [
+          "Inverti la relazione per ricavare una distanza corretta dalla frazione osservata p<3/4. Spiega perché l’inversione diventa sensibile vicino alla saturazione.",
+          "Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "biology-17-concept",
+      "prompt": "Nel modello simmetrico, la frazione di differenze a grande d tende a:",
+      "options": [
+        {
+          "id": "A",
+          "text": "1",
+          "feedback": "Una differenza osservata non corrisponde sempre a una sola sostituzione storica. Una curva di distanza non ricostruisce da sola la topologia di un albero."
+        },
+        {
+          "id": "B",
+          "text": "0",
+          "feedback": "Per divergenza d in sostituzioni attese per sito, la frazione di siti diversi è 3/4(1-exp(-4d/3)). Moltiplicando per una lunghezza L si ottiene il numero atteso di differenze osservate."
+        },
+        {
+          "id": "C",
+          "text": "3/4",
+          "feedback": "La filogenesi ricostruisce relazioni di discendenza usando dati e modelli. Nel modello di sostituzione di Jukes-Cantor, le quattro basi sono simmetriche e i cambiamenti seguono tassi uniformi."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "biology-17-calculation",
+      "prompt": "Calcolo: Lunghezza sequenza L (a)=100 siti. Per Divergenza d=0 sostituzioni/sito, quanto vale Siti diversi attesi?",
+      "options": [
+        {
+          "id": "A",
+          "text": "-1,00000e-8 siti",
+          "feedback": "Controlla sostituzione, segno e unità. Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=100 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "0 siti",
+          "feedback": "Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=100 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "1,00000e-8 siti",
+          "feedback": "Questo valore non soddisfa la relazione. Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=100 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 0,
+        "parameters": {
+          "a": 100
+        },
+        "expected": 0,
+        "unit": "siti"
+      }
+    },
+    {
+      "id": "biology-17-transfer",
+      "prompt": "Trasferimento: Lunghezza sequenza L (a)=120 siti. Per Divergenza d=0 sostituzioni/sito, quanto vale Siti diversi attesi?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0 siti",
+          "feedback": "Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=120 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "1,00000e-8 siti",
+          "feedback": "Questo valore non soddisfa la relazione. Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=120 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "-1,00000e-8 siti",
+          "feedback": "Controlla sostituzione, segno e unità. Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=120 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 0,
+        "parameters": {
+          "a": 120
+        },
+        "expected": 0,
+        "unit": "siti"
+      }
+    },
+    {
+      "id": "biology-17-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata."
+        },
+        {
+          "id": "B",
+          "text": "Sostituzioni simmetriche e siti indipendenti",
+          "feedback": "Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata."
+        },
+        {
+          "id": "C",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata."
+        }
+      ],
+      "correct": "B"
+    }
+  ]
+}

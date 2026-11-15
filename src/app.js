@@ -1,3 +1,5 @@
+import { CourseUI } from './education/course-ui.js';
+import { MissionUI } from './education/mission-ui.js';
 import { MIN_STARS, systemForPlanet, indicesForSystem, highlightSystemStars, HoverTarget } from './scene/systems.js';
 import { NavigationMemory } from './scene/navigation.js';
 import { loadScenes, planetProfile, PlanetTextures } from './scene/assets.js';
@@ -22,12 +24,16 @@ async function json(path) {
 function image(path) { return new Promise((yes, no) => { const i = new Image(); i.onload = () => yes(i); i.onerror = () => no(Error('Texture mancante: ' + path)); i.src = asset(path); }); }
 const store = openStore();
 const S = { scene: 'galaxy', selected: 7, system: 7, hoveredTarget: null, observedBody: null, sector: -1, node: 0, station: 0, quality: MIN_STARS, graphics: store.data.preferences.graphics, yaw: 0, pitch: .45, distance: 60, time: 0, paused: !store.data.preferences.motion || matchMedia('(prefers-reduced-motion: reduce)').matches, scroll: 0, maxScroll: 0, reader: 'math-c08', section: 0, light: false, pdfPage: 245, pdfZoom: 1, lab: 'daisyworld', lum: 1, death: .3, sim: null, sweep: null, labValues: { p: 80, x: 13, base: 'quadratic', a: 1, b: 1, h: 0, k: 0, index: 2, mode: 'root', m1: 1, q1: 0, m2: -1, q2: 5, initial: 100, loss: .1, t: 10, zeroA: -2, zeroB: 1, pole: 3 }, labCompare: null, quizIndex: 0, quizFilter: null, quizMode: 'training', examSubmitted: false, exam: {}, quizSolution: false, catalogPage: 0, query: '', editing: null, journalTab: 'general', menu: false, settings: false, popup: null, loaded: false, contextLost: false, lastFrameMs: 0, toast: '', toastUntil: 0, focusId: null };
+let education, pilotEducation;
+function activeEducation(){return S.scene==='pilot'?pilotEducation:education;}
+function openCourse(id,stage=null){const m=moduleById(id);if(!m)return;selectIndex(m.planetIndex);education.select(id);if(stage!==null)education.setStage(stage);route('mission');}
+function openExternal(url){if(!education.bundle.sources.some(s=>s.url===url))throw Error('Fonte non registrata');window.open(url,'_blank','noopener,noreferrer');}
 let R, U, W, cache, data, lessons, questions, readerIndex, pdfIndex, textureManifest, raf, prevTime = 0, pointer = null, activeSlider = null, semanticSignature = '', textSignature = '', frameCount = 0, worker = null;
 const navigation = new NavigationMemory(), hover = new HoverTarget();
 let hoverPointer = null, touchTarget = null;
 const sectors = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
 const sectorColors = [C.amber, C.cyan, C.purple, C.lime];
-const nav = [['galaxy', 'ATLANTE'], ['surface', 'SUPERFICIE'], ['research', 'RICERCA'], ['catalogue', 'CATALOGO'], ['theory', 'TEORIA'], ['lab', 'LABORATORI'], ['quiz', 'VERIFICA'], ['journal', 'DIARIO']];
+const nav = [['galaxy', 'ATLANTE'], ['surface', 'SUPERFICIE'], ['research', 'RICERCA'], ['catalogue', 'CATALOGO'], ['theory', 'TEORIA'], ['mission', 'MISSIONI'], ['lab', 'LABORATORI'], ['quiz', 'VERIFICA'], ['journal', 'DIARIO']];
 const labNames = { daisyworld: 'Daisyworld', transform: 'Trasformazioni', rectangle: 'Area a perimetro fissato', radical: 'Dominio dei radicali', linear: 'Due vincoli lineari', reserve: 'Riserve e decadimento', rational: 'Zeri, segni e punti esclusi' };
 const labIds = Object.keys(labNames);
 const sourceLabs = { 'function-transform': 'transform', 'rectangle-area': 'rectangle', 'radical-domain': 'radical', 'linear-system': 'linear', 'exponential-reserve': 'reserve', 'rational-signs': 'rational' };
@@ -36,8 +42,12 @@ function selected() { return data.modules[S.selected] || data.modules[7]; }
 function moduleById(id) { return data.modules.find(m => m.id === id); }
 function selectIndex(i) { S.observedBody=null;S.selected = clamp(i, 0, 99); S.system = systemForPlanet(S.selected); S.scroll = 0; S.reader = selected().id; }
 function route(scene, extra = {}) {
+    const targetModule = Number.isInteger(extra.selected) ? data.modules[extra.selected] || selected() : selected();
+    if(scene==='quiz' && targetModule.id!=='math-c08'){openCourse(targetModule.id,4);return;}
+    if(scene==='briefing' && education)education.page=0;
+    if (scene === 'pilot') extra = { ...extra, selected: 7, system: 7, reader: 'math-c08' };
     if (scene === 'theory' && !extra.reader) {
-        openTheory(selected().id);
+        openTheory(targetModule.id);
         return;
     }
     navigation.move(S, scene, extra);
@@ -52,7 +62,7 @@ function route(scene, extra = {}) {
 }
 function enterSystem(id=S.system) { route('system',{system:id}); }
 function enterPlanet(index=S.selected) { route('orbit',{selected:index}); }
-function backToParent() { if(S.scene==='surface')route('orbit');else if(S.scene==='orbit')route('system',{system:S.system});else if(S.scene==='system')route('galaxy'); }
+function backToParent() { if(['mission','pilot'].includes(S.scene))route('briefing');else if(S.scene==='surface')route('orbit');else if(S.scene==='orbit')route('system',{system:S.system});else if(S.scene==='system')route('galaxy'); }
 function changeZoom(factor) { const limits=S.scene==='system'?[17,70]:S.scene==='orbit'?[14,38]:[23,100]; S.distance=clamp(S.distance*factor,...limits); hover.clear(); }
 function updateHash(mode = 'replace') {
     const q = new URLSearchParams();
@@ -70,7 +80,7 @@ function updateHash(mode = 'replace') {
     if (location.hash !== hash)
         history[mode === 'push' ? 'pushState' : 'replaceState'](null, '', hash);
 }
-function parseHash() { const p = resolveRoute(location.hash, data.modules, Object.keys(lessons)); navigation.move(S,p.scene,p); hover.clear(); S.hoveredTarget=null; S.section = clamp(S.section, 0, (lessons[S.reader]?.sections.length || 1) - 1); }
+function parseHash() { const p = resolveRoute(location.hash, data.modules, Object.keys(lessons)); navigation.move(S,p.scene,p); hover.clear(); S.hoveredTarget=null; S.section = clamp(S.section, 0, (lessons[S.reader]?.sections.length || 1) - 1); if(education && p.courseStage!==null){education.select(selected().id);education.setStage(p.courseStage);} }
 function openTheory(id = 'math-c08', section = 0) {
     const m = moduleById(id);
     if (m)
@@ -78,9 +88,8 @@ function openTheory(id = 'math-c08', section = 0) {
     if (lessons[id]) {
         route('theory', { reader: id, section: clamp(section, 0, lessons[id].sections.length - 1) });
     }
-    else if (m?.source) {
-        openPDF(m.source.pdfPages[0]);
-    }
+    else if (m?.curriculum && education) { openCourse(m.id,1); }
+    else if (m?.source) { openPDF(m.source.pdfPages[0]); }
     else
         route('briefing');
 }
@@ -142,8 +151,8 @@ function title(kicker, heading, sub) {
         U.wrap(sub, 35, 190, Math.min(R.w - 70, 680), C.muted, 24, 2);
 }
 function wrapClipText(s, x, y, w, style = 'body', c = C.muted, max = 3) { return U.wrap(s, x, y, w, c, style === 'body' ? 25 : 19, max, style); }
-function coverage(m) { return m.status === 'planned' ? 'IN PREPARAZIONE' : m.lesson ? (['theory-complete', 'full-theory'].includes(m.coverage) ? 'TEORIA WEB' : 'LEZIONE WEB + FONTE') : 'DISPENSA COMPLETA'; }
-function buttonsModule(m, x, y, w) { U.button('briefing', 'DOSSIER DELL’UNITÀ', x, y, w, 42, () => route('briefing'), { active: true }); U.button('read-unit', m.lesson ? 'LEGGI LA TEORIA' : 'CONSULTA LA FONTE', x, y + 51, w, 42, () => openTheory(m.id), { disabled: m.status === 'planned' }); }
+function coverage(m) { if(m.curriculum)return m.source?'PERCORSO GUIDATO + FONTE PDF':'PERCORSO GUIDATO 3D';return m.status === 'planned' ? 'IN PREPARAZIONE' : m.lesson ? (['theory-complete', 'full-theory'].includes(m.coverage) ? 'TEORIA WEB' : 'LEZIONE WEB + FONTE') : 'DISPENSA COMPLETA'; }
+function buttonsModule(m, x, y, w) { U.button('briefing', 'DOSSIER DELL’UNITÀ', x, y, w, 42, () => route('briefing'), { active: true }); U.button('read-unit', m.curriculum ? 'APRI IL PERCORSO 3D' : m.lesson ? 'LEGGI LA TEORIA' : 'CONSULTA LA FONTE', x, y + 51, w, 42, () => m.curriculum?openCourse(m.id):openTheory(m.id), { disabled: m.status === 'planned' }); }
 function common() {
     const w = R.w, h = R.h, mobile = w < 850;
     U.begin();
@@ -154,7 +163,7 @@ function common() {
         U.tag('BEYOND KNOWLEDGE', 28, 63, C.lime);
     if (mobile) {
         U.button('menu', 'MENU', w - 90, 16, 66, 35, () => S.menu = !S.menu);
-        U.text(nav.find(x => x[0] === S.scene)?.[1] || ({system:'SISTEMA',orbit:'ORBITA'}[S.scene]||S.scene.toUpperCase()), 28, 69, 'mini', C.lime, { track: 1.1 });
+        U.text(nav.find(x => x[0] === S.scene)?.[1] || ({system:'SISTEMA',orbit:'ORBITA',paths:'PERCORSI',pilot:'PILOTA'}[S.scene]||S.scene.toUpperCase()), 28, 69, 'mini', C.lime, { track: 1.1 });
         U.button('settings', 'QUALITÀ', w - 180, 58, 82, 29, () => S.settings = !S.settings, { small: true });
     }
     else {
@@ -281,7 +290,7 @@ function surfaceUI() {
     title('04 / OSSERVAZIONE PLANETARIA', 'LA STAZIONE ECHO', W.biome.toUpperCase() + ' · ambiente 3D illustrativo. Non è una mappa climatica osservata.');
     let wet = Array.from(W.terrain.height.values()).filter(x => x.wet).length;
     const names = ['OSSERVATORIO DEI MODELLI', 'STAZIONE ENERGETICA', 'LABORATORIO DELLA MATERIA', 'OSSERVATORIO DELLA VITA'];
-    const desc = ['Teoria, funzioni e strumenti di calcolo.', 'Bilancio energetico nel modello Daisyworld.', 'Nodi di collegamento; corso di chimica in preparazione.', 'Popolazioni nel modello; corso di biologia in preparazione.'];
+    const desc = ['Matematica: relazioni, strutture e dimostrazioni.', 'Fisica: misure, leggi e modelli ideali.', 'Chimica: composizione, trasformazioni ed equilibrio.', 'Biologia: organizzazione, popolazioni ed evoluzione.'];
     const px = mobile ? 18 : w - 353, pw = mobile ? w - 36 : 320, py = mobile ? h - 304 : 258, ph = mobile ? 220 : 370;
     U.panel(px, py, pw, ph, sectorColors[S.station], .78);
     U.tag('STAZIONE ' + (S.station + 1).toString().padStart(2, '0'), px + 18, py + 20);
@@ -293,14 +302,7 @@ function surfaceUI() {
         U.text('4 stazioni / ' + W.trees.length + ' elementi vegetali', px + 18, py + 278, 'micro', C.muted);
     }
     U.button('enter-station', 'APRI IL PERCORSO', px + 16, py + ph - 55, pw - 32, 40, () => {
-        if (S.station === 0)
-            openTheory('math-c08');
-        else if (S.station === 1)
-            route('lab', { lab: 'daisyworld' });
-        else {
-            S.sector = S.station;
-            route('catalogue');
-        }
+        openCourse(data.modules[S.system + S.station * 25].id);
     }, { active: true });
     if (!mobile)
         for (const p of W.projections) {
@@ -343,9 +345,11 @@ function researchUI() {
 }
 function catalogueUI() {
     const w = R.w, h = R.h, mobile = w < 850;
-    title('05 / CATALOGO DIDATTICO', 'CENTO DESTINAZIONI', '25 unità matematiche documentate; 75 posti riservati alle future dispense.');
+    title('05 / CATALOGO DIDATTICO', 'CENTO DESTINAZIONI', '100 nuclei guidati con spiegazioni, modelli 3D, esperimenti e autoverifica. Le fonti matematiche originali restano disponibili.');
     const x = 34, ww = w - 68;
-    U.button('search', 'CERCA: ' + (S.query || 'argomento, codice, disciplina…'), x, 245, ww, 42, () => startEdit('search'), { active: S.editing === 'search' });
+    const pathsW=mobile?96:150,searchW=ww-pathsW-8;
+    U.button('search',education.short('CERCA: '+(S.query||'argomento o codice'),searchW-18,'mini'),x,245,searchW,42,()=>startEdit('search'),{active:S.editing==='search'});
+    U.button('open-paths','PERCORSI',x+searchW+8,245,pathsW,42,()=>route('paths'),{small:mobile});
     let bw = (ww - 20) / 5;
     ['TUTTE', 'MATEMATICA', 'FISICA', 'CHIMICA', 'BIOLOGIA'].forEach((t, i) => U.button('filter-' + i, mobile ? ['TUTTE', 'MAT', 'FIS', 'CHI', 'BIO'][i] : t, x + i * (bw + 5), 298, bw, 32, () => { S.sector = i - 1; S.catalogPage = 0; }, { active: S.sector === i - 1, small: mobile }));
     const items = data.modules.filter(m => (S.sector < 0 || m.sector === S.sector) && (m.title + ' ' + m.code + ' ' + sectors[m.sector] + ' ' + m.description).toLocaleLowerCase('it').includes(S.query.toLocaleLowerCase('it')));
@@ -358,35 +362,18 @@ function catalogueUI() {
     U.text(`${items.length} RISULTATI · ${S.catalogPage + 1}/${pages}`, w / 2, h - 72, 'micro', C.muted, { align: 'center' });
 }
 function briefingUI() {
-    const m = selected(), w = R.w, h = R.h, mobile = w < 850;
-    title('DOSSIER / ' + sectors[m.sector].toUpperCase(), m.title, coverage(m));
-    const x = mobile ? 20 : Math.max(50, (w - 1050) / 2), ww = mobile ? w - 40 : Math.min(1050, w - 100), y = 245;
-    U.panel(x, y, ww, h - y - 110, sectorColors[m.sector], .82);
-    U.tag('DOMANDA DELLA SPEDIZIONE', x + 24, y + 23);
-    wrapClipText(m.description, x + 24, y + 63, ww - 48, 'body', C.pale, 4);
-    let yy = y + 178;
-    U.tag('PREREQUISITI E COLLEGAMENTI', x + 24, yy);
-    yy += 35;
-    const pre = m.prerequisites || [];
-    if (!pre.length)
-        U.wrap('Nessun prerequisito obbligatorio indicato nel catalogo. La navigazione resta libera.', x + 24, yy, ww - 48, C.muted, 25, 2);
-    else
-        for (const id of pre.slice(0, 3)) {
-            const dep = moduleById(id);
-            if (dep) {
-                U.button('pre-' + id, dep.code + ' · ' + dep.title, x + 24, yy, Math.min(ww - 48, 560), 34, () => { selectIndex(dep.planetIndex); route('briefing'); });
-                yy += 43;
-            }
-        }
-    if (!mobile) {
-        U.tag('COPERTURA REALE', x + 24, y + 354);
-        wrapClipText(m.status === 'planned' ? 'Questo pianeta è riservato alla futura dispensa. Non sono stati inventati capitoli, domande o risultati.' : m.lesson ? (lessons[m.id]?.coverage?.note || 'Lezione web disponibile; la fonte integrale resta nel PDF.') : 'La dispensa originale è consultabile interamente nel lettore WebGL. La rielaborazione narrativa di questa unità non è ancora disponibile.', x + 24, y + 390, ww - 48, 'body', C.muted, 4);
-    }
-    const by = h - 95;
-    U.button('brief-read', m.lesson ? 'TEORIA NARRATIVA' : 'FONTE ORIGINALE', x, by, mobile ? (ww - 9) / 2 : 230, 42, () => openTheory(m.id), { active: true, disabled: m.status === 'planned' });
-    U.button('brief-source', 'DISPENSA PDF', x + (mobile ? (ww + 9) / 2 : 245), by, mobile ? (ww - 9) / 2 : 220, 42, () => openPDF(m.source?.pdfPages[0] || 1), { disabled: !m.source });
-    if (!mobile)
-        U.button('brief-lab', 'LABORATORI', x + 480, by, 200, 42, () => route('lab', { lab: sourceLabs[m.labIds?.[0]] || 'daisyworld' }));
+    const m=selected(),w=R.w,h=R.h,mobile=w<850;
+    U.tag('DOSSIER / '+sectors[m.sector].toUpperCase(),24,110,C.lime);
+    U.wrap(m.title,24,139,w-48,C.pale,28,2,mobile?'body':'sub');
+    U.text(coverage(m),24,207,'micro',C.muted);
+    const x=mobile?18:Math.max(40,(w-1050)/2),ww=mobile?w-36:Math.min(1050,w-80),rect={x,y:245,w:ww,h:h-357};
+    U.panel(rect.x,rect.y,rect.w,rect.h,sectorColors[m.sector],.94);
+    education.select(m.id);const d=education.definition;
+    education.readingUI(U,[d.narrativeStatus,...d.objectives,'Ambito: '+d.scope+'. Nucleo guidato: non esaurisce tutti i sottotemi del programma.','Prerequisiti consigliati: '+(d.prerequisites.map(id=>moduleById(id)?.title||id).join('; ')||'nessuno')+'. La navigazione è libera.',m.source?'La dispensa matematica originale e la numerazione delle pagine sono preservate.':'Questa unità contiene materiale originale; non è attribuita alla dispensa matematica.'],rect,'OBIETTIVI E COPERTURA');
+    const bw=(ww-16)/3,by=h-95;
+    U.button('brief-course','PERCORSO 3D',x,by,bw,40,()=>openCourse(m.id),{active:true,small:mobile});
+    U.button('brief-read',m.lesson?'TEORIA ORIGINALE':'SPIEGAZIONI',x+bw+8,by,bw,40,()=>m.lesson?openTheory(m.id):openCourse(m.id,1),{small:mobile});
+    U.button('brief-source','DISPENSA PDF',x+2*(bw+8),by,bw,40,()=>openPDF(m.source.pdfPages[0]),{disabled:!m.source,small:mobile});
 }
 function documentView(key, rect, { invert = false } = {}) {
     const doc = readerIndex[key];
@@ -714,10 +701,10 @@ function finishEdit(save = true) {
 }
 function journalUI() {
     const w = R.w, h = R.h, mobile = w < 850;
-    title('DIARIO / IPOTESI, ESPERIMENTI E CONCLUSIONI', 'LA MEMORIA DELLA SPEDIZIONE', store.persistent ? 'Salvataggio locale attivo. Esporta una copia per trasferire il lavoro fra dispositivi.' : 'Persistenza non disponibile: esporta il diario prima di chiudere.');
+    title('DIARIO / IPOTESI, ESPERIMENTI E CONCLUSIONI', S.journalTab.startsWith('course:') ? 'DIARIO: '+(moduleById(S.journalTab.slice(7))?.code||'UNITÀ') : S.journalTab === 'mission:echo08-signal' ? 'DIARIO DELLA MISSIONE ECHO-08' : 'LA MEMORIA DELLA SPEDIZIONE', store.persistent ? 'Salvataggio locale attivo. Esporta una copia per trasferire il lavoro fra dispositivi.' : 'Persistenza non disponibile: esporta il diario prima di chiudere.');
     const x = mobile ? 20 : 40, ww = mobile ? w - 40 : w - 80;
     U.button('journal-global', 'DIARIO GENERALE', x, 245, Math.min(220, ww / 2 - 4), 35, () => { finishEdit(); S.journalTab = 'general'; }, { active: S.journalTab === 'general', small: mobile });
-    U.button('journal-module', 'UNITÀ ' + selected().code, x + Math.min(228, ww / 2 + 4), 245, Math.min(220, ww / 2 - 4), 35, () => { finishEdit(); S.journalTab = selected().id; }, { active: S.journalTab === selected().id, small: mobile });
+    U.button('journal-module', 'UNITÀ ' + selected().code, x + Math.min(228, ww / 2 + 4), 245, Math.min(220, ww / 2 - 4), 35, () => { finishEdit(); S.journalTab = 'course:'+selected().id; }, { active: S.journalTab === 'course:'+selected().id, small: mobile });
     const by = 298, hh = h - by - 180;
     U.panel(x, by, ww, hh, C.cyan, .85);
     const text = S.editing === 'notes' ? editor.value : store.data.notes[S.journalTab] || 'Domanda → Ipotesi → Parametri → Osservazioni → Conclusioni → Limiti.\n\nSeleziona «Scrivi» per iniziare.';
@@ -801,7 +788,7 @@ function sourcesUI() {
     title('TRACCIABILITÀ / FONTI E LIMITI', 'CHE COSA STAI OSSERVANDO', 'Sorgenti, risultati di modelli e ambientazioni illustrative sono distinti.');
     const x = 36, ww = w - 72, y = 248;
     U.panel(x, y, ww, h - y - 112, C.cyan, .84);
-    const rows = [['CONTENUTI DIDATTICI', 'Dispensa «Matematica di base» di Marzio De Corato e Danilo Liuzzi: 769 pagine, 25 unità. Quattro lezioni narrative e 40 quesiti di Funzioni conservati dalla V7.'], ['DAISYWORLD', 'Equazioni di Watson & Lovelock (1983), scelte numeriche documentate. Il modello non è una previsione del clima terrestre e non garantisce autoregolazione universale.'], ['GEOMETRIA E TEXTURE', 'Mappe planetarie: NASA Earth Observatory, NASA/GSFC/SVS, NASA/JPL-Caltech/USGS e NASA VTAD. File e risoluzioni originali documentati. Famiglie ispirate a Haegemonia. Nessuna texture planetaria inventata o generata con IA.'], ['COPERTURA', 'Fisica, chimica e biologia: 75 posti riservati. La rete collega concetti e dossier trasversali; non simula tre corsi completi.'], ['RENDERING', 'Tutti i pixel visibili del sito sono composti in WebGL 2. Testi matematici e pagine originali sono texture tipografiche su superfici GPU. Il livello semantico non visibile supporta tastiera e lettura assistita.']];
+    const rows = [['CONTENUTI DIDATTICI', 'Dispensa «Matematica di base» di Marzio De Corato e Danilo Liuzzi: 769 pagine, 25 unità. Quattro lezioni narrative e 40 quesiti di Funzioni conservati dalla V7.'], ['DAISYWORLD', 'Equazioni di Watson & Lovelock (1983), scelte numeriche documentate. Il modello non è una previsione del clima terrestre e non garantisce autoregolazione universale.'], ['GEOMETRIA E TEXTURE', 'Mappe planetarie: NASA Earth Observatory, NASA/GSFC/SVS, NASA/JPL-Caltech/USGS e NASA VTAD. File e risoluzioni originali documentati. Famiglie ispirate a Haegemonia. Nessuna texture planetaria inventata o generata con IA.'], ['COPERTURA', '100 nuclei guidati, 25 per disciplina, con modelli ed esercizi specifici. Non sono manuali integrali: revisione scientifico-didattica umana da completare.'], ['RENDERING', 'Tutti i pixel visibili del sito sono composti in WebGL 2. Testi matematici e pagine originali sono texture tipografiche su superfici GPU. Il livello semantico non visibile supporta tastiera e lettura assistita.']];
     let yy = y + 22 - S.scroll;
     for (const [a, b] of rows) {
         if (yy >= y && yy < h - 180) {
@@ -866,9 +853,10 @@ function draw() {
     R.sceneQuality=S.graphics;R.hoverStarIndex=S.hoveredTarget?.type==='system'?W.systems[S.hoveredTarget.index]?.starIndex:-1;
     R.begin();
     W.draw(S.scene, S, data);
+    if(S.scene==='pilot')pilotEducation.draw3D({...S,scene:'mission'});else education.draw3D(S);
     drawMathObjects();
     common();
-    const screens = { galaxy: galaxyUI, system: systemUI, orbit: orbitUI, surface: surfaceUI, research: researchUI, catalogue: catalogueUI, briefing: briefingUI, theory: theoryUI, pdf: pdfUI, lab: labUI, quiz: quizUI, journal: journalUI, sources: sourcesUI };
+    const screens = { galaxy: galaxyUI, system: systemUI, orbit: orbitUI, surface: surfaceUI, research: researchUI, catalogue: catalogueUI, briefing: briefingUI, theory: theoryUI, pdf: pdfUI, lab: labUI, quiz: quizUI, journal: journalUI, sources: sourcesUI, mission: () => education.drawUI(U, S), pilot: () => pilotEducation.drawUI(U,S), paths: () => education.drawPathsUI(U,S) };
     (screens[S.scene] || galaxyUI)();
     drawHover();
     overlay();
@@ -923,11 +911,11 @@ function syncSemantic() {
         if (e && document.activeElement !== e)
             e.value = b.value;
     }
-    const key = S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
+    const key = S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
     if (key !== textSignature) {
         const el = document.querySelector('#semantic-text');
         if (el)
-            el.textContent = S.scene === 'pdf' ? pdfIndex[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
+            el.textContent = S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndex[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
         textSignature = key;
     }
 }
@@ -957,7 +945,7 @@ function events() {
             U.activate(current, x);
         }
         else if (pointer.moved && !pointer.blocked) {
-            if (['galaxy', 'system', 'orbit', 'surface', 'research'].includes(S.scene)) {
+            if (['galaxy', 'system', 'orbit', 'surface', 'research'].includes(S.scene) || (['mission','pilot'].includes(S.scene) && activeEducation().scene.contains(pointer.startX, pointer.startY) && !S.menu && !S.settings)) {
                 S.yaw += dx * .006;
                 S.pitch = clamp(S.pitch + dy * .003, .1, 1.2);
             }
@@ -1042,6 +1030,9 @@ function events() {
             else
                 S.pitch = Math.max(.1, S.pitch - .07);
         }
+        if (['mission','pilot'].includes(S.scene) && ['PageDown', 'PageUp'].includes(e.key)) {
+            e.preventDefault(); activeEducation().page += e.key === 'PageDown' ? 1 : -1; return;
+        }
         if (e.key === 'PageDown') {
             e.preventDefault();
             S.scroll = Math.min(S.maxScroll, S.scroll + R.h * .7);
@@ -1077,7 +1068,7 @@ function events() {
         if (!file)
             return;
         try {
-            if (file.size > 2000000)
+            if (file.size > 8000000)
                 throw Error('File troppo grande');
             const value = JSON.parse(await file.text());
             importJournal(value);
@@ -1107,6 +1098,12 @@ async function init() {
         await Promise.all(data.modules.filter(m => m.lesson).map(async (m) => { lessons[m.id] = await json(m.lesson); }));
         lessons.gaia = await json('content/gaia.json');
         questions = (await json('content/quizzes/math-c08.json')).questions;
+        const missionIndex = await json('content/missions/index.json');
+        const missionEntry = missionIndex.missions?.find(m => m.id === 'echo08-signal');
+        if (missionIndex.schemaVersion !== 1 || missionEntry?.path !== 'content/missions/echo08-signal.json')
+            throw Error('Registro delle missioni non valido');
+        const missionDefinition = await json(missionEntry.path);
+        const curriculum = await json('content/curriculum/bundle.json');
         const textures = {};
         for(const m of textureManifest){
             textures[m.id]=R.uploadTexture(await image(m.path));
@@ -1144,8 +1141,12 @@ async function init() {
         computeLab();
         events();
         S.loaded = true;
-        window.GAIA = { version: '1.4.0', state: S, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0), planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, sourcePages: pdfIndex.length, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
+        window.GAIA = { version: '1.5.0-curriculum', state: S, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0), planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndex.length, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
         U = new UI(R);
+        pilotEducation = new MissionUI(R, store, missionDefinition, { state:S, route, openTheory, openPDF, download, say });
+        education = new CourseUI(R,store,curriculum,{state:S,route,openCourse,openTheory,openPDF,openExternal,download,say,currentUnit:()=>selected().id});
+        education.select(selected().id);
+        if(S.courseStage!==null && S.courseStage!==undefined)education.setStage(S.courseStage);
         const frame = now => {
             if (S.contextLost)
                 return;

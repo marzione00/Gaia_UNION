@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "physics-02",
+  "title": "Vettori e sistemi di riferimento",
+  "sector": 1,
+  "modelId": "physics-02",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Componenti ortogonali nello stesso riferimento",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: componenti ortogonali nello stesso riferimento.",
+    "Applicare |v| = √(v_x²+v_y²), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "physics-01"
+  ],
+  "connections": [
+    "math-p06"
+  ],
+  "sources": [
+    "physics1",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Componente v_x",
+      "definition": "Variabile indipendente, unità m/s; intervallo [0; 10]."
+    },
+    {
+      "term": "Modulo velocità",
+      "definition": "Risultato calcolato dal modello, unità m/s."
+    },
+    {
+      "term": "Componente v_y",
+      "definition": "Parametro a, unità m/s; intervallo [0; 8]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Il rover si muove verso est mentre il terreno trasporta lateralmente un sensore. Le componenti della velocità sono note: la velocità totale non si ottiene sommando semplicemente i numeri.",
+          "Un vettore possiede modulo, direzione e verso. Le componenti dipendono dagli assi scelti, mentre il modulo della velocità rispetto a uno stesso riferimento non cambia ruotando gli assi."
+        ],
+        "intermediate": [
+          "Il rover si muove verso est mentre il terreno trasporta lateralmente un sensore. Le componenti della velocità sono note: la velocità totale non si ottiene sommando semplicemente i numeri.",
+          "Con componenti perpendicolari v_x e v_y, il teorema di Pitagora dà |v|=√(v_x²+v_y²). Le componenti possono essere negative; i quadrati assicurano un modulo non negativo."
+        ],
+        "advanced": [
+          "Il rover si muove verso est mentre il terreno trasporta lateralmente un sensore. Le componenti della velocità sono note: la velocità totale non si ottiene sommando semplicemente i numeri.",
+          "Ruota gli assi di 90° e verifica che il modulo resti uguale. Confronta poi due velocità relative usando la composizione galileiana, dichiarando i riferimenti.",
+          "Il modello considera due componenti ortogonali di una stessa velocità. Non include trasformazioni relativistiche o accelerazioni del riferimento."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Un vettore possiede modulo, direzione e verso. Le componenti dipendono dagli assi scelti, mentre il modulo della velocità rispetto a uno stesso riferimento non cambia ruotando gli assi.",
+          "Per v_x=4 m/s e v_y=3 m/s il modulo è 5 m/s, non 7. La direzione può essere ricavata dall’angolo con l’asse orizzontale, controllando il quadrante."
+        ],
+        "intermediate": [
+          "Con componenti perpendicolari v_x e v_y, il teorema di Pitagora dà |v|=√(v_x²+v_y²). Le componenti possono essere negative; i quadrati assicurano un modulo non negativo.",
+          "La variabile Componente v_x è espressa in m/s; Modulo velocità in m/s. Il dominio dello strumento è [0; 10]. La relazione implementata è: |v| = √(v_x²+v_y²).",
+          "Per v_x=4 m/s e v_y=3 m/s il modulo è 5 m/s, non 7. La direzione può essere ricavata dall’angolo con l’asse orizzontale, controllando il quadrante."
+        ],
+        "advanced": [
+          "Con componenti perpendicolari v_x e v_y, il teorema di Pitagora dà |v|=√(v_x²+v_y²). Le componenti possono essere negative; i quadrati assicurano un modulo non negativo.",
+          "Ruota gli assi di 90° e verifica che il modulo resti uguale. Confronta poi due velocità relative usando la composizione galileiana, dichiarando i riferimenti.",
+          "La somma dei moduli coincide con il modulo della somma solo in casi particolari. Una rotazione degli assi non va confusa con un cambio di osservatore in moto rispetto al primo."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Componente v_y (a): 3 m/s. Prima di salvare A, prevedi come cambia Modulo velocità fra Componente v_x=2,5 e 5 m/s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Per v_x=4 m/s e v_y=3 m/s il modulo è 5 m/s, non 7. La direzione può essere ricavata dall’angolo con l’asse orizzontale, controllando il quadrante.",
+          "La variabile Componente v_x è espressa in m/s; Modulo velocità in m/s. Il dominio dello strumento è [0; 10]. La relazione implementata è: |v| = √(v_x²+v_y²)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Componente v_y (a): 3 m/s. Prima di salvare A, prevedi come cambia Modulo velocità fra Componente v_x=2,5 e 5 m/s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Componente v_x è espressa in m/s; Modulo velocità in m/s. Il dominio dello strumento è [0; 10]. La relazione implementata è: |v| = √(v_x²+v_y²).",
+          "Con componenti perpendicolari v_x e v_y, il teorema di Pitagora dà |v|=√(v_x²+v_y²). Le componenti possono essere negative; i quadrati assicurano un modulo non negativo."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Componente v_y (a): 3 m/s. Prima di salvare A, prevedi come cambia Modulo velocità fra Componente v_x=2,5 e 5 m/s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Ruota gli assi di 90° e verifica che il modulo resti uguale. Confronta poi due velocità relative usando la composizione galileiana, dichiarando i riferimenti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "La somma dei moduli coincide con il modulo della somma solo in casi particolari. Una rotazione degli assi non va confusa con un cambio di osservatore in moto rispetto al primo.",
+          "Il modello considera due componenti ortogonali di una stessa velocità. Non include trasformazioni relativistiche o accelerazioni del riferimento.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "La somma dei moduli coincide con il modulo della somma solo in casi particolari. Una rotazione degli assi non va confusa con un cambio di osservatore in moto rispetto al primo.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Il modello considera due componenti ortogonali di una stessa velocità. Non include trasformazioni relativistiche o accelerazioni del riferimento.",
+          "Ruota gli assi di 90° e verifica che il modulo resti uguale. Confronta poi due velocità relative usando la composizione galileiana, dichiarando i riferimenti.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Un vettore possiede modulo, direzione e verso. Le componenti dipendono dagli assi scelti, mentre il modulo della velocità rispetto a uno stesso riferimento non cambia ruotando gli assi.",
+          "Per v_x=4 m/s e v_y=3 m/s il modulo è 5 m/s, non 7. La direzione può essere ricavata dall’angolo con l’asse orizzontale, controllando il quadrante."
+        ],
+        "intermediate": [
+          "Con componenti perpendicolari v_x e v_y, il teorema di Pitagora dà |v|=√(v_x²+v_y²). Le componenti possono essere negative; i quadrati assicurano un modulo non negativo.",
+          "La variabile Componente v_x è espressa in m/s; Modulo velocità in m/s. Il dominio dello strumento è [0; 10]. La relazione implementata è: |v| = √(v_x²+v_y²)."
+        ],
+        "advanced": [
+          "Ruota gli assi di 90° e verifica che il modulo resti uguale. Confronta poi due velocità relative usando la composizione galileiana, dichiarando i riferimenti.",
+          "Il modello considera due componenti ortogonali di una stessa velocità. Non include trasformazioni relativistiche o accelerazioni del riferimento."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Componenti ortogonali nello stesso riferimento.",
+          "Il modello considera due componenti ortogonali di una stessa velocità. Non include trasformazioni relativistiche o accelerazioni del riferimento.",
+          "Collegamento consigliato: math-p06. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Con componenti perpendicolari v_x e v_y, il teorema di Pitagora dà |v|=√(v_x²+v_y²). Le componenti possono essere negative; i quadrati assicurano un modulo non negativo.",
+          "Il modello considera due componenti ortogonali di una stessa velocità. Non include trasformazioni relativistiche o accelerazioni del riferimento.",
+          "Ruota gli assi di 90° e verifica che il modulo resti uguale. Confronta poi due velocità relative usando la composizione galileiana, dichiarando i riferimenti."
+        ],
+        "advanced": [
+          "Ruota gli assi di 90° e verifica che il modulo resti uguale. Confronta poi due velocità relative usando la composizione galileiana, dichiarando i riferimenti.",
+          "Il modello considera due componenti ortogonali di una stessa velocità. Non include trasformazioni relativistiche o accelerazioni del riferimento.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "physics-02-concept",
+      "prompt": "Con componenti ortogonali 3 e 4 m/s il modulo è:",
+      "options": [
+        {
+          "id": "A",
+          "text": "1 m/s",
+          "feedback": "Con componenti perpendicolari v_x e v_y, il teorema di Pitagora dà |v|=√(v_x²+v_y²). Le componenti possono essere negative; i quadrati assicurano un modulo non negativo."
+        },
+        {
+          "id": "B",
+          "text": "5 m/s",
+          "feedback": "Un vettore possiede modulo, direzione e verso. Le componenti dipendono dagli assi scelti, mentre il modulo della velocità rispetto a uno stesso riferimento non cambia ruotando gli assi."
+        },
+        {
+          "id": "C",
+          "text": "7 m/s",
+          "feedback": "La somma dei moduli coincide con il modulo della somma solo in casi particolari. Una rotazione degli assi non va confusa con un cambio di osservatore in moto rispetto al primo."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "physics-02-calculation",
+      "prompt": "Calcolo: Componente v_y (a)=3 m/s. Per Componente v_x=4 m/s, quanto vale Modulo velocità?",
+      "options": [
+        {
+          "id": "A",
+          "text": "5 m/s",
+          "feedback": "|v| = √(v_x²+v_y²). Con Componente v_y (a)=3 m/s e Componente v_x=4 m/s, il risultato è 5 m/s. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "7,5 m/s",
+          "feedback": "Questo valore non soddisfa la relazione. |v| = √(v_x²+v_y²). Con Componente v_y (a)=3 m/s e Componente v_x=4 m/s, il risultato è 5 m/s. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "2,5 m/s",
+          "feedback": "Controlla sostituzione, segno e unità. |v| = √(v_x²+v_y²). Con Componente v_y (a)=3 m/s e Componente v_x=4 m/s, il risultato è 5 m/s. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 4,
+        "parameters": {
+          "a": 3
+        },
+        "expected": 5,
+        "unit": "m/s"
+      }
+    },
+    {
+      "id": "physics-02-transfer",
+      "prompt": "Trasferimento: Componente v_y (a)=4 m/s. Per Componente v_x=4 m/s, quanto vale Modulo velocità?",
+      "options": [
+        {
+          "id": "A",
+          "text": "8,48528 m/s",
+          "feedback": "Questo valore non soddisfa la relazione. |v| = √(v_x²+v_y²). Con Componente v_y (a)=4 m/s e Componente v_x=4 m/s, il risultato è 5,65685 m/s. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "2,82843 m/s",
+          "feedback": "Controlla sostituzione, segno e unità. |v| = √(v_x²+v_y²). Con Componente v_y (a)=4 m/s e Componente v_x=4 m/s, il risultato è 5,65685 m/s. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "5,65685 m/s",
+          "feedback": "|v| = √(v_x²+v_y²). Con Componente v_y (a)=4 m/s e Componente v_x=4 m/s, il risultato è 5,65685 m/s. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 4,
+        "parameters": {
+          "a": 4
+        },
+        "expected": 5.656854249492381,
+        "unit": "m/s"
+      }
+    },
+    {
+      "id": "physics-02-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Componenti ortogonali nello stesso riferimento",
+          "feedback": "Il modello considera due componenti ortogonali di una stessa velocità. Non include trasformazioni relativistiche o accelerazioni del riferimento."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il modello considera due componenti ortogonali di una stessa velocità. Non include trasformazioni relativistiche o accelerazioni del riferimento."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Il modello considera due componenti ortogonali di una stessa velocità. Non include trasformazioni relativistiche o accelerazioni del riferimento."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
+}

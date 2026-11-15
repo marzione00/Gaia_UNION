@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "physics-05",
+  "title": "Traiettorie e lanci",
+  "sector": 1,
+  "modelId": "physics-05",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Lancio ideale senza resistenza dell’aria",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: lancio ideale senza resistenza dell’aria.",
+    "Applicare y = x tan(θ)-g x²/(2v₀² cos²θ), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "physics-04"
+  ],
+  "connections": [
+    "math-c08"
+  ],
+  "sources": [
+    "physics1",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Distanza orizzontale",
+      "definition": "Variabile indipendente, unità m; intervallo [0; 40]."
+    },
+    {
+      "term": "Quota",
+      "definition": "Risultato calcolato dal modello, unità m."
+    },
+    {
+      "term": "Angolo θ",
+      "definition": "Parametro a, unità °; intervallo [15; 75]."
+    },
+    {
+      "term": "Velocità iniziale",
+      "definition": "Parametro b, unità m/s; intervallo [10; 30]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Un campione deve raggiungere un bersaglio oltre un ostacolo. La stazione imposta velocità e inclinazione del lancio. Devi stimare la traiettoria e dichiarare quali effetti sono stati esclusi.",
+          "Nel lancio ideale senza resistenza, il moto orizzontale è uniforme e quello verticale ha accelerazione -g. Le due componenti condividono lo stesso tempo, ma evolvono secondo equazioni diverse."
+        ],
+        "intermediate": [
+          "Un campione deve raggiungere un bersaglio oltre un ostacolo. La stazione imposta velocità e inclinazione del lancio. Devi stimare la traiettoria e dichiarare quali effetti sono stati esclusi.",
+          "Da x=v₀cosθ·t e y=v₀sinθ·t-gt²/2 elimini t. Ottieni y=x tanθ-gx²/(2v₀²cos²θ). Il laboratorio usa g=9,81 m/s² e interrompe la curva dopo il ritorno alla quota del suolo."
+        ],
+        "advanced": [
+          "Un campione deve raggiungere un bersaglio oltre un ostacolo. La stazione imposta velocità e inclinazione del lancio. Devi stimare la traiettoria e dichiarare quali effetti sono stati esclusi.",
+          "Ricava gittata e altezza massima. Spiega perché l’angolo di massima gittata cambia quando partenza e arrivo hanno quote diverse o quando interviene la resistenza.",
+          "Assenza di aria, gravità uniforme e suolo piano sono ipotesi. La scena non va usata per progettare lanci o valutare la sicurezza di oggetti reali."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Nel lancio ideale senza resistenza, il moto orizzontale è uniforme e quello verticale ha accelerazione -g. Le due componenti condividono lo stesso tempo, ma evolvono secondo equazioni diverse.",
+          "Con v₀=20 m/s e θ=45°, in x=10 m la quota è 10-9,81×100/400=7,5475 m. Questo è un valore del modello, non una misura di un lancio reale."
+        ],
+        "intermediate": [
+          "Da x=v₀cosθ·t e y=v₀sinθ·t-gt²/2 elimini t. Ottieni y=x tanθ-gx²/(2v₀²cos²θ). Il laboratorio usa g=9,81 m/s² e interrompe la curva dopo il ritorno alla quota del suolo.",
+          "La variabile Distanza orizzontale è espressa in m; Quota in m. Il dominio dello strumento è [0; 40]. La relazione implementata è: y = x tan(θ)-g x²/(2v₀² cos²θ).",
+          "Con v₀=20 m/s e θ=45°, in x=10 m la quota è 10-9,81×100/400=7,5475 m. Questo è un valore del modello, non una misura di un lancio reale."
+        ],
+        "advanced": [
+          "Da x=v₀cosθ·t e y=v₀sinθ·t-gt²/2 elimini t. Ottieni y=x tanθ-gx²/(2v₀²cos²θ). Il laboratorio usa g=9,81 m/s² e interrompe la curva dopo il ritorno alla quota del suolo.",
+          "Ricava gittata e altezza massima. Spiega perché l’angolo di massima gittata cambia quando partenza e arrivo hanno quote diverse o quando interviene la resistenza.",
+          "La velocità verticale si annulla al culmine, ma la componente orizzontale non si annulla. Il proiettile non è in equilibrio al punto più alto: continua ad avere accelerazione verso il basso."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Angolo θ (a): 45 °; Velocità iniziale (b): 20 m/s. Prima di salvare A, prevedi come cambia Quota fra Distanza orizzontale=10 e 20 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con v₀=20 m/s e θ=45°, in x=10 m la quota è 10-9,81×100/400=7,5475 m. Questo è un valore del modello, non una misura di un lancio reale.",
+          "La variabile Distanza orizzontale è espressa in m; Quota in m. Il dominio dello strumento è [0; 40]. La relazione implementata è: y = x tan(θ)-g x²/(2v₀² cos²θ)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Angolo θ (a): 45 °; Velocità iniziale (b): 20 m/s. Prima di salvare A, prevedi come cambia Quota fra Distanza orizzontale=10 e 20 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Distanza orizzontale è espressa in m; Quota in m. Il dominio dello strumento è [0; 40]. La relazione implementata è: y = x tan(θ)-g x²/(2v₀² cos²θ).",
+          "Da x=v₀cosθ·t e y=v₀sinθ·t-gt²/2 elimini t. Ottieni y=x tanθ-gx²/(2v₀²cos²θ). Il laboratorio usa g=9,81 m/s² e interrompe la curva dopo il ritorno alla quota del suolo."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Angolo θ (a): 45 °; Velocità iniziale (b): 20 m/s. Prima di salvare A, prevedi come cambia Quota fra Distanza orizzontale=10 e 20 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Ricava gittata e altezza massima. Spiega perché l’angolo di massima gittata cambia quando partenza e arrivo hanno quote diverse o quando interviene la resistenza.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "La velocità verticale si annulla al culmine, ma la componente orizzontale non si annulla. Il proiettile non è in equilibrio al punto più alto: continua ad avere accelerazione verso il basso.",
+          "Assenza di aria, gravità uniforme e suolo piano sono ipotesi. La scena non va usata per progettare lanci o valutare la sicurezza di oggetti reali.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "La velocità verticale si annulla al culmine, ma la componente orizzontale non si annulla. Il proiettile non è in equilibrio al punto più alto: continua ad avere accelerazione verso il basso.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Assenza di aria, gravità uniforme e suolo piano sono ipotesi. La scena non va usata per progettare lanci o valutare la sicurezza di oggetti reali.",
+          "Ricava gittata e altezza massima. Spiega perché l’angolo di massima gittata cambia quando partenza e arrivo hanno quote diverse o quando interviene la resistenza.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Nel lancio ideale senza resistenza, il moto orizzontale è uniforme e quello verticale ha accelerazione -g. Le due componenti condividono lo stesso tempo, ma evolvono secondo equazioni diverse.",
+          "Con v₀=20 m/s e θ=45°, in x=10 m la quota è 10-9,81×100/400=7,5475 m. Questo è un valore del modello, non una misura di un lancio reale."
+        ],
+        "intermediate": [
+          "Da x=v₀cosθ·t e y=v₀sinθ·t-gt²/2 elimini t. Ottieni y=x tanθ-gx²/(2v₀²cos²θ). Il laboratorio usa g=9,81 m/s² e interrompe la curva dopo il ritorno alla quota del suolo.",
+          "La variabile Distanza orizzontale è espressa in m; Quota in m. Il dominio dello strumento è [0; 40]. La relazione implementata è: y = x tan(θ)-g x²/(2v₀² cos²θ)."
+        ],
+        "advanced": [
+          "Ricava gittata e altezza massima. Spiega perché l’angolo di massima gittata cambia quando partenza e arrivo hanno quote diverse o quando interviene la resistenza.",
+          "Assenza di aria, gravità uniforme e suolo piano sono ipotesi. La scena non va usata per progettare lanci o valutare la sicurezza di oggetti reali."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Lancio ideale senza resistenza dell’aria.",
+          "Assenza di aria, gravità uniforme e suolo piano sono ipotesi. La scena non va usata per progettare lanci o valutare la sicurezza di oggetti reali.",
+          "Collegamento consigliato: math-c08. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Da x=v₀cosθ·t e y=v₀sinθ·t-gt²/2 elimini t. Ottieni y=x tanθ-gx²/(2v₀²cos²θ). Il laboratorio usa g=9,81 m/s² e interrompe la curva dopo il ritorno alla quota del suolo.",
+          "Assenza di aria, gravità uniforme e suolo piano sono ipotesi. La scena non va usata per progettare lanci o valutare la sicurezza di oggetti reali.",
+          "Ricava gittata e altezza massima. Spiega perché l’angolo di massima gittata cambia quando partenza e arrivo hanno quote diverse o quando interviene la resistenza."
+        ],
+        "advanced": [
+          "Ricava gittata e altezza massima. Spiega perché l’angolo di massima gittata cambia quando partenza e arrivo hanno quote diverse o quando interviene la resistenza.",
+          "Assenza di aria, gravità uniforme e suolo piano sono ipotesi. La scena non va usata per progettare lanci o valutare la sicurezza di oggetti reali.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "physics-05-concept",
+      "prompt": "Al culmine del lancio ideale:",
+      "options": [
+        {
+          "id": "A",
+          "text": "La velocità orizzontale è zero",
+          "feedback": "Da x=v₀cosθ·t e y=v₀sinθ·t-gt²/2 elimini t. Ottieni y=x tanθ-gx²/(2v₀²cos²θ). Il laboratorio usa g=9,81 m/s² e interrompe la curva dopo il ritorno alla quota del suolo."
+        },
+        {
+          "id": "B",
+          "text": "La velocità verticale è zero, l’accelerazione no",
+          "feedback": "Nel lancio ideale senza resistenza, il moto orizzontale è uniforme e quello verticale ha accelerazione -g. Le due componenti condividono lo stesso tempo, ma evolvono secondo equazioni diverse."
+        },
+        {
+          "id": "C",
+          "text": "Tutta l’accelerazione è zero",
+          "feedback": "La velocità verticale si annulla al culmine, ma la componente orizzontale non si annulla. Il proiettile non è in equilibrio al punto più alto: continua ad avere accelerazione verso il basso."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "physics-05-calculation",
+      "prompt": "Calcolo: Angolo θ (a)=45 °; Velocità iniziale (b)=20 m/s. Per Distanza orizzontale=10 m, quanto vale Quota?",
+      "options": [
+        {
+          "id": "A",
+          "text": "7,5475 m",
+          "feedback": "y = x tan(θ)-g x²/(2v₀² cos²θ). Con Angolo θ (a)=45 °; Velocità iniziale (b)=20 m/s e Distanza orizzontale=10 m, il risultato è 7,5475 m. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "11,3213 m",
+          "feedback": "Questo valore non soddisfa la relazione. y = x tan(θ)-g x²/(2v₀² cos²θ). Con Angolo θ (a)=45 °; Velocità iniziale (b)=20 m/s e Distanza orizzontale=10 m, il risultato è 7,5475 m. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "3,77375 m",
+          "feedback": "Controlla sostituzione, segno e unità. y = x tan(θ)-g x²/(2v₀² cos²θ). Con Angolo θ (a)=45 °; Velocità iniziale (b)=20 m/s e Distanza orizzontale=10 m, il risultato è 7,5475 m. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 10,
+        "parameters": {
+          "a": 45,
+          "b": 20
+        },
+        "expected": 7.5475,
+        "unit": "m"
+      }
+    },
+    {
+      "id": "physics-05-transfer",
+      "prompt": "Trasferimento: Angolo θ (a)=50 °; Velocità iniziale (b)=20 m/s. Per Distanza orizzontale=10 m, quanto vale Quota?",
+      "options": [
+        {
+          "id": "A",
+          "text": "13,4245 m",
+          "feedback": "Questo valore non soddisfa la relazione. y = x tan(θ)-g x²/(2v₀² cos²θ). Con Angolo θ (a)=50 °; Velocità iniziale (b)=20 m/s e Distanza orizzontale=10 m, il risultato è 8,94967 m. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "4,47484 m",
+          "feedback": "Controlla sostituzione, segno e unità. y = x tan(θ)-g x²/(2v₀² cos²θ). Con Angolo θ (a)=50 °; Velocità iniziale (b)=20 m/s e Distanza orizzontale=10 m, il risultato è 8,94967 m. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "8,94967 m",
+          "feedback": "y = x tan(θ)-g x²/(2v₀² cos²θ). Con Angolo θ (a)=50 °; Velocità iniziale (b)=20 m/s e Distanza orizzontale=10 m, il risultato è 8,94967 m. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 10,
+        "parameters": {
+          "a": 50,
+          "b": 20
+        },
+        "expected": 8.949671713970297,
+        "unit": "m"
+      }
+    },
+    {
+      "id": "physics-05-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Lancio ideale senza resistenza dell’aria",
+          "feedback": "Assenza di aria, gravità uniforme e suolo piano sono ipotesi. La scena non va usata per progettare lanci o valutare la sicurezza di oggetti reali."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Assenza di aria, gravità uniforme e suolo piano sono ipotesi. La scena non va usata per progettare lanci o valutare la sicurezza di oggetti reali."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Assenza di aria, gravità uniforme e suolo piano sono ipotesi. La scena non va usata per progettare lanci o valutare la sicurezza di oggetti reali."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
+}

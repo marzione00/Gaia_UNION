@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "chemistry-18",
+  "title": "Temperatura e attivazione",
+  "sector": 2,
+  "modelId": "chemistry-18",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Parametri di Arrhenius costanti",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: parametri di arrhenius costanti.",
+    "Applicare k(T) = A exp(-E_a/(RT)), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "chemistry-17"
+  ],
+  "connections": [
+    "chemistry-20"
+  ],
+  "sources": [
+    "chemistry",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Temperatura",
+      "definition": "Variabile indipendente, unità K; intervallo [250; 800]."
+    },
+    {
+      "term": "Costante cinetica",
+      "definition": "Risultato calcolato dal modello, unità 1/s."
+    },
+    {
+      "term": "Fattore A",
+      "definition": "Parametro a, unità 1/s; intervallo [100.000; 2,00000e+6]."
+    },
+    {
+      "term": "Energia attivazione",
+      "definition": "Parametro b, unità kJ/mol; intervallo [20; 80]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Un archivio mostra che la velocità caratteristica cambia molto con la temperatura. La stazione cerca una relazione fra barriera energetica e costante cinetica, senza dedurne automaticamente l’esito finale.",
+          "La legge di Arrhenius scrive k=A exp(-E_a/RT). A è un fattore preesponenziale ed E_a una barriera di attivazione del modello. La temperatura va espressa in kelvin."
+        ],
+        "intermediate": [
+          "Un archivio mostra che la velocità caratteristica cambia molto con la temperatura. La stazione cerca una relazione fra barriera energetica e costante cinetica, senza dedurne automaticamente l’esito finale.",
+          "Il rapporto E_a/(RT) deve essere adimensionale. Il controllo usa E_a in kJ/mol e la converte in J/mol. A e k hanno la stessa unità, qui s⁻¹ per un esempio del primo ordine."
+        ],
+        "advanced": [
+          "Un archivio mostra che la velocità caratteristica cambia molto con la temperatura. La stazione cerca una relazione fra barriera energetica e costante cinetica, senza dedurne automaticamente l’esito finale.",
+          "Linearizza ln k contro 1/T e identifica pendenza e intercetta. Discuta quando una deviazione dalla retta potrebbe segnalare un cambio di meccanismo.",
+          "Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "La legge di Arrhenius scrive k=A exp(-E_a/RT). A è un fattore preesponenziale ed E_a una barriera di attivazione del modello. La temperatura va espressa in kelvin.",
+          "Con A=10⁶ s⁻¹, E_a=50 kJ/mol e T=500 K, k≈5,979 s⁻¹. Inserire 50 senza convertirlo in 50.000 cambierebbe radicalmente il risultato."
+        ],
+        "intermediate": [
+          "Il rapporto E_a/(RT) deve essere adimensionale. Il controllo usa E_a in kJ/mol e la converte in J/mol. A e k hanno la stessa unità, qui s⁻¹ per un esempio del primo ordine.",
+          "La variabile Temperatura è espressa in K; Costante cinetica in 1/s. Il dominio dello strumento è [250; 800]. La relazione implementata è: k(T) = A exp(-E_a/(RT)).",
+          "Con A=10⁶ s⁻¹, E_a=50 kJ/mol e T=500 K, k≈5,979 s⁻¹. Inserire 50 senza convertirlo in 50.000 cambierebbe radicalmente il risultato."
+        ],
+        "advanced": [
+          "Il rapporto E_a/(RT) deve essere adimensionale. Il controllo usa E_a in kJ/mol e la converte in J/mol. A e k hanno la stessa unità, qui s⁻¹ per un esempio del primo ordine.",
+          "Linearizza ln k contro 1/T e identifica pendenza e intercetta. Discuta quando una deviazione dalla retta potrebbe segnalare un cambio di meccanismo.",
+          "Una barriera di attivazione non è la differenza energetica fra reagenti e prodotti. Accelerare il raggiungimento dell’equilibrio non equivale a spostare l’equilibrio."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Fattore A (a): 1,00000e+6 1/s; Energia attivazione (b): 50 kJ/mol. Prima di salvare A, prevedi come cambia Costante cinetica fra Temperatura=387,5 e 525 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con A=10⁶ s⁻¹, E_a=50 kJ/mol e T=500 K, k≈5,979 s⁻¹. Inserire 50 senza convertirlo in 50.000 cambierebbe radicalmente il risultato.",
+          "La variabile Temperatura è espressa in K; Costante cinetica in 1/s. Il dominio dello strumento è [250; 800]. La relazione implementata è: k(T) = A exp(-E_a/(RT))."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Fattore A (a): 1,00000e+6 1/s; Energia attivazione (b): 50 kJ/mol. Prima di salvare A, prevedi come cambia Costante cinetica fra Temperatura=387,5 e 525 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Temperatura è espressa in K; Costante cinetica in 1/s. Il dominio dello strumento è [250; 800]. La relazione implementata è: k(T) = A exp(-E_a/(RT)).",
+          "Il rapporto E_a/(RT) deve essere adimensionale. Il controllo usa E_a in kJ/mol e la converte in J/mol. A e k hanno la stessa unità, qui s⁻¹ per un esempio del primo ordine."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Fattore A (a): 1,00000e+6 1/s; Energia attivazione (b): 50 kJ/mol. Prima di salvare A, prevedi come cambia Costante cinetica fra Temperatura=387,5 e 525 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Linearizza ln k contro 1/T e identifica pendenza e intercetta. Discuta quando una deviazione dalla retta potrebbe segnalare un cambio di meccanismo.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Una barriera di attivazione non è la differenza energetica fra reagenti e prodotti. Accelerare il raggiungimento dell’equilibrio non equivale a spostare l’equilibrio.",
+          "Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Una barriera di attivazione non è la differenza energetica fra reagenti e prodotti. Accelerare il raggiungimento dell’equilibrio non equivale a spostare l’equilibrio.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello.",
+          "Linearizza ln k contro 1/T e identifica pendenza e intercetta. Discuta quando una deviazione dalla retta potrebbe segnalare un cambio di meccanismo.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "La legge di Arrhenius scrive k=A exp(-E_a/RT). A è un fattore preesponenziale ed E_a una barriera di attivazione del modello. La temperatura va espressa in kelvin.",
+          "Con A=10⁶ s⁻¹, E_a=50 kJ/mol e T=500 K, k≈5,979 s⁻¹. Inserire 50 senza convertirlo in 50.000 cambierebbe radicalmente il risultato."
+        ],
+        "intermediate": [
+          "Il rapporto E_a/(RT) deve essere adimensionale. Il controllo usa E_a in kJ/mol e la converte in J/mol. A e k hanno la stessa unità, qui s⁻¹ per un esempio del primo ordine.",
+          "La variabile Temperatura è espressa in K; Costante cinetica in 1/s. Il dominio dello strumento è [250; 800]. La relazione implementata è: k(T) = A exp(-E_a/(RT))."
+        ],
+        "advanced": [
+          "Linearizza ln k contro 1/T e identifica pendenza e intercetta. Discuta quando una deviazione dalla retta potrebbe segnalare un cambio di meccanismo.",
+          "Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Parametri di Arrhenius costanti.",
+          "Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello.",
+          "Collegamento consigliato: chemistry-20. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Il rapporto E_a/(RT) deve essere adimensionale. Il controllo usa E_a in kJ/mol e la converte in J/mol. A e k hanno la stessa unità, qui s⁻¹ per un esempio del primo ordine.",
+          "Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello.",
+          "Linearizza ln k contro 1/T e identifica pendenza e intercetta. Discuta quando una deviazione dalla retta potrebbe segnalare un cambio di meccanismo."
+        ],
+        "advanced": [
+          "Linearizza ln k contro 1/T e identifica pendenza e intercetta. Discuta quando una deviazione dalla retta potrebbe segnalare un cambio di meccanismo.",
+          "Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "chemistry-18-concept",
+      "prompt": "Nell’esponente di Arrhenius, E_a/(RT) deve essere:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Espresso in kelvin",
+          "feedback": "Una barriera di attivazione non è la differenza energetica fra reagenti e prodotti. Accelerare il raggiungimento dell’equilibrio non equivale a spostare l’equilibrio."
+        },
+        {
+          "id": "B",
+          "text": "Espresso in secondi",
+          "feedback": "Il rapporto E_a/(RT) deve essere adimensionale. Il controllo usa E_a in kJ/mol e la converte in J/mol. A e k hanno la stessa unità, qui s⁻¹ per un esempio del primo ordine."
+        },
+        {
+          "id": "C",
+          "text": "Adimensionale",
+          "feedback": "La legge di Arrhenius scrive k=A exp(-E_a/RT). A è un fattore preesponenziale ed E_a una barriera di attivazione del modello. La temperatura va espressa in kelvin."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "chemistry-18-calculation",
+      "prompt": "Calcolo: Fattore A (a)=1,00000e+6 1/s; Energia attivazione (b)=50 kJ/mol. Per Temperatura=500 K, quanto vale Costante cinetica?",
+      "options": [
+        {
+          "id": "A",
+          "text": "2,98956 1/s",
+          "feedback": "Controlla sostituzione, segno e unità. k(T) = A exp(-E_a/(RT)). Con Fattore A (a)=1,00000e+6 1/s; Energia attivazione (b)=50 kJ/mol e Temperatura=500 K, il risultato è 5,97913 1/s. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "5,97913 1/s",
+          "feedback": "k(T) = A exp(-E_a/(RT)). Con Fattore A (a)=1,00000e+6 1/s; Energia attivazione (b)=50 kJ/mol e Temperatura=500 K, il risultato è 5,97913 1/s. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "8,96869 1/s",
+          "feedback": "Questo valore non soddisfa la relazione. k(T) = A exp(-E_a/(RT)). Con Fattore A (a)=1,00000e+6 1/s; Energia attivazione (b)=50 kJ/mol e Temperatura=500 K, il risultato è 5,97913 1/s. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 500,
+        "parameters": {
+          "a": 1000000,
+          "b": 50
+        },
+        "expected": 5.979129887968594,
+        "unit": "1/s"
+      }
+    },
+    {
+      "id": "chemistry-18-transfer",
+      "prompt": "Trasferimento: Fattore A (a)=1,10000e+6 1/s; Energia attivazione (b)=50 kJ/mol. Per Temperatura=500 K, quanto vale Costante cinetica?",
+      "options": [
+        {
+          "id": "A",
+          "text": "6,57704 1/s",
+          "feedback": "k(T) = A exp(-E_a/(RT)). Con Fattore A (a)=1,10000e+6 1/s; Energia attivazione (b)=50 kJ/mol e Temperatura=500 K, il risultato è 6,57704 1/s. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "9,86556 1/s",
+          "feedback": "Questo valore non soddisfa la relazione. k(T) = A exp(-E_a/(RT)). Con Fattore A (a)=1,10000e+6 1/s; Energia attivazione (b)=50 kJ/mol e Temperatura=500 K, il risultato è 6,57704 1/s. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "3,28852 1/s",
+          "feedback": "Controlla sostituzione, segno e unità. k(T) = A exp(-E_a/(RT)). Con Fattore A (a)=1,10000e+6 1/s; Energia attivazione (b)=50 kJ/mol e Temperatura=500 K, il risultato è 6,57704 1/s. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 500,
+        "parameters": {
+          "a": 1100000,
+          "b": 50
+        },
+        "expected": 6.577042876765453,
+        "unit": "1/s"
+      }
+    },
+    {
+      "id": "chemistry-18-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello."
+        },
+        {
+          "id": "B",
+          "text": "Parametri di Arrhenius costanti",
+          "feedback": "Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello."
+        },
+        {
+          "id": "C",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello."
+        }
+      ],
+      "correct": "B"
+    }
+  ]
+}

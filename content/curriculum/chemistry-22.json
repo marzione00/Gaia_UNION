@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "chemistry-22",
+  "title": "Soluzioni tampone",
+  "sector": 2,
+  "modelId": "chemistry-22",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Coppia acido-base dominante in soluzione ideale",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: coppia acido-base dominante in soluzione ideale.",
+    "Applicare pH = pK_a + log₁₀([A⁻]/[HA]), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "chemistry-21"
+  ],
+  "connections": [
+    "math-c06"
+  ],
+  "sources": [
+    "chemistry",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Rapporto base/acido",
+      "definition": "Variabile indipendente, unità 1; intervallo [0,1; 10]."
+    },
+    {
+      "term": "pH del tampone",
+      "definition": "Risultato calcolato dal modello, unità 1."
+    },
+    {
+      "term": "pK_a",
+      "definition": "Parametro a, unità 1; intervallo [3; 7]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Una soluzione contiene una coppia acido-base coniugata. La stazione osserva che il rapporto fra le due forme è importante, ma vuole evitare di confondere pH e capacità di resistere a perturbazioni.",
+          "Un tampone contiene quantità apprezzabili di un acido debole e della sua base coniugata. La relazione di Henderson-Hasselbalch approssima pH=pK_a+log([A⁻]/[HA]) in condizioni appropriate."
+        ],
+        "intermediate": [
+          "Una soluzione contiene una coppia acido-base coniugata. La stazione osserva che il rapporto fra le due forme è importante, ma vuole evitare di confondere pH e capacità di resistere a perturbazioni.",
+          "Quando il rapporto base/acido è uno, il logaritmo è zero e pH=pK_a. Moltiplicare il rapporto per dieci aumenta il pH di una unità nel modello."
+        ],
+        "advanced": [
+          "Una soluzione contiene una coppia acido-base coniugata. La stazione osserva che il rapporto fra le due forme è importante, ma vuole evitare di confondere pH e capacità di resistere a perturbazioni.",
+          "Parti da K_a e ricava la relazione logaritmica. Discuta quando l’uso delle concentrazioni iniziali al posto di quelle di equilibrio è giustificato.",
+          "Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Un tampone contiene quantità apprezzabili di un acido debole e della sua base coniugata. La relazione di Henderson-Hasselbalch approssima pH=pK_a+log([A⁻]/[HA]) in condizioni appropriate.",
+          "Con pK_a=4,8 e rapporto 1, il pH è 4,8. Con rapporto 10 è 5,8. Due tamponi con lo stesso rapporto ma concentrazioni totali diverse possono avere capacità tampone diverse."
+        ],
+        "intermediate": [
+          "Quando il rapporto base/acido è uno, il logaritmo è zero e pH=pK_a. Moltiplicare il rapporto per dieci aumenta il pH di una unità nel modello.",
+          "La variabile Rapporto base/acido è espressa in 1; pH del tampone in 1. Il dominio dello strumento è [0,1; 10]. La relazione implementata è: pH = pK_a + log₁₀([A⁻]/[HA]).",
+          "Con pK_a=4,8 e rapporto 1, il pH è 4,8. Con rapporto 10 è 5,8. Due tamponi con lo stesso rapporto ma concentrazioni totali diverse possono avere capacità tampone diverse."
+        ],
+        "advanced": [
+          "Quando il rapporto base/acido è uno, il logaritmo è zero e pH=pK_a. Moltiplicare il rapporto per dieci aumenta il pH di una unità nel modello.",
+          "Parti da K_a e ricava la relazione logaritmica. Discuta quando l’uso delle concentrazioni iniziali al posto di quelle di equilibrio è giustificato.",
+          "Il rapporto non dice quanta perturbazione la soluzione può assorbire. La formula non rende ogni miscela un tampone efficace, soprattutto quando una forma è quasi esaurita."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta pK_a (a): 4,8 (adimensionale). Prima di salvare A, prevedi come cambia pH del tampone fra Rapporto base/acido=2,575 e 5,05 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con pK_a=4,8 e rapporto 1, il pH è 4,8. Con rapporto 10 è 5,8. Due tamponi con lo stesso rapporto ma concentrazioni totali diverse possono avere capacità tampone diverse.",
+          "La variabile Rapporto base/acido è espressa in 1; pH del tampone in 1. Il dominio dello strumento è [0,1; 10]. La relazione implementata è: pH = pK_a + log₁₀([A⁻]/[HA])."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta pK_a (a): 4,8 (adimensionale). Prima di salvare A, prevedi come cambia pH del tampone fra Rapporto base/acido=2,575 e 5,05 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Rapporto base/acido è espressa in 1; pH del tampone in 1. Il dominio dello strumento è [0,1; 10]. La relazione implementata è: pH = pK_a + log₁₀([A⁻]/[HA]).",
+          "Quando il rapporto base/acido è uno, il logaritmo è zero e pH=pK_a. Moltiplicare il rapporto per dieci aumenta il pH di una unità nel modello."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta pK_a (a): 4,8 (adimensionale). Prima di salvare A, prevedi come cambia pH del tampone fra Rapporto base/acido=2,575 e 5,05 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Parti da K_a e ricava la relazione logaritmica. Discuta quando l’uso delle concentrazioni iniziali al posto di quelle di equilibrio è giustificato.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Il rapporto non dice quanta perturbazione la soluzione può assorbire. La formula non rende ogni miscela un tampone efficace, soprattutto quando una forma è quasi esaurita.",
+          "Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Il rapporto non dice quanta perturbazione la soluzione può assorbire. La formula non rende ogni miscela un tampone efficace, soprattutto quando una forma è quasi esaurita.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione.",
+          "Parti da K_a e ricava la relazione logaritmica. Discuta quando l’uso delle concentrazioni iniziali al posto di quelle di equilibrio è giustificato.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Un tampone contiene quantità apprezzabili di un acido debole e della sua base coniugata. La relazione di Henderson-Hasselbalch approssima pH=pK_a+log([A⁻]/[HA]) in condizioni appropriate.",
+          "Con pK_a=4,8 e rapporto 1, il pH è 4,8. Con rapporto 10 è 5,8. Due tamponi con lo stesso rapporto ma concentrazioni totali diverse possono avere capacità tampone diverse."
+        ],
+        "intermediate": [
+          "Quando il rapporto base/acido è uno, il logaritmo è zero e pH=pK_a. Moltiplicare il rapporto per dieci aumenta il pH di una unità nel modello.",
+          "La variabile Rapporto base/acido è espressa in 1; pH del tampone in 1. Il dominio dello strumento è [0,1; 10]. La relazione implementata è: pH = pK_a + log₁₀([A⁻]/[HA])."
+        ],
+        "advanced": [
+          "Parti da K_a e ricava la relazione logaritmica. Discuta quando l’uso delle concentrazioni iniziali al posto di quelle di equilibrio è giustificato.",
+          "Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Coppia acido-base dominante in soluzione ideale.",
+          "Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione.",
+          "Collegamento consigliato: math-c06. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Quando il rapporto base/acido è uno, il logaritmo è zero e pH=pK_a. Moltiplicare il rapporto per dieci aumenta il pH di una unità nel modello.",
+          "Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione.",
+          "Parti da K_a e ricava la relazione logaritmica. Discuta quando l’uso delle concentrazioni iniziali al posto di quelle di equilibrio è giustificato."
+        ],
+        "advanced": [
+          "Parti da K_a e ricava la relazione logaritmica. Discuta quando l’uso delle concentrazioni iniziali al posto di quelle di equilibrio è giustificato.",
+          "Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "chemistry-22-concept",
+      "prompt": "Quando [A⁻]=[HA], il pH vale:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Sempre 0",
+          "feedback": "Quando il rapporto base/acido è uno, il logaritmo è zero e pH=pK_a. Moltiplicare il rapporto per dieci aumenta il pH di una unità nel modello."
+        },
+        {
+          "id": "B",
+          "text": "pK_a",
+          "feedback": "Un tampone contiene quantità apprezzabili di un acido debole e della sua base coniugata. La relazione di Henderson-Hasselbalch approssima pH=pK_a+log([A⁻]/[HA]) in condizioni appropriate."
+        },
+        {
+          "id": "C",
+          "text": "Sempre 7",
+          "feedback": "Il rapporto non dice quanta perturbazione la soluzione può assorbire. La formula non rende ogni miscela un tampone efficace, soprattutto quando una forma è quasi esaurita."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "chemistry-22-calculation",
+      "prompt": "Calcolo: pK_a (a)=4,8 (adimensionale). Per Rapporto base/acido=1 (adimensionale), quanto vale pH del tampone?",
+      "options": [
+        {
+          "id": "A",
+          "text": "4,8 (adimensionale)",
+          "feedback": "pH = pK_a + log₁₀([A⁻]/[HA]). Con pK_a (a)=4,8 (adimensionale) e Rapporto base/acido=1 (adimensionale), il risultato è 4,8 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "7,2 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. pH = pK_a + log₁₀([A⁻]/[HA]). Con pK_a (a)=4,8 (adimensionale) e Rapporto base/acido=1 (adimensionale), il risultato è 4,8 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "2,4 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. pH = pK_a + log₁₀([A⁻]/[HA]). Con pK_a (a)=4,8 (adimensionale) e Rapporto base/acido=1 (adimensionale), il risultato è 4,8 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 1,
+        "parameters": {
+          "a": 4.8
+        },
+        "expected": 4.8,
+        "unit": "1"
+      }
+    },
+    {
+      "id": "chemistry-22-transfer",
+      "prompt": "Trasferimento: pK_a (a)=5 (adimensionale). Per Rapporto base/acido=1 (adimensionale), quanto vale pH del tampone?",
+      "options": [
+        {
+          "id": "A",
+          "text": "7,5 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. pH = pK_a + log₁₀([A⁻]/[HA]). Con pK_a (a)=5 (adimensionale) e Rapporto base/acido=1 (adimensionale), il risultato è 5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "2,5 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. pH = pK_a + log₁₀([A⁻]/[HA]). Con pK_a (a)=5 (adimensionale) e Rapporto base/acido=1 (adimensionale), il risultato è 5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "5 (adimensionale)",
+          "feedback": "pH = pK_a + log₁₀([A⁻]/[HA]). Con pK_a (a)=5 (adimensionale) e Rapporto base/acido=1 (adimensionale), il risultato è 5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 1,
+        "parameters": {
+          "a": 5
+        },
+        "expected": 5,
+        "unit": "1"
+      }
+    },
+    {
+      "id": "chemistry-22-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Coppia acido-base dominante in soluzione ideale",
+          "feedback": "Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Attività approssimate con concentrazioni e coppia acido-base dominante. Non è una simulazione completa di titolazione."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
+}

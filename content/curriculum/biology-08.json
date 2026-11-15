@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "biology-08",
+  "title": "Meiosi e assortimento",
+  "sector": 3,
+  "modelId": "biology-08",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Assortimento indipendente senza crossing-over",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: assortimento indipendente senza crossing-over.",
+    "Applicare P(k materni) = C(n,k)/2^n, dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "biology-07"
+  ],
+  "connections": [
+    "math-c10"
+  ],
+  "sources": [
+    "biology"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Cromosomi materni k",
+      "definition": "Variabile indipendente, unità 1; intervallo [0; 12]."
+    },
+    {
+      "term": "Probabilità",
+      "definition": "Risultato calcolato dal modello, unità 1."
+    },
+    {
+      "term": "Coppie n",
+      "definition": "Parametro a, unità 1; intervallo [2; 12]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "La formazione dei gameti combina cromosomi di origine materna e paterna. La stazione vuole contare possibilità e probabilità senza confondere assortimento indipendente e ricombinazione.",
+          "Nella meiosi, una copia di ciascuna coppia di cromosomi omologhi viene trasmessa a un gamete. Un modello di assortimento indipendente assegna probabilità 1/2 all’origine materna o paterna di ogni cromosoma."
+        ],
+        "intermediate": [
+          "La formazione dei gameti combina cromosomi di origine materna e paterna. La stazione vuole contare possibilità e probabilità senza confondere assortimento indipendente e ricombinazione.",
+          "Con n coppie, il numero di combinazioni di origine è 2^n. Il numero k di cromosomi materni segue una binomiale con p=1/2: P(k)=C(n,k)/2^n."
+        ],
+        "advanced": [
+          "La formazione dei gameti combina cromosomi di origine materna e paterna. La stazione vuole contare possibilità e probabilità senza confondere assortimento indipendente e ricombinazione.",
+          "Confronta il numero di combinazioni con la distribuzione del conteggio k. Spiega perché molti assetti distinti possono avere lo stesso numero di cromosomi materni.",
+          "Assortimento indipendente e origine cromosomica semplificata, senza crossing-over o errori meiotici. Non descrive l’intera variabilità dei gameti reali."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Nella meiosi, una copia di ciascuna coppia di cromosomi omologhi viene trasmessa a un gamete. Un modello di assortimento indipendente assegna probabilità 1/2 all’origine materna o paterna di ogni cromosoma.",
+          "Per n=4, le combinazioni sono 16. Sei contengono esattamente due cromosomi materni, quindi la probabilità è 6/16=0,375."
+        ],
+        "intermediate": [
+          "Con n coppie, il numero di combinazioni di origine è 2^n. Il numero k di cromosomi materni segue una binomiale con p=1/2: P(k)=C(n,k)/2^n.",
+          "La variabile Cromosomi materni k è espressa in 1; Probabilità in 1. Il dominio dello strumento è [0; 12], con soli valori interi. La relazione implementata è: P(k materni) = C(n,k)/2^n.",
+          "Per n=4, le combinazioni sono 16. Sei contengono esattamente due cromosomi materni, quindi la probabilità è 6/16=0,375."
+        ],
+        "advanced": [
+          "Con n coppie, il numero di combinazioni di origine è 2^n. Il numero k di cromosomi materni segue una binomiale con p=1/2: P(k)=C(n,k)/2^n.",
+          "Confronta il numero di combinazioni con la distribuzione del conteggio k. Spiega perché molti assetti distinti possono avere lo stesso numero di cromosomi materni.",
+          "Questo conteggio non include le nuove combinazioni interne generate dal crossing-over. L’assortimento dei cromosomi non implica indipendenza di tutti i geni sullo stesso cromosoma."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Coppie n (a): 4 (adimensionale). Prima di salvare A, prevedi come cambia Probabilità fra Cromosomi materni k=3 e 6 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Per n=4, le combinazioni sono 16. Sei contengono esattamente due cromosomi materni, quindi la probabilità è 6/16=0,375.",
+          "La variabile Cromosomi materni k è espressa in 1; Probabilità in 1. Il dominio dello strumento è [0; 12], con soli valori interi. La relazione implementata è: P(k materni) = C(n,k)/2^n."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Coppie n (a): 4 (adimensionale). Prima di salvare A, prevedi come cambia Probabilità fra Cromosomi materni k=3 e 6 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Cromosomi materni k è espressa in 1; Probabilità in 1. Il dominio dello strumento è [0; 12], con soli valori interi. La relazione implementata è: P(k materni) = C(n,k)/2^n.",
+          "Con n coppie, il numero di combinazioni di origine è 2^n. Il numero k di cromosomi materni segue una binomiale con p=1/2: P(k)=C(n,k)/2^n."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Coppie n (a): 4 (adimensionale). Prima di salvare A, prevedi come cambia Probabilità fra Cromosomi materni k=3 e 6 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Confronta il numero di combinazioni con la distribuzione del conteggio k. Spiega perché molti assetti distinti possono avere lo stesso numero di cromosomi materni.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Questo conteggio non include le nuove combinazioni interne generate dal crossing-over. L’assortimento dei cromosomi non implica indipendenza di tutti i geni sullo stesso cromosoma.",
+          "Assortimento indipendente e origine cromosomica semplificata, senza crossing-over o errori meiotici. Non descrive l’intera variabilità dei gameti reali.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Questo conteggio non include le nuove combinazioni interne generate dal crossing-over. L’assortimento dei cromosomi non implica indipendenza di tutti i geni sullo stesso cromosoma.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+        ],
+        "advanced": [
+          "Assortimento indipendente e origine cromosomica semplificata, senza crossing-over o errori meiotici. Non descrive l’intera variabilità dei gameti reali.",
+          "Confronta il numero di combinazioni con la distribuzione del conteggio k. Spiega perché molti assetti distinti possono avere lo stesso numero di cromosomi materni.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Nella meiosi, una copia di ciascuna coppia di cromosomi omologhi viene trasmessa a un gamete. Un modello di assortimento indipendente assegna probabilità 1/2 all’origine materna o paterna di ogni cromosoma.",
+          "Per n=4, le combinazioni sono 16. Sei contengono esattamente due cromosomi materni, quindi la probabilità è 6/16=0,375."
+        ],
+        "intermediate": [
+          "Con n coppie, il numero di combinazioni di origine è 2^n. Il numero k di cromosomi materni segue una binomiale con p=1/2: P(k)=C(n,k)/2^n.",
+          "La variabile Cromosomi materni k è espressa in 1; Probabilità in 1. Il dominio dello strumento è [0; 12], con soli valori interi. La relazione implementata è: P(k materni) = C(n,k)/2^n."
+        ],
+        "advanced": [
+          "Confronta il numero di combinazioni con la distribuzione del conteggio k. Spiega perché molti assetti distinti possono avere lo stesso numero di cromosomi materni.",
+          "Assortimento indipendente e origine cromosomica semplificata, senza crossing-over o errori meiotici. Non descrive l’intera variabilità dei gameti reali."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Assortimento indipendente senza crossing-over.",
+          "Assortimento indipendente e origine cromosomica semplificata, senza crossing-over o errori meiotici. Non descrive l’intera variabilità dei gameti reali.",
+          "Collegamento consigliato: math-c10. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Con n coppie, il numero di combinazioni di origine è 2^n. Il numero k di cromosomi materni segue una binomiale con p=1/2: P(k)=C(n,k)/2^n.",
+          "Assortimento indipendente e origine cromosomica semplificata, senza crossing-over o errori meiotici. Non descrive l’intera variabilità dei gameti reali.",
+          "Confronta il numero di combinazioni con la distribuzione del conteggio k. Spiega perché molti assetti distinti possono avere lo stesso numero di cromosomi materni."
+        ],
+        "advanced": [
+          "Confronta il numero di combinazioni con la distribuzione del conteggio k. Spiega perché molti assetti distinti possono avere lo stesso numero di cromosomi materni.",
+          "Assortimento indipendente e origine cromosomica semplificata, senza crossing-over o errori meiotici. Non descrive l’intera variabilità dei gameti reali.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "biology-08-concept",
+      "prompt": "Senza crossing-over, n coppie indipendenti danno:",
+      "options": [
+        {
+          "id": "A",
+          "text": "2n combinazioni soltanto",
+          "feedback": "Questo conteggio non include le nuove combinazioni interne generate dal crossing-over. L’assortimento dei cromosomi non implica indipendenza di tutti i geni sullo stesso cromosoma."
+        },
+        {
+          "id": "B",
+          "text": "Sempre due combinazioni",
+          "feedback": "Con n coppie, il numero di combinazioni di origine è 2^n. Il numero k di cromosomi materni segue una binomiale con p=1/2: P(k)=C(n,k)/2^n."
+        },
+        {
+          "id": "C",
+          "text": "2^n combinazioni di origine",
+          "feedback": "Nella meiosi, una copia di ciascuna coppia di cromosomi omologhi viene trasmessa a un gamete. Un modello di assortimento indipendente assegna probabilità 1/2 all’origine materna o paterna di ogni cromosoma."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "biology-08-calculation",
+      "prompt": "Calcolo: Coppie n (a)=4 (adimensionale). Per Cromosomi materni k=2 (adimensionale), quanto vale Probabilità?",
+      "options": [
+        {
+          "id": "A",
+          "text": "-0,625 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. P(k materni) = C(n,k)/2^n. Con Coppie n (a)=4 (adimensionale) e Cromosomi materni k=2 (adimensionale), il risultato è 0,375 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "0,375 (adimensionale)",
+          "feedback": "P(k materni) = C(n,k)/2^n. Con Coppie n (a)=4 (adimensionale) e Cromosomi materni k=2 (adimensionale), il risultato è 0,375 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "1,375 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. P(k materni) = C(n,k)/2^n. Con Coppie n (a)=4 (adimensionale) e Cromosomi materni k=2 (adimensionale), il risultato è 0,375 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 2,
+        "parameters": {
+          "a": 4
+        },
+        "expected": 0.375,
+        "unit": "1"
+      }
+    },
+    {
+      "id": "biology-08-transfer",
+      "prompt": "Trasferimento: Coppie n (a)=5 (adimensionale). Per Cromosomi materni k=2 (adimensionale), quanto vale Probabilità?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0,3125 (adimensionale)",
+          "feedback": "P(k materni) = C(n,k)/2^n. Con Coppie n (a)=5 (adimensionale) e Cromosomi materni k=2 (adimensionale), il risultato è 0,3125 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "1,3125 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. P(k materni) = C(n,k)/2^n. Con Coppie n (a)=5 (adimensionale) e Cromosomi materni k=2 (adimensionale), il risultato è 0,3125 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "-0,6875 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. P(k materni) = C(n,k)/2^n. Con Coppie n (a)=5 (adimensionale) e Cromosomi materni k=2 (adimensionale), il risultato è 0,3125 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 2,
+        "parameters": {
+          "a": 5
+        },
+        "expected": 0.3125,
+        "unit": "1"
+      }
+    },
+    {
+      "id": "biology-08-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Assortimento indipendente e origine cromosomica semplificata, senza crossing-over o errori meiotici. Non descrive l’intera variabilità dei gameti reali."
+        },
+        {
+          "id": "B",
+          "text": "Assortimento indipendente senza crossing-over",
+          "feedback": "Assortimento indipendente e origine cromosomica semplificata, senza crossing-over o errori meiotici. Non descrive l’intera variabilità dei gameti reali."
+        },
+        {
+          "id": "C",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Assortimento indipendente e origine cromosomica semplificata, senza crossing-over o errori meiotici. Non descrive l’intera variabilità dei gameti reali."
+        }
+      ],
+      "correct": "B"
+    }
+  ]
+}

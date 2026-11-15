@@ -1,0 +1,57 @@
+# GAIA 1.5 — Curriculum guidato per tutte le 100 unità
+
+## Stato della consegna
+
+L'estensione implementa un nucleo didattico funzionante per ognuno dei 100 identificativi esistenti: 25 di matematica, 25 di fisica, 25 di chimica e 25 di biologia. Non equivale a cento manuali integrali, a una revisione scientifica umana o a una certificazione di competenze. La matrice `CURRICULUM_COVERAGE.md` e il CSV corrispondente dichiarano precisamente il contenuto di ogni nucleo. I nuovi testi sono originali e hanno stato editoriale `original-draft`.
+
+Il progetto è basato sul commit `7e311fbef37dcf912d4e5bb0db382c122eec9ada` e comprende la precedente estensione ECHO-08. L'integrazione GitHub ha negato la creazione del branch con HTTP 403. Nessun commit remoto, pull request, merge o deploy è stato eseguito per questa consegna.
+
+## Fruizione
+
+Dal catalogo, selezionare una unità e aprire il percorso guidato. La voce MISSIONI apre l'unità selezionata. Le stazioni della superficie collegano i quattro settori del sistema. PERCORSI nel catalogo offre quattro sequenze disciplinari e tre itinerari interdisciplinari: clima, materia e popolazioni. La navigazione è libera; i prerequisiti sono consigliati, non blocchi.
+
+Ogni unità presenta sei fasi: Scopri, Capisci, Sperimenta, Interpreta, Verifica, Collega. Le tre profondità sono Base, Applica, Approfondisci. La stessa spiegazione può ricomparire nelle fasi appropriate: i numeri di parole non vanno moltiplicati per il numero di schermate.
+
+Su telefono, LEZIONE, LAB 3D, ESPERIMENTO (PROVE sui display molto stretti) e FONTI separano i pannelli. ESPANDI aumenta l'area di lettura, mantenendo la navigazione tra pagine. Le alternative complete del quiz possono proseguire nella pagina successiva. Le etichette semantiche contengono il testo integrale. Touch, screen reader e tastiera devono comunque essere collaudati su dispositivi reali prima di dichiarare conformità.
+
+Permalink: `#/mission?unit=physics-01`, `#/mission?unit=chemistry-08`, `#/mission?unit=biology-19`, `#/paths`. Il pilota ECHO-08 rimane raggiungibile da FONTI della nuova unità Funzioni e da `#/pilot?unit=math-c08`. La verifica originale delle Funzioni conserva i suoi 40 quesiti; le altre unità rimandano alla propria nuova autoverifica.
+
+## Contenuto e modelli
+
+Ciascun nucleo comprende una situazione narrativa distinta, spiegazione concettuale, derivazione, esempio numerico svolto, errore comune, ipotesi e limiti, approfondimento e quattro quesiti specifici con feedback per ogni alternativa. I quattro quesiti coprono concetto, calcolo, trasferimento a parametri diversi e ambito del modello.
+
+I 100 modelli puri risiedono in `src/models/curriculum.js`: ogni modello dichiara variabile indipendente, risultato, unità, dominio, parametri ammessi, relazione e caso numerico di riferimento. I risultati sono calcolati, non codificati come animazioni prefabbricate. I campioni fuori dominio o non finiti non vengono congiunti da segmenti; le sequenze discrete hanno punti/barre e non finte curve continue. I grafici sono campionamenti finiti e non sostituiscono dimostrazioni analitiche.
+
+Le scale sono adattive, condivise quando si confrontano corrente e scenario A. La profondità dei grafici non è una variabile scientifica. Gli schemi tridimensionali aggiuntivi — per esempio molecola, DNA, vettore, cellula, popolazione o pianeta — sono illustrativi e normalizzati. Una elica non è un modello atomistico della replicazione, i marcatori di popolazione non sono individui simulati, una sfera ad albedo fissata non è un modello climatico completo. La lezione Biology-25 integra il bilancio radiativo di riferimento; il laboratorio Daisyworld preesistente rimane distinto e conserva le sue equazioni di retroazione.
+
+Tutti gli oggetti aggiunti sono mesh WebGL 2, con shader del progetto. Nessuna immagine IA, nessuna nuova texture, nessun fondale, nessun Canvas 2D e nessuna chiamata a un servizio generativo. Il testo usa l'atlante di glifi già distribuito. I caratteri matematici non presenti nell'atlante vengono trasformati in notazione esplicita, non in immagini. Le immagini di collaudo nel pacchetto sono render EGL effettivi e non sono caricate dall'app.
+
+## Esperimenti, diario e avanzamento
+
+Prima di salvare A o B occorre scegliere una previsione della variazione del risultato fra due punti dichiarati. Il cursore di esplorazione è indipendente da questi due punti di confronto. Cambiare un parametro invalida la previsione corrente, senza modificare i vecchi scenari. A e B conservano parametri e previsione del momento; i risultati vengono ricalcolati dal modello anche dopo l'importazione.
+
+Per registrare il completamento servono due configurazioni distinte, quattro risposte corrette, una nota di almeno 60 caratteri e riconoscimento dei limiti. La lunghezza della nota non è una valutazione della qualità del ragionamento. Il sistema non attribuisce voti automatici alla riflessione e non rilascia certificazioni. Il controllo di coerenza del completamento non è una firma crittografica né un sistema antifrode.
+
+Lo stato è salvato separatamente in `courses[unitId]`; il diario usa `notes['course:'+unitId]`. I vecchi campi del diario, le missioni pilota, quiz, scenari e note sono conservati. L'importazione convalida identificativi, parametri, alternative, numeri finiti e lunghezze. Non esiste sincronizzazione cloud. Quando lo storage non è disponibile si conserva solo la sessione: esportare il diario prima di chiudere. JSON esporta il rapporto e CSV esporta i campioni correnti, con unità nelle intestazioni.
+
+## Fonti e licenze
+
+Le schede FONTI collegano le dispense matematiche originali, manuali OpenStax pertinenti, BIPM per le costanti SI e il lavoro originale su Daisyworld. Sono riferimenti per verifica e approfondimento, non contenuti ripubblicati. Non sono stati copiati testi o immagini di questi manuali. Le rispettive condizioni di licenza non vengono sostituite dalla CC BY 4.0 del codice e dei contenuti originali GAIA. Restano validi `LICENSE.md` e `THIRD_PARTY_NOTICES.md`.
+
+I 25 titoli, identificativi e rimandi alla fonte della matematica sono preservati; le quattro lezioni web, i 40 quesiti originali, i documenti del lettore, il PDF integrale, gli asset NASA, le mesh dei biomi e il cosmo non sono stati riscritti. Le 75 voci scientifiche prima riservate assumono titoli e stato `guided`, non `full-course`.
+
+## Manutenzione e comandi
+
+Il contenuto editoriale canonico è `content/curriculum/authored.json`. Le definizioni generate, l'indice, il bundle e i percorsi sono rigenerabili con `npm run build:curriculum`; il processo non scarica risorse. Un controllo di idempotenza verifica che rigenerare senza modificare le fonti produca gli stessi byte. I testi sono renderizzati attraverso componenti riutilizzabili: non serve generare centinaia di tessere immagini.
+
+`npm run test:curriculum` esegue i test specifici; `npm test` sulla repository completa esegue anche tutte le sue regressioni. `npm run check` controlla modelli e riferimenti. `npm run build` genera `dist`, poi `npm run test:http` verifica via HTTP le risorse, incluse tutte le 100 schede. `npm run test:integration` importa l'applicazione con un adattatore DOM/WebGL e attraversa i percorsi, ma non è un test browser.
+
+Per ripetere il rendering di collaudo: `node tools/capture_curriculum.mjs qa-all/render`, poi `python tools/replay_curriculum_egl.py qa-all/render`. Il replay richiede Python, NumPy, Pillow e Mesa/EGL. Per l'applicazione servono Node.js 22+ per il server locale e un browser con WebGL 2; non occorre `npm install`. Aprire via HTTP, non con doppio clic su index.html.
+
+## Validazione e limiti
+
+Il rapporto `CURRICULUM_QA.json` separa test numerici, layout, applicazione con DOM simulato, HTTP, conservazione degli asset e rendering EGL. Le prove grafiche usano gli shader originali su Mesa llvmpipe. Non misurano FPS di una GPU fisica. Il Chromium disponibile nell'ambiente non esponeva WebGL 2: il collaudo browser completo non è stato eseguito.
+
+L'ambiente locale proviene dall'artefatto GitHub Pages, che non comprende `sources/v7`. Tre vecchi confronti contro questi file non sono eseguibili qui e sono esclusi dal comando locale documentato nel rapporto, non eliminati dai test della repository. La conservazione dei materiali distribuiti è verificata separatamente contro l'artefatto originale. Non si dichiara eseguita tutta la suite storica di 88 test: il rapporto elenca soltanto i test effettivamente disponibili ed eseguiti.
+
+Prima del merge: eseguire l'intera suite nella repository completa; verificare Firefox/Chromium/Safari su desktop e mobile, tastiera, focus, touch, clipboard, esportazione/importazione e persistenza dopo riavvio; revisionare scientificamente le spiegazioni e i quesiti; provare le attività con studenti. L'estensione fornisce copertura funzionale di tutti i moduli, non sostituisce questi collaudi editoriali e di dispositivo.

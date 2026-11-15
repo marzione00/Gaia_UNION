@@ -8,7 +8,7 @@ const modules=JSON.parse(fs.readFileSync(new URL('../content/catalogue.json',imp
 const points=stars(MIN_STARS),systems=buildSystems(points,modules);
 test('Sistemi: 25 stelle navigabili appartengono allo stesso buffer da un milione',()=>{
  assert.equal(systems.length,25);assert.equal(new Set(systems.map(s=>s.starIndex)).size,25);
- for(const s of systems){assert.deepEqual(s.position,Array.from(points.slice(s.starIndex*7,s.starIndex*7+3)));assert.equal(s.available,1);assert.equal(s.planets.length,4);}
+ for(const s of systems){assert.deepEqual(s.position,Array.from(points.slice(s.starIndex*7,s.starIndex*7+3)));assert.equal(s.available,4);assert.equal(s.planets.length,4);}
  assert.throws(()=>buildSystems(stars(250000),modules),/1.000.000/);
 });
 test('Sistemi: tutte le 100 unità compaiono una volta e in quattro discipline',()=>{

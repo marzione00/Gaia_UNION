@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "biology-07",
+  "title": "Ciclo cellulare e proliferazione",
+  "sector": 3,
+  "modelId": "biology-07",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Crescita attesa senza limiti o mortalità",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: crescita attesa senza limiti o mortalità.",
+    "Applicare N(t) = N₀ 2^(t/T_d), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "biology-06"
+  ],
+  "connections": [
+    "biology-19"
+  ],
+  "sources": [
+    "biology"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Tempo",
+      "definition": "Variabile indipendente, unità h; intervallo [0; 24]."
+    },
+    {
+      "term": "Numero atteso cellule",
+      "definition": "Risultato calcolato dal modello, unità cellule."
+    },
+    {
+      "term": "Cellule iniziali",
+      "definition": "Parametro a, unità cellule; intervallo [10; 200]."
+    },
+    {
+      "term": "Tempo raddoppio",
+      "definition": "Parametro b, unità h; intervallo [4; 12]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Una popolazione cellulare raddoppia in un intervallo regolare in condizioni ideali. Il numero crescente non deve essere confuso con una descrizione dettagliata delle fasi del ciclo.",
+          "Il ciclo cellulare comprende duplicazione del materiale genetico e divisione, con controlli che coordinano i processi. A livello di popolazione, un modello semplice usa un tempo di raddoppio costante."
+        ],
+        "intermediate": [
+          "Una popolazione cellulare raddoppia in un intervallo regolare in condizioni ideali. Il numero crescente non deve essere confuso con una descrizione dettagliata delle fasi del ciclo.",
+          "La legge N(t)=N₀2^(t/T_d) descrive un valore atteso continuo. Nei tempi multipli di T_d il fattore è una potenza intera di due. Non significa che ogni cellula si divida sincronamente in ogni istante."
+        ],
+        "advanced": [
+          "Una popolazione cellulare raddoppia in un intervallo regolare in condizioni ideali. Il numero crescente non deve essere confuso con una descrizione dettagliata delle fasi del ciclo.",
+          "Confronta l’esponenziale con una crescita logistica. Identifica quali dati permetterebbero di riconoscere l’inizio di un limite di risorse.",
+          "Risorse illimitate, nessuna mortalità e tempo di raddoppio costante. Le particelle 3D sono una rappresentazione aggregata, non singole cellule osservate."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Il ciclo cellulare comprende duplicazione del materiale genetico e divisione, con controlli che coordinano i processi. A livello di popolazione, un modello semplice usa un tempo di raddoppio costante.",
+          "Con N₀=100 e T_d=8 h, dopo 8 h il numero atteso è 200; dopo 16 h è 400. La crescita assoluta nel secondo intervallo è maggiore della prima."
+        ],
+        "intermediate": [
+          "La legge N(t)=N₀2^(t/T_d) descrive un valore atteso continuo. Nei tempi multipli di T_d il fattore è una potenza intera di due. Non significa che ogni cellula si divida sincronamente in ogni istante.",
+          "La variabile Tempo è espressa in h; Numero atteso cellule in cellule. Il dominio dello strumento è [0; 24]. La relazione implementata è: N(t) = N₀ 2^(t/T_d).",
+          "Con N₀=100 e T_d=8 h, dopo 8 h il numero atteso è 200; dopo 16 h è 400. La crescita assoluta nel secondo intervallo è maggiore della prima."
+        ],
+        "advanced": [
+          "La legge N(t)=N₀2^(t/T_d) descrive un valore atteso continuo. Nei tempi multipli di T_d il fattore è una potenza intera di due. Non significa che ogni cellula si divida sincronamente in ogni istante.",
+          "Confronta l’esponenziale con una crescita logistica. Identifica quali dati permetterebbero di riconoscere l’inizio di un limite di risorse.",
+          "Un tempo di raddoppio osservato in una fase non rimane necessariamente costante. Risorse, densità, morte cellulare e arresti del ciclo possono alterare la dinamica."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Cellule iniziali (a): 100 cellule; Tempo raddoppio (b): 8 h. Prima di salvare A, prevedi come cambia Numero atteso cellule fra Tempo=6 e 12 h. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con N₀=100 e T_d=8 h, dopo 8 h il numero atteso è 200; dopo 16 h è 400. La crescita assoluta nel secondo intervallo è maggiore della prima.",
+          "La variabile Tempo è espressa in h; Numero atteso cellule in cellule. Il dominio dello strumento è [0; 24]. La relazione implementata è: N(t) = N₀ 2^(t/T_d)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Cellule iniziali (a): 100 cellule; Tempo raddoppio (b): 8 h. Prima di salvare A, prevedi come cambia Numero atteso cellule fra Tempo=6 e 12 h. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Tempo è espressa in h; Numero atteso cellule in cellule. Il dominio dello strumento è [0; 24]. La relazione implementata è: N(t) = N₀ 2^(t/T_d).",
+          "La legge N(t)=N₀2^(t/T_d) descrive un valore atteso continuo. Nei tempi multipli di T_d il fattore è una potenza intera di due. Non significa che ogni cellula si divida sincronamente in ogni istante."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Cellule iniziali (a): 100 cellule; Tempo raddoppio (b): 8 h. Prima di salvare A, prevedi come cambia Numero atteso cellule fra Tempo=6 e 12 h. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Confronta l’esponenziale con una crescita logistica. Identifica quali dati permetterebbero di riconoscere l’inizio di un limite di risorse.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Un tempo di raddoppio osservato in una fase non rimane necessariamente costante. Risorse, densità, morte cellulare e arresti del ciclo possono alterare la dinamica.",
+          "Risorse illimitate, nessuna mortalità e tempo di raddoppio costante. Le particelle 3D sono una rappresentazione aggregata, non singole cellule osservate.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Un tempo di raddoppio osservato in una fase non rimane necessariamente costante. Risorse, densità, morte cellulare e arresti del ciclo possono alterare la dinamica.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Risorse illimitate, nessuna mortalità e tempo di raddoppio costante. Le particelle 3D sono una rappresentazione aggregata, non singole cellule osservate.",
+          "Confronta l’esponenziale con una crescita logistica. Identifica quali dati permetterebbero di riconoscere l’inizio di un limite di risorse.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Il ciclo cellulare comprende duplicazione del materiale genetico e divisione, con controlli che coordinano i processi. A livello di popolazione, un modello semplice usa un tempo di raddoppio costante.",
+          "Con N₀=100 e T_d=8 h, dopo 8 h il numero atteso è 200; dopo 16 h è 400. La crescita assoluta nel secondo intervallo è maggiore della prima."
+        ],
+        "intermediate": [
+          "La legge N(t)=N₀2^(t/T_d) descrive un valore atteso continuo. Nei tempi multipli di T_d il fattore è una potenza intera di due. Non significa che ogni cellula si divida sincronamente in ogni istante.",
+          "La variabile Tempo è espressa in h; Numero atteso cellule in cellule. Il dominio dello strumento è [0; 24]. La relazione implementata è: N(t) = N₀ 2^(t/T_d)."
+        ],
+        "advanced": [
+          "Confronta l’esponenziale con una crescita logistica. Identifica quali dati permetterebbero di riconoscere l’inizio di un limite di risorse.",
+          "Risorse illimitate, nessuna mortalità e tempo di raddoppio costante. Le particelle 3D sono una rappresentazione aggregata, non singole cellule osservate."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Crescita attesa senza limiti o mortalità.",
+          "Risorse illimitate, nessuna mortalità e tempo di raddoppio costante. Le particelle 3D sono una rappresentazione aggregata, non singole cellule osservate.",
+          "Collegamento consigliato: biology-19. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "La legge N(t)=N₀2^(t/T_d) descrive un valore atteso continuo. Nei tempi multipli di T_d il fattore è una potenza intera di due. Non significa che ogni cellula si divida sincronamente in ogni istante.",
+          "Risorse illimitate, nessuna mortalità e tempo di raddoppio costante. Le particelle 3D sono una rappresentazione aggregata, non singole cellule osservate.",
+          "Confronta l’esponenziale con una crescita logistica. Identifica quali dati permetterebbero di riconoscere l’inizio di un limite di risorse."
+        ],
+        "advanced": [
+          "Confronta l’esponenziale con una crescita logistica. Identifica quali dati permetterebbero di riconoscere l’inizio di un limite di risorse.",
+          "Risorse illimitate, nessuna mortalità e tempo di raddoppio costante. Le particelle 3D sono una rappresentazione aggregata, non singole cellule osservate.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "biology-07-concept",
+      "prompt": "Dopo due tempi di raddoppio, N diventa:",
+      "options": [
+        {
+          "id": "A",
+          "text": "4N₀",
+          "feedback": "Il ciclo cellulare comprende duplicazione del materiale genetico e divisione, con controlli che coordinano i processi. A livello di popolazione, un modello semplice usa un tempo di raddoppio costante."
+        },
+        {
+          "id": "B",
+          "text": "2N₀",
+          "feedback": "Un tempo di raddoppio osservato in una fase non rimane necessariamente costante. Risorse, densità, morte cellulare e arresti del ciclo possono alterare la dinamica."
+        },
+        {
+          "id": "C",
+          "text": "N₀+2",
+          "feedback": "La legge N(t)=N₀2^(t/T_d) descrive un valore atteso continuo. Nei tempi multipli di T_d il fattore è una potenza intera di due. Non significa che ogni cellula si divida sincronamente in ogni istante."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-07-calculation",
+      "prompt": "Calcolo: Cellule iniziali (a)=100 cellule; Tempo raddoppio (b)=8 h. Per Tempo=8 h, quanto vale Numero atteso cellule?",
+      "options": [
+        {
+          "id": "A",
+          "text": "300 cellule",
+          "feedback": "Questo valore non soddisfa la relazione. N(t) = N₀ 2^(t/T_d). Con Cellule iniziali (a)=100 cellule; Tempo raddoppio (b)=8 h e Tempo=8 h, il risultato è 200 cellule. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "100 cellule",
+          "feedback": "Controlla sostituzione, segno e unità. N(t) = N₀ 2^(t/T_d). Con Cellule iniziali (a)=100 cellule; Tempo raddoppio (b)=8 h e Tempo=8 h, il risultato è 200 cellule. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "200 cellule",
+          "feedback": "N(t) = N₀ 2^(t/T_d). Con Cellule iniziali (a)=100 cellule; Tempo raddoppio (b)=8 h e Tempo=8 h, il risultato è 200 cellule. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 8,
+        "parameters": {
+          "a": 100,
+          "b": 8
+        },
+        "expected": 200,
+        "unit": "cellule"
+      }
+    },
+    {
+      "id": "biology-07-transfer",
+      "prompt": "Trasferimento: Cellule iniziali (a)=110 cellule; Tempo raddoppio (b)=8 h. Per Tempo=8 h, quanto vale Numero atteso cellule?",
+      "options": [
+        {
+          "id": "A",
+          "text": "110 cellule",
+          "feedback": "Controlla sostituzione, segno e unità. N(t) = N₀ 2^(t/T_d). Con Cellule iniziali (a)=110 cellule; Tempo raddoppio (b)=8 h e Tempo=8 h, il risultato è 220 cellule. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "220 cellule",
+          "feedback": "N(t) = N₀ 2^(t/T_d). Con Cellule iniziali (a)=110 cellule; Tempo raddoppio (b)=8 h e Tempo=8 h, il risultato è 220 cellule. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "330 cellule",
+          "feedback": "Questo valore non soddisfa la relazione. N(t) = N₀ 2^(t/T_d). Con Cellule iniziali (a)=110 cellule; Tempo raddoppio (b)=8 h e Tempo=8 h, il risultato è 220 cellule. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 8,
+        "parameters": {
+          "a": 110,
+          "b": 8
+        },
+        "expected": 220,
+        "unit": "cellule"
+      }
+    },
+    {
+      "id": "biology-07-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Risorse illimitate, nessuna mortalità e tempo di raddoppio costante. Le particelle 3D sono una rappresentazione aggregata, non singole cellule osservate."
+        },
+        {
+          "id": "B",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Risorse illimitate, nessuna mortalità e tempo di raddoppio costante. Le particelle 3D sono una rappresentazione aggregata, non singole cellule osservate."
+        },
+        {
+          "id": "C",
+          "text": "Crescita attesa senza limiti o mortalità",
+          "feedback": "Risorse illimitate, nessuna mortalità e tempo di raddoppio costante. Le particelle 3D sono una rappresentazione aggregata, non singole cellule osservate."
+        }
+      ],
+      "correct": "C"
+    }
+  ]
+}

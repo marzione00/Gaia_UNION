@@ -1,0 +1,123 @@
+{
+  "version": "1.5.0",
+  "date": "2026-11-15",
+  "baseCommit": "7e311fbef37dcf912d4e5bb0db382c122eec9ada",
+  "publication": {
+    "remoteWrite": "403 Resource not accessible by integration",
+    "remoteBranchCreated": false,
+    "deployed": false
+  },
+  "content": {
+    "units": 100,
+    "unitsByDiscipline": [
+      25,
+      25,
+      25,
+      25
+    ],
+    "questions": 400,
+    "models": 100,
+    "levels": 3,
+    "stagesPerUnit": 6,
+    "studyPaths": 7,
+    "sourceReferences": 10,
+    "uniqueNarrativeFields": 700,
+    "wordsInSevenAuthoredFields": 18020,
+    "authoredRecordWords": 20132,
+    "schematicModules": 40,
+    "bundleBytes": 1784364,
+    "graphicAssetsAdded": 0,
+    "editorialStatus": "original draft; human scientific review not certified"
+  },
+  "nodeTests": {
+    "passed": 181,
+    "failed": 0,
+    "command": "node --test --test-skip-pattern='Catalogo: ordine|Quiz: file sorgente|Lezioni: sezioni' tests/*.test.mjs",
+    "unavailableLegacyTests": [
+      "Catalogo: ordine, titoli e pagine della matematica preservati",
+      "Quiz: file sorgente preservato byte per byte",
+      "Lezioni: sezioni, notazione LaTeX e pagine originali conservate"
+    ],
+    "reason": "sources/v7 is not shipped in the downloaded Pages artifact; tests remain present for the complete repository",
+    "legacySuite88FullyExecuted": false
+  },
+  "resourceChecks": {
+    "checks": 2437,
+    "passed": 2437,
+    "errors": []
+  },
+  "http": {
+    "passed": 144,
+    "failed": 0
+  },
+  "applicationAdapter": {
+    "passed": 118,
+    "unitRoutes": 100,
+    "browser": false
+  },
+  "layout": {
+    "combinations": 4000,
+    "violations": 0,
+    "viewports": [
+      [
+        1600,
+        1000
+      ],
+      [
+        1280,
+        820
+      ],
+      [
+        1280,
+        720
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        320,
+        568
+      ]
+    ],
+    "scope": "control overlap and viewport text bounds, not visual/accessibility certification"
+  },
+  "additionalUiChecks": {
+    "expandedQuizQuestionStates": 400,
+    "courseCompletionFlows": 100,
+    "studyPathLayouts": 35
+  },
+  "egl": {
+    "frames": 113,
+    "uniqueUnitFrames": 100,
+    "errors": 0,
+    "renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+    "version": "OpenGL ES 3.2 Mesa 25.0.7-2",
+    "method": "Original GLSL ES + captured module geometry/UI; offline EGL replay, not browser end-to-end"
+  },
+  "preservation": {
+    "unchangedFiles": 1220,
+    "mathCatalogueRecords": 25,
+    "method": "byte comparison with original deployed runtime artifact"
+  },
+  "rebuild": {
+    "idempotentFiles": 105,
+    "networkRequired": false
+  },
+  "browser": {
+    "completed": false,
+    "reason": "Chromium getContext(webgl2) returned null in the available environment",
+    "pending": [
+      "browser route and text rendering",
+      "keyboard and screen reader acceptance",
+      "touch",
+      "clipboard/download/import interactions",
+      "storage after browser restart",
+      "physical GPU performance"
+    ]
+  },
+  "scientificReview": {
+    "humanCertified": false,
+    "scope": "Automated model invariants and numerical fixtures passed; full scientific/editorial human review remains required."
+  }
+}

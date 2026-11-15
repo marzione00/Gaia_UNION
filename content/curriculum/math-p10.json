@@ -1,0 +1,282 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "math-p10",
+  "title": "Reti, conservazione e strategie",
+  "sector": 0,
+  "modelId": "math-p10",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Resistori ideali in regime stazionario",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: resistori ideali in regime stazionario.",
+    "Applicare R_eq = x a / (x+a), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "math-p02",
+    "math-p07"
+  ],
+  "connections": [
+    "physics-23"
+  ],
+  "sources": [
+    "precalculus",
+    "calculus"
+  ],
+  "originalSource": {
+    "id": "math-2026",
+    "file": "materials/matematica-di-base.pdf",
+    "printedPages": [
+      679,
+      696
+    ],
+    "pdfPages": [
+      691,
+      708
+    ]
+  },
+  "glossary": [
+    {
+      "term": "Resistenza R₁",
+      "definition": "Variabile indipendente, unità Ω; intervallo [0,1; 10]."
+    },
+    {
+      "term": "Resistenza equivalente",
+      "definition": "Risultato calcolato dal modello, unità Ω."
+    },
+    {
+      "term": "Resistenza R₂",
+      "definition": "Parametro a, unità Ω; intervallo [1; 10]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Due percorsi resistivi collegano gli stessi nodi. Un tecnico sostiene che aggiungere un percorso aumenti sempre la resistenza. Il comportamento della rete permette di verificare l’affermazione.",
+          "In due resistori ideali in parallelo, la tensione ai capi è comune e le correnti si sommano. Per questo si sommano le conduttanze, cioè gli inversi delle resistenze, non le resistenze stesse."
+        ],
+        "intermediate": [
+          "Due percorsi resistivi collegano gli stessi nodi. Un tecnico sostiene che aggiungere un percorso aumenti sempre la resistenza. Il comportamento della rete permette di verificare l’affermazione.",
+          "Da I=V/R₁+V/R₂ ottieni 1/R_eq=1/R₁+1/R₂. Riordinando, R_eq=R₁R₂/(R₁+R₂), per resistenze positive. Il valore equivalente è inferiore a ciascuna delle due resistenze."
+        ],
+        "advanced": [
+          "Due percorsi resistivi collegano gli stessi nodi. Un tecnico sostiene che aggiungere un percorso aumenti sempre la resistenza. Il comportamento della rete permette di verificare l’affermazione.",
+          "Generalizza a tre rami e collega il calcolo alla conservazione ai nodi di una rete. Studia i limiti quando un ramo ha resistenza molto grande o molto piccola.",
+          "Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "In due resistori ideali in parallelo, la tensione ai capi è comune e le correnti si sommano. Per questo si sommano le conduttanze, cioè gli inversi delle resistenze, non le resistenze stesse.",
+          "Con R₁=R₂=4 Ω, R_eq=16/8=2 Ω. Aggiungere il secondo percorso rende più facile il passaggio di corrente a tensione fissata."
+        ],
+        "intermediate": [
+          "Da I=V/R₁+V/R₂ ottieni 1/R_eq=1/R₁+1/R₂. Riordinando, R_eq=R₁R₂/(R₁+R₂), per resistenze positive. Il valore equivalente è inferiore a ciascuna delle due resistenze.",
+          "La variabile Resistenza R₁ è espressa in Ω; Resistenza equivalente in Ω. Il dominio dello strumento è [0,1; 10]. La relazione implementata è: R_eq = x a / (x+a).",
+          "Con R₁=R₂=4 Ω, R_eq=16/8=2 Ω. Aggiungere il secondo percorso rende più facile il passaggio di corrente a tensione fissata."
+        ],
+        "advanced": [
+          "Da I=V/R₁+V/R₂ ottieni 1/R_eq=1/R₁+1/R₂. Riordinando, R_eq=R₁R₂/(R₁+R₂), per resistenze positive. Il valore equivalente è inferiore a ciascuna delle due resistenze.",
+          "Generalizza a tre rami e collega il calcolo alla conservazione ai nodi di una rete. Studia i limiti quando un ramo ha resistenza molto grande o molto piccola.",
+          "La somma R₁+R₂ vale per una serie, non per un parallelo. Il fatto che le resistenze si riducano in parallelo non viola la conservazione della corrente ai nodi."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Resistenza R₂ (a): 4 Ω. Prima di salvare A, prevedi come cambia Resistenza equivalente fra Resistenza R₁=2,575 e 5,05 Ω. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con R₁=R₂=4 Ω, R_eq=16/8=2 Ω. Aggiungere il secondo percorso rende più facile il passaggio di corrente a tensione fissata.",
+          "La variabile Resistenza R₁ è espressa in Ω; Resistenza equivalente in Ω. Il dominio dello strumento è [0,1; 10]. La relazione implementata è: R_eq = x a / (x+a)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Resistenza R₂ (a): 4 Ω. Prima di salvare A, prevedi come cambia Resistenza equivalente fra Resistenza R₁=2,575 e 5,05 Ω. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Resistenza R₁ è espressa in Ω; Resistenza equivalente in Ω. Il dominio dello strumento è [0,1; 10]. La relazione implementata è: R_eq = x a / (x+a).",
+          "Da I=V/R₁+V/R₂ ottieni 1/R_eq=1/R₁+1/R₂. Riordinando, R_eq=R₁R₂/(R₁+R₂), per resistenze positive. Il valore equivalente è inferiore a ciascuna delle due resistenze."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Resistenza R₂ (a): 4 Ω. Prima di salvare A, prevedi come cambia Resistenza equivalente fra Resistenza R₁=2,575 e 5,05 Ω. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Generalizza a tre rami e collega il calcolo alla conservazione ai nodi di una rete. Studia i limiti quando un ramo ha resistenza molto grande o molto piccola.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "La somma R₁+R₂ vale per una serie, non per un parallelo. Il fatto che le resistenze si riducano in parallelo non viola la conservazione della corrente ai nodi.",
+          "Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "La somma R₁+R₂ vale per una serie, non per un parallelo. Il fatto che le resistenze si riducano in parallelo non viola la conservazione della corrente ai nodi.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione.",
+          "Generalizza a tre rami e collega il calcolo alla conservazione ai nodi di una rete. Studia i limiti quando un ramo ha resistenza molto grande o molto piccola.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "In due resistori ideali in parallelo, la tensione ai capi è comune e le correnti si sommano. Per questo si sommano le conduttanze, cioè gli inversi delle resistenze, non le resistenze stesse.",
+          "Con R₁=R₂=4 Ω, R_eq=16/8=2 Ω. Aggiungere il secondo percorso rende più facile il passaggio di corrente a tensione fissata."
+        ],
+        "intermediate": [
+          "Da I=V/R₁+V/R₂ ottieni 1/R_eq=1/R₁+1/R₂. Riordinando, R_eq=R₁R₂/(R₁+R₂), per resistenze positive. Il valore equivalente è inferiore a ciascuna delle due resistenze.",
+          "La variabile Resistenza R₁ è espressa in Ω; Resistenza equivalente in Ω. Il dominio dello strumento è [0,1; 10]. La relazione implementata è: R_eq = x a / (x+a)."
+        ],
+        "advanced": [
+          "Generalizza a tre rami e collega il calcolo alla conservazione ai nodi di una rete. Studia i limiti quando un ramo ha resistenza molto grande o molto piccola.",
+          "Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Resistori ideali in regime stazionario.",
+          "Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione.",
+          "Collegamento consigliato: physics-23. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Da I=V/R₁+V/R₂ ottieni 1/R_eq=1/R₁+1/R₂. Riordinando, R_eq=R₁R₂/(R₁+R₂), per resistenze positive. Il valore equivalente è inferiore a ciascuna delle due resistenze.",
+          "Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione.",
+          "Generalizza a tre rami e collega il calcolo alla conservazione ai nodi di una rete. Studia i limiti quando un ramo ha resistenza molto grande o molto piccola."
+        ],
+        "advanced": [
+          "Generalizza a tre rami e collega il calcolo alla conservazione ai nodi di una rete. Studia i limiti quando un ramo ha resistenza molto grande o molto piccola.",
+          "Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "math-p10-concept",
+      "prompt": "Due resistenze positive in parallelo hanno equivalente:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Uguale alla loro somma",
+          "feedback": "La somma R₁+R₂ vale per una serie, non per un parallelo. Il fatto che le resistenze si riducano in parallelo non viola la conservazione della corrente ai nodi."
+        },
+        {
+          "id": "B",
+          "text": "Sempre maggiore della più grande",
+          "feedback": "Da I=V/R₁+V/R₂ ottieni 1/R_eq=1/R₁+1/R₂. Riordinando, R_eq=R₁R₂/(R₁+R₂), per resistenze positive. Il valore equivalente è inferiore a ciascuna delle due resistenze."
+        },
+        {
+          "id": "C",
+          "text": "Minore di ciascuna delle due",
+          "feedback": "In due resistori ideali in parallelo, la tensione ai capi è comune e le correnti si sommano. Per questo si sommano le conduttanze, cioè gli inversi delle resistenze, non le resistenze stesse."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "math-p10-calculation",
+      "prompt": "Calcolo: Resistenza R₂ (a)=4 Ω. Per Resistenza R₁=4 Ω, quanto vale Resistenza equivalente?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1 Ω",
+          "feedback": "Controlla sostituzione, segno e unità. R_eq = x a / (x+a). Con Resistenza R₂ (a)=4 Ω e Resistenza R₁=4 Ω, il risultato è 2 Ω. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "2 Ω",
+          "feedback": "R_eq = x a / (x+a). Con Resistenza R₂ (a)=4 Ω e Resistenza R₁=4 Ω, il risultato è 2 Ω. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "3 Ω",
+          "feedback": "Questo valore non soddisfa la relazione. R_eq = x a / (x+a). Con Resistenza R₂ (a)=4 Ω e Resistenza R₁=4 Ω, il risultato è 2 Ω. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 4,
+        "parameters": {
+          "a": 4
+        },
+        "expected": 2,
+        "unit": "Ω"
+      }
+    },
+    {
+      "id": "math-p10-transfer",
+      "prompt": "Trasferimento: Resistenza R₂ (a)=5 Ω. Per Resistenza R₁=4 Ω, quanto vale Resistenza equivalente?",
+      "options": [
+        {
+          "id": "A",
+          "text": "2,22222 Ω",
+          "feedback": "R_eq = x a / (x+a). Con Resistenza R₂ (a)=5 Ω e Resistenza R₁=4 Ω, il risultato è 2,22222 Ω. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "3,33333 Ω",
+          "feedback": "Questo valore non soddisfa la relazione. R_eq = x a / (x+a). Con Resistenza R₂ (a)=5 Ω e Resistenza R₁=4 Ω, il risultato è 2,22222 Ω. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "1,11111 Ω",
+          "feedback": "Controlla sostituzione, segno e unità. R_eq = x a / (x+a). Con Resistenza R₂ (a)=5 Ω e Resistenza R₁=4 Ω, il risultato è 2,22222 Ω. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 4,
+        "parameters": {
+          "a": 5
+        },
+        "expected": 2.2222222222222223,
+        "unit": "Ω"
+      }
+    },
+    {
+      "id": "math-p10-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione."
+        },
+        {
+          "id": "B",
+          "text": "Resistori ideali in regime stazionario",
+          "feedback": "Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione."
+        },
+        {
+          "id": "C",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione."
+        }
+      ],
+      "correct": "B"
+    }
+  ]
+}

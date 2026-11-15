@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "biology-11",
+  "title": "Espressione genica",
+  "sector": 3,
+  "modelId": "biology-11",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Produzione e degradazione lineari costanti",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: produzione e degradazione lineari costanti.",
+    "Applicare m(t) = α/δ (1-exp(-δt)), m(0)=0, dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "biology-10"
+  ],
+  "connections": [
+    "math-p11"
+  ],
+  "sources": [
+    "biology"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Tempo",
+      "definition": "Variabile indipendente, unità min; intervallo [0; 20]."
+    },
+    {
+      "term": "mRNA atteso",
+      "definition": "Risultato calcolato dal modello, unità molecole."
+    },
+    {
+      "term": "Produzione α",
+      "definition": "Parametro a, unità molecole/min; intervallo [1; 10]."
+    },
+    {
+      "term": "Degradazione δ",
+      "definition": "Parametro b, unità 1/min; intervallo [0,1; 1]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Un gene viene attivato e il numero medio di trascritti cresce verso un livello. La stazione vuole capire perché una produzione continua non implica accumulo illimitato.",
+          "L’abbondanza di mRNA dipende da produzione e degradazione. Un modello semplice assume una produzione costante α e una perdita proporzionale alla quantità presente, δm."
+        ],
+        "intermediate": [
+          "Un gene viene attivato e il numero medio di trascritti cresce verso un livello. La stazione vuole capire perché una produzione continua non implica accumulo illimitato.",
+          "L’equazione dm/dt=α-δm, con m(0)=0, ha soluzione m(t)=α/δ(1-exp(-δt)). Il livello stazionario è α/δ; il tempo caratteristico è 1/δ."
+        ],
+        "advanced": [
+          "Un gene viene attivato e il numero medio di trascritti cresce verso un livello. La stazione vuole capire perché una produzione continua non implica accumulo illimitato.",
+          "Confronta un aumento della produzione con una diminuzione della degradazione. Possono dare lo stesso livello finale ma tempi di risposta diversi: proponi come distinguerli.",
+          "Produzione e degradazione lineari costanti, nessun feedback o rumore. Nessuna sequenza genetica o procedura sperimentale è generata."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "L’abbondanza di mRNA dipende da produzione e degradazione. Un modello semplice assume una produzione costante α e una perdita proporzionale alla quantità presente, δm.",
+          "Con α=5 molecole/min e δ=0,2 min⁻¹, il limite è 25 molecole in media. A t=0 il valore è zero e la derivata iniziale è 5 molecole/min."
+        ],
+        "intermediate": [
+          "L’equazione dm/dt=α-δm, con m(0)=0, ha soluzione m(t)=α/δ(1-exp(-δt)). Il livello stazionario è α/δ; il tempo caratteristico è 1/δ.",
+          "La variabile Tempo è espressa in min; mRNA atteso in molecole. Il dominio dello strumento è [0; 20]. La relazione implementata è: m(t) = α/δ (1-exp(-δt)), m(0)=0.",
+          "Con α=5 molecole/min e δ=0,2 min⁻¹, il limite è 25 molecole in media. A t=0 il valore è zero e la derivata iniziale è 5 molecole/min."
+        ],
+        "advanced": [
+          "L’equazione dm/dt=α-δm, con m(0)=0, ha soluzione m(t)=α/δ(1-exp(-δt)). Il livello stazionario è α/δ; il tempo caratteristico è 1/δ.",
+          "Confronta un aumento della produzione con una diminuzione della degradazione. Possono dare lo stesso livello finale ma tempi di risposta diversi: proponi come distinguerli.",
+          "Un valore medio non descrive le fluttuazioni di ogni singola cellula. Più mRNA non implica automaticamente una quantità proporzionale di proteina, perché intervengono altri processi."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Produzione α (a): 5 molecole/min; Degradazione δ (b): 0,2 1/min. Prima di salvare A, prevedi come cambia mRNA atteso fra Tempo=5 e 10 min. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con α=5 molecole/min e δ=0,2 min⁻¹, il limite è 25 molecole in media. A t=0 il valore è zero e la derivata iniziale è 5 molecole/min.",
+          "La variabile Tempo è espressa in min; mRNA atteso in molecole. Il dominio dello strumento è [0; 20]. La relazione implementata è: m(t) = α/δ (1-exp(-δt)), m(0)=0."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Produzione α (a): 5 molecole/min; Degradazione δ (b): 0,2 1/min. Prima di salvare A, prevedi come cambia mRNA atteso fra Tempo=5 e 10 min. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Tempo è espressa in min; mRNA atteso in molecole. Il dominio dello strumento è [0; 20]. La relazione implementata è: m(t) = α/δ (1-exp(-δt)), m(0)=0.",
+          "L’equazione dm/dt=α-δm, con m(0)=0, ha soluzione m(t)=α/δ(1-exp(-δt)). Il livello stazionario è α/δ; il tempo caratteristico è 1/δ."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Produzione α (a): 5 molecole/min; Degradazione δ (b): 0,2 1/min. Prima di salvare A, prevedi come cambia mRNA atteso fra Tempo=5 e 10 min. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Confronta un aumento della produzione con una diminuzione della degradazione. Possono dare lo stesso livello finale ma tempi di risposta diversi: proponi come distinguerli.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Un valore medio non descrive le fluttuazioni di ogni singola cellula. Più mRNA non implica automaticamente una quantità proporzionale di proteina, perché intervengono altri processi.",
+          "Produzione e degradazione lineari costanti, nessun feedback o rumore. Nessuna sequenza genetica o procedura sperimentale è generata.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Un valore medio non descrive le fluttuazioni di ogni singola cellula. Più mRNA non implica automaticamente una quantità proporzionale di proteina, perché intervengono altri processi.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Produzione e degradazione lineari costanti, nessun feedback o rumore. Nessuna sequenza genetica o procedura sperimentale è generata.",
+          "Confronta un aumento della produzione con una diminuzione della degradazione. Possono dare lo stesso livello finale ma tempi di risposta diversi: proponi come distinguerli.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "L’abbondanza di mRNA dipende da produzione e degradazione. Un modello semplice assume una produzione costante α e una perdita proporzionale alla quantità presente, δm.",
+          "Con α=5 molecole/min e δ=0,2 min⁻¹, il limite è 25 molecole in media. A t=0 il valore è zero e la derivata iniziale è 5 molecole/min."
+        ],
+        "intermediate": [
+          "L’equazione dm/dt=α-δm, con m(0)=0, ha soluzione m(t)=α/δ(1-exp(-δt)). Il livello stazionario è α/δ; il tempo caratteristico è 1/δ.",
+          "La variabile Tempo è espressa in min; mRNA atteso in molecole. Il dominio dello strumento è [0; 20]. La relazione implementata è: m(t) = α/δ (1-exp(-δt)), m(0)=0."
+        ],
+        "advanced": [
+          "Confronta un aumento della produzione con una diminuzione della degradazione. Possono dare lo stesso livello finale ma tempi di risposta diversi: proponi come distinguerli.",
+          "Produzione e degradazione lineari costanti, nessun feedback o rumore. Nessuna sequenza genetica o procedura sperimentale è generata."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Produzione e degradazione lineari costanti.",
+          "Produzione e degradazione lineari costanti, nessun feedback o rumore. Nessuna sequenza genetica o procedura sperimentale è generata.",
+          "Collegamento consigliato: math-p11. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "L’equazione dm/dt=α-δm, con m(0)=0, ha soluzione m(t)=α/δ(1-exp(-δt)). Il livello stazionario è α/δ; il tempo caratteristico è 1/δ.",
+          "Produzione e degradazione lineari costanti, nessun feedback o rumore. Nessuna sequenza genetica o procedura sperimentale è generata.",
+          "Confronta un aumento della produzione con una diminuzione della degradazione. Possono dare lo stesso livello finale ma tempi di risposta diversi: proponi come distinguerli."
+        ],
+        "advanced": [
+          "Confronta un aumento della produzione con una diminuzione della degradazione. Possono dare lo stesso livello finale ma tempi di risposta diversi: proponi come distinguerli.",
+          "Produzione e degradazione lineari costanti, nessun feedback o rumore. Nessuna sequenza genetica o procedura sperimentale è generata.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "biology-11-concept",
+      "prompt": "Il livello stazionario del modello è:",
+      "options": [
+        {
+          "id": "A",
+          "text": "αδ",
+          "feedback": "Un valore medio non descrive le fluttuazioni di ogni singola cellula. Più mRNA non implica automaticamente una quantità proporzionale di proteina, perché intervengono altri processi."
+        },
+        {
+          "id": "B",
+          "text": "Sempre zero",
+          "feedback": "L’equazione dm/dt=α-δm, con m(0)=0, ha soluzione m(t)=α/δ(1-exp(-δt)). Il livello stazionario è α/δ; il tempo caratteristico è 1/δ."
+        },
+        {
+          "id": "C",
+          "text": "α/δ",
+          "feedback": "L’abbondanza di mRNA dipende da produzione e degradazione. Un modello semplice assume una produzione costante α e una perdita proporzionale alla quantità presente, δm."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "biology-11-calculation",
+      "prompt": "Calcolo: Produzione α (a)=5 molecole/min; Degradazione δ (b)=0,2 1/min. Per Tempo=0 min, quanto vale mRNA atteso?",
+      "options": [
+        {
+          "id": "A",
+          "text": "-1,00000e-8 molecole",
+          "feedback": "Controlla sostituzione, segno e unità. m(t) = α/δ (1-exp(-δt)), m(0)=0. Con Produzione α (a)=5 molecole/min; Degradazione δ (b)=0,2 1/min e Tempo=0 min, il risultato è 0 molecole. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "0 molecole",
+          "feedback": "m(t) = α/δ (1-exp(-δt)), m(0)=0. Con Produzione α (a)=5 molecole/min; Degradazione δ (b)=0,2 1/min e Tempo=0 min, il risultato è 0 molecole. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "1,00000e-8 molecole",
+          "feedback": "Questo valore non soddisfa la relazione. m(t) = α/δ (1-exp(-δt)), m(0)=0. Con Produzione α (a)=5 molecole/min; Degradazione δ (b)=0,2 1/min e Tempo=0 min, il risultato è 0 molecole. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 0,
+        "parameters": {
+          "a": 5,
+          "b": 0.2
+        },
+        "expected": 0,
+        "unit": "molecole"
+      }
+    },
+    {
+      "id": "biology-11-transfer",
+      "prompt": "Trasferimento: Produzione α (a)=6 molecole/min; Degradazione δ (b)=0,2 1/min. Per Tempo=0 min, quanto vale mRNA atteso?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0 molecole",
+          "feedback": "m(t) = α/δ (1-exp(-δt)), m(0)=0. Con Produzione α (a)=6 molecole/min; Degradazione δ (b)=0,2 1/min e Tempo=0 min, il risultato è 0 molecole. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "1,00000e-8 molecole",
+          "feedback": "Questo valore non soddisfa la relazione. m(t) = α/δ (1-exp(-δt)), m(0)=0. Con Produzione α (a)=6 molecole/min; Degradazione δ (b)=0,2 1/min e Tempo=0 min, il risultato è 0 molecole. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "-1,00000e-8 molecole",
+          "feedback": "Controlla sostituzione, segno e unità. m(t) = α/δ (1-exp(-δt)), m(0)=0. Con Produzione α (a)=6 molecole/min; Degradazione δ (b)=0,2 1/min e Tempo=0 min, il risultato è 0 molecole. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 0,
+        "parameters": {
+          "a": 6,
+          "b": 0.2
+        },
+        "expected": 0,
+        "unit": "molecole"
+      }
+    },
+    {
+      "id": "biology-11-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Produzione e degradazione lineari costanti, nessun feedback o rumore. Nessuna sequenza genetica o procedura sperimentale è generata."
+        },
+        {
+          "id": "B",
+          "text": "Produzione e degradazione lineari costanti",
+          "feedback": "Produzione e degradazione lineari costanti, nessun feedback o rumore. Nessuna sequenza genetica o procedura sperimentale è generata."
+        },
+        {
+          "id": "C",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Produzione e degradazione lineari costanti, nessun feedback o rumore. Nessuna sequenza genetica o procedura sperimentale è generata."
+        }
+      ],
+      "correct": "B"
+    }
+  ]
+}

@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 1,
+  "id": "echo08-signal",
+  "version": "1.0.0",
+  "title": "Il segnale di Simbiosi",
+  "unitId": "math-c08",
+  "description": "Una missione sulle funzioni: prevedi, confronta due modelli e giustifica ciò che puoi concludere.",
+  "narrativeStatus": "Fiction didattica originale; campioni sintetici, non dati osservativi.",
+  "objectives": [
+    "Distinguere dominio, codominio e immagine",
+    "Interpretare coefficienti e vertice",
+    "Confrontare previsioni e risultati",
+    "Riconoscere i limiti di un modello"
+  ],
+  "prerequisites": [
+    "math-c01",
+    "math-c02"
+  ],
+  "experiment": {
+    "kind": "signal",
+    "domain": [
+      0,
+      10
+    ],
+    "timeUnit": "s dello scenario",
+    "signalUnit": "u.a.",
+    "noise": "assente",
+    "reference": {
+      "model": "quadratic",
+      "a": 0.25,
+      "b": 1,
+      "h": 5
+    }
+  },
+  "steps": [
+    {
+      "id": "discover",
+      "title": "Un segnale da spiegare",
+      "label": "SCOPRI",
+      "text": {
+        "base": [
+          "La stazione Simbiosi ha preparato un segnale di addestramento. Il ricevitore restituisce sei coppie di numeri: un istante e un’intensità. Per costruire una spiegazione non basta scegliere la curva più suggestiva: occorre dichiarare una regola e controllare le sue conseguenze.",
+          "Questa è una missione immaginaria. I campioni verdi sono dati sintetici esatti, senza rumore, generati da una legge matematica nota al laboratorio. Non provengono da NASA, da una stella o da un organismo reale.",
+          "Osserva i campioni da sinistra a destra: il segnale scende e poi risale. Quale famiglia di funzioni potrebbe descriverlo? Nel laboratorio puoi ruotare lo strumento 3D; la profondità degli oggetti serve soltanto a renderli visibili e non rappresenta una terza grandezza."
+        ],
+        "intermediate": [
+          "Obiettivi della missione: associare ogni istante a un solo valore; distinguere dominio e immagine; confrontare una funzione lineare e una quadratica; formulare una previsione; registrare due esperimenti diversi e giustificare un confronto.",
+          "L’intervallo osservato è 0 ≤ t ≤ 10. t si misura in secondi dello scenario; I è espresso in unità arbitrarie (u.a.). L’unità arbitraria fissa una scala convenzionale: non autorizza a interpretare I come watt o temperatura.",
+          "I campioni sono (0; 7,25), (2; 3,25), (4; 1,25), (6; 1,25), (8; 3,25), (10; 7,25). La loro simmetria suggerisce un’indagine, non dimostra da sola una legge universale."
+        ],
+        "advanced": [
+          "Il problema è un’identificazione di modello su un intervallo limitato. Dati finiti non determinano in generale un’unica funzione: una funzione aggiuntiva che si annulla in tutti gli istanti campionati può modificare la curva fra i campioni senza alterare quei dati.",
+          "Qui restringiamo volontariamente la scelta alle famiglie lineare e quadratica. La famiglia, il dominio e l’assenza di rumore sono ipotesi del laboratorio, non conclusioni ottenute dalla sola visualizzazione.",
+          "La missione verifica ragionamenti elementari su funzioni e modelli. Il suo completamento registra attività e autoverifica: non è una certificazione di competenza scientifica."
+        ]
+      }
+    },
+    {
+      "id": "understand",
+      "title": "Dal fenomeno alla funzione",
+      "label": "CAPISCI",
+      "text": {
+        "base": [
+          "Una funzione assegna a ciascun ingresso ammesso un solo valore di uscita. Qui l’ingresso è il tempo t e l’uscita è l’intensità I(t). Se scegli t = 2, la regola deve restituire un valore ben determinato, non due valori incompatibili.",
+          "Nel modello lineare I(t) = a t + b, b è il valore a t = 0 e a indica di quanto cambia I quando t aumenta di un secondo. Con a = 1 e b = 1 ottieni I(2) = 3 e I(4) = 5: la variazione è +2.",
+          "Nel modello quadratico I(t) = a (t − h)² + b, per a > 0 il punto più basso è (h; b). Con a = 0,25, h = 5 e b = 1, a t = 2 ottieni 0,25 × 9 + 1 = 3,25. A t = 4 ottieni 1,25: il segnale diminuisce."
+        ],
+        "intermediate": [
+          "Il dominio del laboratorio è l’intervallo [0; 10]. Il codominio dichiarabile è l’insieme dei reali; l’immagine è soltanto l’insieme dei valori effettivamente raggiunti sul dominio. Questi tre oggetti non sono sinonimi.",
+          "Per I(t) = 0,25 (t − 5)² + 1 sul dominio [0; 10], il minimo è 1 a t = 5 e il massimo è 7,25 agli estremi. L’immagine è quindi [1; 7,25]. I sei campioni non includono t = 5: il minimo si ricava dalla formula, non si legge direttamente nella tabella.",
+          "h trasla il vertice lungo l’asse del tempo; b ne cambia l’altezza; a controlla la curvatura. Nel modello lineare h non ha effetto. I coefficienti hanno unità diverse nelle due famiglie: a è in u.a./s nella retta e in u.a./s² nella parabola."
+        ],
+        "advanced": [
+          "La derivata del modello lineare è I'(t) = a. Per il modello quadratico è I'(t) = 2a(t − h). Con a > 0 il segno cambia da negativo a positivo attraversando h: decrescita, minimo, crescita. Se a = 0, entrambi i modelli sono costanti e non esiste un minimo unico.",
+          "Nel laboratorio a è limitato all’intervallo [0; 2], b a [0; 5] e h a [0; 10]. Sono vincoli didattici dell’interfaccia, non limiti matematici generali delle funzioni lineari o quadratiche. Ogni conclusione va riferita a questi vincoli.",
+          "Le curve sono calcolate su 81 punti e unite da tubi tridimensionali. Questo è un campionamento grafico, non una dimostrazione. Valori, estremi e scarto dai campioni sono calcolati separatamente dalle formule."
+        ]
+      }
+    },
+    {
+      "id": "experiment",
+      "title": "Prevedi, poi registra",
+      "label": "SPERIMENTA",
+      "text": {
+        "base": [
+          "Apri LAB 3D. Scegli LINEARE e usa a = 1, b = 1. Prima di registrare, rispondi alla domanda: tra t = 2 e t = 4 il tuo modello cresce, diminuisce o resta costante? Poi premi REGISTRA A. Il laboratorio conserva parametri, previsione e risultati.",
+          "Passa a QUADRATICA. Imposta a = 0,25, b = 1, h = 5 con i pulsanti + e −. Formula una nuova previsione e premi REGISTRA B. Il cambio dei parametri cancella la previsione corrente, ma non modifica gli esperimenti già registrati.",
+          "Una previsione sbagliata è utile se viene confrontata con il risultato. Puoi ripetere una registrazione nello stesso spazio A o B; per conservare più tentativi esporta il rapporto. A e B devono descrivere due leggi effettivamente diverse."
+        ],
+        "intermediate": [
+          "Nel confronto richiesto, A è la retta I(t) = t + 1. B è la parabola I(t) = 0,25(t − 5)² + 1. La previsione riguarda la variazione fra due istanti, non il valore istantaneo mostrato dal cursore t.",
+          "Per studiare l’effetto di un singolo parametro, registra poi due configurazioni della stessa famiglia cambiando soltanto quel parametro. Confrontare simultaneamente famiglia e coefficienti è lecito per valutare due modelli, ma non isola l’effetto causale di un singolo coefficiente.",
+          "Il tempo del cursore sposta una sfera sulla curva corrente. Non altera A o B. La curva ambra è A conservato; la curva ciano è il modello corrente. La registrazione B rimane immutata anche se continui a manipolare i controlli."
+        ],
+        "advanced": [
+          "Il rapporto esportato conserva i parametri, i campioni della traccia, I(2), I(4), la tendenza e lo scarto quadratico medio rispetto ai sei campioni sintetici. Non usa una derivata numerica per stabilire la tendenza fra gli istanti: confronta direttamente i due valori.",
+          "La scala verticale del grafico si adatta congiuntamente al modello corrente, ai dati e ad A. Leggi sempre gli estremi dell’asse: confrontare soltanto l’angolo apparente di curve mostrate con scale o prospettive diverse può ingannare.",
+          "La traccia JSON è sufficiente a riprodurre il calcolo. Nel diario indica la domanda iniziale, i parametri modificati e l’esito. Un’immagine dello strumento, da sola, non sostituisce questi dati."
+        ]
+      }
+    },
+    {
+      "id": "interpret",
+      "title": "Una curva convincente non basta",
+      "label": "INTERPRETA",
+      "text": {
+        "base": [
+          "Con i parametri suggeriti, A aumenta da 3 a 5 tra t = 2 e t = 4; B diminuisce da 3,25 a 1,25. I campioni di addestramento seguono B. La previsione va confrontata con questi numeri, non con l’impressione data dalla scena.",
+          "Lo scarto RMSE riassume la distanza fra i valori del modello e i sei campioni. Zero significa coincidenza in quei sei punti; un valore più grande segnala un disaccordo maggiore in questa scala. Non è una percentuale e non misura quanto un modello sia vero.",
+          "Completa una frase nel diario: «Preferisco questo modello su [0; 10] perché…». Aggiungi un limite: non abbiamo dati oltre t = 10 e il segnale è sintetico. Evita quindi di estendere automaticamente la conclusione a un segnale naturale."
+        ],
+        "intermediate": [
+          "Per ogni istante campionato calcola il residuo r = valore del modello − valore del campione. Eleva al quadrato i sei residui, calcolane la media e prendi la radice quadrata: ottieni RMSE. Le sue unità sono le stesse dell’intensità, u.a.",
+          "La parabola proposta coincide esattamente con il generatore dei dati. La retta non può descrivere prima una diminuzione e poi un aumento con un unico coefficiente angolare costante. Questa osservazione riguarda la forma delle due famiglie sul dominio scelto.",
+          "La curva mostra anche punti intermedi non campionati: sono previsioni del modello. Trovare I(5) = 1 per la parabola è un calcolo condizionato alla formula, non una nuova osservazione indipendente."
+        ],
+        "advanced": [
+          "Interpolazione è il calcolo dentro l’intervallo dei campioni; estrapolazione è l’estensione oltre quell’intervallo. L’interfaccia limita t a [0; 10] per mantenere chiaro l’ambito del confronto: non dichiara impossibile ogni estensione matematica.",
+          "Con dati rumorosi occorrerebbero informazioni sull’incertezza, un criterio di stima e controlli fuori campione. Questo laboratorio non aggiunge rumore, non esegue regressione automatica e non stima intervalli di confidenza.",
+          "La selezione di un modello richiede anche ipotesi pertinenti al fenomeno. Un buon adattamento numerico non prova un meccanismo causale. La stazione è una cornice narrativa: non costituisce evidenza fisica della legge."
+        ]
+      }
+    },
+    {
+      "id": "verify",
+      "title": "Spiega la tua scelta",
+      "label": "VERIFICA",
+      "text": {
+        "base": [
+          "La verifica contiene quattro domande originali della missione. Ogni alternativa riceve una spiegazione, anche quando è sbagliata. Puoi correggere una risposta dopo aver letto il feedback: è un’autoverifica guidata, non un esame sorvegliato.",
+          "Le domande controllano significato del dominio, valore del minimo, lettura dei campioni e limiti del modello. Non si superano accumulando tempo nella scena o aprendo tutte le pagine.",
+          "Le quaranta domande di Funzioni già presenti in GAIA rimangono un percorso distinto. Dal riepilogo puoi raggiungere la teoria completa e la verifica originale, senza confondere i due risultati."
+        ],
+        "intermediate": [
+          "Prima di scegliere, prova a formulare una risposta con parole tue. Se il dominio è [0; 10], stai indicando gli ingressi ammessi. Se parli dell’intensità minima, stai invece ragionando sui valori in uscita.",
+          "Per verificare il minimo, usa il quadrato: (t − 5)² non è negativo e vale zero a t = 5. Con a = 0,25 e b = 1 segue I(t) ≥ 1, con uguaglianza in quel punto.",
+          "Una spiegazione corretta collega definizione, calcolo e ambito. «È così perché la curva sembra scendere» è meno solido di un confronto fra valori calcolati e campioni dichiarati."
+        ],
+        "advanced": [
+          "Il superamento è calcolato dalle risposte correnti, non da una percentuale di avanzamento importata. La lettura delle spiegazioni resta libera anche se una domanda non è ancora risolta.",
+          "La verifica non misura tutte le competenze su funzioni. Non richiede una dimostrazione generale, non accerta autonomia senza aiuti e non permette di inferire trasferimento ad altri contesti. Il diario serve a rendere esplicito il ragionamento, ma il testo non viene valutato automaticamente.",
+          "Per un approfondimento, costruisci due funzioni differenti che coincidano ai sei istanti campionati. La domanda mette in luce perché adattamento ai dati e unicità del modello siano problemi diversi."
+        ]
+      }
+    },
+    {
+      "id": "connect",
+      "title": "Dalla missione al metodo",
+      "label": "COLLEGA",
+      "text": {
+        "base": [
+          "Registra nel diario la tua domanda, i parametri di A e B, la previsione iniziale, il confronto con i risultati e almeno un limite. Il pulsante DIARIO apre una nota dedicata alla missione senza sovrascrivere gli appunti esistenti.",
+          "Per concludere servono due esperimenti diversi, quattro risposte corrette, una nota personale non vuota e la presa d’atto dei limiti. Il sistema controlla la presenza della nota, non la sua qualità: il completamento non certifica padronanza della materia.",
+          "Il prossimo collegamento è Daisyworld: anche lì una funzione lega grandezze e impone un dominio. Cambiano il fenomeno, le unità e le ipotesi. La regola del segnale non viene trasferita automaticamente alla crescita biologica."
+        ],
+        "intermediate": [
+          "Rileggi la sezione 8.1 per dominio, codominio e immagine; la 8.4 per crescita e trasformazioni; la 8.10 per ricostruzione di una legge da dati. Sono collegamenti alla teoria già presente, non nuovi capitoli attribuiti alla dispensa.",
+          "Nel dossier Gaia, la risposta della crescita alla temperatura è una parabola troncata a zero. Il collegamento utile è il metodo: dichiarare variabili, dominio e limiti. Non significa che il segnale sintetico e una popolazione condividano la stessa spiegazione fisica.",
+          "Esporta il rapporto per conservare le registrazioni della missione; esporta il diario generale per trasferire anche gli altri appunti e risultati. Il salvataggio resta locale al browser: non è sincronizzazione cloud."
+        ],
+        "advanced": [
+          "Un passo ulteriore sarebbe confrontare modelli con dati indipendenti, controllare sensibilità ai parametri e discutere identificabilità. Queste attività sono proposte di approfondimento, non funzionalità già implementate in questo pilota.",
+          "La sfera del cursore, i campioni e la curva sono mesh renderizzate in WebGL 2. I numeri sono prodotti da funzioni pure testabili. Testo e controlli usano l’atlante tipografico preesistente; non vengono introdotte immagini generate né fondali prerenderizzati.",
+          "L’esplorazione rimane libera. Ritornare a una fase precedente, cambiare livello o aprire una fonte non cancella gli esperimenti. Un nuovo tentativo può migliorare la spiegazione senza trasformarsi in un punteggio di competenza artificiale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "domain",
+      "prompt": "Che cosa rappresenta [0; 10] in questa missione?",
+      "correct": "B",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tutte le intensità prodotte.",
+          "feedback": "L’insieme dei valori prodotti è l’immagine. Qui [0; 10] delimita gli ingressi, cioè il tempo."
+        },
+        {
+          "id": "B",
+          "text": "Gli istanti ammessi dal modello del laboratorio.",
+          "feedback": "Corretto: il dominio è l’insieme degli ingressi. Qui t appartiene all’intervallo da 0 a 10 secondi."
+        },
+        {
+          "id": "C",
+          "text": "Tutti i tempi possibili di qualunque segnale reale.",
+          "feedback": "No: è un intervallo scelto per questo scenario. Non definisce un limite generale della natura."
+        }
+      ]
+    },
+    {
+      "id": "minimum",
+      "prompt": "Per I(t) = 0,25(t − 5)² + 1 su [0; 10], qual è il minimo?",
+      "correct": "A",
+      "options": [
+        {
+          "id": "A",
+          "text": "1 u.a., raggiunto a t = 5 s.",
+          "feedback": "Corretto: il quadrato vale zero a t = 5 e non è mai negativo. Il minimo è b = 1."
+        },
+        {
+          "id": "B",
+          "text": "5 u.a., raggiunto a t = 1 s.",
+          "feedback": "Hai scambiato ascissa e ordinata del vertice: h = 5 è un tempo; b = 1 è un’intensità."
+        },
+        {
+          "id": "C",
+          "text": "1,25 u.a., perché è il campione più basso.",
+          "feedback": "1,25 è il minimo fra i sei campioni, non il minimo della funzione continua. La formula dà I(5) = 1."
+        }
+      ]
+    },
+    {
+      "id": "evidence",
+      "prompt": "Il modello coincide con i sei campioni. Che cosa puoi concludere?",
+      "correct": "C",
+      "options": [
+        {
+          "id": "A",
+          "text": "È l’unica funzione matematica possibile.",
+          "feedback": "No: funzioni diverse possono coincidere su un insieme finito di punti. Serve dichiarare la famiglia scelta."
+        },
+        {
+          "id": "B",
+          "text": "La stessa legge vale per ogni pianeta.",
+          "feedback": "No: sono dati sintetici di addestramento. La scena non costituisce un’osservazione astronomica."
+        },
+        {
+          "id": "C",
+          "text": "È compatibile con questi campioni, nelle ipotesi dichiarate.",
+          "feedback": "Corretto: l’accordo riguarda questi dati e queste ipotesi. Non dimostra unicità, causalità o validità fuori dominio."
+        }
+      ]
+    },
+    {
+      "id": "frozen",
+      "prompt": "Dopo aver registrato A, modifichi i coefficienti correnti. Che cosa accade ad A?",
+      "correct": "B",
+      "options": [
+        {
+          "id": "A",
+          "text": "Si ricalcola con i nuovi coefficienti.",
+          "feedback": "No: perderebbe il significato del confronto. A conserva i parametri del momento della registrazione."
+        },
+        {
+          "id": "B",
+          "text": "Rimane immutato finché non lo registri di nuovo.",
+          "feedback": "Corretto: A è una fotografia numerica dei parametri, non un’immagine. I risultati sono ricostruibili dalla legge salvata."
+        },
+        {
+          "id": "C",
+          "text": "Diventa automaticamente una misura reale.",
+          "feedback": "No: una registrazione conserva un esperimento sintetico. Salvare un dato non ne cambia la provenienza."
+        }
+      ]
+    }
+  ],
+  "references": [
+    {
+      "label": "Funzioni, teoria web: sezioni 8.1, 8.4 e 8.10",
+      "path": "content/lessons/math-c08.json",
+      "sectionIds": [
+        "math-c08-s01",
+        "math-c08-s04",
+        "math-c08-s10"
+      ]
+    },
+    {
+      "label": "Dispensa matematica originale, capitolo 8",
+      "path": "materials/matematica-di-base.pdf"
+    },
+    {
+      "label": "Dossier Gaia: domini, crescita e limiti del modello",
+      "path": "content/gaia.json"
+    }
+  ],
+  "editorialNote": "Testi e quattro quesiti nuovi per il pilota. Non sostituiscono le lezioni o i 40 quesiti di Funzioni già presenti."
+}

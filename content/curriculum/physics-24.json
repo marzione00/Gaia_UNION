@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "physics-24",
+  "title": "Induzione elettromagnetica",
+  "sector": 1,
+  "modelId": "physics-24",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Flusso sinusoidale imposto in una spira ideale",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: flusso sinusoidale imposto in una spira ideale.",
+    "Applicare ε(t) = -Φ₀ω cos(ωt), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "physics-23"
+  ],
+  "connections": [
+    "math-p04"
+  ],
+  "sources": [
+    "physics2",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Tempo",
+      "definition": "Variabile indipendente, unità s; intervallo [0; 10]."
+    },
+    {
+      "term": "Forza elettromotrice",
+      "definition": "Risultato calcolato dal modello, unità V."
+    },
+    {
+      "term": "Ampiezza flusso Φ₀",
+      "definition": "Parametro a, unità Wb; intervallo [0,05; 0,5]."
+    },
+    {
+      "term": "Pulsazione ω",
+      "definition": "Parametro b, unità rad/s; intervallo [0,5; 4]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Il flusso magnetico attraverso una spira cambia periodicamente. Il massimo della forza elettromotrice non coincide con il massimo del flusso: serve ragionare sulla variazione.",
+          "La legge di Faraday collega la forza elettromotrice indotta alla derivata temporale del flusso concatenato. Per una spira, ε=-dΦ/dt. Il segno esprime l’orientazione e la legge di Lenz."
+        ],
+        "intermediate": [
+          "Il flusso magnetico attraverso una spira cambia periodicamente. Il massimo della forza elettromotrice non coincide con il massimo del flusso: serve ragionare sulla variazione.",
+          "Assumendo Φ(t)=Φ₀sin(ωt), si ottiene ε=-Φ₀ωcos(ωt). Un flusso momentaneamente nullo può avere derivata massima; un flusso al massimo ha derivata nulla."
+        ],
+        "advanced": [
+          "Il flusso magnetico attraverso una spira cambia periodicamente. Il massimo della forza elettromotrice non coincide con il massimo del flusso: serve ragionare sulla variazione.",
+          "Estendi la formula a N spire con lo stesso flusso per spira. Collega lo sfasamento fra seno e coseno al concetto di derivata.",
+          "Una spira ideale e flusso sinusoidale imposto. Non sono calcolati autoinduzione, resistenza, correnti o campo generato dalla spira."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "La legge di Faraday collega la forza elettromotrice indotta alla derivata temporale del flusso concatenato. Per una spira, ε=-dΦ/dt. Il segno esprime l’orientazione e la legge di Lenz.",
+          "Con Φ₀=0,1 Wb e ω=2 rad/s, a t=0 la forza elettromotrice è -0,2 V. Il segno dipende dalla convenzione di orientazione scelta."
+        ],
+        "intermediate": [
+          "Assumendo Φ(t)=Φ₀sin(ωt), si ottiene ε=-Φ₀ωcos(ωt). Un flusso momentaneamente nullo può avere derivata massima; un flusso al massimo ha derivata nulla.",
+          "La variabile Tempo è espressa in s; Forza elettromotrice in V. Il dominio dello strumento è [0; 10]. La relazione implementata è: ε(t) = -Φ₀ω cos(ωt).",
+          "Con Φ₀=0,1 Wb e ω=2 rad/s, a t=0 la forza elettromotrice è -0,2 V. Il segno dipende dalla convenzione di orientazione scelta."
+        ],
+        "advanced": [
+          "Assumendo Φ(t)=Φ₀sin(ωt), si ottiene ε=-Φ₀ωcos(ωt). Un flusso momentaneamente nullo può avere derivata massima; un flusso al massimo ha derivata nulla.",
+          "Estendi la formula a N spire con lo stesso flusso per spira. Collega lo sfasamento fra seno e coseno al concetto di derivata.",
+          "Campo magnetico grande ma costante non produce necessariamente induzione in una spira ferma. La forza elettromotrice non è una forza meccanica misurata in newton."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Ampiezza flusso Φ₀ (a): 0,1 Wb; Pulsazione ω (b): 2 rad/s. Prima di salvare A, prevedi come cambia Forza elettromotrice fra Tempo=2,5 e 5 s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con Φ₀=0,1 Wb e ω=2 rad/s, a t=0 la forza elettromotrice è -0,2 V. Il segno dipende dalla convenzione di orientazione scelta.",
+          "La variabile Tempo è espressa in s; Forza elettromotrice in V. Il dominio dello strumento è [0; 10]. La relazione implementata è: ε(t) = -Φ₀ω cos(ωt)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Ampiezza flusso Φ₀ (a): 0,1 Wb; Pulsazione ω (b): 2 rad/s. Prima di salvare A, prevedi come cambia Forza elettromotrice fra Tempo=2,5 e 5 s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Tempo è espressa in s; Forza elettromotrice in V. Il dominio dello strumento è [0; 10]. La relazione implementata è: ε(t) = -Φ₀ω cos(ωt).",
+          "Assumendo Φ(t)=Φ₀sin(ωt), si ottiene ε=-Φ₀ωcos(ωt). Un flusso momentaneamente nullo può avere derivata massima; un flusso al massimo ha derivata nulla."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Ampiezza flusso Φ₀ (a): 0,1 Wb; Pulsazione ω (b): 2 rad/s. Prima di salvare A, prevedi come cambia Forza elettromotrice fra Tempo=2,5 e 5 s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Estendi la formula a N spire con lo stesso flusso per spira. Collega lo sfasamento fra seno e coseno al concetto di derivata.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Campo magnetico grande ma costante non produce necessariamente induzione in una spira ferma. La forza elettromotrice non è una forza meccanica misurata in newton.",
+          "Una spira ideale e flusso sinusoidale imposto. Non sono calcolati autoinduzione, resistenza, correnti o campo generato dalla spira.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Campo magnetico grande ma costante non produce necessariamente induzione in una spira ferma. La forza elettromotrice non è una forza meccanica misurata in newton.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Una spira ideale e flusso sinusoidale imposto. Non sono calcolati autoinduzione, resistenza, correnti o campo generato dalla spira.",
+          "Estendi la formula a N spire con lo stesso flusso per spira. Collega lo sfasamento fra seno e coseno al concetto di derivata.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "La legge di Faraday collega la forza elettromotrice indotta alla derivata temporale del flusso concatenato. Per una spira, ε=-dΦ/dt. Il segno esprime l’orientazione e la legge di Lenz.",
+          "Con Φ₀=0,1 Wb e ω=2 rad/s, a t=0 la forza elettromotrice è -0,2 V. Il segno dipende dalla convenzione di orientazione scelta."
+        ],
+        "intermediate": [
+          "Assumendo Φ(t)=Φ₀sin(ωt), si ottiene ε=-Φ₀ωcos(ωt). Un flusso momentaneamente nullo può avere derivata massima; un flusso al massimo ha derivata nulla.",
+          "La variabile Tempo è espressa in s; Forza elettromotrice in V. Il dominio dello strumento è [0; 10]. La relazione implementata è: ε(t) = -Φ₀ω cos(ωt)."
+        ],
+        "advanced": [
+          "Estendi la formula a N spire con lo stesso flusso per spira. Collega lo sfasamento fra seno e coseno al concetto di derivata.",
+          "Una spira ideale e flusso sinusoidale imposto. Non sono calcolati autoinduzione, resistenza, correnti o campo generato dalla spira."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Flusso sinusoidale imposto in una spira ideale.",
+          "Una spira ideale e flusso sinusoidale imposto. Non sono calcolati autoinduzione, resistenza, correnti o campo generato dalla spira.",
+          "Collegamento consigliato: math-p04. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Assumendo Φ(t)=Φ₀sin(ωt), si ottiene ε=-Φ₀ωcos(ωt). Un flusso momentaneamente nullo può avere derivata massima; un flusso al massimo ha derivata nulla.",
+          "Una spira ideale e flusso sinusoidale imposto. Non sono calcolati autoinduzione, resistenza, correnti o campo generato dalla spira.",
+          "Estendi la formula a N spire con lo stesso flusso per spira. Collega lo sfasamento fra seno e coseno al concetto di derivata."
+        ],
+        "advanced": [
+          "Estendi la formula a N spire con lo stesso flusso per spira. Collega lo sfasamento fra seno e coseno al concetto di derivata.",
+          "Una spira ideale e flusso sinusoidale imposto. Non sono calcolati autoinduzione, resistenza, correnti o campo generato dalla spira.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "physics-24-concept",
+      "prompt": "L’induzione dipende direttamente da:",
+      "options": [
+        {
+          "id": "A",
+          "text": "La variazione temporale del flusso",
+          "feedback": "La legge di Faraday collega la forza elettromotrice indotta alla derivata temporale del flusso concatenato. Per una spira, ε=-dΦ/dt. Il segno esprime l’orientazione e la legge di Lenz."
+        },
+        {
+          "id": "B",
+          "text": "Il solo valore del flusso",
+          "feedback": "Campo magnetico grande ma costante non produce necessariamente induzione in una spira ferma. La forza elettromotrice non è una forza meccanica misurata in newton."
+        },
+        {
+          "id": "C",
+          "text": "Il colore del magnete",
+          "feedback": "Assumendo Φ(t)=Φ₀sin(ωt), si ottiene ε=-Φ₀ωcos(ωt). Un flusso momentaneamente nullo può avere derivata massima; un flusso al massimo ha derivata nulla."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-24-calculation",
+      "prompt": "Calcolo: Ampiezza flusso Φ₀ (a)=0,1 Wb; Pulsazione ω (b)=2 rad/s. Per Tempo=0 s, quanto vale Forza elettromotrice?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0,8 V",
+          "feedback": "Questo valore non soddisfa la relazione. ε(t) = -Φ₀ω cos(ωt). Con Ampiezza flusso Φ₀ (a)=0,1 Wb; Pulsazione ω (b)=2 rad/s e Tempo=0 s, il risultato è -0,2 V. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "-1,2 V",
+          "feedback": "Controlla sostituzione, segno e unità. ε(t) = -Φ₀ω cos(ωt). Con Ampiezza flusso Φ₀ (a)=0,1 Wb; Pulsazione ω (b)=2 rad/s e Tempo=0 s, il risultato è -0,2 V. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "-0,2 V",
+          "feedback": "ε(t) = -Φ₀ω cos(ωt). Con Ampiezza flusso Φ₀ (a)=0,1 Wb; Pulsazione ω (b)=2 rad/s e Tempo=0 s, il risultato è -0,2 V. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 0,
+        "parameters": {
+          "a": 0.1,
+          "b": 2
+        },
+        "expected": -0.2,
+        "unit": "V"
+      }
+    },
+    {
+      "id": "physics-24-transfer",
+      "prompt": "Trasferimento: Ampiezza flusso Φ₀ (a)=0,15 Wb; Pulsazione ω (b)=2 rad/s. Per Tempo=0 s, quanto vale Forza elettromotrice?",
+      "options": [
+        {
+          "id": "A",
+          "text": "-1,3 V",
+          "feedback": "Controlla sostituzione, segno e unità. ε(t) = -Φ₀ω cos(ωt). Con Ampiezza flusso Φ₀ (a)=0,15 Wb; Pulsazione ω (b)=2 rad/s e Tempo=0 s, il risultato è -0,3 V. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "-0,3 V",
+          "feedback": "ε(t) = -Φ₀ω cos(ωt). Con Ampiezza flusso Φ₀ (a)=0,15 Wb; Pulsazione ω (b)=2 rad/s e Tempo=0 s, il risultato è -0,3 V. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "0,7 V",
+          "feedback": "Questo valore non soddisfa la relazione. ε(t) = -Φ₀ω cos(ωt). Con Ampiezza flusso Φ₀ (a)=0,15 Wb; Pulsazione ω (b)=2 rad/s e Tempo=0 s, il risultato è -0,3 V. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 0,
+        "parameters": {
+          "a": 0.15,
+          "b": 2
+        },
+        "expected": -0.3,
+        "unit": "V"
+      }
+    },
+    {
+      "id": "physics-24-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Una spira ideale e flusso sinusoidale imposto. Non sono calcolati autoinduzione, resistenza, correnti o campo generato dalla spira."
+        },
+        {
+          "id": "B",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Una spira ideale e flusso sinusoidale imposto. Non sono calcolati autoinduzione, resistenza, correnti o campo generato dalla spira."
+        },
+        {
+          "id": "C",
+          "text": "Flusso sinusoidale imposto in una spira ideale",
+          "feedback": "Una spira ideale e flusso sinusoidale imposto. Non sono calcolati autoinduzione, resistenza, correnti o campo generato dalla spira."
+        }
+      ],
+      "correct": "C"
+    }
+  ]
+}

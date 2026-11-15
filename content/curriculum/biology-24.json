@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "biology-24",
+  "title": "Omeostasi e retroazioni",
+  "sector": 3,
+  "modelId": "biology-24",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Feedback lineare senza ritardi",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: feedback lineare senza ritardi.",
+    "Applicare Δy(t) = Δy₀ exp(-kt), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "biology-23"
+  ],
+  "connections": [
+    "biology-25"
+  ],
+  "sources": [
+    "biology"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Tempo",
+      "definition": "Variabile indipendente, unità u.t.; intervallo [0; 20]."
+    },
+    {
+      "term": "Deviazione dal riferimento",
+      "definition": "Risultato calcolato dal modello, unità u.a.."
+    },
+    {
+      "term": "Perturbazione iniziale",
+      "definition": "Parametro a, unità u.a.; intervallo [-10; 10]."
+    },
+    {
+      "term": "Guadagno efficace k",
+      "definition": "Parametro b, unità 1/u.t.; intervallo [0,1; 1]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Dopo una perturbazione, una variabile torna verso un riferimento. La stazione vuole spiegare il processo senza attribuire intenzioni al sistema o confondere ogni feedback negativo con stabilità garantita.",
+          "Una retroazione negativa tende a contrastare una deviazione. In un modello lineare semplice, la velocità di recupero è proporzionale alla deviazione con segno opposto."
+        ],
+        "intermediate": [
+          "Dopo una perturbazione, una variabile torna verso un riferimento. La stazione vuole spiegare il processo senza attribuire intenzioni al sistema o confondere ogni feedback negativo con stabilità garantita.",
+          "La legge dΔy/dt=-kΔy produce Δy(t)=Δy₀exp(-kt) per k>0. Il segno iniziale può essere positivo o negativo; il modulo tende a zero."
+        ],
+        "advanced": [
+          "Dopo una perturbazione, una variabile torna verso un riferimento. La stazione vuole spiegare il processo senza attribuire intenzioni al sistema o confondere ogni feedback negativo con stabilità garantita.",
+          "Confronta due guadagni k e misura il tempo per ridurre la deviazione a una frazione scelta. Spiega quali nuovi effetti introdurrebbe un ritardo nella risposta.",
+          "Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Una retroazione negativa tende a contrastare una deviazione. In un modello lineare semplice, la velocità di recupero è proporzionale alla deviazione con segno opposto.",
+          "Con Δy₀=5 e k=0,3, il sistema parte da una deviazione di 5 unità convenzionali. Il tempo caratteristico è 1/0,3≈3,333 unità di tempo."
+        ],
+        "intermediate": [
+          "La legge dΔy/dt=-kΔy produce Δy(t)=Δy₀exp(-kt) per k>0. Il segno iniziale può essere positivo o negativo; il modulo tende a zero.",
+          "La variabile Tempo è espressa in u.t.; Deviazione dal riferimento in u.a.. Il dominio dello strumento è [0; 20]. La relazione implementata è: Δy(t) = Δy₀ exp(-kt).",
+          "Con Δy₀=5 e k=0,3, il sistema parte da una deviazione di 5 unità convenzionali. Il tempo caratteristico è 1/0,3≈3,333 unità di tempo."
+        ],
+        "advanced": [
+          "La legge dΔy/dt=-kΔy produce Δy(t)=Δy₀exp(-kt) per k>0. Il segno iniziale può essere positivo o negativo; il modulo tende a zero.",
+          "Confronta due guadagni k e misura il tempo per ridurre la deviazione a una frazione scelta. Spiega quali nuovi effetti introdurrebbe un ritardo nella risposta.",
+          "Negativo e positivo descrivono il segno del feedback, non un giudizio di valore. Ritardi, saturazioni e accoppiamenti possono rendere instabile un sistema con componenti di feedback negativo."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Perturbazione iniziale (a): 5 u.a.; Guadagno efficace k (b): 0,3 1/u.t.. Prima di salvare A, prevedi come cambia Deviazione dal riferimento fra Tempo=5 e 10 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con Δy₀=5 e k=0,3, il sistema parte da una deviazione di 5 unità convenzionali. Il tempo caratteristico è 1/0,3≈3,333 unità di tempo.",
+          "La variabile Tempo è espressa in u.t.; Deviazione dal riferimento in u.a.. Il dominio dello strumento è [0; 20]. La relazione implementata è: Δy(t) = Δy₀ exp(-kt)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Perturbazione iniziale (a): 5 u.a.; Guadagno efficace k (b): 0,3 1/u.t.. Prima di salvare A, prevedi come cambia Deviazione dal riferimento fra Tempo=5 e 10 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Tempo è espressa in u.t.; Deviazione dal riferimento in u.a.. Il dominio dello strumento è [0; 20]. La relazione implementata è: Δy(t) = Δy₀ exp(-kt).",
+          "La legge dΔy/dt=-kΔy produce Δy(t)=Δy₀exp(-kt) per k>0. Il segno iniziale può essere positivo o negativo; il modulo tende a zero."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Perturbazione iniziale (a): 5 u.a.; Guadagno efficace k (b): 0,3 1/u.t.. Prima di salvare A, prevedi come cambia Deviazione dal riferimento fra Tempo=5 e 10 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Confronta due guadagni k e misura il tempo per ridurre la deviazione a una frazione scelta. Spiega quali nuovi effetti introdurrebbe un ritardo nella risposta.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Negativo e positivo descrivono il segno del feedback, non un giudizio di valore. Ritardi, saturazioni e accoppiamenti possono rendere instabile un sistema con componenti di feedback negativo.",
+          "Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Negativo e positivo descrivono il segno del feedback, non un giudizio di valore. Ritardi, saturazioni e accoppiamenti possono rendere instabile un sistema con componenti di feedback negativo.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico.",
+          "Confronta due guadagni k e misura il tempo per ridurre la deviazione a una frazione scelta. Spiega quali nuovi effetti introdurrebbe un ritardo nella risposta.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Una retroazione negativa tende a contrastare una deviazione. In un modello lineare semplice, la velocità di recupero è proporzionale alla deviazione con segno opposto.",
+          "Con Δy₀=5 e k=0,3, il sistema parte da una deviazione di 5 unità convenzionali. Il tempo caratteristico è 1/0,3≈3,333 unità di tempo."
+        ],
+        "intermediate": [
+          "La legge dΔy/dt=-kΔy produce Δy(t)=Δy₀exp(-kt) per k>0. Il segno iniziale può essere positivo o negativo; il modulo tende a zero.",
+          "La variabile Tempo è espressa in u.t.; Deviazione dal riferimento in u.a.. Il dominio dello strumento è [0; 20]. La relazione implementata è: Δy(t) = Δy₀ exp(-kt)."
+        ],
+        "advanced": [
+          "Confronta due guadagni k e misura il tempo per ridurre la deviazione a una frazione scelta. Spiega quali nuovi effetti introdurrebbe un ritardo nella risposta.",
+          "Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Feedback lineare senza ritardi.",
+          "Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico.",
+          "Collegamento consigliato: biology-25. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "La legge dΔy/dt=-kΔy produce Δy(t)=Δy₀exp(-kt) per k>0. Il segno iniziale può essere positivo o negativo; il modulo tende a zero.",
+          "Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico.",
+          "Confronta due guadagni k e misura il tempo per ridurre la deviazione a una frazione scelta. Spiega quali nuovi effetti introdurrebbe un ritardo nella risposta."
+        ],
+        "advanced": [
+          "Confronta due guadagni k e misura il tempo per ridurre la deviazione a una frazione scelta. Spiega quali nuovi effetti introdurrebbe un ritardo nella risposta.",
+          "Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "biology-24-concept",
+      "prompt": "Nel modello lineare con k>0, il modulo della deviazione:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Resta sempre costante",
+          "feedback": "La legge dΔy/dt=-kΔy produce Δy(t)=Δy₀exp(-kt) per k>0. Il segno iniziale può essere positivo o negativo; il modulo tende a zero."
+        },
+        {
+          "id": "B",
+          "text": "Decade verso zero",
+          "feedback": "Una retroazione negativa tende a contrastare una deviazione. In un modello lineare semplice, la velocità di recupero è proporzionale alla deviazione con segno opposto."
+        },
+        {
+          "id": "C",
+          "text": "Cresce sempre",
+          "feedback": "Negativo e positivo descrivono il segno del feedback, non un giudizio di valore. Ritardi, saturazioni e accoppiamenti possono rendere instabile un sistema con componenti di feedback negativo."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-24-calculation",
+      "prompt": "Calcolo: Perturbazione iniziale (a)=5 u.a.; Guadagno efficace k (b)=0,3 1/u.t.. Per Tempo=0 u.t., quanto vale Deviazione dal riferimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "5 u.a.",
+          "feedback": "Δy(t) = Δy₀ exp(-kt). Con Perturbazione iniziale (a)=5 u.a.; Guadagno efficace k (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 5 u.a.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "7,5 u.a.",
+          "feedback": "Questo valore non soddisfa la relazione. Δy(t) = Δy₀ exp(-kt). Con Perturbazione iniziale (a)=5 u.a.; Guadagno efficace k (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 5 u.a.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "2,5 u.a.",
+          "feedback": "Controlla sostituzione, segno e unità. Δy(t) = Δy₀ exp(-kt). Con Perturbazione iniziale (a)=5 u.a.; Guadagno efficace k (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 5 u.a.. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 0,
+        "parameters": {
+          "a": 5,
+          "b": 0.3
+        },
+        "expected": 5,
+        "unit": "u.a."
+      }
+    },
+    {
+      "id": "biology-24-transfer",
+      "prompt": "Trasferimento: Perturbazione iniziale (a)=6 u.a.; Guadagno efficace k (b)=0,3 1/u.t.. Per Tempo=0 u.t., quanto vale Deviazione dal riferimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "9 u.a.",
+          "feedback": "Questo valore non soddisfa la relazione. Δy(t) = Δy₀ exp(-kt). Con Perturbazione iniziale (a)=6 u.a.; Guadagno efficace k (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 6 u.a.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "3 u.a.",
+          "feedback": "Controlla sostituzione, segno e unità. Δy(t) = Δy₀ exp(-kt). Con Perturbazione iniziale (a)=6 u.a.; Guadagno efficace k (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 6 u.a.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "6 u.a.",
+          "feedback": "Δy(t) = Δy₀ exp(-kt). Con Perturbazione iniziale (a)=6 u.a.; Guadagno efficace k (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 6 u.a.. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 0,
+        "parameters": {
+          "a": 6,
+          "b": 0.3
+        },
+        "expected": 6,
+        "unit": "u.a."
+      }
+    },
+    {
+      "id": "biology-24-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Feedback lineare senza ritardi",
+          "feedback": "Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
+}

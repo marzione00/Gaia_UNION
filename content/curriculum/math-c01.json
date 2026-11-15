@@ -1,0 +1,278 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "math-c01",
+  "title": "Linguaggio e ragionamento matematico",
+  "sector": 0,
+  "modelId": "math-c01",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Variazioni percentuali con base esplicita",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: variazioni percentuali con base esplicita.",
+    "Applicare y = x(1+a/100), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [],
+  "connections": [
+    "math-c06"
+  ],
+  "sources": [
+    "precalculus"
+  ],
+  "originalSource": {
+    "id": "math-2026",
+    "file": "materials/matematica-di-base.pdf",
+    "printedPages": [
+      3,
+      32
+    ],
+    "pdfPages": [
+      15,
+      44
+    ]
+  },
+  "glossary": [
+    {
+      "term": "Valore iniziale",
+      "definition": "Variabile indipendente, unità u.a.; intervallo [0; 100]."
+    },
+    {
+      "term": "Valore finale",
+      "definition": "Risultato calcolato dal modello, unità u.a.."
+    },
+    {
+      "term": "Variazione",
+      "definition": "Parametro a, unità %; intervallo [-50; 100]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Il magazzino della spedizione annuncia un aumento del 20% delle scorte, seguito da una perdita del 20%. Il responsabile sostiene che le due operazioni si annullino. La tua missione è controllare il ragionamento prima di autorizzare il viaggio.",
+          "Una percentuale è un rapporto rispetto a una base dichiarata. Il 20% di 50 è 10, non 20. Aumentare una quantità del 20% significa moltiplicarla per 1,20; diminuirla del 20% significa moltiplicarla per 0,80. Le parole «di» e «rispetto a» individuano il denominatore del rapporto."
+        ],
+        "intermediate": [
+          "Il magazzino della spedizione annuncia un aumento del 20% delle scorte, seguito da una perdita del 20%. Il responsabile sostiene che le due operazioni si annullino. La tua missione è controllare il ragionamento prima di autorizzare il viaggio.",
+          "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale."
+        ],
+        "advanced": [
+          "Il magazzino della spedizione annuncia un aumento del 20% delle scorte, seguito da una perdita del 20%. Il responsabile sostiene che le due operazioni si annullino. La tua missione è controllare il ragionamento prima di autorizzare il viaggio.",
+          "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
+          "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Una percentuale è un rapporto rispetto a una base dichiarata. Il 20% di 50 è 10, non 20. Aumentare una quantità del 20% significa moltiplicarla per 1,20; diminuirla del 20% significa moltiplicarla per 0,80. Le parole «di» e «rispetto a» individuano il denominatore del rapporto.",
+          "Parti da 50 unità. Con a=20 ottieni 60. Applicando poi una diminuzione del 20% a 60 ottieni 48. La differenza finale è -2 unità; dividendo per la base iniziale 50 trovi -0,04, cioè -4%."
+        ],
+        "intermediate": [
+          "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale.",
+          "La variabile Valore iniziale è espressa in u.a.; Valore finale in u.a.. Il dominio dello strumento è [0; 100]. La relazione implementata è: y = x(1+a/100).",
+          "Parti da 50 unità. Con a=20 ottieni 60. Applicando poi una diminuzione del 20% a 60 ottieni 48. La differenza finale è -2 unità; dividendo per la base iniziale 50 trovi -0,04, cioè -4%."
+        ],
+        "advanced": [
+          "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale.",
+          "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
+          "Sommare direttamente +20% e -20% ignora che le percentuali successive agiscono su basi diverse. Una conclusione generale richiede una dimostrazione; un solo controesempio basta invece a smentire «si annullano sempre»."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Variazione (a): 20 %. Prima di salvare A, prevedi come cambia Valore finale fra Valore iniziale=25 e 50 u.a.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Parti da 50 unità. Con a=20 ottieni 60. Applicando poi una diminuzione del 20% a 60 ottieni 48. La differenza finale è -2 unità; dividendo per la base iniziale 50 trovi -0,04, cioè -4%.",
+          "La variabile Valore iniziale è espressa in u.a.; Valore finale in u.a.. Il dominio dello strumento è [0; 100]. La relazione implementata è: y = x(1+a/100)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Variazione (a): 20 %. Prima di salvare A, prevedi come cambia Valore finale fra Valore iniziale=25 e 50 u.a.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Valore iniziale è espressa in u.a.; Valore finale in u.a.. Il dominio dello strumento è [0; 100]. La relazione implementata è: y = x(1+a/100).",
+          "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Variazione (a): 20 %. Prima di salvare A, prevedi come cambia Valore finale fra Valore iniziale=25 e 50 u.a.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Sommare direttamente +20% e -20% ignora che le percentuali successive agiscono su basi diverse. Una conclusione generale richiede una dimostrazione; un solo controesempio basta invece a smentire «si annullano sempre».",
+          "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Sommare direttamente +20% e -20% ignora che le percentuali successive agiscono su basi diverse. Una conclusione generale richiede una dimostrazione; un solo controesempio basta invece a smentire «si annullano sempre».",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale.",
+          "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Una percentuale è un rapporto rispetto a una base dichiarata. Il 20% di 50 è 10, non 20. Aumentare una quantità del 20% significa moltiplicarla per 1,20; diminuirla del 20% significa moltiplicarla per 0,80. Le parole «di» e «rispetto a» individuano il denominatore del rapporto.",
+          "Parti da 50 unità. Con a=20 ottieni 60. Applicando poi una diminuzione del 20% a 60 ottieni 48. La differenza finale è -2 unità; dividendo per la base iniziale 50 trovi -0,04, cioè -4%."
+        ],
+        "intermediate": [
+          "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale.",
+          "La variabile Valore iniziale è espressa in u.a.; Valore finale in u.a.. Il dominio dello strumento è [0; 100]. La relazione implementata è: y = x(1+a/100)."
+        ],
+        "advanced": [
+          "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
+          "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Variazioni percentuali con base esplicita.",
+          "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale.",
+          "Collegamento consigliato: math-c06. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale.",
+          "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale.",
+          "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto."
+        ],
+        "advanced": [
+          "Dimostra che aumentare di p e diminuire della stessa frazione p produce il fattore 1-p². Cerca poi quale percentuale di aumento serve a recuperare una perdita del 20%: la base di recupero è il valore ridotto.",
+          "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "math-c01-concept",
+      "prompt": "Due variazioni successive del +20% e -20% producono:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Una perdita del 4% sul valore iniziale",
+          "feedback": "Una percentuale è un rapporto rispetto a una base dichiarata. Il 20% di 50 è 10, non 20. Aumentare una quantità del 20% significa moltiplicarla per 1,20; diminuirla del 20% significa moltiplicarla per 0,80. Le parole «di» e «rispetto a» individuano il denominatore del rapporto."
+        },
+        {
+          "id": "B",
+          "text": "Nessuna variazione",
+          "feedback": "Sommare direttamente +20% e -20% ignora che le percentuali successive agiscono su basi diverse. Una conclusione generale richiede una dimostrazione; un solo controesempio basta invece a smentire «si annullano sempre»."
+        },
+        {
+          "id": "C",
+          "text": "Una perdita del 20%",
+          "feedback": "Se il valore iniziale è x e la variazione percentuale è a, la variazione assoluta è ax/100. Sommando ottieni y=x(1+a/100). Due variazioni successive si compongono moltiplicando i fattori: 1,20×0,80=0,96. Il saldo è quindi una perdita del 4%, perché la seconda base non è più quella iniziale."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-c01-calculation",
+      "prompt": "Calcolo: Variazione (a)=20 %. Per Valore iniziale=50 u.a., quanto vale Valore finale?",
+      "options": [
+        {
+          "id": "A",
+          "text": "90 u.a.",
+          "feedback": "Questo valore non soddisfa la relazione. y = x(1+a/100). Con Variazione (a)=20 % e Valore iniziale=50 u.a., il risultato è 60 u.a.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "30 u.a.",
+          "feedback": "Controlla sostituzione, segno e unità. y = x(1+a/100). Con Variazione (a)=20 % e Valore iniziale=50 u.a., il risultato è 60 u.a.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "60 u.a.",
+          "feedback": "y = x(1+a/100). Con Variazione (a)=20 % e Valore iniziale=50 u.a., il risultato è 60 u.a.. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 50,
+        "parameters": {
+          "a": 20
+        },
+        "expected": 60,
+        "unit": "u.a."
+      }
+    },
+    {
+      "id": "math-c01-transfer",
+      "prompt": "Trasferimento: Variazione (a)=25 %. Per Valore iniziale=50 u.a., quanto vale Valore finale?",
+      "options": [
+        {
+          "id": "A",
+          "text": "31,25 u.a.",
+          "feedback": "Controlla sostituzione, segno e unità. y = x(1+a/100). Con Variazione (a)=25 % e Valore iniziale=50 u.a., il risultato è 62,5 u.a.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "62,5 u.a.",
+          "feedback": "y = x(1+a/100). Con Variazione (a)=25 % e Valore iniziale=50 u.a., il risultato è 62,5 u.a.. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "93,75 u.a.",
+          "feedback": "Questo valore non soddisfa la relazione. y = x(1+a/100). Con Variazione (a)=25 % e Valore iniziale=50 u.a., il risultato è 62,5 u.a.. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 50,
+        "parameters": {
+          "a": 25
+        },
+        "expected": 62.5,
+        "unit": "u.a."
+      }
+    },
+    {
+      "id": "math-c01-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale."
+        },
+        {
+          "id": "B",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale."
+        },
+        {
+          "id": "C",
+          "text": "Variazioni percentuali con base esplicita",
+          "feedback": "Il laboratorio rappresenta quantità continue non negative e una variazione alla volta. Non considera arrotondamenti, scorte indivisibili o costi di trasporto. La seconda variazione si studia usando il nuovo valore iniziale."
+        }
+      ],
+      "correct": "C"
+    }
+  ]
+}

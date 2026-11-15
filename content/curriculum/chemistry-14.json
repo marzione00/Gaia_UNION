@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "chemistry-14",
+  "title": "Stechiometria e reagente limitante",
+  "sector": 2,
+  "modelId": "chemistry-14",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Bilancio stechiometrico ideale a conversione completa",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: bilancio stechiometrico ideale a conversione completa.",
+    "Applicare 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "chemistry-13"
+  ],
+  "connections": [
+    "chemistry-15"
+  ],
+  "sources": [
+    "chemistry",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Idrogeno iniziale",
+      "definition": "Variabile indipendente, unità mol; intervallo [0; 10]."
+    },
+    {
+      "term": "Acqua teorica",
+      "definition": "Risultato calcolato dal modello, unità mol."
+    },
+    {
+      "term": "Ossigeno iniziale",
+      "definition": "Parametro a, unità mol; intervallo [0,5; 4]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Un bilancio digitale combina quantità di due reagenti. Uno può restare in eccesso mentre l’altro termina. Il risultato dipende dai rapporti della reazione, non dal confronto diretto delle moli.",
+          "Una reazione bilanciata conserva gli atomi e stabilisce rapporti stechiometrici. Per 2H₂+O₂→2H₂O, servono due moli di idrogeno per ogni mole di ossigeno."
+        ],
+        "intermediate": [
+          "Un bilancio digitale combina quantità di due reagenti. Uno può restare in eccesso mentre l’altro termina. Il risultato dipende dai rapporti della reazione, non dal confronto diretto delle moli.",
+          "Il massimo avanzamento è min(n_H₂/2,n_O₂). Le moli teoriche di acqua sono due volte tale valore, cioè min(n_H₂,2n_O₂). La funzione ha un cambio di pendenza quando cambia il reagente limitante."
+        ],
+        "advanced": [
+          "Un bilancio digitale combina quantità di due reagenti. Uno può restare in eccesso mentre l’altro termina. Il risultato dipende dai rapporti della reazione, non dal confronto diretto delle moli.",
+          "Calcola le quantità residue e verifica la conservazione degli atomi di entrambi gli elementi. Confronta i casi prima e dopo la soglia di limitazione.",
+          "Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Una reazione bilanciata conserva gli atomi e stabilisce rapporti stechiometrici. Per 2H₂+O₂→2H₂O, servono due moli di idrogeno per ogni mole di ossigeno.",
+          "Con 6 mol di H₂ e 2 mol di O₂, il massimo prodotto è 4 mol di H₂O. L’ossigeno è limitante e rimangono teoricamente 2 mol di H₂."
+        ],
+        "intermediate": [
+          "Il massimo avanzamento è min(n_H₂/2,n_O₂). Le moli teoriche di acqua sono due volte tale valore, cioè min(n_H₂,2n_O₂). La funzione ha un cambio di pendenza quando cambia il reagente limitante.",
+          "La variabile Idrogeno iniziale è espressa in mol; Acqua teorica in mol. Il dominio dello strumento è [0; 10]. La relazione implementata è: 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂).",
+          "Con 6 mol di H₂ e 2 mol di O₂, il massimo prodotto è 4 mol di H₂O. L’ossigeno è limitante e rimangono teoricamente 2 mol di H₂."
+        ],
+        "advanced": [
+          "Il massimo avanzamento è min(n_H₂/2,n_O₂). Le moli teoriche di acqua sono due volte tale valore, cioè min(n_H₂,2n_O₂). La funzione ha un cambio di pendenza quando cambia il reagente limitante.",
+          "Calcola le quantità residue e verifica la conservazione degli atomi di entrambi gli elementi. Confronta i casi prima e dopo la soglia di limitazione.",
+          "Il reagente con meno moli non è automaticamente il limitante: bisogna dividere per il coefficiente stechiometrico. Bilanciare richiede modificare coefficienti, non indici delle formule."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Ossigeno iniziale (a): 2 mol. Prima di salvare A, prevedi come cambia Acqua teorica fra Idrogeno iniziale=2,5 e 5 mol. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con 6 mol di H₂ e 2 mol di O₂, il massimo prodotto è 4 mol di H₂O. L’ossigeno è limitante e rimangono teoricamente 2 mol di H₂.",
+          "La variabile Idrogeno iniziale è espressa in mol; Acqua teorica in mol. Il dominio dello strumento è [0; 10]. La relazione implementata è: 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Ossigeno iniziale (a): 2 mol. Prima di salvare A, prevedi come cambia Acqua teorica fra Idrogeno iniziale=2,5 e 5 mol. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Idrogeno iniziale è espressa in mol; Acqua teorica in mol. Il dominio dello strumento è [0; 10]. La relazione implementata è: 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂).",
+          "Il massimo avanzamento è min(n_H₂/2,n_O₂). Le moli teoriche di acqua sono due volte tale valore, cioè min(n_H₂,2n_O₂). La funzione ha un cambio di pendenza quando cambia il reagente limitante."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Ossigeno iniziale (a): 2 mol. Prima di salvare A, prevedi come cambia Acqua teorica fra Idrogeno iniziale=2,5 e 5 mol. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Calcola le quantità residue e verifica la conservazione degli atomi di entrambi gli elementi. Confronta i casi prima e dopo la soglia di limitazione.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Il reagente con meno moli non è automaticamente il limitante: bisogna dividere per il coefficiente stechiometrico. Bilanciare richiede modificare coefficienti, non indici delle formule.",
+          "Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Il reagente con meno moli non è automaticamente il limitante: bisogna dividere per il coefficiente stechiometrico. Bilanciare richiede modificare coefficienti, non indici delle formule.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali.",
+          "Calcola le quantità residue e verifica la conservazione degli atomi di entrambi gli elementi. Confronta i casi prima e dopo la soglia di limitazione.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Una reazione bilanciata conserva gli atomi e stabilisce rapporti stechiometrici. Per 2H₂+O₂→2H₂O, servono due moli di idrogeno per ogni mole di ossigeno.",
+          "Con 6 mol di H₂ e 2 mol di O₂, il massimo prodotto è 4 mol di H₂O. L’ossigeno è limitante e rimangono teoricamente 2 mol di H₂."
+        ],
+        "intermediate": [
+          "Il massimo avanzamento è min(n_H₂/2,n_O₂). Le moli teoriche di acqua sono due volte tale valore, cioè min(n_H₂,2n_O₂). La funzione ha un cambio di pendenza quando cambia il reagente limitante.",
+          "La variabile Idrogeno iniziale è espressa in mol; Acqua teorica in mol. Il dominio dello strumento è [0; 10]. La relazione implementata è: 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂)."
+        ],
+        "advanced": [
+          "Calcola le quantità residue e verifica la conservazione degli atomi di entrambi gli elementi. Confronta i casi prima e dopo la soglia di limitazione.",
+          "Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Bilancio stechiometrico ideale a conversione completa.",
+          "Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali.",
+          "Collegamento consigliato: chemistry-15. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Il massimo avanzamento è min(n_H₂/2,n_O₂). Le moli teoriche di acqua sono due volte tale valore, cioè min(n_H₂,2n_O₂). La funzione ha un cambio di pendenza quando cambia il reagente limitante.",
+          "Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali.",
+          "Calcola le quantità residue e verifica la conservazione degli atomi di entrambi gli elementi. Confronta i casi prima e dopo la soglia di limitazione."
+        ],
+        "advanced": [
+          "Calcola le quantità residue e verifica la conservazione degli atomi di entrambi gli elementi. Confronta i casi prima e dopo la soglia di limitazione.",
+          "Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "chemistry-14-concept",
+      "prompt": "Il reagente limitante si individua confrontando:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Moli divise per coefficienti stechiometrici",
+          "feedback": "Una reazione bilanciata conserva gli atomi e stabilisce rapporti stechiometrici. Per 2H₂+O₂→2H₂O, servono due moli di idrogeno per ogni mole di ossigeno."
+        },
+        {
+          "id": "B",
+          "text": "Soltanto le masse senza conversioni",
+          "feedback": "Il reagente con meno moli non è automaticamente il limitante: bisogna dividere per il coefficiente stechiometrico. Bilanciare richiede modificare coefficienti, non indici delle formule."
+        },
+        {
+          "id": "C",
+          "text": "Soltanto i volumi dei contenitori",
+          "feedback": "Il massimo avanzamento è min(n_H₂/2,n_O₂). Le moli teoriche di acqua sono due volte tale valore, cioè min(n_H₂,2n_O₂). La funzione ha un cambio di pendenza quando cambia il reagente limitante."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-14-calculation",
+      "prompt": "Calcolo: Ossigeno iniziale (a)=2 mol. Per Idrogeno iniziale=6 mol, quanto vale Acqua teorica?",
+      "options": [
+        {
+          "id": "A",
+          "text": "6 mol",
+          "feedback": "Questo valore non soddisfa la relazione. 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂). Con Ossigeno iniziale (a)=2 mol e Idrogeno iniziale=6 mol, il risultato è 4 mol. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "2 mol",
+          "feedback": "Controlla sostituzione, segno e unità. 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂). Con Ossigeno iniziale (a)=2 mol e Idrogeno iniziale=6 mol, il risultato è 4 mol. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "4 mol",
+          "feedback": "2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂). Con Ossigeno iniziale (a)=2 mol e Idrogeno iniziale=6 mol, il risultato è 4 mol. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 6,
+        "parameters": {
+          "a": 2
+        },
+        "expected": 4,
+        "unit": "mol"
+      }
+    },
+    {
+      "id": "chemistry-14-transfer",
+      "prompt": "Trasferimento: Ossigeno iniziale (a)=2,5 mol. Per Idrogeno iniziale=6 mol, quanto vale Acqua teorica?",
+      "options": [
+        {
+          "id": "A",
+          "text": "2,5 mol",
+          "feedback": "Controlla sostituzione, segno e unità. 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂). Con Ossigeno iniziale (a)=2,5 mol e Idrogeno iniziale=6 mol, il risultato è 5 mol. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "5 mol",
+          "feedback": "2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂). Con Ossigeno iniziale (a)=2,5 mol e Idrogeno iniziale=6 mol, il risultato è 5 mol. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "7,5 mol",
+          "feedback": "Questo valore non soddisfa la relazione. 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂). Con Ossigeno iniziale (a)=2,5 mol e Idrogeno iniziale=6 mol, il risultato è 5 mol. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 6,
+        "parameters": {
+          "a": 2.5
+        },
+        "expected": 5,
+        "unit": "mol"
+      }
+    },
+    {
+      "id": "chemistry-14-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali."
+        },
+        {
+          "id": "B",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali."
+        },
+        {
+          "id": "C",
+          "text": "Bilancio stechiometrico ideale a conversione completa",
+          "feedback": "Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali."
+        }
+      ],
+      "correct": "C"
+    }
+  ]
+}
