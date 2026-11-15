@@ -5,21 +5,22 @@
   "title": "Equazioni e sistemi",
   "sector": 0,
   "modelId": "math-c04",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Due relazioni lineari esatte",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Equazioni di primo grado, principi di equivalenza e sistemi lineari di due equazioni",
+  "narrativeStatus": "La biglietteria della stazione è immaginaria; i metodi di risoluzione sono reali.",
   "objectives": [
-    "Spiegare: due relazioni lineari esatte.",
-    "Applicare r(x) = ax+b - (-x+4), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Risolvere un’equazione di primo grado con i principi di equivalenza.",
+    "Distinguere equazioni determinate, impossibili e indeterminate.",
+    "Risolvere un sistema lineare per sostituzione e per riduzione.",
+    "Interpretare le soluzioni come punti di incontro di rette e usare il determinante."
   ],
   "prerequisites": [
     "math-c02",
     "math-c03"
   ],
   "connections": [
-    "math-p02"
+    "math-c05"
   ],
   "sources": [
     "precalculus"
@@ -38,250 +39,641 @@
   },
   "glossary": [
     {
-      "term": "x",
-      "definition": "Variabile indipendente, unità 1; intervallo [-5; 5]."
+      "term": "Equazione",
+      "definition": "Uguaglianza con un’incognita, vera solo per alcuni valori."
     },
     {
-      "term": "Residuo",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Equazioni equivalenti",
+      "definition": "Equazioni con le stesse soluzioni."
     },
     {
-      "term": "Pendenza a",
-      "definition": "Parametro a, unità 1; intervallo [-2; 3]."
+      "term": "Sistema lineare",
+      "definition": "Insieme di equazioni di primo grado da soddisfare contemporaneamente."
     },
     {
-      "term": "Intercetta b",
-      "definition": "Parametro b, unità 1; intervallo [-2; 4]."
+      "term": "Sistema impossibile",
+      "definition": "Sistema senza soluzioni; nel piano, rette parallele distinte."
+    },
+    {
+      "term": "Sistema indeterminato",
+      "definition": "Sistema con infinite soluzioni; nel piano, rette coincidenti."
+    },
+    {
+      "term": "Determinante",
+      "definition": "D = a₁b₂ − a₂b₁: se è diverso da zero la soluzione è unica."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Due informazioni, due incognite",
       "text": {
         "base": [
-          "Due sensori stimano la posizione di un robot con leggi lineari diverse. La stazione vuole sapere dove le previsioni coincidono. Invece di scegliere il sensore più convincente, costruisci un residuo misurabile.",
-          "Un’equazione chiede per quali valori due espressioni coincidono. Nel laboratorio confronti y=ax+b con y=-x+4. Sottraendo la seconda espressione dalla prima ottieni un residuo r(x); una soluzione è un punto in cui il residuo è zero."
+          "La stazione vende biglietti per la visita alla cupola: gli adulti pagano 8 euro, i ragazzi 5. A fine giornata risultano 30 biglietti e 195 euro di incasso. Quanti adulti e quanti ragazzi? Due informazioni, due incognite: è un sistema di equazioni, e il metodo per risolverlo vale per moltissimi problemi.",
+          "Un’equazione è un’uguaglianza tra due espressioni che contiene un’incognita; risolverla significa trovare i valori che la rendono vera. Due equazioni sono equivalenti se hanno le stesse soluzioni. Due principi permettono di trasformarle senza cambiare le soluzioni: si può sommare la stessa quantità ai due membri, e si possono moltiplicare o dividere i due membri per lo stesso numero diverso da zero.",
+          "Esempio svolto: 3(x − 2) + 4 = 2x + 5. Si sviluppa: 3x − 6 + 4 = 2x + 5, cioè 3x − 2 = 2x + 5. Si porta x a sinistra e i numeri a destra sottraendo 2x e sommando 2 ai due membri: x = 7. Controllo: 3 · 5 + 4 = 19 e 2 · 7 + 5 = 19."
         ],
         "intermediate": [
-          "Due sensori stimano la posizione di un robot con leggi lineari diverse. La stazione vuole sapere dove le previsioni coincidono. Invece di scegliere il sensore più convincente, costruisci un residuo misurabile.",
-          "La condizione ax+b=-x+4 diventa (a+1)x=4-b. Se a≠-1 esiste una sola soluzione, x=(4-b)/(a+1). Se a=-1, la situazione dipende da b: per b=4 ogni x è soluzione, altrimenti non ve ne sono."
+          "La stazione vende biglietti per la visita alla cupola: gli adulti pagano 8 euro, i ragazzi 5. A fine giornata risultano 30 biglietti e 195 euro di incasso. Quanti adulti e quanti ragazzi? Due informazioni, due incognite: è un sistema di equazioni, e il metodo per risolverlo vale per moltissimi problemi.",
+          "Un’equazione è un’uguaglianza tra due espressioni che contiene un’incognita; risolverla significa trovare i valori che la rendono vera. Due equazioni sono equivalenti se hanno le stesse soluzioni. Due principi permettono di trasformarle senza cambiare le soluzioni: si può sommare la stessa quantità ai due membri, e si possono moltiplicare o dividere i due membri per lo stesso numero diverso da zero.",
+          "Esempio svolto: 3(x − 2) + 4 = 2x + 5. Si sviluppa: 3x − 6 + 4 = 2x + 5, cioè 3x − 2 = 2x + 5. Si porta x a sinistra e i numeri a destra sottraendo 2x e sommando 2 ai due membri: x = 7. Controllo: 3 · 5 + 4 = 19 e 2 · 7 + 5 = 19."
         ],
         "advanced": [
-          "Due sensori stimano la posizione di un robot con leggi lineari diverse. La stazione vuole sapere dove le previsioni coincidono. Invece di scegliere il sensore più convincente, costruisci un residuo misurabile.",
-          "Studia la sensibilità della soluzione quando a si avvicina a -1. Piccole variazioni dei dati possono spostare molto l’intersezione: collega il fenomeno al condizionamento numerico.",
-          "Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi."
+          "La stazione vende biglietti per la visita alla cupola: gli adulti pagano 8 euro, i ragazzi 5. A fine giornata risultano 30 biglietti e 195 euro di incasso. Quanti adulti e quanti ragazzi? Due informazioni, due incognite: è un sistema di equazioni, e il metodo per risolverlo vale per moltissimi problemi.",
+          "Un’equazione è un’uguaglianza tra due espressioni che contiene un’incognita; risolverla significa trovare i valori che la rendono vera. Due equazioni sono equivalenti se hanno le stesse soluzioni. Due principi permettono di trasformarle senza cambiare le soluzioni: si può sommare la stessa quantità ai due membri, e si possono moltiplicare o dividere i due membri per lo stesso numero diverso da zero."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Risolvere equazioni e sistemi",
       "text": {
         "base": [
-          "Un’equazione chiede per quali valori due espressioni coincidono. Nel laboratorio confronti y=ax+b con y=-x+4. Sottraendo la seconda espressione dalla prima ottieni un residuo r(x); una soluzione è un punto in cui il residuo è zero.",
-          "Con a=1 e b=0, l’equazione è x=-x+4, quindi x=2. Entrambe le rette danno y=2. Il residuo r(2)=0 conferma il controllo senza sostituire la dimostrazione algebrica."
+          "Un’equazione di primo grado ridotta alla forma ax = b ha tre casi. Se a ≠ 0 ha una sola soluzione, x = b/a. Se a = 0 e b ≠ 0 è impossibile: 0 · x = 5 non è mai vero. Se a = 0 e b = 0 è indeterminata: 0 · x = 0 è vera per ogni x.",
+          "Un sistema è un insieme di equazioni da soddisfare insieme. Con due incognite si usano due metodi principali. Sostituzione: si ricava un’incognita da un’equazione e la si sostituisce nell’altra. Riduzione: si sommano o sottraggono le equazioni, dopo averle moltiplicate per numeri opportuni, in modo da eliminare un’incognita.",
+          "Il problema dei biglietti: x adulti e y ragazzi con x + y = 30 e 8x + 5y = 195. Dalla prima, y = 30 − x. Sostituendo: 8x + 5(30 − x) = 195, cioè 3x + 150 = 195, quindi x = 15 e y = 15. Controllo: 15 · 8 + 15 · 5 = 120 + 75 = 195 euro.",
+          "Ogni equazione lineare in x e y rappresenta una retta nel piano, e la soluzione del sistema è il punto in cui le due rette si incontrano. Ci sono tre possibilità: rette incidenti, una soluzione; rette parallele distinte, nessuna soluzione (sistema impossibile); rette coincidenti, infinite soluzioni (sistema indeterminato)."
         ],
         "intermediate": [
-          "La condizione ax+b=-x+4 diventa (a+1)x=4-b. Se a≠-1 esiste una sola soluzione, x=(4-b)/(a+1). Se a=-1, la situazione dipende da b: per b=4 ogni x è soluzione, altrimenti non ve ne sono.",
-          "La variabile x è espressa in 1; Residuo in 1. Il dominio dello strumento è [-5; 5]. La relazione implementata è: r(x) = ax+b - (-x+4).",
-          "Con a=1 e b=0, l’equazione è x=-x+4, quindi x=2. Entrambe le rette danno y=2. Il residuo r(2)=0 conferma il controllo senza sostituire la dimostrazione algebrica."
+          "Un’equazione di primo grado ridotta alla forma ax = b ha tre casi. Se a ≠ 0 ha una sola soluzione, x = b/a. Se a = 0 e b ≠ 0 è impossibile: 0 · x = 5 non è mai vero. Se a = 0 e b = 0 è indeterminata: 0 · x = 0 è vera per ogni x.",
+          "Un sistema è un insieme di equazioni da soddisfare insieme. Con due incognite si usano due metodi principali. Sostituzione: si ricava un’incognita da un’equazione e la si sostituisce nell’altra. Riduzione: si sommano o sottraggono le equazioni, dopo averle moltiplicate per numeri opportuni, in modo da eliminare un’incognita.",
+          "Il problema dei biglietti: x adulti e y ragazzi con x + y = 30 e 8x + 5y = 195. Dalla prima, y = 30 − x. Sostituendo: 8x + 5(30 − x) = 195, cioè 3x + 150 = 195, quindi x = 15 e y = 15. Controllo: 15 · 8 + 15 · 5 = 120 + 75 = 195 euro.",
+          "Ogni equazione lineare in x e y rappresenta una retta nel piano, e la soluzione del sistema è il punto in cui le due rette si incontrano. Ci sono tre possibilità: rette incidenti, una soluzione; rette parallele distinte, nessuna soluzione (sistema impossibile); rette coincidenti, infinite soluzioni (sistema indeterminato).",
+          "Per il sistema a₁x + b₁y = c₁, a₂x + b₂y = c₂ il numero D = a₁b₂ − a₂b₁, detto determinante, decide il caso. Se D ≠ 0 la soluzione è unica: x = (c₁b₂ − c₂b₁)/D e y = (a₁c₂ − a₂c₁)/D (regola di Cramer). Se D = 0 le rette sono parallele o coincidenti. Esempio: 2x + 4y = 6 e x + 2y = 5 danno D = 2 · 2 − 1 · 4 = 0; moltiplicando la seconda per 2 si ottiene 2x + 4y = 10, incompatibile con 6: sistema impossibile."
         ],
         "advanced": [
-          "La condizione ax+b=-x+4 diventa (a+1)x=4-b. Se a≠-1 esiste una sola soluzione, x=(4-b)/(a+1). Se a=-1, la situazione dipende da b: per b=4 ogni x è soluzione, altrimenti non ve ne sono.",
-          "Studia la sensibilità della soluzione quando a si avvicina a -1. Piccole variazioni dei dati possono spostare molto l’intersezione: collega il fenomeno al condizionamento numerico.",
-          "Dividere per a+1 senza controllare che non sia zero elimina i casi di rette parallele o coincidenti. Un grafico apparentemente senza intersezione può anche dipendere dalla finestra scelta."
+          "Un’equazione di primo grado ridotta alla forma ax = b ha tre casi. Se a ≠ 0 ha una sola soluzione, x = b/a. Se a = 0 e b ≠ 0 è impossibile: 0 · x = 5 non è mai vero. Se a = 0 e b = 0 è indeterminata: 0 · x = 0 è vera per ogni x.",
+          "Un sistema è un insieme di equazioni da soddisfare insieme. Con due incognite si usano due metodi principali. Sostituzione: si ricava un’incognita da un’equazione e la si sostituisce nell’altra. Riduzione: si sommano o sottraggono le equazioni, dopo averle moltiplicate per numeri opportuni, in modo da eliminare un’incognita.",
+          "Ogni equazione lineare in x e y rappresenta una retta nel piano, e la soluzione del sistema è il punto in cui le due rette si incontrano. Ci sono tre possibilità: rette incidenti, una soluzione; rette parallele distinte, nessuna soluzione (sistema impossibile); rette coincidenti, infinite soluzioni (sistema indeterminato).",
+          "Per il sistema a₁x + b₁y = c₁, a₂x + b₂y = c₂ il numero D = a₁b₂ − a₂b₁, detto determinante, decide il caso. Se D ≠ 0 la soluzione è unica: x = (c₁b₂ − c₂b₁)/D e y = (a₁c₂ − a₂c₁)/D (regola di Cramer). Se D = 0 le rette sono parallele o coincidenti. Esempio: 2x + 4y = 6 e x + 2y = 5 danno D = 2 · 2 − 1 · 4 = 0; moltiplicando la seconda per 2 si ottiene 2x + 4y = 10, incompatibile con 6: sistema impossibile.",
+          "Il modello del programma scrive il sistema come differenza tra due rette: r(x) = (ax + b) − (−x + 4). Dove r vale zero le rette si incontrano. Con a = 1 e b = 0 la retta y = x incontra y = −x + 4 in x = 2, dove r(2) = 2 − 2 = 0."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Problemi passo per passo",
       "text": {
         "base": [
-          "Nel laboratorio imposta Pendenza a (a): 1 (adimensionale); Intercetta b (b): 0 (adimensionale). Prima di salvare A, prevedi come cambia Residuo fra x=-2,5 e 0 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con a=1 e b=0, l’equazione è x=-x+4, quindi x=2. Entrambe le rette danno y=2. Il residuo r(2)=0 conferma il controllo senza sostituire la dimostrazione algebrica.",
-          "La variabile x è espressa in 1; Residuo in 1. Il dominio dello strumento è [-5; 5]. La relazione implementata è: r(x) = ax+b - (-x+4)."
+          "L’attività propone cinque problemi da risolvere un passaggio alla volta. A ogni passaggio scegli tra alcune possibilità: il commento spiega perché la scelta è giusta o in che cosa sbaglia, e il risultato del passaggio resta scritto sopra il successivo. Per completare l’attività risolvi quattro problemi; in ciascuno puoi sbagliare al massimo una scelta.",
+          "Prima di scegliere un passaggio, chiediti quale principio di equivalenza stai applicando. Alla fine di ogni problema c’è sempre il controllo: sostituire i valori trovati nelle equazioni di partenza.",
+          "Il problema dei biglietti: x adulti e y ragazzi con x + y = 30 e 8x + 5y = 195. Dalla prima, y = 30 − x. Sostituendo: 8x + 5(30 − x) = 195, cioè 3x + 150 = 195, quindi x = 15 e y = 15. Controllo: 15 · 8 + 15 · 5 = 120 + 75 = 195 euro."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Pendenza a (a): 1 (adimensionale); Intercetta b (b): 0 (adimensionale). Prima di salvare A, prevedi come cambia Residuo fra x=-2,5 e 0 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile x è espressa in 1; Residuo in 1. Il dominio dello strumento è [-5; 5]. La relazione implementata è: r(x) = ax+b - (-x+4).",
-          "La condizione ax+b=-x+4 diventa (a+1)x=4-b. Se a≠-1 esiste una sola soluzione, x=(4-b)/(a+1). Se a=-1, la situazione dipende da b: per b=4 ogni x è soluzione, altrimenti non ve ne sono."
+          "L’attività propone cinque problemi da risolvere un passaggio alla volta. A ogni passaggio scegli tra alcune possibilità: il commento spiega perché la scelta è giusta o in che cosa sbaglia, e il risultato del passaggio resta scritto sopra il successivo. Per completare l’attività risolvi quattro problemi; in ciascuno puoi sbagliare al massimo una scelta.",
+          "Prima di scegliere un passaggio, chiediti quale principio di equivalenza stai applicando. Alla fine di ogni problema c’è sempre il controllo: sostituire i valori trovati nelle equazioni di partenza."
         ],
         "advanced": [
-          "Nel laboratorio imposta Pendenza a (a): 1 (adimensionale); Intercetta b (b): 0 (adimensionale). Prima di salvare A, prevedi come cambia Residuo fra x=-2,5 e 0 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Studia la sensibilità della soluzione quando a si avvicina a -1. Piccole variazioni dei dati possono spostare molto l’intersezione: collega il fenomeno al condizionamento numerico.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività propone cinque problemi da risolvere un passaggio alla volta. A ogni passaggio scegli tra alcune possibilità: il commento spiega perché la scelta è giusta o in che cosa sbaglia, e il risultato del passaggio resta scritto sopra il successivo. Per completare l’attività risolvi quattro problemi; in ciascuno puoi sbagliare al massimo una scelta.",
+          "Prima di scegliere un passaggio, chiediti quale principio di equivalenza stai applicando. Alla fine di ogni problema c’è sempre il controllo: sostituire i valori trovati nelle equazioni di partenza.",
+          "Il modello del programma scrive il sistema come differenza tra due rette: r(x) = (ax + b) − (−x + 4). Dove r vale zero le rette si incontrano. Con a = 1 e b = 0 la retta y = x incontra y = −x + 4 in x = 2, dove r(2) = 2 − 2 = 0."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e significato delle soluzioni",
       "text": {
         "base": [
-          "Dividere per a+1 senza controllare che non sia zero elimina i casi di rette parallele o coincidenti. Un grafico apparentemente senza intersezione può anche dipendere dalla finestra scelta.",
-          "Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: cambiare il segno di un termine solo da una parte. Quando si «sposta» un termine da un membro all’altro si sta in realtà sommando o sottraendo la stessa quantità a entrambi: 3x − 2 = 2x + 5 diventa 3x − 2x = 5 + 2.",
+          "Secondo errore: dividere per un’espressione che può valere zero. Da x² = 3x non si può concludere x = 3 dividendo per x: si perde la soluzione x = 0. Si scrive invece x² − 3x = 0, cioè x(x − 3) = 0.",
+          "Un sistema impossibile ha comunque un significato: dice che le informazioni sono incompatibili. Se due misure portano a un sistema impossibile, almeno una è sbagliata. Un sistema indeterminato dice che le informazioni sono ridondanti: una equazione non aggiunge nulla all’altra."
         ],
         "intermediate": [
-          "Dividere per a+1 senza controllare che non sia zero elimina i casi di rette parallele o coincidenti. Un grafico apparentemente senza intersezione può anche dipendere dalla finestra scelta.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: cambiare il segno di un termine solo da una parte. Quando si «sposta» un termine da un membro all’altro si sta in realtà sommando o sottraendo la stessa quantità a entrambi: 3x − 2 = 2x + 5 diventa 3x − 2x = 5 + 2.",
+          "Secondo errore: dividere per un’espressione che può valere zero. Da x² = 3x non si può concludere x = 3 dividendo per x: si perde la soluzione x = 0. Si scrive invece x² − 3x = 0, cioè x(x − 3) = 0.",
+          "Un sistema impossibile ha comunque un significato: dice che le informazioni sono incompatibili. Se due misure portano a un sistema impossibile, almeno una è sbagliata. Un sistema indeterminato dice che le informazioni sono ridondanti: una equazione non aggiunge nulla all’altra."
         ],
         "advanced": [
-          "Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi.",
-          "Studia la sensibilità della soluzione quando a si avvicina a -1. Piccole variazioni dei dati possono spostare molto l’intersezione: collega il fenomeno al condizionamento numerico.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Secondo errore: dividere per un’espressione che può valere zero. Da x² = 3x non si può concludere x = 3 dividendo per x: si perde la soluzione x = 0. Si scrive invece x² − 3x = 0, cioè x(x − 3) = 0.",
+          "Un sistema impossibile ha comunque un significato: dice che le informazioni sono incompatibili. Se due misure portano a un sistema impossibile, almeno una è sbagliata. Un sistema indeterminato dice che le informazioni sono ridondanti: una equazione non aggiunge nulla all’altra.",
+          "Per il sistema a₁x + b₁y = c₁, a₂x + b₂y = c₂ il numero D = a₁b₂ − a₂b₁, detto determinante, decide il caso. Se D ≠ 0 la soluzione è unica: x = (c₁b₂ − c₂b₁)/D e y = (a₁c₂ − a₂c₁)/D (regola di Cramer). Se D = 0 le rette sono parallele o coincidenti. Esempio: 2x + 4y = 6 e x + 2y = 5 danno D = 2 · 2 − 1 · 4 = 0; moltiplicando la seconda per 2 si ottiene 2x + 4y = 10, incompatibile con 6: sistema impossibile."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Un’equazione chiede per quali valori due espressioni coincidono. Nel laboratorio confronti y=ax+b con y=-x+4. Sottraendo la seconda espressione dalla prima ottieni un residuo r(x); una soluzione è un punto in cui il residuo è zero.",
-          "Con a=1 e b=0, l’equazione è x=-x+4, quindi x=2. Entrambe le rette danno y=2. Il residuo r(2)=0 conferma il controllo senza sostituire la dimostrazione algebrica."
+          "Ripasso: i due principi di equivalenza; i tre casi dell’equazione ax = b; i metodi di sostituzione e di riduzione; il significato geometrico delle soluzioni; il determinante come criterio; il controllo finale.",
+          "Mini esercizio: 3x + 2y = 16 e 5x − 2y = 0. Sommando: 8x = 16, x = 2. Poi 3 · 2 + 2y = 16, y = 5. Controllo: 5 · 2 − 2 · 5 = 0.",
+          "Nelle domande sui sistemi controlla sempre la soluzione nelle due equazioni di partenza."
         ],
         "intermediate": [
-          "La condizione ax+b=-x+4 diventa (a+1)x=4-b. Se a≠-1 esiste una sola soluzione, x=(4-b)/(a+1). Se a=-1, la situazione dipende da b: per b=4 ogni x è soluzione, altrimenti non ve ne sono.",
-          "La variabile x è espressa in 1; Residuo in 1. Il dominio dello strumento è [-5; 5]. La relazione implementata è: r(x) = ax+b - (-x+4)."
+          "Ripasso: i due principi di equivalenza; i tre casi dell’equazione ax = b; i metodi di sostituzione e di riduzione; il significato geometrico delle soluzioni; il determinante come criterio; il controllo finale.",
+          "Mini esercizio: 3x + 2y = 16 e 5x − 2y = 0. Sommando: 8x = 16, x = 2. Poi 3 · 2 + 2y = 16, y = 5. Controllo: 5 · 2 − 2 · 5 = 0.",
+          "Nelle domande sui sistemi controlla sempre la soluzione nelle due equazioni di partenza."
         ],
         "advanced": [
-          "Studia la sensibilità della soluzione quando a si avvicina a -1. Piccole variazioni dei dati possono spostare molto l’intersezione: collega il fenomeno al condizionamento numerico.",
-          "Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi."
+          "Ripasso: i due principi di equivalenza; i tre casi dell’equazione ax = b; i metodi di sostituzione e di riduzione; il significato geometrico delle soluzioni; il determinante come criterio; il controllo finale.",
+          "Mini esercizio: 3x + 2y = 16 e 5x − 2y = 0. Sommando: 8x = 16, x = 2. Poi 3 · 2 + 2y = 16, y = 5. Controllo: 5 · 2 − 2 · 5 = 0.",
+          "Nelle domande sui sistemi controlla sempre la soluzione nelle due equazioni di partenza."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Due relazioni lineari esatte.",
-          "Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi.",
-          "Collegamento consigliato: math-p02. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le equazioni e i sistemi sono lo strumento con cui si traducono i problemi in matematica. Tornano nelle disequazioni, nella geometria analitica, dove le soluzioni sono punti di incontro, e in tutte le scienze, dove un bilancio di massa o di carica è un sistema di equazioni.",
+          "Riepilogo dell’unità: un’equazione si trasforma con i principi di equivalenza fino a isolare l’incognita; un sistema lineare si risolve per sostituzione o per riduzione; il determinante dice in anticipo se la soluzione è unica; il controllo finale conferma il risultato.",
+          "Nel diario scrivi il problema dei biglietti con un altro incasso, risolvilo con i due metodi e confronta i passaggi."
         ],
         "intermediate": [
-          "La condizione ax+b=-x+4 diventa (a+1)x=4-b. Se a≠-1 esiste una sola soluzione, x=(4-b)/(a+1). Se a=-1, la situazione dipende da b: per b=4 ogni x è soluzione, altrimenti non ve ne sono.",
-          "Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi.",
-          "Studia la sensibilità della soluzione quando a si avvicina a -1. Piccole variazioni dei dati possono spostare molto l’intersezione: collega il fenomeno al condizionamento numerico."
+          "Le equazioni e i sistemi sono lo strumento con cui si traducono i problemi in matematica. Tornano nelle disequazioni, nella geometria analitica, dove le soluzioni sono punti di incontro, e in tutte le scienze, dove un bilancio di massa o di carica è un sistema di equazioni.",
+          "Riepilogo dell’unità: un’equazione si trasforma con i principi di equivalenza fino a isolare l’incognita; un sistema lineare si risolve per sostituzione o per riduzione; il determinante dice in anticipo se la soluzione è unica; il controllo finale conferma il risultato.",
+          "Nel diario scrivi il problema dei biglietti con un altro incasso, risolvilo con i due metodi e confronta i passaggi."
         ],
         "advanced": [
-          "Studia la sensibilità della soluzione quando a si avvicina a -1. Piccole variazioni dei dati possono spostare molto l’intersezione: collega il fenomeno al condizionamento numerico.",
-          "Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le equazioni e i sistemi sono lo strumento con cui si traducono i problemi in matematica. Tornano nelle disequazioni, nella geometria analitica, dove le soluzioni sono punti di incontro, e in tutte le scienze, dove un bilancio di massa o di carica è un sistema di equazioni.",
+          "Riepilogo dell’unità: un’equazione si trasforma con i principi di equivalenza fino a isolare l’incognita; un sistema lineare si risolve per sostituzione o per riduzione; il determinante dice in anticipo se la soluzione è unica; il controllo finale conferma il risultato.",
+          "Il modello del programma scrive il sistema come differenza tra due rette: r(x) = (ax + b) − (−x + 4). Dove r vale zero le rette si incontrano. Con a = 1 e b = 0 la retta y = x incontra y = −x + 4 in x = 2, dove r(2) = 2 − 2 = 0.",
+          "Nel diario scrivi il problema dei biglietti con un altro incasso, risolvilo con i due metodi e confronta i passaggi."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-c04-concept",
-      "prompt": "Se a=-1 e b=4, quante soluzioni ha il sistema?",
+      "id": "math-c04-q1",
+      "prompt": "Qual è la soluzione di 5x − 3 = 2x + 9?",
       "options": [
         {
           "id": "A",
-          "text": "Infinite: le rette coincidono",
-          "feedback": "Un’equazione chiede per quali valori due espressioni coincidono. Nel laboratorio confronti y=ax+b con y=-x+4. Sottraendo la seconda espressione dalla prima ottieni un residuo r(x); una soluzione è un punto in cui il residuo è zero."
+          "text": "x = 2",
+          "feedback": "Con x = 2: 7 contro 13. Controlla il trasporto dei termini."
         },
         {
           "id": "B",
-          "text": "Nessuna",
-          "feedback": "Dividere per a+1 senza controllare che non sia zero elimina i casi di rette parallele o coincidenti. Un grafico apparentemente senza intersezione può anche dipendere dalla finestra scelta."
+          "text": "x = 4",
+          "feedback": "Esatto: 3x = 12, quindi x = 4. Controllo: 17 = 17."
         },
         {
           "id": "C",
-          "text": "Esattamente una",
-          "feedback": "La condizione ax+b=-x+4 diventa (a+1)x=4-b. Se a≠-1 esiste una sola soluzione, x=(4-b)/(a+1). Se a=-1, la situazione dipende da b: per b=4 ogni x è soluzione, altrimenti non ve ne sono."
+          "text": "x = 12",
+          "feedback": "12 è il valore di 3x: resta da dividere per 3."
+        },
+        {
+          "id": "D",
+          "text": "x = 6/7",
+          "feedback": "Hai sommato i coefficienti di x invece di sottrarli: 5x − 2x = 3x."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-c04-q2",
+      "prompt": "L’equazione 2(x + 1) = 2x + 5 è:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Determinata, con x = 3/2",
+          "feedback": "Sviluppando si ottiene 2x + 2 = 2x + 5: le x si cancellano."
+        },
+        {
+          "id": "B",
+          "text": "Indeterminata",
+          "feedback": "Resterebbe 0 = 0; qui resta 2 = 5."
+        },
+        {
+          "id": "C",
+          "text": "Impossibile",
+          "feedback": "Esatto: si arriva a 0 · x = 3, mai vero."
+        },
+        {
+          "id": "D",
+          "text": "Di secondo grado",
+          "feedback": "Non compare x²: è di primo grado."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "math-c04-q3",
+      "prompt": "Qual è la soluzione del sistema x + y = 10 e 2x − y = 2?",
+      "options": [
+        {
+          "id": "A",
+          "text": "x = 4, y = 6",
+          "feedback": "Esatto: sommando si ottiene 3x = 12. Controllo: 4 + 6 = 10 e 8 − 6 = 2."
+        },
+        {
+          "id": "B",
+          "text": "x = 6, y = 4",
+          "feedback": "Controllo: 12 − 4 = 8, diverso da 2."
+        },
+        {
+          "id": "C",
+          "text": "x = 5, y = 5",
+          "feedback": "Soddisfa la prima ma non la seconda: 10 − 5 = 5."
+        },
+        {
+          "id": "D",
+          "text": "Il sistema è impossibile",
+          "feedback": "Le rette hanno pendenze diverse e si incontrano."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "math-c04-calculation",
-      "prompt": "Calcolo: Pendenza a (a)=1 (adimensionale); Intercetta b (b)=0 (adimensionale). Per x=2 (adimensionale), quanto vale Residuo?",
+      "id": "math-c04-q4",
+      "prompt": "Il sistema 2x + 4y = 6 e x + 2y = 5 ha:",
       "options": [
         {
           "id": "A",
-          "text": "1,00000e-8 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. r(x) = ax+b - (-x+4). Con Pendenza a (a)=1 (adimensionale); Intercetta b (b)=0 (adimensionale) e x=2 (adimensionale), il risultato è 0 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Una sola soluzione",
+          "feedback": "Il determinante 2 · 2 − 1 · 4 vale zero: la soluzione non è unica."
         },
         {
           "id": "B",
-          "text": "-1,00000e-8 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. r(x) = ax+b - (-x+4). Con Pendenza a (a)=1 (adimensionale); Intercetta b (b)=0 (adimensionale) e x=2 (adimensionale), il risultato è 0 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Infinite soluzioni",
+          "feedback": "Moltiplicando la seconda per 2 si ottiene 2x + 4y = 10, diversa dalla prima."
         },
         {
           "id": "C",
-          "text": "0 (adimensionale)",
-          "feedback": "r(x) = ax+b - (-x+4). Con Pendenza a (a)=1 (adimensionale); Intercetta b (b)=0 (adimensionale) e x=2 (adimensionale), il risultato è 0 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Due soluzioni",
+          "feedback": "Due rette distinte si incontrano al massimo in un punto."
+        },
+        {
+          "id": "D",
+          "text": "Nessuna soluzione",
+          "feedback": "Esatto: rette parallele distinte, sistema impossibile."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 1,
-          "b": 0
-        },
-        "expected": 0,
-        "unit": "1"
-      }
+      "correct": "D"
     },
     {
-      "id": "math-c04-transfer",
-      "prompt": "Trasferimento: Pendenza a (a)=1,5 (adimensionale); Intercetta b (b)=0 (adimensionale). Per x=2 (adimensionale), quanto vale Residuo?",
+      "id": "math-c04-q5",
+      "prompt": "Da x² = 3x uno studente conclude x = 3. Che cosa ha sbagliato?",
       "options": [
         {
           "id": "A",
-          "text": "0 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. r(x) = ax+b - (-x+4). Con Pendenza a (a)=1,5 (adimensionale); Intercetta b (b)=0 (adimensionale) e x=2 (adimensionale), il risultato è 1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Nulla, la soluzione è corretta",
+          "feedback": "3 è una soluzione, ma non l’unica."
         },
         {
           "id": "B",
-          "text": "1 (adimensionale)",
-          "feedback": "r(x) = ax+b - (-x+4). Con Pendenza a (a)=1,5 (adimensionale); Intercetta b (b)=0 (adimensionale) e x=2 (adimensionale), il risultato è 1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Ha diviso per x, che può valere zero, perdendo la soluzione x = 0",
+          "feedback": "Esatto: x(x − 3) = 0 dà x = 0 e x = 3."
         },
         {
           "id": "C",
-          "text": "2 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. r(x) = ax+b - (-x+4). Con Pendenza a (a)=1,5 (adimensionale); Intercetta b (b)=0 (adimensionale) e x=2 (adimensionale), il risultato è 1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Doveva estrarre la radice",
+          "feedback": "Estrarre la radice non risolve x² = 3x; serve raccogliere x."
+        },
+        {
+          "id": "D",
+          "text": "Doveva ottenere x = −3",
+          "feedback": "Con x = −3 il primo membro vale 9 e il secondo −9: non è soluzione."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 1.5,
-          "b": 0
-        },
-        "expected": 1,
-        "unit": "1"
-      }
+      "correct": "B"
     },
     {
-      "id": "math-c04-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "math-c04-q6",
+      "prompt": "Nel modello r(x) = (ax + b) − (−x + 4), con a = 1 e b = 0, dove si incontrano le due rette?",
       "options": [
         {
           "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi."
+          "text": "In x = 4",
+          "feedback": "In x = 4: r = 4 − 0 = 4, non zero."
         },
         {
           "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi."
+          "text": "In x = 0",
+          "feedback": "In x = 0 si ha r = 0 − 4 = −4, che non è zero."
         },
         {
           "id": "C",
-          "text": "Due relazioni lineari esatte",
-          "feedback": "Sono due relazioni lineari esatte, senza rumore. Il grafico è quello del residuo, non una misura di errore sperimentale e non un algoritmo generale per tutti i sistemi."
+          "text": "In x = 2",
+          "feedback": "Esatto: x = −x + 4 dà x = 2, e r(2) = 0."
+        },
+        {
+          "id": "D",
+          "text": "Non si incontrano",
+          "feedback": "Le pendenze sono 1 e −1, diverse: le rette si incontrano."
         }
       ],
       "correct": "C"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "steps",
+    "goal": 4,
+    "problems": [
+      {
+        "id": "primo-grado",
+        "title": "Un’equazione di primo grado",
+        "text": "Risolvi 3(x − 2) + 4 = 2x + 5.",
+        "maxErrors": 1,
+        "explain": "Sviluppo, riduzione, trasporto dei termini e controllo: lo schema vale per ogni equazione di primo grado.",
+        "steps": [
+          {
+            "prompt": "Primo passaggio: come si elimina la parentesi?",
+            "options": [
+              {
+                "text": "3x − 6 + 4 = 2x + 5",
+                "feedback": "Giusto: il 3 moltiplica entrambi i termini della parentesi."
+              },
+              {
+                "text": "3x − 2 + 4 = 2x + 5",
+                "feedback": "Il 3 va moltiplicato anche per −2: si ottiene −6."
+              },
+              {
+                "text": "3x + 6 + 4 = 2x + 5",
+                "feedback": "Il segno: 3 · (−2) = −6."
+              }
+            ],
+            "correct": 0,
+            "result": "3x − 6 + 4 = 2x + 5, cioè 3x − 2 = 2x + 5."
+          },
+          {
+            "prompt": "Come si isola x?",
+            "options": [
+              {
+                "text": "3x − 2x = 5 − 2",
+                "feedback": "Il −2 a sinistra, sommato a entrambi i membri, diventa +2 a destra."
+              },
+              {
+                "text": "3x − 2x = 5 + 2",
+                "feedback": "Giusto: si sottrae 2x e si somma 2 a entrambi i membri."
+              },
+              {
+                "text": "3x + 2x = 5 + 2",
+                "feedback": "Per togliere 2x da destra si sottrae 2x anche a sinistra."
+              }
+            ],
+            "correct": 1,
+            "result": "x = 7."
+          },
+          {
+            "prompt": "Controllo: quanto valgono i due membri con x = 7?",
+            "options": [
+              {
+                "text": "19 e 19",
+                "feedback": "Giusto: 3 · 5 + 4 = 19 e 2 · 7 + 5 = 19."
+              },
+              {
+                "text": "25 e 19",
+                "feedback": "Hai calcolato 3 · 7 + 4: dentro la parentesi c’è x − 2 = 5."
+              },
+              {
+                "text": "19 e 21",
+                "feedback": "Il secondo membro è 2 · 7 + 5 = 19."
+              }
+            ],
+            "correct": 0,
+            "result": "Controllo superato: x = 7."
+          }
+        ]
+      },
+      {
+        "id": "sostituzione",
+        "title": "Sistema per sostituzione",
+        "text": "Risolvi x + y = 10 e 2x − y = 2.",
+        "maxErrors": 1,
+        "explain": "La sostituzione trasforma un sistema di due equazioni in una sola equazione con una incognita.",
+        "steps": [
+          {
+            "prompt": "Da quale equazione conviene ricavare un’incognita?",
+            "options": [
+              {
+                "text": "Dalla prima: y = 10 − x",
+                "feedback": "Giusto: coefficiente 1, nessuna frazione."
+              },
+              {
+                "text": "Dalla seconda: x = (2 + y)/2",
+                "feedback": "È corretto ma introduce una frazione: conviene la prima."
+              },
+              {
+                "text": "Da nessuna: si sommano subito",
+                "feedback": "Sommare è la riduzione; qui si chiede la sostituzione."
+              }
+            ],
+            "correct": 0,
+            "result": "y = 10 − x."
+          },
+          {
+            "prompt": "Che cosa si ottiene sostituendo nella seconda?",
+            "options": [
+              {
+                "text": "2x − 10 − x = 2",
+                "feedback": "Il meno davanti alla parentesi cambia il segno di entrambi i termini: −(10 − x) = −10 + x."
+              },
+              {
+                "text": "2x − (10 − x) = 2, cioè 3x = 12",
+                "feedback": "Giusto: x = 4."
+              },
+              {
+                "text": "2(10 − x) − y = 2",
+                "feedback": "Si sostituisce y, non x."
+              }
+            ],
+            "correct": 1,
+            "result": "3x − 10 = 2, quindi x = 4."
+          },
+          {
+            "prompt": "Quanto vale y?",
+            "options": [
+              {
+                "text": "y = 6",
+                "feedback": "Giusto: y = 10 − 4. Controllo: 2 · 4 − 6 = 2."
+              },
+              {
+                "text": "y = 14",
+                "feedback": "y = 10 − x, con x = 4: la differenza è 6."
+              },
+              {
+                "text": "y = 4",
+                "feedback": "Questo è il valore di x."
+              }
+            ],
+            "correct": 0,
+            "result": "Soluzione: x = 4, y = 6."
+          }
+        ]
+      },
+      {
+        "id": "riduzione",
+        "title": "Sistema per riduzione",
+        "text": "Risolvi 3x + 2y = 16 e 5x − 2y = 0.",
+        "maxErrors": 1,
+        "explain": "Quando un’incognita ha coefficienti opposti, la somma delle equazioni la elimina in un solo passaggio.",
+        "steps": [
+          {
+            "prompt": "Quale operazione elimina y?",
+            "options": [
+              {
+                "text": "Sommare le due equazioni",
+                "feedback": "Giusto: 2y e −2y si annullano, resta 8x = 16."
+              },
+              {
+                "text": "Sottrarre la seconda dalla prima",
+                "feedback": "Si otterrebbe 4y, e si eliminerebbe nulla."
+              },
+              {
+                "text": "Moltiplicare la prima per 5",
+                "feedback": "Servirebbe a eliminare x, con più calcoli."
+              }
+            ],
+            "correct": 0,
+            "result": "8x = 16, quindi x = 2."
+          },
+          {
+            "prompt": "Sostituendo x = 2 nella prima, quanto vale y?",
+            "options": [
+              {
+                "text": "y = 5",
+                "feedback": "Giusto: 6 + 2y = 16, 2y = 10."
+              },
+              {
+                "text": "y = 10",
+                "feedback": "10 è il valore di 2y."
+              },
+              {
+                "text": "y = 11",
+                "feedback": "Si sottrae 6 da 16: 2y = 10."
+              }
+            ],
+            "correct": 0,
+            "result": "y = 5."
+          },
+          {
+            "prompt": "Controllo nella seconda equazione: 5 · 2 − 2 · 5 vale",
+            "options": [
+              {
+                "text": "0",
+                "feedback": "Giusto: il controllo conferma x = 2, y = 5."
+              },
+              {
+                "text": "20",
+                "feedback": "Attenzione al segno: 10 − 10."
+              },
+              {
+                "text": "5",
+                "feedback": "Ricalcola: 5 · 2 = 10 e 2 · 5 = 10."
+              }
+            ],
+            "correct": 0,
+            "result": "Controllo superato."
+          }
+        ]
+      },
+      {
+        "id": "impossibile",
+        "title": "Quante soluzioni?",
+        "text": "Studia il sistema 2x + 4y = 6 e x + 2y = 5.",
+        "maxErrors": 1,
+        "explain": "Il determinante nullo segnala rette parallele o coincidenti; il confronto dei termini noti decide tra i due casi.",
+        "steps": [
+          {
+            "prompt": "Quanto vale il determinante D = a₁b₂ − a₂b₁?",
+            "options": [
+              {
+                "text": "D = 0",
+                "feedback": "Giusto: 2 · 2 − 1 · 4 = 0."
+              },
+              {
+                "text": "D = 8",
+                "feedback": "Hai sommato i prodotti: va fatta la differenza."
+              },
+              {
+                "text": "D = 4",
+                "feedback": "D = 2 · 2 − 1 · 4: i due prodotti si annullano."
+              }
+            ],
+            "correct": 0,
+            "result": "D = 0: soluzione non unica."
+          },
+          {
+            "prompt": "Moltiplicando la seconda equazione per 2 si ottiene 2x + 4y = 10. Che cosa concludi?",
+            "options": [
+              {
+                "text": "Infinite soluzioni",
+                "feedback": "Servirebbe lo stesso termine noto: qui 10 è diverso da 6."
+              },
+              {
+                "text": "Nessuna soluzione: rette parallele distinte",
+                "feedback": "Giusto: la stessa espressione non può valere 6 e 10."
+              },
+              {
+                "text": "Una soluzione",
+                "feedback": "Con D = 0 la soluzione non è mai unica."
+              }
+            ],
+            "correct": 1,
+            "result": "Sistema impossibile."
+          }
+        ]
+      },
+      {
+        "id": "biglietti",
+        "title": "I biglietti della cupola",
+        "text": "30 biglietti, adulti a 8 euro e ragazzi a 5 euro, incasso 195 euro. Quanti adulti?",
+        "maxErrors": 1,
+        "explain": "Tradurre il testo in equazioni è il passaggio decisivo: una equazione per il numero, una per l’incasso.",
+        "steps": [
+          {
+            "prompt": "Quale coppia di equazioni descrive il problema?",
+            "options": [
+              {
+                "text": "x + y = 30 e 8x + 5y = 195",
+                "feedback": "Giusto: numero di biglietti e incasso."
+              },
+              {
+                "text": "x + y = 195 e 8x + 5y = 30",
+                "feedback": "Hai scambiato il numero di biglietti con l’incasso."
+              },
+              {
+                "text": "8x = 5y e x + y = 30",
+                "feedback": "Nessuna informazione dice che gli incassi delle due categorie sono uguali."
+              }
+            ],
+            "correct": 0,
+            "result": "x + y = 30; 8x + 5y = 195."
+          },
+          {
+            "prompt": "Sostituendo y = 30 − x nella seconda, che equazione ottieni?",
+            "options": [
+              {
+                "text": "3x + 150 = 195",
+                "feedback": "Giusto: 8x + 150 − 5x = 195."
+              },
+              {
+                "text": "13x + 150 = 195",
+                "feedback": "5(30 − x) = 150 − 5x: il segno di 5x è negativo."
+              },
+              {
+                "text": "3x = 195",
+                "feedback": "Manca il termine 5 · 30 = 150."
+              }
+            ],
+            "correct": 0,
+            "result": "3x = 45, quindi x = 15."
+          },
+          {
+            "prompt": "Quanti adulti e quanti ragazzi?",
+            "options": [
+              {
+                "text": "15 adulti e 15 ragazzi",
+                "feedback": "Giusto: 120 + 75 = 195 euro."
+              },
+              {
+                "text": "20 adulti e 10 ragazzi",
+                "feedback": "L’incasso sarebbe 160 + 50 = 210 euro."
+              },
+              {
+                "text": "45 adulti",
+                "feedback": "45 è il valore di 3x."
+              }
+            ],
+            "correct": 0,
+            "result": "15 adulti e 15 ragazzi."
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -7,7 +7,9 @@ import {VSEPR_CHALLENGES,vseprInfo,vseprValid,vseprPositions,shapeOptions,checkV
  GENOTYPES,punnett,sow,chiSquare,newMystery,testcross,judgeMystery,EVIDENCE_SEEDS,
  STATEMENTS,testValue,checkStatement,activityProgress,recordSolved,
  BISECTION_TASKS,checkGuarantee,bisectionStep,signWord,formatNumber,
- IONIC_CHALLENGES,ion,ionLabel,signed,checkIonic,checkCard,checkOrder,scrambled} from './activities.js';
+ IONIC_CHALLENGES,ion,ionLabel,signed,checkIonic,checkCard,checkOrder,scrambled,
+ fitData,fitError,fitStart,fitStep,checkFit,checkStep} from './activities.js';
+import {descriptor,samples} from '../models/curriculum.js';
 const LINE={body:23,mini:17,micro:14};
 const pct=x=>(Math.round(x*1000)/10).toLocaleString('it-IT')+'%';
 const fmt=x=>String(x).replace('.',',').replace('-','−');
@@ -23,10 +25,13 @@ class Flow{
  /** One line of text with small buttons on its right, for lists that the student reorders. */
  row(t,list,style='mini',tint=C.pale){const bw=40,gap=6,rows=fittedRows(this.R,[t],this.w-list.length*(bw+gap)-4,style).filter(Boolean),h=Math.max(32,rows.length*LINE[style]+8);
   this.items.push({h:h+4,draw:(x,y,w)=>{rows.forEach((row,i)=>this.U.text(row,x,y+Math.max(4,(h-rows.length*LINE[style])/2)+i*LINE[style],style,tint));
-   list.forEach((b,j)=>{this.U.button(b.id,b.label,x+w-(list.length-j)*(bw+gap)+gap,y+(h-28)/2,bw,28,b.action,{disabled:!!b.disabled,small:true});this.U.buttons.at(-1).label=b.aria||b.label;});}});
+   list.forEach((b,j)=>{this.U.button(b.id,b.label,x+w-(list.length-j)*(bw+gap)+gap,y+(h-28)/2,bw,28,b.action,{active:!!b.active,disabled:!!b.disabled,small:true});this.U.buttons.at(-1).label=b.aria||b.label;});}});
   return this;}
- render(key){const r=this.rect,x=r.x+12,top=r.y+10,room=r.h-54,pages=[[]];let used=0;
-  for(const item of this.items){if(used+item.h>room&&pages.at(-1).length){pages.push([]);used=0;}pages.at(-1).push(item);used+=item.h;}
+ /** Marks the next item: when the token passed to render changes, the flow opens the page that contains it. */
+ mark(){this.focus=this.items.length;return this;}
+ render(key,token){const r=this.rect,x=r.x+12,top=r.y+10,room=r.h-54,pages=[[]],pageOf=[];let used=0;
+  for(const item of this.items){if(used+item.h>room&&pages.at(-1).length){pages.push([]);used=0;}pages.at(-1).push(item);pageOf.push(pages.length-1);used+=item.h;}
+  if(token!==undefined&&this.o.pageTokens[key]!==token){this.o.pageTokens[key]=token;if(this.focus!==undefined)this.o.pages[key]=pageOf[Math.min(this.focus,pageOf.length-1)];}
   const page=clamp(this.o.pages[key]||0,0,pages.length-1);this.o.pages[key]=page;let y=top;
   for(const item of pages[page]){item.draw(x,y,this.w,Math.min(item.h,room));y+=item.h;}
   const by=r.y+r.h-36;
@@ -37,24 +42,25 @@ class Flow{
 }
 export class ActivityUI{
  constructor(R,api){this.R=R;this.api=api;this.reset();}
- reset(){this.pages={};this.mode=0;this.x=4;this.e=0;this.challenge=0;this.shape=null;this.revealed=false;this.message='';this.spin=0;this.last=0;
+ reset(){this.pages={};this.pageTokens={};this.focusToken=undefined;this.mode=0;this.x=4;this.e=0;this.challenge=0;this.shape=null;this.revealed=false;this.message='';this.spin=0;this.last=0;
   this.p1='Aa';this.p2='Aa';this.sowings=[];this.mystery=null;this.statement=0;this.tested=null;this.verdict=null;
-  this.round=0;this.orders={};this.task=0;this.compound=0;this.resetRound();this.startTask();this.startCompound();}
+  this.round=0;this.orders={};this.fits={};this.fitTries={};this.task=0;this.compound=0;this.resetRound();this.startTask();this.startCompound();}
  resetRound(){this.card=0;this.errors=0;this.cardDone=false;this.choice=null;this.message='';this.revealed=false;}
  startTask(){const t=BISECTION_TASKS[this.task%BISECTION_TASKS.length];this.phase='ask';this.ba=t.a;this.bb=t.b;this.halvings=0;this.message='';this.revealed=false;}
  startCompound(){const c=IONIC_CHALLENGES[this.compound%IONIC_CHALLENGES.length],C=ion(c.cation),A=ion(c.anion);this.qc=C.polyatomic?C.charge:null;this.qa=A.polyatomic?A.charge:null;this.n=1;this.m=1;this.message='';this.revealed=false;}
  key(){return [this.mode,this.x,this.e,this.challenge,this.shape,this.revealed,this.message,this.p1,this.p2,this.sowings.length,this.mystery&&this.mystery.viola+this.mystery.bianco,this.statement,this.tested,this.verdict,
-  this.round,this.card,this.errors,this.cardDone,this.choice,JSON.stringify(this.orders),this.task,this.phase,this.ba,this.bb,this.compound,this.qc,this.qa,this.n,this.m,JSON.stringify(this.pages)].join('|');}
+  this.round,this.card,this.errors,this.cardDone,this.choice,JSON.stringify(this.orders),JSON.stringify(this.fits),this.task,this.phase,this.ba,this.bb,this.compound,this.qc,this.qa,this.n,this.m,JSON.stringify(this.pages)].join('|');}
  solved(state,id){recordSolved(state,id);this.api.save();const p=activityProgress(this.def||state.kind,state);this.api.say(p.done?'Attività completata: '+p.solved+' su '+p.goal+'.':'Risolti '+p.solved+' su '+p.goal+'.');}
  /** def: the unit's activity object; the 'cards' rounds come from it. */
  draw(U,rect,state,paused,def=state.kind){
-  this.def=def;U.panel(rect.x,rect.y,rect.w,rect.h,C.lime,.96);
+  this.def=def;this.focusToken=undefined;U.panel(rect.x,rect.y,rect.w,rect.h,C.lime,.96);
   const f=new Flow(this,U,rect),p=activityProgress(def,state);
   f.text(`ATTIVITÀ · ${p.solved}/${p.goal}${p.done?' · COMPLETATA':''}`,'mini',p.done?C.lime:C.amber);
   const kind=state.kind;
   if(kind==='vsepr')this.vsepr(f,state,paused);else if(kind==='punnett')this.punnett(f,state);else if(kind==='cards')this.cards(f,state,def);
+  else if(kind==='fit')this.fit(f,state,def);else if(kind==='steps')this.steps(f,state,def);
   else if(kind==='bisection')this.bisection(f,state);else if(kind==='ionic')this.ionic(f,state);else this.logic(f,state);
-  f.render(kind+':'+(kind==='cards'?this.round:kind==='bisection'?this.task:kind==='ionic'?this.compound:this.mode));
+  f.render(kind+':'+(['cards','fit','steps'].includes(kind)?this.round:kind==='bisection'?this.task:kind==='ionic'?this.compound:this.mode),this.focusToken);
  }
  /** Three-button header to move between the items of an activity. */
  pager(f,prefix,label,index,n,done,go,what){f.buttons([{id:`act-${prefix}-prev`,label:'◂',action:()=>go(-1),aria:what+' precedente'},{id:`act-${prefix}-index`,label:`${label} ${index+1} / ${n}${done?' ✓':''}`,action:()=>{},aria:`${what} ${index+1} di ${n}${done?', risolta':''}`},{id:`act-${prefix}-next`,label:'▸',action:()=>go(1),aria:what+' successiva'}],40);}
@@ -85,6 +91,48 @@ export class ActivityUI{
   f.buttons([{id:'act-check',label:'VERIFICA L’ORDINE',action:()=>{const res=checkOrder(r,ids);this.message=res.message;this.revealed=res.ok;if(res.ok)this.solved(state,r.id);}}],120);
   if(this.message)f.text(this.message,'mini',this.revealed?C.lime:C.amber);
   ids.forEach((id,i)=>{const t=byId.get(id).text;f.row(`${i+1}. ${t}`,[{id:'act-up-'+i,label:'↑',disabled:i===0,action:()=>swap(i,i-1),aria:'Sposta in su: '+t},{id:'act-down-'+i,label:'↓',disabled:i===ids.length-1,action:()=>swap(i,i+1),aria:'Sposta in giù: '+t}]);});
+ }
+ // ---------- Fit: model and data ----------
+ fitParams(r){if(!this.fits[r.id])this.fits[r.id]=fitStart(r);return this.fits[r.id];}
+ fit(f,state,def){
+  const n=def.rounds.length,r=def.rounds[this.round%n],go=k=>{this.round=(this.round+k+n)%n;this.resetRound();},m=descriptor(r.model),p=this.fitParams(r),num=x=>formatNumber(x,4);
+  this.pager(f,'round','SERIE',this.round%n,n,state.solved.includes(r.id),go,'Serie di dati');
+  f.text(r.title,'body',C.pale);f.text(r.prompt,'mini',C.muted);
+  f.canvas(clamp(f.rect.h*.32,110,220),(x,y,w,h)=>this.fitPlot(x,y,w,h,r,p,m));
+  for(const key of r.fit){const c=m.controls.find(c=>c.key===key),unit=c.unit==='1'?'':' '+c.unit,set=d=>{this.fits[r.id]=fitStep(r,p,key,d);this.message='';this.revealed=false;};
+   f.row(`${c.label}: ${num(p[key])}${unit}`,[{id:`act-fit-${key}-minus`,label:'−',disabled:p[key]<=c.min,action:()=>set(-1),aria:c.label+': diminuisci'},{id:`act-fit-${key}-plus`,label:'+',disabled:p[key]>=c.max,action:()=>set(1),aria:c.label+': aumenta'}]);}
+  const fixed=m.controls.filter(c=>!r.fit.includes(c.key));if(fixed.length)f.text('Fissati: '+fixed.map(c=>`${c.label} ${num(p[c.key])}${c.unit==='1'?'':' '+c.unit}`).join('; ')+'.','micro',C.muted);
+  f.text(`Scarto quadratico medio: ${formatNumber(fitError(r,p),3)} ${m.yUnit==='1'?'':m.yUnit}`,'mini',C.pale);
+  f.buttons([{id:'act-check',label:'VERIFICA',action:()=>{const t=this.fitTries[r.id]||0,res=checkFit(r,p,t);this.fitTries[r.id]=t+1;this.message=res.message;this.revealed=res.ok;if(res.ok)this.solved(state,r.id);}}],100);
+  if(this.message)f.text(this.message,'mini',this.revealed?C.lime:C.amber);
+ }
+ fitPlot(x0,y0,w,h,r,p,m){const R=this.R,pad=10,data=fitData(r),xs=data.map(q=>q.x),span=Math.max(...xs)-Math.min(...xs)||1;
+  const lo=Math.max(m.domain[0],Math.min(...xs)-span*.08),hi=Math.min(m.domain[1],Math.max(...xs)+span*.08);
+  const curve=samples(r.model,p,m.discrete?121:161).filter(q=>q.y!==null&&q.x>=lo-1e-12&&q.x<=hi+1e-12),ys=[...data.map(q=>q.y),...curve.map(q=>q.y)];
+  let ylo=Math.min(...ys),yhi=Math.max(...ys);const dy=(yhi-ylo)||Math.abs(yhi)||1;ylo-=dy*.08;yhi+=dy*.08;
+  const top=18,bottom=18,X=v=>x0+pad+(v-lo)/(hi-lo||1)*(w-2*pad),Y=v=>y0+h-bottom-(v-ylo)/(yhi-ylo)*(h-top-bottom),unit=u=>u==='1'?'':` [${u}]`;
+  R.rect(x0,y0,w,h,color('#0d2a33',.5));
+  if(ylo<0&&yhi>0)R.line([x0+pad,Y(0)],[x0+w-pad,Y(0)],color('#9fb4b9',.5),1);
+  if(m.discrete)for(const q of curve)R.roundRect(X(q.x)-3,Y(q.y)-3,6,6,3,C.cyan);
+  else for(let i=1;i<curve.length;i++)R.line([X(curve[i-1].x),Y(curve[i-1].y)],[X(curve[i].x),Y(curve[i].y)],C.cyan,2);
+  for(const q of data)R.roundRect(X(q.x)-5,Y(q.y)-5,10,10,2,color('#e4c18b',.9),C.amber);
+  this.R.text(m.xLabel+unit(m.xUnit),x0+w-pad,y0+h-14,'micro',C.muted,{align:'right'});this.R.text(m.yLabel+unit(m.yUnit),x0+pad,y0+3,'micro',C.muted);}
+ // ---------- Steps: guided problems ----------
+ steps(f,state,def){
+  const n=def.problems.length,pr=def.problems[this.round%n],go=k=>{this.round=(this.round+k+n)%n;this.resetRound();},total=pr.steps.length;
+  this.pager(f,'round','PROBLEMA',this.round%n,n,state.solved.includes(pr.id),go,'Problema');
+  f.text(pr.title,'body',C.pale);f.text(pr.text,'mini',C.pale);
+  for(let i=0;i<Math.min(this.card,total);i++)f.text('✓ '+pr.steps[i].result,'mini',C.lime);
+  if(this.card>=total){const ok=this.errors<=pr.maxErrors;
+   f.text(ok?`Problema risolto con ${this.errors} ${this.errors===1?'errore':'errori'}. ${pr.explain}`:`Problema concluso con ${this.errors} errori: per superarlo ne servono al massimo ${pr.maxErrors}. Rileggi i commenti e ricomincia.`,'mini',ok?C.lime:C.amber);
+   f.buttons([{id:'act-round-restart',label:'RICOMINCIA IL PROBLEMA',action:()=>this.resetRound()}],150);return;}
+  const st=pr.steps[this.card];this.focusToken=`${this.round}:${this.card}`;f.mark();
+  f.text(`Passo ${this.card+1} di ${total} · errori ${this.errors}, al massimo ${pr.maxErrors}`,'micro',C.muted);
+  f.text(st.prompt,'mini',C.amber);
+  st.options.forEach((o,i)=>f.row(`${'ABCD'[i]}. ${o.text}`,[{id:'act-option-'+i,label:'ABCD'[i],active:this.choice===i,disabled:this.cardDone,aria:`Risposta ${'ABCD'[i]}: ${o.text}`,
+   action:()=>{const res=checkStep(pr,this.card,i);this.choice=i;this.message=res.message;this.revealed=res.ok;if(res.ok)this.cardDone=true;else this.errors++;}}]));
+  if(this.message)f.text(this.message,'mini',this.revealed?C.lime:C.amber);
+  if(this.cardDone)f.buttons([{id:'act-step-next',label:this.card+1<total?'PASSO SUCCESSIVO':'CONCLUDI IL PROBLEMA',action:()=>{this.card++;this.cardDone=false;this.choice=null;this.message='';this.revealed=false;if(this.card>=total&&this.errors<=pr.maxErrors)this.solved(state,pr.id);}}],150);
  }
  // ---------- Bisection ----------
  bisection(f,state){
@@ -219,6 +267,8 @@ export class ActivityUI{
  semanticText(state,def=state.kind){const p=activityProgress(def,state),head=`Attività: ${p.solved} su ${p.goal} risolti.`,num=x=>formatNumber(x);
   if(state.kind==='cards'){const r=def.rounds[this.round%def.rounds.length];if(r.type==='classify'){const it=r.items[this.card];return `${head} Serie: ${r.title}. ${r.prompt} ${it?`Carta ${this.card+1} di ${r.items.length}: ${it.text}. Categorie: ${r.categories.map(c=>c.label).join(', ')}.`:''} Errori: ${this.errors}. ${this.message}`;}
    const byId=new Map(r.items.map(it=>[it.id,it.text]));return `${head} Serie: ${r.title}. ${r.prompt} Ordine attuale: ${this.orderFor(r).map((id,i)=>`${i+1}. ${byId.get(id)}`).join('; ')}. ${this.message}`;}
+  if(state.kind==='fit'){const r=def.rounds[this.round%def.rounds.length],p=this.fitParams(r),m=descriptor(r.model);return `${head} Serie: ${r.title}. ${r.prompt} Punti misurati: ${fitData(r).map(q=>`(${num(q.x)}; ${num(q.y)})`).join(', ')}. Parametri: ${m.controls.map(c=>`${c.label} ${num(p[c.key])}`).join(', ')}. Scarto quadratico medio ${num(fitError(r,p))}. ${this.message}`;}
+  if(state.kind==='steps'){const pr=def.problems[this.round%def.problems.length],st=pr.steps[this.card];return `${head} Problema: ${pr.title}. ${pr.text} ${pr.steps.slice(0,this.card).map(s=>s.result).join(' ')} ${st?`Passo ${this.card+1}: ${st.prompt} ${st.options.map((o,i)=>'ABCD'[i]+'. '+o.text).join(' ')}`:''} ${this.message}`;}
   if(state.kind==='bisection'){const t=BISECTION_TASKS[this.task%BISECTION_TASKS.length];return `${head} ${t.label} su [${num(t.a)}; ${num(t.b)}]. ${this.phase==='halve'?`Intervallo attuale [${num(this.ba)}; ${num(this.bb)}], punto medio ${num((this.ba+this.bb)/2)}, f del punto medio ${num(t.f((this.ba+this.bb)/2))}.`:''} ${this.message}`;}
   if(state.kind==='ionic'){const c=IONIC_CHALLENGES[this.compound%IONIC_CHALLENGES.length];return `${head} Composto: ${c.name}. Cariche scelte: catione ${this.qc?signed(this.qc):'nessuna'}, anione ${this.qa?signed(this.qa):'nessuna'}. Cationi ${this.n}, anioni ${this.m}. ${this.message}`;}
   if(state.kind==='vsepr'){const i=vseprInfo(this.x,this.e);if(this.mode===0)return `${head} Esplora: ${i.notation}, geometria elettronica ${i.electron}, forma ${i.shape}, angolo ${i.angle}.`;const c=VSEPR_CHALLENGES[this.challenge%VSEPR_CHALLENGES.length];return `${head} Sfida: ${c.formula}. ${c.hint} Domini impostati: ${i.notation}. Forma scelta: ${this.shape||'nessuna'}. ${this.message}`;}

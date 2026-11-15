@@ -5,14 +5,15 @@
   "title": "Combinatoria, probabilità e statistica",
   "sector": 0,
   "modelId": "math-c10",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Prove indipendenti, stessa probabilità p",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Conteggio, permutazioni e combinazioni, probabilità, legge binomiale e statistica descrittiva",
+  "narrativeStatus": "La stazione è immaginaria; i calcoli e le regole sono reali.",
   "objectives": [
-    "Spiegare: prove indipendenti, stessa probabilità p.",
-    "Applicare P(k) = C(n,k) p^k (1-p)^(n-k), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Contare con il principio fondamentale, le permutazioni e le combinazioni.",
+    "Calcolare probabilità classiche, contrarie, di eventi incompatibili e indipendenti.",
+    "Usare la legge binomiale e la probabilità condizionata.",
+    "Riassumere dati con media, mediana, moda e deviazione standard."
   ],
   "prerequisites": [
     "math-c01",
@@ -20,7 +21,7 @@
     "math-c08"
   ],
   "connections": [
-    "biology-08"
+    "math-p07"
   ],
   "sources": [
     "precalculus",
@@ -40,250 +41,641 @@
   },
   "glossary": [
     {
-      "term": "Successi k",
-      "definition": "Variabile indipendente, unità 1; intervallo [0; 10]."
+      "term": "Permutazione",
+      "definition": "Ordinamento di n oggetti distinti; il loro numero è n!."
     },
     {
-      "term": "Probabilità",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Combinazione",
+      "definition": "Gruppo di k oggetti scelti tra n senza tenere conto dell’ordine; il loro numero è C(n, k)."
     },
     {
-      "term": "Prove n",
-      "definition": "Parametro a, unità 1; intervallo [1; 10]."
+      "term": "Eventi indipendenti",
+      "definition": "Eventi per cui il verificarsi dell’uno non cambia la probabilità dell’altro."
     },
     {
-      "term": "Probabilità p",
-      "definition": "Parametro b, unità 1; intervallo [0; 1]."
+      "term": "Probabilità condizionata",
+      "definition": "P(A | B) = P(A e B)/P(B): probabilità di A sapendo B."
+    },
+    {
+      "term": "Mediana",
+      "definition": "Valore centrale dei dati ordinati; resiste ai valori anomali."
+    },
+    {
+      "term": "Deviazione standard",
+      "definition": "Radice della media dei quadrati degli scarti dalla media."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Contare, prevedere, riassumere",
       "text": {
         "base": [
-          "Un banco prova conta quanti rilevatori rispondono correttamente in una serie di prove. Non vuoi conoscere una singola sequenza, ma la probabilità di ottenere esattamente k successi.",
-          "Una variabile binomiale conta i successi in n prove indipendenti, ciascuna con la stessa probabilità p. Una sequenza con k successi ha probabilità p^k(1-p)^(n-k). Il coefficiente binomiale conta quante sequenze distinte hanno quel numero di successi."
+          "La stazione assegna a ogni visitatore un codice di accesso, sorteggia una squadra per le uscite e registra i guasti degli strumenti. Quanti codici sono possibili? Qual è la probabilità che una squadra contenga un certo tecnico? Che cosa dicono, in sintesi numerica, i dati dei guasti? Contare, valutare l’incertezza e riassumere i dati sono i tre compiti di combinatoria, probabilità e statistica.",
+          "Il principio fondamentale del conteggio: se una scelta si fa in m modi e una seconda, indipendente, in n modi, le due insieme si fanno in m · n modi. Un codice di 4 cifre, ciascuna da 0 a 9, ha 10 · 10 · 10 · 10 = 10 000 possibilità. Se le cifre devono essere tutte diverse: 10 · 9 · 8 · 7 = 5040."
         ],
         "intermediate": [
-          "Un banco prova conta quanti rilevatori rispondono correttamente in una serie di prove. Non vuoi conoscere una singola sequenza, ma la probabilità di ottenere esattamente k successi.",
-          "La probabilità è C(n,k)p^k(1-p)^(n-k), con k intero fra 0 e n. La somma delle probabilità è 1 per il teorema binomiale. Il valore atteso è np, ma non è una promessa sul risultato di una singola serie."
+          "La stazione assegna a ogni visitatore un codice di accesso, sorteggia una squadra per le uscite e registra i guasti degli strumenti. Quanti codici sono possibili? Qual è la probabilità che una squadra contenga un certo tecnico? Che cosa dicono, in sintesi numerica, i dati dei guasti? Contare, valutare l’incertezza e riassumere i dati sono i tre compiti di combinatoria, probabilità e statistica.",
+          "Il principio fondamentale del conteggio: se una scelta si fa in m modi e una seconda, indipendente, in n modi, le due insieme si fanno in m · n modi. Un codice di 4 cifre, ciascuna da 0 a 9, ha 10 · 10 · 10 · 10 = 10 000 possibilità. Se le cifre devono essere tutte diverse: 10 · 9 · 8 · 7 = 5040."
         ],
         "advanced": [
-          "Un banco prova conta quanti rilevatori rispondono correttamente in una serie di prove. Non vuoi conoscere una singola sequenza, ma la probabilità di ottenere esattamente k successi.",
-          "Confronta n piccolo e grande mantenendo p fisso. Calcola media np e varianza np(1-p), poi spiega perché la variabilità assoluta e quella relativa si comportano diversamente.",
-          "Il modello non si applica direttamente a prove dipendenti o a estrazioni senza reinserimento da una popolazione piccola. Le barre rappresentano probabilità esatte, non frequenze osservate."
+          "La stazione assegna a ogni visitatore un codice di accesso, sorteggia una squadra per le uscite e registra i guasti degli strumenti. Quanti codici sono possibili? Qual è la probabilità che una squadra contenga un certo tecnico? Che cosa dicono, in sintesi numerica, i dati dei guasti? Contare, valutare l’incertezza e riassumere i dati sono i tre compiti di combinatoria, probabilità e statistica.",
+          "Il principio fondamentale del conteggio: se una scelta si fa in m modi e una seconda, indipendente, in n modi, le due insieme si fanno in m · n modi. Un codice di 4 cifre, ciascuna da 0 a 9, ha 10 · 10 · 10 · 10 = 10 000 possibilità. Se le cifre devono essere tutte diverse: 10 · 9 · 8 · 7 = 5040."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Combinatoria e probabilità",
       "text": {
         "base": [
-          "Una variabile binomiale conta i successi in n prove indipendenti, ciascuna con la stessa probabilità p. Una sequenza con k successi ha probabilità p^k(1-p)^(n-k). Il coefficiente binomiale conta quante sequenze distinte hanno quel numero di successi.",
-          "Per n=4 e p=0,5, esistono C(4,2)=6 sequenze con due successi. Ciascuna ha probabilità 1/16, quindi P(k=2)=6/16=0,375. Il risultato più plausibile non è comunque certo."
+          "Le permutazioni di n oggetti sono i modi di metterli in fila: n! = n · (n − 1) · ... · 1; con 5 libri, 5! = 120 ordini. Le combinazioni contano i gruppi in cui l’ordine non conta: scegliere k oggetti tra n si può fare in C(n, k) = n!/(k!(n − k)!) modi. Una squadra di 3 tecnici scelti tra 10 si forma in C(10, 3) = 120 modi.",
+          "Se tutti gli esiti sono ugualmente probabili, la probabilità di un evento è il rapporto tra casi favorevoli e casi possibili. Con un dado, la probabilità di un numero pari è 3/6 = 1/2. Una probabilità sta sempre tra 0 (evento impossibile) e 1 (evento certo). La probabilità dell’evento contrario è 1 meno quella dell’evento.",
+          "Due regole fondamentali. Per eventi incompatibili, che non possono accadere insieme, la probabilità che accada l’uno o l’altro è la somma. Per eventi indipendenti, in cui l’uno non influenza l’altro, la probabilità che accadano entrambi è il prodotto. Esempio: la probabilità di almeno un sei in quattro lanci di un dado è 1 − (5/6)⁴ = 1 − 625/1296 ≈ 0,518: è più facile calcolare il contrario, nessun sei in quattro lanci.",
+          "La legge binomiale conta i successi in n prove indipendenti con la stessa probabilità p: P(k) = C(n, k) p^k (1 − p)^(n − k). Con 4 lanci di una moneta, la probabilità di esattamente 2 teste è C(4, 2) · 0,5⁴ = 6/16 = 0,375: è il modello del laboratorio di questa unità e il valore di riferimento del suo grafico.",
+          "La statistica descrittiva riassume i dati. La media è la somma divisa per il numero dei dati; la mediana è il valore centrale dopo averli ordinati; la moda il valore più frequente. Con i tempi di riparazione 3, 5, 5, 6, 21 ore la media è 8, la mediana 5, la moda 5: il valore 21, anomalo, sposta la media e lascia ferma la mediana."
         ],
         "intermediate": [
-          "La probabilità è C(n,k)p^k(1-p)^(n-k), con k intero fra 0 e n. La somma delle probabilità è 1 per il teorema binomiale. Il valore atteso è np, ma non è una promessa sul risultato di una singola serie.",
-          "La variabile Successi k è espressa in 1; Probabilità in 1. Il dominio dello strumento è [0; 10], con soli valori interi. La relazione implementata è: P(k) = C(n,k) p^k (1-p)^(n-k).",
-          "Per n=4 e p=0,5, esistono C(4,2)=6 sequenze con due successi. Ciascuna ha probabilità 1/16, quindi P(k=2)=6/16=0,375. Il risultato più plausibile non è comunque certo."
+          "Le permutazioni di n oggetti sono i modi di metterli in fila: n! = n · (n − 1) · ... · 1; con 5 libri, 5! = 120 ordini. Le combinazioni contano i gruppi in cui l’ordine non conta: scegliere k oggetti tra n si può fare in C(n, k) = n!/(k!(n − k)!) modi. Una squadra di 3 tecnici scelti tra 10 si forma in C(10, 3) = 120 modi.",
+          "Se tutti gli esiti sono ugualmente probabili, la probabilità di un evento è il rapporto tra casi favorevoli e casi possibili. Con un dado, la probabilità di un numero pari è 3/6 = 1/2. Una probabilità sta sempre tra 0 (evento impossibile) e 1 (evento certo). La probabilità dell’evento contrario è 1 meno quella dell’evento.",
+          "Due regole fondamentali. Per eventi incompatibili, che non possono accadere insieme, la probabilità che accada l’uno o l’altro è la somma. Per eventi indipendenti, in cui l’uno non influenza l’altro, la probabilità che accadano entrambi è il prodotto. Esempio: la probabilità di almeno un sei in quattro lanci di un dado è 1 − (5/6)⁴ = 1 − 625/1296 ≈ 0,518: è più facile calcolare il contrario, nessun sei in quattro lanci.",
+          "La legge binomiale conta i successi in n prove indipendenti con la stessa probabilità p: P(k) = C(n, k) p^k (1 − p)^(n − k). Con 4 lanci di una moneta, la probabilità di esattamente 2 teste è C(4, 2) · 0,5⁴ = 6/16 = 0,375: è il modello del laboratorio di questa unità e il valore di riferimento del suo grafico.",
+          "La statistica descrittiva riassume i dati. La media è la somma divisa per il numero dei dati; la mediana è il valore centrale dopo averli ordinati; la moda il valore più frequente. Con i tempi di riparazione 3, 5, 5, 6, 21 ore la media è 8, la mediana 5, la moda 5: il valore 21, anomalo, sposta la media e lascia ferma la mediana.",
+          "La dispersione si misura con la varianza, la media dei quadrati degli scarti dalla media, e con la sua radice, la deviazione standard, che ha la stessa unità dei dati. Due insiemi con la stessa media possono avere dispersioni molto diverse: 5, 5, 5 e 1, 5, 9 hanno media 5 e deviazioni standard 0 e circa 3,3."
         ],
         "advanced": [
-          "La probabilità è C(n,k)p^k(1-p)^(n-k), con k intero fra 0 e n. La somma delle probabilità è 1 per il teorema binomiale. Il valore atteso è np, ma non è una promessa sul risultato di una singola serie.",
-          "Confronta n piccolo e grande mantenendo p fisso. Calcola media np e varianza np(1-p), poi spiega perché la variabilità assoluta e quella relativa si comportano diversamente.",
-          "Indipendenza e probabilità costante sono ipotesi, non conseguenze del fatto che le prove siano ripetute. La probabilità di una sequenza non coincide con quella di tutte le sequenze aventi lo stesso conteggio."
+          "Le permutazioni di n oggetti sono i modi di metterli in fila: n! = n · (n − 1) · ... · 1; con 5 libri, 5! = 120 ordini. Le combinazioni contano i gruppi in cui l’ordine non conta: scegliere k oggetti tra n si può fare in C(n, k) = n!/(k!(n − k)!) modi. Una squadra di 3 tecnici scelti tra 10 si forma in C(10, 3) = 120 modi.",
+          "Due regole fondamentali. Per eventi incompatibili, che non possono accadere insieme, la probabilità che accada l’uno o l’altro è la somma. Per eventi indipendenti, in cui l’uno non influenza l’altro, la probabilità che accadano entrambi è il prodotto. Esempio: la probabilità di almeno un sei in quattro lanci di un dado è 1 − (5/6)⁴ = 1 − 625/1296 ≈ 0,518: è più facile calcolare il contrario, nessun sei in quattro lanci.",
+          "La legge binomiale conta i successi in n prove indipendenti con la stessa probabilità p: P(k) = C(n, k) p^k (1 − p)^(n − k). Con 4 lanci di una moneta, la probabilità di esattamente 2 teste è C(4, 2) · 0,5⁴ = 6/16 = 0,375: è il modello del laboratorio di questa unità e il valore di riferimento del suo grafico.",
+          "La probabilità condizionata P(A | B) è la probabilità di A sapendo che B è avvenuto: P(A | B) = P(A e B)/P(B). Esempio: un test segnala un guasto raro, presente nell’1% degli strumenti; il test riconosce il 90% dei guasti e dà un falso allarme nel 5% degli strumenti sani. Se il test suona, la probabilità di guasto è 0,009/(0,009 + 0,0495) ≈ 15%: molto meno del 90% che l’intuizione suggerisce.",
+          "La statistica descrittiva riassume i dati. La media è la somma divisa per il numero dei dati; la mediana è il valore centrale dopo averli ordinati; la moda il valore più frequente. Con i tempi di riparazione 3, 5, 5, 6, 21 ore la media è 8, la mediana 5, la moda 5: il valore 21, anomalo, sposta la media e lascia ferma la mediana.",
+          "La dispersione si misura con la varianza, la media dei quadrati degli scarti dalla media, e con la sua radice, la deviazione standard, che ha la stessa unità dei dati. Due insiemi con la stessa media possono avere dispersioni molto diverse: 5, 5, 5 e 1, 5, 9 hanno media 5 e deviazioni standard 0 e circa 3,3."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Problemi guidati",
       "text": {
         "base": [
-          "Nel laboratorio imposta Prove n (a): 4 (adimensionale); Probabilità p (b): 0,5 (adimensionale). Prima di salvare A, prevedi come cambia Probabilità fra Successi k=3 e 5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Per n=4 e p=0,5, esistono C(4,2)=6 sequenze con due successi. Ciascuna ha probabilità 1/16, quindi P(k=2)=6/16=0,375. Il risultato più plausibile non è comunque certo.",
-          "La variabile Successi k è espressa in 1; Probabilità in 1. Il dominio dello strumento è [0; 10], con soli valori interi. La relazione implementata è: P(k) = C(n,k) p^k (1-p)^(n-k)."
+          "L’attività propone cinque problemi guidati: un codice di accesso, una squadra da sorteggiare, la probabilità di almeno un sei, una probabilità binomiale e il confronto tra media e mediana. A ogni passaggio scegli e leggi il commento. Per completare l’attività risolvi quattro problemi, con al massimo un errore ciascuno.",
+          "Prima di contare chiediti se l’ordine conta e se gli elementi si possono ripetere: sono le due domande che decidono tra potenze, permutazioni e combinazioni."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Prove n (a): 4 (adimensionale); Probabilità p (b): 0,5 (adimensionale). Prima di salvare A, prevedi come cambia Probabilità fra Successi k=3 e 5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Successi k è espressa in 1; Probabilità in 1. Il dominio dello strumento è [0; 10], con soli valori interi. La relazione implementata è: P(k) = C(n,k) p^k (1-p)^(n-k).",
-          "La probabilità è C(n,k)p^k(1-p)^(n-k), con k intero fra 0 e n. La somma delle probabilità è 1 per il teorema binomiale. Il valore atteso è np, ma non è una promessa sul risultato di una singola serie."
+          "L’attività propone cinque problemi guidati: un codice di accesso, una squadra da sorteggiare, la probabilità di almeno un sei, una probabilità binomiale e il confronto tra media e mediana. A ogni passaggio scegli e leggi il commento. Per completare l’attività risolvi quattro problemi, con al massimo un errore ciascuno.",
+          "Prima di contare chiediti se l’ordine conta e se gli elementi si possono ripetere: sono le due domande che decidono tra potenze, permutazioni e combinazioni."
         ],
         "advanced": [
-          "Nel laboratorio imposta Prove n (a): 4 (adimensionale); Probabilità p (b): 0,5 (adimensionale). Prima di salvare A, prevedi come cambia Probabilità fra Successi k=3 e 5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta n piccolo e grande mantenendo p fisso. Calcola media np e varianza np(1-p), poi spiega perché la variabilità assoluta e quella relativa si comportano diversamente.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "L’attività propone cinque problemi guidati: un codice di accesso, una squadra da sorteggiare, la probabilità di almeno un sei, una probabilità binomiale e il confronto tra media e mediana. A ogni passaggio scegli e leggi il commento. Per completare l’attività risolvi quattro problemi, con al massimo un errore ciascuno.",
+          "Prima di contare chiediti se l’ordine conta e se gli elementi si possono ripetere: sono le due domande che decidono tra potenze, permutazioni e combinazioni.",
+          "La probabilità condizionata P(A | B) è la probabilità di A sapendo che B è avvenuto: P(A | B) = P(A e B)/P(B). Esempio: un test segnala un guasto raro, presente nell’1% degli strumenti; il test riconosce il 90% dei guasti e dà un falso allarme nel 5% degli strumenti sani. Se il test suona, la probabilità di guasto è 0,009/(0,009 + 0,0495) ≈ 15%: molto meno del 90% che l’intuizione suggerisce."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e grandi numeri",
       "text": {
         "base": [
-          "Indipendenza e probabilità costante sono ipotesi, non conseguenze del fatto che le prove siano ripetute. La probabilità di una sequenza non coincide con quella di tutte le sequenze aventi lo stesso conteggio.",
-          "Il modello non si applica direttamente a prove dipendenti o a estrazioni senza reinserimento da una popolazione piccola. Le barre rappresentano probabilità esatte, non frequenze osservate.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente, detto del giocatore: dopo cinque teste di fila pensare che la croce sia «dovuta». I lanci sono indipendenti: la probabilità di croce al sesto lancio resta 1/2.",
+          "Secondo errore: sommare probabilità di eventi compatibili. La probabilità di estrarre una figura o un cuori da un mazzo di 52 carte non è 12/52 + 13/52: le tre figure di cuori sarebbero contate due volte. Il risultato corretto è 22/52.",
+          "La frequenza relativa di un evento in molte prove indipendenti si avvicina alla sua probabilità: è la legge dei grandi numeri. In 10 lanci di moneta possono uscire 7 teste; in 10 000 lanci la frazione di teste resta di solito entro un punto percentuale da 0,5. La legge non dice nulla sul singolo lancio."
         ],
         "intermediate": [
-          "Indipendenza e probabilità costante sono ipotesi, non conseguenze del fatto che le prove siano ripetute. La probabilità di una sequenza non coincide con quella di tutte le sequenze aventi lo stesso conteggio.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "Errore frequente, detto del giocatore: dopo cinque teste di fila pensare che la croce sia «dovuta». I lanci sono indipendenti: la probabilità di croce al sesto lancio resta 1/2.",
+          "Secondo errore: sommare probabilità di eventi compatibili. La probabilità di estrarre una figura o un cuori da un mazzo di 52 carte non è 12/52 + 13/52: le tre figure di cuori sarebbero contate due volte. Il risultato corretto è 22/52.",
+          "La frequenza relativa di un evento in molte prove indipendenti si avvicina alla sua probabilità: è la legge dei grandi numeri. In 10 lanci di moneta possono uscire 7 teste; in 10 000 lanci la frazione di teste resta di solito entro un punto percentuale da 0,5. La legge non dice nulla sul singolo lancio.",
+          "La probabilità condizionata P(A | B) è la probabilità di A sapendo che B è avvenuto: P(A | B) = P(A e B)/P(B). Esempio: un test segnala un guasto raro, presente nell’1% degli strumenti; il test riconosce il 90% dei guasti e dà un falso allarme nel 5% degli strumenti sani. Se il test suona, la probabilità di guasto è 0,009/(0,009 + 0,0495) ≈ 15%: molto meno del 90% che l’intuizione suggerisce."
         ],
         "advanced": [
-          "Il modello non si applica direttamente a prove dipendenti o a estrazioni senza reinserimento da una popolazione piccola. Le barre rappresentano probabilità esatte, non frequenze osservate.",
-          "Confronta n piccolo e grande mantenendo p fisso. Calcola media np e varianza np(1-p), poi spiega perché la variabilità assoluta e quella relativa si comportano diversamente.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Secondo errore: sommare probabilità di eventi compatibili. La probabilità di estrarre una figura o un cuori da un mazzo di 52 carte non è 12/52 + 13/52: le tre figure di cuori sarebbero contate due volte. Il risultato corretto è 22/52.",
+          "La frequenza relativa di un evento in molte prove indipendenti si avvicina alla sua probabilità: è la legge dei grandi numeri. In 10 lanci di moneta possono uscire 7 teste; in 10 000 lanci la frazione di teste resta di solito entro un punto percentuale da 0,5. La legge non dice nulla sul singolo lancio.",
+          "La probabilità condizionata P(A | B) è la probabilità di A sapendo che B è avvenuto: P(A | B) = P(A e B)/P(B). Esempio: un test segnala un guasto raro, presente nell’1% degli strumenti; il test riconosce il 90% dei guasti e dà un falso allarme nel 5% degli strumenti sani. Se il test suona, la probabilità di guasto è 0,009/(0,009 + 0,0495) ≈ 15%: molto meno del 90% che l’intuizione suggerisce."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Una variabile binomiale conta i successi in n prove indipendenti, ciascuna con la stessa probabilità p. Una sequenza con k successi ha probabilità p^k(1-p)^(n-k). Il coefficiente binomiale conta quante sequenze distinte hanno quel numero di successi.",
-          "Per n=4 e p=0,5, esistono C(4,2)=6 sequenze con due successi. Ciascuna ha probabilità 1/16, quindi P(k=2)=6/16=0,375. Il risultato più plausibile non è comunque certo."
+          "Ripasso: principio del conteggio; permutazioni e combinazioni; probabilità classica ed evento contrario; regole della somma e del prodotto; legge binomiale; probabilità condizionata; media, mediana, moda e deviazione standard.",
+          "Mini esercizio: in quanti modi si scelgono 2 rappresentanti tra 6 persone? C(6, 2) = 15. E un presidente e un vice? 6 · 5 = 30.",
+          "Nelle domande di probabilità controlla che il risultato stia tra 0 e 1, e prova a calcolare l’evento contrario."
         ],
         "intermediate": [
-          "La probabilità è C(n,k)p^k(1-p)^(n-k), con k intero fra 0 e n. La somma delle probabilità è 1 per il teorema binomiale. Il valore atteso è np, ma non è una promessa sul risultato di una singola serie.",
-          "La variabile Successi k è espressa in 1; Probabilità in 1. Il dominio dello strumento è [0; 10], con soli valori interi. La relazione implementata è: P(k) = C(n,k) p^k (1-p)^(n-k)."
+          "Ripasso: principio del conteggio; permutazioni e combinazioni; probabilità classica ed evento contrario; regole della somma e del prodotto; legge binomiale; probabilità condizionata; media, mediana, moda e deviazione standard.",
+          "Mini esercizio: in quanti modi si scelgono 2 rappresentanti tra 6 persone? C(6, 2) = 15. E un presidente e un vice? 6 · 5 = 30.",
+          "Nelle domande di probabilità controlla che il risultato stia tra 0 e 1, e prova a calcolare l’evento contrario."
         ],
         "advanced": [
-          "Confronta n piccolo e grande mantenendo p fisso. Calcola media np e varianza np(1-p), poi spiega perché la variabilità assoluta e quella relativa si comportano diversamente.",
-          "Il modello non si applica direttamente a prove dipendenti o a estrazioni senza reinserimento da una popolazione piccola. Le barre rappresentano probabilità esatte, non frequenze osservate."
+          "Ripasso: principio del conteggio; permutazioni e combinazioni; probabilità classica ed evento contrario; regole della somma e del prodotto; legge binomiale; probabilità condizionata; media, mediana, moda e deviazione standard.",
+          "Mini esercizio: in quanti modi si scelgono 2 rappresentanti tra 6 persone? C(6, 2) = 15. E un presidente e un vice? 6 · 5 = 30.",
+          "Nelle domande di probabilità controlla che il risultato stia tra 0 e 1, e prova a calcolare l’evento contrario."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Prove indipendenti, stessa probabilità p.",
-          "Il modello non si applica direttamente a prove dipendenti o a estrazioni senza reinserimento da una popolazione piccola. Le barre rappresentano probabilità esatte, non frequenze osservate.",
-          "Collegamento consigliato: biology-08. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La probabilità torna nella genetica, dove il quadrato di Punnett è una tabella di probabilità, nella meiosi e nell’unità «Probabilità, informazione e fenomeni collettivi», dove misura anche quanta informazione porta un messaggio.",
+          "Riepilogo dell’unità: si conta moltiplicando le scelte; l’ordine distingue permutazioni e combinazioni; la probabilità classica è un rapporto tra casi; eventi incompatibili si sommano e indipendenti si moltiplicano; media e mediana riassumono i dati in modi diversi, e la mediana resiste ai valori anomali.",
+          "Nel diario scrivi un problema di conteggio della tua vita quotidiana e calcola una probabilità usando l’evento contrario."
         ],
         "intermediate": [
-          "La probabilità è C(n,k)p^k(1-p)^(n-k), con k intero fra 0 e n. La somma delle probabilità è 1 per il teorema binomiale. Il valore atteso è np, ma non è una promessa sul risultato di una singola serie.",
-          "Il modello non si applica direttamente a prove dipendenti o a estrazioni senza reinserimento da una popolazione piccola. Le barre rappresentano probabilità esatte, non frequenze osservate.",
-          "Confronta n piccolo e grande mantenendo p fisso. Calcola media np e varianza np(1-p), poi spiega perché la variabilità assoluta e quella relativa si comportano diversamente."
+          "La probabilità torna nella genetica, dove il quadrato di Punnett è una tabella di probabilità, nella meiosi e nell’unità «Probabilità, informazione e fenomeni collettivi», dove misura anche quanta informazione porta un messaggio.",
+          "Riepilogo dell’unità: si conta moltiplicando le scelte; l’ordine distingue permutazioni e combinazioni; la probabilità classica è un rapporto tra casi; eventi incompatibili si sommano e indipendenti si moltiplicano; media e mediana riassumono i dati in modi diversi, e la mediana resiste ai valori anomali.",
+          "Nel diario scrivi un problema di conteggio della tua vita quotidiana e calcola una probabilità usando l’evento contrario."
         ],
         "advanced": [
-          "Confronta n piccolo e grande mantenendo p fisso. Calcola media np e varianza np(1-p), poi spiega perché la variabilità assoluta e quella relativa si comportano diversamente.",
-          "Il modello non si applica direttamente a prove dipendenti o a estrazioni senza reinserimento da una popolazione piccola. Le barre rappresentano probabilità esatte, non frequenze osservate.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La probabilità torna nella genetica, dove il quadrato di Punnett è una tabella di probabilità, nella meiosi e nell’unità «Probabilità, informazione e fenomeni collettivi», dove misura anche quanta informazione porta un messaggio.",
+          "Riepilogo dell’unità: si conta moltiplicando le scelte; l’ordine distingue permutazioni e combinazioni; la probabilità classica è un rapporto tra casi; eventi incompatibili si sommano e indipendenti si moltiplicano; media e mediana riassumono i dati in modi diversi, e la mediana resiste ai valori anomali.",
+          "Nel diario scrivi un problema di conteggio della tua vita quotidiana e calcola una probabilità usando l’evento contrario."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-c10-concept",
-      "prompt": "La distribuzione binomiale richiede:",
+      "id": "math-c10-q1",
+      "prompt": "Quanti codici di 3 lettere si formano con 26 lettere, ammettendo ripetizioni?",
       "options": [
         {
           "id": "A",
-          "text": "Prove indipendenti con la stessa p",
-          "feedback": "Una variabile binomiale conta i successi in n prove indipendenti, ciascuna con la stessa probabilità p. Una sequenza con k successi ha probabilità p^k(1-p)^(n-k). Il coefficiente binomiale conta quante sequenze distinte hanno quel numero di successi."
+          "text": "78",
+          "feedback": "78 = 26 · 3 conta le lettere, non le sequenze: per ogni posizione ci sono 26 scelte da moltiplicare."
         },
         {
           "id": "B",
-          "text": "Successi obbligatoriamente alternati",
-          "feedback": "Indipendenza e probabilità costante sono ipotesi, non conseguenze del fatto che le prove siano ripetute. La probabilità di una sequenza non coincide con quella di tutte le sequenze aventi lo stesso conteggio."
+          "text": "17 576",
+          "feedback": "Esatto: 26 · 26 · 26 = 26³ = 17 576."
         },
         {
           "id": "C",
-          "text": "Una probabilità che cambia a ogni prova",
-          "feedback": "La probabilità è C(n,k)p^k(1-p)^(n-k), con k intero fra 0 e n. La somma delle probabilità è 1 per il teorema binomiale. Il valore atteso è np, ma non è una promessa sul risultato di una singola serie."
+          "text": "15 600",
+          "feedback": "Questo è il numero senza ripetizioni, 26 · 25 · 24."
+        },
+        {
+          "id": "D",
+          "text": "2600",
+          "feedback": "Hai calcolato C(26, 3) = 2600, ma in un codice l’ordine conta e le lettere si ripetono."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-c10-q2",
+      "prompt": "In quanti modi si sceglie una squadra di 3 persone tra 10?",
+      "options": [
+        {
+          "id": "A",
+          "text": "120",
+          "feedback": "Esatto: C(10, 3) = 10 · 9 · 8/3! = 120."
+        },
+        {
+          "id": "B",
+          "text": "720",
+          "feedback": "720 = 10 · 9 · 8 conta le squadre ordinate; in una squadra l’ordine non conta."
+        },
+        {
+          "id": "C",
+          "text": "30",
+          "feedback": "30 = 10 · 3 non è un conteggio di gruppi."
+        },
+        {
+          "id": "D",
+          "text": "1000",
+          "feedback": "1000 = 10³ ammetterebbe la stessa persona più volte e l’ordine."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "math-c10-calculation",
-      "prompt": "Calcolo: Prove n (a)=4 (adimensionale); Probabilità p (b)=0,5 (adimensionale). Per Successi k=2 (adimensionale), quanto vale Probabilità?",
+      "id": "math-c10-q3",
+      "prompt": "Qual è la probabilità di almeno un sei in quattro lanci di un dado?",
       "options": [
         {
           "id": "A",
-          "text": "1,375 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. P(k) = C(n,k) p^k (1-p)^(n-k). Con Prove n (a)=4 (adimensionale); Probabilità p (b)=0,5 (adimensionale) e Successi k=2 (adimensionale), il risultato è 0,375 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "4/6",
+          "feedback": "Sommando le probabilità si contano più volte i casi con più di un sei."
         },
         {
           "id": "B",
-          "text": "-0,625 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. P(k) = C(n,k) p^k (1-p)^(n-k). Con Prove n (a)=4 (adimensionale); Probabilità p (b)=0,5 (adimensionale) e Successi k=2 (adimensionale), il risultato è 0,375 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "(1/6)⁴",
+          "feedback": "Questa è la probabilità di quattro sei."
         },
         {
           "id": "C",
-          "text": "0,375 (adimensionale)",
-          "feedback": "P(k) = C(n,k) p^k (1-p)^(n-k). Con Prove n (a)=4 (adimensionale); Probabilità p (b)=0,5 (adimensionale) e Successi k=2 (adimensionale), il risultato è 0,375 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "C",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 4,
-          "b": 0.5
-        },
-        "expected": 0.375,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "math-c10-transfer",
-      "prompt": "Trasferimento: Prove n (a)=5 (adimensionale); Probabilità p (b)=0,5 (adimensionale). Per Successi k=2 (adimensionale), quanto vale Probabilità?",
-      "options": [
-        {
-          "id": "A",
-          "text": "-0,6875 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. P(k) = C(n,k) p^k (1-p)^(n-k). Con Prove n (a)=5 (adimensionale); Probabilità p (b)=0,5 (adimensionale) e Successi k=2 (adimensionale), il risultato è 0,3125 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "1 − (5/6)⁴ ≈ 0,518",
+          "feedback": "Esatto: si calcola il contrario, nessun sei, e lo si sottrae da 1."
         },
         {
-          "id": "B",
-          "text": "0,3125 (adimensionale)",
-          "feedback": "P(k) = C(n,k) p^k (1-p)^(n-k). Con Prove n (a)=5 (adimensionale); Probabilità p (b)=0,5 (adimensionale) e Successi k=2 (adimensionale), il risultato è 0,3125 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "C",
-          "text": "1,3125 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. P(k) = C(n,k) p^k (1-p)^(n-k). Con Prove n (a)=5 (adimensionale); Probabilità p (b)=0,5 (adimensionale) e Successi k=2 (adimensionale), il risultato è 0,3125 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 5,
-          "b": 0.5
-        },
-        "expected": 0.3125,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "math-c10-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il modello non si applica direttamente a prove dipendenti o a estrazioni senza reinserimento da una popolazione piccola. Le barre rappresentano probabilità esatte, non frequenze osservate."
-        },
-        {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il modello non si applica direttamente a prove dipendenti o a estrazioni senza reinserimento da una popolazione piccola. Le barre rappresentano probabilità esatte, non frequenze osservate."
-        },
-        {
-          "id": "C",
-          "text": "Prove indipendenti, stessa probabilità p",
-          "feedback": "Il modello non si applica direttamente a prove dipendenti o a estrazioni senza reinserimento da una popolazione piccola. Le barre rappresentano probabilità esatte, non frequenze osservate."
+          "id": "D",
+          "text": "1/6",
+          "feedback": "1/6 è la probabilità per un solo lancio."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "math-c10-q4",
+      "prompt": "Tempi di riparazione: 3, 5, 5, 6, 21 ore. Quale indice descrive meglio il caso tipico?",
+      "options": [
+        {
+          "id": "A",
+          "text": "La media, 8 ore",
+          "feedback": "Il valore anomalo 21 tira la media verso l’alto: 8 ore supera quattro dati su cinque."
+        },
+        {
+          "id": "B",
+          "text": "Il massimo, 21 ore",
+          "feedback": "Il massimo descrive il caso peggiore, non quello tipico."
+        },
+        {
+          "id": "C",
+          "text": "L’intervallo, 18 ore",
+          "feedback": "L’intervallo misura la dispersione."
+        },
+        {
+          "id": "D",
+          "text": "La mediana, 5 ore",
+          "feedback": "Esatto: la mediana resiste al valore anomalo."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "math-c10-q5",
+      "prompt": "Dopo cinque teste di fila con una moneta equa, qual è la probabilità di croce al sesto lancio?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1/2",
+          "feedback": "Esatto: i lanci sono indipendenti; la moneta non ricorda gli esiti precedenti."
+        },
+        {
+          "id": "B",
+          "text": "Più di 1/2, perché la croce è in ritardo",
+          "feedback": "È l’errore del giocatore: il ritardo non cambia la probabilità."
+        },
+        {
+          "id": "C",
+          "text": "1/64",
+          "feedback": "1/64 è la probabilità di sei esiti fissati in sequenza, calcolata prima di lanciare."
+        },
+        {
+          "id": "D",
+          "text": "Meno di 1/2, perché esce spesso testa",
+          "feedback": "Con una moneta equa la probabilità resta 1/2."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-c10-q6",
+      "prompt": "Con 4 lanci di una moneta equa, qual è la probabilità di esattamente 2 teste?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1/2",
+          "feedback": "Due teste su quattro è l’esito più probabile, con probabilità 6/16."
+        },
+        {
+          "id": "B",
+          "text": "0,375",
+          "feedback": "Esatto: sei sequenze favorevoli su sedici, C(4, 2)/2⁴ = 6/16."
+        },
+        {
+          "id": "C",
+          "text": "1/4",
+          "feedback": "1/4 è la probabilità di testa in due lanci fissati."
+        },
+        {
+          "id": "D",
+          "text": "2/4",
+          "feedback": "La frazione dei lanci non è la probabilità dell’evento."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "steps",
+    "goal": 4,
+    "problems": [
+      {
+        "id": "codice",
+        "title": "Il codice di accesso",
+        "text": "Un codice ha 4 cifre da 0 a 9. Quanti codici esistono? E con le cifre tutte diverse?",
+        "maxErrors": 1,
+        "explain": "Il principio del conteggio moltiplica le scelte; il divieto di ripetere riduce le scelte a ogni posizione.",
+        "steps": [
+          {
+            "prompt": "Quanti codici, con ripetizioni ammesse?",
+            "options": [
+              {
+                "text": "10 000",
+                "feedback": "Giusto: 10 · 10 · 10 · 10."
+              },
+              {
+                "text": "40",
+                "feedback": "Le scelte si moltiplicano, non si sommano."
+              },
+              {
+                "text": "5040",
+                "feedback": "Questo è il caso con cifre tutte diverse."
+              }
+            ],
+            "correct": 0,
+            "result": "10⁴ = 10 000 codici."
+          },
+          {
+            "prompt": "E con le cifre tutte diverse?",
+            "options": [
+              {
+                "text": "10 · 9 · 8 · 7 = 5040",
+                "feedback": "Giusto: a ogni posizione una cifra in meno disponibile."
+              },
+              {
+                "text": "C(10, 4) = 210",
+                "feedback": "Le combinazioni ignorano l’ordine, che in un codice conta."
+              },
+              {
+                "text": "4! = 24",
+                "feedback": "24 ordina 4 cifre già scelte, senza sceglierle."
+              }
+            ],
+            "correct": 0,
+            "result": "5040 codici con cifre diverse."
+          }
+        ]
+      },
+      {
+        "id": "squadra",
+        "title": "La squadra di uscita",
+        "text": "Si sorteggiano 3 tecnici su 10. Quante squadre? Qual è la probabilità che ne faccia parte Anna?",
+        "maxErrors": 1,
+        "explain": "Fissato un membro, si contano le squadre che lo contengono: si scelgono gli altri due tra i nove rimasti.",
+        "steps": [
+          {
+            "prompt": "Quante squadre diverse?",
+            "options": [
+              {
+                "text": "C(10, 3) = 120",
+                "feedback": "Giusto: l’ordine nella squadra non conta."
+              },
+              {
+                "text": "10 · 9 · 8 = 720",
+                "feedback": "Così si contano le squadre ordinate: ogni squadra compare 3! = 6 volte."
+              },
+              {
+                "text": "30",
+                "feedback": "30 = 10 · 3 non conta i gruppi."
+              }
+            ],
+            "correct": 0,
+            "result": "120 squadre."
+          },
+          {
+            "prompt": "Quante squadre contengono Anna?",
+            "options": [
+              {
+                "text": "C(9, 2) = 36",
+                "feedback": "Giusto: Anna è fissata, si scelgono 2 tra gli altri 9."
+              },
+              {
+                "text": "C(10, 2) = 45",
+                "feedback": "Anna non può essere scelta di nuovo: restano 9 persone."
+              },
+              {
+                "text": "3",
+                "feedback": "3 è il numero dei posti, non delle squadre."
+              }
+            ],
+            "correct": 0,
+            "result": "36 squadre con Anna."
+          },
+          {
+            "prompt": "Qual è la probabilità?",
+            "options": [
+              {
+                "text": "36/120 = 0,3",
+                "feedback": "Giusto: ed è proprio 3/10, tre posti su dieci persone."
+              },
+              {
+                "text": "1/10",
+                "feedback": "1/10 sarebbe la probabilità con un solo posto."
+              },
+              {
+                "text": "36/720",
+                "feedback": "Squadre favorevoli e possibili vanno contate nello stesso modo, senza ordine."
+              }
+            ],
+            "correct": 0,
+            "result": "P = 0,3."
+          }
+        ]
+      },
+      {
+        "id": "sei",
+        "title": "Almeno un sei",
+        "text": "Si lancia un dado 4 volte. Qual è la probabilità di ottenere almeno un sei?",
+        "maxErrors": 1,
+        "explain": "«Almeno uno» si calcola quasi sempre con l’evento contrario, «nessuno».",
+        "steps": [
+          {
+            "prompt": "Qual è l’evento contrario?",
+            "options": [
+              {
+                "text": "Nessun sei nei quattro lanci",
+                "feedback": "Giusto: è il contrario di almeno uno."
+              },
+              {
+                "text": "Quattro sei",
+                "feedback": "Quattro sei è un caso particolare dell’evento, non il contrario."
+              },
+              {
+                "text": "Esattamente un sei",
+                "feedback": "Anche questo fa parte di «almeno un sei»."
+              }
+            ],
+            "correct": 0,
+            "result": "Contrario: nessun sei."
+          },
+          {
+            "prompt": "Probabilità di nessun sei?",
+            "options": [
+              {
+                "text": "(5/6)⁴ ≈ 0,482",
+                "feedback": "Giusto: lanci indipendenti, 5/6 a ogni lancio."
+              },
+              {
+                "text": "4 · 5/6",
+                "feedback": "Una probabilità non supera 1: per eventi indipendenti si moltiplica."
+              },
+              {
+                "text": "5/6",
+                "feedback": "Questa vale per un solo lancio."
+              }
+            ],
+            "correct": 0,
+            "result": "P(nessun sei) ≈ 0,482."
+          },
+          {
+            "prompt": "Probabilità di almeno un sei?",
+            "options": [
+              {
+                "text": "Circa 0,518",
+                "feedback": "Giusto: 1 − 0,482."
+              },
+              {
+                "text": "Circa 0,667",
+                "feedback": "4/6 si otterrebbe sommando, contando più volte i casi con più sei."
+              },
+              {
+                "text": "Circa 0,482",
+                "feedback": "Questo è il contrario: va sottratto da 1."
+              }
+            ],
+            "correct": 0,
+            "result": "P ≈ 0,518."
+          }
+        ]
+      },
+      {
+        "id": "binomiale",
+        "title": "Due teste su quattro",
+        "text": "Si lancia 4 volte una moneta equa. Qual è la probabilità di esattamente 2 teste?",
+        "maxErrors": 1,
+        "explain": "La legge binomiale moltiplica il numero di sequenze favorevoli per la probabilità di ciascuna.",
+        "steps": [
+          {
+            "prompt": "Quante sequenze contengono esattamente 2 teste?",
+            "options": [
+              {
+                "text": "C(4, 2) = 6",
+                "feedback": "Giusto: si scelgono le 2 posizioni delle teste tra 4."
+              },
+              {
+                "text": "2",
+                "feedback": "Le posizioni delle due teste possono variare: TTCC, TCTC, e così via."
+              },
+              {
+                "text": "16",
+                "feedback": "16 è il numero di tutte le sequenze."
+              }
+            ],
+            "correct": 0,
+            "result": "6 sequenze favorevoli."
+          },
+          {
+            "prompt": "Qual è la probabilità di una sequenza fissata?",
+            "options": [
+              {
+                "text": "1/16",
+                "feedback": "Giusto: (1/2)⁴."
+              },
+              {
+                "text": "1/4",
+                "feedback": "Ogni lancio dimezza la probabilità: quattro lanci danno 1/16."
+              },
+              {
+                "text": "1/2",
+                "feedback": "1/2 vale per un solo lancio."
+              }
+            ],
+            "correct": 0,
+            "result": "Ogni sequenza: 1/16."
+          },
+          {
+            "prompt": "Probabilità di esattamente 2 teste?",
+            "options": [
+              {
+                "text": "6/16 = 0,375",
+                "feedback": "Giusto: è il valore di riferimento del laboratorio binomiale."
+              },
+              {
+                "text": "1/2",
+                "feedback": "L’esito centrale è il più probabile, e vale 0,375."
+              },
+              {
+                "text": "2/16",
+                "feedback": "Le sequenze favorevoli sono 6."
+              }
+            ],
+            "correct": 0,
+            "result": "P = 0,375."
+          }
+        ]
+      },
+      {
+        "id": "riparazioni",
+        "title": "Media o mediana?",
+        "text": "Tempi di riparazione in ore: 3, 5, 5, 6, 21.",
+        "maxErrors": 1,
+        "explain": "Un valore anomalo sposta la media e lascia quasi ferma la mediana.",
+        "steps": [
+          {
+            "prompt": "Quanto vale la media?",
+            "options": [
+              {
+                "text": "8",
+                "feedback": "Giusto: 40/5 = 8."
+              },
+              {
+                "text": "5",
+                "feedback": "5 è la mediana e la moda."
+              },
+              {
+                "text": "7,5",
+                "feedback": "La somma è 3 + 5 + 5 + 6 + 21 = 40, da dividere per 5."
+              }
+            ],
+            "correct": 0,
+            "result": "Media 8 ore."
+          },
+          {
+            "prompt": "Quanto vale la mediana?",
+            "options": [
+              {
+                "text": "5",
+                "feedback": "Giusto: il terzo valore dei dati ordinati."
+              },
+              {
+                "text": "8",
+                "feedback": "8 è la media; la mediana è il valore centrale."
+              },
+              {
+                "text": "12",
+                "feedback": "12 è il punto medio tra 3 e 21, non il valore centrale."
+              }
+            ],
+            "correct": 0,
+            "result": "Mediana 5 ore."
+          },
+          {
+            "prompt": "Quale descrive meglio un tempo tipico?",
+            "options": [
+              {
+                "text": "La mediana, perché il 21 è anomalo",
+                "feedback": "Giusto: quattro dati su cinque stanno sotto la media."
+              },
+              {
+                "text": "La media, perché usa tutti i dati",
+                "feedback": "Usare tutti i dati la rende sensibile al valore anomalo."
+              },
+              {
+                "text": "Nessuna delle due",
+                "feedback": "Entrambe sono valide; qui la mediana rappresenta meglio il caso tipico."
+              }
+            ],
+            "correct": 0,
+            "result": "Il caso tipico è descritto dalla mediana."
+          }
+        ]
+      }
+    ]
+  }
 }

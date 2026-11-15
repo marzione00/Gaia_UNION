@@ -5,14 +5,15 @@
   "title": "Vettori, matrici, dati e vincoli",
   "sector": 0,
   "modelId": "math-p02",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Matrice diagonale e vettore iniziale fissato",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Vettori, matrici come trasformazioni, determinante, autovalori e iterazione",
+  "narrativeStatus": "Il sistema di navigazione è immaginario; vettori e matrici sono matematica reale.",
   "objectives": [
-    "Spiegare: matrice diagonale e vettore iniziale fissato.",
-    "Applicare ||v_n|| = √(a^(2n)+b^(2n)), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Sommare vettori, calcolarne la norma e il prodotto scalare.",
+    "Leggere una matrice come trasformazione del piano.",
+    "Interpretare il determinante come fattore di scala delle aree.",
+    "Prevedere la crescita o la riduzione di un vettore iterando una matrice."
   ],
   "prerequisites": [
     "math-c04",
@@ -20,11 +21,10 @@
     "math-c10"
   ],
   "connections": [
-    "math-p08"
+    "math-p06"
   ],
   "sources": [
-    "precalculus",
-    "calculus"
+    "precalculus"
   ],
   "originalSource": {
     "id": "math-2026",
@@ -40,250 +40,515 @@
   },
   "glossary": [
     {
-      "term": "Iterazioni n",
-      "definition": "Variabile indipendente, unità 1; intervallo [0; 10]."
+      "term": "Vettore",
+      "definition": "Oggetto con componenti (v₁; v₂), rappresentato da una freccia."
     },
     {
-      "term": "Norma vettore",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Norma",
+      "definition": "Lunghezza di un vettore: √(v₁² + v₂²)."
     },
     {
-      "term": "Autovalore a",
-      "definition": "Parametro a, unità 1; intervallo [0; 2]."
+      "term": "Matrice",
+      "definition": "Tabella di numeri; una matrice 2 × 2 trasforma i vettori del piano."
     },
     {
-      "term": "Autovalore b",
-      "definition": "Parametro b, unità 1; intervallo [0; 2]."
+      "term": "Determinante",
+      "definition": "ad − bc: fattore per cui la trasformazione moltiplica le aree, con segno per l’orientamento."
+    },
+    {
+      "term": "Autovalore",
+      "definition": "Fattore di cui viene allungato un autovettore, una direzione che la trasformazione non ruota."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Frecce e tabelle",
       "text": {
         "base": [
-          "Due componenti di un sistema vengono ridimensionate a ogni ciclo. Una matrice compatta descrive l’operazione. Devi prevedere se il vettore si estinguerà, resterà limitato o crescerà.",
-          "Una matrice diagonale agisce separatamente sulle componenti di un vettore. Con M=diag(a,b) e v₀=(1,1), dopo n applicazioni hai v_n=(a^n,b^n). I due fattori sono gli autovalori; le direzioni degli assi sono autovettori."
+          "Il sistema di navigazione della stazione descrive spostamenti, velocità e forze con frecce, e le rotazioni della telecamera con tabelle di numeri. Le frecce sono vettori, le tabelle matrici: insieme permettono di calcolare trasformazioni del piano, di organizzare dati e di prevedere come un sistema evolve passo dopo passo.",
+          "Un vettore del piano ha due componenti, v = (v₁; v₂): uno spostamento di v₁ in orizzontale e v₂ in verticale. I vettori si sommano componente per componente, regola del parallelogramma, e si moltiplicano per un numero, cambiandone la lunghezza. La lunghezza, o norma, è |v| = √(v₁² + v₂²). Il prodotto scalare v · w = v₁w₁ + v₂w₂ vale zero se i vettori sono perpendicolari."
         ],
         "intermediate": [
-          "Due componenti di un sistema vengono ridimensionate a ogni ciclo. Una matrice compatta descrive l’operazione. Devi prevedere se il vettore si estinguerà, resterà limitato o crescerà.",
-          "La norma euclidea è √(a^(2n)+b^(2n)). Quando entrambi i moduli sono minori di 1, le componenti tendono a zero. Se uno è maggiore di 1 e la componente iniziale corrispondente non è nulla, quel contributo cresce."
+          "Il sistema di navigazione della stazione descrive spostamenti, velocità e forze con frecce, e le rotazioni della telecamera con tabelle di numeri. Le frecce sono vettori, le tabelle matrici: insieme permettono di calcolare trasformazioni del piano, di organizzare dati e di prevedere come un sistema evolve passo dopo passo.",
+          "Un vettore del piano ha due componenti, v = (v₁; v₂): uno spostamento di v₁ in orizzontale e v₂ in verticale. I vettori si sommano componente per componente, regola del parallelogramma, e si moltiplicano per un numero, cambiandone la lunghezza. La lunghezza, o norma, è |v| = √(v₁² + v₂²). Il prodotto scalare v · w = v₁w₁ + v₂w₂ vale zero se i vettori sono perpendicolari."
         ],
         "advanced": [
-          "Due componenti di un sistema vengono ridimensionate a ogni ciclo. Una matrice compatta descrive l’operazione. Devi prevedere se il vettore si estinguerà, resterà limitato o crescerà.",
-          "Collega la convergenza delle iterazioni al raggio spettrale. Cerca un esempio con un autovalore uguale a 1 e spiega perché la norma non tende necessariamente a zero.",
-          "Il laboratorio considera soltanto matrici diagonali reali non negative e vettore iniziale (1,1). Non è un risolutore generale di sistemi lineari o una procedura di analisi dei dati."
+          "Il sistema di navigazione della stazione descrive spostamenti, velocità e forze con frecce, e le rotazioni della telecamera con tabelle di numeri. Le frecce sono vettori, le tabelle matrici: insieme permettono di calcolare trasformazioni del piano, di organizzare dati e di prevedere come un sistema evolve passo dopo passo.",
+          "Un vettore del piano ha due componenti, v = (v₁; v₂): uno spostamento di v₁ in orizzontale e v₂ in verticale. I vettori si sommano componente per componente, regola del parallelogramma, e si moltiplicano per un numero, cambiandone la lunghezza. La lunghezza, o norma, è |v| = √(v₁² + v₂²). Il prodotto scalare v · w = v₁w₁ + v₂w₂ vale zero se i vettori sono perpendicolari."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Matrici come trasformazioni",
       "text": {
         "base": [
-          "Una matrice diagonale agisce separatamente sulle componenti di un vettore. Con M=diag(a,b) e v₀=(1,1), dopo n applicazioni hai v_n=(a^n,b^n). I due fattori sono gli autovalori; le direzioni degli assi sono autovettori.",
-          "Per a=0,8 e b=0,6, al primo ciclo v₁=(0,8;0,6). La norma è √(0,64+0,36)=1, contro √2 al ciclo zero."
+          "Una matrice 2 × 2, scritta qui per righe come (a b; c d), trasforma un vettore (x; y) nel vettore (ax + by; cx + dy). Le colonne della matrice sono le immagini dei due vettori di base (1; 0) e (0; 1): basta sapere dove vanno questi due per sapere dove va ogni punto. Esempio: (0 −1; 1 0) manda (1; 0) in (0; 1) e (0; 1) in (−1; 0), cioè ruota di 90° in senso antiorario.",
+          "Le trasformazioni principali hanno matrici riconoscibili. Ingrandimento di fattore k: (k 0; 0 k). Rotazione di un angolo θ: (cos θ −sin θ; sin θ cos θ). Riflessione rispetto all’asse x: (1 0; 0 −1). Taglio orizzontale: (1 k; 0 1), che fa scivolare i punti in orizzontale in proporzione alla loro altezza.",
+          "Il determinante ad − bc misura come la trasformazione cambia le aree: un quadrato di area 1 diventa una figura di area |ad − bc|. Le rotazioni e le riflessioni hanno determinante ±1 e conservano le aree; il segno negativo indica che l’orientamento si capovolge, come in uno specchio. Se il determinante è zero il piano viene schiacciato su una retta, e la trasformazione non si può invertire.",
+          "Alcune direzioni vengono solo allungate o accorciate, senza ruotare: sono le direzioni degli autovettori, e il fattore è l’autovalore. Per la matrice diagonale (a 0; 0 b) gli autovettori sono gli assi, con autovalori a e b. Applicando la matrice n volte al vettore (1; 1) si ottiene (aⁿ; bⁿ), con norma √(a²ⁿ + b²ⁿ): è il modello del laboratorio di questa unità."
         ],
         "intermediate": [
-          "La norma euclidea è √(a^(2n)+b^(2n)). Quando entrambi i moduli sono minori di 1, le componenti tendono a zero. Se uno è maggiore di 1 e la componente iniziale corrispondente non è nulla, quel contributo cresce.",
-          "La variabile Iterazioni n è espressa in 1; Norma vettore in 1. Il dominio dello strumento è [0; 10], con soli valori interi. La relazione implementata è: ||v_n|| = √(a^(2n)+b^(2n)).",
-          "Per a=0,8 e b=0,6, al primo ciclo v₁=(0,8;0,6). La norma è √(0,64+0,36)=1, contro √2 al ciclo zero."
+          "Una matrice 2 × 2, scritta qui per righe come (a b; c d), trasforma un vettore (x; y) nel vettore (ax + by; cx + dy). Le colonne della matrice sono le immagini dei due vettori di base (1; 0) e (0; 1): basta sapere dove vanno questi due per sapere dove va ogni punto. Esempio: (0 −1; 1 0) manda (1; 0) in (0; 1) e (0; 1) in (−1; 0), cioè ruota di 90° in senso antiorario.",
+          "Le trasformazioni principali hanno matrici riconoscibili. Ingrandimento di fattore k: (k 0; 0 k). Rotazione di un angolo θ: (cos θ −sin θ; sin θ cos θ). Riflessione rispetto all’asse x: (1 0; 0 −1). Taglio orizzontale: (1 k; 0 1), che fa scivolare i punti in orizzontale in proporzione alla loro altezza.",
+          "Il determinante ad − bc misura come la trasformazione cambia le aree: un quadrato di area 1 diventa una figura di area |ad − bc|. Le rotazioni e le riflessioni hanno determinante ±1 e conservano le aree; il segno negativo indica che l’orientamento si capovolge, come in uno specchio. Se il determinante è zero il piano viene schiacciato su una retta, e la trasformazione non si può invertire.",
+          "Applicare due trasformazioni una dopo l’altra corrisponde al prodotto delle matrici, e l’ordine conta: ruotare e poi riflettere dà in generale un risultato diverso da riflettere e poi ruotare. Anche un sistema lineare si scrive come matrice per vettore: risolverlo significa invertire la trasformazione, possibile solo se il determinante è diverso da zero.",
+          "Alcune direzioni vengono solo allungate o accorciate, senza ruotare: sono le direzioni degli autovettori, e il fattore è l’autovalore. Per la matrice diagonale (a 0; 0 b) gli autovettori sono gli assi, con autovalori a e b. Applicando la matrice n volte al vettore (1; 1) si ottiene (aⁿ; bⁿ), con norma √(a²ⁿ + b²ⁿ): è il modello del laboratorio di questa unità.",
+          "Iterare una matrice descrive sistemi che evolvono a passi: popolazioni divise per età, catene di Markov, algoritmi di ricerca. Dopo molti passi domina l’autovalore più grande in valore assoluto: se supera 1 la norma cresce, se tutti sono minori di 1 la norma tende a zero. Con autovalori 0,8 e 0,6, dopo 10 passi la norma è circa 0,108."
         ],
         "advanced": [
-          "La norma euclidea è √(a^(2n)+b^(2n)). Quando entrambi i moduli sono minori di 1, le componenti tendono a zero. Se uno è maggiore di 1 e la componente iniziale corrispondente non è nulla, quel contributo cresce.",
-          "Collega la convergenza delle iterazioni al raggio spettrale. Cerca un esempio con un autovalore uguale a 1 e spiega perché la norma non tende necessariamente a zero.",
-          "Il valore di un singolo elemento della matrice non misura da solo la crescita di un sistema generale. Per matrici non diagonali contano anche accoppiamenti e struttura degli autovettori."
+          "Una matrice 2 × 2, scritta qui per righe come (a b; c d), trasforma un vettore (x; y) nel vettore (ax + by; cx + dy). Le colonne della matrice sono le immagini dei due vettori di base (1; 0) e (0; 1): basta sapere dove vanno questi due per sapere dove va ogni punto. Esempio: (0 −1; 1 0) manda (1; 0) in (0; 1) e (0; 1) in (−1; 0), cioè ruota di 90° in senso antiorario.",
+          "Le trasformazioni principali hanno matrici riconoscibili. Ingrandimento di fattore k: (k 0; 0 k). Rotazione di un angolo θ: (cos θ −sin θ; sin θ cos θ). Riflessione rispetto all’asse x: (1 0; 0 −1). Taglio orizzontale: (1 k; 0 1), che fa scivolare i punti in orizzontale in proporzione alla loro altezza.",
+          "Il determinante ad − bc misura come la trasformazione cambia le aree: un quadrato di area 1 diventa una figura di area |ad − bc|. Le rotazioni e le riflessioni hanno determinante ±1 e conservano le aree; il segno negativo indica che l’orientamento si capovolge, come in uno specchio. Se il determinante è zero il piano viene schiacciato su una retta, e la trasformazione non si può invertire.",
+          "Applicare due trasformazioni una dopo l’altra corrisponde al prodotto delle matrici, e l’ordine conta: ruotare e poi riflettere dà in generale un risultato diverso da riflettere e poi ruotare. Anche un sistema lineare si scrive come matrice per vettore: risolverlo significa invertire la trasformazione, possibile solo se il determinante è diverso da zero.",
+          "Alcune direzioni vengono solo allungate o accorciate, senza ruotare: sono le direzioni degli autovettori, e il fattore è l’autovalore. Per la matrice diagonale (a 0; 0 b) gli autovettori sono gli assi, con autovalori a e b. Applicando la matrice n volte al vettore (1; 1) si ottiene (aⁿ; bⁿ), con norma √(a²ⁿ + b²ⁿ): è il modello del laboratorio di questa unità.",
+          "Iterare una matrice descrive sistemi che evolvono a passi: popolazioni divise per età, catene di Markov, algoritmi di ricerca. Dopo molti passi domina l’autovalore più grande in valore assoluto: se supera 1 la norma cresce, se tutti sono minori di 1 la norma tende a zero. Con autovalori 0,8 e 0,6, dopo 10 passi la norma è circa 0,108."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Carte di trasformazioni",
       "text": {
         "base": [
-          "Nel laboratorio imposta Autovalore a (a): 0,8 (adimensionale); Autovalore b (b): 0,6 (adimensionale). Prima di salvare A, prevedi come cambia Norma vettore fra Iterazioni n=3 e 5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Per a=0,8 e b=0,6, al primo ciclo v₁=(0,8;0,6). La norma è √(0,64+0,36)=1, contro √2 al ciclo zero.",
-          "La variabile Iterazioni n è espressa in 1; Norma vettore in 1. Il dominio dello strumento è [0; 10], con soli valori interi. La relazione implementata è: ||v_n|| = √(a^(2n)+b^(2n))."
+          "L’attività ha tre serie di carte. Nella prima riconosci il tipo di trasformazione dalla matrice; nella seconda decidi, dal determinante, che cosa succede alle aree; nella terza ordini cinque matrici diagonali in base alla norma del vettore (1; 1) dopo dieci applicazioni. Supera tutte e tre le serie; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per riconoscere una trasformazione calcola dove vanno (1; 0) e (0; 1): sono le due colonne. Poi disegna il quadrato unitario trasformato."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Autovalore a (a): 0,8 (adimensionale); Autovalore b (b): 0,6 (adimensionale). Prima di salvare A, prevedi come cambia Norma vettore fra Iterazioni n=3 e 5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Iterazioni n è espressa in 1; Norma vettore in 1. Il dominio dello strumento è [0; 10], con soli valori interi. La relazione implementata è: ||v_n|| = √(a^(2n)+b^(2n)).",
-          "La norma euclidea è √(a^(2n)+b^(2n)). Quando entrambi i moduli sono minori di 1, le componenti tendono a zero. Se uno è maggiore di 1 e la componente iniziale corrispondente non è nulla, quel contributo cresce."
+          "L’attività ha tre serie di carte. Nella prima riconosci il tipo di trasformazione dalla matrice; nella seconda decidi, dal determinante, che cosa succede alle aree; nella terza ordini cinque matrici diagonali in base alla norma del vettore (1; 1) dopo dieci applicazioni. Supera tutte e tre le serie; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per riconoscere una trasformazione calcola dove vanno (1; 0) e (0; 1): sono le due colonne. Poi disegna il quadrato unitario trasformato.",
+          "Iterare una matrice descrive sistemi che evolvono a passi: popolazioni divise per età, catene di Markov, algoritmi di ricerca. Dopo molti passi domina l’autovalore più grande in valore assoluto: se supera 1 la norma cresce, se tutti sono minori di 1 la norma tende a zero. Con autovalori 0,8 e 0,6, dopo 10 passi la norma è circa 0,108."
         ],
         "advanced": [
-          "Nel laboratorio imposta Autovalore a (a): 0,8 (adimensionale); Autovalore b (b): 0,6 (adimensionale). Prima di salvare A, prevedi come cambia Norma vettore fra Iterazioni n=3 e 5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Collega la convergenza delle iterazioni al raggio spettrale. Cerca un esempio con un autovalore uguale a 1 e spiega perché la norma non tende necessariamente a zero.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "L’attività ha tre serie di carte. Nella prima riconosci il tipo di trasformazione dalla matrice; nella seconda decidi, dal determinante, che cosa succede alle aree; nella terza ordini cinque matrici diagonali in base alla norma del vettore (1; 1) dopo dieci applicazioni. Supera tutte e tre le serie; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per riconoscere una trasformazione calcola dove vanno (1; 0) e (0; 1): sono le due colonne. Poi disegna il quadrato unitario trasformato.",
+          "Una matrice è anche una tabella di dati: righe per gli oggetti, colonne per le grandezze misurate. Moltiplicare una tabella di quantità per un vettore di prezzi dà il costo di ogni ordine: le stesse operazioni servono alla geometria e alla gestione dei dati."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "Il valore di un singolo elemento della matrice non misura da solo la crescita di un sistema generale. Per matrici non diagonali contano anche accoppiamenti e struttura degli autovettori.",
-          "Il laboratorio considera soltanto matrici diagonali reali non negative e vettore iniziale (1,1). Non è un risolutore generale di sistemi lineari o una procedura di analisi dei dati.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che il prodotto di matrici sia commutativo come quello dei numeri. Ruotare di 90° e poi riflettere rispetto all’asse x manda (1; 0) in (0; −1); riflettere e poi ruotare lo manda in (0; 1).",
+          "Secondo errore: credere che un taglio cambi le aree perché deforma le figure. La matrice (1 1; 0 1) ha determinante 1: il quadrato diventa un parallelogramma con la stessa base e la stessa altezza, quindi con la stessa area.",
+          "Una matrice è anche una tabella di dati: righe per gli oggetti, colonne per le grandezze misurate. Moltiplicare una tabella di quantità per un vettore di prezzi dà il costo di ogni ordine: le stesse operazioni servono alla geometria e alla gestione dei dati."
         ],
         "intermediate": [
-          "Il valore di un singolo elemento della matrice non misura da solo la crescita di un sistema generale. Per matrici non diagonali contano anche accoppiamenti e struttura degli autovettori.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "Errore frequente: pensare che il prodotto di matrici sia commutativo come quello dei numeri. Ruotare di 90° e poi riflettere rispetto all’asse x manda (1; 0) in (0; −1); riflettere e poi ruotare lo manda in (0; 1).",
+          "Secondo errore: credere che un taglio cambi le aree perché deforma le figure. La matrice (1 1; 0 1) ha determinante 1: il quadrato diventa un parallelogramma con la stessa base e la stessa altezza, quindi con la stessa area.",
+          "Una matrice è anche una tabella di dati: righe per gli oggetti, colonne per le grandezze misurate. Moltiplicare una tabella di quantità per un vettore di prezzi dà il costo di ogni ordine: le stesse operazioni servono alla geometria e alla gestione dei dati."
         ],
         "advanced": [
-          "Il laboratorio considera soltanto matrici diagonali reali non negative e vettore iniziale (1,1). Non è un risolutore generale di sistemi lineari o una procedura di analisi dei dati.",
-          "Collega la convergenza delle iterazioni al raggio spettrale. Cerca un esempio con un autovalore uguale a 1 e spiega perché la norma non tende necessariamente a zero.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che il prodotto di matrici sia commutativo come quello dei numeri. Ruotare di 90° e poi riflettere rispetto all’asse x manda (1; 0) in (0; −1); riflettere e poi ruotare lo manda in (0; 1).",
+          "Secondo errore: credere che un taglio cambi le aree perché deforma le figure. La matrice (1 1; 0 1) ha determinante 1: il quadrato diventa un parallelogramma con la stessa base e la stessa altezza, quindi con la stessa area."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Una matrice diagonale agisce separatamente sulle componenti di un vettore. Con M=diag(a,b) e v₀=(1,1), dopo n applicazioni hai v_n=(a^n,b^n). I due fattori sono gli autovalori; le direzioni degli assi sono autovettori.",
-          "Per a=0,8 e b=0,6, al primo ciclo v₁=(0,8;0,6). La norma è √(0,64+0,36)=1, contro √2 al ciclo zero."
+          "Ripasso: componenti, somma e norma dei vettori; prodotto scalare; matrice come trasformazione e significato delle colonne; matrici di rotazione, riflessione, ingrandimento e taglio; determinante e aree; autovalori e iterazione.",
+          "Mini esercizio: (2 1; 0 3) applicata a (1; 2) dà (2 + 2; 0 + 6) = (4; 6). Il determinante è 6: le aree diventano sei volte maggiori.",
+          "Nelle domande sulle trasformazioni calcola sempre le immagini dei vettori di base."
         ],
         "intermediate": [
-          "La norma euclidea è √(a^(2n)+b^(2n)). Quando entrambi i moduli sono minori di 1, le componenti tendono a zero. Se uno è maggiore di 1 e la componente iniziale corrispondente non è nulla, quel contributo cresce.",
-          "La variabile Iterazioni n è espressa in 1; Norma vettore in 1. Il dominio dello strumento è [0; 10], con soli valori interi. La relazione implementata è: ||v_n|| = √(a^(2n)+b^(2n))."
+          "Ripasso: componenti, somma e norma dei vettori; prodotto scalare; matrice come trasformazione e significato delle colonne; matrici di rotazione, riflessione, ingrandimento e taglio; determinante e aree; autovalori e iterazione.",
+          "Mini esercizio: (2 1; 0 3) applicata a (1; 2) dà (2 + 2; 0 + 6) = (4; 6). Il determinante è 6: le aree diventano sei volte maggiori.",
+          "Nelle domande sulle trasformazioni calcola sempre le immagini dei vettori di base."
         ],
         "advanced": [
-          "Collega la convergenza delle iterazioni al raggio spettrale. Cerca un esempio con un autovalore uguale a 1 e spiega perché la norma non tende necessariamente a zero.",
-          "Il laboratorio considera soltanto matrici diagonali reali non negative e vettore iniziale (1,1). Non è un risolutore generale di sistemi lineari o una procedura di analisi dei dati."
+          "Ripasso: componenti, somma e norma dei vettori; prodotto scalare; matrice come trasformazione e significato delle colonne; matrici di rotazione, riflessione, ingrandimento e taglio; determinante e aree; autovalori e iterazione.",
+          "Mini esercizio: (2 1; 0 3) applicata a (1; 2) dà (2 + 2; 0 + 6) = (4; 6). Il determinante è 6: le aree diventano sei volte maggiori.",
+          "Nelle domande sulle trasformazioni calcola sempre le immagini dei vettori di base."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Matrice diagonale e vettore iniziale fissato.",
-          "Il laboratorio considera soltanto matrici diagonali reali non negative e vettore iniziale (1,1). Non è un risolutore generale di sistemi lineari o una procedura di analisi dei dati.",
-          "Collegamento consigliato: math-p08. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Vettori e matrici sono il linguaggio della fisica, della grafica al calcolatore e dell’analisi dei dati. Le trasformazioni del piano si studiano in «Geometrie, trasformazioni e simmetrie», e l’iterazione di matrici torna nei modelli di popolazione.",
+          "Riepilogo dell’unità: i vettori si sommano per componenti e hanno una norma; una matrice trasforma i vettori, e le sue colonne sono le immagini dei vettori di base; il determinante misura il cambiamento delle aree; gli autovalori dicono come cresce o si riduce un vettore iterando la trasformazione.",
+          "Nel diario disegna il quadrato unitario trasformato da una matrice a tua scelta e calcola il determinante per controllare l’area."
         ],
         "intermediate": [
-          "La norma euclidea è √(a^(2n)+b^(2n)). Quando entrambi i moduli sono minori di 1, le componenti tendono a zero. Se uno è maggiore di 1 e la componente iniziale corrispondente non è nulla, quel contributo cresce.",
-          "Il laboratorio considera soltanto matrici diagonali reali non negative e vettore iniziale (1,1). Non è un risolutore generale di sistemi lineari o una procedura di analisi dei dati.",
-          "Collega la convergenza delle iterazioni al raggio spettrale. Cerca un esempio con un autovalore uguale a 1 e spiega perché la norma non tende necessariamente a zero."
+          "Vettori e matrici sono il linguaggio della fisica, della grafica al calcolatore e dell’analisi dei dati. Le trasformazioni del piano si studiano in «Geometrie, trasformazioni e simmetrie», e l’iterazione di matrici torna nei modelli di popolazione.",
+          "Riepilogo dell’unità: i vettori si sommano per componenti e hanno una norma; una matrice trasforma i vettori, e le sue colonne sono le immagini dei vettori di base; il determinante misura il cambiamento delle aree; gli autovalori dicono come cresce o si riduce un vettore iterando la trasformazione.",
+          "Nel diario disegna il quadrato unitario trasformato da una matrice a tua scelta e calcola il determinante per controllare l’area."
         ],
         "advanced": [
-          "Collega la convergenza delle iterazioni al raggio spettrale. Cerca un esempio con un autovalore uguale a 1 e spiega perché la norma non tende necessariamente a zero.",
-          "Il laboratorio considera soltanto matrici diagonali reali non negative e vettore iniziale (1,1). Non è un risolutore generale di sistemi lineari o una procedura di analisi dei dati.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Vettori e matrici sono il linguaggio della fisica, della grafica al calcolatore e dell’analisi dei dati. Le trasformazioni del piano si studiano in «Geometrie, trasformazioni e simmetrie», e l’iterazione di matrici torna nei modelli di popolazione.",
+          "Riepilogo dell’unità: i vettori si sommano per componenti e hanno una norma; una matrice trasforma i vettori, e le sue colonne sono le immagini dei vettori di base; il determinante misura il cambiamento delle aree; gli autovalori dicono come cresce o si riduce un vettore iterando la trasformazione.",
+          "Nel diario disegna il quadrato unitario trasformato da una matrice a tua scelta e calcola il determinante per controllare l’area."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-p02-concept",
-      "prompt": "Per M=diag(a,b), gli autovalori sono:",
+      "id": "math-p02-q1",
+      "prompt": "Qual è la norma del vettore (6; 8)?",
       "options": [
         {
           "id": "A",
-          "text": "Sempre 1 e 1",
-          "feedback": "La norma euclidea è √(a^(2n)+b^(2n)). Quando entrambi i moduli sono minori di 1, le componenti tendono a zero. Se uno è maggiore di 1 e la componente iniziale corrispondente non è nulla, quel contributo cresce."
+          "text": "14",
+          "feedback": "La norma non è la somma delle componenti."
         },
         {
           "id": "B",
-          "text": "a e b",
-          "feedback": "Una matrice diagonale agisce separatamente sulle componenti di un vettore. Con M=diag(a,b) e v₀=(1,1), dopo n applicazioni hai v_n=(a^n,b^n). I due fattori sono gli autovalori; le direzioni degli assi sono autovettori."
+          "text": "10",
+          "feedback": "Esatto: |v| = √(6² + 8²) = √100 = 10."
         },
         {
           "id": "C",
-          "text": "Soltanto a+b",
-          "feedback": "Il valore di un singolo elemento della matrice non misura da solo la crescita di un sistema generale. Per matrici non diagonali contano anche accoppiamenti e struttura degli autovettori."
+          "text": "100",
+          "feedback": "100 è il quadrato della norma: resta da estrarre la radice."
+        },
+        {
+          "id": "D",
+          "text": "48",
+          "feedback": "48 = 6 · 8 non ha il significato di una lunghezza."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "math-p02-calculation",
-      "prompt": "Calcolo: Autovalore a (a)=0,8 (adimensionale); Autovalore b (b)=0,6 (adimensionale). Per Iterazioni n=1 (adimensionale), quanto vale Norma vettore?",
+      "id": "math-p02-q2",
+      "prompt": "Che trasformazione esegue la matrice (0 −1; 1 0)?",
       "options": [
         {
           "id": "A",
-          "text": "1 (adimensionale)",
-          "feedback": "||v_n|| = √(a^(2n)+b^(2n)). Con Autovalore a (a)=0,8 (adimensionale); Autovalore b (b)=0,6 (adimensionale) e Iterazioni n=1 (adimensionale), il risultato è 1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Una rotazione di 90° in senso antiorario",
+          "feedback": "Esatto: (1; 0) va in (0; 1) e (0; 1) in (−1; 0)."
         },
         {
           "id": "B",
-          "text": "2 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. ||v_n|| = √(a^(2n)+b^(2n)). Con Autovalore a (a)=0,8 (adimensionale); Autovalore b (b)=0,6 (adimensionale) e Iterazioni n=1 (adimensionale), il risultato è 1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Una riflessione rispetto all’asse x",
+          "feedback": "La riflessione rispetto all’asse x è (1 0; 0 −1)."
         },
         {
           "id": "C",
-          "text": "0 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. ||v_n|| = √(a^(2n)+b^(2n)). Con Autovalore a (a)=0,8 (adimensionale); Autovalore b (b)=0,6 (adimensionale) e Iterazioni n=1 (adimensionale), il risultato è 1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "A",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 0.8,
-          "b": 0.6
-        },
-        "expected": 1,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "math-p02-transfer",
-      "prompt": "Trasferimento: Autovalore a (a)=0,9 (adimensionale); Autovalore b (b)=0,6 (adimensionale). Per Iterazioni n=1 (adimensionale), quanto vale Norma vettore?",
-      "options": [
-        {
-          "id": "A",
-          "text": "2,08167 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. ||v_n|| = √(a^(2n)+b^(2n)). Con Autovalore a (a)=0,9 (adimensionale); Autovalore b (b)=0,6 (adimensionale) e Iterazioni n=1 (adimensionale), il risultato è 1,08167 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Un ingrandimento",
+          "feedback": "Le lunghezze restano invariate: le colonne hanno norma 1."
         },
         {
-          "id": "B",
-          "text": "0,0816654 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. ||v_n|| = √(a^(2n)+b^(2n)). Con Autovalore a (a)=0,9 (adimensionale); Autovalore b (b)=0,6 (adimensionale) e Iterazioni n=1 (adimensionale), il risultato è 1,08167 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "C",
-          "text": "1,08167 (adimensionale)",
-          "feedback": "||v_n|| = √(a^(2n)+b^(2n)). Con Autovalore a (a)=0,9 (adimensionale); Autovalore b (b)=0,6 (adimensionale) e Iterazioni n=1 (adimensionale), il risultato è 1,08167 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "C",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 0.9,
-          "b": 0.6
-        },
-        "expected": 1.0816653826391969,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "math-p02-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Matrice diagonale e vettore iniziale fissato",
-          "feedback": "Il laboratorio considera soltanto matrici diagonali reali non negative e vettore iniziale (1,1). Non è un risolutore generale di sistemi lineari o una procedura di analisi dei dati."
-        },
-        {
-          "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il laboratorio considera soltanto matrici diagonali reali non negative e vettore iniziale (1,1). Non è un risolutore generale di sistemi lineari o una procedura di analisi dei dati."
-        },
-        {
-          "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il laboratorio considera soltanto matrici diagonali reali non negative e vettore iniziale (1,1). Non è un risolutore generale di sistemi lineari o una procedura di analisi dei dati."
+          "id": "D",
+          "text": "Un taglio",
+          "feedback": "Un taglio lascia fisso (1; 0); qui (1; 0) ruota."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "math-p02-q3",
+      "prompt": "Quanto vale il determinante di (3 1; 2 4)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "14",
+          "feedback": "Il determinante è ad − bc, non ad + bc."
+        },
+        {
+          "id": "B",
+          "text": "12",
+          "feedback": "Manca la sottrazione di bc = 2."
+        },
+        {
+          "id": "C",
+          "text": "10",
+          "feedback": "Esatto: ad − bc = 3 · 4 − 1 · 2 = 10."
+        },
+        {
+          "id": "D",
+          "text": "5",
+          "feedback": "Hai moltiplicato in modo non corretto: ad = 12 e bc = 2."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "math-p02-q4",
+      "prompt": "Una matrice ha determinante 0. Che cosa fa al piano?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Lo ruota",
+          "feedback": "Le rotazioni hanno determinante 1."
+        },
+        {
+          "id": "B",
+          "text": "Lo lascia invariato",
+          "feedback": "L’identità, che lascia tutto invariato, ha determinante 1."
+        },
+        {
+          "id": "C",
+          "text": "Lo riflette",
+          "feedback": "Le riflessioni hanno determinante −1."
+        },
+        {
+          "id": "D",
+          "text": "Lo schiaccia su una retta o su un punto, e non si può invertire",
+          "feedback": "Esatto: tutte le aree diventano zero."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "math-p02-q5",
+      "prompt": "Il taglio (1 1; 0 1) trasforma il quadrato unitario in un parallelogramma. Che area ha?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1",
+          "feedback": "Esatto: il determinante è 1 · 1 − 1 · 0 = 1, stessa base e stessa altezza."
+        },
+        {
+          "id": "B",
+          "text": "2",
+          "feedback": "La figura si allunga in diagonale, e l’area resta 1."
+        },
+        {
+          "id": "C",
+          "text": "0",
+          "feedback": "Un determinante nullo schiaccerebbe la figura: qui vale 1."
+        },
+        {
+          "id": "D",
+          "text": "√2",
+          "feedback": "√2 è la lunghezza del lato obliquo, non l’area."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-p02-q6",
+      "prompt": "Una matrice diagonale ha autovalori 1,2 e 0,5. Che cosa succede alla norma di (1; 1) dopo molte applicazioni?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tende a zero",
+          "feedback": "Un autovalore maggiore di 1 fa crescere la componente corrispondente."
+        },
+        {
+          "id": "B",
+          "text": "Cresce senza limite, dominata da 1,2ⁿ",
+          "feedback": "Esatto: la componente con autovalore 1,2 cresce e domina."
+        },
+        {
+          "id": "C",
+          "text": "Resta 1",
+          "feedback": "Le componenti cambiano a ogni passo."
+        },
+        {
+          "id": "D",
+          "text": "Oscilla",
+          "feedback": "Autovalori positivi non producono oscillazioni."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "cards",
+    "goal": 3,
+    "rounds": [
+      {
+        "id": "trasformazioni",
+        "type": "classify",
+        "title": "Che cosa fa la matrice?",
+        "prompt": "Le matrici sono scritte per righe: (a b; c d). Scegli il tipo di trasformazione.",
+        "categories": [
+          {
+            "id": "rotazione",
+            "label": "ROTAZIONE"
+          },
+          {
+            "id": "riflessione",
+            "label": "RIFLESSIONE"
+          },
+          {
+            "id": "ingrandimento",
+            "label": "INGRANDIMENTO"
+          },
+          {
+            "id": "taglio",
+            "label": "TAGLIO"
+          }
+        ],
+        "items": [
+          {
+            "id": "t1",
+            "text": "(2 0; 0 2)",
+            "why": "Entrambe le direzioni sono moltiplicate per 2.",
+            "category": "ingrandimento"
+          },
+          {
+            "id": "t2",
+            "text": "(0 −1; 1 0)",
+            "why": "Rotazione di 90°: (1; 0) va in (0; 1).",
+            "category": "rotazione"
+          },
+          {
+            "id": "t3",
+            "text": "(1 0; 0 −1)",
+            "why": "Riflessione rispetto all’asse x: y cambia segno.",
+            "category": "riflessione"
+          },
+          {
+            "id": "t4",
+            "text": "(1 1; 0 1)",
+            "why": "Taglio: (0; 1) va in (1; 1), (1; 0) resta fermo.",
+            "category": "taglio"
+          },
+          {
+            "id": "t5",
+            "text": "(−1 0; 0 −1)",
+            "why": "Rotazione di 180°: ogni vettore diventa il suo opposto.",
+            "category": "rotazione"
+          },
+          {
+            "id": "t6",
+            "text": "(0 1; 1 0)",
+            "why": "Riflessione rispetto alla bisettrice y = x: scambia x e y.",
+            "category": "riflessione"
+          },
+          {
+            "id": "t7",
+            "text": "(3 0; 0 3)",
+            "why": "Ingrandimento di fattore 3.",
+            "category": "ingrandimento"
+          },
+          {
+            "id": "t8",
+            "text": "(1 2; 0 1)",
+            "why": "Taglio di fattore 2: i punti scivolano in orizzontale di 2y.",
+            "category": "taglio"
+          }
+        ],
+        "explain": "Le colonne della matrice sono le immagini di (1; 0) e (0; 1): bastano a riconoscere la trasformazione.",
+        "maxErrors": 2
+      },
+      {
+        "id": "determinante",
+        "type": "classify",
+        "title": "Che cosa succede alle aree?",
+        "prompt": "Calcola il determinante ad − bc e decidi come cambiano le aree.",
+        "categories": [
+          {
+            "id": "conserva",
+            "label": "CONSERVA L’AREA"
+          },
+          {
+            "id": "ingrandisce",
+            "label": "INGRANDISCE"
+          },
+          {
+            "id": "rimpicciolisce",
+            "label": "RIMPICCIOLISCE"
+          },
+          {
+            "id": "schiaccia",
+            "label": "SCHIACCIA"
+          }
+        ],
+        "items": [
+          {
+            "id": "a1",
+            "text": "(0 −1; 1 0)",
+            "why": "Determinante 1: una rotazione conserva le aree.",
+            "category": "conserva"
+          },
+          {
+            "id": "a2",
+            "text": "(2 0; 0 3)",
+            "why": "Determinante 6: le aree diventano sei volte maggiori.",
+            "category": "ingrandisce"
+          },
+          {
+            "id": "a3",
+            "text": "(0,5 0; 0 0,5)",
+            "why": "Determinante 0,25: le aree diventano un quarto.",
+            "category": "rimpicciolisce"
+          },
+          {
+            "id": "a4",
+            "text": "(1 2; 2 4)",
+            "why": "Determinante 4 − 4 = 0: le colonne sono parallele.",
+            "category": "schiaccia"
+          },
+          {
+            "id": "a5",
+            "text": "(1 1; 0 1)",
+            "why": "Determinante 1: il taglio deforma ma conserva le aree.",
+            "category": "conserva"
+          },
+          {
+            "id": "a6",
+            "text": "(1 0; 0 −1)",
+            "why": "Determinante −1: area conservata, orientamento capovolto.",
+            "category": "conserva"
+          },
+          {
+            "id": "a7",
+            "text": "(3 1; 6 2)",
+            "why": "Determinante 6 − 6 = 0: la seconda riga è il doppio della prima.",
+            "category": "schiaccia"
+          },
+          {
+            "id": "a8",
+            "text": "(0,8 0; 0 0,5)",
+            "why": "Determinante 0,4: le aree si riducono.",
+            "category": "rimpicciolisce"
+          }
+        ],
+        "explain": "Il valore assoluto del determinante è il fattore delle aree; il segno dice se l’orientamento si capovolge.",
+        "maxErrors": 2
+      },
+      {
+        "id": "iterazione",
+        "type": "order",
+        "title": "Dieci passi dopo",
+        "prompt": "Matrici diagonali con autovalori a e b applicate 10 volte a (1; 1). Ordina dalla norma più piccola alla più grande.",
+        "items": [
+          {
+            "id": "n1",
+            "text": "Autovalori 0,5 e 0,5",
+            "why": "Norma √2 · 0,5¹⁰ ≈ 0,0014: entrambe le componenti si riducono in fretta."
+          },
+          {
+            "id": "n2",
+            "text": "Autovalori 0,8 e 0,6",
+            "why": "Norma ≈ 0,108: domina 0,8¹⁰ ≈ 0,107."
+          },
+          {
+            "id": "n3",
+            "text": "Autovalori 0,9 e 0,9",
+            "why": "Norma √2 · 0,9¹⁰ ≈ 0,49."
+          },
+          {
+            "id": "n4",
+            "text": "Autovalori 1 e 0,5",
+            "why": "Norma ≈ 1,0000005: la prima componente resta 1."
+          },
+          {
+            "id": "n5",
+            "text": "Autovalori 1,1 e 0,9",
+            "why": "Norma ≈ 2,62: domina 1,1¹⁰ ≈ 2,59."
+          },
+          {
+            "id": "n6",
+            "text": "Autovalori 1,2 e 0",
+            "why": "Norma 1,2¹⁰ ≈ 6,19: la seconda componente sparisce al primo passo."
+          }
+        ],
+        "explain": "Dopo molti passi conta l’autovalore più grande: sotto 1 la norma tende a zero, sopra 1 cresce."
+      }
+    ]
+  }
 }

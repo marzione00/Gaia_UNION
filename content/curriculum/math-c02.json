@@ -5,20 +5,21 @@
   "title": "Algebra",
   "sector": 0,
   "modelId": "math-c02",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Polinomio reale; cornice solo per x≥a",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Monomi, polinomi, prodotti notevoli, scomposizione e legge di annullamento del prodotto",
+  "narrativeStatus": "La stazione è immaginaria; il calcolo letterale è quello di sempre.",
   "objectives": [
-    "Spiegare: polinomio reale; cornice solo per x≥a.",
-    "Applicare y = (x-a)(x+a) = x²-a², dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Sommare e moltiplicare polinomi e controllare il risultato con un valore numerico.",
+    "Riconoscere e usare quadrato di binomio, differenza di quadrati e cubo di binomio.",
+    "Scomporre un polinomio scegliendo il metodo adatto.",
+    "Risolvere equazioni con la legge di annullamento del prodotto."
   ],
   "prerequisites": [
     "math-c01"
   ],
   "connections": [
-    "math-a"
+    "math-c03"
   ],
   "sources": [
     "precalculus"
@@ -37,244 +38,511 @@
   },
   "glossary": [
     {
-      "term": "x",
-      "definition": "Variabile indipendente, unità 1; intervallo [-6; 6]."
+      "term": "Monomio",
+      "definition": "Prodotto di un coefficiente numerico e di lettere con esponenti naturali, come 3x²y."
     },
     {
       "term": "Polinomio",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "definition": "Somma di monomi; il suo grado è il grado massimo dei monomi."
     },
     {
-      "term": "Radice a",
-      "definition": "Parametro a, unità 1; intervallo [0; 5]."
+      "term": "Prodotto notevole",
+      "definition": "Prodotto con una forma fissa di risultato, come (a + b)² = a² + 2ab + b²."
+    },
+    {
+      "term": "Scomposizione",
+      "definition": "Scrittura di un polinomio come prodotto di polinomi di grado più basso."
+    },
+    {
+      "term": "Identità",
+      "definition": "Uguaglianza vera per tutti i valori delle lettere."
+    },
+    {
+      "term": "Legge di annullamento del prodotto",
+      "definition": "Un prodotto è zero se e solo se almeno un fattore è zero."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Calcolare con le lettere",
       "text": {
         "base": [
-          "Un laboratorio deve ritagliare una cornice quadrata. Il lato esterno cambia, ma quello del foro resta fissato. Il tecnico ha due formule per l’area: sembrano diverse. Puoi dimostrare quando descrivono la stessa quantità?",
-          "Un’espressione algebrica può essere letta come somma o come prodotto. La differenza di quadrati x²-a² si scompone in (x-a)(x+a). La forma sviluppata facilita il calcolo di un valore; la forma fattorizzata mette in evidenza gli zeri e il segno."
+          "Il progettista della stazione deve calcolare l’area di un pannello quadrato di lato x + 3 metri e quella di una cornice ottenuta togliendo un quadrato più piccolo da uno più grande. Invece di ripetere ogni volta i conti con numeri diversi, scrive le aree con lettere: il calcolo letterale permette di fare il conto una volta sola e di riusarlo per tutti i valori.",
+          "Un monomio è un prodotto di numeri e lettere, come 3x²y: il numero 3 è il coefficiente, x²y la parte letterale, e il grado è la somma degli esponenti delle lettere, qui 3. Un polinomio è una somma di monomi, come x² + 5x − 6. Si sommano solo i monomi simili, cioè con la stessa parte letterale: 3x² + 5x² = 8x², mentre 3x² + 5x resta così.",
+          "Per moltiplicare due polinomi si moltiplica ogni termine del primo per ogni termine del secondo e poi si sommano i monomi simili. Esempio svolto: (x + 3)(x − 2) = x · x − 2x + 3x − 6 = x² + x − 6. Il controllo con un numero è sempre possibile: per x = 1 il prodotto vale 4 · (−1) = −4 e il risultato vale 1 + 1 − 6 = −4."
         ],
         "intermediate": [
-          "Un laboratorio deve ritagliare una cornice quadrata. Il lato esterno cambia, ma quello del foro resta fissato. Il tecnico ha due formule per l’area: sembrano diverse. Puoi dimostrare quando descrivono la stessa quantità?",
-          "Applica la distributività: (x-a)(x+a)=x²+ax-ax-a². I termini misti si cancellano. Un prodotto reale è zero se almeno un fattore è zero: gli zeri sono x=a e x=-a, coincidenti quando a=0."
+          "Il progettista della stazione deve calcolare l’area di un pannello quadrato di lato x + 3 metri e quella di una cornice ottenuta togliendo un quadrato più piccolo da uno più grande. Invece di ripetere ogni volta i conti con numeri diversi, scrive le aree con lettere: il calcolo letterale permette di fare il conto una volta sola e di riusarlo per tutti i valori.",
+          "Un monomio è un prodotto di numeri e lettere, come 3x²y: il numero 3 è il coefficiente, x²y la parte letterale, e il grado è la somma degli esponenti delle lettere, qui 3. Un polinomio è una somma di monomi, come x² + 5x − 6. Si sommano solo i monomi simili, cioè con la stessa parte letterale: 3x² + 5x² = 8x², mentre 3x² + 5x resta così.",
+          "Per moltiplicare due polinomi si moltiplica ogni termine del primo per ogni termine del secondo e poi si sommano i monomi simili. Esempio svolto: (x + 3)(x − 2) = x · x − 2x + 3x − 6 = x² + x − 6. Il controllo con un numero è sempre possibile: per x = 1 il prodotto vale 4 · (−1) = −4 e il risultato vale 1 + 1 − 6 = −4."
         ],
         "advanced": [
-          "Un laboratorio deve ritagliare una cornice quadrata. Il lato esterno cambia, ma quello del foro resta fissato. Il tecnico ha due formule per l’area: sembrano diverse. Puoi dimostrare quando descrivono la stessa quantità?",
-          "Usa i fattori per costruire una tabella dei segni, poi confrontala con il grafico. Il caso a=0 ha uno zero doppio: spiega perché la funzione tocca l’asse ma non cambia segno.",
-          "Il grafico mostra il polinomio per valori reali. Solo la parte x≥a rappresenta la cornice con lati non negativi; il modello non impone automaticamente questa interpretazione fisica."
+          "Il progettista della stazione deve calcolare l’area di un pannello quadrato di lato x + 3 metri e quella di una cornice ottenuta togliendo un quadrato più piccolo da uno più grande. Invece di ripetere ogni volta i conti con numeri diversi, scrive le aree con lettere: il calcolo letterale permette di fare il conto una volta sola e di riusarlo per tutti i valori.",
+          "Un monomio è un prodotto di numeri e lettere, come 3x²y: il numero 3 è il coefficiente, x²y la parte letterale, e il grado è la somma degli esponenti delle lettere, qui 3. Un polinomio è una somma di monomi, come x² + 5x − 6. Si sommano solo i monomi simili, cioè con la stessa parte letterale: 3x² + 5x² = 8x², mentre 3x² + 5x resta così."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Prodotti notevoli e scomposizioni",
       "text": {
         "base": [
-          "Un’espressione algebrica può essere letta come somma o come prodotto. La differenza di quadrati x²-a² si scompone in (x-a)(x+a). La forma sviluppata facilita il calcolo di un valore; la forma fattorizzata mette in evidenza gli zeri e il segno.",
-          "Per a=2 e x=3, il calcolo sviluppato dà 9-4=5. Quello fattorizzato dà (3-2)(3+2)=1×5=5. In x=1 ottieni -3: il polinomio è valido, ma un’area di cornice richiede x≥a≥0."
+          "Alcuni prodotti ritornano così spesso da meritare un nome. Il quadrato di un binomio: (a + b)² = a² + 2ab + b², e (a − b)² = a² − 2ab + b². La somma per la differenza: (a + b)(a − b) = a² − b². Il cubo di un binomio: (a + b)³ = a³ + 3a²b + 3ab² + b³. Per esempio (x + 3)² = x² + 6x + 9: il pannello di lato x + 3 ha area x² + 6x + 9.",
+          "L’errore più comune è scrivere (a + b)² = a² + b². Il controllo numerico lo smaschera subito: con a = 1 e b = 2 si ha (1 + 2)² = 9, mentre 1² + 2² = 5. Manca il doppio prodotto 2ab = 4. Geometricamente, un quadrato di lato a + b contiene un quadrato a², un quadrato b² e due rettangoli ab.",
+          "Scomporre un polinomio significa scriverlo come prodotto di polinomi di grado più basso: è il percorso inverso dei prodotti notevoli. I metodi principali, da provare in quest’ordine, sono: il raccoglimento del fattore comune (6x² + 9x = 3x(2x + 3)); il riconoscimento di un prodotto notevole (x² − 25 = (x − 5)(x + 5)); il trinomio con somma e prodotto (x² + 5x + 6 = (x + 2)(x + 3), perché 2 + 3 = 5 e 2 · 3 = 6); il raccoglimento parziale (ax + ay + bx + by = (a + b)(x + y)).",
+          "La scomposizione serve a risolvere equazioni grazie alla legge di annullamento del prodotto: un prodotto vale zero se e solo se almeno un fattore vale zero. Per x² − 4 = 0 si scrive (x − 2)(x + 2) = 0, e le soluzioni sono x = 2 e x = −2. Il laboratorio usa proprio y = (x − a)(x + a) = x² − a²: il grafico tocca l’asse x nei due punti x = a e x = −a."
         ],
         "intermediate": [
-          "Applica la distributività: (x-a)(x+a)=x²+ax-ax-a². I termini misti si cancellano. Un prodotto reale è zero se almeno un fattore è zero: gli zeri sono x=a e x=-a, coincidenti quando a=0.",
-          "La variabile x è espressa in 1; Polinomio in 1. Il dominio dello strumento è [-6; 6]. La relazione implementata è: y = (x-a)(x+a) = x²-a².",
-          "Per a=2 e x=3, il calcolo sviluppato dà 9-4=5. Quello fattorizzato dà (3-2)(3+2)=1×5=5. In x=1 ottieni -3: il polinomio è valido, ma un’area di cornice richiede x≥a≥0."
+          "Alcuni prodotti ritornano così spesso da meritare un nome. Il quadrato di un binomio: (a + b)² = a² + 2ab + b², e (a − b)² = a² − 2ab + b². La somma per la differenza: (a + b)(a − b) = a² − b². Il cubo di un binomio: (a + b)³ = a³ + 3a²b + 3ab² + b³. Per esempio (x + 3)² = x² + 6x + 9: il pannello di lato x + 3 ha area x² + 6x + 9.",
+          "L’errore più comune è scrivere (a + b)² = a² + b². Il controllo numerico lo smaschera subito: con a = 1 e b = 2 si ha (1 + 2)² = 9, mentre 1² + 2² = 5. Manca il doppio prodotto 2ab = 4. Geometricamente, un quadrato di lato a + b contiene un quadrato a², un quadrato b² e due rettangoli ab.",
+          "Scomporre un polinomio significa scriverlo come prodotto di polinomi di grado più basso: è il percorso inverso dei prodotti notevoli. I metodi principali, da provare in quest’ordine, sono: il raccoglimento del fattore comune (6x² + 9x = 3x(2x + 3)); il riconoscimento di un prodotto notevole (x² − 25 = (x − 5)(x + 5)); il trinomio con somma e prodotto (x² + 5x + 6 = (x + 2)(x + 3), perché 2 + 3 = 5 e 2 · 3 = 6); il raccoglimento parziale (ax + ay + bx + by = (a + b)(x + y)).",
+          "La scomposizione serve a risolvere equazioni grazie alla legge di annullamento del prodotto: un prodotto vale zero se e solo se almeno un fattore vale zero. Per x² − 4 = 0 si scrive (x − 2)(x + 2) = 0, e le soluzioni sono x = 2 e x = −2. Il laboratorio usa proprio y = (x − a)(x + a) = x² − a²: il grafico tocca l’asse x nei due punti x = a e x = −a.",
+          "La cornice della stazione è un quadrato di lato x da cui si toglie un quadrato di lato 2: la sua area è x² − 4 = (x − 2)(x + 2). Con x = 10 si ottiene 96 sia con la differenza (100 − 4) sia con il prodotto (8 · 12): la scomposizione trasforma una sottrazione in una moltiplicazione, spesso più comoda."
         ],
         "advanced": [
-          "Applica la distributività: (x-a)(x+a)=x²+ax-ax-a². I termini misti si cancellano. Un prodotto reale è zero se almeno un fattore è zero: gli zeri sono x=a e x=-a, coincidenti quando a=0.",
-          "Usa i fattori per costruire una tabella dei segni, poi confrontala con il grafico. Il caso a=0 ha uno zero doppio: spiega perché la funzione tocca l’asse ma non cambia segno.",
-          "La differenza di quadrati non è il quadrato di una differenza: (x-a)² contiene anche il termine -2ax. Inoltre un’identità algebrica può valere su un dominio più ampio del problema geometrico che l’ha motivata."
+          "Alcuni prodotti ritornano così spesso da meritare un nome. Il quadrato di un binomio: (a + b)² = a² + 2ab + b², e (a − b)² = a² − 2ab + b². La somma per la differenza: (a + b)(a − b) = a² − b². Il cubo di un binomio: (a + b)³ = a³ + 3a²b + 3ab² + b³. Per esempio (x + 3)² = x² + 6x + 9: il pannello di lato x + 3 ha area x² + 6x + 9.",
+          "Scomporre un polinomio significa scriverlo come prodotto di polinomi di grado più basso: è il percorso inverso dei prodotti notevoli. I metodi principali, da provare in quest’ordine, sono: il raccoglimento del fattore comune (6x² + 9x = 3x(2x + 3)); il riconoscimento di un prodotto notevole (x² − 25 = (x − 5)(x + 5)); il trinomio con somma e prodotto (x² + 5x + 6 = (x + 2)(x + 3), perché 2 + 3 = 5 e 2 · 3 = 6); il raccoglimento parziale (ax + ay + bx + by = (a + b)(x + y)).",
+          "La scomposizione serve a risolvere equazioni grazie alla legge di annullamento del prodotto: un prodotto vale zero se e solo se almeno un fattore vale zero. Per x² − 4 = 0 si scrive (x − 2)(x + 2) = 0, e le soluzioni sono x = 2 e x = −2. Il laboratorio usa proprio y = (x − a)(x + a) = x² − a²: il grafico tocca l’asse x nei due punti x = a e x = −a.",
+          "Grado e numero di fattori sono legati: un polinomio di grado n si scompone al massimo in n fattori di primo grado. Alcuni polinomi non si scompongono con numeri reali: x² + 9 è sempre positivo e non si annulla mai, quindi nessun fattore (x − r) con r reale lo divide. Somma di quadrati e differenza di quadrati si comportano in modo opposto.",
+          "Per i cubi valgono anche a³ − b³ = (a − b)(a² + ab + b²) e a³ + b³ = (a + b)(a² − ab + b²). Il secondo fattore non si scompone ulteriormente con i reali. I coefficienti di (a + b)ⁿ si leggono nel triangolo di Tartaglia: 1, 2, 1 per n = 2; 1, 3, 3, 1 per n = 3; 1, 4, 6, 4, 1 per n = 4."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Carte di algebra",
       "text": {
         "base": [
-          "Nel laboratorio imposta Radice a (a): 2 (adimensionale). Prima di salvare A, prevedi come cambia Polinomio fra x=-3 e 0 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Per a=2 e x=3, il calcolo sviluppato dà 9-4=5. Quello fattorizzato dà (3-2)(3+2)=1×5=5. In x=1 ottieni -3: il polinomio è valido, ma un’area di cornice richiede x≥a≥0.",
-          "La variabile x è espressa in 1; Polinomio in 1. Il dominio dello strumento è [-6; 6]. La relazione implementata è: y = (x-a)(x+a) = x²-a²."
+          "L’attività è formata da tre serie di carte. Nella prima riconosci quale prodotto notevole si nasconde in un polinomio; nella seconda metti in ordine i passi di una scomposizione completa; nella terza decidi se un’uguaglianza tra espressioni è un’identità vera oppure un errore di calcolo. Per completare l’attività supera tutte e tre le serie; nelle serie di classificazione puoi sbagliare al massimo due carte.",
+          "Strategia per riconoscere un quadrato di binomio: controlla che due termini siano quadrati, per esempio 9a² e 4b², e che il terzo sia il loro doppio prodotto, ±2 · 3a · 2b = ±12ab. Per una differenza di quadrati servono due quadrati con segni opposti e nessun altro termine.",
+          "Prima di rispondere, quando hai un dubbio, prova un numero semplice al posto della lettera: se i due membri danno risultati diversi, l’uguaglianza è falsa. Se danno lo stesso risultato non hai ancora una prova, perché un caso favorevole non basta; serve lo sviluppo del calcolo."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Radice a (a): 2 (adimensionale). Prima di salvare A, prevedi come cambia Polinomio fra x=-3 e 0 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile x è espressa in 1; Polinomio in 1. Il dominio dello strumento è [-6; 6]. La relazione implementata è: y = (x-a)(x+a) = x²-a².",
-          "Applica la distributività: (x-a)(x+a)=x²+ax-ax-a². I termini misti si cancellano. Un prodotto reale è zero se almeno un fattore è zero: gli zeri sono x=a e x=-a, coincidenti quando a=0."
+          "L’attività è formata da tre serie di carte. Nella prima riconosci quale prodotto notevole si nasconde in un polinomio; nella seconda metti in ordine i passi di una scomposizione completa; nella terza decidi se un’uguaglianza tra espressioni è un’identità vera oppure un errore di calcolo. Per completare l’attività supera tutte e tre le serie; nelle serie di classificazione puoi sbagliare al massimo due carte.",
+          "Strategia per riconoscere un quadrato di binomio: controlla che due termini siano quadrati, per esempio 9a² e 4b², e che il terzo sia il loro doppio prodotto, ±2 · 3a · 2b = ±12ab. Per una differenza di quadrati servono due quadrati con segni opposti e nessun altro termine.",
+          "Prima di rispondere, quando hai un dubbio, prova un numero semplice al posto della lettera: se i due membri danno risultati diversi, l’uguaglianza è falsa. Se danno lo stesso risultato non hai ancora una prova, perché un caso favorevole non basta; serve lo sviluppo del calcolo."
         ],
         "advanced": [
-          "Nel laboratorio imposta Radice a (a): 2 (adimensionale). Prima di salvare A, prevedi come cambia Polinomio fra x=-3 e 0 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Usa i fattori per costruire una tabella dei segni, poi confrontala con il grafico. Il caso a=0 ha uno zero doppio: spiega perché la funzione tocca l’asse ma non cambia segno.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività è formata da tre serie di carte. Nella prima riconosci quale prodotto notevole si nasconde in un polinomio; nella seconda metti in ordine i passi di una scomposizione completa; nella terza decidi se un’uguaglianza tra espressioni è un’identità vera oppure un errore di calcolo. Per completare l’attività supera tutte e tre le serie; nelle serie di classificazione puoi sbagliare al massimo due carte.",
+          "Strategia per riconoscere un quadrato di binomio: controlla che due termini siano quadrati, per esempio 9a² e 4b², e che il terzo sia il loro doppio prodotto, ±2 · 3a · 2b = ±12ab. Per una differenza di quadrati servono due quadrati con segni opposti e nessun altro termine.",
+          "Prima di rispondere, quando hai un dubbio, prova un numero semplice al posto della lettera: se i due membri danno risultati diversi, l’uguaglianza è falsa. Se danno lo stesso risultato non hai ancora una prova, perché un caso favorevole non basta; serve lo sviluppo del calcolo."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Identità, equazioni ed errori",
       "text": {
         "base": [
-          "La differenza di quadrati non è il quadrato di una differenza: (x-a)² contiene anche il termine -2ax. Inoltre un’identità algebrica può valere su un dominio più ampio del problema geometrico che l’ha motivata.",
-          "Il grafico mostra il polinomio per valori reali. Solo la parte x≥a rappresenta la cornice con lati non negativi; il modello non impone automaticamente questa interpretazione fisica.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Un’identità è un’uguaglianza vera per tutti i valori delle lettere, come (a + b)(a − b) = a² − b². Un’equazione è un’uguaglianza da verificare per certi valori, come x² − 4 = 0. Le due cose si scrivono nello stesso modo e hanno ruoli diversi: le identità servono a trasformare le espressioni, le equazioni a trovare numeri.",
+          "Un errore frequente nelle potenze: (a²)³ = a⁶, perché si moltiplicano gli esponenti, mentre a² · a³ = a⁵, perché si sommano. Un altro errore riguarda i segni: −x² significa −(x²), quindi per x = 3 vale −9, mentre (−x)² vale 9.",
+          "La cornice della stazione è un quadrato di lato x da cui si toglie un quadrato di lato 2: la sua area è x² − 4 = (x − 2)(x + 2). Con x = 10 si ottiene 96 sia con la differenza (100 − 4) sia con il prodotto (8 · 12): la scomposizione trasforma una sottrazione in una moltiplicazione, spesso più comoda."
         ],
         "intermediate": [
-          "La differenza di quadrati non è il quadrato di una differenza: (x-a)² contiene anche il termine -2ax. Inoltre un’identità algebrica può valere su un dominio più ampio del problema geometrico che l’ha motivata.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Un’identità è un’uguaglianza vera per tutti i valori delle lettere, come (a + b)(a − b) = a² − b². Un’equazione è un’uguaglianza da verificare per certi valori, come x² − 4 = 0. Le due cose si scrivono nello stesso modo e hanno ruoli diversi: le identità servono a trasformare le espressioni, le equazioni a trovare numeri.",
+          "Un errore frequente nelle potenze: (a²)³ = a⁶, perché si moltiplicano gli esponenti, mentre a² · a³ = a⁵, perché si sommano. Un altro errore riguarda i segni: −x² significa −(x²), quindi per x = 3 vale −9, mentre (−x)² vale 9.",
+          "Le lettere permettono di ragionare in generale. Per esempio, il prodotto di due numeri dispari consecutivi aumentato di 1 è sempre un quadrato: (2n − 1)(2n + 1) + 1 = 4n² − 1 + 1 = 4n² = (2n)². Nessuna tabella di esempi avrebbe dimostrato questo fatto per tutti gli n."
         ],
         "advanced": [
-          "Il grafico mostra il polinomio per valori reali. Solo la parte x≥a rappresenta la cornice con lati non negativi; il modello non impone automaticamente questa interpretazione fisica.",
-          "Usa i fattori per costruire una tabella dei segni, poi confrontala con il grafico. Il caso a=0 ha uno zero doppio: spiega perché la funzione tocca l’asse ma non cambia segno.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Un’identità è un’uguaglianza vera per tutti i valori delle lettere, come (a + b)(a − b) = a² − b². Un’equazione è un’uguaglianza da verificare per certi valori, come x² − 4 = 0. Le due cose si scrivono nello stesso modo e hanno ruoli diversi: le identità servono a trasformare le espressioni, le equazioni a trovare numeri.",
+          "Le lettere permettono di ragionare in generale. Per esempio, il prodotto di due numeri dispari consecutivi aumentato di 1 è sempre un quadrato: (2n − 1)(2n + 1) + 1 = 4n² − 1 + 1 = 4n² = (2n)². Nessuna tabella di esempi avrebbe dimostrato questo fatto per tutti gli n.",
+          "Grado e numero di fattori sono legati: un polinomio di grado n si scompone al massimo in n fattori di primo grado. Alcuni polinomi non si scompongono con numeri reali: x² + 9 è sempre positivo e non si annulla mai, quindi nessun fattore (x − r) con r reale lo divide. Somma di quadrati e differenza di quadrati si comportano in modo opposto."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Un’espressione algebrica può essere letta come somma o come prodotto. La differenza di quadrati x²-a² si scompone in (x-a)(x+a). La forma sviluppata facilita il calcolo di un valore; la forma fattorizzata mette in evidenza gli zeri e il segno.",
-          "Per a=2 e x=3, il calcolo sviluppato dà 9-4=5. Quello fattorizzato dà (3-2)(3+2)=1×5=5. In x=1 ottieni -3: il polinomio è valido, ma un’area di cornice richiede x≥a≥0."
+          "Ripasso: somma di monomi simili; prodotto di polinomi termine per termine; i tre prodotti notevoli principali; l’ordine dei metodi di scomposizione; la legge di annullamento del prodotto; il controllo con un numero.",
+          "Mini esercizio: scomponi 2x³ − 18x. Raccogli 2x: 2x(x² − 9). Riconosci la differenza di quadrati: 2x(x − 3)(x + 3). Le soluzioni di 2x³ − 18x = 0 sono x = 0, x = 3 e x = −3.",
+          "Nelle domande sui prodotti fai sempre il controllo numerico: è rapido e smaschera quasi tutti gli errori di segno."
         ],
         "intermediate": [
-          "Applica la distributività: (x-a)(x+a)=x²+ax-ax-a². I termini misti si cancellano. Un prodotto reale è zero se almeno un fattore è zero: gli zeri sono x=a e x=-a, coincidenti quando a=0.",
-          "La variabile x è espressa in 1; Polinomio in 1. Il dominio dello strumento è [-6; 6]. La relazione implementata è: y = (x-a)(x+a) = x²-a²."
+          "Ripasso: somma di monomi simili; prodotto di polinomi termine per termine; i tre prodotti notevoli principali; l’ordine dei metodi di scomposizione; la legge di annullamento del prodotto; il controllo con un numero.",
+          "Mini esercizio: scomponi 2x³ − 18x. Raccogli 2x: 2x(x² − 9). Riconosci la differenza di quadrati: 2x(x − 3)(x + 3). Le soluzioni di 2x³ − 18x = 0 sono x = 0, x = 3 e x = −3.",
+          "Nelle domande sui prodotti fai sempre il controllo numerico: è rapido e smaschera quasi tutti gli errori di segno."
         ],
         "advanced": [
-          "Usa i fattori per costruire una tabella dei segni, poi confrontala con il grafico. Il caso a=0 ha uno zero doppio: spiega perché la funzione tocca l’asse ma non cambia segno.",
-          "Il grafico mostra il polinomio per valori reali. Solo la parte x≥a rappresenta la cornice con lati non negativi; il modello non impone automaticamente questa interpretazione fisica."
+          "Ripasso: somma di monomi simili; prodotto di polinomi termine per termine; i tre prodotti notevoli principali; l’ordine dei metodi di scomposizione; la legge di annullamento del prodotto; il controllo con un numero.",
+          "Mini esercizio: scomponi 2x³ − 18x. Raccogli 2x: 2x(x² − 9). Riconosci la differenza di quadrati: 2x(x − 3)(x + 3). Le soluzioni di 2x³ − 18x = 0 sono x = 0, x = 3 e x = −3.",
+          "Nelle domande sui prodotti fai sempre il controllo numerico: è rapido e smaschera quasi tutti gli errori di segno."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Polinomio reale; cornice solo per x≥a.",
-          "Il grafico mostra il polinomio per valori reali. Solo la parte x≥a rappresenta la cornice con lati non negativi; il modello non impone automaticamente questa interpretazione fisica.",
-          "Collegamento consigliato: math-a. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le scomposizioni tornano nello studio dei radicali, delle equazioni di secondo grado e delle disequazioni, e nell’unità «Dagli zeri alla struttura di un polinomio», dove ogni fattore (x − r) corrisponde a uno zero del grafico.",
+          "Riepilogo dell’unità: i monomi simili si sommano, i polinomi si moltiplicano termine per termine, i prodotti notevoli abbreviano i calcoli più frequenti e la scomposizione, letta al contrario, trasforma un’equazione in un prodotto di fattori da annullare uno per uno.",
+          "Nel diario scrivi un prodotto notevole con la sua verifica numerica e la scomposizione completa di un polinomio di terzo grado, passo per passo."
         ],
         "intermediate": [
-          "Applica la distributività: (x-a)(x+a)=x²+ax-ax-a². I termini misti si cancellano. Un prodotto reale è zero se almeno un fattore è zero: gli zeri sono x=a e x=-a, coincidenti quando a=0.",
-          "Il grafico mostra il polinomio per valori reali. Solo la parte x≥a rappresenta la cornice con lati non negativi; il modello non impone automaticamente questa interpretazione fisica.",
-          "Usa i fattori per costruire una tabella dei segni, poi confrontala con il grafico. Il caso a=0 ha uno zero doppio: spiega perché la funzione tocca l’asse ma non cambia segno."
+          "Le scomposizioni tornano nello studio dei radicali, delle equazioni di secondo grado e delle disequazioni, e nell’unità «Dagli zeri alla struttura di un polinomio», dove ogni fattore (x − r) corrisponde a uno zero del grafico.",
+          "Riepilogo dell’unità: i monomi simili si sommano, i polinomi si moltiplicano termine per termine, i prodotti notevoli abbreviano i calcoli più frequenti e la scomposizione, letta al contrario, trasforma un’equazione in un prodotto di fattori da annullare uno per uno.",
+          "Le lettere permettono di ragionare in generale. Per esempio, il prodotto di due numeri dispari consecutivi aumentato di 1 è sempre un quadrato: (2n − 1)(2n + 1) + 1 = 4n² − 1 + 1 = 4n² = (2n)². Nessuna tabella di esempi avrebbe dimostrato questo fatto per tutti gli n.",
+          "Nel diario scrivi un prodotto notevole con la sua verifica numerica e la scomposizione completa di un polinomio di terzo grado, passo per passo."
         ],
         "advanced": [
-          "Usa i fattori per costruire una tabella dei segni, poi confrontala con il grafico. Il caso a=0 ha uno zero doppio: spiega perché la funzione tocca l’asse ma non cambia segno.",
-          "Il grafico mostra il polinomio per valori reali. Solo la parte x≥a rappresenta la cornice con lati non negativi; il modello non impone automaticamente questa interpretazione fisica.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le scomposizioni tornano nello studio dei radicali, delle equazioni di secondo grado e delle disequazioni, e nell’unità «Dagli zeri alla struttura di un polinomio», dove ogni fattore (x − r) corrisponde a uno zero del grafico.",
+          "Riepilogo dell’unità: i monomi simili si sommano, i polinomi si moltiplicano termine per termine, i prodotti notevoli abbreviano i calcoli più frequenti e la scomposizione, letta al contrario, trasforma un’equazione in un prodotto di fattori da annullare uno per uno.",
+          "Per i cubi valgono anche a³ − b³ = (a − b)(a² + ab + b²) e a³ + b³ = (a + b)(a² − ab + b²). Il secondo fattore non si scompone ulteriormente con i reali. I coefficienti di (a + b)ⁿ si leggono nel triangolo di Tartaglia: 1, 2, 1 per n = 2; 1, 3, 3, 1 per n = 3; 1, 4, 6, 4, 1 per n = 4.",
+          "Nel diario scrivi un prodotto notevole con la sua verifica numerica e la scomposizione completa di un polinomio di terzo grado, passo per passo."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-c02-concept",
-      "prompt": "Quale identità è corretta per ogni x e a reali?",
+      "id": "math-c02-q1",
+      "prompt": "Quanto vale (x + 4)²?",
       "options": [
         {
           "id": "A",
-          "text": "(x-a)²=x²-a²",
-          "feedback": "La differenza di quadrati non è il quadrato di una differenza: (x-a)² contiene anche il termine -2ax. Inoltre un’identità algebrica può valere su un dominio più ampio del problema geometrico che l’ha motivata."
+          "text": "x² + 16",
+          "feedback": "Manca il doppio prodotto: con x = 1 si ha 25 da una parte e 17 dall’altra."
         },
         {
           "id": "B",
-          "text": "x²-a²=(x-a)(x-a)",
-          "feedback": "Applica la distributività: (x-a)(x+a)=x²+ax-ax-a². I termini misti si cancellano. Un prodotto reale è zero se almeno un fattore è zero: gli zeri sono x=a e x=-a, coincidenti quando a=0."
+          "text": "x² + 8x + 16",
+          "feedback": "Esatto: quadrato del primo, doppio prodotto 2 · x · 4 = 8x, quadrato del secondo."
         },
         {
           "id": "C",
-          "text": "(x-a)(x+a)=x²-a²",
-          "feedback": "Un’espressione algebrica può essere letta come somma o come prodotto. La differenza di quadrati x²-a² si scompone in (x-a)(x+a). La forma sviluppata facilita il calcolo di un valore; la forma fattorizzata mette in evidenza gli zeri e il segno."
+          "text": "x² + 4x + 16",
+          "feedback": "Il doppio prodotto è 2 · x · 4 = 8x: hai preso solo x · 4."
+        },
+        {
+          "id": "D",
+          "text": "2x + 8",
+          "feedback": "Hai moltiplicato per 2 invece di elevare al quadrato."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-c02-q2",
+      "prompt": "Qual è la scomposizione di 9x² − 4?",
+      "options": [
+        {
+          "id": "A",
+          "text": "(3x − 2)²",
+          "feedback": "(3x − 2)² = 9x² − 12x + 4: compare un termine in x che nel polinomio manca."
+        },
+        {
+          "id": "B",
+          "text": "(9x − 2)(x + 2)",
+          "feedback": "Sviluppando si ottiene 9x² + 16x − 4: il prodotto non torna."
+        },
+        {
+          "id": "C",
+          "text": "(3x − 2)(3x + 2)",
+          "feedback": "Esatto: è una differenza di quadrati, (3x)² − 2²."
+        },
+        {
+          "id": "D",
+          "text": "Non si scompone",
+          "feedback": "Due quadrati con segni opposti formano una differenza di quadrati, che si scompone sempre."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "math-c02-calculation",
-      "prompt": "Calcolo: Radice a (a)=2 (adimensionale). Per x=3 (adimensionale), quanto vale Polinomio?",
+      "id": "math-c02-q3",
+      "prompt": "Quali sono le soluzioni di x² − 5x + 6 = 0?",
       "options": [
         {
           "id": "A",
-          "text": "2,5 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. y = (x-a)(x+a) = x²-a². Con Radice a (a)=2 (adimensionale) e x=3 (adimensionale), il risultato è 5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "x = 2 e x = 3",
+          "feedback": "Esatto: x² − 5x + 6 = (x − 2)(x − 3), e un prodotto è zero se un fattore è zero."
         },
         {
           "id": "B",
-          "text": "5 (adimensionale)",
-          "feedback": "y = (x-a)(x+a) = x²-a². Con Radice a (a)=2 (adimensionale) e x=3 (adimensionale), il risultato è 5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "x = −2 e x = −3",
+          "feedback": "Questi annullano (x + 2)(x + 3) = x² + 5x + 6: attenzione al segno della somma."
         },
         {
           "id": "C",
-          "text": "7,5 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. y = (x-a)(x+a) = x²-a². Con Radice a (a)=2 (adimensionale) e x=3 (adimensionale), il risultato è 5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "x = 5 e x = 6",
+          "feedback": "I coefficienti non sono le soluzioni: servono due numeri con somma 5 e prodotto 6."
+        },
+        {
+          "id": "D",
+          "text": "x = 1 e x = 6",
+          "feedback": "Il prodotto è 6 e la somma è 7, mentre servirebbe somma 5."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 3,
-        "parameters": {
-          "a": 2
-        },
-        "expected": 5,
-        "unit": "1"
-      }
+      "correct": "A"
     },
     {
-      "id": "math-c02-transfer",
-      "prompt": "Trasferimento: Radice a (a)=2,5 (adimensionale). Per x=3 (adimensionale), quanto vale Polinomio?",
+      "id": "math-c02-q4",
+      "prompt": "Quale uguaglianza è un’identità?",
       "options": [
         {
           "id": "A",
-          "text": "2,75 (adimensionale)",
-          "feedback": "y = (x-a)(x+a) = x²-a². Con Radice a (a)=2,5 (adimensionale) e x=3 (adimensionale), il risultato è 2,75 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "(a + b)² = a² + b²",
+          "feedback": "Con a = b = 1 si ha 4 = 2: è falsa."
         },
         {
           "id": "B",
-          "text": "4,125 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. y = (x-a)(x+a) = x²-a². Con Radice a (a)=2,5 (adimensionale) e x=3 (adimensionale), il risultato è 2,75 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "(a²)³ = a⁵",
+          "feedback": "Gli esponenti si moltiplicano: (a²)³ = a⁶."
         },
         {
           "id": "C",
-          "text": "1,375 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. y = (x-a)(x+a) = x²-a². Con Radice a (a)=2,5 (adimensionale) e x=3 (adimensionale), il risultato è 2,75 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "√(a² + b²) = a + b",
+          "feedback": "Con a = 3 e b = 4 si ha √25 = 5 contro 7."
+        },
+        {
+          "id": "D",
+          "text": "(a − b)² = (b − a)²",
+          "feedback": "Esatto: b − a = −(a − b), e il quadrato elimina il segno."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 3,
-        "parameters": {
-          "a": 2.5
-        },
-        "expected": 2.75,
-        "unit": "1"
-      }
+      "correct": "D"
     },
     {
-      "id": "math-c02-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "math-c02-q5",
+      "prompt": "Qual è la scomposizione completa di x³ − 4x?",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il grafico mostra il polinomio per valori reali. Solo la parte x≥a rappresenta la cornice con lati non negativi; il modello non impone automaticamente questa interpretazione fisica."
+          "text": "x(x² − 4)",
+          "feedback": "È un primo passo corretto, ma x² − 4 si scompone ancora."
         },
         {
           "id": "B",
-          "text": "Polinomio reale; cornice solo per x≥a",
-          "feedback": "Il grafico mostra il polinomio per valori reali. Solo la parte x≥a rappresenta la cornice con lati non negativi; il modello non impone automaticamente questa interpretazione fisica."
+          "text": "x(x − 2)(x + 2)",
+          "feedback": "Esatto: raccoglimento di x e differenza di quadrati."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il grafico mostra il polinomio per valori reali. Solo la parte x≥a rappresenta la cornice con lati non negativi; il modello non impone automaticamente questa interpretazione fisica."
+          "text": "(x − 2)(x + 2)",
+          "feedback": "Manca il fattore x raccolto: il grado deve restare 3."
+        },
+        {
+          "id": "D",
+          "text": "x(x − 2)²",
+          "feedback": "Sviluppando si ottiene x³ − 4x² + 4x, un polinomio diverso."
         }
       ],
       "correct": "B"
+    },
+    {
+      "id": "math-c02-q6",
+      "prompt": "Il pannello quadrato ha lato x + 3 metri. Di quanto aumenta l’area se il lato passa da x a x + 3?",
+      "options": [
+        {
+          "id": "A",
+          "text": "9 metri quadrati",
+          "feedback": "Questo vale solo il quadratino d’angolo; mancano i due rettangoli 3x."
+        },
+        {
+          "id": "B",
+          "text": "6x metri quadrati",
+          "feedback": "Mancano i 9 metri quadrati del quadratino d’angolo."
+        },
+        {
+          "id": "C",
+          "text": "6x + 9 metri quadrati",
+          "feedback": "Esatto: (x + 3)² − x² = 6x + 9."
+        },
+        {
+          "id": "D",
+          "text": "3x metri quadrati",
+          "feedback": "I rettangoli aggiunti sono due, e c’è anche il quadratino d’angolo."
+        }
+      ],
+      "correct": "C"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "cards",
+    "goal": 3,
+    "rounds": [
+      {
+        "id": "notevoli",
+        "type": "classify",
+        "title": "Che prodotto si nasconde?",
+        "prompt": "Per ogni polinomio scegli il prodotto notevole che lo genera, oppure NESSUNO.",
+        "categories": [
+          {
+            "id": "quadrato",
+            "label": "QUADRATO DI BINOMIO"
+          },
+          {
+            "id": "differenza",
+            "label": "DIFFERENZA DI QUADRATI"
+          },
+          {
+            "id": "cubo",
+            "label": "CUBO DI BINOMIO"
+          },
+          {
+            "id": "nessuno",
+            "label": "NESSUNO"
+          }
+        ],
+        "items": [
+          {
+            "id": "p1",
+            "text": "x² + 6x + 9",
+            "why": "(x + 3)²: x² e 9 sono quadrati, 6x è il loro doppio prodotto.",
+            "category": "quadrato"
+          },
+          {
+            "id": "p2",
+            "text": "4x² − 25",
+            "why": "(2x − 5)(2x + 5): due quadrati con segni opposti.",
+            "category": "differenza"
+          },
+          {
+            "id": "p3",
+            "text": "x³ + 3x² + 3x + 1",
+            "why": "(x + 1)³: coefficienti 1, 3, 3, 1 del triangolo di Tartaglia.",
+            "category": "cubo"
+          },
+          {
+            "id": "p4",
+            "text": "x² + 9",
+            "why": "Somma di due quadrati: non è un prodotto notevole e non si annulla mai.",
+            "category": "nessuno"
+          },
+          {
+            "id": "p5",
+            "text": "9a² − 12ab + 4b²",
+            "why": "(3a − 2b)²: il doppio prodotto è 2 · 3a · 2b = 12ab, con segno meno.",
+            "category": "quadrato"
+          },
+          {
+            "id": "p6",
+            "text": "x⁴ − 16",
+            "why": "(x² − 4)(x² + 4): x⁴ è il quadrato di x²; il primo fattore si scompone ancora.",
+            "category": "differenza"
+          },
+          {
+            "id": "p7",
+            "text": "x² + 4x + 16",
+            "why": "Il doppio prodotto di x e 4 sarebbe 8x: con 4x non è un quadrato.",
+            "category": "nessuno"
+          },
+          {
+            "id": "p8",
+            "text": "8 − 12y + 6y² − y³",
+            "why": "(2 − y)³: 8 = 2³, 12y = 3 · 2² · y, 6y² = 3 · 2 · y².",
+            "category": "cubo"
+          },
+          {
+            "id": "p9",
+            "text": "25 − x²",
+            "why": "(5 − x)(5 + x): l’ordine dei termini non cambia la struttura.",
+            "category": "differenza"
+          }
+        ],
+        "explain": "Per riconoscere un prodotto notevole si cercano prima i quadrati o i cubi, poi si controlla il termine centrale.",
+        "maxErrors": 2
+      },
+      {
+        "id": "scomposizione",
+        "type": "order",
+        "title": "Scomporre fino in fondo",
+        "prompt": "Metti in ordine i passi per risolvere x³ − 4x = 0.",
+        "items": [
+          {
+            "id": "s1",
+            "text": "Raccogli il fattore comune: x(x² − 4)",
+            "why": "Il raccoglimento è sempre il primo metodo da provare."
+          },
+          {
+            "id": "s2",
+            "text": "Riconosci la differenza di quadrati: x² − 4 = (x − 2)(x + 2)",
+            "why": "Dopo il raccoglimento resta un prodotto notevole."
+          },
+          {
+            "id": "s3",
+            "text": "Scrivi la scomposizione completa: x(x − 2)(x + 2) = 0",
+            "why": "Si mettono insieme i fattori trovati."
+          },
+          {
+            "id": "s4",
+            "text": "Annulla ogni fattore: x = 0, x = 2, x = −2",
+            "why": "La legge di annullamento del prodotto chiude il procedimento."
+          }
+        ],
+        "explain": "Raccoglimento, prodotto notevole, scomposizione completa, annullamento: tre soluzioni per un polinomio di terzo grado."
+      },
+      {
+        "id": "identita",
+        "type": "classify",
+        "title": "Identità o errore?",
+        "prompt": "Per ogni uguaglianza decidi se è vera per tutti i valori delle lettere.",
+        "categories": [
+          {
+            "id": "vera",
+            "label": "IDENTITÀ VERA"
+          },
+          {
+            "id": "falsa",
+            "label": "UGUAGLIANZA FALSA"
+          }
+        ],
+        "items": [
+          {
+            "id": "i1",
+            "text": "(a + b)² = a² + b²",
+            "why": "Con a = b = 1: 4 contro 2. Manca il doppio prodotto.",
+            "category": "falsa"
+          },
+          {
+            "id": "i2",
+            "text": "(a − b)(a + b) = a² − b²",
+            "why": "Somma per differenza: i termini ab e −ab si cancellano.",
+            "category": "vera"
+          },
+          {
+            "id": "i3",
+            "text": "(x + 1)³ = x³ + 1",
+            "why": "Con x = 1: 8 contro 2. Mancano 3x² e 3x.",
+            "category": "falsa"
+          },
+          {
+            "id": "i4",
+            "text": "(−a)² = a²",
+            "why": "Il quadrato di un numero e quello del suo opposto coincidono.",
+            "category": "vera"
+          },
+          {
+            "id": "i5",
+            "text": "(a − b)² = (b − a)²",
+            "why": "b − a è l’opposto di a − b, e i quadrati coincidono.",
+            "category": "vera"
+          },
+          {
+            "id": "i6",
+            "text": "√(a² + b²) = a + b",
+            "why": "Con a = 3 e b = 4: 5 contro 7.",
+            "category": "falsa"
+          },
+          {
+            "id": "i7",
+            "text": "a² · a³ = a⁵",
+            "why": "Nel prodotto di potenze con la stessa base gli esponenti si sommano.",
+            "category": "vera"
+          },
+          {
+            "id": "i8",
+            "text": "(a²)³ = a⁵",
+            "why": "Nella potenza di potenza gli esponenti si moltiplicano: a⁶.",
+            "category": "falsa"
+          }
+        ],
+        "explain": "Un controesempio numerico basta a smentire un’uguaglianza; per confermarla serve lo sviluppo del calcolo.",
+        "maxErrors": 2
+      }
+    ]
+  }
 }

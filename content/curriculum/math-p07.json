@@ -5,20 +5,21 @@
   "title": "Probabilità, informazione e fenomeni collettivi",
   "sector": 0,
   "modelId": "math-p07",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Variabile binaria con probabilità note",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Informazione di un evento, entropia di Shannon, unità di misura, compressione e leggi statistiche",
+  "narrativeStatus": "Il sensore è immaginario; la teoria dell’informazione è reale.",
   "objectives": [
-    "Spiegare: variabile binaria con probabilità note.",
-    "Applicare H(p) = -p log_a(p) -(1-p) log_a(1-p), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Calcolare l’informazione di un evento di probabilità nota.",
+    "Calcolare e interpretare l’entropia di una sorgente con due esiti.",
+    "Spiegare il ruolo della base del logaritmo.",
+    "Collegare entropia, compressione e comportamento dei fenomeni collettivi."
   ],
   "prerequisites": [
     "math-c10"
   ],
   "connections": [
-    "biology-18"
+    "math-p10"
   ],
   "sources": [
     "precalculus",
@@ -39,241 +40,312 @@
   },
   "glossary": [
     {
-      "term": "Probabilità p",
-      "definition": "Variabile indipendente, unità 1; intervallo [0; 1]."
+      "term": "Bit",
+      "definition": "Unità di informazione: quella portata da un evento di probabilità 1/2."
     },
     {
-      "term": "Entropia",
-      "definition": "Risultato calcolato dal modello, unità unità log_a."
+      "term": "Informazione di un evento",
+      "definition": "−log₂ p bit per un evento di probabilità p."
     },
     {
-      "term": "Base logaritmo",
-      "definition": "Parametro a, unità 1; intervallo [2; 10]."
+      "term": "Entropia di Shannon",
+      "definition": "Informazione media di una sorgente: H = −Σ p log p, sommato su tutti gli esiti."
+    },
+    {
+      "term": "Sorgente equiprobabile",
+      "definition": "Sorgente con esiti della stessa probabilità; ha entropia massima."
+    },
+    {
+      "term": "Compressione senza perdite",
+      "definition": "Codifica che riduce la lunghezza di un messaggio permettendo di ricostruirlo esattamente."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Quanto dice un messaggio?",
       "text": {
         "base": [
-          "Un messaggio può assumere due esiti. Quando uno è quasi certo, il messaggio sorprende poco. Vuoi quantificare l’incertezza prima della ricezione, non il valore personale dell’informazione.",
-          "L’entropia binaria misura l’incertezza di un esito con probabilità p e 1-p. È la media dell’informazione -log(p) dei possibili esiti. Con logaritmi in base 2 l’unità è il bit."
+          "La stazione trasmette a Terra lo stato di un sensore che può dare due risposte, guasto o funzionante. Se il sensore funziona quasi sempre, ogni messaggio «funzionante» dice poco; un messaggio «guasto», raro, dice molto. Quanta informazione porta in media un messaggio? La risposta di Claude Shannon, del 1948, è l’entropia, una grandezza nata per le telecomunicazioni e ritrovata in fisica, biologia e statistica.",
+          "L’informazione portata da un evento di probabilità p si misura con −log₂ p, in bit. Un evento certo, p = 1, porta 0 bit; il lancio di una moneta, p = 1/2, porta 1 bit; un evento con p = 1/8 porta 3 bit. Più un evento è raro, più è sorprendente, e più informazione porta. Il logaritmo fa sì che l’informazione di eventi indipendenti si sommi."
         ],
         "intermediate": [
-          "Un messaggio può assumere due esiti. Quando uno è quasi certo, il messaggio sorprende poco. Vuoi quantificare l’incertezza prima della ricezione, non il valore personale dell’informazione.",
-          "La formula è H=-p log_a p-(1-p)log_a(1-p). Agli estremi si usa il limite 0 log 0=0. L’entropia è massima quando gli esiti sono equiprobabili e nulla quando uno è certo."
+          "La stazione trasmette a Terra lo stato di un sensore che può dare due risposte, guasto o funzionante. Se il sensore funziona quasi sempre, ogni messaggio «funzionante» dice poco; un messaggio «guasto», raro, dice molto. Quanta informazione porta in media un messaggio? La risposta di Claude Shannon, del 1948, è l’entropia, una grandezza nata per le telecomunicazioni e ritrovata in fisica, biologia e statistica.",
+          "L’informazione portata da un evento di probabilità p si misura con −log₂ p, in bit. Un evento certo, p = 1, porta 0 bit; il lancio di una moneta, p = 1/2, porta 1 bit; un evento con p = 1/8 porta 3 bit. Più un evento è raro, più è sorprendente, e più informazione porta. Il logaritmo fa sì che l’informazione di eventi indipendenti si sommi."
         ],
         "advanced": [
-          "Un messaggio può assumere due esiti. Quando uno è quasi certo, il messaggio sorprende poco. Vuoi quantificare l’incertezza prima della ricezione, non il valore personale dell’informazione.",
-          "Deriva H rispetto a p per localizzare il massimo. Collega la concavità dell’entropia alla maggiore incertezza di una distribuzione più uniforme.",
-          "Il modello considera una sola variabile binaria con probabilità note. Non descrive dipendenze fra messaggi, compressione reale o significato semantico."
+          "La stazione trasmette a Terra lo stato di un sensore che può dare due risposte, guasto o funzionante. Se il sensore funziona quasi sempre, ogni messaggio «funzionante» dice poco; un messaggio «guasto», raro, dice molto. Quanta informazione porta in media un messaggio? La risposta di Claude Shannon, del 1948, è l’entropia, una grandezza nata per le telecomunicazioni e ritrovata in fisica, biologia e statistica.",
+          "L’informazione portata da un evento di probabilità p si misura con −log₂ p, in bit. Un evento certo, p = 1, porta 0 bit; il lancio di una moneta, p = 1/2, porta 1 bit; un evento con p = 1/8 porta 3 bit. Più un evento è raro, più è sorprendente, e più informazione porta. Il logaritmo fa sì che l’informazione di eventi indipendenti si sommi."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Entropia e unità di misura",
       "text": {
         "base": [
-          "L’entropia binaria misura l’incertezza di un esito con probabilità p e 1-p. È la media dell’informazione -log(p) dei possibili esiti. Con logaritmi in base 2 l’unità è il bit.",
-          "Per p=0,5 e base 2, ciascun termine vale 0,5 bit e il totale è 1 bit. Per p=0 o p=1, H=0. Cambiare base cambia l’unità numerica, non l’ordine delle incertezze."
+          "L’entropia è l’informazione media: H = −Σ p log p, sommato su tutti gli esiti. Per due esiti con probabilità p e 1 − p vale H(p) = −p log₂ p − (1 − p) log₂(1 − p). Con p = 1/2 si ottiene 1 bit, il massimo; con p = 0,25 circa 0,811 bit; con p = 0,1 circa 0,469 bit. Se uno dei due esiti è certo l’entropia è zero: il messaggio non dice nulla che non si sapesse.",
+          "La base del logaritmo fissa l’unità di misura: base 2 dà i bit, base e i nat, base 10 gli hartley. Cambiare base moltiplica tutti i valori per lo stesso fattore: un bit vale log₁₀ 2 ≈ 0,301 hartley. La forma della curva resta la stessa, con il massimo sempre in p = 1/2.",
+          "L’entropia è il limite della compressione: un messaggio lungo, prodotto da una sorgente con entropia H bit per simbolo, non si può codificare in media con meno di H bit per simbolo senza perdere informazione. Un testo con lettere molto prevedibili si comprime molto; dati casuali quasi per nulla."
         ],
         "intermediate": [
-          "La formula è H=-p log_a p-(1-p)log_a(1-p). Agli estremi si usa il limite 0 log 0=0. L’entropia è massima quando gli esiti sono equiprobabili e nulla quando uno è certo.",
-          "La variabile Probabilità p è espressa in 1; Entropia in unità log_a. Il dominio dello strumento è [0; 1]. La relazione implementata è: H(p) = -p log_a(p) -(1-p) log_a(1-p).",
-          "Per p=0,5 e base 2, ciascun termine vale 0,5 bit e il totale è 1 bit. Per p=0 o p=1, H=0. Cambiare base cambia l’unità numerica, non l’ordine delle incertezze."
+          "L’entropia è l’informazione media: H = −Σ p log p, sommato su tutti gli esiti. Per due esiti con probabilità p e 1 − p vale H(p) = −p log₂ p − (1 − p) log₂(1 − p). Con p = 1/2 si ottiene 1 bit, il massimo; con p = 0,25 circa 0,811 bit; con p = 0,1 circa 0,469 bit. Se uno dei due esiti è certo l’entropia è zero: il messaggio non dice nulla che non si sapesse.",
+          "La base del logaritmo fissa l’unità di misura: base 2 dà i bit, base e i nat, base 10 gli hartley. Cambiare base moltiplica tutti i valori per lo stesso fattore: un bit vale log₁₀ 2 ≈ 0,301 hartley. La forma della curva resta la stessa, con il massimo sempre in p = 1/2.",
+          "L’entropia è il limite della compressione: un messaggio lungo, prodotto da una sorgente con entropia H bit per simbolo, non si può codificare in media con meno di H bit per simbolo senza perdere informazione. Un testo con lettere molto prevedibili si comprime molto; dati casuali quasi per nulla.",
+          "I fenomeni collettivi seguono leggi statistiche anche quando i singoli componenti sono imprevedibili. Il numero di teste in mille lanci è prevedibile entro pochi punti percentuali; la pressione di un gas è stabile anche se ogni molecola si muove in modo caotico. In fisica l’entropia di Boltzmann, S = k ln W, conta i microstati W compatibili con lo stato osservato, con la stessa struttura logaritmica."
         ],
         "advanced": [
-          "La formula è H=-p log_a p-(1-p)log_a(1-p). Agli estremi si usa il limite 0 log 0=0. L’entropia è massima quando gli esiti sono equiprobabili e nulla quando uno è certo.",
-          "Deriva H rispetto a p per localizzare il massimo. Collega la concavità dell’entropia alla maggiore incertezza di una distribuzione più uniforme.",
-          "Entropia non significa ignoranza di una singola persona né qualità del contenuto. Un esito raro ha molta informazione individuale, ma la sua probabilità pesa poco nella media."
+          "L’entropia è l’informazione media: H = −Σ p log p, sommato su tutti gli esiti. Per due esiti con probabilità p e 1 − p vale H(p) = −p log₂ p − (1 − p) log₂(1 − p). Con p = 1/2 si ottiene 1 bit, il massimo; con p = 0,25 circa 0,811 bit; con p = 0,1 circa 0,469 bit. Se uno dei due esiti è certo l’entropia è zero: il messaggio non dice nulla che non si sapesse.",
+          "La base del logaritmo fissa l’unità di misura: base 2 dà i bit, base e i nat, base 10 gli hartley. Cambiare base moltiplica tutti i valori per lo stesso fattore: un bit vale log₁₀ 2 ≈ 0,301 hartley. La forma della curva resta la stessa, con il massimo sempre in p = 1/2.",
+          "L’entropia è il limite della compressione: un messaggio lungo, prodotto da una sorgente con entropia H bit per simbolo, non si può codificare in media con meno di H bit per simbolo senza perdere informazione. Un testo con lettere molto prevedibili si comprime molto; dati casuali quasi per nulla.",
+          "I fenomeni collettivi seguono leggi statistiche anche quando i singoli componenti sono imprevedibili. Il numero di teste in mille lanci è prevedibile entro pochi punti percentuali; la pressione di un gas è stabile anche se ogni molecola si muove in modo caotico. In fisica l’entropia di Boltzmann, S = k ln W, conta i microstati W compatibili con lo stato osservato, con la stessa struttura logaritmica."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio dell’entropia",
       "text": {
         "base": [
-          "Nel laboratorio imposta Base logaritmo (a): 2 (adimensionale). Prima di salvare A, prevedi come cambia Entropia fra Probabilità p=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Per p=0,5 e base 2, ciascun termine vale 0,5 bit e il totale è 1 bit. Per p=0 o p=1, H=0. Cambiare base cambia l’unità numerica, non l’ordine delle incertezze.",
-          "La variabile Probabilità p è espressa in 1; Entropia in unità log_a. Il dominio dello strumento è [0; 1]. La relazione implementata è: H(p) = -p log_a(p) -(1-p) log_a(1-p)."
+          "Nel laboratorio il grafico mostra l’entropia H(p) di una sorgente con due esiti, per p da 0 a 1; nella scheda REGOLA cambi la base del logaritmo a, da 2 a 10. Il cursore sceglie la probabilità p.",
+          "Protocollo. La previsione riguarda il passaggio da p = 0,25 a p = 0,5. Con base 2 prevedi e salva A. Poi porta la base a 10, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. In base 2 l’entropia passa da circa 0,811 a 1: cresce, perché ci si avvicina agli esiti equiprobabili. In base 10 i valori diventano circa 0,244 e 0,301, cioè gli stessi moltiplicati per 0,301: la previsione non cambia. La curva è simmetrica, H(p) = H(1 − p): scambiare i nomi degli esiti non cambia l’informazione."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Base logaritmo (a): 2 (adimensionale). Prima di salvare A, prevedi come cambia Entropia fra Probabilità p=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Probabilità p è espressa in 1; Entropia in unità log_a. Il dominio dello strumento è [0; 1]. La relazione implementata è: H(p) = -p log_a(p) -(1-p) log_a(1-p).",
-          "La formula è H=-p log_a p-(1-p)log_a(1-p). Agli estremi si usa il limite 0 log 0=0. L’entropia è massima quando gli esiti sono equiprobabili e nulla quando uno è certo."
+          "Nel laboratorio il grafico mostra l’entropia H(p) di una sorgente con due esiti, per p da 0 a 1; nella scheda REGOLA cambi la base del logaritmo a, da 2 a 10. Il cursore sceglie la probabilità p.",
+          "Protocollo. La previsione riguarda il passaggio da p = 0,25 a p = 0,5. Con base 2 prevedi e salva A. Poi porta la base a 10, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. In base 2 l’entropia passa da circa 0,811 a 1: cresce, perché ci si avvicina agli esiti equiprobabili. In base 10 i valori diventano circa 0,244 e 0,301, cioè gli stessi moltiplicati per 0,301: la previsione non cambia. La curva è simmetrica, H(p) = H(1 − p): scambiare i nomi degli esiti non cambia l’informazione."
         ],
         "advanced": [
-          "Nel laboratorio imposta Base logaritmo (a): 2 (adimensionale). Prima di salvare A, prevedi come cambia Entropia fra Probabilità p=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Deriva H rispetto a p per localizzare il massimo. Collega la concavità dell’entropia alla maggiore incertezza di una distribuzione più uniforme.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra l’entropia H(p) di una sorgente con due esiti, per p da 0 a 1; nella scheda REGOLA cambi la base del logaritmo a, da 2 a 10. Il cursore sceglie la probabilità p.",
+          "Protocollo. La previsione riguarda il passaggio da p = 0,25 a p = 0,5. Con base 2 prevedi e salva A. Poi porta la base a 10, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. In base 2 l’entropia passa da circa 0,811 a 1: cresce, perché ci si avvicina agli esiti equiprobabili. In base 10 i valori diventano circa 0,244 e 0,301, cioè gli stessi moltiplicati per 0,301: la previsione non cambia. La curva è simmetrica, H(p) = H(1 − p): scambiare i nomi degli esiti non cambia l’informazione."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Informazione e significato",
       "text": {
         "base": [
-          "Entropia non significa ignoranza di una singola persona né qualità del contenuto. Un esito raro ha molta informazione individuale, ma la sua probabilità pesa poco nella media.",
-          "Il modello considera una sola variabile binaria con probabilità note. Non descrive dipendenze fra messaggi, compressione reale o significato semantico.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: confondere informazione e significato. Per Shannon un messaggio porta tanta più informazione quanto meno è prevedibile, indipendentemente da ciò che dice. Una sequenza casuale di lettere ha entropia alta e nessun significato.",
+          "Secondo errore: credere che l’entropia sia massima quando un esito è molto probabile. È il contrario: l’incertezza, e quindi l’informazione media, è massima quando gli esiti sono equiprobabili.",
+          "I fenomeni collettivi seguono leggi statistiche anche quando i singoli componenti sono imprevedibili. Il numero di teste in mille lanci è prevedibile entro pochi punti percentuali; la pressione di un gas è stabile anche se ogni molecola si muove in modo caotico. In fisica l’entropia di Boltzmann, S = k ln W, conta i microstati W compatibili con lo stato osservato, con la stessa struttura logaritmica."
         ],
         "intermediate": [
-          "Entropia non significa ignoranza di una singola persona né qualità del contenuto. Un esito raro ha molta informazione individuale, ma la sua probabilità pesa poco nella media.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: confondere informazione e significato. Per Shannon un messaggio porta tanta più informazione quanto meno è prevedibile, indipendentemente da ciò che dice. Una sequenza casuale di lettere ha entropia alta e nessun significato.",
+          "Secondo errore: credere che l’entropia sia massima quando un esito è molto probabile. È il contrario: l’incertezza, e quindi l’informazione media, è massima quando gli esiti sono equiprobabili.",
+          "I fenomeni collettivi seguono leggi statistiche anche quando i singoli componenti sono imprevedibili. Il numero di teste in mille lanci è prevedibile entro pochi punti percentuali; la pressione di un gas è stabile anche se ogni molecola si muove in modo caotico. In fisica l’entropia di Boltzmann, S = k ln W, conta i microstati W compatibili con lo stato osservato, con la stessa struttura logaritmica."
         ],
         "advanced": [
-          "Il modello considera una sola variabile binaria con probabilità note. Non descrive dipendenze fra messaggi, compressione reale o significato semantico.",
-          "Deriva H rispetto a p per localizzare il massimo. Collega la concavità dell’entropia alla maggiore incertezza di una distribuzione più uniforme.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: confondere informazione e significato. Per Shannon un messaggio porta tanta più informazione quanto meno è prevedibile, indipendentemente da ciò che dice. Una sequenza casuale di lettere ha entropia alta e nessun significato.",
+          "Secondo errore: credere che l’entropia sia massima quando un esito è molto probabile. È il contrario: l’incertezza, e quindi l’informazione media, è massima quando gli esiti sono equiprobabili.",
+          "L’entropia è il limite della compressione: un messaggio lungo, prodotto da una sorgente con entropia H bit per simbolo, non si può codificare in media con meno di H bit per simbolo senza perdere informazione. Un testo con lettere molto prevedibili si comprime molto; dati casuali quasi per nulla."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "L’entropia binaria misura l’incertezza di un esito con probabilità p e 1-p. È la media dell’informazione -log(p) dei possibili esiti. Con logaritmi in base 2 l’unità è il bit.",
-          "Per p=0,5 e base 2, ciascun termine vale 0,5 bit e il totale è 1 bit. Per p=0 o p=1, H=0. Cambiare base cambia l’unità numerica, non l’ordine delle incertezze."
+          "Ripasso: informazione di un evento −log p; entropia come media; massimo per esiti equiprobabili; ruolo della base e unità di misura; limite della compressione; leggi statistiche dei fenomeni collettivi.",
+          "Mini esercizio: un dado equo ha 6 esiti equiprobabili: H = log₂ 6 ≈ 2,58 bit per lancio.",
+          "Nelle domande sull’entropia chiediti prima quanto è prevedibile la sorgente."
         ],
         "intermediate": [
-          "La formula è H=-p log_a p-(1-p)log_a(1-p). Agli estremi si usa il limite 0 log 0=0. L’entropia è massima quando gli esiti sono equiprobabili e nulla quando uno è certo.",
-          "La variabile Probabilità p è espressa in 1; Entropia in unità log_a. Il dominio dello strumento è [0; 1]. La relazione implementata è: H(p) = -p log_a(p) -(1-p) log_a(1-p)."
+          "Ripasso: informazione di un evento −log p; entropia come media; massimo per esiti equiprobabili; ruolo della base e unità di misura; limite della compressione; leggi statistiche dei fenomeni collettivi.",
+          "Mini esercizio: un dado equo ha 6 esiti equiprobabili: H = log₂ 6 ≈ 2,58 bit per lancio.",
+          "Nelle domande sull’entropia chiediti prima quanto è prevedibile la sorgente."
         ],
         "advanced": [
-          "Deriva H rispetto a p per localizzare il massimo. Collega la concavità dell’entropia alla maggiore incertezza di una distribuzione più uniforme.",
-          "Il modello considera una sola variabile binaria con probabilità note. Non descrive dipendenze fra messaggi, compressione reale o significato semantico."
+          "Ripasso: informazione di un evento −log p; entropia come media; massimo per esiti equiprobabili; ruolo della base e unità di misura; limite della compressione; leggi statistiche dei fenomeni collettivi.",
+          "Mini esercizio: un dado equo ha 6 esiti equiprobabili: H = log₂ 6 ≈ 2,58 bit per lancio.",
+          "Nelle domande sull’entropia chiediti prima quanto è prevedibile la sorgente."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Variabile binaria con probabilità note.",
-          "Il modello considera una sola variabile binaria con probabilità note. Non descrive dipendenze fra messaggi, compressione reale o significato semantico.",
-          "Collegamento consigliato: biology-18. Il completamento registra attività e autoverifica, non certifica competenze."
+          "L’entropia collega probabilità, comunicazione e fisica. Torna nella chimica, dove decide insieme all’energia il verso delle trasformazioni, e nella biologia, nella misura della diversità di una comunità con l’indice di Shannon.",
+          "Riepilogo dell’unità: un evento raro porta più informazione di uno frequente, −log p; l’entropia è l’informazione media e vale al massimo log del numero di esiti, quando sono equiprobabili; la base fissa l’unità; l’entropia è il limite della compressione senza perdite.",
+          "Nel diario registra A e B con le previsioni e calcola l’entropia di una sorgente che dà «guasto» con probabilità 0,1."
         ],
         "intermediate": [
-          "La formula è H=-p log_a p-(1-p)log_a(1-p). Agli estremi si usa il limite 0 log 0=0. L’entropia è massima quando gli esiti sono equiprobabili e nulla quando uno è certo.",
-          "Il modello considera una sola variabile binaria con probabilità note. Non descrive dipendenze fra messaggi, compressione reale o significato semantico.",
-          "Deriva H rispetto a p per localizzare il massimo. Collega la concavità dell’entropia alla maggiore incertezza di una distribuzione più uniforme."
+          "L’entropia collega probabilità, comunicazione e fisica. Torna nella chimica, dove decide insieme all’energia il verso delle trasformazioni, e nella biologia, nella misura della diversità di una comunità con l’indice di Shannon.",
+          "Riepilogo dell’unità: un evento raro porta più informazione di uno frequente, −log p; l’entropia è l’informazione media e vale al massimo log del numero di esiti, quando sono equiprobabili; la base fissa l’unità; l’entropia è il limite della compressione senza perdite.",
+          "Nel diario registra A e B con le previsioni e calcola l’entropia di una sorgente che dà «guasto» con probabilità 0,1."
         ],
         "advanced": [
-          "Deriva H rispetto a p per localizzare il massimo. Collega la concavità dell’entropia alla maggiore incertezza di una distribuzione più uniforme.",
-          "Il modello considera una sola variabile binaria con probabilità note. Non descrive dipendenze fra messaggi, compressione reale o significato semantico.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "L’entropia collega probabilità, comunicazione e fisica. Torna nella chimica, dove decide insieme all’energia il verso delle trasformazioni, e nella biologia, nella misura della diversità di una comunità con l’indice di Shannon.",
+          "Riepilogo dell’unità: un evento raro porta più informazione di uno frequente, −log p; l’entropia è l’informazione media e vale al massimo log del numero di esiti, quando sono equiprobabili; la base fissa l’unità; l’entropia è il limite della compressione senza perdite.",
+          "Nel diario registra A e B con le previsioni e calcola l’entropia di una sorgente che dà «guasto» con probabilità 0,1."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-p07-concept",
-      "prompt": "L’entropia binaria in bit è massima quando:",
+      "id": "math-p07-q1",
+      "prompt": "Quanti bit di informazione porta un evento di probabilità 1/8?",
       "options": [
         {
           "id": "A",
-          "text": "p=0",
-          "feedback": "Entropia non significa ignoranza di una singola persona né qualità del contenuto. Un esito raro ha molta informazione individuale, ma la sua probabilità pesa poco nella media."
+          "text": "1/8 di bit",
+          "feedback": "Più un evento è raro, più informazione porta: −log₂(1/8) = 3."
         },
         {
           "id": "B",
-          "text": "p=1",
-          "feedback": "La formula è H=-p log_a p-(1-p)log_a(1-p). Agli estremi si usa il limite 0 log 0=0. L’entropia è massima quando gli esiti sono equiprobabili e nulla quando uno è certo."
+          "text": "3 bit",
+          "feedback": "Esatto: 2³ = 8, quindi −log₂(1/8) = 3."
         },
         {
           "id": "C",
-          "text": "p=0,5",
-          "feedback": "L’entropia binaria misura l’incertezza di un esito con probabilità p e 1-p. È la media dell’informazione -log(p) dei possibili esiti. Con logaritmi in base 2 l’unità è il bit."
+          "text": "8 bit",
+          "feedback": "8 è il numero di esiti equiprobabili, non l’informazione."
+        },
+        {
+          "id": "D",
+          "text": "0 bit",
+          "feedback": "Zero bit li porta solo un evento certo."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-p07-q2",
+      "prompt": "Per quale valore di p è massima l’entropia di una sorgente con due esiti?",
+      "options": [
+        {
+          "id": "A",
+          "text": "p = 1/2",
+          "feedback": "Esatto: con esiti equiprobabili l’incertezza è massima, e H = 1 bit."
+        },
+        {
+          "id": "B",
+          "text": "p = 1",
+          "feedback": "Con p = 1 l’esito è certo e l’entropia è zero."
+        },
+        {
+          "id": "C",
+          "text": "p = 0,9",
+          "feedback": "Con p = 0,9 la sorgente è prevedibile: H ≈ 0,469 bit."
+        },
+        {
+          "id": "D",
+          "text": "p = 0",
+          "feedback": "Anche con p = 0 l’esito è certo: entropia zero."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-p07-q3",
+      "prompt": "Che cosa succede ai valori dell’entropia passando dalla base 2 alla base 10?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Restano uguali",
+          "feedback": "Cambia l’unità di misura, quindi cambiano i numeri."
+        },
+        {
+          "id": "B",
+          "text": "Raddoppiano",
+          "feedback": "Il fattore è log₁₀ 2 ≈ 0,301, minore di 1."
+        },
+        {
+          "id": "C",
+          "text": "Si moltiplicano tutti per circa 0,301",
+          "feedback": "Esatto: un bit vale log₁₀ 2 hartley, e la forma della curva resta la stessa."
+        },
+        {
+          "id": "D",
+          "text": "Diventano negativi",
+          "feedback": "L’entropia non è mai negativa: è una media di quantità non negative."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "math-p07-calculation",
-      "prompt": "Calcolo: Base logaritmo (a)=2 (adimensionale). Per Probabilità p=0,5 (adimensionale), quanto vale Entropia?",
+      "id": "math-p07-q4",
+      "prompt": "Un dado equo ha sei facce. Qual è l’entropia di un lancio?",
       "options": [
         {
           "id": "A",
-          "text": "0 unità log_a",
-          "feedback": "Controlla sostituzione, segno e unità. H(p) = -p log_a(p) -(1-p) log_a(1-p). Con Base logaritmo (a)=2 (adimensionale) e Probabilità p=0,5 (adimensionale), il risultato è 1 unità log_a. Conserva le unità e arrotonda solo alla fine."
+          "text": "6 bit",
+          "feedback": "6 è il numero di esiti; l’entropia è il suo logaritmo in base 2."
         },
         {
           "id": "B",
-          "text": "1 unità log_a",
-          "feedback": "H(p) = -p log_a(p) -(1-p) log_a(1-p). Con Base logaritmo (a)=2 (adimensionale) e Probabilità p=0,5 (adimensionale), il risultato è 1 unità log_a. Conserva le unità e arrotonda solo alla fine."
+          "text": "1 bit",
+          "feedback": "Un bit corrisponde a due esiti equiprobabili."
         },
         {
           "id": "C",
-          "text": "2 unità log_a",
-          "feedback": "Questo valore non soddisfa la relazione. H(p) = -p log_a(p) -(1-p) log_a(1-p). Con Base logaritmo (a)=2 (adimensionale) e Probabilità p=0,5 (adimensionale), il risultato è 1 unità log_a. Conserva le unità e arrotonda solo alla fine."
+          "text": "1/6 di bit",
+          "feedback": "Gli esiti rari portano più informazione, non meno."
+        },
+        {
+          "id": "D",
+          "text": "log₂ 6 ≈ 2,58 bit",
+          "feedback": "Esatto: con n esiti equiprobabili H = log₂ n."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 0.5,
-        "parameters": {
-          "a": 2
-        },
-        "expected": 1,
-        "unit": "unità log_a"
-      }
+      "correct": "D"
     },
     {
-      "id": "math-p07-transfer",
-      "prompt": "Trasferimento: Base logaritmo (a)=3 (adimensionale). Per Probabilità p=0,5 (adimensionale), quanto vale Entropia?",
+      "id": "math-p07-q5",
+      "prompt": "Perché un file di dati casuali quasi non si comprime?",
       "options": [
         {
           "id": "A",
-          "text": "0,63093 unità log_a",
-          "feedback": "H(p) = -p log_a(p) -(1-p) log_a(1-p). Con Base logaritmo (a)=3 (adimensionale) e Probabilità p=0,5 (adimensionale), il risultato è 0,63093 unità log_a. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché è troppo lungo",
+          "feedback": "La lunghezza non conta: conta la prevedibilità dei simboli."
         },
         {
           "id": "B",
-          "text": "1,63093 unità log_a",
-          "feedback": "Questo valore non soddisfa la relazione. H(p) = -p log_a(p) -(1-p) log_a(1-p). Con Base logaritmo (a)=3 (adimensionale) e Probabilità p=0,5 (adimensionale), il risultato è 0,63093 unità log_a. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché ha entropia massima: nessun simbolo è prevedibile",
+          "feedback": "Esatto: l’entropia è il limite della compressione."
         },
         {
           "id": "C",
-          "text": "-0,36907 unità log_a",
-          "feedback": "Controlla sostituzione, segno e unità. H(p) = -p log_a(p) -(1-p) log_a(1-p). Con Base logaritmo (a)=3 (adimensionale) e Probabilità p=0,5 (adimensionale), il risultato è 0,63093 unità log_a. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché contiene errori",
+          "feedback": "Dati casuali possono essere perfettamente corretti."
+        },
+        {
+          "id": "D",
+          "text": "Perché i programmi di compressione sono imprecisi",
+          "feedback": "Il limite è teorico, e vale per ogni programma."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 0.5,
-        "parameters": {
-          "a": 3
-        },
-        "expected": 0.6309297535714575,
-        "unit": "unità log_a"
-      }
+      "correct": "B"
     },
     {
-      "id": "math-p07-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "math-p07-q6",
+      "prompt": "Perché la pressione di un gas è stabile anche se ogni molecola si muove in modo caotico?",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il modello considera una sola variabile binaria con probabilità note. Non descrive dipendenze fra messaggi, compressione reale o significato semantico."
+          "text": "Perché le molecole si muovono tutte nello stesso modo",
+          "feedback": "Ogni molecola ha una storia diversa."
         },
         {
           "id": "B",
-          "text": "Variabile binaria con probabilità note",
-          "feedback": "Il modello considera una sola variabile binaria con probabilità note. Non descrive dipendenze fra messaggi, compressione reale o significato semantico."
+          "text": "Perché è una media su un numero enorme di molecole",
+          "feedback": "Esatto: le fluttuazioni relative diventano piccolissime nei grandi numeri."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il modello considera una sola variabile binaria con probabilità note. Non descrive dipendenze fra messaggi, compressione reale o significato semantico."
+          "text": "Perché le molecole sono ferme",
+          "feedback": "Le molecole di un gas si muovono velocemente."
+        },
+        {
+          "id": "D",
+          "text": "Perché il caos non esiste",
+          "feedback": "Il moto delle singole molecole è davvero irregolare."
         }
       ],
       "correct": "B"

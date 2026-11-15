@@ -5,14 +5,15 @@
   "title": "Esponenziali e logaritmi",
   "sector": 0,
   "modelId": "math-c06",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Tasso costante e quantità iniziale positiva",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Potenze ad esponente reale, funzioni esponenziali, logaritmi, equazioni esponenziali e tempi caratteristici",
+  "narrativeStatus": "La serra e la sonda sono immaginarie; esponenziali e logaritmi sono matematica reale.",
   "objectives": [
-    "Spiegare: tasso costante e quantità iniziale positiva.",
-    "Applicare y = a exp(bx), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Usare le proprietà delle potenze con esponenti interi, negativi e frazionari.",
+    "Distinguere crescita lineare ed esponenziale e interpretare il tasso.",
+    "Definire il logaritmo e usarne le proprietà.",
+    "Risolvere equazioni esponenziali e calcolare tempi di dimezzamento e raddoppio."
   ],
   "prerequisites": [
     "math-c03",
@@ -20,7 +21,7 @@
     "math-c05"
   ],
   "connections": [
-    "biology-19"
+    "math-p04"
   ],
   "sources": [
     "precalculus"
@@ -39,250 +40,552 @@
   },
   "glossary": [
     {
-      "term": "Tempo",
-      "definition": "Variabile indipendente, unità u.t.; intervallo [0; 10]."
+      "term": "Funzione esponenziale",
+      "definition": "y = a · bˣ con b > 0 e b ≠ 1; un passo fisso di x moltiplica y per un fattore fisso."
     },
     {
-      "term": "Quantità",
-      "definition": "Risultato calcolato dal modello, unità u.a.."
+      "term": "Numero e",
+      "definition": "Base naturale degli esponenziali, circa 2,71828."
     },
     {
-      "term": "Valore iniziale",
-      "definition": "Parametro a, unità u.a.; intervallo [1; 10]."
+      "term": "Logaritmo",
+      "definition": "log_b x = c significa b^c = x; esiste solo per x > 0."
     },
     {
-      "term": "Tasso b",
-      "definition": "Parametro b, unità 1/u.t.; intervallo [-0,5; 0,5]."
+      "term": "Logaritmo naturale",
+      "definition": "ln x, il logaritmo in base e."
+    },
+    {
+      "term": "Tempo di dimezzamento",
+      "definition": "Tempo in cui una quantità in decadimento esponenziale si dimezza: ln 2/k."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Crescere per moltiplicazione",
       "text": {
         "base": [
-          "Il deposito perde ogni intervallo la stessa frazione del materiale rimasto. Un operatore propone una sottrazione costante. Devi decidere quale legge traduce davvero il meccanismo descritto.",
-          "Una variazione proporzionale alla quantità presente conduce a un andamento esponenziale. Nel modello y=a exp(bx), a è il valore iniziale e b il tasso continuo. Per b positivo la quantità cresce; per b negativo decade; per b=0 resta costante."
+          "Una coltura di microrganismi nella serra della stazione aumenta del 20% ogni ora; il materiale radioattivo di una sonda, invece, perde ogni anno la stessa frazione di sé. In entrambi i casi la variazione è proporzionale alla quantità presente: è la firma della crescita e del decadimento esponenziali. Per rispondere a domande come «quando si raggiunge una certa quantità?» servono i logaritmi.",
+          "Le proprietà delle potenze sono la base di tutto: a^m · a^n = a^(m + n), a^m / a^n = a^(m − n), (a^m)^n = a^(m · n), a⁰ = 1, a⁻ⁿ = 1/aⁿ, a^(1/n) = ⁿ√a. Con queste regole le potenze sono definite per ogni esponente reale, se la base è positiva."
         ],
         "intermediate": [
-          "Il deposito perde ogni intervallo la stessa frazione del materiale rimasto. Un operatore propone una sottrazione costante. Devi decidere quale legge traduce davvero il meccanismo descritto.",
-          "Il rapporto y(x+Δx)/y(x)=exp(bΔx) non dipende dall’istante iniziale. Per ricavare un tempo usa il logaritmo: x=ln(y/a)/b, con a>0, y>0 e b≠0. Il logaritmo annulla una moltiplicazione esponenziale, non una semplice somma."
+          "Una coltura di microrganismi nella serra della stazione aumenta del 20% ogni ora; il materiale radioattivo di una sonda, invece, perde ogni anno la stessa frazione di sé. In entrambi i casi la variazione è proporzionale alla quantità presente: è la firma della crescita e del decadimento esponenziali. Per rispondere a domande come «quando si raggiunge una certa quantità?» servono i logaritmi.",
+          "Le proprietà delle potenze sono la base di tutto: a^m · a^n = a^(m + n), a^m / a^n = a^(m − n), (a^m)^n = a^(m · n), a⁰ = 1, a⁻ⁿ = 1/aⁿ, a^(1/n) = ⁿ√a. Con queste regole le potenze sono definite per ogni esponente reale, se la base è positiva."
         ],
         "advanced": [
-          "Il deposito perde ogni intervallo la stessa frazione del materiale rimasto. Un operatore propone una sottrazione costante. Devi decidere quale legge traduce davvero il meccanismo descritto.",
-          "Deriva il tempo di dimezzamento per b<0 e confrontalo con il tempo di raddoppio. Mostra che il grafico di ln(y) contro x è una retta di pendenza b.",
-          "Tasso e condizioni esterne sono costanti. Non sono modellati saturazione, capacità del deposito, rumore o ritardi. Il tempo è espresso in unità convenzionali, non necessariamente giorni."
+          "Una coltura di microrganismi nella serra della stazione aumenta del 20% ogni ora; il materiale radioattivo di una sonda, invece, perde ogni anno la stessa frazione di sé. In entrambi i casi la variazione è proporzionale alla quantità presente: è la firma della crescita e del decadimento esponenziali. Per rispondere a domande come «quando si raggiunge una certa quantità?» servono i logaritmi.",
+          "Le proprietà delle potenze sono la base di tutto: a^m · a^n = a^(m + n), a^m / a^n = a^(m − n), (a^m)^n = a^(m · n), a⁰ = 1, a⁻ⁿ = 1/aⁿ, a^(1/n) = ⁿ√a. Con queste regole le potenze sono definite per ogni esponente reale, se la base è positiva."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Esponenziali e logaritmi",
       "text": {
         "base": [
-          "Una variazione proporzionale alla quantità presente conduce a un andamento esponenziale. Nel modello y=a exp(bx), a è il valore iniziale e b il tasso continuo. Per b positivo la quantità cresce; per b negativo decade; per b=0 resta costante.",
-          "Con a=2 e b=0,2, al tempo zero ottieni 2. Dopo 5 unità di tempo hai 2e≈5,437. Il tempo di raddoppio è ln(2)/0,2≈3,466, uguale qualunque sia il valore iniziale positivo."
+          "Una funzione esponenziale ha la forma y = a · bˣ con base b positiva e diversa da 1. Se b > 1 cresce, se 0 < b < 1 decresce. Moltiplicare x per un passo fisso moltiplica y per un fattore fisso: è la differenza dalla crescita lineare, dove un passo fisso aggiunge una quantità fissa. Con il 20% all’ora il fattore orario è 1,2: dopo 5 ore la coltura è moltiplicata per 1,2⁵ ≈ 2,49.",
+          "Il numero e ≈ 2,71828 è la base più usata nelle scienze. La funzione y = a · e^(bx) cresce se b > 0 e decresce se b < 0; b è il tasso di variazione relativo: la variazione per unità di tempo è b volte la quantità presente. Il laboratorio di questa unità usa proprio y = a · e^(bx); con a = 2 e b = 0,2 il valore in x = 0 è 2.",
+          "Il logaritmo risponde alla domanda inversa: a quale esponente bisogna elevare la base per ottenere un numero? log_b x = c significa b^c = x. Esempi: log₂ 8 = 3 perché 2³ = 8; log₁₀ 0,001 = −3 perché 10⁻³ = 0,001. Il logaritmo naturale ln x ha base e. Il logaritmo esiste solo per x > 0.",
+          "Le proprietà dei logaritmi traducono quelle delle potenze: log(xy) = log x + log y; log(x/y) = log x − log y; log(xⁿ) = n log x. Per cambiare base: log_b x = ln x / ln b. Queste regole trasformano prodotti in somme e potenze in prodotti, e per questo i logaritmi furono per secoli lo strumento principale di calcolo.",
+          "Esempio svolto: quando 2e^(0,2t) raggiunge 10? Si divide per 2: e^(0,2t) = 5. Si prende il logaritmo naturale: 0,2t = ln 5 ≈ 1,609. Quindi t ≈ 8,05. Con la stessa base il passaggio è più diretto: 2^(x + 1) = 32 = 2⁵ dà x + 1 = 5, cioè x = 4."
         ],
         "intermediate": [
-          "Il rapporto y(x+Δx)/y(x)=exp(bΔx) non dipende dall’istante iniziale. Per ricavare un tempo usa il logaritmo: x=ln(y/a)/b, con a>0, y>0 e b≠0. Il logaritmo annulla una moltiplicazione esponenziale, non una semplice somma.",
-          "La variabile Tempo è espressa in u.t.; Quantità in u.a.. Il dominio dello strumento è [0; 10]. La relazione implementata è: y = a exp(bx).",
-          "Con a=2 e b=0,2, al tempo zero ottieni 2. Dopo 5 unità di tempo hai 2e≈5,437. Il tempo di raddoppio è ln(2)/0,2≈3,466, uguale qualunque sia il valore iniziale positivo."
+          "Una funzione esponenziale ha la forma y = a · bˣ con base b positiva e diversa da 1. Se b > 1 cresce, se 0 < b < 1 decresce. Moltiplicare x per un passo fisso moltiplica y per un fattore fisso: è la differenza dalla crescita lineare, dove un passo fisso aggiunge una quantità fissa. Con il 20% all’ora il fattore orario è 1,2: dopo 5 ore la coltura è moltiplicata per 1,2⁵ ≈ 2,49.",
+          "Il numero e ≈ 2,71828 è la base più usata nelle scienze. La funzione y = a · e^(bx) cresce se b > 0 e decresce se b < 0; b è il tasso di variazione relativo: la variazione per unità di tempo è b volte la quantità presente. Il laboratorio di questa unità usa proprio y = a · e^(bx); con a = 2 e b = 0,2 il valore in x = 0 è 2.",
+          "Il logaritmo risponde alla domanda inversa: a quale esponente bisogna elevare la base per ottenere un numero? log_b x = c significa b^c = x. Esempi: log₂ 8 = 3 perché 2³ = 8; log₁₀ 0,001 = −3 perché 10⁻³ = 0,001. Il logaritmo naturale ln x ha base e. Il logaritmo esiste solo per x > 0.",
+          "Le proprietà dei logaritmi traducono quelle delle potenze: log(xy) = log x + log y; log(x/y) = log x − log y; log(xⁿ) = n log x. Per cambiare base: log_b x = ln x / ln b. Queste regole trasformano prodotti in somme e potenze in prodotti, e per questo i logaritmi furono per secoli lo strumento principale di calcolo.",
+          "Esempio svolto: quando 2e^(0,2t) raggiunge 10? Si divide per 2: e^(0,2t) = 5. Si prende il logaritmo naturale: 0,2t = ln 5 ≈ 1,609. Quindi t ≈ 8,05. Con la stessa base il passaggio è più diretto: 2^(x + 1) = 32 = 2⁵ dà x + 1 = 5, cioè x = 4.",
+          "Per un decadimento N = N₀ e^(−kt) il tempo di dimezzamento T si trova imponendo N = N₀/2: e^(−kT) = 1/2, quindi T = ln 2 / k ≈ 0,693/k. Con k = 0,1 all’anno, T ≈ 6,93 anni. Il tempo di dimezzamento non dipende dalla quantità iniziale: ogni T anni la quantità si dimezza, qualunque sia. Per la crescita, il tempo di raddoppio vale ln 2 / b."
         ],
         "advanced": [
-          "Il rapporto y(x+Δx)/y(x)=exp(bΔx) non dipende dall’istante iniziale. Per ricavare un tempo usa il logaritmo: x=ln(y/a)/b, con a>0, y>0 e b≠0. Il logaritmo annulla una moltiplicazione esponenziale, non una semplice somma.",
-          "Deriva il tempo di dimezzamento per b<0 e confrontalo con il tempo di raddoppio. Mostra che il grafico di ln(y) contro x è una retta di pendenza b.",
-          "Un tasso continuo b=0,20 non equivale esattamente a un aumento discreto del 20% per intervallo: il fattore è exp(0,20), non 1,20. Una crescita esponenziale non può essere estesa senza limiti a risorse finite."
+          "Il numero e ≈ 2,71828 è la base più usata nelle scienze. La funzione y = a · e^(bx) cresce se b > 0 e decresce se b < 0; b è il tasso di variazione relativo: la variazione per unità di tempo è b volte la quantità presente. Il laboratorio di questa unità usa proprio y = a · e^(bx); con a = 2 e b = 0,2 il valore in x = 0 è 2.",
+          "Il logaritmo risponde alla domanda inversa: a quale esponente bisogna elevare la base per ottenere un numero? log_b x = c significa b^c = x. Esempi: log₂ 8 = 3 perché 2³ = 8; log₁₀ 0,001 = −3 perché 10⁻³ = 0,001. Il logaritmo naturale ln x ha base e. Il logaritmo esiste solo per x > 0.",
+          "Le proprietà dei logaritmi traducono quelle delle potenze: log(xy) = log x + log y; log(x/y) = log x − log y; log(xⁿ) = n log x. Per cambiare base: log_b x = ln x / ln b. Queste regole trasformano prodotti in somme e potenze in prodotti, e per questo i logaritmi furono per secoli lo strumento principale di calcolo.",
+          "Esempio svolto: quando 2e^(0,2t) raggiunge 10? Si divide per 2: e^(0,2t) = 5. Si prende il logaritmo naturale: 0,2t = ln 5 ≈ 1,609. Quindi t ≈ 8,05. Con la stessa base il passaggio è più diretto: 2^(x + 1) = 32 = 2⁵ dà x + 1 = 5, cioè x = 4.",
+          "Per un decadimento N = N₀ e^(−kt) il tempo di dimezzamento T si trova imponendo N = N₀/2: e^(−kT) = 1/2, quindi T = ln 2 / k ≈ 0,693/k. Con k = 0,1 all’anno, T ≈ 6,93 anni. Il tempo di dimezzamento non dipende dalla quantità iniziale: ogni T anni la quantità si dimezza, qualunque sia. Per la crescita, il tempo di raddoppio vale ln 2 / b.",
+          "Molte scale di misura sono logaritmiche, perché le grandezze coinvolte variano di molti ordini di grandezza: il pH, i decibel, la magnitudo dei terremoti. Su una scala logaritmica un passo di 1 corrisponde a un fattore 10: un pH 3 corrisponde a una concentrazione di ioni idrogeno dieci volte maggiore di un pH 4."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Problemi guidati",
       "text": {
         "base": [
-          "Nel laboratorio imposta Valore iniziale (a): 2 u.a.; Tasso b (b): 0,2 1/u.t.. Prima di salvare A, prevedi come cambia Quantità fra Tempo=2,5 e 5 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con a=2 e b=0,2, al tempo zero ottieni 2. Dopo 5 unità di tempo hai 2e≈5,437. Il tempo di raddoppio è ln(2)/0,2≈3,466, uguale qualunque sia il valore iniziale positivo.",
-          "La variabile Tempo è espressa in u.t.; Quantità in u.a.. Il dominio dello strumento è [0; 10]. La relazione implementata è: y = a exp(bx)."
+          "L’attività propone quattro problemi guidati: un tempo di raggiungimento con il logaritmo naturale, un’equazione esponenziale con la stessa base, un calcolo con le proprietà dei logaritmi e un tempo di dimezzamento. A ogni passaggio scegli il risultato corretto e leggi il commento. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Prima di applicare il logaritmo isola sempre la potenza: in 2e^(0,2t) = 10 si divide per 2 prima di prendere ln. Applicare ln a una somma è un errore: ln(a + b) non si spezza."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Valore iniziale (a): 2 u.a.; Tasso b (b): 0,2 1/u.t.. Prima di salvare A, prevedi come cambia Quantità fra Tempo=2,5 e 5 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Tempo è espressa in u.t.; Quantità in u.a.. Il dominio dello strumento è [0; 10]. La relazione implementata è: y = a exp(bx).",
-          "Il rapporto y(x+Δx)/y(x)=exp(bΔx) non dipende dall’istante iniziale. Per ricavare un tempo usa il logaritmo: x=ln(y/a)/b, con a>0, y>0 e b≠0. Il logaritmo annulla una moltiplicazione esponenziale, non una semplice somma."
+          "L’attività propone quattro problemi guidati: un tempo di raggiungimento con il logaritmo naturale, un’equazione esponenziale con la stessa base, un calcolo con le proprietà dei logaritmi e un tempo di dimezzamento. A ogni passaggio scegli il risultato corretto e leggi il commento. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Prima di applicare il logaritmo isola sempre la potenza: in 2e^(0,2t) = 10 si divide per 2 prima di prendere ln. Applicare ln a una somma è un errore: ln(a + b) non si spezza.",
+          "Per un decadimento N = N₀ e^(−kt) il tempo di dimezzamento T si trova imponendo N = N₀/2: e^(−kT) = 1/2, quindi T = ln 2 / k ≈ 0,693/k. Con k = 0,1 all’anno, T ≈ 6,93 anni. Il tempo di dimezzamento non dipende dalla quantità iniziale: ogni T anni la quantità si dimezza, qualunque sia. Per la crescita, il tempo di raddoppio vale ln 2 / b."
         ],
         "advanced": [
-          "Nel laboratorio imposta Valore iniziale (a): 2 u.a.; Tasso b (b): 0,2 1/u.t.. Prima di salvare A, prevedi come cambia Quantità fra Tempo=2,5 e 5 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Deriva il tempo di dimezzamento per b<0 e confrontalo con il tempo di raddoppio. Mostra che il grafico di ln(y) contro x è una retta di pendenza b.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività propone quattro problemi guidati: un tempo di raggiungimento con il logaritmo naturale, un’equazione esponenziale con la stessa base, un calcolo con le proprietà dei logaritmi e un tempo di dimezzamento. A ogni passaggio scegli il risultato corretto e leggi il commento. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Prima di applicare il logaritmo isola sempre la potenza: in 2e^(0,2t) = 10 si divide per 2 prima di prendere ln. Applicare ln a una somma è un errore: ln(a + b) non si spezza."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e limiti",
       "text": {
         "base": [
-          "Un tasso continuo b=0,20 non equivale esattamente a un aumento discreto del 20% per intervallo: il fattore è exp(0,20), non 1,20. Una crescita esponenziale non può essere estesa senza limiti a risorse finite.",
-          "Tasso e condizioni esterne sono costanti. Non sono modellati saturazione, capacità del deposito, rumore o ritardi. Il tempo è espresso in unità convenzionali, non necessariamente giorni.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: confondere crescita esponenziale e crescita «veloce». All’inizio una crescita esponenziale può essere più lenta di una lineare; ciò che la distingue è il fattore costante per passo. Prima o poi supera qualunque crescita lineare o polinomiale.",
+          "Secondo errore: scrivere log(x + y) = log x + log y. La proprietà riguarda il prodotto: log(xy). Controllo numerico: log₁₀(10 + 10) ≈ 1,30, mentre log₁₀ 10 + log₁₀ 10 = 2.",
+          "Nessuna crescita reale resta esponenziale a lungo: le risorse finiscono e la crescita rallenta. Il modello esponenziale descrive bene le fasi iniziali; per le popolazioni si passa poi a modelli con una capacità massima, come la curva logistica studiata in biologia."
         ],
         "intermediate": [
-          "Un tasso continuo b=0,20 non equivale esattamente a un aumento discreto del 20% per intervallo: il fattore è exp(0,20), non 1,20. Una crescita esponenziale non può essere estesa senza limiti a risorse finite.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: confondere crescita esponenziale e crescita «veloce». All’inizio una crescita esponenziale può essere più lenta di una lineare; ciò che la distingue è il fattore costante per passo. Prima o poi supera qualunque crescita lineare o polinomiale.",
+          "Secondo errore: scrivere log(x + y) = log x + log y. La proprietà riguarda il prodotto: log(xy). Controllo numerico: log₁₀(10 + 10) ≈ 1,30, mentre log₁₀ 10 + log₁₀ 10 = 2.",
+          "Molte scale di misura sono logaritmiche, perché le grandezze coinvolte variano di molti ordini di grandezza: il pH, i decibel, la magnitudo dei terremoti. Su una scala logaritmica un passo di 1 corrisponde a un fattore 10: un pH 3 corrisponde a una concentrazione di ioni idrogeno dieci volte maggiore di un pH 4.",
+          "Nessuna crescita reale resta esponenziale a lungo: le risorse finiscono e la crescita rallenta. Il modello esponenziale descrive bene le fasi iniziali; per le popolazioni si passa poi a modelli con una capacità massima, come la curva logistica studiata in biologia."
         ],
         "advanced": [
-          "Tasso e condizioni esterne sono costanti. Non sono modellati saturazione, capacità del deposito, rumore o ritardi. Il tempo è espresso in unità convenzionali, non necessariamente giorni.",
-          "Deriva il tempo di dimezzamento per b<0 e confrontalo con il tempo di raddoppio. Mostra che il grafico di ln(y) contro x è una retta di pendenza b.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Secondo errore: scrivere log(x + y) = log x + log y. La proprietà riguarda il prodotto: log(xy). Controllo numerico: log₁₀(10 + 10) ≈ 1,30, mentre log₁₀ 10 + log₁₀ 10 = 2.",
+          "Molte scale di misura sono logaritmiche, perché le grandezze coinvolte variano di molti ordini di grandezza: il pH, i decibel, la magnitudo dei terremoti. Su una scala logaritmica un passo di 1 corrisponde a un fattore 10: un pH 3 corrisponde a una concentrazione di ioni idrogeno dieci volte maggiore di un pH 4.",
+          "Nessuna crescita reale resta esponenziale a lungo: le risorse finiscono e la crescita rallenta. Il modello esponenziale descrive bene le fasi iniziali; per le popolazioni si passa poi a modelli con una capacità massima, come la curva logistica studiata in biologia."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Una variazione proporzionale alla quantità presente conduce a un andamento esponenziale. Nel modello y=a exp(bx), a è il valore iniziale e b il tasso continuo. Per b positivo la quantità cresce; per b negativo decade; per b=0 resta costante.",
-          "Con a=2 e b=0,2, al tempo zero ottieni 2. Dopo 5 unità di tempo hai 2e≈5,437. Il tempo di raddoppio è ln(2)/0,2≈3,466, uguale qualunque sia il valore iniziale positivo."
+          "Ripasso: proprietà delle potenze; funzione esponenziale e significato del tasso; definizione di logaritmo e suo dominio; proprietà dei logaritmi e cambio di base; tempo di dimezzamento e di raddoppio.",
+          "Mini esercizio: log₃ 81 = 4 perché 3⁴ = 81. ln(e⁵) = 5. Tempo di raddoppio con b = 0,07: ln 2/0,07 ≈ 9,9.",
+          "Nelle domande con i logaritmi controlla il risultato elevando la base all’esponente trovato."
         ],
         "intermediate": [
-          "Il rapporto y(x+Δx)/y(x)=exp(bΔx) non dipende dall’istante iniziale. Per ricavare un tempo usa il logaritmo: x=ln(y/a)/b, con a>0, y>0 e b≠0. Il logaritmo annulla una moltiplicazione esponenziale, non una semplice somma.",
-          "La variabile Tempo è espressa in u.t.; Quantità in u.a.. Il dominio dello strumento è [0; 10]. La relazione implementata è: y = a exp(bx)."
+          "Ripasso: proprietà delle potenze; funzione esponenziale e significato del tasso; definizione di logaritmo e suo dominio; proprietà dei logaritmi e cambio di base; tempo di dimezzamento e di raddoppio.",
+          "Mini esercizio: log₃ 81 = 4 perché 3⁴ = 81. ln(e⁵) = 5. Tempo di raddoppio con b = 0,07: ln 2/0,07 ≈ 9,9.",
+          "Nelle domande con i logaritmi controlla il risultato elevando la base all’esponente trovato."
         ],
         "advanced": [
-          "Deriva il tempo di dimezzamento per b<0 e confrontalo con il tempo di raddoppio. Mostra che il grafico di ln(y) contro x è una retta di pendenza b.",
-          "Tasso e condizioni esterne sono costanti. Non sono modellati saturazione, capacità del deposito, rumore o ritardi. Il tempo è espresso in unità convenzionali, non necessariamente giorni."
+          "Ripasso: proprietà delle potenze; funzione esponenziale e significato del tasso; definizione di logaritmo e suo dominio; proprietà dei logaritmi e cambio di base; tempo di dimezzamento e di raddoppio.",
+          "Mini esercizio: log₃ 81 = 4 perché 3⁴ = 81. ln(e⁵) = 5. Tempo di raddoppio con b = 0,07: ln 2/0,07 ≈ 9,9.",
+          "Nelle domande con i logaritmi controlla il risultato elevando la base all’esponente trovato."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Tasso costante e quantità iniziale positiva.",
-          "Tasso e condizioni esterne sono costanti. Non sono modellati saturazione, capacità del deposito, rumore o ritardi. Il tempo è espresso in unità convenzionali, non necessariamente giorni.",
-          "Collegamento consigliato: biology-19. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Esponenziali e logaritmi tornano in chimica (cinetica e pH), in biologia (crescita delle popolazioni, decadimento dei farmaci), in fisica (decadimento radioattivo, raffreddamento) e nell’unità «Limiti, variazione e accumulazione», dove si scopre che e^x è la funzione uguale alla propria derivata.",
+          "Riepilogo dell’unità: nella crescita esponenziale un passo fisso moltiplica la quantità per un fattore fisso; il logaritmo è l’operazione inversa e trova l’esponente; le sue proprietà trasformano prodotti in somme; il tempo di dimezzamento ln 2/k non dipende dalla quantità iniziale.",
+          "Nel diario scrivi un problema di crescita o decadimento che conosci e risolvilo con i logaritmi, controllando il risultato."
         ],
         "intermediate": [
-          "Il rapporto y(x+Δx)/y(x)=exp(bΔx) non dipende dall’istante iniziale. Per ricavare un tempo usa il logaritmo: x=ln(y/a)/b, con a>0, y>0 e b≠0. Il logaritmo annulla una moltiplicazione esponenziale, non una semplice somma.",
-          "Tasso e condizioni esterne sono costanti. Non sono modellati saturazione, capacità del deposito, rumore o ritardi. Il tempo è espresso in unità convenzionali, non necessariamente giorni.",
-          "Deriva il tempo di dimezzamento per b<0 e confrontalo con il tempo di raddoppio. Mostra che il grafico di ln(y) contro x è una retta di pendenza b."
+          "Esponenziali e logaritmi tornano in chimica (cinetica e pH), in biologia (crescita delle popolazioni, decadimento dei farmaci), in fisica (decadimento radioattivo, raffreddamento) e nell’unità «Limiti, variazione e accumulazione», dove si scopre che e^x è la funzione uguale alla propria derivata.",
+          "Riepilogo dell’unità: nella crescita esponenziale un passo fisso moltiplica la quantità per un fattore fisso; il logaritmo è l’operazione inversa e trova l’esponente; le sue proprietà trasformano prodotti in somme; il tempo di dimezzamento ln 2/k non dipende dalla quantità iniziale.",
+          "Nel diario scrivi un problema di crescita o decadimento che conosci e risolvilo con i logaritmi, controllando il risultato."
         ],
         "advanced": [
-          "Deriva il tempo di dimezzamento per b<0 e confrontalo con il tempo di raddoppio. Mostra che il grafico di ln(y) contro x è una retta di pendenza b.",
-          "Tasso e condizioni esterne sono costanti. Non sono modellati saturazione, capacità del deposito, rumore o ritardi. Il tempo è espresso in unità convenzionali, non necessariamente giorni.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Esponenziali e logaritmi tornano in chimica (cinetica e pH), in biologia (crescita delle popolazioni, decadimento dei farmaci), in fisica (decadimento radioattivo, raffreddamento) e nell’unità «Limiti, variazione e accumulazione», dove si scopre che e^x è la funzione uguale alla propria derivata.",
+          "Riepilogo dell’unità: nella crescita esponenziale un passo fisso moltiplica la quantità per un fattore fisso; il logaritmo è l’operazione inversa e trova l’esponente; le sue proprietà trasformano prodotti in somme; il tempo di dimezzamento ln 2/k non dipende dalla quantità iniziale.",
+          "Nel diario scrivi un problema di crescita o decadimento che conosci e risolvilo con i logaritmi, controllando il risultato."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-c06-concept",
-      "prompt": "In y=a exp(bx), una crescita continua richiede:",
+      "id": "math-c06-q1",
+      "prompt": "Quanto vale log₂ 32?",
       "options": [
         {
           "id": "A",
-          "text": "Sempre b=0",
-          "feedback": "Il rapporto y(x+Δx)/y(x)=exp(bΔx) non dipende dall’istante iniziale. Per ricavare un tempo usa il logaritmo: x=ln(y/a)/b, con a>0, y>0 e b≠0. Il logaritmo annulla una moltiplicazione esponenziale, non una semplice somma."
+          "text": "5",
+          "feedback": "Esatto: 2⁵ = 32, quindi l’esponente cercato è 5."
         },
         {
           "id": "B",
-          "text": "a>0 e b>0",
-          "feedback": "Una variazione proporzionale alla quantità presente conduce a un andamento esponenziale. Nel modello y=a exp(bx), a è il valore iniziale e b il tasso continuo. Per b positivo la quantità cresce; per b negativo decade; per b=0 resta costante."
+          "text": "16",
+          "feedback": "16 è 32/2: il logaritmo cerca l’esponente, non il quoziente."
         },
         {
           "id": "C",
-          "text": "a>0 e b<0",
-          "feedback": "Un tasso continuo b=0,20 non equivale esattamente a un aumento discreto del 20% per intervallo: il fattore è exp(0,20), non 1,20. Una crescita esponenziale non può essere estesa senza limiti a risorse finite."
+          "text": "6",
+          "feedback": "2⁶ = 64, il doppio di 32: l’esponente è uno in meno."
+        },
+        {
+          "id": "D",
+          "text": "1/5",
+          "feedback": "Il logaritmo di un numero maggiore della base è maggiore di 1."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-c06-q2",
+      "prompt": "Una quantità cresce del 10% all’anno. Di quanto è moltiplicata dopo 2 anni?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1,2",
+          "feedback": "Questo sarebbe un aumento del 20% sulla quantità iniziale, come in una crescita lineare."
+        },
+        {
+          "id": "B",
+          "text": "1,21",
+          "feedback": "Esatto: 1,1 · 1,1 = 1,21. Il secondo aumento si applica anche al primo."
+        },
+        {
+          "id": "C",
+          "text": "2,2",
+          "feedback": "Hai moltiplicato il fattore per 2 invece di elevarlo al quadrato."
+        },
+        {
+          "id": "D",
+          "text": "1,1",
+          "feedback": "Questo è il fattore dopo un solo anno."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "math-c06-calculation",
-      "prompt": "Calcolo: Valore iniziale (a)=2 u.a.; Tasso b (b)=0,2 1/u.t.. Per Tempo=0 u.t., quanto vale Quantità?",
+      "id": "math-c06-q3",
+      "prompt": "Qual è la soluzione di 3^(x − 1) = 27?",
       "options": [
         {
           "id": "A",
-          "text": "2 u.a.",
-          "feedback": "y = a exp(bx). Con Valore iniziale (a)=2 u.a.; Tasso b (b)=0,2 1/u.t. e Tempo=0 u.t., il risultato è 2 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "x = 3",
+          "feedback": "Con x = 3 si ottiene 3^(3 − 1) = 3² = 9, non 27."
         },
         {
           "id": "B",
-          "text": "3 u.a.",
-          "feedback": "Questo valore non soddisfa la relazione. y = a exp(bx). Con Valore iniziale (a)=2 u.a.; Tasso b (b)=0,2 1/u.t. e Tempo=0 u.t., il risultato è 2 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "x = 9",
+          "feedback": "9 è 27/3: l’equazione chiede l’esponente x."
         },
         {
           "id": "C",
-          "text": "1 u.a.",
-          "feedback": "Controlla sostituzione, segno e unità. y = a exp(bx). Con Valore iniziale (a)=2 u.a.; Tasso b (b)=0,2 1/u.t. e Tempo=0 u.t., il risultato è 2 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "x = 4",
+          "feedback": "Esatto: 27 = 3³, quindi x − 1 = 3."
+        },
+        {
+          "id": "D",
+          "text": "x = 28",
+          "feedback": "Non si somma 1 a 27: si confrontano gli esponenti."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 2,
-          "b": 0.2
-        },
-        "expected": 2,
-        "unit": "u.a."
-      }
+      "correct": "C"
     },
     {
-      "id": "math-c06-transfer",
-      "prompt": "Trasferimento: Valore iniziale (a)=3 u.a.; Tasso b (b)=0,2 1/u.t.. Per Tempo=0 u.t., quanto vale Quantità?",
+      "id": "math-c06-q4",
+      "prompt": "Quanto vale ln(e⁷)?",
       "options": [
         {
           "id": "A",
-          "text": "4,5 u.a.",
-          "feedback": "Questo valore non soddisfa la relazione. y = a exp(bx). Con Valore iniziale (a)=3 u.a.; Tasso b (b)=0,2 1/u.t. e Tempo=0 u.t., il risultato è 3 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "e⁷",
+          "feedback": "Il logaritmo naturale annulla l’esponenziale."
         },
         {
           "id": "B",
-          "text": "1,5 u.a.",
-          "feedback": "Controlla sostituzione, segno e unità. y = a exp(bx). Con Valore iniziale (a)=3 u.a.; Tasso b (b)=0,2 1/u.t. e Tempo=0 u.t., il risultato è 3 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "7e",
+          "feedback": "Le due funzioni sono inverse: resta solo l’esponente."
         },
         {
           "id": "C",
-          "text": "3 u.a.",
-          "feedback": "y = a exp(bx). Con Valore iniziale (a)=3 u.a.; Tasso b (b)=0,2 1/u.t. e Tempo=0 u.t., il risultato è 3 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "1/7",
+          "feedback": "ln e vale 1, e ln(e⁷) = 7 · ln e."
+        },
+        {
+          "id": "D",
+          "text": "7",
+          "feedback": "Esatto: ln e la potenza di base e sono funzioni inverse."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 3,
-          "b": 0.2
-        },
-        "expected": 3,
-        "unit": "u.a."
-      }
+      "correct": "D"
     },
     {
-      "id": "math-c06-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "math-c06-q5",
+      "prompt": "Un decadimento ha k = 0,2 all’anno. Qual è il tempo di dimezzamento?",
       "options": [
         {
           "id": "A",
-          "text": "Tasso costante e quantità iniziale positiva",
-          "feedback": "Tasso e condizioni esterne sono costanti. Non sono modellati saturazione, capacità del deposito, rumore o ritardi. Il tempo è espresso in unità convenzionali, non necessariamente giorni."
+          "text": "Circa 3,5 anni",
+          "feedback": "Esatto: ln 2/0,2 ≈ 0,693/0,2 ≈ 3,47 anni."
         },
         {
           "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Tasso e condizioni esterne sono costanti. Non sono modellati saturazione, capacità del deposito, rumore o ritardi. Il tempo è espresso in unità convenzionali, non necessariamente giorni."
+          "text": "2,5 anni",
+          "feedback": "0,5/0,2 = 2,5: il dimezzamento richiede ln 2, non 1/2."
         },
         {
           "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Tasso e condizioni esterne sono costanti. Non sono modellati saturazione, capacità del deposito, rumore o ritardi. Il tempo è espresso in unità convenzionali, non necessariamente giorni."
+          "text": "5 anni",
+          "feedback": "1/0,2 = 5 è il tempo caratteristico 1/k, più lungo del dimezzamento."
+        },
+        {
+          "id": "D",
+          "text": "0,14 anni",
+          "feedback": "Hai moltiplicato ln 2 per 0,2 invece di dividere."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "math-c06-q6",
+      "prompt": "Quale uguaglianza è corretta per x, y > 0?",
+      "options": [
+        {
+          "id": "A",
+          "text": "log(x + y) = log x + log y",
+          "feedback": "La somma dei logaritmi corrisponde al logaritmo del prodotto."
+        },
+        {
+          "id": "B",
+          "text": "log(x · y) = log x + log y",
+          "feedback": "Esatto: è la proprietà fondamentale dei logaritmi."
+        },
+        {
+          "id": "C",
+          "text": "log(xⁿ) = (log x)ⁿ",
+          "feedback": "L’esponente diventa un fattore: n log x."
+        },
+        {
+          "id": "D",
+          "text": "log(x/y) = log x / log y",
+          "feedback": "Il logaritmo del quoziente è la differenza log x − log y."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "steps",
+    "goal": 3,
+    "problems": [
+      {
+        "id": "raggiungere",
+        "title": "Quando si arriva a 10?",
+        "text": "Una coltura segue N(t) = 2e^(0,2t), con t in ore. Quando raggiunge 10?",
+        "maxErrors": 1,
+        "explain": "Isolare la potenza e poi applicare il logaritmo naturale è lo schema generale per le equazioni esponenziali.",
+        "steps": [
+          {
+            "prompt": "Primo passaggio: come si isola la potenza?",
+            "options": [
+              {
+                "text": "e^(0,2t) = 5",
+                "feedback": "Giusto: si dividono entrambi i membri per 2."
+              },
+              {
+                "text": "e^(0,2t) = 8",
+                "feedback": "Il 2 moltiplica la potenza: si divide, non si sottrae."
+              },
+              {
+                "text": "0,2t = ln 10 − 2",
+                "feedback": "Prima di prendere il logaritmo bisogna isolare la potenza."
+              }
+            ],
+            "correct": 0,
+            "result": "e^(0,2t) = 5."
+          },
+          {
+            "prompt": "Applica il logaritmo naturale.",
+            "options": [
+              {
+                "text": "0,2t = ln 5",
+                "feedback": "Giusto: ln(e^(0,2t)) = 0,2t."
+              },
+              {
+                "text": "0,2t = e⁵",
+                "feedback": "Il logaritmo naturale di 5 è ln 5; e⁵ è l’operazione opposta."
+              },
+              {
+                "text": "t = ln 5",
+                "feedback": "Manca il fattore 0,2 che moltiplica t."
+              }
+            ],
+            "correct": 0,
+            "result": "0,2t = ln 5 ≈ 1,609."
+          },
+          {
+            "prompt": "Quanto vale t?",
+            "options": [
+              {
+                "text": "Circa 8 ore",
+                "feedback": "Giusto: 1,609/0,2 ≈ 8,05."
+              },
+              {
+                "text": "Circa 0,32 ore",
+                "feedback": "Si divide per 0,2, non si moltiplica."
+              },
+              {
+                "text": "Circa 25 ore",
+                "feedback": "Hai diviso 5 per 0,2 senza il logaritmo."
+              }
+            ],
+            "correct": 0,
+            "result": "t ≈ 8,05 ore."
+          }
+        ]
+      },
+      {
+        "id": "stessa-base",
+        "title": "Stessa base",
+        "text": "Risolvi 2^(x + 1) = 32.",
+        "maxErrors": 1,
+        "explain": "Se i due membri si scrivono con la stessa base, basta uguagliare gli esponenti.",
+        "steps": [
+          {
+            "prompt": "Scrivi 32 come potenza di 2.",
+            "options": [
+              {
+                "text": "2⁵",
+                "feedback": "Giusto: 2 · 2 · 2 · 2 · 2 = 32."
+              },
+              {
+                "text": "2⁶",
+                "feedback": "2⁶ = 64."
+              },
+              {
+                "text": "2¹⁶",
+                "feedback": "16 è la metà di 32, non l’esponente."
+              }
+            ],
+            "correct": 0,
+            "result": "2^(x + 1) = 2⁵."
+          },
+          {
+            "prompt": "Che equazione ottieni uguagliando gli esponenti?",
+            "options": [
+              {
+                "text": "x + 1 = 5, cioè x = 4",
+                "feedback": "Giusto. Controllo: 2⁵ = 32."
+              },
+              {
+                "text": "x + 1 = 32",
+                "feedback": "Si confrontano gli esponenti, non i risultati."
+              },
+              {
+                "text": "x = 5",
+                "feedback": "L’esponente è x + 1: x vale 4."
+              }
+            ],
+            "correct": 0,
+            "result": "x = 4."
+          }
+        ]
+      },
+      {
+        "id": "proprieta",
+        "title": "Proprietà dei logaritmi",
+        "text": "Calcola log₂ 8 + log₂ 4 e controlla il risultato.",
+        "maxErrors": 1,
+        "explain": "La somma dei logaritmi è il logaritmo del prodotto: 8 · 4 = 32 = 2⁵.",
+        "steps": [
+          {
+            "prompt": "Quanto valgono i due logaritmi?",
+            "options": [
+              {
+                "text": "3 e 2",
+                "feedback": "Giusto: 2³ = 8 e 2² = 4."
+              },
+              {
+                "text": "4 e 2",
+                "feedback": "2⁴ = 16, non 8."
+              },
+              {
+                "text": "8 e 4",
+                "feedback": "Questi sono gli argomenti; il logaritmo è l’esponente."
+              }
+            ],
+            "correct": 0,
+            "result": "log₂ 8 = 3, log₂ 4 = 2."
+          },
+          {
+            "prompt": "La somma è 5. A quale logaritmo corrisponde?",
+            "options": [
+              {
+                "text": "log₂ 32",
+                "feedback": "Giusto: log₂(8 · 4) = log₂ 32 = 5."
+              },
+              {
+                "text": "log₂ 12",
+                "feedback": "La somma dei logaritmi corrisponde al prodotto degli argomenti, 32."
+              },
+              {
+                "text": "log₂ 5",
+                "feedback": "5 è il valore del logaritmo, non il suo argomento."
+              }
+            ],
+            "correct": 0,
+            "result": "log₂ 8 + log₂ 4 = log₂ 32 = 5."
+          }
+        ]
+      },
+      {
+        "id": "dimezzamento",
+        "title": "Tempo di dimezzamento",
+        "text": "Una sostanza decade come N = N₀e^(−0,1t), con t in anni. Dopo quanto tempo resta metà?",
+        "maxErrors": 1,
+        "explain": "Il tempo di dimezzamento ln 2/k non dipende da N₀: vale lo stesso per un grammo o per una tonnellata.",
+        "steps": [
+          {
+            "prompt": "Quale equazione esprime «resta metà»?",
+            "options": [
+              {
+                "text": "e^(−0,1t) = 1/2",
+                "feedback": "Giusto: si divide N = N₀/2 per N₀."
+              },
+              {
+                "text": "e^(−0,1t) = N₀/2",
+                "feedback": "Dividendo per N₀ la quantità iniziale scompare."
+              },
+              {
+                "text": "−0,1t = 1/2",
+                "feedback": "Manca il logaritmo: l’esponenziale non si toglie da solo."
+              }
+            ],
+            "correct": 0,
+            "result": "e^(−0,1t) = 1/2."
+          },
+          {
+            "prompt": "Prendi il logaritmo naturale: che cosa ottieni?",
+            "options": [
+              {
+                "text": "−0,1t = −ln 2",
+                "feedback": "Giusto: ln(1/2) = −ln 2."
+              },
+              {
+                "text": "−0,1t = ln 2",
+                "feedback": "ln(1/2) è negativo: −ln 2."
+              },
+              {
+                "text": "−0,1t = 0,5",
+                "feedback": "ln(1/2) vale circa −0,693."
+              }
+            ],
+            "correct": 0,
+            "result": "t = ln 2/0,1."
+          },
+          {
+            "prompt": "Quanto vale t?",
+            "options": [
+              {
+                "text": "Circa 6,9 anni",
+                "feedback": "Giusto: 0,693/0,1 ≈ 6,93."
+              },
+              {
+                "text": "5 anni",
+                "feedback": "5 anni sarebbe 0,5/0,1, senza il logaritmo."
+              },
+              {
+                "text": "10 anni",
+                "feedback": "1/k = 10 anni è il tempo caratteristico, più lungo del dimezzamento."
+              }
+            ],
+            "correct": 0,
+            "result": "T ≈ 6,93 anni."
+          }
+        ]
+      }
+    ]
+  }
 }

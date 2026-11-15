@@ -1,7 +1,10 @@
 /** Interactive activities of the hand-written units. Pure logic: no rendering, no network.
  * Each activity keeps a small, validated state and declares when it is complete.
- * 'cards' is data-driven: its rounds live in the unit file and are validated here. */
-export const ACTIVITY_KINDS = Object.freeze(['vsepr', 'punnett', 'logic', 'cards', 'bisection', 'ionic']);
+ * 'cards', 'fit' and 'steps' are data-driven: their content lives in the unit file and is validated here. */
+import { MODEL_IDS, descriptor, defaults, parameters, value } from '../models/curriculum.js';
+export const ACTIVITY_KINDS = Object.freeze(['vsepr', 'punnett', 'logic', 'cards', 'bisection', 'ionic', 'fit', 'steps']);
+/** Kinds whose content lives in the unit file: their goal and item ids come from it. */
+export const DATA_KINDS = Object.freeze(['cards', 'fit', 'steps']);
 export const ACTIVITY_GOALS = Object.freeze({ vsepr: 4, punnett: 3, logic: 6, bisection: 4, ionic: 6 });
 const plain = x => !!x && typeof x === 'object' && !Array.isArray(x);
 const ids = (list, allowed, max) => Array.isArray(list) ? [...new Set(list.filter(id => typeof id === 'string' && allowed.has(id)))].slice(0, max) : [];
@@ -318,6 +321,86 @@ export function checkOrder(round, order) {
     return { ok: false, inPlace, message: `${inPlace} ${inPlace === 1 ? 'carta è' : 'carte sono'} al posto giusto su ${ids.length}. La carta in posizione ${first + 1}, «${misplaced.text}», va spostata. ${misplaced.why}` };
 }
 
+// ---------- Fit: adjust the parameters of a model until it passes through the data ----------
+const near = (a, b) => Math.abs(a - b) <= 1e-9 * Math.max(1, Math.abs(a), Math.abs(b));
+const onGrid = (c, v) => Number.isFinite(v) && v >= c.min - 1e-12 && v <= c.max + 1e-12 && near(Math.round((v - c.min) / c.step) * c.step + c.min, v);
+/** The measured points of a round: the model at the hidden parameters plus the declared fixed deviations. */
+export function fitData(round) { return round.x.map((x, i) => ({ x, y: value(round.model, x, round.hidden) + round.noise[i] })); }
+export function fitError(round, p) {
+    const pts = fitData(round); let sum = 0;
+    for (const q of pts) { const y = value(round.model, q.x, p); if (y === null) return Infinity; sum += (y - q.y) ** 2; }
+    return Math.sqrt(sum / pts.length);
+}
+/** Starting parameters: fixed ones at their hidden value, adjustable ones away from it. */
+export function fitStart(round) {
+    const p = { ...round.hidden }, m = descriptor(round.model);
+    for (const key of round.fit) { const c = m.controls.find(c => c.key === key); p[key] = near(c.value, round.hidden[key]) ? (near(c.min, round.hidden[key]) ? c.max : c.min) : c.value; }
+    return parameters(round.model, p);
+}
+export function fitStep(round, p, key, dir) {
+    const c = descriptor(round.model).controls.find(c => c.key === key);
+    if (!c || !round.fit.includes(key) || ![-1, 1].includes(dir)) throw Error('Parametro non regolabile');
+    const v = Math.min(c.max, Math.max(c.min, Number((p[key] + dir * c.step).toPrecision(12))));
+    return parameters(round.model, { ...p, [key]: v });
+}
+export function validateFit(a) {
+    if (!plain(a) || a.kind !== 'fit' || !Array.isArray(a.rounds) || a.rounds.length < 1 || a.rounds.length > 6) throw Error('Serie di dati non valide');
+    const seen = new Set();
+    for (const r of a.rounds) {
+        if (!plain(r) || !slug(r.id) || seen.has(r.id) || !words(r.title, 60) || !words(r.prompt, 400) || !words(r.explain, 700) || !MODEL_IDS.includes(r.model)) throw Error('Serie di dati non valida: ' + r?.id);
+        seen.add(r.id);
+        const m = descriptor(r.model);
+        if (!Array.isArray(r.x) || r.x.length < 4 || r.x.length > 12 || !Array.isArray(r.noise) || r.noise.length !== r.x.length || r.noise.some(n => !Number.isFinite(n))) throw Error('Punti non validi: ' + r.id);
+        if (r.x.some(x => !Number.isFinite(x) || x < m.domain[0] || x > m.domain[1] || (m.discrete && !Number.isInteger(x)))) throw Error('Ascisse fuori dominio: ' + r.id);
+        if (!plain(r.hidden) || m.controls.some(c => !onGrid(c, r.hidden[c.key]))) throw Error('Parametri nascosti non validi: ' + r.id);
+        parameters(r.model, r.hidden);
+        if (!Array.isArray(r.fit) || r.fit.length < 1 || r.fit.length > 2 || new Set(r.fit).size !== r.fit.length || r.fit.some(k => !m.controls.some(c => c.key === k))) throw Error('Parametri da regolare non validi: ' + r.id);
+        if (fitData(r).some(q => !Number.isFinite(q.y))) throw Error('Dati non finiti: ' + r.id);
+    }
+    if (!Number.isInteger(a.goal) || a.goal < 1 || a.goal > a.rounds.length) throw Error('Obiettivo non valido');
+    return a;
+}
+const fitLabel = (round, key) => descriptor(round.model).controls.find(c => c.key === key).label;
+/** attempts: number of earlier checks on this round; after two, the message suggests a direction. */
+export function checkFit(round, p, attempts = 0) {
+    const err = fitError(round, p), best = fitError(round, round.hidden), fmtErr = x => num(x, 3);
+    if (round.fit.every(k => near(p[k], round.hidden[k]))) return { ok: true, error: err, message: `Esatto: scarto quadratico medio ${fmtErr(err)}, dovuto solo alla dispersione delle misure. ${round.explain}` };
+    let message = `Non ancora: lo scarto quadratico medio è ${fmtErr(err)}; con i parametri migliori scende a ${fmtErr(best)}.`;
+    if (attempts >= 2) {
+        for (const key of round.fit) {
+            if (near(p[key], round.hidden[key])) continue;
+            const up = fitError(round, fitStep(round, p, key, 1)), down = fitError(round, fitStep(round, p, key, -1));
+            message += ` Suggerimento: lo scarto diminuisce ${up < down ? 'aumentando' : 'diminuendo'} «${fitLabel(round, key)}».`;
+            break;
+        }
+    }
+    return { ok: false, error: err, message };
+}
+
+// ---------- Steps: a problem solved one decision at a time ----------
+export function validateSteps(a) {
+    if (!plain(a) || a.kind !== 'steps' || !Array.isArray(a.problems) || a.problems.length < 1 || a.problems.length > 6) throw Error('Problemi non validi');
+    const seen = new Set();
+    for (const pr of a.problems) {
+        if (!plain(pr) || !slug(pr.id) || seen.has(pr.id) || !words(pr.title, 60) || !words(pr.text, 600) || !words(pr.explain, 700)) throw Error('Problema non valido: ' + pr?.id);
+        seen.add(pr.id);
+        if (!Number.isInteger(pr.maxErrors) || pr.maxErrors < 0 || pr.maxErrors > 5) throw Error('Soglia non valida: ' + pr.id);
+        if (!Array.isArray(pr.steps) || pr.steps.length < 2 || pr.steps.length > 6) throw Error('Passi non validi: ' + pr.id);
+        for (const st of pr.steps) {
+            if (!plain(st) || !words(st.prompt, 300) || !words(st.result, 240) || !Array.isArray(st.options) || st.options.length < 2 || st.options.length > 4) throw Error('Passo non valido: ' + pr.id);
+            if (st.options.some(o => !plain(o) || !words(o.text, 90) || !words(o.feedback, 400)) || new Set(st.options.map(o => o.text)).size !== st.options.length) throw Error('Opzioni non valide: ' + pr.id);
+            if (!Number.isInteger(st.correct) || st.correct < 0 || st.correct >= st.options.length) throw Error('Risposta non valida: ' + pr.id);
+        }
+    }
+    if (!Number.isInteger(a.goal) || a.goal < 1 || a.goal > a.problems.length) throw Error('Obiettivo non valido');
+    return a;
+}
+export function checkStep(problem, index, choice) {
+    const st = problem.steps[index];
+    if (!st || !Number.isInteger(choice) || choice < 0 || choice >= st.options.length) throw Error('Scelta non valida');
+    return { ok: choice === st.correct, message: st.options[choice].feedback };
+}
+
 // ---------- State ----------
 export function freshActivity(kind) {
     if (!ACTIVITY_KINDS.includes(kind)) throw Error('Attività sconosciuta');
@@ -328,7 +411,7 @@ export function cleanActivity(value, kind) {
     if (!plain(value) || value.kind !== kind) return s;
     const allowed = { vsepr: vseprIds, logic: statementIds, bisection: bisectionIds, ionic: ionicIds }[kind];
     s.solved = allowed ? ids(value.solved, allowed, 20)
-        : kind === 'cards' ? (Array.isArray(value.solved) ? [...new Set(value.solved.filter(slug))].slice(0, 8) : [])
+        : DATA_KINDS.includes(kind) ? (Array.isArray(value.solved) ? [...new Set(value.solved.filter(slug))].slice(0, 8) : [])
         : Array.isArray(value.solved) ? value.solved.filter(id => typeof id === 'string' && /^mistero-[1-9]$/.test(id)).slice(0, 9) : [];
     s.attempts = Number.isInteger(value.attempts) ? Math.max(0, Math.min(99999, value.attempts)) : 0;
     return s;
@@ -337,11 +420,12 @@ export function recordSolved(state, id) { state.attempts++; if (!state.solved.in
 /** activity: the unit's activity object, or a kind name for the activities with fixed content. */
 export function activityGoal(activity) {
     const kind = typeof activity === 'string' ? activity : activity?.kind;
-    return kind === 'cards' ? activity.goal : ACTIVITY_GOALS[kind];
+    return DATA_KINDS.includes(kind) ? activity.goal : ACTIVITY_GOALS[kind];
 }
+const itemsOf = a => a.kind === 'steps' ? a.problems : a.rounds;
 export function activityProgress(activity, state) {
     const kind = typeof activity === 'string' ? activity : activity.kind, goal = activityGoal(activity);
-    const known = kind === 'cards' ? new Set(activity.rounds.map(r => r.id)) : null;
+    const known = DATA_KINDS.includes(kind) ? new Set(itemsOf(activity).map(r => r.id)) : null;
     const solved = state?.kind === kind ? state.solved.filter(id => !known || known.has(id)).length : 0;
     return { solved: Math.min(solved, goal), goal, done: solved >= goal };
 }

@@ -5,14 +5,15 @@
   "title": "Onde, frequenze e ricostruzione",
   "sector": 0,
   "modelId": "math-p09",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Somma finita di armoniche note",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Onde sinusoidali, armoniche, serie di Fourier dell’onda quadra, fenomeno di Gibbs e campionamento",
+  "narrativeStatus": "Il sensore è immaginario; la matematica delle onde e i valori citati sono reali.",
   "objectives": [
-    "Spiegare: somma finita di armoniche note.",
-    "Applicare y = sin(x)+a sin(3x)/3+b sin(5x)/5, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Interpretare ampiezza, periodo e frequenza di un’onda sinusoidale.",
+    "Descrivere un segnale periodico come somma di armoniche.",
+    "Calcolare somme parziali della serie dell’onda quadra.",
+    "Applicare il teorema del campionamento."
   ],
   "prerequisites": [
     "math-c09",
@@ -21,7 +22,7 @@
     "math-p04"
   ],
   "connections": [
-    "physics-17"
+    "math-p12"
   ],
   "sources": [
     "precalculus",
@@ -41,250 +42,316 @@
   },
   "glossary": [
     {
-      "term": "Fase x",
-      "definition": "Variabile indipendente, unità rad; intervallo [0; 6,28319]."
+      "term": "Frequenza",
+      "definition": "Numero di cicli al secondo, in hertz; è l’inverso del periodo."
     },
     {
-      "term": "Somma armoniche",
-      "definition": "Risultato calcolato dal modello, unità u.a.."
+      "term": "Armonica",
+      "definition": "Componente con frequenza multipla intera della fondamentale."
     },
     {
-      "term": "Terza armonica",
-      "definition": "Parametro a, unità 1; intervallo [0; 1]."
+      "term": "Serie di Fourier",
+      "definition": "Scrittura di un segnale periodico come somma di seni e coseni delle sue armoniche."
     },
     {
-      "term": "Quinta armonica",
-      "definition": "Parametro b, unità 1; intervallo [0; 1]."
+      "term": "Fenomeno di Gibbs",
+      "definition": "Sovraelongazione di circa il 9% del salto vicino alle discontinuità."
+    },
+    {
+      "term": "Campionamento",
+      "definition": "Misura di un segnale a intervalli regolari; serve più del doppio della frequenza massima."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Di quali frequenze è fatto un suono?",
       "text": {
         "base": [
-          "Un segnale apparentemente complesso viene ricostruito sommando oscillazioni semplici. Devi capire che cosa cambia aggiungendo armoniche, senza confondere maggiore dettaglio con una ricostruzione esatta.",
-          "Una combinazione di seni può rappresentare segnali periodici. Nel laboratorio la fondamentale sin(x) è affiancata dalla terza e quinta armonica, pesate da 1/3 e 1/5. Ogni armonica oscilla un numero intero di volte nel periodo fondamentale."
+          "La stazione registra il suono di un motore e il segnale di un sensore che alterna due livelli, alto e basso. Per trasmetterli a Terra con pochi dati bisogna capire di quali frequenze sono fatti. Joseph Fourier, studiando la propagazione del calore all’inizio dell’Ottocento, scoprì che ogni segnale periodico ragionevole si può scrivere come somma di seni e coseni.",
+          "Un’onda sinusoidale y = A sin(ωt) ha ampiezza A e pulsazione ω; il periodo è T = 2π/ω e la frequenza f = 1/T, in hertz, cioè cicli al secondo. Un diapason vibra a 440 Hz; la corrente di rete in Europa a 50 Hz. Sommare onde di frequenze diverse produce forme complicate, e la somma si calcola punto per punto."
         ],
         "intermediate": [
-          "Un segnale apparentemente complesso viene ricostruito sommando oscillazioni semplici. Devi capire che cosa cambia aggiungendo armoniche, senza confondere maggiore dettaglio con una ricostruzione esatta.",
-          "La somma è sin(x)+a sin(3x)/3+b sin(5x)/5. La linearità permette di valutare separatamente i contributi e poi sommarli. Con a=b=1 è una somma parziale, non la serie infinita di un’onda quadra."
+          "La stazione registra il suono di un motore e il segnale di un sensore che alterna due livelli, alto e basso. Per trasmetterli a Terra con pochi dati bisogna capire di quali frequenze sono fatti. Joseph Fourier, studiando la propagazione del calore all’inizio dell’Ottocento, scoprì che ogni segnale periodico ragionevole si può scrivere come somma di seni e coseni.",
+          "Un’onda sinusoidale y = A sin(ωt) ha ampiezza A e pulsazione ω; il periodo è T = 2π/ω e la frequenza f = 1/T, in hertz, cioè cicli al secondo. Un diapason vibra a 440 Hz; la corrente di rete in Europa a 50 Hz. Sommare onde di frequenze diverse produce forme complicate, e la somma si calcola punto per punto."
         ],
         "advanced": [
-          "Un segnale apparentemente complesso viene ricostruito sommando oscillazioni semplici. Devi capire che cosa cambia aggiungendo armoniche, senza confondere maggiore dettaglio con una ricostruzione esatta.",
-          "Confronta la forma della somma con una sola armonica. Studia in seguito il fenomeno di Gibbs e le condizioni del teorema di campionamento.",
-          "Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita."
+          "La stazione registra il suono di un motore e il segnale di un sensore che alterna due livelli, alto e basso. Per trasmetterli a Terra con pochi dati bisogna capire di quali frequenze sono fatti. Joseph Fourier, studiando la propagazione del calore all’inizio dell’Ottocento, scoprì che ogni segnale periodico ragionevole si può scrivere come somma di seni e coseni.",
+          "Un’onda sinusoidale y = A sin(ωt) ha ampiezza A e pulsazione ω; il periodo è T = 2π/ω e la frequenza f = 1/T, in hertz, cioè cicli al secondo. Un diapason vibra a 440 Hz; la corrente di rete in Europa a 50 Hz. Sommare onde di frequenze diverse produce forme complicate, e la somma si calcola punto per punto."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Armoniche e onda quadra",
       "text": {
         "base": [
-          "Una combinazione di seni può rappresentare segnali periodici. Nel laboratorio la fondamentale sin(x) è affiancata dalla terza e quinta armonica, pesate da 1/3 e 1/5. Ogni armonica oscilla un numero intero di volte nel periodo fondamentale.",
-          "In x=π/2, i tre contributi sono 1, -1/3 e 1/5. Il totale è 13/15≈0,866667. Sommare soltanto le ampiezze ignorerebbe le fasi in quel punto."
+          "Le armoniche di una frequenza fondamentale f sono le frequenze multiple 2f, 3f, 4f, e così via. Un segnale periodico di periodo T contiene solo la fondamentale e le sue armoniche: è la serie di Fourier. Le ampiezze delle armoniche formano lo spettro del segnale, la sua «ricetta» in frequenze.",
+          "L’onda quadra, che vale +1 per metà periodo e −1 per l’altra metà, contiene solo le armoniche dispari, con ampiezze che decrescono come 1/n: sin x + sin(3x)/3 + sin(5x)/5 + ..., moltiplicato per 4/π. Il laboratorio somma le prime tre: in x = π/2 la somma vale 1 − 1/3 + 1/5 ≈ 0,867, e il valore dell’onda quadra, nella stessa scala, è π/4 ≈ 0,785.",
+          "Aggiungendo armoniche la somma si avvicina all’onda quadra quasi ovunque, ma vicino ai salti resta sempre una sovraelongazione di circa il 9% del salto, che si stringe senza sparire: è il fenomeno di Gibbs. Le forme con spigoli richiedono infinite armoniche; quelle lisce si descrivono bene con poche."
         ],
         "intermediate": [
-          "La somma è sin(x)+a sin(3x)/3+b sin(5x)/5. La linearità permette di valutare separatamente i contributi e poi sommarli. Con a=b=1 è una somma parziale, non la serie infinita di un’onda quadra.",
-          "La variabile Fase x è espressa in rad; Somma armoniche in u.a.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: y = sin(x)+a sin(3x)/3+b sin(5x)/5.",
-          "In x=π/2, i tre contributi sono 1, -1/3 e 1/5. Il totale è 13/15≈0,866667. Sommare soltanto le ampiezze ignorerebbe le fasi in quel punto."
+          "Le armoniche di una frequenza fondamentale f sono le frequenze multiple 2f, 3f, 4f, e così via. Un segnale periodico di periodo T contiene solo la fondamentale e le sue armoniche: è la serie di Fourier. Le ampiezze delle armoniche formano lo spettro del segnale, la sua «ricetta» in frequenze.",
+          "L’onda quadra, che vale +1 per metà periodo e −1 per l’altra metà, contiene solo le armoniche dispari, con ampiezze che decrescono come 1/n: sin x + sin(3x)/3 + sin(5x)/5 + ..., moltiplicato per 4/π. Il laboratorio somma le prime tre: in x = π/2 la somma vale 1 − 1/3 + 1/5 ≈ 0,867, e il valore dell’onda quadra, nella stessa scala, è π/4 ≈ 0,785.",
+          "Aggiungendo armoniche la somma si avvicina all’onda quadra quasi ovunque, ma vicino ai salti resta sempre una sovraelongazione di circa il 9% del salto, che si stringe senza sparire: è il fenomeno di Gibbs. Le forme con spigoli richiedono infinite armoniche; quelle lisce si descrivono bene con poche.",
+          "Per registrare un segnale lo si campiona, cioè se ne misura il valore a intervalli regolari. Il teorema del campionamento afferma che un segnale con frequenze fino a f_max si ricostruisce esattamente se si campiona a più del doppio di f_max. Per questo l’audio dei CD usa 44 100 campioni al secondo: l’orecchio umano sente fino a circa 20 000 Hz."
         ],
         "advanced": [
-          "La somma è sin(x)+a sin(3x)/3+b sin(5x)/5. La linearità permette di valutare separatamente i contributi e poi sommarli. Con a=b=1 è una somma parziale, non la serie infinita di un’onda quadra.",
-          "Confronta la forma della somma con una sola armonica. Studia in seguito il fenomeno di Gibbs e le condizioni del teorema di campionamento.",
-          "Più armoniche non eliminano automaticamente tutti gli errori. Campionare troppo lentamente può rendere indistinguibili frequenze diverse: la visualizzazione di una curva continua non è una simulazione completa del campionamento."
+          "Le armoniche di una frequenza fondamentale f sono le frequenze multiple 2f, 3f, 4f, e così via. Un segnale periodico di periodo T contiene solo la fondamentale e le sue armoniche: è la serie di Fourier. Le ampiezze delle armoniche formano lo spettro del segnale, la sua «ricetta» in frequenze.",
+          "L’onda quadra, che vale +1 per metà periodo e −1 per l’altra metà, contiene solo le armoniche dispari, con ampiezze che decrescono come 1/n: sin x + sin(3x)/3 + sin(5x)/5 + ..., moltiplicato per 4/π. Il laboratorio somma le prime tre: in x = π/2 la somma vale 1 − 1/3 + 1/5 ≈ 0,867, e il valore dell’onda quadra, nella stessa scala, è π/4 ≈ 0,785.",
+          "Aggiungendo armoniche la somma si avvicina all’onda quadra quasi ovunque, ma vicino ai salti resta sempre una sovraelongazione di circa il 9% del salto, che si stringe senza sparire: è il fenomeno di Gibbs. Le forme con spigoli richiedono infinite armoniche; quelle lisce si descrivono bene con poche.",
+          "Per registrare un segnale lo si campiona, cioè se ne misura il valore a intervalli regolari. Il teorema del campionamento afferma che un segnale con frequenze fino a f_max si ricostruisce esattamente se si campiona a più del doppio di f_max. Per questo l’audio dei CD usa 44 100 campioni al secondo: l’orecchio umano sente fino a circa 20 000 Hz.",
+          "La scomposizione in frequenze è alla base della compressione di suoni e immagini: si conservano le armoniche importanti e si scartano quelle poco percepite. I formati MP3 e JPEG usano trasformate di questo tipo."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio delle armoniche",
       "text": {
         "base": [
-          "Nel laboratorio imposta Terza armonica (a): 1 (adimensionale); Quinta armonica (b): 1 (adimensionale). Prima di salvare A, prevedi come cambia Somma armoniche fra Fase x=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "In x=π/2, i tre contributi sono 1, -1/3 e 1/5. Il totale è 13/15≈0,866667. Sommare soltanto le ampiezze ignorerebbe le fasi in quel punto.",
-          "La variabile Fase x è espressa in rad; Somma armoniche in u.a.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: y = sin(x)+a sin(3x)/3+b sin(5x)/5."
+          "Nel laboratorio il grafico mostra y = sin x + a sin(3x)/3 + b sin(5x)/5 per x da 0 a 2π; nella scheda REGOLA cambi i pesi a e b della terza e della quinta armonica, da 0 a 1. Con a = b = 1 si ottiene la somma parziale della serie dell’onda quadra.",
+          "Protocollo. La previsione riguarda il passaggio da x = π/2 a x = π. Con a = b = 1 prevedi e salva A. Poi porta a a 0, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con a = b = 1 il valore passa da circa 0,867 a 0: diminuisce, perché in π l’onda cambia segno. Con a = 0 in π/2 si ottiene 1 + 1/5 = 1,2: senza la terza armonica la cima non si appiattisce. Con a = b = 0 resta il seno puro. Guardando tutto il grafico si vede che con a = b = 1 la cima è più piatta e i fianchi più ripidi: la forma si avvicina a quella dell’onda quadra."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Terza armonica (a): 1 (adimensionale); Quinta armonica (b): 1 (adimensionale). Prima di salvare A, prevedi come cambia Somma armoniche fra Fase x=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Fase x è espressa in rad; Somma armoniche in u.a.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: y = sin(x)+a sin(3x)/3+b sin(5x)/5.",
-          "La somma è sin(x)+a sin(3x)/3+b sin(5x)/5. La linearità permette di valutare separatamente i contributi e poi sommarli. Con a=b=1 è una somma parziale, non la serie infinita di un’onda quadra."
+          "Nel laboratorio il grafico mostra y = sin x + a sin(3x)/3 + b sin(5x)/5 per x da 0 a 2π; nella scheda REGOLA cambi i pesi a e b della terza e della quinta armonica, da 0 a 1. Con a = b = 1 si ottiene la somma parziale della serie dell’onda quadra.",
+          "Protocollo. La previsione riguarda il passaggio da x = π/2 a x = π. Con a = b = 1 prevedi e salva A. Poi porta a a 0, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con a = b = 1 il valore passa da circa 0,867 a 0: diminuisce, perché in π l’onda cambia segno. Con a = 0 in π/2 si ottiene 1 + 1/5 = 1,2: senza la terza armonica la cima non si appiattisce. Con a = b = 0 resta il seno puro. Guardando tutto il grafico si vede che con a = b = 1 la cima è più piatta e i fianchi più ripidi: la forma si avvicina a quella dell’onda quadra."
         ],
         "advanced": [
-          "Nel laboratorio imposta Terza armonica (a): 1 (adimensionale); Quinta armonica (b): 1 (adimensionale). Prima di salvare A, prevedi come cambia Somma armoniche fra Fase x=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta la forma della somma con una sola armonica. Studia in seguito il fenomeno di Gibbs e le condizioni del teorema di campionamento.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra y = sin x + a sin(3x)/3 + b sin(5x)/5 per x da 0 a 2π; nella scheda REGOLA cambi i pesi a e b della terza e della quinta armonica, da 0 a 1. Con a = b = 1 si ottiene la somma parziale della serie dell’onda quadra.",
+          "Protocollo. La previsione riguarda il passaggio da x = π/2 a x = π. Con a = b = 1 prevedi e salva A. Poi porta a a 0, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con a = b = 1 il valore passa da circa 0,867 a 0: diminuisce, perché in π l’onda cambia segno. Con a = 0 in π/2 si ottiene 1 + 1/5 = 1,2: senza la terza armonica la cima non si appiattisce. Con a = b = 0 resta il seno puro. Guardando tutto il grafico si vede che con a = b = 1 la cima è più piatta e i fianchi più ripidi: la forma si avvicina a quella dell’onda quadra."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e campionamento",
       "text": {
         "base": [
-          "Più armoniche non eliminano automaticamente tutti gli errori. Campionare troppo lentamente può rendere indistinguibili frequenze diverse: la visualizzazione di una curva continua non è una simulazione completa del campionamento.",
-          "Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che sommare onde produca sempre un’onda «più grande». Le armoniche si sommano con segni diversi nei diversi punti: in x = π/2 la terza armonica sottrae, appiattendo la cima.",
+          "Secondo errore: campionare troppo lentamente. Se si campiona una ruota che gira con una frequenza vicina a quella della rotazione, nei filmati sembra ferma o girare all’indietro: è l’aliasing, che il teorema del campionamento permette di evitare.",
+          "Per registrare un segnale lo si campiona, cioè se ne misura il valore a intervalli regolari. Il teorema del campionamento afferma che un segnale con frequenze fino a f_max si ricostruisce esattamente se si campiona a più del doppio di f_max. Per questo l’audio dei CD usa 44 100 campioni al secondo: l’orecchio umano sente fino a circa 20 000 Hz."
         ],
         "intermediate": [
-          "Più armoniche non eliminano automaticamente tutti gli errori. Campionare troppo lentamente può rendere indistinguibili frequenze diverse: la visualizzazione di una curva continua non è una simulazione completa del campionamento.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che sommare onde produca sempre un’onda «più grande». Le armoniche si sommano con segni diversi nei diversi punti: in x = π/2 la terza armonica sottrae, appiattendo la cima.",
+          "Secondo errore: campionare troppo lentamente. Se si campiona una ruota che gira con una frequenza vicina a quella della rotazione, nei filmati sembra ferma o girare all’indietro: è l’aliasing, che il teorema del campionamento permette di evitare.",
+          "La scomposizione in frequenze è alla base della compressione di suoni e immagini: si conservano le armoniche importanti e si scartano quelle poco percepite. I formati MP3 e JPEG usano trasformate di questo tipo."
         ],
         "advanced": [
-          "Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita.",
-          "Confronta la forma della somma con una sola armonica. Studia in seguito il fenomeno di Gibbs e le condizioni del teorema di campionamento.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che sommare onde produca sempre un’onda «più grande». Le armoniche si sommano con segni diversi nei diversi punti: in x = π/2 la terza armonica sottrae, appiattendo la cima.",
+          "Secondo errore: campionare troppo lentamente. Se si campiona una ruota che gira con una frequenza vicina a quella della rotazione, nei filmati sembra ferma o girare all’indietro: è l’aliasing, che il teorema del campionamento permette di evitare.",
+          "La scomposizione in frequenze è alla base della compressione di suoni e immagini: si conservano le armoniche importanti e si scartano quelle poco percepite. I formati MP3 e JPEG usano trasformate di questo tipo."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Una combinazione di seni può rappresentare segnali periodici. Nel laboratorio la fondamentale sin(x) è affiancata dalla terza e quinta armonica, pesate da 1/3 e 1/5. Ogni armonica oscilla un numero intero di volte nel periodo fondamentale.",
-          "In x=π/2, i tre contributi sono 1, -1/3 e 1/5. Il totale è 13/15≈0,866667. Sommare soltanto le ampiezze ignorerebbe le fasi in quel punto."
+          "Ripasso: ampiezza, periodo, frequenza e pulsazione; armoniche e spettro; serie dell’onda quadra con le armoniche dispari; fenomeno di Gibbs; teorema del campionamento.",
+          "Mini esercizio: un segnale con frequenze fino a 4000 Hz va campionato a più di 8000 campioni al secondo.",
+          "Nelle domande sulle armoniche calcola il valore di ciascun termine nel punto richiesto e poi sommali."
         ],
         "intermediate": [
-          "La somma è sin(x)+a sin(3x)/3+b sin(5x)/5. La linearità permette di valutare separatamente i contributi e poi sommarli. Con a=b=1 è una somma parziale, non la serie infinita di un’onda quadra.",
-          "La variabile Fase x è espressa in rad; Somma armoniche in u.a.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: y = sin(x)+a sin(3x)/3+b sin(5x)/5."
+          "Ripasso: ampiezza, periodo, frequenza e pulsazione; armoniche e spettro; serie dell’onda quadra con le armoniche dispari; fenomeno di Gibbs; teorema del campionamento.",
+          "Mini esercizio: un segnale con frequenze fino a 4000 Hz va campionato a più di 8000 campioni al secondo.",
+          "Nelle domande sulle armoniche calcola il valore di ciascun termine nel punto richiesto e poi sommali."
         ],
         "advanced": [
-          "Confronta la forma della somma con una sola armonica. Studia in seguito il fenomeno di Gibbs e le condizioni del teorema di campionamento.",
-          "Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita."
+          "Ripasso: ampiezza, periodo, frequenza e pulsazione; armoniche e spettro; serie dell’onda quadra con le armoniche dispari; fenomeno di Gibbs; teorema del campionamento.",
+          "Mini esercizio: un segnale con frequenze fino a 4000 Hz va campionato a più di 8000 campioni al secondo.",
+          "Nelle domande sulle armoniche calcola il valore di ciascun termine nel punto richiesto e poi sommali."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Somma finita di armoniche note.",
-          "Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita.",
-          "Collegamento consigliato: physics-17. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le serie di Fourier collegano trigonometria, numeri complessi e analisi, e sono uno strumento di base di fisica, ingegneria e medicina, dalla risonanza magnetica all’analisi dei terremoti.",
+          "Riepilogo dell’unità: un segnale periodico è una somma di armoniche; l’onda quadra contiene solo le armoniche dispari con ampiezze 1/n; vicino ai salti resta la sovraelongazione di Gibbs; per ricostruire un segnale si campiona a più del doppio della frequenza massima.",
+          "Nel diario registra A e B con le previsioni e descrivi come cambia la forma del grafico togliendo la terza armonica."
         ],
         "intermediate": [
-          "La somma è sin(x)+a sin(3x)/3+b sin(5x)/5. La linearità permette di valutare separatamente i contributi e poi sommarli. Con a=b=1 è una somma parziale, non la serie infinita di un’onda quadra.",
-          "Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita.",
-          "Confronta la forma della somma con una sola armonica. Studia in seguito il fenomeno di Gibbs e le condizioni del teorema di campionamento."
+          "Le serie di Fourier collegano trigonometria, numeri complessi e analisi, e sono uno strumento di base di fisica, ingegneria e medicina, dalla risonanza magnetica all’analisi dei terremoti.",
+          "Riepilogo dell’unità: un segnale periodico è una somma di armoniche; l’onda quadra contiene solo le armoniche dispari con ampiezze 1/n; vicino ai salti resta la sovraelongazione di Gibbs; per ricostruire un segnale si campiona a più del doppio della frequenza massima.",
+          "Nel diario registra A e B con le previsioni e descrivi come cambia la forma del grafico togliendo la terza armonica."
         ],
         "advanced": [
-          "Confronta la forma della somma con una sola armonica. Studia in seguito il fenomeno di Gibbs e le condizioni del teorema di campionamento.",
-          "Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le serie di Fourier collegano trigonometria, numeri complessi e analisi, e sono uno strumento di base di fisica, ingegneria e medicina, dalla risonanza magnetica all’analisi dei terremoti.",
+          "Riepilogo dell’unità: un segnale periodico è una somma di armoniche; l’onda quadra contiene solo le armoniche dispari con ampiezze 1/n; vicino ai salti resta la sovraelongazione di Gibbs; per ricostruire un segnale si campiona a più del doppio della frequenza massima.",
+          "Nel diario registra A e B con le previsioni e descrivi come cambia la forma del grafico togliendo la terza armonica."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-p09-concept",
-      "prompt": "La terza armonica rispetto a sin(x) è:",
+      "id": "math-p09-q1",
+      "prompt": "Un’onda ha periodo 0,02 s. Qual è la sua frequenza?",
       "options": [
         {
           "id": "A",
-          "text": "sin(3x)",
-          "feedback": "Una combinazione di seni può rappresentare segnali periodici. Nel laboratorio la fondamentale sin(x) è affiancata dalla terza e quinta armonica, pesate da 1/3 e 1/5. Ogni armonica oscilla un numero intero di volte nel periodo fondamentale."
+          "text": "50 Hz",
+          "feedback": "Esatto: f = 1/T = 1/0,02 = 50 Hz."
         },
         {
           "id": "B",
-          "text": "sin(x/3)",
-          "feedback": "Più armoniche non eliminano automaticamente tutti gli errori. Campionare troppo lentamente può rendere indistinguibili frequenze diverse: la visualizzazione di una curva continua non è una simulazione completa del campionamento."
+          "text": "0,02 Hz",
+          "feedback": "La frequenza è l’inverso del periodo, non il periodo stesso."
         },
         {
           "id": "C",
-          "text": "3+sin(x)",
-          "feedback": "La somma è sin(x)+a sin(3x)/3+b sin(5x)/5. La linearità permette di valutare separatamente i contributi e poi sommarli. Con a=b=1 è una somma parziale, non la serie infinita di un’onda quadra."
+          "text": "2 Hz",
+          "feedback": "1/0,02 vale 50, non 2: controlla la divisione."
+        },
+        {
+          "id": "D",
+          "text": "500 Hz",
+          "feedback": "Controlla la divisione: 1/0,02 = 50."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "math-p09-calculation",
-      "prompt": "Calcolo: Terza armonica (a)=1 (adimensionale); Quinta armonica (b)=1 (adimensionale). Per Fase x=1,5708 rad, quanto vale Somma armoniche?",
+      "id": "math-p09-q2",
+      "prompt": "Quali armoniche contiene l’onda quadra?",
       "options": [
         {
           "id": "A",
-          "text": "1,86667 u.a.",
-          "feedback": "Questo valore non soddisfa la relazione. y = sin(x)+a sin(3x)/3+b sin(5x)/5. Con Terza armonica (a)=1 (adimensionale); Quinta armonica (b)=1 (adimensionale) e Fase x=1,5708 rad, il risultato è 0,866667 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Tutte, con ampiezze uguali",
+          "feedback": "Le ampiezze decrescono come 1/n e mancano le pari."
         },
         {
           "id": "B",
-          "text": "-0,133333 u.a.",
-          "feedback": "Controlla sostituzione, segno e unità. y = sin(x)+a sin(3x)/3+b sin(5x)/5. Con Terza armonica (a)=1 (adimensionale); Quinta armonica (b)=1 (adimensionale) e Fase x=1,5708 rad, il risultato è 0,866667 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Solo le dispari, con ampiezze 1/n",
+          "feedback": "Esatto: sin x, sin(3x)/3, sin(5x)/5 e così via."
         },
         {
           "id": "C",
-          "text": "0,866667 u.a.",
-          "feedback": "y = sin(x)+a sin(3x)/3+b sin(5x)/5. Con Terza armonica (a)=1 (adimensionale); Quinta armonica (b)=1 (adimensionale) e Fase x=1,5708 rad, il risultato è 0,866667 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Solo le pari",
+          "feedback": "Le armoniche pari mancano del tutto."
+        },
+        {
+          "id": "D",
+          "text": "Solo la fondamentale",
+          "feedback": "Una sola sinusoide non ha spigoli."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 1.5707963267948966,
-        "parameters": {
-          "a": 1,
-          "b": 1
-        },
-        "expected": 0.8666666666666667,
-        "unit": "u.a."
-      }
+      "correct": "B"
     },
     {
-      "id": "math-p09-transfer",
-      "prompt": "Trasferimento: Terza armonica (a)=0 (adimensionale); Quinta armonica (b)=1 (adimensionale). Per Fase x=1,5708 rad, quanto vale Somma armoniche?",
+      "id": "math-p09-q3",
+      "prompt": "Quanto vale sin x + sin(3x)/3 + sin(5x)/5 in x = π/2?",
       "options": [
         {
           "id": "A",
-          "text": "0,2 u.a.",
-          "feedback": "Controlla sostituzione, segno e unità. y = sin(x)+a sin(3x)/3+b sin(5x)/5. Con Terza armonica (a)=0 (adimensionale); Quinta armonica (b)=1 (adimensionale) e Fase x=1,5708 rad, il risultato è 1,2 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "1,2",
+          "feedback": "In π/2 la terza armonica vale −1/3: va sottratta."
         },
         {
           "id": "B",
-          "text": "1,2 u.a.",
-          "feedback": "y = sin(x)+a sin(3x)/3+b sin(5x)/5. Con Terza armonica (a)=0 (adimensionale); Quinta armonica (b)=1 (adimensionale) e Fase x=1,5708 rad, il risultato è 1,2 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "1,533",
+          "feedback": "sin(3π/2) = −1: il termine sin(3x)/3 è negativo."
         },
         {
           "id": "C",
-          "text": "2,2 u.a.",
-          "feedback": "Questo valore non soddisfa la relazione. y = sin(x)+a sin(3x)/3+b sin(5x)/5. Con Terza armonica (a)=0 (adimensionale); Quinta armonica (b)=1 (adimensionale) e Fase x=1,5708 rad, il risultato è 1,2 u.a.. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 1.5707963267948966,
-        "parameters": {
-          "a": 0,
-          "b": 1
-        },
-        "expected": 1.2,
-        "unit": "u.a."
-      }
-    },
-    {
-      "id": "math-p09-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita."
+          "text": "Circa 0,867",
+          "feedback": "Esatto: 1 − 1/3 + 1/5 = 13/15 ≈ 0,867."
         },
         {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita."
-        },
-        {
-          "id": "C",
-          "text": "Somma finita di armoniche note",
-          "feedback": "Sono tre armoniche esatte senza rumore. La scena non acquisisce audio, non effettua una trasformata sui dati e non rappresenta una ricostruzione infinita."
+          "id": "D",
+          "text": "0",
+          "feedback": "In π/2 il seno vale 1, non 0: la somma è positiva."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "math-p09-q4",
+      "prompt": "Che cosa afferma il fenomeno di Gibbs?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Che la serie di Fourier non converge mai",
+          "feedback": "La serie converge quasi ovunque."
+        },
+        {
+          "id": "B",
+          "text": "Che bastano tre armoniche per l’onda quadra",
+          "feedback": "Con tre armoniche l’approssimazione è ancora grossolana."
+        },
+        {
+          "id": "C",
+          "text": "Che le armoniche pari sono le più importanti",
+          "feedback": "Il fenomeno di Gibbs riguarda i salti, non le armoniche pari."
+        },
+        {
+          "id": "D",
+          "text": "Che vicino ai salti resta una sovraelongazione di circa il 9%",
+          "feedback": "Esatto: si stringe aggiungendo armoniche, senza sparire."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "math-p09-q5",
+      "prompt": "Un segnale contiene frequenze fino a 5000 Hz. Quanti campioni al secondo servono almeno?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Più di 10 000",
+          "feedback": "Esatto: più del doppio della frequenza massima."
+        },
+        {
+          "id": "B",
+          "text": "5000",
+          "feedback": "Con la stessa frequenza del segnale si perde l’informazione."
+        },
+        {
+          "id": "C",
+          "text": "2500",
+          "feedback": "Campionare più lentamente del segnale produce aliasing."
+        },
+        {
+          "id": "D",
+          "text": "Bastano 100",
+          "feedback": "Cento campioni al secondo descrivono solo frequenze sotto i 50 Hz."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-p09-q6",
+      "prompt": "Nel laboratorio, con a = 0 e b = 1, quanto vale y in x = π/2?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0,867",
+          "feedback": "0,867 si ottiene con a = 1, cioè con la terza armonica."
+        },
+        {
+          "id": "B",
+          "text": "1,2",
+          "feedback": "Esatto: senza terza armonica, 1 + 0 + 1/5 = 1,2."
+        },
+        {
+          "id": "C",
+          "text": "1",
+          "feedback": "1 sarebbe il valore senza la quinta armonica."
+        },
+        {
+          "id": "D",
+          "text": "0,8",
+          "feedback": "Il termine sin(5x)/5 in π/2 vale +1/5."
+        }
+      ],
+      "correct": "B"
     }
   ]
 }

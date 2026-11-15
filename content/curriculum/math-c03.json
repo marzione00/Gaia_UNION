@@ -5,20 +5,21 @@
   "title": "Radicali",
   "sector": 0,
   "modelId": "math-c03",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Radice principale reale; x≥a",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Radice quadrata e n-esima, dominio, proprietà, razionalizzazione ed equazioni irrazionali",
+  "narrativeStatus": "Il pannello e la stazione sono immaginari; le proprietà dei radicali sono reali.",
   "objectives": [
-    "Spiegare: radice principale reale; x≥a.",
-    "Applicare y = √(x-a), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Definire la radice quadrata e spiegare perché √(x²) = |x|.",
+    "Determinare il dominio di un’espressione con radicali.",
+    "Usare le proprietà di prodotto e quoziente e riconoscere l’errore sulla somma.",
+    "Risolvere equazioni irrazionali con il controllo delle soluzioni."
   ],
   "prerequisites": [
     "math-c02"
   ],
   "connections": [
-    "math-p05"
+    "math-c04"
   ],
   "sources": [
     "precalculus"
@@ -37,244 +38,320 @@
   },
   "glossary": [
     {
-      "term": "x",
-      "definition": "Variabile indipendente, unità 1; intervallo [-4; 10]."
+      "term": "Radice quadrata",
+      "definition": "Per a ≥ 0, il numero non negativo il cui quadrato è a."
     },
     {
-      "term": "Radice",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Dominio",
+      "definition": "Insieme dei valori della variabile per cui l’espressione ha senso; per √(x − a) è x ≥ a."
     },
     {
-      "term": "Soglia a",
-      "definition": "Parametro a, unità 1; intervallo [-3; 6]."
+      "term": "Valore assoluto",
+      "definition": "|x| vale x se x ≥ 0 e −x se x < 0; √(x²) = |x|."
+    },
+    {
+      "term": "Razionalizzazione",
+      "definition": "Trasformazione che elimina le radici dal denominatore di una frazione."
+    },
+    {
+      "term": "Soluzione estranea",
+      "definition": "Valore che soddisfa l’equazione elevata al quadrato ma non quella di partenza."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Risalire dal quadrato al lato",
       "text": {
         "base": [
-          "La sonda converte un margine di energia in una velocità mediante una radice quadrata. Alcune letture scompaiono dal grafico. Prima di parlare di un sensore guasto, devi controllare il dominio della conversione.",
-          "Nei numeri reali la radice quadrata principale di z esiste per z≥0 ed è non negativa. In √(x-a) il radicando è x-a: la condizione è quindi x≥a. Una regione vuota nel grafico non deve essere sostituita con valori inventati."
+          "Un pannello solare quadrato deve avere un’area di 2 metri quadrati. Il lato è il numero che, moltiplicato per sé stesso, dà 2: lo si indica con √2, e vale circa 1,414 metri. Le radici servono ogni volta che si conosce un quadrato, un’area o un’energia, e si vuole risalire alla grandezza di partenza.",
+          "La radice quadrata di un numero a ≥ 0 è il numero non negativo il cui quadrato vale a: √9 = 3 perché 3² = 9 e 3 è positivo. Anche (−3)² = 9, ma per convenzione il simbolo √ indica sempre la radice non negativa. Per questo √(x²) = |x|, il valore assoluto: con x = −5 si ottiene √25 = 5.",
+          "Nei numeri reali la radice quadrata di un numero negativo non esiste, perché nessun quadrato è negativo. L’espressione √(x − a) ha quindi senso solo per x − a ≥ 0, cioè per x ≥ a: questo insieme si chiama dominio. Con a = 1, √(x − 1) è definita da x = 1 in poi; in x = 5 vale √4 = 2."
         ],
         "intermediate": [
-          "La sonda converte un margine di energia in una velocità mediante una radice quadrata. Alcune letture scompaiono dal grafico. Prima di parlare di un sensore guasto, devi controllare il dominio della conversione.",
-          "Per risolvere y=√(x-a), imponi y≥0 e poi eleva al quadrato: y²=x-a. La trasformazione inversa x=y²+a conserva la relazione solo insieme alla condizione di segno. Senza di essa introdurresti anche valori negativi di y."
+          "Un pannello solare quadrato deve avere un’area di 2 metri quadrati. Il lato è il numero che, moltiplicato per sé stesso, dà 2: lo si indica con √2, e vale circa 1,414 metri. Le radici servono ogni volta che si conosce un quadrato, un’area o un’energia, e si vuole risalire alla grandezza di partenza.",
+          "La radice quadrata di un numero a ≥ 0 è il numero non negativo il cui quadrato vale a: √9 = 3 perché 3² = 9 e 3 è positivo. Anche (−3)² = 9, ma per convenzione il simbolo √ indica sempre la radice non negativa. Per questo √(x²) = |x|, il valore assoluto: con x = −5 si ottiene √25 = 5.",
+          "Nei numeri reali la radice quadrata di un numero negativo non esiste, perché nessun quadrato è negativo. L’espressione √(x − a) ha quindi senso solo per x − a ≥ 0, cioè per x ≥ a: questo insieme si chiama dominio. Con a = 1, √(x − 1) è definita da x = 1 in poi; in x = 5 vale √4 = 2."
         ],
         "advanced": [
-          "La sonda converte un margine di energia in una velocità mediante una radice quadrata. Alcune letture scompaiono dal grafico. Prima di parlare di un sensore guasto, devi controllare il dominio della conversione.",
-          "Confronta radici di indice pari e dispari. Una radice cubica reale ammette anche radicandi negativi: quale parte del protocollo sul dominio cambierebbe?",
-          "La scena lavora solo con numeri reali e con la radice principale. Non visualizza radici complesse né dimostra continuità usando i soli campioni del grafico."
+          "Un pannello solare quadrato deve avere un’area di 2 metri quadrati. Il lato è il numero che, moltiplicato per sé stesso, dà 2: lo si indica con √2, e vale circa 1,414 metri. Le radici servono ogni volta che si conosce un quadrato, un’area o un’energia, e si vuole risalire alla grandezza di partenza.",
+          "La radice quadrata di un numero a ≥ 0 è il numero non negativo il cui quadrato vale a: √9 = 3 perché 3² = 9 e 3 è positivo. Anche (−3)² = 9, ma per convenzione il simbolo √ indica sempre la radice non negativa. Per questo √(x²) = |x|, il valore assoluto: con x = −5 si ottiene √25 = 5.",
+          "La radice n-esima generalizza la quadrata: ³√8 = 2 perché 2³ = 8. Le radici di indice dispari esistono anche per i numeri negativi, ³√(−8) = −2; quelle di indice pari no. Le radici si scrivono anche come potenze con esponente frazionario: ⁿ√a = a^(1/n), e le proprietà delle potenze diventano proprietà dei radicali."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Proprietà e dominio",
       "text": {
         "base": [
-          "Nei numeri reali la radice quadrata principale di z esiste per z≥0 ed è non negativa. In √(x-a) il radicando è x-a: la condizione è quindi x≥a. Una regione vuota nel grafico non deve essere sostituita con valori inventati.",
-          "Con a=1, in x=5 il radicando è 4 e la radice è 2. In x=0 il radicando è -1: il laboratorio restituisce «non definito nei reali». In x=1 il valore è zero, quindi il bordo del dominio è incluso."
+          "Nei numeri reali la radice quadrata di un numero negativo non esiste, perché nessun quadrato è negativo. L’espressione √(x − a) ha quindi senso solo per x − a ≥ 0, cioè per x ≥ a: questo insieme si chiama dominio. Con a = 1, √(x − 1) è definita da x = 1 in poi; in x = 5 vale √4 = 2.",
+          "Per a e b non negativi valgono √(a · b) = √a · √b e √(a/b) = √a/√b, con b ≠ 0. Esempio: √50 = √(25 · 2) = 5√2. Per la somma la regola analoga non vale: √(9 + 16) = √25 = 5, mentre √9 + √16 = 7. Portare fuori dalla radice i fattori quadrati semplifica le espressioni e i confronti.",
+          "Razionalizzare un denominatore significa eliminare la radice dal denominatore moltiplicando per un fattore opportuno: 1/√2 = √2/2. Con un binomio si usa la differenza di quadrati: 1/(√3 − 1) = (√3 + 1)/((√3)² − 1²) = (√3 + 1)/2.",
+          "Il grafico di y = √(x − a) parte dal punto (a; 0) e sale sempre più lentamente: per raddoppiare y bisogna quadruplicare la distanza x − a. Cambiare a sposta il grafico in orizzontale senza deformarlo: con a = −3 il grafico parte da x = −3, con a = 6 da x = 6."
         ],
         "intermediate": [
-          "Per risolvere y=√(x-a), imponi y≥0 e poi eleva al quadrato: y²=x-a. La trasformazione inversa x=y²+a conserva la relazione solo insieme alla condizione di segno. Senza di essa introdurresti anche valori negativi di y.",
-          "La variabile x è espressa in 1; Radice in 1. Il dominio dello strumento è [-4; 10]. La relazione implementata è: y = √(x-a).",
-          "Con a=1, in x=5 il radicando è 4 e la radice è 2. In x=0 il radicando è -1: il laboratorio restituisce «non definito nei reali». In x=1 il valore è zero, quindi il bordo del dominio è incluso."
+          "Per a e b non negativi valgono √(a · b) = √a · √b e √(a/b) = √a/√b, con b ≠ 0. Esempio: √50 = √(25 · 2) = 5√2. Per la somma la regola analoga non vale: √(9 + 16) = √25 = 5, mentre √9 + √16 = 7. Portare fuori dalla radice i fattori quadrati semplifica le espressioni e i confronti.",
+          "Razionalizzare un denominatore significa eliminare la radice dal denominatore moltiplicando per un fattore opportuno: 1/√2 = √2/2. Con un binomio si usa la differenza di quadrati: 1/(√3 − 1) = (√3 + 1)/((√3)² − 1²) = (√3 + 1)/2.",
+          "La radice n-esima generalizza la quadrata: ³√8 = 2 perché 2³ = 8. Le radici di indice dispari esistono anche per i numeri negativi, ³√(−8) = −2; quelle di indice pari no. Le radici si scrivono anche come potenze con esponente frazionario: ⁿ√a = a^(1/n), e le proprietà delle potenze diventano proprietà dei radicali.",
+          "Nelle equazioni con radicali si eleva al quadrato per eliminare la radice, ma elevare al quadrato può introdurre soluzioni estranee. Esempio svolto: √(x + 2) = x. Al quadrato: x + 2 = x², cioè x² − x − 2 = 0, con soluzioni x = 2 e x = −1. Controllo: per x = 2, √4 = 2, accettata; per x = −1, √1 = 1 ≠ −1, scartata. Il controllo finale fa parte della soluzione.",
+          "Il grafico di y = √(x − a) parte dal punto (a; 0) e sale sempre più lentamente: per raddoppiare y bisogna quadruplicare la distanza x − a. Cambiare a sposta il grafico in orizzontale senza deformarlo: con a = −3 il grafico parte da x = −3, con a = 6 da x = 6."
         ],
         "advanced": [
-          "Per risolvere y=√(x-a), imponi y≥0 e poi eleva al quadrato: y²=x-a. La trasformazione inversa x=y²+a conserva la relazione solo insieme alla condizione di segno. Senza di essa introdurresti anche valori negativi di y.",
-          "Confronta radici di indice pari e dispari. Una radice cubica reale ammette anche radicandi negativi: quale parte del protocollo sul dominio cambierebbe?",
-          "La formula √(u²)=u è falsa per u negativo: il risultato è |u|. Elevare al quadrato due membri può introdurre soluzioni estranee, che vanno controllate nell’equazione iniziale."
+          "Per a e b non negativi valgono √(a · b) = √a · √b e √(a/b) = √a/√b, con b ≠ 0. Esempio: √50 = √(25 · 2) = 5√2. Per la somma la regola analoga non vale: √(9 + 16) = √25 = 5, mentre √9 + √16 = 7. Portare fuori dalla radice i fattori quadrati semplifica le espressioni e i confronti.",
+          "Razionalizzare un denominatore significa eliminare la radice dal denominatore moltiplicando per un fattore opportuno: 1/√2 = √2/2. Con un binomio si usa la differenza di quadrati: 1/(√3 − 1) = (√3 + 1)/((√3)² − 1²) = (√3 + 1)/2.",
+          "La radice n-esima generalizza la quadrata: ³√8 = 2 perché 2³ = 8. Le radici di indice dispari esistono anche per i numeri negativi, ³√(−8) = −2; quelle di indice pari no. Le radici si scrivono anche come potenze con esponente frazionario: ⁿ√a = a^(1/n), e le proprietà delle potenze diventano proprietà dei radicali.",
+          "Nelle equazioni con radicali si eleva al quadrato per eliminare la radice, ma elevare al quadrato può introdurre soluzioni estranee. Esempio svolto: √(x + 2) = x. Al quadrato: x + 2 = x², cioè x² − x − 2 = 0, con soluzioni x = 2 e x = −1. Controllo: per x = 2, √4 = 2, accettata; per x = −1, √1 = 1 ≠ −1, scartata. Il controllo finale fa parte della soluzione."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio della radice",
       "text": {
         "base": [
-          "Nel laboratorio imposta Soglia a (a): 1 (adimensionale). Prima di salvare A, prevedi come cambia Radice fra x=-0,5 e 3 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con a=1, in x=5 il radicando è 4 e la radice è 2. In x=0 il radicando è -1: il laboratorio restituisce «non definito nei reali». In x=1 il valore è zero, quindi il bordo del dominio è incluso.",
-          "La variabile x è espressa in 1; Radice in 1. Il dominio dello strumento è [-4; 10]. La relazione implementata è: y = √(x-a)."
+          "Nel laboratorio il grafico mostra y = √(x − a) per x da −4 a 10; nella scheda REGOLA cambi la soglia a, da −3 a 6. Il cursore orizzontale sceglie il punto di cui leggere il valore; dove la radice non è definita il grafico è vuoto e il valore è dichiarato «non definito».",
+          "Protocollo. La previsione riguarda il passaggio da x = −0,5 a x = 3. Con a = 1 il primo punto sta fuori dal dominio: la previsione corretta è NON DEFINITO. Salva A. Poi porta a a −3, dove entrambi i punti sono nel dominio, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con a = −3 i valori sono √2,5 ≈ 1,58 e √6 ≈ 2,45: la radice cresce. Con a = 6 nessuno dei due punti è nel dominio. In ogni configurazione il grafico è vuoto a sinistra di x = a, e appena dopo a sale più rapidamente che lontano da a."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Soglia a (a): 1 (adimensionale). Prima di salvare A, prevedi come cambia Radice fra x=-0,5 e 3 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile x è espressa in 1; Radice in 1. Il dominio dello strumento è [-4; 10]. La relazione implementata è: y = √(x-a).",
-          "Per risolvere y=√(x-a), imponi y≥0 e poi eleva al quadrato: y²=x-a. La trasformazione inversa x=y²+a conserva la relazione solo insieme alla condizione di segno. Senza di essa introdurresti anche valori negativi di y."
+          "Nel laboratorio il grafico mostra y = √(x − a) per x da −4 a 10; nella scheda REGOLA cambi la soglia a, da −3 a 6. Il cursore orizzontale sceglie il punto di cui leggere il valore; dove la radice non è definita il grafico è vuoto e il valore è dichiarato «non definito».",
+          "Protocollo. La previsione riguarda il passaggio da x = −0,5 a x = 3. Con a = 1 il primo punto sta fuori dal dominio: la previsione corretta è NON DEFINITO. Salva A. Poi porta a a −3, dove entrambi i punti sono nel dominio, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con a = −3 i valori sono √2,5 ≈ 1,58 e √6 ≈ 2,45: la radice cresce. Con a = 6 nessuno dei due punti è nel dominio. In ogni configurazione il grafico è vuoto a sinistra di x = a, e appena dopo a sale più rapidamente che lontano da a."
         ],
         "advanced": [
-          "Nel laboratorio imposta Soglia a (a): 1 (adimensionale). Prima di salvare A, prevedi come cambia Radice fra x=-0,5 e 3 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta radici di indice pari e dispari. Una radice cubica reale ammette anche radicandi negativi: quale parte del protocollo sul dominio cambierebbe?",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra y = √(x − a) per x da −4 a 10; nella scheda REGOLA cambi la soglia a, da −3 a 6. Il cursore orizzontale sceglie il punto di cui leggere il valore; dove la radice non è definita il grafico è vuoto e il valore è dichiarato «non definito».",
+          "Protocollo. La previsione riguarda il passaggio da x = −0,5 a x = 3. Con a = 1 il primo punto sta fuori dal dominio: la previsione corretta è NON DEFINITO. Salva A. Poi porta a a −3, dove entrambi i punti sono nel dominio, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con a = −3 i valori sono √2,5 ≈ 1,58 e √6 ≈ 2,45: la radice cresce. Con a = 6 nessuno dei due punti è nel dominio. In ogni configurazione il grafico è vuoto a sinistra di x = a, e appena dopo a sale più rapidamente che lontano da a.",
+          "Il grafico di y = √(x − a) parte dal punto (a; 0) e sale sempre più lentamente: per raddoppiare y bisogna quadruplicare la distanza x − a. Cambiare a sposta il grafico in orizzontale senza deformarlo: con a = −3 il grafico parte da x = −3, con a = 6 da x = 6."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e approssimazioni",
       "text": {
         "base": [
-          "La formula √(u²)=u è falsa per u negativo: il risultato è |u|. Elevare al quadrato due membri può introdurre soluzioni estranee, che vanno controllate nell’equazione iniziale.",
-          "La scena lavora solo con numeri reali e con la radice principale. Non visualizza radici complesse né dimostra continuità usando i soli campioni del grafico.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: semplificare √(a² + b²) in a + b. Il teorema di Pitagora mostra subito il problema: un triangolo rettangolo con cateti 3 e 4 ha ipotenusa √(9 + 16) = 5, e non 7.",
+          "Secondo errore: scrivere √(x²) = x. Per x negativo il risultato sarebbe negativo, mentre una radice quadrata non lo è mai. La scrittura corretta è √(x²) = |x|.",
+          "Le radici di numeri che non sono quadrati perfetti sono irrazionali: √2, √3, √5. Una calcolatrice ne mostra un’approssimazione decimale; nei calcoli conviene mantenere il simbolo fino alla fine e approssimare solo il risultato, per non accumulare errori."
         ],
         "intermediate": [
-          "La formula √(u²)=u è falsa per u negativo: il risultato è |u|. Elevare al quadrato due membri può introdurre soluzioni estranee, che vanno controllate nell’equazione iniziale.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: semplificare √(a² + b²) in a + b. Il teorema di Pitagora mostra subito il problema: un triangolo rettangolo con cateti 3 e 4 ha ipotenusa √(9 + 16) = 5, e non 7.",
+          "Secondo errore: scrivere √(x²) = x. Per x negativo il risultato sarebbe negativo, mentre una radice quadrata non lo è mai. La scrittura corretta è √(x²) = |x|.",
+          "Le radici di numeri che non sono quadrati perfetti sono irrazionali: √2, √3, √5. Una calcolatrice ne mostra un’approssimazione decimale; nei calcoli conviene mantenere il simbolo fino alla fine e approssimare solo il risultato, per non accumulare errori.",
+          "Nelle equazioni con radicali si eleva al quadrato per eliminare la radice, ma elevare al quadrato può introdurre soluzioni estranee. Esempio svolto: √(x + 2) = x. Al quadrato: x + 2 = x², cioè x² − x − 2 = 0, con soluzioni x = 2 e x = −1. Controllo: per x = 2, √4 = 2, accettata; per x = −1, √1 = 1 ≠ −1, scartata. Il controllo finale fa parte della soluzione."
         ],
         "advanced": [
-          "La scena lavora solo con numeri reali e con la radice principale. Non visualizza radici complesse né dimostra continuità usando i soli campioni del grafico.",
-          "Confronta radici di indice pari e dispari. Una radice cubica reale ammette anche radicandi negativi: quale parte del protocollo sul dominio cambierebbe?",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Secondo errore: scrivere √(x²) = x. Per x negativo il risultato sarebbe negativo, mentre una radice quadrata non lo è mai. La scrittura corretta è √(x²) = |x|.",
+          "Le radici di numeri che non sono quadrati perfetti sono irrazionali: √2, √3, √5. Una calcolatrice ne mostra un’approssimazione decimale; nei calcoli conviene mantenere il simbolo fino alla fine e approssimare solo il risultato, per non accumulare errori.",
+          "Nelle equazioni con radicali si eleva al quadrato per eliminare la radice, ma elevare al quadrato può introdurre soluzioni estranee. Esempio svolto: √(x + 2) = x. Al quadrato: x + 2 = x², cioè x² − x − 2 = 0, con soluzioni x = 2 e x = −1. Controllo: per x = 2, √4 = 2, accettata; per x = −1, √1 = 1 ≠ −1, scartata. Il controllo finale fa parte della soluzione."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Nei numeri reali la radice quadrata principale di z esiste per z≥0 ed è non negativa. In √(x-a) il radicando è x-a: la condizione è quindi x≥a. Una regione vuota nel grafico non deve essere sostituita con valori inventati.",
-          "Con a=1, in x=5 il radicando è 4 e la radice è 2. In x=0 il radicando è -1: il laboratorio restituisce «non definito nei reali». In x=1 il valore è zero, quindi il bordo del dominio è incluso."
+          "Ripasso: definizione di radice quadrata e convenzione del segno; dominio di √(x − a); proprietà del prodotto e del quoziente; perché la somma non si comporta allo stesso modo; razionalizzazione; controllo delle soluzioni nelle equazioni irrazionali.",
+          "Mini esercizio: semplifica √72 = √(36 · 2) = 6√2. Razionalizza 6/√3 = 6√3/3 = 2√3. Risolvi √(x − 1) = 3: x − 1 = 9, x = 10; controllo √9 = 3, accettata.",
+          "Nelle domande sulle equazioni ricorda il controllo finale: elevare al quadrato può introdurre soluzioni false."
         ],
         "intermediate": [
-          "Per risolvere y=√(x-a), imponi y≥0 e poi eleva al quadrato: y²=x-a. La trasformazione inversa x=y²+a conserva la relazione solo insieme alla condizione di segno. Senza di essa introdurresti anche valori negativi di y.",
-          "La variabile x è espressa in 1; Radice in 1. Il dominio dello strumento è [-4; 10]. La relazione implementata è: y = √(x-a)."
+          "Ripasso: definizione di radice quadrata e convenzione del segno; dominio di √(x − a); proprietà del prodotto e del quoziente; perché la somma non si comporta allo stesso modo; razionalizzazione; controllo delle soluzioni nelle equazioni irrazionali.",
+          "Mini esercizio: semplifica √72 = √(36 · 2) = 6√2. Razionalizza 6/√3 = 6√3/3 = 2√3. Risolvi √(x − 1) = 3: x − 1 = 9, x = 10; controllo √9 = 3, accettata.",
+          "Nelle domande sulle equazioni ricorda il controllo finale: elevare al quadrato può introdurre soluzioni false."
         ],
         "advanced": [
-          "Confronta radici di indice pari e dispari. Una radice cubica reale ammette anche radicandi negativi: quale parte del protocollo sul dominio cambierebbe?",
-          "La scena lavora solo con numeri reali e con la radice principale. Non visualizza radici complesse né dimostra continuità usando i soli campioni del grafico."
+          "Ripasso: definizione di radice quadrata e convenzione del segno; dominio di √(x − a); proprietà del prodotto e del quoziente; perché la somma non si comporta allo stesso modo; razionalizzazione; controllo delle soluzioni nelle equazioni irrazionali.",
+          "Mini esercizio: semplifica √72 = √(36 · 2) = 6√2. Razionalizza 6/√3 = 6√3/3 = 2√3. Risolvi √(x − 1) = 3: x − 1 = 9, x = 10; controllo √9 = 3, accettata.",
+          "Nelle domande sulle equazioni ricorda il controllo finale: elevare al quadrato può introdurre soluzioni false."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Radice principale reale; x≥a.",
-          "La scena lavora solo con numeri reali e con la radice principale. Non visualizza radici complesse né dimostra continuità usando i soli campioni del grafico.",
-          "Collegamento consigliato: math-p05. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le radici servono per le equazioni di secondo grado, per la distanza tra due punti in geometria analitica e per la trigonometria. L’unità «Radici, campi e nuovi sistemi numerici» spiega perché √2 non è una frazione.",
+          "Nel diario registra le configurazioni A e B con le previsioni, spiega perché con a = 1 il primo punto non è definito e risolvi un’equazione irrazionale con il controllo delle soluzioni."
         ],
         "intermediate": [
-          "Per risolvere y=√(x-a), imponi y≥0 e poi eleva al quadrato: y²=x-a. La trasformazione inversa x=y²+a conserva la relazione solo insieme alla condizione di segno. Senza di essa introdurresti anche valori negativi di y.",
-          "La scena lavora solo con numeri reali e con la radice principale. Non visualizza radici complesse né dimostra continuità usando i soli campioni del grafico.",
-          "Confronta radici di indice pari e dispari. Una radice cubica reale ammette anche radicandi negativi: quale parte del protocollo sul dominio cambierebbe?"
+          "Le radici servono per le equazioni di secondo grado, per la distanza tra due punti in geometria analitica e per la trigonometria. L’unità «Radici, campi e nuovi sistemi numerici» spiega perché √2 non è una frazione.",
+          "Nel diario registra le configurazioni A e B con le previsioni, spiega perché con a = 1 il primo punto non è definito e risolvi un’equazione irrazionale con il controllo delle soluzioni."
         ],
         "advanced": [
-          "Confronta radici di indice pari e dispari. Una radice cubica reale ammette anche radicandi negativi: quale parte del protocollo sul dominio cambierebbe?",
-          "La scena lavora solo con numeri reali e con la radice principale. Non visualizza radici complesse né dimostra continuità usando i soli campioni del grafico.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le radici servono per le equazioni di secondo grado, per la distanza tra due punti in geometria analitica e per la trigonometria. L’unità «Radici, campi e nuovi sistemi numerici» spiega perché √2 non è una frazione.",
+          "La radice n-esima generalizza la quadrata: ³√8 = 2 perché 2³ = 8. Le radici di indice dispari esistono anche per i numeri negativi, ³√(−8) = −2; quelle di indice pari no. Le radici si scrivono anche come potenze con esponente frazionario: ⁿ√a = a^(1/n), e le proprietà delle potenze diventano proprietà dei radicali.",
+          "Nel diario registra le configurazioni A e B con le previsioni, spiega perché con a = 1 il primo punto non è definito e risolvi un’equazione irrazionale con il controllo delle soluzioni."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-c03-concept",
-      "prompt": "Il dominio reale di √(x-a) è:",
+      "id": "math-c03-q1",
+      "prompt": "Quanto vale √((−7)²)?",
       "options": [
         {
           "id": "A",
-          "text": "x≤a",
-          "feedback": "Per risolvere y=√(x-a), imponi y≥0 e poi eleva al quadrato: y²=x-a. La trasformazione inversa x=y²+a conserva la relazione solo insieme alla condizione di segno. Senza di essa introdurresti anche valori negativi di y."
+          "text": "−7",
+          "feedback": "La radice quadrata non è mai negativa: √49 = 7."
         },
         {
           "id": "B",
-          "text": "x≥a",
-          "feedback": "Nei numeri reali la radice quadrata principale di z esiste per z≥0 ed è non negativa. In √(x-a) il radicando è x-a: la condizione è quindi x≥a. Una regione vuota nel grafico non deve essere sostituita con valori inventati."
+          "text": "7",
+          "feedback": "Esatto: (−7)² = 49 e √49 = 7, cioè √(x²) = |x|."
         },
         {
           "id": "C",
-          "text": "Tutti i reali",
-          "feedback": "La formula √(u²)=u è falsa per u negativo: il risultato è |u|. Elevare al quadrato due membri può introdurre soluzioni estranee, che vanno controllate nell’equazione iniziale."
+          "text": "49",
+          "feedback": "49 è il quadrato; la radice riporta a 7."
+        },
+        {
+          "id": "D",
+          "text": "Non esiste",
+          "feedback": "Il radicando è 49, positivo: la radice esiste."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "math-c03-calculation",
-      "prompt": "Calcolo: Soglia a (a)=1 (adimensionale). Per x=5 (adimensionale), quanto vale Radice?",
+      "id": "math-c03-q2",
+      "prompt": "Qual è il dominio di √(x + 2)?",
       "options": [
         {
           "id": "A",
-          "text": "2 (adimensionale)",
-          "feedback": "y = √(x-a). Con Soglia a (a)=1 (adimensionale) e x=5 (adimensionale), il risultato è 2 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "x ≥ −2",
+          "feedback": "Esatto: il radicando x + 2 deve essere non negativo, quindi x ≥ −2."
         },
         {
           "id": "B",
-          "text": "3 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. y = √(x-a). Con Soglia a (a)=1 (adimensionale) e x=5 (adimensionale), il risultato è 2 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "x ≥ 2",
+          "feedback": "Il radicando è x + 2: si annulla in x = −2."
         },
         {
           "id": "C",
-          "text": "1 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. y = √(x-a). Con Soglia a (a)=1 (adimensionale) e x=5 (adimensionale), il risultato è 2 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "A",
-      "numeric": {
-        "x": 5,
-        "parameters": {
-          "a": 1
-        },
-        "expected": 2,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "math-c03-transfer",
-      "prompt": "Trasferimento: Soglia a (a)=2 (adimensionale). Per x=5 (adimensionale), quanto vale Radice?",
-      "options": [
-        {
-          "id": "A",
-          "text": "2,73205 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. y = √(x-a). Con Soglia a (a)=2 (adimensionale) e x=5 (adimensionale), il risultato è 1,73205 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "x > 0",
+          "feedback": "La condizione riguarda il radicando x + 2, che può essere positivo anche per x negativo."
         },
         {
-          "id": "B",
-          "text": "0,732051 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. y = √(x-a). Con Soglia a (a)=2 (adimensionale) e x=5 (adimensionale), il risultato è 1,73205 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "C",
-          "text": "1,73205 (adimensionale)",
-          "feedback": "y = √(x-a). Con Soglia a (a)=2 (adimensionale) e x=5 (adimensionale), il risultato è 1,73205 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "C",
-      "numeric": {
-        "x": 5,
-        "parameters": {
-          "a": 2
-        },
-        "expected": 1.7320508075688772,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "math-c03-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Radice principale reale; x≥a",
-          "feedback": "La scena lavora solo con numeri reali e con la radice principale. Non visualizza radici complesse né dimostra continuità usando i soli campioni del grafico."
-        },
-        {
-          "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. La scena lavora solo con numeri reali e con la radice principale. Non visualizza radici complesse né dimostra continuità usando i soli campioni del grafico."
-        },
-        {
-          "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. La scena lavora solo con numeri reali e con la radice principale. Non visualizza radici complesse né dimostra continuità usando i soli campioni del grafico."
+          "id": "D",
+          "text": "Tutti i reali",
+          "feedback": "Per x = −3 il radicando vale −1 e la radice non esiste nei reali."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "math-c03-q3",
+      "prompt": "Come si semplifica √50?",
+      "options": [
+        {
+          "id": "A",
+          "text": "25√2",
+          "feedback": "Si porta fuori la radice del fattore quadrato: √25 = 5, e non 25."
+        },
+        {
+          "id": "B",
+          "text": "2√5",
+          "feedback": "50 = 2 · 25, e il fattore quadrato è 25."
+        },
+        {
+          "id": "C",
+          "text": "5√2",
+          "feedback": "Esatto: 50 = 25 · 2, e √50 = √25 · √2 = 5√2."
+        },
+        {
+          "id": "D",
+          "text": "√25 + √25",
+          "feedback": "La radice di una somma non è la somma delle radici; e 50 qui è un prodotto, 25 · 2."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "math-c03-q4",
+      "prompt": "Quanto vale 1/√2 dopo la razionalizzazione?",
+      "options": [
+        {
+          "id": "A",
+          "text": "√2",
+          "feedback": "Moltiplicando per √2 sopra e sotto il denominatore diventa 2: manca la divisione."
+        },
+        {
+          "id": "B",
+          "text": "2/√2",
+          "feedback": "2/√2 vale √2: hai moltiplicato solo il numeratore per 2."
+        },
+        {
+          "id": "C",
+          "text": "1/2",
+          "feedback": "Hai tolto la radice dal denominatore senza compensare al numeratore."
+        },
+        {
+          "id": "D",
+          "text": "√2/2",
+          "feedback": "Esatto: (1 · √2)/(√2 · √2) = √2/2."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "math-c03-q5",
+      "prompt": "Quali sono le soluzioni di √(x + 2) = x?",
+      "options": [
+        {
+          "id": "A",
+          "text": "x = 2 e x = −1",
+          "feedback": "x = −1 dà √1 = 1, diverso da −1: è una soluzione estranea."
+        },
+        {
+          "id": "B",
+          "text": "Solo x = 2",
+          "feedback": "Esatto: elevando al quadrato si trovano 2 e −1, e il controllo scarta −1."
+        },
+        {
+          "id": "C",
+          "text": "Solo x = −1",
+          "feedback": "Per x = −1 il primo membro vale 1 e il secondo −1."
+        },
+        {
+          "id": "D",
+          "text": "Nessuna",
+          "feedback": "x = 2 è una soluzione valida: √(2 + 2) = √4 = 2."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-c03-q6",
+      "prompt": "Nel laboratorio, con a = 1, perché la previsione tra x = −0,5 e x = 3 è NON DEFINITO?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché in x = 3 la radice vale zero",
+          "feedback": "In x = 3 vale √2: il problema è nell’altro punto."
+        },
+        {
+          "id": "B",
+          "text": "Perché la radice decresce",
+          "feedback": "La radice cresce dove è definita; il problema è il dominio."
+        },
+        {
+          "id": "C",
+          "text": "Perché x = −0,5 è fuori dal dominio x ≥ 1",
+          "feedback": "Esatto: il radicando −1,5 è negativo."
+        },
+        {
+          "id": "D",
+          "text": "Perché a deve essere negativo",
+          "feedback": "a può valere 1; il dominio cambia con a, e qui esclude x = −0,5."
+        }
+      ],
+      "correct": "C"
     }
   ]
 }

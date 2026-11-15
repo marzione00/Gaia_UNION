@@ -5,21 +5,22 @@
   "title": "Dagli zeri alla struttura di un polinomio",
   "sector": 0,
   "modelId": "math-a",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Polinomio esatto e radici parametrizzate",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Zeri, teorema del resto, regola di Ruffini, molteplicità e andamento del grafico",
+  "narrativeStatus": "La collina è immaginaria; i polinomi e le loro proprietà sono reali.",
   "objectives": [
-    "Spiegare: polinomio esatto e radici parametrizzate.",
-    "Applicare P(x) = (x-a)²(x+2), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Collegare uno zero r al fattore (x − r) con il teorema del resto.",
+    "Dividere un polinomio con la regola di Ruffini.",
+    "Prevedere attraversamenti e contatti del grafico dalla molteplicità degli zeri.",
+    "Dedurre il comportamento lontano dall’origine dal termine principale."
   ],
   "prerequisites": [
     "math-c02",
     "math-c05"
   ],
   "connections": [
-    "math-b"
+    "math-p03"
   ],
   "sources": [
     "precalculus",
@@ -39,244 +40,317 @@
   },
   "glossary": [
     {
-      "term": "x",
-      "definition": "Variabile indipendente, unità 1; intervallo [-4; 4]."
+      "term": "Zero",
+      "definition": "Numero r con P(r) = 0."
     },
     {
-      "term": "P(x)",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Teorema del resto",
+      "definition": "Il resto della divisione di P(x) per (x − r) è P(r)."
     },
     {
-      "term": "Radice doppia",
-      "definition": "Parametro a, unità 1; intervallo [-1; 3]."
+      "term": "Regola di Ruffini",
+      "definition": "Procedimento per dividere un polinomio per (x − r) usando solo i coefficienti."
+    },
+    {
+      "term": "Molteplicità",
+      "definition": "Numero di volte in cui il fattore (x − r) compare nella scomposizione."
+    },
+    {
+      "term": "Termine principale",
+      "definition": "Monomio di grado massimo; decide il comportamento per |x| grande."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Zeri e fattori",
       "text": {
         "base": [
-          "La centrale osserva una curva che in un punto attraversa lo zero e in un altro lo sfiora. Entrambi sono zeri, ma raccontano strutture algebriche differenti.",
-          "La molteplicità di uno zero è il numero di volte in cui compare il corrispondente fattore. Nel polinomio (x-a)²(x+2), a è uno zero doppio e -2 è uno zero semplice, finché sono distinti. Un fattore quadratico non cambia segno attraversando il proprio zero."
+          "Il profilo di una collina vicino alla stazione è descritto da un polinomio. Per sapere dove il sentiero attraversa il livello del lago, dove lo sfiora soltanto e come si comporta lontano, non serve tracciare punto per punto: basta conoscere gli zeri del polinomio e la loro molteplicità.",
+          "Uno zero di un polinomio P è un numero r con P(r) = 0. Il teorema del resto collega gli zeri ai fattori: il resto della divisione di P(x) per (x − r) vale P(r). Quindi r è uno zero se e solo se (x − r) divide P(x), cioè P(x) = (x − r) · Q(x). Esempio: P(x) = x³ − 3x + 2 vale 1 − 3 + 2 = 0 in x = 1, e quindi è divisibile per x − 1."
         ],
         "intermediate": [
-          "La centrale osserva una curva che in un punto attraversa lo zero e in un altro lo sfiora. Entrambi sono zeri, ma raccontano strutture algebriche differenti.",
-          "Vicino a una radice r, scrivi P(x)=(x-r)^m Q(x), con Q(r)≠0. Se m è pari, il fattore mantiene segno; se m è dispari lo cambia. Il comportamento di Q vicino a r non introduce un cambio di segno, perché è continuo e non nullo."
+          "Il profilo di una collina vicino alla stazione è descritto da un polinomio. Per sapere dove il sentiero attraversa il livello del lago, dove lo sfiora soltanto e come si comporta lontano, non serve tracciare punto per punto: basta conoscere gli zeri del polinomio e la loro molteplicità.",
+          "Uno zero di un polinomio P è un numero r con P(r) = 0. Il teorema del resto collega gli zeri ai fattori: il resto della divisione di P(x) per (x − r) vale P(r). Quindi r è uno zero se e solo se (x − r) divide P(x), cioè P(x) = (x − r) · Q(x). Esempio: P(x) = x³ − 3x + 2 vale 1 − 3 + 2 = 0 in x = 1, e quindi è divisibile per x − 1."
         ],
         "advanced": [
-          "La centrale osserva una curva che in un punto attraversa lo zero e in un altro lo sfiora. Entrambi sono zeri, ma raccontano strutture algebriche differenti.",
-          "Considera che cosa accadrebbe se a coincidesse con -2, oltre l’intervallo del controllo attuale: i fattori si unirebbero in uno zero triplo. Analizza anche il segno all’infinito.",
-          "Il laboratorio usa un polinomio cubico esatto con radici già parametrizzate. Non ricostruisce un polinomio unico a partire da dati rumorosi."
+          "Il profilo di una collina vicino alla stazione è descritto da un polinomio. Per sapere dove il sentiero attraversa il livello del lago, dove lo sfiora soltanto e come si comporta lontano, non serve tracciare punto per punto: basta conoscere gli zeri del polinomio e la loro molteplicità.",
+          "Uno zero di un polinomio P è un numero r con P(r) = 0. Il teorema del resto collega gli zeri ai fattori: il resto della divisione di P(x) per (x − r) vale P(r). Quindi r è uno zero se e solo se (x − r) divide P(x), cioè P(x) = (x − r) · Q(x). Esempio: P(x) = x³ − 3x + 2 vale 1 − 3 + 2 = 0 in x = 1, e quindi è divisibile per x − 1."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Ruffini, molteplicità e andamento",
       "text": {
         "base": [
-          "La molteplicità di uno zero è il numero di volte in cui compare il corrispondente fattore. Nel polinomio (x-a)²(x+2), a è uno zero doppio e -2 è uno zero semplice, finché sono distinti. Un fattore quadratico non cambia segno attraversando il proprio zero.",
-          "Con a=1, in x=1 ottieni zero e la curva resta non negativa nelle sue vicinanze. In x=-2 lo zero è semplice e avviene un cambio di segno. La forma fattorizzata anticipa ciò che il grafico conferma."
+          "La regola di Ruffini esegue la divisione per (x − r) usando solo i coefficienti. Per x³ + 0x² − 3x + 2 diviso x − 1: si abbassa 1; 1 · 1 + 0 = 1; 1 · 1 − 3 = −2; −2 · 1 + 2 = 0. Il quoziente è x² + x − 2 e il resto 0. Poi x² + x − 2 = (x − 1)(x + 2), quindi P(x) = (x − 1)²(x + 2).",
+          "La molteplicità di uno zero è il numero di volte in cui il suo fattore compare. In (x − 1)²(x + 2) lo zero 1 ha molteplicità 2 e lo zero −2 molteplicità 1. La molteplicità decide il comportamento del grafico: con molteplicità dispari il grafico attraversa l’asse x e il segno cambia; con molteplicità pari lo tocca e torna indietro, e il segno resta lo stesso.",
+          "Lontano dall’origine domina il termine di grado massimo. P(x) = (x − 1)²(x + 2) ha termine principale x³: per x molto grande è positivo e grandissimo, per x molto negativo è negativo. Un polinomio di grado n ha al massimo n zeri reali, e il suo grafico cambia direzione al massimo n − 1 volte.",
+          "Con zeri, molteplicità e termine principale si disegna l’andamento senza calcolare tabelle. Per (x − a)²(x + 2) con a = 1: il grafico arriva da −∞ a sinistra, attraversa l’asse in −2, sale, poi scende fino a toccare l’asse in x = 1 e risale verso +∞. In x = 0 vale (0 − 1)² · 2 = 2."
         ],
         "intermediate": [
-          "Vicino a una radice r, scrivi P(x)=(x-r)^m Q(x), con Q(r)≠0. Se m è pari, il fattore mantiene segno; se m è dispari lo cambia. Il comportamento di Q vicino a r non introduce un cambio di segno, perché è continuo e non nullo.",
-          "La variabile x è espressa in 1; P(x) in 1. Il dominio dello strumento è [-4; 4]. La relazione implementata è: P(x) = (x-a)²(x+2).",
-          "Con a=1, in x=1 ottieni zero e la curva resta non negativa nelle sue vicinanze. In x=-2 lo zero è semplice e avviene un cambio di segno. La forma fattorizzata anticipa ciò che il grafico conferma."
+          "La regola di Ruffini esegue la divisione per (x − r) usando solo i coefficienti. Per x³ + 0x² − 3x + 2 diviso x − 1: si abbassa 1; 1 · 1 + 0 = 1; 1 · 1 − 3 = −2; −2 · 1 + 2 = 0. Il quoziente è x² + x − 2 e il resto 0. Poi x² + x − 2 = (x − 1)(x + 2), quindi P(x) = (x − 1)²(x + 2).",
+          "La molteplicità di uno zero è il numero di volte in cui il suo fattore compare. In (x − 1)²(x + 2) lo zero 1 ha molteplicità 2 e lo zero −2 molteplicità 1. La molteplicità decide il comportamento del grafico: con molteplicità dispari il grafico attraversa l’asse x e il segno cambia; con molteplicità pari lo tocca e torna indietro, e il segno resta lo stesso.",
+          "Lontano dall’origine domina il termine di grado massimo. P(x) = (x − 1)²(x + 2) ha termine principale x³: per x molto grande è positivo e grandissimo, per x molto negativo è negativo. Un polinomio di grado n ha al massimo n zeri reali, e il suo grafico cambia direzione al massimo n − 1 volte.",
+          "Con zeri, molteplicità e termine principale si disegna l’andamento senza calcolare tabelle. Per (x − a)²(x + 2) con a = 1: il grafico arriva da −∞ a sinistra, attraversa l’asse in −2, sale, poi scende fino a toccare l’asse in x = 1 e risale verso +∞. In x = 0 vale (0 − 1)² · 2 = 2."
         ],
         "advanced": [
-          "Vicino a una radice r, scrivi P(x)=(x-r)^m Q(x), con Q(r)≠0. Se m è pari, il fattore mantiene segno; se m è dispari lo cambia. Il comportamento di Q vicino a r non introduce un cambio di segno, perché è continuo e non nullo.",
-          "Considera che cosa accadrebbe se a coincidesse con -2, oltre l’intervallo del controllo attuale: i fattori si unirebbero in uno zero triplo. Analizza anche il segno all’infinito.",
-          "Contare le intersezioni visibili non basta a conoscere il grado: uno zero multiplo può apparire come un solo punto. Un minimo vicino all’asse non prova che il valore sia esattamente zero."
+          "La regola di Ruffini esegue la divisione per (x − r) usando solo i coefficienti. Per x³ + 0x² − 3x + 2 diviso x − 1: si abbassa 1; 1 · 1 + 0 = 1; 1 · 1 − 3 = −2; −2 · 1 + 2 = 0. Il quoziente è x² + x − 2 e il resto 0. Poi x² + x − 2 = (x − 1)(x + 2), quindi P(x) = (x − 1)²(x + 2).",
+          "La molteplicità di uno zero è il numero di volte in cui il suo fattore compare. In (x − 1)²(x + 2) lo zero 1 ha molteplicità 2 e lo zero −2 molteplicità 1. La molteplicità decide il comportamento del grafico: con molteplicità dispari il grafico attraversa l’asse x e il segno cambia; con molteplicità pari lo tocca e torna indietro, e il segno resta lo stesso.",
+          "Lontano dall’origine domina il termine di grado massimo. P(x) = (x − 1)²(x + 2) ha termine principale x³: per x molto grande è positivo e grandissimo, per x molto negativo è negativo. Un polinomio di grado n ha al massimo n zeri reali, e il suo grafico cambia direzione al massimo n − 1 volte.",
+          "Un polinomio può avere meno zeri reali del suo grado: x² + 1 non ne ha. Contando gli zeri complessi con la loro molteplicità, un polinomio di grado n ne ha esattamente n: è il teorema fondamentale dell’algebra. Gli zeri complessi non reali di un polinomio a coefficienti reali compaiono in coppie coniugate."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio della radice doppia",
       "text": {
         "base": [
-          "Nel laboratorio imposta Radice doppia (a): 1 (adimensionale). Prima di salvare A, prevedi come cambia P(x) fra x=-2 e 0 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con a=1, in x=1 ottieni zero e la curva resta non negativa nelle sue vicinanze. In x=-2 lo zero è semplice e avviene un cambio di segno. La forma fattorizzata anticipa ciò che il grafico conferma.",
-          "La variabile x è espressa in 1; P(x) in 1. Il dominio dello strumento è [-4; 4]. La relazione implementata è: P(x) = (x-a)²(x+2)."
+          "Nel laboratorio il grafico mostra P(x) = (x − a)²(x + 2) per x da −4 a 4; nella scheda REGOLA cambi la posizione a della radice doppia, da −1 a 3. Osserva come il punto di contatto si sposta mentre lo zero semplice in −2 resta fermo.",
+          "Protocollo. La previsione riguarda il passaggio da x = −2 a x = 0. Con a = 1, P(−2) = 0 e P(0) = 2: scegli la previsione e salva A. Poi porta a a 3, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con a = 3, P(0) = 9 · 2 = 18: il valore in 0 cresce come a². Con a = −1 la radice doppia si avvicina allo zero semplice. Se a valesse −2 i due fattori si fonderebbero in (x + 2)³, uno zero triplo in cui il grafico attraversa l’asse appiattendosi; il cursore del laboratorio si ferma a −1."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Radice doppia (a): 1 (adimensionale). Prima di salvare A, prevedi come cambia P(x) fra x=-2 e 0 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile x è espressa in 1; P(x) in 1. Il dominio dello strumento è [-4; 4]. La relazione implementata è: P(x) = (x-a)²(x+2).",
-          "Vicino a una radice r, scrivi P(x)=(x-r)^m Q(x), con Q(r)≠0. Se m è pari, il fattore mantiene segno; se m è dispari lo cambia. Il comportamento di Q vicino a r non introduce un cambio di segno, perché è continuo e non nullo."
+          "Nel laboratorio il grafico mostra P(x) = (x − a)²(x + 2) per x da −4 a 4; nella scheda REGOLA cambi la posizione a della radice doppia, da −1 a 3. Osserva come il punto di contatto si sposta mentre lo zero semplice in −2 resta fermo.",
+          "Protocollo. La previsione riguarda il passaggio da x = −2 a x = 0. Con a = 1, P(−2) = 0 e P(0) = 2: scegli la previsione e salva A. Poi porta a a 3, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con a = 3, P(0) = 9 · 2 = 18: il valore in 0 cresce come a². Con a = −1 la radice doppia si avvicina allo zero semplice. Se a valesse −2 i due fattori si fonderebbero in (x + 2)³, uno zero triplo in cui il grafico attraversa l’asse appiattendosi; il cursore del laboratorio si ferma a −1."
         ],
         "advanced": [
-          "Nel laboratorio imposta Radice doppia (a): 1 (adimensionale). Prima di salvare A, prevedi come cambia P(x) fra x=-2 e 0 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Considera che cosa accadrebbe se a coincidesse con -2, oltre l’intervallo del controllo attuale: i fattori si unirebbero in uno zero triplo. Analizza anche il segno all’infinito.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra P(x) = (x − a)²(x + 2) per x da −4 a 4; nella scheda REGOLA cambi la posizione a della radice doppia, da −1 a 3. Osserva come il punto di contatto si sposta mentre lo zero semplice in −2 resta fermo.",
+          "Protocollo. La previsione riguarda il passaggio da x = −2 a x = 0. Con a = 1, P(−2) = 0 e P(0) = 2: scegli la previsione e salva A. Poi porta a a 3, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con a = 3, P(0) = 9 · 2 = 18: il valore in 0 cresce come a². Con a = −1 la radice doppia si avvicina allo zero semplice. Se a valesse −2 i due fattori si fonderebbero in (x + 2)³, uno zero triplo in cui il grafico attraversa l’asse appiattendosi; il cursore del laboratorio si ferma a −1."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Leggere il grafico",
       "text": {
         "base": [
-          "Contare le intersezioni visibili non basta a conoscere il grado: uno zero multiplo può apparire come un solo punto. Un minimo vicino all’asse non prova che il valore sia esattamente zero.",
-          "Il laboratorio usa un polinomio cubico esatto con radici già parametrizzate. Non ricostruisce un polinomio unico a partire da dati rumorosi.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che a ogni zero corrisponda un cambio di segno. Allo zero doppio x = a il polinomio tocca l’asse e resta positivo; il segno cambia solo negli zeri di molteplicità dispari.",
+          "Secondo errore: confondere lo zero r con il fattore. Lo zero x = 3 corrisponde al fattore (x − 3), con il segno meno; lo zero x = −2 al fattore (x + 2).",
+          "Il grafico del laboratorio mostra un intervallo finito: il comportamento per |x| molto grande si deduce dal termine principale. Inoltre un polinomio descrive bene un profilo reale solo in un intervallo limitato: lontano, cresce senza limite."
         ],
         "intermediate": [
-          "Contare le intersezioni visibili non basta a conoscere il grado: uno zero multiplo può apparire come un solo punto. Un minimo vicino all’asse non prova che il valore sia esattamente zero.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che a ogni zero corrisponda un cambio di segno. Allo zero doppio x = a il polinomio tocca l’asse e resta positivo; il segno cambia solo negli zeri di molteplicità dispari.",
+          "Secondo errore: confondere lo zero r con il fattore. Lo zero x = 3 corrisponde al fattore (x − 3), con il segno meno; lo zero x = −2 al fattore (x + 2).",
+          "Il grafico del laboratorio mostra un intervallo finito: il comportamento per |x| molto grande si deduce dal termine principale. Inoltre un polinomio descrive bene un profilo reale solo in un intervallo limitato: lontano, cresce senza limite.",
+          "Con zeri, molteplicità e termine principale si disegna l’andamento senza calcolare tabelle. Per (x − a)²(x + 2) con a = 1: il grafico arriva da −∞ a sinistra, attraversa l’asse in −2, sale, poi scende fino a toccare l’asse in x = 1 e risale verso +∞. In x = 0 vale (0 − 1)² · 2 = 2."
         ],
         "advanced": [
-          "Il laboratorio usa un polinomio cubico esatto con radici già parametrizzate. Non ricostruisce un polinomio unico a partire da dati rumorosi.",
-          "Considera che cosa accadrebbe se a coincidesse con -2, oltre l’intervallo del controllo attuale: i fattori si unirebbero in uno zero triplo. Analizza anche il segno all’infinito.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che a ogni zero corrisponda un cambio di segno. Allo zero doppio x = a il polinomio tocca l’asse e resta positivo; il segno cambia solo negli zeri di molteplicità dispari.",
+          "Il grafico del laboratorio mostra un intervallo finito: il comportamento per |x| molto grande si deduce dal termine principale. Inoltre un polinomio descrive bene un profilo reale solo in un intervallo limitato: lontano, cresce senza limite.",
+          "Un polinomio può avere meno zeri reali del suo grado: x² + 1 non ne ha. Contando gli zeri complessi con la loro molteplicità, un polinomio di grado n ne ha esattamente n: è il teorema fondamentale dell’algebra. Gli zeri complessi non reali di un polinomio a coefficienti reali compaiono in coppie coniugate."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "La molteplicità di uno zero è il numero di volte in cui compare il corrispondente fattore. Nel polinomio (x-a)²(x+2), a è uno zero doppio e -2 è uno zero semplice, finché sono distinti. Un fattore quadratico non cambia segno attraversando il proprio zero.",
-          "Con a=1, in x=1 ottieni zero e la curva resta non negativa nelle sue vicinanze. In x=-2 lo zero è semplice e avviene un cambio di segno. La forma fattorizzata anticipa ciò che il grafico conferma."
+          "Ripasso: definizione di zero; teorema del resto e divisibilità per (x − r); regola di Ruffini; molteplicità e comportamento del grafico; termine principale; numero massimo di zeri.",
+          "Mini esercizio: P(x) = x³ − x² − 4x + 4. P(1) = 1 − 1 − 4 + 4 = 0. Ruffini con r = 1 dà x² − 4, quindi P(x) = (x − 1)(x − 2)(x + 2): tre zeri semplici, tre attraversamenti.",
+          "Nelle domande sul grafico chiediti sempre la molteplicità dello zero prima di parlare del segno."
         ],
         "intermediate": [
-          "Vicino a una radice r, scrivi P(x)=(x-r)^m Q(x), con Q(r)≠0. Se m è pari, il fattore mantiene segno; se m è dispari lo cambia. Il comportamento di Q vicino a r non introduce un cambio di segno, perché è continuo e non nullo.",
-          "La variabile x è espressa in 1; P(x) in 1. Il dominio dello strumento è [-4; 4]. La relazione implementata è: P(x) = (x-a)²(x+2)."
+          "Ripasso: definizione di zero; teorema del resto e divisibilità per (x − r); regola di Ruffini; molteplicità e comportamento del grafico; termine principale; numero massimo di zeri.",
+          "Mini esercizio: P(x) = x³ − x² − 4x + 4. P(1) = 1 − 1 − 4 + 4 = 0. Ruffini con r = 1 dà x² − 4, quindi P(x) = (x − 1)(x − 2)(x + 2): tre zeri semplici, tre attraversamenti.",
+          "Nelle domande sul grafico chiediti sempre la molteplicità dello zero prima di parlare del segno."
         ],
         "advanced": [
-          "Considera che cosa accadrebbe se a coincidesse con -2, oltre l’intervallo del controllo attuale: i fattori si unirebbero in uno zero triplo. Analizza anche il segno all’infinito.",
-          "Il laboratorio usa un polinomio cubico esatto con radici già parametrizzate. Non ricostruisce un polinomio unico a partire da dati rumorosi."
+          "Ripasso: definizione di zero; teorema del resto e divisibilità per (x − r); regola di Ruffini; molteplicità e comportamento del grafico; termine principale; numero massimo di zeri.",
+          "Mini esercizio: P(x) = x³ − x² − 4x + 4. P(1) = 1 − 1 − 4 + 4 = 0. Ruffini con r = 1 dà x² − 4, quindi P(x) = (x − 1)(x − 2)(x + 2): tre zeri semplici, tre attraversamenti.",
+          "Nelle domande sul grafico chiediti sempre la molteplicità dello zero prima di parlare del segno."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Polinomio esatto e radici parametrizzate.",
-          "Il laboratorio usa un polinomio cubico esatto con radici già parametrizzate. Non ricostruisce un polinomio unico a partire da dati rumorosi.",
-          "Collegamento consigliato: math-b. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Gli zeri dei polinomi tornano nello studio delle funzioni e delle disequazioni, e nell’unità «Complessi, aritmetica e polinomi», dove gli zeri mancanti nei reali compaiono tra i complessi.",
+          "Riepilogo dell’unità: ogni zero r corrisponde a un fattore (x − r); Ruffini divide un polinomio per quel fattore; la molteplicità dice se il grafico attraversa o tocca l’asse; il termine principale dice dove va il grafico lontano dall’origine.",
+          "Nel diario registra A e B con le previsioni, descrivi a parole il grafico di (x − a)²(x + 2) per il valore di a che preferisci e scrivi una divisione con Ruffini."
         ],
         "intermediate": [
-          "Vicino a una radice r, scrivi P(x)=(x-r)^m Q(x), con Q(r)≠0. Se m è pari, il fattore mantiene segno; se m è dispari lo cambia. Il comportamento di Q vicino a r non introduce un cambio di segno, perché è continuo e non nullo.",
-          "Il laboratorio usa un polinomio cubico esatto con radici già parametrizzate. Non ricostruisce un polinomio unico a partire da dati rumorosi.",
-          "Considera che cosa accadrebbe se a coincidesse con -2, oltre l’intervallo del controllo attuale: i fattori si unirebbero in uno zero triplo. Analizza anche il segno all’infinito."
+          "Gli zeri dei polinomi tornano nello studio delle funzioni e delle disequazioni, e nell’unità «Complessi, aritmetica e polinomi», dove gli zeri mancanti nei reali compaiono tra i complessi.",
+          "Riepilogo dell’unità: ogni zero r corrisponde a un fattore (x − r); Ruffini divide un polinomio per quel fattore; la molteplicità dice se il grafico attraversa o tocca l’asse; il termine principale dice dove va il grafico lontano dall’origine.",
+          "Nel diario registra A e B con le previsioni, descrivi a parole il grafico di (x − a)²(x + 2) per il valore di a che preferisci e scrivi una divisione con Ruffini."
         ],
         "advanced": [
-          "Considera che cosa accadrebbe se a coincidesse con -2, oltre l’intervallo del controllo attuale: i fattori si unirebbero in uno zero triplo. Analizza anche il segno all’infinito.",
-          "Il laboratorio usa un polinomio cubico esatto con radici già parametrizzate. Non ricostruisce un polinomio unico a partire da dati rumorosi.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Gli zeri dei polinomi tornano nello studio delle funzioni e delle disequazioni, e nell’unità «Complessi, aritmetica e polinomi», dove gli zeri mancanti nei reali compaiono tra i complessi.",
+          "Riepilogo dell’unità: ogni zero r corrisponde a un fattore (x − r); Ruffini divide un polinomio per quel fattore; la molteplicità dice se il grafico attraversa o tocca l’asse; il termine principale dice dove va il grafico lontano dall’origine.",
+          "Nel diario registra A e B con le previsioni, descrivi a parole il grafico di (x − a)²(x + 2) per il valore di a che preferisci e scrivi una divisione con Ruffini."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-a-concept",
-      "prompt": "Uno zero di molteplicità pari, isolato dagli altri zeri:",
+      "id": "math-a-q1",
+      "prompt": "P(3) = 0. Che cosa si può dire di P(x)?",
       "options": [
         {
           "id": "A",
-          "text": "Non appartiene al grafico",
-          "feedback": "Vicino a una radice r, scrivi P(x)=(x-r)^m Q(x), con Q(r)≠0. Se m è pari, il fattore mantiene segno; se m è dispari lo cambia. Il comportamento di Q vicino a r non introduce un cambio di segno, perché è continuo e non nullo."
+          "text": "È divisibile per (x + 3)",
+          "feedback": "Lo zero 3 corrisponde al fattore (x − 3)."
         },
         {
           "id": "B",
-          "text": "Non produce un cambio di segno locale",
-          "feedback": "La molteplicità di uno zero è il numero di volte in cui compare il corrispondente fattore. Nel polinomio (x-a)²(x+2), a è uno zero doppio e -2 è uno zero semplice, finché sono distinti. Un fattore quadratico non cambia segno attraversando il proprio zero."
+          "text": "È divisibile per (x − 3)",
+          "feedback": "Esatto: per il teorema del resto il resto della divisione è P(3) = 0."
         },
         {
           "id": "C",
-          "text": "Produce sempre un cambio di segno",
-          "feedback": "Contare le intersezioni visibili non basta a conoscere il grado: uno zero multiplo può apparire come un solo punto. Un minimo vicino all’asse non prova che il valore sia esattamente zero."
+          "text": "Vale 3 in x = 0",
+          "feedback": "Lo zero indica dove il polinomio vale 0, non il suo valore in 0."
+        },
+        {
+          "id": "D",
+          "text": "Ha grado 3",
+          "feedback": "Uno zero non dice nulla sul grado."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "math-a-calculation",
-      "prompt": "Calcolo: Radice doppia (a)=1 (adimensionale). Per x=1 (adimensionale), quanto vale P(x)?",
+      "id": "math-a-q2",
+      "prompt": "In P(x) = (x − 1)²(x + 2), che cosa fa il grafico in x = 1?",
       "options": [
         {
           "id": "A",
-          "text": "0 (adimensionale)",
-          "feedback": "P(x) = (x-a)²(x+2). Con Radice doppia (a)=1 (adimensionale) e x=1 (adimensionale), il risultato è 0 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Tocca l’asse senza attraversarlo",
+          "feedback": "Esatto: molteplicità 2, il segno resta lo stesso."
         },
         {
           "id": "B",
-          "text": "1,00000e-8 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. P(x) = (x-a)²(x+2). Con Radice doppia (a)=1 (adimensionale) e x=1 (adimensionale), il risultato è 0 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Attraversa l’asse",
+          "feedback": "L’attraversamento avviene negli zeri di molteplicità dispari, come −2."
         },
         {
           "id": "C",
-          "text": "-1,00000e-8 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. P(x) = (x-a)²(x+2). Con Radice doppia (a)=1 (adimensionale) e x=1 (adimensionale), il risultato è 0 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "A",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 1
-        },
-        "expected": 0,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "math-a-transfer",
-      "prompt": "Trasferimento: Radice doppia (a)=1,5 (adimensionale). Per x=1 (adimensionale), quanto vale P(x)?",
-      "options": [
-        {
-          "id": "A",
-          "text": "1,75 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. P(x) = (x-a)²(x+2). Con Radice doppia (a)=1,5 (adimensionale) e x=1 (adimensionale), il risultato è 0,75 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Ha un asintoto",
+          "feedback": "I polinomi non hanno asintoti verticali."
         },
         {
-          "id": "B",
-          "text": "-0,25 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. P(x) = (x-a)²(x+2). Con Radice doppia (a)=1,5 (adimensionale) e x=1 (adimensionale), il risultato è 0,75 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "C",
-          "text": "0,75 (adimensionale)",
-          "feedback": "P(x) = (x-a)²(x+2). Con Radice doppia (a)=1,5 (adimensionale) e x=1 (adimensionale), il risultato è 0,75 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "C",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 1.5
-        },
-        "expected": 0.75,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "math-a-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Polinomio esatto e radici parametrizzate",
-          "feedback": "Il laboratorio usa un polinomio cubico esatto con radici già parametrizzate. Non ricostruisce un polinomio unico a partire da dati rumorosi."
-        },
-        {
-          "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il laboratorio usa un polinomio cubico esatto con radici già parametrizzate. Non ricostruisce un polinomio unico a partire da dati rumorosi."
-        },
-        {
-          "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il laboratorio usa un polinomio cubico esatto con radici già parametrizzate. Non ricostruisce un polinomio unico a partire da dati rumorosi."
+          "id": "D",
+          "text": "Non passa per l’asse",
+          "feedback": "P(1) = 0: il grafico passa per (1; 0)."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "math-a-q3",
+      "prompt": "Dividendo x³ − 3x + 2 per (x − 1) con Ruffini, che quoziente si ottiene?",
+      "options": [
+        {
+          "id": "A",
+          "text": "x² − 3",
+          "feedback": "Hai dimenticato il coefficiente 0 di x²."
+        },
+        {
+          "id": "B",
+          "text": "x² + x + 2",
+          "feedback": "Il penultimo coefficiente è 1 − 3 = −2."
+        },
+        {
+          "id": "C",
+          "text": "x² + x − 2",
+          "feedback": "Esatto: coefficienti 1, 1, −2, resto 0."
+        },
+        {
+          "id": "D",
+          "text": "x² − x − 2",
+          "feedback": "Il secondo coefficiente è 1 · 1 + 0 = 1, positivo."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "math-a-q4",
+      "prompt": "Quanti zeri reali può avere al massimo un polinomio di grado 4?",
+      "options": [
+        {
+          "id": "A",
+          "text": "3",
+          "feedback": "Il numero massimo di zeri reali è uguale al grado, cioè 4."
+        },
+        {
+          "id": "B",
+          "text": "Infiniti",
+          "feedback": "Un polinomio non nullo di grado n ha al massimo n zeri."
+        },
+        {
+          "id": "C",
+          "text": "8",
+          "feedback": "Il grado limita il numero di zeri: 4."
+        },
+        {
+          "id": "D",
+          "text": "4",
+          "feedback": "Esatto: contando con la molteplicità, al massimo quanti il grado."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "math-a-q5",
+      "prompt": "Come si comporta (x − 1)²(x + 2) per x molto negativo?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tende a +∞",
+          "feedback": "Il termine principale è x³, negativo per x negativo."
+        },
+        {
+          "id": "B",
+          "text": "Tende a −∞",
+          "feedback": "Esatto: domina il termine x³, negativo per x negativo."
+        },
+        {
+          "id": "C",
+          "text": "Tende a 0",
+          "feedback": "Lontano dall’origine il polinomio cresce in valore assoluto."
+        },
+        {
+          "id": "D",
+          "text": "Tende a 2",
+          "feedback": "2 è il valore del polinomio in x = 0, e non il suo comportamento lontano."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-a-q6",
+      "prompt": "Nel laboratorio, con a = 3, quanto vale P(0)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "6",
+          "feedback": "P(0) = (0 − 3)² · (0 + 2) = 9 · 2."
+        },
+        {
+          "id": "B",
+          "text": "−18",
+          "feedback": "Il quadrato rende positivo il primo fattore."
+        },
+        {
+          "id": "C",
+          "text": "18",
+          "feedback": "Esatto: (0 − 3)² · (0 + 2) = 9 · 2 = 18."
+        },
+        {
+          "id": "D",
+          "text": "0",
+          "feedback": "Gli zeri sono 3 e −2; 0 non è uno zero."
+        }
+      ],
+      "correct": "C"
     }
   ]
 }
