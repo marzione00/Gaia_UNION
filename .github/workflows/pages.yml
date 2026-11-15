@@ -20,6 +20,21 @@ jobs:
       - run: npm run check
       - run: npm run build
       - run: npm run test:http
+      - name: Diagnose public curriculum URLs
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          SITE_URL="https://marzione00.github.io/Gaia_UNION/"
+          for path in index.html src/app.js content/catalogue.json content/curriculum/index.json content/curriculum/bundle.json content/curriculum/math-c01.json content/curriculum/paths.json; do
+            printf 'LIVE_PROBE path=%s ' "$path"
+            curl -L --silent --show-error --max-time 40 -o /tmp/gaia-url-check -w 'status=%{http_code} bytes=%{size_download} type=%{content_type} target=%{url_effective}\\n' "${SITE_URL}$path" || true
+            if [ "$path" = 'content/curriculum/bundle.json' ]; then
+              printf 'LIVE_PROBE_BUNDLE_PREFIX='
+              head -c 70 /tmp/gaia-url-check | tr '\\r\\n' ' ' || true
+              printf '\\n'
+            fi
+          done
       - uses: actions/upload-pages-artifact@v4
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         with:
