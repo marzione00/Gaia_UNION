@@ -20,21 +20,6 @@ jobs:
       - run: npm run check
       - run: npm run build
       - run: npm run test:http
-      - name: Diagnose public curriculum URLs
-        if: github.event_name == 'pull_request'
-        shell: bash
-        run: |
-          set -euo pipefail
-          SITE_URL="https://marzione00.github.io/Gaia_UNION/"
-          for path in index.html src/app.js content/catalogue.json content/curriculum/index.json content/curriculum/bundle.json content/curriculum/math-c01.json content/curriculum/paths.json; do
-            printf 'LIVE_PROBE path=%s ' "$path"
-            curl -L --silent --show-error --max-time 40 -o /tmp/gaia-url-check -w 'status=%{http_code} bytes=%{size_download} type=%{content_type} target=%{url_effective}\\n' "${SITE_URL}$path" || true
-            if [ "$path" = 'content/curriculum/bundle.json' ]; then
-              printf 'LIVE_PROBE_BUNDLE_PREFIX='
-              head -c 70 /tmp/gaia-url-check | tr '\\r\\n' ' ' || true
-              printf '\\n'
-            fi
-          done
       - uses: actions/upload-pages-artifact@v4
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         with:
@@ -67,8 +52,12 @@ jobs:
           SITE_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
           set -euo pipefail
-          for path in index.html src/app.js src/scene/worker.js content/catalogue.json assets/glyph-atlas.png assets/scenes/manifest.json LICENSE LICENSE.md THIRD_PARTY_NOTICES.md; do
+          for path in index.html src/app.js src/education/curriculum-loader.js src/education/resource-loader.js src/scene/worker.js content/catalogue.json content/curriculum/index.json content/curriculum/bundle.json content/curriculum/sources.json content/curriculum/paths.json content/curriculum/math-c01.json content/curriculum/physics-01.json content/curriculum/chemistry-01.json content/curriculum/biology-01.json assets/glyph-atlas.png assets/scenes/manifest.json LICENSE LICENSE.md THIRD_PARTY_NOTICES.md; do
             curl --fail --silent --show-error --retry 6 --retry-all-errors --retry-delay 10 \
               "${SITE_URL%/}/$path" --output /dev/null
           done
+          # Verify that Pages serves the complete 100-course curriculum, not merely the HTML shell.
+          curl --fail --silent --show-error --retry 6 --retry-all-errors --retry-delay 10 \
+            "${SITE_URL%/}/content/curriculum/bundle.json" --output /tmp/gaia-live-bundle.json
+          node --input-type=module -e "import fs from 'node:fs'; const d = JSON.parse(fs.readFileSync('/tmp/gaia-live-bundle.json','utf8')); if (d.schemaVersion !== 1 || d.courses?.length !== 100 || d.paths?.length !== 7 || d.sources?.length < 1) process.exit(1); console.log('100 corsi, 7 percorsi e fonti verificati sul sito pubblico')"
           printf 'Sito verificato: %s\n' "$SITE_URL" >> "$GITHUB_STEP_SUMMARY"
