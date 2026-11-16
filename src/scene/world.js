@@ -8,7 +8,8 @@ import { random, raySphere, backgroundStars } from './data.js';
 import { planetProfile } from './assets.js';
 import { DISCIPLINE } from '../ui/toolkit.js';
 import { pilotWorld } from '../worlds/pilots.js';
-import { planetSurface, surfaceScatter, systemStarLight } from '../worlds/surface.js';
+import { planetSurface, surfaceScatter, systemStarLight, planetGenomes } from '../worlds/surface.js';
+import { orbitMap } from '../worlds/orbit-texture.js';
 import { tuft, rock, station as stationMesh, seaPlane, grazer, frond, tree, column, cushion, cup, patch, hexapod, flyer, floater, beacon, curtain } from '../worlds/geometry.js';
 /** Mesh, instance mode, motion uniform and PBR of each body plan of the species (src/worlds/species.js). */
 const BODIES = {
@@ -160,6 +161,32 @@ export class World {
             this.uploadedPlanet = s.key; this.builtWorld = null; this.towers = s.stations.map(t => t.position); this.terrain = { height: new Map(s.grid.cells.map((p, i) => [String(i), p])) };
         }
     }
+    /** Orbit map of explorable planet `index`, generated from its identity card. A 128 × 64 map is made at
+     * once; 512 × 256 maps and, for the planet seen from orbit, a 1024 × 512 map are built a few rows per
+     * frame in orbitTick. Least recently used maps are released (12 medium, 3 large). */
+    orbitTexture(index, detailed) {
+        const R = this.R; if (!R.uploadPixels) return null;
+        const M = this.orbitMaps ||= { low: new Map(), mid: new Map(), high: new Map(), jobs: [] }, g = planetGenomes()[index];
+        if (!M.low.has(index)) { const m = orbitMap(g, 128, 64); m.step(); M.low.set(index, R.uploadPixels(128, 64, m.pixels)); }
+        const want = (tier, w, h, keep) => {
+            const cache = M[tier];
+            if (cache.has(index)) { const t = cache.get(index); cache.delete(index); cache.set(index, t); return t; }
+            if (!M.jobs.some(j => j.index === index && j.tier === tier)) M.jobs.push({ index, tier, keep, map: orbitMap(g, w, h) });
+            return null;
+        };
+        const mid = want('mid', 512, 256, 12), high = detailed ? want('high', 1024, 512, 3) : null;
+        return high || mid || M.low.get(index);
+    }
+    /** Advances the pending orbit maps for about `ms` milliseconds; the planet seen from orbit goes first. */
+    orbitTick(ms = 6, first = -1) {
+        const M = this.orbitMaps; if (!M?.jobs.length) return;
+        M.jobs.sort((a, b) => (b.index === first) - (a.index === first) || (a.tier === 'mid' ? 0 : 1) - (b.tier === 'mid' ? 0 : 1));
+        const job = M.jobs[0];
+        if (!job.map.step(ms)) return;
+        M.jobs.shift(); const cache = M[job.tier];
+        cache.set(job.index, this.R.uploadPixels(job.map.width, job.map.height, job.map.pixels));
+        while (cache.size > job.keep) { const oldest = cache.keys().next().value; this.R.gl?.deleteTexture(cache.get(oldest)); cache.delete(oldest); }
+    }
     bindStars(stars, modules) {
         this.systems=buildSystems(stars,modules);this.cosmos=createCosmos(this.systems);this.R.cosmos=this.cosmos;enrichCosmicStars(stars,this.cosmos,this.systems);
         const rock=sphereMesh(6,4);
@@ -237,11 +264,15 @@ export class World {
     }
     drawPlanet(body,time,center,radius,light,detailed=false,tint=null) {
         const moons=Array.from({length:body.moons},(_,j)=>{const a=time*(.06/(j+1))+body.phase+j*2.4,d=radius*(2.8+j*.65);return {center:center.map((v,i)=>v+[Math.cos(a)*d,Math.sin(a)*d*.12,Math.sin(a)*d][i]),radius:radius*(.12+j*.025),angle:a};});
-        const R=this.R,profile=body.profile,options={eye:this.eye,light,material:12,center,radius,texture:this.planetTextures?.get(profile.texture,detailed)||this.textures[profile.texture],atmosphere:profile.atmosphere,ocean:profile.ocean,disguise:DISGUISE[profile.texture]||0,tint:tint||[1,1,1,1],occluders:moons.map(m=>[...m.center,m.radius])},size=radius/5.3;
+        // Explorable planets use the map generated from their identity card, so orbit and surface agree.
+        const card=body.explorable?planetGenomes()[body.index]:null,generated=card?this.orbitTexture(body.index,detailed):null,sky=card?card.atmosphere.sky:null,skyMax=sky?Math.max(...sky,.01):1;
+        const R=this.R,profile=body.profile,options={eye:this.eye,light,material:12,center,radius,texture:generated||this.planetTextures?.get(profile.texture,detailed)||this.textures[profile.texture],atmosphere:generated?sky.map(v=>v/skyMax*.9):profile.atmosphere,ocean:generated?false:profile.ocean,disguise:generated?0:DISGUISE[profile.texture]||0,tint:tint||[1,1,1,1],occluders:moons.map(m=>[...m.center,m.radius])},size=radius/5.3;
         const geometry=this.R.meshes.has('planet-'+profile.texture)?'planet-'+profile.texture:detailed?'fineSphere':'sphere',rotation=time*body.spin+body.rotation;
         R.drawMesh(geometry,this.vp,transform(...center,radius,rotation,body.tilt),options);
-        if(profile.clouds)R.drawMesh(geometry,this.vp,transform(...center,radius*1.006,rotation+time*.002,body.tilt),{...options,texture:this.planetTextures?.get('clouds',detailed)||this.textures.clouds,material:5,opacity:.9});
-        if(profile.atmosphere)R.drawMesh(geometry,this.vp,transform(...center,radius*1.028),{...options,material:6,opacity:body.type==='desert'?.35:.85});
+        // Clouds and atmosphere follow the card: cloud cover and density decide whether and how strongly they show.
+        const clouds=generated?(card.atmosphere.clouds>0?Math.min(.9,card.atmosphere.clouds*1.4):0):profile.clouds?.9:0,shell=generated?(card.atmosphere.density>.05?.3+.55*card.atmosphere.density:0):profile.atmosphere?(body.type==='desert'?.35:.85):0;
+        if(clouds)R.drawMesh(geometry,this.vp,transform(...center,radius*1.006,rotation+time*.002,body.tilt),{...options,texture:this.planetTextures?.get('clouds',detailed)||this.textures.clouds,material:5,opacity:clouds});
+        if(shell)R.drawMesh(geometry,this.vp,transform(...center,radius*1.028),{...options,material:6,opacity:shell});
         if(body.rings)R.drawMesh('planet-rings',this.vp,transform(...center,radius,0,body.tilt),{eye:this.eye,light,texture:this.textures.rings,material:13,opacity:.88});
         for(const moon of moons)R.drawMesh(detailed?'sphere':'lowSphere',this.vp,transform(...moon.center,moon.radius,moon.angle),{eye:this.eye,light,material:12,texture:this.textures.moon,occluders:[[...center,radius]]});
         if(detailed&&body.explorable){
@@ -277,6 +308,7 @@ export class World {
     draw(scene, s, data) {
         const R = this.R;
         const surface=scene==='surface';
+        if(scene==='system'||scene==='orbit')this.orbitTick(6,scene==='orbit'?s.selected:-1);
         if(surface)this.activatePlanet(s.selected);else this.activateBiome(s.selected);
         this.camera(scene, s); R.time=s.time;
         this.projections = [];

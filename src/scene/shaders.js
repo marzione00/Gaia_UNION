@@ -68,7 +68,7 @@ void main(){
  if(uMaterial==5){if(dot(n,v)<0.)discard;float a=texture(uTex,vUV).r;float sun=max(0.,dot(n,l))*solarVisibility(vWorld,l);alpha*=smoothstep(.12,.95,a)*.84;outColor=vec4(film(vec3(.001)+vec3(1.)*sun),alpha);return;}
  if(uMaterial==12||uMaterial==15){
   if(uMaterial==15)l=normalize(uCenter-vWorld);
-  vec2 uv=uDisguise>.5?vec2(1.-vUV.x,1.-vUV.y):vUV;vec3 albedo=texture(uTex,uv).rgb;float water=uOcean*smoothstep(.01,.12,albedo.b-max(albedo.r,albedo.g*.85));
+  vec2 uv=uDisguise>.5?vec2(1.-vUV.x,1.-vUV.y):vUV;vec4 texel=texture(uTex,uv);vec3 albedo=texel.rgb;float water=max(uOcean*smoothstep(.01,.12,albedo.b-max(albedo.r,albedo.g*.85)),1.-texel.a);
   if(uDisguise>.5){float a=uDisguise>1.5?.55:-.62;vec3 k=vec3(.57735);albedo=clamp(albedo*cos(a)+cross(k,albedo)*sin(a)+k*dot(k,albedo)*(1.-cos(a)),0.,1.);}
   vec3 base=pow(albedo,vec3(2.2))*uTint.rgb;c=shade(base,n,l,v,0.,mix(.88,.18,water),solarVisibility(vWorld,l));
   float day=smoothstep(-.12,.08,dot(n,l));c*=mix(.035,1.,day);

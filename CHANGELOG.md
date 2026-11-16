@@ -1,3 +1,13 @@
+# 1.20.0: Mappe d’orbita dalle carte d’identità
+
+- In orbita e nella vista del sistema i 100 pianeti esplorabili mostrano una mappa generata dalla loro carta d’identità: lo stesso stile di terreno, lo stesso livello del mare e gli stessi colori della superficie di atterraggio. Il pianeta visto dall’alto ora corrisponde a quello su cui si atterra.
+- Le mappe sono calcolate con rumore 3D sulla sfera, senza cuciture né deformazioni ai poli. Crateri, atolli, vulcani e caldere sono distribuiti su tutto il pianeta; le dune seguono le fasce di vento delle basse latitudini.
+- Il mare riflette la luce della stella: la mappa segna l’acqua nel canale alfa.
+- Nuvole e atmosfera seguono la carta: niente guscio atmosferico sui pianeti quasi senza aria, nuvole più dense dove la copertura è maggiore, colore dell’atmosfera dal cielo della carta.
+- Le mappe si costruiscono senza bloccare la pagina: una versione piccola subito, poi quelle più dettagliate qualche riga per fotogramma.
+- I corpi di contorno mantengono le mappe NASA.
+- Nuovi test: corrispondenza con le coordinate della sfera, frazione di mare uguale a quella della carta, assenza di cuciture, generazione a passi identica a quella in un colpo.
+
 # 1.19.0: Specie, luoghi d’interesse ed esplorazione
 
 - Ogni pianeta ospita da 0 a 6 specie generate dalla sua carta d’identità: 310 in tutto, 180 piante e 130 animali, con generi unici in tutta la galassia. Forme: erba a ciuffi, felce a rosetta, albero a ombrello, pianta a colonna, pianta a cuscino, organismo a calice, crosta biologica, pascolatore, esapode, volatore, medusa galleggiante.
