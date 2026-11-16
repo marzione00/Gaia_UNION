@@ -1,3 +1,9 @@
+# 1.23.0: Il libro della galassia, capitolo pilota di chimica
+
+- Nuovo capitolo «Mole e quantità di sostanza» (`chemistry-03`), il primo del volume di chimica: circa 7.000 parole con 8 figure, 10 esempi svolti, un'attività sperimentale e 20 esercizi risolti su tre livelli. Tratta la storia della mole, unità di massa atomica e pesi atomici standard, definizione del 2019 e costante di Avogadro, massa molare, conversioni fra massa, moli e particelle, composizione percentuale, formula minima e molecolare, analisi per combustione, idrati, volume molare e realizzazione pratica della mole.
+- Il testo, le figure e gli esercizi sono originali. Il manuale di Petrucci e colleghi (*General Chemistry*, 11ª edizione) è usato come riferimento per la scelta degli argomenti; costanti e pesi atomici vengono da CODATA 2022 e dalla CIAAW, e ogni numero del capitolo è ricalcolato nei test.
+- «Leggi il capitolo» compare anche nell'orbita del pianeta di chimica corrispondente.
+
 # 1.22.0: Il libro della galassia, volume di fisica
 
 - Tutte le 25 unità di fisica hanno un capitolo. Oltre al pilota «Forze e leggi di Newton», 24 capitoli riprendono dalla dispensa di fisica del corso testo, formule, diagrammi ed esercizi risolti. Il volume conta circa 112.000 parole, 575 figure, 710 esercizi e oltre 8.200 formule.

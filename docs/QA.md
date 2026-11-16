@@ -1,19 +1,18 @@
-# Collaudo GAIA 1.22.0
+# Collaudo GAIA 1.23.0
 
-Eseguito il 16 novembre 2026 sul ramo `feat/libro-fisica-20261116`, costruito sopra `feat/libro-pilota-20261116` (versione 1.21.0, pull request #20), con Node.js 22.
+Eseguito il 16 novembre 2026 sul ramo `feat/libro-chimica-pilota-20261116`, costruito sopra `feat/libro-fisica-20261116` (versione 1.22.0, pull request #21), con Node.js 22.
 
 | Controllo | Comando | Risultato |
 |---|---|---:|
-| Test Node | `node --test tests/*.test.mjs` | 308 / 308 |
+| Test Node | `node --test tests/*.test.mjs` | 309 / 309 |
 | Riferimenti e risorse | `node scripts/check.mjs` | 3543 / 3543 |
-| Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 200 controlli |
+| Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 201 controlli |
 | Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 118 controlli |
-| Interazioni reali dell’atlante in Chromium con WebGL 2 (SwiftShader) | `python3 tools/qa_atlas_browser.py --root dist` | 23 / 23, nessun errore GL |
-| Tutti i capitoli del libro in Chromium | `python3 tools/qa_libro_browser.py` | 25 capitoli, 8237 formule, 575 figure, nessun errore |
+| Capitolo pilota di chimica in Chromium | `python3 tools/qa_libro_browser.py --solo chemistry-03` | 429 formule, 8 figure, nessun errore |
 
 Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`.
 
-Prove aggiuntive nel browser: ogni capitolo aperto con l’indirizzo `#/libro`, formule composte da MathJax senza errori, tutte le figure SVG caricate, nessun simbolo `$` rimasto nel testo, nessun errore della pagina. A 390 × 844 la pagina dei capitoli più ricchi di formule non scorre di lato; l’indirizzo con `sezione` apre il capitolo alla sezione richiesta; in orbita le unità di fisica mostrano «Leggi il capitolo».
+Prove aggiuntive nel browser: le otto figure del capitolo sono leggibili sul tema scuro; a 390 × 844 la pagina non scorre di lato e l’indirizzo con `sezione=combustione` apre il capitolo alla sezione richiesta; in orbita l’unità `chemistry-03` mostra «Leggi il capitolo». I risultati della 1.22.0 (25 capitoli di fisica, 8237 formule, 575 figure) restano validi: il codice del lettore non è cambiato.
 
 ## Integrazione continua
 
