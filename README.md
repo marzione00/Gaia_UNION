@@ -57,6 +57,7 @@ L'interfaccia conserva navigazione, pannelli, controlli e tipografia della versi
 - Dalla 1.21.0 i pianeti diventano i capitoli di un libro: «Leggi il capitolo» apre sopra la galassia una pagina con testo, formule, figure ed esercizi risolti. Il primo capitolo, pilota, è «Forze e leggi di Newton». Formato e regole in `docs/LIBRO.md`.
 - Dalla 1.22.0 il volume di fisica è completo: 25 capitoli, uno per pianeta, con il testo, i diagrammi e gli esercizi della dispensa di fisica del corso.
 - Dalla 1.23.0 comincia il volume di chimica, con il capitolo pilota «Mole e quantità di sostanza», scritto per il sito.
+- Dalla 1.24.0 il volume di chimica è completo: 25 capitoli scritti per il sito, dalla materia e dalla mole alla struttura quantistica dell'atomo, al legame, alla termochimica, alla cinetica, agli equilibri, all'elettrochimica, alla chimica organica e ai polimeri.
 - Dalla 1.20.0 i 100 pianeti esplorabili hanno in orbita e nella vista del sistema una mappa generata dalla loro carta d’identità: stesso stile di terreno, stesso livello del mare e stessi colori della superficie. Nuvole e atmosfera seguono la copertura nuvolosa e la densità della carta. I corpi di contorno mantengono le mappe NASA.
 - Ombre filtrate, riflessi planari delle strutture sull'acqua, increspature animate, materiali con metallo/rugosità/emissione. Antialiasing e bloom agiscono sulla scena prima dei pannelli.
 - Transizioni della camera, pausa del movimento, selezione delle stazioni e collegamenti di ricerca evidenziati. La preferenza di movimento ridotto viene rispettata.

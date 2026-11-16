@@ -94,4 +94,38 @@ I test controllano per ogni capitolo generato: formato, apertura, esercizi e fon
 
 Il volume di chimica non dispone di una dispensa del corso: i capitoli sono scritti per il sito. Il manuale di R. H. Petrucci, F. G. Herring, J. D. Madura e C. Bissonnette, *General Chemistry: Principles and Modern Applications* (11ª edizione, Pearson Canada, 2017), è protetto da diritto d'autore e serve soltanto come riferimento per la scelta e l'ordine degli argomenti e per controllare definizioni e risultati. Dal manuale non si riprendono testi, figure, tabelle, esempi o esercizi, neppure tradotti; i capitoli lo citano nella sezione «Fonti» con i paragrafi consultati. Costanti e pesi atomici si prendono dalle fonti primarie: BIPM per le definizioni del SI, CODATA per le costanti misurate, CIAAW per i pesi atomici standard.
 
-Il capitolo pilota è «Mole e quantità di sostanza» (`chemistry-03`). Corrispondenza prevista fra le unità e i capitoli del manuale usati come riferimento: 01–03 capitoli 1–3; 04–05 capitoli 8–9; 06–09 capitoli 10–12; 10–13 capitoli 6, 12, 14 e 18; 14–16 capitoli 4 e 7; 17–20 capitoli 13, 15 e 20; 21–23 capitoli 5, 16, 17 e 19; 24–25 capitoli 26 e 27.
+Dalla 1.24.0 il volume è completo: 25 capitoli, uno per unità, per circa 149.000 parole, 163 figure e 409 esercizi risolti. Ogni capitolo si apre con lo scenario del pianeta, dichiara gli obiettivi, conta almeno dodici sezioni, cinque figure e quindici esercizi divisi in tre livelli con almeno quattro esercizi per livello, e si chiude con errori frequenti, sintesi, glossario e fonti. I capitoli sulla struttura dell'atomo («Livelli atomici e spettri», «Periodicità e carica efficace») e sulla termochimica («Termochimica e calorimetria») sono più estesi, con la meccanica quantistica dell'atomo di idrogeno e degli atomi a molti elettroni, l'entropia e l'energia di Gibbs.
+
+| unità | capitolo | paragrafi di riferimento |
+|---|---|---|
+| 01 | Materia, proprietà e densità | 1-1–1-7 |
+| 02 | Atomi, isotopi e massa media | 2-1–2-6 |
+| 03 | Mole e quantità di sostanza | 2-7, 2-8, 3-2, 3-3 |
+| 04 | Livelli atomici e spettri | 8-1–8-8 |
+| 05 | Periodicità e carica efficace | 8-9–8-11, 9-1–9-6, 10-3 |
+| 06 | Legame ionico e interazioni elettrostatiche | 3-1, 3-5, 9-2, 10-1, 12-6, 12-7 |
+| 07 | Legame covalente ed energia di legame | 10-2–10-6, 10-8, 10-9, 11-2, 11-5 |
+| 08 | Geometria molecolare e VSEPR | 10-7, 11-1, 11-3, 11-4 |
+| 09 | Forze intermolecolari | 12-1, 12-2, 14-3 |
+| 10 | Gas e stato aeriforme | 6-1–6-9 |
+| 11 | Stati della materia e transizioni | 12-2–12-5 |
+| 12 | Soluzioni e concentrazione | 4-3, 14-1–14-5 |
+| 13 | Solubilità ed equilibrio eterogeneo | 18-1–18-7 |
+| 14 | Stechiometria e reagente limitante | 4-1–4-4, 4-6 |
+| 15 | Resa e bilanci di materia | 4-5 |
+| 16 | Termochimica e calorimetria | 7-1–7-10, 13-1–13-4 |
+| 17 | Velocità di reazione | 20-1–20-8 |
+| 18 | Temperatura e attivazione | 20-8–20-11 |
+| 19 | Equilibrio chimico | 15-1–15-5, 15-7, 13-5 |
+| 20 | Perturbazioni dell'equilibrio | 15-6, 13-6, 13-7 |
+| 21 | Acidi, basi e pH | 16-1–16-6, 16-8, 16-10, 16-11, 17-3 |
+| 22 | Soluzioni tampone | 17-1, 17-2, 17-4 |
+| 23 | Ossidazione, riduzione ed elettrochimica | 5-4–5-6, 19-1–19-8 |
+| 24 | Chimica organica e scheletri carboniosi | 26-1–26-8 |
+| 25 | Polimeri e materiali | 27-8, 26-7 |
+
+I dati numerici vengono dalle tabelle dell'appendice D del manuale, che sono dati e non testo protetto, o da fonti primarie: CODATA 2022, CIAAW, tabelle NBS e NIST-JANAF, IAPWS, CRC Handbook, rapporti di enti pubblici come USGS, NOAA, OCSE e Agenzia internazionale dell'energia. Quando un valore è stimato, per esempio con entalpia ed entropia supposte costanti, il testo lo dice. Le figure sono disegnate in JSON con il formato del lettore, controllate in anteprima sul tema scuro e prive di sovrapposizioni.
+
+Vincoli per il telefono: le formule in linea non superano circa trentatré caratteri visibili, le equazioni lunghe vanno in formule a sé con `aligned`, le tabelle hanno al massimo quattro colonne e non scorrono di lato a 390 pixel di larghezza; quando una tabella non ci sta diventa un elenco.
+
+I test del volume, in `tests/chimica.test.mjs`, controllano per ogni capitolo formato, lunghezza minima, sezioni, figure, esercizi e livelli, rimandi, formule bilanciate e regole di stile; un test per capitolo ricalcola i numeri del testo, degli esempi e delle soluzioni degli esercizi.

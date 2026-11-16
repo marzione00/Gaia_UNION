@@ -1,18 +1,18 @@
-# Collaudo GAIA 1.23.0
+# Collaudo GAIA 1.24.0
 
-Eseguito il 16 novembre 2026 sul ramo `feat/libro-chimica-pilota-20261116`, costruito sopra `feat/libro-fisica-20261116` (versione 1.22.0, pull request #21), con Node.js 22.
+Eseguito il 16 novembre 2026 sul ramo `feat/libro-chimica-20261116`, costruito sopra `feat/libro-chimica-pilota-20261116` (versione 1.23.0, pull request #22), con Node.js 22.
 
 | Controllo | Comando | Risultato |
 |---|---|---:|
-| Test Node | `node --test tests/*.test.mjs` | 309 / 309 |
+| Test Node | `node --test tests/*.test.mjs` | 334 / 334 |
 | Riferimenti e risorse | `node scripts/check.mjs` | 3543 / 3543 |
-| Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 201 controlli |
+| Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 225 controlli |
 | Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 118 controlli |
-| Capitolo pilota di chimica in Chromium | `python3 tools/qa_libro_browser.py --solo chemistry-03` | 429 formule, 8 figure, nessun errore |
+| Capitoli di chimica in Chromium | `python3 tools/qa_libro_browser.py --solo chemistry-NN`, per le 25 unità | 25 capitoli, 8988 formule, 163 figure, nessun errore |
 
 Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`.
 
-Prove aggiuntive nel browser: le otto figure del capitolo sono leggibili sul tema scuro; a 390 × 844 la pagina non scorre di lato e l’indirizzo con `sezione=combustione` apre il capitolo alla sezione richiesta; in orbita l’unità `chemistry-03` mostra «Leggi il capitolo». I risultati della 1.22.0 (25 capitoli di fisica, 8237 formule, 575 figure) restano validi: il codice del lettore non è cambiato.
+Prove aggiuntive nel browser: in ogni capitolo di chimica le formule sono composte da MathJax senza errori, le figure si caricano tutte e nessun simbolo `$` resta nel testo. A 390 × 844 nessuna formula in linea e nessuna tabella supera la larghezza della pagina. Le figure sono state controllate una per una in anteprima sul tema scuro, senza scritte sovrapposte. I test di `tests/chimica.test.mjs` ricalcolano i numeri di tutti i capitoli. I risultati della 1.22.0 per la fisica (25 capitoli, 8237 formule, 575 figure) restano validi: il codice del lettore non è cambiato.
 
 ## Integrazione continua
 
