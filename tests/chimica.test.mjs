@@ -66,3 +66,36 @@ test('Chimica 05: periodicità e carica efficace, numeri ricalcolati',()=>{
  assert.equal(r((140/53.5)**3,1),17.9);assert.equal(r((103-86)/103*100,1),16.5);assert.equal(r(17/14,1),1.2);
  assert.equal(r(72/5.5,1),13.1);assert.equal(r(72.630/5.323,1),13.6);assert.equal(r(1/22.990*495.8,1),21.6);
 });
+test('Chimica 16: termochimica e calorimetria, numeri ricalcolati',()=>{
+ const R=8.314462618,RT=R*298.15/1000,M=(c,h,o=0)=>12.011*c+1.008*h+15.999*o;
+ // Table D.2 (Petrucci, from NBS) formation enthalpies, kJ/mol.
+ const f={H2Ol:-285.8,H2Og:-241.8,CO2:-393.5,CO:-110.5,CH4:-74.81,C2H2:226.7,C2H6:-84.68,C3H8:-103.8,C4H10:-125.6,MeOH:-238.7,MeOHg:-200.7,EtOH:-277.7,BzA:-385.2,Fe2O3:-824.2,Al2O3:-1676,Cg:716.7,Hg:218,Og:249.2,Clg:121.7,HCl:-92.31};
+ const comb=(fu,c,h)=>c*f.CO2+h*f.H2Ol-fu;
+ assert.equal(r(comb(f.CH4,1,2),1),-890.3);assert.equal(r(f.CO2+2*f.H2Og-f.CH4,1),-802.3);assert.equal(r(comb(f.C4H10,4,5),1),-2877.4);assert.equal(r(comb(f.MeOH,1,2),1),-726.4);assert.equal(r(comb(f.EtOH,2,3),1),-1366.7);
+ assert.deepEqual([[-285.8,2.016],[comb(f.CH4,1,2),M(1,4)],[comb(f.C4H10,4,5),M(4,10)],[-5470,M(8,18)],[-393.5,12.011],[comb(f.EtOH,2,3),M(2,6,1)],[comb(f.MeOH,1,2),M(1,4,1)]].map(([h,m])=>r(-h/m,1)),[141.8,55.5,49.5,47.9,32.8,29.7,22.7]);
+ assert.deepEqual([[1,comb(f.CH4,1,2)],[4,comb(f.C4H10,4,5)],[8,-5470],[1,-393.5],[2,comb(f.EtOH,2,3)],[1,comb(f.MeOH,1,2)]].map(([n,h])=>r(n*44.009/(-h/1000),1)),[49.4,61.2,64.4,111.8,64.4,60.6]);
+ assert.equal(r(8*f.CO2+9*f.H2Ol+5470,0),-250);assert.equal(r(f.CO2-(f.CO2-f.CO),1),-110.5);assert.equal(r(f.CO2-f.CO,1),-283);
+ assert.equal(r(-285.8+1.5*RT,1),-282.1);assert.equal(r(-726.4+0.5*RT,1),-725.2);assert.equal(r(RT,2),2.48);assert.equal(r(-84.68-226.7,1),-311.4);
+ // Bond enthalpies from atomization.
+ const CH=(f.Cg+4*f.Hg-f.CH4)/4,CC=2*f.Cg+6*f.Hg-f.C2H6-6*CH;
+ assert.deepEqual([2*f.Hg,2*f.Og,2*f.Clg,f.Hg+f.Clg-f.HCl,(2*f.Hg+f.Og-f.H2Og)/2,CH,(f.Cg+2*f.Og-f.CO2)/2,CC].map(v=>r(v,1)),[436,498.4,243.4,432,463.5,415.9,804.3,330.8]);
+ assert.equal(r(3*f.Cg+8*f.Hg-(2*CC+8*CH),1),-94.5);assert.equal(r(4*f.Cg+10*f.Hg-(3*CC+10*CH),0),-104);
+ // Calorimetry.
+ assert.equal(r((50*0.897*95+200*4.18*20)/(50*0.897+200*4.18),1),23.8);assert.equal(r((75*0.384*100+150*4.18*22)/(75*0.384+150*4.18),1),25.4);
+ const nN=10/(2*14.007+4*1.008+3*15.999);assert.equal(r(nN*25.7e3/(100*4.18),2),7.68);assert.equal(r(100*4.18*7.68/nN/1000,1),25.7);
+ const Cb=1.2*26.434/3.095;assert.equal(r(Cb,2),10.25);assert.equal(r(Cb*2.745/0.95*46.069,0),1364);
+ const Cm=26.434/2.52;assert.equal(r(Cm*2.589/1.2*M(1,4,1),1),725.2);
+ assert.equal(r((50*4.18*20.8-50*4.18*19.2)/19.2,1),17.4);assert.equal(r(20+5/110.978*81.4e3/(105*4.18),1),28.4);assert.equal(r(25/55.845*1648.4/4,0),184);
+ assert.equal(r(-100*4.18*10.6/0.1/1000,1),-44.3);assert.equal(r(600/44*18.015,0),246);assert.equal(r(1e5/(R*298.15)*0.8903,1),35.9);
+ // Solutions, Gibbs, phase changes.
+ assert.equal(r(-339.9+365.6,1),25.7);assert.equal(r(-542.8-2*167.2+795.8,1),-81.4);assert.equal(r(25.7-298.15*0.1087,1),-6.7);assert.equal(r(25700/108.7,0),236);
+ const dH=3*f.CO-f.Fe2O3,dS=2*27.28+3*197.7-87.4-3*5.74;assert.equal(r(dH,1),492.7);assert.equal(r(dS,1),543);assert.equal(r(dH*1000/dS,0),907);assert.equal(r(dH-298.15*dS/1000,0),331);
+ assert.equal(r(30.91e3/93.3,0),331);assert.equal(r(38e3/113,0),336);const nb=(-1131-241.8-393.5+2*950.8),sb=135+188.8+213.7-2*101.7;assert.equal(r(nb,1),135.3);assert.equal(r(nb*1000/sb,0),405);
+ assert.equal(r(6010/273.15,1),22);assert.equal(r(44+(33.6-75.3)*75/1000,1),40.9);assert.equal(r(-241.8+(33.6-28.8-14.7)*75/1000,1),-242.5);
+ assert.equal(r(18.02*2.1*20/1000+6.01+18.02*4.18*100/1000+40.7+18.02*2*20/1000,1),55.7);assert.equal(r(1000/18.015*44/1000,2),2.44);
+ // Heat capacities, food, fuels in practice.
+ assert.deepEqual([[24.2,26.982],[25.1,55.845],[24.4,63.546],[25.4,107.87],[26.4,207.2]].map(([c,m])=>r(c/m,3)),[0.897,0.449,0.384,0.235,0.127]);assert.equal(r(3*R,1),24.9);
+ assert.equal(18*17+4*17+6*37,596);assert.equal(r(596/4.184,0),142);assert.equal(r(88/890.3*100,1),9.9);
+ const q=40000*4.18*25/1000,n=q/802.3;assert.equal(r(n*16.043,1),83.6);assert.equal(r(n*44.01,0),229);assert.equal(r(q/890.3*16.043,0),75);
+ assert.equal(r((f.Al2O3-f.Fe2O3)/(2*26.982+2*55.845+3*15.999),2),-3.99);assert.equal(r(2*f.Fe2O3/(4*55.845),2),-7.38);
+});
