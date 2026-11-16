@@ -1,3 +1,15 @@
+# 1.18.0: Superfici generate dalle carte d’identità
+
+- Ogni pianeta esplorabile atterra su una superficie propria, generata dalla sua carta d’identità: terreno con uno dei 18 stili (colline, atolli, fiordi, dune, canyon, crateri, criovulcani, caldere e altri), mare con il colore della carta, luce del colore della stella, cielo da azzurro a nero con le stelle quando l’atmosfera è sottile, lune sopra l’orizzonte a destra della veduta, lontano dal titolo, piante tinte con il pigmento della carta e rocce sparse.
+- Le quattro stazioni sono compatte e stanno in fila nel primo piano a sinistra, su piazzole spianate o su piattaforme dove il suolo è sotto il mare; il centro della veduta resta al paesaggio e al fenomeno.
+- Camera più bassa con l’orizzonte in vista e campo visivo più ampio, sempre sopra il terreno; sul telefono inquadra il fenomeno nei quattro prototipi.
+- Su schermi larghi un’ombra sfumata dietro il titolo lo mantiene leggibile anche sotto i cieli chiari.
+- Nessuno dei 100 pianeti esplorabili ha anelli: il cielo delle superfici mostra quindi solo lune e stelle.
+- Nella vista del sistema la stella ha il colore del suo tipo (nana rossa, arancione, gialla, bianco-gialla, bianco-azzurra).
+- I quattro prototipi (Daisyworld, laghi del cobalto, maree, branco dell’isola) funzionano sulle nuove superfici.
+- La superficie si genera all’atterraggio (circa 0,15 s in Node) e resta in memoria per gli ultimi tre pianeti visitati. Le tre scene Blender restano caricate per le altre viste.
+- Nuovo test: superfici di tutti i 100 pianeti valide e diverse fra loro, stazioni selezionabili, camera sopra il terreno.
+
 # 1.17.0: Carte d’identità dei 100 pianeti
 
 - `src/worlds/genome.js` genera una carta d’identità per ogni pianeta esplorabile da famiglia, dimensione, lune, anelli, rotazione, inclinazione e area: stile di terreno (18 stili, tre per famiglia), livello del mare, rilievo, ruvidità, tipo di stella (cinque tipi, cinque sistemi ciascuno), colore della luce e del cielo, densità dell’atmosfera e nubi, gravità relativa, durata del giorno e inclinazione, lune e anelli, colori di piante, rocce e acqua, eventi rari (aurora, eclissi, tempesta, pioggia di meteore, eruzione di geyser). Valori illustrativi.

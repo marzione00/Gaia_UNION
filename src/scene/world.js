@@ -8,6 +8,8 @@ import { random, raySphere, backgroundStars } from './data.js';
 import { planetProfile } from './assets.js';
 import { DISCIPLINE } from '../ui/toolkit.js';
 import { pilotWorld } from '../worlds/pilots.js';
+import { planetSurface, surfaceScatter, systemStarLight } from '../worlds/surface.js';
+import { tuft, rock, station as stationMesh, seaPlane } from '../worlds/geometry.js';
 /** Drawn radius: the scale is illustrative, so planets of the units are enlarged to be read and
  * picked, ambient bodies slightly. Orbits keep their computed spacing. */
 export const displayRadius = body => body.radius * (body.explorable ? 1.55 : 1.1);
@@ -124,6 +126,19 @@ export class World {
         this.towers=this.surface.stations.map(s=>s.position);
         this.trees=Array.from({length:this.surface.vegetationCount});
     }
+    /** Landing surface generated from the planet's identity card; meshes are uploaded once per planet. */
+    activatePlanet(index) {
+        this.planetCache ||= new Map();
+        let s = this.planetCache.get(index);
+        if (!s) { s = planetSurface(index); this.planetCache.set(index, s); if (this.planetCache.size > 3) this.planetCache.delete(this.planetCache.keys().next().value); }
+        this.surface = s; this.biome = s.key;
+        if (this.uploadedPlanet !== s.key) {
+            const R = this.R; R.makeMesh('planet-terrain', s.mesh);
+            if (!this.planetMeshes) { R.makeMesh('world-tuft', tuft()); R.makeMesh('world-rock', rock()); R.makeMesh('planet-station', stationMesh()); R.makeMesh('planet-sea', seaPlane(900, 900, 180, 180)); this.planetMeshes = true; }
+            if (R.makeInstances) { const sc = surfaceScatter(s), pack = l => { const a = new Float32Array(Math.max(1, l.length) * 8); l.forEach((o, i) => a.set([o.x, o.y, o.z, o.s, o.r, o.g, o.b, o.h], i * 8)); return a; }; R.makeInstances('planet-plants', 'world-tuft', pack(sc.plants)); R.makeInstances('planet-rocks', 'world-rock', pack(sc.rocks)); this.planetCounts = [sc.plants.length, sc.rocks.length]; }
+            this.uploadedPlanet = s.key; this.builtWorld = null; this.towers = s.stations.map(t => t.position); this.terrain = { height: new Map(s.grid.cells.map((p, i) => [String(i), p])) };
+        }
+    }
     bindStars(stars, modules) {
         this.systems=buildSystems(stars,modules);this.cosmos=createCosmos(this.systems);this.R.cosmos=this.cosmos;enrichCosmicStars(stars,this.cosmos,this.systems);
         const rock=sphereMesh(6,4);
@@ -159,8 +174,11 @@ export class World {
             eye=heroEye.map((v,i)=>body.position[i]+(v+framing[i])*scale);target=body.position.map((v,i)=>v+framing[i]*scale);space='system';
         }else if(scene==='surface'){
             // Prototype worlds may ask for their own framing (for example a low camera for the sky).
-            const wc=s.worldCamera,angle=.6+s.yaw*.5,pitch=wc?Math.max(.06,Math.min(.96,wc.pitch+(s.pitch-.45)*.6)):Math.max(.24,Math.min(.96,.58+(s.pitch-.45)*.6)),distance=wc?wc.distance:52,ty=wc?wc.targetY:1.8;
-            eye=[Math.sin(angle)*distance*Math.cos(pitch),Math.sin(pitch)*distance+2,Math.cos(angle)*distance*Math.cos(pitch)];const fc=s.worldFocus;target=w<850?(fc?[fc[0],ty,fc[1]]:[-3,ty,-1]):[3,ty,-2];fov=.60;
+            // Generated surfaces use a lower camera with the horizon in view; the old surfaces keep theirs.
+            const gen=this.surface?.heightAt,wc=s.worldCamera,angle=.6+s.yaw*.5,base=wc?wc.pitch:gen?.2:.58,pitch=Math.max(gen||wc?.06:.24,Math.min(.96,base+(s.pitch-.45)*.6)),distance=wc?wc.distance:gen?64:52;
+            const fc=s.worldFocus,tx=w<850?(fc?fc[0]:gen?-4:-3):gen?2:3,tz=w<850?(fc?fc[1]:gen?8:-1):gen?2:-2,ty=wc?wc.targetY:gen?Math.max(this.surface.seaY??-99,this.surface.heightAt(tx,tz))+3:1.8;
+            eye=[tx+Math.sin(angle)*distance*Math.cos(pitch),Math.sin(pitch)*distance+2+(gen?ty-3:0),tz+Math.cos(angle)*distance*Math.cos(pitch)];target=[tx,ty,tz];fov=gen?.72:.60;
+            if(gen)eye[1]=Math.max(eye[1],Math.max(this.surface.heightAt(eye[0],eye[2]),this.surface.seaY??-99)+5);
         }else if(scene==='research')eye=[Math.sin(s.yaw*.12)*3,1,37];
         else if(scene==='lab'&&s.lab==='daisyworld')eye=[0,4,30];
         else eye=[0,5,32];
@@ -213,7 +231,7 @@ export class World {
     drawSystem(s) {
         const R=this.R,id=this.travelling?this.travelSystem:s.system,system=this.systems[id];if(!system)return;
         const scale=this.cameraSpace==='galaxy'?SYSTEM_SCALE:1,origin=this.cameraSpace==='galaxy'?system.position:[0,0,0];
-        const map=p=>p.map((v,i)=>origin[i]+v*scale),starColor=system.color.map(v=>Math.max(.3,v)),starRadius=system.starRadius*scale;
+        const map=p=>p.map((v,i)=>origin[i]+v*scale),starColor=systemStarLight(id),starRadius=system.starRadius*scale;
         R.drawMesh('fineSphere',this.vp,transform(...origin,starRadius,s.time*.025),{eye:this.eye,material:9,tint:[...starColor,1],seed:id,radius:starRadius,center:origin});
         R.drawMesh('sphere',this.vp,transform(...origin,starRadius*1.19),{eye:this.eye,material:11,tint:[...starColor,1],opacity:.75,radius:starRadius,center:origin});
         // Soft glow in the colour of the star, brightest towards the centre of the disc.
@@ -236,15 +254,16 @@ export class World {
     }
     draw(scene, s, data) {
         const R = this.R;
-        this.activateBiome(s.selected);
+        const surface=scene==='surface';
+        if(surface)this.activatePlanet(s.selected);else this.activateBiome(s.selected);
         this.camera(scene, s); R.time=s.time;
         this.projections = [];
-        const surface=scene==='surface';
-        R.fogColor=this.surface.fog.color.map(x=>x*.58);R.fogDensity=surface?this.surface.fog.density:0;R.mist=surface&&this.biome==='simbiosi';
+        const planet=surface&&this.surface.genome;
+        R.fogColor=planet?this.surface.fog.color:this.surface.fog.color.map(x=>x*.58);R.fogDensity=surface?this.surface.fog.density:0;R.mist=false;
         const cosmic=['galaxy','system','orbit'].includes(scene);
         // Inside a system the nebulae are dimmed, so the planets keep their contrast.
         const exposure=scene==='system'?.42:scene==='orbit'?.55:cosmic?.72:1;this.exposure=s.paused||this.exposure===undefined?exposure:this.exposure+(exposure-this.exposure)*.08;
-        R.drawEnvironment(surface?2:cosmic?1:0,cosmic?this.galaxyEye:this.eye,cosmic?this.galaxyTarget:this.target,this.fov,this.surface.light.direction,R.fogColor,this.exposure);
+        R.drawEnvironment(surface?2:cosmic?1:0,cosmic?this.galaxyEye:this.eye,cosmic?this.galaxyTarget:this.target,this.fov,this.surface.light.direction,R.fogColor,this.exposure,planet?this.surface.sky:null);
         if(cosmic){
             if(R.starCount<MIN_STARS)throw Error('Rendering interrotto: meno di un milione di stelle');
             R.drawStars(this.galaxyVP,R.starCount,0,false,.28+.57*Math.min(1,Math.hypot(...this.galaxyEye.map((v,i)=>v-this.galaxyTarget[i]))/30));
@@ -257,21 +276,26 @@ export class World {
             }
         }else if(scene==='system'||scene==='orbit')this.drawSystem(s);
         else if (scene === 'surface') {
-            const ortho=new Float32Array([1/48,0,0,0,0,1/48,0,0,0,0,-2/150,0,0,0,-1,1]);
-            const light=this.surface.light.direction,lightEye=light.map(x=>x*75),lightVP=mul(ortho,lookAt(lightEye,[0,0,0]));
-            R.renderShadow(this.biome,this.surface.meshes.filter(m=>m.kind!==2).map(m=>m.id),lightVP);
-            if(this.biome==='marea')R.renderReflection(this.vp,this.eye,this.surface.meshes.filter(m=>m.kind!==2).map(m=>m.id),light);
-            // Prototype worlds draw their phenomenon on top of the landing surface (src/worlds/pilots.js).
-            const unit=data?.modules?.[s.selected]?.id,world=unit&&s.worldState?pilotWorld(unit):null;
-            for(const m of this.surface.meshes){if(world?.hidesWater&&m.kind===2)continue;R.drawMesh(m.id,this.vp,transform(),{eye:this.eye,light,material:10});}
-            if(world&&world.surface===this.biome){
-                if(this.builtWorld!==unit){world.build(R,this.surface);this.builtWorld=unit;}
-                world.update(R,s.worldState);world.draw(R,{vp:this.vp,eye:this.eye,target:this.target,light,sun:light,identity:transform()},s.worldState,this.textures);
+            const S0=this.surface,ortho=new Float32Array([1/60,0,0,0,0,1/60,0,0,0,0,-2/180,0,0,0,-1,1]);
+            const light=S0.light.direction,lightColor=S0.light.color,lightEye=light.map(x=>x*90),lightVP=mul(ortho,lookAt(lightEye,[0,0,0]));
+            R.renderShadow(this.biome,['planet-terrain'],lightVP);
+            // Prototype worlds draw their phenomenon on top of the generated surface (src/worlds/pilots.js).
+            const unit=data?.modules?.[s.selected]?.id,world=unit&&s.worldState?pilotWorld(unit):null,id=transform();
+            R.drawMesh('planet-terrain',this.vp,id,{eye:this.eye,light,lightColor,material:10});
+            if(S0.seaY!==null&&!world?.hidesWater)R.drawMesh('planet-sea',this.vp,id,{eye:this.eye,light,lightColor,material:18,tint:[...S0.water.map(v=>Math.min(1,v*1.6)),1],motion:[S0.seaY,.12,0,0],opacity:.96});
+            if(R.instanceSets?.has('planet-plants'))R.drawMesh('world-tuft',this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:'planet-plants',instanceMode:1,motion:[0,0,.06,0],pbr:[0,.8,.02,3]});
+            if(R.instanceSets?.has('planet-rocks'))R.drawMesh('world-rock',this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:'planet-rocks',instanceMode:1,pbr:[0,.9,0,1]});
+            // Moons above the horizon, right of the default view, where the sky is clear of the title.
+            for(const m of S0.moons){const az=Math.atan2(-Math.cos(.6),-Math.sin(.6))+m.azimuth,d=320,pos=[Math.cos(az)*d,Math.tan(m.elevation*.7)*d+6,Math.sin(az)*d];const back=normal(this.eye.map((v,i)=>v-pos[i])),moonLight=normal(light.map((v,i)=>v+back[i]*.7));R.drawMesh('sphere',this.vp,transform(...pos,m.size),{eye:this.eye,light:moonLight,material:12,texture:this.textures.moon});}
+            if(world){
+                if(this.builtWorld!==unit){world.build(R,S0);this.builtWorld=unit;}
+                world.update(R,s.worldState);world.draw(R,{vp:this.vp,eye:this.eye,target:this.target,light,sun:light,lightColor,identity:id},s.worldState,this.textures);
                 this.worldLabels=world.labels?world.labels(s.worldState).map(l=>({...l,screen:project(l.position,this.vp,R.w,R.h)})):[];
             }else this.worldLabels=[];
-            for(const station of this.surface.stations){
+            for(const station of S0.stations){
                 const p=station.position,label=station.labelPosition,selected=station.index===s.station;
-                if(selected)R.drawMesh('ring',this.vp,transform(p[0],p[1]+.12,p[2],station.radius*1.08),{eye:this.eye,tint:TINTS[station.index],emission:.7,opacity:.7});
+                R.drawMesh('planet-station',this.vp,transform(p[0],p[1],p[2],.68,.4*station.index),{eye:this.eye,light,lightColor,material:10,pbr:[.1,.5,.05,4]});
+                if(selected)R.drawMesh('ring',this.vp,transform(p[0],p[1]+.35,p[2],station.radius*1.08),{eye:this.eye,tint:TINTS[station.index],emission:.7,opacity:.7});
                 this.projections.push({type:'station',index:station.index,...xyToObj(project(label,this.vp,R.w,R.h)),r:28,position:p,worldRadius:station.radius});
             }
         }

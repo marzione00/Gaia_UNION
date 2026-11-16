@@ -62,3 +62,17 @@ export function vent() {
     parts.push(shaped(sphereMesh(16, 10), { scale: [.85, .25, .85], move: [0, 1.75, 0], color: [1, .45, .15, 1] }));
     return mergeMeshes(parts);
 }
+
+/** Compact research station facing +x: hexagonal pad, white dome, antenna with a glowing tip. */
+export function station() {
+    const hex = Array.from({ length: 7 }, (_, k) => { const a = Math.PI / 6 + k * Math.PI / 3; return [Math.cos(a) * 2.6, .15, Math.sin(a) * 2.6]; });
+    const pad = shaped(disc(6), { scale: [2.6, 1, 2.6], move: [0, .3, 0], turn: Math.PI / 6, color: [.42, .46, .5, 1] });
+    const rim = tinted(tubePath(hex, .16, 5), [.3, .33, .36, 1]);
+    const dome = shaped(sphereMesh(20, 12), { scale: [1.45, 1.15, 1.45], move: [0, .3, 0], color: [.9, .92, .94, 1] });
+    const band = tinted(tubePath(Array.from({ length: 25 }, (_, k) => { const a = k / 24 * Math.PI * 2; return [Math.cos(a) * 1.46, .62, Math.sin(a) * 1.46]; }), .07, 5), [.3, .62, .9, 1]);
+    const mast = tinted(tubePath([[.9, 1, .5], [.95, 2.6, .5], [1, 3.4, .5]], .05, 5), [.75, .78, .8, 1]);
+    const tip = shaped(sphereMesh(8, 6), { scale: [.16, .16, .16], move: [1, 3.45, .5], color: [1, .78, .35, 1] });
+    return mergeMeshes([pad, rim, dome, band, mast, tip]);
+}
+/** Rock: a flattened, slightly irregular sphere. */
+export function rock() { const m = shaped(sphereMesh(10, 7), { scale: [1, .55, .8] }); for (let i = 0; i < m.v.length; i += 12) { const k = 1 + .18 * Math.sin(m.v[i] * 7.1 + m.v[i + 2] * 5.3); m.v[i] *= k; m.v[i + 1] *= k; m.v[i + 2] *= k; } return m; }

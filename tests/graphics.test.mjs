@@ -50,3 +50,17 @@ test('Grafica: caricamento completo e rifiuto esplicito di buffer troncati',asyn
  await assert.rejects(loadScenes({makeMesh(){}},manifest),/incompleta/);
  globalThis.fetch=async()=>({ok:false});await assert.rejects(loadScenes({makeMesh(){}},manifest),/mancante/);
 });
+test('Superfici generate: stazioni selezionabili, camera sopra il terreno, una superficie diversa per pianeta',async()=>{
+ const {planetSurface}=await import('../src/worlds/surface.js');
+ const w=new World(gpu(),{},biomes),s=state();s.scene='surface';
+ for(const index of [7,36,69,99]){w.activatePlanet(index);w.camera('surface',s);const S=w.surface;assert.equal(S.key,'planet-'+index);
+  assert.ok(w.eye[1]>S.heightAt(w.eye[0],w.eye[2])+4.9);assert.ok(w.vp.every(Number.isFinite));
+  w.projections=S.stations.map(st=>{const p=project(st.labelPosition,w.vp,1600,1000);return {type:'station',index:st.index,x:p[0],y:p[1],depth:p[2],r:28};});
+  for(const p of w.projections)assert.equal(w.pick(p.x,p.y,s)?.index,p.index);
+ }
+ const signatures=new Set();
+ for(let index=0;index<100;index++){const S=planetSurface(index,41);assert.ok(S.mesh.v.every(Number.isFinite));assert.equal(S.stations.length,4);
+  for(const st of S.stations)assert.ok(S.seaY===null||st.position[1]>=S.seaY+.44);
+  signatures.add(Array.from(S.heights.filter((_,k)=>k%97===0),v=>v.toFixed(2)).join());}
+ assert.equal(signatures.size,100);
+});
