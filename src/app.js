@@ -9,7 +9,7 @@ import { loadScenes, planetProfile, PlanetTextures } from './scene/assets.js';
 import { resolveRoute } from './routing.js';
 import { GPU, color, clamp, project, transform, mesh } from './renderer.js';
 import { World, RESEARCH, EDGES, box } from './scene/world.js';
-import { UI, C, ImageCache } from './ui/toolkit.js';
+import { UI, C, T, ImageCache, caseLabel } from './ui/toolkit.js';
 import { openStore, grade } from './store.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
@@ -153,7 +153,7 @@ function title(kicker, heading, sub) {
     let trail = String(kicker);
     while (trail.includes(' ▸ ') && R.textWidth(trail.toUpperCase(), 'mini', 1.4) > R.w - 72) trail = trail.slice(trail.indexOf(' ▸ ') + 3);
     U.tag(trail, 36, 110, C.lime);
-    U.wrap(heading, 34, 140, R.w - 68, C.pale, R.w < 700 ? 25 : 39, 2, R.w < 700 ? 'sub' : 'head');
+    U.wrap(caseLabel(heading), 34, 140, R.w - 68, C.pale, R.w < 700 ? 25 : 39, 2, R.w < 700 ? 'sub' : 'head');
     if (sub)
         U.wrap(sub, 35, 190, Math.min(R.w - 70, 680), C.muted, 24, 2);
 }
@@ -163,31 +163,38 @@ function buttonsModule(m, x, y, w) { U.button('read-unit', m.curriculum ? 'APRI 
 function common() {
     const w = R.w, h = R.h, mobile = w < 850;
     U.begin();
-    R.rect(0, 0, w, mobile ? 98 : 82, color('#03121d', .91));
-    R.line([24, mobile ? 97 : 81], [w - 24, mobile ? 97 : 81], color('#5baa9e', .45), 1, 3);
+    R.rect(0, 0, w, mobile ? 98 : 82, color(T.bg, .97));
+    R.line([0, mobile ? 97.5 : 81.5], [w, mobile ? 97.5 : 81.5], color(T.line, .9), 1);
     U.text('GAIA', 26, 12, mobile ? 'head' : 'number', C.pale, { track: 4 });
     if (!mobile)
         U.tag('BEYOND KNOWLEDGE', 28, 63, C.lime);
     if (mobile) {
         U.button('menu', 'MENU', w - 90, 16, 66, 35, () => S.menu = !S.menu);
         U.text(nav.find(x => x[0] === S.scene)?.[1] || sceneNames[S.scene] || S.scene.toUpperCase(), 28, 69, 'mini', C.lime, { track: 1.1 });
-        U.button('settings', 'QUALITÀ', w - 180, 58, 82, 29, () => S.settings = !S.settings, { small: true });
+        U.button('settings', '⚙', w - 136, 16, 38, 35, () => S.settings = !S.settings);
     }
     else {
         let x = 220;
         for (const [id, label] of nav) {
-            const ww = R.textWidth(label, 'mini') + 22;
+            const ww = R.textWidth(caseLabel(label), 'mini') + 28;
             if (x + ww > w - 75)
                 break;
-            U.button('nav-' + id, label, x, 24, ww, 34, () => route(id), { active: navGroups[id].includes(S.scene) });
-            x += ww + 6;
+            U.button('nav-' + id, label, x, 23, ww, 36, () => route(id), { active: navGroups[id].includes(S.scene) });
+            x += ww + 8;
         }
-        U.button('settings', '⚙', w - 52, 25, 30, 32, () => S.settings = !S.settings);
+        U.button('settings', '⚙', w - 60, 23, 38, 36, () => S.settings = !S.settings);
     }
-    R.rect(0, h - 36, w, 36, color('#03121d', .93));
-    R.line([25, h - 36], [w - 25, h - 36], color('#4a8a86', .45));
-    U.text('GAIA / ATLANTE SCIENTIFICO', 26, h - 25, 'micro', C.dim, { track: .7 });
-    U.text(mobile ? 'WEBGL 2' : 'WEBGL 2 · ' + (['galaxy','system','orbit'].includes(S.scene) ? R.frameStats.stars.toLocaleString('it-IT') + ' STELLE 3D' : 'GRAFICA GPU'), w - 25, h - 25, 'micro', C.dim, { align: 'right', track: .6 });
+    R.rect(0, h - 36, w, 36, color(T.bg, .97));
+    R.line([0, h - 35.5], [w, h - 35.5], color(T.line, .9), 1);
+    U.text('GAIA · Atlante scientifico', 26, h - 26, 'micro', C.dim);
+}
+/** Text screens sit on a near-opaque veil; the 3D graph of a unit, when visible, keeps a window. */
+function scrim() {
+    if (!['mission', 'pilot', 'paths', 'catalogue', 'briefing', 'theory', 'pdf', 'journal', 'sources'].includes(S.scene)) return;
+    const hole = S.scene === 'mission' ? education.scene.rect : S.scene === 'pilot' ? pilotEducation.scene?.rect : null, c = color(T.scrim, .9), w = R.w, h = R.h;
+    if (!hole) { R.rect(0, 0, w, h, c); return; }
+    R.rect(0, 0, w, hole.y, c); R.rect(0, hole.y + hole.h, w, h - hole.y - hole.h, c);
+    R.rect(0, hole.y, hole.x, hole.h, c); R.rect(hole.x + hole.w, hole.y, w - hole.x - hole.w, hole.h, c);
 }
 function galaxyUI() { atlas.draw(U); }
 function systemPanel(system){ const mobile=R.w<850; return mobile?null:{x:32,y:300,w:268,h:64+system.planets.length*44}; }
@@ -456,10 +463,10 @@ function labUI() {
     const w = R.w, h = R.h, mobile = w < 1050;
     title('LABORATORI / MODELLI RIPRODUCIBILI', labNames[S.lab].toUpperCase(), S.lab === 'daisyworld' ? 'Retroazioni fra albedo, temperatura e popolazioni. Modello ideale: non una previsione climatica della Terra.' : 'Le proprietà matematiche restano distinte dalle approssimazioni numeriche.');
     let x = 32, y = 242;
-    const count = mobile ? 4 : 7, bw = mobile ? (w - 73) / 4 : (w - 104) / 7;
+    const count = mobile ? 4 : 7, bw = mobile ? (w - 73 - 66) / 4 : (w - 104) / 7;
     labIds.slice(mobile ? Math.floor(labIds.indexOf(S.lab) / 4) * 4 : 0, mobile ? Math.floor(labIds.indexOf(S.lab) / 4) * 4 + 4 : 7).forEach((id, i) => U.button('lab-' + id, (id === 'daisyworld' ? 'GAIA' : id === 'rectangle' ? 'AREA' : id === 'transform' ? 'FUNZIONI' : id === 'radical' ? 'RADICI' : id === 'linear' ? 'SISTEMI' : id === 'reserve' ? 'RISERVE' : 'SEGNI'), x + i * (bw + 7), y, bw, 33, () => { S.lab = id; S.labCompare = null; computeLab(); updateHash(); }, { active: S.lab === id, small: true }));
     if (mobile)
-        U.button('more-labs', 'ALTRI ▸', w - 112, 206, 80, 27, () => { S.lab = labIds[(labIds.indexOf(S.lab) + 4) % 7]; S.labCompare = null; computeLab(); }, { small: true });
+        U.button('more-labs', 'Altri ▸', w - 79, y, 59, 33, () => { S.lab = labIds[(labIds.indexOf(S.lab) + 4) % 7]; S.labCompare = null; computeLab(); }, { small: true });
     if (S.lab === 'daisyworld')
         daisyUI();
     else
@@ -473,23 +480,24 @@ function daisyUI() {
         U.panel(18, top, w - 36, 165, C.cyan, .89);
         U.slider('lum', 'LUMINOSITÀ L', 37, top + 15, w - 74, S.lum, .6, 1.6, .01, v => { S.lum = v; computeLab(); }, v => v.toFixed(2));
         U.slider('death', 'MORTALITÀ γ', 37, top + 75, w - 74, S.death, .1, .6, .01, v => { S.death = v; computeLab(); }, v => v.toFixed(2));
-        const gy = top + 210, gh = Math.max(95, h - gy - 160);
+        const gy = top + 210, gh = Math.max(95, h - gy - 185);
         U.graph(59, gy, w - 95, gh, [{ points: S.sweep.map(t => [t.luminosity, t.temperatureC]), color: C.amber }, { points: S.sweep.map(t => [t.luminosity, t.bareC]), color: C.muted }], { xmin: .6, xmax: 1.6, ymin: -20, ymax: 80, xLabel: 'L (adimensionale)', yLabel: 'Temperatura (°C)' });
         U.text(d.temperatureC.toFixed(1) + ' °C · scure ' + (d.black * 100).toFixed(0) + '% · chiare ' + (d.white * 100).toFixed(0) + '%', 34, h - 135, 'mini', C.lime);
         return;
     }
-    const gx = Math.max(470, w * .35), gw = right - gx - 28, gh = Math.max(160, (h - 475) * .52);
+    // Both graphs, their axis labels and legends fit inside the panel above the footer buttons.
+    const gx = Math.max(470, w * .35), gw = right - gx - 28, avail = (h - 125) - top - 73 - 49 - 59 - 66, gh = Math.max(120, avail * .6);
     U.panel(gx - 34, top, gw + 63, h - top - 117, C.cyan, .69);
     U.tag('RISPOSTA ALLA LUMINOSITÀ', gx - 10, top + 19);
     U.graph(gx, top + 73, gw, gh, [{ points: S.sweep.map(t => [t.luminosity, t.temperatureC]), color: C.amber }, { points: S.sweep.map(t => [t.luminosity, t.bareC]), color: C.muted }], { xmin: .6, xmax: 1.6, ymin: -20, ymax: 80, xLabel: 'Luminosità L', yLabel: 'Temperatura (°C)' });
     const mark = gx + (S.lum - .6) * gw;
     R.line([mark, top + 73], [mark, top + 73 + gh], color('#e6efe8', .65), 1);
-    U.text('CON BIOLOGIA', gx, top + gh + 122, 'micro', C.amber);
-    U.text('SUOLO PRIVO DI ORGANISMI', gx + 124, top + gh + 122, 'micro', C.muted);
-    const py = top + gh + 181, ph = Math.max(65, h - py - 178);
+    U.text('● Con biologia', gx, top + gh + 122, 'micro', C.amber);
+    U.text('● Suolo privo di organismi', gx + 130, top + gh + 122, 'micro', C.muted);
+    const py = top + gh + 181, ph = Math.max(48, h - 125 - 66 - py);
     U.graph(gx, py, gw, ph, [{ points: S.sweep.map(t => [t.luminosity, t.black]), color: C.cyan }, { points: S.sweep.map(t => [t.luminosity, t.white]), color: C.lime }], { xmin: .6, xmax: 1.6, ymin: 0, ymax: 1, xLabel: 'Luminosità L', yLabel: 'Frazione di superficie', ticks: 2 });
-    U.text('SCURE', gx, py + ph + 52, 'micro', C.cyan);
-    U.text('CHIARE', gx + 100, py + ph + 52, 'micro', C.lime);
+    U.text('● Margherite scure', gx, py + ph + 52, 'micro', C.cyan);
+    U.text('● Margherite chiare', gx + 150, py + ph + 52, 'micro', C.lime);
     U.panel(right, top, 270, h - top - 117, C.lime, .84);
     U.tag('ESPERIMENTO CORRENTE', right + 18, top + 18, C.lime);
     U.metric('TEMPERATURA', d.temperatureC.toFixed(2) + ' °C', right + 18, top + 50, C.amber);
@@ -847,6 +855,7 @@ function draw() {
     atlas?.draw3D(S,hoverPointer,pointer,U?.focus);
     if(S.scene==='pilot')pilotEducation.draw3D({...S,scene:'mission'});else education.draw3D(S);
     drawMathObjects();
+    scrim();
     common();
     const screens = { galaxy: galaxyUI, system: systemUI, orbit: orbitUI, surface: surfaceUI, research: researchUI, catalogue: catalogueUI, briefing: briefingUI, theory: theoryUI, pdf: pdfUI, lab: labUI, quiz: quizUI, journal: journalUI, sources: sourcesUI, mission: () => education.drawUI(U, S), pilot: () => pilotEducation.drawUI(U,S), paths: () => education.drawPathsUI(U,S) };
     (screens[S.scene] || galaxyUI)();
@@ -1136,7 +1145,7 @@ async function init() {
         computeLab();
         events();
         S.loaded = true;
-        window.GAIA = { version: '1.12.0-contenuti', state: S, get atlas() { return atlas; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0), planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndex.length, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
+        window.GAIA = { version: '1.13.0-interfaccia', state: S, get atlas() { return atlas; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0), planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndex.length, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
         U = new UI(R);
         pilotEducation = new MissionUI(R, store, missionDefinition, { state:S, route, openTheory, openPDF, download, say });
         education = new CourseUI(R,store,curriculum,{state:S,route,openCourse,openTheory,openPDF,openExternal,download,say,currentUnit:()=>selected().id});

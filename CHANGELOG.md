@@ -1,3 +1,18 @@
+# 1.13.0: Interfaccia «Osservatorio notturno»
+
+- Testo nitido: il canvas usa la densità reale dello schermo fino a 3×, invece del limite di 1,4×. I glifi sono rasterizzati a 2-3 volte la dimensione in pixel CSS, con mipmap; la scena 3D conserva la risoluzione interna precedente, quindi il costo grafico resta simile.
+- Tema scuro coerente: superfici blu notte, accento azzurro, un colore per disciplina (matematica, fisica, chimica, biologia), pulsanti pieni senza bordo e pulsante attivo con testo scuro su accento. Le etichette dei pulsanti passano dal maiuscolo al maiuscolo solo iniziale; sigle come DNA, ATP o JSON restano invariate.
+- Scala tipografica più grande: etichette a 14 px, didascalie a 13 px, testo di lettura a 17 px con interlinea 25 px.
+- Schermata dell’unità riorganizzata: percorso della disciplina, titolo, sei fasi, livelli e viste su righe separate; su schermi larghi i controlli del laboratorio stanno accanto al grafico, che usa tutta l’altezza della colonna. Sotto il grafico e i pannelli un velo scuro copre il pianeta, che resta visibile solo nelle schermate di esplorazione.
+- Domande dell’autoverifica come schede di risposta con lettera, segno di giusto o sbagliato dopo la risposta e spiegazione in una vista dedicata.
+- Grafici dei laboratori con tacche su valori tondi (1, 2, 2,5 o 5 per una potenza di dieci), asse verticale che parte da zero quando i dati non sono negativi, etichette dell’asse allineate a destra e fattore comune «× 10ⁿ» per valori molto piccoli o molto grandi.
+- Numeri con virgola decimale e potenze di dieci in apice (per esempio 10⁻⁹ m²/s) nei parametri, nei grafici e nelle attività. I parametri del laboratorio mostrano nome, valore e unità su una riga; nei pannelli stretti il nome va su una riga propria.
+- Attività: gruppi di elementi che restano sulla stessa pagina (grafico, parametri e verifica dell’adattamento ai dati), riscontro e pulsante «Avanti» sopra le opzioni nei problemi guidati.
+- Schermata di benvenuto in una colonna centrata di 680 px; pulsanti dell’atlante con etichette in maiuscolo solo iniziale e testo scuro sul pulsante attivo. Titoli delle schermate in maiuscolo solo iniziale.
+- Daisyworld: i due grafici e le legende restano dentro il pannello, sopra i pulsanti in basso; su telefono il pulsante «Altri» sta nella riga dei laboratori e non copre più il sottotitolo. Missione pilota: sfondo pieno dietro il grafico e legende in maiuscolo solo iniziale.
+- Testi delle unità allineati alle nuove etichette: i riferimenti ai pulsanti compaiono tra virgolette basse, per esempio «Regola», «Salva A», «Verifica».
+- Atlante dei glifi rigenerato: apici, frecce e segno meno vengono da Inter invece che dal carattere di ripiego.
+
 # 1.12.0: Tutte le unità di biologia scritte per intero
 
 - Le 25 unità di biologia hanno ora testi scritti a mano ai tre livelli, sei domande commentate, un riepilogo finale e un ripasso guidato con un mini esercizio. Le 22 unità nuove coprono le aree «La cellula», «Energia della vita», «Geni e mutazioni», «Evoluzione», «Popolazioni e comunità» ed «Ecosistemi e regolazione».

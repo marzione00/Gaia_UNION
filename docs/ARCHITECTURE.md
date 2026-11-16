@@ -8,7 +8,7 @@
 
 `src/app.js` coordina stato, rotte e schermate. `src/routing.js` normalizza URL e collegamenti storici. `src/renderer.js` gestisce programmi GLSL, buffer e texture WebGL 2. `src/scene/world.js` contiene camera, scena e picking. `src/scene/worker.js` genera i dati stellari in un worker dedicato: non si crea un oggetto JavaScript per ogni stella.
 
-`src/ui/toolkit.js` raccoglie pannelli, pulsanti, slider, grafici e cache LRU dei documenti. La cache elimina le texture non più necessarie; le mesh sostituite rilasciano i buffer. `src/models/` è indipendente dal renderer e testabile in Node. `src/store.js` valida importazioni e gestisce memoria locale con ripiego di sola sessione.
+`src/ui/toolkit.js` raccoglie pannelli, pulsanti, slider, grafici e cache LRU dei documenti. La cache elimina le texture non più necessarie; le mesh sostituite rilasciano i buffer. Lo stesso file definisce il tema dell’interfaccia (dalla 1.13.0): colori di superficie e d’accento in `T` e `C`, un colore per disciplina in `DISCIPLINE`, `caseLabel` per le etichette dei pulsanti in maiuscolo solo iniziale e `fmtNum` per i numeri con virgola decimale e potenze di dieci in apice. L’interfaccia è disegnata alla densità reale dello schermo (fino a 3×), mentre la scena 3D mantiene la risoluzione interna di prima. `src/models/` è indipendente dal renderer e testabile in Node. `src/store.js` valida importazioni e gestisce memoria locale con ripiego di sola sessione.
 
 ## Documento e scena non sono la stessa cosa
 
@@ -26,7 +26,7 @@ Per aggiungere un laboratorio: scrivere prima il modello puro e i test, poi regi
 
 ## Rebuild degli asset tipografici
 
-Non è necessario per avvio, test o build normale: tutti gli asset sono già inclusi. I comandi di sviluppo richiedono Python, Pillow, PyMuPDF, Playwright e Chromium installati. `render_pdf.py` ricrea le 769 pagine. `render_reader.py` usa il MathJax locale e produce tessere desktop/mobile. `make_atlas.py` crea glifi dai caratteri installati sul sistema: i file dei font non sono distribuiti. I percorsi predefiniti corrispondono all’ambiente Linux usato per questa consegna; si possono adattare nella tabella `fonts`.
+Non è necessario per avvio, test o build normale: tutti gli asset sono già inclusi. I comandi di sviluppo richiedono Python, Pillow, PyMuPDF, Playwright e Chromium installati. `render_pdf.py` ricrea le 769 pagine. `render_reader.py` usa il MathJax locale e produce tessere desktop/mobile. `make_atlas.py` crea glifi dai caratteri installati sul sistema: i file dei font non sono distribuiti. Ogni stile è rasterizzato a 2-3 volte la dimensione in pixel CSS, con metriche salvate in pixel CSS, e usa il proprio font per ogni carattere che contiene; DejaVu copre soltanto i caratteri mancanti. I percorsi predefiniti corrispondono all’ambiente Linux usato per questa consegna; si possono adattare nella tabella `fonts`.
 
 `bundle.py` è un bundler minimale per il sottoinsieme ESM di questo progetto, impiegato per il collaudo in memoria. La distribuzione normale mantiene i moduli originali e il worker di tipo module. Non è un bundler universale per pacchetti npm.
 
