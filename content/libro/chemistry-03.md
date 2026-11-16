@@ -194,14 +194,18 @@ $$M=\frac{m}{n},\qquad[M]=\mathrm{g/mol}.$$
 :::
 
 ::: esempio Masse molari di alcune sostanze
-Per l'acqua, $M(\mathrm{H_2O})=2\cdot1{,}008+15{,}999=18{,}015\un{g/mol}$.
+Per l'acqua,
+$$M(\mathrm{H_2O})=2\cdot1{,}008+15{,}999=18{,}015\un{g/mol}.$$
 
 Per il glucosio,
 $$\begin{aligned}M(\mathrm{C_6H_{12}O_6})&=6\cdot12{,}011+12\cdot1{,}008+6\cdot15{,}999\\&=72{,}066+12{,}096+95{,}994=180{,}156\un{g/mol}.\end{aligned}$$
 
-Per il carbonato di calcio, $M(\mathrm{CaCO_3})=40{,}078+12{,}011+3\cdot15{,}999=100{,}086\un{g/mol}$.
+Per il carbonato di calcio,
+$$\begin{aligned}M(\mathrm{CaCO_3})&=40{,}078+12{,}011+3\cdot15{,}999\\&=100{,}086\un{g/mol}.\end{aligned}$$
 
-Per l'acido solforico, $M(\mathrm{H_2SO_4})=2\cdot1{,}008+32{,}06+4\cdot15{,}999=98{,}07\un{g/mol}$: il risultato ha due decimali perché il peso atomico dello zolfo ne ha due.
+Per l'acido solforico,
+$$\begin{aligned}M(\mathrm{H_2SO_4})&=2\cdot1{,}008+32{,}06+4\cdot15{,}999\\&=98{,}07\un{g/mol}.\end{aligned}$$
+Il risultato ha due decimali perché il peso atomico dello zolfo ne ha due.
 :::
 
 I composti ionici, come il cloruro di sodio, sono formati da reticoli di ioni: nel cristallo gli ioni $\mathrm{Na^+}$ e $\mathrm{Cl^-}$ si alternano in rapporto uno a uno, e nessun gruppo di atomi forma una molecola isolata. L'entità elementare è allora l'**unità formula** $\mathrm{NaCl}$, e la massa molare $58{,}44\un{g/mol}$ è la massa di una mole di unità formula. Per gli ioni si trascura la massa degli elettroni aggiunti o tolti, che vale circa $0{,}000\,55\un{u}$ per elettrone, molto meno dell'incertezza dei pesi atomici.
@@ -267,7 +271,9 @@ Il controllo delle unità è lo strumento più efficace per evitare errori. Gram
 ::: esempio Dalla massa alle molecole
 Quante molecole contiene un cucchiaino di zucchero da tavola, saccarosio $\mathrm{C_{12}H_{22}O_{11}}$, con una massa di $4{,}0\un{g}$?
 
-La massa molare è $M=12\cdot12{,}011+22\cdot1{,}008+11\cdot15{,}999=342{,}30\un{g/mol}$. La quantità di sostanza vale
+La massa molare è
+$$\begin{aligned}M&=12\cdot12{,}011+22\cdot1{,}008+11\cdot15{,}999\\&=342{,}30\un{g/mol}.\end{aligned}$$
+La quantità di sostanza vale
 $$n=\frac{m}{M}=\frac{4{,}0\un{g}}{342{,}30\un{g/mol}}\simeq1{,}17\times10^{-2}\un{mol},$$
 e il numero di molecole
 $$N=n\,N_A\simeq1{,}17\times10^{-2}\un{mol}\cdot6{,}022\times10^{23}\un{mol^{-1}}\simeq7{,}0\times10^{21}.$$
@@ -277,7 +283,10 @@ Il risultato ha due cifre significative, come la massa del cucchiaino.
 ::: esempio Dal numero di atomi alla massa
 Un filo di rame contiene $2{,}50\times10^{23}$ atomi. Quanto pesa?
 
-La quantità di sostanza è $n=N/N_A=2{,}50\times10^{23}/6{,}022\times10^{23}\un{mol}\simeq0{,}415\un{mol}$, e la massa $m=nM=0{,}415\un{mol}\cdot63{,}546\un{g/mol}\simeq26{,}4\un{g}$.
+La quantità di sostanza è
+$$\begin{aligned}n&=N/N_A=2{,}50\times10^{23}/6{,}022\times10^{23}\un{mol}\\&\simeq0{,}415\un{mol},\end{aligned}$$
+e la massa
+$$m=nM=0{,}415\un{mol}\cdot63{,}546\un{g/mol}\simeq26{,}4\un{g}.$$
 :::
 
 Quando lo stesso calcolo coinvolge più passaggi conviene scriverlo come un'unica catena di fattori di conversione, ognuno dei quali vale uno perché numeratore e denominatore rappresentano la stessa quantità. Per il saccarosio dell'esempio:
@@ -402,9 +411,9 @@ Arrotondare troppo presto è l'errore più insidioso di questo calcolo. Un rappo
 
 La formula minima fissa i rapporti fra gli atomi; la **formula molecolare** dice quanti atomi ci sono davvero in una molecola. La formula molecolare è sempre un multiplo intero della formula minima. Molte sostanze diverse condividono la stessa formula minima.
 
-| Sostanza | Formula molecolare | Massa molare (g/mol) | Multiplo di $\mathrm{CH_2O}$ |
+| sostanza | formula | $M$ (g/mol) | multiplo |
 |---|---|---|---|
-| metanale (formaldeide) | $\mathrm{CH_2O}$ | $30{,}026$ | $1$ |
+| formaldeide | $\mathrm{CH_2O}$ | $30{,}026$ | $1$ |
 | acido acetico | $\mathrm{C_2H_4O_2}$ | $60{,}052$ | $2$ |
 | acido lattico | $\mathrm{C_3H_6O_3}$ | $90{,}078$ | $3$ |
 | glucosio | $\mathrm{C_6H_{12}O_6}$ | $180{,}156$ | $6$ |
@@ -588,13 +597,14 @@ Per i pesi atomici usare la tabella della sezione [Massa atomica relativa e dalt
 ::: esercizio Moli di calcare [base]
 Quante moli di carbonato di calcio, $\mathrm{CaCO_3}$, ci sono in $50{,}0\un{g}$ di calcare puro?
 >>> soluzione
-$M(\mathrm{CaCO_3})=40{,}078+12{,}011+3\cdot15{,}999=100{,}086\un{g/mol}$, quindi $n=50{,}0/100{,}086\un{mol}\simeq0{,}500\un{mol}$.
+$$\begin{aligned}M(\mathrm{CaCO_3})&=40{,}078+12{,}011+3\cdot15{,}999\\&=100{,}086\un{g/mol},\end{aligned}$$
+quindi $n=50{,}0/100{,}086\un{mol}\simeq0{,}500\un{mol}$.
 :::
 
 ::: esercizio Un quarto di mole di sale [base]
 Quale massa di cloruro di sodio corrisponde a $0{,}250\un{mol}$?
 >>> soluzione
-$m=nM=0{,}250\un{mol}\cdot58{,}44\un{g/mol}\simeq14{,}6\un{g}$.
+$$m=nM=0{,}250\un{mol}\cdot58{,}44\un{g/mol}\simeq14{,}6\un{g}.$$
 :::
 
 ::: esercizio Molecole in un grammo d'acqua [base]
@@ -606,7 +616,8 @@ $n=1{,}00/18{,}015\un{mol}\simeq5{,}551\times10^{-2}\un{mol}$, e $N=nN_A\simeq3{
 ::: esercizio Due masse molari [base]
 Calcolare la massa molare dell'acido solforico, $\mathrm{H_2SO_4}$, e quella della caffeina, $\mathrm{C_8H_{10}N_4O_2}$.
 >>> soluzione
-$M(\mathrm{H_2SO_4})=2\cdot1{,}008+32{,}06+4\cdot15{,}999\simeq98{,}07\un{g/mol}$. Per la caffeina:
+$$\begin{aligned}M(\mathrm{H_2SO_4})&=2\cdot1{,}008+32{,}06+4\cdot15{,}999\\&\simeq98{,}07\un{g/mol}.\end{aligned}$$
+Per la caffeina:
 $$\begin{aligned}M(\mathrm{C_8H_{10}N_4O_2})&=8\cdot12{,}011+10\cdot1{,}008+4\cdot14{,}007+2\cdot15{,}999\\&=96{,}088+10{,}080+56{,}028+31{,}998=194{,}194\un{g/mol}.\end{aligned}$$
 :::
 
@@ -625,7 +636,8 @@ $w(\mathrm{Fe})=2\cdot55{,}845/159{,}687\simeq0{,}6994$, cioè $69{,}94\%$.
 ::: esercizio Atomi di carbonio nel glucosio [medio]
 Una bevanda contiene $9{,}00\un{g}$ di glucosio. Quante molecole di glucosio e quanti atomi di carbonio contiene?
 >>> soluzione
-$n=9{,}00/180{,}156\un{mol}\simeq4{,}996\times10^{-2}\un{mol}$; molecole $N=nN_A\simeq3{,}01\times10^{22}$. Gli atomi di carbonio sono sei volte tanti: circa $1{,}81\times10^{23}$.
+$$n=9{,}00/180{,}156\un{mol}\simeq4{,}996\times10^{-2}\un{mol};$$
+molecole $N=nN_A\simeq3{,}01\times10^{22}$. Gli atomi di carbonio sono sei volte tanti: circa $1{,}81\times10^{23}$.
 :::
 
 ::: esercizio Zolfo nell'acido solforico [medio]
@@ -655,7 +667,12 @@ Acqua persa: $0{,}512\un{g}$, cioè $0{,}512/18{,}015\simeq2{,}842\times10^{-2}\
 ::: esercizio Combustione di un solvente [medio]
 Un campione di $0{,}1500\un{g}$ di un solvente formato da C, H e O produce per combustione $0{,}3409\un{g}$ di $\mathrm{CO_2}$ e $0{,}1396\un{g}$ di $\mathrm{H_2O}$. Trovare la formula minima.
 >>> soluzione
-$m(\mathrm{C})=0{,}3409\cdot12{,}011/44{,}009\simeq0{,}09304\un{g}$, cioè $7{,}746\times10^{-3}\un{mol}$. $m(\mathrm{H})=0{,}1396\cdot2{,}016/18{,}015\simeq0{,}01562\un{g}$, cioè $1{,}550\times10^{-2}\un{mol}$. $m(\mathrm{O})=0{,}1500-0{,}0930-0{,}0156\simeq0{,}0413\un{g}$, cioè $2{,}584\times10^{-3}\un{mol}$. Dividendo per la quantità di ossigeno: $\mathrm{C:H:O}=3{,}00:6{,}00:1$. La formula minima è $\mathrm{C_3H_6O}$, quella dell'acetone.
+$$m(\mathrm{C})=0{,}3409\cdot12{,}011/44{,}009\simeq0{,}09304\un{g},$$
+cioè $7{,}746\times10^{-3}\un{mol}$.
+$$m(\mathrm{H})=0{,}1396\cdot2{,}016/18{,}015\simeq0{,}01562\un{g},$$
+cioè $1{,}550\times10^{-2}\un{mol}$.
+$$m(\mathrm{O})=0{,}1500-0{,}0930-0{,}0156\simeq0{,}0413\un{g},$$
+cioè $2{,}584\times10^{-3}\un{mol}$. Dividendo per la quantità di ossigeno: $\mathrm{C:H:O}=3{,}00:6{,}00:1$. La formula minima è $\mathrm{C_3H_6O}$, quella dell'acetone.
 :::
 
 ::: esercizio Un bicchiere di alcol [medio]
@@ -667,13 +684,19 @@ La massa è $100\cdot0{,}789=78{,}9\un{g}$. Con $M=46{,}069\un{g/mol}$ si ha $n\
 ::: esercizio Massa media del rame [medio]
 Il rame naturale contiene il $69{,}15\%$ di rame-63, con $A_r=62{,}930$, e il $30{,}85\%$ di rame-65, con $A_r=64{,}928$. Calcolare il peso atomico medio e confrontarlo con il valore della tabella.
 >>> soluzione
-$\bar A_r=0{,}6915\cdot62{,}930+0{,}3085\cdot64{,}928\simeq43{,}516+20{,}030=63{,}546$, uguale al valore tabulato.
+$$\begin{aligned}\bar A_r&=0{,}6915\cdot62{,}930+0{,}3085\cdot64{,}928\simeq43{,}516+20{,}030\\&=63{,}546,\end{aligned}$$
+uguale al valore tabulato.
 :::
 
 ::: esercizio Un acido aromatico [avanzato]
 Un campione di $0{,}2443\un{g}$ di un acido organico che contiene soltanto C, H e O produce $0{,}6163\un{g}$ di $\mathrm{CO_2}$ e $0{,}1081\un{g}$ di $\mathrm{H_2O}$. La massa molare, misurata a parte, è circa $122\un{g/mol}$. Trovare formula minima e formula molecolare.
 >>> soluzione
-$m(\mathrm{C})=0{,}6163\cdot12{,}011/44{,}009\simeq0{,}1682\un{g}$, cioè $1{,}400\times10^{-2}\un{mol}$. $m(\mathrm{H})=0{,}1081\cdot2{,}016/18{,}015\simeq0{,}01210\un{g}$, cioè $1{,}200\times10^{-2}\un{mol}$. $m(\mathrm{O})=0{,}2443-0{,}1682-0{,}0121=0{,}0640\un{g}$, cioè $4{,}00\times10^{-3}\un{mol}$. I rapporti sono $\mathrm{C:H:O}=3{,}50:3{,}00:1$; moltiplicando per due si ottiene $\mathrm{C_7H_6O_2}$, con $M=122{,}12\un{g/mol}$. La formula molecolare coincide con quella minima: è la formula dell'acido benzoico.
+$$m(\mathrm{C})=0{,}6163\cdot12{,}011/44{,}009\simeq0{,}1682\un{g},$$
+cioè $1{,}400\times10^{-2}\un{mol}$.
+$$m(\mathrm{H})=0{,}1081\cdot2{,}016/18{,}015\simeq0{,}01210\un{g},$$
+cioè $1{,}200\times10^{-2}\un{mol}$.
+$$m(\mathrm{O})=0{,}2443-0{,}1682-0{,}0121=0{,}0640\un{g},$$
+cioè $4{,}00\times10^{-3}\un{mol}$. I rapporti sono $\mathrm{C:H:O}=3{,}50:3{,}00:1$; moltiplicando per due si ottiene $\mathrm{C_7H_6O_2}$, con $M=122{,}12\un{g/mol}$. La formula molecolare coincide con quella minima: è la formula dell'acido benzoico.
 :::
 
 ::: esercizio Una miscela di cloruri [avanzato]
@@ -687,7 +710,9 @@ Calcolare la massa di un atomo di carbonio-12 usando la costante di Avogadro, e 
 >>> soluzione
 Con $M(^{12}\mathrm{C})=12{,}000\un{g/mol}$:
 $$m=\frac{12{,}000\un{g/mol}}{6{,}022\,140\,76\times10^{23}\un{mol^{-1}}}\simeq1{,}9926\times10^{-23}\un{g}=1{,}9926\times10^{-26}\un{kg},$$
-in accordo con $12\cdot1{,}660\,54\times10^{-27}\un{kg}$; la differenza fra i due calcoli è di una parte su un miliardo. Per la riga: $n=1{,}0\times10^{-3}/12{,}011\un{mol}\simeq8{,}3\times10^{-5}\un{mol}$, cioè circa $5{,}0\times10^{19}$ atomi.
+in accordo con $12\cdot1{,}660\,54\times10^{-27}\un{kg}$; la differenza fra i due calcoli è di una parte su un miliardo. Per la riga:
+$$\begin{aligned}n&=1{,}0\times10^{-3}/12{,}011\un{mol}\\&\simeq8{,}3\times10^{-5}\un{mol},\end{aligned}$$
+cioè circa $5{,}0\times10^{19}$ atomi.
 :::
 
 ::: esercizio Un ossido magnetico [avanzato]

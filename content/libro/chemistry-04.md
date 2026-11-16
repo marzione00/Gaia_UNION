@@ -126,7 +126,8 @@ Il modello prevede che la pendenza della retta sia la stessa per tutti i metalli
 ::: esempio L'energia di un fotone di luce verde
 Un fotone di luce di $500\un{nm}$ ha energia
 $$E=\frac{hc}{\lambda}=\frac{6{,}626\times10^{-34}\un{J\,s}\cdot2{,}998\times10^{8}\un{m/s}}{500\times10^{-9}\un{m}}\simeq3{,}97\times10^{-19}\un{J}.$$
-Il valore è comodo in **elettronvolt**, l'energia che acquista un elettrone attraversando una differenza di potenziale di un volt, $1\un{eV}=1{,}602\,176\,634\times10^{-19}\un{J}$: $E\simeq2{,}48\un{eV}$. Per una mole di fotoni l'energia vale $3{,}97\times10^{-19}\un{J}\cdot6{,}022\times10^{23}\un{mol^{-1}}\simeq239\un{kJ/mol}$.
+Il valore è comodo in **elettronvolt**, l'energia che acquista un elettrone attraversando una differenza di potenziale di un volt, $1\un{eV}=1{,}602\,176\,634\times10^{-19}\un{J}$: $E\simeq2{,}48\un{eV}$. Per una mole di fotoni l'energia vale
+$$3{,}97\times10^{-19}\un{J}\cdot6{,}022\times10^{23}\un{mol^{-1}}\simeq239\un{kJ/mol}.$$
 :::
 
 L'ultimo valore spiega molto. Le energie dei legami chimici più comuni vanno da circa $150$ a circa $500\un{kJ/mol}$, e i fotoni del visibile trasportano da circa $160$ a circa $315\un{kJ/mol}$. I fotoni ultravioletti di $300\un{nm}$ portano quasi $400\un{kJ/mol}$, abbastanza per rompere un legame fra due atomi di carbonio. Per questo la luce ultravioletta degrada le plastiche, scolorisce i tessuti e danneggia il DNA delle cellule della pelle, mentre l'infrarosso, i cui fotoni hanno energie molto più piccole, si limita a scaldare.
@@ -152,7 +153,10 @@ La condizione $m_evr=n\hbar$ dà $v=n\hbar/(m_er)$; sostituendo nella prima equa
 $$r_n=n^2\,\frac{4\pi\varepsilon_0\hbar^2}{m_ee^2}=n^2a_0,\qquad a_0=\frac{4\pi\varepsilon_0\hbar^2}{m_ee^2}\simeq5{,}29\times10^{-11}\un{m}.$$
 L'energia totale è la somma dell'energia cinetica e dell'energia potenziale elettrica. Dall'equilibrio delle forze si ha $\tfrac12m_ev^2=e^2/(8\pi\varepsilon_0r)$, quindi
 $$E=\frac12m_ev^2-\frac{e^2}{4\pi\varepsilon_0r}=-\frac{e^2}{8\pi\varepsilon_0r_n}=-\frac{m_ee^4}{8\varepsilon_0^2h^2}\cdot\frac{1}{n^2}.$$
-Dividendo per $hc$ si trova che la costante di Rydberg si ricava dalle costanti fondamentali, $R_\infty=m_ee^4/(8\varepsilon_0^2h^3c)\simeq1{,}0974\times10^{7}\un{m^{-1}}$, in accordo con il valore spettroscopico. Il nucleo non è infinitamente pesante, e per l'idrogeno la massa dell'elettrone va sostituita con la massa ridotta del sistema elettrone e protone: si ottiene $R_\mathrm{H}=R_\infty/(1+m_e/m_p)\simeq1{,}0968\times10^{7}\un{m^{-1}}$.
+Dividendo per $hc$ si trova che la costante di Rydberg si ricava dalle costanti fondamentali,
+$$\begin{aligned}R_\infty&=m_ee^4/(8\varepsilon_0^2h^3c)\\&\simeq1{,}0974\times10^{7}\un{m^{-1}},\end{aligned}$$
+in accordo con il valore spettroscopico. Il nucleo non è infinitamente pesante, e per l'idrogeno la massa dell'elettrone va sostituita con la massa ridotta del sistema elettrone e protone: si ottiene
+$$\begin{aligned}R_\mathrm{H}&=R_\infty/(1+m_e/m_p)\\&\simeq1{,}0968\times10^{7}\un{m^{-1}}.\end{aligned}$$
 :::
 
 Il segno negativo dell'energia ha un significato preciso. Lo zero corrisponde all'elettrone libero, fermo e infinitamente lontano dal nucleo; uno stato legato ha energia minore, e per liberare l'elettrone occorre fornire energia. Il livello più basso, $n=1$, è lo **stato fondamentale**; gli altri sono **stati eccitati**.
@@ -167,7 +171,9 @@ La formula di Rydberg diventa ora una conseguenza. Quando l'elettrone scende dal
 
 $$h\nu=\frac{hc}{\lambda}=E_{n_2}-E_{n_1}=hcR_\mathrm{H}\left(\frac{1}{n_1^2}-\frac{1}{n_2^2}\right),$$
 
-che è proprio la formula trovata da Balmer e Rydberg. L'energia necessaria per portare l'elettrone dallo stato fondamentale all'infinito, $13{,}6\un{eV}$, è l'**energia di ionizzazione** dell'atomo di idrogeno; per una mole di atomi vale $13{,}598\un{eV}\cdot96{,}485\un{kJ\,mol^{-1}\,eV^{-1}}\simeq1312\un{kJ/mol}$, esattamente il valore misurato.
+che è proprio la formula trovata da Balmer e Rydberg. L'energia necessaria per portare l'elettrone dallo stato fondamentale all'infinito, $13{,}6\un{eV}$, è l'**energia di ionizzazione** dell'atomo di idrogeno; per una mole di atomi vale
+$$13{,}598\un{eV}\cdot96{,}485\un{kJ\,mol^{-1}\,eV^{-1}}\simeq1312\un{kJ/mol},$$
+esattamente il valore misurato.
 
 ::: esempio La riga rossa dell'idrogeno
 Nella transizione da $n=3$ a $n=2$ il fotone emesso ha energia
@@ -267,12 +273,12 @@ Per l'atomo di idrogeno l'equazione di Schrödinger si scrive in tre dimensioni,
 
 Le energie risultano identiche a quelle di Bohr, $E_n=-13{,}6\un{eV}/n^2$: nell'atomo di idrogeno dipendono soltanto da $n$. Tutti gli orbitali con lo stesso $n$ formano un **livello**, o guscio; quelli con gli stessi $n$ e $l$ formano un **sottolivello**. I sottolivelli si indicano con una lettera: $s$ per $l=0$, $p$ per $l=1$, $d$ per $l=2$, $f$ per $l=3$. Le lettere vengono dai nomi che gli spettroscopisti avevano dato alle serie di righe dei metalli alcalini: *sharp*, *principal*, *diffuse* e *fundamental*.
 
-| $n$ | valori di $l$ | sottolivelli | orbitali per sottolivello ($2l+1$) | orbitali nel livello ($n^2$) |
-|---|---|---|---|---|
-| $1$ | $0$ | $1s$ | $1$ | $1$ |
-| $2$ | $0,1$ | $2s,2p$ | $1,3$ | $4$ |
-| $3$ | $0,1,2$ | $3s,3p,3d$ | $1,3,5$ | $9$ |
-| $4$ | $0,1,2,3$ | $4s,4p,4d,4f$ | $1,3,5,7$ | $16$ |
+| $n$ | sottolivelli | orbitali ($2l+1$) | totale ($n^2$) |
+|---|---|---|---|
+| $1$ | $1s$ | $1$ | $1$ |
+| $2$ | $2s,2p$ | $1,3$ | $4$ |
+| $3$ | $3s,3p,3d$ | $1,3,5$ | $9$ |
+| $4$ | $4s,4p,4d,4f$ | $1,3,5,7$ | $16$ |
 
 Che nell'idrogeno orbitali con lo stesso $n$ e $l$ diversi abbiano la stessa energia è una particolarità del potenziale coulombiano di un solo elettrone. Negli atomi con più elettroni la degenerazione si rompe, e un orbitale $2s$ ha energia minore di un $2p$: è il punto di partenza del capitolo successivo.
 
@@ -428,7 +434,7 @@ Costanti utili: $h=6{,}626\times10^{-34}\un{J\,s}$, $c=2{,}998\times10^{8}\un{m/
 ::: esercizio Frequenza della luce arancione [base]
 Calcolare la frequenza di una luce di lunghezza d'onda $600\un{nm}$.
 >>> soluzione
-$\nu=c/\lambda=2{,}998\times10^{8}/6{,}00\times10^{-7}\un{Hz}\simeq5{,}00\times10^{14}\un{Hz}$.
+$$\begin{aligned}\nu&=\frac{c}{\lambda}=\frac{2{,}998\times10^{8}}{6{,}00\times10^{-7}}\un{Hz}\\&\simeq5{,}00\times10^{14}\un{Hz}.\end{aligned}$$
 :::
 
 ::: esercizio Energia di un fotone [base]
@@ -476,13 +482,15 @@ Per $n_2\to\infty$ e $n_1=1$: $\lambda=1/R_\mathrm{H}\simeq91{,}18\un{nm}$. Un f
 ::: esercizio Effetto fotoelettrico [medio]
 Un metallo ha lavoro di estrazione $4{,}50\un{eV}$. Calcolare la lunghezza d'onda di soglia e l'energia cinetica massima degli elettroni estratti da luce di $250\un{nm}$.
 >>> soluzione
-Soglia: $\lambda_0=hc/\varphi=6{,}626\times10^{-34}\cdot2{,}998\times10^{8}/(4{,}50\cdot1{,}602\times10^{-19})\un{m}\simeq276\un{nm}$. Un fotone di $250\un{nm}$ ha $4{,}96\un{eV}$, quindi $K_\mathrm{max}\simeq0{,}46\un{eV}$.
+Soglia:
+$$\begin{aligned}\lambda_0&=\frac{hc}{\varphi}=\frac{6{,}626\times10^{-34}\cdot2{,}998\times10^{8}}{4{,}50\cdot1{,}602\times10^{-19}}\un{m}\\&\simeq276\un{nm}.\end{aligned}$$
+Un fotone di $250\un{nm}$ ha $4{,}96\un{eV}$, quindi $K_\mathrm{max}\simeq0{,}46\un{eV}$.
 :::
 
 ::: esercizio Un elettrone lento [medio]
 Calcolare la lunghezza d'onda di de Broglie di un elettrone che si muove a $1{,}00\times10^{6}\un{m/s}$.
 >>> soluzione
-$\lambda=h/(m_ev)=6{,}626\times10^{-34}/(9{,}109\times10^{-31}\cdot1{,}00\times10^{6})\un{m}\simeq7{,}27\times10^{-10}\un{m}=0{,}727\un{nm}$.
+$$\begin{aligned}\lambda&=\frac{h}{m_ev}=\frac{6{,}626\times10^{-34}}{9{,}109\times10^{-31}\cdot1{,}00\times10^{6}}\un{m}\\&\simeq7{,}27\times10^{-10}\un{m}=0{,}727\un{nm}.\end{aligned}$$
 :::
 
 ::: esercizio Ionizzare He⁺ [medio]
@@ -500,7 +508,7 @@ Nodi angolari $l$, radiali $n-l-1$. $3s$: 0 angolari, 2 radiali. $3p$: 1 angolar
 ::: esercizio Indeterminazione [medio]
 Un elettrone è localizzato entro $50\un{pm}$. Stimare l'indeterminazione minima sulla sua velocità.
 >>> soluzione
-$\Delta v\ge\hbar/(2m_e\Delta x)=1{,}055\times10^{-34}/(2\cdot9{,}109\times10^{-31}\cdot5{,}0\times10^{-11})\un{m/s}\simeq1{,}2\times10^{6}\un{m/s}$.
+$$\begin{aligned}\Delta v&\ge\frac{\hbar}{2m_e\Delta x}=\frac{1{,}055\times10^{-34}}{2\cdot9{,}109\times10^{-31}\cdot5{,}0\times10^{-11}}\un{m/s}\\&\simeq1{,}2\times10^{6}\un{m/s}.\end{aligned}$$
 :::
 
 ::: esercizio Una scatola molecolare [medio]
@@ -512,25 +520,31 @@ $E_1=h^2/(8m_eL^2)\simeq2{,}41\times10^{-19}\un{J}$ e $\Delta E=E_2-E_1=3E_1\sim
 ::: esercizio Dentro il raggio di Bohr [medio]
 Usando la formula della sezione sulla forma degli orbitali, calcolare la probabilità di trovare l'elettrone $1s$ dell'idrogeno a una distanza dal nucleo minore di $2a_0$, e quella di trovarlo oltre $3a_0$.
 >>> soluzione
-Con $x=2$: $P=1-e^{-4}(1+4+8)=1-13e^{-4}\simeq0{,}762$. Con $x=3$: $P(r<3a_0)=1-25e^{-6}\simeq0{,}938$, quindi la probabilità di trovarlo oltre $3a_0$ è circa $0{,}062$, il $6\%$.
+Con $x=2$:
+$$P=1-e^{-4}(1+4+8)=1-13e^{-4}\simeq0{,}762.$$
+Con $x=3$: $P(r<3a_0)=1-25e^{-6}\simeq0{,}938$, quindi la probabilità di trovarlo oltre $3a_0$ è circa $0{,}062$, il $6\%$.
 :::
 
 ::: esercizio Combinare due righe [medio]
 Le prime righe delle serie di Lyman e di Balmer dell'idrogeno hanno, nel vuoto, lunghezze d'onda $121{,}57\un{nm}$ e $656{,}47\un{nm}$. Usare il principio di combinazione per prevedere la lunghezza d'onda di una terza riga, e identificare la transizione.
 >>> soluzione
-$\tilde\nu=1/121{,}57+1/656{,}47\un{nm^{-1}}\simeq8{,}2257\times10^{-3}+1{,}5233\times10^{-3}=9{,}7490\times10^{-3}\un{nm^{-1}}$, cioè $\lambda\simeq102{,}57\un{nm}$. È la transizione da $n=3$ a $n=1$, seconda riga della serie di Lyman: un salto unico equivalente ai due salti consecutivi $3\to2$ e $2\to1$.
+$$\begin{aligned}\tilde\nu&=\frac{1}{121{,}57}+\frac{1}{656{,}47}\un{nm^{-1}}\\&\simeq8{,}2257\times10^{-3}+1{,}5233\times10^{-3}\\&=9{,}7490\times10^{-3}\un{nm^{-1}},\end{aligned}$$
+cioè $\lambda\simeq102{,}57\un{nm}$. È la transizione da $n=3$ a $n=1$, seconda riga della serie di Lyman: un salto unico equivalente ai due salti consecutivi $3\to2$ e $2\to1$.
 :::
 
 ::: esercizio Effetto Zeeman [avanzato]
 In un campo magnetico di $2{,}0\un{T}$ i tre orbitali $2p$ di un atomo si separano in energia di $\mu_\mathrm{B}B$. Calcolare la separazione in elettronvolt e la frequenza di un fotone con quella energia.
 >>> soluzione
-$\Delta E=\mu_\mathrm{B}B=9{,}274\times10^{-24}\cdot2{,}0\un{J}\simeq1{,}85\times10^{-23}\un{J}\simeq1{,}16\times10^{-4}\un{eV}$. La frequenza vale $\nu=\Delta E/h\simeq2{,}8\times10^{10}\un{Hz}$, nelle microonde.
+$$\begin{aligned}\Delta E&=\mu_\mathrm{B}B=9{,}274\times10^{-24}\cdot2{,}0\un{J}\\&\simeq1{,}85\times10^{-23}\un{J}\simeq1{,}16\times10^{-4}\un{eV}.\end{aligned}$$
+La frequenza vale $\nu=\Delta E/h\simeq2{,}8\times10^{10}\un{Hz}$, nelle microonde.
 :::
 
 ::: esercizio Una riga infrarossa [avanzato]
 Uno spettro dell'idrogeno mostra una riga a $1875{,}6\un{nm}$, nel vuoto. Identificare la transizione.
 >>> soluzione
-$1/\lambda\simeq5{,}332\times10^{5}\un{m^{-1}}$, quindi $1/n_1^2-1/n_2^2=5{,}332\times10^{5}/1{,}09678\times10^{7}\simeq0{,}04861$. Per $n_1=2$ servirebbe $1/n_2^2\simeq0{,}201$, che non corrisponde ad alcun intero. Per $n_1=3$ si ottiene $1/n_2^2\simeq0{,}0625=1/16$: è la transizione da $n=4$ a $n=3$, la prima riga della serie di Paschen.
+$1/\lambda\simeq5{,}332\times10^{5}\un{m^{-1}}$, quindi
+$$\begin{aligned}1/n_1^2-1/n_2^2&=5{,}332\times10^{5}/1{,}09678\times10^{7}\\&\simeq0{,}04861.\end{aligned}$$
+Per $n_1=2$ servirebbe $1/n_2^2\simeq0{,}201$, che non corrisponde ad alcun intero. Per $n_1=3$ si ottiene $1/n_2^2\simeq0{,}0625=1/16$: è la transizione da $n=4$ a $n=3$, la prima riga della serie di Paschen.
 :::
 
 ::: esercizio Quante righe e quali visibili [avanzato]
@@ -542,13 +556,16 @@ Ogni coppia di livelli fra $1$ e $5$ dà una riga: $5\cdot4/2=10$ righe. Nel vis
 ::: esercizio Neutroni per la cristallografia [avanzato]
 Nei reattori di ricerca si producono neutroni lenti con velocità tipiche di $2200\un{m/s}$. Calcolare la loro lunghezza d'onda di de Broglie, con $m_n=1{,}675\times10^{-27}\un{kg}$, e spiegare perché sono utili per studiare i cristalli.
 >>> soluzione
-$\lambda=h/(m_nv)\simeq6{,}626\times10^{-34}/(1{,}675\times10^{-27}\cdot2200)\un{m}\simeq1{,}80\times10^{-10}\un{m}=0{,}180\un{nm}$. È dell'ordine delle distanze fra gli atomi, quindi i neutroni vengono diffratti dai cristalli come i raggi X. Essendo neutri interagiscono con i nuclei, e rivelano anche atomi leggeri come l'idrogeno, quasi invisibili ai raggi X.
+$$\begin{aligned}\lambda&=\frac{h}{m_nv}\simeq\frac{6{,}626\times10^{-34}}{1{,}675\times10^{-27}\cdot2200}\un{m}\\&\simeq1{,}80\times10^{-10}\un{m}=0{,}180\un{nm}.\end{aligned}$$
+È dell'ordine delle distanze fra gli atomi, quindi i neutroni vengono diffratti dai cristalli come i raggi X. Essendo neutri interagiscono con i nuclei, e rivelano anche atomi leggeri come l'idrogeno, quasi invisibili ai raggi X.
 :::
 
 ::: esercizio La riga dell'elio ionizzato [avanzato]
 Calcolare la lunghezza d'onda, nel vuoto, della transizione da $n=4$ a $n=3$ nello ione $\mathrm{He^+}$. Per il nucleo di elio la costante di Rydberg vale $R_\mathrm{He}\simeq1{,}09722\times10^{7}\un{m^{-1}}$.
 >>> soluzione
-Per uno ione idrogenoide $1/\lambda=Z^2R(1/n_1^2-1/n_2^2)$. Con $Z=2$: $1/\lambda=4\cdot1{,}09722\times10^{7}\cdot(1/9-1/16)\simeq2{,}1335\times10^{6}\un{m^{-1}}$, quindi $\lambda\simeq468{,}7\un{nm}$. È la riga che Bohr attribuì correttamente all'elio ionizzato.
+Per uno ione idrogenoide $1/\lambda=Z^2R(1/n_1^2-1/n_2^2)$. Con $Z=2$:
+$$\begin{aligned}1/\lambda&=4\cdot1{,}09722\times10^{7}\cdot(1/9-1/16)\\&\simeq2{,}1335\times10^{6}\un{m^{-1}},\end{aligned}$$
+quindi $\lambda\simeq468{,}7\un{nm}$. È la riga che Bohr attribuì correttamente all'elio ionizzato.
 :::
 
 ::: esercizio Dove è più probabile l'elettrone 1s [avanzato]
@@ -566,7 +583,8 @@ $E=hc/\lambda\simeq5{,}45\times10^{-19}\un{J}\simeq3{,}40\un{eV}$. È l'energia 
 ::: esercizio La temperatura di una stella [avanzato]
 Lo spettro continuo di una stella ha il massimo a $290\un{nm}$. Stimare la temperatura della sua superficie con la legge di Wien e dire di che colore appare la stella.
 >>> soluzione
-$T=2{,}898\times10^{-3}\un{m\,K}/2{,}90\times10^{-7}\un{m}\simeq1{,}0\times10^{4}\un{K}$. Il massimo cade nell'ultravioletto e nel visibile l'intensità è maggiore all'estremo blu: la stella appare bianco azzurra.
+$$\begin{aligned}T&=2{,}898\times10^{-3}\un{m\,K}/2{,}90\times10^{-7}\un{m}\\&\simeq1{,}0\times10^{4}\un{K}.\end{aligned}$$
+Il massimo cade nell'ultravioletto e nel visibile l'intensità è maggiore all'estremo blu: la stella appare bianco azzurra.
 :::
 
 ## Fonti {#fonti}
