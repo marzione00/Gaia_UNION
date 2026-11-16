@@ -1,3 +1,12 @@
+# 1.15.0: Dispensa di fisica
+
+- Aggiunta la dispensa «Fisica generale e moderna» (bozza revisionata, revisione 1 del 25 ottobre 2026), compilata dai sorgenti LaTeX nella variante digitale a pagina singola: `materials/fisica-generale-e-moderna.pdf`, 726 pagine.
+- Pagine renderizzate per il lettore WebGL in `assets/pdf-fisica/` (726 immagini WebP a 1200 px, circa 65 MB), con indice, testo estratto e numero di pagina stampato. L'indice della fisica si carica solo alla prima apertura.
+- Il lettore delle dispense gestisce due documenti: `#/pdf?doc=fis&page=N` apre la fisica, i collegamenti esistenti restano sulla matematica. Pagine, limiti e pagina stampata dipendono dal documento.
+- Ogni unità di fisica rimanda alle sezioni corrispondenti della dispensa (campo `source` del catalogo e `originalSource` del corso): per esempio «Forze e leggi di Newton» alle sezioni 2.1-2.5, pagine stampate 214-222. Il pulsante «Dispensa PDF» delle unità e della scheda apre la prima pagina; la vista «Fonti» indica sezioni e pagine.
+- Pagina «Fonti»: pulsanti separati per la dispensa di matematica e per quella di fisica.
+- Controlli: `npm run check` verifica file, numero di pagine e intervalli di entrambe le dispense; nuovi test di rotta per la fisica.
+
 # 1.14.0: Galassia, sistemi e pianeti più leggibili
 
 - Colori delle discipline unificati in tutto il sito: ambra la matematica, azzurro la fisica, viola la chimica, verde la biologia. Gli stessi colori segnano i bracci della galassia, le aree, le orbite delle unità, la legenda e gli accenti delle schermate delle unità.

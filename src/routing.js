@@ -1,4 +1,5 @@
 import { systemForPlanet, indicesForSystem } from './scene/systems.js';
+import { DOCUMENTS, docKey, docOf } from './documents.js';
 /** Resolve current and previous-edition deep links without trusting URL numbers. */
 export function resolveRoute(hash, modules, lessonIds) {
     const [path = '', query = ''] = String(hash).replace(/^#\/?/, '').split('?');
@@ -21,12 +22,15 @@ export function resolveRoute(hash, modules, lessonIds) {
         const n = Number(q.get(key));
         return q.has(key) && Number.isFinite(n) ? Math.max(min, Math.min(max, Math.floor(n))) : fallback;
     };
-    let pdfPage = integer('page', 245, 1, 769), courseStage = null;
+    let pdfDoc = docKey(q.get('doc')), pdfPage = integer('page', DOCUMENTS[pdfDoc].defaultPage, 1, DOCUMENTS[pdfDoc].pages), courseStage = null;
     if (scene === 'quiz' && unit.id !== 'math-c08' && unit.curriculum) { scene = 'mission'; courseStage = 4; }
     if (scene === 'theory' && !lessonIds.includes(reader)) {
         const target = modules.find(m => m.id === reader) || unit;
-        if (target.source) {
+        // The mathematics chapters open their handout; physics units keep their guided course,
+        // and reach the physics handout from the course or the briefing.
+        if (target.source && docOf(target.source) === 'mat') {
             scene = 'pdf';
+            pdfDoc = docOf(target.source);
             pdfPage = target.source.pdfPages[0];
         }
         else
@@ -35,5 +39,5 @@ export function resolveRoute(hash, modules, lessonIds) {
     }
     let system=systemForPlanet(selected);
     if(scene==='system' && q.has('system')){system=integer('system',system,0,24);if(systemForPlanet(selected)!==system)selected=indicesForSystem(system)[0];}
-    return { scene, selected, system, reader, section: integer('section', 0, 0, 100), pdfPage, lab, courseStage };
+    return { scene, selected, system, reader, section: integer('section', 0, 0, 100), pdfDoc, pdfPage, lab, courseStage };
 }
