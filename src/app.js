@@ -10,6 +10,7 @@ import { resolveRoute } from './routing.js';
 import { GPU, color, clamp, project, transform, mesh } from './renderer.js';
 import { World, RESEARCH, EDGES, box } from './scene/world.js';
 import { UI, C, T, ImageCache, caseLabel, DISCIPLINE } from './ui/toolkit.js';
+import { DOCUMENTS, docOf, docKey, printedLabel } from './documents.js';
 import { openStore, grade } from './store.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
@@ -29,7 +30,7 @@ let education, pilotEducation, atlas;
 function activeEducation(){return S.scene==='pilot'?pilotEducation:education;}
 function openCourse(id,stage=null){const m=moduleById(id);if(!m)return;selectIndex(m.planetIndex);education.select(id);if(stage!==null)education.setStage(stage);route('mission');}
 function openExternal(url){if(!education.bundle.sources.some(s=>s.url===url))throw Error('Fonte non registrata');window.open(url,'_blank','noopener,noreferrer');}
-let R, U, W, cache, data, lessons, questions, readerIndex, pdfIndex, textureManifest, raf, prevTime = 0, pointer = null, activeSlider = null, semanticSignature = '', textSignature = '', frameCount = 0, worker = null;
+let R, U, W, cache, data, lessons, questions, readerIndex, textureManifest, raf, prevTime = 0, pointer = null, activeSlider = null, semanticSignature = '', textSignature = '', frameCount = 0, worker = null;
 const navigation = new NavigationMemory(), hover = new HoverTarget();
 let hoverPointer = null, touchTarget = null;
 const sectors = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
@@ -79,8 +80,10 @@ function updateHash(mode = 'replace') {
     }
     if (S.scene === 'lab')
         q.set('model', S.lab);
-    if (S.scene === 'pdf')
+    if (S.scene === 'pdf') {
+        if (S.pdfDoc === 'fis') q.set('doc', 'fis');
         q.set('page', String(S.pdfPage));
+    }
     const hash = `#/${S.scene}?${q}`;
     if (location.hash !== hash)
         history[mode === 'push' ? 'pushState' : 'replaceState'](null, '', hash);
@@ -94,11 +97,18 @@ function openTheory(id = 'math-c08', section = 0) {
         route('theory', { reader: id, section: clamp(section, 0, lessons[id].sections.length - 1) });
     }
     else if (m?.curriculum && education) { openCourse(m.id,1); }
-    else if (m?.source) { openPDF(m.source.pdfPages[0]); }
+    else if (m?.source) { openPDF(m.source.pdfPages[0], docOf(m.source)); }
     else
         route('briefing');
 }
-function openPDF(page) { route('pdf', { pdfPage: clamp(page, 1, 769), pdfZoom: 1 }); }
+function openPDF(page, doc = 'mat') { const key = docKey(doc); route('pdf', { pdfDoc: key, pdfPage: clamp(page, 1, DOCUMENTS[key].pages), pdfZoom: 1 }); }
+/** Page index of a handout: mathematics is loaded at start, physics on first use. */
+const pdfIndexes = {}, pdfLoading = {};
+function pageIndex(key) {
+    if (pdfIndexes[key]) return pdfIndexes[key];
+    if (!pdfLoading[key]) pdfLoading[key] = json(DOCUMENTS[key].index).then(v => { pdfIndexes[key] = v; }).catch(() => { pdfLoading[key] = null; say('Le pagine della dispensa non si sono caricate. Riprova.'); });
+    return null;
+}
 function download(filename, value, type = 'application/json') { const blob = new Blob([typeof value === 'string' ? value : JSON.stringify(value, null, 2)], { type }); const a = document.createElement('a'), u = URL.createObjectURL(blob); a.href = u; a.download = filename; a.click(); setTimeout(() => URL.revokeObjectURL(u), 30000); say('File esportato: ' + filename); }
 async function copyText(text) {
     try {
@@ -399,7 +409,7 @@ function briefingUI() {
     const bw=(ww-16)/3,by=h-95;
     U.button('brief-course','PERCORSO 3D',x,by,bw,40,()=>openCourse(m.id),{active:true,small:mobile});
     U.button('brief-read',m.lesson?'TEORIA ORIGINALE':'SPIEGAZIONI',x+bw+8,by,bw,40,()=>m.lesson?openTheory(m.id):openCourse(m.id,1),{small:mobile});
-    U.button('brief-source','DISPENSA PDF',x+2*(bw+8),by,bw,40,()=>openPDF(m.source.pdfPages[0]),{disabled:!m.source,small:mobile});
+    U.button('brief-source','DISPENSA PDF',x+2*(bw+8),by,bw,40,()=>openPDF(m.source.pdfPages[0],docOf(m.source)),{disabled:!m.source,small:mobile});
 }
 function documentView(key, rect, { invert = false } = {}) {
     const doc = readerIndex[key];
@@ -469,23 +479,25 @@ function theoryUI() {
     }
 }
 function pdfUI() {
-    const w = R.w, h = R.h, mobile = w < 850, p = pdfIndex[S.pdfPage - 1];
-    title('ARCHIVIO / DISPENSA ORIGINALE', 'MATEMATICA DI BASE', `Pagina PDF ${S.pdfPage} / 769${S.pdfPage > 12 ? ' · pagina stampata ' + (S.pdfPage - 12) : ' · preliminari'}`);
-    const top = 238, bottom = h - 110, available = bottom - top, baseW = Math.min(mobile ? w - 30 : w - 150, 900), scale = baseW / p.width * S.pdfZoom, ww = p.width * scale, hh = p.height * scale, x = (w - ww) / 2;
-    S.maxScroll = Math.max(0, hh - available);
-    S.scroll = clamp(S.scroll, 0, S.maxScroll);
-    let cropTop = S.scroll / hh, cropBottom = Math.min(1, (S.scroll + available) / hh);
-    cache.draw(p.file, x, top, ww, (cropBottom - cropTop) * hh, [0, cropTop, 1, cropBottom]);
+    const w = R.w, h = R.h, mobile = w < 850, key = docKey(S.pdfDoc), d = DOCUMENTS[key], index = pageIndex(key), p = index?.[S.pdfPage - 1], label = printedLabel(key, S.pdfPage, p);
+    title('Archivio / dispensa originale', d.title, `Pagina PDF ${S.pdfPage} di ${d.pages}${label && label !== String(S.pdfPage) ? ' · pagina stampata ' + label : label ? '' : ' · preliminari'}`);
     const by = h - 90;
     let bx = mobile ? 16 : 34;
+    if (p) {
+        const top = 238, bottom = h - 110, available = bottom - top, baseW = Math.min(mobile ? w - 30 : w - 150, 900), scale = baseW / p.width * S.pdfZoom, ww = p.width * scale, hh = p.height * scale, x = (w - ww) / 2;
+        S.maxScroll = Math.max(0, hh - available);
+        S.scroll = clamp(S.scroll, 0, S.maxScroll);
+        let cropTop = S.scroll / hh, cropBottom = Math.min(1, (S.scroll + available) / hh);
+        cache.draw(p.file, x, top, ww, (cropBottom - cropTop) * hh, [0, cropTop, 1, cropBottom]);
+    } else U.text('Caricamento delle pagine…', w / 2, 300, 'body', C.muted, { align: 'center' });
     U.button('pdf-prev', '◂', bx, by, 40, 37, () => { S.pdfPage = Math.max(1, S.pdfPage - 1); S.scroll = 0; updateHash(); }, { disabled: S.pdfPage === 1 });
-    U.button('pdf-next', '▸', bx + 47, by, 40, 37, () => { S.pdfPage = Math.min(769, S.pdfPage + 1); S.scroll = 0; updateHash(); }, { disabled: S.pdfPage === 769 });
+    U.button('pdf-next', '▸', bx + 47, by, 40, 37, () => { S.pdfPage = Math.min(d.pages, S.pdfPage + 1); S.scroll = 0; updateHash(); }, { disabled: S.pdfPage === d.pages });
     U.button('pdf-goto', 'PAGINA ' + S.pdfPage, bx + 96, by, 108, 37, () => startEdit('page'), { small: mobile });
     U.button('pdf-plus', '+', bx + 211, by, 38, 37, () => S.pdfZoom = clamp(S.pdfZoom + .2, .6, 2));
     U.button('pdf-minus', '−', bx + 256, by, 38, 37, () => S.pdfZoom = clamp(S.pdfZoom - .2, .6, 2));
     if (!mobile) {
-        U.button('pdf-copy', 'COPIA TESTO ESTRATTO', bx + 315, by, 206, 37, () => copyText(p.text));
-        U.button('pdf-original', 'APRI PDF ORIGINALE', bx + 529, by, 200, 37, () => window.open(asset('materials/matematica-di-base.pdf') + '#page=' + S.pdfPage, '_blank', 'noopener'));
+        U.button('pdf-copy', 'COPIA TESTO ESTRATTO', bx + 315, by, 206, 37, () => copyText(p?.text || ''), { disabled: !p });
+        U.button('pdf-original', 'APRI PDF ORIGINALE', bx + 529, by, 200, 37, () => window.open(asset(d.file) + '#page=' + S.pdfPage, '_blank', 'noopener'));
     }
 }
 function labControlsFooter() { const w = R.w, h = R.h, mobile = w < 850, labels = [['lab-save', 'CONSERVA A', saveScenario], ['lab-reset', 'RIPRISTINA', () => { S.lum = 1; S.death = .3; S.labValues = { p: 80, x: 13, base: 'quadratic', a: 1, b: 1, h: 0, k: 0, index: 2, mode: 'root', m1: 1, q1: 0, m2: -1, q2: 5, initial: 100, loss: .1, t: 10, zeroA: -2, zeroB: 1, pole: 3 }; S.labCompare = null; computeLab(); }], ['lab-export', 'ESPORTA JSON', () => exportLab(false)], ['lab-csv', 'ESPORTA CSV', () => exportLab(true)]]; const bw = mobile ? (w - 50) / 3 : 145; labels.slice(0, mobile ? 3 : (S.lab === 'daisyworld' ? 4 : 3)).forEach(([id, label, act], i) => U.button(id, label, 30 + i * (bw + 8), h - 85, bw, 36, act, { small: mobile })); }
@@ -714,13 +726,14 @@ function finishEdit(save = true) {
     }
     if (S.editing === 'page') {
         const n = Number(editor.value);
-        if (Number.isInteger(n) && n >= 1 && n <= 769) {
+        const pages = DOCUMENTS[docKey(S.pdfDoc)].pages;
+        if (Number.isInteger(n) && n >= 1 && n <= pages) {
             S.pdfPage = n;
             S.scroll = 0;
             updateHash();
         }
         else
-            say('La pagina deve essere compresa tra 1 e 769.');
+            say('La pagina deve essere compresa tra 1 e ' + pages + '.');
     }
     S.editing = null;
     editor.blur();
@@ -825,8 +838,9 @@ function sourcesUI() {
         yy += 145;
     }
     S.maxScroll = Math.max(0, rows.length * 145 - (h - y - 145));
-    U.button('source-pdf', 'DISPENSA INTEGRALE', x, h - 88, 220, 39, () => openPDF(1));
-    U.button('source-model', 'DOSSIER GAIA', x + 231, h - 88, 180, 39, () => openTheory('gaia'));
+    U.button('source-pdf', 'DISPENSA DI MATEMATICA', x, h - 88, 230, 39, () => openPDF(1));
+    U.button('source-pdf-fis', 'DISPENSA DI FISICA', x + 238, h - 88, 210, 39, () => openPDF(1, 'fis'));
+    U.button('source-model', 'DOSSIER GAIA', x + 456, h - 88, 180, 39, () => openTheory('gaia'));
 }
 function overlay() {
     const w = R.w, h = R.h;
@@ -947,7 +961,7 @@ function syncSemantic() {
     if (key !== textSignature) {
         const el = document.querySelector('#semantic-text');
         if (el)
-            el.textContent = (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndex[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
+            el.textContent = (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndexes[docKey(S.pdfDoc)]?.[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
         textSignature = key;
     }
 }
@@ -1127,7 +1141,7 @@ async function init() {
         R.text('GAIA', 42, 40, 'display', C.pale);
         R.text('PREPARAZIONE DELLA SPEDIZIONE…', 44, 150, 'sub', C.cyan);
         R.drawUI();
-        [data, readerIndex, pdfIndex, textureManifest] = await Promise.all([json('content/catalogue.json'), json('assets/reader/index.json'), json('assets/pdf/index.json'), json('assets/planets/manifest.json')]);
+        [data, readerIndex, pdfIndexes.mat, textureManifest] = await Promise.all([json('content/catalogue.json'), json('assets/reader/index.json'), json('assets/pdf/index.json'), json('assets/planets/manifest.json')]);
         lessons = {};
         await Promise.all(data.modules.filter(m => m.lesson).map(async (m) => { lessons[m.id] = await json(m.lesson); }));
         lessons.gaia = await json('content/gaia.json');
@@ -1175,7 +1189,7 @@ async function init() {
         computeLab();
         events();
         S.loaded = true;
-        window.GAIA = { version: '1.14.0-cosmo', state: S, get atlas() { return atlas; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0), planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndex.length, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
+        window.GAIA = { version: '1.15.0-fisica', state: S, get atlas() { return atlas; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0), planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
         U = new UI(R);
         pilotEducation = new MissionUI(R, store, missionDefinition, { state:S, route, openTheory, openPDF, download, say });
         education = new CourseUI(R,store,curriculum,{state:S,route,openCourse,openTheory,openPDF,openExternal,download,say,currentUnit:()=>selected().id});

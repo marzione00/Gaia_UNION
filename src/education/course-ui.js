@@ -1,6 +1,7 @@
 import {clamp,color} from '../renderer.js';
 import {scaledText} from '../navigation/text.js';
 import {C,T,DISCIPLINE,caseLabel} from '../ui/toolkit.js';
+import {DOCUMENTS,docOf} from '../documents.js';
 import {descriptor,defaults,value,samples,probePoints,parameterKey} from '../models/curriculum.js';
 import {LEVELS,PREDICTIONS,freshCourse,validateBundle,changeCourseParameters,predictCourse,captureCourse,answerCourse,experimentResult,courseProgress,completeCourse} from './course-engine.js';
 import {CourseScene,formatNumber as num,SCHEMATIC_KINDS} from './course-scene.js';
@@ -196,13 +197,13 @@ export class CourseUI{
  }
  sourcesUI(U,rect){
   const d=this.definition,list=[...d.sources.map(id=>this.bundle.sources.find(s=>s.id===id)),...(this.id==='math-c08'?[{id:'pilot',title:'Missione pilota: Il segnale di Simbiosi',route:'pilot'}]:[])];this.sourceIndex=clamp(this.sourceIndex,0,list.length-1);const s=list[this.sourceIndex];
-  const paragraphs=[d.editorialStatus==='hand-written-draft'?`Copertura: ${d.scope}. Unità scritta per intero, in bozza da rivedere.`:`Copertura: ${d.scope}. Nucleo guidato, non manuale integrale. Testi originali: revisione scientifico-didattica umana non certificata.`,...d.objectives,...d.glossary.map(g=>g.term+': '+g.definition),`Riferimento di approfondimento ${this.sourceIndex+1}/${list.length}: ${s.title}. ${s.route?'Il collegamento apre la missione pilota locale.':'Il collegamento apre un sito esterno; nessun testo o immagine è scaricato durante l’uso del laboratorio.'}`,`Prerequisiti consigliati: ${d.prerequisites.join(', ')||'nessuno'}. Collegamento: ${d.connections.join(', ')}.`];
+  const paragraphs=[d.editorialStatus==='hand-written-draft'?`Copertura: ${d.scope}. Unità scritta per intero, in bozza da rivedere.`:`Copertura: ${d.scope}. Nucleo guidato, non manuale integrale. Testi originali: revisione scientifico-didattica umana non certificata.`,...d.objectives,...d.glossary.map(g=>g.term+': '+g.definition),`Riferimento di approfondimento ${this.sourceIndex+1}/${list.length}: ${s.title}. ${s.route?'Il collegamento apre la missione pilota locale.':'Il collegamento apre un sito esterno; nessun testo o immagine è scaricato durante l’uso del laboratorio.'}`,`Prerequisiti consigliati: ${d.prerequisites.join(', ')||'nessuno'}. Collegamento: ${d.connections.join(', ')}.`,...(d.originalSource?[`Dispensa originale: ${DOCUMENTS[docOf(d.originalSource)].title}${d.originalSource.sections?', sezioni '+d.originalSource.sections:''}, pagine stampate ${d.originalSource.printedPages[0]}-${d.originalSource.printedPages[1]}. Il pulsante «Dispensa PDF» la apre alla prima pagina.`]:[])];
   this.readingUI(U,paragraphs,rect,'Fonti, obiettivi e glossario',84);
   const x=rect.x+16,w=rect.w-32,y=rect.y+rect.h-84,bw=(w-6)/2,bh=32;
   U.button('course-source-prev','◂ Fonte',x,y,84,bh,()=>{this.sourceIndex--;this.page=0;},{disabled:this.sourceIndex===0});
   U.button('course-source-open','Apri',x+90,y,w-180,bh,()=>s.route?this.api.route(s.route):this.api.openExternal(s.url));
   U.button('course-source-next','Fonte ▸',x+w-84,y,84,bh,()=>{this.sourceIndex++;this.page=0;},{disabled:this.sourceIndex===list.length-1});
-  U.button('course-original',d.originalSource?'Dispensa PDF':'Testo locale',x,y+40,bw,bh,()=>d.originalSource?this.api.openPDF(d.originalSource.pdfPages[0]):this.api.download('GAIA_'+this.id+'_testo.txt',d.steps.map(s=>s.title+'\n'+s.text[rLevel(this.record)].join('\n\n')).join('\n\n'),'text/plain;charset=utf-8'));
+  U.button('course-original',d.originalSource?'Dispensa PDF':'Testo locale',x,y+40,bw,bh,()=>d.originalSource?this.api.openPDF(d.originalSource.pdfPages[0],docOf(d.originalSource)):this.api.download('GAIA_'+this.id+'_testo.txt',d.steps.map(s=>s.title+'\n'+s.text[rLevel(this.record)].join('\n\n')).join('\n\n'),'text/plain;charset=utf-8'));
   U.button('course-connection','Unità collegata',x+bw+6,y+40,bw,bh,()=>this.goUnit(d.connections[0]));
  }
  drawPathsUI(U,state){
