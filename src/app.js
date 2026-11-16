@@ -9,8 +9,11 @@ import { loadScenes, planetProfile, PlanetTextures } from './scene/assets.js';
 import { resolveRoute } from './routing.js';
 import { GPU, color, clamp, project, transform, mesh } from './renderer.js';
 import { World, RESEARCH, EDGES, box } from './scene/world.js';
-import { UI, C, T, ImageCache, caseLabel, DISCIPLINE } from './ui/toolkit.js';
+import { UI, C, T, ImageCache, caseLabel, DISCIPLINE, fmtNum } from './ui/toolkit.js';
 import { DOCUMENTS, docOf, docKey, printedLabel } from './documents.js';
+import { pilotWorld, worldParameters } from './worlds/pilots.js';
+import { fittedRows } from './education/course-ui.js';
+import { descriptor as modelDescriptor } from './models/curriculum.js';
 import { openStore, grade } from './store.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
@@ -30,7 +33,7 @@ let education, pilotEducation, atlas;
 function activeEducation(){return S.scene==='pilot'?pilotEducation:education;}
 function openCourse(id,stage=null){const m=moduleById(id);if(!m)return;selectIndex(m.planetIndex);education.select(id);if(stage!==null)education.setStage(stage);route('mission');}
 function openExternal(url){if(!education.bundle.sources.some(s=>s.url===url))throw Error('Fonte non registrata');window.open(url,'_blank','noopener,noreferrer');}
-let R, U, W, cache, data, lessons, questions, readerIndex, textureManifest, raf, prevTime = 0, pointer = null, activeSlider = null, semanticSignature = '', textSignature = '', frameCount = 0, worker = null;
+let R, U, W, cache, data, lessons, questions, readerIndex, textureManifest, worlds = { worlds: [] }, raf, prevTime = 0, pointer = null, activeSlider = null, semanticSignature = '', textSignature = '', frameCount = 0, worker = null;
 const navigation = new NavigationMemory(), hover = new HoverTarget();
 let hoverPointer = null, touchTarget = null;
 const sectors = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
@@ -207,6 +210,43 @@ function scrim() {
     R.rect(0, hole.y, hole.x, hole.h, c); R.rect(hole.x + hole.w, hole.y, w - hole.x - hole.w, hole.h, c);
 }
 function galaxyUI() { atlas.draw(U); }
+/** State of the prototype world of the selected planet: laboratory parameters of its unit, or the
+ * session copy changed from the planet panel, which never writes into the laboratory record. */
+const worldSession = { params: {}, x: {} };
+function worldTick() {
+    const unit = selected()?.id, pw = ['surface', 'orbit'].includes(S.scene) ? pilotWorld(unit) : null;
+    S.worldCamera = S.scene === 'surface' && pw?.camera ? pw.camera : null;
+    // On phones the camera looks at the phenomenon instead of the station complex.
+    S.worldFocus = S.scene === 'surface' && pw?.focus ? pw.focus : null;
+    if (!pw) { S.worldState = null; S.worldTint = null; return; }
+    worldSession.params[unit] ||= worldParameters(unit, store.data.courses?.[unit]);
+    if (worldSession.x[unit] === undefined) worldSession.x[unit] = pw.x?.value ?? null;
+    S.worldState = pw.state(worldSession.params[unit], worldSession.x[unit], S.time, S.paused);
+    S.worldTint = pw.orbitTint ? pw.orbitTint(S.worldState) : null;
+}
+const worldEntry = id => worlds.worlds.find(w => w.unit === id) || null;
+function worldPanel(m, mobile) {
+    const pw = pilotWorld(m.id), entry = worldEntry(m.id), st = S.worldState; if (!pw || !entry || !st) return;
+    const w = R.w, tint = sectorColors[m.sector], controls = modelDescriptor(m.id).controls.map(c => ({ ...c, id: 'world-param-' + c.key, get: () => worldSession.params[m.id][c.key], set: v => { worldSession.params[m.id] = { ...worldSession.params[m.id], [c.key]: v }; } }));
+    if (pw.x) controls.push({ ...pw.x, key: 'x', id: 'world-x', get: () => worldSession.x[m.id], set: v => { worldSession.x[m.id] = v; } });
+    // On phones the controls share one row and only the first line of numbers is shown.
+    const px = mobile ? 18 : 35, pw2 = mobile ? w - 36 : Math.min(420, w - 430), py = mobile ? 196 : 250, lines = pw.lines(st), rowsAvail = mobile ? 2 : 6;
+    const textRows = (mobile ? lines.slice(0, 1) : lines).flatMap(t => fittedRows(R, [t], pw2 - 36, 'micro').filter(Boolean)).slice(0, rowsAvail), ph = 66 + textRows.length * 18 + (mobile ? 44 : controls.length * 40) + 8;
+    U.panel(px, py, pw2, ph, tint, .9);
+    U.tag('Fenomeno del pianeta · prototipo', px + 18, py + 16, tint);
+    U.text(entry.phenomenon, px + 18, py + 36, 'sub', C.pale);
+    textRows.forEach((t, i) => U.text(t, px + 18, py + 66 + i * 18, 'micro', i < 2 ? C.pale : C.muted));
+    controls.forEach((c, i) => {
+        const half = (pw2 - 36) / 2, cx = mobile ? px + 18 + i * (half + 0) : px + 18, cw = mobile ? half - 6 : pw2 - 36, y = py + 66 + textRows.length * 18 + 4 + (mobile ? 0 : i * 40), v = c.get(), step = c.step, unitLabel = c.unit && c.unit !== '1' ? ' ' + c.unit : '';
+        if (!mobile) U.text(c.label, cx, y + 10, 'micro', C.muted);
+        U.text((mobile ? (pw.short?.[c.key] || c.label) + ' = ' : '') + fmtNum(v, 3) + (mobile ? '' : unitLabel), cx + cw - 94, y + 9, mobile ? 'micro' : 'mini', C.pale, { align: 'right' });
+        for (const [j, dir] of [[0, -1], [1, 1]]) {
+            U.button(c.id + '-' + (dir < 0 ? 'down' : 'up'), dir < 0 ? '−' : '+', cx + cw - 82 + j * 44, y, 38, 32, () => c.set(clamp(Number((v + dir * step).toPrecision(12)), c.min, c.max)), { disabled: dir < 0 ? v <= c.min : v >= c.max });
+            U.buttons.at(-1).label = (dir < 0 ? 'Diminuisci ' : 'Aumenta ') + c.label;
+        }
+    });
+    for (const l of W.worldLabels || []) { const [x, y, depth] = l.screen; if (depth <= 0 || x < 40 || x > w - 40 || y < 240 || y > R.h - 100) continue; const t = `${fmtNum(l.T - 273.15, 3)} °C · blu ${Math.round(l.f * 100)}%`, tw = R.textWidth(t, 'micro') + 14; R.roundRect(x - tw / 2, y - 10, tw, 20, 6, color(T.bg, .88)); U.text(t, x, y - 6, 'micro', C.pale, { align: 'center' }); }
+}
 /** Dark band fading downwards behind the screen title on phones, where it overlaps the 3D scene. */
 function titleFade(y0 = 90, y1 = 290) { if (R.w >= 850) return; const n = 22; for (let i = 0; i < n; i++) R.rect(0, y0 + (y1 - y0) * i / n, R.w, (y1 - y0) / n + 1, color(T.bg, .88 * (1 - (i / n) ** 2))); }
 /** Number badge on each unit planet, matching the list; ring and name on the selected or hovered one. */
@@ -311,7 +351,9 @@ function orbitUI() {
         const room = ph - 110 - 139, lines = Math.max(1, Math.min(5, Math.floor((room - 64) / 25)));
         wrapClipText(m.description, px + 20, py + 139, pw - 40, 'body', C.muted, lines);
         const y = py + 139 + lines * 25 + 10;
-        if (y + 54 < py + ph - 110) { U.text('NELL’UNITÀ', px + 20, y, 'mini', C.amber); wrapClipText('Lezione su tre livelli · laboratorio · quattro domande · fonti', px + 20, y + 22, pw - 40, 'micro', C.muted, 2); }
+        const entry = worldEntry(m.id);
+        if (entry && y + 70 < py + ph - 110) { U.text('Fenomeno del pianeta', px + 20, y, 'mini', C.amber); wrapClipText(entry.phenomenon + (entry.status === 'prototipo' ? ': scendi in superficie per vederlo.' : ': in preparazione.'), px + 20, y + 22, pw - 40, 'micro', C.muted, 2); }
+        else if (y + 54 < py + ph - 110) { U.text('NELL’UNITÀ', px + 20, y, 'mini', C.amber); wrapClipText('Lezione su tre livelli · laboratorio · quattro domande · fonti', px + 20, y + 22, pw - 40, 'micro', C.muted, 2); }
     }
     buttonsModule(m, px + 18, py + ph - 110, pw - 36);
     U.button('surface', mobile?'SUPERFICIE':'SCENDI IN SUPERFICIE', mobile?18:35, h-88, mobile?(w-48)/2:230,39,()=>route('surface'));
@@ -320,7 +362,8 @@ function orbitUI() {
 function surfaceUI() {
     const w = R.w, h = R.h, mobile = w < 850, m = selected(), tint = sectorColors[m.sector];
     titleFade();
-    title(areaTrail(m, ['SUPERFICIE']), m.title, 'Quattro stazioni, una per ogni attività dell’unità.');
+    worldPanel(m, mobile);
+    title(areaTrail(m, ['SUPERFICIE']), m.title, mobile && pilotWorld(m.id) ? '' : 'Quattro stazioni, una per ogni attività dell’unità.');
     const names = ['Stazione della lezione', 'Laboratorio', 'Stazione di verifica', 'Stazione dei collegamenti'], short = ['Lezione', 'Laboratorio', 'Verifica', 'Collegamenti'];
     const desc = ['La spiegazione su tre livelli: Base, Applica, Approfondisci.', 'Prevedi, cambia i parametri e confronta due esperimenti.', 'Quattro domande con la spiegazione di ogni risposta.', 'Le unità collegate e le fonti per approfondire.'];
     const stages = [0, 2, 4, 5];
@@ -895,6 +938,7 @@ function draw() {
     R.sceneQuality=S.graphics;R.hoverStarIndex=S.hoveredTarget?.type==='system'?W.systems[S.hoveredTarget.index]?.starIndex:-1;
     R.begin();
     atlas?.tick(performance.now());
+    worldTick();
     W.draw(S.scene, S, data);
     atlas?.draw3D(S,hoverPointer,pointer,U?.focus);
     if(S.scene==='pilot')pilotEducation.draw3D({...S,scene:'mission'});else education.draw3D(S);
@@ -1141,7 +1185,7 @@ async function init() {
         R.text('GAIA', 42, 40, 'display', C.pale);
         R.text('PREPARAZIONE DELLA SPEDIZIONE…', 44, 150, 'sub', C.cyan);
         R.drawUI();
-        [data, readerIndex, pdfIndexes.mat, textureManifest] = await Promise.all([json('content/catalogue.json'), json('assets/reader/index.json'), json('assets/pdf/index.json'), json('assets/planets/manifest.json')]);
+        [data, readerIndex, pdfIndexes.mat, textureManifest, worlds] = await Promise.all([json('content/catalogue.json'), json('assets/reader/index.json'), json('assets/pdf/index.json'), json('assets/planets/manifest.json'), json('content/worlds/catalogue.json')]);
         lessons = {};
         await Promise.all(data.modules.filter(m => m.lesson).map(async (m) => { lessons[m.id] = await json(m.lesson); }));
         lessons.gaia = await json('content/gaia.json');
@@ -1189,7 +1233,7 @@ async function init() {
         computeLab();
         events();
         S.loaded = true;
-        window.GAIA = { version: '1.15.0-fisica', state: S, get atlas() { return atlas; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0), planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
+        window.GAIA = { version: '1.16.0-mondi', state: S, get atlas() { return atlas; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0), planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
         U = new UI(R);
         pilotEducation = new MissionUI(R, store, missionDefinition, { state:S, route, openTheory, openPDF, download, say });
         education = new CourseUI(R,store,curriculum,{state:S,route,openCourse,openTheory,openPDF,openExternal,download,say,currentUnit:()=>selected().id});

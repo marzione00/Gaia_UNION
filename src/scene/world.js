@@ -7,6 +7,7 @@ import { mesh, sphereMesh, transform, perspective, lookAt, mul, project, TAU } f
 import { random, raySphere, backgroundStars } from './data.js';
 import { planetProfile } from './assets.js';
 import { DISCIPLINE } from '../ui/toolkit.js';
+import { pilotWorld } from '../worlds/pilots.js';
 /** Drawn radius: the scale is illustrative, so planets of the units are enlarged to be read and
  * picked, ambient bodies slightly. Orbits keep their computed spacing. */
 export const displayRadius = body => body.radius * (body.explorable ? 1.55 : 1.1);
@@ -157,8 +158,9 @@ export class World {
             const framing=phone?[0,-4.6,0]:[Math.cos(angle)*2,0,-Math.sin(angle)*2];
             eye=heroEye.map((v,i)=>body.position[i]+(v+framing[i])*scale);target=body.position.map((v,i)=>v+framing[i]*scale);space='system';
         }else if(scene==='surface'){
-            const angle=.6+s.yaw*.5,pitch=Math.max(.24,Math.min(.96,.58+(s.pitch-.45)*.6)),distance=52;
-            eye=[Math.sin(angle)*distance*Math.cos(pitch),Math.sin(pitch)*distance+2,Math.cos(angle)*distance*Math.cos(pitch)];target=w<850?[-3,1.8,-1]:[3,1.8,-2];fov=.60;
+            // Prototype worlds may ask for their own framing (for example a low camera for the sky).
+            const wc=s.worldCamera,angle=.6+s.yaw*.5,pitch=wc?Math.max(.06,Math.min(.96,wc.pitch+(s.pitch-.45)*.6)):Math.max(.24,Math.min(.96,.58+(s.pitch-.45)*.6)),distance=wc?wc.distance:52,ty=wc?wc.targetY:1.8;
+            eye=[Math.sin(angle)*distance*Math.cos(pitch),Math.sin(pitch)*distance+2,Math.cos(angle)*distance*Math.cos(pitch)];const fc=s.worldFocus;target=w<850?(fc?[fc[0],ty,fc[1]]:[-3,ty,-1]):[3,ty,-2];fov=.60;
         }else if(scene==='research')eye=[Math.sin(s.yaw*.12)*3,1,37];
         else if(scene==='lab'&&s.lab==='daisyworld')eye=[0,4,30];
         else eye=[0,5,32];
@@ -193,9 +195,9 @@ export class World {
         this.galaxyEye=cosmic.eye;this.galaxyTarget=cosmic.target;
         this.galaxyVP=mul(perspective(this.fov,this.R.w/this.R.h,.00004,500),lookAt(cosmic.eye,cosmic.target));
     }
-    drawPlanet(body,time,center,radius,light,detailed=false) {
+    drawPlanet(body,time,center,radius,light,detailed=false,tint=null) {
         const moons=Array.from({length:body.moons},(_,j)=>{const a=time*(.06/(j+1))+body.phase+j*2.4,d=radius*(2.8+j*.65);return {center:center.map((v,i)=>v+[Math.cos(a)*d,Math.sin(a)*d*.12,Math.sin(a)*d][i]),radius:radius*(.12+j*.025),angle:a};});
-        const R=this.R,profile=body.profile,options={eye:this.eye,light,material:12,center,radius,texture:this.planetTextures?.get(profile.texture,detailed)||this.textures[profile.texture],atmosphere:profile.atmosphere,ocean:profile.ocean,disguise:DISGUISE[profile.texture]||0,occluders:moons.map(m=>[...m.center,m.radius])},size=radius/5.3;
+        const R=this.R,profile=body.profile,options={eye:this.eye,light,material:12,center,radius,texture:this.planetTextures?.get(profile.texture,detailed)||this.textures[profile.texture],atmosphere:profile.atmosphere,ocean:profile.ocean,disguise:DISGUISE[profile.texture]||0,tint:tint||[1,1,1,1],occluders:moons.map(m=>[...m.center,m.radius])},size=radius/5.3;
         const geometry=this.R.meshes.has('planet-'+profile.texture)?'planet-'+profile.texture:detailed?'fineSphere':'sphere',rotation=time*body.spin+body.rotation;
         R.drawMesh(geometry,this.vp,transform(...center,radius,rotation,body.tilt),options);
         if(profile.clouds)R.drawMesh(geometry,this.vp,transform(...center,radius*1.006,rotation+time*.002,body.tilt),{...options,texture:this.planetTextures?.get('clouds',detailed)||this.textures.clouds,material:5,opacity:.9});
@@ -227,7 +229,7 @@ export class World {
             const p=bodyAtTime(body,s.time),center=map(p.position),radius=displayRadius(p)*scale;
             // Orbits of the units in the colour of the discipline; the others stay faint.
             if(s.scene!=='orbit')R.drawMesh('orbit-'+body.id,this.vp,transform(...origin,scale),{eye:this.eye,material:16,tint:body.explorable?DISCIPLINE[body.sector]:[.5,.56,.64,1],opacity:body.explorable?(body.index===s.selected?.95:.68):.14});
-            this.drawPlanet(p,s.time,center,radius,normal(p.position.map(v=>-v)),s.scene==='orbit'&&body.index===s.selected);
+            this.drawPlanet(p,s.time,center,radius,normal(p.position.map(v=>-v)),s.scene==='orbit'&&body.index===s.selected,body.index===s.selected?s.worldTint:null);
             const xy=project(center,this.vp,R.w,R.h),apparent=radius*R.h/(2*Math.tan(this.fov/2)*xy[2]);
             if(s.scene==='system'&&!this.travelling)this.projections.push({type:body.explorable?'planet':'ambient',index:body.explorable?body.index:body.slot,body,...xyToObj(xy),r:Math.max(11,apparent*1.12),position:center,worldRadius:radius});
         }
@@ -259,7 +261,14 @@ export class World {
             const light=this.surface.light.direction,lightEye=light.map(x=>x*75),lightVP=mul(ortho,lookAt(lightEye,[0,0,0]));
             R.renderShadow(this.biome,this.surface.meshes.filter(m=>m.kind!==2).map(m=>m.id),lightVP);
             if(this.biome==='marea')R.renderReflection(this.vp,this.eye,this.surface.meshes.filter(m=>m.kind!==2).map(m=>m.id),light);
-            for(const m of this.surface.meshes)R.drawMesh(m.id,this.vp,transform(),{eye:this.eye,light,material:10});
+            // Prototype worlds draw their phenomenon on top of the landing surface (src/worlds/pilots.js).
+            const unit=data?.modules?.[s.selected]?.id,world=unit&&s.worldState?pilotWorld(unit):null;
+            for(const m of this.surface.meshes){if(world?.hidesWater&&m.kind===2)continue;R.drawMesh(m.id,this.vp,transform(),{eye:this.eye,light,material:10});}
+            if(world&&world.surface===this.biome){
+                if(this.builtWorld!==unit){world.build(R,this.surface);this.builtWorld=unit;}
+                world.update(R,s.worldState);world.draw(R,{vp:this.vp,eye:this.eye,target:this.target,light,sun:light,identity:transform()},s.worldState,this.textures);
+                this.worldLabels=world.labels?world.labels(s.worldState).map(l=>({...l,screen:project(l.position,this.vp,R.w,R.h)})):[];
+            }else this.worldLabels=[];
             for(const station of this.surface.stations){
                 const p=station.position,label=station.labelPosition,selected=station.index===s.station;
                 if(selected)R.drawMesh('ring',this.vp,transform(p[0],p[1]+.12,p[2],station.radius*1.08),{eye:this.eye,tint:TINTS[station.index],emission:.7,opacity:.7});
