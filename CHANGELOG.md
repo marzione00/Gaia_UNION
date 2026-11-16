@@ -1,3 +1,14 @@
+# 1.22.0: Il libro della galassia, volume di fisica
+
+- Tutte le 25 unità di fisica hanno un capitolo. Oltre al pilota «Forze e leggi di Newton», 24 capitoli riprendono dalla dispensa di fisica del corso testo, formule, diagrammi ed esercizi risolti. Il volume conta circa 112.000 parole, 575 figure, 710 esercizi e oltre 8.200 formule.
+- Ogni capitolo si apre con il problema del pianeta dell'unità e rimanda ai capitoli vicini. I rimandi «Capitolo N» della dispensa portano al capitolo della galassia che contiene quel materiale.
+- Sezioni scritte per il sito dove la dispensa dedica all'argomento poche pagine: pressione, legge di Stevino, manometri e barometri, macchine idrauliche, applicazioni di Bernoulli; origine della spinta, galleggiamento, misure di densità, aerostati, stabilità; momento come prodotto vettoriale, equilibrio del corpo rigido, leve, baricentro; momenti d'inerzia notevoli, assi paralleli, rotolamento; lavoro del campo, gradiente del potenziale, elettronvolt, energia del condensatore; resistività, serie e parallelo, leggi di Kirchhoff, effetto Joule. Con figure, esempi ed esercizi.
+- I diagrammi della dispensa sono compilati da TikZ in SVG, ricolorati per il tema scuro e caricati quando si avvicinano allo schermo; in stampa riprendono i colori chiari.
+- Lettura più fluida dei capitoli lunghi: le formule vengono composte prima fino alla sezione richiesta, poi a gruppi in sottofondo. Sul telefono le formule in linea troppo larghe scorrono di lato invece di allargare la pagina.
+- Corretto: nelle figure disegnate nel capitolo le linee aperte con più punti non vengono più riempite.
+- Nuovi strumenti: `tools/libro/tex2libro.py` per la conversione, `tools/qa_libro_browser.py` per la prova di tutti i capitoli nel browser.
+- Nuovi test sui capitoli generati, sulle figure e sui numeri delle sezioni aggiunte.
+
 # 1.21.0: Il libro della galassia, capitolo pilota
 
 - Nuovo livello di lettura in HTML sopra la scena 3D: indice del capitolo, testo selezionabile, formule con MathJax caricato alla prima apertura, figure SVG, esempi svolti, esercizi con soluzione da aprire, approfondimenti a richiesta, stampa con le soluzioni aperte, impaginazione per telefono. La galassia resta visibile in trasparenza e la barra superiore resta attiva.

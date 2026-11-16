@@ -9,7 +9,7 @@ let mathjax = null;
 function loadMathJax(base = 'vendor/mathjax/') {
     if (mathjax) return mathjax;
     globalThis.MathJax = {
-        tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']], macros: { vect: ['\\boldsymbol{#1}', 1], dd: '\\,\\mathrm{d}', un: ['\\,\\mathrm{#1}', 1] }, packages: { '[+]': ['boldsymbol'] } },
+        tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']], macros: { vect: ['\\boldsymbol{#1}', 1], vers: ['\\hat{\\boldsymbol{#1}}', 1], dd: '\\,\\mathrm{d}', un: ['\\,\\mathrm{#1}', 1], ket: ['\\lvert #1\\rangle', 1], bra: ['\\langle #1\\rvert', 1], braket: ['\\langle #1\\,\\vert\\,#2\\rangle', 2], oiint: '\\mathop{\\unicode{x222F}}\\nolimits' }, packages: { '[+]': ['boldsymbol'] } },
         loader: { load: ['[tex]/boldsymbol'], paths: { mathjax: base.replace(/\/$/, '') } },
         svg: { fontCache: 'global' }, startup: { typeset: false }
     };
@@ -51,13 +51,15 @@ export class BookReader {
             if (!chapter) { chapter = parseChapter(await this.fetchText(entry.file)); this.cache.set(unit, chapter); }
             if (this.unit !== unit) return;
             this.render(unit, entry, chapter);
+            this.figures(entry.file.replace(/[^/]*$/, ''));
             if (section) this.scrollTo(section);
-            // Typesetting changes the height of the formulas: scroll again to the requested section afterwards.
-            await this.typeset();
+            // Typesetting changes the height of the formulas: the sections up to the requested one are typeset
+            // first, then the page scrolls there again and the rest is typeset in the background.
+            await this.typeset(section);
             if (section && this.unit === unit && this.section === section) this.scrollTo(section);
         } catch (e) { this.root.innerHTML = `<div class="libro-pagina"><div class="libro-colonna"><h1>Capitolo non disponibile</h1><p>${escapeHtml(e.message)}</p><button data-azione="chiudi">Torna al pianeta</button></div></div>`; }
     }
-    hide() { if (!this.visible) return; this.visible = false; this.unit = null; this.root.hidden = true; this.root.innerHTML = ''; this.observer?.disconnect(); }
+    hide() { if (!this.visible) return; this.visible = false; this.unit = null; this.root.hidden = true; this.root.innerHTML = ''; this.observer?.disconnect(); this.figureObserver?.disconnect(); }
     missing(unit) {
         const info = this.unitInfo(unit);
         return `<div class="libro-pagina"><div class="libro-colonna"><p class="libro-occhiello">Il libro della galassia</p><h1>${escapeHtml(info?.title || unit)}</h1><p>Il capitolo di questa unità è in preparazione. Il percorso guidato e le stazioni in superficie restano disponibili.</p><button data-azione="chiudi">Vai al pianeta</button></div></div>`;
@@ -101,14 +103,45 @@ export class BookReader {
         if (label) label.textContent = `Sezioni lette: ${read} di ${all.length}`; if (bar) bar.style.width = (all.length ? 100 * read / all.length : 0) + '%';
     }
     scrollTo(id, smooth = false) { const el = this.root.querySelector('#' + CSS.escape(id)); if (el) { el.scrollIntoView({ block: 'start', behavior: smooth ? 'smooth' : 'instant' }); this.section = id; } this.root.classList.remove('indice-aperto'); }
-    async typeset() {
-        try { const MJ = await loadMathJax(); const article = this.root.querySelector('.libro-capitolo'); if (article) await MJ.typesetPromise([article]); this.root.dataset.formule = 'pronte'; }
-        catch (e) { this.root.dataset.formule = 'errore'; console.warn('GAIA libro:', e.message); }
+    async typeset(section = null) {
+        const unit = this.unit;
+        try {
+            const MJ = await loadMathJax(), parts = [...this.root.querySelectorAll('.libro-capitolo > *')];
+            const stop = section ? parts.findIndex(p => p.id === section || p.querySelector?.('#' + CSS.escape(section))) : -1;
+            const first = parts.slice(0, Math.max(stop + 1, 2)), rest = parts.slice(first.length);
+            if (first.length) { await MJ.typesetPromise(first); this.wideFormulas(first); }
+            if (section && this.unit === unit) this.scrollTo(section);
+            // Long chapters: typeset the remaining sections a few at a time, keeping the page responsive.
+            for (let i = 0; i < rest.length && this.unit === unit; i += 3) { await MJ.typesetPromise(rest.slice(i, i + 3)); this.wideFormulas(rest.slice(i, i + 3)); await new Promise(r => setTimeout(r, 0)); }
+            if (this.unit === unit) this.root.dataset.formule = 'pronte';
+        } catch (e) { this.root.dataset.formule = 'errore'; console.warn('GAIA libro:', e.message); }
+    }
+    /** Inline formulas wider than the column (on phones) become a line of their own that scrolls sideways. */
+    wideFormulas(parts) {
+        const width = this.root.querySelector('.libro-capitolo')?.clientWidth || 0; if (!width) return;
+        for (const p of parts) for (const c of p.querySelectorAll?.('mjx-container:not([display="true"])') || []) if (c.getBoundingClientRect().width > width) c.classList.add('libro-formula-lunga');
+    }
+    /** Loads the SVG figures of the chapter when they come near the screen (all of them before printing). */
+    figures(base) {
+        this.figureObserver?.disconnect();
+        const load = async el => {
+            if (el.dataset.stato) return; el.dataset.stato = 'carico';
+            try {
+                const svg = await this.fetchText(base + el.dataset.src);
+                if (!/^\s*<svg[\s>]/.test(svg) || /<script|<foreignObject|\son\w+\s*=/i.test(svg)) throw new Error('figura non valida');
+                el.innerHTML = svg; el.dataset.stato = 'pronta';
+            } catch (e) { el.dataset.stato = 'errore'; el.textContent = 'Figura non disponibile'; }
+        };
+        const all = [...this.root.querySelectorAll('.libro-svg-esterno[data-src]')];
+        this.loadAllFigures = () => Promise.all(all.map(load));
+        if (typeof IntersectionObserver !== 'function') { this.loadAllFigures(); return; }
+        this.figureObserver = new IntersectionObserver(entries => { for (const e of entries) if (e.isIntersecting) { this.figureObserver.unobserve(e.target); load(e.target); } }, { root: this.page, rootMargin: '900px 0px' });
+        for (const el of all) this.figureObserver.observe(el);
     }
     click(e) {
         const a = e.target.closest('a,button,[data-azione]'); if (!a || !this.root.contains(a)) return;
         if (a.dataset.azione === 'chiudi') { e.preventDefault(); this.onClose?.(); return; }
-        if (a.dataset.azione === 'stampa') { e.preventDefault(); print(); return; }
+        if (a.dataset.azione === 'stampa') { e.preventDefault(); Promise.resolve(this.loadAllFigures?.()).finally(() => print()); return; }
         if (a.dataset.azione === 'indice') { e.preventDefault(); this.root.classList.toggle('indice-aperto'); return; }
         if (a.dataset.unit) { e.preventDefault(); this.onUnit?.(a.dataset.unit, a.dataset.anchor || null); return; }
         if (a.dataset.anchor) { e.preventDefault(); this.scrollTo(a.dataset.anchor, true); }
