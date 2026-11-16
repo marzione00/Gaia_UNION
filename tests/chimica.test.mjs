@@ -206,3 +206,33 @@ test('Chimica 09: forze intermolecolari, numeri ricalcolati',()=>{
  // Alcohol solubility trend.
  assert.equal(r(7/2,1),3.5);assert.equal(r(Math.cbrt(2/0.05),1),3.4);
 });
+test('Chimica 10: gas, numeri ricalcolati',()=>{
+ const R=8.314462618,Rb=R/100,kB=1.380649e-23,vq=(M,T)=>Math.sqrt(3*R*T/(M/1000));
+ // Units, molar volumes, mercury column.
+ assert.equal(r(101325/(13595.1*9.80665)*1000,0),760);assert.equal(r(R*273.15/1e5*1000,3),22.711);assert.equal(r(R*298.15/1e5*1000,3),24.79);assert.equal(r(R*273.15/101325*1000,3),22.414);
+ assert.equal(r(R/101325*1000,5),0.08206);assert.equal(r(1025*9.81*10/1e5,2),1.01);assert.equal(r(0.08*9.81,2),0.78);
+ // Worked examples: cylinder, tyre, electrolysis, densities.
+ const n=200*12/(Rb*293.15);assert.equal(r(n,1),98.5);assert.equal(r(n*28.96/1000,2),2.85);
+ assert.equal(r(2.2+1.013,2),3.21);assert.equal(r(3.213*313.15/283.15,2),3.55);assert.equal(r(3.213*313.15/283.15-1.013,1),2.5);assert.equal(r(2.2*313.15/283.15,2),2.43);
+ assert.equal(r(1/18.015,4),0.0555);assert.equal(r(1/18.015*24.79,2),1.38);assert.equal(r(0.5/18.015*24.79,3),0.688);
+ assert.equal(r(28.96*1e5/(R*298.15)/1000,2),1.17);assert.equal(r(4.003*1e5/(R*298.15)/1000,2),0.16);
+ assert.equal(r(100*(293.15/283.15-1),1),3.5);assert.equal(r(2*283.15-273.15,0),293);
+ // Dalton.
+ assert.equal(r(0.2095*101.325,1),21.2);assert.equal(r(0.2095*33.7,1),7.1);assert.equal(r(0.7808*101.325,1),79.1);assert.equal(r(0.7808*33.7,1),26.3);assert.equal(r(0.2095*4,2),0.84);
+ assert.equal(r(0.2095*31.998/(0.7808*28.014+0.2095*31.998+0.0093*39.948+0.0004*44.01)*100,1),23.1);
+ // Kinetic theory.
+ assert.equal(r(1.5*R*298.15/1000,2),3.72);assert.deepEqual([2.016,4.003,18.015,28.014,31.998,44.009].map(M=>r(vq(M,298.15),0)),[1921,1363,643,515,482,411]);
+ assert.equal(r(Math.sqrt(8*R*298.15/(Math.PI*0.028014)),0),475);const lam=kB*298.15/(Math.SQRT2*Math.PI*(3.7e-10)**2*1e5);assert.equal(r(lam*1e9,0),68);assert.equal(r(475/lam/1e9,0),7);
+ assert.equal(r(kB*298.15/1e5*1e26,2),4.12);assert.equal(r(Math.cbrt(kB*298.15/1e5)*1e9,2),3.45);assert.equal(r(4/3*Math.PI*(0.185e-9)**3*1e29,2),2.65);assert.equal(r(100*4/3*Math.PI*(0.185e-9)**3/(kB*298.15/1e5),3),0.064);
+ assert.equal(r(28.01/(0.807*NA)*1e23,1),5.8);
+ // Graham and uranium enrichment.
+ assert.equal(r(Math.sqrt(28.014/4.003),2),2.65);const a=Math.sqrt((238.0508+6*18.9984)/(235.0439+6*18.9984));assert.equal(r(a,4),1.0043);
+ const Rr=(0.04/0.96)/(0.0072/0.9928);assert.equal(r(Rr,2),5.75);assert.equal(r(Math.log(Rr)/Math.log(a),-1),410);
+ // Van der Waals CO2 (CRC a, b).
+ assert.equal(r(Rb*300,2),24.94);assert.equal(r(Rb*300/(1-0.04267),2),26.06);assert.equal(r(Rb*300/(1-0.04267)-3.640,2),22.42);assert.equal(r((Rb*300/(1-0.04267)-3.640)/(Rb*300),2),0.9);
+ // Exercises.
+ assert.equal(r(745*101.325/760,1),99.3);assert.equal(r(745/760,3),0.98);assert.equal(r(3*258.15/293.15,1),2.6);const nc=5/(Rb*298.15);assert.equal(r(nc,3),0.202);assert.equal(r(nc*44.01,1),8.9);
+ assert.equal(r(0.2095*70,1),14.7);assert.equal(r(1.8*Rb*298.15,1),44.6);const no=(100.8-3.17)*1e3*2.5e-4/(R*298.15);assert.equal(r(no*1e3,2),9.85);assert.equal(r(no*31.998,3),0.315);
+ const d20=28.96*101300/(R*293.15)/1000,d100=28.96*101300/(R*373.15)/1000;assert.equal(r(d20,3),1.204);assert.equal(r(d100,3),0.946);assert.equal(r((d20-d100)*2800,-1),720);
+ assert.equal(r(1.4/0.2095,2),6.68);assert.equal(r((6.68-1.013)/0.1006,0),56);assert.equal(r(1.4/0.32,2),4.38);assert.equal(r((4.375-1.013)/0.1006,0),33);
+});
