@@ -236,3 +236,29 @@ test('Chimica 10: gas, numeri ricalcolati',()=>{
  const d20=28.96*101300/(R*293.15)/1000,d100=28.96*101300/(R*373.15)/1000;assert.equal(r(d20,3),1.204);assert.equal(r(d100,3),0.946);assert.equal(r((d20-d100)*2800,-1),720);
  assert.equal(r(1.4/0.2095,2),6.68);assert.equal(r((6.68-1.013)/0.1006,0),56);assert.equal(r(1.4/0.32,2),4.38);assert.equal(r((4.375-1.013)/0.1006,0),33);
 });
+test('Chimica 11: stati e transizioni, numeri ricalcolati',()=>{
+ const R=8.314462618,Tc=647.096,pc=22.064e6,A=[-7.85951783,1.84408259,-11.7866497,22.6807411,-15.9618719,1.80122502];
+ // IAPWS (Wagner-Pruss 1993) saturation pressure of water and its inverse.
+ const ps=T=>{const t=1-T/Tc;return pc*Math.exp(Tc/T*(A[0]*t+A[1]*t**1.5+A[2]*t**3+A[3]*t**3.5+A[4]*t**4+A[5]*t**7.5));};
+ const ts=p=>{let lo=200,hi=640;for(let i=0;i<100;i++){const m=(lo+hi)/2;if(ps(m)>p)hi=m;else lo=m;}return lo-273.15;};
+ assert.equal(r(ps(273.16),3),611.657);assert.deepEqual([273.15,293.15,298.15,323.15,353.15,373.15].map(T=>r(ps(T)/1000,2)),[0.61,2.34,3.17,12.35,47.42,101.42]);
+ assert.equal(r(ts(101325),2),99.97);assert.equal(r(ts(33700),0),72);assert.equal(r(ts(70000),0),90);assert.equal(r(ts(2e5),1),120.2);
+ assert.equal(r(ts(0.6*ps(298.15)),1),16.7);assert.equal(r(0.6*3.17,2),1.9);assert.equal(r(ts(0.5*3.17e3),1),13.9);assert.equal(r(ps(287.15)/1000,2),1.6);assert.equal(r(ps(288.15)/1000,2),1.71);
+ // Vapour volume at the normal boiling point.
+ const rv=18.015*101325/(R*373.15)/1000;assert.equal(r(1/rv,2),1.7);assert.equal(r(1/0.9584,2),1.04);
+ // Clausius-Clapeyron.
+ const cc=(T1,P1,P2,H)=>1/(1/T1-R*Math.log(P2/P1)/H);
+ assert.equal(r(Math.log(2/1.013),3),0.68);assert.equal(r(R*Math.log(2/1.013)/40700*1e4,2),1.39);assert.equal(r(1/373.15-R*Math.log(2/1.013)/40700,6),0.002541);assert.equal(r(cc(373.15,1.013,2,40700),0),394);
+ assert.equal(r(R*Math.log(47.4/2.34)/(1/293.15-1/353.15)/1000,1),43.2);assert.equal(r(Math.log(47.4/2.34),3),3.008);assert.equal(r((1/293.15-1/353.15)*1e4,3),5.796);
+ assert.equal(r(42300/R,0),5088);assert.equal(r((1/298.15-1/351.45)*1e4,2),5.09);assert.equal(r(101.3*Math.exp(-42300/R*(1/298.15-1/351.45)),1),7.6);
+ assert.equal(r(Math.log(33.7/101.3),3),-1.101);assert.equal(r(R/40700*1e4,2),2.04);assert.equal(r(cc(373.15,101.3,33.7,40700),1),344.3);assert.equal(r(cc(373.15,101.3,33.7,41900)-273.15,1),71.9);
+ // Heating curve and latent heats.
+ assert.deepEqual([100*2.09*20,100*334,100*4.18*100,100*2257,100*2.0*20].map(x=>r(x/1000,1)),[4.2,33.4,41.8,225.7,4]);assert.equal(r((4180+33400+41800+225700+4000)/1000,0),309);
+ assert.equal(r(6010/18.015,0),334);assert.equal(r(40650/18.015,0),2256);assert.equal(r(2257/334,2),6.76);
+ assert.equal(r((25*2.09*10+25*334+25*4.18*100+25*2257)/1000,1),75.7);assert.equal(r((50*334+50*4.18*20)/1000,1),20.9);
+ assert.equal(r((10*2257+10*4.18*63)/1000,1),25.2);assert.equal(r(10*4.18*63/1000,1),2.6);assert.equal(r(100*4.2*10/334,1),12.6);
+ assert.equal(r(6.01+45.05,2),51.06);assert.equal(r(200/18.015*51.06,0),567);
+ // Clapeyron slope for ice.
+ const dV=(18.015/0.9998-18.015/0.9167)*1e-6,sl=273.15*dV/6010;assert.equal(r(dV*1e6,2),-1.63);assert.equal(r(sl*1e8,1),-7.4);assert.equal(r(sl*1e5,4),-0.0074);assert.equal(r(-1/(sl*1e5),0),135);
+ assert.equal(r(70*9.81/2e-4/1e5,0),34);assert.equal(r(34*0.0074,2),0.25);
+});
