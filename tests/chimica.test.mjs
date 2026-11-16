@@ -640,3 +640,25 @@ test('Chimica 23: ossidoriduzione ed elettrochimica, numeri ricalcolati',()=>{
  assert.equal(r(1000/26.98,1),37.1);assert.equal(r(3*1000/26.98,1),111.2);assert.equal(r(qa*4.5/1e7,1),4.8);
  assert.equal(r(237100/(2*F),3),1.229);
 });
+
+test('Chimica 24: chimica organica, numeri ricalcolati',()=>{
+ const C=12.011,H=1.008,O=15.999,R=8.314462618;
+ // Homologous series and isomer counts (OEIS A000602).
+ const alk=n=>[n,2*n+2];assert.deepEqual(alk(12),[12,26]);assert.equal(r(12*C+26*H,2),170.34);
+ assert.deepEqual([4,5,6,7,8,10].map(n=>({4:2,5:3,6:5,7:9,8:18,10:75})[n]),[2,3,5,9,18,75]);
+ // Benzene resonance energy from formation enthalpies.
+ assert.equal(r(-123.4-82.6,1),-206);assert.equal(r(3*(-120)-(-206.0),-1),-150);
+ assert.equal(r(-84.68-52.26,1),-136.9);assert.equal(r(-206.0/3,1),-68.7);assert.equal(r(68.7/136.9,1),0.5);
+ // Degree of unsaturation.
+ const du=(c,h,n=0,x=0)=>(2*c+2+n-h-x)/2;assert.deepEqual([du(6,12),du(6,6),du(7,8),du(2,3,0,1),du(5,5,1),du(2,6),du(4,8)],[1,4,4,1,4,0,1]);
+ // Octane combustion.
+ const M=8*C+18*H;assert.equal(r(M,2),114.23);assert.equal(r(1000/M,2),8.75);assert.equal(r(8*1000/M,1),70);assert.equal(r(8*1000/M*44.01/1000,2),3.08);
+ assert.equal(r(12.5*1000/M,1),109.4);assert.equal(r(12.5*1000/M*31.998/1000,2),3.5);
+ // Combustion analysis.
+ const nC=0.3994/44.01,gC=nC*C,nH=2*0.1636/18.015,gH=nH*H,gO=0.2-gC-gH,nO=gO/O;
+ assert.equal(r(nC*1e3,2),9.08);assert.equal(r(gC,4),0.109);assert.equal(r(nH*1e2,2),1.82);assert.equal(r(gH,4),0.0183);assert.equal(r(gO,4),0.0727);assert.equal(r(nO*1e3,2),4.54);
+ assert.equal(r(nC/nO,0),2);assert.equal(r(nH/nO,0),4);assert.equal(r(4*C+8*H+2*O,0),88);
+ // Stereoisomers and ethane rotation.
+ assert.equal(2**4,16);const f=Math.exp(-12000/(R*298.15));assert.equal(r(12000/(R*298.15),2),4.84);assert.equal(r(f*1e3,1),7.9);
+ const nu=1.380649e-23*298.15/6.62607015e-34;assert.equal(r(nu/1e12,1),6.2);assert.equal(r(nu*f/1e10,0),5);
+});
