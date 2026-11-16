@@ -196,7 +196,8 @@ $$M=\frac{m}{n},\qquad[M]=\mathrm{g/mol}.$$
 ::: esempio Masse molari di alcune sostanze
 Per l'acqua, $M(\mathrm{H_2O})=2\cdot1{,}008+15{,}999=18{,}015\un{g/mol}$.
 
-Per il glucosio, $M(\mathrm{C_6H_{12}O_6})=6\cdot12{,}011+12\cdot1{,}008+6\cdot15{,}999=72{,}066+12{,}096+95{,}994=180{,}156\un{g/mol}$.
+Per il glucosio,
+$$\begin{aligned}M(\mathrm{C_6H_{12}O_6})&=6\cdot12{,}011+12\cdot1{,}008+6\cdot15{,}999\\&=72{,}066+12{,}096+95{,}994=180{,}156\un{g/mol}.\end{aligned}$$
 
 Per il carbonato di calcio, $M(\mathrm{CaCO_3})=40{,}078+12{,}011+3\cdot15{,}999=100{,}086\un{g/mol}$.
 
@@ -323,7 +324,7 @@ La composizione è indipendente dalla dimensione del campione ed è una propriet
 
 ::: esempio Composizione del glucosio
 Per $\mathrm{C_6H_{12}O_6}$, con $M_r=180{,}156$:
-$$w(\mathrm{C})=\frac{72{,}066}{180{,}156}\simeq40{,}00\%,\qquad w(\mathrm{H})=\frac{12{,}096}{180{,}156}\simeq6{,}71\%,\qquad w(\mathrm{O})=\frac{95{,}994}{180{,}156}\simeq53{,}28\%.$$
+$$\begin{aligned}w(\mathrm{C})&=\frac{72{,}066}{180{,}156}\simeq40{,}00\%,\\ w(\mathrm{H})&=\frac{12{,}096}{180{,}156}\simeq6{,}71\%,\\ w(\mathrm{O})&=\frac{95{,}994}{180{,}156}\simeq53{,}28\%.\end{aligned}$$
 La somma è $99{,}99\%$; lo scarto di un centesimo viene dagli arrotondamenti.
 :::
 
@@ -387,7 +388,7 @@ La procedura per ricavare la formula minima dalla composizione percentuale in ma
 
 ::: esempio Un composto di carbonio, idrogeno e ossigeno
 Un composto contiene il $40{,}00\%$ di carbonio, il $6{,}71\%$ di idrogeno e il $53{,}29\%$ di ossigeno. In $100\un{g}$:
-$$n(\mathrm{C})=\frac{40{,}00}{12{,}011}\simeq3{,}330\un{mol},\qquad n(\mathrm{H})=\frac{6{,}71}{1{,}008}\simeq6{,}657\un{mol},\qquad n(\mathrm{O})=\frac{53{,}29}{15{,}999}\simeq3{,}331\un{mol}.$$
+$$\begin{aligned}n(\mathrm{C})&=\frac{40{,}00}{12{,}011}\simeq3{,}330\un{mol},\\ n(\mathrm{H})&=\frac{6{,}71}{1{,}008}\simeq6{,}657\un{mol},\\ n(\mathrm{O})&=\frac{53{,}29}{15{,}999}\simeq3{,}331\un{mol}.\end{aligned}$$
 Dividendo per $3{,}330$ si ottiene $1:1{,}999:1{,}000$, cioè la formula minima $\mathrm{CH_2O}$.
 :::
 
@@ -605,7 +606,8 @@ $n=1{,}00/18{,}015\un{mol}\simeq5{,}551\times10^{-2}\un{mol}$, e $N=nN_A\simeq3{
 ::: esercizio Due masse molari [base]
 Calcolare la massa molare dell'acido solforico, $\mathrm{H_2SO_4}$, e quella della caffeina, $\mathrm{C_8H_{10}N_4O_2}$.
 >>> soluzione
-$M(\mathrm{H_2SO_4})=2\cdot1{,}008+32{,}06+4\cdot15{,}999\simeq98{,}07\un{g/mol}$. Per la caffeina: $8\cdot12{,}011+10\cdot1{,}008+4\cdot14{,}007+2\cdot15{,}999=96{,}088+10{,}080+56{,}028+31{,}998=194{,}194\un{g/mol}$.
+$M(\mathrm{H_2SO_4})=2\cdot1{,}008+32{,}06+4\cdot15{,}999\simeq98{,}07\un{g/mol}$. Per la caffeina:
+$$\begin{aligned}M(\mathrm{C_8H_{10}N_4O_2})&=8\cdot12{,}011+10\cdot1{,}008+4\cdot14{,}007+2\cdot15{,}999\\&=96{,}088+10{,}080+56{,}028+31{,}998=194{,}194\un{g/mol}.\end{aligned}$$
 :::
 
 ::: esercizio Ossigeno nel diossido di carbonio [base]
@@ -683,7 +685,9 @@ La frazione in massa del cloro vale $35{,}45/58{,}44\simeq0{,}6066$ in $\mathrm{
 ::: esercizio Un atomo di carbonio e un tratto di matita [avanzato]
 Calcolare la massa di un atomo di carbonio-12 usando la costante di Avogadro, e confrontarla con $12\un{u}$. Una riga tracciata con la matita lascia sul foglio $1{,}0\un{mg}$ di grafite: quanti atomi di carbonio contiene?
 >>> soluzione
-Con $M(^{12}\mathrm{C})=12{,}000\un{g/mol}$: $m=12{,}000\un{g/mol}/6{,}022\,140\,76\times10^{23}\un{mol^{-1}}\simeq1{,}9926\times10^{-23}\un{g}=1{,}9926\times10^{-26}\un{kg}$, in accordo con $12\cdot1{,}660\,54\times10^{-27}\un{kg}$; la differenza fra i due calcoli è di una parte su un miliardo. Per la riga: $n=1{,}0\times10^{-3}/12{,}011\un{mol}\simeq8{,}3\times10^{-5}\un{mol}$, cioè circa $5{,}0\times10^{19}$ atomi.
+Con $M(^{12}\mathrm{C})=12{,}000\un{g/mol}$:
+$$m=\frac{12{,}000\un{g/mol}}{6{,}022\,140\,76\times10^{23}\un{mol^{-1}}}\simeq1{,}9926\times10^{-23}\un{g}=1{,}9926\times10^{-26}\un{kg},$$
+in accordo con $12\cdot1{,}660\,54\times10^{-27}\un{kg}$; la differenza fra i due calcoli è di una parte su un miliardo. Per la riga: $n=1{,}0\times10^{-3}/12{,}011\un{mol}\simeq8{,}3\times10^{-5}\un{mol}$, cioè circa $5{,}0\times10^{19}$ atomi.
 :::
 
 ::: esercizio Un ossido magnetico [avanzato]
