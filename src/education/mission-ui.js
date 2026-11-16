@@ -118,16 +118,16 @@ export class MissionUI {
         rows.slice(this.page*capacity,(this.page+1)*capacity).forEach((row,i)=>U.text(row,x,y+60+i*line,'body',C.pale));
         const by=rect.y+rect.h-42-reserve;
         U.button('mission-page-prev','◂',x,by,38,28,()=>this.page--,{disabled:this.page===0});
-        U.text(`PAGINA ${this.page+1}/${count}`,rect.x+rect.w/2,by+8,'micro',C.muted,{align:'center'});
+        U.text(`Pagina ${this.page+1} di ${count}`,rect.x+rect.w/2,by+8,'micro',C.muted,{align:'center'});
         U.button('mission-page-next','▸',rect.x+rect.w-56,by,38,28,()=>this.page++,{disabled:this.page===count-1});
     }
     labUI(U,l,state) {
         const r=this.record,p=r.parameters,rect=l.right,panel=l.controlRect,x=panel.x,w=panel.w,y=l.controlY;
         U.tag('I [u.a.] · t [s]',rect.x+10,rect.y+7,C.cyan);
         this.scene.drawLabels(U);
-        U.text('CAMPIONI',rect.x+12,l.graph.y+10,'micro',C.lime);
-        U.text('CORRENTE',rect.x+100,l.graph.y+10,'micro',C.cyan);
-        if(r.snapshots.A)U.text('A SALVATO',rect.x+196,l.graph.y+10,'micro',C.amber);
+        U.text('● Campioni',rect.x+12,l.graph.y+10,'micro',C.lime);
+        U.text('● Curva attuale',rect.x+112,l.graph.y+10,'micro',C.cyan);
+        if(r.snapshots.A)U.text('A salvato',rect.x+196,l.graph.y+10,'micro',C.amber);
         U.button('mission-rotate-left','◂',x+w-78,rect.y,30,28,()=>state.yaw-=.2,{small:true});
         U.button('mission-rotate-right','▸',x+w-42,rect.y,30,28,()=>state.yaw+=.2,{small:true});
         U.panel(x,y,w,panel.h,C.cyan,.96);
@@ -146,7 +146,7 @@ export class MissionUI {
             U.button('mission-'+key+'-minus','−',center-width-3,y+139,width,25,()=>this.setParameters({[key]:Math.max(PARAMETER_LIMITS[key][0],Number((this.record.parameters[key]-step).toFixed(3)))}),{disabled:inactive||p[key]<=PARAMETER_LIMITS[key][0],small:true});
             U.button('mission-'+key+'-plus','+',center+3,y+139,width,25,()=>this.setParameters({[key]:Math.min(PARAMETER_LIMITS[key][1],Number((this.record.parameters[key]+step).toFixed(3)))}),{disabled:inactive||p[key]>=PARAMETER_LIMITS[key][1],small:true});
         });
-        U.text('PREVEDI: fra t=2 e t=4 il modello…',x+10,y+174,'micro',C.muted);
+        U.text('Previsione: fra t = 2 e t = 4 il modello…',x+10,y+174,'micro',C.muted);
         TRENDS.forEach((choice,i)=>U.button('mission-predict-'+choice,trendNames[choice],x+10+i*cell,y+192,cell-5,24,()=>this.choosePrediction(choice),{active:r.prediction?.choice===choice,small:true}));
         ['A','B'].forEach((slot,i)=>U.button('mission-capture-'+slot,`REGISTRA ${slot}${r.snapshots[slot]?' ✓':''}`,x+10+i*(bw+10),y+222,bw,26,()=>this.capture(slot),{disabled:!r.prediction,small:true}));
     }

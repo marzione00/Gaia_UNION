@@ -182,7 +182,7 @@ export class GPU {
     }
     _make1px() { let gl = this.gl; this.blank = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, this.blank); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([255, 255, 255, 255])); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR); }
     uploadTexture(img) { let gl = this.gl, t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t); gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE); gl.generateMipmap(gl.TEXTURE_2D); return t; }
-    setFontAtlas(img, metrics) { let gl = this.gl; this.metrics = metrics; this.atlas = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, this.atlas); gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE); }
+    setFontAtlas(img, metrics) { let gl = this.gl; this.metrics = metrics; this.atlas = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, this.atlas); gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img); gl.generateMipmap(gl.TEXTURE_2D); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE); }
     deleteMesh(id) {
         const m = this.meshes.get(id);
         if (m) {
@@ -229,7 +229,9 @@ export class GPU {
         else { this.starCount = data.length / 7; this.starBuffer = b; }
     }
     resize() {
-        let w = this.canvas.clientWidth, h = this.canvas.clientHeight, dpr = Math.min(window.devicePixelRatio || 1, 1.4);
+        // The interface is drawn at the full screen density (up to 3x) so text stays sharp; the 3D scene keeps
+        // its previous resolution through sceneScale in createTargets.
+        let w = this.canvas.clientWidth, h = this.canvas.clientHeight, dpr = Math.min(window.devicePixelRatio || 1, 3);
         let W = Math.round(w * dpr), H = Math.round(h * dpr);
         if (this.canvas.width !== W || this.canvas.height !== H) {
             this.canvas.width = W;
@@ -247,7 +249,7 @@ export class GPU {
         return map.get(name);
     }
     createTargets() {
-        const g = this.gl, scale = this.sceneQuality === 'low' ? .6 : this.sceneQuality === 'balanced' ? .8 : 1, w = Math.max(1,Math.round(this.canvas.width*scale)), h = Math.max(1,Math.round(this.canvas.height*scale));
+        const g = this.gl, scale = (this.sceneQuality === 'low' ? .6 : this.sceneQuality === 'balanced' ? .8 : 1) * Math.min(1, 1.4 / (this.dpr || 1)), w = Math.max(1,Math.round(this.canvas.width*scale)), h = Math.max(1,Math.round(this.canvas.height*scale));
         this.sceneScale=scale;
         if (this.sceneWidth === w && this.sceneHeight === h) return;
         if (this.sceneFbo) { g.deleteFramebuffer(this.sceneFbo); g.deleteTexture(this.sceneColor); g.deleteRenderbuffer(this.sceneDepth); }
@@ -453,8 +455,8 @@ export class GPU {
             if (!g)
                 continue;
             if (chr !== ' ' && g.w > 1) {
-                let yy = base + g.by;
-                this.quad(x + g.bx, yy, g.w, g.h, c, 1, [g.x / atlasW, g.y / atlasH, (g.x + g.w) / atlasW, (g.y + g.h) / atlasH]);
+                let yy = base + g.by, tw = g.tw ?? g.w, th = g.th ?? g.h;
+                this.quad(x + g.bx, yy, g.w, g.h, c, 1, [g.x / atlasW, g.y / atlasH, (g.x + tw) / atlasW, (g.y + th) / atlasH]);
             }
             x += g.advance + tracking;
         }

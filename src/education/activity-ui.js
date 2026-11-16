@@ -10,34 +10,38 @@ import {VSEPR_CHALLENGES,vseprInfo,vseprValid,vseprPositions,shapeOptions,checkV
  IONIC_CHALLENGES,ion,ionLabel,signed,checkIonic,checkCard,checkOrder,scrambled,
  fitData,fitError,fitStart,fitStep,checkFit,checkStep} from './activities.js';
 import {descriptor,samples} from '../models/curriculum.js';
-const LINE={body:23,mini:17,micro:14};
+const LINE={body:25,mini:20,micro:18};
 const pct=x=>(Math.round(x*1000)/10).toLocaleString('it-IT')+'%';
 const fmt=x=>String(x).replace('.',',').replace('-','−');
 class Flow{
  constructor(owner,U,rect){this.o=owner;this.U=U;this.R=owner.R;this.rect=rect;this.items=[];this.w=rect.w-24;}
  text(t,style='mini',tint=C.pale){for(const row of fittedRows(this.R,[t],this.w,style).filter(Boolean))this.items.push({h:LINE[style],draw:(x,y)=>this.U.text(row,x,y,style,tint)});return this;}
  gap(h=6){this.items.push({h,draw:()=>{}});return this;}
- buttons(list,minW=64,h=28){const per=Math.max(1,Math.min(list.length,Math.floor((this.w+6)/(minW+6))));
+ buttons(list,minW=64,h=34){const per=Math.max(1,Math.min(list.length,Math.floor((this.w+6)/(minW+6))));
   for(let i=0;i<list.length;i+=per){const chunk=list.slice(i,i+per);this.items.push({h:h+6,draw:(x,y,w)=>{const bw=(w-6*(chunk.length-1))/chunk.length;
-   chunk.forEach((b,j)=>{let label=b.label;while(label.length>1&&this.R.textWidth(label,'micro',.1)>bw-10)label=label.slice(0,-1);this.U.button(b.id,label,x+j*(bw+6),y,bw,h,b.action,{active:!!b.active,disabled:!!b.disabled,small:true});this.U.buttons.at(-1).label=b.aria||b.label;});}});}
+   chunk.forEach((b,j)=>{this.U.button(b.id,b.label,x+j*(bw+6),y,bw,h,b.action,{active:!!b.active,disabled:!!b.disabled});this.U.buttons.at(-1).label=b.aria||b.label;});}});}
   return this;}
  canvas(h,draw){this.items.push({h,draw});return this;}
  /** One line of text with small buttons on its right, for lists that the student reorders. */
- row(t,list,style='mini',tint=C.pale){const bw=40,gap=6,rows=fittedRows(this.R,[t],this.w-list.length*(bw+gap)-4,style).filter(Boolean),h=Math.max(32,rows.length*LINE[style]+8);
+ row(t,list,style='mini',tint=C.pale){const bw=44,gap=6,rows=fittedRows(this.R,[t],this.w-list.length*(bw+gap)-4,style).filter(Boolean),h=Math.max(38,rows.length*LINE[style]+8);
   this.items.push({h:h+4,draw:(x,y,w)=>{rows.forEach((row,i)=>this.U.text(row,x,y+Math.max(4,(h-rows.length*LINE[style])/2)+i*LINE[style],style,tint));
-   list.forEach((b,j)=>{this.U.button(b.id,b.label,x+w-(list.length-j)*(bw+gap)+gap,y+(h-28)/2,bw,28,b.action,{active:!!b.active,disabled:!!b.disabled,small:true});this.U.buttons.at(-1).label=b.aria||b.label;});}});
+   list.forEach((b,j)=>{this.U.button(b.id,b.label,x+w-(list.length-j)*(bw+gap)+gap,y+(h-34)/2,bw,34,b.action,{active:!!b.active,disabled:!!b.disabled});this.U.buttons.at(-1).label=b.aria||b.label;});}});
   return this;}
  /** Marks the next item: when the token passed to render changes, the flow opens the page that contains it. */
  mark(){this.focus=this.items.length;return this;}
- render(key,token){const r=this.rect,x=r.x+12,top=r.y+10,room=r.h-54,pages=[[]],pageOf=[];let used=0;
-  for(const item of this.items){if(used+item.h>room&&pages.at(-1).length){pages.push([]);used=0;}pages.at(-1).push(item);pageOf.push(pages.length-1);used+=item.h;}
+ /** Items between begin() and end() stay on the same page whenever they fit in one. */
+ begin(){this.gs=this.items.length;return this;}
+ end(){for(let i=this.gs;i<this.items.length;i++)this.items[i].group=this.gs;return this;}
+ render(key,token){const r=this.rect,x=r.x+12,top=r.y+12,room=r.h-60,pages=[[]],pageOf=[];let used=0;
+  this.items.forEach((item,i)=>{const head=item.group===i,gh=head?this.items.filter(o=>o.group===i).reduce((a,o)=>a+o.h,0):item.h;
+   if((head&&gh<=room?used+gh:used+item.h)>room&&pages.at(-1).length){pages.push([]);used=0;}pages.at(-1).push(item);pageOf.push(pages.length-1);used+=item.h;});
   if(token!==undefined&&this.o.pageTokens[key]!==token){this.o.pageTokens[key]=token;if(this.focus!==undefined)this.o.pages[key]=pageOf[Math.min(this.focus,pageOf.length-1)];}
   const page=clamp(this.o.pages[key]||0,0,pages.length-1);this.o.pages[key]=page;let y=top;
   for(const item of pages[page]){item.draw(x,y,this.w,Math.min(item.h,room));y+=item.h;}
-  const by=r.y+r.h-36;
-  if(pages.length>1){this.U.button('act-page-prev','◂',x,by,40,27,()=>this.o.pages[key]=page-1,{disabled:page===0,small:true});this.U.buttons.at(-1).label='Parte precedente dell’attività';
-   this.U.text(`${page+1} / ${pages.length}`,r.x+r.w/2,by+7,'micro',C.muted,{align:'center'});
-   this.U.button('act-page-next','▸',r.x+r.w-52,by,40,27,()=>this.o.pages[key]=page+1,{disabled:page===pages.length-1,small:true});this.U.buttons.at(-1).label='Parte successiva dell’attività';}
+  const by=r.y+r.h-42;
+  if(pages.length>1){this.U.button('act-page-prev','◂',x,by,44,32,()=>this.o.pages[key]=page-1,{disabled:page===0});this.U.buttons.at(-1).label='Parte precedente dell’attività';
+   this.U.text(`${page+1} / ${pages.length}`,r.x+r.w/2,by+9,'micro',C.muted,{align:'center'});
+   this.U.button('act-page-next','▸',r.x+r.w-56,by,44,32,()=>this.o.pages[key]=page+1,{disabled:page===pages.length-1});this.U.buttons.at(-1).label='Parte successiva dell’attività';}
   return pages.length;}
 }
 export class ActivityUI{
@@ -55,7 +59,7 @@ export class ActivityUI{
  draw(U,rect,state,paused,def=state.kind){
   this.def=def;this.focusToken=undefined;U.panel(rect.x,rect.y,rect.w,rect.h,C.lime,.96);
   const f=new Flow(this,U,rect),p=activityProgress(def,state);
-  f.text(`ATTIVITÀ · ${p.solved}/${p.goal}${p.done?' · COMPLETATA':''}`,'mini',p.done?C.lime:C.amber);
+  f.text(`Attività · ${p.solved}/${p.goal}${p.done?' · completata':''}`,'mini',p.done?C.lime:C.amber);
   const kind=state.kind;
   if(kind==='vsepr')this.vsepr(f,state,paused);else if(kind==='punnett')this.punnett(f,state);else if(kind==='cards')this.cards(f,state,def);
   else if(kind==='fit')this.fit(f,state,def);else if(kind==='steps')this.steps(f,state,def);
@@ -98,13 +102,15 @@ export class ActivityUI{
   const n=def.rounds.length,r=def.rounds[this.round%n],go=k=>{this.round=(this.round+k+n)%n;this.resetRound();},m=descriptor(r.model),p=this.fitParams(r),num=x=>formatNumber(x,4);
   this.pager(f,'round','SERIE',this.round%n,n,state.solved.includes(r.id),go,'Serie di dati');
   f.text(r.title,'body',C.pale);f.text(r.prompt,'mini',C.muted);
-  f.canvas(clamp(f.rect.h*.32,110,220),(x,y,w,h)=>this.fitPlot(x,y,w,h,r,p,m));
+  this.focusToken='fit:'+r.id;f.mark().begin();
+  f.canvas(clamp(f.rect.h*.28,100,220),(x,y,w,h)=>this.fitPlot(x,y,w,h,r,p,m));
   for(const key of r.fit){const c=m.controls.find(c=>c.key===key),unit=c.unit==='1'?'':' '+c.unit,set=d=>{this.fits[r.id]=fitStep(r,p,key,d);this.message='';this.revealed=false;};
    f.row(`${c.label}: ${num(p[key])}${unit}`,[{id:`act-fit-${key}-minus`,label:'−',disabled:p[key]<=c.min,action:()=>set(-1),aria:c.label+': diminuisci'},{id:`act-fit-${key}-plus`,label:'+',disabled:p[key]>=c.max,action:()=>set(1),aria:c.label+': aumenta'}]);}
-  const fixed=m.controls.filter(c=>!r.fit.includes(c.key));if(fixed.length){const t='Fissati: '+fixed.map(c=>`${c.label} ${num(p[c.key])}${c.unit==='1'?'':' '+c.unit}`).join('; ');f.text(t.endsWith('.')?t:t+'.','micro',C.muted);}
   f.text(`Scarto quadratico medio: ${formatNumber(fitError(r,p),3)} ${m.yUnit==='1'?'':m.yUnit}`,'mini',C.pale);
   f.buttons([{id:'act-check',label:'VERIFICA',action:()=>{const t=this.fitTries[r.id]||0,res=checkFit(r,p,t);this.fitTries[r.id]=t+1;this.message=res.message;this.revealed=res.ok;if(res.ok)this.solved(state,r.id);}}],100);
   if(this.message)f.text(this.message,'mini',this.revealed?C.lime:C.amber);
+  f.end();
+  const fixed=m.controls.filter(c=>!r.fit.includes(c.key));if(fixed.length){const t='Fissati: '+fixed.map(c=>`${c.label} ${num(p[c.key])}${c.unit==='1'?'':' '+c.unit}`).join('; ');f.text(t.endsWith('.')?t:t+'.','micro',C.muted);}
  }
  fitPlot(x0,y0,w,h,r,p,m){const R=this.R,pad=10,data=fitData(r),xs=data.map(q=>q.x),span=Math.max(...xs)-Math.min(...xs)||1;
   const lo=Math.max(m.domain[0],Math.min(...xs)-span*.08),hi=Math.min(m.domain[1],Math.max(...xs)+span*.08);
@@ -129,10 +135,11 @@ export class ActivityUI{
   const st=pr.steps[this.card];this.focusToken=`${this.round}:${this.card}`;f.mark();
   f.text(`Passo ${this.card+1} di ${total} · errori ${this.errors}, al massimo ${pr.maxErrors}`,'micro',C.muted);
   f.text(st.prompt,'mini',C.amber);
-  st.options.forEach((o,i)=>f.row(`${'ABCD'[i]}. ${o.text}`,[{id:'act-option-'+i,label:'ABCD'[i],active:this.choice===i,disabled:this.cardDone,aria:`Risposta ${'ABCD'[i]}: ${o.text}`,
-   action:()=>{const res=checkStep(pr,this.card,i);this.choice=i;this.message=res.message;this.revealed=res.ok;if(res.ok)this.cardDone=true;else this.errors++;}}]));
+  // Feedback and the next step come before the options, so they stay on the page the student is reading.
   if(this.message)f.text(this.message,'mini',this.revealed?C.lime:C.amber);
   if(this.cardDone)f.buttons([{id:'act-step-next',label:this.card+1<total?'PASSO SUCCESSIVO':'CONCLUDI IL PROBLEMA',action:()=>{this.card++;this.cardDone=false;this.choice=null;this.message='';this.revealed=false;if(this.card>=total&&this.errors<=pr.maxErrors)this.solved(state,pr.id);}}],150);
+  st.options.forEach((o,i)=>f.row(`${'ABCD'[i]}. ${o.text}`,[{id:'act-option-'+i,label:'ABCD'[i],active:this.choice===i,disabled:this.cardDone,aria:`Risposta ${'ABCD'[i]}: ${o.text}`,
+   action:()=>{const res=checkStep(pr,this.card,i);this.choice=i;this.message=res.message;this.revealed=res.ok;if(res.ok)this.cardDone=true;else this.errors++;}}]));
  }
  // ---------- Bisection ----------
  bisection(f,state){
@@ -169,13 +176,12 @@ export class ActivityUI{
   this.pager(f,'compound','COMPOSTO',this.compound%n,n,state.solved.includes(c.id),go,'Composto');
   f.text(`Scrivi la formula del ${c.name}.`,'body',C.pale);
   const choose=(key,i,qs)=>{if(i.polyatomic){f.text(`${key==='qc'?'Catione':'Anione'}: ione ${i.name} ${ionLabel(i)}, carica ${signed(i.charge)}.`,'mini',C.pale);return;}
-   f.text(`${key==='qc'?'Catione':'Anione'}: ${i.symbol}, ${i.name}, gruppo ${i.group}. Che carica ha lo ione?`,'mini',C.pale);
-   f.buttons(qs.map(q=>({id:`act-${key}-${Math.abs(q)}`,label:signed(q),active:this[key]===q,action:()=>{this[key]=q;this.message='';this.revealed=false;},aria:`Carica ${signed(q)}`})),44);};
+   f.row(`${key==='qc'?'Catione':'Anione'}: ${i.symbol}, ${i.name}, gruppo ${i.group}. Che carica ha?`,qs.map(q=>({id:`act-${key}-${Math.abs(q)}`,label:signed(q),active:this[key]===q,action:()=>{this[key]=q;this.message='';this.revealed=false;},aria:`Carica ${signed(q)}`})));};
   choose('qc',cat,[1,2,3]);choose('qa',an,[-1,-2,-3]);
   const set=(k,d)=>{this[k]=clamp(this[k]+d,1,4);this.message='';this.revealed=false;};
   f.buttons([{id:'act-n-minus',label:'CATIONI −',disabled:this.n<=1,action:()=>set('n',-1),aria:'Un catione in meno'},{id:'act-n-plus',label:'CATIONI +',disabled:this.n>=4,action:()=>set('n',1),aria:'Un catione in più'},
    {id:'act-m-minus',label:'ANIONI −',disabled:this.m<=1,action:()=>set('m',-1),aria:'Un anione in meno'},{id:'act-m-plus',label:'ANIONI +',disabled:this.m>=4,action:()=>set('m',1),aria:'Un anione in più'}],80);
-  f.canvas(56,(x,y,w,h)=>this.tokens(x,y,w,h,cat,an));
+  f.canvas(48,(x,y,w,h)=>this.tokens(x,y,w,h,cat,an));
   if(this.qc&&this.qa){const tot=this.n*this.qc+this.m*this.qa;f.text(`Carica totale: ${this.n} · (${signed(this.qc)}) + ${this.m} · (${signed(this.qa)}) = ${tot===0?'0':signed(tot)}`,'mini',tot===0?C.lime:C.amber);}
   else f.text('Scegli prima le cariche dei due ioni.','mini',C.muted);
   f.buttons([{id:'act-check',label:'VERIFICA',disabled:!this.qc||!this.qa,action:()=>{const r=checkIonic(c,this.qc,this.qa,this.n,this.m);this.message=r.message;this.revealed=r.ok;if(r.ok)this.solved(state,c.id);}},{id:'act-next',label:'ALTRO COMPOSTO',action:()=>go(1)}],110);

@@ -1,5 +1,5 @@
 import { clamp, color } from '../renderer.js';
-import { C } from '../ui/toolkit.js';
+import { C, T, caseLabel } from '../ui/toolkit.js';
 import { displayText, fittedRows } from '../education/course-ui.js';
 import { AtlasScene } from './atlas-scene.js';
 import { DISCIPLINES, TEXT_SCALES, GUIDE, cleanAtlas, atlasLayout, contains, placeLabels, searchModules, unitStatus, rememberVisit } from './atlas-model.js';
@@ -78,8 +78,8 @@ export class AtlasUI {
     }
     button(U,id,label,x,y,w,action,options={}){
         U.button('atlas-'+id,'',x,y,w,44,action,options);U.buttons.at(-1).label=label;
-        const scale=Math.min(this.prefs.textScale,1.25);let str=displayText(label);while(str.length&&this.R.textWidth(str,'mini')*scale>w-14)str=str.slice(0,-1);
-        scaledText(this.R,str,x+w/2,y+12,'mini',options.disabled?C.dim:C.pale,scale,{align:'center'});
+        const scale=Math.min(this.prefs.textScale,1.25);let str=caseLabel(displayText(label));while(str.length&&this.R.textWidth(str,'mini')*scale>w-14)str=str.slice(0,-1);
+        scaledText(this.R,str,x+w/2,y+(44-14*scale)/2-1,'mini',options.disabled?C.dim:options.active?color(T.ink):C.pale,scale,{align:'center'});
     }
     body(U,texts,r,{footer=0}={}){
         const scale=this.prefs.textScale,line=24*scale,rows=fittedRows(this.R,texts,(r.w-28)/scale),count=Math.max(1,Math.floor((r.h-footer-65)/line)),pages=Math.max(1,Math.ceil(rows.length/count));
@@ -136,7 +136,10 @@ export class AtlasUI {
         actions(c.y+c.h-94,(c.w-34)/2);
         this.text(`${n} UNITÀ IN ORDINE DI STUDIO · ${system.count} PIANETI`,c.x+14,c.y+c.h-30,c.w-28,'micro',C.muted,1);
     }
-    drawOverlay(U){if(!this.sheet)return;if(this.sheet==='guide'){this.guideUI(U);return;}const r=this.layout.sheet;
+    drawOverlay(U){if(!this.sheet)return;if(this.sheet==='guide'){this.guideUI(U);return;}const base=this.layout.sheet;
+        // Short sheets (welcome, accessibility) stay a readable column instead of spanning the screen.
+        const narrow=this.sheet==='welcome'||this.sheet==='access',sw=narrow?Math.min(base.w,680):base.w,sh=narrow?Math.min(base.h,440):base.h;
+        const r=narrow?{x:base.x+(base.w-sw)/2,y:base.y+Math.max(0,Math.min(60,(base.h-sh)/3)),w:sw,h:sh}:base;
         // Modal controls replace underlying actions, including map and global navigation.
         U.buttons=[];this.R.rect(0,90,this.R.w,this.R.h-90,color('#03121d',.97));U.panel(r.x,r.y,r.w,r.h,C.cyan,1);
         const headings={list:'CERCA UN ARGOMENTO',detail:'SCHEDA DELL’UNITÀ',routes:'PERCORSI DI STUDIO',history:'UNITÀ STUDIATE DI RECENTE',access:'ACCESSIBILITÀ',welcome:'BENVENUTO IN GAIA'};
