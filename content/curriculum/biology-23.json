@@ -5,19 +5,21 @@
   "title": "Cicli biogeochimici e serbatoi",
   "sector": 3,
   "modelId": "biology-23",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Trasferimento ideale chiuso fra compartimenti",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Serbatoi e flussi, ciclo del carbonio ed emissioni umane, ciclo dell’azoto, ciclo del fosforo, tempi di permanenza",
+  "narrativeStatus": "I valori di serbatoi ed emissioni sono stime di riferimento, in gran parte dalla valutazione IPCC del 2021.",
   "objectives": [
-    "Spiegare: trasferimento ideale chiuso fra compartimenti.",
-    "Applicare C(t) = C₀ exp(-kt), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Descrivere un ciclo con serbatoi e flussi.",
+    "Confrontare i serbatoi di carbonio e l’effetto delle emissioni.",
+    "Ricostruire le tappe del ciclo dell’azoto.",
+    "Calcolare tempi di permanenza e di dimezzamento."
   ],
   "prerequisites": [
     "biology-22"
   ],
   "connections": [
+    "biology-24",
     "chemistry-17"
   ],
   "sources": [
@@ -26,250 +28,531 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Tempo",
-      "definition": "Variabile indipendente, unità anni modello; intervallo [0; 50]."
+      "term": "Serbatoio",
+      "definition": "Parte del sistema in cui un elemento si accumula, come l’oceano o l’atmosfera."
     },
     {
-      "term": "Carbonio nel serbatoio",
-      "definition": "Risultato calcolato dal modello, unità kg."
+      "term": "Flusso",
+      "definition": "Quantità di un elemento che passa da un serbatoio all’altro nell’unità di tempo."
     },
     {
-      "term": "Carbonio iniziale",
-      "definition": "Parametro a, unità kg; intervallo [20; 200]."
+      "term": "Azotofissazione",
+      "definition": "Trasformazione dell’N₂ dell’aria in ammoniaca."
     },
     {
-      "term": "Tasso trasferimento",
-      "definition": "Parametro b, unità 1/anno; intervallo [0,02; 0,2]."
+      "term": "Denitrificazione",
+      "definition": "Trasformazione dei nitrati in N₂ che torna all’aria."
+    },
+    {
+      "term": "Tempo di permanenza",
+      "definition": "Tempo medio che un atomo trascorre in un serbatoio, 1/k."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Il viaggio di un atomo",
       "text": {
         "base": [
-          "Il carbonio lascia un serbatoio e passa a un altro. Vedere diminuire la quantità nel primo non basta a concludere che la materia sia scomparsa.",
-          "I cicli biogeochimici seguono trasferimenti di elementi fra compartimenti. Un serbatoio può perdere una quantità proporzionale al contenuto, mentre un altro la riceve."
+          "Un atomo di carbonio del tuo corpo è stato, poco tempo fa, anidride carbonica nell’aria; prima ancora forse acqua di mare, roccia calcarea, tessuto di una pianta. A differenza dell’energia, che attraversa gli ecosistemi una volta sola, gli elementi ricircolano tra aria, acqua, suolo, rocce e viventi. Questi percorsi sono i cicli biogeochimici.",
+          "Ogni ciclo si descrive con serbatoi e flussi. Per il carbonio, in petagrammi (miliardi di tonnellate): l’oceano ne contiene circa 38 000, soprattutto disciolto in profondità; i suoli circa 1500-2400; la vegetazione circa 450; l’atmosfera circa 870 nel 2019. Ogni anno la fotosintesi delle terre emerse ne toglie all’aria più di 100, e respirazione e decomposizione ne restituiscono quasi altrettanti. Le rocce carbonatiche ne custodiscono decine di milioni, scambiati in tempi geologici."
         ],
         "intermediate": [
-          "Il carbonio lascia un serbatoio e passa a un altro. Vedere diminuire la quantità nel primo non basta a concludere che la materia sia scomparsa.",
-          "Il laboratorio usa dC/dt=-kC, quindi C(t)=C₀exp(-kt). Se il materiale viene trasferito a un secondo compartimento chiuso inizialmente vuoto, il suo contenuto è C₀-C(t)."
+          "Un atomo di carbonio del tuo corpo è stato, poco tempo fa, anidride carbonica nell’aria; prima ancora forse acqua di mare, roccia calcarea, tessuto di una pianta. A differenza dell’energia, che attraversa gli ecosistemi una volta sola, gli elementi ricircolano tra aria, acqua, suolo, rocce e viventi. Questi percorsi sono i cicli biogeochimici.",
+          "Ogni ciclo si descrive con serbatoi e flussi. Per il carbonio, in petagrammi (miliardi di tonnellate): l’oceano ne contiene circa 38 000, soprattutto disciolto in profondità; i suoli circa 1500-2400; la vegetazione circa 450; l’atmosfera circa 870 nel 2019. Ogni anno la fotosintesi delle terre emerse ne toglie all’aria più di 100, e respirazione e decomposizione ne restituiscono quasi altrettanti. Le rocce carbonatiche ne custodiscono decine di milioni, scambiati in tempi geologici."
         ],
         "advanced": [
-          "Il carbonio lascia un serbatoio e passa a un altro. Vedere diminuire la quantità nel primo non basta a concludere che la materia sia scomparsa.",
-          "Aggiungi simbolicamente un flusso in ingresso e trova il nuovo equilibrio. Distingui tempo di residenza, tempo di dimezzamento e tempo caratteristico.",
-          "Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata."
+          "Un atomo di carbonio del tuo corpo è stato, poco tempo fa, anidride carbonica nell’aria; prima ancora forse acqua di mare, roccia calcarea, tessuto di una pianta. A differenza dell’energia, che attraversa gli ecosistemi una volta sola, gli elementi ricircolano tra aria, acqua, suolo, rocce e viventi. Questi percorsi sono i cicli biogeochimici.",
+          "Ogni ciclo si descrive con serbatoi e flussi. Per il carbonio, in petagrammi (miliardi di tonnellate): l’oceano ne contiene circa 38 000, soprattutto disciolto in profondità; i suoli circa 1500-2400; la vegetazione circa 450; l’atmosfera circa 870 nel 2019. Ogni anno la fotosintesi delle terre emerse ne toglie all’aria più di 100, e respirazione e decomposizione ne restituiscono quasi altrettanti. Le rocce carbonatiche ne custodiscono decine di milioni, scambiati in tempi geologici."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Carbonio, azoto, fosforo",
       "text": {
         "base": [
-          "I cicli biogeochimici seguono trasferimenti di elementi fra compartimenti. Un serbatoio può perdere una quantità proporzionale al contenuto, mentre un altro la riceve.",
-          "Con C₀=100 kg e k=0,1 per anno del modello, il serbatoio parte da 100 kg. Il tempo caratteristico è 10 anni del modello, senza attribuirlo a un ecosistema specifico."
+          "Le attività umane hanno spostato il bilancio. Nel decennio 2010-2019 le emissioni sono state in media circa 10,9 petagrammi di carbonio l’anno: il 46% è rimasto nell’atmosfera, il 23% è stato assorbito dall’oceano, il 31% dalla vegetazione. La concentrazione di CO₂, circa 280 parti per milione prima dell’era industriale, ha superato le 420.",
+          "L’azoto forma il 78% dell’aria come N₂, ma pochi organismi sanno usarlo. L’azotofissazione lo trasforma in ammoniaca: la fanno batteri liberi o simbionti, come Rhizobium nei noduli delle leguminose, i fulmini e il processo industriale Haber-Bosch. La nitrificazione ossida l’ammonio a nitriti e nitrati, la forma che le piante assorbono meglio; l’ammonificazione restituisce ammonio dai resti organici; la denitrificazione, nei suoli senza ossigeno, riporta l’azoto all’aria come N₂.",
+          "Il fosforo segue un ciclo diverso: non ha una fase gassosa importante, e viene liberato lentamente dall’erosione delle rocce. Per questo è spesso il nutriente che limita la crescita delle alghe nei laghi, e gli scarichi ricchi di fosfati possono provocarne la proliferazione."
         ],
         "intermediate": [
-          "Il laboratorio usa dC/dt=-kC, quindi C(t)=C₀exp(-kt). Se il materiale viene trasferito a un secondo compartimento chiuso inizialmente vuoto, il suo contenuto è C₀-C(t).",
-          "La variabile Tempo è espressa in anni modello; Carbonio nel serbatoio in kg. Il dominio dello strumento è [0; 50]. La relazione implementata è: C(t) = C₀ exp(-kt).",
-          "Con C₀=100 kg e k=0,1 per anno del modello, il serbatoio parte da 100 kg. Il tempo caratteristico è 10 anni del modello, senza attribuirlo a un ecosistema specifico."
+          "Le attività umane hanno spostato il bilancio. Nel decennio 2010-2019 le emissioni sono state in media circa 10,9 petagrammi di carbonio l’anno: il 46% è rimasto nell’atmosfera, il 23% è stato assorbito dall’oceano, il 31% dalla vegetazione. La concentrazione di CO₂, circa 280 parti per milione prima dell’era industriale, ha superato le 420.",
+          "L’azoto forma il 78% dell’aria come N₂, ma pochi organismi sanno usarlo. L’azotofissazione lo trasforma in ammoniaca: la fanno batteri liberi o simbionti, come Rhizobium nei noduli delle leguminose, i fulmini e il processo industriale Haber-Bosch. La nitrificazione ossida l’ammonio a nitriti e nitrati, la forma che le piante assorbono meglio; l’ammonificazione restituisce ammonio dai resti organici; la denitrificazione, nei suoli senza ossigeno, riporta l’azoto all’aria come N₂.",
+          "Il fosforo segue un ciclo diverso: non ha una fase gassosa importante, e viene liberato lentamente dall’erosione delle rocce. Per questo è spesso il nutriente che limita la crescita delle alghe nei laghi, e gli scarichi ricchi di fosfati possono provocarne la proliferazione.",
+          "Un modello semplice: un serbatoio che perde in ogni istante una parte del contenuto proporzionale al contenuto stesso, con tasso k, si svuota come C(t) = C₀ e^(−kt). Il tempo medio di permanenza di un atomo è 1/k, e il serbatoio si dimezza in ln 2/k: con k = 0,1 all’anno, in circa 6,9 anni."
         ],
         "advanced": [
-          "Il laboratorio usa dC/dt=-kC, quindi C(t)=C₀exp(-kt). Se il materiale viene trasferito a un secondo compartimento chiuso inizialmente vuoto, il suo contenuto è C₀-C(t).",
-          "Aggiungi simbolicamente un flusso in ingresso e trova il nuovo equilibrio. Distingui tempo di residenza, tempo di dimezzamento e tempo caratteristico.",
-          "La perdita da un compartimento non è perdita dall’intero sistema. Una costante di trasferimento aggregata può nascondere molti processi e cambiare con l’ambiente."
+          "Le attività umane hanno spostato il bilancio. Nel decennio 2010-2019 le emissioni sono state in media circa 10,9 petagrammi di carbonio l’anno: il 46% è rimasto nell’atmosfera, il 23% è stato assorbito dall’oceano, il 31% dalla vegetazione. La concentrazione di CO₂, circa 280 parti per milione prima dell’era industriale, ha superato le 420.",
+          "L’azoto forma il 78% dell’aria come N₂, ma pochi organismi sanno usarlo. L’azotofissazione lo trasforma in ammoniaca: la fanno batteri liberi o simbionti, come Rhizobium nei noduli delle leguminose, i fulmini e il processo industriale Haber-Bosch. La nitrificazione ossida l’ammonio a nitriti e nitrati, la forma che le piante assorbono meglio; l’ammonificazione restituisce ammonio dai resti organici; la denitrificazione, nei suoli senza ossigeno, riporta l’azoto all’aria come N₂.",
+          "Il fosforo segue un ciclo diverso: non ha una fase gassosa importante, e viene liberato lentamente dall’erosione delle rocce. Per questo è spesso il nutriente che limita la crescita delle alghe nei laghi, e gli scarichi ricchi di fosfati possono provocarne la proliferazione.",
+          "Un modello semplice: un serbatoio che perde in ogni istante una parte del contenuto proporzionale al contenuto stesso, con tasso k, si svuota come C(t) = C₀ e^(−kt). Il tempo medio di permanenza di un atomo è 1/k, e il serbatoio si dimezza in ln 2/k: con k = 0,1 all’anno, in circa 6,9 anni."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Carte dei cicli",
       "text": {
         "base": [
-          "Nel laboratorio imposta Carbonio iniziale (a): 100 kg; Tasso trasferimento (b): 0,1 1/anno. Prima di salvare A, prevedi come cambia Carbonio nel serbatoio fra Tempo=12,5 e 25 anni modello. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con C₀=100 kg e k=0,1 per anno del modello, il serbatoio parte da 100 kg. Il tempo caratteristico è 10 anni del modello, senza attribuirlo a un ecosistema specifico.",
-          "La variabile Tempo è espressa in anni modello; Carbonio nel serbatoio in kg. Il dominio dello strumento è [0; 50]. La relazione implementata è: C(t) = C₀ exp(-kt)."
+          "L’attività ha quattro serie di carte: serbatoi di carbonio da ordinare per dimensione; processi che tolgono o aggiungono CO₂ all’aria; tappe del ciclo dell’azoto; serbatoi da ordinare per tempo di dimezzamento. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per i tempi di dimezzamento usa ln 2/k ≈ 0,69/k: più grande è k, più in fretta si svuota il serbatoio.",
+          "Un modello semplice: un serbatoio che perde in ogni istante una parte del contenuto proporzionale al contenuto stesso, con tasso k, si svuota come C(t) = C₀ e^(−kt). Il tempo medio di permanenza di un atomo è 1/k, e il serbatoio si dimezza in ln 2/k: con k = 0,1 all’anno, in circa 6,9 anni."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Carbonio iniziale (a): 100 kg; Tasso trasferimento (b): 0,1 1/anno. Prima di salvare A, prevedi come cambia Carbonio nel serbatoio fra Tempo=12,5 e 25 anni modello. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Tempo è espressa in anni modello; Carbonio nel serbatoio in kg. Il dominio dello strumento è [0; 50]. La relazione implementata è: C(t) = C₀ exp(-kt).",
-          "Il laboratorio usa dC/dt=-kC, quindi C(t)=C₀exp(-kt). Se il materiale viene trasferito a un secondo compartimento chiuso inizialmente vuoto, il suo contenuto è C₀-C(t)."
+          "L’attività ha quattro serie di carte: serbatoi di carbonio da ordinare per dimensione; processi che tolgono o aggiungono CO₂ all’aria; tappe del ciclo dell’azoto; serbatoi da ordinare per tempo di dimezzamento. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per i tempi di dimezzamento usa ln 2/k ≈ 0,69/k: più grande è k, più in fretta si svuota il serbatoio.",
+          "Un modello semplice: un serbatoio che perde in ogni istante una parte del contenuto proporzionale al contenuto stesso, con tasso k, si svuota come C(t) = C₀ e^(−kt). Il tempo medio di permanenza di un atomo è 1/k, e il serbatoio si dimezza in ln 2/k: con k = 0,1 all’anno, in circa 6,9 anni."
         ],
         "advanced": [
-          "Nel laboratorio imposta Carbonio iniziale (a): 100 kg; Tasso trasferimento (b): 0,1 1/anno. Prima di salvare A, prevedi come cambia Carbonio nel serbatoio fra Tempo=12,5 e 25 anni modello. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Aggiungi simbolicamente un flusso in ingresso e trova il nuovo equilibrio. Distingui tempo di residenza, tempo di dimezzamento e tempo caratteristico.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività ha quattro serie di carte: serbatoi di carbonio da ordinare per dimensione; processi che tolgono o aggiungono CO₂ all’aria; tappe del ciclo dell’azoto; serbatoi da ordinare per tempo di dimezzamento. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per i tempi di dimezzamento usa ln 2/k ≈ 0,69/k: più grande è k, più in fretta si svuota il serbatoio."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "La perdita da un compartimento non è perdita dall’intero sistema. Una costante di trasferimento aggregata può nascondere molti processi e cambiare con l’ambiente.",
-          "Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che la CO₂ emessa resti tutta nell’aria. Oceano e vegetazione ne assorbono più della metà; il resto si accumula e fa crescere la concentrazione.",
+          "Secondo errore: credere che le piante prendano l’azoto direttamente dall’aria. Lo assorbono come nitrati o ammonio dal suolo; solo i batteri azotofissatori, anche quelli che vivono nelle loro radici, usano l’N₂.",
+          "Il fosforo segue un ciclo diverso: non ha una fase gassosa importante, e viene liberato lentamente dall’erosione delle rocce. Per questo è spesso il nutriente che limita la crescita delle alghe nei laghi, e gli scarichi ricchi di fosfati possono provocarne la proliferazione."
         ],
         "intermediate": [
-          "La perdita da un compartimento non è perdita dall’intero sistema. Una costante di trasferimento aggregata può nascondere molti processi e cambiare con l’ambiente.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che la CO₂ emessa resti tutta nell’aria. Oceano e vegetazione ne assorbono più della metà; il resto si accumula e fa crescere la concentrazione.",
+          "Secondo errore: credere che le piante prendano l’azoto direttamente dall’aria. Lo assorbono come nitrati o ammonio dal suolo; solo i batteri azotofissatori, anche quelli che vivono nelle loro radici, usano l’N₂.",
+          "Un modello semplice: un serbatoio che perde in ogni istante una parte del contenuto proporzionale al contenuto stesso, con tasso k, si svuota come C(t) = C₀ e^(−kt). Il tempo medio di permanenza di un atomo è 1/k, e il serbatoio si dimezza in ln 2/k: con k = 0,1 all’anno, in circa 6,9 anni."
         ],
         "advanced": [
-          "Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata.",
-          "Aggiungi simbolicamente un flusso in ingresso e trova il nuovo equilibrio. Distingui tempo di residenza, tempo di dimezzamento e tempo caratteristico.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che la CO₂ emessa resti tutta nell’aria. Oceano e vegetazione ne assorbono più della metà; il resto si accumula e fa crescere la concentrazione.",
+          "Secondo errore: credere che le piante prendano l’azoto direttamente dall’aria. Lo assorbono come nitrati o ammonio dal suolo; solo i batteri azotofissatori, anche quelli che vivono nelle loro radici, usano l’N₂.",
+          "Un modello semplice: un serbatoio che perde in ogni istante una parte del contenuto proporzionale al contenuto stesso, con tasso k, si svuota come C(t) = C₀ e^(−kt). Il tempo medio di permanenza di un atomo è 1/k, e il serbatoio si dimezza in ln 2/k: con k = 0,1 all’anno, in circa 6,9 anni."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "I cicli biogeochimici seguono trasferimenti di elementi fra compartimenti. Un serbatoio può perdere una quantità proporzionale al contenuto, mentre un altro la riceve.",
-          "Con C₀=100 kg e k=0,1 per anno del modello, il serbatoio parte da 100 kg. Il tempo caratteristico è 10 anni del modello, senza attribuirlo a un ecosistema specifico."
+          "Ripasso: serbatoi e flussi; grandezza dei serbatoi di carbonio; effetto delle emissioni umane; tappe del ciclo dell’azoto; ciclo del fosforo; svuotamento esponenziale e tempo di dimezzamento.",
+          "Mini esercizio: con k = 0,05 all’anno il tempo medio di permanenza è 20 anni e il dimezzamento avviene in circa 13,9 anni.",
+          "Nelle domande sui cicli chiediti sempre da quale serbatoio esce l’elemento e in quale entra."
         ],
         "intermediate": [
-          "Il laboratorio usa dC/dt=-kC, quindi C(t)=C₀exp(-kt). Se il materiale viene trasferito a un secondo compartimento chiuso inizialmente vuoto, il suo contenuto è C₀-C(t).",
-          "La variabile Tempo è espressa in anni modello; Carbonio nel serbatoio in kg. Il dominio dello strumento è [0; 50]. La relazione implementata è: C(t) = C₀ exp(-kt)."
+          "Ripasso: serbatoi e flussi; grandezza dei serbatoi di carbonio; effetto delle emissioni umane; tappe del ciclo dell’azoto; ciclo del fosforo; svuotamento esponenziale e tempo di dimezzamento.",
+          "Mini esercizio: con k = 0,05 all’anno il tempo medio di permanenza è 20 anni e il dimezzamento avviene in circa 13,9 anni.",
+          "Nelle domande sui cicli chiediti sempre da quale serbatoio esce l’elemento e in quale entra."
         ],
         "advanced": [
-          "Aggiungi simbolicamente un flusso in ingresso e trova il nuovo equilibrio. Distingui tempo di residenza, tempo di dimezzamento e tempo caratteristico.",
-          "Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata."
+          "Ripasso: serbatoi e flussi; grandezza dei serbatoi di carbonio; effetto delle emissioni umane; tappe del ciclo dell’azoto; ciclo del fosforo; svuotamento esponenziale e tempo di dimezzamento.",
+          "Mini esercizio: con k = 0,05 all’anno il tempo medio di permanenza è 20 anni e il dimezzamento avviene in circa 13,9 anni.",
+          "Nelle domande sui cicli chiediti sempre da quale serbatoio esce l’elemento e in quale entra."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Trasferimento ideale chiuso fra compartimenti.",
-          "Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata.",
-          "Collegamento consigliato: chemistry-17. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Lo svuotamento esponenziale di un serbatoio segue la stessa legge della cinetica del primo ordine dell’unità di chimica «Velocità di reazione». In biologia si passa a «Omeostasi e retroazioni».",
+          "Riepilogo dell’unità: gli elementi ricircolano tra serbatoi; per il carbonio l’oceano è il serbatoio attivo più grande e l’atmosfera ne contiene circa 870 petagrammi; le emissioni umane si dividono tra aria, oceano e vegetazione; l’azoto entra nei viventi con l’azotofissazione e torna all’aria con la denitrificazione; un serbatoio con perdita k si dimezza in ln 2/k.",
+          "Nel diario segui un atomo di azoto dall’aria a una proteina e di nuovo all’aria, nominando ogni tappa."
         ],
         "intermediate": [
-          "Il laboratorio usa dC/dt=-kC, quindi C(t)=C₀exp(-kt). Se il materiale viene trasferito a un secondo compartimento chiuso inizialmente vuoto, il suo contenuto è C₀-C(t).",
-          "Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata.",
-          "Aggiungi simbolicamente un flusso in ingresso e trova il nuovo equilibrio. Distingui tempo di residenza, tempo di dimezzamento e tempo caratteristico."
+          "Lo svuotamento esponenziale di un serbatoio segue la stessa legge della cinetica del primo ordine dell’unità di chimica «Velocità di reazione». In biologia si passa a «Omeostasi e retroazioni».",
+          "Riepilogo dell’unità: gli elementi ricircolano tra serbatoi; per il carbonio l’oceano è il serbatoio attivo più grande e l’atmosfera ne contiene circa 870 petagrammi; le emissioni umane si dividono tra aria, oceano e vegetazione; l’azoto entra nei viventi con l’azotofissazione e torna all’aria con la denitrificazione; un serbatoio con perdita k si dimezza in ln 2/k.",
+          "Nel diario segui un atomo di azoto dall’aria a una proteina e di nuovo all’aria, nominando ogni tappa."
         ],
         "advanced": [
-          "Aggiungi simbolicamente un flusso in ingresso e trova il nuovo equilibrio. Distingui tempo di residenza, tempo di dimezzamento e tempo caratteristico.",
-          "Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Lo svuotamento esponenziale di un serbatoio segue la stessa legge della cinetica del primo ordine dell’unità di chimica «Velocità di reazione». In biologia si passa a «Omeostasi e retroazioni».",
+          "Riepilogo dell’unità: gli elementi ricircolano tra serbatoi; per il carbonio l’oceano è il serbatoio attivo più grande e l’atmosfera ne contiene circa 870 petagrammi; le emissioni umane si dividono tra aria, oceano e vegetazione; l’azoto entra nei viventi con l’azotofissazione e torna all’aria con la denitrificazione; un serbatoio con perdita k si dimezza in ln 2/k.",
+          "Nel diario segui un atomo di azoto dall’aria a una proteina e di nuovo all’aria, nominando ogni tappa."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-23-concept",
-      "prompt": "In un trasferimento chiuso fra due serbatoi, la diminuzione del primo:",
+      "id": "biology-23-q1",
+      "prompt": "Qual è il più grande serbatoio di carbonio che scambia con l’atmosfera in tempi brevi?",
       "options": [
         {
           "id": "A",
-          "text": "Distrugge necessariamente gli atomi",
-          "feedback": "La perdita da un compartimento non è perdita dall’intero sistema. Una costante di trasferimento aggregata può nascondere molti processi e cambiare con l’ambiente."
+          "text": "L’oceano",
+          "feedback": "Esatto: circa 38 000 petagrammi, soprattutto in profondità."
         },
         {
           "id": "B",
-          "text": "Implica energia totale nulla",
-          "feedback": "Il laboratorio usa dC/dt=-kC, quindi C(t)=C₀exp(-kt). Se il materiale viene trasferito a un secondo compartimento chiuso inizialmente vuoto, il suo contenuto è C₀-C(t)."
+          "text": "La vegetazione",
+          "feedback": "La vegetazione ne contiene circa 450 petagrammi."
         },
         {
           "id": "C",
-          "text": "Compare come aumento del secondo",
-          "feedback": "I cicli biogeochimici seguono trasferimenti di elementi fra compartimenti. Un serbatoio può perdere una quantità proporzionale al contenuto, mentre un altro la riceve."
+          "text": "L’atmosfera",
+          "feedback": "L’atmosfera ne contiene circa 870 petagrammi."
+        },
+        {
+          "id": "D",
+          "text": "Gli animali",
+          "feedback": "Gli animali sono un serbatoio piccolissimo."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-23-q2",
+      "prompt": "Quale processo toglie CO₂ dall’atmosfera?",
+      "options": [
+        {
+          "id": "A",
+          "text": "La respirazione",
+          "feedback": "La respirazione restituisce CO₂ all’aria."
+        },
+        {
+          "id": "B",
+          "text": "La fotosintesi",
+          "feedback": "Esatto: fissa il carbonio in sostanza organica."
+        },
+        {
+          "id": "C",
+          "text": "La combustione",
+          "feedback": "La combustione libera CO₂ nell’aria invece di toglierla."
+        },
+        {
+          "id": "D",
+          "text": "La decomposizione",
+          "feedback": "I decompositori liberano CO₂ respirando."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-23-q3",
+      "prompt": "Che cosa fa l’azotofissazione?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Trasforma i nitrati in N₂",
+          "feedback": "Trasformare nitrati in N₂ è la denitrificazione."
+        },
+        {
+          "id": "B",
+          "text": "Trasforma l’ammonio in nitrati",
+          "feedback": "Ossidare l’ammonio a nitrati è la nitrificazione."
+        },
+        {
+          "id": "C",
+          "text": "Trasforma l’N₂ dell’aria in ammoniaca",
+          "feedback": "Esatto: rende l’azoto utilizzabile dai viventi."
+        },
+        {
+          "id": "D",
+          "text": "Libera ammonio dai resti organici",
+          "feedback": "Liberare ammonio dai resti è l’ammonificazione."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "biology-23-calculation",
-      "prompt": "Calcolo: Carbonio iniziale (a)=100 kg; Tasso trasferimento (b)=0,1 1/anno. Per Tempo=0 anni modello, quanto vale Carbonio nel serbatoio?",
+      "id": "biology-23-q4",
+      "prompt": "Un serbatoio si svuota come C₀ e^(−kt) con k = 0,1 all’anno. In quanto tempo si dimezza?",
       "options": [
         {
           "id": "A",
-          "text": "50 kg",
-          "feedback": "Controlla sostituzione, segno e unità. C(t) = C₀ exp(-kt). Con Carbonio iniziale (a)=100 kg; Tasso trasferimento (b)=0,1 1/anno e Tempo=0 anni modello, il risultato è 100 kg. Conserva le unità e arrotonda solo alla fine."
+          "text": "5 anni",
+          "feedback": "La perdita si applica al contenuto rimasto, che diminuisce."
         },
         {
           "id": "B",
-          "text": "100 kg",
-          "feedback": "C(t) = C₀ exp(-kt). Con Carbonio iniziale (a)=100 kg; Tasso trasferimento (b)=0,1 1/anno e Tempo=0 anni modello, il risultato è 100 kg. Conserva le unità e arrotonda solo alla fine."
+          "text": "10 anni",
+          "feedback": "10 anni è il tempo medio di permanenza, 1/k."
         },
         {
           "id": "C",
-          "text": "150 kg",
-          "feedback": "Questo valore non soddisfa la relazione. C(t) = C₀ exp(-kt). Con Carbonio iniziale (a)=100 kg; Tasso trasferimento (b)=0,1 1/anno e Tempo=0 anni modello, il risultato è 100 kg. Conserva le unità e arrotonda solo alla fine."
+          "text": "2 anni",
+          "feedback": "Due anni bastano appena a perdere circa il 18%."
+        },
+        {
+          "id": "D",
+          "text": "Circa 6,9 anni",
+          "feedback": "Esatto: il tempo di dimezzamento è ln 2/0,1 ≈ 6,9 anni."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 100,
-          "b": 0.1
-        },
-        "expected": 100,
-        "unit": "kg"
-      }
+      "correct": "D"
     },
     {
-      "id": "biology-23-transfer",
-      "prompt": "Trasferimento: Carbonio iniziale (a)=120 kg; Tasso trasferimento (b)=0,1 1/anno. Per Tempo=0 anni modello, quanto vale Carbonio nel serbatoio?",
+      "id": "biology-23-q5",
+      "prompt": "Che frazione delle emissioni umane di CO₂ del decennio 2010-2019 è rimasta nell’atmosfera?",
       "options": [
         {
           "id": "A",
-          "text": "120 kg",
-          "feedback": "C(t) = C₀ exp(-kt). Con Carbonio iniziale (a)=120 kg; Tasso trasferimento (b)=0,1 1/anno e Tempo=0 anni modello, il risultato è 120 kg. Conserva le unità e arrotonda solo alla fine."
+          "text": "Circa il 46%",
+          "feedback": "Esatto: il resto è stato assorbito da oceano e vegetazione."
         },
         {
           "id": "B",
-          "text": "180 kg",
-          "feedback": "Questo valore non soddisfa la relazione. C(t) = C₀ exp(-kt). Con Carbonio iniziale (a)=120 kg; Tasso trasferimento (b)=0,1 1/anno e Tempo=0 anni modello, il risultato è 120 kg. Conserva le unità e arrotonda solo alla fine."
+          "text": "Il 100%",
+          "feedback": "Oceano e vegetazione ne hanno assorbito più della metà."
         },
         {
           "id": "C",
-          "text": "60 kg",
-          "feedback": "Controlla sostituzione, segno e unità. C(t) = C₀ exp(-kt). Con Carbonio iniziale (a)=120 kg; Tasso trasferimento (b)=0,1 1/anno e Tempo=0 anni modello, il risultato è 120 kg. Conserva le unità e arrotonda solo alla fine."
+          "text": "Circa il 10%",
+          "feedback": "La frazione rimasta è molto più grande."
+        },
+        {
+          "id": "D",
+          "text": "Lo 0%",
+          "feedback": "La concentrazione è salita proprio per questo accumulo."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 120,
-          "b": 0.1
-        },
-        "expected": 120,
-        "unit": "kg"
-      }
+      "correct": "A"
     },
     {
-      "id": "biology-23-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "biology-23-q6",
+      "prompt": "Che cosa distingue il ciclo del fosforo da quelli di carbonio e azoto?",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata."
+          "text": "Non coinvolge i viventi",
+          "feedback": "Il fosforo è essenziale per DNA e ATP."
         },
         {
           "id": "B",
-          "text": "Trasferimento ideale chiuso fra compartimenti",
-          "feedback": "Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata."
+          "text": "Non ha una fase gassosa importante",
+          "feedback": "Esatto: passa soprattutto per rocce, suolo e acqua."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Due compartimenti ideali con trasferimento irreversibile dal primo al secondo. Nessun ingresso esterno, feedback o chimica dettagliata."
+          "text": "È più veloce",
+          "feedback": "È lento, perché dipende dall’erosione delle rocce."
+        },
+        {
+          "id": "D",
+          "text": "Non esiste in natura",
+          "feedback": "Il fosforo circola come gli altri elementi, con tempi lunghi."
         }
       ],
       "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "cards",
+    "goal": 3,
+    "rounds": [
+      {
+        "id": "serbatoi",
+        "type": "order",
+        "title": "Dove sta il carbonio?",
+        "prompt": "Ordina i serbatoi di carbonio dal più piccolo al più grande.",
+        "items": [
+          {
+            "id": "biota",
+            "text": "Gli organismi marini",
+            "why": "Circa 3 petagrammi: si rinnovano in fretta."
+          },
+          {
+            "id": "vegetazione",
+            "text": "La vegetazione terrestre",
+            "why": "Circa 450 petagrammi."
+          },
+          {
+            "id": "atmosfera",
+            "text": "L’atmosfera",
+            "why": "Circa 870 petagrammi nel 2019."
+          },
+          {
+            "id": "suoli",
+            "text": "I suoli",
+            "why": "Circa 1500-2400 petagrammi."
+          },
+          {
+            "id": "oceano",
+            "text": "L’oceano",
+            "why": "Circa 38 000 petagrammi."
+          },
+          {
+            "id": "rocce",
+            "text": "Le rocce carbonatiche",
+            "why": "Decine di milioni di petagrammi, scambiati in tempi geologici."
+          }
+        ],
+        "explain": "Il carbonio dell’aria è una piccola parte del totale, ma è quella che regola il clima."
+      },
+      {
+        "id": "co2",
+        "type": "classify",
+        "title": "Toglie o aggiunge CO₂?",
+        "prompt": "Classifica i processi secondo l’effetto sulla CO₂ dell’aria.",
+        "categories": [
+          {
+            "id": "toglie",
+            "label": "TOGLIE CO₂ DALL’ARIA"
+          },
+          {
+            "id": "aggiunge",
+            "label": "AGGIUNGE CO₂ ALL’ARIA"
+          }
+        ],
+        "items": [
+          {
+            "id": "fotosintesi",
+            "text": "Fotosintesi",
+            "why": "Fissa il carbonio in zuccheri.",
+            "category": "toglie"
+          },
+          {
+            "id": "oceano",
+            "text": "Dissoluzione nell’oceano",
+            "why": "La CO₂ si scioglie nell’acqua di mare.",
+            "category": "toglie"
+          },
+          {
+            "id": "rocce",
+            "text": "Alterazione delle rocce silicatiche",
+            "why": "Consuma CO₂ in tempi geologici.",
+            "category": "toglie"
+          },
+          {
+            "id": "respirazione",
+            "text": "Respirazione",
+            "why": "Ossida gli zuccheri a CO₂.",
+            "category": "aggiunge"
+          },
+          {
+            "id": "combustione",
+            "text": "Combustione di carbone e petrolio",
+            "why": "Libera carbonio rimasto sepolto per milioni di anni.",
+            "category": "aggiunge"
+          },
+          {
+            "id": "decomposizione",
+            "text": "Decomposizione",
+            "why": "I decompositori respirano i resti organici.",
+            "category": "aggiunge"
+          },
+          {
+            "id": "incendi",
+            "text": "Incendio di una foresta",
+            "why": "Il carbonio della vegetazione torna all’aria.",
+            "category": "aggiunge"
+          },
+          {
+            "id": "vulcani",
+            "text": "Eruzioni vulcaniche",
+            "why": "Liberano CO₂ dall’interno della Terra.",
+            "category": "aggiunge"
+          }
+        ],
+        "explain": "Fotosintesi, oceano e rocce tolgono CO₂; respirazione, combustione e decomposizione la restituiscono.",
+        "maxErrors": 2
+      },
+      {
+        "id": "azoto",
+        "type": "classify",
+        "title": "Quale tappa del ciclo?",
+        "prompt": "Classifica le trasformazioni dell’azoto.",
+        "categories": [
+          {
+            "id": "fissazione",
+            "label": "AZOTOFISSAZIONE"
+          },
+          {
+            "id": "nitrificazione",
+            "label": "NITRIFICAZIONE"
+          },
+          {
+            "id": "denitrificazione",
+            "label": "DENITRIFICAZIONE"
+          },
+          {
+            "id": "ammonificazione",
+            "label": "AMMONIFICAZIONE"
+          }
+        ],
+        "items": [
+          {
+            "id": "rhizobium",
+            "text": "Rhizobium nei noduli di un fagiolo produce ammoniaca da N₂",
+            "why": "L’N₂ dell’aria diventa ammoniaca.",
+            "category": "fissazione"
+          },
+          {
+            "id": "fulmine",
+            "text": "Un fulmine combina azoto e ossigeno dell’aria",
+            "why": "L’azoto atmosferico diventa un composto utilizzabile.",
+            "category": "fissazione"
+          },
+          {
+            "id": "haber",
+            "text": "Il processo Haber-Bosch produce ammoniaca",
+            "why": "È un’azotofissazione industriale.",
+            "category": "fissazione"
+          },
+          {
+            "id": "nitriti",
+            "text": "Batteri del suolo ossidano l’ammonio a nitriti",
+            "why": "Primo passo della nitrificazione.",
+            "category": "nitrificazione"
+          },
+          {
+            "id": "nitrati",
+            "text": "Altri batteri ossidano i nitriti a nitrati",
+            "why": "Secondo passo della nitrificazione.",
+            "category": "nitrificazione"
+          },
+          {
+            "id": "palude",
+            "text": "In un suolo allagato i nitrati diventano N₂",
+            "why": "Senza ossigeno l’azoto torna all’aria.",
+            "category": "denitrificazione"
+          },
+          {
+            "id": "resti",
+            "text": "I decompositori liberano ammonio dalle proteine dei resti",
+            "why": "L’azoto organico torna inorganico.",
+            "category": "ammonificazione"
+          }
+        ],
+        "explain": "L’azoto entra nei viventi con la fissazione, circola come ammonio e nitrati, torna all’aria con la denitrificazione.",
+        "maxErrors": 2
+      },
+      {
+        "id": "dimezzamento",
+        "type": "order",
+        "title": "Quanto in fretta si svuota?",
+        "prompt": "Ordina i serbatoi dal tempo di dimezzamento più breve al più lungo, con ln 2/k.",
+        "items": [
+          {
+            "id": "k20",
+            "text": "Tasso k = 0,2 all’anno",
+            "why": "Circa 3,5 anni."
+          },
+          {
+            "id": "k14",
+            "text": "Tasso k = 0,14 all’anno",
+            "why": "Circa 5,0 anni."
+          },
+          {
+            "id": "k10",
+            "text": "Tasso k = 0,1 all’anno",
+            "why": "Circa 6,9 anni."
+          },
+          {
+            "id": "k5",
+            "text": "Tasso k = 0,05 all’anno",
+            "why": "Circa 13,9 anni."
+          },
+          {
+            "id": "k2",
+            "text": "Tasso k = 0,02 all’anno",
+            "why": "Circa 34,7 anni."
+          }
+        ],
+        "explain": "Il tempo di dimezzamento è inversamente proporzionale al tasso k."
+      }
+    ]
+  }
 }

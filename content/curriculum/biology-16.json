@@ -5,19 +5,21 @@
   "title": "Speciazione e barriere riproduttive",
   "sector": 3,
   "modelId": "biology-16",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Bilancio di barriere, non criterio universale di specie",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Concetto biologico di specie, barriere prezigotiche e postzigotiche, combinazione delle barriere, modi di speciazione",
+  "narrativeStatus": "Gli esempi di scoiattoli, mulo e mosca della mela sono reali.",
   "objectives": [
-    "Spiegare: bilancio di barriere, non criterio universale di specie.",
-    "Applicare Isolamento totale = 1-(1-b₁)(1-b₂), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Usare il concetto biologico di specie e riconoscerne i limiti.",
+    "Classificare le barriere riproduttive.",
+    "Calcolare l’isolamento prodotto da più barriere.",
+    "Distinguere speciazione allopatrica e simpatrica."
   ],
   "prerequisites": [
     "biology-15"
   ],
   "connections": [
+    "biology-17",
     "math-c01"
   ],
   "sources": [
@@ -26,244 +28,532 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Prima barriera b₁",
-      "definition": "Variabile indipendente, unità 1; intervallo [0; 1]."
+      "term": "Specie biologica",
+      "definition": "Insieme di popolazioni che si incrociano producendo prole fertile."
     },
     {
-      "term": "Frazione impedita",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Barriera prezigotica",
+      "definition": "Barriera che impedisce la fecondazione."
     },
     {
-      "term": "Seconda barriera b₂",
-      "definition": "Parametro a, unità 1; intervallo [0; 1]."
+      "term": "Barriera postzigotica",
+      "definition": "Barriera che agisce dopo la fecondazione, sull’ibrido."
+    },
+    {
+      "term": "Speciazione allopatrica",
+      "definition": "Formazione di specie in popolazioni separate geograficamente."
+    },
+    {
+      "term": "Poliploidia",
+      "definition": "Presenza di più di due corredi di cromosomi."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Due scoiattoli e un canyon",
       "text": {
         "base": [
-          "Due gruppi incontrano ostacoli diversi al flusso genico. La stazione vuole evitare di sommare percentuali di isolamento come se agissero sempre sugli stessi individui.",
-          "La speciazione riguarda la divergenza delle linee evolutive e l’evoluzione delle relazioni riproduttive, con definizioni di specie adatte a contesti diversi. Qui si studia soltanto un bilancio di due barriere successive."
+          "Sui due lati del Grand Canyon vivono due scoiattoli dalle orecchie a ciuffo, uno con la coda bianca e uno con la coda grigia. Il canyon li separa da migliaia di anni, e le due popolazioni hanno preso strade diverse. Quando due popolazioni diventano due specie? La risposta dipende da che cosa impedisce loro di incrociarsi.",
+          "Nel 1942 Ernst Mayr formulò il concetto biologico di specie: gruppi di popolazioni che si incrociano, o possono incrociarsi, producendo prole fertile, e che sono isolati da altri gruppi simili. Il concetto funziona bene per gli animali a riproduzione sessuale; per batteri, organismi asessuali e fossili si usano criteri morfologici o molecolari."
         ],
         "intermediate": [
-          "Due gruppi incontrano ostacoli diversi al flusso genico. La stazione vuole evitare di sommare percentuali di isolamento come se agissero sempre sugli stessi individui.",
-          "Se la prima barriera impedisce la frazione b₁ dei passaggi e la seconda impedisce b₂ di quelli rimasti, la frazione che supera entrambe è (1-b₁)(1-b₂). L’impedimento totale è il suo complemento."
+          "Sui due lati del Grand Canyon vivono due scoiattoli dalle orecchie a ciuffo, uno con la coda bianca e uno con la coda grigia. Il canyon li separa da migliaia di anni, e le due popolazioni hanno preso strade diverse. Quando due popolazioni diventano due specie? La risposta dipende da che cosa impedisce loro di incrociarsi.",
+          "Nel 1942 Ernst Mayr formulò il concetto biologico di specie: gruppi di popolazioni che si incrociano, o possono incrociarsi, producendo prole fertile, e che sono isolati da altri gruppi simili. Il concetto funziona bene per gli animali a riproduzione sessuale; per batteri, organismi asessuali e fossili si usano criteri morfologici o molecolari."
         ],
         "advanced": [
-          "Due gruppi incontrano ostacoli diversi al flusso genico. La stazione vuole evitare di sommare percentuali di isolamento come se agissero sempre sugli stessi individui.",
-          "Confronta barriere prezigotiche e postzigotiche come concetti. Spiega quali osservazioni sarebbero necessarie per inferire isolamento riproduttivo in un caso reale.",
-          "Due frazioni operative successive, seconda frazione condizionata ai passaggi rimasti. Nessuna soglia universale di speciazione è imposta."
+          "Sui due lati del Grand Canyon vivono due scoiattoli dalle orecchie a ciuffo, uno con la coda bianca e uno con la coda grigia. Il canyon li separa da migliaia di anni, e le due popolazioni hanno preso strade diverse. Quando due popolazioni diventano due specie? La risposta dipende da che cosa impedisce loro di incrociarsi.",
+          "Nel 1942 Ernst Mayr formulò il concetto biologico di specie: gruppi di popolazioni che si incrociano, o possono incrociarsi, producendo prole fertile, e che sono isolati da altri gruppi simili. Il concetto funziona bene per gli animali a riproduzione sessuale; per batteri, organismi asessuali e fossili si usano criteri morfologici o molecolari."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Barriere e modi di speciazione",
       "text": {
         "base": [
-          "La speciazione riguarda la divergenza delle linee evolutive e l’evoluzione delle relazioni riproduttive, con definizioni di specie adatte a contesti diversi. Qui si studia soltanto un bilancio di due barriere successive.",
-          "Con b₁=0,5 e b₂=0,3, resta il 35% dei passaggi e l’isolamento aggregato è 65%. Sommare 50% e 30% darebbe 80% e conterebbe male la seconda base."
+          "Le barriere riproduttive si dividono in due gruppi. Le barriere prezigotiche impediscono la fecondazione: habitat diversi, stagioni riproduttive diverse, corteggiamenti diversi, organi riproduttivi incompatibili, gameti che non si riconoscono. Le barriere postzigotiche agiscono dopo: l’ibrido muore presto, oppure è sterile, come il mulo, figlio di una cavalla con 64 cromosomi e di un asino con 62, che ne ha 63 e non riesce a formare gameti normali.",
+          "Le barriere si sommano. Se una prima barriera blocca una frazione b₁ degli incroci e una seconda una frazione b₂ di quelli rimasti, l’isolamento totale è 1 − (1 − b₁)(1 − b₂). Con b₁ = 0,5 e b₂ = 0,3: 1 − 0,5 · 0,7 = 0,65. Barriere singolarmente deboli producono insieme un isolamento forte.",
+          "La speciazione allopatrica avviene quando una barriera geografica separa una popolazione: un canyon, un braccio di mare, una catena montuosa. Le due parti accumulano differenze per mutazione, selezione e deriva. La speciazione simpatrica avviene nello stesso luogo: nelle piante, un errore nella divisione può raddoppiare i cromosomi e isolare subito i discendenti; negli insetti, il passaggio a una nuova pianta ospite, come per la mosca della mela in Nord America, separa gli accoppiamenti."
         ],
         "intermediate": [
-          "Se la prima barriera impedisce la frazione b₁ dei passaggi e la seconda impedisce b₂ di quelli rimasti, la frazione che supera entrambe è (1-b₁)(1-b₂). L’impedimento totale è il suo complemento.",
-          "La variabile Prima barriera b₁ è espressa in 1; Frazione impedita in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: Isolamento totale = 1-(1-b₁)(1-b₂).",
-          "Con b₁=0,5 e b₂=0,3, resta il 35% dei passaggi e l’isolamento aggregato è 65%. Sommare 50% e 30% darebbe 80% e conterebbe male la seconda base."
+          "Le barriere riproduttive si dividono in due gruppi. Le barriere prezigotiche impediscono la fecondazione: habitat diversi, stagioni riproduttive diverse, corteggiamenti diversi, organi riproduttivi incompatibili, gameti che non si riconoscono. Le barriere postzigotiche agiscono dopo: l’ibrido muore presto, oppure è sterile, come il mulo, figlio di una cavalla con 64 cromosomi e di un asino con 62, che ne ha 63 e non riesce a formare gameti normali.",
+          "Le barriere si sommano. Se una prima barriera blocca una frazione b₁ degli incroci e una seconda una frazione b₂ di quelli rimasti, l’isolamento totale è 1 − (1 − b₁)(1 − b₂). Con b₁ = 0,5 e b₂ = 0,3: 1 − 0,5 · 0,7 = 0,65. Barriere singolarmente deboli producono insieme un isolamento forte.",
+          "La speciazione allopatrica avviene quando una barriera geografica separa una popolazione: un canyon, un braccio di mare, una catena montuosa. Le due parti accumulano differenze per mutazione, selezione e deriva. La speciazione simpatrica avviene nello stesso luogo: nelle piante, un errore nella divisione può raddoppiare i cromosomi e isolare subito i discendenti; negli insetti, il passaggio a una nuova pianta ospite, come per la mosca della mela in Nord America, separa gli accoppiamenti."
         ],
         "advanced": [
-          "Se la prima barriera impedisce la frazione b₁ dei passaggi e la seconda impedisce b₂ di quelli rimasti, la frazione che supera entrambe è (1-b₁)(1-b₂). L’impedimento totale è il suo complemento.",
-          "Confronta barriere prezigotiche e postzigotiche come concetti. Spiega quali osservazioni sarebbero necessarie per inferire isolamento riproduttivo in un caso reale.",
-          "Un valore alto del bilancio non certifica automaticamente l’esistenza di due specie. La dipendenza fra barriere e il contesto biologico possono modificare l’interpretazione."
+          "Le barriere riproduttive si dividono in due gruppi. Le barriere prezigotiche impediscono la fecondazione: habitat diversi, stagioni riproduttive diverse, corteggiamenti diversi, organi riproduttivi incompatibili, gameti che non si riconoscono. Le barriere postzigotiche agiscono dopo: l’ibrido muore presto, oppure è sterile, come il mulo, figlio di una cavalla con 64 cromosomi e di un asino con 62, che ne ha 63 e non riesce a formare gameti normali.",
+          "Le barriere si sommano. Se una prima barriera blocca una frazione b₁ degli incroci e una seconda una frazione b₂ di quelli rimasti, l’isolamento totale è 1 − (1 − b₁)(1 − b₂). Con b₁ = 0,5 e b₂ = 0,3: 1 − 0,5 · 0,7 = 0,65. Barriere singolarmente deboli producono insieme un isolamento forte.",
+          "La speciazione allopatrica avviene quando una barriera geografica separa una popolazione: un canyon, un braccio di mare, una catena montuosa. Le due parti accumulano differenze per mutazione, selezione e deriva. La speciazione simpatrica avviene nello stesso luogo: nelle piante, un errore nella divisione può raddoppiare i cromosomi e isolare subito i discendenti; negli insetti, il passaggio a una nuova pianta ospite, come per la mosca della mela in Nord America, separa gli accoppiamenti.",
+          "Il modello del programma calcola 1 − (1 − b₁)(1 − b₂) in funzione della prima barriera, con la seconda regolabile da 0 a 1: con b₂ = 0,3 e b₁ = 0,5 l’isolamento vale 0,65."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Carte delle specie",
       "text": {
         "base": [
-          "Nel laboratorio imposta Seconda barriera b₂ (a): 0,3 (adimensionale). Prima di salvare A, prevedi come cambia Frazione impedita fra Prima barriera b₁=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con b₁=0,5 e b₂=0,3, resta il 35% dei passaggi e l’isolamento aggregato è 65%. Sommare 50% e 30% darebbe 80% e conterebbe male la seconda base.",
-          "La variabile Prima barriera b₁ è espressa in 1; Frazione impedita in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: Isolamento totale = 1-(1-b₁)(1-b₂)."
+          "L’attività ha quattro serie di carte: barriere prezigotiche e postzigotiche; casi di speciazione allopatrica o simpatrica; combinazioni di barriere da ordinare per isolamento totale; coppie di organismi da classificare come stessa specie o specie diverse. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo una carta.",
+          "Per le barriere chiediti se si forma uno zigote. Se la fecondazione non avviene, la barriera è prezigotica; se avviene ma l’ibrido non sopravvive o non si riproduce, è postzigotica.",
+          "Il modello del programma calcola 1 − (1 − b₁)(1 − b₂) in funzione della prima barriera, con la seconda regolabile da 0 a 1: con b₂ = 0,3 e b₁ = 0,5 l’isolamento vale 0,65."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Seconda barriera b₂ (a): 0,3 (adimensionale). Prima di salvare A, prevedi come cambia Frazione impedita fra Prima barriera b₁=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Prima barriera b₁ è espressa in 1; Frazione impedita in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: Isolamento totale = 1-(1-b₁)(1-b₂).",
-          "Se la prima barriera impedisce la frazione b₁ dei passaggi e la seconda impedisce b₂ di quelli rimasti, la frazione che supera entrambe è (1-b₁)(1-b₂). L’impedimento totale è il suo complemento."
+          "L’attività ha quattro serie di carte: barriere prezigotiche e postzigotiche; casi di speciazione allopatrica o simpatrica; combinazioni di barriere da ordinare per isolamento totale; coppie di organismi da classificare come stessa specie o specie diverse. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo una carta.",
+          "Per le barriere chiediti se si forma uno zigote. Se la fecondazione non avviene, la barriera è prezigotica; se avviene ma l’ibrido non sopravvive o non si riproduce, è postzigotica.",
+          "Il modello del programma calcola 1 − (1 − b₁)(1 − b₂) in funzione della prima barriera, con la seconda regolabile da 0 a 1: con b₂ = 0,3 e b₁ = 0,5 l’isolamento vale 0,65."
         ],
         "advanced": [
-          "Nel laboratorio imposta Seconda barriera b₂ (a): 0,3 (adimensionale). Prima di salvare A, prevedi come cambia Frazione impedita fra Prima barriera b₁=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta barriere prezigotiche e postzigotiche come concetti. Spiega quali osservazioni sarebbero necessarie per inferire isolamento riproduttivo in un caso reale.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività ha quattro serie di carte: barriere prezigotiche e postzigotiche; casi di speciazione allopatrica o simpatrica; combinazioni di barriere da ordinare per isolamento totale; coppie di organismi da classificare come stessa specie o specie diverse. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo una carta.",
+          "Per le barriere chiediti se si forma uno zigote. Se la fecondazione non avviene, la barriera è prezigotica; se avviene ma l’ibrido non sopravvive o non si riproduce, è postzigotica."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "Un valore alto del bilancio non certifica automaticamente l’esistenza di due specie. La dipendenza fra barriere e il contesto biologico possono modificare l’interpretazione.",
-          "Due frazioni operative successive, seconda frazione condizionata ai passaggi rimasti. Nessuna soglia universale di speciazione è imposta.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che due animali molto diversi d’aspetto siano specie diverse. Un chihuahua e un alano sono cani della stessa specie; due specie di uccelli possono essere quasi identiche e distinguersi solo per il canto.",
+          "Secondo errore: credere che un ibrido nato provi che due organismi sono della stessa specie. Conta la fertilità: il mulo nasce, ma è sterile, e cavallo e asino restano specie distinte.",
+          "Le barriere si sommano. Se una prima barriera blocca una frazione b₁ degli incroci e una seconda una frazione b₂ di quelli rimasti, l’isolamento totale è 1 − (1 − b₁)(1 − b₂). Con b₁ = 0,5 e b₂ = 0,3: 1 − 0,5 · 0,7 = 0,65. Barriere singolarmente deboli producono insieme un isolamento forte."
         ],
         "intermediate": [
-          "Un valore alto del bilancio non certifica automaticamente l’esistenza di due specie. La dipendenza fra barriere e il contesto biologico possono modificare l’interpretazione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che due animali molto diversi d’aspetto siano specie diverse. Un chihuahua e un alano sono cani della stessa specie; due specie di uccelli possono essere quasi identiche e distinguersi solo per il canto.",
+          "Secondo errore: credere che un ibrido nato provi che due organismi sono della stessa specie. Conta la fertilità: il mulo nasce, ma è sterile, e cavallo e asino restano specie distinte.",
+          "Le barriere si sommano. Se una prima barriera blocca una frazione b₁ degli incroci e una seconda una frazione b₂ di quelli rimasti, l’isolamento totale è 1 − (1 − b₁)(1 − b₂). Con b₁ = 0,5 e b₂ = 0,3: 1 − 0,5 · 0,7 = 0,65. Barriere singolarmente deboli producono insieme un isolamento forte."
         ],
         "advanced": [
-          "Due frazioni operative successive, seconda frazione condizionata ai passaggi rimasti. Nessuna soglia universale di speciazione è imposta.",
-          "Confronta barriere prezigotiche e postzigotiche come concetti. Spiega quali osservazioni sarebbero necessarie per inferire isolamento riproduttivo in un caso reale.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che due animali molto diversi d’aspetto siano specie diverse. Un chihuahua e un alano sono cani della stessa specie; due specie di uccelli possono essere quasi identiche e distinguersi solo per il canto.",
+          "Secondo errore: credere che un ibrido nato provi che due organismi sono della stessa specie. Conta la fertilità: il mulo nasce, ma è sterile, e cavallo e asino restano specie distinte.",
+          "Il modello del programma calcola 1 − (1 − b₁)(1 − b₂) in funzione della prima barriera, con la seconda regolabile da 0 a 1: con b₂ = 0,3 e b₁ = 0,5 l’isolamento vale 0,65."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "La speciazione riguarda la divergenza delle linee evolutive e l’evoluzione delle relazioni riproduttive, con definizioni di specie adatte a contesti diversi. Qui si studia soltanto un bilancio di due barriere successive.",
-          "Con b₁=0,5 e b₂=0,3, resta il 35% dei passaggi e l’isolamento aggregato è 65%. Sommare 50% e 30% darebbe 80% e conterebbe male la seconda base."
+          "Ripasso: concetto biologico di specie e suoi limiti; barriere prezigotiche e postzigotiche; isolamento totale 1 − (1 − b₁)(1 − b₂); speciazione allopatrica e simpatrica; poliploidia.",
+          "Mini esercizio: due barriere che bloccano ciascuna il 70% danno insieme 1 − 0,3 · 0,3 = 0,91.",
+          "Nelle domande sulla speciazione chiediti se le popolazioni sono separate nello spazio o nello stesso luogo."
         ],
         "intermediate": [
-          "Se la prima barriera impedisce la frazione b₁ dei passaggi e la seconda impedisce b₂ di quelli rimasti, la frazione che supera entrambe è (1-b₁)(1-b₂). L’impedimento totale è il suo complemento.",
-          "La variabile Prima barriera b₁ è espressa in 1; Frazione impedita in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: Isolamento totale = 1-(1-b₁)(1-b₂)."
+          "Ripasso: concetto biologico di specie e suoi limiti; barriere prezigotiche e postzigotiche; isolamento totale 1 − (1 − b₁)(1 − b₂); speciazione allopatrica e simpatrica; poliploidia.",
+          "Mini esercizio: due barriere che bloccano ciascuna il 70% danno insieme 1 − 0,3 · 0,3 = 0,91.",
+          "Nelle domande sulla speciazione chiediti se le popolazioni sono separate nello spazio o nello stesso luogo."
         ],
         "advanced": [
-          "Confronta barriere prezigotiche e postzigotiche come concetti. Spiega quali osservazioni sarebbero necessarie per inferire isolamento riproduttivo in un caso reale.",
-          "Due frazioni operative successive, seconda frazione condizionata ai passaggi rimasti. Nessuna soglia universale di speciazione è imposta."
+          "Ripasso: concetto biologico di specie e suoi limiti; barriere prezigotiche e postzigotiche; isolamento totale 1 − (1 − b₁)(1 − b₂); speciazione allopatrica e simpatrica; poliploidia.",
+          "Mini esercizio: due barriere che bloccano ciascuna il 70% danno insieme 1 − 0,3 · 0,3 = 0,91.",
+          "Nelle domande sulla speciazione chiediti se le popolazioni sono separate nello spazio o nello stesso luogo."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Bilancio di barriere, non criterio universale di specie.",
-          "Due frazioni operative successive, seconda frazione condizionata ai passaggi rimasti. Nessuna soglia universale di speciazione è imposta.",
-          "Collegamento consigliato: math-c01. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le specie separate da tempo accumulano differenze nel DNA: l’unità «Filogenesi e cambiamenti molecolari» usa queste differenze per ricostruire gli alberi della vita.",
+          "Riepilogo dell’unità: una specie biologica è un insieme di popolazioni che si incrociano con prole fertile; le barriere prezigotiche impediscono la fecondazione e quelle postzigotiche agiscono dopo; più barriere si combinano in un isolamento 1 − (1 − b₁)(1 − b₂); la speciazione può essere allopatrica o simpatrica.",
+          "Nel diario spiega che cosa dovrebbe accadere perché i due scoiattoli del Grand Canyon siano considerati specie diverse."
         ],
         "intermediate": [
-          "Se la prima barriera impedisce la frazione b₁ dei passaggi e la seconda impedisce b₂ di quelli rimasti, la frazione che supera entrambe è (1-b₁)(1-b₂). L’impedimento totale è il suo complemento.",
-          "Due frazioni operative successive, seconda frazione condizionata ai passaggi rimasti. Nessuna soglia universale di speciazione è imposta.",
-          "Confronta barriere prezigotiche e postzigotiche come concetti. Spiega quali osservazioni sarebbero necessarie per inferire isolamento riproduttivo in un caso reale."
+          "Le specie separate da tempo accumulano differenze nel DNA: l’unità «Filogenesi e cambiamenti molecolari» usa queste differenze per ricostruire gli alberi della vita.",
+          "Riepilogo dell’unità: una specie biologica è un insieme di popolazioni che si incrociano con prole fertile; le barriere prezigotiche impediscono la fecondazione e quelle postzigotiche agiscono dopo; più barriere si combinano in un isolamento 1 − (1 − b₁)(1 − b₂); la speciazione può essere allopatrica o simpatrica.",
+          "Nel diario spiega che cosa dovrebbe accadere perché i due scoiattoli del Grand Canyon siano considerati specie diverse."
         ],
         "advanced": [
-          "Confronta barriere prezigotiche e postzigotiche come concetti. Spiega quali osservazioni sarebbero necessarie per inferire isolamento riproduttivo in un caso reale.",
-          "Due frazioni operative successive, seconda frazione condizionata ai passaggi rimasti. Nessuna soglia universale di speciazione è imposta.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le specie separate da tempo accumulano differenze nel DNA: l’unità «Filogenesi e cambiamenti molecolari» usa queste differenze per ricostruire gli alberi della vita.",
+          "Riepilogo dell’unità: una specie biologica è un insieme di popolazioni che si incrociano con prole fertile; le barriere prezigotiche impediscono la fecondazione e quelle postzigotiche agiscono dopo; più barriere si combinano in un isolamento 1 − (1 − b₁)(1 − b₂); la speciazione può essere allopatrica o simpatrica.",
+          "Nel diario spiega che cosa dovrebbe accadere perché i due scoiattoli del Grand Canyon siano considerati specie diverse."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-16-concept",
-      "prompt": "Due barriere del 50% e del 30% sui passaggi rimasti danno:",
+      "id": "biology-16-q1",
+      "prompt": "Secondo il concetto biologico, quando due popolazioni sono della stessa specie?",
       "options": [
         {
           "id": "A",
-          "text": "65% di impedimento totale",
-          "feedback": "La speciazione riguarda la divergenza delle linee evolutive e l’evoluzione delle relazioni riproduttive, con definizioni di specie adatte a contesti diversi. Qui si studia soltanto un bilancio di due barriere successive."
+          "text": "Quando possono incrociarsi producendo prole fertile",
+          "feedback": "Esatto: è la definizione di specie biologica proposta da Mayr."
         },
         {
           "id": "B",
-          "text": "80%",
-          "feedback": "Un valore alto del bilancio non certifica automaticamente l’esistenza di due specie. La dipendenza fra barriere e il contesto biologico possono modificare l’interpretazione."
+          "text": "Quando si assomigliano molto",
+          "feedback": "L’aspetto può ingannare in entrambe le direzioni."
         },
         {
           "id": "C",
-          "text": "15%",
-          "feedback": "Se la prima barriera impedisce la frazione b₁ dei passaggi e la seconda impedisce b₂ di quelli rimasti, la frazione che supera entrambe è (1-b₁)(1-b₂). L’impedimento totale è il suo complemento."
+          "text": "Quando vivono nello stesso luogo",
+          "feedback": "Specie diverse convivono spesso nello stesso habitat."
+        },
+        {
+          "id": "D",
+          "text": "Quando possono produrre un ibrido qualsiasi",
+          "feedback": "Anche cavallo e asino producono un ibrido, che però è sterile."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "biology-16-calculation",
-      "prompt": "Calcolo: Seconda barriera b₂ (a)=0,3 (adimensionale). Per Prima barriera b₁=0,5 (adimensionale), quanto vale Frazione impedita?",
+      "id": "biology-16-q2",
+      "prompt": "La sterilità del mulo è una barriera:",
       "options": [
         {
           "id": "A",
-          "text": "1,65 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. Isolamento totale = 1-(1-b₁)(1-b₂). Con Seconda barriera b₂ (a)=0,3 (adimensionale) e Prima barriera b₁=0,5 (adimensionale), il risultato è 0,65 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Prezigotica",
+          "feedback": "La fecondazione avviene: il mulo nasce."
         },
         {
           "id": "B",
-          "text": "-0,35 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. Isolamento totale = 1-(1-b₁)(1-b₂). Con Seconda barriera b₂ (a)=0,3 (adimensionale) e Prima barriera b₁=0,5 (adimensionale), il risultato è 0,65 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Postzigotica",
+          "feedback": "Esatto: agisce sull’ibrido, che non forma gameti normali."
         },
         {
           "id": "C",
-          "text": "0,65 (adimensionale)",
-          "feedback": "Isolamento totale = 1-(1-b₁)(1-b₂). Con Seconda barriera b₂ (a)=0,3 (adimensionale) e Prima barriera b₁=0,5 (adimensionale), il risultato è 0,65 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Geografica",
+          "feedback": "Cavalli e asini possono vivere nello stesso luogo."
+        },
+        {
+          "id": "D",
+          "text": "Temporale",
+          "feedback": "Il problema non è la stagione riproduttiva."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 0.5,
-        "parameters": {
-          "a": 0.3
-        },
-        "expected": 0.65,
-        "unit": "1"
-      }
+      "correct": "B"
     },
     {
-      "id": "biology-16-transfer",
-      "prompt": "Trasferimento: Seconda barriera b₂ (a)=0,4 (adimensionale). Per Prima barriera b₁=0,5 (adimensionale), quanto vale Frazione impedita?",
+      "id": "biology-16-q3",
+      "prompt": "Con b₁ = 0,5 e b₂ = 0,3, qual è l’isolamento totale?",
       "options": [
         {
           "id": "A",
-          "text": "-0,3 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. Isolamento totale = 1-(1-b₁)(1-b₂). Con Seconda barriera b₂ (a)=0,4 (adimensionale) e Prima barriera b₁=0,5 (adimensionale), il risultato è 0,7 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "0,8",
+          "feedback": "Le barriere non si sommano: la seconda agisce sugli incroci rimasti."
         },
         {
           "id": "B",
-          "text": "0,7 (adimensionale)",
-          "feedback": "Isolamento totale = 1-(1-b₁)(1-b₂). Con Seconda barriera b₂ (a)=0,4 (adimensionale) e Prima barriera b₁=0,5 (adimensionale), il risultato è 0,7 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "0,15",
+          "feedback": "Questo è il prodotto b₁ · b₂, che non misura l’isolamento."
         },
         {
           "id": "C",
-          "text": "1,7 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. Isolamento totale = 1-(1-b₁)(1-b₂). Con Seconda barriera b₂ (a)=0,4 (adimensionale) e Prima barriera b₁=0,5 (adimensionale), il risultato è 0,7 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 0.5,
-        "parameters": {
-          "a": 0.4
-        },
-        "expected": 0.7,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "biology-16-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Due frazioni operative successive, seconda frazione condizionata ai passaggi rimasti. Nessuna soglia universale di speciazione è imposta."
+          "text": "0,65",
+          "feedback": "Esatto: passa il 70% della metà rimasta, 1 − 0,5 · 0,7."
         },
         {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Due frazioni operative successive, seconda frazione condizionata ai passaggi rimasti. Nessuna soglia universale di speciazione è imposta."
-        },
-        {
-          "id": "C",
-          "text": "Bilancio di barriere, non criterio universale di specie",
-          "feedback": "Due frazioni operative successive, seconda frazione condizionata ai passaggi rimasti. Nessuna soglia universale di speciazione è imposta."
+          "id": "D",
+          "text": "0,35",
+          "feedback": "Questa è la frazione di incroci che supera entrambe le barriere."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "biology-16-q4",
+      "prompt": "Che cosa caratterizza la speciazione allopatrica?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Il raddoppio dei cromosomi",
+          "feedback": "Questo è un meccanismo tipico della speciazione simpatrica nelle piante."
+        },
+        {
+          "id": "B",
+          "text": "Il passaggio a una nuova pianta ospite",
+          "feedback": "Questo può causare speciazione nello stesso luogo."
+        },
+        {
+          "id": "C",
+          "text": "L’assenza di mutazioni",
+          "feedback": "Le popolazioni separate accumulano mutazioni diverse."
+        },
+        {
+          "id": "D",
+          "text": "Una separazione geografica delle popolazioni",
+          "feedback": "Esatto: come il Grand Canyon per gli scoiattoli."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "biology-16-q5",
+      "prompt": "Due specie di rane si riproducono in mesi diversi. Che barriera è?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Prezigotica temporale",
+          "feedback": "Esatto: gli incontri riproduttivi non avvengono."
+        },
+        {
+          "id": "B",
+          "text": "Postzigotica",
+          "feedback": "La fecondazione non avviene affatto."
+        },
+        {
+          "id": "C",
+          "text": "Meccanica",
+          "feedback": "Il problema non sono gli organi riproduttivi."
+        },
+        {
+          "id": "D",
+          "text": "Gametica",
+          "feedback": "I gameti non si incontrano nemmeno."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-16-q6",
+      "prompt": "Perché la poliploidia può creare una specie nuova in una sola generazione?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché aumenta la taglia della pianta",
+          "feedback": "La taglia non decide l’isolamento riproduttivo."
+        },
+        {
+          "id": "B",
+          "text": "Perché i discendenti poliploidi non producono prole fertile con i genitori",
+          "feedback": "Esatto: l’isolamento nasce subito, senza separazione geografica."
+        },
+        {
+          "id": "C",
+          "text": "Perché elimina le mutazioni",
+          "feedback": "La poliploidia non elimina mutazioni."
+        },
+        {
+          "id": "D",
+          "text": "Perché sposta la pianta in un altro luogo",
+          "feedback": "La pianta resta dov’è: per questo è speciazione simpatrica."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "cards",
+    "goal": 3,
+    "rounds": [
+      {
+        "id": "barriere",
+        "type": "classify",
+        "title": "Prima o dopo lo zigote?",
+        "prompt": "Classifica le barriere riproduttive.",
+        "categories": [
+          {
+            "id": "pre",
+            "label": "PREZIGOTICA"
+          },
+          {
+            "id": "post",
+            "label": "POSTZIGOTICA"
+          }
+        ],
+        "items": [
+          {
+            "id": "mesi",
+            "text": "Due rane si riproducono in mesi diversi",
+            "why": "Gli incontri riproduttivi non avvengono.",
+            "category": "pre"
+          },
+          {
+            "id": "canto",
+            "text": "Due uccelli hanno canti di corteggiamento diversi",
+            "why": "Le femmine non rispondono al canto dell’altra specie.",
+            "category": "pre"
+          },
+          {
+            "id": "fiore",
+            "text": "Due fiori attirano impollinatori diversi",
+            "why": "Il polline non arriva all’altra specie.",
+            "category": "pre"
+          },
+          {
+            "id": "gameti",
+            "text": "I gameti di due ricci di mare non si riconoscono",
+            "why": "La fecondazione non avviene.",
+            "category": "pre"
+          },
+          {
+            "id": "habitat",
+            "text": "Due serpenti vivono uno in acqua e uno sulla terra",
+            "why": "Si incontrano raramente.",
+            "category": "pre"
+          },
+          {
+            "id": "mulo",
+            "text": "Il mulo è sterile",
+            "why": "L’ibrido nasce ma non forma gameti normali.",
+            "category": "post"
+          },
+          {
+            "id": "embrioni",
+            "text": "Gli embrioni ibridi muoiono presto",
+            "why": "Lo zigote si forma ma non si sviluppa.",
+            "category": "post"
+          },
+          {
+            "id": "nipoti",
+            "text": "Gli ibridi sono fertili, ma i loro figli sono deboli",
+            "why": "L’ibrido si riproduce, la generazione dopo no.",
+            "category": "post"
+          }
+        ],
+        "explain": "Se lo zigote non si forma la barriera è prezigotica; se si forma ma l’ibrido fallisce, è postzigotica.",
+        "maxErrors": 1
+      },
+      {
+        "id": "modi",
+        "type": "classify",
+        "title": "Separati o insieme?",
+        "prompt": "Classifica i casi di speciazione.",
+        "categories": [
+          {
+            "id": "allo",
+            "label": "ALLOPATRICA"
+          },
+          {
+            "id": "simpa",
+            "label": "SIMPATRICA"
+          }
+        ],
+        "items": [
+          {
+            "id": "canyon",
+            "text": "Un canyon separa due popolazioni di scoiattoli",
+            "why": "Una barriera geografica divide le popolazioni.",
+            "category": "allo"
+          },
+          {
+            "id": "isola",
+            "text": "Alcuni uccelli colonizzano un’isola lontana",
+            "why": "Il mare separa i coloni dalla popolazione d’origine.",
+            "category": "allo"
+          },
+          {
+            "id": "montagne",
+            "text": "Il sollevamento di una catena montuosa divide una popolazione",
+            "why": "Una barriera fisica separa i gruppi.",
+            "category": "allo"
+          },
+          {
+            "id": "poliploide",
+            "text": "Una pianta con cromosomi raddoppiati nasce nello stesso prato",
+            "why": "L’isolamento nasce senza separazione.",
+            "category": "simpa"
+          },
+          {
+            "id": "ospite",
+            "text": "Una mosca passa a deporre le uova su una nuova pianta ospite",
+            "why": "Gli accoppiamenti si separano nello stesso luogo.",
+            "category": "simpa"
+          },
+          {
+            "id": "lago",
+            "text": "Pesci di uno stesso lago si specializzano su cibi diversi",
+            "why": "La divergenza avviene senza barriere geografiche.",
+            "category": "simpa"
+          }
+        ],
+        "explain": "La speciazione allopatrica richiede una separazione geografica; quella simpatrica avviene nello stesso luogo.",
+        "maxErrors": 1
+      },
+      {
+        "id": "isolamento",
+        "type": "order",
+        "title": "Quanto isolamento?",
+        "prompt": "Ordina le combinazioni di due barriere dall’isolamento totale più debole al più forte.",
+        "items": [
+          {
+            "id": "a",
+            "text": "b₁ = 0,3 e b₂ = 0,2",
+            "why": "1 − 0,7 · 0,8 = 0,44."
+          },
+          {
+            "id": "b",
+            "text": "b₁ = 0,5 e b₂ = 0",
+            "why": "0,5: la seconda barriera non c’è."
+          },
+          {
+            "id": "c",
+            "text": "b₁ = 0,5 e b₂ = 0,3",
+            "why": "1 − 0,5 · 0,7 = 0,65."
+          },
+          {
+            "id": "d",
+            "text": "b₁ = 0,7 e b₂ = 0,5",
+            "why": "1 − 0,3 · 0,5 = 0,85."
+          },
+          {
+            "id": "e",
+            "text": "b₁ = 0,9 e b₂ = 0",
+            "why": "0,9."
+          },
+          {
+            "id": "f",
+            "text": "b₁ = 0,9 e b₂ = 0,5",
+            "why": "1 − 0,1 · 0,5 = 0,95."
+          }
+        ],
+        "explain": "Ogni barriera agisce sugli incroci rimasti: l’isolamento cresce ma non supera mai 1."
+      },
+      {
+        "id": "specie",
+        "type": "classify",
+        "title": "Stessa specie?",
+        "prompt": "Usa il concetto biologico di specie.",
+        "categories": [
+          {
+            "id": "stessa",
+            "label": "STESSA SPECIE"
+          },
+          {
+            "id": "diverse",
+            "label": "SPECIE DIVERSE"
+          }
+        ],
+        "items": [
+          {
+            "id": "cani",
+            "text": "Un chihuahua e un alano",
+            "why": "Cani di razze diverse producono prole fertile.",
+            "category": "stessa"
+          },
+          {
+            "id": "umani",
+            "text": "Esseri umani di continenti diversi",
+            "why": "Tutti gli esseri umani si incrociano con prole fertile.",
+            "category": "stessa"
+          },
+          {
+            "id": "uccelli",
+            "text": "Due popolazioni di uccelli con figli fertili",
+            "why": "L’incrocio con prole fertile definisce la specie.",
+            "category": "stessa"
+          },
+          {
+            "id": "cavallo",
+            "text": "Cavallo e asino",
+            "why": "Il mulo è sterile.",
+            "category": "diverse"
+          },
+          {
+            "id": "rane",
+            "text": "Due rane identiche che si riproducono in mesi diversi",
+            "why": "Una barriera temporale le isola.",
+            "category": "diverse"
+          }
+        ],
+        "explain": "Conta la possibilità di incrociarsi con prole fertile, non l’aspetto.",
+        "maxErrors": 1
+      }
+    ]
+  }
 }

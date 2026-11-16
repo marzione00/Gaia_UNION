@@ -5,19 +5,21 @@
   "title": "Predazione e risposta funzionale",
   "sector": 3,
   "modelId": "biology-21",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Risposta funzionale, non dinamica accoppiata",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Cicli preda-predatore, modello di Lotka e Volterra, risposte funzionali di Holling, tempo di manipolazione, effetti a cascata",
+  "narrativeStatus": "I registri della Baia di Hudson e l’esperimento di Holling sono reali.",
   "objectives": [
-    "Spiegare: risposta funzionale, non dinamica accoppiata.",
-    "Applicare Consumo = aN/(1+ahN), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Descrivere i cicli preda-predatore.",
+    "Distinguere le risposte funzionali di tipo I, II e III.",
+    "Usare il modello aN/(1 + ahN) e il limite 1/h.",
+    "Spiegare gli effetti a cascata dei predatori."
   ],
   "prerequisites": [
     "biology-20"
   ],
   "connections": [
+    "biology-22",
     "biology-04"
   ],
   "sources": [
@@ -26,250 +28,315 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Densità prede N",
-      "definition": "Variabile indipendente, unità prede/area; intervallo [0; 100]."
+      "term": "Risposta funzionale",
+      "definition": "Relazione tra densità di prede e consumo di un predatore."
     },
     {
-      "term": "Consumo per predatore",
-      "definition": "Risultato calcolato dal modello, unità prede/u.t.."
+      "term": "Tempo di manipolazione",
+      "definition": "Tempo per catturare, mangiare e digerire una preda."
     },
     {
-      "term": "Ricerca a",
-      "definition": "Parametro a, unità area/u.t.; intervallo [0,05; 0,5]."
+      "term": "Efficienza di ricerca",
+      "definition": "Area esplorata per unità di tempo, parametro a."
     },
     {
-      "term": "Manipolazione h",
-      "definition": "Parametro b, unità u.t./preda; intervallo [0,1; 1]."
+      "term": "Modello di Lotka e Volterra",
+      "definition": "Equazioni che descrivono prede e predatori con oscillazioni."
+    },
+    {
+      "term": "Effetto a cascata",
+      "definition": "Effetto di un predatore sui livelli più bassi della rete alimentare."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Linci e lepri",
       "text": {
         "base": [
-          "Aumentando la densità di prede, il consumo di un predatore cresce ma raggiunge un limite. Il tempo necessario a gestire ogni preda riduce il tempo disponibile per cercarne altre.",
-          "La risposta funzionale di Holling di tipo II descrive un consumo saturante. Il parametro a rappresenta l’efficienza di ricerca e h il tempo di manipolazione per preda."
+          "Per circa un secolo la Compagnia della Baia di Hudson registrò le pelli di lince e di lepre americana acquistate dai cacciatori canadesi. I due numeri salgono e scendono in cicli di circa dieci anni, con i picchi delle linci che seguono quelli delle lepri. Come cambia il consumo di un predatore quando le prede abbondano?",
+          "Negli anni Venti del Novecento Alfred Lotka e Vito Volterra scrissero un modello in cui le prede crescono in assenza di predatori e i predatori crescono grazie alle prede catturate. Il modello produce oscillazioni: molte prede nutrono molti predatori, che riducono le prede, finché i predatori calano per fame e le prede si riprendono. I cicli reali dipendono anche dal cibo delle prede e da altri fattori."
         ],
         "intermediate": [
-          "Aumentando la densità di prede, il consumo di un predatore cresce ma raggiunge un limite. Il tempo necessario a gestire ogni preda riduce il tempo disponibile per cercarne altre.",
-          "La relazione è C(N)=aN/(1+ahN). A bassa densità è quasi aN; ad alta densità tende a 1/h. Il limite nasce dal tempo di manipolazione, non dall’assenza di prede."
+          "Per circa un secolo la Compagnia della Baia di Hudson registrò le pelli di lince e di lepre americana acquistate dai cacciatori canadesi. I due numeri salgono e scendono in cicli di circa dieci anni, con i picchi delle linci che seguono quelli delle lepri. Come cambia il consumo di un predatore quando le prede abbondano?",
+          "Negli anni Venti del Novecento Alfred Lotka e Vito Volterra scrissero un modello in cui le prede crescono in assenza di predatori e i predatori crescono grazie alle prede catturate. Il modello produce oscillazioni: molte prede nutrono molti predatori, che riducono le prede, finché i predatori calano per fame e le prede si riprendono. I cicli reali dipendono anche dal cibo delle prede e da altri fattori."
         ],
         "advanced": [
-          "Aumentando la densità di prede, il consumo di un predatore cresce ma raggiunge un limite. Il tempo necessario a gestire ogni preda riduce il tempo disponibile per cercarne altre.",
-          "Confronta l’effetto di cambiare a con quello di cambiare h. Il primo influenza soprattutto l’inizio della curva, il secondo ne determina anche il limite.",
-          "Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata."
+          "Per circa un secolo la Compagnia della Baia di Hudson registrò le pelli di lince e di lepre americana acquistate dai cacciatori canadesi. I due numeri salgono e scendono in cicli di circa dieci anni, con i picchi delle linci che seguono quelli delle lepri. Come cambia il consumo di un predatore quando le prede abbondano?",
+          "Negli anni Venti del Novecento Alfred Lotka e Vito Volterra scrissero un modello in cui le prede crescono in assenza di predatori e i predatori crescono grazie alle prede catturate. Il modello produce oscillazioni: molte prede nutrono molti predatori, che riducono le prede, finché i predatori calano per fame e le prede si riprendono. I cicli reali dipendono anche dal cibo delle prede e da altri fattori."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Risposte funzionali",
       "text": {
         "base": [
-          "La risposta funzionale di Holling di tipo II descrive un consumo saturante. Il parametro a rappresenta l’efficienza di ricerca e h il tempo di manipolazione per preda.",
-          "Con a=0,1 e h=0,5, a N=20 il consumo è 2/(1+1)=1 preda per unità di tempo. Il limite superiore è 2."
+          "La risposta funzionale descrive quante prede consuma un predatore in funzione della densità di prede. Nel 1959 Crawford Holling ne distinse tre tipi. Nel tipo I il consumo cresce in proporzione fino a un massimo, come negli animali filtratori. Nel tipo II cresce sempre più lentamente fino a un limite. Nel tipo III, a forma di S, a basse densità il predatore cattura poche prede, per esempio perché si nascondono meglio o perché il predatore deve imparare a cercarle.",
+          "Il tipo II nasce da un vincolo semplice: ogni preda richiede un tempo di manipolazione h, per catturarla, mangiarla e digerirla, durante il quale il predatore non cerca. Con efficienza di ricerca a, il consumo è aN/(1 + ahN). Per N grande il consumo tende a 1/h. Holling verificò la forma con un esperimento: una persona bendata cercava con le dita dischetti di carta vetrata su un tavolo.",
+          "Esempio svolto. Con a = 0,1 area per unità di tempo e h = 0,5 unità di tempo per preda: per N = 20, consumo = 0,1 · 20/(1 + 0,1 · 0,5 · 20) = 2/2 = 1 preda per unità di tempo. Il massimo possibile è 1/h = 2. Raddoppiando h il massimo si dimezza."
         ],
         "intermediate": [
-          "La relazione è C(N)=aN/(1+ahN). A bassa densità è quasi aN; ad alta densità tende a 1/h. Il limite nasce dal tempo di manipolazione, non dall’assenza di prede.",
-          "La variabile Densità prede N è espressa in prede/area; Consumo per predatore in prede/u.t.. Il dominio dello strumento è [0; 100]. La relazione implementata è: Consumo = aN/(1+ahN).",
-          "Con a=0,1 e h=0,5, a N=20 il consumo è 2/(1+1)=1 preda per unità di tempo. Il limite superiore è 2."
+          "La risposta funzionale descrive quante prede consuma un predatore in funzione della densità di prede. Nel 1959 Crawford Holling ne distinse tre tipi. Nel tipo I il consumo cresce in proporzione fino a un massimo, come negli animali filtratori. Nel tipo II cresce sempre più lentamente fino a un limite. Nel tipo III, a forma di S, a basse densità il predatore cattura poche prede, per esempio perché si nascondono meglio o perché il predatore deve imparare a cercarle.",
+          "Il tipo II nasce da un vincolo semplice: ogni preda richiede un tempo di manipolazione h, per catturarla, mangiarla e digerirla, durante il quale il predatore non cerca. Con efficienza di ricerca a, il consumo è aN/(1 + ahN). Per N grande il consumo tende a 1/h. Holling verificò la forma con un esperimento: una persona bendata cercava con le dita dischetti di carta vetrata su un tavolo.",
+          "Esempio svolto. Con a = 0,1 area per unità di tempo e h = 0,5 unità di tempo per preda: per N = 20, consumo = 0,1 · 20/(1 + 0,1 · 0,5 · 20) = 2/2 = 1 preda per unità di tempo. Il massimo possibile è 1/h = 2. Raddoppiando h il massimo si dimezza.",
+          "I predatori influenzano anche i livelli più bassi della rete alimentare. Il ritorno dei lupi nel parco di Yellowstone, nel 1995, è spesso citato come esempio: i cervi hanno cambiato abitudini e la vegetazione lungo i fiumi ne ha risentito. L’entità dell’effetto è ancora discussa dagli ecologi."
         ],
         "advanced": [
-          "La relazione è C(N)=aN/(1+ahN). A bassa densità è quasi aN; ad alta densità tende a 1/h. Il limite nasce dal tempo di manipolazione, non dall’assenza di prede.",
-          "Confronta l’effetto di cambiare a con quello di cambiare h. Il primo influenza soprattutto l’inizio della curva, il secondo ne determina anche il limite.",
-          "Una risposta funzionale non è l’intera dinamica predatore-preda. Non descrive da sola riproduzione, mortalità o cambiamenti della densità delle due popolazioni."
+          "La risposta funzionale descrive quante prede consuma un predatore in funzione della densità di prede. Nel 1959 Crawford Holling ne distinse tre tipi. Nel tipo I il consumo cresce in proporzione fino a un massimo, come negli animali filtratori. Nel tipo II cresce sempre più lentamente fino a un limite. Nel tipo III, a forma di S, a basse densità il predatore cattura poche prede, per esempio perché si nascondono meglio o perché il predatore deve imparare a cercarle.",
+          "Il tipo II nasce da un vincolo semplice: ogni preda richiede un tempo di manipolazione h, per catturarla, mangiarla e digerirla, durante il quale il predatore non cerca. Con efficienza di ricerca a, il consumo è aN/(1 + ahN). Per N grande il consumo tende a 1/h. Holling verificò la forma con un esperimento: una persona bendata cercava con le dita dischetti di carta vetrata su un tavolo.",
+          "Esempio svolto. Con a = 0,1 area per unità di tempo e h = 0,5 unità di tempo per preda: per N = 20, consumo = 0,1 · 20/(1 + 0,1 · 0,5 · 20) = 2/2 = 1 preda per unità di tempo. Il massimo possibile è 1/h = 2. Raddoppiando h il massimo si dimezza.",
+          "I predatori influenzano anche i livelli più bassi della rete alimentare. Il ritorno dei lupi nel parco di Yellowstone, nel 1995, è spesso citato come esempio: i cervi hanno cambiato abitudini e la vegetazione lungo i fiumi ne ha risentito. L’entità dell’effetto è ancora discussa dagli ecologi."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio di Holling",
       "text": {
         "base": [
-          "Nel laboratorio imposta Ricerca a (a): 0,1 area/u.t.; Manipolazione h (b): 0,5 u.t./preda. Prima di salvare A, prevedi come cambia Consumo per predatore fra Densità prede N=25 e 50 prede/area. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con a=0,1 e h=0,5, a N=20 il consumo è 2/(1+1)=1 preda per unità di tempo. Il limite superiore è 2.",
-          "La variabile Densità prede N è espressa in prede/area; Consumo per predatore in prede/u.t.. Il dominio dello strumento è [0; 100]. La relazione implementata è: Consumo = aN/(1+ahN)."
+          "Nel laboratorio il grafico mostra il consumo per predatore in funzione della densità di prede, da 0 a 100; nella scheda REGOLA cambi l’efficienza di ricerca a e il tempo di manipolazione h. Il modello è la risposta di tipo II.",
+          "Protocollo. La previsione riguarda il passaggio da N = 25 a N = 50. Con a = 0,1 e h = 0,5 prevedi e salva A. Poi porta h a 1, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con h = 0,5 il consumo passa da circa 1,11 a 1,43: cresce, ma raddoppiare le prede aumenta il consumo solo del 29%, perché il predatore passa sempre più tempo a manipolare. Con h = 1 i valori sono più bassi, circa 0,71 e 0,83, e la curva tende a 1 invece che a 2."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Ricerca a (a): 0,1 area/u.t.; Manipolazione h (b): 0,5 u.t./preda. Prima di salvare A, prevedi come cambia Consumo per predatore fra Densità prede N=25 e 50 prede/area. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Densità prede N è espressa in prede/area; Consumo per predatore in prede/u.t.. Il dominio dello strumento è [0; 100]. La relazione implementata è: Consumo = aN/(1+ahN).",
-          "La relazione è C(N)=aN/(1+ahN). A bassa densità è quasi aN; ad alta densità tende a 1/h. Il limite nasce dal tempo di manipolazione, non dall’assenza di prede."
+          "Nel laboratorio il grafico mostra il consumo per predatore in funzione della densità di prede, da 0 a 100; nella scheda REGOLA cambi l’efficienza di ricerca a e il tempo di manipolazione h. Il modello è la risposta di tipo II.",
+          "Protocollo. La previsione riguarda il passaggio da N = 25 a N = 50. Con a = 0,1 e h = 0,5 prevedi e salva A. Poi porta h a 1, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con h = 0,5 il consumo passa da circa 1,11 a 1,43: cresce, ma raddoppiare le prede aumenta il consumo solo del 29%, perché il predatore passa sempre più tempo a manipolare. Con h = 1 i valori sono più bassi, circa 0,71 e 0,83, e la curva tende a 1 invece che a 2."
         ],
         "advanced": [
-          "Nel laboratorio imposta Ricerca a (a): 0,1 area/u.t.; Manipolazione h (b): 0,5 u.t./preda. Prima di salvare A, prevedi come cambia Consumo per predatore fra Densità prede N=25 e 50 prede/area. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta l’effetto di cambiare a con quello di cambiare h. Il primo influenza soprattutto l’inizio della curva, il secondo ne determina anche il limite.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra il consumo per predatore in funzione della densità di prede, da 0 a 100; nella scheda REGOLA cambi l’efficienza di ricerca a e il tempo di manipolazione h. Il modello è la risposta di tipo II.",
+          "Protocollo. La previsione riguarda il passaggio da N = 25 a N = 50. Con a = 0,1 e h = 0,5 prevedi e salva A. Poi porta h a 1, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con h = 0,5 il consumo passa da circa 1,11 a 1,43: cresce, ma raddoppiare le prede aumenta il consumo solo del 29%, perché il predatore passa sempre più tempo a manipolare. Con h = 1 i valori sono più bassi, circa 0,71 e 0,83, e la curva tende a 1 invece che a 2."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e cascate",
       "text": {
         "base": [
-          "Una risposta funzionale non è l’intera dinamica predatore-preda. Non descrive da sola riproduzione, mortalità o cambiamenti della densità delle due popolazioni.",
-          "Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che un predatore mangi in proporzione alle prede disponibili. Il tempo di manipolazione impone un limite: oltre una certa densità altre prede non aumentano quasi il consumo.",
+          "Secondo errore: credere che i predatori portino sempre le prede all’estinzione. Spesso, quando le prede diminuiscono, i predatori calano per primi o cambiano preda, e le prede si riprendono.",
+          "I predatori influenzano anche i livelli più bassi della rete alimentare. Il ritorno dei lupi nel parco di Yellowstone, nel 1995, è spesso citato come esempio: i cervi hanno cambiato abitudini e la vegetazione lungo i fiumi ne ha risentito. L’entità dell’effetto è ancora discussa dagli ecologi."
         ],
         "intermediate": [
-          "Una risposta funzionale non è l’intera dinamica predatore-preda. Non descrive da sola riproduzione, mortalità o cambiamenti della densità delle due popolazioni.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che un predatore mangi in proporzione alle prede disponibili. Il tempo di manipolazione impone un limite: oltre una certa densità altre prede non aumentano quasi il consumo.",
+          "Secondo errore: credere che i predatori portino sempre le prede all’estinzione. Spesso, quando le prede diminuiscono, i predatori calano per primi o cambiano preda, e le prede si riprendono.",
+          "I predatori influenzano anche i livelli più bassi della rete alimentare. Il ritorno dei lupi nel parco di Yellowstone, nel 1995, è spesso citato come esempio: i cervi hanno cambiato abitudini e la vegetazione lungo i fiumi ne ha risentito. L’entità dell’effetto è ancora discussa dagli ecologi."
         ],
         "advanced": [
-          "Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata.",
-          "Confronta l’effetto di cambiare a con quello di cambiare h. Il primo influenza soprattutto l’inizio della curva, il secondo ne determina anche il limite.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che un predatore mangi in proporzione alle prede disponibili. Il tempo di manipolazione impone un limite: oltre una certa densità altre prede non aumentano quasi il consumo.",
+          "Secondo errore: credere che i predatori portino sempre le prede all’estinzione. Spesso, quando le prede diminuiscono, i predatori calano per primi o cambiano preda, e le prede si riprendono.",
+          "I predatori influenzano anche i livelli più bassi della rete alimentare. Il ritorno dei lupi nel parco di Yellowstone, nel 1995, è spesso citato come esempio: i cervi hanno cambiato abitudini e la vegetazione lungo i fiumi ne ha risentito. L’entità dell’effetto è ancora discussa dagli ecologi."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "La risposta funzionale di Holling di tipo II descrive un consumo saturante. Il parametro a rappresenta l’efficienza di ricerca e h il tempo di manipolazione per preda.",
-          "Con a=0,1 e h=0,5, a N=20 il consumo è 2/(1+1)=1 preda per unità di tempo. Il limite superiore è 2."
+          "Ripasso: modello preda-predatore di Lotka e Volterra; risposte funzionali di tipo I, II e III; tempo di manipolazione e limite 1/h; consumo aN/(1 + ahN); effetti a cascata.",
+          "Mini esercizio: con a = 0,2 e h = 0,5, per N = 10 il consumo è 2/(1 + 1) = 1; il massimo è 2.",
+          "Nelle domande sulla risposta funzionale distingui il parametro di ricerca a da quello di manipolazione h."
         ],
         "intermediate": [
-          "La relazione è C(N)=aN/(1+ahN). A bassa densità è quasi aN; ad alta densità tende a 1/h. Il limite nasce dal tempo di manipolazione, non dall’assenza di prede.",
-          "La variabile Densità prede N è espressa in prede/area; Consumo per predatore in prede/u.t.. Il dominio dello strumento è [0; 100]. La relazione implementata è: Consumo = aN/(1+ahN)."
+          "Ripasso: modello preda-predatore di Lotka e Volterra; risposte funzionali di tipo I, II e III; tempo di manipolazione e limite 1/h; consumo aN/(1 + ahN); effetti a cascata.",
+          "Mini esercizio: con a = 0,2 e h = 0,5, per N = 10 il consumo è 2/(1 + 1) = 1; il massimo è 2.",
+          "Nelle domande sulla risposta funzionale distingui il parametro di ricerca a da quello di manipolazione h."
         ],
         "advanced": [
-          "Confronta l’effetto di cambiare a con quello di cambiare h. Il primo influenza soprattutto l’inizio della curva, il secondo ne determina anche il limite.",
-          "Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata."
+          "Ripasso: modello preda-predatore di Lotka e Volterra; risposte funzionali di tipo I, II e III; tempo di manipolazione e limite 1/h; consumo aN/(1 + ahN); effetti a cascata.",
+          "Mini esercizio: con a = 0,2 e h = 0,5, per N = 10 il consumo è 2/(1 + 1) = 1; il massimo è 2.",
+          "Nelle domande sulla risposta funzionale distingui il parametro di ricerca a da quello di manipolazione h."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Risposta funzionale, non dinamica accoppiata.",
-          "Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata.",
-          "Collegamento consigliato: biology-04. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La curva di tipo II ha la stessa forma della curva di Michaelis-Menten dell’unità «Enzimi e saturazione»: in entrambi i casi un tempo occupato limita la velocità. In biologia si passa a «Reti trofiche ed energia».",
+          "Riepilogo dell’unità: predatori e prede possono oscillare insieme; la risposta funzionale descrive il consumo in funzione delle prede; nel tipo II il tempo di manipolazione limita il consumo a 1/h; il consumo è aN/(1 + ahN); i predatori possono influenzare tutta la rete alimentare.",
+          "Nel diario registra A e B con le previsioni e spiega perché un predatore lento a digerire si sazia con meno prede."
         ],
         "intermediate": [
-          "La relazione è C(N)=aN/(1+ahN). A bassa densità è quasi aN; ad alta densità tende a 1/h. Il limite nasce dal tempo di manipolazione, non dall’assenza di prede.",
-          "Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata.",
-          "Confronta l’effetto di cambiare a con quello di cambiare h. Il primo influenza soprattutto l’inizio della curva, il secondo ne determina anche il limite."
+          "La curva di tipo II ha la stessa forma della curva di Michaelis-Menten dell’unità «Enzimi e saturazione»: in entrambi i casi un tempo occupato limita la velocità. In biologia si passa a «Reti trofiche ed energia».",
+          "Riepilogo dell’unità: predatori e prede possono oscillare insieme; la risposta funzionale descrive il consumo in funzione delle prede; nel tipo II il tempo di manipolazione limita il consumo a 1/h; il consumo è aN/(1 + ahN); i predatori possono influenzare tutta la rete alimentare.",
+          "Nel diario registra A e B con le previsioni e spiega perché un predatore lento a digerire si sazia con meno prede."
         ],
         "advanced": [
-          "Confronta l’effetto di cambiare a con quello di cambiare h. Il primo influenza soprattutto l’inizio della curva, il secondo ne determina anche il limite.",
-          "Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La curva di tipo II ha la stessa forma della curva di Michaelis-Menten dell’unità «Enzimi e saturazione»: in entrambi i casi un tempo occupato limita la velocità. In biologia si passa a «Reti trofiche ed energia».",
+          "Riepilogo dell’unità: predatori e prede possono oscillare insieme; la risposta funzionale descrive il consumo in funzione delle prede; nel tipo II il tempo di manipolazione limita il consumo a 1/h; il consumo è aN/(1 + ahN); i predatori possono influenzare tutta la rete alimentare.",
+          "Nel diario registra A e B con le previsioni e spiega perché un predatore lento a digerire si sazia con meno prede."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-21-concept",
-      "prompt": "Ad alta densità, il consumo tende a:",
+      "id": "biology-21-q1",
+      "prompt": "Nella risposta di tipo II, qual è il consumo massimo per predatore?",
       "options": [
         {
           "id": "A",
-          "text": "Infinito senza limite",
-          "feedback": "La relazione è C(N)=aN/(1+ahN). A bassa densità è quasi aN; ad alta densità tende a 1/h. Il limite nasce dal tempo di manipolazione, non dall’assenza di prede."
+          "text": "1/h",
+          "feedback": "Esatto: il predatore non può manipolare più di una preda ogni h unità di tempo."
         },
         {
           "id": "B",
-          "text": "1/h",
-          "feedback": "La risposta funzionale di Holling di tipo II descrive un consumo saturante. Il parametro a rappresenta l’efficienza di ricerca e h il tempo di manipolazione per preda."
+          "text": "a",
+          "feedback": "L’efficienza di ricerca conta soprattutto a basse densità."
         },
         {
           "id": "C",
-          "text": "h",
-          "feedback": "Una risposta funzionale non è l’intera dinamica predatore-preda. Non descrive da sola riproduzione, mortalità o cambiamenti della densità delle due popolazioni."
+          "text": "Infinito",
+          "feedback": "Il tempo di manipolazione impone un limite."
+        },
+        {
+          "id": "D",
+          "text": "a · h",
+          "feedback": "Il prodotto a · h compare al denominatore, ma non è il massimo."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-21-q2",
+      "prompt": "Che forma ha la risposta di tipo II?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Una retta che cresce senza limiti",
+          "feedback": "Questa sarebbe una risposta senza tempo di manipolazione."
+        },
+        {
+          "id": "B",
+          "text": "Una curva che cresce sempre più lentamente fino a un limite",
+          "feedback": "Esatto: è una curva di saturazione."
+        },
+        {
+          "id": "C",
+          "text": "Una curva a S",
+          "feedback": "La curva a S è la risposta di tipo III."
+        },
+        {
+          "id": "D",
+          "text": "Una curva che decresce",
+          "feedback": "Più prede non riducono il consumo del predatore."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "biology-21-calculation",
-      "prompt": "Calcolo: Ricerca a (a)=0,1 area/u.t.; Manipolazione h (b)=0,5 u.t./preda. Per Densità prede N=20 prede/area, quanto vale Consumo per predatore?",
+      "id": "biology-21-q3",
+      "prompt": "Con a = 0,1, h = 0,5 e N = 20, quanto vale il consumo?",
       "options": [
         {
           "id": "A",
-          "text": "1 prede/u.t.",
-          "feedback": "Consumo = aN/(1+ahN). Con Ricerca a (a)=0,1 area/u.t.; Manipolazione h (b)=0,5 u.t./preda e Densità prede N=20 prede/area, il risultato è 1 prede/u.t.. Conserva le unità e arrotonda solo alla fine."
+          "text": "2",
+          "feedback": "2 è il massimo 1/h, non il valore a N = 20."
         },
         {
           "id": "B",
-          "text": "2 prede/u.t.",
-          "feedback": "Questo valore non soddisfa la relazione. Consumo = aN/(1+ahN). Con Ricerca a (a)=0,1 area/u.t.; Manipolazione h (b)=0,5 u.t./preda e Densità prede N=20 prede/area, il risultato è 1 prede/u.t.. Conserva le unità e arrotonda solo alla fine."
+          "text": "0,5",
+          "feedback": "0,5 è il tempo di manipolazione h, non il consumo."
         },
         {
           "id": "C",
-          "text": "0 prede/u.t.",
-          "feedback": "Controlla sostituzione, segno e unità. Consumo = aN/(1+ahN). Con Ricerca a (a)=0,1 area/u.t.; Manipolazione h (b)=0,5 u.t./preda e Densità prede N=20 prede/area, il risultato è 1 prede/u.t.. Conserva le unità e arrotonda solo alla fine."
+          "text": "1",
+          "feedback": "Esatto: 0,1 · 20/(1 + 0,1 · 0,5 · 20) = 2/2."
+        },
+        {
+          "id": "D",
+          "text": "20",
+          "feedback": "Il predatore non mangia tutte le prede presenti."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 20,
-        "parameters": {
-          "a": 0.1,
-          "b": 0.5
-        },
-        "expected": 1,
-        "unit": "prede/u.t."
-      }
+      "correct": "C"
     },
     {
-      "id": "biology-21-transfer",
-      "prompt": "Trasferimento: Ricerca a (a)=0,15 area/u.t.; Manipolazione h (b)=0,5 u.t./preda. Per Densità prede N=20 prede/area, quanto vale Consumo per predatore?",
+      "id": "biology-21-q4",
+      "prompt": "Che periodo hanno i cicli di lince e lepre nei registri della Baia di Hudson?",
       "options": [
         {
           "id": "A",
-          "text": "2,2 prede/u.t.",
-          "feedback": "Questo valore non soddisfa la relazione. Consumo = aN/(1+ahN). Con Ricerca a (a)=0,15 area/u.t.; Manipolazione h (b)=0,5 u.t./preda e Densità prede N=20 prede/area, il risultato è 1,2 prede/u.t.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Circa un anno",
+          "feedback": "I cicli sono molto più lunghi delle stagioni."
         },
         {
           "id": "B",
-          "text": "0,2 prede/u.t.",
-          "feedback": "Controlla sostituzione, segno e unità. Consumo = aN/(1+ahN). Con Ricerca a (a)=0,15 area/u.t.; Manipolazione h (b)=0,5 u.t./preda e Densità prede N=20 prede/area, il risultato è 1,2 prede/u.t.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Circa cento anni",
+          "feedback": "I registri coprono circa un secolo e mostrano molti cicli."
         },
         {
           "id": "C",
-          "text": "1,2 prede/u.t.",
-          "feedback": "Consumo = aN/(1+ahN). Con Ricerca a (a)=0,15 area/u.t.; Manipolazione h (b)=0,5 u.t./preda e Densità prede N=20 prede/area, il risultato è 1,2 prede/u.t.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Non ci sono cicli",
+          "feedback": "I cicli sono tra i più noti dell’ecologia."
+        },
+        {
+          "id": "D",
+          "text": "Circa dieci anni",
+          "feedback": "Esatto: con i picchi delle linci che seguono quelli delle lepri."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 20,
-        "parameters": {
-          "a": 0.15,
-          "b": 0.5
-        },
-        "expected": 1.2,
-        "unit": "prede/u.t."
-      }
+      "correct": "D"
     },
     {
-      "id": "biology-21-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "biology-21-q5",
+      "prompt": "Che cosa succede alla curva di tipo II se il tempo di manipolazione raddoppia?",
       "options": [
         {
           "id": "A",
-          "text": "Risposta funzionale, non dinamica accoppiata",
-          "feedback": "Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata."
+          "text": "Il consumo massimo si dimezza",
+          "feedback": "Esatto: il limite 1/h diventa la metà."
         },
         {
           "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata."
+          "text": "Il consumo massimo raddoppia",
+          "feedback": "Più tempo per preda significa meno prede consumate."
         },
         {
           "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Densità assegnata, parametri costanti e nessuna interferenza fra predatori. Le unità dipendono dalla convenzione di area dichiarata."
+          "text": "Non cambia nulla",
+          "feedback": "Il tempo di manipolazione decide il limite."
+        },
+        {
+          "id": "D",
+          "text": "La curva diventa una retta",
+          "feedback": "Una retta senza limite si ha solo con h = 0."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "biology-21-q6",
+      "prompt": "Nel laboratorio, con h = 0,5, raddoppiando le prede da 25 a 50 il consumo:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Raddoppia",
+          "feedback": "Il tempo di manipolazione frena la crescita."
+        },
+        {
+          "id": "B",
+          "text": "Cresce di circa il 29%",
+          "feedback": "Esatto: da circa 1,11 a 1,43 prede per unità di tempo."
+        },
+        {
+          "id": "C",
+          "text": "Diminuisce",
+          "feedback": "Più prede non riducono il consumo nel tipo II."
+        },
+        {
+          "id": "D",
+          "text": "Resta uguale",
+          "feedback": "La curva è ancora in salita a queste densità."
+        }
+      ],
+      "correct": "B"
     }
   ]
 }

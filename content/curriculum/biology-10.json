@@ -5,19 +5,21 @@
   "title": "DNA e replicazione",
   "sector": 3,
   "modelId": "biology-10",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Conteggio ideale di duplicazioni complete",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Storia della scoperta, struttura del DNA, regole di Chargaff, replicazione semiconservativa e PCR",
+  "narrativeStatus": "Esperimenti, date e dimensioni sono reali.",
   "objectives": [
-    "Spiegare: conteggio ideale di duplicazioni complete.",
-    "Applicare N_n = N₀ 2^n, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Descrivere la struttura del DNA e l’appaiamento delle basi.",
+    "Applicare le regole di Chargaff.",
+    "Spiegare la replicazione semiconservativa e il ruolo degli enzimi.",
+    "Calcolare il numero di copie prodotte dalla PCR."
   ],
   "prerequisites": [
     "biology-09"
   ],
   "connections": [
+    "biology-11",
     "chemistry-25"
   ],
   "sources": [
@@ -26,244 +28,543 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Cicli replicazione",
-      "definition": "Variabile indipendente, unità 1; intervallo [0; 12]."
+      "term": "Nucleotide",
+      "definition": "Unità del DNA: zucchero, fosfato e base azotata."
     },
     {
-      "term": "Molecole DNA",
-      "definition": "Risultato calcolato dal modello, unità molecole."
+      "term": "Appaiamento delle basi",
+      "definition": "A con T e G con C, tenute da legami a idrogeno."
     },
     {
-      "term": "Molecole iniziali",
-      "definition": "Parametro a, unità molecole; intervallo [1; 5]."
+      "term": "Replicazione semiconservativa",
+      "definition": "Ogni nuova doppia elica contiene un filamento vecchio e uno nuovo."
+    },
+    {
+      "term": "Frammenti di Okazaki",
+      "definition": "Tratti brevi di DNA sintetizzati sul filamento lento."
+    },
+    {
+      "term": "PCR",
+      "definition": "Reazione a catena della polimerasi; raddoppia le copie di un tratto di DNA a ogni ciclo."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Miliardi di copie da un capello",
       "text": {
         "base": [
-          "Un modello di DNA viene duplicato per cicli successivi. Il conteggio delle molecole cresce, ma il meccanismo di copia deve restare distinto dalla semplice moltiplicazione numerica.",
-          "Il DNA conserva informazione nella sequenza delle basi. Nella replicazione semiconservativa, ciascuna molecola figlia contiene un filamento preesistente e uno nuovo."
+          "Un capello trovato su una scena contiene poche molecole di DNA, troppo poche per essere analizzate. In un paio d’ore un apparecchio da laboratorio ne produce miliardi di copie. Il trucco è lo stesso che usano le cellule a ogni divisione: copiare il DNA aprendo la doppia elica e usando ciascun filamento come stampo.",
+          "Nel 1869 Friedrich Miescher isolò dai nuclei una sostanza acida, che chiamò nucleina. Nel 1944 Avery, MacLeod e McCarty mostrarono che il DNA trasmette caratteri ereditari tra batteri, e nel 1952 Hershey e Chase lo confermarono con i virus. Le immagini di diffrazione ai raggi X di Rosalind Franklin e le regole di Chargaff permisero a Watson e Crick di proporre, nel 1953, il modello a doppia elica."
         ],
         "intermediate": [
-          "Un modello di DNA viene duplicato per cicli successivi. Il conteggio delle molecole cresce, ma il meccanismo di copia deve restare distinto dalla semplice moltiplicazione numerica.",
-          "In un bilancio ideale di duplicazione completa, N_n=N₀2^n. La formula conta molecole dopo cicli interi; non calcola velocità degli enzimi, errori o disponibilità dei nucleotidi."
+          "Un capello trovato su una scena contiene poche molecole di DNA, troppo poche per essere analizzate. In un paio d’ore un apparecchio da laboratorio ne produce miliardi di copie. Il trucco è lo stesso che usano le cellule a ogni divisione: copiare il DNA aprendo la doppia elica e usando ciascun filamento come stampo.",
+          "Nel 1869 Friedrich Miescher isolò dai nuclei una sostanza acida, che chiamò nucleina. Nel 1944 Avery, MacLeod e McCarty mostrarono che il DNA trasmette caratteri ereditari tra batteri, e nel 1952 Hershey e Chase lo confermarono con i virus. Le immagini di diffrazione ai raggi X di Rosalind Franklin e le regole di Chargaff permisero a Watson e Crick di proporre, nel 1953, il modello a doppia elica."
         ],
         "advanced": [
-          "Un modello di DNA viene duplicato per cicli successivi. Il conteggio delle molecole cresce, ma il meccanismo di copia deve restare distinto dalla semplice moltiplicazione numerica.",
-          "Segui simbolicamente due filamenti iniziali nei primi due cicli per verificare il significato di semiconservativo. Distingui conteggio delle molecole e storia dei singoli filamenti.",
-          "Duplicazione completa senza errori o limiti. Nessun protocollo di laboratorio o manipolazione genetica è incluso."
+          "Un capello trovato su una scena contiene poche molecole di DNA, troppo poche per essere analizzate. In un paio d’ore un apparecchio da laboratorio ne produce miliardi di copie. Il trucco è lo stesso che usano le cellule a ogni divisione: copiare il DNA aprendo la doppia elica e usando ciascun filamento come stampo.",
+          "Nel 1869 Friedrich Miescher isolò dai nuclei una sostanza acida, che chiamò nucleina. Nel 1944 Avery, MacLeod e McCarty mostrarono che il DNA trasmette caratteri ereditari tra batteri, e nel 1952 Hershey e Chase lo confermarono con i virus. Le immagini di diffrazione ai raggi X di Rosalind Franklin e le regole di Chargaff permisero a Watson e Crick di proporre, nel 1953, il modello a doppia elica."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Struttura e copia",
       "text": {
         "base": [
-          "Il DNA conserva informazione nella sequenza delle basi. Nella replicazione semiconservativa, ciascuna molecola figlia contiene un filamento preesistente e uno nuovo.",
-          "Partendo da una molecola, dopo tre cicli ideali ne ottieni otto. Il fatto che il numero raddoppi non significa che i filamenti originari si moltiplichino fisicamente come oggetti identici."
+          "Il DNA è un polimero di nucleotidi, ciascuno formato da uno zucchero, il desossiribosio, un gruppo fosfato e una base azotata: adenina, timina, guanina o citosina. Zuccheri e fosfati formano lo scheletro esterno; le basi stanno all’interno e si appaiano A con T, con due legami a idrogeno, e G con C, con tre. I due filamenti corrono in direzioni opposte, 5′→3′ e 3′→5′. L’elica ha un diametro di circa 2 nm e compie un giro ogni 10,5 coppie di basi circa.",
+          "Dall’appaiamento seguono le regole di Chargaff: in ogni DNA a doppio filamento A = T e G = C. Se un DNA ha il 30% di adenina, ha anche il 30% di timina, e il restante 40% si divide in parti uguali: 20% di guanina e 20% di citosina. Il genoma umano conta circa 3,1 miliardi di coppie di basi per ogni corredo, e il DNA di una cellula, disteso, misurerebbe circa 2 metri.",
+          "La replicazione è semiconservativa: ogni nuova doppia elica contiene un filamento vecchio e uno nuovo, come mostrarono Meselson e Stahl nel 1958. L’elicasi apre l’elica; la primasi deposita un breve innesco di RNA; la DNA polimerasi aggiunge nucleotidi solo in direzione 5′→3′. Per questo un filamento, il veloce, è copiato in modo continuo, e l’altro, il lento, a pezzi: i frammenti di Okazaki, poi uniti dalla ligasi. Con la correzione degli errori si sbaglia circa una base ogni miliardo."
         ],
         "intermediate": [
-          "In un bilancio ideale di duplicazione completa, N_n=N₀2^n. La formula conta molecole dopo cicli interi; non calcola velocità degli enzimi, errori o disponibilità dei nucleotidi.",
-          "La variabile Cicli replicazione è espressa in 1; Molecole DNA in molecole. Il dominio dello strumento è [0; 12], con soli valori interi. La relazione implementata è: N_n = N₀ 2^n.",
-          "Partendo da una molecola, dopo tre cicli ideali ne ottieni otto. Il fatto che il numero raddoppi non significa che i filamenti originari si moltiplichino fisicamente come oggetti identici."
+          "Il DNA è un polimero di nucleotidi, ciascuno formato da uno zucchero, il desossiribosio, un gruppo fosfato e una base azotata: adenina, timina, guanina o citosina. Zuccheri e fosfati formano lo scheletro esterno; le basi stanno all’interno e si appaiano A con T, con due legami a idrogeno, e G con C, con tre. I due filamenti corrono in direzioni opposte, 5′→3′ e 3′→5′. L’elica ha un diametro di circa 2 nm e compie un giro ogni 10,5 coppie di basi circa.",
+          "Dall’appaiamento seguono le regole di Chargaff: in ogni DNA a doppio filamento A = T e G = C. Se un DNA ha il 30% di adenina, ha anche il 30% di timina, e il restante 40% si divide in parti uguali: 20% di guanina e 20% di citosina. Il genoma umano conta circa 3,1 miliardi di coppie di basi per ogni corredo, e il DNA di una cellula, disteso, misurerebbe circa 2 metri.",
+          "La replicazione è semiconservativa: ogni nuova doppia elica contiene un filamento vecchio e uno nuovo, come mostrarono Meselson e Stahl nel 1958. L’elicasi apre l’elica; la primasi deposita un breve innesco di RNA; la DNA polimerasi aggiunge nucleotidi solo in direzione 5′→3′. Per questo un filamento, il veloce, è copiato in modo continuo, e l’altro, il lento, a pezzi: i frammenti di Okazaki, poi uniti dalla ligasi. Con la correzione degli errori si sbaglia circa una base ogni miliardo.",
+          "La reazione a catena della polimerasi, PCR, ideata da Kary Mullis nel 1983, ripete in provetta tre passaggi: si separano i filamenti a circa 95 °C, si legano gli inneschi a temperatura più bassa, la polimerasi di un batterio delle sorgenti calde, Thermus aquaticus, allunga i nuovi filamenti. Ogni ciclo raddoppia le copie: N = N₀ · 2ⁿ. Dopo 10 cicli una molecola diventa 1024, dopo 30 circa un miliardo."
         ],
         "advanced": [
-          "In un bilancio ideale di duplicazione completa, N_n=N₀2^n. La formula conta molecole dopo cicli interi; non calcola velocità degli enzimi, errori o disponibilità dei nucleotidi.",
-          "Segui simbolicamente due filamenti iniziali nei primi due cicli per verificare il significato di semiconservativo. Distingui conteggio delle molecole e storia dei singoli filamenti.",
-          "La doppia elica schematica non è una ricostruzione atomica e non codifica una sequenza reale. Replicazione e trascrizione sono processi differenti."
+          "Il DNA è un polimero di nucleotidi, ciascuno formato da uno zucchero, il desossiribosio, un gruppo fosfato e una base azotata: adenina, timina, guanina o citosina. Zuccheri e fosfati formano lo scheletro esterno; le basi stanno all’interno e si appaiano A con T, con due legami a idrogeno, e G con C, con tre. I due filamenti corrono in direzioni opposte, 5′→3′ e 3′→5′. L’elica ha un diametro di circa 2 nm e compie un giro ogni 10,5 coppie di basi circa.",
+          "Dall’appaiamento seguono le regole di Chargaff: in ogni DNA a doppio filamento A = T e G = C. Se un DNA ha il 30% di adenina, ha anche il 30% di timina, e il restante 40% si divide in parti uguali: 20% di guanina e 20% di citosina. Il genoma umano conta circa 3,1 miliardi di coppie di basi per ogni corredo, e il DNA di una cellula, disteso, misurerebbe circa 2 metri.",
+          "La replicazione è semiconservativa: ogni nuova doppia elica contiene un filamento vecchio e uno nuovo, come mostrarono Meselson e Stahl nel 1958. L’elicasi apre l’elica; la primasi deposita un breve innesco di RNA; la DNA polimerasi aggiunge nucleotidi solo in direzione 5′→3′. Per questo un filamento, il veloce, è copiato in modo continuo, e l’altro, il lento, a pezzi: i frammenti di Okazaki, poi uniti dalla ligasi. Con la correzione degli errori si sbaglia circa una base ogni miliardo.",
+          "La reazione a catena della polimerasi, PCR, ideata da Kary Mullis nel 1983, ripete in provetta tre passaggi: si separano i filamenti a circa 95 °C, si legano gli inneschi a temperatura più bassa, la polimerasi di un batterio delle sorgenti calde, Thermus aquaticus, allunga i nuovi filamenti. Ogni ciclo raddoppia le copie: N = N₀ · 2ⁿ. Dopo 10 cicli una molecola diventa 1024, dopo 30 circa un miliardo."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Carte del DNA",
       "text": {
         "base": [
-          "Nel laboratorio imposta Molecole iniziali (a): 1 molecole. Prima di salvare A, prevedi come cambia Molecole DNA fra Cicli replicazione=3 e 6 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Partendo da una molecola, dopo tre cicli ideali ne ottieni otto. Il fatto che il numero raddoppi non significa che i filamenti originari si moltiplichino fisicamente come oggetti identici.",
-          "La variabile Cicli replicazione è espressa in 1; Molecole DNA in molecole. Il dominio dello strumento è [0; 12], con soli valori interi. La relazione implementata è: N_n = N₀ 2^n."
+          "L’attività ha quattro serie di carte: le tappe della replicazione da mettere in ordine; caratteristiche del DNA, dell’RNA o di entrambi; risultati di una PCR da classificare per numero di copie; genomi da ordinare per dimensione. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per la PCR ricorda le potenze di 2: 2¹⁰ = 1024, circa mille; 2²⁰ ≈ un milione; 2³⁰ ≈ un miliardo. Moltiplica poi per il numero di molecole iniziali.",
+          "La reazione a catena della polimerasi, PCR, ideata da Kary Mullis nel 1983, ripete in provetta tre passaggi: si separano i filamenti a circa 95 °C, si legano gli inneschi a temperatura più bassa, la polimerasi di un batterio delle sorgenti calde, Thermus aquaticus, allunga i nuovi filamenti. Ogni ciclo raddoppia le copie: N = N₀ · 2ⁿ. Dopo 10 cicli una molecola diventa 1024, dopo 30 circa un miliardo."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Molecole iniziali (a): 1 molecole. Prima di salvare A, prevedi come cambia Molecole DNA fra Cicli replicazione=3 e 6 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Cicli replicazione è espressa in 1; Molecole DNA in molecole. Il dominio dello strumento è [0; 12], con soli valori interi. La relazione implementata è: N_n = N₀ 2^n.",
-          "In un bilancio ideale di duplicazione completa, N_n=N₀2^n. La formula conta molecole dopo cicli interi; non calcola velocità degli enzimi, errori o disponibilità dei nucleotidi."
+          "L’attività ha quattro serie di carte: le tappe della replicazione da mettere in ordine; caratteristiche del DNA, dell’RNA o di entrambi; risultati di una PCR da classificare per numero di copie; genomi da ordinare per dimensione. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per la PCR ricorda le potenze di 2: 2¹⁰ = 1024, circa mille; 2²⁰ ≈ un milione; 2³⁰ ≈ un miliardo. Moltiplica poi per il numero di molecole iniziali.",
+          "Il modello del programma calcola N = N₀ · 2ⁿ per n da 0 a 12 cicli, con N₀ regolabile da 1 a 5 molecole: con una molecola, dopo 3 cicli se ne hanno 8. I punti sono separati perché i cicli sono interi."
         ],
         "advanced": [
-          "Nel laboratorio imposta Molecole iniziali (a): 1 molecole. Prima di salvare A, prevedi come cambia Molecole DNA fra Cicli replicazione=3 e 6 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Segui simbolicamente due filamenti iniziali nei primi due cicli per verificare il significato di semiconservativo. Distingui conteggio delle molecole e storia dei singoli filamenti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "L’attività ha quattro serie di carte: le tappe della replicazione da mettere in ordine; caratteristiche del DNA, dell’RNA o di entrambi; risultati di una PCR da classificare per numero di copie; genomi da ordinare per dimensione. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per la PCR ricorda le potenze di 2: 2¹⁰ = 1024, circa mille; 2²⁰ ≈ un milione; 2³⁰ ≈ un miliardo. Moltiplica poi per il numero di molecole iniziali.",
+          "Il modello del programma calcola N = N₀ · 2ⁿ per n da 0 a 12 cicli, con N₀ regolabile da 1 a 5 molecole: con una molecola, dopo 3 cicli se ne hanno 8. I punti sono separati perché i cicli sono interi."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "La doppia elica schematica non è una ricostruzione atomica e non codifica una sequenza reale. Replicazione e trascrizione sono processi differenti.",
-          "Duplicazione completa senza errori o limiti. Nessun protocollo di laboratorio o manipolazione genetica è incluso.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che la DNA polimerasi possa iniziare un filamento da sola. Ha bisogno di un innesco, un breve tratto già appaiato da cui partire: per questo nelle cellule serve la primasi e nella PCR gli inneschi sintetici.",
+          "Secondo errore: credere che la dimensione del genoma misuri la complessità di un organismo. Alcune piante e alcuni anfibi hanno genomi molto più grandi di quello umano, ricchi di sequenze ripetute.",
+          "Il modello del programma calcola N = N₀ · 2ⁿ per n da 0 a 12 cicli, con N₀ regolabile da 1 a 5 molecole: con una molecola, dopo 3 cicli se ne hanno 8. I punti sono separati perché i cicli sono interi."
         ],
         "intermediate": [
-          "La doppia elica schematica non è una ricostruzione atomica e non codifica una sequenza reale. Replicazione e trascrizione sono processi differenti.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "Errore frequente: pensare che la DNA polimerasi possa iniziare un filamento da sola. Ha bisogno di un innesco, un breve tratto già appaiato da cui partire: per questo nelle cellule serve la primasi e nella PCR gli inneschi sintetici.",
+          "Secondo errore: credere che la dimensione del genoma misuri la complessità di un organismo. Alcune piante e alcuni anfibi hanno genomi molto più grandi di quello umano, ricchi di sequenze ripetute.",
+          "Il modello del programma calcola N = N₀ · 2ⁿ per n da 0 a 12 cicli, con N₀ regolabile da 1 a 5 molecole: con una molecola, dopo 3 cicli se ne hanno 8. I punti sono separati perché i cicli sono interi."
         ],
         "advanced": [
-          "Duplicazione completa senza errori o limiti. Nessun protocollo di laboratorio o manipolazione genetica è incluso.",
-          "Segui simbolicamente due filamenti iniziali nei primi due cicli per verificare il significato di semiconservativo. Distingui conteggio delle molecole e storia dei singoli filamenti.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che la DNA polimerasi possa iniziare un filamento da sola. Ha bisogno di un innesco, un breve tratto già appaiato da cui partire: per questo nelle cellule serve la primasi e nella PCR gli inneschi sintetici.",
+          "Secondo errore: credere che la dimensione del genoma misuri la complessità di un organismo. Alcune piante e alcuni anfibi hanno genomi molto più grandi di quello umano, ricchi di sequenze ripetute.",
+          "Il modello del programma calcola N = N₀ · 2ⁿ per n da 0 a 12 cicli, con N₀ regolabile da 1 a 5 molecole: con una molecola, dopo 3 cicli se ne hanno 8. I punti sono separati perché i cicli sono interi."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Il DNA conserva informazione nella sequenza delle basi. Nella replicazione semiconservativa, ciascuna molecola figlia contiene un filamento preesistente e uno nuovo.",
-          "Partendo da una molecola, dopo tre cicli ideali ne ottieni otto. Il fatto che il numero raddoppi non significa che i filamenti originari si moltiplichino fisicamente come oggetti identici."
+          "Ripasso: esperimenti che identificarono il DNA; struttura a doppia elica e appaiamento delle basi; regole di Chargaff; replicazione semiconservativa e ruolo degli enzimi; filamento veloce e lento; PCR e crescita 2ⁿ.",
+          "Mini esercizio: 4 molecole iniziali dopo 10 cicli di PCR diventano 4 · 1024 = 4096.",
+          "Nelle domande sulla replicazione ricorda la regola: la polimerasi allunga solo in direzione 5′→3′."
         ],
         "intermediate": [
-          "In un bilancio ideale di duplicazione completa, N_n=N₀2^n. La formula conta molecole dopo cicli interi; non calcola velocità degli enzimi, errori o disponibilità dei nucleotidi.",
-          "La variabile Cicli replicazione è espressa in 1; Molecole DNA in molecole. Il dominio dello strumento è [0; 12], con soli valori interi. La relazione implementata è: N_n = N₀ 2^n."
+          "Ripasso: esperimenti che identificarono il DNA; struttura a doppia elica e appaiamento delle basi; regole di Chargaff; replicazione semiconservativa e ruolo degli enzimi; filamento veloce e lento; PCR e crescita 2ⁿ.",
+          "Mini esercizio: 4 molecole iniziali dopo 10 cicli di PCR diventano 4 · 1024 = 4096.",
+          "Nelle domande sulla replicazione ricorda la regola: la polimerasi allunga solo in direzione 5′→3′."
         ],
         "advanced": [
-          "Segui simbolicamente due filamenti iniziali nei primi due cicli per verificare il significato di semiconservativo. Distingui conteggio delle molecole e storia dei singoli filamenti.",
-          "Duplicazione completa senza errori o limiti. Nessun protocollo di laboratorio o manipolazione genetica è incluso."
+          "Ripasso: esperimenti che identificarono il DNA; struttura a doppia elica e appaiamento delle basi; regole di Chargaff; replicazione semiconservativa e ruolo degli enzimi; filamento veloce e lento; PCR e crescita 2ⁿ.",
+          "Mini esercizio: 4 molecole iniziali dopo 10 cicli di PCR diventano 4 · 1024 = 4096.",
+          "Nelle domande sulla replicazione ricorda la regola: la polimerasi allunga solo in direzione 5′→3′."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Conteggio ideale di duplicazioni complete.",
-          "Duplicazione completa senza errori o limiti. Nessun protocollo di laboratorio o manipolazione genetica è incluso.",
-          "Collegamento consigliato: chemistry-25. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Il DNA è un polimero, come quelli dell’unità di chimica «Polimeri e materiali». In biologia si passa a «Espressione genica»: come l’informazione del DNA diventa una proteina.",
+          "Riepilogo dell’unità: il DNA è una doppia elica di nucleotidi con basi appaiate A-T e G-C; per Chargaff A = T e G = C; la replicazione è semiconservativa e procede in direzione 5′→3′, continua su un filamento e a pezzi sull’altro; la PCR raddoppia le copie a ogni ciclo.",
+          "Nel diario spiega perché sul filamento lento la replicazione procede a pezzi."
         ],
         "intermediate": [
-          "In un bilancio ideale di duplicazione completa, N_n=N₀2^n. La formula conta molecole dopo cicli interi; non calcola velocità degli enzimi, errori o disponibilità dei nucleotidi.",
-          "Duplicazione completa senza errori o limiti. Nessun protocollo di laboratorio o manipolazione genetica è incluso.",
-          "Segui simbolicamente due filamenti iniziali nei primi due cicli per verificare il significato di semiconservativo. Distingui conteggio delle molecole e storia dei singoli filamenti."
+          "Il DNA è un polimero, come quelli dell’unità di chimica «Polimeri e materiali». In biologia si passa a «Espressione genica»: come l’informazione del DNA diventa una proteina.",
+          "Riepilogo dell’unità: il DNA è una doppia elica di nucleotidi con basi appaiate A-T e G-C; per Chargaff A = T e G = C; la replicazione è semiconservativa e procede in direzione 5′→3′, continua su un filamento e a pezzi sull’altro; la PCR raddoppia le copie a ogni ciclo.",
+          "Nel diario spiega perché sul filamento lento la replicazione procede a pezzi."
         ],
         "advanced": [
-          "Segui simbolicamente due filamenti iniziali nei primi due cicli per verificare il significato di semiconservativo. Distingui conteggio delle molecole e storia dei singoli filamenti.",
-          "Duplicazione completa senza errori o limiti. Nessun protocollo di laboratorio o manipolazione genetica è incluso.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Il DNA è un polimero, come quelli dell’unità di chimica «Polimeri e materiali». In biologia si passa a «Espressione genica»: come l’informazione del DNA diventa una proteina.",
+          "Riepilogo dell’unità: il DNA è una doppia elica di nucleotidi con basi appaiate A-T e G-C; per Chargaff A = T e G = C; la replicazione è semiconservativa e procede in direzione 5′→3′, continua su un filamento e a pezzi sull’altro; la PCR raddoppia le copie a ogni ciclo.",
+          "Nel diario spiega perché sul filamento lento la replicazione procede a pezzi."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-10-concept",
-      "prompt": "Replicazione semiconservativa significa che ogni molecola figlia ha:",
+      "id": "biology-10-q1",
+      "prompt": "Con quale base si appaia l’adenina nel DNA?",
       "options": [
         {
           "id": "A",
-          "text": "Un filamento vecchio e uno nuovo",
-          "feedback": "Il DNA conserva informazione nella sequenza delle basi. Nella replicazione semiconservativa, ciascuna molecola figlia contiene un filamento preesistente e uno nuovo."
+          "text": "Timina",
+          "feedback": "Esatto: adenina e timina sono unite da due legami a idrogeno."
         },
         {
           "id": "B",
-          "text": "Due filamenti sempre nuovi",
-          "feedback": "La doppia elica schematica non è una ricostruzione atomica e non codifica una sequenza reale. Replicazione e trascrizione sono processi differenti."
+          "text": "Guanina",
+          "feedback": "La guanina si appaia con la citosina."
         },
         {
           "id": "C",
-          "text": "Due filamenti sempre vecchi",
-          "feedback": "In un bilancio ideale di duplicazione completa, N_n=N₀2^n. La formula conta molecole dopo cicli interi; non calcola velocità degli enzimi, errori o disponibilità dei nucleotidi."
+          "text": "Citosina",
+          "feedback": "La citosina si appaia con la guanina."
+        },
+        {
+          "id": "D",
+          "text": "Uracile",
+          "feedback": "L’uracile si trova nell’RNA, non nel DNA."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "biology-10-calculation",
-      "prompt": "Calcolo: Molecole iniziali (a)=1 molecole. Per Cicli replicazione=3 (adimensionale), quanto vale Molecole DNA?",
+      "id": "biology-10-q2",
+      "prompt": "Un DNA a doppio filamento contiene il 30% di adenina. Quanta guanina contiene?",
       "options": [
         {
           "id": "A",
-          "text": "12 molecole",
-          "feedback": "Questo valore non soddisfa la relazione. N_n = N₀ 2^n. Con Molecole iniziali (a)=1 molecole e Cicli replicazione=3 (adimensionale), il risultato è 8 molecole. Conserva le unità e arrotonda solo alla fine."
+          "text": "30%",
+          "feedback": "30% è la percentuale della timina, uguale a quella dell’adenina."
         },
         {
           "id": "B",
-          "text": "4 molecole",
-          "feedback": "Controlla sostituzione, segno e unità. N_n = N₀ 2^n. Con Molecole iniziali (a)=1 molecole e Cicli replicazione=3 (adimensionale), il risultato è 8 molecole. Conserva le unità e arrotonda solo alla fine."
+          "text": "20%",
+          "feedback": "Esatto: restano 40 punti, divisi tra G e C."
         },
         {
           "id": "C",
-          "text": "8 molecole",
-          "feedback": "N_n = N₀ 2^n. Con Molecole iniziali (a)=1 molecole e Cicli replicazione=3 (adimensionale), il risultato è 8 molecole. Conserva le unità e arrotonda solo alla fine."
+          "text": "40%",
+          "feedback": "40% è la somma di guanina e citosina."
+        },
+        {
+          "id": "D",
+          "text": "70%",
+          "feedback": "Le quattro basi insieme fanno il 100%."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 3,
-        "parameters": {
-          "a": 1
-        },
-        "expected": 8,
-        "unit": "molecole"
-      }
+      "correct": "B"
     },
     {
-      "id": "biology-10-transfer",
-      "prompt": "Trasferimento: Molecole iniziali (a)=2 molecole. Per Cicli replicazione=3 (adimensionale), quanto vale Molecole DNA?",
+      "id": "biology-10-q3",
+      "prompt": "Che cosa significa che la replicazione è semiconservativa?",
       "options": [
         {
           "id": "A",
-          "text": "8 molecole",
-          "feedback": "Controlla sostituzione, segno e unità. N_n = N₀ 2^n. Con Molecole iniziali (a)=2 molecole e Cicli replicazione=3 (adimensionale), il risultato è 16 molecole. Conserva le unità e arrotonda solo alla fine."
+          "text": "Che metà del DNA non viene copiata",
+          "feedback": "Tutto il DNA viene copiato a ogni divisione."
         },
         {
           "id": "B",
-          "text": "16 molecole",
-          "feedback": "N_n = N₀ 2^n. Con Molecole iniziali (a)=2 molecole e Cicli replicazione=3 (adimensionale), il risultato è 16 molecole. Conserva le unità e arrotonda solo alla fine."
+          "text": "Che si conserva solo metà dei geni",
+          "feedback": "I geni si conservano tutti: cambia solo l’origine dei filamenti."
         },
         {
           "id": "C",
-          "text": "24 molecole",
-          "feedback": "Questo valore non soddisfa la relazione. N_n = N₀ 2^n. Con Molecole iniziali (a)=2 molecole e Cicli replicazione=3 (adimensionale), il risultato è 16 molecole. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 3,
-        "parameters": {
-          "a": 2
-        },
-        "expected": 16,
-        "unit": "molecole"
-      }
-    },
-    {
-      "id": "biology-10-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Duplicazione completa senza errori o limiti. Nessun protocollo di laboratorio o manipolazione genetica è incluso."
+          "text": "Che ogni nuova doppia elica ha un filamento vecchio e uno nuovo",
+          "feedback": "Esatto: lo mostrarono Meselson e Stahl nel 1958."
         },
         {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Duplicazione completa senza errori o limiti. Nessun protocollo di laboratorio o manipolazione genetica è incluso."
-        },
-        {
-          "id": "C",
-          "text": "Conteggio ideale di duplicazioni complete",
-          "feedback": "Duplicazione completa senza errori o limiti. Nessun protocollo di laboratorio o manipolazione genetica è incluso."
+          "id": "D",
+          "text": "Che le due cellule figlie ricevono DNA diversi",
+          "feedback": "Le due copie sono identiche, a parte rari errori."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "biology-10-q4",
+      "prompt": "Perché un filamento viene copiato a pezzi?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché è danneggiato",
+          "feedback": "Il filamento è integro: il motivo è la direzione della sintesi."
+        },
+        {
+          "id": "B",
+          "text": "Perché è più lungo",
+          "feedback": "I due filamenti hanno la stessa lunghezza."
+        },
+        {
+          "id": "C",
+          "text": "Perché contiene uracile",
+          "feedback": "Il DNA non contiene uracile, presente invece nell’RNA."
+        },
+        {
+          "id": "D",
+          "text": "Perché la polimerasi allunga solo in direzione 5′→3′",
+          "feedback": "Esatto: sul filamento lento deve ripartire più volte."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "biology-10-q5",
+      "prompt": "Quante copie si ottengono da una molecola dopo 10 cicli di PCR?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1024",
+          "feedback": "Esatto: le copie raddoppiano dieci volte, 2¹⁰ = 1024."
+        },
+        {
+          "id": "B",
+          "text": "20",
+          "feedback": "Le copie raddoppiano a ogni ciclo, non crescono di due."
+        },
+        {
+          "id": "C",
+          "text": "100",
+          "feedback": "La crescita è esponenziale: 2 elevato al numero di cicli."
+        },
+        {
+          "id": "D",
+          "text": "512",
+          "feedback": "512 copie si hanno dopo 9 cicli, uno in meno."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-10-q6",
+      "prompt": "Che cosa diede il contributo sperimentale decisivo al modello a doppia elica?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Le osservazioni di Mendel sui piselli",
+          "feedback": "Mendel studiò l’ereditarietà senza conoscere il DNA."
+        },
+        {
+          "id": "B",
+          "text": "Le immagini ai raggi X di Rosalind Franklin",
+          "feedback": "Esatto: insieme alle regole di Chargaff."
+        },
+        {
+          "id": "C",
+          "text": "Il microscopio ottico",
+          "feedback": "Il microscopio ottico non risolve la struttura di una molecola."
+        },
+        {
+          "id": "D",
+          "text": "La PCR",
+          "feedback": "La PCR fu inventata trent’anni dopo, nel 1983."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "cards",
+    "goal": 3,
+    "rounds": [
+      {
+        "id": "forcella",
+        "type": "order",
+        "title": "La forcella di replicazione",
+        "prompt": "Metti in ordine le tappe della replicazione.",
+        "items": [
+          {
+            "id": "elicasi",
+            "text": "L’elicasi apre la doppia elica",
+            "why": "Senza filamenti separati non c’è stampo da leggere."
+          },
+          {
+            "id": "primasi",
+            "text": "La primasi deposita un innesco di RNA",
+            "why": "La polimerasi ha bisogno di un punto di partenza."
+          },
+          {
+            "id": "polimerasi",
+            "text": "La DNA polimerasi allunga in direzione 5′→3′",
+            "why": "Aggiunge nucleotidi complementari allo stampo."
+          },
+          {
+            "id": "okazaki",
+            "text": "Sul filamento lento si formano i frammenti di Okazaki",
+            "why": "La sintesi riparte a ogni tratto aperto."
+          },
+          {
+            "id": "sostituzione",
+            "text": "Gli inneschi di RNA vengono sostituiti con DNA",
+            "why": "Il filamento finale deve essere tutto di DNA."
+          },
+          {
+            "id": "ligasi",
+            "text": "La ligasi unisce i frammenti",
+            "why": "Chiude le interruzioni dello scheletro zucchero-fosfato."
+          }
+        ],
+        "explain": "La replicazione procede in ordine: aprire, innescare, allungare, sostituire gli inneschi, saldare."
+      },
+      {
+        "id": "acidi",
+        "type": "classify",
+        "title": "DNA, RNA o entrambi?",
+        "prompt": "Classifica le caratteristiche.",
+        "categories": [
+          {
+            "id": "dna",
+            "label": "SOLO DNA"
+          },
+          {
+            "id": "rna",
+            "label": "SOLO RNA"
+          },
+          {
+            "id": "entrambi",
+            "label": "ENTRAMBI"
+          }
+        ],
+        "items": [
+          {
+            "id": "desossiribosio",
+            "text": "Zucchero desossiribosio",
+            "why": "Il desossiribosio dà la «D» al DNA.",
+            "category": "dna"
+          },
+          {
+            "id": "timina",
+            "text": "Base timina",
+            "why": "Nell’RNA al posto della timina c’è l’uracile.",
+            "category": "dna"
+          },
+          {
+            "id": "doppio",
+            "text": "Di solito a doppio filamento",
+            "why": "L’RNA è di solito a filamento singolo.",
+            "category": "dna"
+          },
+          {
+            "id": "ribosio",
+            "text": "Zucchero ribosio",
+            "why": "Il ribosio ha un gruppo −OH in più.",
+            "category": "rna"
+          },
+          {
+            "id": "uracile",
+            "text": "Base uracile",
+            "why": "L’uracile si appaia con l’adenina.",
+            "category": "rna"
+          },
+          {
+            "id": "adenina",
+            "text": "Base adenina",
+            "why": "Presente in entrambi.",
+            "category": "entrambi"
+          },
+          {
+            "id": "guanina",
+            "text": "Base guanina",
+            "why": "Presente in entrambi.",
+            "category": "entrambi"
+          },
+          {
+            "id": "fosfato",
+            "text": "Gruppo fosfato nello scheletro",
+            "why": "Zuccheri e fosfati formano lo scheletro di entrambi.",
+            "category": "entrambi"
+          }
+        ],
+        "explain": "DNA e RNA differiscono per lo zucchero, per una base e di solito per il numero di filamenti.",
+        "maxErrors": 2
+      },
+      {
+        "id": "pcr",
+        "type": "classify",
+        "title": "Quante copie?",
+        "prompt": "Classifica i risultati di una PCR ideale, in cui le copie raddoppiano a ogni ciclo.",
+        "categories": [
+          {
+            "id": "poche",
+            "label": "MENO DI MILLE"
+          },
+          {
+            "id": "migliaia",
+            "label": "DA MILLE A UN MILIONE"
+          },
+          {
+            "id": "milioni",
+            "label": "PIÙ DI UN MILIONE"
+          }
+        ],
+        "items": [
+          {
+            "id": "a",
+            "text": "1 molecola, 5 cicli",
+            "why": "2⁵ = 32 copie.",
+            "category": "poche"
+          },
+          {
+            "id": "b",
+            "text": "3 molecole, 8 cicli",
+            "why": "3 · 256 = 768 copie.",
+            "category": "poche"
+          },
+          {
+            "id": "c",
+            "text": "1 molecola, 10 cicli",
+            "why": "2¹⁰ = 1024 copie.",
+            "category": "migliaia"
+          },
+          {
+            "id": "d",
+            "text": "2 molecole, 9 cicli",
+            "why": "2 · 512 = 1024 copie.",
+            "category": "migliaia"
+          },
+          {
+            "id": "e",
+            "text": "1 molecola, 15 cicli",
+            "why": "2¹⁵ = 32 768 copie.",
+            "category": "migliaia"
+          },
+          {
+            "id": "f",
+            "text": "1 molecola, 20 cicli",
+            "why": "2²⁰ = 1 048 576 copie, appena oltre il milione.",
+            "category": "milioni"
+          },
+          {
+            "id": "g",
+            "text": "5 molecole, 18 cicli",
+            "why": "5 · 262 144 = 1 310 720 copie.",
+            "category": "milioni"
+          },
+          {
+            "id": "h",
+            "text": "1 molecola, 30 cicli",
+            "why": "2³⁰ ≈ 1,07 miliardi di copie.",
+            "category": "milioni"
+          }
+        ],
+        "explain": "Le copie sono N₀ · 2ⁿ: dieci cicli moltiplicano per circa mille.",
+        "maxErrors": 2
+      },
+      {
+        "id": "genomi",
+        "type": "order",
+        "title": "Quanto è grande un genoma?",
+        "prompt": "Ordina i genomi dal più piccolo al più grande, in coppie di basi.",
+        "items": [
+          {
+            "id": "lambda",
+            "text": "Il virus batteriofago lambda",
+            "why": "Circa 48 500 coppie di basi."
+          },
+          {
+            "id": "coli",
+            "text": "Il batterio Escherichia coli",
+            "why": "Circa 4,6 milioni."
+          },
+          {
+            "id": "lievito",
+            "text": "Il lievito di birra",
+            "why": "Circa 12 milioni."
+          },
+          {
+            "id": "moscerino",
+            "text": "Il moscerino della frutta",
+            "why": "Circa 140-180 milioni."
+          },
+          {
+            "id": "uomo",
+            "text": "L’essere umano",
+            "why": "Circa 3,1 miliardi per corredo."
+          },
+          {
+            "id": "paris",
+            "text": "La pianta Paris japonica",
+            "why": "Circa 150 miliardi: uno dei genomi più grandi conosciuti."
+          }
+        ],
+        "explain": "La dimensione del genoma cresce dai virus ai batteri agli eucarioti, ma non misura la complessità: una pianta supera di molto l’uomo."
+      }
+    ]
+  }
 }

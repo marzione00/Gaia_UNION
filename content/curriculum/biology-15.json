@@ -5,19 +5,21 @@
   "title": "Equilibrio di Hardy-Weinberg",
   "sector": 3,
   "modelId": "biology-15",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Due alleli con F assegnato",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Frequenze alleliche e genotipiche, condizioni dell’equilibrio, stima dei portatori, verifica su dati, inincrocio",
+  "narrativeStatus": "Il dato sulla fibrosi cistica è un valore di riferimento per le popolazioni di origine europea.",
   "objectives": [
-    "Spiegare: due alleli con f assegnato.",
-    "Applicare H = 2p(1-p)(1-F), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Calcolare le frequenze dei genotipi da quelle degli alleli.",
+    "Elencare le condizioni dell’equilibrio.",
+    "Stimare i portatori di una malattia recessiva.",
+    "Valutare l’effetto della consanguineità."
   ],
   "prerequisites": [
     "biology-14"
   ],
   "connections": [
+    "biology-16",
     "biology-09"
   ],
   "sources": [
@@ -26,244 +28,583 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Frequenza allele p",
-      "definition": "Variabile indipendente, unità 1; intervallo [0; 1]."
+      "term": "Frequenza allelica",
+      "definition": "Frazione delle copie di un gene che porta un certo allele."
     },
     {
-      "term": "Frazione eterozigoti",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Equilibrio di Hardy-Weinberg",
+      "definition": "Stato in cui le frequenze dei genotipi sono p², 2pq e q² e restano costanti."
     },
     {
-      "term": "Coefficiente F",
-      "definition": "Parametro a, unità 1; intervallo [0; 1]."
+      "term": "Portatore sano",
+      "definition": "Eterozigote per un allele recessivo, senza la malattia."
+    },
+    {
+      "term": "Coefficiente di inincrocio",
+      "definition": "F: riduzione relativa degli eterozigoti dovuta alla consanguineità."
+    },
+    {
+      "term": "Accoppiamento casuale",
+      "definition": "Scelta del partner indipendente dal genotipo."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Una domanda del 1908",
       "text": {
         "base": [
-          "Il censimento genetico registra una frequenza allelica e una proporzione di eterozigoti. Per confrontarle serve un riferimento teorico, non l’idea che dominante significhi più comune.",
-          "Con due alleli di frequenze p e q=1-p e unione casuale dei gameti, le frequenze genotipiche attese sono p², 2pq e q². L’eterozigosi è massima in p=0,5."
+          "Nel 1908 il matematico Godfrey Hardy e il medico Wilhelm Weinberg risposero, indipendentemente, a una domanda che sembrava ovvia: un allele dominante non dovrebbe diventare sempre più comune? La risposta è no. Senza forze che le cambino, le frequenze degli alleli restano costanti, e quelle dei genotipi si possono calcolare.",
+          "Con due alleli A e a di frequenze p e q = 1 − p, l’unione casuale dei gameti dà i genotipi con frequenze p² per AA, 2pq per Aa e q² per aa. La somma p² + 2pq + q² = (p + q)² = 1. Con p = 0,7: AA 0,49, Aa 0,42, aa 0,09. Dopo una generazione di accoppiamenti casuali le frequenze dei genotipi si stabilizzano a questi valori e non cambiano più."
         ],
         "intermediate": [
-          "Il censimento genetico registra una frequenza allelica e una proporzione di eterozigoti. Per confrontarle serve un riferimento teorico, non l’idea che dominante significhi più comune.",
-          "Il controllo aggiunge un coefficiente F che riduce l’eterozigosi a H=2p(1-p)(1-F). Per F=0 recuperi il riferimento casuale. F non viene stimato da dati nel laboratorio."
+          "Nel 1908 il matematico Godfrey Hardy e il medico Wilhelm Weinberg risposero, indipendentemente, a una domanda che sembrava ovvia: un allele dominante non dovrebbe diventare sempre più comune? La risposta è no. Senza forze che le cambino, le frequenze degli alleli restano costanti, e quelle dei genotipi si possono calcolare.",
+          "Con due alleli A e a di frequenze p e q = 1 − p, l’unione casuale dei gameti dà i genotipi con frequenze p² per AA, 2pq per Aa e q² per aa. La somma p² + 2pq + q² = (p + q)² = 1. Con p = 0,7: AA 0,49, Aa 0,42, aa 0,09. Dopo una generazione di accoppiamenti casuali le frequenze dei genotipi si stabilizzano a questi valori e non cambiano più."
         ],
         "advanced": [
-          "Il censimento genetico registra una frequenza allelica e una proporzione di eterozigoti. Per confrontarle serve un riferimento teorico, non l’idea che dominante significhi più comune.",
-          "Ricostruisci anche le frequenze omozigoti con il termine Fpq e verifica sia la somma a uno sia la conservazione della frequenza allelica.",
-          "Due alleli e parametro di deficit eterozigotico assegnato. Non rappresenta tutta la dinamica di un sistema evolutivo."
+          "Nel 1908 il matematico Godfrey Hardy e il medico Wilhelm Weinberg risposero, indipendentemente, a una domanda che sembrava ovvia: un allele dominante non dovrebbe diventare sempre più comune? La risposta è no. Senza forze che le cambino, le frequenze degli alleli restano costanti, e quelle dei genotipi si possono calcolare.",
+          "Con due alleli A e a di frequenze p e q = 1 − p, l’unione casuale dei gameti dà i genotipi con frequenze p² per AA, 2pq per Aa e q² per aa. La somma p² + 2pq + q² = (p + q)² = 1. Con p = 0,7: AA 0,49, Aa 0,42, aa 0,09. Dopo una generazione di accoppiamenti casuali le frequenze dei genotipi si stabilizzano a questi valori e non cambiano più."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Condizioni, portatori, consanguineità",
       "text": {
         "base": [
-          "Con due alleli di frequenze p e q=1-p e unione casuale dei gameti, le frequenze genotipiche attese sono p², 2pq e q². L’eterozigosi è massima in p=0,5.",
-          "Con p=0,5 e F=0, H=0,5. Con F=0,2, il modello dà H=0,4. La frequenza p resta il valore inserito: cambiare la composizione genotipica non implica necessariamente cambiarla."
+          "L’equilibrio vale sotto cinque condizioni: popolazione molto grande, accoppiamenti casuali, assenza di mutazioni, di migrazioni e di selezione. Nessuna popolazione reale le soddisfa tutte; il valore del modello sta proprio qui. Se le frequenze osservate si discostano da quelle attese, qualche forza evolutiva è al lavoro, e il confronto indica dove cercarla.",
+          "Il modello permette di stimare i portatori di una malattia recessiva. La fibrosi cistica colpisce circa 1 neonato su 2500 nelle popolazioni di origine europea: q² ≈ 1/2500, quindi q ≈ 0,02 e p ≈ 0,98. I portatori sani sono 2pq ≈ 0,039, circa 1 persona su 25: molto più numerosi dei malati, perché un allele raro si trova quasi sempre in eterozigosi.",
+          "Gli accoppiamenti tra consanguinei violano la condizione di casualità. Il coefficiente di inincrocio F misura la riduzione degli eterozigoti: H = 2pq(1 − F). Per i figli di cugini primi F = 1/16. Gli omozigoti recessivi diventano q² + F pq: con q = 0,02 si passa da 0,0004 a circa 0,0016, quattro volte di più. Per questo le malattie recessive rare sono più frequenti nelle famiglie consanguinee."
         ],
         "intermediate": [
-          "Il controllo aggiunge un coefficiente F che riduce l’eterozigosi a H=2p(1-p)(1-F). Per F=0 recuperi il riferimento casuale. F non viene stimato da dati nel laboratorio.",
-          "La variabile Frequenza allele p è espressa in 1; Frazione eterozigoti in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: H = 2p(1-p)(1-F).",
-          "Con p=0,5 e F=0, H=0,5. Con F=0,2, il modello dà H=0,4. La frequenza p resta il valore inserito: cambiare la composizione genotipica non implica necessariamente cambiarla."
+          "L’equilibrio vale sotto cinque condizioni: popolazione molto grande, accoppiamenti casuali, assenza di mutazioni, di migrazioni e di selezione. Nessuna popolazione reale le soddisfa tutte; il valore del modello sta proprio qui. Se le frequenze osservate si discostano da quelle attese, qualche forza evolutiva è al lavoro, e il confronto indica dove cercarla.",
+          "Il modello permette di stimare i portatori di una malattia recessiva. La fibrosi cistica colpisce circa 1 neonato su 2500 nelle popolazioni di origine europea: q² ≈ 1/2500, quindi q ≈ 0,02 e p ≈ 0,98. I portatori sani sono 2pq ≈ 0,039, circa 1 persona su 25: molto più numerosi dei malati, perché un allele raro si trova quasi sempre in eterozigosi.",
+          "Gli accoppiamenti tra consanguinei violano la condizione di casualità. Il coefficiente di inincrocio F misura la riduzione degli eterozigoti: H = 2pq(1 − F). Per i figli di cugini primi F = 1/16. Gli omozigoti recessivi diventano q² + F pq: con q = 0,02 si passa da 0,0004 a circa 0,0016, quattro volte di più. Per questo le malattie recessive rare sono più frequenti nelle famiglie consanguinee.",
+          "Il modello del programma calcola la frazione di eterozigoti H = 2p(1 − p)(1 − F) in funzione di p, con F regolabile da 0 a 1: per F = 0 la curva è una parabola con massimo 0,5 a p = 0,5; per F = 1 gli eterozigoti scompaiono."
         ],
         "advanced": [
-          "Il controllo aggiunge un coefficiente F che riduce l’eterozigosi a H=2p(1-p)(1-F). Per F=0 recuperi il riferimento casuale. F non viene stimato da dati nel laboratorio.",
-          "Ricostruisci anche le frequenze omozigoti con il termine Fpq e verifica sia la somma a uno sia la conservazione della frequenza allelica.",
-          "Una deviazione dal riferimento non identifica da sola la causa. Struttura di popolazione, assortimento, selezione o errori possono richiedere analisi distinte."
+          "L’equilibrio vale sotto cinque condizioni: popolazione molto grande, accoppiamenti casuali, assenza di mutazioni, di migrazioni e di selezione. Nessuna popolazione reale le soddisfa tutte; il valore del modello sta proprio qui. Se le frequenze osservate si discostano da quelle attese, qualche forza evolutiva è al lavoro, e il confronto indica dove cercarla.",
+          "Il modello permette di stimare i portatori di una malattia recessiva. La fibrosi cistica colpisce circa 1 neonato su 2500 nelle popolazioni di origine europea: q² ≈ 1/2500, quindi q ≈ 0,02 e p ≈ 0,98. I portatori sani sono 2pq ≈ 0,039, circa 1 persona su 25: molto più numerosi dei malati, perché un allele raro si trova quasi sempre in eterozigosi.",
+          "Gli accoppiamenti tra consanguinei violano la condizione di casualità. Il coefficiente di inincrocio F misura la riduzione degli eterozigoti: H = 2pq(1 − F). Per i figli di cugini primi F = 1/16. Gli omozigoti recessivi diventano q² + F pq: con q = 0,02 si passa da 0,0004 a circa 0,0016, quattro volte di più. Per questo le malattie recessive rare sono più frequenti nelle famiglie consanguinee.",
+          "Il modello del programma calcola la frazione di eterozigoti H = 2p(1 − p)(1 − F) in funzione di p, con F regolabile da 0 a 1: per F = 0 la curva è una parabola con massimo 0,5 a p = 0,5; per F = 1 gli eterozigoti scompaiono."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Problemi guidati",
       "text": {
         "base": [
-          "Nel laboratorio imposta Coefficiente F (a): 0 (adimensionale). Prima di salvare A, prevedi come cambia Frazione eterozigoti fra Frequenza allele p=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con p=0,5 e F=0, H=0,5. Con F=0,2, il modello dà H=0,4. La frequenza p resta il valore inserito: cambiare la composizione genotipica non implica necessariamente cambiarla.",
-          "La variabile Frequenza allele p è espressa in 1; Frazione eterozigoti in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: H = 2p(1-p)(1-F)."
+          "L’attività propone quattro problemi guidati: le frequenze dei genotipi con p = 0,7; i portatori di una malattia recessiva; la verifica dell’equilibrio su dati osservati; l’effetto della consanguineità. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Parti sempre dalle frequenze degli alleli. Se conosci gli omozigoti recessivi, q è la radice quadrata della loro frequenza; se conosci i genotipi contati, p è (2 · AA + Aa)/(2 · totale).",
+          "Il modello del programma calcola la frazione di eterozigoti H = 2p(1 − p)(1 − F) in funzione di p, con F regolabile da 0 a 1: per F = 0 la curva è una parabola con massimo 0,5 a p = 0,5; per F = 1 gli eterozigoti scompaiono."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Coefficiente F (a): 0 (adimensionale). Prima di salvare A, prevedi come cambia Frazione eterozigoti fra Frequenza allele p=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Frequenza allele p è espressa in 1; Frazione eterozigoti in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: H = 2p(1-p)(1-F).",
-          "Il controllo aggiunge un coefficiente F che riduce l’eterozigosi a H=2p(1-p)(1-F). Per F=0 recuperi il riferimento casuale. F non viene stimato da dati nel laboratorio."
+          "L’attività propone quattro problemi guidati: le frequenze dei genotipi con p = 0,7; i portatori di una malattia recessiva; la verifica dell’equilibrio su dati osservati; l’effetto della consanguineità. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Parti sempre dalle frequenze degli alleli. Se conosci gli omozigoti recessivi, q è la radice quadrata della loro frequenza; se conosci i genotipi contati, p è (2 · AA + Aa)/(2 · totale)."
         ],
         "advanced": [
-          "Nel laboratorio imposta Coefficiente F (a): 0 (adimensionale). Prima di salvare A, prevedi come cambia Frazione eterozigoti fra Frequenza allele p=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Ricostruisci anche le frequenze omozigoti con il termine Fpq e verifica sia la somma a uno sia la conservazione della frequenza allelica.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività propone quattro problemi guidati: le frequenze dei genotipi con p = 0,7; i portatori di una malattia recessiva; la verifica dell’equilibrio su dati osservati; l’effetto della consanguineità. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Parti sempre dalle frequenze degli alleli. Se conosci gli omozigoti recessivi, q è la radice quadrata della loro frequenza; se conosci i genotipi contati, p è (2 · AA + Aa)/(2 · totale)."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "Una deviazione dal riferimento non identifica da sola la causa. Struttura di popolazione, assortimento, selezione o errori possono richiedere analisi distinte.",
-          "Due alleli e parametro di deficit eterozigotico assegnato. Non rappresenta tutta la dinamica di un sistema evolutivo.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che un allele dominante debba diventare più comune. Dominanza e frequenza sono indipendenti: la polidattilia è dominante e rara.",
+          "Secondo errore: calcolare q come frequenza degli omozigoti recessivi. Gli omozigoti hanno frequenza q², e q è la sua radice: se 1 persona su 2500 è malata, q è 1/50, non 1/2500.",
+          "L’equilibrio vale sotto cinque condizioni: popolazione molto grande, accoppiamenti casuali, assenza di mutazioni, di migrazioni e di selezione. Nessuna popolazione reale le soddisfa tutte; il valore del modello sta proprio qui. Se le frequenze osservate si discostano da quelle attese, qualche forza evolutiva è al lavoro, e il confronto indica dove cercarla."
         ],
         "intermediate": [
-          "Una deviazione dal riferimento non identifica da sola la causa. Struttura di popolazione, assortimento, selezione o errori possono richiedere analisi distinte.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che un allele dominante debba diventare più comune. Dominanza e frequenza sono indipendenti: la polidattilia è dominante e rara.",
+          "Secondo errore: calcolare q come frequenza degli omozigoti recessivi. Gli omozigoti hanno frequenza q², e q è la sua radice: se 1 persona su 2500 è malata, q è 1/50, non 1/2500.",
+          "L’equilibrio vale sotto cinque condizioni: popolazione molto grande, accoppiamenti casuali, assenza di mutazioni, di migrazioni e di selezione. Nessuna popolazione reale le soddisfa tutte; il valore del modello sta proprio qui. Se le frequenze osservate si discostano da quelle attese, qualche forza evolutiva è al lavoro, e il confronto indica dove cercarla."
         ],
         "advanced": [
-          "Due alleli e parametro di deficit eterozigotico assegnato. Non rappresenta tutta la dinamica di un sistema evolutivo.",
-          "Ricostruisci anche le frequenze omozigoti con il termine Fpq e verifica sia la somma a uno sia la conservazione della frequenza allelica.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che un allele dominante debba diventare più comune. Dominanza e frequenza sono indipendenti: la polidattilia è dominante e rara.",
+          "Secondo errore: calcolare q come frequenza degli omozigoti recessivi. Gli omozigoti hanno frequenza q², e q è la sua radice: se 1 persona su 2500 è malata, q è 1/50, non 1/2500.",
+          "L’equilibrio vale sotto cinque condizioni: popolazione molto grande, accoppiamenti casuali, assenza di mutazioni, di migrazioni e di selezione. Nessuna popolazione reale le soddisfa tutte; il valore del modello sta proprio qui. Se le frequenze osservate si discostano da quelle attese, qualche forza evolutiva è al lavoro, e il confronto indica dove cercarla."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Con due alleli di frequenze p e q=1-p e unione casuale dei gameti, le frequenze genotipiche attese sono p², 2pq e q². L’eterozigosi è massima in p=0,5.",
-          "Con p=0,5 e F=0, H=0,5. Con F=0,2, il modello dà H=0,4. La frequenza p resta il valore inserito: cambiare la composizione genotipica non implica necessariamente cambiarla."
+          "Ripasso: frequenze alleliche e genotipiche; p² + 2pq + q² = 1; condizioni dell’equilibrio; stima dei portatori; verifica dell’equilibrio su dati osservati; inincrocio e H = 2pq(1 − F).",
+          "Mini esercizio: se gli omozigoti recessivi sono il 16%, q = 0,4, p = 0,6 e gli eterozigoti sono 2 · 0,6 · 0,4 = 0,48.",
+          "Nelle domande su Hardy-Weinberg scrivi sempre p e q prima di calcolare i genotipi."
         ],
         "intermediate": [
-          "Il controllo aggiunge un coefficiente F che riduce l’eterozigosi a H=2p(1-p)(1-F). Per F=0 recuperi il riferimento casuale. F non viene stimato da dati nel laboratorio.",
-          "La variabile Frequenza allele p è espressa in 1; Frazione eterozigoti in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: H = 2p(1-p)(1-F)."
+          "Ripasso: frequenze alleliche e genotipiche; p² + 2pq + q² = 1; condizioni dell’equilibrio; stima dei portatori; verifica dell’equilibrio su dati osservati; inincrocio e H = 2pq(1 − F).",
+          "Mini esercizio: se gli omozigoti recessivi sono il 16%, q = 0,4, p = 0,6 e gli eterozigoti sono 2 · 0,6 · 0,4 = 0,48.",
+          "Nelle domande su Hardy-Weinberg scrivi sempre p e q prima di calcolare i genotipi."
         ],
         "advanced": [
-          "Ricostruisci anche le frequenze omozigoti con il termine Fpq e verifica sia la somma a uno sia la conservazione della frequenza allelica.",
-          "Due alleli e parametro di deficit eterozigotico assegnato. Non rappresenta tutta la dinamica di un sistema evolutivo."
+          "Ripasso: frequenze alleliche e genotipiche; p² + 2pq + q² = 1; condizioni dell’equilibrio; stima dei portatori; verifica dell’equilibrio su dati osservati; inincrocio e H = 2pq(1 − F).",
+          "Mini esercizio: se gli omozigoti recessivi sono il 16%, q = 0,4, p = 0,6 e gli eterozigoti sono 2 · 0,6 · 0,4 = 0,48.",
+          "Nelle domande su Hardy-Weinberg scrivi sempre p e q prima di calcolare i genotipi."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Due alleli con F assegnato.",
-          "Due alleli e parametro di deficit eterozigotico assegnato. Non rappresenta tutta la dinamica di un sistema evolutivo.",
-          "Collegamento consigliato: biology-09. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le frequenze dei genotipi derivano dalle combinazioni dei gameti, come nel quadrato di Punnett dell’unità «Ereditarietà mendeliana». In biologia si passa a «Speciazione e barriere riproduttive»: quando le popolazioni smettono di scambiarsi alleli.",
+          "Riepilogo dell’unità: senza forze evolutive le frequenze alleliche restano costanti e i genotipi sono p², 2pq e q²; il confronto con i dati rivela le forze al lavoro; un allele recessivo raro si trova soprattutto nei portatori; la consanguineità riduce gli eterozigoti di un fattore 1 − F.",
+          "Nel diario spiega perché la maggior parte degli alleli di una malattia recessiva rara si trova in persone sane."
         ],
         "intermediate": [
-          "Il controllo aggiunge un coefficiente F che riduce l’eterozigosi a H=2p(1-p)(1-F). Per F=0 recuperi il riferimento casuale. F non viene stimato da dati nel laboratorio.",
-          "Due alleli e parametro di deficit eterozigotico assegnato. Non rappresenta tutta la dinamica di un sistema evolutivo.",
-          "Ricostruisci anche le frequenze omozigoti con il termine Fpq e verifica sia la somma a uno sia la conservazione della frequenza allelica."
+          "Le frequenze dei genotipi derivano dalle combinazioni dei gameti, come nel quadrato di Punnett dell’unità «Ereditarietà mendeliana». In biologia si passa a «Speciazione e barriere riproduttive»: quando le popolazioni smettono di scambiarsi alleli.",
+          "Riepilogo dell’unità: senza forze evolutive le frequenze alleliche restano costanti e i genotipi sono p², 2pq e q²; il confronto con i dati rivela le forze al lavoro; un allele recessivo raro si trova soprattutto nei portatori; la consanguineità riduce gli eterozigoti di un fattore 1 − F.",
+          "Nel diario spiega perché la maggior parte degli alleli di una malattia recessiva rara si trova in persone sane."
         ],
         "advanced": [
-          "Ricostruisci anche le frequenze omozigoti con il termine Fpq e verifica sia la somma a uno sia la conservazione della frequenza allelica.",
-          "Due alleli e parametro di deficit eterozigotico assegnato. Non rappresenta tutta la dinamica di un sistema evolutivo.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le frequenze dei genotipi derivano dalle combinazioni dei gameti, come nel quadrato di Punnett dell’unità «Ereditarietà mendeliana». In biologia si passa a «Speciazione e barriere riproduttive»: quando le popolazioni smettono di scambiarsi alleli.",
+          "Riepilogo dell’unità: senza forze evolutive le frequenze alleliche restano costanti e i genotipi sono p², 2pq e q²; il confronto con i dati rivela le forze al lavoro; un allele recessivo raro si trova soprattutto nei portatori; la consanguineità riduce gli eterozigoti di un fattore 1 − F.",
+          "Nel diario spiega perché la maggior parte degli alleli di una malattia recessiva rara si trova in persone sane."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-15-concept",
-      "prompt": "Nel riferimento F=0, la frequenza degli eterozigoti è:",
+      "id": "biology-15-q1",
+      "prompt": "Con p = 0,7, qual è la frequenza attesa degli eterozigoti?",
       "options": [
         {
           "id": "A",
-          "text": "1-p",
-          "feedback": "Il controllo aggiunge un coefficiente F che riduce l’eterozigosi a H=2p(1-p)(1-F). Per F=0 recuperi il riferimento casuale. F non viene stimato da dati nel laboratorio."
+          "text": "0,42",
+          "feedback": "Esatto: gli eterozigoti sono 2pq = 2 · 0,7 · 0,3."
         },
         {
           "id": "B",
-          "text": "2p(1-p)",
-          "feedback": "Con due alleli di frequenze p e q=1-p e unione casuale dei gameti, le frequenze genotipiche attese sono p², 2pq e q². L’eterozigosi è massima in p=0,5."
+          "text": "0,21",
+          "feedback": "Manca il fattore 2: gli eterozigoti si formano in due modi."
         },
         {
           "id": "C",
-          "text": "p²",
-          "feedback": "Una deviazione dal riferimento non identifica da sola la causa. Struttura di popolazione, assortimento, selezione o errori possono richiedere analisi distinte."
+          "text": "0,49",
+          "feedback": "0,49 è la frequenza degli omozigoti AA."
+        },
+        {
+          "id": "D",
+          "text": "0,09",
+          "feedback": "0,09 è la frequenza degli omozigoti aa."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-15-q2",
+      "prompt": "Quale condizione non è richiesta dall’equilibrio di Hardy-Weinberg?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Accoppiamenti casuali",
+          "feedback": "Gli accoppiamenti casuali sono una delle cinque condizioni."
+        },
+        {
+          "id": "B",
+          "text": "Che l’allele dominante sia il più frequente",
+          "feedback": "Esatto: dominanza e frequenza sono indipendenti."
+        },
+        {
+          "id": "C",
+          "text": "Assenza di selezione",
+          "feedback": "Senza selezione nessun genotipo è favorito: è una delle condizioni."
+        },
+        {
+          "id": "D",
+          "text": "Popolazione molto grande",
+          "feedback": "Serve per rendere trascurabile la deriva."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "biology-15-calculation",
-      "prompt": "Calcolo: Coefficiente F (a)=0 (adimensionale). Per Frequenza allele p=0,5 (adimensionale), quanto vale Frazione eterozigoti?",
+      "id": "biology-15-q3",
+      "prompt": "Una malattia recessiva colpisce 1 persona su 10 000. Qual è circa q?",
       "options": [
         {
           "id": "A",
-          "text": "0,5 (adimensionale)",
-          "feedback": "H = 2p(1-p)(1-F). Con Coefficiente F (a)=0 (adimensionale) e Frequenza allele p=0,5 (adimensionale), il risultato è 0,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "1/10 000",
+          "feedback": "Questa è la frequenza degli omozigoti, q²."
         },
         {
           "id": "B",
-          "text": "1,5 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. H = 2p(1-p)(1-F). Con Coefficiente F (a)=0 (adimensionale) e Frequenza allele p=0,5 (adimensionale), il risultato è 0,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "1/50",
+          "feedback": "La radice di 1/10 000 è 1/100, non 1/50."
         },
         {
           "id": "C",
-          "text": "-0,5 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. H = 2p(1-p)(1-F). Con Coefficiente F (a)=0 (adimensionale) e Frequenza allele p=0,5 (adimensionale), il risultato è 0,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "1/100",
+          "feedback": "Esatto: q è la radice della frequenza dei malati, √(1/10 000)."
+        },
+        {
+          "id": "D",
+          "text": "1/2",
+          "feedback": "Una frequenza così alta darebbe un malato ogni quattro persone."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 0.5,
-        "parameters": {
-          "a": 0
-        },
-        "expected": 0.5,
-        "unit": "1"
-      }
+      "correct": "C"
     },
     {
-      "id": "biology-15-transfer",
-      "prompt": "Trasferimento: Coefficiente F (a)=0,1 (adimensionale). Per Frequenza allele p=0,5 (adimensionale), quanto vale Frazione eterozigoti?",
+      "id": "biology-15-q4",
+      "prompt": "Nella fibrosi cistica, con q ≈ 0,02, quanti sono circa i portatori sani?",
       "options": [
         {
           "id": "A",
-          "text": "1,45 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. H = 2p(1-p)(1-F). Con Coefficiente F (a)=0,1 (adimensionale) e Frequenza allele p=0,5 (adimensionale), il risultato è 0,45 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "1 su 2500",
+          "feedback": "Questa è la frequenza dei malati, q²."
         },
         {
           "id": "B",
-          "text": "-0,55 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. H = 2p(1-p)(1-F). Con Coefficiente F (a)=0,1 (adimensionale) e Frequenza allele p=0,5 (adimensionale), il risultato è 0,45 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "1 su 50",
+          "feedback": "Questa è la frequenza dell’allele, q."
         },
         {
           "id": "C",
-          "text": "0,45 (adimensionale)",
-          "feedback": "H = 2p(1-p)(1-F). Con Coefficiente F (a)=0,1 (adimensionale) e Frequenza allele p=0,5 (adimensionale), il risultato è 0,45 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "1 su 2",
+          "feedback": "I portatori sono una piccola minoranza."
+        },
+        {
+          "id": "D",
+          "text": "1 su 25",
+          "feedback": "Esatto: 2pq ≈ 2 · 0,98 · 0,02 ≈ 0,039."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 0.5,
-        "parameters": {
-          "a": 0.1
-        },
-        "expected": 0.45,
-        "unit": "1"
-      }
+      "correct": "D"
     },
     {
-      "id": "biology-15-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "biology-15-q5",
+      "prompt": "Che effetto ha la consanguineità sulle frequenze dei genotipi?",
       "options": [
         {
           "id": "A",
-          "text": "Due alleli con F assegnato",
-          "feedback": "Due alleli e parametro di deficit eterozigotico assegnato. Non rappresenta tutta la dinamica di un sistema evolutivo."
+          "text": "Riduce gli eterozigoti e aumenta gli omozigoti",
+          "feedback": "Esatto: gli alleli identici per discendenza si incontrano più spesso."
         },
         {
           "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Due alleli e parametro di deficit eterozigotico assegnato. Non rappresenta tutta la dinamica di un sistema evolutivo."
+          "text": "Cambia le frequenze degli alleli",
+          "feedback": "Da sola non cambia p e q; cambia come si combinano."
         },
         {
           "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Due alleli e parametro di deficit eterozigotico assegnato. Non rappresenta tutta la dinamica di un sistema evolutivo."
+          "text": "Aumenta gli eterozigoti",
+          "feedback": "L’effetto è opposto: gli eterozigoti diminuiscono."
+        },
+        {
+          "id": "D",
+          "text": "Nessuno",
+          "feedback": "La consanguineità viola la condizione di accoppiamento casuale."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "biology-15-q6",
+      "prompt": "In un campione si contano 360 AA, 480 Aa e 160 aa. La popolazione è in equilibrio?",
+      "options": [
+        {
+          "id": "A",
+          "text": "No, gli eterozigoti sono troppi",
+          "feedback": "Con p = 0,6 gli eterozigoti attesi sono proprio 480."
+        },
+        {
+          "id": "B",
+          "text": "Sì: con p = 0,6 i valori attesi coincidono con quelli osservati",
+          "feedback": "Esatto: 1000 · 0,36, 1000 · 0,48 e 1000 · 0,16."
+        },
+        {
+          "id": "C",
+          "text": "No, gli omozigoti aa sono troppo pochi",
+          "feedback": "Con q = 0,4 gli aa attesi sono 160."
+        },
+        {
+          "id": "D",
+          "text": "Non si può dire",
+          "feedback": "Dai conteggi si calcolano p e i valori attesi."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "steps",
+    "goal": 3,
+    "problems": [
+      {
+        "id": "genotipi",
+        "title": "Dalle frequenze alleliche ai genotipi",
+        "text": "In una popolazione in equilibrio p = 0,7. Quali sono le frequenze dei tre genotipi?",
+        "maxErrors": 1,
+        "explain": "p², 2pq e q², con q = 1 − p.",
+        "steps": [
+          {
+            "prompt": "Quanto vale q?",
+            "options": [
+              {
+                "text": "0,3",
+                "feedback": "Giusto: 1 − 0,7."
+              },
+              {
+                "text": "0,7",
+                "feedback": "Questo è p."
+              },
+              {
+                "text": "0,49",
+                "feedback": "0,49 è p²."
+              }
+            ],
+            "correct": 0,
+            "result": "q = 0,3."
+          },
+          {
+            "prompt": "Frequenza degli omozigoti AA?",
+            "options": [
+              {
+                "text": "0,49",
+                "feedback": "Giusto: 0,7²."
+              },
+              {
+                "text": "0,7",
+                "feedback": "Per un omozigote servono due copie: p²."
+              },
+              {
+                "text": "1,4",
+                "feedback": "Una frequenza non supera 1: hai calcolato 2p."
+              }
+            ],
+            "correct": 0,
+            "result": "AA = 0,49."
+          },
+          {
+            "prompt": "Frequenze di Aa e aa?",
+            "options": [
+              {
+                "text": "Aa 0,42; aa 0,09",
+                "feedback": "Giusto: 2 · 0,7 · 0,3 e 0,3². La somma con 0,49 è 1."
+              },
+              {
+                "text": "Aa 0,21; aa 0,09",
+                "feedback": "Gli eterozigoti si formano in due modi: 2pq."
+              },
+              {
+                "text": "Aa 0,42; aa 0,3",
+                "feedback": "0,3 è q, non q²."
+              }
+            ],
+            "correct": 0,
+            "result": "AA 0,49; Aa 0,42; aa 0,09."
+          }
+        ]
+      },
+      {
+        "id": "portatori",
+        "title": "Quanti portatori?",
+        "text": "Una malattia recessiva colpisce 1 neonato su 2500. Quanti sono i portatori sani?",
+        "maxErrors": 1,
+        "explain": "Dagli omozigoti recessivi si ricava q con la radice quadrata.",
+        "steps": [
+          {
+            "prompt": "Quanto vale q?",
+            "options": [
+              {
+                "text": "0,02",
+                "feedback": "Giusto: √(1/2500) = 1/50."
+              },
+              {
+                "text": "0,0004",
+                "feedback": "Questo è q², la frequenza dei malati."
+              },
+              {
+                "text": "0,5",
+                "feedback": "Con q = 0,5 i malati sarebbero un quarto."
+              }
+            ],
+            "correct": 0,
+            "result": "q = 0,02; p = 0,98."
+          },
+          {
+            "prompt": "Frequenza dei portatori?",
+            "options": [
+              {
+                "text": "Circa 0,039",
+                "feedback": "Giusto: 2 · 0,98 · 0,02."
+              },
+              {
+                "text": "Circa 0,0196",
+                "feedback": "Manca il fattore 2."
+              },
+              {
+                "text": "0,96",
+                "feedback": "Questa è circa la frequenza degli omozigoti sani."
+              }
+            ],
+            "correct": 0,
+            "result": "2pq ≈ 0,039."
+          },
+          {
+            "prompt": "Quante persone, circa, per ogni portatore?",
+            "options": [
+              {
+                "text": "Circa 25",
+                "feedback": "Giusto: 1/0,039 ≈ 25,5."
+              },
+              {
+                "text": "Circa 2500",
+                "feedback": "Questo è il rapporto per i malati."
+              },
+              {
+                "text": "Circa 50",
+                "feedback": "50 è l’inverso di q."
+              }
+            ],
+            "correct": 0,
+            "result": "Circa 1 persona su 25 è portatrice: cento volte più dei malati."
+          }
+        ]
+      },
+      {
+        "id": "verifica",
+        "title": "La popolazione è in equilibrio?",
+        "text": "In un campione di 1000 individui si contano 360 AA, 480 Aa e 160 aa.",
+        "maxErrors": 1,
+        "explain": "Si calcola p dai conteggi e si confrontano i valori attesi con quelli osservati.",
+        "steps": [
+          {
+            "prompt": "Quanto vale p?",
+            "options": [
+              {
+                "text": "0,6",
+                "feedback": "Giusto: (2 · 360 + 480)/2000 = 1200/2000."
+              },
+              {
+                "text": "0,36",
+                "feedback": "0,36 è la frequenza del genotipo AA, non dell’allele."
+              },
+              {
+                "text": "0,84",
+                "feedback": "Gli eterozigoti portano una sola copia di A: vanno contati una volta."
+              }
+            ],
+            "correct": 0,
+            "result": "p = 0,6; q = 0,4."
+          },
+          {
+            "prompt": "Quanti eterozigoti sono attesi?",
+            "options": [
+              {
+                "text": "480",
+                "feedback": "Giusto: 1000 · 2 · 0,6 · 0,4."
+              },
+              {
+                "text": "240",
+                "feedback": "Manca il fattore 2."
+              },
+              {
+                "text": "360",
+                "feedback": "360 sono gli AA attesi."
+              }
+            ],
+            "correct": 0,
+            "result": "Attesi: 360 AA, 480 Aa, 160 aa."
+          },
+          {
+            "prompt": "Conclusione?",
+            "options": [
+              {
+                "text": "I dati sono compatibili con l’equilibrio",
+                "feedback": "Giusto: osservati e attesi coincidono."
+              },
+              {
+                "text": "C’è un eccesso di eterozigoti",
+                "feedback": "Gli eterozigoti osservati sono esattamente quelli attesi."
+              },
+              {
+                "text": "C’è consanguineità",
+                "feedback": "La consanguineità ridurrebbe gli eterozigoti sotto 480."
+              }
+            ],
+            "correct": 0,
+            "result": "Nessuna forza evolutiva visibile in questo campione."
+          }
+        ]
+      },
+      {
+        "id": "consanguinei",
+        "title": "Figli di cugini primi",
+        "text": "Per i figli di cugini primi F = 1/16. Con q = 0,02, quanto aumenta la frequenza degli omozigoti recessivi?",
+        "maxErrors": 1,
+        "explain": "Con inincrocio gli omozigoti recessivi sono q² + F pq.",
+        "steps": [
+          {
+            "prompt": "Omozigoti recessivi senza inincrocio?",
+            "options": [
+              {
+                "text": "0,0004",
+                "feedback": "Giusto: 0,02²."
+              },
+              {
+                "text": "0,02",
+                "feedback": "Questo è q."
+              },
+              {
+                "text": "0,04",
+                "feedback": "Hai calcolato 2q."
+              }
+            ],
+            "correct": 0,
+            "result": "q² = 0,0004."
+          },
+          {
+            "prompt": "Termine aggiuntivo F pq?",
+            "options": [
+              {
+                "text": "Circa 0,0012",
+                "feedback": "Giusto: 0,0625 · 0,98 · 0,02."
+              },
+              {
+                "text": "Circa 0,0196",
+                "feedback": "Manca il fattore F = 1/16."
+              },
+              {
+                "text": "0,0625",
+                "feedback": "Questo è F da solo."
+              }
+            ],
+            "correct": 0,
+            "result": "F pq ≈ 0,0012."
+          },
+          {
+            "prompt": "Di quanto aumenta il rischio?",
+            "options": [
+              {
+                "text": "Circa 4 volte",
+                "feedback": "Giusto: da 0,0004 a circa 0,0016."
+              },
+              {
+                "text": "Circa 16 volte",
+                "feedback": "F = 1/16 non moltiplica il rischio per 16."
+              },
+              {
+                "text": "Non cambia",
+                "feedback": "Il termine F pq si aggiunge a q²."
+              }
+            ],
+            "correct": 0,
+            "result": "Il rischio passa da 1 su 2500 a circa 1 su 615."
+          }
+        ]
+      }
+    ]
+  }
 }

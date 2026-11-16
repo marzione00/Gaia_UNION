@@ -5,19 +5,21 @@
   "title": "Crescita delle popolazioni",
   "sector": 3,
   "modelId": "biology-19",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Logistica continua con r e K costanti",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Crescita esponenziale, tempo di raddoppio, modello logistico, capacità portante, fattori di regolazione",
+  "narrativeStatus": "Le serie di conteggi sono simulate con il modello logistico e piccoli scarti.",
   "objectives": [
-    "Spiegare: logistica continua con r e k costanti.",
-    "Applicare N = K/[1+(K/10-1) exp(-rt)], dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Descrivere la crescita esponenziale e il tempo di raddoppio.",
+    "Usare il modello logistico e la capacità portante.",
+    "Stimare K e r da una serie di conteggi.",
+    "Distinguere fattori dipendenti e indipendenti dalla densità."
   ],
   "prerequisites": [
     "biology-18"
   ],
   "connections": [
+    "biology-20",
     "math-p08"
   ],
   "sources": [
@@ -26,250 +28,421 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Tempo",
-      "definition": "Variabile indipendente, unità u.t.; intervallo [0; 30]."
+      "term": "Crescita esponenziale",
+      "definition": "Crescita con tasso pro capite costante, N = N₀ e^(rt)."
     },
     {
-      "term": "Popolazione",
-      "definition": "Risultato calcolato dal modello, unità individui."
+      "term": "Capacità portante",
+      "definition": "Numero massimo di individui che l’ambiente può sostenere, K."
     },
     {
-      "term": "Capacità K",
-      "definition": "Parametro a, unità individui; intervallo [20; 200]."
+      "term": "Modello logistico",
+      "definition": "dN/dt = rN(1 − N/K)."
     },
     {
-      "term": "Tasso r",
-      "definition": "Parametro b, unità 1/u.t.; intervallo [0,1; 0,6]."
+      "term": "Tempo di raddoppio",
+      "definition": "Tempo in cui una popolazione esponenziale raddoppia, ln 2/r."
+    },
+    {
+      "term": "Fattore dipendente dalla densità",
+      "definition": "Fattore il cui effetto cresce con il numero di individui."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Parameci in provetta",
       "text": {
         "base": [
-          "Una popolazione cresce rapidamente all’inizio e poi rallenta. La stazione confronta una crescita senza limiti con un modello che introduce dipendenza dalla densità.",
-          "La crescita logistica continua assume dN/dt=rN(1-N/K). K è una capacità portante del modello, non una proprietà immutabile di ogni ambiente. Quando N è piccolo rispetto a K, il comportamento è quasi esponenziale."
+          "Nel 1934 il biologo russo Georgij Gause mise pochi parameci in una provetta con nutrimento costante e li contò ogni giorno. All’inizio il numero raddoppiava in fretta; poi la crescita rallentò e si fermò intorno a un valore stabile. La stessa curva a S si osserva nei lieviti, nelle pecore introdotte su un’isola, nei batteri di una coltura.",
+          "Se le risorse sono illimitate, ogni individuo contribuisce alla crescita allo stesso modo: dN/dt = rN, con r tasso di crescita. La soluzione è N = N₀ e^(rt), e la popolazione raddoppia ogni ln 2/r. Un batterio come Escherichia coli, in condizioni ideali, si divide ogni 20 minuti circa: in un giorno, senza limiti, una cellula darebbe un numero di discendenti con più di venti cifre."
         ],
         "intermediate": [
-          "Una popolazione cresce rapidamente all’inizio e poi rallenta. La stazione confronta una crescita senza limiti con un modello che introduce dipendenza dalla densità.",
-          "Con N₀=10, la soluzione è N(t)=K/[1+(K/10-1)exp(-rt)]. Se r>0 e K>10, la popolazione cresce verso K. Il tasso pro capite diminuisce con N."
+          "Nel 1934 il biologo russo Georgij Gause mise pochi parameci in una provetta con nutrimento costante e li contò ogni giorno. All’inizio il numero raddoppiava in fretta; poi la crescita rallentò e si fermò intorno a un valore stabile. La stessa curva a S si osserva nei lieviti, nelle pecore introdotte su un’isola, nei batteri di una coltura.",
+          "Se le risorse sono illimitate, ogni individuo contribuisce alla crescita allo stesso modo: dN/dt = rN, con r tasso di crescita. La soluzione è N = N₀ e^(rt), e la popolazione raddoppia ogni ln 2/r. Un batterio come Escherichia coli, in condizioni ideali, si divide ogni 20 minuti circa: in un giorno, senza limiti, una cellula darebbe un numero di discendenti con più di venti cifre."
         ],
         "advanced": [
-          "Una popolazione cresce rapidamente all’inizio e poi rallenta. La stazione confronta una crescita senza limiti con un modello che introduce dipendenza dalla densità.",
-          "Confronta crescita assoluta rN(1-N/K) e pro capite r(1-N/K). Spiega perché hanno massimi in punti diversi.",
-          "Popolazione continua omogenea, r e K costanti, nessuna migrazione o struttura d’età. Le particelle della scena sono rappresentative, non un censimento."
+          "Nel 1934 il biologo russo Georgij Gause mise pochi parameci in una provetta con nutrimento costante e li contò ogni giorno. All’inizio il numero raddoppiava in fretta; poi la crescita rallentò e si fermò intorno a un valore stabile. La stessa curva a S si osserva nei lieviti, nelle pecore introdotte su un’isola, nei batteri di una coltura.",
+          "Se le risorse sono illimitate, ogni individuo contribuisce alla crescita allo stesso modo: dN/dt = rN, con r tasso di crescita. La soluzione è N = N₀ e^(rt), e la popolazione raddoppia ogni ln 2/r. Un batterio come Escherichia coli, in condizioni ideali, si divide ogni 20 minuti circa: in un giorno, senza limiti, una cellula darebbe un numero di discendenti con più di venti cifre."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Logistica e regolazione",
       "text": {
         "base": [
-          "La crescita logistica continua assume dN/dt=rN(1-N/K). K è una capacità portante del modello, non una proprietà immutabile di ogni ambiente. Quando N è piccolo rispetto a K, il comportamento è quasi esponenziale.",
-          "Con K=100 e r=0,3, al tempo zero N=10. Il massimo incremento assoluto si colloca in N=K/2, non nel momento in cui N è massima."
+          "Le risorse però finiscono. Nel 1838 Pierre-François Verhulst propose il modello logistico: dN/dt = rN(1 − N/K), dove K è la capacità portante, il numero massimo di individui che l’ambiente può sostenere. Finché N è piccolo la crescita è quasi esponenziale; quando N si avvicina a K rallenta e si ferma. La soluzione è N = K/[1 + (K/N₀ − 1)e^(−rt)], e la crescita è più rapida quando N = K/2.",
+          "I fattori che regolano una popolazione possono dipendere dalla densità, come la competizione per il cibo, le malattie che si diffondono meglio in popolazioni dense, la predazione; oppure no, come una gelata o una siccità che colpiscono comunque. Alcune specie investono in molti figli piccoli e crescono in fretta quando le condizioni sono buone; altre in pochi figli curati a lungo, e restano vicine a K.",
+          "La popolazione umana ha superato gli 8 miliardi di persone nel novembre 2022, secondo le Nazioni Unite. Per gran parte del Novecento è cresciuta più che esponenzialmente; da alcuni decenni il tasso di crescita diminuisce, e le proiezioni prevedono un massimo nella seconda metà di questo secolo."
         ],
         "intermediate": [
-          "Con N₀=10, la soluzione è N(t)=K/[1+(K/10-1)exp(-rt)]. Se r>0 e K>10, la popolazione cresce verso K. Il tasso pro capite diminuisce con N.",
-          "La variabile Tempo è espressa in u.t.; Popolazione in individui. Il dominio dello strumento è [0; 30]. La relazione implementata è: N = K/[1+(K/10-1) exp(-rt)].",
-          "Con K=100 e r=0,3, al tempo zero N=10. Il massimo incremento assoluto si colloca in N=K/2, non nel momento in cui N è massima."
+          "Le risorse però finiscono. Nel 1838 Pierre-François Verhulst propose il modello logistico: dN/dt = rN(1 − N/K), dove K è la capacità portante, il numero massimo di individui che l’ambiente può sostenere. Finché N è piccolo la crescita è quasi esponenziale; quando N si avvicina a K rallenta e si ferma. La soluzione è N = K/[1 + (K/N₀ − 1)e^(−rt)], e la crescita è più rapida quando N = K/2.",
+          "I fattori che regolano una popolazione possono dipendere dalla densità, come la competizione per il cibo, le malattie che si diffondono meglio in popolazioni dense, la predazione; oppure no, come una gelata o una siccità che colpiscono comunque. Alcune specie investono in molti figli piccoli e crescono in fretta quando le condizioni sono buone; altre in pochi figli curati a lungo, e restano vicine a K.",
+          "La popolazione umana ha superato gli 8 miliardi di persone nel novembre 2022, secondo le Nazioni Unite. Per gran parte del Novecento è cresciuta più che esponenzialmente; da alcuni decenni il tasso di crescita diminuisce, e le proiezioni prevedono un massimo nella seconda metà di questo secolo."
         ],
         "advanced": [
-          "Con N₀=10, la soluzione è N(t)=K/[1+(K/10-1)exp(-rt)]. Se r>0 e K>10, la popolazione cresce verso K. Il tasso pro capite diminuisce con N.",
-          "Confronta crescita assoluta rN(1-N/K) e pro capite r(1-N/K). Spiega perché hanno massimi in punti diversi.",
-          "La capacità portante non è un tetto universale garantito. Ambiente variabile, ritardi o risorse multiple possono produrre dinamiche diverse dalla curva logistica."
+          "Le risorse però finiscono. Nel 1838 Pierre-François Verhulst propose il modello logistico: dN/dt = rN(1 − N/K), dove K è la capacità portante, il numero massimo di individui che l’ambiente può sostenere. Finché N è piccolo la crescita è quasi esponenziale; quando N si avvicina a K rallenta e si ferma. La soluzione è N = K/[1 + (K/N₀ − 1)e^(−rt)], e la crescita è più rapida quando N = K/2.",
+          "I fattori che regolano una popolazione possono dipendere dalla densità, come la competizione per il cibo, le malattie che si diffondono meglio in popolazioni dense, la predazione; oppure no, come una gelata o una siccità che colpiscono comunque. Alcune specie investono in molti figli piccoli e crescono in fretta quando le condizioni sono buone; altre in pochi figli curati a lungo, e restano vicine a K.",
+          "La popolazione umana ha superato gli 8 miliardi di persone nel novembre 2022, secondo le Nazioni Unite. Per gran parte del Novecento è cresciuta più che esponenzialmente; da alcuni decenni il tasso di crescita diminuisce, e le proiezioni prevedono un massimo nella seconda metà di questo secolo.",
+          "Che cosa mostra il grafico. Una curva a S: un tratto iniziale quasi esponenziale, un flesso a metà altezza, un avvicinamento lento alla capacità portante. Con N₀ = 10 e K = 100, il flesso cade dove (K/N₀ − 1)e^(−rt) = 1, cioè a t = ln 9/r: con r = 0,3 circa 7,3 unità di tempo."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Adatta il modello ai conteggi",
       "text": {
         "base": [
-          "Nel laboratorio imposta Capacità K (a): 100 individui; Tasso r (b): 0,3 1/u.t.. Prima di salvare A, prevedi come cambia Popolazione fra Tempo=7,5 e 15 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con K=100 e r=0,3, al tempo zero N=10. Il massimo incremento assoluto si colloca in N=K/2, non nel momento in cui N è massima.",
-          "La variabile Tempo è espressa in u.t.; Popolazione in individui. Il dominio dello strumento è [0; 30]. La relazione implementata è: N = K/[1+(K/10-1) exp(-rt)]."
+          "L’attività presenta tre serie di conteggi di una popolazione che parte da 10 individui. Il modello è logistico: nella prima serie regoli la capacità portante K, nella seconda il tasso r, nella terza entrambi. Per completare l’attività adatta il modello a due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
+          "Suggerimento: K si legge dal valore a cui la curva si stabilizza. Il tasso r decide quanto in fretta si sale: il punto di flesso, dove N = K/2, arriva prima se r è grande."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Capacità K (a): 100 individui; Tasso r (b): 0,3 1/u.t.. Prima di salvare A, prevedi come cambia Popolazione fra Tempo=7,5 e 15 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Tempo è espressa in u.t.; Popolazione in individui. Il dominio dello strumento è [0; 30]. La relazione implementata è: N = K/[1+(K/10-1) exp(-rt)].",
-          "Con N₀=10, la soluzione è N(t)=K/[1+(K/10-1)exp(-rt)]. Se r>0 e K>10, la popolazione cresce verso K. Il tasso pro capite diminuisce con N."
+          "L’attività presenta tre serie di conteggi di una popolazione che parte da 10 individui. Il modello è logistico: nella prima serie regoli la capacità portante K, nella seconda il tasso r, nella terza entrambi. Per completare l’attività adatta il modello a due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
+          "Suggerimento: K si legge dal valore a cui la curva si stabilizza. Il tasso r decide quanto in fretta si sale: il punto di flesso, dove N = K/2, arriva prima se r è grande."
         ],
         "advanced": [
-          "Nel laboratorio imposta Capacità K (a): 100 individui; Tasso r (b): 0,3 1/u.t.. Prima di salvare A, prevedi come cambia Popolazione fra Tempo=7,5 e 15 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta crescita assoluta rN(1-N/K) e pro capite r(1-N/K). Spiega perché hanno massimi in punti diversi.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività presenta tre serie di conteggi di una popolazione che parte da 10 individui. Il modello è logistico: nella prima serie regoli la capacità portante K, nella seconda il tasso r, nella terza entrambi. Per completare l’attività adatta il modello a due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
+          "Suggerimento: K si legge dal valore a cui la curva si stabilizza. Il tasso r decide quanto in fretta si sale: il punto di flesso, dove N = K/2, arriva prima se r è grande."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Leggere il grafico ed evitare errori",
       "text": {
         "base": [
-          "La capacità portante non è un tetto universale garantito. Ambiente variabile, ritardi o risorse multiple possono produrre dinamiche diverse dalla curva logistica.",
-          "Popolazione continua omogenea, r e K costanti, nessuna migrazione o struttura d’età. Le particelle della scena sono rappresentative, non un censimento.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Che cosa mostra il grafico. Una curva a S: un tratto iniziale quasi esponenziale, un flesso a metà altezza, un avvicinamento lento alla capacità portante. Con N₀ = 10 e K = 100, il flesso cade dove (K/N₀ − 1)e^(−rt) = 1, cioè a t = ln 9/r: con r = 0,3 circa 7,3 unità di tempo.",
+          "Errore frequente: pensare che una popolazione alla capacità portante abbia smesso di riprodursi. Nascite e morti continuano e si bilanciano: il numero resta stabile.",
+          "Secondo errore: credere che K sia una proprietà fissa della specie. La capacità portante dipende dall’ambiente: cibo, spazio, predatori, clima."
         ],
         "intermediate": [
-          "La capacità portante non è un tetto universale garantito. Ambiente variabile, ritardi o risorse multiple possono produrre dinamiche diverse dalla curva logistica.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Che cosa mostra il grafico. Una curva a S: un tratto iniziale quasi esponenziale, un flesso a metà altezza, un avvicinamento lento alla capacità portante. Con N₀ = 10 e K = 100, il flesso cade dove (K/N₀ − 1)e^(−rt) = 1, cioè a t = ln 9/r: con r = 0,3 circa 7,3 unità di tempo.",
+          "Errore frequente: pensare che una popolazione alla capacità portante abbia smesso di riprodursi. Nascite e morti continuano e si bilanciano: il numero resta stabile.",
+          "Secondo errore: credere che K sia una proprietà fissa della specie. La capacità portante dipende dall’ambiente: cibo, spazio, predatori, clima."
         ],
         "advanced": [
-          "Popolazione continua omogenea, r e K costanti, nessuna migrazione o struttura d’età. Le particelle della scena sono rappresentative, non un censimento.",
-          "Confronta crescita assoluta rN(1-N/K) e pro capite r(1-N/K). Spiega perché hanno massimi in punti diversi.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Che cosa mostra il grafico. Una curva a S: un tratto iniziale quasi esponenziale, un flesso a metà altezza, un avvicinamento lento alla capacità portante. Con N₀ = 10 e K = 100, il flesso cade dove (K/N₀ − 1)e^(−rt) = 1, cioè a t = ln 9/r: con r = 0,3 circa 7,3 unità di tempo.",
+          "Errore frequente: pensare che una popolazione alla capacità portante abbia smesso di riprodursi. Nascite e morti continuano e si bilanciano: il numero resta stabile.",
+          "Secondo errore: credere che K sia una proprietà fissa della specie. La capacità portante dipende dall’ambiente: cibo, spazio, predatori, clima."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "La crescita logistica continua assume dN/dt=rN(1-N/K). K è una capacità portante del modello, non una proprietà immutabile di ogni ambiente. Quando N è piccolo rispetto a K, il comportamento è quasi esponenziale.",
-          "Con K=100 e r=0,3, al tempo zero N=10. Il massimo incremento assoluto si colloca in N=K/2, non nel momento in cui N è massima."
+          "Ripasso: crescita esponenziale e tempo di raddoppio; modello logistico e capacità portante; punto di flesso a K/2; fattori dipendenti e indipendenti dalla densità; crescita della popolazione umana.",
+          "Mini esercizio: con r = 0,35 al giorno il tempo di raddoppio è ln 2/0,35 ≈ 2 giorni.",
+          "Nelle domande sulla crescita chiediti se le risorse sono abbondanti, curva esponenziale, o limitate, curva logistica."
         ],
         "intermediate": [
-          "Con N₀=10, la soluzione è N(t)=K/[1+(K/10-1)exp(-rt)]. Se r>0 e K>10, la popolazione cresce verso K. Il tasso pro capite diminuisce con N.",
-          "La variabile Tempo è espressa in u.t.; Popolazione in individui. Il dominio dello strumento è [0; 30]. La relazione implementata è: N = K/[1+(K/10-1) exp(-rt)]."
+          "Ripasso: crescita esponenziale e tempo di raddoppio; modello logistico e capacità portante; punto di flesso a K/2; fattori dipendenti e indipendenti dalla densità; crescita della popolazione umana.",
+          "Mini esercizio: con r = 0,35 al giorno il tempo di raddoppio è ln 2/0,35 ≈ 2 giorni.",
+          "Nelle domande sulla crescita chiediti se le risorse sono abbondanti, curva esponenziale, o limitate, curva logistica."
         ],
         "advanced": [
-          "Confronta crescita assoluta rN(1-N/K) e pro capite r(1-N/K). Spiega perché hanno massimi in punti diversi.",
-          "Popolazione continua omogenea, r e K costanti, nessuna migrazione o struttura d’età. Le particelle della scena sono rappresentative, non un censimento."
+          "Ripasso: crescita esponenziale e tempo di raddoppio; modello logistico e capacità portante; punto di flesso a K/2; fattori dipendenti e indipendenti dalla densità; crescita della popolazione umana.",
+          "Mini esercizio: con r = 0,35 al giorno il tempo di raddoppio è ln 2/0,35 ≈ 2 giorni.",
+          "Nelle domande sulla crescita chiediti se le risorse sono abbondanti, curva esponenziale, o limitate, curva logistica."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Logistica continua con r e K costanti.",
-          "Popolazione continua omogenea, r e K costanti, nessuna migrazione o struttura d’età. Le particelle della scena sono rappresentative, non un censimento.",
-          "Collegamento consigliato: math-p08. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le iterazioni e la stabilità dei modelli di popolazione sono il tema dell’unità di matematica «Iterazioni, stabilità e precisione numerica». In biologia si passa a «Competizione ecologica»: che cosa succede quando due specie condividono le risorse.",
+          "Riepilogo dell’unità: con risorse illimitate la crescita è esponenziale e raddoppia ogni ln 2/r; con risorse limitate segue il modello logistico e si ferma alla capacità portante K; la crescita è massima a N = K/2; alcuni fattori di regolazione dipendono dalla densità, altri no.",
+          "Nel diario annota K e r trovati e calcola per ciascuna serie il tempo in cui la popolazione arriva a K/2."
         ],
         "intermediate": [
-          "Con N₀=10, la soluzione è N(t)=K/[1+(K/10-1)exp(-rt)]. Se r>0 e K>10, la popolazione cresce verso K. Il tasso pro capite diminuisce con N.",
-          "Popolazione continua omogenea, r e K costanti, nessuna migrazione o struttura d’età. Le particelle della scena sono rappresentative, non un censimento.",
-          "Confronta crescita assoluta rN(1-N/K) e pro capite r(1-N/K). Spiega perché hanno massimi in punti diversi."
+          "Le iterazioni e la stabilità dei modelli di popolazione sono il tema dell’unità di matematica «Iterazioni, stabilità e precisione numerica». In biologia si passa a «Competizione ecologica»: che cosa succede quando due specie condividono le risorse.",
+          "Riepilogo dell’unità: con risorse illimitate la crescita è esponenziale e raddoppia ogni ln 2/r; con risorse limitate segue il modello logistico e si ferma alla capacità portante K; la crescita è massima a N = K/2; alcuni fattori di regolazione dipendono dalla densità, altri no.",
+          "Nel diario annota K e r trovati e calcola per ciascuna serie il tempo in cui la popolazione arriva a K/2."
         ],
         "advanced": [
-          "Confronta crescita assoluta rN(1-N/K) e pro capite r(1-N/K). Spiega perché hanno massimi in punti diversi.",
-          "Popolazione continua omogenea, r e K costanti, nessuna migrazione o struttura d’età. Le particelle della scena sono rappresentative, non un censimento.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le iterazioni e la stabilità dei modelli di popolazione sono il tema dell’unità di matematica «Iterazioni, stabilità e precisione numerica». In biologia si passa a «Competizione ecologica»: che cosa succede quando due specie condividono le risorse.",
+          "Riepilogo dell’unità: con risorse illimitate la crescita è esponenziale e raddoppia ogni ln 2/r; con risorse limitate segue il modello logistico e si ferma alla capacità portante K; la crescita è massima a N = K/2; alcuni fattori di regolazione dipendono dalla densità, altri no.",
+          "Nel diario annota K e r trovati e calcola per ciascuna serie il tempo in cui la popolazione arriva a K/2."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-19-concept",
-      "prompt": "Nel modello logistico, il massimo incremento assoluto si ha a:",
+      "id": "biology-19-q1",
+      "prompt": "Una popolazione cresce esponenzialmente con r = 0,35 al giorno. Qual è il tempo di raddoppio?",
       "options": [
         {
           "id": "A",
-          "text": "N=K/2",
-          "feedback": "La crescita logistica continua assume dN/dt=rN(1-N/K). K è una capacità portante del modello, non una proprietà immutabile di ogni ambiente. Quando N è piccolo rispetto a K, il comportamento è quasi esponenziale."
+          "text": "Circa 2 giorni",
+          "feedback": "Esatto: il tempo di raddoppio è ln 2/0,35 ≈ 1,98 giorni."
         },
         {
           "id": "B",
-          "text": "N=K",
-          "feedback": "La capacità portante non è un tetto universale garantito. Ambiente variabile, ritardi o risorse multiple possono produrre dinamiche diverse dalla curva logistica."
+          "text": "0,35 giorni",
+          "feedback": "0,35 è il tasso di crescita, non un tempo."
         },
         {
           "id": "C",
-          "text": "N=0",
-          "feedback": "Con N₀=10, la soluzione è N(t)=K/[1+(K/10-1)exp(-rt)]. Se r>0 e K>10, la popolazione cresce verso K. Il tasso pro capite diminuisce con N."
+          "text": "Circa 2,9 giorni",
+          "feedback": "2,9 giorni è 1/r: manca il fattore ln 2."
+        },
+        {
+          "id": "D",
+          "text": "0,24 giorni",
+          "feedback": "Hai moltiplicato ln 2 per r invece di dividere."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "biology-19-calculation",
-      "prompt": "Calcolo: Capacità K (a)=100 individui; Tasso r (b)=0,3 1/u.t.. Per Tempo=0 u.t., quanto vale Popolazione?",
+      "id": "biology-19-q2",
+      "prompt": "Che cos’è la capacità portante K?",
       "options": [
         {
           "id": "A",
-          "text": "15 individui",
-          "feedback": "Questo valore non soddisfa la relazione. N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=100 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
+          "text": "Il tasso di crescita massimo",
+          "feedback": "Il tasso di crescita è r, un altro parametro del modello."
         },
         {
           "id": "B",
-          "text": "5 individui",
-          "feedback": "Controlla sostituzione, segno e unità. N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=100 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
+          "text": "Il numero massimo di individui che l’ambiente può sostenere",
+          "feedback": "Esatto: la popolazione si stabilizza intorno a K."
         },
         {
           "id": "C",
-          "text": "10 individui",
-          "feedback": "N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=100 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
+          "text": "Il numero iniziale di individui",
+          "feedback": "Il numero iniziale di individui è N₀."
+        },
+        {
+          "id": "D",
+          "text": "Il numero di figli per individuo",
+          "feedback": "Il numero di figli entra nel tasso r."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 100,
-          "b": 0.3
-        },
-        "expected": 10,
-        "unit": "individui"
-      }
+      "correct": "B"
     },
     {
-      "id": "biology-19-transfer",
-      "prompt": "Trasferimento: Capacità K (a)=110 individui; Tasso r (b)=0,3 1/u.t.. Per Tempo=0 u.t., quanto vale Popolazione?",
+      "id": "biology-19-q3",
+      "prompt": "Nel modello logistico, per quale N la crescita della popolazione è più rapida?",
       "options": [
         {
           "id": "A",
-          "text": "5 individui",
-          "feedback": "Controlla sostituzione, segno e unità. N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=110 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
+          "text": "N = 0",
+          "feedback": "Senza individui non c’è crescita: il prodotto rN è zero."
         },
         {
           "id": "B",
-          "text": "10 individui",
-          "feedback": "N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=110 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
+          "text": "N = K",
+          "feedback": "Alla capacità portante la crescita si ferma."
         },
         {
           "id": "C",
-          "text": "15 individui",
-          "feedback": "Questo valore non soddisfa la relazione. N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=110 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 110,
-          "b": 0.3
-        },
-        "expected": 10,
-        "unit": "individui"
-      }
-    },
-    {
-      "id": "biology-19-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Popolazione continua omogenea, r e K costanti, nessuna migrazione o struttura d’età. Le particelle della scena sono rappresentative, non un censimento."
+          "text": "N = K/2",
+          "feedback": "Esatto: lì il prodotto N(1 − N/K) è massimo."
         },
         {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Popolazione continua omogenea, r e K costanti, nessuna migrazione o struttura d’età. Le particelle della scena sono rappresentative, non un censimento."
-        },
-        {
-          "id": "C",
-          "text": "Logistica continua con r e K costanti",
-          "feedback": "Popolazione continua omogenea, r e K costanti, nessuna migrazione o struttura d’età. Le particelle della scena sono rappresentative, non un censimento."
+          "id": "D",
+          "text": "N = 2K",
+          "feedback": "Oltre K la popolazione diminuisce invece di crescere."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "biology-19-q4",
+      "prompt": "Quale fattore dipende dalla densità?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Una gelata improvvisa",
+          "feedback": "Una gelata colpisce indipendentemente dal numero di individui."
+        },
+        {
+          "id": "B",
+          "text": "Un’eruzione vulcanica",
+          "feedback": "Un’eruzione colpisce indipendentemente dal numero di individui."
+        },
+        {
+          "id": "C",
+          "text": "Una siccità",
+          "feedback": "La siccità colpisce comunque, anche popolazioni piccole."
+        },
+        {
+          "id": "D",
+          "text": "La competizione per il cibo",
+          "feedback": "Esatto: più individui significano meno cibo per ciascuno."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "biology-19-q5",
+      "prompt": "Perché all’inizio la curva logistica somiglia a un’esponenziale?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché N è molto minore di K e il freno 1 − N/K è quasi 1",
+          "feedback": "Esatto: le risorse sono ancora abbondanti."
+        },
+        {
+          "id": "B",
+          "text": "Perché r cambia nel tempo",
+          "feedback": "Nel modello r è costante: cambia solo il freno 1 − N/K."
+        },
+        {
+          "id": "C",
+          "text": "Perché K è zero all’inizio",
+          "feedback": "K è fissato dall’ambiente fin dall’inizio."
+        },
+        {
+          "id": "D",
+          "text": "Perché non ci sono nascite",
+          "feedback": "Senza nascite la popolazione non crescerebbe."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-19-q6",
+      "prompt": "Che cosa accade a una popolazione che ha raggiunto la capacità portante?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Smette di riprodursi",
+          "feedback": "Le nascite continuano, bilanciate dalle morti."
+        },
+        {
+          "id": "B",
+          "text": "Nascite e morti si bilanciano",
+          "feedback": "Esatto: il numero di individui resta stabile."
+        },
+        {
+          "id": "C",
+          "text": "Si estingue",
+          "feedback": "La capacità portante è un equilibrio, non un collasso."
+        },
+        {
+          "id": "D",
+          "text": "Continua a crescere esponenzialmente",
+          "feedback": "La crescita rallenta e si ferma vicino a K."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "fit",
+    "goal": 2,
+    "rounds": [
+      {
+        "id": "capacita",
+        "title": "Quanti ne sostiene l’ambiente?",
+        "prompt": "Il tasso r è noto. Regola la capacità portante K guardando dove si stabilizzano i conteggi.",
+        "model": "biology-19",
+        "x": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          25,
+          30
+        ],
+        "noise": [
+          0,
+          1.5,
+          -2,
+          2.5,
+          -2,
+          1.5,
+          -1,
+          1
+        ],
+        "hidden": {
+          "a": 150,
+          "b": 0.3
+        },
+        "fit": [
+          "a"
+        ],
+        "explain": "K = 150 individui: dopo 25 unità di tempo la popolazione ci è quasi arrivata."
+      },
+      {
+        "id": "tasso",
+        "title": "Quanto in fretta cresce?",
+        "prompt": "La capacità portante è nota. Regola il tasso r: decide quando la curva sale.",
+        "model": "biology-19",
+        "x": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          15
+        ],
+        "noise": [
+          0,
+          1,
+          -1.5,
+          1.5,
+          -1,
+          1,
+          -0.8,
+          0.5
+        ],
+        "hidden": {
+          "a": 100,
+          "b": 0.5
+        },
+        "fit": [
+          "b"
+        ],
+        "explain": "r = 0,5: il flesso, a metà della capacità portante, cade a t = ln 9/0,5 ≈ 4,4."
+      },
+      {
+        "id": "entrambi",
+        "title": "Due parametri insieme",
+        "prompt": "Né K né r sono noti. Stima K dal livello finale, poi r dalla salita.",
+        "model": "biology-19",
+        "x": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30
+        ],
+        "noise": [
+          0,
+          1.5,
+          -2,
+          2,
+          -1.5,
+          1,
+          -1
+        ],
+        "hidden": {
+          "a": 180,
+          "b": 0.2
+        },
+        "fit": [
+          "a",
+          "b"
+        ],
+        "explain": "K = 180 e r = 0,2: una crescita lenta verso un ambiente capiente."
+      }
+    ]
+  }
 }
