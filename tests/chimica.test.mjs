@@ -662,3 +662,29 @@ test('Chimica 24: chimica organica, numeri ricalcolati',()=>{
  assert.equal(2**4,16);const f=Math.exp(-12000/(R*298.15));assert.equal(r(12000/(R*298.15),2),4.84);assert.equal(r(f*1e3,1),7.9);
  const nu=1.380649e-23*298.15/6.62607015e-34;assert.equal(r(nu/1e12,1),6.2);assert.equal(r(nu*f/1e10,0),5);
 });
+
+test('Chimica 25: polimeri e materiali, numeri ricalcolati',()=>{
+ const C=12.011,H=1.008,N=14.007,O=15.999,Cl=35.45,R=8.314462618;
+ const pe=2*C+4*H,ny=12*C+22*H+2*N+2*O,pet=10*C+8*H+4*O,hmd=6*C+16*H+2*N,ad=6*C+10*H+4*O,w=2*H+O;
+ assert.equal(r(pe,2),28.05);assert.equal(r(280000/pe,-2),10000);assert.equal(r(ny,2),226.32);assert.equal(r(hmd,2),116.21);assert.equal(r(ad,2),146.14);
+ assert.equal(r(hmd+ad-2*w,2),226.32);assert.equal(r(2*w/ny*1000,0),159);assert.equal(r(pet,2),192.17);assert.equal(r(25/pet,2),0.13);
+ const pvc=2*C+3*H+Cl;assert.equal(r(Cl/pvc*100,0),57);
+ // Carothers.
+ assert.deepEqual([0.95,0.99,0.995,0.999].map(p=>r(1/(1-p),0)),[20,100,200,1000]);
+ assert.equal(r(20000/ny,0),88);assert.equal(r(2*20000/ny,0),177);assert.equal(r(100*(1-1/(2*20000/ny)),1),99.4);
+ // Average molar masses.
+ const Ms=[1e4,5e4,1e5];const Mn=Ms.reduce((a,b)=>a+b)/3,Mw=Ms.reduce((a,b)=>a+b*b,0)/Ms.reduce((a,b)=>a+b);
+ assert.equal(r(Mn,-2),53300);assert.equal(r(Mw,-2),78800);assert.equal(r(Mw/Mn,2),1.48);assert.equal(r(1e5/1.6e5,3),0.625);
+ const p=0.995;assert.equal(r(1/(1-p),0),200);assert.equal(r((1+p)/(1-p),0),399);
+ // Exercises.
+ assert.equal(r(8*C+8*H,2),104.15);assert.equal(r(208000/(8*C+8*H),-1),2000);
+ assert.equal(r(1000/ny,2),4.42);assert.equal(r(1000/ny*hmd,0),513);assert.equal(r(1000/ny*ad,0),646);assert.equal(r(1000/ny*(hmd+ad),0),1159);
+ assert.equal(r(1-1/50,2),0.98);assert.equal(r(1-1/500,3),0.998);
+ const nm=[1/1e4,1/5e4,1/1e5];assert.equal(r(nm.reduce((a,b)=>a+b)*1e4,1),1.3);assert.equal(r(3/nm.reduce((a,b)=>a+b),-2),23100);assert.equal(r((1e4+5e4+1e5)/3/(3/nm.reduce((a,b)=>a+b)),2),2.31);
+ assert.equal(r(pvc,2),62.5);assert.equal(r(1000/pvc,1),16);assert.equal(r(1000/pvc*(H+Cl),0),583);
+ const nu=25/pet;assert.equal(r(nu*(8*C+6*H+4*O),1),21.6);assert.equal(r(nu*(2*C+6*H+2*O),2),8.07);assert.equal(r(2*nu*18.015,2),4.69);
+ assert.equal(r(1.99/0.01,0),199);assert.equal(r(1-0.99**10,3),0.096);
+ const c=125/(8.314*298.15);assert.equal(r(c,4),0.0504);assert.equal(r(5.0/(c*1e-3),-3),99000);
+ assert.deepEqual([0.09,0.19,0.5,0.22].map(f=>r(f*353,0)),[32,67,177,78]);
+ assert.equal(r(10000*28.05,-4),280000);
+});
