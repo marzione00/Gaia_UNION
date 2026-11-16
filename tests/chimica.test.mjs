@@ -311,3 +311,31 @@ test('Chimica 13: solubilità ed equilibrio eterogeneo, numeri ricalcolati',()=>
  const Kc=K.AgCl*1.6e7,rt=Math.sqrt(Kc),s=rt/(1+2*rt);assert.equal(r(Kc*1e3,1),2.8);assert.equal(r(rt,3),0.053);assert.equal(r(s,3),0.048);assert.equal(r(s/s1(K.AgCl),-2),3600);
  assert.equal(r(5.35e-13*2.9e13,0),16);
 });
+test('Chimica 14: stechiometria, numeri ricalcolati',()=>{
+ const M={H2:2.016,O2:31.998,H2O:18.015,C8H18:114.23,CO2:44.009,Fe2O3:159.69,Al:26.982,Fe:55.845,Al2O3:101.96,CH4:16.043,Mg:24.305,EtOH:46.069,NaHCO3:84.007,N2:28.014,NH3:17.031,S:32.06,H2SO4:98.08,C4H10:58.12,BaSO4:233.39,CaCO3:100.09,CaO:56.077,Glc:180.156,HNO3:63.013};
+ // Mass-energy check for the combustion of one mole of hydrogen.
+ assert.equal(r(285800/c0**2*1e12,1),3.2);
+ // Octane and ethanol.
+ const no=703/M.C8H18;assert.equal(r(no,3),6.154);assert.equal(r(8*no,2),49.23);assert.equal(r(8*no*M.CO2/1000,2),2.17);assert.equal(r(12.5*no*M.O2/703,1),3.5);
+ const ne=789/M.EtOH;assert.equal(r(ne,2),17.13);assert.equal(r(2*ne,2),34.25);assert.equal(r(2*ne*M.CO2/1000,2),1.51);
+ // Thermite.
+ const nf=100/M.Fe2O3;assert.equal(r(nf,4),0.6262);assert.equal(r(2*nf,3),1.252);assert.equal(r(2*nf*M.Al,1),33.8);assert.equal(r(2*nf*M.Fe,1),69.9);assert.equal(r(nf*M.Al2O3,2),63.85);assert.equal(r(2*nf*M.Al,2),33.79);assert.equal(r(2*nf*M.Fe,2),69.94);assert.equal(r(100+2*nf*M.Al,2),133.79);assert.equal(r(2*nf*M.Fe+nf*M.Al2O3,2),133.79);assert.equal(r(50-2*nf*M.Al,1),16.2);
+ // Camping cylinder.
+ const nb=450/M.C4H10;assert.equal(r(nb,2),7.74);assert.equal(r(6.5*nb,1),50.3);assert.equal(r(6.5*nb*24.79,-1),1250);assert.equal(r(6.5*nb*24.79/0.2095,-1),5960);
+ // Solutions.
+ assert.equal(r(0.025*0.15*2/0.1*1000,1),75);assert.equal(r(0.5/M.Mg,4),0.0206);assert.equal(r(2*0.5/M.Mg/0.2*1000,0),206);assert.equal(r(0.03*0.12/2/0.025,4),0.072);
+ assert.equal(r(0.005*M.BaSO4,2),1.17);assert.equal(r(0.001/0.09,4),0.0111);
+ // Tanks of the service module.
+ assert.equal(r(100000/M.H2/1000,1),49.6);assert.equal(r(600000/M.O2/1000,2),18.75);assert.equal(r(2*600000/M.O2*M.H2O/1000,0),676);assert.equal(r(2*600000/M.O2*M.H2/1000,1),75.6);assert.equal(r(100-2*600000/M.O2*M.H2/1000,1),24.4);
+ // Rocket mixture ratio.
+ assert.equal(r(M.O2/(2*M.H2),2),7.94);const o=6000/M.O2;assert.equal(r(o,1),187.5);assert.equal(r(2*o*M.H2/1000,3),0.756);assert.equal(r(100*(1-2*o*M.H2/1000),0),24);
+ // Hydrogen and oxygen in excess; methane; nitrogen to hydrogen mass ratio.
+ assert.equal(r(10/M.H2,2),4.96);assert.equal(r(2*64/M.O2*M.H2O,1),72.1);assert.equal(r((10/M.H2-2*64/M.O2)*M.H2,1),1.9);assert.equal(r(10/M.CH4*2*M.O2,1),39.9);assert.equal(r(3*M.H2/M.N2,3),0.216);
+ // Ammonia with extent of reaction.
+ const nN=28/M.N2,nH=9/M.H2;assert.equal(r(nH,2),4.46);assert.equal(r(nH/3,2),1.49);assert.equal(r(2*nN*M.NH3,1),34);assert.equal(r(nH-3*nN,2),1.47);assert.equal(r((nH-3*nN)*M.H2,1),3);
+ // Mixture analysis, impure limestone, sulfur, Ostwald, respiration.
+ assert.equal(r(0.4*2*M.NaHCO3/(M.H2O+M.CO2),2),1.08);assert.equal(r(0.4*M.NaHCO3/(M.H2O+M.CO2)*100,0),54);
+ assert.equal(r(920000/M.CaCO3/1000,2),9.19);assert.equal(r(920000/M.CaCO3*M.CaO/1000,0),515);
+ assert.equal(r(M.H2SO4/M.S,2),3.06);assert.equal(r(1.5*1e6/M.S*M.O2/1e6,2),1.5);assert.equal(r(M.HNO3/M.NH3,2),3.7);
+ const ng=100/M.Glc;assert.equal(r(ng,3),0.555);assert.equal(r(6*ng,2),3.33);assert.equal(r(6*ng*M.CO2,0),147);assert.equal(r(6*ng*24.79,0),83);
+});
