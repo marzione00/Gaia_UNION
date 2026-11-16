@@ -604,3 +604,39 @@ test('Chimica 22: soluzioni tampone, numeri ricalcolati',()=>{
  assert.equal(r(10**0.2,2),1.58);assert.equal(r(0.1/2.58,4),0.0388);assert.equal(r(0.1-0.1/2.58,4),0.0612);
  const q=10**(4.4-4.74);assert.equal(r(q,3),0.457);assert.equal(r(q/(1+q),2),0.31);assert.equal(r(25*q/(1+q),0),8);assert.equal(r(100*(1-q/(1+q)),0),69);
 });
+
+test('Chimica 23: ossidoriduzione ed elettrochimica, numeri ricalcolati',()=>{
+ const F=96485.33212,R=8.314462618,lg=Math.log10,S=R*298.15/F*Math.LN10;
+ assert.equal(r(S,5),0.05916);assert.equal(r(S*1000,2),59.16);assert.equal(r(S/2,4),0.0296);
+ // Oxidation numbers by charge balance.
+ assert.equal((-2+7*2)/2,6);assert.equal(-1+4*2,7);assert.equal(r(8/3,3),2.667);
+ // Balanced equations: atoms and charge (dichromate-ethanol; permanganate-sulfite).
+ assert.equal(2*7+3*1,11+3*2);assert.equal(3*6+16,4*0+3*4+11*2);assert.equal(2*(-2)+16,4*3);
+ assert.equal(2*4+3*3+1,2*2+3*4+2);assert.equal(2*(-1)+3*(-2),3*(-2)+2*(-1));
+ // Permanganate titration of iron(II).
+ assert.equal(r(18.40e-3*0.0200*1e4,2),3.68);assert.equal(r(5*3.68e-4/20.00e-3,4),0.092);
+ // Cell voltages.
+ assert.equal(r(0.340+0.763,3),1.103);assert.equal(r(0.800+0.763,3),1.563);
+ assert.equal(r(-2*F*1.103/1000,0),-213);assert.equal(r(2*1.103/S,1),37.3);assert.equal(r(10**(2*1.103/S)/1e37,0),2);
+ assert.equal(r((0.2223-0.800)/S,2),-9.77);assert.equal(r(10**((0.2223-0.800)/S)*1e10,1),1.7);
+ // Nernst.
+ assert.equal(r(1.103-S/2*2,3),1.044);assert.equal(r(S/2*3,3),0.089);
+ // Batteries and fuel cell.
+ assert.equal(r(1.69+0.356,2),2.05);assert.equal(r(6*2.0,0),12);assert.equal(r(237.1/285.8,2),0.83);
+ // Faraday: copper plating.
+ assert.equal(r(2.00*3600/F,4),0.0746);assert.equal(r(2.00*3600/F/2,4),0.0373);assert.equal(r(2.00*3600/F/2*63.55,2),2.37);
+ // Aluminium.
+ const qa=1000/26.98*3*F;assert.equal(r(qa/1e7,2),1.07);assert.equal(r(qa*4.5/3.6e6,0),13);
+ // Exercises.
+ assert.equal(r(0.800+2.372,3),3.172);assert.equal(r(0.340+0.440,3),0.78);assert.equal(r(0.800+0.257,3),1.057);
+ assert.equal(2*4+5*2,5*2+8);assert.equal(5*2+6,8*2);assert.equal(2*(-1)+6,2*2);
+ assert.equal(2*3+3+4,2*4+5);assert.equal(2*3+4,5*2);assert.equal(-1-4,-4-1);
+ assert.equal(r(-2*F*1.563/1000,0),-302);assert.equal(r(2*1.563/S,1),52.8);assert.equal(r(10**(2*1.563/S)/1e52,0),7);
+ assert.equal(r(lg(0.2),2),-0.7);assert.equal(r(1.103-S/2*(-0.70),3),1.124);
+ const nag=1.00/107.87;assert.equal(r(nag*1e3,2),9.27);assert.equal(r(nag*F,0),894);assert.equal(r(nag*F/0.5,0),1789);
+ assert.equal(r(0.520-0.159,3),0.361);assert.equal(r(0.361/S,2),6.1);assert.equal(r(10**(0.361/S)/1e6,1),1.3);
+ assert.equal(r(0.236/S,2),3.99);
+ assert.equal(r(12*60*3600/1e6,1),2.6);assert.equal(r(-2*F*2.05/1000,0),-396);assert.equal(r(60*3600/F,2),2.24);assert.equal(r(60*3600/F/2*207.2,0),232);assert.equal(r(6*60*3600/F/2*207.2/1000,1),1.4);
+ assert.equal(r(1000/26.98,1),37.1);assert.equal(r(3*1000/26.98,1),111.2);assert.equal(r(qa*4.5/1e7,1),4.8);
+ assert.equal(r(237100/(2*F),3),1.229);
+});
