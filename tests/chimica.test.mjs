@@ -99,3 +99,16 @@ test('Chimica 16: termochimica e calorimetria, numeri ricalcolati',()=>{
  const q=40000*4.18*25/1000,n=q/802.3;assert.equal(r(n*16.043,1),83.6);assert.equal(r(n*44.01,0),229);assert.equal(r(q/890.3*16.043,0),75);
  assert.equal(r((f.Al2O3-f.Fe2O3)/(2*26.982+2*55.845+3*15.999),2),-3.99);assert.equal(r(2*f.Fe2O3/(4*55.845),2),-7.38);
 });
+test('Chimica 01: materia, proprietà e densità, numeri ricalcolati',()=>{
+ const rho=t=>999.97495*(1-(t-3.983035)**2*(t+301.797)/(522528.9*(t+69.34881)))/1000; // Tanaka et al. 2001
+ assert.equal(r(rho(0),5),0.99984);assert.equal(r(rho(3.98),5),0.99997);assert.equal(r(rho(20),5),0.99821);assert.equal(r(1000/rho(20)-1000/rho(4),1),1.8);
+ assert.equal(r(0.99984/0.917,2),1.09);assert.equal(r(0.917/0.9982,2),0.92);assert.equal(r(0.917/1.03,2),0.89);
+ assert.equal(r(101325*0.018015/(8.314462618*373.15),2),0.59);assert.equal(r(958.4/0.5883,-2),1600);
+ const V=(152.4-122.0)/0.9982;assert.equal(r(V,1),30.5);assert.equal(r(152.4/V,2),5);assert.equal(r(152.4/19.32,1),7.9);assert.equal(r((0.2/30.4+0.1/152.4)*5,2),0.04);
+ assert.equal(r(76.5/8.6,1),8.9);assert.equal(r(76.5/8.6*0.2/8.6,1),0.2);const V2=(76.5-67.97)/0.9982;assert.equal(r(V2,2),8.55);assert.equal(r(76.5/V2,2),8.95);
+ assert.equal(r(250*0.789,0),197);assert.equal(r(60*1.204,0),72);assert.equal(r(144*1.204,0),173);assert.equal(r(1000/19.32,1),51.8);assert.equal(r(1000/2.7,-1),370);
+ const mw=78.205-28.315,Vp=mw/0.9982;assert.equal(r(Vp,2),49.98);assert.equal(r((67.795-28.315)/Vp,3),0.79);
+ const m=(57-1000/19.32)/(1/10.49-1/19.32);assert.equal(r(m,0),120);assert.equal(r(4*119.98/(6.02214076e23*(5.417e-8)**3),2),5.01);
+ const Vs=4/3*Math.PI;assert.equal(r(32.8/Vs,2),7.83);assert.equal(r(32.8/Vs*(0.015+0.1/32.8),2),0.14);assert.equal(r(1/(0.75/19.32+0.125/10.49+0.125/8.96),1),15.5);
+ assert.equal(r(2*1.008/(2*1.008+15.999)*100,1),11.2);
+});
