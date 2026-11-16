@@ -339,3 +339,28 @@ test('Chimica 14: stechiometria, numeri ricalcolati',()=>{
  assert.equal(r(M.H2SO4/M.S,2),3.06);assert.equal(r(1.5*1e6/M.S*M.O2/1e6,2),1.5);assert.equal(r(M.HNO3/M.NH3,2),3.7);
  const ng=100/M.Glc;assert.equal(r(ng,3),0.555);assert.equal(r(6*ng,2),3.33);assert.equal(r(6*ng*M.CO2,0),147);assert.equal(r(6*ng*24.79,0),83);
 });
+test('Chimica 15: resa e bilanci di materia, numeri ricalcolati',()=>{
+ const sa=138.12,an=102.09,asp=180.16,ac=60.05;
+ // Aspirin examples and atom economy.
+ const n1=5/sa,na1=7*1.082/an;assert.equal(r(n1,4),0.0362);assert.equal(r(7*1.082,2),7.57);assert.equal(r(na1,4),0.0742);assert.equal(r(n1*asp,2),6.52);assert.equal(r(100*5.2/(n1*asp),0),80);
+ assert.equal(r(100/0.8/asp*sa,1),95.8);assert.equal(r(0.95*5.2,2),4.94);assert.equal(r(100*0.95*5.2/(n1*asp),0),76);
+ const n2=2/sa;assert.equal(r(n2,4),0.0145);assert.equal(r(5*1.082,2),5.41);assert.equal(r(5*1.082/an,3),0.053);assert.equal(r(n2*asp,2),2.61);assert.equal(r(100*2.1/(n2*asp),0),80);
+ assert.equal(r(50/0.75,1),66.7);assert.equal(r(50/0.75/asp,3),0.37);assert.equal(r(50/0.75/asp*sa,1),51.1);
+ assert.equal(r(100*asp/(sa+an),0),75);assert.equal(r(1000/asp,2),5.55);assert.equal(r(1000/asp*ac,0),333);
+ // Lime and multistep yields.
+ assert.equal(r(10/100.09,4),0.0999);assert.equal(r(10/100.09*56.08,2),5.6);assert.equal(r(100*5.12/(10/100.09*56.08),1),91.4);
+ assert.equal(r(0.9*0.85*0.8,3),0.612);assert.equal(r(0.9**3,2),0.73);assert.equal(r(0.9**10,2),0.35);assert.equal(r(100*0.8**20,1),1.2);assert.equal(r(0.8**8,2),0.17);assert.equal(r(0.8**5,2),0.33);
+ assert.equal(r(0.8**30*1000,1),1.2);assert.equal(r(0.8**10,2),0.11);assert.equal(r(0.85**12,2),0.14);assert.equal(r(0.85**7,2),0.32);assert.equal(r(0.85**10,3),0.197);assert.equal(r(1/0.85**10,1),5.1);
+ assert.equal(r(0.9*0.85*100,1),76.5);
+ // Boiler mass balances (air 20.95% O2, 79.05% inert).
+ const N=o=>o*79.05/20.95;assert.equal(r(N(2.4),2),9.06);assert.equal(r(1+2+0.4+N(2.4),2),12.46);assert.equal(r(100/(1+0.4+N(2.4)),1),9.6);assert.equal(r(40/(1+0.4+N(2.4)),1),3.8);
+ assert.equal(r(N(2.2),2),8.3);assert.equal(r(1+0.2+N(2.2),2),9.5);assert.deepEqual([1,0.2,N(2.2)].map(x=>r(100*x/(1.2+N(2.2)),1)),[10.5,2.1,87.4]);
+ // Recycle, dryer, car, Solvay, E factor, ibuprofen, salt.
+ assert.equal(r(100/0.15,0),667);assert.equal(r(100/0.15-100,0),567);assert.equal(r(1/0.15,1),6.7);assert.equal(r(0.85/0.15,1),5.7);
+ assert.equal(r(0.75/0.98,3),0.765);assert.equal(r(1-0.75/0.98,3),0.235);assert.equal(r(5*2.167,1),10.8);assert.equal(r(5*2.167*10,0),108);
+ assert.equal(r(100*105.99/(100.09+2*58.44),0),49);assert.equal(r(110.98/105.99,2),1.05);
+ assert.equal(r(4+40-1,0),43);assert.equal(r(4+4-1,0),7);
+ assert.equal(r(134.22+102.09+2.016+28.01,2),266.34);assert.equal(r(100*206.28/266.34,0),77);
+ assert.equal(r(2.5*0.6,1),1.5);assert.equal(r(9.5-1.5,1),8);assert.equal(r(100*8/9.5,0),84);
+ assert.equal(r(1000*0.035/0.25,0),140);assert.equal(r(1000/0.035/1000,1),28.6);
+});
