@@ -140,3 +140,24 @@ test('Chimica 06: legame ionico, numeri ricalcolati',()=>{
  assert.deepEqual([3.16-0.93,3.98-0.82,3.44-1.31,3.16-2.2].map(d=>r(100*(1-Math.exp(-d*d/4)),0)),[71,92,68,21]);
  assert.deepEqual([[861,257],[787,283],[718,319]].map(([u,d])=>r(u*d/1e5,2)),[2.21,2.23,2.29]);assert.equal(r((5.1391+47.2864)*kJ,0),5058);
 });
+test('Chimica 07: legame covalente, numeri ricalcolati',()=>{
+ const kJ=e*NA/1000,D=3.33564e-30,u=1.66053906892e-27;
+ // Partial charges from dipole moments and bond lengths (Huber-Herzberg, CRC).
+ assert.deepEqual([[1.826,91.68],[1.109,127.46],[0.827,141.44],[0.448,160.92]].map(([m,d])=>r(m*D/(e*d*1e-12),2)),[0.41,0.18,0.12,0.06]);
+ assert.equal(r(e*1e-10/D,2),4.8);assert.equal(r(1.826*D*1e30,2),6.09);assert.equal(r(e*91.7e-12*1e29,2),1.47);
+ // Morse parameters of H2: De 4.7476 eV, a 0.019443 /pm.
+ const De=4.7476*e,k=2*De*(1.9443e10)**2,mH=1.00782503/2*u,mD=2.01410178/2*u,w=Math.sqrt(k/mH);
+ assert.equal(r(k,0),575);assert.equal(r(w/1e14,2),8.29);assert.equal(r(hbar*w/2*NA/1000,1),26.3);assert.equal(r(De*NA/1000,1),458.1);
+ const zD=hbar*Math.sqrt(k/mD)/2*NA/1000;assert.equal(r(zD,1),18.6);assert.equal(r(458.1-18.6,1),439.5);assert.equal(r(4.5563*kJ,1),439.6);
+ assert.equal(r(4.4781*kJ,1),432.1);assert.equal(r(458.1-432.1,1),26);assert.equal(r(26e3/(NA*e),2),0.27);assert.equal(r(8.314462618*298.15/1000,2),2.48);
+ assert.equal(r(h*c0/(4.478*e)*1e9,1),276.9);assert.equal(r(4.478*e*1e19,3),7.175);
+ // Bond enthalpies from Table D.2.
+ assert.equal(r(436.0+243.4-2*432.0,1),-184.6);assert.equal(r(2*111.9-30.91,1),192.9);assert.equal(r(218.0+111.9+36.40,1),366.3);
+ assert.equal(r(436.0+192.9-2*366.3,1),-103.7);assert.equal(r(436.0+192.9,1),628.9);assert.equal(r(2*(432.0-366.3),0),131);assert.equal(r(243.4-192.9,0),51);
+ assert.equal(r(2*218.0+2*249.2+136.3,1),1070.7);assert.equal(r(1070.7-2*463.5,1),143.7);assert.equal(r(498.4/143.7,1),3.5);
+ assert.equal(r(218.0+78.99+271.1,0),568);assert.equal(r(218.0+106.8-26.48,0),298);assert.equal(r(439+243-350-432,0),-100);assert.equal(r(-81.9-92.31+74.81,1),-99.4);
+ // Molecular ions (spectroscopic D0) and bond orders.
+ assert.equal(r(2.6507*kJ,0),256);assert.equal(r(19101.29*h*c0*100*NA/1000,0),229);
+ const bo=(nb,na)=>(nb-na)/2;assert.deepEqual([bo(1,0),bo(2,0),bo(2,1),bo(2,2),bo(8,4),bo(8,3),bo(8,5),bo(8,6)],[0.5,1,0.5,0,2,2.5,1.5,1]);
+ assert.deepEqual([3.98-2.2,2.96-2.2,2.66-2.2,3.44-2.2,2.55-2.2].map(x=>r(x,2)),[1.78,0.76,0.46,1.24,0.35]);
+});
