@@ -36,3 +36,33 @@ test('Chimica 04: livelli atomici e spettri, numeri ricalcolati',()=>{
  assert.equal(r(1e9/(4*(Rinf/(1+1/7294.29954171))*(1/9-1/16)),1),468.7);assert.equal(r(1-5*Math.exp(-2),3),0.323);assert.equal(r(1-13*Math.exp(-4),3),0.762);assert.equal(r(9.2740100657e-24*2/e*1e4,2),1.16);
  assert.equal(r(2.897771955e-3/5800*1e9,0),500);assert.equal(r(h/(1.67492750056e-27*2200)*1e9,3),0.18);assert.equal(r(me*e**4/(8*8.8541878188e-12**2*h**3*c0)/1e7,4),1.0974);assert.equal(r(1e4/667,1),15);assert.equal(r(1e4/2349,2),4.26);
 });
+test('Chimica 05: periodicità e carica efficace, numeri ricalcolati',()=>{
+ const kJ=e*NA/1000,Ry=h*c0*Rinf/e,Eh=2*Ry,cm=h*c0*100/e;
+ // Ionization energies (NIST ASD, eV) converted to kJ/mol.
+ const I={H:13.5984,He:24.5874,Li:5.3917,Be:9.3227,B:8.298,C:11.2603,N:14.5341,O:13.6181,F:17.4228,Ne:21.5645,Na:5.1391,Mg:7.6462,Al:5.9858,Si:8.1517,P:10.4867,S:10.36,Cl:12.9676,Ar:15.7596,K:4.3407,Rb:4.1771};
+ const k=Object.fromEntries(Object.entries(I).map(([s,v])=>[s,r(v*kJ,0)]));
+ assert.deepEqual([k.Li,k.Be,k.B,k.C,k.N,k.O,k.F,k.Ne],[520,900,801,1086,1402,1314,1681,2081]);
+ assert.deepEqual([k.Na,k.Mg,k.Al,k.Si,k.P,k.S,k.Cl,k.Ar],[496,738,578,787,1012,1000,1251,1521]);
+ assert.deepEqual([k.H,k.He,k.K,k.Rb],[1312,2372,419,403]);
+ assert.deepEqual([47.2864,15.03527,80.1437,18.82855,28.44765,119.992,153.825].map(v=>r(v*kJ,0)),[4562,1451,7733,1817,2745,11577,14842]);
+ // Electron affinities (eV) in kJ/mol, Mulliken electronegativities.
+ assert.deepEqual([3.612724,3.4011898,1.4611136,2.0771042,1.262119,0.618049,0.501459].map(v=>r(v*kJ,0)),[349,328,141,200,122,60,48]);
+ assert.equal(r(5.1391*kJ-3.612724*kJ,0),147);assert.equal(r(4.3407*kJ-3.4011898*kJ,1),90.6);
+ assert.deepEqual([[17.4228,3.4011898],[12.9676,3.612724],[13.6181,1.4611136],[13.5984,0.754195],[11.2603,1.262119],[5.3917,0.618049],[5.1391,0.547926],[4.3407,0.501459]].map(([a,b])=>r((a+b)/2,2)),[10.41,8.29,7.54,7.18,6.26,3,2.84,2.42]);
+ // Effective charges: Slater, from ionization energies, sodium levels.
+ assert.deepEqual([6-(3*.35+2*.85),11-(8*.85+2),8-(5*.35+2*.85),9-(6*.35+2*.85),26-(5*.35+18),26-(.35+14*.85+10),19-(8*.85+10)].map(v=>r(v,2)),[3.25,2.2,4.55,5.2,6.25,3.75,2.2]);
+ assert.deepEqual([[5.3917,2],[5.1391,3],[4.3407,4],[4.1771,5]].map(([v,n])=>r(n*Math.sqrt(v/Ry),2)),[1.26,1.84,2.26,2.77]);
+ const ion=41449.451,p3=(2*16956.172+4*16973.368)/6,d3=(6*29172.839+4*29172.889)/10;
+ assert.deepEqual([ion,ion-p3,ion-d3].map(b=>r(b*cm,3)),[5.139,3.035,1.522]);assert.deepEqual([ion,ion-p3,ion-d3].map(b=>r(3*Math.sqrt(b*cm/Ry),2)),[1.84,1.42,1]);
+ assert.equal(r(p3*cm,3),2.104);assert.equal(r(1239.841984/3.035,1),408.5);assert.equal(r(1239.841984/5.139,0),241);
+ // Helium (variational), lithium ions.
+ assert.equal(r((27/16)**2*Eh,2),77.49);assert.equal(r((27/16)**2*Eh-54.41776,2),23.07);assert.equal(r(24.5874+54.41776,2),79.01);assert.equal(r(4*Eh,1),108.8);
+ assert.equal(r(Ry*1.3**2/4,2),5.75);assert.equal(r(2*Math.sqrt(5.3917/Ry),2),1.26);assert.equal(r(9*Ry,2),122.45);assert.equal(r(Math.sqrt(75.64/Ry),2),2.36);assert.equal(r(Ry*2.7**2,0),99);
+ // Moseley's law.
+ const ka=z=>0.75*Ry*(z-1)**2;assert.equal(r(ka(29),0),8000);assert.equal(r(ka(26),0),6378);assert.equal(r(ka(28),0),7439);assert.equal(r(Math.sqrt(0.75*Ry),2),3.19);
+ assert.equal(r(1+Math.sqrt(5899/10.2),0),25);assert.equal(r(1+Math.sqrt(6930/10.2),0),27);assert.equal(r(1239.84/6930,3),0.179);assert.equal(r((17479.34-ka(42))/17479.34*100,0),2);
+ // Magnetism, radii, Mendeleev.
+ assert.deepEqual([1,2,3,4,5].map(n=>r(Math.sqrt(n*(n+2)),2)),[1.73,2.83,3.87,4.9,5.92]);
+ assert.equal(r((140/53.5)**3,1),17.9);assert.equal(r((103-86)/103*100,1),16.5);assert.equal(r(17/14,1),1.2);
+ assert.equal(r(72/5.5,1),13.1);assert.equal(r(72.630/5.323,1),13.6);assert.equal(r(1/22.990*495.8,1),21.6);
+});
