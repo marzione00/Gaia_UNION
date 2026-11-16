@@ -82,3 +82,29 @@ test('Libro: numeri delle sezioni scritte per il sito, ricalcolati',()=>{
  assert.equal(r(1.68e-8*10/1.5e-6,3),0.112);assert.equal(r(72/11,2),6.55);assert.equal(r((12-72/11)/4,2),1.36);assert.equal(r((6-72/11)/2,2),-0.27);
  assert.equal(r(Math.sqrt(2*g/1.4),2),3.74);assert.equal(r(Math.sqrt(2*g/1.5),2),3.62);assert.equal(r(Math.sqrt(g),2),3.13);assert.equal(r(0.5*0.625*(100*Math.PI)**2,-2),30800);
 });
+test('Libro: il capitolo pilota di chimica «Mole e quantità di sostanza» è completo',async()=>{
+ const src=await read('content/libro/chemistry-03.md'),ch=parseChapter(src),ids=new Set([...ch.toc.map(t=>t.id),...ch.figures,...ch.exercises.map(e=>e.id)]);
+ assert.equal(index.capitoli.find(c=>c.unit==='chemistry-03')?.stato,'pilota');assert.match(ch.meta.fonte,/Petrucci/);
+ assert.ok(ch.words>=7000,ch.words);assert.ok(ch.toc.filter(t=>t.level===2).length>=14);assert.ok(ch.figures.length>=8);
+ assert.ok(ch.exercises.length>=18&&ch.exercises.every(e=>e.solution));for(const lv of ['base','medio','avanzato'])assert.ok(ch.exercises.filter(e=>e.level===lv).length>=5,lv);
+ for(const l of ch.links){if(l.startsWith('unit:'))assert.ok(units.has(l.slice(5).split('#')[0]),l);else if(l.startsWith('#'))assert.ok(ids.has(l.slice(1)),l);}
+ const text=src.replace(/^---[\s\S]*?\n---\n/,'');assert.equal((text.match(/\$\$/g)||[]).length%2,0);
+ for(const para of text.replace(/\$\$[\s\S]*?\$\$/g,'').replace(/::: figura[\s\S]*?\n---\n/g,'').split(/\n\s*\n/))assert.equal((para.match(/\$/g)||[]).length%2,0,para.slice(0,80));
+ // House style: the whole chapter is written for the site.
+ assert.ok(!src.includes('—')&&!/non solo/i.test(src)&&!/\bnon\b[^.;:\n]{0,80}\bma\b/i.test(src)&&!/\bnon\b[^.;\n]{0,70}:/i.test(src));
+ // Numbers of the chapter recomputed from the abridged standard atomic weights (CIAAW) and the SI constants.
+ const A={H:1.008,C:12.011,N:14.007,O:15.999,Na:22.990,Mg:24.305,S:32.06,Cl:35.45,K:39.098,Ca:40.078,Fe:55.845,Cu:63.546},NA=6.02214076e23;
+ const M=f=>[...f.matchAll(/([A-Z][a-z]?)(\d*)/g)].reduce((t,[,e,k])=>t+A[e]*(k?+k:1),0),r=(x,d)=>+x.toFixed(d);
+ assert.equal(r(M('H2O'),3),18.015);assert.equal(r(M('C6H12O6'),3),180.156);assert.equal(r(M('CaCO3'),3),100.086);assert.equal(r(M('C12H22O11'),2),342.3);
+ assert.equal(r(M('Fe2O3'),3),159.687);assert.equal(r(M('C8H10N4O2'),3),194.194);assert.equal(r(M('CuSO4')+5*M('H2O'),2),249.68);assert.equal(r(M('H2SO4'),2),98.07);
+ assert.equal(r(6*A.C/M('C6H12O6')*100,2),40.00);assert.equal(r(12*A.H/M('C6H12O6')*100,2),6.71);assert.equal(r(0.7576*34.969+0.2424*36.966,2),35.45);
+ assert.equal(r(NA/(8e9*1e6)/(365.25*86400),1),2.4);assert.equal(r(4.0/M('C12H22O11')*NA/1e21,1),7.0);assert.equal(r(2.5e23/NA*A.Cu,1),26.4);
+ assert.equal(r(1000/M('H2')*M('H2O')/1000,2),8.94);assert.equal(r(1000/M('H2')/2*M('O2')/1000,2),7.94);assert.equal(r(2*A.Fe/M('Fe2O3')*1000,0),699);
+ const comb=(mc,mh,m)=>{const c=mc*A.C/M('CO2'),h=mh*2*A.H/M('H2O'),o=m-c-h;return [c/A.C,h/A.H].map(x=>r(x/(o/A.O),2));};
+ assert.deepEqual(comb(0.3821,0.2346,0.2),[2,6]);assert.deepEqual(comb(0.3409,0.1396,0.15),[3,6]);assert.deepEqual(comb(0.6163,0.1081,0.2443),[3.5,3]);
+ assert.equal(r((0.512/M('H2O'))/(0.488/M('MgSO4')),1),7);assert.equal(r((0.902/M('H2O'))/(1.598/M('CuSO4')),2),5);
+ assert.equal(r((27.64/A.O)/(72.36/A.Fe),3),1.333);assert.equal(r((74.06/A.O)/(25.94/A.N),2),2.5);assert.equal(r((14.37/A.H)/(85.63/A.C),2),2);
+ assert.equal(r(100/(2*A.N/M('N2H4O3')),0),286);assert.equal(r(100/(2*A.N/M('CH4N2O')),0),214);assert.equal(r(100/(2*A.N/M('N2H8SO4')),0),472);
+ assert.equal(r(8.314462618*273.15/101325*1000,3),22.414);assert.equal(r(8.314462618*273.15/1e5*1000,3),22.711);assert.equal(r(1.25*22.414,1),28.0);
+ assert.equal(r(12.0000000126/12,9),1.000000001);assert.equal(r(0.6915*62.930+0.3085*64.928,3),63.546);assert.equal(r((0.528-35.45/74.548)/(35.45/58.44-35.45/74.548),3),0.4);
+});
