@@ -522,3 +522,49 @@ test('Chimica 20: perturbazioni dell\'equilibrio, numeri ricalcolati',()=>{
  assert.equal(r(0.98*0.85,3),0.833);assert.equal(r(1/(1-0.98*0.85),1),6);assert.equal(r(0.15/(1-0.98*0.85),2),0.9);
  assert.equal(r(-92.2+723.15*0.1987,1),51.5);assert.equal(r(Math.exp(-51500/(8.314*723.15))*1e4,1),1.9);assert.equal(r(1.9e-4/4.51e-5,0),4);
 });
+
+test('Chimica 21: acidi, basi e pH, numeri ricalcolati',()=>{
+ const lg=Math.log10,w=(K,c)=>(-K+Math.sqrt(K*K+4*K*c))/2,pH=h=>-lg(h);
+ // Neutralisation enthalpy and Kw versus temperature (pKw table).
+ assert.equal(r(-285.83-(-229.99),1),-55.8);
+ assert.equal(r(10**-14.947*1e15,1),1.1);assert.equal(r(10**-12.252*1e13,1),5.6);assert.equal(r(10**-13.622*1e14,1),2.4);
+ assert.equal(r(13.622/2,2),6.81);assert.equal(r(12.252/2,2),6.13);assert.equal(r(13.995/2,2),7);
+ // pH conversions.
+ assert.equal(r(pH(2.5e-4),2),3.6);assert.equal(r(10**-8.3*1e9,1),5);assert.equal(r(10**-2.3*1e3,0),5);assert.equal(r(10**(7.4-2.3),-4),130000);
+ // Strong acids and bases; mixing.
+ assert.equal(r(pH(0.025),2),1.6);assert.equal(r(14+lg(0.010),2),12);assert.equal(r(2.0/40.00/0.5,3),0.1);
+ assert.equal(r((0.050*100-0.040*100)/200*1e3,1),5);assert.equal(r(pH(5e-3),2),2.3);
+ // Ka table.
+ assert.deepEqual([6.6e-4,1.8e-4,1.8e-5,2.9e-8,6.2e-10].map(K=>r(-lg(K),2)),[3.18,3.74,4.74,7.54,9.21]);
+ // Acetic acid 0.10 M and dilution.
+ assert.equal(r(Math.sqrt(1.8e-6)*1e3,2),1.34);assert.equal(r(w(1.8e-5,0.1)*1e3,2),1.33);assert.equal(r(pH(w(1.8e-5,0.1)),2),2.88);
+ assert.deepEqual([0.1,0.01,0.001].map(c=>r(100*w(1.8e-5,c)/c,1)),[1.3,4.2,12.5]);
+ assert.equal(r(14+lg(w(1.8e-5,0.1)),2),11.12);
+ // Conjugate pairs.
+ assert.equal(r(1e-14/1.8e-5*1e10,1),5.6);assert.equal(r(1e-14/6.2e-10*1e5,1),1.6);
+ // Phosphoric acid and species at pH 7.4.
+ const x3=w(7.1e-3,0.1);assert.equal(r(x3,3),0.023);assert.equal(r(pH(x3),2),1.63);assert.equal(r(4.2e-13*6.3e-8/x3*1e18,0),1);
+ const h=10**-7.4,K1=7.1e-3,K2=6.3e-8,K3=4.2e-13,d=h**3+K1*h*h+K1*K2*h+K1*K2*K3;assert.equal(r(K1*h*h/d,1),0.4);assert.equal(r(K1*K2*h/d,1),0.6);
+ // Rain.
+ const cr=0.034*4.2e-4;assert.equal(r(cr*1e5,2),1.43);assert.equal(r(Math.sqrt(4.4e-7*cr)*1e6,1),2.5);assert.equal(r(pH(Math.sqrt(4.4e-7*cr)),2),5.6);
+ // Sulfuric acid 0.010 M.
+ const c=0.010,K=1.1e-2,b=c+K,y=(-b+Math.sqrt(b*b+4*K*c))/2;assert.equal(r(y*1e3,1),4.3);assert.equal(r(pH(c+y),2),1.84);
+ // Salts.
+ const xa=w(5.56e-10,0.1);assert.equal(r(xa*1e6,1),7.5);assert.equal(r(pH(xa),2),5.13);assert.equal(r(14+lg(xa),2),8.87);
+ // Chloroacetic acids and chlorine oxyacids.
+ assert.deepEqual([1.8e-5,1.4e-3,5.5e-2,0.30].map(K=>r(-lg(K),2)),[4.74,2.85,1.26,0.52]);assert.equal(r(-lg(1.1e-2),2),1.96);
+ // Exercises.
+ assert.equal(r(pH(3.2e-5),2),4.49);assert.equal(r(10**-9.25*1e10,1),5.6);assert.equal(r(1e-14/10**-9.25*1e5,1),1.8);
+ assert.equal(r(pH(0.004),2),2.4);assert.equal(r(14+lg(0.025),2),12.4);assert.equal(r(14+lg(2e-3),2),11.3);
+ assert.equal(r(1e-14/6.6e-4*1e11,1),1.5);
+ assert.equal(r(Math.sqrt(6.6e-5)*1e3,1),8.1);assert.equal(r(w(6.6e-4,0.1)*1e3,1),7.8);assert.equal(r(pH(w(6.6e-4,0.1)),2),2.11);
+ assert.equal(r(1e-6/0.049*1e5,1),2);
+ const xm=w(4.2e-4,0.05);assert.equal(r(Math.sqrt(4.2e-4*0.05)/0.05*100,1),9.2);assert.equal(r(xm*1e3,1),4.4);assert.equal(r(-lg(xm),2),2.36);assert.equal(r(14+lg(xm),2),11.64);
+ const xc=w(1e-14/6.2e-10,0.1);assert.equal(r(xc*1e3,2),1.26);assert.equal(r(-lg(xc),2),2.9);assert.equal(r(14+lg(xc),2),11.1);
+ assert.equal(r(0.5/55*1e3,1),9.1);assert.equal(r(-lg(0.5/55e-3*1e-3),2),2.04);assert.equal(r(14+lg(0.5/55),2),11.96);
+ const yd=(-1e-8+Math.sqrt(1e-16+4e-14))/2;assert.equal(r(yd*1e8,1),9.5);assert.equal(r((1e-8+yd)*1e7,2),1.05);assert.equal(r(pH(1e-8+yd),2),6.98);
+ const xf=w(1.8e-4,0.2);assert.equal(r(xf*1e3,1),5.9);assert.equal(r(pH(xf),2),2.23);assert.equal(r(100*xf/0.2,1),3);assert.equal(r(1.8e-4*0.9/0.01,3),0.016);
+ assert.equal(r(Math.sqrt(2.4e-14)*1e7,2),1.55);assert.equal(r(pH(Math.sqrt(2.4e-14)),2),6.81);assert.equal(r(10**-7.4*1e8,1),4);assert.equal(r(2.4e-14/4.0e-8*1e7,1),6);assert.equal(r(6.0e-7/4.0e-8,0),15);
+ assert.equal(r(0.034*8.4e-4*1e5,2),2.86);assert.equal(r(Math.sqrt(4.4e-7*2.86e-5)*1e6,1),3.5);assert.equal(r(pH(Math.sqrt(4.4e-7*2.86e-5)),2),5.45);assert.equal(r(pH(4.0e-5),1),4.4);
+ assert.deepEqual([6.1,7.1,8.1].map(p=>{const q=10**(p-7.1);return r(q/(1+q),2);}),[0.09,0.5,0.91]);
+});
