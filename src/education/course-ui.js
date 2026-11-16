@@ -7,9 +7,9 @@ import {CourseScene,formatNumber as num,SCHEMATIC_KINDS} from './course-scene.js
 import {ActivityUI} from './activity-ui.js';
 import {freshActivity} from './activities.js';
 const names={increases:'CRESCE',decreases:'DIMINUISCE',constant:'UGUALE',undefined:'NON DEFINITO'};
-const superMap=Object.fromEntries([... '⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻'].map((c,i)=>[c,'0123456789+-'[i]]));
-/** Existing glyph atlas only: explicit mathematical fallbacks, never missing squares. The atlas has ⁰ to ⁵. */
-export function displayText(s){return String(s).replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻]+/g,t=>/[⁶⁷⁸⁹⁺⁻]/.test(t)?'^('+[...t].map(c=>superMap[c]).join('')+')':t).replace(/[Åâˣσ′ℏ⇌∫]/g,c=>({'Å':'angstrom','â':'a','ˣ':'^x','σ':'sigma','′':"'",'ℏ':'h/(2pi)','⇌':'<->','∫':'integrale '}[c]));}
+/** Existing glyph atlas only: explicit fallbacks for the few characters it lacks, never missing squares.
+ * Superscripts ⁰ to ⁹ with ⁺ and ⁻, σ, ′ and ⇌ are in the atlas since 1.9.0. */
+export function displayText(s){return String(s).replace(/[Åâˣℏ∫]/g,c=>({'Å':'angstrom','â':'a','ˣ':'^x','ℏ':'h/(2pi)','∫':'integrale '}[c]));}
 export function fittedRows(R,paragraphs,width,style='body'){
  const rows=[];for(const para of paragraphs){let line='';for(const word of displayText(para).split(/\s+/)){
   if(R.textWidth(word,style)>width){if(line){rows.push(line);line='';}let chunk='';for(const ch of word){if(chunk&&R.textWidth(chunk+ch,style)>width){rows.push(chunk);chunk='';}chunk+=ch;}line=chunk;continue;}
@@ -47,7 +47,7 @@ export class CourseUI{
  short(t,width,style='micro'){t=displayText(t);while(t.length&&this.R.textWidth(t,style)>width)t=t.slice(0,-1);return t;}
  drawUI(U,state){
   this.select(this.api.currentUnit?.()||this.id);const R=this.R,d=this.definition,r=this.record,l=this.layout(),pad=l.body.x;
-  U.tag(`${['MAT','FIS','CHI','BIO'][d.sector]} / ${this.id.replace(/^(math|physics|chemistry|biology)-/,'').toUpperCase()} / ${d.activity?'UNITÀ CON ATTIVITÀ':'NUCLEO GUIDATO'}`,pad,109,C.lime);
+  U.tag(`${['MAT','FIS','CHI','BIO'][d.sector]} / ${this.id.replace(/^(math|physics|chemistry|biology)-/,'').toUpperCase()} / ${d.activity?'UNITÀ CON ATTIVITÀ':d.editorialStatus==='hand-written-draft'?'UNITÀ CON LABORATORIO':'NUCLEO GUIDATO'}`,pad,109,C.lime);
   if(this.focusReading){
    const rect={x:pad,y:134,w:R.w-pad*2,h:R.h-184};U.panel(rect.x,rect.y,rect.w,rect.h,C.cyan,.98);
    if(this.view==='sources')this.sourcesUI(U,rect);else if(r.stage===4)this.quizUI(U,rect);else this.readingUI(U,d.steps[r.stage].text[r.level],rect,`${r.stage+1}. ${d.steps[r.stage].title}`);
@@ -67,13 +67,13 @@ export class CourseUI{
    U.panel(l.left.x,l.left.y,l.left.w,l.left.h,C.cyan,.96);
    if(this.view==='sources')this.sourcesUI(U,l.left);else if(r.stage===4)this.quizUI(U,l.left);else{
     const t=[...d.steps[r.stage].text[r.level]];
-    if(r.stage===5)t.push(d.activity?`Autoverifica: ${this.summary.correct}/${this.summary.total}. Attività: ${this.summary.activity.solved}/${this.summary.activity.goal}. Diario di almeno 60 caratteri: ${this.summary.reflectionRecorded?'presente':'da scrivere'}. Per concludere usa ESITO.`:`Autoverifica: ${this.summary.correct}/4. Due configurazioni distinte: ${this.summary.experiments?'sì':'no'}. Diario di almeno 60 caratteri: ${this.summary.reflectionRecorded?'presente':'da scrivere'}. Per concludere usa ESPERIMENTO > ESITO.`);
+    if(r.stage===5)t.push(d.activity?`Autoverifica: ${this.summary.correct}/${this.summary.total}. Attività: ${this.summary.activity.solved}/${this.summary.activity.goal}. Diario di almeno 60 caratteri: ${this.summary.reflectionRecorded?'presente':'da scrivere'}. Per concludere usa ESITO.`:`Autoverifica: ${this.summary.correct}/${this.summary.total}. Due configurazioni distinte: ${this.summary.experiments?'sì':'no'}. Diario di almeno 60 caratteri: ${this.summary.reflectionRecorded?'presente':'da scrivere'}. Per concludere usa ESPERIMENTO > ESITO.`);
     this.readingUI(U,t,l.left,`${r.stage+1}. ${d.steps[r.stage].title}`);
    }
   }
   if(d.activity){const a=this.activityState,rt=l.right;
-   if(!l.stacked){this.activity.draw(U,{x:rt.x,y:rt.y,w:rt.w,h:rt.h-122},a,state.paused);this.completionUI(U,{x:rt.x,y:rt.y+rt.h-114,w:rt.w,h:114});}
-   else if(this.view==='lab')this.activity.draw(U,l.body,a,state.paused);else if(this.view==='controls')this.completionUI(U,l.controls);
+   if(!l.stacked){this.activity.draw(U,{x:rt.x,y:rt.y,w:rt.w,h:rt.h-122},a,state.paused,d.activity);this.completionUI(U,{x:rt.x,y:rt.y+rt.h-114,w:rt.w,h:114});}
+   else if(this.view==='lab')this.activity.draw(U,l.body,a,state.paused,d.activity);else if(this.view==='controls')this.completionUI(U,l.controls);
   }else{
    if(!l.stacked||this.view==='lab')this.graphUI(U,l,state);
    if(!l.stacked||this.view==='controls')this.controlsUI(U,l.controls,state);
@@ -151,7 +151,7 @@ export class CourseUI{
    if(rect.h>=210){const results=['A','B'].map(s=>{const q=experimentResult(this.id,r.snapshots[s]);return q?`${s}: ${q.points.map(p=>num(p.y)).join(' → ')}; previsione ${q.predictionCorrect?'sì':'no'}`:`${s}: da registrare`;});results.forEach((t,i)=>this.txt(U,this.short(t,w,'micro'),x,y+164+i*17,'micro',C.muted));}
   }else{
    const s=this.summary,bw=(w-6)/2;
-   this.txt(U,`Quiz ${s.correct}/4 · A/B ${s.experiments?'sì':'no'} · Diario ${s.reflectionRecorded?'sì':'no'}`,x,y+37,'micro',C.lime);
+   this.txt(U,`Quiz ${s.correct}/${s.total} · A/B ${s.experiments?'sì':'no'} · Diario ${s.reflectionRecorded?'sì':'no'}`,x,y+37,'micro',C.lime);
    U.button('course-ack',r.acknowledgedLimits?'✓ LIMITI RICONOSCIUTI':'RICONOSCO I LIMITI',x,y+58,w,27,()=>{r.acknowledgedLimits=!r.acknowledgedLimits;r.completedAt=null;this.save();},{active:r.acknowledgedLimits,small:true});
    U.button('course-complete',s.completed?'PERCORSO REGISTRATO':'CONCLUDI PERCORSO',x,y+92,w,28,()=>{try{completeCourse(this.definition,r,this.reflection);this.save();this.api.say('Percorso registrato: attività e autoverifica, non certificazione.');}catch(e){this.api.say(e.message);}},{disabled:!s.eligible,active:s.completed,small:true});
    U.button('course-report','RAPPORTO JSON',x,y+130,bw,26,()=>this.exportReport(),{small:true});U.button('course-csv','DATI CSV',x+bw+6,y+130,bw,26,()=>this.exportCSV(),{small:true});
@@ -160,7 +160,7 @@ export class CourseUI{
  }
  sourcesUI(U,rect){
   const d=this.definition,list=[...d.sources.map(id=>this.bundle.sources.find(s=>s.id===id)),...(this.id==='math-c08'?[{id:'pilot',title:'Missione pilota: Il segnale di Simbiosi',route:'pilot'}]:[])];this.sourceIndex=clamp(this.sourceIndex,0,list.length-1);const s=list[this.sourceIndex];
-  const paragraphs=[d.activity?`Copertura: ${d.scope}. Testi originali in bozza, da rivedere.`:`Copertura: ${d.scope}. Nucleo guidato, non manuale integrale. Testi originali: revisione scientifico-didattica umana non certificata.`,...d.objectives,...d.glossary.map(g=>g.term+': '+g.definition),`Riferimento di approfondimento ${this.sourceIndex+1}/${list.length}: ${s.title}. ${s.route?'Il collegamento apre la missione pilota locale.':'Il collegamento apre un sito esterno; nessun testo o immagine è scaricato durante l’uso del laboratorio.'}`,`Prerequisiti consigliati: ${d.prerequisites.join(', ')||'nessuno'}. Collegamento: ${d.connections.join(', ')}.`];
+  const paragraphs=[d.editorialStatus==='hand-written-draft'?`Copertura: ${d.scope}. Unità scritta per intero, in bozza da rivedere.`:`Copertura: ${d.scope}. Nucleo guidato, non manuale integrale. Testi originali: revisione scientifico-didattica umana non certificata.`,...d.objectives,...d.glossary.map(g=>g.term+': '+g.definition),`Riferimento di approfondimento ${this.sourceIndex+1}/${list.length}: ${s.title}. ${s.route?'Il collegamento apre la missione pilota locale.':'Il collegamento apre un sito esterno; nessun testo o immagine è scaricato durante l’uso del laboratorio.'}`,`Prerequisiti consigliati: ${d.prerequisites.join(', ')||'nessuno'}. Collegamento: ${d.connections.join(', ')}.`];
   this.readingUI(U,paragraphs,rect,'FONTI, OBIETTIVI E GLOSSARIO',72);
   const x=rect.x+14,w=rect.w-28,y=rect.y+rect.h-75,bw=(w-6)/2;
   U.button('course-source-prev','◂ FONTE',x,y,72,27,()=>{this.sourceIndex--;this.page=0;},{disabled:this.sourceIndex===0,small:true});
@@ -194,7 +194,7 @@ export class CourseUI{
  semanticPathsText(){const path=this.bundle.paths[this.pathIndex];return ['Percorsi di studio. La navigazione non è bloccata dai prerequisiti.',path.title,...path.units.map(id=>this.byId.get(id).title),'Il completamento registra attività e autoverifica, non certifica competenze.'].join('\n\n');}
  semanticKey(){return [this.activity.key(),JSON.stringify(this.record.activity),this.id,this.record.stage,this.record.level,this.page,this.question,this.feedback,this.view,this.controlTab,this.sourceIndex,this.time,this.mode,this.focusReading,parameterKey(this.id,this.record.parameters),JSON.stringify(this.record.answers),JSON.stringify(this.record.snapshots),this.record.completedAt,this.record.acknowledgedLimits,this.reflection].join('|');}
  semanticText(){const d=this.definition,r=this.record,m=descriptor(this.id),q=d.questions[clamp(this.question,0,d.questions.length-1)];
-  if(d.activity)return [d.title,d.narrativeStatus,...d.objectives,d.steps[r.stage].title,...d.steps[r.stage].text[r.level],this.activity.semanticText(this.activityState),...(r.stage===4?[q.prompt,...q.options.map(o=>o.id+'. '+o.text),q.options.find(o=>o.id===r.answers[q.id])?.feedback||'']:[]),...d.glossary.map(g=>g.term+': '+g.definition),...d.sources.map(id=>this.bundle.sources.find(s=>s.id===id).title),`Autoverifica ${this.summary.correct}/${this.summary.total}.`].join('\n\n');
-  return [d.title,d.narrativeStatus,...d.objectives,d.steps[r.stage].title,...d.steps[r.stage].text[r.level],m.formula,`${m.xLabel}: ${num(this.time)} ${m.xUnit}. ${m.yLabel}: ${num(value(this.id,this.time,r.parameters))} ${m.yUnit}.`,...['A','B'].map(s=>{const e=experimentResult(this.id,r.snapshots[s]);return e?`${s}: `+JSON.stringify(e):`${s} non registrato.`;}),...(r.stage===4?[q.prompt,...q.options.map(o=>o.id+'. '+o.text),q.options.find(o=>o.id===r.answers[q.id])?.feedback||'']:[]),...d.glossary.map(g=>g.term+': '+g.definition),...d.sources.map(id=>this.bundle.sources.find(s=>s.id===id).title),`Autoverifica ${this.summary.correct}/4. Il completamento non certifica competenze.`,this.mode==='schema'?this.scene.schematic?.caption||'':'Grafico con scale adattive; la profondità non è una variabile scientifica.'].join('\n\n');}
+  if(d.activity)return [d.title,d.narrativeStatus,...d.objectives,d.steps[r.stage].title,...d.steps[r.stage].text[r.level],this.activity.semanticText(this.activityState,d.activity),...(r.stage===4?[q.prompt,...q.options.map(o=>o.id+'. '+o.text),q.options.find(o=>o.id===r.answers[q.id])?.feedback||'']:[]),...d.glossary.map(g=>g.term+': '+g.definition),...d.sources.map(id=>this.bundle.sources.find(s=>s.id===id).title),`Autoverifica ${this.summary.correct}/${this.summary.total}.`].join('\n\n');
+  return [d.title,d.narrativeStatus,...d.objectives,d.steps[r.stage].title,...d.steps[r.stage].text[r.level],m.formula,`${m.xLabel}: ${num(this.time)} ${m.xUnit}. ${m.yLabel}: ${num(value(this.id,this.time,r.parameters))} ${m.yUnit}.`,...['A','B'].map(s=>{const e=experimentResult(this.id,r.snapshots[s]);return e?`${s}: `+JSON.stringify(e):`${s} non registrato.`;}),...(r.stage===4?[q.prompt,...q.options.map(o=>o.id+'. '+o.text),q.options.find(o=>o.id===r.answers[q.id])?.feedback||'']:[]),...d.glossary.map(g=>g.term+': '+g.definition),...d.sources.map(id=>this.bundle.sources.find(s=>s.id===id).title),`Autoverifica ${this.summary.correct}/${this.summary.total}. Il completamento non certifica competenze.`,this.mode==='schema'?this.scene.schematic?.caption||'':'Grafico con scale adattive; la profondità non è una variabile scientifica.'].join('\n\n');}
 }
 const rLevel=r=>LEVELS.includes(r.level)?r.level:'base';

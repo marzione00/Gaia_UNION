@@ -1,5 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
-import {VSEPR_CHALLENGES,VSEPR_SHAPES,vseprInfo,vseprValid,vseprPositions,shapeOptions,checkVsepr,punnett,sow,chiSquare,testcross,judgeMystery,EVIDENCE_SEEDS,STATEMENTS,testValue,checkStatement,freshActivity,cleanActivity,recordSolved,activityProgress} from '../src/education/activities.js';
+import {VSEPR_CHALLENGES,VSEPR_SHAPES,vseprInfo,vseprValid,vseprPositions,shapeOptions,checkVsepr,punnett,sow,chiSquare,testcross,judgeMystery,EVIDENCE_SEEDS,STATEMENTS,testValue,checkStatement,freshActivity,cleanActivity,recordSolved,activityProgress,
+ BISECTION_TASKS,checkGuarantee,bisectionStep,IONIC_CHALLENGES,ion,ionicFormula,checkIonic,validateCards,checkCard,checkOrder,scrambled} from '../src/education/activities.js';
+import {validateBundle} from '../src/education/course-engine.js';
 import {freshCourse,cleanCourseRecords,answerCourse,courseProgress,completeCourse} from '../src/education/course-engine.js';
 const bundle=JSON.parse(fs.readFileSync(new URL('../content/curriculum/bundle.json',import.meta.url),'utf8'));
 const seq=values=>{let i=0;return ()=>values[i++%values.length];};
@@ -50,4 +52,42 @@ test('Attività: stato importato ripulito e completamento legato ai risultati',(
  r.activity.solved.pop();assert.equal(courseProgress(d,r,note).completed,false);
  const restored=cleanCourseRecords(JSON.parse(JSON.stringify({[d.id]:{...r,answers:{...r.answers,'chemistry-08-q9':'E','altro-q1':'A'}}})))[d.id];
  assert.deepEqual(Object.keys(restored.answers).sort(),d.questions.map(q=>q.id).sort());assert.deepEqual(restored.activity.solved,r.activity.solved);
+});
+
+test('Bisezione: ipotesi del teorema, scelta della metà e intervalli che contengono la radice',()=>{
+ assert.equal(BISECTION_TASKS.length,5);
+ for(const t of BISECTION_TASKS){const fa=t.f(t.a),fb=t.f(t.b);assert.equal(checkGuarantee(t,t.guaranteed).ok,true,t.id);assert.equal(checkGuarantee(t,!t.guaranteed).ok,false,t.id);
+  if(!t.guaranteed)continue;assert.ok(fa*fb<0,t.id);let a=t.a,b=t.b;
+  for(let k=0;k<t.steps;k++){const m=(a+b)/2,good=t.f(a)*t.f(m)<=0?'left':'right',bad=good==='left'?'right':'left';
+   const wrong=bisectionStep(t,a,b,bad);assert.equal(wrong.ok,false);assert.deepEqual([wrong.a,wrong.b],[a,b]);
+   const r=bisectionStep(t,a,b,good);assert.ok(r.ok);[a,b]=[r.a,r.b];assert.ok(t.f(a)*t.f(b)<=0);}
+  assert.ok(Math.abs((b-a)-(t.b-t.a)/2**t.steps)<1e-12);}
+ const sq=BISECTION_TASKS[0];let a=1,b=2;for(let k=0;k<5;k++){const m=(a+b)/2;[a,b]=sq.f(m)>0?[a,m]:[m,b];}assert.ok(a<=Math.SQRT2&&Math.SQRT2<=b);
+ assert.throws(()=>bisectionStep(sq,2,1,'left'));assert.throws(()=>bisectionStep(sq,1,2,'middle'));
+ const recip=BISECTION_TASKS.find(t=>t.id==='reciproco');assert.ok(recip.f(-1)*recip.f(1)<0,'segni opposti senza continuità');
+});
+test('Composti ionici: cariche dai gruppi, neutralità, rapporto minimo e parentesi',()=>{
+ assert.equal(IONIC_CHALLENGES.length,12);const expected={nacl:'NaCl',mgcl2:'MgCl₂',k2o:'K₂O',cao:'CaO',al2o3:'Al₂O₃',caf2:'CaF₂',na2s:'Na₂S',mg3n2:'Mg₃N₂',alf3:'AlF₃',nh4cl:'NH₄Cl',cano32:'Ca(NO₃)₂',al2so43:'Al₂(SO₄)₃'};
+ for(const c of IONIC_CHALLENGES){const C=ion(c.cation),A=ion(c.anion);let found=null;for(let n=1;n<=4&&!found;n++)for(let m=1;m<=4&&!found;m++)if(n*C.charge+m*A.charge===0)found=[n,m];
+  const r=checkIonic(c,C.charge,A.charge,...found);assert.ok(r.ok,c.id);assert.equal(r.formula,expected[c.id]);
+  if(!C.polyatomic)assert.match(checkIonic(c,C.charge===1?2:1,A.charge,...found).message,/Carica del catione/);
+  assert.equal(checkIonic(c,C.charge,A.charge,found[0]+1>4?1:found[0]+1,found[1]).ok,found[0]+1>4&&found[0]===1);}
+ const alo=IONIC_CHALLENGES.find(c=>c.id==='al2o3');assert.match(checkIonic(alo,3,-2,4,4).message,/più anioni/);assert.match(checkIonic(alo,3,-2,1,3).message,/più cationi/);
+ const cao=IONIC_CHALLENGES.find(c=>c.id==='cao');assert.match(checkIonic(cao,2,-2,2,2).message,/rapporto minimo/);
+ assert.throws(()=>checkIonic(cao,2,-2,0,1));assert.throws(()=>checkIonic(cao,2,-2,5,1));assert.throws(()=>ion('Xx'));
+ assert.equal(ionicFormula(ion('NH4'),1,ion('Cl'),1),'NH₄Cl');assert.equal(ionicFormula(ion('Ca'),1,ion('OH'),2),'Ca(OH)₂');
+});
+test('Carte: serie dei file di unità valide, classificazione e ordinamento',()=>{
+ const units=bundle.courses.filter(d=>d.activity?.kind==='cards');assert.deepEqual(units.map(d=>d.id).sort(),['biology-07','chemistry-09','math-p05']);
+ for(const d of units){validateCards(d.activity);assert.ok(d.activity.goal<=d.activity.rounds.length);
+  for(const r of d.activity.rounds){if(r.type==='classify'){r.items.forEach((it,i)=>{assert.ok(checkCard(r,i,it.category).ok);const other=r.categories.find(c=>c.id!==it.category);assert.equal(checkCard(r,i,other.id).ok,false);});}
+   else{const start=scrambled(r);assert.notDeepEqual(start,r.items.map(it=>it.id),r.id);assert.equal(new Set(start).size,r.items.length);assert.equal(checkOrder(r,start).ok,false);assert.ok(checkOrder(r,r.items.map(it=>it.id)).ok);}}}
+ const bad=structuredClone(units[0].activity);bad.rounds[0].items[0].category='nessuna';assert.throws(()=>validateCards(bad));
+ const goal=structuredClone(units[0].activity);goal.goal=9;assert.throws(()=>validateCards(goal));
+ const b=structuredClone(bundle);b.courses.find(d=>d.id==='math-p05').activity.rounds[0].maxErrors=7;assert.throws(()=>validateBundle(b));
+ const def=units[0].activity,state=freshActivity('cards');recordSolved(state,'sconosciuta');assert.equal(activityProgress(def,state).solved,0);
+ for(const r of def.rounds.slice(0,def.goal))recordSolved(state,r.id);assert.ok(activityProgress(def,state).done);
+ assert.deepEqual(cleanActivity({kind:'cards',solved:['insiemi','insiemi','<script>','a'.repeat(50)]},'cards').solved,['insiemi']);
+ assert.deepEqual(cleanActivity({kind:'bisection',solved:['radice-due','cubica','x']},'bisection').solved,['radice-due','cubica']);
+ assert.deepEqual(cleanActivity({kind:'ionic',solved:['nacl','zzz']},'ionic').solved,['nacl']);
 });

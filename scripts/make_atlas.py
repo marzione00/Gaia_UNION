@@ -13,13 +13,32 @@ fonts={
  'serif':('/usr/share/fonts/truetype/noto/NotoSerif-Regular.ttf',20)
 }
 chars=''.join(chr(i) for i in range(32,127))+'àèéìíîòùúÀÈÉÌÒÙ°²³μλπτΔΣ∑∂∇∞≈≠≤≥→↗←↑↓×·•◌●◯✦☼☾∈ΩβαγδεηθρφψωΓΛΠΦΨ↔⁰¹₂₃₄₅₆₇₈₉⋅—–«»…✓□◈'
-chars+='’‘“”−◂▸⚙αβγδΓΛΞΠΣΦΨΩ₀₁₊₋₌∅∩∪∀∃⊂⊆∉⇒⇔√⁴⁵';chars=''.join(sorted(set(chars)))
-W=4096;H=4096; im=Image.new('L',(W,H)); draw=ImageDraw.Draw(im)
-all_metrics={};cx=4;cy=4;rowH=0
+chars+='’‘“”−◂▸⚙αβγδΓΛΞΠΣΦΨΩ₀₁₊₋₌∅∩∪∀∃⊂⊆∉⇒⇔√⁴⁵'
+# Added in 1.9.0 for ion charges, number sets and logic symbols.
+chars+='⁺⁻⁶⁷⁸⁹∧∨¬ℕℤℚℝ⇌σχ½′≡ℂₙⁿₘₖ±';chars=''.join(sorted(set(chars)))
+import sys
+W=4096;H=4096
+# --append keeps every existing glyph where it is and draws only the missing characters
+# below the used area, so text metrics and layouts do not move.
+append='--append' in sys.argv
+if append:
+ old=json.loads((root/'assets/glyphs.json').read_text(encoding='utf-8'))
+ im=Image.open(root/'assets/glyph-atlas.png').convert('L');all_metrics=old['styles']
+ cy=max(g['y']+g['h'] for st in all_metrics.values() for g in st['glyphs'].values())+8
+else:
+ im=Image.new('L',(W,H));all_metrics={};cy=4
+draw=ImageDraw.Draw(im);cx=4;rowH=0
+def font(file,sz):
+ try:return ImageFont.truetype(file,sz)
+ except OSError:
+  if not append:raise
+  return ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf' if 'Serif' in file else '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',sz)
 for style,(file,sz) in fonts.items():
- f=ImageFont.truetype(file,sz)
- m={}; ascent,descent=f.getmetrics()
+ f=font(file,sz)
+ m=all_metrics[style]['glyphs'] if append else {}; ascent,descent=f.getmetrics()
+ if append:ascent,descent=all_metrics[style]['ascent'],all_metrics[style]['descent']
  for c in chars:
+  if c in m:continue
   ff=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',sz) if ord(c)>0x2000 else f
   bbox=draw.textbbox((0,0),c,font=ff,anchor='ls',stroke_width=0)
   # When using anchor lt, top of ink is 0 except accents; compensate by offset

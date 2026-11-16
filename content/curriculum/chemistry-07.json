@@ -5,20 +5,21 @@
   "title": "Legame covalente ed energia di legame",
   "sector": 2,
   "modelId": "chemistry-07",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Potenziale fenomenologico di un solo legame",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Condivisione di elettroni, energia e lunghezza di legame, potenziale di Morse e stime di calore di reazione",
+  "narrativeStatus": "La stazione è immaginaria; le energie di legame sono valori di tabella reali, il potenziale è un modello.",
   "objectives": [
-    "Spiegare: potenziale fenomenologico di un solo legame.",
-    "Applicare U = D(1-exp(-b(r/r₀-1)))²-D, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Descrivere il legame covalente come condivisione di coppie di elettroni.",
+    "Collegare ordine di legame, energia e lunghezza di legame con dati reali.",
+    "Leggere la curva dell’energia potenziale e il significato dei parametri del potenziale di Morse.",
+    "Stimare il calore di una reazione dalle energie di legame."
   ],
   "prerequisites": [
     "chemistry-06"
   ],
   "connections": [
-    "math-p12"
+    "chemistry-08"
   ],
   "sources": [
     "chemistry",
@@ -27,250 +28,330 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Distanza r/r₀",
-      "definition": "Variabile indipendente, unità 1; intervallo [0,4; 3]."
+      "term": "Legame covalente",
+      "definition": "Legame in cui due atomi condividono una o più coppie di elettroni."
+    },
+    {
+      "term": "Energia di legame",
+      "definition": "Energia per rompere una mole di legami in molecole gassose; per H–H vale 436 kJ/mol."
+    },
+    {
+      "term": "Distanza di legame r₀",
+      "definition": "Distanza tra i nuclei alla quale l’energia è minima."
+    },
+    {
+      "term": "Ordine di legame",
+      "definition": "Numero di coppie condivise: 1 per un legame semplice, 2 per un doppio, 3 per un triplo."
+    },
+    {
+      "term": "Legame covalente polare",
+      "definition": "Legame con condivisione disuguale, con cariche parziali δ⁺ e δ⁻ sui due atomi."
     },
     {
       "term": "Potenziale di Morse",
-      "definition": "Risultato calcolato dal modello, unità kJ/mol."
-    },
-    {
-      "term": "Profondità D",
-      "definition": "Parametro a, unità kJ/mol; intervallo [50; 200]."
-    },
-    {
-      "term": "Larghezza b",
-      "definition": "Parametro b, unità 1; intervallo [1; 3]."
+      "definition": "U = D(1 − e^(−b(r/r₀ − 1)))² − D: modello di buca con profondità D e larghezza regolata da b."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Due atomi che restano uniti",
       "text": {
         "base": [
-          "Una coppia di atomi oscilla attorno a una distanza preferita. Per capire perché non si separa né collassa, osserva la forma di un potenziale, non una fotografia del legame.",
-          "Un potenziale di legame descrive come varia l’energia con la distanza internucleare. Il minimo identifica un equilibrio del modello. Nel potenziale di Morse, la curva è ripida in compressione e tende a un limite di dissociazione in allontanamento."
+          "Nell’atmosfera del pianeta vulcanico la stazione rileva molecole di idrogeno, H₂. Due atomi uguali non possono scambiarsi elettroni come fanno sodio e cloro, perché nessuno dei due li attira più dell’altro. Eppure restano uniti, e per separarli serve energia. Il legame che li tiene insieme è il legame covalente.",
+          "Nel legame covalente due atomi mettono in comune una coppia di elettroni. Ognuno dei due nuclei attira la coppia condivisa, e questa attrazione comune tiene insieme gli atomi. Nella struttura di Lewis la coppia condivisa si disegna come un trattino: H–H. Con la condivisione ogni atomo di idrogeno «conta» due elettroni attorno a sé, come l’elio.",
+          "L’energia di legame è l’energia necessaria per rompere una mole di legami in molecole allo stato gassoso. Per H–H vale 436 kJ/mol. La stessa quantità di energia viene liberata quando una mole di legami H–H si forma da atomi separati. Rompere un legame richiede sempre energia; formarlo ne libera sempre."
         ],
         "intermediate": [
-          "Una coppia di atomi oscilla attorno a una distanza preferita. Per capire perché non si separa né collassa, osserva la forma di un potenziale, non una fotografia del legame.",
-          "La formula U=D(1-exp(-b(r/r₀-1)))²-D ha minimo -D in r=r₀ e tende a zero per grandi distanze. D è la profondità del pozzo; b ne controlla la larghezza nella coordinata normalizzata."
+          "Nell’atmosfera del pianeta vulcanico la stazione rileva molecole di idrogeno, H₂. Due atomi uguali non possono scambiarsi elettroni come fanno sodio e cloro, perché nessuno dei due li attira più dell’altro. Eppure restano uniti, e per separarli serve energia. Il legame che li tiene insieme è il legame covalente.",
+          "Nel legame covalente due atomi mettono in comune una coppia di elettroni. Ognuno dei due nuclei attira la coppia condivisa, e questa attrazione comune tiene insieme gli atomi. Nella struttura di Lewis la coppia condivisa si disegna come un trattino: H–H. Con la condivisione ogni atomo di idrogeno «conta» due elettroni attorno a sé, come l’elio.",
+          "L’energia di legame è l’energia necessaria per rompere una mole di legami in molecole allo stato gassoso. Per H–H vale 436 kJ/mol. La stessa quantità di energia viene liberata quando una mole di legami H–H si forma da atomi separati. Rompere un legame richiede sempre energia; formarlo ne libera sempre.",
+          "Quando gli atomi sono diversi la condivisione è disuguale. In H–Cl il cloro, più elettronegativo, attira più dell’idrogeno la coppia di legame: sul cloro si accumula una parziale carica negativa δ⁻, sull’idrogeno una parziale carica positiva δ⁺. Il legame si dice covalente polare. Tra atomi uguali, come in H₂ o Cl₂, il legame è covalente apolare."
         ],
         "advanced": [
-          "Una coppia di atomi oscilla attorno a una distanza preferita. Per capire perché non si separa né collassa, osserva la forma di un potenziale, non una fotografia del legame.",
-          "Approssima il potenziale vicino al minimo con una parabola e collega la curvatura alla frequenza di una piccola oscillazione. Spiega perché l’approssimazione perde validità lontano dal minimo.",
-          "Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica."
+          "Nell’atmosfera del pianeta vulcanico la stazione rileva molecole di idrogeno, H₂. Due atomi uguali non possono scambiarsi elettroni come fanno sodio e cloro, perché nessuno dei due li attira più dell’altro. Eppure restano uniti, e per separarli serve energia. Il legame che li tiene insieme è il legame covalente.",
+          "Nel legame covalente due atomi mettono in comune una coppia di elettroni. Ognuno dei due nuclei attira la coppia condivisa, e questa attrazione comune tiene insieme gli atomi. Nella struttura di Lewis la coppia condivisa si disegna come un trattino: H–H. Con la condivisione ogni atomo di idrogeno «conta» due elettroni attorno a sé, come l’elio.",
+          "L’energia di legame è l’energia necessaria per rompere una mole di legami in molecole allo stato gassoso. Per H–H vale 436 kJ/mol. La stessa quantità di energia viene liberata quando una mole di legami H–H si forma da atomi separati. Rompere un legame richiede sempre energia; formarlo ne libera sempre."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "La buca dell’energia",
       "text": {
         "base": [
-          "Un potenziale di legame descrive come varia l’energia con la distanza internucleare. Il minimo identifica un equilibrio del modello. Nel potenziale di Morse, la curva è ripida in compressione e tende a un limite di dissociazione in allontanamento.",
-          "Con D=100 kJ/mol, in r/r₀=1 l’energia è -100 kJ/mol. Non è zero: lo zero è stato posto alla separazione infinita."
+          "Due atomi possono condividere più di una coppia. Nella molecola di ossigeno O₂ il legame è doppio, O=O; nell’azoto N₂ è triplo, N≡N. Più coppie condivise significano un legame più forte e più corto. Con i dati di OpenStax per il carbonio: C–C 345 kJ/mol e 154 pm, C=C 611 kJ/mol e 134 pm, C≡C 837 kJ/mol e 120 pm. Il legame triplo dell’azoto, con 946 kJ/mol, è tra i più forti in assoluto, e per questo l’azoto dell’aria reagisce con difficoltà.",
+          "Come varia l’energia quando due atomi si avvicinano? A grande distanza non interagiscono, e per convenzione l’energia vale zero. Avvicinandosi, ciascun nucleo attira gli elettroni dell’altro atomo e l’energia scende. Troppo vicini, i due nuclei positivi si respingono con forza e l’energia risale ripidamente. Esiste quindi una distanza intermedia, la distanza di legame r₀, in cui l’energia è minima.",
+          "La curva dell’energia ha la forma di una buca. Il fondo della buca sta alla distanza di legame, e la sua profondità, misurata dallo zero della separazione infinita, è l’energia di legame. Gli atomi vibrano attorno al fondo come una pallina in una conca: si allontanano e si riavvicinano senza separarsi, finché non ricevono abbastanza energia per uscire dalla buca.",
+          "Il potenziale di Morse è una formula che riproduce questa buca: U = D(1 − e^(−b(r/r₀ − 1)))² − D. Per r = r₀ l’esponenziale vale 1, la parentesi si annulla e U = −D: D è la profondità della buca, cioè l’energia di legame. Per r molto grande l’esponenziale tende a zero e U tende a D − D = 0. Il parametro b regola la larghezza della buca: con b grande la buca è stretta e le pareti sono ripide."
         ],
         "intermediate": [
-          "La formula U=D(1-exp(-b(r/r₀-1)))²-D ha minimo -D in r=r₀ e tende a zero per grandi distanze. D è la profondità del pozzo; b ne controlla la larghezza nella coordinata normalizzata.",
-          "La variabile Distanza r/r₀ è espressa in 1; Potenziale di Morse in kJ/mol. Il dominio dello strumento è [0,4; 3]. La relazione implementata è: U = D(1-exp(-b(r/r₀-1)))²-D.",
-          "Con D=100 kJ/mol, in r/r₀=1 l’energia è -100 kJ/mol. Non è zero: lo zero è stato posto alla separazione infinita."
+          "Due atomi possono condividere più di una coppia. Nella molecola di ossigeno O₂ il legame è doppio, O=O; nell’azoto N₂ è triplo, N≡N. Più coppie condivise significano un legame più forte e più corto. Con i dati di OpenStax per il carbonio: C–C 345 kJ/mol e 154 pm, C=C 611 kJ/mol e 134 pm, C≡C 837 kJ/mol e 120 pm. Il legame triplo dell’azoto, con 946 kJ/mol, è tra i più forti in assoluto, e per questo l’azoto dell’aria reagisce con difficoltà.",
+          "Un doppio legame vale meno del doppio di un legame semplice: 611 kJ/mol contro 2 · 345 = 690. La seconda coppia condivisa forma un legame più debole della prima, perché i suoi elettroni stanno ai lati della congiungente tra i nuclei invece che lungo di essa.",
+          "Come varia l’energia quando due atomi si avvicinano? A grande distanza non interagiscono, e per convenzione l’energia vale zero. Avvicinandosi, ciascun nucleo attira gli elettroni dell’altro atomo e l’energia scende. Troppo vicini, i due nuclei positivi si respingono con forza e l’energia risale ripidamente. Esiste quindi una distanza intermedia, la distanza di legame r₀, in cui l’energia è minima.",
+          "La curva dell’energia ha la forma di una buca. Il fondo della buca sta alla distanza di legame, e la sua profondità, misurata dallo zero della separazione infinita, è l’energia di legame. Gli atomi vibrano attorno al fondo come una pallina in una conca: si allontanano e si riavvicinano senza separarsi, finché non ricevono abbastanza energia per uscire dalla buca.",
+          "Il potenziale di Morse è una formula che riproduce questa buca: U = D(1 − e^(−b(r/r₀ − 1)))² − D. Per r = r₀ l’esponenziale vale 1, la parentesi si annulla e U = −D: D è la profondità della buca, cioè l’energia di legame. Per r molto grande l’esponenziale tende a zero e U tende a D − D = 0. Il parametro b regola la larghezza della buca: con b grande la buca è stretta e le pareti sono ripide."
         ],
         "advanced": [
-          "La formula U=D(1-exp(-b(r/r₀-1)))²-D ha minimo -D in r=r₀ e tende a zero per grandi distanze. D è la profondità del pozzo; b ne controlla la larghezza nella coordinata normalizzata.",
-          "Approssima il potenziale vicino al minimo con una parabola e collega la curvatura alla frequenza di una piccola oscillazione. Spiega perché l’approssimazione perde validità lontano dal minimo.",
-          "Una linea fra sfere non rappresenta una bacchetta materiale. Il potenziale non mostra direttamente orbitali o densità elettronica e i suoi parametri non identificano una molecola senza dati aggiuntivi."
+          "Due atomi possono condividere più di una coppia. Nella molecola di ossigeno O₂ il legame è doppio, O=O; nell’azoto N₂ è triplo, N≡N. Più coppie condivise significano un legame più forte e più corto. Con i dati di OpenStax per il carbonio: C–C 345 kJ/mol e 154 pm, C=C 611 kJ/mol e 134 pm, C≡C 837 kJ/mol e 120 pm. Il legame triplo dell’azoto, con 946 kJ/mol, è tra i più forti in assoluto, e per questo l’azoto dell’aria reagisce con difficoltà.",
+          "Un doppio legame vale meno del doppio di un legame semplice: 611 kJ/mol contro 2 · 345 = 690. La seconda coppia condivisa forma un legame più debole della prima, perché i suoi elettroni stanno ai lati della congiungente tra i nuclei invece che lungo di essa.",
+          "Il potenziale di Morse è una formula che riproduce questa buca: U = D(1 − e^(−b(r/r₀ − 1)))² − D. Per r = r₀ l’esponenziale vale 1, la parentesi si annulla e U = −D: D è la profondità della buca, cioè l’energia di legame. Per r molto grande l’esponenziale tende a zero e U tende a D − D = 0. Il parametro b regola la larghezza della buca: con b grande la buca è stretta e le pareti sono ripide.",
+          "Vicino al fondo la buca somiglia a una parabola. Per r/r₀ vicino a 1 si ha e^(−b(x − 1)) ≈ 1 − b(x − 1), con x = r/r₀, quindi U ≈ −D + Db²(x − 1)². Con D = 100 kJ/mol e b = 2, in x = 1,05 l’approssimazione dà −99 kJ/mol e la formula esatta circa −99,1 kJ/mol. È il modello della molla: piccole vibrazioni attorno all’equilibrio. Lontano dal fondo la parabola sbaglia: la molla non si rompe mai, il legame sì.",
+          "Le energie di legame permettono di stimare il calore di una reazione. Per H₂ + Cl₂ → 2HCl si rompono un legame H–H (436 kJ) e un legame Cl–Cl (243 kJ), e si formano due legami H–Cl (2 · 432 = 864 kJ). Il bilancio è 436 + 243 − 864 = −185 kJ: la reazione libera calore. Il valore misurato è vicino; la stima è approssimata perché le energie di tabella sono valori medi."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio della buca",
       "text": {
         "base": [
-          "Nel laboratorio imposta Profondità D (a): 100 kJ/mol; Larghezza b (b): 2 (adimensionale). Prima di salvare A, prevedi come cambia Potenziale di Morse fra Distanza r/r₀=1,05 e 1,7 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con D=100 kJ/mol, in r/r₀=1 l’energia è -100 kJ/mol. Non è zero: lo zero è stato posto alla separazione infinita.",
-          "La variabile Distanza r/r₀ è espressa in 1; Potenziale di Morse in kJ/mol. Il dominio dello strumento è [0,4; 3]. La relazione implementata è: U = D(1-exp(-b(r/r₀-1)))²-D."
+          "Nel laboratorio il grafico mostra il potenziale di Morse U in funzione della distanza ridotta r/r₀, da 0,4 a 3. Nella scheda REGOLA cambi la profondità D (da 50 a 200 kJ/mol) e la larghezza b (da 1 a 3); il cursore orizzontale sceglie la distanza di cui leggere l’energia.",
+          "Protocollo. Con D = 100 kJ/mol e b = 2, prevedi come cambia l’energia passando da r/r₀ = 1,05 a r/r₀ = 1,7: nella scheda A / B scegli CRESCE, DIMINUISCE, UGUALE o NON DEFINITO e premi SALVA A. Poi cambia un solo parametro, per esempio D = 200 kJ/mol, rifai la previsione e premi SALVA B. Le due configurazioni restano registrate separatamente.",
+          "Che cosa osservare. Da 1,05 a 1,7 l’energia sale: con D = 100 e b = 2 passa da circa −99 a circa −43 kJ/mol, perché ci si allontana dal fondo verso la separazione. Raddoppiando D la buca diventa due volte più profonda e tutti i valori raddoppiano. Aumentando b la buca si stringe: a parità di distanza dal minimo, l’energia risale più in fretta. Sotto r/r₀ ≈ 0,65 l’energia diventa positiva e cresce rapidamente: è la repulsione tra i nuclei.",
+          "Prima di salvare scrivi il motivo della previsione: «mi allontano dal minimo, quindi l’energia sale». Se il risultato non coincide, il motivo scritto ti aiuta a capire quale idea correggere."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Profondità D (a): 100 kJ/mol; Larghezza b (b): 2 (adimensionale). Prima di salvare A, prevedi come cambia Potenziale di Morse fra Distanza r/r₀=1,05 e 1,7 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Distanza r/r₀ è espressa in 1; Potenziale di Morse in kJ/mol. Il dominio dello strumento è [0,4; 3]. La relazione implementata è: U = D(1-exp(-b(r/r₀-1)))²-D.",
-          "La formula U=D(1-exp(-b(r/r₀-1)))²-D ha minimo -D in r=r₀ e tende a zero per grandi distanze. D è la profondità del pozzo; b ne controlla la larghezza nella coordinata normalizzata."
+          "Nel laboratorio il grafico mostra il potenziale di Morse U in funzione della distanza ridotta r/r₀, da 0,4 a 3. Nella scheda REGOLA cambi la profondità D (da 50 a 200 kJ/mol) e la larghezza b (da 1 a 3); il cursore orizzontale sceglie la distanza di cui leggere l’energia.",
+          "Protocollo. Con D = 100 kJ/mol e b = 2, prevedi come cambia l’energia passando da r/r₀ = 1,05 a r/r₀ = 1,7: nella scheda A / B scegli CRESCE, DIMINUISCE, UGUALE o NON DEFINITO e premi SALVA A. Poi cambia un solo parametro, per esempio D = 200 kJ/mol, rifai la previsione e premi SALVA B. Le due configurazioni restano registrate separatamente.",
+          "Che cosa osservare. Da 1,05 a 1,7 l’energia sale: con D = 100 e b = 2 passa da circa −99 a circa −43 kJ/mol, perché ci si allontana dal fondo verso la separazione. Raddoppiando D la buca diventa due volte più profonda e tutti i valori raddoppiano. Aumentando b la buca si stringe: a parità di distanza dal minimo, l’energia risale più in fretta. Sotto r/r₀ ≈ 0,65 l’energia diventa positiva e cresce rapidamente: è la repulsione tra i nuclei.",
+          "Prima di salvare scrivi il motivo della previsione: «mi allontano dal minimo, quindi l’energia sale». Se il risultato non coincide, il motivo scritto ti aiuta a capire quale idea correggere."
         ],
         "advanced": [
-          "Nel laboratorio imposta Profondità D (a): 100 kJ/mol; Larghezza b (b): 2 (adimensionale). Prima di salvare A, prevedi come cambia Potenziale di Morse fra Distanza r/r₀=1,05 e 1,7 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Approssima il potenziale vicino al minimo con una parabola e collega la curvatura alla frequenza di una piccola oscillazione. Spiega perché l’approssimazione perde validità lontano dal minimo.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra il potenziale di Morse U in funzione della distanza ridotta r/r₀, da 0,4 a 3. Nella scheda REGOLA cambi la profondità D (da 50 a 200 kJ/mol) e la larghezza b (da 1 a 3); il cursore orizzontale sceglie la distanza di cui leggere l’energia.",
+          "Protocollo. Con D = 100 kJ/mol e b = 2, prevedi come cambia l’energia passando da r/r₀ = 1,05 a r/r₀ = 1,7: nella scheda A / B scegli CRESCE, DIMINUISCE, UGUALE o NON DEFINITO e premi SALVA A. Poi cambia un solo parametro, per esempio D = 200 kJ/mol, rifai la previsione e premi SALVA B. Le due configurazioni restano registrate separatamente.",
+          "Che cosa osservare. Da 1,05 a 1,7 l’energia sale: con D = 100 e b = 2 passa da circa −99 a circa −43 kJ/mol, perché ci si allontana dal fondo verso la separazione. Raddoppiando D la buca diventa due volte più profonda e tutti i valori raddoppiano. Aumentando b la buca si stringe: a parità di distanza dal minimo, l’energia risale più in fretta. Sotto r/r₀ ≈ 0,65 l’energia diventa positiva e cresce rapidamente: è la repulsione tra i nuclei.",
+          "Vicino al fondo la buca somiglia a una parabola. Per r/r₀ vicino a 1 si ha e^(−b(x − 1)) ≈ 1 − b(x − 1), con x = r/r₀, quindi U ≈ −D + Db²(x − 1)². Con D = 100 kJ/mol e b = 2, in x = 1,05 l’approssimazione dà −99 kJ/mol e la formula esatta circa −99,1 kJ/mol. È il modello della molla: piccole vibrazioni attorno all’equilibrio. Lontano dal fondo la parabola sbaglia: la molla non si rompe mai, il legame sì."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Bastoncini, molle e limiti",
       "text": {
         "base": [
-          "Una linea fra sfere non rappresenta una bacchetta materiale. Il potenziale non mostra direttamente orbitali o densità elettronica e i suoi parametri non identificano una molecola senza dati aggiuntivi.",
-          "Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il trattino tra due simboli e il bastoncino dei modellini rappresentano una coppia di elettroni condivisa, e non un oggetto materiale rigido. Gli atomi legati vibrano di continuo attorno alla distanza di legame, e la molecola reale assomiglia più a due palline unite da una molla.",
+          "Errore frequente: dire che «rompere un legame libera energia». Il segno è il contrario: rompere costa energia, formare ne libera. Quando una reazione libera energia, come una combustione, è perché i legami formati nei prodotti sono complessivamente più forti di quelli rotti nei reagenti.",
+          "Il potenziale di Morse descrive un solo legame con una sola coordinata, la distanza. Non calcola gli elettroni, non distingue un legame dall’altro senza dati sperimentali e non descrive una reazione chimica completa. Le energie di legame delle tabelle sono valori medi su molte molecole: il legame C–H nel metano e quello nel cloroformio hanno energie leggermente diverse."
         ],
         "intermediate": [
-          "Una linea fra sfere non rappresenta una bacchetta materiale. Il potenziale non mostra direttamente orbitali o densità elettronica e i suoi parametri non identificano una molecola senza dati aggiuntivi.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il trattino tra due simboli e il bastoncino dei modellini rappresentano una coppia di elettroni condivisa, e non un oggetto materiale rigido. Gli atomi legati vibrano di continuo attorno alla distanza di legame, e la molecola reale assomiglia più a due palline unite da una molla.",
+          "Errore frequente: dire che «rompere un legame libera energia». Il segno è il contrario: rompere costa energia, formare ne libera. Quando una reazione libera energia, come una combustione, è perché i legami formati nei prodotti sono complessivamente più forti di quelli rotti nei reagenti.",
+          "Le energie di legame permettono di stimare il calore di una reazione. Per H₂ + Cl₂ → 2HCl si rompono un legame H–H (436 kJ) e un legame Cl–Cl (243 kJ), e si formano due legami H–Cl (2 · 432 = 864 kJ). Il bilancio è 436 + 243 − 864 = −185 kJ: la reazione libera calore. Il valore misurato è vicino; la stima è approssimata perché le energie di tabella sono valori medi.",
+          "Il potenziale di Morse descrive un solo legame con una sola coordinata, la distanza. Non calcola gli elettroni, non distingue un legame dall’altro senza dati sperimentali e non descrive una reazione chimica completa. Le energie di legame delle tabelle sono valori medi su molte molecole: il legame C–H nel metano e quello nel cloroformio hanno energie leggermente diverse."
         ],
         "advanced": [
-          "Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica.",
-          "Approssima il potenziale vicino al minimo con una parabola e collega la curvatura alla frequenza di una piccola oscillazione. Spiega perché l’approssimazione perde validità lontano dal minimo.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: dire che «rompere un legame libera energia». Il segno è il contrario: rompere costa energia, formare ne libera. Quando una reazione libera energia, come una combustione, è perché i legami formati nei prodotti sono complessivamente più forti di quelli rotti nei reagenti.",
+          "Il potenziale di Morse descrive un solo legame con una sola coordinata, la distanza. Non calcola gli elettroni, non distingue un legame dall’altro senza dati sperimentali e non descrive una reazione chimica completa. Le energie di legame delle tabelle sono valori medi su molte molecole: il legame C–H nel metano e quello nel cloroformio hanno energie leggermente diverse.",
+          "Quando gli atomi sono diversi la condivisione è disuguale. In H–Cl il cloro, più elettronegativo, attira più dell’idrogeno la coppia di legame: sul cloro si accumula una parziale carica negativa δ⁻, sull’idrogeno una parziale carica positiva δ⁺. Il legame si dice covalente polare. Tra atomi uguali, come in H₂ o Cl₂, il legame è covalente apolare."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Un potenziale di legame descrive come varia l’energia con la distanza internucleare. Il minimo identifica un equilibrio del modello. Nel potenziale di Morse, la curva è ripida in compressione e tende a un limite di dissociazione in allontanamento.",
-          "Con D=100 kJ/mol, in r/r₀=1 l’energia è -100 kJ/mol. Non è zero: lo zero è stato posto alla separazione infinita."
+          "Ripasso: che cosa si condivide in un legame covalente; che cos’è l’energia di legame e perché è positiva; come cambiano energia e lunghezza passando dal legame semplice al triplo; che significato hanno D e b nel potenziale di Morse; come si stima il calore di reazione dalle energie di legame.",
+          "Mini esercizio: stima il calore di H₂ + F₂ → 2HF con H–H 436, F–F 160 e H–F 569 kJ/mol. Rotti: 436 + 160 = 596 kJ. Formati: 2 · 569 = 1138 kJ. Bilancio: 596 − 1138 = −542 kJ, una reazione molto esotermica.",
+          "Nelle domande numeriche scrivi sempre separatamente l’energia dei legami rotti e quella dei legami formati, e solo alla fine fai la differenza."
         ],
         "intermediate": [
-          "La formula U=D(1-exp(-b(r/r₀-1)))²-D ha minimo -D in r=r₀ e tende a zero per grandi distanze. D è la profondità del pozzo; b ne controlla la larghezza nella coordinata normalizzata.",
-          "La variabile Distanza r/r₀ è espressa in 1; Potenziale di Morse in kJ/mol. Il dominio dello strumento è [0,4; 3]. La relazione implementata è: U = D(1-exp(-b(r/r₀-1)))²-D."
+          "Ripasso: che cosa si condivide in un legame covalente; che cos’è l’energia di legame e perché è positiva; come cambiano energia e lunghezza passando dal legame semplice al triplo; che significato hanno D e b nel potenziale di Morse; come si stima il calore di reazione dalle energie di legame.",
+          "Mini esercizio: stima il calore di H₂ + F₂ → 2HF con H–H 436, F–F 160 e H–F 569 kJ/mol. Rotti: 436 + 160 = 596 kJ. Formati: 2 · 569 = 1138 kJ. Bilancio: 596 − 1138 = −542 kJ, una reazione molto esotermica.",
+          "Nelle domande numeriche scrivi sempre separatamente l’energia dei legami rotti e quella dei legami formati, e solo alla fine fai la differenza."
         ],
         "advanced": [
-          "Approssima il potenziale vicino al minimo con una parabola e collega la curvatura alla frequenza di una piccola oscillazione. Spiega perché l’approssimazione perde validità lontano dal minimo.",
-          "Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica."
+          "Ripasso: che cosa si condivide in un legame covalente; che cos’è l’energia di legame e perché è positiva; come cambiano energia e lunghezza passando dal legame semplice al triplo; che significato hanno D e b nel potenziale di Morse; come si stima il calore di reazione dalle energie di legame.",
+          "Mini esercizio: stima il calore di H₂ + F₂ → 2HF con H–H 436, F–F 160 e H–F 569 kJ/mol. Rotti: 436 + 160 = 596 kJ. Formati: 2 · 569 = 1138 kJ. Bilancio: 596 − 1138 = −542 kJ, una reazione molto esotermica.",
+          "Nelle domande numeriche scrivi sempre separatamente l’energia dei legami rotti e quella dei legami formati, e solo alla fine fai la differenza."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Potenziale fenomenologico di un solo legame.",
-          "Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica.",
-          "Collegamento consigliato: math-p12. Il completamento registra attività e autoverifica, non certifica competenze."
+          "L’unità successiva, «Geometria molecolare e VSEPR», parte dalle coppie di elettroni attorno a un atomo centrale per prevedere la forma tridimensionale della molecola.",
+          "Le energie di legame spiegano anche il metabolismo: la respirazione cellulare rompe i legami del glucosio e forma i legami più stabili dell’anidride carbonica e dell’acqua, e la differenza di energia alimenta la cellula.",
+          "Nel diario registra le configurazioni A e B, le previsioni e i valori letti. Aggiungi una frase che spieghi che cosa rappresenta il fondo della buca e una che spieghi perché la parabola smette di funzionare lontano dal minimo."
         ],
         "intermediate": [
-          "La formula U=D(1-exp(-b(r/r₀-1)))²-D ha minimo -D in r=r₀ e tende a zero per grandi distanze. D è la profondità del pozzo; b ne controlla la larghezza nella coordinata normalizzata.",
-          "Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica.",
-          "Approssima il potenziale vicino al minimo con una parabola e collega la curvatura alla frequenza di una piccola oscillazione. Spiega perché l’approssimazione perde validità lontano dal minimo."
+          "L’unità successiva, «Geometria molecolare e VSEPR», parte dalle coppie di elettroni attorno a un atomo centrale per prevedere la forma tridimensionale della molecola.",
+          "Le energie di legame spiegano anche il metabolismo: la respirazione cellulare rompe i legami del glucosio e forma i legami più stabili dell’anidride carbonica e dell’acqua, e la differenza di energia alimenta la cellula.",
+          "Nel diario registra le configurazioni A e B, le previsioni e i valori letti. Aggiungi una frase che spieghi che cosa rappresenta il fondo della buca e una che spieghi perché la parabola smette di funzionare lontano dal minimo."
         ],
         "advanced": [
-          "Approssima il potenziale vicino al minimo con una parabola e collega la curvatura alla frequenza di una piccola oscillazione. Spiega perché l’approssimazione perde validità lontano dal minimo.",
-          "Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "L’unità successiva, «Geometria molecolare e VSEPR», parte dalle coppie di elettroni attorno a un atomo centrale per prevedere la forma tridimensionale della molecola.",
+          "Le energie di legame spiegano anche il metabolismo: la respirazione cellulare rompe i legami del glucosio e forma i legami più stabili dell’anidride carbonica e dell’acqua, e la differenza di energia alimenta la cellula.",
+          "Nel diario registra le configurazioni A e B, le previsioni e i valori letti. Aggiungi una frase che spieghi che cosa rappresenta il fondo della buca e una che spieghi perché la parabola smette di funzionare lontano dal minimo."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-07-concept",
-      "prompt": "Nel potenziale di Morse, r=r₀ corrisponde a:",
+      "id": "chemistry-07-q1",
+      "prompt": "Per rompere una mole di legami H–H in molecole gassose servono 436 kJ. Che cosa accade quando si forma una mole di legami H–H da atomi separati?",
       "options": [
         {
           "id": "A",
-          "text": "Una probabilità nulla di legame",
-          "feedback": "La formula U=D(1-exp(-b(r/r₀-1)))²-D ha minimo -D in r=r₀ e tende a zero per grandi distanze. D è la profondità del pozzo; b ne controlla la larghezza nella coordinata normalizzata."
+          "text": "Si assorbono 436 kJ",
+          "feedback": "L’assorbimento riguarda la rottura. La formazione è il processo inverso e ha segno opposto."
         },
         {
           "id": "B",
-          "text": "Un minimo di energia",
-          "feedback": "Un potenziale di legame descrive come varia l’energia con la distanza internucleare. Il minimo identifica un equilibrio del modello. Nel potenziale di Morse, la curva è ripida in compressione e tende a un limite di dissociazione in allontanamento."
+          "text": "Si liberano 436 kJ",
+          "feedback": "Esatto: formare un legame libera la stessa energia che serve per romperlo."
         },
         {
           "id": "C",
-          "text": "Una separazione infinita",
-          "feedback": "Una linea fra sfere non rappresenta una bacchetta materiale. Il potenziale non mostra direttamente orbitali o densità elettronica e i suoi parametri non identificano una molecola senza dati aggiuntivi."
+          "text": "Non c’è scambio di energia",
+          "feedback": "Gli atomi legati hanno energia più bassa di quelli separati: la differenza viene liberata."
+        },
+        {
+          "id": "D",
+          "text": "Si liberano 218 kJ, metà del valore",
+          "feedback": "Il valore si riferisce a una mole di legami, e vale lo stesso nei due versi."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "chemistry-07-calculation",
-      "prompt": "Calcolo: Profondità D (a)=100 kJ/mol; Larghezza b (b)=2 (adimensionale). Per Distanza r/r₀=1 (adimensionale), quanto vale Potenziale di Morse?",
+      "id": "chemistry-07-q2",
+      "prompt": "Come sono ordinate le lunghezze dei legami carbonio-carbonio?",
       "options": [
         {
           "id": "A",
-          "text": "-100 kJ/mol",
-          "feedback": "U = D(1-exp(-b(r/r₀-1)))²-D. Con Profondità D (a)=100 kJ/mol; Larghezza b (b)=2 (adimensionale) e Distanza r/r₀=1 (adimensionale), il risultato è -100 kJ/mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "C–C < C=C < C≡C",
+          "feedback": "È l’ordine opposto: più coppie condivise avvicinano i nuclei."
         },
         {
           "id": "B",
-          "text": "-50 kJ/mol",
-          "feedback": "Questo valore non soddisfa la relazione. U = D(1-exp(-b(r/r₀-1)))²-D. Con Profondità D (a)=100 kJ/mol; Larghezza b (b)=2 (adimensionale) e Distanza r/r₀=1 (adimensionale), il risultato è -100 kJ/mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "Sono tutte uguali, cambia solo l’energia",
+          "feedback": "I dati di OpenStax danno 154, 134 e 120 pm: le lunghezze cambiano."
         },
         {
           "id": "C",
-          "text": "-150 kJ/mol",
-          "feedback": "Controlla sostituzione, segno e unità. U = D(1-exp(-b(r/r₀-1)))²-D. Con Profondità D (a)=100 kJ/mol; Larghezza b (b)=2 (adimensionale) e Distanza r/r₀=1 (adimensionale), il risultato è -100 kJ/mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "C≡C < C=C < C–C",
+          "feedback": "Esatto: 120 pm, 134 pm e 154 pm. Più coppie condivise, legame più corto e più forte."
+        },
+        {
+          "id": "D",
+          "text": "C=C < C–C < C≡C",
+          "feedback": "Il legame triplo è il più corto dei tre, con 120 pm."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 100,
-          "b": 2
-        },
-        "expected": -100,
-        "unit": "kJ/mol"
-      }
+      "correct": "C"
     },
     {
-      "id": "chemistry-07-transfer",
-      "prompt": "Trasferimento: Profondità D (a)=125 kJ/mol; Larghezza b (b)=2 (adimensionale). Per Distanza r/r₀=1 (adimensionale), quanto vale Potenziale di Morse?",
+      "id": "chemistry-07-q3",
+      "prompt": "Nel potenziale di Morse U = D(1 − e^(−b(r/r₀ − 1)))² − D, quanto vale U alla distanza r = r₀?",
       "options": [
         {
           "id": "A",
-          "text": "-62,5 kJ/mol",
-          "feedback": "Questo valore non soddisfa la relazione. U = D(1-exp(-b(r/r₀-1)))²-D. Con Profondità D (a)=125 kJ/mol; Larghezza b (b)=2 (adimensionale) e Distanza r/r₀=1 (adimensionale), il risultato è -125 kJ/mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "−D",
+          "feedback": "Esatto: l’esponenziale vale 1, la parentesi si annulla e resta −D, il fondo della buca."
         },
         {
           "id": "B",
-          "text": "-187,5 kJ/mol",
-          "feedback": "Controlla sostituzione, segno e unità. U = D(1-exp(-b(r/r₀-1)))²-D. Con Profondità D (a)=125 kJ/mol; Larghezza b (b)=2 (adimensionale) e Distanza r/r₀=1 (adimensionale), il risultato è -125 kJ/mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "0",
+          "feedback": "Zero è il valore a distanza infinita, scelto come riferimento."
         },
         {
           "id": "C",
-          "text": "-125 kJ/mol",
-          "feedback": "U = D(1-exp(-b(r/r₀-1)))²-D. Con Profondità D (a)=125 kJ/mol; Larghezza b (b)=2 (adimensionale) e Distanza r/r₀=1 (adimensionale), il risultato è -125 kJ/mol. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "C",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 125,
-          "b": 2
-        },
-        "expected": -125,
-        "unit": "kJ/mol"
-      }
-    },
-    {
-      "id": "chemistry-07-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Potenziale fenomenologico di un solo legame",
-          "feedback": "Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica."
+          "text": "D",
+          "feedback": "Il quadrato si annulla, quindi resta solo il termine −D."
         },
         {
-          "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica."
-        },
-        {
-          "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Potenziale fenomenologico di una coordinata di legame. Non risolve la struttura elettronica né simula una reazione chimica."
+          "id": "D",
+          "text": "−D/2",
+          "feedback": "Nessun termine produce un fattore 1/2: per r = r₀ la parentesi vale esattamente zero."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "chemistry-07-q4",
+      "prompt": "Con H–H 436, Cl–Cl 243 e H–Cl 432 kJ/mol, quanto vale la stima del calore di H₂ + Cl₂ → 2HCl?",
+      "options": [
+        {
+          "id": "A",
+          "text": "+185 kJ",
+          "feedback": "Hai sottratto nel verso sbagliato: si calcola energia dei legami rotti meno energia dei legami formati."
+        },
+        {
+          "id": "B",
+          "text": "−432 kJ",
+          "feedback": "Si formano due legami H–Cl, e vanno considerati anche i legami rotti."
+        },
+        {
+          "id": "C",
+          "text": "+679 kJ",
+          "feedback": "Questa è solo l’energia dei legami rotti: manca quella liberata dai legami formati."
+        },
+        {
+          "id": "D",
+          "text": "−185 kJ",
+          "feedback": "Esatto: 436 + 243 − 2 · 432 = −185 kJ. La reazione libera calore."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "chemistry-07-q5",
+      "prompt": "Quale legame è covalente polare?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Cl–Cl",
+          "feedback": "Tra due atomi uguali la condivisione è equa: il legame è apolare."
+        },
+        {
+          "id": "B",
+          "text": "H–Cl",
+          "feedback": "Esatto: il cloro è più elettronegativo e porta una parziale carica negativa."
+        },
+        {
+          "id": "C",
+          "text": "H–H",
+          "feedback": "Due atomi uguali attirano allo stesso modo la coppia di legame."
+        },
+        {
+          "id": "D",
+          "text": "N≡N",
+          "feedback": "È un legame triplo, ed è apolare perché gli atomi sono uguali."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "chemistry-07-q6",
+      "prompt": "Perché l’energia del legame C=C (611 kJ/mol) è minore del doppio di quella di C–C (345 kJ/mol)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché nel doppio legame gli atomi sono più lontani",
+          "feedback": "Nel doppio legame gli atomi sono più vicini: 134 pm contro 154."
+        },
+        {
+          "id": "B",
+          "text": "Perché le misure sono imprecise",
+          "feedback": "La differenza, 690 contro 611 kJ/mol, è molto più grande dell’incertezza dei dati."
+        },
+        {
+          "id": "C",
+          "text": "Perché la seconda coppia condivisa forma un legame più debole della prima",
+          "feedback": "Esatto: i suoi elettroni stanno ai lati dell’asse tra i nuclei e contribuiscono meno al legame."
+        },
+        {
+          "id": "D",
+          "text": "Perché un doppio legame è formato da due legami semplici indipendenti",
+          "feedback": "Se lo fosse, varrebbe esattamente 690 kJ/mol. I due legami sono di tipo diverso."
+        }
+      ],
+      "correct": "C"
     }
   ]
 }

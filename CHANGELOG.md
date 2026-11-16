@@ -1,3 +1,16 @@
+# 1.9.0: Spiegazioni estese e attività diverse in tre aree
+
+- Undici unità scritte per intero, nelle aree «Numeri e ragionamento», «Legami e molecole» e «Divisione ed ereditarietà». Ogni fase ha spiegazioni complete ai tre livelli, con esempi svolti passo per passo, errori frequenti, limiti del modello e un ripasso guidato prima della verifica; ogni unità ha sei domande con quattro alternative commentate.
+- Tre nuovi tipi di attività:
+  - «Esistenza, unicità e approssimazione»: banco della bisezione su cinque funzioni, con la domanda di esistenza prima del calcolo (due funzioni sono trappole: discontinua, oppure senza cambio di segno).
+  - «Legame ionico»: costruzione di dodici composti, dalla carica degli ioni secondo il gruppo al rapporto minimo, con ioni poliatomici e parentesi.
+  - Serie di carte da classificare o da ordinare, scritte nel file dell’unità e controllate al caricamento: insiemi numerici ed equazioni («Radici, campi e nuovi sistemi numerici»), forze intermolecolari, temperature di ebollizione e solubilità («Forze intermolecolari»), fasi ed eventi del ciclo cellulare («Ciclo cellulare e proliferazione»).
+- Tre unità scritte per intero mantengono il laboratorio del modello con il confronto A/B: «Ragionamento, conteggio e infinito», «Legame covalente ed energia di legame», «Meiosi e assortimento». Il protocollo di ogni laboratorio indica parametri, previsione da fare e che cosa osservare.
+- Nelle tre aree si alternano ora attività di tipo diverso: proposizioni e controesempi, laboratorio, bisezione e carte in matematica; costruzione di composti, laboratorio, modello VSEPR e carte in chimica; carte, laboratorio e serra di Mendel in biologia.
+- Dati numerici controllati su OpenStax Chemistry 2e e Biology 2e: energie di legame, energie reticolari, temperature di ebollizione, durate delle fasi del ciclo cellulare.
+- Atlante dei glifi esteso senza spostare i glifi esistenti (`scripts/make_atlas.py --append`): esponenti da ⁰ a ⁹ con ⁺ e ⁻, pedici ₘ ₙ ₖ, ℕ ℤ ℚ ℝ ℂ, ≡, ±, σ, χ. Cariche come Al³⁺ e SO₄²⁻ si leggono senza la forma ^( ).
+- Il suggerimento dopo un ordinamento sbagliato spiega la carta fuori posto, senza rivelare quella giusta.
+
 # 1.8.0 — Tre pianeti prototipo
 
 - Tre unità riscritte a mano, ciascuna con un’attività diversa al posto del grafico di una formula:

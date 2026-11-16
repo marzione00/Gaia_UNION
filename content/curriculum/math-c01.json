@@ -6,14 +6,15 @@
   "sector": 0,
   "modelId": "math-c01",
   "coverage": "guided-activity",
-  "editorialStatus": "prototype-draft",
+  "editorialStatus": "hand-written-draft",
   "scope": "Proposizioni con quantificatori sui numeri naturali, interi e reali",
   "narrativeStatus": "La stazione e il pianeta sono immaginari; i numeri e le regole della logica sono quelli di sempre.",
   "objectives": [
-    "Distinguere una proposizione universale («per ogni») da una esistenziale («esiste»).",
+    "Distinguere una proposizione da un enunciato aperto, e una proposizione universale da una esistenziale.",
     "Mostrare che una proposizione universale è falsa con un controesempio.",
     "Spiegare perché molti esempi non dimostrano una proposizione universale.",
-    "Scrivere la negazione di una proposizione con quantificatori."
+    "Scrivere la negazione di una proposizione con quantificatori.",
+    "Distinguere un’implicazione dalla sua inversa e dalla sua contronominale."
   ],
   "prerequisites": [],
   "connections": [
@@ -40,12 +41,20 @@
       "definition": "Enunciato di cui si può dire se è vero o falso."
     },
     {
+      "term": "Enunciato aperto",
+      "definition": "Frase che contiene una variabile, come «n è maggiore di 3»; diventa una proposizione quando si fissa la variabile o si aggiunge un quantificatore."
+    },
+    {
       "term": "Quantificatore universale",
-      "definition": "«Per ogni» (∀): la proposizione deve valere per tutti gli elementi del dominio."
+      "definition": "«Per ogni» (∀): la proprietà deve valere per tutti gli elementi del dominio."
     },
     {
       "term": "Quantificatore esistenziale",
-      "definition": "«Esiste» (∃): la proposizione deve valere per almeno un elemento del dominio."
+      "definition": "«Esiste» (∃): la proprietà deve valere per almeno un elemento del dominio."
+    },
+    {
+      "term": "Dominio",
+      "definition": "Insieme degli oggetti di cui parla un enunciato con quantificatori; fa parte dell’enunciato."
     },
     {
       "term": "Controesempio",
@@ -58,6 +67,10 @@
     {
       "term": "Implicazione inversa",
       "definition": "Data «se P allora Q», l’inversa è «se Q allora P». Può essere falsa anche quando la prima è vera."
+    },
+    {
+      "term": "Contronominale",
+      "definition": "Data «se P allora Q», la contronominale è «se non Q allora non P»; è sempre equivalente all’implicazione di partenza."
     }
   ],
   "steps": [
@@ -66,18 +79,23 @@
       "title": "Vero sempre, vero a volte",
       "text": {
         "base": [
-          "Alla stazione del pianeta glaciale arrivano messaggi automatici scritti come affermazioni sui numeri. Prima di usarli, il centro di controllo deve decidere quali sono veri in ogni caso e quali sono falsi, e per quelli falsi deve mostrare il caso che lo prova.",
-          "L’affermazione «per ogni numero naturale n, n² ≥ n» vale sempre. L’affermazione «per ogni intero n, n² > n» le somiglia, eppure è falsa: per n = 0 si ottiene 0 > 0."
+          "Alla stazione del pianeta glaciale arrivano messaggi automatici scritti come affermazioni sui numeri. Prima di usarli, il centro di controllo deve decidere quali sono veri in ogni caso e quali sono falsi; per quelli falsi deve anche indicare il caso che lo prova. È lo stesso lavoro che si fa in matematica ogni volta che si legge un enunciato.",
+          "Una proposizione è una frase di cui si può dire con certezza se è vera o falsa. «7 è un numero primo» è una proposizione vera; «10 è dispari» è una proposizione falsa. La frase «n è maggiore di 3» invece non è ancora una proposizione: la sua verità dipende dal valore di n. Frasi di questo tipo si chiamano enunciati aperti, o predicati, e si indicano con scritture come P(n).",
+          "Un enunciato aperto diventa una proposizione in due modi. Si può sostituire a n un numero preciso: «5 è maggiore di 3» è vera. Oppure si può dire per quali numeri si afferma la proprietà. «Per ogni numero naturale n, n è maggiore di 3» afferma la proprietà per tutti i naturali, ed è falsa perché 0, 1, 2 e 3 non la soddisfano. «Esiste un numero naturale n maggiore di 3» afferma che almeno un naturale la soddisfa, ed è vera: basta n = 4.",
+          "Due enunciati che si somigliano possono avere verità opposte. «Per ogni naturale n, n² ≥ n» è vera: 0² = 0, 1² = 1, 2² = 4, e per n ≥ 1 moltiplicare n per sé stesso non lo rende più piccolo. «Per ogni intero n, n² > n» è falsa: con n = 0 si ottiene 0 > 0, che è falso, e lo stesso accade con n = 1. Il simbolo > al posto di ≥ e il passaggio dai naturali agli interi cambiano la risposta."
         ],
         "intermediate": [
-          "Alla stazione del pianeta glaciale arrivano messaggi automatici scritti come affermazioni sui numeri. Prima di usarli, il centro di controllo deve decidere quali sono veri in ogni caso e quali sono falsi, e per quelli falsi deve mostrare il caso che lo prova.",
-          "L’affermazione «per ogni numero naturale n, n² ≥ n» vale sempre. L’affermazione «per ogni intero n, n² > n» le somiglia, eppure è falsa: per n = 0 si ottiene 0 > 0.",
-          "Una proposizione è un enunciato vero o falso. I quantificatori dicono per quali oggetti vale: «per ogni» (∀) chiede che valga in tutti i casi, «esiste» (∃) chiede almeno un caso."
+          "Alla stazione del pianeta glaciale arrivano messaggi automatici scritti come affermazioni sui numeri. Prima di usarli, il centro di controllo deve decidere quali sono veri in ogni caso e quali sono falsi; per quelli falsi deve anche indicare il caso che lo prova. È lo stesso lavoro che si fa in matematica ogni volta che si legge un enunciato.",
+          "Una proposizione è una frase di cui si può dire con certezza se è vera o falsa. «7 è un numero primo» è una proposizione vera; «10 è dispari» è una proposizione falsa. La frase «n è maggiore di 3» invece non è ancora una proposizione: la sua verità dipende dal valore di n. Frasi di questo tipo si chiamano enunciati aperti, o predicati, e si indicano con scritture come P(n).",
+          "Le parole «per ogni» ed «esiste» si chiamano quantificatori. Il quantificatore universale si scrive ∀ e si legge «per ogni»; il quantificatore esistenziale si scrive ∃ e si legge «esiste almeno un». La scrittura ∀n ∈ ℕ, n² ≥ n si legge «per ogni n appartenente ai naturali, n al quadrato è maggiore o uguale a n». L’insieme dopo il simbolo ∈ si chiama dominio e fa parte dell’enunciato.",
+          "Due enunciati che si somigliano possono avere verità opposte. «Per ogni naturale n, n² ≥ n» è vera: 0² = 0, 1² = 1, 2² = 4, e per n ≥ 1 moltiplicare n per sé stesso non lo rende più piccolo. «Per ogni intero n, n² > n» è falsa: con n = 0 si ottiene 0 > 0, che è falso, e lo stesso accade con n = 1. Il simbolo > al posto di ≥ e il passaggio dai naturali agli interi cambiano la risposta.",
+          "Il dominio cambia la verità di un enunciato. «Esiste x tale che x² = 2» è falsa se x deve essere un numero razionale, cioè una frazione, perché nessuna frazione ha quadrato 2; è vera se x può essere un numero reale, perché √2 ha quadrato 2. Per questo una proposizione con quantificatori va sempre letta insieme al suo dominio."
         ],
         "advanced": [
-          "Alla stazione del pianeta glaciale arrivano messaggi automatici scritti come affermazioni sui numeri. Prima di usarli, il centro di controllo deve decidere quali sono veri in ogni caso e quali sono falsi, e per quelli falsi deve mostrare il caso che lo prova.",
-          "Una proposizione è un enunciato vero o falso. I quantificatori dicono per quali oggetti vale: «per ogni» (∀) chiede che valga in tutti i casi, «esiste» (∃) chiede almeno un caso.",
-          "Il dominio fa parte dell’enunciato: «esiste x tale che x² = 2» è falsa tra i numeri razionali e vera tra i reali."
+          "Alla stazione del pianeta glaciale arrivano messaggi automatici scritti come affermazioni sui numeri. Prima di usarli, il centro di controllo deve decidere quali sono veri in ogni caso e quali sono falsi; per quelli falsi deve anche indicare il caso che lo prova. È lo stesso lavoro che si fa in matematica ogni volta che si legge un enunciato.",
+          "Le parole «per ogni» ed «esiste» si chiamano quantificatori. Il quantificatore universale si scrive ∀ e si legge «per ogni»; il quantificatore esistenziale si scrive ∃ e si legge «esiste almeno un». La scrittura ∀n ∈ ℕ, n² ≥ n si legge «per ogni n appartenente ai naturali, n al quadrato è maggiore o uguale a n». L’insieme dopo il simbolo ∈ si chiama dominio e fa parte dell’enunciato.",
+          "Il dominio cambia la verità di un enunciato. «Esiste x tale che x² = 2» è falsa se x deve essere un numero razionale, cioè una frazione, perché nessuna frazione ha quadrato 2; è vera se x può essere un numero reale, perché √2 ha quadrato 2. Per questo una proposizione con quantificatori va sempre letta insieme al suo dominio.",
+          "Quando compaiono due quantificatori, il loro ordine conta. «Per ogni naturale n esiste un naturale m con m > n» è vera: dato n, basta prendere m = n + 1. «Esiste un naturale m tale che per ogni naturale n si ha m > n» è falsa: affermerebbe l’esistenza di un naturale più grande di tutti, compreso sé stesso. Nella prima frase m può dipendere da n; nella seconda m va scelto una volta per tutte."
         ]
       }
     },
@@ -86,18 +104,26 @@
       "title": "Esempi e controesempi",
       "text": {
         "base": [
-          "Per mostrare che una proposizione universale è falsa basta un controesempio, cioè un caso in cui l’enunciato non vale. Per mostrarla vera gli esempi non bastano mai: serve un ragionamento che valga per tutti i casi.",
-          "Per una proposizione esistenziale vale il contrario: un esempio basta a mostrarla vera, mentre per mostrarla falsa serve un argomento valido per tutti i casi."
+          "Per mostrare che una proposizione universale è falsa basta un controesempio, cioè un solo caso del dominio in cui l’enunciato non vale. Per mostrare che è vera, invece, gli esempi non bastano mai, neppure se sono migliaia: serve un ragionamento che valga per tutti i casi insieme, cioè una dimostrazione.",
+          "Per una proposizione esistenziale le parti si scambiano. Un solo esempio, detto testimone, basta a mostrarla vera: «esiste un numero primo pari» è vera perché 2 è primo ed è pari. Per mostrarla falsa serve invece un argomento valido per tutti i casi: «esiste un naturale n tale che 2n + 1 è pari» è falsa perché 2n + 1 lascia sempre resto 1 nella divisione per 2, qualunque sia n.",
+          "L’esempio più famoso del pericolo degli esempi è il polinomio n² + n + 41, studiato da Eulero. Per n = 0 dà 41, per n = 1 dà 43, per n = 2 dà 47: tutti numeri primi, e lo stesso accade per ogni n da 0 a 39. Per n = 40 si ottiene 40² + 40 + 41 = 1600 + 81 = 1681 = 41 · 41, che non è primo. Quaranta casi favorevoli di fila non dimostravano nulla.",
+          "Esempio svolto. Proposizione: «ogni numero primo è dispari». Negazione: «esiste un numero primo che non è dispari», cioè «esiste un numero primo pari». La negazione è vera, con testimone 2; quindi la proposizione di partenza è falsa. Un errore comune è scrivere come negazione «nessun numero primo è dispari», che è una frase molto più forte e per di più falsa."
         ],
         "intermediate": [
-          "Per mostrare che una proposizione universale è falsa basta un controesempio, cioè un caso in cui l’enunciato non vale. Per mostrarla vera gli esempi non bastano mai: serve un ragionamento che valga per tutti i casi.",
-          "Per una proposizione esistenziale vale il contrario: un esempio basta a mostrarla vera, mentre per mostrarla falsa serve un argomento valido per tutti i casi.",
-          "Esempio: «per ogni naturale n, n² + n + 41 è primo» vale per n = 0, 1, 2 e così via fino a 39. Per n = 40 si ottiene 40² + 40 + 41 = 1681 = 41 · 41, che non è primo."
+          "Per mostrare che una proposizione universale è falsa basta un controesempio, cioè un solo caso del dominio in cui l’enunciato non vale. Per mostrare che è vera, invece, gli esempi non bastano mai, neppure se sono migliaia: serve un ragionamento che valga per tutti i casi insieme, cioè una dimostrazione.",
+          "Per una proposizione esistenziale le parti si scambiano. Un solo esempio, detto testimone, basta a mostrarla vera: «esiste un numero primo pari» è vera perché 2 è primo ed è pari. Per mostrarla falsa serve invece un argomento valido per tutti i casi: «esiste un naturale n tale che 2n + 1 è pari» è falsa perché 2n + 1 lascia sempre resto 1 nella divisione per 2, qualunque sia n.",
+          "L’esempio più famoso del pericolo degli esempi è il polinomio n² + n + 41, studiato da Eulero. Per n = 0 dà 41, per n = 1 dà 43, per n = 2 dà 47: tutti numeri primi, e lo stesso accade per ogni n da 0 a 39. Per n = 40 si ottiene 40² + 40 + 41 = 1600 + 81 = 1681 = 41 · 41, che non è primo. Quaranta casi favorevoli di fila non dimostravano nulla.",
+          "Negare una proposizione significa scrivere la proposizione che è vera esattamente quando la prima è falsa. La negazione di «per ogni n vale P(n)» è «esiste n per cui P(n) non vale»; la negazione di «esiste n per cui vale P(n)» è «per ogni n, P(n) non vale». In simboli: ¬∀n P(n) equivale a ∃n ¬P(n), e ¬∃n P(n) equivale a ∀n ¬P(n). Un controesempio è proprio il testimone della negazione.",
+          "Esempio svolto. Proposizione: «ogni numero primo è dispari». Negazione: «esiste un numero primo che non è dispari», cioè «esiste un numero primo pari». La negazione è vera, con testimone 2; quindi la proposizione di partenza è falsa. Un errore comune è scrivere come negazione «nessun numero primo è dispari», che è una frase molto più forte e per di più falsa.",
+          "Molti enunciati hanno la forma di un’implicazione: «per ogni n, se P(n) allora Q(n)». P(n) si chiama ipotesi e Q(n) tesi. Un controesempio a un’implicazione deve soddisfare l’ipotesi e violare la tesi. Per «se n è pari allora n² è pari», il valore n = 3 non è un controesempio: l’ipotesi non è soddisfatta e l’implicazione, per quel valore, non afferma nulla."
         ],
         "advanced": [
-          "Per mostrare che una proposizione universale è falsa basta un controesempio, cioè un caso in cui l’enunciato non vale. Per mostrarla vera gli esempi non bastano mai: serve un ragionamento che valga per tutti i casi.",
-          "Esempio: «per ogni naturale n, n² + n + 41 è primo» vale per n = 0, 1, 2 e così via fino a 39. Per n = 40 si ottiene 40² + 40 + 41 = 1681 = 41 · 41, che non è primo.",
-          "La negazione scambia i quantificatori: la negazione di «per ogni n vale P(n)» è «esiste n per cui P(n) è falsa». Un controesempio è il testimone di questa negazione."
+          "Per mostrare che una proposizione universale è falsa basta un controesempio, cioè un solo caso del dominio in cui l’enunciato non vale. Per mostrare che è vera, invece, gli esempi non bastano mai, neppure se sono migliaia: serve un ragionamento che valga per tutti i casi insieme, cioè una dimostrazione.",
+          "L’esempio più famoso del pericolo degli esempi è il polinomio n² + n + 41, studiato da Eulero. Per n = 0 dà 41, per n = 1 dà 43, per n = 2 dà 47: tutti numeri primi, e lo stesso accade per ogni n da 0 a 39. Per n = 40 si ottiene 40² + 40 + 41 = 1600 + 81 = 1681 = 41 · 41, che non è primo. Quaranta casi favorevoli di fila non dimostravano nulla.",
+          "Negare una proposizione significa scrivere la proposizione che è vera esattamente quando la prima è falsa. La negazione di «per ogni n vale P(n)» è «esiste n per cui P(n) non vale»; la negazione di «esiste n per cui vale P(n)» è «per ogni n, P(n) non vale». In simboli: ¬∀n P(n) equivale a ∃n ¬P(n), e ¬∃n P(n) equivale a ∀n ¬P(n). Un controesempio è proprio il testimone della negazione.",
+          "Molti enunciati hanno la forma di un’implicazione: «per ogni n, se P(n) allora Q(n)». P(n) si chiama ipotesi e Q(n) tesi. Un controesempio a un’implicazione deve soddisfare l’ipotesi e violare la tesi. Per «se n è pari allora n² è pari», il valore n = 3 non è un controesempio: l’ipotesi non è soddisfatta e l’implicazione, per quel valore, non afferma nulla.",
+          "Dimostrazione diretta, passo per passo. Enunciato: «se n è pari allora n² è pari». Se n è pari esiste un intero k con n = 2k. Allora n² = (2k)² = 4k² = 2 · (2k²). Il numero 2k² è intero, quindi n² è il doppio di un intero, cioè è pari. Il ragionamento non usa nessun valore particolare di k, e per questo vale per tutti gli interi pari.",
+          "L’inversa «se n² è pari allora n è pari» è anch’essa vera, ed è comodo dimostrarla per contrapposizione: si dimostra l’enunciato equivalente «se n è dispari allora n² è dispari». Se n = 2k + 1, allora n² = 4k² + 4k + 1 = 2(2k² + 2k) + 1, che è dispari. Un’implicazione e la sua contronominale «se non Q allora non P» sono sempre vere o false insieme; l’inversa «se Q allora P» va invece studiata a parte."
         ]
       }
     },
@@ -106,18 +132,24 @@
       "title": "Il banco di prova",
       "text": {
         "base": [
-          "Nel laboratorio trovi otto proposizioni. Per ciascuna puoi provare alcuni valori e vedere se l’enunciato vale. Poi decidi se è vera o falsa; se è un «per ogni» falso, scegli anche un controesempio.",
-          "Per completare l’attività classifica correttamente sei proposizioni."
+          "Nel banco di prova trovi otto proposizioni sui numeri. Per ciascuna leggi l’enunciato e prova alcuni valori con i pulsanti numerati: la riga sotto ti dice se l’enunciato vale per quel valore. Poi scegli «È VERA» o «È FALSA» e premi VERIFICA. Se dichiari falsa una proposizione «per ogni», devi anche avere selezionato il valore che fa da controesempio.",
+          "Esempio di uso. Proposizione: «per ogni intero n, n² > n». Provi n = 2: 4 > 2, vale. Provi n = 5: 25 > 5, vale. Provi n = 0: 0 > 0, non vale. Selezionato il valore 0, scegli «È FALSA» e premi VERIFICA: lo zero è un controesempio e basta da solo a decidere.",
+          "Una strategia efficace è provare per primi i casi «estremi» del dominio: lo zero, l’uno, i numeri negativi, i numeri non interi quando sono ammessi. Le proposizioni sbagliate cedono spesso proprio lì, perché chi le scrive pensa ai casi più comuni.",
+          "Per completare l’attività classifica correttamente sei proposizioni su otto. Le risposte sbagliate non tolgono punti: il messaggio spiega che cosa manca al ragionamento, e puoi riprovare."
         ],
         "intermediate": [
-          "Nel laboratorio trovi otto proposizioni. Per ciascuna puoi provare alcuni valori e vedere se l’enunciato vale. Poi decidi se è vera o falsa; se è un «per ogni» falso, scegli anche un controesempio.",
-          "Prova sempre lo zero, i numeri negativi e i valori più piccoli del dominio: sono i casi in cui le proposizioni sbagliate cedono più spesso.",
-          "Per completare l’attività classifica correttamente sei proposizioni."
+          "Nel banco di prova trovi otto proposizioni sui numeri. Per ciascuna leggi l’enunciato e prova alcuni valori con i pulsanti numerati: la riga sotto ti dice se l’enunciato vale per quel valore. Poi scegli «È VERA» o «È FALSA» e premi VERIFICA. Se dichiari falsa una proposizione «per ogni», devi anche avere selezionato il valore che fa da controesempio.",
+          "Esempio di uso. Proposizione: «per ogni intero n, n² > n». Provi n = 2: 4 > 2, vale. Provi n = 5: 25 > 5, vale. Provi n = 0: 0 > 0, non vale. Selezionato il valore 0, scegli «È FALSA» e premi VERIFICA: lo zero è un controesempio e basta da solo a decidere.",
+          "Una strategia efficace è provare per primi i casi «estremi» del dominio: lo zero, l’uno, i numeri negativi, i numeri non interi quando sono ammessi. Le proposizioni sbagliate cedono spesso proprio lì, perché chi le scrive pensa ai casi più comuni.",
+          "Per le proposizioni con «se ... allora» guarda solo i valori che soddisfano l’ipotesi. Nell’enunciato «se n è pari allora n è divisibile per 4», i valori dispari non dicono nulla; il valore 2 invece soddisfa l’ipotesi e viola la tesi, perché 2 non è divisibile per 4.",
+          "Per completare l’attività classifica correttamente sei proposizioni su otto. Le risposte sbagliate non tolgono punti: il messaggio spiega che cosa manca al ragionamento, e puoi riprovare."
         ],
         "advanced": [
-          "Nel laboratorio trovi otto proposizioni. Per ciascuna puoi provare alcuni valori e vedere se l’enunciato vale. Poi decidi se è vera o falsa; se è un «per ogni» falso, scegli anche un controesempio.",
-          "Per le proposizioni che ritieni vere scrivi nel diario un argomento generale. Esempio: se n è pari si scrive n = 2k, quindi n² = 4k² = 2(2k²) è pari.",
-          "Per completare l’attività classifica correttamente sei proposizioni."
+          "Nel banco di prova trovi otto proposizioni sui numeri. Per ciascuna leggi l’enunciato e prova alcuni valori con i pulsanti numerati: la riga sotto ti dice se l’enunciato vale per quel valore. Poi scegli «È VERA» o «È FALSA» e premi VERIFICA. Se dichiari falsa una proposizione «per ogni», devi anche avere selezionato il valore che fa da controesempio.",
+          "Una strategia efficace è provare per primi i casi «estremi» del dominio: lo zero, l’uno, i numeri negativi, i numeri non interi quando sono ammessi. Le proposizioni sbagliate cedono spesso proprio lì, perché chi le scrive pensa ai casi più comuni.",
+          "Per le proposizioni con «se ... allora» guarda solo i valori che soddisfano l’ipotesi. Nell’enunciato «se n è pari allora n è divisibile per 4», i valori dispari non dicono nulla; il valore 2 invece soddisfa l’ipotesi e viola la tesi, perché 2 non è divisibile per 4.",
+          "Quando concludi che una proposizione universale è vera, il banco di prova accetta la risposta, ma la prova sta altrove: scrivi nel diario un argomento generale. Per «(x + 1)² = x² + 1 per ogni reale x» conviene sviluppare il quadrato prima di provare valori: (x + 1)² = x² + 2x + 1, che coincide con x² + 1 solo quando 2x = 0, cioè per x = 0.",
+          "Per completare l’attività classifica correttamente sei proposizioni su otto. Le risposte sbagliate non tolgono punti: il messaggio spiega che cosa manca al ragionamento, e puoi riprovare."
         ]
       }
     },
@@ -126,18 +158,20 @@
       "title": "Che cosa prova un esempio",
       "text": {
         "base": [
-          "Se un valore rende vero un enunciato universale, hai trovato solo un caso favorevole. Una proposizione può reggere a tutti i valori provati ed essere falsa per un numero più grande, come n² + n + 41 per n = 40.",
-          "Errore frequente: confondere un’implicazione con la sua inversa. «Se n è divisibile per 4, allora n è pari» è vera; «se n è pari, allora n è divisibile per 4» è falsa, come mostra n = 2."
+          "Se un valore rende vero un enunciato universale, hai trovato solo un caso favorevole. Una proposizione può reggere a tutti i valori provati ed essere falsa per un numero più grande, come accade a n² + n + 41 per n = 40. Gli esempi servono a formulare una congettura; la decisione richiede un controesempio oppure una dimostrazione.",
+          "Un errore frequente consiste nel confondere un’implicazione con la sua inversa. «Se n è divisibile per 4, allora n è pari» è vera. «Se n è pari, allora n è divisibile per 4» è falsa, e lo mostra n = 2. Nella vita quotidiana lo stesso errore porta a conclusioni sbagliate: «se piove la strada è bagnata» non autorizza a concludere che una strada bagnata implichi la pioggia.",
+          "Esempio svolto. Proposizione: «ogni numero primo è dispari». Negazione: «esiste un numero primo che non è dispari», cioè «esiste un numero primo pari». La negazione è vera, con testimone 2; quindi la proposizione di partenza è falsa. Un errore comune è scrivere come negazione «nessun numero primo è dispari», che è una frase molto più forte e per di più falsa."
         ],
         "intermediate": [
-          "Se un valore rende vero un enunciato universale, hai trovato solo un caso favorevole. Una proposizione può reggere a tutti i valori provati ed essere falsa per un numero più grande, come n² + n + 41 per n = 40.",
-          "Errore frequente: confondere un’implicazione con la sua inversa. «Se n è divisibile per 4, allora n è pari» è vera; «se n è pari, allora n è divisibile per 4» è falsa, come mostra n = 2.",
-          "La negazione di «tutti i numeri primi sono dispari» è «esiste un numero primo pari». È vera, e il testimone è 2."
+          "Se un valore rende vero un enunciato universale, hai trovato solo un caso favorevole. Una proposizione può reggere a tutti i valori provati ed essere falsa per un numero più grande, come accade a n² + n + 41 per n = 40. Gli esempi servono a formulare una congettura; la decisione richiede un controesempio oppure una dimostrazione.",
+          "Un errore frequente consiste nel confondere un’implicazione con la sua inversa. «Se n è divisibile per 4, allora n è pari» è vera. «Se n è pari, allora n è divisibile per 4» è falsa, e lo mostra n = 2. Nella vita quotidiana lo stesso errore porta a conclusioni sbagliate: «se piove la strada è bagnata» non autorizza a concludere che una strada bagnata implichi la pioggia.",
+          "Nelle scienze sperimentali una legge generale viene accettata in modo provvisorio quando molte osservazioni la confermano e nessuna la smentisce; un’osservazione contraria basta a metterla in crisi. In matematica la verità di un enunciato universale richiede una dimostrazione, e per questo un teorema dimostrato non viene più rimesso in discussione dai casi successivi."
         ],
         "advanced": [
-          "Errore frequente: confondere un’implicazione con la sua inversa. «Se n è divisibile per 4, allora n è pari» è vera; «se n è pari, allora n è divisibile per 4» è falsa, come mostra n = 2.",
-          "La negazione di «tutti i numeri primi sono dispari» è «esiste un numero primo pari». È vera, e il testimone è 2.",
-          "Alcune affermazioni universali vere non si possono controllare caso per caso, perché i casi sono infiniti: servono la dimostrazione diretta, quella per assurdo o quella per induzione."
+          "Un errore frequente consiste nel confondere un’implicazione con la sua inversa. «Se n è divisibile per 4, allora n è pari» è vera. «Se n è pari, allora n è divisibile per 4» è falsa, e lo mostra n = 2. Nella vita quotidiana lo stesso errore porta a conclusioni sbagliate: «se piove la strada è bagnata» non autorizza a concludere che una strada bagnata implichi la pioggia.",
+          "Nelle scienze sperimentali una legge generale viene accettata in modo provvisorio quando molte osservazioni la confermano e nessuna la smentisce; un’osservazione contraria basta a metterla in crisi. In matematica la verità di un enunciato universale richiede una dimostrazione, e per questo un teorema dimostrato non viene più rimesso in discussione dai casi successivi.",
+          "La congettura di Goldbach afferma che ogni numero pari maggiore di 2 è somma di due numeri primi: 4 = 2 + 2, 6 = 3 + 3, 8 = 3 + 5, 10 = 5 + 5 = 3 + 7. È stata controllata al calcolatore fino a numeri dell’ordine di 4 · 10¹⁸ e nessuno ha trovato un controesempio; poiché manca una dimostrazione, resta una congettura e non un teorema.",
+          "Quando i casi sono infiniti si usano tecniche di dimostrazione: la dimostrazione diretta, che parte dall’ipotesi e arriva alla tesi; la contrapposizione, che dimostra «se non Q allora non P»; la dimostrazione per assurdo, che mostra come la negazione della tesi porti a una contraddizione; l’induzione, adatta agli enunciati sui numeri naturali, che verifica il primo caso e il passaggio da n a n + 1."
         ]
       }
     },
@@ -146,13 +180,19 @@
       "title": "Verifica",
       "text": {
         "base": [
-          "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
+          "Prima di rispondere ripassa le regole essenziali. Una proposizione «per ogni» è falsa se esiste un controesempio, ed è vera solo se c’è un argomento valido per tutti i casi. Una proposizione «esiste» è vera se c’è un testimone. La negazione scambia i due quantificatori e nega la proprietà.",
+          "Per ogni domanda individua tre elementi: il quantificatore (per ogni oppure esiste), il dominio (naturali, interi, razionali o reali) e, se c’è, la struttura «se ... allora». Poi chiediti che cosa servirebbe per decidere: un esempio, un controesempio o una dimostrazione.",
+          "Ogni opzione sbagliata corrisponde a un errore di ragionamento preciso, e il suo commento lo descrive. Leggi il commento anche quando rispondi correttamente: spesso aggiunge un esempio utile per il diario."
         ],
         "intermediate": [
-          "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
+          "Prima di rispondere ripassa le regole essenziali. Una proposizione «per ogni» è falsa se esiste un controesempio, ed è vera solo se c’è un argomento valido per tutti i casi. Una proposizione «esiste» è vera se c’è un testimone. La negazione scambia i due quantificatori e nega la proprietà.",
+          "Per ogni domanda individua tre elementi: il quantificatore (per ogni oppure esiste), il dominio (naturali, interi, razionali o reali) e, se c’è, la struttura «se ... allora». Poi chiediti che cosa servirebbe per decidere: un esempio, un controesempio o una dimostrazione.",
+          "Ogni opzione sbagliata corrisponde a un errore di ragionamento preciso, e il suo commento lo descrive. Leggi il commento anche quando rispondi correttamente: spesso aggiunge un esempio utile per il diario."
         ],
         "advanced": [
-          "Rispondi alle sei domande. Ogni risposta sbagliata spiega quale errore di ragionamento corrisponde alla scelta."
+          "Per ogni domanda individua tre elementi: il quantificatore (per ogni oppure esiste), il dominio (naturali, interi, razionali o reali) e, se c’è, la struttura «se ... allora». Poi chiediti che cosa servirebbe per decidere: un esempio, un controesempio o una dimostrazione.",
+          "Mini esercizio prima della verifica: scrivi la negazione di «per ogni ε > 0 esiste n tale che 1/n < ε». Risposta: «esiste ε > 0 tale che per ogni n si ha 1/n ≥ ε». Gli enunciati con due quantificatori, come questo, sono il linguaggio della definizione di limite.",
+          "Ogni opzione sbagliata corrisponde a un errore di ragionamento preciso, e il suo commento lo descrive. Leggi il commento anche quando rispondi correttamente: spesso aggiunge un esempio utile per il diario."
         ]
       }
     },
@@ -161,18 +201,21 @@
       "title": "Collegamenti",
       "text": {
         "base": [
-          "Il linguaggio dei quantificatori ritorna in ogni capitolo, nelle definizioni di funzione, di limite e di probabilità.",
-          "Nel diario scrivi una proposizione falsa con il suo controesempio e una proposizione vera con il motivo per cui vale."
+          "Il linguaggio dei quantificatori ritorna in ogni capitolo della matematica: nella definizione di funzione («per ogni x del dominio esiste un solo y»), di limite, di continuità e di probabilità. Chi sa leggere un «per ogni» e un «esiste» legge già metà di una definizione.",
+          "L’unità successiva dell’area, «Ragionamento, conteggio e infinito», usa queste idee per studiare somme con infiniti termini, e mostra come una dimostrazione permetta di dire qualcosa su infiniti casi controllandone nessuno uno per uno.",
+          "Nel diario scrivi una proposizione falsa con il suo controesempio e una proposizione vera con il motivo per cui vale. Aggiungi la negazione di una delle due, scritta sia a parole sia con i simboli ∀ ed ∃."
         ],
         "intermediate": [
-          "Il linguaggio dei quantificatori ritorna in ogni capitolo, nelle definizioni di funzione, di limite e di probabilità.",
-          "Nella dispensa il capitolo sul linguaggio matematico approfondisce connettivi, tavole di verità e insiemi.",
-          "Nel diario scrivi una proposizione falsa con il suo controesempio e una proposizione vera con il motivo per cui vale."
+          "Il linguaggio dei quantificatori ritorna in ogni capitolo della matematica: nella definizione di funzione («per ogni x del dominio esiste un solo y»), di limite, di continuità e di probabilità. Chi sa leggere un «per ogni» e un «esiste» legge già metà di una definizione.",
+          "L’unità successiva dell’area, «Ragionamento, conteggio e infinito», usa queste idee per studiare somme con infiniti termini, e mostra come una dimostrazione permetta di dire qualcosa su infiniti casi controllandone nessuno uno per uno.",
+          "Nella dispensa il capitolo sul linguaggio matematico approfondisce connettivi, tavole di verità e insiemi, e raccoglie esercizi sulla negazione degli enunciati.",
+          "Nel diario scrivi una proposizione falsa con il suo controesempio e una proposizione vera con il motivo per cui vale. Aggiungi la negazione di una delle due, scritta sia a parole sia con i simboli ∀ ed ∃."
         ],
         "advanced": [
-          "Il linguaggio dei quantificatori ritorna in ogni capitolo, nelle definizioni di funzione, di limite e di probabilità.",
-          "La logica dei quantificatori è anche alla base della programmazione: un ciclo che controlla tutti gli elementi di una lista verifica un «per ogni», un ciclo che si ferma al primo elemento adatto verifica un «esiste».",
-          "Nel diario scrivi una proposizione falsa con il suo controesempio e una proposizione vera con il motivo per cui vale."
+          "Il linguaggio dei quantificatori ritorna in ogni capitolo della matematica: nella definizione di funzione («per ogni x del dominio esiste un solo y»), di limite, di continuità e di probabilità. Chi sa leggere un «per ogni» e un «esiste» legge già metà di una definizione.",
+          "La logica dei quantificatori è anche alla base della programmazione: un ciclo che controlla tutti gli elementi di una lista e si ferma al primo che non va verifica un «per ogni»; un ciclo che si ferma al primo elemento adatto verifica un «esiste». Nei due casi la condizione di arresto è il controesempio o il testimone.",
+          "L’unità successiva dell’area, «Ragionamento, conteggio e infinito», usa queste idee per studiare somme con infiniti termini, e mostra come una dimostrazione permetta di dire qualcosa su infiniti casi controllandone nessuno uno per uno.",
+          "Nel diario scrivi una proposizione falsa con il suo controesempio e una proposizione vera con il motivo per cui vale. Aggiungi la negazione di una delle due, scritta sia a parole sia con i simboli ∀ ed ∃."
         ]
       }
     }
@@ -190,12 +233,12 @@
         {
           "id": "B",
           "text": "n = −3",
-          "feedback": "Per n = −3 si ha 9 > −3, che è vero: i negativi qui non creano problemi."
+          "feedback": "Per n = −3 si ha 9 > −3, che è vero: un quadrato non è mai negativo, quindi i negativi qui soddisfano la disuguaglianza."
         },
         {
           "id": "C",
           "text": "n = 10",
-          "feedback": "Per n = 10 si ha 100 > 10, che è vero. Prova i valori più piccoli."
+          "feedback": "Per n = 10 si ha 100 > 10, che è vero. Prova i valori più piccoli del dominio."
         },
         {
           "id": "D",
@@ -207,7 +250,7 @@
     },
     {
       "id": "math-c01-q2",
-      "prompt": "Hai verificato che una proprietà vale per i primi mille numeri naturali. Che cosa puoi concludere sulla proprietà «per ogni naturale»?",
+      "prompt": "Hai verificato che una proprietà vale per i primi mille numeri naturali. Che cosa puoi concludere su «per ogni naturale n vale la proprietà»?",
       "options": [
         {
           "id": "A",
@@ -217,7 +260,7 @@
         {
           "id": "B",
           "text": "Nulla di definitivo: per una proposizione universale serve una dimostrazione",
-          "feedback": "Esatto: gli esempi possono suggerire una congettura, ma solo un ragionamento valido per tutti i casi la dimostra."
+          "feedback": "Esatto: gli esempi possono suggerire una congettura; per dimostrarla serve un ragionamento valido per tutti i casi."
         },
         {
           "id": "C",
@@ -249,7 +292,7 @@
         {
           "id": "C",
           "text": "Ogni studente non ha consegnato il compito",
-          "feedback": "È un altro modo di dire «nessuno ha consegnato»: hai negato la proprietà senza cambiare il quantificatore."
+          "feedback": "È un altro modo di dire «nessuno ha consegnato»: hai negato la proprietà lasciando invariato il quantificatore."
         },
         {
           "id": "D",
@@ -271,12 +314,12 @@
         {
           "id": "B",
           "text": "È falsa, perché l’inversa di una proposizione vera è sempre falsa",
-          "feedback": "Non esiste una regola del genere: l’inversa va studiata a parte, e in questo caso è vera."
+          "feedback": "Nessuna regola lega la verità dell’inversa a quella dell’implicazione: va studiata a parte, e in questo caso è vera."
         },
         {
           "id": "C",
-          "text": "È vera anch’essa, ma va dimostrata a parte",
-          "feedback": "Esatto: se n fosse dispari, n² sarebbe dispari. Quindi n² pari implica n pari, e la dimostrazione è indipendente dalla prima."
+          "text": "È vera anch’essa, e va dimostrata a parte",
+          "feedback": "Esatto: se n fosse dispari, n² sarebbe dispari. Quindi n² pari implica n pari, con una dimostrazione indipendente dalla prima."
         },
         {
           "id": "D",
@@ -293,7 +336,7 @@
         {
           "id": "A",
           "text": "Verificando che tutti i numeri pari sono primi",
-          "feedback": "Questa sarebbe una proposizione universale, ed è falsa: 4 è pari e non è primo."
+          "feedback": "Questa sarebbe una proposizione universale, ed è falsa: 4 è pari e ha il divisore 2."
         },
         {
           "id": "B",
@@ -320,7 +363,7 @@
         {
           "id": "A",
           "text": "Dipende dal dominio: è falsa tra i numeri razionali e vera tra i reali",
-          "feedback": "Esatto: √2 è reale ma non razionale. Il dominio fa parte della proposizione."
+          "feedback": "Esatto: √2 è reale e nessuna frazione ha quadrato 2. Il dominio fa parte della proposizione."
         },
         {
           "id": "B",

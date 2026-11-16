@@ -1,7 +1,8 @@
-/** Interactive activities for the prototype units. Pure logic: no rendering, no network.
- * Each activity keeps a small, validated state and declares when it is complete. */
-export const ACTIVITY_KINDS = Object.freeze(['vsepr', 'punnett', 'logic']);
-export const ACTIVITY_GOALS = Object.freeze({ vsepr: 4, punnett: 3, logic: 6 });
+/** Interactive activities of the hand-written units. Pure logic: no rendering, no network.
+ * Each activity keeps a small, validated state and declares when it is complete.
+ * 'cards' is data-driven: its rounds live in the unit file and are validated here. */
+export const ACTIVITY_KINDS = Object.freeze(['vsepr', 'punnett', 'logic', 'cards', 'bisection', 'ionic']);
+export const ACTIVITY_GOALS = Object.freeze({ vsepr: 4, punnett: 3, logic: 6, bisection: 4, ionic: 6 });
 const plain = x => !!x && typeof x === 'object' && !Array.isArray(x);
 const ids = (list, allowed, max) => Array.isArray(list) ? [...new Set(list.filter(id => typeof id === 'string' && allowed.has(id)))].slice(0, max) : [];
 
@@ -176,6 +177,147 @@ export function checkStatement(statement, verdict, counter = null) {
         : { ok: true, message: `Esatto: ${fmt(counter)} è un controesempio. ${statement.reason}` };
 }
 
+// ---------- Bisection: existence of a zero and its localisation ----------
+const num = (x, d = 5) => Number(x.toFixed(d)).toLocaleString('it-IT', { maximumFractionDigits: d }).replace('-', '−');
+export const BISECTION_TASKS = Object.freeze([
+    { id: 'radice-due', label: 'f(x) = x² − 2', a: 1, b: 2, f: x => x * x - 2, guaranteed: true, steps: 5,
+      note: 'La radice è √2 ≈ 1,41421: ogni intervallo trovato la contiene.' },
+    { id: 'reciproco', label: 'f(x) = 1/x', a: -1, b: 1, f: x => 1 / x, guaranteed: false,
+      why: 'f(−1) = −1 e f(1) = 1 hanno segni opposti, ma f non è definita in x = 0, che sta dentro l’intervallo. Senza continuità il teorema non si applica, e infatti 1/x non vale mai zero.' },
+    { id: 'cubica', label: 'f(x) = x³ − x − 1', a: 1, b: 2, f: x => x ** 3 - x - 1, guaranteed: true, steps: 5,
+      note: 'La radice è circa 1,32472. Per le equazioni di terzo grado esiste una formula risolutiva, ma la bisezione arriva prima a un valore utilizzabile.' },
+    { id: 'parabola', label: 'f(x) = x² − 0,25', a: -1, b: 1, f: x => x * x - .25, guaranteed: false,
+      why: 'f(−1) e f(1) valgono entrambe 0,75: senza cambio di segno il teorema non garantisce nulla. Le radici esistono (−0,5 e 0,5), ma l’ipotesi non le rivela, e la bisezione non saprebbe quale metà tenere.' },
+    { id: 'coseno', label: 'f(x) = cos x − x (x in radianti)', a: 0, b: 1, f: x => Math.cos(x) - x, guaranteed: true, steps: 5,
+      note: 'La radice è circa 0,73909: l’unico numero uguale al proprio coseno. Non se ne conosce un’espressione con radici o frazioni, e la si calcola per approssimazione.' }
+]);
+const bisectionIds = new Set(BISECTION_TASKS.map(t => t.id));
+export const signWord = y => y > 0 ? 'positivo' : y < 0 ? 'negativo' : 'zero';
+const bothWord = y => y > 0 ? 'positivi' : 'negativi';
+export function formatNumber(x, d = 5) { return num(x, d); }
+/** answer: true if the student claims the theorem guarantees a zero in [a, b]. */
+export function checkGuarantee(task, answer) {
+    const fa = task.f(task.a), fb = task.f(task.b);
+    if (answer === task.guaranteed) return task.guaranteed
+        ? { ok: true, message: `Esatto: f è continua su [${num(task.a)}; ${num(task.b)}], f(${num(task.a)}) = ${num(fa)} e f(${num(task.b)}) = ${num(fb)} hanno segni opposti. Ora dimezza l’intervallo.` }
+        : { ok: true, message: 'Esatto. ' + task.why };
+    return task.guaranteed
+        ? { ok: false, message: 'Controlla le due ipotesi: la funzione è continua su tutto l’intervallo e ai due estremi ha segni opposti. Quando valgono entrambe, il teorema garantisce almeno uno zero.' }
+        : { ok: false, message: 'Non basta guardare i segni agli estremi: servono segni opposti e continuità su tutto l’intervallo. Controlla quale ipotesi manca.' };
+}
+/** side: 'left' keeps [a, m], 'right' keeps [m, b]. The kept half must show a change of sign. */
+export function bisectionStep(task, a, b, side) {
+    if (!['left', 'right'].includes(side) || !(a < b)) throw Error('Passo non valido');
+    const m = (a + b) / 2, fa = task.f(a), fm = task.f(m), right = fa * fm <= 0 ? 'left' : 'right';
+    if (fm === 0) return { ok: true, a: m, b: m, exact: true, message: `f(${num(m)}) = 0: il punto medio è la radice.` };
+    if (side !== right) return { ok: false, a, b, message: side === 'left'
+        ? `f(${num(a)}) e f(${num(m)}) sono entrambi ${bothWord(fm)}: in [${num(a)}; ${num(m)}] non c’è cambio di segno e il teorema non garantisce nulla. Il cambio di segno è nell’altra metà.`
+        : `f(${num(m)}) e f(${num(b)}) sono entrambi ${bothWord(fm)}: in [${num(m)}; ${num(b)}] non c’è cambio di segno. Tieni la metà in cui i segni agli estremi sono opposti.` };
+    const next = side === 'left' ? [a, m] : [m, b];
+    return { ok: true, a: next[0], b: next[1], message: `Giusto: f(${num(m)}) = ${num(fm)}, ${signWord(fm)}. Il cambio di segno è in [${num(next[0])}; ${num(next[1])}], ampio ${num(next[1] - next[0])}.` };
+}
+
+// ---------- Ionic compounds: charges from the periodic group, neutral formula ----------
+const SUP = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
+export const chargeText = q => (Math.abs(q) === 1 ? '' : SUP[Math.abs(q)]) + (q > 0 ? '⁺' : '⁻');
+export const signed = q => (q > 0 ? '+' : '−') + Math.abs(q);
+const ELEMENTS = {
+    Li: { article: 'il ', name: 'litio', group: 1, charge: 1 }, Na: { article: 'il ', name: 'sodio', group: 1, charge: 1 }, K: { article: 'il ', name: 'potassio', group: 1, charge: 1 },
+    Mg: { article: 'il ', name: 'magnesio', group: 2, charge: 2 }, Ca: { article: 'il ', name: 'calcio', group: 2, charge: 2 }, Al: { article: 'l’', name: 'alluminio', group: 13, charge: 3 },
+    N: { article: 'l’', name: 'azoto', group: 15, charge: -3 }, O: { article: 'l’', name: 'ossigeno', group: 16, charge: -2 }, S: { article: 'lo ', name: 'zolfo', group: 16, charge: -2 },
+    F: { article: 'il ', name: 'fluoro', group: 17, charge: -1 }, Cl: { article: 'il ', name: 'cloro', group: 17, charge: -1 }
+};
+const POLYATOMIC = {
+    NH4: { symbol: 'NH₄', name: 'ammonio', charge: 1 }, NO3: { symbol: 'NO₃', name: 'nitrato', charge: -1 },
+    SO4: { symbol: 'SO₄', name: 'solfato', charge: -2 }, OH: { symbol: 'OH', name: 'idrossido', charge: -1 }
+};
+export function ion(key) {
+    if (Object.hasOwn(ELEMENTS, key)) return { key, symbol: key, polyatomic: false, ...ELEMENTS[key] };
+    if (Object.hasOwn(POLYATOMIC, key)) return { key, polyatomic: true, group: null, ...POLYATOMIC[key] };
+    throw Error('Ione sconosciuto');
+}
+export const ionLabel = i => i.symbol + chargeText(i.charge);
+export const IONIC_CHALLENGES = Object.freeze([
+    { id: 'nacl', cation: 'Na', anion: 'Cl', name: 'cloruro di sodio' }, { id: 'mgcl2', cation: 'Mg', anion: 'Cl', name: 'cloruro di magnesio' },
+    { id: 'k2o', cation: 'K', anion: 'O', name: 'ossido di potassio' }, { id: 'cao', cation: 'Ca', anion: 'O', name: 'ossido di calcio' },
+    { id: 'al2o3', cation: 'Al', anion: 'O', name: 'ossido di alluminio' }, { id: 'caf2', cation: 'Ca', anion: 'F', name: 'fluoruro di calcio' },
+    { id: 'na2s', cation: 'Na', anion: 'S', name: 'solfuro di sodio' }, { id: 'mg3n2', cation: 'Mg', anion: 'N', name: 'nitruro di magnesio' },
+    { id: 'alf3', cation: 'Al', anion: 'F', name: 'fluoruro di alluminio' }, { id: 'nh4cl', cation: 'NH4', anion: 'Cl', name: 'cloruro di ammonio' },
+    { id: 'cano32', cation: 'Ca', anion: 'NO3', name: 'nitrato di calcio' }, { id: 'al2so43', cation: 'Al', anion: 'SO4', name: 'solfato di alluminio' }
+].map(c => Object.freeze(c)));
+const ionicIds = new Set(IONIC_CHALLENGES.map(c => c.id));
+const SUBS = '₀₁₂₃₄₅₆₇₈₉';
+export function ionicFormula(cation, n, anion, m) {
+    const part = (i, k) => (i.polyatomic && k > 1 ? '(' + i.symbol + ')' : i.symbol) + (k > 1 ? String(k).split('').map(d => SUBS[d]).join('') : '');
+    return part(cation, n) + part(anion, m);
+}
+const gcd = (a, b) => b ? gcd(b, a % b) : a;
+const GROUP_RULE = {
+    1: 'ha un elettrone di valenza e lo cede: forma ioni +1', 2: 'ha due elettroni di valenza e li cede: forma ioni +2',
+    13: 'ha tre elettroni di valenza e li cede: forma ioni +3', 15: 'ha cinque elettroni di valenza e ne acquista tre: forma ioni −3',
+    16: 'ha sei elettroni di valenza e ne acquista due: forma ioni −2', 17: 'ha sette elettroni di valenza e ne acquista uno: forma ioni −1'
+};
+/** qc, qa: charges chosen for cation and anion; n, m: how many of each in the formula unit. */
+export function checkIonic(challenge, qc, qa, n, m) {
+    const c = ion(challenge.cation), a = ion(challenge.anion);
+    if (![n, m].every(k => Number.isInteger(k) && k >= 1 && k <= 4)) throw Error('Numero di ioni non valido');
+    const why = i => i.polyatomic ? `lo ione ${i.name} ${ionLabel(i)} ha carica ${signed(i.charge)}; la carica di uno ione poliatomico si impara insieme alla sua formula` : `${i.article}${i.name} (gruppo ${i.group}) ${GROUP_RULE[i.group]}`;
+    if (qc !== c.charge) return { ok: false, message: `Carica del catione: ${why(c)}.` };
+    if (qa !== a.charge) return { ok: false, message: `Carica dell’anione: ${why(a)}.` };
+    const total = n * qc + m * qa;
+    if (total !== 0) return { ok: false, message: `Carica totale: ${n} · (${signed(qc)}) + ${m} · (${signed(qa)}) = ${total > 0 ? '+' : '−'}${Math.abs(total)}. ${total > 0 ? 'Prevale la carica positiva: servono più anioni o meno cationi.' : 'Prevale la carica negativa: servono più cationi o meno anioni.'}` };
+    const g = gcd(n, m);
+    if (g > 1) return { ok: false, message: `Il composto è neutro, ma la formula di un composto ionico riporta il rapporto minimo fra gli ioni: dividi ${n} e ${m} per ${g}.` };
+    const count = (k, i, q) => `${k === 1 ? 'uno ione' : k + ' ioni'} ${ionLabel(i)} ${k === 1 ? 'porta' : 'portano'} ${signed(k * q)}`, first = count(n, c, qc);
+    return { ok: true, formula: ionicFormula(c, n, a, m), message: `Esatto: ${ionicFormula(c, n, a, m)}, ${challenge.name}. ${first[0].toUpperCase() + first.slice(1)}, ${count(m, a, qa)}: la somma è zero.` };
+}
+
+// ---------- Cards: classification and ordering rounds written in the unit file ----------
+const slug = x => typeof x === 'string' && /^[a-z0-9-]{1,40}$/.test(x);
+const words = (x, max) => typeof x === 'string' && x.trim().length > 0 && x.length <= max;
+/** Throws when the rounds of a 'cards' activity are malformed. */
+export function validateCards(a) {
+    if (!plain(a) || a.kind !== 'cards' || !Array.isArray(a.rounds) || a.rounds.length < 1 || a.rounds.length > 8) throw Error('Serie di carte non valide');
+    const seen = new Set();
+    for (const r of a.rounds) {
+        if (!plain(r) || !slug(r.id) || seen.has(r.id) || !['classify', 'order'].includes(r.type) || !words(r.title, 60) || !words(r.prompt, 400) || !words(r.explain, 700)) throw Error('Serie non valida: ' + r?.id);
+        seen.add(r.id);
+        if (!Array.isArray(r.items) || r.items.length < 3 || r.items.length > 10) throw Error('Carte non valide: ' + r.id);
+        const itemIds = new Set();
+        for (const it of r.items) { if (!plain(it) || !slug(it.id) || itemIds.has(it.id) || !words(it.text, 120) || !words(it.why, 400)) throw Error('Carta non valida: ' + r.id); itemIds.add(it.id); }
+        if (r.type === 'classify') {
+            if (!Array.isArray(r.categories) || r.categories.length < 2 || r.categories.length > 4) throw Error('Categorie non valide: ' + r.id);
+            const cats = new Set(r.categories.map(c => c?.id));
+            if (cats.size !== r.categories.length || r.categories.some(c => !slug(c.id) || !words(c.label, 24)) || r.items.some(it => !cats.has(it.category))) throw Error('Categorie non valide: ' + r.id);
+            if (!Number.isInteger(r.maxErrors) || r.maxErrors < 0 || r.maxErrors > 5) throw Error('Soglia non valida: ' + r.id);
+        }
+    }
+    if (!Number.isInteger(a.goal) || a.goal < 1 || a.goal > a.rounds.length) throw Error('Obiettivo non valido');
+    return a;
+}
+export function checkCard(round, index, category) {
+    const it = round.items[index];
+    if (!it || !round.categories.some(c => c.id === category)) throw Error('Carta non valida');
+    const label = round.categories.find(c => c.id === it.category).label;
+    return it.category === category ? { ok: true, message: 'Giusto. ' + it.why } : { ok: false, message: `No: la carta va in «${label}». ${it.why}` };
+}
+/** A deterministic starting order that never coincides with the solution. */
+export function scrambled(round) {
+    const ids = round.items.map(it => it.id), n = ids.length, out = [];
+    for (let k = 0; k < n; k++) out.push(ids[(k * 2 + 1) % n === k ? (k + 1) % n : (k * 2 + 1) % n]);
+    const unique = [...new Set(out)], rest = ids.filter(id => !unique.includes(id)), order = [...unique, ...rest];
+    return order.every((id, i) => id === ids[i]) ? [...ids].reverse() : order;
+}
+export function checkOrder(round, order) {
+    const ids = round.items.map(it => it.id);
+    if (!Array.isArray(order) || order.length !== ids.length || new Set(order).size !== ids.length || order.some(id => !ids.includes(id))) throw Error('Ordine non valido');
+    const inPlace = order.filter((id, i) => id === ids[i]).length;
+    if (inPlace === ids.length) return { ok: true, inPlace, message: 'Ordine corretto. ' + round.explain };
+    // The hint explains the misplaced card, never the card that belongs in that position.
+    const first = order.findIndex((id, i) => id !== ids[i]), misplaced = round.items.find(it => it.id === order[first]);
+    return { ok: false, inPlace, message: `${inPlace} ${inPlace === 1 ? 'carta è' : 'carte sono'} al posto giusto su ${ids.length}. La carta in posizione ${first + 1}, «${misplaced.text}», va spostata. ${misplaced.why}` };
+}
+
 // ---------- State ----------
 export function freshActivity(kind) {
     if (!ACTIVITY_KINDS.includes(kind)) throw Error('Attività sconosciuta');
@@ -184,13 +326,22 @@ export function freshActivity(kind) {
 export function cleanActivity(value, kind) {
     const s = freshActivity(kind);
     if (!plain(value) || value.kind !== kind) return s;
-    const allowed = kind === 'vsepr' ? vseprIds : kind === 'logic' ? statementIds : null;
-    s.solved = allowed ? ids(value.solved, allowed, 20) : Array.isArray(value.solved) ? value.solved.filter(id => typeof id === 'string' && /^mistero-[1-9]$/.test(id)).slice(0, 9) : [];
+    const allowed = { vsepr: vseprIds, logic: statementIds, bisection: bisectionIds, ionic: ionicIds }[kind];
+    s.solved = allowed ? ids(value.solved, allowed, 20)
+        : kind === 'cards' ? (Array.isArray(value.solved) ? [...new Set(value.solved.filter(slug))].slice(0, 8) : [])
+        : Array.isArray(value.solved) ? value.solved.filter(id => typeof id === 'string' && /^mistero-[1-9]$/.test(id)).slice(0, 9) : [];
     s.attempts = Number.isInteger(value.attempts) ? Math.max(0, Math.min(99999, value.attempts)) : 0;
     return s;
 }
 export function recordSolved(state, id) { state.attempts++; if (!state.solved.includes(id)) state.solved.push(id); }
-export function activityProgress(kind, state) {
-    const goal = ACTIVITY_GOALS[kind], solved = state?.kind === kind ? state.solved.length : 0;
+/** activity: the unit's activity object, or a kind name for the activities with fixed content. */
+export function activityGoal(activity) {
+    const kind = typeof activity === 'string' ? activity : activity?.kind;
+    return kind === 'cards' ? activity.goal : ACTIVITY_GOALS[kind];
+}
+export function activityProgress(activity, state) {
+    const kind = typeof activity === 'string' ? activity : activity.kind, goal = activityGoal(activity);
+    const known = kind === 'cards' ? new Set(activity.rounds.map(r => r.id)) : null;
+    const solved = state?.kind === kind ? state.solved.filter(id => !known || known.has(id)).length : 0;
     return { solved: Math.min(solved, goal), goal, done: solved >= goal };
 }

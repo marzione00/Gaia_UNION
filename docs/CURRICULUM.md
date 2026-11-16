@@ -55,3 +55,10 @@ Il rapporto `CURRICULUM_QA.json` separa test numerici, layout, applicazione con 
 L'ambiente locale proviene dall'artefatto GitHub Pages, che non comprende `sources/v7`. Tre vecchi confronti contro questi file non sono eseguibili qui e sono esclusi dal comando locale documentato nel rapporto, non eliminati dai test della repository. La conservazione dei materiali distribuiti è verificata separatamente contro l'artefatto originale. Non si dichiara eseguita tutta la suite storica di 88 test: il rapporto elenca soltanto i test effettivamente disponibili ed eseguiti.
 
 Prima del merge: eseguire l'intera suite nella repository completa; verificare Firefox/Chromium/Safari su desktop e mobile, tastiera, focus, touch, clipboard, esportazione/importazione e persistenza dopo riavvio; revisionare scientificamente le spiegazioni e i quesiti; provare le attività con studenti. L'estensione fornisce copertura funzionale di tutti i moduli, non sostituisce questi collaudi editoriali e di dispositivo.
+
+## Unità scritte per intero (1.9)
+
+Undici unità hanno testi, glossario e domande scritti a mano in `content/curriculum/prototypes.json`: math-c01, math-p01, math-b, math-p05, chemistry-06, chemistry-07, chemistry-08, chemistry-09, biology-07, biology-08, biology-09. `npm run build:curriculum` sostituisce con questi i testi generati; il campo `editorialStatus` vale `hand-written-draft`.
+
+Le unità con il campo `activity` sostituiscono il laboratorio del modello con un’attività: `logic`, `bisection`, `ionic`, `vsepr`, `punnett` hanno contenuti in `src/education/activities.js`; `cards` legge le serie dal file dell’unità. Ogni serie è `classify` (carte, da due a quattro categorie, numero massimo di errori) oppure `order` (carte nell’ordine corretto). `validateCards` rifiuta serie malformate al caricamento del registro. Le unità senza `activity` mantengono il laboratorio e il confronto A/B.
+
