@@ -13,6 +13,7 @@
  *   ...                                    quotidiano, nota, approfondimento (collapsible), sintesi,
  *   :::                                    obiettivi, esercizio (with a `>>> soluzione` line), figura
  *   ::: figura id                          figure: JSON spec (src/book/figures.js), a `---` line, caption
+ *   ![didascalia](fig/nome.svg "320x180")  figure from an SVG file next to the chapter (also inside blocks)
  *
  * Math is left to MathJax: it is only HTML-escaped. Everything else is escaped before formatting, so a
  * chapter cannot inject markup. */
@@ -47,18 +48,20 @@ export function inline(text, links = []) {
         return s;
     }).join('');
 }
+// Figure line: caption, path of an SVG in the chapter folder, optional natural size.
+const IMAGE = /^!\[(.*)\]\((fig\/[\w-]+\.svg)(?: "(\d{1,4})x(\d{1,4})")?\)\s*$/;
 const wordsOf = s => (String(s).replace(/\$\$[\s\S]*?\$\$|\$[^$]+\$/g, ' ').match(/[\p{L}\p{N}]+/gu) || []).length;
 
 /** Parses a chapter. Returns metadata, the HTML, the table of contents and counters used by the tests. */
 export function parseChapter(source) {
-    const lines = String(source).replace(/\r\n?/g, '\n').split('\n'), meta = {}, toc = [], out = [], links = [], figures = [], exercises = [];
+    const lines = String(source).replace(/\r\n?/g, '\n').split('\n'), meta = {}, toc = [], out = [], links = [], figures = [], exercises = [], images = [];
     let i = 0, words = 0, open = false;
     if (lines[0] === '---') { i = 1; while (i < lines.length && lines[i] !== '---') { const m = lines[i].match(/^([\w-]+):\s*(.*)$/); if (m) meta[m[1]] = m[2].trim(); i++; } i++; }
     const used = new Set(), unique = id => { let k = id || 'sezione', n = 2; while (used.has(k)) k = `${id}-${n++}`; used.add(k); return k; };
     // Body lines (paragraphs, lists, tables, formulas) until a blank line or a structural line.
     const body = (L, ctx) => {
         const html = []; let k = 0;
-        const structural = l => /^(#{2,3} |::: |:::$|\$\$|- |\d+\. |\||>>> )/.test(l);
+        const structural = l => /^(#{2,3} |::: |:::$|\$\$|- |\d+\. |\||>>> |!\[)/.test(l);
         while (k < L.length) {
             const l = L[k];
             if (!l.trim()) { k++; continue; }
@@ -70,6 +73,12 @@ export function parseChapter(source) {
                 const ordered = /^\d+\. /.test(l), items = [];
                 while (k < L.length && (ordered ? /^\d+\. /.test(L[k]) : /^- /.test(L[k]))) { let item = L[k].replace(/^(- |\d+\. )/, ''); k++; while (k < L.length && /^ {2,}\S/.test(L[k])) item += ' ' + L[k++].trim(); words += wordsOf(item); items.push(`<li>${inline(item, links)}</li>`); }
                 html.push(`<${ordered ? 'ol' : 'ul'}>${items.join('')}</${ordered ? 'ol' : 'ul'}>`); continue;
+            }
+            const img = l.match(IMAGE);
+            if (img) {
+                const [, caption, src, w = '480', h = '320'] = img, id = unique('figura-' + (figures.length + 1)); figures.push(id); images.push(src); words += wordsOf(caption); k++;
+                html.push(`<figure class="libro-figura" id="${id}"><div class="libro-svg-esterno" data-src="${escapeHtml(src)}" role="img" aria-label="${escapeHtml(caption.replace(/\$/g, '') || 'Figura ' + figures.length)}" style="--w:${w}px;aspect-ratio:${w}/${h}"></div><figcaption><span class="libro-etichetta">Figura ${figures.length}.</span>${caption ? ' ' + inline(caption, links) : ''}</figcaption></figure>`);
+                continue;
             }
             if (l.startsWith('|')) {
                 const rows = []; while (k < L.length && L[k].startsWith('|')) rows.push(L[k++]);
@@ -125,5 +134,5 @@ export function parseChapter(source) {
         buffer.push(l);
     }
     flush(); if (open) out.push('</section>');
-    return { meta, toc, html: out.join('\n'), words, links, figures, exercises };
+    return { meta, toc, html: out.join('\n'), words, links, figures, exercises, images };
 }

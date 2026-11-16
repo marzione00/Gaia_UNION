@@ -25,6 +25,8 @@ Uso e crediti seguono le [NASA Images and Media Usage Guidelines](https://www.na
 
 MathJax, `vendor/mathjax`, licenza Apache 2.0 inclusa; usato nel rebuild delle tessere tipografiche e, dalla 1.21.0, dal sito per le formule dei capitoli del libro. Le figure SVG dei quesiti sono quelle già presenti nella V7, ricostruzioni dichiarate della dispensa, non nuove osservazioni.
 
+I diagrammi dei capitoli del libro (`content/libro/fig`) sono compilati dalla dispensa di fisica del corso e contengono, come tracciati SVG, i contorni dei glifi dei caratteri della dispensa (URW Palladio L, AMS Euler, Computer Modern), nello stesso modo in cui li incorpora il PDF della dispensa già distribuito in `materials/`. Le licenze di questi caratteri ne consentono l'incorporamento nei documenti.
+
 ## Caratteri
 
 L’atlante raster dei glifi deriva dai caratteri Inter, Noto Serif e DejaVu installati nell’ambiente di build. Sono inclusi soltanto i glifi raster necessari, le metriche e le note di licenza testuali, **non file TTF/OTF/WOFF**. La prosa delle lezioni usa i caratteri di lettura disponibili nel browser di build. Per ricomporre i documenti su un altro sistema è possibile scegliere famiglie locali con licenze adeguate.

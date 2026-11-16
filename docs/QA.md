@@ -1,18 +1,19 @@
-# Collaudo GAIA 1.21.0
+# Collaudo GAIA 1.22.0
 
-Eseguito il 16 novembre 2026 sul ramo `feat/libro-pilota-20261116`, a partire da `main` al commit `158d3b1` (versione 1.20.1), con Node.js 22.
+Eseguito il 16 novembre 2026 sul ramo `feat/libro-fisica-20261116`, costruito sopra `feat/libro-pilota-20261116` (versione 1.21.0, pull request #20), con Node.js 22.
 
 | Controllo | Comando | Risultato |
 |---|---|---:|
-| Test Node | `node --test tests/*.test.mjs` | 306 / 306 |
+| Test Node | `node --test tests/*.test.mjs` | 308 / 308 |
 | Riferimenti e risorse | `node scripts/check.mjs` | 3543 / 3543 |
-| Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 174 controlli |
+| Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 200 controlli |
 | Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 118 controlli |
 | Interazioni reali dell’atlante in Chromium con WebGL 2 (SwiftShader) | `python3 tools/qa_atlas_browser.py --root dist` | 23 / 23, nessun errore GL |
+| Tutti i capitoli del libro in Chromium | `python3 tools/qa_libro_browser.py` | 25 capitoli, 8237 formule, 575 figure, nessun errore |
 
 Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`.
 
-Prove aggiuntive nel browser sul capitolo pilota «Forze e leggi di Newton», a 1440 × 900 e a 390 × 844: 338 formule composte da MathJax senza errori, 9 figure, 16 sezioni nell’indice; l’indirizzo con `sezione` apre il capitolo alla sezione richiesta; un rimando a un capitolo non ancora scritto porta al pianeta con un avviso; Esc e «Torna al pianeta» riportano all’orbita; nessun errore della pagina. All’avvio il sito non richiede geometrie delle scene Blender.
+Prove aggiuntive nel browser: ogni capitolo aperto con l’indirizzo `#/libro`, formule composte da MathJax senza errori, tutte le figure SVG caricate, nessun simbolo `$` rimasto nel testo, nessun errore della pagina. A 390 × 844 la pagina dei capitoli più ricchi di formule non scorre di lato; l’indirizzo con `sezione` apre il capitolo alla sezione richiesta; in orbita le unità di fisica mostrano «Leggi il capitolo».
 
 ## Integrazione continua
 

@@ -35,6 +35,8 @@
 .libro code{font:15px/1.4 "DejaVu Sans Mono",monospace;background:#121d31;padding:1px 5px;border-radius:4px}
 .libro-formula{margin:18px 0 22px;overflow-x:auto;overflow-y:hidden;padding:2px 0}
 .libro mjx-container{color:#eef2f8}
+.libro mjx-container.libro-formula-lunga{display:block;max-width:100%;overflow-x:auto;overflow-y:hidden;padding:2px 0;margin:.3em 0}
+.libro-capitolo a{overflow-wrap:anywhere}
 .libro mjx-container[display="true"]{margin:.6em 0!important}
 .libro-blocco{margin:26px 0;padding:18px 22px 6px;border-radius:12px;border:1px solid #273754;background:#0d1626}
 .libro-intestazione,.libro-approfondimento>summary{font:600 13px/1.4 Inter,system-ui,sans-serif;margin-bottom:10px;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:baseline}
@@ -63,6 +65,9 @@
 .libro-soluzione>summary{cursor:pointer;font:600 14px/1.4 Inter,system-ui,sans-serif;color:#9fe0bf;margin-bottom:8px}
 .libro-figura{margin:28px 0;text-align:center}
 .libro-svg{width:100%;max-width:720px;height:auto;max-height:440px;background:#0b1422;border:1px solid #1d2a42;border-radius:12px}
+.libro-svg-esterno{display:block;margin:0 auto;width:min(calc(100% - 24px),var(--w));height:auto;padding:12px;box-sizing:content-box;background:#0b1422;border:1px solid #1d2a42;border-radius:12px}
+.libro-svg-esterno svg{display:block;width:100%;height:100%}
+.libro-svg-esterno[data-stato="errore"]{display:grid;place-items:center;color:#aeb9cb;font:13px/1.4 Inter,system-ui,sans-serif}
 .libro figcaption{font:14px/1.55 Inter,system-ui,sans-serif;color:#aeb9cb;margin-top:10px;text-align:left}
 .libro figcaption .libro-etichetta{margin-right:4px}
 .libro-tabella{overflow-x:auto;margin:10px 0 22px}
@@ -79,6 +84,8 @@
 .libro-svg .f-force3{stroke:#9fe0bf;fill:#9fe0bf}.libro-svg .f-force4{stroke:#ff9c8a;fill:#ff9c8a}
 .libro-svg .f-accent{stroke:#b9a6ff;fill:#b9a6ff}
 .libro-svg .f-body{stroke:#8ab8ff;fill:#18243a}
+/* Open lines never take the fill of their colour class (the colour rules above set both stroke and fill). */
+.libro-svg .f-stroke.f-nofill,.libro-svg line.f-stroke{fill:none}
 .libro-svg .f-shape{stroke-width:1.6}
 .libro-svg .f-shape.f-ax,.libro-svg .f-shape.f-muted{fill:#121d31}
 .libro-svg text{stroke:none;font-family:Inter,system-ui,sans-serif}
@@ -101,7 +108,8 @@
  .libro-indice,.libro-strumenti-mobile,.libro-navigazione,.libro-azioni{display:none!important}
  .libro-pagina{overflow:visible;padding:0}
  .libro h1,.libro h2,.libro h3,.libro strong,.libro mjx-container{color:#000}
- .libro-blocco,.libro-svg{background:#fff;border-color:#888}
+ .libro-blocco,.libro-svg,.libro-svg-esterno{background:#fff;border-color:#888}
+ .libro-svg-esterno svg{filter:invert(1) hue-rotate(180deg)}
  .libro details{display:block}.libro details>*{display:block}
  .libro-svg .f-ax,.libro-svg .f-force,.libro-svg .f-force2,.libro-svg .f-force3,.libro-svg .f-force4,.libro-svg .f-accent{stroke:#000;fill:#000}
  .libro-svg .f-body,.libro-svg .f-shape.f-ax{fill:#eee;stroke:#000}.libro-svg text.f-ax{fill:#000}
