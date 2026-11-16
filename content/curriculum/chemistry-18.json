@@ -5,20 +5,21 @@
   "title": "Temperatura e attivazione",
   "sector": 2,
   "modelId": "chemistry-18",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Parametri di Arrhenius costanti",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Energia di attivazione, distribuzione delle energie, equazione di Arrhenius e catalizzatori",
+  "narrativeStatus": "Latte e lucciole sono esempi reali; i valori di E_a nei problemi sono tipici, scelti per i calcoli.",
   "objectives": [
-    "Spiegare: parametri di arrhenius costanti.",
-    "Applicare k(T) = A exp(-E_a/(RT)), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Descrivere energia di attivazione e profilo di reazione.",
+    "Collegare la temperatura alla frazione di urti efficaci.",
+    "Usare l’equazione di Arrhenius a una e a due temperature.",
+    "Spiegare l’effetto di un catalizzatore."
   ],
   "prerequisites": [
     "chemistry-17"
   ],
   "connections": [
-    "chemistry-20"
+    "chemistry-19"
   ],
   "sources": [
     "chemistry",
@@ -27,250 +28,585 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Temperatura",
-      "definition": "Variabile indipendente, unità K; intervallo [250; 800]."
+      "term": "Energia di attivazione",
+      "definition": "Energia minima che un urto deve avere per portare alla reazione."
     },
     {
-      "term": "Costante cinetica",
-      "definition": "Risultato calcolato dal modello, unità 1/s."
+      "term": "Profilo di reazione",
+      "definition": "Grafico dell’energia lungo il percorso dai reagenti ai prodotti."
     },
     {
-      "term": "Fattore A",
-      "definition": "Parametro a, unità 1/s; intervallo [100.000; 2,00000e+6]."
+      "term": "Equazione di Arrhenius",
+      "definition": "k = A exp(−E_a/RT)."
     },
     {
-      "term": "Energia attivazione",
-      "definition": "Parametro b, unità kJ/mol; intervallo [20; 80]."
+      "term": "Fattore pre-esponenziale",
+      "definition": "Fattore A, legato a frequenza e orientazione degli urti."
+    },
+    {
+      "term": "Enzima",
+      "definition": "Catalizzatore biologico, di solito una proteina."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Latte, frigorifero e lucciole",
       "text": {
         "base": [
-          "Un archivio mostra che la velocità caratteristica cambia molto con la temperatura. La stazione cerca una relazione fra barriera energetica e costante cinetica, senza dedurne automaticamente l’esito finale.",
-          "La legge di Arrhenius scrive k=A exp(-E_a/RT). A è un fattore preesponenziale ed E_a una barriera di attivazione del modello. La temperatura va espressa in kelvin."
+          "Il latte lasciato fuori dal frigorifero inacidisce in un giorno; in frigorifero dura una settimana. Una lucciola lampeggia più in fretta nelle notti calde. Molte reazioni accelerano di circa due volte ogni dieci gradi in più. L’equazione di Arrhenius spiega da dove viene questa regola e quando vale.",
+          "Per trasformarsi i reagenti devono superare una barriera di energia, l’energia di attivazione E_a: è come spingere un masso oltre una collina prima che rotoli a valle. Solo gli urti con energia almeno pari a E_a sono efficaci. Il profilo di reazione mostra la barriera, e la differenza tra reagenti e prodotti è ΔH."
         ],
         "intermediate": [
-          "Un archivio mostra che la velocità caratteristica cambia molto con la temperatura. La stazione cerca una relazione fra barriera energetica e costante cinetica, senza dedurne automaticamente l’esito finale.",
-          "Il rapporto E_a/(RT) deve essere adimensionale. Il controllo usa E_a in kJ/mol e la converte in J/mol. A e k hanno la stessa unità, qui s⁻¹ per un esempio del primo ordine."
+          "Il latte lasciato fuori dal frigorifero inacidisce in un giorno; in frigorifero dura una settimana. Una lucciola lampeggia più in fretta nelle notti calde. Molte reazioni accelerano di circa due volte ogni dieci gradi in più. L’equazione di Arrhenius spiega da dove viene questa regola e quando vale.",
+          "Per trasformarsi i reagenti devono superare una barriera di energia, l’energia di attivazione E_a: è come spingere un masso oltre una collina prima che rotoli a valle. Solo gli urti con energia almeno pari a E_a sono efficaci. Il profilo di reazione mostra la barriera, e la differenza tra reagenti e prodotti è ΔH."
         ],
         "advanced": [
-          "Un archivio mostra che la velocità caratteristica cambia molto con la temperatura. La stazione cerca una relazione fra barriera energetica e costante cinetica, senza dedurne automaticamente l’esito finale.",
-          "Linearizza ln k contro 1/T e identifica pendenza e intercetta. Discuta quando una deviazione dalla retta potrebbe segnalare un cambio di meccanismo.",
-          "Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello."
+          "Il latte lasciato fuori dal frigorifero inacidisce in un giorno; in frigorifero dura una settimana. Una lucciola lampeggia più in fretta nelle notti calde. Molte reazioni accelerano di circa due volte ogni dieci gradi in più. L’equazione di Arrhenius spiega da dove viene questa regola e quando vale.",
+          "Per trasformarsi i reagenti devono superare una barriera di energia, l’energia di attivazione E_a: è come spingere un masso oltre una collina prima che rotoli a valle. Solo gli urti con energia almeno pari a E_a sono efficaci. Il profilo di reazione mostra la barriera, e la differenza tra reagenti e prodotti è ΔH."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Barriere ed esponenziali",
       "text": {
         "base": [
-          "La legge di Arrhenius scrive k=A exp(-E_a/RT). A è un fattore preesponenziale ed E_a una barriera di attivazione del modello. La temperatura va espressa in kelvin.",
-          "Con A=10⁶ s⁻¹, E_a=50 kJ/mol e T=500 K, k≈5,979 s⁻¹. Inserire 50 senza convertirlo in 50.000 cambierebbe radicalmente il risultato."
+          "A una certa temperatura le molecole non hanno tutte la stessa energia: la distribuzione di Maxwell-Boltzmann descrive quante ne hanno di più o di meno. Aumentando la temperatura la distribuzione si allarga verso energie maggiori e la frazione di molecole oltre E_a cresce molto più della temperatura stessa. Questa frazione è circa exp(−E_a/RT).",
+          "Svante Arrhenius, nel 1889, riassunse il fenomeno in k = A exp(−E_a/RT), dove A è il fattore pre-esponenziale, legato alla frequenza e all’orientazione degli urti, e R = 8,314 J/(mol·K). Confrontando due temperature: ln(k₂/k₁) = (E_a/R)(1/T₁ − 1/T₂). Con E_a = 50 kJ/mol, da 298 a 308 K: 6014 · 1,09 · 10⁻⁴ ≈ 0,655, e k₂/k₁ ≈ e^0,655 ≈ 1,93.",
+          "Un catalizzatore abbassa la barriera. Se E_a scende da 75 a 50 kJ/mol a 298 K, con lo stesso fattore A, k aumenta di exp(25 000/(8,314 · 298)) ≈ e^10,1, circa 24 000 volte. Gli enzimi dei viventi sono catalizzatori di questo tipo: permettono a reazioni lentissime di avvenire a temperatura corporea."
         ],
         "intermediate": [
-          "Il rapporto E_a/(RT) deve essere adimensionale. Il controllo usa E_a in kJ/mol e la converte in J/mol. A e k hanno la stessa unità, qui s⁻¹ per un esempio del primo ordine.",
-          "La variabile Temperatura è espressa in K; Costante cinetica in 1/s. Il dominio dello strumento è [250; 800]. La relazione implementata è: k(T) = A exp(-E_a/(RT)).",
-          "Con A=10⁶ s⁻¹, E_a=50 kJ/mol e T=500 K, k≈5,979 s⁻¹. Inserire 50 senza convertirlo in 50.000 cambierebbe radicalmente il risultato."
+          "A una certa temperatura le molecole non hanno tutte la stessa energia: la distribuzione di Maxwell-Boltzmann descrive quante ne hanno di più o di meno. Aumentando la temperatura la distribuzione si allarga verso energie maggiori e la frazione di molecole oltre E_a cresce molto più della temperatura stessa. Questa frazione è circa exp(−E_a/RT).",
+          "Svante Arrhenius, nel 1889, riassunse il fenomeno in k = A exp(−E_a/RT), dove A è il fattore pre-esponenziale, legato alla frequenza e all’orientazione degli urti, e R = 8,314 J/(mol·K). Confrontando due temperature: ln(k₂/k₁) = (E_a/R)(1/T₁ − 1/T₂). Con E_a = 50 kJ/mol, da 298 a 308 K: 6014 · 1,09 · 10⁻⁴ ≈ 0,655, e k₂/k₁ ≈ e^0,655 ≈ 1,93.",
+          "Prendendo il logaritmo, ln k = ln A − (E_a/R)(1/T): riportando ln k contro 1/T si ottiene una retta con pendenza −E_a/R. È il metodo con cui si misura l’energia di attivazione: si misura k a più temperature e si calcola la pendenza. La regola del raddoppio ogni dieci gradi vale per E_a intorno a 50 kJ/mol e temperature vicine a quella ambiente.",
+          "Un catalizzatore abbassa la barriera. Se E_a scende da 75 a 50 kJ/mol a 298 K, con lo stesso fattore A, k aumenta di exp(25 000/(8,314 · 298)) ≈ e^10,1, circa 24 000 volte. Gli enzimi dei viventi sono catalizzatori di questo tipo: permettono a reazioni lentissime di avvenire a temperatura corporea."
         ],
         "advanced": [
-          "Il rapporto E_a/(RT) deve essere adimensionale. Il controllo usa E_a in kJ/mol e la converte in J/mol. A e k hanno la stessa unità, qui s⁻¹ per un esempio del primo ordine.",
-          "Linearizza ln k contro 1/T e identifica pendenza e intercetta. Discuta quando una deviazione dalla retta potrebbe segnalare un cambio di meccanismo.",
-          "Una barriera di attivazione non è la differenza energetica fra reagenti e prodotti. Accelerare il raggiungimento dell’equilibrio non equivale a spostare l’equilibrio."
+          "A una certa temperatura le molecole non hanno tutte la stessa energia: la distribuzione di Maxwell-Boltzmann descrive quante ne hanno di più o di meno. Aumentando la temperatura la distribuzione si allarga verso energie maggiori e la frazione di molecole oltre E_a cresce molto più della temperatura stessa. Questa frazione è circa exp(−E_a/RT).",
+          "Svante Arrhenius, nel 1889, riassunse il fenomeno in k = A exp(−E_a/RT), dove A è il fattore pre-esponenziale, legato alla frequenza e all’orientazione degli urti, e R = 8,314 J/(mol·K). Confrontando due temperature: ln(k₂/k₁) = (E_a/R)(1/T₁ − 1/T₂). Con E_a = 50 kJ/mol, da 298 a 308 K: 6014 · 1,09 · 10⁻⁴ ≈ 0,655, e k₂/k₁ ≈ e^0,655 ≈ 1,93.",
+          "Prendendo il logaritmo, ln k = ln A − (E_a/R)(1/T): riportando ln k contro 1/T si ottiene una retta con pendenza −E_a/R. È il metodo con cui si misura l’energia di attivazione: si misura k a più temperature e si calcola la pendenza. La regola del raddoppio ogni dieci gradi vale per E_a intorno a 50 kJ/mol e temperature vicine a quella ambiente.",
+          "Un catalizzatore abbassa la barriera. Se E_a scende da 75 a 50 kJ/mol a 298 K, con lo stesso fattore A, k aumenta di exp(25 000/(8,314 · 298)) ≈ e^10,1, circa 24 000 volte. Gli enzimi dei viventi sono catalizzatori di questo tipo: permettono a reazioni lentissime di avvenire a temperatura corporea.",
+          "Il modello del programma calcola k(T) = A exp(−E_a/RT) da 250 a 800 K, con A ed E_a regolabili: con A = 10⁶ s⁻¹ ed E_a = 50 kJ/mol, a 500 K vale circa 6,0 s⁻¹."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Problemi guidati",
       "text": {
         "base": [
-          "Nel laboratorio imposta Fattore A (a): 1,00000e+6 1/s; Energia attivazione (b): 50 kJ/mol. Prima di salvare A, prevedi come cambia Costante cinetica fra Temperatura=387,5 e 525 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con A=10⁶ s⁻¹, E_a=50 kJ/mol e T=500 K, k≈5,979 s⁻¹. Inserire 50 senza convertirlo in 50.000 cambierebbe radicalmente il risultato.",
-          "La variabile Temperatura è espressa in K; Costante cinetica in 1/s. Il dominio dello strumento è [250; 800]. La relazione implementata è: k(T) = A exp(-E_a/(RT))."
+          "L’attività propone quattro problemi guidati: il fattore di accelerazione da 25 a 35 °C; il rallentamento in frigorifero; l’energia di attivazione di una reazione che raddoppia la velocità tra 300 e 310 K; l’effetto di un catalizzatore. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Converti sempre le temperature in kelvin ed esprimi E_a in J/mol, non in kJ/mol: con R = 8,314 J/(mol·K) le unità devono tornare.",
+          "Il modello del programma calcola k(T) = A exp(−E_a/RT) da 250 a 800 K, con A ed E_a regolabili: con A = 10⁶ s⁻¹ ed E_a = 50 kJ/mol, a 500 K vale circa 6,0 s⁻¹."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Fattore A (a): 1,00000e+6 1/s; Energia attivazione (b): 50 kJ/mol. Prima di salvare A, prevedi come cambia Costante cinetica fra Temperatura=387,5 e 525 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Temperatura è espressa in K; Costante cinetica in 1/s. Il dominio dello strumento è [250; 800]. La relazione implementata è: k(T) = A exp(-E_a/(RT)).",
-          "Il rapporto E_a/(RT) deve essere adimensionale. Il controllo usa E_a in kJ/mol e la converte in J/mol. A e k hanno la stessa unità, qui s⁻¹ per un esempio del primo ordine."
+          "L’attività propone quattro problemi guidati: il fattore di accelerazione da 25 a 35 °C; il rallentamento in frigorifero; l’energia di attivazione di una reazione che raddoppia la velocità tra 300 e 310 K; l’effetto di un catalizzatore. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Converti sempre le temperature in kelvin ed esprimi E_a in J/mol, non in kJ/mol: con R = 8,314 J/(mol·K) le unità devono tornare.",
+          "Il modello del programma calcola k(T) = A exp(−E_a/RT) da 250 a 800 K, con A ed E_a regolabili: con A = 10⁶ s⁻¹ ed E_a = 50 kJ/mol, a 500 K vale circa 6,0 s⁻¹."
         ],
         "advanced": [
-          "Nel laboratorio imposta Fattore A (a): 1,00000e+6 1/s; Energia attivazione (b): 50 kJ/mol. Prima di salvare A, prevedi come cambia Costante cinetica fra Temperatura=387,5 e 525 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Linearizza ln k contro 1/T e identifica pendenza e intercetta. Discuta quando una deviazione dalla retta potrebbe segnalare un cambio di meccanismo.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività propone quattro problemi guidati: il fattore di accelerazione da 25 a 35 °C; il rallentamento in frigorifero; l’energia di attivazione di una reazione che raddoppia la velocità tra 300 e 310 K; l’effetto di un catalizzatore. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Converti sempre le temperature in kelvin ed esprimi E_a in J/mol, non in kJ/mol: con R = 8,314 J/(mol·K) le unità devono tornare."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "Una barriera di attivazione non è la differenza energetica fra reagenti e prodotti. Accelerare il raggiungimento dell’equilibrio non equivale a spostare l’equilibrio.",
-          "Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: applicare la regola del raddoppio a ogni reazione. Con E_a = 100 kJ/mol dieci gradi in più moltiplicano k per circa 3,7; con E_a = 20 kJ/mol solo per circa 1,3.",
+          "Secondo errore: pensare che un catalizzatore cambi ΔH o la posizione dell’equilibrio. Abbassa la barriera in entrambe le direzioni: accelera allo stesso modo la reazione diretta e quella inversa.",
+          "Prendendo il logaritmo, ln k = ln A − (E_a/R)(1/T): riportando ln k contro 1/T si ottiene una retta con pendenza −E_a/R. È il metodo con cui si misura l’energia di attivazione: si misura k a più temperature e si calcola la pendenza. La regola del raddoppio ogni dieci gradi vale per E_a intorno a 50 kJ/mol e temperature vicine a quella ambiente."
         ],
         "intermediate": [
-          "Una barriera di attivazione non è la differenza energetica fra reagenti e prodotti. Accelerare il raggiungimento dell’equilibrio non equivale a spostare l’equilibrio.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: applicare la regola del raddoppio a ogni reazione. Con E_a = 100 kJ/mol dieci gradi in più moltiplicano k per circa 3,7; con E_a = 20 kJ/mol solo per circa 1,3.",
+          "Secondo errore: pensare che un catalizzatore cambi ΔH o la posizione dell’equilibrio. Abbassa la barriera in entrambe le direzioni: accelera allo stesso modo la reazione diretta e quella inversa.",
+          "Prendendo il logaritmo, ln k = ln A − (E_a/R)(1/T): riportando ln k contro 1/T si ottiene una retta con pendenza −E_a/R. È il metodo con cui si misura l’energia di attivazione: si misura k a più temperature e si calcola la pendenza. La regola del raddoppio ogni dieci gradi vale per E_a intorno a 50 kJ/mol e temperature vicine a quella ambiente."
         ],
         "advanced": [
-          "Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello.",
-          "Linearizza ln k contro 1/T e identifica pendenza e intercetta. Discuta quando una deviazione dalla retta potrebbe segnalare un cambio di meccanismo.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: applicare la regola del raddoppio a ogni reazione. Con E_a = 100 kJ/mol dieci gradi in più moltiplicano k per circa 3,7; con E_a = 20 kJ/mol solo per circa 1,3.",
+          "Secondo errore: pensare che un catalizzatore cambi ΔH o la posizione dell’equilibrio. Abbassa la barriera in entrambe le direzioni: accelera allo stesso modo la reazione diretta e quella inversa.",
+          "Prendendo il logaritmo, ln k = ln A − (E_a/R)(1/T): riportando ln k contro 1/T si ottiene una retta con pendenza −E_a/R. È il metodo con cui si misura l’energia di attivazione: si misura k a più temperature e si calcola la pendenza. La regola del raddoppio ogni dieci gradi vale per E_a intorno a 50 kJ/mol e temperature vicine a quella ambiente."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "La legge di Arrhenius scrive k=A exp(-E_a/RT). A è un fattore preesponenziale ed E_a una barriera di attivazione del modello. La temperatura va espressa in kelvin.",
-          "Con A=10⁶ s⁻¹, E_a=50 kJ/mol e T=500 K, k≈5,979 s⁻¹. Inserire 50 senza convertirlo in 50.000 cambierebbe radicalmente il risultato."
+          "Ripasso: energia di attivazione e profilo di reazione; distribuzione delle energie molecolari; equazione di Arrhenius e forma con due temperature; grafico ln k contro 1/T; effetto dei catalizzatori.",
+          "Mini esercizio: con E_a = 50 kJ/mol, da 25 a 5 °C k si riduce di circa e^1,45 ≈ 4,3 volte.",
+          "Nelle domande su Arrhenius controlla le unità: kelvin per T, joule per mole per E_a."
         ],
         "intermediate": [
-          "Il rapporto E_a/(RT) deve essere adimensionale. Il controllo usa E_a in kJ/mol e la converte in J/mol. A e k hanno la stessa unità, qui s⁻¹ per un esempio del primo ordine.",
-          "La variabile Temperatura è espressa in K; Costante cinetica in 1/s. Il dominio dello strumento è [250; 800]. La relazione implementata è: k(T) = A exp(-E_a/(RT))."
+          "Ripasso: energia di attivazione e profilo di reazione; distribuzione delle energie molecolari; equazione di Arrhenius e forma con due temperature; grafico ln k contro 1/T; effetto dei catalizzatori.",
+          "Mini esercizio: con E_a = 50 kJ/mol, da 25 a 5 °C k si riduce di circa e^1,45 ≈ 4,3 volte.",
+          "Nelle domande su Arrhenius controlla le unità: kelvin per T, joule per mole per E_a."
         ],
         "advanced": [
-          "Linearizza ln k contro 1/T e identifica pendenza e intercetta. Discuta quando una deviazione dalla retta potrebbe segnalare un cambio di meccanismo.",
-          "Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello."
+          "Ripasso: energia di attivazione e profilo di reazione; distribuzione delle energie molecolari; equazione di Arrhenius e forma con due temperature; grafico ln k contro 1/T; effetto dei catalizzatori.",
+          "Mini esercizio: con E_a = 50 kJ/mol, da 25 a 5 °C k si riduce di circa e^1,45 ≈ 4,3 volte.",
+          "Nelle domande su Arrhenius controlla le unità: kelvin per T, joule per mole per E_a."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Parametri di Arrhenius costanti.",
-          "Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello.",
-          "Collegamento consigliato: chemistry-20. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le reazioni accelerate dal calore raggiungono prima l’equilibrio, ma non necessariamente con più prodotti: è il tema dell’unità «Equilibrio chimico».",
+          "Riepilogo dell’unità: i reagenti devono superare l’energia di attivazione; la frazione di urti efficaci cresce come exp(−E_a/RT); k = A exp(−E_a/RT) e ln(k₂/k₁) = (E_a/R)(1/T₁ − 1/T₂); il grafico di ln k contro 1/T dà E_a; un catalizzatore abbassa la barriera senza cambiare ΔH.",
+          "Nel diario spiega con l’equazione di Arrhenius perché il frigorifero rallenta il deterioramento dei cibi."
         ],
         "intermediate": [
-          "Il rapporto E_a/(RT) deve essere adimensionale. Il controllo usa E_a in kJ/mol e la converte in J/mol. A e k hanno la stessa unità, qui s⁻¹ per un esempio del primo ordine.",
-          "Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello.",
-          "Linearizza ln k contro 1/T e identifica pendenza e intercetta. Discuta quando una deviazione dalla retta potrebbe segnalare un cambio di meccanismo."
+          "Le reazioni accelerate dal calore raggiungono prima l’equilibrio, ma non necessariamente con più prodotti: è il tema dell’unità «Equilibrio chimico».",
+          "Riepilogo dell’unità: i reagenti devono superare l’energia di attivazione; la frazione di urti efficaci cresce come exp(−E_a/RT); k = A exp(−E_a/RT) e ln(k₂/k₁) = (E_a/R)(1/T₁ − 1/T₂); il grafico di ln k contro 1/T dà E_a; un catalizzatore abbassa la barriera senza cambiare ΔH.",
+          "Nel diario spiega con l’equazione di Arrhenius perché il frigorifero rallenta il deterioramento dei cibi."
         ],
         "advanced": [
-          "Linearizza ln k contro 1/T e identifica pendenza e intercetta. Discuta quando una deviazione dalla retta potrebbe segnalare un cambio di meccanismo.",
-          "Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le reazioni accelerate dal calore raggiungono prima l’equilibrio, ma non necessariamente con più prodotti: è il tema dell’unità «Equilibrio chimico».",
+          "Riepilogo dell’unità: i reagenti devono superare l’energia di attivazione; la frazione di urti efficaci cresce come exp(−E_a/RT); k = A exp(−E_a/RT) e ln(k₂/k₁) = (E_a/R)(1/T₁ − 1/T₂); il grafico di ln k contro 1/T dà E_a; un catalizzatore abbassa la barriera senza cambiare ΔH.",
+          "Nel diario spiega con l’equazione di Arrhenius perché il frigorifero rallenta il deterioramento dei cibi."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-18-concept",
-      "prompt": "Nell’esponente di Arrhenius, E_a/(RT) deve essere:",
+      "id": "chemistry-18-q1",
+      "prompt": "Che cos’è l’energia di attivazione?",
       "options": [
         {
           "id": "A",
-          "text": "Espresso in kelvin",
-          "feedback": "Una barriera di attivazione non è la differenza energetica fra reagenti e prodotti. Accelerare il raggiungimento dell’equilibrio non equivale a spostare l’equilibrio."
+          "text": "L’energia minima che un urto deve avere per portare alla reazione",
+          "feedback": "Esatto: è l’altezza della barriera nel profilo di reazione."
         },
         {
           "id": "B",
-          "text": "Espresso in secondi",
-          "feedback": "Il rapporto E_a/(RT) deve essere adimensionale. Il controllo usa E_a in kJ/mol e la converte in J/mol. A e k hanno la stessa unità, qui s⁻¹ per un esempio del primo ordine."
+          "text": "L’energia liberata dalla reazione",
+          "feedback": "L’energia liberata è legata a ΔH, che è un’altra grandezza."
         },
         {
           "id": "C",
-          "text": "Adimensionale",
-          "feedback": "La legge di Arrhenius scrive k=A exp(-E_a/RT). A è un fattore preesponenziale ed E_a una barriera di attivazione del modello. La temperatura va espressa in kelvin."
+          "text": "L’energia cinetica media delle molecole",
+          "feedback": "L’energia media dipende dalla temperatura, non dalla reazione."
+        },
+        {
+          "id": "D",
+          "text": "L’energia necessaria a fondere i reagenti",
+          "feedback": "L’energia di attivazione non riguarda i cambiamenti di stato."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-18-q2",
+      "prompt": "Secondo l’equazione di Arrhenius, come cresce k con la temperatura?",
+      "options": [
+        {
+          "id": "A",
+          "text": "In modo lineare",
+          "feedback": "La temperatura compare in un esponenziale: la crescita è molto più rapida."
+        },
+        {
+          "id": "B",
+          "text": "In modo esponenziale, tramite exp(−E_a/RT)",
+          "feedback": "Esatto: un piccolo aumento di T può moltiplicare k."
+        },
+        {
+          "id": "C",
+          "text": "Non cresce",
+          "feedback": "Quasi tutte le reazioni accelerano scaldando."
+        },
+        {
+          "id": "D",
+          "text": "Raddoppia per ogni kelvin",
+          "feedback": "Il raddoppio, quando vale, riguarda circa dieci gradi."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "chemistry-18-q3",
+      "prompt": "Con E_a ≈ 50 kJ/mol, di quanto cresce circa k passando da 25 a 35 °C?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Di 10 volte",
+          "feedback": "Dieci gradi in più danno un fattore vicino a 2 per questo valore di E_a."
+        },
+        {
+          "id": "B",
+          "text": "Del 3%",
+          "feedback": "Il 3% è l’aumento della temperatura in kelvin, non di k."
+        },
+        {
+          "id": "C",
+          "text": "Di circa 2 volte",
+          "feedback": "Esatto: il calcolo con Arrhenius dà un fattore di circa 1,93."
+        },
+        {
+          "id": "D",
+          "text": "Non cambia",
+          "feedback": "La costante cinetica dipende dalla temperatura in modo marcato."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "chemistry-18-calculation",
-      "prompt": "Calcolo: Fattore A (a)=1,00000e+6 1/s; Energia attivazione (b)=50 kJ/mol. Per Temperatura=500 K, quanto vale Costante cinetica?",
+      "id": "chemistry-18-q4",
+      "prompt": "Che effetto ha un catalizzatore su ΔH di una reazione?",
       "options": [
         {
           "id": "A",
-          "text": "2,98956 1/s",
-          "feedback": "Controlla sostituzione, segno e unità. k(T) = A exp(-E_a/(RT)). Con Fattore A (a)=1,00000e+6 1/s; Energia attivazione (b)=50 kJ/mol e Temperatura=500 K, il risultato è 5,97913 1/s. Conserva le unità e arrotonda solo alla fine."
+          "text": "Lo rende più negativo",
+          "feedback": "Il catalizzatore non cambia lo stato iniziale né quello finale."
         },
         {
           "id": "B",
-          "text": "5,97913 1/s",
-          "feedback": "k(T) = A exp(-E_a/(RT)). Con Fattore A (a)=1,00000e+6 1/s; Energia attivazione (b)=50 kJ/mol e Temperatura=500 K, il risultato è 5,97913 1/s. Conserva le unità e arrotonda solo alla fine."
+          "text": "Lo rende positivo",
+          "feedback": "Il catalizzatore non trasforma una reazione esotermica in endotermica."
         },
         {
           "id": "C",
-          "text": "8,96869 1/s",
-          "feedback": "Questo valore non soddisfa la relazione. k(T) = A exp(-E_a/(RT)). Con Fattore A (a)=1,00000e+6 1/s; Energia attivazione (b)=50 kJ/mol e Temperatura=500 K, il risultato è 5,97913 1/s. Conserva le unità e arrotonda solo alla fine."
+          "text": "Lo annulla",
+          "feedback": "ΔH resta la differenza di entalpia tra prodotti e reagenti."
+        },
+        {
+          "id": "D",
+          "text": "Nessuno: abbassa solo la barriera di attivazione",
+          "feedback": "Esatto: cambia il percorso, non gli estremi."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 500,
-        "parameters": {
-          "a": 1000000,
-          "b": 50
-        },
-        "expected": 5.979129887968594,
-        "unit": "1/s"
-      }
+      "correct": "D"
     },
     {
-      "id": "chemistry-18-transfer",
-      "prompt": "Trasferimento: Fattore A (a)=1,10000e+6 1/s; Energia attivazione (b)=50 kJ/mol. Per Temperatura=500 K, quanto vale Costante cinetica?",
+      "id": "chemistry-18-q5",
+      "prompt": "Che grafico si usa per misurare E_a da dati a diverse temperature?",
       "options": [
         {
           "id": "A",
-          "text": "6,57704 1/s",
-          "feedback": "k(T) = A exp(-E_a/(RT)). Con Fattore A (a)=1,10000e+6 1/s; Energia attivazione (b)=50 kJ/mol e Temperatura=500 K, il risultato è 6,57704 1/s. Conserva le unità e arrotonda solo alla fine."
+          "text": "ln k contro 1/T",
+          "feedback": "Esatto: è una retta con pendenza −E_a/R."
         },
         {
           "id": "B",
-          "text": "9,86556 1/s",
-          "feedback": "Questo valore non soddisfa la relazione. k(T) = A exp(-E_a/(RT)). Con Fattore A (a)=1,10000e+6 1/s; Energia attivazione (b)=50 kJ/mol e Temperatura=500 K, il risultato è 6,57704 1/s. Conserva le unità e arrotonda solo alla fine."
+          "text": "k contro T",
+          "feedback": "Questo grafico è una curva: la pendenza non dà E_a direttamente."
         },
         {
           "id": "C",
-          "text": "3,28852 1/s",
-          "feedback": "Controlla sostituzione, segno e unità. k(T) = A exp(-E_a/(RT)). Con Fattore A (a)=1,10000e+6 1/s; Energia attivazione (b)=50 kJ/mol e Temperatura=500 K, il risultato è 6,57704 1/s. Conserva le unità e arrotonda solo alla fine."
+          "text": "1/k contro T",
+          "feedback": "Nemmeno questo grafico è una retta."
+        },
+        {
+          "id": "D",
+          "text": "ln T contro k",
+          "feedback": "Le variabili sono scambiate e il logaritmo è sulla grandezza sbagliata."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 500,
-        "parameters": {
-          "a": 1100000,
-          "b": 50
-        },
-        "expected": 6.577042876765453,
-        "unit": "1/s"
-      }
+      "correct": "A"
     },
     {
-      "id": "chemistry-18-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "chemistry-18-q6",
+      "prompt": "Perché in frigorifero il latte dura più a lungo?",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello."
+          "text": "Perché il freddo uccide tutti i batteri",
+          "feedback": "A 4 °C i batteri sopravvivono, ma le loro reazioni rallentano."
         },
         {
           "id": "B",
-          "text": "Parametri di Arrhenius costanti",
-          "feedback": "Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello."
+          "text": "Perché a bassa temperatura le reazioni sono più lente",
+          "feedback": "Esatto: k diminuisce in modo esponenziale con 1/T."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Parametri A ed E_a costanti nell’intervallo. Non descrive tutte le cinetiche complesse né garantisce validità al di fuori delle condizioni del modello."
+          "text": "Perché il frigorifero è al buio",
+          "feedback": "La luce ha un ruolo minore; conta la temperatura."
+        },
+        {
+          "id": "D",
+          "text": "Perché l’aria del frigorifero è più secca",
+          "feedback": "Il latte è un liquido: l’umidità dell’aria non conta."
         }
       ],
       "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "steps",
+    "goal": 3,
+    "problems": [
+      {
+        "id": "raddoppio",
+        "title": "Da 25 a 35 °C",
+        "text": "Una reazione ha E_a = 50 kJ/mol. Di quanto cresce k passando da 25 a 35 °C?",
+        "maxErrors": 1,
+        "explain": "Si usa ln(k₂/k₁) = (E_a/R)(1/T₁ − 1/T₂) con le temperature in kelvin.",
+        "steps": [
+          {
+            "prompt": "Temperature in kelvin?",
+            "options": [
+              {
+                "text": "298 K e 308 K",
+                "feedback": "Giusto: si aggiungono 273,15 e si arrotonda."
+              },
+              {
+                "text": "25 K e 35 K",
+                "feedback": "L’equazione richiede temperature assolute."
+              },
+              {
+                "text": "248 K e 238 K",
+                "feedback": "Hai sottratto invece di aggiungere 273,15."
+              }
+            ],
+            "correct": 0,
+            "result": "T₁ = 298 K, T₂ = 308 K."
+          },
+          {
+            "prompt": "Quanto vale (E_a/R)(1/T₁ − 1/T₂)?",
+            "options": [
+              {
+                "text": "Circa 0,655",
+                "feedback": "Giusto: 50 000/8,314 ≈ 6014 K, per 1,09 · 10⁻⁴ K⁻¹."
+              },
+              {
+                "text": "Circa 0,000655",
+                "feedback": "Hai usato E_a in kJ/mol: servono joule per mole."
+              },
+              {
+                "text": "Circa 6014",
+                "feedback": "Manca la differenza tra gli inversi delle temperature."
+              }
+            ],
+            "correct": 0,
+            "result": "ln(k₂/k₁) ≈ 0,655."
+          },
+          {
+            "prompt": "Fattore k₂/k₁?",
+            "options": [
+              {
+                "text": "Circa 1,93",
+                "feedback": "Giusto: e^0,655 ≈ 1,93, quasi un raddoppio."
+              },
+              {
+                "text": "0,655",
+                "feedback": "Questo è il logaritmo del rapporto: va elevato."
+              },
+              {
+                "text": "Circa 4,5",
+                "feedback": "4,5 corrisponde a 10^0,655: il logaritmo è naturale."
+              }
+            ],
+            "correct": 0,
+            "result": "k quasi raddoppia."
+          }
+        ]
+      },
+      {
+        "id": "frigorifero",
+        "title": "In frigorifero",
+        "text": "Il deterioramento di un cibo ha E_a ≈ 50 kJ/mol. Di quanto rallenta da 25 a 5 °C?",
+        "maxErrors": 1,
+        "explain": "Stessa formula; ora la temperatura scende.",
+        "steps": [
+          {
+            "prompt": "Quanto vale 1/278 − 1/298 in K⁻¹?",
+            "options": [
+              {
+                "text": "Circa 2,41 · 10⁻⁴",
+                "feedback": "Giusto: 0,003597 − 0,003356."
+              },
+              {
+                "text": "20",
+                "feedback": "Si sottraggono gli inversi, non le temperature."
+              },
+              {
+                "text": "Circa 2,41 · 10⁻²",
+                "feedback": "Hai sbagliato l’ordine di grandezza: gli inversi sono millesimi."
+              }
+            ],
+            "correct": 0,
+            "result": "Differenza ≈ 2,41 · 10⁻⁴ K⁻¹."
+          },
+          {
+            "prompt": "Esponente (E_a/R) · differenza?",
+            "options": [
+              {
+                "text": "Circa 1,45",
+                "feedback": "Giusto: 6014 · 2,41 · 10⁻⁴."
+              },
+              {
+                "text": "Circa 0,655",
+                "feedback": "Questo valore vale per dieci gradi; qui sono venti."
+              },
+              {
+                "text": "Circa 14,5",
+                "feedback": "Hai perso un fattore 10 nel prodotto."
+              }
+            ],
+            "correct": 0,
+            "result": "Esponente ≈ 1,45."
+          },
+          {
+            "prompt": "Di quanto rallenta il deterioramento?",
+            "options": [
+              {
+                "text": "Circa 4 volte",
+                "feedback": "Giusto: e^1,45 ≈ 4,3."
+              },
+              {
+                "text": "Circa 1,45 volte",
+                "feedback": "1,45 è l’esponente: il fattore è e^1,45."
+              },
+              {
+                "text": "Si ferma del tutto",
+                "feedback": "La reazione rallenta senza fermarsi."
+              }
+            ],
+            "correct": 0,
+            "result": "A 5 °C il cibo si deteriora circa quattro volte più lentamente."
+          }
+        ]
+      },
+      {
+        "id": "attivazione",
+        "title": "Misurare l’energia di attivazione",
+        "text": "Una reazione raddoppia la sua velocità passando da 300 a 310 K. Quanto vale E_a?",
+        "maxErrors": 1,
+        "explain": "Si risolve ln 2 = (E_a/R)(1/300 − 1/310) per E_a.",
+        "steps": [
+          {
+            "prompt": "Quanto vale 1/300 − 1/310?",
+            "options": [
+              {
+                "text": "Circa 1,075 · 10⁻⁴ K⁻¹",
+                "feedback": "Giusto: 0,0033333 − 0,0032258."
+              },
+              {
+                "text": "10 K⁻¹",
+                "feedback": "Si sottraggono gli inversi delle temperature."
+              },
+              {
+                "text": "Circa 1,075 · 10⁻² K⁻¹",
+                "feedback": "Ricontrolla l’ordine di grandezza: gli inversi sono circa 0,0033."
+              }
+            ],
+            "correct": 0,
+            "result": "Differenza ≈ 1,075 · 10⁻⁴ K⁻¹."
+          },
+          {
+            "prompt": "Quanto vale E_a/R?",
+            "options": [
+              {
+                "text": "Circa 6450 K",
+                "feedback": "Giusto: 0,693/1,075 · 10⁻⁴."
+              },
+              {
+                "text": "Circa 0,693 K",
+                "feedback": "Bisogna dividere ln 2 per la differenza."
+              },
+              {
+                "text": "Circa 9300 K",
+                "feedback": "Hai usato 1 al posto di ln 2."
+              }
+            ],
+            "correct": 0,
+            "result": "E_a/R ≈ 6450 K."
+          },
+          {
+            "prompt": "Energia di attivazione?",
+            "options": [
+              {
+                "text": "Circa 53,6 kJ/mol",
+                "feedback": "Giusto: 6450 · 8,314 J/mol."
+              },
+              {
+                "text": "Circa 776 J/mol",
+                "feedback": "Hai diviso per R invece di moltiplicare."
+              },
+              {
+                "text": "Circa 536 kJ/mol",
+                "feedback": "Hai perso la virgola: sono circa 53 600 J/mol."
+              }
+            ],
+            "correct": 0,
+            "result": "E_a ≈ 54 kJ/mol, vicina al valore della regola del raddoppio."
+          }
+        ]
+      },
+      {
+        "id": "catalizzatore",
+        "title": "L’effetto di un catalizzatore",
+        "text": "Un catalizzatore abbassa E_a da 75 a 50 kJ/mol a 298 K, con lo stesso fattore A. Di quanto aumenta k?",
+        "maxErrors": 1,
+        "explain": "A temperatura fissa il rapporto è exp(ΔE_a/RT).",
+        "steps": [
+          {
+            "prompt": "Di quanto si abbassa la barriera?",
+            "options": [
+              {
+                "text": "25 kJ/mol",
+                "feedback": "Giusto: 75 − 50."
+              },
+              {
+                "text": "125 kJ/mol",
+                "feedback": "Le energie si sottraggono, non si sommano."
+              },
+              {
+                "text": "1,5 volte",
+                "feedback": "Nell’esponente entra la differenza, non il rapporto."
+              }
+            ],
+            "correct": 0,
+            "result": "ΔE_a = 25 000 J/mol."
+          },
+          {
+            "prompt": "Quanto vale ΔE_a/(RT)?",
+            "options": [
+              {
+                "text": "Circa 10,1",
+                "feedback": "Giusto: 25 000/(8,314 · 298)."
+              },
+              {
+                "text": "Circa 0,0101",
+                "feedback": "Hai usato kJ/mol invece di J/mol."
+              },
+              {
+                "text": "Circa 3007",
+                "feedback": "Hai diviso solo per R, senza T."
+              }
+            ],
+            "correct": 0,
+            "result": "Esponente ≈ 10,1."
+          },
+          {
+            "prompt": "Fattore di aumento di k?",
+            "options": [
+              {
+                "text": "Circa 24 000",
+                "feedback": "Giusto: e^10,1 ≈ 2,4 · 10⁴."
+              },
+              {
+                "text": "Circa 10",
+                "feedback": "10 è l’esponente: il fattore è e^10,1."
+              },
+              {
+                "text": "Circa 1,5",
+                "feedback": "Il rapporto tra le energie non dà il fattore."
+              }
+            ],
+            "correct": 0,
+            "result": "La reazione catalizzata è circa 24 000 volte più veloce."
+          }
+        ]
+      }
+    ]
+  }
 }

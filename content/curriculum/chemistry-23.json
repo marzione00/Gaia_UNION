@@ -5,19 +5,21 @@
   "title": "Ossidazione, riduzione ed elettrochimica",
   "sector": 2,
   "modelId": "chemistry-23",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Potenziale di equilibrio a 298,15 K",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Reazioni redox, numeri di ossidazione, celle galvaniche, potenziali standard, energia libera ed equazione di Nernst",
+  "narrativeStatus": "La pila di Daniell e i potenziali standard sono reali e di riferimento.",
   "objectives": [
-    "Spiegare: potenziale di equilibrio a 298,15 k.",
-    "Applicare E = E° - (0,05915935/n) log₁₀ Q, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Riconoscere ossidazione, riduzione, ossidante e riducente.",
+    "Assegnare numeri di ossidazione.",
+    "Descrivere una cella galvanica e calcolarne E°_cella.",
+    "Usare l’equazione di Nernst."
   ],
   "prerequisites": [
     "chemistry-22"
   ],
   "connections": [
+    "chemistry-24",
     "physics-22"
   ],
   "sources": [
@@ -27,250 +29,317 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Quoziente Q",
-      "definition": "Variabile indipendente, unità 1; intervallo [0,01; 10]."
+      "term": "Ossidazione",
+      "definition": "Perdita di elettroni; il numero di ossidazione cresce."
     },
     {
-      "term": "Potenziale a 298,15 K",
-      "definition": "Risultato calcolato dal modello, unità V."
+      "term": "Riduzione",
+      "definition": "Acquisto di elettroni; il numero di ossidazione diminuisce."
     },
     {
-      "term": "Potenziale standard",
-      "definition": "Parametro a, unità V; intervallo [-0,5; 2]."
+      "term": "Anodo",
+      "definition": "Elettrodo dove avviene l’ossidazione."
     },
     {
-      "term": "Elettroni n",
-      "definition": "Parametro b, unità 1; intervallo [1; 4]."
+      "term": "Potenziale standard di riduzione",
+      "definition": "E° di una semicoppia rispetto all’elettrodo a idrogeno, in condizioni standard."
+    },
+    {
+      "term": "Equazione di Nernst",
+      "definition": "E = E° − (0,0592/n) log₁₀ Q a 25 °C."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Zinco, rame e una corrente",
       "text": {
         "base": [
-          "Il potenziale di una cella cambia quando cambiano le attività delle specie. La stazione deve collegare il potenziale al quoziente di reazione, non soltanto ai valori standard.",
-          "La relazione di Nernst collega il potenziale di equilibrio alle attività: E=E°-(RT/nF)ln Q. A 298,15 K può essere scritta con logaritmo decimale e coefficiente circa 0,05915935 V."
+          "Una lamina di zinco immersa in una soluzione azzurra di solfato di rame si copre di rame rossiccio e la soluzione si scolorisce. Se invece zinco e rame stanno in due recipienti separati, collegati da un filo e da un ponte salino, lungo il filo scorre corrente. È la pila di Daniell, del 1836: la stessa reazione, trasformata in energia elettrica.",
+          "In una reazione di ossidoriduzione si trasferiscono elettroni. Ossidazione è la perdita di elettroni, riduzione il loro acquisto, e le due avvengono sempre insieme. Nella reazione Zn + Cu²⁺ → Zn²⁺ + Cu lo zinco si ossida e cede due elettroni; lo ione rame li acquista e si riduce. Lo zinco è il riducente, lo ione rame l’ossidante."
         ],
         "intermediate": [
-          "Il potenziale di una cella cambia quando cambiano le attività delle specie. La stazione deve collegare il potenziale al quoziente di reazione, non soltanto ai valori standard.",
-          "Il numero n conta gli elettroni trasferiti nella reazione bilanciata. Q è adimensionale perché costruito con attività riferite a stati standard. In Q=1, il potenziale coincide con E°."
+          "Una lamina di zinco immersa in una soluzione azzurra di solfato di rame si copre di rame rossiccio e la soluzione si scolorisce. Se invece zinco e rame stanno in due recipienti separati, collegati da un filo e da un ponte salino, lungo il filo scorre corrente. È la pila di Daniell, del 1836: la stessa reazione, trasformata in energia elettrica.",
+          "In una reazione di ossidoriduzione si trasferiscono elettroni. Ossidazione è la perdita di elettroni, riduzione il loro acquisto, e le due avvengono sempre insieme. Nella reazione Zn + Cu²⁺ → Zn²⁺ + Cu lo zinco si ossida e cede due elettroni; lo ione rame li acquista e si riduce. Lo zinco è il riducente, lo ione rame l’ossidante."
         ],
         "advanced": [
-          "Il potenziale di una cella cambia quando cambiano le attività delle specie. La stazione deve collegare il potenziale al quoziente di reazione, non soltanto ai valori standard.",
-          "Collega E alla variazione di energia libera ΔG=-nFE. Spiega perché il segno dipende da come è scritta la reazione.",
-          "Temperatura fissata a 298,15 K e attività rappresentate dal quoziente assegnato. Sono escluse sovratensioni e resistenze interne."
+          "Una lamina di zinco immersa in una soluzione azzurra di solfato di rame si copre di rame rossiccio e la soluzione si scolorisce. Se invece zinco e rame stanno in due recipienti separati, collegati da un filo e da un ponte salino, lungo il filo scorre corrente. È la pila di Daniell, del 1836: la stessa reazione, trasformata in energia elettrica.",
+          "In una reazione di ossidoriduzione si trasferiscono elettroni. Ossidazione è la perdita di elettroni, riduzione il loro acquisto, e le due avvengono sempre insieme. Nella reazione Zn + Cu²⁺ → Zn²⁺ + Cu lo zinco si ossida e cede due elettroni; lo ione rame li acquista e si riduce. Lo zinco è il riducente, lo ione rame l’ossidante.",
+          "Per seguire gli elettroni si usano i numeri di ossidazione, cariche formali assegnate con regole semplici: zero negli elementi; −2 per l’ossigeno quasi sempre; +1 per l’idrogeno legato a non metalli; la somma è zero in una molecola neutra. Nell’acido solforico H₂SO₄: 2 · (+1) + x + 4 · (−2) = 0, quindi lo zolfo ha +6. Se il numero di ossidazione cresce, la specie si ossida."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Celle, potenziali, Nernst",
       "text": {
         "base": [
-          "La relazione di Nernst collega il potenziale di equilibrio alle attività: E=E°-(RT/nF)ln Q. A 298,15 K può essere scritta con logaritmo decimale e coefficiente circa 0,05915935 V.",
-          "Con E°=1 V, n=2 e Q=1, E=1 V. Portando Q a 10, il potenziale diminuisce di circa 0,02958 V."
+          "Per seguire gli elettroni si usano i numeri di ossidazione, cariche formali assegnate con regole semplici: zero negli elementi; −2 per l’ossigeno quasi sempre; +1 per l’idrogeno legato a non metalli; la somma è zero in una molecola neutra. Nell’acido solforico H₂SO₄: 2 · (+1) + x + 4 · (−2) = 0, quindi lo zolfo ha +6. Se il numero di ossidazione cresce, la specie si ossida.",
+          "In una cella galvanica la reazione spontanea è divisa in due semicelle. All’anodo avviene l’ossidazione, al catodo la riduzione; gli elettroni vanno dall’anodo al catodo nel filo esterno, mentre il ponte salino chiude il circuito con il moto degli ioni. Ogni semicoppia ha un potenziale standard di riduzione E°, misurato rispetto all’elettrodo a idrogeno, posto a 0 V: Zn²⁺/Zn −0,76 V, Cu²⁺/Cu +0,34 V.",
+          "La forza elettromotrice standard di una pila è E°_cella = E°_catodo − E°_anodo: per la pila di Daniell 0,34 − (−0,76) = 1,10 V. Una E°_cella positiva indica una reazione spontanea, legata all’energia libera da ΔG° = −nFE°, con F = 96 485 C/mol: per la pila di Daniell ΔG° ≈ −2 · 96 485 · 1,10 J ≈ −212 kJ per mole di zinco."
         ],
         "intermediate": [
-          "Il numero n conta gli elettroni trasferiti nella reazione bilanciata. Q è adimensionale perché costruito con attività riferite a stati standard. In Q=1, il potenziale coincide con E°.",
-          "La variabile Quoziente Q è espressa in 1; Potenziale a 298,15 K in V. Il dominio dello strumento è [0,01; 10]. La relazione implementata è: E = E° - (0,05915935/n) log₁₀ Q.",
-          "Con E°=1 V, n=2 e Q=1, E=1 V. Portando Q a 10, il potenziale diminuisce di circa 0,02958 V."
+          "Per seguire gli elettroni si usano i numeri di ossidazione, cariche formali assegnate con regole semplici: zero negli elementi; −2 per l’ossigeno quasi sempre; +1 per l’idrogeno legato a non metalli; la somma è zero in una molecola neutra. Nell’acido solforico H₂SO₄: 2 · (+1) + x + 4 · (−2) = 0, quindi lo zolfo ha +6. Se il numero di ossidazione cresce, la specie si ossida.",
+          "In una cella galvanica la reazione spontanea è divisa in due semicelle. All’anodo avviene l’ossidazione, al catodo la riduzione; gli elettroni vanno dall’anodo al catodo nel filo esterno, mentre il ponte salino chiude il circuito con il moto degli ioni. Ogni semicoppia ha un potenziale standard di riduzione E°, misurato rispetto all’elettrodo a idrogeno, posto a 0 V: Zn²⁺/Zn −0,76 V, Cu²⁺/Cu +0,34 V.",
+          "La forza elettromotrice standard di una pila è E°_cella = E°_catodo − E°_anodo: per la pila di Daniell 0,34 − (−0,76) = 1,10 V. Una E°_cella positiva indica una reazione spontanea, legata all’energia libera da ΔG° = −nFE°, con F = 96 485 C/mol: per la pila di Daniell ΔG° ≈ −2 · 96 485 · 1,10 J ≈ −212 kJ per mole di zinco.",
+          "Fuori dalle condizioni standard vale l’equazione di Nernst: a 25 °C E = E° − (0,0592/n) log₁₀ Q, dove Q è il quoziente di reazione e n il numero di elettroni scambiati. Per la pila di Daniell Q = [Zn²⁺]/[Cu²⁺]: con [Zn²⁺] = 1,0 M e [Cu²⁺] = 0,010 M, Q = 100 e E = 1,10 − 0,0296 · 2 ≈ 1,04 V. Man mano che la pila funziona Q cresce e la tensione cala, fino a zero all’equilibrio."
         ],
         "advanced": [
-          "Il numero n conta gli elettroni trasferiti nella reazione bilanciata. Q è adimensionale perché costruito con attività riferite a stati standard. In Q=1, il potenziale coincide con E°.",
-          "Collega E alla variazione di energia libera ΔG=-nFE. Spiega perché il segno dipende da come è scritta la reazione.",
-          "Potenziale standard e potenziale in qualunque miscela non coincidono necessariamente. La relazione di equilibrio non predice la corrente sotto carico o la velocità di una reazione elettrodica."
+          "In una cella galvanica la reazione spontanea è divisa in due semicelle. All’anodo avviene l’ossidazione, al catodo la riduzione; gli elettroni vanno dall’anodo al catodo nel filo esterno, mentre il ponte salino chiude il circuito con il moto degli ioni. Ogni semicoppia ha un potenziale standard di riduzione E°, misurato rispetto all’elettrodo a idrogeno, posto a 0 V: Zn²⁺/Zn −0,76 V, Cu²⁺/Cu +0,34 V.",
+          "La forza elettromotrice standard di una pila è E°_cella = E°_catodo − E°_anodo: per la pila di Daniell 0,34 − (−0,76) = 1,10 V. Una E°_cella positiva indica una reazione spontanea, legata all’energia libera da ΔG° = −nFE°, con F = 96 485 C/mol: per la pila di Daniell ΔG° ≈ −2 · 96 485 · 1,10 J ≈ −212 kJ per mole di zinco.",
+          "Fuori dalle condizioni standard vale l’equazione di Nernst: a 25 °C E = E° − (0,0592/n) log₁₀ Q, dove Q è il quoziente di reazione e n il numero di elettroni scambiati. Per la pila di Daniell Q = [Zn²⁺]/[Cu²⁺]: con [Zn²⁺] = 1,0 M e [Cu²⁺] = 0,010 M, Q = 100 e E = 1,10 − 0,0296 · 2 ≈ 1,04 V. Man mano che la pila funziona Q cresce e la tensione cala, fino a zero all’equilibrio.",
+          "L’elettrochimica è ovunque. Nelle batterie al litio, con tensioni di circa 3,6-3,7 V per cella, gli ioni litio passano da un elettrodo all’altro. Nell’elettrolisi una corrente esterna forza una reazione non spontanea, come la scomposizione dell’acqua o la produzione dell’alluminio. La corrosione del ferro è una pila involontaria, e uno strato di zinco protegge l’acciaio zincato ossidandosi al suo posto."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio di Nernst",
       "text": {
         "base": [
-          "Nel laboratorio imposta Potenziale standard (a): 1 V; Elettroni n (b): 2 (adimensionale). Prima di salvare A, prevedi come cambia Potenziale a 298,15 K fra Quoziente Q=2,5075 e 5,005 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con E°=1 V, n=2 e Q=1, E=1 V. Portando Q a 10, il potenziale diminuisce di circa 0,02958 V.",
-          "La variabile Quoziente Q è espressa in 1; Potenziale a 298,15 K in V. Il dominio dello strumento è [0,01; 10]. La relazione implementata è: E = E° - (0,05915935/n) log₁₀ Q."
+          "Nel laboratorio il grafico mostra il potenziale E in funzione del quoziente Q, da 0,01 a 10, a 298,15 K; nella scheda REGOLA cambi il potenziale standard E° e il numero di elettroni n. Il modello è l’equazione di Nernst.",
+          "Fuori dalle condizioni standard vale l’equazione di Nernst: a 25 °C E = E° − (0,0592/n) log₁₀ Q, dove Q è il quoziente di reazione e n il numero di elettroni scambiati. Per la pila di Daniell Q = [Zn²⁺]/[Cu²⁺]: con [Zn²⁺] = 1,0 M e [Cu²⁺] = 0,010 M, Q = 100 e E = 1,10 − 0,0296 · 2 ≈ 1,04 V. Man mano che la pila funziona Q cresce e la tensione cala, fino a zero all’equilibrio.",
+          "Protocollo. La previsione riguarda il passaggio da Q ≈ 2,51 a Q ≈ 5,0. Con E° = 1 V e n = 2 prevedi e salva A. Poi porta n a 1, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con n = 2 il potenziale passa da circa 0,988 a 0,979 V: diminuisce, perché più prodotti rendono la reazione meno favorevole. Con n = 1 diminuisce due volte più in fretta, da circa 0,976 a 0,959 V. Per Q = 1 il potenziale coincide con E°; per Q < 1 è maggiore."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Potenziale standard (a): 1 V; Elettroni n (b): 2 (adimensionale). Prima di salvare A, prevedi come cambia Potenziale a 298,15 K fra Quoziente Q=2,5075 e 5,005 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Quoziente Q è espressa in 1; Potenziale a 298,15 K in V. Il dominio dello strumento è [0,01; 10]. La relazione implementata è: E = E° - (0,05915935/n) log₁₀ Q.",
-          "Il numero n conta gli elettroni trasferiti nella reazione bilanciata. Q è adimensionale perché costruito con attività riferite a stati standard. In Q=1, il potenziale coincide con E°."
+          "Nel laboratorio il grafico mostra il potenziale E in funzione del quoziente Q, da 0,01 a 10, a 298,15 K; nella scheda REGOLA cambi il potenziale standard E° e il numero di elettroni n. Il modello è l’equazione di Nernst.",
+          "Protocollo. La previsione riguarda il passaggio da Q ≈ 2,51 a Q ≈ 5,0. Con E° = 1 V e n = 2 prevedi e salva A. Poi porta n a 1, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con n = 2 il potenziale passa da circa 0,988 a 0,979 V: diminuisce, perché più prodotti rendono la reazione meno favorevole. Con n = 1 diminuisce due volte più in fretta, da circa 0,976 a 0,959 V. Per Q = 1 il potenziale coincide con E°; per Q < 1 è maggiore."
         ],
         "advanced": [
-          "Nel laboratorio imposta Potenziale standard (a): 1 V; Elettroni n (b): 2 (adimensionale). Prima di salvare A, prevedi come cambia Potenziale a 298,15 K fra Quoziente Q=2,5075 e 5,005 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Collega E alla variazione di energia libera ΔG=-nFE. Spiega perché il segno dipende da come è scritta la reazione.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra il potenziale E in funzione del quoziente Q, da 0,01 a 10, a 298,15 K; nella scheda REGOLA cambi il potenziale standard E° e il numero di elettroni n. Il modello è l’equazione di Nernst.",
+          "Protocollo. La previsione riguarda il passaggio da Q ≈ 2,51 a Q ≈ 5,0. Con E° = 1 V e n = 2 prevedi e salva A. Poi porta n a 1, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con n = 2 il potenziale passa da circa 0,988 a 0,979 V: diminuisce, perché più prodotti rendono la reazione meno favorevole. Con n = 1 diminuisce due volte più in fretta, da circa 0,976 a 0,959 V. Per Q = 1 il potenziale coincide con E°; per Q < 1 è maggiore."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e applicazioni",
       "text": {
         "base": [
-          "Potenziale standard e potenziale in qualunque miscela non coincidono necessariamente. La relazione di equilibrio non predice la corrente sotto carico o la velocità di una reazione elettrodica.",
-          "Temperatura fissata a 298,15 K e attività rappresentate dal quoziente assegnato. Sono escluse sovratensioni e resistenze interne.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: associare l’anodo al polo positivo in ogni caso. In una pila l’anodo, dove avviene l’ossidazione, è il polo negativo; nell’elettrolisi è collegato al polo positivo del generatore. Conviene ricordare la reazione: ossidazione all’anodo, riduzione al catodo.",
+          "Secondo errore: moltiplicare E° per i coefficienti quando si bilancia una semireazione. Il potenziale è una grandezza intensiva: raddoppiare la semireazione non raddoppia E°.",
+          "L’elettrochimica è ovunque. Nelle batterie al litio, con tensioni di circa 3,6-3,7 V per cella, gli ioni litio passano da un elettrodo all’altro. Nell’elettrolisi una corrente esterna forza una reazione non spontanea, come la scomposizione dell’acqua o la produzione dell’alluminio. La corrosione del ferro è una pila involontaria, e uno strato di zinco protegge l’acciaio zincato ossidandosi al suo posto."
         ],
         "intermediate": [
-          "Potenziale standard e potenziale in qualunque miscela non coincidono necessariamente. La relazione di equilibrio non predice la corrente sotto carico o la velocità di una reazione elettrodica.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: associare l’anodo al polo positivo in ogni caso. In una pila l’anodo, dove avviene l’ossidazione, è il polo negativo; nell’elettrolisi è collegato al polo positivo del generatore. Conviene ricordare la reazione: ossidazione all’anodo, riduzione al catodo.",
+          "Secondo errore: moltiplicare E° per i coefficienti quando si bilancia una semireazione. Il potenziale è una grandezza intensiva: raddoppiare la semireazione non raddoppia E°.",
+          "L’elettrochimica è ovunque. Nelle batterie al litio, con tensioni di circa 3,6-3,7 V per cella, gli ioni litio passano da un elettrodo all’altro. Nell’elettrolisi una corrente esterna forza una reazione non spontanea, come la scomposizione dell’acqua o la produzione dell’alluminio. La corrosione del ferro è una pila involontaria, e uno strato di zinco protegge l’acciaio zincato ossidandosi al suo posto."
         ],
         "advanced": [
-          "Temperatura fissata a 298,15 K e attività rappresentate dal quoziente assegnato. Sono escluse sovratensioni e resistenze interne.",
-          "Collega E alla variazione di energia libera ΔG=-nFE. Spiega perché il segno dipende da come è scritta la reazione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: associare l’anodo al polo positivo in ogni caso. In una pila l’anodo, dove avviene l’ossidazione, è il polo negativo; nell’elettrolisi è collegato al polo positivo del generatore. Conviene ricordare la reazione: ossidazione all’anodo, riduzione al catodo.",
+          "Secondo errore: moltiplicare E° per i coefficienti quando si bilancia una semireazione. Il potenziale è una grandezza intensiva: raddoppiare la semireazione non raddoppia E°.",
+          "L’elettrochimica è ovunque. Nelle batterie al litio, con tensioni di circa 3,6-3,7 V per cella, gli ioni litio passano da un elettrodo all’altro. Nell’elettrolisi una corrente esterna forza una reazione non spontanea, come la scomposizione dell’acqua o la produzione dell’alluminio. La corrosione del ferro è una pila involontaria, e uno strato di zinco protegge l’acciaio zincato ossidandosi al suo posto."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "La relazione di Nernst collega il potenziale di equilibrio alle attività: E=E°-(RT/nF)ln Q. A 298,15 K può essere scritta con logaritmo decimale e coefficiente circa 0,05915935 V.",
-          "Con E°=1 V, n=2 e Q=1, E=1 V. Portando Q a 10, il potenziale diminuisce di circa 0,02958 V."
+          "Ripasso: ossidazione e riduzione; ossidante e riducente; numeri di ossidazione; cella galvanica, anodo, catodo e ponte salino; potenziali standard ed E°_cella; ΔG° = −nFE°; equazione di Nernst.",
+          "Mini esercizio: in una pila con E° = 1,10 V e n = 2, se Q = 0,01, E = 1,10 + 0,0592 ≈ 1,16 V.",
+          "Nelle domande redox scrivi le due semireazioni e conta gli elettroni prima di calcolare."
         ],
         "intermediate": [
-          "Il numero n conta gli elettroni trasferiti nella reazione bilanciata. Q è adimensionale perché costruito con attività riferite a stati standard. In Q=1, il potenziale coincide con E°.",
-          "La variabile Quoziente Q è espressa in 1; Potenziale a 298,15 K in V. Il dominio dello strumento è [0,01; 10]. La relazione implementata è: E = E° - (0,05915935/n) log₁₀ Q."
+          "Ripasso: ossidazione e riduzione; ossidante e riducente; numeri di ossidazione; cella galvanica, anodo, catodo e ponte salino; potenziali standard ed E°_cella; ΔG° = −nFE°; equazione di Nernst.",
+          "Mini esercizio: in una pila con E° = 1,10 V e n = 2, se Q = 0,01, E = 1,10 + 0,0592 ≈ 1,16 V.",
+          "Nelle domande redox scrivi le due semireazioni e conta gli elettroni prima di calcolare."
         ],
         "advanced": [
-          "Collega E alla variazione di energia libera ΔG=-nFE. Spiega perché il segno dipende da come è scritta la reazione.",
-          "Temperatura fissata a 298,15 K e attività rappresentate dal quoziente assegnato. Sono escluse sovratensioni e resistenze interne."
+          "Ripasso: ossidazione e riduzione; ossidante e riducente; numeri di ossidazione; cella galvanica, anodo, catodo e ponte salino; potenziali standard ed E°_cella; ΔG° = −nFE°; equazione di Nernst.",
+          "Mini esercizio: in una pila con E° = 1,10 V e n = 2, se Q = 0,01, E = 1,10 + 0,0592 ≈ 1,16 V.",
+          "Nelle domande redox scrivi le due semireazioni e conta gli elettroni prima di calcolare."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Potenziale di equilibrio a 298,15 K.",
-          "Temperatura fissata a 298,15 K e attività rappresentate dal quoziente assegnato. Sono escluse sovratensioni e resistenze interne.",
-          "Collegamento consigliato: physics-22. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La differenza di potenziale e l’energia elettrica sono il tema dell’unità di fisica «Potenziale ed energia elettrica». In chimica si passa a «Chimica organica e scheletri carboniosi»: le molecole del carbonio.",
+          "Riepilogo dell’unità: ossidazione è perdita di elettroni, riduzione acquisto; i numeri di ossidazione seguono il trasferimento; in una pila l’ossidazione avviene all’anodo e la riduzione al catodo; E°_cella = E°_catodo − E°_anodo, 1,10 V per la pila di Daniell; ΔG° = −nFE°; l’equazione di Nernst fa calare E quando Q cresce.",
+          "Nel diario registra A e B con le previsioni e spiega perché una pila si scarica man mano che funziona."
         ],
         "intermediate": [
-          "Il numero n conta gli elettroni trasferiti nella reazione bilanciata. Q è adimensionale perché costruito con attività riferite a stati standard. In Q=1, il potenziale coincide con E°.",
-          "Temperatura fissata a 298,15 K e attività rappresentate dal quoziente assegnato. Sono escluse sovratensioni e resistenze interne.",
-          "Collega E alla variazione di energia libera ΔG=-nFE. Spiega perché il segno dipende da come è scritta la reazione."
+          "La differenza di potenziale e l’energia elettrica sono il tema dell’unità di fisica «Potenziale ed energia elettrica». In chimica si passa a «Chimica organica e scheletri carboniosi»: le molecole del carbonio.",
+          "Riepilogo dell’unità: ossidazione è perdita di elettroni, riduzione acquisto; i numeri di ossidazione seguono il trasferimento; in una pila l’ossidazione avviene all’anodo e la riduzione al catodo; E°_cella = E°_catodo − E°_anodo, 1,10 V per la pila di Daniell; ΔG° = −nFE°; l’equazione di Nernst fa calare E quando Q cresce.",
+          "Nel diario registra A e B con le previsioni e spiega perché una pila si scarica man mano che funziona."
         ],
         "advanced": [
-          "Collega E alla variazione di energia libera ΔG=-nFE. Spiega perché il segno dipende da come è scritta la reazione.",
-          "Temperatura fissata a 298,15 K e attività rappresentate dal quoziente assegnato. Sono escluse sovratensioni e resistenze interne.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La differenza di potenziale e l’energia elettrica sono il tema dell’unità di fisica «Potenziale ed energia elettrica». In chimica si passa a «Chimica organica e scheletri carboniosi»: le molecole del carbonio.",
+          "Riepilogo dell’unità: ossidazione è perdita di elettroni, riduzione acquisto; i numeri di ossidazione seguono il trasferimento; in una pila l’ossidazione avviene all’anodo e la riduzione al catodo; E°_cella = E°_catodo − E°_anodo, 1,10 V per la pila di Daniell; ΔG° = −nFE°; l’equazione di Nernst fa calare E quando Q cresce.",
+          "Nel diario registra A e B con le previsioni e spiega perché una pila si scarica man mano che funziona."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-23-concept",
-      "prompt": "Quando Q=1, la relazione di Nernst dà:",
+      "id": "chemistry-23-q1",
+      "prompt": "Che cos’è un’ossidazione?",
       "options": [
         {
           "id": "A",
-          "text": "E=E°",
-          "feedback": "La relazione di Nernst collega il potenziale di equilibrio alle attività: E=E°-(RT/nF)ln Q. A 298,15 K può essere scritta con logaritmo decimale e coefficiente circa 0,05915935 V."
+          "text": "Una perdita di elettroni",
+          "feedback": "Esatto: il numero di ossidazione della specie cresce."
         },
         {
           "id": "B",
-          "text": "E=0 sempre",
-          "feedback": "Potenziale standard e potenziale in qualunque miscela non coincidono necessariamente. La relazione di equilibrio non predice la corrente sotto carico o la velocità di una reazione elettrodica."
+          "text": "Un acquisto di elettroni",
+          "feedback": "L’acquisto di elettroni è una riduzione."
         },
         {
           "id": "C",
-          "text": "E=nF",
-          "feedback": "Il numero n conta gli elettroni trasferiti nella reazione bilanciata. Q è adimensionale perché costruito con attività riferite a stati standard. In Q=1, il potenziale coincide con E°."
+          "text": "Una reazione solo con l’ossigeno",
+          "feedback": "Il nome è storico: molte ossidazioni non coinvolgono ossigeno."
+        },
+        {
+          "id": "D",
+          "text": "Una perdita di protoni",
+          "feedback": "Il trasferimento di protoni riguarda acidi e basi."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "chemistry-23-calculation",
-      "prompt": "Calcolo: Potenziale standard (a)=1 V; Elettroni n (b)=2 (adimensionale). Per Quoziente Q=1 (adimensionale), quanto vale Potenziale a 298,15 K?",
+      "id": "chemistry-23-q2",
+      "prompt": "In Zn + Cu²⁺ → Zn²⁺ + Cu, quale specie si ossida?",
       "options": [
         {
           "id": "A",
-          "text": "2 V",
-          "feedback": "Questo valore non soddisfa la relazione. E = E° - (0,05915935/n) log₁₀ Q. Con Potenziale standard (a)=1 V; Elettroni n (b)=2 (adimensionale) e Quoziente Q=1 (adimensionale), il risultato è 1 V. Conserva le unità e arrotonda solo alla fine."
+          "text": "Lo ione Cu²⁺",
+          "feedback": "Lo ione rame acquista elettroni: si riduce."
         },
         {
           "id": "B",
-          "text": "0 V",
-          "feedback": "Controlla sostituzione, segno e unità. E = E° - (0,05915935/n) log₁₀ Q. Con Potenziale standard (a)=1 V; Elettroni n (b)=2 (adimensionale) e Quoziente Q=1 (adimensionale), il risultato è 1 V. Conserva le unità e arrotonda solo alla fine."
+          "text": "Lo zinco",
+          "feedback": "Esatto: passa da 0 a +2 cedendo due elettroni."
         },
         {
           "id": "C",
-          "text": "1 V",
-          "feedback": "E = E° - (0,05915935/n) log₁₀ Q. Con Potenziale standard (a)=1 V; Elettroni n (b)=2 (adimensionale) e Quoziente Q=1 (adimensionale), il risultato è 1 V. Conserva le unità e arrotonda solo alla fine."
+          "text": "Il rame metallico",
+          "feedback": "Il rame metallico è un prodotto della riduzione."
+        },
+        {
+          "id": "D",
+          "text": "Nessuna",
+          "feedback": "In una redox c’è sempre una specie che si ossida."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 1,
-          "b": 2
-        },
-        "expected": 1,
-        "unit": "V"
-      }
+      "correct": "B"
     },
     {
-      "id": "chemistry-23-transfer",
-      "prompt": "Trasferimento: Potenziale standard (a)=1,1 V; Elettroni n (b)=2 (adimensionale). Per Quoziente Q=1 (adimensionale), quanto vale Potenziale a 298,15 K?",
+      "id": "chemistry-23-q3",
+      "prompt": "Con E°(Cu²⁺/Cu) = +0,34 V ed E°(Zn²⁺/Zn) = −0,76 V, quanto vale E° della pila di Daniell?",
       "options": [
         {
           "id": "A",
-          "text": "0,1 V",
-          "feedback": "Controlla sostituzione, segno e unità. E = E° - (0,05915935/n) log₁₀ Q. Con Potenziale standard (a)=1,1 V; Elettroni n (b)=2 (adimensionale) e Quoziente Q=1 (adimensionale), il risultato è 1,1 V. Conserva le unità e arrotonda solo alla fine."
+          "text": "−0,42 V",
+          "feedback": "Hai sommato i due potenziali: si sottrae quello dell’anodo."
         },
         {
           "id": "B",
-          "text": "1,1 V",
-          "feedback": "E = E° - (0,05915935/n) log₁₀ Q. Con Potenziale standard (a)=1,1 V; Elettroni n (b)=2 (adimensionale) e Quoziente Q=1 (adimensionale), il risultato è 1,1 V. Conserva le unità e arrotonda solo alla fine."
+          "text": "0,42 V",
+          "feedback": "La differenza tra +0,34 e −0,76 non è 0,42."
         },
         {
           "id": "C",
-          "text": "2,1 V",
-          "feedback": "Questo valore non soddisfa la relazione. E = E° - (0,05915935/n) log₁₀ Q. Con Potenziale standard (a)=1,1 V; Elettroni n (b)=2 (adimensionale) e Quoziente Q=1 (adimensionale), il risultato è 1,1 V. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 1.1,
-          "b": 2
-        },
-        "expected": 1.1,
-        "unit": "V"
-      }
-    },
-    {
-      "id": "chemistry-23-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Temperatura fissata a 298,15 K e attività rappresentate dal quoziente assegnato. Sono escluse sovratensioni e resistenze interne."
+          "text": "1,10 V",
+          "feedback": "Esatto: E°_catodo − E°_anodo = 0,34 − (−0,76)."
         },
         {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Temperatura fissata a 298,15 K e attività rappresentate dal quoziente assegnato. Sono escluse sovratensioni e resistenze interne."
-        },
-        {
-          "id": "C",
-          "text": "Potenziale di equilibrio a 298,15 K",
-          "feedback": "Temperatura fissata a 298,15 K e attività rappresentate dal quoziente assegnato. Sono escluse sovratensioni e resistenze interne."
+          "id": "D",
+          "text": "−1,10 V",
+          "feedback": "Una pila che funziona spontaneamente ha E° positiva."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "chemistry-23-q4",
+      "prompt": "Che cosa avviene al catodo di una pila?",
+      "options": [
+        {
+          "id": "A",
+          "text": "L’ossidazione",
+          "feedback": "L’ossidazione avviene all’anodo, il polo negativo della pila."
+        },
+        {
+          "id": "B",
+          "text": "La produzione di elettroni",
+          "feedback": "Gli elettroni sono prodotti all’anodo e consumati al catodo."
+        },
+        {
+          "id": "C",
+          "text": "Niente, è un elettrodo inerte",
+          "feedback": "Il catodo è il luogo della riduzione."
+        },
+        {
+          "id": "D",
+          "text": "La riduzione",
+          "feedback": "Esatto: la specie al catodo acquista elettroni."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "chemistry-23-q5",
+      "prompt": "Secondo l’equazione di Nernst, che cosa accade a E quando Q cresce?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Diminuisce",
+          "feedback": "Esatto: il termine (0,0592/n) log₁₀ Q si sottrae a E°."
+        },
+        {
+          "id": "B",
+          "text": "Cresce",
+          "feedback": "Un Q più grande significa più prodotti: la spinta diminuisce."
+        },
+        {
+          "id": "C",
+          "text": "Resta uguale a E°",
+          "feedback": "E coincide con E° solo per Q = 1, quando log₁₀ Q = 0."
+        },
+        {
+          "id": "D",
+          "text": "Cambia segno subito",
+          "feedback": "Il segno cambia solo quando Q supera la costante di equilibrio."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-23-q6",
+      "prompt": "Qual è il numero di ossidazione dello zolfo in H₂SO₄?",
+      "options": [
+        {
+          "id": "A",
+          "text": "−2",
+          "feedback": "−2 è il numero di ossidazione dello zolfo nei solfuri, come H₂S."
+        },
+        {
+          "id": "B",
+          "text": "+6",
+          "feedback": "Esatto: 2 · (+1) + x + 4 · (−2) = 0."
+        },
+        {
+          "id": "C",
+          "text": "+4",
+          "feedback": "+4 è il numero di ossidazione dello zolfo in SO₂."
+        },
+        {
+          "id": "D",
+          "text": "0",
+          "feedback": "Zero spetta allo zolfo elementare, non a quello legato."
+        }
+      ],
+      "correct": "B"
     }
   ]
 }

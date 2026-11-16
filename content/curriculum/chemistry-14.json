@@ -5,14 +5,15 @@
   "title": "Stechiometria e reagente limitante",
   "sector": 2,
   "modelId": "chemistry-14",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Bilancio stechiometrico ideale a conversione completa",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Conservazione della massa, bilanciamento, rapporti molari, calcoli con le masse e reagente limitante",
+  "narrativeStatus": "Il modulo di servizio è immaginario; le masse molari sono valori reali.",
   "objectives": [
-    "Spiegare: bilancio stechiometrico ideale a conversione completa.",
-    "Applicare 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Bilanciare un’equazione chimica con i coefficienti.",
+    "Usare i coefficienti come rapporti tra moli.",
+    "Calcolare masse di prodotti e reagenti.",
+    "Individuare il reagente limitante e quello in eccesso."
   ],
   "prerequisites": [
     "chemistry-13"
@@ -27,244 +28,583 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Idrogeno iniziale",
-      "definition": "Variabile indipendente, unità mol; intervallo [0; 10]."
+      "term": "Equazione bilanciata",
+      "definition": "Equazione con lo stesso numero di atomi di ogni elemento nei due membri."
     },
     {
-      "term": "Acqua teorica",
-      "definition": "Risultato calcolato dal modello, unità mol."
+      "term": "Coefficiente stechiometrico",
+      "definition": "Numero davanti a una formula; indica un rapporto tra moli."
     },
     {
-      "term": "Ossigeno iniziale",
-      "definition": "Parametro a, unità mol; intervallo [0,5; 4]."
+      "term": "Reagente limitante",
+      "definition": "Reagente che si esaurisce per primo e fissa la quantità di prodotto."
+    },
+    {
+      "term": "Reagente in eccesso",
+      "definition": "Reagente che avanza alla fine della reazione."
+    },
+    {
+      "term": "Conservazione della massa",
+      "definition": "In una reazione la massa totale di reagenti e prodotti resta uguale."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Caricare i serbatoi",
       "text": {
         "base": [
-          "Un bilancio digitale combina quantità di due reagenti. Uno può restare in eccesso mentre l’altro termina. Il risultato dipende dai rapporti della reazione, non dal confronto diretto delle moli.",
-          "Una reazione bilanciata conserva gli atomi e stabilisce rapporti stechiometrici. Per 2H₂+O₂→2H₂O, servono due moli di idrogeno per ogni mole di ossigeno."
+          "I motori del modulo di servizio bruciano idrogeno con ossigeno. Se i serbatoi non sono caricati nel rapporto giusto, una parte del carburante resta inutilizzata e diventa solo peso morto. Per sapere quanto caricare servono un’equazione bilanciata e un po’ di aritmetica con le moli: la stechiometria.",
+          "Alla fine del Settecento Antoine Lavoisier mostrò, pesando con cura reagenti e prodotti in recipienti chiusi, che in una reazione la massa totale si conserva. A livello atomico la ragione è semplice: gli atomi si riorganizzano in molecole diverse, ma nessuno si crea o si distrugge."
         ],
         "intermediate": [
-          "Un bilancio digitale combina quantità di due reagenti. Uno può restare in eccesso mentre l’altro termina. Il risultato dipende dai rapporti della reazione, non dal confronto diretto delle moli.",
-          "Il massimo avanzamento è min(n_H₂/2,n_O₂). Le moli teoriche di acqua sono due volte tale valore, cioè min(n_H₂,2n_O₂). La funzione ha un cambio di pendenza quando cambia il reagente limitante."
+          "I motori del modulo di servizio bruciano idrogeno con ossigeno. Se i serbatoi non sono caricati nel rapporto giusto, una parte del carburante resta inutilizzata e diventa solo peso morto. Per sapere quanto caricare servono un’equazione bilanciata e un po’ di aritmetica con le moli: la stechiometria.",
+          "Alla fine del Settecento Antoine Lavoisier mostrò, pesando con cura reagenti e prodotti in recipienti chiusi, che in una reazione la massa totale si conserva. A livello atomico la ragione è semplice: gli atomi si riorganizzano in molecole diverse, ma nessuno si crea o si distrugge."
         ],
         "advanced": [
-          "Un bilancio digitale combina quantità di due reagenti. Uno può restare in eccesso mentre l’altro termina. Il risultato dipende dai rapporti della reazione, non dal confronto diretto delle moli.",
-          "Calcola le quantità residue e verifica la conservazione degli atomi di entrambi gli elementi. Confronta i casi prima e dopo la soglia di limitazione.",
-          "Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali."
+          "I motori del modulo di servizio bruciano idrogeno con ossigeno. Se i serbatoi non sono caricati nel rapporto giusto, una parte del carburante resta inutilizzata e diventa solo peso morto. Per sapere quanto caricare servono un’equazione bilanciata e un po’ di aritmetica con le moli: la stechiometria.",
+          "Alla fine del Settecento Antoine Lavoisier mostrò, pesando con cura reagenti e prodotti in recipienti chiusi, che in una reazione la massa totale si conserva. A livello atomico la ragione è semplice: gli atomi si riorganizzano in molecole diverse, ma nessuno si crea o si distrugge."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Bilanciare e contare",
       "text": {
         "base": [
-          "Una reazione bilanciata conserva gli atomi e stabilisce rapporti stechiometrici. Per 2H₂+O₂→2H₂O, servono due moli di idrogeno per ogni mole di ossigeno.",
-          "Con 6 mol di H₂ e 2 mol di O₂, il massimo prodotto è 4 mol di H₂O. L’ossigeno è limitante e rimangono teoricamente 2 mol di H₂."
+          "Un’equazione chimica è bilanciata quando ogni elemento compare con lo stesso numero di atomi nei due membri. Si cambiano solo i coefficienti davanti alle formule, mai gli indici, che cambierebbero le sostanze. Per la combustione del metano: CH₄ + 2 O₂ → CO₂ + 2 H₂O. Conviene bilanciare prima gli elementi che compaiono in una sola sostanza per membro, e per ultimi idrogeno e ossigeno.",
+          "I coefficienti sono rapporti tra moli. 2 H₂ + O₂ → 2 H₂O significa: due moli di idrogeno reagiscono con una mole di ossigeno e producono due moli di acqua. Per passare dalle masse alle moli si usa la massa molare, poi il rapporto stechiometrico, poi di nuovo la massa molare: 4,0 g di H₂ sono 1,98 mol e producono 1,98 mol di acqua, circa 35,7 g.",
+          "Il reagente limitante è quello che si esaurisce per primo e decide quanto prodotto si forma; gli altri sono in eccesso. Con 6 mol di H₂ e 2 mol di O₂: le 2 mol di ossigeno richiedono 4 mol di idrogeno, che ci sono. L’ossigeno è limitante, si formano 4 mol di acqua e avanzano 2 mol di idrogeno. Per trovarlo si confronta il rapporto disponibile con quello stechiometrico."
         ],
         "intermediate": [
-          "Il massimo avanzamento è min(n_H₂/2,n_O₂). Le moli teoriche di acqua sono due volte tale valore, cioè min(n_H₂,2n_O₂). La funzione ha un cambio di pendenza quando cambia il reagente limitante.",
-          "La variabile Idrogeno iniziale è espressa in mol; Acqua teorica in mol. Il dominio dello strumento è [0; 10]. La relazione implementata è: 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂).",
-          "Con 6 mol di H₂ e 2 mol di O₂, il massimo prodotto è 4 mol di H₂O. L’ossigeno è limitante e rimangono teoricamente 2 mol di H₂."
+          "Un’equazione chimica è bilanciata quando ogni elemento compare con lo stesso numero di atomi nei due membri. Si cambiano solo i coefficienti davanti alle formule, mai gli indici, che cambierebbero le sostanze. Per la combustione del metano: CH₄ + 2 O₂ → CO₂ + 2 H₂O. Conviene bilanciare prima gli elementi che compaiono in una sola sostanza per membro, e per ultimi idrogeno e ossigeno.",
+          "I coefficienti sono rapporti tra moli. 2 H₂ + O₂ → 2 H₂O significa: due moli di idrogeno reagiscono con una mole di ossigeno e producono due moli di acqua. Per passare dalle masse alle moli si usa la massa molare, poi il rapporto stechiometrico, poi di nuovo la massa molare: 4,0 g di H₂ sono 1,98 mol e producono 1,98 mol di acqua, circa 35,7 g.",
+          "Il reagente limitante è quello che si esaurisce per primo e decide quanto prodotto si forma; gli altri sono in eccesso. Con 6 mol di H₂ e 2 mol di O₂: le 2 mol di ossigeno richiedono 4 mol di idrogeno, che ci sono. L’ossigeno è limitante, si formano 4 mol di acqua e avanzano 2 mol di idrogeno. Per trovarlo si confronta il rapporto disponibile con quello stechiometrico.",
+          "Il modello del programma calcola le moli di acqua prodotte, n_acqua = min(n_H₂, 2 n_O₂), al variare dell’idrogeno iniziale, con l’ossigeno regolabile. Il grafico sale finché l’idrogeno è limitante, poi resta piatto: da lì in avanti è l’ossigeno a limitare."
         ],
         "advanced": [
-          "Il massimo avanzamento è min(n_H₂/2,n_O₂). Le moli teoriche di acqua sono due volte tale valore, cioè min(n_H₂,2n_O₂). La funzione ha un cambio di pendenza quando cambia il reagente limitante.",
-          "Calcola le quantità residue e verifica la conservazione degli atomi di entrambi gli elementi. Confronta i casi prima e dopo la soglia di limitazione.",
-          "Il reagente con meno moli non è automaticamente il limitante: bisogna dividere per il coefficiente stechiometrico. Bilanciare richiede modificare coefficienti, non indici delle formule."
+          "Un’equazione chimica è bilanciata quando ogni elemento compare con lo stesso numero di atomi nei due membri. Si cambiano solo i coefficienti davanti alle formule, mai gli indici, che cambierebbero le sostanze. Per la combustione del metano: CH₄ + 2 O₂ → CO₂ + 2 H₂O. Conviene bilanciare prima gli elementi che compaiono in una sola sostanza per membro, e per ultimi idrogeno e ossigeno.",
+          "I coefficienti sono rapporti tra moli. 2 H₂ + O₂ → 2 H₂O significa: due moli di idrogeno reagiscono con una mole di ossigeno e producono due moli di acqua. Per passare dalle masse alle moli si usa la massa molare, poi il rapporto stechiometrico, poi di nuovo la massa molare: 4,0 g di H₂ sono 1,98 mol e producono 1,98 mol di acqua, circa 35,7 g.",
+          "Il reagente limitante è quello che si esaurisce per primo e decide quanto prodotto si forma; gli altri sono in eccesso. Con 6 mol di H₂ e 2 mol di O₂: le 2 mol di ossigeno richiedono 4 mol di idrogeno, che ci sono. L’ossigeno è limitante, si formano 4 mol di acqua e avanzano 2 mol di idrogeno. Per trovarlo si confronta il rapporto disponibile con quello stechiometrico.",
+          "Il modello del programma calcola le moli di acqua prodotte, n_acqua = min(n_H₂, 2 n_O₂), al variare dell’idrogeno iniziale, con l’ossigeno regolabile. Il grafico sale finché l’idrogeno è limitante, poi resta piatto: da lì in avanti è l’ossigeno a limitare."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Problemi guidati",
       "text": {
         "base": [
-          "Nel laboratorio imposta Ossigeno iniziale (a): 2 mol. Prima di salvare A, prevedi come cambia Acqua teorica fra Idrogeno iniziale=2,5 e 5 mol. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con 6 mol di H₂ e 2 mol di O₂, il massimo prodotto è 4 mol di H₂O. L’ossigeno è limitante e rimangono teoricamente 2 mol di H₂.",
-          "La variabile Idrogeno iniziale è espressa in mol; Acqua teorica in mol. Il dominio dello strumento è [0; 10]. La relazione implementata è: 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂)."
+          "L’attività propone quattro problemi guidati: bilanciare la combustione del propano; calcolare la massa di acqua prodotta da 4,0 g di idrogeno; trovare il reagente limitante tra idrogeno e ossigeno; trovare il limitante e l’eccesso nella reazione tra ferro e zolfo. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Nei problemi con le masse segui sempre la stessa strada: grammi → moli → rapporto dei coefficienti → moli → grammi. Il rapporto dei coefficienti si applica alle moli, mai ai grammi."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Ossigeno iniziale (a): 2 mol. Prima di salvare A, prevedi come cambia Acqua teorica fra Idrogeno iniziale=2,5 e 5 mol. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Idrogeno iniziale è espressa in mol; Acqua teorica in mol. Il dominio dello strumento è [0; 10]. La relazione implementata è: 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂).",
-          "Il massimo avanzamento è min(n_H₂/2,n_O₂). Le moli teoriche di acqua sono due volte tale valore, cioè min(n_H₂,2n_O₂). La funzione ha un cambio di pendenza quando cambia il reagente limitante."
+          "L’attività propone quattro problemi guidati: bilanciare la combustione del propano; calcolare la massa di acqua prodotta da 4,0 g di idrogeno; trovare il reagente limitante tra idrogeno e ossigeno; trovare il limitante e l’eccesso nella reazione tra ferro e zolfo. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Nei problemi con le masse segui sempre la stessa strada: grammi → moli → rapporto dei coefficienti → moli → grammi. Il rapporto dei coefficienti si applica alle moli, mai ai grammi.",
+          "Il modello del programma calcola le moli di acqua prodotte, n_acqua = min(n_H₂, 2 n_O₂), al variare dell’idrogeno iniziale, con l’ossigeno regolabile. Il grafico sale finché l’idrogeno è limitante, poi resta piatto: da lì in avanti è l’ossigeno a limitare."
         ],
         "advanced": [
-          "Nel laboratorio imposta Ossigeno iniziale (a): 2 mol. Prima di salvare A, prevedi come cambia Acqua teorica fra Idrogeno iniziale=2,5 e 5 mol. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Calcola le quantità residue e verifica la conservazione degli atomi di entrambi gli elementi. Confronta i casi prima e dopo la soglia di limitazione.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività propone quattro problemi guidati: bilanciare la combustione del propano; calcolare la massa di acqua prodotta da 4,0 g di idrogeno; trovare il reagente limitante tra idrogeno e ossigeno; trovare il limitante e l’eccesso nella reazione tra ferro e zolfo. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Nei problemi con le masse segui sempre la stessa strada: grammi → moli → rapporto dei coefficienti → moli → grammi. Il rapporto dei coefficienti si applica alle moli, mai ai grammi."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "Il reagente con meno moli non è automaticamente il limitante: bisogna dividere per il coefficiente stechiometrico. Bilanciare richiede modificare coefficienti, non indici delle formule.",
-          "Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: scegliere come limitante il reagente presente in quantità minore. Conta il rapporto stechiometrico: con 3 mol di O₂ e 4 mol di H₂ il limitante è l’idrogeno, perché 3 mol di ossigeno ne richiederebbero 6.",
+          "Secondo errore: bilanciare cambiando gli indici. Scrivere H₂O₂ invece di 2 H₂O fa tornare i conti degli atomi, ma descrive l’acqua ossigenata, una sostanza diversa.",
+          "Nei problemi con le masse segui sempre la stessa strada: grammi → moli → rapporto dei coefficienti → moli → grammi. Il rapporto dei coefficienti si applica alle moli, mai ai grammi."
         ],
         "intermediate": [
-          "Il reagente con meno moli non è automaticamente il limitante: bisogna dividere per il coefficiente stechiometrico. Bilanciare richiede modificare coefficienti, non indici delle formule.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: scegliere come limitante il reagente presente in quantità minore. Conta il rapporto stechiometrico: con 3 mol di O₂ e 4 mol di H₂ il limitante è l’idrogeno, perché 3 mol di ossigeno ne richiederebbero 6.",
+          "Secondo errore: bilanciare cambiando gli indici. Scrivere H₂O₂ invece di 2 H₂O fa tornare i conti degli atomi, ma descrive l’acqua ossigenata, una sostanza diversa.",
+          "Nei problemi con le masse segui sempre la stessa strada: grammi → moli → rapporto dei coefficienti → moli → grammi. Il rapporto dei coefficienti si applica alle moli, mai ai grammi."
         ],
         "advanced": [
-          "Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali.",
-          "Calcola le quantità residue e verifica la conservazione degli atomi di entrambi gli elementi. Confronta i casi prima e dopo la soglia di limitazione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: scegliere come limitante il reagente presente in quantità minore. Conta il rapporto stechiometrico: con 3 mol di O₂ e 4 mol di H₂ il limitante è l’idrogeno, perché 3 mol di ossigeno ne richiederebbero 6.",
+          "Secondo errore: bilanciare cambiando gli indici. Scrivere H₂O₂ invece di 2 H₂O fa tornare i conti degli atomi, ma descrive l’acqua ossigenata, una sostanza diversa.",
+          "Il modello del programma calcola le moli di acqua prodotte, n_acqua = min(n_H₂, 2 n_O₂), al variare dell’idrogeno iniziale, con l’ossigeno regolabile. Il grafico sale finché l’idrogeno è limitante, poi resta piatto: da lì in avanti è l’ossigeno a limitare."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Una reazione bilanciata conserva gli atomi e stabilisce rapporti stechiometrici. Per 2H₂+O₂→2H₂O, servono due moli di idrogeno per ogni mole di ossigeno.",
-          "Con 6 mol di H₂ e 2 mol di O₂, il massimo prodotto è 4 mol di H₂O. L’ossigeno è limitante e rimangono teoricamente 2 mol di H₂."
+          "Ripasso: conservazione della massa; bilanciamento con i coefficienti; coefficienti come rapporti tra moli; conversioni massa → moli → massa; reagente limitante e reagente in eccesso.",
+          "Mini esercizio: 1 mol di CH₄ con 3 mol di O₂. Servono 2 mol di O₂: il metano è limitante, si formano 1 mol di CO₂ e 2 mol di H₂O, avanza 1 mol di O₂.",
+          "Nelle domande sul limitante dividi le moli di ogni reagente per il suo coefficiente: il valore più piccolo indica il limitante."
         ],
         "intermediate": [
-          "Il massimo avanzamento è min(n_H₂/2,n_O₂). Le moli teoriche di acqua sono due volte tale valore, cioè min(n_H₂,2n_O₂). La funzione ha un cambio di pendenza quando cambia il reagente limitante.",
-          "La variabile Idrogeno iniziale è espressa in mol; Acqua teorica in mol. Il dominio dello strumento è [0; 10]. La relazione implementata è: 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂)."
+          "Ripasso: conservazione della massa; bilanciamento con i coefficienti; coefficienti come rapporti tra moli; conversioni massa → moli → massa; reagente limitante e reagente in eccesso.",
+          "Mini esercizio: 1 mol di CH₄ con 3 mol di O₂. Servono 2 mol di O₂: il metano è limitante, si formano 1 mol di CO₂ e 2 mol di H₂O, avanza 1 mol di O₂.",
+          "Nelle domande sul limitante dividi le moli di ogni reagente per il suo coefficiente: il valore più piccolo indica il limitante."
         ],
         "advanced": [
-          "Calcola le quantità residue e verifica la conservazione degli atomi di entrambi gli elementi. Confronta i casi prima e dopo la soglia di limitazione.",
-          "Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali."
+          "Ripasso: conservazione della massa; bilanciamento con i coefficienti; coefficienti come rapporti tra moli; conversioni massa → moli → massa; reagente limitante e reagente in eccesso.",
+          "Mini esercizio: 1 mol di CH₄ con 3 mol di O₂. Servono 2 mol di O₂: il metano è limitante, si formano 1 mol di CO₂ e 2 mol di H₂O, avanza 1 mol di O₂.",
+          "Nelle domande sul limitante dividi le moli di ogni reagente per il suo coefficiente: il valore più piccolo indica il limitante."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Bilancio stechiometrico ideale a conversione completa.",
-          "Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali.",
-          "Collegamento consigliato: chemistry-15. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La quantità calcolata con la stechiometria è quella teorica. Nell’unità «Resa e bilanci di materia» si confronta con quella ottenuta davvero in laboratorio, che è quasi sempre minore.",
+          "Riepilogo dell’unità: la massa si conserva perché gli atomi si riorganizzano; si bilancia con i coefficienti; i coefficienti sono rapporti tra moli; le masse si convertono in moli con la massa molare; il reagente limitante si esaurisce per primo e fissa la quantità di prodotto.",
+          "Nel diario calcola quanti chilogrammi di ossigeno servono per bruciare 1 kg di idrogeno, spiegando ogni passaggio."
         ],
         "intermediate": [
-          "Il massimo avanzamento è min(n_H₂/2,n_O₂). Le moli teoriche di acqua sono due volte tale valore, cioè min(n_H₂,2n_O₂). La funzione ha un cambio di pendenza quando cambia il reagente limitante.",
-          "Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali.",
-          "Calcola le quantità residue e verifica la conservazione degli atomi di entrambi gli elementi. Confronta i casi prima e dopo la soglia di limitazione."
+          "La quantità calcolata con la stechiometria è quella teorica. Nell’unità «Resa e bilanci di materia» si confronta con quella ottenuta davvero in laboratorio, che è quasi sempre minore.",
+          "Riepilogo dell’unità: la massa si conserva perché gli atomi si riorganizzano; si bilancia con i coefficienti; i coefficienti sono rapporti tra moli; le masse si convertono in moli con la massa molare; il reagente limitante si esaurisce per primo e fissa la quantità di prodotto.",
+          "Nel diario calcola quanti chilogrammi di ossigeno servono per bruciare 1 kg di idrogeno, spiegando ogni passaggio."
         ],
         "advanced": [
-          "Calcola le quantità residue e verifica la conservazione degli atomi di entrambi gli elementi. Confronta i casi prima e dopo la soglia di limitazione.",
-          "Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La quantità calcolata con la stechiometria è quella teorica. Nell’unità «Resa e bilanci di materia» si confronta con quella ottenuta davvero in laboratorio, che è quasi sempre minore.",
+          "Riepilogo dell’unità: la massa si conserva perché gli atomi si riorganizzano; si bilancia con i coefficienti; i coefficienti sono rapporti tra moli; le masse si convertono in moli con la massa molare; il reagente limitante si esaurisce per primo e fissa la quantità di prodotto.",
+          "Nel diario calcola quanti chilogrammi di ossigeno servono per bruciare 1 kg di idrogeno, spiegando ogni passaggio."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-14-concept",
-      "prompt": "Il reagente limitante si individua confrontando:",
+      "id": "chemistry-14-q1",
+      "prompt": "Secondo 2 H₂ + O₂ → 2 H₂O, quante moli di H₂ reagiscono con 3 mol di O₂?",
       "options": [
         {
           "id": "A",
-          "text": "Moli divise per coefficienti stechiometrici",
-          "feedback": "Una reazione bilanciata conserva gli atomi e stabilisce rapporti stechiometrici. Per 2H₂+O₂→2H₂O, servono due moli di idrogeno per ogni mole di ossigeno."
+          "text": "6 mol",
+          "feedback": "Esatto: il rapporto è 2 : 1, quindi 2 · 3 mol."
         },
         {
           "id": "B",
-          "text": "Soltanto le masse senza conversioni",
-          "feedback": "Il reagente con meno moli non è automaticamente il limitante: bisogna dividere per il coefficiente stechiometrico. Bilanciare richiede modificare coefficienti, non indici delle formule."
+          "text": "3 mol",
+          "feedback": "Il rapporto tra idrogeno e ossigeno è 2 : 1, non 1 : 1."
         },
         {
           "id": "C",
-          "text": "Soltanto i volumi dei contenitori",
-          "feedback": "Il massimo avanzamento è min(n_H₂/2,n_O₂). Le moli teoriche di acqua sono due volte tale valore, cioè min(n_H₂,2n_O₂). La funzione ha un cambio di pendenza quando cambia il reagente limitante."
+          "text": "1,5 mol",
+          "feedback": "Hai diviso per 2: l’idrogeno serve in quantità doppia."
+        },
+        {
+          "id": "D",
+          "text": "2 mol",
+          "feedback": "Il coefficiente 2 va moltiplicato per le moli di ossigeno."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "chemistry-14-calculation",
-      "prompt": "Calcolo: Ossigeno iniziale (a)=2 mol. Per Idrogeno iniziale=6 mol, quanto vale Acqua teorica?",
+      "id": "chemistry-14-q2",
+      "prompt": "Quale coefficiente dell’ossigeno bilancia CH₄ + … O₂ → CO₂ + 2 H₂O?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1",
+          "feedback": "A destra ci sono 4 atomi di ossigeno: una molecola di O₂ non basta."
+        },
+        {
+          "id": "B",
+          "text": "2",
+          "feedback": "Esatto: 2 nella CO₂ più 2 nelle due molecole d’acqua fanno 4 atomi."
+        },
+        {
+          "id": "C",
+          "text": "3",
+          "feedback": "Con 3 molecole gli atomi di ossigeno sarebbero 6 a sinistra e 4 a destra."
+        },
+        {
+          "id": "D",
+          "text": "4",
+          "feedback": "Hai contato gli atomi invece delle molecole di O₂."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "chemistry-14-q3",
+      "prompt": "Che cos’è il reagente limitante?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Il reagente con la massa minore",
+          "feedback": "Conta il rapporto stechiometrico, non la massa."
+        },
+        {
+          "id": "B",
+          "text": "Il reagente con il coefficiente più grande",
+          "feedback": "Il coefficiente da solo non decide nulla senza le quantità."
+        },
+        {
+          "id": "C",
+          "text": "Il reagente che si esaurisce per primo",
+          "feedback": "Esatto: fissa la quantità massima di prodotto."
+        },
+        {
+          "id": "D",
+          "text": "Il reagente che reagisce più in fretta",
+          "feedback": "La velocità di reazione è un’altra grandezza."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "chemistry-14-q4",
+      "prompt": "Con 6 mol di H₂ e 2 mol di O₂, quanta acqua si forma?",
       "options": [
         {
           "id": "A",
           "text": "6 mol",
-          "feedback": "Questo valore non soddisfa la relazione. 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂). Con Ossigeno iniziale (a)=2 mol e Idrogeno iniziale=6 mol, il risultato è 4 mol. Conserva le unità e arrotonda solo alla fine."
+          "feedback": "L’ossigeno non basta per tutto l’idrogeno."
         },
         {
           "id": "B",
           "text": "2 mol",
-          "feedback": "Controlla sostituzione, segno e unità. 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂). Con Ossigeno iniziale (a)=2 mol e Idrogeno iniziale=6 mol, il risultato è 4 mol. Conserva le unità e arrotonda solo alla fine."
+          "feedback": "Due moli di ossigeno producono il doppio di moli di acqua."
         },
         {
           "id": "C",
+          "text": "8 mol",
+          "feedback": "Le moli di prodotto non si ottengono sommando i reagenti."
+        },
+        {
+          "id": "D",
           "text": "4 mol",
-          "feedback": "2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂). Con Ossigeno iniziale (a)=2 mol e Idrogeno iniziale=6 mol, il risultato è 4 mol. Conserva le unità e arrotonda solo alla fine."
+          "feedback": "Esatto: l’ossigeno è limitante e avanzano 2 mol di idrogeno."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 6,
-        "parameters": {
-          "a": 2
-        },
-        "expected": 4,
-        "unit": "mol"
-      }
+      "correct": "D"
     },
     {
-      "id": "chemistry-14-transfer",
-      "prompt": "Trasferimento: Ossigeno iniziale (a)=2,5 mol. Per Idrogeno iniziale=6 mol, quanto vale Acqua teorica?",
+      "id": "chemistry-14-q5",
+      "prompt": "Che cosa dimostrò Lavoisier pesando reagenti e prodotti in recipienti chiusi?",
       "options": [
         {
           "id": "A",
-          "text": "2,5 mol",
-          "feedback": "Controlla sostituzione, segno e unità. 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂). Con Ossigeno iniziale (a)=2,5 mol e Idrogeno iniziale=6 mol, il risultato è 5 mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "Che la massa totale si conserva",
+          "feedback": "Esatto: gli atomi si riorganizzano senza crearsi né distruggersi."
         },
         {
           "id": "B",
-          "text": "5 mol",
-          "feedback": "2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂). Con Ossigeno iniziale (a)=2,5 mol e Idrogeno iniziale=6 mol, il risultato è 5 mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "Che i gas non hanno massa",
+          "feedback": "I gas hanno massa; per questo servivano recipienti chiusi."
         },
         {
           "id": "C",
-          "text": "7,5 mol",
-          "feedback": "Questo valore non soddisfa la relazione. 2 H₂ + O₂ → 2 H₂O; n_acqua = min(n_H₂, 2n_O₂). Con Ossigeno iniziale (a)=2,5 mol e Idrogeno iniziale=6 mol, il risultato è 5 mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "Che i prodotti pesano sempre di più",
+          "feedback": "La massa dei prodotti è uguale a quella dei reagenti."
+        },
+        {
+          "id": "D",
+          "text": "Che gli atomi si trasformano in energia",
+          "feedback": "Nelle reazioni chimiche la variazione di massa è trascurabile."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 6,
-        "parameters": {
-          "a": 2.5
-        },
-        "expected": 5,
-        "unit": "mol"
-      }
+      "correct": "A"
     },
     {
-      "id": "chemistry-14-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "chemistry-14-q6",
+      "prompt": "Nel laboratorio, con 2 mol di O₂, quanta acqua si forma con 8 mol di H₂?",
       "options": [
         {
           "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali."
+          "text": "8 mol",
+          "feedback": "Con 2 mol di ossigeno si consumano al massimo 4 mol di idrogeno."
         },
         {
           "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali."
+          "text": "4 mol",
+          "feedback": "Esatto: è il tratto piatto del grafico, dove l’ossigeno limita."
         },
         {
           "id": "C",
-          "text": "Bilancio stechiometrico ideale a conversione completa",
-          "feedback": "Bilancio astratto con conversione completa e nessuna reazione secondaria. Non simula miscelazione, accensione o condizioni operative di reazioni reali."
+          "text": "2 mol",
+          "feedback": "Due moli di ossigeno ne producono quattro di acqua."
+        },
+        {
+          "id": "D",
+          "text": "10 mol",
+          "feedback": "Le moli di prodotto non si ottengono sommando i reagenti."
         }
       ],
-      "correct": "C"
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "steps",
+    "goal": 3,
+    "problems": [
+      {
+        "id": "propano",
+        "title": "Bilanciare il propano",
+        "text": "Bilancia la combustione del propano: C₃H₈ + O₂ → CO₂ + H₂O.",
+        "maxErrors": 1,
+        "explain": "Prima il carbonio, poi l’idrogeno, per ultimo l’ossigeno.",
+        "steps": [
+          {
+            "prompt": "Coefficiente di CO₂?",
+            "options": [
+              {
+                "text": "3",
+                "feedback": "Giusto: tre atomi di carbonio nel propano."
+              },
+              {
+                "text": "1",
+                "feedback": "Il propano ha tre atomi di carbonio."
+              },
+              {
+                "text": "8",
+                "feedback": "Otto sono gli atomi di idrogeno."
+              }
+            ],
+            "correct": 0,
+            "result": "C₃H₈ + O₂ → 3 CO₂ + H₂O."
+          },
+          {
+            "prompt": "Coefficiente di H₂O?",
+            "options": [
+              {
+                "text": "4",
+                "feedback": "Giusto: 8 atomi di idrogeno, 2 per molecola d’acqua."
+              },
+              {
+                "text": "8",
+                "feedback": "Ogni molecola d’acqua contiene due atomi di idrogeno."
+              },
+              {
+                "text": "2",
+                "feedback": "Due molecole d’acqua contengono solo 4 atomi di idrogeno."
+              }
+            ],
+            "correct": 0,
+            "result": "C₃H₈ + O₂ → 3 CO₂ + 4 H₂O."
+          },
+          {
+            "prompt": "Coefficiente di O₂?",
+            "options": [
+              {
+                "text": "5",
+                "feedback": "Giusto: 6 + 4 = 10 atomi di ossigeno, cioè 5 molecole."
+              },
+              {
+                "text": "10",
+                "feedback": "Dieci sono gli atomi; le molecole di O₂ sono la metà."
+              },
+              {
+                "text": "7",
+                "feedback": "Conta gli atomi a destra: 3 · 2 + 4 · 1 = 10."
+              }
+            ],
+            "correct": 0,
+            "result": "C₃H₈ + 5 O₂ → 3 CO₂ + 4 H₂O."
+          }
+        ]
+      },
+      {
+        "id": "acqua",
+        "title": "Acqua da 4,0 g di idrogeno",
+        "text": "Quanti grammi di acqua si formano da 4,0 g di H₂ con ossigeno in eccesso? H₂ = 2,016 g/mol; H₂O = 18,02 g/mol.",
+        "maxErrors": 1,
+        "explain": "Grammi → moli → rapporto → moli → grammi.",
+        "steps": [
+          {
+            "prompt": "Moli di H₂?",
+            "options": [
+              {
+                "text": "Circa 1,98 mol",
+                "feedback": "Giusto: 4,0/2,016."
+              },
+              {
+                "text": "Circa 3,97 mol",
+                "feedback": "Hai usato 1,008, la massa di un solo atomo."
+              },
+              {
+                "text": "8,06 mol",
+                "feedback": "Si divide per la massa molare, non si moltiplica."
+              }
+            ],
+            "correct": 0,
+            "result": "n_H₂ ≈ 1,98 mol."
+          },
+          {
+            "prompt": "Moli di acqua?",
+            "options": [
+              {
+                "text": "Circa 1,98 mol",
+                "feedback": "Giusto: il rapporto 2 : 2 è 1 : 1."
+              },
+              {
+                "text": "Circa 0,99 mol",
+                "feedback": "Due moli di idrogeno danno due moli di acqua."
+              },
+              {
+                "text": "Circa 3,97 mol",
+                "feedback": "Il rapporto tra idrogeno e acqua è 1 : 1."
+              }
+            ],
+            "correct": 0,
+            "result": "n_acqua ≈ 1,98 mol."
+          },
+          {
+            "prompt": "Massa di acqua?",
+            "options": [
+              {
+                "text": "Circa 35,7 g",
+                "feedback": "Giusto: 1,98 · 18,02."
+              },
+              {
+                "text": "4,0 g",
+                "feedback": "L’acqua contiene anche l’ossigeno: la massa cresce."
+              },
+              {
+                "text": "Circa 9,1 g",
+                "feedback": "Hai diviso 18,02 per 1,98."
+              }
+            ],
+            "correct": 0,
+            "result": "Si formano circa 35,7 g di acqua."
+          }
+        ]
+      },
+      {
+        "id": "limitante",
+        "title": "Chi limita?",
+        "text": "Si fanno reagire 10 g di H₂ e 64 g di O₂ (32,00 g/mol). Quale reagente limita e quanta acqua si forma?",
+        "maxErrors": 1,
+        "explain": "Si confrontano le moli disponibili con il rapporto 2 : 1.",
+        "steps": [
+          {
+            "prompt": "Moli dei due reagenti?",
+            "options": [
+              {
+                "text": "H₂ circa 4,96 mol; O₂ 2,00 mol",
+                "feedback": "Giusto: 10/2,016 e 64/32,00."
+              },
+              {
+                "text": "H₂ 10 mol; O₂ 64 mol",
+                "feedback": "Questi sono grammi, non moli."
+              },
+              {
+                "text": "H₂ circa 4,96 mol; O₂ 4,00 mol",
+                "feedback": "Hai usato 16,00 g/mol: la molecola O₂ ne pesa 32,00."
+              }
+            ],
+            "correct": 0,
+            "result": "H₂ ≈ 4,96 mol; O₂ = 2,00 mol."
+          },
+          {
+            "prompt": "Qual è il limitante?",
+            "options": [
+              {
+                "text": "L’ossigeno",
+                "feedback": "Giusto: 2,00 mol di O₂ richiedono 4,00 mol di H₂, che ci sono."
+              },
+              {
+                "text": "L’idrogeno",
+                "feedback": "Per 4,96 mol di H₂ servirebbero 2,48 mol di O₂, che non ci sono."
+              },
+              {
+                "text": "Nessuno dei due",
+                "feedback": "Il rapporto disponibile, 4,96 : 2,00, non è esattamente 2 : 1."
+              }
+            ],
+            "correct": 0,
+            "result": "L’ossigeno limita; l’idrogeno è in eccesso."
+          },
+          {
+            "prompt": "Massa di acqua prodotta?",
+            "options": [
+              {
+                "text": "Circa 72 g",
+                "feedback": "Giusto: 4,00 mol · 18,02 g/mol."
+              },
+              {
+                "text": "74 g",
+                "feedback": "Non tutta la massa reagisce: l’idrogeno in eccesso avanza."
+              },
+              {
+                "text": "Circa 89 g",
+                "feedback": "Hai usato le moli di idrogeno, che è in eccesso."
+              }
+            ],
+            "correct": 0,
+            "result": "Si formano circa 72 g di acqua; avanzano circa 1,9 g di idrogeno."
+          }
+        ]
+      },
+      {
+        "id": "ferro-zolfo",
+        "title": "Ferro e zolfo",
+        "text": "Si scaldano 5,6 g di ferro (55,85 g/mol) con 4,0 g di zolfo (32,06 g/mol): Fe + S → FeS. Chi limita? Quanto FeS (87,91 g/mol) si forma?",
+        "maxErrors": 1,
+        "explain": "Con un rapporto 1 : 1 il limitante è il reagente con meno moli.",
+        "steps": [
+          {
+            "prompt": "Moli dei due reagenti?",
+            "options": [
+              {
+                "text": "Fe circa 0,100 mol; S circa 0,125 mol",
+                "feedback": "Giusto: 5,6/55,85 e 4,0/32,06."
+              },
+              {
+                "text": "Fe 5,6 mol; S 4,0 mol",
+                "feedback": "Questi sono grammi: vanno divisi per le masse molari."
+              },
+              {
+                "text": "Fe circa 0,125 mol; S circa 0,100 mol",
+                "feedback": "Hai scambiato i due reagenti."
+              }
+            ],
+            "correct": 0,
+            "result": "Fe ≈ 0,100 mol; S ≈ 0,125 mol."
+          },
+          {
+            "prompt": "Qual è il limitante?",
+            "options": [
+              {
+                "text": "Il ferro",
+                "feedback": "Giusto: il rapporto è 1 : 1 e il ferro ha meno moli."
+              },
+              {
+                "text": "Lo zolfo",
+                "feedback": "Lo zolfo ha più moli, e il rapporto è 1 : 1: è in eccesso."
+              },
+              {
+                "text": "Quello con la massa minore",
+                "feedback": "Conta il numero di moli, non la massa."
+              }
+            ],
+            "correct": 0,
+            "result": "Il ferro limita; avanzano circa 0,025 mol di zolfo."
+          },
+          {
+            "prompt": "Massa di FeS?",
+            "options": [
+              {
+                "text": "Circa 8,8 g",
+                "feedback": "Giusto: 0,100 mol · 87,91 g/mol."
+              },
+              {
+                "text": "9,6 g",
+                "feedback": "Lo zolfo in eccesso non entra nel prodotto."
+              },
+              {
+                "text": "Circa 11 g",
+                "feedback": "Hai usato le moli di zolfo, che è in eccesso."
+              }
+            ],
+            "correct": 0,
+            "result": "Si formano circa 8,8 g di FeS; avanzano circa 0,8 g di zolfo."
+          }
+        ]
+      }
+    ]
+  }
 }

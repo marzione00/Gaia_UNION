@@ -5,19 +5,21 @@
   "title": "Termochimica e calorimetria",
   "sector": 2,
   "modelId": "chemistry-16",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Bilancio calorimetrico senza dispersioni",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Reazioni esotermiche ed endotermiche, entalpia, calorimetro a tazza, calcolo di ΔH e legge di Hess",
+  "narrativeStatus": "Impacchi e calorimetro sono esempi reali; i valori di ΔH sono di riferimento.",
   "objectives": [
-    "Spiegare: bilancio calorimetrico senza dispersioni.",
-    "Applicare q_reazione = -m c ΔT; c=4,184 J/(g K), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Distinguere reazioni esotermiche ed endotermiche e il segno di ΔH.",
+    "Calcolare il calore scambiato con q = m c ΔT.",
+    "Ricavare ΔH da una misura calorimetrica.",
+    "Applicare la legge di Hess."
   ],
   "prerequisites": [
     "chemistry-15"
   ],
   "connections": [
+    "chemistry-17",
     "physics-19"
   ],
   "sources": [
@@ -27,244 +29,315 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Aumento temperatura",
-      "definition": "Variabile indipendente, unità K; intervallo [0; 20]."
+      "term": "Reazione esotermica",
+      "definition": "Reazione che cede calore all’ambiente; ΔH < 0."
     },
     {
-      "term": "Calore reazione",
-      "definition": "Risultato calcolato dal modello, unità kJ."
+      "term": "Reazione endotermica",
+      "definition": "Reazione che assorbe calore dall’ambiente; ΔH > 0."
     },
     {
-      "term": "Massa soluzione",
-      "definition": "Parametro a, unità g; intervallo [50; 500]."
+      "term": "Entalpia",
+      "definition": "Grandezza la cui variazione è il calore scambiato a pressione costante."
+    },
+    {
+      "term": "Calorimetro",
+      "definition": "Recipiente isolato in cui si misura il calore di una reazione."
+    },
+    {
+      "term": "Legge di Hess",
+      "definition": "ΔH di una reazione è la somma dei ΔH delle reazioni in cui si può scomporre."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Impacchi freddi e caldi",
       "text": {
         "base": [
-          "Una trasformazione riscalda la soluzione che la circonda. Il calore della soluzione e quello della reazione hanno segni opposti in un bilancio idealmente isolato.",
-          "La calorimetria ricava uno scambio energetico dalla variazione di temperatura di un sistema di capacità termica nota. Nel modello q_soluzione=mcΔT e q_reazione=-q_soluzione."
+          "Un impacco istantaneo per il ghiaccio diventa freddo appena si rompe la busta interna; uno scaldamani si scalda da solo. Le reazioni e i processi chimici scambiano energia con l’ambiente, e questa energia si può misurare con un termometro, un recipiente isolato e un po’ d’acqua.",
+          "In termochimica si distingue il sistema, cioè le sostanze che reagiscono, dall’ambiente, tutto il resto. Una reazione è esotermica se cede calore all’ambiente, che si scalda; endotermica se lo assorbe, e l’ambiente si raffredda. A pressione costante il calore scambiato è la variazione di entalpia ΔH: negativa per le reazioni esotermiche, positiva per quelle endotermiche."
         ],
         "intermediate": [
-          "Una trasformazione riscalda la soluzione che la circonda. Il calore della soluzione e quello della reazione hanno segni opposti in un bilancio idealmente isolato.",
-          "Il segno meno nasce dal bilancio energetico: se la soluzione assorbe calore, la reazione lo cede. Il codice usa c=4,184 J/(g K) e converte joule in kilojoule."
+          "Un impacco istantaneo per il ghiaccio diventa freddo appena si rompe la busta interna; uno scaldamani si scalda da solo. Le reazioni e i processi chimici scambiano energia con l’ambiente, e questa energia si può misurare con un termometro, un recipiente isolato e un po’ d’acqua.",
+          "In termochimica si distingue il sistema, cioè le sostanze che reagiscono, dall’ambiente, tutto il resto. Una reazione è esotermica se cede calore all’ambiente, che si scalda; endotermica se lo assorbe, e l’ambiente si raffredda. A pressione costante il calore scambiato è la variazione di entalpia ΔH: negativa per le reazioni esotermiche, positiva per quelle endotermiche."
         ],
         "advanced": [
-          "Una trasformazione riscalda la soluzione che la circonda. Il calore della soluzione e quello della reazione hanno segni opposti in un bilancio idealmente isolato.",
-          "Introduci simbolicamente una capacità termica del calorimetro e aggiorna il bilancio. Distingui calore a pressione costante e variazione di energia interna in altri vincoli.",
-          "Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente."
+          "Un impacco istantaneo per il ghiaccio diventa freddo appena si rompe la busta interna; uno scaldamani si scalda da solo. Le reazioni e i processi chimici scambiano energia con l’ambiente, e questa energia si può misurare con un termometro, un recipiente isolato e un po’ d’acqua.",
+          "In termochimica si distingue il sistema, cioè le sostanze che reagiscono, dall’ambiente, tutto il resto. Una reazione è esotermica se cede calore all’ambiente, che si scalda; endotermica se lo assorbe, e l’ambiente si raffredda. A pressione costante il calore scambiato è la variazione di entalpia ΔH: negativa per le reazioni esotermiche, positiva per quelle endotermiche."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Misurare il calore",
       "text": {
         "base": [
-          "La calorimetria ricava uno scambio energetico dalla variazione di temperatura di un sistema di capacità termica nota. Nel modello q_soluzione=mcΔT e q_reazione=-q_soluzione.",
-          "Per 100 g di soluzione e aumento di 10 K, la soluzione assorbe 4184 J. Il calore della reazione nel modello è -4,184 kJ, quindi la trasformazione è esotermica rispetto alla soluzione."
+          "La combustione del metano è fortemente esotermica: ΔH ≈ −890 kJ per mole. La neutralizzazione tra un acido forte e una base forte libera circa 56 kJ per mole di acqua formata. Lo scioglimento del nitrato d’ammonio, usato negli impacchi freddi, è endotermico, circa +26 kJ/mol; quello del cloruro di calcio, usato in alcuni impacchi caldi, è esotermico.",
+          "Un calorimetro a tazza è un recipiente isolato con acqua e un termometro. Il calore ceduto dalla reazione scalda la soluzione: q_soluzione = m c ΔT, con c ≈ 4,184 J/(g·K) per soluzioni acquose diluite. Poiché l’energia si conserva, q_reazione = −q_soluzione. Dividendo per le moli che hanno reagito si ottiene ΔH.",
+          "Esempio svolto. Si mescolano 50 mL di HCl 1,0 M e 50 mL di NaOH 1,0 M, circa 100 g di soluzione, e la temperatura sale di 6,7 K. q_soluzione = 100 · 4,184 · 6,7 ≈ 2800 J. Hanno reagito 0,050 mol: ΔH ≈ −2,80 kJ / 0,050 mol ≈ −56 kJ/mol. Il segno è negativo perché la reazione ha ceduto il calore."
         ],
         "intermediate": [
-          "Il segno meno nasce dal bilancio energetico: se la soluzione assorbe calore, la reazione lo cede. Il codice usa c=4,184 J/(g K) e converte joule in kilojoule.",
-          "La variabile Aumento temperatura è espressa in K; Calore reazione in kJ. Il dominio dello strumento è [0; 20]. La relazione implementata è: q_reazione = -m c ΔT; c=4,184 J/(g K).",
-          "Per 100 g di soluzione e aumento di 10 K, la soluzione assorbe 4184 J. Il calore della reazione nel modello è -4,184 kJ, quindi la trasformazione è esotermica rispetto alla soluzione."
+          "La combustione del metano è fortemente esotermica: ΔH ≈ −890 kJ per mole. La neutralizzazione tra un acido forte e una base forte libera circa 56 kJ per mole di acqua formata. Lo scioglimento del nitrato d’ammonio, usato negli impacchi freddi, è endotermico, circa +26 kJ/mol; quello del cloruro di calcio, usato in alcuni impacchi caldi, è esotermico.",
+          "Un calorimetro a tazza è un recipiente isolato con acqua e un termometro. Il calore ceduto dalla reazione scalda la soluzione: q_soluzione = m c ΔT, con c ≈ 4,184 J/(g·K) per soluzioni acquose diluite. Poiché l’energia si conserva, q_reazione = −q_soluzione. Dividendo per le moli che hanno reagito si ottiene ΔH.",
+          "Esempio svolto. Si mescolano 50 mL di HCl 1,0 M e 50 mL di NaOH 1,0 M, circa 100 g di soluzione, e la temperatura sale di 6,7 K. q_soluzione = 100 · 4,184 · 6,7 ≈ 2800 J. Hanno reagito 0,050 mol: ΔH ≈ −2,80 kJ / 0,050 mol ≈ −56 kJ/mol. Il segno è negativo perché la reazione ha ceduto il calore.",
+          "L’entalpia è una funzione di stato: ΔH dipende solo dallo stato iniziale e da quello finale, non dalla strada. È la legge di Hess: se una reazione si può scrivere come somma di altre, il suo ΔH è la somma dei ΔH. Permette di calcolare entalpie difficili da misurare, come quella della formazione del monossido di carbonio."
         ],
         "advanced": [
-          "Il segno meno nasce dal bilancio energetico: se la soluzione assorbe calore, la reazione lo cede. Il codice usa c=4,184 J/(g K) e converte joule in kilojoule.",
-          "Introduci simbolicamente una capacità termica del calorimetro e aggiorna il bilancio. Distingui calore a pressione costante e variazione di energia interna in altri vincoli.",
-          "Un aumento della temperatura non significa q_reazione positivo. La capacità termica del recipiente e gli scambi con l’esterno possono rendere incompleto un calcolo basato solo sulla soluzione."
+          "La combustione del metano è fortemente esotermica: ΔH ≈ −890 kJ per mole. La neutralizzazione tra un acido forte e una base forte libera circa 56 kJ per mole di acqua formata. Lo scioglimento del nitrato d’ammonio, usato negli impacchi freddi, è endotermico, circa +26 kJ/mol; quello del cloruro di calcio, usato in alcuni impacchi caldi, è esotermico.",
+          "Un calorimetro a tazza è un recipiente isolato con acqua e un termometro. Il calore ceduto dalla reazione scalda la soluzione: q_soluzione = m c ΔT, con c ≈ 4,184 J/(g·K) per soluzioni acquose diluite. Poiché l’energia si conserva, q_reazione = −q_soluzione. Dividendo per le moli che hanno reagito si ottiene ΔH.",
+          "Esempio svolto. Si mescolano 50 mL di HCl 1,0 M e 50 mL di NaOH 1,0 M, circa 100 g di soluzione, e la temperatura sale di 6,7 K. q_soluzione = 100 · 4,184 · 6,7 ≈ 2800 J. Hanno reagito 0,050 mol: ΔH ≈ −2,80 kJ / 0,050 mol ≈ −56 kJ/mol. Il segno è negativo perché la reazione ha ceduto il calore.",
+          "L’entalpia è una funzione di stato: ΔH dipende solo dallo stato iniziale e da quello finale, non dalla strada. È la legge di Hess: se una reazione si può scrivere come somma di altre, il suo ΔH è la somma dei ΔH. Permette di calcolare entalpie difficili da misurare, come quella della formazione del monossido di carbonio."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio del calorimetro",
       "text": {
         "base": [
-          "Nel laboratorio imposta Massa soluzione (a): 100 g. Prima di salvare A, prevedi come cambia Calore reazione fra Aumento temperatura=5 e 10 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Per 100 g di soluzione e aumento di 10 K, la soluzione assorbe 4184 J. Il calore della reazione nel modello è -4,184 kJ, quindi la trasformazione è esotermica rispetto alla soluzione.",
-          "La variabile Aumento temperatura è espressa in K; Calore reazione in kJ. Il dominio dello strumento è [0; 20]. La relazione implementata è: q_reazione = -m c ΔT; c=4,184 J/(g K)."
+          "Nel laboratorio il grafico mostra il calore della reazione in funzione dell’aumento di temperatura della soluzione, da 0 a 20 K; nella scheda REGOLA cambi la massa della soluzione, da 50 a 500 g. Il modello è q_reazione = −m c ΔT, in kJ.",
+          "Protocollo. La previsione riguarda il passaggio da ΔT = 5 K a ΔT = 10 K. Con m = 100 g prevedi e salva A. Poi porta la massa a 500 g, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con 100 g il calore passa da −2,09 a −4,18 kJ: diminuisce, cioè diventa più negativo, perché un riscaldamento maggiore significa più calore ceduto dalla reazione. Con 500 g i valori sono cinque volte maggiori in modulo, −10,46 e −20,92 kJ: a parità di ΔT, più soluzione richiede più calore."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Massa soluzione (a): 100 g. Prima di salvare A, prevedi come cambia Calore reazione fra Aumento temperatura=5 e 10 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Aumento temperatura è espressa in K; Calore reazione in kJ. Il dominio dello strumento è [0; 20]. La relazione implementata è: q_reazione = -m c ΔT; c=4,184 J/(g K).",
-          "Il segno meno nasce dal bilancio energetico: se la soluzione assorbe calore, la reazione lo cede. Il codice usa c=4,184 J/(g K) e converte joule in kilojoule."
+          "Nel laboratorio il grafico mostra il calore della reazione in funzione dell’aumento di temperatura della soluzione, da 0 a 20 K; nella scheda REGOLA cambi la massa della soluzione, da 50 a 500 g. Il modello è q_reazione = −m c ΔT, in kJ.",
+          "Protocollo. La previsione riguarda il passaggio da ΔT = 5 K a ΔT = 10 K. Con m = 100 g prevedi e salva A. Poi porta la massa a 500 g, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con 100 g il calore passa da −2,09 a −4,18 kJ: diminuisce, cioè diventa più negativo, perché un riscaldamento maggiore significa più calore ceduto dalla reazione. Con 500 g i valori sono cinque volte maggiori in modulo, −10,46 e −20,92 kJ: a parità di ΔT, più soluzione richiede più calore."
         ],
         "advanced": [
-          "Nel laboratorio imposta Massa soluzione (a): 100 g. Prima di salvare A, prevedi come cambia Calore reazione fra Aumento temperatura=5 e 10 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Introduci simbolicamente una capacità termica del calorimetro e aggiorna il bilancio. Distingui calore a pressione costante e variazione di energia interna in altri vincoli.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra il calore della reazione in funzione dell’aumento di temperatura della soluzione, da 0 a 20 K; nella scheda REGOLA cambi la massa della soluzione, da 50 a 500 g. Il modello è q_reazione = −m c ΔT, in kJ.",
+          "Protocollo. La previsione riguarda il passaggio da ΔT = 5 K a ΔT = 10 K. Con m = 100 g prevedi e salva A. Poi porta la massa a 500 g, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con 100 g il calore passa da −2,09 a −4,18 kJ: diminuisce, cioè diventa più negativo, perché un riscaldamento maggiore significa più calore ceduto dalla reazione. Con 500 g i valori sono cinque volte maggiori in modulo, −10,46 e −20,92 kJ: a parità di ΔT, più soluzione richiede più calore."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e unità",
       "text": {
         "base": [
-          "Un aumento della temperatura non significa q_reazione positivo. La capacità termica del recipiente e gli scambi con l’esterno possono rendere incompleto un calcolo basato solo sulla soluzione.",
-          "Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: dare a ΔH il segno del ΔT misurato. Se la soluzione si scalda, ΔT è positivo ma la reazione ha ceduto calore: ΔH è negativo.",
+          "Secondo errore: confondere calore e temperatura. Lo stesso calore scalda di 10 K 100 g d’acqua e di 2 K 500 g: la temperatura dipende anche dalla massa e dal calore specifico.",
+          "Le calorie dei cibi sono in realtà chilocalorie: 1 kcal = 4,184 kJ, l’energia per scaldare di un grado un chilogrammo d’acqua. Un alimento da 100 kcal libera, bruciando completamente, circa 418 kJ."
         ],
         "intermediate": [
-          "Un aumento della temperatura non significa q_reazione positivo. La capacità termica del recipiente e gli scambi con l’esterno possono rendere incompleto un calcolo basato solo sulla soluzione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: dare a ΔH il segno del ΔT misurato. Se la soluzione si scalda, ΔT è positivo ma la reazione ha ceduto calore: ΔH è negativo.",
+          "Secondo errore: confondere calore e temperatura. Lo stesso calore scalda di 10 K 100 g d’acqua e di 2 K 500 g: la temperatura dipende anche dalla massa e dal calore specifico.",
+          "Le calorie dei cibi sono in realtà chilocalorie: 1 kcal = 4,184 kJ, l’energia per scaldare di un grado un chilogrammo d’acqua. Un alimento da 100 kcal libera, bruciando completamente, circa 418 kJ."
         ],
         "advanced": [
-          "Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente.",
-          "Introduci simbolicamente una capacità termica del calorimetro e aggiorna il bilancio. Distingui calore a pressione costante e variazione di energia interna in altri vincoli.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: dare a ΔH il segno del ΔT misurato. Se la soluzione si scalda, ΔT è positivo ma la reazione ha ceduto calore: ΔH è negativo.",
+          "Secondo errore: confondere calore e temperatura. Lo stesso calore scalda di 10 K 100 g d’acqua e di 2 K 500 g: la temperatura dipende anche dalla massa e dal calore specifico.",
+          "Le calorie dei cibi sono in realtà chilocalorie: 1 kcal = 4,184 kJ, l’energia per scaldare di un grado un chilogrammo d’acqua. Un alimento da 100 kcal libera, bruciando completamente, circa 418 kJ."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "La calorimetria ricava uno scambio energetico dalla variazione di temperatura di un sistema di capacità termica nota. Nel modello q_soluzione=mcΔT e q_reazione=-q_soluzione.",
-          "Per 100 g di soluzione e aumento di 10 K, la soluzione assorbe 4184 J. Il calore della reazione nel modello è -4,184 kJ, quindi la trasformazione è esotermica rispetto alla soluzione."
+          "Ripasso: sistema e ambiente; reazioni esotermiche ed endotermiche; segno di ΔH; calorimetro a tazza e q = m c ΔT; q_reazione = −q_soluzione; entalpia per mole; legge di Hess.",
+          "Mini esercizio: 200 g di soluzione si scaldano di 3,0 K. q_soluzione = 200 · 4,184 · 3,0 ≈ 2,51 kJ; q_reazione ≈ −2,51 kJ.",
+          "Nelle domande di calorimetria calcola prima il calore della soluzione, poi cambia il segno per la reazione."
         ],
         "intermediate": [
-          "Il segno meno nasce dal bilancio energetico: se la soluzione assorbe calore, la reazione lo cede. Il codice usa c=4,184 J/(g K) e converte joule in kilojoule.",
-          "La variabile Aumento temperatura è espressa in K; Calore reazione in kJ. Il dominio dello strumento è [0; 20]. La relazione implementata è: q_reazione = -m c ΔT; c=4,184 J/(g K)."
+          "Ripasso: sistema e ambiente; reazioni esotermiche ed endotermiche; segno di ΔH; calorimetro a tazza e q = m c ΔT; q_reazione = −q_soluzione; entalpia per mole; legge di Hess.",
+          "Mini esercizio: 200 g di soluzione si scaldano di 3,0 K. q_soluzione = 200 · 4,184 · 3,0 ≈ 2,51 kJ; q_reazione ≈ −2,51 kJ.",
+          "Nelle domande di calorimetria calcola prima il calore della soluzione, poi cambia il segno per la reazione."
         ],
         "advanced": [
-          "Introduci simbolicamente una capacità termica del calorimetro e aggiorna il bilancio. Distingui calore a pressione costante e variazione di energia interna in altri vincoli.",
-          "Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente."
+          "Ripasso: sistema e ambiente; reazioni esotermiche ed endotermiche; segno di ΔH; calorimetro a tazza e q = m c ΔT; q_reazione = −q_soluzione; entalpia per mole; legge di Hess.",
+          "Mini esercizio: 200 g di soluzione si scaldano di 3,0 K. q_soluzione = 200 · 4,184 · 3,0 ≈ 2,51 kJ; q_reazione ≈ −2,51 kJ.",
+          "Nelle domande di calorimetria calcola prima il calore della soluzione, poi cambia il segno per la reazione."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Bilancio calorimetrico senza dispersioni.",
-          "Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente.",
-          "Collegamento consigliato: physics-19. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Il bilancio tra calore e temperatura è il tema dell’unità di fisica «Calore e capacità termica». In chimica il passo successivo è «Velocità di reazione»: l’entalpia dice quanta energia si scambia, non quanto in fretta.",
+          "Riepilogo dell’unità: le reazioni esotermiche cedono calore e hanno ΔH < 0, quelle endotermiche lo assorbono e hanno ΔH > 0; in un calorimetro q_soluzione = m c ΔT e q_reazione = −q_soluzione; dividendo per le moli si ottiene ΔH; per la legge di Hess ΔH non dipende dal percorso.",
+          "Nel diario registra A e B con le previsioni e spiega perché il calore della reazione ha segno opposto a quello della soluzione."
         ],
         "intermediate": [
-          "Il segno meno nasce dal bilancio energetico: se la soluzione assorbe calore, la reazione lo cede. Il codice usa c=4,184 J/(g K) e converte joule in kilojoule.",
-          "Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente.",
-          "Introduci simbolicamente una capacità termica del calorimetro e aggiorna il bilancio. Distingui calore a pressione costante e variazione di energia interna in altri vincoli."
+          "Il bilancio tra calore e temperatura è il tema dell’unità di fisica «Calore e capacità termica». In chimica il passo successivo è «Velocità di reazione»: l’entalpia dice quanta energia si scambia, non quanto in fretta.",
+          "Riepilogo dell’unità: le reazioni esotermiche cedono calore e hanno ΔH < 0, quelle endotermiche lo assorbono e hanno ΔH > 0; in un calorimetro q_soluzione = m c ΔT e q_reazione = −q_soluzione; dividendo per le moli si ottiene ΔH; per la legge di Hess ΔH non dipende dal percorso.",
+          "Nel diario registra A e B con le previsioni e spiega perché il calore della reazione ha segno opposto a quello della soluzione."
         ],
         "advanced": [
-          "Introduci simbolicamente una capacità termica del calorimetro e aggiorna il bilancio. Distingui calore a pressione costante e variazione di energia interna in altri vincoli.",
-          "Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Il bilancio tra calore e temperatura è il tema dell’unità di fisica «Calore e capacità termica». In chimica il passo successivo è «Velocità di reazione»: l’entalpia dice quanta energia si scambia, non quanto in fretta.",
+          "Riepilogo dell’unità: le reazioni esotermiche cedono calore e hanno ΔH < 0, quelle endotermiche lo assorbono e hanno ΔH > 0; in un calorimetro q_soluzione = m c ΔT e q_reazione = −q_soluzione; dividendo per le moli si ottiene ΔH; per la legge di Hess ΔH non dipende dal percorso.",
+          "Nel diario registra A e B con le previsioni e spiega perché il calore della reazione ha segno opposto a quello della soluzione."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-16-concept",
-      "prompt": "Se la soluzione si riscalda in un sistema ideale isolato, q_reazione è:",
+      "id": "chemistry-16-q1",
+      "prompt": "Che segno ha ΔH per una reazione esotermica?",
       "options": [
         {
           "id": "A",
-          "text": "Necessariamente nullo",
-          "feedback": "Il segno meno nasce dal bilancio energetico: se la soluzione assorbe calore, la reazione lo cede. Il codice usa c=4,184 J/(g K) e converte joule in kilojoule."
+          "text": "Negativo",
+          "feedback": "Esatto: il sistema cede calore all’ambiente e la sua entalpia diminuisce."
         },
         {
           "id": "B",
-          "text": "Negativo",
-          "feedback": "La calorimetria ricava uno scambio energetico dalla variazione di temperatura di un sistema di capacità termica nota. Nel modello q_soluzione=mcΔT e q_reazione=-q_soluzione."
+          "text": "Positivo",
+          "feedback": "Positivo è il segno delle reazioni endotermiche."
         },
         {
           "id": "C",
-          "text": "Sempre positivo",
-          "feedback": "Un aumento della temperatura non significa q_reazione positivo. La capacità termica del recipiente e gli scambi con l’esterno possono rendere incompleto un calcolo basato solo sulla soluzione."
+          "text": "Zero",
+          "feedback": "Una reazione esotermica scambia calore: ΔH è diverso da zero."
+        },
+        {
+          "id": "D",
+          "text": "Dipende dalla massa",
+          "feedback": "La massa cambia il valore di ΔH, non il suo segno."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-16-q2",
+      "prompt": "In un calorimetro 100 g di soluzione si scaldano di 5 K. Quanto vale q_reazione?",
+      "options": [
+        {
+          "id": "A",
+          "text": "+2,09 kJ",
+          "feedback": "Questo è il calore assorbito dalla soluzione: la reazione ha segno opposto."
+        },
+        {
+          "id": "B",
+          "text": "−2,09 kJ",
+          "feedback": "Esatto: q_soluzione = 100 · 4,184 · 5 J, e la reazione ha segno opposto."
+        },
+        {
+          "id": "C",
+          "text": "−20,9 kJ",
+          "feedback": "Hai sbagliato di un fattore 10 nella conversione da joule a kilojoule."
+        },
+        {
+          "id": "D",
+          "text": "−0,5 kJ",
+          "feedback": "Manca il calore specifico dell’acqua, 4,184 J/(g·K)."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "chemistry-16-calculation",
-      "prompt": "Calcolo: Massa soluzione (a)=100 g. Per Aumento temperatura=10 K, quanto vale Calore reazione?",
+      "id": "chemistry-16-q3",
+      "prompt": "Perché un impacco al nitrato d’ammonio diventa freddo?",
       "options": [
         {
           "id": "A",
-          "text": "-4,184 kJ",
-          "feedback": "q_reazione = -m c ΔT; c=4,184 J/(g K). Con Massa soluzione (a)=100 g e Aumento temperatura=10 K, il risultato è -4,184 kJ. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché contiene ghiaccio",
+          "feedback": "L’impacco contiene sale e acqua a temperatura ambiente."
         },
         {
           "id": "B",
-          "text": "-2,092 kJ",
-          "feedback": "Questo valore non soddisfa la relazione. q_reazione = -m c ΔT; c=4,184 J/(g K). Con Massa soluzione (a)=100 g e Aumento temperatura=10 K, il risultato è -4,184 kJ. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché il sale reagisce con l’aria",
+          "feedback": "La busta è chiusa: il processo avviene all’interno."
         },
         {
           "id": "C",
-          "text": "-6,276 kJ",
-          "feedback": "Controlla sostituzione, segno e unità. q_reazione = -m c ΔT; c=4,184 J/(g K). Con Massa soluzione (a)=100 g e Aumento temperatura=10 K, il risultato è -4,184 kJ. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché lo scioglimento del sale è endotermico",
+          "feedback": "Esatto: assorbe calore dall’acqua e dalla pelle."
+        },
+        {
+          "id": "D",
+          "text": "Perché l’acqua evapora",
+          "feedback": "L’acqua resta nella busta chiusa e non può evaporare."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 10,
-        "parameters": {
-          "a": 100
-        },
-        "expected": -4.184,
-        "unit": "kJ"
-      }
+      "correct": "C"
     },
     {
-      "id": "chemistry-16-transfer",
-      "prompt": "Trasferimento: Massa soluzione (a)=150 g. Per Aumento temperatura=10 K, quanto vale Calore reazione?",
+      "id": "chemistry-16-q4",
+      "prompt": "Che cosa afferma la legge di Hess?",
       "options": [
         {
           "id": "A",
-          "text": "-3,138 kJ",
-          "feedback": "Questo valore non soddisfa la relazione. q_reazione = -m c ΔT; c=4,184 J/(g K). Con Massa soluzione (a)=150 g e Aumento temperatura=10 K, il risultato è -6,276 kJ. Conserva le unità e arrotonda solo alla fine."
+          "text": "Che ΔH dipende dalla velocità della reazione",
+          "feedback": "ΔH non dipende dal tempo né dalla velocità."
         },
         {
           "id": "B",
-          "text": "-9,414 kJ",
-          "feedback": "Controlla sostituzione, segno e unità. q_reazione = -m c ΔT; c=4,184 J/(g K). Con Massa soluzione (a)=150 g e Aumento temperatura=10 K, il risultato è -6,276 kJ. Conserva le unità e arrotonda solo alla fine."
+          "text": "Che tutte le reazioni sono esotermiche",
+          "feedback": "Esistono molte reazioni endotermiche."
         },
         {
           "id": "C",
-          "text": "-6,276 kJ",
-          "feedback": "q_reazione = -m c ΔT; c=4,184 J/(g K). Con Massa soluzione (a)=150 g e Aumento temperatura=10 K, il risultato è -6,276 kJ. Conserva le unità e arrotonda solo alla fine."
+          "text": "Che il calore dipende dal recipiente",
+          "feedback": "ΔH è una proprietà della reazione, non del recipiente."
+        },
+        {
+          "id": "D",
+          "text": "Che ΔH dipende solo dallo stato iniziale e finale",
+          "feedback": "Esatto: per questo i ΔH di più reazioni si possono sommare."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 10,
-        "parameters": {
-          "a": 150
-        },
-        "expected": -6.276,
-        "unit": "kJ"
-      }
+      "correct": "D"
     },
     {
-      "id": "chemistry-16-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "chemistry-16-q5",
+      "prompt": "Nel laboratorio, con m = 100 g, passando da ΔT = 5 K a ΔT = 10 K il calore della reazione:",
       "options": [
         {
           "id": "A",
-          "text": "Bilancio calorimetrico senza dispersioni",
-          "feedback": "Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente."
+          "text": "Diminuisce, diventando più negativo",
+          "feedback": "Esatto: da −2,09 a −4,18 kJ, la reazione cede più calore."
         },
         {
           "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente."
+          "text": "Cresce",
+          "feedback": "Il valore diventa più negativo: la reazione cede più calore."
         },
         {
           "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Soluzione uniforme, calore specifico fissato e recipiente di capacità trascurabile. Nessuna energia di reazione viene misurata realmente."
+          "text": "Resta uguale",
+          "feedback": "Il calore è proporzionale all’aumento di temperatura."
+        },
+        {
+          "id": "D",
+          "text": "Non è definito",
+          "feedback": "Il modello è definito in tutto l’intervallo."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "chemistry-16-q6",
+      "prompt": "Neutralizzando 0,050 mol di acido si misurano q_soluzione = 2,80 kJ. Quanto vale ΔH per mole?",
+      "options": [
+        {
+          "id": "A",
+          "text": "+56 kJ/mol",
+          "feedback": "La soluzione si è scaldata: la reazione è esotermica e ΔH è negativo."
+        },
+        {
+          "id": "B",
+          "text": "Circa −56 kJ/mol",
+          "feedback": "Esatto: −2,80 kJ divisi per 0,050 mol."
+        },
+        {
+          "id": "C",
+          "text": "−0,14 kJ/mol",
+          "feedback": "Hai moltiplicato per le moli invece di dividere."
+        },
+        {
+          "id": "D",
+          "text": "−2,80 kJ/mol",
+          "feedback": "Il calore va diviso per le moli che hanno reagito."
+        }
+      ],
+      "correct": "B"
     }
   ]
 }

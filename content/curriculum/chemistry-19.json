@@ -5,14 +5,15 @@
   "title": "Equilibrio chimico",
   "sector": 2,
   "modelId": "chemistry-19",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Interconversione ideale A⇌B in sistema chiuso",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Reazioni reversibili, equilibrio dinamico, legge di azione di massa, quoziente di reazione e calcoli di equilibrio",
+  "narrativeStatus": "Gli esempi sono reali; i valori di K sono di riferimento a temperature indicate.",
   "objectives": [
-    "Spiegare: interconversione ideale a⇌b in sistema chiuso.",
-    "Applicare [B]_eq = C_tot K/(1+K), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Descrivere l’equilibrio come uguaglianza tra velocità diretta e inversa.",
+    "Scrivere l’espressione di K con la legge di azione di massa.",
+    "Interpretare K e confrontarla con il quoziente Q.",
+    "Calcolare concentrazioni di equilibrio in casi semplici."
   ],
   "prerequisites": [
     "chemistry-18"
@@ -27,244 +28,313 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Costante K",
-      "definition": "Variabile indipendente, unità 1; intervallo [0,01; 10]."
+      "term": "Equilibrio dinamico",
+      "definition": "Stato in cui reazione diretta e inversa hanno la stessa velocità."
     },
     {
-      "term": "Concentrazione B",
-      "definition": "Risultato calcolato dal modello, unità mol/L."
+      "term": "Costante di equilibrio",
+      "definition": "K: rapporto tra prodotti e reagenti all’equilibrio, elevati ai coefficienti."
     },
     {
-      "term": "Concentrazione totale",
-      "definition": "Parametro a, unità mol/L; intervallo [0,5; 3]."
+      "term": "Legge di azione di massa",
+      "definition": "Regola che dà l’espressione di K a partire dall’equazione bilanciata."
+    },
+    {
+      "term": "Quoziente di reazione",
+      "definition": "Q: stessa espressione di K con le concentrazioni del momento."
+    },
+    {
+      "term": "Reazione reversibile",
+      "definition": "Reazione che procede nei due versi."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "La bottiglia chiusa",
       "text": {
         "base": [
-          "Due forme A e B si interconvertono in un sistema chiuso. Il fatto che le concentrazioni finali restino costanti non significa che ogni trasformazione microscopica si sia fermata.",
-          "Un equilibrio dinamico può mantenere costanti le concentrazioni mentre avvengono processi diretti e inversi. Per una semplice interconversione ideale A⇌B, K=[B]/[A]."
+          "In una bottiglia di acqua frizzante chiusa le bollicine non si vedono, eppure l’anidride carbonica continua a passare dal liquido al gas e dal gas al liquido. Le due trasformazioni si compensano. Quando si apre il tappo l’equilibrio si rompe. Molte reazioni chimiche si comportano allo stesso modo: non arrivano mai a completamento.",
+          "Una reazione reversibile procede nei due versi: A ⇌ B. All’inizio prevale la reazione diretta; man mano che si forma B, cresce la reazione inversa. All’equilibrio le due velocità sono uguali e le concentrazioni restano costanti, anche se le molecole continuano a trasformarsi. È un equilibrio dinamico."
         ],
         "intermediate": [
-          "Due forme A e B si interconvertono in un sistema chiuso. Il fatto che le concentrazioni finali restino costanti non significa che ogni trasformazione microscopica si sia fermata.",
-          "Con concentrazione totale C_tot=[A]+[B], sostituisci [B]=K[A]. Si ottiene [B]_eq=C_totK/(1+K). K grande favorisce B, ma non significa automaticamente che la trasformazione sia rapida."
+          "In una bottiglia di acqua frizzante chiusa le bollicine non si vedono, eppure l’anidride carbonica continua a passare dal liquido al gas e dal gas al liquido. Le due trasformazioni si compensano. Quando si apre il tappo l’equilibrio si rompe. Molte reazioni chimiche si comportano allo stesso modo: non arrivano mai a completamento.",
+          "Una reazione reversibile procede nei due versi: A ⇌ B. All’inizio prevale la reazione diretta; man mano che si forma B, cresce la reazione inversa. All’equilibrio le due velocità sono uguali e le concentrazioni restano costanti, anche se le molecole continuano a trasformarsi. È un equilibrio dinamico."
         ],
         "advanced": [
-          "Due forme A e B si interconvertono in un sistema chiuso. Il fatto che le concentrazioni finali restino costanti non significa che ogni trasformazione microscopica si sia fermata.",
-          "Confronta il quoziente di reazione iniziale con K per stabilire il verso del cambiamento. Non usare questo confronto per stimare la velocità.",
-          "Interconversione 1:1 ideale con totale conservato. Non sono inclusi altri reagenti, attività non ideali o un’evoluzione temporale."
+          "In una bottiglia di acqua frizzante chiusa le bollicine non si vedono, eppure l’anidride carbonica continua a passare dal liquido al gas e dal gas al liquido. Le due trasformazioni si compensano. Quando si apre il tappo l’equilibrio si rompe. Molte reazioni chimiche si comportano allo stesso modo: non arrivano mai a completamento.",
+          "Una reazione reversibile procede nei due versi: A ⇌ B. All’inizio prevale la reazione diretta; man mano che si forma B, cresce la reazione inversa. All’equilibrio le due velocità sono uguali e le concentrazioni restano costanti, anche se le molecole continuano a trasformarsi. È un equilibrio dinamico."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "La costante di equilibrio",
       "text": {
         "base": [
-          "Un equilibrio dinamico può mantenere costanti le concentrazioni mentre avvengono processi diretti e inversi. Per una semplice interconversione ideale A⇌B, K=[B]/[A].",
-          "Con C_tot=1 mol/L e K=1, entrambe le forme hanno concentrazione 0,5 mol/L. Con K=9, B è 0,9 mol/L e A è 0,1 mol/L."
+          "Nel 1864 Guldberg e Waage enunciarono la legge di azione di massa. Per aA + bB ⇌ cC + dD, all’equilibrio K = [C]^c [D]^d / ([A]^a [B]^b). Solidi e liquidi puri non compaiono. Per N₂ + 3 H₂ ⇌ 2 NH₃: K = [NH₃]² / ([N₂][H₂]³). K è costante a una data temperatura, qualunque siano le concentrazioni di partenza.",
+          "Il valore di K dice da che parte sta l’equilibrio. Se K ≫ 1 prevalgono i prodotti; se K ≪ 1 i reagenti. Per N₂O₄ ⇌ 2 NO₂ a 25 °C K ≈ 4,6 · 10⁻³: all’equilibrio prevale il tetrossido incolore. Il quoziente di reazione Q si calcola come K con le concentrazioni del momento: se Q < K la reazione procede verso i prodotti, se Q > K verso i reagenti.",
+          "Per calcolare le concentrazioni di equilibrio si usa una tabella con valori iniziali, variazioni e valori finali. Per A ⇌ B con concentrazione totale C: [B] = C K/(1 + K). Con K = 1 metà e metà; con K = 4 l’80% è B. Per H₂ + I₂ ⇌ 2 HI con K ≈ 50 intorno a 450 °C, partendo da 1,0 mol/L di ciascun reagente, (2x)²/(1 − x)² = 50 dà x ≈ 0,78 e [HI] ≈ 1,56 mol/L."
         ],
         "intermediate": [
-          "Con concentrazione totale C_tot=[A]+[B], sostituisci [B]=K[A]. Si ottiene [B]_eq=C_totK/(1+K). K grande favorisce B, ma non significa automaticamente che la trasformazione sia rapida.",
-          "La variabile Costante K è espressa in 1; Concentrazione B in mol/L. Il dominio dello strumento è [0,01; 10]. La relazione implementata è: [B]_eq = C_tot K/(1+K).",
-          "Con C_tot=1 mol/L e K=1, entrambe le forme hanno concentrazione 0,5 mol/L. Con K=9, B è 0,9 mol/L e A è 0,1 mol/L."
+          "Nel 1864 Guldberg e Waage enunciarono la legge di azione di massa. Per aA + bB ⇌ cC + dD, all’equilibrio K = [C]^c [D]^d / ([A]^a [B]^b). Solidi e liquidi puri non compaiono. Per N₂ + 3 H₂ ⇌ 2 NH₃: K = [NH₃]² / ([N₂][H₂]³). K è costante a una data temperatura, qualunque siano le concentrazioni di partenza.",
+          "Il valore di K dice da che parte sta l’equilibrio. Se K ≫ 1 prevalgono i prodotti; se K ≪ 1 i reagenti. Per N₂O₄ ⇌ 2 NO₂ a 25 °C K ≈ 4,6 · 10⁻³: all’equilibrio prevale il tetrossido incolore. Il quoziente di reazione Q si calcola come K con le concentrazioni del momento: se Q < K la reazione procede verso i prodotti, se Q > K verso i reagenti.",
+          "Per calcolare le concentrazioni di equilibrio si usa una tabella con valori iniziali, variazioni e valori finali. Per A ⇌ B con concentrazione totale C: [B] = C K/(1 + K). Con K = 1 metà e metà; con K = 4 l’80% è B. Per H₂ + I₂ ⇌ 2 HI con K ≈ 50 intorno a 450 °C, partendo da 1,0 mol/L di ciascun reagente, (2x)²/(1 − x)² = 50 dà x ≈ 0,78 e [HI] ≈ 1,56 mol/L."
         ],
         "advanced": [
-          "Con concentrazione totale C_tot=[A]+[B], sostituisci [B]=K[A]. Si ottiene [B]_eq=C_totK/(1+K). K grande favorisce B, ma non significa automaticamente che la trasformazione sia rapida.",
-          "Confronta il quoziente di reazione iniziale con K per stabilire il verso del cambiamento. Non usare questo confronto per stimare la velocità.",
-          "Equilibrio non implica concentrazioni uguali, salvo casi particolari. La costante dipende dalla temperatura e dalla definizione delle attività, non dalle quantità iniziali per un dato modello."
+          "Nel 1864 Guldberg e Waage enunciarono la legge di azione di massa. Per aA + bB ⇌ cC + dD, all’equilibrio K = [C]^c [D]^d / ([A]^a [B]^b). Solidi e liquidi puri non compaiono. Per N₂ + 3 H₂ ⇌ 2 NH₃: K = [NH₃]² / ([N₂][H₂]³). K è costante a una data temperatura, qualunque siano le concentrazioni di partenza.",
+          "Il valore di K dice da che parte sta l’equilibrio. Se K ≫ 1 prevalgono i prodotti; se K ≪ 1 i reagenti. Per N₂O₄ ⇌ 2 NO₂ a 25 °C K ≈ 4,6 · 10⁻³: all’equilibrio prevale il tetrossido incolore. Il quoziente di reazione Q si calcola come K con le concentrazioni del momento: se Q < K la reazione procede verso i prodotti, se Q > K verso i reagenti.",
+          "Per calcolare le concentrazioni di equilibrio si usa una tabella con valori iniziali, variazioni e valori finali. Per A ⇌ B con concentrazione totale C: [B] = C K/(1 + K). Con K = 1 metà e metà; con K = 4 l’80% è B. Per H₂ + I₂ ⇌ 2 HI con K ≈ 50 intorno a 450 °C, partendo da 1,0 mol/L di ciascun reagente, (2x)²/(1 − x)² = 50 dà x ≈ 0,78 e [HI] ≈ 1,56 mol/L."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio dell’equilibrio",
       "text": {
         "base": [
-          "Nel laboratorio imposta Concentrazione totale (a): 1 mol/L. Prima di salvare A, prevedi come cambia Concentrazione B fra Costante K=2,5075 e 5,005 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con C_tot=1 mol/L e K=1, entrambe le forme hanno concentrazione 0,5 mol/L. Con K=9, B è 0,9 mol/L e A è 0,1 mol/L.",
-          "La variabile Costante K è espressa in 1; Concentrazione B in mol/L. Il dominio dello strumento è [0,01; 10]. La relazione implementata è: [B]_eq = C_tot K/(1+K)."
+          "Nel laboratorio il grafico mostra la concentrazione di equilibrio di B in funzione di K, da 0,01 a 10, per la reazione A ⇌ B; nella scheda REGOLA cambi la concentrazione totale C, da 0,5 a 3 mol/L. Il modello è [B] = C K/(1 + K).",
+          "Protocollo. La previsione riguarda il passaggio da K ≈ 2,51 a K ≈ 5,0. Con C = 1 mol/L prevedi e salva A. Poi porta C a 3 mol/L, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con C = 1 la concentrazione di B passa da circa 0,715 a 0,833 mol/L: cresce, ma meno che in proporzione, perché si avvicina al limite C. Con C = 3 i valori triplicano, circa 2,14 e 2,50. Per K piccoli la curva è quasi una retta, [B] ≈ C K; per K grandi si appiattisce."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Concentrazione totale (a): 1 mol/L. Prima di salvare A, prevedi come cambia Concentrazione B fra Costante K=2,5075 e 5,005 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Costante K è espressa in 1; Concentrazione B in mol/L. Il dominio dello strumento è [0,01; 10]. La relazione implementata è: [B]_eq = C_tot K/(1+K).",
-          "Con concentrazione totale C_tot=[A]+[B], sostituisci [B]=K[A]. Si ottiene [B]_eq=C_totK/(1+K). K grande favorisce B, ma non significa automaticamente che la trasformazione sia rapida."
+          "Nel laboratorio il grafico mostra la concentrazione di equilibrio di B in funzione di K, da 0,01 a 10, per la reazione A ⇌ B; nella scheda REGOLA cambi la concentrazione totale C, da 0,5 a 3 mol/L. Il modello è [B] = C K/(1 + K).",
+          "Protocollo. La previsione riguarda il passaggio da K ≈ 2,51 a K ≈ 5,0. Con C = 1 mol/L prevedi e salva A. Poi porta C a 3 mol/L, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con C = 1 la concentrazione di B passa da circa 0,715 a 0,833 mol/L: cresce, ma meno che in proporzione, perché si avvicina al limite C. Con C = 3 i valori triplicano, circa 2,14 e 2,50. Per K piccoli la curva è quasi una retta, [B] ≈ C K; per K grandi si appiattisce."
         ],
         "advanced": [
-          "Nel laboratorio imposta Concentrazione totale (a): 1 mol/L. Prima di salvare A, prevedi come cambia Concentrazione B fra Costante K=2,5075 e 5,005 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta il quoziente di reazione iniziale con K per stabilire il verso del cambiamento. Non usare questo confronto per stimare la velocità.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra la concentrazione di equilibrio di B in funzione di K, da 0,01 a 10, per la reazione A ⇌ B; nella scheda REGOLA cambi la concentrazione totale C, da 0,5 a 3 mol/L. Il modello è [B] = C K/(1 + K).",
+          "Protocollo. La previsione riguarda il passaggio da K ≈ 2,51 a K ≈ 5,0. Con C = 1 mol/L prevedi e salva A. Poi porta C a 3 mol/L, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con C = 1 la concentrazione di B passa da circa 0,715 a 0,833 mol/L: cresce, ma meno che in proporzione, perché si avvicina al limite C. Con C = 3 i valori triplicano, circa 2,14 e 2,50. Per K piccoli la curva è quasi una retta, [B] ≈ C K; per K grandi si appiattisce."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "Equilibrio non implica concentrazioni uguali, salvo casi particolari. La costante dipende dalla temperatura e dalla definizione delle attività, non dalle quantità iniziali per un dato modello.",
-          "Interconversione 1:1 ideale con totale conservato. Non sono inclusi altri reagenti, attività non ideali o un’evoluzione temporale.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che all’equilibrio le concentrazioni di reagenti e prodotti siano uguali. Sono costanti, non uguali: il loro rapporto è fissato da K, che può essere molto grande o molto piccolo.",
+          "Secondo errore: credere che all’equilibrio la reazione si fermi. Le reazioni diretta e inversa continuano, con la stessa velocità; con traccianti isotopici si vedono gli atomi passare da una parte all’altra.",
+          "Il valore di K dice da che parte sta l’equilibrio. Se K ≫ 1 prevalgono i prodotti; se K ≪ 1 i reagenti. Per N₂O₄ ⇌ 2 NO₂ a 25 °C K ≈ 4,6 · 10⁻³: all’equilibrio prevale il tetrossido incolore. Il quoziente di reazione Q si calcola come K con le concentrazioni del momento: se Q < K la reazione procede verso i prodotti, se Q > K verso i reagenti."
         ],
         "intermediate": [
-          "Equilibrio non implica concentrazioni uguali, salvo casi particolari. La costante dipende dalla temperatura e dalla definizione delle attività, non dalle quantità iniziali per un dato modello.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che all’equilibrio le concentrazioni di reagenti e prodotti siano uguali. Sono costanti, non uguali: il loro rapporto è fissato da K, che può essere molto grande o molto piccolo.",
+          "Secondo errore: credere che all’equilibrio la reazione si fermi. Le reazioni diretta e inversa continuano, con la stessa velocità; con traccianti isotopici si vedono gli atomi passare da una parte all’altra.",
+          "Il valore di K dice da che parte sta l’equilibrio. Se K ≫ 1 prevalgono i prodotti; se K ≪ 1 i reagenti. Per N₂O₄ ⇌ 2 NO₂ a 25 °C K ≈ 4,6 · 10⁻³: all’equilibrio prevale il tetrossido incolore. Il quoziente di reazione Q si calcola come K con le concentrazioni del momento: se Q < K la reazione procede verso i prodotti, se Q > K verso i reagenti."
         ],
         "advanced": [
-          "Interconversione 1:1 ideale con totale conservato. Non sono inclusi altri reagenti, attività non ideali o un’evoluzione temporale.",
-          "Confronta il quoziente di reazione iniziale con K per stabilire il verso del cambiamento. Non usare questo confronto per stimare la velocità.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che all’equilibrio le concentrazioni di reagenti e prodotti siano uguali. Sono costanti, non uguali: il loro rapporto è fissato da K, che può essere molto grande o molto piccolo.",
+          "Secondo errore: credere che all’equilibrio la reazione si fermi. Le reazioni diretta e inversa continuano, con la stessa velocità; con traccianti isotopici si vedono gli atomi passare da una parte all’altra.",
+          "Per calcolare le concentrazioni di equilibrio si usa una tabella con valori iniziali, variazioni e valori finali. Per A ⇌ B con concentrazione totale C: [B] = C K/(1 + K). Con K = 1 metà e metà; con K = 4 l’80% è B. Per H₂ + I₂ ⇌ 2 HI con K ≈ 50 intorno a 450 °C, partendo da 1,0 mol/L di ciascun reagente, (2x)²/(1 − x)² = 50 dà x ≈ 0,78 e [HI] ≈ 1,56 mol/L."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Un equilibrio dinamico può mantenere costanti le concentrazioni mentre avvengono processi diretti e inversi. Per una semplice interconversione ideale A⇌B, K=[B]/[A].",
-          "Con C_tot=1 mol/L e K=1, entrambe le forme hanno concentrazione 0,5 mol/L. Con K=9, B è 0,9 mol/L e A è 0,1 mol/L."
+          "Ripasso: reazioni reversibili ed equilibrio dinamico; legge di azione di massa ed espressione di K; significato del valore di K; quoziente di reazione e verso della reazione; calcolo delle concentrazioni di equilibrio.",
+          "Mini esercizio: A ⇌ B con K = 9 e C = 1 mol/L: [B] = 9/10 = 0,9 mol/L e [A] = 0,1 mol/L.",
+          "Nelle domande sull’equilibrio scrivi prima l’espressione di K con gli esponenti, poi sostituisci."
         ],
         "intermediate": [
-          "Con concentrazione totale C_tot=[A]+[B], sostituisci [B]=K[A]. Si ottiene [B]_eq=C_totK/(1+K). K grande favorisce B, ma non significa automaticamente che la trasformazione sia rapida.",
-          "La variabile Costante K è espressa in 1; Concentrazione B in mol/L. Il dominio dello strumento è [0,01; 10]. La relazione implementata è: [B]_eq = C_tot K/(1+K)."
+          "Ripasso: reazioni reversibili ed equilibrio dinamico; legge di azione di massa ed espressione di K; significato del valore di K; quoziente di reazione e verso della reazione; calcolo delle concentrazioni di equilibrio.",
+          "Mini esercizio: A ⇌ B con K = 9 e C = 1 mol/L: [B] = 9/10 = 0,9 mol/L e [A] = 0,1 mol/L.",
+          "Nelle domande sull’equilibrio scrivi prima l’espressione di K con gli esponenti, poi sostituisci."
         ],
         "advanced": [
-          "Confronta il quoziente di reazione iniziale con K per stabilire il verso del cambiamento. Non usare questo confronto per stimare la velocità.",
-          "Interconversione 1:1 ideale con totale conservato. Non sono inclusi altri reagenti, attività non ideali o un’evoluzione temporale."
+          "Ripasso: reazioni reversibili ed equilibrio dinamico; legge di azione di massa ed espressione di K; significato del valore di K; quoziente di reazione e verso della reazione; calcolo delle concentrazioni di equilibrio.",
+          "Mini esercizio: A ⇌ B con K = 9 e C = 1 mol/L: [B] = 9/10 = 0,9 mol/L e [A] = 0,1 mol/L.",
+          "Nelle domande sull’equilibrio scrivi prima l’espressione di K con gli esponenti, poi sostituisci."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Interconversione ideale A⇌B in sistema chiuso.",
-          "Interconversione 1:1 ideale con totale conservato. Non sono inclusi altri reagenti, attività non ideali o un’evoluzione temporale.",
-          "Collegamento consigliato: chemistry-20. Il completamento registra attività e autoverifica, non certifica competenze."
+          "L’equilibrio risponde ai cambiamenti di concentrazione, pressione e temperatura: l’unità «Perturbazioni dell’equilibrio» studia il principio di Le Chatelier e le sue applicazioni industriali.",
+          "Riepilogo dell’unità: all’equilibrio le velocità diretta e inversa sono uguali e le concentrazioni costanti; K si scrive con la legge di azione di massa; K ≫ 1 favorisce i prodotti; il confronto tra Q e K indica il verso; per A ⇌ B [B] = C K/(1 + K).",
+          "Nel diario registra A e B con le previsioni e spiega perché la curva si appiattisce per K grandi."
         ],
         "intermediate": [
-          "Con concentrazione totale C_tot=[A]+[B], sostituisci [B]=K[A]. Si ottiene [B]_eq=C_totK/(1+K). K grande favorisce B, ma non significa automaticamente che la trasformazione sia rapida.",
-          "Interconversione 1:1 ideale con totale conservato. Non sono inclusi altri reagenti, attività non ideali o un’evoluzione temporale.",
-          "Confronta il quoziente di reazione iniziale con K per stabilire il verso del cambiamento. Non usare questo confronto per stimare la velocità."
+          "L’equilibrio risponde ai cambiamenti di concentrazione, pressione e temperatura: l’unità «Perturbazioni dell’equilibrio» studia il principio di Le Chatelier e le sue applicazioni industriali.",
+          "Riepilogo dell’unità: all’equilibrio le velocità diretta e inversa sono uguali e le concentrazioni costanti; K si scrive con la legge di azione di massa; K ≫ 1 favorisce i prodotti; il confronto tra Q e K indica il verso; per A ⇌ B [B] = C K/(1 + K).",
+          "Nel diario registra A e B con le previsioni e spiega perché la curva si appiattisce per K grandi."
         ],
         "advanced": [
-          "Confronta il quoziente di reazione iniziale con K per stabilire il verso del cambiamento. Non usare questo confronto per stimare la velocità.",
-          "Interconversione 1:1 ideale con totale conservato. Non sono inclusi altri reagenti, attività non ideali o un’evoluzione temporale.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "L’equilibrio risponde ai cambiamenti di concentrazione, pressione e temperatura: l’unità «Perturbazioni dell’equilibrio» studia il principio di Le Chatelier e le sue applicazioni industriali.",
+          "Riepilogo dell’unità: all’equilibrio le velocità diretta e inversa sono uguali e le concentrazioni costanti; K si scrive con la legge di azione di massa; K ≫ 1 favorisce i prodotti; il confronto tra Q e K indica il verso; per A ⇌ B [B] = C K/(1 + K).",
+          "Nel diario registra A e B con le previsioni e spiega perché la curva si appiattisce per K grandi."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-19-concept",
-      "prompt": "All’equilibrio dinamico:",
+      "id": "chemistry-19-q1",
+      "prompt": "Che cosa è uguale all’equilibrio chimico?",
       "options": [
         {
           "id": "A",
-          "text": "Le concentrazioni sono sempre uguali",
-          "feedback": "Con concentrazione totale C_tot=[A]+[B], sostituisci [B]=K[A]. Si ottiene [B]_eq=C_totK/(1+K). K grande favorisce B, ma non significa automaticamente che la trasformazione sia rapida."
+          "text": "Le velocità della reazione diretta e inversa",
+          "feedback": "Esatto: per questo le concentrazioni restano costanti."
         },
         {
           "id": "B",
-          "text": "Le velocità diretta e inversa si bilanciano",
-          "feedback": "Un equilibrio dinamico può mantenere costanti le concentrazioni mentre avvengono processi diretti e inversi. Per una semplice interconversione ideale A⇌B, K=[B]/[A]."
+          "text": "Le concentrazioni di reagenti e prodotti",
+          "feedback": "Le concentrazioni sono costanti, non necessariamente uguali."
         },
         {
           "id": "C",
-          "text": "Ogni reazione microscopica si arresta",
-          "feedback": "Equilibrio non implica concentrazioni uguali, salvo casi particolari. La costante dipende dalla temperatura e dalla definizione delle attività, non dalle quantità iniziali per un dato modello."
+          "text": "Le masse di reagenti e prodotti",
+          "feedback": "Le masse dipendono da K e dalle quantità iniziali."
+        },
+        {
+          "id": "D",
+          "text": "Il numero di molecole di ogni specie",
+          "feedback": "Il numero di molecole di ogni specie dipende da K."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-19-q2",
+      "prompt": "Qual è l’espressione di K per N₂ + 3 H₂ ⇌ 2 NH₃?",
+      "options": [
+        {
+          "id": "A",
+          "text": "[NH₃]/([N₂][H₂])",
+          "feedback": "Mancano gli esponenti dati dai coefficienti."
+        },
+        {
+          "id": "B",
+          "text": "[NH₃]²/([N₂][H₂]³)",
+          "feedback": "Esatto: prodotti al numeratore, ciascuno elevato al suo coefficiente."
+        },
+        {
+          "id": "C",
+          "text": "([N₂][H₂]³)/[NH₃]²",
+          "feedback": "Hai scambiato numeratore e denominatore."
+        },
+        {
+          "id": "D",
+          "text": "2[NH₃]/(3[H₂][N₂])",
+          "feedback": "I coefficienti diventano esponenti, non fattori."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "chemistry-19-calculation",
-      "prompt": "Calcolo: Concentrazione totale (a)=1 mol/L. Per Costante K=1 (adimensionale), quanto vale Concentrazione B?",
+      "id": "chemistry-19-q3",
+      "prompt": "Una reazione ha K = 10⁸. Che cosa si può dire?",
       "options": [
         {
           "id": "A",
-          "text": "0,5 mol/L",
-          "feedback": "[B]_eq = C_tot K/(1+K). Con Concentrazione totale (a)=1 mol/L e Costante K=1 (adimensionale), il risultato è 0,5 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "La reazione è velocissima",
+          "feedback": "K riguarda la posizione dell’equilibrio e non dice nulla sulla velocità."
         },
         {
           "id": "B",
-          "text": "1,5 mol/L",
-          "feedback": "Questo valore non soddisfa la relazione. [B]_eq = C_tot K/(1+K). Con Concentrazione totale (a)=1 mol/L e Costante K=1 (adimensionale), il risultato è 0,5 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "All’equilibrio prevalgono i reagenti",
+          "feedback": "Con K così grande vale il contrario."
         },
         {
           "id": "C",
-          "text": "-0,5 mol/L",
-          "feedback": "Controlla sostituzione, segno e unità. [B]_eq = C_tot K/(1+K). Con Concentrazione totale (a)=1 mol/L e Costante K=1 (adimensionale), il risultato è 0,5 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "All’equilibrio prevalgono i prodotti",
+          "feedback": "Esatto: il numeratore domina sul denominatore."
+        },
+        {
+          "id": "D",
+          "text": "La reazione non avviene",
+          "feedback": "Un K grande indica una reazione molto spostata verso i prodotti."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 1
-        },
-        "expected": 0.5,
-        "unit": "mol/L"
-      }
+      "correct": "C"
     },
     {
-      "id": "chemistry-19-transfer",
-      "prompt": "Trasferimento: Concentrazione totale (a)=1,5 mol/L. Per Costante K=1 (adimensionale), quanto vale Concentrazione B?",
+      "id": "chemistry-19-q4",
+      "prompt": "Se Q < K, in che verso procede la reazione?",
       "options": [
         {
           "id": "A",
-          "text": "1,75 mol/L",
-          "feedback": "Questo valore non soddisfa la relazione. [B]_eq = C_tot K/(1+K). Con Concentrazione totale (a)=1,5 mol/L e Costante K=1 (adimensionale), il risultato è 0,75 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "Verso i reagenti",
+          "feedback": "La reazione va verso i reagenti quando Q > K."
         },
         {
           "id": "B",
-          "text": "-0,25 mol/L",
-          "feedback": "Controlla sostituzione, segno e unità. [B]_eq = C_tot K/(1+K). Con Concentrazione totale (a)=1,5 mol/L e Costante K=1 (adimensionale), il risultato è 0,75 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "Non procede",
+          "feedback": "Il sistema è all’equilibrio solo se Q = K."
         },
         {
           "id": "C",
-          "text": "0,75 mol/L",
-          "feedback": "[B]_eq = C_tot K/(1+K). Con Concentrazione totale (a)=1,5 mol/L e Costante K=1 (adimensionale), il risultato è 0,75 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "In modo casuale",
+          "feedback": "Il verso è determinato dal confronto tra Q e K."
+        },
+        {
+          "id": "D",
+          "text": "Verso i prodotti",
+          "feedback": "Esatto: Q cresce fino a uguagliare K."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 1.5
-        },
-        "expected": 0.75,
-        "unit": "mol/L"
-      }
+      "correct": "D"
     },
     {
-      "id": "chemistry-19-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "chemistry-19-q5",
+      "prompt": "Per A ⇌ B con K = 4, che frazione è B all’equilibrio?",
       "options": [
         {
           "id": "A",
-          "text": "Interconversione ideale A⇌B in sistema chiuso",
-          "feedback": "Interconversione 1:1 ideale con totale conservato. Non sono inclusi altri reagenti, attività non ideali o un’evoluzione temporale."
+          "text": "80%",
+          "feedback": "Esatto: la frazione di B è K/(1 + K) = 4/5."
         },
         {
           "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Interconversione 1:1 ideale con totale conservato. Non sono inclusi altri reagenti, attività non ideali o un’evoluzione temporale."
+          "text": "25%",
+          "feedback": "Questa è la frazione di A, 1/(1 + K)."
         },
         {
           "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Interconversione 1:1 ideale con totale conservato. Non sono inclusi altri reagenti, attività non ideali o un’evoluzione temporale."
+          "text": "100%",
+          "feedback": "Con K finito resta sempre un po’ di A."
+        },
+        {
+          "id": "D",
+          "text": "50%",
+          "feedback": "Metà A e metà B si ottengono solo con K = 1."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "chemistry-19-q6",
+      "prompt": "Nel laboratorio, con C = 1 mol/L, raddoppiando K da circa 2,5 a circa 5, [B]:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Raddoppia",
+          "feedback": "La concentrazione di B non può superare C: cresce meno."
+        },
+        {
+          "id": "B",
+          "text": "Cresce meno che in proporzione",
+          "feedback": "Esatto: da circa 0,715 a 0,833 mol/L, avvicinandosi a C."
+        },
+        {
+          "id": "C",
+          "text": "Diminuisce",
+          "feedback": "Un K più grande sposta l’equilibrio verso B."
+        },
+        {
+          "id": "D",
+          "text": "Resta uguale",
+          "feedback": "La concentrazione di B dipende da K."
+        }
+      ],
+      "correct": "B"
     }
   ]
 }

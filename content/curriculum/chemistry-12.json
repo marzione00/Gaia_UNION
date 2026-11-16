@@ -5,20 +5,21 @@
   "title": "Soluzioni e concentrazione",
   "sector": 2,
   "modelId": "chemistry-12",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Diluizione senza reazione o perdita di soluto",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Soluto e solvente, molarità, percentuali, ppm, preparazione e diluizione di soluzioni, solubilità",
+  "narrativeStatus": "L’infermeria è immaginaria; la composizione della soluzione fisiologica è reale.",
   "objectives": [
-    "Spiegare: diluizione senza reazione o perdita di soluto.",
-    "Applicare C_f = C_i V_i/V_f, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Distinguere soluto e solvente e prevedere la solubilità con la regola del simile.",
+    "Calcolare molarità, percentuali e ppm.",
+    "Preparare una soluzione e una diluizione con c_i V_i = c_f V_f.",
+    "Spiegare la saturazione e l’effetto della temperatura sulla solubilità."
   ],
   "prerequisites": [
     "chemistry-11"
   ],
   "connections": [
-    "math-c01"
+    "chemistry-13"
   ],
   "sources": [
     "chemistry",
@@ -27,250 +28,566 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Volume finale",
-      "definition": "Variabile indipendente, unità L; intervallo [0,1; 2]."
+      "term": "Molarità",
+      "definition": "Concentrazione in moli di soluto per litro di soluzione, c = n/V."
     },
     {
-      "term": "Concentrazione finale",
-      "definition": "Risultato calcolato dal modello, unità mol/L."
+      "term": "Diluizione",
+      "definition": "Aggiunta di solvente; le moli di soluto restano costanti."
     },
     {
-      "term": "Concentrazione iniziale",
-      "definition": "Parametro a, unità mol/L; intervallo [0,5; 3]."
+      "term": "Percentuale massa su volume",
+      "definition": "Grammi di soluto in 100 mL di soluzione."
     },
     {
-      "term": "Volume iniziale",
-      "definition": "Parametro b, unità L; intervallo [0,05; 0,2]."
+      "term": "Parti per milione",
+      "definition": "Unità per concentrazioni piccole; in acqua circa 1 mg/L."
+    },
+    {
+      "term": "Soluzione satura",
+      "definition": "Soluzione che contiene la massima quantità di soluto disciolto."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Leggere un’etichetta",
       "text": {
         "base": [
-          "La stazione vuole descrivere una diluizione senza confondere la quantità di soluto con la sua concentrazione. Aggiungere solvente cambia il volume, non crea nuove moli di soluto.",
-          "La concentrazione molare è quantità di soluto divisa per volume di soluzione. In una diluizione ideale senza perdite o reazioni, le moli restano costanti: C_iV_i=C_fV_f."
+          "In infermeria la soluzione fisiologica riporta in etichetta «NaCl 0,9%». Nel laboratorio un flacone dice «HCl 2,0 M». Per preparare una soluzione, diluirla o confrontarla con un’altra bisogna saper leggere queste etichette e passare dall’una all’altra.",
+          "Una soluzione è un miscuglio omogeneo: il soluto, presente in quantità minore, è disperso nel solvente. In acqua i composti ionici si dissociano in ioni circondati da molecole d’acqua, e le sostanze polari si sciolgono bene; le sostanze apolari, come l’olio, no. La regola pratica è «il simile scioglie il simile»."
         ],
         "intermediate": [
-          "La stazione vuole descrivere una diluizione senza confondere la quantità di soluto con la sua concentrazione. Aggiungere solvente cambia il volume, non crea nuove moli di soluto.",
-          "Risolvendo per la concentrazione finale si ottiene C_f=C_iV_i/V_f. Il laboratorio ammette solo V_f≥V_i, così il processo rappresentato è una diluizione e non una concentrazione."
+          "In infermeria la soluzione fisiologica riporta in etichetta «NaCl 0,9%». Nel laboratorio un flacone dice «HCl 2,0 M». Per preparare una soluzione, diluirla o confrontarla con un’altra bisogna saper leggere queste etichette e passare dall’una all’altra.",
+          "Una soluzione è un miscuglio omogeneo: il soluto, presente in quantità minore, è disperso nel solvente. In acqua i composti ionici si dissociano in ioni circondati da molecole d’acqua, e le sostanze polari si sciolgono bene; le sostanze apolari, come l’olio, no. La regola pratica è «il simile scioglie il simile»."
         ],
         "advanced": [
-          "La stazione vuole descrivere una diluizione senza confondere la quantità di soluto con la sua concentrazione. Aggiungere solvente cambia il volume, non crea nuove moli di soluto.",
-          "Imposta una serie di diluizioni e confronta il fattore complessivo con il prodotto dei fattori di ogni passaggio. Valuta come un errore di volume possa propagarsi.",
-          "Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze."
+          "In infermeria la soluzione fisiologica riporta in etichetta «NaCl 0,9%». Nel laboratorio un flacone dice «HCl 2,0 M». Per preparare una soluzione, diluirla o confrontarla con un’altra bisogna saper leggere queste etichette e passare dall’una all’altra.",
+          "Una soluzione è un miscuglio omogeneo: il soluto, presente in quantità minore, è disperso nel solvente. In acqua i composti ionici si dissociano in ioni circondati da molecole d’acqua, e le sostanze polari si sciolgono bene; le sostanze apolari, come l’olio, no. La regola pratica è «il simile scioglie il simile»."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Concentrazioni e diluizioni",
       "text": {
         "base": [
-          "La concentrazione molare è quantità di soluto divisa per volume di soluzione. In una diluizione ideale senza perdite o reazioni, le moli restano costanti: C_iV_i=C_fV_f.",
-          "Con C_i=1 mol/L e V_i=0,1 L, sono presenti 0,1 mol. Portando il volume a 0,5 L, la concentrazione finale è 0,2 mol/L."
+          "La concentrazione si esprime in molti modi. La molarità è c = n/V, in mol/L, indicata spesso con M. La percentuale in massa è m_soluto/m_soluzione · 100. La percentuale massa su volume, usata in medicina, indica i grammi di soluto in 100 mL: 0,9% significa 9 g in un litro. Per tracce molto piccole si usano le parti per milione: in acqua 1 ppm corrisponde a circa 1 mg/L.",
+          "Esempio svolto: 9 g di NaCl in un litro sono 9/58,44 ≈ 0,154 mol, quindi la fisiologica è circa 0,154 M. Un’acqua di mare con 35 g di sali per litro ha una concentrazione in massa quasi quattro volte maggiore. Per preparare 250 mL di NaCl 0,40 M servono 0,40 · 0,250 = 0,10 mol, cioè circa 5,84 g.",
+          "Diluire significa aggiungere solvente: le moli di soluto restano le stesse, cambia il volume. Da qui la relazione c_i V_i = c_f V_f. Per avere 500 mL di soluzione 0,10 M a partire da una 2,0 M si prelevano V_i = 0,10 · 0,500/2,0 = 0,025 L, cioè 25 mL, e si porta il volume a 500 mL con acqua. Si porta a volume, senza aggiungere 500 mL: il volume finale deve essere 500 mL."
         ],
         "intermediate": [
-          "Risolvendo per la concentrazione finale si ottiene C_f=C_iV_i/V_f. Il laboratorio ammette solo V_f≥V_i, così il processo rappresentato è una diluizione e non una concentrazione.",
-          "La variabile Volume finale è espressa in L; Concentrazione finale in mol/L. Il dominio dello strumento è [0,1; 2]. La relazione implementata è: C_f = C_i V_i/V_f.",
-          "Con C_i=1 mol/L e V_i=0,1 L, sono presenti 0,1 mol. Portando il volume a 0,5 L, la concentrazione finale è 0,2 mol/L."
+          "La concentrazione si esprime in molti modi. La molarità è c = n/V, in mol/L, indicata spesso con M. La percentuale in massa è m_soluto/m_soluzione · 100. La percentuale massa su volume, usata in medicina, indica i grammi di soluto in 100 mL: 0,9% significa 9 g in un litro. Per tracce molto piccole si usano le parti per milione: in acqua 1 ppm corrisponde a circa 1 mg/L.",
+          "Esempio svolto: 9 g di NaCl in un litro sono 9/58,44 ≈ 0,154 mol, quindi la fisiologica è circa 0,154 M. Un’acqua di mare con 35 g di sali per litro ha una concentrazione in massa quasi quattro volte maggiore. Per preparare 250 mL di NaCl 0,40 M servono 0,40 · 0,250 = 0,10 mol, cioè circa 5,84 g.",
+          "Diluire significa aggiungere solvente: le moli di soluto restano le stesse, cambia il volume. Da qui la relazione c_i V_i = c_f V_f. Per avere 500 mL di soluzione 0,10 M a partire da una 2,0 M si prelevano V_i = 0,10 · 0,500/2,0 = 0,025 L, cioè 25 mL, e si porta il volume a 500 mL con acqua. Si porta a volume, senza aggiungere 500 mL: il volume finale deve essere 500 mL.",
+          "Ogni soluto ha una solubilità, la massima concentrazione a una certa temperatura: oltre, la soluzione è satura e il soluto in eccesso resta indisciolto. La solubilità della maggior parte dei solidi cresce con la temperatura; quella dei gas diminuisce, per questo le bibite calde perdono anidride carbonica più in fretta."
         ],
         "advanced": [
-          "Risolvendo per la concentrazione finale si ottiene C_f=C_iV_i/V_f. Il laboratorio ammette solo V_f≥V_i, così il processo rappresentato è una diluizione e non una concentrazione.",
-          "Imposta una serie di diluizioni e confronta il fattore complessivo con il prodotto dei fattori di ogni passaggio. Valuta come un errore di volume possa propagarsi.",
-          "Concentrazione e quantità di soluto non coincidono. La somma dei volumi dei componenti non è sempre il volume finale reale della soluzione."
+          "La concentrazione si esprime in molti modi. La molarità è c = n/V, in mol/L, indicata spesso con M. La percentuale in massa è m_soluto/m_soluzione · 100. La percentuale massa su volume, usata in medicina, indica i grammi di soluto in 100 mL: 0,9% significa 9 g in un litro. Per tracce molto piccole si usano le parti per milione: in acqua 1 ppm corrisponde a circa 1 mg/L.",
+          "Esempio svolto: 9 g di NaCl in un litro sono 9/58,44 ≈ 0,154 mol, quindi la fisiologica è circa 0,154 M. Un’acqua di mare con 35 g di sali per litro ha una concentrazione in massa quasi quattro volte maggiore. Per preparare 250 mL di NaCl 0,40 M servono 0,40 · 0,250 = 0,10 mol, cioè circa 5,84 g.",
+          "Diluire significa aggiungere solvente: le moli di soluto restano le stesse, cambia il volume. Da qui la relazione c_i V_i = c_f V_f. Per avere 500 mL di soluzione 0,10 M a partire da una 2,0 M si prelevano V_i = 0,10 · 0,500/2,0 = 0,025 L, cioè 25 mL, e si porta il volume a 500 mL con acqua. Si porta a volume, senza aggiungere 500 mL: il volume finale deve essere 500 mL.",
+          "Ogni soluto ha una solubilità, la massima concentrazione a una certa temperatura: oltre, la soluzione è satura e il soluto in eccesso resta indisciolto. La solubilità della maggior parte dei solidi cresce con la temperatura; quella dei gas diminuisce, per questo le bibite calde perdono anidride carbonica più in fretta.",
+          "Il modello del programma calcola c_f = c_i V_i/V_f: con 100 mL di soluzione 1 M portati a 500 mL la concentrazione scende a 0,2 M. Raddoppiando il volume finale la concentrazione si dimezza."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Problemi guidati",
       "text": {
         "base": [
-          "Nel laboratorio imposta Concentrazione iniziale (a): 1 mol/L; Volume iniziale (b): 0,1 L. Prima di salvare A, prevedi come cambia Concentrazione finale fra Volume finale=0,575 e 1,05 L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con C_i=1 mol/L e V_i=0,1 L, sono presenti 0,1 mol. Portando il volume a 0,5 L, la concentrazione finale è 0,2 mol/L.",
-          "La variabile Volume finale è espressa in L; Concentrazione finale in mol/L. Il dominio dello strumento è [0,1; 2]. La relazione implementata è: C_f = C_i V_i/V_f."
+          "L’attività propone quattro problemi guidati: la molarità di una soluzione di sale; una diluizione da preparare in laboratorio; la fisiologica; la percentuale in massa di una soluzione di zucchero. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Converti sempre i volumi in litri prima di calcolare la molarità: 250 mL sono 0,250 L. Nelle diluizioni chiediti che cosa resta costante: le moli di soluto.",
+          "Il modello del programma calcola c_f = c_i V_i/V_f: con 100 mL di soluzione 1 M portati a 500 mL la concentrazione scende a 0,2 M. Raddoppiando il volume finale la concentrazione si dimezza."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Concentrazione iniziale (a): 1 mol/L; Volume iniziale (b): 0,1 L. Prima di salvare A, prevedi come cambia Concentrazione finale fra Volume finale=0,575 e 1,05 L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Volume finale è espressa in L; Concentrazione finale in mol/L. Il dominio dello strumento è [0,1; 2]. La relazione implementata è: C_f = C_i V_i/V_f.",
-          "Risolvendo per la concentrazione finale si ottiene C_f=C_iV_i/V_f. Il laboratorio ammette solo V_f≥V_i, così il processo rappresentato è una diluizione e non una concentrazione."
+          "L’attività propone quattro problemi guidati: la molarità di una soluzione di sale; una diluizione da preparare in laboratorio; la fisiologica; la percentuale in massa di una soluzione di zucchero. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Converti sempre i volumi in litri prima di calcolare la molarità: 250 mL sono 0,250 L. Nelle diluizioni chiediti che cosa resta costante: le moli di soluto.",
+          "Il modello del programma calcola c_f = c_i V_i/V_f: con 100 mL di soluzione 1 M portati a 500 mL la concentrazione scende a 0,2 M. Raddoppiando il volume finale la concentrazione si dimezza."
         ],
         "advanced": [
-          "Nel laboratorio imposta Concentrazione iniziale (a): 1 mol/L; Volume iniziale (b): 0,1 L. Prima di salvare A, prevedi come cambia Concentrazione finale fra Volume finale=0,575 e 1,05 L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Imposta una serie di diluizioni e confronta il fattore complessivo con il prodotto dei fattori di ogni passaggio. Valuta come un errore di volume possa propagarsi.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività propone quattro problemi guidati: la molarità di una soluzione di sale; una diluizione da preparare in laboratorio; la fisiologica; la percentuale in massa di una soluzione di zucchero. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Converti sempre i volumi in litri prima di calcolare la molarità: 250 mL sono 0,250 L. Nelle diluizioni chiediti che cosa resta costante: le moli di soluto."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "Concentrazione e quantità di soluto non coincidono. La somma dei volumi dei componenti non è sempre il volume finale reale della soluzione.",
-          "Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: confondere la massa della soluzione con quella del solvente. 20 g di zucchero in 180 g d’acqua danno 200 g di soluzione: la percentuale in massa è 10%, non 11,1%.",
+          "Secondo errore: aggiungere il volume di acqua indicato invece di portare a volume. In molti casi i volumi non si sommano esattamente, e la concentrazione risulterebbe sbagliata.",
+          "Ogni soluto ha una solubilità, la massima concentrazione a una certa temperatura: oltre, la soluzione è satura e il soluto in eccesso resta indisciolto. La solubilità della maggior parte dei solidi cresce con la temperatura; quella dei gas diminuisce, per questo le bibite calde perdono anidride carbonica più in fretta."
         ],
         "intermediate": [
-          "Concentrazione e quantità di soluto non coincidono. La somma dei volumi dei componenti non è sempre il volume finale reale della soluzione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: confondere la massa della soluzione con quella del solvente. 20 g di zucchero in 180 g d’acqua danno 200 g di soluzione: la percentuale in massa è 10%, non 11,1%.",
+          "Secondo errore: aggiungere il volume di acqua indicato invece di portare a volume. In molti casi i volumi non si sommano esattamente, e la concentrazione risulterebbe sbagliata.",
+          "Ogni soluto ha una solubilità, la massima concentrazione a una certa temperatura: oltre, la soluzione è satura e il soluto in eccesso resta indisciolto. La solubilità della maggior parte dei solidi cresce con la temperatura; quella dei gas diminuisce, per questo le bibite calde perdono anidride carbonica più in fretta."
         ],
         "advanced": [
-          "Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze.",
-          "Imposta una serie di diluizioni e confronta il fattore complessivo con il prodotto dei fattori di ogni passaggio. Valuta come un errore di volume possa propagarsi.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: confondere la massa della soluzione con quella del solvente. 20 g di zucchero in 180 g d’acqua danno 200 g di soluzione: la percentuale in massa è 10%, non 11,1%.",
+          "Secondo errore: aggiungere il volume di acqua indicato invece di portare a volume. In molti casi i volumi non si sommano esattamente, e la concentrazione risulterebbe sbagliata.",
+          "Ogni soluto ha una solubilità, la massima concentrazione a una certa temperatura: oltre, la soluzione è satura e il soluto in eccesso resta indisciolto. La solubilità della maggior parte dei solidi cresce con la temperatura; quella dei gas diminuisce, per questo le bibite calde perdono anidride carbonica più in fretta."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "La concentrazione molare è quantità di soluto divisa per volume di soluzione. In una diluizione ideale senza perdite o reazioni, le moli restano costanti: C_iV_i=C_fV_f.",
-          "Con C_i=1 mol/L e V_i=0,1 L, sono presenti 0,1 mol. Portando il volume a 0,5 L, la concentrazione finale è 0,2 mol/L."
+          "Ripasso: soluto e solvente; regola del simile; molarità, percentuali e ppm; preparazione di una soluzione; diluizione e c_i V_i = c_f V_f; solubilità e soluzioni sature.",
+          "Mini esercizio: 0,5 mol in 2 L danno c = 0,25 M; diluendo a 5 L si ottiene 0,1 M.",
+          "Nelle domande sulle concentrazioni scrivi le unità: mol, L, g e mL si confondono facilmente."
         ],
         "intermediate": [
-          "Risolvendo per la concentrazione finale si ottiene C_f=C_iV_i/V_f. Il laboratorio ammette solo V_f≥V_i, così il processo rappresentato è una diluizione e non una concentrazione.",
-          "La variabile Volume finale è espressa in L; Concentrazione finale in mol/L. Il dominio dello strumento è [0,1; 2]. La relazione implementata è: C_f = C_i V_i/V_f."
+          "Ripasso: soluto e solvente; regola del simile; molarità, percentuali e ppm; preparazione di una soluzione; diluizione e c_i V_i = c_f V_f; solubilità e soluzioni sature.",
+          "Mini esercizio: 0,5 mol in 2 L danno c = 0,25 M; diluendo a 5 L si ottiene 0,1 M.",
+          "Nelle domande sulle concentrazioni scrivi le unità: mol, L, g e mL si confondono facilmente."
         ],
         "advanced": [
-          "Imposta una serie di diluizioni e confronta il fattore complessivo con il prodotto dei fattori di ogni passaggio. Valuta come un errore di volume possa propagarsi.",
-          "Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze."
+          "Ripasso: soluto e solvente; regola del simile; molarità, percentuali e ppm; preparazione di una soluzione; diluizione e c_i V_i = c_f V_f; solubilità e soluzioni sature.",
+          "Mini esercizio: 0,5 mol in 2 L danno c = 0,25 M; diluendo a 5 L si ottiene 0,1 M.",
+          "Nelle domande sulle concentrazioni scrivi le unità: mol, L, g e mL si confondono facilmente."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Diluizione senza reazione o perdita di soluto.",
-          "Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze.",
-          "Collegamento consigliato: math-c01. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La solubilità ha un limite preciso per i sali poco solubili: è il tema dell’unità «Solubilità ed equilibrio eterogeneo», dove compare la prima costante di equilibrio.",
+          "Riepilogo dell’unità: una soluzione è un miscuglio omogeneo di soluto e solvente; la molarità è c = n/V; percentuali e ppm sono altri modi di esprimere la concentrazione; in una diluizione le moli restano costanti e c_i V_i = c_f V_f; oltre la solubilità la soluzione è satura.",
+          "Nel diario scrivi la procedura completa per preparare 100 mL di soluzione 0,5 M di glucosio (M = 180 g/mol)."
         ],
         "intermediate": [
-          "Risolvendo per la concentrazione finale si ottiene C_f=C_iV_i/V_f. Il laboratorio ammette solo V_f≥V_i, così il processo rappresentato è una diluizione e non una concentrazione.",
-          "Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze.",
-          "Imposta una serie di diluizioni e confronta il fattore complessivo con il prodotto dei fattori di ogni passaggio. Valuta come un errore di volume possa propagarsi."
+          "La solubilità ha un limite preciso per i sali poco solubili: è il tema dell’unità «Solubilità ed equilibrio eterogeneo», dove compare la prima costante di equilibrio.",
+          "Riepilogo dell’unità: una soluzione è un miscuglio omogeneo di soluto e solvente; la molarità è c = n/V; percentuali e ppm sono altri modi di esprimere la concentrazione; in una diluizione le moli restano costanti e c_i V_i = c_f V_f; oltre la solubilità la soluzione è satura.",
+          "Nel diario scrivi la procedura completa per preparare 100 mL di soluzione 0,5 M di glucosio (M = 180 g/mol)."
         ],
         "advanced": [
-          "Imposta una serie di diluizioni e confronta il fattore complessivo con il prodotto dei fattori di ogni passaggio. Valuta come un errore di volume possa propagarsi.",
-          "Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La solubilità ha un limite preciso per i sali poco solubili: è il tema dell’unità «Solubilità ed equilibrio eterogeneo», dove compare la prima costante di equilibrio.",
+          "Riepilogo dell’unità: una soluzione è un miscuglio omogeneo di soluto e solvente; la molarità è c = n/V; percentuali e ppm sono altri modi di esprimere la concentrazione; in una diluizione le moli restano costanti e c_i V_i = c_f V_f; oltre la solubilità la soluzione è satura.",
+          "Nel diario scrivi la procedura completa per preparare 100 mL di soluzione 0,5 M di glucosio (M = 180 g/mol)."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-12-concept",
-      "prompt": "In una diluizione ideale si conserva:",
+      "id": "chemistry-12-q1",
+      "prompt": "Qual è la molarità di 0,5 mol di soluto in 2 L di soluzione?",
       "options": [
         {
           "id": "A",
-          "text": "La concentrazione",
-          "feedback": "Concentrazione e quantità di soluto non coincidono. La somma dei volumi dei componenti non è sempre il volume finale reale della soluzione."
+          "text": "0,25 M",
+          "feedback": "Esatto: si dividono le moli per il volume, c = 0,5/2 mol/L."
         },
         {
           "id": "B",
-          "text": "Sempre il volume della soluzione",
-          "feedback": "Risolvendo per la concentrazione finale si ottiene C_f=C_iV_i/V_f. Il laboratorio ammette solo V_f≥V_i, così il processo rappresentato è una diluizione e non una concentrazione."
+          "text": "1 M",
+          "feedback": "Hai moltiplicato invece di dividere: c = n/V."
         },
         {
           "id": "C",
-          "text": "La quantità di soluto",
-          "feedback": "La concentrazione molare è quantità di soluto divisa per volume di soluzione. In una diluizione ideale senza perdite o reazioni, le moli restano costanti: C_iV_i=C_fV_f."
+          "text": "4 M",
+          "feedback": "Hai diviso il volume per le moli: la molarità è n/V."
+        },
+        {
+          "id": "D",
+          "text": "2,5 M",
+          "feedback": "Le moli si dividono per il volume, non si sommano."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-12-q2",
+      "prompt": "100 mL di soluzione 1 M vengono portati a 500 mL. Qual è la nuova concentrazione?",
+      "options": [
+        {
+          "id": "A",
+          "text": "5 M",
+          "feedback": "Diluendo la concentrazione diminuisce, non aumenta."
+        },
+        {
+          "id": "B",
+          "text": "0,2 M",
+          "feedback": "Esatto: le moli restano uguali, c_f = 1 · 100/500 = 0,2 M."
+        },
+        {
+          "id": "C",
+          "text": "1 M",
+          "feedback": "Le moli restano uguali ma il volume è cinque volte maggiore."
+        },
+        {
+          "id": "D",
+          "text": "0,5 M",
+          "feedback": "Il volume è aumentato di cinque volte, non di due."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "chemistry-12-q3",
+      "prompt": "Che massa di NaCl (58,44 g/mol) serve per 1 L di soluzione 0,1 M?",
+      "options": [
+        {
+          "id": "A",
+          "text": "58,44 g",
+          "feedback": "58,44 g servirebbero per una soluzione 1 M."
+        },
+        {
+          "id": "B",
+          "text": "0,1 g",
+          "feedback": "Le moli vanno convertite in grammi con la massa molare."
+        },
+        {
+          "id": "C",
+          "text": "Circa 5,84 g",
+          "feedback": "Esatto: servono 0,1 mol, cioè 0,1 · 58,44 g."
+        },
+        {
+          "id": "D",
+          "text": "584 g",
+          "feedback": "Hai moltiplicato per 10 invece che per 0,1."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "chemistry-12-calculation",
-      "prompt": "Calcolo: Concentrazione iniziale (a)=1 mol/L; Volume iniziale (b)=0,1 L. Per Volume finale=0,5 L, quanto vale Concentrazione finale?",
+      "id": "chemistry-12-q4",
+      "prompt": "Perché l’olio non si scioglie in acqua?",
       "options": [
         {
           "id": "A",
-          "text": "-0,8 mol/L",
-          "feedback": "Controlla sostituzione, segno e unità. C_f = C_i V_i/V_f. Con Concentrazione iniziale (a)=1 mol/L; Volume iniziale (b)=0,1 L e Volume finale=0,5 L, il risultato è 0,2 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché è più denso dell’acqua",
+          "feedback": "L’olio è meno denso e galleggia; la densità non decide la solubilità."
         },
         {
           "id": "B",
-          "text": "0,2 mol/L",
-          "feedback": "C_f = C_i V_i/V_f. Con Concentrazione iniziale (a)=1 mol/L; Volume iniziale (b)=0,1 L e Volume finale=0,5 L, il risultato è 0,2 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché l’acqua è satura di sali",
+          "feedback": "L’olio non si scioglie nemmeno in acqua pura."
         },
         {
           "id": "C",
-          "text": "1,2 mol/L",
-          "feedback": "Questo valore non soddisfa la relazione. C_f = C_i V_i/V_f. Con Concentrazione iniziale (a)=1 mol/L; Volume iniziale (b)=0,1 L e Volume finale=0,5 L, il risultato è 0,2 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché l’acqua è troppo fredda",
+          "feedback": "Scaldando l’acqua l’olio resta separato."
+        },
+        {
+          "id": "D",
+          "text": "Perché è apolare e l’acqua è polare",
+          "feedback": "Esatto: il simile scioglie il simile."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 0.5,
-        "parameters": {
-          "a": 1,
-          "b": 0.1
-        },
-        "expected": 0.2,
-        "unit": "mol/L"
-      }
+      "correct": "D"
     },
     {
-      "id": "chemistry-12-transfer",
-      "prompt": "Trasferimento: Concentrazione iniziale (a)=1,5 mol/L; Volume iniziale (b)=0,1 L. Per Volume finale=0,5 L, quanto vale Concentrazione finale?",
+      "id": "chemistry-12-q5",
+      "prompt": "Che cosa resta costante quando si diluisce una soluzione?",
       "options": [
         {
           "id": "A",
-          "text": "0,3 mol/L",
-          "feedback": "C_f = C_i V_i/V_f. Con Concentrazione iniziale (a)=1,5 mol/L; Volume iniziale (b)=0,1 L e Volume finale=0,5 L, il risultato è 0,3 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "Il numero di moli di soluto",
+          "feedback": "Esatto: si aggiunge solo solvente, il soluto resta quello."
         },
         {
           "id": "B",
-          "text": "1,3 mol/L",
-          "feedback": "Questo valore non soddisfa la relazione. C_f = C_i V_i/V_f. Con Concentrazione iniziale (a)=1,5 mol/L; Volume iniziale (b)=0,1 L e Volume finale=0,5 L, il risultato è 0,3 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "La concentrazione",
+          "feedback": "La concentrazione diminuisce: è lo scopo della diluizione."
         },
         {
           "id": "C",
-          "text": "-0,7 mol/L",
-          "feedback": "Controlla sostituzione, segno e unità. C_f = C_i V_i/V_f. Con Concentrazione iniziale (a)=1,5 mol/L; Volume iniziale (b)=0,1 L e Volume finale=0,5 L, il risultato è 0,3 mol/L. Conserva le unità e arrotonda solo alla fine."
+          "text": "Il volume",
+          "feedback": "Il volume cresce con il solvente aggiunto."
+        },
+        {
+          "id": "D",
+          "text": "La massa della soluzione",
+          "feedback": "La massa cresce con il solvente aggiunto."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 0.5,
-        "parameters": {
-          "a": 1.5,
-          "b": 0.1
-        },
-        "expected": 0.30000000000000004,
-        "unit": "mol/L"
-      }
+      "correct": "A"
     },
     {
-      "id": "chemistry-12-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "chemistry-12-q6",
+      "prompt": "Come varia di solito con la temperatura la solubilità di un gas in acqua?",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze."
+          "text": "Cresce",
+          "feedback": "Cresce la solubilità di molti solidi; per i gas accade il contrario."
         },
         {
           "id": "B",
-          "text": "Diluizione senza reazione o perdita di soluto",
-          "feedback": "Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze."
+          "text": "Diminuisce",
+          "feedback": "Esatto: per questo una bibita calda perde in fretta l’anidride carbonica."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Soluto conservato, volume finale assegnato e nessuna reazione. La scheda è un bilancio matematico, non un’istruzione di preparazione di sostanze."
+          "text": "Resta uguale",
+          "feedback": "La solubilità dei gas dipende in modo marcato dalla temperatura."
+        },
+        {
+          "id": "D",
+          "text": "Si annulla sopra 25 °C",
+          "feedback": "Diminuisce in modo graduale, senza annullarsi."
         }
       ],
       "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "steps",
+    "goal": 3,
+    "problems": [
+      {
+        "id": "molarita",
+        "title": "Molarità di una soluzione di sale",
+        "text": "Si sciolgono 5,85 g di NaCl (58,44 g/mol) in acqua fino a 250 mL di soluzione. Qual è la molarità?",
+        "maxErrors": 1,
+        "explain": "Moli dalla massa, volume in litri, poi c = n/V.",
+        "steps": [
+          {
+            "prompt": "Quante moli di NaCl?",
+            "options": [
+              {
+                "text": "Circa 0,100 mol",
+                "feedback": "Giusto: 5,85/58,44."
+              },
+              {
+                "text": "Circa 10,0 mol",
+                "feedback": "Hai diviso la massa molare per la massa."
+              },
+              {
+                "text": "5,85 mol",
+                "feedback": "I grammi vanno divisi per la massa molare."
+              }
+            ],
+            "correct": 0,
+            "result": "n ≈ 0,100 mol."
+          },
+          {
+            "prompt": "Volume in litri?",
+            "options": [
+              {
+                "text": "0,250 L",
+                "feedback": "Giusto: 250 mL divisi per 1000."
+              },
+              {
+                "text": "250 L",
+                "feedback": "I millilitri vanno divisi per 1000."
+              },
+              {
+                "text": "2,5 L",
+                "feedback": "Un litro contiene 1000 mL, non 100."
+              }
+            ],
+            "correct": 0,
+            "result": "V = 0,250 L."
+          },
+          {
+            "prompt": "Molarità?",
+            "options": [
+              {
+                "text": "Circa 0,40 M",
+                "feedback": "Giusto: 0,100/0,250."
+              },
+              {
+                "text": "Circa 0,025 M",
+                "feedback": "Hai moltiplicato moli e volume."
+              },
+              {
+                "text": "2,5 M",
+                "feedback": "Hai diviso il volume per le moli."
+              }
+            ],
+            "correct": 0,
+            "result": "c ≈ 0,40 mol/L."
+          }
+        ]
+      },
+      {
+        "id": "diluizione",
+        "title": "Preparare una diluizione",
+        "text": "Servono 500 mL di HCl 0,10 M e si dispone di HCl 2,0 M. Come si procede?",
+        "maxErrors": 1,
+        "explain": "Le moli finali devono provenire dalla soluzione concentrata.",
+        "steps": [
+          {
+            "prompt": "Quante moli servono nella soluzione finale?",
+            "options": [
+              {
+                "text": "0,050 mol",
+                "feedback": "Giusto: 0,10 mol/L · 0,500 L."
+              },
+              {
+                "text": "50 mol",
+                "feedback": "Il volume va espresso in litri."
+              },
+              {
+                "text": "0,20 mol",
+                "feedback": "Hai diviso 0,10 per 0,500."
+              }
+            ],
+            "correct": 0,
+            "result": "Servono 0,050 mol di HCl."
+          },
+          {
+            "prompt": "Che volume di soluzione 2,0 M le contiene?",
+            "options": [
+              {
+                "text": "25 mL",
+                "feedback": "Giusto: 0,050/2,0 = 0,025 L."
+              },
+              {
+                "text": "100 mL",
+                "feedback": "Con 100 mL si avrebbero 0,20 mol, quattro volte troppe."
+              },
+              {
+                "text": "250 mL",
+                "feedback": "Con 250 mL si preleverebbero 0,50 mol, dieci volte troppe."
+              }
+            ],
+            "correct": 0,
+            "result": "Si prelevano 25 mL di HCl 2,0 M."
+          },
+          {
+            "prompt": "Come si completa la preparazione?",
+            "options": [
+              {
+                "text": "Si porta il volume a 500 mL con acqua",
+                "feedback": "Giusto: conta il volume finale."
+              },
+              {
+                "text": "Si aggiungono 500 mL di acqua",
+                "feedback": "Il volume finale sarebbe circa 525 mL, e la concentrazione più bassa."
+              },
+              {
+                "text": "Si aggiungono 25 mL di acqua",
+                "feedback": "Si otterrebbero 50 mL di soluzione 1,0 M."
+              }
+            ],
+            "correct": 0,
+            "result": "In un matraccio da 500 mL si aggiunge acqua fino alla tacca."
+          }
+        ]
+      },
+      {
+        "id": "fisiologica",
+        "title": "La soluzione fisiologica",
+        "text": "La fisiologica contiene NaCl allo 0,9% (massa su volume). Qual è la molarità? Quanto sale c’è in una sacca da 250 mL?",
+        "maxErrors": 1,
+        "explain": "Lo 0,9% massa su volume significa 0,9 g in 100 mL.",
+        "steps": [
+          {
+            "prompt": "Quanti grammi di NaCl per litro?",
+            "options": [
+              {
+                "text": "9 g",
+                "feedback": "Giusto: 0,9 g in 100 mL, quindi 9 g in 1000 mL."
+              },
+              {
+                "text": "0,9 g",
+                "feedback": "0,9 g è la massa in 100 mL."
+              },
+              {
+                "text": "90 g",
+                "feedback": "Una soluzione al 9% conterrebbe 90 g per litro."
+              }
+            ],
+            "correct": 0,
+            "result": "9 g/L."
+          },
+          {
+            "prompt": "Molarità?",
+            "options": [
+              {
+                "text": "Circa 0,154 M",
+                "feedback": "Giusto: 9/58,44."
+              },
+              {
+                "text": "Circa 6,5 M",
+                "feedback": "Hai diviso la massa molare per i grammi."
+              },
+              {
+                "text": "0,9 M",
+                "feedback": "La percentuale non è una molarità."
+              }
+            ],
+            "correct": 0,
+            "result": "c ≈ 0,154 mol/L."
+          },
+          {
+            "prompt": "Grammi di sale in 250 mL?",
+            "options": [
+              {
+                "text": "2,25 g",
+                "feedback": "Giusto: un quarto di litro, un quarto di 9 g."
+              },
+              {
+                "text": "9 g",
+                "feedback": "9 g sono contenuti in un litro intero."
+              },
+              {
+                "text": "36 g",
+                "feedback": "Hai moltiplicato per 4 invece di dividere."
+              }
+            ],
+            "correct": 0,
+            "result": "Una sacca da 250 mL contiene 2,25 g di NaCl."
+          }
+        ]
+      },
+      {
+        "id": "zucchero",
+        "title": "Percentuale in massa",
+        "text": "Si sciolgono 20 g di zucchero in 180 g di acqua. Qual è la percentuale in massa?",
+        "maxErrors": 1,
+        "explain": "La percentuale si calcola sulla massa della soluzione, soluto più solvente.",
+        "steps": [
+          {
+            "prompt": "Massa della soluzione?",
+            "options": [
+              {
+                "text": "200 g",
+                "feedback": "Giusto: 20 + 180."
+              },
+              {
+                "text": "180 g",
+                "feedback": "180 g è la massa del solo solvente."
+              },
+              {
+                "text": "160 g",
+                "feedback": "Le masse di soluto e solvente si sommano."
+              }
+            ],
+            "correct": 0,
+            "result": "m_soluzione = 200 g."
+          },
+          {
+            "prompt": "Percentuale in massa?",
+            "options": [
+              {
+                "text": "10%",
+                "feedback": "Giusto: 20/200 · 100."
+              },
+              {
+                "text": "Circa 11,1%",
+                "feedback": "Hai diviso per la massa del solvente."
+              },
+              {
+                "text": "20%",
+                "feedback": "I grammi di soluto non coincidono con la percentuale."
+              }
+            ],
+            "correct": 0,
+            "result": "La soluzione è al 10% in massa."
+          }
+        ]
+      }
+    ]
+  }
 }

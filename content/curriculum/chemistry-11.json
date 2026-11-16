@@ -5,19 +5,21 @@
   "title": "Stati della materia e transizioni",
   "sector": 2,
   "modelId": "chemistry-11",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Transizione ideale a pressione fissata",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Stati della materia, transizioni di fase, calore latente, curva di riscaldamento e diagramma di stato",
+  "narrativeStatus": "I calori latenti e i dati sull’ebollizione sono valori di riferimento reali.",
   "objectives": [
-    "Spiegare: transizione ideale a pressione fissata.",
-    "Applicare Q = mL, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Descrivere gli stati della materia a livello delle particelle.",
+    "Nominare le transizioni e dire se assorbono o cedono calore.",
+    "Calcolare il calore di una transizione con Q = mL.",
+    "Spiegare l’effetto della pressione sull’ebollizione."
   ],
   "prerequisites": [
     "chemistry-10"
   ],
   "connections": [
+    "chemistry-12",
     "physics-19"
   ],
   "sources": [
@@ -27,244 +29,535 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Massa",
-      "definition": "Variabile indipendente, unità kg; intervallo [0; 2]."
+      "term": "Calore latente",
+      "definition": "Calore per unità di massa necessario a cambiare stato a temperatura costante."
     },
     {
-      "term": "Calore di transizione",
-      "definition": "Risultato calcolato dal modello, unità kJ."
+      "term": "Vaporizzazione",
+      "definition": "Passaggio da liquido a gas; assorbe calore."
     },
     {
-      "term": "Calore latente L",
-      "definition": "Parametro a, unità kJ/kg; intervallo [100; 500]."
+      "term": "Sublimazione",
+      "definition": "Passaggio diretto da solido a gas, come nel ghiaccio secco."
+    },
+    {
+      "term": "Ebollizione",
+      "definition": "Vaporizzazione in tutto il liquido, quando la pressione del vapore uguaglia quella esterna."
+    },
+    {
+      "term": "Punto triplo",
+      "definition": "Condizioni in cui coesistono solido, liquido e gas."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Il calore che non scalda",
       "text": {
         "base": [
-          "Un campione assorbe energia durante una transizione ma la temperatura resta circa costante. Il grafico temperatura-energia non può essere interpretato sempre con Q=mcΔT.",
-          "Durante una transizione di fase ideale a pressione fissata, l’energia può modificare la fase senza aumentare la temperatura. Il calore latente specifico L collega energia e massa trasformata."
+          "Una pentola d’acqua sul fuoco si scalda fino a 100 °C e lì si ferma, anche se la fiamma continua a darle energia. Un cubetto di ghiaccio in un bicchiere resta a 0 °C finché non è sciolto. Dove va il calore, se la temperatura non sale? La risposta sta nelle interazioni tra le molecole.",
+          "Nei solidi le particelle occupano posizioni fisse e vibrano; nei liquidi restano vicine e scorrono le une sulle altre; nei gas sono lontane e libere. Il passaggio da uno stato all’altro richiede di vincere, o permette di formare, le interazioni intermolecolari studiate nell’unità sulle forze intermolecolari."
         ],
         "intermediate": [
-          "Un campione assorbe energia durante una transizione ma la temperatura resta circa costante. Il grafico temperatura-energia non può essere interpretato sempre con Q=mcΔT.",
-          "La relazione Q=mL descrive il contributo di transizione. Per riscaldare prima o dopo la transizione servono termini separati con il calore specifico."
+          "Una pentola d’acqua sul fuoco si scalda fino a 100 °C e lì si ferma, anche se la fiamma continua a darle energia. Un cubetto di ghiaccio in un bicchiere resta a 0 °C finché non è sciolto. Dove va il calore, se la temperatura non sale? La risposta sta nelle interazioni tra le molecole.",
+          "Nei solidi le particelle occupano posizioni fisse e vibrano; nei liquidi restano vicine e scorrono le une sulle altre; nei gas sono lontane e libere. Il passaggio da uno stato all’altro richiede di vincere, o permette di formare, le interazioni intermolecolari studiate nell’unità sulle forze intermolecolari."
         ],
         "advanced": [
-          "Un campione assorbe energia durante una transizione ma la temperatura resta circa costante. Il grafico temperatura-energia non può essere interpretato sempre con Q=mcΔT.",
-          "Costruisci un bilancio a tratti: riscaldamento del solido, fusione, riscaldamento del liquido. Mantieni coerenti le unità di massa e di energia.",
-          "Trasformazione ideale di massa nota, senza perdite, surriscaldamento o variazioni di pressione. Non è un protocollo sperimentale di trattamento dei materiali."
+          "Una pentola d’acqua sul fuoco si scalda fino a 100 °C e lì si ferma, anche se la fiamma continua a darle energia. Un cubetto di ghiaccio in un bicchiere resta a 0 °C finché non è sciolto. Dove va il calore, se la temperatura non sale? La risposta sta nelle interazioni tra le molecole.",
+          "Nei solidi le particelle occupano posizioni fisse e vibrano; nei liquidi restano vicine e scorrono le une sulle altre; nei gas sono lontane e libere. Il passaggio da uno stato all’altro richiede di vincere, o permette di formare, le interazioni intermolecolari studiate nell’unità sulle forze intermolecolari."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Transizioni e calore latente",
       "text": {
         "base": [
-          "Durante una transizione di fase ideale a pressione fissata, l’energia può modificare la fase senza aumentare la temperatura. Il calore latente specifico L collega energia e massa trasformata.",
-          "Assumendo L=334 kJ/kg, trasformare 0,5 kg richiede 167 kJ. Il valore è un esempio arrotondato compatibile con la fusione del ghiaccio in condizioni prossime a quelle usuali, non una costante per ogni materiale."
+          "Le transizioni hanno nomi precisi. Assorbono calore la fusione (solido → liquido), la vaporizzazione (liquido → gas) e la sublimazione (solido → gas). Cedono calore la solidificazione, la condensazione e il brinamento (gas → solido). L’evaporazione è la vaporizzazione dalla superficie a qualunque temperatura; l’ebollizione avviene in tutto il liquido, quando la pressione del vapore uguaglia quella esterna.",
+          "Durante una transizione la temperatura resta costante e il calore serve a cambiare lo stato: Q = mL, dove L è il calore latente. Per l’acqua: fusione 334 kJ/kg, vaporizzazione 2260 kJ/kg a 100 °C. Per fondere 0,5 kg di ghiaccio servono 0,5 · 334 = 167 kJ. Il calore di vaporizzazione è quasi sette volte quello di fusione, perché per vaporizzare bisogna separare completamente le molecole.",
+          "La curva di riscaldamento alterna tratti in salita e tratti piatti. Per portare 1 kg di ghiaccio da 0 °C a vapore a 100 °C servono 334 kJ per fonderlo, circa 419 kJ per scaldare l’acqua fino a 100 °C (calore specifico 4,186 kJ/(kg·K)) e 2260 kJ per vaporizzarla: circa 3013 kJ in tutto, tre quarti dei quali per l’ultima tappa."
         ],
         "intermediate": [
-          "La relazione Q=mL descrive il contributo di transizione. Per riscaldare prima o dopo la transizione servono termini separati con il calore specifico.",
-          "La variabile Massa è espressa in kg; Calore di transizione in kJ. Il dominio dello strumento è [0; 2]. La relazione implementata è: Q = mL.",
-          "Assumendo L=334 kJ/kg, trasformare 0,5 kg richiede 167 kJ. Il valore è un esempio arrotondato compatibile con la fusione del ghiaccio in condizioni prossime a quelle usuali, non una costante per ogni materiale."
+          "Le transizioni hanno nomi precisi. Assorbono calore la fusione (solido → liquido), la vaporizzazione (liquido → gas) e la sublimazione (solido → gas). Cedono calore la solidificazione, la condensazione e il brinamento (gas → solido). L’evaporazione è la vaporizzazione dalla superficie a qualunque temperatura; l’ebollizione avviene in tutto il liquido, quando la pressione del vapore uguaglia quella esterna.",
+          "Durante una transizione la temperatura resta costante e il calore serve a cambiare lo stato: Q = mL, dove L è il calore latente. Per l’acqua: fusione 334 kJ/kg, vaporizzazione 2260 kJ/kg a 100 °C. Per fondere 0,5 kg di ghiaccio servono 0,5 · 334 = 167 kJ. Il calore di vaporizzazione è quasi sette volte quello di fusione, perché per vaporizzare bisogna separare completamente le molecole.",
+          "La curva di riscaldamento alterna tratti in salita e tratti piatti. Per portare 1 kg di ghiaccio da 0 °C a vapore a 100 °C servono 334 kJ per fonderlo, circa 419 kJ per scaldare l’acqua fino a 100 °C (calore specifico 4,186 kJ/(kg·K)) e 2260 kJ per vaporizzarla: circa 3013 kJ in tutto, tre quarti dei quali per l’ultima tappa.",
+          "La temperatura di ebollizione dipende dalla pressione. In cima all’Everest, dove la pressione è circa un terzo di quella al livello del mare, l’acqua bolle intorno a 70 °C; in una pentola a pressione, a circa 2 atm, intorno a 120 °C, e i cibi cuociono più in fretta. Il diagramma di stato riassume queste relazioni: per l’acqua il punto triplo, dove coesistono i tre stati, è a 0,01 °C e circa 0,006 atm."
         ],
         "advanced": [
-          "La relazione Q=mL descrive il contributo di transizione. Per riscaldare prima o dopo la transizione servono termini separati con il calore specifico.",
-          "Costruisci un bilancio a tratti: riscaldamento del solido, fusione, riscaldamento del liquido. Mantieni coerenti le unità di massa e di energia.",
-          "Temperatura costante non significa energia scambiata nulla. Il calore latente dipende da sostanza, transizione e condizioni."
+          "Le transizioni hanno nomi precisi. Assorbono calore la fusione (solido → liquido), la vaporizzazione (liquido → gas) e la sublimazione (solido → gas). Cedono calore la solidificazione, la condensazione e il brinamento (gas → solido). L’evaporazione è la vaporizzazione dalla superficie a qualunque temperatura; l’ebollizione avviene in tutto il liquido, quando la pressione del vapore uguaglia quella esterna.",
+          "Durante una transizione la temperatura resta costante e il calore serve a cambiare lo stato: Q = mL, dove L è il calore latente. Per l’acqua: fusione 334 kJ/kg, vaporizzazione 2260 kJ/kg a 100 °C. Per fondere 0,5 kg di ghiaccio servono 0,5 · 334 = 167 kJ. Il calore di vaporizzazione è quasi sette volte quello di fusione, perché per vaporizzare bisogna separare completamente le molecole.",
+          "La curva di riscaldamento alterna tratti in salita e tratti piatti. Per portare 1 kg di ghiaccio da 0 °C a vapore a 100 °C servono 334 kJ per fonderlo, circa 419 kJ per scaldare l’acqua fino a 100 °C (calore specifico 4,186 kJ/(kg·K)) e 2260 kJ per vaporizzarla: circa 3013 kJ in tutto, tre quarti dei quali per l’ultima tappa.",
+          "La temperatura di ebollizione dipende dalla pressione. In cima all’Everest, dove la pressione è circa un terzo di quella al livello del mare, l’acqua bolle intorno a 70 °C; in una pentola a pressione, a circa 2 atm, intorno a 120 °C, e i cibi cuociono più in fretta. Il diagramma di stato riassume queste relazioni: per l’acqua il punto triplo, dove coesistono i tre stati, è a 0,01 °C e circa 0,006 atm.",
+          "Il ghiaccio secco, anidride carbonica solida, a pressione atmosferica non fonde: sublima a −78,5 °C. La neve può sparire al sole in giornate sotto zero per la stessa ragione, e la brina si forma quando il vapore acqueo passa direttamente a solido su superfici molto fredde."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Carte delle transizioni",
       "text": {
         "base": [
-          "Nel laboratorio imposta Calore latente L (a): 334 kJ/kg. Prima di salvare A, prevedi come cambia Calore di transizione fra Massa=0,5 e 1 kg. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Assumendo L=334 kJ/kg, trasformare 0,5 kg richiede 167 kJ. Il valore è un esempio arrotondato compatibile con la fusione del ghiaccio in condizioni prossime a quelle usuali, non una costante per ogni materiale.",
-          "La variabile Massa è espressa in kg; Calore di transizione in kJ. Il dominio dello strumento è [0; 2]. La relazione implementata è: Q = mL."
+          "L’attività ha quattro serie di carte: transizioni che assorbono o cedono calore; fenomeni quotidiani da riconoscere; le tappe della curva di riscaldamento dell’acqua da mettere in ordine; quantità di energia da ordinare. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo una carta.",
+          "Per decidere se una transizione assorbe o cede calore chiediti se le molecole si allontanano o si avvicinano: allontanarle costa energia, avvicinarle la libera.",
+          "Il modello del programma calcola Q = mL al variare della massa, con L regolabile da 100 a 500 kJ/kg: con il valore predefinito, 334 kJ/kg, mezzo chilogrammo di ghiaccio richiede 167 kJ."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Calore latente L (a): 334 kJ/kg. Prima di salvare A, prevedi come cambia Calore di transizione fra Massa=0,5 e 1 kg. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Massa è espressa in kg; Calore di transizione in kJ. Il dominio dello strumento è [0; 2]. La relazione implementata è: Q = mL.",
-          "La relazione Q=mL descrive il contributo di transizione. Per riscaldare prima o dopo la transizione servono termini separati con il calore specifico."
+          "L’attività ha quattro serie di carte: transizioni che assorbono o cedono calore; fenomeni quotidiani da riconoscere; le tappe della curva di riscaldamento dell’acqua da mettere in ordine; quantità di energia da ordinare. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo una carta.",
+          "Per decidere se una transizione assorbe o cede calore chiediti se le molecole si allontanano o si avvicinano: allontanarle costa energia, avvicinarle la libera.",
+          "Il modello del programma calcola Q = mL al variare della massa, con L regolabile da 100 a 500 kJ/kg: con il valore predefinito, 334 kJ/kg, mezzo chilogrammo di ghiaccio richiede 167 kJ."
         ],
         "advanced": [
-          "Nel laboratorio imposta Calore latente L (a): 334 kJ/kg. Prima di salvare A, prevedi come cambia Calore di transizione fra Massa=0,5 e 1 kg. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Costruisci un bilancio a tratti: riscaldamento del solido, fusione, riscaldamento del liquido. Mantieni coerenti le unità di massa e di energia.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività ha quattro serie di carte: transizioni che assorbono o cedono calore; fenomeni quotidiani da riconoscere; le tappe della curva di riscaldamento dell’acqua da mettere in ordine; quantità di energia da ordinare. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo una carta.",
+          "Per decidere se una transizione assorbe o cede calore chiediti se le molecole si allontanano o si avvicinano: allontanarle costa energia, avvicinarle la libera.",
+          "Il modello del programma calcola Q = mL al variare della massa, con L regolabile da 100 a 500 kJ/kg: con il valore predefinito, 334 kJ/kg, mezzo chilogrammo di ghiaccio richiede 167 kJ."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e fenomeni quotidiani",
       "text": {
         "base": [
-          "Temperatura costante non significa energia scambiata nulla. Il calore latente dipende da sostanza, transizione e condizioni.",
-          "Trasformazione ideale di massa nota, senza perdite, surriscaldamento o variazioni di pressione. Non è un protocollo sperimentale di trattamento dei materiali.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che l’acqua che bolle più forte sia più calda. Finché c’è acqua liquida a 1 atm la temperatura resta 100 °C; una fiamma più alta fa solo evaporare l’acqua più in fretta.",
+          "Secondo errore: chiamare «fumo» il vapore. Il vapore acqueo è invisibile; la nuvoletta sopra la pentola è fatta di goccioline già condensate.",
+          "Il sudore rinfresca perché evaporando sottrae calore alla pelle: ogni grammo di acqua evaporata a temperatura corporea porta via circa 2,4 kJ. Con aria molto umida l’evaporazione rallenta e il raffreddamento funziona male."
         ],
         "intermediate": [
-          "Temperatura costante non significa energia scambiata nulla. Il calore latente dipende da sostanza, transizione e condizioni.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che l’acqua che bolle più forte sia più calda. Finché c’è acqua liquida a 1 atm la temperatura resta 100 °C; una fiamma più alta fa solo evaporare l’acqua più in fretta.",
+          "Secondo errore: chiamare «fumo» il vapore. Il vapore acqueo è invisibile; la nuvoletta sopra la pentola è fatta di goccioline già condensate.",
+          "Il sudore rinfresca perché evaporando sottrae calore alla pelle: ogni grammo di acqua evaporata a temperatura corporea porta via circa 2,4 kJ. Con aria molto umida l’evaporazione rallenta e il raffreddamento funziona male."
         ],
         "advanced": [
-          "Trasformazione ideale di massa nota, senza perdite, surriscaldamento o variazioni di pressione. Non è un protocollo sperimentale di trattamento dei materiali.",
-          "Costruisci un bilancio a tratti: riscaldamento del solido, fusione, riscaldamento del liquido. Mantieni coerenti le unità di massa e di energia.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che l’acqua che bolle più forte sia più calda. Finché c’è acqua liquida a 1 atm la temperatura resta 100 °C; una fiamma più alta fa solo evaporare l’acqua più in fretta.",
+          "Secondo errore: chiamare «fumo» il vapore. Il vapore acqueo è invisibile; la nuvoletta sopra la pentola è fatta di goccioline già condensate.",
+          "Il sudore rinfresca perché evaporando sottrae calore alla pelle: ogni grammo di acqua evaporata a temperatura corporea porta via circa 2,4 kJ. Con aria molto umida l’evaporazione rallenta e il raffreddamento funziona male.",
+          "Il ghiaccio secco, anidride carbonica solida, a pressione atmosferica non fonde: sublima a −78,5 °C. La neve può sparire al sole in giornate sotto zero per la stessa ragione, e la brina si forma quando il vapore acqueo passa direttamente a solido su superfici molto fredde."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Durante una transizione di fase ideale a pressione fissata, l’energia può modificare la fase senza aumentare la temperatura. Il calore latente specifico L collega energia e massa trasformata.",
-          "Assumendo L=334 kJ/kg, trasformare 0,5 kg richiede 167 kJ. Il valore è un esempio arrotondato compatibile con la fusione del ghiaccio in condizioni prossime a quelle usuali, non una costante per ogni materiale."
+          "Ripasso: stati della materia e interazioni; nomi delle transizioni e verso del calore; calore latente e Q = mL; curva di riscaldamento; dipendenza dell’ebollizione dalla pressione; sublimazione.",
+          "Mini esercizio: per vaporizzare 0,2 kg di acqua a 100 °C servono 0,2 · 2260 = 452 kJ.",
+          "Nelle domande sulle transizioni distingui i tratti in salita, con calore specifico, da quelli piatti, con calore latente."
         ],
         "intermediate": [
-          "La relazione Q=mL descrive il contributo di transizione. Per riscaldare prima o dopo la transizione servono termini separati con il calore specifico.",
-          "La variabile Massa è espressa in kg; Calore di transizione in kJ. Il dominio dello strumento è [0; 2]. La relazione implementata è: Q = mL."
+          "Ripasso: stati della materia e interazioni; nomi delle transizioni e verso del calore; calore latente e Q = mL; curva di riscaldamento; dipendenza dell’ebollizione dalla pressione; sublimazione.",
+          "Mini esercizio: per vaporizzare 0,2 kg di acqua a 100 °C servono 0,2 · 2260 = 452 kJ.",
+          "Nelle domande sulle transizioni distingui i tratti in salita, con calore specifico, da quelli piatti, con calore latente."
         ],
         "advanced": [
-          "Costruisci un bilancio a tratti: riscaldamento del solido, fusione, riscaldamento del liquido. Mantieni coerenti le unità di massa e di energia.",
-          "Trasformazione ideale di massa nota, senza perdite, surriscaldamento o variazioni di pressione. Non è un protocollo sperimentale di trattamento dei materiali."
+          "Ripasso: stati della materia e interazioni; nomi delle transizioni e verso del calore; calore latente e Q = mL; curva di riscaldamento; dipendenza dell’ebollizione dalla pressione; sublimazione.",
+          "Mini esercizio: per vaporizzare 0,2 kg di acqua a 100 °C servono 0,2 · 2260 = 452 kJ.",
+          "Nelle domande sulle transizioni distingui i tratti in salita, con calore specifico, da quelli piatti, con calore latente."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Transizione ideale a pressione fissata.",
-          "Trasformazione ideale di massa nota, senza perdite, surriscaldamento o variazioni di pressione. Non è un protocollo sperimentale di trattamento dei materiali.",
-          "Collegamento consigliato: physics-19. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Il bilancio tra calore specifico e calore latente è il tema dell’unità di fisica «Calore e capacità termica». In chimica si passa a «Soluzioni e concentrazione», dove una sostanza si disperde in un’altra senza cambiare stato.",
+          "Riepilogo dell’unità: fusione, vaporizzazione e sublimazione assorbono calore, le transizioni inverse lo cedono; durante una transizione la temperatura resta costante e Q = mL; per l’acqua L vale 334 kJ/kg in fusione e 2260 kJ/kg in vaporizzazione; la temperatura di ebollizione cresce con la pressione.",
+          "Nel diario spiega perché una scottatura da vapore a 100 °C è più grave di una da acqua a 100 °C."
         ],
         "intermediate": [
-          "La relazione Q=mL descrive il contributo di transizione. Per riscaldare prima o dopo la transizione servono termini separati con il calore specifico.",
-          "Trasformazione ideale di massa nota, senza perdite, surriscaldamento o variazioni di pressione. Non è un protocollo sperimentale di trattamento dei materiali.",
-          "Costruisci un bilancio a tratti: riscaldamento del solido, fusione, riscaldamento del liquido. Mantieni coerenti le unità di massa e di energia."
+          "Il bilancio tra calore specifico e calore latente è il tema dell’unità di fisica «Calore e capacità termica». In chimica si passa a «Soluzioni e concentrazione», dove una sostanza si disperde in un’altra senza cambiare stato.",
+          "Riepilogo dell’unità: fusione, vaporizzazione e sublimazione assorbono calore, le transizioni inverse lo cedono; durante una transizione la temperatura resta costante e Q = mL; per l’acqua L vale 334 kJ/kg in fusione e 2260 kJ/kg in vaporizzazione; la temperatura di ebollizione cresce con la pressione.",
+          "Nel diario spiega perché una scottatura da vapore a 100 °C è più grave di una da acqua a 100 °C."
         ],
         "advanced": [
-          "Costruisci un bilancio a tratti: riscaldamento del solido, fusione, riscaldamento del liquido. Mantieni coerenti le unità di massa e di energia.",
-          "Trasformazione ideale di massa nota, senza perdite, surriscaldamento o variazioni di pressione. Non è un protocollo sperimentale di trattamento dei materiali.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Il bilancio tra calore specifico e calore latente è il tema dell’unità di fisica «Calore e capacità termica». In chimica si passa a «Soluzioni e concentrazione», dove una sostanza si disperde in un’altra senza cambiare stato.",
+          "Riepilogo dell’unità: fusione, vaporizzazione e sublimazione assorbono calore, le transizioni inverse lo cedono; durante una transizione la temperatura resta costante e Q = mL; per l’acqua L vale 334 kJ/kg in fusione e 2260 kJ/kg in vaporizzazione; la temperatura di ebollizione cresce con la pressione.",
+          "Nel diario spiega perché una scottatura da vapore a 100 °C è più grave di una da acqua a 100 °C."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-11-concept",
-      "prompt": "Durante una transizione ideale a temperatura costante:",
+      "id": "chemistry-11-q1",
+      "prompt": "Quanto calore serve per fondere 2 kg di ghiaccio a 0 °C (L = 334 kJ/kg)?",
       "options": [
         {
           "id": "A",
-          "text": "Può essere assorbita energia",
-          "feedback": "Durante una transizione di fase ideale a pressione fissata, l’energia può modificare la fase senza aumentare la temperatura. Il calore latente specifico L collega energia e massa trasformata."
+          "text": "167 kJ",
+          "feedback": "167 kJ basta per mezzo chilogrammo: qui la massa è 2 kg."
         },
         {
           "id": "B",
-          "text": "Il calore scambiato è sempre zero",
-          "feedback": "Temperatura costante non significa energia scambiata nulla. Il calore latente dipende da sostanza, transizione e condizioni."
+          "text": "334 kJ",
+          "feedback": "334 kJ è il calore per un solo chilogrammo."
         },
         {
           "id": "C",
-          "text": "La massa deve necessariamente sparire",
-          "feedback": "La relazione Q=mL descrive il contributo di transizione. Per riscaldare prima o dopo la transizione servono termini separati con il calore specifico."
+          "text": "668 kJ",
+          "feedback": "Esatto: Q = mL = 2 · 334 kJ, a temperatura costante."
+        },
+        {
+          "id": "D",
+          "text": "4520 kJ",
+          "feedback": "Hai usato il calore di vaporizzazione: qui il ghiaccio fonde."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "chemistry-11-q2",
+      "prompt": "Perché la temperatura dell’acqua resta a 100 °C mentre bolle?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché la fiamma smette di cedere calore",
+          "feedback": "La fiamma continua a cedere calore: è l’acqua a usarlo in altro modo."
+        },
+        {
+          "id": "B",
+          "text": "Perché il termometro ha raggiunto il limite",
+          "feedback": "Il fenomeno non dipende dal termometro: il vapore si può scaldare oltre."
+        },
+        {
+          "id": "C",
+          "text": "Perché l’acqua perde calore con la stessa velocità",
+          "feedback": "Il calore non si perde: serve a separare le molecole."
+        },
+        {
+          "id": "D",
+          "text": "Perché il calore serve a vincere le interazioni tra molecole",
+          "feedback": "Esatto: è il calore latente di vaporizzazione."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "chemistry-11-q3",
+      "prompt": "Perché in alta montagna l’acqua bolle sotto i 100 °C?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché la pressione esterna è più bassa",
+          "feedback": "Esatto: il vapore uguaglia prima la pressione esterna."
+        },
+        {
+          "id": "B",
+          "text": "Perché l’aria è più fredda",
+          "feedback": "La temperatura dell’aria cambia solo la velocità di riscaldamento."
+        },
+        {
+          "id": "C",
+          "text": "Perché c’è meno ossigeno",
+          "feedback": "L’ossigeno non partecipa all’ebollizione dell’acqua."
+        },
+        {
+          "id": "D",
+          "text": "Perché l’acqua di montagna è più pura",
+          "feedback": "La purezza ha effetti piccoli; conta la pressione."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "chemistry-11-calculation",
-      "prompt": "Calcolo: Calore latente L (a)=334 kJ/kg. Per Massa=0,5 kg, quanto vale Calore di transizione?",
+      "id": "chemistry-11-q4",
+      "prompt": "Che cosa accade al ghiaccio secco a pressione atmosferica?",
       "options": [
         {
           "id": "A",
-          "text": "250,5 kJ",
-          "feedback": "Questo valore non soddisfa la relazione. Q = mL. Con Calore latente L (a)=334 kJ/kg e Massa=0,5 kg, il risultato è 167 kJ. Conserva le unità e arrotonda solo alla fine."
+          "text": "Fonde a 0 °C",
+          "feedback": "Il ghiaccio secco è anidride carbonica, non acqua."
         },
         {
           "id": "B",
-          "text": "83,5 kJ",
-          "feedback": "Controlla sostituzione, segno e unità. Q = mL. Con Calore latente L (a)=334 kJ/kg e Massa=0,5 kg, il risultato è 167 kJ. Conserva le unità e arrotonda solo alla fine."
+          "text": "Sublima a −78,5 °C",
+          "feedback": "Esatto: passa direttamente da solido a gas."
         },
         {
           "id": "C",
-          "text": "167 kJ",
-          "feedback": "Q = mL. Con Calore latente L (a)=334 kJ/kg e Massa=0,5 kg, il risultato è 167 kJ. Conserva le unità e arrotonda solo alla fine."
+          "text": "Bolle a 100 °C",
+          "feedback": "L’anidride carbonica a 1 atm non è mai liquida."
+        },
+        {
+          "id": "D",
+          "text": "Resta solido a qualunque temperatura",
+          "feedback": "A temperatura ambiente sublima in fretta."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 0.5,
-        "parameters": {
-          "a": 334
-        },
-        "expected": 167,
-        "unit": "kJ"
-      }
+      "correct": "B"
     },
     {
-      "id": "chemistry-11-transfer",
-      "prompt": "Trasferimento: Calore latente L (a)=344 kJ/kg. Per Massa=0,5 kg, quanto vale Calore di transizione?",
+      "id": "chemistry-11-q5",
+      "prompt": "Perché il sudore rinfresca?",
       "options": [
         {
           "id": "A",
-          "text": "86 kJ",
-          "feedback": "Controlla sostituzione, segno e unità. Q = mL. Con Calore latente L (a)=344 kJ/kg e Massa=0,5 kg, il risultato è 172 kJ. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché è più freddo della pelle",
+          "feedback": "Il sudore esce a temperatura corporea."
         },
         {
           "id": "B",
-          "text": "172 kJ",
-          "feedback": "Q = mL. Con Calore latente L (a)=344 kJ/kg e Massa=0,5 kg, il risultato è 172 kJ. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché contiene sale",
+          "feedback": "Il sale non ha effetto rinfrescante."
         },
         {
           "id": "C",
-          "text": "258 kJ",
-          "feedback": "Questo valore non soddisfa la relazione. Q = mL. Con Calore latente L (a)=344 kJ/kg e Massa=0,5 kg, il risultato è 172 kJ. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 0.5,
-        "parameters": {
-          "a": 344
-        },
-        "expected": 172,
-        "unit": "kJ"
-      }
-    },
-    {
-      "id": "chemistry-11-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Trasformazione ideale di massa nota, senza perdite, surriscaldamento o variazioni di pressione. Non è un protocollo sperimentale di trattamento dei materiali."
+          "text": "Perché evaporando sottrae calore alla pelle",
+          "feedback": "Esatto: la vaporizzazione assorbe calore."
         },
         {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Trasformazione ideale di massa nota, senza perdite, surriscaldamento o variazioni di pressione. Non è un protocollo sperimentale di trattamento dei materiali."
-        },
-        {
-          "id": "C",
-          "text": "Transizione ideale a pressione fissata",
-          "feedback": "Trasformazione ideale di massa nota, senza perdite, surriscaldamento o variazioni di pressione. Non è un protocollo sperimentale di trattamento dei materiali."
+          "id": "D",
+          "text": "Perché blocca i raggi del sole",
+          "feedback": "Un velo di sudore non scherma la radiazione solare."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "chemistry-11-q6",
+      "prompt": "Per l’acqua il calore di vaporizzazione è circa sette volte quello di fusione. Perché?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché il vapore è più caldo",
+          "feedback": "Il confronto è tra calori latenti, a temperatura costante."
+        },
+        {
+          "id": "B",
+          "text": "Perché l’acqua liquida è più densa",
+          "feedback": "La densità non spiega il calore necessario."
+        },
+        {
+          "id": "C",
+          "text": "Perché la fusione richiede più tempo",
+          "feedback": "Il tempo dipende dalla potenza della fiamma, non dal calore latente."
+        },
+        {
+          "id": "D",
+          "text": "Perché vaporizzare separa del tutto le molecole",
+          "feedback": "Esatto: nella fusione molte interazioni restano."
+        }
+      ],
+      "correct": "D"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "cards",
+    "goal": 3,
+    "rounds": [
+      {
+        "id": "calore",
+        "type": "classify",
+        "title": "Assorbe o cede calore?",
+        "prompt": "Per ogni transizione decidi il verso del calore.",
+        "categories": [
+          {
+            "id": "assorbe",
+            "label": "ASSORBE CALORE"
+          },
+          {
+            "id": "cede",
+            "label": "CEDE CALORE"
+          }
+        ],
+        "items": [
+          {
+            "id": "fusione",
+            "text": "Fusione: solido → liquido",
+            "why": "Le molecole si allontanano: serve energia.",
+            "category": "assorbe"
+          },
+          {
+            "id": "vaporizzazione",
+            "text": "Vaporizzazione: liquido → gas",
+            "why": "Le molecole si separano del tutto.",
+            "category": "assorbe"
+          },
+          {
+            "id": "sublimazione",
+            "text": "Sublimazione: solido → gas",
+            "why": "Somma di fusione e vaporizzazione.",
+            "category": "assorbe"
+          },
+          {
+            "id": "solidificazione",
+            "text": "Solidificazione: liquido → solido",
+            "why": "Le molecole formano interazioni stabili e liberano energia.",
+            "category": "cede"
+          },
+          {
+            "id": "condensazione",
+            "text": "Condensazione: gas → liquido",
+            "why": "Le molecole si avvicinano e liberano energia.",
+            "category": "cede"
+          },
+          {
+            "id": "brinamento",
+            "text": "Brinamento: gas → solido",
+            "why": "Il vapore diventa ghiaccio liberando energia.",
+            "category": "cede"
+          },
+          {
+            "id": "sudore",
+            "text": "Il sudore evapora dalla pelle",
+            "why": "L’evaporazione sottrae calore: per questo rinfresca.",
+            "category": "assorbe"
+          },
+          {
+            "id": "rugiada",
+            "text": "Si forma la rugiada al mattino",
+            "why": "Il vapore condensa sulle foglie fredde e cede calore.",
+            "category": "cede"
+          }
+        ],
+        "explain": "Allontanare le molecole costa energia; avvicinarle la libera.",
+        "maxErrors": 1
+      },
+      {
+        "id": "fenomeni",
+        "type": "classify",
+        "title": "Quale transizione?",
+        "prompt": "Riconosci la transizione nei fenomeni quotidiani.",
+        "categories": [
+          {
+            "id": "fusione",
+            "label": "FUSIONE"
+          },
+          {
+            "id": "vaporizzazione",
+            "label": "VAPORIZZAZIONE"
+          },
+          {
+            "id": "condensazione",
+            "label": "CONDENSAZIONE"
+          },
+          {
+            "id": "sublimazione",
+            "label": "SUBLIMAZIONE"
+          }
+        ],
+        "items": [
+          {
+            "id": "neve",
+            "text": "La neve si scioglie in primavera",
+            "why": "Da solido a liquido.",
+            "category": "fusione"
+          },
+          {
+            "id": "burro",
+            "text": "Il burro si scioglie in padella",
+            "why": "Da solido a liquido.",
+            "category": "fusione"
+          },
+          {
+            "id": "pozzanghera",
+            "text": "Una pozzanghera si asciuga",
+            "why": "L’acqua evapora dalla superficie.",
+            "category": "vaporizzazione"
+          },
+          {
+            "id": "pentola",
+            "text": "L’acqua bolle in pentola",
+            "why": "Vaporizzazione in tutto il liquido.",
+            "category": "vaporizzazione"
+          },
+          {
+            "id": "specchio",
+            "text": "Lo specchio del bagno si appanna",
+            "why": "Il vapore condensa sul vetro freddo.",
+            "category": "condensazione"
+          },
+          {
+            "id": "occhiali",
+            "text": "Gli occhiali si appannano entrando al caldo",
+            "why": "Il vapore dell’aria condensa sulle lenti fredde.",
+            "category": "condensazione"
+          },
+          {
+            "id": "ghiaccio-secco",
+            "text": "Il ghiaccio secco si riduce senza lasciare liquido",
+            "why": "La CO₂ solida passa direttamente a gas.",
+            "category": "sublimazione"
+          },
+          {
+            "id": "naftalina",
+            "text": "La naftalina si consuma nell’armadio",
+            "why": "Le palline sublimano lentamente.",
+            "category": "sublimazione"
+          }
+        ],
+        "explain": "Ogni fenomeno quotidiano corrisponde a una transizione: guarda lo stato di partenza e quello di arrivo.",
+        "maxErrors": 1
+      },
+      {
+        "id": "curva",
+        "type": "order",
+        "title": "La curva di riscaldamento",
+        "prompt": "Metti in ordine le tappe per portare ghiaccio a −20 °C fino a vapore a 120 °C.",
+        "items": [
+          {
+            "id": "ghiaccio",
+            "text": "Il ghiaccio si scalda da −20 a 0 °C",
+            "why": "Primo tratto in salita, con il calore specifico del ghiaccio."
+          },
+          {
+            "id": "fonde",
+            "text": "Il ghiaccio fonde a 0 °C",
+            "why": "Primo tratto piatto: calore latente di fusione."
+          },
+          {
+            "id": "acqua",
+            "text": "L’acqua si scalda da 0 a 100 °C",
+            "why": "Secondo tratto in salita, con il calore specifico dell’acqua."
+          },
+          {
+            "id": "bolle",
+            "text": "L’acqua bolle a 100 °C",
+            "why": "Secondo tratto piatto, il più lungo: calore latente di vaporizzazione."
+          },
+          {
+            "id": "vapore",
+            "text": "Il vapore si scalda da 100 a 120 °C",
+            "why": "Ultimo tratto in salita."
+          }
+        ],
+        "explain": "Tratti in salita e tratti piatti si alternano: nei tratti piatti il calore cambia lo stato."
+      },
+      {
+        "id": "energia",
+        "type": "order",
+        "title": "Quanta energia?",
+        "prompt": "Ordina dal processo che richiede meno energia a quello che ne richiede di più, per 1 kg d’acqua.",
+        "items": [
+          {
+            "id": "dieci",
+            "text": "Scaldare l’acqua liquida di 10 °C",
+            "why": "Circa 4,19 · 10 ≈ 42 kJ."
+          },
+          {
+            "id": "ghiaccio",
+            "text": "Scaldare il ghiaccio da −50 a 0 °C",
+            "why": "Con circa 2,1 kJ/(kg·K): circa 105 kJ."
+          },
+          {
+            "id": "fondere",
+            "text": "Fondere il ghiaccio a 0 °C",
+            "why": "334 kJ."
+          },
+          {
+            "id": "cento",
+            "text": "Scaldare l’acqua da 0 a 100 °C",
+            "why": "Circa 419 kJ."
+          },
+          {
+            "id": "vaporizzare",
+            "text": "Vaporizzare l’acqua a 100 °C",
+            "why": "2260 kJ, più di tutti gli altri insieme."
+          }
+        ],
+        "explain": "Il calore latente di vaporizzazione domina: vaporizzare un chilo d’acqua costa più che scaldarlo da 0 a 100 °C cinque volte."
+      }
+    ]
+  }
 }

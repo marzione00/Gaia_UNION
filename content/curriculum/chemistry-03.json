@@ -5,14 +5,15 @@
   "title": "Mole e quantità di sostanza",
   "sector": 2,
   "modelId": "chemistry-03",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Sostanza pura con massa molare dichiarata",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Mole, costante di Avogadro, massa molare, composizione percentuale e formula minima",
+  "narrativeStatus": "La cucina della stazione è immaginaria; costanti e masse sono valori reali.",
   "objectives": [
-    "Spiegare: sostanza pura con massa molare dichiarata.",
-    "Applicare n = m/M, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Definire la mole e usare la costante di Avogadro.",
+    "Calcolare la massa molare di un composto dalla formula.",
+    "Convertire tra massa, moli e numero di particelle.",
+    "Calcolare composizione percentuale e formula minima."
   ],
   "prerequisites": [
     "chemistry-02"
@@ -27,244 +28,546 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Massa",
-      "definition": "Variabile indipendente, unità g; intervallo [0; 100]."
+      "term": "Mole",
+      "definition": "Quantità di sostanza che contiene 6,02214076 · 10²³ entità elementari."
     },
     {
-      "term": "Quantità di sostanza",
-      "definition": "Risultato calcolato dal modello, unità mol."
+      "term": "Costante di Avogadro",
+      "definition": "N_A = 6,02214076 · 10²³ mol⁻¹, fissata esattamente nel Sistema Internazionale."
     },
     {
       "term": "Massa molare",
-      "definition": "Parametro a, unità g/mol; intervallo [10; 100]."
+      "definition": "Massa di una mole di sostanza, in g/mol."
+    },
+    {
+      "term": "Composizione percentuale",
+      "definition": "Percentuale in massa di ciascun elemento in un composto."
+    },
+    {
+      "term": "Formula minima",
+      "definition": "Rapporto intero più semplice tra gli atomi di un composto."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Contare con la bilancia",
       "text": {
         "base": [
-          "Il magazzino registra grammi, mentre un bilancio di reazione richiede moli. La stazione deve tradurre fra massa e quantità di sostanza usando l’identità del materiale.",
-          "La mole è l’unità SI della quantità di sostanza. La massa molare M collega una massa m al numero di moli n=m/M. La stessa massa di sostanze diverse può corrispondere a quantità di sostanza diverse."
+          "Il cuoco della stazione prepara le dosi in grammi, ma una reazione chimica conta le particelle: due molecole di idrogeno per una di ossigeno. Le particelle sono troppo piccole e troppo numerose per essere contate una per una. La mole è il ponte tra il mondo delle particelle e quello della bilancia.",
+          "Una mole è la quantità di sostanza che contiene 6,02214076 · 10²³ entità elementari: atomi, molecole o ioni. Il numero, detto costante di Avogadro N_A, è fissato esattamente dalla definizione del Sistema Internazionale in vigore dal 2019. Come una dozzina è sempre dodici oggetti, una mole è sempre quel numero di particelle."
         ],
         "intermediate": [
-          "Il magazzino registra grammi, mentre un bilancio di reazione richiede moli. La stazione deve tradurre fra massa e quantità di sostanza usando l’identità del materiale.",
-          "Usando m in grammi e M in grammi per mole, il rapporto ha unità di mole. Il numero di entità si ottiene moltiplicando n per la costante di Avogadro, 6,02214076×10²³ mol⁻¹."
+          "Il cuoco della stazione prepara le dosi in grammi, ma una reazione chimica conta le particelle: due molecole di idrogeno per una di ossigeno. Le particelle sono troppo piccole e troppo numerose per essere contate una per una. La mole è il ponte tra il mondo delle particelle e quello della bilancia.",
+          "Una mole è la quantità di sostanza che contiene 6,02214076 · 10²³ entità elementari: atomi, molecole o ioni. Il numero, detto costante di Avogadro N_A, è fissato esattamente dalla definizione del Sistema Internazionale in vigore dal 2019. Come una dozzina è sempre dodici oggetti, una mole è sempre quel numero di particelle."
         ],
         "advanced": [
-          "Il magazzino registra grammi, mentre un bilancio di reazione richiede moli. La stazione deve tradurre fra massa e quantità di sostanza usando l’identità del materiale.",
-          "Calcola quante entità corrispondono a una piccola frazione di mole. Spiega perché un modello che visualizza poche sfere può conservare i rapporti senza riprodurre il numero reale di particelle.",
-          "Sostanza pura, massa molare assegnata e nessuna impurità. Le sfere visualizzate non sono un conteggio uno-a-uno delle entità presenti."
+          "Il cuoco della stazione prepara le dosi in grammi, ma una reazione chimica conta le particelle: due molecole di idrogeno per una di ossigeno. Le particelle sono troppo piccole e troppo numerose per essere contate una per una. La mole è il ponte tra il mondo delle particelle e quello della bilancia.",
+          "Una mole è la quantità di sostanza che contiene 6,02214076 · 10²³ entità elementari: atomi, molecole o ioni. Il numero, detto costante di Avogadro N_A, è fissato esattamente dalla definizione del Sistema Internazionale in vigore dal 2019. Come una dozzina è sempre dodici oggetti, una mole è sempre quel numero di particelle."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Massa molare e conversioni",
       "text": {
         "base": [
-          "La mole è l’unità SI della quantità di sostanza. La massa molare M collega una massa m al numero di moli n=m/M. La stessa massa di sostanze diverse può corrispondere a quantità di sostanza diverse.",
-          "Con massa molare didattica M=18 g/mol e massa m=36 g, n=2 mol. Il valore 18 è arrotondato: non è una misura ad alta precisione della massa molare dell’acqua."
+          "La massa molare M è la massa di una mole, in g/mol, e si ottiene sommando le masse atomiche della formula. Acqua H₂O: 2 · 1,008 + 16,00 = 18,02 g/mol. Cloruro di sodio NaCl: 22,99 + 35,45 = 58,44 g/mol. Il collegamento funziona perché l’unità di massa atomica e il grammo per mole sono scelti in modo da avere lo stesso valore numerico.",
+          "Tre relazioni bastano per quasi tutti i calcoli: n = m/M lega moli e massa; N = n · N_A lega moli e numero di particelle; per i gas, a 0 °C e 1 atm, una mole occupa circa 22,4 L. Esempio svolto: 36 g di acqua sono 36/18,02 ≈ 2,00 mol, cioè circa 1,20 · 10²⁴ molecole.",
+          "La composizione percentuale indica quanta massa porta ogni elemento. Nell’acqua l’idrogeno vale 2 · 1,008/18,02 ≈ 11,2% e l’ossigeno 88,8%. Al contrario, dalla composizione si ricava la formula minima: si calcolano le moli di ciascun elemento in 100 g e se ne cerca il rapporto intero più semplice."
         ],
         "intermediate": [
-          "Usando m in grammi e M in grammi per mole, il rapporto ha unità di mole. Il numero di entità si ottiene moltiplicando n per la costante di Avogadro, 6,02214076×10²³ mol⁻¹.",
-          "La variabile Massa è espressa in g; Quantità di sostanza in mol. Il dominio dello strumento è [0; 100]. La relazione implementata è: n = m/M.",
-          "Con massa molare didattica M=18 g/mol e massa m=36 g, n=2 mol. Il valore 18 è arrotondato: non è una misura ad alta precisione della massa molare dell’acqua."
+          "La massa molare M è la massa di una mole, in g/mol, e si ottiene sommando le masse atomiche della formula. Acqua H₂O: 2 · 1,008 + 16,00 = 18,02 g/mol. Cloruro di sodio NaCl: 22,99 + 35,45 = 58,44 g/mol. Il collegamento funziona perché l’unità di massa atomica e il grammo per mole sono scelti in modo da avere lo stesso valore numerico.",
+          "Tre relazioni bastano per quasi tutti i calcoli: n = m/M lega moli e massa; N = n · N_A lega moli e numero di particelle; per i gas, a 0 °C e 1 atm, una mole occupa circa 22,4 L. Esempio svolto: 36 g di acqua sono 36/18,02 ≈ 2,00 mol, cioè circa 1,20 · 10²⁴ molecole.",
+          "La composizione percentuale indica quanta massa porta ogni elemento. Nell’acqua l’idrogeno vale 2 · 1,008/18,02 ≈ 11,2% e l’ossigeno 88,8%. Al contrario, dalla composizione si ricava la formula minima: si calcolano le moli di ciascun elemento in 100 g e se ne cerca il rapporto intero più semplice.",
+          "Esempio: un composto contiene 40,0% di carbonio, 6,7% di idrogeno e 53,3% di ossigeno. In 100 g: C 40,0/12,01 ≈ 3,33 mol; H 6,7/1,008 ≈ 6,65 mol; O 53,3/16,00 ≈ 3,33 mol. Dividendo per 3,33: 1, 2, 1. La formula minima è CH₂O. Il glucosio, C₆H₁₂O₆, ha questa formula minima moltiplicata per 6."
         ],
         "advanced": [
-          "Usando m in grammi e M in grammi per mole, il rapporto ha unità di mole. Il numero di entità si ottiene moltiplicando n per la costante di Avogadro, 6,02214076×10²³ mol⁻¹.",
-          "Calcola quante entità corrispondono a una piccola frazione di mole. Spiega perché un modello che visualizza poche sfere può conservare i rapporti senza riprodurre il numero reale di particelle.",
-          "Mole e molecola non sono sinonimi. La mole conta entità specificate, che possono essere molecole, atomi o ioni; bisogna dire quali."
+          "La massa molare M è la massa di una mole, in g/mol, e si ottiene sommando le masse atomiche della formula. Acqua H₂O: 2 · 1,008 + 16,00 = 18,02 g/mol. Cloruro di sodio NaCl: 22,99 + 35,45 = 58,44 g/mol. Il collegamento funziona perché l’unità di massa atomica e il grammo per mole sono scelti in modo da avere lo stesso valore numerico.",
+          "Tre relazioni bastano per quasi tutti i calcoli: n = m/M lega moli e massa; N = n · N_A lega moli e numero di particelle; per i gas, a 0 °C e 1 atm, una mole occupa circa 22,4 L. Esempio svolto: 36 g di acqua sono 36/18,02 ≈ 2,00 mol, cioè circa 1,20 · 10²⁴ molecole.",
+          "La composizione percentuale indica quanta massa porta ogni elemento. Nell’acqua l’idrogeno vale 2 · 1,008/18,02 ≈ 11,2% e l’ossigeno 88,8%. Al contrario, dalla composizione si ricava la formula minima: si calcolano le moli di ciascun elemento in 100 g e se ne cerca il rapporto intero più semplice.",
+          "Esempio: un composto contiene 40,0% di carbonio, 6,7% di idrogeno e 53,3% di ossigeno. In 100 g: C 40,0/12,01 ≈ 3,33 mol; H 6,7/1,008 ≈ 6,65 mol; O 53,3/16,00 ≈ 3,33 mol. Dividendo per 3,33: 1, 2, 1. La formula minima è CH₂O. Il glucosio, C₆H₁₂O₆, ha questa formula minima moltiplicata per 6.",
+          "Il modello del programma calcola n = m/M: la quantità di sostanza cresce in proporzione alla massa e diminuisce con la massa molare. Con M = 18 g/mol, 9 g sono 0,5 mol."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Problemi guidati",
       "text": {
         "base": [
-          "Nel laboratorio imposta Massa molare (a): 18 g/mol. Prima di salvare A, prevedi come cambia Quantità di sostanza fra Massa=25 e 50 g. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con massa molare didattica M=18 g/mol e massa m=36 g, n=2 mol. Il valore 18 è arrotondato: non è una misura ad alta precisione della massa molare dell’acqua.",
-          "La variabile Massa è espressa in g; Quantità di sostanza in mol. Il dominio dello strumento è [0; 100]. La relazione implementata è: n = m/M."
+          "L’attività propone quattro problemi guidati: moli e molecole in 36 g d’acqua; massa di 0,25 mol di cloruro di sodio; composizione percentuale dell’acqua; formula minima da una composizione. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Scrivi sempre le unità durante il calcolo: g divisi per g/mol danno mol, mol per particelle/mol danno particelle. Se le unità non tornano, la formula è sbagliata.",
+          "Il modello del programma calcola n = m/M: la quantità di sostanza cresce in proporzione alla massa e diminuisce con la massa molare. Con M = 18 g/mol, 9 g sono 0,5 mol."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Massa molare (a): 18 g/mol. Prima di salvare A, prevedi come cambia Quantità di sostanza fra Massa=25 e 50 g. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Massa è espressa in g; Quantità di sostanza in mol. Il dominio dello strumento è [0; 100]. La relazione implementata è: n = m/M.",
-          "Usando m in grammi e M in grammi per mole, il rapporto ha unità di mole. Il numero di entità si ottiene moltiplicando n per la costante di Avogadro, 6,02214076×10²³ mol⁻¹."
+          "L’attività propone quattro problemi guidati: moli e molecole in 36 g d’acqua; massa di 0,25 mol di cloruro di sodio; composizione percentuale dell’acqua; formula minima da una composizione. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Scrivi sempre le unità durante il calcolo: g divisi per g/mol danno mol, mol per particelle/mol danno particelle. Se le unità non tornano, la formula è sbagliata."
         ],
         "advanced": [
-          "Nel laboratorio imposta Massa molare (a): 18 g/mol. Prima di salvare A, prevedi come cambia Quantità di sostanza fra Massa=25 e 50 g. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Calcola quante entità corrispondono a una piccola frazione di mole. Spiega perché un modello che visualizza poche sfere può conservare i rapporti senza riprodurre il numero reale di particelle.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività propone quattro problemi guidati: moli e molecole in 36 g d’acqua; massa di 0,25 mol di cloruro di sodio; composizione percentuale dell’acqua; formula minima da una composizione. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Scrivi sempre le unità durante il calcolo: g divisi per g/mol danno mol, mol per particelle/mol danno particelle. Se le unità non tornano, la formula è sbagliata."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e ordini di grandezza",
       "text": {
         "base": [
-          "Mole e molecola non sono sinonimi. La mole conta entità specificate, che possono essere molecole, atomi o ioni; bisogna dire quali.",
-          "Sostanza pura, massa molare assegnata e nessuna impurità. Le sfere visualizzate non sono un conteggio uno-a-uno delle entità presenti.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: confondere massa e quantità di sostanza. Una mole di idrogeno H₂ pesa circa 2 g, una mole di ossigeno O₂ circa 32 g: masse diverse, stesso numero di molecole.",
+          "Secondo errore: dimenticare gli indici nel calcolo della massa molare. Per H₂O l’idrogeno conta due volte: 18,02 g/mol, e non 17,01.",
+          "Per rendersi conto della grandezza di N_A: se tutti gli 8 miliardi di abitanti della Terra contassero un milione di particelle al secondo ciascuno, servirebbero circa 2,4 anni per contarne una mole. Eppure una mole d’acqua, circa 18 mL, sta in poco più di un cucchiaio da cucina."
         ],
         "intermediate": [
-          "Mole e molecola non sono sinonimi. La mole conta entità specificate, che possono essere molecole, atomi o ioni; bisogna dire quali.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: confondere massa e quantità di sostanza. Una mole di idrogeno H₂ pesa circa 2 g, una mole di ossigeno O₂ circa 32 g: masse diverse, stesso numero di molecole.",
+          "Secondo errore: dimenticare gli indici nel calcolo della massa molare. Per H₂O l’idrogeno conta due volte: 18,02 g/mol, e non 17,01.",
+          "Per rendersi conto della grandezza di N_A: se tutti gli 8 miliardi di abitanti della Terra contassero un milione di particelle al secondo ciascuno, servirebbero circa 2,4 anni per contarne una mole. Eppure una mole d’acqua, circa 18 mL, sta in poco più di un cucchiaio da cucina."
         ],
         "advanced": [
-          "Sostanza pura, massa molare assegnata e nessuna impurità. Le sfere visualizzate non sono un conteggio uno-a-uno delle entità presenti.",
-          "Calcola quante entità corrispondono a una piccola frazione di mole. Spiega perché un modello che visualizza poche sfere può conservare i rapporti senza riprodurre il numero reale di particelle.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: confondere massa e quantità di sostanza. Una mole di idrogeno H₂ pesa circa 2 g, una mole di ossigeno O₂ circa 32 g: masse diverse, stesso numero di molecole.",
+          "Secondo errore: dimenticare gli indici nel calcolo della massa molare. Per H₂O l’idrogeno conta due volte: 18,02 g/mol, e non 17,01.",
+          "Per rendersi conto della grandezza di N_A: se tutti gli 8 miliardi di abitanti della Terra contassero un milione di particelle al secondo ciascuno, servirebbero circa 2,4 anni per contarne una mole. Eppure una mole d’acqua, circa 18 mL, sta in poco più di un cucchiaio da cucina."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "La mole è l’unità SI della quantità di sostanza. La massa molare M collega una massa m al numero di moli n=m/M. La stessa massa di sostanze diverse può corrispondere a quantità di sostanza diverse.",
-          "Con massa molare didattica M=18 g/mol e massa m=36 g, n=2 mol. Il valore 18 è arrotondato: non è una misura ad alta precisione della massa molare dell’acqua."
+          "Ripasso: definizione di mole e costante di Avogadro; massa molare dalla formula; n = m/M e N = n · N_A; volume molare dei gas; composizione percentuale e formula minima.",
+          "Mini esercizio: quante moli in 88 g di CO₂? M = 12,01 + 2 · 16,00 = 44,01 g/mol; n ≈ 2,00 mol.",
+          "Nelle domande sulle moli scrivi la massa molare con le unità prima di dividere."
         ],
         "intermediate": [
-          "Usando m in grammi e M in grammi per mole, il rapporto ha unità di mole. Il numero di entità si ottiene moltiplicando n per la costante di Avogadro, 6,02214076×10²³ mol⁻¹.",
-          "La variabile Massa è espressa in g; Quantità di sostanza in mol. Il dominio dello strumento è [0; 100]. La relazione implementata è: n = m/M."
+          "Ripasso: definizione di mole e costante di Avogadro; massa molare dalla formula; n = m/M e N = n · N_A; volume molare dei gas; composizione percentuale e formula minima.",
+          "Mini esercizio: quante moli in 88 g di CO₂? M = 12,01 + 2 · 16,00 = 44,01 g/mol; n ≈ 2,00 mol.",
+          "Nelle domande sulle moli scrivi la massa molare con le unità prima di dividere."
         ],
         "advanced": [
-          "Calcola quante entità corrispondono a una piccola frazione di mole. Spiega perché un modello che visualizza poche sfere può conservare i rapporti senza riprodurre il numero reale di particelle.",
-          "Sostanza pura, massa molare assegnata e nessuna impurità. Le sfere visualizzate non sono un conteggio uno-a-uno delle entità presenti."
+          "Ripasso: definizione di mole e costante di Avogadro; massa molare dalla formula; n = m/M e N = n · N_A; volume molare dei gas; composizione percentuale e formula minima.",
+          "Mini esercizio: quante moli in 88 g di CO₂? M = 12,01 + 2 · 16,00 = 44,01 g/mol; n ≈ 2,00 mol.",
+          "Nelle domande sulle moli scrivi la massa molare con le unità prima di dividere."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Sostanza pura con massa molare dichiarata.",
-          "Sostanza pura, massa molare assegnata e nessuna impurità. Le sfere visualizzate non sono un conteggio uno-a-uno delle entità presenti.",
-          "Collegamento consigliato: chemistry-14. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La mole è lo strumento per contare nelle reazioni: l’unità «Stechiometria e reagente limitante» la usa per prevedere quanto prodotto si ottiene da certe quantità di reagenti.",
+          "Riepilogo dell’unità: una mole contiene 6,02214076 · 10²³ particelle; la massa molare si somma dalla formula; n = m/M e N = n · N_A collegano bilancia e particelle; la composizione percentuale porta alla formula minima.",
+          "Nel diario calcola quante molecole d’acqua bevi con un bicchiere da 200 mL, spiegando ogni passaggio."
         ],
         "intermediate": [
-          "Usando m in grammi e M in grammi per mole, il rapporto ha unità di mole. Il numero di entità si ottiene moltiplicando n per la costante di Avogadro, 6,02214076×10²³ mol⁻¹.",
-          "Sostanza pura, massa molare assegnata e nessuna impurità. Le sfere visualizzate non sono un conteggio uno-a-uno delle entità presenti.",
-          "Calcola quante entità corrispondono a una piccola frazione di mole. Spiega perché un modello che visualizza poche sfere può conservare i rapporti senza riprodurre il numero reale di particelle."
+          "La mole è lo strumento per contare nelle reazioni: l’unità «Stechiometria e reagente limitante» la usa per prevedere quanto prodotto si ottiene da certe quantità di reagenti.",
+          "Riepilogo dell’unità: una mole contiene 6,02214076 · 10²³ particelle; la massa molare si somma dalla formula; n = m/M e N = n · N_A collegano bilancia e particelle; la composizione percentuale porta alla formula minima.",
+          "Nel diario calcola quante molecole d’acqua bevi con un bicchiere da 200 mL, spiegando ogni passaggio."
         ],
         "advanced": [
-          "Calcola quante entità corrispondono a una piccola frazione di mole. Spiega perché un modello che visualizza poche sfere può conservare i rapporti senza riprodurre il numero reale di particelle.",
-          "Sostanza pura, massa molare assegnata e nessuna impurità. Le sfere visualizzate non sono un conteggio uno-a-uno delle entità presenti.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La mole è lo strumento per contare nelle reazioni: l’unità «Stechiometria e reagente limitante» la usa per prevedere quanto prodotto si ottiene da certe quantità di reagenti.",
+          "Riepilogo dell’unità: una mole contiene 6,02214076 · 10²³ particelle; la massa molare si somma dalla formula; n = m/M e N = n · N_A collegano bilancia e particelle; la composizione percentuale porta alla formula minima.",
+          "Nel diario calcola quante molecole d’acqua bevi con un bicchiere da 200 mL, spiegando ogni passaggio."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-03-concept",
-      "prompt": "Per convertire massa in moli si usa:",
+      "id": "chemistry-03-q1",
+      "prompt": "Qual è la massa molare di CO₂ (C = 12,01; O = 16,00)?",
       "options": [
         {
           "id": "A",
-          "text": "n=mM",
-          "feedback": "Mole e molecola non sono sinonimi. La mole conta entità specificate, che possono essere molecole, atomi o ioni; bisogna dire quali."
+          "text": "28,01 g/mol",
+          "feedback": "Hai contato un solo ossigeno: l’indice 2 lo raddoppia."
         },
         {
           "id": "B",
-          "text": "n=M/m",
-          "feedback": "Usando m in grammi e M in grammi per mole, il rapporto ha unità di mole. Il numero di entità si ottiene moltiplicando n per la costante di Avogadro, 6,02214076×10²³ mol⁻¹."
+          "text": "44,01 g/mol",
+          "feedback": "Esatto: un carbonio e due ossigeni, 12,01 + 2 · 16,00."
         },
         {
           "id": "C",
-          "text": "n=m/M",
-          "feedback": "La mole è l’unità SI della quantità di sostanza. La massa molare M collega una massa m al numero di moli n=m/M. La stessa massa di sostanze diverse può corrispondere a quantità di sostanza diverse."
+          "text": "32,00 g/mol",
+          "feedback": "32,00 è la massa molare di O₂, senza il carbonio."
+        },
+        {
+          "id": "D",
+          "text": "56,01 g/mol",
+          "feedback": "Il carbonio è uno solo: hai contato due atomi di carbonio."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "chemistry-03-q2",
+      "prompt": "Quante moli ci sono in 9 g di acqua (M = 18 g/mol)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0,5 mol",
+          "feedback": "Esatto: n = m/M = 9/18 = 0,5 mol."
+        },
+        {
+          "id": "B",
+          "text": "2 mol",
+          "feedback": "Hai diviso la massa molare per la massa."
+        },
+        {
+          "id": "C",
+          "text": "162 mol",
+          "feedback": "Hai moltiplicato invece di dividere."
+        },
+        {
+          "id": "D",
+          "text": "9 mol",
+          "feedback": "La massa in grammi non coincide con le moli."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-03-q3",
+      "prompt": "Quante molecole ci sono in 2 mol di acqua?",
+      "options": [
+        {
+          "id": "A",
+          "text": "2",
+          "feedback": "Una mole contiene un numero enorme di molecole, non una."
+        },
+        {
+          "id": "B",
+          "text": "6,02 · 10²³",
+          "feedback": "Questo è il numero in una sola mole."
+        },
+        {
+          "id": "C",
+          "text": "1,20 · 10²⁴",
+          "feedback": "Esatto: si moltiplicano le moli per N_A, 2 · 6,02 · 10²³."
+        },
+        {
+          "id": "D",
+          "text": "36",
+          "feedback": "36 è la massa in grammi di 2 mol d’acqua, non il numero di molecole."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "chemistry-03-calculation",
-      "prompt": "Calcolo: Massa molare (a)=18 g/mol. Per Massa=36 g, quanto vale Quantità di sostanza?",
+      "id": "chemistry-03-q4",
+      "prompt": "Una mole di H₂ e una mole di O₂ hanno:",
       "options": [
         {
           "id": "A",
-          "text": "1 mol",
-          "feedback": "Controlla sostituzione, segno e unità. n = m/M. Con Massa molare (a)=18 g/mol e Massa=36 g, il risultato è 2 mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "La stessa massa",
+          "feedback": "Le masse molari sono circa 2 e 32 g/mol."
         },
         {
           "id": "B",
-          "text": "2 mol",
-          "feedback": "n = m/M. Con Massa molare (a)=18 g/mol e Massa=36 g, il risultato è 2 mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "Lo stesso volume a qualunque pressione",
+          "feedback": "Il volume dipende da pressione e temperatura."
         },
         {
           "id": "C",
-          "text": "3 mol",
-          "feedback": "Questo valore non soddisfa la relazione. n = m/M. Con Massa molare (a)=18 g/mol e Massa=36 g, il risultato è 2 mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "Lo stesso numero di atomi di idrogeno",
+          "feedback": "La molecola di ossigeno O₂ non contiene atomi di idrogeno."
+        },
+        {
+          "id": "D",
+          "text": "Lo stesso numero di molecole",
+          "feedback": "Esatto: una mole contiene sempre N_A particelle."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 36,
-        "parameters": {
-          "a": 18
-        },
-        "expected": 2,
-        "unit": "mol"
-      }
+      "correct": "D"
     },
     {
-      "id": "chemistry-03-transfer",
-      "prompt": "Trasferimento: Massa molare (a)=20 g/mol. Per Massa=36 g, quanto vale Quantità di sostanza?",
+      "id": "chemistry-03-q5",
+      "prompt": "Qual è la percentuale in massa dell’ossigeno nell’acqua (H = 1,008; O = 16,00)?",
       "options": [
         {
           "id": "A",
-          "text": "1,8 mol",
-          "feedback": "n = m/M. Con Massa molare (a)=20 g/mol e Massa=36 g, il risultato è 1,8 mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "Circa 88,8%",
+          "feedback": "Esatto: la massa dell’ossigeno divisa per la massa molare, 16,00/18,02 ≈ 0,888."
         },
         {
           "id": "B",
-          "text": "2,8 mol",
-          "feedback": "Questo valore non soddisfa la relazione. n = m/M. Con Massa molare (a)=20 g/mol e Massa=36 g, il risultato è 1,8 mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "33,3%",
+          "feedback": "Uno su tre è il rapporto tra il numero di atomi, non tra le masse."
         },
         {
           "id": "C",
-          "text": "0,8 mol",
-          "feedback": "Controlla sostituzione, segno e unità. n = m/M. Con Massa molare (a)=20 g/mol e Massa=36 g, il risultato è 1,8 mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "50%",
+          "feedback": "Le masse dei due elementi sono molto diverse."
+        },
+        {
+          "id": "D",
+          "text": "11,2%",
+          "feedback": "Questa è la percentuale dell’idrogeno."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 36,
-        "parameters": {
-          "a": 20
-        },
-        "expected": 1.8,
-        "unit": "mol"
-      }
+      "correct": "A"
     },
     {
-      "id": "chemistry-03-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "chemistry-03-q6",
+      "prompt": "Un composto contiene, per 100 g, 3,33 mol di C, 6,65 mol di H e 3,33 mol di O. Qual è la formula minima?",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Sostanza pura, massa molare assegnata e nessuna impurità. Le sfere visualizzate non sono un conteggio uno-a-uno delle entità presenti."
+          "text": "C₃H₇O₃",
+          "feedback": "Le moli vanno divise per la più piccola, poi arrotondate a interi."
         },
         {
           "id": "B",
-          "text": "Sostanza pura con massa molare dichiarata",
-          "feedback": "Sostanza pura, massa molare assegnata e nessuna impurità. Le sfere visualizzate non sono un conteggio uno-a-uno delle entità presenti."
+          "text": "CH₂O",
+          "feedback": "Esatto: dividendo per 3,33 si ottiene 1 : 2 : 1."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Sostanza pura, massa molare assegnata e nessuna impurità. Le sfere visualizzate non sono un conteggio uno-a-uno delle entità presenti."
+          "text": "C₂HO₂",
+          "feedback": "Il rapporto è invertito: l’idrogeno è il doppio degli altri."
+        },
+        {
+          "id": "D",
+          "text": "C₆H₁₂O₆",
+          "feedback": "È la formula del glucosio; la formula minima è il rapporto più semplice."
         }
       ],
       "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "steps",
+    "goal": 3,
+    "problems": [
+      {
+        "id": "acqua",
+        "title": "Molecole in 36 g d’acqua",
+        "text": "Quante moli e quante molecole ci sono in 36 g di acqua? H = 1,008; O = 16,00.",
+        "maxErrors": 1,
+        "explain": "Dalla massa alle moli con M, dalle moli alle molecole con N_A.",
+        "steps": [
+          {
+            "prompt": "Massa molare dell’acqua?",
+            "options": [
+              {
+                "text": "18,02 g/mol",
+                "feedback": "Giusto: 2 · 1,008 + 16,00."
+              },
+              {
+                "text": "17,01 g/mol",
+                "feedback": "L’idrogeno compare due volte."
+              },
+              {
+                "text": "34,02 g/mol",
+                "feedback": "L’ossigeno è uno solo."
+              }
+            ],
+            "correct": 0,
+            "result": "M = 18,02 g/mol."
+          },
+          {
+            "prompt": "Quante moli?",
+            "options": [
+              {
+                "text": "Circa 2,00 mol",
+                "feedback": "Giusto: 36/18,02."
+              },
+              {
+                "text": "Circa 0,50 mol",
+                "feedback": "Si divide la massa per la massa molare, non il contrario."
+              },
+              {
+                "text": "648 mol",
+                "feedback": "Si divide, non si moltiplica."
+              }
+            ],
+            "correct": 0,
+            "result": "n ≈ 2,00 mol."
+          },
+          {
+            "prompt": "Quante molecole?",
+            "options": [
+              {
+                "text": "Circa 1,20 · 10²⁴",
+                "feedback": "Giusto: 2,00 · 6,022 · 10²³."
+              },
+              {
+                "text": "Circa 3,01 · 10²³",
+                "feedback": "Questo sarebbe mezza mole."
+              },
+              {
+                "text": "2",
+                "feedback": "Le moli non sono molecole: ogni mole ne contiene N_A."
+              }
+            ],
+            "correct": 0,
+            "result": "N ≈ 1,20 · 10²⁴ molecole."
+          }
+        ]
+      },
+      {
+        "id": "sale",
+        "title": "Pesare 0,25 mol di sale",
+        "text": "Che massa di NaCl serve per avere 0,25 mol? Na = 22,99; Cl = 35,45.",
+        "maxErrors": 1,
+        "explain": "Per passare dalle moli alla massa si moltiplica per la massa molare.",
+        "steps": [
+          {
+            "prompt": "Massa molare di NaCl?",
+            "options": [
+              {
+                "text": "58,44 g/mol",
+                "feedback": "Giusto: 22,99 + 35,45."
+              },
+              {
+                "text": "35,45 g/mol",
+                "feedback": "Manca il sodio."
+              },
+              {
+                "text": "12,46 g/mol",
+                "feedback": "Le masse si sommano, non si sottraggono."
+              }
+            ],
+            "correct": 0,
+            "result": "M = 58,44 g/mol."
+          },
+          {
+            "prompt": "Che massa serve?",
+            "options": [
+              {
+                "text": "Circa 14,6 g",
+                "feedback": "Giusto: 0,25 · 58,44."
+              },
+              {
+                "text": "Circa 233,8 g",
+                "feedback": "Hai diviso per 0,25 invece di moltiplicare."
+              },
+              {
+                "text": "0,25 g",
+                "feedback": "Moli e grammi non coincidono."
+              }
+            ],
+            "correct": 0,
+            "result": "m ≈ 14,6 g."
+          }
+        ]
+      },
+      {
+        "id": "percentuale",
+        "title": "Composizione dell’acqua",
+        "text": "Che percentuale della massa dell’acqua è idrogeno?",
+        "maxErrors": 1,
+        "explain": "La percentuale in massa si calcola con le masse, non con il numero di atomi.",
+        "steps": [
+          {
+            "prompt": "Massa di idrogeno in una mole d’acqua?",
+            "options": [
+              {
+                "text": "2,016 g",
+                "feedback": "Giusto: due atomi da 1,008."
+              },
+              {
+                "text": "1,008 g",
+                "feedback": "Gli atomi di idrogeno sono due."
+              },
+              {
+                "text": "16,00 g",
+                "feedback": "16,00 g è la massa dell’ossigeno."
+              }
+            ],
+            "correct": 0,
+            "result": "2,016 g di idrogeno su 18,02 g."
+          },
+          {
+            "prompt": "Percentuale di idrogeno?",
+            "options": [
+              {
+                "text": "Circa 11,2%",
+                "feedback": "Giusto: 2,016/18,02 ≈ 0,112."
+              },
+              {
+                "text": "Circa 66,7%",
+                "feedback": "Due atomi su tre è un rapporto tra numeri di atomi."
+              },
+              {
+                "text": "Circa 5,6%",
+                "feedback": "Hai contato un solo idrogeno."
+              }
+            ],
+            "correct": 0,
+            "result": "H circa 11,2%, O circa 88,8%."
+          }
+        ]
+      },
+      {
+        "id": "minima",
+        "title": "Dalla composizione alla formula",
+        "text": "Un composto contiene 40,0% di C, 6,7% di H e 53,3% di O. Qual è la formula minima?",
+        "maxErrors": 1,
+        "explain": "Moli in 100 g, divisione per la più piccola, rapporto intero.",
+        "steps": [
+          {
+            "prompt": "Moli di carbonio in 100 g?",
+            "options": [
+              {
+                "text": "Circa 3,33",
+                "feedback": "Giusto: 40,0/12,01."
+              },
+              {
+                "text": "40,0",
+                "feedback": "Questi sono grammi: vanno divisi per la massa molare."
+              },
+              {
+                "text": "Circa 0,30",
+                "feedback": "Hai diviso 12,01 per 40,0."
+              }
+            ],
+            "correct": 0,
+            "result": "C 3,33 mol; H 6,65 mol; O 3,33 mol."
+          },
+          {
+            "prompt": "Rapporto dividendo per 3,33?",
+            "options": [
+              {
+                "text": "1 : 2 : 1",
+                "feedback": "Giusto: 3,33/3,33, 6,65/3,33 ≈ 2, 3,33/3,33."
+              },
+              {
+                "text": "1 : 1 : 1",
+                "feedback": "L’idrogeno è circa il doppio."
+              },
+              {
+                "text": "2 : 1 : 2",
+                "feedback": "Il rapporto è invertito."
+              }
+            ],
+            "correct": 0,
+            "result": "Rapporto C : H : O = 1 : 2 : 1."
+          },
+          {
+            "prompt": "Formula minima?",
+            "options": [
+              {
+                "text": "CH₂O",
+                "feedback": "Giusto: la formula minima di glucosio e formaldeide."
+              },
+              {
+                "text": "C₂HO",
+                "feedback": "Gli indici seguono il rapporto 1 : 2 : 1."
+              },
+              {
+                "text": "C₆H₁₂O₆",
+                "feedback": "È una formula molecolare possibile; la minima è il rapporto più semplice."
+              }
+            ],
+            "correct": 0,
+            "result": "Formula minima CH₂O."
+          }
+        ]
+      }
+    ]
+  }
 }

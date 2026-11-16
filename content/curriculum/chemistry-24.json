@@ -5,19 +5,21 @@
   "title": "Chimica organica e scheletri carboniosi",
   "sector": 2,
   "modelId": "chemistry-24",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Bilancio teorico per alcani aciclici saturi",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Legami del carbonio, alcani e serie omologa, nomenclatura, isomeria, gruppi funzionali e combustione",
+  "narrativeStatus": "La sintesi di Wöhler e le temperature di ebollizione sono reali.",
   "objectives": [
-    "Spiegare: bilancio teorico per alcani aciclici saturi.",
-    "Applicare C_nH_(2n+2): O₂ richiesto = m(3n+1)/2, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Spiegare la versatilità dei legami del carbonio.",
+    "Scrivere formule e nomi dei primi alcani.",
+    "Riconoscere isomeri e gruppi funzionali.",
+    "Bilanciare la combustione di un alcano."
   ],
   "prerequisites": [
     "chemistry-23"
   ],
   "connections": [
+    "chemistry-25",
     "chemistry-14"
   ],
   "sources": [
@@ -27,244 +29,570 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Atomi C per molecola",
-      "definition": "Variabile indipendente, unità 1; intervallo [1; 12]."
+      "term": "Alcano",
+      "definition": "Idrocarburo con soli legami semplici, C_nH_(2n+2)."
     },
     {
-      "term": "Ossigeno richiesto",
-      "definition": "Risultato calcolato dal modello, unità mol."
+      "term": "Serie omologa",
+      "definition": "Serie di composti che differiscono per un gruppo CH₂."
     },
     {
-      "term": "Alcano m",
-      "definition": "Parametro a, unità mol; intervallo [0,5; 3]."
+      "term": "Isomeri",
+      "definition": "Composti con la stessa formula molecolare e strutture diverse."
+    },
+    {
+      "term": "Gruppo funzionale",
+      "definition": "Gruppo di atomi che conferisce proprietà caratteristiche, come −OH o −COOH."
+    },
+    {
+      "term": "Idrocarburo",
+      "definition": "Composto formato solo da carbonio e idrogeno."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "La sintesi di Wöhler",
       "text": {
         "base": [
-          "Il catalogo della materia contiene catene carboniose di lunghezza diversa. Un bilancio teorico permette di confrontarne la richiesta di ossigeno senza effettuare alcuna reazione.",
-          "Gli alcani aciclici saturi hanno formula C_nH_(2n+2). La formula conta gli atomi, ma non identifica sempre una sola struttura: per catene sufficientemente lunghe sono possibili isomeri."
+          "Nel 1828 Friedrich Wöhler ottenne l’urea, una sostanza dell’urina, scaldando cianato d’ammonio, un sale minerale. Fino ad allora molti pensavano che le sostanze dei viventi richiedessero una «forza vitale». Oggi la chimica organica studia i composti del carbonio, naturali e sintetici: milioni di molecole, dai carburanti ai farmaci.",
+          "Il carbonio ha quattro elettroni di valenza e forma quattro legami covalenti. Può legarsi ad altri atomi di carbonio formando catene lunghe, ramificate o chiuse ad anello, con legami semplici, doppi o tripli. Questa versatilità spiega l’enorme numero di composti organici. Attorno a un carbonio con quattro legami semplici la geometria è tetraedrica, con angoli di circa 109,5°."
         ],
         "intermediate": [
-          "Il catalogo della materia contiene catene carboniose di lunghezza diversa. Un bilancio teorico permette di confrontarne la richiesta di ossigeno senza effettuare alcuna reazione.",
-          "Nel bilancio di ossidazione completa a CO₂ e H₂O, una mole di alcano richiede (3n+1)/2 moli di O₂. Prima bilanci il carbonio, poi l’idrogeno, infine l’ossigeno."
+          "Nel 1828 Friedrich Wöhler ottenne l’urea, una sostanza dell’urina, scaldando cianato d’ammonio, un sale minerale. Fino ad allora molti pensavano che le sostanze dei viventi richiedessero una «forza vitale». Oggi la chimica organica studia i composti del carbonio, naturali e sintetici: milioni di molecole, dai carburanti ai farmaci.",
+          "Il carbonio ha quattro elettroni di valenza e forma quattro legami covalenti. Può legarsi ad altri atomi di carbonio formando catene lunghe, ramificate o chiuse ad anello, con legami semplici, doppi o tripli. Questa versatilità spiega l’enorme numero di composti organici. Attorno a un carbonio con quattro legami semplici la geometria è tetraedrica, con angoli di circa 109,5°."
         ],
         "advanced": [
-          "Il catalogo della materia contiene catene carboniose di lunghezza diversa. Un bilancio teorico permette di confrontarne la richiesta di ossigeno senza effettuare alcuna reazione.",
-          "Confronta la formula degli alcani con quella di molecole contenenti cicli o insaturazioni. Spiega perché non si può riutilizzare lo stesso bilancio senza aggiornare la formula.",
-          "Alcani aciclici saturi e bilancio di conversione completa. Non sono simulate combustione, condizioni operative o prodotti incompleti."
+          "Nel 1828 Friedrich Wöhler ottenne l’urea, una sostanza dell’urina, scaldando cianato d’ammonio, un sale minerale. Fino ad allora molti pensavano che le sostanze dei viventi richiedessero una «forza vitale». Oggi la chimica organica studia i composti del carbonio, naturali e sintetici: milioni di molecole, dai carburanti ai farmaci.",
+          "Il carbonio ha quattro elettroni di valenza e forma quattro legami covalenti. Può legarsi ad altri atomi di carbonio formando catene lunghe, ramificate o chiuse ad anello, con legami semplici, doppi o tripli. Questa versatilità spiega l’enorme numero di composti organici. Attorno a un carbonio con quattro legami semplici la geometria è tetraedrica, con angoli di circa 109,5°."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Alcani, isomeri, gruppi funzionali",
       "text": {
         "base": [
-          "Gli alcani aciclici saturi hanno formula C_nH_(2n+2). La formula conta gli atomi, ma non identifica sempre una sola struttura: per catene sufficientemente lunghe sono possibili isomeri.",
-          "Per n=2, la formula è C₂H₆ e il coefficiente di O₂ per mole è 3,5. Moltiplicare tutta l’equazione per due elimina il coefficiente frazionario senza cambiarne i rapporti."
+          "Gli alcani sono idrocarburi con soli legami semplici, di formula C_nH_(2n+2): metano CH₄, etano C₂H₆, propano C₃H₈, butano C₄H₁₀, pentano C₅H₁₂, esano C₆H₁₄. Formano una serie omologa: ogni termine differisce dal precedente per un gruppo CH₂. I prefissi met-, et-, prop-, but- indicano 1, 2, 3, 4 atomi di carbonio, poi i numerali greci: pent-, es-, ept-, ott-.",
+          "Le temperature di ebollizione crescono lungo la serie, perché catene più lunghe hanno forze di London più intense: metano −161,5 °C, etano −89 °C, propano −42 °C, butano circa −1 °C, pentano 36 °C, esano 69 °C. Per questo i primi quattro sono gas a temperatura ambiente, e il GPL è una miscela di propano e butano che si liquefa sotto pressione.",
+          "I gruppi funzionali sono gruppi di atomi che conferiscono proprietà caratteristiche. Alcoli: −OH, come l’etanolo. Acidi carbossilici: −COOH, come l’acido acetico dell’aceto. Chetoni: un C=O tra due carboni, come l’acetone. Esteri: −COO− tra due catene, spesso profumati. Ammine: −NH₂. Doppi e tripli legami tra carboni definiscono alcheni (C_nH_2n a catena aperta) e alchini (C_nH_(2n−2))."
         ],
         "intermediate": [
-          "Nel bilancio di ossidazione completa a CO₂ e H₂O, una mole di alcano richiede (3n+1)/2 moli di O₂. Prima bilanci il carbonio, poi l’idrogeno, infine l’ossigeno.",
-          "La variabile Atomi C per molecola è espressa in 1; Ossigeno richiesto in mol. Il dominio dello strumento è [1; 12], con soli valori interi. La relazione implementata è: C_nH_(2n+2): O₂ richiesto = m(3n+1)/2.",
-          "Per n=2, la formula è C₂H₆ e il coefficiente di O₂ per mole è 3,5. Moltiplicare tutta l’equazione per due elimina il coefficiente frazionario senza cambiarne i rapporti."
+          "Gli alcani sono idrocarburi con soli legami semplici, di formula C_nH_(2n+2): metano CH₄, etano C₂H₆, propano C₃H₈, butano C₄H₁₀, pentano C₅H₁₂, esano C₆H₁₄. Formano una serie omologa: ogni termine differisce dal precedente per un gruppo CH₂. I prefissi met-, et-, prop-, but- indicano 1, 2, 3, 4 atomi di carbonio, poi i numerali greci: pent-, es-, ept-, ott-.",
+          "Le temperature di ebollizione crescono lungo la serie, perché catene più lunghe hanno forze di London più intense: metano −161,5 °C, etano −89 °C, propano −42 °C, butano circa −1 °C, pentano 36 °C, esano 69 °C. Per questo i primi quattro sono gas a temperatura ambiente, e il GPL è una miscela di propano e butano che si liquefa sotto pressione.",
+          "Gli isomeri hanno la stessa formula molecolare e strutture diverse. C₄H₁₀ corrisponde al butano, a catena lineare, e al 2-metilpropano, ramificato, che bolle a circa −12 °C. C₂H₆O corrisponde all’etanolo, un alcol, e al dimetiletere: proprietà molto diverse dalla stessa formula.",
+          "I gruppi funzionali sono gruppi di atomi che conferiscono proprietà caratteristiche. Alcoli: −OH, come l’etanolo. Acidi carbossilici: −COOH, come l’acido acetico dell’aceto. Chetoni: un C=O tra due carboni, come l’acetone. Esteri: −COO− tra due catene, spesso profumati. Ammine: −NH₂. Doppi e tripli legami tra carboni definiscono alcheni (C_nH_2n a catena aperta) e alchini (C_nH_(2n−2))."
         ],
         "advanced": [
-          "Nel bilancio di ossidazione completa a CO₂ e H₂O, una mole di alcano richiede (3n+1)/2 moli di O₂. Prima bilanci il carbonio, poi l’idrogeno, infine l’ossigeno.",
-          "Confronta la formula degli alcani con quella di molecole contenenti cicli o insaturazioni. Spiega perché non si può riutilizzare lo stesso bilancio senza aggiornare la formula.",
-          "La stessa formula molecolare non garantisce la stessa struttura o le stesse proprietà. Il modello geometrico mostra uno scheletro didattico, non una conformazione energeticamente ottimizzata."
+          "Gli alcani sono idrocarburi con soli legami semplici, di formula C_nH_(2n+2): metano CH₄, etano C₂H₆, propano C₃H₈, butano C₄H₁₀, pentano C₅H₁₂, esano C₆H₁₄. Formano una serie omologa: ogni termine differisce dal precedente per un gruppo CH₂. I prefissi met-, et-, prop-, but- indicano 1, 2, 3, 4 atomi di carbonio, poi i numerali greci: pent-, es-, ept-, ott-.",
+          "Le temperature di ebollizione crescono lungo la serie, perché catene più lunghe hanno forze di London più intense: metano −161,5 °C, etano −89 °C, propano −42 °C, butano circa −1 °C, pentano 36 °C, esano 69 °C. Per questo i primi quattro sono gas a temperatura ambiente, e il GPL è una miscela di propano e butano che si liquefa sotto pressione.",
+          "Gli isomeri hanno la stessa formula molecolare e strutture diverse. C₄H₁₀ corrisponde al butano, a catena lineare, e al 2-metilpropano, ramificato, che bolle a circa −12 °C. C₂H₆O corrisponde all’etanolo, un alcol, e al dimetiletere: proprietà molto diverse dalla stessa formula.",
+          "I gruppi funzionali sono gruppi di atomi che conferiscono proprietà caratteristiche. Alcoli: −OH, come l’etanolo. Acidi carbossilici: −COOH, come l’acido acetico dell’aceto. Chetoni: un C=O tra due carboni, come l’acetone. Esteri: −COO− tra due catene, spesso profumati. Ammine: −NH₂. Doppi e tripli legami tra carboni definiscono alcheni (C_nH_2n a catena aperta) e alchini (C_nH_(2n−2)).",
+          "Gli alcani bruciano liberando energia: C_nH_(2n+2) + (3n + 1)/2 O₂ → n CO₂ + (n + 1) H₂O. Per il metano servono 2 mol di ossigeno per mole, per il propano 5, per l’ottano 12,5. Il modello del programma calcola l’ossigeno richiesto in funzione del numero di atomi di carbonio, per una quantità di alcano regolabile."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Carte del carbonio",
       "text": {
         "base": [
-          "Nel laboratorio imposta Alcano m (a): 1 mol. Prima di salvare A, prevedi come cambia Ossigeno richiesto fra Atomi C per molecola=4 e 7 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Per n=2, la formula è C₂H₆ e il coefficiente di O₂ per mole è 3,5. Moltiplicare tutta l’equazione per due elimina il coefficiente frazionario senza cambiarne i rapporti.",
-          "La variabile Atomi C per molecola è espressa in 1; Ossigeno richiesto in mol. Il dominio dello strumento è [1; 12], con soli valori interi. La relazione implementata è: C_nH_(2n+2): O₂ richiesto = m(3n+1)/2."
+          "L’attività ha quattro serie di carte: gli alcani da ordinare per temperatura di ebollizione; molecole da classificare per gruppo funzionale; formule da classificare come alcani, alcheni o alchini; coppie di molecole da classificare come isomeri o no. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte, una sola nelle serie con due categorie.",
+          "Per riconoscere una famiglia dalla formula conta gli idrogeni rispetto a 2n + 2: se ne mancano due c’è un doppio legame, se ne mancano quattro un triplo legame. Per gli isomeri confronta prima le formule molecolari.",
+          "Gli alcani bruciano liberando energia: C_nH_(2n+2) + (3n + 1)/2 O₂ → n CO₂ + (n + 1) H₂O. Per il metano servono 2 mol di ossigeno per mole, per il propano 5, per l’ottano 12,5. Il modello del programma calcola l’ossigeno richiesto in funzione del numero di atomi di carbonio, per una quantità di alcano regolabile."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Alcano m (a): 1 mol. Prima di salvare A, prevedi come cambia Ossigeno richiesto fra Atomi C per molecola=4 e 7 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Atomi C per molecola è espressa in 1; Ossigeno richiesto in mol. Il dominio dello strumento è [1; 12], con soli valori interi. La relazione implementata è: C_nH_(2n+2): O₂ richiesto = m(3n+1)/2.",
-          "Nel bilancio di ossidazione completa a CO₂ e H₂O, una mole di alcano richiede (3n+1)/2 moli di O₂. Prima bilanci il carbonio, poi l’idrogeno, infine l’ossigeno."
+          "L’attività ha quattro serie di carte: gli alcani da ordinare per temperatura di ebollizione; molecole da classificare per gruppo funzionale; formule da classificare come alcani, alcheni o alchini; coppie di molecole da classificare come isomeri o no. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte, una sola nelle serie con due categorie.",
+          "Per riconoscere una famiglia dalla formula conta gli idrogeni rispetto a 2n + 2: se ne mancano due c’è un doppio legame, se ne mancano quattro un triplo legame. Per gli isomeri confronta prima le formule molecolari.",
+          "Gli alcani bruciano liberando energia: C_nH_(2n+2) + (3n + 1)/2 O₂ → n CO₂ + (n + 1) H₂O. Per il metano servono 2 mol di ossigeno per mole, per il propano 5, per l’ottano 12,5. Il modello del programma calcola l’ossigeno richiesto in funzione del numero di atomi di carbonio, per una quantità di alcano regolabile."
         ],
         "advanced": [
-          "Nel laboratorio imposta Alcano m (a): 1 mol. Prima di salvare A, prevedi come cambia Ossigeno richiesto fra Atomi C per molecola=4 e 7 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta la formula degli alcani con quella di molecole contenenti cicli o insaturazioni. Spiega perché non si può riutilizzare lo stesso bilancio senza aggiornare la formula.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "L’attività ha quattro serie di carte: gli alcani da ordinare per temperatura di ebollizione; molecole da classificare per gruppo funzionale; formule da classificare come alcani, alcheni o alchini; coppie di molecole da classificare come isomeri o no. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte, una sola nelle serie con due categorie.",
+          "Per riconoscere una famiglia dalla formula conta gli idrogeni rispetto a 2n + 2: se ne mancano due c’è un doppio legame, se ne mancano quattro un triplo legame. Per gli isomeri confronta prima le formule molecolari."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "La stessa formula molecolare non garantisce la stessa struttura o le stesse proprietà. Il modello geometrico mostra uno scheletro didattico, non una conformazione energeticamente ottimizzata.",
-          "Alcani aciclici saturi e bilancio di conversione completa. Non sono simulate combustione, condizioni operative o prodotti incompleti.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che «organico» significhi naturale o prodotto da un vivente. Il polietilene e l’aspirina di sintesi sono composti organici; l’anidride carbonica e i carbonati, pur contenendo carbonio, si studiano di solito in chimica inorganica.",
+          "Secondo errore: credere che due molecole con la stessa formula siano la stessa sostanza. La formula conta gli atomi, la struttura decide le proprietà: etanolo e dimetiletere bollono a 78 °C e a −24 °C.",
+          "Gli isomeri hanno la stessa formula molecolare e strutture diverse. C₄H₁₀ corrisponde al butano, a catena lineare, e al 2-metilpropano, ramificato, che bolle a circa −12 °C. C₂H₆O corrisponde all’etanolo, un alcol, e al dimetiletere: proprietà molto diverse dalla stessa formula."
         ],
         "intermediate": [
-          "La stessa formula molecolare non garantisce la stessa struttura o le stesse proprietà. Il modello geometrico mostra uno scheletro didattico, non una conformazione energeticamente ottimizzata.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "Errore frequente: pensare che «organico» significhi naturale o prodotto da un vivente. Il polietilene e l’aspirina di sintesi sono composti organici; l’anidride carbonica e i carbonati, pur contenendo carbonio, si studiano di solito in chimica inorganica.",
+          "Secondo errore: credere che due molecole con la stessa formula siano la stessa sostanza. La formula conta gli atomi, la struttura decide le proprietà: etanolo e dimetiletere bollono a 78 °C e a −24 °C.",
+          "Gli alcani bruciano liberando energia: C_nH_(2n+2) + (3n + 1)/2 O₂ → n CO₂ + (n + 1) H₂O. Per il metano servono 2 mol di ossigeno per mole, per il propano 5, per l’ottano 12,5. Il modello del programma calcola l’ossigeno richiesto in funzione del numero di atomi di carbonio, per una quantità di alcano regolabile."
         ],
         "advanced": [
-          "Alcani aciclici saturi e bilancio di conversione completa. Non sono simulate combustione, condizioni operative o prodotti incompleti.",
-          "Confronta la formula degli alcani con quella di molecole contenenti cicli o insaturazioni. Spiega perché non si può riutilizzare lo stesso bilancio senza aggiornare la formula.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che «organico» significhi naturale o prodotto da un vivente. Il polietilene e l’aspirina di sintesi sono composti organici; l’anidride carbonica e i carbonati, pur contenendo carbonio, si studiano di solito in chimica inorganica.",
+          "Secondo errore: credere che due molecole con la stessa formula siano la stessa sostanza. La formula conta gli atomi, la struttura decide le proprietà: etanolo e dimetiletere bollono a 78 °C e a −24 °C.",
+          "Gli alcani bruciano liberando energia: C_nH_(2n+2) + (3n + 1)/2 O₂ → n CO₂ + (n + 1) H₂O. Per il metano servono 2 mol di ossigeno per mole, per il propano 5, per l’ottano 12,5. Il modello del programma calcola l’ossigeno richiesto in funzione del numero di atomi di carbonio, per una quantità di alcano regolabile."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Gli alcani aciclici saturi hanno formula C_nH_(2n+2). La formula conta gli atomi, ma non identifica sempre una sola struttura: per catene sufficientemente lunghe sono possibili isomeri.",
-          "Per n=2, la formula è C₂H₆ e il coefficiente di O₂ per mole è 3,5. Moltiplicare tutta l’equazione per due elimina il coefficiente frazionario senza cambiarne i rapporti."
+          "Ripasso: legami del carbonio e geometria tetraedrica; alcani e serie omologa; nomenclatura di base; andamento delle temperature di ebollizione; isomeri; gruppi funzionali; combustione degli alcani.",
+          "Mini esercizio: l’alcano con 8 carboni è C₈H₁₈; per bruciarne una mole servono (3 · 8 + 1)/2 = 12,5 mol di O₂.",
+          "Nelle domande di chimica organica scrivi la formula e conta gli idrogeni prima di decidere la famiglia."
         ],
         "intermediate": [
-          "Nel bilancio di ossidazione completa a CO₂ e H₂O, una mole di alcano richiede (3n+1)/2 moli di O₂. Prima bilanci il carbonio, poi l’idrogeno, infine l’ossigeno.",
-          "La variabile Atomi C per molecola è espressa in 1; Ossigeno richiesto in mol. Il dominio dello strumento è [1; 12], con soli valori interi. La relazione implementata è: C_nH_(2n+2): O₂ richiesto = m(3n+1)/2."
+          "Ripasso: legami del carbonio e geometria tetraedrica; alcani e serie omologa; nomenclatura di base; andamento delle temperature di ebollizione; isomeri; gruppi funzionali; combustione degli alcani.",
+          "Mini esercizio: l’alcano con 8 carboni è C₈H₁₈; per bruciarne una mole servono (3 · 8 + 1)/2 = 12,5 mol di O₂.",
+          "Nelle domande di chimica organica scrivi la formula e conta gli idrogeni prima di decidere la famiglia."
         ],
         "advanced": [
-          "Confronta la formula degli alcani con quella di molecole contenenti cicli o insaturazioni. Spiega perché non si può riutilizzare lo stesso bilancio senza aggiornare la formula.",
-          "Alcani aciclici saturi e bilancio di conversione completa. Non sono simulate combustione, condizioni operative o prodotti incompleti."
+          "Ripasso: legami del carbonio e geometria tetraedrica; alcani e serie omologa; nomenclatura di base; andamento delle temperature di ebollizione; isomeri; gruppi funzionali; combustione degli alcani.",
+          "Mini esercizio: l’alcano con 8 carboni è C₈H₁₈; per bruciarne una mole servono (3 · 8 + 1)/2 = 12,5 mol di O₂.",
+          "Nelle domande di chimica organica scrivi la formula e conta gli idrogeni prima di decidere la famiglia."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Bilancio teorico per alcani aciclici saturi.",
-          "Alcani aciclici saturi e bilancio di conversione completa. Non sono simulate combustione, condizioni operative o prodotti incompleti.",
-          "Collegamento consigliato: chemistry-14. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le catene di carbonio possono diventare lunghissime: l’unità «Polimeri e materiali» studia le macromolecole. Il calcolo dell’ossigeno di combustione riprende la stechiometria.",
+          "Riepilogo dell’unità: il carbonio forma quattro legami e catene di ogni forma; gli alcani hanno formula C_nH_(2n+2) e formano una serie omologa con temperature di ebollizione crescenti; gli isomeri hanno la stessa formula e strutture diverse; i gruppi funzionali determinano le proprietà; un alcano brucia con (3n + 1)/2 mol di O₂ per mole.",
+          "Nel diario spiega perché il metano è un gas e l’esano un liquido a temperatura ambiente."
         ],
         "intermediate": [
-          "Nel bilancio di ossidazione completa a CO₂ e H₂O, una mole di alcano richiede (3n+1)/2 moli di O₂. Prima bilanci il carbonio, poi l’idrogeno, infine l’ossigeno.",
-          "Alcani aciclici saturi e bilancio di conversione completa. Non sono simulate combustione, condizioni operative o prodotti incompleti.",
-          "Confronta la formula degli alcani con quella di molecole contenenti cicli o insaturazioni. Spiega perché non si può riutilizzare lo stesso bilancio senza aggiornare la formula."
+          "Le catene di carbonio possono diventare lunghissime: l’unità «Polimeri e materiali» studia le macromolecole. Il calcolo dell’ossigeno di combustione riprende la stechiometria.",
+          "Riepilogo dell’unità: il carbonio forma quattro legami e catene di ogni forma; gli alcani hanno formula C_nH_(2n+2) e formano una serie omologa con temperature di ebollizione crescenti; gli isomeri hanno la stessa formula e strutture diverse; i gruppi funzionali determinano le proprietà; un alcano brucia con (3n + 1)/2 mol di O₂ per mole.",
+          "Nel diario spiega perché il metano è un gas e l’esano un liquido a temperatura ambiente."
         ],
         "advanced": [
-          "Confronta la formula degli alcani con quella di molecole contenenti cicli o insaturazioni. Spiega perché non si può riutilizzare lo stesso bilancio senza aggiornare la formula.",
-          "Alcani aciclici saturi e bilancio di conversione completa. Non sono simulate combustione, condizioni operative o prodotti incompleti.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le catene di carbonio possono diventare lunghissime: l’unità «Polimeri e materiali» studia le macromolecole. Il calcolo dell’ossigeno di combustione riprende la stechiometria.",
+          "Riepilogo dell’unità: il carbonio forma quattro legami e catene di ogni forma; gli alcani hanno formula C_nH_(2n+2) e formano una serie omologa con temperature di ebollizione crescenti; gli isomeri hanno la stessa formula e strutture diverse; i gruppi funzionali determinano le proprietà; un alcano brucia con (3n + 1)/2 mol di O₂ per mole.",
+          "Nel diario spiega perché il metano è un gas e l’esano un liquido a temperatura ambiente."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-24-concept",
-      "prompt": "Per un alcano aciclico saturo, gli idrogeni sono:",
+      "id": "chemistry-24-q1",
+      "prompt": "Quanti legami covalenti forma di solito un atomo di carbonio?",
       "options": [
         {
           "id": "A",
-          "text": "Sempre n",
-          "feedback": "La stessa formula molecolare non garantisce la stessa struttura o le stesse proprietà. Il modello geometrico mostra uno scheletro didattico, non una conformazione energeticamente ottimizzata."
+          "text": "4",
+          "feedback": "Esatto: ha quattro elettroni di valenza da condividere."
         },
         {
           "id": "B",
-          "text": "n-2",
-          "feedback": "Nel bilancio di ossidazione completa a CO₂ e H₂O, una mole di alcano richiede (3n+1)/2 moli di O₂. Prima bilanci il carbonio, poi l’idrogeno, infine l’ossigeno."
+          "text": "2",
+          "feedback": "Due legami li forma di solito l’ossigeno."
         },
         {
           "id": "C",
-          "text": "2n+2",
-          "feedback": "Gli alcani aciclici saturi hanno formula C_nH_(2n+2). La formula conta gli atomi, ma non identifica sempre una sola struttura: per catene sufficientemente lunghe sono possibili isomeri."
+          "text": "6",
+          "feedback": "Il carbonio ha solo quattro elettroni di valenza."
+        },
+        {
+          "id": "D",
+          "text": "1",
+          "feedback": "Un solo legame lo forma l’idrogeno."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-24-q2",
+      "prompt": "Qual è la formula dell’alcano con 5 atomi di carbonio?",
+      "options": [
+        {
+          "id": "A",
+          "text": "C₅H₁₀",
+          "feedback": "C₅H₁₀ ha due idrogeni in meno: è un alchene o un anello."
+        },
+        {
+          "id": "B",
+          "text": "C₅H₁₂",
+          "feedback": "Esatto: 2 · 5 + 2 = 12 atomi di idrogeno."
+        },
+        {
+          "id": "C",
+          "text": "C₅H₅",
+          "feedback": "Il carbonio forma quattro legami: servono più idrogeni."
+        },
+        {
+          "id": "D",
+          "text": "C₅H₁₄",
+          "feedback": "Con 14 idrogeni la formula supera 2n + 2."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "chemistry-24-q3",
+      "prompt": "Perché la temperatura di ebollizione cresce dal metano all’esano?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché le molecole diventano polari",
+          "feedback": "Gli alcani restano apolari lungo tutta la serie."
+        },
+        {
+          "id": "B",
+          "text": "Perché si formano legami a idrogeno",
+          "feedback": "Negli alcani non ci sono gruppi O−H o N−H."
+        },
+        {
+          "id": "C",
+          "text": "Perché le forze di London crescono con la catena",
+          "feedback": "Esatto: molecole più grandi hanno più elettroni e più superficie di contatto."
+        },
+        {
+          "id": "D",
+          "text": "Perché diminuisce la massa",
+          "feedback": "La massa cresce lungo la serie, con un CH₂ in più a ogni passo."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "chemistry-24-calculation",
-      "prompt": "Calcolo: Alcano m (a)=1 mol. Per Atomi C per molecola=2 (adimensionale), quanto vale Ossigeno richiesto?",
+      "id": "chemistry-24-q4",
+      "prompt": "Che cosa sono butano e 2-metilpropano?",
       "options": [
         {
           "id": "A",
-          "text": "1,75 mol",
-          "feedback": "Controlla sostituzione, segno e unità. C_nH_(2n+2): O₂ richiesto = m(3n+1)/2. Con Alcano m (a)=1 mol e Atomi C per molecola=2 (adimensionale), il risultato è 3,5 mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "La stessa molecola con due nomi",
+          "feedback": "Le due molecole hanno strutture diverse e temperature di ebollizione diverse."
         },
         {
           "id": "B",
-          "text": "3,5 mol",
-          "feedback": "C_nH_(2n+2): O₂ richiesto = m(3n+1)/2. Con Alcano m (a)=1 mol e Atomi C per molecola=2 (adimensionale), il risultato è 3,5 mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "Due alcheni",
+          "feedback": "Hanno soli legami semplici: sono alcani."
         },
         {
           "id": "C",
-          "text": "5,25 mol",
-          "feedback": "Questo valore non soddisfa la relazione. C_nH_(2n+2): O₂ richiesto = m(3n+1)/2. Con Alcano m (a)=1 mol e Atomi C per molecola=2 (adimensionale), il risultato è 3,5 mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "Un alcano e un alcol",
+          "feedback": "Nessuno dei due contiene ossigeno: sono idrocarburi."
+        },
+        {
+          "id": "D",
+          "text": "Isomeri di formula C₄H₁₀",
+          "feedback": "Esatto: stessa formula, catena lineare e ramificata."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 1
-        },
-        "expected": 3.5,
-        "unit": "mol"
-      }
+      "correct": "D"
     },
     {
-      "id": "chemistry-24-transfer",
-      "prompt": "Trasferimento: Alcano m (a)=1,5 mol. Per Atomi C per molecola=2 (adimensionale), quanto vale Ossigeno richiesto?",
+      "id": "chemistry-24-q5",
+      "prompt": "Quale gruppo funzionale caratterizza l’etanolo?",
       "options": [
         {
           "id": "A",
-          "text": "5,25 mol",
-          "feedback": "C_nH_(2n+2): O₂ richiesto = m(3n+1)/2. Con Alcano m (a)=1,5 mol e Atomi C per molecola=2 (adimensionale), il risultato è 5,25 mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "−OH, alcol",
+          "feedback": "Esatto: l’etanolo è CH₃CH₂OH, con il gruppo −OH."
         },
         {
           "id": "B",
-          "text": "7,875 mol",
-          "feedback": "Questo valore non soddisfa la relazione. C_nH_(2n+2): O₂ richiesto = m(3n+1)/2. Con Alcano m (a)=1,5 mol e Atomi C per molecola=2 (adimensionale), il risultato è 5,25 mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "−COOH, acido carbossilico",
+          "feedback": "Questo è il gruppo dell’acido acetico."
         },
         {
           "id": "C",
-          "text": "2,625 mol",
-          "feedback": "Controlla sostituzione, segno e unità. C_nH_(2n+2): O₂ richiesto = m(3n+1)/2. Con Alcano m (a)=1,5 mol e Atomi C per molecola=2 (adimensionale), il risultato è 5,25 mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "−NH₂, ammina",
+          "feedback": "L’etanolo non contiene azoto, presente invece nelle ammine."
+        },
+        {
+          "id": "D",
+          "text": "C=O, chetone",
+          "feedback": "Il gruppo carbonilico tra due carboni è dei chetoni, come l’acetone."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 1.5
-        },
-        "expected": 5.25,
-        "unit": "mol"
-      }
+      "correct": "A"
     },
     {
-      "id": "chemistry-24-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "chemistry-24-q6",
+      "prompt": "Quante moli di O₂ servono per bruciare completamente una mole di propano?",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Alcani aciclici saturi e bilancio di conversione completa. Non sono simulate combustione, condizioni operative o prodotti incompleti."
+          "text": "3",
+          "feedback": "Tre sono le moli di CO₂ prodotte, non di ossigeno consumato."
         },
         {
           "id": "B",
-          "text": "Bilancio teorico per alcani aciclici saturi",
-          "feedback": "Alcani aciclici saturi e bilancio di conversione completa. Non sono simulate combustione, condizioni operative o prodotti incompleti."
+          "text": "5",
+          "feedback": "Esatto: C₃H₈ + 5 O₂ → 3 CO₂ + 4 H₂O, e (3 · 3 + 1)/2 = 5."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Alcani aciclici saturi e bilancio di conversione completa. Non sono simulate combustione, condizioni operative o prodotti incompleti."
+          "text": "10",
+          "feedback": "Dieci sono gli atomi di ossigeno, cioè cinque molecole."
+        },
+        {
+          "id": "D",
+          "text": "4",
+          "feedback": "Quattro sono le moli di acqua prodotte."
         }
       ],
       "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "cards",
+    "goal": 3,
+    "rounds": [
+      {
+        "id": "ebollizione",
+        "type": "order",
+        "title": "Dal gas più volatile",
+        "prompt": "Ordina gli alcani per temperatura di ebollizione crescente.",
+        "items": [
+          {
+            "id": "metano",
+            "text": "Metano, CH₄",
+            "why": "−161,5 °C."
+          },
+          {
+            "id": "etano",
+            "text": "Etano, C₂H₆",
+            "why": "−89 °C."
+          },
+          {
+            "id": "propano",
+            "text": "Propano, C₃H₈",
+            "why": "−42 °C."
+          },
+          {
+            "id": "butano",
+            "text": "Butano, C₄H₁₀",
+            "why": "Circa −1 °C."
+          },
+          {
+            "id": "pentano",
+            "text": "Pentano, C₅H₁₂",
+            "why": "36 °C: liquido a temperatura ambiente."
+          },
+          {
+            "id": "esano",
+            "text": "Esano, C₆H₁₄",
+            "why": "69 °C."
+          }
+        ],
+        "explain": "Ogni gruppo CH₂ in più rafforza le forze di London e alza la temperatura di ebollizione."
+      },
+      {
+        "id": "gruppi",
+        "type": "classify",
+        "title": "Quale gruppo funzionale?",
+        "prompt": "Classifica le molecole per gruppo funzionale.",
+        "categories": [
+          {
+            "id": "alcol",
+            "label": "ALCOL"
+          },
+          {
+            "id": "acido",
+            "label": "ACIDO CARBOSSILICO"
+          },
+          {
+            "id": "chetone",
+            "label": "CHETONE"
+          },
+          {
+            "id": "estere",
+            "label": "ESTERE"
+          }
+        ],
+        "items": [
+          {
+            "id": "etanolo",
+            "text": "Etanolo, CH₃CH₂OH",
+            "why": "Il gruppo −OH su un carbonio saturo.",
+            "category": "alcol"
+          },
+          {
+            "id": "metanolo",
+            "text": "Metanolo, CH₃OH",
+            "why": "Il più semplice degli alcoli.",
+            "category": "alcol"
+          },
+          {
+            "id": "acetico",
+            "text": "Acido acetico, CH₃COOH",
+            "why": "Il gruppo −COOH dell’aceto.",
+            "category": "acido"
+          },
+          {
+            "id": "formico",
+            "text": "Acido formico, HCOOH",
+            "why": "Il più semplice degli acidi carbossilici.",
+            "category": "acido"
+          },
+          {
+            "id": "acetone",
+            "text": "Acetone, CH₃COCH₃",
+            "why": "Il carbonile C=O sta tra due carboni.",
+            "category": "chetone"
+          },
+          {
+            "id": "butanone",
+            "text": "Butanone, CH₃COCH₂CH₃",
+            "why": "Un altro carbonile tra due carboni.",
+            "category": "chetone"
+          },
+          {
+            "id": "acetato",
+            "text": "Acetato di etile, CH₃COOCH₂CH₃",
+            "why": "Il gruppo −COO− collega due catene.",
+            "category": "estere"
+          }
+        ],
+        "explain": "Il gruppo funzionale decide le proprietà: −OH, −COOH, C=O e −COO− danno famiglie diverse.",
+        "maxErrors": 2
+      },
+      {
+        "id": "famiglie",
+        "type": "classify",
+        "title": "Alcano, alchene o alchino?",
+        "prompt": "Classifica le formule, considerando solo catene aperte, senza anelli.",
+        "categories": [
+          {
+            "id": "alcano",
+            "label": "ALCANO"
+          },
+          {
+            "id": "alchene",
+            "label": "ALCHENE"
+          },
+          {
+            "id": "alchino",
+            "label": "ALCHINO"
+          }
+        ],
+        "items": [
+          {
+            "id": "c3h8",
+            "text": "C₃H₈",
+            "why": "2 · 3 + 2 = 8: è il propano.",
+            "category": "alcano"
+          },
+          {
+            "id": "c8h18",
+            "text": "C₈H₁₈",
+            "why": "2 · 8 + 2 = 18: è un ottano.",
+            "category": "alcano"
+          },
+          {
+            "id": "c5h12",
+            "text": "C₅H₁₂",
+            "why": "2 · 5 + 2 = 12: è un pentano.",
+            "category": "alcano"
+          },
+          {
+            "id": "c2h4",
+            "text": "C₂H₄",
+            "why": "Due idrogeni in meno di C₂H₆: l’etilene, con un doppio legame.",
+            "category": "alchene"
+          },
+          {
+            "id": "c4h8",
+            "text": "C₄H₈",
+            "why": "Due idrogeni in meno di C₄H₁₀: un butene.",
+            "category": "alchene"
+          },
+          {
+            "id": "c6h12",
+            "text": "C₆H₁₂",
+            "why": "Due idrogeni in meno di C₆H₁₄: un esene.",
+            "category": "alchene"
+          },
+          {
+            "id": "c2h2",
+            "text": "C₂H₂",
+            "why": "Quattro idrogeni in meno di C₂H₆: l’acetilene, con un triplo legame.",
+            "category": "alchino"
+          },
+          {
+            "id": "c3h4",
+            "text": "C₃H₄",
+            "why": "Quattro idrogeni in meno di C₃H₈: il propino.",
+            "category": "alchino"
+          }
+        ],
+        "explain": "Ogni doppio legame toglie due idrogeni rispetto a 2n + 2, ogni triplo legame quattro.",
+        "maxErrors": 2
+      },
+      {
+        "id": "isomeri",
+        "type": "classify",
+        "title": "Isomeri o no?",
+        "prompt": "Decidi se le due molecole sono isomeri.",
+        "categories": [
+          {
+            "id": "si",
+            "label": "ISOMERI"
+          },
+          {
+            "id": "no",
+            "label": "NON ISOMERI"
+          }
+        ],
+        "items": [
+          {
+            "id": "butano",
+            "text": "Butano e 2-metilpropano",
+            "why": "Entrambi C₄H₁₀: catena lineare e ramificata.",
+            "category": "si"
+          },
+          {
+            "id": "etanolo",
+            "text": "Etanolo e dimetiletere",
+            "why": "Entrambi C₂H₆O: un alcol e un etere.",
+            "category": "si"
+          },
+          {
+            "id": "acetone",
+            "text": "Acetone e propanale",
+            "why": "Entrambi C₃H₆O: un chetone e un’aldeide.",
+            "category": "si"
+          },
+          {
+            "id": "zuccheri",
+            "text": "Glucosio e fruttosio",
+            "why": "Entrambi C₆H₁₂O₆.",
+            "category": "si"
+          },
+          {
+            "id": "propano",
+            "text": "Propano e propene",
+            "why": "C₃H₈ e C₃H₆: formule diverse.",
+            "category": "no"
+          },
+          {
+            "id": "metano",
+            "text": "Metano ed etano",
+            "why": "CH₄ e C₂H₆: un gruppo CH₂ di differenza.",
+            "category": "no"
+          },
+          {
+            "id": "acido",
+            "text": "Etanolo e acido acetico",
+            "why": "C₂H₆O e C₂H₄O₂: formule diverse.",
+            "category": "no"
+          },
+          {
+            "id": "pentano",
+            "text": "Pentano ed esano",
+            "why": "C₅H₁₂ e C₆H₁₄: termini successivi della serie.",
+            "category": "no"
+          }
+        ],
+        "explain": "Gli isomeri hanno la stessa formula molecolare; due termini di una serie omologa non lo sono mai.",
+        "maxErrors": 1
+      }
+    ]
+  }
 }

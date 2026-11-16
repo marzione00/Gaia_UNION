@@ -5,19 +5,21 @@
   "title": "Atomi, isotopi e massa media",
   "sector": 2,
   "modelId": "chemistry-02",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Miscela ipotetica di due isotopi",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Particelle subatomiche, numero atomico e di massa, isotopi e massa atomica media",
+  "narrativeStatus": "Lo spettrometro della stazione è immaginario; masse e abbondanze del cloro sono valori reali.",
   "objectives": [
-    "Spiegare: miscela ipotetica di due isotopi.",
-    "Applicare m_media = x m₁+(1-x)m₂, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Descrivere protoni, neutroni ed elettroni con cariche e masse.",
+    "Usare numero atomico e numero di massa per contare le particelle.",
+    "Spiegare che cosa sono gli isotopi.",
+    "Calcolare la massa atomica media come media pesata."
   ],
   "prerequisites": [
     "chemistry-01"
   ],
   "connections": [
+    "chemistry-03",
     "math-c04"
   ],
   "sources": [
@@ -27,250 +29,319 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Frazione isotopo 1",
-      "definition": "Variabile indipendente, unità 1; intervallo [0; 1]."
+      "term": "Numero atomico Z",
+      "definition": "Numero di protoni nel nucleo; identifica l’elemento."
     },
     {
-      "term": "Massa media",
-      "definition": "Risultato calcolato dal modello, unità u."
+      "term": "Numero di massa A",
+      "definition": "Somma di protoni e neutroni."
     },
     {
-      "term": "Massa isotopo 1",
-      "definition": "Parametro a, unità u; intervallo [8; 12]."
+      "term": "Isotopi",
+      "definition": "Atomi dello stesso elemento con diverso numero di neutroni."
     },
     {
-      "term": "Massa isotopo 2",
-      "definition": "Parametro b, unità u; intervallo [13; 16]."
+      "term": "Unità di massa atomica",
+      "definition": "1/12 della massa di un atomo di carbonio-12."
+    },
+    {
+      "term": "Massa atomica media",
+      "definition": "Media delle masse isotopiche pesata con le abbondanze naturali."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Due cloro diversi",
       "text": {
         "base": [
-          "Un archivio riporta una massa atomica non intera. Non è un errore nel conteggio dei nucleoni: il campione contiene isotopi in proporzioni diverse.",
-          "Isotopi dello stesso elemento hanno lo stesso numero di protoni e un numero diverso di neutroni. La massa media di un campione è una media pesata delle masse isotopiche, con pesi pari alle frazioni di abbondanza."
+          "Lo spettrometro di massa della stazione analizza il cloro di un campione e trova due tipi di atomi, con masse diverse. Eppure la tavola periodica riporta per il cloro una sola massa, 35,45. Per capire da dove viene quel numero bisogna guardare dentro l’atomo.",
+          "All’inizio dell’Ottocento John Dalton propose che ogni elemento fosse formato da atomi tutti uguali, diversi da quelli degli altri elementi, e che i composti nascessero da combinazioni di atomi in rapporti semplici. L’idea spiegava le proporzioni fisse dei composti; la scoperta degli isotopi, un secolo dopo, ne corresse una parte."
         ],
         "intermediate": [
-          "Un archivio riporta una massa atomica non intera. Non è un errore nel conteggio dei nucleoni: il campione contiene isotopi in proporzioni diverse.",
-          "Per due isotopi con masse m₁ e m₂ e frazione x del primo, m_media=xm₁+(1-x)m₂. I pesi sono non negativi e sommano a uno, quindi la media sta fra le due masse."
+          "Lo spettrometro di massa della stazione analizza il cloro di un campione e trova due tipi di atomi, con masse diverse. Eppure la tavola periodica riporta per il cloro una sola massa, 35,45. Per capire da dove viene quel numero bisogna guardare dentro l’atomo.",
+          "All’inizio dell’Ottocento John Dalton propose che ogni elemento fosse formato da atomi tutti uguali, diversi da quelli degli altri elementi, e che i composti nascessero da combinazioni di atomi in rapporti semplici. L’idea spiegava le proporzioni fisse dei composti; la scoperta degli isotopi, un secolo dopo, ne corresse una parte."
         ],
         "advanced": [
-          "Un archivio riporta una massa atomica non intera. Non è un errore nel conteggio dei nucleoni: il campione contiene isotopi in proporzioni diverse.",
-          "Ricava l’abbondanza x conoscendo media e due masse. Controlla che il risultato sia nell’intervallo [0,1] prima di accettare l’interpretazione.",
-          "Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche."
+          "Lo spettrometro di massa della stazione analizza il cloro di un campione e trova due tipi di atomi, con masse diverse. Eppure la tavola periodica riporta per il cloro una sola massa, 35,45. Per capire da dove viene quel numero bisogna guardare dentro l’atomo.",
+          "All’inizio dell’Ottocento John Dalton propose che ogni elemento fosse formato da atomi tutti uguali, diversi da quelli degli altri elementi, e che i composti nascessero da combinazioni di atomi in rapporti semplici. L’idea spiegava le proporzioni fisse dei composti; la scoperta degli isotopi, un secolo dopo, ne corresse una parte."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Particelle, isotopi, medie",
       "text": {
         "base": [
-          "Isotopi dello stesso elemento hanno lo stesso numero di protoni e un numero diverso di neutroni. La massa media di un campione è una media pesata delle masse isotopiche, con pesi pari alle frazioni di abbondanza.",
-          "Per isotopi didattici di 10 u e 14 u, con x=0,25, la media è 0,25×10+0,75×14=13 u. Queste masse non identificano automaticamente un elemento reale."
+          "L’atomo ha un nucleo piccolissimo, che contiene quasi tutta la massa, circondato da elettroni. Il nucleo contiene protoni, con carica +1, e neutroni, senza carica; protone e neutrone hanno massa quasi uguale, circa 1 u, mentre l’elettrone, con carica −1, ha una massa circa 1836 volte minore. Un atomo neutro ha tanti elettroni quanti protoni.",
+          "Il numero atomico Z è il numero di protoni, e identifica l’elemento: ogni atomo con 17 protoni è cloro. Il numero di massa A è la somma di protoni e neutroni. Si scrive il simbolo con A in alto e Z in basso; per brevità si usa anche «cloro-35». Il cloro-35 ha 17 protoni, 18 neutroni e 17 elettroni.",
+          "Gli isotopi sono atomi dello stesso elemento con un diverso numero di neutroni: stesso Z, diverso A. Hanno quasi le stesse proprietà chimiche, che dipendono dagli elettroni, e masse diverse. Il carbonio ha tre isotopi naturali: carbonio-12 e carbonio-13, stabili, e carbonio-14, radioattivo, usato per la datazione dei reperti.",
+          "La massa atomica riportata nella tavola periodica è la media pesata delle masse degli isotopi, con pesi uguali alle loro abbondanze in natura. Per il cloro: 75,76% di cloro-35 (34,969 u) e 24,24% di cloro-37 (36,966 u). Media: 0,7576 · 34,969 + 0,2424 · 36,966 ≈ 26,49 + 8,96 = 35,45 u. Nessun singolo atomo di cloro ha massa 35,45 u: è una media."
         ],
         "intermediate": [
-          "Per due isotopi con masse m₁ e m₂ e frazione x del primo, m_media=xm₁+(1-x)m₂. I pesi sono non negativi e sommano a uno, quindi la media sta fra le due masse.",
-          "La variabile Frazione isotopo 1 è espressa in 1; Massa media in u. Il dominio dello strumento è [0; 1]. La relazione implementata è: m_media = x m₁+(1-x)m₂.",
-          "Per isotopi didattici di 10 u e 14 u, con x=0,25, la media è 0,25×10+0,75×14=13 u. Queste masse non identificano automaticamente un elemento reale."
+          "L’atomo ha un nucleo piccolissimo, che contiene quasi tutta la massa, circondato da elettroni. Il nucleo contiene protoni, con carica +1, e neutroni, senza carica; protone e neutrone hanno massa quasi uguale, circa 1 u, mentre l’elettrone, con carica −1, ha una massa circa 1836 volte minore. Un atomo neutro ha tanti elettroni quanti protoni.",
+          "Il numero atomico Z è il numero di protoni, e identifica l’elemento: ogni atomo con 17 protoni è cloro. Il numero di massa A è la somma di protoni e neutroni. Si scrive il simbolo con A in alto e Z in basso; per brevità si usa anche «cloro-35». Il cloro-35 ha 17 protoni, 18 neutroni e 17 elettroni.",
+          "Gli isotopi sono atomi dello stesso elemento con un diverso numero di neutroni: stesso Z, diverso A. Hanno quasi le stesse proprietà chimiche, che dipendono dagli elettroni, e masse diverse. Il carbonio ha tre isotopi naturali: carbonio-12 e carbonio-13, stabili, e carbonio-14, radioattivo, usato per la datazione dei reperti.",
+          "L’unità di massa atomica u è definita come 1/12 della massa di un atomo di carbonio-12. In questa unità protoni e neutroni pesano circa 1, e la massa di un atomo è vicina al suo numero di massa, senza coincidere: il cloro-35 ha massa 34,969 u.",
+          "La massa atomica riportata nella tavola periodica è la media pesata delle masse degli isotopi, con pesi uguali alle loro abbondanze in natura. Per il cloro: 75,76% di cloro-35 (34,969 u) e 24,24% di cloro-37 (36,966 u). Media: 0,7576 · 34,969 + 0,2424 · 36,966 ≈ 26,49 + 8,96 = 35,45 u. Nessun singolo atomo di cloro ha massa 35,45 u: è una media."
         ],
         "advanced": [
-          "Per due isotopi con masse m₁ e m₂ e frazione x del primo, m_media=xm₁+(1-x)m₂. I pesi sono non negativi e sommano a uno, quindi la media sta fra le due masse.",
-          "Ricava l’abbondanza x conoscendo media e due masse. Controlla che il risultato sia nell’intervallo [0,1] prima di accettare l’interpretazione.",
-          "La massa atomica media non è necessariamente la massa di un singolo atomo del campione. Cambiare isotopo non cambia il numero atomico; cambiare il numero di protoni cambia elemento."
+          "L’atomo ha un nucleo piccolissimo, che contiene quasi tutta la massa, circondato da elettroni. Il nucleo contiene protoni, con carica +1, e neutroni, senza carica; protone e neutrone hanno massa quasi uguale, circa 1 u, mentre l’elettrone, con carica −1, ha una massa circa 1836 volte minore. Un atomo neutro ha tanti elettroni quanti protoni.",
+          "Il numero atomico Z è il numero di protoni, e identifica l’elemento: ogni atomo con 17 protoni è cloro. Il numero di massa A è la somma di protoni e neutroni. Si scrive il simbolo con A in alto e Z in basso; per brevità si usa anche «cloro-35». Il cloro-35 ha 17 protoni, 18 neutroni e 17 elettroni.",
+          "Gli isotopi sono atomi dello stesso elemento con un diverso numero di neutroni: stesso Z, diverso A. Hanno quasi le stesse proprietà chimiche, che dipendono dagli elettroni, e masse diverse. Il carbonio ha tre isotopi naturali: carbonio-12 e carbonio-13, stabili, e carbonio-14, radioattivo, usato per la datazione dei reperti.",
+          "L’unità di massa atomica u è definita come 1/12 della massa di un atomo di carbonio-12. In questa unità protoni e neutroni pesano circa 1, e la massa di un atomo è vicina al suo numero di massa, senza coincidere: il cloro-35 ha massa 34,969 u.",
+          "La massa atomica riportata nella tavola periodica è la media pesata delle masse degli isotopi, con pesi uguali alle loro abbondanze in natura. Per il cloro: 75,76% di cloro-35 (34,969 u) e 24,24% di cloro-37 (36,966 u). Media: 0,7576 · 34,969 + 0,2424 · 36,966 ≈ 26,49 + 8,96 = 35,45 u. Nessun singolo atomo di cloro ha massa 35,45 u: è una media.",
+          "Lo spettrometro di massa ionizza gli atomi, li accelera e li devia con un campo magnetico: gli ioni più leggeri curvano di più. Dalle posizioni e dalle intensità dei segnali si leggono le masse e le abbondanze degli isotopi."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio della media",
       "text": {
         "base": [
-          "Nel laboratorio imposta Massa isotopo 1 (a): 10 u; Massa isotopo 2 (b): 14 u. Prima di salvare A, prevedi come cambia Massa media fra Frazione isotopo 1=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Per isotopi didattici di 10 u e 14 u, con x=0,25, la media è 0,25×10+0,75×14=13 u. Queste masse non identificano automaticamente un elemento reale.",
-          "La variabile Frazione isotopo 1 è espressa in 1; Massa media in u. Il dominio dello strumento è [0; 1]. La relazione implementata è: m_media = x m₁+(1-x)m₂."
+          "Nel laboratorio il grafico mostra la massa media in funzione della frazione x dell’isotopo 1; nella scheda REGOLA cambi la massa dell’isotopo 1 (da 8 a 12 u) e quella dell’isotopo 2 (da 13 a 16 u). Il cursore sceglie la frazione x, da 0 a 1.",
+          "Protocollo. La previsione riguarda il passaggio da x = 0,25 a x = 0,5. Con m₁ = 10 u e m₂ = 14 u prevedi e salva A. Poi porta m₁ a 12 u, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con m₁ = 10 e m₂ = 14 la media passa da 13 a 12: diminuisce, perché cresce la frazione dell’isotopo più leggero. Il grafico è una retta che va da m₂, per x = 0, a m₁, per x = 1. Con m₁ = 12 la retta è meno inclinata, e la media passa da 13,5 a 13."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Massa isotopo 1 (a): 10 u; Massa isotopo 2 (b): 14 u. Prima di salvare A, prevedi come cambia Massa media fra Frazione isotopo 1=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Frazione isotopo 1 è espressa in 1; Massa media in u. Il dominio dello strumento è [0; 1]. La relazione implementata è: m_media = x m₁+(1-x)m₂.",
-          "Per due isotopi con masse m₁ e m₂ e frazione x del primo, m_media=xm₁+(1-x)m₂. I pesi sono non negativi e sommano a uno, quindi la media sta fra le due masse."
+          "Nel laboratorio il grafico mostra la massa media in funzione della frazione x dell’isotopo 1; nella scheda REGOLA cambi la massa dell’isotopo 1 (da 8 a 12 u) e quella dell’isotopo 2 (da 13 a 16 u). Il cursore sceglie la frazione x, da 0 a 1.",
+          "Protocollo. La previsione riguarda il passaggio da x = 0,25 a x = 0,5. Con m₁ = 10 u e m₂ = 14 u prevedi e salva A. Poi porta m₁ a 12 u, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con m₁ = 10 e m₂ = 14 la media passa da 13 a 12: diminuisce, perché cresce la frazione dell’isotopo più leggero. Il grafico è una retta che va da m₂, per x = 0, a m₁, per x = 1. Con m₁ = 12 la retta è meno inclinata, e la media passa da 13,5 a 13."
         ],
         "advanced": [
-          "Nel laboratorio imposta Massa isotopo 1 (a): 10 u; Massa isotopo 2 (b): 14 u. Prima di salvare A, prevedi come cambia Massa media fra Frazione isotopo 1=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Ricava l’abbondanza x conoscendo media e due masse. Controlla che il risultato sia nell’intervallo [0,1] prima di accettare l’interpretazione.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra la massa media in funzione della frazione x dell’isotopo 1; nella scheda REGOLA cambi la massa dell’isotopo 1 (da 8 a 12 u) e quella dell’isotopo 2 (da 13 a 16 u). Il cursore sceglie la frazione x, da 0 a 1.",
+          "Protocollo. La previsione riguarda il passaggio da x = 0,25 a x = 0,5. Con m₁ = 10 u e m₂ = 14 u prevedi e salva A. Poi porta m₁ a 12 u, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con m₁ = 10 e m₂ = 14 la media passa da 13 a 12: diminuisce, perché cresce la frazione dell’isotopo più leggero. Il grafico è una retta che va da m₂, per x = 0, a m₁, per x = 1. Con m₁ = 12 la retta è meno inclinata, e la media passa da 13,5 a 13."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e usi",
       "text": {
         "base": [
-          "La massa atomica media non è necessariamente la massa di un singolo atomo del campione. Cambiare isotopo non cambia il numero atomico; cambiare il numero di protoni cambia elemento.",
-          "Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: calcolare la media degli isotopi senza i pesi. (34,969 + 36,966)/2 ≈ 35,97, lontano da 35,45: il cloro-35 è tre volte più abbondante e pesa di più nella media.",
+          "Secondo errore: pensare che isotopi diversi siano elementi diversi. Lo stesso numero di protoni dà lo stesso elemento, con lo stesso comportamento chimico; cambiano la massa e, per alcuni, la stabilità del nucleo.",
+          "Lo spettrometro di massa ionizza gli atomi, li accelera e li devia con un campo magnetico: gli ioni più leggeri curvano di più. Dalle posizioni e dalle intensità dei segnali si leggono le masse e le abbondanze degli isotopi."
         ],
         "intermediate": [
-          "La massa atomica media non è necessariamente la massa di un singolo atomo del campione. Cambiare isotopo non cambia il numero atomico; cambiare il numero di protoni cambia elemento.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: calcolare la media degli isotopi senza i pesi. (34,969 + 36,966)/2 ≈ 35,97, lontano da 35,45: il cloro-35 è tre volte più abbondante e pesa di più nella media.",
+          "Secondo errore: pensare che isotopi diversi siano elementi diversi. Lo stesso numero di protoni dà lo stesso elemento, con lo stesso comportamento chimico; cambiano la massa e, per alcuni, la stabilità del nucleo.",
+          "Lo spettrometro di massa ionizza gli atomi, li accelera e li devia con un campo magnetico: gli ioni più leggeri curvano di più. Dalle posizioni e dalle intensità dei segnali si leggono le masse e le abbondanze degli isotopi."
         ],
         "advanced": [
-          "Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche.",
-          "Ricava l’abbondanza x conoscendo media e due masse. Controlla che il risultato sia nell’intervallo [0,1] prima di accettare l’interpretazione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: calcolare la media degli isotopi senza i pesi. (34,969 + 36,966)/2 ≈ 35,97, lontano da 35,45: il cloro-35 è tre volte più abbondante e pesa di più nella media.",
+          "Secondo errore: pensare che isotopi diversi siano elementi diversi. Lo stesso numero di protoni dà lo stesso elemento, con lo stesso comportamento chimico; cambiano la massa e, per alcuni, la stabilità del nucleo.",
+          "Gli isotopi hanno usi pratici. Il carbonio-14 ha un tempo di dimezzamento di circa 5730 anni: misurandone la frazione residua in un reperto organico si stima da quanto tempo l’organismo è morto, fino a circa 50.000 anni fa. Il deuterio, l’idrogeno con un neutrone, forma l’acqua pesante usata in alcuni reattori nucleari."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Isotopi dello stesso elemento hanno lo stesso numero di protoni e un numero diverso di neutroni. La massa media di un campione è una media pesata delle masse isotopiche, con pesi pari alle frazioni di abbondanza.",
-          "Per isotopi didattici di 10 u e 14 u, con x=0,25, la media è 0,25×10+0,75×14=13 u. Queste masse non identificano automaticamente un elemento reale."
+          "Ripasso: particelle subatomiche, cariche e masse; numero atomico e numero di massa; isotopi; unità di massa atomica; media pesata delle masse isotopiche.",
+          "Mini esercizio: un elemento ha due isotopi di massa 10 u (20%) e 11 u (80%). Media: 0,2 · 10 + 0,8 · 11 = 10,8 u: è il boro.",
+          "Nelle domande sugli isotopi conta i neutroni come A − Z."
         ],
         "intermediate": [
-          "Per due isotopi con masse m₁ e m₂ e frazione x del primo, m_media=xm₁+(1-x)m₂. I pesi sono non negativi e sommano a uno, quindi la media sta fra le due masse.",
-          "La variabile Frazione isotopo 1 è espressa in 1; Massa media in u. Il dominio dello strumento è [0; 1]. La relazione implementata è: m_media = x m₁+(1-x)m₂."
+          "Ripasso: particelle subatomiche, cariche e masse; numero atomico e numero di massa; isotopi; unità di massa atomica; media pesata delle masse isotopiche.",
+          "Mini esercizio: un elemento ha due isotopi di massa 10 u (20%) e 11 u (80%). Media: 0,2 · 10 + 0,8 · 11 = 10,8 u: è il boro.",
+          "Nelle domande sugli isotopi conta i neutroni come A − Z."
         ],
         "advanced": [
-          "Ricava l’abbondanza x conoscendo media e due masse. Controlla che il risultato sia nell’intervallo [0,1] prima di accettare l’interpretazione.",
-          "Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche."
+          "Ripasso: particelle subatomiche, cariche e masse; numero atomico e numero di massa; isotopi; unità di massa atomica; media pesata delle masse isotopiche.",
+          "Mini esercizio: un elemento ha due isotopi di massa 10 u (20%) e 11 u (80%). Media: 0,2 · 10 + 0,8 · 11 = 10,8 u: è il boro.",
+          "Nelle domande sugli isotopi conta i neutroni come A − Z."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Miscela ipotetica di due isotopi.",
-          "Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche.",
-          "Collegamento consigliato: math-c04. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La massa atomica media è il ponte verso l’unità «Mole e quantità di sostanza»: in grammi, la massa atomica dà la massa di una mole di atomi.",
+          "Riepilogo dell’unità: l’atomo ha un nucleo di protoni e neutroni e una nube di elettroni; Z identifica l’elemento, A conta protoni e neutroni; gli isotopi differiscono per i neutroni; la massa atomica della tavola periodica è la media delle masse isotopiche pesata con le abbondanze.",
+          "Nel diario registra A e B con le previsioni e calcola la massa media del carbonio sapendo che il carbonio-12 è circa il 98,9%."
         ],
         "intermediate": [
-          "Per due isotopi con masse m₁ e m₂ e frazione x del primo, m_media=xm₁+(1-x)m₂. I pesi sono non negativi e sommano a uno, quindi la media sta fra le due masse.",
-          "Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche.",
-          "Ricava l’abbondanza x conoscendo media e due masse. Controlla che il risultato sia nell’intervallo [0,1] prima di accettare l’interpretazione."
+          "La massa atomica media è il ponte verso l’unità «Mole e quantità di sostanza»: in grammi, la massa atomica dà la massa di una mole di atomi.",
+          "Riepilogo dell’unità: l’atomo ha un nucleo di protoni e neutroni e una nube di elettroni; Z identifica l’elemento, A conta protoni e neutroni; gli isotopi differiscono per i neutroni; la massa atomica della tavola periodica è la media delle masse isotopiche pesata con le abbondanze.",
+          "Nel diario registra A e B con le previsioni e calcola la massa media del carbonio sapendo che il carbonio-12 è circa il 98,9%."
         ],
         "advanced": [
-          "Ricava l’abbondanza x conoscendo media e due masse. Controlla che il risultato sia nell’intervallo [0,1] prima di accettare l’interpretazione.",
-          "Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La massa atomica media è il ponte verso l’unità «Mole e quantità di sostanza»: in grammi, la massa atomica dà la massa di una mole di atomi.",
+          "Riepilogo dell’unità: l’atomo ha un nucleo di protoni e neutroni e una nube di elettroni; Z identifica l’elemento, A conta protoni e neutroni; gli isotopi differiscono per i neutroni; la massa atomica della tavola periodica è la media delle masse isotopiche pesata con le abbondanze.",
+          "Nel diario registra A e B con le previsioni e calcola la massa media del carbonio sapendo che il carbonio-12 è circa il 98,9%."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-02-concept",
-      "prompt": "Due isotopi dello stesso elemento hanno:",
+      "id": "chemistry-02-q1",
+      "prompt": "Quanti neutroni ha un atomo di cloro-37 (Z = 17)?",
       "options": [
         {
           "id": "A",
-          "text": "Lo stesso numero di protoni",
-          "feedback": "Isotopi dello stesso elemento hanno lo stesso numero di protoni e un numero diverso di neutroni. La massa media di un campione è una media pesata delle masse isotopiche, con pesi pari alle frazioni di abbondanza."
+          "text": "17",
+          "feedback": "17 sono i protoni; i neutroni sono A − Z."
         },
         {
           "id": "B",
-          "text": "Sempre lo stesso numero di neutroni",
-          "feedback": "La massa atomica media non è necessariamente la massa di un singolo atomo del campione. Cambiare isotopo non cambia il numero atomico; cambiare il numero di protoni cambia elemento."
+          "text": "20",
+          "feedback": "Esatto: i neutroni sono A − Z, cioè 37 − 17 = 20."
         },
         {
           "id": "C",
-          "text": "Numeri atomici diversi",
-          "feedback": "Per due isotopi con masse m₁ e m₂ e frazione x del primo, m_media=xm₁+(1-x)m₂. I pesi sono non negativi e sommano a uno, quindi la media sta fra le due masse."
+          "text": "37",
+          "feedback": "37 è il numero di massa, protoni più neutroni."
+        },
+        {
+          "id": "D",
+          "text": "54",
+          "feedback": "Hai sommato A e Z: i neutroni sono la differenza."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "chemistry-02-q2",
+      "prompt": "Che cosa hanno in comune gli isotopi di un elemento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Il numero di protoni",
+          "feedback": "Esatto: lo stesso Z, quindi lo stesso elemento."
+        },
+        {
+          "id": "B",
+          "text": "Il numero di neutroni",
+          "feedback": "È proprio il numero di neutroni a cambiare."
+        },
+        {
+          "id": "C",
+          "text": "Il numero di massa",
+          "feedback": "Il numero di massa cambia con i neutroni."
+        },
+        {
+          "id": "D",
+          "text": "La massa",
+          "feedback": "Più neutroni significano più massa."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "chemistry-02-calculation",
-      "prompt": "Calcolo: Massa isotopo 1 (a)=10 u; Massa isotopo 2 (b)=14 u. Per Frazione isotopo 1=0,25 (adimensionale), quanto vale Massa media?",
+      "id": "chemistry-02-q3",
+      "prompt": "Perché la massa atomica del cloro, 35,45 u, non è un numero intero?",
       "options": [
         {
           "id": "A",
-          "text": "19,5 u",
-          "feedback": "Questo valore non soddisfa la relazione. m_media = x m₁+(1-x)m₂. Con Massa isotopo 1 (a)=10 u; Massa isotopo 2 (b)=14 u e Frazione isotopo 1=0,25 (adimensionale), il risultato è 13 u. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché gli atomi di cloro hanno mezzo neutrone",
+          "feedback": "Le particelle non si dividono: ogni atomo ha un numero intero di neutroni."
         },
         {
           "id": "B",
-          "text": "6,5 u",
-          "feedback": "Controlla sostituzione, segno e unità. m_media = x m₁+(1-x)m₂. Con Massa isotopo 1 (a)=10 u; Massa isotopo 2 (b)=14 u e Frazione isotopo 1=0,25 (adimensionale), il risultato è 13 u. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché la misura è imprecisa",
+          "feedback": "Il valore è misurato con grande precisione."
         },
         {
           "id": "C",
-          "text": "13 u",
-          "feedback": "m_media = x m₁+(1-x)m₂. Con Massa isotopo 1 (a)=10 u; Massa isotopo 2 (b)=14 u e Frazione isotopo 1=0,25 (adimensionale), il risultato è 13 u. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "C",
-      "numeric": {
-        "x": 0.25,
-        "parameters": {
-          "a": 10,
-          "b": 14
-        },
-        "expected": 13,
-        "unit": "u"
-      }
-    },
-    {
-      "id": "chemistry-02-transfer",
-      "prompt": "Trasferimento: Massa isotopo 1 (a)=11 u; Massa isotopo 2 (b)=14 u. Per Frazione isotopo 1=0,25 (adimensionale), quanto vale Massa media?",
-      "options": [
-        {
-          "id": "A",
-          "text": "6,625 u",
-          "feedback": "Controlla sostituzione, segno e unità. m_media = x m₁+(1-x)m₂. Con Massa isotopo 1 (a)=11 u; Massa isotopo 2 (b)=14 u e Frazione isotopo 1=0,25 (adimensionale), il risultato è 13,25 u. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché è una media pesata di due isotopi",
+          "feedback": "Esatto: 75,76% di cloro-35 e 24,24% di cloro-37."
         },
         {
-          "id": "B",
-          "text": "13,25 u",
-          "feedback": "m_media = x m₁+(1-x)m₂. Con Massa isotopo 1 (a)=11 u; Massa isotopo 2 (b)=14 u e Frazione isotopo 1=0,25 (adimensionale), il risultato è 13,25 u. Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "C",
-          "text": "19,875 u",
-          "feedback": "Questo valore non soddisfa la relazione. m_media = x m₁+(1-x)m₂. Con Massa isotopo 1 (a)=11 u; Massa isotopo 2 (b)=14 u e Frazione isotopo 1=0,25 (adimensionale), il risultato è 13,25 u. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 0.25,
-        "parameters": {
-          "a": 11,
-          "b": 14
-        },
-        "expected": 13.25,
-        "unit": "u"
-      }
-    },
-    {
-      "id": "chemistry-02-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche."
-        },
-        {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche."
-        },
-        {
-          "id": "C",
-          "text": "Miscela ipotetica di due isotopi",
-          "feedback": "Il sistema usa una miscela ipotetica di due isotopi. Le sfere sono simboli e non modelli in scala di nuclei o nubi elettroniche."
+          "id": "D",
+          "text": "Perché gli elettroni pesano 0,45 u",
+          "feedback": "Gli elettroni di un atomo di cloro pesano circa 0,009 u in tutto."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "chemistry-02-q4",
+      "prompt": "Un elemento ha isotopi di massa 10 u (20%) e 11 u (80%). Qual è la massa media?",
+      "options": [
+        {
+          "id": "A",
+          "text": "10,5 u",
+          "feedback": "Questa è la media semplice; serve quella pesata."
+        },
+        {
+          "id": "B",
+          "text": "10,2 u",
+          "feedback": "Hai scambiato le abbondanze: pesa di più l’isotopo 11."
+        },
+        {
+          "id": "C",
+          "text": "21 u",
+          "feedback": "Le masse non si sommano: si fa la media pesata."
+        },
+        {
+          "id": "D",
+          "text": "10,8 u",
+          "feedback": "Esatto: 0,2 · 10 + 0,8 · 11 = 10,8 u."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "chemistry-02-q5",
+      "prompt": "Dove si concentra quasi tutta la massa di un atomo?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Nel nucleo",
+          "feedback": "Esatto: protoni e neutroni pesano circa 1836 volte un elettrone."
+        },
+        {
+          "id": "B",
+          "text": "Negli elettroni",
+          "feedback": "Gli elettroni sono leggerissimi: ciascuno vale circa 1/1836 di un protone."
+        },
+        {
+          "id": "C",
+          "text": "Distribuita in modo uniforme",
+          "feedback": "Il nucleo è minuscolo e contiene quasi tutta la massa."
+        },
+        {
+          "id": "D",
+          "text": "Nello spazio vuoto tra nucleo ed elettroni",
+          "feedback": "Lo spazio vuoto non ha massa: la massa sta nelle particelle, quasi tutta nel nucleo."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-02-q6",
+      "prompt": "Nel laboratorio, con m₁ = 10 u e m₂ = 14 u, la media in x = 0,25 vale:",
+      "options": [
+        {
+          "id": "A",
+          "text": "12 u",
+          "feedback": "12 u è il valore in x = 0,5, quando i due isotopi sono in parti uguali."
+        },
+        {
+          "id": "B",
+          "text": "13 u",
+          "feedback": "Esatto: 0,25 · 10 + 0,75 · 14 = 2,5 + 10,5 = 13."
+        },
+        {
+          "id": "C",
+          "text": "10 u",
+          "feedback": "10 u è il valore in x = 1, solo isotopo 1."
+        },
+        {
+          "id": "D",
+          "text": "11 u",
+          "feedback": "Con x = 0,25 prevale l’isotopo 2, più pesante."
+        }
+      ],
+      "correct": "B"
     }
   ]
 }

@@ -5,19 +5,21 @@
   "title": "Gas e stato aeriforme",
   "sector": 2,
   "modelId": "chemistry-10",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Gas ideale a pressione di 1 atm",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Modello cinetico, scala Kelvin, leggi dei gas, equazione di stato, pressioni parziali e gas reali",
+  "narrativeStatus": "Il pallone sonda è immaginario; costanti e composizione dell’aria sono valori reali.",
   "objectives": [
-    "Spiegare: gas ideale a pressione di 1 atm.",
-    "Applicare V = nRT/p; p=1 atm, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Spiegare pressione e temperatura con il modello cinetico.",
+    "Usare la scala Kelvin nelle leggi dei gas.",
+    "Applicare l’equazione di stato pV = nRT.",
+    "Calcolare pressioni parziali e riconoscere i limiti del gas ideale."
   ],
   "prerequisites": [
     "chemistry-09"
   ],
   "connections": [
+    "chemistry-11",
     "physics-18"
   ],
   "sources": [
@@ -27,244 +29,416 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Temperatura",
-      "definition": "Variabile indipendente, unità K; intervallo [200; 600]."
+      "term": "Pressione",
+      "definition": "Forza per unità di superficie; nei gas nasce dagli urti delle particelle."
     },
     {
-      "term": "Volume ideale",
-      "definition": "Risultato calcolato dal modello, unità L."
+      "term": "Temperatura assoluta",
+      "definition": "Temperatura in kelvin, T = t + 273,15; misura l’energia cinetica media."
     },
     {
-      "term": "Quantità n",
-      "definition": "Parametro a, unità mol; intervallo [0,5; 3]."
+      "term": "Equazione di stato",
+      "definition": "pV = nRT, valida per il gas ideale."
+    },
+    {
+      "term": "Volume molare",
+      "definition": "Volume di una mole di gas; circa 22,4 L a 0 °C e 1 atm."
+    },
+    {
+      "term": "Pressione parziale",
+      "definition": "Pressione che un gas di una miscela avrebbe se occupasse da solo il recipiente."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Palloni, bombole, siringhe",
       "text": {
         "base": [
-          "Un campione gassoso viene confrontato a temperature diverse sotto la stessa pressione. Il volume cambia, ma per interpretarlo devi usare una scala termica assoluta.",
-          "A pressione costante, un gas ideale segue V=nRT/p. A quantità fissata il volume è proporzionale alla temperatura in kelvin. La relazione non è lineare rispetto a una temperatura Celsius con origine invariata."
+          "Un pallone sonda lasciato al sole si gonfia; di notte si affloscia. Una bombola di gas scaldata può esplodere. Una siringa tappata resiste se si spinge lo stantuffo. Dietro questi comportamenti ci sono poche leggi, scoperte tra Seicento e Ottocento, che legano pressione, volume, temperatura e quantità di gas.",
+          "Un gas è fatto di particelle lontane tra loro, che si muovono in ogni direzione e urtano le pareti del recipiente. La pressione è l’effetto medio di questi urti: forza per unità di superficie, misurata in pascal (1 atm = 101 325 Pa). La temperatura assoluta misura l’energia cinetica media delle particelle: raddoppiando la temperatura in kelvin raddoppia l’energia cinetica media."
         ],
         "intermediate": [
-          "Un campione gassoso viene confrontato a temperature diverse sotto la stessa pressione. Il volume cambia, ma per interpretarlo devi usare una scala termica assoluta.",
-          "Qui p=1 atm e R≈0,082057366 L atm/(mol K). Il prodotto nRT/p fornisce litri. La pressione è dichiarata e non viene controllata da un modello di recipiente reale."
+          "Un pallone sonda lasciato al sole si gonfia; di notte si affloscia. Una bombola di gas scaldata può esplodere. Una siringa tappata resiste se si spinge lo stantuffo. Dietro questi comportamenti ci sono poche leggi, scoperte tra Seicento e Ottocento, che legano pressione, volume, temperatura e quantità di gas.",
+          "Un gas è fatto di particelle lontane tra loro, che si muovono in ogni direzione e urtano le pareti del recipiente. La pressione è l’effetto medio di questi urti: forza per unità di superficie, misurata in pascal (1 atm = 101 325 Pa). La temperatura assoluta misura l’energia cinetica media delle particelle: raddoppiando la temperatura in kelvin raddoppia l’energia cinetica media."
         ],
         "advanced": [
-          "Un campione gassoso viene confrontato a temperature diverse sotto la stessa pressione. Il volume cambia, ma per interpretarlo devi usare una scala termica assoluta.",
-          "Confronta questa trasformazione con quella a volume costante. Scrivi ogni volta quali grandezze sono controllate e quali rispondono.",
-          "Gas ideale con pressione mantenuta a 1 atm. Non considera condensazione, interazioni molecolari o capacità del contenitore."
+          "Un pallone sonda lasciato al sole si gonfia; di notte si affloscia. Una bombola di gas scaldata può esplodere. Una siringa tappata resiste se si spinge lo stantuffo. Dietro questi comportamenti ci sono poche leggi, scoperte tra Seicento e Ottocento, che legano pressione, volume, temperatura e quantità di gas.",
+          "Un gas è fatto di particelle lontane tra loro, che si muovono in ogni direzione e urtano le pareti del recipiente. La pressione è l’effetto medio di questi urti: forza per unità di superficie, misurata in pascal (1 atm = 101 325 Pa). La temperatura assoluta misura l’energia cinetica media delle particelle: raddoppiando la temperatura in kelvin raddoppia l’energia cinetica media.",
+          "La scala Kelvin parte dallo zero assoluto: T = t + 273,15, con t in gradi Celsius. A 25 °C corrispondono 298,15 K. Nelle leggi dei gas si usa sempre la temperatura in kelvin: con i gradi Celsius un gas a 0 °C avrebbe volume nullo, cosa evidentemente falsa."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Le leggi dei gas",
       "text": {
         "base": [
-          "A pressione costante, un gas ideale segue V=nRT/p. A quantità fissata il volume è proporzionale alla temperatura in kelvin. La relazione non è lineare rispetto a una temperatura Celsius con origine invariata.",
-          "Per n=1 mol e T=300 K, V≈24,6172 L. Raddoppiando n a stessa temperatura e pressione, il volume raddoppia."
+          "La scala Kelvin parte dallo zero assoluto: T = t + 273,15, con t in gradi Celsius. A 25 °C corrispondono 298,15 K. Nelle leggi dei gas si usa sempre la temperatura in kelvin: con i gradi Celsius un gas a 0 °C avrebbe volume nullo, cosa evidentemente falsa.",
+          "Le leggi classiche descrivono un gas variando due grandezze alla volta. Boyle: a temperatura costante pV è costante, e dimezzando il volume la pressione raddoppia. Charles: a pressione costante V/T è costante. Gay-Lussac: a volume costante p/T è costante. Avogadro: a pressione e temperatura uguali, volumi uguali di gas diversi contengono lo stesso numero di molecole.",
+          "Le quattro leggi si riassumono nell’equazione di stato dei gas ideali: pV = nRT. La costante R vale 8,314 J/(mol·K), oppure 0,08206 L·atm/(mol·K). Esempio: una mole a 0 °C e 1 atm occupa 0,08206 · 273,15 ≈ 22,4 L; a 25 °C circa 24,5 L. Un pallone da 2,0 L scaldato a pressione costante da 25 °C a 50 °C diventa 2,0 · 323/298 ≈ 2,17 L."
         ],
         "intermediate": [
-          "Qui p=1 atm e R≈0,082057366 L atm/(mol K). Il prodotto nRT/p fornisce litri. La pressione è dichiarata e non viene controllata da un modello di recipiente reale.",
-          "La variabile Temperatura è espressa in K; Volume ideale in L. Il dominio dello strumento è [200; 600]. La relazione implementata è: V = nRT/p; p=1 atm.",
-          "Per n=1 mol e T=300 K, V≈24,6172 L. Raddoppiando n a stessa temperatura e pressione, il volume raddoppia."
+          "La scala Kelvin parte dallo zero assoluto: T = t + 273,15, con t in gradi Celsius. A 25 °C corrispondono 298,15 K. Nelle leggi dei gas si usa sempre la temperatura in kelvin: con i gradi Celsius un gas a 0 °C avrebbe volume nullo, cosa evidentemente falsa.",
+          "Le leggi classiche descrivono un gas variando due grandezze alla volta. Boyle: a temperatura costante pV è costante, e dimezzando il volume la pressione raddoppia. Charles: a pressione costante V/T è costante. Gay-Lussac: a volume costante p/T è costante. Avogadro: a pressione e temperatura uguali, volumi uguali di gas diversi contengono lo stesso numero di molecole.",
+          "Le quattro leggi si riassumono nell’equazione di stato dei gas ideali: pV = nRT. La costante R vale 8,314 J/(mol·K), oppure 0,08206 L·atm/(mol·K). Esempio: una mole a 0 °C e 1 atm occupa 0,08206 · 273,15 ≈ 22,4 L; a 25 °C circa 24,5 L. Un pallone da 2,0 L scaldato a pressione costante da 25 °C a 50 °C diventa 2,0 · 323/298 ≈ 2,17 L.",
+          "In una miscela ogni gas contribuisce alla pressione totale come se fosse solo: è la legge di Dalton delle pressioni parziali. L’aria secca contiene circa il 78% di azoto e il 21% di ossigeno in moli; a 1 atm la pressione parziale dell’ossigeno è circa 0,21 atm. In alta montagna la pressione totale cala, e con essa l’ossigeno disponibile a ogni respiro."
         ],
         "advanced": [
-          "Qui p=1 atm e R≈0,082057366 L atm/(mol K). Il prodotto nRT/p fornisce litri. La pressione è dichiarata e non viene controllata da un modello di recipiente reale.",
-          "Confronta questa trasformazione con quella a volume costante. Scrivi ogni volta quali grandezze sono controllate e quali rispondono.",
-          "Non esiste un unico volume molare indipendente da temperatura e pressione. Una mole non occupa sempre lo stesso volume in ogni stato fisico."
+          "Le leggi classiche descrivono un gas variando due grandezze alla volta. Boyle: a temperatura costante pV è costante, e dimezzando il volume la pressione raddoppia. Charles: a pressione costante V/T è costante. Gay-Lussac: a volume costante p/T è costante. Avogadro: a pressione e temperatura uguali, volumi uguali di gas diversi contengono lo stesso numero di molecole.",
+          "Le quattro leggi si riassumono nell’equazione di stato dei gas ideali: pV = nRT. La costante R vale 8,314 J/(mol·K), oppure 0,08206 L·atm/(mol·K). Esempio: una mole a 0 °C e 1 atm occupa 0,08206 · 273,15 ≈ 22,4 L; a 25 °C circa 24,5 L. Un pallone da 2,0 L scaldato a pressione costante da 25 °C a 50 °C diventa 2,0 · 323/298 ≈ 2,17 L.",
+          "In una miscela ogni gas contribuisce alla pressione totale come se fosse solo: è la legge di Dalton delle pressioni parziali. L’aria secca contiene circa il 78% di azoto e il 21% di ossigeno in moli; a 1 atm la pressione parziale dell’ossigeno è circa 0,21 atm. In alta montagna la pressione totale cala, e con essa l’ossigeno disponibile a ogni respiro.",
+          "Il gas ideale trascura il volume delle particelle e le attrazioni tra loro. I gas reali si avvicinano al modello a bassa pressione e alta temperatura; se ne allontanano quando le particelle sono vicine e lente, ad alta pressione e bassa temperatura, fino a condensare. L’equazione di van der Waals corregge pV = nRT con due costanti, una per le attrazioni e una per il volume proprio."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Adatta il modello alle misure",
       "text": {
         "base": [
-          "Nel laboratorio imposta Quantità n (a): 1 mol. Prima di salvare A, prevedi come cambia Volume ideale fra Temperatura=300 e 400 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Per n=1 mol e T=300 K, V≈24,6172 L. Raddoppiando n a stessa temperatura e pressione, il volume raddoppia.",
-          "La variabile Temperatura è espressa in K; Volume ideale in L. Il dominio dello strumento è [200; 600]. La relazione implementata è: V = nRT/p; p=1 atm."
+          "L’attività presenta tre serie di misure: volume di un gas a pressione atmosferica in funzione della temperatura, in kelvin. Il modello è V = nRT/p con p = 1 atm; il parametro da regolare è la quantità n, a passi di 0,5 mol. Per completare l’attività adatta il modello a due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi il parametro da regolare. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato il valore migliore premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
+          "Suggerimento: leggi un punto e stima n = pV/(RT). Per esempio 37 L a 300 K danno n ≈ 37/(0,082 · 300) ≈ 1,5 mol. Poi controlla che la retta passi vicino anche agli altri punti."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Quantità n (a): 1 mol. Prima di salvare A, prevedi come cambia Volume ideale fra Temperatura=300 e 400 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Temperatura è espressa in K; Volume ideale in L. Il dominio dello strumento è [200; 600]. La relazione implementata è: V = nRT/p; p=1 atm.",
-          "Qui p=1 atm e R≈0,082057366 L atm/(mol K). Il prodotto nRT/p fornisce litri. La pressione è dichiarata e non viene controllata da un modello di recipiente reale."
+          "L’attività presenta tre serie di misure: volume di un gas a pressione atmosferica in funzione della temperatura, in kelvin. Il modello è V = nRT/p con p = 1 atm; il parametro da regolare è la quantità n, a passi di 0,5 mol. Per completare l’attività adatta il modello a due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi il parametro da regolare. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato il valore migliore premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
+          "Suggerimento: leggi un punto e stima n = pV/(RT). Per esempio 37 L a 300 K danno n ≈ 37/(0,082 · 300) ≈ 1,5 mol. Poi controlla che la retta passi vicino anche agli altri punti."
         ],
         "advanced": [
-          "Nel laboratorio imposta Quantità n (a): 1 mol. Prima di salvare A, prevedi come cambia Volume ideale fra Temperatura=300 e 400 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta questa trasformazione con quella a volume costante. Scrivi ogni volta quali grandezze sono controllate e quali rispondono.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività presenta tre serie di misure: volume di un gas a pressione atmosferica in funzione della temperatura, in kelvin. Il modello è V = nRT/p con p = 1 atm; il parametro da regolare è la quantità n, a passi di 0,5 mol. Per completare l’attività adatta il modello a due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi il parametro da regolare. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato il valore migliore premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
+          "Suggerimento: leggi un punto e stima n = pV/(RT). Per esempio 37 L a 300 K danno n ≈ 37/(0,082 · 300) ≈ 1,5 mol. Poi controlla che la retta passi vicino anche agli altri punti."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Leggere il grafico ed evitare errori",
       "text": {
         "base": [
-          "Non esiste un unico volume molare indipendente da temperatura e pressione. Una mole non occupa sempre lo stesso volume in ogni stato fisico.",
-          "Gas ideale con pressione mantenuta a 1 atm. Non considera condensazione, interazioni molecolari o capacità del contenitore.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Che cosa mostra il grafico. A pressione costante il volume è proporzionale alla temperatura assoluta: i punti stanno su una retta che, prolungata, passa per l’origine, cioè per lo zero assoluto. La pendenza vale nR/p, e cresce con la quantità di gas.",
+          "Errore frequente: usare la temperatura in gradi Celsius nell’equazione dei gas. Da 20 °C a 40 °C la temperatura assoluta passa da 293 a 313 K: il volume cresce di circa il 7%, e non raddoppia.",
+          "Secondo errore: pensare che gas più pesanti occupino più volume a parità di moli. Nel gas ideale il volume dipende solo da n, T e p: una mole di elio e una di anidride carbonica occupano lo stesso volume."
         ],
         "intermediate": [
-          "Non esiste un unico volume molare indipendente da temperatura e pressione. Una mole non occupa sempre lo stesso volume in ogni stato fisico.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Che cosa mostra il grafico. A pressione costante il volume è proporzionale alla temperatura assoluta: i punti stanno su una retta che, prolungata, passa per l’origine, cioè per lo zero assoluto. La pendenza vale nR/p, e cresce con la quantità di gas.",
+          "Errore frequente: usare la temperatura in gradi Celsius nell’equazione dei gas. Da 20 °C a 40 °C la temperatura assoluta passa da 293 a 313 K: il volume cresce di circa il 7%, e non raddoppia.",
+          "Secondo errore: pensare che gas più pesanti occupino più volume a parità di moli. Nel gas ideale il volume dipende solo da n, T e p: una mole di elio e una di anidride carbonica occupano lo stesso volume."
         ],
         "advanced": [
-          "Gas ideale con pressione mantenuta a 1 atm. Non considera condensazione, interazioni molecolari o capacità del contenitore.",
-          "Confronta questa trasformazione con quella a volume costante. Scrivi ogni volta quali grandezze sono controllate e quali rispondono.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Che cosa mostra il grafico. A pressione costante il volume è proporzionale alla temperatura assoluta: i punti stanno su una retta che, prolungata, passa per l’origine, cioè per lo zero assoluto. La pendenza vale nR/p, e cresce con la quantità di gas.",
+          "Errore frequente: usare la temperatura in gradi Celsius nell’equazione dei gas. Da 20 °C a 40 °C la temperatura assoluta passa da 293 a 313 K: il volume cresce di circa il 7%, e non raddoppia.",
+          "Secondo errore: pensare che gas più pesanti occupino più volume a parità di moli. Nel gas ideale il volume dipende solo da n, T e p: una mole di elio e una di anidride carbonica occupano lo stesso volume.",
+          "Il gas ideale trascura il volume delle particelle e le attrazioni tra loro. I gas reali si avvicinano al modello a bassa pressione e alta temperatura; se ne allontanano quando le particelle sono vicine e lente, ad alta pressione e bassa temperatura, fino a condensare. L’equazione di van der Waals corregge pV = nRT con due costanti, una per le attrazioni e una per il volume proprio."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "A pressione costante, un gas ideale segue V=nRT/p. A quantità fissata il volume è proporzionale alla temperatura in kelvin. La relazione non è lineare rispetto a una temperatura Celsius con origine invariata.",
-          "Per n=1 mol e T=300 K, V≈24,6172 L. Raddoppiando n a stessa temperatura e pressione, il volume raddoppia."
+          "Ripasso: modello cinetico, pressione e temperatura assoluta; scala Kelvin; leggi di Boyle, Charles, Gay-Lussac e Avogadro; equazione pV = nRT e valori di R; volume molare; pressioni parziali; limiti del gas ideale.",
+          "Mini esercizio: 2 mol a 300 K e 1 atm occupano V = 2 · 0,08206 · 300 ≈ 49,2 L.",
+          "Nelle domande sui gas converti prima le temperature in kelvin e controlla le unità di R."
         ],
         "intermediate": [
-          "Qui p=1 atm e R≈0,082057366 L atm/(mol K). Il prodotto nRT/p fornisce litri. La pressione è dichiarata e non viene controllata da un modello di recipiente reale.",
-          "La variabile Temperatura è espressa in K; Volume ideale in L. Il dominio dello strumento è [200; 600]. La relazione implementata è: V = nRT/p; p=1 atm."
+          "Ripasso: modello cinetico, pressione e temperatura assoluta; scala Kelvin; leggi di Boyle, Charles, Gay-Lussac e Avogadro; equazione pV = nRT e valori di R; volume molare; pressioni parziali; limiti del gas ideale.",
+          "Mini esercizio: 2 mol a 300 K e 1 atm occupano V = 2 · 0,08206 · 300 ≈ 49,2 L.",
+          "Nelle domande sui gas converti prima le temperature in kelvin e controlla le unità di R."
         ],
         "advanced": [
-          "Confronta questa trasformazione con quella a volume costante. Scrivi ogni volta quali grandezze sono controllate e quali rispondono.",
-          "Gas ideale con pressione mantenuta a 1 atm. Non considera condensazione, interazioni molecolari o capacità del contenitore."
+          "Ripasso: modello cinetico, pressione e temperatura assoluta; scala Kelvin; leggi di Boyle, Charles, Gay-Lussac e Avogadro; equazione pV = nRT e valori di R; volume molare; pressioni parziali; limiti del gas ideale.",
+          "Mini esercizio: 2 mol a 300 K e 1 atm occupano V = 2 · 0,08206 · 300 ≈ 49,2 L.",
+          "Nelle domande sui gas converti prima le temperature in kelvin e controlla le unità di R."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Gas ideale a pressione di 1 atm.",
-          "Gas ideale con pressione mantenuta a 1 atm. Non considera condensazione, interazioni molecolari o capacità del contenitore.",
-          "Collegamento consigliato: physics-18. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le stesse leggi, viste dal lato dell’energia, sono il tema dell’unità di fisica «Gas ideali». Il passo successivo in chimica è «Stati della materia e transizioni»: che cosa accade quando un gas si raffredda fino a diventare liquido.",
+          "Riepilogo dell’unità: la pressione nasce dagli urti delle particelle e la temperatura assoluta ne misura l’energia cinetica media; pV = nRT riassume le leggi dei gas; una mole occupa circa 22,4 L a 0 °C e 1 atm; in una miscela ogni gas ha la sua pressione parziale; i gas reali deviano ad alta pressione e bassa temperatura.",
+          "Nel diario annota i valori di n trovati e spiega perché la retta V(T) passa per lo zero assoluto."
         ],
         "intermediate": [
-          "Qui p=1 atm e R≈0,082057366 L atm/(mol K). Il prodotto nRT/p fornisce litri. La pressione è dichiarata e non viene controllata da un modello di recipiente reale.",
-          "Gas ideale con pressione mantenuta a 1 atm. Non considera condensazione, interazioni molecolari o capacità del contenitore.",
-          "Confronta questa trasformazione con quella a volume costante. Scrivi ogni volta quali grandezze sono controllate e quali rispondono."
+          "Le stesse leggi, viste dal lato dell’energia, sono il tema dell’unità di fisica «Gas ideali». Il passo successivo in chimica è «Stati della materia e transizioni»: che cosa accade quando un gas si raffredda fino a diventare liquido.",
+          "Riepilogo dell’unità: la pressione nasce dagli urti delle particelle e la temperatura assoluta ne misura l’energia cinetica media; pV = nRT riassume le leggi dei gas; una mole occupa circa 22,4 L a 0 °C e 1 atm; in una miscela ogni gas ha la sua pressione parziale; i gas reali deviano ad alta pressione e bassa temperatura.",
+          "Nel diario annota i valori di n trovati e spiega perché la retta V(T) passa per lo zero assoluto."
         ],
         "advanced": [
-          "Confronta questa trasformazione con quella a volume costante. Scrivi ogni volta quali grandezze sono controllate e quali rispondono.",
-          "Gas ideale con pressione mantenuta a 1 atm. Non considera condensazione, interazioni molecolari o capacità del contenitore.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le stesse leggi, viste dal lato dell’energia, sono il tema dell’unità di fisica «Gas ideali». Il passo successivo in chimica è «Stati della materia e transizioni»: che cosa accade quando un gas si raffredda fino a diventare liquido.",
+          "Riepilogo dell’unità: la pressione nasce dagli urti delle particelle e la temperatura assoluta ne misura l’energia cinetica media; pV = nRT riassume le leggi dei gas; una mole occupa circa 22,4 L a 0 °C e 1 atm; in una miscela ogni gas ha la sua pressione parziale; i gas reali deviano ad alta pressione e bassa temperatura.",
+          "Nel diario annota i valori di n trovati e spiega perché la retta V(T) passa per lo zero assoluto."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-10-concept",
-      "prompt": "A pressione e quantità fissate, V è proporzionale a:",
+      "id": "chemistry-10-q1",
+      "prompt": "A quanti kelvin corrispondono 25 °C?",
       "options": [
         {
           "id": "A",
-          "text": "L’inverso della temperatura",
-          "feedback": "Qui p=1 atm e R≈0,082057366 L atm/(mol K). Il prodotto nRT/p fornisce litri. La pressione è dichiarata e non viene controllata da un modello di recipiente reale."
+          "text": "298,15 K",
+          "feedback": "Esatto: si aggiungono 273,15 alla temperatura in gradi Celsius."
         },
         {
           "id": "B",
-          "text": "La temperatura in kelvin",
-          "feedback": "A pressione costante, un gas ideale segue V=nRT/p. A quantità fissata il volume è proporzionale alla temperatura in kelvin. La relazione non è lineare rispetto a una temperatura Celsius con origine invariata."
+          "text": "25 K",
+          "feedback": "Le due scale hanno zeri diversi: occorre aggiungere 273,15."
         },
         {
           "id": "C",
-          "text": "La temperatura Celsius senza correzione",
-          "feedback": "Non esiste un unico volume molare indipendente da temperatura e pressione. Una mole non occupa sempre lo stesso volume in ogni stato fisico."
+          "text": "248,15 K",
+          "feedback": "Hai calcolato 273,15 − 25: la conversione richiede una somma."
+        },
+        {
+          "id": "D",
+          "text": "77 K",
+          "feedback": "77 è il valore in gradi Fahrenheit, una scala diversa."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-10-q2",
+      "prompt": "Che volume occupano 2 mol di gas ideale a 300 K e 1 atm (R = 0,08206 L·atm/(mol·K))?",
+      "options": [
+        {
+          "id": "A",
+          "text": "24,6 L",
+          "feedback": "24,6 L è il volume di una sola mole a 300 K."
+        },
+        {
+          "id": "B",
+          "text": "Circa 49,2 L",
+          "feedback": "Esatto: V = nRT/p = 2 · 0,08206 · 300 / 1."
+        },
+        {
+          "id": "C",
+          "text": "600 L",
+          "feedback": "Manca la costante R: hai moltiplicato solo n e T."
+        },
+        {
+          "id": "D",
+          "text": "4,9 L",
+          "feedback": "Hai perso un fattore 10 nel prodotto: ricontrolla 0,08206 · 600."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "chemistry-10-calculation",
-      "prompt": "Calcolo: Quantità n (a)=1 mol. Per Temperatura=300 K, quanto vale Volume ideale?",
+      "id": "chemistry-10-q3",
+      "prompt": "A temperatura costante si dimezza il volume di un gas. Che cosa succede alla pressione?",
       "options": [
         {
           "id": "A",
-          "text": "24,6172 L",
-          "feedback": "V = nRT/p; p=1 atm. Con Quantità n (a)=1 mol e Temperatura=300 K, il risultato è 24,6172 L. Conserva le unità e arrotonda solo alla fine."
+          "text": "Si dimezza",
+          "feedback": "Pressione e volume sono inversamente proporzionali: non variano insieme."
         },
         {
           "id": "B",
-          "text": "36,9258 L",
-          "feedback": "Questo valore non soddisfa la relazione. V = nRT/p; p=1 atm. Con Quantità n (a)=1 mol e Temperatura=300 K, il risultato è 24,6172 L. Conserva le unità e arrotonda solo alla fine."
+          "text": "Resta uguale",
+          "feedback": "Le particelle urtano più spesso le pareti: la pressione cambia."
         },
         {
           "id": "C",
-          "text": "12,3086 L",
-          "feedback": "Controlla sostituzione, segno e unità. V = nRT/p; p=1 atm. Con Quantità n (a)=1 mol e Temperatura=300 K, il risultato è 24,6172 L. Conserva le unità e arrotonda solo alla fine."
+          "text": "Raddoppia",
+          "feedback": "Esatto: per la legge di Boyle pV resta costante."
+        },
+        {
+          "id": "D",
+          "text": "Quadruplica",
+          "feedback": "Il prodotto pV resta costante, quindi il fattore è 2."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 300,
-        "parameters": {
-          "a": 1
-        },
-        "expected": 24.6172098,
-        "unit": "L"
-      }
+      "correct": "C"
     },
     {
-      "id": "chemistry-10-transfer",
-      "prompt": "Trasferimento: Quantità n (a)=1,5 mol. Per Temperatura=300 K, quanto vale Volume ideale?",
+      "id": "chemistry-10-q4",
+      "prompt": "In aria secca a 1 atm, qual è circa la pressione parziale dell’ossigeno?",
       "options": [
         {
           "id": "A",
-          "text": "55,3887 L",
-          "feedback": "Questo valore non soddisfa la relazione. V = nRT/p; p=1 atm. Con Quantità n (a)=1,5 mol e Temperatura=300 K, il risultato è 36,9258 L. Conserva le unità e arrotonda solo alla fine."
+          "text": "1 atm",
+          "feedback": "L’ossigeno è solo una parte dell’aria: la pressione si divide tra i gas."
         },
         {
           "id": "B",
-          "text": "18,4629 L",
-          "feedback": "Controlla sostituzione, segno e unità. V = nRT/p; p=1 atm. Con Quantità n (a)=1,5 mol e Temperatura=300 K, il risultato è 36,9258 L. Conserva le unità e arrotonda solo alla fine."
+          "text": "0,78 atm",
+          "feedback": "0,78 atm è la pressione parziale dell’azoto, il gas più abbondante."
         },
         {
           "id": "C",
-          "text": "36,9258 L",
-          "feedback": "V = nRT/p; p=1 atm. Con Quantità n (a)=1,5 mol e Temperatura=300 K, il risultato è 36,9258 L. Conserva le unità e arrotonda solo alla fine."
+          "text": "0,5 atm",
+          "feedback": "La frazione in moli dell’ossigeno è circa 0,21, non la metà."
+        },
+        {
+          "id": "D",
+          "text": "0,21 atm",
+          "feedback": "Esatto: frazione in moli per pressione totale, 0,21 · 1 atm."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 300,
-        "parameters": {
-          "a": 1.5
-        },
-        "expected": 36.925814700000004,
-        "unit": "L"
-      }
+      "correct": "D"
     },
     {
-      "id": "chemistry-10-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "chemistry-10-q5",
+      "prompt": "Perché nelle leggi dei gas si usa la temperatura in kelvin?",
       "options": [
         {
           "id": "A",
-          "text": "Gas ideale a pressione di 1 atm",
-          "feedback": "Gas ideale con pressione mantenuta a 1 atm. Non considera condensazione, interazioni molecolari o capacità del contenitore."
+          "text": "Perché il volume è proporzionale alla temperatura assoluta",
+          "feedback": "Esatto: con i gradi Celsius un gas a 0 °C avrebbe volume nullo."
         },
         {
           "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Gas ideale con pressione mantenuta a 1 atm. Non considera condensazione, interazioni molecolari o capacità del contenitore."
+          "text": "Perché i kelvin sono più precisi",
+          "feedback": "Le due scale hanno lo stesso grado: cambia lo zero, non la precisione."
         },
         {
           "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Gas ideale con pressione mantenuta a 1 atm. Non considera condensazione, interazioni molecolari o capacità del contenitore."
+          "text": "Per convenzione, senza ragioni fisiche",
+          "feedback": "La ragione è fisica: lo zero assoluto è il punto in cui la retta V(T) incontra l’asse."
+        },
+        {
+          "id": "D",
+          "text": "Perché le temperature negative non esistono in natura",
+          "feedback": "Esistono temperature sotto 0 °C; nessuna sotto 0 K."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "chemistry-10-q6",
+      "prompt": "In quali condizioni un gas reale si allontana di più dal modello ideale?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Bassa pressione e alta temperatura",
+          "feedback": "In queste condizioni le particelle sono lontane e veloci: il modello funziona bene."
+        },
+        {
+          "id": "B",
+          "text": "Alta pressione e bassa temperatura",
+          "feedback": "Esatto: particelle vicine e lente risentono di volume proprio e attrazioni."
+        },
+        {
+          "id": "C",
+          "text": "Solo per i gas nobili",
+          "feedback": "I gas nobili sono tra quelli che seguono meglio il modello ideale."
+        },
+        {
+          "id": "D",
+          "text": "Mai, il modello è esatto",
+          "feedback": "Il modello è un’approssimazione: i gas reali condensano, quelli ideali no."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "fit",
+    "goal": 2,
+    "rounds": [
+      {
+        "id": "pallone",
+        "title": "Il pallone al sole",
+        "prompt": "Un pallone a pressione atmosferica viene scaldato e se ne misura il volume. Quante moli di gas contiene?",
+        "model": "chemistry-10",
+        "x": [
+          220,
+          260,
+          300,
+          340,
+          380,
+          420,
+          460
+        ],
+        "noise": [
+          0.4,
+          -0.3,
+          0.2,
+          -0.5,
+          0.3,
+          -0.2,
+          0.1
+        ],
+        "hidden": {
+          "a": 1.5
+        },
+        "fit": [
+          "a"
+        ],
+        "explain": "n = 1,5 mol: a 300 K il volume è circa 36,9 L."
+      },
+      {
+        "id": "cilindro",
+        "title": "Un cilindro con pistone",
+        "prompt": "Un pistone libero mantiene la pressione a 1 atm mentre il gas viene scaldato fino a 600 K. Stima n.",
+        "model": "chemistry-10",
+        "x": [
+          250,
+          300,
+          350,
+          400,
+          450,
+          500,
+          550,
+          600
+        ],
+        "noise": [
+          -0.6,
+          0.5,
+          -0.3,
+          0.4,
+          -0.5,
+          0.2,
+          0.6,
+          -0.4
+        ],
+        "hidden": {
+          "a": 2.5
+        },
+        "fit": [
+          "a"
+        ],
+        "explain": "n = 2,5 mol: la retta è più ripida, la pendenza vale nR/p."
+      },
+      {
+        "id": "mezza-mole",
+        "title": "Poco gas, misure fini",
+        "prompt": "Un piccolo campione viene misurato tra 200 e 600 K. I volumi sono piccoli: guarda bene la pendenza.",
+        "model": "chemistry-10",
+        "x": [
+          200,
+          280,
+          360,
+          440,
+          520,
+          600
+        ],
+        "noise": [
+          0.15,
+          -0.2,
+          0.1,
+          -0.1,
+          0.2,
+          -0.15
+        ],
+        "hidden": {
+          "a": 0.5
+        },
+        "fit": [
+          "a"
+        ],
+        "explain": "n = 0,5 mol: a 600 K il volume è circa 24,6 L, come una mole a 300 K."
+      }
+    ]
+  }
 }

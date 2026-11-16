@@ -80,7 +80,7 @@ export class ActivityUI{
   f.text(`Carta ${this.card+1} di ${total} · errori ${this.errors}, al massimo ${r.maxErrors}`,'mini',C.muted);
   f.text(it.text,'body',C.pale);
   f.buttons(r.categories.map((c,i)=>({id:'act-cat-'+i,label:c.label,active:this.choice===c.id,disabled:this.cardDone,aria:'Categoria '+c.label,
-   action:()=>{const res=checkCard(r,this.card,c.id);this.choice=c.id;this.message=res.message;this.revealed=res.ok;if(res.ok)this.cardDone=true;else this.errors++;}})),96);
+   action:()=>{const res=checkCard(r,this.card,c.id);this.choice=c.id;this.message=res.message;this.revealed=res.ok;if(res.ok)this.cardDone=true;else this.errors++;}})),Math.max(96,...r.categories.map(c=>this.R.textWidth(c.label,'micro',.1)+14)));
   if(this.message)f.text(this.message,'mini',this.revealed?C.lime:C.amber);
   if(this.cardDone)f.buttons([{id:'act-card-next',label:this.card+1<total?'CARTA SUCCESSIVA':'CONCLUDI LA SERIE',action:()=>{this.card++;this.cardDone=false;this.choice=null;this.message='';this.revealed=false;if(this.card>=total&&this.errors<=r.maxErrors)this.solved(state,r.id);}}],140);
  }

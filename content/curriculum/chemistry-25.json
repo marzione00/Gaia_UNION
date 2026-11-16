@@ -5,14 +5,15 @@
   "title": "Polimeri e materiali",
   "sector": 2,
   "modelId": "chemistry-25",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Catena ideale senza contributo dei gruppi terminali",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Monomeri e polimeri, addizione e condensazione, polimeri naturali, massa molare media, proprietà dei materiali",
+  "narrativeStatus": "La storia di Staudinger e le masse molari citate sono reali.",
   "objectives": [
-    "Spiegare: catena ideale senza contributo dei gruppi terminali.",
-    "Applicare M_catena ≈ n M_unità, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Definire monomero, unità ripetitiva e grado di polimerizzazione.",
+    "Distinguere polimerizzazione per addizione e per condensazione.",
+    "Calcolare la massa molare di una catena e una media.",
+    "Collegare struttura e proprietà dei materiali polimerici."
   ],
   "prerequisites": [
     "chemistry-24"
@@ -27,244 +28,547 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Grado polimerizzazione",
-      "definition": "Variabile indipendente, unità 1; intervallo [1; 100]."
+      "term": "Monomero",
+      "definition": "Piccola molecola che si unisce ad altre per formare un polimero."
     },
     {
-      "term": "Massa molare catena",
-      "definition": "Risultato calcolato dal modello, unità g/mol."
+      "term": "Grado di polimerizzazione",
+      "definition": "Numero di unità ripetitive in una catena."
     },
     {
-      "term": "Massa unità ripetitiva",
-      "definition": "Parametro a, unità g/mol; intervallo [10; 100]."
+      "term": "Polimerizzazione per condensazione",
+      "definition": "Unione di monomeri con liberazione di una piccola molecola, di solito acqua."
+    },
+    {
+      "term": "Termoplastico",
+      "definition": "Polimero che si ammorbidisce scaldando e si può rifondere."
+    },
+    {
+      "term": "Termoindurente",
+      "definition": "Polimero reticolato che non fonde."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Bottiglie, corde e DNA",
       "text": {
         "base": [
-          "Un materiale è formato da catene con numeri diversi di unità ripetitive. La massa di una singola unità non basta a descrivere la catena né la distribuzione del campione.",
-          "Il grado di polimerizzazione conta le unità ripetitive di una catena. Trascurando i gruppi terminali, la massa molare della catena è circa n volte quella dell’unità ripetitiva."
+          "Una bottiglia d’acqua, una corda da arrampicata, il cotone di una maglietta e il DNA di una cellula hanno qualcosa in comune: sono fatti di molecole lunghissime, catene di migliaia di unità uguali o simili. Negli anni Venti del Novecento Hermann Staudinger sostenne che queste macromolecole esistessero davvero; molti colleghi erano scettici, e nel 1953 ricevette il premio Nobel.",
+          "Un polimero è una macromolecola formata dalla ripetizione di un’unità strutturale, derivata da piccole molecole dette monomeri. Il numero di unità per catena è il grado di polimerizzazione n, e la massa molare della catena è circa n per la massa dell’unità ripetitiva. Una catena di polietilene con n = 5000 ha massa molare di circa 5000 · 28,05 ≈ 140 000 g/mol."
         ],
         "intermediate": [
-          "Un materiale è formato da catene con numeri diversi di unità ripetitive. La massa di una singola unità non basta a descrivere la catena né la distribuzione del campione.",
-          "Il modello usa M_catena≈nM_unità. È un bilancio lineare su una catena ideale; un campione reale può richiedere medie diverse, come massa molare media numerica e ponderale."
+          "Una bottiglia d’acqua, una corda da arrampicata, il cotone di una maglietta e il DNA di una cellula hanno qualcosa in comune: sono fatti di molecole lunghissime, catene di migliaia di unità uguali o simili. Negli anni Venti del Novecento Hermann Staudinger sostenne che queste macromolecole esistessero davvero; molti colleghi erano scettici, e nel 1953 ricevette il premio Nobel.",
+          "Un polimero è una macromolecola formata dalla ripetizione di un’unità strutturale, derivata da piccole molecole dette monomeri. Il numero di unità per catena è il grado di polimerizzazione n, e la massa molare della catena è circa n per la massa dell’unità ripetitiva. Una catena di polietilene con n = 5000 ha massa molare di circa 5000 · 28,05 ≈ 140 000 g/mol."
         ],
         "advanced": [
-          "Un materiale è formato da catene con numeri diversi di unità ripetitive. La massa di una singola unità non basta a descrivere la catena né la distribuzione del campione.",
-          "Confronta due campioni con la stessa media numerica ma distribuzioni diverse. Individua quali informazioni supplementari sarebbero necessarie per prevedere proprietà meccaniche.",
-          "Catena ideale con unità identiche, gruppi terminali trascurati e nessuna distribuzione di lunghezze. La scena visualizza uno schema limitato di segmenti, non tutti gli atomi."
+          "Una bottiglia d’acqua, una corda da arrampicata, il cotone di una maglietta e il DNA di una cellula hanno qualcosa in comune: sono fatti di molecole lunghissime, catene di migliaia di unità uguali o simili. Negli anni Venti del Novecento Hermann Staudinger sostenne che queste macromolecole esistessero davvero; molti colleghi erano scettici, e nel 1953 ricevette il premio Nobel.",
+          "Un polimero è una macromolecola formata dalla ripetizione di un’unità strutturale, derivata da piccole molecole dette monomeri. Il numero di unità per catena è il grado di polimerizzazione n, e la massa molare della catena è circa n per la massa dell’unità ripetitiva. Una catena di polietilene con n = 5000 ha massa molare di circa 5000 · 28,05 ≈ 140 000 g/mol."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Addizione e condensazione",
       "text": {
         "base": [
-          "Il grado di polimerizzazione conta le unità ripetitive di una catena. Trascurando i gruppi terminali, la massa molare della catena è circa n volte quella dell’unità ripetitiva.",
-          "Con M_unità=28 g/mol e n=10, M_catena≈280 g/mol. Il valore dell’unità è arrotondato e non include i gruppi terminali."
+          "Nella polimerizzazione per addizione i monomeri, che contengono un doppio legame, si uniscono senza perdere atomi: l’etilene CH₂=CH₂ dà il polietilene, il propilene il polipropilene, lo stirene il polistirene, il cloruro di vinile il PVC. L’unità ripetitiva ha la stessa massa del monomero: 28,05 g/mol per il polietilene.",
+          "Nella polimerizzazione per condensazione due monomeri con gruppi funzionali diversi si legano liberando una piccola molecola, di solito acqua. Il nylon-6,6 nasce da esametilendiammina e acido adipico; il PET delle bottiglie da glicole etilenico e acido tereftalico. Anche i polimeri biologici si formano così: proteine da amminoacidi, amido e cellulosa da glucosio, DNA da nucleotidi.",
+          "La struttura decide le proprietà. I termoplastici, come polietilene e PET, si ammorbidiscono scaldando e si possono rifondere e riciclare; i termoindurenti, come le resine epossidiche, formano reticoli di legami tra catene e non fondono. Catene allineate e ordinate danno fibre resistenti; ramificazioni le allontanano e rendono il materiale più morbido, come nel polietilene a bassa densità."
         ],
         "intermediate": [
-          "Il modello usa M_catena≈nM_unità. È un bilancio lineare su una catena ideale; un campione reale può richiedere medie diverse, come massa molare media numerica e ponderale.",
-          "La variabile Grado polimerizzazione è espressa in 1; Massa molare catena in g/mol. Il dominio dello strumento è [1; 100], con soli valori interi. La relazione implementata è: M_catena ≈ n M_unità.",
-          "Con M_unità=28 g/mol e n=10, M_catena≈280 g/mol. Il valore dell’unità è arrotondato e non include i gruppi terminali."
+          "Nella polimerizzazione per addizione i monomeri, che contengono un doppio legame, si uniscono senza perdere atomi: l’etilene CH₂=CH₂ dà il polietilene, il propilene il polipropilene, lo stirene il polistirene, il cloruro di vinile il PVC. L’unità ripetitiva ha la stessa massa del monomero: 28,05 g/mol per il polietilene.",
+          "Nella polimerizzazione per condensazione due monomeri con gruppi funzionali diversi si legano liberando una piccola molecola, di solito acqua. Il nylon-6,6 nasce da esametilendiammina e acido adipico; il PET delle bottiglie da glicole etilenico e acido tereftalico. Anche i polimeri biologici si formano così: proteine da amminoacidi, amido e cellulosa da glucosio, DNA da nucleotidi.",
+          "In un campione reale le catene hanno lunghezze diverse: la massa molare di un polimero è una media. La media in numero si ottiene come una media aritmetica sulle catene; esistono anche medie pesate sulla massa, che danno più peso alle catene lunghe. Il rapporto tra le due misura quanto è dispersa la distribuzione.",
+          "La struttura decide le proprietà. I termoplastici, come polietilene e PET, si ammorbidiscono scaldando e si possono rifondere e riciclare; i termoindurenti, come le resine epossidiche, formano reticoli di legami tra catene e non fondono. Catene allineate e ordinate danno fibre resistenti; ramificazioni le allontanano e rendono il materiale più morbido, come nel polietilene a bassa densità."
         ],
         "advanced": [
-          "Il modello usa M_catena≈nM_unità. È un bilancio lineare su una catena ideale; un campione reale può richiedere medie diverse, come massa molare media numerica e ponderale.",
-          "Confronta due campioni con la stessa media numerica ma distribuzioni diverse. Individua quali informazioni supplementari sarebbero necessarie per prevedere proprietà meccaniche.",
-          "La massa molare media di un campione non significa che tutte le catene abbiano quella massa. Le proprietà dipendono anche da architettura, distribuzione, interazioni e struttura del materiale."
+          "Nella polimerizzazione per addizione i monomeri, che contengono un doppio legame, si uniscono senza perdere atomi: l’etilene CH₂=CH₂ dà il polietilene, il propilene il polipropilene, lo stirene il polistirene, il cloruro di vinile il PVC. L’unità ripetitiva ha la stessa massa del monomero: 28,05 g/mol per il polietilene.",
+          "Nella polimerizzazione per condensazione due monomeri con gruppi funzionali diversi si legano liberando una piccola molecola, di solito acqua. Il nylon-6,6 nasce da esametilendiammina e acido adipico; il PET delle bottiglie da glicole etilenico e acido tereftalico. Anche i polimeri biologici si formano così: proteine da amminoacidi, amido e cellulosa da glucosio, DNA da nucleotidi.",
+          "In un campione reale le catene hanno lunghezze diverse: la massa molare di un polimero è una media. La media in numero si ottiene come una media aritmetica sulle catene; esistono anche medie pesate sulla massa, che danno più peso alle catene lunghe. Il rapporto tra le due misura quanto è dispersa la distribuzione.",
+          "La struttura decide le proprietà. I termoplastici, come polietilene e PET, si ammorbidiscono scaldando e si possono rifondere e riciclare; i termoindurenti, come le resine epossidiche, formano reticoli di legami tra catene e non fondono. Catene allineate e ordinate danno fibre resistenti; ramificazioni le allontanano e rendono il materiale più morbido, come nel polietilene a bassa densità."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Problemi guidati",
       "text": {
         "base": [
-          "Nel laboratorio imposta Massa unità ripetitiva (a): 28 g/mol. Prima di salvare A, prevedi come cambia Massa molare catena fra Grado polimerizzazione=26 e 51 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con M_unità=28 g/mol e n=10, M_catena≈280 g/mol. Il valore dell’unità è arrotondato e non include i gruppi terminali.",
-          "La variabile Grado polimerizzazione è espressa in 1; Massa molare catena in g/mol. Il dominio dello strumento è [1; 100], con soli valori interi. La relazione implementata è: M_catena ≈ n M_unità."
+          "L’attività propone quattro problemi guidati: il grado di polimerizzazione di una catena di polietilene; la massa molare di una catena di polipropilene; l’unità ripetitiva del nylon-6,6, che si forma per condensazione; la massa molare media di un campione con catene di due lunghezze. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Nelle condensazioni ricorda di togliere la massa delle molecole d’acqua liberate per ogni unità; nelle addizioni l’unità ripetitiva ha la stessa formula del monomero.",
+          "Il modello del programma calcola la massa molare della catena come n per la massa dell’unità, con la massa dell’unità regolabile da 10 a 100 g/mol: con 28 g/mol, il valore approssimato dell’etilene, 10 unità danno 280 g/mol."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Massa unità ripetitiva (a): 28 g/mol. Prima di salvare A, prevedi come cambia Massa molare catena fra Grado polimerizzazione=26 e 51 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Grado polimerizzazione è espressa in 1; Massa molare catena in g/mol. Il dominio dello strumento è [1; 100], con soli valori interi. La relazione implementata è: M_catena ≈ n M_unità.",
-          "Il modello usa M_catena≈nM_unità. È un bilancio lineare su una catena ideale; un campione reale può richiedere medie diverse, come massa molare media numerica e ponderale."
+          "L’attività propone quattro problemi guidati: il grado di polimerizzazione di una catena di polietilene; la massa molare di una catena di polipropilene; l’unità ripetitiva del nylon-6,6, che si forma per condensazione; la massa molare media di un campione con catene di due lunghezze. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Nelle condensazioni ricorda di togliere la massa delle molecole d’acqua liberate per ogni unità; nelle addizioni l’unità ripetitiva ha la stessa formula del monomero.",
+          "Il modello del programma calcola la massa molare della catena come n per la massa dell’unità, con la massa dell’unità regolabile da 10 a 100 g/mol: con 28 g/mol, il valore approssimato dell’etilene, 10 unità danno 280 g/mol."
         ],
         "advanced": [
-          "Nel laboratorio imposta Massa unità ripetitiva (a): 28 g/mol. Prima di salvare A, prevedi come cambia Massa molare catena fra Grado polimerizzazione=26 e 51 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta due campioni con la stessa media numerica ma distribuzioni diverse. Individua quali informazioni supplementari sarebbero necessarie per prevedere proprietà meccaniche.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "L’attività propone quattro problemi guidati: il grado di polimerizzazione di una catena di polietilene; la massa molare di una catena di polipropilene; l’unità ripetitiva del nylon-6,6, che si forma per condensazione; la massa molare media di un campione con catene di due lunghezze. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Nelle condensazioni ricorda di togliere la massa delle molecole d’acqua liberate per ogni unità; nelle addizioni l’unità ripetitiva ha la stessa formula del monomero.",
+          "Il modello del programma calcola la massa molare della catena come n per la massa dell’unità, con la massa dell’unità regolabile da 10 a 100 g/mol: con 28 g/mol, il valore approssimato dell’etilene, 10 unità danno 280 g/mol."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "La massa molare media di un campione non significa che tutte le catene abbiano quella massa. Le proprietà dipendono anche da architettura, distribuzione, interazioni e struttura del materiale.",
-          "Catena ideale con unità identiche, gruppi terminali trascurati e nessuna distribuzione di lunghezze. La scena visualizza uno schema limitato di segmenti, non tutti gli atomi.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che «plastica» indichi un solo materiale. PET, polietilene, PVC e polistirene hanno strutture e proprietà diverse; per questo i codici di riciclo, da 1 a 7, li separano.",
+          "Secondo errore: aspettarsi che ogni catena di un campione abbia la massa molare riportata. È un valore medio: il campione contiene catene più corte e più lunghe.",
+          "In un campione reale le catene hanno lunghezze diverse: la massa molare di un polimero è una media. La media in numero si ottiene come una media aritmetica sulle catene; esistono anche medie pesate sulla massa, che danno più peso alle catene lunghe. Il rapporto tra le due misura quanto è dispersa la distribuzione."
         ],
         "intermediate": [
-          "La massa molare media di un campione non significa che tutte le catene abbiano quella massa. Le proprietà dipendono anche da architettura, distribuzione, interazioni e struttura del materiale.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "Errore frequente: pensare che «plastica» indichi un solo materiale. PET, polietilene, PVC e polistirene hanno strutture e proprietà diverse; per questo i codici di riciclo, da 1 a 7, li separano.",
+          "Secondo errore: aspettarsi che ogni catena di un campione abbia la massa molare riportata. È un valore medio: il campione contiene catene più corte e più lunghe.",
+          "La struttura decide le proprietà. I termoplastici, come polietilene e PET, si ammorbidiscono scaldando e si possono rifondere e riciclare; i termoindurenti, come le resine epossidiche, formano reticoli di legami tra catene e non fondono. Catene allineate e ordinate danno fibre resistenti; ramificazioni le allontanano e rendono il materiale più morbido, come nel polietilene a bassa densità."
         ],
         "advanced": [
-          "Catena ideale con unità identiche, gruppi terminali trascurati e nessuna distribuzione di lunghezze. La scena visualizza uno schema limitato di segmenti, non tutti gli atomi.",
-          "Confronta due campioni con la stessa media numerica ma distribuzioni diverse. Individua quali informazioni supplementari sarebbero necessarie per prevedere proprietà meccaniche.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che «plastica» indichi un solo materiale. PET, polietilene, PVC e polistirene hanno strutture e proprietà diverse; per questo i codici di riciclo, da 1 a 7, li separano.",
+          "Secondo errore: aspettarsi che ogni catena di un campione abbia la massa molare riportata. È un valore medio: il campione contiene catene più corte e più lunghe.",
+          "La struttura decide le proprietà. I termoplastici, come polietilene e PET, si ammorbidiscono scaldando e si possono rifondere e riciclare; i termoindurenti, come le resine epossidiche, formano reticoli di legami tra catene e non fondono. Catene allineate e ordinate danno fibre resistenti; ramificazioni le allontanano e rendono il materiale più morbido, come nel polietilene a bassa densità."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Il grado di polimerizzazione conta le unità ripetitive di una catena. Trascurando i gruppi terminali, la massa molare della catena è circa n volte quella dell’unità ripetitiva.",
-          "Con M_unità=28 g/mol e n=10, M_catena≈280 g/mol. Il valore dell’unità è arrotondato e non include i gruppi terminali."
+          "Ripasso: monomero, unità ripetitiva e grado di polimerizzazione; polimerizzazione per addizione e per condensazione; polimeri naturali; massa molare media; termoplastici e termoindurenti.",
+          "Mini esercizio: una catena di PVC (unità C₂H₃Cl, 62,50 g/mol) con n = 1000 ha massa molare di circa 62 500 g/mol.",
+          "Nelle domande sui polimeri distingui sempre il monomero dall’unità ripetitiva: coincidono solo nelle addizioni."
         ],
         "intermediate": [
-          "Il modello usa M_catena≈nM_unità. È un bilancio lineare su una catena ideale; un campione reale può richiedere medie diverse, come massa molare media numerica e ponderale.",
-          "La variabile Grado polimerizzazione è espressa in 1; Massa molare catena in g/mol. Il dominio dello strumento è [1; 100], con soli valori interi. La relazione implementata è: M_catena ≈ n M_unità."
+          "Ripasso: monomero, unità ripetitiva e grado di polimerizzazione; polimerizzazione per addizione e per condensazione; polimeri naturali; massa molare media; termoplastici e termoindurenti.",
+          "Mini esercizio: una catena di PVC (unità C₂H₃Cl, 62,50 g/mol) con n = 1000 ha massa molare di circa 62 500 g/mol.",
+          "Nelle domande sui polimeri distingui sempre il monomero dall’unità ripetitiva: coincidono solo nelle addizioni."
         ],
         "advanced": [
-          "Confronta due campioni con la stessa media numerica ma distribuzioni diverse. Individua quali informazioni supplementari sarebbero necessarie per prevedere proprietà meccaniche.",
-          "Catena ideale con unità identiche, gruppi terminali trascurati e nessuna distribuzione di lunghezze. La scena visualizza uno schema limitato di segmenti, non tutti gli atomi."
+          "Ripasso: monomero, unità ripetitiva e grado di polimerizzazione; polimerizzazione per addizione e per condensazione; polimeri naturali; massa molare media; termoplastici e termoindurenti.",
+          "Mini esercizio: una catena di PVC (unità C₂H₃Cl, 62,50 g/mol) con n = 1000 ha massa molare di circa 62 500 g/mol.",
+          "Nelle domande sui polimeri distingui sempre il monomero dall’unità ripetitiva: coincidono solo nelle addizioni."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Catena ideale senza contributo dei gruppi terminali.",
-          "Catena ideale con unità identiche, gruppi terminali trascurati e nessuna distribuzione di lunghezze. La scena visualizza uno schema limitato di segmenti, non tutti gli atomi.",
-          "Collegamento consigliato: biology-10. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Il DNA è un polimero di nucleotidi: l’unità di biologia «DNA e replicazione» mostra come la sequenza di quelle unità conserva l’informazione ereditaria.",
+          "Riepilogo dell’unità: un polimero è una catena di unità ripetitive; la massa molare è circa n per la massa dell’unità; nelle addizioni i monomeri si uniscono senza perdere atomi, nelle condensazioni liberano acqua; proteine, amido, cellulosa e DNA sono polimeri naturali; la massa molare di un campione è una media.",
+          "Nel diario spiega perché una bottiglia di PET si può riciclare fondendola, mentre una resina epossidica no."
         ],
         "intermediate": [
-          "Il modello usa M_catena≈nM_unità. È un bilancio lineare su una catena ideale; un campione reale può richiedere medie diverse, come massa molare media numerica e ponderale.",
-          "Catena ideale con unità identiche, gruppi terminali trascurati e nessuna distribuzione di lunghezze. La scena visualizza uno schema limitato di segmenti, non tutti gli atomi.",
-          "Confronta due campioni con la stessa media numerica ma distribuzioni diverse. Individua quali informazioni supplementari sarebbero necessarie per prevedere proprietà meccaniche."
+          "Il DNA è un polimero di nucleotidi: l’unità di biologia «DNA e replicazione» mostra come la sequenza di quelle unità conserva l’informazione ereditaria.",
+          "Riepilogo dell’unità: un polimero è una catena di unità ripetitive; la massa molare è circa n per la massa dell’unità; nelle addizioni i monomeri si uniscono senza perdere atomi, nelle condensazioni liberano acqua; proteine, amido, cellulosa e DNA sono polimeri naturali; la massa molare di un campione è una media.",
+          "Nel diario spiega perché una bottiglia di PET si può riciclare fondendola, mentre una resina epossidica no."
         ],
         "advanced": [
-          "Confronta due campioni con la stessa media numerica ma distribuzioni diverse. Individua quali informazioni supplementari sarebbero necessarie per prevedere proprietà meccaniche.",
-          "Catena ideale con unità identiche, gruppi terminali trascurati e nessuna distribuzione di lunghezze. La scena visualizza uno schema limitato di segmenti, non tutti gli atomi.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Il DNA è un polimero di nucleotidi: l’unità di biologia «DNA e replicazione» mostra come la sequenza di quelle unità conserva l’informazione ereditaria.",
+          "Riepilogo dell’unità: un polimero è una catena di unità ripetitive; la massa molare è circa n per la massa dell’unità; nelle addizioni i monomeri si uniscono senza perdere atomi, nelle condensazioni liberano acqua; proteine, amido, cellulosa e DNA sono polimeri naturali; la massa molare di un campione è una media.",
+          "Nel diario spiega perché una bottiglia di PET si può riciclare fondendola, mentre una resina epossidica no."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "chemistry-25-concept",
-      "prompt": "Il grado di polimerizzazione indica:",
+      "id": "chemistry-25-q1",
+      "prompt": "Qual è il monomero del polietilene?",
       "options": [
         {
           "id": "A",
-          "text": "Il numero di elettroni liberi",
-          "feedback": "Il modello usa M_catena≈nM_unità. È un bilancio lineare su una catena ideale; un campione reale può richiedere medie diverse, come massa molare media numerica e ponderale."
+          "text": "L’etilene, CH₂=CH₂",
+          "feedback": "Esatto: il doppio legame si apre e le unità si concatenano."
         },
         {
           "id": "B",
-          "text": "Il numero di unità ripetitive",
-          "feedback": "Il grado di polimerizzazione conta le unità ripetitive di una catena. Trascurando i gruppi terminali, la massa molare della catena è circa n volte quella dell’unità ripetitiva."
+          "text": "L’etano, C₂H₆",
+          "feedback": "L’etano non ha doppi legami e non polimerizza per addizione."
         },
         {
           "id": "C",
-          "text": "La temperatura del materiale",
-          "feedback": "La massa molare media di un campione non significa che tutte le catene abbiano quella massa. Le proprietà dipendono anche da architettura, distribuzione, interazioni e struttura del materiale."
+          "text": "Il glucosio",
+          "feedback": "Il glucosio forma amido e cellulosa."
+        },
+        {
+          "id": "D",
+          "text": "Lo stirene",
+          "feedback": "Lo stirene forma il polistirene, un altro polimero."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "chemistry-25-q2",
+      "prompt": "Che cosa caratterizza la polimerizzazione per condensazione?",
+      "options": [
+        {
+          "id": "A",
+          "text": "La rottura di doppi legami senza perdita di atomi",
+          "feedback": "Questa è la polimerizzazione per addizione."
+        },
+        {
+          "id": "B",
+          "text": "La liberazione di una piccola molecola, spesso acqua",
+          "feedback": "Esatto: per esempio nella formazione del nylon o delle proteine."
+        },
+        {
+          "id": "C",
+          "text": "L’uso di un solo tipo di monomero con doppio legame",
+          "feedback": "Questo descrive le addizioni come quella dell’etilene."
+        },
+        {
+          "id": "D",
+          "text": "La fusione del polimero",
+          "feedback": "La fusione è una proprietà fisica, non un tipo di reazione."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "chemistry-25-calculation",
-      "prompt": "Calcolo: Massa unità ripetitiva (a)=28 g/mol. Per Grado polimerizzazione=10 (adimensionale), quanto vale Massa molare catena?",
+      "id": "chemistry-25-q3",
+      "prompt": "Che massa molare ha circa una catena di polietilene con n = 1000 (unità 28,05 g/mol)?",
       "options": [
         {
           "id": "A",
-          "text": "280 g/mol",
-          "feedback": "M_catena ≈ n M_unità. Con Massa unità ripetitiva (a)=28 g/mol e Grado polimerizzazione=10 (adimensionale), il risultato è 280 g/mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "28,05 g/mol",
+          "feedback": "Questa è la massa di una sola unità."
         },
         {
           "id": "B",
-          "text": "420 g/mol",
-          "feedback": "Questo valore non soddisfa la relazione. M_catena ≈ n M_unità. Con Massa unità ripetitiva (a)=28 g/mol e Grado polimerizzazione=10 (adimensionale), il risultato è 280 g/mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "1028 g/mol",
+          "feedback": "Le masse si moltiplicano per n, non si sommano a n."
         },
         {
           "id": "C",
-          "text": "140 g/mol",
-          "feedback": "Controlla sostituzione, segno e unità. M_catena ≈ n M_unità. Con Massa unità ripetitiva (a)=28 g/mol e Grado polimerizzazione=10 (adimensionale), il risultato è 280 g/mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "Circa 28 000 g/mol",
+          "feedback": "Esatto: n per la massa dell’unità, 1000 · 28,05 g/mol."
+        },
+        {
+          "id": "D",
+          "text": "Circa 2,8 · 10⁶ g/mol",
+          "feedback": "Hai moltiplicato per 100 000 invece che per 1000."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 10,
-        "parameters": {
-          "a": 28
-        },
-        "expected": 280,
-        "unit": "g/mol"
-      }
+      "correct": "C"
     },
     {
-      "id": "chemistry-25-transfer",
-      "prompt": "Trasferimento: Massa unità ripetitiva (a)=30 g/mol. Per Grado polimerizzazione=10 (adimensionale), quanto vale Massa molare catena?",
+      "id": "chemistry-25-q4",
+      "prompt": "Quale di questi è un polimero naturale?",
       "options": [
         {
           "id": "A",
-          "text": "450 g/mol",
-          "feedback": "Questo valore non soddisfa la relazione. M_catena ≈ n M_unità. Con Massa unità ripetitiva (a)=30 g/mol e Grado polimerizzazione=10 (adimensionale), il risultato è 300 g/mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "Il polietilene",
+          "feedback": "Il polietilene è sintetico, prodotto dall’etilene."
         },
         {
           "id": "B",
-          "text": "150 g/mol",
-          "feedback": "Controlla sostituzione, segno e unità. M_catena ≈ n M_unità. Con Massa unità ripetitiva (a)=30 g/mol e Grado polimerizzazione=10 (adimensionale), il risultato è 300 g/mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "Il PVC",
+          "feedback": "Il PVC è sintetico, prodotto dal cloruro di vinile."
         },
         {
           "id": "C",
-          "text": "300 g/mol",
-          "feedback": "M_catena ≈ n M_unità. Con Massa unità ripetitiva (a)=30 g/mol e Grado polimerizzazione=10 (adimensionale), il risultato è 300 g/mol. Conserva le unità e arrotonda solo alla fine."
+          "text": "Il nylon",
+          "feedback": "Il nylon è stato sintetizzato negli anni Trenta."
+        },
+        {
+          "id": "D",
+          "text": "La cellulosa",
+          "feedback": "Esatto: è un polimero del glucosio prodotto dalle piante."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 10,
-        "parameters": {
-          "a": 30
-        },
-        "expected": 300,
-        "unit": "g/mol"
-      }
+      "correct": "D"
     },
     {
-      "id": "chemistry-25-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "chemistry-25-q5",
+      "prompt": "Che cosa distingue un termoplastico da un termoindurente?",
       "options": [
         {
           "id": "A",
-          "text": "Catena ideale senza contributo dei gruppi terminali",
-          "feedback": "Catena ideale con unità identiche, gruppi terminali trascurati e nessuna distribuzione di lunghezze. La scena visualizza uno schema limitato di segmenti, non tutti gli atomi."
+          "text": "Il termoplastico si ammorbidisce scaldando e si può rifondere",
+          "feedback": "Esatto: il termoindurente è reticolato e non fonde."
         },
         {
           "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Catena ideale con unità identiche, gruppi terminali trascurati e nessuna distribuzione di lunghezze. La scena visualizza uno schema limitato di segmenti, non tutti gli atomi."
+          "text": "Il termoplastico è sempre naturale",
+          "feedback": "Molti termoplastici sono sintetici, come il PET."
         },
         {
           "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Catena ideale con unità identiche, gruppi terminali trascurati e nessuna distribuzione di lunghezze. La scena visualizza uno schema limitato di segmenti, non tutti gli atomi."
+          "text": "Il termoindurente è più leggero",
+          "feedback": "La differenza riguarda il comportamento al calore."
+        },
+        {
+          "id": "D",
+          "text": "Non c’è differenza",
+          "feedback": "Il comportamento al calore è molto diverso."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "chemistry-25-q6",
+      "prompt": "Perché la massa molare di un polimero si indica come media?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché è difficile pesare le molecole",
+          "feedback": "Si misura bene; il punto è che le catene non sono tutte uguali."
+        },
+        {
+          "id": "B",
+          "text": "Perché le catene hanno lunghezze diverse",
+          "feedback": "Esatto: il campione contiene una distribuzione di catene."
+        },
+        {
+          "id": "C",
+          "text": "Perché i monomeri hanno masse diverse",
+          "feedback": "In un omopolimero le unità sono tutte uguali."
+        },
+        {
+          "id": "D",
+          "text": "Perché il polimero perde massa nel tempo",
+          "feedback": "La media descrive la distribuzione delle catene e non dipende dal tempo."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "steps",
+    "goal": 3,
+    "problems": [
+      {
+        "id": "polietilene",
+        "title": "Quante unità?",
+        "text": "Una catena di polietilene ha massa molare 140 000 g/mol. Quante unità contiene? C = 12,01; H = 1,008.",
+        "maxErrors": 1,
+        "explain": "Si divide la massa della catena per quella dell’unità ripetitiva.",
+        "steps": [
+          {
+            "prompt": "Massa dell’unità C₂H₄?",
+            "options": [
+              {
+                "text": "28,05 g/mol",
+                "feedback": "Giusto: 2 · 12,01 + 4 · 1,008."
+              },
+              {
+                "text": "30,07 g/mol",
+                "feedback": "30,07 g/mol è l’etano, con due idrogeni in più."
+              },
+              {
+                "text": "14,03 g/mol",
+                "feedback": "Questa è la massa di un solo gruppo CH₂."
+              }
+            ],
+            "correct": 0,
+            "result": "Unità = 28,05 g/mol."
+          },
+          {
+            "prompt": "Grado di polimerizzazione?",
+            "options": [
+              {
+                "text": "Circa 5000",
+                "feedback": "Giusto: 140 000/28,05 ≈ 4990."
+              },
+              {
+                "text": "Circa 3,9 · 10⁶",
+                "feedback": "Si divide, non si moltiplica."
+              },
+              {
+                "text": "Circa 500",
+                "feedback": "Ricontrolla gli zeri: 140 000/28 è circa 5000."
+              }
+            ],
+            "correct": 0,
+            "result": "n ≈ 5000."
+          }
+        ]
+      },
+      {
+        "id": "polipropilene",
+        "title": "Una catena di polipropilene",
+        "text": "Una catena di polipropilene contiene 2000 unità C₃H₆. Che massa molare ha?",
+        "maxErrors": 1,
+        "explain": "Nelle addizioni l’unità ha la formula del monomero.",
+        "steps": [
+          {
+            "prompt": "Massa dell’unità C₃H₆?",
+            "options": [
+              {
+                "text": "42,08 g/mol",
+                "feedback": "Giusto: 3 · 12,01 + 6 · 1,008."
+              },
+              {
+                "text": "44,10 g/mol",
+                "feedback": "44,10 g/mol è il propano, C₃H₈."
+              },
+              {
+                "text": "36,03 g/mol",
+                "feedback": "Manca la massa degli idrogeni."
+              }
+            ],
+            "correct": 0,
+            "result": "Unità = 42,08 g/mol."
+          },
+          {
+            "prompt": "Massa molare della catena?",
+            "options": [
+              {
+                "text": "Circa 84 000 g/mol",
+                "feedback": "Giusto: 2000 · 42,08 = 84 160 g/mol."
+              },
+              {
+                "text": "Circa 2042 g/mol",
+                "feedback": "La massa dell’unità va moltiplicata per n."
+              },
+              {
+                "text": "Circa 48 g/mol",
+                "feedback": "Hai diviso invece di moltiplicare."
+              }
+            ],
+            "correct": 0,
+            "result": "M ≈ 84 160 g/mol."
+          }
+        ]
+      },
+      {
+        "id": "nylon",
+        "title": "L’unità del nylon-6,6",
+        "text": "Il nylon-6,6 si forma da esametilendiammina (116,21 g/mol) e acido adipico (146,14 g/mol); ogni unità ripetitiva libera due molecole d’acqua (18,02 g/mol). Quanto pesa l’unità?",
+        "maxErrors": 1,
+        "explain": "Somma dei due monomeri meno l’acqua liberata.",
+        "steps": [
+          {
+            "prompt": "Somma delle masse dei due monomeri?",
+            "options": [
+              {
+                "text": "262,35 g/mol",
+                "feedback": "Giusto: 116,21 + 146,14."
+              },
+              {
+                "text": "29,93 g/mol",
+                "feedback": "Le masse si sommano, non si sottraggono."
+              },
+              {
+                "text": "146,14 g/mol",
+                "feedback": "Nell’unità entrano entrambi i monomeri."
+              }
+            ],
+            "correct": 0,
+            "result": "Somma = 262,35 g/mol."
+          },
+          {
+            "prompt": "Massa d’acqua liberata per unità?",
+            "options": [
+              {
+                "text": "36,04 g/mol",
+                "feedback": "Giusto: due molecole da 18,02."
+              },
+              {
+                "text": "18,02 g/mol",
+                "feedback": "Ogni unità forma due legami ammidici, cioè libera due molecole d’acqua."
+              },
+              {
+                "text": "0 g/mol",
+                "feedback": "In una condensazione si libera sempre una piccola molecola."
+              }
+            ],
+            "correct": 0,
+            "result": "Acqua liberata = 36,04 g/mol."
+          },
+          {
+            "prompt": "Massa dell’unità ripetitiva?",
+            "options": [
+              {
+                "text": "Circa 226,3 g/mol",
+                "feedback": "Giusto: 262,35 − 36,04, cioè C₁₂H₂₂N₂O₂."
+              },
+              {
+                "text": "262,35 g/mol",
+                "feedback": "Bisogna togliere l’acqua liberata."
+              },
+              {
+                "text": "Circa 298,4 g/mol",
+                "feedback": "L’acqua si toglie, non si aggiunge."
+              }
+            ],
+            "correct": 0,
+            "result": "Unità ripetitiva ≈ 226,3 g/mol."
+          }
+        ]
+      },
+      {
+        "id": "media",
+        "title": "Una massa media",
+        "text": "Un campione di polietilene contiene, in numero, metà catene con n = 1000 e metà con n = 3000. Qual è la massa molare media in numero?",
+        "maxErrors": 1,
+        "explain": "Si calcola il grado di polimerizzazione medio, poi si moltiplica per la massa dell’unità.",
+        "steps": [
+          {
+            "prompt": "Grado di polimerizzazione medio?",
+            "options": [
+              {
+                "text": "2000",
+                "feedback": "Giusto: (1000 + 3000)/2 con pesi uguali."
+              },
+              {
+                "text": "4000",
+                "feedback": "Questa è la somma: con due gruppi uguali la media è la metà."
+              },
+              {
+                "text": "3000",
+                "feedback": "Metà delle catene sono più corte: la media sta in mezzo."
+              }
+            ],
+            "correct": 0,
+            "result": "n medio = 2000."
+          },
+          {
+            "prompt": "Massa molare media in numero?",
+            "options": [
+              {
+                "text": "Circa 56 100 g/mol",
+                "feedback": "Giusto: 2000 · 28,05."
+              },
+              {
+                "text": "Circa 28 050 g/mol",
+                "feedback": "Questa è la massa delle catene corte."
+              },
+              {
+                "text": "Circa 84 150 g/mol",
+                "feedback": "Questa è la massa delle catene lunghe."
+              }
+            ],
+            "correct": 0,
+            "result": "M medio ≈ 56 100 g/mol."
+          },
+          {
+            "prompt": "Quante catene del campione hanno questa massa?",
+            "options": [
+              {
+                "text": "Nessuna",
+                "feedback": "Giusto: le catene pesano 28 050 o 84 150 g/mol; la media non coincide con nessuna."
+              },
+              {
+                "text": "Tutte",
+                "feedback": "Le catene hanno due lunghezze diverse."
+              },
+              {
+                "text": "Metà",
+                "feedback": "Metà delle catene hanno n = 1000, l’altra metà n = 3000."
+              }
+            ],
+            "correct": 0,
+            "result": "La massa media descrive il campione, non una singola catena."
+          }
+        ]
+      }
+    ]
+  }
 }
