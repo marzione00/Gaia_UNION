@@ -473,3 +473,52 @@ test('Chimica 19: equilibrio chimico, numeri ricalcolati',()=>{
  assert.equal(r(RT*Math.log(0.5),2),-1.72);assert.equal(r(dG+RT*Math.log(0.5),2),3.01);
  assert.equal(r(-RT*Math.log(4),2),-3.44);assert.equal(r(RT*Math.log(40),2),9.14);assert.equal(r(-RT*Math.log(4)+RT*Math.log(40),2),5.71);
 });
+
+test('Chimica 20: perturbazioni dell\'equilibrio, numeri ricalcolati',()=>{
+ const R=8.314462618,RT=R*298.15/1000,Kc=Math.exp(-4.73/RT)/(0.08314462618*298.15),Kp=Math.exp(-4.73/RT);
+ const solve=(f,lo,hi)=>{for(let i=0;i<200;i++){const m=(lo+hi)/2;if(f(m)>0)hi=m;else lo=m;}return (lo+hi)/2;};
+ // Adding NO2 to the N2O4/NO2 equilibrium.
+ assert.equal(r(0.024**2/0.033*1e2,2),1.75);assert.equal(r(0.024**2/0.033/Kc,1),2.9);
+ const y=solve(v=>Kc-(0.024-2*v)**2/(0.033+v),0,0.012);assert.equal(r(y*1e3,1),4.5);assert.equal(r(0.033+y,4),0.0375);assert.equal(r(0.024-2*y,4),0.015);
+ assert.equal(r(2*y,3),0.009);
+ // Pressure: dissociation fraction.
+ assert.equal(r(Math.sqrt(Kp/(Kp+4)),3),0.189);assert.equal(r(Math.sqrt(Kp/(Kp+0.4)),3),0.52);
+ // N2O4 thermochemistry and van 't Hoff.
+ assert.equal(r(2*33.18-9.16,1),57.2);const K50=0.148*Math.exp(-57200/8.314*(1/323.15-1/298.15));
+ assert.equal(r(-57200/8.314*(1/323.15-1/298.15),3),1.785);assert.equal(r(K50,2),0.88);assert.equal(r(K50/0.148,0),6);assert.equal(r(Math.sqrt(0.88/4.88),2),0.42);
+ const al=t=>{const K=Kp*Math.exp(-57200/R*(1/(t+273.15)-1/298.15));return Math.sqrt(K/(K+4));};
+ assert.deepEqual([0,25,50,100].map(t=>r(al(t),2)),[0.07,0.19,0.43,0.89]);
+ // Ammonia thermochemistry.
+ assert.equal(r(2*(-46.11),2),-92.22);assert.equal(r(2*192.5-191.6-3*130.7,1),-198.7);assert.equal(r(2*(-16.45),1),-32.9);
+ assert.equal(r(Math.exp(32.9/RT)/1e5,0),6);assert.equal(r(92220/198.7-273.15,-1),190);
+ // Van 't Hoff fit of the ammonia constants.
+ const Ts=[300,400,450,500,550,600].map(t=>t+273.15),Ks=[4.34e-3,1.64e-4,4.51e-5,1.45e-5,5.38e-6,2.25e-6];
+ const xs=Ts.map(T=>1/T),ys=Ks.map(Math.log),n=6,mx=xs.reduce((a,b)=>a+b)/n,my=ys.reduce((a,b)=>a+b)/n;
+ const sl=xs.reduce((a,x,i)=>a+(x-mx)*(ys[i]-my),0)/xs.reduce((a,x)=>a+(x-mx)**2,0);assert.equal(r(-sl*R/1000,0),-105);
+ assert.equal(r(4.34e-3/2.25e-6,-2),1900);assert.equal(r(2*(-52.618),1),-105.2);
+ // Ideal-gas equilibrium yield, stoichiometric feed.
+ const yN=(K,P)=>{const x=solve(v=>{const m=4-2*v;return (2*v/m)**2/(((1-v)/m)*((3-3*v)/m)**3*P*P)-K;},0,0.9999);return 100*2*x/(4-2*x);};
+ assert.equal(r(yN(4.51e-5,200),1),24.7);
+ assert.equal(r(0.247**2/(0.18825*0.56475**3*200**2)*1e5,1),4.5);
+ // Contact process estimate.
+ const dS=2*256.8-2*248.2-205.1;assert.equal(r(dS,1),-187.9);assert.equal(r(2*(-395.7)-2*(-296.8),1),-197.8);
+ const dG450=-197.8-723.15*dS/1000;assert.equal(r(dG450,0),-62);const Ks450=Math.exp(-dG450*1000/(R*723.15));assert.equal(r(Ks450/1e4,0),3);
+ const cv=solve(v=>(2*v)**2*(100-v)/((10-2*v)**2*(11-v))-Ks450,0,4.9999);assert.equal(r(100*2*cv/10,0),98);
+ // Production: 150 Mt N as ammonia.
+ assert.equal(r(150*17.031/14.007,-1),180);
+ // Exercises.
+ assert.equal(r(0.636**2/1.364,3),0.297);assert.equal(r(0.014**2/0.043*1e3,1),4.6);
+ const z=solve(v=>(0.014+2*v)**2/(0.043-v)-Kc,0,0.02);assert.equal(r(z*1e4,1),9.3);assert.equal(r(0.043-z,4),0.0421);assert.equal(r(0.014+2*z,4),0.0159);
+ assert.equal(r(-57200/8.314*(1/273.15-1/298.15),2),-2.11);assert.equal(r(0.148*Math.exp(-2.11),3),0.018);assert.equal(r(Math.sqrt(0.018/4.018),3),0.067);
+ assert.equal(r(Math.log(1.45e-5/1.64e-4),3),-2.426);assert.equal(r(8.314*Math.log(1.45e-5/1.64e-4),2),-20.17);assert.equal(r((1/773.15-1/673.15)*1e4,3),-1.921);
+ assert.equal(r(-8.314*Math.log(1.45e-5/1.64e-4)/(1/773.15-1/673.15)/1000,0),-105);
+ assert.equal(r(Math.sqrt(0.148/8.148),3),0.135);assert.equal(r(0.753/4,3),0.188);assert.equal(r(3*0.753/4,3),0.565);
+ assert.equal(r(92200/198.7,0),464);
+ const Qn=(a,b,c)=>{const t=a+b+c;return (c/t)**2/((a/t)*(b/t)**3*200**2);};assert.equal(r(Qn(6.88,0.646,0.236)*1e5,1),4.5);assert.equal(r(Qn(7.38,0.646,0.236)*1e5,1),4.8);
+ assert.equal(r(6.88+0.646+0.236,3),7.762);assert.equal(r(6.88/7.762,3),0.886);assert.equal(r(0.646/7.762,4),0.0832);assert.equal(r(0.236/7.762,4),0.0304);
+ assert.equal(r(7.38/8.262,3),0.893);assert.equal(r(0.646/8.262,4),0.0782);assert.equal(r(0.236/8.262,4),0.0286);
+ assert.equal(r(1/0.75,2),1.33);assert.equal(r(1/(1/298.15-8.314*Math.log((1/0.75)/0.148)/57200),0),330);
+ assert.equal(r(0.995*0.85,3),0.846);assert.equal(r(1/(1-0.995*0.85),1),6.5);assert.equal(r(0.15/(1-0.995*0.85),2),0.97);
+ assert.equal(r(0.98*0.85,3),0.833);assert.equal(r(1/(1-0.98*0.85),1),6);assert.equal(r(0.15/(1-0.98*0.85),2),0.9);
+ assert.equal(r(-92.2+723.15*0.1987,1),51.5);assert.equal(r(Math.exp(-51500/(8.314*723.15))*1e4,1),1.9);assert.equal(r(1.9e-4/4.51e-5,0),4);
+});
