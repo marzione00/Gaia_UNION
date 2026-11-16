@@ -4,9 +4,14 @@
 import { buildGenomes, STARS, starTypes } from './genome.js';
 import { terrainHeights, colorAt } from './terrain.js';
 import { seededRandom } from '../scene/systems.js';
+import { allSpecies, populate } from './species.js';
+import { placeList, locatePlaces } from './places.js';
 
 let cache = null;
 export const planetGenomes = () => cache ||= buildGenomes();
+let speciesCache = null;
+/** Species of every planet (names unique over the galaxy), in planet order. */
+export const planetSpecies = () => speciesCache ||= allSpecies(planetGenomes());
 export const systemStarLight = system => STARS[starTypes()[system]].light;
 export const EXTENT = 220, GRID = 161;
 const mix = (a, b, t) => a.map((x, i) => x + (b[i] - x) * t);
@@ -24,7 +29,8 @@ export function planetSurface(index, n = GRID) {
         Y[j * n + i] = ((t.h[j * n + i] - ref) * scale) * fade + edge * (1 - fade);
     }
     const seaY = t.sea >= 0 ? 0 : null;
-    const heightAt = (x, z) => { const fx = Math.max(0, Math.min(n - 1.001, (x + EXTENT / 2) / cell)), fz = Math.max(0, Math.min(n - 1.001, (z + EXTENT / 2) / cell)), i = Math.floor(fx), j = Math.floor(fz), a = fx - i, b = fz - j; return Y[j * n + i] * (1 - a) * (1 - b) + Y[j * n + i + 1] * a * (1 - b) + Y[(j + 1) * n + i] * (1 - a) * b + Y[(j + 1) * n + i + 1] * a * b; };
+    const sample = (A, x, z) => { const fx = Math.max(0, Math.min(n - 1.001, (x + EXTENT / 2) / cell)), fz = Math.max(0, Math.min(n - 1.001, (z + EXTENT / 2) / cell)), i = Math.floor(fx), j = Math.floor(fz), a = fx - i, b = fz - j; return A[j * n + i] * (1 - a) * (1 - b) + A[j * n + i + 1] * a * (1 - b) + A[(j + 1) * n + i] * (1 - a) * b + A[(j + 1) * n + i + 1] * a * b; };
+    const heightAt = (x, z) => sample(Y, x, z), lavaAt = t.lava ? (x, z) => sample(t.lava, x, z) : null;
     // Four stations on flattened pads, or on platforms where the ground is under water.
     // In a row across the lower left of the default view, below the panels and clear of the centre.
     const centre = [14, 28], across = [.825, -.565], stations = [];
@@ -49,29 +55,27 @@ export function planetSurface(index, n = GRID) {
     for (let z = -50; z <= 50; z += 2) for (let x = -50; x <= 50; x += 2) { const y = heightAt(x, z); cells.push({ x, z, groundY: y, wet: seaY !== null && y <= seaY + .05, veg: 0 }); }
     const sunAz = r() * Math.PI * 2, sunEl = .45 + r() * .45, light = norm([Math.cos(sunAz) * Math.cos(sunEl), Math.sin(sunEl), Math.sin(sunAz) * Math.cos(sunEl)]);
     const density = g.atmosphere.density, horizon = density > .04 ? g.atmosphere.sky : [.035, .035, .04], top = density > .04 ? mix([.004, .006, .012], g.atmosphere.sky.map(c => c * .45), Math.min(1, density * 1.4)) : [.002, .002, .004];
-    return {
-        key: 'planet-' + index, index, genome: g, n, cell, heights: Y, heightAt, seaY, stations, mesh: { v, i: idx, stride: 16 },
+    const out = {
+        key: 'planet-' + index, index, genome: g, n, cell, heights: Y, heightAt, lavaAt, seaY, stations, mesh: { v, i: idx, stride: 16 },
         grid: { radius: 2, cells }, water: g.palette.water, light: { direction: light, color: g.star.light },
         fog: { color: horizon, density: .0025 + .011 * density }, sky: { top, horizon, sun: g.star.light, stars: Math.max(0, 1 - density * 3) },
         // Moons sit right of the screen title, from the centre of the view to its right edge.
         moons: Array.from({ length: g.satellites.moons }, (_, k) => ({ azimuth: .1 + k * .14 + r() * .05, elevation: .06 + r() * .08, size: 4 + r() * 6 })),
-        vegetation: ['terrestrial', 'oceanic', 'volcanic'].includes(g.family) ? Math.min(1, density * 1.6) * (g.family === 'volcanic' ? .25 : 1) : 0
+        vegetation: ['terrestrial', 'oceanic', 'volcanic'].includes(g.family) ? Math.min(1, density * 1.6) * (g.family === 'volcanic' ? .25 : 1) : 0,
+        species: planetSpecies()[index]
     };
+    // Points of interest, placed on the final heights (after the station pads).
+    out.places = locatePlaces(out, placeList(g));
+    return out;
 }
-/** Instances of plants and rocks for the surface, deterministic. */
+/** Instances of the species (src/worlds/species.js) and of the rocks for the surface, deterministic. */
 export function surfaceScatter(s) {
-    const g = s.genome, r = seededRandom(g.terrain.seed ^ 0xF10), plants = [], rocks = [], near = (x, z) => s.stations.some(st => Math.hypot(st.position[0] - x, st.position[2] - z) < 6);
-    for (let k = 0; k < 2600 && plants.length < 900 * s.vegetation; k++) {
-        const x = (r() - .5) * 120, z = (r() - .5) * 120, y = s.heightAt(x, z);
-        if ((s.seaY !== null && y < s.seaY + .3) || near(x, z) || Math.abs(s.heightAt(x + 1, z) - y) > .9) continue;
-        const c = g.palette.pigment.map(v => Math.min(1, v * (1.1 + r() * .5)));
-        plants.push({ x, y: y - .05, z, s: .8 + r() * 1.1, r: c[0], g: c[1], b: c[2], h: r() * 6.283 });
-    }
+    const g = s.genome, r = seededRandom(g.terrain.seed ^ 0xF10), rocks = [], near = (x, z) => s.stations.some(st => Math.hypot(st.position[0] - x, st.position[2] - z) < 6);
     for (let k = 0; k < 900 && rocks.length < 260; k++) {
         const x = (r() - .5) * 130, z = (r() - .5) * 130, y = s.heightAt(x, z);
         if ((s.seaY !== null && y < s.seaY - .2) || near(x, z)) continue;
         const c = g.palette.rock.map(v => v * (.7 + r() * .4));
         rocks.push({ x, y: y - .25, z, s: .5 + r() * r() * 2.6, r: c[0], g: c[1], b: c[2], h: r() * 6.283 });
     }
-    return { plants, rocks };
+    return { rocks, species: populate(s, s.species) };
 }

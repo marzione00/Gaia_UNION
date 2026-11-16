@@ -14,11 +14,12 @@ uniform mat4 uVP,uModel,uLightVP,uReflectionVP;uniform highp int uMaterial,uInst
 vec3 turn(vec3 v,float a){float c=cos(a),s=sin(a);return vec3(c*v.x+s*v.z,v.y,-s*v.x+c*v.z);}
 void main(){vec3 vertex=aPos,normal=aNormal;vec4 color=aColor;if(uMaterial==10&&aPBR.w>1.5&&aPBR.w<2.5)vertex.xz*=8.;
  if(uInstanced>0){
-  // 1 static (optional sway), 2 rising particles, 3 animals walking on small circles.
+  // 1 static (optional sway), 2 rising particles, 3 animals walking on small circles, 4 flyers on wider circles with flapping wings.
   vec3 base=aInst.xyz;float s=aInst.w,a=aInstC.w;
   if(uInstanced==1&&uMotion.z>0.)vertex.x+=sin(uTime*1.3+a*3.)*uMotion.z*max(vertex.y,0.);
   if(uInstanced==2){float t=fract(uTime*uMotion.x+a*.1592);base.y+=t*uMotion.y;base.x+=sin(t*6.283+a)*uMotion.z;s*=(1.-t)*(.4+t*2.2);}
   if(uInstanced==3){float w=uTime*uMotion.x*(.7+.6*fract(a*7.13))+a;base.x+=cos(w)*uMotion.y;base.z+=sin(w)*uMotion.y;a=atan(-cos(w),-sin(w));base.y+=abs(sin(w*9.))*.06;}
+  if(uInstanced==4){float w=uTime*uMotion.x*(.7+.6*fract(a*7.13))+a;base.x+=cos(w)*uMotion.y;base.z+=sin(w)*uMotion.y;base.y+=sin(w*2.+a)*.8;vertex.y+=sin(uTime*7.+a*5.)*max(abs(vertex.z)-.12,0.)*.7;a=atan(-cos(w),-sin(w));}
   vertex=turn(vertex,a)*s+base;normal=turn(normal,a);
   // The instance colour replaces only the white parts of a mesh (petals, bodies, water), so centres, stems and legs keep their own colour.
   if(min(color.r,min(color.g,color.b))>.97)color.rgb*=aInstC.rgb;

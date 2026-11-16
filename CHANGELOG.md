@@ -1,3 +1,15 @@
+# 1.19.0: Specie, luoghi d’interesse ed esplorazione
+
+- Ogni pianeta ospita da 0 a 6 specie generate dalla sua carta d’identità: 310 in tutto, 180 piante e 130 animali, con generi unici in tutta la galassia. Forme: erba a ciuffi, felce a rosetta, albero a ombrello, pianta a colonna, pianta a cuscino, organismo a calice, crosta biologica, pascolatore, esapode, volatore, medusa galleggiante.
+- La carta decide forme, colori e proporzioni: famiglia, densità dell’atmosfera (si vola solo con un’atmosfera densa) e mare scelgono le forme; il tipo di stella colora le foglie; la gravità rende le forme più alte e slanciate o più basse e robuste. I 14 pianeti quasi senza atmosfera non hanno specie in superficie, e il diario spiega perché.
+- Ogni pianeta ha da 2 a 5 luoghi d’interesse: il punto più alto, la forma del paesaggio tipica del suo terreno, la costa e fino a due eventi rari (aurora, geyser, tempesta, campo di impatti, eclissi). 402 luoghi in tutto, ciascuno con una spiegazione.
+- Nuovo pulsante «Esplora il pianeta»: la camera si avvicina e passa da una specie o da un luogo all’altro; clic sul terreno o sui segnali per spostarsi, W A S D per muoversi. Ogni specie e ogni luogo si registra nel diario.
+- Nuova scheda «Esplorazione» nel diario: pianeti con registrazioni, specie e luoghi registrati sul totale, elenco per pianeta. Le registrazioni sono nel salvataggio locale e nell’esportazione JSON.
+- Aurora visibile nel cielo dei pianeti che la hanno nella carta; pennacchio di vapore sopra i geyser; volatori in volo con il battito delle ali.
+- L’evento «pioggia di meteore» delle carte diventa «pioggia di meteoriti»: compare solo con un’atmosfera quasi assente, dove i frammenti non bruciano e arrivano al suolo.
+- Collegamento diretto all’esplorazione: `#/surface?unit=…&mode=esplora`.
+- Nuovi test: specie coerenti con la carta e con nomi unici, luoghi distanti fra loro e dalle stazioni, individui nel proprio habitat, diario di esplorazione nel salvataggio, camera e clic in esplorazione.
+
 # 1.18.0: Superfici generate dalle carte d’identità
 
 - Ogni pianeta esplorabile atterra su una superficie propria, generata dalla sua carta d’identità: terreno con uno dei 18 stili (colline, atolli, fiordi, dune, canyon, crateri, criovulcani, caldere e altri), mare con il colore della carta, luce del colore della stella, cielo da azzurro a nero con le stelle quando l’atmosfera è sottile, lune sopra l’orizzonte a destra della veduta, lontano dal titolo, piante tinte con il pigmento della carta e rocce sparse.

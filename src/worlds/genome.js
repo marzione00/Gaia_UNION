@@ -75,7 +75,8 @@ function withEvents(g) {
     if (g.magnetosphere && g.atmosphere.density > .1) e.push('aurora');
     if (g.satellites.moons > 0) e.push('eclissi');
     if (g.atmosphere.density > .6) e.push('tempesta');
-    if (g.atmosphere.density < .1) e.push('pioggia di meteore');
+    // Without an atmosphere that slows them down, fragments from space reach the ground.
+    if (g.atmosphere.density < .1) e.push('pioggia di meteoriti');
     if (['arctic', 'volcanic'].includes(g.family)) e.push('eruzione di geyser');
     return { ...g, events: e };
 }

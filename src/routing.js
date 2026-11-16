@@ -39,5 +39,5 @@ export function resolveRoute(hash, modules, lessonIds) {
     }
     let system=systemForPlanet(selected);
     if(scene==='system' && q.has('system')){system=integer('system',system,0,24);if(systemForPlanet(selected)!==system)selected=indicesForSystem(system)[0];}
-    return { scene, selected, system, reader, section: integer('section', 0, 0, 100), pdfDoc, pdfPage, lab, courseStage };
+    return { scene, selected, system, reader, section: integer('section', 0, 0, 100), pdfDoc, pdfPage, lab, courseStage, explore: scene === 'surface' && q.get('mode') === 'esplora' };
 }
