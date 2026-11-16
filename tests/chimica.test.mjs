@@ -387,3 +387,44 @@ test('Chimica 17: velocità di reazione, numeri ricalcolati',()=>{
  // Collisions: oxygen concentration factor; efficient fraction.
  assert.equal(r(1/0.2095,1),4.8);assert.equal(r(1e-5/1e11,20),1e-16);
 });
+
+test('Chimica 18: temperatura e attivazione, numeri ricalcolati',()=>{
+ const R=8.314462618,f=(Ea,T1,T2)=>Math.exp(Ea/R*(1/T1-1/T2));
+ // Reverse barrier.
+ assert.equal(120-(-40),160);assert.equal(90+40,130);
+ // Fraction of energetic collisions, Ea = 50 kJ/mol, and collision frequency.
+ assert.equal(r(50000/(R*298.15),2),20.17);assert.equal(r(50000/(R*308.15),2),19.52);
+ assert.equal(r(Math.exp(-50000/(R*298.15))*1e9,2),1.74);assert.equal(r(Math.exp(-50000/(R*308.15))*1e9,2),3.35);
+ assert.equal(r(f(50000,298.15,308.15),2),1.92);assert.equal(r(100*(Math.sqrt(308.15/298.15)-1),1),1.7);
+ assert.equal(r(R*300/1000,2),2.49);assert.equal(r(Math.exp(20-20/1.03),1),1.8);
+ assert.equal(r(1.380649e-23*298/6.62607015e-34/1e12,0),6);
+ assert.equal(r(Math.exp(-15000/(R*600))/Math.exp(-15000/(R*300)),0),20);
+ // High barrier at 300 K and 1000 K.
+ assert.equal(r(Math.exp(-1e5/(R*300))*1e18,1),3.9);assert.equal(r(Math.exp(-1e5/(R*1000))*1e6,1),6);
+ // Arrhenius plot of the figure (Ea 60 kJ/mol, A 1e10 1/s).
+ const lk=T=>Math.log(1e10)-60000/(R*T);assert.equal(r(lk(310),3),-0.253);assert.equal(r(lk(340),3),1.801);
+ assert.equal(r((1/340-1/310)*1e4,3),-2.846);assert.equal(r((lk(340)-lk(310))/(1/340-1/310),-1),-7220);assert.equal(r(7220*8.314/1000,1),60);
+ // Two temperatures: decomposing reagent, milk, doubling.
+ assert.equal(r(Math.log(f(90000,298.15,308.15)),3),1.178);assert.equal(r(f(90000,298.15,308.15),2),3.25);assert.equal(r(120/f(90000,298.15,308.15),0),37);
+ assert.equal(r(R*Math.log(7)/(1/277.15-1/295.15)/1000,1),73.5);assert.equal(r(100*(1-Math.pow(7,-1/18)),0),10);
+ assert.equal(r(R*Math.LN2/(1/298.15-1/308.15)/1000,1),52.9);assert.equal(r(R*Math.LN2/(1/373.15-1/383.15)/1000,1),82.4);
+ assert.deepEqual([20,50,100,150].map(E=>r(f(E*1000,298.15,308.15),2)),[1.3,1.92,3.7,7.13]);
+ // Catalysts: 20 kJ/mol lower barrier, same gain by heating, H2O2 catalysts.
+ assert.equal(r(20000/(R*298.15),2),8.07);assert.equal(r(Math.exp(20000/(R*298.15)),-2),3200);
+ assert.equal(r(1/(1/298.15-Math.log(Math.exp(20000/(R*298.15)))*R/75000)-273.15,-1),130);
+ assert.equal(r(Math.exp(19000/(R*298.15)),-3),2000);
+ assert.equal(r(26000/(R*298.15),2),10.49);assert.equal(r(Math.exp(26000/(R*298.15))/1e4,1),3.6);
+ assert.equal(r(52000/(R*298.15),2),20.98);assert.equal(r(Math.exp(52000/(R*298.15))/1e9,1),1.3);
+ assert.equal(r(2*(-285.83)-2*(-191.17),0),-189);
+ // Exercises.
+ assert.equal(2**3,8);assert.equal(r(40000/(R*300),2),16.04);assert.equal(r(Math.exp(-40000/(R*300))*1e7,1),1.1);
+ assert.equal(r(Math.exp(-40000/(R*600))*1e4,1),3.3);assert.equal(r(Math.exp(40000/(R*600)),-3),3000);
+ assert.equal(r(8.314*Math.log(4),2),11.53);assert.equal(r((1/300-1/320)*1e4,3),2.083);assert.equal(r(8.314*Math.log(4)/(1/300-1/320)/1000,1),55.3);
+ assert.equal(r(Math.log(f(80000,298.15,318.15)),3),2.029);assert.equal(r(f(80000,298.15,318.15),1),7.6);
+ assert.equal(r(85000/8.314*(1/298.15-1/313.15),3),1.643);assert.equal(r(f(85000,298.15,313.15),1),5.2);assert.equal(r(6*f(85000,298.15,313.15),0),31);
+ assert.equal(60-(-30),90);
+ assert.equal(r(Math.log(f(50000,310.15,313.15)),3),0.186);assert.equal(r(f(50000,310.15,313.15),2),1.2);
+ assert.equal(r(Math.exp(23)/1e9,1),9.7);assert.equal(r(23-7220/298.15,2),-1.22);assert.equal(r(Math.exp(23-7220/298.15),2),0.3);
+ assert.equal(r(Math.log(f(-10000,298.15,308.15)),3),-0.131);assert.equal(r(f(-10000,298.15,308.15),2),0.88);
+ assert.deepEqual([0.1,1,4,9].map(s=>r(s/(1+s),3)),[0.091,0.5,0.8,0.9]);
+});
