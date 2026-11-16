@@ -101,7 +101,7 @@ export class ActivityUI{
   f.canvas(clamp(f.rect.h*.32,110,220),(x,y,w,h)=>this.fitPlot(x,y,w,h,r,p,m));
   for(const key of r.fit){const c=m.controls.find(c=>c.key===key),unit=c.unit==='1'?'':' '+c.unit,set=d=>{this.fits[r.id]=fitStep(r,p,key,d);this.message='';this.revealed=false;};
    f.row(`${c.label}: ${num(p[key])}${unit}`,[{id:`act-fit-${key}-minus`,label:'−',disabled:p[key]<=c.min,action:()=>set(-1),aria:c.label+': diminuisci'},{id:`act-fit-${key}-plus`,label:'+',disabled:p[key]>=c.max,action:()=>set(1),aria:c.label+': aumenta'}]);}
-  const fixed=m.controls.filter(c=>!r.fit.includes(c.key));if(fixed.length)f.text('Fissati: '+fixed.map(c=>`${c.label} ${num(p[c.key])}${c.unit==='1'?'':' '+c.unit}`).join('; ')+'.','micro',C.muted);
+  const fixed=m.controls.filter(c=>!r.fit.includes(c.key));if(fixed.length){const t='Fissati: '+fixed.map(c=>`${c.label} ${num(p[c.key])}${c.unit==='1'?'':' '+c.unit}`).join('; ');f.text(t.endsWith('.')?t:t+'.','micro',C.muted);}
   f.text(`Scarto quadratico medio: ${formatNumber(fitError(r,p),3)} ${m.yUnit==='1'?'':m.yUnit}`,'mini',C.pale);
   f.buttons([{id:'act-check',label:'VERIFICA',action:()=>{const t=this.fitTries[r.id]||0,res=checkFit(r,p,t);this.fitTries[r.id]=t+1;this.message=res.message;this.revealed=res.ok;if(res.ok)this.solved(state,r.id);}}],100);
   if(this.message)f.text(this.message,'mini',this.revealed?C.lime:C.amber);

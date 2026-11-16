@@ -5,14 +5,15 @@
   "title": "Omeostasi e retroazioni",
   "sector": 3,
   "modelId": "biology-24",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Feedback lineare senza ritardi",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Ambiente interno e omeostasi, circuiti di controllo, retroazione negativa e positiva, glicemia e temperatura, modello di decadimento",
+  "narrativeStatus": "Le serie di misure sono simulate con il modello esponenziale e piccoli scarti, in unità arbitrarie.",
   "objectives": [
-    "Spiegare: feedback lineare senza ritardi.",
-    "Applicare Δy(t) = Δy₀ exp(-kt), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Descrivere un circuito omeostatico.",
+    "Distinguere retroazione negativa e positiva con esempi.",
+    "Spiegare la regolazione della glicemia e della temperatura.",
+    "Stimare il guadagno di una retroazione da dati."
   ],
   "prerequisites": [
     "biology-23"
@@ -26,250 +27,424 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Tempo",
-      "definition": "Variabile indipendente, unità u.t.; intervallo [0; 20]."
+      "term": "Omeostasi",
+      "definition": "Mantenimento delle grandezze interne entro intervalli stretti."
     },
     {
-      "term": "Deviazione dal riferimento",
-      "definition": "Risultato calcolato dal modello, unità u.a.."
+      "term": "Retroazione negativa",
+      "definition": "Risposta che si oppone alla deviazione."
     },
     {
-      "term": "Perturbazione iniziale",
-      "definition": "Parametro a, unità u.a.; intervallo [-10; 10]."
+      "term": "Retroazione positiva",
+      "definition": "Risposta che amplifica la deviazione fino a un evento conclusivo."
     },
     {
-      "term": "Guadagno efficace k",
-      "definition": "Parametro b, unità 1/u.t.; intervallo [0,1; 1]."
+      "term": "Effettore",
+      "definition": "Organo o cellula che produce la correzione."
+    },
+    {
+      "term": "Guadagno efficace",
+      "definition": "Costante k che misura la rapidità della correzione."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Dopo un piatto di pasta",
       "text": {
         "base": [
-          "Dopo una perturbazione, una variabile torna verso un riferimento. La stazione vuole spiegare il processo senza attribuire intenzioni al sistema o confondere ogni feedback negativo con stabilità garantita.",
-          "Una retroazione negativa tende a contrastare una deviazione. In un modello lineare semplice, la velocità di recupero è proporzionale alla deviazione con segno opposto."
+          "Dopo un piatto di pasta il glucosio nel sangue sale; in una persona sana, entro un paio d’ore, è tornato vicino al valore di partenza. Dopo una corsa la temperatura del corpo sale di poco e poi ridiscende. Il corpo tiene stabili molte grandezze, anche quando l’ambiente e le attività cambiano: è l’omeostasi.",
+          "Nell’Ottocento Claude Bernard osservò che gli animali mantengono costante il loro «ambiente interno», e nel 1926 Walter Cannon chiamò omeostasi questa capacità. Ogni sistema omeostatico ha un sensore che misura la grandezza, un centro di controllo che la confronta con un valore di riferimento e un effettore che la corregge."
         ],
         "intermediate": [
-          "Dopo una perturbazione, una variabile torna verso un riferimento. La stazione vuole spiegare il processo senza attribuire intenzioni al sistema o confondere ogni feedback negativo con stabilità garantita.",
-          "La legge dΔy/dt=-kΔy produce Δy(t)=Δy₀exp(-kt) per k>0. Il segno iniziale può essere positivo o negativo; il modulo tende a zero."
+          "Dopo un piatto di pasta il glucosio nel sangue sale; in una persona sana, entro un paio d’ore, è tornato vicino al valore di partenza. Dopo una corsa la temperatura del corpo sale di poco e poi ridiscende. Il corpo tiene stabili molte grandezze, anche quando l’ambiente e le attività cambiano: è l’omeostasi.",
+          "Nell’Ottocento Claude Bernard osservò che gli animali mantengono costante il loro «ambiente interno», e nel 1926 Walter Cannon chiamò omeostasi questa capacità. Ogni sistema omeostatico ha un sensore che misura la grandezza, un centro di controllo che la confronta con un valore di riferimento e un effettore che la corregge."
         ],
         "advanced": [
-          "Dopo una perturbazione, una variabile torna verso un riferimento. La stazione vuole spiegare il processo senza attribuire intenzioni al sistema o confondere ogni feedback negativo con stabilità garantita.",
-          "Confronta due guadagni k e misura il tempo per ridurre la deviazione a una frazione scelta. Spiega quali nuovi effetti introdurrebbe un ritardo nella risposta.",
-          "Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico."
+          "Dopo un piatto di pasta il glucosio nel sangue sale; in una persona sana, entro un paio d’ore, è tornato vicino al valore di partenza. Dopo una corsa la temperatura del corpo sale di poco e poi ridiscende. Il corpo tiene stabili molte grandezze, anche quando l’ambiente e le attività cambiano: è l’omeostasi.",
+          "Nell’Ottocento Claude Bernard osservò che gli animali mantengono costante il loro «ambiente interno», e nel 1926 Walter Cannon chiamò omeostasi questa capacità. Ogni sistema omeostatico ha un sensore che misura la grandezza, un centro di controllo che la confronta con un valore di riferimento e un effettore che la corregge."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Retroazioni",
       "text": {
         "base": [
-          "Una retroazione negativa tende a contrastare una deviazione. In un modello lineare semplice, la velocità di recupero è proporzionale alla deviazione con segno opposto.",
-          "Con Δy₀=5 e k=0,3, il sistema parte da una deviazione di 5 unità convenzionali. Il tempo caratteristico è 1/0,3≈3,333 unità di tempo."
+          "Nella retroazione negativa la risposta si oppone alla deviazione. Se la temperatura corporea sale, si suda e i vasi della pelle si dilatano; se scende, si trema e i vasi si restringono. Se il glucosio sale, il pancreas libera insulina, che lo fa entrare nelle cellule; se scende, libera glucagone, che lo fa uscire dal fegato. A digiuno la glicemia di una persona sana resta tra circa 70 e 100 mg/dL.",
+          "Nella retroazione positiva la risposta amplifica la deviazione, finché un evento la interrompe. Durante il parto l’ossitocina rafforza le contrazioni, che a loro volta fanno liberare più ossitocina, fino alla nascita. Nella coagulazione ogni fattore attivato ne attiva altri, fino a chiudere la ferita. Sono processi utili perché hanno una fine.",
+          "Un modello semplice della retroazione negativa: la deviazione Δy dal riferimento si riduce in proporzione a se stessa, dΔy/dt = −kΔy, quindi Δy(t) = Δy₀ e^(−kt). Il guadagno efficace k misura la forza della correzione: la deviazione si dimezza ogni ln 2/k. Con k = 0,3 per unità di tempo, una deviazione di 5 scende a 2,5 dopo circa 2,3 unità di tempo."
         ],
         "intermediate": [
-          "La legge dΔy/dt=-kΔy produce Δy(t)=Δy₀exp(-kt) per k>0. Il segno iniziale può essere positivo o negativo; il modulo tende a zero.",
-          "La variabile Tempo è espressa in u.t.; Deviazione dal riferimento in u.a.. Il dominio dello strumento è [0; 20]. La relazione implementata è: Δy(t) = Δy₀ exp(-kt).",
-          "Con Δy₀=5 e k=0,3, il sistema parte da una deviazione di 5 unità convenzionali. Il tempo caratteristico è 1/0,3≈3,333 unità di tempo."
+          "Nella retroazione negativa la risposta si oppone alla deviazione. Se la temperatura corporea sale, si suda e i vasi della pelle si dilatano; se scende, si trema e i vasi si restringono. Se il glucosio sale, il pancreas libera insulina, che lo fa entrare nelle cellule; se scende, libera glucagone, che lo fa uscire dal fegato. A digiuno la glicemia di una persona sana resta tra circa 70 e 100 mg/dL.",
+          "Nella retroazione positiva la risposta amplifica la deviazione, finché un evento la interrompe. Durante il parto l’ossitocina rafforza le contrazioni, che a loro volta fanno liberare più ossitocina, fino alla nascita. Nella coagulazione ogni fattore attivato ne attiva altri, fino a chiudere la ferita. Sono processi utili perché hanno una fine.",
+          "Un modello semplice della retroazione negativa: la deviazione Δy dal riferimento si riduce in proporzione a se stessa, dΔy/dt = −kΔy, quindi Δy(t) = Δy₀ e^(−kt). Il guadagno efficace k misura la forza della correzione: la deviazione si dimezza ogni ln 2/k. Con k = 0,3 per unità di tempo, una deviazione di 5 scende a 2,5 dopo circa 2,3 unità di tempo.",
+          "Quando la retroazione non funziona, la grandezza si allontana dal riferimento. Nel diabete di tipo 1 il pancreas non produce insulina; nel tipo 2 le cellule rispondono poco all’insulina. In entrambi i casi il glucosio resta alto a lungo dopo i pasti, e la curva di ritorno al riferimento diventa lenta."
         ],
         "advanced": [
-          "La legge dΔy/dt=-kΔy produce Δy(t)=Δy₀exp(-kt) per k>0. Il segno iniziale può essere positivo o negativo; il modulo tende a zero.",
-          "Confronta due guadagni k e misura il tempo per ridurre la deviazione a una frazione scelta. Spiega quali nuovi effetti introdurrebbe un ritardo nella risposta.",
-          "Negativo e positivo descrivono il segno del feedback, non un giudizio di valore. Ritardi, saturazioni e accoppiamenti possono rendere instabile un sistema con componenti di feedback negativo."
+          "Nella retroazione negativa la risposta si oppone alla deviazione. Se la temperatura corporea sale, si suda e i vasi della pelle si dilatano; se scende, si trema e i vasi si restringono. Se il glucosio sale, il pancreas libera insulina, che lo fa entrare nelle cellule; se scende, libera glucagone, che lo fa uscire dal fegato. A digiuno la glicemia di una persona sana resta tra circa 70 e 100 mg/dL.",
+          "Nella retroazione positiva la risposta amplifica la deviazione, finché un evento la interrompe. Durante il parto l’ossitocina rafforza le contrazioni, che a loro volta fanno liberare più ossitocina, fino alla nascita. Nella coagulazione ogni fattore attivato ne attiva altri, fino a chiudere la ferita. Sono processi utili perché hanno una fine.",
+          "Un modello semplice della retroazione negativa: la deviazione Δy dal riferimento si riduce in proporzione a se stessa, dΔy/dt = −kΔy, quindi Δy(t) = Δy₀ e^(−kt). Il guadagno efficace k misura la forza della correzione: la deviazione si dimezza ogni ln 2/k. Con k = 0,3 per unità di tempo, una deviazione di 5 scende a 2,5 dopo circa 2,3 unità di tempo.",
+          "Quando la retroazione non funziona, la grandezza si allontana dal riferimento. Nel diabete di tipo 1 il pancreas non produce insulina; nel tipo 2 le cellule rispondono poco all’insulina. In entrambi i casi il glucosio resta alto a lungo dopo i pasti, e la curva di ritorno al riferimento diventa lenta."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Adatta il modello alle misure",
       "text": {
         "base": [
-          "Nel laboratorio imposta Perturbazione iniziale (a): 5 u.a.; Guadagno efficace k (b): 0,3 1/u.t.. Prima di salvare A, prevedi come cambia Deviazione dal riferimento fra Tempo=5 e 10 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con Δy₀=5 e k=0,3, il sistema parte da una deviazione di 5 unità convenzionali. Il tempo caratteristico è 1/0,3≈3,333 unità di tempo.",
-          "La variabile Tempo è espressa in u.t.; Deviazione dal riferimento in u.a.. Il dominio dello strumento è [0; 20]. La relazione implementata è: Δy(t) = Δy₀ exp(-kt)."
+          "L’attività presenta tre serie di misure della deviazione di una grandezza dopo una perturbazione. Il modello è Δy(t) = Δy₀ e^(−kt): nella prima serie regoli il guadagno k, nella seconda la perturbazione iniziale Δy₀, che può essere negativa, nella terza entrambi. Per completare l’attività adatta il modello a due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
+          "Suggerimento: Δy₀ è il valore al tempo zero. Per k cerca il tempo in cui la deviazione si è dimezzata e usa k = ln 2/t½ ≈ 0,69/t½."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Perturbazione iniziale (a): 5 u.a.; Guadagno efficace k (b): 0,3 1/u.t.. Prima di salvare A, prevedi come cambia Deviazione dal riferimento fra Tempo=5 e 10 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Tempo è espressa in u.t.; Deviazione dal riferimento in u.a.. Il dominio dello strumento è [0; 20]. La relazione implementata è: Δy(t) = Δy₀ exp(-kt).",
-          "La legge dΔy/dt=-kΔy produce Δy(t)=Δy₀exp(-kt) per k>0. Il segno iniziale può essere positivo o negativo; il modulo tende a zero."
+          "L’attività presenta tre serie di misure della deviazione di una grandezza dopo una perturbazione. Il modello è Δy(t) = Δy₀ e^(−kt): nella prima serie regoli il guadagno k, nella seconda la perturbazione iniziale Δy₀, che può essere negativa, nella terza entrambi. Per completare l’attività adatta il modello a due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
+          "Suggerimento: Δy₀ è il valore al tempo zero. Per k cerca il tempo in cui la deviazione si è dimezzata e usa k = ln 2/t½ ≈ 0,69/t½."
         ],
         "advanced": [
-          "Nel laboratorio imposta Perturbazione iniziale (a): 5 u.a.; Guadagno efficace k (b): 0,3 1/u.t.. Prima di salvare A, prevedi come cambia Deviazione dal riferimento fra Tempo=5 e 10 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta due guadagni k e misura il tempo per ridurre la deviazione a una frazione scelta. Spiega quali nuovi effetti introdurrebbe un ritardo nella risposta.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività presenta tre serie di misure della deviazione di una grandezza dopo una perturbazione. Il modello è Δy(t) = Δy₀ e^(−kt): nella prima serie regoli il guadagno k, nella seconda la perturbazione iniziale Δy₀, che può essere negativa, nella terza entrambi. Per completare l’attività adatta il modello a due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
+          "Suggerimento: Δy₀ è il valore al tempo zero. Per k cerca il tempo in cui la deviazione si è dimezzata e usa k = ln 2/t½ ≈ 0,69/t½."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Leggere il grafico ed evitare errori",
       "text": {
         "base": [
-          "Negativo e positivo descrivono il segno del feedback, non un giudizio di valore. Ritardi, saturazioni e accoppiamenti possono rendere instabile un sistema con componenti di feedback negativo.",
-          "Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Che cosa mostra il grafico. Una curva che si avvicina a zero, da sopra se la perturbazione è positiva, da sotto se è negativa. Più grande è k, più ripida è la discesa. La curva non attraversa lo zero: in questo modello la correzione non supera mai il riferimento.",
+          "Errore frequente: pensare che «negativa» significhi dannosa. La retroazione negativa è il meccanismo che tiene stabile il corpo; «negativa» indica solo che la risposta ha segno opposto alla deviazione.",
+          "Secondo errore: credere che l’omeostasi tenga le grandezze perfettamente costanti. Le tiene entro un intervallo, con piccole oscillazioni attorno al riferimento."
         ],
         "intermediate": [
-          "Negativo e positivo descrivono il segno del feedback, non un giudizio di valore. Ritardi, saturazioni e accoppiamenti possono rendere instabile un sistema con componenti di feedback negativo.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Che cosa mostra il grafico. Una curva che si avvicina a zero, da sopra se la perturbazione è positiva, da sotto se è negativa. Più grande è k, più ripida è la discesa. La curva non attraversa lo zero: in questo modello la correzione non supera mai il riferimento.",
+          "Errore frequente: pensare che «negativa» significhi dannosa. La retroazione negativa è il meccanismo che tiene stabile il corpo; «negativa» indica solo che la risposta ha segno opposto alla deviazione.",
+          "Secondo errore: credere che l’omeostasi tenga le grandezze perfettamente costanti. Le tiene entro un intervallo, con piccole oscillazioni attorno al riferimento."
         ],
         "advanced": [
-          "Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico.",
-          "Confronta due guadagni k e misura il tempo per ridurre la deviazione a una frazione scelta. Spiega quali nuovi effetti introdurrebbe un ritardo nella risposta.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Che cosa mostra il grafico. Una curva che si avvicina a zero, da sopra se la perturbazione è positiva, da sotto se è negativa. Più grande è k, più ripida è la discesa. La curva non attraversa lo zero: in questo modello la correzione non supera mai il riferimento.",
+          "Errore frequente: pensare che «negativa» significhi dannosa. La retroazione negativa è il meccanismo che tiene stabile il corpo; «negativa» indica solo che la risposta ha segno opposto alla deviazione.",
+          "Secondo errore: credere che l’omeostasi tenga le grandezze perfettamente costanti. Le tiene entro un intervallo, con piccole oscillazioni attorno al riferimento."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Una retroazione negativa tende a contrastare una deviazione. In un modello lineare semplice, la velocità di recupero è proporzionale alla deviazione con segno opposto.",
-          "Con Δy₀=5 e k=0,3, il sistema parte da una deviazione di 5 unità convenzionali. Il tempo caratteristico è 1/0,3≈3,333 unità di tempo."
+          "Ripasso: ambiente interno e omeostasi; sensore, centro di controllo ed effettore; retroazione negativa nella termoregolazione e nella glicemia; retroazione positiva nel parto e nella coagulazione; modello Δy₀ e^(−kt).",
+          "Mini esercizio: con Δy₀ = 6 e k = 0,4, dopo ln 2/0,4 ≈ 1,7 unità di tempo la deviazione è 3.",
+          "Nelle domande sulle retroazioni chiediti se la risposta riduce o amplifica la deviazione."
         ],
         "intermediate": [
-          "La legge dΔy/dt=-kΔy produce Δy(t)=Δy₀exp(-kt) per k>0. Il segno iniziale può essere positivo o negativo; il modulo tende a zero.",
-          "La variabile Tempo è espressa in u.t.; Deviazione dal riferimento in u.a.. Il dominio dello strumento è [0; 20]. La relazione implementata è: Δy(t) = Δy₀ exp(-kt)."
+          "Ripasso: ambiente interno e omeostasi; sensore, centro di controllo ed effettore; retroazione negativa nella termoregolazione e nella glicemia; retroazione positiva nel parto e nella coagulazione; modello Δy₀ e^(−kt).",
+          "Mini esercizio: con Δy₀ = 6 e k = 0,4, dopo ln 2/0,4 ≈ 1,7 unità di tempo la deviazione è 3.",
+          "Nelle domande sulle retroazioni chiediti se la risposta riduce o amplifica la deviazione."
         ],
         "advanced": [
-          "Confronta due guadagni k e misura il tempo per ridurre la deviazione a una frazione scelta. Spiega quali nuovi effetti introdurrebbe un ritardo nella risposta.",
-          "Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico."
+          "Ripasso: ambiente interno e omeostasi; sensore, centro di controllo ed effettore; retroazione negativa nella termoregolazione e nella glicemia; retroazione positiva nel parto e nella coagulazione; modello Δy₀ e^(−kt).",
+          "Mini esercizio: con Δy₀ = 6 e k = 0,4, dopo ln 2/0,4 ≈ 1,7 unità di tempo la deviazione è 3.",
+          "Nelle domande sulle retroazioni chiediti se la risposta riduce o amplifica la deviazione."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Feedback lineare senza ritardi.",
-          "Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico.",
-          "Collegamento consigliato: biology-25. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le retroazioni non riguardano solo i corpi: l’unità «Biosfera, albedo e sistemi accoppiati» mostra come i viventi possano regolare la temperatura di un pianeta.",
+          "Riepilogo dell’unità: l’omeostasi mantiene le grandezze interne entro intervalli stretti; un sensore, un centro di controllo e un effettore formano il circuito; la retroazione negativa corregge le deviazioni, quella positiva le amplifica fino a un evento conclusivo; nel modello semplice la deviazione decade come e^(−kt).",
+          "Nel diario annota k e Δy₀ trovati e spiega che cosa cambierebbe nella curva in una persona con diabete."
         ],
         "intermediate": [
-          "La legge dΔy/dt=-kΔy produce Δy(t)=Δy₀exp(-kt) per k>0. Il segno iniziale può essere positivo o negativo; il modulo tende a zero.",
-          "Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico.",
-          "Confronta due guadagni k e misura il tempo per ridurre la deviazione a una frazione scelta. Spiega quali nuovi effetti introdurrebbe un ritardo nella risposta."
+          "Le retroazioni non riguardano solo i corpi: l’unità «Biosfera, albedo e sistemi accoppiati» mostra come i viventi possano regolare la temperatura di un pianeta.",
+          "Riepilogo dell’unità: l’omeostasi mantiene le grandezze interne entro intervalli stretti; un sensore, un centro di controllo e un effettore formano il circuito; la retroazione negativa corregge le deviazioni, quella positiva le amplifica fino a un evento conclusivo; nel modello semplice la deviazione decade come e^(−kt).",
+          "Nel diario annota k e Δy₀ trovati e spiega che cosa cambierebbe nella curva in una persona con diabete."
         ],
         "advanced": [
-          "Confronta due guadagni k e misura il tempo per ridurre la deviazione a una frazione scelta. Spiega quali nuovi effetti introdurrebbe un ritardo nella risposta.",
-          "Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le retroazioni non riguardano solo i corpi: l’unità «Biosfera, albedo e sistemi accoppiati» mostra come i viventi possano regolare la temperatura di un pianeta.",
+          "Riepilogo dell’unità: l’omeostasi mantiene le grandezze interne entro intervalli stretti; un sensore, un centro di controllo e un effettore formano il circuito; la retroazione negativa corregge le deviazioni, quella positiva le amplifica fino a un evento conclusivo; nel modello semplice la deviazione decade come e^(−kt).",
+          "Nel diario annota k e Δy₀ trovati e spiega che cosa cambierebbe nella curva in una persona con diabete."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-24-concept",
-      "prompt": "Nel modello lineare con k>0, il modulo della deviazione:",
+      "id": "biology-24-q1",
+      "prompt": "Che cosa fa una retroazione negativa?",
       "options": [
         {
           "id": "A",
-          "text": "Resta sempre costante",
-          "feedback": "La legge dΔy/dt=-kΔy produce Δy(t)=Δy₀exp(-kt) per k>0. Il segno iniziale può essere positivo o negativo; il modulo tende a zero."
+          "text": "Si oppone alla deviazione dal riferimento",
+          "feedback": "Esatto: riporta la grandezza verso il valore di partenza."
         },
         {
           "id": "B",
-          "text": "Decade verso zero",
-          "feedback": "Una retroazione negativa tende a contrastare una deviazione. In un modello lineare semplice, la velocità di recupero è proporzionale alla deviazione con segno opposto."
+          "text": "Amplifica la deviazione",
+          "feedback": "Amplificare la deviazione è proprio della retroazione positiva."
         },
         {
           "id": "C",
-          "text": "Cresce sempre",
-          "feedback": "Negativo e positivo descrivono il segno del feedback, non un giudizio di valore. Ritardi, saturazioni e accoppiamenti possono rendere instabile un sistema con componenti di feedback negativo."
+          "text": "Danneggia l’organismo",
+          "feedback": "«Negativa» indica il segno della risposta, non un danno."
+        },
+        {
+          "id": "D",
+          "text": "Ferma tutte le funzioni",
+          "feedback": "La retroazione negativa regola, non ferma."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-24-q2",
+      "prompt": "Quale processo è un esempio di retroazione positiva?",
+      "options": [
+        {
+          "id": "A",
+          "text": "La sudorazione quando fa caldo",
+          "feedback": "La sudorazione riduce la temperatura: è negativa."
+        },
+        {
+          "id": "B",
+          "text": "Il rilascio di ossitocina durante il parto",
+          "feedback": "Esatto: rafforza le contrazioni fino alla nascita."
+        },
+        {
+          "id": "C",
+          "text": "Il rilascio di insulina dopo un pasto",
+          "feedback": "L’insulina riduce la glicemia: è negativa."
+        },
+        {
+          "id": "D",
+          "text": "Il brivido quando fa freddo",
+          "feedback": "Il brivido produce calore e riduce la deviazione."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "biology-24-calculation",
-      "prompt": "Calcolo: Perturbazione iniziale (a)=5 u.a.; Guadagno efficace k (b)=0,3 1/u.t.. Per Tempo=0 u.t., quanto vale Deviazione dal riferimento?",
+      "id": "biology-24-q3",
+      "prompt": "Che effetto ha l’insulina sul glucosio nel sangue?",
       "options": [
         {
           "id": "A",
-          "text": "5 u.a.",
-          "feedback": "Δy(t) = Δy₀ exp(-kt). Con Perturbazione iniziale (a)=5 u.a.; Guadagno efficace k (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 5 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Lo aumenta",
+          "feedback": "Ad aumentare la glicemia è il glucagone."
         },
         {
           "id": "B",
-          "text": "7,5 u.a.",
-          "feedback": "Questo valore non soddisfa la relazione. Δy(t) = Δy₀ exp(-kt). Con Perturbazione iniziale (a)=5 u.a.; Guadagno efficace k (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 5 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Non ha effetto",
+          "feedback": "L’insulina è il principale ormone che abbassa la glicemia."
         },
         {
           "id": "C",
-          "text": "2,5 u.a.",
-          "feedback": "Controlla sostituzione, segno e unità. Δy(t) = Δy₀ exp(-kt). Con Perturbazione iniziale (a)=5 u.a.; Guadagno efficace k (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 5 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Lo riduce facendolo entrare nelle cellule",
+          "feedback": "Esatto: è la risposta alla glicemia alta."
+        },
+        {
+          "id": "D",
+          "text": "Lo trasforma in proteine",
+          "feedback": "Il glucosio viene usato o conservato come glicogeno e grassi."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 5,
-          "b": 0.3
-        },
-        "expected": 5,
-        "unit": "u.a."
-      }
+      "correct": "C"
     },
     {
-      "id": "biology-24-transfer",
-      "prompt": "Trasferimento: Perturbazione iniziale (a)=6 u.a.; Guadagno efficace k (b)=0,3 1/u.t.. Per Tempo=0 u.t., quanto vale Deviazione dal riferimento?",
+      "id": "biology-24-q4",
+      "prompt": "Quali sono le tre componenti di un circuito omeostatico?",
       "options": [
         {
           "id": "A",
-          "text": "9 u.a.",
-          "feedback": "Questo valore non soddisfa la relazione. Δy(t) = Δy₀ exp(-kt). Con Perturbazione iniziale (a)=6 u.a.; Guadagno efficace k (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 6 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Cuore, polmoni e reni",
+          "feedback": "Sono organi, non le componenti di un circuito di controllo."
         },
         {
           "id": "B",
-          "text": "3 u.a.",
-          "feedback": "Controlla sostituzione, segno e unità. Δy(t) = Δy₀ exp(-kt). Con Perturbazione iniziale (a)=6 u.a.; Guadagno efficace k (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 6 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Insulina, glucagone e glucosio",
+          "feedback": "Sono gli attori di un circuito particolare."
         },
         {
           "id": "C",
-          "text": "6 u.a.",
-          "feedback": "Δy(t) = Δy₀ exp(-kt). Con Perturbazione iniziale (a)=6 u.a.; Guadagno efficace k (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 6 u.a.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Ossigeno, acqua e sali",
+          "feedback": "Sono sostanze, non parti di un circuito."
+        },
+        {
+          "id": "D",
+          "text": "Sensore, centro di controllo ed effettore",
+          "feedback": "Esatto: misurare, confrontare, correggere."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 6,
-          "b": 0.3
-        },
-        "expected": 6,
-        "unit": "u.a."
-      }
+      "correct": "D"
     },
     {
-      "id": "biology-24-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "biology-24-q5",
+      "prompt": "Nel modello Δy₀ e^(−kt), che cosa succede se k raddoppia?",
       "options": [
         {
           "id": "A",
-          "text": "Feedback lineare senza ritardi",
-          "feedback": "Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico."
+          "text": "La deviazione si dimezza in metà tempo",
+          "feedback": "Esatto: il tempo di dimezzamento è ln 2/k."
         },
         {
           "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico."
+          "text": "La deviazione iniziale raddoppia",
+          "feedback": "k non cambia la deviazione iniziale."
         },
         {
           "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Modello lineare senza ritardi o saturazione. Non descrive una variabile clinica o il controllo fisiologico di un organismo specifico."
+          "text": "La curva supera lo zero",
+          "feedback": "In questo modello la curva si avvicina a zero senza superarlo."
+        },
+        {
+          "id": "D",
+          "text": "Non cambia nulla",
+          "feedback": "k decide la rapidità della correzione."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "biology-24-q6",
+      "prompt": "Con Δy₀ = 6 e k = 0,4, dopo quanto tempo la deviazione vale 3?",
+      "options": [
+        {
+          "id": "A",
+          "text": "15 unità di tempo",
+          "feedback": "Hai diviso 6 per 0,4: il dimezzamento richiede ln 2/k."
+        },
+        {
+          "id": "B",
+          "text": "Circa 1,7 unità di tempo",
+          "feedback": "Esatto: la deviazione si dimezza in ln 2/0,4 ≈ 1,73."
+        },
+        {
+          "id": "C",
+          "text": "0,4 unità di tempo",
+          "feedback": "0,4 è il guadagno k, non un tempo."
+        },
+        {
+          "id": "D",
+          "text": "Circa 2,5 unità di tempo",
+          "feedback": "2,5 unità di tempo è 1/k: manca il fattore ln 2."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "fit",
+    "goal": 2,
+    "rounds": [
+      {
+        "id": "guadagno",
+        "title": "Quanto è forte la correzione?",
+        "prompt": "La perturbazione iniziale è nota. Regola il guadagno k finché la curva segue le misure.",
+        "model": "biology-24",
+        "x": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6,
+          8,
+          10
+        ],
+        "noise": [
+          0.15,
+          -0.12,
+          0.1,
+          -0.12,
+          0.1,
+          -0.08,
+          0.06,
+          -0.05
+        ],
+        "hidden": {
+          "a": 6,
+          "b": 0.4
+        },
+        "fit": [
+          "b"
+        ],
+        "explain": "k = 0,4: la deviazione si dimezza in circa 1,7 unità di tempo."
+      },
+      {
+        "id": "perturbazione",
+        "title": "Una deviazione verso il basso",
+        "prompt": "Il guadagno è noto. La grandezza è scesa sotto il riferimento: regola Δy₀, che qui è negativa.",
+        "model": "biology-24",
+        "x": [
+          0,
+          1,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12
+        ],
+        "noise": [
+          -0.1,
+          0.12,
+          -0.1,
+          0.08,
+          -0.08,
+          0.06,
+          -0.05,
+          0.04
+        ],
+        "hidden": {
+          "a": -4,
+          "b": 0.3
+        },
+        "fit": [
+          "a"
+        ],
+        "explain": "Δy₀ = −4: la curva risale verso lo zero da sotto."
+      },
+      {
+        "id": "entrambi",
+        "title": "Due parametri insieme",
+        "prompt": "Né Δy₀ né k sono noti. Leggi Δy₀ al tempo zero, poi stima k dal dimezzamento.",
+        "model": "biology-24",
+        "x": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          14,
+          18
+        ],
+        "noise": [
+          0.15,
+          -0.15,
+          0.12,
+          -0.1,
+          0.1,
+          -0.08,
+          0.06,
+          -0.05
+        ],
+        "hidden": {
+          "a": 8,
+          "b": 0.2
+        },
+        "fit": [
+          "a",
+          "b"
+        ],
+        "explain": "Δy₀ = 8 e k = 0,2: una correzione lenta, che dimezza la deviazione in circa 3,5 unità di tempo."
+      }
+    ]
+  }
 }

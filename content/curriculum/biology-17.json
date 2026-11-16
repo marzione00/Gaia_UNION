@@ -5,19 +5,21 @@
   "title": "Filogenesi e cambiamenti molecolari",
   "sector": 3,
   "modelId": "biology-17",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Sostituzioni simmetriche e siti indipendenti",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Alberi filogenetici, cladi, omologia e analogia, orologio molecolare, correzione di Jukes e Cantor",
+  "narrativeStatus": "Il taccuino di Darwin e il confronto tra uomo e scimpanzé sono reali.",
   "objectives": [
-    "Spiegare: sostituzioni simmetriche e siti indipendenti.",
-    "Applicare Differenze attese = L × 3/4(1-exp(-4d/3)), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Leggere un albero filogenetico.",
+    "Distinguere caratteri omologhi e analoghi.",
+    "Spiegare l’orologio molecolare.",
+    "Usare la correzione di Jukes e Cantor."
   ],
   "prerequisites": [
     "biology-16"
   ],
   "connections": [
+    "biology-18",
     "math-b"
   ],
   "sources": [
@@ -26,241 +28,310 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Divergenza d",
-      "definition": "Variabile indipendente, unità sostituzioni/sito; intervallo [0; 3]."
+      "term": "Albero filogenetico",
+      "definition": "Diagramma delle relazioni di discendenza tra specie."
     },
     {
-      "term": "Siti diversi attesi",
-      "definition": "Risultato calcolato dal modello, unità siti."
+      "term": "Clade",
+      "definition": "Gruppo formato da un antenato e da tutti i suoi discendenti."
     },
     {
-      "term": "Lunghezza sequenza L",
-      "definition": "Parametro a, unità siti; intervallo [20; 1000]."
+      "term": "Omologia",
+      "definition": "Somiglianza dovuta a un antenato comune."
+    },
+    {
+      "term": "Orologio molecolare",
+      "definition": "Accumulo di differenze molecolari approssimativamente proporzionale al tempo."
+    },
+    {
+      "term": "Saturazione",
+      "definition": "Limite della frazione di siti diversi, 3/4 per sequenze di DNA."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "«I think»",
       "text": {
         "base": [
-          "Due sequenze molto divergenti possono mostrare differenze osservate simili. Più sostituzioni possono colpire lo stesso sito e nascondere parte della storia evolutiva.",
-          "La filogenesi ricostruisce relazioni di discendenza usando dati e modelli. Nel modello di sostituzione di Jukes-Cantor, le quattro basi sono simmetriche e i cambiamenti seguono tassi uniformi."
+          "Nel 1837, in un taccuino, Charles Darwin disegnò un piccolo albero ramificato e scrisse sopra «I think». Era l’idea che tutte le specie discendano da antenati comuni. Oggi gli alberi della vita si costruiscono anche confrontando sequenze di DNA: le sequenze di uomo e scimpanzé differiscono per circa l’1,2% delle basi.",
+          "Un albero filogenetico rappresenta le relazioni di parentela. Le punte sono le specie attuali, i nodi gli antenati comuni, i rami le linee di discendenza. Due specie sono tanto più parenti quanto più recente è il loro antenato comune. Ruotare i rami attorno a un nodo non cambia l’albero. Un clade comprende un antenato e tutti i suoi discendenti; un gruppo esterno, scelto meno imparentato, serve a orientare l’albero."
         ],
         "intermediate": [
-          "Due sequenze molto divergenti possono mostrare differenze osservate simili. Più sostituzioni possono colpire lo stesso sito e nascondere parte della storia evolutiva.",
-          "Per divergenza d in sostituzioni attese per sito, la frazione di siti diversi è 3/4(1-exp(-4d/3)). Moltiplicando per una lunghezza L si ottiene il numero atteso di differenze osservate."
+          "Nel 1837, in un taccuino, Charles Darwin disegnò un piccolo albero ramificato e scrisse sopra «I think». Era l’idea che tutte le specie discendano da antenati comuni. Oggi gli alberi della vita si costruiscono anche confrontando sequenze di DNA: le sequenze di uomo e scimpanzé differiscono per circa l’1,2% delle basi.",
+          "Un albero filogenetico rappresenta le relazioni di parentela. Le punte sono le specie attuali, i nodi gli antenati comuni, i rami le linee di discendenza. Due specie sono tanto più parenti quanto più recente è il loro antenato comune. Ruotare i rami attorno a un nodo non cambia l’albero. Un clade comprende un antenato e tutti i suoi discendenti; un gruppo esterno, scelto meno imparentato, serve a orientare l’albero."
         ],
         "advanced": [
-          "Due sequenze molto divergenti possono mostrare differenze osservate simili. Più sostituzioni possono colpire lo stesso sito e nascondere parte della storia evolutiva.",
-          "Inverti la relazione per ricavare una distanza corretta dalla frazione osservata p<3/4. Spiega perché l’inversione diventa sensibile vicino alla saturazione.",
-          "Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata."
+          "Nel 1837, in un taccuino, Charles Darwin disegnò un piccolo albero ramificato e scrisse sopra «I think». Era l’idea che tutte le specie discendano da antenati comuni. Oggi gli alberi della vita si costruiscono anche confrontando sequenze di DNA: le sequenze di uomo e scimpanzé differiscono per circa l’1,2% delle basi.",
+          "Un albero filogenetico rappresenta le relazioni di parentela. Le punte sono le specie attuali, i nodi gli antenati comuni, i rami le linee di discendenza. Due specie sono tanto più parenti quanto più recente è il loro antenato comune. Ruotare i rami attorno a un nodo non cambia l’albero. Un clade comprende un antenato e tutti i suoi discendenti; un gruppo esterno, scelto meno imparentato, serve a orientare l’albero."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Caratteri e orologi",
       "text": {
         "base": [
-          "La filogenesi ricostruisce relazioni di discendenza usando dati e modelli. Nel modello di sostituzione di Jukes-Cantor, le quattro basi sono simmetriche e i cambiamenti seguono tassi uniformi.",
-          "Con d=0, le differenze attese sono zero. Per grandi d, la frazione tende a 3/4, non a uno: ulteriori sostituzioni possono ripristinare basi uguali per caso."
+          "Per costruire un albero si confrontano caratteri. Le strutture omologhe derivano da un antenato comune, come il braccio umano e l’ala del pipistrello, con le stesse ossa. Le strutture analoghe hanno la stessa funzione ma origini diverse, come l’ala di un insetto e quella di un uccello: sono frutto di evoluzione convergente e non indicano parentela.",
+          "Negli anni Sessanta Zuckerkandl e Pauling notarono che le differenze tra proteine crescono con il tempo dalla separazione: è l’orologio molecolare. Il conteggio delle differenze sottostima però i cambiamenti, perché un sito può cambiare più volte o tornare alla base di partenza. Nel 1969 Jukes e Cantor proposero una correzione: la frazione attesa di siti diversi è p = 3/4 (1 − e^(−4d/3)), dove d è il numero medio di sostituzioni per sito.",
+          "La formula ha una conseguenza importante: p non supera 3/4. Due sequenze casuali con quattro basi coincidono in un sito su quattro per puro caso. Invertendo, d = −3/4 ln(1 − 4p/3): con p = 0,3 si ottiene d ≈ 0,38, più di 0,3. Per sequenze molto divergenti la stima di d diventa incerta, perché la curva è quasi piatta."
         ],
         "intermediate": [
-          "Per divergenza d in sostituzioni attese per sito, la frazione di siti diversi è 3/4(1-exp(-4d/3)). Moltiplicando per una lunghezza L si ottiene il numero atteso di differenze osservate.",
-          "La variabile Divergenza d è espressa in sostituzioni/sito; Siti diversi attesi in siti. Il dominio dello strumento è [0; 3]. La relazione implementata è: Differenze attese = L × 3/4(1-exp(-4d/3)).",
-          "Con d=0, le differenze attese sono zero. Per grandi d, la frazione tende a 3/4, non a uno: ulteriori sostituzioni possono ripristinare basi uguali per caso."
+          "Per costruire un albero si confrontano caratteri. Le strutture omologhe derivano da un antenato comune, come il braccio umano e l’ala del pipistrello, con le stesse ossa. Le strutture analoghe hanno la stessa funzione ma origini diverse, come l’ala di un insetto e quella di un uccello: sono frutto di evoluzione convergente e non indicano parentela.",
+          "Negli anni Sessanta Zuckerkandl e Pauling notarono che le differenze tra proteine crescono con il tempo dalla separazione: è l’orologio molecolare. Il conteggio delle differenze sottostima però i cambiamenti, perché un sito può cambiare più volte o tornare alla base di partenza. Nel 1969 Jukes e Cantor proposero una correzione: la frazione attesa di siti diversi è p = 3/4 (1 − e^(−4d/3)), dove d è il numero medio di sostituzioni per sito.",
+          "La formula ha una conseguenza importante: p non supera 3/4. Due sequenze casuali con quattro basi coincidono in un sito su quattro per puro caso. Invertendo, d = −3/4 ln(1 − 4p/3): con p = 0,3 si ottiene d ≈ 0,38, più di 0,3. Per sequenze molto divergenti la stima di d diventa incerta, perché la curva è quasi piatta."
         ],
         "advanced": [
-          "Per divergenza d in sostituzioni attese per sito, la frazione di siti diversi è 3/4(1-exp(-4d/3)). Moltiplicando per una lunghezza L si ottiene il numero atteso di differenze osservate.",
-          "Inverti la relazione per ricavare una distanza corretta dalla frazione osservata p<3/4. Spiega perché l’inversione diventa sensibile vicino alla saturazione.",
-          "Una differenza osservata non corrisponde sempre a una sola sostituzione storica. Una curva di distanza non ricostruisce da sola la topologia di un albero."
+          "Per costruire un albero si confrontano caratteri. Le strutture omologhe derivano da un antenato comune, come il braccio umano e l’ala del pipistrello, con le stesse ossa. Le strutture analoghe hanno la stessa funzione ma origini diverse, come l’ala di un insetto e quella di un uccello: sono frutto di evoluzione convergente e non indicano parentela.",
+          "Negli anni Sessanta Zuckerkandl e Pauling notarono che le differenze tra proteine crescono con il tempo dalla separazione: è l’orologio molecolare. Il conteggio delle differenze sottostima però i cambiamenti, perché un sito può cambiare più volte o tornare alla base di partenza. Nel 1969 Jukes e Cantor proposero una correzione: la frazione attesa di siti diversi è p = 3/4 (1 − e^(−4d/3)), dove d è il numero medio di sostituzioni per sito.",
+          "La formula ha una conseguenza importante: p non supera 3/4. Due sequenze casuali con quattro basi coincidono in un sito su quattro per puro caso. Invertendo, d = −3/4 ln(1 − 4p/3): con p = 0,3 si ottiene d ≈ 0,38, più di 0,3. Per sequenze molto divergenti la stima di d diventa incerta, perché la curva è quasi piatta."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio della divergenza",
       "text": {
         "base": [
-          "Nel laboratorio imposta Lunghezza sequenza L (a): 100 siti. Prima di salvare A, prevedi come cambia Siti diversi attesi fra Divergenza d=0,75 e 1,5 sostituzioni/sito. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con d=0, le differenze attese sono zero. Per grandi d, la frazione tende a 3/4, non a uno: ulteriori sostituzioni possono ripristinare basi uguali per caso.",
-          "La variabile Divergenza d è espressa in sostituzioni/sito; Siti diversi attesi in siti. Il dominio dello strumento è [0; 3]. La relazione implementata è: Differenze attese = L × 3/4(1-exp(-4d/3))."
+          "Nel laboratorio il grafico mostra il numero atteso di siti diversi in funzione della divergenza d, da 0 a 3 sostituzioni per sito; nella scheda REGOLA cambi la lunghezza L delle sequenze, da 20 a 1000 siti. Il modello è L · 3/4 (1 − e^(−4d/3)).",
+          "Protocollo. La previsione riguarda il passaggio da d = 0,75 a d = 1,5. Con L = 100 prevedi e salva A. Poi porta L a 500, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con L = 100 i siti diversi passano da circa 47 a 65: crescono, ma raddoppiare d aumenta le differenze solo del 37%, perché la curva si avvicina al limite di 75 siti. Con L = 500 i valori sono cinque volte maggiori, circa 237 e 324, e il limite è 375. La forma della curva non dipende da L."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Lunghezza sequenza L (a): 100 siti. Prima di salvare A, prevedi come cambia Siti diversi attesi fra Divergenza d=0,75 e 1,5 sostituzioni/sito. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Divergenza d è espressa in sostituzioni/sito; Siti diversi attesi in siti. Il dominio dello strumento è [0; 3]. La relazione implementata è: Differenze attese = L × 3/4(1-exp(-4d/3)).",
-          "Per divergenza d in sostituzioni attese per sito, la frazione di siti diversi è 3/4(1-exp(-4d/3)). Moltiplicando per una lunghezza L si ottiene il numero atteso di differenze osservate."
+          "Nel laboratorio il grafico mostra il numero atteso di siti diversi in funzione della divergenza d, da 0 a 3 sostituzioni per sito; nella scheda REGOLA cambi la lunghezza L delle sequenze, da 20 a 1000 siti. Il modello è L · 3/4 (1 − e^(−4d/3)).",
+          "Protocollo. La previsione riguarda il passaggio da d = 0,75 a d = 1,5. Con L = 100 prevedi e salva A. Poi porta L a 500, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con L = 100 i siti diversi passano da circa 47 a 65: crescono, ma raddoppiare d aumenta le differenze solo del 37%, perché la curva si avvicina al limite di 75 siti. Con L = 500 i valori sono cinque volte maggiori, circa 237 e 324, e il limite è 375. La forma della curva non dipende da L."
         ],
         "advanced": [
-          "Nel laboratorio imposta Lunghezza sequenza L (a): 100 siti. Prima di salvare A, prevedi come cambia Siti diversi attesi fra Divergenza d=0,75 e 1,5 sostituzioni/sito. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Inverti la relazione per ricavare una distanza corretta dalla frazione osservata p<3/4. Spiega perché l’inversione diventa sensibile vicino alla saturazione.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra il numero atteso di siti diversi in funzione della divergenza d, da 0 a 3 sostituzioni per sito; nella scheda REGOLA cambi la lunghezza L delle sequenze, da 20 a 1000 siti. Il modello è L · 3/4 (1 − e^(−4d/3)).",
+          "Protocollo. La previsione riguarda il passaggio da d = 0,75 a d = 1,5. Con L = 100 prevedi e salva A. Poi porta L a 500, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con L = 100 i siti diversi passano da circa 47 a 65: crescono, ma raddoppiare d aumenta le differenze solo del 37%, perché la curva si avvicina al limite di 75 siti. Con L = 500 i valori sono cinque volte maggiori, circa 237 e 324, e il limite è 375. La forma della curva non dipende da L."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "Una differenza osservata non corrisponde sempre a una sola sostituzione storica. Una curva di distanza non ricostruisce da sola la topologia di un albero.",
-          "Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: leggere un albero da sinistra a destra come una scala, dalla specie più «semplice» alla più «evoluta». Tutte le specie attuali hanno alle spalle lo stesso tempo di evoluzione.",
+          "Secondo errore: dire che l’uomo discende dallo scimpanzé. Uomo e scimpanzé condividono un antenato comune, vissuto alcuni milioni di anni fa, da cui discendono entrambi.",
+          "Per costruire un albero si confrontano caratteri. Le strutture omologhe derivano da un antenato comune, come il braccio umano e l’ala del pipistrello, con le stesse ossa. Le strutture analoghe hanno la stessa funzione ma origini diverse, come l’ala di un insetto e quella di un uccello: sono frutto di evoluzione convergente e non indicano parentela."
         ],
         "intermediate": [
-          "Una differenza osservata non corrisponde sempre a una sola sostituzione storica. Una curva di distanza non ricostruisce da sola la topologia di un albero.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: leggere un albero da sinistra a destra come una scala, dalla specie più «semplice» alla più «evoluta». Tutte le specie attuali hanno alle spalle lo stesso tempo di evoluzione.",
+          "Secondo errore: dire che l’uomo discende dallo scimpanzé. Uomo e scimpanzé condividono un antenato comune, vissuto alcuni milioni di anni fa, da cui discendono entrambi.",
+          "La formula ha una conseguenza importante: p non supera 3/4. Due sequenze casuali con quattro basi coincidono in un sito su quattro per puro caso. Invertendo, d = −3/4 ln(1 − 4p/3): con p = 0,3 si ottiene d ≈ 0,38, più di 0,3. Per sequenze molto divergenti la stima di d diventa incerta, perché la curva è quasi piatta."
         ],
         "advanced": [
-          "Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata.",
-          "Inverti la relazione per ricavare una distanza corretta dalla frazione osservata p<3/4. Spiega perché l’inversione diventa sensibile vicino alla saturazione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: leggere un albero da sinistra a destra come una scala, dalla specie più «semplice» alla più «evoluta». Tutte le specie attuali hanno alle spalle lo stesso tempo di evoluzione.",
+          "Secondo errore: dire che l’uomo discende dallo scimpanzé. Uomo e scimpanzé condividono un antenato comune, vissuto alcuni milioni di anni fa, da cui discendono entrambi.",
+          "La formula ha una conseguenza importante: p non supera 3/4. Due sequenze casuali con quattro basi coincidono in un sito su quattro per puro caso. Invertendo, d = −3/4 ln(1 − 4p/3): con p = 0,3 si ottiene d ≈ 0,38, più di 0,3. Per sequenze molto divergenti la stima di d diventa incerta, perché la curva è quasi piatta."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "La filogenesi ricostruisce relazioni di discendenza usando dati e modelli. Nel modello di sostituzione di Jukes-Cantor, le quattro basi sono simmetriche e i cambiamenti seguono tassi uniformi.",
-          "Con d=0, le differenze attese sono zero. Per grandi d, la frazione tende a 3/4, non a uno: ulteriori sostituzioni possono ripristinare basi uguali per caso."
+          "Ripasso: lettura di un albero filogenetico; cladi e gruppo esterno; omologia e analogia; orologio molecolare; correzione di Jukes e Cantor e saturazione a 3/4.",
+          "Mini esercizio: con d = 0,75, p = 0,75 · (1 − e⁻¹) ≈ 0,474; su 200 siti si attendono circa 95 differenze.",
+          "Nelle domande sugli alberi cerca il nodo più recente che unisce le specie confrontate."
         ],
         "intermediate": [
-          "Per divergenza d in sostituzioni attese per sito, la frazione di siti diversi è 3/4(1-exp(-4d/3)). Moltiplicando per una lunghezza L si ottiene il numero atteso di differenze osservate.",
-          "La variabile Divergenza d è espressa in sostituzioni/sito; Siti diversi attesi in siti. Il dominio dello strumento è [0; 3]. La relazione implementata è: Differenze attese = L × 3/4(1-exp(-4d/3))."
+          "Ripasso: lettura di un albero filogenetico; cladi e gruppo esterno; omologia e analogia; orologio molecolare; correzione di Jukes e Cantor e saturazione a 3/4.",
+          "Mini esercizio: con d = 0,75, p = 0,75 · (1 − e⁻¹) ≈ 0,474; su 200 siti si attendono circa 95 differenze.",
+          "Nelle domande sugli alberi cerca il nodo più recente che unisce le specie confrontate."
         ],
         "advanced": [
-          "Inverti la relazione per ricavare una distanza corretta dalla frazione osservata p<3/4. Spiega perché l’inversione diventa sensibile vicino alla saturazione.",
-          "Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata."
+          "Ripasso: lettura di un albero filogenetico; cladi e gruppo esterno; omologia e analogia; orologio molecolare; correzione di Jukes e Cantor e saturazione a 3/4.",
+          "Mini esercizio: con d = 0,75, p = 0,75 · (1 − e⁻¹) ≈ 0,474; su 200 siti si attendono circa 95 differenze.",
+          "Nelle domande sugli alberi cerca il nodo più recente che unisce le specie confrontate."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Sostituzioni simmetriche e siti indipendenti.",
-          "Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata.",
-          "Collegamento consigliato: math-b. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La funzione esponenziale che si avvicina a un limite e il suo inverso logaritmico richiamano l’unità di matematica «Esistenza, unicità e approssimazione». In biologia si passa a «Biodiversità e misura delle comunità».",
+          "Riepilogo dell’unità: un albero filogenetico mostra antenati comuni e cladi; solo i caratteri omologhi indicano parentela; le differenze molecolari crescono con il tempo, ma saturano: secondo Jukes e Cantor la frazione di siti diversi è 3/4 (1 − e^(−4d/3)) e non supera 3/4.",
+          "Nel diario registra A e B con le previsioni e spiega perché due sequenze molto antiche possono sembrare meno diverse di quanto sono."
         ],
         "intermediate": [
-          "Per divergenza d in sostituzioni attese per sito, la frazione di siti diversi è 3/4(1-exp(-4d/3)). Moltiplicando per una lunghezza L si ottiene il numero atteso di differenze osservate.",
-          "Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata.",
-          "Inverti la relazione per ricavare una distanza corretta dalla frazione osservata p<3/4. Spiega perché l’inversione diventa sensibile vicino alla saturazione."
+          "La funzione esponenziale che si avvicina a un limite e il suo inverso logaritmico richiamano l’unità di matematica «Esistenza, unicità e approssimazione». In biologia si passa a «Biodiversità e misura delle comunità».",
+          "Riepilogo dell’unità: un albero filogenetico mostra antenati comuni e cladi; solo i caratteri omologhi indicano parentela; le differenze molecolari crescono con il tempo, ma saturano: secondo Jukes e Cantor la frazione di siti diversi è 3/4 (1 − e^(−4d/3)) e non supera 3/4.",
+          "Nel diario registra A e B con le previsioni e spiega perché due sequenze molto antiche possono sembrare meno diverse di quanto sono."
         ],
         "advanced": [
-          "Inverti la relazione per ricavare una distanza corretta dalla frazione osservata p<3/4. Spiega perché l’inversione diventa sensibile vicino alla saturazione.",
-          "Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La funzione esponenziale che si avvicina a un limite e il suo inverso logaritmico richiamano l’unità di matematica «Esistenza, unicità e approssimazione». In biologia si passa a «Biodiversità e misura delle comunità».",
+          "Riepilogo dell’unità: un albero filogenetico mostra antenati comuni e cladi; solo i caratteri omologhi indicano parentela; le differenze molecolari crescono con il tempo, ma saturano: secondo Jukes e Cantor la frazione di siti diversi è 3/4 (1 − e^(−4d/3)) e non supera 3/4.",
+          "Nel diario registra A e B con le previsioni e spiega perché due sequenze molto antiche possono sembrare meno diverse di quanto sono."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-17-concept",
-      "prompt": "Nel modello simmetrico, la frazione di differenze a grande d tende a:",
+      "id": "biology-17-q1",
+      "prompt": "Che cosa rappresenta un nodo in un albero filogenetico?",
       "options": [
         {
           "id": "A",
-          "text": "1",
-          "feedback": "Una differenza osservata non corrisponde sempre a una sola sostituzione storica. Una curva di distanza non ricostruisce da sola la topologia di un albero."
+          "text": "Un antenato comune",
+          "feedback": "Esatto: il punto in cui una linea si divide in due."
         },
         {
           "id": "B",
-          "text": "0",
-          "feedback": "Per divergenza d in sostituzioni attese per sito, la frazione di siti diversi è 3/4(1-exp(-4d/3)). Moltiplicando per una lunghezza L si ottiene il numero atteso di differenze osservate."
+          "text": "Una specie attuale",
+          "feedback": "Le specie attuali sono le punte dei rami."
         },
         {
           "id": "C",
-          "text": "3/4",
-          "feedback": "La filogenesi ricostruisce relazioni di discendenza usando dati e modelli. Nel modello di sostituzione di Jukes-Cantor, le quattro basi sono simmetriche e i cambiamenti seguono tassi uniformi."
+          "text": "Una mutazione",
+          "feedback": "Le mutazioni si accumulano lungo i rami."
+        },
+        {
+          "id": "D",
+          "text": "Un fossile trovato",
+          "feedback": "Il nodo è un’ipotesi sull’antenato, non un reperto."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-17-q2",
+      "prompt": "Il braccio umano e l’ala del pipistrello sono strutture:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Analoghe",
+          "feedback": "Le strutture analoghe hanno origini diverse."
+        },
+        {
+          "id": "B",
+          "text": "Omologhe",
+          "feedback": "Esatto: hanno le stesse ossa ereditate da un antenato comune."
+        },
+        {
+          "id": "C",
+          "text": "Vestigiali",
+          "feedback": "Entrambe sono pienamente funzionanti."
+        },
+        {
+          "id": "D",
+          "text": "Senza rapporto",
+          "feedback": "La corrispondenza delle ossa indica un’origine comune."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-17-q3",
+      "prompt": "Perché il semplice conteggio delle differenze sottostima la divergenza?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché le sequenze si accorciano",
+          "feedback": "La lunghezza non cambia nel modello."
+        },
+        {
+          "id": "B",
+          "text": "Perché le mutazioni sono rare",
+          "feedback": "Proprio quando sono frequenti il conteggio sbaglia di più."
+        },
+        {
+          "id": "C",
+          "text": "Perché un sito può cambiare più volte",
+          "feedback": "Esatto: alcune sostituzioni restano invisibili."
+        },
+        {
+          "id": "D",
+          "text": "Perché si usano solo le proteine",
+          "feedback": "Il problema riguarda allo stesso modo DNA e proteine."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "biology-17-calculation",
-      "prompt": "Calcolo: Lunghezza sequenza L (a)=100 siti. Per Divergenza d=0 sostituzioni/sito, quanto vale Siti diversi attesi?",
+      "id": "biology-17-q4",
+      "prompt": "Qual è la frazione massima di siti diversi tra due sequenze di DNA secondo Jukes e Cantor?",
       "options": [
         {
           "id": "A",
-          "text": "-1,00000e-8 siti",
-          "feedback": "Controlla sostituzione, segno e unità. Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=100 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+          "text": "1",
+          "feedback": "Due sequenze casuali coincidono comunque in un sito su quattro."
         },
         {
           "id": "B",
-          "text": "0 siti",
-          "feedback": "Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=100 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+          "text": "1/2",
+          "feedback": "Con quattro basi la coincidenza casuale è 1/4, non 1/2."
         },
         {
           "id": "C",
-          "text": "1,00000e-8 siti",
-          "feedback": "Questo valore non soddisfa la relazione. Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=100 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+          "text": "1/4",
+          "feedback": "Un quarto è la frazione di siti uguali per caso."
+        },
+        {
+          "id": "D",
+          "text": "3/4",
+          "feedback": "Esatto: è il limite per d molto grande."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 100
-        },
-        "expected": 0,
-        "unit": "siti"
-      }
+      "correct": "D"
     },
     {
-      "id": "biology-17-transfer",
-      "prompt": "Trasferimento: Lunghezza sequenza L (a)=120 siti. Per Divergenza d=0 sostituzioni/sito, quanto vale Siti diversi attesi?",
+      "id": "biology-17-q5",
+      "prompt": "Che cosa significa che uomo e scimpanzé hanno un antenato comune?",
       "options": [
         {
           "id": "A",
-          "text": "0 siti",
-          "feedback": "Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=120 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+          "text": "Che discendono entrambi da una specie vissuta alcuni milioni di anni fa",
+          "feedback": "Esatto: nessuno dei due discende dall’altro."
         },
         {
           "id": "B",
-          "text": "1,00000e-8 siti",
-          "feedback": "Questo valore non soddisfa la relazione. Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=120 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+          "text": "Che l’uomo discende dallo scimpanzé",
+          "feedback": "Lo scimpanzé è una specie attuale, con la sua storia evolutiva."
         },
         {
           "id": "C",
-          "text": "-1,00000e-8 siti",
-          "feedback": "Controlla sostituzione, segno e unità. Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=120 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+          "text": "Che sono la stessa specie",
+          "feedback": "Sono specie distinte, che non si incrociano."
+        },
+        {
+          "id": "D",
+          "text": "Che hanno DNA identico",
+          "feedback": "Differiscono per circa l’1,2% delle basi."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 120
-        },
-        "expected": 0,
-        "unit": "siti"
-      }
+      "correct": "A"
     },
     {
-      "id": "biology-17-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "biology-17-q6",
+      "prompt": "Nel laboratorio, con L = 100, raddoppiando d da 0,75 a 1,5 i siti diversi:",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata."
+          "text": "Raddoppiano",
+          "feedback": "La curva si avvicina al limite di 75 e cresce meno."
         },
         {
           "id": "B",
-          "text": "Sostituzioni simmetriche e siti indipendenti",
-          "feedback": "Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata."
+          "text": "Crescono di circa il 37%",
+          "feedback": "Esatto: da circa 47 a 65 siti, vicino al limite di 75."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Modello simmetrico a quattro stati con siti indipendenti e tassi uniformi. Nessuna sequenza reale viene analizzata."
+          "text": "Diminuiscono",
+          "feedback": "Più divergenza non può ridurre le differenze attese."
+        },
+        {
+          "id": "D",
+          "text": "Restano uguali",
+          "feedback": "La curva è ancora in salita a questi valori."
         }
       ],
       "correct": "B"

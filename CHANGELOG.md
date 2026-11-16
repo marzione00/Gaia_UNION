@@ -1,3 +1,15 @@
+# 1.12.0: Tutte le unità di biologia scritte per intero
+
+- Le 25 unità di biologia hanno ora testi scritti a mano ai tre livelli, sei domande commentate, un riepilogo finale e un ripasso guidato con un mini esercizio. Le 22 unità nuove coprono le aree «La cellula», «Energia della vita», «Geni e mutazioni», «Evoluzione», «Popolazioni e comunità» ed «Ecosistemi e regolazione».
+- Attività delle 22 unità nuove, distribuite in modo che ogni area ne alterni almeno tre tipi:
+  - carte da classificare o ordinare (6 unità): scala e organelli della cellula, DNA e PCR, forze evolutive e deriva, barriere riproduttive e speciazione, interazioni e competizione, cicli del carbonio e dell’azoto;
+  - problemi guidati (6 unità): osmosi e pressione osmotica, bilancio energetico della respirazione, probabilità di mutazione e cornice di lettura, Hardy-Weinberg, indici di Shannon e Simpson, energia lungo le catene alimentari;
+  - adattamento del modello ai dati (4 unità): cinetica di Michaelis-Menten, produzione e degradazione dell’mRNA, crescita logistica, ritorno all’equilibrio dopo una perturbazione;
+  - laboratorio del modello con confronto A/B (6 unità): legge di Fick, curva di risposta alla luce, selezione naturale, correzione di Jukes e Cantor, risposta funzionale di tipo II, temperatura di Daisyworld.
+- La riga «Fissati» delle attività di adattamento non ripete il punto quando l’unità di misura finisce con un punto.
+- Dati controllati con calcolo e su fonti: popolazione degli elefanti marini nel 1892 e oggi, tasso di mutazione umano per generazione, serbatoi di carbonio ed emissioni del decennio 2010-2019 secondo l’IPCC, valori dei modelli nei punti del protocollo.
+- Atlante dei glifi esteso con ᵢ, ç, Ç.
+
 # 1.11.0: Tutte le unità di chimica scritte per intero
 
 - Le 25 unità di chimica hanno ora testi scritti a mano ai tre livelli, sei domande commentate, un riepilogo finale e un ripasso guidato con un mini esercizio. Le 21 unità nuove coprono le aree «Materia e atomi», «Stati e soluzioni», «Reazioni e quantità», «Velocità ed equilibrio» e «Acidi, redox e carbonio».

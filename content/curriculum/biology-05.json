@@ -5,19 +5,21 @@
   "title": "Metabolismo e bilanci energetici",
   "sector": 3,
   "modelId": "biology-05",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Bilancio aggregato con resa assegnata",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Catabolismo e anabolismo, ATP, respirazione cellulare, rendimento, fermentazione e combustibili",
+  "narrativeStatus": "Il maratoneta è un esempio; i valori energetici sono di riferimento.",
   "objectives": [
-    "Spiegare: bilancio aggregato con resa assegnata.",
-    "Applicare ATP = resa × glucosio, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Distinguere catabolismo e anabolismo e il ruolo dell’ATP.",
+    "Descrivere le tappe della respirazione cellulare.",
+    "Calcolare resa in ATP e rendimento energetico.",
+    "Confrontare respirazione e fermentazione."
   ],
   "prerequisites": [
     "biology-04"
   ],
   "connections": [
+    "biology-06",
     "chemistry-15"
   ],
   "sources": [
@@ -26,244 +28,585 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Glucosio utilizzato",
-      "definition": "Variabile indipendente, unità mmol; intervallo [0; 10]."
+      "term": "ATP",
+      "definition": "Adenosina trifosfato; la sua idrolisi libera circa 30,5 kJ/mol."
     },
     {
-      "term": "ATP nel bilancio",
-      "definition": "Risultato calcolato dal modello, unità mmol."
+      "term": "Glicolisi",
+      "definition": "Demolizione del glucosio in due piruvati nel citoplasma."
     },
     {
-      "term": "Resa assunta",
-      "definition": "Parametro a, unità mol/mol; intervallo [20; 32]."
+      "term": "Ciclo di Krebs",
+      "definition": "Serie di reazioni mitocondriali che ossida il carbonio a CO₂."
+    },
+    {
+      "term": "Fermentazione",
+      "definition": "Via senza ossigeno che produce 2 ATP per glucosio."
+    },
+    {
+      "term": "Rendimento",
+      "definition": "Frazione dell’energia liberata che viene conservata nell’ATP."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Il carburante del maratoneta",
       "text": {
         "base": [
-          "La stazione deve confrontare un flusso di glucosio con una produzione teorica di ATP. Il numero visualizzato è un bilancio sotto ipotesi, non un rendimento universale di tutte le cellule.",
-          "Le vie metaboliche trasformano materia ed energia mediante reazioni accoppiate. L’ATP partecipa al trasferimento energetico, ma il rendimento netto dipende da organismo, condizioni e processi di trasporto."
+          "Un maratoneta consuma in una gara qualche migliaio di kilojoule. L’energia viene dagli alimenti, ma i muscoli non possono usarla direttamente: devono prima trasferirla in una molecola che funziona da moneta energetica, l’ATP. Quanto ATP si ottiene da una molecola di glucosio, e quanta energia si perde lungo la strada?",
+          "Il metabolismo è l’insieme delle reazioni chimiche di una cellula. Il catabolismo demolisce molecole complesse e libera energia; l’anabolismo costruisce molecole complesse e ne consuma. L’ATP collega i due: la sua idrolisi ad ADP e fosfato libera circa 30,5 kJ/mol in condizioni standard, e la cellula usa questa energia per contrarre muscoli, trasportare ioni, sintetizzare proteine."
         ],
         "intermediate": [
-          "La stazione deve confrontare un flusso di glucosio con una produzione teorica di ATP. Il numero visualizzato è un bilancio sotto ipotesi, non un rendimento universale di tutte le cellule.",
-          "Il laboratorio usa ATP=resa×glucosio. La resa è un parametro esplicito in moli di ATP per mole di glucosio; il controllo non la calcola da una catena respiratoria."
+          "Un maratoneta consuma in una gara qualche migliaio di kilojoule. L’energia viene dagli alimenti, ma i muscoli non possono usarla direttamente: devono prima trasferirla in una molecola che funziona da moneta energetica, l’ATP. Quanto ATP si ottiene da una molecola di glucosio, e quanta energia si perde lungo la strada?",
+          "Il metabolismo è l’insieme delle reazioni chimiche di una cellula. Il catabolismo demolisce molecole complesse e libera energia; l’anabolismo costruisce molecole complesse e ne consuma. L’ATP collega i due: la sua idrolisi ad ADP e fosfato libera circa 30,5 kJ/mol in condizioni standard, e la cellula usa questa energia per contrarre muscoli, trasportare ioni, sintetizzare proteine."
         ],
         "advanced": [
-          "La stazione deve confrontare un flusso di glucosio con una produzione teorica di ATP. Il numero visualizzato è un bilancio sotto ipotesi, non un rendimento universale di tutte le cellule.",
-          "Separa produzione lorda, consumi di mantenimento e produzione netta. Elenca quali flussi dovrebbero essere misurati per sostituire il parametro di resa con un modello più realistico.",
-          "Bilancio aggregato con resa assegnata e nessuna cinetica metabolica. Non è una stima nutrizionale o fisiologica per persone o organismi specifici."
+          "Un maratoneta consuma in una gara qualche migliaio di kilojoule. L’energia viene dagli alimenti, ma i muscoli non possono usarla direttamente: devono prima trasferirla in una molecola che funziona da moneta energetica, l’ATP. Quanto ATP si ottiene da una molecola di glucosio, e quanta energia si perde lungo la strada?",
+          "Il metabolismo è l’insieme delle reazioni chimiche di una cellula. Il catabolismo demolisce molecole complesse e libera energia; l’anabolismo costruisce molecole complesse e ne consuma. L’ATP collega i due: la sua idrolisi ad ADP e fosfato libera circa 30,5 kJ/mol in condizioni standard, e la cellula usa questa energia per contrarre muscoli, trasportare ioni, sintetizzare proteine."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Respirazione e rendimento",
       "text": {
         "base": [
-          "Le vie metaboliche trasformano materia ed energia mediante reazioni accoppiate. L’ATP partecipa al trasferimento energetico, ma il rendimento netto dipende da organismo, condizioni e processi di trasporto.",
-          "Assumendo resa 30 mol/mol e 2 mmol di glucosio utilizzato, il bilancio produce 60 mmol di ATP. Cambiare la resa modifica la previsione senza cambiare la quantità di glucosio."
+          "La respirazione cellulare ossida il glucosio: C₆H₁₂O₆ + 6 O₂ → 6 CO₂ + 6 H₂O, con ΔG ≈ −2870 kJ/mol. Avviene in tre tappe. La glicolisi, nel citoplasma, spezza il glucosio in due molecole di piruvato e produce un guadagno netto di 2 ATP e 2 NADH. Il ciclo di Krebs, nei mitocondri, completa l’ossidazione a CO₂ e carica altri trasportatori di elettroni. La catena di trasporto degli elettroni li cede all’ossigeno, e l’ATP sintasi usa il gradiente di protoni per produrre la maggior parte dell’ATP.",
+          "Le stime moderne danno circa 30-32 ATP per glucosio; i testi più vecchi riportavano 36-38, con ipotesi meno realistiche sul costo del trasporto. Con 30 ATP l’energia conservata è 30 · 30,5 ≈ 915 kJ su 2870: circa il 32%. Il resto diventa calore, che negli animali a sangue caldo serve a mantenere la temperatura corporea. Peter Mitchell spiegò il ruolo del gradiente di protoni con la teoria chemiosmotica, premio Nobel nel 1978.",
+          "Senza ossigeno la catena di trasporto si ferma. Molte cellule ricorrono allora alla fermentazione: la glicolisi continua e il piruvato diventa acido lattico, nei muscoli sotto sforzo, oppure etanolo e CO₂, nel lievito. Il guadagno è di soli 2 ATP per glucosio: per ottenere la stessa energia servono circa quindici volte più glucosio."
         ],
         "intermediate": [
-          "Il laboratorio usa ATP=resa×glucosio. La resa è un parametro esplicito in moli di ATP per mole di glucosio; il controllo non la calcola da una catena respiratoria.",
-          "La variabile Glucosio utilizzato è espressa in mmol; ATP nel bilancio in mmol. Il dominio dello strumento è [0; 10]. La relazione implementata è: ATP = resa × glucosio.",
-          "Assumendo resa 30 mol/mol e 2 mmol di glucosio utilizzato, il bilancio produce 60 mmol di ATP. Cambiare la resa modifica la previsione senza cambiare la quantità di glucosio."
+          "La respirazione cellulare ossida il glucosio: C₆H₁₂O₆ + 6 O₂ → 6 CO₂ + 6 H₂O, con ΔG ≈ −2870 kJ/mol. Avviene in tre tappe. La glicolisi, nel citoplasma, spezza il glucosio in due molecole di piruvato e produce un guadagno netto di 2 ATP e 2 NADH. Il ciclo di Krebs, nei mitocondri, completa l’ossidazione a CO₂ e carica altri trasportatori di elettroni. La catena di trasporto degli elettroni li cede all’ossigeno, e l’ATP sintasi usa il gradiente di protoni per produrre la maggior parte dell’ATP.",
+          "Le stime moderne danno circa 30-32 ATP per glucosio; i testi più vecchi riportavano 36-38, con ipotesi meno realistiche sul costo del trasporto. Con 30 ATP l’energia conservata è 30 · 30,5 ≈ 915 kJ su 2870: circa il 32%. Il resto diventa calore, che negli animali a sangue caldo serve a mantenere la temperatura corporea. Peter Mitchell spiegò il ruolo del gradiente di protoni con la teoria chemiosmotica, premio Nobel nel 1978.",
+          "Senza ossigeno la catena di trasporto si ferma. Molte cellule ricorrono allora alla fermentazione: la glicolisi continua e il piruvato diventa acido lattico, nei muscoli sotto sforzo, oppure etanolo e CO₂, nel lievito. Il guadagno è di soli 2 ATP per glucosio: per ottenere la stessa energia servono circa quindici volte più glucosio.",
+          "Anche grassi e proteine alimentano la respirazione. I grassi forniscono circa 37 kJ per grammo, i carboidrati e le proteine circa 17: per questo gli animali immagazzinano l’energia a lungo termine soprattutto come grasso. Il corpo umano contiene in ogni momento poco ATP e lo ricicla continuamente: in un giorno ne trasforma una massa paragonabile a quella del corpo stesso."
         ],
         "advanced": [
-          "Il laboratorio usa ATP=resa×glucosio. La resa è un parametro esplicito in moli di ATP per mole di glucosio; il controllo non la calcola da una catena respiratoria.",
-          "Separa produzione lorda, consumi di mantenimento e produzione netta. Elenca quali flussi dovrebbero essere misurati per sostituire il parametro di resa con un modello più realistico.",
-          "Un valore convenzionale di resa non è una costante universale. La molecola di ATP non è una batteria che contiene una quantità fissa di energia indipendente dalle condizioni chimiche."
+          "La respirazione cellulare ossida il glucosio: C₆H₁₂O₆ + 6 O₂ → 6 CO₂ + 6 H₂O, con ΔG ≈ −2870 kJ/mol. Avviene in tre tappe. La glicolisi, nel citoplasma, spezza il glucosio in due molecole di piruvato e produce un guadagno netto di 2 ATP e 2 NADH. Il ciclo di Krebs, nei mitocondri, completa l’ossidazione a CO₂ e carica altri trasportatori di elettroni. La catena di trasporto degli elettroni li cede all’ossigeno, e l’ATP sintasi usa il gradiente di protoni per produrre la maggior parte dell’ATP.",
+          "Le stime moderne danno circa 30-32 ATP per glucosio; i testi più vecchi riportavano 36-38, con ipotesi meno realistiche sul costo del trasporto. Con 30 ATP l’energia conservata è 30 · 30,5 ≈ 915 kJ su 2870: circa il 32%. Il resto diventa calore, che negli animali a sangue caldo serve a mantenere la temperatura corporea. Peter Mitchell spiegò il ruolo del gradiente di protoni con la teoria chemiosmotica, premio Nobel nel 1978.",
+          "Senza ossigeno la catena di trasporto si ferma. Molte cellule ricorrono allora alla fermentazione: la glicolisi continua e il piruvato diventa acido lattico, nei muscoli sotto sforzo, oppure etanolo e CO₂, nel lievito. Il guadagno è di soli 2 ATP per glucosio: per ottenere la stessa energia servono circa quindici volte più glucosio.",
+          "Anche grassi e proteine alimentano la respirazione. I grassi forniscono circa 37 kJ per grammo, i carboidrati e le proteine circa 17: per questo gli animali immagazzinano l’energia a lungo termine soprattutto come grasso. Il corpo umano contiene in ogni momento poco ATP e lo ricicla continuamente: in un giorno ne trasforma una massa paragonabile a quella del corpo stesso."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Problemi guidati",
       "text": {
         "base": [
-          "Nel laboratorio imposta Resa assunta (a): 30 mol/mol. Prima di salvare A, prevedi come cambia ATP nel bilancio fra Glucosio utilizzato=2,5 e 5 mmol. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Assumendo resa 30 mol/mol e 2 mmol di glucosio utilizzato, il bilancio produce 60 mmol di ATP. Cambiare la resa modifica la previsione senza cambiare la quantità di glucosio.",
-          "La variabile Glucosio utilizzato è espressa in mmol; ATP nel bilancio in mmol. Il dominio dello strumento è [0; 10]. La relazione implementata è: ATP = resa × glucosio."
+          "L’attività propone quattro problemi guidati: il rendimento della respirazione; il confronto tra respirazione e fermentazione; il glucosio e l’ATP di una giornata; l’energia immagazzinata in grassi e carboidrati. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Tieni separate due quantità: le moli di ATP prodotte e l’energia che contengono. Il rendimento è un rapporto tra energie, non tra numeri di molecole.",
+          "Il modello del programma calcola l’ATP nel bilancio come resa per glucosio utilizzato, con la resa regolabile da 20 a 32 mol di ATP per mole di glucosio: con 30 e 2 mmol di glucosio si ottengono 60 mmol di ATP."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Resa assunta (a): 30 mol/mol. Prima di salvare A, prevedi come cambia ATP nel bilancio fra Glucosio utilizzato=2,5 e 5 mmol. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Glucosio utilizzato è espressa in mmol; ATP nel bilancio in mmol. Il dominio dello strumento è [0; 10]. La relazione implementata è: ATP = resa × glucosio.",
-          "Il laboratorio usa ATP=resa×glucosio. La resa è un parametro esplicito in moli di ATP per mole di glucosio; il controllo non la calcola da una catena respiratoria."
+          "L’attività propone quattro problemi guidati: il rendimento della respirazione; il confronto tra respirazione e fermentazione; il glucosio e l’ATP di una giornata; l’energia immagazzinata in grassi e carboidrati. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Tieni separate due quantità: le moli di ATP prodotte e l’energia che contengono. Il rendimento è un rapporto tra energie, non tra numeri di molecole.",
+          "Il modello del programma calcola l’ATP nel bilancio come resa per glucosio utilizzato, con la resa regolabile da 20 a 32 mol di ATP per mole di glucosio: con 30 e 2 mmol di glucosio si ottengono 60 mmol di ATP."
         ],
         "advanced": [
-          "Nel laboratorio imposta Resa assunta (a): 30 mol/mol. Prima di salvare A, prevedi come cambia ATP nel bilancio fra Glucosio utilizzato=2,5 e 5 mmol. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Separa produzione lorda, consumi di mantenimento e produzione netta. Elenca quali flussi dovrebbero essere misurati per sostituire il parametro di resa con un modello più realistico.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività propone quattro problemi guidati: il rendimento della respirazione; il confronto tra respirazione e fermentazione; il glucosio e l’ATP di una giornata; l’energia immagazzinata in grassi e carboidrati. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Tieni separate due quantità: le moli di ATP prodotte e l’energia che contengono. Il rendimento è un rapporto tra energie, non tra numeri di molecole.",
+          "Il modello del programma calcola l’ATP nel bilancio come resa per glucosio utilizzato, con la resa regolabile da 20 a 32 mol di ATP per mole di glucosio: con 30 e 2 mmol di glucosio si ottengono 60 mmol di ATP."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "Un valore convenzionale di resa non è una costante universale. La molecola di ATP non è una batteria che contiene una quantità fissa di energia indipendente dalle condizioni chimiche.",
-          "Bilancio aggregato con resa assegnata e nessuna cinetica metabolica. Non è una stima nutrizionale o fisiologica per persone o organismi specifici.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che l’ATP sia una riserva di energia. È una moneta di scambio, prodotta e consumata in pochi secondi; le riserve sono glicogeno e grassi.",
+          "Secondo errore: credere che la respirazione cellulare sia la respirazione dei polmoni. I polmoni scambiano i gas; la respirazione cellulare è la serie di reazioni che usa l’ossigeno nei mitocondri.",
+          "Anche grassi e proteine alimentano la respirazione. I grassi forniscono circa 37 kJ per grammo, i carboidrati e le proteine circa 17: per questo gli animali immagazzinano l’energia a lungo termine soprattutto come grasso. Il corpo umano contiene in ogni momento poco ATP e lo ricicla continuamente: in un giorno ne trasforma una massa paragonabile a quella del corpo stesso."
         ],
         "intermediate": [
-          "Un valore convenzionale di resa non è una costante universale. La molecola di ATP non è una batteria che contiene una quantità fissa di energia indipendente dalle condizioni chimiche.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che l’ATP sia una riserva di energia. È una moneta di scambio, prodotta e consumata in pochi secondi; le riserve sono glicogeno e grassi.",
+          "Secondo errore: credere che la respirazione cellulare sia la respirazione dei polmoni. I polmoni scambiano i gas; la respirazione cellulare è la serie di reazioni che usa l’ossigeno nei mitocondri.",
+          "Anche grassi e proteine alimentano la respirazione. I grassi forniscono circa 37 kJ per grammo, i carboidrati e le proteine circa 17: per questo gli animali immagazzinano l’energia a lungo termine soprattutto come grasso. Il corpo umano contiene in ogni momento poco ATP e lo ricicla continuamente: in un giorno ne trasforma una massa paragonabile a quella del corpo stesso."
         ],
         "advanced": [
-          "Bilancio aggregato con resa assegnata e nessuna cinetica metabolica. Non è una stima nutrizionale o fisiologica per persone o organismi specifici.",
-          "Separa produzione lorda, consumi di mantenimento e produzione netta. Elenca quali flussi dovrebbero essere misurati per sostituire il parametro di resa con un modello più realistico.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che l’ATP sia una riserva di energia. È una moneta di scambio, prodotta e consumata in pochi secondi; le riserve sono glicogeno e grassi.",
+          "Secondo errore: credere che la respirazione cellulare sia la respirazione dei polmoni. I polmoni scambiano i gas; la respirazione cellulare è la serie di reazioni che usa l’ossigeno nei mitocondri.",
+          "Il modello del programma calcola l’ATP nel bilancio come resa per glucosio utilizzato, con la resa regolabile da 20 a 32 mol di ATP per mole di glucosio: con 30 e 2 mmol di glucosio si ottengono 60 mmol di ATP."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Le vie metaboliche trasformano materia ed energia mediante reazioni accoppiate. L’ATP partecipa al trasferimento energetico, ma il rendimento netto dipende da organismo, condizioni e processi di trasporto.",
-          "Assumendo resa 30 mol/mol e 2 mmol di glucosio utilizzato, il bilancio produce 60 mmol di ATP. Cambiare la resa modifica la previsione senza cambiare la quantità di glucosio."
+          "Ripasso: catabolismo e anabolismo; ATP come moneta energetica; tappe della respirazione cellulare; resa in ATP e rendimento; fermentazione lattica e alcolica; energia di grassi e carboidrati.",
+          "Mini esercizio: con 30 ATP per glucosio, 5 mmol di glucosio danno 150 mmol di ATP; con la fermentazione solo 10 mmol.",
+          "Nelle domande sul metabolismo distingui dove avviene ogni tappa: citoplasma per la glicolisi, mitocondri per il resto."
         ],
         "intermediate": [
-          "Il laboratorio usa ATP=resa×glucosio. La resa è un parametro esplicito in moli di ATP per mole di glucosio; il controllo non la calcola da una catena respiratoria.",
-          "La variabile Glucosio utilizzato è espressa in mmol; ATP nel bilancio in mmol. Il dominio dello strumento è [0; 10]. La relazione implementata è: ATP = resa × glucosio."
+          "Ripasso: catabolismo e anabolismo; ATP come moneta energetica; tappe della respirazione cellulare; resa in ATP e rendimento; fermentazione lattica e alcolica; energia di grassi e carboidrati.",
+          "Mini esercizio: con 30 ATP per glucosio, 5 mmol di glucosio danno 150 mmol di ATP; con la fermentazione solo 10 mmol.",
+          "Nelle domande sul metabolismo distingui dove avviene ogni tappa: citoplasma per la glicolisi, mitocondri per il resto."
         ],
         "advanced": [
-          "Separa produzione lorda, consumi di mantenimento e produzione netta. Elenca quali flussi dovrebbero essere misurati per sostituire il parametro di resa con un modello più realistico.",
-          "Bilancio aggregato con resa assegnata e nessuna cinetica metabolica. Non è una stima nutrizionale o fisiologica per persone o organismi specifici."
+          "Ripasso: catabolismo e anabolismo; ATP come moneta energetica; tappe della respirazione cellulare; resa in ATP e rendimento; fermentazione lattica e alcolica; energia di grassi e carboidrati.",
+          "Mini esercizio: con 30 ATP per glucosio, 5 mmol di glucosio danno 150 mmol di ATP; con la fermentazione solo 10 mmol.",
+          "Nelle domande sul metabolismo distingui dove avviene ogni tappa: citoplasma per la glicolisi, mitocondri per il resto."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Bilancio aggregato con resa assegnata.",
-          "Bilancio aggregato con resa assegnata e nessuna cinetica metabolica. Non è una stima nutrizionale o fisiologica per persone o organismi specifici.",
-          "Collegamento consigliato: chemistry-15. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Il rendimento di un processo è un tema anche della chimica: l’unità «Resa e bilanci di materia» lo tratta per le reazioni di laboratorio. In biologia si passa a «Fotosintesi e luce», che produce il glucosio di cui qui si parla.",
+          "Riepilogo dell’unità: il catabolismo libera energia e l’anabolismo la consuma; l’ATP le collega; la respirazione cellulare dà circa 30-32 ATP per glucosio con un rendimento di circa un terzo; senza ossigeno la fermentazione ne dà 2; i grassi contengono più del doppio dell’energia per grammo dei carboidrati.",
+          "Nel diario spiega perché dopo uno sprint i muscoli producono acido lattico, usando le parole glicolisi e ossigeno."
         ],
         "intermediate": [
-          "Il laboratorio usa ATP=resa×glucosio. La resa è un parametro esplicito in moli di ATP per mole di glucosio; il controllo non la calcola da una catena respiratoria.",
-          "Bilancio aggregato con resa assegnata e nessuna cinetica metabolica. Non è una stima nutrizionale o fisiologica per persone o organismi specifici.",
-          "Separa produzione lorda, consumi di mantenimento e produzione netta. Elenca quali flussi dovrebbero essere misurati per sostituire il parametro di resa con un modello più realistico."
+          "Il rendimento di un processo è un tema anche della chimica: l’unità «Resa e bilanci di materia» lo tratta per le reazioni di laboratorio. In biologia si passa a «Fotosintesi e luce», che produce il glucosio di cui qui si parla.",
+          "Riepilogo dell’unità: il catabolismo libera energia e l’anabolismo la consuma; l’ATP le collega; la respirazione cellulare dà circa 30-32 ATP per glucosio con un rendimento di circa un terzo; senza ossigeno la fermentazione ne dà 2; i grassi contengono più del doppio dell’energia per grammo dei carboidrati.",
+          "Nel diario spiega perché dopo uno sprint i muscoli producono acido lattico, usando le parole glicolisi e ossigeno."
         ],
         "advanced": [
-          "Separa produzione lorda, consumi di mantenimento e produzione netta. Elenca quali flussi dovrebbero essere misurati per sostituire il parametro di resa con un modello più realistico.",
-          "Bilancio aggregato con resa assegnata e nessuna cinetica metabolica. Non è una stima nutrizionale o fisiologica per persone o organismi specifici.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Il rendimento di un processo è un tema anche della chimica: l’unità «Resa e bilanci di materia» lo tratta per le reazioni di laboratorio. In biologia si passa a «Fotosintesi e luce», che produce il glucosio di cui qui si parla.",
+          "Riepilogo dell’unità: il catabolismo libera energia e l’anabolismo la consuma; l’ATP le collega; la respirazione cellulare dà circa 30-32 ATP per glucosio con un rendimento di circa un terzo; senza ossigeno la fermentazione ne dà 2; i grassi contengono più del doppio dell’energia per grammo dei carboidrati.",
+          "Nel diario spiega perché dopo uno sprint i muscoli producono acido lattico, usando le parole glicolisi e ossigeno."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-05-concept",
-      "prompt": "La resa di ATP nel laboratorio è:",
+      "id": "biology-05-q1",
+      "prompt": "Dove si produce la maggior parte dell’ATP nella respirazione cellulare?",
       "options": [
         {
           "id": "A",
-          "text": "Una costante universale di ogni cellula",
-          "feedback": "Un valore convenzionale di resa non è una costante universale. La molecola di ATP non è una batteria che contiene una quantità fissa di energia indipendente dalle condizioni chimiche."
+          "text": "Nei mitocondri, con l’ATP sintasi",
+          "feedback": "Esatto: il gradiente di protoni alimenta la sintesi della maggior parte dell’ATP."
         },
         {
           "id": "B",
-          "text": "Il numero di atomi del glucosio",
-          "feedback": "Il laboratorio usa ATP=resa×glucosio. La resa è un parametro esplicito in moli di ATP per mole di glucosio; il controllo non la calcola da una catena respiratoria."
+          "text": "Nel citoplasma, con la glicolisi",
+          "feedback": "La glicolisi produce solo 2 ATP netti."
         },
         {
           "id": "C",
-          "text": "Un’ipotesi esplicita del bilancio",
-          "feedback": "Le vie metaboliche trasformano materia ed energia mediante reazioni accoppiate. L’ATP partecipa al trasferimento energetico, ma il rendimento netto dipende da organismo, condizioni e processi di trasporto."
+          "text": "Nel nucleo",
+          "feedback": "Il nucleo contiene il DNA e non produce ATP."
+        },
+        {
+          "id": "D",
+          "text": "Nei ribosomi",
+          "feedback": "I ribosomi sintetizzano proteine e consumano energia."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-05-q2",
+      "prompt": "Quanti ATP netti produce la glicolisi per molecola di glucosio?",
+      "options": [
+        {
+          "id": "A",
+          "text": "30",
+          "feedback": "Circa 30 è la resa dell’intera respirazione."
+        },
+        {
+          "id": "B",
+          "text": "2",
+          "feedback": "Esatto: ne consuma 2 e ne produce 4, con un guadagno netto di 2."
+        },
+        {
+          "id": "C",
+          "text": "0",
+          "feedback": "La glicolisi ha un guadagno netto positivo."
+        },
+        {
+          "id": "D",
+          "text": "38",
+          "feedback": "38 era una vecchia stima della resa totale."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-05-q3",
+      "prompt": "Qual è l’accettore finale degli elettroni nella respirazione cellulare?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Il glucosio",
+          "feedback": "Il glucosio cede elettroni, non li accetta."
+        },
+        {
+          "id": "B",
+          "text": "L’anidride carbonica",
+          "feedback": "La CO₂ è un prodotto dell’ossidazione del carbonio."
+        },
+        {
+          "id": "C",
+          "text": "L’ossigeno",
+          "feedback": "Esatto: accettando elettroni e protoni forma acqua."
+        },
+        {
+          "id": "D",
+          "text": "L’ATP",
+          "feedback": "L’ATP è il prodotto, non l’accettore degli elettroni."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "biology-05-calculation",
-      "prompt": "Calcolo: Resa assunta (a)=30 mol/mol. Per Glucosio utilizzato=2 mmol, quanto vale ATP nel bilancio?",
+      "id": "biology-05-q4",
+      "prompt": "Perché un muscolo sotto sforzo intenso produce acido lattico?",
       "options": [
         {
           "id": "A",
-          "text": "30 mmol",
-          "feedback": "Controlla sostituzione, segno e unità. ATP = resa × glucosio. Con Resa assunta (a)=30 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 60 mmol. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché ha troppo ossigeno",
+          "feedback": "L’acido lattico si forma quando l’ossigeno non basta."
         },
         {
           "id": "B",
-          "text": "60 mmol",
-          "feedback": "ATP = resa × glucosio. Con Resa assunta (a)=30 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 60 mmol. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché non ha glucosio",
+          "feedback": "Senza glucosio non ci sarebbe nemmeno la glicolisi."
         },
         {
           "id": "C",
-          "text": "90 mmol",
-          "feedback": "Questo valore non soddisfa la relazione. ATP = resa × glucosio. Con Resa assunta (a)=30 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 60 mmol. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché i mitocondri si sono moltiplicati",
+          "feedback": "I mitocondri non producono acido lattico."
+        },
+        {
+          "id": "D",
+          "text": "Perché l’ossigeno non basta e la glicolisi continua con la fermentazione",
+          "feedback": "Esatto: è un modo per ottenere 2 ATP in fretta."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 30
-        },
-        "expected": 60,
-        "unit": "mmol"
-      }
+      "correct": "D"
     },
     {
-      "id": "biology-05-transfer",
-      "prompt": "Trasferimento: Resa assunta (a)=32 mol/mol. Per Glucosio utilizzato=2 mmol, quanto vale ATP nel bilancio?",
+      "id": "biology-05-q5",
+      "prompt": "Con 30 ATP da 30,5 kJ/mol su 2870 kJ/mol di glucosio, qual è circa il rendimento?",
       "options": [
         {
           "id": "A",
-          "text": "64 mmol",
-          "feedback": "ATP = resa × glucosio. Con Resa assunta (a)=32 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 64 mmol. Conserva le unità e arrotonda solo alla fine."
+          "text": "32%",
+          "feedback": "Esatto: 30 · 30,5 = 915 kJ e 915/2870 ≈ 0,32."
         },
         {
           "id": "B",
-          "text": "96 mmol",
-          "feedback": "Questo valore non soddisfa la relazione. ATP = resa × glucosio. Con Resa assunta (a)=32 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 64 mmol. Conserva le unità e arrotonda solo alla fine."
+          "text": "100%",
+          "feedback": "Una parte dell’energia diventa sempre calore."
         },
         {
           "id": "C",
-          "text": "32 mmol",
-          "feedback": "Controlla sostituzione, segno e unità. ATP = resa × glucosio. Con Resa assunta (a)=32 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 64 mmol. Conserva le unità e arrotonda solo alla fine."
+          "text": "3%",
+          "feedback": "Hai perso un fattore 10 nel calcolo."
+        },
+        {
+          "id": "D",
+          "text": "68%",
+          "feedback": "Questa è la frazione che diventa calore."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 32
-        },
-        "expected": 64,
-        "unit": "mmol"
-      }
+      "correct": "A"
     },
     {
-      "id": "biology-05-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "biology-05-q6",
+      "prompt": "Quale processo è anabolico?",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Bilancio aggregato con resa assegnata e nessuna cinetica metabolica. Non è una stima nutrizionale o fisiologica per persone o organismi specifici."
+          "text": "La glicolisi",
+          "feedback": "La glicolisi demolisce il glucosio: è catabolica."
         },
         {
           "id": "B",
-          "text": "Bilancio aggregato con resa assegnata",
-          "feedback": "Bilancio aggregato con resa assegnata e nessuna cinetica metabolica. Non è una stima nutrizionale o fisiologica per persone o organismi specifici."
+          "text": "La sintesi delle proteine",
+          "feedback": "Esatto: costruisce molecole complesse consumando energia."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Bilancio aggregato con resa assegnata e nessuna cinetica metabolica. Non è una stima nutrizionale o fisiologica per persone o organismi specifici."
+          "text": "La digestione",
+          "feedback": "La digestione demolisce le molecole degli alimenti."
+        },
+        {
+          "id": "D",
+          "text": "La fermentazione",
+          "feedback": "La fermentazione demolisce il glucosio."
         }
       ],
       "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "steps",
+    "goal": 3,
+    "problems": [
+      {
+        "id": "rendimento",
+        "title": "Il rendimento della respirazione",
+        "text": "Una mole di glucosio libera circa 2870 kJ e produce circa 30 mol di ATP, ciascuna da 30,5 kJ. Qual è il rendimento?",
+        "maxErrors": 1,
+        "explain": "Il rendimento è l’energia conservata nell’ATP divisa per quella liberata.",
+        "steps": [
+          {
+            "prompt": "Energia conservata nell’ATP?",
+            "options": [
+              {
+                "text": "Circa 915 kJ",
+                "feedback": "Giusto: 30 · 30,5 kJ."
+              },
+              {
+                "text": "30,5 kJ",
+                "feedback": "Questa è l’energia di una sola mole di ATP."
+              },
+              {
+                "text": "2870 kJ",
+                "feedback": "Questa è l’energia liberata dal glucosio."
+              }
+            ],
+            "correct": 0,
+            "result": "Nell’ATP: circa 915 kJ."
+          },
+          {
+            "prompt": "Rendimento?",
+            "options": [
+              {
+                "text": "Circa 32%",
+                "feedback": "Giusto: 915/2870."
+              },
+              {
+                "text": "Circa 3,1%",
+                "feedback": "Ricontrolla la divisione: 915/2870 è circa 0,32."
+              },
+              {
+                "text": "Circa 314%",
+                "feedback": "Hai diviso l’energia liberata per quella conservata."
+              }
+            ],
+            "correct": 0,
+            "result": "Rendimento circa 32%."
+          },
+          {
+            "prompt": "Che fine fa il resto dell’energia?",
+            "options": [
+              {
+                "text": "Diventa calore",
+                "feedback": "Giusto: negli animali a sangue caldo serve a mantenere la temperatura."
+              },
+              {
+                "text": "Viene distrutta",
+                "feedback": "L’energia si conserva: cambia solo forma."
+              },
+              {
+                "text": "Resta nel glucosio",
+                "feedback": "Il glucosio è stato ossidato del tutto a CO₂ e acqua."
+              }
+            ],
+            "correct": 0,
+            "result": "Circa due terzi dell’energia diventano calore."
+          }
+        ]
+      },
+      {
+        "id": "fermentazione",
+        "title": "Respirare o fermentare",
+        "text": "Una cellula ha bisogno di 60 mmol di ATP. Quanto glucosio serve con la respirazione (30 ATP) e con la fermentazione (2 ATP)?",
+        "maxErrors": 1,
+        "explain": "Si divide l’ATP richiesto per la resa di ciascuna via.",
+        "steps": [
+          {
+            "prompt": "Glucosio con la respirazione?",
+            "options": [
+              {
+                "text": "2 mmol",
+                "feedback": "Giusto: 60/30."
+              },
+              {
+                "text": "1800 mmol",
+                "feedback": "Si divide per la resa, non si moltiplica."
+              },
+              {
+                "text": "30 mmol",
+                "feedback": "30 mmol servono con la fermentazione."
+              }
+            ],
+            "correct": 0,
+            "result": "Respirazione: 2 mmol di glucosio."
+          },
+          {
+            "prompt": "Glucosio con la fermentazione?",
+            "options": [
+              {
+                "text": "30 mmol",
+                "feedback": "Giusto: 60/2."
+              },
+              {
+                "text": "120 mmol",
+                "feedback": "Si divide per 2, non si moltiplica."
+              },
+              {
+                "text": "2 mmol",
+                "feedback": "Con 2 mmol la fermentazione darebbe solo 4 mmol di ATP."
+              }
+            ],
+            "correct": 0,
+            "result": "Fermentazione: 30 mmol di glucosio."
+          },
+          {
+            "prompt": "Quante volte più glucosio consuma la fermentazione?",
+            "options": [
+              {
+                "text": "15",
+                "feedback": "Giusto: 30/2, il rapporto tra le rese."
+              },
+              {
+                "text": "28",
+                "feedback": "La differenza tra le rese non dà il rapporto."
+              },
+              {
+                "text": "2",
+                "feedback": "2 è la resa della fermentazione."
+              }
+            ],
+            "correct": 0,
+            "result": "La fermentazione consuma 15 volte più glucosio per la stessa energia."
+          }
+        ]
+      },
+      {
+        "id": "giornata",
+        "title": "L’ATP di una giornata",
+        "text": "Supponiamo che una persona a riposo consumi circa 100 mol di ATP al giorno. Quanto glucosio serve con 30 ATP per glucosio (180 g/mol)? Che massa di ATP (507 g/mol) viene riciclata?",
+        "maxErrors": 1,
+        "explain": "Moli di glucosio, poi grammi; moli di ATP, poi chilogrammi.",
+        "steps": [
+          {
+            "prompt": "Moli di glucosio?",
+            "options": [
+              {
+                "text": "Circa 3,3 mol",
+                "feedback": "Giusto: 100/30."
+              },
+              {
+                "text": "3000 mol",
+                "feedback": "Si divide per la resa."
+              },
+              {
+                "text": "30 mol",
+                "feedback": "30 è la resa, non le moli di glucosio."
+              }
+            ],
+            "correct": 0,
+            "result": "Circa 3,3 mol di glucosio."
+          },
+          {
+            "prompt": "Grammi di glucosio?",
+            "options": [
+              {
+                "text": "Circa 600 g",
+                "feedback": "Giusto: 3,33 · 180 g."
+              },
+              {
+                "text": "Circa 54 g",
+                "feedback": "Hai diviso 180 per 3,33."
+              },
+              {
+                "text": "Circa 6 kg",
+                "feedback": "Ricontrolla il prodotto: 3,33 · 180 è circa 600."
+              }
+            ],
+            "correct": 0,
+            "result": "Circa 600 g di glucosio, o l’equivalente in altri combustibili."
+          },
+          {
+            "prompt": "Massa di ATP trasformata in un giorno?",
+            "options": [
+              {
+                "text": "Circa 51 kg",
+                "feedback": "Giusto: 100 · 507 g. Il corpo ne contiene molto meno e lo ricicla in continuazione."
+              },
+              {
+                "text": "Circa 507 g",
+                "feedback": "507 g è la massa di una sola mole di ATP."
+              },
+              {
+                "text": "Circa 5 kg",
+                "feedback": "Hai perso un fattore 10: 100 · 507 g sono circa 51 kg."
+              }
+            ],
+            "correct": 0,
+            "result": "Circa 51 kg di ATP al giorno, riciclati dalle stesse poche molecole."
+          }
+        ]
+      },
+      {
+        "id": "grassi",
+        "title": "Grassi o carboidrati",
+        "text": "I grassi forniscono circa 37 kJ/g, i carboidrati circa 17 kJ/g. Quanti grammi di ciascuno immagazzinano 10 000 kJ?",
+        "maxErrors": 1,
+        "explain": "Si divide l’energia per l’energia per grammo.",
+        "steps": [
+          {
+            "prompt": "Grammi di grasso?",
+            "options": [
+              {
+                "text": "Circa 270 g",
+                "feedback": "Giusto: 10 000/37."
+              },
+              {
+                "text": "Circa 370 000 g",
+                "feedback": "Si divide per 37, non si moltiplica."
+              },
+              {
+                "text": "Circa 590 g",
+                "feedback": "Questi sono i grammi di carboidrati."
+              }
+            ],
+            "correct": 0,
+            "result": "Circa 270 g di grasso."
+          },
+          {
+            "prompt": "Grammi di carboidrati?",
+            "options": [
+              {
+                "text": "Circa 590 g",
+                "feedback": "Giusto: 10 000/17."
+              },
+              {
+                "text": "Circa 270 g",
+                "feedback": "Questi sono i grammi di grasso."
+              },
+              {
+                "text": "Circa 170 g",
+                "feedback": "Hai usato 59 kJ/g: ricontrolla la divisione."
+              }
+            ],
+            "correct": 0,
+            "result": "Circa 590 g di carboidrati."
+          },
+          {
+            "prompt": "Perché gli animali accumulano energia come grasso?",
+            "options": [
+              {
+                "text": "A parità di energia pesa meno della metà",
+                "feedback": "Giusto: per chi si muove o vola il peso conta."
+              },
+              {
+                "text": "Si demolisce più in fretta",
+                "feedback": "Il glicogeno si mobilita più in fretta dei grassi."
+              },
+              {
+                "text": "Contiene più ATP",
+                "feedback": "I grassi non contengono ATP: lo producono quando vengono ossidati."
+              }
+            ],
+            "correct": 0,
+            "result": "Il grasso è la riserva più leggera per la stessa energia."
+          }
+        ]
+      }
+    ]
+  }
 }

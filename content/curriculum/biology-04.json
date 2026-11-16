@@ -5,19 +5,21 @@
   "title": "Enzimi e saturazione",
   "sector": 3,
   "modelId": "biology-04",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Michaelis-Menten nelle ipotesi dichiarate",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Enzimi e sito attivo, cinetica di Michaelis-Menten, V_max e K_m, temperatura, pH e inibitori",
+  "narrativeStatus": "Le serie di misure sono simulate con il modello di Michaelis-Menten e piccoli scarti.",
   "objectives": [
-    "Spiegare: michaelis-menten nelle ipotesi dichiarate.",
-    "Applicare v = V_max [S]/(K_m+[S]), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Descrivere il funzionamento di un enzima e del sito attivo.",
+    "Usare l’equazione di Michaelis-Menten.",
+    "Stimare V_max e K_m da dati sperimentali.",
+    "Spiegare gli effetti di temperatura, pH e inibitori."
   ],
   "prerequisites": [
     "biology-03"
   ],
   "connections": [
+    "biology-05",
     "math-c08"
   ],
   "sources": [
@@ -26,250 +28,419 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Substrato",
-      "definition": "Variabile indipendente, unità mmol/L; intervallo [0; 10]."
+      "term": "Enzima",
+      "definition": "Catalizzatore biologico, di solito una proteina."
     },
     {
-      "term": "Velocità iniziale",
-      "definition": "Risultato calcolato dal modello, unità μmol/min."
+      "term": "Sito attivo",
+      "definition": "Regione dell’enzima dove si lega il substrato."
     },
     {
-      "term": "Velocità massima",
-      "definition": "Parametro a, unità μmol/min; intervallo [5; 30]."
+      "term": "V_max",
+      "definition": "Velocità massima a cui tende la reazione quando l’enzima è saturo."
     },
     {
-      "term": "Costante K_m",
-      "definition": "Parametro b, unità mmol/L; intervallo [0,5; 5]."
+      "term": "K_m",
+      "definition": "Concentrazione di substrato a cui la velocità è metà di V_max."
+    },
+    {
+      "term": "Denaturazione",
+      "definition": "Perdita della forma di una proteina, per esempio per il calore."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "La schiuma dell’acqua ossigenata",
       "text": {
         "base": [
-          "Aumentando il substrato, la velocità iniziale cresce ma tende a saturare. La stazione deve distinguere scarsità di substrato e capacità limitata del sistema enzimatico.",
-          "Il modello di Michaelis-Menten descrive una velocità iniziale v=V_max[S]/(K_m+[S]). A substrato basso è quasi lineare; a substrato alto tende a V_max."
+          "Una goccia di acqua ossigenata su una ferita fa la schiuma: l’enzima catalasi, presente nei tessuti, la scompone in acqua e ossigeno molto in fretta. Senza enzimi quasi tutte le reazioni della cellula sarebbero troppo lente per sostenere la vita. Ma la velocità di un enzima non cresce senza limiti: a un certo punto l’enzima è saturo.",
+          "Gli enzimi sono catalizzatori biologici, quasi sempre proteine. Il substrato si lega a una regione precisa, il sito attivo, dove la reazione avviene con un’energia di attivazione più bassa. Nel 1894 Emil Fischer paragonò enzima e substrato a una serratura e alla sua chiave; nel 1958 Daniel Koshland propose l’adattamento indotto: il sito attivo cambia forma quando il substrato si lega. Alcuni enzimi, come la catalasi, trasformano milioni di molecole al secondo."
         ],
         "intermediate": [
-          "Aumentando il substrato, la velocità iniziale cresce ma tende a saturare. La stazione deve distinguere scarsità di substrato e capacità limitata del sistema enzimatico.",
-          "Ponendo [S]=K_m, numeratore e denominatore danno v=V_max/2. K_m ha unità di concentrazione. Il suo significato microscopico dipende dal meccanismo e non coincide sempre con una semplice misura di affinità."
+          "Una goccia di acqua ossigenata su una ferita fa la schiuma: l’enzima catalasi, presente nei tessuti, la scompone in acqua e ossigeno molto in fretta. Senza enzimi quasi tutte le reazioni della cellula sarebbero troppo lente per sostenere la vita. Ma la velocità di un enzima non cresce senza limiti: a un certo punto l’enzima è saturo.",
+          "Gli enzimi sono catalizzatori biologici, quasi sempre proteine. Il substrato si lega a una regione precisa, il sito attivo, dove la reazione avviene con un’energia di attivazione più bassa. Nel 1894 Emil Fischer paragonò enzima e substrato a una serratura e alla sua chiave; nel 1958 Daniel Koshland propose l’adattamento indotto: il sito attivo cambia forma quando il substrato si lega. Alcuni enzimi, come la catalasi, trasformano milioni di molecole al secondo."
         ],
         "advanced": [
-          "Aumentando il substrato, la velocità iniziale cresce ma tende a saturare. La stazione deve distinguere scarsità di substrato e capacità limitata del sistema enzimatico.",
-          "Confronta l’effetto di aumentare V_max con quello di cambiare K_m. Scrivi quale misura distinguerebbe le due ipotesi su una curva osservata.",
-          "Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse."
+          "Una goccia di acqua ossigenata su una ferita fa la schiuma: l’enzima catalasi, presente nei tessuti, la scompone in acqua e ossigeno molto in fretta. Senza enzimi quasi tutte le reazioni della cellula sarebbero troppo lente per sostenere la vita. Ma la velocità di un enzima non cresce senza limiti: a un certo punto l’enzima è saturo.",
+          "Gli enzimi sono catalizzatori biologici, quasi sempre proteine. Il substrato si lega a una regione precisa, il sito attivo, dove la reazione avviene con un’energia di attivazione più bassa. Nel 1894 Emil Fischer paragonò enzima e substrato a una serratura e alla sua chiave; nel 1958 Daniel Koshland propose l’adattamento indotto: il sito attivo cambia forma quando il substrato si lega. Alcuni enzimi, come la catalasi, trasformano milioni di molecole al secondo."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Michaelis e Menten",
       "text": {
         "base": [
-          "Il modello di Michaelis-Menten descrive una velocità iniziale v=V_max[S]/(K_m+[S]). A substrato basso è quasi lineare; a substrato alto tende a V_max.",
-          "Con V_max=10 μmol/min e K_m=2 mmol/L, in [S]=2 mmol/L la velocità è 5 μmol/min. Raddoppiare ancora il substrato non raddoppia necessariamente la velocità."
+          "Nel 1913 Leonor Michaelis e Maud Menten descrissero la velocità iniziale di una reazione enzimatica: v = V_max [S]/(K_m + [S]). A basse concentrazioni di substrato la velocità cresce quasi in proporzione; ad alte concentrazioni tutti i siti attivi sono occupati e la velocità si avvicina a V_max. K_m è la concentrazione di substrato a cui v = V_max/2: un K_m piccolo indica un enzima che lavora bene anche con poco substrato.",
+          "Esempio svolto. Con V_max = 10 μmol/min e K_m = 2 mmol/L: per [S] = 2 mmol/L, v = 10 · 2/4 = 5 μmol/min, metà della massima; per [S] = 8 mmol/L, v = 10 · 8/10 = 8 μmol/min. Quadruplicando il substrato la velocità cresce solo del 60%. V_max è proporzionale alla quantità di enzima: raddoppiando l’enzima raddoppia.",
+          "Gli enzimi funzionano in un intervallo di condizioni. Ogni enzima ha una temperatura ottimale, per gli enzimi umani intorno a 37 °C, oltre la quale la proteina si denatura e perde la forma del sito attivo. Ha anche un pH ottimale: la pepsina dello stomaco lavora intorno a pH 2, la tripsina dell’intestino intorno a pH 8. Gli inibitori competitivi occupano il sito attivo e aumentano il K_m apparente; quelli non competitivi si legano altrove e riducono V_max."
         ],
         "intermediate": [
-          "Ponendo [S]=K_m, numeratore e denominatore danno v=V_max/2. K_m ha unità di concentrazione. Il suo significato microscopico dipende dal meccanismo e non coincide sempre con una semplice misura di affinità.",
-          "La variabile Substrato è espressa in mmol/L; Velocità iniziale in μmol/min. Il dominio dello strumento è [0; 10]. La relazione implementata è: v = V_max [S]/(K_m+[S]).",
-          "Con V_max=10 μmol/min e K_m=2 mmol/L, in [S]=2 mmol/L la velocità è 5 μmol/min. Raddoppiare ancora il substrato non raddoppia necessariamente la velocità."
+          "Nel 1913 Leonor Michaelis e Maud Menten descrissero la velocità iniziale di una reazione enzimatica: v = V_max [S]/(K_m + [S]). A basse concentrazioni di substrato la velocità cresce quasi in proporzione; ad alte concentrazioni tutti i siti attivi sono occupati e la velocità si avvicina a V_max. K_m è la concentrazione di substrato a cui v = V_max/2: un K_m piccolo indica un enzima che lavora bene anche con poco substrato.",
+          "Esempio svolto. Con V_max = 10 μmol/min e K_m = 2 mmol/L: per [S] = 2 mmol/L, v = 10 · 2/4 = 5 μmol/min, metà della massima; per [S] = 8 mmol/L, v = 10 · 8/10 = 8 μmol/min. Quadruplicando il substrato la velocità cresce solo del 60%. V_max è proporzionale alla quantità di enzima: raddoppiando l’enzima raddoppia.",
+          "Gli enzimi funzionano in un intervallo di condizioni. Ogni enzima ha una temperatura ottimale, per gli enzimi umani intorno a 37 °C, oltre la quale la proteina si denatura e perde la forma del sito attivo. Ha anche un pH ottimale: la pepsina dello stomaco lavora intorno a pH 2, la tripsina dell’intestino intorno a pH 8. Gli inibitori competitivi occupano il sito attivo e aumentano il K_m apparente; quelli non competitivi si legano altrove e riducono V_max."
         ],
         "advanced": [
-          "Ponendo [S]=K_m, numeratore e denominatore danno v=V_max/2. K_m ha unità di concentrazione. Il suo significato microscopico dipende dal meccanismo e non coincide sempre con una semplice misura di affinità.",
-          "Confronta l’effetto di aumentare V_max con quello di cambiare K_m. Scrivi quale misura distinguerebbe le due ipotesi su una curva osservata.",
-          "La saturazione non significa che l’enzima sia esaurito come un reagente stechiometrico. Il modello non può essere applicato automaticamente a ogni enzima o a ogni condizione."
+          "Nel 1913 Leonor Michaelis e Maud Menten descrissero la velocità iniziale di una reazione enzimatica: v = V_max [S]/(K_m + [S]). A basse concentrazioni di substrato la velocità cresce quasi in proporzione; ad alte concentrazioni tutti i siti attivi sono occupati e la velocità si avvicina a V_max. K_m è la concentrazione di substrato a cui v = V_max/2: un K_m piccolo indica un enzima che lavora bene anche con poco substrato.",
+          "Esempio svolto. Con V_max = 10 μmol/min e K_m = 2 mmol/L: per [S] = 2 mmol/L, v = 10 · 2/4 = 5 μmol/min, metà della massima; per [S] = 8 mmol/L, v = 10 · 8/10 = 8 μmol/min. Quadruplicando il substrato la velocità cresce solo del 60%. V_max è proporzionale alla quantità di enzima: raddoppiando l’enzima raddoppia.",
+          "Gli enzimi funzionano in un intervallo di condizioni. Ogni enzima ha una temperatura ottimale, per gli enzimi umani intorno a 37 °C, oltre la quale la proteina si denatura e perde la forma del sito attivo. Ha anche un pH ottimale: la pepsina dello stomaco lavora intorno a pH 2, la tripsina dell’intestino intorno a pH 8. Gli inibitori competitivi occupano il sito attivo e aumentano il K_m apparente; quelli non competitivi si legano altrove e riducono V_max.",
+          "Che cosa mostra il grafico. Una curva che sale rapidamente e poi si appiattisce: un’iperbole. Raddoppiare [S] quando [S] è molto minore di K_m quasi raddoppia la velocità; quando [S] è molto maggiore di K_m quasi non la cambia. Lineweaver e Burk, nel 1934, proposero di riportare 1/v contro 1/[S] per ottenere una retta."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Adatta il modello alle misure",
       "text": {
         "base": [
-          "Nel laboratorio imposta Velocità massima (a): 10 μmol/min; Costante K_m (b): 2 mmol/L. Prima di salvare A, prevedi come cambia Velocità iniziale fra Substrato=2,5 e 5 mmol/L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con V_max=10 μmol/min e K_m=2 mmol/L, in [S]=2 mmol/L la velocità è 5 μmol/min. Raddoppiare ancora il substrato non raddoppia necessariamente la velocità.",
-          "La variabile Substrato è espressa in mmol/L; Velocità iniziale in μmol/min. Il dominio dello strumento è [0; 10]. La relazione implementata è: v = V_max [S]/(K_m+[S])."
+          "L’attività presenta tre serie di velocità iniziali misurate a diverse concentrazioni di substrato. Il modello è v = V_max [S]/(K_m + [S]): nella prima serie regoli V_max, nella seconda K_m, nella terza entrambi. Per completare l’attività adatta il modello a due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
+          "Suggerimento: V_max è il valore a cui la curva tende per [S] grandi, e si stima dai punti più a destra. Poi cerca la concentrazione a cui la velocità vale metà di V_max: quella è K_m."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Velocità massima (a): 10 μmol/min; Costante K_m (b): 2 mmol/L. Prima di salvare A, prevedi come cambia Velocità iniziale fra Substrato=2,5 e 5 mmol/L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Substrato è espressa in mmol/L; Velocità iniziale in μmol/min. Il dominio dello strumento è [0; 10]. La relazione implementata è: v = V_max [S]/(K_m+[S]).",
-          "Ponendo [S]=K_m, numeratore e denominatore danno v=V_max/2. K_m ha unità di concentrazione. Il suo significato microscopico dipende dal meccanismo e non coincide sempre con una semplice misura di affinità."
+          "L’attività presenta tre serie di velocità iniziali misurate a diverse concentrazioni di substrato. Il modello è v = V_max [S]/(K_m + [S]): nella prima serie regoli V_max, nella seconda K_m, nella terza entrambi. Per completare l’attività adatta il modello a due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
+          "Suggerimento: V_max è il valore a cui la curva tende per [S] grandi, e si stima dai punti più a destra. Poi cerca la concentrazione a cui la velocità vale metà di V_max: quella è K_m."
         ],
         "advanced": [
-          "Nel laboratorio imposta Velocità massima (a): 10 μmol/min; Costante K_m (b): 2 mmol/L. Prima di salvare A, prevedi come cambia Velocità iniziale fra Substrato=2,5 e 5 mmol/L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta l’effetto di aumentare V_max con quello di cambiare K_m. Scrivi quale misura distinguerebbe le due ipotesi su una curva osservata.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività presenta tre serie di velocità iniziali misurate a diverse concentrazioni di substrato. Il modello è v = V_max [S]/(K_m + [S]): nella prima serie regoli V_max, nella seconda K_m, nella terza entrambi. Per completare l’attività adatta il modello a due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
+          "Suggerimento: V_max è il valore a cui la curva tende per [S] grandi, e si stima dai punti più a destra. Poi cerca la concentrazione a cui la velocità vale metà di V_max: quella è K_m."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Leggere il grafico ed evitare errori",
       "text": {
         "base": [
-          "La saturazione non significa che l’enzima sia esaurito come un reagente stechiometrico. Il modello non può essere applicato automaticamente a ogni enzima o a ogni condizione.",
-          "Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Che cosa mostra il grafico. Una curva che sale rapidamente e poi si appiattisce: un’iperbole. Raddoppiare [S] quando [S] è molto minore di K_m quasi raddoppia la velocità; quando [S] è molto maggiore di K_m quasi non la cambia. Lineweaver e Burk, nel 1934, proposero di riportare 1/v contro 1/[S] per ottenere una retta.",
+          "Errore frequente: pensare che K_m sia la concentrazione a cui la velocità è massima. La velocità massima non si raggiunge mai esattamente; K_m è la concentrazione a cui si ottiene metà di V_max.",
+          "Secondo errore: credere che l’enzima si consumi nella reazione. Come ogni catalizzatore, alla fine si ritrova intatto e può trasformare altre molecole di substrato."
         ],
         "intermediate": [
-          "La saturazione non significa che l’enzima sia esaurito come un reagente stechiometrico. Il modello non può essere applicato automaticamente a ogni enzima o a ogni condizione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Che cosa mostra il grafico. Una curva che sale rapidamente e poi si appiattisce: un’iperbole. Raddoppiare [S] quando [S] è molto minore di K_m quasi raddoppia la velocità; quando [S] è molto maggiore di K_m quasi non la cambia. Lineweaver e Burk, nel 1934, proposero di riportare 1/v contro 1/[S] per ottenere una retta.",
+          "Errore frequente: pensare che K_m sia la concentrazione a cui la velocità è massima. La velocità massima non si raggiunge mai esattamente; K_m è la concentrazione a cui si ottiene metà di V_max.",
+          "Secondo errore: credere che l’enzima si consumi nella reazione. Come ogni catalizzatore, alla fine si ritrova intatto e può trasformare altre molecole di substrato."
         ],
         "advanced": [
-          "Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse.",
-          "Confronta l’effetto di aumentare V_max con quello di cambiare K_m. Scrivi quale misura distinguerebbe le due ipotesi su una curva osservata.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Che cosa mostra il grafico. Una curva che sale rapidamente e poi si appiattisce: un’iperbole. Raddoppiare [S] quando [S] è molto minore di K_m quasi raddoppia la velocità; quando [S] è molto maggiore di K_m quasi non la cambia. Lineweaver e Burk, nel 1934, proposero di riportare 1/v contro 1/[S] per ottenere una retta.",
+          "Errore frequente: pensare che K_m sia la concentrazione a cui la velocità è massima. La velocità massima non si raggiunge mai esattamente; K_m è la concentrazione a cui si ottiene metà di V_max.",
+          "Secondo errore: credere che l’enzima si consumi nella reazione. Come ogni catalizzatore, alla fine si ritrova intatto e può trasformare altre molecole di substrato."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Il modello di Michaelis-Menten descrive una velocità iniziale v=V_max[S]/(K_m+[S]). A substrato basso è quasi lineare; a substrato alto tende a V_max.",
-          "Con V_max=10 μmol/min e K_m=2 mmol/L, in [S]=2 mmol/L la velocità è 5 μmol/min. Raddoppiare ancora il substrato non raddoppia necessariamente la velocità."
+          "Ripasso: enzimi come catalizzatori; sito attivo, chiave e serratura, adattamento indotto; equazione di Michaelis-Menten; significato di V_max e K_m; effetti di temperatura, pH e inibitori.",
+          "Mini esercizio: V_max = 20 μmol/min, K_m = 1 mmol/L. Per [S] = 1 mmol/L, v = 10; per [S] = 9 mmol/L, v = 18 μmol/min.",
+          "Nelle domande sugli enzimi confronta sempre [S] con K_m: decide se la curva è nel tratto ripido o in quello piatto."
         ],
         "intermediate": [
-          "Ponendo [S]=K_m, numeratore e denominatore danno v=V_max/2. K_m ha unità di concentrazione. Il suo significato microscopico dipende dal meccanismo e non coincide sempre con una semplice misura di affinità.",
-          "La variabile Substrato è espressa in mmol/L; Velocità iniziale in μmol/min. Il dominio dello strumento è [0; 10]. La relazione implementata è: v = V_max [S]/(K_m+[S])."
+          "Ripasso: enzimi come catalizzatori; sito attivo, chiave e serratura, adattamento indotto; equazione di Michaelis-Menten; significato di V_max e K_m; effetti di temperatura, pH e inibitori.",
+          "Mini esercizio: V_max = 20 μmol/min, K_m = 1 mmol/L. Per [S] = 1 mmol/L, v = 10; per [S] = 9 mmol/L, v = 18 μmol/min.",
+          "Nelle domande sugli enzimi confronta sempre [S] con K_m: decide se la curva è nel tratto ripido o in quello piatto."
         ],
         "advanced": [
-          "Confronta l’effetto di aumentare V_max con quello di cambiare K_m. Scrivi quale misura distinguerebbe le due ipotesi su una curva osservata.",
-          "Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse."
+          "Ripasso: enzimi come catalizzatori; sito attivo, chiave e serratura, adattamento indotto; equazione di Michaelis-Menten; significato di V_max e K_m; effetti di temperatura, pH e inibitori.",
+          "Mini esercizio: V_max = 20 μmol/min, K_m = 1 mmol/L. Per [S] = 1 mmol/L, v = 10; per [S] = 9 mmol/L, v = 18 μmol/min.",
+          "Nelle domande sugli enzimi confronta sempre [S] con K_m: decide se la curva è nel tratto ripido o in quello piatto."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Michaelis-Menten nelle ipotesi dichiarate.",
-          "Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse.",
-          "Collegamento consigliato: math-c08. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La curva di saturazione ha la stessa forma della risposta funzionale dei predatori, nell’unità «Predazione e risposta funzionale». L’energia che gli enzimi aiutano a liberare è il tema di «Metabolismo e bilanci energetici».",
+          "Riepilogo dell’unità: gli enzimi abbassano l’energia di attivazione legando il substrato nel sito attivo; v = V_max [S]/(K_m + [S]); a [S] = K_m la velocità è metà della massima; V_max cresce con la quantità di enzima; temperatura, pH e inibitori cambiano l’attività.",
+          "Nel diario annota V_max e K_m trovati e spiega che cosa cambierebbe nel grafico con un inibitore competitivo."
         ],
         "intermediate": [
-          "Ponendo [S]=K_m, numeratore e denominatore danno v=V_max/2. K_m ha unità di concentrazione. Il suo significato microscopico dipende dal meccanismo e non coincide sempre con una semplice misura di affinità.",
-          "Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse.",
-          "Confronta l’effetto di aumentare V_max con quello di cambiare K_m. Scrivi quale misura distinguerebbe le due ipotesi su una curva osservata."
+          "La curva di saturazione ha la stessa forma della risposta funzionale dei predatori, nell’unità «Predazione e risposta funzionale». L’energia che gli enzimi aiutano a liberare è il tema di «Metabolismo e bilanci energetici».",
+          "Riepilogo dell’unità: gli enzimi abbassano l’energia di attivazione legando il substrato nel sito attivo; v = V_max [S]/(K_m + [S]); a [S] = K_m la velocità è metà della massima; V_max cresce con la quantità di enzima; temperatura, pH e inibitori cambiano l’attività.",
+          "Nel diario annota V_max e K_m trovati e spiega che cosa cambierebbe nel grafico con un inibitore competitivo."
         ],
         "advanced": [
-          "Confronta l’effetto di aumentare V_max con quello di cambiare K_m. Scrivi quale misura distinguerebbe le due ipotesi su una curva osservata.",
-          "Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La curva di saturazione ha la stessa forma della risposta funzionale dei predatori, nell’unità «Predazione e risposta funzionale». L’energia che gli enzimi aiutano a liberare è il tema di «Metabolismo e bilanci energetici».",
+          "Riepilogo dell’unità: gli enzimi abbassano l’energia di attivazione legando il substrato nel sito attivo; v = V_max [S]/(K_m + [S]); a [S] = K_m la velocità è metà della massima; V_max cresce con la quantità di enzima; temperatura, pH e inibitori cambiano l’attività.",
+          "Nel diario annota V_max e K_m trovati e spiega che cosa cambierebbe nel grafico con un inibitore competitivo."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-04-concept",
-      "prompt": "Quando [S]=K_m, la velocità vale:",
+      "id": "biology-04-q1",
+      "prompt": "Che cosa rappresenta K_m?",
       "options": [
         {
           "id": "A",
-          "text": "V_max/2",
-          "feedback": "Il modello di Michaelis-Menten descrive una velocità iniziale v=V_max[S]/(K_m+[S]). A substrato basso è quasi lineare; a substrato alto tende a V_max."
+          "text": "La concentrazione di substrato a cui v = V_max/2",
+          "feedback": "Esatto: misura quanto substrato serve per lavorare a metà regime."
         },
         {
           "id": "B",
-          "text": "V_max",
-          "feedback": "La saturazione non significa che l’enzima sia esaurito come un reagente stechiometrico. Il modello non può essere applicato automaticamente a ogni enzima o a ogni condizione."
+          "text": "La velocità massima",
+          "feedback": "La velocità massima è V_max, una grandezza diversa da K_m."
         },
         {
           "id": "C",
-          "text": "0",
-          "feedback": "Ponendo [S]=K_m, numeratore e denominatore danno v=V_max/2. K_m ha unità di concentrazione. Il suo significato microscopico dipende dal meccanismo e non coincide sempre con una semplice misura di affinità."
+          "text": "La quantità di enzima",
+          "feedback": "La quantità di enzima determina V_max, non K_m."
+        },
+        {
+          "id": "D",
+          "text": "La temperatura ottimale",
+          "feedback": "La temperatura ottimale è un’altra caratteristica dell’enzima."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "biology-04-calculation",
-      "prompt": "Calcolo: Velocità massima (a)=10 μmol/min; Costante K_m (b)=2 mmol/L. Per Substrato=2 mmol/L, quanto vale Velocità iniziale?",
+      "id": "biology-04-q2",
+      "prompt": "Con V_max = 10 μmol/min e K_m = 2 mmol/L, quanto vale v per [S] = 2 mmol/L?",
       "options": [
         {
           "id": "A",
-          "text": "7,5 μmol/min",
-          "feedback": "Questo valore non soddisfa la relazione. v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=10 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 5 μmol/min. Conserva le unità e arrotonda solo alla fine."
+          "text": "10 μmol/min",
+          "feedback": "Questa è la velocità massima, che si raggiunge solo per [S] molto grandi."
         },
         {
           "id": "B",
-          "text": "2,5 μmol/min",
-          "feedback": "Controlla sostituzione, segno e unità. v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=10 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 5 μmol/min. Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "C",
           "text": "5 μmol/min",
-          "feedback": "v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=10 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 5 μmol/min. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "C",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 10,
-          "b": 2
-        },
-        "expected": 5,
-        "unit": "μmol/min"
-      }
-    },
-    {
-      "id": "biology-04-transfer",
-      "prompt": "Trasferimento: Velocità massima (a)=15 μmol/min; Costante K_m (b)=2 mmol/L. Per Substrato=2 mmol/L, quanto vale Velocità iniziale?",
-      "options": [
-        {
-          "id": "A",
-          "text": "3,75 μmol/min",
-          "feedback": "Controlla sostituzione, segno e unità. v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=15 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 7,5 μmol/min. Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "B",
-          "text": "7,5 μmol/min",
-          "feedback": "v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=15 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 7,5 μmol/min. Conserva le unità e arrotonda solo alla fine."
+          "feedback": "Esatto: per [S] = K_m la velocità è metà di V_max."
         },
         {
           "id": "C",
-          "text": "11,25 μmol/min",
-          "feedback": "Questo valore non soddisfa la relazione. v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=15 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 7,5 μmol/min. Conserva le unità e arrotonda solo alla fine."
+          "text": "2 μmol/min",
+          "feedback": "La velocità non coincide con la concentrazione di substrato."
+        },
+        {
+          "id": "D",
+          "text": "20 μmol/min",
+          "feedback": "La velocità non può superare V_max."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 15,
-          "b": 2
-        },
-        "expected": 7.5,
-        "unit": "μmol/min"
-      }
+      "correct": "B"
     },
     {
-      "id": "biology-04-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "biology-04-q3",
+      "prompt": "Perché ad alte concentrazioni di substrato la velocità smette di crescere?",
       "options": [
         {
           "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse."
+          "text": "Perché il substrato si esaurisce",
+          "feedback": "Qui il substrato è abbondante: il limite è un altro."
         },
         {
           "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse."
+          "text": "Perché l’enzima si consuma",
+          "feedback": "L’enzima è un catalizzatore e non si consuma."
         },
         {
           "id": "C",
-          "text": "Michaelis-Menten nelle ipotesi dichiarate",
-          "feedback": "Velocità iniziali, approssimazione di stato quasi stazionario e singolo substrato. Inibizione, cooperatività e variazioni di enzima non sono incluse."
+          "text": "Perché tutti i siti attivi sono occupati",
+          "feedback": "Esatto: l’enzima è saturo e lavora al massimo della sua capacità."
+        },
+        {
+          "id": "D",
+          "text": "Perché la temperatura sale",
+          "feedback": "La saturazione si osserva anche a temperatura costante."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "biology-04-q4",
+      "prompt": "Che effetto ha un inibitore competitivo?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Riduce V_max lasciando K_m uguale",
+          "feedback": "Questo è l’effetto tipico di un inibitore non competitivo."
+        },
+        {
+          "id": "B",
+          "text": "Denatura l’enzima",
+          "feedback": "L’inibitore competitivo occupa il sito attivo senza denaturare la proteina."
+        },
+        {
+          "id": "C",
+          "text": "Aumenta V_max",
+          "feedback": "Un inibitore non può far lavorare l’enzima più in fretta."
+        },
+        {
+          "id": "D",
+          "text": "Aumenta il K_m apparente",
+          "feedback": "Esatto: serve più substrato per competere con l’inibitore."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "biology-04-q5",
+      "prompt": "Perché un enzima umano smette di funzionare a 60 °C?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché la proteina si denatura",
+          "feedback": "Esatto: il sito attivo perde la sua forma."
+        },
+        {
+          "id": "B",
+          "text": "Perché il substrato evapora",
+          "feedback": "Il problema riguarda la struttura dell’enzima."
+        },
+        {
+          "id": "C",
+          "text": "Perché le molecole rallentano",
+          "feedback": "A temperatura più alta le molecole sono più veloci."
+        },
+        {
+          "id": "D",
+          "text": "Perché aumenta il pH",
+          "feedback": "La temperatura non è il pH: l’effetto è sulla forma della proteina."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-04-q6",
+      "prompt": "Che cosa succede a V_max se si raddoppia la quantità di enzima?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Resta uguale",
+          "feedback": "Più enzima significa più siti attivi disponibili."
+        },
+        {
+          "id": "B",
+          "text": "Raddoppia",
+          "feedback": "Esatto: V_max è proporzionale alla quantità di enzima."
+        },
+        {
+          "id": "C",
+          "text": "Si dimezza",
+          "feedback": "Aggiungere enzima non può rallentare la reazione."
+        },
+        {
+          "id": "D",
+          "text": "Diventa uguale a K_m",
+          "feedback": "V_max e K_m hanno unità diverse e non si confrontano così."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "fit",
+    "goal": 2,
+    "rounds": [
+      {
+        "id": "vmax",
+        "title": "La velocità massima",
+        "prompt": "K_m è nota. Regola V_max finché la curva segue le velocità misurate.",
+        "model": "biology-04",
+        "x": [
+          0.5,
+          1,
+          2,
+          3,
+          5,
+          7,
+          10
+        ],
+        "noise": [
+          0.3,
+          -0.25,
+          0.2,
+          -0.3,
+          0.25,
+          -0.2,
+          0.15
+        ],
+        "hidden": {
+          "a": 20,
+          "b": 2
+        },
+        "fit": [
+          "a"
+        ],
+        "explain": "V_max = 20 μmol/min: a [S] = 2 mmol/L la velocità è 10, metà della massima."
+      },
+      {
+        "id": "km",
+        "title": "Metà della massima",
+        "prompt": "V_max è nota. Regola K_m: cerca dove la velocità vale metà di V_max.",
+        "model": "biology-04",
+        "x": [
+          0.5,
+          1,
+          2,
+          3,
+          4,
+          6,
+          8,
+          10
+        ],
+        "noise": [
+          0.1,
+          -0.12,
+          0.1,
+          -0.08,
+          0.12,
+          -0.1,
+          0.08,
+          -0.06
+        ],
+        "hidden": {
+          "a": 15,
+          "b": 3.5
+        },
+        "fit": [
+          "b"
+        ],
+        "explain": "K_m = 3,5 mmol/L: a quella concentrazione la velocità è 7,5 μmol/min."
+      },
+      {
+        "id": "entrambi",
+        "title": "Due parametri insieme",
+        "prompt": "Né V_max né K_m sono noti. Stima prima V_max dai punti a destra, poi K_m.",
+        "model": "biology-04",
+        "x": [
+          0.5,
+          1,
+          2,
+          4,
+          6,
+          8,
+          10
+        ],
+        "noise": [
+          0.2,
+          -0.25,
+          0.3,
+          -0.2,
+          0.25,
+          -0.3,
+          0.2
+        ],
+        "hidden": {
+          "a": 25,
+          "b": 1.5
+        },
+        "fit": [
+          "a",
+          "b"
+        ],
+        "explain": "V_max = 25 μmol/min e K_m = 1,5 mmol/L: un enzima che si satura presto."
+      }
+    ]
+  }
 }

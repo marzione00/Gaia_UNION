@@ -15,7 +15,7 @@ fonts={
 chars=''.join(chr(i) for i in range(32,127))+'àèéìíîòùúÀÈÉÌÒÙ°²³μλπτΔΣ∑∂∇∞≈≠≤≥→↗←↑↓×·•◌●◯✦☼☾∈ΩβαγδεηθρφψωΓΛΠΦΨ↔⁰¹₂₃₄₅₆₇₈₉⋅—–«»…✓□◈'
 chars+='’‘“”−◂▸⚙αβγδΓΛΞΠΣΦΨΩ₀₁₊₋₌∅∩∪∀∃⊂⊆∉⇒⇔√⁴⁵'
 # Added in 1.9.0 for ion charges, number sets and logic symbols.
-chars+='⁺⁻⁶⁷⁸⁹∧∨¬ℕℤℚℝ⇌σχ½′≡ℂₙⁿₘₖ±ħöüäÖÜÄν₀₁≪≫øØ';chars=''.join(sorted(set(chars)))
+chars+='⁺⁻⁶⁷⁸⁹∧∨¬ℕℤℚℝ⇌σχ½′≡ℂₙⁿₘₖ±ħöüäÖÜÄν₀₁≪≫øØᵢçÇ';chars=''.join(sorted(set(chars)))
 import sys
 W=4096;H=4096
 # --append keeps every existing glyph where it is and draws only the missing characters

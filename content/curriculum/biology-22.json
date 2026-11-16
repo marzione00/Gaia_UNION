@@ -5,19 +5,21 @@
   "title": "Reti trofiche ed energia",
   "sector": 3,
   "modelId": "biology-22",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Catena lineare con efficienza assegnata",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Livelli trofici, catene e reti alimentari, efficienza di trasferimento, piramidi ecologiche, biomagnificazione",
+  "narrativeStatus": "Il prato è un esempio; gli intervalli di efficienza e i casi storici sono reali.",
   "objectives": [
-    "Spiegare: catena lineare con efficienza assegnata.",
-    "Applicare E_n = E₀ η^n, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Distinguere produttori, consumatori e decompositori.",
+    "Calcolare l’energia ai diversi livelli trofici.",
+    "Spiegare perché le catene alimentari sono corte.",
+    "Descrivere la biomagnificazione."
   ],
   "prerequisites": [
     "biology-21"
   ],
   "connections": [
+    "biology-23",
     "math-c06"
   ],
   "sources": [
@@ -26,250 +28,583 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Passaggi trofici n",
-      "definition": "Variabile indipendente, unità 1; intervallo [0; 5]."
+      "term": "Livello trofico",
+      "definition": "Posizione di un organismo lungo la catena alimentare."
     },
     {
-      "term": "Energia trasferita",
-      "definition": "Risultato calcolato dal modello, unità kJ."
+      "term": "Produttore",
+      "definition": "Organismo che fissa l’energia della luce, o chimica, in sostanza organica."
     },
     {
-      "term": "Energia iniziale",
-      "definition": "Parametro a, unità kJ; intervallo [1000; 20.000]."
+      "term": "Efficienza di trasferimento",
+      "definition": "Frazione dell’energia di un livello che passa al successivo."
     },
     {
-      "term": "Efficienza η",
-      "definition": "Parametro b, unità 1; intervallo [0,05; 0,4]."
+      "term": "Decompositore",
+      "definition": "Organismo che demolisce i resti organici e restituisce nutrienti."
+    },
+    {
+      "term": "Biomagnificazione",
+      "definition": "Aumento della concentrazione di una sostanza persistente lungo la catena."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Molta erba, pochi uccelli",
       "text": {
         "base": [
-          "L’energia viene trasferita lungo una catena alimentare. A ogni passaggio solo una frazione arriva al livello successivo. La stazione deve distinguere questo flusso dal riciclo della materia.",
-          "Le reti trofiche descrivono relazioni di alimentazione. In un bilancio semplificato di una catena, l’energia trasferita al livello successivo è una frazione η di quella disponibile al livello precedente."
+          "Un prato cattura ogni anno una piccola parte della luce che lo colpisce e la trasforma in erba. Le cavallette mangiano l’erba, i ragni le cavallette, gli uccelli i ragni. Eppure in un prato ci sono milioni di fili d’erba, migliaia di insetti e pochi uccelli. Dove si perde l’energia lungo la strada?",
+          "In un ecosistema i produttori, piante, alghe e alcuni batteri, fissano l’energia della luce in sostanza organica. I consumatori primari mangiano i produttori, i secondari mangiano i primari, e così via. I decompositori, batteri e funghi, demoliscono i resti di tutti e restituiscono i nutrienti al suolo. Le catene alimentari reali si intrecciano in reti, perché quasi ogni specie mangia più cose ed è mangiata da più specie."
         ],
         "intermediate": [
-          "L’energia viene trasferita lungo una catena alimentare. A ogni passaggio solo una frazione arriva al livello successivo. La stazione deve distinguere questo flusso dal riciclo della materia.",
-          "Con efficienza costante, E_n=E₀η^n. L’indice n conta passaggi, non tempo. Il valore η=0,1 è uno scenario didattico, non una regola universale di ogni ecosistema."
+          "Un prato cattura ogni anno una piccola parte della luce che lo colpisce e la trasforma in erba. Le cavallette mangiano l’erba, i ragni le cavallette, gli uccelli i ragni. Eppure in un prato ci sono milioni di fili d’erba, migliaia di insetti e pochi uccelli. Dove si perde l’energia lungo la strada?",
+          "In un ecosistema i produttori, piante, alghe e alcuni batteri, fissano l’energia della luce in sostanza organica. I consumatori primari mangiano i produttori, i secondari mangiano i primari, e così via. I decompositori, batteri e funghi, demoliscono i resti di tutti e restituiscono i nutrienti al suolo. Le catene alimentari reali si intrecciano in reti, perché quasi ogni specie mangia più cose ed è mangiata da più specie."
         ],
         "advanced": [
-          "L’energia viene trasferita lungo una catena alimentare. A ogni passaggio solo una frazione arriva al livello successivo. La stazione deve distinguere questo flusso dal riciclo della materia.",
-          "Confronta catene di lunghezze diverse e rendimenti diversi. Discuta quali flussi andrebbero aggiunti per includere decompositori e riciclo della materia.",
-          "Catena lineare con efficienza costante e nessun detrito o percorso alternativo. Non è una rete trofica completa."
+          "Un prato cattura ogni anno una piccola parte della luce che lo colpisce e la trasforma in erba. Le cavallette mangiano l’erba, i ragni le cavallette, gli uccelli i ragni. Eppure in un prato ci sono milioni di fili d’erba, migliaia di insetti e pochi uccelli. Dove si perde l’energia lungo la strada?",
+          "In un ecosistema i produttori, piante, alghe e alcuni batteri, fissano l’energia della luce in sostanza organica. I consumatori primari mangiano i produttori, i secondari mangiano i primari, e così via. I decompositori, batteri e funghi, demoliscono i resti di tutti e restituiscono i nutrienti al suolo. Le catene alimentari reali si intrecciano in reti, perché quasi ogni specie mangia più cose ed è mangiata da più specie."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Il flusso di energia",
       "text": {
         "base": [
-          "Le reti trofiche descrivono relazioni di alimentazione. In un bilancio semplificato di una catena, l’energia trasferita al livello successivo è una frazione η di quella disponibile al livello precedente.",
-          "Con E₀=10.000 kJ e η=0,1, dopo due passaggi restano 100 kJ nel bilancio di trasferimento. L’energia non è distrutta: una parte viene trasformata e dissipata, non trasferita al livello seguente."
+          "Nel 1942 Raymond Lindeman descrisse l’ecosistema come un flusso di energia tra livelli trofici. Solo una piccola frazione dell’energia di un livello diventa biomassa del livello successivo: tipicamente tra il 5 e il 20%, spesso riassunta come regola del 10%. Il resto non viene mangiato, non viene assimilato ed esce con le feci, oppure viene usato nella respirazione e diventa calore.",
+          "Con un’efficienza η costante, l’energia al livello n è E_n = E₀ ηⁿ. Con 10 000 kJ nei produttori ed η = 0,1: 1000 kJ negli erbivori, 100 nei carnivori, 10 nei predatori del livello successivo. Per questo le piramidi dell’energia hanno sempre la base più larga, e le catene alimentari raramente superano quattro o cinque livelli: in cima resta troppo poca energia per sostenere una popolazione.",
+          "Mentre l’energia diminuisce lungo la catena, alcune sostanze si concentrano. Le sostanze persistenti e solubili nei grassi, come il DDT o il metilmercurio, non vengono eliminate: un predatore che mangia molte prede accumula quanto contenevano tutte. È la biomagnificazione. Negli anni Sessanta il libro «Primavera silenziosa» di Rachel Carson descrisse gli effetti del DDT sugli uccelli predatori."
         ],
         "intermediate": [
-          "Con efficienza costante, E_n=E₀η^n. L’indice n conta passaggi, non tempo. Il valore η=0,1 è uno scenario didattico, non una regola universale di ogni ecosistema.",
-          "La variabile Passaggi trofici n è espressa in 1; Energia trasferita in kJ. Il dominio dello strumento è [0; 5], con soli valori interi. La relazione implementata è: E_n = E₀ η^n.",
-          "Con E₀=10.000 kJ e η=0,1, dopo due passaggi restano 100 kJ nel bilancio di trasferimento. L’energia non è distrutta: una parte viene trasformata e dissipata, non trasferita al livello seguente."
+          "Nel 1942 Raymond Lindeman descrisse l’ecosistema come un flusso di energia tra livelli trofici. Solo una piccola frazione dell’energia di un livello diventa biomassa del livello successivo: tipicamente tra il 5 e il 20%, spesso riassunta come regola del 10%. Il resto non viene mangiato, non viene assimilato ed esce con le feci, oppure viene usato nella respirazione e diventa calore.",
+          "Con un’efficienza η costante, l’energia al livello n è E_n = E₀ ηⁿ. Con 10 000 kJ nei produttori ed η = 0,1: 1000 kJ negli erbivori, 100 nei carnivori, 10 nei predatori del livello successivo. Per questo le piramidi dell’energia hanno sempre la base più larga, e le catene alimentari raramente superano quattro o cinque livelli: in cima resta troppo poca energia per sostenere una popolazione.",
+          "Mentre l’energia diminuisce lungo la catena, alcune sostanze si concentrano. Le sostanze persistenti e solubili nei grassi, come il DDT o il metilmercurio, non vengono eliminate: un predatore che mangia molte prede accumula quanto contenevano tutte. È la biomagnificazione. Negli anni Sessanta il libro «Primavera silenziosa» di Rachel Carson descrisse gli effetti del DDT sugli uccelli predatori."
         ],
         "advanced": [
-          "Con efficienza costante, E_n=E₀η^n. L’indice n conta passaggi, non tempo. Il valore η=0,1 è uno scenario didattico, non una regola universale di ogni ecosistema.",
-          "Confronta catene di lunghezze diverse e rendimenti diversi. Discuta quali flussi andrebbero aggiunti per includere decompositori e riciclo della materia.",
-          "Il flusso di energia non è un ciclo chiuso analogo a quello degli atomi. Una piramide energetica non coincide necessariamente con una piramide del numero di organismi."
+          "Nel 1942 Raymond Lindeman descrisse l’ecosistema come un flusso di energia tra livelli trofici. Solo una piccola frazione dell’energia di un livello diventa biomassa del livello successivo: tipicamente tra il 5 e il 20%, spesso riassunta come regola del 10%. Il resto non viene mangiato, non viene assimilato ed esce con le feci, oppure viene usato nella respirazione e diventa calore.",
+          "Con un’efficienza η costante, l’energia al livello n è E_n = E₀ ηⁿ. Con 10 000 kJ nei produttori ed η = 0,1: 1000 kJ negli erbivori, 100 nei carnivori, 10 nei predatori del livello successivo. Per questo le piramidi dell’energia hanno sempre la base più larga, e le catene alimentari raramente superano quattro o cinque livelli: in cima resta troppo poca energia per sostenere una popolazione.",
+          "Mentre l’energia diminuisce lungo la catena, alcune sostanze si concentrano. Le sostanze persistenti e solubili nei grassi, come il DDT o il metilmercurio, non vengono eliminate: un predatore che mangia molte prede accumula quanto contenevano tutte. È la biomagnificazione. Negli anni Sessanta il libro «Primavera silenziosa» di Rachel Carson descrisse gli effetti del DDT sugli uccelli predatori.",
+          "Il modello del programma calcola E_n = E₀ ηⁿ per n da 0 a 5 passaggi, con E₀ ed η regolabili: con E₀ = 10 000 kJ ed η = 0,1, dopo due passaggi restano 100 kJ. Le barre si accorciano di un fattore η a ogni livello."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Problemi guidati",
       "text": {
         "base": [
-          "Nel laboratorio imposta Energia iniziale (a): 10.000 kJ; Efficienza η (b): 0,1 (adimensionale). Prima di salvare A, prevedi come cambia Energia trasferita fra Passaggi trofici n=1 e 3 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con E₀=10.000 kJ e η=0,1, dopo due passaggi restano 100 kJ nel bilancio di trasferimento. L’energia non è distrutta: una parte viene trasformata e dissipata, non trasferita al livello seguente.",
-          "La variabile Passaggi trofici n è espressa in 1; Energia trasferita in kJ. Il dominio dello strumento è [0; 5], con soli valori interi. La relazione implementata è: E_n = E₀ η^n."
+          "L’attività propone quattro problemi guidati: l’energia lungo una catena con efficienza del 10%; l’effetto di un’efficienza diversa; il confronto tra mangiare cereali e mangiare carne; la biomagnificazione di una sostanza persistente. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "A ogni passaggio moltiplica per η: dopo n passaggi il fattore è ηⁿ. Con η = 0,1 ogni passaggio toglie uno zero.",
+          "Il modello del programma calcola E_n = E₀ ηⁿ per n da 0 a 5 passaggi, con E₀ ed η regolabili: con E₀ = 10 000 kJ ed η = 0,1, dopo due passaggi restano 100 kJ. Le barre si accorciano di un fattore η a ogni livello."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Energia iniziale (a): 10.000 kJ; Efficienza η (b): 0,1 (adimensionale). Prima di salvare A, prevedi come cambia Energia trasferita fra Passaggi trofici n=1 e 3 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Passaggi trofici n è espressa in 1; Energia trasferita in kJ. Il dominio dello strumento è [0; 5], con soli valori interi. La relazione implementata è: E_n = E₀ η^n.",
-          "Con efficienza costante, E_n=E₀η^n. L’indice n conta passaggi, non tempo. Il valore η=0,1 è uno scenario didattico, non una regola universale di ogni ecosistema."
+          "L’attività propone quattro problemi guidati: l’energia lungo una catena con efficienza del 10%; l’effetto di un’efficienza diversa; il confronto tra mangiare cereali e mangiare carne; la biomagnificazione di una sostanza persistente. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "A ogni passaggio moltiplica per η: dopo n passaggi il fattore è ηⁿ. Con η = 0,1 ogni passaggio toglie uno zero.",
+          "Il modello del programma calcola E_n = E₀ ηⁿ per n da 0 a 5 passaggi, con E₀ ed η regolabili: con E₀ = 10 000 kJ ed η = 0,1, dopo due passaggi restano 100 kJ. Le barre si accorciano di un fattore η a ogni livello."
         ],
         "advanced": [
-          "Nel laboratorio imposta Energia iniziale (a): 10.000 kJ; Efficienza η (b): 0,1 (adimensionale). Prima di salvare A, prevedi come cambia Energia trasferita fra Passaggi trofici n=1 e 3 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta catene di lunghezze diverse e rendimenti diversi. Discuta quali flussi andrebbero aggiunti per includere decompositori e riciclo della materia.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "L’attività propone quattro problemi guidati: l’energia lungo una catena con efficienza del 10%; l’effetto di un’efficienza diversa; il confronto tra mangiare cereali e mangiare carne; la biomagnificazione di una sostanza persistente. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "A ogni passaggio moltiplica per η: dopo n passaggi il fattore è ηⁿ. Con η = 0,1 ogni passaggio toglie uno zero."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "Il flusso di energia non è un ciclo chiuso analogo a quello degli atomi. Una piramide energetica non coincide necessariamente con una piramide del numero di organismi.",
-          "Catena lineare con efficienza costante e nessun detrito o percorso alternativo. Non è una rete trofica completa.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che l’energia persa lungo la catena venga distrutta. Si conserva: esce dall’ecosistema soprattutto come calore, e per questo l’energia scorre in una sola direzione mentre la materia ricircola.",
+          "Secondo errore: credere che le piramidi di biomassa abbiano sempre la base larga. Negli oceani il fitoplancton ha poca biomassa in ogni istante, ma si rinnova così in fretta da sostenere una biomassa maggiore di consumatori. La piramide dell’energia, invece, non si rovescia mai.",
+          "Mentre l’energia diminuisce lungo la catena, alcune sostanze si concentrano. Le sostanze persistenti e solubili nei grassi, come il DDT o il metilmercurio, non vengono eliminate: un predatore che mangia molte prede accumula quanto contenevano tutte. È la biomagnificazione. Negli anni Sessanta il libro «Primavera silenziosa» di Rachel Carson descrisse gli effetti del DDT sugli uccelli predatori."
         ],
         "intermediate": [
-          "Il flusso di energia non è un ciclo chiuso analogo a quello degli atomi. Una piramide energetica non coincide necessariamente con una piramide del numero di organismi.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "Errore frequente: pensare che l’energia persa lungo la catena venga distrutta. Si conserva: esce dall’ecosistema soprattutto come calore, e per questo l’energia scorre in una sola direzione mentre la materia ricircola.",
+          "Secondo errore: credere che le piramidi di biomassa abbiano sempre la base larga. Negli oceani il fitoplancton ha poca biomassa in ogni istante, ma si rinnova così in fretta da sostenere una biomassa maggiore di consumatori. La piramide dell’energia, invece, non si rovescia mai.",
+          "Mentre l’energia diminuisce lungo la catena, alcune sostanze si concentrano. Le sostanze persistenti e solubili nei grassi, come il DDT o il metilmercurio, non vengono eliminate: un predatore che mangia molte prede accumula quanto contenevano tutte. È la biomagnificazione. Negli anni Sessanta il libro «Primavera silenziosa» di Rachel Carson descrisse gli effetti del DDT sugli uccelli predatori."
         ],
         "advanced": [
-          "Catena lineare con efficienza costante e nessun detrito o percorso alternativo. Non è una rete trofica completa.",
-          "Confronta catene di lunghezze diverse e rendimenti diversi. Discuta quali flussi andrebbero aggiunti per includere decompositori e riciclo della materia.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che l’energia persa lungo la catena venga distrutta. Si conserva: esce dall’ecosistema soprattutto come calore, e per questo l’energia scorre in una sola direzione mentre la materia ricircola.",
+          "Secondo errore: credere che le piramidi di biomassa abbiano sempre la base larga. Negli oceani il fitoplancton ha poca biomassa in ogni istante, ma si rinnova così in fretta da sostenere una biomassa maggiore di consumatori. La piramide dell’energia, invece, non si rovescia mai.",
+          "Il modello del programma calcola E_n = E₀ ηⁿ per n da 0 a 5 passaggi, con E₀ ed η regolabili: con E₀ = 10 000 kJ ed η = 0,1, dopo due passaggi restano 100 kJ. Le barre si accorciano di un fattore η a ogni livello."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Le reti trofiche descrivono relazioni di alimentazione. In un bilancio semplificato di una catena, l’energia trasferita al livello successivo è una frazione η di quella disponibile al livello precedente.",
-          "Con E₀=10.000 kJ e η=0,1, dopo due passaggi restano 100 kJ nel bilancio di trasferimento. L’energia non è distrutta: una parte viene trasformata e dissipata, non trasferita al livello seguente."
+          "Ripasso: produttori, consumatori e decompositori; catene e reti alimentari; efficienza di trasferimento e regola del 10%; E_n = E₀ ηⁿ; limiti alla lunghezza delle catene; biomagnificazione.",
+          "Mini esercizio: con E₀ = 5000 kJ ed η = 0,2, dopo due passaggi restano 5000 · 0,04 = 200 kJ.",
+          "Nelle domande sulle reti trofiche conta quanti passaggi separano i due livelli confrontati."
         ],
         "intermediate": [
-          "Con efficienza costante, E_n=E₀η^n. L’indice n conta passaggi, non tempo. Il valore η=0,1 è uno scenario didattico, non una regola universale di ogni ecosistema.",
-          "La variabile Passaggi trofici n è espressa in 1; Energia trasferita in kJ. Il dominio dello strumento è [0; 5], con soli valori interi. La relazione implementata è: E_n = E₀ η^n."
+          "Ripasso: produttori, consumatori e decompositori; catene e reti alimentari; efficienza di trasferimento e regola del 10%; E_n = E₀ ηⁿ; limiti alla lunghezza delle catene; biomagnificazione.",
+          "Mini esercizio: con E₀ = 5000 kJ ed η = 0,2, dopo due passaggi restano 5000 · 0,04 = 200 kJ.",
+          "Nelle domande sulle reti trofiche conta quanti passaggi separano i due livelli confrontati."
         ],
         "advanced": [
-          "Confronta catene di lunghezze diverse e rendimenti diversi. Discuta quali flussi andrebbero aggiunti per includere decompositori e riciclo della materia.",
-          "Catena lineare con efficienza costante e nessun detrito o percorso alternativo. Non è una rete trofica completa."
+          "Ripasso: produttori, consumatori e decompositori; catene e reti alimentari; efficienza di trasferimento e regola del 10%; E_n = E₀ ηⁿ; limiti alla lunghezza delle catene; biomagnificazione.",
+          "Mini esercizio: con E₀ = 5000 kJ ed η = 0,2, dopo due passaggi restano 5000 · 0,04 = 200 kJ.",
+          "Nelle domande sulle reti trofiche conta quanti passaggi separano i due livelli confrontati."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Catena lineare con efficienza assegnata.",
-          "Catena lineare con efficienza costante e nessun detrito o percorso alternativo. Non è una rete trofica completa.",
-          "Collegamento consigliato: math-c06. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La diminuzione di un fattore costante a ogni passaggio è una funzione esponenziale, come nell’unità di matematica «Esponenziali e logaritmi». In biologia si passa a «Cicli biogeochimici e serbatoi»: la materia, a differenza dell’energia, ricircola.",
+          "Riepilogo dell’unità: l’energia entra negli ecosistemi con i produttori e passa ai consumatori; a ogni livello ne passa circa il 10%, il resto diventa soprattutto calore; E_n = E₀ ηⁿ spiega perché le catene sono corte; le sostanze persistenti si concentrano verso l’alto.",
+          "Nel diario spiega perché in un ecosistema i grandi predatori sono pochi."
         ],
         "intermediate": [
-          "Con efficienza costante, E_n=E₀η^n. L’indice n conta passaggi, non tempo. Il valore η=0,1 è uno scenario didattico, non una regola universale di ogni ecosistema.",
-          "Catena lineare con efficienza costante e nessun detrito o percorso alternativo. Non è una rete trofica completa.",
-          "Confronta catene di lunghezze diverse e rendimenti diversi. Discuta quali flussi andrebbero aggiunti per includere decompositori e riciclo della materia."
+          "La diminuzione di un fattore costante a ogni passaggio è una funzione esponenziale, come nell’unità di matematica «Esponenziali e logaritmi». In biologia si passa a «Cicli biogeochimici e serbatoi»: la materia, a differenza dell’energia, ricircola.",
+          "Riepilogo dell’unità: l’energia entra negli ecosistemi con i produttori e passa ai consumatori; a ogni livello ne passa circa il 10%, il resto diventa soprattutto calore; E_n = E₀ ηⁿ spiega perché le catene sono corte; le sostanze persistenti si concentrano verso l’alto.",
+          "Nel diario spiega perché in un ecosistema i grandi predatori sono pochi."
         ],
         "advanced": [
-          "Confronta catene di lunghezze diverse e rendimenti diversi. Discuta quali flussi andrebbero aggiunti per includere decompositori e riciclo della materia.",
-          "Catena lineare con efficienza costante e nessun detrito o percorso alternativo. Non è una rete trofica completa.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La diminuzione di un fattore costante a ogni passaggio è una funzione esponenziale, come nell’unità di matematica «Esponenziali e logaritmi». In biologia si passa a «Cicli biogeochimici e serbatoi»: la materia, a differenza dell’energia, ricircola.",
+          "Riepilogo dell’unità: l’energia entra negli ecosistemi con i produttori e passa ai consumatori; a ogni livello ne passa circa il 10%, il resto diventa soprattutto calore; E_n = E₀ ηⁿ spiega perché le catene sono corte; le sostanze persistenti si concentrano verso l’alto.",
+          "Nel diario spiega perché in un ecosistema i grandi predatori sono pochi."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-22-concept",
-      "prompt": "Il valore η=0,1 nel laboratorio è:",
+      "id": "biology-22-q1",
+      "prompt": "Quale frazione di energia passa tipicamente da un livello trofico al successivo?",
       "options": [
         {
           "id": "A",
-          "text": "Uno scenario scelto, non una legge universale",
-          "feedback": "Le reti trofiche descrivono relazioni di alimentazione. In un bilancio semplificato di una catena, l’energia trasferita al livello successivo è una frazione η di quella disponibile al livello precedente."
+          "text": "Circa il 10%",
+          "feedback": "Esatto: di solito tra il 5 e il 20%."
         },
         {
           "id": "B",
-          "text": "Una costante fondamentale",
-          "feedback": "Il flusso di energia non è un ciclo chiuso analogo a quello degli atomi. Una piramide energetica non coincide necessariamente con una piramide del numero di organismi."
+          "text": "Circa il 90%",
+          "feedback": "Il 90% è circa la frazione che si perde."
         },
         {
           "id": "C",
-          "text": "Il numero obbligatorio di livelli trofici",
-          "feedback": "Con efficienza costante, E_n=E₀η^n. L’indice n conta passaggi, non tempo. Il valore η=0,1 è uno scenario didattico, non una regola universale di ogni ecosistema."
+          "text": "Il 100%",
+          "feedback": "Gran parte dell’energia diventa calore o non viene assimilata."
+        },
+        {
+          "id": "D",
+          "text": "Circa l’1%",
+          "feedback": "L’1% è vicino alla frazione di luce solare fissata dalle piante."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "biology-22-calculation",
-      "prompt": "Calcolo: Energia iniziale (a)=10.000 kJ; Efficienza η (b)=0,1 (adimensionale). Per Passaggi trofici n=2 (adimensionale), quanto vale Energia trasferita?",
+      "id": "biology-22-q2",
+      "prompt": "Dove va la maggior parte dell’energia che non passa al livello successivo?",
       "options": [
         {
           "id": "A",
-          "text": "150 kJ",
-          "feedback": "Questo valore non soddisfa la relazione. E_n = E₀ η^n. Con Energia iniziale (a)=10.000 kJ; Efficienza η (b)=0,1 (adimensionale) e Passaggi trofici n=2 (adimensionale), il risultato è 100 kJ. Conserva le unità e arrotonda solo alla fine."
+          "text": "Viene distrutta",
+          "feedback": "L’energia si conserva: cambia forma."
         },
         {
           "id": "B",
-          "text": "50 kJ",
-          "feedback": "Controlla sostituzione, segno e unità. E_n = E₀ η^n. Con Energia iniziale (a)=10.000 kJ; Efficienza η (b)=0,1 (adimensionale) e Passaggi trofici n=2 (adimensionale), il risultato è 100 kJ. Conserva le unità e arrotonda solo alla fine."
+          "text": "Diventa calore, soprattutto con la respirazione",
+          "feedback": "Esatto: il calore lascia l’ecosistema e non torna ai produttori."
+        },
+        {
+          "id": "C",
+          "text": "Torna ai produttori",
+          "feedback": "L’energia non ricircola: scorre in una direzione."
+        },
+        {
+          "id": "D",
+          "text": "Si accumula nei predatori",
+          "feedback": "I predatori ricevono la parte più piccola."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-22-q3",
+      "prompt": "Perché le catene alimentari raramente superano quattro o cinque livelli?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché i predatori sono troppo grandi",
+          "feedback": "La taglia non è il limite principale."
+        },
+        {
+          "id": "B",
+          "text": "Perché mancano le specie",
+          "feedback": "Le specie non mancano: manca l’energia."
+        },
+        {
+          "id": "C",
+          "text": "Perché in cima resta troppo poca energia",
+          "feedback": "Esatto: ogni passaggio la riduce di circa dieci volte."
+        },
+        {
+          "id": "D",
+          "text": "Perché i decompositori interrompono la catena",
+          "feedback": "I decompositori agiscono su tutti i livelli."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "biology-22-q4",
+      "prompt": "Che cosa sono i produttori?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Gli animali che si nutrono di piante",
+          "feedback": "Gli animali che mangiano piante sono i consumatori primari."
+        },
+        {
+          "id": "B",
+          "text": "I batteri che decompongono i resti",
+          "feedback": "I batteri che demoliscono i resti sono decompositori."
+        },
+        {
+          "id": "C",
+          "text": "I predatori al vertice",
+          "feedback": "I predatori al vertice sono consumatori."
+        },
+        {
+          "id": "D",
+          "text": "Organismi che fissano energia in sostanza organica",
+          "feedback": "Esatto: piante, alghe e alcuni batteri."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "biology-22-q5",
+      "prompt": "Che cosa succede alla concentrazione del DDT lungo la catena alimentare?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Aumenta",
+          "feedback": "Esatto: la concentrazione cresce a ogni livello, per biomagnificazione."
+        },
+        {
+          "id": "B",
+          "text": "Diminuisce come l’energia",
+          "feedback": "Il DDT non viene eliminato e si accumula."
+        },
+        {
+          "id": "C",
+          "text": "Resta costante",
+          "feedback": "Ogni predatore accumula quanto contenevano molte prede."
+        },
+        {
+          "id": "D",
+          "text": "Si annulla nei predatori",
+          "feedback": "Proprio i predatori ne accumulano di più."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-22-q6",
+      "prompt": "Con 10 000 kJ nei produttori ed efficienza del 10%, quanta energia arriva dopo tre passaggi?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1000 kJ",
+          "feedback": "1000 kJ restano dopo un solo passaggio."
+        },
+        {
+          "id": "B",
+          "text": "10 kJ",
+          "feedback": "Esatto: tre passaggi al 10%, cioè 10 000 · 0,1³."
         },
         {
           "id": "C",
           "text": "100 kJ",
-          "feedback": "E_n = E₀ η^n. Con Energia iniziale (a)=10.000 kJ; Efficienza η (b)=0,1 (adimensionale) e Passaggi trofici n=2 (adimensionale), il risultato è 100 kJ. Conserva le unità e arrotonda solo alla fine."
+          "feedback": "100 kJ restano dopo due passaggi, non tre."
+        },
+        {
+          "id": "D",
+          "text": "3000 kJ",
+          "feedback": "L’efficienza si moltiplica a ogni passaggio, non si somma."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 10000,
-          "b": 0.1
-        },
-        "expected": 100,
-        "unit": "kJ"
-      }
-    },
-    {
-      "id": "biology-22-transfer",
-      "prompt": "Trasferimento: Energia iniziale (a)=11.000 kJ; Efficienza η (b)=0,1 (adimensionale). Per Passaggi trofici n=2 (adimensionale), quanto vale Energia trasferita?",
-      "options": [
-        {
-          "id": "A",
-          "text": "55 kJ",
-          "feedback": "Controlla sostituzione, segno e unità. E_n = E₀ η^n. Con Energia iniziale (a)=11.000 kJ; Efficienza η (b)=0,1 (adimensionale) e Passaggi trofici n=2 (adimensionale), il risultato è 110 kJ. Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "B",
-          "text": "110 kJ",
-          "feedback": "E_n = E₀ η^n. Con Energia iniziale (a)=11.000 kJ; Efficienza η (b)=0,1 (adimensionale) e Passaggi trofici n=2 (adimensionale), il risultato è 110 kJ. Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "C",
-          "text": "165 kJ",
-          "feedback": "Questo valore non soddisfa la relazione. E_n = E₀ η^n. Con Energia iniziale (a)=11.000 kJ; Efficienza η (b)=0,1 (adimensionale) e Passaggi trofici n=2 (adimensionale), il risultato è 110 kJ. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 11000,
-          "b": 0.1
-        },
-        "expected": 110.00000000000003,
-        "unit": "kJ"
-      }
-    },
-    {
-      "id": "biology-22-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Catena lineare con efficienza costante e nessun detrito o percorso alternativo. Non è una rete trofica completa."
-        },
-        {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Catena lineare con efficienza costante e nessun detrito o percorso alternativo. Non è una rete trofica completa."
-        },
-        {
-          "id": "C",
-          "text": "Catena lineare con efficienza assegnata",
-          "feedback": "Catena lineare con efficienza costante e nessun detrito o percorso alternativo. Non è una rete trofica completa."
-        }
-      ],
-      "correct": "C"
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "steps",
+    "goal": 3,
+    "problems": [
+      {
+        "id": "catena",
+        "title": "Lungo la catena",
+        "text": "I produttori di un ecosistema contengono 10 000 kJ. Con efficienza del 10%, quanta energia arriva agli erbivori, ai carnivori e ai predatori del livello successivo?",
+        "maxErrors": 1,
+        "explain": "A ogni passaggio si moltiplica per 0,1.",
+        "steps": [
+          {
+            "prompt": "Energia negli erbivori?",
+            "options": [
+              {
+                "text": "1000 kJ",
+                "feedback": "Giusto: 10 000 · 0,1."
+              },
+              {
+                "text": "9000 kJ",
+                "feedback": "9000 kJ è l’energia che non passa."
+              },
+              {
+                "text": "100 kJ",
+                "feedback": "100 kJ è il valore dopo due passaggi."
+              }
+            ],
+            "correct": 0,
+            "result": "Erbivori: 1000 kJ."
+          },
+          {
+            "prompt": "Energia nei carnivori?",
+            "options": [
+              {
+                "text": "100 kJ",
+                "feedback": "Giusto: 1000 · 0,1."
+              },
+              {
+                "text": "900 kJ",
+                "feedback": "Si moltiplica per 0,1, non si sottrae il 10%."
+              },
+              {
+                "text": "10 kJ",
+                "feedback": "10 kJ è il livello successivo."
+              }
+            ],
+            "correct": 0,
+            "result": "Carnivori: 100 kJ."
+          },
+          {
+            "prompt": "Energia nei predatori del livello successivo?",
+            "options": [
+              {
+                "text": "10 kJ",
+                "feedback": "Giusto: un millesimo dell’energia iniziale."
+              },
+              {
+                "text": "1 kJ",
+                "feedback": "1 kJ resterebbe dopo quattro passaggi."
+              },
+              {
+                "text": "30 kJ",
+                "feedback": "L’efficienza si moltiplica, non si somma."
+              }
+            ],
+            "correct": 0,
+            "result": "Predatori: 10 kJ, un millesimo di quanto avevano i produttori."
+          }
+        ]
+      },
+      {
+        "id": "efficienza",
+        "title": "Un’efficienza diversa",
+        "text": "Con gli stessi 10 000 kJ, un ecosistema ha efficienza del 20%. Quanta energia arriva dopo tre passaggi? Quanto in più rispetto al 10%?",
+        "maxErrors": 1,
+        "explain": "Il fattore è η³: raddoppiare η moltiplica il risultato per 8.",
+        "steps": [
+          {
+            "prompt": "Quanto vale 0,2³?",
+            "options": [
+              {
+                "text": "0,008",
+                "feedback": "Giusto: 0,2 · 0,2 · 0,2."
+              },
+              {
+                "text": "0,6",
+                "feedback": "Hai moltiplicato 0,2 per 3 invece di elevarlo alla terza."
+              },
+              {
+                "text": "0,04",
+                "feedback": "0,04 è 0,2², due passaggi."
+              }
+            ],
+            "correct": 0,
+            "result": "Fattore 0,008."
+          },
+          {
+            "prompt": "Energia dopo tre passaggi?",
+            "options": [
+              {
+                "text": "80 kJ",
+                "feedback": "Giusto: 10 000 · 0,008."
+              },
+              {
+                "text": "20 kJ",
+                "feedback": "Con η = 0,2 il risultato non è il doppio di quello con 0,1."
+              },
+              {
+                "text": "800 kJ",
+                "feedback": "Ricontrolla gli zeri: 10 000 · 0,008 = 80."
+              }
+            ],
+            "correct": 0,
+            "result": "80 kJ."
+          },
+          {
+            "prompt": "Quante volte più del caso con η = 0,1?",
+            "options": [
+              {
+                "text": "8 volte",
+                "feedback": "Giusto: 80/10, cioè 2³."
+              },
+              {
+                "text": "2 volte",
+                "feedback": "Il raddoppio di η si ripete a ogni passaggio."
+              },
+              {
+                "text": "6 volte",
+                "feedback": "I fattori si moltiplicano: 2 · 2 · 2."
+              }
+            ],
+            "correct": 0,
+            "result": "Raddoppiare l’efficienza moltiplica per 8 l’energia al terzo livello."
+          }
+        ]
+      },
+      {
+        "id": "dieta",
+        "title": "Cereali o carne",
+        "text": "Supponiamo che un allevamento trasformi in carne il 10% dell’energia dei cereali che consuma. Quanta energia alimentare danno 1000 kJ di cereali mangiati direttamente o attraverso la carne?",
+        "maxErrors": 1,
+        "explain": "La carne aggiunge un passaggio nella catena.",
+        "steps": [
+          {
+            "prompt": "Energia mangiando i cereali?",
+            "options": [
+              {
+                "text": "1000 kJ",
+                "feedback": "Giusto: nessun passaggio intermedio."
+              },
+              {
+                "text": "100 kJ",
+                "feedback": "Questo è il valore attraverso la carne."
+              },
+              {
+                "text": "10 kJ",
+                "feedback": "Questo sarebbe il valore dopo due passaggi."
+              }
+            ],
+            "correct": 0,
+            "result": "Direttamente: 1000 kJ."
+          },
+          {
+            "prompt": "Energia attraverso la carne?",
+            "options": [
+              {
+                "text": "100 kJ",
+                "feedback": "Giusto: 1000 · 0,1."
+              },
+              {
+                "text": "900 kJ",
+                "feedback": "900 kJ è l’energia persa nel passaggio."
+              },
+              {
+                "text": "1100 kJ",
+                "feedback": "Un passaggio in più non aggiunge energia."
+              }
+            ],
+            "correct": 0,
+            "result": "Attraverso la carne: 100 kJ."
+          },
+          {
+            "prompt": "Quante persone in più si nutrono con i cereali, a parità di raccolto?",
+            "options": [
+              {
+                "text": "Circa 10 volte tante",
+                "feedback": "Giusto, con questa efficienza: un passaggio in meno nella catena."
+              },
+              {
+                "text": "Lo stesso numero",
+                "feedback": "La carne costa un passaggio trofico in più."
+              },
+              {
+                "text": "Circa 100 volte tante",
+                "feedback": "Il passaggio in più è uno solo: il fattore è 10."
+              }
+            ],
+            "correct": 0,
+            "result": "Con un’efficienza del 10% lo stesso raccolto nutre circa dieci volte più persone."
+          }
+        ]
+      },
+      {
+        "id": "accumulo",
+        "title": "Una sostanza che si accumula",
+        "text": "Supponiamo che una sostanza persistente sia presente nel plancton a 0,04 ppm e che la sua concentrazione cresca di 10 volte a ogni livello. Quanto vale in un uccello che sta tre livelli più in alto?",
+        "maxErrors": 1,
+        "explain": "L’energia cala a ogni passaggio, la concentrazione cresce.",
+        "steps": [
+          {
+            "prompt": "Fattore complessivo dopo tre livelli?",
+            "options": [
+              {
+                "text": "1000",
+                "feedback": "Giusto: 10 · 10 · 10."
+              },
+              {
+                "text": "30",
+                "feedback": "I fattori si moltiplicano, non si sommano."
+              },
+              {
+                "text": "0,001",
+                "feedback": "Questo è il fattore dell’energia: la concentrazione va nel verso opposto."
+              }
+            ],
+            "correct": 0,
+            "result": "Fattore 1000."
+          },
+          {
+            "prompt": "Concentrazione nell’uccello?",
+            "options": [
+              {
+                "text": "40 ppm",
+                "feedback": "Giusto: 0,04 · 1000."
+              },
+              {
+                "text": "0,04 ppm",
+                "feedback": "La concentrazione cresce lungo la catena."
+              },
+              {
+                "text": "4 ppm",
+                "feedback": "4 ppm è il valore dopo due livelli."
+              }
+            ],
+            "correct": 0,
+            "result": "Circa 40 ppm."
+          },
+          {
+            "prompt": "Perché la sostanza si accumula?",
+            "options": [
+              {
+                "text": "Non viene eliminata e ogni predatore mangia molte prede",
+                "feedback": "Giusto: resta nei grassi e si somma."
+              },
+              {
+                "text": "Viene prodotta dai predatori",
+                "feedback": "I predatori la ricevono dalle prede, non la producono."
+              },
+              {
+                "text": "L’energia la trasporta",
+                "feedback": "L’energia diminuisce lungo la catena: non spiega l’aumento."
+              }
+            ],
+            "correct": 0,
+            "result": "Le sostanze persistenti e solubili nei grassi colpiscono soprattutto i predatori al vertice."
+          }
+        ]
+      }
+    ]
+  }
 }

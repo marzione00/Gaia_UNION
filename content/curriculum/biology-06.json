@@ -5,19 +5,21 @@
   "title": "Fotosintesi e luce",
   "sector": 3,
   "modelId": "biology-06",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Risposta luminosa fenomenologica stazionaria",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Bilancio e fasi della fotosintesi, pigmenti, curva di risposta alla luce, fattori limitanti, piante C4 e CAM",
+  "narrativeStatus": "Gli esperimenti storici sono reali; il modello della curva di luce è una semplificazione.",
   "objectives": [
-    "Spiegare: risposta luminosa fenomenologica stazionaria.",
-    "Applicare Assimilazione = A_max I/(K+I)-R_d; R_d=2, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Scrivere il bilancio della fotosintesi e localizzarne le fasi.",
+    "Spiegare il ruolo dei pigmenti.",
+    "Leggere una curva di risposta alla luce.",
+    "Riconoscere i fattori limitanti e gli adattamenti C4 e CAM."
   ],
   "prerequisites": [
     "biology-05"
   ],
   "connections": [
+    "biology-07",
     "physics-25"
   ],
   "sources": [
@@ -26,250 +28,315 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Luce I",
-      "definition": "Variabile indipendente, unità μmol/(m² s); intervallo [0; 1000]."
+      "term": "Fase luminosa",
+      "definition": "Reazioni nei tilacoidi che usano la luce per produrre ATP, NADPH e ossigeno."
     },
     {
-      "term": "Assimilazione netta",
-      "definition": "Risultato calcolato dal modello, unità μmol/(m² s)."
+      "term": "Ciclo di Calvin",
+      "definition": "Reazioni nello stroma che fissano la CO₂ in zuccheri."
     },
     {
-      "term": "Assimilazione massima",
-      "definition": "Parametro a, unità μmol/(m² s); intervallo [10; 30]."
+      "term": "Clorofilla",
+      "definition": "Pigmento che assorbe luce blu e rossa."
     },
     {
-      "term": "Scala luminosa K",
-      "definition": "Parametro b, unità μmol/(m² s); intervallo [100; 400]."
+      "term": "Punto di compensazione",
+      "definition": "Intensità luminosa a cui fotosintesi e respirazione si bilanciano."
+    },
+    {
+      "term": "Fattore limitante",
+      "definition": "Il fattore che in un dato momento limita la velocità del processo."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Le piante e l’aria",
       "text": {
         "base": [
-          "Una coltura riceve luce crescente. L’assimilazione netta aumenta, ma non indefinitamente. Il punto in cui la curva attraversa zero separa condizioni con bilancio netto positivo e negativo.",
-          "La fotosintesi utilizza energia luminosa per processi di fissazione del carbonio, mentre la respirazione contribuisce al bilancio netto. Una curva di saturazione può rappresentare in modo fenomenologico la risposta alla luce."
+          "Nel 1779 Jan Ingenhousz mostrò che le piante «purificano» l’aria solo alla luce: al buio, come gli animali, la consumano. Oggi sappiamo che una foglia alla luce assorbe anidride carbonica e libera ossigeno, mentre al buio respira e basta. La quantità di luce decide quale dei due processi prevale.",
+          "La fotosintesi ha come bilancio complessivo 6 CO₂ + 6 H₂O + luce → C₆H₁₂O₆ + 6 O₂. Avviene nei cloroplasti, in due fasi. Nelle reazioni della fase luminosa, sulle membrane dei tilacoidi, la luce scinde l’acqua, libera ossigeno e produce ATP e NADPH; esperimenti con isotopi dell’ossigeno, nel 1941, mostrarono che l’ossigeno liberato viene dall’acqua. Nel ciclo di Calvin, nello stroma, ATP e NADPH servono a fissare la CO₂ in zuccheri, con l’enzima rubisco, la proteina più abbondante della Terra."
         ],
         "intermediate": [
-          "Una coltura riceve luce crescente. L’assimilazione netta aumenta, ma non indefinitamente. Il punto in cui la curva attraversa zero separa condizioni con bilancio netto positivo e negativo.",
-          "Il laboratorio usa A_net=A_max I/(K+I)-R_d, con R_d=2 nelle unità dichiarate. Il parametro K fissa una scala luminosa; non è una costante universale della fotosintesi."
+          "Nel 1779 Jan Ingenhousz mostrò che le piante «purificano» l’aria solo alla luce: al buio, come gli animali, la consumano. Oggi sappiamo che una foglia alla luce assorbe anidride carbonica e libera ossigeno, mentre al buio respira e basta. La quantità di luce decide quale dei due processi prevale.",
+          "La fotosintesi ha come bilancio complessivo 6 CO₂ + 6 H₂O + luce → C₆H₁₂O₆ + 6 O₂. Avviene nei cloroplasti, in due fasi. Nelle reazioni della fase luminosa, sulle membrane dei tilacoidi, la luce scinde l’acqua, libera ossigeno e produce ATP e NADPH; esperimenti con isotopi dell’ossigeno, nel 1941, mostrarono che l’ossigeno liberato viene dall’acqua. Nel ciclo di Calvin, nello stroma, ATP e NADPH servono a fissare la CO₂ in zuccheri, con l’enzima rubisco, la proteina più abbondante della Terra."
         ],
         "advanced": [
-          "Una coltura riceve luce crescente. L’assimilazione netta aumenta, ma non indefinitamente. Il punto in cui la curva attraversa zero separa condizioni con bilancio netto positivo e negativo.",
-          "Ricava l’intensità di compensazione imponendo A_net=0. Verifica che esista solo quando A_max è maggiore di R_d.",
-          "Modello fenomenologico stazionario, respirazione costante e nessuna fotoinibizione. Non prevede la crescita di una specie reale."
+          "Nel 1779 Jan Ingenhousz mostrò che le piante «purificano» l’aria solo alla luce: al buio, come gli animali, la consumano. Oggi sappiamo che una foglia alla luce assorbe anidride carbonica e libera ossigeno, mentre al buio respira e basta. La quantità di luce decide quale dei due processi prevale.",
+          "La fotosintesi ha come bilancio complessivo 6 CO₂ + 6 H₂O + luce → C₆H₁₂O₆ + 6 O₂. Avviene nei cloroplasti, in due fasi. Nelle reazioni della fase luminosa, sulle membrane dei tilacoidi, la luce scinde l’acqua, libera ossigeno e produce ATP e NADPH; esperimenti con isotopi dell’ossigeno, nel 1941, mostrarono che l’ossigeno liberato viene dall’acqua. Nel ciclo di Calvin, nello stroma, ATP e NADPH servono a fissare la CO₂ in zuccheri, con l’enzima rubisco, la proteina più abbondante della Terra."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Luce, pigmenti e curva",
       "text": {
         "base": [
-          "La fotosintesi utilizza energia luminosa per processi di fissazione del carbonio, mentre la respirazione contribuisce al bilancio netto. Una curva di saturazione può rappresentare in modo fenomenologico la risposta alla luce.",
-          "Con A_max=20, K=200 e I=200, il termine lordo è 10 e il netto è 8 μmol/(m² s). Al buio il netto del modello è -2, perché il termine di respirazione resta presente."
+          "La clorofilla assorbe soprattutto la luce blu e rossa e riflette il verde: per questo le foglie appaiono verdi. Le piante usano la radiazione tra 400 e 700 nm, misurata come flusso di fotoni in μmol/(m²·s). In pieno sole a mezzogiorno si arriva a circa 2000 μmol/(m²·s); all’ombra di un bosco a poche decine.",
+          "La curva di risposta alla luce lega l’assimilazione netta di CO₂ all’intensità luminosa. Al buio è negativa, perché la foglia respira. Cresce con la luce e incontra lo zero al punto di compensazione, dove fotosintesi e respirazione si bilanciano. Ad alta intensità si appiattisce: la luce non è più il fattore limitante, lo diventano la CO₂ e la capacità degli enzimi. Il principio dei fattori limitanti fu formulato da Blackman nel 1905.",
+          "Il modello del programma usa A = A_max I/(K + I) − R_d, con R_d = 2 μmol/(m²·s) di respirazione. Con A_max = 20 e K = 200 il punto di compensazione è a I = 2K/(A_max − 2) ≈ 22 μmol/(m²·s), e a I = 200 l’assimilazione netta vale 8 μmol/(m²·s)."
         ],
         "intermediate": [
-          "Il laboratorio usa A_net=A_max I/(K+I)-R_d, con R_d=2 nelle unità dichiarate. Il parametro K fissa una scala luminosa; non è una costante universale della fotosintesi.",
-          "La variabile Luce I è espressa in μmol/(m² s); Assimilazione netta in μmol/(m² s). Il dominio dello strumento è [0; 1000]. La relazione implementata è: Assimilazione = A_max I/(K+I)-R_d; R_d=2.",
-          "Con A_max=20, K=200 e I=200, il termine lordo è 10 e il netto è 8 μmol/(m² s). Al buio il netto del modello è -2, perché il termine di respirazione resta presente."
+          "La clorofilla assorbe soprattutto la luce blu e rossa e riflette il verde: per questo le foglie appaiono verdi. Le piante usano la radiazione tra 400 e 700 nm, misurata come flusso di fotoni in μmol/(m²·s). In pieno sole a mezzogiorno si arriva a circa 2000 μmol/(m²·s); all’ombra di un bosco a poche decine.",
+          "La curva di risposta alla luce lega l’assimilazione netta di CO₂ all’intensità luminosa. Al buio è negativa, perché la foglia respira. Cresce con la luce e incontra lo zero al punto di compensazione, dove fotosintesi e respirazione si bilanciano. Ad alta intensità si appiattisce: la luce non è più il fattore limitante, lo diventano la CO₂ e la capacità degli enzimi. Il principio dei fattori limitanti fu formulato da Blackman nel 1905.",
+          "Il modello del programma usa A = A_max I/(K + I) − R_d, con R_d = 2 μmol/(m²·s) di respirazione. Con A_max = 20 e K = 200 il punto di compensazione è a I = 2K/(A_max − 2) ≈ 22 μmol/(m²·s), e a I = 200 l’assimilazione netta vale 8 μmol/(m²·s).",
+          "Le piante si adattano alla luce disponibile. Le piante d’ombra hanno un punto di compensazione basso e si saturano presto; quelle di pieno sole raggiungono valori massimi più alti. Le piante C4, come mais e canna da zucchero, concentrano la CO₂ attorno alla rubisco e lavorano bene con luce forte e caldo; le piante CAM, come i cactus, aprono gli stomi di notte per risparmiare acqua."
         ],
         "advanced": [
-          "Il laboratorio usa A_net=A_max I/(K+I)-R_d, con R_d=2 nelle unità dichiarate. Il parametro K fissa una scala luminosa; non è una costante universale della fotosintesi.",
-          "Ricava l’intensità di compensazione imponendo A_net=0. Verifica che esista solo quando A_max è maggiore di R_d.",
-          "La saturazione della curva non prova un singolo meccanismo limitante. Temperatura, acqua, CO₂ e acclimatazione possono cambiare la risposta."
+          "La clorofilla assorbe soprattutto la luce blu e rossa e riflette il verde: per questo le foglie appaiono verdi. Le piante usano la radiazione tra 400 e 700 nm, misurata come flusso di fotoni in μmol/(m²·s). In pieno sole a mezzogiorno si arriva a circa 2000 μmol/(m²·s); all’ombra di un bosco a poche decine.",
+          "La curva di risposta alla luce lega l’assimilazione netta di CO₂ all’intensità luminosa. Al buio è negativa, perché la foglia respira. Cresce con la luce e incontra lo zero al punto di compensazione, dove fotosintesi e respirazione si bilanciano. Ad alta intensità si appiattisce: la luce non è più il fattore limitante, lo diventano la CO₂ e la capacità degli enzimi. Il principio dei fattori limitanti fu formulato da Blackman nel 1905.",
+          "Il modello del programma usa A = A_max I/(K + I) − R_d, con R_d = 2 μmol/(m²·s) di respirazione. Con A_max = 20 e K = 200 il punto di compensazione è a I = 2K/(A_max − 2) ≈ 22 μmol/(m²·s), e a I = 200 l’assimilazione netta vale 8 μmol/(m²·s).",
+          "Le piante si adattano alla luce disponibile. Le piante d’ombra hanno un punto di compensazione basso e si saturano presto; quelle di pieno sole raggiungono valori massimi più alti. Le piante C4, come mais e canna da zucchero, concentrano la CO₂ attorno alla rubisco e lavorano bene con luce forte e caldo; le piante CAM, come i cactus, aprono gli stomi di notte per risparmiare acqua."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio della curva di luce",
       "text": {
         "base": [
-          "Nel laboratorio imposta Assimilazione massima (a): 20 μmol/(m² s); Scala luminosa K (b): 200 μmol/(m² s). Prima di salvare A, prevedi come cambia Assimilazione netta fra Luce I=250 e 500 μmol/(m² s). Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con A_max=20, K=200 e I=200, il termine lordo è 10 e il netto è 8 μmol/(m² s). Al buio il netto del modello è -2, perché il termine di respirazione resta presente.",
-          "La variabile Luce I è espressa in μmol/(m² s); Assimilazione netta in μmol/(m² s). Il dominio dello strumento è [0; 1000]. La relazione implementata è: Assimilazione = A_max I/(K+I)-R_d; R_d=2."
+          "Nel laboratorio il grafico mostra l’assimilazione netta in funzione dell’intensità luminosa, da 0 a 1000 μmol/(m²·s); nella scheda REGOLA cambi l’assimilazione massima A_max, da 10 a 30, e la scala luminosa K, da 100 a 400.",
+          "Protocollo. La previsione riguarda il passaggio da I = 250 a I = 500 μmol/(m²·s). Con A_max = 20 e K = 200 prevedi e salva A. Poi porta K a 400, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con K = 200 l’assimilazione passa da circa 9,1 a 12,3 μmol/(m²·s): cresce, ma la luce raddoppiata dà solo un terzo in più, perché la curva si sta saturando. Con K = 400 i valori sono più bassi, circa 5,7 e 9,1, e l’aumento relativo è maggiore: la foglia ha bisogno di più luce per avvicinarsi al massimo."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Assimilazione massima (a): 20 μmol/(m² s); Scala luminosa K (b): 200 μmol/(m² s). Prima di salvare A, prevedi come cambia Assimilazione netta fra Luce I=250 e 500 μmol/(m² s). Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Luce I è espressa in μmol/(m² s); Assimilazione netta in μmol/(m² s). Il dominio dello strumento è [0; 1000]. La relazione implementata è: Assimilazione = A_max I/(K+I)-R_d; R_d=2.",
-          "Il laboratorio usa A_net=A_max I/(K+I)-R_d, con R_d=2 nelle unità dichiarate. Il parametro K fissa una scala luminosa; non è una costante universale della fotosintesi."
+          "Nel laboratorio il grafico mostra l’assimilazione netta in funzione dell’intensità luminosa, da 0 a 1000 μmol/(m²·s); nella scheda REGOLA cambi l’assimilazione massima A_max, da 10 a 30, e la scala luminosa K, da 100 a 400.",
+          "Protocollo. La previsione riguarda il passaggio da I = 250 a I = 500 μmol/(m²·s). Con A_max = 20 e K = 200 prevedi e salva A. Poi porta K a 400, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con K = 200 l’assimilazione passa da circa 9,1 a 12,3 μmol/(m²·s): cresce, ma la luce raddoppiata dà solo un terzo in più, perché la curva si sta saturando. Con K = 400 i valori sono più bassi, circa 5,7 e 9,1, e l’aumento relativo è maggiore: la foglia ha bisogno di più luce per avvicinarsi al massimo."
         ],
         "advanced": [
-          "Nel laboratorio imposta Assimilazione massima (a): 20 μmol/(m² s); Scala luminosa K (b): 200 μmol/(m² s). Prima di salvare A, prevedi come cambia Assimilazione netta fra Luce I=250 e 500 μmol/(m² s). Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Ricava l’intensità di compensazione imponendo A_net=0. Verifica che esista solo quando A_max è maggiore di R_d.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra l’assimilazione netta in funzione dell’intensità luminosa, da 0 a 1000 μmol/(m²·s); nella scheda REGOLA cambi l’assimilazione massima A_max, da 10 a 30, e la scala luminosa K, da 100 a 400.",
+          "Protocollo. La previsione riguarda il passaggio da I = 250 a I = 500 μmol/(m²·s). Con A_max = 20 e K = 200 prevedi e salva A. Poi porta K a 400, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con K = 200 l’assimilazione passa da circa 9,1 a 12,3 μmol/(m²·s): cresce, ma la luce raddoppiata dà solo un terzo in più, perché la curva si sta saturando. Con K = 400 i valori sono più bassi, circa 5,7 e 9,1, e l’aumento relativo è maggiore: la foglia ha bisogno di più luce per avvicinarsi al massimo."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e adattamenti",
       "text": {
         "base": [
-          "La saturazione della curva non prova un singolo meccanismo limitante. Temperatura, acqua, CO₂ e acclimatazione possono cambiare la risposta.",
-          "Modello fenomenologico stazionario, respirazione costante e nessuna fotoinibizione. Non prevede la crescita di una specie reale.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che le piante facciano la fotosintesi di giorno e respirino solo di notte. Respirano sempre; di giorno la fotosintesi supera la respirazione, e lo scambio netto è a favore dell’ossigeno.",
+          "Secondo errore: credere che la massa di un albero venga dal suolo. Viene quasi tutta dalla CO₂ dell’aria e dall’acqua; il suolo fornisce acqua e una piccola quantità di sali minerali.",
+          "Le piante si adattano alla luce disponibile. Le piante d’ombra hanno un punto di compensazione basso e si saturano presto; quelle di pieno sole raggiungono valori massimi più alti. Le piante C4, come mais e canna da zucchero, concentrano la CO₂ attorno alla rubisco e lavorano bene con luce forte e caldo; le piante CAM, come i cactus, aprono gli stomi di notte per risparmiare acqua."
         ],
         "intermediate": [
-          "La saturazione della curva non prova un singolo meccanismo limitante. Temperatura, acqua, CO₂ e acclimatazione possono cambiare la risposta.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che le piante facciano la fotosintesi di giorno e respirino solo di notte. Respirano sempre; di giorno la fotosintesi supera la respirazione, e lo scambio netto è a favore dell’ossigeno.",
+          "Secondo errore: credere che la massa di un albero venga dal suolo. Viene quasi tutta dalla CO₂ dell’aria e dall’acqua; il suolo fornisce acqua e una piccola quantità di sali minerali.",
+          "Le piante si adattano alla luce disponibile. Le piante d’ombra hanno un punto di compensazione basso e si saturano presto; quelle di pieno sole raggiungono valori massimi più alti. Le piante C4, come mais e canna da zucchero, concentrano la CO₂ attorno alla rubisco e lavorano bene con luce forte e caldo; le piante CAM, come i cactus, aprono gli stomi di notte per risparmiare acqua."
         ],
         "advanced": [
-          "Modello fenomenologico stazionario, respirazione costante e nessuna fotoinibizione. Non prevede la crescita di una specie reale.",
-          "Ricava l’intensità di compensazione imponendo A_net=0. Verifica che esista solo quando A_max è maggiore di R_d.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che le piante facciano la fotosintesi di giorno e respirino solo di notte. Respirano sempre; di giorno la fotosintesi supera la respirazione, e lo scambio netto è a favore dell’ossigeno.",
+          "Secondo errore: credere che la massa di un albero venga dal suolo. Viene quasi tutta dalla CO₂ dell’aria e dall’acqua; il suolo fornisce acqua e una piccola quantità di sali minerali.",
+          "Le piante si adattano alla luce disponibile. Le piante d’ombra hanno un punto di compensazione basso e si saturano presto; quelle di pieno sole raggiungono valori massimi più alti. Le piante C4, come mais e canna da zucchero, concentrano la CO₂ attorno alla rubisco e lavorano bene con luce forte e caldo; le piante CAM, come i cactus, aprono gli stomi di notte per risparmiare acqua."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "La fotosintesi utilizza energia luminosa per processi di fissazione del carbonio, mentre la respirazione contribuisce al bilancio netto. Una curva di saturazione può rappresentare in modo fenomenologico la risposta alla luce.",
-          "Con A_max=20, K=200 e I=200, il termine lordo è 10 e il netto è 8 μmol/(m² s). Al buio il netto del modello è -2, perché il termine di respirazione resta presente."
+          "Ripasso: equazione della fotosintesi; fase luminosa e ciclo di Calvin; pigmenti e luce utile; curva di risposta alla luce, punto di compensazione e saturazione; fattori limitanti; piante C4 e CAM.",
+          "Mini esercizio: con A_max = 20, K = 200 e R_d = 2, a I = 600 si ha A = 20 · 600/800 − 2 = 13 μmol/(m²·s).",
+          "Nelle domande sulla curva di luce ricorda che l’assimilazione netta è la fotosintesi meno la respirazione."
         ],
         "intermediate": [
-          "Il laboratorio usa A_net=A_max I/(K+I)-R_d, con R_d=2 nelle unità dichiarate. Il parametro K fissa una scala luminosa; non è una costante universale della fotosintesi.",
-          "La variabile Luce I è espressa in μmol/(m² s); Assimilazione netta in μmol/(m² s). Il dominio dello strumento è [0; 1000]. La relazione implementata è: Assimilazione = A_max I/(K+I)-R_d; R_d=2."
+          "Ripasso: equazione della fotosintesi; fase luminosa e ciclo di Calvin; pigmenti e luce utile; curva di risposta alla luce, punto di compensazione e saturazione; fattori limitanti; piante C4 e CAM.",
+          "Mini esercizio: con A_max = 20, K = 200 e R_d = 2, a I = 600 si ha A = 20 · 600/800 − 2 = 13 μmol/(m²·s).",
+          "Nelle domande sulla curva di luce ricorda che l’assimilazione netta è la fotosintesi meno la respirazione."
         ],
         "advanced": [
-          "Ricava l’intensità di compensazione imponendo A_net=0. Verifica che esista solo quando A_max è maggiore di R_d.",
-          "Modello fenomenologico stazionario, respirazione costante e nessuna fotoinibizione. Non prevede la crescita di una specie reale."
+          "Ripasso: equazione della fotosintesi; fase luminosa e ciclo di Calvin; pigmenti e luce utile; curva di risposta alla luce, punto di compensazione e saturazione; fattori limitanti; piante C4 e CAM.",
+          "Mini esercizio: con A_max = 20, K = 200 e R_d = 2, a I = 600 si ha A = 20 · 600/800 − 2 = 13 μmol/(m²·s).",
+          "Nelle domande sulla curva di luce ricorda che l’assimilazione netta è la fotosintesi meno la respirazione."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Risposta luminosa fenomenologica stazionaria.",
-          "Modello fenomenologico stazionario, respirazione costante e nessuna fotoinibizione. Non prevede la crescita di una specie reale.",
-          "Collegamento consigliato: physics-25. Il completamento registra attività e autoverifica, non certifica competenze."
+          "L’energia della luce arriva in pacchetti, i fotoni: l’unità di fisica «Fotoni ed energia quantizzata» spiega perché conta il numero di fotoni. In biologia si passa al gruppo «Divisione ed ereditarietà».",
+          "Riepilogo dell’unità: la fotosintesi trasforma CO₂ e acqua in zuccheri e ossigeno con l’energia della luce; l’ossigeno viene dall’acqua; l’assimilazione netta è negativa al buio, si annulla al punto di compensazione e si satura con luce forte; quando la luce abbonda, i fattori limitanti diventano CO₂ ed enzimi.",
+          "Nel diario registra A e B con le previsioni e spiega perché una pianta d’ombra può crescere sotto gli alberi e una di pieno sole no."
         ],
         "intermediate": [
-          "Il laboratorio usa A_net=A_max I/(K+I)-R_d, con R_d=2 nelle unità dichiarate. Il parametro K fissa una scala luminosa; non è una costante universale della fotosintesi.",
-          "Modello fenomenologico stazionario, respirazione costante e nessuna fotoinibizione. Non prevede la crescita di una specie reale.",
-          "Ricava l’intensità di compensazione imponendo A_net=0. Verifica che esista solo quando A_max è maggiore di R_d."
+          "L’energia della luce arriva in pacchetti, i fotoni: l’unità di fisica «Fotoni ed energia quantizzata» spiega perché conta il numero di fotoni. In biologia si passa al gruppo «Divisione ed ereditarietà».",
+          "Riepilogo dell’unità: la fotosintesi trasforma CO₂ e acqua in zuccheri e ossigeno con l’energia della luce; l’ossigeno viene dall’acqua; l’assimilazione netta è negativa al buio, si annulla al punto di compensazione e si satura con luce forte; quando la luce abbonda, i fattori limitanti diventano CO₂ ed enzimi.",
+          "Nel diario registra A e B con le previsioni e spiega perché una pianta d’ombra può crescere sotto gli alberi e una di pieno sole no."
         ],
         "advanced": [
-          "Ricava l’intensità di compensazione imponendo A_net=0. Verifica che esista solo quando A_max è maggiore di R_d.",
-          "Modello fenomenologico stazionario, respirazione costante e nessuna fotoinibizione. Non prevede la crescita di una specie reale.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "L’energia della luce arriva in pacchetti, i fotoni: l’unità di fisica «Fotoni ed energia quantizzata» spiega perché conta il numero di fotoni. In biologia si passa al gruppo «Divisione ed ereditarietà».",
+          "Riepilogo dell’unità: la fotosintesi trasforma CO₂ e acqua in zuccheri e ossigeno con l’energia della luce; l’ossigeno viene dall’acqua; l’assimilazione netta è negativa al buio, si annulla al punto di compensazione e si satura con luce forte; quando la luce abbonda, i fattori limitanti diventano CO₂ ed enzimi.",
+          "Nel diario registra A e B con le previsioni e spiega perché una pianta d’ombra può crescere sotto gli alberi e una di pieno sole no."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-06-concept",
-      "prompt": "Al buio, con respirazione R_d positiva, il netto del modello è:",
+      "id": "biology-06-q1",
+      "prompt": "Quali sono i prodotti della fotosintesi?",
       "options": [
         {
           "id": "A",
-          "text": "Sempre zero",
-          "feedback": "Il laboratorio usa A_net=A_max I/(K+I)-R_d, con R_d=2 nelle unità dichiarate. Il parametro K fissa una scala luminosa; non è una costante universale della fotosintesi."
+          "text": "Glucosio e ossigeno",
+          "feedback": "Esatto: 6 CO₂ + 6 H₂O → C₆H₁₂O₆ + 6 O₂."
         },
         {
           "id": "B",
-          "text": "-R_d",
-          "feedback": "La fotosintesi utilizza energia luminosa per processi di fissazione del carbonio, mentre la respirazione contribuisce al bilancio netto. Una curva di saturazione può rappresentare in modo fenomenologico la risposta alla luce."
+          "text": "Anidride carbonica e acqua",
+          "feedback": "Anidride carbonica e acqua sono i reagenti."
         },
         {
           "id": "C",
-          "text": "A_max",
-          "feedback": "La saturazione della curva non prova un singolo meccanismo limitante. Temperatura, acqua, CO₂ e acclimatazione possono cambiare la risposta."
+          "text": "ATP e anidride carbonica",
+          "feedback": "L’ATP è un intermedio della fase luminosa e la CO₂ è consumata."
+        },
+        {
+          "id": "D",
+          "text": "Glucosio e anidride carbonica",
+          "feedback": "La CO₂ viene consumata, non prodotta."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-06-q2",
+      "prompt": "Da dove viene l’ossigeno liberato nella fotosintesi?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Dall’anidride carbonica",
+          "feedback": "Gli esperimenti con isotopi mostrarono il contrario."
+        },
+        {
+          "id": "B",
+          "text": "Dall’acqua",
+          "feedback": "Esatto: la fase luminosa scinde le molecole d’acqua."
+        },
+        {
+          "id": "C",
+          "text": "Dal glucosio",
+          "feedback": "Il glucosio è un prodotto, non una fonte di ossigeno."
+        },
+        {
+          "id": "D",
+          "text": "Dall’aria",
+          "feedback": "L’ossigeno viene liberato nell’aria, non preso da essa."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "biology-06-calculation",
-      "prompt": "Calcolo: Assimilazione massima (a)=20 μmol/(m² s); Scala luminosa K (b)=200 μmol/(m² s). Per Luce I=200 μmol/(m² s), quanto vale Assimilazione netta?",
+      "id": "biology-06-q3",
+      "prompt": "Perché le foglie sono verdi?",
       "options": [
         {
           "id": "A",
-          "text": "8 μmol/(m² s)",
-          "feedback": "Assimilazione = A_max I/(K+I)-R_d; R_d=2. Con Assimilazione massima (a)=20 μmol/(m² s); Scala luminosa K (b)=200 μmol/(m² s) e Luce I=200 μmol/(m² s), il risultato è 8 μmol/(m² s). Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché la clorofilla assorbe il verde",
+          "feedback": "Un pigmento ci appare del colore che non assorbe."
         },
         {
           "id": "B",
-          "text": "12 μmol/(m² s)",
-          "feedback": "Questo valore non soddisfa la relazione. Assimilazione = A_max I/(K+I)-R_d; R_d=2. Con Assimilazione massima (a)=20 μmol/(m² s); Scala luminosa K (b)=200 μmol/(m² s) e Luce I=200 μmol/(m² s), il risultato è 8 μmol/(m² s). Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché contengono rame",
+          "feedback": "Il colore viene dai pigmenti, non dal rame."
         },
         {
           "id": "C",
-          "text": "4 μmol/(m² s)",
-          "feedback": "Controlla sostituzione, segno e unità. Assimilazione = A_max I/(K+I)-R_d; R_d=2. Con Assimilazione massima (a)=20 μmol/(m² s); Scala luminosa K (b)=200 μmol/(m² s) e Luce I=200 μmol/(m² s), il risultato è 8 μmol/(m² s). Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché la clorofilla riflette il verde",
+          "feedback": "Esatto: assorbe soprattutto blu e rosso."
+        },
+        {
+          "id": "D",
+          "text": "Perché la luce del sole è verde",
+          "feedback": "La luce solare contiene tutti i colori."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 200,
-        "parameters": {
-          "a": 20,
-          "b": 200
-        },
-        "expected": 8,
-        "unit": "μmol/(m² s)"
-      }
+      "correct": "C"
     },
     {
-      "id": "biology-06-transfer",
-      "prompt": "Trasferimento: Assimilazione massima (a)=25 μmol/(m² s); Scala luminosa K (b)=200 μmol/(m² s). Per Luce I=200 μmol/(m² s), quanto vale Assimilazione netta?",
+      "id": "biology-06-q4",
+      "prompt": "Che cosa succede al punto di compensazione?",
       "options": [
         {
           "id": "A",
-          "text": "15,75 μmol/(m² s)",
-          "feedback": "Questo valore non soddisfa la relazione. Assimilazione = A_max I/(K+I)-R_d; R_d=2. Con Assimilazione massima (a)=25 μmol/(m² s); Scala luminosa K (b)=200 μmol/(m² s) e Luce I=200 μmol/(m² s), il risultato è 10,5 μmol/(m² s). Conserva le unità e arrotonda solo alla fine."
+          "text": "La fotosintesi è massima",
+          "feedback": "Il massimo si raggiunge con luce molto più intensa."
         },
         {
           "id": "B",
-          "text": "5,25 μmol/(m² s)",
-          "feedback": "Controlla sostituzione, segno e unità. Assimilazione = A_max I/(K+I)-R_d; R_d=2. Con Assimilazione massima (a)=25 μmol/(m² s); Scala luminosa K (b)=200 μmol/(m² s) e Luce I=200 μmol/(m² s), il risultato è 10,5 μmol/(m² s). Conserva le unità e arrotonda solo alla fine."
+          "text": "La pianta smette di respirare",
+          "feedback": "La pianta respira sempre, anche alla luce."
         },
         {
           "id": "C",
-          "text": "10,5 μmol/(m² s)",
-          "feedback": "Assimilazione = A_max I/(K+I)-R_d; R_d=2. Con Assimilazione massima (a)=25 μmol/(m² s); Scala luminosa K (b)=200 μmol/(m² s) e Luce I=200 μmol/(m² s), il risultato è 10,5 μmol/(m² s). Conserva le unità e arrotonda solo alla fine."
+          "text": "La luce è assente",
+          "feedback": "Al buio l’assimilazione netta è negativa."
+        },
+        {
+          "id": "D",
+          "text": "Fotosintesi e respirazione si bilanciano",
+          "feedback": "Esatto: l’assimilazione netta è zero."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 200,
-        "parameters": {
-          "a": 25,
-          "b": 200
-        },
-        "expected": 10.5,
-        "unit": "μmol/(m² s)"
-      }
+      "correct": "D"
     },
     {
-      "id": "biology-06-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "biology-06-q5",
+      "prompt": "Con luce molto intensa la curva si appiattisce. Perché?",
       "options": [
         {
           "id": "A",
-          "text": "Risposta luminosa fenomenologica stazionaria",
-          "feedback": "Modello fenomenologico stazionario, respirazione costante e nessuna fotoinibizione. Non prevede la crescita di una specie reale."
+          "text": "Perché la luce non è più il fattore limitante",
+          "feedback": "Esatto: limitano la CO₂ e la capacità degli enzimi."
         },
         {
           "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Modello fenomenologico stazionario, respirazione costante e nessuna fotoinibizione. Non prevede la crescita di una specie reale."
+          "text": "Perché la clorofilla si consuma",
+          "feedback": "La clorofilla si rinnova e non spiega l’appiattimento."
         },
         {
           "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Modello fenomenologico stazionario, respirazione costante e nessuna fotoinibizione. Non prevede la crescita di una specie reale."
+          "text": "Perché la pianta respira di più",
+          "feedback": "La respirazione cambia poco con la luce."
+        },
+        {
+          "id": "D",
+          "text": "Perché la luce diventa verde",
+          "feedback": "Il colore della luce non cambia con l’intensità."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "biology-06-q6",
+      "prompt": "Nel laboratorio, con K = 200, passando da I = 250 a I = 500 l’assimilazione:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Raddoppia",
+          "feedback": "La curva si sta saturando: cresce meno che in proporzione."
+        },
+        {
+          "id": "B",
+          "text": "Cresce di circa un terzo",
+          "feedback": "Esatto: da circa 9,1 a 12,3 μmol/(m²·s)."
+        },
+        {
+          "id": "C",
+          "text": "Diminuisce",
+          "feedback": "Più luce non riduce l’assimilazione in questo modello."
+        },
+        {
+          "id": "D",
+          "text": "Resta uguale",
+          "feedback": "A queste intensità la curva sale ancora."
+        }
+      ],
+      "correct": "B"
     }
   ]
 }
