@@ -161,3 +161,26 @@ test('Chimica 07: legame covalente, numeri ricalcolati',()=>{
  const bo=(nb,na)=>(nb-na)/2;assert.deepEqual([bo(1,0),bo(2,0),bo(2,1),bo(2,2),bo(8,4),bo(8,3),bo(8,5),bo(8,6)],[0.5,1,0.5,0,2,2.5,1.5,1]);
  assert.deepEqual([3.98-2.2,2.96-2.2,2.66-2.2,3.44-2.2,2.55-2.2].map(x=>r(x,2)),[1.78,0.76,0.46,1.24,0.35]);
 });
+test('Chimica 08: geometria molecolare, numeri ricalcolati',()=>{
+ const deg=x=>x*180/Math.PI,rad=x=>x*Math.PI/180;
+ assert.equal(r(deg(Math.acos(-1/3)),2),109.47);assert.equal(r(deg(Math.acos(1/3)),1),70.5);
+ // Bond dipoles from molecular moments (CRC) and gas-phase angles.
+ assert.equal(r(2*Math.cos(rad(104.5/2)),3),1.224);assert.equal(r(1.85/(2*Math.cos(rad(104.5/2))),2),1.51);
+ const ca=Math.sqrt((2*Math.cos(rad(106.67))+1)/3);assert.equal(r(ca,3),0.377);assert.equal(r(1.47/(3*0.377),2),1.3);
+ assert.equal(r(2*Math.cos(rad(46.05)),3),1.388);assert.equal(r(0.97/1.388,2),0.7);
+ assert.equal(r(2*Math.cos(rad(109.47/2)),2),1.15);assert.deepEqual([1.60/1.89,1.04/1.89].map(x=>r(x,2)),[0.85,0.55]);
+ // Coulson relation cos(theta) = -1/lambda, s character 1/(1+lambda).
+ const lam=t=>-1/Math.cos(rad(t)),sc=t=>100/(1+lam(t));
+ assert.equal(r(Math.cos(rad(104.48)),3),-0.25);assert.equal(r(lam(104.48),1),4);assert.equal(r(sc(104.48),0),20);
+ assert.equal(r(Math.cos(rad(106.67)),3),-0.287);assert.equal(r(lam(106.67),2),3.49);assert.equal(r(sc(106.67),0),22);assert.equal(r(100-3*sc(106.67),0),33);
+ assert.equal(r(Math.cos(rad(93.3)),3),-0.058);assert.equal(r(lam(93.3),0),17);assert.equal(r(sc(93.3),0),5);
+ assert.equal(r(Math.cos(rad(92.1)),3),-0.037);assert.equal(r(lam(92.1),0),27);assert.equal(r(sc(92.1),1),3.5);
+ assert.equal(r(109.47-93.3,0),16);
+ // Henry constants (Sander 2023): SO2 about 1.2e-2, CO2 3.3e-4 mol m-3 Pa-1.
+ assert.ok(1.2e-2/3.4e-4>30);
+ // Electronegativity differences; CO2 bending band; microwave wavelength.
+ assert.deepEqual([3.04-2.2,3.98-3.04,2.58-2.2,3.44-2.2].map(x=>r(x,2)),[0.84,0.94,0.38,1.24]);
+ assert.equal(r(1e4/667,1),15);assert.equal(r(c0/2.45e9*100,0),12);
+ // Valence electron counts.
+ assert.deepEqual([4+2*6,5+2*6,5+2*6+1,6+2*6,6+3*6+2],[16,17,18,18,26]);
+});
