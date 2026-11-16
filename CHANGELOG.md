@@ -1,3 +1,13 @@
+# 1.21.0: Il libro della galassia, capitolo pilota
+
+- Nuovo livello di lettura in HTML sopra la scena 3D: indice del capitolo, testo selezionabile, formule con MathJax caricato alla prima apertura, figure SVG, esempi svolti, esercizi con soluzione da aprire, approfondimenti a richiesta, stampa con le soluzioni aperte, impaginazione per telefono. La galassia resta visibile in trasparenza e la barra superiore resta attiva.
+- Primo capitolo, pilota: «Forze e leggi di Newton», sulle sezioni 2.1-2.6 della dispensa di fisica. 16 sezioni, 9 figure, 20 esercizi su tre livelli, circa 8.000 parole: storia dell'idea di forza, sistema e interazioni, forze come vettori, i tre principi, diagramma di corpo libero, peso, normale, tensione, forza elastica, strategia di soluzione, limiti del modello, errori tipici.
+- In orbita, per le unità con un capitolo, il pulsante principale diventa «Leggi il capitolo». I rimandi fra capitoli portano al capitolo collegato, o al suo pianeta se il capitolo non è ancora scritto.
+- Le sezioni lette si registrano nel salvataggio locale e compaiono nell'indice con un segno di spunta.
+- Nuovo indirizzo: `#/libro?unit=…&sezione=…`.
+- Formato dei capitoli e regole editoriali in `docs/LIBRO.md`.
+- Nuovi test: formato e sicurezza del testo, figure, indice dei capitoli, completezza del capitolo pilota, formule bilanciate, stile, risultati numerici ricalcolati.
+
 # 1.20.1: Controllo del repository e correzioni
 
 - All’avvio il sito non scarica più le geometrie delle tre scene Blender (52,6 MB): dalla 1.18.0 le superfici sono generate e di quelle scene servono solo i metadati. I file restano nel repository come riferimento dell’esportazione.

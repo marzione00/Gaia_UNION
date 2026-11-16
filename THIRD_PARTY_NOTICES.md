@@ -23,7 +23,7 @@ Uso e crediti seguono le [NASA Images and Media Usage Guidelines](https://www.na
 
 ## Matematica tipografica
 
-MathJax, `vendor/mathjax`, licenza Apache 2.0 inclusa; usato nel rebuild delle tessere tipografiche. Le figure SVG dei quesiti sono quelle già presenti nella V7, ricostruzioni dichiarate della dispensa, non nuove osservazioni.
+MathJax, `vendor/mathjax`, licenza Apache 2.0 inclusa; usato nel rebuild delle tessere tipografiche e, dalla 1.21.0, dal sito per le formule dei capitoli del libro. Le figure SVG dei quesiti sono quelle già presenti nella V7, ricostruzioni dichiarate della dispensa, non nuove osservazioni.
 
 ## Caratteri
 

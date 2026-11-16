@@ -6,7 +6,7 @@ export function resolveRoute(hash, modules, lessonIds) {
     const parts = path.split('/');
     const q = new URLSearchParams(query);
     const aliases = { study: 'theory', planet: 'orbit', archive: 'catalogue', notebook: 'journal' };
-    const allowed = ['galaxy', 'system', 'orbit', 'surface', 'research', 'catalogue', 'briefing', 'theory', 'pdf', 'lab', 'quiz', 'journal', 'sources', 'mission', 'pilot', 'paths'];
+    const allowed = ['galaxy', 'system', 'orbit', 'surface', 'research', 'catalogue', 'briefing', 'theory', 'pdf', 'lab', 'quiz', 'journal', 'sources', 'mission', 'pilot', 'paths', 'libro'];
     const name = aliases[parts[0]] || parts[0];
     let scene = allowed.includes(name) ? name : 'galaxy';
     const moduleId = q.get('unit') || (['study', 'planet', 'briefing'].includes(parts[0]) ? parts[1] : null);
@@ -39,5 +39,5 @@ export function resolveRoute(hash, modules, lessonIds) {
     }
     let system=systemForPlanet(selected);
     if(scene==='system' && q.has('system')){system=integer('system',system,0,24);if(systemForPlanet(selected)!==system)selected=indicesForSystem(system)[0];}
-    return { scene, selected, system, reader, section: integer('section', 0, 0, 100), pdfDoc, pdfPage, lab, courseStage, explore: scene === 'surface' && q.get('mode') === 'esplora' };
+    return { scene, selected, system, reader, section: integer('section', 0, 0, 100), pdfDoc, pdfPage, lab, courseStage, explore: scene === 'surface' && q.get('mode') === 'esplora', bookSection: scene === 'libro' && /^[\w-]{1,80}$/.test(q.get('sezione') || '') ? q.get('sezione') : null };
 }
