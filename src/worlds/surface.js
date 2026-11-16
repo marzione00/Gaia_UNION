@@ -1,0 +1,77 @@
+/** Landing surface of a planet, generated from its identity card (src/worlds/genome.js) with the terrain
+ * of src/worlds/terrain.js. It replaces the three shared Blender surfaces: every planet gets its own
+ * ground, sea, light, sky, moons and a compact group of four stations at the side of the view. */
+import { buildGenomes, STARS, starTypes } from './genome.js';
+import { terrainHeights, colorAt } from './terrain.js';
+import { seededRandom } from '../scene/systems.js';
+
+let cache = null;
+export const planetGenomes = () => cache ||= buildGenomes();
+export const systemStarLight = system => STARS[starTypes()[system]].light;
+export const EXTENT = 220, GRID = 161;
+const mix = (a, b, t) => a.map((x, i) => x + (b[i] - x) * t);
+const norm = v => { const l = Math.hypot(...v) || 1; return v.map(x => x / l); };
+
+/** Surface data of planet `index` (mesh arrays included; the GPU upload is done by the caller). */
+export function planetSurface(index, n = GRID) {
+    const g = planetGenomes()[index], t = terrainHeights(g, n), r = seededRandom(g.terrain.seed ^ 0x5EA);
+    const sorted = Float32Array.from(t.h).sort(), ref = t.sea >= 0 ? t.sea : sorted[Math.floor(n * n * .3)];
+    const scale = 12 + 12 * g.terrain.relief, cell = EXTENT / (n - 1), edge = (sorted[Math.floor(n * n * .5)] - ref) * scale * .6;
+    const X = i => -EXTENT / 2 + i * cell, Y = new Float32Array(n * n);
+    for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {
+        // The outer ring fades to a constant height, so the edge of the terrain disappears in the haze.
+        const u = Math.abs(i / (n - 1) - .5) * 2, v = Math.abs(j / (n - 1) - .5) * 2, fade = 1 - Math.min(1, Math.max(0, (Math.max(u, v) - .72) / .26));
+        Y[j * n + i] = ((t.h[j * n + i] - ref) * scale) * fade + edge * (1 - fade);
+    }
+    const seaY = t.sea >= 0 ? 0 : null;
+    const heightAt = (x, z) => { const fx = Math.max(0, Math.min(n - 1.001, (x + EXTENT / 2) / cell)), fz = Math.max(0, Math.min(n - 1.001, (z + EXTENT / 2) / cell)), i = Math.floor(fx), j = Math.floor(fz), a = fx - i, b = fz - j; return Y[j * n + i] * (1 - a) * (1 - b) + Y[j * n + i + 1] * a * (1 - b) + Y[(j + 1) * n + i] * (1 - a) * b + Y[(j + 1) * n + i + 1] * a * b; };
+    // Four stations on flattened pads, or on platforms where the ground is under water.
+    // In a row across the lower left of the default view, below the panels and clear of the centre.
+    const centre = [14, 28], across = [.825, -.565], stations = [];
+    for (let k = 0; k < 4; k++) {
+        const x = centre[0] + (k - 1.5) * 6 * across[0], z = centre[1] + (k - 1.5) * 6 * across[1];
+        let y = 0, c = 0; for (let dz = -2; dz <= 2; dz += 1) for (let dx = -2; dx <= 2; dx += 1) { y += heightAt(x + dx, z + dz); c++; } y /= c;
+        const pad = seaY !== null ? Math.max(y, seaY + .45) : y;
+        stations.push({ index: k, position: [x, pad, z], labelPosition: [x, pad + 3.6, z], radius: 2.2, platform: seaY !== null && y < seaY + .45 });
+    }
+    for (const s of stations) for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) { const d = Math.hypot(X(i) - s.position[0], X(j) - s.position[2]); if (d < 3.4 && !s.platform) { const w = d < 2.2 ? 1 : 1 - (d - 2.2) / 1.2; Y[j * n + i] += (s.position[1] - .3 - Y[j * n + i]) * w; } }
+    // Mesh: position, normal, uv, colour, PBR (metal, roughness, emission, kind 1 = ground).
+    const v = new Float32Array(n * n * 16), idx = new Uint32Array((n - 1) * (n - 1) * 6);
+    for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {
+        const k = j * n + i, hx = (Y[j * n + Math.min(n - 1, i + 1)] - Y[j * n + Math.max(0, i - 1)]) / (2 * cell), hz = (Y[Math.min(n - 1, j + 1) * n + i] - Y[Math.max(0, j - 1) * n + i]) / (2 * cell);
+        const nn = norm([-hx, 1, -hz]), slope = Math.min(1, Math.hypot(hx, hz) * .9), lava = t.lava ? t.lava[k] : 0;
+        const col = colorAt(g, t.h[k], t.sea, slope, 0, lava), lin = col.map(c => Math.pow(c, 1.6));
+        v.set([X(i), Y[k], X(j), ...nn, i / (n - 1), j / (n - 1), ...lin, 1, 0, .88 - .3 * (g.family === 'arctic'), lava > .3 ? .9 : 0, 1], k * 16);
+    }
+    let q = 0; for (let j = 0; j < n - 1; j++) for (let i = 0; i < n - 1; i++) { const a = j * n + i; idx.set([a, a + n, a + 1, a + 1, a + n, a + n + 1], q); q += 6; }
+    // Cells for the phenomena (same shape as the old grid): every 2 units inside ±50.
+    const cells = [];
+    for (let z = -50; z <= 50; z += 2) for (let x = -50; x <= 50; x += 2) { const y = heightAt(x, z); cells.push({ x, z, groundY: y, wet: seaY !== null && y <= seaY + .05, veg: 0 }); }
+    const sunAz = r() * Math.PI * 2, sunEl = .45 + r() * .45, light = norm([Math.cos(sunAz) * Math.cos(sunEl), Math.sin(sunEl), Math.sin(sunAz) * Math.cos(sunEl)]);
+    const density = g.atmosphere.density, horizon = density > .04 ? g.atmosphere.sky : [.035, .035, .04], top = density > .04 ? mix([.004, .006, .012], g.atmosphere.sky.map(c => c * .45), Math.min(1, density * 1.4)) : [.002, .002, .004];
+    return {
+        key: 'planet-' + index, index, genome: g, n, cell, heights: Y, heightAt, seaY, stations, mesh: { v, i: idx, stride: 16 },
+        grid: { radius: 2, cells }, water: g.palette.water, light: { direction: light, color: g.star.light },
+        fog: { color: horizon, density: .0025 + .011 * density }, sky: { top, horizon, sun: g.star.light, stars: Math.max(0, 1 - density * 3) },
+        // Moons sit right of the screen title, from the centre of the view to its right edge.
+        moons: Array.from({ length: g.satellites.moons }, (_, k) => ({ azimuth: .1 + k * .14 + r() * .05, elevation: .06 + r() * .08, size: 4 + r() * 6 })),
+        vegetation: ['terrestrial', 'oceanic', 'volcanic'].includes(g.family) ? Math.min(1, density * 1.6) * (g.family === 'volcanic' ? .25 : 1) : 0
+    };
+}
+/** Instances of plants and rocks for the surface, deterministic. */
+export function surfaceScatter(s) {
+    const g = s.genome, r = seededRandom(g.terrain.seed ^ 0xF10), plants = [], rocks = [], near = (x, z) => s.stations.some(st => Math.hypot(st.position[0] - x, st.position[2] - z) < 6);
+    for (let k = 0; k < 2600 && plants.length < 900 * s.vegetation; k++) {
+        const x = (r() - .5) * 120, z = (r() - .5) * 120, y = s.heightAt(x, z);
+        if ((s.seaY !== null && y < s.seaY + .3) || near(x, z) || Math.abs(s.heightAt(x + 1, z) - y) > .9) continue;
+        const c = g.palette.pigment.map(v => Math.min(1, v * (1.1 + r() * .5)));
+        plants.push({ x, y: y - .05, z, s: .8 + r() * 1.1, r: c[0], g: c[1], b: c[2], h: r() * 6.283 });
+    }
+    for (let k = 0; k < 900 && rocks.length < 260; k++) {
+        const x = (r() - .5) * 130, z = (r() - .5) * 130, y = s.heightAt(x, z);
+        if ((s.seaY !== null && y < s.seaY - .2) || near(x, z)) continue;
+        const c = g.palette.rock.map(v => v * (.7 + r() * .4));
+        rocks.push({ x, y: y - .25, z, s: .5 + r() * r() * 2.6, r: c[0], g: c[1], b: c[2], h: r() * 6.283 });
+    }
+    return { plants, rocks };
+}

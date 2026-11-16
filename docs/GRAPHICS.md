@@ -40,6 +40,13 @@ La qualità alta usa la risoluzione della scena al 100%, bilanciata all’80%, r
 - Nel vertex shader `uInstanced` sceglie il moto: 1 fermo con oscillazione leggera, 2 particelle che salgono, 3 animali che camminano su piccoli cerchi. Il materiale 18 è l'acqua dei mondi (mare con marea e onde nel vertex shader, laghi colorati), il 19 il vapore.
 - La superficie di atterraggio resta quella esportata da Blender; il mondo vi aggiunge i propri oggetti. Il mare delle maree sostituisce l'acqua della superficie «marea». Per i quattro pianeti la famiglia è fissata in `systems.js`, così la superficie corrisponde al fenomeno.
 
+## Superfici generate (1.18.0)
+
+- `src/worlds/surface.js` costruisce la superficie di un pianeta dalla sua carta d’identità: terreno di 220 × 220 unità su una griglia di 161 × 161 punti (colori del suolo, bagliore delle colate, bordo che sfuma nella foschia), mare con il colore della carta, luce con il colore della stella, cielo (zenit, orizzonte, stelle visibili con atmosfera sottile), lune sopra l’orizzonte, piante e rocce sparse, quattro stazioni compatte in fila nel primo piano a sinistra su piazzole spianate o piattaforme sull’acqua.
+- `World.activatePlanet` genera la superficie solo all’atterraggio e la conserva per gli ultimi tre pianeti; le mesh vanno in GPU una volta per pianeta. La camera è più bassa (orizzonte in vista, campo visivo più ampio) e resta almeno 5 unità sopra il terreno.
+- Le lune hanno azimut fra 0,10 e 0,29 rad a destra della direzione iniziale della camera, così sugli schermi larghi restano fra il titolo e il pannello delle stazioni. `Renderer.shadeRect` disegna un rettangolo con alfa interpolata sui vertici; `titleShade` lo usa dietro il titolo delle superfici sugli schermi larghi.
+- Il cielo delle superfici usa `uSkyTop`, `uSunColor` e `uStars`; terreno e acqua usano `uLightColor`, il colore della stella. Nella vista del sistema la stella prende il colore del tipo indicato dalla carta.
+
 ## Riprodurre l'export
 
 Richiede Blender 4.3 e il suo Python con numpy:

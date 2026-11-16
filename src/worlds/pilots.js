@@ -36,8 +36,10 @@ export function logisticRegime(a) {
 }
 
 /** Land spots of a landing surface, away from the four stations, deterministic. */
-function spots(surface, { count, seed, minDistance = 14, wet = false, filter = () => true }) {
-    const r = seeded(seed), cells = surface.grid.cells.filter(c => (wet ? c.wet : !c.wet) && Math.hypot(c.x + 3, c.z + 1) > minDistance && filter(c)), out = [];
+function spots(surface, { count, seed, minDistance = 7, wet = false, filter = () => true }) {
+    // Away from the stations and within the central area that the camera frames.
+    const clear = c => surface.stations.every(st => Math.hypot(c.x - st.position[0], c.z - st.position[2]) > minDistance) && Math.hypot(c.x, c.z) < 46;
+    const r = seeded(seed), cells = surface.grid.cells.filter(c => (wet ? c.wet : !c.wet) && clear(c) && filter(c)), out = [];
     if (!cells.length) return out;
     for (let k = 0; k < count; k++) { const c = cells[Math.floor(r() * cells.length)], j = surface.grid.radius * .8; out.push({ x: c.x + (r() - .5) * j, y: c.groundY, z: c.z + (r() - .5) * j, key: r(), cell: c }); }
     return out;
@@ -83,7 +85,7 @@ const WORLDS = {
         build(R, surface) {
             R.makeMesh('world-lake', disc(48)); R.makeMesh('world-vent', vent());
             // The vent sits on the far side of the stations; lakes follow it outwards, hottest first.
-            const vx = 17, vz = 1, cells = surface.grid.cells.filter(c => Math.hypot(c.x + 3, c.z + 1) > 13).map(c => ({ c, d: Math.hypot(c.x - vx, c.z - vz) })).sort((a, b) => a.d - b.d);
+            const vx = 17, vz = 1, cells = surface.grid.cells.filter(c => !c.wet && surface.stations.every(st => Math.hypot(c.x - st.position[0], c.z - st.position[2]) > 8)).map(c => ({ c, d: Math.hypot(c.x - vx, c.z - vz) })).sort((a, b) => a.d - b.d);
             const ventCell = cells[0].c; this.vent = [ventCell.x, ventCell.groundY, ventCell.z]; this.lakes = [];
             for (const { c, d } of cells) { if (d < 4.5 || this.lakes.length === LAKE_TEMPERATURES.length) continue; if (this.lakes.every(o => Math.hypot(o.x - c.x, o.z - c.z) > 6.4)) this.lakes.push({ x: c.x, y: c.groundY + .12, z: c.z, radius: 2.6 + .3 * (this.lakes.length % 3) }); }
             const r = seeded(2020), steam = [];
@@ -150,8 +152,8 @@ const WORLDS = {
         },
         build(R, surface) {
             R.makeMesh('world-grazer', grazer()); R.makeMesh('world-tuft', tuft());
-            const r = seeded(808), front = c => c.x > -24 && c.z > -14, herd = spots(surface, { count: 90, seed: 808, minDistance: 12, filter: front }).map(o => ({ x: o.x, y: o.y - .05, z: o.z, s: 1.8 + r() * .5, r: .82 + r() * .14, g: .66 + r() * .14, b: .5 + r() * .12, h: r() * 6.283 }));
-            R.makeInstances('world-herd', 'world-grazer', pack(herd)); this.grass = spots(surface, { count: 520, seed: 909, minDistance: 11 }); this.key = '';
+            const r = seeded(808), front = c => c.x > -30 && c.z > -20, herd = spots(surface, { count: 90, seed: 808, filter: front }).map(o => ({ x: o.x, y: o.y - .05, z: o.z, s: 1.8 + r() * .5, r: .82 + r() * .14, g: .66 + r() * .14, b: .5 + r() * .12, h: r() * 6.283 }));
+            R.makeInstances('world-herd', 'world-grazer', pack(herd)); this.grass = spots(surface, { count: 520, seed: 909 }); this.key = '';
         },
         update(R, s) {
             const key = s.season + ':' + s.xn.toFixed(4); if (key === this.key) return; this.key = key;

@@ -304,7 +304,7 @@ export class GPU {
         g.uniform1i(this.uniform(p,'uScene'),0); g.uniform2f(this.uniform(p,'uPixel'),1/this.sceneWidth,1/this.sceneHeight);g.uniform1f(this.uniform(p,'uBloom'),this.sceneQuality==='low'?0:1);
         g.drawArrays(g.TRIANGLES,0,3); this.resolved = true;
     }
-    drawEnvironment(mode, eye, target, fov, light = [-.6,.7,.3], fogColor = [.33,.4,.37], exposure = 1) {
+    drawEnvironment(mode, eye, target, fov, light = [-.6,.7,.3], fogColor = [.33,.4,.37], exposure = 1, sky = null) {
         const g=this.gl,p=this.pEnvironment,forward=norm(target.map((x,i)=>x-eye[i])),right=norm(cross(forward,[0,1,0])),up=cross(right,forward);
         const quality=COSMIC_QUALITY[this.sceneQuality]||COSMIC_QUALITY.high,cosmic=mode===1&&this.cosmos;
         this.cosmicEye=eye;
@@ -322,7 +322,7 @@ export class GPU {
             g.bindFramebuffer(g.FRAMEBUFFER,this.cosmicFbo);g.viewport(0,0,w,h);
         }
         g.disable(g.DEPTH_TEST);g.depthMask(false);g.disable(g.BLEND);g.useProgram(p);g.bindVertexArray(this.fullscreenVao);
-        for(const [name,value] of Object.entries({uEye:eye,uForward:forward,uRight:right,uUp:up,uLight:light,uFogColor:fogColor}))g.uniform3fv(this.uniform(p,name),value);
+        for(const [name,value] of Object.entries({uEye:eye,uForward:forward,uRight:right,uUp:up,uLight:light,uFogColor:fogColor,uSkyTop:sky?.top||[.035,.073,.10],uSunColor:sky?.sun||[1,.73,.42]}))g.uniform3fv(this.uniform(p,name),value);g.uniform1f(this.uniform(p,'uStars'),sky?.stars||0);
         const volumes=cosmic?orderedVolumes(this.cosmos,eye):[];
         g.uniform1i(this.uniform(p,'uVolumeCount'),volumes.length);g.uniform1i(this.uniform(p,'uSteps'),quality.steps);
         volumes.forEach((v,i)=>{
@@ -384,13 +384,13 @@ export class GPU {
         g.uniformMatrix4fv(this.uniform(p,'uVP'),false,vp);g.uniform1f(this.uniform(p,'uPixels'),this.h*this.dpr*this.sceneScale*(background ? .22 : .087));g.uniform1f(this.uniform(p,'uTime'),this.time);
         g.uniform1i(this.uniform(p,'uHoverStar'),background?-1:(this.hoverStarIndex??-1));g.uniform1f(this.uniform(p,'uGain'),gain);const submitted=Math.min(count,(background ? this.backgroundCount : this.starCount)-offset);g.drawArrays(g.POINTS,offset,submitted);this.frameStats.stars+=submitted;this.frameStats.starDrawCalls++;g.depthMask(true);g.disable(g.BLEND);
     }
-    drawMesh(id, vp, model, { texture = null, tint = [1,1,1,1], opacity = 1, rim = 0, emission = 0, eye = [0,8,40], light = [.4,1,.7], material = 0, seed = 0, center = [0,0,0], radius = 5.3, atmosphere = [.11,.36,.81], ocean = false, disguise = 0, occluders = [], instances = null, instanceMode = 1, count = null, motion = [0,0,0,0], pbr = [0,.65,0,0] } = {}) {
+    drawMesh(id, vp, model, { texture = null, tint = [1,1,1,1], opacity = 1, rim = 0, emission = 0, eye = [0,8,40], light = [.4,1,.7], material = 0, seed = 0, center = [0,0,0], radius = 5.3, atmosphere = [.11,.36,.81], ocean = false, disguise = 0, lightColor = [1,1,1], occluders = [], instances = null, instanceMode = 1, count = null, motion = [0,0,0,0], pbr = [0,.65,0,0] } = {}) {
         const m=this.meshes.get(id);if(!m)return;const set=instances?this.instanceSets?.get(instances):null;if(instances&&!set)return;
         const g=this.gl,p=this.pMesh;g.useProgram(p);g.bindVertexArray(set?set.vao:m.vao);
         if(m.stride!==16)g.vertexAttrib4f(4,...pbr);
         g.uniform1i(this.uniform(p,'uInstanced'),set?instanceMode:0);g.uniform4fv(this.uniform(p,'uMotion'),motion);
         for(const [name,value] of Object.entries({uVP:vp,uModel:model,uLightVP:this.lightVP,uReflectionVP:this.reflectionVP}))g.uniformMatrix4fv(this.uniform(p,name),false,value);
-        for(const [name,value] of Object.entries({uEye:eye,uLight:light,uCenter:center,uFogColor:this.fogColor,uAtmosColor:atmosphere}))g.uniform3fv(this.uniform(p,name),value);
+        for(const [name,value] of Object.entries({uEye:eye,uLight:light,uCenter:center,uFogColor:this.fogColor,uAtmosColor:atmosphere,uLightColor:lightColor}))g.uniform3fv(this.uniform(p,name),value);
         g.uniform4fv(this.uniform(p,'uTint'),tint);g.uniform1i(this.uniform(p,'uMaterial'),material);
         g.uniform1i(this.uniform(p,'uOccluderCount'),Math.min(4,occluders.length));occluders.slice(0,4).forEach((o,i)=>g.uniform4fv(this.uniform(p,'uOccluder['+i+']'),o));
         for(const [name,value] of Object.entries({uDisguise:disguise,uOcean:ocean?1:0,uTexWeight:texture?1:0,uOpacity:opacity,uRim:rim,uEmission:emission,uTime:this.time,uSeed:seed,uRadius:radius,uFog:this.fogDensity,uHasShadow:material===10&&this.shadowKey?1:0,uMist:this.mist?1:0,uClipBelow:this.inReflection?-.13:-10000}))g.uniform1f(this.uniform(p,name),value);
@@ -428,6 +428,14 @@ export class GPU {
         }
     }
     rect(x, y, w, h, c) { this.quad(x, y, w, h, c); }
+    // Rectangle whose alpha varies smoothly over a grid of vertices, for shades behind text.
+    shadeRect(x, y, w, h, rgba, alpha, n = 8) {
+        const d = this.uiData, at = (i, j) => [x + w * j / n, y + h * i / n, rgba[3] * alpha(j / n, i / n)];
+        for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) {
+            const v = [at(i, j), at(i, j + 1), at(i + 1, j + 1), at(i + 1, j)];
+            for (const k of [0, 1, 2, 0, 2, 3]) d.push(v[k][0], v[k][1], 0, 0, rgba[0], rgba[1], rgba[2], v[k][2], 0);
+        }
+    }
     roundPoints(x, y, w, h, r) {
         r = Math.min(r, w / 2, h / 2);
         const a = [];
