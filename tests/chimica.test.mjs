@@ -364,3 +364,26 @@ test('Chimica 15: resa e bilanci di materia, numeri ricalcolati',()=>{
  assert.equal(r(2.5*0.6,1),1.5);assert.equal(r(9.5-1.5,1),8);assert.equal(r(100*8/9.5,0),84);
  assert.equal(r(1000*0.035/0.25,0),140);assert.equal(r(1000/0.035/1000,1),28.6);
 });
+test('Chimica 17: velocità di reazione, numeri ricalcolati',()=>{
+ const L2=Math.LN2;
+ // Initial rates (illustrative data) and orders.
+ assert.equal(r(Math.log2(8e-4/2e-4),0),2);assert.equal(r(Math.log2(4e-4/2e-4),0),1);assert.equal(r(2e-4/(0.1**2*0.1),2),0.2);
+ assert.equal(r(Math.log2(2.4e-3/1.2e-3),0),1);assert.equal(r(1.2e-3/0.05,3),0.024);
+ // Stoichiometric rates; average rate.
+ assert.equal(r(4e-5/2,7),2e-5);assert.equal(r(4e-5/4,7),1e-5);assert.equal(r(0.09/60,4),0.0015);
+ // Zero order: alcohol elimination at 0.15 g/L per hour.
+ assert.equal(r(0.3/0.15,1),2);assert.equal(r(0.8/0.15,1),5.3);assert.equal(r(0.4/0.15,1),2.7);assert.equal(r(0.9/0.15,1),6);
+ // First order: iodine-131, technetium-99m, carbon-14, generic.
+ assert.equal(r(L2/8.02,4),0.0864);assert.equal(r(0.5**3,3),0.125);assert.equal(r(0.5**5*100,0),3);assert.equal(r(1/2**10*1000,1),1);
+ assert.equal(r(24/6.01,1),4);assert.equal(r(0.5**(24/6.01),3),0.063);
+ const kc=L2/5730;assert.equal(r(kc*1e4,2),1.21);assert.equal(r(Math.log(1/0.3),3),1.204);assert.equal(r(Math.log(1/0.3)/kc,-1),9950);assert.equal(r(0.5**(5300/5730),2),0.53);
+ assert.equal(r(L2/15,3),0.046);assert.equal(r(Math.LN10/(L2/15),0),50);assert.equal(r(Math.LN10/L2,2),3.32);
+ assert.deepEqual([0,100,200,300].map(t=>r(Math.exp(-3e-3*t),3)),[1,0.741,0.549,0.407]);assert.deepEqual([1,0.741,0.549,0.407].map(c=>r(1/c,2)),[1,1.35,1.82,2.46]);
+ assert.equal(r(L2/2,2),0.35);assert.equal(r(1.0-1.0e-3,3),0.999);
+ // Second order.
+ assert.equal(r(1/(0.5*0.1),0),20);assert.equal(r((1/0.025-1/0.1)/0.5,0),60);
+ // Repeated dosing and caffeine.
+ assert.equal(r(2-1/2**4,4),1.9375);assert.equal(r(100*0.5**5,1),3.1);
+ // Collisions: oxygen concentration factor; efficient fraction.
+ assert.equal(r(1/0.2095,1),4.8);assert.equal(r(1e-5/1e11,20),1e-16);
+});
