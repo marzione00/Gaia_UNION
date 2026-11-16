@@ -5,14 +5,15 @@
   "title": "Iterazioni, stabilità e precisione numerica",
   "sector": 0,
   "modelId": "math-p08",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Mappa discreta adimensionale",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Iterazioni, punti fissi e stabilità, mappa logistica, caos e arrotondamenti",
+  "narrativeStatus": "Il programma di controllo è immaginario; la mappa logistica e i suoi comportamenti sono reali.",
   "objectives": [
-    "Spiegare: mappa discreta adimensionale.",
-    "Applicare x_(n+1) = a x_n (1-x_n), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Calcolare i termini di un’iterazione e trovarne i punti fissi.",
+    "Valutare la stabilità di un punto fisso con la derivata.",
+    "Descrivere i comportamenti della mappa logistica al variare di a.",
+    "Spiegare la sensibilità alle condizioni iniziali e l’effetto degli arrotondamenti."
   ],
   "prerequisites": [
     "math-c08",
@@ -20,10 +21,9 @@
     "math-p04"
   ],
   "connections": [
-    "biology-19"
+    "math-b"
   ],
   "sources": [
-    "precalculus",
     "calculus"
   ],
   "originalSource": {
@@ -40,250 +40,319 @@
   },
   "glossary": [
     {
-      "term": "Iterazioni n",
-      "definition": "Variabile indipendente, unità 1; intervallo [0; 80]."
+      "term": "Iterazione",
+      "definition": "Applicazione ripetuta di una funzione al risultato precedente."
     },
     {
-      "term": "Stato x_n",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Punto fisso",
+      "definition": "Valore x* con f(x*) = x*."
     },
     {
-      "term": "Parametro a",
-      "definition": "Parametro a, unità 1; intervallo [0; 4]."
+      "term": "Stabilità",
+      "definition": "Proprietà di un punto fisso che attira i valori vicini; vale se |f′(x*)| < 1."
     },
     {
-      "term": "Stato iniziale",
-      "definition": "Parametro b, unità 1; intervallo [0,01; 0,99]."
+      "term": "Ciclo di periodo 2",
+      "definition": "Due valori che l’iterazione alterna indefinitamente."
+    },
+    {
+      "term": "Caos deterministico",
+      "definition": "Comportamento irregolare di una regola esatta, sensibile alle condizioni iniziali."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Ripetere una regola",
       "text": {
         "base": [
-          "Una regola semplice viene ripetuta a ogni ciclo e produce andamenti molto diversi. La missione è distinguere equilibrio, alternanza e sensibilità alle condizioni iniziali senza scambiare un grafico lungo per una prova.",
-          "La mappa logistica aggiorna lo stato con x_successivo=a x(1-x). Per 0≤a≤4 e 0≤x≤1, il risultato resta nell’intervallo unitario. Un punto fisso soddisfa f(x*)=x*; ciò non significa che gli stati vicini vi convergano."
+          "Il programma di controllo della stazione aggiorna una grandezza ripetendo sempre la stessa regola: dal valore attuale calcola il successivo. A volte i valori si stabilizzano, a volte oscillano, a volte sembrano impazzire. Studiare le iterazioni significa capire quale di questi comportamenti aspettarsi, e quanto ci si può fidare di un calcolo ripetuto molte volte con numeri approssimati.",
+          "Un’iterazione parte da un valore x₀ e applica ripetutamente una funzione: x₁ = f(x₀), x₂ = f(x₁), e così via. Un punto fisso è un valore x* con f(x*) = x*: se l’iterazione ci arriva, ci resta. Il metodo babilonese per le radici e il metodo di bisezione sono iterazioni progettate per avvicinarsi a un punto fisso desiderato."
         ],
         "intermediate": [
-          "Una regola semplice viene ripetuta a ogni ciclo e produce andamenti molto diversi. La missione è distinguere equilibrio, alternanza e sensibilità alle condizioni iniziali senza scambiare un grafico lungo per una prova.",
-          "I punti fissi sono 0 e, quando a≠0, 1-1/a. La derivata è a(1-2x). La condizione locale |f′(x*)|<1 indica attrazione; un modulo maggiore di 1 indica instabilità locale."
+          "Il programma di controllo della stazione aggiorna una grandezza ripetendo sempre la stessa regola: dal valore attuale calcola il successivo. A volte i valori si stabilizzano, a volte oscillano, a volte sembrano impazzire. Studiare le iterazioni significa capire quale di questi comportamenti aspettarsi, e quanto ci si può fidare di un calcolo ripetuto molte volte con numeri approssimati.",
+          "Un’iterazione parte da un valore x₀ e applica ripetutamente una funzione: x₁ = f(x₀), x₂ = f(x₁), e così via. Un punto fisso è un valore x* con f(x*) = x*: se l’iterazione ci arriva, ci resta. Il metodo babilonese per le radici e il metodo di bisezione sono iterazioni progettate per avvicinarsi a un punto fisso desiderato."
         ],
         "advanced": [
-          "Una regola semplice viene ripetuta a ogni ciclo e produce andamenti molto diversi. La missione è distinguere equilibrio, alternanza e sensibilità alle condizioni iniziali senza scambiare un grafico lungo per una prova.",
-          "Confronta valori di a sotto e sopra 3 e studia il punto fisso non nullo. Ripeti con stati iniziali molto vicini annotando la precisione numerica.",
-          "Il modello è discreto, adimensionale e calcolato in virgola mobile. Non è una previsione quantitativa di una popolazione reale."
+          "Il programma di controllo della stazione aggiorna una grandezza ripetendo sempre la stessa regola: dal valore attuale calcola il successivo. A volte i valori si stabilizzano, a volte oscillano, a volte sembrano impazzire. Studiare le iterazioni significa capire quale di questi comportamenti aspettarsi, e quanto ci si può fidare di un calcolo ripetuto molte volte con numeri approssimati.",
+          "Un’iterazione parte da un valore x₀ e applica ripetutamente una funzione: x₁ = f(x₀), x₂ = f(x₁), e così via. Un punto fisso è un valore x* con f(x*) = x*: se l’iterazione ci arriva, ci resta. Il metodo babilonese per le radici e il metodo di bisezione sono iterazioni progettate per avvicinarsi a un punto fisso desiderato."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Equilibri, cicli e caos",
       "text": {
         "base": [
-          "La mappa logistica aggiorna lo stato con x_successivo=a x(1-x). Per 0≤a≤4 e 0≤x≤1, il risultato resta nell’intervallo unitario. Un punto fisso soddisfa f(x*)=x*; ciò non significa che gli stati vicini vi convergano.",
-          "Con a=3,2 e x₀=0,2, il primo passo è 3,2×0,2×0,8=0,512. Iterare la regola è diverso dal valutare la stessa formula sul tempo come variabile continua."
+          "Un punto fisso è stabile se i valori vicini vengono attirati verso di esso. Il criterio pratico usa la derivata: se |f′(x*)| < 1 la distanza dal punto fisso si riduce a ogni passo, approssimativamente di quel fattore; se |f′(x*)| > 1 cresce, e il punto fisso è instabile. Con f′(x*) negativo i valori si avvicinano oscillando da una parte all’altra.",
+          "Il modello logistico discreto x_(n+1) = a x_n (1 − x_n) descrive una popolazione normalizzata tra 0 e 1, che cresce con tasso a e viene frenata dall’affollamento. Per 0 < a < 1 la popolazione si estingue. Per 1 < a < 3 si stabilizza nel punto fisso x* = 1 − 1/a: con a = 2,5, x* = 0,6. La derivata nel punto fisso vale 2 − a, e |2 − a| < 1 proprio per 1 < a < 3.",
+          "Per a appena sopra 3 il punto fisso diventa instabile e i valori oscillano tra due valori, un ciclo di periodo 2: con a = 3,2 i valori si alternano tra circa 0,513 e 0,799. Per a oltre 1 + √6 ≈ 3,449 il ciclo raddoppia a periodo 4, poi 8, sempre più in fretta. Intorno ad a ≈ 3,57 i raddoppi si accumulano e per molti valori successivi il comportamento diventa caotico.",
+          "Caos significa sensibilità alle condizioni iniziali: due valori di partenza vicinissimi producono, dopo qualche decina di passi, successioni completamente diverse. Con a = 4 una differenza iniziale di un miliardesimo può crescere, in media, di un fattore 2 a ogni passo, quindi dopo circa trenta passi supera la grandezza dei valori stessi. La regola è deterministica, eppure la previsione a lungo termine è impossibile in pratica."
         ],
         "intermediate": [
-          "I punti fissi sono 0 e, quando a≠0, 1-1/a. La derivata è a(1-2x). La condizione locale |f′(x*)|<1 indica attrazione; un modulo maggiore di 1 indica instabilità locale.",
-          "La variabile Iterazioni n è espressa in 1; Stato x_n in 1. Il dominio dello strumento è [0; 80], con soli valori interi. La relazione implementata è: x_(n+1) = a x_n (1-x_n).",
-          "Con a=3,2 e x₀=0,2, il primo passo è 3,2×0,2×0,8=0,512. Iterare la regola è diverso dal valutare la stessa formula sul tempo come variabile continua."
+          "Un punto fisso è stabile se i valori vicini vengono attirati verso di esso. Il criterio pratico usa la derivata: se |f′(x*)| < 1 la distanza dal punto fisso si riduce a ogni passo, approssimativamente di quel fattore; se |f′(x*)| > 1 cresce, e il punto fisso è instabile. Con f′(x*) negativo i valori si avvicinano oscillando da una parte all’altra.",
+          "Il modello logistico discreto x_(n+1) = a x_n (1 − x_n) descrive una popolazione normalizzata tra 0 e 1, che cresce con tasso a e viene frenata dall’affollamento. Per 0 < a < 1 la popolazione si estingue. Per 1 < a < 3 si stabilizza nel punto fisso x* = 1 − 1/a: con a = 2,5, x* = 0,6. La derivata nel punto fisso vale 2 − a, e |2 − a| < 1 proprio per 1 < a < 3.",
+          "Per a appena sopra 3 il punto fisso diventa instabile e i valori oscillano tra due valori, un ciclo di periodo 2: con a = 3,2 i valori si alternano tra circa 0,513 e 0,799. Per a oltre 1 + √6 ≈ 3,449 il ciclo raddoppia a periodo 4, poi 8, sempre più in fretta. Intorno ad a ≈ 3,57 i raddoppi si accumulano e per molti valori successivi il comportamento diventa caotico.",
+          "Caos significa sensibilità alle condizioni iniziali: due valori di partenza vicinissimi producono, dopo qualche decina di passi, successioni completamente diverse. Con a = 4 una differenza iniziale di un miliardesimo può crescere, in media, di un fattore 2 a ogni passo, quindi dopo circa trenta passi supera la grandezza dei valori stessi. La regola è deterministica, eppure la previsione a lungo termine è impossibile in pratica.",
+          "Il calcolatore rappresenta i numeri con un numero finito di cifre, circa sedici cifre decimali in doppia precisione. In un’iterazione stabile gli errori di arrotondamento vengono smorzati; in un’iterazione caotica vengono amplificati come qualunque altra piccola differenza. Per questo, nel caos, due programmi corretti possono dare risultati diversi dopo molti passi."
         ],
         "advanced": [
-          "I punti fissi sono 0 e, quando a≠0, 1-1/a. La derivata è a(1-2x). La condizione locale |f′(x*)|<1 indica attrazione; un modulo maggiore di 1 indica instabilità locale.",
-          "Confronta valori di a sotto e sopra 3 e studia il punto fisso non nullo. Ripeti con stati iniziali molto vicini annotando la precisione numerica.",
-          "Un residuo piccolo in un singolo istante non dimostra stabilità. Due traiettorie che divergono possono essere sensibili ai dati iniziali, ma il solo disegno non è una certificazione matematica di caos."
+          "Un punto fisso è stabile se i valori vicini vengono attirati verso di esso. Il criterio pratico usa la derivata: se |f′(x*)| < 1 la distanza dal punto fisso si riduce a ogni passo, approssimativamente di quel fattore; se |f′(x*)| > 1 cresce, e il punto fisso è instabile. Con f′(x*) negativo i valori si avvicinano oscillando da una parte all’altra.",
+          "Il modello logistico discreto x_(n+1) = a x_n (1 − x_n) descrive una popolazione normalizzata tra 0 e 1, che cresce con tasso a e viene frenata dall’affollamento. Per 0 < a < 1 la popolazione si estingue. Per 1 < a < 3 si stabilizza nel punto fisso x* = 1 − 1/a: con a = 2,5, x* = 0,6. La derivata nel punto fisso vale 2 − a, e |2 − a| < 1 proprio per 1 < a < 3.",
+          "Per a appena sopra 3 il punto fisso diventa instabile e i valori oscillano tra due valori, un ciclo di periodo 2: con a = 3,2 i valori si alternano tra circa 0,513 e 0,799. Per a oltre 1 + √6 ≈ 3,449 il ciclo raddoppia a periodo 4, poi 8, sempre più in fretta. Intorno ad a ≈ 3,57 i raddoppi si accumulano e per molti valori successivi il comportamento diventa caotico.",
+          "Caos significa sensibilità alle condizioni iniziali: due valori di partenza vicinissimi producono, dopo qualche decina di passi, successioni completamente diverse. Con a = 4 una differenza iniziale di un miliardesimo può crescere, in media, di un fattore 2 a ogni passo, quindi dopo circa trenta passi supera la grandezza dei valori stessi. La regola è deterministica, eppure la previsione a lungo termine è impossibile in pratica.",
+          "Il calcolatore rappresenta i numeri con un numero finito di cifre, circa sedici cifre decimali in doppia precisione. In un’iterazione stabile gli errori di arrotondamento vengono smorzati; in un’iterazione caotica vengono amplificati come qualunque altra piccola differenza. Per questo, nel caos, due programmi corretti possono dare risultati diversi dopo molti passi."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio della mappa logistica",
       "text": {
         "base": [
-          "Nel laboratorio imposta Parametro a (a): 3,2 (adimensionale); Stato iniziale (b): 0,2 (adimensionale). Prima di salvare A, prevedi come cambia Stato x_n fra Iterazioni n=20 e 40 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con a=3,2 e x₀=0,2, il primo passo è 3,2×0,2×0,8=0,512. Iterare la regola è diverso dal valutare la stessa formula sul tempo come variabile continua.",
-          "La variabile Iterazioni n è espressa in 1; Stato x_n in 1. Il dominio dello strumento è [0; 80], con soli valori interi. La relazione implementata è: x_(n+1) = a x_n (1-x_n)."
+          "Nel laboratorio il grafico mostra x_n per n da 0 a 80 come punti separati; nella scheda REGOLA cambi il parametro a (da 0 a 4) e il valore iniziale x₀ (da 0,01 a 0,99). Il cursore sceglie l’indice n da leggere.",
+          "Protocollo. La previsione riguarda il passaggio da n = 20 a n = 40. Con a = 3,2 e x₀ = 0,2 prevedi e salva A. Poi porta a a 4, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con a = 3,2 i valori in n = 20 e n = 40 coincidono, circa 0,799: la successione oscilla con periodo 2, e due indici pari cadono sullo stesso valore del ciclo. La previsione corretta è UGUALE, anche se la successione non è costante. Con a = 4 i due valori sono circa 0,82 e 0,10: nessuna regolarità. Prova anche a = 2,5: i punti si fermano su 0,6."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Parametro a (a): 3,2 (adimensionale); Stato iniziale (b): 0,2 (adimensionale). Prima di salvare A, prevedi come cambia Stato x_n fra Iterazioni n=20 e 40 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Iterazioni n è espressa in 1; Stato x_n in 1. Il dominio dello strumento è [0; 80], con soli valori interi. La relazione implementata è: x_(n+1) = a x_n (1-x_n).",
-          "I punti fissi sono 0 e, quando a≠0, 1-1/a. La derivata è a(1-2x). La condizione locale |f′(x*)|<1 indica attrazione; un modulo maggiore di 1 indica instabilità locale."
+          "Nel laboratorio il grafico mostra x_n per n da 0 a 80 come punti separati; nella scheda REGOLA cambi il parametro a (da 0 a 4) e il valore iniziale x₀ (da 0,01 a 0,99). Il cursore sceglie l’indice n da leggere.",
+          "Protocollo. La previsione riguarda il passaggio da n = 20 a n = 40. Con a = 3,2 e x₀ = 0,2 prevedi e salva A. Poi porta a a 4, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con a = 3,2 i valori in n = 20 e n = 40 coincidono, circa 0,799: la successione oscilla con periodo 2, e due indici pari cadono sullo stesso valore del ciclo. La previsione corretta è UGUALE, anche se la successione non è costante. Con a = 4 i due valori sono circa 0,82 e 0,10: nessuna regolarità. Prova anche a = 2,5: i punti si fermano su 0,6.",
+          "L’osservazione con a = 3,2 insegna qualcosa sul campionamento: confrontare due punti soltanto può nascondere un’oscillazione. Guardare tutto il grafico, o un punto dispari come n = 21, rivela il ciclo."
         ],
         "advanced": [
-          "Nel laboratorio imposta Parametro a (a): 3,2 (adimensionale); Stato iniziale (b): 0,2 (adimensionale). Prima di salvare A, prevedi come cambia Stato x_n fra Iterazioni n=20 e 40 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta valori di a sotto e sopra 3 e studia il punto fisso non nullo. Ripeti con stati iniziali molto vicini annotando la precisione numerica.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "Nel laboratorio il grafico mostra x_n per n da 0 a 80 come punti separati; nella scheda REGOLA cambi il parametro a (da 0 a 4) e il valore iniziale x₀ (da 0,01 a 0,99). Il cursore sceglie l’indice n da leggere.",
+          "Protocollo. La previsione riguarda il passaggio da n = 20 a n = 40. Con a = 3,2 e x₀ = 0,2 prevedi e salva A. Poi porta a a 4, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con a = 3,2 i valori in n = 20 e n = 40 coincidono, circa 0,799: la successione oscilla con periodo 2, e due indici pari cadono sullo stesso valore del ciclo. La previsione corretta è UGUALE, anche se la successione non è costante. Con a = 4 i due valori sono circa 0,82 e 0,10: nessuna regolarità. Prova anche a = 2,5: i punti si fermano su 0,6.",
+          "L’osservazione con a = 3,2 insegna qualcosa sul campionamento: confrontare due punti soltanto può nascondere un’oscillazione. Guardare tutto il grafico, o un punto dispari come n = 21, rivela il ciclo."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Leggere un’iterazione",
       "text": {
         "base": [
-          "Un residuo piccolo in un singolo istante non dimostra stabilità. Due traiettorie che divergono possono essere sensibili ai dati iniziali, ma il solo disegno non è una certificazione matematica di caos.",
-          "Il modello è discreto, adimensionale e calcolato in virgola mobile. Non è una previsione quantitativa di una popolazione reale.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "L’osservazione con a = 3,2 insegna qualcosa sul campionamento: confrontare due punti soltanto può nascondere un’oscillazione. Guardare tutto il grafico, o un punto dispari come n = 21, rivela il ciclo.",
+          "Errore frequente: pensare che una regola semplice produca sempre un comportamento semplice. La mappa logistica ha una sola moltiplicazione e una sottrazione, eppure contiene il caos.",
+          "Secondo errore: confondere caos e casualità. Nel caos ogni passo è determinato esattamente; ciò che manca è la possibilità di conoscere lo stato iniziale con precisione infinita."
         ],
         "intermediate": [
-          "Un residuo piccolo in un singolo istante non dimostra stabilità. Due traiettorie che divergono possono essere sensibili ai dati iniziali, ma il solo disegno non è una certificazione matematica di caos.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "Errore frequente: pensare che una regola semplice produca sempre un comportamento semplice. La mappa logistica ha una sola moltiplicazione e una sottrazione, eppure contiene il caos.",
+          "Secondo errore: confondere caos e casualità. Nel caos ogni passo è determinato esattamente; ciò che manca è la possibilità di conoscere lo stato iniziale con precisione infinita.",
+          "Il calcolatore rappresenta i numeri con un numero finito di cifre, circa sedici cifre decimali in doppia precisione. In un’iterazione stabile gli errori di arrotondamento vengono smorzati; in un’iterazione caotica vengono amplificati come qualunque altra piccola differenza. Per questo, nel caos, due programmi corretti possono dare risultati diversi dopo molti passi."
         ],
         "advanced": [
-          "Il modello è discreto, adimensionale e calcolato in virgola mobile. Non è una previsione quantitativa di una popolazione reale.",
-          "Confronta valori di a sotto e sopra 3 e studia il punto fisso non nullo. Ripeti con stati iniziali molto vicini annotando la precisione numerica.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Secondo errore: confondere caos e casualità. Nel caos ogni passo è determinato esattamente; ciò che manca è la possibilità di conoscere lo stato iniziale con precisione infinita.",
+          "Il calcolatore rappresenta i numeri con un numero finito di cifre, circa sedici cifre decimali in doppia precisione. In un’iterazione stabile gli errori di arrotondamento vengono smorzati; in un’iterazione caotica vengono amplificati come qualunque altra piccola differenza. Per questo, nel caos, due programmi corretti possono dare risultati diversi dopo molti passi."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "La mappa logistica aggiorna lo stato con x_successivo=a x(1-x). Per 0≤a≤4 e 0≤x≤1, il risultato resta nell’intervallo unitario. Un punto fisso soddisfa f(x*)=x*; ciò non significa che gli stati vicini vi convergano.",
-          "Con a=3,2 e x₀=0,2, il primo passo è 3,2×0,2×0,8=0,512. Iterare la regola è diverso dal valutare la stessa formula sul tempo come variabile continua."
+          "Ripasso: iterazione e punto fisso; criterio di stabilità |f′(x*)| < 1; comportamenti della mappa logistica per i diversi valori di a; sensibilità alle condizioni iniziali; effetto degli arrotondamenti.",
+          "Mini esercizio: con a = 2 il punto fisso vale 1 − 1/2 = 0,5 e f′(0,5) = 2 − 2 = 0: la convergenza è rapidissima.",
+          "Nelle domande sulla stabilità calcola prima il punto fisso, poi la derivata in quel punto."
         ],
         "intermediate": [
-          "I punti fissi sono 0 e, quando a≠0, 1-1/a. La derivata è a(1-2x). La condizione locale |f′(x*)|<1 indica attrazione; un modulo maggiore di 1 indica instabilità locale.",
-          "La variabile Iterazioni n è espressa in 1; Stato x_n in 1. Il dominio dello strumento è [0; 80], con soli valori interi. La relazione implementata è: x_(n+1) = a x_n (1-x_n)."
+          "Ripasso: iterazione e punto fisso; criterio di stabilità |f′(x*)| < 1; comportamenti della mappa logistica per i diversi valori di a; sensibilità alle condizioni iniziali; effetto degli arrotondamenti.",
+          "Mini esercizio: con a = 2 il punto fisso vale 1 − 1/2 = 0,5 e f′(0,5) = 2 − 2 = 0: la convergenza è rapidissima.",
+          "Nelle domande sulla stabilità calcola prima il punto fisso, poi la derivata in quel punto."
         ],
         "advanced": [
-          "Confronta valori di a sotto e sopra 3 e studia il punto fisso non nullo. Ripeti con stati iniziali molto vicini annotando la precisione numerica.",
-          "Il modello è discreto, adimensionale e calcolato in virgola mobile. Non è una previsione quantitativa di una popolazione reale."
+          "Ripasso: iterazione e punto fisso; criterio di stabilità |f′(x*)| < 1; comportamenti della mappa logistica per i diversi valori di a; sensibilità alle condizioni iniziali; effetto degli arrotondamenti.",
+          "Mini esercizio: con a = 2 il punto fisso vale 1 − 1/2 = 0,5 e f′(0,5) = 2 − 2 = 0: la convergenza è rapidissima.",
+          "Nelle domande sulla stabilità calcola prima il punto fisso, poi la derivata in quel punto."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Mappa discreta adimensionale.",
-          "Il modello è discreto, adimensionale e calcolato in virgola mobile. Non è una previsione quantitativa di una popolazione reale.",
-          "Collegamento consigliato: biology-19. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le iterazioni sono alla base dei metodi numerici, della bisezione e del metodo di Newton, e dei modelli di popolazione studiati in biologia. Il caos deterministico spiega perché le previsioni meteorologiche perdono affidabilità dopo pochi giorni.",
+          "Riepilogo dell’unità: un’iterazione ripete una regola; i punti fissi stabili attirano i valori vicini se |f′(x*)| < 1; la mappa logistica passa da estinzione a equilibrio, a cicli e al caos al crescere di a; nel caos piccole differenze, anche di arrotondamento, crescono fino a dominare.",
+          "Nel diario registra A e B con le previsioni e spiega perché con a = 3,2 la previsione UGUALE è corretta anche se la successione oscilla."
         ],
         "intermediate": [
-          "I punti fissi sono 0 e, quando a≠0, 1-1/a. La derivata è a(1-2x). La condizione locale |f′(x*)|<1 indica attrazione; un modulo maggiore di 1 indica instabilità locale.",
-          "Il modello è discreto, adimensionale e calcolato in virgola mobile. Non è una previsione quantitativa di una popolazione reale.",
-          "Confronta valori di a sotto e sopra 3 e studia il punto fisso non nullo. Ripeti con stati iniziali molto vicini annotando la precisione numerica."
+          "Le iterazioni sono alla base dei metodi numerici, della bisezione e del metodo di Newton, e dei modelli di popolazione studiati in biologia. Il caos deterministico spiega perché le previsioni meteorologiche perdono affidabilità dopo pochi giorni.",
+          "Riepilogo dell’unità: un’iterazione ripete una regola; i punti fissi stabili attirano i valori vicini se |f′(x*)| < 1; la mappa logistica passa da estinzione a equilibrio, a cicli e al caos al crescere di a; nel caos piccole differenze, anche di arrotondamento, crescono fino a dominare.",
+          "Nel diario registra A e B con le previsioni e spiega perché con a = 3,2 la previsione UGUALE è corretta anche se la successione oscilla."
         ],
         "advanced": [
-          "Confronta valori di a sotto e sopra 3 e studia il punto fisso non nullo. Ripeti con stati iniziali molto vicini annotando la precisione numerica.",
-          "Il modello è discreto, adimensionale e calcolato in virgola mobile. Non è una previsione quantitativa di una popolazione reale.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le iterazioni sono alla base dei metodi numerici, della bisezione e del metodo di Newton, e dei modelli di popolazione studiati in biologia. Il caos deterministico spiega perché le previsioni meteorologiche perdono affidabilità dopo pochi giorni.",
+          "Riepilogo dell’unità: un’iterazione ripete una regola; i punti fissi stabili attirano i valori vicini se |f′(x*)| < 1; la mappa logistica passa da estinzione a equilibrio, a cicli e al caos al crescere di a; nel caos piccole differenze, anche di arrotondamento, crescono fino a dominare.",
+          "Nel diario registra A e B con le previsioni e spiega perché con a = 3,2 la previsione UGUALE è corretta anche se la successione oscilla."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-p08-concept",
-      "prompt": "Un punto fisso x* soddisfa:",
+      "id": "math-p08-q1",
+      "prompt": "Qual è il punto fisso della mappa logistica con a = 2,5?",
       "options": [
         {
           "id": "A",
-          "text": "f′(x*)=1 necessariamente",
-          "feedback": "I punti fissi sono 0 e, quando a≠0, 1-1/a. La derivata è a(1-2x). La condizione locale |f′(x*)|<1 indica attrazione; un modulo maggiore di 1 indica instabilità locale."
+          "text": "0,4",
+          "feedback": "0,4 = 1/2,5: il punto fisso è 1 − 1/a."
         },
         {
           "id": "B",
-          "text": "f(x*)=x*",
-          "feedback": "La mappa logistica aggiorna lo stato con x_successivo=a x(1-x). Per 0≤a≤4 e 0≤x≤1, il risultato resta nell’intervallo unitario. Un punto fisso soddisfa f(x*)=x*; ciò non significa che gli stati vicini vi convergano."
+          "text": "0,6",
+          "feedback": "Esatto: 1 − 1/2,5 = 0,6, e 2,5 · 0,6 · 0,4 = 0,6."
         },
         {
           "id": "C",
-          "text": "f(x*)=0 necessariamente",
-          "feedback": "Un residuo piccolo in un singolo istante non dimostra stabilità. Due traiettorie che divergono possono essere sensibili ai dati iniziali, ma il solo disegno non è una certificazione matematica di caos."
+          "text": "2,5",
+          "feedback": "I valori della mappa restano tra 0 e 1."
+        },
+        {
+          "id": "D",
+          "text": "0",
+          "feedback": "Anche 0 è un punto fisso, ma per a > 1 è instabile: l’iterazione se ne allontana."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "math-p08-calculation",
-      "prompt": "Calcolo: Parametro a (a)=3,2 (adimensionale); Stato iniziale (b)=0,2 (adimensionale). Per Iterazioni n=1 (adimensionale), quanto vale Stato x_n?",
+      "id": "math-p08-q2",
+      "prompt": "Un punto fisso con f′(x*) = −0,5 è:",
       "options": [
         {
           "id": "A",
-          "text": "0,512 (adimensionale)",
-          "feedback": "x_(n+1) = a x_n (1-x_n). Con Parametro a (a)=3,2 (adimensionale); Stato iniziale (b)=0,2 (adimensionale) e Iterazioni n=1 (adimensionale), il risultato è 0,512 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Stabile, e i valori si avvicinano oscillando",
+          "feedback": "Esatto: |−0,5| < 1, e il segno negativo produce l’oscillazione."
         },
         {
           "id": "B",
-          "text": "1,512 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. x_(n+1) = a x_n (1-x_n). Con Parametro a (a)=3,2 (adimensionale); Stato iniziale (b)=0,2 (adimensionale) e Iterazioni n=1 (adimensionale), il risultato è 0,512 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Instabile",
+          "feedback": "Il valore assoluto della derivata è minore di 1."
         },
         {
           "id": "C",
-          "text": "-0,488 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. x_(n+1) = a x_n (1-x_n). Con Parametro a (a)=3,2 (adimensionale); Stato iniziale (b)=0,2 (adimensionale) e Iterazioni n=1 (adimensionale), il risultato è 0,512 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "A",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 3.2,
-          "b": 0.2
-        },
-        "expected": 0.512,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "math-p08-transfer",
-      "prompt": "Trasferimento: Parametro a (a)=3,3 (adimensionale); Stato iniziale (b)=0,2 (adimensionale). Per Iterazioni n=1 (adimensionale), quanto vale Stato x_n?",
-      "options": [
-        {
-          "id": "A",
-          "text": "1,528 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. x_(n+1) = a x_n (1-x_n). Con Parametro a (a)=3,3 (adimensionale); Stato iniziale (b)=0,2 (adimensionale) e Iterazioni n=1 (adimensionale), il risultato è 0,528 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Stabile, e i valori si avvicinano da un solo lato",
+          "feedback": "Con derivata negativa i valori saltano da una parte all’altra del punto fisso."
         },
         {
-          "id": "B",
-          "text": "-0,472 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. x_(n+1) = a x_n (1-x_n). Con Parametro a (a)=3,3 (adimensionale); Stato iniziale (b)=0,2 (adimensionale) e Iterazioni n=1 (adimensionale), il risultato è 0,528 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "C",
-          "text": "0,528 (adimensionale)",
-          "feedback": "x_(n+1) = a x_n (1-x_n). Con Parametro a (a)=3,3 (adimensionale); Stato iniziale (b)=0,2 (adimensionale) e Iterazioni n=1 (adimensionale), il risultato è 0,528 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "C",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 3.3,
-          "b": 0.2
-        },
-        "expected": 0.528,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "math-p08-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Mappa discreta adimensionale",
-          "feedback": "Il modello è discreto, adimensionale e calcolato in virgola mobile. Non è una previsione quantitativa di una popolazione reale."
-        },
-        {
-          "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il modello è discreto, adimensionale e calcolato in virgola mobile. Non è una previsione quantitativa di una popolazione reale."
-        },
-        {
-          "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il modello è discreto, adimensionale e calcolato in virgola mobile. Non è una previsione quantitativa di una popolazione reale."
+          "id": "D",
+          "text": "Un ciclo di periodo 2",
+          "feedback": "Un ciclo di periodo 2 nasce quando il punto fisso perde stabilità."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "math-p08-q3",
+      "prompt": "Con a = 3,2 la successione alterna circa 0,513 e 0,799. Che cosa mostrano i punti n = 20 e n = 40?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Due valori diversi",
+          "feedback": "Entrambi gli indici sono pari: cadono sullo stesso valore del ciclo."
+        },
+        {
+          "id": "B",
+          "text": "Valori sempre più grandi",
+          "feedback": "La successione resta nel ciclo di periodo 2."
+        },
+        {
+          "id": "C",
+          "text": "Lo stesso valore, circa 0,799",
+          "feedback": "Esatto: per questo la previsione corretta è UGUALE, pur oscillando la successione."
+        },
+        {
+          "id": "D",
+          "text": "Lo zero",
+          "feedback": "Con a > 1 la popolazione non si estingue."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "math-p08-q4",
+      "prompt": "Che cosa significa sensibilità alle condizioni iniziali?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Che i risultati dipendono dal caso",
+          "feedback": "La regola è deterministica: ogni passo è fissato."
+        },
+        {
+          "id": "B",
+          "text": "Che il punto fisso è stabile",
+          "feedback": "La stabilità è il contrario: le differenze si riducono."
+        },
+        {
+          "id": "C",
+          "text": "Che il programma contiene un errore",
+          "feedback": "Anche un programma corretto mostra questo comportamento."
+        },
+        {
+          "id": "D",
+          "text": "Che differenze minime all’inizio crescono fino a cambiare completamente il risultato",
+          "feedback": "Esatto: è la caratteristica del caos."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "math-p08-q5",
+      "prompt": "Per quali valori di a la mappa logistica tende a un punto fisso diverso da zero?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0 < a < 1",
+          "feedback": "In questo intervallo la popolazione si estingue: tende a 0."
+        },
+        {
+          "id": "B",
+          "text": "1 < a < 3",
+          "feedback": "Esatto: il punto fisso 1 − 1/a è stabile perché |2 − a| < 1."
+        },
+        {
+          "id": "C",
+          "text": "3 < a < 4",
+          "feedback": "Sopra 3 il punto fisso è instabile: compaiono cicli e caos."
+        },
+        {
+          "id": "D",
+          "text": "Per ogni a",
+          "feedback": "Il comportamento cambia molto con a."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-p08-q6",
+      "prompt": "Perché nel regime caotico due programmi corretti possono dare risultati diversi dopo molti passi?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché uno dei due è sbagliato",
+          "feedback": "Entrambi possono essere corretti: la differenza nasce dagli arrotondamenti."
+        },
+        {
+          "id": "B",
+          "text": "Perché gli arrotondamenti diversi vengono amplificati come ogni piccola differenza",
+          "feedback": "Esatto: il caos amplifica anche gli errori di sedicesima cifra."
+        },
+        {
+          "id": "C",
+          "text": "Perché il caos è casuale",
+          "feedback": "Il caos è deterministico: ogni passo è fissato dalla regola."
+        },
+        {
+          "id": "D",
+          "text": "Perché la mappa logistica non ha soluzione",
+          "feedback": "La mappa si calcola senza problemi passo per passo."
+        }
+      ],
+      "correct": "B"
     }
   ]
 }

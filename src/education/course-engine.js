@@ -1,7 +1,7 @@
 /** Guided curriculum state: all results are recomputed from declared models.
  * Importing a diary cannot inject executable content or claim arbitrary model outputs. */
 import {MODEL_IDS,defaults,parameters,parameterKey,value,probePoints,trend} from '../models/curriculum.js';
-import {ACTIVITY_KINDS,cleanActivity,activityProgress,validateCards} from './activities.js';
+import {ACTIVITY_KINDS,cleanActivity,activityProgress,validateCards,validateFit,validateSteps} from './activities.js';
 export const LEVELS=Object.freeze(['base','intermediate','advanced']);
 export const PREDICTIONS=Object.freeze(['increases','decreases','constant','undefined']);
 const ids=new Set(MODEL_IDS),plain=x=>!!x&&typeof x==='object'&&!Array.isArray(x);
@@ -33,7 +33,7 @@ export function validateBundle(bundle){
  const found=new Set(),sourceIds=new Set(bundle.sources.map(s=>s.id));
  for(const d of bundle.courses){
   const activity=d.activity!==undefined&&d.activity!==null;if(activity&&(!plain(d.activity)||!ACTIVITY_KINDS.includes(d.activity.kind)))throw Error('Attività non valida: '+d.id);
-  if(activity&&d.activity.kind==='cards')validateCards(d.activity);
+  if(activity)({cards:validateCards,fit:validateFit,steps:validateSteps})[d.activity.kind]?.(d.activity);
   // Generated units carry 4 questions with 3 options; hand-written units up to 8 questions with 3 or 4 options.
   const qn=d.questions?.length,on=[3,4];
   if(!ids.has(d.id)||found.has(d.id)||d.modelId!==d.id||typeof d.title!=='string'||d.title.length>150||d.steps?.length!==6||!(qn>=4&&qn<=8))throw Error('Percorso non valido: '+d.id);

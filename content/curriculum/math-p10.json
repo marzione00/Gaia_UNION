@@ -5,25 +5,25 @@
   "title": "Reti, conservazione e strategie",
   "sector": 0,
   "modelId": "math-p10",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Resistori ideali in regime stazionario",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Grafi e percorsi di Eulero, conservazione ai nodi, resistenze in serie e parallelo, teoria dei giochi",
+  "narrativeStatus": "La rete della stazione è immaginaria; i teoremi e le leggi sono reali.",
   "objectives": [
-    "Spiegare: resistori ideali in regime stazionario.",
-    "Applicare R_eq = x a / (x+a), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Usare i gradi dei nodi per decidere l’esistenza di un percorso di Eulero.",
+    "Applicare la conservazione ai nodi di una rete.",
+    "Calcolare resistenze equivalenti in serie e in parallelo.",
+    "Distinguere strategia dominante ed equilibrio di Nash."
   ],
   "prerequisites": [
     "math-p02",
     "math-p07"
   ],
   "connections": [
-    "physics-23"
+    "math-p11"
   ],
   "sources": [
-    "precalculus",
-    "calculus"
+    "precalculus"
   ],
   "originalSource": {
     "id": "math-2026",
@@ -39,244 +39,512 @@
   },
   "glossary": [
     {
-      "term": "Resistenza R₁",
-      "definition": "Variabile indipendente, unità Ω; intervallo [0,1; 10]."
+      "term": "Grafo",
+      "definition": "Insieme di nodi collegati da archi."
+    },
+    {
+      "term": "Grado",
+      "definition": "Numero di archi che arrivano a un nodo."
+    },
+    {
+      "term": "Percorso di Eulero",
+      "definition": "Percorso che usa ogni arco esattamente una volta."
+    },
+    {
+      "term": "Legge dei nodi",
+      "definition": "In una rete con una grandezza conservata, ciò che entra in un nodo ne esce."
     },
     {
       "term": "Resistenza equivalente",
-      "definition": "Risultato calcolato dal modello, unità Ω."
+      "definition": "Resistenza unica con lo stesso effetto di un gruppo di resistenze."
     },
     {
-      "term": "Resistenza R₂",
-      "definition": "Parametro a, unità Ω; intervallo [1; 10]."
+      "term": "Equilibrio di Nash",
+      "definition": "Combinazione di strategie in cui nessuno guadagna cambiando da solo."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Reti ovunque",
       "text": {
         "base": [
-          "Due percorsi resistivi collegano gli stessi nodi. Un tecnico sostiene che aggiungere un percorso aumenti sempre la resistenza. Il comportamento della rete permette di verificare l’affermazione.",
-          "In due resistori ideali in parallelo, la tensione ai capi è comune e le correnti si sommano. Per questo si sommano le conduttanze, cioè gli inversi delle resistenze, non le resistenze stesse."
+          "La rete di corridoi della stazione collega moduli e laboratori; la rete elettrica distribuisce corrente; le squadre in missione devono scegliere strategie sapendo che anche gli altri scelgono. Reti, quantità che si conservano e decisioni strategiche hanno una matematica comune: i grafi, i bilanci ai nodi e la teoria dei giochi.",
+          "Un grafo è un insieme di nodi collegati da archi. Il grado di un nodo è il numero di archi che vi arrivano. La somma dei gradi è sempre il doppio del numero di archi, perché ogni arco ha due estremi: di conseguenza i nodi di grado dispari sono sempre in numero pari."
         ],
         "intermediate": [
-          "Due percorsi resistivi collegano gli stessi nodi. Un tecnico sostiene che aggiungere un percorso aumenti sempre la resistenza. Il comportamento della rete permette di verificare l’affermazione.",
-          "Da I=V/R₁+V/R₂ ottieni 1/R_eq=1/R₁+1/R₂. Riordinando, R_eq=R₁R₂/(R₁+R₂), per resistenze positive. Il valore equivalente è inferiore a ciascuna delle due resistenze."
+          "La rete di corridoi della stazione collega moduli e laboratori; la rete elettrica distribuisce corrente; le squadre in missione devono scegliere strategie sapendo che anche gli altri scelgono. Reti, quantità che si conservano e decisioni strategiche hanno una matematica comune: i grafi, i bilanci ai nodi e la teoria dei giochi.",
+          "Un grafo è un insieme di nodi collegati da archi. Il grado di un nodo è il numero di archi che vi arrivano. La somma dei gradi è sempre il doppio del numero di archi, perché ogni arco ha due estremi: di conseguenza i nodi di grado dispari sono sempre in numero pari."
         ],
         "advanced": [
-          "Due percorsi resistivi collegano gli stessi nodi. Un tecnico sostiene che aggiungere un percorso aumenti sempre la resistenza. Il comportamento della rete permette di verificare l’affermazione.",
-          "Generalizza a tre rami e collega il calcolo alla conservazione ai nodi di una rete. Studia i limiti quando un ramo ha resistenza molto grande o molto piccola.",
-          "Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione."
+          "La rete di corridoi della stazione collega moduli e laboratori; la rete elettrica distribuisce corrente; le squadre in missione devono scegliere strategie sapendo che anche gli altri scelgono. Reti, quantità che si conservano e decisioni strategiche hanno una matematica comune: i grafi, i bilanci ai nodi e la teoria dei giochi.",
+          "Un grafo è un insieme di nodi collegati da archi. Il grado di un nodo è il numero di archi che vi arrivano. La somma dei gradi è sempre il doppio del numero di archi, perché ogni arco ha due estremi: di conseguenza i nodi di grado dispari sono sempre in numero pari."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Eulero, Kirchhoff, Nash",
       "text": {
         "base": [
-          "In due resistori ideali in parallelo, la tensione ai capi è comune e le correnti si sommano. Per questo si sommano le conduttanze, cioè gli inversi delle resistenze, non le resistenze stesse.",
-          "Con R₁=R₂=4 Ω, R_eq=16/8=2 Ω. Aggiungere il secondo percorso rende più facile il passaggio di corrente a tensione fissata."
+          "Nel Settecento la città di Königsberg aveva sette ponti che collegavano due rive e due isole. Si poteva fare una passeggiata attraversando ogni ponte una sola volta? Eulero, nel 1736, trasformò la città in un grafo e dimostrò che la risposta è no. In un grafo connesso un percorso che usa ogni arco una volta esiste se e solo se i nodi di grado dispari sono 0 o 2: con 0 il percorso è un circuito che torna al punto di partenza, con 2 parte da uno dei due e arriva all’altro. A Königsberg i gradi erano 5, 3, 3, 3: quattro nodi dispari.",
+          "In una rete in cui una quantità si conserva, ciò che entra in un nodo deve uscirne. Per la corrente elettrica è la prima legge di Kirchhoff: la somma delle correnti entranti in un nodo è uguale alla somma di quelle uscenti. Se entrano 3 A e 2 A e c’è una sola uscita, da quella escono 5 A. Lo stesso bilancio vale per l’acqua in una rete di tubi e per il traffico agli incroci.",
+          "Due resistenze in serie si sommano: R = R₁ + R₂, maggiore di ciascuna. In parallelo la corrente ha due strade, e la resistenza equivalente diminuisce: 1/R = 1/R₁ + 1/R₂, cioè R = R₁R₂/(R₁ + R₂), minore della più piccola. Con 4 Ω e 6 Ω: in serie 10 Ω, in parallelo 2,4 Ω. È il modello del laboratorio di questa unità.",
+          "La teoria dei giochi studia decisioni interdipendenti. Una strategia dominante è la migliore qualunque cosa facciano gli altri. Un equilibrio di Nash è una combinazione di strategie in cui nessuno ha interesse a cambiare da solo. Nel dilemma del prigioniero confessare è dominante per entrambi, e l’equilibrio porta a un risultato peggiore per tutti rispetto alla cooperazione: l’interesse individuale e quello collettivo possono divergere."
         ],
         "intermediate": [
-          "Da I=V/R₁+V/R₂ ottieni 1/R_eq=1/R₁+1/R₂. Riordinando, R_eq=R₁R₂/(R₁+R₂), per resistenze positive. Il valore equivalente è inferiore a ciascuna delle due resistenze.",
-          "La variabile Resistenza R₁ è espressa in Ω; Resistenza equivalente in Ω. Il dominio dello strumento è [0,1; 10]. La relazione implementata è: R_eq = x a / (x+a).",
-          "Con R₁=R₂=4 Ω, R_eq=16/8=2 Ω. Aggiungere il secondo percorso rende più facile il passaggio di corrente a tensione fissata."
+          "Nel Settecento la città di Königsberg aveva sette ponti che collegavano due rive e due isole. Si poteva fare una passeggiata attraversando ogni ponte una sola volta? Eulero, nel 1736, trasformò la città in un grafo e dimostrò che la risposta è no. In un grafo connesso un percorso che usa ogni arco una volta esiste se e solo se i nodi di grado dispari sono 0 o 2: con 0 il percorso è un circuito che torna al punto di partenza, con 2 parte da uno dei due e arriva all’altro. A Königsberg i gradi erano 5, 3, 3, 3: quattro nodi dispari.",
+          "In una rete in cui una quantità si conserva, ciò che entra in un nodo deve uscirne. Per la corrente elettrica è la prima legge di Kirchhoff: la somma delle correnti entranti in un nodo è uguale alla somma di quelle uscenti. Se entrano 3 A e 2 A e c’è una sola uscita, da quella escono 5 A. Lo stesso bilancio vale per l’acqua in una rete di tubi e per il traffico agli incroci.",
+          "Due resistenze in serie si sommano: R = R₁ + R₂, maggiore di ciascuna. In parallelo la corrente ha due strade, e la resistenza equivalente diminuisce: 1/R = 1/R₁ + 1/R₂, cioè R = R₁R₂/(R₁ + R₂), minore della più piccola. Con 4 Ω e 6 Ω: in serie 10 Ω, in parallelo 2,4 Ω. È il modello del laboratorio di questa unità.",
+          "La teoria dei giochi studia decisioni interdipendenti. Una strategia dominante è la migliore qualunque cosa facciano gli altri. Un equilibrio di Nash è una combinazione di strategie in cui nessuno ha interesse a cambiare da solo. Nel dilemma del prigioniero confessare è dominante per entrambi, e l’equilibrio porta a un risultato peggiore per tutti rispetto alla cooperazione: l’interesse individuale e quello collettivo possono divergere.",
+          "Sui grafi si cercano anche i percorsi più brevi: l’algoritmo di Dijkstra, del 1959, esplora i nodi in ordine di distanza crescente dalla partenza ed è alla base dei navigatori. Gli stessi grafi descrivono reti sociali, reti alimentari e collegamenti tra pagine web."
         ],
         "advanced": [
-          "Da I=V/R₁+V/R₂ ottieni 1/R_eq=1/R₁+1/R₂. Riordinando, R_eq=R₁R₂/(R₁+R₂), per resistenze positive. Il valore equivalente è inferiore a ciascuna delle due resistenze.",
-          "Generalizza a tre rami e collega il calcolo alla conservazione ai nodi di una rete. Studia i limiti quando un ramo ha resistenza molto grande o molto piccola.",
-          "La somma R₁+R₂ vale per una serie, non per un parallelo. Il fatto che le resistenze si riducano in parallelo non viola la conservazione della corrente ai nodi."
+          "Nel Settecento la città di Königsberg aveva sette ponti che collegavano due rive e due isole. Si poteva fare una passeggiata attraversando ogni ponte una sola volta? Eulero, nel 1736, trasformò la città in un grafo e dimostrò che la risposta è no. In un grafo connesso un percorso che usa ogni arco una volta esiste se e solo se i nodi di grado dispari sono 0 o 2: con 0 il percorso è un circuito che torna al punto di partenza, con 2 parte da uno dei due e arriva all’altro. A Königsberg i gradi erano 5, 3, 3, 3: quattro nodi dispari.",
+          "In una rete in cui una quantità si conserva, ciò che entra in un nodo deve uscirne. Per la corrente elettrica è la prima legge di Kirchhoff: la somma delle correnti entranti in un nodo è uguale alla somma di quelle uscenti. Se entrano 3 A e 2 A e c’è una sola uscita, da quella escono 5 A. Lo stesso bilancio vale per l’acqua in una rete di tubi e per il traffico agli incroci.",
+          "Due resistenze in serie si sommano: R = R₁ + R₂, maggiore di ciascuna. In parallelo la corrente ha due strade, e la resistenza equivalente diminuisce: 1/R = 1/R₁ + 1/R₂, cioè R = R₁R₂/(R₁ + R₂), minore della più piccola. Con 4 Ω e 6 Ω: in serie 10 Ω, in parallelo 2,4 Ω. È il modello del laboratorio di questa unità.",
+          "La teoria dei giochi studia decisioni interdipendenti. Una strategia dominante è la migliore qualunque cosa facciano gli altri. Un equilibrio di Nash è una combinazione di strategie in cui nessuno ha interesse a cambiare da solo. Nel dilemma del prigioniero confessare è dominante per entrambi, e l’equilibrio porta a un risultato peggiore per tutti rispetto alla cooperazione: l’interesse individuale e quello collettivo possono divergere.",
+          "Sui grafi si cercano anche i percorsi più brevi: l’algoritmo di Dijkstra, del 1959, esplora i nodi in ordine di distanza crescente dalla partenza ed è alla base dei navigatori. Gli stessi grafi descrivono reti sociali, reti alimentari e collegamenti tra pagine web."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Carte di reti",
       "text": {
         "base": [
-          "Nel laboratorio imposta Resistenza R₂ (a): 4 Ω. Prima di salvare A, prevedi come cambia Resistenza equivalente fra Resistenza R₁=2,575 e 5,05 Ω. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con R₁=R₂=4 Ω, R_eq=16/8=2 Ω. Aggiungere il secondo percorso rende più facile il passaggio di corrente a tensione fissata.",
-          "La variabile Resistenza R₁ è espressa in Ω; Resistenza equivalente in Ω. Il dominio dello strumento è [0,1; 10]. La relazione implementata è: R_eq = x a / (x+a)."
+          "L’attività ha tre serie di carte. Nella prima decidi se in un grafo connesso esiste un percorso che usa ogni arco una volta, conoscendo i gradi dei nodi. Nella seconda metti in ordine resistenze equivalenti di coppie in serie e in parallelo. Nella terza applichi la conservazione della corrente ai nodi. Supera tutte e tre le serie; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per Eulero conta solo i nodi di grado dispari. Per le resistenze ricorda: in serie il risultato supera la più grande, in parallelo sta sotto la più piccola."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Resistenza R₂ (a): 4 Ω. Prima di salvare A, prevedi come cambia Resistenza equivalente fra Resistenza R₁=2,575 e 5,05 Ω. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Resistenza R₁ è espressa in Ω; Resistenza equivalente in Ω. Il dominio dello strumento è [0,1; 10]. La relazione implementata è: R_eq = x a / (x+a).",
-          "Da I=V/R₁+V/R₂ ottieni 1/R_eq=1/R₁+1/R₂. Riordinando, R_eq=R₁R₂/(R₁+R₂), per resistenze positive. Il valore equivalente è inferiore a ciascuna delle due resistenze."
+          "L’attività ha tre serie di carte. Nella prima decidi se in un grafo connesso esiste un percorso che usa ogni arco una volta, conoscendo i gradi dei nodi. Nella seconda metti in ordine resistenze equivalenti di coppie in serie e in parallelo. Nella terza applichi la conservazione della corrente ai nodi. Supera tutte e tre le serie; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per Eulero conta solo i nodi di grado dispari. Per le resistenze ricorda: in serie il risultato supera la più grande, in parallelo sta sotto la più piccola."
         ],
         "advanced": [
-          "Nel laboratorio imposta Resistenza R₂ (a): 4 Ω. Prima di salvare A, prevedi come cambia Resistenza equivalente fra Resistenza R₁=2,575 e 5,05 Ω. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Generalizza a tre rami e collega il calcolo alla conservazione ai nodi di una rete. Studia i limiti quando un ramo ha resistenza molto grande o molto piccola.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività ha tre serie di carte. Nella prima decidi se in un grafo connesso esiste un percorso che usa ogni arco una volta, conoscendo i gradi dei nodi. Nella seconda metti in ordine resistenze equivalenti di coppie in serie e in parallelo. Nella terza applichi la conservazione della corrente ai nodi. Supera tutte e tre le serie; nelle classificazioni puoi sbagliare al massimo due carte.",
+          "Per Eulero conta solo i nodi di grado dispari. Per le resistenze ricorda: in serie il risultato supera la più grande, in parallelo sta sotto la più piccola."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "La somma R₁+R₂ vale per una serie, non per un parallelo. Il fatto che le resistenze si riducano in parallelo non viola la conservazione della corrente ai nodi.",
-          "Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che collegare in parallelo una resistenza aumenti la resistenza totale. Aggiungere una strada aumenta sempre la corrente che passa, quindi la resistenza equivalente diminuisce.",
+          "Secondo errore: confondere equilibrio di Nash e soluzione migliore. Nel dilemma del prigioniero l’equilibrio è stabile, ma entrambi starebbero meglio cooperando: stabile e ottimale sono proprietà diverse.",
+          "Sui grafi si cercano anche i percorsi più brevi: l’algoritmo di Dijkstra, del 1959, esplora i nodi in ordine di distanza crescente dalla partenza ed è alla base dei navigatori. Gli stessi grafi descrivono reti sociali, reti alimentari e collegamenti tra pagine web."
         ],
         "intermediate": [
-          "La somma R₁+R₂ vale per una serie, non per un parallelo. Il fatto che le resistenze si riducano in parallelo non viola la conservazione della corrente ai nodi.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che collegare in parallelo una resistenza aumenti la resistenza totale. Aggiungere una strada aumenta sempre la corrente che passa, quindi la resistenza equivalente diminuisce.",
+          "Secondo errore: confondere equilibrio di Nash e soluzione migliore. Nel dilemma del prigioniero l’equilibrio è stabile, ma entrambi starebbero meglio cooperando: stabile e ottimale sono proprietà diverse.",
+          "Sui grafi si cercano anche i percorsi più brevi: l’algoritmo di Dijkstra, del 1959, esplora i nodi in ordine di distanza crescente dalla partenza ed è alla base dei navigatori. Gli stessi grafi descrivono reti sociali, reti alimentari e collegamenti tra pagine web."
         ],
         "advanced": [
-          "Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione.",
-          "Generalizza a tre rami e collega il calcolo alla conservazione ai nodi di una rete. Studia i limiti quando un ramo ha resistenza molto grande o molto piccola.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che collegare in parallelo una resistenza aumenti la resistenza totale. Aggiungere una strada aumenta sempre la corrente che passa, quindi la resistenza equivalente diminuisce.",
+          "Secondo errore: confondere equilibrio di Nash e soluzione migliore. Nel dilemma del prigioniero l’equilibrio è stabile, ma entrambi starebbero meglio cooperando: stabile e ottimale sono proprietà diverse.",
+          "Sui grafi si cercano anche i percorsi più brevi: l’algoritmo di Dijkstra, del 1959, esplora i nodi in ordine di distanza crescente dalla partenza ed è alla base dei navigatori. Gli stessi grafi descrivono reti sociali, reti alimentari e collegamenti tra pagine web."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "In due resistori ideali in parallelo, la tensione ai capi è comune e le correnti si sommano. Per questo si sommano le conduttanze, cioè gli inversi delle resistenze, non le resistenze stesse.",
-          "Con R₁=R₂=4 Ω, R_eq=16/8=2 Ω. Aggiungere il secondo percorso rende più facile il passaggio di corrente a tensione fissata."
+          "Ripasso: grafo, grado e somma dei gradi; condizione di Eulero; conservazione ai nodi; resistenze in serie e in parallelo; strategia dominante ed equilibrio di Nash.",
+          "Mini esercizio: 3 Ω e 6 Ω in parallelo: 3 · 6/(3 + 6) = 2 Ω, minore di 3 Ω.",
+          "Nelle domande sulle reti conta sempre ciò che entra e ciò che esce da ogni nodo."
         ],
         "intermediate": [
-          "Da I=V/R₁+V/R₂ ottieni 1/R_eq=1/R₁+1/R₂. Riordinando, R_eq=R₁R₂/(R₁+R₂), per resistenze positive. Il valore equivalente è inferiore a ciascuna delle due resistenze.",
-          "La variabile Resistenza R₁ è espressa in Ω; Resistenza equivalente in Ω. Il dominio dello strumento è [0,1; 10]. La relazione implementata è: R_eq = x a / (x+a)."
+          "Ripasso: grafo, grado e somma dei gradi; condizione di Eulero; conservazione ai nodi; resistenze in serie e in parallelo; strategia dominante ed equilibrio di Nash.",
+          "Mini esercizio: 3 Ω e 6 Ω in parallelo: 3 · 6/(3 + 6) = 2 Ω, minore di 3 Ω.",
+          "Nelle domande sulle reti conta sempre ciò che entra e ciò che esce da ogni nodo."
         ],
         "advanced": [
-          "Generalizza a tre rami e collega il calcolo alla conservazione ai nodi di una rete. Studia i limiti quando un ramo ha resistenza molto grande o molto piccola.",
-          "Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione."
+          "Ripasso: grafo, grado e somma dei gradi; condizione di Eulero; conservazione ai nodi; resistenze in serie e in parallelo; strategia dominante ed equilibrio di Nash.",
+          "Mini esercizio: 3 Ω e 6 Ω in parallelo: 3 · 6/(3 + 6) = 2 Ω, minore di 3 Ω.",
+          "Nelle domande sulle reti conta sempre ciò che entra e ciò che esce da ogni nodo."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Resistori ideali in regime stazionario.",
-          "Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione.",
-          "Collegamento consigliato: physics-23. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le reti tornano in biologia, nelle reti trofiche e nei cicli della materia, e in fisica, nei circuiti elettrici. La conservazione ai nodi è un caso del principio generale di conservazione, comune a massa, carica ed energia.",
+          "Riepilogo dell’unità: un grafo ha nodi e archi, e i nodi di grado dispari sono in numero pari; un percorso di Eulero esiste con 0 o 2 nodi dispari; ciò che si conserva entra ed esce dai nodi in quantità uguali; le resistenze si sommano in serie e si combinano in parallelo dando un valore minore; l’equilibrio di Nash è stabile e può non essere il migliore.",
+          "Nel diario disegna la rete dei corridoi di un edificio che conosci e verifica se esiste un percorso di Eulero."
         ],
         "intermediate": [
-          "Da I=V/R₁+V/R₂ ottieni 1/R_eq=1/R₁+1/R₂. Riordinando, R_eq=R₁R₂/(R₁+R₂), per resistenze positive. Il valore equivalente è inferiore a ciascuna delle due resistenze.",
-          "Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione.",
-          "Generalizza a tre rami e collega il calcolo alla conservazione ai nodi di una rete. Studia i limiti quando un ramo ha resistenza molto grande o molto piccola."
+          "Le reti tornano in biologia, nelle reti trofiche e nei cicli della materia, e in fisica, nei circuiti elettrici. La conservazione ai nodi è un caso del principio generale di conservazione, comune a massa, carica ed energia.",
+          "Riepilogo dell’unità: un grafo ha nodi e archi, e i nodi di grado dispari sono in numero pari; un percorso di Eulero esiste con 0 o 2 nodi dispari; ciò che si conserva entra ed esce dai nodi in quantità uguali; le resistenze si sommano in serie e si combinano in parallelo dando un valore minore; l’equilibrio di Nash è stabile e può non essere il migliore.",
+          "Nel diario disegna la rete dei corridoi di un edificio che conosci e verifica se esiste un percorso di Eulero."
         ],
         "advanced": [
-          "Generalizza a tre rami e collega il calcolo alla conservazione ai nodi di una rete. Studia i limiti quando un ramo ha resistenza molto grande o molto piccola.",
-          "Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le reti tornano in biologia, nelle reti trofiche e nei cicli della materia, e in fisica, nei circuiti elettrici. La conservazione ai nodi è un caso del principio generale di conservazione, comune a massa, carica ed energia.",
+          "Riepilogo dell’unità: un grafo ha nodi e archi, e i nodi di grado dispari sono in numero pari; un percorso di Eulero esiste con 0 o 2 nodi dispari; ciò che si conserva entra ed esce dai nodi in quantità uguali; le resistenze si sommano in serie e si combinano in parallelo dando un valore minore; l’equilibrio di Nash è stabile e può non essere il migliore.",
+          "Nel diario disegna la rete dei corridoi di un edificio che conosci e verifica se esiste un percorso di Eulero."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-p10-concept",
-      "prompt": "Due resistenze positive in parallelo hanno equivalente:",
+      "id": "math-p10-q1",
+      "prompt": "Perché a Königsberg non esisteva una passeggiata che attraversasse ogni ponte una volta?",
       "options": [
         {
           "id": "A",
-          "text": "Uguale alla loro somma",
-          "feedback": "La somma R₁+R₂ vale per una serie, non per un parallelo. Il fatto che le resistenze si riducano in parallelo non viola la conservazione della corrente ai nodi."
+          "text": "Perché i ponti erano sette, numero dispari",
+          "feedback": "Conta il numero di nodi di grado dispari, non il numero di archi."
         },
         {
           "id": "B",
-          "text": "Sempre maggiore della più grande",
-          "feedback": "Da I=V/R₁+V/R₂ ottieni 1/R_eq=1/R₁+1/R₂. Riordinando, R_eq=R₁R₂/(R₁+R₂), per resistenze positive. Il valore equivalente è inferiore a ciascuna delle due resistenze."
+          "text": "Perché quattro zone avevano un numero dispari di ponti",
+          "feedback": "Esatto: i nodi dispari devono essere 0 o 2."
         },
         {
           "id": "C",
-          "text": "Minore di ciascuna delle due",
-          "feedback": "In due resistori ideali in parallelo, la tensione ai capi è comune e le correnti si sommano. Per questo si sommano le conduttanze, cioè gli inversi delle resistenze, non le resistenze stesse."
+          "text": "Perché il fiume divideva la città",
+          "feedback": "Con altri collegamenti la passeggiata sarebbe stata possibile anche con il fiume."
+        },
+        {
+          "id": "D",
+          "text": "Perché i ponti erano troppo lontani",
+          "feedback": "Le distanze non contano: conta solo la struttura dei collegamenti."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-p10-q2",
+      "prompt": "In un nodo entrano 4 A e 3 A, ed escono 5 A e una corrente I. Quanto vale I?",
+      "options": [
+        {
+          "id": "A",
+          "text": "2 A",
+          "feedback": "Esatto: 4 + 3 = 5 + I, quindi I = 2 A."
+        },
+        {
+          "id": "B",
+          "text": "12 A",
+          "feedback": "La corrente non si somma tutta: una parte esce dall’altra uscita."
+        },
+        {
+          "id": "C",
+          "text": "7 A",
+          "feedback": "7 A è il totale entrante; 5 A escono già dall’altra parte."
+        },
+        {
+          "id": "D",
+          "text": "8 A",
+          "feedback": "Il bilancio è entrante = uscente: 7 = 5 + I."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-p10-q3",
+      "prompt": "Quanto vale la resistenza equivalente di 4 Ω e 4 Ω in parallelo?",
+      "options": [
+        {
+          "id": "A",
+          "text": "8 Ω",
+          "feedback": "8 Ω è il valore in serie; in parallelo la resistenza diminuisce."
+        },
+        {
+          "id": "B",
+          "text": "4 Ω",
+          "feedback": "Due strade uguali dimezzano la resistenza."
+        },
+        {
+          "id": "C",
+          "text": "2 Ω",
+          "feedback": "Esatto: prodotto diviso somma, 4 · 4/(4 + 4) = 2 Ω."
+        },
+        {
+          "id": "D",
+          "text": "16 Ω",
+          "feedback": "16 è il prodotto, che va diviso per la somma."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "math-p10-calculation",
-      "prompt": "Calcolo: Resistenza R₂ (a)=4 Ω. Per Resistenza R₁=4 Ω, quanto vale Resistenza equivalente?",
+      "id": "math-p10-q4",
+      "prompt": "Si aggiunge in parallelo una nuova resistenza a un circuito. La resistenza equivalente:",
       "options": [
         {
           "id": "A",
-          "text": "1 Ω",
-          "feedback": "Controlla sostituzione, segno e unità. R_eq = x a / (x+a). Con Resistenza R₂ (a)=4 Ω e Resistenza R₁=4 Ω, il risultato è 2 Ω. Conserva le unità e arrotonda solo alla fine."
+          "text": "Aumenta",
+          "feedback": "Una strada in più fa passare più corrente: la resistenza diminuisce."
         },
         {
           "id": "B",
-          "text": "2 Ω",
-          "feedback": "R_eq = x a / (x+a). Con Resistenza R₂ (a)=4 Ω e Resistenza R₁=4 Ω, il risultato è 2 Ω. Conserva le unità e arrotonda solo alla fine."
+          "text": "Resta uguale",
+          "feedback": "Aggiungere un percorso cambia sempre il circuito."
         },
         {
           "id": "C",
-          "text": "3 Ω",
-          "feedback": "Questo valore non soddisfa la relazione. R_eq = x a / (x+a). Con Resistenza R₂ (a)=4 Ω e Resistenza R₁=4 Ω, il risultato è 2 Ω. Conserva le unità e arrotonda solo alla fine."
+          "text": "Diventa zero",
+          "feedback": "Diventerebbe zero solo con una resistenza nulla."
+        },
+        {
+          "id": "D",
+          "text": "Diminuisce",
+          "feedback": "Esatto: 1/R aumenta del termine 1/R₃, quindi R diminuisce."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 4,
-        "parameters": {
-          "a": 4
-        },
-        "expected": 2,
-        "unit": "Ω"
-      }
+      "correct": "D"
     },
     {
-      "id": "math-p10-transfer",
-      "prompt": "Trasferimento: Resistenza R₂ (a)=5 Ω. Per Resistenza R₁=4 Ω, quanto vale Resistenza equivalente?",
+      "id": "math-p10-q5",
+      "prompt": "In un grafo la somma dei gradi è 14. Quanti archi ci sono?",
       "options": [
         {
           "id": "A",
-          "text": "2,22222 Ω",
-          "feedback": "R_eq = x a / (x+a). Con Resistenza R₂ (a)=5 Ω e Resistenza R₁=4 Ω, il risultato è 2,22222 Ω. Conserva le unità e arrotonda solo alla fine."
+          "text": "7",
+          "feedback": "Esatto: ogni arco contribuisce 2 alla somma dei gradi."
         },
         {
           "id": "B",
-          "text": "3,33333 Ω",
-          "feedback": "Questo valore non soddisfa la relazione. R_eq = x a / (x+a). Con Resistenza R₂ (a)=5 Ω e Resistenza R₁=4 Ω, il risultato è 2,22222 Ω. Conserva le unità e arrotonda solo alla fine."
+          "text": "14",
+          "feedback": "Ogni arco è contato due volte, una per estremo."
         },
         {
           "id": "C",
-          "text": "1,11111 Ω",
-          "feedback": "Controlla sostituzione, segno e unità. R_eq = x a / (x+a). Con Resistenza R₂ (a)=5 Ω e Resistenza R₁=4 Ω, il risultato è 2,22222 Ω. Conserva le unità e arrotonda solo alla fine."
+          "text": "28",
+          "feedback": "La somma dei gradi è il doppio degli archi, non la metà."
+        },
+        {
+          "id": "D",
+          "text": "Non si può dire",
+          "feedback": "La relazione tra somma dei gradi e archi vale per ogni grafo."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 4,
-        "parameters": {
-          "a": 5
-        },
-        "expected": 2.2222222222222223,
-        "unit": "Ω"
-      }
+      "correct": "A"
     },
     {
-      "id": "math-p10-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "math-p10-q6",
+      "prompt": "Nel dilemma del prigioniero entrambi confessano. Che cosa descrive questa situazione?",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione."
+          "text": "La soluzione migliore per entrambi",
+          "feedback": "Cooperando entrambi otterrebbero di più."
         },
         {
           "id": "B",
-          "text": "Resistori ideali in regime stazionario",
-          "feedback": "Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione."
+          "text": "Un equilibrio di Nash che non è il migliore per il gruppo",
+          "feedback": "Esatto: nessuno guadagna cambiando da solo, eppure entrambi starebbero meglio cooperando."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il circuito è resistivo, ideale e stazionario. Non sono presenti capacità, induttanze, riscaldamento o dipendenza dei componenti dalla tensione."
+          "text": "Una situazione instabile",
+          "feedback": "È stabile: nessuno ha interesse a cambiare da solo."
+        },
+        {
+          "id": "D",
+          "text": "Un errore di calcolo dei giocatori",
+          "feedback": "È la scelta razionale di ciascuno, data la struttura del gioco."
         }
       ],
       "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "cards",
+    "goal": 3,
+    "rounds": [
+      {
+        "id": "eulero",
+        "type": "classify",
+        "title": "Si può passare una volta sola?",
+        "prompt": "Ogni carta descrive un grafo connesso con i gradi dei suoi nodi. Esiste un percorso che usa ogni arco una volta?",
+        "categories": [
+          {
+            "id": "circuito",
+            "label": "CIRCUITO"
+          },
+          {
+            "id": "percorso",
+            "label": "SOLO PERCORSO"
+          },
+          {
+            "id": "impossibile",
+            "label": "IMPOSSIBILE"
+          }
+        ],
+        "items": [
+          {
+            "id": "e1",
+            "text": "Quadrato: gradi 2, 2, 2, 2",
+            "why": "Nessun nodo dispari: si torna al punto di partenza.",
+            "category": "circuito"
+          },
+          {
+            "id": "e2",
+            "text": "Königsberg: gradi 5, 3, 3, 3",
+            "why": "Quattro nodi dispari: impossibile, come dimostrò Eulero.",
+            "category": "impossibile"
+          },
+          {
+            "id": "e3",
+            "text": "Un solo arco: gradi 1, 1",
+            "why": "Due nodi dispari: si parte da uno e si arriva all’altro.",
+            "category": "percorso"
+          },
+          {
+            "id": "e4",
+            "text": "Gradi 2, 3, 3, 2",
+            "why": "Due nodi dispari: percorso dall’uno all’altro.",
+            "category": "percorso"
+          },
+          {
+            "id": "e5",
+            "text": "Tetraedro: gradi 3, 3, 3, 3",
+            "why": "Quattro nodi dispari: impossibile.",
+            "category": "impossibile"
+          },
+          {
+            "id": "e6",
+            "text": "Due triangoli con un vertice comune: gradi 4, 2, 2, 2, 2",
+            "why": "Tutti pari: circuito.",
+            "category": "circuito"
+          },
+          {
+            "id": "e7",
+            "text": "Catena: gradi 1, 2, 2, 1",
+            "why": "Gli estremi della catena sono i due nodi dispari.",
+            "category": "percorso"
+          },
+          {
+            "id": "e8",
+            "text": "Gradi 3, 3, 1, 1",
+            "why": "Quattro nodi dispari: impossibile.",
+            "category": "impossibile"
+          }
+        ],
+        "explain": "Contano solo i nodi di grado dispari: zero danno un circuito, due un percorso aperto, più di due rendono impossibile.",
+        "maxErrors": 2
+      },
+      {
+        "id": "resistenze",
+        "type": "order",
+        "title": "Dalla più piccola alla più grande",
+        "prompt": "Ordina le resistenze equivalenti in ordine crescente.",
+        "items": [
+          {
+            "id": "r1",
+            "text": "1 Ω e 1000 Ω in parallelo",
+            "why": "Circa 0,999 Ω: in parallelo si scende sotto la più piccola."
+          },
+          {
+            "id": "r2",
+            "text": "4 Ω e 4 Ω in parallelo",
+            "why": "2 Ω: due strade uguali dimezzano la resistenza."
+          },
+          {
+            "id": "r3",
+            "text": "4 Ω e 6 Ω in parallelo",
+            "why": "2,4 Ω: sotto 4 Ω, la più piccola delle due."
+          },
+          {
+            "id": "r4",
+            "text": "10 Ω e 10 Ω in parallelo",
+            "why": "5 Ω: metà di 10 Ω."
+          },
+          {
+            "id": "r5",
+            "text": "4 Ω e 6 Ω in serie",
+            "why": "10 Ω: in serie si somma."
+          },
+          {
+            "id": "r6",
+            "text": "1 Ω e 1000 Ω in serie",
+            "why": "1001 Ω: domina la resistenza più grande."
+          }
+        ],
+        "explain": "In parallelo il risultato sta sotto la resistenza più piccola, in serie sopra la più grande."
+      },
+      {
+        "id": "nodi",
+        "type": "classify",
+        "title": "Che cosa entra, che cosa esce",
+        "prompt": "Applica la legge dei nodi e trova la corrente I.",
+        "categories": [
+          {
+            "id": "uno",
+            "label": "I = 1 A"
+          },
+          {
+            "id": "due",
+            "label": "I = 2 A"
+          },
+          {
+            "id": "tre",
+            "label": "I = 3 A"
+          },
+          {
+            "id": "cinque",
+            "label": "I = 5 A"
+          }
+        ],
+        "items": [
+          {
+            "id": "k1",
+            "text": "Entrano 3 A e 2 A; esce I",
+            "why": "Tutto ciò che entra esce: I = 5 A.",
+            "category": "cinque"
+          },
+          {
+            "id": "k2",
+            "text": "Entra 5 A; escono 2 A e I",
+            "why": "5 = 2 + I, quindi I = 3 A.",
+            "category": "tre"
+          },
+          {
+            "id": "k3",
+            "text": "Entra 4 A; escono 1 A, 2 A e I",
+            "why": "4 = 3 + I, quindi I = 1 A.",
+            "category": "uno"
+          },
+          {
+            "id": "k4",
+            "text": "Entra I; escono 1 A e 1 A",
+            "why": "I = 1 + 1 = 2 A.",
+            "category": "due"
+          },
+          {
+            "id": "k5",
+            "text": "Entrano 1 A e I; esce 3 A",
+            "why": "1 + I = 3, quindi I = 2 A.",
+            "category": "due"
+          },
+          {
+            "id": "k6",
+            "text": "Entrano 1,5 A e 1,5 A; esce I",
+            "why": "I = 3 A.",
+            "category": "tre"
+          },
+          {
+            "id": "k7",
+            "text": "Entra 8 A; escono 3 A e I",
+            "why": "8 = 3 + I, quindi I = 5 A.",
+            "category": "cinque"
+          },
+          {
+            "id": "k8",
+            "text": "Entrano I e 4 A; esce 5 A",
+            "why": "I + 4 = 5, quindi I = 1 A.",
+            "category": "uno"
+          }
+        ],
+        "explain": "La carica non si crea e non si distrugge in un nodo: la somma delle correnti entranti eguaglia quella delle uscenti.",
+        "maxErrors": 2
+      }
+    ]
+  }
 }

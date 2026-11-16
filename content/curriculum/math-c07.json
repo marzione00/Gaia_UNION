@@ -5,20 +5,21 @@
   "title": "Geometria analitica",
   "sector": 0,
   "modelId": "math-c07",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Geometria euclidea con unità coerenti",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Piano cartesiano, distanza e punto medio, retta, parallelismo e perpendicolarità, circonferenza",
+  "narrativeStatus": "Il radar e il rover sono immaginari; le formule sono reali.",
   "objectives": [
-    "Spiegare: geometria euclidea con unità coerenti.",
-    "Applicare d = √((x-a)²+b²), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Calcolare distanza e punto medio tra due punti.",
+    "Scrivere l’equazione di una retta e interpretarne pendenza e intercetta.",
+    "Riconoscere rette parallele e perpendicolari.",
+    "Scrivere l’equazione di una circonferenza e calcolare la distanza di un punto da una retta."
   ],
   "prerequisites": [
     "math-c04"
   ],
   "connections": [
-    "physics-02"
+    "math-c09"
   ],
   "sources": [
     "precalculus"
@@ -37,250 +38,319 @@
   },
   "glossary": [
     {
-      "term": "Ascissa",
-      "definition": "Variabile indipendente, unità u.l.; intervallo [-5; 5]."
+      "term": "Coordinate",
+      "definition": "Coppia ordinata (x; y) che individua un punto del piano."
     },
     {
       "term": "Distanza",
-      "definition": "Risultato calcolato dal modello, unità u.l.."
+      "definition": "√((x₂ − x₁)² + (y₂ − y₁)²), dal teorema di Pitagora."
     },
     {
-      "term": "Ascissa punto",
-      "definition": "Parametro a, unità u.l.; intervallo [-3; 3]."
+      "term": "Coefficiente angolare",
+      "definition": "Pendenza m di una retta: variazione di y per un aumento unitario di x."
     },
     {
-      "term": "Ordinata punto",
-      "definition": "Parametro b, unità u.l.; intervallo [0; 5]."
+      "term": "Rette perpendicolari",
+      "definition": "Rette con coefficienti angolari il cui prodotto vale −1."
+    },
+    {
+      "term": "Circonferenza",
+      "definition": "Punti a distanza r dal centro (a; b): (x − a)² + (y − b)² = r²."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Coordinate per misurare",
       "text": {
         "base": [
-          "Una stazione radio si trova fuori dal tracciato rettilineo del rover. La qualità del collegamento dipende dalla distanza, non soltanto dalla differenza delle ascisse. Ricostruisci la geometria del problema.",
-          "Le coordinate traducono posizioni in numeri, ma una distanza richiede una regola geometrica. Tra il punto mobile (x,0) e la stazione (a,b), i cateti del triangolo rettangolo sono x-a e b. La distanza euclidea è la radice della somma dei loro quadrati."
+          "Il radar della stazione segnala un oggetto nel punto di coordinate (0; 3) chilometri, mentre un rover si muove lungo una strada rettilinea che coincide con l’asse x. A che distanza si trova l’oggetto dal rover in ogni istante, e in quale punto della strada la distanza è minima? Le coordinate trasformano la geometria in calcolo.",
+          "Nel piano cartesiano ogni punto è individuato da una coppia ordinata (x; y): la distanza con segno dall’asse verticale e da quello orizzontale. Gli assi dividono il piano in quattro quadranti. Un punto sull’asse x ha y = 0, uno sull’asse y ha x = 0."
         ],
         "intermediate": [
-          "Una stazione radio si trova fuori dal tracciato rettilineo del rover. La qualità del collegamento dipende dalla distanza, non soltanto dalla differenza delle ascisse. Ricostruisci la geometria del problema.",
-          "Dal teorema di Pitagora segue d²=(x-a)²+b². La distanza minima lungo il tracciato si ottiene in x=a ed è |b|. Per b=0 il grafico diventa |x-a|: non è una retta unica, pur essendo il percorso rettilineo."
+          "Il radar della stazione segnala un oggetto nel punto di coordinate (0; 3) chilometri, mentre un rover si muove lungo una strada rettilinea che coincide con l’asse x. A che distanza si trova l’oggetto dal rover in ogni istante, e in quale punto della strada la distanza è minima? Le coordinate trasformano la geometria in calcolo.",
+          "Nel piano cartesiano ogni punto è individuato da una coppia ordinata (x; y): la distanza con segno dall’asse verticale e da quello orizzontale. Gli assi dividono il piano in quattro quadranti. Un punto sull’asse x ha y = 0, uno sull’asse y ha x = 0."
         ],
         "advanced": [
-          "Una stazione radio si trova fuori dal tracciato rettilineo del rover. La qualità del collegamento dipende dalla distanza, non soltanto dalla differenza delle ascisse. Ricostruisci la geometria del problema.",
-          "Descrivi i punti a distanza fissa dalla stazione e ricava l’equazione di una circonferenza. Confronta distanza in linea retta e distanza lungo una rete di percorsi.",
-          "Il piano è euclideo e il tracciato è orizzontale. Sono esclusi rilievi, ostacoli e curvatura planetaria. La rotazione della scena non cambia le coordinate del modello."
+          "Il radar della stazione segnala un oggetto nel punto di coordinate (0; 3) chilometri, mentre un rover si muove lungo una strada rettilinea che coincide con l’asse x. A che distanza si trova l’oggetto dal rover in ogni istante, e in quale punto della strada la distanza è minima? Le coordinate trasformano la geometria in calcolo.",
+          "Nel piano cartesiano ogni punto è individuato da una coppia ordinata (x; y): la distanza con segno dall’asse verticale e da quello orizzontale. Gli assi dividono il piano in quattro quadranti. Un punto sull’asse x ha y = 0, uno sull’asse y ha x = 0."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Distanze, rette, circonferenze",
       "text": {
         "base": [
-          "Le coordinate traducono posizioni in numeri, ma una distanza richiede una regola geometrica. Tra il punto mobile (x,0) e la stazione (a,b), i cateti del triangolo rettangolo sono x-a e b. La distanza euclidea è la radice della somma dei loro quadrati.",
-          "Con stazione (0,3) e rover (4,0), il calcolo è √(4²+3²)=5. Il percorso orizzontale di 4 unità non rappresenta la separazione radio di 5 unità."
+          "La distanza tra A(x₁; y₁) e B(x₂; y₂) si ricava con Pitagora: i due punti sono i vertici di un triangolo rettangolo con cateti |x₂ − x₁| e |y₂ − y₁|. Quindi AB = √((x₂ − x₁)² + (y₂ − y₁)²). Esempio: da (0; 3) a (4; 0) la distanza è √(16 + 9) = 5. Il punto medio ha coordinate ((x₁ + x₂)/2; (y₁ + y₂)/2).",
+          "Una retta non verticale ha equazione y = mx + q. Il coefficiente angolare m è la pendenza: di quanto sale y quando x aumenta di 1, cioè m = (y₂ − y₁)/(x₂ − x₁) per due punti della retta. q è l’ordinata del punto in cui la retta taglia l’asse y. Le rette verticali hanno equazione x = k.",
+          "Due rette sono parallele se hanno lo stesso coefficiente angolare, perpendicolari se il prodotto dei coefficienti vale −1: y = 2x + 1 e y = −x/2 + 3 sono perpendicolari. Il motivo è geometrico: ruotare di 90° una direzione con pendenza m produce la pendenza −1/m.",
+          "Una circonferenza è l’insieme dei punti a distanza r da un centro (a; b): applicando la formula della distanza si ottiene la sua equazione, (x − a)² + (y − b)² = r². Per esempio x² + y² = 25 è la circonferenza di centro l’origine e raggio 5, che passa per (3; 4)."
         ],
         "intermediate": [
-          "Dal teorema di Pitagora segue d²=(x-a)²+b². La distanza minima lungo il tracciato si ottiene in x=a ed è |b|. Per b=0 il grafico diventa |x-a|: non è una retta unica, pur essendo il percorso rettilineo.",
-          "La variabile Ascissa è espressa in u.l.; Distanza in u.l.. Il dominio dello strumento è [-5; 5]. La relazione implementata è: d = √((x-a)²+b²).",
-          "Con stazione (0,3) e rover (4,0), il calcolo è √(4²+3²)=5. Il percorso orizzontale di 4 unità non rappresenta la separazione radio di 5 unità."
+          "La distanza tra A(x₁; y₁) e B(x₂; y₂) si ricava con Pitagora: i due punti sono i vertici di un triangolo rettangolo con cateti |x₂ − x₁| e |y₂ − y₁|. Quindi AB = √((x₂ − x₁)² + (y₂ − y₁)²). Esempio: da (0; 3) a (4; 0) la distanza è √(16 + 9) = 5. Il punto medio ha coordinate ((x₁ + x₂)/2; (y₁ + y₂)/2).",
+          "Una retta non verticale ha equazione y = mx + q. Il coefficiente angolare m è la pendenza: di quanto sale y quando x aumenta di 1, cioè m = (y₂ − y₁)/(x₂ − x₁) per due punti della retta. q è l’ordinata del punto in cui la retta taglia l’asse y. Le rette verticali hanno equazione x = k.",
+          "Due rette sono parallele se hanno lo stesso coefficiente angolare, perpendicolari se il prodotto dei coefficienti vale −1: y = 2x + 1 e y = −x/2 + 3 sono perpendicolari. Il motivo è geometrico: ruotare di 90° una direzione con pendenza m produce la pendenza −1/m.",
+          "Una circonferenza è l’insieme dei punti a distanza r da un centro (a; b): applicando la formula della distanza si ottiene la sua equazione, (x − a)² + (y − b)² = r². Per esempio x² + y² = 25 è la circonferenza di centro l’origine e raggio 5, che passa per (3; 4).",
+          "La distanza di un punto da una retta si misura lungo la perpendicolare. Per la retta ax + by + c = 0 vale |ax₀ + by₀ + c|/√(a² + b²). Per il punto (0; 3) e l’asse x, cioè y = 0, la distanza è 3: il rover è più vicino all’oggetto quando passa per (0; 0), proprio sotto di esso."
         ],
         "advanced": [
-          "Dal teorema di Pitagora segue d²=(x-a)²+b². La distanza minima lungo il tracciato si ottiene in x=a ed è |b|. Per b=0 il grafico diventa |x-a|: non è una retta unica, pur essendo il percorso rettilineo.",
-          "Descrivi i punti a distanza fissa dalla stazione e ricava l’equazione di una circonferenza. Confronta distanza in linea retta e distanza lungo una rete di percorsi.",
-          "La differenza delle coordinate non va sommata senza quadrati. Anche cambiare unità su uno dei due assi altera il significato della formula: le componenti devono usare la stessa scala fisica."
+          "La distanza tra A(x₁; y₁) e B(x₂; y₂) si ricava con Pitagora: i due punti sono i vertici di un triangolo rettangolo con cateti |x₂ − x₁| e |y₂ − y₁|. Quindi AB = √((x₂ − x₁)² + (y₂ − y₁)²). Esempio: da (0; 3) a (4; 0) la distanza è √(16 + 9) = 5. Il punto medio ha coordinate ((x₁ + x₂)/2; (y₁ + y₂)/2).",
+          "Una retta non verticale ha equazione y = mx + q. Il coefficiente angolare m è la pendenza: di quanto sale y quando x aumenta di 1, cioè m = (y₂ − y₁)/(x₂ − x₁) per due punti della retta. q è l’ordinata del punto in cui la retta taglia l’asse y. Le rette verticali hanno equazione x = k.",
+          "Due rette sono parallele se hanno lo stesso coefficiente angolare, perpendicolari se il prodotto dei coefficienti vale −1: y = 2x + 1 e y = −x/2 + 3 sono perpendicolari. Il motivo è geometrico: ruotare di 90° una direzione con pendenza m produce la pendenza −1/m.",
+          "Una circonferenza è l’insieme dei punti a distanza r da un centro (a; b): applicando la formula della distanza si ottiene la sua equazione, (x − a)² + (y − b)² = r². Per esempio x² + y² = 25 è la circonferenza di centro l’origine e raggio 5, che passa per (3; 4).",
+          "La distanza di un punto da una retta si misura lungo la perpendicolare. Per la retta ax + by + c = 0 vale |ax₀ + by₀ + c|/√(a² + b²). Per il punto (0; 3) e l’asse x, cioè y = 0, la distanza è 3: il rover è più vicino all’oggetto quando passa per (0; 0), proprio sotto di esso.",
+          "Il laboratorio calcola la distanza tra il punto fisso (a; b) e un punto (x; 0) dell’asse x: d = √((x − a)² + b²). La distanza è minima in x = a e vale b; allontanandosi cresce, e per x lontani si avvicina a |x − a|."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio della distanza",
       "text": {
         "base": [
-          "Nel laboratorio imposta Ascissa punto (a): 0 u.l.; Ordinata punto (b): 3 u.l.. Prima di salvare A, prevedi come cambia Distanza fra Ascissa=-2,5 e 0 u.l.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con stazione (0,3) e rover (4,0), il calcolo è √(4²+3²)=5. Il percorso orizzontale di 4 unità non rappresenta la separazione radio di 5 unità.",
-          "La variabile Ascissa è espressa in u.l.; Distanza in u.l.. Il dominio dello strumento è [-5; 5]. La relazione implementata è: d = √((x-a)²+b²)."
+          "Nel laboratorio il grafico mostra d al variare di x da −5 a 5; nella scheda REGOLA cambi l’ascissa a (da −3 a 3) e l’ordinata b (da 0 a 5) del punto fisso. Il cursore sceglie la posizione x del rover.",
+          "Il laboratorio calcola la distanza tra il punto fisso (a; b) e un punto (x; 0) dell’asse x: d = √((x − a)² + b²). La distanza è minima in x = a e vale b; allontanandosi cresce, e per x lontani si avvicina a |x − a|.",
+          "Protocollo. La previsione riguarda il passaggio da x = −2,5 a x = 0. Con a = 0 e b = 3 prevedi e salva A. Poi porta a a −3, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con a = 0 e b = 3 la distanza passa da circa 3,91 a 3: diminuisce, perché il rover si avvicina al punto sotto l’oggetto. Con a = −3 il minimo sta in x = −3, a sinistra dell’intervallo: da −2,5 a 0 la distanza cresce, da circa 3,04 a 4,24. Con b = 0 l’oggetto sta sulla strada e il grafico diventa una V con il vertice a zero."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Ascissa punto (a): 0 u.l.; Ordinata punto (b): 3 u.l.. Prima di salvare A, prevedi come cambia Distanza fra Ascissa=-2,5 e 0 u.l.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Ascissa è espressa in u.l.; Distanza in u.l.. Il dominio dello strumento è [-5; 5]. La relazione implementata è: d = √((x-a)²+b²).",
-          "Dal teorema di Pitagora segue d²=(x-a)²+b². La distanza minima lungo il tracciato si ottiene in x=a ed è |b|. Per b=0 il grafico diventa |x-a|: non è una retta unica, pur essendo il percorso rettilineo."
+          "Nel laboratorio il grafico mostra d al variare di x da −5 a 5; nella scheda REGOLA cambi l’ascissa a (da −3 a 3) e l’ordinata b (da 0 a 5) del punto fisso. Il cursore sceglie la posizione x del rover.",
+          "Il laboratorio calcola la distanza tra il punto fisso (a; b) e un punto (x; 0) dell’asse x: d = √((x − a)² + b²). La distanza è minima in x = a e vale b; allontanandosi cresce, e per x lontani si avvicina a |x − a|.",
+          "Protocollo. La previsione riguarda il passaggio da x = −2,5 a x = 0. Con a = 0 e b = 3 prevedi e salva A. Poi porta a a −3, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con a = 0 e b = 3 la distanza passa da circa 3,91 a 3: diminuisce, perché il rover si avvicina al punto sotto l’oggetto. Con a = −3 il minimo sta in x = −3, a sinistra dell’intervallo: da −2,5 a 0 la distanza cresce, da circa 3,04 a 4,24. Con b = 0 l’oggetto sta sulla strada e il grafico diventa una V con il vertice a zero."
         ],
         "advanced": [
-          "Nel laboratorio imposta Ascissa punto (a): 0 u.l.; Ordinata punto (b): 3 u.l.. Prima di salvare A, prevedi come cambia Distanza fra Ascissa=-2,5 e 0 u.l.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Descrivi i punti a distanza fissa dalla stazione e ricava l’equazione di una circonferenza. Confronta distanza in linea retta e distanza lungo una rete di percorsi.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra d al variare di x da −5 a 5; nella scheda REGOLA cambi l’ascissa a (da −3 a 3) e l’ordinata b (da 0 a 5) del punto fisso. Il cursore sceglie la posizione x del rover.",
+          "Protocollo. La previsione riguarda il passaggio da x = −2,5 a x = 0. Con a = 0 e b = 3 prevedi e salva A. Poi porta a a −3, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con a = 0 e b = 3 la distanza passa da circa 3,91 a 3: diminuisce, perché il rover si avvicina al punto sotto l’oggetto. Con a = −3 il minimo sta in x = −3, a sinistra dell’intervallo: da −2,5 a 0 la distanza cresce, da circa 3,04 a 4,24. Con b = 0 l’oggetto sta sulla strada e il grafico diventa una V con il vertice a zero."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "La differenza delle coordinate non va sommata senza quadrati. Anche cambiare unità su uno dei due assi altera il significato della formula: le componenti devono usare la stessa scala fisica.",
-          "Il piano è euclideo e il tracciato è orizzontale. Sono esclusi rilievi, ostacoli e curvatura planetaria. La rotazione della scena non cambia le coordinate del modello.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: scrivere la distanza come (x₂ − x₁) + (y₂ − y₁). Con questa formula da (0; 0) a (3; 4) si otterrebbe 7, mentre la distanza in linea retta è 5: la somma delle differenze è la lunghezza di un percorso a scalini.",
+          "Secondo errore: confondere pendenza e angolo. Una pendenza m = 1 corrisponde a 45°, ma m = 2 non corrisponde a 90°: la pendenza è la tangente dell’angolo, e cresce senza limite avvicinandosi alla verticale."
         ],
         "intermediate": [
-          "La differenza delle coordinate non va sommata senza quadrati. Anche cambiare unità su uno dei due assi altera il significato della formula: le componenti devono usare la stessa scala fisica.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: scrivere la distanza come (x₂ − x₁) + (y₂ − y₁). Con questa formula da (0; 0) a (3; 4) si otterrebbe 7, mentre la distanza in linea retta è 5: la somma delle differenze è la lunghezza di un percorso a scalini.",
+          "Secondo errore: confondere pendenza e angolo. Una pendenza m = 1 corrisponde a 45°, ma m = 2 non corrisponde a 90°: la pendenza è la tangente dell’angolo, e cresce senza limite avvicinandosi alla verticale.",
+          "La distanza di un punto da una retta si misura lungo la perpendicolare. Per la retta ax + by + c = 0 vale |ax₀ + by₀ + c|/√(a² + b²). Per il punto (0; 3) e l’asse x, cioè y = 0, la distanza è 3: il rover è più vicino all’oggetto quando passa per (0; 0), proprio sotto di esso."
         ],
         "advanced": [
-          "Il piano è euclideo e il tracciato è orizzontale. Sono esclusi rilievi, ostacoli e curvatura planetaria. La rotazione della scena non cambia le coordinate del modello.",
-          "Descrivi i punti a distanza fissa dalla stazione e ricava l’equazione di una circonferenza. Confronta distanza in linea retta e distanza lungo una rete di percorsi.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: scrivere la distanza come (x₂ − x₁) + (y₂ − y₁). Con questa formula da (0; 0) a (3; 4) si otterrebbe 7, mentre la distanza in linea retta è 5: la somma delle differenze è la lunghezza di un percorso a scalini.",
+          "Secondo errore: confondere pendenza e angolo. Una pendenza m = 1 corrisponde a 45°, ma m = 2 non corrisponde a 90°: la pendenza è la tangente dell’angolo, e cresce senza limite avvicinandosi alla verticale."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Le coordinate traducono posizioni in numeri, ma una distanza richiede una regola geometrica. Tra il punto mobile (x,0) e la stazione (a,b), i cateti del triangolo rettangolo sono x-a e b. La distanza euclidea è la radice della somma dei loro quadrati.",
-          "Con stazione (0,3) e rover (4,0), il calcolo è √(4²+3²)=5. Il percorso orizzontale di 4 unità non rappresenta la separazione radio di 5 unità."
+          "Ripasso: coordinate e quadranti; formula della distanza e del punto medio; equazione della retta, pendenza e intercetta; condizioni di parallelismo e perpendicolarità; equazione della circonferenza; distanza punto-retta.",
+          "Mini esercizio: retta per (1; 2) e (3; 8). m = (8 − 2)/(3 − 1) = 3; q = 2 − 3 · 1 = −1; y = 3x − 1.",
+          "Nelle domande sulle rette calcola sempre la pendenza prima dell’intercetta."
         ],
         "intermediate": [
-          "Dal teorema di Pitagora segue d²=(x-a)²+b². La distanza minima lungo il tracciato si ottiene in x=a ed è |b|. Per b=0 il grafico diventa |x-a|: non è una retta unica, pur essendo il percorso rettilineo.",
-          "La variabile Ascissa è espressa in u.l.; Distanza in u.l.. Il dominio dello strumento è [-5; 5]. La relazione implementata è: d = √((x-a)²+b²)."
+          "Ripasso: coordinate e quadranti; formula della distanza e del punto medio; equazione della retta, pendenza e intercetta; condizioni di parallelismo e perpendicolarità; equazione della circonferenza; distanza punto-retta.",
+          "Mini esercizio: retta per (1; 2) e (3; 8). m = (8 − 2)/(3 − 1) = 3; q = 2 − 3 · 1 = −1; y = 3x − 1.",
+          "Nelle domande sulle rette calcola sempre la pendenza prima dell’intercetta."
         ],
         "advanced": [
-          "Descrivi i punti a distanza fissa dalla stazione e ricava l’equazione di una circonferenza. Confronta distanza in linea retta e distanza lungo una rete di percorsi.",
-          "Il piano è euclideo e il tracciato è orizzontale. Sono esclusi rilievi, ostacoli e curvatura planetaria. La rotazione della scena non cambia le coordinate del modello."
+          "Ripasso: coordinate e quadranti; formula della distanza e del punto medio; equazione della retta, pendenza e intercetta; condizioni di parallelismo e perpendicolarità; equazione della circonferenza; distanza punto-retta.",
+          "Mini esercizio: retta per (1; 2) e (3; 8). m = (8 − 2)/(3 − 1) = 3; q = 2 − 3 · 1 = −1; y = 3x − 1.",
+          "Nelle domande sulle rette calcola sempre la pendenza prima dell’intercetta."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Geometria euclidea con unità coerenti.",
-          "Il piano è euclideo e il tracciato è orizzontale. Sono esclusi rilievi, ostacoli e curvatura planetaria. La rotazione della scena non cambia le coordinate del modello.",
-          "Collegamento consigliato: physics-02. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La geometria analitica è il punto di incontro tra algebra e geometria: risolvere un sistema significa trovare l’intersezione di due rette, e le funzioni si studiano attraverso i loro grafici. Torna nella trigonometria e nei vettori.",
+          "Riepilogo dell’unità: le coordinate trasformano punti in coppie di numeri; Pitagora dà la distanza; una retta è determinata da pendenza e intercetta; parallele hanno la stessa pendenza, perpendicolari pendenze con prodotto −1; la circonferenza è l’insieme dei punti a distanza fissa da un centro.",
+          "Nel diario registra A e B con le previsioni e spiega perché, con a = −3, la distanza cresce tra −2,5 e 0."
         ],
         "intermediate": [
-          "Dal teorema di Pitagora segue d²=(x-a)²+b². La distanza minima lungo il tracciato si ottiene in x=a ed è |b|. Per b=0 il grafico diventa |x-a|: non è una retta unica, pur essendo il percorso rettilineo.",
-          "Il piano è euclideo e il tracciato è orizzontale. Sono esclusi rilievi, ostacoli e curvatura planetaria. La rotazione della scena non cambia le coordinate del modello.",
-          "Descrivi i punti a distanza fissa dalla stazione e ricava l’equazione di una circonferenza. Confronta distanza in linea retta e distanza lungo una rete di percorsi."
+          "La geometria analitica è il punto di incontro tra algebra e geometria: risolvere un sistema significa trovare l’intersezione di due rette, e le funzioni si studiano attraverso i loro grafici. Torna nella trigonometria e nei vettori.",
+          "Riepilogo dell’unità: le coordinate trasformano punti in coppie di numeri; Pitagora dà la distanza; una retta è determinata da pendenza e intercetta; parallele hanno la stessa pendenza, perpendicolari pendenze con prodotto −1; la circonferenza è l’insieme dei punti a distanza fissa da un centro.",
+          "Nel diario registra A e B con le previsioni e spiega perché, con a = −3, la distanza cresce tra −2,5 e 0."
         ],
         "advanced": [
-          "Descrivi i punti a distanza fissa dalla stazione e ricava l’equazione di una circonferenza. Confronta distanza in linea retta e distanza lungo una rete di percorsi.",
-          "Il piano è euclideo e il tracciato è orizzontale. Sono esclusi rilievi, ostacoli e curvatura planetaria. La rotazione della scena non cambia le coordinate del modello.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La geometria analitica è il punto di incontro tra algebra e geometria: risolvere un sistema significa trovare l’intersezione di due rette, e le funzioni si studiano attraverso i loro grafici. Torna nella trigonometria e nei vettori.",
+          "Riepilogo dell’unità: le coordinate trasformano punti in coppie di numeri; Pitagora dà la distanza; una retta è determinata da pendenza e intercetta; parallele hanno la stessa pendenza, perpendicolari pendenze con prodotto −1; la circonferenza è l’insieme dei punti a distanza fissa da un centro.",
+          "Nel diario registra A e B con le previsioni e spiega perché, con a = −3, la distanza cresce tra −2,5 e 0."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-c07-concept",
-      "prompt": "La distanza fra (0,3) e (4,0) è:",
+      "id": "math-c07-q1",
+      "prompt": "Qual è la distanza tra (1; 2) e (4; 6)?",
       "options": [
         {
           "id": "A",
-          "text": "5 unità",
-          "feedback": "Le coordinate traducono posizioni in numeri, ma una distanza richiede una regola geometrica. Tra il punto mobile (x,0) e la stazione (a,b), i cateti del triangolo rettangolo sono x-a e b. La distanza euclidea è la radice della somma dei loro quadrati."
+          "text": "7",
+          "feedback": "7 = 3 + 4 è la somma delle differenze, non la distanza in linea retta."
         },
         {
           "id": "B",
-          "text": "7 unità",
-          "feedback": "La differenza delle coordinate non va sommata senza quadrati. Anche cambiare unità su uno dei due assi altera il significato della formula: le componenti devono usare la stessa scala fisica."
+          "text": "5",
+          "feedback": "Esatto: differenze 3 e 4, e √(3² + 4²) = 5."
         },
         {
           "id": "C",
-          "text": "1 unità",
-          "feedback": "Dal teorema di Pitagora segue d²=(x-a)²+b². La distanza minima lungo il tracciato si ottiene in x=a ed è |b|. Per b=0 il grafico diventa |x-a|: non è una retta unica, pur essendo il percorso rettilineo."
+          "text": "25",
+          "feedback": "25 è il quadrato della distanza."
+        },
+        {
+          "id": "D",
+          "text": "√7",
+          "feedback": "Sotto radice vanno i quadrati delle differenze: 9 + 16."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-c07-q2",
+      "prompt": "Qual è la pendenza della retta per (0; 1) e (2; 7)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "3",
+          "feedback": "Esatto: variazione di y diviso variazione di x, (7 − 1)/(2 − 0) = 3."
+        },
+        {
+          "id": "B",
+          "text": "1/3",
+          "feedback": "Hai diviso la differenza delle x per quella delle y."
+        },
+        {
+          "id": "C",
+          "text": "6",
+          "feedback": "6 è la variazione di y; va divisa per la variazione di x."
+        },
+        {
+          "id": "D",
+          "text": "4",
+          "feedback": "4 non deriva dai dati: la pendenza è 6/2."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "math-c07-calculation",
-      "prompt": "Calcolo: Ascissa punto (a)=0 u.l.; Ordinata punto (b)=3 u.l.. Per Ascissa=4 u.l., quanto vale Distanza?",
+      "id": "math-c07-q3",
+      "prompt": "Quale retta è perpendicolare a y = 2x + 5?",
       "options": [
         {
           "id": "A",
-          "text": "7,5 u.l.",
-          "feedback": "Questo valore non soddisfa la relazione. d = √((x-a)²+b²). Con Ascissa punto (a)=0 u.l.; Ordinata punto (b)=3 u.l. e Ascissa=4 u.l., il risultato è 5 u.l.. Conserva le unità e arrotonda solo alla fine."
+          "text": "y = 2x − 1",
+          "feedback": "Ha la stessa pendenza 2: è parallela, non perpendicolare."
         },
         {
           "id": "B",
-          "text": "2,5 u.l.",
-          "feedback": "Controlla sostituzione, segno e unità. d = √((x-a)²+b²). Con Ascissa punto (a)=0 u.l.; Ordinata punto (b)=3 u.l. e Ascissa=4 u.l., il risultato è 5 u.l.. Conserva le unità e arrotonda solo alla fine."
+          "text": "y = −2x + 5",
+          "feedback": "Il prodotto delle pendenze vale −4, non −1."
         },
         {
           "id": "C",
-          "text": "5 u.l.",
-          "feedback": "d = √((x-a)²+b²). Con Ascissa punto (a)=0 u.l.; Ordinata punto (b)=3 u.l. e Ascissa=4 u.l., il risultato è 5 u.l.. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "C",
-      "numeric": {
-        "x": 4,
-        "parameters": {
-          "a": 0,
-          "b": 3
-        },
-        "expected": 5,
-        "unit": "u.l."
-      }
-    },
-    {
-      "id": "math-c07-transfer",
-      "prompt": "Trasferimento: Ascissa punto (a)=1 u.l.; Ordinata punto (b)=3 u.l.. Per Ascissa=4 u.l., quanto vale Distanza?",
-      "options": [
-        {
-          "id": "A",
-          "text": "2,12132 u.l.",
-          "feedback": "Controlla sostituzione, segno e unità. d = √((x-a)²+b²). Con Ascissa punto (a)=1 u.l.; Ordinata punto (b)=3 u.l. e Ascissa=4 u.l., il risultato è 4,24264 u.l.. Conserva le unità e arrotonda solo alla fine."
+          "text": "y = −x/2 + 3",
+          "feedback": "Esatto: il prodotto delle pendenze è 2 · (−1/2) = −1."
         },
         {
-          "id": "B",
-          "text": "4,24264 u.l.",
-          "feedback": "d = √((x-a)²+b²). Con Ascissa punto (a)=1 u.l.; Ordinata punto (b)=3 u.l. e Ascissa=4 u.l., il risultato è 4,24264 u.l.. Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "C",
-          "text": "6,36396 u.l.",
-          "feedback": "Questo valore non soddisfa la relazione. d = √((x-a)²+b²). Con Ascissa punto (a)=1 u.l.; Ordinata punto (b)=3 u.l. e Ascissa=4 u.l., il risultato è 4,24264 u.l.. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 4,
-        "parameters": {
-          "a": 1,
-          "b": 3
-        },
-        "expected": 4.242640687119286,
-        "unit": "u.l."
-      }
-    },
-    {
-      "id": "math-c07-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il piano è euclideo e il tracciato è orizzontale. Sono esclusi rilievi, ostacoli e curvatura planetaria. La rotazione della scena non cambia le coordinate del modello."
-        },
-        {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il piano è euclideo e il tracciato è orizzontale. Sono esclusi rilievi, ostacoli e curvatura planetaria. La rotazione della scena non cambia le coordinate del modello."
-        },
-        {
-          "id": "C",
-          "text": "Geometria euclidea con unità coerenti",
-          "feedback": "Il piano è euclideo e il tracciato è orizzontale. Sono esclusi rilievi, ostacoli e curvatura planetaria. La rotazione della scena non cambia le coordinate del modello."
+          "id": "D",
+          "text": "y = x/2 + 5",
+          "feedback": "Il prodotto delle pendenze vale +1."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "math-c07-q4",
+      "prompt": "Quale circonferenza ha centro (2; −1) e raggio 3?",
+      "options": [
+        {
+          "id": "A",
+          "text": "(x + 2)² + (y − 1)² = 9",
+          "feedback": "I segni nelle parentesi sono opposti alle coordinate del centro: (x − 2) e (y + 1)."
+        },
+        {
+          "id": "B",
+          "text": "(x − 2)² + (y + 1)² = 3",
+          "feedback": "A destra va il quadrato del raggio, 9."
+        },
+        {
+          "id": "C",
+          "text": "x² + y² = 9",
+          "feedback": "x² + y² = 9 ha centro nell’origine, non in (2; −1)."
+        },
+        {
+          "id": "D",
+          "text": "(x − 2)² + (y + 1)² = 9",
+          "feedback": "Esatto: (x − a)² + (y − b)² = r² con a = 2, b = −1, r = 3."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "math-c07-q5",
+      "prompt": "Nel laboratorio, dove è minima la distanza d = √((x − a)² + b²)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "In x = 0",
+          "feedback": "Il minimo dipende da a: sta in x = a."
+        },
+        {
+          "id": "B",
+          "text": "In x = a, dove vale b",
+          "feedback": "Esatto: il primo quadrato si annulla e resta √(b²) = b."
+        },
+        {
+          "id": "C",
+          "text": "In x = b",
+          "feedback": "b è l’ordinata del punto, cioè la sua distanza dall’asse x."
+        },
+        {
+          "id": "D",
+          "text": "Non ha un minimo",
+          "feedback": "Una somma di un quadrato e di un numero fisso ha il minimo dove il quadrato si annulla."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-c07-q6",
+      "prompt": "Una pendenza m = 2 corrisponde a un angolo con l’asse x di:",
+      "options": [
+        {
+          "id": "A",
+          "text": "90°",
+          "feedback": "Una retta verticale non ha pendenza finita."
+        },
+        {
+          "id": "B",
+          "text": "Circa 63°, perché la pendenza è la tangente dell’angolo",
+          "feedback": "Esatto: la pendenza è la tangente dell’angolo, e tan 63,4° ≈ 2."
+        },
+        {
+          "id": "C",
+          "text": "45°",
+          "feedback": "45° corrisponde a m = 1: con m = 2 la retta è più ripida."
+        },
+        {
+          "id": "D",
+          "text": "2°",
+          "feedback": "La pendenza non è un angolo in gradi."
+        }
+      ],
+      "correct": "B"
     }
   ]
 }

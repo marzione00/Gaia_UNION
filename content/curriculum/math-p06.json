@@ -5,14 +5,15 @@
   "title": "Geometrie, trasformazioni e simmetrie",
   "sector": 0,
   "modelId": "math-p06",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Rotazioni piane euclidee",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Isometrie del piano, rotazioni, composizione, simmetrie e similitudini",
+  "narrativeStatus": "Il braccio robotico è immaginario; le trasformazioni sono matematica reale.",
   "objectives": [
-    "Spiegare: rotazioni piane euclidee.",
-    "Applicare x′ = a cos(θ) - b sin(θ), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Riconoscere traslazioni, rotazioni, riflessioni e glissoriflessioni.",
+    "Calcolare le coordinate di un punto ruotato.",
+    "Comporre trasformazioni e riconoscere il risultato.",
+    "Contare le simmetrie di una figura e distinguere isometrie e similitudini."
   ],
   "prerequisites": [
     "math-c07",
@@ -21,11 +22,10 @@
     "math-p03"
   ],
   "connections": [
-    "math-p03"
+    "math-c10"
   ],
   "sources": [
-    "precalculus",
-    "calculus"
+    "precalculus"
   ],
   "originalSource": {
     "id": "math-2026",
@@ -41,250 +41,317 @@
   },
   "glossary": [
     {
-      "term": "Rotazione θ",
-      "definition": "Variabile indipendente, unità rad; intervallo [0; 6,28319]."
+      "term": "Isometria",
+      "definition": "Trasformazione che conserva le distanze."
     },
     {
-      "term": "Ascissa ruotata",
-      "definition": "Risultato calcolato dal modello, unità u.l.."
+      "term": "Rotazione",
+      "definition": "Isometria che fa girare il piano di un angolo attorno a un centro."
     },
     {
-      "term": "Ascissa iniziale",
-      "definition": "Parametro a, unità u.l.; intervallo [-3; 3]."
+      "term": "Riflessione",
+      "definition": "Isometria che scambia i lati di una retta; capovolge l’orientamento."
     },
     {
-      "term": "Ordinata iniziale",
-      "definition": "Parametro b, unità u.l.; intervallo [-3; 3]."
+      "term": "Simmetria di una figura",
+      "definition": "Isometria che lascia la figura invariata."
+    },
+    {
+      "term": "Omotetia",
+      "definition": "Similitudine che moltiplica le distanze da un centro per un fattore k."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Dove finisce un punto?",
       "text": {
         "base": [
-          "Una struttura viene ruotata nel laboratorio. La sua ombra sull’asse cambia, ma le distanze interne restano le stesse. Distingui ciò che dipende dalle coordinate da ciò che è invariabile.",
-          "Una rotazione del piano attorno all’origine trasforma (a,b) in (a cosθ-b sinθ, a sinθ+b cosθ). Le coordinate cambiano con θ, mentre la distanza dall’origine resta √(a²+b²)."
+          "Il braccio robotico della stazione ruota attorno al proprio perno: per comandarlo bisogna sapere dove finisce un punto dopo una rotazione di un certo angolo. Le trasformazioni geometriche, e le simmetrie che lasciano una figura uguale a sé stessa, permettono di rispondere e di classificare le forme.",
+          "Un’isometria è una trasformazione del piano che conserva le distanze. Le isometrie del piano sono di quattro tipi: traslazioni, che spostano tutti i punti dello stesso vettore; rotazioni attorno a un punto; riflessioni rispetto a una retta; glissoriflessioni, una riflessione seguita da una traslazione lungo la stessa retta."
         ],
         "intermediate": [
-          "Una struttura viene ruotata nel laboratorio. La sua ombra sull’asse cambia, ma le distanze interne restano le stesse. Distingui ciò che dipende dalle coordinate da ciò che è invariabile.",
-          "La matrice di rotazione ha colonne ortonormali. Espandendo la somma dei quadrati delle nuove coordinate, i termini misti si cancellano e rimane a²+b². Questa è una prova algebrica della conservazione della lunghezza."
+          "Il braccio robotico della stazione ruota attorno al proprio perno: per comandarlo bisogna sapere dove finisce un punto dopo una rotazione di un certo angolo. Le trasformazioni geometriche, e le simmetrie che lasciano una figura uguale a sé stessa, permettono di rispondere e di classificare le forme.",
+          "Un’isometria è una trasformazione del piano che conserva le distanze. Le isometrie del piano sono di quattro tipi: traslazioni, che spostano tutti i punti dello stesso vettore; rotazioni attorno a un punto; riflessioni rispetto a una retta; glissoriflessioni, una riflessione seguita da una traslazione lungo la stessa retta."
         ],
         "advanced": [
-          "Una struttura viene ruotata nel laboratorio. La sua ombra sull’asse cambia, ma le distanze interne restano le stesse. Distingui ciò che dipende dalle coordinate da ciò che è invariabile.",
-          "Componi due rotazioni e dimostra che gli angoli si sommano. Confronta poi il determinante di una rotazione con quello di una riflessione.",
-          "Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto."
+          "Il braccio robotico della stazione ruota attorno al proprio perno: per comandarlo bisogna sapere dove finisce un punto dopo una rotazione di un certo angolo. Le trasformazioni geometriche, e le simmetrie che lasciano una figura uguale a sé stessa, permettono di rispondere e di classificare le forme.",
+          "Un’isometria è una trasformazione del piano che conserva le distanze. Le isometrie del piano sono di quattro tipi: traslazioni, che spostano tutti i punti dello stesso vettore; rotazioni attorno a un punto; riflessioni rispetto a una retta; glissoriflessioni, una riflessione seguita da una traslazione lungo la stessa retta."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Rotazioni, composizioni, simmetrie",
       "text": {
         "base": [
-          "Una rotazione del piano attorno all’origine trasforma (a,b) in (a cosθ-b sinθ, a sinθ+b cosθ). Le coordinate cambiano con θ, mentre la distanza dall’origine resta √(a²+b²).",
-          "Il punto (1,0), ruotato di π/2, diventa (0,1). L’ascissa visualizzata vale zero, ma il vettore non è scomparso: il suo modulo resta 1."
+          "La rotazione di centro l’origine e angolo θ, in senso antiorario, porta il punto (x; y) in (x cos θ − y sin θ; x sin θ + y cos θ). Esempio: il punto (1; 0) ruotato di 90° va in (0; 1); ruotato di 180° in (−1; 0). Il laboratorio segue la prima coordinata, x′ = a cos θ − b sin θ, per il punto iniziale (a; b).",
+          "Componendo isometrie si ottengono ancora isometrie. Due riflessioni rispetto a rette che si incontrano con angolo α danno una rotazione di angolo 2α; due riflessioni rispetto a rette parallele danno una traslazione. Due rotazioni attorno allo stesso centro si sommano: ruotare di 30° e poi di 60° equivale a ruotare di 90°.",
+          "Una simmetria di una figura è un’isometria che la lascia invariata. Un quadrato ha 8 simmetrie: 4 rotazioni (0°, 90°, 180°, 270°) e 4 riflessioni (due assi mediani e due diagonali). Un triangolo equilatero ne ha 6, un cerchio infinite. L’insieme delle simmetrie con l’operazione di composizione forma un gruppo, e la teoria dei gruppi classifica le figure secondo le loro simmetrie."
         ],
         "intermediate": [
-          "La matrice di rotazione ha colonne ortonormali. Espandendo la somma dei quadrati delle nuove coordinate, i termini misti si cancellano e rimane a²+b². Questa è una prova algebrica della conservazione della lunghezza.",
-          "La variabile Rotazione θ è espressa in rad; Ascissa ruotata in u.l.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: x′ = a cos(θ) - b sin(θ).",
-          "Il punto (1,0), ruotato di π/2, diventa (0,1). L’ascissa visualizzata vale zero, ma il vettore non è scomparso: il suo modulo resta 1."
+          "La rotazione di centro l’origine e angolo θ, in senso antiorario, porta il punto (x; y) in (x cos θ − y sin θ; x sin θ + y cos θ). Esempio: il punto (1; 0) ruotato di 90° va in (0; 1); ruotato di 180° in (−1; 0). Il laboratorio segue la prima coordinata, x′ = a cos θ − b sin θ, per il punto iniziale (a; b).",
+          "Componendo isometrie si ottengono ancora isometrie. Due riflessioni rispetto a rette che si incontrano con angolo α danno una rotazione di angolo 2α; due riflessioni rispetto a rette parallele danno una traslazione. Due rotazioni attorno allo stesso centro si sommano: ruotare di 30° e poi di 60° equivale a ruotare di 90°.",
+          "Una simmetria di una figura è un’isometria che la lascia invariata. Un quadrato ha 8 simmetrie: 4 rotazioni (0°, 90°, 180°, 270°) e 4 riflessioni (due assi mediani e due diagonali). Un triangolo equilatero ne ha 6, un cerchio infinite. L’insieme delle simmetrie con l’operazione di composizione forma un gruppo, e la teoria dei gruppi classifica le figure secondo le loro simmetrie.",
+          "Le similitudini conservano le forme e cambiano le dimensioni: un’omotetia di centro O e rapporto k manda ogni punto P nel punto P′ della retta OP con OP′ = k · OP. Le lunghezze si moltiplicano per |k|, le aree per k²."
         ],
         "advanced": [
-          "La matrice di rotazione ha colonne ortonormali. Espandendo la somma dei quadrati delle nuove coordinate, i termini misti si cancellano e rimane a²+b². Questa è una prova algebrica della conservazione della lunghezza.",
-          "Componi due rotazioni e dimostra che gli angoli si sommano. Confronta poi il determinante di una rotazione con quello di una riflessione.",
-          "Una componente nulla non significa vettore nullo. Una rotazione non è una traslazione e non va confusa con uno stiramento, che può cambiare distanze e aree."
+          "La rotazione di centro l’origine e angolo θ, in senso antiorario, porta il punto (x; y) in (x cos θ − y sin θ; x sin θ + y cos θ). Esempio: il punto (1; 0) ruotato di 90° va in (0; 1); ruotato di 180° in (−1; 0). Il laboratorio segue la prima coordinata, x′ = a cos θ − b sin θ, per il punto iniziale (a; b).",
+          "Componendo isometrie si ottengono ancora isometrie. Due riflessioni rispetto a rette che si incontrano con angolo α danno una rotazione di angolo 2α; due riflessioni rispetto a rette parallele danno una traslazione. Due rotazioni attorno allo stesso centro si sommano: ruotare di 30° e poi di 60° equivale a ruotare di 90°.",
+          "Una simmetria di una figura è un’isometria che la lascia invariata. Un quadrato ha 8 simmetrie: 4 rotazioni (0°, 90°, 180°, 270°) e 4 riflessioni (due assi mediani e due diagonali). Un triangolo equilatero ne ha 6, un cerchio infinite. L’insieme delle simmetrie con l’operazione di composizione forma un gruppo, e la teoria dei gruppi classifica le figure secondo le loro simmetrie.",
+          "Le similitudini conservano le forme e cambiano le dimensioni: un’omotetia di centro O e rapporto k manda ogni punto P nel punto P′ della retta OP con OP′ = k · OP. Le lunghezze si moltiplicano per |k|, le aree per k².",
+          "Le decorazioni che si ripetono lungo una striscia, i fregi, hanno esattamente 7 tipi possibili di simmetria; quelle che ricoprono il piano, come le piastrellature, ne hanno 17. Questi risultati, dimostrati tra Ottocento e Novecento, spiegano perché gli stessi motivi ricorrono in culture lontane."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio della rotazione",
       "text": {
         "base": [
-          "Nel laboratorio imposta Ascissa iniziale (a): 1 u.l.; Ordinata iniziale (b): 0 u.l.. Prima di salvare A, prevedi come cambia Ascissa ruotata fra Rotazione θ=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Il punto (1,0), ruotato di π/2, diventa (0,1). L’ascissa visualizzata vale zero, ma il vettore non è scomparso: il suo modulo resta 1.",
-          "La variabile Rotazione θ è espressa in rad; Ascissa ruotata in u.l.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: x′ = a cos(θ) - b sin(θ)."
+          "Nel laboratorio il grafico mostra la prima coordinata x′ del punto (a; b) ruotato di un angolo θ, da 0 a 2π; nella scheda REGOLA cambi le coordinate iniziali a e b, da −3 a 3. Il cursore sceglie l’angolo.",
+          "Protocollo. La previsione riguarda il passaggio da θ = π/2 a θ = π. Con il punto (1; 0) prevedi e salva A. Poi porta a a −3, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con (1; 0), x′ vale 0 in π/2 e −1 in π: diminuisce, perché il punto passa dall’asse y al lato sinistro. Con (−3; 0) i valori sono 0 e 3: cresce. Il grafico è sempre una sinusoide di ampiezza √(a² + b²), la distanza del punto dall’origine: la rotazione conserva le distanze."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Ascissa iniziale (a): 1 u.l.; Ordinata iniziale (b): 0 u.l.. Prima di salvare A, prevedi come cambia Ascissa ruotata fra Rotazione θ=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Rotazione θ è espressa in rad; Ascissa ruotata in u.l.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: x′ = a cos(θ) - b sin(θ).",
-          "La matrice di rotazione ha colonne ortonormali. Espandendo la somma dei quadrati delle nuove coordinate, i termini misti si cancellano e rimane a²+b². Questa è una prova algebrica della conservazione della lunghezza."
+          "Nel laboratorio il grafico mostra la prima coordinata x′ del punto (a; b) ruotato di un angolo θ, da 0 a 2π; nella scheda REGOLA cambi le coordinate iniziali a e b, da −3 a 3. Il cursore sceglie l’angolo.",
+          "Protocollo. La previsione riguarda il passaggio da θ = π/2 a θ = π. Con il punto (1; 0) prevedi e salva A. Poi porta a a −3, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con (1; 0), x′ vale 0 in π/2 e −1 in π: diminuisce, perché il punto passa dall’asse y al lato sinistro. Con (−3; 0) i valori sono 0 e 3: cresce. Il grafico è sempre una sinusoide di ampiezza √(a² + b²), la distanza del punto dall’origine: la rotazione conserva le distanze."
         ],
         "advanced": [
-          "Nel laboratorio imposta Ascissa iniziale (a): 1 u.l.; Ordinata iniziale (b): 0 u.l.. Prima di salvare A, prevedi come cambia Ascissa ruotata fra Rotazione θ=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Componi due rotazioni e dimostra che gli angoli si sommano. Confronta poi il determinante di una rotazione con quello di una riflessione.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra la prima coordinata x′ del punto (a; b) ruotato di un angolo θ, da 0 a 2π; nella scheda REGOLA cambi le coordinate iniziali a e b, da −3 a 3. Il cursore sceglie l’angolo.",
+          "Protocollo. La previsione riguarda il passaggio da θ = π/2 a θ = π. Con il punto (1; 0) prevedi e salva A. Poi porta a a −3, rifai la previsione e salva B. Nella scheda A / B scegli una previsione tra CRESCE, DIMINUISCE, UGUALE e NON DEFINITO e premi SALVA A; poi cambia un parametro, rifai la previsione e premi SALVA B. Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Che cosa osservare. Con (1; 0), x′ vale 0 in π/2 e −1 in π: diminuisce, perché il punto passa dall’asse y al lato sinistro. Con (−3; 0) i valori sono 0 e 3: cresce. Il grafico è sempre una sinusoide di ampiezza √(a² + b²), la distanza del punto dall’origine: la rotazione conserva le distanze."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e invarianti",
       "text": {
         "base": [
-          "Una componente nulla non significa vettore nullo. Una rotazione non è una traslazione e non va confusa con uno stiramento, che può cambiare distanze e aree.",
-          "Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: ruotare in senso orario usando la formula antioraria. Per un angolo orario si usa −θ, cioè si cambia il segno dei termini con il seno.",
+          "Secondo errore: pensare che una riflessione si possa ottenere con una rotazione. Una riflessione capovolge l’orientamento: la lettera R riflessa non si sovrappone a nessuna R ruotata.",
+          "Le similitudini conservano le forme e cambiano le dimensioni: un’omotetia di centro O e rapporto k manda ogni punto P nel punto P′ della retta OP con OP′ = k · OP. Le lunghezze si moltiplicano per |k|, le aree per k²."
         ],
         "intermediate": [
-          "Una componente nulla non significa vettore nullo. Una rotazione non è una traslazione e non va confusa con uno stiramento, che può cambiare distanze e aree.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: ruotare in senso orario usando la formula antioraria. Per un angolo orario si usa −θ, cioè si cambia il segno dei termini con il seno.",
+          "Secondo errore: pensare che una riflessione si possa ottenere con una rotazione. Una riflessione capovolge l’orientamento: la lettera R riflessa non si sovrappone a nessuna R ruotata.",
+          "Le decorazioni che si ripetono lungo una striscia, i fregi, hanno esattamente 7 tipi possibili di simmetria; quelle che ricoprono il piano, come le piastrellature, ne hanno 17. Questi risultati, dimostrati tra Ottocento e Novecento, spiegano perché gli stessi motivi ricorrono in culture lontane."
         ],
         "advanced": [
-          "Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto.",
-          "Componi due rotazioni e dimostra che gli angoli si sommano. Confronta poi il determinante di una rotazione con quello di una riflessione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Secondo errore: pensare che una riflessione si possa ottenere con una rotazione. Una riflessione capovolge l’orientamento: la lettera R riflessa non si sovrappone a nessuna R ruotata.",
+          "Le decorazioni che si ripetono lungo una striscia, i fregi, hanno esattamente 7 tipi possibili di simmetria; quelle che ricoprono il piano, come le piastrellature, ne hanno 17. Questi risultati, dimostrati tra Ottocento e Novecento, spiegano perché gli stessi motivi ricorrono in culture lontane.",
+          "Le isometrie definiscono la geometria: secondo il programma proposto da Felix Klein nel 1872, una geometria è lo studio delle proprietà invarianti per un gruppo di trasformazioni. Le similitudini conservano gli angoli, le trasformazioni affini il parallelismo, quelle proiettive l’allineamento."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Una rotazione del piano attorno all’origine trasforma (a,b) in (a cosθ-b sinθ, a sinθ+b cosθ). Le coordinate cambiano con θ, mentre la distanza dall’origine resta √(a²+b²).",
-          "Il punto (1,0), ruotato di π/2, diventa (0,1). L’ascissa visualizzata vale zero, ma il vettore non è scomparso: il suo modulo resta 1."
+          "Ripasso: definizione di isometria e i quattro tipi; formula della rotazione; composizione di riflessioni; simmetrie di una figura e loro numero; omotetie e similitudini.",
+          "Mini esercizio: il punto (2; 1) ruotato di 90° va in (2 · 0 − 1 · 1; 2 · 1 + 1 · 0) = (−1; 2).",
+          "Nelle domande sulle rotazioni controlla che la distanza dall’origine resti la stessa."
         ],
         "intermediate": [
-          "La matrice di rotazione ha colonne ortonormali. Espandendo la somma dei quadrati delle nuove coordinate, i termini misti si cancellano e rimane a²+b². Questa è una prova algebrica della conservazione della lunghezza.",
-          "La variabile Rotazione θ è espressa in rad; Ascissa ruotata in u.l.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: x′ = a cos(θ) - b sin(θ)."
+          "Ripasso: definizione di isometria e i quattro tipi; formula della rotazione; composizione di riflessioni; simmetrie di una figura e loro numero; omotetie e similitudini.",
+          "Mini esercizio: il punto (2; 1) ruotato di 90° va in (2 · 0 − 1 · 1; 2 · 1 + 1 · 0) = (−1; 2).",
+          "Nelle domande sulle rotazioni controlla che la distanza dall’origine resti la stessa."
         ],
         "advanced": [
-          "Componi due rotazioni e dimostra che gli angoli si sommano. Confronta poi il determinante di una rotazione con quello di una riflessione.",
-          "Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto."
+          "Ripasso: definizione di isometria e i quattro tipi; formula della rotazione; composizione di riflessioni; simmetrie di una figura e loro numero; omotetie e similitudini.",
+          "Mini esercizio: il punto (2; 1) ruotato di 90° va in (2 · 0 − 1 · 1; 2 · 1 + 1 · 0) = (−1; 2).",
+          "Nelle domande sulle rotazioni controlla che la distanza dall’origine resti la stessa."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Rotazioni piane euclidee.",
-          "Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto.",
-          "Collegamento consigliato: math-p03. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le trasformazioni si scrivono con le matrici dell’unità «Vettori, matrici, dati e vincoli» e con i numeri complessi, dove moltiplicare per cos θ + i sin θ ruota di θ. Le simmetrie tornano in chimica, nella forma delle molecole e dei cristalli.",
+          "Riepilogo dell’unità: le isometrie conservano le distanze e sono traslazioni, rotazioni, riflessioni e glissoriflessioni; la rotazione ha formula (x cos θ − y sin θ; x sin θ + y cos θ); le simmetrie di una figura formano un gruppo; le similitudini cambiano le dimensioni e conservano le forme.",
+          "Nel diario registra A e B con le previsioni e spiega perché l’ampiezza della sinusoide è la distanza del punto dall’origine."
         ],
         "intermediate": [
-          "La matrice di rotazione ha colonne ortonormali. Espandendo la somma dei quadrati delle nuove coordinate, i termini misti si cancellano e rimane a²+b². Questa è una prova algebrica della conservazione della lunghezza.",
-          "Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto.",
-          "Componi due rotazioni e dimostra che gli angoli si sommano. Confronta poi il determinante di una rotazione con quello di una riflessione."
+          "Le trasformazioni si scrivono con le matrici dell’unità «Vettori, matrici, dati e vincoli» e con i numeri complessi, dove moltiplicare per cos θ + i sin θ ruota di θ. Le simmetrie tornano in chimica, nella forma delle molecole e dei cristalli.",
+          "Riepilogo dell’unità: le isometrie conservano le distanze e sono traslazioni, rotazioni, riflessioni e glissoriflessioni; la rotazione ha formula (x cos θ − y sin θ; x sin θ + y cos θ); le simmetrie di una figura formano un gruppo; le similitudini cambiano le dimensioni e conservano le forme.",
+          "Nel diario registra A e B con le previsioni e spiega perché l’ampiezza della sinusoide è la distanza del punto dall’origine."
         ],
         "advanced": [
-          "Componi due rotazioni e dimostra che gli angoli si sommano. Confronta poi il determinante di una rotazione con quello di una riflessione.",
-          "Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le trasformazioni si scrivono con le matrici dell’unità «Vettori, matrici, dati e vincoli» e con i numeri complessi, dove moltiplicare per cos θ + i sin θ ruota di θ. Le simmetrie tornano in chimica, nella forma delle molecole e dei cristalli.",
+          "Riepilogo dell’unità: le isometrie conservano le distanze e sono traslazioni, rotazioni, riflessioni e glissoriflessioni; la rotazione ha formula (x cos θ − y sin θ; x sin θ + y cos θ); le simmetrie di una figura formano un gruppo; le similitudini cambiano le dimensioni e conservano le forme.",
+          "Le isometrie definiscono la geometria: secondo il programma proposto da Felix Klein nel 1872, una geometria è lo studio delle proprietà invarianti per un gruppo di trasformazioni. Le similitudini conservano gli angoli, le trasformazioni affini il parallelismo, quelle proiettive l’allineamento.",
+          "Nel diario registra A e B con le previsioni e spiega perché l’ampiezza della sinusoide è la distanza del punto dall’origine."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-p06-concept",
-      "prompt": "Una rotazione euclidea conserva:",
+      "id": "math-p06-q1",
+      "prompt": "Dove va il punto (1; 0) ruotato di 90° in senso antiorario attorno all’origine?",
       "options": [
         {
           "id": "A",
-          "text": "Le distanze",
-          "feedback": "Una rotazione del piano attorno all’origine trasforma (a,b) in (a cosθ-b sinθ, a sinθ+b cosθ). Le coordinate cambiano con θ, mentre la distanza dall’origine resta √(a²+b²)."
+          "text": "(0; 1)",
+          "feedback": "Esatto: cos 90° = 0 e sin 90° = 1."
         },
         {
           "id": "B",
-          "text": "Ogni singola coordinata",
-          "feedback": "Una componente nulla non significa vettore nullo. Una rotazione non è una traslazione e non va confusa con uno stiramento, che può cambiare distanze e aree."
+          "text": "(0; −1)",
+          "feedback": "Questo è il risultato di una rotazione oraria."
         },
         {
           "id": "C",
-          "text": "Il segno di ogni componente",
-          "feedback": "La matrice di rotazione ha colonne ortonormali. Espandendo la somma dei quadrati delle nuove coordinate, i termini misti si cancellano e rimane a²+b². Questa è una prova algebrica della conservazione della lunghezza."
+          "text": "(−1; 0)",
+          "feedback": "Questo è il risultato di una rotazione di 180°."
+        },
+        {
+          "id": "D",
+          "text": "(1; 1)",
+          "feedback": "La distanza dall’origine passerebbe da 1 a √2: una rotazione la conserva."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "math-p06-calculation",
-      "prompt": "Calcolo: Ascissa iniziale (a)=1 u.l.; Ordinata iniziale (b)=0 u.l.. Per Rotazione θ=1,5708 rad, quanto vale Ascissa ruotata?",
+      "id": "math-p06-q2",
+      "prompt": "Quante simmetrie ha un quadrato?",
       "options": [
         {
           "id": "A",
-          "text": "1,00000e-8 u.l.",
-          "feedback": "Questo valore non soddisfa la relazione. x′ = a cos(θ) - b sin(θ). Con Ascissa iniziale (a)=1 u.l.; Ordinata iniziale (b)=0 u.l. e Rotazione θ=1,5708 rad, il risultato è 0 u.l.. Conserva le unità e arrotonda solo alla fine."
+          "text": "4",
+          "feedback": "Le rotazioni sono 4, ma ci sono anche 4 riflessioni."
         },
         {
           "id": "B",
-          "text": "-1,00000e-8 u.l.",
-          "feedback": "Controlla sostituzione, segno e unità. x′ = a cos(θ) - b sin(θ). Con Ascissa iniziale (a)=1 u.l.; Ordinata iniziale (b)=0 u.l. e Rotazione θ=1,5708 rad, il risultato è 0 u.l.. Conserva le unità e arrotonda solo alla fine."
+          "text": "8",
+          "feedback": "Esatto: 4 rotazioni e 4 riflessioni."
         },
         {
           "id": "C",
-          "text": "0 u.l.",
-          "feedback": "x′ = a cos(θ) - b sin(θ). Con Ascissa iniziale (a)=1 u.l.; Ordinata iniziale (b)=0 u.l. e Rotazione θ=1,5708 rad, il risultato è 0 u.l.. Conserva le unità e arrotonda solo alla fine."
+          "text": "2",
+          "feedback": "Gli assi delle diagonali sono solo una parte delle simmetrie."
+        },
+        {
+          "id": "D",
+          "text": "Infinite",
+          "feedback": "Infinite simmetrie le ha il cerchio."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 1.5707963267948966,
-        "parameters": {
-          "a": 1,
-          "b": 0
-        },
-        "expected": 0,
-        "unit": "u.l."
-      }
+      "correct": "B"
     },
     {
-      "id": "math-p06-transfer",
-      "prompt": "Trasferimento: Ascissa iniziale (a)=2 u.l.; Ordinata iniziale (b)=0 u.l.. Per Rotazione θ=1,5708 rad, quanto vale Ascissa ruotata?",
+      "id": "math-p06-q3",
+      "prompt": "Due riflessioni rispetto a rette che si incontrano con un angolo di 30° equivalgono a:",
       "options": [
         {
           "id": "A",
-          "text": "-1,00000e-8 u.l.",
-          "feedback": "Controlla sostituzione, segno e unità. x′ = a cos(θ) - b sin(θ). Con Ascissa iniziale (a)=2 u.l.; Ordinata iniziale (b)=0 u.l. e Rotazione θ=1,5708 rad, il risultato è 1,22465e-16 u.l.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Una riflessione",
+          "feedback": "Due riflessioni capovolgono due volte l’orientamento: il risultato lo conserva."
         },
         {
           "id": "B",
-          "text": "1,22465e-16 u.l.",
-          "feedback": "x′ = a cos(θ) - b sin(θ). Con Ascissa iniziale (a)=2 u.l.; Ordinata iniziale (b)=0 u.l. e Rotazione θ=1,5708 rad, il risultato è 1,22465e-16 u.l.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Una traslazione",
+          "feedback": "Si ottiene una traslazione con rette parallele."
         },
         {
           "id": "C",
-          "text": "1,00000e-8 u.l.",
-          "feedback": "Questo valore non soddisfa la relazione. x′ = a cos(θ) - b sin(θ). Con Ascissa iniziale (a)=2 u.l.; Ordinata iniziale (b)=0 u.l. e Rotazione θ=1,5708 rad, il risultato è 1,22465e-16 u.l.. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 1.5707963267948966,
-        "parameters": {
-          "a": 2,
-          "b": 0
-        },
-        "expected": 1.2246467991473532e-16,
-        "unit": "u.l."
-      }
-    },
-    {
-      "id": "math-p06-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto."
+          "text": "Una rotazione di 60°",
+          "feedback": "Esatto: l’angolo di rotazione è il doppio dell’angolo tra le rette."
         },
         {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto."
-        },
-        {
-          "id": "C",
-          "text": "Rotazioni piane euclidee",
-          "feedback": "Il modello usa rotazioni piane euclidee. La camera 3D è un ulteriore strumento di osservazione, distinto dalla rotazione matematica del punto."
+          "id": "D",
+          "text": "Una rotazione di 30°",
+          "feedback": "L’angolo di rotazione è doppio: 60°."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "math-p06-q4",
+      "prompt": "Quale proprietà conserva una rotazione?",
+      "options": [
+        {
+          "id": "A",
+          "text": "La posizione dei punti",
+          "feedback": "Quasi tutti i punti si spostano; resta fermo il centro."
+        },
+        {
+          "id": "B",
+          "text": "La direzione dei segmenti",
+          "feedback": "Le direzioni ruotano dello stesso angolo."
+        },
+        {
+          "id": "C",
+          "text": "Le coordinate x",
+          "feedback": "Le coordinate dei punti cambiano, tranne quelle del centro."
+        },
+        {
+          "id": "D",
+          "text": "Le distanze tra i punti",
+          "feedback": "Esatto: la rotazione è un’isometria e conserva le distanze."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "math-p06-q5",
+      "prompt": "Un’omotetia di rapporto 3 trasforma un quadrato di area 2 cm² in un quadrato di area:",
+      "options": [
+        {
+          "id": "A",
+          "text": "18 cm²",
+          "feedback": "Esatto: le aree si moltiplicano per 3² = 9."
+        },
+        {
+          "id": "B",
+          "text": "6 cm²",
+          "feedback": "Le lunghezze si triplicano, le aree si moltiplicano per 9."
+        },
+        {
+          "id": "C",
+          "text": "54 cm²",
+          "feedback": "27 = 3³ è il fattore dei volumi."
+        },
+        {
+          "id": "D",
+          "text": "2 cm²",
+          "feedback": "L’omotetia cambia le dimensioni."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-p06-q6",
+      "prompt": "Nel laboratorio, con il punto (a; b), che ampiezza ha la sinusoide di x′?",
+      "options": [
+        {
+          "id": "A",
+          "text": "a",
+          "feedback": "L’ampiezza dipende da entrambe le coordinate."
+        },
+        {
+          "id": "B",
+          "text": "√(a² + b²), la distanza del punto dall’origine",
+          "feedback": "Esatto: la rotazione conserva questa distanza."
+        },
+        {
+          "id": "C",
+          "text": "a + b",
+          "feedback": "Con (1; 1) l’ampiezza è √2 ≈ 1,41, non 2."
+        },
+        {
+          "id": "D",
+          "text": "2π",
+          "feedback": "2π è il periodo, non l’ampiezza."
+        }
+      ],
+      "correct": "B"
     }
   ]
 }

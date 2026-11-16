@@ -5,14 +5,15 @@
   "title": "Scala, energia, equilibrio e trasformazioni",
   "sector": 0,
   "modelId": "math-p11",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Corpo uniforme e ambiente costante",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Leggi di scala, controllo dimensionale, legge di raffreddamento di Newton e avvicinamento all’equilibrio",
+  "narrativeStatus": "Il laboratorio e le misure sono immaginari; la legge di Newton e le leggi di scala sono reali.",
   "objectives": [
-    "Spiegare: corpo uniforme e ambiente costante.",
-    "Applicare T = b+(80-b) exp(-a t), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Applicare le leggi di scala a superfici e volumi.",
+    "Controllare una formula con l’analisi dimensionale.",
+    "Usare la legge di Newton e interpretarne i parametri.",
+    "Stimare tasso e temperatura ambiente adattando il modello ai dati."
   ],
   "prerequisites": [
     "math-c06",
@@ -20,11 +21,11 @@
     "math-p07"
   ],
   "connections": [
-    "physics-19"
+    "math-p12"
   ],
   "sources": [
-    "precalculus",
-    "calculus"
+    "calculus",
+    "physics2"
   ],
   "originalSource": {
     "id": "math-2026",
@@ -40,250 +41,442 @@
   },
   "glossary": [
     {
-      "term": "Tempo t",
-      "definition": "Variabile indipendente, unità min; intervallo [0; 20]."
+      "term": "Legge di scala",
+      "definition": "Relazione che descrive come una grandezza cambia con le dimensioni, per esempio le superfici come L²."
     },
     {
-      "term": "Temperatura",
-      "definition": "Risultato calcolato dal modello, unità °C."
+      "term": "Analisi dimensionale",
+      "definition": "Controllo che i due membri di un’uguaglianza abbiano le stesse unità."
     },
     {
-      "term": "Tasso a",
-      "definition": "Parametro a, unità 1/min; intervallo [0,05; 0,5]."
+      "term": "Legge di Newton del raffreddamento",
+      "definition": "La velocità di raffreddamento è proporzionale alla differenza di temperatura dall’ambiente."
     },
     {
-      "term": "Ambiente b",
-      "definition": "Parametro b, unità °C; intervallo [0; 40]."
+      "term": "Tempo caratteristico",
+      "definition": "1/a: tempo in cui la differenza si riduce al 37% circa."
+    },
+    {
+      "term": "Equilibrio",
+      "definition": "Stato in cui le grandezze non cambiano più; qui T uguale alla temperatura ambiente."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Il tè che si raffredda",
       "text": {
         "base": [
-          "Un contenitore caldo viene lasciato in un ambiente più freddo. Il raffreddamento rallenta avvicinandosi alla temperatura esterna. Una retta a pendenza costante non descrive questo comportamento.",
-          "Nel modello di raffreddamento lineare, la velocità di variazione della temperatura è proporzionale alla differenza rispetto all’ambiente. La differenza decade esponenzialmente; la temperatura tende a un riferimento, non necessariamente a zero."
+          "Una tazza di tè a 80 °C viene lasciata nel laboratorio della stazione. Si raffredda in fretta all’inizio e sempre più lentamente avvicinandosi alla temperatura della stanza. Le stesse leggi di scala e di avvicinamento all’equilibrio spiegano perché gli animali piccoli si raffreddano prima di quelli grandi e quanto tempo serve a un sistema per stabilizzarsi.",
+          "Le leggi di scala dicono come cambiano le grandezze quando cambiano le dimensioni. Se si raddoppiano tutte le lunghezze di un oggetto, la superficie diventa 4 volte più grande e il volume 8 volte. Il rapporto superficie su volume si dimezza: un oggetto più grande ha meno superficie per unità di volume, e quindi scambia calore più lentamente rispetto alla sua massa. Per questo un topo deve produrre molto più calore per grammo di un elefante."
         ],
         "intermediate": [
-          "Un contenitore caldo viene lasciato in un ambiente più freddo. Il raffreddamento rallenta avvicinandosi alla temperatura esterna. Una retta a pendenza costante non descrive questo comportamento.",
-          "La legge T(t)=b+(80-b)exp(-at) risolve dT/dt=-a(T-b), con T(0)=80. Il parametro a ha dimensione di inverso del tempo, mentre b è la temperatura ambiente."
+          "Una tazza di tè a 80 °C viene lasciata nel laboratorio della stazione. Si raffredda in fretta all’inizio e sempre più lentamente avvicinandosi alla temperatura della stanza. Le stesse leggi di scala e di avvicinamento all’equilibrio spiegano perché gli animali piccoli si raffreddano prima di quelli grandi e quanto tempo serve a un sistema per stabilizzarsi.",
+          "Le leggi di scala dicono come cambiano le grandezze quando cambiano le dimensioni. Se si raddoppiano tutte le lunghezze di un oggetto, la superficie diventa 4 volte più grande e il volume 8 volte. Il rapporto superficie su volume si dimezza: un oggetto più grande ha meno superficie per unità di volume, e quindi scambia calore più lentamente rispetto alla sua massa. Per questo un topo deve produrre molto più calore per grammo di un elefante.",
+          "L’analisi dimensionale controlla le formule: i due membri di un’uguaglianza fisica devono avere le stesse unità. Nell’esponente di un esponenziale ci può essere solo un numero puro: in e^(−at), se t è in minuti, a deve essere in 1/minuto."
         ],
         "advanced": [
-          "Un contenitore caldo viene lasciato in un ambiente più freddo. Il raffreddamento rallenta avvicinandosi alla temperatura esterna. Una retta a pendenza costante non descrive questo comportamento.",
-          "Riscrivi l’equazione usando la temperatura normalizzata (T-b)/(80-b). Confronta sistemi con a diversi usando il tempo adimensionale at.",
-          "Il corpo è trattato come termicamente uniforme e l’ambiente come costante. Il modello non risolve conduzione interna, cambi di fase o scambio radiativo esatto."
+          "Una tazza di tè a 80 °C viene lasciata nel laboratorio della stazione. Si raffredda in fretta all’inizio e sempre più lentamente avvicinandosi alla temperatura della stanza. Le stesse leggi di scala e di avvicinamento all’equilibrio spiegano perché gli animali piccoli si raffreddano prima di quelli grandi e quanto tempo serve a un sistema per stabilizzarsi.",
+          "Le leggi di scala dicono come cambiano le grandezze quando cambiano le dimensioni. Se si raddoppiano tutte le lunghezze di un oggetto, la superficie diventa 4 volte più grande e il volume 8 volte. Il rapporto superficie su volume si dimezza: un oggetto più grande ha meno superficie per unità di volume, e quindi scambia calore più lentamente rispetto alla sua massa. Per questo un topo deve produrre molto più calore per grammo di un elefante.",
+          "L’analisi dimensionale controlla le formule: i due membri di un’uguaglianza fisica devono avere le stesse unità. Nell’esponente di un esponenziale ci può essere solo un numero puro: in e^(−at), se t è in minuti, a deve essere in 1/minuto."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Legge di Newton ed equilibrio",
       "text": {
         "base": [
-          "Nel modello di raffreddamento lineare, la velocità di variazione della temperatura è proporzionale alla differenza rispetto all’ambiente. La differenza decade esponenzialmente; la temperatura tende a un riferimento, non necessariamente a zero.",
-          "Con b=20 °C e a=0,2 min⁻¹, il corpo parte da 80 °C. Dopo 5 minuti la differenza iniziale di 60 °C è ridotta a 60/e≈22,07 °C e T≈42,07 °C."
+          "La legge di raffreddamento di Newton afferma che la velocità con cui un corpo si raffredda è proporzionale alla differenza tra la sua temperatura e quella dell’ambiente. La soluzione è T(t) = b + (T₀ − b)e^(−at): b è la temperatura ambiente, T₀ quella iniziale, a il tasso di scambio. Nel modello del laboratorio T₀ = 80 °C.",
+          "La differenza T − b decresce in modo esponenziale: dopo un tempo 1/a si riduce a circa il 37% (1/e), dopo ln 2/a si dimezza. Con a = 0,2 al minuto e ambiente a 20 °C, la differenza iniziale di 60 °C si dimezza in circa 3,5 minuti: dopo 3,5 minuti il tè è a circa 50 °C, dopo 7 minuti a circa 35 °C. Il tè non raggiunge mai esattamente la temperatura ambiente, e ci si avvicina quanto si vuole.",
+          "L’equilibrio è lo stato in cui le grandezze smettono di cambiare: qui T = b, dove la differenza e quindi lo scambio di calore si annullano. Molti sistemi si avvicinano all’equilibrio allo stesso modo esponenziale: un condensatore che si carica, un farmaco che si elimina, una popolazione disturbata che torna al suo livello."
         ],
         "intermediate": [
-          "La legge T(t)=b+(80-b)exp(-at) risolve dT/dt=-a(T-b), con T(0)=80. Il parametro a ha dimensione di inverso del tempo, mentre b è la temperatura ambiente.",
-          "La variabile Tempo t è espressa in min; Temperatura in °C. Il dominio dello strumento è [0; 20]. La relazione implementata è: T = b+(80-b) exp(-a t).",
-          "Con b=20 °C e a=0,2 min⁻¹, il corpo parte da 80 °C. Dopo 5 minuti la differenza iniziale di 60 °C è ridotta a 60/e≈22,07 °C e T≈42,07 °C."
+          "La legge di raffreddamento di Newton afferma che la velocità con cui un corpo si raffredda è proporzionale alla differenza tra la sua temperatura e quella dell’ambiente. La soluzione è T(t) = b + (T₀ − b)e^(−at): b è la temperatura ambiente, T₀ quella iniziale, a il tasso di scambio. Nel modello del laboratorio T₀ = 80 °C.",
+          "La differenza T − b decresce in modo esponenziale: dopo un tempo 1/a si riduce a circa il 37% (1/e), dopo ln 2/a si dimezza. Con a = 0,2 al minuto e ambiente a 20 °C, la differenza iniziale di 60 °C si dimezza in circa 3,5 minuti: dopo 3,5 minuti il tè è a circa 50 °C, dopo 7 minuti a circa 35 °C. Il tè non raggiunge mai esattamente la temperatura ambiente, e ci si avvicina quanto si vuole.",
+          "Un modo pratico di stimare a dai dati: si calcola ln(T − b). Se la legge vale, questi valori stanno su una retta di pendenza −a in funzione del tempo. È la trasformazione logaritmica che rende lineare un esponenziale, usata in tutte le scienze.",
+          "L’equilibrio è lo stato in cui le grandezze smettono di cambiare: qui T = b, dove la differenza e quindi lo scambio di calore si annullano. Molti sistemi si avvicinano all’equilibrio allo stesso modo esponenziale: un condensatore che si carica, un farmaco che si elimina, una popolazione disturbata che torna al suo livello."
         ],
         "advanced": [
-          "La legge T(t)=b+(80-b)exp(-at) risolve dT/dt=-a(T-b), con T(0)=80. Il parametro a ha dimensione di inverso del tempo, mentre b è la temperatura ambiente.",
-          "Riscrivi l’equazione usando la temperatura normalizzata (T-b)/(80-b). Confronta sistemi con a diversi usando il tempo adimensionale at.",
-          "Una costante esponenziale non può avere unità arbitrarie: at deve essere adimensionale. La temperatura di equilibrio è b, non il valore iniziale moltiplicato per zero."
+          "La legge di raffreddamento di Newton afferma che la velocità con cui un corpo si raffredda è proporzionale alla differenza tra la sua temperatura e quella dell’ambiente. La soluzione è T(t) = b + (T₀ − b)e^(−at): b è la temperatura ambiente, T₀ quella iniziale, a il tasso di scambio. Nel modello del laboratorio T₀ = 80 °C.",
+          "La differenza T − b decresce in modo esponenziale: dopo un tempo 1/a si riduce a circa il 37% (1/e), dopo ln 2/a si dimezza. Con a = 0,2 al minuto e ambiente a 20 °C, la differenza iniziale di 60 °C si dimezza in circa 3,5 minuti: dopo 3,5 minuti il tè è a circa 50 °C, dopo 7 minuti a circa 35 °C. Il tè non raggiunge mai esattamente la temperatura ambiente, e ci si avvicina quanto si vuole.",
+          "Un modo pratico di stimare a dai dati: si calcola ln(T − b). Se la legge vale, questi valori stanno su una retta di pendenza −a in funzione del tempo. È la trasformazione logaritmica che rende lineare un esponenziale, usata in tutte le scienze.",
+          "L’equilibrio è lo stato in cui le grandezze smettono di cambiare: qui T = b, dove la differenza e quindi lo scambio di calore si annullano. Molti sistemi si avvicinano all’equilibrio allo stesso modo esponenziale: un condensatore che si carica, un farmaco che si elimina, una popolazione disturbata che torna al suo livello."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Adatta la legge alle misure",
       "text": {
         "base": [
-          "Nel laboratorio imposta Tasso a (a): 0,2 1/min; Ambiente b (b): 20 °C. Prima di salvare A, prevedi come cambia Temperatura fra Tempo t=5 e 10 min. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con b=20 °C e a=0,2 min⁻¹, il corpo parte da 80 °C. Dopo 5 minuti la differenza iniziale di 60 °C è ridotta a 60/e≈22,07 °C e T≈42,07 °C.",
-          "La variabile Tempo t è espressa in min; Temperatura in °C. Il dominio dello strumento è [0; 20]. La relazione implementata è: T = b+(80-b) exp(-a t)."
+          "L’attività chiede di adattare la legge di Newton alle misure di temperatura. Nella prima serie regoli il tasso a con la temperatura ambiente nota; nella seconda la temperatura ambiente b con il tasso noto; nella terza entrambi. Per completare l’attività supera due serie su tre.",
+          "I punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare. Lo scarto quadratico medio, la radice della media dei quadrati delle differenze tra modello e misure, dice quanto la curva si allontana dai punti. Quando pensi di aver trovato i parametri migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce una direzione.",
+          "La temperatura ambiente si legge dalla quota a cui i punti si stabilizzano alla fine; il tasso dalla rapidità della discesa iniziale: più a è grande, più la curva scende in fretta."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Tasso a (a): 0,2 1/min; Ambiente b (b): 20 °C. Prima di salvare A, prevedi come cambia Temperatura fra Tempo t=5 e 10 min. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Tempo t è espressa in min; Temperatura in °C. Il dominio dello strumento è [0; 20]. La relazione implementata è: T = b+(80-b) exp(-a t).",
-          "La legge T(t)=b+(80-b)exp(-at) risolve dT/dt=-a(T-b), con T(0)=80. Il parametro a ha dimensione di inverso del tempo, mentre b è la temperatura ambiente."
+          "L’attività chiede di adattare la legge di Newton alle misure di temperatura. Nella prima serie regoli il tasso a con la temperatura ambiente nota; nella seconda la temperatura ambiente b con il tasso noto; nella terza entrambi. Per completare l’attività supera due serie su tre.",
+          "I punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare. Lo scarto quadratico medio, la radice della media dei quadrati delle differenze tra modello e misure, dice quanto la curva si allontana dai punti. Quando pensi di aver trovato i parametri migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce una direzione.",
+          "La temperatura ambiente si legge dalla quota a cui i punti si stabilizzano alla fine; il tasso dalla rapidità della discesa iniziale: più a è grande, più la curva scende in fretta."
         ],
         "advanced": [
-          "Nel laboratorio imposta Tasso a (a): 0,2 1/min; Ambiente b (b): 20 °C. Prima di salvare A, prevedi come cambia Temperatura fra Tempo t=5 e 10 min. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Riscrivi l’equazione usando la temperatura normalizzata (T-b)/(80-b). Confronta sistemi con a diversi usando il tempo adimensionale at.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività chiede di adattare la legge di Newton alle misure di temperatura. Nella prima serie regoli il tasso a con la temperatura ambiente nota; nella seconda la temperatura ambiente b con il tasso noto; nella terza entrambi. Per completare l’attività supera due serie su tre.",
+          "I punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare. Lo scarto quadratico medio, la radice della media dei quadrati delle differenze tra modello e misure, dice quanto la curva si allontana dai punti. Quando pensi di aver trovato i parametri migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce una direzione.",
+          "La temperatura ambiente si legge dalla quota a cui i punti si stabilizzano alla fine; il tasso dalla rapidità della discesa iniziale: più a è grande, più la curva scende in fretta.",
+          "Un modo pratico di stimare a dai dati: si calcola ln(T − b). Se la legge vale, questi valori stanno su una retta di pendenza −a in funzione del tempo. È la trasformazione logaritmica che rende lineare un esponenziale, usata in tutte le scienze."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e limiti",
       "text": {
         "base": [
-          "Una costante esponenziale non può avere unità arbitrarie: at deve essere adimensionale. La temperatura di equilibrio è b, non il valore iniziale moltiplicato per zero.",
-          "Il corpo è trattato come termicamente uniforme e l’ambiente come costante. Il modello non risolve conduzione interna, cambi di fase o scambio radiativo esatto.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che il raffreddamento sia lineare, con lo stesso numero di gradi persi ogni minuto. La velocità di raffreddamento diminuisce con la differenza di temperatura: all’inizio si perdono molti gradi al minuto, alla fine pochissimi.",
+          "Secondo errore: applicare la legge di Newton fuori dalle sue ipotesi. Vale bene per differenze moderate e scambi per conduzione e convezione; con forti irraggiamenti o cambiamenti di stato, come l’acqua che congela, il comportamento cambia.",
+          "L’analisi dimensionale controlla le formule: i due membri di un’uguaglianza fisica devono avere le stesse unità. Nell’esponente di un esponenziale ci può essere solo un numero puro: in e^(−at), se t è in minuti, a deve essere in 1/minuto."
         ],
         "intermediate": [
-          "Una costante esponenziale non può avere unità arbitrarie: at deve essere adimensionale. La temperatura di equilibrio è b, non il valore iniziale moltiplicato per zero.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che il raffreddamento sia lineare, con lo stesso numero di gradi persi ogni minuto. La velocità di raffreddamento diminuisce con la differenza di temperatura: all’inizio si perdono molti gradi al minuto, alla fine pochissimi.",
+          "Secondo errore: applicare la legge di Newton fuori dalle sue ipotesi. Vale bene per differenze moderate e scambi per conduzione e convezione; con forti irraggiamenti o cambiamenti di stato, come l’acqua che congela, il comportamento cambia."
         ],
         "advanced": [
-          "Il corpo è trattato come termicamente uniforme e l’ambiente come costante. Il modello non risolve conduzione interna, cambi di fase o scambio radiativo esatto.",
-          "Riscrivi l’equazione usando la temperatura normalizzata (T-b)/(80-b). Confronta sistemi con a diversi usando il tempo adimensionale at.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che il raffreddamento sia lineare, con lo stesso numero di gradi persi ogni minuto. La velocità di raffreddamento diminuisce con la differenza di temperatura: all’inizio si perdono molti gradi al minuto, alla fine pochissimi.",
+          "Secondo errore: applicare la legge di Newton fuori dalle sue ipotesi. Vale bene per differenze moderate e scambi per conduzione e convezione; con forti irraggiamenti o cambiamenti di stato, come l’acqua che congela, il comportamento cambia.",
+          "L’equilibrio è lo stato in cui le grandezze smettono di cambiare: qui T = b, dove la differenza e quindi lo scambio di calore si annullano. Molti sistemi si avvicinano all’equilibrio allo stesso modo esponenziale: un condensatore che si carica, un farmaco che si elimina, una popolazione disturbata che torna al suo livello."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Nel modello di raffreddamento lineare, la velocità di variazione della temperatura è proporzionale alla differenza rispetto all’ambiente. La differenza decade esponenzialmente; la temperatura tende a un riferimento, non necessariamente a zero.",
-          "Con b=20 °C e a=0,2 min⁻¹, il corpo parte da 80 °C. Dopo 5 minuti la differenza iniziale di 60 °C è ridotta a 60/e≈22,07 °C e T≈42,07 °C."
+          "Ripasso: leggi di scala per superfici e volumi; controllo dimensionale; legge di Newton e sua soluzione; tempo caratteristico 1/a e tempo di dimezzamento della differenza; linearizzazione con il logaritmo; concetto di equilibrio.",
+          "Mini esercizio: con ambiente a 20 °C e a = 0,1 al minuto, la differenza di 60 °C si dimezza in ln 2/0,1 ≈ 6,9 minuti.",
+          "Nelle domande con la legge di Newton lavora sempre sulla differenza T − b."
         ],
         "intermediate": [
-          "La legge T(t)=b+(80-b)exp(-at) risolve dT/dt=-a(T-b), con T(0)=80. Il parametro a ha dimensione di inverso del tempo, mentre b è la temperatura ambiente.",
-          "La variabile Tempo t è espressa in min; Temperatura in °C. Il dominio dello strumento è [0; 20]. La relazione implementata è: T = b+(80-b) exp(-a t)."
+          "Ripasso: leggi di scala per superfici e volumi; controllo dimensionale; legge di Newton e sua soluzione; tempo caratteristico 1/a e tempo di dimezzamento della differenza; linearizzazione con il logaritmo; concetto di equilibrio.",
+          "Mini esercizio: con ambiente a 20 °C e a = 0,1 al minuto, la differenza di 60 °C si dimezza in ln 2/0,1 ≈ 6,9 minuti.",
+          "Nelle domande con la legge di Newton lavora sempre sulla differenza T − b."
         ],
         "advanced": [
-          "Riscrivi l’equazione usando la temperatura normalizzata (T-b)/(80-b). Confronta sistemi con a diversi usando il tempo adimensionale at.",
-          "Il corpo è trattato come termicamente uniforme e l’ambiente come costante. Il modello non risolve conduzione interna, cambi di fase o scambio radiativo esatto."
+          "Ripasso: leggi di scala per superfici e volumi; controllo dimensionale; legge di Newton e sua soluzione; tempo caratteristico 1/a e tempo di dimezzamento della differenza; linearizzazione con il logaritmo; concetto di equilibrio.",
+          "Mini esercizio: con ambiente a 20 °C e a = 0,1 al minuto, la differenza di 60 °C si dimezza in ln 2/0,1 ≈ 6,9 minuti.",
+          "Nelle domande con la legge di Newton lavora sempre sulla differenza T − b."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Corpo uniforme e ambiente costante.",
-          "Il corpo è trattato come termicamente uniforme e l’ambiente come costante. Il modello non risolve conduzione interna, cambi di fase o scambio radiativo esatto.",
-          "Collegamento consigliato: physics-19. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Lo stesso avvicinamento esponenziale all’equilibrio torna in chimica, nella cinetica, in biologia, nell’omeostasi e nell’eliminazione dei farmaci, e in fisica, nella carica di un condensatore.",
+          "Riepilogo dell’unità: superfici e volumi scalano con il quadrato e il cubo delle lunghezze; nella legge di Newton la differenza di temperatura decresce in modo esponenziale; 1/a è il tempo caratteristico e ln 2/a il tempo di dimezzamento della differenza; l’equilibrio si raggiunge in modo asintotico.",
+          "Nel diario scrivi i parametri trovati nelle serie dell’attività e calcola dopo quanto tempo la differenza dall’ambiente si dimezza."
         ],
         "intermediate": [
-          "La legge T(t)=b+(80-b)exp(-at) risolve dT/dt=-a(T-b), con T(0)=80. Il parametro a ha dimensione di inverso del tempo, mentre b è la temperatura ambiente.",
-          "Il corpo è trattato come termicamente uniforme e l’ambiente come costante. Il modello non risolve conduzione interna, cambi di fase o scambio radiativo esatto.",
-          "Riscrivi l’equazione usando la temperatura normalizzata (T-b)/(80-b). Confronta sistemi con a diversi usando il tempo adimensionale at."
+          "Lo stesso avvicinamento esponenziale all’equilibrio torna in chimica, nella cinetica, in biologia, nell’omeostasi e nell’eliminazione dei farmaci, e in fisica, nella carica di un condensatore.",
+          "Riepilogo dell’unità: superfici e volumi scalano con il quadrato e il cubo delle lunghezze; nella legge di Newton la differenza di temperatura decresce in modo esponenziale; 1/a è il tempo caratteristico e ln 2/a il tempo di dimezzamento della differenza; l’equilibrio si raggiunge in modo asintotico.",
+          "Nel diario scrivi i parametri trovati nelle serie dell’attività e calcola dopo quanto tempo la differenza dall’ambiente si dimezza."
         ],
         "advanced": [
-          "Riscrivi l’equazione usando la temperatura normalizzata (T-b)/(80-b). Confronta sistemi con a diversi usando il tempo adimensionale at.",
-          "Il corpo è trattato come termicamente uniforme e l’ambiente come costante. Il modello non risolve conduzione interna, cambi di fase o scambio radiativo esatto.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Lo stesso avvicinamento esponenziale all’equilibrio torna in chimica, nella cinetica, in biologia, nell’omeostasi e nell’eliminazione dei farmaci, e in fisica, nella carica di un condensatore.",
+          "Riepilogo dell’unità: superfici e volumi scalano con il quadrato e il cubo delle lunghezze; nella legge di Newton la differenza di temperatura decresce in modo esponenziale; 1/a è il tempo caratteristico e ln 2/a il tempo di dimezzamento della differenza; l’equilibrio si raggiunge in modo asintotico.",
+          "Nel diario scrivi i parametri trovati nelle serie dell’attività e calcola dopo quanto tempo la differenza dall’ambiente si dimezza."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-p11-concept",
-      "prompt": "Per a>0, la temperatura tende a:",
+      "id": "math-p11-q1",
+      "prompt": "Se si triplicano tutte le lunghezze di un oggetto, il volume:",
       "options": [
         {
           "id": "A",
-          "text": "Sempre 80 °C",
-          "feedback": "La legge T(t)=b+(80-b)exp(-at) risolve dT/dt=-a(T-b), con T(0)=80. Il parametro a ha dimensione di inverso del tempo, mentre b è la temperatura ambiente."
+          "text": "Triplica",
+          "feedback": "Triplica una lunghezza; il volume dipende da tre lunghezze."
         },
         {
           "id": "B",
-          "text": "La temperatura ambiente b",
-          "feedback": "Nel modello di raffreddamento lineare, la velocità di variazione della temperatura è proporzionale alla differenza rispetto all’ambiente. La differenza decade esponenzialmente; la temperatura tende a un riferimento, non necessariamente a zero."
+          "text": "Diventa 9 volte maggiore",
+          "feedback": "9 è il fattore delle superfici."
         },
         {
           "id": "C",
-          "text": "Sempre 0 °C",
-          "feedback": "Una costante esponenziale non può avere unità arbitrarie: at deve essere adimensionale. La temperatura di equilibrio è b, non il valore iniziale moltiplicato per zero."
+          "text": "Diventa 27 volte maggiore",
+          "feedback": "Esatto: il volume dipende da tre lunghezze, e 3³ = 27."
+        },
+        {
+          "id": "D",
+          "text": "Resta uguale",
+          "feedback": "Ingrandendo un oggetto il volume cambia."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "math-p11-q2",
+      "prompt": "Perché un topo si raffredda più in fretta di un elefante, a parità di temperatura?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché ha più superficie per unità di volume",
+          "feedback": "Esatto: il rapporto superficie su volume cresce al diminuire delle dimensioni."
+        },
+        {
+          "id": "B",
+          "text": "Perché ha il pelo più corto",
+          "feedback": "Il pelo conta, ma la ragione principale è geometrica."
+        },
+        {
+          "id": "C",
+          "text": "Perché ha meno superficie in assoluto",
+          "feedback": "Ha meno superficie in assoluto, e ancora meno volume: conta il rapporto."
+        },
+        {
+          "id": "D",
+          "text": "Perché pesa di più",
+          "feedback": "Il topo pesa molto meno dell’elefante."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-p11-q3",
+      "prompt": "Nella legge T = b + (80 − b)e^(−at), che cosa rappresenta b?",
+      "options": [
+        {
+          "id": "A",
+          "text": "La temperatura iniziale",
+          "feedback": "La temperatura iniziale è 80 °C, il valore in t = 0."
+        },
+        {
+          "id": "B",
+          "text": "La temperatura ambiente, a cui T si avvicina",
+          "feedback": "Esatto: per t grande l’esponenziale tende a zero e resta b."
+        },
+        {
+          "id": "C",
+          "text": "Il tasso di raffreddamento",
+          "feedback": "Il tasso di raffreddamento è a, non b."
+        },
+        {
+          "id": "D",
+          "text": "Il tempo di dimezzamento",
+          "feedback": "Il tempo di dimezzamento della differenza è ln 2/a."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "math-p11-calculation",
-      "prompt": "Calcolo: Tasso a (a)=0,2 1/min; Ambiente b (b)=20 °C. Per Tempo t=0 min, quanto vale Temperatura?",
+      "id": "math-p11-q4",
+      "prompt": "Con ambiente a 20 °C, tè a 80 °C e a = 0,2 al minuto, quanto vale circa T dopo ln 2/0,2 ≈ 3,5 minuti?",
       "options": [
         {
           "id": "A",
-          "text": "80 °C",
-          "feedback": "T = b+(80-b) exp(-a t). Con Tasso a (a)=0,2 1/min; Ambiente b (b)=20 °C e Tempo t=0 min, il risultato è 80 °C. Conserva le unità e arrotonda solo alla fine."
+          "text": "40 °C",
+          "feedback": "40 °C sarebbe metà della temperatura iniziale; si dimezza la differenza dall’ambiente."
         },
         {
           "id": "B",
-          "text": "120 °C",
-          "feedback": "Questo valore non soddisfa la relazione. T = b+(80-b) exp(-a t). Con Tasso a (a)=0,2 1/min; Ambiente b (b)=20 °C e Tempo t=0 min, il risultato è 80 °C. Conserva le unità e arrotonda solo alla fine."
+          "text": "20 °C",
+          "feedback": "20 °C è l’ambiente, raggiunto solo asintoticamente."
         },
         {
           "id": "C",
-          "text": "40 °C",
-          "feedback": "Controlla sostituzione, segno e unità. T = b+(80-b) exp(-a t). Con Tasso a (a)=0,2 1/min; Ambiente b (b)=20 °C e Tempo t=0 min, il risultato è 80 °C. Conserva le unità e arrotonda solo alla fine."
+          "text": "70 °C",
+          "feedback": "In 3,5 minuti il tè perde la metà della differenza, 30 °C."
+        },
+        {
+          "id": "D",
+          "text": "50 °C",
+          "feedback": "Esatto: la differenza passa da 60 a 30 °C, e 20 + 30 = 50."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 0.2,
-          "b": 20
-        },
-        "expected": 80,
-        "unit": "°C"
-      }
+      "correct": "D"
     },
     {
-      "id": "math-p11-transfer",
-      "prompt": "Trasferimento: Tasso a (a)=0,25 1/min; Ambiente b (b)=20 °C. Per Tempo t=0 min, quanto vale Temperatura?",
+      "id": "math-p11-q5",
+      "prompt": "In e^(−at), con t in minuti, che unità ha a?",
       "options": [
         {
           "id": "A",
-          "text": "120 °C",
-          "feedback": "Questo valore non soddisfa la relazione. T = b+(80-b) exp(-a t). Con Tasso a (a)=0,25 1/min; Ambiente b (b)=20 °C e Tempo t=0 min, il risultato è 80 °C. Conserva le unità e arrotonda solo alla fine."
+          "text": "1/minuto",
+          "feedback": "Esatto: l’esponente deve essere un numero puro."
         },
         {
           "id": "B",
-          "text": "40 °C",
-          "feedback": "Controlla sostituzione, segno e unità. T = b+(80-b) exp(-a t). Con Tasso a (a)=0,25 1/min; Ambiente b (b)=20 °C e Tempo t=0 min, il risultato è 80 °C. Conserva le unità e arrotonda solo alla fine."
+          "text": "Minuti",
+          "feedback": "Il prodotto at sarebbe in minuti al quadrato."
         },
         {
           "id": "C",
-          "text": "80 °C",
-          "feedback": "T = b+(80-b) exp(-a t). Con Tasso a (a)=0,25 1/min; Ambiente b (b)=20 °C e Tempo t=0 min, il risultato è 80 °C. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "C",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 0.25,
-          "b": 20
-        },
-        "expected": 80,
-        "unit": "°C"
-      }
-    },
-    {
-      "id": "math-p11-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Corpo uniforme e ambiente costante",
-          "feedback": "Il corpo è trattato come termicamente uniforme e l’ambiente come costante. Il modello non risolve conduzione interna, cambi di fase o scambio radiativo esatto."
+          "text": "Gradi Celsius",
+          "feedback": "I gradi non compaiono nell’esponente."
         },
         {
-          "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il corpo è trattato come termicamente uniforme e l’ambiente come costante. Il modello non risolve conduzione interna, cambi di fase o scambio radiativo esatto."
-        },
-        {
-          "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il corpo è trattato come termicamente uniforme e l’ambiente come costante. Il modello non risolve conduzione interna, cambi di fase o scambio radiativo esatto."
+          "id": "D",
+          "text": "Nessuna, è sempre adimensionale",
+          "feedback": "a ha le unità inverse del tempo."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "math-p11-q6",
+      "prompt": "Come si riconosce dai dati che il raffreddamento segue la legge di Newton?",
+      "options": [
+        {
+          "id": "A",
+          "text": "La temperatura scende di gradi uguali ogni minuto",
+          "feedback": "Questo sarebbe un raffreddamento lineare."
+        },
+        {
+          "id": "B",
+          "text": "I valori di ln(T − b) stanno su una retta in funzione del tempo",
+          "feedback": "Esatto: il logaritmo trasforma l’esponenziale in una retta di pendenza −a."
+        },
+        {
+          "id": "C",
+          "text": "La temperatura arriva a b in un tempo finito",
+          "feedback": "Nella legge di Newton b si raggiunge solo asintoticamente."
+        },
+        {
+          "id": "D",
+          "text": "La temperatura oscilla attorno a b",
+          "feedback": "Il modello non prevede oscillazioni."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "fit",
+    "goal": 2,
+    "rounds": [
+      {
+        "id": "tasso",
+        "title": "Quanto in fretta?",
+        "prompt": "La stanza è a 20 °C. Regola il tasso a.",
+        "model": "math-p11",
+        "x": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          18
+        ],
+        "noise": [
+          0.3,
+          -0.4,
+          0.2,
+          -0.3,
+          0.4,
+          -0.2,
+          0.3,
+          -0.4,
+          0.2,
+          -0.3
+        ],
+        "hidden": {
+          "a": 0.15,
+          "b": 20
+        },
+        "fit": [
+          "a"
+        ],
+        "explain": "a = 0,15 al minuto: la differenza si dimezza in circa 4,6 minuti."
+      },
+      {
+        "id": "ambiente",
+        "title": "Che temperatura ha la stanza?",
+        "prompt": "Il tasso è noto. Regola la temperatura ambiente b.",
+        "model": "math-p11",
+        "x": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          18,
+          20
+        ],
+        "noise": [
+          -0.3,
+          0.4,
+          -0.2,
+          0.3,
+          -0.4,
+          0.2,
+          -0.3,
+          0.4,
+          -0.2,
+          0.3,
+          -0.3
+        ],
+        "hidden": {
+          "a": 0.25,
+          "b": 10
+        },
+        "fit": [
+          "b"
+        ],
+        "explain": "b = 10 °C: i punti finali si stabilizzano poco sopra i 10 °C."
+      },
+      {
+        "id": "entrambi",
+        "title": "Tasso e ambiente",
+        "prompt": "Regola sia il tasso sia la temperatura ambiente.",
+        "model": "math-p11",
+        "x": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          18,
+          20
+        ],
+        "noise": [
+          0.4,
+          -0.3,
+          0.3,
+          -0.4,
+          0.2,
+          -0.3,
+          0.4,
+          -0.2,
+          0.3,
+          -0.4,
+          0.2
+        ],
+        "hidden": {
+          "a": 0.3,
+          "b": 25
+        },
+        "fit": [
+          "a",
+          "b"
+        ],
+        "explain": "a = 0,3 al minuto e b = 25 °C: una tazza piccola in una stanza calda."
+      }
+    ]
+  }
 }

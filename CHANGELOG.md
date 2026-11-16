@@ -1,3 +1,13 @@
+# 1.10.0: Tutte le unità di matematica scritte per intero
+
+- Le 25 unità di matematica hanno ora testi scritti a mano ai tre livelli, sei domande commentate, un riepilogo finale e un ripasso guidato con un mini esercizio. Le 21 unità nuove coprono le aree «Algebra ed equazioni», «Funzioni e variazione», «Geometria e trasformazioni», «Probabilità e dati» e «Matematica per le scienze».
+- Due nuovi tipi di attività, scritti nel file dell’unità e controllati al caricamento:
+  - «Adatta il modello ai dati» (`fit`): punti misurati con piccoli scarti fissati, parametri da regolare con − e +, scarto quadratico medio, suggerimento sulla direzione dopo due tentativi. Usato in «Funzioni» (parabola), «Trigonometria» (ampiezza e fase) e «Scala, energia, equilibrio e trasformazioni» (legge di raffreddamento di Newton). Un test verifica che i parametri nascosti siano l’unico minimo dello scarto sulla griglia dei parametri.
+  - «Problema guidato» (`steps`): un calcolo svolto un passaggio alla volta, con il risultato di ogni passaggio che resta scritto e un commento per ogni scelta. Usato in «Equazioni e sistemi», «Complessi», «Esponenziali e logaritmi», «Geometria elementare», «Combinatoria, probabilità e statistica» e «Oscillazioni, molecole e quantizzazione».
+- In ogni area si alternano laboratorio con confronto A/B, carte da classificare o ordinare, problemi guidati e adattamento ai dati.
+- Quando un problema guidato passa al passaggio successivo, l’attività apre la pagina che lo contiene.
+- Atlante dei glifi esteso con ħ, ö, ü, ä.
+
 # 1.9.0: Spiegazioni estese e attività diverse in tre aree
 
 - Undici unità scritte per intero, nelle aree «Numeri e ragionamento», «Legami e molecole» e «Divisione ed ereditarietà». Ogni fase ha spiegazioni complete ai tre livelli, con esempi svolti passo per passo, errori frequenti, limiti del modello e un ripasso guidato prima della verifica; ogni unità ha sei domande con quattro alternative commentate.

@@ -5,14 +5,15 @@
   "title": "Oscillazioni, molecole e quantizzazione",
   "sector": 0,
   "modelId": "math-p12",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Oscillatore armonico quantistico ideale",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Oscillatore armonico classico, approssimazione parabolica, livelli quantizzati e spettri vibrazionali",
+  "narrativeStatus": "Lo spettrometro è immaginario; l’oscillatore armonico e la quantizzazione sono fisica reale.",
   "objectives": [
-    "Spiegare: oscillatore armonico quantistico ideale.",
-    "Applicare E_n = a(n+1/2), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Calcolare pulsazione e periodo di un oscillatore armonico.",
+    "Spiegare perché vicino a un minimo ogni sistema oscilla come una molla.",
+    "Usare i livelli quantizzati E_n = ħω(n + 1/2) e l’energia di punto zero.",
+    "Collegare le transizioni tra livelli alle righe di uno spettro."
   ],
   "prerequisites": [
     "math-p02",
@@ -20,11 +21,11 @@
     "math-p09"
   ],
   "connections": [
-    "chemistry-04"
+    "chemistry-07"
   ],
   "sources": [
-    "precalculus",
-    "calculus"
+    "calculus",
+    "physics3"
   ],
   "originalSource": {
     "id": "math-2026",
@@ -40,244 +41,509 @@
   },
   "glossary": [
     {
-      "term": "Livello n",
-      "definition": "Variabile indipendente, unità 1; intervallo [0; 10]."
+      "term": "Oscillatore armonico",
+      "definition": "Sistema con forza di richiamo F = −kx; oscilla in modo sinusoidale."
     },
     {
-      "term": "Energia",
-      "definition": "Risultato calcolato dal modello, unità u.E.."
+      "term": "Pulsazione",
+      "definition": "ω = √(k/m); il periodo è 2π/ω."
     },
     {
-      "term": "Intervallo a",
-      "definition": "Parametro a, unità u.E.; intervallo [0,5; 3]."
+      "term": "Livelli quantizzati",
+      "definition": "Valori discreti dell’energia; per l’oscillatore E_n = ħω(n + 1/2)."
+    },
+    {
+      "term": "Energia di punto zero",
+      "definition": "Energia del livello più basso, ħω/2, diversa da zero."
+    },
+    {
+      "term": "Transizione",
+      "definition": "Passaggio tra due livelli con assorbimento o emissione di un fotone di energia pari alla differenza."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Molecole che vibrano",
       "text": {
         "base": [
-          "Uno spettro ideale mostra livelli energetici equidistanti. La missione è riconoscere la struttura matematica dei livelli senza immaginare che una particella quantistica percorra semplicemente una piccola orbita classica.",
-          "Nell’oscillatore armonico quantistico ideale, i livelli sono E_n=ℏω(n+1/2), con n intero non negativo. La distanza fra livelli consecutivi è ℏω e lo stato fondamentale ha energia non nulla rispetto al minimo del potenziale classico."
+          "Gli atomi di una molecola non stanno fermi: vibrano attorno alla distanza di equilibrio come masse collegate da molle. Lo spettrometro della stazione misura la luce infrarossa che le molecole assorbono, e trova solo certe energie. Per capirlo bisogna unire l’oscillatore armonico della meccanica con la quantizzazione dell’energia.",
+          "Un oscillatore armonico è un sistema in cui la forza di richiamo è proporzionale allo spostamento: F = −kx, come in una molla ideale. Il moto è sinusoidale, x(t) = A cos(ωt), con pulsazione ω = √(k/m) e periodo T = 2π/ω, indipendente dall’ampiezza. Esempio: m = 0,5 kg e k = 50 N/m danno ω = 10 rad/s e T ≈ 0,63 s."
         ],
         "intermediate": [
-          "Uno spettro ideale mostra livelli energetici equidistanti. La missione è riconoscere la struttura matematica dei livelli senza immaginare che una particella quantistica percorra semplicemente una piccola orbita classica.",
-          "Nel laboratorio il parametro a rappresenta ℏω in unità di energia scelte. La relazione E_n=a(n+1/2) è affine nell’indice n, ma i valori ammessi dell’indice sono discreti. Il grafico non va interpretato come una continuità di stati intermedi."
+          "Gli atomi di una molecola non stanno fermi: vibrano attorno alla distanza di equilibrio come masse collegate da molle. Lo spettrometro della stazione misura la luce infrarossa che le molecole assorbono, e trova solo certe energie. Per capirlo bisogna unire l’oscillatore armonico della meccanica con la quantizzazione dell’energia.",
+          "Un oscillatore armonico è un sistema in cui la forza di richiamo è proporzionale allo spostamento: F = −kx, come in una molla ideale. Il moto è sinusoidale, x(t) = A cos(ωt), con pulsazione ω = √(k/m) e periodo T = 2π/ω, indipendente dall’ampiezza. Esempio: m = 0,5 kg e k = 50 N/m danno ω = 10 rad/s e T ≈ 0,63 s."
         ],
         "advanced": [
-          "Uno spettro ideale mostra livelli energetici equidistanti. La missione è riconoscere la struttura matematica dei livelli senza immaginare che una particella quantistica percorra semplicemente una piccola orbita classica.",
-          "Confronta questo spettro con quello dei livelli idrogenoidi, che non sono equidistanti. Individua quali aspetti dipendono dal potenziale assunto.",
-          "È lo spettro di un oscillatore armonico ideale, senza calcolo delle funzioni d’onda o delle intensità di transizione. Molecole reali possono richiedere correzioni anarmoniche."
+          "Gli atomi di una molecola non stanno fermi: vibrano attorno alla distanza di equilibrio come masse collegate da molle. Lo spettrometro della stazione misura la luce infrarossa che le molecole assorbono, e trova solo certe energie. Per capirlo bisogna unire l’oscillatore armonico della meccanica con la quantizzazione dell’energia.",
+          "Un oscillatore armonico è un sistema in cui la forza di richiamo è proporzionale allo spostamento: F = −kx, come in una molla ideale. Il moto è sinusoidale, x(t) = A cos(ωt), con pulsazione ω = √(k/m) e periodo T = 2π/ω, indipendente dall’ampiezza. Esempio: m = 0,5 kg e k = 50 N/m danno ω = 10 rad/s e T ≈ 0,63 s."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Dalla molla ai livelli",
       "text": {
         "base": [
-          "Nell’oscillatore armonico quantistico ideale, i livelli sono E_n=ℏω(n+1/2), con n intero non negativo. La distanza fra livelli consecutivi è ℏω e lo stato fondamentale ha energia non nulla rispetto al minimo del potenziale classico.",
-          "Con a=1, il livello n=0 ha energia 0,5 e il livello n=1 ha energia 1,5. La differenza è 1, non 1,5."
+          "L’oscillatore armonico è più generale di quanto sembri. Vicino al minimo di qualunque energia potenziale la curva somiglia a una parabola, U ≈ U₀ + k(x − x₀)²/2: per piccole oscillazioni ogni sistema stabile si comporta come una molla. È il motivo per cui i legami chimici vibrano come oscillatori armonici, finché la vibrazione è piccola.",
+          "L’energia di un oscillatore classico è la somma di energia cinetica e potenziale, e resta costante: kA²/2. Classicamente può assumere qualunque valore, dipende solo dall’ampiezza. In una molecola le cose vanno in modo diverso.",
+          "In meccanica quantistica l’energia di un oscillatore può assumere solo valori discreti: E_n = ħω(n + 1/2), con n = 0, 1, 2, ... e ħ la costante di Planck ridotta. I livelli sono equispaziati, con distanza ħω. Il livello più basso, n = 0, ha energia ħω/2, diversa da zero: è l’energia di punto zero, e la molecola non è mai completamente ferma. Il laboratorio di questa unità usa E_n = a(n + 1/2), con a al posto di ħω.",
+          "Una molecola passa da un livello all’altro assorbendo o emettendo un fotone di energia uguale alla differenza tra i livelli. Per l’oscillatore armonico le transizioni permesse sono quelle tra livelli vicini, n → n ± 1, e hanno tutte energia ħω: per questo ogni legame produce una riga caratteristica nello spettro infrarosso. Legami più rigidi o atomi più leggeri hanno ω più grande e righe a energia più alta."
         ],
         "intermediate": [
-          "Nel laboratorio il parametro a rappresenta ℏω in unità di energia scelte. La relazione E_n=a(n+1/2) è affine nell’indice n, ma i valori ammessi dell’indice sono discreti. Il grafico non va interpretato come una continuità di stati intermedi.",
-          "La variabile Livello n è espressa in 1; Energia in u.E.. Il dominio dello strumento è [0; 10], con soli valori interi. La relazione implementata è: E_n = a(n+1/2).",
-          "Con a=1, il livello n=0 ha energia 0,5 e il livello n=1 ha energia 1,5. La differenza è 1, non 1,5."
+          "L’oscillatore armonico è più generale di quanto sembri. Vicino al minimo di qualunque energia potenziale la curva somiglia a una parabola, U ≈ U₀ + k(x − x₀)²/2: per piccole oscillazioni ogni sistema stabile si comporta come una molla. È il motivo per cui i legami chimici vibrano come oscillatori armonici, finché la vibrazione è piccola.",
+          "L’energia di un oscillatore classico è la somma di energia cinetica e potenziale, e resta costante: kA²/2. Classicamente può assumere qualunque valore, dipende solo dall’ampiezza. In una molecola le cose vanno in modo diverso.",
+          "In meccanica quantistica l’energia di un oscillatore può assumere solo valori discreti: E_n = ħω(n + 1/2), con n = 0, 1, 2, ... e ħ la costante di Planck ridotta. I livelli sono equispaziati, con distanza ħω. Il livello più basso, n = 0, ha energia ħω/2, diversa da zero: è l’energia di punto zero, e la molecola non è mai completamente ferma. Il laboratorio di questa unità usa E_n = a(n + 1/2), con a al posto di ħω.",
+          "Una molecola passa da un livello all’altro assorbendo o emettendo un fotone di energia uguale alla differenza tra i livelli. Per l’oscillatore armonico le transizioni permesse sono quelle tra livelli vicini, n → n ± 1, e hanno tutte energia ħω: per questo ogni legame produce una riga caratteristica nello spettro infrarosso. Legami più rigidi o atomi più leggeri hanno ω più grande e righe a energia più alta.",
+          "Perché la quantizzazione non si nota in una molla da laboratorio? Con ω = 10 rad/s, ħω vale circa 10⁻³³ J: una molla con k = 50 N/m che oscilla con un centimetro di ampiezza ha un’energia di circa 2,5 · 10⁻³ J, circa 10³⁰ volte più grande, e i gradini sono troppo piccoli per essere percepiti. In una molecola, con masse atomiche e legami rigidi, i gradini sono confrontabili con le energie in gioco."
         ],
         "advanced": [
-          "Nel laboratorio il parametro a rappresenta ℏω in unità di energia scelte. La relazione E_n=a(n+1/2) è affine nell’indice n, ma i valori ammessi dell’indice sono discreti. Il grafico non va interpretato come una continuità di stati intermedi.",
-          "Confronta questo spettro con quello dei livelli idrogenoidi, che non sono equidistanti. Individua quali aspetti dipendono dal potenziale assunto.",
-          "Un’energia fondamentale non nulla non significa che sia possibile estrarre energia illimitata dal sistema. Le altezze delle linee non sono probabilità di occupazione dei livelli."
+          "L’oscillatore armonico è più generale di quanto sembri. Vicino al minimo di qualunque energia potenziale la curva somiglia a una parabola, U ≈ U₀ + k(x − x₀)²/2: per piccole oscillazioni ogni sistema stabile si comporta come una molla. È il motivo per cui i legami chimici vibrano come oscillatori armonici, finché la vibrazione è piccola.",
+          "In meccanica quantistica l’energia di un oscillatore può assumere solo valori discreti: E_n = ħω(n + 1/2), con n = 0, 1, 2, ... e ħ la costante di Planck ridotta. I livelli sono equispaziati, con distanza ħω. Il livello più basso, n = 0, ha energia ħω/2, diversa da zero: è l’energia di punto zero, e la molecola non è mai completamente ferma. Il laboratorio di questa unità usa E_n = a(n + 1/2), con a al posto di ħω.",
+          "Una molecola passa da un livello all’altro assorbendo o emettendo un fotone di energia uguale alla differenza tra i livelli. Per l’oscillatore armonico le transizioni permesse sono quelle tra livelli vicini, n → n ± 1, e hanno tutte energia ħω: per questo ogni legame produce una riga caratteristica nello spettro infrarosso. Legami più rigidi o atomi più leggeri hanno ω più grande e righe a energia più alta.",
+          "Perché la quantizzazione non si nota in una molla da laboratorio? Con ω = 10 rad/s, ħω vale circa 10⁻³³ J: una molla con k = 50 N/m che oscilla con un centimetro di ampiezza ha un’energia di circa 2,5 · 10⁻³ J, circa 10³⁰ volte più grande, e i gradini sono troppo piccoli per essere percepiti. In una molecola, con masse atomiche e legami rigidi, i gradini sono confrontabili con le energie in gioco."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Problemi guidati",
       "text": {
         "base": [
-          "Nel laboratorio imposta Intervallo a (a): 1 u.E.. Prima di salvare A, prevedi come cambia Energia fra Livello n=3 e 5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con a=1, il livello n=0 ha energia 0,5 e il livello n=1 ha energia 1,5. La differenza è 1, non 1,5.",
-          "La variabile Livello n è espressa in 1; Energia in u.E.. Il dominio dello strumento è [0; 10], con soli valori interi. La relazione implementata è: E_n = a(n+1/2)."
+          "L’attività propone quattro problemi guidati: il periodo di una molla, i livelli equispaziati di un oscillatore quantistico, l’energia di un fotone emesso in una transizione e l’energia di punto zero. A ogni passaggio scegli il risultato corretto e leggi il commento. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Nei problemi sui livelli scrivi esplicitamente E_n = a(n + 1/2) per i due livelli prima di fare la differenza: il termine 1/2 si cancella."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Intervallo a (a): 1 u.E.. Prima di salvare A, prevedi come cambia Energia fra Livello n=3 e 5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Livello n è espressa in 1; Energia in u.E.. Il dominio dello strumento è [0; 10], con soli valori interi. La relazione implementata è: E_n = a(n+1/2).",
-          "Nel laboratorio il parametro a rappresenta ℏω in unità di energia scelte. La relazione E_n=a(n+1/2) è affine nell’indice n, ma i valori ammessi dell’indice sono discreti. Il grafico non va interpretato come una continuità di stati intermedi."
+          "L’attività propone quattro problemi guidati: il periodo di una molla, i livelli equispaziati di un oscillatore quantistico, l’energia di un fotone emesso in una transizione e l’energia di punto zero. A ogni passaggio scegli il risultato corretto e leggi il commento. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Nei problemi sui livelli scrivi esplicitamente E_n = a(n + 1/2) per i due livelli prima di fare la differenza: il termine 1/2 si cancella."
         ],
         "advanced": [
-          "Nel laboratorio imposta Intervallo a (a): 1 u.E.. Prima di salvare A, prevedi come cambia Energia fra Livello n=3 e 5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta questo spettro con quello dei livelli idrogenoidi, che non sono equidistanti. Individua quali aspetti dipendono dal potenziale assunto.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "L’attività propone quattro problemi guidati: il periodo di una molla, i livelli equispaziati di un oscillatore quantistico, l’energia di un fotone emesso in una transizione e l’energia di punto zero. A ogni passaggio scegli il risultato corretto e leggi il commento. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Nei problemi sui livelli scrivi esplicitamente E_n = a(n + 1/2) per i due livelli prima di fare la differenza: il termine 1/2 si cancella.",
+          "Perché la quantizzazione non si nota in una molla da laboratorio? Con ω = 10 rad/s, ħω vale circa 10⁻³³ J: una molla con k = 50 N/m che oscilla con un centimetro di ampiezza ha un’energia di circa 2,5 · 10⁻³ J, circa 10³⁰ volte più grande, e i gradini sono troppo piccoli per essere percepiti. In una molecola, con masse atomiche e legami rigidi, i gradini sono confrontabili con le energie in gioco."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "Un’energia fondamentale non nulla non significa che sia possibile estrarre energia illimitata dal sistema. Le altezze delle linee non sono probabilità di occupazione dei livelli.",
-          "È lo spettro di un oscillatore armonico ideale, senza calcolo delle funzioni d’onda o delle intensità di transizione. Molecole reali possono richiedere correzioni anarmoniche.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che il livello più basso abbia energia zero. Nell’oscillatore quantistico il minimo è a/2: una conseguenza del principio di indeterminazione, che impedisce di avere insieme posizione e velocità esattamente nulle.",
+          "Secondo errore: credere che il periodo di una molla dipenda dall’ampiezza. Per un oscillatore armonico ideale non dipende: è la proprietà che Galileo notò nei piccoli pendoli e che rende possibili gli orologi.",
+          "Perché la quantizzazione non si nota in una molla da laboratorio? Con ω = 10 rad/s, ħω vale circa 10⁻³³ J: una molla con k = 50 N/m che oscilla con un centimetro di ampiezza ha un’energia di circa 2,5 · 10⁻³ J, circa 10³⁰ volte più grande, e i gradini sono troppo piccoli per essere percepiti. In una molecola, con masse atomiche e legami rigidi, i gradini sono confrontabili con le energie in gioco."
         ],
         "intermediate": [
-          "Un’energia fondamentale non nulla non significa che sia possibile estrarre energia illimitata dal sistema. Le altezze delle linee non sono probabilità di occupazione dei livelli.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "Errore frequente: pensare che il livello più basso abbia energia zero. Nell’oscillatore quantistico il minimo è a/2: una conseguenza del principio di indeterminazione, che impedisce di avere insieme posizione e velocità esattamente nulle.",
+          "Secondo errore: credere che il periodo di una molla dipenda dall’ampiezza. Per un oscillatore armonico ideale non dipende: è la proprietà che Galileo notò nei piccoli pendoli e che rende possibili gli orologi.",
+          "Perché la quantizzazione non si nota in una molla da laboratorio? Con ω = 10 rad/s, ħω vale circa 10⁻³³ J: una molla con k = 50 N/m che oscilla con un centimetro di ampiezza ha un’energia di circa 2,5 · 10⁻³ J, circa 10³⁰ volte più grande, e i gradini sono troppo piccoli per essere percepiti. In una molecola, con masse atomiche e legami rigidi, i gradini sono confrontabili con le energie in gioco."
         ],
         "advanced": [
-          "È lo spettro di un oscillatore armonico ideale, senza calcolo delle funzioni d’onda o delle intensità di transizione. Molecole reali possono richiedere correzioni anarmoniche.",
-          "Confronta questo spettro con quello dei livelli idrogenoidi, che non sono equidistanti. Individua quali aspetti dipendono dal potenziale assunto.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che il livello più basso abbia energia zero. Nell’oscillatore quantistico il minimo è a/2: una conseguenza del principio di indeterminazione, che impedisce di avere insieme posizione e velocità esattamente nulle.",
+          "Secondo errore: credere che il periodo di una molla dipenda dall’ampiezza. Per un oscillatore armonico ideale non dipende: è la proprietà che Galileo notò nei piccoli pendoli e che rende possibili gli orologi.",
+          "Una molecola passa da un livello all’altro assorbendo o emettendo un fotone di energia uguale alla differenza tra i livelli. Per l’oscillatore armonico le transizioni permesse sono quelle tra livelli vicini, n → n ± 1, e hanno tutte energia ħω: per questo ogni legame produce una riga caratteristica nello spettro infrarosso. Legami più rigidi o atomi più leggeri hanno ω più grande e righe a energia più alta."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Nell’oscillatore armonico quantistico ideale, i livelli sono E_n=ℏω(n+1/2), con n intero non negativo. La distanza fra livelli consecutivi è ℏω e lo stato fondamentale ha energia non nulla rispetto al minimo del potenziale classico.",
-          "Con a=1, il livello n=0 ha energia 0,5 e il livello n=1 ha energia 1,5. La differenza è 1, non 1,5."
+          "Ripasso: forza di richiamo e oscillatore armonico; pulsazione e periodo; approssimazione parabolica vicino a un minimo; livelli quantizzati E_n = ħω(n + 1/2); energia di punto zero; transizioni e righe spettrali.",
+          "Mini esercizio: con a = 2 u.E., E_0 = 1, E_1 = 3, E_2 = 5: la distanza tra livelli vicini è sempre 2.",
+          "Nelle domande sui livelli controlla che la differenza tra livelli consecutivi sia sempre a."
         ],
         "intermediate": [
-          "Nel laboratorio il parametro a rappresenta ℏω in unità di energia scelte. La relazione E_n=a(n+1/2) è affine nell’indice n, ma i valori ammessi dell’indice sono discreti. Il grafico non va interpretato come una continuità di stati intermedi.",
-          "La variabile Livello n è espressa in 1; Energia in u.E.. Il dominio dello strumento è [0; 10], con soli valori interi. La relazione implementata è: E_n = a(n+1/2)."
+          "Ripasso: forza di richiamo e oscillatore armonico; pulsazione e periodo; approssimazione parabolica vicino a un minimo; livelli quantizzati E_n = ħω(n + 1/2); energia di punto zero; transizioni e righe spettrali.",
+          "Mini esercizio: con a = 2 u.E., E_0 = 1, E_1 = 3, E_2 = 5: la distanza tra livelli vicini è sempre 2.",
+          "Nelle domande sui livelli controlla che la differenza tra livelli consecutivi sia sempre a."
         ],
         "advanced": [
-          "Confronta questo spettro con quello dei livelli idrogenoidi, che non sono equidistanti. Individua quali aspetti dipendono dal potenziale assunto.",
-          "È lo spettro di un oscillatore armonico ideale, senza calcolo delle funzioni d’onda o delle intensità di transizione. Molecole reali possono richiedere correzioni anarmoniche."
+          "Ripasso: forza di richiamo e oscillatore armonico; pulsazione e periodo; approssimazione parabolica vicino a un minimo; livelli quantizzati E_n = ħω(n + 1/2); energia di punto zero; transizioni e righe spettrali.",
+          "Mini esercizio: con a = 2 u.E., E_0 = 1, E_1 = 3, E_2 = 5: la distanza tra livelli vicini è sempre 2.",
+          "Nelle domande sui livelli controlla che la differenza tra livelli consecutivi sia sempre a."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Oscillatore armonico quantistico ideale.",
-          "È lo spettro di un oscillatore armonico ideale, senza calcolo delle funzioni d’onda o delle intensità di transizione. Molecole reali possono richiedere correzioni anarmoniche.",
-          "Collegamento consigliato: chemistry-04. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le vibrazioni molecolari collegano questa unità alla chimica, al legame covalente e al potenziale di Morse, e alla fisica dei quanti. La spettroscopia infrarossa identifica le sostanze proprio dalle loro righe di vibrazione.",
+          "Riepilogo dell’unità: una forza di richiamo proporzionale allo spostamento produce oscillazioni con periodo 2π√(m/k), indipendente dall’ampiezza; vicino a ogni minimo un sistema si comporta come una molla; in meccanica quantistica l’energia è quantizzata in livelli equispaziati con un minimo diverso da zero.",
+          "Nel diario spiega perché ogni legame chimico dà una riga caratteristica nello spettro infrarosso, usando i livelli equispaziati."
         ],
         "intermediate": [
-          "Nel laboratorio il parametro a rappresenta ℏω in unità di energia scelte. La relazione E_n=a(n+1/2) è affine nell’indice n, ma i valori ammessi dell’indice sono discreti. Il grafico non va interpretato come una continuità di stati intermedi.",
-          "È lo spettro di un oscillatore armonico ideale, senza calcolo delle funzioni d’onda o delle intensità di transizione. Molecole reali possono richiedere correzioni anarmoniche.",
-          "Confronta questo spettro con quello dei livelli idrogenoidi, che non sono equidistanti. Individua quali aspetti dipendono dal potenziale assunto."
+          "Le vibrazioni molecolari collegano questa unità alla chimica, al legame covalente e al potenziale di Morse, e alla fisica dei quanti. La spettroscopia infrarossa identifica le sostanze proprio dalle loro righe di vibrazione.",
+          "Riepilogo dell’unità: una forza di richiamo proporzionale allo spostamento produce oscillazioni con periodo 2π√(m/k), indipendente dall’ampiezza; vicino a ogni minimo un sistema si comporta come una molla; in meccanica quantistica l’energia è quantizzata in livelli equispaziati con un minimo diverso da zero.",
+          "Nel diario spiega perché ogni legame chimico dà una riga caratteristica nello spettro infrarosso, usando i livelli equispaziati."
         ],
         "advanced": [
-          "Confronta questo spettro con quello dei livelli idrogenoidi, che non sono equidistanti. Individua quali aspetti dipendono dal potenziale assunto.",
-          "È lo spettro di un oscillatore armonico ideale, senza calcolo delle funzioni d’onda o delle intensità di transizione. Molecole reali possono richiedere correzioni anarmoniche.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le vibrazioni molecolari collegano questa unità alla chimica, al legame covalente e al potenziale di Morse, e alla fisica dei quanti. La spettroscopia infrarossa identifica le sostanze proprio dalle loro righe di vibrazione.",
+          "Riepilogo dell’unità: una forza di richiamo proporzionale allo spostamento produce oscillazioni con periodo 2π√(m/k), indipendente dall’ampiezza; vicino a ogni minimo un sistema si comporta come una molla; in meccanica quantistica l’energia è quantizzata in livelli equispaziati con un minimo diverso da zero.",
+          "Nel diario spiega perché ogni legame chimico dà una riga caratteristica nello spettro infrarosso, usando i livelli equispaziati."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-p12-concept",
-      "prompt": "Per E_n=a(n+1/2), l’energia fondamentale vale:",
+      "id": "math-p12-q1",
+      "prompt": "Una massa di 2 kg è appesa a una molla con k = 8 N/m. Quanto vale la pulsazione ω?",
       "options": [
         {
           "id": "A",
-          "text": "a/2",
-          "feedback": "Nell’oscillatore armonico quantistico ideale, i livelli sono E_n=ℏω(n+1/2), con n intero non negativo. La distanza fra livelli consecutivi è ℏω e lo stato fondamentale ha energia non nulla rispetto al minimo del potenziale classico."
+          "text": "2 rad/s",
+          "feedback": "Esatto: ω = √(8/2) = √4 = 2 rad/s."
         },
         {
           "id": "B",
-          "text": "0",
-          "feedback": "Un’energia fondamentale non nulla non significa che sia possibile estrarre energia illimitata dal sistema. Le altezze delle linee non sono probabilità di occupazione dei livelli."
+          "text": "4 rad/s",
+          "feedback": "4 è il rapporto k/m: resta da estrarre la radice."
         },
         {
           "id": "C",
-          "text": "a",
-          "feedback": "Nel laboratorio il parametro a rappresenta ℏω in unità di energia scelte. La relazione E_n=a(n+1/2) è affine nell’indice n, ma i valori ammessi dell’indice sono discreti. Il grafico non va interpretato come una continuità di stati intermedi."
+          "text": "16 rad/s",
+          "feedback": "Hai moltiplicato k e m invece di dividerli."
+        },
+        {
+          "id": "D",
+          "text": "0,5 rad/s",
+          "feedback": "Hai diviso m per k: ω = √(k/m)."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "math-p12-calculation",
-      "prompt": "Calcolo: Intervallo a (a)=1 u.E.. Per Livello n=0 (adimensionale), quanto vale Energia?",
+      "id": "math-p12-q2",
+      "prompt": "Raddoppiando l’ampiezza di un oscillatore armonico ideale, il periodo:",
       "options": [
         {
           "id": "A",
-          "text": "1,5 u.E.",
-          "feedback": "Questo valore non soddisfa la relazione. E_n = a(n+1/2). Con Intervallo a (a)=1 u.E. e Livello n=0 (adimensionale), il risultato è 0,5 u.E.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Raddoppia",
+          "feedback": "Il periodo dipende solo da m e k."
         },
         {
           "id": "B",
-          "text": "-0,5 u.E.",
-          "feedback": "Controlla sostituzione, segno e unità. E_n = a(n+1/2). Con Intervallo a (a)=1 u.E. e Livello n=0 (adimensionale), il risultato è 0,5 u.E.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Si dimezza",
+          "feedback": "Il periodo non dipende dall’ampiezza."
         },
         {
           "id": "C",
-          "text": "0,5 u.E.",
-          "feedback": "E_n = a(n+1/2). Con Intervallo a (a)=1 u.E. e Livello n=0 (adimensionale), il risultato è 0,5 u.E.. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "C",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 1
-        },
-        "expected": 0.5,
-        "unit": "u.E."
-      }
-    },
-    {
-      "id": "math-p12-transfer",
-      "prompt": "Trasferimento: Intervallo a (a)=1,5 u.E.. Per Livello n=0 (adimensionale), quanto vale Energia?",
-      "options": [
-        {
-          "id": "A",
-          "text": "-0,25 u.E.",
-          "feedback": "Controlla sostituzione, segno e unità. E_n = a(n+1/2). Con Intervallo a (a)=1,5 u.E. e Livello n=0 (adimensionale), il risultato è 0,75 u.E.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Resta uguale",
+          "feedback": "Esatto: è l’isocronismo delle piccole oscillazioni."
         },
         {
-          "id": "B",
-          "text": "0,75 u.E.",
-          "feedback": "E_n = a(n+1/2). Con Intervallo a (a)=1,5 u.E. e Livello n=0 (adimensionale), il risultato è 0,75 u.E.. Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "C",
-          "text": "1,75 u.E.",
-          "feedback": "Questo valore non soddisfa la relazione. E_n = a(n+1/2). Con Intervallo a (a)=1,5 u.E. e Livello n=0 (adimensionale), il risultato è 0,75 u.E.. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 1.5
-        },
-        "expected": 0.75,
-        "unit": "u.E."
-      }
-    },
-    {
-      "id": "math-p12-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. È lo spettro di un oscillatore armonico ideale, senza calcolo delle funzioni d’onda o delle intensità di transizione. Molecole reali possono richiedere correzioni anarmoniche."
-        },
-        {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. È lo spettro di un oscillatore armonico ideale, senza calcolo delle funzioni d’onda o delle intensità di transizione. Molecole reali possono richiedere correzioni anarmoniche."
-        },
-        {
-          "id": "C",
-          "text": "Oscillatore armonico quantistico ideale",
-          "feedback": "È lo spettro di un oscillatore armonico ideale, senza calcolo delle funzioni d’onda o delle intensità di transizione. Molecole reali possono richiedere correzioni anarmoniche."
+          "id": "D",
+          "text": "Quadruplica",
+          "feedback": "Quadruplica l’energia, non il periodo."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "math-p12-q3",
+      "prompt": "Con E_n = a(n + 1/2), quanto vale l’energia del livello più basso?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0",
+          "feedback": "Il livello più basso ha n = 0, e l’energia vale a/2."
+        },
+        {
+          "id": "B",
+          "text": "a",
+          "feedback": "a è la distanza tra due livelli consecutivi."
+        },
+        {
+          "id": "C",
+          "text": "a/2",
+          "feedback": "Esatto: è l’energia di punto zero."
+        },
+        {
+          "id": "D",
+          "text": "2a",
+          "feedback": "2a è la differenza tra E_2 ed E_0."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "math-p12-q4",
+      "prompt": "Quanta energia ha il fotone emesso nella transizione da n = 3 a n = 1, con E_n = a(n + 1/2)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "3a",
+          "feedback": "3a non tiene conto dell’energia del livello finale."
+        },
+        {
+          "id": "B",
+          "text": "3,5a",
+          "feedback": "3,5a è l’energia del livello 3, non la differenza."
+        },
+        {
+          "id": "C",
+          "text": "a",
+          "feedback": "a è la distanza tra livelli consecutivi; qui i livelli distano due gradini."
+        },
+        {
+          "id": "D",
+          "text": "2a",
+          "feedback": "Esatto: la differenza tra i livelli è 3,5a − 1,5a = 2a."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "math-p12-q5",
+      "prompt": "Perché la quantizzazione dell’energia non si nota in una molla da laboratorio?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché le molle non obbediscono alla meccanica quantistica",
+          "feedback": "Vi obbediscono, ma con gradini piccolissimi."
+        },
+        {
+          "id": "B",
+          "text": "Perché i gradini ħω sono minuscoli rispetto all’energia dell’oscillazione",
+          "feedback": "Esatto: circa 10⁻³³ J per ω = 10 rad/s."
+        },
+        {
+          "id": "C",
+          "text": "Perché la molla non ha un livello minimo",
+          "feedback": "Anche la molla ha il livello minimo ħω/2, impercettibile."
+        },
+        {
+          "id": "D",
+          "text": "Perché le molle oscillano troppo lentamente per essere misurate",
+          "feedback": "Le oscillazioni si misurano facilmente; i gradini di energia no."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-p12-q6",
+      "prompt": "Perché un legame chimico vibra come un oscillatore armonico?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché è fatto di una piccola molla",
+          "feedback": "Il legame è una coppia di elettroni condivisa, non una molla."
+        },
+        {
+          "id": "B",
+          "text": "Perché vicino al minimo l’energia potenziale ha forma parabolica",
+          "feedback": "Esatto: per piccole vibrazioni ogni minimo è approssimato da una parabola."
+        },
+        {
+          "id": "C",
+          "text": "Perché gli atomi hanno la stessa massa",
+          "feedback": "Le masse possono essere diverse, come in HCl."
+        },
+        {
+          "id": "D",
+          "text": "Perché gli elettroni girano in cerchio",
+          "feedback": "Il modello delle orbite circolari non descrive le vibrazioni dei legami."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "steps",
+    "goal": 3,
+    "problems": [
+      {
+        "id": "molla",
+        "title": "Il periodo della molla",
+        "text": "Una massa di 0,5 kg oscilla su una molla con k = 50 N/m. Qual è il periodo?",
+        "maxErrors": 1,
+        "explain": "Il periodo dipende solo da massa e rigidità: T = 2π√(m/k).",
+        "steps": [
+          {
+            "prompt": "Quanto vale ω = √(k/m)?",
+            "options": [
+              {
+                "text": "10 rad/s",
+                "feedback": "Giusto: √(50/0,5) = √100."
+              },
+              {
+                "text": "100 rad/s",
+                "feedback": "100 è k/m: resta la radice."
+              },
+              {
+                "text": "0,1 rad/s",
+                "feedback": "Hai invertito il rapporto: ω = √(k/m)."
+              }
+            ],
+            "correct": 0,
+            "result": "ω = 10 rad/s."
+          },
+          {
+            "prompt": "Quanto vale il periodo T = 2π/ω?",
+            "options": [
+              {
+                "text": "Circa 0,63 s",
+                "feedback": "Giusto: 6,28/10."
+              },
+              {
+                "text": "Circa 62,8 s",
+                "feedback": "Si divide 2π per ω, non si moltiplica."
+              },
+              {
+                "text": "10 s",
+                "feedback": "Il periodo non coincide con la pulsazione."
+              }
+            ],
+            "correct": 0,
+            "result": "T ≈ 0,63 s."
+          }
+        ]
+      },
+      {
+        "id": "livelli",
+        "title": "Livelli equispaziati",
+        "text": "Un oscillatore quantistico ha E_n = a(n + 1/2) con a = 1 u.E. Calcola E_0 ed E_3.",
+        "maxErrors": 1,
+        "explain": "I livelli distano tutti a: da E_0 a E_3 ci sono tre gradini.",
+        "steps": [
+          {
+            "prompt": "Quanto vale E_0?",
+            "options": [
+              {
+                "text": "0,5 u.E.",
+                "feedback": "Giusto: 1 · (0 + 1/2)."
+              },
+              {
+                "text": "0 u.E.",
+                "feedback": "Il livello più basso ha l’energia di punto zero, a/2."
+              },
+              {
+                "text": "1 u.E.",
+                "feedback": "1 u.E. è la distanza tra due livelli."
+              }
+            ],
+            "correct": 0,
+            "result": "E_0 = 0,5 u.E."
+          },
+          {
+            "prompt": "Quanto vale E_3?",
+            "options": [
+              {
+                "text": "3,5 u.E.",
+                "feedback": "Giusto: 3 + 0,5."
+              },
+              {
+                "text": "3 u.E.",
+                "feedback": "Manca il termine 1/2."
+              },
+              {
+                "text": "1,5 u.E.",
+                "feedback": "1,5 u.E. è E_1."
+              }
+            ],
+            "correct": 0,
+            "result": "E_3 = 3,5 u.E."
+          }
+        ]
+      },
+      {
+        "id": "fotone",
+        "title": "Il fotone emesso",
+        "text": "Con a = 2 u.E., una molecola passa dal livello 3 al livello 1. Quanta energia porta il fotone?",
+        "maxErrors": 1,
+        "explain": "Il fotone porta la differenza tra i livelli; il termine di punto zero si cancella.",
+        "steps": [
+          {
+            "prompt": "Energie dei due livelli?",
+            "options": [
+              {
+                "text": "E_3 = 7, E_1 = 3",
+                "feedback": "Giusto: 2 · 3,5 e 2 · 1,5."
+              },
+              {
+                "text": "E_3 = 6, E_1 = 2",
+                "feedback": "Manca il termine 1/2 moltiplicato per a."
+              },
+              {
+                "text": "E_3 = 3,5, E_1 = 1,5",
+                "feedback": "Questi valori valgono per a = 1."
+              }
+            ],
+            "correct": 0,
+            "result": "E_3 = 7 u.E., E_1 = 3 u.E."
+          },
+          {
+            "prompt": "Energia del fotone?",
+            "options": [
+              {
+                "text": "4 u.E.",
+                "feedback": "Giusto: 7 − 3 = 4, cioè due gradini da 2."
+              },
+              {
+                "text": "10 u.E.",
+                "feedback": "L’energia del fotone è la differenza, non la somma."
+              },
+              {
+                "text": "2 u.E.",
+                "feedback": "2 u.E. è un solo gradino; qui i gradini sono due."
+              }
+            ],
+            "correct": 0,
+            "result": "Fotone di 4 u.E."
+          }
+        ]
+      },
+      {
+        "id": "punto-zero",
+        "title": "L’energia di punto zero",
+        "text": "Perché un oscillatore quantistico non può avere energia zero?",
+        "maxErrors": 1,
+        "explain": "L’energia di punto zero è una conseguenza del principio di indeterminazione.",
+        "steps": [
+          {
+            "prompt": "Quale livello ha l’energia più bassa?",
+            "options": [
+              {
+                "text": "n = 0, con energia a/2",
+                "feedback": "Giusto: il minimo è a/2, non zero."
+              },
+              {
+                "text": "n = 0, con energia zero",
+                "feedback": "Con n = 0 resta il termine a/2."
+              },
+              {
+                "text": "Non c’è un livello più basso",
+                "feedback": "n parte da 0: quello è il livello più basso."
+              }
+            ],
+            "correct": 0,
+            "result": "E_0 = a/2."
+          },
+          {
+            "prompt": "Che cosa impedisce l’energia zero?",
+            "options": [
+              {
+                "text": "Il principio di indeterminazione",
+                "feedback": "Giusto: posizione e velocità non possono essere entrambe esattamente nulle."
+              },
+              {
+                "text": "L’attrito",
+                "feedback": "L’oscillatore ideale non ha attrito."
+              },
+              {
+                "text": "La temperatura dell’ambiente",
+                "feedback": "L’energia di punto zero esiste anche allo zero assoluto."
+              }
+            ],
+            "correct": 0,
+            "result": "Il moto di punto zero non si elimina."
+          }
+        ]
+      }
+    ]
+  }
 }

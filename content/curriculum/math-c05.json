@@ -5,20 +5,21 @@
   "title": "Disequazioni",
   "sector": 0,
   "modelId": "math-c05",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Margine lineare, non criterio di sicurezza reale",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Disequazioni di primo e secondo grado, studio del segno e sistemi di disequazioni",
+  "narrativeStatus": "Il serbatoio della stazione è immaginario; le regole delle disequazioni sono reali.",
   "objectives": [
-    "Spiegare: margine lineare, non criterio di sicurezza reale.",
-    "Applicare m(x) = ax+b; ammissibile se m ≥ 0, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Risolvere disequazioni di primo grado capovolgendo il verso quando serve.",
+    "Scrivere le soluzioni con gli intervalli.",
+    "Risolvere disequazioni di secondo grado con il grafico della parabola.",
+    "Studiare il segno di prodotti e quozienti con una tabella."
   ],
   "prerequisites": [
     "math-c04"
   ],
   "connections": [
-    "math-a"
+    "math-c06"
   ],
   "sources": [
     "precalculus"
@@ -37,250 +38,521 @@
   },
   "glossary": [
     {
-      "term": "x",
-      "definition": "Variabile indipendente, unità 1; intervallo [-6; 6]."
+      "term": "Disequazione",
+      "definition": "Confronto tra due espressioni con <, ≤, > o ≥; le soluzioni formano di solito un intervallo."
     },
     {
-      "term": "Margine",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Verso",
+      "definition": "Il senso del confronto; si capovolge moltiplicando o dividendo per un numero negativo."
     },
     {
-      "term": "Coefficiente a",
-      "definition": "Parametro a, unità 1; intervallo [-3; 3]."
+      "term": "Intervallo",
+      "definition": "Insieme di numeri compresi tra due estremi; parentesi quadra per l’estremo incluso, tonda per quello escluso."
     },
     {
-      "term": "Termine b",
-      "definition": "Parametro b, unità 1; intervallo [-4; 4]."
+      "term": "Studio del segno",
+      "definition": "Tabella che riporta il segno di ogni fattore per dedurre quello del prodotto o del quoziente."
+    },
+    {
+      "term": "Sistema di disequazioni",
+      "definition": "Disequazioni da soddisfare insieme: le soluzioni sono l’intersezione."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Tutti i valori ammessi",
       "text": {
         "base": [
-          "Un rover può attraversare una regione solo se il suo margine operativo resta non negativo. Il confine della regione non è un singolo valore da indovinare: serve descrivere l’intero insieme delle condizioni ammesse.",
-          "Una disequazione identifica un insieme di valori. Nel modello il margine è m(x)=ax+b e la condizione operativa è m(x)≥0. Gli zeri separano intervalli nei quali il segno resta costante, quando la funzione è continua e non attraversa altri zeri."
+          "Il serbatoio d’acqua della stazione contiene 200 litri e ne perde 15 al giorno; sotto i 50 litri scatta l’allarme. Per quanti giorni si resta tranquilli? La domanda non chiede un numero preciso: chiede tutti i valori per cui una condizione vale. È una disequazione: 200 − 15g ≥ 50.",
+          "Una disequazione confronta due espressioni con i simboli <, ≤, >, ≥. Le sue soluzioni formano di solito un intervallo di numeri. Per il serbatoio: 200 − 15g ≥ 50 diventa −15g ≥ −150; dividendo per −15 il verso si capovolge e si ottiene g ≤ 10. Per dieci giorni il livello resta sopra la soglia.",
+          "Le soluzioni si scrivono con gli intervalli: x > 2 corrisponde a (2; +∞), x ≤ 2 a (−∞; 2]. La parentesi tonda esclude l’estremo, quella quadra lo include. Sulla retta dei numeri un pallino vuoto indica un estremo escluso, un pallino pieno un estremo incluso."
         ],
         "intermediate": [
-          "Un rover può attraversare una regione solo se il suo margine operativo resta non negativo. Il confine della regione non è un singolo valore da indovinare: serve descrivere l’intero insieme delle condizioni ammesse.",
-          "Se a>0, dividere ax≥-b per a conserva il verso: x≥-b/a. Se a<0 il verso si inverte. Se a=0, conta solo b: tutti i valori sono ammessi quando b≥0, nessuno quando b<0."
+          "Il serbatoio d’acqua della stazione contiene 200 litri e ne perde 15 al giorno; sotto i 50 litri scatta l’allarme. Per quanti giorni si resta tranquilli? La domanda non chiede un numero preciso: chiede tutti i valori per cui una condizione vale. È una disequazione: 200 − 15g ≥ 50.",
+          "Una disequazione confronta due espressioni con i simboli <, ≤, >, ≥. Le sue soluzioni formano di solito un intervallo di numeri. Per il serbatoio: 200 − 15g ≥ 50 diventa −15g ≥ −150; dividendo per −15 il verso si capovolge e si ottiene g ≤ 10. Per dieci giorni il livello resta sopra la soglia.",
+          "Le soluzioni si scrivono con gli intervalli: x > 2 corrisponde a (2; +∞), x ≤ 2 a (−∞; 2]. La parentesi tonda esclude l’estremo, quella quadra lo include. Sulla retta dei numeri un pallino vuoto indica un estremo escluso, un pallino pieno un estremo incluso."
         ],
         "advanced": [
-          "Un rover può attraversare una regione solo se il suo margine operativo resta non negativo. Il confine della regione non è un singolo valore da indovinare: serve descrivere l’intero insieme delle condizioni ammesse.",
-          "Risolvi la stessa condizione con a negativo e controlla un punto di prova. Estendi poi il metodo a un prodotto di fattori, separando i punti esclusi dagli zeri ammessi.",
-          "Il margine è una relazione lineare didattica, non un criterio reale di sicurezza del rover. La finestra del grafico mostra solo una parte della retta reale."
+          "Il serbatoio d’acqua della stazione contiene 200 litri e ne perde 15 al giorno; sotto i 50 litri scatta l’allarme. Per quanti giorni si resta tranquilli? La domanda non chiede un numero preciso: chiede tutti i valori per cui una condizione vale. È una disequazione: 200 − 15g ≥ 50.",
+          "Una disequazione confronta due espressioni con i simboli <, ≤, >, ≥. Le sue soluzioni formano di solito un intervallo di numeri. Per il serbatoio: 200 − 15g ≥ 50 diventa −15g ≥ −150; dividendo per −15 il verso si capovolge e si ottiene g ≤ 10. Per dieci giorni il livello resta sopra la soglia."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Regole, parabole e segni",
       "text": {
         "base": [
-          "Una disequazione identifica un insieme di valori. Nel modello il margine è m(x)=ax+b e la condizione operativa è m(x)≥0. Gli zeri separano intervalli nei quali il segno resta costante, quando la funzione è continua e non attraversa altri zeri.",
-          "Con a=1 e b=-2, il margine vale zero in x=2. In x=3 vale 1 e il punto è ammesso; in x=1 vale -1 e non lo è. Poiché la condizione è ≥, il confine x=2 appartiene all’insieme soluzione."
+          "Le regole per trasformare una disequazione sono quasi quelle delle equazioni. Si può sommare la stessa quantità ai due membri. Si può moltiplicare o dividere per lo stesso numero positivo. Se si moltiplica o si divide per un numero negativo, il verso si capovolge: da 2 < 3 segue −2 > −3. Dimenticare il capovolgimento è l’errore più comune.",
+          "Per una disequazione di secondo grado come x² − 5x + 6 < 0 si usa il grafico. La parabola y = x² − 5x + 6 taglia l’asse x nelle radici 2 e 3 e, avendo coefficiente di x² positivo, è rivolta verso l’alto: sta sotto l’asse tra le radici. Le soluzioni sono 2 < x < 3. Per > 0 si prendono invece i valori esterni: x < 2 oppure x > 3. Se il discriminante è negativo la parabola non tocca l’asse e il segno è sempre lo stesso.",
+          "Per un prodotto o un quoziente si studia il segno di ogni fattore e lo si riporta in una tabella. Esempio svolto: (x − 1)/(x + 2) ≥ 0. Il numeratore è positivo per x > 1, nullo in 1; il denominatore è positivo per x > −2 e si annulla in −2, dove la frazione non esiste. La frazione è positiva per x < −2 e per x > 1, negativa tra −2 e 1. Soluzioni: x < −2 oppure x ≥ 1."
         ],
         "intermediate": [
-          "Se a>0, dividere ax≥-b per a conserva il verso: x≥-b/a. Se a<0 il verso si inverte. Se a=0, conta solo b: tutti i valori sono ammessi quando b≥0, nessuno quando b<0.",
-          "La variabile x è espressa in 1; Margine in 1. Il dominio dello strumento è [-6; 6]. La relazione implementata è: m(x) = ax+b; ammissibile se m ≥ 0.",
-          "Con a=1 e b=-2, il margine vale zero in x=2. In x=3 vale 1 e il punto è ammesso; in x=1 vale -1 e non lo è. Poiché la condizione è ≥, il confine x=2 appartiene all’insieme soluzione."
+          "Le regole per trasformare una disequazione sono quasi quelle delle equazioni. Si può sommare la stessa quantità ai due membri. Si può moltiplicare o dividere per lo stesso numero positivo. Se si moltiplica o si divide per un numero negativo, il verso si capovolge: da 2 < 3 segue −2 > −3. Dimenticare il capovolgimento è l’errore più comune.",
+          "Per una disequazione di secondo grado come x² − 5x + 6 < 0 si usa il grafico. La parabola y = x² − 5x + 6 taglia l’asse x nelle radici 2 e 3 e, avendo coefficiente di x² positivo, è rivolta verso l’alto: sta sotto l’asse tra le radici. Le soluzioni sono 2 < x < 3. Per > 0 si prendono invece i valori esterni: x < 2 oppure x > 3. Se il discriminante è negativo la parabola non tocca l’asse e il segno è sempre lo stesso.",
+          "Per un prodotto o un quoziente si studia il segno di ogni fattore e lo si riporta in una tabella. Esempio svolto: (x − 1)/(x + 2) ≥ 0. Il numeratore è positivo per x > 1, nullo in 1; il denominatore è positivo per x > −2 e si annulla in −2, dove la frazione non esiste. La frazione è positiva per x < −2 e per x > 1, negativa tra −2 e 1. Soluzioni: x < −2 oppure x ≥ 1.",
+          "Un sistema di disequazioni chiede che valgano tutte insieme: le soluzioni sono l’intersezione degli insiemi. Per x > 1 e x ≤ 4 le soluzioni sono 1 < x ≤ 4. Se gli insiemi non si sovrappongono il sistema non ha soluzioni."
         ],
         "advanced": [
-          "Se a>0, dividere ax≥-b per a conserva il verso: x≥-b/a. Se a<0 il verso si inverte. Se a=0, conta solo b: tutti i valori sono ammessi quando b≥0, nessuno quando b<0.",
-          "Risolvi la stessa condizione con a negativo e controlla un punto di prova. Estendi poi il metodo a un prodotto di fattori, separando i punti esclusi dagli zeri ammessi.",
-          "Moltiplicare una disuguaglianza per un numero negativo senza invertirne il verso produce un insieme soluzione errato. Uno zero non va escluso automaticamente: dipende dalla presenza di > oppure ≥."
+          "Le regole per trasformare una disequazione sono quasi quelle delle equazioni. Si può sommare la stessa quantità ai due membri. Si può moltiplicare o dividere per lo stesso numero positivo. Se si moltiplica o si divide per un numero negativo, il verso si capovolge: da 2 < 3 segue −2 > −3. Dimenticare il capovolgimento è l’errore più comune.",
+          "Per una disequazione di secondo grado come x² − 5x + 6 < 0 si usa il grafico. La parabola y = x² − 5x + 6 taglia l’asse x nelle radici 2 e 3 e, avendo coefficiente di x² positivo, è rivolta verso l’alto: sta sotto l’asse tra le radici. Le soluzioni sono 2 < x < 3. Per > 0 si prendono invece i valori esterni: x < 2 oppure x > 3. Se il discriminante è negativo la parabola non tocca l’asse e il segno è sempre lo stesso.",
+          "Per un prodotto o un quoziente si studia il segno di ogni fattore e lo si riporta in una tabella. Esempio svolto: (x − 1)/(x + 2) ≥ 0. Il numeratore è positivo per x > 1, nullo in 1; il denominatore è positivo per x > −2 e si annulla in −2, dove la frazione non esiste. La frazione è positiva per x < −2 e per x > 1, negativa tra −2 e 1. Soluzioni: x < −2 oppure x ≥ 1.",
+          "Un sistema di disequazioni chiede che valgano tutte insieme: le soluzioni sono l’intersezione degli insiemi. Per x > 1 e x ≤ 4 le soluzioni sono 1 < x ≤ 4. Se gli insiemi non si sovrappongono il sistema non ha soluzioni.",
+          "Il modello del programma usa un margine lineare m(x) = ax + b: una situazione è ammissibile quando m ≥ 0. Con a = 1 e b = −2 il margine si annulla in x = 2 ed è positivo per x > 2. Con a negativo la retta scende, e l’insieme ammissibile diventa x ≤ −b/a."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Carte di disequazioni",
       "text": {
         "base": [
-          "Nel laboratorio imposta Coefficiente a (a): 1 (adimensionale); Termine b (b): -2 (adimensionale). Prima di salvare A, prevedi come cambia Margine fra x=-3 e 0 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con a=1 e b=-2, il margine vale zero in x=2. In x=3 vale 1 e il punto è ammesso; in x=1 vale -1 e non lo è. Poiché la condizione è ≥, il confine x=2 appartiene all’insieme soluzione.",
-          "La variabile x è espressa in 1; Margine in 1. Il dominio dello strumento è [-6; 6]. La relazione implementata è: m(x) = ax+b; ammissibile se m ≥ 0."
+          "L’attività ha tre serie di carte. Nella prima risolvi nove disequazioni di primo grado e scegli l’insieme delle soluzioni; tutte hanno come estremo 2, e la differenza sta nel verso e nell’inclusione dell’estremo. Nella seconda classifichi disequazioni di secondo grado secondo la forma delle soluzioni. Nella terza metti in ordine i passi di uno studio del segno. Supera tutte e tre le serie; puoi sbagliare al massimo due carte per serie.",
+          "Con un coefficiente negativo davanti a x, dividi e capovolgi subito il verso. Per il secondo grado disegna mentalmente la parabola: concavità e radici bastano a leggere le soluzioni."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Coefficiente a (a): 1 (adimensionale); Termine b (b): -2 (adimensionale). Prima di salvare A, prevedi come cambia Margine fra x=-3 e 0 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile x è espressa in 1; Margine in 1. Il dominio dello strumento è [-6; 6]. La relazione implementata è: m(x) = ax+b; ammissibile se m ≥ 0.",
-          "Se a>0, dividere ax≥-b per a conserva il verso: x≥-b/a. Se a<0 il verso si inverte. Se a=0, conta solo b: tutti i valori sono ammessi quando b≥0, nessuno quando b<0."
+          "L’attività ha tre serie di carte. Nella prima risolvi nove disequazioni di primo grado e scegli l’insieme delle soluzioni; tutte hanno come estremo 2, e la differenza sta nel verso e nell’inclusione dell’estremo. Nella seconda classifichi disequazioni di secondo grado secondo la forma delle soluzioni. Nella terza metti in ordine i passi di uno studio del segno. Supera tutte e tre le serie; puoi sbagliare al massimo due carte per serie.",
+          "Con un coefficiente negativo davanti a x, dividi e capovolgi subito il verso. Per il secondo grado disegna mentalmente la parabola: concavità e radici bastano a leggere le soluzioni.",
+          "Il modello del programma usa un margine lineare m(x) = ax + b: una situazione è ammissibile quando m ≥ 0. Con a = 1 e b = −2 il margine si annulla in x = 2 ed è positivo per x > 2. Con a negativo la retta scende, e l’insieme ammissibile diventa x ≤ −b/a."
         ],
         "advanced": [
-          "Nel laboratorio imposta Coefficiente a (a): 1 (adimensionale); Termine b (b): -2 (adimensionale). Prima di salvare A, prevedi come cambia Margine fra x=-3 e 0 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Risolvi la stessa condizione con a negativo e controlla un punto di prova. Estendi poi il metodo a un prodotto di fattori, separando i punti esclusi dagli zeri ammessi.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività ha tre serie di carte. Nella prima risolvi nove disequazioni di primo grado e scegli l’insieme delle soluzioni; tutte hanno come estremo 2, e la differenza sta nel verso e nell’inclusione dell’estremo. Nella seconda classifichi disequazioni di secondo grado secondo la forma delle soluzioni. Nella terza metti in ordine i passi di uno studio del segno. Supera tutte e tre le serie; puoi sbagliare al massimo due carte per serie.",
+          "Con un coefficiente negativo davanti a x, dividi e capovolgi subito il verso. Per il secondo grado disegna mentalmente la parabola: concavità e radici bastano a leggere le soluzioni.",
+          "Il modello del programma usa un margine lineare m(x) = ax + b: una situazione è ammissibile quando m ≥ 0. Con a = 1 e b = −2 il margine si annulla in x = 2 ed è positivo per x > 2. Con a negativo la retta scende, e l’insieme ammissibile diventa x ≤ −b/a."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e significato",
       "text": {
         "base": [
-          "Moltiplicare una disuguaglianza per un numero negativo senza invertirne il verso produce un insieme soluzione errato. Uno zero non va escluso automaticamente: dipende dalla presenza di > oppure ≥.",
-          "Il margine è una relazione lineare didattica, non un criterio reale di sicurezza del rover. La finestra del grafico mostra solo una parte della retta reale.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: moltiplicare per un’espressione con la x, come x + 2, senza conoscerne il segno. In (x − 1)/(x + 2) ≥ 0 non si può «portare su» il denominatore, perché per x < −2 è negativo e il verso andrebbe capovolto. Lo studio del segno evita il problema.",
+          "Secondo errore: risolvere x² > 9 con x > 3 soltanto. Anche x = −4 è soluzione, perché 16 > 9. Le soluzioni sono x < −3 oppure x > 3.",
+          "Le disequazioni descrivono vincoli: un budget da non superare, una dose minima, una temperatura di sicurezza. L’insieme delle soluzioni è l’insieme delle scelte ammissibili, e i suoi estremi sono i valori critici da controllare per primi."
         ],
         "intermediate": [
-          "Moltiplicare una disuguaglianza per un numero negativo senza invertirne il verso produce un insieme soluzione errato. Uno zero non va escluso automaticamente: dipende dalla presenza di > oppure ≥.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: moltiplicare per un’espressione con la x, come x + 2, senza conoscerne il segno. In (x − 1)/(x + 2) ≥ 0 non si può «portare su» il denominatore, perché per x < −2 è negativo e il verso andrebbe capovolto. Lo studio del segno evita il problema.",
+          "Secondo errore: risolvere x² > 9 con x > 3 soltanto. Anche x = −4 è soluzione, perché 16 > 9. Le soluzioni sono x < −3 oppure x > 3.",
+          "Le disequazioni descrivono vincoli: un budget da non superare, una dose minima, una temperatura di sicurezza. L’insieme delle soluzioni è l’insieme delle scelte ammissibili, e i suoi estremi sono i valori critici da controllare per primi."
         ],
         "advanced": [
-          "Il margine è una relazione lineare didattica, non un criterio reale di sicurezza del rover. La finestra del grafico mostra solo una parte della retta reale.",
-          "Risolvi la stessa condizione con a negativo e controlla un punto di prova. Estendi poi il metodo a un prodotto di fattori, separando i punti esclusi dagli zeri ammessi.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: moltiplicare per un’espressione con la x, come x + 2, senza conoscerne il segno. In (x − 1)/(x + 2) ≥ 0 non si può «portare su» il denominatore, perché per x < −2 è negativo e il verso andrebbe capovolto. Lo studio del segno evita il problema.",
+          "Le disequazioni descrivono vincoli: un budget da non superare, una dose minima, una temperatura di sicurezza. L’insieme delle soluzioni è l’insieme delle scelte ammissibili, e i suoi estremi sono i valori critici da controllare per primi.",
+          "Un sistema di disequazioni chiede che valgano tutte insieme: le soluzioni sono l’intersezione degli insiemi. Per x > 1 e x ≤ 4 le soluzioni sono 1 < x ≤ 4. Se gli insiemi non si sovrappongono il sistema non ha soluzioni."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Una disequazione identifica un insieme di valori. Nel modello il margine è m(x)=ax+b e la condizione operativa è m(x)≥0. Gli zeri separano intervalli nei quali il segno resta costante, quando la funzione è continua e non attraversa altri zeri.",
-          "Con a=1 e b=-2, il margine vale zero in x=2. In x=3 vale 1 e il punto è ammesso; in x=1 vale -1 e non lo è. Poiché la condizione è ≥, il confine x=2 appartiene all’insieme soluzione."
+          "Ripasso: le regole di equivalenza e il capovolgimento del verso; la scrittura con gli intervalli; il metodo della parabola per il secondo grado; la tabella dei segni per prodotti e quozienti; l’intersezione nei sistemi.",
+          "Mini esercizio: −2x + 6 > 0. Si sottrae 6: −2x > −6. Si divide per −2 capovolgendo: x < 3. Controllo con x = 0: 6 > 0, vero; con x = 4: −2 > 0, falso.",
+          "Controlla le soluzioni con un valore interno e uno esterno all’intervallo trovato."
         ],
         "intermediate": [
-          "Se a>0, dividere ax≥-b per a conserva il verso: x≥-b/a. Se a<0 il verso si inverte. Se a=0, conta solo b: tutti i valori sono ammessi quando b≥0, nessuno quando b<0.",
-          "La variabile x è espressa in 1; Margine in 1. Il dominio dello strumento è [-6; 6]. La relazione implementata è: m(x) = ax+b; ammissibile se m ≥ 0."
+          "Ripasso: le regole di equivalenza e il capovolgimento del verso; la scrittura con gli intervalli; il metodo della parabola per il secondo grado; la tabella dei segni per prodotti e quozienti; l’intersezione nei sistemi.",
+          "Mini esercizio: −2x + 6 > 0. Si sottrae 6: −2x > −6. Si divide per −2 capovolgendo: x < 3. Controllo con x = 0: 6 > 0, vero; con x = 4: −2 > 0, falso.",
+          "Controlla le soluzioni con un valore interno e uno esterno all’intervallo trovato."
         ],
         "advanced": [
-          "Risolvi la stessa condizione con a negativo e controlla un punto di prova. Estendi poi il metodo a un prodotto di fattori, separando i punti esclusi dagli zeri ammessi.",
-          "Il margine è una relazione lineare didattica, non un criterio reale di sicurezza del rover. La finestra del grafico mostra solo una parte della retta reale."
+          "Ripasso: le regole di equivalenza e il capovolgimento del verso; la scrittura con gli intervalli; il metodo della parabola per il secondo grado; la tabella dei segni per prodotti e quozienti; l’intersezione nei sistemi.",
+          "Mini esercizio: −2x + 6 > 0. Si sottrae 6: −2x > −6. Si divide per −2 capovolgendo: x < 3. Controllo con x = 0: 6 > 0, vero; con x = 4: −2 > 0, falso.",
+          "Controlla le soluzioni con un valore interno e uno esterno all’intervallo trovato."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Margine lineare, non criterio di sicurezza reale.",
-          "Il margine è una relazione lineare didattica, non un criterio reale di sicurezza del rover. La finestra del grafico mostra solo una parte della retta reale.",
-          "Collegamento consigliato: math-a. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le disequazioni servono per determinare i domini delle funzioni, per studiarne il segno e, nelle scienze, per esprimere condizioni di sicurezza e di ammissibilità. Tornano nell’unità «Esponenziali e logaritmi» e nello studio delle funzioni.",
+          "Riepilogo dell’unità: le disequazioni si trasformano come le equazioni, con il verso che si capovolge quando si moltiplica o divide per un negativo; il secondo grado si legge dalla parabola; prodotti e quozienti si risolvono con la tabella dei segni; i sistemi chiedono l’intersezione delle soluzioni.",
+          "Nel diario risolvi la disequazione del serbatoio con una perdita di 20 litri al giorno e rappresenta le soluzioni su una retta."
         ],
         "intermediate": [
-          "Se a>0, dividere ax≥-b per a conserva il verso: x≥-b/a. Se a<0 il verso si inverte. Se a=0, conta solo b: tutti i valori sono ammessi quando b≥0, nessuno quando b<0.",
-          "Il margine è una relazione lineare didattica, non un criterio reale di sicurezza del rover. La finestra del grafico mostra solo una parte della retta reale.",
-          "Risolvi la stessa condizione con a negativo e controlla un punto di prova. Estendi poi il metodo a un prodotto di fattori, separando i punti esclusi dagli zeri ammessi."
+          "Le disequazioni servono per determinare i domini delle funzioni, per studiarne il segno e, nelle scienze, per esprimere condizioni di sicurezza e di ammissibilità. Tornano nell’unità «Esponenziali e logaritmi» e nello studio delle funzioni.",
+          "Riepilogo dell’unità: le disequazioni si trasformano come le equazioni, con il verso che si capovolge quando si moltiplica o divide per un negativo; il secondo grado si legge dalla parabola; prodotti e quozienti si risolvono con la tabella dei segni; i sistemi chiedono l’intersezione delle soluzioni.",
+          "Nel diario risolvi la disequazione del serbatoio con una perdita di 20 litri al giorno e rappresenta le soluzioni su una retta."
         ],
         "advanced": [
-          "Risolvi la stessa condizione con a negativo e controlla un punto di prova. Estendi poi il metodo a un prodotto di fattori, separando i punti esclusi dagli zeri ammessi.",
-          "Il margine è una relazione lineare didattica, non un criterio reale di sicurezza del rover. La finestra del grafico mostra solo una parte della retta reale.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le disequazioni servono per determinare i domini delle funzioni, per studiarne il segno e, nelle scienze, per esprimere condizioni di sicurezza e di ammissibilità. Tornano nell’unità «Esponenziali e logaritmi» e nello studio delle funzioni.",
+          "Riepilogo dell’unità: le disequazioni si trasformano come le equazioni, con il verso che si capovolge quando si moltiplica o divide per un negativo; il secondo grado si legge dalla parabola; prodotti e quozienti si risolvono con la tabella dei segni; i sistemi chiedono l’intersezione delle soluzioni.",
+          "Nel diario risolvi la disequazione del serbatoio con una perdita di 20 litri al giorno e rappresenta le soluzioni su una retta."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-c05-concept",
-      "prompt": "Quando si divide una disuguaglianza per un numero negativo:",
+      "id": "math-c05-q1",
+      "prompt": "Quali sono le soluzioni di −3x > 6?",
       "options": [
         {
           "id": "A",
-          "text": "Il verso non cambia",
-          "feedback": "Moltiplicare una disuguaglianza per un numero negativo senza invertirne il verso produce un insieme soluzione errato. Uno zero non va escluso automaticamente: dipende dalla presenza di > oppure ≥."
+          "text": "x > −2",
+          "feedback": "Dividendo per −3 il verso si capovolge."
         },
         {
           "id": "B",
-          "text": "Si elimina sempre l’uguaglianza",
-          "feedback": "Se a>0, dividere ax≥-b per a conserva il verso: x≥-b/a. Se a<0 il verso si inverte. Se a=0, conta solo b: tutti i valori sono ammessi quando b≥0, nessuno quando b<0."
+          "text": "x < −2",
+          "feedback": "Esatto: si divide per −3 e si capovolge il verso."
         },
         {
           "id": "C",
-          "text": "Si inverte il verso",
-          "feedback": "Una disequazione identifica un insieme di valori. Nel modello il margine è m(x)=ax+b e la condizione operativa è m(x)≥0. Gli zeri separano intervalli nei quali il segno resta costante, quando la funzione è continua e non attraversa altri zeri."
+          "text": "x < 2",
+          "feedback": "Il quoziente 6/(−3) vale −2, non 2: controlla il segno."
+        },
+        {
+          "id": "D",
+          "text": "x > 2",
+          "feedback": "Due errori: il segno del quoziente e il verso."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-c05-q2",
+      "prompt": "Come si scrive con un intervallo x ≤ 5?",
+      "options": [
+        {
+          "id": "A",
+          "text": "(−∞; 5]",
+          "feedback": "Esatto: 5 è incluso, quindi parentesi quadra."
+        },
+        {
+          "id": "B",
+          "text": "(−∞; 5)",
+          "feedback": "La parentesi tonda escluderebbe 5, che invece è soluzione."
+        },
+        {
+          "id": "C",
+          "text": "[5; +∞)",
+          "feedback": "[5; +∞) rappresenta x ≥ 5, cioè i valori a destra di 5."
+        },
+        {
+          "id": "D",
+          "text": "(5; +∞)",
+          "feedback": "(5; +∞) rappresenta x > 5, cioè i valori a destra di 5 escluso 5."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-c05-q3",
+      "prompt": "Quali sono le soluzioni di x² − 9 < 0?",
+      "options": [
+        {
+          "id": "A",
+          "text": "x < −3 oppure x > 3",
+          "feedback": "Questi valori rendono la parabola positiva."
+        },
+        {
+          "id": "B",
+          "text": "x < 3",
+          "feedback": "Con x = −4: 16 − 9 = 7, positivo. Serve anche x > −3."
+        },
+        {
+          "id": "C",
+          "text": "−3 < x < 3",
+          "feedback": "Esatto: la parabola rivolta verso l’alto è negativa tra le radici."
+        },
+        {
+          "id": "D",
+          "text": "Nessun valore",
+          "feedback": "Con x = 0 si ottiene −9 < 0, che è vero: le soluzioni esistono."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "math-c05-calculation",
-      "prompt": "Calcolo: Coefficiente a (a)=1 (adimensionale); Termine b (b)=-2 (adimensionale). Per x=3 (adimensionale), quanto vale Margine?",
+      "id": "math-c05-q4",
+      "prompt": "Quali sono le soluzioni di x² + 1 > 0?",
       "options": [
         {
           "id": "A",
-          "text": "0 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. m(x) = ax+b; ammissibile se m ≥ 0. Con Coefficiente a (a)=1 (adimensionale); Termine b (b)=-2 (adimensionale) e x=3 (adimensionale), il risultato è 1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "x > −1",
+          "feedback": "Il quadrato non è mai negativo: x² + 1 è almeno 1 per ogni x."
         },
         {
           "id": "B",
-          "text": "1 (adimensionale)",
-          "feedback": "m(x) = ax+b; ammissibile se m ≥ 0. Con Coefficiente a (a)=1 (adimensionale); Termine b (b)=-2 (adimensionale) e x=3 (adimensionale), il risultato è 1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Nessun valore",
+          "feedback": "Con x = 0 si ottiene 1 > 0, che è vero: le soluzioni esistono."
         },
         {
           "id": "C",
-          "text": "2 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. m(x) = ax+b; ammissibile se m ≥ 0. Con Coefficiente a (a)=1 (adimensionale); Termine b (b)=-2 (adimensionale) e x=3 (adimensionale), il risultato è 1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "x > 1 oppure x < −1",
+          "feedback": "Anche x = 0 è soluzione: 0 + 1 = 1 > 0."
+        },
+        {
+          "id": "D",
+          "text": "Tutti i numeri reali",
+          "feedback": "Esatto: x² non è mai negativo, quindi x² + 1 ≥ 1 > 0."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 3,
-        "parameters": {
-          "a": 1,
-          "b": -2
-        },
-        "expected": 1,
-        "unit": "1"
-      }
+      "correct": "D"
     },
     {
-      "id": "math-c05-transfer",
-      "prompt": "Trasferimento: Coefficiente a (a)=1,5 (adimensionale); Termine b (b)=-2 (adimensionale). Per x=3 (adimensionale), quanto vale Margine?",
+      "id": "math-c05-q5",
+      "prompt": "Quali sono le soluzioni di (x − 1)/(x + 2) ≥ 0?",
       "options": [
         {
           "id": "A",
-          "text": "2,5 (adimensionale)",
-          "feedback": "m(x) = ax+b; ammissibile se m ≥ 0. Con Coefficiente a (a)=1,5 (adimensionale); Termine b (b)=-2 (adimensionale) e x=3 (adimensionale), il risultato è 2,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "x ≥ 1",
+          "feedback": "Mancano i valori x < −2, dove numeratore e denominatore sono entrambi negativi."
         },
         {
           "id": "B",
-          "text": "3,75 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. m(x) = ax+b; ammissibile se m ≥ 0. Con Coefficiente a (a)=1,5 (adimensionale); Termine b (b)=-2 (adimensionale) e x=3 (adimensionale), il risultato è 2,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "x ≤ −2 oppure x ≥ 1",
+          "feedback": "In x = −2 la frazione non è definita: va escluso."
         },
         {
           "id": "C",
-          "text": "1,25 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. m(x) = ax+b; ammissibile se m ≥ 0. Con Coefficiente a (a)=1,5 (adimensionale); Termine b (b)=-2 (adimensionale) e x=3 (adimensionale), il risultato è 2,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "x < −2 oppure x ≥ 1",
+          "feedback": "Esatto: segni concordi, ed esclusione di x = −2."
+        },
+        {
+          "id": "D",
+          "text": "−2 < x ≤ 1",
+          "feedback": "In questo intervallo la frazione è negativa o nulla solo in 1."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 3,
-        "parameters": {
-          "a": 1.5,
-          "b": -2
-        },
-        "expected": 2.5,
-        "unit": "1"
-      }
+      "correct": "C"
     },
     {
-      "id": "math-c05-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "math-c05-q6",
+      "prompt": "Serbatoio da 200 litri, perdita di 15 litri al giorno, allarme sotto 50 litri. Per quali giorni g non scatta l’allarme?",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il margine è una relazione lineare didattica, non un criterio reale di sicurezza del rover. La finestra del grafico mostra solo una parte della retta reale."
+          "text": "g ≤ 10",
+          "feedback": "Esatto: 200 − 15g ≥ 50 dà −15g ≥ −150 e, capovolgendo, g ≤ 10."
         },
         {
           "id": "B",
-          "text": "Margine lineare, non criterio di sicurezza reale",
-          "feedback": "Il margine è una relazione lineare didattica, non un criterio reale di sicurezza del rover. La finestra del grafico mostra solo una parte della retta reale."
+          "text": "g ≥ 10",
+          "feedback": "Dividendo per −15 hai dimenticato di capovolgere il verso."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il margine è una relazione lineare didattica, non un criterio reale di sicurezza del rover. La finestra del grafico mostra solo una parte della retta reale."
+          "text": "g ≤ 50",
+          "feedback": "50 è la soglia in litri, non un numero di giorni."
+        },
+        {
+          "id": "D",
+          "text": "g ≤ 13",
+          "feedback": "200/15 ≈ 13,3 è il giorno in cui il serbatoio si svuota, senza tenere conto della soglia."
         }
       ],
-      "correct": "B"
+      "correct": "A"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "cards",
+    "goal": 3,
+    "rounds": [
+      {
+        "id": "primo-grado",
+        "type": "classify",
+        "title": "Verso ed estremo",
+        "prompt": "Risolvi ogni disequazione e scegli l’insieme delle soluzioni.",
+        "categories": [
+          {
+            "id": "lt",
+            "label": "x < 2"
+          },
+          {
+            "id": "le",
+            "label": "x ≤ 2"
+          },
+          {
+            "id": "gt",
+            "label": "x > 2"
+          },
+          {
+            "id": "ge",
+            "label": "x ≥ 2"
+          }
+        ],
+        "items": [
+          {
+            "id": "d1",
+            "text": "−3x > −6",
+            "why": "Dividendo per −3 il verso si capovolge: x < 2.",
+            "category": "lt"
+          },
+          {
+            "id": "d2",
+            "text": "2x − 4 ≥ 0",
+            "why": "2x ≥ 4, quindi x ≥ 2.",
+            "category": "ge"
+          },
+          {
+            "id": "d3",
+            "text": "5 − x < 3",
+            "why": "−x < −2; moltiplicando per −1 si capovolge: x > 2.",
+            "category": "gt"
+          },
+          {
+            "id": "d4",
+            "text": "−x/2 ≥ −1",
+            "why": "Moltiplicando per −2 si capovolge: x ≤ 2.",
+            "category": "le"
+          },
+          {
+            "id": "d5",
+            "text": "4x > 8",
+            "why": "x > 2: si divide per un numero positivo.",
+            "category": "gt"
+          },
+          {
+            "id": "d6",
+            "text": "6 − 3x ≥ 0",
+            "why": "−3x ≥ −6, quindi x ≤ 2.",
+            "category": "le"
+          },
+          {
+            "id": "d7",
+            "text": "x + 1 < 3",
+            "why": "Si sottrae 1: x < 2.",
+            "category": "lt"
+          },
+          {
+            "id": "d8",
+            "text": "2(x − 1) ≤ 2",
+            "why": "x − 1 ≤ 1, quindi x ≤ 2.",
+            "category": "le"
+          },
+          {
+            "id": "d9",
+            "text": "3 − 2x < −1",
+            "why": "−2x < −4; dividendo per −2: x > 2.",
+            "category": "gt"
+          }
+        ],
+        "explain": "Un coefficiente negativo capovolge il verso; il simbolo con l’uguale porta con sé l’estremo.",
+        "maxErrors": 2
+      },
+      {
+        "id": "secondo-grado",
+        "type": "classify",
+        "title": "La forma delle soluzioni",
+        "prompt": "Per ogni disequazione di secondo grado scegli che forma hanno le soluzioni.",
+        "categories": [
+          {
+            "id": "tutti",
+            "label": "TUTTI I REALI"
+          },
+          {
+            "id": "nessuno",
+            "label": "NESSUN REALE"
+          },
+          {
+            "id": "interno",
+            "label": "TRA LE RADICI"
+          },
+          {
+            "id": "esterno",
+            "label": "FUORI DALLE RADICI"
+          }
+        ],
+        "items": [
+          {
+            "id": "s1",
+            "text": "x² − 4 < 0",
+            "why": "Parabola verso l’alto, radici ±2: negativa tra le radici.",
+            "category": "interno"
+          },
+          {
+            "id": "s2",
+            "text": "x² − 4 > 0",
+            "why": "Positiva fuori dalle radici: x < −2 oppure x > 2.",
+            "category": "esterno"
+          },
+          {
+            "id": "s3",
+            "text": "x² + 1 > 0",
+            "why": "x² + 1 è sempre almeno 1.",
+            "category": "tutti"
+          },
+          {
+            "id": "s4",
+            "text": "x² + 1 < 0",
+            "why": "Una quantità sempre positiva non è mai negativa.",
+            "category": "nessuno"
+          },
+          {
+            "id": "s5",
+            "text": "x² − 5x + 6 ≤ 0",
+            "why": "Radici 2 e 3, parabola verso l’alto: 2 ≤ x ≤ 3.",
+            "category": "interno"
+          },
+          {
+            "id": "s6",
+            "text": "(x − 1)² ≥ 0",
+            "why": "Un quadrato non è mai negativo.",
+            "category": "tutti"
+          },
+          {
+            "id": "s7",
+            "text": "−x² + 9 > 0",
+            "why": "Parabola verso il basso con radici ±3: positiva tra le radici.",
+            "category": "interno"
+          },
+          {
+            "id": "s8",
+            "text": "x² − x − 2 > 0",
+            "why": "Radici −1 e 2: positiva fuori, x < −1 oppure x > 2.",
+            "category": "esterno"
+          },
+          {
+            "id": "s9",
+            "text": "(x − 3)² < 0",
+            "why": "Un quadrato non è mai negativo: nessuna soluzione.",
+            "category": "nessuno"
+          }
+        ],
+        "explain": "Concavità e radici della parabola bastano a leggere le soluzioni; se le radici mancano, il segno è costante.",
+        "maxErrors": 2
+      },
+      {
+        "id": "segno",
+        "type": "order",
+        "title": "Lo studio del segno",
+        "prompt": "Metti in ordine i passi per risolvere (x − 1)/(x + 2) ≥ 0.",
+        "items": [
+          {
+            "id": "t1",
+            "text": "Studia il numeratore: x − 1 ≥ 0 per x ≥ 1",
+            "why": "Si comincia studiando ogni fattore separatamente."
+          },
+          {
+            "id": "t2",
+            "text": "Studia il denominatore: x + 2 > 0 per x > −2",
+            "why": "Il denominatore si studia con il segno stretto, perché non può annullarsi."
+          },
+          {
+            "id": "t3",
+            "text": "Riporta i segni in una tabella e combinali",
+            "why": "Solo dopo aver studiato i fattori si costruisce la tabella."
+          },
+          {
+            "id": "t4",
+            "text": "Scegli gli intervalli con segno positivo o nullo",
+            "why": "Dalla tabella si leggono gli intervalli richiesti dal verso ≥."
+          },
+          {
+            "id": "t5",
+            "text": "Escludi x = −2 e scrivi: x < −2 oppure x ≥ 1",
+            "why": "L’ultimo controllo riguarda i punti in cui la frazione non esiste."
+          }
+        ],
+        "explain": "Numeratore, denominatore, tabella, scelta degli intervalli, esclusione dei punti non definiti."
+      }
+    ]
+  }
 }

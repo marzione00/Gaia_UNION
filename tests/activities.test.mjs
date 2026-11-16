@@ -1,6 +1,8 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
 import {VSEPR_CHALLENGES,VSEPR_SHAPES,vseprInfo,vseprValid,vseprPositions,shapeOptions,checkVsepr,punnett,sow,chiSquare,testcross,judgeMystery,EVIDENCE_SEEDS,STATEMENTS,testValue,checkStatement,freshActivity,cleanActivity,recordSolved,activityProgress,
- BISECTION_TASKS,checkGuarantee,bisectionStep,IONIC_CHALLENGES,ion,ionicFormula,checkIonic,validateCards,checkCard,checkOrder,scrambled} from '../src/education/activities.js';
+ BISECTION_TASKS,checkGuarantee,bisectionStep,IONIC_CHALLENGES,ion,ionicFormula,checkIonic,validateCards,checkCard,checkOrder,scrambled,
+ validateFit,fitData,fitError,fitStart,fitStep,checkFit,validateSteps,checkStep} from '../src/education/activities.js';
+import {descriptor} from '../src/models/curriculum.js';
 import {validateBundle} from '../src/education/course-engine.js';
 import {freshCourse,cleanCourseRecords,answerCourse,courseProgress,completeCourse} from '../src/education/course-engine.js';
 const bundle=JSON.parse(fs.readFileSync(new URL('../content/curriculum/bundle.json',import.meta.url),'utf8'));
@@ -78,16 +80,32 @@ test('Composti ionici: cariche dai gruppi, neutralità, rapporto minimo e parent
  assert.equal(ionicFormula(ion('NH4'),1,ion('Cl'),1),'NH₄Cl');assert.equal(ionicFormula(ion('Ca'),1,ion('OH'),2),'Ca(OH)₂');
 });
 test('Carte: serie dei file di unità valide, classificazione e ordinamento',()=>{
- const units=bundle.courses.filter(d=>d.activity?.kind==='cards');assert.deepEqual(units.map(d=>d.id).sort(),['biology-07','chemistry-09','math-p05']);
+ const units=bundle.courses.filter(d=>d.activity?.kind==='cards');assert.ok(units.length>=3);
  for(const d of units){validateCards(d.activity);assert.ok(d.activity.goal<=d.activity.rounds.length);
   for(const r of d.activity.rounds){if(r.type==='classify'){r.items.forEach((it,i)=>{assert.ok(checkCard(r,i,it.category).ok);const other=r.categories.find(c=>c.id!==it.category);assert.equal(checkCard(r,i,other.id).ok,false);});}
    else{const start=scrambled(r);assert.notDeepEqual(start,r.items.map(it=>it.id),r.id);assert.equal(new Set(start).size,r.items.length);assert.equal(checkOrder(r,start).ok,false);assert.ok(checkOrder(r,r.items.map(it=>it.id)).ok);}}}
  const bad=structuredClone(units[0].activity);bad.rounds[0].items[0].category='nessuna';assert.throws(()=>validateCards(bad));
  const goal=structuredClone(units[0].activity);goal.goal=9;assert.throws(()=>validateCards(goal));
- const b=structuredClone(bundle);b.courses.find(d=>d.id==='math-p05').activity.rounds[0].maxErrors=7;assert.throws(()=>validateBundle(b));
+ const b=structuredClone(bundle);b.courses.find(d=>d.id===units[0].id).activity.rounds.find(r=>r.type==='classify').maxErrors=7;assert.throws(()=>validateBundle(b));
  const def=units[0].activity,state=freshActivity('cards');recordSolved(state,'sconosciuta');assert.equal(activityProgress(def,state).solved,0);
  for(const r of def.rounds.slice(0,def.goal))recordSolved(state,r.id);assert.ok(activityProgress(def,state).done);
- assert.deepEqual(cleanActivity({kind:'cards',solved:['insiemi','insiemi','<script>','a'.repeat(50)]},'cards').solved,['insiemi']);
+ assert.deepEqual(cleanActivity({kind:'cards',solved:['insiemi','insiemi','<script>','a'.repeat(50)]},'cards').solved,['insiemi']);assert.deepEqual(cleanActivity({kind:'steps',solved:['p-1','P 2']},'steps').solved,['p-1']);
  assert.deepEqual(cleanActivity({kind:'bisection',solved:['radice-due','cubica','x']},'bisection').solved,['radice-due','cubica']);
  assert.deepEqual(cleanActivity({kind:'ionic',solved:['nacl','zzz']},'ionic').solved,['nacl']);
+});
+
+test('Adatta il modello: dati riproducibili, minimo dello scarto nei parametri nascosti, passi sulla griglia',()=>{
+ const units=bundle.courses.filter(d=>d.activity?.kind==='fit');
+ for(const d of units){validateFit(d.activity);for(const r of d.activity.rounds){const m=descriptor(r.model),grid=k=>{const c=m.controls.find(c=>c.key===k),n=Math.round((c.max-c.min)/c.step);return Array.from({length:n+1},(_,i)=>Math.min(c.max,Number((c.min+i*c.step).toPrecision(12))));};
+  const best=fitError(r,r.hidden);assert.ok(Number.isFinite(best));const start=fitStart(r);assert.ok(r.fit.some(k=>Math.abs(start[k]-r.hidden[k])>1e-9),r.id);
+  const combos=r.fit.length===1?grid(r.fit[0]).map(v=>({[r.fit[0]]:v})):grid(r.fit[0]).flatMap(a=>grid(r.fit[1]).map(b=>({[r.fit[0]]:a,[r.fit[1]]:b})));
+  for(const c of combos){const p={...r.hidden,...c};if(r.fit.some(k=>Math.abs(p[k]-r.hidden[k])>1e-9))assert.ok(fitError(r,p)>best+1e-12,d.id+' '+r.id+' '+JSON.stringify(c));}
+  assert.ok(checkFit(r,r.hidden).ok);assert.equal(checkFit(r,start).ok,false);assert.match(checkFit(r,start,2).message,/Suggerimento/);
+  let p=start;for(const k of r.fit)for(let i=0;i<200&&Math.abs(p[k]-r.hidden[k])>1e-9;i++)p=fitStep(r,p,k,p[k]<r.hidden[k]?1:-1);assert.ok(checkFit(r,p).ok,r.id);}}
+ const any=units[0]?.activity;if(any){const bad=structuredClone(any);bad.rounds[0].hidden[descriptor(bad.rounds[0].model).controls[0].key]+=1e-3;assert.throws(()=>validateFit(bad));const far=structuredClone(any);far.rounds[0].x[0]=1e9;assert.throws(()=>validateFit(far));}
+});
+test('Problemi guidati: struttura valida e una sola risposta giusta per passo',()=>{
+ const units=bundle.courses.filter(d=>d.activity?.kind==='steps');assert.ok(units.length>=1);
+ for(const d of units){validateSteps(d.activity);for(const pr of d.activity.problems)pr.steps.forEach((st,i)=>st.options.forEach((o,j)=>assert.equal(checkStep(pr,i,j).ok,j===st.correct)));}
+ const bad=structuredClone(units[0].activity);bad.problems[0].steps[0].correct=9;assert.throws(()=>validateSteps(bad));assert.throws(()=>checkStep(units[0].activity.problems[0],0,7));
 });

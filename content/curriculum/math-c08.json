@@ -5,21 +5,22 @@
   "title": "Funzioni",
   "sector": 0,
   "modelId": "math-c08",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Famiglia quadratica, senza inferenza su dati reali",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Funzioni reali, grafici, proprietà lette dal grafico e parabola y = a(x − b)²",
+  "narrativeStatus": "L’antenna è immaginaria; le funzioni e i dati di esempio sono costruiti per l’esercizio.",
   "objectives": [
-    "Spiegare: famiglia quadratica, senza inferenza su dati reali.",
-    "Applicare y = a(x-b)², dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Riconoscere una funzione e determinarne dominio e immagine.",
+    "Leggere zeri, segno, crescenza e massimi o minimi dal grafico.",
+    "Spiegare il ruolo di a e b nella parabola y = a(x − b)².",
+    "Adattare i parametri di un modello a dati misurati con il criterio dello scarto minimo."
   ],
   "prerequisites": [
     "math-c05",
     "math-c07"
   ],
   "connections": [
-    "math-c03"
+    "math-c06"
   ],
   "sources": [
     "precalculus"
@@ -38,250 +39,422 @@
   },
   "glossary": [
     {
-      "term": "x",
-      "definition": "Variabile indipendente, unità 1; intervallo [-4; 6]."
+      "term": "Funzione",
+      "definition": "Regola che associa a ogni elemento del dominio un solo valore."
     },
     {
-      "term": "f(x)",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Dominio e immagine",
+      "definition": "Insieme dei valori di ingresso ammessi e insieme dei valori ottenuti."
     },
     {
-      "term": "Coefficiente a",
-      "definition": "Parametro a, unità 1; intervallo [-2; 2]."
+      "term": "Vertice",
+      "definition": "Punto di massimo o minimo della parabola; per y = a(x − b)² sta in x = b."
     },
     {
-      "term": "Ascissa vertice",
-      "definition": "Parametro b, unità 1; intervallo [-2; 4]."
+      "term": "Concavità",
+      "definition": "Verso della parabola: in alto se a > 0, in basso se a < 0."
+    },
+    {
+      "term": "Scarto quadratico medio",
+      "definition": "Radice della media dei quadrati delle differenze tra modello e misure."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Una regola, un grafico",
       "text": {
         "base": [
-          "La stazione Simbiosi osserva una risposta che diminuisce e poi aumenta. La missione non consiste nel dare un nome alla curva: devi collegare input, output, dominio e trasformazioni del modello.",
-          "Una funzione associa a ogni input del dominio un solo output. Nella famiglia f(x)=a(x-b)², il parametro b sposta il vertice orizzontalmente e a modifica apertura e verso della parabola. Più input possono avere lo stesso output: ciò non viola la definizione di funzione."
+          "Un’antenna parabolica della stazione deve concentrare il segnale in un punto. Il suo profilo è una parabola, e per costruirla bisogna sapere come i numeri della formula ne cambiano la forma: dove sta il vertice, quanto è aperta, se è rivolta in alto o in basso. Una funzione è proprio questo: una regola che a ogni numero di ingresso associa un solo numero di uscita, e il suo grafico ne è la fotografia.",
+          "Una funzione f associa a ogni x del dominio un solo valore y = f(x). Il dominio è l’insieme degli x ammessi, l’immagine l’insieme dei valori ottenuti. Il grafico è l’insieme dei punti (x; f(x)) del piano: una retta verticale lo incontra al massimo una volta, perché a ogni x corrisponde un solo y."
         ],
         "intermediate": [
-          "La stazione Simbiosi osserva una risposta che diminuisce e poi aumenta. La missione non consiste nel dare un nome alla curva: devi collegare input, output, dominio e trasformazioni del modello.",
-          "Il quadrato è non negativo. Se a>0 il minimo è zero in x=b; se a<0 è un massimo; se a=0 tutta la funzione è nulla. La simmetria è f(b-d)=f(b+d), che spiega perché l’inversa richiede una restrizione del dominio."
+          "Un’antenna parabolica della stazione deve concentrare il segnale in un punto. Il suo profilo è una parabola, e per costruirla bisogna sapere come i numeri della formula ne cambiano la forma: dove sta il vertice, quanto è aperta, se è rivolta in alto o in basso. Una funzione è proprio questo: una regola che a ogni numero di ingresso associa un solo numero di uscita, e il suo grafico ne è la fotografia.",
+          "Una funzione f associa a ogni x del dominio un solo valore y = f(x). Il dominio è l’insieme degli x ammessi, l’immagine l’insieme dei valori ottenuti. Il grafico è l’insieme dei punti (x; f(x)) del piano: una retta verticale lo incontra al massimo una volta, perché a ogni x corrisponde un solo y."
         ],
         "advanced": [
-          "La stazione Simbiosi osserva una risposta che diminuisce e poi aumenta. La missione non consiste nel dare un nome alla curva: devi collegare input, output, dominio e trasformazioni del modello.",
-          "Ricava l’inversa sul ramo x≥b con a>0: x=b+√(y/a). Confronta poi l’immagine della funzione sull’intervallo visualizzato con l’immagine su tutti i reali.",
-          "Il laboratorio usa una famiglia quadratica esatta e un intervallo di input finito. Non stima parametri da osservazioni e non dimostra che una parabola sia una legge biologica della stazione."
+          "Un’antenna parabolica della stazione deve concentrare il segnale in un punto. Il suo profilo è una parabola, e per costruirla bisogna sapere come i numeri della formula ne cambiano la forma: dove sta il vertice, quanto è aperta, se è rivolta in alto o in basso. Una funzione è proprio questo: una regola che a ogni numero di ingresso associa un solo numero di uscita, e il suo grafico ne è la fotografia.",
+          "Una funzione f associa a ogni x del dominio un solo valore y = f(x). Il dominio è l’insieme degli x ammessi, l’immagine l’insieme dei valori ottenuti. Il grafico è l’insieme dei punti (x; f(x)) del piano: una retta verticale lo incontra al massimo una volta, perché a ogni x corrisponde un solo y."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Leggere e trasformare la parabola",
       "text": {
         "base": [
-          "Una funzione associa a ogni input del dominio un solo output. Nella famiglia f(x)=a(x-b)², il parametro b sposta il vertice orizzontalmente e a modifica apertura e verso della parabola. Più input possono avere lo stesso output: ciò non viola la definizione di funzione.",
-          "Con a=1 e b=2, f(4)=4 e f(0)=4. Il vertice è (2,0). Sul dominio completo la funzione non è iniettiva; sulla semiretta x≥2 lo è."
+          "Dal grafico si leggono le proprietà principali: gli zeri, dove il grafico tocca l’asse x; il segno, sopra o sotto l’asse; gli intervalli in cui la funzione cresce o decresce; i massimi e i minimi. Per esempio f(x) = (x − 2)² vale zero solo in x = 2, è sempre positiva altrove, decresce per x < 2 e cresce per x > 2, con minimo 0 in x = 2.",
+          "Nella forma y = a(x − b)² i due numeri hanno un significato geometrico preciso. b è l’ascissa del vertice: la parabola è simmetrica rispetto alla retta x = b. a decide la concavità e l’apertura: se a > 0 la parabola è rivolta verso l’alto e il vertice è un minimo; se a < 0 è rivolta verso il basso e il vertice è un massimo; più |a| è grande, più la parabola è stretta. Esempio: con a = 1 e b = 2, in x = 4 si ottiene 1 · 2² = 4.",
+          "Ogni forma della parabola si ottiene da y = x² con trasformazioni. Sostituire x con x − b trasla il grafico di b verso destra; moltiplicare per a lo dilata in verticale e, se a è negativo, lo ribalta. Aggiungere una costante c lo trasla in verticale: y = a(x − b)² + c ha il vertice in (b; c). Le stesse regole valgono per qualunque funzione: f(x − b) è f spostata a destra di b.",
+          "Una funzione è crescente in un intervallo se a valori di x maggiori corrispondono valori di y maggiori. La parabola y = a(x − b)² con a > 0 decresce prima del vertice e cresce dopo: per questo le previsioni «cresce» e «decresce» dipendono dall’intervallo che si guarda."
         ],
         "intermediate": [
-          "Il quadrato è non negativo. Se a>0 il minimo è zero in x=b; se a<0 è un massimo; se a=0 tutta la funzione è nulla. La simmetria è f(b-d)=f(b+d), che spiega perché l’inversa richiede una restrizione del dominio.",
-          "La variabile x è espressa in 1; f(x) in 1. Il dominio dello strumento è [-4; 6]. La relazione implementata è: y = a(x-b)².",
-          "Con a=1 e b=2, f(4)=4 e f(0)=4. Il vertice è (2,0). Sul dominio completo la funzione non è iniettiva; sulla semiretta x≥2 lo è."
+          "Dal grafico si leggono le proprietà principali: gli zeri, dove il grafico tocca l’asse x; il segno, sopra o sotto l’asse; gli intervalli in cui la funzione cresce o decresce; i massimi e i minimi. Per esempio f(x) = (x − 2)² vale zero solo in x = 2, è sempre positiva altrove, decresce per x < 2 e cresce per x > 2, con minimo 0 in x = 2.",
+          "Nella forma y = a(x − b)² i due numeri hanno un significato geometrico preciso. b è l’ascissa del vertice: la parabola è simmetrica rispetto alla retta x = b. a decide la concavità e l’apertura: se a > 0 la parabola è rivolta verso l’alto e il vertice è un minimo; se a < 0 è rivolta verso il basso e il vertice è un massimo; più |a| è grande, più la parabola è stretta. Esempio: con a = 1 e b = 2, in x = 4 si ottiene 1 · 2² = 4.",
+          "Ogni forma della parabola si ottiene da y = x² con trasformazioni. Sostituire x con x − b trasla il grafico di b verso destra; moltiplicare per a lo dilata in verticale e, se a è negativo, lo ribalta. Aggiungere una costante c lo trasla in verticale: y = a(x − b)² + c ha il vertice in (b; c). Le stesse regole valgono per qualunque funzione: f(x − b) è f spostata a destra di b.",
+          "La forma generale y = ax² + px + q si riporta alla forma con il vertice completando il quadrato. Esempio: y = x² − 4x + 7 = (x² − 4x + 4) + 3 = (x − 2)² + 3, con vertice (2; 3). Il vertice ha sempre ascissa −p/(2a).",
+          "Una funzione è crescente in un intervallo se a valori di x maggiori corrispondono valori di y maggiori. La parabola y = a(x − b)² con a > 0 decresce prima del vertice e cresce dopo: per questo le previsioni «cresce» e «decresce» dipendono dall’intervallo che si guarda."
         ],
         "advanced": [
-          "Il quadrato è non negativo. Se a>0 il minimo è zero in x=b; se a<0 è un massimo; se a=0 tutta la funzione è nulla. La simmetria è f(b-d)=f(b+d), che spiega perché l’inversa richiede una restrizione del dominio.",
-          "Ricava l’inversa sul ramo x≥b con a>0: x=b+√(y/a). Confronta poi l’immagine della funzione sull’intervallo visualizzato con l’immagine su tutti i reali.",
-          "Dominio, codominio e immagine non sono sinonimi. La traslazione f(x-b) sposta il grafico verso destra per b positivo, non verso sinistra. La prospettiva 3D del grafico non aggiunge una terza variabile matematica."
+          "Nella forma y = a(x − b)² i due numeri hanno un significato geometrico preciso. b è l’ascissa del vertice: la parabola è simmetrica rispetto alla retta x = b. a decide la concavità e l’apertura: se a > 0 la parabola è rivolta verso l’alto e il vertice è un minimo; se a < 0 è rivolta verso il basso e il vertice è un massimo; più |a| è grande, più la parabola è stretta. Esempio: con a = 1 e b = 2, in x = 4 si ottiene 1 · 2² = 4.",
+          "Ogni forma della parabola si ottiene da y = x² con trasformazioni. Sostituire x con x − b trasla il grafico di b verso destra; moltiplicare per a lo dilata in verticale e, se a è negativo, lo ribalta. Aggiungere una costante c lo trasla in verticale: y = a(x − b)² + c ha il vertice in (b; c). Le stesse regole valgono per qualunque funzione: f(x − b) è f spostata a destra di b.",
+          "La forma generale y = ax² + px + q si riporta alla forma con il vertice completando il quadrato. Esempio: y = x² − 4x + 7 = (x² − 4x + 4) + 3 = (x − 2)² + 3, con vertice (2; 3). Il vertice ha sempre ascissa −p/(2a).",
+          "Una funzione è crescente in un intervallo se a valori di x maggiori corrispondono valori di y maggiori. La parabola y = a(x − b)² con a > 0 decresce prima del vertice e cresce dopo: per questo le previsioni «cresce» e «decresce» dipendono dall’intervallo che si guarda."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Adatta la parabola ai dati",
       "text": {
         "base": [
-          "Nel laboratorio imposta Coefficiente a (a): 1 (adimensionale); Ascissa vertice (b): 2 (adimensionale). Prima di salvare A, prevedi come cambia f(x) fra x=-1,5 e 1 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con a=1 e b=2, f(4)=4 e f(0)=4. Il vertice è (2,0). Sul dominio completo la funzione non è iniettiva; sulla semiretta x≥2 lo è.",
-          "La variabile x è espressa in 1; f(x) in 1. Il dominio dello strumento è [-4; 6]. La relazione implementata è: y = a(x-b)²."
+          "L’attività chiede di adattare una parabola a dati misurati. Ci sono tre serie: nella prima regoli solo la posizione del vertice b, nella seconda solo il coefficiente a, nella terza entrambi. Per completare l’attività supera due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare, gli altri restano fissi. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i parametri migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muovere un parametro.",
+          "Per la serie con due parametri conviene procedere per gradi: prima sposta il vertice finché la curva è simmetrica come i punti, poi regola a finché l’apertura coincide. Ogni volta guarda lo scarto: deve scendere."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Coefficiente a (a): 1 (adimensionale); Ascissa vertice (b): 2 (adimensionale). Prima di salvare A, prevedi come cambia f(x) fra x=-1,5 e 1 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile x è espressa in 1; f(x) in 1. Il dominio dello strumento è [-4; 6]. La relazione implementata è: y = a(x-b)².",
-          "Il quadrato è non negativo. Se a>0 il minimo è zero in x=b; se a<0 è un massimo; se a=0 tutta la funzione è nulla. La simmetria è f(b-d)=f(b+d), che spiega perché l’inversa richiede una restrizione del dominio."
+          "L’attività chiede di adattare una parabola a dati misurati. Ci sono tre serie: nella prima regoli solo la posizione del vertice b, nella seconda solo il coefficiente a, nella terza entrambi. Per completare l’attività supera due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare, gli altri restano fissi. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i parametri migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muovere un parametro.",
+          "Per la serie con due parametri conviene procedere per gradi: prima sposta il vertice finché la curva è simmetrica come i punti, poi regola a finché l’apertura coincide. Ogni volta guarda lo scarto: deve scendere."
         ],
         "advanced": [
-          "Nel laboratorio imposta Coefficiente a (a): 1 (adimensionale); Ascissa vertice (b): 2 (adimensionale). Prima di salvare A, prevedi come cambia f(x) fra x=-1,5 e 1 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Ricava l’inversa sul ramo x≥b con a>0: x=b+√(y/a). Confronta poi l’immagine della funzione sull’intervallo visualizzato con l’immagine su tutti i reali.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività chiede di adattare una parabola a dati misurati. Ci sono tre serie: nella prima regoli solo la posizione del vertice b, nella seconda solo il coefficiente a, nella terza entrambi. Per completare l’attività supera due serie su tre.",
+          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare, gli altri restano fissi. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i parametri migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce in quale direzione muovere un parametro.",
+          "Per la serie con due parametri conviene procedere per gradi: prima sposta il vertice finché la curva è simmetrica come i punti, poi regola a finché l’apertura coincide. Ogni volta guarda lo scarto: deve scendere.",
+          "Il criterio dei minimi quadrati, cioè la scelta dei parametri che rendono minimo lo scarto quadratico, risale a Legendre e Gauss all’inizio dell’Ottocento. I programmi di calcolo trovano i parametri migliori con metodi automatici; regolarli a mano aiuta a capire che cosa ciascun parametro cambia nel grafico."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Modelli, dati ed errori",
       "text": {
         "base": [
-          "Dominio, codominio e immagine non sono sinonimi. La traslazione f(x-b) sposta il grafico verso destra per b positivo, non verso sinistra. La prospettiva 3D del grafico non aggiunge una terza variabile matematica.",
-          "Il laboratorio usa una famiglia quadratica esatta e un intervallo di input finito. Non stima parametri da osservazioni e non dimostra che una parabola sia una legge biologica della stazione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Adattare un modello ai dati è il lavoro quotidiano delle scienze sperimentali. I parametri trovati hanno un significato: qui la posizione del vertice e l’apertura della parabola. Lo scarto che resta con i parametri migliori misura la dispersione delle misure, e non scende a zero.",
+          "Errore frequente: pensare che in y = a(x − b)² il vertice stia in x = −b. Il vertice sta dove la parentesi si annulla: x − b = 0, cioè x = b. Con b = 2 si legge (x − 2)², e il vertice è in 2.",
+          "Secondo errore: confondere la funzione con la sua formula. La stessa funzione si può scrivere in molti modi (x − 2)² e x² − 4x + 4 sono la stessa funzione, e ciò che conta è la corrispondenza tra x e y."
         ],
         "intermediate": [
-          "Dominio, codominio e immagine non sono sinonimi. La traslazione f(x-b) sposta il grafico verso destra per b positivo, non verso sinistra. La prospettiva 3D del grafico non aggiunge una terza variabile matematica.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Adattare un modello ai dati è il lavoro quotidiano delle scienze sperimentali. I parametri trovati hanno un significato: qui la posizione del vertice e l’apertura della parabola. Lo scarto che resta con i parametri migliori misura la dispersione delle misure, e non scende a zero.",
+          "Errore frequente: pensare che in y = a(x − b)² il vertice stia in x = −b. Il vertice sta dove la parentesi si annulla: x − b = 0, cioè x = b. Con b = 2 si legge (x − 2)², e il vertice è in 2.",
+          "Secondo errore: confondere la funzione con la sua formula. La stessa funzione si può scrivere in molti modi (x − 2)² e x² − 4x + 4 sono la stessa funzione, e ciò che conta è la corrispondenza tra x e y.",
+          "Il criterio dei minimi quadrati, cioè la scelta dei parametri che rendono minimo lo scarto quadratico, risale a Legendre e Gauss all’inizio dell’Ottocento. I programmi di calcolo trovano i parametri migliori con metodi automatici; regolarli a mano aiuta a capire che cosa ciascun parametro cambia nel grafico."
         ],
         "advanced": [
-          "Il laboratorio usa una famiglia quadratica esatta e un intervallo di input finito. Non stima parametri da osservazioni e non dimostra che una parabola sia una legge biologica della stazione.",
-          "Ricava l’inversa sul ramo x≥b con a>0: x=b+√(y/a). Confronta poi l’immagine della funzione sull’intervallo visualizzato con l’immagine su tutti i reali.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Adattare un modello ai dati è il lavoro quotidiano delle scienze sperimentali. I parametri trovati hanno un significato: qui la posizione del vertice e l’apertura della parabola. Lo scarto che resta con i parametri migliori misura la dispersione delle misure, e non scende a zero.",
+          "Secondo errore: confondere la funzione con la sua formula. La stessa funzione si può scrivere in molti modi (x − 2)² e x² − 4x + 4 sono la stessa funzione, e ciò che conta è la corrispondenza tra x e y.",
+          "Il criterio dei minimi quadrati, cioè la scelta dei parametri che rendono minimo lo scarto quadratico, risale a Legendre e Gauss all’inizio dell’Ottocento. I programmi di calcolo trovano i parametri migliori con metodi automatici; regolarli a mano aiuta a capire che cosa ciascun parametro cambia nel grafico."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Una funzione associa a ogni input del dominio un solo output. Nella famiglia f(x)=a(x-b)², il parametro b sposta il vertice orizzontalmente e a modifica apertura e verso della parabola. Più input possono avere lo stesso output: ciò non viola la definizione di funzione.",
-          "Con a=1 e b=2, f(4)=4 e f(0)=4. Il vertice è (2,0). Sul dominio completo la funzione non è iniettiva; sulla semiretta x≥2 lo è."
+          "Ripasso: definizione di funzione, dominio e immagine; lettura di zeri, segno, crescenza e massimi o minimi dal grafico; significato di a e b in y = a(x − b)²; traslazioni e dilatazioni; completamento del quadrato.",
+          "Mini esercizio: y = −2(x + 1)². Il vertice è in x = −1, la parabola è rivolta verso il basso e in x = 0 vale −2.",
+          "Nelle domande sul vertice scrivi sempre la parentesi nella forma (x − b) prima di leggere b."
         ],
         "intermediate": [
-          "Il quadrato è non negativo. Se a>0 il minimo è zero in x=b; se a<0 è un massimo; se a=0 tutta la funzione è nulla. La simmetria è f(b-d)=f(b+d), che spiega perché l’inversa richiede una restrizione del dominio.",
-          "La variabile x è espressa in 1; f(x) in 1. Il dominio dello strumento è [-4; 6]. La relazione implementata è: y = a(x-b)²."
+          "Ripasso: definizione di funzione, dominio e immagine; lettura di zeri, segno, crescenza e massimi o minimi dal grafico; significato di a e b in y = a(x − b)²; traslazioni e dilatazioni; completamento del quadrato.",
+          "Mini esercizio: y = −2(x + 1)². Il vertice è in x = −1, la parabola è rivolta verso il basso e in x = 0 vale −2.",
+          "Nelle domande sul vertice scrivi sempre la parentesi nella forma (x − b) prima di leggere b."
         ],
         "advanced": [
-          "Ricava l’inversa sul ramo x≥b con a>0: x=b+√(y/a). Confronta poi l’immagine della funzione sull’intervallo visualizzato con l’immagine su tutti i reali.",
-          "Il laboratorio usa una famiglia quadratica esatta e un intervallo di input finito. Non stima parametri da osservazioni e non dimostra che una parabola sia una legge biologica della stazione."
+          "Ripasso: definizione di funzione, dominio e immagine; lettura di zeri, segno, crescenza e massimi o minimi dal grafico; significato di a e b in y = a(x − b)²; traslazioni e dilatazioni; completamento del quadrato.",
+          "Mini esercizio: y = −2(x + 1)². Il vertice è in x = −1, la parabola è rivolta verso il basso e in x = 0 vale −2.",
+          "Nelle domande sul vertice scrivi sempre la parentesi nella forma (x − b) prima di leggere b."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Famiglia quadratica, senza inferenza su dati reali.",
-          "Il laboratorio usa una famiglia quadratica esatta e un intervallo di input finito. Non stima parametri da osservazioni e non dimostra che una parabola sia una legge biologica della stazione.",
-          "Collegamento consigliato: math-c03. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le funzioni sono il linguaggio comune di tutta la matematica applicata: esponenziali, logaritmi, funzioni trigonometriche e modelli delle scienze sono funzioni, e si leggono con gli stessi strumenti. L’unità «Esponenziali e logaritmi» ne presenta due famiglie fondamentali.",
+          "Riepilogo dell’unità: una funzione associa a ogni x un solo y; il grafico ne mostra zeri, segno e andamento; nella parabola y = a(x − b)² il parametro b sposta il vertice e a ne decide verso e apertura; adattare il modello ai dati significa scegliere i parametri con lo scarto minimo.",
+          "Nel diario scrivi i parametri trovati in una serie dell’attività, lo scarto residuo e come hai deciso in quale direzione muovere i parametri."
         ],
         "intermediate": [
-          "Il quadrato è non negativo. Se a>0 il minimo è zero in x=b; se a<0 è un massimo; se a=0 tutta la funzione è nulla. La simmetria è f(b-d)=f(b+d), che spiega perché l’inversa richiede una restrizione del dominio.",
-          "Il laboratorio usa una famiglia quadratica esatta e un intervallo di input finito. Non stima parametri da osservazioni e non dimostra che una parabola sia una legge biologica della stazione.",
-          "Ricava l’inversa sul ramo x≥b con a>0: x=b+√(y/a). Confronta poi l’immagine della funzione sull’intervallo visualizzato con l’immagine su tutti i reali."
+          "Le funzioni sono il linguaggio comune di tutta la matematica applicata: esponenziali, logaritmi, funzioni trigonometriche e modelli delle scienze sono funzioni, e si leggono con gli stessi strumenti. L’unità «Esponenziali e logaritmi» ne presenta due famiglie fondamentali.",
+          "Riepilogo dell’unità: una funzione associa a ogni x un solo y; il grafico ne mostra zeri, segno e andamento; nella parabola y = a(x − b)² il parametro b sposta il vertice e a ne decide verso e apertura; adattare il modello ai dati significa scegliere i parametri con lo scarto minimo.",
+          "Nel diario scrivi i parametri trovati in una serie dell’attività, lo scarto residuo e come hai deciso in quale direzione muovere i parametri."
         ],
         "advanced": [
-          "Ricava l’inversa sul ramo x≥b con a>0: x=b+√(y/a). Confronta poi l’immagine della funzione sull’intervallo visualizzato con l’immagine su tutti i reali.",
-          "Il laboratorio usa una famiglia quadratica esatta e un intervallo di input finito. Non stima parametri da osservazioni e non dimostra che una parabola sia una legge biologica della stazione.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le funzioni sono il linguaggio comune di tutta la matematica applicata: esponenziali, logaritmi, funzioni trigonometriche e modelli delle scienze sono funzioni, e si leggono con gli stessi strumenti. L’unità «Esponenziali e logaritmi» ne presenta due famiglie fondamentali.",
+          "Riepilogo dell’unità: una funzione associa a ogni x un solo y; il grafico ne mostra zeri, segno e andamento; nella parabola y = a(x − b)² il parametro b sposta il vertice e a ne decide verso e apertura; adattare il modello ai dati significa scegliere i parametri con lo scarto minimo.",
+          "Nel diario scrivi i parametri trovati in una serie dell’attività, lo scarto residuo e come hai deciso in quale direzione muovere i parametri."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-c08-concept",
-      "prompt": "Due input distinti con lo stesso output:",
+      "id": "math-c08-q1",
+      "prompt": "Dove sta il vertice di y = 3(x − 5)²?",
       "options": [
         {
           "id": "A",
-          "text": "Impediscono sempre di avere una funzione",
-          "feedback": "Dominio, codominio e immagine non sono sinonimi. La traslazione f(x-b) sposta il grafico verso destra per b positivo, non verso sinistra. La prospettiva 3D del grafico non aggiunge una terza variabile matematica."
+          "text": "In x = −5",
+          "feedback": "Il vertice sta dove la parentesi si annulla: x − 5 = 0, cioè x = 5."
         },
         {
           "id": "B",
-          "text": "Dimostrano che la funzione è invertibile",
-          "feedback": "Il quadrato è non negativo. Se a>0 il minimo è zero in x=b; se a<0 è un massimo; se a=0 tutta la funzione è nulla. La simmetria è f(b-d)=f(b+d), che spiega perché l’inversa richiede una restrizione del dominio."
+          "text": "In x = 5",
+          "feedback": "Esatto: in x = 5 la parentesi vale zero e la funzione ha il minimo 0."
         },
         {
           "id": "C",
-          "text": "Possono appartenere a una funzione",
-          "feedback": "Una funzione associa a ogni input del dominio un solo output. Nella famiglia f(x)=a(x-b)², il parametro b sposta il vertice orizzontalmente e a modifica apertura e verso della parabola. Più input possono avere lo stesso output: ciò non viola la definizione di funzione."
+          "text": "In x = 3",
+          "feedback": "3 è il coefficiente a, che decide l’apertura della parabola."
+        },
+        {
+          "id": "D",
+          "text": "In x = 15",
+          "feedback": "Il prodotto 3 · 5 non ha un significato geometrico in questa forma."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-c08-q2",
+      "prompt": "Che cosa cambia passando da y = (x − 1)² a y = −(x − 1)²?",
+      "options": [
+        {
+          "id": "A",
+          "text": "La parabola si ribalta e il vertice diventa un massimo",
+          "feedback": "Esatto: a negativo rivolge la parabola verso il basso."
+        },
+        {
+          "id": "B",
+          "text": "Il vertice si sposta in x = −1",
+          "feedback": "Il vertice dipende da b, che resta 1."
+        },
+        {
+          "id": "C",
+          "text": "La parabola diventa più stretta",
+          "feedback": "L’apertura dipende da |a|, che resta 1."
+        },
+        {
+          "id": "D",
+          "text": "Nulla, perché il quadrato è sempre positivo",
+          "feedback": "Il segno meno sta fuori dal quadrato e cambia tutti i valori."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-c08-q3",
+      "prompt": "Quale delle seguenti non è il grafico di una funzione di x?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Una retta obliqua",
+          "feedback": "A ogni x una retta obliqua associa un solo y."
+        },
+        {
+          "id": "B",
+          "text": "Una parabola con l’asse verticale",
+          "feedback": "A ogni x corrisponde un solo y."
+        },
+        {
+          "id": "C",
+          "text": "Una circonferenza",
+          "feedback": "Esatto: una retta verticale la incontra in due punti, quindi a un x corrispondono due y."
+        },
+        {
+          "id": "D",
+          "text": "Una retta orizzontale",
+          "feedback": "È la funzione costante: a ogni x lo stesso y."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "math-c08-calculation",
-      "prompt": "Calcolo: Coefficiente a (a)=1 (adimensionale); Ascissa vertice (b)=2 (adimensionale). Per x=4 (adimensionale), quanto vale f(x)?",
+      "id": "math-c08-q4",
+      "prompt": "Qual è il vertice di y = x² − 6x + 10?",
       "options": [
         {
           "id": "A",
-          "text": "2 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. y = a(x-b)². Con Coefficiente a (a)=1 (adimensionale); Ascissa vertice (b)=2 (adimensionale) e x=4 (adimensionale), il risultato è 4 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "(6; 10)",
+          "feedback": "I coefficienti non sono le coordinate del vertice."
         },
         {
           "id": "B",
-          "text": "4 (adimensionale)",
-          "feedback": "y = a(x-b)². Con Coefficiente a (a)=1 (adimensionale); Ascissa vertice (b)=2 (adimensionale) e x=4 (adimensionale), il risultato è 4 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "(−3; 1)",
+          "feedback": "L’ascissa del vertice è −p/(2a) = 6/2 = 3, positiva."
         },
         {
           "id": "C",
-          "text": "6 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. y = a(x-b)². Con Coefficiente a (a)=1 (adimensionale); Ascissa vertice (b)=2 (adimensionale) e x=4 (adimensionale), il risultato è 4 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "(3; 10)",
+          "feedback": "In x = 3 la funzione vale 9 − 18 + 10 = 1."
+        },
+        {
+          "id": "D",
+          "text": "(3; 1)",
+          "feedback": "Esatto: x² − 6x + 10 = (x − 3)² + 1."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 4,
-        "parameters": {
-          "a": 1,
-          "b": 2
-        },
-        "expected": 4,
-        "unit": "1"
-      }
+      "correct": "D"
     },
     {
-      "id": "math-c08-transfer",
-      "prompt": "Trasferimento: Coefficiente a (a)=1,25 (adimensionale); Ascissa vertice (b)=2 (adimensionale). Per x=4 (adimensionale), quanto vale f(x)?",
+      "id": "math-c08-q5",
+      "prompt": "Con a = 1 e b = 2, come si comporta y = a(x − b)² tra x = 0 e x = 4?",
       "options": [
         {
           "id": "A",
-          "text": "5 (adimensionale)",
-          "feedback": "y = a(x-b)². Con Coefficiente a (a)=1,25 (adimensionale); Ascissa vertice (b)=2 (adimensionale) e x=4 (adimensionale), il risultato è 5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Cresce sempre",
+          "feedback": "Prima del vertice, tra 0 e 2, la funzione decresce."
         },
         {
           "id": "B",
-          "text": "7,5 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. y = a(x-b)². Con Coefficiente a (a)=1,25 (adimensionale); Ascissa vertice (b)=2 (adimensionale) e x=4 (adimensionale), il risultato è 5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Decresce fino a x = 2 e poi cresce",
+          "feedback": "Esatto: il vertice è un minimo in x = 2, e i valori in 0 e 4 coincidono."
         },
         {
           "id": "C",
-          "text": "2,5 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. y = a(x-b)². Con Coefficiente a (a)=1,25 (adimensionale); Ascissa vertice (b)=2 (adimensionale) e x=4 (adimensionale), il risultato è 5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "A",
-      "numeric": {
-        "x": 4,
-        "parameters": {
-          "a": 1.25,
-          "b": 2
-        },
-        "expected": 5,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "math-c08-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il laboratorio usa una famiglia quadratica esatta e un intervallo di input finito. Non stima parametri da osservazioni e non dimostra che una parabola sia una legge biologica della stazione."
+          "text": "Decresce sempre",
+          "feedback": "Dopo il vertice la funzione cresce: in x = 4 torna a 4."
         },
         {
-          "id": "B",
-          "text": "Famiglia quadratica, senza inferenza su dati reali",
-          "feedback": "Il laboratorio usa una famiglia quadratica esatta e un intervallo di input finito. Non stima parametri da osservazioni e non dimostra che una parabola sia una legge biologica della stazione."
-        },
-        {
-          "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il laboratorio usa una famiglia quadratica esatta e un intervallo di input finito. Non stima parametri da osservazioni e non dimostra che una parabola sia una legge biologica della stazione."
+          "id": "D",
+          "text": "È costante",
+          "feedback": "Vale 4 in x = 0, 0 in x = 2 e 4 in x = 4."
         }
       ],
       "correct": "B"
+    },
+    {
+      "id": "math-c08-q6",
+      "prompt": "Dopo aver adattato un modello, lo scarto quadratico medio non scende a zero. Perché?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché il modello è sbagliato",
+          "feedback": "Un modello adeguato lascia comunque uno scarto dovuto alla dispersione delle misure."
+        },
+        {
+          "id": "B",
+          "text": "Perché lo scarto è sempre almeno 1",
+          "feedback": "Lo scarto dipende dai dati: può essere piccolissimo, mai negativo."
+        },
+        {
+          "id": "C",
+          "text": "Perché le misure hanno piccoli errori casuali",
+          "feedback": "Esatto: lo scarto residuo misura la dispersione delle misure attorno al modello."
+        },
+        {
+          "id": "D",
+          "text": "Perché bisogna regolare tutti i parametri",
+          "feedback": "Anche regolando tutti i parametri lo scarto resta positivo se le misure sono disperse."
+        }
+      ],
+      "correct": "C"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "fit",
+    "goal": 2,
+    "rounds": [
+      {
+        "id": "vertice",
+        "title": "Dove sta il vertice?",
+        "prompt": "Il profilo dell’antenna ha apertura nota. Sposta il vertice finché la parabola passa tra i punti.",
+        "model": "math-c08",
+        "x": [
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "noise": [
+          0.12,
+          -0.08,
+          0.05,
+          -0.1,
+          0.07,
+          -0.05,
+          0.1
+        ],
+        "hidden": {
+          "a": 0.5,
+          "b": 1
+        },
+        "fit": [
+          "b"
+        ],
+        "explain": "Il vertice è in x = 1: i punti sono simmetrici rispetto a quella retta."
+      },
+      {
+        "id": "apertura",
+        "title": "Quanto è aperta?",
+        "prompt": "Il vertice è noto. Regola il coefficiente a: attenzione al verso della parabola.",
+        "model": "math-c08",
+        "x": [
+          -1,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "noise": [
+          0.2,
+          -0.15,
+          0.1,
+          -0.05,
+          0.12,
+          -0.18,
+          0.08
+        ],
+        "hidden": {
+          "a": -1.25,
+          "b": 2
+        },
+        "fit": [
+          "a"
+        ],
+        "explain": "a = −1,25: parabola rivolta verso il basso, più stretta di y = −x²."
+      },
+      {
+        "id": "entrambi",
+        "title": "Due parametri insieme",
+        "prompt": "Regola sia il vertice b sia il coefficiente a.",
+        "model": "math-c08",
+        "x": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "noise": [
+          -0.15,
+          0.1,
+          -0.05,
+          0.08,
+          -0.1,
+          0.12,
+          -0.06
+        ],
+        "hidden": {
+          "a": 0.75,
+          "b": -0.5
+        },
+        "fit": [
+          "a",
+          "b"
+        ],
+        "explain": "a = 0,75 e b = −0,5: il vertice sta a metà tra −1 e 0."
+      }
+    ]
+  }
 }

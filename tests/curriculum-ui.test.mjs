@@ -10,6 +10,11 @@ function solveActivity(f,kind){const A=f.E.activity;
  if(kind==='ionic')for(let i=0;i<6;i++){A.compound=i;A.startCompound();const c=IONIC_CHALLENGES[i],C=ion(c.cation),N=ion(c.anion);if(!C.polyatomic)f.click('act-qc-'+C.charge);if(!N.polyatomic)f.click('act-qa-'+(-N.charge));
   let pair=null;for(let n=1;n<=4&&!pair;n++)for(let m=1;m<=4&&!pair;m++)if(n*C.charge+m*N.charge===0)pair=[n,m];for(let j=1;j<pair[0];j++)f.click('act-n-plus');for(let j=1;j<pair[1];j++)f.click('act-m-plus');
   f.click('act-check');assert.ok(A.revealed,c.id);}
+ if(kind==='fit'){const def=f.E.definition.activity;for(let i=0;i<def.goal;i++){A.round=i;A.resetRound();const r=def.rounds[i];
+  for(const key of r.fit)for(let k=0;k<200&&Math.abs(A.fitParams(r)[key]-r.hidden[key])>1e-9;k++)f.click(`act-fit-${key}-${A.fitParams(r)[key]<r.hidden[key]?'plus':'minus'}`);
+  f.click('act-check');assert.ok(A.revealed,r.id);}}
+ if(kind==='steps'){const def=f.E.definition.activity;for(let i=0;i<def.goal;i++){A.round=i;A.resetRound();const pr=def.problems[i];
+  for(const st of pr.steps){f.click('act-option-'+st.correct);f.click('act-step-next');}}}
  if(kind==='cards'){const def=f.E.definition.activity;for(let i=0;i<def.goal;i++){A.round=i;A.resetRound();const r=def.rounds[i];
   if(r.type==='classify')for(const it of r.items){f.click('act-cat-'+r.categories.findIndex(c=>c.id===it.category));f.click('act-card-next');}
   else{A.orders[r.id]=r.items.map(it=>it.id);f.click('act-check');}}}

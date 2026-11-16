@@ -5,14 +5,15 @@
   "title": "Limiti, variazione e accumulazione",
   "sector": 0,
   "modelId": "math-p04",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Accumulo analitico di una portata polinomiale",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Limiti, rapporto incrementale e derivata, somme di rettangoli e integrale, teorema fondamentale",
+  "narrativeStatus": "La sonda e il registratore sono immaginari; i concetti di analisi sono quelli reali.",
   "objectives": [
-    "Spiegare: accumulo analitico di una portata polinomiale.",
-    "Applicare A(x) = ∫₀ˣ a t² dt = ax³/3, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Calcolare una velocità media e interpretarla come pendenza di una secante.",
+    "Riconoscere limiti finiti, infiniti e inesistenti.",
+    "Definire la derivata come limite del rapporto incrementale.",
+    "Approssimare un’area con somme di rettangoli e collegarla all’integrale."
   ],
   "prerequisites": [
     "math-c06",
@@ -20,10 +21,9 @@
     "math-c09"
   ],
   "connections": [
-    "physics-08"
+    "math-p08"
   ],
   "sources": [
-    "precalculus",
     "calculus"
   ],
   "originalSource": {
@@ -40,244 +40,476 @@
   },
   "glossary": [
     {
-      "term": "Estremo x",
-      "definition": "Variabile indipendente, unità 1; intervallo [0; 5]."
+      "term": "Limite",
+      "definition": "Valore a cui f(x) si avvicina quando x si avvicina a un punto o cresce senza limite."
+    },
+    {
+      "term": "Rapporto incrementale",
+      "definition": "[f(x + h) − f(x)]/h: pendenza della secante tra due punti del grafico."
+    },
+    {
+      "term": "Derivata",
+      "definition": "Limite del rapporto incrementale per h → 0: pendenza della tangente."
+    },
+    {
+      "term": "Somma di Riemann",
+      "definition": "Somma delle aree di rettangoli che approssimano l’area sotto un grafico."
     },
     {
       "term": "Integrale",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "definition": "Limite delle somme di Riemann quando la base dei rettangoli tende a zero."
     },
     {
-      "term": "Coefficiente a",
-      "definition": "Parametro a, unità 1; intervallo [0,5; 3]."
+      "term": "Teorema fondamentale",
+      "definition": "La funzione area A(x) = ∫₀ˣ f ha derivata f(x)."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Media e istante",
       "text": {
         "base": [
-          "Un misuratore registra una portata che cresce come il quadrato del tempo. La quantità accumulata non è la portata finale moltiplicata per la durata: devi sommare contributi variabili.",
-          "Un integrale definito misura un’accumulazione orientata. Per una portata f(t)=at², l’accumulo da 0 a x è A(x)=∫₀ˣ at²dt. La derivata esprime invece il tasso istantaneo di variazione."
+          "Il registratore di volo della sonda annota la posizione ogni secondo. Dalla tabella si ricava la velocità media su un intervallo; ma quanto valeva la velocità in un istante preciso? E, al contrario, conoscendo la velocità istante per istante, quanta strada si è percorsa? Le due domande portano ai due concetti centrali dell’analisi: la derivata e l’integrale, entrambi costruiti con il limite.",
+          "La velocità media tra gli istanti t e t + h è il rapporto tra lo spostamento e il tempo: [s(t + h) − s(t)]/h. Sul grafico della posizione è la pendenza della retta che congiunge due punti, detta secante. Per s(t) = t², tra t = 1 e t = 3 la velocità media vale (9 − 1)/2 = 4."
         ],
         "intermediate": [
-          "Un misuratore registra una portata che cresce come il quadrato del tempo. La quantità accumulata non è la portata finale moltiplicata per la durata: devi sommare contributi variabili.",
-          "Una primitiva di at² è at³/3, perché la sua derivata è at². Valutando agli estremi ottieni A(x)=ax³/3. Il teorema fondamentale collega i due problemi: derivare l’accumulo restituisce la portata, nelle opportune ipotesi di continuità."
+          "Il registratore di volo della sonda annota la posizione ogni secondo. Dalla tabella si ricava la velocità media su un intervallo; ma quanto valeva la velocità in un istante preciso? E, al contrario, conoscendo la velocità istante per istante, quanta strada si è percorsa? Le due domande portano ai due concetti centrali dell’analisi: la derivata e l’integrale, entrambi costruiti con il limite.",
+          "La velocità media tra gli istanti t e t + h è il rapporto tra lo spostamento e il tempo: [s(t + h) − s(t)]/h. Sul grafico della posizione è la pendenza della retta che congiunge due punti, detta secante. Per s(t) = t², tra t = 1 e t = 3 la velocità media vale (9 − 1)/2 = 4."
         ],
         "advanced": [
-          "Un misuratore registra una portata che cresce come il quadrato del tempo. La quantità accumulata non è la portata finale moltiplicata per la durata: devi sommare contributi variabili.",
-          "Approssima l’integrale con rettangoli e confronta somme sinistre e destre. Studia come l’errore cambia aumentando il numero di suddivisioni.",
-          "Il laboratorio valuta la formula analitica dell’integrale di un polinomio. Non misura una portata reale e non usa quadrature numeriche per questa famiglia."
+          "Il registratore di volo della sonda annota la posizione ogni secondo. Dalla tabella si ricava la velocità media su un intervallo; ma quanto valeva la velocità in un istante preciso? E, al contrario, conoscendo la velocità istante per istante, quanta strada si è percorsa? Le due domande portano ai due concetti centrali dell’analisi: la derivata e l’integrale, entrambi costruiti con il limite.",
+          "La velocità media tra gli istanti t e t + h è il rapporto tra lo spostamento e il tempo: [s(t + h) − s(t)]/h. Sul grafico della posizione è la pendenza della retta che congiunge due punti, detta secante. Per s(t) = t², tra t = 1 e t = 3 la velocità media vale (9 − 1)/2 = 4."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Limiti, derivate, integrali",
       "text": {
         "base": [
-          "Un integrale definito misura un’accumulazione orientata. Per una portata f(t)=at², l’accumulo da 0 a x è A(x)=∫₀ˣ at²dt. La derivata esprime invece il tasso istantaneo di variazione.",
-          "Con a=1 e x=3, l’accumulo è 27/3=9. Usare la portata finale f(3)=9 per tutto l’intervallo darebbe 27 e sovrastimerebbe il totale."
+          "Il limite descrive il valore a cui una grandezza si avvicina quando un’altra si avvicina a un valore fissato. Scriviamo lim_(x→c) f(x) = L se f(x) si avvicina quanto si vuole a L per x abbastanza vicino a c, senza bisogno che f sia definita in c. Esempio: (x² − 4)/(x − 2) non è definita in 2; per x ≠ 2 vale x + 2, e x + 2 tende a 4.",
+          "La velocità istantanea è il limite della velocità media quando h tende a zero: s′(t) = lim_(h→0) [s(t + h) − s(t)]/h. Per s(t) = t²: [(t + h)² − t²]/h = (2th + h²)/h = 2t + h, che tende a 2t. In t = 1 la velocità è 2. Sul grafico, la derivata è la pendenza della retta tangente.",
+          "Il percorso inverso porta all’integrale. Se la velocità è costante, la strada è velocità per tempo, cioè l’area di un rettangolo sotto il grafico della velocità. Se la velocità cambia, si divide il tempo in tanti intervalli piccoli, si approssima con rettangoli e si sommano le aree. Il limite di queste somme, al crescere del numero di rettangoli, è l’integrale.",
+          "Esempio svolto: l’area sotto y = x² tra 0 e 1. Con 4 rettangoli di base 0,25 e altezza presa a sinistra si ottiene 0,25 · (0 + 0,0625 + 0,25 + 0,5625) = 0,21875; con l’altezza a destra 0,46875. Con 100 rettangoli a sinistra 0,32835. Il valore esatto è 1/3: le somme lo racchiudono e gli si avvicinano."
         ],
         "intermediate": [
-          "Una primitiva di at² è at³/3, perché la sua derivata è at². Valutando agli estremi ottieni A(x)=ax³/3. Il teorema fondamentale collega i due problemi: derivare l’accumulo restituisce la portata, nelle opportune ipotesi di continuità.",
-          "La variabile Estremo x è espressa in 1; Integrale in 1. Il dominio dello strumento è [0; 5]. La relazione implementata è: A(x) = ∫₀ˣ a t² dt = ax³/3.",
-          "Con a=1 e x=3, l’accumulo è 27/3=9. Usare la portata finale f(3)=9 per tutto l’intervallo darebbe 27 e sovrastimerebbe il totale."
+          "Il limite descrive il valore a cui una grandezza si avvicina quando un’altra si avvicina a un valore fissato. Scriviamo lim_(x→c) f(x) = L se f(x) si avvicina quanto si vuole a L per x abbastanza vicino a c, senza bisogno che f sia definita in c. Esempio: (x² − 4)/(x − 2) non è definita in 2; per x ≠ 2 vale x + 2, e x + 2 tende a 4.",
+          "La velocità istantanea è il limite della velocità media quando h tende a zero: s′(t) = lim_(h→0) [s(t + h) − s(t)]/h. Per s(t) = t²: [(t + h)² − t²]/h = (2th + h²)/h = 2t + h, che tende a 2t. In t = 1 la velocità è 2. Sul grafico, la derivata è la pendenza della retta tangente.",
+          "Il percorso inverso porta all’integrale. Se la velocità è costante, la strada è velocità per tempo, cioè l’area di un rettangolo sotto il grafico della velocità. Se la velocità cambia, si divide il tempo in tanti intervalli piccoli, si approssima con rettangoli e si sommano le aree. Il limite di queste somme, al crescere del numero di rettangoli, è l’integrale.",
+          "Esempio svolto: l’area sotto y = x² tra 0 e 1. Con 4 rettangoli di base 0,25 e altezza presa a sinistra si ottiene 0,25 · (0 + 0,0625 + 0,25 + 0,5625) = 0,21875; con l’altezza a destra 0,46875. Con 100 rettangoli a sinistra 0,32835. Il valore esatto è 1/3: le somme lo racchiudono e gli si avvicinano.",
+          "Il teorema fondamentale del calcolo collega le due idee: la funzione A(x) che misura l’area sotto f tra 0 e x ha come derivata f(x). Il laboratorio usa A(x) = ∫₀ˣ a t² dt = a x³/3: la sua pendenza in ogni punto è a x², proprio la funzione integrata. Con a = 1, A(3) = 9."
         ],
         "advanced": [
-          "Una primitiva di at² è at³/3, perché la sua derivata è at². Valutando agli estremi ottieni A(x)=ax³/3. Il teorema fondamentale collega i due problemi: derivare l’accumulo restituisce la portata, nelle opportune ipotesi di continuità.",
-          "Approssima l’integrale con rettangoli e confronta somme sinistre e destre. Studia come l’errore cambia aumentando il numero di suddivisioni.",
-          "Valore della funzione, derivata e integrale hanno significati e spesso unità diverse. Una curva alta non implica da sola una derivata grande; conta come varia, non solo quanto vale."
+          "Il limite descrive il valore a cui una grandezza si avvicina quando un’altra si avvicina a un valore fissato. Scriviamo lim_(x→c) f(x) = L se f(x) si avvicina quanto si vuole a L per x abbastanza vicino a c, senza bisogno che f sia definita in c. Esempio: (x² − 4)/(x − 2) non è definita in 2; per x ≠ 2 vale x + 2, e x + 2 tende a 4.",
+          "Un limite può esistere solo da un lato. Per 1/x, avvicinandosi a 0 da destra i valori crescono senza limite, da sinistra diventano negativi senza limite: i due limiti laterali sono diversi e il limite in 0 non esiste. Lo stesso accade a sin x per x → ∞, che continua a oscillare.",
+          "La velocità istantanea è il limite della velocità media quando h tende a zero: s′(t) = lim_(h→0) [s(t + h) − s(t)]/h. Per s(t) = t²: [(t + h)² − t²]/h = (2th + h²)/h = 2t + h, che tende a 2t. In t = 1 la velocità è 2. Sul grafico, la derivata è la pendenza della retta tangente.",
+          "Esempio svolto: l’area sotto y = x² tra 0 e 1. Con 4 rettangoli di base 0,25 e altezza presa a sinistra si ottiene 0,25 · (0 + 0,0625 + 0,25 + 0,5625) = 0,21875; con l’altezza a destra 0,46875. Con 100 rettangoli a sinistra 0,32835. Il valore esatto è 1/3: le somme lo racchiudono e gli si avvicinano.",
+          "Il teorema fondamentale del calcolo collega le due idee: la funzione A(x) che misura l’area sotto f tra 0 e x ha come derivata f(x). Il laboratorio usa A(x) = ∫₀ˣ a t² dt = a x³/3: la sua pendenza in ogni punto è a x², proprio la funzione integrata. Con a = 1, A(3) = 9."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Carte di analisi",
       "text": {
         "base": [
-          "Nel laboratorio imposta Coefficiente a (a): 1 (adimensionale). Prima di salvare A, prevedi come cambia Integrale fra Estremo x=1,25 e 2,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con a=1 e x=3, l’accumulo è 27/3=9. Usare la portata finale f(3)=9 per tutto l’intervallo darebbe 27 e sovrastimerebbe il totale.",
-          "La variabile Estremo x è espressa in 1; Integrale in 1. Il dominio dello strumento è [0; 5]. La relazione implementata è: A(x) = ∫₀ˣ a t² dt = ax³/3."
+          "L’attività ha tre serie di carte. Nella prima classifichi alcuni limiti: finito, infinito oppure inesistente. Nella seconda metti in ordine i passi che portano dalla velocità media alla velocità istantanea. Nella terza ordini le approssimazioni dell’area sotto y = x² tra 0 e 1, dalla più piccola alla più grande. Supera tutte e tre le serie; nella classificazione puoi sbagliare al massimo due carte.",
+          "Per un limite all’infinito di un rapporto tra polinomi confronta i gradi: se sono uguali il limite è il rapporto dei coefficienti principali. Per un limite in un punto prova prima a semplificare."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Coefficiente a (a): 1 (adimensionale). Prima di salvare A, prevedi come cambia Integrale fra Estremo x=1,25 e 2,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Estremo x è espressa in 1; Integrale in 1. Il dominio dello strumento è [0; 5]. La relazione implementata è: A(x) = ∫₀ˣ a t² dt = ax³/3.",
-          "Una primitiva di at² è at³/3, perché la sua derivata è at². Valutando agli estremi ottieni A(x)=ax³/3. Il teorema fondamentale collega i due problemi: derivare l’accumulo restituisce la portata, nelle opportune ipotesi di continuità."
+          "L’attività ha tre serie di carte. Nella prima classifichi alcuni limiti: finito, infinito oppure inesistente. Nella seconda metti in ordine i passi che portano dalla velocità media alla velocità istantanea. Nella terza ordini le approssimazioni dell’area sotto y = x² tra 0 e 1, dalla più piccola alla più grande. Supera tutte e tre le serie; nella classificazione puoi sbagliare al massimo due carte.",
+          "Per un limite all’infinito di un rapporto tra polinomi confronta i gradi: se sono uguali il limite è il rapporto dei coefficienti principali. Per un limite in un punto prova prima a semplificare."
         ],
         "advanced": [
-          "Nel laboratorio imposta Coefficiente a (a): 1 (adimensionale). Prima di salvare A, prevedi come cambia Integrale fra Estremo x=1,25 e 2,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Approssima l’integrale con rettangoli e confronta somme sinistre e destre. Studia come l’errore cambia aumentando il numero di suddivisioni.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività ha tre serie di carte. Nella prima classifichi alcuni limiti: finito, infinito oppure inesistente. Nella seconda metti in ordine i passi che portano dalla velocità media alla velocità istantanea. Nella terza ordini le approssimazioni dell’area sotto y = x² tra 0 e 1, dalla più piccola alla più grande. Supera tutte e tre le serie; nella classificazione puoi sbagliare al massimo due carte.",
+          "Per un limite all’infinito di un rapporto tra polinomi confronta i gradi: se sono uguali il limite è il rapporto dei coefficienti principali. Per un limite in un punto prova prima a semplificare.",
+          "Il teorema fondamentale del calcolo collega le due idee: la funzione A(x) che misura l’area sotto f tra 0 e x ha come derivata f(x). Il laboratorio usa A(x) = ∫₀ˣ a t² dt = a x³/3: la sua pendenza in ogni punto è a x², proprio la funzione integrata. Con a = 1, A(3) = 9."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Che cosa dice un limite",
       "text": {
         "base": [
-          "Valore della funzione, derivata e integrale hanno significati e spesso unità diverse. Una curva alta non implica da sola una derivata grande; conta come varia, non solo quanto vale.",
-          "Il laboratorio valuta la formula analitica dell’integrale di un polinomio. Non misura una portata reale e non usa quadrature numeriche per questa famiglia.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che il limite sia il valore della funzione nel punto. La funzione può non essere definita lì, oppure avere un valore diverso dal limite. Il limite descrive il comportamento vicino al punto.",
+          "Secondo errore: credere che un limite infinito «valga infinito» come un numero. Scrivere lim = +∞ significa che la funzione supera qualunque valore fissato; ∞ non è un numero e non si usa nei calcoli ordinari.",
+          "Un limite può esistere solo da un lato. Per 1/x, avvicinandosi a 0 da destra i valori crescono senza limite, da sinistra diventano negativi senza limite: i due limiti laterali sono diversi e il limite in 0 non esiste. Lo stesso accade a sin x per x → ∞, che continua a oscillare."
         ],
         "intermediate": [
-          "Valore della funzione, derivata e integrale hanno significati e spesso unità diverse. Una curva alta non implica da sola una derivata grande; conta come varia, non solo quanto vale.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che il limite sia il valore della funzione nel punto. La funzione può non essere definita lì, oppure avere un valore diverso dal limite. Il limite descrive il comportamento vicino al punto.",
+          "Secondo errore: credere che un limite infinito «valga infinito» come un numero. Scrivere lim = +∞ significa che la funzione supera qualunque valore fissato; ∞ non è un numero e non si usa nei calcoli ordinari.",
+          "Un limite può esistere solo da un lato. Per 1/x, avvicinandosi a 0 da destra i valori crescono senza limite, da sinistra diventano negativi senza limite: i due limiti laterali sono diversi e il limite in 0 non esiste. Lo stesso accade a sin x per x → ∞, che continua a oscillare."
         ],
         "advanced": [
-          "Il laboratorio valuta la formula analitica dell’integrale di un polinomio. Non misura una portata reale e non usa quadrature numeriche per questa famiglia.",
-          "Approssima l’integrale con rettangoli e confronta somme sinistre e destre. Studia come l’errore cambia aumentando il numero di suddivisioni.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che il limite sia il valore della funzione nel punto. La funzione può non essere definita lì, oppure avere un valore diverso dal limite. Il limite descrive il comportamento vicino al punto.",
+          "Secondo errore: credere che un limite infinito «valga infinito» come un numero. Scrivere lim = +∞ significa che la funzione supera qualunque valore fissato; ∞ non è un numero e non si usa nei calcoli ordinari."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Un integrale definito misura un’accumulazione orientata. Per una portata f(t)=at², l’accumulo da 0 a x è A(x)=∫₀ˣ at²dt. La derivata esprime invece il tasso istantaneo di variazione.",
-          "Con a=1 e x=3, l’accumulo è 27/3=9. Usare la portata finale f(3)=9 per tutto l’intervallo darebbe 27 e sovrastimerebbe il totale."
+          "Ripasso: velocità media e secante; definizione intuitiva di limite e limiti laterali; derivata come limite del rapporto incrementale e pendenza della tangente; integrale come limite di somme di rettangoli; teorema fondamentale.",
+          "Mini esercizio: per s(t) = 3t, il rapporto incrementale vale (3t + 3h − 3t)/h = 3: la velocità è costante e la derivata vale 3.",
+          "Nelle domande sui limiti chiediti sempre che cosa succede vicino al punto, non nel punto."
         ],
         "intermediate": [
-          "Una primitiva di at² è at³/3, perché la sua derivata è at². Valutando agli estremi ottieni A(x)=ax³/3. Il teorema fondamentale collega i due problemi: derivare l’accumulo restituisce la portata, nelle opportune ipotesi di continuità.",
-          "La variabile Estremo x è espressa in 1; Integrale in 1. Il dominio dello strumento è [0; 5]. La relazione implementata è: A(x) = ∫₀ˣ a t² dt = ax³/3."
+          "Ripasso: velocità media e secante; definizione intuitiva di limite e limiti laterali; derivata come limite del rapporto incrementale e pendenza della tangente; integrale come limite di somme di rettangoli; teorema fondamentale.",
+          "Mini esercizio: per s(t) = 3t, il rapporto incrementale vale (3t + 3h − 3t)/h = 3: la velocità è costante e la derivata vale 3.",
+          "Nelle domande sui limiti chiediti sempre che cosa succede vicino al punto, non nel punto."
         ],
         "advanced": [
-          "Approssima l’integrale con rettangoli e confronta somme sinistre e destre. Studia come l’errore cambia aumentando il numero di suddivisioni.",
-          "Il laboratorio valuta la formula analitica dell’integrale di un polinomio. Non misura una portata reale e non usa quadrature numeriche per questa famiglia."
+          "Ripasso: velocità media e secante; definizione intuitiva di limite e limiti laterali; derivata come limite del rapporto incrementale e pendenza della tangente; integrale come limite di somme di rettangoli; teorema fondamentale.",
+          "Mini esercizio: per s(t) = 3t, il rapporto incrementale vale (3t + 3h − 3t)/h = 3: la velocità è costante e la derivata vale 3.",
+          "Nelle domande sui limiti chiediti sempre che cosa succede vicino al punto, non nel punto."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Accumulo analitico di una portata polinomiale.",
-          "Il laboratorio valuta la formula analitica dell’integrale di un polinomio. Non misura una portata reale e non usa quadrature numeriche per questa famiglia.",
-          "Collegamento consigliato: physics-08. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Derivate e integrali sono gli strumenti di base della fisica e di tutte le scienze quantitative. L’unità «Iterazioni, stabilità e precisione numerica» mostra che cosa succede quando questi calcoli si fanno al calcolatore con numeri approssimati.",
+          "Riepilogo dell’unità: il limite descrive il comportamento vicino a un punto; la derivata è il limite della pendenza delle secanti, e misura la variazione istantanea; l’integrale è il limite delle somme di rettangoli, e misura l’accumulazione; il teorema fondamentale dice che le due operazioni sono inverse.",
+          "Nel diario calcola la velocità media di s(t) = t² tra 2 e 2 + h per h = 1; 0,1; 0,01 e scrivi a quale valore si avvicina."
         ],
         "intermediate": [
-          "Una primitiva di at² è at³/3, perché la sua derivata è at². Valutando agli estremi ottieni A(x)=ax³/3. Il teorema fondamentale collega i due problemi: derivare l’accumulo restituisce la portata, nelle opportune ipotesi di continuità.",
-          "Il laboratorio valuta la formula analitica dell’integrale di un polinomio. Non misura una portata reale e non usa quadrature numeriche per questa famiglia.",
-          "Approssima l’integrale con rettangoli e confronta somme sinistre e destre. Studia come l’errore cambia aumentando il numero di suddivisioni."
+          "Derivate e integrali sono gli strumenti di base della fisica e di tutte le scienze quantitative. L’unità «Iterazioni, stabilità e precisione numerica» mostra che cosa succede quando questi calcoli si fanno al calcolatore con numeri approssimati.",
+          "Riepilogo dell’unità: il limite descrive il comportamento vicino a un punto; la derivata è il limite della pendenza delle secanti, e misura la variazione istantanea; l’integrale è il limite delle somme di rettangoli, e misura l’accumulazione; il teorema fondamentale dice che le due operazioni sono inverse.",
+          "Nel diario calcola la velocità media di s(t) = t² tra 2 e 2 + h per h = 1; 0,1; 0,01 e scrivi a quale valore si avvicina."
         ],
         "advanced": [
-          "Approssima l’integrale con rettangoli e confronta somme sinistre e destre. Studia come l’errore cambia aumentando il numero di suddivisioni.",
-          "Il laboratorio valuta la formula analitica dell’integrale di un polinomio. Non misura una portata reale e non usa quadrature numeriche per questa famiglia.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Derivate e integrali sono gli strumenti di base della fisica e di tutte le scienze quantitative. L’unità «Iterazioni, stabilità e precisione numerica» mostra che cosa succede quando questi calcoli si fanno al calcolatore con numeri approssimati.",
+          "Riepilogo dell’unità: il limite descrive il comportamento vicino a un punto; la derivata è il limite della pendenza delle secanti, e misura la variazione istantanea; l’integrale è il limite delle somme di rettangoli, e misura l’accumulazione; il teorema fondamentale dice che le due operazioni sono inverse.",
+          "Nel diario calcola la velocità media di s(t) = t² tra 2 e 2 + h per h = 1; 0,1; 0,01 e scrivi a quale valore si avvicina."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-p04-concept",
-      "prompt": "La derivata dell’accumulo A(x)=ax³/3 è:",
+      "id": "math-p04-q1",
+      "prompt": "Per s(t) = t², quanto vale la velocità media tra t = 1 e t = 3?",
       "options": [
         {
           "id": "A",
-          "text": "3ax²",
-          "feedback": "Valore della funzione, derivata e integrale hanno significati e spesso unità diverse. Una curva alta non implica da sola una derivata grande; conta come varia, non solo quanto vale."
+          "text": "4",
+          "feedback": "Esatto: spostamento 9 − 1 = 8 diviso tempo 3 − 1 = 2, cioè 4."
         },
         {
           "id": "B",
-          "text": "ax³",
-          "feedback": "Una primitiva di at² è at³/3, perché la sua derivata è at². Valutando agli estremi ottieni A(x)=ax³/3. Il teorema fondamentale collega i due problemi: derivare l’accumulo restituisce la portata, nelle opportune ipotesi di continuità."
+          "text": "8",
+          "feedback": "8 è lo spostamento: va diviso per l’intervallo di tempo, 2."
         },
         {
           "id": "C",
-          "text": "ax²",
-          "feedback": "Un integrale definito misura un’accumulazione orientata. Per una portata f(t)=at², l’accumulo da 0 a x è A(x)=∫₀ˣ at²dt. La derivata esprime invece il tasso istantaneo di variazione."
+          "text": "2",
+          "feedback": "2 è la velocità istantanea in t = 1, non la media sull’intervallo."
+        },
+        {
+          "id": "D",
+          "text": "9",
+          "feedback": "9 è la posizione in t = 3, non una velocità."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-p04-q2",
+      "prompt": "Quanto vale lim_(x→2) (x² − 4)/(x − 2)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Non esiste, perché in 2 il denominatore si annulla",
+          "feedback": "La funzione non è definita in 2; il limite riguarda i valori vicini, dove la frazione vale x + 2."
+        },
+        {
+          "id": "B",
+          "text": "0",
+          "feedback": "Il numeratore tende a 0, ma anche il denominatore: serve semplificare."
+        },
+        {
+          "id": "C",
+          "text": "4",
+          "feedback": "Esatto: per x ≠ 2 la frazione vale x + 2, che tende a 4."
+        },
+        {
+          "id": "D",
+          "text": "2",
+          "feedback": "2 è il punto a cui tende x, non il valore del limite."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "math-p04-calculation",
-      "prompt": "Calcolo: Coefficiente a (a)=1 (adimensionale). Per Estremo x=3 (adimensionale), quanto vale Integrale?",
+      "id": "math-p04-q3",
+      "prompt": "Qual è la derivata di s(t) = t² nel punto t = 3?",
       "options": [
         {
           "id": "A",
-          "text": "4,5 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. A(x) = ∫₀ˣ a t² dt = ax³/3. Con Coefficiente a (a)=1 (adimensionale) e Estremo x=3 (adimensionale), il risultato è 9 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "9",
+          "feedback": "9 è il valore di s in 3, non la pendenza."
         },
         {
           "id": "B",
-          "text": "9 (adimensionale)",
-          "feedback": "A(x) = ∫₀ˣ a t² dt = ax³/3. Con Coefficiente a (a)=1 (adimensionale) e Estremo x=3 (adimensionale), il risultato è 9 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "6",
+          "feedback": "Esatto: s′(t) = 2t, quindi s′(3) = 6."
         },
         {
           "id": "C",
-          "text": "13,5 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. A(x) = ∫₀ˣ a t² dt = ax³/3. Con Coefficiente a (a)=1 (adimensionale) e Estremo x=3 (adimensionale), il risultato è 9 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 3,
-        "parameters": {
-          "a": 1
-        },
-        "expected": 9,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "math-p04-transfer",
-      "prompt": "Trasferimento: Coefficiente a (a)=1,5 (adimensionale). Per Estremo x=3 (adimensionale), quanto vale Integrale?",
-      "options": [
-        {
-          "id": "A",
-          "text": "13,5 (adimensionale)",
-          "feedback": "A(x) = ∫₀ˣ a t² dt = ax³/3. Con Coefficiente a (a)=1,5 (adimensionale) e Estremo x=3 (adimensionale), il risultato è 13,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "3",
+          "feedback": "Il rapporto incrementale tende a 2t, non a t."
         },
         {
-          "id": "B",
-          "text": "20,25 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. A(x) = ∫₀ˣ a t² dt = ax³/3. Con Coefficiente a (a)=1,5 (adimensionale) e Estremo x=3 (adimensionale), il risultato è 13,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "C",
-          "text": "6,75 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. A(x) = ∫₀ˣ a t² dt = ax³/3. Con Coefficiente a (a)=1,5 (adimensionale) e Estremo x=3 (adimensionale), il risultato è 13,5 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "A",
-      "numeric": {
-        "x": 3,
-        "parameters": {
-          "a": 1.5
-        },
-        "expected": 13.5,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "math-p04-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il laboratorio valuta la formula analitica dell’integrale di un polinomio. Non misura una portata reale e non usa quadrature numeriche per questa famiglia."
-        },
-        {
-          "id": "B",
-          "text": "Accumulo analitico di una portata polinomiale",
-          "feedback": "Il laboratorio valuta la formula analitica dell’integrale di un polinomio. Non misura una portata reale e non usa quadrature numeriche per questa famiglia."
-        },
-        {
-          "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il laboratorio valuta la formula analitica dell’integrale di un polinomio. Non misura una portata reale e non usa quadrature numeriche per questa famiglia."
+          "id": "D",
+          "text": "2",
+          "feedback": "2 è il coefficiente della derivata 2t, da moltiplicare per t = 3."
         }
       ],
       "correct": "B"
+    },
+    {
+      "id": "math-p04-q4",
+      "prompt": "Perché il limite di 1/x per x → 0 non esiste?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché 1/0 vale zero",
+          "feedback": "1/0 non è definito; e vicino a 0 i valori di 1/x sono grandissimi."
+        },
+        {
+          "id": "B",
+          "text": "Perché 1/x non è definita in 0",
+          "feedback": "Una funzione non definita in un punto può avere limite lì, come (x² − 4)/(x − 2)."
+        },
+        {
+          "id": "C",
+          "text": "Perché i valori diventano troppo grandi",
+          "feedback": "Anche un limite +∞ esiste nel senso dei limiti infiniti; il problema qui è un altro."
+        },
+        {
+          "id": "D",
+          "text": "Perché da destra va a +∞ e da sinistra a −∞",
+          "feedback": "Esatto: i limiti laterali sono diversi."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "math-p04-q5",
+      "prompt": "Con 4 rettangoli e altezza a sinistra, l’area sotto y = x² tra 0 e 1 vale 0,21875. Il valore esatto è:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Minore di 0,21875",
+          "feedback": "Con altezza a sinistra la funzione crescente è sottostimata: il valore esatto è maggiore."
+        },
+        {
+          "id": "B",
+          "text": "1/3, maggiore della stima",
+          "feedback": "Esatto: la somma a sinistra sottostima un’area sotto una curva crescente."
+        },
+        {
+          "id": "C",
+          "text": "0,25",
+          "feedback": "0,25 è la base di ogni rettangolo."
+        },
+        {
+          "id": "D",
+          "text": "1",
+          "feedback": "1 è l’area del quadrato unitario, che contiene la regione sotto la parabola."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-p04-q6",
+      "prompt": "Se A(x) = ∫₀ˣ a t² dt = a x³/3, quanto vale la pendenza di A in x = 2 con a = 1?",
+      "options": [
+        {
+          "id": "A",
+          "text": "4",
+          "feedback": "Esatto: la derivata di A è a x², che in 2 vale 4."
+        },
+        {
+          "id": "B",
+          "text": "8/3",
+          "feedback": "8/3 è il valore di A(2), cioè l’area, non la pendenza."
+        },
+        {
+          "id": "C",
+          "text": "2",
+          "feedback": "La pendenza di A in 2 è a x² = 1 · 4 = 4, non 2."
+        },
+        {
+          "id": "D",
+          "text": "8",
+          "feedback": "8 = 2³ non tiene conto né della divisione per 3 né della derivata."
+        }
+      ],
+      "correct": "A"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "cards",
+    "goal": 3,
+    "rounds": [
+      {
+        "id": "limiti",
+        "type": "classify",
+        "title": "Che tipo di limite?",
+        "prompt": "Per ogni limite scegli se è finito, infinito (più o meno infinito) oppure se non esiste.",
+        "categories": [
+          {
+            "id": "finito",
+            "label": "FINITO"
+          },
+          {
+            "id": "infinito",
+            "label": "INFINITO"
+          },
+          {
+            "id": "nessuno",
+            "label": "NON ESISTE"
+          }
+        ],
+        "items": [
+          {
+            "id": "l1",
+            "text": "x → +∞ di 1/x",
+            "why": "1/x si avvicina a 0: il limite è 0.",
+            "category": "finito"
+          },
+          {
+            "id": "l2",
+            "text": "x → 0⁺ di 1/x",
+            "why": "Da destra 1/x supera qualunque valore: +∞.",
+            "category": "infinito"
+          },
+          {
+            "id": "l3",
+            "text": "x → 0 di 1/x",
+            "why": "Da destra +∞, da sinistra −∞: i limiti laterali non coincidono.",
+            "category": "nessuno"
+          },
+          {
+            "id": "l4",
+            "text": "x → +∞ di sin x",
+            "why": "sin x oscilla tra −1 e 1 senza avvicinarsi a nessun valore.",
+            "category": "nessuno"
+          },
+          {
+            "id": "l5",
+            "text": "x → 2 di (x² − 4)/(x − 2)",
+            "why": "Semplificando resta x + 2, che tende a 4.",
+            "category": "finito"
+          },
+          {
+            "id": "l6",
+            "text": "x → +∞ di x²",
+            "why": "x² supera qualunque valore: +∞.",
+            "category": "infinito"
+          },
+          {
+            "id": "l7",
+            "text": "x → 0 di sin(x)/x",
+            "why": "È un limite notevole: vale 1, anche se la funzione non è definita in 0.",
+            "category": "finito"
+          },
+          {
+            "id": "l8",
+            "text": "x → +∞ di (2x + 1)/(x + 3)",
+            "why": "Gradi uguali: rapporto dei coefficienti principali, 2.",
+            "category": "finito"
+          },
+          {
+            "id": "l9",
+            "text": "x → +∞ di e^(−x)",
+            "why": "e^(−x) = 1/eˣ si avvicina a 0.",
+            "category": "finito"
+          }
+        ],
+        "explain": "Un limite descrive il comportamento vicino a un punto o all’infinito: può essere un numero, crescere senza limite, oppure non stabilizzarsi.",
+        "maxErrors": 2
+      },
+      {
+        "id": "derivata",
+        "type": "order",
+        "title": "Dalla media all’istante",
+        "prompt": "Metti in ordine i passi che definiscono la velocità istantanea.",
+        "items": [
+          {
+            "id": "d1",
+            "text": "Scegli due istanti, t e t + h",
+            "why": "Si parte da un intervallo di tempo."
+          },
+          {
+            "id": "d2",
+            "text": "Calcola lo spostamento s(t + h) − s(t)",
+            "why": "Lo spostamento è la differenza delle posizioni."
+          },
+          {
+            "id": "d3",
+            "text": "Dividi per h: ottieni la velocità media",
+            "why": "Spostamento diviso tempo dà la velocità media."
+          },
+          {
+            "id": "d4",
+            "text": "Fai tendere h a zero",
+            "why": "Si restringe l’intervallo attorno all’istante t."
+          },
+          {
+            "id": "d5",
+            "text": "Il limite è la velocità istantanea s′(t)",
+            "why": "Il limite del rapporto incrementale è la derivata."
+          }
+        ],
+        "explain": "Intervallo, spostamento, media, limite: la derivata nasce restringendo l’intervallo della velocità media."
+      },
+      {
+        "id": "riemann",
+        "type": "order",
+        "title": "Avvicinarsi all’area",
+        "prompt": "L’area sotto y = x² tra 0 e 1 vale esattamente 1/3. Ordina le approssimazioni dalla più piccola alla più grande.",
+        "items": [
+          {
+            "id": "r1",
+            "text": "2 rettangoli, altezza a sinistra: 0,125",
+            "why": "Pochi rettangoli bassi: la stima più piccola."
+          },
+          {
+            "id": "r2",
+            "text": "4 rettangoli, altezza a sinistra: 0,21875",
+            "why": "Più rettangoli, ancora sotto la curva."
+          },
+          {
+            "id": "r3",
+            "text": "10 rettangoli, altezza a sinistra: 0,285",
+            "why": "Con 10 rettangoli la stima sale."
+          },
+          {
+            "id": "r4",
+            "text": "100 rettangoli, altezza a sinistra: 0,32835",
+            "why": "Con 100 rettangoli si è a meno di 0,005 dal valore esatto."
+          },
+          {
+            "id": "r5",
+            "text": "Area esatta: 1/3 ≈ 0,3333",
+            "why": "Le somme a sinistra stanno sotto, quelle a destra sopra."
+          },
+          {
+            "id": "r6",
+            "text": "4 rettangoli, altezza a destra: 0,46875",
+            "why": "Con l’altezza a destra i rettangoli sporgono sopra la curva crescente."
+          }
+        ],
+        "explain": "Le somme a sinistra crescono verso 1/3 dal basso, quelle a destra scendono dall’alto: il limite comune è l’integrale."
+      }
+    ]
+  }
 }

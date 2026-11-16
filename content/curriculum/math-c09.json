@@ -5,14 +5,15 @@
   "title": "Trigonometria",
   "sector": 0,
   "modelId": "math-c09",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Angoli in radianti e proiezioni ideali",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Seno, coseno e tangente, radianti, circonferenza unitaria, onde sinusoidali, teoremi dei seni e del coseno",
+  "narrativeStatus": "La boa è immaginaria; le funzioni trigonometriche e i dati di esempio sono costruiti per l’esercizio.",
   "objectives": [
-    "Spiegare: angoli in radianti e proiezioni ideali.",
-    "Applicare y = a sin(x+b), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Usare seno, coseno e tangente per risolvere triangoli rettangoli.",
+    "Convertire tra gradi e radianti.",
+    "Definire seno e coseno sulla circonferenza unitaria e usare sin² x + cos² x = 1.",
+    "Interpretare ampiezza e fase in y = a sin(x + b) e adattarle a dati misurati."
   ],
   "prerequisites": [
     "math-c03",
@@ -20,7 +21,7 @@
     "math-c08"
   ],
   "connections": [
-    "physics-17"
+    "math-p02"
   ],
   "sources": [
     "precalculus"
@@ -39,250 +40,440 @@
   },
   "glossary": [
     {
-      "term": "Angolo",
-      "definition": "Variabile indipendente, unità rad; intervallo [0; 6,28319]."
+      "term": "Seno e coseno",
+      "definition": "Ordinata e ascissa del punto della circonferenza unitaria che forma l’angolo x."
     },
     {
-      "term": "Ordinata",
-      "definition": "Risultato calcolato dal modello, unità u.l.."
+      "term": "Radiante",
+      "definition": "Angolo che sottende un arco lungo quanto il raggio; 180° = π radianti."
     },
     {
       "term": "Ampiezza",
-      "definition": "Parametro a, unità u.l.; intervallo [0,5; 3]."
+      "definition": "Massima distanza dell’onda dall’asse; in a sin(x + b) vale |a|."
     },
     {
       "term": "Fase",
-      "definition": "Parametro b, unità rad; intervallo [0; 3,14159]."
+      "definition": "Spostamento orizzontale dell’onda; in sin(x + b) l’onda anticipa di b."
+    },
+    {
+      "term": "Periodo",
+      "definition": "Intervallo dopo cui la funzione si ripete; per sin x vale 2π."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Fenomeni che si ripetono",
       "text": {
         "base": [
-          "Un’antenna ruota mentre il segnale ricevuto oscilla. Per sincronizzare l’orientamento non basta contare i giri: occorre collegare angolo, fase e proiezione su un asse.",
-          "Sulla circonferenza unitaria, seno e coseno sono le coordinate di un punto individuato da un angolo. Il radiante misura il rapporto fra arco e raggio. Una rotazione completa corrisponde a 2π radianti, non a 360 radianti."
+          "La boa di misura nel mare della stazione sale e scende con le onde; la luce del pianeta varia nel corso della giornata; un punto su una ruota che gira descrive una curva che si ripete. Tutti questi fenomeni periodici si descrivono con seno e coseno, che nascono dal modo più semplice di misurare un triangolo.",
+          "In un triangolo rettangolo con un angolo acuto α, il seno di α è il rapporto tra il cateto opposto e l’ipotenusa, il coseno il rapporto tra il cateto adiacente e l’ipotenusa, la tangente il rapporto tra cateto opposto e cateto adiacente. Questi rapporti dipendono solo dall’angolo, perché triangoli rettangoli con lo stesso angolo sono simili. Esempio: con ipotenusa 10 e α = 30°, il cateto opposto è 10 · sin 30° = 5."
         ],
         "intermediate": [
-          "Un’antenna ruota mentre il segnale ricevuto oscilla. Per sincronizzare l’orientamento non basta contare i giri: occorre collegare angolo, fase e proiezione su un asse.",
-          "Nella relazione y=a sin(x+b), a regola l’ampiezza e b la fase. Il periodo rispetto a x è 2π. Aggiungere b all’argomento anticipa la fase; il seno può essere negativo perché rappresenta una coordinata orientata."
+          "La boa di misura nel mare della stazione sale e scende con le onde; la luce del pianeta varia nel corso della giornata; un punto su una ruota che gira descrive una curva che si ripete. Tutti questi fenomeni periodici si descrivono con seno e coseno, che nascono dal modo più semplice di misurare un triangolo.",
+          "In un triangolo rettangolo con un angolo acuto α, il seno di α è il rapporto tra il cateto opposto e l’ipotenusa, il coseno il rapporto tra il cateto adiacente e l’ipotenusa, la tangente il rapporto tra cateto opposto e cateto adiacente. Questi rapporti dipendono solo dall’angolo, perché triangoli rettangoli con lo stesso angolo sono simili. Esempio: con ipotenusa 10 e α = 30°, il cateto opposto è 10 · sin 30° = 5."
         ],
         "advanced": [
-          "Un’antenna ruota mentre il segnale ricevuto oscilla. Per sincronizzare l’orientamento non basta contare i giri: occorre collegare angolo, fase e proiezione su un asse.",
-          "Usa l’identità sin²x+cos²x=1 per controllare le coordinate. Collega una fase b a un ritardo temporale mediante una pulsazione ω e spiega il segno della trasformazione.",
-          "La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione."
+          "La boa di misura nel mare della stazione sale e scende con le onde; la luce del pianeta varia nel corso della giornata; un punto su una ruota che gira descrive una curva che si ripete. Tutti questi fenomeni periodici si descrivono con seno e coseno, che nascono dal modo più semplice di misurare un triangolo.",
+          "In un triangolo rettangolo con un angolo acuto α, il seno di α è il rapporto tra il cateto opposto e l’ipotenusa, il coseno il rapporto tra il cateto adiacente e l’ipotenusa, la tangente il rapporto tra cateto opposto e cateto adiacente. Questi rapporti dipendono solo dall’angolo, perché triangoli rettangoli con lo stesso angolo sono simili. Esempio: con ipotenusa 10 e α = 30°, il cateto opposto è 10 · sin 30° = 5."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Dalla circonferenza all’onda",
       "text": {
         "base": [
-          "Sulla circonferenza unitaria, seno e coseno sono le coordinate di un punto individuato da un angolo. Il radiante misura il rapporto fra arco e raggio. Una rotazione completa corrisponde a 2π radianti, non a 360 radianti.",
-          "Per a=1 e b=0, in x=π/2 ottieni 1; in x=π ottieni 0; in x=3π/2 ottieni -1. L’ampiezza è 1, mentre la distanza tra massimo e minimo è 2."
+          "Gli angoli si misurano anche in radianti: un radiante è l’angolo al centro che sottende un arco lungo quanto il raggio. L’angolo giro vale 2π radianti, quindi 180° = π, 90° = π/2, 45° = π/4. Per passare dai gradi ai radianti si moltiplica per π/180.",
+          "Sulla circonferenza di raggio 1, il punto che forma un angolo x con il semiasse positivo ha coordinate (cos x; sin x). Questa definizione vale per qualunque angolo, anche ottuso, negativo o maggiore di un giro. Per Pitagora, sin² x + cos² x = 1 per ogni x. Valori notevoli: sin 0 = 0, sin(π/6) = 1/2, sin(π/4) = √2/2, sin(π/2) = 1.",
+          "Il grafico di y = sin x è un’onda che si ripete ogni 2π: il periodo. Oscilla tra −1 e 1. Nella forma y = a sin(x + b), a è l’ampiezza, la massima distanza dall’asse; b è la fase, che sposta l’onda in orizzontale: con b > 0 l’onda arriva prima, cioè è spostata a sinistra di b. Il coseno è un seno sfasato: cos x = sin(x + π/2).",
+          "Esempio: y = 2 sin(x + π/4). L’ampiezza è 2, quindi i valori vanno da −2 a 2. Il massimo, che per sin x sta in x = π/2, si sposta in x = π/2 − π/4 = π/4. In x = 0 la funzione vale 2 sin(π/4) = √2 ≈ 1,41."
         ],
         "intermediate": [
-          "Nella relazione y=a sin(x+b), a regola l’ampiezza e b la fase. Il periodo rispetto a x è 2π. Aggiungere b all’argomento anticipa la fase; il seno può essere negativo perché rappresenta una coordinata orientata.",
-          "La variabile Angolo è espressa in rad; Ordinata in u.l.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: y = a sin(x+b).",
-          "Per a=1 e b=0, in x=π/2 ottieni 1; in x=π ottieni 0; in x=3π/2 ottieni -1. L’ampiezza è 1, mentre la distanza tra massimo e minimo è 2."
+          "Gli angoli si misurano anche in radianti: un radiante è l’angolo al centro che sottende un arco lungo quanto il raggio. L’angolo giro vale 2π radianti, quindi 180° = π, 90° = π/2, 45° = π/4. Per passare dai gradi ai radianti si moltiplica per π/180.",
+          "Sulla circonferenza di raggio 1, il punto che forma un angolo x con il semiasse positivo ha coordinate (cos x; sin x). Questa definizione vale per qualunque angolo, anche ottuso, negativo o maggiore di un giro. Per Pitagora, sin² x + cos² x = 1 per ogni x. Valori notevoli: sin 0 = 0, sin(π/6) = 1/2, sin(π/4) = √2/2, sin(π/2) = 1.",
+          "Il grafico di y = sin x è un’onda che si ripete ogni 2π: il periodo. Oscilla tra −1 e 1. Nella forma y = a sin(x + b), a è l’ampiezza, la massima distanza dall’asse; b è la fase, che sposta l’onda in orizzontale: con b > 0 l’onda arriva prima, cioè è spostata a sinistra di b. Il coseno è un seno sfasato: cos x = sin(x + π/2).",
+          "Esempio: y = 2 sin(x + π/4). L’ampiezza è 2, quindi i valori vanno da −2 a 2. Il massimo, che per sin x sta in x = π/2, si sposta in x = π/2 − π/4 = π/4. In x = 0 la funzione vale 2 sin(π/4) = √2 ≈ 1,41.",
+          "Per i triangoli non rettangoli valgono il teorema dei seni, a/sin α = b/sin β = c/sin γ, e il teorema del coseno, c² = a² + b² − 2ab cos γ, che per γ = 90° si riduce a Pitagora. Permettono di calcolare distanze inaccessibili, come la larghezza di un fiume, misurando angoli da due punti."
         ],
         "advanced": [
-          "Nella relazione y=a sin(x+b), a regola l’ampiezza e b la fase. Il periodo rispetto a x è 2π. Aggiungere b all’argomento anticipa la fase; il seno può essere negativo perché rappresenta una coordinata orientata.",
-          "Usa l’identità sin²x+cos²x=1 per controllare le coordinate. Collega una fase b a un ritardo temporale mediante una pulsazione ω e spiega il segno della trasformazione.",
-          "Ampiezza e valore picco-picco sono grandezze diverse. Usare gradi in una funzione programmata per radianti produce valori errati, anche se il grafico sembra regolare."
+          "Gli angoli si misurano anche in radianti: un radiante è l’angolo al centro che sottende un arco lungo quanto il raggio. L’angolo giro vale 2π radianti, quindi 180° = π, 90° = π/2, 45° = π/4. Per passare dai gradi ai radianti si moltiplica per π/180.",
+          "Sulla circonferenza di raggio 1, il punto che forma un angolo x con il semiasse positivo ha coordinate (cos x; sin x). Questa definizione vale per qualunque angolo, anche ottuso, negativo o maggiore di un giro. Per Pitagora, sin² x + cos² x = 1 per ogni x. Valori notevoli: sin 0 = 0, sin(π/6) = 1/2, sin(π/4) = √2/2, sin(π/2) = 1.",
+          "Il grafico di y = sin x è un’onda che si ripete ogni 2π: il periodo. Oscilla tra −1 e 1. Nella forma y = a sin(x + b), a è l’ampiezza, la massima distanza dall’asse; b è la fase, che sposta l’onda in orizzontale: con b > 0 l’onda arriva prima, cioè è spostata a sinistra di b. Il coseno è un seno sfasato: cos x = sin(x + π/2).",
+          "Esempio: y = 2 sin(x + π/4). L’ampiezza è 2, quindi i valori vanno da −2 a 2. Il massimo, che per sin x sta in x = π/2, si sposta in x = π/2 − π/4 = π/4. In x = 0 la funzione vale 2 sin(π/4) = √2 ≈ 1,41.",
+          "Per i triangoli non rettangoli valgono il teorema dei seni, a/sin α = b/sin β = c/sin γ, e il teorema del coseno, c² = a² + b² − 2ab cos γ, che per γ = 90° si riduce a Pitagora. Permettono di calcolare distanze inaccessibili, come la larghezza di un fiume, misurando angoli da due punti.",
+          "Seno e coseno descrivono anche fenomeni con periodo diverso da 2π: y = sin(ωx) ha periodo 2π/ω. Le maree, il suono, la corrente alternata a 50 Hz si scrivono con questa forma, con ω scelto in base al periodo osservato."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Adatta l’onda alle misure",
       "text": {
         "base": [
-          "Nel laboratorio imposta Ampiezza (a): 1 u.l.; Fase (b): 0 rad. Prima di salvare A, prevedi come cambia Ordinata fra Angolo=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Per a=1 e b=0, in x=π/2 ottieni 1; in x=π ottieni 0; in x=3π/2 ottieni -1. L’ampiezza è 1, mentre la distanza tra massimo e minimo è 2.",
-          "La variabile Angolo è espressa in rad; Ordinata in u.l.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: y = a sin(x+b)."
+          "L’attività chiede di adattare un’onda y = a sin(x + b) alle misure della boa. Nella prima serie regoli solo l’ampiezza a, nella seconda solo la fase b, nella terza entrambe. Per completare l’attività supera due serie su tre.",
+          "I punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare. Lo scarto quadratico medio, la radice della media dei quadrati delle differenze tra modello e misure, dice quanto la curva si allontana dai punti. Quando pensi di aver trovato i parametri migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce una direzione.",
+          "Per l’ampiezza guarda i punti più alti e più bassi; per la fase guarda dove l’onda attraversa l’asse salendo: per sin(x + b) succede in x = −b, e poi ogni 2π."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Ampiezza (a): 1 u.l.; Fase (b): 0 rad. Prima di salvare A, prevedi come cambia Ordinata fra Angolo=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Angolo è espressa in rad; Ordinata in u.l.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: y = a sin(x+b).",
-          "Nella relazione y=a sin(x+b), a regola l’ampiezza e b la fase. Il periodo rispetto a x è 2π. Aggiungere b all’argomento anticipa la fase; il seno può essere negativo perché rappresenta una coordinata orientata."
+          "L’attività chiede di adattare un’onda y = a sin(x + b) alle misure della boa. Nella prima serie regoli solo l’ampiezza a, nella seconda solo la fase b, nella terza entrambe. Per completare l’attività supera due serie su tre.",
+          "I punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare. Lo scarto quadratico medio, la radice della media dei quadrati delle differenze tra modello e misure, dice quanto la curva si allontana dai punti. Quando pensi di aver trovato i parametri migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce una direzione.",
+          "Per l’ampiezza guarda i punti più alti e più bassi; per la fase guarda dove l’onda attraversa l’asse salendo: per sin(x + b) succede in x = −b, e poi ogni 2π."
         ],
         "advanced": [
-          "Nel laboratorio imposta Ampiezza (a): 1 u.l.; Fase (b): 0 rad. Prima di salvare A, prevedi come cambia Ordinata fra Angolo=1,5708 e 3,14159 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Usa l’identità sin²x+cos²x=1 per controllare le coordinate. Collega una fase b a un ritardo temporale mediante una pulsazione ω e spiega il segno della trasformazione.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività chiede di adattare un’onda y = a sin(x + b) alle misure della boa. Nella prima serie regoli solo l’ampiezza a, nella seconda solo la fase b, nella terza entrambe. Per completare l’attività supera due serie su tre.",
+          "I punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare. Lo scarto quadratico medio, la radice della media dei quadrati delle differenze tra modello e misure, dice quanto la curva si allontana dai punti. Quando pensi di aver trovato i parametri migliori premi VERIFICA; dopo due tentativi il messaggio suggerisce una direzione.",
+          "Per l’ampiezza guarda i punti più alti e più bassi; per la fase guarda dove l’onda attraversa l’asse salendo: per sin(x + b) succede in x = −b, e poi ogni 2π."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori frequenti",
       "text": {
         "base": [
-          "Ampiezza e valore picco-picco sono grandezze diverse. Usare gradi in una funzione programmata per radianti produce valori errati, anche se il grafico sembra regolare.",
-          "La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: usare gradi e radianti insieme. La calcolatrice in modalità gradi calcola sin 3 come il seno di 3°, circa 0,052; in radianti sin 3 ≈ 0,141. Le formule dell’analisi richiedono i radianti.",
+          "Secondo errore: leggere la fase con il segno sbagliato. In sin(x + b) l’onda è spostata a sinistra di b: per ottenere lo stesso valore di sin x serve un x più piccolo di b.",
+          "Seno e coseno descrivono anche fenomeni con periodo diverso da 2π: y = sin(ωx) ha periodo 2π/ω. Le maree, il suono, la corrente alternata a 50 Hz si scrivono con questa forma, con ω scelto in base al periodo osservato."
         ],
         "intermediate": [
-          "Ampiezza e valore picco-picco sono grandezze diverse. Usare gradi in una funzione programmata per radianti produce valori errati, anche se il grafico sembra regolare.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: usare gradi e radianti insieme. La calcolatrice in modalità gradi calcola sin 3 come il seno di 3°, circa 0,052; in radianti sin 3 ≈ 0,141. Le formule dell’analisi richiedono i radianti.",
+          "Secondo errore: leggere la fase con il segno sbagliato. In sin(x + b) l’onda è spostata a sinistra di b: per ottenere lo stesso valore di sin x serve un x più piccolo di b.",
+          "Seno e coseno descrivono anche fenomeni con periodo diverso da 2π: y = sin(ωx) ha periodo 2π/ω. Le maree, il suono, la corrente alternata a 50 Hz si scrivono con questa forma, con ω scelto in base al periodo osservato."
         ],
         "advanced": [
-          "La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione.",
-          "Usa l’identità sin²x+cos²x=1 per controllare le coordinate. Collega una fase b a un ritardo temporale mediante una pulsazione ω e spiega il segno della trasformazione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: usare gradi e radianti insieme. La calcolatrice in modalità gradi calcola sin 3 come il seno di 3°, circa 0,052; in radianti sin 3 ≈ 0,141. Le formule dell’analisi richiedono i radianti.",
+          "Secondo errore: leggere la fase con il segno sbagliato. In sin(x + b) l’onda è spostata a sinistra di b: per ottenere lo stesso valore di sin x serve un x più piccolo di b.",
+          "Seno e coseno descrivono anche fenomeni con periodo diverso da 2π: y = sin(ωx) ha periodo 2π/ω. Le maree, il suono, la corrente alternata a 50 Hz si scrivono con questa forma, con ω scelto in base al periodo osservato."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Sulla circonferenza unitaria, seno e coseno sono le coordinate di un punto individuato da un angolo. Il radiante misura il rapporto fra arco e raggio. Una rotazione completa corrisponde a 2π radianti, non a 360 radianti.",
-          "Per a=1 e b=0, in x=π/2 ottieni 1; in x=π ottieni 0; in x=3π/2 ottieni -1. L’ampiezza è 1, mentre la distanza tra massimo e minimo è 2."
+          "Ripasso: seno, coseno e tangente nel triangolo rettangolo; radianti; definizione sulla circonferenza unitaria; identità fondamentale; ampiezza, periodo e fase; teoremi dei seni e del coseno.",
+          "Mini esercizio: 60° = π/3; sin(π/3) = √3/2 ≈ 0,866; cos(π/3) = 1/2; controllo: 0,75 + 0,25 = 1.",
+          "Nelle domande con valori numerici chiediti sempre se l’angolo è in gradi o in radianti."
         ],
         "intermediate": [
-          "Nella relazione y=a sin(x+b), a regola l’ampiezza e b la fase. Il periodo rispetto a x è 2π. Aggiungere b all’argomento anticipa la fase; il seno può essere negativo perché rappresenta una coordinata orientata.",
-          "La variabile Angolo è espressa in rad; Ordinata in u.l.. Il dominio dello strumento è [0; 6,28319]. La relazione implementata è: y = a sin(x+b)."
+          "Ripasso: seno, coseno e tangente nel triangolo rettangolo; radianti; definizione sulla circonferenza unitaria; identità fondamentale; ampiezza, periodo e fase; teoremi dei seni e del coseno.",
+          "Mini esercizio: 60° = π/3; sin(π/3) = √3/2 ≈ 0,866; cos(π/3) = 1/2; controllo: 0,75 + 0,25 = 1.",
+          "Nelle domande con valori numerici chiediti sempre se l’angolo è in gradi o in radianti."
         ],
         "advanced": [
-          "Usa l’identità sin²x+cos²x=1 per controllare le coordinate. Collega una fase b a un ritardo temporale mediante una pulsazione ω e spiega il segno della trasformazione.",
-          "La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione."
+          "Ripasso: seno, coseno e tangente nel triangolo rettangolo; radianti; definizione sulla circonferenza unitaria; identità fondamentale; ampiezza, periodo e fase; teoremi dei seni e del coseno.",
+          "Mini esercizio: 60° = π/3; sin(π/3) = √3/2 ≈ 0,866; cos(π/3) = 1/2; controllo: 0,75 + 0,25 = 1.",
+          "Nelle domande con valori numerici chiediti sempre se l’angolo è in gradi o in radianti."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Angoli in radianti e proiezioni ideali.",
-          "La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione.",
-          "Collegamento consigliato: physics-17. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La trigonometria torna nei numeri complessi, dove moltiplicare significa ruotare, nelle trasformazioni geometriche e nell’unità «Onde, frequenze e ricostruzione», dove ogni segnale periodico si scompone in somme di seni.",
+          "Riepilogo dell’unità: seno e coseno nascono come rapporti nel triangolo rettangolo e si estendono a ogni angolo con la circonferenza unitaria; sin² x + cos² x = 1; in y = a sin(x + b) a è l’ampiezza e b la fase; il periodo di sin x è 2π.",
+          "Nel diario scrivi l’ampiezza e la fase trovate in una serie dell’attività e spiega come le hai riconosciute dal grafico."
         ],
         "intermediate": [
-          "Nella relazione y=a sin(x+b), a regola l’ampiezza e b la fase. Il periodo rispetto a x è 2π. Aggiungere b all’argomento anticipa la fase; il seno può essere negativo perché rappresenta una coordinata orientata.",
-          "La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione.",
-          "Usa l’identità sin²x+cos²x=1 per controllare le coordinate. Collega una fase b a un ritardo temporale mediante una pulsazione ω e spiega il segno della trasformazione."
+          "La trigonometria torna nei numeri complessi, dove moltiplicare significa ruotare, nelle trasformazioni geometriche e nell’unità «Onde, frequenze e ricostruzione», dove ogni segnale periodico si scompone in somme di seni.",
+          "Riepilogo dell’unità: seno e coseno nascono come rapporti nel triangolo rettangolo e si estendono a ogni angolo con la circonferenza unitaria; sin² x + cos² x = 1; in y = a sin(x + b) a è l’ampiezza e b la fase; il periodo di sin x è 2π.",
+          "Nel diario scrivi l’ampiezza e la fase trovate in una serie dell’attività e spiega come le hai riconosciute dal grafico."
         ],
         "advanced": [
-          "Usa l’identità sin²x+cos²x=1 per controllare le coordinate. Collega una fase b a un ritardo temporale mediante una pulsazione ω e spiega il segno della trasformazione.",
-          "La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La trigonometria torna nei numeri complessi, dove moltiplicare significa ruotare, nelle trasformazioni geometriche e nell’unità «Onde, frequenze e ricostruzione», dove ogni segnale periodico si scompone in somme di seni.",
+          "Riepilogo dell’unità: seno e coseno nascono come rapporti nel triangolo rettangolo e si estendono a ogni angolo con la circonferenza unitaria; sin² x + cos² x = 1; in y = a sin(x + b) a è l’ampiezza e b la fase; il periodo di sin x è 2π.",
+          "Nel diario scrivi l’ampiezza e la fase trovate in una serie dell’attività e spiega come le hai riconosciute dal grafico."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-c09-concept",
-      "prompt": "Un giro completo corrisponde a:",
+      "id": "math-c09-q1",
+      "prompt": "In un triangolo rettangolo con ipotenusa 8 e angolo α = 30°, quanto misura il cateto opposto ad α?",
       "options": [
         {
           "id": "A",
-          "text": "360 radianti",
-          "feedback": "Nella relazione y=a sin(x+b), a regola l’ampiezza e b la fase. Il periodo rispetto a x è 2π. Aggiungere b all’argomento anticipa la fase; il seno può essere negativo perché rappresenta una coordinata orientata."
+          "text": "4",
+          "feedback": "Esatto: 8 · sin 30° = 8 · 1/2 = 4."
         },
         {
           "id": "B",
-          "text": "2π radianti",
-          "feedback": "Sulla circonferenza unitaria, seno e coseno sono le coordinate di un punto individuato da un angolo. Il radiante misura il rapporto fra arco e raggio. Una rotazione completa corrisponde a 2π radianti, non a 360 radianti."
+          "text": "8",
+          "feedback": "8 è l’ipotenusa, il lato più lungo."
         },
         {
           "id": "C",
-          "text": "π radianti",
-          "feedback": "Ampiezza e valore picco-picco sono grandezze diverse. Usare gradi in una funzione programmata per radianti produce valori errati, anche se il grafico sembra regolare."
+          "text": "6,93",
+          "feedback": "6,93 = 8 · cos 30° è il cateto adiacente."
+        },
+        {
+          "id": "D",
+          "text": "16",
+          "feedback": "Il cateto è minore dell’ipotenusa: si moltiplica per sin 30° = 1/2."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-c09-q2",
+      "prompt": "A quanti radianti corrispondono 90°?",
+      "options": [
+        {
+          "id": "A",
+          "text": "90",
+          "feedback": "In radianti l’angolo retto vale una frazione di π."
+        },
+        {
+          "id": "B",
+          "text": "π",
+          "feedback": "π radianti sono 180°, cioè un angolo piatto."
+        },
+        {
+          "id": "C",
+          "text": "π/2",
+          "feedback": "Esatto: si moltiplica per π/180, quindi 90 · π/180 = π/2."
+        },
+        {
+          "id": "D",
+          "text": "2π",
+          "feedback": "2π radianti sono l’angolo giro, 360°."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "math-c09-q3",
+      "prompt": "Se sin x = 0,6 e x è acuto, quanto vale cos x?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0,4",
+          "feedback": "L’identità riguarda i quadrati: cos² x = 1 − 0,36."
+        },
+        {
+          "id": "B",
+          "text": "0,8",
+          "feedback": "Esatto: cos x = √(1 − 0,36) = √0,64 = 0,8."
+        },
+        {
+          "id": "C",
+          "text": "0,64",
+          "feedback": "0,64 è cos² x: resta la radice."
+        },
+        {
+          "id": "D",
+          "text": "1,6",
+          "feedback": "Seno e coseno non superano mai 1 in valore assoluto."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "math-c09-calculation",
-      "prompt": "Calcolo: Ampiezza (a)=1 u.l.; Fase (b)=0 rad. Per Angolo=1,5708 rad, quanto vale Ordinata?",
+      "id": "math-c09-q4",
+      "prompt": "Qual è l’ampiezza di y = 3 sin(x + 1)?",
       "options": [
         {
           "id": "A",
-          "text": "1 u.l.",
-          "feedback": "y = a sin(x+b). Con Ampiezza (a)=1 u.l.; Fase (b)=0 rad e Angolo=1,5708 rad, il risultato è 1 u.l.. Conserva le unità e arrotonda solo alla fine."
+          "text": "1",
+          "feedback": "1 è la fase, lo spostamento orizzontale dell’onda."
         },
         {
           "id": "B",
-          "text": "2 u.l.",
-          "feedback": "Questo valore non soddisfa la relazione. y = a sin(x+b). Con Ampiezza (a)=1 u.l.; Fase (b)=0 rad e Angolo=1,5708 rad, il risultato è 1 u.l.. Conserva le unità e arrotonda solo alla fine."
+          "text": "6",
+          "feedback": "6 è la distanza tra massimo e minimo; l’ampiezza ne è la metà."
         },
         {
           "id": "C",
-          "text": "0 u.l.",
-          "feedback": "Controlla sostituzione, segno e unità. y = a sin(x+b). Con Ampiezza (a)=1 u.l.; Fase (b)=0 rad e Angolo=1,5708 rad, il risultato è 1 u.l.. Conserva le unità e arrotonda solo alla fine."
+          "text": "2π",
+          "feedback": "2π è il periodo, la distanza tra due massimi."
+        },
+        {
+          "id": "D",
+          "text": "3",
+          "feedback": "Esatto: i valori vanno da −3 a 3."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 1.5707963267948966,
-        "parameters": {
-          "a": 1,
-          "b": 0
-        },
-        "expected": 1,
-        "unit": "u.l."
-      }
+      "correct": "D"
     },
     {
-      "id": "math-c09-transfer",
-      "prompt": "Trasferimento: Ampiezza (a)=1,5 u.l.; Fase (b)=0 rad. Per Angolo=1,5708 rad, quanto vale Ordinata?",
+      "id": "math-c09-q5",
+      "prompt": "Rispetto a y = sin x, il grafico di y = sin(x + π/4) è:",
       "options": [
         {
           "id": "A",
-          "text": "2,5 u.l.",
-          "feedback": "Questo valore non soddisfa la relazione. y = a sin(x+b). Con Ampiezza (a)=1,5 u.l.; Fase (b)=0 rad e Angolo=1,5708 rad, il risultato è 1,5 u.l.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Spostato a sinistra di π/4",
+          "feedback": "Esatto: lo stesso valore si raggiunge con un x più piccolo di π/4."
         },
         {
           "id": "B",
-          "text": "0,5 u.l.",
-          "feedback": "Controlla sostituzione, segno e unità. y = a sin(x+b). Con Ampiezza (a)=1,5 u.l.; Fase (b)=0 rad e Angolo=1,5708 rad, il risultato è 1,5 u.l.. Conserva le unità e arrotonda solo alla fine."
+          "text": "Spostato a destra di π/4",
+          "feedback": "Con + nella parentesi l’onda anticipa, cioè si sposta a sinistra."
         },
         {
           "id": "C",
-          "text": "1,5 u.l.",
-          "feedback": "y = a sin(x+b). Con Ampiezza (a)=1,5 u.l.; Fase (b)=0 rad e Angolo=1,5708 rad, il risultato è 1,5 u.l.. Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "C",
-      "numeric": {
-        "x": 1.5707963267948966,
-        "parameters": {
-          "a": 1.5,
-          "b": 0
-        },
-        "expected": 1.5,
-        "unit": "u.l."
-      }
-    },
-    {
-      "id": "math-c09-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Angoli in radianti e proiezioni ideali",
-          "feedback": "La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione."
+          "text": "Più alto di π/4",
+          "feedback": "La fase sposta in orizzontale; in verticale sposterebbe un termine aggiunto fuori dal seno."
         },
         {
-          "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione."
-        },
-        {
-          "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. La rotazione è ideale e non include accelerazioni o rumore del segnale. La fase è un parametro angolare, non un ritardo temporale finché non viene definita una pulsazione."
+          "id": "D",
+          "text": "Più stretto",
+          "feedback": "Il periodo resta 2π: cambia solo la posizione."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "math-c09-q6",
+      "prompt": "Con la calcolatrice in modalità gradi calcoli sin 3 e ottieni circa 0,052. Che cosa hai calcolato?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Il seno di 3 radianti",
+          "feedback": "Il seno di 3 radianti vale circa 0,141."
+        },
+        {
+          "id": "B",
+          "text": "Il seno di 3 gradi",
+          "feedback": "Esatto: in modalità gradi 3 è interpretato come 3°."
+        },
+        {
+          "id": "C",
+          "text": "Un errore della calcolatrice",
+          "feedback": "La calcolatrice è corretta: l’unità impostata decide il significato."
+        },
+        {
+          "id": "D",
+          "text": "Il coseno di 3",
+          "feedback": "La funzione è il seno; cambia l’unità di misura dell’angolo."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "fit",
+    "goal": 2,
+    "rounds": [
+      {
+        "id": "ampiezza",
+        "title": "Quanto è alta l’onda?",
+        "prompt": "La boa oscilla senza sfasamento. Regola l’ampiezza a.",
+        "model": "math-c09",
+        "x": [
+          0.4,
+          1,
+          1.6,
+          2.2,
+          2.8,
+          3.6,
+          4.4,
+          5.2,
+          5.9
+        ],
+        "noise": [
+          0.08,
+          -0.06,
+          0.05,
+          -0.09,
+          0.07,
+          -0.04,
+          0.06,
+          -0.08,
+          0.05
+        ],
+        "hidden": {
+          "a": 2,
+          "b": 0
+        },
+        "fit": [
+          "a"
+        ],
+        "explain": "Ampiezza 2: i punti più alti stanno vicino a 2, i più bassi vicino a −2."
+      },
+      {
+        "id": "fase",
+        "title": "Quando arriva il picco?",
+        "prompt": "L’ampiezza è nota. Regola la fase b, a passi di π/8.",
+        "model": "math-c09",
+        "x": [
+          0.3,
+          0.9,
+          1.5,
+          2.1,
+          2.7,
+          3.3,
+          3.9,
+          4.5,
+          5.1,
+          5.7
+        ],
+        "noise": [
+          -0.05,
+          0.07,
+          -0.04,
+          0.06,
+          -0.08,
+          0.05,
+          -0.06,
+          0.04,
+          -0.07,
+          0.06
+        ],
+        "hidden": {
+          "a": 1.5,
+          "b": 0.7853981633974483
+        },
+        "fit": [
+          "b"
+        ],
+        "explain": "b = π/4: il primo massimo arriva in x = π/2 − π/4 = π/4 ≈ 0,79."
+      },
+      {
+        "id": "onda",
+        "title": "Ampiezza e fase",
+        "prompt": "Regola sia l’ampiezza sia la fase.",
+        "model": "math-c09",
+        "x": [
+          0.2,
+          0.8,
+          1.4,
+          2,
+          2.6,
+          3.2,
+          3.8,
+          4.4,
+          5,
+          5.6,
+          6.2
+        ],
+        "noise": [
+          0.1,
+          -0.08,
+          0.06,
+          -0.1,
+          0.09,
+          -0.05,
+          0.07,
+          -0.09,
+          0.08,
+          -0.06,
+          0.05
+        ],
+        "hidden": {
+          "a": 2.5,
+          "b": 1.1780972450961724
+        },
+        "fit": [
+          "a",
+          "b"
+        ],
+        "explain": "a = 2,5 e b = 3π/8: un’onda più alta che anticipa di circa 1,18 radianti."
+      }
+    ]
+  }
 }

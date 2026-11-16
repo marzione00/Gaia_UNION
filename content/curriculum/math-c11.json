@@ -5,20 +5,21 @@
   "title": "Geometria elementare",
   "sector": 0,
   "modelId": "math-c11",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Triangolo piano; altezza perpendicolare",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Angoli dei triangoli, aree dei poligoni, teorema di Pitagora, similitudine e cerchio",
+  "narrativeStatus": "La serra è immaginaria; i teoremi e i calcoli sono reali.",
   "objectives": [
-    "Spiegare: triangolo piano; altezza perpendicolare.",
-    "Applicare Area = base × altezza / 2, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Giustificare le formule delle aree di triangolo, parallelogramma e trapezio.",
+    "Applicare il teorema di Pitagora a problemi reali.",
+    "Usare la similitudine e il rapporto delle aree.",
+    "Calcolare circonferenza e area del cerchio."
   ],
   "prerequisites": [
     "math-c03"
   ],
   "connections": [
-    "math-p06"
+    "math-c07"
   ],
   "sources": [
     "precalculus"
@@ -37,244 +38,552 @@
   },
   "glossary": [
     {
-      "term": "Base",
-      "definition": "Variabile indipendente, unità u.l.; intervallo [0; 10]."
-    },
-    {
-      "term": "Area",
-      "definition": "Risultato calcolato dal modello, unità u.l.²."
-    },
-    {
       "term": "Altezza",
-      "definition": "Parametro a, unità u.l.; intervallo [1; 8]."
+      "definition": "Segmento perpendicolare a un lato condotto dal vertice opposto."
+    },
+    {
+      "term": "Teorema di Pitagora",
+      "definition": "In un triangolo rettangolo c² = a² + b²."
+    },
+    {
+      "term": "Similitudine",
+      "definition": "Relazione tra figure con angoli uguali e lati in proporzione."
+    },
+    {
+      "term": "Rapporto di similitudine",
+      "definition": "Fattore k tra lati corrispondenti; le aree stanno nel rapporto k²."
+    },
+    {
+      "term": "π",
+      "definition": "Rapporto tra circonferenza e diametro, circa 3,14159."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Misurare il terreno",
       "text": {
         "base": [
-          "La base deve costruire pannelli triangolari con basi differenti ma altezza comune. La vista prospettica fa sembrare alcuni pannelli più grandi. Determina l’area senza affidarti all’apparenza.",
-          "L’area di un triangolo è metà del prodotto tra una base e l’altezza relativa. L’altezza è la distanza perpendicolare dalla retta della base al vertice opposto: non coincide in generale con un lato obliquo."
+          "Per costruire una serra triangolare accanto alla stazione servono le misure del terreno, la lunghezza delle travi diagonali e la quantità di telo per la copertura. La geometria elementare fornisce gli strumenti: aree, il teorema di Pitagora, la similitudine e la misura del cerchio.",
+          "Gli enti primitivi della geometria euclidea sono punto, retta e piano; segmenti, angoli e poligoni si definiscono a partire da essi. In ogni triangolo la somma degli angoli interni è 180°: tracciando per un vertice la parallela al lato opposto si ottengono tre angoli che formano un angolo piatto e che coincidono con quelli del triangolo."
         ],
         "intermediate": [
-          "La base deve costruire pannelli triangolari con basi differenti ma altezza comune. La vista prospettica fa sembrare alcuni pannelli più grandi. Determina l’area senza affidarti all’apparenza.",
-          "Due copie congruenti del triangolo formano un parallelogramma con area base×altezza. Ciascuna copia occupa metà dell’area. A parità di altezza, l’area dipende linearmente dalla base; raddoppiare entrambe le lunghezze quadruplica l’area."
+          "Per costruire una serra triangolare accanto alla stazione servono le misure del terreno, la lunghezza delle travi diagonali e la quantità di telo per la copertura. La geometria elementare fornisce gli strumenti: aree, il teorema di Pitagora, la similitudine e la misura del cerchio.",
+          "Gli enti primitivi della geometria euclidea sono punto, retta e piano; segmenti, angoli e poligoni si definiscono a partire da essi. In ogni triangolo la somma degli angoli interni è 180°: tracciando per un vertice la parallela al lato opposto si ottengono tre angoli che formano un angolo piatto e che coincidono con quelli del triangolo."
         ],
         "advanced": [
-          "La base deve costruire pannelli triangolari con basi differenti ma altezza comune. La vista prospettica fa sembrare alcuni pannelli più grandi. Determina l’area senza affidarti all’apparenza.",
-          "Costruisci triangoli diversi con la stessa base e la stessa altezza. Giustifica perché hanno la stessa area e collega questa invariabilità alle trasformazioni di taglio.",
-          "Il modello è un triangolo piano euclideo. Lo spessore visuale delle linee e la profondità della scena non entrano nel calcolo dell’area."
+          "Per costruire una serra triangolare accanto alla stazione servono le misure del terreno, la lunghezza delle travi diagonali e la quantità di telo per la copertura. La geometria elementare fornisce gli strumenti: aree, il teorema di Pitagora, la similitudine e la misura del cerchio.",
+          "Gli enti primitivi della geometria euclidea sono punto, retta e piano; segmenti, angoli e poligoni si definiscono a partire da essi. In ogni triangolo la somma degli angoli interni è 180°: tracciando per un vertice la parallela al lato opposto si ottengono tre angoli che formano un angolo piatto e che coincidono con quelli del triangolo."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Aree, Pitagora, similitudine",
       "text": {
         "base": [
-          "L’area di un triangolo è metà del prodotto tra una base e l’altezza relativa. L’altezza è la distanza perpendicolare dalla retta della base al vertice opposto: non coincide in generale con un lato obliquo.",
-          "Con base 3 e altezza 4, l’area è 3×4/2=6 unità quadrate. Usare 5, la lunghezza di un eventuale lato obliquo, al posto dell’altezza darebbe un risultato sbagliato."
+          "L’area misura l’estensione di una figura. Rettangolo: base per altezza. Parallelogramma: base per altezza, perché tagliando un triangolo da un lato e spostandolo dall’altro si ottiene un rettangolo. Triangolo: base per altezza diviso 2, perché due triangoli uguali formano un parallelogramma. Trapezio: somma delle basi per altezza diviso 2. Esempio: un triangolo con base 6 m e altezza 4 m ha area 12 m².",
+          "L’altezza relativa a un lato è il segmento perpendicolare a quel lato condotto dal vertice opposto. In un triangolo ottusangolo l’altezza può cadere fuori dal triangolo, sul prolungamento della base. Ogni lato può fare da base, purché si usi l’altezza corrispondente: il prodotto base per altezza è sempre lo stesso.",
+          "Teorema di Pitagora: in un triangolo rettangolo il quadrato dell’ipotenusa è uguale alla somma dei quadrati dei cateti, c² = a² + b². Esempio: una scala lunga 5 m appoggiata a un muro con il piede a 3 m dal muro arriva a un’altezza h con h² = 25 − 9 = 16, cioè h = 4 m. La terna 3, 4, 5 è la più famosa tra le terne pitagoriche.",
+          "Due figure sono simili se una è un ingrandimento dell’altra: angoli uguali e lati in proporzione. Se il rapporto tra i lati è k, il rapporto tra le aree è k². Esempio: un palo alto 2 m fa un’ombra di 3 m; nello stesso momento un albero fa un’ombra di 12 m. I triangoli formati dai raggi del Sole sono simili, con rapporto 4, quindi l’albero è alto 8 m. È il metodo attribuito a Talete per misurare le piramidi.",
+          "Nel cerchio il rapporto tra circonferenza e diametro è sempre lo stesso numero, π ≈ 3,14159. Circonferenza: 2πr. Area: πr². Un giardino circolare di raggio 3 m ha area 9π ≈ 28,3 m² e bordo 6π ≈ 18,8 m. Raddoppiando il raggio il bordo raddoppia e l’area quadruplica, come previsto dalla similitudine."
         ],
         "intermediate": [
-          "Due copie congruenti del triangolo formano un parallelogramma con area base×altezza. Ciascuna copia occupa metà dell’area. A parità di altezza, l’area dipende linearmente dalla base; raddoppiare entrambe le lunghezze quadruplica l’area.",
-          "La variabile Base è espressa in u.l.; Area in u.l.². Il dominio dello strumento è [0; 10]. La relazione implementata è: Area = base × altezza / 2.",
-          "Con base 3 e altezza 4, l’area è 3×4/2=6 unità quadrate. Usare 5, la lunghezza di un eventuale lato obliquo, al posto dell’altezza darebbe un risultato sbagliato."
+          "L’area misura l’estensione di una figura. Rettangolo: base per altezza. Parallelogramma: base per altezza, perché tagliando un triangolo da un lato e spostandolo dall’altro si ottiene un rettangolo. Triangolo: base per altezza diviso 2, perché due triangoli uguali formano un parallelogramma. Trapezio: somma delle basi per altezza diviso 2. Esempio: un triangolo con base 6 m e altezza 4 m ha area 12 m².",
+          "L’altezza relativa a un lato è il segmento perpendicolare a quel lato condotto dal vertice opposto. In un triangolo ottusangolo l’altezza può cadere fuori dal triangolo, sul prolungamento della base. Ogni lato può fare da base, purché si usi l’altezza corrispondente: il prodotto base per altezza è sempre lo stesso.",
+          "Teorema di Pitagora: in un triangolo rettangolo il quadrato dell’ipotenusa è uguale alla somma dei quadrati dei cateti, c² = a² + b². Esempio: una scala lunga 5 m appoggiata a un muro con il piede a 3 m dal muro arriva a un’altezza h con h² = 25 − 9 = 16, cioè h = 4 m. La terna 3, 4, 5 è la più famosa tra le terne pitagoriche.",
+          "Una dimostrazione per scomposizione: in un quadrato di lato a + b si dispongono quattro triangoli rettangoli di cateti a e b. Lo spazio che resta può essere un quadrato di lato c, oppure, spostando i triangoli, due quadrati di lati a e b. Le due aree residue sono uguali, quindi c² = a² + b².",
+          "Due figure sono simili se una è un ingrandimento dell’altra: angoli uguali e lati in proporzione. Se il rapporto tra i lati è k, il rapporto tra le aree è k². Esempio: un palo alto 2 m fa un’ombra di 3 m; nello stesso momento un albero fa un’ombra di 12 m. I triangoli formati dai raggi del Sole sono simili, con rapporto 4, quindi l’albero è alto 8 m. È il metodo attribuito a Talete per misurare le piramidi.",
+          "Nel cerchio il rapporto tra circonferenza e diametro è sempre lo stesso numero, π ≈ 3,14159. Circonferenza: 2πr. Area: πr². Un giardino circolare di raggio 3 m ha area 9π ≈ 28,3 m² e bordo 6π ≈ 18,8 m. Raddoppiando il raggio il bordo raddoppia e l’area quadruplica, come previsto dalla similitudine."
         ],
         "advanced": [
-          "Due copie congruenti del triangolo formano un parallelogramma con area base×altezza. Ciascuna copia occupa metà dell’area. A parità di altezza, l’area dipende linearmente dalla base; raddoppiare entrambe le lunghezze quadruplica l’area.",
-          "Costruisci triangoli diversi con la stessa base e la stessa altezza. Giustifica perché hanno la stessa area e collega questa invariabilità alle trasformazioni di taglio.",
-          "Le unità di area sono quadrate: 1 m² non è uguale a 100 cm², ma a 10.000 cm². Una rotazione della figura non modifica l’area, anche se ne cambia la proiezione sullo schermo."
+          "L’area misura l’estensione di una figura. Rettangolo: base per altezza. Parallelogramma: base per altezza, perché tagliando un triangolo da un lato e spostandolo dall’altro si ottiene un rettangolo. Triangolo: base per altezza diviso 2, perché due triangoli uguali formano un parallelogramma. Trapezio: somma delle basi per altezza diviso 2. Esempio: un triangolo con base 6 m e altezza 4 m ha area 12 m².",
+          "Teorema di Pitagora: in un triangolo rettangolo il quadrato dell’ipotenusa è uguale alla somma dei quadrati dei cateti, c² = a² + b². Esempio: una scala lunga 5 m appoggiata a un muro con il piede a 3 m dal muro arriva a un’altezza h con h² = 25 − 9 = 16, cioè h = 4 m. La terna 3, 4, 5 è la più famosa tra le terne pitagoriche.",
+          "Una dimostrazione per scomposizione: in un quadrato di lato a + b si dispongono quattro triangoli rettangoli di cateti a e b. Lo spazio che resta può essere un quadrato di lato c, oppure, spostando i triangoli, due quadrati di lati a e b. Le due aree residue sono uguali, quindi c² = a² + b².",
+          "Due figure sono simili se una è un ingrandimento dell’altra: angoli uguali e lati in proporzione. Se il rapporto tra i lati è k, il rapporto tra le aree è k². Esempio: un palo alto 2 m fa un’ombra di 3 m; nello stesso momento un albero fa un’ombra di 12 m. I triangoli formati dai raggi del Sole sono simili, con rapporto 4, quindi l’albero è alto 8 m. È il metodo attribuito a Talete per misurare le piramidi.",
+          "Nel cerchio il rapporto tra circonferenza e diametro è sempre lo stesso numero, π ≈ 3,14159. Circonferenza: 2πr. Area: πr². Un giardino circolare di raggio 3 m ha area 9π ≈ 28,3 m² e bordo 6π ≈ 18,8 m. Raddoppiando il raggio il bordo raddoppia e l’area quadruplica, come previsto dalla similitudine.",
+          "Il modello del programma calcola l’area di un triangolo al variare della base, con l’altezza fissata: con altezza 4 e base 3 l’area è 6. L’area cresce in proporzione diretta con la base: raddoppiando la base raddoppia."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Problemi guidati",
       "text": {
         "base": [
-          "Nel laboratorio imposta Altezza (a): 4 u.l.. Prima di salvare A, prevedi come cambia Area fra Base=2,5 e 5 u.l.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con base 3 e altezza 4, l’area è 3×4/2=6 unità quadrate. Usare 5, la lunghezza di un eventuale lato obliquo, al posto dell’altezza darebbe un risultato sbagliato.",
-          "La variabile Base è espressa in u.l.; Area in u.l.². Il dominio dello strumento è [0; 10]. La relazione implementata è: Area = base × altezza / 2."
+          "L’attività propone quattro problemi guidati: l’area di un triangolo, la scala appoggiata al muro con Pitagora, l’altezza di un albero con la similitudine e il giardino circolare. A ogni passaggio scegli il calcolo corretto e leggi il commento. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Prima di calcolare, disegna la figura e segna i dati: base, altezza, angolo retto, lati corrispondenti. Molti errori nascono dal prendere come altezza un lato obliquo."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Altezza (a): 4 u.l.. Prima di salvare A, prevedi come cambia Area fra Base=2,5 e 5 u.l.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Base è espressa in u.l.; Area in u.l.². Il dominio dello strumento è [0; 10]. La relazione implementata è: Area = base × altezza / 2.",
-          "Due copie congruenti del triangolo formano un parallelogramma con area base×altezza. Ciascuna copia occupa metà dell’area. A parità di altezza, l’area dipende linearmente dalla base; raddoppiare entrambe le lunghezze quadruplica l’area."
+          "L’attività propone quattro problemi guidati: l’area di un triangolo, la scala appoggiata al muro con Pitagora, l’altezza di un albero con la similitudine e il giardino circolare. A ogni passaggio scegli il calcolo corretto e leggi il commento. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Prima di calcolare, disegna la figura e segna i dati: base, altezza, angolo retto, lati corrispondenti. Molti errori nascono dal prendere come altezza un lato obliquo.",
+          "Il modello del programma calcola l’area di un triangolo al variare della base, con l’altezza fissata: con altezza 4 e base 3 l’area è 6. L’area cresce in proporzione diretta con la base: raddoppiando la base raddoppia."
         ],
         "advanced": [
-          "Nel laboratorio imposta Altezza (a): 4 u.l.. Prima di salvare A, prevedi come cambia Area fra Base=2,5 e 5 u.l.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Costruisci triangoli diversi con la stessa base e la stessa altezza. Giustifica perché hanno la stessa area e collega questa invariabilità alle trasformazioni di taglio.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "L’attività propone quattro problemi guidati: l’area di un triangolo, la scala appoggiata al muro con Pitagora, l’altezza di un albero con la similitudine e il giardino circolare. A ogni passaggio scegli il calcolo corretto e leggi il commento. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Prima di calcolare, disegna la figura e segna i dati: base, altezza, angolo retto, lati corrispondenti. Molti errori nascono dal prendere come altezza un lato obliquo."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e limiti",
       "text": {
         "base": [
-          "Le unità di area sono quadrate: 1 m² non è uguale a 100 cm², ma a 10.000 cm². Una rotazione della figura non modifica l’area, anche se ne cambia la proiezione sullo schermo.",
-          "Il modello è un triangolo piano euclideo. Lo spessore visuale delle linee e la profondità della scena non entrano nel calcolo dell’area.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: usare come altezza un lato obliquo. In un triangolo con lati 5, 5 e 6 l’altezza relativa al lato 6 non è 5: per Pitagora vale √(25 − 9) = 4, e l’area è 6 · 4/2 = 12.",
+          "Secondo errore: pensare che raddoppiando le dimensioni raddoppi l’area. Le aree crescono con il quadrato del rapporto di similitudine, i volumi con il cubo: un cubo con spigolo doppio ha volume otto volte maggiore.",
+          "Le unità di misura delle aree sono quadrate: 1 m² = 10 000 cm², perché un metro quadrato è un quadrato di 100 cm per 100 cm. Convertire le aree con il fattore delle lunghezze, 100, è un errore comune."
         ],
         "intermediate": [
-          "Le unità di area sono quadrate: 1 m² non è uguale a 100 cm², ma a 10.000 cm². Una rotazione della figura non modifica l’area, anche se ne cambia la proiezione sullo schermo.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: usare come altezza un lato obliquo. In un triangolo con lati 5, 5 e 6 l’altezza relativa al lato 6 non è 5: per Pitagora vale √(25 − 9) = 4, e l’area è 6 · 4/2 = 12.",
+          "Secondo errore: pensare che raddoppiando le dimensioni raddoppi l’area. Le aree crescono con il quadrato del rapporto di similitudine, i volumi con il cubo: un cubo con spigolo doppio ha volume otto volte maggiore.",
+          "Le unità di misura delle aree sono quadrate: 1 m² = 10 000 cm², perché un metro quadrato è un quadrato di 100 cm per 100 cm. Convertire le aree con il fattore delle lunghezze, 100, è un errore comune."
         ],
         "advanced": [
-          "Il modello è un triangolo piano euclideo. Lo spessore visuale delle linee e la profondità della scena non entrano nel calcolo dell’area.",
-          "Costruisci triangoli diversi con la stessa base e la stessa altezza. Giustifica perché hanno la stessa area e collega questa invariabilità alle trasformazioni di taglio.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Secondo errore: pensare che raddoppiando le dimensioni raddoppi l’area. Le aree crescono con il quadrato del rapporto di similitudine, i volumi con il cubo: un cubo con spigolo doppio ha volume otto volte maggiore.",
+          "Le unità di misura delle aree sono quadrate: 1 m² = 10 000 cm², perché un metro quadrato è un quadrato di 100 cm per 100 cm. Convertire le aree con il fattore delle lunghezze, 100, è un errore comune.",
+          "La somma di 180° vale nella geometria del piano. Sulla superficie di una sfera i triangoli formati da archi di cerchio massimo hanno angoli che sommano più di 180°: un triangolo con un vertice al polo e due sull’equatore può avere tre angoli retti. Le geometrie non euclidee mostrano che i postulati sono scelte, e il piano è una di esse."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "L’area di un triangolo è metà del prodotto tra una base e l’altezza relativa. L’altezza è la distanza perpendicolare dalla retta della base al vertice opposto: non coincide in generale con un lato obliquo.",
-          "Con base 3 e altezza 4, l’area è 3×4/2=6 unità quadrate. Usare 5, la lunghezza di un eventuale lato obliquo, al posto dell’altezza darebbe un risultato sbagliato."
+          "Ripasso: somma degli angoli di un triangolo; formule delle aree e loro giustificazione; teorema di Pitagora; similitudine e rapporto delle aree; circonferenza e area del cerchio; unità di misura delle aree.",
+          "Mini esercizio: un rettangolo 6 m per 8 m ha diagonale √(36 + 64) = 10 m e area 48 m².",
+          "Nelle domande di calcolo controlla sempre le unità di misura del risultato: metri per le lunghezze, metri quadrati per le aree."
         ],
         "intermediate": [
-          "Due copie congruenti del triangolo formano un parallelogramma con area base×altezza. Ciascuna copia occupa metà dell’area. A parità di altezza, l’area dipende linearmente dalla base; raddoppiare entrambe le lunghezze quadruplica l’area.",
-          "La variabile Base è espressa in u.l.; Area in u.l.². Il dominio dello strumento è [0; 10]. La relazione implementata è: Area = base × altezza / 2."
+          "Ripasso: somma degli angoli di un triangolo; formule delle aree e loro giustificazione; teorema di Pitagora; similitudine e rapporto delle aree; circonferenza e area del cerchio; unità di misura delle aree.",
+          "Mini esercizio: un rettangolo 6 m per 8 m ha diagonale √(36 + 64) = 10 m e area 48 m².",
+          "Nelle domande di calcolo controlla sempre le unità di misura del risultato: metri per le lunghezze, metri quadrati per le aree."
         ],
         "advanced": [
-          "Costruisci triangoli diversi con la stessa base e la stessa altezza. Giustifica perché hanno la stessa area e collega questa invariabilità alle trasformazioni di taglio.",
-          "Il modello è un triangolo piano euclideo. Lo spessore visuale delle linee e la profondità della scena non entrano nel calcolo dell’area."
+          "Ripasso: somma degli angoli di un triangolo; formule delle aree e loro giustificazione; teorema di Pitagora; similitudine e rapporto delle aree; circonferenza e area del cerchio; unità di misura delle aree.",
+          "Mini esercizio: un rettangolo 6 m per 8 m ha diagonale √(36 + 64) = 10 m e area 48 m².",
+          "Nelle domande di calcolo controlla sempre le unità di misura del risultato: metri per le lunghezze, metri quadrati per le aree."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Triangolo piano; altezza perpendicolare.",
-          "Il modello è un triangolo piano euclideo. Lo spessore visuale delle linee e la profondità della scena non entrano nel calcolo dell’area.",
-          "Collegamento consigliato: math-p06. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La geometria elementare è la base della geometria analitica, dove le stesse figure si descrivono con coordinate, e della trigonometria, che misura i triangoli con gli angoli.",
+          "Riepilogo dell’unità: gli angoli di un triangolo sommano 180°; le aree si ricavano scomponendo e ricomponendo le figure; Pitagora lega i lati del triangolo rettangolo; la similitudine moltiplica le lunghezze per k e le aree per k²; nel cerchio compare π.",
+          "Nel diario scrivi un problema reale risolto con Pitagora o con la similitudine, con il disegno e tutte le unità di misura."
         ],
         "intermediate": [
-          "Due copie congruenti del triangolo formano un parallelogramma con area base×altezza. Ciascuna copia occupa metà dell’area. A parità di altezza, l’area dipende linearmente dalla base; raddoppiare entrambe le lunghezze quadruplica l’area.",
-          "Il modello è un triangolo piano euclideo. Lo spessore visuale delle linee e la profondità della scena non entrano nel calcolo dell’area.",
-          "Costruisci triangoli diversi con la stessa base e la stessa altezza. Giustifica perché hanno la stessa area e collega questa invariabilità alle trasformazioni di taglio."
+          "La geometria elementare è la base della geometria analitica, dove le stesse figure si descrivono con coordinate, e della trigonometria, che misura i triangoli con gli angoli.",
+          "Riepilogo dell’unità: gli angoli di un triangolo sommano 180°; le aree si ricavano scomponendo e ricomponendo le figure; Pitagora lega i lati del triangolo rettangolo; la similitudine moltiplica le lunghezze per k e le aree per k²; nel cerchio compare π.",
+          "Nel diario scrivi un problema reale risolto con Pitagora o con la similitudine, con il disegno e tutte le unità di misura."
         ],
         "advanced": [
-          "Costruisci triangoli diversi con la stessa base e la stessa altezza. Giustifica perché hanno la stessa area e collega questa invariabilità alle trasformazioni di taglio.",
-          "Il modello è un triangolo piano euclideo. Lo spessore visuale delle linee e la profondità della scena non entrano nel calcolo dell’area.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La geometria elementare è la base della geometria analitica, dove le stesse figure si descrivono con coordinate, e della trigonometria, che misura i triangoli con gli angoli.",
+          "Riepilogo dell’unità: gli angoli di un triangolo sommano 180°; le aree si ricavano scomponendo e ricomponendo le figure; Pitagora lega i lati del triangolo rettangolo; la similitudine moltiplica le lunghezze per k e le aree per k²; nel cerchio compare π.",
+          "La somma di 180° vale nella geometria del piano. Sulla superficie di una sfera i triangoli formati da archi di cerchio massimo hanno angoli che sommano più di 180°: un triangolo con un vertice al polo e due sull’equatore può avere tre angoli retti. Le geometrie non euclidee mostrano che i postulati sono scelte, e il piano è una di esse.",
+          "Nel diario scrivi un problema reale risolto con Pitagora o con la similitudine, con il disegno e tutte le unità di misura."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-c11-concept",
-      "prompt": "Nella formula dell’area, l’altezza è:",
+      "id": "math-c11-q1",
+      "prompt": "Un triangolo ha base 10 cm e altezza 7 cm. Qual è la sua area?",
       "options": [
         {
           "id": "A",
-          "text": "Sempre il lato più lungo",
-          "feedback": "Le unità di area sono quadrate: 1 m² non è uguale a 100 cm², ma a 10.000 cm². Una rotazione della figura non modifica l’area, anche se ne cambia la proiezione sullo schermo."
+          "text": "70 cm²",
+          "feedback": "Questa è l’area del rettangolo con la stessa base e altezza: il triangolo ne è la metà."
         },
         {
           "id": "B",
-          "text": "La metà del perimetro",
-          "feedback": "Due copie congruenti del triangolo formano un parallelogramma con area base×altezza. Ciascuna copia occupa metà dell’area. A parità di altezza, l’area dipende linearmente dalla base; raddoppiare entrambe le lunghezze quadruplica l’area."
+          "text": "35 cm²",
+          "feedback": "Esatto: base per altezza diviso 2, 10 · 7/2 = 35 cm²."
         },
         {
           "id": "C",
-          "text": "Perpendicolare alla retta della base",
-          "feedback": "L’area di un triangolo è metà del prodotto tra una base e l’altezza relativa. L’altezza è la distanza perpendicolare dalla retta della base al vertice opposto: non coincide in generale con un lato obliquo."
+          "text": "17 cm²",
+          "feedback": "Hai sommato base e altezza: l’area richiede il prodotto."
+        },
+        {
+          "id": "D",
+          "text": "35 cm",
+          "feedback": "Il numero è giusto, ma un’area si misura in centimetri quadrati."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-c11-q2",
+      "prompt": "I cateti di un triangolo rettangolo misurano 6 e 8. Quanto misura l’ipotenusa?",
+      "options": [
+        {
+          "id": "A",
+          "text": "14",
+          "feedback": "I lati non si sommano: si sommano i loro quadrati."
+        },
+        {
+          "id": "B",
+          "text": "48",
+          "feedback": "48 è il prodotto dei cateti, metà del quale dà l’area."
+        },
+        {
+          "id": "C",
+          "text": "10",
+          "feedback": "Esatto: √(36 + 64) = √100 = 10."
+        },
+        {
+          "id": "D",
+          "text": "100",
+          "feedback": "100 è il quadrato dell’ipotenusa: resta da estrarre la radice."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "math-c11-calculation",
-      "prompt": "Calcolo: Altezza (a)=4 u.l.. Per Base=3 u.l., quanto vale Area?",
+      "id": "math-c11-q3",
+      "prompt": "Due triangoli simili hanno lati nel rapporto 3. Qual è il rapporto delle aree?",
       "options": [
         {
           "id": "A",
-          "text": "3 u.l.²",
-          "feedback": "Controlla sostituzione, segno e unità. Area = base × altezza / 2. Con Altezza (a)=4 u.l. e Base=3 u.l., il risultato è 6 u.l.². Conserva le unità e arrotonda solo alla fine."
+          "text": "9",
+          "feedback": "Esatto: le aree stanno nel rapporto k² = 9."
         },
         {
           "id": "B",
-          "text": "6 u.l.²",
-          "feedback": "Area = base × altezza / 2. Con Altezza (a)=4 u.l. e Base=3 u.l., il risultato è 6 u.l.². Conserva le unità e arrotonda solo alla fine."
+          "text": "3",
+          "feedback": "Le lunghezze stanno nel rapporto 3, le aree nel suo quadrato."
         },
         {
           "id": "C",
-          "text": "9 u.l.²",
-          "feedback": "Questo valore non soddisfa la relazione. Area = base × altezza / 2. Con Altezza (a)=4 u.l. e Base=3 u.l., il risultato è 6 u.l.². Conserva le unità e arrotonda solo alla fine."
+          "text": "6",
+          "feedback": "Il rapporto delle aree è 3², non 2 · 3."
+        },
+        {
+          "id": "D",
+          "text": "27",
+          "feedback": "27 = 3³ è il rapporto dei volumi di solidi simili."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 3,
-        "parameters": {
-          "a": 4
-        },
-        "expected": 6,
-        "unit": "u.l.²"
-      }
+      "correct": "A"
     },
     {
-      "id": "math-c11-transfer",
-      "prompt": "Trasferimento: Altezza (a)=5 u.l.. Per Base=3 u.l., quanto vale Area?",
+      "id": "math-c11-q4",
+      "prompt": "Qual è l’area di un cerchio di raggio 5 m, con π ≈ 3,14?",
       "options": [
         {
           "id": "A",
-          "text": "7,5 u.l.²",
-          "feedback": "Area = base × altezza / 2. Con Altezza (a)=5 u.l. e Base=3 u.l., il risultato è 7,5 u.l.². Conserva le unità e arrotonda solo alla fine."
+          "text": "31,4 m²",
+          "feedback": "31,4 m è la lunghezza della circonferenza, 2πr, non l’area."
         },
         {
           "id": "B",
-          "text": "11,25 u.l.²",
-          "feedback": "Questo valore non soddisfa la relazione. Area = base × altezza / 2. Con Altezza (a)=5 u.l. e Base=3 u.l., il risultato è 7,5 u.l.². Conserva le unità e arrotonda solo alla fine."
+          "text": "15,7 m²",
+          "feedback": "15,7 = π · 5 manca del quadrato del raggio."
         },
         {
           "id": "C",
-          "text": "3,75 u.l.²",
-          "feedback": "Controlla sostituzione, segno e unità. Area = base × altezza / 2. Con Altezza (a)=5 u.l. e Base=3 u.l., il risultato è 7,5 u.l.². Conserva le unità e arrotonda solo alla fine."
+          "text": "25 m²",
+          "feedback": "25 è r²: per l’area manca il fattore π."
+        },
+        {
+          "id": "D",
+          "text": "78,5 m²",
+          "feedback": "Esatto: πr² = π · 25 ≈ 78,5 m²."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 3,
-        "parameters": {
-          "a": 5
-        },
-        "expected": 7.5,
-        "unit": "u.l.²"
-      }
+      "correct": "D"
     },
     {
-      "id": "math-c11-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "math-c11-q5",
+      "prompt": "Un palo di 2 m fa un’ombra di 3 m; un albero, nello stesso momento, un’ombra di 15 m. Quanto è alto l’albero?",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Il modello è un triangolo piano euclideo. Lo spessore visuale delle linee e la profondità della scena non entrano nel calcolo dell’area."
+          "text": "10 m",
+          "feedback": "Esatto: l’ombra è 5 volte più lunga, quindi anche l’altezza è 5 volte maggiore."
         },
         {
           "id": "B",
-          "text": "Triangolo piano; altezza perpendicolare",
-          "feedback": "Il modello è un triangolo piano euclideo. Lo spessore visuale delle linee e la profondità della scena non entrano nel calcolo dell’area."
+          "text": "22,5 m",
+          "feedback": "Hai usato il rapporto 3/2 al contrario: l’altezza è 2/3 dell’ombra."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Il modello è un triangolo piano euclideo. Lo spessore visuale delle linee e la profondità della scena non entrano nel calcolo dell’area."
+          "text": "14 m",
+          "feedback": "Le misure non si sommano o sottraggono: stanno in proporzione."
+        },
+        {
+          "id": "D",
+          "text": "7,5 m",
+          "feedback": "Hai diviso 15 per 2 invece di applicare il rapporto 2/3."
         }
       ],
-      "correct": "B"
+      "correct": "A"
+    },
+    {
+      "id": "math-c11-q6",
+      "prompt": "Quanti centimetri quadrati ci sono in 1 m²?",
+      "options": [
+        {
+          "id": "A",
+          "text": "100",
+          "feedback": "100 è il fattore delle lunghezze: un quadrato di 1 m ha 100 cm per lato."
+        },
+        {
+          "id": "B",
+          "text": "1000",
+          "feedback": "1000 è il fattore tra metri e millimetri."
+        },
+        {
+          "id": "C",
+          "text": "10 000",
+          "feedback": "Esatto: un metro quadrato è un quadrato di 100 cm per 100 cm."
+        },
+        {
+          "id": "D",
+          "text": "1 000 000",
+          "feedback": "Questo è il numero di centimetri cubi in un metro cubo."
+        }
+      ],
+      "correct": "C"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "steps",
+    "goal": 3,
+    "problems": [
+      {
+        "id": "area-triangolo",
+        "title": "Il telo della serra",
+        "text": "La parete triangolare della serra ha base 6 m e altezza 4 m. Quanto telo serve?",
+        "maxErrors": 1,
+        "explain": "L’area del triangolo è metà di quella del rettangolo con la stessa base e altezza.",
+        "steps": [
+          {
+            "prompt": "Quale formula usi?",
+            "options": [
+              {
+                "text": "base × altezza / 2",
+                "feedback": "Giusto: due triangoli uguali formano un parallelogramma."
+              },
+              {
+                "text": "base × altezza",
+                "feedback": "Questa è l’area del rettangolo: il triangolo ne è la metà."
+              },
+              {
+                "text": "base + altezza",
+                "feedback": "Una somma di lunghezze è una lunghezza, non un’area."
+              }
+            ],
+            "correct": 0,
+            "result": "Area = b · h / 2."
+          },
+          {
+            "prompt": "Quanto vale l’area?",
+            "options": [
+              {
+                "text": "12 m²",
+                "feedback": "Giusto: 6 · 4/2 = 12."
+              },
+              {
+                "text": "24 m²",
+                "feedback": "Hai dimenticato la divisione per 2."
+              },
+              {
+                "text": "12 m",
+                "feedback": "Il numero è giusto; l’unità è il metro quadrato."
+              }
+            ],
+            "correct": 0,
+            "result": "Servono 12 m² di telo."
+          }
+        ]
+      },
+      {
+        "id": "scala",
+        "title": "La scala contro il muro",
+        "text": "Una scala lunga 5 m è appoggiata a un muro con il piede a 3 m dal muro. A che altezza arriva?",
+        "maxErrors": 1,
+        "explain": "La scala è l’ipotenusa: il cateto incognito si trova sottraendo i quadrati.",
+        "steps": [
+          {
+            "prompt": "Quale lato è l’ipotenusa?",
+            "options": [
+              {
+                "text": "La scala, 5 m",
+                "feedback": "Giusto: è opposta all’angolo retto tra muro e terreno."
+              },
+              {
+                "text": "La distanza dal muro, 3 m",
+                "feedback": "È un cateto: sta sul terreno, lato dell’angolo retto."
+              },
+              {
+                "text": "L’altezza sul muro",
+                "feedback": "È l’altro cateto, quello da trovare."
+              }
+            ],
+            "correct": 0,
+            "result": "Ipotenusa 5 m, un cateto 3 m."
+          },
+          {
+            "prompt": "Quale relazione dà l’altezza h?",
+            "options": [
+              {
+                "text": "h² = 5² − 3²",
+                "feedback": "Giusto: il cateto al quadrato è l’ipotenusa al quadrato meno l’altro cateto al quadrato."
+              },
+              {
+                "text": "h² = 5² + 3²",
+                "feedback": "Si sommano i quadrati dei cateti per ottenere l’ipotenusa, non viceversa."
+              },
+              {
+                "text": "h = 5 − 3",
+                "feedback": "Il teorema riguarda i quadrati dei lati."
+              }
+            ],
+            "correct": 0,
+            "result": "h² = 25 − 9 = 16."
+          },
+          {
+            "prompt": "Quanto vale h?",
+            "options": [
+              {
+                "text": "4 m",
+                "feedback": "Giusto: √16 = 4."
+              },
+              {
+                "text": "16 m",
+                "feedback": "16 è h²: resta la radice."
+              },
+              {
+                "text": "2 m",
+                "feedback": "2 = 5 − 3 non viene dal teorema."
+              }
+            ],
+            "correct": 0,
+            "result": "La scala arriva a 4 m."
+          }
+        ]
+      },
+      {
+        "id": "ombra",
+        "title": "L’altezza dell’albero",
+        "text": "Un palo di 2 m fa un’ombra di 3 m; un albero, nello stesso momento, un’ombra di 12 m. Quanto è alto?",
+        "maxErrors": 1,
+        "explain": "I raggi del Sole sono paralleli: palo e albero formano con le loro ombre triangoli simili.",
+        "steps": [
+          {
+            "prompt": "Perché i due triangoli sono simili?",
+            "options": [
+              {
+                "text": "Hanno gli stessi angoli: angolo retto e stessa inclinazione dei raggi",
+                "feedback": "Giusto: due angoli uguali bastano per la similitudine."
+              },
+              {
+                "text": "Hanno la stessa area",
+                "feedback": "Le aree sono diverse; la similitudine riguarda angoli e proporzioni."
+              },
+              {
+                "text": "Hanno un lato uguale",
+                "feedback": "Nessun lato è uguale: l’ombra dell’albero è più lunga."
+              }
+            ],
+            "correct": 0,
+            "result": "Triangoli simili."
+          },
+          {
+            "prompt": "Qual è il rapporto di similitudine?",
+            "options": [
+              {
+                "text": "4",
+                "feedback": "Giusto: 12/3 = 4."
+              },
+              {
+                "text": "9",
+                "feedback": "9 = 12 − 3: la similitudine usa i rapporti."
+              },
+              {
+                "text": "1,5",
+                "feedback": "1,5 è il rapporto ombra/altezza del palo."
+              }
+            ],
+            "correct": 0,
+            "result": "k = 4."
+          },
+          {
+            "prompt": "Quanto è alto l’albero?",
+            "options": [
+              {
+                "text": "8 m",
+                "feedback": "Giusto: 2 · 4 = 8."
+              },
+              {
+                "text": "18 m",
+                "feedback": "L’altezza è 2/3 dell’ombra: 12 · 2/3 = 8."
+              },
+              {
+                "text": "6 m",
+                "feedback": "Hai diviso 12 per 2."
+              }
+            ],
+            "correct": 0,
+            "result": "L’albero è alto 8 m."
+          }
+        ]
+      },
+      {
+        "id": "giardino",
+        "title": "Il giardino circolare",
+        "text": "Un giardino circolare ha raggio 3 m. Quanto misura il bordo e quanta superficie ha?",
+        "maxErrors": 1,
+        "explain": "Il bordo cresce come il raggio, la superficie come il quadrato del raggio.",
+        "steps": [
+          {
+            "prompt": "Quanto misura il bordo?",
+            "options": [
+              {
+                "text": "6π ≈ 18,8 m",
+                "feedback": "Giusto: 2πr = 6π."
+              },
+              {
+                "text": "9π ≈ 28,3 m",
+                "feedback": "πr² è l’area, non il bordo."
+              },
+              {
+                "text": "3π ≈ 9,4 m",
+                "feedback": "La circonferenza è 2πr: manca il fattore 2."
+              }
+            ],
+            "correct": 0,
+            "result": "Bordo 6π ≈ 18,8 m."
+          },
+          {
+            "prompt": "Quanto misura la superficie?",
+            "options": [
+              {
+                "text": "9π ≈ 28,3 m²",
+                "feedback": "Giusto: π · 3²."
+              },
+              {
+                "text": "6π ≈ 18,8 m²",
+                "feedback": "Questa è la misura del bordo."
+              },
+              {
+                "text": "9 m²",
+                "feedback": "25 è r²: per l’area manca il fattore π."
+              }
+            ],
+            "correct": 0,
+            "result": "Superficie 9π ≈ 28,3 m²."
+          }
+        ]
+      }
+    ]
+  }
 }

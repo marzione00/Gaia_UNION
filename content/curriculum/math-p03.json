@@ -5,25 +5,25 @@
   "title": "Complessi, aritmetica e polinomi",
   "sector": 0,
   "modelId": "math-p03",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Potenze intere e forma polare",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-activity",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Forma algebrica e trigonometrica dei complessi, operazioni, De Moivre e radici dei polinomi",
+  "narrativeStatus": "Il segnale della stazione è immaginario; i numeri complessi sono matematica reale.",
   "objectives": [
-    "Spiegare: potenze intere e forma polare.",
-    "Applicare Re(z^n) = a^n cos(nb), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Eseguire somma, prodotto e divisione tra numeri complessi.",
+    "Rappresentare un complesso nel piano con modulo e argomento.",
+    "Calcolare potenze con la formula di De Moivre.",
+    "Risolvere equazioni di secondo grado con discriminante negativo."
   ],
   "prerequisites": [
     "math-c02",
     "math-c09"
   ],
   "connections": [
-    "math-p09"
+    "math-p05"
   ],
   "sources": [
-    "precalculus",
-    "calculus"
+    "precalculus"
   ],
   "originalSource": {
     "id": "math-2026",
@@ -39,250 +39,567 @@
   },
   "glossary": [
     {
-      "term": "Potenza n",
-      "definition": "Variabile indipendente, unità 1; intervallo [0; 12]."
+      "term": "Unità immaginaria",
+      "definition": "Il numero i, con i² = −1."
     },
     {
-      "term": "Parte reale",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Coniugato",
+      "definition": "Di z = a + bi è a − bi; z per il suo coniugato vale a² + b²."
     },
     {
-      "term": "Modulo a",
-      "definition": "Parametro a, unità 1; intervallo [0,5; 1,5]."
+      "term": "Modulo",
+      "definition": "|z| = √(a² + b²): distanza dall’origine nel piano di Gauss."
     },
     {
-      "term": "Argomento b",
-      "definition": "Parametro b, unità rad; intervallo [0; 3,14159]."
+      "term": "Argomento",
+      "definition": "Angolo tra il semiasse reale positivo e il segmento che va dall’origine a z."
+    },
+    {
+      "term": "Formula di De Moivre",
+      "definition": "zⁿ = rⁿ(cos nθ + i sin nθ) per z = r(cos θ + i sin θ)."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Numeri per le rotazioni",
       "text": {
         "base": [
-          "Il navigatore combina una rotazione e un ridimensionamento ripetuti. I numeri complessi permettono di trattare entrambe le operazioni con un’unica moltiplicazione.",
-          "Un numero complesso z=a(cos b+i sin b) ha modulo a e argomento b. Moltiplicare due numeri complessi moltiplica i moduli e somma gli argomenti. Le potenze ripetono quindi una trasformazione geometrica."
+          "Un segnale oscillante della stazione si descrive con una rotazione nel piano. Le rotazioni, gli ingrandimenti e le radici delle equazioni senza soluzioni reali trovano un linguaggio comune nei numeri complessi, che permettono di fare geometria con l’aritmetica.",
+          "Un numero complesso si scrive z = a + bi, dove a è la parte reale, b la parte immaginaria e i è l’unità immaginaria, con i² = −1. Si somma componente per componente: (2 + 3i) + (1 − i) = 3 + 2i. Si moltiplica come per i polinomi, ricordando che i² = −1: (2 + 3i)(1 − i) = 2 − 2i + 3i − 3i² = 2 + i + 3 = 5 + i."
         ],
         "intermediate": [
-          "Il navigatore combina una rotazione e un ridimensionamento ripetuti. I numeri complessi permettono di trattare entrambe le operazioni con un’unica moltiplicazione.",
-          "La formula di De Moivre dà z^n=a^n(cos(nb)+i sin(nb)). Il laboratorio traccia la parte reale a^n cos(nb). La parte reale non coincide con il modulo: può essere negativa mentre il modulo resta non negativo."
+          "Un segnale oscillante della stazione si descrive con una rotazione nel piano. Le rotazioni, gli ingrandimenti e le radici delle equazioni senza soluzioni reali trovano un linguaggio comune nei numeri complessi, che permettono di fare geometria con l’aritmetica.",
+          "Un numero complesso si scrive z = a + bi, dove a è la parte reale, b la parte immaginaria e i è l’unità immaginaria, con i² = −1. Si somma componente per componente: (2 + 3i) + (1 − i) = 3 + 2i. Si moltiplica come per i polinomi, ricordando che i² = −1: (2 + 3i)(1 − i) = 2 − 2i + 3i − 3i² = 2 + i + 3 = 5 + i."
         ],
         "advanced": [
-          "Il navigatore combina una rotazione e un ridimensionamento ripetuti. I numeri complessi permettono di trattare entrambe le operazioni con un’unica moltiplicazione.",
-          "Quando a=1, determina per quali argomenti il punto ritorna esattamente alla posizione iniziale. Collega le rotazioni periodiche alle radici dell’unità e alla fattorizzazione di z^n-1.",
-          "Si esplorano potenze intere non negative. Il modello non sceglie rami di logaritmi complessi e non implementa crittografia o aritmetica modulare."
+          "Un segnale oscillante della stazione si descrive con una rotazione nel piano. Le rotazioni, gli ingrandimenti e le radici delle equazioni senza soluzioni reali trovano un linguaggio comune nei numeri complessi, che permettono di fare geometria con l’aritmetica.",
+          "Un numero complesso si scrive z = a + bi, dove a è la parte reale, b la parte immaginaria e i è l’unità immaginaria, con i² = −1. Si somma componente per componente: (2 + 3i) + (1 − i) = 3 + 2i. Si moltiplica come per i polinomi, ricordando che i² = −1: (2 + 3i)(1 − i) = 2 − 2i + 3i − 3i² = 2 + i + 3 = 5 + i."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Operazioni, piano e potenze",
       "text": {
         "base": [
-          "Un numero complesso z=a(cos b+i sin b) ha modulo a e argomento b. Moltiplicare due numeri complessi moltiplica i moduli e somma gli argomenti. Le potenze ripetono quindi una trasformazione geometrica.",
-          "Con a=1 e b=π/3, la terza potenza ha argomento π. La parte reale è -1 e la parte immaginaria è zero. Dopo sei potenze il punto ritorna a 1."
+          "Il coniugato di z = a + bi è a − bi. Il prodotto di un numero per il suo coniugato è reale: (a + bi)(a − bi) = a² + b². Per dividere si moltiplica numeratore e denominatore per il coniugato del denominatore: (3 + 4i)/(1 + 2i) = (3 + 4i)(1 − 2i)/5 = (11 − 2i)/5.",
+          "Ogni numero complesso corrisponde a un punto del piano, detto piano di Gauss: a sull’asse orizzontale, b su quello verticale. Il modulo |z| = √(a² + b²) è la distanza dall’origine; l’argomento è l’angolo θ formato con il semiasse reale positivo. Per z = 1 + i: |z| = √2 e θ = π/4.",
+          "In forma trigonometrica z = r(cos θ + i sin θ). Moltiplicando due numeri complessi i moduli si moltiplicano e gli argomenti si sommano: moltiplicare per i, che ha modulo 1 e argomento π/2, ruota di un angolo retto. Da qui la formula di De Moivre: zⁿ = rⁿ(cos nθ + i sin nθ).",
+          "Le equazioni di secondo grado con discriminante negativo hanno soluzioni complesse. Per x² + 2x + 5 = 0 il discriminante vale 4 − 20 = −16, e √(−16) = 4i. Le soluzioni sono x = (−2 ± 4i)/2 = −1 ± 2i, una coppia di coniugati. Ogni polinomio di grado n ha n zeri complessi contati con la molteplicità."
         ],
         "intermediate": [
-          "La formula di De Moivre dà z^n=a^n(cos(nb)+i sin(nb)). Il laboratorio traccia la parte reale a^n cos(nb). La parte reale non coincide con il modulo: può essere negativa mentre il modulo resta non negativo.",
-          "La variabile Potenza n è espressa in 1; Parte reale in 1. Il dominio dello strumento è [0; 12], con soli valori interi. La relazione implementata è: Re(z^n) = a^n cos(nb).",
-          "Con a=1 e b=π/3, la terza potenza ha argomento π. La parte reale è -1 e la parte immaginaria è zero. Dopo sei potenze il punto ritorna a 1."
+          "Il coniugato di z = a + bi è a − bi. Il prodotto di un numero per il suo coniugato è reale: (a + bi)(a − bi) = a² + b². Per dividere si moltiplica numeratore e denominatore per il coniugato del denominatore: (3 + 4i)/(1 + 2i) = (3 + 4i)(1 − 2i)/5 = (11 − 2i)/5.",
+          "Ogni numero complesso corrisponde a un punto del piano, detto piano di Gauss: a sull’asse orizzontale, b su quello verticale. Il modulo |z| = √(a² + b²) è la distanza dall’origine; l’argomento è l’angolo θ formato con il semiasse reale positivo. Per z = 1 + i: |z| = √2 e θ = π/4.",
+          "In forma trigonometrica z = r(cos θ + i sin θ). Moltiplicando due numeri complessi i moduli si moltiplicano e gli argomenti si sommano: moltiplicare per i, che ha modulo 1 e argomento π/2, ruota di un angolo retto. Da qui la formula di De Moivre: zⁿ = rⁿ(cos nθ + i sin nθ).",
+          "Esempio svolto: (1 + i)⁸. Il modulo è √2, l’argomento π/4. Allora (1 + i)⁸ = (√2)⁸ (cos 2π + i sin 2π) = 16. Moltiplicando otto volte a mano si otterrebbe lo stesso risultato con molta più fatica.",
+          "Le equazioni di secondo grado con discriminante negativo hanno soluzioni complesse. Per x² + 2x + 5 = 0 il discriminante vale 4 − 20 = −16, e √(−16) = 4i. Le soluzioni sono x = (−2 ± 4i)/2 = −1 ± 2i, una coppia di coniugati. Ogni polinomio di grado n ha n zeri complessi contati con la molteplicità."
         ],
         "advanced": [
-          "La formula di De Moivre dà z^n=a^n(cos(nb)+i sin(nb)). Il laboratorio traccia la parte reale a^n cos(nb). La parte reale non coincide con il modulo: può essere negativa mentre il modulo resta non negativo.",
-          "Quando a=1, determina per quali argomenti il punto ritorna esattamente alla posizione iniziale. Collega le rotazioni periodiche alle radici dell’unità e alla fattorizzazione di z^n-1.",
-          "Il segno della parte reale non è il segno di un numero complesso: nei complessi non esiste un ordine compatibile con tutte le proprietà dell’ordine reale. Modulo e componente sono oggetti distinti."
+          "Ogni numero complesso corrisponde a un punto del piano, detto piano di Gauss: a sull’asse orizzontale, b su quello verticale. Il modulo |z| = √(a² + b²) è la distanza dall’origine; l’argomento è l’angolo θ formato con il semiasse reale positivo. Per z = 1 + i: |z| = √2 e θ = π/4.",
+          "In forma trigonometrica z = r(cos θ + i sin θ). Moltiplicando due numeri complessi i moduli si moltiplicano e gli argomenti si sommano: moltiplicare per i, che ha modulo 1 e argomento π/2, ruota di un angolo retto. Da qui la formula di De Moivre: zⁿ = rⁿ(cos nθ + i sin nθ).",
+          "Esempio svolto: (1 + i)⁸. Il modulo è √2, l’argomento π/4. Allora (1 + i)⁸ = (√2)⁸ (cos 2π + i sin 2π) = 16. Moltiplicando otto volte a mano si otterrebbe lo stesso risultato con molta più fatica.",
+          "Le equazioni di secondo grado con discriminante negativo hanno soluzioni complesse. Per x² + 2x + 5 = 0 il discriminante vale 4 − 20 = −16, e √(−16) = 4i. Le soluzioni sono x = (−2 ± 4i)/2 = −1 ± 2i, una coppia di coniugati. Ogni polinomio di grado n ha n zeri complessi contati con la molteplicità.",
+          "Le radici n-esime dell’unità, le soluzioni di zⁿ = 1, sono n punti equidistanti sulla circonferenza di raggio 1: per n = 4 sono 1, i, −1, −i. Formano un poligono regolare, e moltiplicarle tra loro equivale a comporre rotazioni."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Problemi guidati",
       "text": {
         "base": [
-          "Nel laboratorio imposta Modulo a (a): 1 (adimensionale); Argomento b (b): 1,0472 rad. Prima di salvare A, prevedi come cambia Parte reale fra Potenza n=3 e 6 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con a=1 e b=π/3, la terza potenza ha argomento π. La parte reale è -1 e la parte immaginaria è zero. Dopo sei potenze il punto ritorna a 1.",
-          "La variabile Potenza n è espressa in 1; Parte reale in 1. Il dominio dello strumento è [0; 12], con soli valori interi. La relazione implementata è: Re(z^n) = a^n cos(nb)."
+          "L’attività propone quattro problemi guidati: un prodotto, una divisione con il coniugato, una potenza con De Moivre e un’equazione di secondo grado con discriminante negativo. A ogni passaggio scegli il risultato corretto; il commento spiega gli errori tipici. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Nei prodotti scrivi sempre i² e sostituiscilo con −1 solo alla fine del passaggio: è il punto in cui si sbagliano più spesso i segni."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Modulo a (a): 1 (adimensionale); Argomento b (b): 1,0472 rad. Prima di salvare A, prevedi come cambia Parte reale fra Potenza n=3 e 6 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Potenza n è espressa in 1; Parte reale in 1. Il dominio dello strumento è [0; 12], con soli valori interi. La relazione implementata è: Re(z^n) = a^n cos(nb).",
-          "La formula di De Moivre dà z^n=a^n(cos(nb)+i sin(nb)). Il laboratorio traccia la parte reale a^n cos(nb). La parte reale non coincide con il modulo: può essere negativa mentre il modulo resta non negativo."
+          "L’attività propone quattro problemi guidati: un prodotto, una divisione con il coniugato, una potenza con De Moivre e un’equazione di secondo grado con discriminante negativo. A ogni passaggio scegli il risultato corretto; il commento spiega gli errori tipici. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Nei prodotti scrivi sempre i² e sostituiscilo con −1 solo alla fine del passaggio: è il punto in cui si sbagliano più spesso i segni.",
+          "Il laboratorio di questa unità segue la parte reale delle potenze: con z di modulo a e argomento b, Re(zⁿ) = aⁿ cos(nb). Se a < 1 i punti si avvicinano a zero ruotando; se a > 1 si allontanano; se a = 1 restano sulla circonferenza e la parte reale oscilla."
         ],
         "advanced": [
-          "Nel laboratorio imposta Modulo a (a): 1 (adimensionale); Argomento b (b): 1,0472 rad. Prima di salvare A, prevedi come cambia Parte reale fra Potenza n=3 e 6 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Quando a=1, determina per quali argomenti il punto ritorna esattamente alla posizione iniziale. Collega le rotazioni periodiche alle radici dell’unità e alla fattorizzazione di z^n-1.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "L’attività propone quattro problemi guidati: un prodotto, una divisione con il coniugato, una potenza con De Moivre e un’equazione di secondo grado con discriminante negativo. A ogni passaggio scegli il risultato corretto; il commento spiega gli errori tipici. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
+          "Il laboratorio di questa unità segue la parte reale delle potenze: con z di modulo a e argomento b, Re(zⁿ) = aⁿ cos(nb). Se a < 1 i punti si avvicinano a zero ruotando; se a > 1 si allontanano; se a = 1 restano sulla circonferenza e la parte reale oscilla."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e limiti",
       "text": {
         "base": [
-          "Il segno della parte reale non è il segno di un numero complesso: nei complessi non esiste un ordine compatibile con tutte le proprietà dell’ordine reale. Modulo e componente sono oggetti distinti.",
-          "Si esplorano potenze intere non negative. Il modello non sceglie rami di logaritmi complessi e non implementa crittografia o aritmetica modulare.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che i numeri complessi siano «immaginari» nel senso di inesistenti. Sono definiti con la stessa precisione dei reali, e descrivono grandezze reali come le correnti alternate e le onde.",
+          "Secondo errore: usare con i complessi le regole dei radicali reali. √(−4) · √(−9) non vale √36 = 6: vale 2i · 3i = −6. La proprietà √a · √b = √(ab) vale solo per a e b non negativi.",
+          "Nei complessi non esiste un ordinamento compatibile con le operazioni: non ha senso dire che i è maggiore o minore di 0. Si confrontano i moduli, che sono numeri reali."
         ],
         "intermediate": [
-          "Il segno della parte reale non è il segno di un numero complesso: nei complessi non esiste un ordine compatibile con tutte le proprietà dell’ordine reale. Modulo e componente sono oggetti distinti.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "Errore frequente: pensare che i numeri complessi siano «immaginari» nel senso di inesistenti. Sono definiti con la stessa precisione dei reali, e descrivono grandezze reali come le correnti alternate e le onde.",
+          "Secondo errore: usare con i complessi le regole dei radicali reali. √(−4) · √(−9) non vale √36 = 6: vale 2i · 3i = −6. La proprietà √a · √b = √(ab) vale solo per a e b non negativi.",
+          "Nei complessi non esiste un ordinamento compatibile con le operazioni: non ha senso dire che i è maggiore o minore di 0. Si confrontano i moduli, che sono numeri reali."
         ],
         "advanced": [
-          "Si esplorano potenze intere non negative. Il modello non sceglie rami di logaritmi complessi e non implementa crittografia o aritmetica modulare.",
-          "Quando a=1, determina per quali argomenti il punto ritorna esattamente alla posizione iniziale. Collega le rotazioni periodiche alle radici dell’unità e alla fattorizzazione di z^n-1.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Secondo errore: usare con i complessi le regole dei radicali reali. √(−4) · √(−9) non vale √36 = 6: vale 2i · 3i = −6. La proprietà √a · √b = √(ab) vale solo per a e b non negativi.",
+          "Nei complessi non esiste un ordinamento compatibile con le operazioni: non ha senso dire che i è maggiore o minore di 0. Si confrontano i moduli, che sono numeri reali.",
+          "Le radici n-esime dell’unità, le soluzioni di zⁿ = 1, sono n punti equidistanti sulla circonferenza di raggio 1: per n = 4 sono 1, i, −1, −i. Formano un poligono regolare, e moltiplicarle tra loro equivale a comporre rotazioni."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Un numero complesso z=a(cos b+i sin b) ha modulo a e argomento b. Moltiplicare due numeri complessi moltiplica i moduli e somma gli argomenti. Le potenze ripetono quindi una trasformazione geometrica.",
-          "Con a=1 e b=π/3, la terza potenza ha argomento π. La parte reale è -1 e la parte immaginaria è zero. Dopo sei potenze il punto ritorna a 1."
+          "Ripasso: forma algebrica e operazioni; coniugato e divisione; modulo e argomento; forma trigonometrica e formula di De Moivre; equazioni di secondo grado con discriminante negativo.",
+          "Mini esercizio: i³ = i² · i = −i; i⁴ = 1; quindi i¹⁰ = i⁸ · i² = −1.",
+          "Nelle domande controlla il segno di ogni termine che contiene i²."
         ],
         "intermediate": [
-          "La formula di De Moivre dà z^n=a^n(cos(nb)+i sin(nb)). Il laboratorio traccia la parte reale a^n cos(nb). La parte reale non coincide con il modulo: può essere negativa mentre il modulo resta non negativo.",
-          "La variabile Potenza n è espressa in 1; Parte reale in 1. Il dominio dello strumento è [0; 12], con soli valori interi. La relazione implementata è: Re(z^n) = a^n cos(nb)."
+          "Ripasso: forma algebrica e operazioni; coniugato e divisione; modulo e argomento; forma trigonometrica e formula di De Moivre; equazioni di secondo grado con discriminante negativo.",
+          "Mini esercizio: i³ = i² · i = −i; i⁴ = 1; quindi i¹⁰ = i⁸ · i² = −1.",
+          "Nelle domande controlla il segno di ogni termine che contiene i²."
         ],
         "advanced": [
-          "Quando a=1, determina per quali argomenti il punto ritorna esattamente alla posizione iniziale. Collega le rotazioni periodiche alle radici dell’unità e alla fattorizzazione di z^n-1.",
-          "Si esplorano potenze intere non negative. Il modello non sceglie rami di logaritmi complessi e non implementa crittografia o aritmetica modulare."
+          "Ripasso: forma algebrica e operazioni; coniugato e divisione; modulo e argomento; forma trigonometrica e formula di De Moivre; equazioni di secondo grado con discriminante negativo.",
+          "Mini esercizio: i³ = i² · i = −i; i⁴ = 1; quindi i¹⁰ = i⁸ · i² = −1.",
+          "Nelle domande controlla il segno di ogni termine che contiene i²."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Potenze intere e forma polare.",
-          "Si esplorano potenze intere non negative. Il modello non sceglie rami di logaritmi complessi e non implementa crittografia o aritmetica modulare.",
-          "Collegamento consigliato: math-p09. Il completamento registra attività e autoverifica, non certifica competenze."
+          "I complessi completano la scala dei numeri studiata in «Radici, campi e nuovi sistemi numerici» e tornano nelle onde e nelle trasformazioni geometriche, dove una moltiplicazione per un numero complesso è una rotazione con ingrandimento.",
+          "Riepilogo dell’unità: un complesso a + bi si somma per componenti e si moltiplica come un polinomio con i² = −1; il coniugato permette di dividere; modulo e argomento descrivono il numero come rotazione e ingrandimento; De Moivre trasforma le potenze in moltiplicazioni di angoli.",
+          "Nel diario calcola (1 + i)⁴ in due modi, con i prodotti e con De Moivre, e disegna i punti 1 + i, (1 + i)², (1 + i)³."
         ],
         "intermediate": [
-          "La formula di De Moivre dà z^n=a^n(cos(nb)+i sin(nb)). Il laboratorio traccia la parte reale a^n cos(nb). La parte reale non coincide con il modulo: può essere negativa mentre il modulo resta non negativo.",
-          "Si esplorano potenze intere non negative. Il modello non sceglie rami di logaritmi complessi e non implementa crittografia o aritmetica modulare.",
-          "Quando a=1, determina per quali argomenti il punto ritorna esattamente alla posizione iniziale. Collega le rotazioni periodiche alle radici dell’unità e alla fattorizzazione di z^n-1."
+          "I complessi completano la scala dei numeri studiata in «Radici, campi e nuovi sistemi numerici» e tornano nelle onde e nelle trasformazioni geometriche, dove una moltiplicazione per un numero complesso è una rotazione con ingrandimento.",
+          "Riepilogo dell’unità: un complesso a + bi si somma per componenti e si moltiplica come un polinomio con i² = −1; il coniugato permette di dividere; modulo e argomento descrivono il numero come rotazione e ingrandimento; De Moivre trasforma le potenze in moltiplicazioni di angoli.",
+          "Nel diario calcola (1 + i)⁴ in due modi, con i prodotti e con De Moivre, e disegna i punti 1 + i, (1 + i)², (1 + i)³."
         ],
         "advanced": [
-          "Quando a=1, determina per quali argomenti il punto ritorna esattamente alla posizione iniziale. Collega le rotazioni periodiche alle radici dell’unità e alla fattorizzazione di z^n-1.",
-          "Si esplorano potenze intere non negative. Il modello non sceglie rami di logaritmi complessi e non implementa crittografia o aritmetica modulare.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "I complessi completano la scala dei numeri studiata in «Radici, campi e nuovi sistemi numerici» e tornano nelle onde e nelle trasformazioni geometriche, dove una moltiplicazione per un numero complesso è una rotazione con ingrandimento.",
+          "Riepilogo dell’unità: un complesso a + bi si somma per componenti e si moltiplica come un polinomio con i² = −1; il coniugato permette di dividere; modulo e argomento descrivono il numero come rotazione e ingrandimento; De Moivre trasforma le potenze in moltiplicazioni di angoli.",
+          "Nel diario calcola (1 + i)⁴ in due modi, con i prodotti e con De Moivre, e disegna i punti 1 + i, (1 + i)², (1 + i)³."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "math-p03-concept",
-      "prompt": "Moltiplicando numeri complessi in forma polare:",
+      "id": "math-p03-q1",
+      "prompt": "Quanto vale (2 + 3i)(1 − i)?",
       "options": [
         {
           "id": "A",
-          "text": "Si moltiplicano i moduli e si sommano gli argomenti",
-          "feedback": "Un numero complesso z=a(cos b+i sin b) ha modulo a e argomento b. Moltiplicare due numeri complessi moltiplica i moduli e somma gli argomenti. Le potenze ripetono quindi una trasformazione geometrica."
+          "text": "2 − 3i",
+          "feedback": "Hai moltiplicato solo i termini corrispondenti."
         },
         {
           "id": "B",
-          "text": "Si sommano moduli e argomenti",
-          "feedback": "Il segno della parte reale non è il segno di un numero complesso: nei complessi non esiste un ordine compatibile con tutte le proprietà dell’ordine reale. Modulo e componente sono oggetti distinti."
+          "text": "5 + i",
+          "feedback": "Esatto: 2 − 2i + 3i − 3i² = 2 + i + 3."
         },
         {
           "id": "C",
-          "text": "Si annullano sempre le parti immaginarie",
-          "feedback": "La formula di De Moivre dà z^n=a^n(cos(nb)+i sin(nb)). Il laboratorio traccia la parte reale a^n cos(nb). La parte reale non coincide con il modulo: può essere negativa mentre il modulo resta non negativo."
+          "text": "−1 + i",
+          "feedback": "Il termine −3i² vale +3, non −3."
+        },
+        {
+          "id": "D",
+          "text": "5 − i",
+          "feedback": "La somma dei termini misti −2i + 3i vale +i, non −i."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "math-p03-q2",
+      "prompt": "Qual è il modulo di 3 − 4i?",
+      "options": [
+        {
+          "id": "A",
+          "text": "5",
+          "feedback": "Esatto: |3 − 4i| = √(3² + 4²) = √25 = 5."
+        },
+        {
+          "id": "B",
+          "text": "−1",
+          "feedback": "Il modulo è una distanza: non è mai negativo."
+        },
+        {
+          "id": "C",
+          "text": "7",
+          "feedback": "Si sommano i quadrati sotto radice, non le componenti."
+        },
+        {
+          "id": "D",
+          "text": "25",
+          "feedback": "25 è il quadrato del modulo: resta da estrarre la radice."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "math-p03-calculation",
-      "prompt": "Calcolo: Modulo a (a)=1 (adimensionale); Argomento b (b)=1,0472 rad. Per Potenza n=3 (adimensionale), quanto vale Parte reale?",
+      "id": "math-p03-q3",
+      "prompt": "Quanto vale i²⁰?",
       "options": [
         {
           "id": "A",
-          "text": "0 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. Re(z^n) = a^n cos(nb). Con Modulo a (a)=1 (adimensionale); Argomento b (b)=1,0472 rad e Potenza n=3 (adimensionale), il risultato è -1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "−1",
+          "feedback": "i² = −1, ma 20 è multiplo di 4."
         },
         {
           "id": "B",
-          "text": "-2 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. Re(z^n) = a^n cos(nb). Con Modulo a (a)=1 (adimensionale); Argomento b (b)=1,0472 rad e Potenza n=3 (adimensionale), il risultato è -1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "i",
+          "feedback": "Le potenze di i si ripetono ogni 4: i²⁰ = (i⁴)⁵."
         },
         {
           "id": "C",
-          "text": "-1 (adimensionale)",
-          "feedback": "Re(z^n) = a^n cos(nb). Con Modulo a (a)=1 (adimensionale); Argomento b (b)=1,0472 rad e Potenza n=3 (adimensionale), il risultato è -1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "C",
-      "numeric": {
-        "x": 3,
-        "parameters": {
-          "a": 1,
-          "b": 1.0471975511965976
-        },
-        "expected": -1,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "math-p03-transfer",
-      "prompt": "Trasferimento: Modulo a (a)=1,1 (adimensionale); Argomento b (b)=1,0472 rad. Per Potenza n=3 (adimensionale), quanto vale Parte reale?",
-      "options": [
-        {
-          "id": "A",
-          "text": "-2,331 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. Re(z^n) = a^n cos(nb). Con Modulo a (a)=1,1 (adimensionale); Argomento b (b)=1,0472 rad e Potenza n=3 (adimensionale), il risultato è -1,331 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "1",
+          "feedback": "Esatto: i⁴ = 1, quindi i²⁰ = 1⁵ = 1."
         },
         {
-          "id": "B",
-          "text": "-1,331 (adimensionale)",
-          "feedback": "Re(z^n) = a^n cos(nb). Con Modulo a (a)=1,1 (adimensionale); Argomento b (b)=1,0472 rad e Potenza n=3 (adimensionale), il risultato è -1,331 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "C",
-          "text": "-0,331 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. Re(z^n) = a^n cos(nb). Con Modulo a (a)=1,1 (adimensionale); Argomento b (b)=1,0472 rad e Potenza n=3 (adimensionale), il risultato è -1,331 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        }
-      ],
-      "correct": "B",
-      "numeric": {
-        "x": 3,
-        "parameters": {
-          "a": 1.1,
-          "b": 1.0471975511965976
-        },
-        "expected": -1.3310000000000004,
-        "unit": "1"
-      }
-    },
-    {
-      "id": "math-p03-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Si esplorano potenze intere non negative. Il modello non sceglie rami di logaritmi complessi e non implementa crittografia o aritmetica modulare."
-        },
-        {
-          "id": "B",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Si esplorano potenze intere non negative. Il modello non sceglie rami di logaritmi complessi e non implementa crittografia o aritmetica modulare."
-        },
-        {
-          "id": "C",
-          "text": "Potenze intere e forma polare",
-          "feedback": "Si esplorano potenze intere non negative. Il modello non sceglie rami di logaritmi complessi e non implementa crittografia o aritmetica modulare."
+          "id": "D",
+          "text": "20i",
+          "feedback": "L’esponente non moltiplica i: indica quante volte lo si moltiplica per sé stesso."
         }
       ],
       "correct": "C"
+    },
+    {
+      "id": "math-p03-q4",
+      "prompt": "Quali sono le soluzioni di x² + 4 = 0?",
+      "options": [
+        {
+          "id": "A",
+          "text": "x = ±2",
+          "feedback": "Con x = ±2 si ottiene 4 + 4 = 8, diverso da zero."
+        },
+        {
+          "id": "B",
+          "text": "Nessuna, nemmeno tra i complessi",
+          "feedback": "Tra i complessi ogni polinomio di grado 2 ha due zeri."
+        },
+        {
+          "id": "C",
+          "text": "x = −4",
+          "feedback": "Con x = −4 si ottiene 16 + 4 = 20, diverso da zero."
+        },
+        {
+          "id": "D",
+          "text": "x = ±2i",
+          "feedback": "Esatto: (2i)² = 4i² = −4, e lo stesso vale per −2i."
+        }
+      ],
+      "correct": "D"
+    },
+    {
+      "id": "math-p03-q5",
+      "prompt": "Moltiplicare un numero complesso per i equivale a:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Ruotarlo di un angolo retto attorno all’origine",
+          "feedback": "Esatto: i ha modulo 1 e argomento π/2."
+        },
+        {
+          "id": "B",
+          "text": "Raddoppiarne il modulo",
+          "feedback": "Il modulo di i è 1: il modulo resta invariato."
+        },
+        {
+          "id": "C",
+          "text": "Rifletterlo rispetto all’asse reale",
+          "feedback": "Quella è l’operazione di coniugio."
+        },
+        {
+          "id": "D",
+          "text": "Cambiarne il segno",
+          "feedback": "Cambiare segno è moltiplicare per −1 = i², cioè ruotare di mezzo giro."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "math-p03-q6",
+      "prompt": "Quanto vale √(−4) · √(−9)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "6",
+          "feedback": "La regola √a · √b = √(ab) vale solo per a e b non negativi."
+        },
+        {
+          "id": "B",
+          "text": "−6",
+          "feedback": "Esatto: √(−4) = 2i e √(−9) = 3i, e 2i · 3i = 6i² = −6."
+        },
+        {
+          "id": "C",
+          "text": "6i",
+          "feedback": "Il prodotto i · i vale −1, e l’unità immaginaria sparisce."
+        },
+        {
+          "id": "D",
+          "text": "Non si può calcolare",
+          "feedback": "Tra i complessi √(−4) = 2i e √(−9) = 3i."
+        }
+      ],
+      "correct": "B"
     }
-  ]
+  ],
+  "activity": {
+    "kind": "steps",
+    "goal": 3,
+    "problems": [
+      {
+        "id": "prodotto",
+        "title": "Un prodotto",
+        "text": "Calcola (2 + 3i)(1 − i).",
+        "maxErrors": 1,
+        "explain": "Il prodotto tra complessi si esegue come tra polinomi; i² = −1 rende reale il termine finale.",
+        "steps": [
+          {
+            "prompt": "Sviluppa il prodotto termine per termine.",
+            "options": [
+              {
+                "text": "2 − 2i + 3i − 3i²",
+                "feedback": "Giusto: quattro prodotti."
+              },
+              {
+                "text": "2 − 3i²",
+                "feedback": "Mancano i prodotti misti −2i e +3i."
+              },
+              {
+                "text": "2 + 3i − i",
+                "feedback": "Ogni termine del primo fattore moltiplica ogni termine del secondo."
+              }
+            ],
+            "correct": 0,
+            "result": "2 − 2i + 3i − 3i²."
+          },
+          {
+            "prompt": "Sostituisci i² = −1 e somma.",
+            "options": [
+              {
+                "text": "−1 + i",
+                "feedback": "−3i² vale +3: 2 + 3 = 5."
+              },
+              {
+                "text": "5 + i",
+                "feedback": "Giusto: parte reale 5, parte immaginaria 1."
+              },
+              {
+                "text": "5 + 5i",
+                "feedback": "−2i + 3i = i."
+              }
+            ],
+            "correct": 1,
+            "result": "5 + i."
+          }
+        ]
+      },
+      {
+        "id": "divisione",
+        "title": "Una divisione",
+        "text": "Calcola (3 + 4i)/(1 + 2i).",
+        "maxErrors": 1,
+        "explain": "Il coniugato del denominatore rende reale il denominatore: è il razionalizzare dei complessi.",
+        "steps": [
+          {
+            "prompt": "Per quale numero moltiplichi numeratore e denominatore?",
+            "options": [
+              {
+                "text": "1 − 2i",
+                "feedback": "Giusto: il coniugato del denominatore."
+              },
+              {
+                "text": "1 + 2i",
+                "feedback": "Il denominatore diventerebbe (1 + 2i)² = −3 + 4i, ancora complesso."
+              },
+              {
+                "text": "i",
+                "feedback": "Il denominatore diventerebbe i − 2, ancora complesso."
+              }
+            ],
+            "correct": 0,
+            "result": "Si moltiplica per 1 − 2i."
+          },
+          {
+            "prompt": "Quanto vale il nuovo denominatore (1 + 2i)(1 − 2i)?",
+            "options": [
+              {
+                "text": "−3",
+                "feedback": "−(2i)² = −4i² = +4: il risultato è 1 + 4."
+              },
+              {
+                "text": "5",
+                "feedback": "Giusto: 1² + 2² = 5."
+              },
+              {
+                "text": "1 − 4i",
+                "feedback": "I termini misti +2i e −2i si annullano."
+              }
+            ],
+            "correct": 1,
+            "result": "Denominatore 5."
+          },
+          {
+            "prompt": "Quanto vale il nuovo numeratore (3 + 4i)(1 − 2i)?",
+            "options": [
+              {
+                "text": "11 − 2i",
+                "feedback": "Giusto: 3 − 6i + 4i − 8i² = 3 − 2i + 8."
+              },
+              {
+                "text": "−5 − 2i",
+                "feedback": "−8i² vale +8, non −8."
+              },
+              {
+                "text": "3 − 8i",
+                "feedback": "Mancano i termini 4i e −6i separati."
+              }
+            ],
+            "correct": 0,
+            "result": "Risultato: (11 − 2i)/5 = 2,2 − 0,4i."
+          }
+        ]
+      },
+      {
+        "id": "potenza",
+        "title": "Una potenza con De Moivre",
+        "text": "Calcola (1 + i)⁸.",
+        "maxErrors": 1,
+        "explain": "Con modulo e argomento la potenza diventa una potenza di un numero reale e un angolo moltiplicato.",
+        "steps": [
+          {
+            "prompt": "Modulo e argomento di 1 + i?",
+            "options": [
+              {
+                "text": "√2 e π/4",
+                "feedback": "Giusto: il punto (1; 1) sta sulla bisettrice."
+              },
+              {
+                "text": "2 e π/4",
+                "feedback": "Il modulo è √(1 + 1) = √2."
+              },
+              {
+                "text": "√2 e π/2",
+                "feedback": "π/2 è l’argomento di i; 1 + i sta a metà strada."
+              }
+            ],
+            "correct": 0,
+            "result": "|z| = √2, θ = π/4."
+          },
+          {
+            "prompt": "Con De Moivre: modulo e argomento di z⁸?",
+            "options": [
+              {
+                "text": "8√2 e 2π",
+                "feedback": "Il modulo si eleva alla potenza: (√2)⁸."
+              },
+              {
+                "text": "16 e 2π",
+                "feedback": "Giusto: (√2)⁸ = 2⁴ = 16 e 8 · π/4 = 2π."
+              },
+              {
+                "text": "16 e π/32",
+                "feedback": "L’argomento si moltiplica per 8."
+              }
+            ],
+            "correct": 1,
+            "result": "z⁸ = 16(cos 2π + i sin 2π)."
+          },
+          {
+            "prompt": "Quanto vale quindi (1 + i)⁸?",
+            "options": [
+              {
+                "text": "16",
+                "feedback": "Giusto: cos 2π = 1 e sin 2π = 0."
+              },
+              {
+                "text": "16i",
+                "feedback": "sin 2π vale 0: non resta parte immaginaria."
+              },
+              {
+                "text": "−16",
+                "feedback": "cos 2π vale 1."
+              }
+            ],
+            "correct": 0,
+            "result": "(1 + i)⁸ = 16."
+          }
+        ]
+      },
+      {
+        "id": "equazione",
+        "title": "Un’equazione senza soluzioni reali",
+        "text": "Risolvi x² + 2x + 5 = 0.",
+        "maxErrors": 1,
+        "explain": "Un discriminante negativo produce due soluzioni complesse coniugate.",
+        "steps": [
+          {
+            "prompt": "Quanto vale il discriminante b² − 4ac?",
+            "options": [
+              {
+                "text": "−16",
+                "feedback": "Giusto: 4 − 20."
+              },
+              {
+                "text": "24",
+                "feedback": "4ac = 20 va sottratto."
+              },
+              {
+                "text": "−24",
+                "feedback": "b² = 4, positivo."
+              }
+            ],
+            "correct": 0,
+            "result": "Δ = −16."
+          },
+          {
+            "prompt": "Quanto vale √Δ tra i complessi?",
+            "options": [
+              {
+                "text": "4i",
+                "feedback": "Giusto: (4i)² = −16."
+              },
+              {
+                "text": "−4",
+                "feedback": "(−4)² = 16, positivo."
+              },
+              {
+                "text": "16i",
+                "feedback": "(16i)² = −256."
+              }
+            ],
+            "correct": 0,
+            "result": "√Δ = 4i."
+          },
+          {
+            "prompt": "Quali sono le soluzioni?",
+            "options": [
+              {
+                "text": "−1 ± 2i",
+                "feedback": "Giusto: (−2 ± 4i)/2."
+              },
+              {
+                "text": "−2 ± 4i",
+                "feedback": "Manca la divisione per 2a = 2."
+              },
+              {
+                "text": "1 ± 2i",
+                "feedback": "Il primo termine è −b/2a = −1."
+              }
+            ],
+            "correct": 0,
+            "result": "x = −1 + 2i e x = −1 − 2i."
+          }
+        ]
+      }
+    ]
+  }
 }
