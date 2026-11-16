@@ -112,3 +112,17 @@ test('Chimica 01: materia, proprietà e densità, numeri ricalcolati',()=>{
  const Vs=4/3*Math.PI;assert.equal(r(32.8/Vs,2),7.83);assert.equal(r(32.8/Vs*(0.015+0.1/32.8),2),0.14);assert.equal(r(1/(0.75/19.32+0.125/10.49+0.125/8.96),1),15.5);
  assert.equal(r(2*1.008/(2*1.008+15.999)*100,1),11.2);
 });
+test('Chimica 02: atomi, isotopi e massa media, numeri ricalcolati',()=>{
+ const avg=l=>l.reduce((s,[x,m])=>s+x*m,0);
+ // Isotopic masses and abundances: Petrucci Table D.5.
+ assert.equal(r(avg([[0.7899,23.985042],[0.1,24.985837],[0.1101,25.982593]]),3),24.305);assert.equal(r(avg([[0.199,10.012937],[0.801,11.009305]]),3),10.811);
+ assert.equal(r(avg([[0.922297,27.976927],[0.046832,28.976495],[0.030872,29.97377]]),3),28.085);assert.equal(r(avg([[0.014,203.973029],[0.241,205.974449],[0.221,206.975881],[0.524,207.976636]]),1),207.2);
+ assert.equal(r(avg([[0.758,34.968853],[0.242,36.965903]]),2),35.45);assert.equal(r((64.927794-63.546)/(64.927794-62.929601),4),0.6915);assert.equal(r((70.924705-69.723)/(70.924705-68.925581),4),0.6011);
+ assert.equal(r(avg([[0.0072,235.043923],[0.9928,238.050783]]),3),238.029);assert.equal(r(avg([[0.04,235.043923],[0.96,238.050783]]),3),237.931);
+ const p=0.5069,q=0.4931;assert.deepEqual([p*p/(2*p*q)*100,q*q/(2*p*q)*100].map(v=>r(v,1)),[51.4,48.6]);
+ assert.equal(r(15.999/12.011,3),1.332);assert.equal(r(2*15.999/12.011,3),2.664);
+ assert.equal(r(e/me/1e11,3),1.759);assert.equal(r(e/1.67262192595e-27/1e7,2),9.58);assert.equal(r(1.67262192595e-27/me,0),1836);
+ const rho=1.67e-27/(4/3*Math.PI*(1.2e-15)**3);assert.equal(r(rho/1e17,1),2.3);assert.equal(r(rho*5e-6/1e12,1),1.2);assert.equal(r(1.2*197**(1/3),1),7);
+ const dm=2*1.007825+2*1.008665-4.002603;assert.equal(r(dm,6),0.030377);assert.equal(r(dm*931.494,1),28.3);assert.equal(r(dm*931.494/4,1),7.1);
+ assert.equal(r(12*1.66053906892e-27*1e26,3),1.993);assert.equal(r(5730*Math.log2(1/0.3),-1),9950);
+});
