@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';import {createHash} from 'node:crypto';
-import {loadScenes,planetProfile} from '../src/scene/assets.js';
+import {loadScenes,sceneMetadata,planetProfile} from '../src/scene/assets.js';
 import {backgroundStars} from '../src/scene/data.js';
 import {World} from '../src/scene/world.js';import {project} from '../src/renderer.js';
 const root=new URL('../',import.meta.url),manifest=JSON.parse(await readFile(new URL('assets/scenes/manifest.json',root)));
@@ -49,6 +49,12 @@ test('Grafica: caricamento completo e rifiuto esplicito di buffer troncati',asyn
  globalThis.fetch=async()=>({ok:true,arrayBuffer:async()=>new ArrayBuffer(4)});
  await assert.rejects(loadScenes({makeMesh(){}},manifest),/incompleta/);
  globalThis.fetch=async()=>({ok:false});await assert.rejects(loadScenes({makeMesh(){}},manifest),/mancante/);
+});
+test('Avvio: solo i metadati delle scene Blender, senza scaricare le geometrie',async t=>{
+ const original=globalThis.fetch;let calls=0;t.after(()=>{globalThis.fetch=original});globalThis.fetch=async()=>{calls++;return {ok:false};};
+ assert.deepEqual(Object.keys(sceneMetadata(manifest)),Object.keys(biomes));assert.equal(calls,0);
+ const app=await readFile(new URL('src/app.js',root),'utf8');assert.ok(!/loadScenes\(/.test(app));
+ const broken=structuredClone(manifest);Object.values(broken.biomes)[0].stations.pop();assert.throws(()=>sceneMetadata(broken),/Metadati/);
 });
 test('Superfici generate: stazioni selezionabili, camera sopra il terreno, una superficie diversa per pianeta',async()=>{
  const {planetSurface}=await import('../src/worlds/surface.js');

@@ -20,7 +20,7 @@ jobs:
       - run: npm run check
       - run: npm run build
       - run: npm run test:http
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-pages-artifact@v5
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         with:
           path: dist
@@ -42,7 +42,7 @@ jobs:
         run: xvfb-run -a python tools/qa_atlas_browser.py --root dist
       - name: Save browser report and screenshots
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: atlas-browser-report
           path: qa-atlas/browser
@@ -66,10 +66,10 @@ jobs:
       # Pages must be enabled once in Settings > Pages > GitHub Actions.
       # This job has the Pages permissions required by configure-pages.
       - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Deploy
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
       - name: Verify published site
         env:
           SITE_URL: ${{ steps.deployment.outputs.page_url }}
