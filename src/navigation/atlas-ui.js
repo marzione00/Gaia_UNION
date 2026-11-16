@@ -1,12 +1,12 @@
 import { clamp, color } from '../renderer.js';
-import { C, T, caseLabel } from '../ui/toolkit.js';
+import { C, T, caseLabel, DISCIPLINE } from '../ui/toolkit.js';
 import { displayText, fittedRows } from '../education/course-ui.js';
 import { AtlasScene } from './atlas-scene.js';
 import { DISCIPLINES, TEXT_SCALES, GUIDE, cleanAtlas, atlasLayout, contains, placeLabels, searchModules, unitStatus, rememberVisit } from './atlas-model.js';
 
 import { scaledText } from './text.js';
 import { systemForPlanet, indicesForSystem, AREAS } from '../scene/systems.js';
-const SECTOR_COLORS=[C.amber,C.cyan,C.purple,C.lime];
+const SECTOR_COLORS=DISCIPLINE;
 const basePalette=Object.fromEntries(Object.entries(C).map(([k,v])=>[k,[...v]]));
 export class AtlasUI {
     constructor(R,world,store,catalogue,bundle,api) {
@@ -59,8 +59,11 @@ export class AtlasUI {
         if(candidate!==this.hoverCandidate){this.hoverCandidate=candidate;this.hoverSince=performance.now();}
         this.hoverId=!blocked&&candidate!==null&&(focusMatch||performance.now()-this.hoverSince>=130)?candidate:null;
         state.hoveredTarget=this.hoverId!==null?this.world.projections.find(p=>p.type==='system'&&p.index===this.hoverId)||null:null;
-        this.scene.draw(this.world,state,this.layout,{selected:state.system,hover:this.hoverId,contrast:this.prefs.contrast,path:this.path,modules:this.catalogue.modules});
+        this.scene.draw(this.world,state,this.layout,{selected:state.system,hover:this.hoverId,contrast:this.prefs.contrast,path:this.path,modules:this.catalogue.modules,progress:this.progress()});
     }
+    /** Per area: completed units, unit count, and whether any unit was started or visited. */
+    progress(){return this.world.systems.map(sys=>{const units=indicesForSystem(sys.id).map(i=>this.catalogue.modules[i]).filter(Boolean),codes=units.map(m=>unitStatus(m,this.store.data).code);
+        return {done:codes.filter(c=>c==='complete').length,n:Math.max(1,units.length),active:codes.some(c=>c!=='new')};});}
     focusKey(id){this.hoverId=id;const p=this.world.projections.find(p=>p.type==='system'&&p.index===id);if(!p||!contains(this.layout.map,p.x,p.y))this.focusSystem(id);}
     actions(){if(this.sheet||this.S.menu||this.S.settings||this.world.cameraProgress<1)return [];
         return this.world.systems.map(s=>({id:'scene-system-'+s.id,label:`Seleziona l’area ${s.name}, ${s.discipline}, ${s.planets.length} unità.`,action:()=>this.selectSystem(s.id,true)}));
@@ -78,8 +81,8 @@ export class AtlasUI {
     }
     button(U,id,label,x,y,w,action,options={}){
         U.button('atlas-'+id,'',x,y,w,44,action,options);U.buttons.at(-1).label=label;
-        const scale=Math.min(this.prefs.textScale,1.25);let str=caseLabel(displayText(label));while(str.length&&this.R.textWidth(str,'mini')*scale>w-14)str=str.slice(0,-1);
-        scaledText(this.R,str,x+w/2,y+(44-14*scale)/2-1,'mini',options.disabled?C.dim:options.active?color(T.ink):C.pale,scale,{align:'center'});
+        const scale=Math.min(this.prefs.textScale,1.25);let str=caseLabel(displayText(label)),style=this.R.textWidth(str,'mini')*scale>w-14?'micro':'mini';while(str.length&&this.R.textWidth(str,style)*scale>w-14)str=str.slice(0,-1);
+        scaledText(this.R,str,x+w/2,y+(44-(style==='mini'?14:13)*scale)/2-1,style,options.disabled?C.dim:options.active?color(T.ink):C.pale,scale,{align:'center'});
     }
     body(U,texts,r,{footer=0}={}){
         const scale=this.prefs.textScale,line=24*scale,rows=fittedRows(this.R,texts,(r.w-28)/scale),count=Math.max(1,Math.floor((r.h-footer-65)/line)),pages=Math.max(1,Math.ceil(rows.length/count));
@@ -92,20 +95,27 @@ export class AtlasUI {
     }
     draw(U){const l=this.layout,R=this.R,S=this.S;const {toolbar:t,card:c,controls:k}=l;this.rects={};
         const area=AREAS[systemForPlanet(S.selected)];
-        if(!l.short){let trail=`GALASSIA ▸ ${DISCIPLINES[area.sector].toUpperCase()} ▸ ${area.name.toUpperCase()}`;while(trail.includes(' ▸ ')&&R.textWidth(trail,'mini')>t.w-110)trail=trail.slice(trail.indexOf(' ▸ ')+3);this.text(trail,t.x,t.y+2,t.w-110,'mini',C.lime,1);this.button(U,'access','ACCESSO',t.x+t.w-94,t.y-2,94,()=>this.open('access'));}
-        const tabs=[['list','CERCA'],['routes','PERCORSI'],['history','RIPRENDI'],['guide','GUIDA']];if(l.short)tabs.push(['access','ACCESSO']);const bw=(t.w-6*(tabs.length-1))/tabs.length;
-        tabs.forEach(([id,label],i)=>{const x=t.x+i*(bw+6),y=t.y+(l.short?0:50);this.button(U,id,label,x,y,bw,()=>id==='guide'?this.startGuide():this.open(id),{active:this.sheet===id});this.rects[id]={x,y,w:bw,h:44};});
-        if(this.prefs.showLabels){const selected=this.hoverId??S.system,labels=placeLabels(this.world.projections,l.map,selected,s=>R.textWidth(s,'micro'),26);
-            for(const p of labels){const sector=AREAS[p.index].sector,dim=S.sector>=0&&S.sector!==sector;R.roundRect(p.x,p.y,p.w,p.h,4,color('#04131e',.9));this.text(p.text,p.x+5,p.y+4,p.w-8,'micro',p.index===selected?C.pale:dim?C.dim:SECTOR_COLORS[sector],1);}}
+        // One row: the trail on the left (wide screens), the sheets on the right.
+        const tabs=[['list',l.compact?'Cerca':'Cerca un argomento'],['routes','Percorsi'],['history','Riprendi'],['guide','Guida'],['access',l.compact?'Aa':'Accessibilità']];
+        const widths=l.compact?null:[190,110,110,96,130],gap=6,total=widths?widths.reduce((a,b)=>a+b,0)+gap*4:t.w,accessW=48;
+        let x=t.x+t.w-total;const y=t.y;
+        if(widths&&x-t.x>160){let trail=`Galassia ▸ ${DISCIPLINES[area.sector]} ▸ ${area.name}`;while(trail.includes(' ▸ ')&&R.textWidth(trail.toUpperCase(),'micro',.7)>x-t.x-16)trail=trail.slice(trail.indexOf(' ▸ ')+3);U.tag(trail,t.x,y+15,SECTOR_COLORS[area.sector]);}
+        tabs.forEach(([id,label],i)=>{const w=widths?widths[i]:id==='access'?accessW:(t.w-accessW-gap*4)/4;
+            this.button(U,id,label,x,y,w,()=>id==='guide'?this.startGuide():this.open(id),{active:this.sheet===id});if(id==='access')U.buttons.at(-1).label='Accessibilità: dimensione del testo, contrasto, movimento';this.rects[id]={x,y,w,h:44};x+=w+gap;});
+        if(this.prefs.showLabels){const selected=this.hoverId??S.system,focus=S.sector>=0?S.sector:AREAS[S.system]?.sector,onPath=new Set((this.path?.units||[]).map(id=>{const m=this.catalogue.modules.find(m=>m.id===id);return m?systemForPlanet(m.planetIndex):-1;}));
+            // Names of one arm at a time: the filtered discipline, or the one of the selected area.
+            const show=i=>this.path?onPath.has(i):AREAS[i].sector===focus||i===this.hoverId;
+            const labels=placeLabels(this.world.projections,l.map,selected,s=>R.textWidth(s,'micro'),26,undefined,[l.controls,{x:l.map.x,y:l.map.y+l.map.h-52,w:Math.min(l.map.w,4*(l.compact||l.map.w<560?86:130)+18),h:52}],show);
+            for(const p of labels){const sector=AREAS[p.index].sector,on=p.index===selected;R.roundRect(p.x,p.y,p.w,p.h,4,color(T.bg,.92));R.rect(p.x,p.y+4,2,p.h-8,SECTOR_COLORS[sector]);this.text(p.text,p.x+6,p.y+4,p.w-8,'micro',on?C.pale:SECTOR_COLORS[sector],1);}}
         this.legend(U,l);
         if(this.scene.edge){const e=this.scene.edge;this.text('CENTRA',clamp(e.x-28,l.map.x,l.map.x+l.map.w-60),clamp(e.y+18,l.map.y,l.map.y+l.map.h-18),64,'micro',C.amber,1);U.buttons.push({id:'atlas-offscreen',label:'Centra l’area selezionata, fuori campo',x:e.x-22,y:e.y-22,w:44,h:44,action:()=>this.focusSystem()});}
         if(this.path)this.text('PERCORSO · '+this.path.title,l.map.x+86,l.map.y+8,Math.max(60,l.map.w-90),'micro',C.amber,1);
         this.card(U,c,l.compact||c.h<450);
-        const entries=[['left','<',()=>this.move(-.18)],['right','>',()=>this.move(.18)],['minus','−',()=>this.api.zoom(1/.86)],['plus','+',()=>this.api.zoom(.86)],['center',this.R.w<360?'MIRA':'CENTRA',()=>this.focusSystem()]],w=(k.w-24)/5;
-        entries.forEach(([id,label,action],i)=>this.button(U,id,label,k.x+i*(w+6),k.y,w,action));
+        const entries=[['left','◂',()=>this.move(-.18)],['right','▸',()=>this.move(.18)],['minus','−',()=>this.api.zoom(1/.86)],['plus','+',()=>this.api.zoom(.86)],['center','Centra',()=>this.focusSystem()]];
+        let kx=k.x;entries.forEach(([id,label,action])=>{const w=id==='center'?72:44;this.button(U,id,label,kx,k.y,w,action);kx+=w+6;});
         ['Ruota la mappa a sinistra','Ruota la mappa a destra','Allontana la camera','Avvicina la camera','Centra l’area selezionata'].forEach((label,i)=>{const b=U.buttons.find(b=>b.id==='atlas-'+entries[i][0]);if(b)b.label=label;});
     }
-    legend(U,l){const m=l.map,compact=l.compact||m.w<560,names=compact?['MAT','FIS','CHI','BIO']:['MATEMATICA','FISICA','CHIMICA','BIOLOGIA'],bw=Math.min(compact?86:150,(m.w-18)/4),y=m.y+m.h-48,x0=m.x+(compact?0:8);
+    legend(U,l){const m=l.map,compact=l.compact||m.w<560,names=compact?['Mat','Fis','Chi','Bio']:['Matematica','Fisica','Chimica','Biologia'],bw=Math.min(compact?86:130,(m.w-18)/4),y=m.y+m.h-48,x0=m.x+(compact?0:8);
         names.forEach((name,i)=>{const x=x0+i*(bw+6),on=this.S.sector===i;this.button(U,'discipline-'+i,name,x,y,bw,()=>{this.S.sector=on?-1:i;this.page=0;if(!on&&this.catalogue.modules[this.S.selected]?.sector!==i)this.selectSystem(AREAS.findIndex(a=>a.sector===i),true);this.announce(on?'Tutte le discipline.':'Braccio della '+DISCIPLINES[i]+' evidenziato: la scheda mostra la sua prima area.');},{active:on});
             U.buttons.at(-1).label=on?'Mostra di nuovo tutte le discipline':'Evidenzia il braccio della '+DISCIPLINES[i];scaledText(this.R,'●',x+8,y+12,'mini',SECTOR_COLORS[i],1);});
         this.rects.legend={x:x0,y,w:4*bw+18,h:44};
@@ -120,7 +130,7 @@ export class AtlasUI {
         if(compact){
             this.text(area.name,c.x+14,c.y+34,c.w-28,'mini',C.pale,1);
             this.text(`${k+1}/${n} · ${m.title}`,c.x+14,c.y+56,c.w-28,'body',C.pale,Math.min(1.2,this.prefs.textScale));
-            if(c.h>160){const y=c.y+88;this.button(U,'unit-prev','◂',c.x+14,y,48,()=>pick(k-1));U.buttons.at(-1).label='Unità precedente dell’area';this.button(U,'unit-next','▸',c.x+68,y,48,()=>pick(k+1));U.buttons.at(-1).label='Unità successiva dell’area';
+            if(c.h>=186){const y=c.y+88;this.button(U,'unit-prev','◂',c.x+14,y,48,()=>pick(k-1));U.buttons.at(-1).label='Unità precedente dell’area';this.button(U,'unit-next','▸',c.x+68,y,48,()=>pick(k+1));U.buttons.at(-1).label='Unità successiva dell’area';
                 this.text(unitStatus(m,this.store.data).label,c.x+128,y+14,c.w-142,'mini',C.lime,1);}
             actions(c.y+c.h-56,(c.w-34)/2);return;
         }

@@ -1,4 +1,5 @@
 export function random(seed = 4141) { return () => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed / 4294967296; }; }
+const ARM_TINT=[[1,.72,.4],[.5,.72,1],[.72,.6,1],[.45,.88,.64]];
 export function stars(count = 1000000, seed = 554412) {
     if (!Number.isInteger(count) || count < 1 || count > 1000000)
         throw new RangeError('Conteggio stelle non valido');
@@ -12,6 +13,9 @@ export function stars(count = 1000000, seed = 554412) {
         a[j+2]=halo?(r()-.5)*145:Math.sin(theta)*d;
         const warm=core||r()<.16,b=.65+r()*.35;
         a[j+3]=warm?b:b*.62;a[j+4]=warm?b*.79:b*.78;a[j+5]=warm?b*.54:b;
+        // Arm i%4 is the arm of discipline i%4: a light tint, stronger away from the core, lets the
+        // legend colours be read on the stars themselves. No extra random draws, positions unchanged.
+        if(!halo&&!core){const t=ARM_TINT[i%4],k=Math.min(.62,.3+d*.012);a[j+3]+=(t[0]*b-a[j+3])*k;a[j+4]+=(t[1]*b-a[j+4])*k;a[j+5]+=(t[2]*b-a[j+5])*k;}
         a[j+6]=.22+r()*.62+(r()<.002?1.7:0);
         if(core&&!halo){const polar=r()*2-1,phi=r()*Math.PI*2,radial=d*Math.sqrt(1-polar*polar);a[j]=Math.cos(phi)*radial;a[j+1]=d*polar*.48;a[j+2]=Math.sin(phi)*radial;}
     }

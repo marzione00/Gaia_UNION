@@ -26,6 +26,13 @@ Il picking controlla solo 25 stelle o fino a 12 pianeti proiettati, esclude punt
 
 La qualità alta usa la risoluzione della scena al 100%, bilanciata all’80%, ridotta al 60% con bloom disattivato. UI, testi e documenti rimangono alla risoluzione del canvas. In ogni caso il milione resta presente in galassia, sistema, orbita e loro transizioni. Le viste didattiche usano 6.000 stelle di fondo, le superfici nessuna: il requisito del milione riguarda le viste cosmiche. Il contatore viene aggiornato dopo la chiamata GL, dal conteggio realmente inviato.
 
+## Leggibilità delle viste cosmiche (1.14.0)
+
+- Galassia: le stelle dei quattro bracci hanno una tinta leggera nel colore della disciplina (`ARM_TINT` in `data.js`, nessuna estrazione casuale aggiunta, posizioni invariate). Le aree sono esagoni nel colore della disciplina con riempimento traslucido; un arco intorno all'esagono conta le unità completate. I nomi delle aree mostrano un braccio alla volta. La bussola a tre assi è stata rimossa; resta la freccia verso l'area selezionata quando è fuori campo.
+- Materiali aggiunti in `shaders.js`: 16, colore piatto per segnaposti e orbite, indipendente dalla luce; 17, alone della stella, denso al centro del disco e trasparente al bordo.
+- Sistema: raggio disegnato dei pianeti con `displayRadius`, orbite delle unità nel colore della disciplina, alone della stella nel suo colore, esposizione delle nebulose ridotta a 0,42 nel sistema e 0,55 in orbita (0,72 in galassia). Numeri e nomi dei pianeti sono disegnati dall'interfaccia sulle proiezioni dei pianeti.
+- Orbita: la camera sta a circa 65° dalla direzione della stella, così il confine fra giorno e notte è visibile. Sul telefono il pianeta occupa la metà superiore e la scheda quella inferiore.
+
 ## Riprodurre l'export
 
 Richiede Blender 4.3 e il suo Python con numpy:

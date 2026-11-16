@@ -6,6 +6,12 @@ import { viewKey } from './navigation.js';
 import { mesh, sphereMesh, transform, perspective, lookAt, mul, project, TAU } from '../renderer.js';
 import { random, raySphere, backgroundStars } from './data.js';
 import { planetProfile } from './assets.js';
+import { DISCIPLINE } from '../ui/toolkit.js';
+/** Drawn radius: the scale is illustrative, so planets of the units are enlarged to be read and
+ * picked, ambient bodies slightly. Orbits keep their computed spacing. */
+export const displayRadius = body => body.radius * (body.explorable ? 1.55 : 1.1);
+// Earth maps become fictional worlds: mirrored in both directions and shifted in hue.
+const DISGUISE = { earth: 1, 'earth-winter': 2 };
 const normal = v => { let n = Math.hypot(...v) || 1; return v.map(x => x / n); }, cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
 function annulus(inner=1,outer=1.006,planetary=false) {
     const v = [], ix = [];
@@ -144,9 +150,11 @@ export class World {
             const distance=s.distance*Math.max(1,systemArchitecture(system).outerRadius/13)*Math.max(1,1.05/(w/h)),pitch=s.pitch;
             eye=[Math.sin(s.yaw)*distance*Math.cos(pitch),distance*Math.sin(pitch),Math.cos(s.yaw)*distance*Math.cos(pitch)];target=w<850?[0,0,0]:[2.4,0,0];fov=.78;space='system';
         }else if(scene==='orbit'){
-            const body=systemPlanet(s.selected,s.time),angle=s.yaw*.45+Math.atan2(-body.position[0],-body.position[2])+.55,pitch=.14+(s.pitch-.45)*.35,scale=body.radius/5.3,distance=s.distance||22;
+            // The camera sits about 65° away from the star direction, so the day/night line is visible.
+            const body=systemPlanet(s.selected,s.time),phone=w<850,angle=s.yaw*.45+Math.atan2(-body.position[0],-body.position[2])+1.15,pitch=.14+(s.pitch-.45)*.35,scale=displayRadius(body)/5.3,distance=(s.distance||22)*(phone?1.38:1);
             const heroEye=[Math.sin(angle)*distance*Math.cos(pitch),Math.sin(pitch)*distance,Math.cos(angle)*distance*Math.cos(pitch)];
-            const framing=[Math.cos(angle)*2,0,-Math.sin(angle)*2];
+            // Wide screens: planet left of the card. Phones: planet in the upper half, card below.
+            const framing=phone?[0,-4.6,0]:[Math.cos(angle)*2,0,-Math.sin(angle)*2];
             eye=heroEye.map((v,i)=>body.position[i]+(v+framing[i])*scale);target=body.position.map((v,i)=>v+framing[i]*scale);space='system';
         }else if(scene==='surface'){
             const angle=.6+s.yaw*.5,pitch=Math.max(.24,Math.min(.96,.58+(s.pitch-.45)*.6)),distance=52;
@@ -187,7 +195,7 @@ export class World {
     }
     drawPlanet(body,time,center,radius,light,detailed=false) {
         const moons=Array.from({length:body.moons},(_,j)=>{const a=time*(.06/(j+1))+body.phase+j*2.4,d=radius*(2.8+j*.65);return {center:center.map((v,i)=>v+[Math.cos(a)*d,Math.sin(a)*d*.12,Math.sin(a)*d][i]),radius:radius*(.12+j*.025),angle:a};});
-        const R=this.R,profile=body.profile,options={eye:this.eye,light,material:12,center,radius,texture:this.planetTextures?.get(profile.texture,detailed)||this.textures[profile.texture],atmosphere:profile.atmosphere,ocean:profile.ocean,occluders:moons.map(m=>[...m.center,m.radius])},size=radius/5.3;
+        const R=this.R,profile=body.profile,options={eye:this.eye,light,material:12,center,radius,texture:this.planetTextures?.get(profile.texture,detailed)||this.textures[profile.texture],atmosphere:profile.atmosphere,ocean:profile.ocean,disguise:DISGUISE[profile.texture]||0,occluders:moons.map(m=>[...m.center,m.radius])},size=radius/5.3;
         const geometry=this.R.meshes.has('planet-'+profile.texture)?'planet-'+profile.texture:detailed?'fineSphere':'sphere',rotation=time*body.spin+body.rotation;
         R.drawMesh(geometry,this.vp,transform(...center,radius,rotation,body.tilt),options);
         if(profile.clouds)R.drawMesh(geometry,this.vp,transform(...center,radius*1.006,rotation+time*.002,body.tilt),{...options,texture:this.planetTextures?.get('clouds',detailed)||this.textures.clouds,material:5,opacity:.9});
@@ -206,6 +214,8 @@ export class World {
         const map=p=>p.map((v,i)=>origin[i]+v*scale),starColor=system.color.map(v=>Math.max(.3,v)),starRadius=system.starRadius*scale;
         R.drawMesh('fineSphere',this.vp,transform(...origin,starRadius,s.time*.025),{eye:this.eye,material:9,tint:[...starColor,1],seed:id,radius:starRadius,center:origin});
         R.drawMesh('sphere',this.vp,transform(...origin,starRadius*1.19),{eye:this.eye,material:11,tint:[...starColor,1],opacity:.75,radius:starRadius,center:origin});
+        // Soft glow in the colour of the star, brightest towards the centre of the disc.
+        if(s.scene!=='galaxy')R.drawMesh('sphere',this.vp,transform(...origin,starRadius*2.8),{eye:this.eye,material:17,tint:[...starColor,1],opacity:.9,radius:starRadius,center:origin});
         if(system.belt)R.drawMesh('belt-'+id,this.vp,transform(...origin,scale,s.time*.0008),{eye:this.eye,center:origin,material:15,texture:this.textures.moon});
         if(system.comet){
             const head=map(system.comet.head);
@@ -214,8 +224,9 @@ export class World {
             R.drawMesh('ion-tail-'+id,this.vp,transform(...origin,scale),{eye:this.eye,material:14,tint:[.18,.56,.92,1],opacity:.65});
         }
         for(const body of system.bodies){
-            const p=bodyAtTime(body,s.time),center=map(p.position),radius=p.radius*scale;
-            if(s.scene!=='orbit')R.drawMesh('orbit-'+body.id,this.vp,transform(...origin,scale),{eye:this.eye,tint:body.explorable?TINTS[body.sector]:[.32,.36,.39,1],opacity:s.scene==='orbit'?.035:body.explorable?.26:.11,emission:.35});
+            const p=bodyAtTime(body,s.time),center=map(p.position),radius=displayRadius(p)*scale;
+            // Orbits of the units in the colour of the discipline; the others stay faint.
+            if(s.scene!=='orbit')R.drawMesh('orbit-'+body.id,this.vp,transform(...origin,scale),{eye:this.eye,material:16,tint:body.explorable?DISCIPLINE[body.sector]:[.5,.56,.64,1],opacity:body.explorable?(body.index===s.selected?.95:.68):.14});
             this.drawPlanet(p,s.time,center,radius,normal(p.position.map(v=>-v)),s.scene==='orbit'&&body.index===s.selected);
             const xy=project(center,this.vp,R.w,R.h),apparent=radius*R.h/(2*Math.tan(this.fov/2)*xy[2]);
             if(s.scene==='system'&&!this.travelling)this.projections.push({type:body.explorable?'planet':'ambient',index:body.explorable?body.index:body.slot,body,...xyToObj(xy),r:Math.max(11,apparent*1.12),position:center,worldRadius:radius});
@@ -229,7 +240,9 @@ export class World {
         const surface=scene==='surface';
         R.fogColor=this.surface.fog.color.map(x=>x*.58);R.fogDensity=surface?this.surface.fog.density:0;R.mist=surface&&this.biome==='simbiosi';
         const cosmic=['galaxy','system','orbit'].includes(scene);
-        R.drawEnvironment(surface?2:cosmic?1:0,cosmic?this.galaxyEye:this.eye,cosmic?this.galaxyTarget:this.target,this.fov,this.surface.light.direction,R.fogColor,cosmic?.72:1);
+        // Inside a system the nebulae are dimmed, so the planets keep their contrast.
+        const exposure=scene==='system'?.42:scene==='orbit'?.55:cosmic?.72:1;this.exposure=s.paused||this.exposure===undefined?exposure:this.exposure+(exposure-this.exposure)*.08;
+        R.drawEnvironment(surface?2:cosmic?1:0,cosmic?this.galaxyEye:this.eye,cosmic?this.galaxyTarget:this.target,this.fov,this.surface.light.direction,R.fogColor,this.exposure);
         if(cosmic){
             if(R.starCount<MIN_STARS)throw Error('Rendering interrotto: meno di un milione di stelle');
             R.drawStars(this.galaxyVP,R.starCount,0,false,.28+.57*Math.min(1,Math.hypot(...this.galaxyEye.map((v,i)=>v-this.galaxyTarget[i]))/30));

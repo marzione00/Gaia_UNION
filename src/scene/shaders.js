@@ -15,7 +15,7 @@ precision highp float;
 in vec3 vNormal,vWorld,vLocal;in vec2 vUV;in vec4 vColor,vPBR,vShadow,vReflection;out vec4 outColor;
 uniform sampler2D uTex,uShadow,uReflection;uniform vec3 uEye,uLight,uCenter,uFogColor,uAtmosColor;uniform vec4 uTint;
 uniform int uOccluderCount;uniform vec4 uOccluder[4];
-uniform float uTexWeight,uOpacity,uRim,uEmission,uTime,uSeed,uRadius,uFog,uHasShadow,uMist,uClipBelow,uOcean;uniform highp int uMaterial;
+uniform float uTexWeight,uOpacity,uRim,uEmission,uTime,uSeed,uRadius,uFog,uHasShadow,uMist,uClipBelow,uOcean,uDisguise;uniform highp int uMaterial;
 ${noise}
 float solarVisibility(vec3 point,vec3 light){float visibility=1.;for(int k=0;k<4;k++){if(k>=uOccluderCount)break;vec3 delta=uOccluder[k].xyz-point;float along=dot(delta,light);if(along>0.){float impact=length(delta-light*along),r=uOccluder[k].w;visibility*=smoothstep(r*.94,r*1.06,impact);}}return visibility;}
 float shadow(vec3 n,vec3 l){if(uHasShadow<.5)return 1.;vec3 p=vShadow.xyz/vShadow.w*.5+.5;if(any(lessThan(p,vec3(0)))||any(greaterThan(p,vec3(1))))return 1.;float b=max(.00065,.0014*(1.-dot(n,l))),s=0.;vec2 texel=1./vec2(textureSize(uShadow,0));for(int x=-1;x<=1;x++)for(int y=-1;y<=1;y++)s+=p.z-b<texture(uShadow,p.xy+vec2(x,y)*texel).r?1.:.24;return s/9.;}
@@ -28,6 +28,10 @@ vec3 shade(vec3 c,vec3 n,vec3 l,vec3 v,float metal,float rough,float visibility)
 void main(){
  if(vWorld.y<uClipBelow)discard;
  vec3 n=normalize(vNormal),l=normalize(uLight),v=normalize(uEye-vWorld),p=normalize(vLocal),c=vColor.rgb*uTint.rgb;float alpha=uOpacity*vColor.a;
+ // Flat colour for map markers and orbit lines: the tint is the colour, independent of the light.
+ if(uMaterial==16){outColor=vec4(uTint.rgb*(.82+.18*abs(dot(n,v))),alpha);return;}
+ // Star glow: transparent at the rim of the sphere, denser towards the centre of the disc.
+ if(uMaterial==17){float f=dot(n,v);if(f<0.)discard;outColor=vec4(uTint.rgb,alpha*pow(f,2.4)*.6);return;}
  if(uMaterial==6){
   if(dot(n,v)<0.)discard;
   vec3 ro=uEye-uCenter,rd=-v;float b=dot(ro,rd),rr=uRadius*1.028,disc=b*b-dot(ro,ro)+rr*rr;if(disc<0.)discard;
@@ -40,7 +44,8 @@ void main(){
  if(uMaterial==5){if(dot(n,v)<0.)discard;float a=texture(uTex,vUV).r;float sun=max(0.,dot(n,l))*solarVisibility(vWorld,l);alpha*=smoothstep(.12,.95,a)*.84;outColor=vec4(film(vec3(.001)+vec3(1.)*sun),alpha);return;}
  if(uMaterial==12||uMaterial==15){
   if(uMaterial==15)l=normalize(uCenter-vWorld);
-  vec3 albedo=texture(uTex,vUV).rgb;float water=uOcean*smoothstep(.01,.12,albedo.b-max(albedo.r,albedo.g*.85));
+  vec2 uv=uDisguise>.5?vec2(1.-vUV.x,1.-vUV.y):vUV;vec3 albedo=texture(uTex,uv).rgb;float water=uOcean*smoothstep(.01,.12,albedo.b-max(albedo.r,albedo.g*.85));
+  if(uDisguise>.5){float a=uDisguise>1.5?.55:-.62;vec3 k=vec3(.57735);albedo=clamp(albedo*cos(a)+cross(k,albedo)*sin(a)+k*dot(k,albedo)*(1.-cos(a)),0.,1.);}
   vec3 base=pow(albedo,vec3(2.2));c=shade(base,n,l,v,0.,mix(.88,.18,water),solarVisibility(vWorld,l));
   float day=smoothstep(-.12,.08,dot(n,l));c*=mix(.035,1.,day);
   c+=water*pow(max(dot(reflect(-l,n),v),0.),110.)*vec3(.65,.62,.55)*day;

@@ -15,7 +15,7 @@ export function createCosmos(systems){
  }
  // Rare expanding shells; positions are persistent astronomical scenery.
  for(const [i,kind] of [[9,2],[18,3]]){
-  const s=systems[i];volumes.push({id:'remnant-'+i,center:s.position.map((v,k)=>v+[2.7,1.6,-4.5][k]),axes:kind===2?[2.9,2.6,2.9]:[1.8,2.8,1.8],color:kind===2?[.14,.54,.66]:[.61,.25,.12],kind,strength:1.2,seed:i*2});
+  const s=systems[i];volumes.push({id:'remnant-'+i,center:s.position.map((v,k)=>v+[2.7,1.6,-4.5][k]),axes:kind===2?[2.9,2.6,2.9]:[1.8,2.8,1.8],color:kind===2?[.14,.54,.66]:[.61,.25,.12],kind,strength:kind===2?.22:1.2,seed:i*2});
  }
  for(let i=0;i<3;i++)volumes.push({id:'distant-galaxy-'+i,center:[[80,33,-110],[-115,25,-60],[30,-35,125]][i],axes:[[13,2,10],[11,4,13],[9,2,12]][i],color:[.42,.45,.66],kind:4,strength:.9,seed:i*31});
  return {seed:0x434f534d,regions,volumes,systems:systems.map(s=>({id:s.id,region:regionAt(s.position,regions).id}))};
