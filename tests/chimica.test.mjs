@@ -568,3 +568,39 @@ test('Chimica 21: acidi, basi e pH, numeri ricalcolati',()=>{
  assert.equal(r(0.034*8.4e-4*1e5,2),2.86);assert.equal(r(Math.sqrt(4.4e-7*2.86e-5)*1e6,1),3.5);assert.equal(r(pH(Math.sqrt(4.4e-7*2.86e-5)),2),5.45);assert.equal(r(pH(4.0e-5),1),4.4);
  assert.deepEqual([6.1,7.1,8.1].map(p=>{const q=10**(p-7.1);return r(q/(1+q),2);}),[0.09,0.5,0.91]);
 });
+
+test('Chimica 22: soluzioni tampone, numeri ricalcolati',()=>{
+ const lg=Math.log10,Ka=1.8e-5,Kw=1e-14,pKa=-lg(Ka);
+ const bis=(f,lo,hi)=>{for(let i=0;i<200;i++){const m=(lo+hi)/2;if(f(m)>0)hi=m;else lo=m;}return (lo+hi)/2;};
+ // Common ion.
+ const x=bis(v=>v*(0.1+v)/(0.1-v)-Ka,0,0.05);assert.equal(r(x*1e5,1),1.8);assert.equal(r(-lg(x),2),4.74);assert.equal(r(100*x/0.1,3),0.018);assert.equal(r(1.33/0.018,-1),70);
+ assert.equal(r(9.255,2),9.26);
+ // Henderson-Hasselbalch examples.
+ assert.equal(r(9.26+lg(0.2/0.3),2),9.08);assert.equal(r(10**(5-4.74),1),1.8);assert.equal(r(0.180*82.03,1),14.8);assert.equal(r(4.74+lg(4/6),2),4.56);
+ assert.equal(r(pKa+lg(4/6),2),4.57);
+ // Additions to 1 L of 0.100/0.100 buffer.
+ assert.equal(r(pKa+lg(0.09/0.11),2),4.66);assert.equal(r(pKa+lg(0.11/0.09),2),4.83);assert.equal(r(pKa+lg(0.01/0.19),2),3.47);
+ // Buffer capacity maximum for C = 0.10 M.
+ const beta=p=>{const h=10**-p;return 2.303*(Kw/h+h+0.1*Ka*h/(Ka+h)**2);};assert.equal(r(beta(pKa),3),0.058);
+ // Blood.
+ assert.equal(r(0.03*40,1),1.2);assert.equal(r(6.1+lg(24/1.2),2),7.4);assert.equal(r(6.1+lg(24/(0.03*60)),2),7.22);assert.equal(r(6.1+lg(24/(0.03*25)),2),7.61);
+ // Titrations.
+ const ph=(V,weak)=>{const Ct=0.1*25/(25+V),Na=0.1*V/(25+V);return bis(p=>{const h=10**-p,A=weak?Ct*Ka/(Ka+h):Ct;return -(h+Na-A-Kw/h);},-2,15);};
+ assert.equal(r(ph(0,false),2),1);assert.equal(r(ph(24.9,false),2),3.7);assert.equal(r(ph(25,false),2),7);assert.equal(r(ph(25.1,false),2),10.3);
+ assert.equal(r(ph(0,true),2),2.88);assert.equal(r(pKa+lg(0.5/2),2),4.14);assert.equal(r(ph(12.5,true),1),4.7);assert.equal(r(pKa,2),4.74);
+ assert.equal(r(Math.sqrt(5.6e-10*0.05)*1e6,1),5.3);assert.equal(r(ph(25,true),2),8.72);assert.equal(r(ph(30,true),2),11.96);
+ assert.equal(r((2.15+7.20)/2,1),4.7);assert.equal(r((7.20+12.38)/2,2),9.79);assert.equal(r(-lg(7.1e-3),2),2.15);assert.equal(r(-lg(4.2e-13),2),12.38);
+ // Ocean.
+ assert.equal(r(10**0.1,2),1.26);
+ // Exercises.
+ assert.equal(r(3.74+lg(0.15/0.25),2),3.52);assert.equal(r(10**-3.74*1e4,1),1.8);assert.equal(r(-lg(6.3e-5),2),4.2);
+ assert.equal(r(10**(9.00-9.26),2),0.55);assert.equal(r(0.20/0.55,2),0.36);assert.equal(r(0.20/10**(9.00-9.26)*53.49,1),19.5);
+ assert.equal(r(9.26+lg(0.12/0.13),2),9.23);
+ assert.equal(r(1e-14/1.8e-4*1e11,1),5.6);assert.equal(r(Math.sqrt(5.6e-11*0.06)*1e6,1),1.8);assert.equal(r(14+lg(Math.sqrt(5.6e-11*0.06)),2),8.26);
+ assert.equal(r(9.26+lg(7/3),2),9.63);assert.equal(r(24/10**(7.10-6.1),1),2.4);assert.equal(r(2.4/0.03,0),80);
+ assert.equal(r(0.05*0.9/1.1,3),0.041);
+ const xd=bis(v=>v*(1e-4+v)/(1e-4-v)-Ka,0,1e-4);assert.equal(r(xd*1e5,2),1.37);assert.equal(r(-lg(xd),2),4.86);
+ assert.equal(r(-lg(0.1/49),2),2.69);assert.equal(r(0.1/51*1e3,2),1.96);assert.equal(r(14+lg(0.1/51),2),11.29);
+ assert.equal(r(10**0.2,2),1.58);assert.equal(r(0.1/2.58,4),0.0388);assert.equal(r(0.1-0.1/2.58,4),0.0612);
+ const q=10**(4.4-4.74);assert.equal(r(q,3),0.457);assert.equal(r(q/(1+q),2),0.31);assert.equal(r(25*q/(1+q),0),8);assert.equal(r(100*(1-q/(1+q)),0),69);
+});
