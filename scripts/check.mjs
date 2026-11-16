@@ -9,6 +9,7 @@ const verify=(name,condition)=>{checks++;if(!condition)errors.push(name)};
 const json=f=>JSON.parse(readFileSync(resolve(root,f),'utf8'));
 for(const m of json('content/catalogue.json').modules){for(const k of ['lesson','quiz'])if(m[k])verify(m[k],existsSync(resolve(root,m[k])));if(m.source){const d=DOCUMENTS[docOf(m.source)];verify(m.id+' PDF source',m.source.file===d.file&&existsSync(resolve(root,d.file))&&m.source.pdfPages[0]>=1&&m.source.pdfPages[0]<=m.source.pdfPages.at(-1)&&m.source.pdfPages.at(-1)<=d.pages);}}
 for(const doc of Object.values(json('assets/reader/index.json')))for(const [type,v] of Object.entries(doc.variants)){verify(doc.key+' '+type+' dimensions',v.width>0&&v.height>0);for(const tile of v.tiles)verify(tile.file,existsSync(resolve(root,tile.file))&&statSync(resolve(root,tile.file)).size>0);}
+{const w=json('content/worlds/catalogue.json'),ids=json('content/catalogue.json').modules.map(m=>m.id);verify('worlds: 100 fenomeni',w.worlds.length===100&&w.worlds.every((x,i)=>x.unit===ids[i]));for(const x of w.worlds)verify('world '+x.unit+' kit',x.kits.every(k=>k in w.kits));}
 for(const d of Object.values(DOCUMENTS)){const pages=json(d.index);verify(d.index+' pagine',pages.length===d.pages);for(const p of pages)verify(p.file,existsSync(resolve(root,p.file)));}
 for(const p of json('assets/planets/manifest.json'))verify(p.path,existsSync(resolve(root,p.path)));
 const scan=dir=>readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?scan(resolve(dir,e.name)):[resolve(dir,e.name)]);

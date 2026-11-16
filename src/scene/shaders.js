@@ -8,8 +8,25 @@ vec3 film(vec3 x){return pow(clamp((x*(2.51*x+.03))/(x*(2.43*x+.59)+.14),0.,1.),
 `;
 export const vsMesh = `#version 300 es
 layout(location=0) in vec3 aPos;layout(location=1) in vec3 aNormal;layout(location=2) in vec2 aUV;layout(location=3) in vec4 aColor;layout(location=4) in vec4 aPBR;
-uniform mat4 uVP,uModel,uLightVP,uReflectionVP;uniform highp int uMaterial;out vec3 vNormal,vWorld,vLocal;out vec2 vUV;out vec4 vColor,vPBR,vShadow,vReflection;
-void main(){vec3 vertex=aPos;if(uMaterial==10&&aPBR.w>1.5&&aPBR.w<2.5)vertex.xz*=8.;vec4 p=uModel*vec4(vertex,1.);vWorld=p.xyz;vLocal=aPos;vNormal=normalize(mat3(uModel)*aNormal);vUV=aUV;vColor=aColor;vPBR=aPBR;vShadow=uLightVP*p;vReflection=uReflectionVP*p;gl_Position=uVP*p;}`;
+// Per-instance data for the planet phenomena: position and scale, colour and heading (or phase).
+layout(location=5) in vec4 aInst;layout(location=6) in vec4 aInstC;
+uniform mat4 uVP,uModel,uLightVP,uReflectionVP;uniform highp int uMaterial,uInstanced;uniform vec4 uMotion;uniform float uTime;out vec3 vNormal,vWorld,vLocal;out vec2 vUV;out vec4 vColor,vPBR,vShadow,vReflection;
+vec3 turn(vec3 v,float a){float c=cos(a),s=sin(a);return vec3(c*v.x+s*v.z,v.y,-s*v.x+c*v.z);}
+void main(){vec3 vertex=aPos,normal=aNormal;vec4 color=aColor;if(uMaterial==10&&aPBR.w>1.5&&aPBR.w<2.5)vertex.xz*=8.;
+ if(uInstanced>0){
+  // 1 static (optional sway), 2 rising particles, 3 animals walking on small circles.
+  vec3 base=aInst.xyz;float s=aInst.w,a=aInstC.w;
+  if(uInstanced==1&&uMotion.z>0.)vertex.x+=sin(uTime*1.3+a*3.)*uMotion.z*max(vertex.y,0.);
+  if(uInstanced==2){float t=fract(uTime*uMotion.x+a*.1592);base.y+=t*uMotion.y;base.x+=sin(t*6.283+a)*uMotion.z;s*=(1.-t)*(.4+t*2.2);}
+  if(uInstanced==3){float w=uTime*uMotion.x*(.7+.6*fract(a*7.13))+a;base.x+=cos(w)*uMotion.y;base.z+=sin(w)*uMotion.y;a=atan(-cos(w),-sin(w));base.y+=abs(sin(w*9.))*.06;}
+  vertex=turn(vertex,a)*s+base;normal=turn(normal,a);
+  // The instance colour replaces only the white parts of a mesh (petals, bodies, water), so centres, stems and legs keep their own colour.
+  if(min(color.r,min(color.g,color.b))>.97)color.rgb*=aInstC.rgb;
+ }
+ // Open sea of the phenomenon worlds: tide offset plus three travelling waves.
+ if(uMaterial==18&&uInstanced==0){vec2 q=vertex.xz;float t=uTime;vertex.y+=uMotion.x+uMotion.y*(sin(q.x*.21+t*.9)*.5+sin(q.x*.07+q.y*.18-t*.6)*.35+sin(q.y*.33+t*1.3)*.15);
+  float dx=uMotion.y*(cos(q.x*.21+t*.9)*.105+cos(q.x*.07+q.y*.18-t*.6)*.0245),dz=uMotion.y*(cos(q.x*.07+q.y*.18-t*.6)*.063+cos(q.y*.33+t*1.3)*.0495);normal=normalize(vec3(-dx,1.,-dz));}
+ vec4 p=uModel*vec4(vertex,1.);vWorld=p.xyz;vLocal=aPos;vNormal=normalize(mat3(uModel)*normal);vUV=aUV;vColor=color;vPBR=aPBR;vShadow=uLightVP*p;vReflection=uReflectionVP*p;gl_Position=uVP*p;}`;
 export const fsMesh = `#version 300 es
 precision highp float;
 in vec3 vNormal,vWorld,vLocal;in vec2 vUV;in vec4 vColor,vPBR,vShadow,vReflection;out vec4 outColor;
@@ -30,6 +47,12 @@ void main(){
  vec3 n=normalize(vNormal),l=normalize(uLight),v=normalize(uEye-vWorld),p=normalize(vLocal),c=vColor.rgb*uTint.rgb;float alpha=uOpacity*vColor.a;
  // Flat colour for map markers and orbit lines: the tint is the colour, independent of the light.
  if(uMaterial==16){outColor=vec4(uTint.rgb*(.82+.18*abs(dot(n,v))),alpha);return;}
+ // Water of the phenomenon worlds (sea and lakes): colour from the instance or the tint, fresnel and sun glint.
+ if(uMaterial==18){c=pow(c,vec3(2.2));float a1=vWorld.x*1.7+vWorld.z*.9+uTime*.7,b1=vWorld.z*2.3-vWorld.x*.6-uTime*.5;vec3 nn=normalize(n+vec3(cos(a1)*.05+cos(b1*1.7)*.02,0,sin(b1)*.05+sin(a1*1.9)*.02));
+  float fres=pow(1.-max(0.,dot(nn,v)),4.),glint=pow(max(dot(reflect(-l,nn),v),0.),90.);vec3 col=c*(.42+.62*max(dot(nn,l),0.))+vec3(.16,.24,.3)*fres*.6+vec3(1.9,1.7,1.4)*glint;
+  float fog=1.-exp(-length(uEye-vWorld)*uFog*.8);col=mix(film(col*.78),uFogColor,clamp(fog,0.,.8));outColor=vec4(col,alpha*(.86+.14*fres));return;}
+ // Soft puffs (steam, spores): opaque towards the centre of each small sphere.
+ if(uMaterial==19){float f=pow(max(dot(n,v),0.),2.6);outColor=vec4(film(c*(.55+.45*max(dot(n,l),0.))),alpha*f);return;}
  // Star glow: transparent at the rim of the sphere, denser towards the centre of the disc.
  if(uMaterial==17){float f=dot(n,v);if(f<0.)discard;outColor=vec4(uTint.rgb,alpha*pow(f,2.4)*.6);return;}
  if(uMaterial==6){
@@ -46,7 +69,7 @@ void main(){
   if(uMaterial==15)l=normalize(uCenter-vWorld);
   vec2 uv=uDisguise>.5?vec2(1.-vUV.x,1.-vUV.y):vUV;vec3 albedo=texture(uTex,uv).rgb;float water=uOcean*smoothstep(.01,.12,albedo.b-max(albedo.r,albedo.g*.85));
   if(uDisguise>.5){float a=uDisguise>1.5?.55:-.62;vec3 k=vec3(.57735);albedo=clamp(albedo*cos(a)+cross(k,albedo)*sin(a)+k*dot(k,albedo)*(1.-cos(a)),0.,1.);}
-  vec3 base=pow(albedo,vec3(2.2));c=shade(base,n,l,v,0.,mix(.88,.18,water),solarVisibility(vWorld,l));
+  vec3 base=pow(albedo,vec3(2.2))*uTint.rgb;c=shade(base,n,l,v,0.,mix(.88,.18,water),solarVisibility(vWorld,l));
   float day=smoothstep(-.12,.08,dot(n,l));c*=mix(.035,1.,day);
   c+=water*pow(max(dot(reflect(-l,n),v),0.),110.)*vec3(.65,.62,.55)*day;
   if(uMaterial==15)c*=.12;

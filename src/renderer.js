@@ -214,6 +214,29 @@ export class GPU {
         this.meshes.set(id, { vao, vertexBuffer: b, indexBuffer: ib, count: data.i.length, stride: data.stride || 12 });
         return id;
     }
+    /** Instances of an existing mesh: 8 floats each (x, y, z, scale, r, g, b, heading or phase). */
+    makeInstances(key, meshId, data) {
+        const gl = this.gl, m = this.meshes.get(meshId);if (!m) throw Error('Mesh mancante per le istanze: ' + meshId);
+        this.instanceSets ||= new Map();if (this.instanceSets.has(key)) this.deleteInstances(key);
+        const vao = gl.createVertexArray();gl.bindVertexArray(vao);gl.bindBuffer(gl.ARRAY_BUFFER, m.vertexBuffer);
+        for (let [i, size, offset] of [[0, 3, 0], [1, 3, 12], [2, 2, 24], [3, 4, 32]]) { gl.enableVertexAttribArray(i); gl.vertexAttribPointer(i, size, gl.FLOAT, false, m.stride * 4, offset); }
+        if (m.stride === 16) { gl.enableVertexAttribArray(4); gl.vertexAttribPointer(4, 4, gl.FLOAT, false, 64, 48); }
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, m.indexBuffer);
+        const buffer = gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER, buffer);gl.bufferData(gl.ARRAY_BUFFER, data, gl.DYNAMIC_DRAW);
+        for (const [i, offset] of [[5, 0], [6, 16]]) { gl.enableVertexAttribArray(i); gl.vertexAttribPointer(i, 4, gl.FLOAT, false, 32, offset); gl.vertexAttribDivisor(i, 1); }
+        gl.bindVertexArray(null);
+        this.instanceSets.set(key, { vao, buffer, mesh: meshId, n: data.length / 8, capacity: data.length / 8 });
+        return key;
+    }
+    /** Replace instance data; a larger set reallocates the buffer. */
+    updateInstances(key, data) {
+        const set = this.instanceSets?.get(key);if (!set) return;const gl = this.gl;gl.bindBuffer(gl.ARRAY_BUFFER, set.buffer);
+        if (data.length / 8 > set.capacity) { gl.bufferData(gl.ARRAY_BUFFER, data, gl.DYNAMIC_DRAW); set.capacity = data.length / 8; } else gl.bufferSubData(gl.ARRAY_BUFFER, 0, data);
+        set.n = data.length / 8;
+    }
+    deleteInstances(key) {
+        const set = this.instanceSets?.get(key);if (!set) return;this.gl.deleteVertexArray(set.vao);this.gl.deleteBuffer(set.buffer);this.instanceSets.delete(key);
+    }
     makeStars(data, background = false) {
         let gl = this.gl;
         if (background && !this.backgroundVao) this.backgroundVao = gl.createVertexArray();
@@ -361,10 +384,11 @@ export class GPU {
         g.uniformMatrix4fv(this.uniform(p,'uVP'),false,vp);g.uniform1f(this.uniform(p,'uPixels'),this.h*this.dpr*this.sceneScale*(background ? .22 : .087));g.uniform1f(this.uniform(p,'uTime'),this.time);
         g.uniform1i(this.uniform(p,'uHoverStar'),background?-1:(this.hoverStarIndex??-1));g.uniform1f(this.uniform(p,'uGain'),gain);const submitted=Math.min(count,(background ? this.backgroundCount : this.starCount)-offset);g.drawArrays(g.POINTS,offset,submitted);this.frameStats.stars+=submitted;this.frameStats.starDrawCalls++;g.depthMask(true);g.disable(g.BLEND);
     }
-    drawMesh(id, vp, model, { texture = null, tint = [1,1,1,1], opacity = 1, rim = 0, emission = 0, eye = [0,8,40], light = [.4,1,.7], material = 0, seed = 0, center = [0,0,0], radius = 5.3, atmosphere = [.11,.36,.81], ocean = false, disguise = 0, occluders = [] } = {}) {
-        const m=this.meshes.get(id);if(!m)return;
-        const g=this.gl,p=this.pMesh;g.useProgram(p);g.bindVertexArray(m.vao);
-        if(m.stride!==16)g.vertexAttrib4f(4,0,.65,0,0);
+    drawMesh(id, vp, model, { texture = null, tint = [1,1,1,1], opacity = 1, rim = 0, emission = 0, eye = [0,8,40], light = [.4,1,.7], material = 0, seed = 0, center = [0,0,0], radius = 5.3, atmosphere = [.11,.36,.81], ocean = false, disguise = 0, occluders = [], instances = null, instanceMode = 1, count = null, motion = [0,0,0,0], pbr = [0,.65,0,0] } = {}) {
+        const m=this.meshes.get(id);if(!m)return;const set=instances?this.instanceSets?.get(instances):null;if(instances&&!set)return;
+        const g=this.gl,p=this.pMesh;g.useProgram(p);g.bindVertexArray(set?set.vao:m.vao);
+        if(m.stride!==16)g.vertexAttrib4f(4,...pbr);
+        g.uniform1i(this.uniform(p,'uInstanced'),set?instanceMode:0);g.uniform4fv(this.uniform(p,'uMotion'),motion);
         for(const [name,value] of Object.entries({uVP:vp,uModel:model,uLightVP:this.lightVP,uReflectionVP:this.reflectionVP}))g.uniformMatrix4fv(this.uniform(p,name),false,value);
         for(const [name,value] of Object.entries({uEye:eye,uLight:light,uCenter:center,uFogColor:this.fogColor,uAtmosColor:atmosphere}))g.uniform3fv(this.uniform(p,name),value);
         g.uniform4fv(this.uniform(p,'uTint'),tint);g.uniform1i(this.uniform(p,'uMaterial'),material);
@@ -374,7 +398,7 @@ export class GPU {
         g.activeTexture(g.TEXTURE1);g.bindTexture(g.TEXTURE_2D,this.shadowTexture||this.blank);g.uniform1i(this.uniform(p,'uShadow'),1);
         g.activeTexture(g.TEXTURE2);g.bindTexture(g.TEXTURE_2D,!this.inReflection&&this.reflectionTexture?this.reflectionTexture:this.blank);g.uniform1i(this.uniform(p,'uReflection'),2);
         if(opacity<1){g.enable(g.BLEND);g.blendFunc(g.SRC_ALPHA,g.ONE_MINUS_SRC_ALPHA);g.depthMask(false);}
-        g.drawElements(g.TRIANGLES,m.count,g.UNSIGNED_INT,0);
+        if(set){const n=Math.min(set.n,count??set.n);if(n>0)g.drawElementsInstanced(g.TRIANGLES,m.count,g.UNSIGNED_INT,0,n);}else g.drawElements(g.TRIANGLES,m.count,g.UNSIGNED_INT,0);
         if(opacity<1){g.depthMask(true);g.disable(g.BLEND);}
         g.activeTexture(g.TEXTURE0);
     }

@@ -33,6 +33,13 @@ La qualità alta usa la risoluzione della scena al 100%, bilanciata all’80%, r
 - Sistema: raggio disegnato dei pianeti con `displayRadius`, orbite delle unità nel colore della disciplina, alone della stella nel suo colore, esposizione delle nebulose ridotta a 0,42 nel sistema e 0,55 in orbita (0,72 in galassia). Numeri e nomi dei pianeti sono disegnati dall'interfaccia sulle proiezioni dei pianeti.
 - Orbita: la camera sta a circa 65° dalla direzione della stella, così il confine fra giorno e notte è visibile. Sul telefono il pianeta occupa la metà superiore e la scheda quella inferiore.
 
+## Mondi dei pianeti (1.16.0)
+
+- `src/worlds/pilots.js` descrive i quattro mondi prototipo: stato calcolato dal modello dell'unità, righe del pannello, costruzione delle istanze e disegno. `src/worlds/geometry.js` contiene le mesh (margherita, animale da pascolo, ciuffo d'erba, bocca geotermica, disco, piano del mare).
+- `renderer.js` disegna a istanze (`makeInstances`, `updateInstances`, opzione `instances` di `drawMesh`): 8 valori per istanza (posizione, scala, colore, direzione o fase). Il colore dell'istanza sostituisce solo le parti bianche della mesh.
+- Nel vertex shader `uInstanced` sceglie il moto: 1 fermo con oscillazione leggera, 2 particelle che salgono, 3 animali che camminano su piccoli cerchi. Il materiale 18 è l'acqua dei mondi (mare con marea e onde nel vertex shader, laghi colorati), il 19 il vapore.
+- La superficie di atterraggio resta quella esportata da Blender; il mondo vi aggiunge i propri oggetti. Il mare delle maree sostituisce l'acqua della superficie «marea». Per i quattro pianeti la famiglia è fissata in `systems.js`, così la superficie corrisponde al fenomeno.
+
 ## Riprodurre l'export
 
 Richiede Blender 4.3 e il suo Python con numpy:

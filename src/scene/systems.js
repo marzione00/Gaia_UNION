@@ -41,7 +41,10 @@ export const areaOf = index => AREAS[systemForPlanet(index)];
 export function unitPlace(index) { const area = areaOf(index); return { position: area.units.indexOf(index) + 1, count: area.units.length }; }
 // Planet families tied to the landing surfaces of the four web lessons and to the prototype units:
 // a glacial world for logic, a volcanic one for molecular shapes, a living one for Mendel's greenhouse.
-const UNIT_ANCHORS = { 1:'oceanic', 2:'desert', 3:'volcanic', 7:'terrestrial', 0:'arctic', 57:'volcanic', 83:'terrestrial' };
+// The four prototype worlds of the phenomena (src/worlds/pilots.js) need the matching landing
+// surface: sea for the herd island (20) and the tides (36), volcanic ground for the cobalt lakes (69),
+// meadows for Daisyworld (99).
+const UNIT_ANCHORS = { 1:'oceanic', 2:'desert', 3:'volcanic', 7:'terrestrial', 0:'arctic', 57:'volcanic', 83:'terrestrial', 20:'oceanic', 36:'oceanic', 69:'volcanic', 99:'terrestrial' };
 
 export const SYSTEM_SEED = 0x47414941;
 const architectureCache=new Map();

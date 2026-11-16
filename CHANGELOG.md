@@ -1,3 +1,16 @@
+# 1.16.0: Un fenomeno per pianeta, quattro prototipi in 3D
+
+- Catalogo dei 100 fenomeni, uno per pianeta, legati al modello della rispettiva unità (`content/worlds/catalogue.json`, tabella leggibile in `docs/MONDI.md`): che cosa si vede, quale grandezza del modello lo comanda, kit 3D, superficie proposta e, dove c'è, il ruolo nella cornice di Gaia. Gli altri 96 sono proposte da approvare.
+- Quattro mondi prototipo in superficie, comandati dal modello dell'unità:
+  - Daisyworld («Biosfera, albedo e sistemi accoppiati»): margherite chiare e scure a chiazze; l'albedo A fissa le coperture con gli albedo del laboratorio Daisyworld (0,75, 0,25 e 0,5 per il suolo), la temperatura radiativa è quella del modello. Dall'orbita il pianeta schiarisce o scurisce con A.
+  - Laghi del cobalto («Perturbazioni dell'equilibrio»): nove laghi geotermici fra 15 e 95 °C, rosa dove la forma rosa prevale e blu dove prevale quella blu, con K(T) del modello; vapore sui laghi caldi e etichette con temperatura e frazione blu.
+  - Maree di una luna vicina («Gravitazione»): mare con due alte maree per ogni passaggio della luna, ampiezza proporzionale a μ/r³ e luna più grande quando è più vicina.
+  - Il branco dell'isola («Iterazioni, stabilità e precisione numerica»): il numero di animali di ogni stagione segue la mappa logistica; l'erba ricresce dove la stagione precedente ha brucato meno; il pannello indica il regime (estinzione, valore stabile, oscillazione, caos).
+- Pannello «Fenomeno del pianeta» in superficie con i numeri del modello e i comandi − e +: parte dai parametri del laboratorio dell'unità e le modifiche restano sul pianeta, senza cambiare il laboratorio. La scheda in orbita indica il fenomeno di ogni pianeta.
+- Motore: disegno a istanze, particelle e animali animati nel vertex shader, acqua dei mondi con marea e onde; sul telefono la camera inquadra il fenomeno.
+- Famiglie fissate per i quattro pianeti, per avere la superficie giusta: di conseguenza due pianeti delle stesse aree («Limiti, variazione e accumulazione» e «Momenti, leve ed equilibrio») passano da oceanico a vulcanico.
+- Test sui mondi: catalogo completo, superfici dei prototipi, coperture di Daisyworld, monotonia della frazione blu con il segno di ΔH, proporzionalità delle maree, stati e regimi della mappa logistica.
+
 # 1.15.0: Dispensa di fisica
 
 - Aggiunta la dispensa «Fisica generale e moderna» (bozza revisionata, revisione 1 del 25 ottobre 2026), compilata dai sorgenti LaTeX nella variante digitale a pagina singola: `materials/fisica-generale-e-moderna.pdf`, 726 pagine.
