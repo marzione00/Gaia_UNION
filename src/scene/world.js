@@ -9,7 +9,16 @@ import { planetProfile } from './assets.js';
 import { DISCIPLINE } from '../ui/toolkit.js';
 import { pilotWorld } from '../worlds/pilots.js';
 import { planetSurface, surfaceScatter, systemStarLight } from '../worlds/surface.js';
-import { tuft, rock, station as stationMesh, seaPlane } from '../worlds/geometry.js';
+import { tuft, rock, station as stationMesh, seaPlane, grazer, frond, tree, column, cushion, cup, patch, hexapod, flyer, floater, beacon, curtain } from '../worlds/geometry.js';
+/** Mesh, instance mode, motion uniform and PBR of each body plan of the species (src/worlds/species.js). */
+const BODIES = {
+    tuft: ['world-tuft', 1, [0, 0, .06, 0], [0, .8, .02, 3]], frond: ['sp-frond', 1, [0, 0, .03, 0], [0, .75, .02, 3]], tree: ['sp-tree', 1, [0, 0, .012, 0], [0, .8, .02, 3]],
+    column: ['sp-column', 1, [0, 0, 0, 0], [0, .6, .02, 3]], cushion: ['sp-cushion', 1, [0, 0, 0, 0], [0, .85, .02, 3]], cup: ['sp-cup', 1, [0, 0, .02, 0], [0, .6, .12, 3]], patch: ['sp-patch', 1, [0, 0, 0, 0], [0, .9, 0, 3]],
+    grazer: ['sp-grazer', 3, [.05, 1.6, 0, 0], [0, .7, 0, 0]], hexapod: ['sp-hexapod', 3, [.08, 1.2, 0, 0], [0, .45, 0, 0]], flyer: ['sp-flyer', 4, [.12, 9, 0, 0], [0, .6, 0, 0]], floater: ['sp-floater', 3, [.025, 2.5, 0, 0], [0, .35, .05, 0]]
+};
+const MESHES = { 'sp-frond': frond, 'sp-tree': tree, 'sp-column': column, 'sp-cushion': cushion, 'sp-cup': cup, 'sp-patch': patch, 'sp-grazer': grazer, 'sp-hexapod': hexapod, 'sp-flyer': flyer, 'sp-floater': floater, 'planet-beacon': beacon };
+/** Colour of the marker of each kind of place. */
+export const PLACE_TINTS = { vetta: [.95, .82, .45, 1], forma: [.55, .82, .98, 1], costa: [.45, .9, .85, 1], evento: [.95, .55, .85, 1] };
 /** Drawn radius: the scale is illustrative, so planets of the units are enlarged to be read and
  * picked, ambient bodies slightly. Orbits keep their computed spacing. */
 export const displayRadius = body => body.radius * (body.explorable ? 1.55 : 1.1);
@@ -134,8 +143,20 @@ export class World {
         this.surface = s; this.biome = s.key;
         if (this.uploadedPlanet !== s.key) {
             const R = this.R; R.makeMesh('planet-terrain', s.mesh);
-            if (!this.planetMeshes) { R.makeMesh('world-tuft', tuft()); R.makeMesh('world-rock', rock()); R.makeMesh('planet-station', stationMesh()); R.makeMesh('planet-sea', seaPlane(900, 900, 180, 180)); this.planetMeshes = true; }
-            if (R.makeInstances) { const sc = surfaceScatter(s), pack = l => { const a = new Float32Array(Math.max(1, l.length) * 8); l.forEach((o, i) => a.set([o.x, o.y, o.z, o.s, o.r, o.g, o.b, o.h], i * 8)); return a; }; R.makeInstances('planet-plants', 'world-tuft', pack(sc.plants)); R.makeInstances('planet-rocks', 'world-rock', pack(sc.rocks)); this.planetCounts = [sc.plants.length, sc.rocks.length]; }
+            if (!this.planetMeshes) { R.makeMesh('world-tuft', tuft()); R.makeMesh('world-rock', rock()); R.makeMesh('planet-station', stationMesh()); R.makeMesh('planet-sea', seaPlane(900, 900, 180, 180)); for (const [id, make] of Object.entries(MESHES)) R.makeMesh(id, make()); this.planetMeshes = true; }
+            // Species, rocks, geyser plume and aurora of this planet.
+            const sc = surfaceScatter(s), pack = l => { const a = new Float32Array(Math.max(1, l.length) * 8); l.forEach((o, i) => a.set([o.x, o.y, o.z, o.s, o.r, o.g, o.b, o.h], i * 8)); return a; };
+            this.population = sc.species; this.planetCounts = [sc.species.reduce((n, p) => n + p.instances.length, 0), sc.rocks.length];
+            if (R.makeInstances) {
+                for (let k = 0; k < 8; k++) R.deleteInstances?.('planet-sp-' + k);
+                R.makeInstances('planet-rocks', 'world-rock', pack(sc.rocks));
+                sc.species.forEach((p, k) => { if (p.instances.length) R.makeInstances('planet-sp-' + k, BODIES[p.species.mesh][0], pack(p.instances)); });
+                R.deleteInstances?.('planet-geyser');
+                const geyser = s.places.find(p => p.event === 'eruzione di geyser');
+                if (geyser) { const r = random(s.index + 77), q = geyser.position; R.makeInstances('planet-geyser', 'lowSphere', pack(Array.from({ length: 46 }, () => ({ x: q[0] + (r() - .5) * 1.2, y: q[1] + .2, z: q[2] + (r() - .5) * 1.2, s: .7 + r() * .8, r: .92, g: .94, b: .96, h: r() * 6.283 })))); }
+            }
+            if (s.genome.events.includes('aurora')) R.makeMesh('planet-aurora', curtain(Math.atan2(-Math.cos(.6), -Math.sin(.6)) - .35, 1.5, s.index % 7));
+            this.aurora = s.genome.events.includes('aurora');
             this.uploadedPlanet = s.key; this.builtWorld = null; this.towers = s.stations.map(t => t.position); this.terrain = { height: new Map(s.grid.cells.map((p, i) => [String(i), p])) };
         }
     }
@@ -175,8 +196,9 @@ export class World {
         }else if(scene==='surface'){
             // Prototype worlds may ask for their own framing (for example a low camera for the sky).
             // Generated surfaces use a lower camera with the horizon in view; the old surfaces keep theirs.
-            const gen=this.surface?.heightAt,wc=s.worldCamera,angle=.6+s.yaw*.5,base=wc?wc.pitch:gen?.2:.58,pitch=Math.max(gen||wc?.06:.24,Math.min(.96,base+(s.pitch-.45)*.6)),distance=wc?wc.distance:gen?64:52;
-            const fc=s.worldFocus,tx=w<850?(fc?fc[0]:gen?-4:-3):gen?2:3,tz=w<850?(fc?fc[1]:gen?8:-1):gen?2:-2,ty=wc?wc.targetY:gen?Math.max(this.surface.seaY??-99,this.surface.heightAt(tx,tz))+3:1.8;
+            // In exploration (blend b from 0 to 1) the camera follows a focus point on the ground, closer and higher.
+            const gen=this.surface?.heightAt,b=gen&&s.exploreFocus?(s.exploreBlend??1):0,wc=b>0?null:s.worldCamera,angle=.6+s.yaw*.5,base=wc?wc.pitch:gen?.2+.22*b:.58,pitch=Math.max(gen||wc?.06:.24,Math.min(.96,base+(s.pitch-.45)*.6)),distance=wc?wc.distance:gen?64+((w<850?42:36)-64)*b:52;
+            const fc=s.worldFocus,x0=w<850?(fc?fc[0]:gen?-4:-3):gen?2:3,z0=w<850?(fc?fc[1]:gen?8:-1):gen?2:-2,tx=b?x0+(s.exploreFocus[0]-x0)*b:x0,tz=b?z0+(s.exploreFocus[1]-z0)*b:z0,ty=wc?wc.targetY:gen?Math.max(this.surface.seaY??-99,this.surface.heightAt(tx,tz))+3:1.8;
             eye=[tx+Math.sin(angle)*distance*Math.cos(pitch),Math.sin(pitch)*distance+2+(gen?ty-3:0),tz+Math.cos(angle)*distance*Math.cos(pitch)];target=[tx,ty,tz];fov=gen?.72:.60;
             if(gen)eye[1]=Math.max(eye[1],Math.max(this.surface.heightAt(eye[0],eye[2]),this.surface.seaY??-99)+5);
         }else if(scene==='research')eye=[Math.sin(s.yaw*.12)*3,1,37];
@@ -283,7 +305,12 @@ export class World {
             const unit=data?.modules?.[s.selected]?.id,world=unit&&s.worldState?pilotWorld(unit):null,id=transform();
             R.drawMesh('planet-terrain',this.vp,id,{eye:this.eye,light,lightColor,material:10});
             if(S0.seaY!==null&&!world?.hidesWater)R.drawMesh('planet-sea',this.vp,id,{eye:this.eye,light,lightColor,material:18,tint:[...S0.water.map(v=>Math.min(1,v*1.6)),1],motion:[S0.seaY,.12,0,0],opacity:.96});
-            if(R.instanceSets?.has('planet-plants'))R.drawMesh('world-tuft',this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:'planet-plants',instanceMode:1,motion:[0,0,.06,0],pbr:[0,.8,.02,3]});
+            // Lower graphics settings draw a subset of each species (instances are spread over the clusters).
+            const share=R.sceneQuality==='low'?.4:R.sceneQuality==='balanced'?.7:1;
+            (this.population||[]).forEach((p,k)=>{const b=BODIES[p.species.mesh];if(p.instances.length)R.drawMesh(b[0],this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:'planet-sp-'+k,instanceMode:b[1],motion:b[2],pbr:b[3],count:Math.max(1,Math.ceil(p.instances.length*share))});});
+            if(R.instanceSets?.has('planet-geyser'))R.drawMesh('lowSphere',this.vp,id,{eye:this.eye,light,material:19,instances:'planet-geyser',instanceMode:2,motion:[.16,10,.7,0],opacity:.32});
+            // Aurora in sky coordinates around the eye, swaying slowly; drawn after the ground, so the relief hides it.
+            if(this.aurora){const m=transform(...this.eye,1,Math.sin(s.time*.05)*.03);R.drawMesh('planet-aurora',this.vp,m,{eye:this.eye,material:16,tint:[.35,1,.62,1],opacity:.4});const m2=transform(this.eye[0],this.eye[1]+18,this.eye[2],1.04,Math.sin(s.time*.05+1)*.03);R.drawMesh('planet-aurora',this.vp,m2,{eye:this.eye,material:16,tint:[1,.35,.5,1],opacity:.18});}
             if(R.instanceSets?.has('planet-rocks'))R.drawMesh('world-rock',this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:'planet-rocks',instanceMode:1,pbr:[0,.9,0,1]});
             // Moons above the horizon, right of the default view, where the sky is clear of the title.
             for(const m of S0.moons){const az=Math.atan2(-Math.cos(.6),-Math.sin(.6))+m.azimuth,d=320,pos=[Math.cos(az)*d,Math.tan(m.elevation*.7)*d+6,Math.sin(az)*d];const back=normal(this.eye.map((v,i)=>v-pos[i])),moonLight=normal(light.map((v,i)=>v+back[i]*.7));R.drawMesh('sphere',this.vp,transform(...pos,m.size),{eye:this.eye,light:moonLight,material:12,texture:this.textures.moon});}
@@ -296,7 +323,17 @@ export class World {
                 const p=station.position,label=station.labelPosition,selected=station.index===s.station;
                 R.drawMesh('planet-station',this.vp,transform(p[0],p[1],p[2],.68,.4*station.index),{eye:this.eye,light,lightColor,material:10,pbr:[.1,.5,.05,4]});
                 if(selected)R.drawMesh('ring',this.vp,transform(p[0],p[1]+.35,p[2],station.radius*1.08),{eye:this.eye,tint:TINTS[station.index],emission:.7,opacity:.7});
-                this.projections.push({type:'station',index:station.index,...xyToObj(project(label,this.vp,R.w,R.h)),r:28,position:p,worldRadius:station.radius});
+                if(!s.explore)this.projections.push({type:'station',index:station.index,...xyToObj(project(label,this.vp,R.w,R.h)),r:28,position:p,worldRadius:station.radius});
+            }
+            // Exploration: markers of the places and a ring around the selected species or place.
+            if(s.explore){
+                S0.places.forEach((p,k)=>{const q=p.position,on=s.exploreTarget?.type==='place'&&s.exploreTarget.index===k;
+                    R.drawMesh('planet-beacon',this.vp,transform(q[0],q[1],q[2],1),{eye:this.eye,light,lightColor,material:10,pbr:[.2,.5,0,4]});
+                    R.drawMesh('lowSphere',this.vp,transform(q[0],q[1]+5.3,q[2],on?.55:.42),{eye:this.eye,material:16,tint:PLACE_TINTS[p.kind]});
+                    if(on)R.drawMesh('ring',this.vp,transform(q[0],q[1]+.3,q[2],3.2),{eye:this.eye,tint:PLACE_TINTS[p.kind],emission:.7,opacity:.75});
+                    this.projections.push({type:'place',index:k,...xyToObj(project([q[0],q[1]+6.6,q[2]],this.vp,R.w,R.h)),r:26,position:q});});
+                const t=s.exploreTarget,c=t?.type==='species'?this.population?.[t.index]?.centre:null;
+                if(c)R.drawMesh('ring',this.vp,transform(c[0],c[1]+.3,c[2],7),{eye:this.eye,tint:[.6,.95,.7,1],emission:.7,opacity:.6});
             }
         }
         else if (scene === 'research') {
@@ -324,6 +361,13 @@ export class World {
             R.drawMesh('sphere', this.vp, transform(10, 0, -13, 7, s.time * .023), { texture: this.textures.earth, eye: this.eye, rim: .4, opacity: .48 });
         }
     }
+    /** Nearest species (by its individuals) or place within `radius` of a ground point, for exploration. */
+    nearest(point, radius = 7) {
+        let best = null, d0 = radius;
+        (this.population || []).forEach((p, k) => { for (const o of p.instances) { const d = Math.hypot(o.x - point[0], o.z - point[2]); if (d < d0) { d0 = d; best = { type: 'species', index: k }; } } });
+        (this.surface?.places || []).forEach((p, k) => { const d = Math.hypot(p.position[0] - point[0], p.position[2] - point[2]); if (d < d0 + 2) { d0 = d - 2; best = { type: 'place', index: k }; } });
+        return best;
+    }
     pick(x, y, s) {
         if(this.cameraProgress<1)return null;
         if(s.scene==='galaxy')return pickProjected(this.projections,x,y);
@@ -338,6 +382,8 @@ export class World {
             const f=normal(this.target.map((v,i)=>v-this.eye[i])),right=normal(cross(f,[0,1,0])),up=cross(right,f),t=Math.tan(this.fov/2);
             const direction=normal(f.map((v,i)=>v+right[i]*(2*x/this.R.w-1)*t*this.R.w/this.R.h+up[i]*(1-2*y/this.R.h)*t));
             const label=this.projections.find(p=>p.depth>0&&Math.hypot(p.x-x,p.y-y)<p.r);if(label)return label;
+            // Exploration: the first point where the ray meets the ground or the sea.
+            if(s.explore&&this.surface.heightAt){const S0=this.surface;for(let t=1;t<420;t+=.5){const q=this.eye.map((v,i)=>v+direction[i]*t);if(Math.abs(q[0])>110||Math.abs(q[2])>110)break;const ground=Math.max(S0.heightAt(q[0],q[2]),S0.seaY??-99);if(q[1]<=ground)return {type:'ground',point:[q[0],ground,q[2]]};}return null;}
             let hit=null,near=Infinity;
             for(const station of this.surface.stations){const center=[station.position[0],(station.position[1]+station.labelPosition[1])*.5,station.position[2]],d=raySphere(this.eye,direction,center,station.radius);if(d!==null&&d<near){near=d;hit={type:'station',index:station.index};}}
             return hit;

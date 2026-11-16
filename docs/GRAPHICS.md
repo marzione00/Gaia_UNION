@@ -47,6 +47,15 @@ La qualità alta usa la risoluzione della scena al 100%, bilanciata all’80%, r
 - Le lune hanno azimut fra 0,10 e 0,29 rad a destra della direzione iniziale della camera, così sugli schermi larghi restano fra il titolo e il pannello delle stazioni. `Renderer.shadeRect` disegna un rettangolo con alfa interpolata sui vertici; `titleShade` lo usa dietro il titolo delle superfici sugli schermi larghi.
 - Il cielo delle superfici usa `uSkyTop`, `uSunColor` e `uStars`; terreno e acqua usano `uLightColor`, il colore della stella. Nella vista del sistema la stella prende il colore del tipo indicato dalla carta.
 
+## Specie, luoghi ed esplorazione (1.19.0)
+
+- `src/worlds/species.js` ricava le specie di ogni pianeta dalla carta: la famiglia decide le forme possibili (sette forme di piante, quattro di animali), l’atmosfera e il mare le filtrano (volatori solo con densità almeno 0,45, colonie galleggianti solo con livello del mare almeno 0,3), il tipo di stella dà il colore delle foglie, la gravità le proporzioni (scala delle piante proporzionale a g^-0,6, degli animali a g^-0,35). I generi sono unici in tutta la galassia. Totale: 310 specie (180 piante, 130 animali); i 14 pianeti craterizzati, quasi senza atmosfera, non ne hanno.
+- Ogni specie ha da una a quattro caratteristiche spiegate: forma, colore delle foglie (sulla linea delle ipotesi di Kiang e colleghi, 2007, sui pigmenti sotto altre stelle), gravità, clima. Sono ipotesi illustrative.
+- `src/worlds/places.js` dà a ogni pianeta il punto più alto, la forma tipica del suo stile di terreno (18 forme), la costa quando il mare è esteso e fino a due eventi rari della carta: 402 luoghi in tutto (100 vette, 100 forme, 37 coste, 165 eventi). Le spiegazioni sono qualitative o usano relazioni standard (altezza di scala H = RT/(Mg), maree proporzionali a 1/d³, portanza proporzionale alla densità dell’aria).
+- `populate` dispone gli individui a gruppi nel loro habitat (riva, pianure, alture, mare aperto, zone calde), ad almeno 7 unità dalle stazioni; `locatePlaces` mette ogni luogo nel suo punto tipico, ad almeno 18 unità dagli altri e 12 dalle stazioni.
+- Nuove mesh in `src/worlds/geometry.js` (felce, albero a ombrello, colonna, cuscino, calice, crosta, esapode, volatore, colonia galleggiante, segnale, tenda dell’aurora). Il modo di istanza 4 del vertex shader fa volare i volatori su cerchi ampi con il battito delle ali. Il geyser usa particelle del modo 2; l’aurora è una tenda trasparente nel cielo, con l’alfa che sfuma verso l’alto. Con la grafica «Bilanciato» si disegna il 70% degli individui di ogni specie, con «Leggero» il 40%.
+- In esplorazione la camera passa in circa un secondo dalla vista delle stazioni a una vista più vicina e più alta sul punto scelto. Un clic sul terreno cerca la specie più vicina entro 7 unità o il luogo più vicino entro 9, altrimenti sposta la camera; W A S D muovono il punto di vista. Le registrazioni stanno in `explore` del salvataggio locale.
+
 ## Riprodurre l'export
 
 Richiede Blender 4.3 e il suo Python con numpy:

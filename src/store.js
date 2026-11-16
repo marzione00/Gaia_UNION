@@ -2,7 +2,20 @@ import { cleanAtlas } from './navigation/atlas-model.js';
 import { cleanCourseRecords } from './education/course-engine.js';
 import { cleanMissionRecords } from './education/mission-engine.js';
 export const STORE_KEY = 'gaia.beyond-knowledge.v1';
-export function fresh() { return { schema: 1, notes: {}, read: [], quiz: {}, missions: {}, courses: {}, atlas: cleanAtlas(), bookmarks: [], scenarios: [], preferences: { quality: 1000000, graphics: 'high', motion: true }, updatedAt: null }; }
+export function fresh() { return { schema: 1, notes: {}, read: [], quiz: {}, missions: {}, courses: {}, atlas: cleanAtlas(), bookmarks: [], scenarios: [], explore: {}, preferences: { quality: 1000000, graphics: 'high', motion: true }, updatedAt: null }; }
+/** Exploration diary: per planet index, the registered species (s0, s1…) and places (l0, l1…). */
+export function cleanExplore(value) {
+    const out = {};
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return out;
+    for (const [k, v] of Object.entries(value)) {
+        if (!/^\d{1,2}$/.test(k) || !v || typeof v !== 'object') continue;
+        const ids = (list, re) => Array.isArray(list) ? [...new Set(list.filter(x => typeof x === 'string' && re.test(x)))].slice(0, 20) : [];
+        const rec = { s: ids(v.s, /^s\d$/), l: ids(v.l, /^l\d$/) };
+        if (typeof v.at === 'string' && v.at.length < 40) rec.at = v.at;
+        if (rec.s.length || rec.l.length) out[k] = rec;
+    }
+    return out;
+}
 export function cleanState(value) {
     if (!value || typeof value !== 'object' || value.schema !== 1)
         throw new TypeError('Formato del diario non riconosciuto');
@@ -25,6 +38,7 @@ export function cleanState(value) {
     o.missions = cleanMissionRecords(value.missions);
     o.courses = cleanCourseRecords(value.courses);
     o.atlas = cleanAtlas(value.atlas);
+    o.explore = cleanExplore(value.explore);
     return o;
 }
 export function openStore(storage) {

@@ -12,6 +12,9 @@ import { World, RESEARCH, EDGES, box } from './scene/world.js';
 import { UI, C, T, ImageCache, caseLabel, DISCIPLINE, fmtNum } from './ui/toolkit.js';
 import { DOCUMENTS, docOf, docKey, printedLabel } from './documents.js';
 import { pilotWorld, worldParameters } from './worlds/pilots.js';
+import { planetGenomes, planetSpecies } from './worlds/surface.js';
+import { placeList } from './worlds/places.js';
+import { lifelessReason } from './worlds/species.js';
 import { fittedRows } from './education/course-ui.js';
 import { descriptor as modelDescriptor } from './models/curriculum.js';
 import { openStore, grade } from './store.js';
@@ -28,7 +31,7 @@ async function json(path) {
 }
 function image(path) { return new Promise((yes, no) => { const i = new Image(); i.onload = () => yes(i); i.onerror = () => no(Error('Texture mancante: ' + path)); i.src = asset(path); }); }
 const store = openStore();
-const S = { scene: 'galaxy', selected: 7, system: systemForPlanet(7), hoveredTarget: null, observedBody: null, sector: -1, node: 0, station: 0, quality: MIN_STARS, graphics: store.data.preferences.graphics, yaw: 0, pitch: .45, distance: 60, time: 0, paused: !store.data.preferences.motion || matchMedia('(prefers-reduced-motion: reduce)').matches, scroll: 0, maxScroll: 0, reader: 'math-c08', section: 0, light: false, pdfPage: 245, pdfZoom: 1, lab: 'daisyworld', lum: 1, death: .3, sim: null, sweep: null, labValues: { p: 80, x: 13, base: 'quadratic', a: 1, b: 1, h: 0, k: 0, index: 2, mode: 'root', m1: 1, q1: 0, m2: -1, q2: 5, initial: 100, loss: .1, t: 10, zeroA: -2, zeroB: 1, pole: 3 }, labCompare: null, quizIndex: 0, quizFilter: null, quizMode: 'training', examSubmitted: false, exam: {}, quizSolution: false, catalogPage: 0, query: '', editing: null, journalTab: 'general', menu: false, settings: false, popup: null, loaded: false, contextLost: false, lastFrameMs: 0, toast: '', toastUntil: 0, focusId: null };
+const S = { scene: 'galaxy', selected: 7, system: systemForPlanet(7), hoveredTarget: null, observedBody: null, sector: -1, node: 0, station: 0, quality: MIN_STARS, graphics: store.data.preferences.graphics, yaw: 0, pitch: .45, distance: 60, time: 0, paused: !store.data.preferences.motion || matchMedia('(prefers-reduced-motion: reduce)').matches, scroll: 0, maxScroll: 0, reader: 'math-c08', section: 0, light: false, pdfPage: 245, pdfZoom: 1, lab: 'daisyworld', lum: 1, death: .3, sim: null, sweep: null, labValues: { p: 80, x: 13, base: 'quadratic', a: 1, b: 1, h: 0, k: 0, index: 2, mode: 'root', m1: 1, q1: 0, m2: -1, q2: 5, initial: 100, loss: .1, t: 10, zeroA: -2, zeroB: 1, pole: 3 }, labCompare: null, quizIndex: 0, quizFilter: null, quizMode: 'training', examSubmitted: false, exam: {}, quizSolution: false, catalogPage: 0, query: '', editing: null, journalTab: 'general', menu: false, settings: false, popup: null, loaded: false, contextLost: false, lastFrameMs: 0, toast: '', toastUntil: 0, focusId: null, explore: false, exploreEntry: 0, exploreTrait: 0, exploreFocus: null, exploreGoal: null, exploreTarget: null, exploreBlend: 0 };
 let education, pilotEducation, atlas;
 function activeEducation(){return S.scene==='pilot'?pilotEducation:education;}
 function openCourse(id,stage=null){const m=moduleById(id);if(!m)return;selectIndex(m.planetIndex);education.select(id);if(stage!==null)education.setStage(stage);route('mission');}
@@ -58,7 +61,9 @@ function route(scene, extra = {}) {
         openTheory(targetModule.id);
         return;
     }
-    navigation.move(S, scene, extra);
+    const moved = navigation.move(S, scene, extra);
+    // Exploration belongs to one surface: leaving it starts the next visit from the stations.
+    if (moved.from !== moved.to && !extra.explore) Object.assign(S, { explore: false, exploreEntry: 0, exploreTrait: 0, exploreFocus: null, exploreGoal: null, exploreBlend: 0 });
     if(scene==='orbit')S.reader=selected().id;
     Object.assign(S, { scroll: 0, menu: false, settings: false, editing: null, hoveredTarget: null, observedBody:null });
     hover.clear(); touchTarget=null; if(U)U.focus=null;
@@ -83,6 +88,8 @@ function updateHash(mode = 'replace') {
     }
     if (S.scene === 'lab')
         q.set('model', S.lab);
+    if (S.scene === 'surface' && S.explore)
+        q.set('mode', 'esplora');
     if (S.scene === 'pdf') {
         if (S.pdfDoc === 'fis') q.set('doc', 'fis');
         q.set('page', String(S.pdfPage));
@@ -214,6 +221,7 @@ function galaxyUI() { atlas.draw(U); }
  * session copy changed from the planet panel, which never writes into the laboratory record. */
 const worldSession = { params: {}, x: {} };
 function worldTick() {
+    exploreTick();
     const unit = selected()?.id, pw = ['surface', 'orbit'].includes(S.scene) ? pilotWorld(unit) : null;
     S.worldCamera = S.scene === 'surface' && pw?.camera ? pw.camera : null;
     // On phones the camera looks at the phenomenon instead of the station complex.
@@ -225,6 +233,45 @@ function worldTick() {
     S.worldTint = pw.orbitTint ? pw.orbitTint(S.worldState) : null;
 }
 const worldEntry = id => worlds.worlds.find(w => w.unit === id) || null;
+// Exploration of a generated surface: species and places of the planet, registered in the diary.
+const PLACE_KINDS = { vetta: 'Luogo · punto più alto', forma: 'Luogo · forma del paesaggio', costa: 'Luogo · costa', evento: 'Luogo · fenomeno raro' };
+const exploreReady = () => W?.surface?.index === S.selected && Array.isArray(W.surface.species);
+function exploreEntries() {
+    if (!exploreReady()) return [];
+    const s = W.surface, pop = W.population || [];
+    return [...s.species.map((sp, k) => ({ type: 'species', index: k, id: sp.id, data: sp, at: pop[k]?.centre || null })), ...s.places.map((p, k) => ({ type: 'place', index: k, id: p.id, data: p, at: p.position }))];
+}
+const exploreRecord = index => store.data.explore[String(index)] || { s: [], l: [] };
+const isRegistered = (e, rec) => (e.type === 'species' ? rec.s : rec.l).includes(e.id);
+function selectEntry(i, fly = true) {
+    const list = exploreEntries(); if (!list.length) return;
+    S.exploreEntry = ((i % list.length) + list.length) % list.length; S.exploreTrait = 0;
+    const e = list[S.exploreEntry]; if (fly && e.at) S.exploreGoal = [e.at[0], e.at[2]];
+}
+function selectTarget(t) { const k = exploreEntries().findIndex(e => e.type === t.type && e.index === t.index); if (k >= 0) selectEntry(k); }
+function startExplore() { S.explore = true; S.exploreGoal = null; updateHash(); }
+function stopExplore() { S.explore = false; updateHash(); }
+function register(e) {
+    const key = String(S.selected), rec = store.data.explore[key] ||= { s: [], l: [] }, list = e.type === 'species' ? rec.s : rec.l;
+    if (list.includes(e.id)) return;
+    list.push(e.id); rec.at = new Date().toISOString(); store.save();
+    say((e.type === 'species' ? 'Specie registrata: ' : 'Luogo registrato: ') + e.data.name);
+}
+function exploreTick() {
+    if (S.scene !== 'surface') { S.exploreTarget = null; S.exploreBlend = 0; return; }
+    // The camera blends between the station view and the exploration view in about a second (time constant 0.38 s).
+    const k = S.paused ? 1 : Math.min(1, (S.lastFrameMs || 16) / 380), want = S.explore ? 1 : 0, b = S.exploreBlend || 0;
+    S.exploreBlend = Math.abs(want - b) < .003 ? want : b + (want - b) * k;
+    if (!S.explore) { S.exploreTarget = null; if (!S.exploreBlend) { S.exploreFocus = null; S.exploreGoal = null; } return; }
+    // A new exploration (button or link) starts from the station view and flies to the current entry.
+    if (!S.exploreGoal) { if (!exploreReady()) return; S.exploreFocus ||= R.w < 850 ? [-4, 8] : [2, 2]; S.exploreGoal = [...S.exploreFocus]; selectEntry(S.exploreEntry); }
+    S.exploreFocus = S.exploreFocus.map((v, i) => v + (S.exploreGoal[i] - v) * k);
+    const e = exploreEntries()[S.exploreEntry]; S.exploreTarget = e ? { type: e.type, index: e.index } : null;
+}
+function moveExplore(forward, right) {
+    const a = .6 + S.yaw * .5, f = [-Math.sin(a), -Math.cos(a)], r = [-f[1], f[0]];
+    S.exploreGoal = (S.exploreGoal || [2, 2]).map((v, i) => clamp(v + (f[i] * forward + r[i] * right) * 6, -85, 85));
+}
 function worldPanel(m, mobile) {
     const pw = pilotWorld(m.id), entry = worldEntry(m.id), st = S.worldState; if (!pw || !entry || !st) return;
     const w = R.w, tint = sectorColors[m.sector], controls = modelDescriptor(m.id).controls.map(c => ({ ...c, id: 'world-param-' + c.key, get: () => worldSession.params[m.id][c.key], set: v => { worldSession.params[m.id] = { ...worldSession.params[m.id], [c.key]: v }; } }));
@@ -247,9 +294,9 @@ function worldPanel(m, mobile) {
     });
     for (const l of W.worldLabels || []) { const [x, y, depth] = l.screen; if (depth <= 0 || x < 40 || x > w - 40 || y < 240 || y > R.h - 100) continue; const t = `${fmtNum(l.T - 273.15, 3)} °C · blu ${Math.round(l.f * 100)}%`, tw = R.textWidth(t, 'micro') + 14; R.roundRect(x - tw / 2, y - 10, tw, 20, 6, color(T.bg, .88)); U.text(t, x, y - 6, 'micro', C.pale, { align: 'center' }); }
 }
-/** Dark band fading downwards behind the screen title on phones, where it overlaps the 3D scene. */
 // Desktop surfaces can have pale skies: a soft corner shade keeps the title readable.
 function titleShade(x1 = 760, y0 = 82, y1 = 262) { if (R.w >= 850) R.shadeRect(0, y0, x1, y1 - y0, color(T.bg, .64), (u, v) => (1 - v ** 3) * (1 - u ** 3), 10); }
+/** Dark band fading downwards behind the screen title on phones, where it overlaps the 3D scene. */
 function titleFade(y0 = 90, y1 = 290) { if (R.w >= 850) return; const n = 22; for (let i = 0; i < n; i++) R.rect(0, y0 + (y1 - y0) * i / n, R.w, (y1 - y0) / n + 1, color(T.bg, .88 * (1 - (i / n) ** 2))); }
 /** Number badge on each unit planet, matching the list; ring and name on the selected or hovered one. */
 function planetBadges(system) {
@@ -365,6 +412,7 @@ function surfaceUI() {
     const w = R.w, h = R.h, mobile = w < 850, m = selected(), tint = sectorColors[m.sector];
     titleFade();
     titleShade();
+    if (S.explore && exploreReady()) { exploreUI(m, mobile); return; }
     worldPanel(m, mobile);
     title(areaTrail(m, ['SUPERFICIE']), m.title, mobile && pilotWorld(m.id) ? '' : 'Quattro stazioni, una per ogni attività dell’unità.');
     const names = ['Stazione della lezione', 'Laboratorio', 'Stazione di verifica', 'Stazione dei collegamenti'], short = ['Lezione', 'Laboratorio', 'Verifica', 'Collegamenti'];
@@ -391,8 +439,47 @@ function surfaceUI() {
         }
     const sw = mobile ? 55 : 124;
     U.button('back-planet',mobile?'ORBITA':'TORNA AL PIANETA',mobile?294:35+4*(sw+8)+12,h-86,mobile?Math.max(65,w-312):190,36,()=>route('orbit'),{small:mobile});
+    if (exploreReady()) U.button('explore-start', mobile ? 'ESPLORA' : 'ESPLORA IL PIANETA', mobile ? px + pw - 104 : Math.min(773, w - 220), mobile ? py + 10 : w < 1000 ? h - 132 : h - 86, mobile ? 90 : 200, mobile ? 28 : 36, startExplore, { small: mobile });
     for (let i = 0; i < 4; i++)
         U.button('station-' + i, mobile ? String(i + 1) : (i + 1) + ' · ' + short[i], 35 + i * (sw + 8), h - 86, sw, 36, () => S.station = i, { active: S.station === i });
+}
+/** Exploration panel: one species or place at a time, with its explanation and the diary button. */
+function exploreUI(m, mobile) {
+    const w = R.w, h = R.h, tint = sectorColors[m.sector], list = exploreEntries(), rec = exploreRecord(S.selected);
+    title(areaTrail(m, ['SUPERFICIE', 'ESPLORAZIONE']), m.title, mobile ? 'Tocca il terreno per spostarti, trascina per ruotare.' : 'Clic sul terreno o sui segnali per spostarti; W A S D per muoverti.');
+    const px = mobile ? 18 : w - 353, pw = mobile ? w - 36 : 320, ph = mobile ? 300 : Math.min(520, h - 368), py = mobile ? h - 384 : 258;
+    U.panel(px, py, pw, ph, tint, .84);
+    const ns = list.filter(e => e.type === 'species').length, np = list.length - ns, e = list[S.exploreEntry] || list[0];
+    if (e) {
+        const done = isRegistered(e, rec), species = e.type === 'species';
+        U.tag((species ? 'Specie ' : 'Luogo ') + (S.exploreEntry + 1) + ' di ' + list.length + (done ? ' · nel diario' : ''), px + 18, py + 18, species ? C.lime : tint);
+        wrapClipText(e.data.name, px + 18, py + 44, pw - 36, 'sub', C.pale, 1);
+        U.text(species ? (e.data.kind === 'plant' ? 'Pianta' : 'Animale') + ' · ' + e.data.label + ' · ' + e.data.habitatName : PLACE_KINDS[e.data.kind], px + 18, py + 76, 'micro', species ? C.lime : tint);
+        // Phones show one trait at a time; wide screens show them all.
+        const parts = species ? e.data.traits : ns ? [e.data.text] : [e.data.text, lifelessReason(W.surface.genome)], bottom = py + ph - 104;
+        let y = py + 102;
+        if (mobile) {
+            const k = Math.min(S.exploreTrait, parts.length - 1); U.wrap(parts[k], px + 18, y, pw - 36, C.pale, 19, 5, 'micro');
+            if (parts.length > 1) { U.button('explore-trait', 'Caratteristica ' + (k + 1) + ' di ' + parts.length + ' ▸', px + 16, bottom - 8, pw - 32, 28, () => { S.exploreTrait = (k + 1) % parts.length; }, { small: true }); }
+        } else for (const t of parts) { const rows = fittedRows(R, [t], pw - 36, 'mini').filter(Boolean), n = Math.min(rows.length, Math.floor((bottom - y) / 21)); rows.slice(0, n).forEach((row, i) => U.text(row, px + 18, y + i * 21, 'mini', C.pale)); y += n * 21 + 9; if (y > bottom - 21) break; }
+        const by = py + ph - 92;
+        U.button('explore-prev', '◂', px + 16, by + 20, 44, 36, () => selectEntry(S.exploreEntry - 1)); U.buttons.at(-1).label = 'Voce precedente';
+        U.button('explore-next', '▸', px + 66, by + 20, 44, 36, () => selectEntry(S.exploreEntry + 1)); U.buttons.at(-1).label = 'Voce successiva';
+        U.button('explore-register', done ? 'NEL DIARIO ✓' : 'REGISTRA NEL DIARIO', px + 118, by + 20, pw - 134, 36, () => register(e), { active: !done, disabled: done });
+    } else wrapClipText(lifelessReason(W.surface.genome), px + 18, py + 52, pw - 36, 'body', C.pale, 6);
+    U.text(`Diario: ${rec.s.length} specie su ${ns} · ${rec.l.length} luoghi su ${np}`, px + 18, py + ph - 26, 'micro', C.muted);
+    if (!mobile) {
+        U.text('Ipotesi illustrative ricavate dalla carta d’identità del pianeta.', 35, h - 112, 'micro', C.muted);
+        for (const p of W.projections) {
+            if (p.type !== 'place' || !Number.isFinite(p.x) || p.depth <= 0) continue;
+            const place = W.surface.places[p.index], on = S.exploreTarget?.type === 'place' && S.exploreTarget.index === p.index, label = (exploreRecord(S.selected).l.includes(place.id) ? '✓ ' : '') + place.name, tw = R.textWidth(label, 'mini') + 24, x = p.x - tw / 2, y = p.y - 34;
+            if (x < 20 || x + tw > w - 370 || y < 96 || (y < 250 && x < 760) || y > h - 120) continue;
+            R.roundRect(x, y, tw, 26, 13, color(T.bg, .88), on ? tint : color(T.line, 1));
+            U.text(label, x + 12, y + 6, 'mini', on ? C.pale : C.muted);
+        }
+    }
+    U.button('explore-stop', mobile ? 'STAZIONI' : 'TORNA ALLE STAZIONI', 35, h - 86, mobile ? 120 : 220, 36, stopExplore, { small: mobile });
+    U.button('back-planet', mobile ? 'ORBITA' : 'TORNA AL PIANETA', mobile ? w - 140 : 267, h - 86, mobile ? 105 : 190, 36, () => route('orbit'), { small: mobile });
 }
 function researchUI() {
     const w = R.w, h = R.h, n = RESEARCH[S.node], mobile = w < 850;
@@ -785,15 +872,34 @@ function finishEdit(save = true) {
     editor.blur();
     canvas.focus();
 }
+/** Text of the exploration diary: totals, then the registered species and places, planet by planet. */
+let exploreLogCache = ['', ''];
+function exploreLog() {
+    const key = JSON.stringify(store.data.explore); if (exploreLogCache[0] === key) return exploreLogCache[1];
+    const genomes = planetGenomes(), species = planetSpecies(), places = genomes.map(placeList), rows = [];
+    let s = 0, l = 0, planets = 0;
+    for (const [key, rec] of Object.entries(store.data.explore)) {
+        const i = Number(key), m = data.modules[i]; if (!m || !(rec.s.length + rec.l.length)) continue;
+        planets++; s += rec.s.length; l += rec.l.length;
+        const sp = species[i].filter(x => rec.s.includes(x.id)).map(x => x.name + ' (' + x.label + ')'), pl = places[i].filter(x => rec.l.includes(x.id)).map(x => x.name);
+        rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : ''].filter(Boolean).join(' '));
+    }
+    const total = species.reduce((n, x) => n + x.length, 0), totalPlaces = places.reduce((n, x) => n + x.length, 0);
+    const head = `Pianeti con registrazioni: ${planets} su ${genomes.length}. Specie registrate: ${s} su ${total}. Luoghi registrati: ${l} su ${totalPlaces}.`;
+    exploreLogCache = [key, [head, ...(rows.length ? rows : ['Nessuna registrazione. Scendi su un pianeta, scegli «Esplora il pianeta» e registra specie e luoghi.'])].join('\n')];
+    return exploreLogCache[1];
+}
 function journalUI() {
     const w = R.w, h = R.h, mobile = w < 850;
-    title('DIARIO / IPOTESI, ESPERIMENTI E CONCLUSIONI', S.journalTab.startsWith('course:') ? 'DIARIO: '+(moduleById(S.journalTab.slice(7))?.code||'UNITÀ') : S.journalTab === 'mission:echo08-signal' ? 'DIARIO DELLA MISSIONE ECHO-08' : 'LA MEMORIA DELLA SPEDIZIONE', store.persistent ? 'Salvataggio locale attivo. Esporta una copia per trasferire il lavoro fra dispositivi.' : 'Persistenza non disponibile: esporta il diario prima di chiudere.');
+    title('DIARIO / IPOTESI, ESPERIMENTI E CONCLUSIONI', S.journalTab.startsWith('course:') ? 'DIARIO: '+(moduleById(S.journalTab.slice(7))?.code||'UNITÀ') : S.journalTab === 'mission:echo08-signal' ? 'DIARIO DELLA MISSIONE ECHO-08' : S.journalTab === 'explore' ? 'DIARIO DI ESPLORAZIONE' : 'LA MEMORIA DELLA SPEDIZIONE', store.persistent ? 'Salvataggio locale attivo. Esporta una copia per trasferire il lavoro fra dispositivi.' : 'Persistenza non disponibile: esporta il diario prima di chiudere.');
     const x = mobile ? 20 : 40, ww = mobile ? w - 40 : w - 80;
-    U.button('journal-global', 'DIARIO GENERALE', x, 245, Math.min(220, ww / 2 - 4), 35, () => { finishEdit(); S.journalTab = 'general'; }, { active: S.journalTab === 'general', small: mobile });
-    U.button('journal-module', 'UNITÀ ' + selected().code, x + Math.min(228, ww / 2 + 4), 245, Math.min(220, ww / 2 - 4), 35, () => { finishEdit(); S.journalTab = 'course:'+selected().id; }, { active: S.journalTab === 'course:'+selected().id, small: mobile });
-    const by = 298, hh = h - by - 180;
+    const tw = Math.min(220, (ww - 16) / 3);
+    U.button('journal-global', mobile ? 'GENERALE' : 'DIARIO GENERALE', x, 245, tw, 35, () => { finishEdit(); S.journalTab = 'general'; S.scroll = 0; }, { active: S.journalTab === 'general', small: mobile });
+    U.button('journal-module', 'UNITÀ ' + selected().code, x + tw + 8, 245, tw, 35, () => { finishEdit(); S.journalTab = 'course:'+selected().id; S.scroll = 0; }, { active: S.journalTab === 'course:'+selected().id, small: mobile });
+    U.button('journal-explore', 'ESPLORAZIONE', x + 2 * (tw + 8), 245, tw, 35, () => { finishEdit(); S.journalTab = 'explore'; S.scroll = 0; }, { active: S.journalTab === 'explore', small: mobile });
+    const by = 298, hh = h - by - 180, log = S.journalTab === 'explore';
     U.panel(x, by, ww, hh, C.cyan, .85);
-    const text = S.editing === 'notes' ? editor.value : store.data.notes[S.journalTab] || 'Domanda → Ipotesi → Parametri → Osservazioni → Conclusioni → Limiti.\n\nSeleziona «Scrivi» per iniziare.';
+    const text = log ? exploreLog() : S.editing === 'notes' ? editor.value : store.data.notes[S.journalTab] || 'Domanda → Ipotesi → Parametri → Osservazioni → Conclusioni → Limiti.\n\nSeleziona «Scrivi» per iniziare.';
     const rows = [];
     for (const paragraph of text.split('\n')) {
         let line = '';
@@ -824,7 +930,7 @@ function journalUI() {
     if (S.editing === 'notes' && Math.floor(performance.now() / 600) % 2 === 0)
         R.rect(x + 24, Math.min(yy, by + hh - 25), 2, 19, C.lime);
     const bottom = h - 156, bw = mobile ? (ww - 16) / 3 : 170;
-    U.button('edit-notes', 'SCRIVI', x, bottom, bw, 38, () => startEdit('notes'), { active: S.editing === 'notes' });
+    U.button('edit-notes', 'SCRIVI', x, bottom, bw, 38, () => startEdit('notes'), { active: S.editing === 'notes', disabled: log });
     U.button('save-notes', 'SALVA', x + bw + 8, bottom, bw, 38, () => finishEdit(true));
     U.button('export-journal', 'ESPORTA', x + 2 * (bw + 8), bottom, bw, 38, () => {
         if (S.editing === 'notes')
@@ -1064,6 +1170,8 @@ function events() {
                 }else if(hit?.type==='ambient'){touchTarget=hit;S.observedBody=hit.index;say(hit.body.profile.name+' · destinazione non esplorabile');}
                 else if(hit?.type==='node')S.node=hit.index;
                 else if(hit?.type==='station')S.station=hit.index;
+                else if(hit?.type==='place')selectTarget({type:'place',index:hit.index});
+                else if(hit?.type==='ground'){const near=W.nearest(hit.point);if(near)selectTarget(near);else S.exploreGoal=[hit.point[0],hit.point[2]];}
             }
         }
         pointer = null;
@@ -1106,6 +1214,11 @@ function events() {
             route('catalogue');
             startEdit('search');
             return;
+        }
+        // Exploration: W A S D move the focus on the ground, relative to the camera.
+        if (S.scene === 'surface' && S.explore && !e.ctrlKey && !e.metaKey && !e.altKey) {
+            const step = { w: [1, 0], s: [-1, 0], a: [0, -1], d: [0, 1] }[e.key.toLowerCase()];
+            if (step) { moveExplore(...step); return; }
         }
         if (e.key === 'ArrowLeft')
             S.yaw -= .1;
@@ -1236,7 +1349,7 @@ async function init() {
         computeLab();
         events();
         S.loaded = true;
-        window.GAIA = { version: '1.18.0-superfici', state: S, get atlas() { return atlas; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes ? W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0) : W.surface.mesh.i.length/3, planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
+        window.GAIA = { version: '1.19.0-esplorazione', state: S, get atlas() { return atlas; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes ? W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0) : W.surface.mesh.i.length/3, planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
         U = new UI(R);
         pilotEducation = new MissionUI(R, store, missionDefinition, { state:S, route, openTheory, openPDF, download, say });
         education = new CourseUI(R,store,curriculum,{state:S,route,openCourse,openTheory,openPDF,openExternal,download,say,currentUnit:()=>selected().id});
