@@ -34,6 +34,7 @@ Il server di sviluppo ascolta soltanto su `127.0.0.1`. Per una porta differente 
 | Matematica | 25 unità del catalogo della dispensa; fonte integrale di 769 pagine consultabile in WebGL |
 | Dispensa di fisica | «Fisica generale e moderna», bozza revisionata del 25 ottobre 2026: 726 pagine consultabili in WebGL; ogni unità di fisica rimanda alle sezioni corrispondenti |
 | Mondi dei pianeti | Catalogo di 100 fenomeni, uno per pianeta, in `docs/MONDI.md`; quattro prototipi 3D in superficie: Daisyworld, laghi del cobalto, maree di una luna vicina, branco con la mappa logistica |
+| Carte d’identità dei pianeti | 100 carte generate in `content/worlds/genomes.json` (terreno, mare, stella, atmosfera, gravità, colori, eventi), tabella in `docs/CARTE_IDENTITA.md`, controllo automatico della diversità |
 | Teoria narrativa matematica | Quattro lezioni, 33 sezioni; Funzioni copre 8.1–8.11, le altre tre sono percorsi mirati |
 | Gaia | Sei nuove sezioni trasversali con ipotesi, formule, protocollo e limiti |
 | Verifiche | 40 quesiti interattivi originali di Funzioni, spiegazioni e alternative errate; gli altri quesiti rimangono nella fonte PDF |

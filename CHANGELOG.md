@@ -1,3 +1,11 @@
+# 1.17.0: Carte d’identità dei 100 pianeti
+
+- `src/worlds/genome.js` genera una carta d’identità per ogni pianeta esplorabile da famiglia, dimensione, lune, anelli, rotazione, inclinazione e area: stile di terreno (18 stili, tre per famiglia), livello del mare, rilievo, ruvidità, tipo di stella (cinque tipi, cinque sistemi ciascuno), colore della luce e del cielo, densità dell’atmosfera e nubi, gravità relativa, durata del giorno e inclinazione, lune e anelli, colori di piante, rocce e acqua, eventi rari (aurora, eclissi, tempesta, pioggia di meteore, eruzione di geyser). Valori illustrativi.
+- Diversità controllata: i quattro pianeti di un’area hanno terreni diversi; una distanza fra carte pesa stile, famiglia, stella, mare, rilievo, ruvidità, colore delle piante, atmosfera e gravità; il generatore rigenera i parametri liberi finché ogni pianeta è lontano dai precedenti. Distanza minima fra due pianeti qualsiasi: 0,175; i test richiedono almeno 0,17.
+- `src/worlds/terrain.js` calcola il terreno di ogni pianeta dalla sua carta, con il colore del suolo; servirà anche per le superfici di atterraggio.
+- `content/worlds/genomes.json` e `docs/CARTE_IDENTITA.md` riportano le 100 carte; `tools/render_genomes.mjs` e `tools/genome_sheet.py` producono l’immagine con le 100 vedute dall’alto.
+- Il sito non cambia ancora aspetto: le carte sono da approvare prima di applicarle a superfici, cielo e stelle dei sistemi.
+
 # 1.16.0: Un fenomeno per pianeta, quattro prototipi in 3D
 
 - Catalogo dei 100 fenomeni, uno per pianeta, legati al modello della rispettiva unità (`content/worlds/catalogue.json`, tabella leggibile in `docs/MONDI.md`): che cosa si vede, quale grandezza del modello lo comanda, kit 3D, superficie proposta e, dove c'è, il ruolo nella cornice di Gaia. Gli altri 96 sono proposte da approvare.
