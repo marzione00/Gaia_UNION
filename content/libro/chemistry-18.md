@@ -21,7 +21,7 @@ Il capitolo [Velocità di reazione](unit:chemistry-17) ha mostrato come la veloc
 - spiegare come agiscono i catalizzatori omogenei, eterogenei ed enzimatici, e che cosa un catalizzatore lascia invariato.
 :::
 
-Il capitolo usa la teoria degli urti e la legge cinetica del capitolo [Velocità di reazione](unit:chemistry-17), l'entalpia di reazione del capitolo [Energia nelle reazioni](unit:chemistry-16) e la distribuzione delle velocità molecolari introdotta nel capitolo di fisica [Gas ideali](unit:physics-18). Servono il logaritmo naturale e la funzione esponenziale; la costante dei gas vale $R=8{,}314\un{J/(mol\,K)}$, e nelle formule la temperatura è sempre quella assoluta, in kelvin.
+Il capitolo usa la teoria degli urti e la legge cinetica del capitolo [Velocità di reazione](unit:chemistry-17), l'entalpia di reazione del capitolo [Termochimica e calorimetria](unit:chemistry-16) e la distribuzione delle velocità molecolari introdotta nel capitolo di fisica [Gas ideali](unit:physics-18). Servono il logaritmo naturale e la funzione esponenziale; la costante dei gas vale $R=8{,}314\un{J/(mol\,K)}$, e nelle formule la temperatura è sempre quella assoluta, in kelvin.
 
 ## La barriera di energia {#barriera}
 
@@ -207,7 +207,7 @@ Sostanza che aumenta la velocità di una reazione offrendo un meccanismo con ene
 
 L'ultima proprietà merita attenzione. Poiché il dislivello fra reagenti e prodotti non cambia, abbassare la collina di una certa quantità abbassa nella stessa misura la barriera vista dai due lati. Il catalizzatore accelera quindi la reazione diretta e quella inversa dello stesso fattore, e il sistema raggiunge prima l'equilibrio, nella stessa posizione che avrebbe raggiunto senza catalizzatore. Una reazione che non procede perché sfavorita dal punto di vista energetico ed entropico resta tale anche con il miglior catalizzatore: il capitolo [Equilibrio chimico](unit:chemistry-19) tratterà la composizione di equilibrio, che dipende soltanto dai livelli della figura.
 
-Un catalizzatore può anche scegliere fra percorsi diversi. Gli stessi reagenti possono dare prodotti diversi a seconda del catalizzatore, perché ognuno abbassa la barriera di una sola delle reazioni possibili. Questa **selettività**, discussa nel capitolo [Resa e purezza](unit:chemistry-15) per la sintesi dell'ossido di etilene, è spesso più importante della velocità stessa.
+Un catalizzatore può anche scegliere fra percorsi diversi. Gli stessi reagenti possono dare prodotti diversi a seconda del catalizzatore, perché ognuno abbassa la barriera di una sola delle reazioni possibili. Questa **selettività**, discussa nel capitolo [Resa e bilanci di materia](unit:chemistry-15) per la sintesi dell'ossido di etilene, è spesso più importante della velocità stessa.
 
 ## Catalisi omogenea {#omogenea}
 

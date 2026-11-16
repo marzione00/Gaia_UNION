@@ -428,3 +428,48 @@ test('Chimica 18: temperatura e attivazione, numeri ricalcolati',()=>{
  assert.equal(r(Math.log(f(-10000,298.15,308.15)),3),-0.131);assert.equal(r(f(-10000,298.15,308.15),2),0.88);
  assert.deepEqual([0.1,1,4,9].map(s=>r(s/(1+s),3)),[0.091,0.5,0.8,0.9]);
 });
+
+test('Chimica 19: equilibrio chimico, numeri ricalcolati',()=>{
+ const R=8.314462618,RT=R*298.15/1000,RL=0.08314462618*298.15;
+ const root=(a,b,c)=>(-b+Math.sqrt(b*b-4*a*c))/(2*a);
+ // Esterification, K = 4: four starting mixtures.
+ assert.equal((2/3)**2/(1/3)**2,4);
+ assert.equal(r((16-Math.sqrt(256-144))/6,3),0.903);assert.equal(r((9-Math.sqrt(33))/6,3),0.543);
+ assert.equal(r(1.5**2/1.0**2,2),2.25);assert.equal(r(1.0**2/0.2**2,0),25);
+ // Kinetic derivation.
+ assert.equal(r(0.30/0.10,2),3);assert.equal(r(0.40*3/4,2),0.3);
+ // N2O4: Delta G, Kp, Kc.
+ const dG=2*51.31-97.89;assert.equal(r(dG,2),4.73);assert.equal(r(dG/RT,3),1.908);
+ const Kp=Math.exp(-dG/RT);assert.equal(r(Kp,3),0.148);assert.equal(r(RL,2),24.79);assert.equal(r(Kp/RL*1e3,2),5.99);assert.equal(r(1/RL,3),0.04);
+ const Kc=Kp/RL;const x=root(4,Kc,-Kc*0.04);assert.equal(r(x*1e3,2),7.02);assert.equal(r(2*x,4),0.014);assert.equal(r(0.04-x,4),0.033);assert.equal(r(100*x/0.04,1),17.6);
+ assert.equal(r(0.014**2/0.033*1e3,1),5.9);
+ // Gibbs minimum of the mixture at 1 bar.
+ const G=xi=>{const a=1-xi,b=2*xi,n=a+b;return a*(97.89+RT*Math.log(a/n))+b*(51.31+RT*Math.log(b/n))-97.89;};
+ let best=[1e9,0];for(let i=1;i<10000;i++){const g=G(i/10000);if(g<best[0])best=[g,i/10000];}
+ assert.equal(r(best[1],2),0.19);assert.equal(r(best[0],2),-0.95);assert.equal(r(Math.sqrt(Kp/(Kp+4)),3),0.189);assert.equal(r(Math.sqrt(Kp/(Kp+0.4)),3),0.52);
+ // Combining constants for nitrogen oxides at 298 K.
+ const K1=Math.exp(-2*86.55/RT),K2=Math.exp(-(2*51.31-2*86.55)/RT);assert.equal(r(K1*1e31,1),4.7);assert.equal(r(K2/1e12,1),2.2);
+ assert.equal(r(K1*K2*1e18,2),1.05);assert.equal(r(Math.sqrt(K1*K2)*1e9,1),1);assert.equal(r(4.7e-31*2.2e12*1e18,2),1.03);assert.equal(r(-RT*Math.log(1.03e-18),1),102.7);
+ // Table of K at 298 K.
+ assert.equal(r(474.2/RT/Math.LN10,0),83);assert.equal(r(-604.0-394.4+1129,1),130.6);assert.equal(r(Math.exp(-130.6/RT)*1e23,1),1.3);
+ // NO at 2000 K.
+ const dS=2*210.8-191.6-205.1;assert.equal(r(dS,1),24.9);const K2000=Math.exp(-(180.5-2*dS)*1000/(R*2000));assert.equal(r(K2000*1e4,1),3.9);
+ assert.equal(r(0.78*0.21,3),0.164);const xa=Math.sqrt(3.9e-4*0.78*0.21/4);assert.equal(r(xa*1e3,1),4);assert.equal(r(100*xa/0.21,1),1.9);
+ let lo=0,hi=0.2;for(let i=0;i<80;i++){const m=(lo+hi)/2;if((2*m)**2/((0.78-m)*(0.21-m))>3.9e-4)hi=m;else lo=m;}
+ assert.equal(r(lo*1e3,2),3.95);assert.equal(r(2*lo*1e3,1),7.9);assert.equal(r(2*Math.sqrt(4.7e-31*0.164/4)*1e16,1),2.8);
+ // Delta G with Q; RT ln 10; K from Delta G.
+ assert.equal(r(0.1**2/0.9,4),0.0111);assert.equal(r(RT,3),2.479);assert.equal(r(RT*Math.log(0.1**2/0.9),2),-11.15);assert.equal(r(dG+RT*Math.log(0.1**2/0.9),2),-6.42);
+ assert.equal(r(RT*Math.LN10,2),5.71);assert.equal(r(Math.exp(20/RT),-2),3200);assert.equal(r(Math.exp(40/RT)/1e7,0),1);assert.equal(r(Math.exp(-40/RT)*1e7,0),1);
+ // Calcium carbonate.
+ const dH=-635.1-393.5+1207,dSc=39.75+213.7-92.9;assert.equal(r(dH,1),178.4);assert.equal(r(dSc,2),160.55);assert.equal(r(178400/160.6,-1),1110);
+ assert.equal(r(-R*Math.log(4.2e-4),1),64.6);assert.equal(r(178400/(160.6+64.6),0),792);
+ // Henry: sparkling water.
+ assert.equal(r(0.034*3,3),0.102);assert.equal(r(0.102*44.01,1),4.5);assert.equal(r(0.034*4.2e-4*1e5,1),1.4);assert.equal(r(0.102*24.79,1),2.5);assert.equal(r(3/4.2e-4,-3),7000);
+ // Exercises.
+ assert.equal(r(1/0.148,2),6.76);assert.equal(r(Math.sqrt(0.148),3),0.385);assert.equal(r(1/0.385,2),2.6);
+ assert.equal(1.0/0.25,4);assert.equal(4.0/2.0,2);assert.equal(1.5/0.25,6);
+ const x2=root(4,Kc,-Kc*0.02);assert.equal(r(x2*1e3,2),4.77);assert.equal(r(2*x2*1e3,2),9.55);assert.equal(r(0.02-x2,4),0.0152);assert.equal(r(100*x2/0.02,1),23.9);
+ const dGs=2*(-371.1)-2*(-300.2);assert.equal(r(dGs,1),-141.8);assert.equal(r(-dGs/RT,1),57.2);assert.equal(r(Math.exp(-dGs/RT)/1e24,0),7);assert.equal(r(Math.exp(-dGs/RT)*RL/1e26,1),1.7);
+ assert.equal(r(RT*Math.log(0.5),2),-1.72);assert.equal(r(dG+RT*Math.log(0.5),2),3.01);
+ assert.equal(r(-RT*Math.log(4),2),-3.44);assert.equal(r(RT*Math.log(40),2),9.14);assert.equal(r(-RT*Math.log(4)+RT*Math.log(40),2),5.71);
+});
