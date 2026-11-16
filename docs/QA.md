@@ -1,18 +1,18 @@
-# Collaudo GAIA 1.20.1
+# Collaudo GAIA 1.21.0
 
-Eseguito il 16 novembre 2026 sul ramo `fix/controllo-20261116`, a partire da `main` al commit `9b15efa` (versione 1.20.0), con Node.js 22.
+Eseguito il 16 novembre 2026 sul ramo `feat/libro-pilota-20261116`, a partire da `main` al commit `158d3b1` (versione 1.20.1), con Node.js 22.
 
 | Controllo | Comando | Risultato |
 |---|---|---:|
-| Test Node | `node --test tests/*.test.mjs` | 303 / 303 |
-| Riferimenti e risorse | `node scripts/check.mjs` | 3534 / 3534 |
-| Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 167 controlli |
+| Test Node | `node --test tests/*.test.mjs` | 306 / 306 |
+| Riferimenti e risorse | `node scripts/check.mjs` | 3543 / 3543 |
+| Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 174 controlli |
 | Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 118 controlli |
 | Interazioni reali dell’atlante in Chromium con WebGL 2 (SwiftShader) | `python3 tools/qa_atlas_browser.py --root dist` | 23 / 23, nessun errore GL |
 
 Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`.
 
-Prova aggiuntiva nel browser: all’avvio il sito non richiede alcun file di geometria delle scene Blender; superficie generata, rete della ricerca, laboratorio Daisyworld, orbita e superficie di un prototipo si aprono senza errori della pagina e senza errori WebGL.
+Prove aggiuntive nel browser sul capitolo pilota «Forze e leggi di Newton», a 1440 × 900 e a 390 × 844: 338 formule composte da MathJax senza errori, 9 figure, 16 sezioni nell’indice; l’indirizzo con `sezione` apre il capitolo alla sezione richiesta; un rimando a un capitolo non ancora scritto porta al pianeta con un avviso; Esc e «Torna al pianeta» riportano all’orbita; nessun errore della pagina. All’avvio il sito non richiede geometrie delle scene Blender.
 
 ## Integrazione continua
 

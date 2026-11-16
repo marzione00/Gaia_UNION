@@ -1,0 +1,108 @@
+/* Reading layer of the GAIA book: an HTML page over the 3D scene, below the canvas header. */
+.libro{position:fixed;left:0;right:0;bottom:0;top:var(--libro-top,82px);z-index:20;display:grid;grid-template-columns:minmax(220px,280px) minmax(0,1fr);background:linear-gradient(90deg,rgba(7,12,24,.97) 0,rgba(7,12,24,.94) 62%,rgba(7,12,24,.82) 100%);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);color:#e4eaf4;font:18.5px/1.72 Georgia,"DejaVu Serif","Times New Roman",serif;overflow:hidden}
+.libro[hidden]{display:none}
+.libro *{box-sizing:border-box}
+.libro a{color:#8ab8ff;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.libro a:focus-visible,.libro button:focus-visible,.libro summary:focus-visible{outline:2px solid #9fe0bf;outline-offset:3px;border-radius:4px}
+.libro button{font:600 14px/1.2 Inter,system-ui,sans-serif;color:#eef2f8;background:#18243a;border:1px solid #273754;border-radius:9px;padding:9px 14px;cursor:pointer}
+.libro button:hover{background:#213050}
+.libro-indice{overflow:auto;padding:22px 18px 40px 22px;border-right:1px solid #1d2a42;font:14px/1.45 Inter,system-ui,sans-serif}
+.libro .libro-indice h2{font:600 11px/1.3 Inter,system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#9fe0bf;margin:4px 0 12px}
+.libro-indice ol{list-style:none;margin:0;padding:0}
+.libro-indice li{margin:0}
+.libro-indice a{display:block;padding:6px 10px;border-radius:7px;color:#aeb9cb;text-decoration:none;border-left:2px solid transparent}
+.libro-indice a.sotto{padding-left:22px;font-size:13px}
+.libro-indice a:hover{background:#121d31;color:#eef2f8}
+.libro-indice a.attiva{color:#eef2f8;border-left-color:#8ab8ff;background:#101a2c}
+.libro-indice a.letta::after{content:" ✓";color:#9fe0bf}
+.libro-avanzamento{margin:18px 10px 0;color:#8592a8;font-size:12.5px}
+.libro-barra-progresso{height:4px;background:#18243a;border-radius:3px;margin-top:6px;overflow:hidden}
+.libro-barra-progresso span{display:block;height:100%;background:#9fe0bf}
+.libro-azioni{display:flex;flex-wrap:wrap;gap:8px;margin:18px 10px 0}
+.libro-pagina{overflow:auto;scroll-behavior:smooth;padding:34px 48px 120px}
+.libro-colonna{max-width:780px;margin:0 auto}
+.libro-testata{border-bottom:1px solid #273754;padding-bottom:22px;margin-bottom:30px}
+.libro-occhiello{font:600 12px/1.4 Inter,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#9fe0bf}
+.libro h1{font:600 38px/1.18 Inter,system-ui,sans-serif;color:#f4f7fc;margin:10px 0 10px;letter-spacing:-.01em}
+.libro-sottotitolo{font-style:italic;color:#c3cee0;font-size:20px;margin:0 0 14px}
+.libro-dati{font:13px/1.5 Inter,system-ui,sans-serif;color:#8592a8}
+.libro h2{font:600 27px/1.25 Inter,system-ui,sans-serif;color:#eef2f8;margin:54px 0 16px;scroll-margin-top:16px}
+.libro h3{font:600 20px/1.3 Inter,system-ui,sans-serif;color:#cfe0ff;margin:34px 0 10px;scroll-margin-top:16px}
+.libro p{margin:0 0 17px;hyphens:auto}
+.libro ul,.libro ol{margin:0 0 18px;padding-left:26px}
+.libro li{margin:0 0 7px}
+.libro strong{color:#f4f7fc}
+.libro code{font:15px/1.4 "DejaVu Sans Mono",monospace;background:#121d31;padding:1px 5px;border-radius:4px}
+.libro-formula{margin:18px 0 22px;overflow-x:auto;overflow-y:hidden;padding:2px 0}
+.libro mjx-container{color:#eef2f8}
+.libro mjx-container[display="true"]{margin:.6em 0!important}
+.libro-blocco{margin:26px 0;padding:18px 22px 6px;border-radius:12px;border:1px solid #273754;background:#0d1626}
+.libro-intestazione,.libro-approfondimento>summary{font:600 13px/1.4 Inter,system-ui,sans-serif;margin-bottom:10px;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:baseline}
+.libro-etichetta{letter-spacing:.1em;text-transform:uppercase;font-size:11.5px;color:#8ab8ff}
+.libro-titolo-blocco{color:#eef2f8;font-size:15px}
+.libro-legge{border-color:#3f5f95;background:#0f1c33}
+.libro-legge .libro-etichetta{color:#8ab8ff}
+.libro-definizione{border-left:4px solid #9fe0bf}.libro-definizione .libro-etichetta{color:#9fe0bf}
+.libro-esempio{background:#0b1422;border-style:dashed}.libro-esempio .libro-etichetta{color:#f0c27a}
+.libro-errore{border-left:4px solid #ff9c8a}.libro-errore .libro-etichetta{color:#ff9c8a}
+.libro-storia{border-left:4px solid #b9a6ff;font-size:17.5px}.libro-storia .libro-etichetta{color:#b9a6ff}
+.libro-metodo .libro-etichetta,.libro-obiettivi .libro-etichetta{color:#9fe0bf}
+.libro-quotidiano .libro-etichetta,.libro-nota .libro-etichetta{color:#aeb9cb}
+.libro-sintesi{border-color:#3f5f95;background:#0f1c33}
+.libro-approfondimento{padding-bottom:12px}
+.libro-approfondimento>summary{cursor:pointer;list-style:none;margin:0}
+.libro-approfondimento>summary::before{content:"▸";color:#9fe0bf;margin-right:4px}
+.libro-approfondimento[open]>summary::before{content:"▾"}
+.libro-approfondimento[open]>summary{margin-bottom:12px}
+.libro-approfondimento .libro-etichetta{color:#9fe0bf}
+.libro-esercizio{background:#0b1422}
+.libro-esercizio .libro-etichetta{color:#f0c27a}
+.libro-livello{margin-left:auto;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:20px;border:1px solid #273754;color:#aeb9cb}
+.libro-livello-medio{color:#f0c27a;border-color:#5b4a2c}.libro-livello-avanzato{color:#ff9c8a;border-color:#5f3a35}
+.libro-soluzione{margin:4px 0 14px;border-top:1px solid #273754;padding-top:10px}
+.libro-soluzione>summary{cursor:pointer;font:600 14px/1.4 Inter,system-ui,sans-serif;color:#9fe0bf;margin-bottom:8px}
+.libro-figura{margin:28px 0;text-align:center}
+.libro-svg{width:100%;max-width:720px;height:auto;max-height:440px;background:#0b1422;border:1px solid #1d2a42;border-radius:12px}
+.libro figcaption{font:14px/1.55 Inter,system-ui,sans-serif;color:#aeb9cb;margin-top:10px;text-align:left}
+.libro figcaption .libro-etichetta{margin-right:4px}
+.libro-tabella{overflow-x:auto;margin:10px 0 22px}
+.libro table{border-collapse:collapse;width:100%;font:15px/1.5 Inter,system-ui,sans-serif}
+.libro th,.libro td{border-bottom:1px solid #273754;padding:8px 10px;text-align:left;vertical-align:top}
+.libro th{color:#cfe0ff;font-weight:600}
+.libro-piede{margin-top:60px;padding-top:24px;border-top:1px solid #273754;font:14px/1.6 Inter,system-ui,sans-serif;color:#aeb9cb}
+.libro-navigazione{display:flex;justify-content:space-between;gap:12px;margin-top:22px}
+.libro-chiudi-mobile,.libro-indice-mobile{display:none}
+/* Figures */
+.libro-svg .f-stroke{fill:none}.libro-svg .f-nofill{fill:none}
+.libro-svg .f-ax{stroke:#aeb9cb;fill:#aeb9cb}.libro-svg .f-muted{stroke:#5d6b85;fill:#8592a8}
+.libro-svg .f-force{stroke:#f0c27a;fill:#f0c27a}.libro-svg .f-force2{stroke:#8ab8ff;fill:#8ab8ff}
+.libro-svg .f-force3{stroke:#9fe0bf;fill:#9fe0bf}.libro-svg .f-force4{stroke:#ff9c8a;fill:#ff9c8a}
+.libro-svg .f-accent{stroke:#b9a6ff;fill:#b9a6ff}
+.libro-svg .f-body{stroke:#8ab8ff;fill:#18243a}
+.libro-svg .f-shape{stroke-width:1.6}
+.libro-svg .f-shape.f-ax,.libro-svg .f-shape.f-muted{fill:#121d31}
+.libro-svg text{stroke:none;font-family:Inter,system-ui,sans-serif}
+.libro-svg text.f-ax{fill:#e4eaf4}
+@media (max-width:849px){
+ .libro{grid-template-columns:1fr;font-size:17px;background:rgba(7,12,24,.97)}
+ .libro-indice{position:absolute;inset:0 22% 0 0;z-index:2;background:#0a1120;transform:translateX(-102%);transition:transform .2s;border-right:1px solid #273754}
+ .libro.indice-aperto .libro-indice{transform:none}
+ .libro-pagina{padding:18px 18px 110px}
+ .libro h1{font-size:29px}.libro h2{font-size:23px;margin-top:42px}.libro h3{font-size:18.5px}
+ .libro-sottotitolo{font-size:18px}
+ .libro-blocco{padding:14px 15px 4px;margin:20px -4px}
+ .libro-chiudi-mobile,.libro-indice-mobile{display:inline-block}
+ .libro-strumenti-mobile{display:flex;gap:8px;margin-bottom:16px}
+}
+@media (prefers-reduced-motion:reduce){.libro-pagina{scroll-behavior:auto}.libro-indice{transition:none}}
+@media print{
+ body>*:not(.libro){display:none!important}
+ .libro{position:static;display:block;background:#fff;color:#000;font-size:11pt;backdrop-filter:none}
+ .libro-indice,.libro-strumenti-mobile,.libro-navigazione,.libro-azioni{display:none!important}
+ .libro-pagina{overflow:visible;padding:0}
+ .libro h1,.libro h2,.libro h3,.libro strong,.libro mjx-container{color:#000}
+ .libro-blocco,.libro-svg{background:#fff;border-color:#888}
+ .libro details{display:block}.libro details>*{display:block}
+ .libro-svg .f-ax,.libro-svg .f-force,.libro-svg .f-force2,.libro-svg .f-force3,.libro-svg .f-force4,.libro-svg .f-accent{stroke:#000;fill:#000}
+ .libro-svg .f-body,.libro-svg .f-shape.f-ax{fill:#eee;stroke:#000}.libro-svg text.f-ax{fill:#000}
+}

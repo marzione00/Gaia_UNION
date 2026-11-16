@@ -15,6 +15,7 @@ import { pilotWorld, worldParameters } from './worlds/pilots.js';
 import { planetGenomes, planetSpecies } from './worlds/surface.js';
 import { placeList } from './worlds/places.js';
 import { lifelessReason } from './worlds/species.js';
+import { BookReader } from './book/reader.js';
 import { fittedRows } from './education/course-ui.js';
 import { descriptor as modelDescriptor } from './models/curriculum.js';
 import { openStore, grade } from './store.js';
@@ -38,11 +39,11 @@ function openCourse(id,stage=null){const m=moduleById(id);if(!m)return;selectInd
 function openExternal(url){if(!education.bundle.sources.some(s=>s.url===url))throw Error('Fonte non registrata');window.open(url,'_blank','noopener,noreferrer');}
 let R, U, W, cache, data, lessons, questions, readerIndex, textureManifest, worlds = { worlds: [] }, raf, prevTime = 0, pointer = null, activeSlider = null, semanticSignature = '', textSignature = '', frameCount = 0, worker = null;
 const navigation = new NavigationMemory(), hover = new HoverTarget();
-let hoverPointer = null, touchTarget = null;
+let hoverPointer = null, touchTarget = null, book = null;
 const sectors = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
 const sectorColors = DISCIPLINE;
 const nav = [['galaxy', 'MAPPA'], ['catalogue', 'ARGOMENTI'], ['paths', 'PERCORSI'], ['lab', 'LABORATORI'], ['journal', 'DIARIO']];
-const navGroups = { galaxy: ['galaxy', 'system', 'orbit', 'surface'], catalogue: ['catalogue', 'mission', 'briefing', 'theory', 'pdf', 'quiz', 'sources', 'research', 'pilot'], paths: ['paths'], lab: ['lab'], journal: ['journal'] };
+const navGroups = { galaxy: ['galaxy', 'system', 'orbit', 'surface'], catalogue: ['catalogue', 'mission', 'briefing', 'theory', 'pdf', 'quiz', 'sources', 'research', 'pilot', 'libro'], paths: ['paths'], lab: ['lab'], journal: ['journal'] };
 const sceneNames = { system: 'MAPPA', orbit: 'MAPPA', surface: 'MAPPA', mission: 'UNITÀ', briefing: 'UNITÀ', theory: 'TEORIA', pdf: 'DISPENSA', quiz: 'VERIFICA', sources: 'FONTI', research: 'RICERCA', pilot: 'MISSIONE' };
 const areaTrail = (m, extra = []) => { const a = areaOf(m.planetIndex); return ['GALASSIA', sectors[a.sector].toUpperCase(), a.name.toUpperCase(), ...extra].join(' ▸ '); };
 const labNames = { daisyworld: 'Daisyworld', transform: 'Trasformazioni', rectangle: 'Area a perimetro fissato', radical: 'Dominio dei radicali', linear: 'Due vincoli lineari', reserve: 'Riserve e decadimento', rational: 'Zeri, segni e punti esclusi' };
@@ -76,7 +77,7 @@ function route(scene, extra = {}) {
 }
 function enterSystem(id=S.system) { route('system',{system:id}); }
 function enterPlanet(index=S.selected) { route('orbit',{selected:index}); }
-function backToParent() { if(['mission','pilot'].includes(S.scene))route('briefing');else if(S.scene==='surface')route('orbit');else if(S.scene==='orbit')route('system',{system:S.system});else if(S.scene==='system')route('galaxy'); }
+function backToParent() { if(S.scene==='libro')route('orbit');else if(['mission','pilot'].includes(S.scene))route('briefing');else if(S.scene==='surface')route('orbit');else if(S.scene==='orbit')route('system',{system:S.system});else if(S.scene==='system')route('galaxy'); }
 function changeZoom(factor) { const limits=S.scene==='system'?[17,70]:S.scene==='orbit'?[14,38]:[23,100]; S.distance=clamp(S.distance*factor,...limits); hover.clear(); }
 function updateHash(mode = 'replace') {
     const q = new URLSearchParams();
@@ -90,6 +91,8 @@ function updateHash(mode = 'replace') {
         q.set('model', S.lab);
     if (S.scene === 'surface' && S.explore)
         q.set('mode', 'esplora');
+    if (S.scene === 'libro' && S.bookSection)
+        q.set('sezione', S.bookSection);
     if (S.scene === 'pdf') {
         if (S.pdfDoc === 'fis') q.set('doc', 'fis');
         q.set('page', String(S.pdfPage));
@@ -179,7 +182,13 @@ function title(kicker, heading, sub) {
 }
 function wrapClipText(s, x, y, w, style = 'body', c = C.muted, max = 3) { return U.wrap(s, x, y, w, c, style === 'body' ? 25 : 19, max, style); }
 function coverage(m) { if(m.curriculum)return m.source?'PERCORSO GUIDATO + FONTE PDF':'PERCORSO GUIDATO 3D';return m.status === 'planned' ? 'IN PREPARAZIONE' : m.lesson ? (['theory-complete', 'full-theory'].includes(m.coverage) ? 'TEORIA WEB' : 'LEZIONE WEB + FONTE') : 'DISPENSA COMPLETA'; }
-function buttonsModule(m, x, y, w) { U.button('read-unit', m.curriculum ? 'APRI L’UNITÀ' : m.lesson ? 'LEGGI LA TEORIA' : 'CONSULTA LA FONTE', x, y, w, 42, () => m.curriculum?openCourse(m.id):openTheory(m.id), { active: true, disabled: m.status === 'planned' }); U.button('briefing', 'SCHEDA DELL’UNITÀ', x, y + 51, w, 42, () => route('briefing')); }
+/** Opens the book chapter of a unit, or flies to its planet when the chapter is not written yet. */
+function openChapter(id, section = null) { const m = moduleById(id); if (!m) return; if (book?.has(id)) route('libro', { selected: m.planetIndex, bookSection: section }); else { route('orbit', { selected: m.planetIndex }); say('Capitolo in preparazione: ecco il pianeta di «' + m.title + '».'); } }
+function buttonsModule(m, x, y, w) {
+    // Units with a book chapter: the chapter comes first, unit and card share the second row.
+    if (book?.has(m.id)) { U.button('read-chapter', 'LEGGI IL CAPITOLO', x, y, w, 42, () => openChapter(m.id), { active: true }); U.button('read-unit', 'APRI L’UNITÀ', x, y + 51, (w - 8) / 2, 42, () => m.curriculum ? openCourse(m.id) : openTheory(m.id), { disabled: m.status === 'planned' }); U.button('briefing', 'SCHEDA', x + (w + 8) / 2, y + 51, (w - 8) / 2, 42, () => route('briefing')); return; }
+    U.button('read-unit', m.curriculum ? 'APRI L’UNITÀ' : m.lesson ? 'LEGGI LA TEORIA' : 'CONSULTA LA FONTE', x, y, w, 42, () => m.curriculum?openCourse(m.id):openTheory(m.id), { active: true, disabled: m.status === 'planned' }); U.button('briefing', 'SCHEDA DELL’UNITÀ', x, y + 51, w, 42, () => route('briefing'));
+}
 function common() {
     const w = R.w, h = R.h, mobile = w < 850;
     U.begin();
@@ -1041,20 +1050,24 @@ function drawMathObjects() {
     for (const dx of [-a, a])
         R.drawMesh('basin-edge-z', W.vp, transform(base[0] + dx * .7, base[1] + .11, base[2], .7), { eye: W.eye, tint: [.45, .67, .64, 1] });
 }
+let bookFrames = 0;
 function draw() {
     if (!S.loaded || S.contextLost)
         return;
+    // While a chapter is open the 3D backdrop is redrawn about five times a second, which keeps reading light.
+    if (S.scene === 'libro' && book?.visible && !S.menu && !S.settings && ++bookFrames % 12) { syncBook(); return; }
     R.sceneQuality=S.graphics;R.hoverStarIndex=S.hoveredTarget?.type==='system'?W.systems[S.hoveredTarget.index]?.starIndex:-1;
     R.begin();
     atlas?.tick(performance.now());
     worldTick();
-    W.draw(S.scene, S, data);
+    W.draw(S.scene === 'libro' ? 'orbit' : S.scene, S.scene === 'libro' ? { ...S, scene: 'orbit' } : S, data);
     atlas?.draw3D(S,hoverPointer,pointer,U?.focus);
     if(S.scene==='pilot')pilotEducation.draw3D({...S,scene:'mission'});else education.draw3D(S);
     drawMathObjects();
     scrim();
     common();
-    const screens = { galaxy: galaxyUI, system: systemUI, orbit: orbitUI, surface: surfaceUI, research: researchUI, catalogue: catalogueUI, briefing: briefingUI, theory: theoryUI, pdf: pdfUI, lab: labUI, quiz: quizUI, journal: journalUI, sources: sourcesUI, mission: () => education.drawUI(U, S), pilot: () => pilotEducation.drawUI(U,S), paths: () => education.drawPathsUI(U,S) };
+    syncBook();
+    const screens = { libro: () => {}, galaxy: galaxyUI, system: systemUI, orbit: orbitUI, surface: surfaceUI, research: researchUI, catalogue: catalogueUI, briefing: briefingUI, theory: theoryUI, pdf: pdfUI, lab: labUI, quiz: quizUI, journal: journalUI, sources: sourcesUI, mission: () => education.drawUI(U, S), pilot: () => pilotEducation.drawUI(U,S), paths: () => education.drawPathsUI(U,S) };
     (screens[S.scene] || galaxyUI)();
     drawHover();
     overlay();
@@ -1062,6 +1075,13 @@ function draw() {
     R.drawUI();
     frameCount++;
     syncSemantic();
+}
+/** The book page is HTML over the canvas: shown in the 'libro' scene, hidden while a canvas menu is open. */
+function syncBook() {
+    if (!book) return;
+    if (S.scene !== 'libro') { book.hide(); return; }
+    book.show(selected().id, S.bookSection || null);
+    book.root.style.visibility = S.menu || S.settings ? 'hidden' : '';
 }
 function syncSemantic() {
     const accessibleButtons=atlas?.sheet ? [...U.buttons] : [...U.buttons,...sceneActions()];
@@ -1188,6 +1208,8 @@ function events() {
             S.scroll = clamp(S.scroll + e.deltaY * .7, 0, S.maxScroll);
     }, { passive: false });
     window.addEventListener('keydown', e => {
+        // In the book the browser scrolls and selects text; only Escape goes back to the planet.
+        if (S.scene === 'libro' && !S.menu && !S.settings) { if (e.key === 'Escape') backToParent(); return; }
         if(atlas?.key(e))return;
         if (e.target === editor) {
             if (e.key === 'Escape' || (S.editing === 'page' && e.key === 'Enter')) {
@@ -1317,6 +1339,16 @@ async function init() {
             textures[m.id]=R.uploadTexture(await image(m.path));
             if(m.mesh){const buffers=await Promise.all([m.mesh.vertices,m.mesh.indices].map(async p=>{const r=await fetch(asset(p));if(!r.ok)throw Error('Geometria planetaria mancante: '+p);return r.arrayBuffer();}));R.makeMesh(m.mesh.id,{v:new Float32Array(buffers[0]),i:new Uint32Array(buffers[1]),stride:12});}
         }
+        // Book chapters written so far (content/libro/index.json) and the reading layer over the canvas.
+        const bookIndex = await json('content/libro/index.json');
+        book = new BookReader({
+            index: bookIndex.capitoli, fetchText: async path => { const r = await fetch(asset(path)); if (!r.ok) throw Error('Capitolo mancante: ' + path); return r.text(); },
+            onClose: () => backToParent(), onUnit: (unit, anchor) => openChapter(unit, anchor),
+            onRead: (unit, id) => { const key = 'libro:' + unit + '#' + id; if (!store.data.read.includes(key)) { store.data.read.push(key); store.save(); } },
+            isRead: (unit, id) => store.data.read.includes('libro:' + unit + '#' + id),
+            unitInfo: unit => { const m = moduleById(unit); return m ? { title: m.title, area: areaOf(m.planetIndex).name } : null; },
+            top: () => R.w < 850 ? 98 : 82
+        });
         const sceneManifest = await json('assets/scenes/manifest.json');
         // Only the scene metadata: the landing surfaces are generated, the Blender geometry (about 52 MB) is not needed.
         const biomes = sceneMetadata(sceneManifest);
@@ -1347,7 +1379,7 @@ async function init() {
         computeLab();
         events();
         S.loaded = true;
-        window.GAIA = { version: '1.20.1-controllo', state: S, get atlas() { return atlas; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes ? W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0) : W.surface.mesh.i.length/3, planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
+        window.GAIA = { version: '1.21.0-libro', state: S, get atlas() { return atlas; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes ? W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0) : W.surface.mesh.i.length/3, planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
         U = new UI(R);
         pilotEducation = new MissionUI(R, store, missionDefinition, { state:S, route, openTheory, openPDF, download, say });
         education = new CourseUI(R,store,curriculum,{state:S,route,openCourse,openTheory,openPDF,openExternal,download,say,currentUnit:()=>selected().id});
