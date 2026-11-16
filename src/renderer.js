@@ -361,7 +361,7 @@ export class GPU {
         g.uniformMatrix4fv(this.uniform(p,'uVP'),false,vp);g.uniform1f(this.uniform(p,'uPixels'),this.h*this.dpr*this.sceneScale*(background ? .22 : .087));g.uniform1f(this.uniform(p,'uTime'),this.time);
         g.uniform1i(this.uniform(p,'uHoverStar'),background?-1:(this.hoverStarIndex??-1));g.uniform1f(this.uniform(p,'uGain'),gain);const submitted=Math.min(count,(background ? this.backgroundCount : this.starCount)-offset);g.drawArrays(g.POINTS,offset,submitted);this.frameStats.stars+=submitted;this.frameStats.starDrawCalls++;g.depthMask(true);g.disable(g.BLEND);
     }
-    drawMesh(id, vp, model, { texture = null, tint = [1,1,1,1], opacity = 1, rim = 0, emission = 0, eye = [0,8,40], light = [.4,1,.7], material = 0, seed = 0, center = [0,0,0], radius = 5.3, atmosphere = [.11,.36,.81], ocean = false, occluders = [] } = {}) {
+    drawMesh(id, vp, model, { texture = null, tint = [1,1,1,1], opacity = 1, rim = 0, emission = 0, eye = [0,8,40], light = [.4,1,.7], material = 0, seed = 0, center = [0,0,0], radius = 5.3, atmosphere = [.11,.36,.81], ocean = false, disguise = 0, occluders = [] } = {}) {
         const m=this.meshes.get(id);if(!m)return;
         const g=this.gl,p=this.pMesh;g.useProgram(p);g.bindVertexArray(m.vao);
         if(m.stride!==16)g.vertexAttrib4f(4,0,.65,0,0);
@@ -369,7 +369,7 @@ export class GPU {
         for(const [name,value] of Object.entries({uEye:eye,uLight:light,uCenter:center,uFogColor:this.fogColor,uAtmosColor:atmosphere}))g.uniform3fv(this.uniform(p,name),value);
         g.uniform4fv(this.uniform(p,'uTint'),tint);g.uniform1i(this.uniform(p,'uMaterial'),material);
         g.uniform1i(this.uniform(p,'uOccluderCount'),Math.min(4,occluders.length));occluders.slice(0,4).forEach((o,i)=>g.uniform4fv(this.uniform(p,'uOccluder['+i+']'),o));
-        for(const [name,value] of Object.entries({uOcean:ocean?1:0,uTexWeight:texture?1:0,uOpacity:opacity,uRim:rim,uEmission:emission,uTime:this.time,uSeed:seed,uRadius:radius,uFog:this.fogDensity,uHasShadow:material===10&&this.shadowKey?1:0,uMist:this.mist?1:0,uClipBelow:this.inReflection?-.13:-10000}))g.uniform1f(this.uniform(p,name),value);
+        for(const [name,value] of Object.entries({uDisguise:disguise,uOcean:ocean?1:0,uTexWeight:texture?1:0,uOpacity:opacity,uRim:rim,uEmission:emission,uTime:this.time,uSeed:seed,uRadius:radius,uFog:this.fogDensity,uHasShadow:material===10&&this.shadowKey?1:0,uMist:this.mist?1:0,uClipBelow:this.inReflection?-.13:-10000}))g.uniform1f(this.uniform(p,name),value);
         g.activeTexture(g.TEXTURE0);g.bindTexture(g.TEXTURE_2D,texture||this.blank);g.uniform1i(this.uniform(p,'uTex'),0);
         g.activeTexture(g.TEXTURE1);g.bindTexture(g.TEXTURE_2D,this.shadowTexture||this.blank);g.uniform1i(this.uniform(p,'uShadow'),1);
         g.activeTexture(g.TEXTURE2);g.bindTexture(g.TEXTURE_2D,!this.inReflection&&this.reflectionTexture?this.reflectionTexture:this.blank);g.uniform1i(this.uniform(p,'uReflection'),2);

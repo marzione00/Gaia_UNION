@@ -2,7 +2,10 @@ import { color, clamp } from '../renderer.js';
 // Direction A, "osservatorio notturno": deep navy surfaces, one interactive accent, one colour per discipline.
 export const C = { pale: color('#eef2f8'), cyan: color('#8ab8ff'), lime: color('#9fe0bf'), amber: color('#f0c27a'), purple: color('#b9a6ff'), muted: color('#aeb9cb'), dim: color('#8592a8'), red: color('#ff9c8a') };
 export const T = { bg: '#070c18', surface: '#0e1728', raised: '#18243a', hover: '#213050', line: '#273754', ink: '#08111f', scrim: '#060a14' };
-export const DISCIPLINE = [color('#7fb2ff'), color('#b49cff'), color('#f2b766'), color('#6fd3a0')];
+// Matematica, fisica, chimica, biologia: the same four colours mark the arms of the galaxy,
+// the area markers, the orbits of the units and the accents of the unit screens.
+export const DISCIPLINE_HEX = ['#f2b766', '#7fb2ff', '#b49cff', '#6fd3a0'];
+export const DISCIPLINE = DISCIPLINE_HEX.map(h => color(h));
 const KEEP = new Set(['A', 'B', 'Q', 'A/B', 'JSON', 'CSV', 'PDF', 'GAIA', 'DNA', 'RNA', 'ATP', 'PCR', 'UV', 'SI', 'PH', 'OK']);
 /** Labels written in capitals in the source are shown in sentence case; acronyms, single letters
  * and words with digits keep their form. Mixed-case text is left untouched. */

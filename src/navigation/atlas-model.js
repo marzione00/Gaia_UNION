@@ -45,13 +45,17 @@ export function rememberVisit(data, module, enteredSystem = false) {
 export function atlasLayout(w, h, scale = 1) {
     const short = h < 600, compact = w < (short ? 700 : 950), pad = w < 500 ? 12 : 20;
     const header = w < 850 ? 106 : 90;
-    const toolbar = { x: pad, y: header, w: w - pad * 2, h: short ? 50 : 100 };
-    const controls = { x: pad, y: h - 82, w: w - pad * 2, h: 48 };
-    const top = toolbar.y + toolbar.h + 8;
-    const card = compact ? { x:pad, y:h - 82 - (h < 650 ? 144 : 188) - 8, w:w-pad*2, h:h < 650 ? 144 : 188 }
-        : { x:w - Math.min(420, w*.34) - pad, y:top, w:Math.min(420, w*.34), h:h - top - 96 };
+    // One toolbar row; the map controls float inside the map instead of a full-width bar.
+    const toolbar = { x: pad, y: header, w: w - pad * 2, h: 50 };
+    const top = toolbar.y + toolbar.h + 8, bottom = h - 44;
+    const card = compact ? { x:pad, y:bottom - (h < 650 ? 144 : 188), w:w-pad*2, h:h < 650 ? 144 : 188 }
+        : { x:w - Math.min(420, w*.34) - pad, y:top, w:Math.min(420, w*.34), h:bottom - top };
     const map = compact ? {x:pad, y:top, w:w-pad*2, h:Math.max(50, card.y-top-8)}
-        : {x:pad, y:top, w:card.x-pad-12, h:h-top-96};
+        : {x:pad, y:top, w:card.x-pad-12, h:bottom-top};
+    const legendW = Math.min(compact || map.w < 560 ? 86 : 130, (map.w - 18) / 4) * 4 + 18, controlsW = 4 * 44 + 72 + 4 * 6;
+    // Beside the legend when both fit on the bottom row, otherwise in the top right corner.
+    const low = legendW + controlsW + 16 <= map.w;
+    const controls = { x: map.x + map.w - controlsW - (low ? 0 : 8), y: low ? map.y + map.h - 48 : map.y + 8, w: controlsW, h: 44 };
     const sheetY=short?12:header;
     const sheet = { x:pad, y:sheetY, w:w-pad*2, h:Math.max(160, h-sheetY-20) };
     return { compact, short, pad, toolbar, controls, card, map, sheet, scale };
@@ -59,9 +63,9 @@ export function atlasLayout(w, h, scale = 1) {
 export const contains = (r,x,y) => !!r && x >= r.x && y >= r.y && x <= r.x+r.w && y <= r.y+r.h;
 export const overlaps = (a,b,gap=0) => a.x < b.x+b.w+gap && a.x+a.w+gap > b.x && a.y < b.y+b.h+gap && a.y+a.h+gap > b.y;
 /** Greedy stable labels: selected/focused systems get first choice, never move the star. */
-export function placeLabels(points, bounds, selected, measure, radius=22, nameOf=index=>AREAS[index]?.name||'') {
-    const result = [], occupied = points.filter(p=>p.depth>0).map(p=>({x:p.x-radius,y:p.y-radius,w:radius*2,h:radius*2}));
-    const sorted = [...points].filter(p=>p.depth>0 && contains(bounds,p.x,p.y)).sort((a,b)=>(b.index===selected)-(a.index===selected)||a.index-b.index);
+export function placeLabels(points, bounds, selected, measure, radius=22, nameOf=index=>AREAS[index]?.name||'', blocked=[], show=()=>true) {
+    const result = [], occupied = [...points.filter(p=>p.depth>0).map(p=>({x:p.x-radius,y:p.y-radius,w:radius*2,h:radius*2})),...blocked];
+    const sorted = [...points].filter(p=>p.depth>0 && contains(bounds,p.x,p.y) && (p.index===selected || show(p.index))).sort((a,b)=>(b.index===selected)-(a.index===selected)||a.index-b.index);
     for (const p of sorted) {
         const text = nameOf(p.index), w=measure(text)+10, h=22;
         const positions = [[p.x+radius+4,p.y-11],[p.x-w-radius-4,p.y-11],[p.x-w/2,p.y-radius-h-4],[p.x-w/2,p.y+radius+4]];
@@ -88,11 +92,11 @@ export function routeSystems(path, modules) {
     return (path?.units || []).map(id=>lookup.get(id)).filter((n,i,a)=>Number.isInteger(n)&&(i===0||a[i-1]!==n));
 }
 export const GUIDE = [
-    { title:'1 / Quattro bracci, quattro discipline', text:'Ogni braccio della galassia è una disciplina, riconoscibile dal colore. Ogni esagono è un\u2019area tematica: dal centro verso l\u2019esterno le aree seguono l\u2019ordine di studio.', target:'map' },
-    { title:'2 / Scegli una disciplina', text:'Questi quattro pulsanti evidenziano un braccio e limitano la ricerca a quella disciplina. Toccalo di nuovo per vederle tutte.', target:'legend' },
-    { title:'3 / Apri un\u2019unità', text:'La scheda elenca le unità dell\u2019area selezionata. Scegline una e premi APRI L\u2019UNITÀ, oppure SISTEMA 3D per visitare i pianeti.', target:'card' },
-    { title:'4 / Cerca per nome', text:'CERCA trova un argomento scrivendone il nome, per esempio \u00abgas\u00bb o \u00abgenetica\u00bb, e porta la mappa sulla sua area.', target:'list' },
-    { title:'5 / Percorsi e ripresa', text:'PERCORSI collega unità di discipline diverse. RIPRENDI riapre le ultime unità studiate su questo dispositivo. La guida si riapre da GUIDA.', target:'routes' }
+    { title:'1 / Quattro bracci, quattro discipline', text:'Ogni braccio della galassia è una disciplina, riconoscibile dal colore: ambra la matematica, azzurro la fisica, viola la chimica, verde la biologia. Ogni esagono è un\u2019area tematica e l\u2019arco intorno conta le unità completate.', target:'map' },
+    { title:'2 / Scegli una disciplina', text:'Questi quattro pulsanti evidenziano un braccio, ne mostrano i nomi delle aree e limitano la ricerca a quella disciplina. Toccalo di nuovo per vederle tutte.', target:'legend' },
+    { title:'3 / Apri un\u2019unità', text:'La scheda elenca le unità dell\u2019area selezionata. Scegline una e premi \u00abApri l\u2019unità\u00bb, oppure \u00abSistema 3D\u00bb per visitare i pianeti.', target:'card' },
+    { title:'4 / Cerca per nome', text:'\u00abCerca\u00bb trova un argomento scrivendone il nome, per esempio \u00abgas\u00bb o \u00abgenetica\u00bb, e porta la mappa sulla sua area.', target:'list' },
+    { title:'5 / Percorsi e ripresa', text:'\u00abPercorsi\u00bb collega unità di discipline diverse. \u00abRiprendi\u00bb riapre le ultime unità studiate su questo dispositivo. La guida si riapre da \u00abGuida\u00bb.', target:'routes' }
 ];
 /** Frame the galaxy inside the usable map rectangle, without moving any star. */
 export function galaxyCamera(s,w,h) {

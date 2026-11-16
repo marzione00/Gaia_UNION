@@ -1,3 +1,21 @@
+# 1.14.0: Galassia, sistemi e pianeti più leggibili
+
+- Colori delle discipline unificati in tutto il sito: ambra la matematica, azzurro la fisica, viola la chimica, verde la biologia. Gli stessi colori segnano i bracci della galassia, le aree, le orbite delle unità, la legenda e gli accenti delle schermate delle unità.
+- Galassia:
+  - aree come esagoni nel colore della disciplina, con riempimento traslucido più marcato per le aree già visitate o iniziate e un arco che conta le unità completate;
+  - stelle dei bracci leggermente tinte con il colore della disciplina, senza spostare nessuna stella;
+  - nomi delle aree un braccio alla volta (la disciplina filtrata, oppure quella dell'area selezionata), con l'area sotto il puntatore sempre nominata;
+  - una sola riga di comandi in alto (percorso, «Cerca un argomento», «Percorsi», «Riprendi», «Guida», «Accessibilità»; sul telefono «Aa»);
+  - rotazione, zoom e «Centra» raccolti in un gruppo compatto dentro la mappa, al posto della barra a tutta larghezza;
+  - rimossa la bussola a tre assi in alto a sinistra, che non si leggeva come direzione; attenuato il guscio azzurro di nebulosa nella parte bassa.
+- Sistema:
+  - pianeti delle unità disegnati più grandi (1,55 volte il raggio calcolato), con un numero da 1 a 4 come nell'elenco; anello e nome sul pianeta selezionato o sotto il puntatore, anche passando sull'elenco;
+  - orbite delle unità nel colore della disciplina, quella selezionata più marcata; orbite di contorno tenui;
+  - alone della stella nel suo colore e nebulose di fondo più scure dentro il sistema.
+- Pianeta: la camera guarda il pianeta di lato rispetto alla stella, con il confine fra giorno e notte visibile. Sul telefono il pianeta sta nella metà superiore e la scheda sotto, senza sovrapporsi; una sfumatura scura rende leggibile il titolo. Le due mappe terrestri sono specchiate e ruotate di tinta: i pianeti terrestri e oceanici non mostrano più i continenti della Terra.
+- Superficie: stazioni con numero e nome (Lezione, Laboratorio, Verifica, Collegamenti) e segno di spunta quando l'unità ha superato la loro fase; pulsanti in basso con lo stesso nome.
+- Guida della mappa aggiornata ai nuovi colori, all'arco delle unità completate e alle nuove etichette.
+
 # 1.13.0: Interfaccia «Osservatorio notturno»
 
 - Testo nitido: il canvas usa la densità reale dello schermo fino a 3×, invece del limite di 1,4×. I glifi sono rasterizzati a 2-3 volte la dimensione in pixel CSS, con mipmap; la scena 3D conserva la risoluzione interna precedente, quindi il costo grafico resta simile.

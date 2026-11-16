@@ -9,7 +9,7 @@ import { loadScenes, planetProfile, PlanetTextures } from './scene/assets.js';
 import { resolveRoute } from './routing.js';
 import { GPU, color, clamp, project, transform, mesh } from './renderer.js';
 import { World, RESEARCH, EDGES, box } from './scene/world.js';
-import { UI, C, T, ImageCache, caseLabel } from './ui/toolkit.js';
+import { UI, C, T, ImageCache, caseLabel, DISCIPLINE } from './ui/toolkit.js';
 import { openStore, grade } from './store.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
@@ -33,7 +33,7 @@ let R, U, W, cache, data, lessons, questions, readerIndex, pdfIndex, textureMani
 const navigation = new NavigationMemory(), hover = new HoverTarget();
 let hoverPointer = null, touchTarget = null;
 const sectors = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
-const sectorColors = [C.amber, C.cyan, C.purple, C.lime];
+const sectorColors = DISCIPLINE;
 const nav = [['galaxy', 'MAPPA'], ['catalogue', 'ARGOMENTI'], ['paths', 'PERCORSI'], ['lab', 'LABORATORI'], ['journal', 'DIARIO']];
 const navGroups = { galaxy: ['galaxy', 'system', 'orbit', 'surface'], catalogue: ['catalogue', 'mission', 'briefing', 'theory', 'pdf', 'quiz', 'sources', 'research', 'pilot'], paths: ['paths'], lab: ['lab'], journal: ['journal'] };
 const sceneNames = { system: 'MAPPA', orbit: 'MAPPA', surface: 'MAPPA', mission: 'UNITÀ', briefing: 'UNITÀ', theory: 'TEORIA', pdf: 'DISPENSA', quiz: 'VERIFICA', sources: 'FONTI', research: 'RICERCA', pilot: 'MISSIONE' };
@@ -197,9 +197,29 @@ function scrim() {
     R.rect(0, hole.y, hole.x, hole.h, c); R.rect(hole.x + hole.w, hole.y, w - hole.x - hole.w, hole.h, c);
 }
 function galaxyUI() { atlas.draw(U); }
+/** Dark band fading downwards behind the screen title on phones, where it overlaps the 3D scene. */
+function titleFade(y0 = 90, y1 = 290) { if (R.w >= 850) return; const n = 22; for (let i = 0; i < n; i++) R.rect(0, y0 + (y1 - y0) * i / n, R.w, (y1 - y0) / n + 1, color(T.bg, .88 * (1 - (i / n) ** 2))); }
+/** Number badge on each unit planet, matching the list; ring and name on the selected or hovered one. */
+function planetBadges(system) {
+    const hovered = /^system-planet-(\d+)$/.exec(U.hover || '')?.[1], tint = sectorColors[system.sector], placed = [];
+    for (const p of W.projections) {
+        if (p.type !== 'planet') continue;
+        const order = system.planets.indexOf(p.index), on = p.index === S.selected, hot = String(p.index) === hovered || S.hoveredTarget?.type === 'planet' && S.hoveredTarget.index === p.index;
+        if (order < 0 || !Number.isFinite(p.x) || p.depth <= 0) continue;
+        // First free corner around the planet, so badges of neighbouring planets do not overlap.
+        const r = Math.max(10, p.r * .9), corners = [[r * .72, -r * .72 - 22], [-r * .72 - 22, -r * .72 - 22], [r * .72, r * .72], [-r * .72 - 22, r * .72]];
+        const [bx, by] = corners.map(([dx, dy]) => [p.x + dx, p.y + dy]).find(([x, y]) => !placed.some(q => Math.abs(q[0] - x) < 26 && Math.abs(q[1] - y) < 26)) || [p.x + corners[0][0], p.y + corners[0][1]];
+        placed.push([bx, by]);
+        if (on || hot) R.roundRect(p.x - r - 6, p.y - r - 6, 2 * r + 12, 2 * r + 12, r + 6, color('#000000', 0), on ? tint : color(T.line, 1));
+        R.roundRect(bx, by, 22, 22, 11, on ? tint : color(T.raised, .95), on ? null : tint);
+        U.text(String(order + 1), bx + 11, by + 4, 'micro', on ? color(T.ink) : C.pale, { align: 'center' });
+        if ((on || hot) && R.w >= 850) { const name = data.modules[p.index].title, tw = R.textWidth(name, 'micro') + 16; R.roundRect(bx + 28, by + 1, tw, 20, 6, color(T.bg, .9)); U.text(name, bx + 36, by + 4, 'micro', on ? C.pale : C.muted); }
+    }
+}
 function systemPanel(system){ const mobile=R.w<850; return mobile?null:{x:32,y:300,w:268,h:64+system.planets.length*44}; }
 function systemUI() {
     const w=R.w,h=R.h,mobile=w<850,system=W.systems[S.system],m=selected(),observed=S.observedBody===null?null:system.bodies[S.observedBody],place=unitPlace(S.selected),tint=sectorColors[system.sector];
+    if(W.cameraProgress===1)planetBadges(system);titleFade();
     title(areaTrail(m),system.name,mobile?system.planets.length+' unità · dall’orbita interna a quella esterna.':system.planets.length+' unità di '+system.discipline.toLowerCase()+' in ordine di studio, dall’orbita interna a quella esterna. Gli altri pianeti sono di contorno.');
     const px=mobile?18:w-337,pw=mobile?w-36:304,py=mobile?h-306:245,ph=mobile?222:365;
     U.panel(px,py,pw,ph,tint,.80);U.tag(observed?'PIANETA DI CONTORNO':'UNITÀ '+place.position+' DI '+place.count,px+18,py+19,tint);
@@ -270,6 +290,7 @@ function drawHover() {
 }
 function orbitUI() {
     const w = R.w, h = R.h, m = selected(), mobile = w < 850;
+    titleFade();
     title(areaTrail(m), m.title, 'Unità '+unitPlace(S.selected).position+' di '+unitPlace(S.selected).count+' dell’area '+areaOf(S.selected).name+'.');
     const px = mobile ? 18 : w - 370, pw = mobile ? w - 36 : 334, py = mobile ? h - 360 : 247, ph = mobile ? 276 : h - 337;
     U.panel(px, py, pw, ph, sectorColors[m.sector], .76);
@@ -288,13 +309,16 @@ function orbitUI() {
 }
 function surfaceUI() {
     const w = R.w, h = R.h, mobile = w < 850, m = selected(), tint = sectorColors[m.sector];
+    titleFade();
     title(areaTrail(m, ['SUPERFICIE']), m.title, 'Quattro stazioni, una per ogni attività dell’unità.');
-    const names = ['STAZIONE DELLA LEZIONE', 'LABORATORIO', 'STAZIONE DI VERIFICA', 'STAZIONE DEI COLLEGAMENTI'];
+    const names = ['Stazione della lezione', 'Laboratorio', 'Stazione di verifica', 'Stazione dei collegamenti'], short = ['Lezione', 'Laboratorio', 'Verifica', 'Collegamenti'];
     const desc = ['La spiegazione su tre livelli: Base, Applica, Approfondisci.', 'Prevedi, cambia i parametri e confronta due esperimenti.', 'Quattro domande con la spiegazione di ogni risposta.', 'Le unità collegate e le fonti per approfondire.'];
     const stages = [0, 2, 4, 5];
     const px = mobile ? 18 : w - 353, pw = mobile ? w - 36 : 320, py = mobile ? h - 304 : 258, ph = mobile ? 220 : 300;
     U.panel(px, py, pw, ph, tint, .78);
-    U.tag('STAZIONE ' + (S.station + 1).toString().padStart(2, '0'), px + 18, py + 20, tint);
+    // A station counts as done once the unit has moved past its phase, or the unit is complete.
+    const record = store.data.courses?.[m.id], done = i => !!(record?.completedAt || (record?.stage ?? 0) > stages[i]);
+    U.tag('Stazione ' + (S.station + 1) + ' di 4' + (done(S.station) ? ' · fatta' : ''), px + 18, py + 20, tint);
     wrapClipText(names[S.station], px + 18, py + 52, pw - 36, 'sub', C.pale, 2);
     wrapClipText(desc[S.station], px + 18, py + 112, pw - 36, 'body', C.muted, 3);
     U.button('enter-station', 'APRI QUESTA ATTIVITÀ', px + 16, py + ph - 55, pw - 32, 40, () => {
@@ -302,11 +326,17 @@ function surfaceUI() {
     }, { active: true });
     if (!mobile)
         for (const p of W.projections) {
-            U.tag('S' + (p.index + 1), p.x + 18, p.y - 10, tint);
+            if (p.type !== 'station' || !Number.isFinite(p.x)) continue;
+            const label = (done(p.index) ? '✓ ' : '') + short[p.index], tw = R.textWidth(label, 'mini') + 44, on = p.index === S.station, x = p.x + 16, y = p.y - 16;
+            R.roundRect(x, y, tw, 30, 15, color(T.bg, .9), on ? tint : color(T.line, 1));
+            R.roundRect(x + 4, y + 4, 22, 22, 11, on ? tint : color(T.raised, 1));
+            U.text(String(p.index + 1), x + 15, y + 8, 'micro', on ? color(T.ink) : C.pale, { align: 'center' });
+            U.text(label, x + 32, y + 7, 'mini', on ? C.pale : C.muted);
         }
-    U.button('back-planet',mobile?'ORBITA':'TORNA AL PIANETA',mobile?294:307,h-86,mobile?Math.max(65,w-312):190,36,()=>route('orbit'),{small:mobile});
+    const sw = mobile ? 55 : 124;
+    U.button('back-planet',mobile?'ORBITA':'TORNA AL PIANETA',mobile?294:35+4*(sw+8)+12,h-86,mobile?Math.max(65,w-312):190,36,()=>route('orbit'),{small:mobile});
     for (let i = 0; i < 4; i++)
-        U.button('station-' + i, 'S' + (i + 1), 35 + i * 64, h - 86, 55, 36, () => S.station = i, { active: S.station === i });
+        U.button('station-' + i, mobile ? String(i + 1) : (i + 1) + ' · ' + short[i], 35 + i * (sw + 8), h - 86, sw, 36, () => S.station = i, { active: S.station === i });
 }
 function researchUI() {
     const w = R.w, h = R.h, n = RESEARCH[S.node], mobile = w < 850;
@@ -1145,7 +1175,7 @@ async function init() {
         computeLab();
         events();
         S.loaded = true;
-        window.GAIA = { version: '1.13.0-interfaccia', state: S, get atlas() { return atlas; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0), planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndex.length, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
+        window.GAIA = { version: '1.14.0-cosmo', state: S, get atlas() { return atlas; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0), planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndex.length, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:100, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
         U = new UI(R);
         pilotEducation = new MissionUI(R, store, missionDefinition, { state:S, route, openTheory, openPDF, download, say });
         education = new CourseUI(R,store,curriculum,{state:S,route,openCourse,openTheory,openPDF,openExternal,download,say,currentUnit:()=>selected().id});
