@@ -283,3 +283,31 @@ test('Chimica 12: soluzioni e concentrazione, numeri ricalcolati',()=>{
  assert.equal(r(6.0e23*1e-24,2),0.6);assert.equal(r(1/NA*1e24,1),1.7);assert.equal(r(Math.log10(6.0e23)/2,1),11.9);
  assert.equal(r(0.99705/0.9832,4),1.0141);assert.equal(r(0.9832/0.99705,3),0.986);
 });
+test('Chimica 13: solubilità ed equilibrio eterogeneo, numeri ricalcolati',()=>{
+ // Ksp values at 25 C (CRC); molar solubilities.
+ const K={AgCl:1.77e-10,AgBr:5.35e-13,AgI:8.52e-17,Ag2CrO4:1.12e-12,BaSO4:1.08e-10,CaF2:3.45e-11,MgOH2:5.61e-12,FeOH3:2.79e-39,CaSO4:4.93e-5,SrSO4:3.44e-7,CaOH2:5.02e-6};
+ const s1=k=>Math.sqrt(k),s2=k=>Math.cbrt(k/4),s3=k=>(k/27)**0.25;
+ assert.equal(r(s1(K.AgCl)*1e5,2),1.33);assert.equal(r(s1(K.AgCl)*143.32*1e3,1),1.9);assert.equal(r(1/(s1(K.AgCl)*143.32),-1),520);
+ assert.equal(r(s2(K.CaF2)*1e4,2),2.05);assert.equal(r(K.CaF2/4*1e12,1),8.6);assert.equal(r(s2(K.CaF2)*78.07*1e3,0),16);assert.equal(r(2*s2(K.CaF2)*19.00*1e3,1),7.8);
+ assert.equal(r(4*(1.35e-3)**3*1e9,1),9.8);assert.equal(r(s2(K.Ag2CrO4)*1e5,2),6.54);assert.equal(r(0.0217/331.73*1e5,2),6.54);assert.equal(r(4*(0.0217/331.73)**3*1e12,2),1.12);
+ assert.equal(r(s2(K.Ag2CrO4)/s1(K.AgCl),0),5);assert.equal(r(K.AgCl/K.Ag2CrO4,0),158);
+ assert.equal(r(s1(K.AgBr)*1e7,1),7.3);assert.equal(r(s1(K.AgCl)/s1(K.AgBr),0),18);assert.equal(r(1/(s1(K.AgBr)*187.77),-2),7300);
+ assert.equal(r(s1(K.BaSO4)*1e5,2),1.04);assert.equal(r(s1(K.BaSO4)*233.39*1e3,1),2.4);
+ assert.equal(r(s2(K.MgOH2)*1e4,2),1.12);assert.equal(r(2*s2(K.MgOH2)*1e4,1),2.2);assert.equal(r(s2(K.MgOH2)*58.32*1e3,1),6.5);
+ assert.equal(r(s3(K.FeOH3)*1e10,1),1);assert.equal(r(K.FeOH3/1e-21*1e18,1),2.8);
+ assert.equal(r(s1(K.CaSO4)*1e3,0),7);assert.equal(r(s1(K.SrSO4)*1e4,0),6);assert.equal(r(s2(K.CaOH2)*1e2,1),1.1);
+ // Common ion.
+ assert.equal(r(K.AgCl/0.1*1e9,1),1.8);assert.equal(r(s1(K.AgCl)/(K.AgCl/0.1),-3),8000);assert.ok(Math.abs(K.AgCl/0.02*1e9-8.85)<0.01);assert.equal(r(s1(K.AgCl)/(K.AgCl/0.02),-2),1500);
+ assert.equal(r(K.CaF2/1e-4*1e7,2),3.45);assert.equal(r(s2(K.CaF2)/(K.CaF2/1e-4),-2),600);
+ // Silver chloro complexes (Martell-Smith log K1 = 3.31, log beta2 = 5.25) at 0.10 M chloride.
+ const tot=K.AgCl/0.1+K.AgCl*10**3.31+K.AgCl*10**5.25*0.1;assert.equal(r(tot*1e6,1),3.5);
+ // Precipitation tests.
+ assert.equal(r((5e-4)**2*1e7,1),2.5);assert.equal(r((5e-4)**2/K.AgCl,-2),1400);assert.equal(r((1e-4)**2,10),1e-8);assert.ok((1e-6)**2<K.BaSO4);
+ // Fractional precipitation.
+ const agcl=K.AgCl/0.01,agcro=Math.sqrt(K.Ag2CrO4/0.01);assert.equal(r(agcl*1e8,1),1.8);assert.equal(r(agcro*1e5,2),1.06);assert.equal(r(agcro/agcl,-2),600);
+ assert.equal(r(K.AgCl/agcro*1e5,1),1.7);assert.equal(r(100*(1-K.AgCl/agcro/0.01),1),99.8);
+ assert.equal(r(K.AgI/0.01*1e15,1),8.5);assert.equal(r(K.AgI/agcl*1e9,1),4.8);assert.equal(r(K.AgCl/1e-3*1e7,1),1.8);
+ // Complex formation in ammonia.
+ const Kc=K.AgCl*1.6e7,rt=Math.sqrt(Kc),s=rt/(1+2*rt);assert.equal(r(Kc*1e3,1),2.8);assert.equal(r(rt,3),0.053);assert.equal(r(s,3),0.048);assert.equal(r(s/s1(K.AgCl),-2),3600);
+ assert.equal(r(5.35e-13*2.9e13,0),16);
+});
