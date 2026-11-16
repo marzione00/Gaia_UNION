@@ -262,3 +262,24 @@ test('Chimica 11: stati e transizioni, numeri ricalcolati',()=>{
  const dV=(18.015/0.9998-18.015/0.9167)*1e-6,sl=273.15*dV/6010;assert.equal(r(dV*1e6,2),-1.63);assert.equal(r(sl*1e8,1),-7.4);assert.equal(r(sl*1e5,4),-0.0074);assert.equal(r(-1/(sl*1e5),0),135);
  assert.equal(r(70*9.81/2e-4/1e5,0),34);assert.equal(r(34*0.0074,2),0.25);
 });
+test('Chimica 12: soluzioni e concentrazione, numeri ricalcolati',()=>{
+ // Molarities and conversions (CIAAW molar masses, CRC densities).
+ assert.equal(r(9/58.44,3),0.154);assert.equal(r(0.9*5,1),4.5);assert.equal(r(5.85/58.44/0.25,3),0.4);assert.equal(r(0.2*0.25*105.99,2),5.3);
+ assert.equal(r(900/180.16/1000*1000,2),5);assert.equal(r(0.02*0.5*158.03,3),1.58);assert.equal(r(1*500/12,1),41.7);assert.equal(r(2*25/500,2),0.1);
+ assert.equal(r(0.37*1180,0),437);assert.equal(r(0.37*1180/36.46,1),12);assert.equal(r(0.1/12*1000,1),8.3);
+ assert.equal(r(0.12*750*0.789,0),71);assert.equal(r(120*0.789,1),94.7);assert.equal(r(120*0.789/46.07,2),2.06);
+ const n=10/180.16;assert.equal(r(n,4),0.0555);assert.equal(r(n/0.25,3),0.222);assert.equal(r(250/18.015,2),13.88);assert.equal(r(n/(n+250/18.015),4),0.004);
+ assert.equal(r(37/36.46,3),1.015);assert.equal(r(37/36.46/0.063,1),16.1);assert.equal(r(0.63*1180,0),743);
+ // Precipitation of chloride.
+ assert.equal(r(0.025*0.154*1e3,2),3.85);assert.equal(r(0.025*0.154/0.1*1000,1),38.5);assert.equal(r(0.025*0.154*143.32,3),0.552);
+ // ppm, lead atoms, concentration scale.
+ assert.equal(r(15e-6/207.2*1e8,1),7.2);assert.equal(r(15e-6/207.2*NA/1e16,0),4);assert.equal(r(19.35/35.45,3),0.546);assert.equal(r(50e-3/62.0*1e4,0),8);assert.equal(r(10e-6/207.2*1e9,0),48);
+ assert.equal(r(Math.log10(12/(10e-6/207.2)),1),8.4);
+ // Solubility and gases.
+ assert.equal(r(168.8-31.6,1),137.2);assert.equal(r(137.2/168.8*100,0),81);assert.equal(r(243.6/13.3,0),18);assert.equal(r(1-6.41/14.62,2),0.56);
+ assert.equal(r(1.2e-5*21200,2),0.25);assert.equal(r(1.2e-5*21200*32,1),8.1);assert.equal(r(6.4e-6*79000,2),0.51);assert.equal(r(6.4e-6*316000,1),2);
+ // Isotonic solutions, serial dilution, temperature.
+ assert.equal(r(2*0.154,3),0.308);assert.equal(r(50/180.16,3),0.278);assert.equal(r(0.308/3,3),0.103);assert.equal(r(0.05+0.03,2),0.08);assert.equal(r(0.08/0.4,2),0.2);
+ assert.equal(r(6.0e23*1e-24,2),0.6);assert.equal(r(1/NA*1e24,1),1.7);assert.equal(r(Math.log10(6.0e23)/2,1),11.9);
+ assert.equal(r(0.99705/0.9832,4),1.0141);assert.equal(r(0.9832/0.99705,3),0.986);
+});
