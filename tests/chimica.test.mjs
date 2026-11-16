@@ -126,3 +126,17 @@ test('Chimica 02: atomi, isotopi e massa media, numeri ricalcolati',()=>{
  const dm=2*1.007825+2*1.008665-4.002603;assert.equal(r(dm,6),0.030377);assert.equal(r(dm*931.494,1),28.3);assert.equal(r(dm*931.494/4,1),7.1);
  assert.equal(r(12*1.66053906892e-27*1e26,3),1.993);assert.equal(r(5730*Math.log2(1/0.3),-1),9950);
 });
+test('Chimica 06: legame ionico, numeri ricalcolati',()=>{
+ const kJ=e*NA/1000,k=8.9875517862e9,kk=k*e*e*NA/1000*1e12;
+ assert.equal(r(-k*e*e/236e-12/1e-19,2),-9.78);assert.equal(r(-k*e*e/236e-12/e,2),-6.1);assert.equal(r(-kk/236,0),-589);assert.equal(r(-kk/282,0),-493);assert.equal(r(kk/1e5,3),1.389);
+ // Born-Haber with Table D.2 / CODATA and NIST IE, EA.
+ const IE={Na:5.1391,K:4.3407,Li:5.3917},EA={F:3.4011898,Cl:3.612724,Br:3.363588,I:3.059038},at={Na:107.3,K:89.24,Li:159.4,F:78.99,Cl:121.7,Br:111.9,I:106.8};
+ const U=(m,x,f)=>at[m]+at[x]+IE[m]*kJ-EA[x]*kJ-f;
+ assert.deepEqual([U('Na','F',-573.6),U('Na','Br',-361.1),U('Na','I',-287.8),U('K','Cl',-436.7),U('Li','Cl',-408.6)].map(v=>r(v,0)),[928,752,703,718,861]);
+ assert.equal(r(107.3+121.7+495.8-348.6+411.2,0),787);assert.equal(r(107.3+121.7+495.8,0),725);assert.equal(r(107.3+121.7+495.8-348.6,0),376);
+ assert.equal(r(147.1+249.2+737.7+1450.7-141+744+601.7,0),3789);assert.equal(r(177.8+249.2+589.8+1145.4-141+744+635.1,0),3400);assert.equal(r((6.1132+11.87172)*kJ,1),1735.3);
+ assert.equal(r(147.1+2*121.7+737.7+1450.7-2*348.6+641.3,0),2523);const fMgCl=147.1+121.7+737.7-348.6-760;assert.equal(r(fMgCl,0),-102);assert.equal(r(-641.3-2*fMgCl,0),-437);
+ assert.equal(r(kk*1.7476/282*(1-1/8),0),753);assert.equal(r(4*58.44/(NA*(564e-10)**3),2),2.16);assert.equal(r(2.16e-3/58.44*NA/1e19,1),2.2);
+ assert.deepEqual([3.16-0.93,3.98-0.82,3.44-1.31,3.16-2.2].map(d=>r(100*(1-Math.exp(-d*d/4)),0)),[71,92,68,21]);
+ assert.deepEqual([[861,257],[787,283],[718,319]].map(([u,d])=>r(u*d/1e5,2)),[2.21,2.23,2.29]);assert.equal(r((5.1391+47.2864)*kJ,0),5058);
+});
