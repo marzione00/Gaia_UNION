@@ -184,3 +184,25 @@ test('Chimica 08: geometria molecolare, numeri ricalcolati',()=>{
  // Valence electron counts.
  assert.deepEqual([4+2*6,5+2*6,5+2*6+1,6+2*6,6+3*6+2],[16,17,18,18,26]);
 });
+test('Chimica 09: forze intermolecolari, numeri ricalcolati',()=>{
+ const k=8.9875517862e9,D=3.33564e-30,kJ=x=>x*NA/1000;
+ // Dipole-dipole energies, head-to-tail: E = -2 mu^2 k / r^3.
+ const dd=(m,rr)=>-2*(m*D)**2*k/rr**3;
+ assert.equal(r(dd(1.109,4e-10)*1e21,1),-3.8);assert.equal(r(kJ(dd(1.109,4e-10)),1),-2.3);assert.equal(r(8.314462618*298.15/1000,2),2.48);
+ assert.equal(r(1.85*D*1e30,2),6.17);assert.equal(r(dd(1.85,5e-10)*1e21,1),-5.5);assert.equal(r(kJ(dd(1.85,5e-10)),1),-3.3);
+ // London estimate for Ar2 (Miller polarizability, NIST IE) and measured well depth 99.5 cm-1.
+ const lon=-0.75*(1.641e-30)**2*15.76*e/(3.76e-10)**6;assert.equal(r(lon*1e21,1),-1.8);assert.equal(r(kJ(lon),2),-1.09);
+ assert.equal(r(99.5*h*c0*100*NA/1000,2),1.19);assert.equal(r(1.1**6,2),1.77);assert.equal(r(100*(1-1/1.1**6),0),44);
+ // Ratios quoted in the text.
+ assert.equal(r(4.044/0.205,0),20);assert.equal(r(165.1/4.22,0),39);assert.equal(r(81.6+42.1,0),124);assert.equal(r(78.3+24.8,0),103);assert.equal(r(927/40.7,0),23);
+ assert.equal(r(-35.4+85.1,0),50);assert.equal(r(51/2,0),26);assert.equal(r(463/25,0),19);
+ // Trouton ratios (CRC enthalpies of vaporization at the boiling point).
+ assert.deepEqual([[8.19,111.7],[28.85,341.9],[29.82,349.9],[30.72,353.2],[38.56,351.4],[40.65,373.1]].map(([H,T])=>r(H*1000/T,0)),[73,84,85,87,110,109]);
+ assert.equal(r(0.088*398.8,1),35.1);assert.equal(r(0.088*373.1,1),32.8);
+ // Ice and water at 0 C; capillary rise; surface energy estimate.
+ assert.deepEqual([18.015/0.9998,18.015/0.9167].map(x=>r(x,2)),[18.02,19.65]);assert.equal(r(100*(0.9998/0.9167-1),1),9.1);
+ assert.equal(r(1000*9.81*5e-4,1),4.9);assert.equal(r(0.144/4.905,3),0.029);assert.equal(r(2*0.022/(789*9.81*5e-4),3),0.011);
+ const A=(3.0e-29)**(2/3);assert.equal(r(A*1e20,1),9.7);assert.equal(r(1/A/1e19,1),1);assert.equal(r(0.072*A*NA/1000,0),4);
+ // Alcohol solubility trend.
+ assert.equal(r(7/2,1),3.5);assert.equal(r(Math.cbrt(2/0.05),1),3.4);
+});
