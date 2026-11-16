@@ -56,6 +56,13 @@ La qualità alta usa la risoluzione della scena al 100%, bilanciata all’80%, r
 - Nuove mesh in `src/worlds/geometry.js` (felce, albero a ombrello, colonna, cuscino, calice, crosta, esapode, volatore, colonia galleggiante, segnale, tenda dell’aurora). Il modo di istanza 4 del vertex shader fa volare i volatori su cerchi ampi con il battito delle ali. Il geyser usa particelle del modo 2; l’aurora è una tenda trasparente nel cielo, con l’alfa che sfuma verso l’alto. Con la grafica «Bilanciato» si disegna il 70% degli individui di ogni specie, con «Leggero» il 40%.
 - In esplorazione la camera passa in circa un secondo dalla vista delle stazioni a una vista più vicina e più alta sul punto scelto. Un clic sul terreno cerca la specie più vicina entro 7 unità o il luogo più vicino entro 9, altrimenti sposta la camera; W A S D muovono il punto di vista. Le registrazioni stanno in `explore` del salvataggio locale.
 
+## Mappe d’orbita dalle carte (1.20.0)
+
+- `src/worlds/orbit-texture.js` calcola la mappa equirettangolare di un pianeta esplorabile con lo stesso stile di terreno della superficie, valutato con rumore 3D sulla sfera: nessuna cucitura sulla linea del cambio di data e nessuna deformazione ai poli. Crateri, atolli, vulcani, criovulcani e caldere diventano calotte distribuite sulla sfera; le dune si allineano lungo le fasce di vento delle basse latitudini, come su Titano.
+- Il livello del mare è il quantile della carta calcolato sull’area (4000 punti distribuiti uniformemente); il colore viene da `colorAt`, la stessa funzione della superficie, con un’ombreggiatura leggera sui pendii. Il canale alfa vale 0 sul mare: il materiale 12 lo usa per il riflesso speculare dell’acqua.
+- `World.orbitTexture` crea subito una mappa 128 × 64 (15-46 ms in Node su otto pianeti di prova), poi costruisce in `orbitTick` la mappa 512 × 256 (125-248 ms) e, per il pianeta in orbita, quella 1024 × 512 (517-911 ms), circa 6 ms per fotogramma. Restano in memoria le 12 mappe medie e le 3 grandi usate più di recente.
+- Nuvole e guscio dell’atmosfera seguono la carta: opacità delle nuvole 1,4 volte la copertura (massimo 0,9), guscio visibile sopra densità 0,05 con opacità 0,3 + 0,55 × densità, colore dal cielo della carta.
+
 ## Riprodurre l'export
 
 Richiede Blender 4.3 e il suo Python con numpy:
