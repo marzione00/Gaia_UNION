@@ -1,0 +1,1 @@
+Risultati storici del collaudo della versione 1.4.0 (15 novembre 2026): test Node, controllo delle risorse, flussi applicativi, replay EGL / OpenGL ES dei comandi del renderer, confronto di conservazione con la 1.3.0 e nota di consegna. Non documentano le versioni successive; il collaudo corrente è in ../QA.md.

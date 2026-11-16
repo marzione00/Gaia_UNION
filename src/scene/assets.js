@@ -19,6 +19,13 @@ export class PlanetTextures {
         return this.base[id];
     }
 }
+/** Metadata of the three Blender scenes (cells, stations, light, fog), used by the views that are not landing
+ * surfaces. Since 1.18.0 the surfaces are generated (src/worlds/surface.js), so the site no longer downloads
+ * the scene geometry; loadScenes below still uploads it, for the export checks. */
+export function sceneMetadata(manifest) {
+    for (const biome of Object.values(manifest.biomes)) if (biome.grid.cells.length !== 875 || biome.stations.length !== 4) throw Error('Metadati della scena non validi');
+    return manifest.biomes;
+}
 export async function loadScenes(gpu, manifest, resolveAsset = p => p, progress = () => {}) {
     const biomes = Object.values(manifest.biomes);
     let completed = 0, total = biomes.reduce((n,b) => n + b.meshes.length, 0);

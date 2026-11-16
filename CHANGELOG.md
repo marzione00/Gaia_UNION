@@ -1,3 +1,11 @@
+# 1.20.1: Controllo del repository e correzioni
+
+- All’avvio il sito non scarica più le geometrie delle tre scene Blender (52,6 MB): dalla 1.18.0 le superfici sono generate e di quelle scene servono solo i metadati. I file restano nel repository come riferimento dell’esportazione.
+- Integrazione continua: le azioni di pubblicazione e di caricamento degli artefatti passano a versioni su Node.js 24 (`configure-pages@v6`, `deploy-pages@v5`, `upload-artifact@v7`, `upload-pages-artifact@v5`), al posto di quelle su Node.js 20 deprecate.
+- Documentazione allineata alla versione corrente: mappe d’orbita generate per le destinazioni esplorabili, superfici generate con 2601 celle, stato delle scene Blender, guida di avvio aggiornata.
+- Nuovo `docs/QA.md` con i risultati della 1.20.1 e il controllo del repository; il collaudo della 1.4.0, i suoi log e la nota di consegna sono archiviati in `docs/history-v1.4.0/`.
+- Nuovo test: all’avvio si leggono solo i metadati delle scene, senza richieste di rete per le geometrie.
+
 # 1.20.0: Mappe d’orbita dalle carte d’identità
 
 - In orbita e nella vista del sistema i 100 pianeti esplorabili mostrano una mappa generata dalla loro carta d’identità: lo stesso stile di terreno, lo stesso livello del mare e gli stessi colori della superficie di atterraggio. Il pianeta visto dall’alto ora corrisponde a quello su cui si atterra.
