@@ -1,3 +1,12 @@
+# 1.24.0: Il libro della galassia, volume di chimica
+
+- Tutte le 25 unità di chimica hanno un capitolo, scritto per il sito: circa 149.000 parole, 163 figure e 409 esercizi risolti su tre livelli. Ogni capitolo si apre con lo scenario del pianeta e rimanda ai capitoli vicini di chimica e di fisica.
+- La teoria atomica è trattata per esteso: spettri e modello di Bohr, dualismo onda-particella, equazione di Schrödinger e numeri quantici dell'atomo di idrogeno, orbitali, spin, atomi a molti elettroni, carica nucleare efficace e periodicità.
+- La termochimica comprende calorimetria a pressione e a volume costante, primo principio, entalpia, legge di Hess, entalpie di formazione e di legame, combustibili, entropia ed energia di Gibbs; i capitoli sugli equilibri collegano la costante di equilibrio all'energia di Gibbs e all'equazione di van 't Hoff.
+- Altri argomenti: legami e geometria molecolare, forze intermolecolari, gas, stati della materia, soluzioni e solubilità, stechiometria e rese, cinetica ed equazione di Arrhenius, catalisi, equilibrio chimico e principio di Le Chatelier, acidi e basi, tamponi e titolazioni, ossidoriduzioni ed elettrochimica, chimica organica, polimeri e ambiente.
+- Il manuale di Petrucci e colleghi resta soltanto un riferimento per la scelta degli argomenti, citato con i paragrafi in ogni capitolo; i dati vengono dall'appendice del manuale o da fonti primarie, e ogni numero del testo e delle soluzioni è ricalcolato nei test (`tests/chimica.test.mjs`).
+- Le pagine dei capitoli non scorrono di lato a 390 pixel: formule in linea brevi, equazioni lunghe su più righe, tabelle di quattro colonne al massimo.
+
 # 1.23.0: Il libro della galassia, capitolo pilota di chimica
 
 - Nuovo capitolo «Mole e quantità di sostanza» (`chemistry-03`), il primo del volume di chimica: circa 7.000 parole con 8 figure, 10 esempi svolti, un'attività sperimentale e 20 esercizi risolti su tre livelli. Tratta la storia della mole, unità di massa atomica e pesi atomici standard, definizione del 2019 e costante di Avogadro, massa molare, conversioni fra massa, moli e particelle, composizione percentuale, formula minima e molecolare, analisi per combustione, idrati, volume molare e realizzazione pratica della mole.
