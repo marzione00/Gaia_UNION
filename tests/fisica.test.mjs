@@ -91,3 +91,37 @@ test('Fisica 28: interferenza e interferometri, numeri ricalcolati',()=>{
  // Model probes: Michelson output at path differences 500 and 1000 nm (25% and 50% of the domain) for 1064 and 532 nm.
  assert.deepEqual([I(500,1064),I(1000,1064),I(500,532),I(1000,532)].map(v=>r(v,4)),[0.0089,0.9647,0.9647,0.8638]);
 });
+test('Fisica 29: diffrazione e potere risolutivo, numeri ricalcolati',()=>{
+ const as=206264.806,R=(l,D)=>1.22*l/D*as;
+ // Bessel J1 from its power series, adequate for the arguments used here.
+ const J1=x=>{let t=x/2,s=t;for(let k=1;k<40;k++){t*=-(x*x/4)/(k*(k+1));s+=t;}return s;},A=u=>u===0?1:(2*J1(u)/u)**2,sinc2=x=>(Math.sin(Math.PI*x)/(Math.PI*x))**2;
+ assert.equal(r(sinc2(1.4303)*100,1),4.7);assert.equal(r(633e-9/0.1e-3*1e3,1),6.3);assert.equal(r(2*2*6.33e-3*100,1),2.5);
+ const z1=3.8317;assert.ok(Math.abs(J1(z1))<1e-4);const J0=x=>{let t=1,s=1;for(let k=1;k<40;k++){t*=-(x*x/4)/(k*k);s+=t;}return s;};assert.equal(r((1-J0(z1)**2)*100,0),84);assert.equal(r((1-2*A(z1/2))*100,0),26);
+ assert.equal(r(1.22*0.55*10,1),6.7);assert.equal(r(R(550e-9,2.4),3),0.058);assert.equal(r(R(550e-9,0.2),1),0.7);assert.equal(r(R(550e-9,3e-3),0),46);
+ assert.equal(r(R(2e-6,6.5),2),0.08);assert.equal(r(R(20e-6,6.5),1),0.8);assert.equal(r(R(0.21,100)/60,0),9);assert.equal(r(R(550e-9,8),3),0.017);
+ assert.equal(r(R(2.2e-6,39),3),0.014);assert.equal(r(R(2.2e-6,6.5)/R(2.2e-6,39),0),6);
+ // Nyquist sampling and Hubble WFC3/UVIS (0.0395 arcsec per pixel).
+ const lD=550e-9/2.4*as;assert.equal(r(lD,3),0.047);assert.equal(r(lD/2,3),0.024);assert.equal(r(0.0395/(lD/2),1),1.7);assert.equal(r(2*2.4*0.0395/as*1e9,-1),920);
+ // Direct imaging: reflected-light and thermal contrast of the Earth, halo at 0.1 arcsec for D = 6 m.
+ assert.equal(r((6.371e6/AU)**2*1e9,1),1.8);assert.equal(r(Math.log10((6.371e6/AU)**2*0.37/Math.PI),0),-10);
+ const Bp=(l,T)=>1/Math.expm1(h*c/(l*kB*T));assert.equal(r(Math.log10((6.371e6/6.957e8)**2*Bp(10e-6,288)/Bp(10e-6,5772)),0),-7);
+ const n=0.1/as/(500e-9/6);assert.equal(r(n,1),5.8);const u=Math.PI*n;assert.equal(r(8/(Math.PI*u**3)*1e4,0),4);assert.ok(8/(Math.PI*u**3)/1e-10>1e6);
+ // Gratings, spectrographs and Bragg reflection.
+ const d=1e-3/600,deg=x=>Math.asin(x)*180/Math.PI;assert.equal(r(d*1e6,2),1.67);assert.equal(r(deg(656e-9/d),1),23.2);assert.equal(r(deg(2*656e-9/d),1),51.9);assert.ok(3*656e-9/d>1);assert.equal(r(589.3/0.6,0),982);
+ assert.equal(r(c/115000/1e3,1),2.6);assert.equal(r(c/115000,-2),2600);
+ const K=(P,m)=>Math.cbrt(2*Math.PI*G/P)*m/MSUN**(2/3);assert.equal(r(K(11.862*3.15576e7,1.898e27),1),12.5);assert.equal(r(K(3.15576e7,5.972e24)*100,0),9);assert.ok(59/0.09>600);
+ assert.equal(r(deg(0.65/1.6),0),24);assert.equal(r(25*Math.tan(Math.asin(0.65/1.6)),0),11);assert.equal(r(deg(0.65/0.74),0),61);
+ // Exercises.
+ assert.equal(r(2*633e-9/0.1e-3*1e3,1),12.7);assert.equal(r(1.22*550e-9/0.2*1e9,0),3355);assert.equal(r(1.22*550e-9/3e-3*1e4,1),2.2);
+ assert.equal(r(656e-9/d,3),0.394);assert.equal(r(2*656e-9/d,3),0.787);assert.equal(r(3*656e-9/d,2),1.18);assert.equal(r(1.22*0.21/100*1e3,1),2.6);assert.equal(r(R(0.21,100)/60,1),8.8);
+ assert.equal(r(1.22*2e-6/6.5*1e7,2),3.75);assert.equal(r(R(2e-6,6.5),3),0.077);assert.equal(r(R(20e-6,6.5),2),0.77);
+ assert.equal(r(5e-7/0.15*as,2),0.69);assert.equal(r(1.22*5e-7/8*1e8,1),7.6);assert.equal(r(R(5e-7,8),3),0.016);assert.equal(r(5e-7/0.15/(1.22*5e-7/8),0),44);
+ assert.equal(r(0.1/as*1e7,2),4.85);assert.equal(r(1.22*550e-9/(0.1/as),1),1.4);
+ assert.equal(r(0.154/0.4,3),0.385);assert.equal(r(deg(0.385),1),22.6);assert.equal(r(2*deg(0.385),1),45.3);assert.equal(r(0.65/1.6,3),0.406);assert.equal(r(0.65/0.74,3),0.878);
+ assert.equal(r(0.058/as*1e7,1),2.8);assert.equal(r(0.058/as*3.844e8,0),108);assert.equal(r(4/3.844e8*1e8,2),1.04);assert.equal(r(1.22*550e-9/(4/3.844e8),-1),60);assert.ok(Math.abs(1.22*550e-9/(4/3.844e8)-65)<1);
+ assert.equal(r(550*59/3e8*1e4,1),1.1);assert.equal(r(550/115000*1e3,1),4.8);assert.equal(r(550/115000/(550*59/3e8),0),44);
+ assert.equal(r(0.09/3e8*1e10,1),3);assert.equal(r(550*0.09/3e8*1e7,2),1.65);assert.equal(r(550*0.09/3e8*10*1e6,2),1.65);assert.ok(1.65/0.2<10);
+ assert.equal(r(1.22*0.55*10*2,1),13.4);assert.equal(r(13.4/3.8,1),3.5);assert.equal(r(0.55*10/2,2),2.75);assert.equal(r(3.8/2.75,1),1.4);assert.equal(r(2*3.8/0.55,0),14);
+ // Model probes: Rayleigh limit at D = 10.075 and 20.05 m (25% and 50% of the domain) for 0.55 and 2.2 micrometres.
+ const m=(x,a)=>1.22*a*1e-6/x*206264.806;assert.deepEqual([m(10.075,.55),m(20.05,.55),m(10.075,2.2),m(20.05,2.2)].map(v=>r(v,4)),[0.0137,0.0069,0.0549,0.0276]);
+});
