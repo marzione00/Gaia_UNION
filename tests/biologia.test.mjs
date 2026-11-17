@@ -144,3 +144,17 @@ test('Biologia 05: meteoriti, comete e asteroidi, numeri ricalcolati',()=>{
  assert.equal(r(5.2e9/5.1e8,0),10);assert.equal(r(5200/365,0),14);assert.equal(r(100*0.02,0),2);assert.equal(r(100*60e-6*1000,0),6);
  assert.equal(r(1.4e21/0.1/5.97e24*100,2),0.23);assert.equal(r((278/170)**2,1),2.7);assert.equal(r(6/75.07*30.03,1),2.4);
 });
+test('Biologia 06: chiralità e omochiralità, numeri ricalcolati',()=>{
+ const ee=(e0,g,n)=>{const a=e0/100;return a*g**n/Math.sqrt(1+a*a*(g**(2*n)-1))*100;};
+ assert.deepEqual([0,1,2,3,4,5,6].map(n=>r(ee(1,3,n),1)),[1,3,9,26.1,62.9,92.5,99.1]);
+ assert.equal(r(0.27/Math.sqrt(1+1e-4*728),3),0.261);assert.equal(r(ee(1,2,5),1),30.5);assert.equal(r(ee(1,2,7),0),79);assert.equal(r(ee(1,2,8),0),93);
+ const y=0.9/Math.sqrt(1-0.81);assert.equal(r(y,3),2.065);assert.equal(r(Math.log(y/0.001)/Math.log(2),2),11.01);assert.equal(r(Math.log(y/0.001)/Math.log(4),1),5.5);
+ assert.equal(r(ee(0.1,2,11),1),89.9);assert.equal(r(ee(0.1,2,12),0),97);assert.equal(r(ee(0.1,4,6),0),97);
+ // Optical rotation and composition.
+ assert.equal(r(66.5*1*0.30,0),20);assert.equal(r(-4.6/(2*0.05),0),-46);assert.equal(r(13.3/66.5,2),0.2);assert.equal(r((52.7-92.4)/2,1),-19.9);
+ assert.equal((80-20)/100,0.6);assert.equal((1+0.3)/2,0.65);assert.equal((75-25)/100,0.5);assert.equal(r((1+0.013)/2*100,2),50.65);
+ assert.equal(r(1/Math.sqrt(1e4),2),0.01);assert.equal(1/Math.sqrt(1e12),1e-6);assert.equal(r(Math.sqrt(1e6)/1e6*100,1),0.1);
+ // Probabilities of all-L chains and the isovaline excess.
+ assert.equal(r(0.5**100*1e31,1),7.9);assert.equal(r(0.75**100*1e13,1),3.2);assert.equal(r(0.995**100,2),0.61);
+ assert.equal(r((1+0.159)/2*100,0),58);assert.equal(r((1+0.211)/2*100,0),61);assert.equal(r((1+0.185)/2*100,0),59);
+});
