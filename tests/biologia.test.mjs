@@ -441,3 +441,21 @@ test('Biologia 22: zona abitabile, numeri ricalcolati',()=>{
  // Model probes: S_eff = 1 and 0.35 at L = 1.0075 and 2.005.
  assert.deepEqual([d(1.0075,1),d(2.005,1),d(1.0075,0.35),d(2.005,0.35)].map(v=>r(v,2)),[1,1.42,1.7,2.39]);
 });
+test('Biologia 23: atmosfere ed effetto serra, numeri ricalcolati',()=>{
+ const sig=5.670374e-8,Te=(A,S)=>((1-A)*S/(4*sig))**0.25,Ts=(T,t)=>T*(1+0.75*t)**0.25,tau=(T,E)=>4/3*((T/E)**4-1),G=t=>1/(1+0.4*(1-t/4.57)),H=(T,M,g)=>8.314*T/(M*g)/1000;
+ assert.equal(r(101325*4*Math.PI*6.371e6**2/9.81/1e18,1),5.3);assert.equal(r(4.8e20/5.15e18,0),93);assert.equal(r(5.15e18/2.5e16,-1),210);
+ assert.equal(r(H(288,0.029,9.81),1),8.4);assert.equal(r(H(737,0.0434,8.87),0),16);assert.equal(r(H(210,0.0434,3.71),0),11);assert.equal(r(Math.exp(-8.85/8.4),2),0.35);assert.equal(r(1.013*Math.exp(-5/8.4),2),0.56);
+ assert.deepEqual([0.5,1,2].map(t=>r(Math.exp(-t),2)),[0.61,0.37,0.14]);assert.ok(Math.exp(-5)<0.01);
+ assert.equal(r(Ts(255,1),0),293);assert.equal(r(Ts(255,1)-273.15,0),20);assert.equal(r(tau(288,255),2),0.84);assert.equal(r(tau(737,226.6),0),148);assert.equal(r(tau(215,209.8),1),0.1);
+ assert.equal(r((273.15/210)**4,2),2.86);assert.equal(r(tau(273.15,210),1),2.5);
+ assert.equal(r(9.81/1004*1000,1),9.8);assert.equal(r((288-255)/6.5,1),5.1);assert.equal(r(0.1*6.5,2),0.65);assert.equal(r(0.15*6.5,3),0.975);assert.equal(288-6.5*10,223);
+ assert.equal(r(4*sig*255**3,1),3.8);assert.equal(r(5.35*Math.log(2),1),3.7);assert.equal(r(5.35*Math.log(2)/3.2,1),1.2);assert.equal(r(5.35*Math.log(1.5),1),2.2);assert.equal(r(5.35*Math.log(1.5)/3.2,1),0.7);assert.equal(r(5.35*Math.log(4),1),7.4);
+ assert.equal(r(2898/288,0),10);assert.equal(r(2898/737,1),3.9);assert.equal(r(2898/5772,2),0.5);
+ const Ty=254.6*G(0.57)**0.25;assert.equal(r(Ty,0),236);assert.equal(r(Ts(236,0.84),0),267);assert.equal(r(Ts(236,0.84)-273.15,0),-6);assert.equal(r(tau(288,236),1),1.6);assert.equal(r(tau(288,Ty),1),1.6);assert.equal(r(tau(288,254.6*G(0)**0.25)/0.836,1),2.1);
+ assert.equal(r(Math.sqrt(2*6.67e-11*6.42e23/3.39e6)/1000,1),5);assert.equal(r(Math.sqrt(2*6.674e-11*5.972e24/6.371e6)/1000,1),11.2);assert.equal(r(Math.sqrt(3*1.380649e-23*1000/1.67e-27)/1000,1),5);assert.equal(r(Math.sqrt(3*1.380649e-23*1000/(28*1.67e-27))/1000,2),0.94);
+ assert.equal(r(Ts(226.6,148),0),737);assert.equal(r(Ts(226.6,300),0),879);assert.equal(r(Ts(226.6,300)/Ts(226.6,148),2),1.19);
+ const Tsn=Te(0.6,1361);assert.equal(r(Tsn,0),221);assert.equal(r(Ts(Tsn,0.84),0),250);assert.equal(r(tau(273,221),1),1.8);
+ assert.equal(1-1/100,0.99);assert.equal(r(10/0.14,-1),70);
+ // Model probes: T_e = 255 and 210 K at tau = 25 and 50.
+ assert.deepEqual([Ts(255,25),Ts(255,50),Ts(210,25),Ts(210,50)].map(v=>r(v-273.15,1)),[264.4,362,169.6,249.9]);
+});
