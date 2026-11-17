@@ -37244,6 +37244,348 @@
      "correct": "A"
     }
    ]
+  },
+  {
+   "id": "physics-31",
+   "title": "Legge di Gauss: gusci, pianeti e condensatori",
+   "scope": "Flusso, legge di Gauss per il campo elettrico e per la gravità, conduttori isolati e gabbia di Faraday, simmetrie cilindrica, piana e sferica, teoremi dei gusci, gravità e pressione all’interno dei pianeti, massa dei pianeti, capacità, condensatori piani e sferici, energia del campo, dielettrici e radar planetari, Terra e ionosfera come condensatore",
+   "narrativeStatus": "I dati provengono dai valori CODATA, dal modello sismico PREM, dalle schede planetarie della NASA, dagli studi sul circuito elettrico globale, dalle misure radar di Mars Express e dalle fonti citate nel capitolo.",
+   "description": "Il flusso di un campo attraverso una superficie chiusa rivela la sorgente racchiusa: dalle sfere cariche ai condensatori, dalla gravità dentro i pianeti al circuito elettrico della Terra.",
+   "objectives": [
+    "Calcolare il flusso e applicare la legge di Gauss a distribuzioni simmetriche.",
+    "Spiegare il comportamento dei conduttori in equilibrio e la gabbia di Faraday.",
+    "Calcolare la gravità all’interno e all’esterno di un pianeta con la legge di Gauss.",
+    "Calcolare capacità ed energia di un condensatore e l’effetto di un dielettrico."
+   ],
+   "prerequisites": [
+    "physics-30"
+   ],
+   "connections": [
+    "physics-12",
+    "physics-21",
+    "physics-22"
+   ],
+   "sources": [
+    "physics2",
+    "si"
+   ],
+   "glossary": [
+    {
+     "term": "Flusso",
+     "definition": "Misura di quanto un campo attraversa una superficie, E·A·cos θ per un campo uniforme e una superficie piana."
+    },
+    {
+     "term": "Legge di Gauss",
+     "definition": "Il flusso del campo elettrico attraverso una superficie chiusa è uguale alla carica racchiusa divisa per ε₀."
+    },
+    {
+     "term": "Gabbia di Faraday",
+     "definition": "Involucro conduttore che annulla al suo interno i campi elettrici esterni."
+    },
+    {
+     "term": "Teorema dei gusci",
+     "definition": "Un guscio sferico omogeneo attrae i corpi esterni come una massa puntiforme e non esercita forze su quelli interni."
+    },
+    {
+     "term": "Capacità",
+     "definition": "Rapporto fra la carica di un condensatore e la differenza di potenziale fra le armature, misurato in farad."
+    },
+    {
+     "term": "Costante dielettrica relativa",
+     "definition": "Fattore di cui un isolante aumenta la capacità di un condensatore: circa 80 per l’acqua."
+    }
+   ],
+   "steps": [
+    {
+     "label": "SCOPRI",
+     "title": "Un pozzo verso il centro",
+     "text": {
+      "base": [
+       "Un pozzo immaginario scende dalla superficie della Terra verso il centro. Chi lo percorre si sente più pesante, più leggero o uguale? La risposta sorprende: in una Terra uniforme il peso diminuirebbe in modo lineare fino ad annullarsi al centro, mentre nella Terra reale, con un nucleo di ferro molto denso, il peso cresce scendendo nel mantello e raggiunge il massimo al confine con il nucleo.",
+       "La chiave è la legge di Gauss: il flusso di un campo attraverso una superficie chiusa dipende soltanto dalla sorgente racchiusa. Vale per il campo elettrico, dove la sorgente è la carica, e per la gravità, dove la sorgente è la massa. Con questa legge si calcolano in poche righe i campi di sfere, fili e piani, si spiega la gabbia di Faraday e si arriva al concetto di capacità."
+      ],
+      "intermediate": [
+       "Un pozzo immaginario scende dalla superficie della Terra verso il centro. Chi lo percorre si sente più pesante, più leggero o uguale? La risposta sorprende: in una Terra uniforme il peso diminuirebbe in modo lineare fino ad annullarsi al centro, mentre nella Terra reale, con un nucleo di ferro molto denso, il peso cresce scendendo nel mantello e raggiunge il massimo al confine con il nucleo.",
+       "La chiave è la legge di Gauss: il flusso di un campo attraverso una superficie chiusa dipende soltanto dalla sorgente racchiusa. Vale per il campo elettrico, dove la sorgente è la carica, e per la gravità, dove la sorgente è la massa. Con questa legge si calcolano in poche righe i campi di sfere, fili e piani, si spiega la gabbia di Faraday e si arriva al concetto di capacità."
+      ],
+      "advanced": [
+       "Un pozzo immaginario scende dalla superficie della Terra verso il centro. Chi lo percorre si sente più pesante, più leggero o uguale? La risposta sorprende: in una Terra uniforme il peso diminuirebbe in modo lineare fino ad annullarsi al centro, mentre nella Terra reale, con un nucleo di ferro molto denso, il peso cresce scendendo nel mantello e raggiunge il massimo al confine con il nucleo.",
+       "La chiave è la legge di Gauss: il flusso di un campo attraverso una superficie chiusa dipende soltanto dalla sorgente racchiusa. Vale per il campo elettrico, dove la sorgente è la carica, e per la gravità, dove la sorgente è la massa. Con questa legge si calcolano in poche righe i campi di sfere, fili e piani, si spiega la gabbia di Faraday e si arriva al concetto di capacità.",
+       "La stessa legge mostra perché le orbite delle lune misurano la massa totale di un pianeta senza dire nulla del suo interno, e perché i radar che attraversano il ghiaccio di Marte e di Europa possono riconoscere l’acqua liquida. Anche la Terra intera è un condensatore: la ionosfera si trova a circa 250 000 volt rispetto al suolo, e i temporali la tengono carica."
+      ]
+     }
+    },
+    {
+     "label": "CAPISCI",
+     "title": "Flusso, simmetrie e capacità",
+     "text": {
+      "base": [
+       "Il flusso di un campo uniforme attraverso una superficie piana vale E·A·cos θ. La legge di Gauss afferma che per qualunque superficie chiusa ε₀ per il flusso del campo elettrico è uguale alla carica racchiusa. Per una carica puntiforme e una sfera centrata su di essa il raggio si semplifica, perché l’area cresce come r² e il campo decresce come 1/r²: è la legge di Coulomb vista da un’altra prospettiva.",
+       "In un conduttore in equilibrio il campo interno è nullo, altrimenti le cariche libere si muoverebbero; la carica in eccesso sta sulla superficie e appena fuori il campo vale σ/ε₀. Con le simmetrie il calcolo diventa immediato: il campo di un filo decresce come 1/r, quello di un piano è costante, quello di una sfera cresce linearmente dentro, se la carica è uniforme, e decresce come 1/r² fuori."
+      ],
+      "intermediate": [
+       "Il flusso di un campo uniforme attraverso una superficie piana vale E·A·cos θ. La legge di Gauss afferma che per qualunque superficie chiusa ε₀ per il flusso del campo elettrico è uguale alla carica racchiusa. Per una carica puntiforme e una sfera centrata su di essa il raggio si semplifica, perché l’area cresce come r² e il campo decresce come 1/r²: è la legge di Coulomb vista da un’altra prospettiva.",
+       "In un conduttore in equilibrio il campo interno è nullo, altrimenti le cariche libere si muoverebbero; la carica in eccesso sta sulla superficie e appena fuori il campo vale σ/ε₀. Con le simmetrie il calcolo diventa immediato: il campo di un filo decresce come 1/r, quello di un piano è costante, quello di una sfera cresce linearmente dentro, se la carica è uniforme, e decresce come 1/r² fuori.",
+       "Per la gravità il flusso attraverso una superficie chiusa vale −4πG per la massa racchiusa. Fuori da un pianeta sferico conta tutta la massa; dentro, a distanza r dal centro, soltanto quella entro r, perché i gusci esterni danno contributo nullo. In un pianeta uniforme g cresce linearmente dal centro: g = g_s·r/R dentro, g = g_s·(R/r)² fuori, con g_s gravità superficiale."
+      ],
+      "advanced": [
+       "Il flusso di un campo uniforme attraverso una superficie piana vale E·A·cos θ. La legge di Gauss afferma che per qualunque superficie chiusa ε₀ per il flusso del campo elettrico è uguale alla carica racchiusa. Per una carica puntiforme e una sfera centrata su di essa il raggio si semplifica, perché l’area cresce come r² e il campo decresce come 1/r²: è la legge di Coulomb vista da un’altra prospettiva.",
+       "In un conduttore in equilibrio il campo interno è nullo, altrimenti le cariche libere si muoverebbero; la carica in eccesso sta sulla superficie e appena fuori il campo vale σ/ε₀. Con le simmetrie il calcolo diventa immediato: il campo di un filo decresce come 1/r, quello di un piano è costante, quello di una sfera cresce linearmente dentro, se la carica è uniforme, e decresce come 1/r² fuori.",
+       "Per la gravità il flusso attraverso una superficie chiusa vale −4πG per la massa racchiusa. Fuori da un pianeta sferico conta tutta la massa; dentro, a distanza r dal centro, soltanto quella entro r, perché i gusci esterni danno contributo nullo. In un pianeta uniforme g cresce linearmente dal centro: g = g_s·r/R dentro, g = g_s·(R/r)² fuori, con g_s gravità superficiale.",
+       "Due conduttori con cariche opposte formano un condensatore di capacità C = q/V. Per armature piane C = ε₀A/d, per una sfera isolata C = 4πε₀R: la Terra intera ha soltanto 710 microfarad. L’energia immagazzinata vale CV²/2, con densità ε₀E²/2 nel campo. Un dielettrico moltiplica la capacità per la sua costante dielettrica relativa: circa 80 per l’acqua, circa 3,2 per il ghiaccio alle frequenze radar."
+      ]
+     }
+    },
+    {
+     "label": "SPERIMENTA",
+     "title": "Il laboratorio della gravità interna",
+     "text": {
+      "base": [
+       "Nel laboratorio il grafico mostra la gravità in funzione della distanza dal centro di un pianeta uniforme, in unità del raggio, da 0 a 4 raggi. Dentro il pianeta la curva è una retta che parte da zero; fuori decresce come l’inverso del quadrato. Nella scheda «Regola» cambi la gravità superficiale da 1 a 25 metri al secondo quadrato; il valore predefinito, 9,81, è quello della Terra.",
+       "Protocollo. Il programma confronta due distanze fissate, la superficie, a 1 raggio dal centro, e un punto esterno a 2 raggi. Con g_s = 9,81 prevedi se la gravità cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta la gravità superficiale a 3,71, il valore di Marte, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+       "Che cosa osservare. Con la gravità terrestre il valore passa da 9,81 a circa 2,45 metri al secondo quadrato; con quella di Marte da 3,71 a circa 0,93. In entrambi i casi diminuisce di quattro volte, perché raddoppiare la distanza dal centro divide la gravità per il quadrato di due. Prova anche a confrontare metà raggio e un raggio: dentro il pianeta la gravità raddoppia, invece di diminuire."
+      ],
+      "intermediate": [
+       "Nel laboratorio il grafico mostra la gravità in funzione della distanza dal centro di un pianeta uniforme, in unità del raggio, da 0 a 4 raggi. Dentro il pianeta la curva è una retta che parte da zero; fuori decresce come l’inverso del quadrato. Nella scheda «Regola» cambi la gravità superficiale da 1 a 25 metri al secondo quadrato; il valore predefinito, 9,81, è quello della Terra.",
+       "Protocollo. Il programma confronta due distanze fissate, la superficie, a 1 raggio dal centro, e un punto esterno a 2 raggi. Con g_s = 9,81 prevedi se la gravità cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta la gravità superficiale a 3,71, il valore di Marte, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+       "Che cosa osservare. Con la gravità terrestre il valore passa da 9,81 a circa 2,45 metri al secondo quadrato; con quella di Marte da 3,71 a circa 0,93. In entrambi i casi diminuisce di quattro volte, perché raddoppiare la distanza dal centro divide la gravità per il quadrato di due. Prova anche a confrontare metà raggio e un raggio: dentro il pianeta la gravità raddoppia, invece di diminuire."
+      ],
+      "advanced": [
+       "Nel laboratorio il grafico mostra la gravità in funzione della distanza dal centro di un pianeta uniforme, in unità del raggio, da 0 a 4 raggi. Dentro il pianeta la curva è una retta che parte da zero; fuori decresce come l’inverso del quadrato. Nella scheda «Regola» cambi la gravità superficiale da 1 a 25 metri al secondo quadrato; il valore predefinito, 9,81, è quello della Terra.",
+       "Protocollo. Il programma confronta due distanze fissate, la superficie, a 1 raggio dal centro, e un punto esterno a 2 raggi. Con g_s = 9,81 prevedi se la gravità cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta la gravità superficiale a 3,71, il valore di Marte, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+       "Che cosa osservare. Con la gravità terrestre il valore passa da 9,81 a circa 2,45 metri al secondo quadrato; con quella di Marte da 3,71 a circa 0,93. In entrambi i casi diminuisce di quattro volte, perché raddoppiare la distanza dal centro divide la gravità per il quadrato di due. Prova anche a confrontare metà raggio e un raggio: dentro il pianeta la gravità raddoppia, invece di diminuire.",
+       "Una prova a casa: due fogli di alluminio di 20 per 20 centimetri separati da uno strato di pellicola per alimenti e schiacciati sotto un libro formano un condensatore piano. Un multimetro con la funzione capacità misura qualche decina di nanofarad. Con due, tre e quattro strati la capacità diminuisce, e il grafico dell’inverso della capacità in funzione del numero di strati è una retta."
+      ]
+     }
+    },
+    {
+     "label": "INTERPRETA",
+     "title": "Errori e limiti",
+     "text": {
+      "base": [
+       "Errore frequente: credere che la legge di Gauss valga soltanto per superfici sferiche. Vale per qualunque superficie chiusa; la simmetria serve soltanto a sceglierne una su cui il campo è costante. Secondo errore: dedurre che il campo sia nullo dove il flusso è nullo. Una superficie che non racchiude cariche ha flusso nullo anche quando è attraversata da un campo intenso.",
+       "Terzo errore: pensare che la gravità diminuisca sempre scendendo sotto terra. Nella Terra reale cresce attraverso il mantello fino a circa 10,7 metri al secondo quadrato al confine con il nucleo. Quarto errore: confondere la capacità con la carica. La capacità dipende soltanto dalla geometria e dal dielettrico, come il volume di un serbatoio non dipende da quanta acqua contiene."
+      ],
+      "intermediate": [
+       "Errore frequente: credere che la legge di Gauss valga soltanto per superfici sferiche. Vale per qualunque superficie chiusa; la simmetria serve soltanto a sceglierne una su cui il campo è costante. Secondo errore: dedurre che il campo sia nullo dove il flusso è nullo. Una superficie che non racchiude cariche ha flusso nullo anche quando è attraversata da un campo intenso.",
+       "Terzo errore: pensare che la gravità diminuisca sempre scendendo sotto terra. Nella Terra reale cresce attraverso il mantello fino a circa 10,7 metri al secondo quadrato al confine con il nucleo. Quarto errore: confondere la capacità con la carica. La capacità dipende soltanto dalla geometria e dal dielettrico, come il volume di un serbatoio non dipende da quanta acqua contiene.",
+       "Il modello del laboratorio descrive un pianeta sferico di densità uniforme. Trascura il nucleo denso, lo schiacciamento dovuto alla rotazione e le irregolarità della crosta. Per la Terra la previsione al confine fra nucleo e mantello è di circa 5,4 metri al secondo quadrato, la metà del valore del modello sismico di riferimento, mentre fuori dal pianeta il modello è esatto per qualunque distribuzione con simmetria sferica."
+      ],
+      "advanced": [
+       "Errore frequente: credere che la legge di Gauss valga soltanto per superfici sferiche. Vale per qualunque superficie chiusa; la simmetria serve soltanto a sceglierne una su cui il campo è costante. Secondo errore: dedurre che il campo sia nullo dove il flusso è nullo. Una superficie che non racchiude cariche ha flusso nullo anche quando è attraversata da un campo intenso.",
+       "Terzo errore: pensare che la gravità diminuisca sempre scendendo sotto terra. Nella Terra reale cresce attraverso il mantello fino a circa 10,7 metri al secondo quadrato al confine con il nucleo. Quarto errore: confondere la capacità con la carica. La capacità dipende soltanto dalla geometria e dal dielettrico, come il volume di un serbatoio non dipende da quanta acqua contiene.",
+       "Il modello del laboratorio descrive un pianeta sferico di densità uniforme. Trascura il nucleo denso, lo schiacciamento dovuto alla rotazione e le irregolarità della crosta. Per la Terra la previsione al confine fra nucleo e mantello è di circa 5,4 metri al secondo quadrato, la metà del valore del modello sismico di riferimento, mentre fuori dal pianeta il modello è esatto per qualunque distribuzione con simmetria sferica.",
+       "Approfondimento: in un tunnel lungo un diametro di una Terra uniforme un corpo che cade oscilla di moto armonico, con un periodo di circa 84 minuti, lo stesso di un satellite in orbita radente. La traversata dura circa 42 minuti, qualunque sia la corda percorsa. Con la densità reale della Terra il viaggio lungo il diametro si accorcia a circa 38 minuti."
+      ]
+     }
+    },
+    {
+     "label": "VERIFICA",
+     "title": "Verifica",
+     "text": {
+      "base": [
+       "Ripasso: flusso di un campo; legge di Gauss, ε₀ per il flusso uguale alla carica racchiusa; conduttori in equilibrio e gabbia di Faraday; campo di filo, piano e sfera; legge di Gauss per la gravità e teoremi dei gusci di Newton; gravità all’interno di un pianeta; capacità, energia e densità di energia; dielettrici e radar; circuito elettrico globale.",
+       "Mini esercizio: in una Luna uniforme, con gravità superficiale 1,62 metri al secondo quadrato, a metà del raggio la gravità vale 0,81.",
+       "Nelle domande ricorda che conta soltanto la sorgente racchiusa dalla superficie e che, dentro una sfera uniforme, il campo cresce linearmente con la distanza dal centro."
+      ],
+      "intermediate": [
+       "Ripasso: flusso di un campo; legge di Gauss, ε₀ per il flusso uguale alla carica racchiusa; conduttori in equilibrio e gabbia di Faraday; campo di filo, piano e sfera; legge di Gauss per la gravità e teoremi dei gusci di Newton; gravità all’interno di un pianeta; capacità, energia e densità di energia; dielettrici e radar; circuito elettrico globale.",
+       "Mini esercizio: in una Luna uniforme, con gravità superficiale 1,62 metri al secondo quadrato, a metà del raggio la gravità vale 0,81.",
+       "Nelle domande ricorda che conta soltanto la sorgente racchiusa dalla superficie e che, dentro una sfera uniforme, il campo cresce linearmente con la distanza dal centro."
+      ],
+      "advanced": [
+       "Ripasso: flusso di un campo; legge di Gauss, ε₀ per il flusso uguale alla carica racchiusa; conduttori in equilibrio e gabbia di Faraday; campo di filo, piano e sfera; legge di Gauss per la gravità e teoremi dei gusci di Newton; gravità all’interno di un pianeta; capacità, energia e densità di energia; dielettrici e radar; circuito elettrico globale.",
+       "Mini esercizio: in una Luna uniforme, con gravità superficiale 1,62 metri al secondo quadrato, a metà del raggio la gravità vale 0,81.",
+       "Nelle domande ricorda che conta soltanto la sorgente racchiusa dalla superficie e che, dentro una sfera uniforme, il campo cresce linearmente con la distanza dal centro."
+      ]
+     }
+    },
+    {
+     "label": "COLLEGA",
+     "title": "Collegamenti",
+     "text": {
+      "base": [
+       "La legge di Coulomb è introdotta in «Cariche e campo elettrico»; il potenziale in «Potenziale ed energia elettrica»; la gravitazione universale in «Gravitazione»; il moto armonico del tunnel in «Oscillazioni armoniche». La legge di Gauss tornerà, insieme alle altre leggi del campo, in «Equazioni di Maxwell e magnetismo della materia».",
+       "Riepilogo dell’unità: flusso e superfici chiuse; legge di Gauss e legge di Coulomb; conduttori, punte e gabbia di Faraday; filo, piano e sfera carichi; teoremi dei gusci; gravità e pressione all’interno della Terra e della Luna; modello PREM; massa dei pianeti dalle orbite; condensatori piani e sferici; energia del campo; dielettrici, MARSIS e REASON; circuito elettrico globale e curva di Carnegie.",
+       "Nel diario registra A e B con le previsioni e calcola a quale distanza dal centro, fuori dal pianeta, la gravità torna uguale a quella che si ha a metà del raggio: a circa 1,41 raggi, perché (1/r)² = 1/2."
+      ],
+      "intermediate": [
+       "La legge di Coulomb è introdotta in «Cariche e campo elettrico»; il potenziale in «Potenziale ed energia elettrica»; la gravitazione universale in «Gravitazione»; il moto armonico del tunnel in «Oscillazioni armoniche». La legge di Gauss tornerà, insieme alle altre leggi del campo, in «Equazioni di Maxwell e magnetismo della materia».",
+       "Riepilogo dell’unità: flusso e superfici chiuse; legge di Gauss e legge di Coulomb; conduttori, punte e gabbia di Faraday; filo, piano e sfera carichi; teoremi dei gusci; gravità e pressione all’interno della Terra e della Luna; modello PREM; massa dei pianeti dalle orbite; condensatori piani e sferici; energia del campo; dielettrici, MARSIS e REASON; circuito elettrico globale e curva di Carnegie.",
+       "Nel diario registra A e B con le previsioni e calcola a quale distanza dal centro, fuori dal pianeta, la gravità torna uguale a quella che si ha a metà del raggio: a circa 1,41 raggi, perché (1/r)² = 1/2."
+      ],
+      "advanced": [
+       "La legge di Coulomb è introdotta in «Cariche e campo elettrico»; il potenziale in «Potenziale ed energia elettrica»; la gravitazione universale in «Gravitazione»; il moto armonico del tunnel in «Oscillazioni armoniche». La legge di Gauss tornerà, insieme alle altre leggi del campo, in «Equazioni di Maxwell e magnetismo della materia».",
+       "Riepilogo dell’unità: flusso e superfici chiuse; legge di Gauss e legge di Coulomb; conduttori, punte e gabbia di Faraday; filo, piano e sfera carichi; teoremi dei gusci; gravità e pressione all’interno della Terra e della Luna; modello PREM; massa dei pianeti dalle orbite; condensatori piani e sferici; energia del campo; dielettrici, MARSIS e REASON; circuito elettrico globale e curva di Carnegie.",
+       "Nel diario registra A e B con le previsioni e calcola a quale distanza dal centro, fuori dal pianeta, la gravità torna uguale a quella che si ha a metà del raggio: a circa 1,41 raggi, perché (1/r)² = 1/2."
+      ]
+     }
+    }
+   ],
+   "questions": [
+    {
+     "id": "physics-31-q1",
+     "prompt": "Una carica di 1 nC si trova dentro una sfera; la sfera viene sostituita da un cubo più grande che contiene la stessa carica. Il flusso totale:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Resta uguale",
+       "feedback": "Esatto: il flusso dipende soltanto dalla carica racchiusa, q/ε₀, e la forma della superficie non conta."
+      },
+      {
+       "id": "B",
+       "text": "Aumenta, perché la superficie è più grande",
+       "feedback": "Il campo sulla superficie più grande è più debole e compensa l’area."
+      },
+      {
+       "id": "C",
+       "text": "Diminuisce, perché il campo è più debole",
+       "feedback": "L’area più grande compensa esattamente il campo più debole."
+      },
+      {
+       "id": "D",
+       "text": "Si annulla, perché il cubo ha spigoli",
+       "feedback": "Gli spigoli non cambiano il flusso totale attraverso la superficie chiusa."
+      }
+     ],
+     "correct": "A"
+    },
+    {
+     "id": "physics-31-q2",
+     "prompt": "Dentro il materiale di un conduttore metallico carico, in equilibrio, il campo elettrico:",
+     "options": [
+      {
+       "id": "A",
+       "text": "È massimo al centro",
+       "feedback": "Un campo interno muoverebbe le cariche libere fino ad annullarsi."
+      },
+      {
+       "id": "B",
+       "text": "È nullo",
+       "feedback": "Esatto: in equilibrio le cariche libere si dispongono in modo da annullare il campo interno."
+      },
+      {
+       "id": "C",
+       "text": "Vale σ/ε₀",
+       "feedback": "Questo è il campo appena fuori dalla superficie."
+      },
+      {
+       "id": "D",
+       "text": "Decresce come 1/r²",
+       "feedback": "Questo è l’andamento all’esterno di una sfera carica."
+      }
+     ],
+     "correct": "B"
+    },
+    {
+     "id": "physics-31-q3",
+     "prompt": "Il campo elettrico di un filo carico molto lungo, raddoppiando la distanza dal filo:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Si riduce a un quarto",
+       "feedback": "La riduzione a un quarto riguarda una carica puntiforme."
+      },
+      {
+       "id": "B",
+       "text": "Si dimezza",
+       "feedback": "Esatto: per il filo E = λ/(2πε₀r), inversamente proporzionale a r."
+      },
+      {
+       "id": "C",
+       "text": "Resta uguale",
+       "feedback": "Il campo costante è quello di un piano infinito."
+      },
+      {
+       "id": "D",
+       "text": "Raddoppia",
+       "feedback": "Il campo del filo diminuisce allontanandosi."
+      }
+     ],
+     "correct": "B"
+    },
+    {
+     "id": "physics-31-q4",
+     "prompt": "Al centro di un pianeta sferico la gravità vale:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Zero",
+       "feedback": "Esatto: una sfera di raggio nullo racchiude massa nulla, e i gusci esterni danno contributo nullo."
+      },
+      {
+       "id": "B",
+       "text": "Il doppio che in superficie",
+       "feedback": "Scendendo verso il centro la massa racchiusa diminuisce fino a zero."
+      },
+      {
+       "id": "C",
+       "text": "Lo stesso valore che in superficie",
+       "feedback": "La gravità dipende dalla massa racchiusa, che al centro è nulla."
+      },
+      {
+       "id": "D",
+       "text": "Infinito, perché la distanza è nulla",
+       "feedback": "La massa racchiusa diminuisce più rapidamente del quadrato della distanza."
+      }
+     ],
+     "correct": "A"
+    },
+    {
+     "id": "physics-31-q5",
+     "prompt": "La capacità di un condensatore piano, raddoppiando la distanza fra le armature:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Raddoppia",
+       "feedback": "Una distanza maggiore richiede una differenza di potenziale maggiore per la stessa carica."
+      },
+      {
+       "id": "B",
+       "text": "Si dimezza",
+       "feedback": "Esatto: C = ε₀A/d è inversamente proporzionale a d."
+      },
+      {
+       "id": "C",
+       "text": "Si riduce a un quarto",
+       "feedback": "La dipendenza dalla distanza è lineare, senza il quadrato."
+      },
+      {
+       "id": "D",
+       "text": "Resta uguale",
+       "feedback": "La capacità dipende dalla geometria, quindi anche dalla distanza."
+      }
+     ],
+     "correct": "B"
+    },
+    {
+     "id": "physics-31-q6",
+     "prompt": "Nelle giornate serene la superficie terrestre resta carica negativamente nonostante la corrente che scende attraverso l’aria perché:",
+     "options": [
+      {
+       "id": "A",
+       "text": "I temporali ricaricano continuamente il condensatore Terra-ionosfera",
+       "feedback": "Esatto: la proposta di Wilson del 1920 è confermata dalla curva di Carnegie."
+      },
+      {
+       "id": "B",
+       "text": "L’aria è un isolante perfetto",
+       "feedback": "L’aria conduce debolmente, circa 10⁻¹⁴ siemens al metro vicino al suolo."
+      },
+      {
+       "id": "C",
+       "text": "Il Sole carica la Terra con i fotoni",
+       "feedback": "L’effetto fotoelettrico sulla superficie terrestre è trascurabile."
+      },
+      {
+       "id": "D",
+       "text": "La carica è fissata dal campo magnetico",
+       "feedback": "Il campo magnetico terrestre non mantiene la carica della superficie."
+      }
+     ],
+     "correct": "A"
+    }
+   ]
   }
  ]
 }

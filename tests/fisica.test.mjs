@@ -167,3 +167,36 @@ test('Fisica 30: radiazione termica e luce delle stelle, numeri ricalcolati',()=
  // Model probes: luminosity at T = 11875 and 21250 K (25% and 50% of the domain) for R = 1 and 10 solar radii.
  const m=(x,a)=>a*a*(x/5772)**4;assert.deepEqual([m(11875,1),m(21250,1),m(11875,10),m(21250,10)].map(v=>+v.toPrecision(4)),[17.92,183.7,1792,18370]);
 });
+test('Fisica 31: legge di Gauss, gusci, pianeti e condensatori, numeri ricalcolati',()=>{
+ const k=1/(4*Math.PI*eps0),ME=5.972e24,RE=6.371e6;
+ // Gauss and Coulomb give the same field; the radius cancels in the flux.
+ for(const rr of [0.1,1,7])assert.ok(Math.abs(k*1e-9/rr**2*4*Math.PI*rr**2-1e-9/eps0)<1e-9);
+ const g=(x,gs)=>x<1?gs*x:gs/(x*x);assert.equal(r(g(0.5,9.81),1),4.9);assert.equal(r(g(2,9.81),2),2.45);
+ // Earth interior: two-layer model and PREM-like core boundary value.
+ assert.equal(r(ME/(4/3*Math.PI*RE**3)/1e3,2),5.51);assert.equal(r(3480/6371,2),0.55);const gc=G*0.325*ME/3.48e6**2;assert.equal(r(gc,1),10.7);
+ const GM=3.986004418e14;assert.equal(r(GM/G/1e24,3),5.972);assert.equal(r(0.00015/6.6743*1e5,1),2.2);
+ const Pc=5514*9.82*RE/2;assert.equal(r(Pc/1e9,-1),170);assert.equal(r(Pc/101325/1e6,1),1.7);assert.equal(r(3344*1.62*1.7374e6/2/1e9,1),4.7);
+ const T=2*Math.PI*Math.sqrt(RE/9.82);assert.equal(r(T/60,0),84);assert.equal(r(T/120,0),42);
+ // Capacitors and energy.
+ assert.equal(r(eps0*1/1e-3*1e9,2),8.85);assert.equal(r(1e-3/eps0/1e6,0),113);assert.equal(r(4*Math.PI*eps0*RE*1e6,-1),710);
+ assert.equal(r(0.5*100e-6*300**2,1),4.5);assert.equal(r(0.5*eps0*(3e6)**2,-1),40);assert.equal(r(0.5*eps0*130**2*1e8,1),7.5);
+ const R2=(a,b)=>((Math.sqrt(a)-Math.sqrt(b))/(Math.sqrt(a)+Math.sqrt(b)))**2;assert.equal(r(R2(3.2,80)*100,0),44);assert.equal(r(R2(3.2,8)*100,0),5);
+ // Global electric circuit.
+ const sg=eps0*130,QE=sg*4*Math.PI*RE**2;assert.equal(r(sg*1e9,2),1.15);assert.equal(r(QE/1e5,0),6);assert.equal(r(QE/1e3/60,0),10);assert.equal(r(130*60e3/1e6,1),7.8);assert.equal(r(130*60e3/250e3,-1),30);
+ // Experiment: kitchen capacitor.
+ assert.equal(r(eps0*2.3*0.04/10e-6*1e9,-1),80);
+ // Exercises.
+ assert.equal(r(200*0.5*Math.cos(Math.PI/3),6),50);assert.equal(r(1e-9/eps0,0),113);assert.equal(r(1e-9/eps0/6,1),18.8);assert.equal(r(k*5e-6/0.04/1e6,2),1.12);
+ assert.equal(r(4*Math.PI*eps0*RE*1e6,0),709);assert.equal(r(1/(4*Math.PI*eps0*RE),-2),1400);assert.equal(r(eps0*0.01/1e-3*1e12,1),88.5);assert.equal(r(eps0*0.01/1e-3*100*1e9,2),8.85);
+ assert.equal(r(g(0.5,1.62),2),0.81);assert.equal(r(g(2,1.62),2),0.41);
+ assert.equal(r(2e-6/(2*Math.PI*eps0*0.05)/1e5,1),7.2);assert.equal(r(1e-6/(2*eps0)/1e4,1),5.6);assert.equal(r(1e-6/eps0/1e5,2),1.13);
+ assert.equal(r(4*Math.PI*RE**2/1e14,2),5.1);assert.equal(r(QE/1e5,1),5.9);assert.equal(r(4.5/1e-3/1e3,1),4.5);
+ assert.equal(r(9.82*3480/6371,1),5.4);assert.equal(r(Math.sqrt(9.82*RE)/1e3,1),7.9);
+ assert.equal(r(Pc/1e11,1),1.7);assert.ok(Pc<364e9/2);
+ const a=4.217e8,Tp=1.769*86400;assert.equal(r(4*Math.PI**2*a**3/(G*Tp**2)/1e27,2),1.9);
+ const C=4*Math.PI*eps0*6.371e6*6.431e6/6e4;assert.equal(r(C,3),0.076);assert.equal(r(C*2.5e5/1e4,1),1.9);assert.equal(r(5.9e5/(C*2.5e5),-1),30);assert.equal(r(250e3/130/1e3,1),1.9);
+ assert.equal(r(Math.sqrt(3.2),2),1.79);assert.equal(r(Math.sqrt(80),2),8.94);assert.equal(r(Math.sqrt(8),2),2.83);assert.equal(r(R2(3.2,80),2),0.44);assert.equal(r(R2(3.2,8),2),0.05);assert.equal(r(R2(3.2,80)/R2(3.2,8),0),9);
+ const v=c/Math.sqrt(3.2);assert.equal(r(v/1e8,2),1.68);assert.equal(r(3000/v*1e6,0),18);
+ // Model probes: gravity at r/R = 1 and 2 (25% and 50% of the domain) for g_s = 9.81 (Earth) and 3.71 m/s2 (Mars).
+ assert.deepEqual([g(1,9.81),g(2,9.81),g(1,3.71),g(2,3.71)].map(v=>r(v,4)),[9.81,2.4525,3.71,0.9275]);
+});
