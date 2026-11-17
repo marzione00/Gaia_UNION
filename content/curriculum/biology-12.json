@@ -2,131 +2,138 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-12",
-  "title": "Mutazioni e probabilità",
+  "title": "Mutazioni e soglia d'errore",
   "sector": 3,
   "modelId": "biology-12",
-  "coverage": "guided-activity",
+  "coverage": "guided-lab",
   "editorialStatus": "hand-written-draft",
-  "scope": "Tipi di mutazione, cornice di lettura, cause e riparazione, linea germinale e somatica, probabilità di mutazione",
-  "narrativeStatus": "Tassi di mutazione e l’esempio dell’anemia falciforme sono dati reali.",
+  "scope": "Tipi di mutazioni, cause chimiche e fisiche, riparazione del DNA, tassi di mutazione e regola di Drake, probabilità di almeno un errore, soglia d’errore e quasispecie, mutagenesi letale, paradosso di Eigen, esperimento di Luria e Delbrück",
+  "narrativeStatus": "Tassi di mutazione e risultati sperimentali sono pubblicati; il modello suppone errori indipendenti con la stessa probabilità in ogni sito.",
   "objectives": [
-    "Classificare le mutazioni e prevederne l’effetto sulla proteina.",
-    "Spiegare lo spostamento della cornice di lettura.",
-    "Distinguere mutazioni germinali e somatiche e le loro cause.",
-    "Calcolare la probabilità di almeno una mutazione."
+    "Classificare le mutazioni e prevederne l’effetto su una proteina.",
+    "Calcolare la probabilità di almeno un errore con 1 − (1 − μ)ⁿ.",
+    "Ricavare la soglia d’errore μL < ln σ e stimare lunghezze massime.",
+    "Spiegare il paradosso di Eigen e l’esperimento di Luria e Delbrück."
   ],
   "prerequisites": [
     "biology-11"
   ],
   "connections": [
-    "biology-13",
-    "math-c10"
+    "math-c10",
+    "math-c06"
   ],
   "sources": [
-    "biology"
+    "biology",
+    "statistics"
   ],
   "originalSource": null,
   "glossary": [
     {
-      "term": "Mutazione di senso errato",
-      "definition": "Sostituzione che cambia un amminoacido della proteina."
+      "term": "Mutazione sinonima",
+      "definition": "Sostituzione che cambia un codone senza cambiare l’amminoacido."
     },
     {
-      "term": "Mutazione non senso",
-      "definition": "Sostituzione che crea un codone di stop."
+      "term": "Tasso di mutazione",
+      "definition": "Numero di mutazioni per nucleotide per replicazione o per generazione."
     },
     {
-      "term": "Cornice di lettura",
-      "definition": "Suddivisione dell’mRNA in codoni a partire dal codone di inizio."
+      "term": "Soglia d’errore",
+      "definition": "Lunghezza massima conservabile con una data probabilità di errore per sito."
     },
     {
-      "term": "Mutageno",
-      "definition": "Agente fisico o chimico che aumenta la frequenza delle mutazioni."
+      "term": "Catastrofe d’errore",
+      "definition": "Perdita dell’informazione quando gli errori per copia superano la soglia."
     },
     {
-      "term": "Linea germinale",
-      "definition": "Cellule che formano i gameti; le loro mutazioni passano ai figli."
+      "term": "Quasispecie",
+      "definition": "Sequenza maestra con una nube di varianti, in equilibrio fra mutazione e selezione."
+    },
+    {
+      "term": "Mutagenesi letale",
+      "definition": "Strategia antivirale che spinge un virus oltre la soglia d’errore."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Mutazioni nuove",
+      "title": "Errori che servono",
       "text": {
         "base": [
-          "Un bambino nasce con una condizione genetica che nessuno dei genitori ha. Il sequenziamento mostra la causa: una lettera del DNA è cambiata durante la formazione di un gamete. Non è un evento eccezionale: ogni neonato porta in media circa 70 mutazioni nuove, assenti nei genitori, quasi tutte senza effetti visibili.",
-          "Le mutazioni puntiformi cambiano una base. Sono silenti se il nuovo codone indica lo stesso amminoacido, di senso errato se ne indica un altro, non senso se creano un codone di stop. Inserzioni e delezioni di basi, se non sono multiple di tre, spostano la cornice di lettura e cambiano tutti i codoni successivi. Le mutazioni cromosomiche spostano, duplicano o invertono interi tratti; quelle genomiche cambiano il numero di cromosomi, come la trisomia 21."
+          "Ogni volta che una cellula copia il proprio DNA commette qualche errore, e ogni giorno il DNA di ciascuna cellula subisce migliaia di danni chimici. Quasi tutti vengono corretti; i pochi che restano diventano mutazioni, cambiamenti ereditabili della sequenza. Le mutazioni causano molte malattie, ma senza di esse l’evoluzione sarebbe impossibile: ogni variazione su cui agisce la selezione è cominciata come un errore.",
+          "Per i primi replicatori il problema era grave. Un ribozima polimerasi del mondo a RNA sbaglia circa un nucleotide su cento. Con questa precisione, quanto lungo può essere un genoma prima che quasi ogni copia contenga un errore? Nel 1971 Manfred Eigen rispose con la soglia d’errore, uno dei risultati più importanti della teoria dell’origine della vita."
         ],
         "intermediate": [
-          "Un bambino nasce con una condizione genetica che nessuno dei genitori ha. Il sequenziamento mostra la causa: una lettera del DNA è cambiata durante la formazione di un gamete. Non è un evento eccezionale: ogni neonato porta in media circa 70 mutazioni nuove, assenti nei genitori, quasi tutte senza effetti visibili.",
-          "Le mutazioni puntiformi cambiano una base. Sono silenti se il nuovo codone indica lo stesso amminoacido, di senso errato se ne indica un altro, non senso se creano un codone di stop. Inserzioni e delezioni di basi, se non sono multiple di tre, spostano la cornice di lettura e cambiano tutti i codoni successivi. Le mutazioni cromosomiche spostano, duplicano o invertono interi tratti; quelle genomiche cambiano il numero di cromosomi, come la trisomia 21."
+          "Ogni volta che una cellula copia il proprio DNA commette qualche errore, e ogni giorno il DNA di ciascuna cellula subisce migliaia di danni chimici. Quasi tutti vengono corretti; i pochi che restano diventano mutazioni, cambiamenti ereditabili della sequenza. Le mutazioni causano molte malattie, ma senza di esse l’evoluzione sarebbe impossibile: ogni variazione su cui agisce la selezione è cominciata come un errore.",
+          "Per i primi replicatori il problema era grave. Un ribozima polimerasi del mondo a RNA sbaglia circa un nucleotide su cento. Con questa precisione, quanto lungo può essere un genoma prima che quasi ogni copia contenga un errore? Nel 1971 Manfred Eigen rispose con la soglia d’errore, uno dei risultati più importanti della teoria dell’origine della vita."
         ],
         "advanced": [
-          "Un bambino nasce con una condizione genetica che nessuno dei genitori ha. Il sequenziamento mostra la causa: una lettera del DNA è cambiata durante la formazione di un gamete. Non è un evento eccezionale: ogni neonato porta in media circa 70 mutazioni nuove, assenti nei genitori, quasi tutte senza effetti visibili.",
-          "Le mutazioni puntiformi cambiano una base. Sono silenti se il nuovo codone indica lo stesso amminoacido, di senso errato se ne indica un altro, non senso se creano un codone di stop. Inserzioni e delezioni di basi, se non sono multiple di tre, spostano la cornice di lettura e cambiano tutti i codoni successivi. Le mutazioni cromosomiche spostano, duplicano o invertono interi tratti; quelle genomiche cambiano il numero di cromosomi, come la trisomia 21."
+          "Ogni volta che una cellula copia il proprio DNA commette qualche errore, e ogni giorno il DNA di ciascuna cellula subisce migliaia di danni chimici. Quasi tutti vengono corretti; i pochi che restano diventano mutazioni, cambiamenti ereditabili della sequenza. Le mutazioni causano molte malattie, ma senza di esse l’evoluzione sarebbe impossibile: ogni variazione su cui agisce la selezione è cominciata come un errore.",
+          "Per i primi replicatori il problema era grave. Un ribozima polimerasi del mondo a RNA sbaglia circa un nucleotide su cento. Con questa precisione, quanto lungo può essere un genoma prima che quasi ogni copia contenga un errore? Nel 1971 Manfred Eigen rispose con la soglia d’errore, uno dei risultati più importanti della teoria dell’origine della vita.",
+          "La stessa idea è diventata una strategia contro i virus: farmaci come il molnupiravir aumentano il tasso di errore della polimerasi virale fino a spingere il virus oltre la soglia."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Cause, probabilità, effetti",
+      "title": "Probabilità e soglia",
       "text": {
         "base": [
-          "Le mutazioni nascono da errori di replicazione sfuggiti alla correzione e da agenti mutageni: la luce ultravioletta, che unisce timine vicine formando dimeri; sostanze chimiche come quelle del fumo di sigaretta; radiazioni ionizzanti. Le cellule hanno sistemi di riparazione efficaci, e solo una piccola parte dei danni diventa una mutazione stabile. Solo le mutazioni della linea germinale, nei gameti, passano ai figli; quelle somatiche restano nell’individuo.",
-          "Se ogni sito ha probabilità μ di mutare in una copia e i siti sono indipendenti, la probabilità che nessuno di n siti muti è (1 − μ)ⁿ, e quella di almeno una mutazione è P = 1 − (1 − μ)ⁿ. Quando μn è piccolo, P ≈ μn. Per l’uomo μ ≈ 1,2 · 10⁻⁸ per base per generazione e il genoma diploide conta circa 6,4 · 10⁹ basi: il numero atteso di mutazioni nuove è circa 77, vicino a quanto si osserva.",
-          "La maggior parte delle mutazioni è neutra, perché cade in regioni che non codificano o non cambia la proteina. Alcune sono dannose: nell’anemia falciforme un solo cambiamento, GAG → GTG nel sesto codone della beta-globina, sostituisce l’acido glutammico con la valina. Poche sono vantaggiose, come quella che mantiene l’attività della lattasi negli adulti di alcune popolazioni. Le mutazioni sono la fonte ultima della variabilità su cui agisce l’evoluzione."
+          "Le sostituzioni di una base possono essere sinonime, se l’amminoacido non cambia, di senso alterato, se cambia, o nonsenso, se creano un codone di arresto. Inserzioni e delezioni spostano la cornice di lettura. Le cause sono gli errori della replicazione, i danni chimici spontanei, la luce ultravioletta e le radiazioni. Polimerasi, correzione di bozze e riparazione portano gli errori a circa uno ogni dieci miliardi di nucleotidi.",
+          "Se ogni sito di un genoma di n siti viene copiato in modo sbagliato con probabilità μ, indipendentemente dagli altri, la copia è perfetta con probabilità (1 − μ)ⁿ e contiene almeno un errore con probabilità P = 1 − (1 − μ)ⁿ. Per μ piccolo P ≈ 1 − e^(−nμ), e il numero medio di errori per copia è nμ."
         ],
         "intermediate": [
-          "Le mutazioni nascono da errori di replicazione sfuggiti alla correzione e da agenti mutageni: la luce ultravioletta, che unisce timine vicine formando dimeri; sostanze chimiche come quelle del fumo di sigaretta; radiazioni ionizzanti. Le cellule hanno sistemi di riparazione efficaci, e solo una piccola parte dei danni diventa una mutazione stabile. Solo le mutazioni della linea germinale, nei gameti, passano ai figli; quelle somatiche restano nell’individuo.",
-          "Se ogni sito ha probabilità μ di mutare in una copia e i siti sono indipendenti, la probabilità che nessuno di n siti muti è (1 − μ)ⁿ, e quella di almeno una mutazione è P = 1 − (1 − μ)ⁿ. Quando μn è piccolo, P ≈ μn. Per l’uomo μ ≈ 1,2 · 10⁻⁸ per base per generazione e il genoma diploide conta circa 6,4 · 10⁹ basi: il numero atteso di mutazioni nuove è circa 77, vicino a quanto si osserva.",
-          "La maggior parte delle mutazioni è neutra, perché cade in regioni che non codificano o non cambia la proteina. Alcune sono dannose: nell’anemia falciforme un solo cambiamento, GAG → GTG nel sesto codone della beta-globina, sostituisce l’acido glutammico con la valina. Poche sono vantaggiose, come quella che mantiene l’attività della lattasi negli adulti di alcune popolazioni. Le mutazioni sono la fonte ultima della variabilità su cui agisce l’evoluzione."
+          "Le sostituzioni di una base possono essere sinonime, se l’amminoacido non cambia, di senso alterato, se cambia, o nonsenso, se creano un codone di arresto. Inserzioni e delezioni spostano la cornice di lettura. Le cause sono gli errori della replicazione, i danni chimici spontanei, la luce ultravioletta e le radiazioni. Polimerasi, correzione di bozze e riparazione portano gli errori a circa uno ogni dieci miliardi di nucleotidi.",
+          "Se ogni sito di un genoma di n siti viene copiato in modo sbagliato con probabilità μ, indipendentemente dagli altri, la copia è perfetta con probabilità (1 − μ)ⁿ e contiene almeno un errore con probabilità P = 1 − (1 − μ)ⁿ. Per μ piccolo P ≈ 1 − e^(−nμ), e il numero medio di errori per copia è nμ.",
+          "Il prodotto nμ decide tutto: se è molto minore di 1 quasi tutte le copie sono perfette, se vale 1 lo è circa una copia su tre, se è molto maggiore di 1 quasi nessuna. Con μ = 10⁻⁴ e n = 10 000 la probabilità di almeno un errore è circa il 63%; con n = 1000 circa il 9,5%."
         ],
         "advanced": [
-          "Le mutazioni nascono da errori di replicazione sfuggiti alla correzione e da agenti mutageni: la luce ultravioletta, che unisce timine vicine formando dimeri; sostanze chimiche come quelle del fumo di sigaretta; radiazioni ionizzanti. Le cellule hanno sistemi di riparazione efficaci, e solo una piccola parte dei danni diventa una mutazione stabile. Solo le mutazioni della linea germinale, nei gameti, passano ai figli; quelle somatiche restano nell’individuo.",
-          "Se ogni sito ha probabilità μ di mutare in una copia e i siti sono indipendenti, la probabilità che nessuno di n siti muti è (1 − μ)ⁿ, e quella di almeno una mutazione è P = 1 − (1 − μ)ⁿ. Quando μn è piccolo, P ≈ μn. Per l’uomo μ ≈ 1,2 · 10⁻⁸ per base per generazione e il genoma diploide conta circa 6,4 · 10⁹ basi: il numero atteso di mutazioni nuove è circa 77, vicino a quanto si osserva.",
-          "La maggior parte delle mutazioni è neutra, perché cade in regioni che non codificano o non cambia la proteina. Alcune sono dannose: nell’anemia falciforme un solo cambiamento, GAG → GTG nel sesto codone della beta-globina, sostituisce l’acido glutammico con la valina. Poche sono vantaggiose, come quella che mantiene l’attività della lattasi negli adulti di alcune popolazioni. Le mutazioni sono la fonte ultima della variabilità su cui agisce l’evoluzione.",
-          "Il modello del programma calcola P = 1 − (1 − μ)ⁿ per n da 0 a 10 000 siti, con μ regolabile da 10⁻⁵ a 10⁻³: con μ = 10⁻⁴ la probabilità arriva a circa 63% per n = 10 000."
+          "Le sostituzioni di una base possono essere sinonime, se l’amminoacido non cambia, di senso alterato, se cambia, o nonsenso, se creano un codone di arresto. Inserzioni e delezioni spostano la cornice di lettura. Le cause sono gli errori della replicazione, i danni chimici spontanei, la luce ultravioletta e le radiazioni. Polimerasi, correzione di bozze e riparazione portano gli errori a circa uno ogni dieci miliardi di nucleotidi.",
+          "Se ogni sito di un genoma di n siti viene copiato in modo sbagliato con probabilità μ, indipendentemente dagli altri, la copia è perfetta con probabilità (1 − μ)ⁿ e contiene almeno un errore con probabilità P = 1 − (1 − μ)ⁿ. Per μ piccolo P ≈ 1 − e^(−nμ), e il numero medio di errori per copia è nμ.",
+          "Il prodotto nμ decide tutto: se è molto minore di 1 quasi tutte le copie sono perfette, se vale 1 lo è circa una copia su tre, se è molto maggiore di 1 quasi nessuna. Con μ = 10⁻⁴ e n = 10 000 la probabilità di almeno un errore è circa il 63%; con n = 1000 circa il 9,5%.",
+          "Una sequenza con vantaggio selettivo σ si conserva solo se σ volte la probabilità di una copia perfetta supera 1, cioè se μL < ln σ: è la soglia d’errore di Eigen. Con μ = 10⁻² e σ = 10 la lunghezza massima è circa 230 nucleotidi. Viroidi e virus a RNA vivono vicino alla soglia; i batteri, con circa 2·10⁻¹⁰ errori per nucleotide, molto al di sotto."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Problemi guidati",
+      "title": "Il laboratorio degli errori",
       "text": {
         "base": [
-          "L’attività propone quattro problemi guidati: la probabilità di almeno una mutazione in 1000 siti; il limite dell’approssimazione P ≈ μn; la mutazione dell’anemia falciforme; l’effetto di una delezione sulla cornice di lettura. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
-          "Per «almeno una» conviene passare per l’evento contrario: calcola la probabilità che non accada nulla e sottraila da 1.",
-          "Il modello del programma calcola P = 1 − (1 − μ)ⁿ per n da 0 a 10 000 siti, con μ regolabile da 10⁻⁵ a 10⁻³: con μ = 10⁻⁴ la probabilità arriva a circa 63% per n = 10 000."
+          "Nel laboratorio il grafico mostra la probabilità che una copia contenga almeno un errore in funzione del numero di siti copiati n, da 0 a 10 000, secondo P = 1 − (1 − μ)ⁿ. Nella scheda «Regola» cambi la probabilità di errore per sito μ, da 0,00001 a 0,001. Con il valore predefinito, μ = 0,0001, la curva supera il 63% quando n arriva a 10 000, cioè quando nμ = 1.",
+          "Protocollo. Il programma confronta due lunghezze fissate, 2500 e 5000 siti. Con il valore predefinito prevedi se la probabilità di almeno un errore cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta μ a 0,0002, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con μ = 0,0001 la probabilità passa da circa 0,221 a 0,393; con μ = 0,0002 da circa 0,393 a 0,632. Raddoppiare μ ha lo stesso effetto di raddoppiare n, perché conta solo il prodotto nμ. La crescita rallenta man mano che la probabilità si avvicina a 1."
         ],
         "intermediate": [
-          "L’attività propone quattro problemi guidati: la probabilità di almeno una mutazione in 1000 siti; il limite dell’approssimazione P ≈ μn; la mutazione dell’anemia falciforme; l’effetto di una delezione sulla cornice di lettura. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
-          "Per «almeno una» conviene passare per l’evento contrario: calcola la probabilità che non accada nulla e sottraila da 1.",
-          "Il modello del programma calcola P = 1 − (1 − μ)ⁿ per n da 0 a 10 000 siti, con μ regolabile da 10⁻⁵ a 10⁻³: con μ = 10⁻⁴ la probabilità arriva a circa 63% per n = 10 000."
+          "Nel laboratorio il grafico mostra la probabilità che una copia contenga almeno un errore in funzione del numero di siti copiati n, da 0 a 10 000, secondo P = 1 − (1 − μ)ⁿ. Nella scheda «Regola» cambi la probabilità di errore per sito μ, da 0,00001 a 0,001. Con il valore predefinito, μ = 0,0001, la curva supera il 63% quando n arriva a 10 000, cioè quando nμ = 1.",
+          "Protocollo. Il programma confronta due lunghezze fissate, 2500 e 5000 siti. Con il valore predefinito prevedi se la probabilità di almeno un errore cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta μ a 0,0002, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con μ = 0,0001 la probabilità passa da circa 0,221 a 0,393; con μ = 0,0002 da circa 0,393 a 0,632. Raddoppiare μ ha lo stesso effetto di raddoppiare n, perché conta solo il prodotto nμ. La crescita rallenta man mano che la probabilità si avvicina a 1."
         ],
         "advanced": [
-          "L’attività propone quattro problemi guidati: la probabilità di almeno una mutazione in 1000 siti; il limite dell’approssimazione P ≈ μn; la mutazione dell’anemia falciforme; l’effetto di una delezione sulla cornice di lettura. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
-          "Per «almeno una» conviene passare per l’evento contrario: calcola la probabilità che non accada nulla e sottraila da 1."
+          "Nel laboratorio il grafico mostra la probabilità che una copia contenga almeno un errore in funzione del numero di siti copiati n, da 0 a 10 000, secondo P = 1 − (1 − μ)ⁿ. Nella scheda «Regola» cambi la probabilità di errore per sito μ, da 0,00001 a 0,001. Con il valore predefinito, μ = 0,0001, la curva supera il 63% quando n arriva a 10 000, cioè quando nμ = 1.",
+          "Protocollo. Il programma confronta due lunghezze fissate, 2500 e 5000 siti. Con il valore predefinito prevedi se la probabilità di almeno un errore cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta μ a 0,0002, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con μ = 0,0001 la probabilità passa da circa 0,221 a 0,393; con μ = 0,0002 da circa 0,393 a 0,632. Raddoppiare μ ha lo stesso effetto di raddoppiare n, perché conta solo il prodotto nμ. La crescita rallenta man mano che la probabilità si avvicina a 1.",
+          "Una prova a casa: si scrive una sequenza di 60 lettere fra A, C, G e T e la si copia per dieci generazioni, lanciando due dadi per ogni lettera; con due sei la lettera viene cambiata. La probabilità di errore è 1/36, e il numero medio di errori per copia è circa 1,7: solo circa una copia su cinque è perfetta."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Errori frequenti",
+      "title": "Errori e paradossi",
       "text": {
         "base": [
-          "Errore frequente: pensare che una mutazione sia sempre dannosa. La maggior parte non ha effetti, e alcune sono vantaggiose in certi ambienti.",
-          "Secondo errore: credere che le mutazioni compaiano perché l’organismo ne ha bisogno. Avvengono a caso rispetto alla loro utilità; la selezione agisce dopo, su quelle che ci sono.",
-          "La maggior parte delle mutazioni è neutra, perché cade in regioni che non codificano o non cambia la proteina. Alcune sono dannose: nell’anemia falciforme un solo cambiamento, GAG → GTG nel sesto codone della beta-globina, sostituisce l’acido glutammico con la valina. Poche sono vantaggiose, come quella che mantiene l’attività della lattasi negli adulti di alcune popolazioni. Le mutazioni sono la fonte ultima della variabilità su cui agisce l’evoluzione."
+          "Errore frequente: sommare le probabilità di errore invece di moltiplicare quelle di successo. Il numero medio di errori è nμ, ma la probabilità di almeno un errore è 1 − (1 − μ)ⁿ, che non supera mai 1. Le due quantità coincidono solo quando nμ è molto minore di 1.",
+          "Secondo errore: credere che le mutazioni compaiano quando servono. Nel 1943 Luria e Delbrück mostrarono che i batteri resistenti a un virus compaiono a caso durante la crescita, prima del contatto con il virus: le colture hanno numeri di resistenti molto diversi. La selezione si limita a far prevalere le mutazioni utili."
         ],
         "intermediate": [
-          "Errore frequente: pensare che una mutazione sia sempre dannosa. La maggior parte non ha effetti, e alcune sono vantaggiose in certi ambienti.",
-          "Secondo errore: credere che le mutazioni compaiano perché l’organismo ne ha bisogno. Avvengono a caso rispetto alla loro utilità; la selezione agisce dopo, su quelle che ci sono.",
-          "La maggior parte delle mutazioni è neutra, perché cade in regioni che non codificano o non cambia la proteina. Alcune sono dannose: nell’anemia falciforme un solo cambiamento, GAG → GTG nel sesto codone della beta-globina, sostituisce l’acido glutammico con la valina. Poche sono vantaggiose, come quella che mantiene l’attività della lattasi negli adulti di alcune popolazioni. Le mutazioni sono la fonte ultima della variabilità su cui agisce l’evoluzione."
+          "Errore frequente: sommare le probabilità di errore invece di moltiplicare quelle di successo. Il numero medio di errori è nμ, ma la probabilità di almeno un errore è 1 − (1 − μ)ⁿ, che non supera mai 1. Le due quantità coincidono solo quando nμ è molto minore di 1.",
+          "Secondo errore: credere che le mutazioni compaiano quando servono. Nel 1943 Luria e Delbrück mostrarono che i batteri resistenti a un virus compaiono a caso durante la crescita, prima del contatto con il virus: le colture hanno numeri di resistenti molto diversi. La selezione si limita a far prevalere le mutazioni utili.",
+          "La soglia dipende dal vantaggio selettivo solo attraverso un logaritmo: passare da σ = 10 a σ = 1000 triplica la lunghezza massima, mentre ridurre μ di dieci volte la moltiplica per dieci. È la precisione della copiatura a fissare l’ordine di grandezza."
         ],
         "advanced": [
-          "Errore frequente: pensare che una mutazione sia sempre dannosa. La maggior parte non ha effetti, e alcune sono vantaggiose in certi ambienti.",
-          "Secondo errore: credere che le mutazioni compaiano perché l’organismo ne ha bisogno. Avvengono a caso rispetto alla loro utilità; la selezione agisce dopo, su quelle che ci sono.",
-          "Il modello del programma calcola P = 1 − (1 − μ)ⁿ per n da 0 a 10 000 siti, con μ regolabile da 10⁻⁵ a 10⁻³: con μ = 10⁻⁴ la probabilità arriva a circa 63% per n = 10 000."
+          "Errore frequente: sommare le probabilità di errore invece di moltiplicare quelle di successo. Il numero medio di errori è nμ, ma la probabilità di almeno un errore è 1 − (1 − μ)ⁿ, che non supera mai 1. Le due quantità coincidono solo quando nμ è molto minore di 1.",
+          "Secondo errore: credere che le mutazioni compaiano quando servono. Nel 1943 Luria e Delbrück mostrarono che i batteri resistenti a un virus compaiono a caso durante la crescita, prima del contatto con il virus: le colture hanno numeri di resistenti molto diversi. La selezione si limita a far prevalere le mutazioni utili.",
+          "La soglia dipende dal vantaggio selettivo solo attraverso un logaritmo: passare da σ = 10 a σ = 1000 triplica la lunghezza massima, mentre ridurre μ di dieci volte la moltiplica per dieci. È la precisione della copiatura a fissare l’ordine di grandezza.",
+          "Il paradosso di Eigen dice che senza un genoma lungo non c’è una polimerasi precisa, e senza una polimerasi precisa non c’è un genoma lungo. Le soluzioni proposte sono replicatori brevi che cooperano in un ipercicio, compartimenti che isolano i parassiti, siti neutri che tollerano errori e condizioni che migliorano la copiatura."
         ]
       }
     },
@@ -135,19 +142,19 @@
       "title": "Verifica",
       "text": {
         "base": [
-          "Ripasso: mutazioni puntiformi silenti, di senso errato e non senso; inserzioni, delezioni e cornice di lettura; mutazioni cromosomiche e genomiche; cause e riparazione; linea germinale e somatica; P = 1 − (1 − μ)ⁿ.",
-          "Mini esercizio: con μ = 10⁻⁵ e n = 2000, μn = 0,02 e P ≈ 2%; il calcolo esatto dà circa 1,98%.",
-          "Nelle domande di probabilità controlla se μn è piccolo prima di usare l’approssimazione P ≈ μn."
+          "Ripasso: tipi di mutazione e loro effetti; cause chimiche e fisiche; sistemi di riparazione; tassi di mutazione di virus, batteri e uomo; regola di Drake; probabilità di almeno un errore; distribuzione di Poisson; soglia d’errore e catastrofe d’errore; quasispecie; mutagenesi letale; paradosso di Eigen; esperimento di Luria e Delbrück.",
+          "Mini esercizio: con μ = 10⁻³ un genoma riceve in media un errore per copia quando n = 1000 siti, e la frazione di copie perfette è circa e⁻¹, cioè il 37%.",
+          "Nelle domande ricorda che conta il prodotto nμ: il numero medio di errori per copia."
         ],
         "intermediate": [
-          "Ripasso: mutazioni puntiformi silenti, di senso errato e non senso; inserzioni, delezioni e cornice di lettura; mutazioni cromosomiche e genomiche; cause e riparazione; linea germinale e somatica; P = 1 − (1 − μ)ⁿ.",
-          "Mini esercizio: con μ = 10⁻⁵ e n = 2000, μn = 0,02 e P ≈ 2%; il calcolo esatto dà circa 1,98%.",
-          "Nelle domande di probabilità controlla se μn è piccolo prima di usare l’approssimazione P ≈ μn."
+          "Ripasso: tipi di mutazione e loro effetti; cause chimiche e fisiche; sistemi di riparazione; tassi di mutazione di virus, batteri e uomo; regola di Drake; probabilità di almeno un errore; distribuzione di Poisson; soglia d’errore e catastrofe d’errore; quasispecie; mutagenesi letale; paradosso di Eigen; esperimento di Luria e Delbrück.",
+          "Mini esercizio: con μ = 10⁻³ un genoma riceve in media un errore per copia quando n = 1000 siti, e la frazione di copie perfette è circa e⁻¹, cioè il 37%.",
+          "Nelle domande ricorda che conta il prodotto nμ: il numero medio di errori per copia."
         ],
         "advanced": [
-          "Ripasso: mutazioni puntiformi silenti, di senso errato e non senso; inserzioni, delezioni e cornice di lettura; mutazioni cromosomiche e genomiche; cause e riparazione; linea germinale e somatica; P = 1 − (1 − μ)ⁿ.",
-          "Mini esercizio: con μ = 10⁻⁵ e n = 2000, μn = 0,02 e P ≈ 2%; il calcolo esatto dà circa 1,98%.",
-          "Nelle domande di probabilità controlla se μn è piccolo prima di usare l’approssimazione P ≈ μn."
+          "Ripasso: tipi di mutazione e loro effetti; cause chimiche e fisiche; sistemi di riparazione; tassi di mutazione di virus, batteri e uomo; regola di Drake; probabilità di almeno un errore; distribuzione di Poisson; soglia d’errore e catastrofe d’errore; quasispecie; mutagenesi letale; paradosso di Eigen; esperimento di Luria e Delbrück.",
+          "Mini esercizio: con μ = 10⁻³ un genoma riceve in media un errore per copia quando n = 1000 siti, e la frazione di copie perfette è circa e⁻¹, cioè il 37%.",
+          "Nelle domande ricorda che conta il prodotto nμ: il numero medio di errori per copia."
         ]
       }
     },
@@ -156,19 +163,19 @@
       "title": "Collegamenti",
       "text": {
         "base": [
-          "Il calcolo con l’evento contrario è il tema dell’unità di matematica «Combinatoria, probabilità e statistica». In biologia le mutazioni sono la materia prima della «Selezione naturale».",
-          "Riepilogo dell’unità: le mutazioni puntiformi possono essere silenti, di senso errato o non senso; inserzioni e delezioni spostano la cornice di lettura; nascono da errori e mutageni e solo quelle germinali si ereditano; la probabilità di almeno una mutazione è 1 − (1 − μ)ⁿ, circa μn se μn è piccolo.",
-          "Nel diario spiega perché una delezione di tre basi è spesso meno grave di una delezione di una sola base."
+          "La probabilità di eventi indipendenti è il tema dell’unità di matematica «Combinatoria, probabilità e statistica». In biologia il percorso prosegue con l’ereditarietà e la selezione naturale, che spiegano come una mutazione vantaggiosa si diffonde, e con la deriva genetica, che descrive il destino delle mutazioni neutre in popolazioni finite.",
+          "Riepilogo dell’unità: le mutazioni nascono da errori e danni e vengono in gran parte riparate; la probabilità che una copia di n siti contenga almeno un errore è 1 − (1 − μ)ⁿ; una popolazione conserva un genoma solo se μL < ln σ; i virus a RNA vivono vicino alla soglia, e la mutagenesi letale li spinge oltre.",
+          "Nel diario registra A e B con le previsioni e calcola, per μ = 0,0001 e μ = 0,0002, la lunghezza per cui metà delle copie contiene almeno un errore."
         ],
         "intermediate": [
-          "Il calcolo con l’evento contrario è il tema dell’unità di matematica «Combinatoria, probabilità e statistica». In biologia le mutazioni sono la materia prima della «Selezione naturale».",
-          "Riepilogo dell’unità: le mutazioni puntiformi possono essere silenti, di senso errato o non senso; inserzioni e delezioni spostano la cornice di lettura; nascono da errori e mutageni e solo quelle germinali si ereditano; la probabilità di almeno una mutazione è 1 − (1 − μ)ⁿ, circa μn se μn è piccolo.",
-          "Nel diario spiega perché una delezione di tre basi è spesso meno grave di una delezione di una sola base."
+          "La probabilità di eventi indipendenti è il tema dell’unità di matematica «Combinatoria, probabilità e statistica». In biologia il percorso prosegue con l’ereditarietà e la selezione naturale, che spiegano come una mutazione vantaggiosa si diffonde, e con la deriva genetica, che descrive il destino delle mutazioni neutre in popolazioni finite.",
+          "Riepilogo dell’unità: le mutazioni nascono da errori e danni e vengono in gran parte riparate; la probabilità che una copia di n siti contenga almeno un errore è 1 − (1 − μ)ⁿ; una popolazione conserva un genoma solo se μL < ln σ; i virus a RNA vivono vicino alla soglia, e la mutagenesi letale li spinge oltre.",
+          "Nel diario registra A e B con le previsioni e calcola, per μ = 0,0001 e μ = 0,0002, la lunghezza per cui metà delle copie contiene almeno un errore."
         ],
         "advanced": [
-          "Il calcolo con l’evento contrario è il tema dell’unità di matematica «Combinatoria, probabilità e statistica». In biologia le mutazioni sono la materia prima della «Selezione naturale».",
-          "Riepilogo dell’unità: le mutazioni puntiformi possono essere silenti, di senso errato o non senso; inserzioni e delezioni spostano la cornice di lettura; nascono da errori e mutageni e solo quelle germinali si ereditano; la probabilità di almeno una mutazione è 1 − (1 − μ)ⁿ, circa μn se μn è piccolo.",
-          "Nel diario spiega perché una delezione di tre basi è spesso meno grave di una delezione di una sola base."
+          "La probabilità di eventi indipendenti è il tema dell’unità di matematica «Combinatoria, probabilità e statistica». In biologia il percorso prosegue con l’ereditarietà e la selezione naturale, che spiegano come una mutazione vantaggiosa si diffonde, e con la deriva genetica, che descrive il destino delle mutazioni neutre in popolazioni finite.",
+          "Riepilogo dell’unità: le mutazioni nascono da errori e danni e vengono in gran parte riparate; la probabilità che una copia di n siti contenga almeno un errore è 1 − (1 − μ)ⁿ; una popolazione conserva un genoma solo se μL < ln σ; i virus a RNA vivono vicino alla soglia, e la mutagenesi letale li spinge oltre.",
+          "Nel diario registra A e B con le previsioni e calcola, per μ = 0,0001 e μ = 0,0002, la lunghezza per cui metà delle copie contiene almeno un errore."
         ]
       }
     }
@@ -176,435 +183,165 @@
   "questions": [
     {
       "id": "biology-12-q1",
-      "prompt": "Che cosa fa una mutazione di senso errato?",
+      "prompt": "Il codone GAG, acido glutammico, diventa GAA, che indica ancora l’acido glutammico. La mutazione è:",
       "options": [
         {
           "id": "A",
-          "text": "Cambia un amminoacido della proteina",
-          "feedback": "Esatto: il nuovo codone indica un amminoacido diverso."
+          "text": "Nonsenso",
+          "feedback": "Una mutazione nonsenso crea un codone di arresto."
         },
         {
           "id": "B",
-          "text": "Crea un codone di stop",
-          "feedback": "Creare un codone di stop è proprio di una mutazione non senso."
+          "text": "Sinonima",
+          "feedback": "Esatto: il codone cambia e l’amminoacido resta lo stesso."
         },
         {
           "id": "C",
-          "text": "Non cambia la proteina",
-          "feedback": "Lasciare invariata la proteina è proprio di una mutazione silente."
+          "text": "Di senso alterato",
+          "feedback": "L’amminoacido non è cambiato, quindi la proteina resta identica."
         },
         {
           "id": "D",
-          "text": "Sposta la cornice di lettura",
-          "feedback": "Lo fanno inserzioni e delezioni non multiple di tre."
+          "text": "Uno spostamento della cornice",
+          "feedback": "Una sostituzione lascia il numero di basi invariato."
         }
       ],
-      "correct": "A"
+      "correct": "B"
     },
     {
       "id": "biology-12-q2",
-      "prompt": "Che effetto ha la delezione di una sola base in un gene?",
+      "prompt": "Con μ = 10⁻³, un genoma di circa quanti siti ha in media un errore per copia?",
       "options": [
         {
           "id": "A",
-          "text": "Elimina un solo amminoacido",
-          "feedback": "Un amminoacido corrisponde a tre basi."
+          "text": "Circa 10",
+          "feedback": "Con 10 siti il numero medio di errori è 0,01."
         },
         {
           "id": "B",
-          "text": "Sposta la cornice e cambia tutti i codoni successivi",
-          "feedback": "Esatto: la lettura a triplette si sfasa."
+          "text": "Circa 1000",
+          "feedback": "Esatto: il numero medio di errori nμ vale 1000 · 10⁻³ = 1."
         },
         {
           "id": "C",
-          "text": "Nessuno",
-          "feedback": "La lettura a triplette si sfasa da quel punto in poi."
+          "text": "Circa un milione",
+          "feedback": "Con un milione di siti gli errori medi sarebbero mille."
         },
         {
           "id": "D",
-          "text": "Duplica il gene",
-          "feedback": "La duplicazione è un altro tipo di mutazione."
+          "text": "Nessuna lunghezza",
+          "feedback": "Il numero medio di errori cresce in proporzione alla lunghezza."
         }
       ],
       "correct": "B"
     },
     {
       "id": "biology-12-q3",
-      "prompt": "Con μ = 10⁻⁴ per sito, qual è circa la probabilità di almeno una mutazione in 1000 siti?",
+      "prompt": "Con μ = 10⁻⁴ e n = 10 000, la probabilità di almeno un errore in una copia è circa:",
       "options": [
         {
           "id": "A",
-          "text": "0,01%",
-          "feedback": "Questa è la probabilità per un solo sito."
+          "text": "100%",
+          "feedback": "Il numero medio di errori è 1, e circa una copia su tre resta perfetta."
         },
         {
           "id": "B",
-          "text": "100%",
-          "feedback": "Con μn = 0,1 la mutazione è tutt’altro che certa."
+          "text": "63%",
+          "feedback": "Esatto: 1 − e⁻¹ vale circa 0,63."
         },
         {
           "id": "C",
-          "text": "Circa 9,5%",
-          "feedback": "Esatto: si passa per l’evento contrario, 1 − 0,9999¹⁰⁰⁰ ≈ 0,095."
+          "text": "10%",
+          "feedback": "Questo è circa il valore per mille siti."
         },
         {
           "id": "D",
-          "text": "Circa 90,5%",
-          "feedback": "Questa è la probabilità che non ci sia nessuna mutazione."
+          "text": "1%",
+          "feedback": "Hai diviso per cento invece di calcolare 1 − e^(−nμ)."
         }
       ],
-      "correct": "C"
+      "correct": "B"
     },
     {
       "id": "biology-12-q4",
-      "prompt": "Quali mutazioni passano ai figli?",
+      "prompt": "Secondo la soglia di Eigen, come cambia la lunghezza massima di un genoma se μ si riduce di dieci volte?",
       "options": [
         {
           "id": "A",
-          "text": "Tutte le mutazioni",
-          "feedback": "Le mutazioni delle cellule del corpo restano nell’individuo."
+          "text": "Si moltiplica per dieci",
+          "feedback": "Esatto: la lunghezza massima è ln σ/μ, inversamente proporzionale a μ."
         },
         {
           "id": "B",
-          "text": "Solo quelle causate dalla luce",
-          "feedback": "L’origine della mutazione non decide se si eredita."
+          "text": "Raddoppia",
+          "feedback": "La dipendenza da μ è inversa e lineare."
         },
         {
           "id": "C",
-          "text": "Solo quelle vantaggiose",
-          "feedback": "Anche mutazioni neutre e dannose si ereditano, se sono nei gameti."
+          "text": "Resta uguale",
+          "feedback": "La soglia dipende proprio dalla precisione della copiatura."
         },
         {
           "id": "D",
-          "text": "Quelle della linea germinale",
-          "feedback": "Esatto: solo le mutazioni presenti nei gameti si trasmettono."
-        }
-      ],
-      "correct": "D"
-    },
-    {
-      "id": "biology-12-q5",
-      "prompt": "Come agisce la luce ultravioletta sul DNA?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Unisce timine vicine formando dimeri",
-          "feedback": "Esatto: i dimeri deformano l’elica e ostacolano la replicazione."
-        },
-        {
-          "id": "B",
-          "text": "Spezza le molecole d’acqua della cellula",
-          "feedback": "Questo è un effetto delle radiazioni ionizzanti."
-        },
-        {
-          "id": "C",
-          "text": "Sostituisce le basi con uracile",
-          "feedback": "L’uracile non entra nel DNA per effetto della luce."
-        },
-        {
-          "id": "D",
-          "text": "Non ha effetti sul DNA",
-          "feedback": "La luce ultravioletta è un mutageno ben noto."
+          "text": "Si divide per dieci",
+          "feedback": "Una copiatura più precisa permette genomi più lunghi."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "biology-12-q6",
-      "prompt": "Perché le mutazioni sono importanti per l’evoluzione?",
+      "id": "biology-12-q5",
+      "prompt": "Che cosa mostrò l’esperimento di Luria e Delbrück?",
       "options": [
         {
           "id": "A",
-          "text": "Perché compaiono quando servono",
-          "feedback": "Le mutazioni avvengono a caso rispetto alla loro utilità."
+          "text": "Che i batteri diventano resistenti solo dopo il contatto con il virus",
+          "feedback": "I resistenti erano già presenti, in numeri molto variabili fra colture."
         },
         {
           "id": "B",
-          "text": "Perché sono la fonte ultima della variabilità",
-          "feedback": "Esatto: la selezione agisce sulle varianti che le mutazioni producono."
+          "text": "Che le mutazioni compaiono a caso, prima della pressione selettiva",
+          "feedback": "Esatto: alcune colture avevano moltissimi resistenti per una mutazione precoce."
         },
         {
           "id": "C",
-          "text": "Perché sono sempre vantaggiose",
-          "feedback": "La maggior parte è neutra, alcune sono dannose."
+          "text": "Che il DNA si replica in modo semiconservativo",
+          "feedback": "Questo fu mostrato da Meselson e Stahl nel 1958."
         },
         {
           "id": "D",
-          "text": "Perché eliminano gli individui deboli",
-          "feedback": "Questo descrive in modo impreciso la selezione, non la mutazione."
+          "text": "Che i virus non mutano",
+          "feedback": "L’esperimento riguardava le mutazioni dei batteri."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-12-q6",
+      "prompt": "Perché un farmaco che aumenta il tasso di mutazione può essere efficace contro i virus a RNA?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché distrugge le membrane delle cellule infette",
+          "feedback": "Il meccanismo riguarda la copiatura dell’RNA virale."
+        },
+        {
+          "id": "B",
+          "text": "Perché i virus a RNA vivono vicino alla soglia d’errore e un piccolo aumento li spinge oltre",
+          "feedback": "Esatto: la popolazione virale perde la sequenza funzionale."
+        },
+        {
+          "id": "C",
+          "text": "Perché rende i virus più veloci",
+          "feedback": "Un tasso di errore maggiore danneggia la discendenza del virus."
+        },
+        {
+          "id": "D",
+          "text": "Perché ripara il genoma del virus",
+          "feedback": "Il farmaco introduce errori, al contrario di una riparazione."
         }
       ],
       "correct": "B"
     }
-  ],
-  "activity": {
-    "kind": "steps",
-    "goal": 3,
-    "problems": [
-      {
-        "id": "almeno-una",
-        "title": "Almeno una mutazione",
-        "text": "Ogni sito muta con probabilità μ = 10⁻⁴ per copia. Qual è la probabilità di almeno una mutazione copiando 1000 siti?",
-        "maxErrors": 1,
-        "explain": "Si passa per l’evento contrario: nessuna mutazione.",
-        "steps": [
-          {
-            "prompt": "Probabilità che un sito non muti?",
-            "options": [
-              {
-                "text": "0,9999",
-                "feedback": "Giusto: 1 − 10⁻⁴."
-              },
-              {
-                "text": "0,0001",
-                "feedback": "Questa è la probabilità che muti."
-              },
-              {
-                "text": "0,999",
-                "feedback": "Hai sottratto 10⁻³ invece di 10⁻⁴."
-              }
-            ],
-            "correct": 0,
-            "result": "Un sito resta intatto con probabilità 0,9999."
-          },
-          {
-            "prompt": "Probabilità che nessuno dei 1000 siti muti?",
-            "options": [
-              {
-                "text": "Circa 0,905",
-                "feedback": "Giusto: 0,9999¹⁰⁰⁰ ≈ e^(−0,1)."
-              },
-              {
-                "text": "0,9999",
-                "feedback": "Bisogna moltiplicare la probabilità per ognuno dei 1000 siti."
-              },
-              {
-                "text": "Circa 0,1",
-                "feedback": "Questo è μn, non la probabilità di nessuna mutazione."
-              }
-            ],
-            "correct": 0,
-            "result": "Nessuna mutazione: circa 90,5%."
-          },
-          {
-            "prompt": "Probabilità di almeno una mutazione?",
-            "options": [
-              {
-                "text": "Circa 9,5%",
-                "feedback": "Giusto: 1 − 0,905."
-              },
-              {
-                "text": "10%",
-                "feedback": "È la stima μn, un po’ più alta del valore esatto."
-              },
-              {
-                "text": "Circa 90,5%",
-                "feedback": "Questa è la probabilità dell’evento contrario."
-              }
-            ],
-            "correct": 0,
-            "result": "Almeno una mutazione: circa 9,5%, vicino alla stima μn = 10%."
-          }
-        ]
-      },
-      {
-        "id": "limite",
-        "title": "Quando la stima μn fallisce",
-        "text": "Con μ = 10⁻⁴ si copiano ora 10 000 siti. Vale ancora P ≈ μn?",
-        "maxErrors": 1,
-        "explain": "L’approssimazione vale solo se μn è piccolo.",
-        "steps": [
-          {
-            "prompt": "Quanto vale μn?",
-            "options": [
-              {
-                "text": "1",
-                "feedback": "Giusto: 10⁻⁴ · 10⁴."
-              },
-              {
-                "text": "0,1",
-                "feedback": "0,1 era il valore con 1000 siti."
-              },
-              {
-                "text": "10",
-                "feedback": "Ricontrolla le potenze: 10⁻⁴ · 10⁴ = 10⁰."
-              }
-            ],
-            "correct": 0,
-            "result": "μn = 1."
-          },
-          {
-            "prompt": "Che cosa prevederebbe P ≈ μn?",
-            "options": [
-              {
-                "text": "Una probabilità del 100%",
-                "feedback": "Giusto: ed è sospetto, perché una probabilità non arriva a 1 per caso."
-              },
-              {
-                "text": "Una probabilità del 10%",
-                "feedback": "Con μn = 1 la stima darebbe 100%."
-              },
-              {
-                "text": "Una probabilità negativa",
-                "feedback": "μn è positivo."
-              }
-            ],
-            "correct": 0,
-            "result": "La stima darebbe 100%."
-          },
-          {
-            "prompt": "Qual è il valore esatto?",
-            "options": [
-              {
-                "text": "Circa 63%",
-                "feedback": "Giusto: 1 − e^(−1) ≈ 0,632."
-              },
-              {
-                "text": "100%",
-                "feedback": "Resta circa il 37% di probabilità di nessuna mutazione."
-              },
-              {
-                "text": "Circa 37%",
-                "feedback": "Questa è la probabilità di nessuna mutazione."
-              }
-            ],
-            "correct": 0,
-            "result": "P ≈ 63%: la stima μn vale solo per μn molto minore di 1."
-          }
-        ]
-      },
-      {
-        "id": "falciforme",
-        "title": "L’anemia falciforme",
-        "text": "Nel sesto codone della beta-globina GAG, che codifica acido glutammico, diventa GTG, che codifica valina. Che mutazione è?",
-        "maxErrors": 1,
-        "explain": "Si confrontano i codoni e gli amminoacidi.",
-        "steps": [
-          {
-            "prompt": "Quale base è cambiata?",
-            "options": [
-              {
-                "text": "La seconda, da A a T",
-                "feedback": "Giusto: G A G diventa G T G."
-              },
-              {
-                "text": "La prima, da G a T",
-                "feedback": "La prima base resta G."
-              },
-              {
-                "text": "Nessuna, è cambiato l’amminoacido",
-                "feedback": "L’amminoacido cambia perché è cambiata una base."
-              }
-            ],
-            "correct": 0,
-            "result": "Sostituzione della seconda base."
-          },
-          {
-            "prompt": "Che tipo di mutazione è?",
-            "options": [
-              {
-                "text": "Di senso errato",
-                "feedback": "Giusto: un amminoacido viene sostituito da un altro."
-              },
-              {
-                "text": "Silente",
-                "feedback": "L’amminoacido cambia, quindi non è silente."
-              },
-              {
-                "text": "Non senso",
-                "feedback": "GTG non è un codone di stop."
-              }
-            ],
-            "correct": 0,
-            "result": "Mutazione di senso errato."
-          },
-          {
-            "prompt": "Se GAG fosse diventato GAA, anch’esso acido glutammico?",
-            "options": [
-              {
-                "text": "Sarebbe stata silente",
-                "feedback": "Giusto: il codice è ridondante."
-              },
-              {
-                "text": "Sarebbe stata non senso",
-                "feedback": "GAA codifica un amminoacido, non lo stop."
-              },
-              {
-                "text": "Avrebbe spostato la cornice",
-                "feedback": "Una sostituzione non cambia il numero di basi."
-              }
-            ],
-            "correct": 0,
-            "result": "Una sola base cambiata può avere effetti molto diversi secondo la posizione."
-          }
-        ]
-      },
-      {
-        "id": "cornice",
-        "title": "Una base in meno",
-        "text": "L’mRNA AUG GCU UCA GGA AAC UAA perde la G in quarta posizione. Che cosa legge il ribosoma?",
-        "maxErrors": 1,
-        "explain": "Dopo la delezione si rileggono le triplette dal codone di inizio.",
-        "steps": [
-          {
-            "prompt": "Qual è il nuovo secondo codone?",
-            "options": [
-              {
-                "text": "CUU",
-                "feedback": "Giusto: AUG CUU CAG GAA ACU AA."
-              },
-              {
-                "text": "GCU",
-                "feedback": "La G è stata eliminata: le triplette si spostano."
-              },
-              {
-                "text": "UCA",
-                "feedback": "Le basi restanti si leggono di seguito, senza saltare tre posizioni."
-              }
-            ],
-            "correct": 0,
-            "result": "Nuova lettura: AUG CUU CAG GAA ACU AA…"
-          },
-          {
-            "prompt": "Il codone di stop UAA è ancora in cornice?",
-            "options": [
-              {
-                "text": "No",
-                "feedback": "Giusto: le ultime basi formano «ACU» e «AA», e la lettura prosegue oltre."
-              },
-              {
-                "text": "Sì",
-                "feedback": "Rileggi le triplette: UAA non compare più come codone."
-              },
-              {
-                "text": "Si raddoppia",
-                "feedback": "La delezione toglie basi, non ne aggiunge."
-              }
-            ],
-            "correct": 0,
-            "result": "Lo stop è perso; la traduzione continua finché non ne trova un altro."
-          },
-          {
-            "prompt": "Che tipo di mutazione è?",
-            "options": [
-              {
-                "text": "Spostamento della cornice di lettura",
-                "feedback": "Giusto: cambiano tutti i codoni dopo la delezione."
-              },
-              {
-                "text": "Silente",
-                "feedback": "Cambiano quasi tutti gli amminoacidi successivi."
-              },
-              {
-                "text": "Di senso errato in un solo codone",
-                "feedback": "L’effetto non è limitato a un codone."
-              }
-            ],
-            "correct": 0,
-            "result": "Una sola base in meno cambia l’intera proteina a valle."
-          }
-        ]
-      }
-    ]
-  }
+  ]
 }

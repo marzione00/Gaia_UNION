@@ -129,3 +129,49 @@ I dati numerici vengono dalle tabelle dell'appendice D del manuale, che sono dat
 Vincoli per il telefono: le formule in linea non superano circa trentatré caratteri visibili, le equazioni lunghe vanno in formule a sé con `aligned`, le tabelle hanno al massimo quattro colonne e non scorrono di lato a 390 pixel di larghezza; quando una tabella non ci sta diventa un elenco.
 
 I test del volume, in `tests/chimica.test.mjs`, controllano per ogni capitolo formato, lunghezza minima, sezioni, figure, esercizi e livelli, rimandi, formule bilanciate e regole di stile; un test per capitolo ricalcola i numeri del testo, degli esempi e delle soluzioni degli esercizi.
+
+## Volume di biologia
+
+Il volume di biologia accompagna il programma di astrobiologia della 1.25.0: 35 unità in nove sistemi stellari, dalle definizioni della vita e dalle molecole dello spazio alla chimica prebiotica, all'informazione e all'evoluzione, alla vita negli ambienti estremi, all'abitabilità dei pianeti, ai mondi del sistema solare e alla ricerca di biofirme e di tecnofirme nella Galassia. I capitoli sono scritti per il sito. Due testi protetti da diritto d'autore servono soltanto per la scelta e l'ordine degli argomenti: A. M. Shaw, *Astrochemistry: From Astronomy to Astrobiology* (Wiley, 2006), e J. R. Morris, D. L. Hartl, A. H. Knoll e collaboratori, *Biology: How Life Works* (2ª edizione, Macmillan, 2016). Dai due libri si ricavano soltanto gli argomenti: testi, figure, tabelle, esempi ed esercizi sono originali, e ogni capitolo li cita nella sezione «Fonti» con i paragrafi consultati. I dati vengono da articoli originali, dai risultati delle missioni spaziali e dei telescopi, da cataloghi come il NASA Exoplanet Archive e da rapporti di enti come WMO e IPCC, aggiornati al 2026. Il libro di Shaw è del 2006: le affermazioni superate o errate sono corrette nel testo e segnalate nelle «Fonti» di ciascun capitolo.
+
+Il volume conta 35 capitoli, uno per unità, per circa 223.000 parole, 219 figure e 569 esercizi risolti. Ogni capitolo ha almeno 5000 parole, dodici sezioni, sei figure e sedici esercizi, con almeno sei esercizi di base, sei di livello medio e quattro avanzati, e comprende un'esperienza da svolgere a casa o in classe, errori frequenti, sintesi, glossario e fonti. Le figure sono disegnate nel capitolo da una descrizione JSON (`src/book/figures.js`).
+
+| unità | capitolo | Shaw, paragrafi | Morris, paragrafi |
+|---|---|---|---|
+| 01 | Che cos'è la vita | 1.3, 1.5, 8.1 | 1.2, 1.3, 2.3, 2.4 |
+| 02 | Cellule, scala e superficie | 6.7, 9.2 | 1.3, 5.2, 5.3, 26.1 |
+| 03 | Membrane e protocellule | 9.1, 9.2 | 5.1, 5.2, 26.1 |
+| 04 | Elementi e molecole della vita nello spazio | 1.1, 4.3, 5.2, 5.4, 5.8, 5.9, 5.11 | 2.1, 2.2, 2.5 |
+| 05 | Meteoriti, comete e campioni di asteroidi | 6.1, 6.2, 6.3, 6.6, 6.8–6.13, 8.5 | 2.6 |
+| 06 | Chiralità e omochiralità | 1.3, 8.6 | 2.5, 4.1 |
+| 07 | Miller-Urey e la sintesi prebiotica | 1.5, 8.2, 8.4 | 2.6, 3.3 |
+| 08 | Energia, enzimi e catalisi | 8.2, 8.3 | 6.1–6.5 |
+| 09 | Sorgenti idrotermali e metabolismo primordiale | 8.7, 8.8, 9.4 | Caso 1, 6.5, 7.4–7.6, 26.2, 26.5 |
+| 10 | Il mondo a RNA | 8.9 | Caso 1, 3.3, 4.2, 4.3 |
+| 11 | DNA, codice genetico ed espressione | 1.3, 9.2 | 3.1–3.4, 4.1, 4.2, 12.1, 19.2, 19.3 |
+| 12 | Mutazioni e soglia d'errore | 1.3, 8.9 | 12.1, 14.1–14.4, 21.1 |
+| 13 | Ereditarietà e selezione naturale | 1.3 | 16.2–16.4, 21.3–21.5 |
+| 14 | Deriva genetica | 9.3 | 21.2, 21.5, 21.6 |
+| 15 | L'albero universale e LUCA | 9.3 | 23.1, 23.2, 26.1, 26.6, 27.2 |
+| 16 | Le prime tracce della vita e il tempo geologico | 6.4, 7.3, 7.5 | 23.3, 26.6 |
+| 17 | Ossigeno, endosimbiosi e cellule complesse | 9.4 | 8.5, 11.3, 27.2, 28.5 |
+| 18 | Estremofili | 1.3, 9.4 | 26.4, 26.5 |
+| 19 | Respirazione, fermentazione e chemiosintesi | 9.4 | 7.1-7.7, 26.2-26.3 |
+| 20 | Fotosintesi e luce di altre stelle | 7.11 | 8.1-8.5 |
+| 21 | Crescita delle popolazioni microbiche | 9.4-9.5 | 46.1-46.2 |
+| 22 | La zona abitabile | 7.1, 7.6-7.7 |  |
+| 23 | Atmosfere, effetto serra e clima | 7.9-7.10 | 25.1-25.2, 48.1 |
+| 24 | Abitabilità attorno alle nane rosse | 4.1-4.3, 7.7-7.8 |  |
+| 25 | Biosfera, albedo e Daisyworld | 7.6 | 25.1-25.3, 48.1, 48.3 |
+| 26 | Marte: acqua e abitabilità passata | 9.5, 7.9 |  |
+| 27 | Cercare la vita su Marte | 6.7, 9.5 |  |
+| 28 | Europa e gli oceani sotto il ghiaccio | cap. 7 (introduzione), cap. 8 (sorgenti idrotermali), cap. 10 (introduzione) |  |
+| 29 | Encelado e i suoi pennacchi | 4.5, 8.7, cap. 10 (introduzione) |  |
+| 30 | Titano, la chimica senza acqua | cap. 10 (10.1-10.6) |  |
+| 31 | Scoprire gli esopianeti | 7.8, 7.1 |  |
+| 32 | Atmosfere degli esopianeti e JWST | 7.8, 7.9, 3.3 |  |
+| 33 | Biofirme e falsi positivi | 7.10-7.11 | 25.1, 26.3, 26.5 |
+| 34 | Panspermia e protezione planetaria | 1.5, 6.7, 9.4 |  |
+| 35 | Tecnofirme, SETI ed equazione di Drake | 1.4, 3.6, 3.7 |  |
+
+I test del volume, in `tests/biologia.test.mjs`, controllano che i 35 capitoli esistano e siano completi, con formato, lunghezza minima, sezioni, figure, esercizi e livelli, rimandi, formule bilanciate e regole di stile; un test per capitolo ricalcola i numeri del testo e delle soluzioni degli esercizi e i valori del laboratorio citati nel percorso guidato.

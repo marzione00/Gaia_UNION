@@ -29,7 +29,7 @@ export function cleanCourseRecords(records){
  return result;
 }
 export function validateBundle(bundle){
- if(!plain(bundle)||bundle.schemaVersion!==1||!Array.isArray(bundle.courses)||bundle.courses.length!==100||!Array.isArray(bundle.sources))throw Error('Registro dei percorsi non valido');
+ if(!plain(bundle)||bundle.schemaVersion!==1||!Array.isArray(bundle.courses)||bundle.courses.length!==MODEL_IDS.length||!Array.isArray(bundle.sources))throw Error('Registro dei percorsi non valido');
  const found=new Set(),sourceIds=new Set(bundle.sources.map(s=>s.id));
  for(const d of bundle.courses){
   const activity=d.activity!==undefined&&d.activity!==null;if(activity&&(!plain(d.activity)||!ACTIVITY_KINDS.includes(d.activity.kind)))throw Error('Attività non valida: '+d.id);

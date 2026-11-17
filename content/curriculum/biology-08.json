@@ -2,150 +2,139 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-08",
-  "title": "Meiosi e assortimento",
+  "title": "Energia, enzimi e catalisi",
   "sector": 3,
   "modelId": "biology-08",
   "coverage": "guided-lab",
   "editorialStatus": "hand-written-draft",
-  "scope": "Meiosi I e II, crossing-over, assortimento indipendente e conteggio delle combinazioni",
-  "narrativeStatus": "La serra è immaginaria; i numeri dei cromosomi e le probabilità sono reali.",
+  "scope": "Sistemi aperti, energia di Gibbs, idrolisi dell’ATP e accoppiamento, energia di attivazione e legge di Arrhenius, catalizzatori ed equilibrio, enzimi e curva di Michaelis e Menten, inibitori, temperatura e pH, catalizzatori primordiali",
+  "narrativeStatus": "Energie, velocità e fattori di accelerazione sono dati pubblicati; il modello usa la curva di Michaelis e Menten con velocità iniziali.",
   "objectives": [
-    "Distinguere cellule diploidi e aploidi, cromosomi omologhi e cromatidi fratelli.",
-    "Descrivere che cosa si separa nella meiosi I e nella meiosi II.",
-    "Spiegare crossing-over e assortimento indipendente come fonti di variabilità.",
-    "Calcolare il numero di combinazioni 2ⁿ e la probabilità binomiale P(k) = C(n, k)/2ⁿ."
+    "Calcolare ΔG di una reazione dalle concentrazioni e spiegare l’accoppiamento con l’ATP.",
+    "Collegare la riduzione dell’energia di attivazione al fattore di accelerazione.",
+    "Usare la curva di Michaelis e Menten e interpretare K_m e V_max.",
+    "Descrivere l’effetto degli inibitori e i possibili catalizzatori primordiali."
   ],
   "prerequisites": [
     "biology-07"
   ],
   "connections": [
-    "biology-09"
+    "chemistry-16",
+    "chemistry-18"
   ],
   "sources": [
-    "biology"
+    "biology",
+    "chemistry"
   ],
   "originalSource": null,
   "glossary": [
     {
-      "term": "Diploide e aploide",
-      "definition": "Una cellula diploide (2n) ha due copie di ogni cromosoma, una aploide (n) una sola."
+      "term": "Energia di Gibbs",
+      "definition": "Grandezza la cui diminuzione indica che una reazione procede spontaneamente."
     },
     {
-      "term": "Cromosomi omologhi",
-      "definition": "I due cromosomi di una coppia, uno materno e uno paterno, con gli stessi geni nelle stesse posizioni."
+      "term": "Energia di attivazione",
+      "definition": "Barriera energetica che i reagenti devono superare per trasformarsi in prodotti."
     },
     {
-      "term": "Meiosi I",
-      "definition": "Divisione che separa i cromosomi omologhi e dimezza il numero di cromosomi."
+      "term": "Enzima",
+      "definition": "Catalizzatore biologico, quasi sempre una proteina, che lega il substrato nel sito attivo."
     },
     {
-      "term": "Meiosi II",
-      "definition": "Divisione che separa i cromatidi fratelli, come la mitosi."
+      "term": "Costante di Michaelis",
+      "definition": "Concentrazione di substrato alla quale l’enzima lavora a metà della velocità massima."
     },
     {
-      "term": "Crossing-over",
-      "definition": "Scambio di tratti corrispondenti tra cromatidi non fratelli di due omologhi, nella profase I."
+      "term": "Numero di turnover",
+      "definition": "Molecole di substrato trasformate al secondo da una molecola di enzima saturato."
     },
     {
-      "term": "Assortimento indipendente",
-      "definition": "Orientamento casuale e indipendente delle coppie di omologhi nella metafase I."
-    },
-    {
-      "term": "Non disgiunzione",
-      "definition": "Mancata separazione di omologhi o cromatidi, che produce gameti con cromosomi in più o in meno."
+      "term": "Inibitore competitivo",
+      "definition": "Molecola che occupa il sito attivo e aumenta la costante di Michaelis apparente."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Fratelli simili e diversi",
+      "title": "Settantotto milioni di anni",
       "text": {
         "base": [
-          "Nella serra della stazione due piante sorelle, nate dagli stessi genitori, hanno foglie e fiori un po’ diversi. Anche due fratelli umani si somigliano senza essere uguali, salvo i gemelli identici. La causa sta nel modo in cui si formano i gameti, le cellule riproduttive: la meiosi mescola i cromosomi ricevuti dai genitori.",
-          "Le cellule del corpo umano sono diploidi: contengono 46 cromosomi, cioè 23 coppie. In ogni coppia un cromosoma viene dalla madre e uno dal padre. I due cromosomi di una coppia si chiamano omologhi: portano gli stessi geni nella stessa posizione, ma possono averne versioni diverse, cioè alleli diversi. Si scrive 2n = 46.",
-          "Se uovo e spermatozoo avessero 46 cromosomi ciascuno, lo zigote ne avrebbe 92, e il numero raddoppierebbe a ogni generazione. La meiosi evita il problema: produce gameti aploidi, con n = 23 cromosomi, uno per ogni coppia. La fecondazione riunisce due gameti aploidi e ripristina il numero diploide."
+          "Senza catalizzatore la decarbossilazione dell’orotidina monofosfato, un passaggio della sintesi dei nucleotidi, ha un tempo di dimezzamento di circa 78 milioni di anni a 25 °C. L’enzima che la catalizza la compie in una frazione di secondo: la accelera di circa cento milioni di miliardi di volte. Ogni cellula vive grazie a migliaia di reazioni di questo tipo, possibili in tempi utili solo perché qualcosa le accelera.",
+          "Un organismo è un sistema aperto: assorbe energia e materia, le trasforma e restituisce calore e rifiuti all’ambiente. Una persona adulta consuma circa 8400 kJ al giorno, una potenza media di circa 97 W, simile a quella di una lampadina a incandescenza. Il metabolismo è l’insieme delle reazioni che usano questa energia."
         ],
         "intermediate": [
-          "Nella serra della stazione due piante sorelle, nate dagli stessi genitori, hanno foglie e fiori un po’ diversi. Anche due fratelli umani si somigliano senza essere uguali, salvo i gemelli identici. La causa sta nel modo in cui si formano i gameti, le cellule riproduttive: la meiosi mescola i cromosomi ricevuti dai genitori.",
-          "Le cellule del corpo umano sono diploidi: contengono 46 cromosomi, cioè 23 coppie. In ogni coppia un cromosoma viene dalla madre e uno dal padre. I due cromosomi di una coppia si chiamano omologhi: portano gli stessi geni nella stessa posizione, ma possono averne versioni diverse, cioè alleli diversi. Si scrive 2n = 46.",
-          "Se uovo e spermatozoo avessero 46 cromosomi ciascuno, lo zigote ne avrebbe 92, e il numero raddoppierebbe a ogni generazione. La meiosi evita il problema: produce gameti aploidi, con n = 23 cromosomi, uno per ogni coppia. La fecondazione riunisce due gameti aploidi e ripristina il numero diploide."
+          "Senza catalizzatore la decarbossilazione dell’orotidina monofosfato, un passaggio della sintesi dei nucleotidi, ha un tempo di dimezzamento di circa 78 milioni di anni a 25 °C. L’enzima che la catalizza la compie in una frazione di secondo: la accelera di circa cento milioni di miliardi di volte. Ogni cellula vive grazie a migliaia di reazioni di questo tipo, possibili in tempi utili solo perché qualcosa le accelera.",
+          "Un organismo è un sistema aperto: assorbe energia e materia, le trasforma e restituisce calore e rifiuti all’ambiente. Una persona adulta consuma circa 8400 kJ al giorno, una potenza media di circa 97 W, simile a quella di una lampadina a incandescenza. Il metabolismo è l’insieme delle reazioni che usano questa energia."
         ],
         "advanced": [
-          "Nella serra della stazione due piante sorelle, nate dagli stessi genitori, hanno foglie e fiori un po’ diversi. Anche due fratelli umani si somigliano senza essere uguali, salvo i gemelli identici. La causa sta nel modo in cui si formano i gameti, le cellule riproduttive: la meiosi mescola i cromosomi ricevuti dai genitori.",
-          "Le cellule del corpo umano sono diploidi: contengono 46 cromosomi, cioè 23 coppie. In ogni coppia un cromosoma viene dalla madre e uno dal padre. I due cromosomi di una coppia si chiamano omologhi: portano gli stessi geni nella stessa posizione, ma possono averne versioni diverse, cioè alleli diversi. Si scrive 2n = 46.",
-          "Se uovo e spermatozoo avessero 46 cromosomi ciascuno, lo zigote ne avrebbe 92, e il numero raddoppierebbe a ogni generazione. La meiosi evita il problema: produce gameti aploidi, con n = 23 cromosomi, uno per ogni coppia. La fecondazione riunisce due gameti aploidi e ripristina il numero diploide."
+          "Senza catalizzatore la decarbossilazione dell’orotidina monofosfato, un passaggio della sintesi dei nucleotidi, ha un tempo di dimezzamento di circa 78 milioni di anni a 25 °C. L’enzima che la catalizza la compie in una frazione di secondo: la accelera di circa cento milioni di miliardi di volte. Ogni cellula vive grazie a migliaia di reazioni di questo tipo, possibili in tempi utili solo perché qualcosa le accelera.",
+          "Un organismo è un sistema aperto: assorbe energia e materia, le trasforma e restituisce calore e rifiuti all’ambiente. Una persona adulta consuma circa 8400 kJ al giorno, una potenza media di circa 97 W, simile a quella di una lampadina a incandescenza. Il metabolismo è l’insieme delle reazioni che usano questa energia.",
+          "Le domande del capitolo riguardano anche l’origine della vita: prima delle proteine, quali catalizzatori potevano accelerare le reazioni prebiotiche? Metalli, superfici minerali e molecole di RNA sono i candidati principali."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Due divisioni, molte combinazioni",
+      "title": "Energia, barriere ed enzimi",
       "text": {
         "base": [
-          "La meiosi comprende due divisioni successive, precedute da una sola duplicazione del DNA. Nella meiosi I si separano i cromosomi omologhi: ogni cellula figlia riceve un cromosoma di ogni coppia, ancora formato da due cromatidi. Nella meiosi II si separano i cromatidi fratelli, come nella mitosi. Da una cellula diploide si ottengono quattro cellule aploidi.",
-          "Nella profase I gli omologhi si appaiano lungo tutta la loro lunghezza e formano coppie strette, dette bivalenti o tetradi. In alcuni punti, chiamati chiasmi, due cromatidi non fratelli si scambiano tratti corrispondenti: è il crossing-over. Ne escono cromatidi che combinano alleli materni e paterni.",
-          "Nella metafase I le coppie di omologhi si allineano all’equatore, e l’orientamento di ogni coppia è casuale: il cromosoma materno può finire verso un polo o verso l’altro, indipendentemente dalle altre coppie. È l’assortimento indipendente.",
-          "Contiamo le possibilità. Con 2 coppie ci sono 2 · 2 = 4 combinazioni di origine dei cromosomi in un gamete: materno-materno, materno-paterno, paterno-materno, paterno-paterno. Con n coppie le combinazioni sono 2ⁿ. Per l’essere umano, con 23 coppie, sono 2²³ = 8 388 608, senza contare il crossing-over."
+          "Una reazione procede spontaneamente se l’energia di Gibbs diminuisce, ΔG < 0. Il valore effettivo dipende dalle concentrazioni, ΔG = ΔG° + RT ln Q. L’idrolisi dell’ATP ha ΔG°′ = −30,5 kJ/mol, ma nelle cellule, dove l’ATP è molto più abbondante dell’ADP, libera circa 50 kJ/mol. Una reazione sfavorevole diventa possibile se è accoppiata all’idrolisi dell’ATP attraverso un intermedio comune.",
+          "La termodinamica dice se una reazione può avvenire, la cinetica quanto in fretta. La velocità dipende dall’energia di attivazione E_a secondo la legge di Arrhenius, k = A e^(−E_a/RT). Un catalizzatore offre un percorso con una barriera più bassa: abbassarla di 10 kJ/mol accelera la reazione di circa 56 volte a 25 °C. Il catalizzatore esce intatto e lascia invariato l’equilibrio.",
+          "Un enzima lega il substrato nel sito attivo e stabilizza lo stato di transizione. Con molto substrato tutti i siti sono occupati e la velocità tende a un massimo, V_max. La curva di Michaelis e Menten, v = V_max [S]/(K_m + [S]), descrive questa saturazione; K_m è la concentrazione alla quale la velocità è metà del massimo."
         ],
         "intermediate": [
-          "La meiosi comprende due divisioni successive, precedute da una sola duplicazione del DNA. Nella meiosi I si separano i cromosomi omologhi: ogni cellula figlia riceve un cromosoma di ogni coppia, ancora formato da due cromatidi. Nella meiosi II si separano i cromatidi fratelli, come nella mitosi. Da una cellula diploide si ottengono quattro cellule aploidi.",
-          "Nella profase I gli omologhi si appaiano lungo tutta la loro lunghezza e formano coppie strette, dette bivalenti o tetradi. In alcuni punti, chiamati chiasmi, due cromatidi non fratelli si scambiano tratti corrispondenti: è il crossing-over. Ne escono cromatidi che combinano alleli materni e paterni.",
-          "Nella metafase I le coppie di omologhi si allineano all’equatore, e l’orientamento di ogni coppia è casuale: il cromosoma materno può finire verso un polo o verso l’altro, indipendentemente dalle altre coppie. È l’assortimento indipendente.",
-          "Contiamo le possibilità. Con 2 coppie ci sono 2 · 2 = 4 combinazioni di origine dei cromosomi in un gamete: materno-materno, materno-paterno, paterno-materno, paterno-paterno. Con n coppie le combinazioni sono 2ⁿ. Per l’essere umano, con 23 coppie, sono 2²³ = 8 388 608, senza contare il crossing-over.",
-          "Quanti cromosomi materni contiene un gamete? Se ogni coppia invia il materno con probabilità 1/2, indipendentemente dalle altre, il numero k di cromosomi materni segue la legge binomiale: P(k) = C(n, k)/2ⁿ, dove C(n, k) conta i modi di scegliere quali k coppie danno il materno. Con n = 4 i valori di C(4, k) sono 1, 4, 6, 4, 1 su 16 combinazioni: P(2) = 6/16 = 0,375."
+          "Una reazione procede spontaneamente se l’energia di Gibbs diminuisce, ΔG < 0. Il valore effettivo dipende dalle concentrazioni, ΔG = ΔG° + RT ln Q. L’idrolisi dell’ATP ha ΔG°′ = −30,5 kJ/mol, ma nelle cellule, dove l’ATP è molto più abbondante dell’ADP, libera circa 50 kJ/mol. Una reazione sfavorevole diventa possibile se è accoppiata all’idrolisi dell’ATP attraverso un intermedio comune.",
+          "La termodinamica dice se una reazione può avvenire, la cinetica quanto in fretta. La velocità dipende dall’energia di attivazione E_a secondo la legge di Arrhenius, k = A e^(−E_a/RT). Un catalizzatore offre un percorso con una barriera più bassa: abbassarla di 10 kJ/mol accelera la reazione di circa 56 volte a 25 °C. Il catalizzatore esce intatto e lascia invariato l’equilibrio.",
+          "Un enzima lega il substrato nel sito attivo e stabilizza lo stato di transizione. Con molto substrato tutti i siti sono occupati e la velocità tende a un massimo, V_max. La curva di Michaelis e Menten, v = V_max [S]/(K_m + [S]), descrive questa saturazione; K_m è la concentrazione alla quale la velocità è metà del massimo."
         ],
         "advanced": [
-          "La meiosi comprende due divisioni successive, precedute da una sola duplicazione del DNA. Nella meiosi I si separano i cromosomi omologhi: ogni cellula figlia riceve un cromosoma di ogni coppia, ancora formato da due cromatidi. Nella meiosi II si separano i cromatidi fratelli, come nella mitosi. Da una cellula diploide si ottengono quattro cellule aploidi.",
-          "Nella profase I gli omologhi si appaiano lungo tutta la loro lunghezza e formano coppie strette, dette bivalenti o tetradi. In alcuni punti, chiamati chiasmi, due cromatidi non fratelli si scambiano tratti corrispondenti: è il crossing-over. Ne escono cromatidi che combinano alleli materni e paterni.",
-          "Nella metafase I le coppie di omologhi si allineano all’equatore, e l’orientamento di ogni coppia è casuale: il cromosoma materno può finire verso un polo o verso l’altro, indipendentemente dalle altre coppie. È l’assortimento indipendente.",
-          "Quanti cromosomi materni contiene un gamete? Se ogni coppia invia il materno con probabilità 1/2, indipendentemente dalle altre, il numero k di cromosomi materni segue la legge binomiale: P(k) = C(n, k)/2ⁿ, dove C(n, k) conta i modi di scegliere quali k coppie danno il materno. Con n = 4 i valori di C(4, k) sono 1, 4, 6, 4, 1 su 16 combinazioni: P(2) = 6/16 = 0,375.",
-          "I casi estremi sono rari. Con 23 coppie la probabilità che un gamete contenga solo cromosomi materni è 1/2²³, circa 1,2 · 10⁻⁷. Combinando due gameti, uno per genitore, le combinazioni possibili per uno zigote sono (2²³)², circa 7,0 · 10¹³, ancora senza il crossing-over: per questo due fratelli non sono mai identici, salvo i gemelli monozigotici.",
-          "Confronto con la mitosi. La mitosi produce due cellule diploidi identiche alla madre e serve a crescere e riparare; la meiosi produce quattro cellule aploidi diverse tra loro e serve alla riproduzione sessuata. Nella mitosi gli omologhi non si appaiano; nella meiosi I si appaiano, si scambiano tratti e si separano."
+          "Una reazione procede spontaneamente se l’energia di Gibbs diminuisce, ΔG < 0. Il valore effettivo dipende dalle concentrazioni, ΔG = ΔG° + RT ln Q. L’idrolisi dell’ATP ha ΔG°′ = −30,5 kJ/mol, ma nelle cellule, dove l’ATP è molto più abbondante dell’ADP, libera circa 50 kJ/mol. Una reazione sfavorevole diventa possibile se è accoppiata all’idrolisi dell’ATP attraverso un intermedio comune.",
+          "La termodinamica dice se una reazione può avvenire, la cinetica quanto in fretta. La velocità dipende dall’energia di attivazione E_a secondo la legge di Arrhenius, k = A e^(−E_a/RT). Un catalizzatore offre un percorso con una barriera più bassa: abbassarla di 10 kJ/mol accelera la reazione di circa 56 volte a 25 °C. Il catalizzatore esce intatto e lascia invariato l’equilibrio.",
+          "Un enzima lega il substrato nel sito attivo e stabilizza lo stato di transizione. Con molto substrato tutti i siti sono occupati e la velocità tende a un massimo, V_max. La curva di Michaelis e Menten, v = V_max [S]/(K_m + [S]), descrive questa saturazione; K_m è la concentrazione alla quale la velocità è metà del massimo.",
+          "Gli inibitori riducono l’attività: un inibitore competitivo occupa il sito attivo e aumenta K_m apparente senza cambiare V_max, un inibitore non competitivo abbassa V_max. Temperatura e pH hanno un ottimo, oltre il quale l’enzima si denatura. Nel 1976 Harold White notò che molti cofattori contengono un nucleotide e li interpretò come fossili di un metabolismo basato sull’RNA."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Il laboratorio delle combinazioni",
+      "title": "Il laboratorio della saturazione",
       "text": {
         "base": [
-          "Nel laboratorio il grafico mostra, a barre, la probabilità P(k) che un gamete contenga esattamente k cromosomi materni. Nella scheda «Regola» scegli il numero di coppie n, da 2 a 12; il cursore orizzontale sceglie k. Le barre sono separate perché k è un numero intero.",
-          "Protocollo. Con n = 4, prevedi come cambia P(k) passando da k = 3 a k = 6: scegli «Cresce», «Diminuisce», «Uguale» o «Non definito» nella scheda «A / B» e premi «Salva A». Poi porta n a 12, fai una nuova previsione e premi «Salva B». Attenzione al caso n = 4: con quattro coppie un gamete non può avere sei cromosomi materni.",
-          "Prima di salvare, calcola a mano almeno un valore: per n = 4 e k = 3 ci sono 4 modi di scegliere le tre coppie che danno il materno, su 16 combinazioni.",
-          "Che cosa osservare. Con n = 4, P(3) = 4/16 = 0,25 e P(6) = 0, quindi la probabilità diminuisce. Con n = 12 la distribuzione si sposta e si allarga: P(3) ≈ 0,054 e P(6) ≈ 0,226, quindi cresce, perché 6 è il valore centrale. Con n = 2 entrambe le probabilità valgono zero. La barra più alta sta sempre a k = n/2, e la somma di tutte le barre vale 1."
+          "Nel laboratorio il grafico mostra la velocità iniziale v di una reazione enzimatica in funzione della concentrazione di substrato [S], da 0 a 10 mmol/L, secondo v = V_max [S]/(K_m + [S]). Nella scheda «Regola» cambi V_max, da 5 a 30 μmol/min, e K_m, da 0,5 a 5 mmol/L. Con i valori predefiniti, V_max = 10 μmol/min e K_m = 2 mmol/L, la velocità vale 5 μmol/min proprio per [S] = 2 mmol/L.",
+          "Protocollo. Il programma confronta due concentrazioni fissate, 2,5 e 5 mmol/L. Con i valori predefiniti prevedi se la velocità cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta K_m a 4 mmol/L, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con K_m = 2 mmol/L la velocità passa da circa 5,56 a 7,14 μmol/min: raddoppiare il substrato aumenta la velocità di meno del 30%, perché l’enzima è già vicino alla saturazione. Con K_m = 4 mmol/L passa da circa 3,85 a 5,56 μmol/min, con un aumento maggiore. Con V_max = 20 μmol/min i valori raddoppiano, circa 11,1 e 14,3, e la forma della curva resta la stessa."
         ],
         "intermediate": [
-          "Nel laboratorio il grafico mostra, a barre, la probabilità P(k) che un gamete contenga esattamente k cromosomi materni. Nella scheda «Regola» scegli il numero di coppie n, da 2 a 12; il cursore orizzontale sceglie k. Le barre sono separate perché k è un numero intero.",
-          "Protocollo. Con n = 4, prevedi come cambia P(k) passando da k = 3 a k = 6: scegli «Cresce», «Diminuisce», «Uguale» o «Non definito» nella scheda «A / B» e premi «Salva A». Poi porta n a 12, fai una nuova previsione e premi «Salva B». Attenzione al caso n = 4: con quattro coppie un gamete non può avere sei cromosomi materni.",
-          "Prima di salvare, calcola a mano almeno un valore: per n = 4 e k = 3 ci sono 4 modi di scegliere le tre coppie che danno il materno, su 16 combinazioni.",
-          "Che cosa osservare. Con n = 4, P(3) = 4/16 = 0,25 e P(6) = 0, quindi la probabilità diminuisce. Con n = 12 la distribuzione si sposta e si allarga: P(3) ≈ 0,054 e P(6) ≈ 0,226, quindi cresce, perché 6 è il valore centrale. Con n = 2 entrambe le probabilità valgono zero. La barra più alta sta sempre a k = n/2, e la somma di tutte le barre vale 1."
+          "Nel laboratorio il grafico mostra la velocità iniziale v di una reazione enzimatica in funzione della concentrazione di substrato [S], da 0 a 10 mmol/L, secondo v = V_max [S]/(K_m + [S]). Nella scheda «Regola» cambi V_max, da 5 a 30 μmol/min, e K_m, da 0,5 a 5 mmol/L. Con i valori predefiniti, V_max = 10 μmol/min e K_m = 2 mmol/L, la velocità vale 5 μmol/min proprio per [S] = 2 mmol/L.",
+          "Protocollo. Il programma confronta due concentrazioni fissate, 2,5 e 5 mmol/L. Con i valori predefiniti prevedi se la velocità cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta K_m a 4 mmol/L, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con K_m = 2 mmol/L la velocità passa da circa 5,56 a 7,14 μmol/min: raddoppiare il substrato aumenta la velocità di meno del 30%, perché l’enzima è già vicino alla saturazione. Con K_m = 4 mmol/L passa da circa 3,85 a 5,56 μmol/min, con un aumento maggiore. Con V_max = 20 μmol/min i valori raddoppiano, circa 11,1 e 14,3, e la forma della curva resta la stessa."
         ],
         "advanced": [
-          "Nel laboratorio il grafico mostra, a barre, la probabilità P(k) che un gamete contenga esattamente k cromosomi materni. Nella scheda «Regola» scegli il numero di coppie n, da 2 a 12; il cursore orizzontale sceglie k. Le barre sono separate perché k è un numero intero.",
-          "Protocollo. Con n = 4, prevedi come cambia P(k) passando da k = 3 a k = 6: scegli «Cresce», «Diminuisce», «Uguale» o «Non definito» nella scheda «A / B» e premi «Salva A». Poi porta n a 12, fai una nuova previsione e premi «Salva B». Attenzione al caso n = 4: con quattro coppie un gamete non può avere sei cromosomi materni.",
-          "Che cosa osservare. Con n = 4, P(3) = 4/16 = 0,25 e P(6) = 0, quindi la probabilità diminuisce. Con n = 12 la distribuzione si sposta e si allarga: P(3) ≈ 0,054 e P(6) ≈ 0,226, quindi cresce, perché 6 è il valore centrale. Con n = 2 entrambe le probabilità valgono zero. La barra più alta sta sempre a k = n/2, e la somma di tutte le barre vale 1."
+          "Nel laboratorio il grafico mostra la velocità iniziale v di una reazione enzimatica in funzione della concentrazione di substrato [S], da 0 a 10 mmol/L, secondo v = V_max [S]/(K_m + [S]). Nella scheda «Regola» cambi V_max, da 5 a 30 μmol/min, e K_m, da 0,5 a 5 mmol/L. Con i valori predefiniti, V_max = 10 μmol/min e K_m = 2 mmol/L, la velocità vale 5 μmol/min proprio per [S] = 2 mmol/L.",
+          "Protocollo. Il programma confronta due concentrazioni fissate, 2,5 e 5 mmol/L. Con i valori predefiniti prevedi se la velocità cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta K_m a 4 mmol/L, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con K_m = 2 mmol/L la velocità passa da circa 5,56 a 7,14 μmol/min: raddoppiare il substrato aumenta la velocità di meno del 30%, perché l’enzima è già vicino alla saturazione. Con K_m = 4 mmol/L passa da circa 3,85 a 5,56 μmol/min, con un aumento maggiore. Con V_max = 20 μmol/min i valori raddoppiano, circa 11,1 e 14,3, e la forma della curva resta la stessa.",
+          "Una prova a casa: pezzetti di patata cruda in acqua ossigenata producono una schiuma di ossigeno, perché la catalasi decompone il perossido di idrogeno. Patata bollita non fa schiuma, perché l’enzima è denaturato; il doppio della patata, e quindi dell’enzima, dà una schiuma circa doppia, come previsto da V_max proporzionale alla quantità di enzima."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Ipotesi del modello ed errori",
+      "title": "Errori e primi catalizzatori",
       "text": {
         "base": [
-          "Errore frequente: pensare che il gamete riceva metà di ogni cromosoma. Riceve un cromosoma intero per ogni coppia, cioè metà dei cromosomi, e ciascun cromosoma porta tutti i suoi geni.",
-          "Secondo errore: pensare che il numero di cromosomi si dimezzi nella meiosi II. Si dimezza nella meiosi I, quando si separano gli omologhi; la meiosi II separa i cromatidi e lascia invariato il numero di cromosomi.",
-          "Il modello assume tre cose: ogni coppia si orienta in modo indipendente; materno e paterno sono equiprobabili; i cromosomi passano interi, senza crossing-over. La terza ipotesi è la meno realistica: con il crossing-over un cromosoma del gamete è spesso un mosaico di tratti materni e paterni, e la domanda «quanti cromosomi materni?» perde un significato preciso."
+          "Errore frequente: pensare che un enzima renda favorevole una reazione sfavorevole. Il catalizzatore accelera la reazione diretta e quella inversa dello stesso fattore, e la costante di equilibrio resta quella di prima. Una reazione con ΔG > 0 diventa possibile solo se è accoppiata a una reazione che libera più energia, come l’idrolisi dell’ATP.",
+          "Secondo errore: credere che la velocità cresca in proporzione al substrato senza limiti. Questo vale solo per [S] molto minore di K_m; per [S] = 9 K_m la velocità è già il 90% del massimo, per [S] = 99 K_m il 99%. Aggiungere substrato a un enzima saturo serve a poco: per andare più veloci serve più enzima."
         ],
         "intermediate": [
-          "Errore frequente: pensare che il gamete riceva metà di ogni cromosoma. Riceve un cromosoma intero per ogni coppia, cioè metà dei cromosomi, e ciascun cromosoma porta tutti i suoi geni.",
-          "Secondo errore: pensare che il numero di cromosomi si dimezzi nella meiosi II. Si dimezza nella meiosi I, quando si separano gli omologhi; la meiosi II separa i cromatidi e lascia invariato il numero di cromosomi.",
-          "Il modello assume tre cose: ogni coppia si orienta in modo indipendente; materno e paterno sono equiprobabili; i cromosomi passano interi, senza crossing-over. La terza ipotesi è la meno realistica: con il crossing-over un cromosoma del gamete è spesso un mosaico di tratti materni e paterni, e la domanda «quanti cromosomi materni?» perde un significato preciso.",
-          "Talvolta gli omologhi, o i cromatidi, non si separano: è la non disgiunzione. Ne derivano gameti con un cromosoma in più o in meno. Uno zigote che riceve tre copie del cromosoma 21 sviluppa la sindrome di Down (trisomia 21). La probabilità di non disgiunzione aumenta con l’età materna."
+          "Errore frequente: pensare che un enzima renda favorevole una reazione sfavorevole. Il catalizzatore accelera la reazione diretta e quella inversa dello stesso fattore, e la costante di equilibrio resta quella di prima. Una reazione con ΔG > 0 diventa possibile solo se è accoppiata a una reazione che libera più energia, come l’idrolisi dell’ATP.",
+          "Secondo errore: credere che la velocità cresca in proporzione al substrato senza limiti. Questo vale solo per [S] molto minore di K_m; per [S] = 9 K_m la velocità è già il 90% del massimo, per [S] = 99 K_m il 99%. Aggiungere substrato a un enzima saturo serve a poco: per andare più veloci serve più enzima.",
+          "Un errore di lettura: K_m piccolo indica un enzima che si satura a basse concentrazioni, non un enzima lento. La velocità per molecola di enzima è k_cat, il numero di turnover; la catalasi e l’anidrasi carbonica arrivano a milioni di reazioni al secondo. L’efficienza con poco substrato è misurata dal rapporto k_cat/K_m."
         ],
         "advanced": [
-          "Il modello assume tre cose: ogni coppia si orienta in modo indipendente; materno e paterno sono equiprobabili; i cromosomi passano interi, senza crossing-over. La terza ipotesi è la meno realistica: con il crossing-over un cromosoma del gamete è spesso un mosaico di tratti materni e paterni, e la domanda «quanti cromosomi materni?» perde un significato preciso.",
-          "Anche l’assortimento indipendente ha un limite: vale per i cromosomi, e per i geni solo se stanno su cromosomi diversi o molto lontani sullo stesso cromosoma. Geni vicini tendono a passare insieme: è l’associazione genica, che si studia con le frequenze di ricombinazione.",
-          "Talvolta gli omologhi, o i cromatidi, non si separano: è la non disgiunzione. Ne derivano gameti con un cromosoma in più o in meno. Uno zigote che riceve tre copie del cromosoma 21 sviluppa la sindrome di Down (trisomia 21). La probabilità di non disgiunzione aumenta con l’età materna."
+          "Errore frequente: pensare che un enzima renda favorevole una reazione sfavorevole. Il catalizzatore accelera la reazione diretta e quella inversa dello stesso fattore, e la costante di equilibrio resta quella di prima. Una reazione con ΔG > 0 diventa possibile solo se è accoppiata a una reazione che libera più energia, come l’idrolisi dell’ATP.",
+          "Secondo errore: credere che la velocità cresca in proporzione al substrato senza limiti. Questo vale solo per [S] molto minore di K_m; per [S] = 9 K_m la velocità è già il 90% del massimo, per [S] = 99 K_m il 99%. Aggiungere substrato a un enzima saturo serve a poco: per andare più veloci serve più enzima.",
+          "Un errore di lettura: K_m piccolo indica un enzima che si satura a basse concentrazioni, non un enzima lento. La velocità per molecola di enzima è k_cat, il numero di turnover; la catalasi e l’anidrasi carbonica arrivano a milioni di reazioni al secondo. L’efficienza con poco substrato è misurata dal rapporto k_cat/K_m.",
+          "I primi catalizzatori furono probabilmente più semplici delle proteine: nel 2020 il gruppo di Martin Preiner a Düsseldorf mostrò che minerali di nichel e ferro riducono il diossido di carbonio a formiato, acetato e piruvato con idrogeno e acqua calda, prodotti che coincidono con quelli di una via metabolica antica."
         ]
       }
     },
@@ -154,19 +143,19 @@
       "title": "Verifica",
       "text": {
         "base": [
-          "Ripasso: diploide e aploide; omologhi e cromatidi fratelli; che cosa separa la meiosi I e che cosa la meiosi II; dove e quando avviene il crossing-over; perché le combinazioni sono 2ⁿ; come si calcola P(k).",
-          "Mini esercizio: con n = 3 coppie le combinazioni sono 2³ = 8. Un solo cromosoma materno può venire da tre coppie diverse: P(1) = 3/8 = 0,375. Tutti materni: P(3) = 1/8.",
-          "Nelle domande numeriche scrivi prima quante combinazioni ci sono in tutto, poi quante soddisfano la richiesta."
+          "Ripasso: sistemi aperti e potenza metabolica; energia di Gibbs ed equazione ΔG = ΔG° + RT ln Q; idrolisi dell’ATP e accoppiamento; energia di attivazione e legge di Arrhenius; catalizzatori ed equilibrio; enzimi, sito attivo, curva di Michaelis e Menten; inibitori; metalli, cofattori e ribozimi.",
+          "Mini esercizio: con V_max = 10 μmol/min e K_m = 2 mmol/L, per [S] = 10 mmol/L la velocità vale 10·10/12, circa 8,33 μmol/min; un inibitore competitivo che triplica K_m la riduce per [S] = 2 mmol/L da 5 a 2,5 μmol/min.",
+          "Nelle domande ricorda che il catalizzatore cambia la velocità e lascia invariato l’equilibrio."
         ],
         "intermediate": [
-          "Ripasso: diploide e aploide; omologhi e cromatidi fratelli; che cosa separa la meiosi I e che cosa la meiosi II; dove e quando avviene il crossing-over; perché le combinazioni sono 2ⁿ; come si calcola P(k).",
-          "Mini esercizio: con n = 3 coppie le combinazioni sono 2³ = 8. Un solo cromosoma materno può venire da tre coppie diverse: P(1) = 3/8 = 0,375. Tutti materni: P(3) = 1/8.",
-          "Nelle domande numeriche scrivi prima quante combinazioni ci sono in tutto, poi quante soddisfano la richiesta."
+          "Ripasso: sistemi aperti e potenza metabolica; energia di Gibbs ed equazione ΔG = ΔG° + RT ln Q; idrolisi dell’ATP e accoppiamento; energia di attivazione e legge di Arrhenius; catalizzatori ed equilibrio; enzimi, sito attivo, curva di Michaelis e Menten; inibitori; metalli, cofattori e ribozimi.",
+          "Mini esercizio: con V_max = 10 μmol/min e K_m = 2 mmol/L, per [S] = 10 mmol/L la velocità vale 10·10/12, circa 8,33 μmol/min; un inibitore competitivo che triplica K_m la riduce per [S] = 2 mmol/L da 5 a 2,5 μmol/min.",
+          "Nelle domande ricorda che il catalizzatore cambia la velocità e lascia invariato l’equilibrio."
         ],
         "advanced": [
-          "Ripasso: diploide e aploide; omologhi e cromatidi fratelli; che cosa separa la meiosi I e che cosa la meiosi II; dove e quando avviene il crossing-over; perché le combinazioni sono 2ⁿ; come si calcola P(k).",
-          "Mini esercizio: con n = 3 coppie le combinazioni sono 2³ = 8. Un solo cromosoma materno può venire da tre coppie diverse: P(1) = 3/8 = 0,375. Tutti materni: P(3) = 1/8.",
-          "Nelle domande numeriche scrivi prima quante combinazioni ci sono in tutto, poi quante soddisfano la richiesta."
+          "Ripasso: sistemi aperti e potenza metabolica; energia di Gibbs ed equazione ΔG = ΔG° + RT ln Q; idrolisi dell’ATP e accoppiamento; energia di attivazione e legge di Arrhenius; catalizzatori ed equilibrio; enzimi, sito attivo, curva di Michaelis e Menten; inibitori; metalli, cofattori e ribozimi.",
+          "Mini esercizio: con V_max = 10 μmol/min e K_m = 2 mmol/L, per [S] = 10 mmol/L la velocità vale 10·10/12, circa 8,33 μmol/min; un inibitore competitivo che triplica K_m la riduce per [S] = 2 mmol/L da 5 a 2,5 μmol/min.",
+          "Nelle domande ricorda che il catalizzatore cambia la velocità e lascia invariato l’equilibrio."
         ]
       }
     },
@@ -175,19 +164,19 @@
       "title": "Collegamenti",
       "text": {
         "base": [
-          "L’unità successiva, «Ereditarietà mendeliana», mostra le conseguenze della meiosi sui caratteri: la separazione degli alleli nei gameti è la base del quadrato di Punnett.",
-          "Confronto con la mitosi. La mitosi produce due cellule diploidi identiche alla madre e serve a crescere e riparare; la meiosi produce quattro cellule aploidi diverse tra loro e serve alla riproduzione sessuata. Nella mitosi gli omologhi non si appaiano; nella meiosi I si appaiano, si scambiano tratti e si separano.",
-          "Nel diario registra le configurazioni A e B, le previsioni e i valori di P(k) letti nel laboratorio. Spiega perché la probabilità di un gamete con tutti cromosomi materni diventa trascurabile quando n cresce."
+          "L’energia di Gibbs e le costanti di equilibrio sono i temi delle unità di chimica «Termochimica e calorimetria» ed «Equilibrio chimico», la legge di Arrhenius dell’unità «Temperatura e attivazione». In biologia il percorso prosegue con le sorgenti idrotermali, dove gradienti chimici e minerali catalitici potrebbero aver avviato il metabolismo, e con il mondo a RNA, dove le stesse molecole erano geni e catalizzatori.",
+          "Riepilogo dell’unità: una reazione è spontanea se ΔG < 0; l’ATP nelle cellule libera circa 50 kJ/mol; ridurre la barriera di ΔE_a moltiplica la velocità per e^(ΔE_a/RT); gli enzimi si saturano secondo la curva di Michaelis e Menten; gli inibitori cambiano K_m o V_max; minerali e cofattori suggeriscono come lavoravano i primi catalizzatori.",
+          "Nel diario registra A e B con le previsioni e calcola, per i due valori di K_m, la concentrazione di substrato alla quale la velocità raggiunge il 90% del massimo."
         ],
         "intermediate": [
-          "L’unità successiva, «Ereditarietà mendeliana», mostra le conseguenze della meiosi sui caratteri: la separazione degli alleli nei gameti è la base del quadrato di Punnett.",
-          "Confronto con la mitosi. La mitosi produce due cellule diploidi identiche alla madre e serve a crescere e riparare; la meiosi produce quattro cellule aploidi diverse tra loro e serve alla riproduzione sessuata. Nella mitosi gli omologhi non si appaiano; nella meiosi I si appaiano, si scambiano tratti e si separano.",
-          "Nel diario registra le configurazioni A e B, le previsioni e i valori di P(k) letti nel laboratorio. Spiega perché la probabilità di un gamete con tutti cromosomi materni diventa trascurabile quando n cresce."
+          "L’energia di Gibbs e le costanti di equilibrio sono i temi delle unità di chimica «Termochimica e calorimetria» ed «Equilibrio chimico», la legge di Arrhenius dell’unità «Temperatura e attivazione». In biologia il percorso prosegue con le sorgenti idrotermali, dove gradienti chimici e minerali catalitici potrebbero aver avviato il metabolismo, e con il mondo a RNA, dove le stesse molecole erano geni e catalizzatori.",
+          "Riepilogo dell’unità: una reazione è spontanea se ΔG < 0; l’ATP nelle cellule libera circa 50 kJ/mol; ridurre la barriera di ΔE_a moltiplica la velocità per e^(ΔE_a/RT); gli enzimi si saturano secondo la curva di Michaelis e Menten; gli inibitori cambiano K_m o V_max; minerali e cofattori suggeriscono come lavoravano i primi catalizzatori.",
+          "Nel diario registra A e B con le previsioni e calcola, per i due valori di K_m, la concentrazione di substrato alla quale la velocità raggiunge il 90% del massimo."
         ],
         "advanced": [
-          "L’unità successiva, «Ereditarietà mendeliana», mostra le conseguenze della meiosi sui caratteri: la separazione degli alleli nei gameti è la base del quadrato di Punnett.",
-          "I casi estremi sono rari. Con 23 coppie la probabilità che un gamete contenga solo cromosomi materni è 1/2²³, circa 1,2 · 10⁻⁷. Combinando due gameti, uno per genitore, le combinazioni possibili per uno zigote sono (2²³)², circa 7,0 · 10¹³, ancora senza il crossing-over: per questo due fratelli non sono mai identici, salvo i gemelli monozigotici.",
-          "Nel diario registra le configurazioni A e B, le previsioni e i valori di P(k) letti nel laboratorio. Spiega perché la probabilità di un gamete con tutti cromosomi materni diventa trascurabile quando n cresce."
+          "L’energia di Gibbs e le costanti di equilibrio sono i temi delle unità di chimica «Termochimica e calorimetria» ed «Equilibrio chimico», la legge di Arrhenius dell’unità «Temperatura e attivazione». In biologia il percorso prosegue con le sorgenti idrotermali, dove gradienti chimici e minerali catalitici potrebbero aver avviato il metabolismo, e con il mondo a RNA, dove le stesse molecole erano geni e catalizzatori.",
+          "Riepilogo dell’unità: una reazione è spontanea se ΔG < 0; l’ATP nelle cellule libera circa 50 kJ/mol; ridurre la barriera di ΔE_a moltiplica la velocità per e^(ΔE_a/RT); gli enzimi si saturano secondo la curva di Michaelis e Menten; gli inibitori cambiano K_m o V_max; minerali e cofattori suggeriscono come lavoravano i primi catalizzatori.",
+          "Nel diario registra A e B con le previsioni e calcola, per i due valori di K_m, la concentrazione di substrato alla quale la velocità raggiunge il 90% del massimo."
         ]
       }
     }
@@ -195,165 +184,165 @@
   "questions": [
     {
       "id": "biology-08-q1",
-      "prompt": "In quale divisione si dimezza il numero di cromosomi?",
+      "prompt": "Che effetto ha un catalizzatore sull’equilibrio di una reazione?",
       "options": [
         {
           "id": "A",
-          "text": "Nella meiosi I",
-          "feedback": "Esatto: separando gli omologhi, ogni cellula riceve un cromosoma per coppia."
+          "text": "Sposta l’equilibrio verso i prodotti",
+          "feedback": "Il catalizzatore accelera allo stesso modo la reazione diretta e quella inversa."
         },
         {
           "id": "B",
-          "text": "Nella meiosi II",
-          "feedback": "La meiosi II separa i cromatidi fratelli e lascia invariato il numero di cromosomi."
+          "text": "Lo lascia invariato e fa raggiungere l’equilibrio più in fretta",
+          "feedback": "Esatto: cambia la velocità, mentre la costante di equilibrio resta la stessa."
         },
         {
           "id": "C",
-          "text": "Nella mitosi",
-          "feedback": "La mitosi produce cellule con lo stesso numero di cromosomi della madre."
+          "text": "Rende spontanea una reazione con ΔG positivo",
+          "feedback": "Per questo serve l’accoppiamento con una reazione che libera più energia."
         },
         {
           "id": "D",
-          "text": "Durante la fase S",
-          "feedback": "Nella fase S il DNA si duplica: il numero di cromatidi raddoppia, quello dei cromosomi resta uguale."
+          "text": "Sposta l’equilibrio verso i reagenti",
+          "feedback": "Il catalizzatore esce intatto e non cambia il bilancio energetico."
         }
       ],
-      "correct": "A"
+      "correct": "B"
     },
     {
       "id": "biology-08-q2",
-      "prompt": "Quanti cromosomi ha un gamete umano?",
+      "prompt": "Perché nelle cellule l’idrolisi dell’ATP libera circa 50 kJ/mol invece di 30,5?",
       "options": [
         {
           "id": "A",
-          "text": "46",
-          "feedback": "46 è il numero delle cellule diploidi del corpo."
+          "text": "Perché nelle cellule la temperatura è molto più alta",
+          "feedback": "A 37 °C il termine RT cambia di poco rispetto a 25 °C."
         },
         {
           "id": "B",
-          "text": "92",
-          "feedback": "92 è il numero dei cromatidi di una cellula diploide dopo la duplicazione."
+          "text": "Perché le concentrazioni sono lontane da quelle standard, con molto più ATP che ADP",
+          "feedback": "Esatto: il termine RT ln Q è negativo e vale circa −20 kJ/mol."
         },
         {
           "id": "C",
-          "text": "23",
-          "feedback": "Esatto: un cromosoma per ciascuna delle 23 coppie."
+          "text": "Perché gli enzimi aggiungono energia alla reazione",
+          "feedback": "Gli enzimi accelerano la reazione e lasciano invariato ΔG."
         },
         {
           "id": "D",
-          "text": "11 o 12",
-          "feedback": "Ogni gamete riceve un cromosoma di ogni coppia, quindi 23."
+          "text": "Perché l’ATP si scinde in tre fosfati",
+          "feedback": "L’idrolisi considerata produce ADP e un solo fosfato."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-08-q3",
+      "prompt": "A 25 °C un catalizzatore abbassa l’energia di attivazione di 10 kJ/mol. Di quanto accelera la reazione?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Di circa 10 volte",
+          "feedback": "Il fattore cresce in modo esponenziale con la riduzione della barriera."
+        },
+        {
+          "id": "B",
+          "text": "Di circa 2 volte",
+          "feedback": "Questo è circa l’effetto di dieci gradi in più su una barriera di 50 kJ/mol."
+        },
+        {
+          "id": "C",
+          "text": "Di circa 56 volte",
+          "feedback": "Esatto: e elevato a 10 000/(8,314·298), cioè e^4,03, vale circa 56."
+        },
+        {
+          "id": "D",
+          "text": "Di un milione di volte",
+          "feedback": "Per un milione di volte serve una riduzione di circa 34 kJ/mol."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "biology-08-q3",
-      "prompt": "Con 3 coppie di cromosomi, quante combinazioni di origine materna o paterna può avere un gamete?",
-      "options": [
-        {
-          "id": "A",
-          "text": "6",
-          "feedback": "Hai sommato 2 + 2 + 2: per ogni coppia la scelta si moltiplica con le altre."
-        },
-        {
-          "id": "B",
-          "text": "3",
-          "feedback": "Tre sono le coppie; ogni coppia offre due possibilità."
-        },
-        {
-          "id": "C",
-          "text": "9",
-          "feedback": "Hai calcolato 3²: il numero corretto è 2³."
-        },
-        {
-          "id": "D",
-          "text": "8",
-          "feedback": "Esatto: ogni coppia offre due scelte, quindi 2 · 2 · 2 = 2³ = 8."
-        }
-      ],
-      "correct": "D"
-    },
-    {
       "id": "biology-08-q4",
-      "prompt": "Con 4 coppie, qual è la probabilità che un gamete contenga esattamente 2 cromosomi materni?",
+      "prompt": "Con V_max = 10 μmol/min e K_m = 2 mmol/L, quanto vale la velocità per [S] = 2 mmol/L?",
       "options": [
         {
           "id": "A",
-          "text": "0,5",
-          "feedback": "Metà dei cromosomi materni è il caso più probabile, ma la sua probabilità è 6/16."
+          "text": "10 μmol/min",
+          "feedback": "La velocità massima si raggiunge solo a concentrazioni molto maggiori di K_m."
         },
         {
           "id": "B",
-          "text": "0,375",
-          "feedback": "Esatto: C(4, 2) = 6 combinazioni su 16, cioè 6/16."
+          "text": "5 μmol/min",
+          "feedback": "Esatto: per [S] = K_m la velocità è metà del massimo."
         },
         {
           "id": "C",
-          "text": "0,25",
-          "feedback": "4/16 è la probabilità di 1 o di 3 cromosomi materni."
+          "text": "2 μmol/min",
+          "feedback": "La velocità non coincide con la concentrazione di substrato."
         },
         {
           "id": "D",
-          "text": "0,125",
-          "feedback": "Hai probabilmente contato solo 2 combinazioni su 16."
+          "text": "20 μmol/min",
+          "feedback": "La velocità non può superare V_max, il limite della saturazione."
         }
       ],
       "correct": "B"
     },
     {
       "id": "biology-08-q5",
-      "prompt": "Quando e tra chi avviene il crossing-over?",
+      "prompt": "Un inibitore competitivo aumenta K_m apparente. Che cosa succede a concentrazioni altissime di substrato?",
       "options": [
         {
           "id": "A",
-          "text": "Nell’anafase II, tra cromatidi fratelli",
-          "feedback": "Nell’anafase II i cromatidi si separano, e due cromatidi fratelli sono identici: uno scambio tra loro non cambierebbe nulla."
+          "text": "La velocità tende alla stessa V_max di prima",
+          "feedback": "Esatto: con molto substrato il substrato vince la competizione per il sito attivo."
         },
         {
           "id": "B",
-          "text": "Nella profase I, tra cromatidi non fratelli di due omologhi",
-          "feedback": "Esatto: lo scambio unisce in un cromatidio tratti materni e paterni."
+          "text": "La velocità si azzera",
+          "feedback": "L’inibitore competitivo viene spiazzato dal substrato abbondante."
         },
         {
           "id": "C",
-          "text": "Nella mitosi, tra cromosomi di coppie diverse",
-          "feedback": "Nella mitosi gli omologhi non si appaiano, e lo scambio avviene tra omologhi della stessa coppia."
+          "text": "La velocità tende a metà di V_max",
+          "feedback": "Il dimezzamento di V_max è tipico di un inibitore non competitivo."
         },
         {
           "id": "D",
-          "text": "Nella fecondazione, tra il gamete materno e quello paterno",
-          "feedback": "La fecondazione unisce due nuclei e non scambia tratti di cromosomi."
-        }
-      ],
-      "correct": "B"
-    },
-    {
-      "id": "biology-08-q6",
-      "prompt": "Che cosa produce una non disgiunzione nella meiosi?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Gameti con un cromosoma in più o in meno",
-          "feedback": "Esatto: uno zigote con tre copie del cromosoma 21 sviluppa la trisomia 21."
-        },
-        {
-          "id": "B",
-          "text": "Gameti con tutti i cromosomi materni",
-          "feedback": "Tutti materni è un caso raro dell’assortimento normale, con il numero di cromosomi corretto."
-        },
-        {
-          "id": "C",
-          "text": "Gameti diploidi identici alla madre",
-          "feedback": "La non disgiunzione riguarda di solito una sola coppia di cromosomi."
-        },
-        {
-          "id": "D",
-          "text": "Un crossing-over più frequente",
-          "feedback": "Crossing-over e non disgiunzione sono fenomeni diversi."
+          "text": "La velocità supera V_max",
+          "feedback": "V_max dipende dalla quantità di enzima e resta un limite superiore."
         }
       ],
       "correct": "A"
+    },
+    {
+      "id": "biology-08-q6",
+      "prompt": "Perché i cofattori che contengono un nucleotide sono considerati indizi di un metabolismo antico basato sull’RNA?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché catalizzano tutte le reazioni delle cellule moderne",
+          "feedback": "Le cellule moderne usano soprattutto enzimi proteici."
+        },
+        {
+          "id": "B",
+          "text": "Perché il nucleotide spesso non partecipa alla reazione e sembra un residuo di catalizzatori fatti di RNA",
+          "feedback": "Esatto: è l’interpretazione proposta da Harold White nel 1976."
+        },
+        {
+          "id": "C",
+          "text": "Perché si formano nelle scariche elettriche dell’esperimento di Miller",
+          "feedback": "L’esperimento di Miller produsse soprattutto amminoacidi."
+        },
+        {
+          "id": "D",
+          "text": "Perché contengono nichel e ferro",
+          "feedback": "I minerali di nichel e ferro sono un’altra classe di catalizzatori primordiali."
+        }
+      ],
+      "correct": "B"
     }
   ]
 }

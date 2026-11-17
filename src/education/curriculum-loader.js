@@ -1,3 +1,4 @@
+import { MODEL_IDS } from '../models/curriculum.js';
 /** Load the curriculum using a compact fallback if the large bundle is temporarily unavailable on Pages. */
 export async function loadCurriculum(getJson, { onFallback } = {}) {
     if (typeof getJson !== 'function')
@@ -12,7 +13,7 @@ export async function loadCurriculum(getJson, { onFallback } = {}) {
             getJson('content/curriculum/sources.json'),
             getJson('content/curriculum/paths.json')
         ]);
-        if (index.schemaVersion !== 1 || !Array.isArray(index.courses) || index.courses.length !== 100 ||
+        if (index.schemaVersion !== 1 || !Array.isArray(index.courses) || index.courses.length !== MODEL_IDS.length ||
             !Array.isArray(provenance.sources) || !Array.isArray(learning.paths))
             throw new Error('Impossibile ricostruire il curriculum dai moduli separati.');
         const courses = await Promise.all(index.courses.map(({ path }) => {

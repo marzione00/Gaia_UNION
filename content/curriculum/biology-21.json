@@ -2,133 +2,140 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-21",
-  "title": "Predazione e risposta funzionale",
+  "title": "Crescita delle popolazioni microbiche",
   "sector": 3,
   "modelId": "biology-21",
   "coverage": "guided-lab",
   "editorialStatus": "hand-written-draft",
-  "scope": "Cicli preda-predatore, modello di Lotka e Volterra, risposte funzionali di Holling, tempo di manipolazione, effetti a cascata",
-  "narrativeStatus": "I registri della Baia di Hudson e l’esperimento di Holling sono reali.",
+  "scope": "Crescita esponenziale e tempo di raddoppio, fasi di una coltura, conteggio delle cellule, modello logistico e capacità portante, equazione di Monod e chemostato, temperatura e crescita sotto lo zero, vita nel sottosuolo profondo, crescita in condizioni marziane simulate e regioni speciali",
+  "narrativeStatus": "Le leggi di crescita sono modelli con parametri costanti; i tempi di raddoppio a bassa temperatura e i risultati delle simulazioni marziane provengono da esperimenti di laboratorio.",
   "objectives": [
-    "Descrivere i cicli preda-predatore.",
-    "Distinguere le risposte funzionali di tipo I, II e III.",
-    "Usare il modello aN/(1 + ahN) e il limite 1/h.",
-    "Spiegare gli effetti a cascata dei predatori."
+    "Calcolare tempo di raddoppio e tasso specifico di una crescita esponenziale.",
+    "Riconoscere le fasi di una coltura e leggere un grafico semilogaritmico.",
+    "Usare il modello logistico e la capacità portante.",
+    "Distinguere sopravvivenza e crescita negli ambienti estremi."
   ],
   "prerequisites": [
     "biology-20"
   ],
   "connections": [
-    "biology-22",
-    "biology-04"
+    "math-c06",
+    "chemistry-18",
+    "biology-27"
   ],
   "sources": [
-    "biology"
+    "biology",
+    "precalculus",
+    "chemistry"
   ],
   "originalSource": null,
   "glossary": [
     {
-      "term": "Risposta funzionale",
-      "definition": "Relazione tra densità di prede e consumo di un predatore."
+      "term": "Tempo di raddoppio",
+      "definition": "Tempo in cui una popolazione in crescita esponenziale raddoppia."
     },
     {
-      "term": "Tempo di manipolazione",
-      "definition": "Tempo per catturare, mangiare e digerire una preda."
+      "term": "Tasso specifico di crescita",
+      "definition": "Aumento della popolazione per unità di tempo e per individuo."
     },
     {
-      "term": "Efficienza di ricerca",
-      "definition": "Area esplorata per unità di tempo, parametro a."
+      "term": "Capacità portante",
+      "definition": "Numero massimo di individui che un ambiente può sostenere."
     },
     {
-      "term": "Modello di Lotka e Volterra",
-      "definition": "Equazioni che descrivono prede e predatori con oscillazioni."
+      "term": "Fase stazionaria",
+      "definition": "Fase di una coltura in cui il numero di cellule resta costante."
     },
     {
-      "term": "Effetto a cascata",
-      "definition": "Effetto di un predatore sui livelli più bassi della rete alimentare."
+      "term": "Chemostato",
+      "definition": "Apparecchio per colture continue in cui il terreno entra e la coltura esce alla stessa portata."
+    },
+    {
+      "term": "Regione speciale",
+      "definition": "Zona di Marte in cui un organismo terrestre potrebbe replicarsi."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Linci e lepri",
+      "title": "Una cellula, poi due",
       "text": {
         "base": [
-          "Per circa un secolo la Compagnia della Baia di Hudson registrò le pelli di lince e di lepre americana acquistate dai cacciatori canadesi. I due numeri salgono e scendono in cicli di circa dieci anni, con i picchi delle linci che seguono quelli delle lepri. Come cambia il consumo di un predatore quando le prede abbondano?",
-          "Negli anni Venti del Novecento Alfred Lotka e Vito Volterra scrissero un modello in cui le prede crescono in assenza di predatori e i predatori crescono grazie alle prede catturate. Il modello produce oscillazioni: molte prede nutrono molti predatori, che riducono le prede, finché i predatori calano per fame e le prede si riprendono. I cicli reali dipendono anche dal cibo delle prede e da altri fattori."
+          "In un brodo nutriente a 37 °C una cellula di Escherichia coli si divide in due circa ogni venti minuti. Dopo dieci ore le cellule sarebbero circa un miliardo, e dopo un giorno, se nulla le fermasse, quasi cinquemila tonnellate. Nessuna coltura fa nulla del genere: il nutrimento finisce, i rifiuti si accumulano e la crescita rallenta fino a fermarsi.",
+          "Il conto mostra una proprietà fondamentale della vita: una popolazione che si riproduce cresce in proporzione a se stessa, quindi in modo esponenziale, finché l’ambiente lo permette. Capire come cresce una popolazione, e che cosa la ferma, serve in medicina, nella conservazione degli alimenti e nello studio degli ecosistemi microbici."
         ],
         "intermediate": [
-          "Per circa un secolo la Compagnia della Baia di Hudson registrò le pelli di lince e di lepre americana acquistate dai cacciatori canadesi. I due numeri salgono e scendono in cicli di circa dieci anni, con i picchi delle linci che seguono quelli delle lepri. Come cambia il consumo di un predatore quando le prede abbondano?",
-          "Negli anni Venti del Novecento Alfred Lotka e Vito Volterra scrissero un modello in cui le prede crescono in assenza di predatori e i predatori crescono grazie alle prede catturate. Il modello produce oscillazioni: molte prede nutrono molti predatori, che riducono le prede, finché i predatori calano per fame e le prede si riprendono. I cicli reali dipendono anche dal cibo delle prede e da altri fattori."
+          "In un brodo nutriente a 37 °C una cellula di Escherichia coli si divide in due circa ogni venti minuti. Dopo dieci ore le cellule sarebbero circa un miliardo, e dopo un giorno, se nulla le fermasse, quasi cinquemila tonnellate. Nessuna coltura fa nulla del genere: il nutrimento finisce, i rifiuti si accumulano e la crescita rallenta fino a fermarsi.",
+          "Il conto mostra una proprietà fondamentale della vita: una popolazione che si riproduce cresce in proporzione a se stessa, quindi in modo esponenziale, finché l’ambiente lo permette. Capire come cresce una popolazione, e che cosa la ferma, serve in medicina, nella conservazione degli alimenti e nello studio degli ecosistemi microbici."
         ],
         "advanced": [
-          "Per circa un secolo la Compagnia della Baia di Hudson registrò le pelli di lince e di lepre americana acquistate dai cacciatori canadesi. I due numeri salgono e scendono in cicli di circa dieci anni, con i picchi delle linci che seguono quelli delle lepri. Come cambia il consumo di un predatore quando le prede abbondano?",
-          "Negli anni Venti del Novecento Alfred Lotka e Vito Volterra scrissero un modello in cui le prede crescono in assenza di predatori e i predatori crescono grazie alle prede catturate. Il modello produce oscillazioni: molte prede nutrono molti predatori, che riducono le prede, finché i predatori calano per fame e le prede si riprendono. I cicli reali dipendono anche dal cibo delle prede e da altri fattori."
+          "In un brodo nutriente a 37 °C una cellula di Escherichia coli si divide in due circa ogni venti minuti. Dopo dieci ore le cellule sarebbero circa un miliardo, e dopo un giorno, se nulla le fermasse, quasi cinquemila tonnellate. Nessuna coltura fa nulla del genere: il nutrimento finisce, i rifiuti si accumulano e la crescita rallenta fino a fermarsi.",
+          "Il conto mostra una proprietà fondamentale della vita: una popolazione che si riproduce cresce in proporzione a se stessa, quindi in modo esponenziale, finché l’ambiente lo permette. Capire come cresce una popolazione, e che cosa la ferma, serve in medicina, nella conservazione degli alimenti e nello studio degli ecosistemi microbici.",
+          "Per l’astrobiologia la crescita è il criterio decisivo. Un organismo che sopravvive senza riprodursi finisce per scomparire; uno che si moltiplica, anche lentissimamente, può colonizzare un ambiente. Le regole di protezione planetaria definiscono infatti le regioni da proteggere su Marte come le zone in cui un organismo terrestre potrebbe replicarsi."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Risposte funzionali",
+      "title": "Esponenziale e logistica",
       "text": {
         "base": [
-          "La risposta funzionale descrive quante prede consuma un predatore in funzione della densità di prede. Nel 1959 Crawford Holling ne distinse tre tipi. Nel tipo I il consumo cresce in proporzione fino a un massimo, come negli animali filtratori. Nel tipo II cresce sempre più lentamente fino a un limite. Nel tipo III, a forma di S, a basse densità il predatore cattura poche prede, per esempio perché si nascondono meglio o perché il predatore deve imparare a cercarle.",
-          "Il tipo II nasce da un vincolo semplice: ogni preda richiede un tempo di manipolazione h, per catturarla, mangiarla e digerirla, durante il quale il predatore non cerca. Con efficienza di ricerca a, il consumo è aN/(1 + ahN). Per N grande il consumo tende a 1/h. Holling verificò la forma con un esperimento: una persona bendata cercava con le dita dischetti di carta vetrata su un tavolo.",
-          "Esempio svolto. Con a = 0,1 area per unità di tempo e h = 0,5 unità di tempo per preda: per N = 20, consumo = 0,1 · 20/(1 + 0,1 · 0,5 · 20) = 2/2 = 1 preda per unità di tempo. Il massimo possibile è 1/h = 2. Raddoppiando h il massimo si dimezza."
+          "Con la scissione binaria ogni cellula diventa due. Se il tempo di raddoppio è g, la popolazione segue N = N0 · 2^(t/g), cioè N = N0 · e^(rt) con tasso specifico r = ln2/g. Con g = 20 minuti r vale circa 2,1 all’ora. In un grafico con l’asse verticale logaritmico la crescita esponenziale diventa una retta, e la sua pendenza dà il tempo di raddoppio.",
+          "Una coltura in un volume fisso di terreno attraversa quattro fasi: la latenza, in cui le cellule si adattano; la crescita esponenziale; la fase stazionaria, quando il nutrimento finisce; la fase di morte. Il conteggio su piastra rileva solo le cellule che formano colonie, spesso una piccola frazione di quelle presenti in un campione naturale."
         ],
         "intermediate": [
-          "La risposta funzionale descrive quante prede consuma un predatore in funzione della densità di prede. Nel 1959 Crawford Holling ne distinse tre tipi. Nel tipo I il consumo cresce in proporzione fino a un massimo, come negli animali filtratori. Nel tipo II cresce sempre più lentamente fino a un limite. Nel tipo III, a forma di S, a basse densità il predatore cattura poche prede, per esempio perché si nascondono meglio o perché il predatore deve imparare a cercarle.",
-          "Il tipo II nasce da un vincolo semplice: ogni preda richiede un tempo di manipolazione h, per catturarla, mangiarla e digerirla, durante il quale il predatore non cerca. Con efficienza di ricerca a, il consumo è aN/(1 + ahN). Per N grande il consumo tende a 1/h. Holling verificò la forma con un esperimento: una persona bendata cercava con le dita dischetti di carta vetrata su un tavolo.",
-          "Esempio svolto. Con a = 0,1 area per unità di tempo e h = 0,5 unità di tempo per preda: per N = 20, consumo = 0,1 · 20/(1 + 0,1 · 0,5 · 20) = 2/2 = 1 preda per unità di tempo. Il massimo possibile è 1/h = 2. Raddoppiando h il massimo si dimezza.",
-          "I predatori influenzano anche i livelli più bassi della rete alimentare. Il ritorno dei lupi nel parco di Yellowstone, nel 1995, è spesso citato come esempio: i cervi hanno cambiato abitudini e la vegetazione lungo i fiumi ne ha risentito. L’entità dell’effetto è ancora discussa dagli ecologi."
+          "Con la scissione binaria ogni cellula diventa due. Se il tempo di raddoppio è g, la popolazione segue N = N0 · 2^(t/g), cioè N = N0 · e^(rt) con tasso specifico r = ln2/g. Con g = 20 minuti r vale circa 2,1 all’ora. In un grafico con l’asse verticale logaritmico la crescita esponenziale diventa una retta, e la sua pendenza dà il tempo di raddoppio.",
+          "Una coltura in un volume fisso di terreno attraversa quattro fasi: la latenza, in cui le cellule si adattano; la crescita esponenziale; la fase stazionaria, quando il nutrimento finisce; la fase di morte. Il conteggio su piastra rileva solo le cellule che formano colonie, spesso una piccola frazione di quelle presenti in un campione naturale.",
+          "Il modello logistico descrive una crescita che rallenta: dN/dt = rN(1 − N/K), dove K è la capacità portante, il numero massimo di individui che l’ambiente sostiene. La soluzione, partendo da N0, è N = K/[1 + (K/N0 − 1)e^(−rt)]. La velocità di crescita è massima a metà della capacità, dove vale rK/4, e la curva ha la forma di una S."
         ],
         "advanced": [
-          "La risposta funzionale descrive quante prede consuma un predatore in funzione della densità di prede. Nel 1959 Crawford Holling ne distinse tre tipi. Nel tipo I il consumo cresce in proporzione fino a un massimo, come negli animali filtratori. Nel tipo II cresce sempre più lentamente fino a un limite. Nel tipo III, a forma di S, a basse densità il predatore cattura poche prede, per esempio perché si nascondono meglio o perché il predatore deve imparare a cercarle.",
-          "Il tipo II nasce da un vincolo semplice: ogni preda richiede un tempo di manipolazione h, per catturarla, mangiarla e digerirla, durante il quale il predatore non cerca. Con efficienza di ricerca a, il consumo è aN/(1 + ahN). Per N grande il consumo tende a 1/h. Holling verificò la forma con un esperimento: una persona bendata cercava con le dita dischetti di carta vetrata su un tavolo.",
-          "Esempio svolto. Con a = 0,1 area per unità di tempo e h = 0,5 unità di tempo per preda: per N = 20, consumo = 0,1 · 20/(1 + 0,1 · 0,5 · 20) = 2/2 = 1 preda per unità di tempo. Il massimo possibile è 1/h = 2. Raddoppiando h il massimo si dimezza.",
-          "I predatori influenzano anche i livelli più bassi della rete alimentare. Il ritorno dei lupi nel parco di Yellowstone, nel 1995, è spesso citato come esempio: i cervi hanno cambiato abitudini e la vegetazione lungo i fiumi ne ha risentito. L’entità dell’effetto è ancora discussa dagli ecologi."
+          "Con la scissione binaria ogni cellula diventa due. Se il tempo di raddoppio è g, la popolazione segue N = N0 · 2^(t/g), cioè N = N0 · e^(rt) con tasso specifico r = ln2/g. Con g = 20 minuti r vale circa 2,1 all’ora. In un grafico con l’asse verticale logaritmico la crescita esponenziale diventa una retta, e la sua pendenza dà il tempo di raddoppio.",
+          "Una coltura in un volume fisso di terreno attraversa quattro fasi: la latenza, in cui le cellule si adattano; la crescita esponenziale; la fase stazionaria, quando il nutrimento finisce; la fase di morte. Il conteggio su piastra rileva solo le cellule che formano colonie, spesso una piccola frazione di quelle presenti in un campione naturale.",
+          "Il modello logistico descrive una crescita che rallenta: dN/dt = rN(1 − N/K), dove K è la capacità portante, il numero massimo di individui che l’ambiente sostiene. La soluzione, partendo da N0, è N = K/[1 + (K/N0 − 1)e^(−rt)]. La velocità di crescita è massima a metà della capacità, dove vale rK/4, e la curva ha la forma di una S.",
+          "La velocità di crescita dipende anche dal nutrimento. Secondo l’equazione di Monod il tasso vale μ = μmax · S/(Ks + S), con la stessa forma della legge di Michaelis e Menten. Al freddo la crescita rallenta secondo la legge di Arrhenius: nel permafrost siberiano il tempo di raddoppio passa da un giorno a 5 °C a circa centossessanta giorni a −20 °C."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Il laboratorio di Holling",
+      "title": "Il laboratorio della coltura",
       "text": {
         "base": [
-          "Nel laboratorio il grafico mostra il consumo per predatore in funzione della densità di prede, da 0 a 100; nella scheda «Regola» cambi l’efficienza di ricerca a e il tempo di manipolazione h. Il modello è la risposta di tipo II.",
-          "Protocollo. La previsione riguarda il passaggio da N = 25 a N = 50. Con a = 0,1 e h = 0,5 prevedi e salva A. Poi porta h a 1, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con h = 0,5 il consumo passa da circa 1,11 a 1,43: cresce, ma raddoppiare le prede aumenta il consumo solo del 29%, perché il predatore passa sempre più tempo a manipolare. Con h = 1 i valori sono più bassi, circa 0,71 e 0,83, e la curva tende a 1 invece che a 2."
+          "Nel laboratorio il grafico mostra la popolazione in funzione del tempo, da 0 a 30 unità di tempo, secondo il modello logistico con dieci individui iniziali: N = K/[1 + (K/10 − 1)e^(−rt)]. Nella scheda «Regola» cambi la capacità portante K, da 20 a 200, e il tasso r, da 0,1 a 0,6. Con i valori predefiniti, K = 100 e r = 0,3, la popolazione raggiunge 50 dopo circa 7,3 unità di tempo.",
+          "Protocollo. Il programma confronta due istanti fissati, 7,5 e 15 unità di tempo. Con i valori predefiniti prevedi se la popolazione cresce, diminuisce o resta uguale passando dal primo al secondo istante e salva A. Poi porta r a 0,1, una popolazione che si divide tre volte più lentamente, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con r = 0,3 la popolazione passa da circa 51 a circa 91, vicino alla capacità; con r = 0,1 da circa 19 a circa 33, ancora nella parte ripida della curva. In entrambi i casi cresce, perché la popolazione resta sotto K. Il tasso cambia la velocità con cui si arriva a K, mentre il valore finale dipende solo dalla capacità portante."
         ],
         "intermediate": [
-          "Nel laboratorio il grafico mostra il consumo per predatore in funzione della densità di prede, da 0 a 100; nella scheda «Regola» cambi l’efficienza di ricerca a e il tempo di manipolazione h. Il modello è la risposta di tipo II.",
-          "Protocollo. La previsione riguarda il passaggio da N = 25 a N = 50. Con a = 0,1 e h = 0,5 prevedi e salva A. Poi porta h a 1, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con h = 0,5 il consumo passa da circa 1,11 a 1,43: cresce, ma raddoppiare le prede aumenta il consumo solo del 29%, perché il predatore passa sempre più tempo a manipolare. Con h = 1 i valori sono più bassi, circa 0,71 e 0,83, e la curva tende a 1 invece che a 2."
+          "Nel laboratorio il grafico mostra la popolazione in funzione del tempo, da 0 a 30 unità di tempo, secondo il modello logistico con dieci individui iniziali: N = K/[1 + (K/10 − 1)e^(−rt)]. Nella scheda «Regola» cambi la capacità portante K, da 20 a 200, e il tasso r, da 0,1 a 0,6. Con i valori predefiniti, K = 100 e r = 0,3, la popolazione raggiunge 50 dopo circa 7,3 unità di tempo.",
+          "Protocollo. Il programma confronta due istanti fissati, 7,5 e 15 unità di tempo. Con i valori predefiniti prevedi se la popolazione cresce, diminuisce o resta uguale passando dal primo al secondo istante e salva A. Poi porta r a 0,1, una popolazione che si divide tre volte più lentamente, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con r = 0,3 la popolazione passa da circa 51 a circa 91, vicino alla capacità; con r = 0,1 da circa 19 a circa 33, ancora nella parte ripida della curva. In entrambi i casi cresce, perché la popolazione resta sotto K. Il tasso cambia la velocità con cui si arriva a K, mentre il valore finale dipende solo dalla capacità portante."
         ],
         "advanced": [
-          "Nel laboratorio il grafico mostra il consumo per predatore in funzione della densità di prede, da 0 a 100; nella scheda «Regola» cambi l’efficienza di ricerca a e il tempo di manipolazione h. Il modello è la risposta di tipo II.",
-          "Protocollo. La previsione riguarda il passaggio da N = 25 a N = 50. Con a = 0,1 e h = 0,5 prevedi e salva A. Poi porta h a 1, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con h = 0,5 il consumo passa da circa 1,11 a 1,43: cresce, ma raddoppiare le prede aumenta il consumo solo del 29%, perché il predatore passa sempre più tempo a manipolare. Con h = 1 i valori sono più bassi, circa 0,71 e 0,83, e la curva tende a 1 invece che a 2."
+          "Nel laboratorio il grafico mostra la popolazione in funzione del tempo, da 0 a 30 unità di tempo, secondo il modello logistico con dieci individui iniziali: N = K/[1 + (K/10 − 1)e^(−rt)]. Nella scheda «Regola» cambi la capacità portante K, da 20 a 200, e il tasso r, da 0,1 a 0,6. Con i valori predefiniti, K = 100 e r = 0,3, la popolazione raggiunge 50 dopo circa 7,3 unità di tempo.",
+          "Protocollo. Il programma confronta due istanti fissati, 7,5 e 15 unità di tempo. Con i valori predefiniti prevedi se la popolazione cresce, diminuisce o resta uguale passando dal primo al secondo istante e salva A. Poi porta r a 0,1, una popolazione che si divide tre volte più lentamente, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con r = 0,3 la popolazione passa da circa 51 a circa 91, vicino alla capacità; con r = 0,1 da circa 19 a circa 33, ancora nella parte ripida della curva. In entrambi i casi cresce, perché la popolazione resta sotto K. Il tasso cambia la velocità con cui si arriva a K, mentre il valore finale dipende solo dalla capacità portante.",
+          "Una prova a casa: tre impasti di farina, acqua, zucchero e lievito di birra in tre bicchieri uguali, uno in frigorifero, uno a temperatura ambiente e uno in un luogo tiepido. Segnando l’altezza ogni quindici minuti si vede che la temperatura controlla la velocità dell’attività dei lieviti. Dalle velocità alle due temperature più alte si stima un coefficiente Q10."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Errori e cascate",
+      "title": "Errori e limiti",
       "text": {
         "base": [
-          "Errore frequente: pensare che un predatore mangi in proporzione alle prede disponibili. Il tempo di manipolazione impone un limite: oltre una certa densità altre prede non aumentano quasi il consumo.",
-          "Secondo errore: credere che i predatori portino sempre le prede all’estinzione. Spesso, quando le prede diminuiscono, i predatori calano per primi o cambiano preda, e le prede si riprendono.",
-          "I predatori influenzano anche i livelli più bassi della rete alimentare. Il ritorno dei lupi nel parco di Yellowstone, nel 1995, è spesso citato come esempio: i cervi hanno cambiato abitudini e la vegetazione lungo i fiumi ne ha risentito. L’entità dell’effetto è ancora discussa dagli ecologi."
+          "Errore frequente: confondere tasso di crescita e tempo di raddoppio. Il tasso specifico r si misura in inverso di un tempo e vale ln2/g: un tasso doppio dimezza il tempo di raddoppio. Secondo errore: credere che la crescita esponenziale possa durare. Il calcolo che porta a migliaia di tonnellate di batteri in un giorno mostra il potenziale, e le popolazioni reali si fermano molto prima.",
+          "Terzo errore: confondere sopravvivenza e crescita. Una spora può resistere per anni nel vuoto e al freddo senza mai dividersi. Per colonizzare un ambiente servono acqua liquida, temperatura adatta, energia e nutrienti nello stesso momento. Gli esperimenti in condizioni marziane simulate, a 7 millibar, 0 °C e in anidride carbonica, hanno trovato pochissimi batteri capaci di crescere."
         ],
         "intermediate": [
-          "Errore frequente: pensare che un predatore mangi in proporzione alle prede disponibili. Il tempo di manipolazione impone un limite: oltre una certa densità altre prede non aumentano quasi il consumo.",
-          "Secondo errore: credere che i predatori portino sempre le prede all’estinzione. Spesso, quando le prede diminuiscono, i predatori calano per primi o cambiano preda, e le prede si riprendono.",
-          "I predatori influenzano anche i livelli più bassi della rete alimentare. Il ritorno dei lupi nel parco di Yellowstone, nel 1995, è spesso citato come esempio: i cervi hanno cambiato abitudini e la vegetazione lungo i fiumi ne ha risentito. L’entità dell’effetto è ancora discussa dagli ecologi."
+          "Errore frequente: confondere tasso di crescita e tempo di raddoppio. Il tasso specifico r si misura in inverso di un tempo e vale ln2/g: un tasso doppio dimezza il tempo di raddoppio. Secondo errore: credere che la crescita esponenziale possa durare. Il calcolo che porta a migliaia di tonnellate di batteri in un giorno mostra il potenziale, e le popolazioni reali si fermano molto prima.",
+          "Terzo errore: confondere sopravvivenza e crescita. Una spora può resistere per anni nel vuoto e al freddo senza mai dividersi. Per colonizzare un ambiente servono acqua liquida, temperatura adatta, energia e nutrienti nello stesso momento. Gli esperimenti in condizioni marziane simulate, a 7 millibar, 0 °C e in anidride carbonica, hanno trovato pochissimi batteri capaci di crescere.",
+          "Il modello del laboratorio tratta r e K come costanti, e trascura la latenza, la fase di morte, i ritardi con cui la densità agisce e le variazioni di temperatura. Le colture batteriche si fermano perché il nutrimento finisce, e la capacità portante dipende dalla quantità iniziale di nutrimento più che dallo spazio disponibile."
         ],
         "advanced": [
-          "Errore frequente: pensare che un predatore mangi in proporzione alle prede disponibili. Il tempo di manipolazione impone un limite: oltre una certa densità altre prede non aumentano quasi il consumo.",
-          "Secondo errore: credere che i predatori portino sempre le prede all’estinzione. Spesso, quando le prede diminuiscono, i predatori calano per primi o cambiano preda, e le prede si riprendono.",
-          "I predatori influenzano anche i livelli più bassi della rete alimentare. Il ritorno dei lupi nel parco di Yellowstone, nel 1995, è spesso citato come esempio: i cervi hanno cambiato abitudini e la vegetazione lungo i fiumi ne ha risentito. L’entità dell’effetto è ancora discussa dagli ecologi."
+          "Errore frequente: confondere tasso di crescita e tempo di raddoppio. Il tasso specifico r si misura in inverso di un tempo e vale ln2/g: un tasso doppio dimezza il tempo di raddoppio. Secondo errore: credere che la crescita esponenziale possa durare. Il calcolo che porta a migliaia di tonnellate di batteri in un giorno mostra il potenziale, e le popolazioni reali si fermano molto prima.",
+          "Terzo errore: confondere sopravvivenza e crescita. Una spora può resistere per anni nel vuoto e al freddo senza mai dividersi. Per colonizzare un ambiente servono acqua liquida, temperatura adatta, energia e nutrienti nello stesso momento. Gli esperimenti in condizioni marziane simulate, a 7 millibar, 0 °C e in anidride carbonica, hanno trovato pochissimi batteri capaci di crescere.",
+          "Il modello del laboratorio tratta r e K come costanti, e trascura la latenza, la fase di morte, i ritardi con cui la densità agisce e le variazioni di temperatura. Le colture batteriche si fermano perché il nutrimento finisce, e la capacità portante dipende dalla quantità iniziale di nutrimento più che dallo spazio disponibile.",
+          "Al freddo i tempi di raddoppio diventano lunghissimi: Planococcus halocryophilus si divide ogni ora a 25 °C e ogni cinquanta giorni a −15 °C. Nei sedimenti marini profondi la biomassa si rinnova in secoli o millenni. Su Marte le salamoie stabili calcolate non superano −48 °C, più fredde di qualunque limite noto di crescita."
         ]
       }
     },
@@ -137,19 +144,19 @@
       "title": "Verifica",
       "text": {
         "base": [
-          "Ripasso: modello preda-predatore di Lotka e Volterra; risposte funzionali di tipo I, II e III; tempo di manipolazione e limite 1/h; consumo aN/(1 + ahN); effetti a cascata.",
-          "Mini esercizio: con a = 0,2 e h = 0,5, per N = 10 il consumo è 2/(1 + 1) = 1; il massimo è 2.",
-          "Nelle domande sulla risposta funzionale distingui il parametro di ricerca a da quello di manipolazione h."
+          "Ripasso: scissione binaria e tempo di raddoppio; crescita esponenziale e grafico semilogaritmico; fasi di una coltura; conteggio su piastra e cellule coltivabili; modello logistico e capacità portante; equazione di Monod e chemostato; temperatura e legge di Arrhenius; vita nel sottosuolo profondo; condizioni marziane simulate e regioni speciali.",
+          "Mini esercizio: con K = 100, dieci individui iniziali e r = 0,3, la popolazione arriva a metà della capacità dopo t = ln9/0,3 ≈ 7,3 unità di tempo, e in quel momento cresce di 7,5 individui per unità di tempo.",
+          "Nelle domande ricorda che il tasso di crescita e il tempo di raddoppio sono inversamente proporzionali, e che la capacità portante fissa il valore finale della popolazione indipendentemente dal tasso."
         ],
         "intermediate": [
-          "Ripasso: modello preda-predatore di Lotka e Volterra; risposte funzionali di tipo I, II e III; tempo di manipolazione e limite 1/h; consumo aN/(1 + ahN); effetti a cascata.",
-          "Mini esercizio: con a = 0,2 e h = 0,5, per N = 10 il consumo è 2/(1 + 1) = 1; il massimo è 2.",
-          "Nelle domande sulla risposta funzionale distingui il parametro di ricerca a da quello di manipolazione h."
+          "Ripasso: scissione binaria e tempo di raddoppio; crescita esponenziale e grafico semilogaritmico; fasi di una coltura; conteggio su piastra e cellule coltivabili; modello logistico e capacità portante; equazione di Monod e chemostato; temperatura e legge di Arrhenius; vita nel sottosuolo profondo; condizioni marziane simulate e regioni speciali.",
+          "Mini esercizio: con K = 100, dieci individui iniziali e r = 0,3, la popolazione arriva a metà della capacità dopo t = ln9/0,3 ≈ 7,3 unità di tempo, e in quel momento cresce di 7,5 individui per unità di tempo.",
+          "Nelle domande ricorda che il tasso di crescita e il tempo di raddoppio sono inversamente proporzionali, e che la capacità portante fissa il valore finale della popolazione indipendentemente dal tasso."
         ],
         "advanced": [
-          "Ripasso: modello preda-predatore di Lotka e Volterra; risposte funzionali di tipo I, II e III; tempo di manipolazione e limite 1/h; consumo aN/(1 + ahN); effetti a cascata.",
-          "Mini esercizio: con a = 0,2 e h = 0,5, per N = 10 il consumo è 2/(1 + 1) = 1; il massimo è 2.",
-          "Nelle domande sulla risposta funzionale distingui il parametro di ricerca a da quello di manipolazione h."
+          "Ripasso: scissione binaria e tempo di raddoppio; crescita esponenziale e grafico semilogaritmico; fasi di una coltura; conteggio su piastra e cellule coltivabili; modello logistico e capacità portante; equazione di Monod e chemostato; temperatura e legge di Arrhenius; vita nel sottosuolo profondo; condizioni marziane simulate e regioni speciali.",
+          "Mini esercizio: con K = 100, dieci individui iniziali e r = 0,3, la popolazione arriva a metà della capacità dopo t = ln9/0,3 ≈ 7,3 unità di tempo, e in quel momento cresce di 7,5 individui per unità di tempo.",
+          "Nelle domande ricorda che il tasso di crescita e il tempo di raddoppio sono inversamente proporzionali, e che la capacità portante fissa il valore finale della popolazione indipendentemente dal tasso."
         ]
       }
     },
@@ -158,19 +165,19 @@
       "title": "Collegamenti",
       "text": {
         "base": [
-          "La curva di tipo II ha la stessa forma della curva di Michaelis-Menten dell’unità «Enzimi e saturazione»: in entrambi i casi un tempo occupato limita la velocità. In biologia si passa a «Reti trofiche ed energia».",
-          "Riepilogo dell’unità: predatori e prede possono oscillare insieme; la risposta funzionale descrive il consumo in funzione delle prede; nel tipo II il tempo di manipolazione limita il consumo a 1/h; il consumo è aN/(1 + ahN); i predatori possono influenzare tutta la rete alimentare.",
-          "Nel diario registra A e B con le previsioni e spiega perché un predatore lento a digerire si sazia con meno prede."
+          "Gli esponenziali e i logaritmi sono il tema dell’unità di matematica «Esponenziali e logaritmi»; la legge di Arrhenius quello dell’unità di chimica «Temperatura e attivazione». In biologia il percorso prosegue con la ricerca della vita su Marte e con la protezione planetaria, dove la possibilità di crescita decide quali regioni vanno protette.",
+          "Riepilogo dell’unità: N = N0 · e^(rt) con r = ln2/g; quattro fasi di una coltura; il conteggio su piastra rileva le cellule coltivabili; la crescita logistica satura alla capacità portante, con velocità massima rK/4 a metà; l’equazione di Monod lega il tasso al nutrimento; il freddo allunga i tempi di raddoppio fino a settimane e mesi; crescere è più difficile che sopravvivere.",
+          "Nel diario registra A e B con le previsioni e calcola, per r = 0,1, 0,3 e 0,6, il tempo per arrivare a metà della capacità con K = 100: circa 22, 7,3 e 3,7 unità di tempo."
         ],
         "intermediate": [
-          "La curva di tipo II ha la stessa forma della curva di Michaelis-Menten dell’unità «Enzimi e saturazione»: in entrambi i casi un tempo occupato limita la velocità. In biologia si passa a «Reti trofiche ed energia».",
-          "Riepilogo dell’unità: predatori e prede possono oscillare insieme; la risposta funzionale descrive il consumo in funzione delle prede; nel tipo II il tempo di manipolazione limita il consumo a 1/h; il consumo è aN/(1 + ahN); i predatori possono influenzare tutta la rete alimentare.",
-          "Nel diario registra A e B con le previsioni e spiega perché un predatore lento a digerire si sazia con meno prede."
+          "Gli esponenziali e i logaritmi sono il tema dell’unità di matematica «Esponenziali e logaritmi»; la legge di Arrhenius quello dell’unità di chimica «Temperatura e attivazione». In biologia il percorso prosegue con la ricerca della vita su Marte e con la protezione planetaria, dove la possibilità di crescita decide quali regioni vanno protette.",
+          "Riepilogo dell’unità: N = N0 · e^(rt) con r = ln2/g; quattro fasi di una coltura; il conteggio su piastra rileva le cellule coltivabili; la crescita logistica satura alla capacità portante, con velocità massima rK/4 a metà; l’equazione di Monod lega il tasso al nutrimento; il freddo allunga i tempi di raddoppio fino a settimane e mesi; crescere è più difficile che sopravvivere.",
+          "Nel diario registra A e B con le previsioni e calcola, per r = 0,1, 0,3 e 0,6, il tempo per arrivare a metà della capacità con K = 100: circa 22, 7,3 e 3,7 unità di tempo."
         ],
         "advanced": [
-          "La curva di tipo II ha la stessa forma della curva di Michaelis-Menten dell’unità «Enzimi e saturazione»: in entrambi i casi un tempo occupato limita la velocità. In biologia si passa a «Reti trofiche ed energia».",
-          "Riepilogo dell’unità: predatori e prede possono oscillare insieme; la risposta funzionale descrive il consumo in funzione delle prede; nel tipo II il tempo di manipolazione limita il consumo a 1/h; il consumo è aN/(1 + ahN); i predatori possono influenzare tutta la rete alimentare.",
-          "Nel diario registra A e B con le previsioni e spiega perché un predatore lento a digerire si sazia con meno prede."
+          "Gli esponenziali e i logaritmi sono il tema dell’unità di matematica «Esponenziali e logaritmi»; la legge di Arrhenius quello dell’unità di chimica «Temperatura e attivazione». In biologia il percorso prosegue con la ricerca della vita su Marte e con la protezione planetaria, dove la possibilità di crescita decide quali regioni vanno protette.",
+          "Riepilogo dell’unità: N = N0 · e^(rt) con r = ln2/g; quattro fasi di una coltura; il conteggio su piastra rileva le cellule coltivabili; la crescita logistica satura alla capacità portante, con velocità massima rK/4 a metà; l’equazione di Monod lega il tasso al nutrimento; il freddo allunga i tempi di raddoppio fino a settimane e mesi; crescere è più difficile che sopravvivere.",
+          "Nel diario registra A e B con le previsioni e calcola, per r = 0,1, 0,3 e 0,6, il tempo per arrivare a metà della capacità con K = 100: circa 22, 7,3 e 3,7 unità di tempo."
         ]
       }
     }
@@ -178,165 +185,165 @@
   "questions": [
     {
       "id": "biology-21-q1",
-      "prompt": "Nella risposta di tipo II, qual è il consumo massimo per predatore?",
+      "prompt": "Una coltura raddoppia ogni 30 minuti. Quanto vale il tasso specifico di crescita?",
       "options": [
         {
           "id": "A",
-          "text": "1/h",
-          "feedback": "Esatto: il predatore non può manipolare più di una preda ogni h unità di tempo."
+          "text": "Circa 1,4 all’ora",
+          "feedback": "Esatto: r = ln2/g = 0,693/0,5 h."
         },
         {
           "id": "B",
-          "text": "a",
-          "feedback": "L’efficienza di ricerca conta soprattutto a basse densità."
+          "text": "Circa 2 all’ora",
+          "feedback": "Questo sarebbe il fattore di crescita in mezz’ora, e il tasso usa il logaritmo naturale."
         },
         {
           "id": "C",
-          "text": "Infinito",
-          "feedback": "Il tempo di manipolazione impone un limite."
+          "text": "Circa 0,7 all’ora",
+          "feedback": "Hai usato un’ora come tempo di raddoppio invece di mezz’ora."
         },
         {
           "id": "D",
-          "text": "a · h",
-          "feedback": "Il prodotto a · h compare al denominatore, ma non è il massimo."
+          "text": "30 all’ora",
+          "feedback": "Il tempo di raddoppio e il tasso sono grandezze inverse, con unità diverse."
         }
       ],
       "correct": "A"
     },
     {
       "id": "biology-21-q2",
-      "prompt": "Che forma ha la risposta di tipo II?",
+      "prompt": "Nel modello logistico, dove è massima la velocità di crescita dN/dt?",
       "options": [
         {
           "id": "A",
-          "text": "Una retta che cresce senza limiti",
-          "feedback": "Questa sarebbe una risposta senza tempo di manipolazione."
+          "text": "All’inizio, quando N è piccolo",
+          "feedback": "All’inizio il tasso per individuo è massimo, e gli individui sono pochi."
         },
         {
           "id": "B",
-          "text": "Una curva che cresce sempre più lentamente fino a un limite",
-          "feedback": "Esatto: è una curva di saturazione."
+          "text": "A metà della capacità, N = K/2",
+          "feedback": "Esatto: la parabola rN(1 − N/K) ha il massimo in K/2, dove vale rK/4."
         },
         {
           "id": "C",
-          "text": "Una curva a S",
-          "feedback": "La curva a S è la risposta di tipo III."
+          "text": "Quando N = K",
+          "feedback": "Alla capacità portante la crescita si annulla."
         },
         {
           "id": "D",
-          "text": "Una curva che decresce",
-          "feedback": "Più prede non riducono il consumo del predatore."
+          "text": "Sempre uguale",
+          "feedback": "La velocità cambia con N, e si annulla agli estremi."
         }
       ],
       "correct": "B"
     },
     {
       "id": "biology-21-q3",
-      "prompt": "Con a = 0,1, h = 0,5 e N = 20, quanto vale il consumo?",
+      "prompt": "Che cosa rappresenta una retta in un grafico semilogaritmico del numero di cellule?",
       "options": [
         {
           "id": "A",
-          "text": "2",
-          "feedback": "2 è il massimo 1/h, non il valore a N = 20."
+          "text": "Una crescita lineare",
+          "feedback": "Una crescita lineare in scala logaritmica appare come una curva che si appiattisce."
         },
         {
           "id": "B",
-          "text": "0,5",
-          "feedback": "0,5 è il tempo di manipolazione h, non il consumo."
+          "text": "Una crescita esponenziale",
+          "feedback": "Esatto: la pendenza è proporzionale al tasso e dà il tempo di raddoppio."
         },
         {
           "id": "C",
-          "text": "1",
-          "feedback": "Esatto: 0,1 · 20/(1 + 0,1 · 0,5 · 20) = 2/2."
+          "text": "Una popolazione costante",
+          "feedback": "Una popolazione costante dà una retta orizzontale, un caso particolare con pendenza zero."
         },
         {
           "id": "D",
-          "text": "20",
-          "feedback": "Il predatore non mangia tutte le prede presenti."
-        }
-      ],
-      "correct": "C"
-    },
-    {
-      "id": "biology-21-q4",
-      "prompt": "Che periodo hanno i cicli di lince e lepre nei registri della Baia di Hudson?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Circa un anno",
-          "feedback": "I cicli sono molto più lunghi delle stagioni."
-        },
-        {
-          "id": "B",
-          "text": "Circa cento anni",
-          "feedback": "I registri coprono circa un secolo e mostrano molti cicli."
-        },
-        {
-          "id": "C",
-          "text": "Non ci sono cicli",
-          "feedback": "I cicli sono tra i più noti dell’ecologia."
-        },
-        {
-          "id": "D",
-          "text": "Circa dieci anni",
-          "feedback": "Esatto: con i picchi delle linci che seguono quelli delle lepri."
-        }
-      ],
-      "correct": "D"
-    },
-    {
-      "id": "biology-21-q5",
-      "prompt": "Che cosa succede alla curva di tipo II se il tempo di manipolazione raddoppia?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Il consumo massimo si dimezza",
-          "feedback": "Esatto: il limite 1/h diventa la metà."
-        },
-        {
-          "id": "B",
-          "text": "Il consumo massimo raddoppia",
-          "feedback": "Più tempo per preda significa meno prede consumate."
-        },
-        {
-          "id": "C",
-          "text": "Non cambia nulla",
-          "feedback": "Il tempo di manipolazione decide il limite."
-        },
-        {
-          "id": "D",
-          "text": "La curva diventa una retta",
-          "feedback": "Una retta senza limite si ha solo con h = 0."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-21-q6",
-      "prompt": "Nel laboratorio, con h = 0,5, raddoppiando le prede da 25 a 50 il consumo:",
-      "options": [
-        {
-          "id": "A",
-          "text": "Raddoppia",
-          "feedback": "Il tempo di manipolazione frena la crescita."
-        },
-        {
-          "id": "B",
-          "text": "Cresce di circa il 29%",
-          "feedback": "Esatto: da circa 1,11 a 1,43 prede per unità di tempo."
-        },
-        {
-          "id": "C",
-          "text": "Diminuisce",
-          "feedback": "Più prede non riducono il consumo nel tipo II."
-        },
-        {
-          "id": "D",
-          "text": "Resta uguale",
-          "feedback": "La curva è ancora in salita a queste densità."
+          "text": "Una crescita logistica",
+          "feedback": "La logistica in scala logaritmica parte quasi come retta e poi si appiattisce."
         }
       ],
       "correct": "B"
+    },
+    {
+      "id": "biology-21-q4",
+      "prompt": "Perché nei campioni naturali le colonie sulle piastre sono molte meno delle cellule viste al microscopio?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché il microscopio conta due volte ogni cellula",
+          "feedback": "Il conteggio al microscopio è accurato; la differenza arriva a fattori di mille o più."
+        },
+        {
+          "id": "B",
+          "text": "Perché molte cellule vive crescono troppo lentamente o richiedono condizioni assenti nel terreno",
+          "feedback": "Esatto: è la grande anomalia del conteggio su piastra."
+        },
+        {
+          "id": "C",
+          "text": "Perché le piastre uccidono i batteri",
+          "feedback": "Le piastre offrono nutrimento, adatto però solo ad alcune specie."
+        },
+        {
+          "id": "D",
+          "text": "Perché le cellule naturali sono tutte morte",
+          "feedback": "Molte di quelle cellule sono attive, come mostrano altri metodi."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-21-q5",
+      "prompt": "Nel permafrost siberiano il tempo di raddoppio è circa 1 giorno a 5 °C e 160 giorni a −20 °C. Che cosa indica?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Che sotto lo zero la vita si ferma",
+          "feedback": "Le cellule continuano a dividersi, molto più lentamente."
+        },
+        {
+          "id": "B",
+          "text": "Che la crescita rallenta fortemente con il freddo, secondo la legge di Arrhenius",
+          "feedback": "Esatto: l’energia di attivazione apparente è di circa 119 kJ/mol."
+        },
+        {
+          "id": "C",
+          "text": "Che il freddo accelera la crescita",
+          "feedback": "Il tempo di raddoppio aumenta, quindi la crescita rallenta."
+        },
+        {
+          "id": "D",
+          "text": "Che la temperatura non conta",
+          "feedback": "Un fattore 160 in venticinque gradi indica una dipendenza molto forte."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-21-q6",
+      "prompt": "Perché la protezione planetaria definisce le regioni speciali di Marte in base alla replicazione?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché un organismo che si moltiplica può colonizzare un ambiente, uno che sopravvive soltanto no",
+          "feedback": "Esatto: la crescita, anche lenta, produce popolazioni grandi su tempi umani."
+        },
+        {
+          "id": "B",
+          "text": "Perché su Marte nessun organismo sopravvive",
+          "feedback": "Molte spore sopravvivono a lungo nel vuoto e al freddo."
+        },
+        {
+          "id": "C",
+          "text": "Perché la replicazione è più facile da misurare dalla Terra",
+          "feedback": "Le regioni speciali si definiscono con temperatura e attività dell’acqua, misurabili su Marte."
+        },
+        {
+          "id": "D",
+          "text": "Perché i perclorati favoriscono la crescita",
+          "feedback": "I perclorati, sotto la luce ultravioletta, diventano battericidi."
+        }
+      ],
+      "correct": "A"
     }
   ]
 }

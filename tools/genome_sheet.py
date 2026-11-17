@@ -1,4 +1,4 @@
-"""Assemble the contact sheet of the 100 planets from the raw tiles written by tools/render_genomes.mjs.
+"""Assemble the contact sheet of the explorable planets from the raw tiles written by tools/render_genomes.mjs.
 Usage: python3 tools/genome_sheet.py tiles-dir out.png"""
 import json, sys
 from PIL import Image, ImageDraw, ImageFont
@@ -10,11 +10,14 @@ small = ImageFont.truetype('/usr/share/fonts/opentype/inter/Inter-Regular.otf', 
 head = ImageFont.truetype('/usr/share/fonts/opentype/inter/InterDisplay-SemiBold.otf', 22)
 DISC = ['Matematica', 'Fisica', 'Chimica', 'Biologia']; COL = [(242, 183, 102), (127, 178, 255), (180, 156, 255), (111, 211, 160)]
 cw, ch = T + PAD, T + SKY + LAB + PAD
-W = 2 * 5 * cw + GAP + 40; H = 70 + 2 * (5 * ch + 40) + GAP
+# Five tiles per row; each discipline block is as tall as its rows (biology has more units than the others).
+rows = [-(-sum(t['sector'] == s for t in meta['tiles']) // 5) for s in range(4)]
+bh = [max(rows[0], rows[1]) * ch + 40, max(rows[2], rows[3]) * ch + 40]
+W = 2 * 5 * cw + GAP + 40; H = 70 + bh[0] + bh[1] + 2 * GAP
 img = Image.new('RGB', (W, H), (7, 12, 24)); dr = ImageDraw.Draw(img)
-dr.text((20, 18), 'GAIA · carte d’identità dei 100 pianeti: vedute dall’alto (min. distanza fra due pianeti %.3f)' % meta['minDistance'], font=head, fill=(238, 242, 248))
+dr.text((20, 18), 'GAIA · carte d’identità dei %d pianeti: vedute dall’alto (min. distanza fra due pianeti %.3f)' % (len(meta['tiles']), meta['minDistance']), font=head, fill=(238, 242, 248))
 for s in range(4):
-    bx = 20 + (s % 2) * (5 * cw + GAP); by = 70 + (s // 2) * (5 * ch + 40 + GAP)
+    bx = 20 + (s % 2) * (5 * cw + GAP); by = 70 + (s // 2) * (bh[0] + GAP)
     dr.text((bx, by), DISC[s], font=head, fill=COL[s])
     for k, t in enumerate([t for t in meta['tiles'] if t['sector'] == s]):
         x = bx + (k % 5) * cw; y = by + 34 + (k // 5) * ch

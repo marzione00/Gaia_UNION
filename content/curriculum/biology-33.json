@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "biology-33",
+  "title": "Biofirme e falsi positivi",
+  "sector": 3,
+  "modelId": "biology-33",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Biofirme gassose, di superficie e temporali, criteri di affidabilità, sopravvivenza e rilevabilità, bilancio stazionario dei gas, ossigeno, ozono, metano e protossido di azoto, disequilibrio chimico e anti-biofirme, falsi positivi e falsi negativi, fosfina su Venere e solfuro di dimetile su K2-18 b, ragionamento bayesiano e scala di confidenza",
+  "narrativeStatus": "I dati provengono dai bollettini sui gas serra, dai bilanci globali del metano e dagli articoli citati nel capitolo; le rilevazioni di fosfina su Venere e di solfuro di dimetile su K2-18 b sono contestate.",
+  "objectives": [
+    "Usare il bilancio F = c/τ per stimare la sorgente necessaria a mantenere un gas.",
+    "Spiegare perché ossigeno, ozono e metano sono biofirme candidate e quali processi senza vita li producono.",
+    "Valutare il disequilibrio chimico di un’atmosfera e i suoi limiti.",
+    "Combinare più indizi con il teorema di Bayes e con una scala di confidenza."
+  ],
+  "prerequisites": [
+    "biology-32"
+  ],
+  "connections": [
+    "biology-17",
+    "biology-19",
+    "biology-27",
+    "biology-34"
+  ],
+  "sources": [
+    "biology",
+    "chemistry",
+    "statistics"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Biofirma",
+      "definition": "Oggetto, sostanza o configurazione che la vita produce e che i processi senza vita producono molto più difficilmente."
+    },
+    {
+      "term": "Tempo di vita",
+      "definition": "Tempo in cui l’abbondanza di un gas senza sorgenti si riduce di un fattore e."
+    },
+    {
+      "term": "Falso positivo",
+      "definition": "Segnale che sembra biologico ed è prodotto senza vita."
+    },
+    {
+      "term": "Falso negativo",
+      "definition": "Pianeta abitato che non mostra biofirme riconoscibili."
+    },
+    {
+      "term": "Energia di Gibbs disponibile",
+      "definition": "Differenza fra l’energia di Gibbs di un’atmosfera osservata e quella che avrebbe all’equilibrio chimico, per mole di atmosfera."
+    },
+    {
+      "term": "Rapporto di verosimiglianza",
+      "definition": "Rapporto fra la probabilità di osservare un dato se l’ipotesi è vera e quella di osservarlo se è falsa."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La Terra vista da Galileo",
+      "text": {
+        "base": [
+          "Nel dicembre 1990 la sonda Galileo passò vicino alla Terra, e Carl Sagan e collaboratori ne usarono gli strumenti come se la Terra fosse un pianeta sconosciuto. Trovarono molto ossigeno e, insieme, un po’ di metano, due gas che reagiscono fra loro: all’equilibrio chimico il metano sarebbe praticamente assente. La loro coesistenza indicava una sorgente continua, cioè la vita.",
+          "Una biofirma è un oggetto, una sostanza o una configurazione che la vita produce e che i processi senza vita producono molto più difficilmente. Su un pianeta lontano le biofirme sono gassose, come l’ossigeno o il metano, di superficie, come il bordo rosso della vegetazione, o temporali, come l’oscillazione stagionale dell’anidride carbonica."
+        ],
+        "intermediate": [
+          "Nel dicembre 1990 la sonda Galileo passò vicino alla Terra, e Carl Sagan e collaboratori ne usarono gli strumenti come se la Terra fosse un pianeta sconosciuto. Trovarono molto ossigeno e, insieme, un po’ di metano, due gas che reagiscono fra loro: all’equilibrio chimico il metano sarebbe praticamente assente. La loro coesistenza indicava una sorgente continua, cioè la vita.",
+          "Una biofirma è un oggetto, una sostanza o una configurazione che la vita produce e che i processi senza vita producono molto più difficilmente. Su un pianeta lontano le biofirme sono gassose, come l’ossigeno o il metano, di superficie, come il bordo rosso della vegetazione, o temporali, come l’oscillazione stagionale dell’anidride carbonica."
+        ],
+        "advanced": [
+          "Nel dicembre 1990 la sonda Galileo passò vicino alla Terra, e Carl Sagan e collaboratori ne usarono gli strumenti come se la Terra fosse un pianeta sconosciuto. Trovarono molto ossigeno e, insieme, un po’ di metano, due gas che reagiscono fra loro: all’equilibrio chimico il metano sarebbe praticamente assente. La loro coesistenza indicava una sorgente continua, cioè la vita.",
+          "Una biofirma è un oggetto, una sostanza o una configurazione che la vita produce e che i processi senza vita producono molto più difficilmente. Su un pianeta lontano le biofirme sono gassose, come l’ossigeno o il metano, di superficie, come il bordo rosso della vegetazione, o temporali, come l’oscillazione stagionale dell’anidride carbonica.",
+          "Shaw descrive l’ossigeno e l’ozono come biofirme, con due semplificazioni da correggere: l’ossigeno della Terra aumentò a gradini, con la grande ossidazione intorno a 2,4 miliardi di anni fa e l’ossidazione neoproterozoica, mentre il testo descrive un accumulo continuo; i metanogeni sono archei, un dominio distinto dai batteri, mentre il testo li chiama archeobatteri."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Bilancio, disequilibrio e falsi positivi",
+      "text": {
+        "base": [
+          "Un gas reattivo con tempo di vita τ resta in atmosfera con abbondanza c costante solo se una sorgente lo rinnova con flusso F = c/τ. Per il metano terrestre, circa 1,95 parti per milione con un tempo di vita di circa 9,1 anni, servono circa 0,21 parti per milione all’anno, circa 600 milioni di tonnellate, prodotte in gran parte da archei metanogeni e da attività umane.",
+          "Un gas utile come biofirma deve essere affidabile, cioè prodotto dalla vita in quantità che la geologia e la fotochimica non raggiungono; deve sopravvivere fino a un’abbondanza misurabile; deve essere rilevabile, con bande intense e libere da sovrapposizioni. Ossigeno e ozono, metano, protossido di azoto e alcune molecole rare sono i candidati principali."
+        ],
+        "intermediate": [
+          "Un gas reattivo con tempo di vita τ resta in atmosfera con abbondanza c costante solo se una sorgente lo rinnova con flusso F = c/τ. Per il metano terrestre, circa 1,95 parti per milione con un tempo di vita di circa 9,1 anni, servono circa 0,21 parti per milione all’anno, circa 600 milioni di tonnellate, prodotte in gran parte da archei metanogeni e da attività umane.",
+          "Un gas utile come biofirma deve essere affidabile, cioè prodotto dalla vita in quantità che la geologia e la fotochimica non raggiungono; deve sopravvivere fino a un’abbondanza misurabile; deve essere rilevabile, con bande intense e libere da sovrapposizioni. Ossigeno e ozono, metano, protossido di azoto e alcune molecole rare sono i candidati principali.",
+          "L’ossigeno con il metano è lontanissimo dall’equilibrio: all’equilibrio il metano sarebbe meno di una parte su 10¹⁵⁰. Krissansen-Totton, Bergsman e Catling hanno calcolato che il disequilibrio della Terra con il suo oceano, circa 2300 J/mol, è il maggiore del sistema solare, dovuto soprattutto ad azoto, ossigeno e acqua; Marte segue con circa 136 J/mol, prodotti dalla fotochimica."
+        ],
+        "advanced": [
+          "Un gas reattivo con tempo di vita τ resta in atmosfera con abbondanza c costante solo se una sorgente lo rinnova con flusso F = c/τ. Per il metano terrestre, circa 1,95 parti per milione con un tempo di vita di circa 9,1 anni, servono circa 0,21 parti per milione all’anno, circa 600 milioni di tonnellate, prodotte in gran parte da archei metanogeni e da attività umane.",
+          "Un gas utile come biofirma deve essere affidabile, cioè prodotto dalla vita in quantità che la geologia e la fotochimica non raggiungono; deve sopravvivere fino a un’abbondanza misurabile; deve essere rilevabile, con bande intense e libere da sovrapposizioni. Ossigeno e ozono, metano, protossido di azoto e alcune molecole rare sono i candidati principali.",
+          "L’ossigeno con il metano è lontanissimo dall’equilibrio: all’equilibrio il metano sarebbe meno di una parte su 10¹⁵⁰. Krissansen-Totton, Bergsman e Catling hanno calcolato che il disequilibrio della Terra con il suo oceano, circa 2300 J/mol, è il maggiore del sistema solare, dovuto soprattutto ad azoto, ossigeno e acqua; Marte segue con circa 136 J/mol, prodotti dalla fotochimica.",
+          "L’ossigeno può accumularsi senza vita: per fotolisi dell’acqua e fuga di idrogeno su pianeti delle nane rosse rimasti a lungo in effetto serra incontrollato, per fotolisi dell’anidride carbonica su pianeti secchi, per perdita di acqua dalla stratosfera su pianeti con poco azoto. I dimeri dell’ossigeno, il monossido di carbonio e la scarsità d’acqua aiutano a riconoscere questi casi."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Il laboratorio del bilancio di un gas",
+      "text": {
+        "base": [
+          "Nel laboratorio il grafico mostra il flusso necessario a mantenere un gas, F = c/τ, in parti per milione all’anno, in funzione del tempo di vita τ, da 1 a 100 anni. Nella scheda «Regola» cambi l’abbondanza c del gas, da 0,1 a 10 parti per milione. Con il valore predefinito, 1,9 parti per milione, vicino al metano terrestre, a 10 anni il flusso è circa 0,19 parti per milione all’anno.",
+          "Protocollo. Il programma confronta due tempi di vita fissati, 25,75 e 50,5 anni. Con il valore predefinito prevedi se il flusso necessario cresce, diminuisce o resta uguale passando dal primo al secondo tempo di vita e salva A. Poi porta l’abbondanza a 3,8 parti per milione, il doppio, rifai la previsione e salva B. Nella scheda «A / B» scegli tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con 1,9 parti per milione il flusso passa da circa 0,0738 a 0,0376 parti per milione all’anno; con 3,8 da circa 0,148 a 0,0752. In entrambi i casi diminuisce, in proporzione inversa al tempo di vita. A parità di tempo di vita, raddoppiare l’abbondanza raddoppia il flusso necessario."
+        ],
+        "intermediate": [
+          "Nel laboratorio il grafico mostra il flusso necessario a mantenere un gas, F = c/τ, in parti per milione all’anno, in funzione del tempo di vita τ, da 1 a 100 anni. Nella scheda «Regola» cambi l’abbondanza c del gas, da 0,1 a 10 parti per milione. Con il valore predefinito, 1,9 parti per milione, vicino al metano terrestre, a 10 anni il flusso è circa 0,19 parti per milione all’anno.",
+          "Protocollo. Il programma confronta due tempi di vita fissati, 25,75 e 50,5 anni. Con il valore predefinito prevedi se il flusso necessario cresce, diminuisce o resta uguale passando dal primo al secondo tempo di vita e salva A. Poi porta l’abbondanza a 3,8 parti per milione, il doppio, rifai la previsione e salva B. Nella scheda «A / B» scegli tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con 1,9 parti per milione il flusso passa da circa 0,0738 a 0,0376 parti per milione all’anno; con 3,8 da circa 0,148 a 0,0752. In entrambi i casi diminuisce, in proporzione inversa al tempo di vita. A parità di tempo di vita, raddoppiare l’abbondanza raddoppia il flusso necessario."
+        ],
+        "advanced": [
+          "Nel laboratorio il grafico mostra il flusso necessario a mantenere un gas, F = c/τ, in parti per milione all’anno, in funzione del tempo di vita τ, da 1 a 100 anni. Nella scheda «Regola» cambi l’abbondanza c del gas, da 0,1 a 10 parti per milione. Con il valore predefinito, 1,9 parti per milione, vicino al metano terrestre, a 10 anni il flusso è circa 0,19 parti per milione all’anno.",
+          "Protocollo. Il programma confronta due tempi di vita fissati, 25,75 e 50,5 anni. Con il valore predefinito prevedi se il flusso necessario cresce, diminuisce o resta uguale passando dal primo al secondo tempo di vita e salva A. Poi porta l’abbondanza a 3,8 parti per milione, il doppio, rifai la previsione e salva B. Nella scheda «A / B» scegli tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con 1,9 parti per milione il flusso passa da circa 0,0738 a 0,0376 parti per milione all’anno; con 3,8 da circa 0,148 a 0,0752. In entrambi i casi diminuisce, in proporzione inversa al tempo di vita. A parità di tempo di vita, raddoppiare l’abbondanza raddoppia il flusso necessario.",
+          "Una prova a casa: tre bottiglie chiuse da palloncini, una con acqua tiepida, zucchero e lievito, una con aceto e bicarbonato, una con zucchero e lievito bollito. Le prime due si gonfiano di anidride carbonica: la reazione chimica è rapida e si esaurisce, il lievito parte lento e continua finché c’è zucchero, e quasi si ferma al freddo; con il lievito bollito non accade nulla."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Errori e limiti",
+      "text": {
+        "base": [
+          "Errore frequente: credere che un solo gas basti a indicare la vita. Ossigeno, metano e fosfina hanno sorgenti senza vita in condizioni particolari, e su Titano il metano abbonda senza alcuna vita. Servono combinazioni, come metano con anidride carbonica e poco monossido di carbonio, e il contesto del pianeta e della stella.",
+          "Secondo errore: credere che l’assenza di biofirme dimostri un pianeta disabitato. La Terra fu abitata per più di un miliardo di anni senza ossigeno apprezzabile, e una biosfera sotterranea o sotto il ghiaccio può lasciare l’atmosfera quasi intatta. I falsi negativi sono probabili quanto i falsi positivi."
+        ],
+        "intermediate": [
+          "Errore frequente: credere che un solo gas basti a indicare la vita. Ossigeno, metano e fosfina hanno sorgenti senza vita in condizioni particolari, e su Titano il metano abbonda senza alcuna vita. Servono combinazioni, come metano con anidride carbonica e poco monossido di carbonio, e il contesto del pianeta e della stella.",
+          "Secondo errore: credere che l’assenza di biofirme dimostri un pianeta disabitato. La Terra fu abitata per più di un miliardo di anni senza ossigeno apprezzabile, e una biosfera sotterranea o sotto il ghiaccio può lasciare l’atmosfera quasi intatta. I falsi negativi sono probabili quanto i falsi positivi.",
+          "Il modello del laboratorio suppone uno stato stazionario, un tempo di vita costante e un’atmosfera ben mescolata. In realtà il tempo di vita dipende dalla composizione dell’atmosfera e dalla luce della stella: il metano dura circa nove anni nell’aria ricca di ossigeno, molto di più in un’atmosfera senza ossigeno, e la stessa abbondanza può richiedere sorgenti molto diverse."
+        ],
+        "advanced": [
+          "Errore frequente: credere che un solo gas basti a indicare la vita. Ossigeno, metano e fosfina hanno sorgenti senza vita in condizioni particolari, e su Titano il metano abbonda senza alcuna vita. Servono combinazioni, come metano con anidride carbonica e poco monossido di carbonio, e il contesto del pianeta e della stella.",
+          "Secondo errore: credere che l’assenza di biofirme dimostri un pianeta disabitato. La Terra fu abitata per più di un miliardo di anni senza ossigeno apprezzabile, e una biosfera sotterranea o sotto il ghiaccio può lasciare l’atmosfera quasi intatta. I falsi negativi sono probabili quanto i falsi positivi.",
+          "Il modello del laboratorio suppone uno stato stazionario, un tempo di vita costante e un’atmosfera ben mescolata. In realtà il tempo di vita dipende dalla composizione dell’atmosfera e dalla luce della stella: il metano dura circa nove anni nell’aria ricca di ossigeno, molto di più in un’atmosfera senza ossigeno, e la stessa abbondanza può richiedere sorgenti molto diverse.",
+          "Due casi recenti mostrano come si pesano le prove: la fosfina su Venere, riferita nel 2020 e contestata, e il solfuro di dimetile su K2-18 b, riferito nel 2023 e nel 2025 con circa tre deviazioni standard e messo in dubbio dalle rianalisi. Cercando venti molecole, la probabilità di un segnale casuale a tre deviazioni standard sale a circa il cinque per cento."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica",
+      "text": {
+        "base": [
+          "Ripasso: biofirme gassose, di superficie e temporali; affidabilità, sopravvivenza e rilevabilità; bilancio F = c/τ; ossigeno, ozono, metano, protossido di azoto, molecole rare; disequilibrio chimico ed energia di Gibbs disponibile; anti-biofirme; falsi positivi e falsi negativi; teorema di Bayes e scala di confidenza.",
+          "Mini esercizio: con un’abbondanza di 0,339 parti per milione e un tempo di vita di 116 anni, come il protossido di azoto, il flusso necessario è circa 0,0029 parti per milione all’anno, cioè 2,9 parti per miliardo.",
+          "Nelle domande ricorda che il flusso è proporzionale all’abbondanza e inversamente proporzionale al tempo di vita, e che indizi indipendenti moltiplicano i rapporti di verosimiglianza."
+        ],
+        "intermediate": [
+          "Ripasso: biofirme gassose, di superficie e temporali; affidabilità, sopravvivenza e rilevabilità; bilancio F = c/τ; ossigeno, ozono, metano, protossido di azoto, molecole rare; disequilibrio chimico ed energia di Gibbs disponibile; anti-biofirme; falsi positivi e falsi negativi; teorema di Bayes e scala di confidenza.",
+          "Mini esercizio: con un’abbondanza di 0,339 parti per milione e un tempo di vita di 116 anni, come il protossido di azoto, il flusso necessario è circa 0,0029 parti per milione all’anno, cioè 2,9 parti per miliardo.",
+          "Nelle domande ricorda che il flusso è proporzionale all’abbondanza e inversamente proporzionale al tempo di vita, e che indizi indipendenti moltiplicano i rapporti di verosimiglianza."
+        ],
+        "advanced": [
+          "Ripasso: biofirme gassose, di superficie e temporali; affidabilità, sopravvivenza e rilevabilità; bilancio F = c/τ; ossigeno, ozono, metano, protossido di azoto, molecole rare; disequilibrio chimico ed energia di Gibbs disponibile; anti-biofirme; falsi positivi e falsi negativi; teorema di Bayes e scala di confidenza.",
+          "Mini esercizio: con un’abbondanza di 0,339 parti per milione e un tempo di vita di 116 anni, come il protossido di azoto, il flusso necessario è circa 0,0029 parti per milione all’anno, cioè 2,9 parti per miliardo.",
+          "Nelle domande ricorda che il flusso è proporzionale all’abbondanza e inversamente proporzionale al tempo di vita, e che indizi indipendenti moltiplicano i rapporti di verosimiglianza."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Collegamenti",
+      "text": {
+        "base": [
+          "Il bilancio dei gas collega questa unità a «Cercare la vita su Marte», dove si studia il decadimento del metano; l’ossigeno a «Ossigeno, endosimbiosi e cellule complesse»; il metabolismo microbico a «Respirazione, fermentazione e chemiosintesi»; la spettroscopia ad «Atmosfere degli esopianeti e JWST». In biologia il percorso prosegue con «Panspermia e protezione planetaria».",
+          "Riepilogo dell’unità: biofirme e criteri; bilancio stazionario dei gas; ossigeno, ozono, metano e altri candidati; disequilibrio chimico e anti-biofirme; ossigeno senza vita e tracce per riconoscerlo; fosfina su Venere e solfuro di dimetile su K2-18 b; falsi negativi; teorema di Bayes, effetto della ricerca altrove e scala di confidenza in sette livelli.",
+          "Nel diario registra A e B con le previsioni e calcola il tempo per raggiungere il 90 per cento del valore stazionario per il metano, τ ln 10 con τ = 9,1 anni: circa 21 anni."
+        ],
+        "intermediate": [
+          "Il bilancio dei gas collega questa unità a «Cercare la vita su Marte», dove si studia il decadimento del metano; l’ossigeno a «Ossigeno, endosimbiosi e cellule complesse»; il metabolismo microbico a «Respirazione, fermentazione e chemiosintesi»; la spettroscopia ad «Atmosfere degli esopianeti e JWST». In biologia il percorso prosegue con «Panspermia e protezione planetaria».",
+          "Riepilogo dell’unità: biofirme e criteri; bilancio stazionario dei gas; ossigeno, ozono, metano e altri candidati; disequilibrio chimico e anti-biofirme; ossigeno senza vita e tracce per riconoscerlo; fosfina su Venere e solfuro di dimetile su K2-18 b; falsi negativi; teorema di Bayes, effetto della ricerca altrove e scala di confidenza in sette livelli.",
+          "Nel diario registra A e B con le previsioni e calcola il tempo per raggiungere il 90 per cento del valore stazionario per il metano, τ ln 10 con τ = 9,1 anni: circa 21 anni."
+        ],
+        "advanced": [
+          "Il bilancio dei gas collega questa unità a «Cercare la vita su Marte», dove si studia il decadimento del metano; l’ossigeno a «Ossigeno, endosimbiosi e cellule complesse»; il metabolismo microbico a «Respirazione, fermentazione e chemiosintesi»; la spettroscopia ad «Atmosfere degli esopianeti e JWST». In biologia il percorso prosegue con «Panspermia e protezione planetaria».",
+          "Riepilogo dell’unità: biofirme e criteri; bilancio stazionario dei gas; ossigeno, ozono, metano e altri candidati; disequilibrio chimico e anti-biofirme; ossigeno senza vita e tracce per riconoscerlo; fosfina su Venere e solfuro di dimetile su K2-18 b; falsi negativi; teorema di Bayes, effetto della ricerca altrove e scala di confidenza in sette livelli.",
+          "Nel diario registra A e B con le previsioni e calcola il tempo per raggiungere il 90 per cento del valore stazionario per il metano, τ ln 10 con τ = 9,1 anni: circa 21 anni."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "biology-33-q1",
+      "prompt": "Se il tempo di vita di un gas si dimezza, per mantenere la stessa abbondanza il flusso deve:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Raddoppiare",
+          "feedback": "Esatto: con F = c/τ il flusso è inversamente proporzionale al tempo di vita."
+        },
+        {
+          "id": "B",
+          "text": "Dimezzarsi",
+          "feedback": "Un gas distrutto più in fretta richiede una sorgente più intensa."
+        },
+        {
+          "id": "C",
+          "text": "Restare uguale",
+          "feedback": "Il flusso dipende dal tempo di vita oltre che dall’abbondanza."
+        },
+        {
+          "id": "D",
+          "text": "Quadruplicare",
+          "feedback": "La dipendenza è inversa e lineare, senza quadrati."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-33-q2",
+      "prompt": "Perché la presenza contemporanea di ossigeno e metano è un indizio di vita?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché entrambi i gas sono prodotti soltanto da organismi",
+          "feedback": "Entrambi hanno anche sorgenti senza vita in condizioni particolari."
+        },
+        {
+          "id": "B",
+          "text": "Perché reagiscono fra loro, e la loro coesistenza richiede sorgenti continue e intense",
+          "feedback": "Esatto: all’equilibrio il metano sarebbe praticamente assente."
+        },
+        {
+          "id": "C",
+          "text": "Perché hanno bande nello stesso intervallo di lunghezze d’onda",
+          "feedback": "La posizione delle bande riguarda la rilevabilità, e i due gas assorbono a lunghezze d’onda diverse."
+        },
+        {
+          "id": "D",
+          "text": "Perché sono i gas più abbondanti dell’atmosfera terrestre",
+          "feedback": "I gas più abbondanti sono azoto e ossigeno; il metano è circa due parti per milione."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-33-q3",
+      "prompt": "Quale processo può produrre ossigeno senza vita?",
+      "options": [
+        {
+          "id": "A",
+          "text": "La fotolisi del vapore acqueo seguita dalla fuga dell’idrogeno nello spazio",
+          "feedback": "Esatto: è il meccanismo dei pianeti delle nane rosse rimasti a lungo in effetto serra incontrollato."
+        },
+        {
+          "id": "B",
+          "text": "La fermentazione del lievito",
+          "feedback": "La fermentazione è un processo biologico e produce anidride carbonica."
+        },
+        {
+          "id": "C",
+          "text": "La serpentinizzazione delle rocce",
+          "feedback": "La serpentinizzazione produce idrogeno e può produrre metano."
+        },
+        {
+          "id": "D",
+          "text": "La condensazione dell’acqua nelle nubi",
+          "feedback": "La condensazione cambia lo stato dell’acqua senza liberare ossigeno."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-33-q4",
+      "prompt": "Quali tracce indicano che molto ossigeno potrebbe essere di origine non biologica?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Bande intense dei dimeri dell’ossigeno, molto monossido di carbonio o poca acqua",
+          "feedback": "Esatto: sono le tracce degli scenari di fotolisi dell’acqua o dell’anidride carbonica."
+        },
+        {
+          "id": "B",
+          "text": "La presenza di metano insieme all’ossigeno",
+          "feedback": "Questa combinazione è un indizio a favore della vita."
+        },
+        {
+          "id": "C",
+          "text": "Un’oscillazione stagionale dell’anidride carbonica",
+          "feedback": "Un ritmo stagionale è considerato una biofirma temporale."
+        },
+        {
+          "id": "D",
+          "text": "Il bordo rosso nella luce riflessa",
+          "feedback": "Il bordo rosso è una biofirma di superficie della vegetazione."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-33-q5",
+      "prompt": "Un indizio con rapporto di verosimiglianza 10 porta una probabilità a priori dell’1 per cento a circa:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Il 10 per cento",
+          "feedback": "Il calcolo dà circa il 9 per cento: il rapporto si applica alle quote, 1 a 99."
+        },
+        {
+          "id": "B",
+          "text": "Il 9 per cento",
+          "feedback": "Esatto: le quote passano da 1/99 a 10/99, cioè circa il 9 per cento."
+        },
+        {
+          "id": "C",
+          "text": "Il 50 per cento",
+          "feedback": "Per arrivare al 50 per cento servono due indizi indipendenti di questo valore."
+        },
+        {
+          "id": "D",
+          "text": "Il 90 per cento",
+          "feedback": "Un solo indizio di questo valore lascia la probabilità bassa."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-33-q6",
+      "prompt": "Perché cercare molte molecole nello stesso spettro richiede cautela?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché le molecole si distruggono a vicenda",
+          "feedback": "Il problema riguarda la statistica delle misure."
+        },
+        {
+          "id": "B",
+          "text": "Perché aumenta la probabilità che almeno una dia per caso un segnale significativo",
+          "feedback": "Esatto: con venti molecole a tre deviazioni standard la probabilità è circa il cinque per cento."
+        },
+        {
+          "id": "C",
+          "text": "Perché lo spettro si satura",
+          "feedback": "La saturazione riguarda bande molto intense, indipendentemente dal numero di molecole cercate."
+        },
+        {
+          "id": "D",
+          "text": "Perché il telescopio deve osservare più a lungo",
+          "feedback": "Il problema statistico vale anche con lo stesso tempo di osservazione."
+        }
+      ],
+      "correct": "B"
+    }
+  ]
+}

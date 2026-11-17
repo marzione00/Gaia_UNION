@@ -97,7 +97,7 @@ export class CourseUI{
   U.button('course-unit-prev','◂ Unità',pad,fY,bw,n.navH,()=>this.goUnit(this.bundle.courses[idx-1].id),{disabled:idx===0});
   U.button('course-catalogue','Catalogo',pad+bw+6,fY,bw,n.navH,()=>this.api.route('catalogue'));
   U.button('course-journal','Diario',pad+2*(bw+6),fY,bw,n.navH,()=>this.openJournal());
-  U.button('course-unit-next','Unità ▸',pad+3*(bw+6),fY,bw,n.navH,()=>this.goUnit(this.bundle.courses[idx+1].id),{disabled:idx===99});
+  U.button('course-unit-next','Unità ▸',pad+3*(bw+6),fY,bw,n.navH,()=>this.goUnit(this.bundle.courses[idx+1].id),{disabled:idx===this.bundle.courses.length-1});
   if(!this.store.persistent)this.txt(U,'Solo sessione: esporta il diario prima di chiudere.',pad,fY-17,'micro',C.amber);
  }
  readingUI(U,paragraphs,rect,heading,reserve=0){

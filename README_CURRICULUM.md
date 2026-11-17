@@ -1,8 +1,8 @@
-# GAIA 1.5 — Curriculum guidato per tutte le 100 unità
+# GAIA 1.5 — Curriculum guidato per tutte le unità
 
 ## Stato della consegna
 
-L'estensione implementa un nucleo didattico funzionante per ognuno dei 100 identificativi esistenti: 25 di matematica, 25 di fisica, 25 di chimica e 25 di biologia. Non equivale a cento manuali integrali, a una revisione scientifica umana o a una certificazione di competenze. La matrice `CURRICULUM_COVERAGE.md` e il CSV corrispondente dichiarano precisamente il contenuto di ogni nucleo. I nuovi testi sono originali e hanno stato editoriale `original-draft`.
+L'estensione implementa un nucleo didattico funzionante per ognuno dei 100 identificativi esistenti: 25 di matematica, 25 di fisica, 25 di chimica e 25 di biologia. Dalla versione 1.25 le unità sono 110: la biologia è riscritta attorno all'astrobiologia e conta 35 unità, con due nuovi sistemi stellari, «Mondi del sistema solare» e «Cercare la vita nella galassia». Non equivale a cento manuali integrali, a una revisione scientifica umana o a una certificazione di competenze. La matrice `CURRICULUM_COVERAGE.md` e il CSV corrispondente dichiarano precisamente il contenuto di ogni nucleo. I nuovi testi sono originali e hanno stato editoriale `original-draft`.
 
 Il progetto è basato sul commit `7e311fbef37dcf912d4e5bb0db382c122eec9ada` e comprende la precedente estensione ECHO-08. L'integrazione GitHub ha negato la creazione del branch con HTTP 403. Nessun commit remoto, pull request, merge o deploy è stato eseguito per questa consegna.
 
@@ -20,7 +20,7 @@ Permalink: `#/mission?unit=physics-01`, `#/mission?unit=chemistry-08`, `#/missio
 
 Ciascun nucleo comprende una situazione narrativa distinta, spiegazione concettuale, derivazione, esempio numerico svolto, errore comune, ipotesi e limiti, approfondimento e quattro quesiti specifici con feedback per ogni alternativa. I quattro quesiti coprono concetto, calcolo, trasferimento a parametri diversi e ambito del modello.
 
-I 100 modelli puri risiedono in `src/models/curriculum.js`: ogni modello dichiara variabile indipendente, risultato, unità, dominio, parametri ammessi, relazione e caso numerico di riferimento. I risultati sono calcolati, non codificati come animazioni prefabbricate. I campioni fuori dominio o non finiti non vengono congiunti da segmenti; le sequenze discrete hanno punti/barre e non finte curve continue. I grafici sono campionamenti finiti e non sostituiscono dimostrazioni analitiche.
+I modelli puri, uno per unità, risiedono in `src/models/curriculum.js`: ogni modello dichiara variabile indipendente, risultato, unità, dominio, parametri ammessi, relazione e caso numerico di riferimento. I risultati sono calcolati, non codificati come animazioni prefabbricate. I campioni fuori dominio o non finiti non vengono congiunti da segmenti; le sequenze discrete hanno punti/barre e non finte curve continue. I grafici sono campionamenti finiti e non sostituiscono dimostrazioni analitiche.
 
 Le scale sono adattive, condivise quando si confrontano corrente e scenario A. La profondità dei grafici non è una variabile scientifica. Gli schemi tridimensionali aggiuntivi — per esempio molecola, DNA, vettore, cellula, popolazione o pianeta — sono illustrativi e normalizzati. Una elica non è un modello atomistico della replicazione, i marcatori di popolazione non sono individui simulati, una sfera ad albedo fissata non è un modello climatico completo. La lezione Biology-25 integra il bilancio radiativo di riferimento; il laboratorio Daisyworld preesistente rimane distinto e conserva le sue equazioni di retroazione.
 
@@ -44,7 +44,7 @@ I 25 titoli, identificativi e rimandi alla fonte della matematica sono preservat
 
 Il contenuto editoriale canonico è `content/curriculum/authored.json`. Le definizioni generate, l'indice, il bundle e i percorsi sono rigenerabili con `npm run build:curriculum`; il processo non scarica risorse. Un controllo di idempotenza verifica che rigenerare senza modificare le fonti produca gli stessi byte. I testi sono renderizzati attraverso componenti riutilizzabili: non serve generare centinaia di tessere immagini.
 
-`npm run test:curriculum` esegue i test specifici; `npm test` sulla repository completa esegue anche tutte le sue regressioni. `npm run check` controlla modelli e riferimenti. `npm run build` genera `dist`, poi `npm run test:http` verifica via HTTP le risorse, incluse tutte le 100 schede. `npm run test:integration` importa l'applicazione con un adattatore DOM/WebGL e attraversa i percorsi, ma non è un test browser.
+`npm run test:curriculum` esegue i test specifici; `npm test` sulla repository completa esegue anche tutte le sue regressioni. `npm run check` controlla modelli e riferimenti. `npm run build` genera `dist`, poi `npm run test:http` verifica via HTTP le risorse, incluse tutte le schede delle unità. `npm run test:integration` importa l'applicazione con un adattatore DOM/WebGL e attraversa i percorsi, ma non è un test browser.
 
 Per ripetere il rendering di collaudo: `node tools/capture_curriculum.mjs qa-all/render`, poi `python tools/replay_curriculum_egl.py qa-all/render`. Il replay richiede Python, NumPy, Pillow e Mesa/EGL. Per l'applicazione servono Node.js 22+ per il server locale e un browser con WebGL 2; non occorre `npm install`. Aprire via HTTP, non con doppio clic su index.html.
 

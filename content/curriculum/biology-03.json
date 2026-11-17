@@ -2,133 +2,139 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-03",
-  "title": "Osmosi e bilancio dell’acqua",
+  "title": "Membrane e protocellule",
   "sector": 3,
   "modelId": "biology-03",
-  "coverage": "guided-activity",
+  "coverage": "guided-lab",
   "editorialStatus": "hand-written-draft",
-  "scope": "Osmosi, pressione osmotica e legge di van ’t Hoff, tonicità, turgore e plasmolisi, osmosi inversa",
-  "narrativeStatus": "Gli esempi sono reali; i valori di plasma e soluzione fisiologica sono di riferimento.",
+  "scope": "Anfifili e autoassemblaggio, concentrazione critica, membrana moderna, legge di Fick, osmosi, equazione di Nernst, vescicole di acidi grassi, crescita e divisione delle protocellule",
+  "narrativeStatus": "Permeabilità, concentrazioni critiche ed esperimenti sulle vescicole sono valori e risultati pubblicati; la vescicola del modello è una sfera ideale.",
   "objectives": [
-    "Spiegare l’osmosi contando le particelle disciolte.",
-    "Calcolare la pressione osmotica con la legge di van ’t Hoff.",
-    "Prevedere la risposta di cellule animali e vegetali alla tonicità.",
-    "Descrivere l’osmosi inversa."
+    "Spiegare perché gli anfifili si aggregano in micelle o doppi strati.",
+    "Calcolare tempi di equilibrio con τ = r/(3P).",
+    "Calcolare pressioni osmotiche e potenziali di Nernst.",
+    "Descrivere le vescicole di acidi grassi come modelli di protocellula."
   ],
   "prerequisites": [
     "biology-02"
   ],
   "connections": [
-    "biology-04",
+    "chemistry-09",
     "chemistry-12"
   ],
   "sources": [
-    "biology"
+    "biology",
+    "chemistry",
+    "si"
   ],
   "originalSource": null,
   "glossary": [
     {
-      "term": "Osmosi",
-      "definition": "Passaggio d’acqua attraverso una membrana semipermeabile verso la soluzione più concentrata."
+      "term": "Anfifilo",
+      "definition": "Molecola con una parte idrofila e una idrofoba."
+    },
+    {
+      "term": "Vescicola",
+      "definition": "Doppio strato chiuso che racchiude un volume d’acqua."
+    },
+    {
+      "term": "Concentrazione critica",
+      "definition": "Concentrazione sopra la quale un anfifilo forma micelle o vescicole."
+    },
+    {
+      "term": "Permeabilità",
+      "definition": "Costante P che lega il flusso attraverso la membrana alla differenza di concentrazione."
     },
     {
       "term": "Pressione osmotica",
-      "definition": "Pressione che ferma l’osmosi; per soluzioni diluite Π = i C R T."
+      "definition": "Pressione che arresta il flusso osmotico: Π = icRT per soluzioni diluite."
     },
     {
-      "term": "Soluzione ipertonica",
-      "definition": "Soluzione con più particelle disciolte della cellula."
-    },
-    {
-      "term": "Turgore",
-      "definition": "Pressione del contenuto della cellula vegetale contro la parete."
-    },
-    {
-      "term": "Plasmolisi",
-      "definition": "Distacco della membrana dalla parete in ambiente ipertonico."
+      "term": "Protocellula",
+      "definition": "Compartimento spontaneo che contiene o può acquisire molecole informazionali e catalitiche."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Patate e globuli rossi",
+      "title": "Un confine che si forma da solo",
       "text": {
         "base": [
-          "Una fetta di patata lasciata in acqua salata diventa molle; in acqua dolce resta soda. Un globulo rosso messo in acqua distillata si gonfia e scoppia. In entrambi i casi l’acqua attraversa una membrana spinta da una differenza di concentrazione: è l’osmosi, uno dei problemi quotidiani di ogni cellula.",
-          "L’osmosi è la diffusione dell’acqua attraverso una membrana semipermeabile, che lascia passare l’acqua e trattiene i soluti. L’acqua si muove dalla soluzione con meno particelle disciolte a quella con più particelle. Conta il numero di particelle, non la loro natura: una mole di NaCl sciolta dà circa due moli di particelle, Na⁺ e Cl⁻; una mole di glucosio, una sola."
+          "Una goccia d’olio in un bicchiere d’acqua resta separata; qualche goccia di detersivo la divide in goccioline e, agitando, compare una schiuma di bolle sottilissime. Molecole che nessuno ha progettato si dispongono da sole in pellicole, sfere e sacchetti. Ogni cellula conosciuta è delimitata da una membrana di questo tipo, spessa pochi nanometri, che separa un interno chimicamente organizzato da un esterno indifferente.",
+          "Le molecole capaci di farlo sono anfifile: hanno una testa idrofila, che sta volentieri in acqua, e una o due code idrofobe, che l’acqua esclude. Gli acidi grassi hanno una coda sola; i fosfolipidi delle membrane moderne ne hanno due. Sopra una concentrazione critica si aggregano per effetto idrofobico: una coda sola favorisce le micelle, due code i doppi strati, che chiudendosi formano vescicole piene d’acqua."
         ],
         "intermediate": [
-          "Una fetta di patata lasciata in acqua salata diventa molle; in acqua dolce resta soda. Un globulo rosso messo in acqua distillata si gonfia e scoppia. In entrambi i casi l’acqua attraversa una membrana spinta da una differenza di concentrazione: è l’osmosi, uno dei problemi quotidiani di ogni cellula.",
-          "L’osmosi è la diffusione dell’acqua attraverso una membrana semipermeabile, che lascia passare l’acqua e trattiene i soluti. L’acqua si muove dalla soluzione con meno particelle disciolte a quella con più particelle. Conta il numero di particelle, non la loro natura: una mole di NaCl sciolta dà circa due moli di particelle, Na⁺ e Cl⁻; una mole di glucosio, una sola."
+          "Una goccia d’olio in un bicchiere d’acqua resta separata; qualche goccia di detersivo la divide in goccioline e, agitando, compare una schiuma di bolle sottilissime. Molecole che nessuno ha progettato si dispongono da sole in pellicole, sfere e sacchetti. Ogni cellula conosciuta è delimitata da una membrana di questo tipo, spessa pochi nanometri, che separa un interno chimicamente organizzato da un esterno indifferente.",
+          "Le molecole capaci di farlo sono anfifile: hanno una testa idrofila, che sta volentieri in acqua, e una o due code idrofobe, che l’acqua esclude. Gli acidi grassi hanno una coda sola; i fosfolipidi delle membrane moderne ne hanno due. Sopra una concentrazione critica si aggregano per effetto idrofobico: una coda sola favorisce le micelle, due code i doppi strati, che chiudendosi formano vescicole piene d’acqua."
         ],
         "advanced": [
-          "Una fetta di patata lasciata in acqua salata diventa molle; in acqua dolce resta soda. Un globulo rosso messo in acqua distillata si gonfia e scoppia. In entrambi i casi l’acqua attraversa una membrana spinta da una differenza di concentrazione: è l’osmosi, uno dei problemi quotidiani di ogni cellula.",
-          "L’osmosi è la diffusione dell’acqua attraverso una membrana semipermeabile, che lascia passare l’acqua e trattiene i soluti. L’acqua si muove dalla soluzione con meno particelle disciolte a quella con più particelle. Conta il numero di particelle, non la loro natura: una mole di NaCl sciolta dà circa due moli di particelle, Na⁺ e Cl⁻; una mole di glucosio, una sola."
+          "Una goccia d’olio in un bicchiere d’acqua resta separata; qualche goccia di detersivo la divide in goccioline e, agitando, compare una schiuma di bolle sottilissime. Molecole che nessuno ha progettato si dispongono da sole in pellicole, sfere e sacchetti. Ogni cellula conosciuta è delimitata da una membrana di questo tipo, spessa pochi nanometri, che separa un interno chimicamente organizzato da un esterno indifferente.",
+          "Le molecole capaci di farlo sono anfifile: hanno una testa idrofila, che sta volentieri in acqua, e una o due code idrofobe, che l’acqua esclude. Gli acidi grassi hanno una coda sola; i fosfolipidi delle membrane moderne ne hanno due. Sopra una concentrazione critica si aggregano per effetto idrofobico: una coda sola favorisce le micelle, due code i doppi strati, che chiudendosi formano vescicole piene d’acqua.",
+          "Per l’astrobiologia la domanda è come si siano formate le prime membrane, prima delle proteine e dei geni. Le molecole che la chimica prebiotica produce più facilmente sono acidi grassi corti, e anfifili capaci di formare vescicole si trovano anche nel meteorite di Murchison e nei ghiacci interstellari irradiati in laboratorio."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Pressione osmotica e tonicità",
+      "title": "Permeabilità, osmosi e protocellule",
       "text": {
         "base": [
-          "La pressione osmotica è la pressione che bisognerebbe applicare per fermare l’osmosi. Per soluzioni diluite vale la legge di van ’t Hoff: Π = i C R T, dove C è la concentrazione in mol/m³, i il numero di particelle per unità di formula, R = 8,314 J/(mol·K) e T la temperatura in kelvin. Per glucosio 0,10 mol/L, cioè 100 mol/m³, a 300 K: Π = 100 · 8,314 · 300 ≈ 249 kPa, circa 2,5 atm.",
-          "Una soluzione è isotonica rispetto a una cellula se ha la stessa concentrazione di particelle, ipotonica se ne ha meno, ipertonica se ne ha di più. Il plasma umano ha circa 290 mmol di particelle per litro, e la soluzione fisiologica allo 0,9% di NaCl, con circa 0,154 mol/L, ne ha circa 308: è quasi isotonica. In acqua distillata un globulo rosso si gonfia fino a rompersi; in una soluzione ipertonica si raggrinzisce.",
-          "Le cellule vegetali reagiscono in modo diverso grazie alla parete. In ambiente ipotonico l’acqua entra, il vacuolo si gonfia e preme contro la parete: è il turgore che tiene erette le foglie. In ambiente ipertonico la membrana si stacca dalla parete, un fenomeno detto plasmolisi, e la pianta appassisce. I protisti d’acqua dolce, come il paramecio, espellono l’acqua in eccesso con il vacuolo contrattile."
+          "Il passaggio passivo di una sostanza attraverso la membrana segue la legge di Fick, J = P Δc, dove P è il coefficiente di permeabilità. Per una vescicola sferica di raggio r, inizialmente vuota, la concentrazione interna cresce come c_int = c_est (1 − e^(−t/τ)), con τ = r/(3P): il tempo caratteristico è proporzionale al raggio.",
+          "Le permeabilità di un doppio strato fosfolipidico coprono circa nove ordini di grandezza: circa 2 · 10⁻³ cm/s per l’acqua, 10⁻¹⁰ cm/s per il glucosio, 10⁻¹² cm/s per lo ione sodio. In una vescicola di 50 nm di raggio l’acqua si equilibra in meno di un millisecondo, il glucosio in circa 4,6 ore, il sodio in circa 19 giorni. Le cellule moderne hanno bisogno di canali e trasportatori."
         ],
         "intermediate": [
-          "La pressione osmotica è la pressione che bisognerebbe applicare per fermare l’osmosi. Per soluzioni diluite vale la legge di van ’t Hoff: Π = i C R T, dove C è la concentrazione in mol/m³, i il numero di particelle per unità di formula, R = 8,314 J/(mol·K) e T la temperatura in kelvin. Per glucosio 0,10 mol/L, cioè 100 mol/m³, a 300 K: Π = 100 · 8,314 · 300 ≈ 249 kPa, circa 2,5 atm.",
-          "Una soluzione è isotonica rispetto a una cellula se ha la stessa concentrazione di particelle, ipotonica se ne ha meno, ipertonica se ne ha di più. Il plasma umano ha circa 290 mmol di particelle per litro, e la soluzione fisiologica allo 0,9% di NaCl, con circa 0,154 mol/L, ne ha circa 308: è quasi isotonica. In acqua distillata un globulo rosso si gonfia fino a rompersi; in una soluzione ipertonica si raggrinzisce.",
-          "Le cellule vegetali reagiscono in modo diverso grazie alla parete. In ambiente ipotonico l’acqua entra, il vacuolo si gonfia e preme contro la parete: è il turgore che tiene erette le foglie. In ambiente ipertonico la membrana si stacca dalla parete, un fenomeno detto plasmolisi, e la pianta appassisce. I protisti d’acqua dolce, come il paramecio, espellono l’acqua in eccesso con il vacuolo contrattile.",
-          "Applicando una pressione maggiore di quella osmotica si può costringere l’acqua a passare nel verso opposto: è l’osmosi inversa, usata per dissalare l’acqua di mare. La pressione osmotica dell’acqua di mare è di circa 27 atm, e gli impianti lavorano a pressioni ancora maggiori."
+          "Il passaggio passivo di una sostanza attraverso la membrana segue la legge di Fick, J = P Δc, dove P è il coefficiente di permeabilità. Per una vescicola sferica di raggio r, inizialmente vuota, la concentrazione interna cresce come c_int = c_est (1 − e^(−t/τ)), con τ = r/(3P): il tempo caratteristico è proporzionale al raggio.",
+          "Le permeabilità di un doppio strato fosfolipidico coprono circa nove ordini di grandezza: circa 2 · 10⁻³ cm/s per l’acqua, 10⁻¹⁰ cm/s per il glucosio, 10⁻¹² cm/s per lo ione sodio. In una vescicola di 50 nm di raggio l’acqua si equilibra in meno di un millisecondo, il glucosio in circa 4,6 ore, il sodio in circa 19 giorni. Le cellule moderne hanno bisogno di canali e trasportatori.",
+          "L’acqua si sposta verso il lato in cui è più concentrato il soluto incapace di attraversare la membrana; questo flusso è l’osmosi, con pressione osmotica Π = icRT. Per gli ioni conta anche il potenziale elettrico, e il potenziale di equilibrio è dato dall’equazione di Nernst, circa 61,5 mV per ogni fattore dieci di concentrazione a 37 °C."
         ],
         "advanced": [
-          "La pressione osmotica è la pressione che bisognerebbe applicare per fermare l’osmosi. Per soluzioni diluite vale la legge di van ’t Hoff: Π = i C R T, dove C è la concentrazione in mol/m³, i il numero di particelle per unità di formula, R = 8,314 J/(mol·K) e T la temperatura in kelvin. Per glucosio 0,10 mol/L, cioè 100 mol/m³, a 300 K: Π = 100 · 8,314 · 300 ≈ 249 kPa, circa 2,5 atm.",
-          "Una soluzione è isotonica rispetto a una cellula se ha la stessa concentrazione di particelle, ipotonica se ne ha meno, ipertonica se ne ha di più. Il plasma umano ha circa 290 mmol di particelle per litro, e la soluzione fisiologica allo 0,9% di NaCl, con circa 0,154 mol/L, ne ha circa 308: è quasi isotonica. In acqua distillata un globulo rosso si gonfia fino a rompersi; in una soluzione ipertonica si raggrinzisce.",
-          "Le cellule vegetali reagiscono in modo diverso grazie alla parete. In ambiente ipotonico l’acqua entra, il vacuolo si gonfia e preme contro la parete: è il turgore che tiene erette le foglie. In ambiente ipertonico la membrana si stacca dalla parete, un fenomeno detto plasmolisi, e la pianta appassisce. I protisti d’acqua dolce, come il paramecio, espellono l’acqua in eccesso con il vacuolo contrattile.",
-          "Applicando una pressione maggiore di quella osmotica si può costringere l’acqua a passare nel verso opposto: è l’osmosi inversa, usata per dissalare l’acqua di mare. La pressione osmotica dell’acqua di mare è di circa 27 atm, e gli impianti lavorano a pressioni ancora maggiori.",
-          "Il modello del programma calcola Π = C R T per un soluto che non si dissocia, in funzione della temperatura da 273 a 323 K, con C regolabile da 20 a 200 mol/m³: con C = 100 mol/m³ a 300 K vale circa 249 kPa."
+          "Il passaggio passivo di una sostanza attraverso la membrana segue la legge di Fick, J = P Δc, dove P è il coefficiente di permeabilità. Per una vescicola sferica di raggio r, inizialmente vuota, la concentrazione interna cresce come c_int = c_est (1 − e^(−t/τ)), con τ = r/(3P): il tempo caratteristico è proporzionale al raggio.",
+          "Le permeabilità di un doppio strato fosfolipidico coprono circa nove ordini di grandezza: circa 2 · 10⁻³ cm/s per l’acqua, 10⁻¹⁰ cm/s per il glucosio, 10⁻¹² cm/s per lo ione sodio. In una vescicola di 50 nm di raggio l’acqua si equilibra in meno di un millisecondo, il glucosio in circa 4,6 ore, il sodio in circa 19 giorni. Le cellule moderne hanno bisogno di canali e trasportatori.",
+          "L’acqua si sposta verso il lato in cui è più concentrato il soluto incapace di attraversare la membrana; questo flusso è l’osmosi, con pressione osmotica Π = icRT. Per gli ioni conta anche il potenziale elettrico, e il potenziale di equilibrio è dato dall’equazione di Nernst, circa 61,5 mV per ogni fattore dieci di concentrazione a 37 °C.",
+          "Le membrane di acidi grassi sono dinamiche e molto più permeabili di quelle fosfolipidiche: lasciano entrare nucleotidi e piccoli zuccheri, sopportano temperature vicine a 100 °C, crescono incorporando anfifili e si dividono per semplice agitazione. Sono però sensibili al sale e agli ioni bivalenti come il magnesio, e funzionano solo in un intervallo ristretto di pH, fra circa 6,8 e 7,8 per l’acido decanoico."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Problemi guidati",
+      "title": "Il laboratorio della vescicola",
       "text": {
         "base": [
-          "L’attività propone quattro problemi guidati: la pressione osmotica di una soluzione di glucosio; quella di una soluzione di sale alla temperatura corporea; il destino di un globulo rosso in una soluzione ipertonica; il motivo per cui la marmellata si conserva. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
-          "Converti le concentrazioni in mol/m³ moltiplicando per 1000 i valori in mol/L, e conta le particelle: un sale come NaCl ne dà due per unità di formula.",
-          "Il modello del programma calcola Π = C R T per un soluto che non si dissocia, in funzione della temperatura da 273 a 323 K, con C regolabile da 20 a 200 mol/m³: con C = 100 mol/m³ a 300 K vale circa 249 kPa."
+          "Nel laboratorio il grafico mostra la frazione di equilibrio c_int/c_est in funzione del tempo, da 0 a 24 ore, per una vescicola inizialmente vuota. Nella scheda «Regola» cambi il raggio r, da 25 a 500 nm, e la permeabilità P, da 0,1 a 10 in unità di 10⁻¹⁰ cm/s. Con i valori predefiniti, r = 50 nm e P = 1 · 10⁻¹⁰ cm/s, il caso del glucosio in una vescicola fosfolipidica, dopo un’ora la frazione vale circa 0,19.",
+          "Protocollo. Il programma confronta due tempi fissati, 6 e 12 ore. Con i valori predefiniti prevedi se la frazione cresce, diminuisce o resta uguale e salva A. Poi porta il raggio a 100 nm, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con r = 50 nm la frazione passa da circa 0,73 a 0,93; con r = 100 nm da circa 0,48 a 0,73. Raddoppiare il raggio raddoppia τ, e la vescicola grande ottiene in 12 ore ciò che la piccola ottiene in 6. Dividere P per dieci ha lo stesso effetto di moltiplicare r per dieci: conta solo il rapporto r/P."
         ],
         "intermediate": [
-          "L’attività propone quattro problemi guidati: la pressione osmotica di una soluzione di glucosio; quella di una soluzione di sale alla temperatura corporea; il destino di un globulo rosso in una soluzione ipertonica; il motivo per cui la marmellata si conserva. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
-          "Converti le concentrazioni in mol/m³ moltiplicando per 1000 i valori in mol/L, e conta le particelle: un sale come NaCl ne dà due per unità di formula.",
-          "Il modello del programma calcola Π = C R T per un soluto che non si dissocia, in funzione della temperatura da 273 a 323 K, con C regolabile da 20 a 200 mol/m³: con C = 100 mol/m³ a 300 K vale circa 249 kPa."
+          "Nel laboratorio il grafico mostra la frazione di equilibrio c_int/c_est in funzione del tempo, da 0 a 24 ore, per una vescicola inizialmente vuota. Nella scheda «Regola» cambi il raggio r, da 25 a 500 nm, e la permeabilità P, da 0,1 a 10 in unità di 10⁻¹⁰ cm/s. Con i valori predefiniti, r = 50 nm e P = 1 · 10⁻¹⁰ cm/s, il caso del glucosio in una vescicola fosfolipidica, dopo un’ora la frazione vale circa 0,19.",
+          "Protocollo. Il programma confronta due tempi fissati, 6 e 12 ore. Con i valori predefiniti prevedi se la frazione cresce, diminuisce o resta uguale e salva A. Poi porta il raggio a 100 nm, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con r = 50 nm la frazione passa da circa 0,73 a 0,93; con r = 100 nm da circa 0,48 a 0,73. Raddoppiare il raggio raddoppia τ, e la vescicola grande ottiene in 12 ore ciò che la piccola ottiene in 6. Dividere P per dieci ha lo stesso effetto di moltiplicare r per dieci: conta solo il rapporto r/P."
         ],
         "advanced": [
-          "L’attività propone quattro problemi guidati: la pressione osmotica di una soluzione di glucosio; quella di una soluzione di sale alla temperatura corporea; il destino di un globulo rosso in una soluzione ipertonica; il motivo per cui la marmellata si conserva. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
-          "Converti le concentrazioni in mol/m³ moltiplicando per 1000 i valori in mol/L, e conta le particelle: un sale come NaCl ne dà due per unità di formula."
+          "Nel laboratorio il grafico mostra la frazione di equilibrio c_int/c_est in funzione del tempo, da 0 a 24 ore, per una vescicola inizialmente vuota. Nella scheda «Regola» cambi il raggio r, da 25 a 500 nm, e la permeabilità P, da 0,1 a 10 in unità di 10⁻¹⁰ cm/s. Con i valori predefiniti, r = 50 nm e P = 1 · 10⁻¹⁰ cm/s, il caso del glucosio in una vescicola fosfolipidica, dopo un’ora la frazione vale circa 0,19.",
+          "Protocollo. Il programma confronta due tempi fissati, 6 e 12 ore. Con i valori predefiniti prevedi se la frazione cresce, diminuisce o resta uguale e salva A. Poi porta il raggio a 100 nm, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con r = 50 nm la frazione passa da circa 0,73 a 0,93; con r = 100 nm da circa 0,48 a 0,73. Raddoppiare il raggio raddoppia τ, e la vescicola grande ottiene in 12 ore ciò che la piccola ottiene in 6. Dividere P per dieci ha lo stesso effetto di moltiplicare r per dieci: conta solo il rapporto r/P.",
+          "Una prova a casa: un uovo crudo lasciato un giorno nell’aceto perde il guscio di carbonato di calcio e resta avvolto dalla sola membrana. In acqua si gonfia, in uno sciroppo di zucchero si affloscia: la membrana lascia passare l’acqua e trattiene lo zucchero."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Errori frequenti",
+      "title": "Errori e scale molecolari",
       "text": {
         "base": [
-          "Errore frequente: pensare che nell’osmosi si muova il soluto. Il soluto non attraversa la membrana; è l’acqua a spostarsi verso la soluzione più concentrata.",
-          "Secondo errore: confrontare le concentrazioni in grammi. Due soluzioni con la stessa massa di soluto per litro possono avere pressioni osmotiche molto diverse se le masse molari o il numero di particelle sono diversi.",
-          "Applicando una pressione maggiore di quella osmotica si può costringere l’acqua a passare nel verso opposto: è l’osmosi inversa, usata per dissalare l’acqua di mare. La pressione osmotica dell’acqua di mare è di circa 27 atm, e gli impianti lavorano a pressioni ancora maggiori."
+          "Errore frequente: confondere micella e vescicola. Una micella non ha acqua all’interno e non può contenere molecole polari come l’RNA; il compartimento di una protocellula è una vescicola, un doppio strato chiuso che racchiude un volume d’acqua.",
+          "Secondo errore: pensare che la membrana blocchi l’acqua. Un doppio strato è una barriera per gli ioni e per le molecole polari grandi; l’acqua lo attraversa in millisecondi anche senza canali. Per questo una cellula senza parete reagisce subito alle differenze di concentrazione, e una vescicola portata in acqua di mare si sgonfia."
         ],
         "intermediate": [
-          "Errore frequente: pensare che nell’osmosi si muova il soluto. Il soluto non attraversa la membrana; è l’acqua a spostarsi verso la soluzione più concentrata.",
-          "Secondo errore: confrontare le concentrazioni in grammi. Due soluzioni con la stessa massa di soluto per litro possono avere pressioni osmotiche molto diverse se le masse molari o il numero di particelle sono diversi.",
-          "Applicando una pressione maggiore di quella osmotica si può costringere l’acqua a passare nel verso opposto: è l’osmosi inversa, usata per dissalare l’acqua di mare. La pressione osmotica dell’acqua di mare è di circa 27 atm, e gli impianti lavorano a pressioni ancora maggiori."
+          "Errore frequente: confondere micella e vescicola. Una micella non ha acqua all’interno e non può contenere molecole polari come l’RNA; il compartimento di una protocellula è una vescicola, un doppio strato chiuso che racchiude un volume d’acqua.",
+          "Secondo errore: pensare che la membrana blocchi l’acqua. Un doppio strato è una barriera per gli ioni e per le molecole polari grandi; l’acqua lo attraversa in millisecondi anche senza canali. Per questo una cellula senza parete reagisce subito alle differenze di concentrazione, e una vescicola portata in acqua di mare si sgonfia.",
+          "In una vescicola di cento nanometri una concentrazione di 1 μM corrisponde in media a un quarto di molecola: a queste scale si ragiona con il numero di molecole e con la statistica di Poisson. Per incapsulare almeno una copia di un RNA raro servono concentrazioni alte o vescicole grandi."
         ],
         "advanced": [
-          "Errore frequente: pensare che nell’osmosi si muova il soluto. Il soluto non attraversa la membrana; è l’acqua a spostarsi verso la soluzione più concentrata.",
-          "Secondo errore: confrontare le concentrazioni in grammi. Due soluzioni con la stessa massa di soluto per litro possono avere pressioni osmotiche molto diverse se le masse molari o il numero di particelle sono diversi.",
-          "Il modello del programma calcola Π = C R T per un soluto che non si dissocia, in funzione della temperatura da 273 a 323 K, con C regolabile da 20 a 200 mol/m³: con C = 100 mol/m³ a 300 K vale circa 249 kPa."
+          "Errore frequente: confondere micella e vescicola. Una micella non ha acqua all’interno e non può contenere molecole polari come l’RNA; il compartimento di una protocellula è una vescicola, un doppio strato chiuso che racchiude un volume d’acqua.",
+          "Secondo errore: pensare che la membrana blocchi l’acqua. Un doppio strato è una barriera per gli ioni e per le molecole polari grandi; l’acqua lo attraversa in millisecondi anche senza canali. Per questo una cellula senza parete reagisce subito alle differenze di concentrazione, e una vescicola portata in acqua di mare si sgonfia.",
+          "In una vescicola di cento nanometri una concentrazione di 1 μM corrisponde in media a un quarto di molecola: a queste scale si ragiona con il numero di molecole e con la statistica di Poisson. Per incapsulare almeno una copia di un RNA raro servono concentrazioni alte o vescicole grandi.",
+          "Batteri ed eucarioti da una parte, archei dall’altra, costruiscono i lipidi delle membrane in modi diversi: esteri di catene lineari sul glicerolo-3-fosfato i primi, eteri di catene ramificate sul glicerolo-1-fosfato i secondi. Il divario suggerisce che l’ultimo antenato comune avesse una membrana diversa da entrambe, forse più permeabile."
         ]
       }
     },
@@ -137,19 +143,19 @@
       "title": "Verifica",
       "text": {
         "base": [
-          "Ripasso: osmosi e membrane semipermeabili; conteggio delle particelle; legge di van ’t Hoff; soluzioni isotoniche, ipotoniche e ipertoniche; turgore e plasmolisi; osmosi inversa.",
-          "Mini esercizio: saccarosio 0,20 mol/L a 300 K. Π = 200 · 8,314 · 300 ≈ 499 kPa, il doppio del glucosio 0,10 mol/L.",
-          "Nelle domande sull’osmosi chiediti prima da quale parte ci sono più particelle disciolte."
+          "Ripasso: anfifili e aggregati; concentrazione critica; doppio strato e mosaico fluido; legge di Fick e τ = r/(3P); osmosi e Π = icRT; equazione di Nernst; vescicole di acidi grassi, crescita e divisione; ambienti delle prime protocellule.",
+          "Mini esercizio: in una vescicola di raggio 50 nm, con P = 10⁻¹⁰ cm/s, τ = r/(3P) vale circa 1,7 · 10⁴ s, cioè circa 4,6 ore.",
+          "Nelle domande sulla permeabilità ricorda che τ cresce con il raggio e diminuisce con la permeabilità."
         ],
         "intermediate": [
-          "Ripasso: osmosi e membrane semipermeabili; conteggio delle particelle; legge di van ’t Hoff; soluzioni isotoniche, ipotoniche e ipertoniche; turgore e plasmolisi; osmosi inversa.",
-          "Mini esercizio: saccarosio 0,20 mol/L a 300 K. Π = 200 · 8,314 · 300 ≈ 499 kPa, il doppio del glucosio 0,10 mol/L.",
-          "Nelle domande sull’osmosi chiediti prima da quale parte ci sono più particelle disciolte."
+          "Ripasso: anfifili e aggregati; concentrazione critica; doppio strato e mosaico fluido; legge di Fick e τ = r/(3P); osmosi e Π = icRT; equazione di Nernst; vescicole di acidi grassi, crescita e divisione; ambienti delle prime protocellule.",
+          "Mini esercizio: in una vescicola di raggio 50 nm, con P = 10⁻¹⁰ cm/s, τ = r/(3P) vale circa 1,7 · 10⁴ s, cioè circa 4,6 ore.",
+          "Nelle domande sulla permeabilità ricorda che τ cresce con il raggio e diminuisce con la permeabilità."
         ],
         "advanced": [
-          "Ripasso: osmosi e membrane semipermeabili; conteggio delle particelle; legge di van ’t Hoff; soluzioni isotoniche, ipotoniche e ipertoniche; turgore e plasmolisi; osmosi inversa.",
-          "Mini esercizio: saccarosio 0,20 mol/L a 300 K. Π = 200 · 8,314 · 300 ≈ 499 kPa, il doppio del glucosio 0,10 mol/L.",
-          "Nelle domande sull’osmosi chiediti prima da quale parte ci sono più particelle disciolte."
+          "Ripasso: anfifili e aggregati; concentrazione critica; doppio strato e mosaico fluido; legge di Fick e τ = r/(3P); osmosi e Π = icRT; equazione di Nernst; vescicole di acidi grassi, crescita e divisione; ambienti delle prime protocellule.",
+          "Mini esercizio: in una vescicola di raggio 50 nm, con P = 10⁻¹⁰ cm/s, τ = r/(3P) vale circa 1,7 · 10⁴ s, cioè circa 4,6 ore.",
+          "Nelle domande sulla permeabilità ricorda che τ cresce con il raggio e diminuisce con la permeabilità."
         ]
       }
     },
@@ -158,19 +164,19 @@
       "title": "Collegamenti",
       "text": {
         "base": [
-          "La concentrazione e la molarità sono state introdotte nell’unità di chimica «Soluzioni e concentrazione». In biologia si passa a «Enzimi e saturazione», dove le molecole non attraversano la membrana ma reagiscono.",
-          "Riepilogo dell’unità: nell’osmosi l’acqua passa verso la soluzione con più particelle; Π = i C R T; il plasma ha circa 290 mmol di particelle per litro; in ambiente ipotonico le cellule animali si gonfiano e quelle vegetali diventano turgide, in ambiente ipertonico si raggrinziscono o vanno in plasmolisi.",
-          "Nel diario spiega perché bere acqua di mare non disseta, usando la parola osmosi."
+          "Le forze intermolecolari che fanno aggregare gli anfifili sono il tema dell’unità di chimica «Forze intermolecolari», le concentrazioni di «Soluzioni e concentrazione». In biologia il percorso prosegue con gli elementi e le molecole della vita nello spazio e con il mondo a RNA, che una protocellula dovrebbe racchiudere.",
+          "Riepilogo dell’unità: gli anfifili si aggregano sopra una concentrazione critica; due code formano doppi strati e vescicole; il passaggio passivo segue J = P Δc e τ = r/(3P); l’osmosi sposta l’acqua verso il soluto che non passa; le vescicole di acidi grassi crescono, si dividono e competono, e sono un modello plausibile delle prime protocellule.",
+          "Nel diario registra A e B con le previsioni e spiega perché una protocellula con membrana di acidi grassi poteva nutrirsi di nucleotidi senza proteine di trasporto."
         ],
         "intermediate": [
-          "La concentrazione e la molarità sono state introdotte nell’unità di chimica «Soluzioni e concentrazione». In biologia si passa a «Enzimi e saturazione», dove le molecole non attraversano la membrana ma reagiscono.",
-          "Riepilogo dell’unità: nell’osmosi l’acqua passa verso la soluzione con più particelle; Π = i C R T; il plasma ha circa 290 mmol di particelle per litro; in ambiente ipotonico le cellule animali si gonfiano e quelle vegetali diventano turgide, in ambiente ipertonico si raggrinziscono o vanno in plasmolisi.",
-          "Nel diario spiega perché bere acqua di mare non disseta, usando la parola osmosi."
+          "Le forze intermolecolari che fanno aggregare gli anfifili sono il tema dell’unità di chimica «Forze intermolecolari», le concentrazioni di «Soluzioni e concentrazione». In biologia il percorso prosegue con gli elementi e le molecole della vita nello spazio e con il mondo a RNA, che una protocellula dovrebbe racchiudere.",
+          "Riepilogo dell’unità: gli anfifili si aggregano sopra una concentrazione critica; due code formano doppi strati e vescicole; il passaggio passivo segue J = P Δc e τ = r/(3P); l’osmosi sposta l’acqua verso il soluto che non passa; le vescicole di acidi grassi crescono, si dividono e competono, e sono un modello plausibile delle prime protocellule.",
+          "Nel diario registra A e B con le previsioni e spiega perché una protocellula con membrana di acidi grassi poteva nutrirsi di nucleotidi senza proteine di trasporto."
         ],
         "advanced": [
-          "La concentrazione e la molarità sono state introdotte nell’unità di chimica «Soluzioni e concentrazione». In biologia si passa a «Enzimi e saturazione», dove le molecole non attraversano la membrana ma reagiscono.",
-          "Riepilogo dell’unità: nell’osmosi l’acqua passa verso la soluzione con più particelle; Π = i C R T; il plasma ha circa 290 mmol di particelle per litro; in ambiente ipotonico le cellule animali si gonfiano e quelle vegetali diventano turgide, in ambiente ipertonico si raggrinziscono o vanno in plasmolisi.",
-          "Nel diario spiega perché bere acqua di mare non disseta, usando la parola osmosi."
+          "Le forze intermolecolari che fanno aggregare gli anfifili sono il tema dell’unità di chimica «Forze intermolecolari», le concentrazioni di «Soluzioni e concentrazione». In biologia il percorso prosegue con gli elementi e le molecole della vita nello spazio e con il mondo a RNA, che una protocellula dovrebbe racchiudere.",
+          "Riepilogo dell’unità: gli anfifili si aggregano sopra una concentrazione critica; due code formano doppi strati e vescicole; il passaggio passivo segue J = P Δc e τ = r/(3P); l’osmosi sposta l’acqua verso il soluto che non passa; le vescicole di acidi grassi crescono, si dividono e competono, e sono un modello plausibile delle prime protocellule.",
+          "Nel diario registra A e B con le previsioni e spiega perché una protocellula con membrana di acidi grassi poteva nutrirsi di nucleotidi senza proteine di trasporto."
         ]
       }
     }
@@ -178,416 +184,165 @@
   "questions": [
     {
       "id": "biology-03-q1",
-      "prompt": "In che direzione si sposta l’acqua nell’osmosi?",
+      "prompt": "Quale aggregato può racchiudere molecole di RNA disciolte in acqua?",
       "options": [
         {
           "id": "A",
-          "text": "Verso la soluzione con meno particelle disciolte",
-          "feedback": "L’acqua va nel verso opposto, dove le particelle sono di più."
+          "text": "Una micella",
+          "feedback": "L’interno di una micella è fatto di sole code idrofobe, senza acqua."
         },
         {
           "id": "B",
-          "text": "Verso la soluzione con più particelle disciolte",
-          "feedback": "Esatto: tende a diluire la soluzione più concentrata."
+          "text": "Una goccia d’olio",
+          "feedback": "Una goccia d’olio esclude le molecole polari come l’RNA."
         },
         {
           "id": "C",
-          "text": "Sempre verso l’interno della cellula",
-          "feedback": "Dipende dalla concentrazione esterna: può anche uscire."
+          "text": "Una vescicola",
+          "feedback": "Esatto: un doppio strato chiuso racchiude un volume d’acqua in cui l’RNA resta disciolto."
         },
         {
           "id": "D",
-          "text": "Non si sposta, si spostano i soluti",
-          "feedback": "La membrana semipermeabile trattiene i soluti."
+          "text": "Un monostrato sulla superficie dell’acqua",
+          "feedback": "Un monostrato separa l’acqua dall’aria e non chiude alcun volume."
         }
       ],
-      "correct": "B"
+      "correct": "C"
     },
     {
       "id": "biology-03-q2",
-      "prompt": "Che cosa succede a un globulo rosso in acqua distillata?",
+      "prompt": "Se il raggio di una vescicola raddoppia e la permeabilità resta uguale, il tempo caratteristico τ = r/(3P):",
       "options": [
         {
           "id": "A",
-          "text": "Si gonfia e può scoppiare",
-          "feedback": "Esatto: l’acqua distillata è ipotonica e l’acqua entra."
+          "text": "Raddoppia",
+          "feedback": "Esatto: τ è proporzionale al raggio, cioè al rapporto fra volume e superficie."
         },
         {
           "id": "B",
-          "text": "Si raggrinzisce",
-          "feedback": "Questo accade in una soluzione ipertonica."
+          "text": "Si dimezza",
+          "feedback": "Una vescicola più grande ha più volume da riempire per ogni unità di superficie."
         },
         {
           "id": "C",
-          "text": "Non cambia",
-          "feedback": "L’acqua distillata non è isotonica con il plasma."
+          "text": "Quadruplica",
+          "feedback": "Il quadrato del raggio compare nella superficie, che si semplifica con il volume."
         },
         {
           "id": "D",
-          "text": "Va in plasmolisi",
-          "feedback": "La plasmolisi riguarda le cellule con parete, come quelle vegetali."
+          "text": "Resta uguale",
+          "feedback": "Il raggio compare esplicitamente nella formula di τ."
         }
       ],
       "correct": "A"
     },
     {
       "id": "biology-03-q3",
-      "prompt": "Qual è la pressione osmotica di glucosio 0,10 mol/L a 300 K?",
+      "prompt": "Una vescicola fosfolipidica è portata dall’acqua dolce in acqua di mare. Che cosa accade per primo?",
       "options": [
         {
           "id": "A",
-          "text": "Circa 0,25 kPa",
-          "feedback": "La concentrazione va in mol/m³: 0,10 mol/L sono 100 mol/m³."
+          "text": "Entra il sale e la vescicola si gonfia",
+          "feedback": "Il sale attraversa il doppio strato in tempi lunghissimi."
         },
         {
           "id": "B",
-          "text": "Circa 2,5 kPa",
-          "feedback": "Hai perso un fattore 100 nella conversione delle unità."
+          "text": "Esce l’acqua e la vescicola si sgonfia",
+          "feedback": "Esatto: l’acqua passa in millisecondi verso il lato più concentrato."
         },
         {
           "id": "C",
-          "text": "Circa 249 kPa",
-          "feedback": "Esatto: Π = C R T = 100 · 8,314 · 300 Pa."
+          "text": "Non accade nulla",
+          "feedback": "La differenza di concentrazione produce subito un flusso osmotico d’acqua."
         },
         {
           "id": "D",
-          "text": "Circa 498 kPa",
-          "feedback": "Il glucosio non si dissocia: i = 1."
-        }
-      ],
-      "correct": "C"
-    },
-    {
-      "id": "biology-03-q4",
-      "prompt": "Perché NaCl 0,15 mol/L ha una pressione osmotica circa doppia di glucosio 0,15 mol/L?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Perché il sale è più pesante",
-          "feedback": "Conta il numero di particelle, non la massa."
-        },
-        {
-          "id": "B",
-          "text": "Perché il sale è più solubile",
-          "feedback": "La solubilità non cambia la pressione osmotica a parità di particelle."
-        },
-        {
-          "id": "C",
-          "text": "Perché il sale scalda la soluzione",
-          "feedback": "Lo scioglimento del sale cambia la temperatura di poco."
-        },
-        {
-          "id": "D",
-          "text": "Perché ogni unità di NaCl dà due ioni",
-          "feedback": "Esatto: Na⁺ e Cl⁻ contano come due particelle."
-        }
-      ],
-      "correct": "D"
-    },
-    {
-      "id": "biology-03-q5",
-      "prompt": "Che cosa accade a una cellula vegetale in una soluzione ipertonica?",
-      "options": [
-        {
-          "id": "A",
-          "text": "La membrana si stacca dalla parete",
-          "feedback": "Esatto: è la plasmolisi, e la pianta appassisce."
-        },
-        {
-          "id": "B",
-          "text": "La parete si rompe",
-          "feedback": "La parete è rigida e resiste; è il contenuto a ritirarsi."
-        },
-        {
-          "id": "C",
-          "text": "Diventa più turgida",
-          "feedback": "Il turgore aumenta in ambiente ipotonico."
-        },
-        {
-          "id": "D",
-          "text": "Assorbe sale fino a scoppiare",
-          "feedback": "In ambiente ipertonico l’acqua esce, non entra."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-03-q6",
-      "prompt": "A che cosa serve il vacuolo contrattile di un paramecio d’acqua dolce?",
-      "options": [
-        {
-          "id": "A",
-          "text": "A digerire il cibo",
-          "feedback": "La digestione avviene nei vacuoli alimentari."
-        },
-        {
-          "id": "B",
-          "text": "A espellere l’acqua che entra per osmosi",
-          "feedback": "Esatto: l’acqua dolce è ipotonica rispetto alla cellula."
-        },
-        {
-          "id": "C",
-          "text": "A immagazzinare sale",
-          "feedback": "Il paramecio deve liberarsi dell’acqua in eccesso, non accumulare sale."
-        },
-        {
-          "id": "D",
-          "text": "A muoversi",
-          "feedback": "Il paramecio si muove con le ciglia."
+          "text": "La membrana si dissolve in micelle",
+          "feedback": "I fosfolipidi hanno una concentrazione critica bassissima: il doppio strato resta."
         }
       ],
       "correct": "B"
+    },
+    {
+      "id": "biology-03-q4",
+      "prompt": "Quale pressione osmotica ha una soluzione di glucosio 50 mM a 25 °C rispetto all’acqua pura?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Circa 12 kPa",
+          "feedback": "Hai probabilmente usato la concentrazione in mol/L invece che in mol/m³: manca un fattore 10."
+        },
+        {
+          "id": "B",
+          "text": "Circa 124 kPa",
+          "feedback": "Esatto: Π = cRT = 50 · 8,314 · 298 Pa, circa 1,2 atmosfere."
+        },
+        {
+          "id": "C",
+          "text": "Circa 1240 kPa",
+          "feedback": "Con 50 mol/m³ il prodotto cRT vale circa 1,24 · 10⁵ Pa, non dieci volte di più."
+        },
+        {
+          "id": "D",
+          "text": "Circa 248 kPa",
+          "feedback": "Il glucosio resta indissociato in soluzione, e il fattore i vale 1, non 2."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-03-q5",
+      "prompt": "Perché le prime membrane erano probabilmente fatte di acidi grassi invece che di fosfolipidi?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché gli acidi grassi sono più stabili dei fosfolipidi in ogni condizione",
+          "feedback": "Le vescicole di acidi grassi sono anzi più sensibili al sale e al pH."
+        },
+        {
+          "id": "B",
+          "text": "Perché si formano più facilmente e lasciano entrare nucleotidi senza trasportatori",
+          "feedback": "Esatto: una protocellula eterotrofa poteva nutrirsi senza proteine di trasporto."
+        },
+        {
+          "id": "C",
+          "text": "Perché i fosfolipidi non formano vescicole",
+          "feedback": "I fosfolipidi formano vescicole stabilissime, i liposomi."
+        },
+        {
+          "id": "D",
+          "text": "Perché gli acidi grassi sono impermeabili agli ioni",
+          "feedback": "Sono più permeabili dei fosfolipidi, non meno."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-03-q6",
+      "prompt": "Una vescicola di 100 nm di diametro ha un volume interno di circa 4 · 10⁻¹⁹ L. Se una molecola è presente alla concentrazione di 1 μM, quante copie contiene in media?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Circa una ogni quattro vescicole",
+          "feedback": "Esatto: il prodotto della concentrazione, del volume e del numero di Avogadro vale circa 0,25."
+        },
+        {
+          "id": "B",
+          "text": "Circa mille",
+          "feedback": "Mille copie richiederebbero una concentrazione circa quattromila volte più alta."
+        },
+        {
+          "id": "C",
+          "text": "Esattamente una",
+          "feedback": "Le molecole si distribuiscono a caso: il numero medio è circa 0,25."
+        },
+        {
+          "id": "D",
+          "text": "Circa sei milioni",
+          "feedback": "Il numero di Avogadro va moltiplicato per un volume minuscolo, circa 4 · 10⁻¹⁹ L."
+        }
+      ],
+      "correct": "A"
     }
-  ],
-  "activity": {
-    "kind": "steps",
-    "goal": 3,
-    "problems": [
-      {
-        "id": "glucosio",
-        "title": "Glucosio a 300 K",
-        "text": "Qual è la pressione osmotica di una soluzione di glucosio 0,10 mol/L a 300 K? R = 8,314 J/(mol·K).",
-        "maxErrors": 1,
-        "explain": "Il glucosio non si dissocia: Π = C R T con C in mol/m³.",
-        "steps": [
-          {
-            "prompt": "Concentrazione in mol/m³?",
-            "options": [
-              {
-                "text": "100 mol/m³",
-                "feedback": "Giusto: un metro cubo contiene 1000 litri."
-              },
-              {
-                "text": "0,10 mol/m³",
-                "feedback": "Un metro cubo contiene mille litri: il numero cresce."
-              },
-              {
-                "text": "0,0001 mol/m³",
-                "feedback": "Hai diviso invece di moltiplicare per 1000."
-              }
-            ],
-            "correct": 0,
-            "result": "C = 100 mol/m³."
-          },
-          {
-            "prompt": "Pressione osmotica?",
-            "options": [
-              {
-                "text": "Circa 249 kPa",
-                "feedback": "Giusto: 100 · 8,314 · 300 ≈ 249 400 Pa."
-              },
-              {
-                "text": "Circa 2,49 kPa",
-                "feedback": "Ricontrolla le unità: il risultato è in pascal, circa 249 000."
-              },
-              {
-                "text": "Circa 498 kPa",
-                "feedback": "Il glucosio dà una sola particella per molecola."
-              }
-            ],
-            "correct": 0,
-            "result": "Π ≈ 249 kPa, circa 2,5 atm."
-          }
-        ]
-      },
-      {
-        "id": "sale",
-        "title": "Sale a temperatura corporea",
-        "text": "Qual è la pressione osmotica di NaCl 0,15 mol/L a 310 K?",
-        "maxErrors": 1,
-        "explain": "Il sale si dissocia in due ioni: si contano le particelle.",
-        "steps": [
-          {
-            "prompt": "Particelle per unità di NaCl?",
-            "options": [
-              {
-                "text": "2",
-                "feedback": "Giusto: Na⁺ e Cl⁻."
-              },
-              {
-                "text": "1",
-                "feedback": "In acqua il sale si separa in ioni."
-              },
-              {
-                "text": "3",
-                "feedback": "NaCl contiene un catione e un anione soltanto."
-              }
-            ],
-            "correct": 0,
-            "result": "i = 2."
-          },
-          {
-            "prompt": "Concentrazione di particelle?",
-            "options": [
-              {
-                "text": "300 mol/m³",
-                "feedback": "Giusto: 2 · 0,15 mol/L = 0,30 mol/L."
-              },
-              {
-                "text": "150 mol/m³",
-                "feedback": "Bisogna moltiplicare per il numero di particelle."
-              },
-              {
-                "text": "0,30 mol/m³",
-                "feedback": "Converti in mol/m³ moltiplicando per 1000."
-              }
-            ],
-            "correct": 0,
-            "result": "Particelle: 300 mol/m³."
-          },
-          {
-            "prompt": "Pressione osmotica?",
-            "options": [
-              {
-                "text": "Circa 773 kPa",
-                "feedback": "Giusto: 300 · 8,314 · 310 Pa, circa 7,6 atm."
-              },
-              {
-                "text": "Circa 387 kPa",
-                "feedback": "Questo valore vale per una sola particella per unità."
-              },
-              {
-                "text": "Circa 77 kPa",
-                "feedback": "Hai sbagliato di un fattore 10 nel prodotto."
-              }
-            ],
-            "correct": 0,
-            "result": "Π ≈ 773 kPa: valore vicino a quello del plasma."
-          }
-        ]
-      },
-      {
-        "id": "globulo",
-        "title": "Un globulo rosso in acqua salata",
-        "text": "Un globulo rosso, con circa 0,29 osmol/L, viene messo in una soluzione con 0,50 osmol/L. Che cosa succede?",
-        "maxErrors": 1,
-        "explain": "L’acqua va verso la soluzione con più particelle.",
-        "steps": [
-          {
-            "prompt": "Com’è la soluzione rispetto alla cellula?",
-            "options": [
-              {
-                "text": "Ipertonica",
-                "feedback": "Giusto: ha più particelle disciolte."
-              },
-              {
-                "text": "Ipotonica",
-                "feedback": "Ipotonica avrebbe meno particelle della cellula."
-              },
-              {
-                "text": "Isotonica",
-                "feedback": "Le due concentrazioni sono diverse."
-              }
-            ],
-            "correct": 0,
-            "result": "La soluzione è ipertonica."
-          },
-          {
-            "prompt": "In che verso si muove l’acqua?",
-            "options": [
-              {
-                "text": "Dalla cellula verso l’esterno",
-                "feedback": "Giusto: va dove le particelle sono di più."
-              },
-              {
-                "text": "Dall’esterno verso la cellula",
-                "feedback": "Questo accade in ambiente ipotonico."
-              },
-              {
-                "text": "Non si muove",
-                "feedback": "Le concentrazioni sono diverse: c’è un flusso netto."
-              }
-            ],
-            "correct": 0,
-            "result": "L’acqua esce dalla cellula."
-          },
-          {
-            "prompt": "Che cosa si osserva?",
-            "options": [
-              {
-                "text": "La cellula si raggrinzisce",
-                "feedback": "Giusto: perde acqua e volume."
-              },
-              {
-                "text": "La cellula scoppia",
-                "feedback": "Scoppia in ambiente ipotonico."
-              },
-              {
-                "text": "La cellula va in plasmolisi",
-                "feedback": "La plasmolisi richiede una parete, che il globulo rosso non ha."
-              }
-            ],
-            "correct": 0,
-            "result": "Il globulo rosso si raggrinzisce."
-          }
-        ]
-      },
-      {
-        "id": "marmellata",
-        "title": "Perché la marmellata si conserva",
-        "text": "Una marmellata contiene circa il 60% di zucchero. Perché i batteri non vi crescono?",
-        "maxErrors": 1,
-        "explain": "Una soluzione così concentrata sottrae acqua alle cellule.",
-        "steps": [
-          {
-            "prompt": "Com’è la marmellata rispetto a un batterio?",
-            "options": [
-              {
-                "text": "Fortemente ipertonica",
-                "feedback": "Giusto: lo zucchero disciolto è moltissimo."
-              },
-              {
-                "text": "Ipotonica",
-                "feedback": "La concentrazione di zucchero è molto più alta di quella interna."
-              },
-              {
-                "text": "Isotonica",
-                "feedback": "Una soluzione al 60% è molto più concentrata di una cellula."
-              }
-            ],
-            "correct": 0,
-            "result": "La marmellata è ipertonica."
-          },
-          {
-            "prompt": "Che cosa succede all’acqua del batterio?",
-            "options": [
-              {
-                "text": "Esce per osmosi",
-                "feedback": "Giusto: il batterio si disidrata."
-              },
-              {
-                "text": "Entra per osmosi",
-                "feedback": "L’acqua va verso la soluzione più concentrata, fuori."
-              },
-              {
-                "text": "Viene trasformata in zucchero",
-                "feedback": "Il batterio non ha il tempo né le condizioni per farlo."
-              }
-            ],
-            "correct": 0,
-            "result": "Il batterio perde acqua."
-          },
-          {
-            "prompt": "Perché non cresce?",
-            "options": [
-              {
-                "text": "Senza acqua sufficiente il metabolismo si ferma",
-                "feedback": "Giusto: lo stesso principio conserva il cibo sotto sale."
-              },
-              {
-                "text": "Lo zucchero è velenoso per i batteri",
-                "feedback": "Molti batteri si nutrono di zucchero, se è diluito."
-              },
-              {
-                "text": "La marmellata è troppo acida",
-                "feedback": "L’acidità aiuta, ma il fattore principale è la disidratazione."
-              }
-            ],
-            "correct": 0,
-            "result": "L’alta concentrazione di zucchero conserva la marmellata, come il sale conserva il baccalà."
-          }
-        ]
-      }
-    ]
-  }
+  ]
 }

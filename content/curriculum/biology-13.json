@@ -2,88 +2,95 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-13",
-  "title": "Selezione naturale",
+  "title": "Ereditarietà e selezione naturale",
   "sector": 3,
   "modelId": "biology-13",
   "coverage": "guided-lab",
   "editorialStatus": "hand-written-draft",
-  "scope": "Ragionamento di Darwin e Wallace, fitness, coefficiente di selezione, modello di una generazione, tipi di selezione",
-  "narrativeStatus": "Il caso della falena delle betulle e le date storiche sono reali; il modello è una semplificazione.",
+  "scope": "Leggi di Mendel e loro base molecolare, test del chi quadrato, frequenze alleliche ed equilibrio di Hardy-Weinberg, fitness e coefficiente di selezione, dinamica della selezione aploide, selezione nei diploidi e vantaggio dell’eterozigote, selezione osservata e in laboratorio, evoluzione darwiniana come definizione di vita",
+  "narrativeStatus": "I dati di Mendel e gli esempi di selezione sono pubblicati; il modello descrive una selezione aploide con vantaggio costante in una popolazione infinita.",
   "objectives": [
-    "Ricostruire il ragionamento della selezione naturale.",
-    "Definire fitness relativa e coefficiente di selezione.",
-    "Usare il modello p′ = p(1 + s)/(1 + sp).",
-    "Distinguere i tipi di selezione."
+    "Usare le leggi di Mendel e il test del chi quadrato.",
+    "Calcolare frequenze genotipiche di Hardy-Weinberg.",
+    "Usare p′ = p(1 + s)/(1 + sp) e calcolare tempi di diffusione.",
+    "Spiegare il vantaggio dell’eterozigote e il ruolo della selezione nella definizione di vita."
   ],
   "prerequisites": [
     "biology-12"
   ],
   "connections": [
-    "biology-14"
+    "math-c06",
+    "math-c10"
   ],
   "sources": [
-    "biology"
+    "biology",
+    "statistics"
   ],
   "originalSource": null,
   "glossary": [
     {
-      "term": "Selezione naturale",
-      "definition": "Riproduzione differenziale di individui con varianti ereditarie diverse."
+      "term": "Allele",
+      "definition": "Ciascuna delle forme alternative di un gene."
     },
     {
-      "term": "Fitness",
-      "definition": "Successo riproduttivo di una variante, di solito misurato rispetto alle altre."
+      "term": "Fitness relativa",
+      "definition": "Successo riproduttivo di un genotipo rispetto a un genotipo di riferimento."
     },
     {
       "term": "Coefficiente di selezione",
-      "definition": "Vantaggio relativo s di una variante."
+      "definition": "Differenza fra la fitness relativa di una variante e quella di riferimento."
     },
     {
-      "term": "Selezione stabilizzante",
-      "definition": "Selezione che favorisce i valori intermedi di un carattere."
+      "term": "Hardy-Weinberg",
+      "definition": "Equilibrio p², 2pq, q² di una popolazione senza forze evolutive."
     },
     {
-      "term": "Selezione sessuale",
-      "definition": "Selezione dei caratteri che aumentano il successo nell’accoppiamento."
+      "term": "Eterozigote",
+      "definition": "Individuo con due alleli diversi di un gene."
+    },
+    {
+      "term": "Vantaggio dell’eterozigote",
+      "definition": "Fitness dell’eterozigote maggiore di quella di entrambi gli omozigoti."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Le falene di Manchester",
+      "title": "Darwin e Mendel",
       "text": {
         "base": [
-          "Intorno a Manchester, nell’Ottocento, la falena delle betulle era quasi sempre chiara e si mimetizzava sui tronchi coperti di licheni. La prima forma scura fu registrata nel 1848; alla fine del secolo, con i tronchi anneriti dalla fuliggine, era diventata la grande maggioranza. Quando le leggi sull’aria pulita ridussero lo smog, nel Novecento, la forma chiara tornò a prevalere.",
-          "Nel 1858 Charles Darwin e Alfred Russel Wallace presentarono insieme l’idea della selezione naturale, e nel 1859 Darwin pubblicò «L’origine delle specie». Il ragionamento ha quattro passi: gli individui di una popolazione variano; una parte della variazione è ereditaria; nascono più individui di quanti possano sopravvivere e riprodursi; chi ha caratteri più adatti all’ambiente lascia in media più discendenti. Le varianti favorite diventano più comuni."
+          "Nel 1858 Charles Darwin e Alfred Russel Wallace proposero la stessa idea: gli individui variano, una parte delle variazioni si trasmette ai figli, e chi porta le variazioni più adatte all’ambiente lascia in media più discendenti. È la selezione naturale. A Darwin mancava però una teoria dell’ereditarietà: se i caratteri dei genitori si mescolassero nei figli, ogni novità vantaggiosa si diluirebbe in poche generazioni.",
+          "La soluzione era già stata pubblicata nel 1866 da Gregor Mendel, che incrociando piselli scoprì che i caratteri si trasmettono attraverso unità discrete che non si mescolano, i geni. Riscoperte nel 1900, le leggi di Mendel e la selezione furono unite fra il 1918 e il 1932 da Fisher, Haldane e Wright nella genetica delle popolazioni."
         ],
         "intermediate": [
-          "Intorno a Manchester, nell’Ottocento, la falena delle betulle era quasi sempre chiara e si mimetizzava sui tronchi coperti di licheni. La prima forma scura fu registrata nel 1848; alla fine del secolo, con i tronchi anneriti dalla fuliggine, era diventata la grande maggioranza. Quando le leggi sull’aria pulita ridussero lo smog, nel Novecento, la forma chiara tornò a prevalere.",
-          "Nel 1858 Charles Darwin e Alfred Russel Wallace presentarono insieme l’idea della selezione naturale, e nel 1859 Darwin pubblicò «L’origine delle specie». Il ragionamento ha quattro passi: gli individui di una popolazione variano; una parte della variazione è ereditaria; nascono più individui di quanti possano sopravvivere e riprodursi; chi ha caratteri più adatti all’ambiente lascia in media più discendenti. Le varianti favorite diventano più comuni."
+          "Nel 1858 Charles Darwin e Alfred Russel Wallace proposero la stessa idea: gli individui variano, una parte delle variazioni si trasmette ai figli, e chi porta le variazioni più adatte all’ambiente lascia in media più discendenti. È la selezione naturale. A Darwin mancava però una teoria dell’ereditarietà: se i caratteri dei genitori si mescolassero nei figli, ogni novità vantaggiosa si diluirebbe in poche generazioni.",
+          "La soluzione era già stata pubblicata nel 1866 da Gregor Mendel, che incrociando piselli scoprì che i caratteri si trasmettono attraverso unità discrete che non si mescolano, i geni. Riscoperte nel 1900, le leggi di Mendel e la selezione furono unite fra il 1918 e il 1932 da Fisher, Haldane e Wright nella genetica delle popolazioni."
         ],
         "advanced": [
-          "Intorno a Manchester, nell’Ottocento, la falena delle betulle era quasi sempre chiara e si mimetizzava sui tronchi coperti di licheni. La prima forma scura fu registrata nel 1848; alla fine del secolo, con i tronchi anneriti dalla fuliggine, era diventata la grande maggioranza. Quando le leggi sull’aria pulita ridussero lo smog, nel Novecento, la forma chiara tornò a prevalere.",
-          "Nel 1858 Charles Darwin e Alfred Russel Wallace presentarono insieme l’idea della selezione naturale, e nel 1859 Darwin pubblicò «L’origine delle specie». Il ragionamento ha quattro passi: gli individui di una popolazione variano; una parte della variazione è ereditaria; nascono più individui di quanti possano sopravvivere e riprodursi; chi ha caratteri più adatti all’ambiente lascia in media più discendenti. Le varianti favorite diventano più comuni."
+          "Nel 1858 Charles Darwin e Alfred Russel Wallace proposero la stessa idea: gli individui variano, una parte delle variazioni si trasmette ai figli, e chi porta le variazioni più adatte all’ambiente lascia in media più discendenti. È la selezione naturale. A Darwin mancava però una teoria dell’ereditarietà: se i caratteri dei genitori si mescolassero nei figli, ogni novità vantaggiosa si diluirebbe in poche generazioni.",
+          "La soluzione era già stata pubblicata nel 1866 da Gregor Mendel, che incrociando piselli scoprì che i caratteri si trasmettono attraverso unità discrete che non si mescolano, i geni. Riscoperte nel 1900, le leggi di Mendel e la selezione furono unite fra il 1918 e il 1932 da Fisher, Haldane e Wright nella genetica delle popolazioni.",
+          "Per l’astrobiologia la selezione ha un ruolo speciale: molti ricercatori definiscono la vita come un sistema chimico che si mantiene da sé ed è capace di evoluzione darwiniana. Qualunque vita scopriremo dovrebbe obbedire alle stesse regole matematiche."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Fitness e frequenze",
+      "title": "Frequenze e selezione",
       "text": {
         "base": [
-          "La fitness misura il successo riproduttivo: il numero medio di discendenti che sopravvivono e si riproducono. Conta la fitness relativa. Se una variante lascia in media 1,2 discendenti per ogni discendente dell’altra, il suo vantaggio, o coefficiente di selezione, è s = 0,2. Un s negativo indica uno svantaggio. La selezione agisce sugli individui, ma cambia la composizione delle popolazioni.",
-          "Un modello semplice: se una variante ha frequenza p e vantaggio s, dopo una generazione la sua frequenza è p′ = p(1 + s)/(1 + sp). Il rapporto p/(1 − p) si moltiplica per 1 + s a ogni generazione. Con s = 0,2, una variante che parte dall’1% arriva al 50% in circa 25 generazioni; con s = 0,01 ne servono circa 460.",
-          "La selezione assume forme diverse. È direzionale quando favorisce un estremo, come la resistenza agli antibiotici nei batteri esposti ai farmaci. È stabilizzante quando favorisce i valori intermedi, come il peso alla nascita nell’uomo. È divergente quando favorisce entrambi gli estremi. La selezione sessuale favorisce i caratteri che aiutano a trovare un partner, come la coda del pavone. Nelle zone di malaria gli eterozigoti per l’allele dell’anemia falciforme sono avvantaggiati, e l’allele resta frequente."
+          "Ogni carattere dipende da una coppia di alleli che si separano nei gameti. Un incrocio fra due eterozigoti Rr dà fenotipi in rapporto 3 a 1; Mendel contò 5474 semi lisci e 1850 rugosi. In una popolazione grande, con accoppiamento casuale e senza forze evolutive, le frequenze dei genotipi sono p², 2pq e q² e restano costanti: è l’equilibrio di Hardy-Weinberg.",
+          "La fitness relativa misura il successo riproduttivo di una variante rispetto a un’altra. Se una variante aploide con frequenza p ha un vantaggio s, dopo una generazione la sua frequenza diventa p′ = p(1 + s)/(1 + sp): il numeratore è il suo contributo alla generazione successiva, il denominatore la fitness media della popolazione."
         ],
         "intermediate": [
-          "La fitness misura il successo riproduttivo: il numero medio di discendenti che sopravvivono e si riproducono. Conta la fitness relativa. Se una variante lascia in media 1,2 discendenti per ogni discendente dell’altra, il suo vantaggio, o coefficiente di selezione, è s = 0,2. Un s negativo indica uno svantaggio. La selezione agisce sugli individui, ma cambia la composizione delle popolazioni.",
-          "Un modello semplice: se una variante ha frequenza p e vantaggio s, dopo una generazione la sua frequenza è p′ = p(1 + s)/(1 + sp). Il rapporto p/(1 − p) si moltiplica per 1 + s a ogni generazione. Con s = 0,2, una variante che parte dall’1% arriva al 50% in circa 25 generazioni; con s = 0,01 ne servono circa 460.",
-          "La selezione assume forme diverse. È direzionale quando favorisce un estremo, come la resistenza agli antibiotici nei batteri esposti ai farmaci. È stabilizzante quando favorisce i valori intermedi, come il peso alla nascita nell’uomo. È divergente quando favorisce entrambi gli estremi. La selezione sessuale favorisce i caratteri che aiutano a trovare un partner, come la coda del pavone. Nelle zone di malaria gli eterozigoti per l’allele dell’anemia falciforme sono avvantaggiati, e l’allele resta frequente."
+          "Ogni carattere dipende da una coppia di alleli che si separano nei gameti. Un incrocio fra due eterozigoti Rr dà fenotipi in rapporto 3 a 1; Mendel contò 5474 semi lisci e 1850 rugosi. In una popolazione grande, con accoppiamento casuale e senza forze evolutive, le frequenze dei genotipi sono p², 2pq e q² e restano costanti: è l’equilibrio di Hardy-Weinberg.",
+          "La fitness relativa misura il successo riproduttivo di una variante rispetto a un’altra. Se una variante aploide con frequenza p ha un vantaggio s, dopo una generazione la sua frequenza diventa p′ = p(1 + s)/(1 + sp): il numeratore è il suo contributo alla generazione successiva, il denominatore la fitness media della popolazione.",
+          "Con p = 0,5 e s = 0,2 la frequenza diventa 0,6/1,1, circa 0,545. Il rapporto p/(1 − p) viene moltiplicato per 1 + s a ogni generazione: la diffusione segue una curva a S, e una variante con s = 0,1 passa dall’1% al 99% in circa 96 generazioni."
         ],
         "advanced": [
-          "La fitness misura il successo riproduttivo: il numero medio di discendenti che sopravvivono e si riproducono. Conta la fitness relativa. Se una variante lascia in media 1,2 discendenti per ogni discendente dell’altra, il suo vantaggio, o coefficiente di selezione, è s = 0,2. Un s negativo indica uno svantaggio. La selezione agisce sugli individui, ma cambia la composizione delle popolazioni.",
-          "Un modello semplice: se una variante ha frequenza p e vantaggio s, dopo una generazione la sua frequenza è p′ = p(1 + s)/(1 + sp). Il rapporto p/(1 − p) si moltiplica per 1 + s a ogni generazione. Con s = 0,2, una variante che parte dall’1% arriva al 50% in circa 25 generazioni; con s = 0,01 ne servono circa 460.",
-          "La selezione assume forme diverse. È direzionale quando favorisce un estremo, come la resistenza agli antibiotici nei batteri esposti ai farmaci. È stabilizzante quando favorisce i valori intermedi, come il peso alla nascita nell’uomo. È divergente quando favorisce entrambi gli estremi. La selezione sessuale favorisce i caratteri che aiutano a trovare un partner, come la coda del pavone. Nelle zone di malaria gli eterozigoti per l’allele dell’anemia falciforme sono avvantaggiati, e l’allele resta frequente."
+          "Ogni carattere dipende da una coppia di alleli che si separano nei gameti. Un incrocio fra due eterozigoti Rr dà fenotipi in rapporto 3 a 1; Mendel contò 5474 semi lisci e 1850 rugosi. In una popolazione grande, con accoppiamento casuale e senza forze evolutive, le frequenze dei genotipi sono p², 2pq e q² e restano costanti: è l’equilibrio di Hardy-Weinberg.",
+          "La fitness relativa misura il successo riproduttivo di una variante rispetto a un’altra. Se una variante aploide con frequenza p ha un vantaggio s, dopo una generazione la sua frequenza diventa p′ = p(1 + s)/(1 + sp): il numeratore è il suo contributo alla generazione successiva, il denominatore la fitness media della popolazione.",
+          "Con p = 0,5 e s = 0,2 la frequenza diventa 0,6/1,1, circa 0,545. Il rapporto p/(1 − p) viene moltiplicato per 1 + s a ogni generazione: la diffusione segue una curva a S, e una variante con s = 0,1 passa dall’1% al 99% in circa 96 generazioni.",
+          "Nei diploidi l’effetto della selezione dipende dalla dominanza. Se l’eterozigote è favorito, come per l’allele dell’anemia falciforme nelle regioni con la malaria, la selezione conserva entrambi gli alleli: con fitness 1 − s₁, 1 e 1 − s₂ la frequenza di equilibrio è s₁/(s₁ + s₂)."
         ]
       }
     },
@@ -92,41 +99,41 @@
       "title": "Il laboratorio della selezione",
       "text": {
         "base": [
-          "Nel laboratorio il grafico mostra la frequenza dopo la selezione, p′, in funzione della frequenza prima, p, da 0 a 1; nella scheda «Regola» cambi il vantaggio s, da −0,8 a 1. Confronta la curva con la diagonale p′ = p.",
-          "Protocollo. La previsione riguarda il passaggio da p = 0,25 a p = 0,5. Con s = 0,2 prevedi e salva A. Poi porta s a −0,5, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con s = 0,2 p′ passa da circa 0,286 a 0,545: cresce, e la curva sta sopra la diagonale, perché la variante aumenta di 0,036 e di 0,045. Con s = −0,5 p′ cresce ancora con p, da circa 0,143 a 0,333, ma ora la curva sta sotto la diagonale: la variante perde terreno a ogni generazione. Per s = 0 curva e diagonale coincidono."
+          "Nel laboratorio il grafico mostra la frequenza di una variante dopo una generazione di selezione, p′, in funzione della frequenza prima, p, da 0 a 1, secondo p′ = p(1 + s)/(1 + sp). Nella scheda «Regola» cambi il vantaggio s, da −0,8 a 1. Con il valore predefinito, s = 0,2, la curva sta sopra la diagonale: la variante favorita aumenta a ogni generazione.",
+          "Protocollo. Il programma confronta due frequenze iniziali fissate, 0,25 e 0,5. Con il valore predefinito prevedi se la frequenza dopo la selezione cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta s a 0,5, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con s = 0,2 la frequenza dopo la selezione è circa 0,286 per p = 0,25 e 0,545 per p = 0,5. Con s = 0,5 i valori salgono a circa 0,333 e 0,6. Con s = 0 la curva coincide con la diagonale; con s negativo sta sotto. Gli estremi 0 e 1 restano fissi: la selezione sceglie fra le varianti presenti e non ne crea di nuove."
         ],
         "intermediate": [
-          "Nel laboratorio il grafico mostra la frequenza dopo la selezione, p′, in funzione della frequenza prima, p, da 0 a 1; nella scheda «Regola» cambi il vantaggio s, da −0,8 a 1. Confronta la curva con la diagonale p′ = p.",
-          "Protocollo. La previsione riguarda il passaggio da p = 0,25 a p = 0,5. Con s = 0,2 prevedi e salva A. Poi porta s a −0,5, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con s = 0,2 p′ passa da circa 0,286 a 0,545: cresce, e la curva sta sopra la diagonale, perché la variante aumenta di 0,036 e di 0,045. Con s = −0,5 p′ cresce ancora con p, da circa 0,143 a 0,333, ma ora la curva sta sotto la diagonale: la variante perde terreno a ogni generazione. Per s = 0 curva e diagonale coincidono."
+          "Nel laboratorio il grafico mostra la frequenza di una variante dopo una generazione di selezione, p′, in funzione della frequenza prima, p, da 0 a 1, secondo p′ = p(1 + s)/(1 + sp). Nella scheda «Regola» cambi il vantaggio s, da −0,8 a 1. Con il valore predefinito, s = 0,2, la curva sta sopra la diagonale: la variante favorita aumenta a ogni generazione.",
+          "Protocollo. Il programma confronta due frequenze iniziali fissate, 0,25 e 0,5. Con il valore predefinito prevedi se la frequenza dopo la selezione cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta s a 0,5, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con s = 0,2 la frequenza dopo la selezione è circa 0,286 per p = 0,25 e 0,545 per p = 0,5. Con s = 0,5 i valori salgono a circa 0,333 e 0,6. Con s = 0 la curva coincide con la diagonale; con s negativo sta sotto. Gli estremi 0 e 1 restano fissi: la selezione sceglie fra le varianti presenti e non ne crea di nuove."
         ],
         "advanced": [
-          "Nel laboratorio il grafico mostra la frequenza dopo la selezione, p′, in funzione della frequenza prima, p, da 0 a 1; nella scheda «Regola» cambi il vantaggio s, da −0,8 a 1. Confronta la curva con la diagonale p′ = p.",
-          "Un modello semplice: se una variante ha frequenza p e vantaggio s, dopo una generazione la sua frequenza è p′ = p(1 + s)/(1 + sp). Il rapporto p/(1 − p) si moltiplica per 1 + s a ogni generazione. Con s = 0,2, una variante che parte dall’1% arriva al 50% in circa 25 generazioni; con s = 0,01 ne servono circa 460.",
-          "Protocollo. La previsione riguarda il passaggio da p = 0,25 a p = 0,5. Con s = 0,2 prevedi e salva A. Poi porta s a −0,5, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con s = 0,2 p′ passa da circa 0,286 a 0,545: cresce, e la curva sta sopra la diagonale, perché la variante aumenta di 0,036 e di 0,045. Con s = −0,5 p′ cresce ancora con p, da circa 0,143 a 0,333, ma ora la curva sta sotto la diagonale: la variante perde terreno a ogni generazione. Per s = 0 curva e diagonale coincidono."
+          "Nel laboratorio il grafico mostra la frequenza di una variante dopo una generazione di selezione, p′, in funzione della frequenza prima, p, da 0 a 1, secondo p′ = p(1 + s)/(1 + sp). Nella scheda «Regola» cambi il vantaggio s, da −0,8 a 1. Con il valore predefinito, s = 0,2, la curva sta sopra la diagonale: la variante favorita aumenta a ogni generazione.",
+          "Protocollo. Il programma confronta due frequenze iniziali fissate, 0,25 e 0,5. Con il valore predefinito prevedi se la frequenza dopo la selezione cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta s a 0,5, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con s = 0,2 la frequenza dopo la selezione è circa 0,286 per p = 0,25 e 0,545 per p = 0,5. Con s = 0,5 i valori salgono a circa 0,333 e 0,6. Con s = 0 la curva coincide con la diagonale; con s negativo sta sotto. Gli estremi 0 e 1 restano fissi: la selezione sceglie fra le varianti presenti e non ne crea di nuove.",
+          "Una prova a casa: si spargono cinquanta fagioli bianchi e cinquanta colorati su un telo a fantasia, un compagno ne raccoglie quanti può in quindici secondi, e ogni fagiolo sopravvissuto si riproduce aggiungendo un fagiolo del suo colore. Dopo cinque generazioni si stima s dal rapporto fra sopravvissuti colorati e bianchi."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Errori frequenti",
+      "title": "Errori e limiti",
       "text": {
         "base": [
-          "Errore frequente: pensare che gli individui si adattino cambiando i propri geni durante la vita. La selezione non modifica gli individui; cambia quali individui si riproducono, e quindi le frequenze nella generazione successiva.",
-          "Secondo errore: confondere «più adatto» con «più forte». La fitness dipende dall’ambiente: la falena scura era avvantaggiata sui tronchi anneriti e svantaggiata su quelli chiari.",
-          "La selezione assume forme diverse. È direzionale quando favorisce un estremo, come la resistenza agli antibiotici nei batteri esposti ai farmaci. È stabilizzante quando favorisce i valori intermedi, come il peso alla nascita nell’uomo. È divergente quando favorisce entrambi gli estremi. La selezione sessuale favorisce i caratteri che aiutano a trovare un partner, come la coda del pavone. Nelle zone di malaria gli eterozigoti per l’allele dell’anemia falciforme sono avvantaggiati, e l’allele resta frequente."
+          "Errore frequente: pensare che la selezione crei le varianti di cui c’è bisogno. La selezione sceglie fra le varianti già prodotte dalle mutazioni e dalla ricombinazione; se una variante utile non esiste, la selezione non può farla comparire. Per questo, nel modello, le frequenze 0 e 1 restano fisse.",
+          "Secondo errore: considerare l’equilibrio di Hardy-Weinberg una legge che le popolazioni rispettano sempre. È un modello di riferimento valido per popolazioni grandi, con accoppiamento casuale e senza selezione, mutazione, migrazione e deriva. Gli scostamenti segnalano proprio che qualcosa agisce sulla popolazione."
         ],
         "intermediate": [
-          "Errore frequente: pensare che gli individui si adattino cambiando i propri geni durante la vita. La selezione non modifica gli individui; cambia quali individui si riproducono, e quindi le frequenze nella generazione successiva.",
-          "Secondo errore: confondere «più adatto» con «più forte». La fitness dipende dall’ambiente: la falena scura era avvantaggiata sui tronchi anneriti e svantaggiata su quelli chiari.",
-          "La selezione assume forme diverse. È direzionale quando favorisce un estremo, come la resistenza agli antibiotici nei batteri esposti ai farmaci. È stabilizzante quando favorisce i valori intermedi, come il peso alla nascita nell’uomo. È divergente quando favorisce entrambi gli estremi. La selezione sessuale favorisce i caratteri che aiutano a trovare un partner, come la coda del pavone. Nelle zone di malaria gli eterozigoti per l’allele dell’anemia falciforme sono avvantaggiati, e l’allele resta frequente."
+          "Errore frequente: pensare che la selezione crei le varianti di cui c’è bisogno. La selezione sceglie fra le varianti già prodotte dalle mutazioni e dalla ricombinazione; se una variante utile non esiste, la selezione non può farla comparire. Per questo, nel modello, le frequenze 0 e 1 restano fisse.",
+          "Secondo errore: considerare l’equilibrio di Hardy-Weinberg una legge che le popolazioni rispettano sempre. È un modello di riferimento valido per popolazioni grandi, con accoppiamento casuale e senza selezione, mutazione, migrazione e deriva. Gli scostamenti segnalano proprio che qualcosa agisce sulla popolazione.",
+          "Anche un vantaggio piccolo conta: con s = 0,01 una variante passa dall’1% al 99% in circa 920 generazioni, poco più di un mese per un batterio che si divide ogni ora. E la dominanza riguarda soltanto il fenotipo dell’eterozigote: molti alleli dominanti sono rari, e la loro frequenza dipende dalla selezione e dalla storia della popolazione."
         ],
         "advanced": [
-          "Errore frequente: pensare che gli individui si adattino cambiando i propri geni durante la vita. La selezione non modifica gli individui; cambia quali individui si riproducono, e quindi le frequenze nella generazione successiva.",
-          "Secondo errore: confondere «più adatto» con «più forte». La fitness dipende dall’ambiente: la falena scura era avvantaggiata sui tronchi anneriti e svantaggiata su quelli chiari.",
-          "Un modello semplice: se una variante ha frequenza p e vantaggio s, dopo una generazione la sua frequenza è p′ = p(1 + s)/(1 + sp). Il rapporto p/(1 − p) si moltiplica per 1 + s a ogni generazione. Con s = 0,2, una variante che parte dall’1% arriva al 50% in circa 25 generazioni; con s = 0,01 ne servono circa 460."
+          "Errore frequente: pensare che la selezione crei le varianti di cui c’è bisogno. La selezione sceglie fra le varianti già prodotte dalle mutazioni e dalla ricombinazione; se una variante utile non esiste, la selezione non può farla comparire. Per questo, nel modello, le frequenze 0 e 1 restano fisse.",
+          "Secondo errore: considerare l’equilibrio di Hardy-Weinberg una legge che le popolazioni rispettano sempre. È un modello di riferimento valido per popolazioni grandi, con accoppiamento casuale e senza selezione, mutazione, migrazione e deriva. Gli scostamenti segnalano proprio che qualcosa agisce sulla popolazione.",
+          "Anche un vantaggio piccolo conta: con s = 0,01 una variante passa dall’1% al 99% in circa 920 generazioni, poco più di un mese per un batterio che si divide ogni ora. E la dominanza riguarda soltanto il fenotipo dell’eterozigote: molti alleli dominanti sono rari, e la loro frequenza dipende dalla selezione e dalla storia della popolazione.",
+          "Il modello trascura la deriva genetica, la migrazione e le mutazioni, e suppone un vantaggio costante. In natura la fitness dipende dall’ambiente: la forma scura della falena delle betulle fu favorita sui tronchi anneriti dalla fuliggine e sfavorita quando l’aria tornò pulita."
         ]
       }
     },
@@ -135,19 +142,19 @@
       "title": "Verifica",
       "text": {
         "base": [
-          "Ripasso: i quattro passi del ragionamento di Darwin e Wallace; fitness e coefficiente di selezione; modello p′ = p(1 + s)/(1 + sp); selezione direzionale, stabilizzante, divergente e sessuale; vantaggio degli eterozigoti.",
-          "Mini esercizio: con p = 0,5 e s = 1, p′ = 0,5 · 2/1,5 ≈ 0,667. Il rapporto p/(1 − p) passa da 1 a 2.",
-          "Nelle domande sulla selezione chiediti sempre in quale ambiente un carattere è vantaggioso."
+          "Ripasso: leggi della segregazione e dell’assortimento indipendente; quadrato di Punnett; test del chi quadrato; frequenze alleliche ed equilibrio di Hardy-Weinberg; fitness relativa e coefficiente di selezione; formula p′ = p(1 + s)/(1 + sp); tempo di diffusione; dominanza e vantaggio dell’eterozigote; selezione osservata e in laboratorio.",
+          "Mini esercizio: in una coltura la frequenza di una variante passa da 0,4 a 0,5 in una generazione; il rapporto p/(1 − p) passa da 0,667 a 1, cioè aumenta di 1,5 volte, e quindi s = 0,5.",
+          "Nelle domande ricorda che con s = 0 la frequenza resta uguale e che il rapporto p/(1 − p) cresce di 1 + s a ogni generazione."
         ],
         "intermediate": [
-          "Ripasso: i quattro passi del ragionamento di Darwin e Wallace; fitness e coefficiente di selezione; modello p′ = p(1 + s)/(1 + sp); selezione direzionale, stabilizzante, divergente e sessuale; vantaggio degli eterozigoti.",
-          "Mini esercizio: con p = 0,5 e s = 1, p′ = 0,5 · 2/1,5 ≈ 0,667. Il rapporto p/(1 − p) passa da 1 a 2.",
-          "Nelle domande sulla selezione chiediti sempre in quale ambiente un carattere è vantaggioso."
+          "Ripasso: leggi della segregazione e dell’assortimento indipendente; quadrato di Punnett; test del chi quadrato; frequenze alleliche ed equilibrio di Hardy-Weinberg; fitness relativa e coefficiente di selezione; formula p′ = p(1 + s)/(1 + sp); tempo di diffusione; dominanza e vantaggio dell’eterozigote; selezione osservata e in laboratorio.",
+          "Mini esercizio: in una coltura la frequenza di una variante passa da 0,4 a 0,5 in una generazione; il rapporto p/(1 − p) passa da 0,667 a 1, cioè aumenta di 1,5 volte, e quindi s = 0,5.",
+          "Nelle domande ricorda che con s = 0 la frequenza resta uguale e che il rapporto p/(1 − p) cresce di 1 + s a ogni generazione."
         ],
         "advanced": [
-          "Ripasso: i quattro passi del ragionamento di Darwin e Wallace; fitness e coefficiente di selezione; modello p′ = p(1 + s)/(1 + sp); selezione direzionale, stabilizzante, divergente e sessuale; vantaggio degli eterozigoti.",
-          "Mini esercizio: con p = 0,5 e s = 1, p′ = 0,5 · 2/1,5 ≈ 0,667. Il rapporto p/(1 − p) passa da 1 a 2.",
-          "Nelle domande sulla selezione chiediti sempre in quale ambiente un carattere è vantaggioso."
+          "Ripasso: leggi della segregazione e dell’assortimento indipendente; quadrato di Punnett; test del chi quadrato; frequenze alleliche ed equilibrio di Hardy-Weinberg; fitness relativa e coefficiente di selezione; formula p′ = p(1 + s)/(1 + sp); tempo di diffusione; dominanza e vantaggio dell’eterozigote; selezione osservata e in laboratorio.",
+          "Mini esercizio: in una coltura la frequenza di una variante passa da 0,4 a 0,5 in una generazione; il rapporto p/(1 − p) passa da 0,667 a 1, cioè aumenta di 1,5 volte, e quindi s = 0,5.",
+          "Nelle domande ricorda che con s = 0 la frequenza resta uguale e che il rapporto p/(1 − p) cresce di 1 + s a ogni generazione."
         ]
       }
     },
@@ -156,19 +163,19 @@
       "title": "Collegamenti",
       "text": {
         "base": [
-          "Non tutti i cambiamenti di frequenza dipendono dalla selezione: l’unità «Deriva genetica» studia quelli dovuti al caso.",
-          "Riepilogo dell’unità: la selezione naturale richiede variazione ereditaria e riproduzione differenziale; la fitness è relativa all’ambiente; con vantaggio s la frequenza diventa p(1 + s)/(1 + sp) e il rapporto p/(1 − p) si moltiplica per 1 + s; la selezione può essere direzionale, stabilizzante, divergente o sessuale.",
-          "Nel diario registra A e B con le previsioni e spiega che cosa indica la posizione della curva rispetto alla diagonale."
+          "La crescita geometrica e i logaritmi sono il tema dell’unità di matematica «Esponenziali e logaritmi»; il test del chi quadrato quello dell’unità «Combinatoria, probabilità e statistica». In biologia il percorso prosegue con la deriva genetica, che descrive il ruolo del caso nelle popolazioni finite, e con l’albero universale della vita, che la selezione e le mutazioni hanno costruito in quattro miliardi di anni.",
+          "Riepilogo dell’unità: i caratteri si trasmettono con alleli che non si mescolano; senza forze evolutive le frequenze restano quelle di Hardy-Weinberg; la selezione cambia una frequenza da p a p(1 + s)/(1 + sp); le varianti favorite si diffondono con una curva a S; il vantaggio dell’eterozigote mantiene due alleli in equilibrio.",
+          "Nel diario registra A e B con le previsioni e calcola, iterando la formula, la frequenza dopo dieci generazioni partendo da 0,01 con s = 0,1 e con s = 0,5."
         ],
         "intermediate": [
-          "Non tutti i cambiamenti di frequenza dipendono dalla selezione: l’unità «Deriva genetica» studia quelli dovuti al caso.",
-          "Riepilogo dell’unità: la selezione naturale richiede variazione ereditaria e riproduzione differenziale; la fitness è relativa all’ambiente; con vantaggio s la frequenza diventa p(1 + s)/(1 + sp) e il rapporto p/(1 − p) si moltiplica per 1 + s; la selezione può essere direzionale, stabilizzante, divergente o sessuale.",
-          "Nel diario registra A e B con le previsioni e spiega che cosa indica la posizione della curva rispetto alla diagonale."
+          "La crescita geometrica e i logaritmi sono il tema dell’unità di matematica «Esponenziali e logaritmi»; il test del chi quadrato quello dell’unità «Combinatoria, probabilità e statistica». In biologia il percorso prosegue con la deriva genetica, che descrive il ruolo del caso nelle popolazioni finite, e con l’albero universale della vita, che la selezione e le mutazioni hanno costruito in quattro miliardi di anni.",
+          "Riepilogo dell’unità: i caratteri si trasmettono con alleli che non si mescolano; senza forze evolutive le frequenze restano quelle di Hardy-Weinberg; la selezione cambia una frequenza da p a p(1 + s)/(1 + sp); le varianti favorite si diffondono con una curva a S; il vantaggio dell’eterozigote mantiene due alleli in equilibrio.",
+          "Nel diario registra A e B con le previsioni e calcola, iterando la formula, la frequenza dopo dieci generazioni partendo da 0,01 con s = 0,1 e con s = 0,5."
         ],
         "advanced": [
-          "Non tutti i cambiamenti di frequenza dipendono dalla selezione: l’unità «Deriva genetica» studia quelli dovuti al caso.",
-          "Riepilogo dell’unità: la selezione naturale richiede variazione ereditaria e riproduzione differenziale; la fitness è relativa all’ambiente; con vantaggio s la frequenza diventa p(1 + s)/(1 + sp) e il rapporto p/(1 − p) si moltiplica per 1 + s; la selezione può essere direzionale, stabilizzante, divergente o sessuale.",
-          "Nel diario registra A e B con le previsioni e spiega che cosa indica la posizione della curva rispetto alla diagonale."
+          "La crescita geometrica e i logaritmi sono il tema dell’unità di matematica «Esponenziali e logaritmi»; il test del chi quadrato quello dell’unità «Combinatoria, probabilità e statistica». In biologia il percorso prosegue con la deriva genetica, che descrive il ruolo del caso nelle popolazioni finite, e con l’albero universale della vita, che la selezione e le mutazioni hanno costruito in quattro miliardi di anni.",
+          "Riepilogo dell’unità: i caratteri si trasmettono con alleli che non si mescolano; senza forze evolutive le frequenze restano quelle di Hardy-Weinberg; la selezione cambia una frequenza da p a p(1 + s)/(1 + sp); le varianti favorite si diffondono con una curva a S; il vantaggio dell’eterozigote mantiene due alleli in equilibrio.",
+          "Nel diario registra A e B con le previsioni e calcola, iterando la formula, la frequenza dopo dieci generazioni partendo da 0,01 con s = 0,1 e con s = 0,5."
         ]
       }
     }
@@ -176,162 +183,162 @@
   "questions": [
     {
       "id": "biology-13-q1",
-      "prompt": "Quale condizione è indispensabile per la selezione naturale?",
+      "prompt": "Incrociando due piante eterozigoti Rr, quale frazione dei discendenti ha semi rugosi rr?",
       "options": [
         {
           "id": "A",
-          "text": "Una variazione ereditaria tra gli individui",
-          "feedback": "Esatto: senza differenze trasmissibili non c’è nulla da selezionare."
+          "text": "Metà",
+          "feedback": "Metà è la frazione di eterozigoti Rr."
         },
         {
           "id": "B",
-          "text": "Un ambiente che non cambia mai",
-          "feedback": "La selezione agisce anche, e spesso di più, quando l’ambiente cambia."
+          "text": "Un quarto",
+          "feedback": "Esatto: rr richiede un gamete r da ciascun genitore, con probabilità 1/2 · 1/2."
         },
         {
           "id": "C",
-          "text": "Individui che cambiano i geni durante la vita",
-          "feedback": "I geni di un individuo non cambiano per adattarsi."
+          "text": "Tre quarti",
+          "feedback": "Tre quarti è la frazione di semi lisci, con almeno un allele R."
         },
         {
           "id": "D",
-          "text": "Una popolazione piccola",
-          "feedback": "La selezione agisce in popolazioni di ogni dimensione."
+          "text": "Nessuno",
+          "feedback": "L’allele recessivo ricompare negli omozigoti della seconda generazione."
         }
       ],
-      "correct": "A"
+      "correct": "B"
     },
     {
       "id": "biology-13-q2",
-      "prompt": "Che cosa misura la fitness?",
+      "prompt": "In equilibrio di Hardy-Weinberg con p = 0,7, quale frazione della popolazione è eterozigote?",
       "options": [
         {
           "id": "A",
-          "text": "La forza fisica",
-          "feedback": "La forza conta solo se aumenta il numero di discendenti."
+          "text": "0,49",
+          "feedback": "Questa è la frequenza degli omozigoti AA, p²."
         },
         {
           "id": "B",
-          "text": "Il successo riproduttivo",
-          "feedback": "Esatto: quanti discendenti un individuo lascia in media."
+          "text": "0,42",
+          "feedback": "Esatto: 2pq = 2 · 0,7 · 0,3 = 0,42."
         },
         {
           "id": "C",
-          "text": "La durata della vita",
-          "feedback": "Una vita lunga senza figli non aumenta la fitness."
+          "text": "0,09",
+          "feedback": "Questa è la frequenza degli omozigoti aa, q²."
         },
         {
           "id": "D",
-          "text": "La velocità di crescita",
-          "feedback": "La crescita conta solo attraverso i suoi effetti sulla riproduzione."
+          "text": "0,7",
+          "feedback": "Questa è la frequenza dell’allele A, non di un genotipo."
         }
       ],
       "correct": "B"
     },
     {
       "id": "biology-13-q3",
-      "prompt": "Perché la falena scura divenne comune vicino a Manchester?",
+      "prompt": "Con s = 0 la frequenza della variante:",
       "options": [
         {
           "id": "A",
-          "text": "Perché la fuliggine cambiò il colore delle falene",
-          "feedback": "Il colore è ereditario: la fuliggine non lo cambia."
+          "text": "Raddoppia",
+          "feedback": "Senza vantaggio i contributi alla generazione successiva sono proporzionali alle frequenze."
         },
         {
           "id": "B",
-          "text": "Perché le falene scure erano più forti",
-          "feedback": "Il vantaggio dipendeva dal mimetismo, non dalla forza."
+          "text": "Va a zero",
+          "feedback": "Con s = 0 nessuna variante è sfavorita."
         },
         {
           "id": "C",
-          "text": "Perché sui tronchi anneriti era meno visibile ai predatori",
-          "feedback": "Esatto: sopravviveva e si riproduceva di più."
+          "text": "Resta uguale",
+          "feedback": "Esatto: con s = 0 la formula dà p′ = p."
         },
         {
           "id": "D",
-          "text": "Perché le falene chiare emigrarono",
-          "feedback": "Il cambiamento è spiegato dalla predazione selettiva."
+          "text": "Oscilla",
+          "feedback": "Il modello è deterministico e senza vantaggio non cambia nulla."
         }
       ],
       "correct": "C"
     },
     {
       "id": "biology-13-q4",
-      "prompt": "Con s = 0, che cosa succede alla frequenza p?",
+      "prompt": "Con p = 0,5 e s = 0,2, la frequenza dopo una generazione è circa:",
       "options": [
         {
           "id": "A",
-          "text": "Raddoppia",
-          "feedback": "Senza vantaggio non c’è motivo di crescita."
+          "text": "0,6",
+          "feedback": "Hai dimenticato di dividere per la fitness media 1 + sp = 1,1."
         },
         {
           "id": "B",
-          "text": "Si annulla",
-          "feedback": "Senza svantaggio non c’è motivo di diminuzione."
+          "text": "0,545",
+          "feedback": "Esatto: 0,5 · 1,2/1,1 vale circa 0,545."
         },
         {
           "id": "C",
-          "text": "Diventa 0,5",
-          "feedback": "Il modello non spinge le frequenze verso 0,5."
-        },
-        {
-          "id": "D",
-          "text": "Resta uguale",
-          "feedback": "Esatto: p′ = p e la curva coincide con la diagonale."
-        }
-      ],
-      "correct": "D"
-    },
-    {
-      "id": "biology-13-q5",
-      "prompt": "Con p = 0,5 e s = 1, qual è la frequenza dopo una generazione?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Circa 0,667",
-          "feedback": "Esatto: p′ = 0,5 · 2/1,5 ≈ 0,667."
-        },
-        {
-          "id": "B",
-          "text": "1",
-          "feedback": "Il vantaggio raddoppia il rapporto p/(1 − p), non porta subito la variante a 1."
-        },
-        {
-          "id": "C",
-          "text": "0,75",
-          "feedback": "Hai calcolato 0,5 · 1,5: la formula ha anche un denominatore."
+          "text": "0,7",
+          "feedback": "Hai sommato s alla frequenza invece di applicare la formula."
         },
         {
           "id": "D",
           "text": "0,5",
-          "feedback": "Con s positivo la frequenza cresce."
+          "feedback": "Con s positivo la frequenza della variante aumenta."
         }
       ],
-      "correct": "A"
+      "correct": "B"
     },
     {
-      "id": "biology-13-q6",
-      "prompt": "Che cosa favorisce la selezione stabilizzante?",
+      "id": "biology-13-q5",
+      "prompt": "Perché nelle regioni con la malaria l’allele dell’anemia falciforme non scompare?",
       "options": [
         {
           "id": "A",
-          "text": "Un estremo del carattere",
-          "feedback": "Questo descrive la selezione direzionale."
+          "text": "Perché è dominante",
+          "feedback": "L’anemia si manifesta negli omozigoti; il vantaggio riguarda gli eterozigoti."
         },
         {
           "id": "B",
-          "text": "I valori intermedi",
-          "feedback": "Esatto: come il peso alla nascita nell’uomo."
+          "text": "Perché gli eterozigoti sono più resistenti alla malaria",
+          "feedback": "Esatto: il vantaggio dell’eterozigote mantiene entrambi gli alleli in equilibrio."
         },
         {
           "id": "C",
-          "text": "Entrambi gli estremi",
-          "feedback": "Questo descrive la selezione divergente."
+          "text": "Perché le mutazioni lo ricreano continuamente",
+          "feedback": "Le nuove mutazioni sono troppo rare per spiegare frequenze del 10%."
         },
         {
           "id": "D",
-          "text": "Solo i maschi",
-          "feedback": "La selezione stabilizzante riguarda tutti gli individui."
+          "text": "Perché la selezione non agisce sugli esseri umani",
+          "feedback": "La selezione agisce anche sugli esseri umani, come mostra proprio questo esempio."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-13-q6",
+      "prompt": "Che cosa mostrano le falene delle betulle di Manchester?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Che la fuliggine annerisce le ali delle falene",
+          "feedback": "Il colore è ereditario, dovuto a una mutazione del 1819 circa."
+        },
+        {
+          "id": "B",
+          "text": "Che una variante ereditaria può diffondersi in pochi decenni quando l’ambiente la favorisce",
+          "feedback": "Esatto: la forma scura arrivò al 98% nel 1895."
+        },
+        {
+          "id": "C",
+          "text": "Che le mutazioni compaiono quando servono",
+          "feedback": "La mutazione era comparsa decenni prima della diffusione."
+        },
+        {
+          "id": "D",
+          "text": "Che la selezione agisce solo in laboratorio",
+          "feedback": "Il caso della falena è un esempio di selezione in natura."
         }
       ],
       "correct": "B"

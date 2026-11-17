@@ -63,7 +63,7 @@ for(const [i,a] of authored.courses.entries()){
   coverage:'guided-foundation',editorialStatus:'original-draft',scope:a.bound,
   narrativeStatus:'Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.',
   objectives:[`Spiegare: ${a.bound.toLowerCase()}.`,`Applicare ${m.formula}, dichiarando variabili e unità.`,`Confrontare due configurazioni e discutere i limiti del modello.`],
-  prerequisites:unit.sector===0?unit.prerequisites:(i%25?[authored.courses[i-1].unitId]:[]),connections:[a.connection],sources:src,originalSource:unit.source||null,
+  prerequisites:unit.sector===0?unit.prerequisites:(i>0&&catalogue.modules.find(u=>u.id===authored.courses[i-1].unitId)?.sector===unit.sector?[authored.courses[i-1].unitId]:[]),connections:[a.connection],sources:src,originalSource:unit.source||null,
   glossary:[{term:m.xLabel,definition:`Variabile indipendente, unità ${m.xUnit}; intervallo [${numeric(m.domain[0])}; ${numeric(m.domain[1])}].`},{term:m.yLabel,definition:`Risultato calcolato dal modello, unità ${m.yUnit}.`},...m.controls.map(c=>({term:c.label,definition:`Parametro ${c.key}, unità ${c.unit}; intervallo [${numeric(c.min)}; ${numeric(c.max)}].`}))],
   steps:[
    {label:titles[0],title:'La domanda della spedizione',text:levels([a.story,a.concept],[a.story,a.derivation],[a.story,a.extension,a.limit])},
@@ -84,10 +84,10 @@ for(const [i,a] of authored.courses.entries()){
  if(proto&&unit.sector>0){unit.title=proto.title;unit.description=proto.description;unit.coverage=definition.coverage;unit.prerequisites=definition.prerequisites;unit.tags=[['Matematica','Fisica','Chimica','Biologia'][unit.sector],proto.title,proto.scope];}
  write(`content/curriculum/${unit.id}.json`,definition);
 }
-if(definitions.length!==100||MODEL_IDS.some(id=>!definitions.some(c=>c.id===id)))throw Error('Copertura incompleta');
+if(definitions.length!==catalogue.modules.length||MODEL_IDS.some(id=>!definitions.some(c=>c.id===id)))throw Error('Copertura incompleta');
 write('content/catalogue.json',catalogue);
-write('content/curriculum/index.json',{schemaVersion:1,version:'1.0.0',coverage:'100 nuclei guidati, non cento manuali integrali',courses:definitions.map(d=>({id:d.id,title:d.title,sector:d.sector,path:`content/curriculum/${d.id}.json`,coverage:d.coverage,questions:d.questions.length}))});
+write('content/curriculum/index.json',{schemaVersion:1,version:'1.0.0',coverage:definitions.length+' nuclei guidati, non altrettanti manuali integrali',courses:definitions.map(d=>({id:d.id,title:d.title,sector:d.sector,path:`content/curriculum/${d.id}.json`,coverage:d.coverage,questions:d.questions.length}))});
 write('content/curriculum/bundle.json',{schemaVersion:1,version:'1.0.0',note:authored.note,sources,courses:definitions});
-write('content/curriculum/paths.json',{schemaVersion:1,paths:[...['Matematica','Fisica','Chimica','Biologia'].map((title,sector)=>({id:'sector-'+sector,title,units:definitions.filter(d=>d.sector===sector).map(d=>d.id)})),{id:'climate',title:'Energia, temperatura e retroazioni',units:['math-c08','physics-19','chemistry-16','biology-24','biology-25']},{id:'structure',title:'Struttura, energia e materia',units:['math-p12','physics-25','chemistry-04','chemistry-07','biology-04']},{id:'population',title:'Crescita, probabilità ed evoluzione',units:['math-c06','math-c10','biology-07','biology-09','biology-13','biology-19']}]});
+write('content/curriculum/paths.json',{schemaVersion:1,paths:[...['Matematica','Fisica','Chimica','Biologia'].map((title,sector)=>({id:'sector-'+sector,title,units:definitions.filter(d=>d.sector===sector).map(d=>d.id)})),{id:'climate',title:'Energia, temperatura e retroazioni',units:['math-c08','physics-19','chemistry-16','biology-23','biology-25']},{id:'structure',title:'Struttura, energia e materia',units:['math-p12','physics-25','chemistry-04','chemistry-07','biology-04']},{id:'population',title:'Crescita, probabilità ed evoluzione',units:['math-c06','math-c10','biology-12','biology-13','biology-14','biology-21']}]});
 const built=load('content/curriculum/bundle.json');built.paths=load('content/curriculum/paths.json').paths;write('content/curriculum/bundle.json',built);
 console.log(`Curriculum: ${definitions.length} unità, ${definitions.reduce((n,c)=>n+c.questions.length,0)} quesiti, ${sources.length} riferimenti. Contenuti originali, nessuna risorsa grafica aggiunta.`);
