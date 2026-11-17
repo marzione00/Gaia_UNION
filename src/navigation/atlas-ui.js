@@ -124,9 +124,9 @@ export class AtlasUI {
         const area=AREAS[id],tint=SECTOR_COLORS[area.sector],units=system.planets,k=units.indexOf(m.planetIndex),n=units.length,pick=i=>this.selectModule(this.catalogue.modules[units[(i+n)%n]].id);
         U.panel(c.x,c.y,c.w,c.h,tint,.96);this.rects.card={...c};
         this.text(`${DISCIPLINES[area.sector].toUpperCase()} · AREA ${system.step} DI ${system.steps}`,c.x+14,c.y+12,c.w-28,'mini',tint,1);
-        const open=()=>this.api.openCourse(m.id),explore=()=>{this.api.selectIndex(m.planetIndex);this.api.enterSystem(id);};
+        const chapter=!!this.api.hasChapter?.(m.id),open=()=>chapter?this.api.openChapter(m.id):this.api.openCourse(m.id),explore=()=>{this.api.selectIndex(m.planetIndex);this.api.enterSystem(id);};
         const actions=(y,bw)=>{this.button(U,'explore','SISTEMA 3D',c.x+14,y,bw,explore);U.buttons.at(-1).label='Visita in 3D i pianeti dell’area '+area.name;
-            this.button(U,'open-unit','APRI L’UNITÀ',c.x+20+bw,y,bw,open,{active:true});U.buttons.at(-1).label='Apri l’unità '+m.title;};
+            this.button(U,'open-unit',chapter?'LEGGI IL CAPITOLO':'APRI L’UNITÀ',c.x+20+bw,y,bw,open,{active:true});U.buttons.at(-1).label=(chapter?'Leggi il capitolo ':'Apri l’unità ')+m.title;};
         if(compact){
             this.text(area.name,c.x+14,c.y+34,c.w-28,'mini',C.pale,1);
             this.text(`${k+1}/${n} · ${m.title}`,c.x+14,c.y+56,c.w-28,'body',C.pale,Math.min(1.2,this.prefs.textScale));
@@ -180,7 +180,7 @@ export class AtlasUI {
         const lw=(r.w-12)/3;['SCOPRI','COMPRENDI','AVANZATO'].forEach((label,i)=>this.button(U,'level-'+i,label,r.x+i*(lw+6),r.y+86,lw,()=>{this.level=i;this.previewPage=0;},{active:this.level===i}));
         const level=['base','intermediate','advanced'][this.level],paragraphs=[m.title,...d.steps[0].text[level]];
         this.body(U,paragraphs,{x:r.x-14,y:r.y+140,w:r.w+28,h:r.h-194});
-        const w=(r.w-6)/2;this.button(U,'detail-enter','SISTEMA 3D',r.x,r.y+r.h-46,w,()=>this.api.enterSystem(sys));this.button(U,'learn','APRI L’UNITÀ',r.x+w+6,r.y+r.h-46,w,()=>this.api.openCourse(m.id),{active:true});
+        const w=(r.w-6)/2;this.button(U,'detail-enter','SISTEMA 3D',r.x,r.y+r.h-46,w,()=>this.api.enterSystem(sys));const chapter=!!this.api.hasChapter?.(m.id);this.button(U,'learn',chapter?'LEGGI IL CAPITOLO':'APRI L’UNITÀ',r.x+w+6,r.y+r.h-46,w,()=>chapter?this.api.openChapter(m.id):this.api.openCourse(m.id),{active:true});
     }
     routesUI(U,r){const rows=[{id:null,title:'NESSUN PERCORSO · Esplorazione libera'},...this.bundle.paths],cap=Math.max(1,Math.floor((r.h-108)/50)),pages=Math.max(1,Math.ceil(rows.length/cap));this.page=clamp(this.page,0,pages-1);
         this.text('Ogni percorso collega unità di più aree in un ordine consigliato.',r.x,r.y,r.w,'mini',C.muted,1);
