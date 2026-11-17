@@ -624,3 +624,22 @@ test('Biologia 32: atmosfere degli esopianeti, numeri ricalcolati',()=>{
  // Model probes: Delta delta = 2 H Rp / Rs^2 in ppm at H = 128.75 and 252.5 km, Rp = 1, Rs = 1 and 0.12.
  const m=(x,b)=>2*x*6371/(b*695700)**2*1e6;assert.deepEqual([m(128.75,1),m(252.5,1),m(128.75,0.12),m(252.5,0.12)].map(v=>r(v,2)),[3.39,6.65,235.38,461.63]);
 });
+test('Biologia 33: biofirme, numeri ricalcolati',()=>{
+ const n=5.15e18/0.02897;assert.equal(r(n/1e20,2),1.78);
+ const F=1.95/9.1;assert.equal(r(F,2),0.21);assert.equal(r(F*1e-6*n*16/1e12,-1),610);assert.equal(r(F*1e-6*1.78e20/1e13,1),3.8);assert.equal(r(0.214e-6*1.78e20*16/1e14,1),6.1);assert.equal(r(1.95/4.55,2),0.43);
+ assert.equal(r(0.339/116*1e3,1),2.9);assert.equal(r(369/575,2),0.64);
+ assert.equal(r(9.1*Math.LN10,0),21);assert.equal(r(116*Math.LN10,0),267);assert.equal(r(Math.LN10,1),2.3);
+ assert.equal(r(-394.4+2*-237.1+50.5,0),-818);const dG=-394.4+2*-228.6+50.5;assert.equal(r(dG,0),-801);
+ const lnK=801000/(8.314*288);assert.equal(r(lnK,1),334.5);assert.equal(r(lnK/Math.LN10,0),145);
+ const peq=4.27e-4*0.01**2/(0.21**2)/Math.exp(lnK);assert.equal(r(Math.log10(peq),0),-151);assert.ok(Math.log10(1.95e-6/peq)>145&&Math.log10(peq)<-150);
+ assert.equal(r(2326/136,0),17);assert.equal(r(2326/0.001/1e6,1),2.3);
+ assert.equal(r(1.9/10,2),0.19);assert.equal(r(1.9/1000,4),0.0019);
+ const post=(p,L)=>p*L/(p*L+1-p);assert.equal(r(post(0.01,9),3),0.083);assert.equal(r(post(post(0.01,9),9),2),0.45);assert.equal(r(post(0.01,10),3),0.092);assert.equal(r(post(post(0.01,10),10),2),0.5);
+ assert.equal(r(6/426*100,1),1.4);
+ const O2=0.2095*1.78e20,P=1.05e17/12;assert.equal(r(P/1e15,1),8.8);assert.equal(r(O2/1e19,1),3.7);assert.equal(r(O2/P,-2),4300);
+ assert.equal(r((10/0.21)**2,-2),2300);
+ const tau=1/(3.5e-15*1e6);assert.equal(r(tau/1e8,1),2.9);assert.equal(r(tau/3.156e7,0),9);
+ assert.equal(r(1-(1-0.0027)**20,3),0.053);assert.equal(r(1e4/13120,3),0.762);assert.equal(r(1e4/1042,2),9.6);
+ // Model probes: F = c/tau in ppm/yr at tau = 25.75 and 50.5 yr, c = 1.9 and 3.8 ppm.
+ assert.deepEqual([1.9/25.75,1.9/50.5,3.8/25.75,3.8/50.5].map(v=>r(v,4)),[0.0738,0.0376,0.1476,0.0752]);
+});
