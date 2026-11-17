@@ -376,3 +376,23 @@ test('Biologia 19: respirazione e chemiosintesi, numeri ricalcolati',()=>{
  // Model probes: yield 30 and 2 at glucose = 2.5 and 5 mmol.
  assert.deepEqual([30*2.5,30*5,2*2.5,2*5],[75,150,5,10]);
 });
+test('Biologia 20: fotosintesi e luce stellare, numeri ricalcolati',()=>{
+ const h=6.62607015e-34,c=2.99792458e8,NA=6.02214076e23,eV=1.602176634e-19,kB=1.380649e-23,E=l=>h*c/(l*1e-9);
+ assert.equal(r(E(680)*1e19,2),2.92);assert.equal(r(E(680)*NA/1000,0),176);assert.equal(r(E(450)*1e19,2),4.41);assert.equal(r(E(450)*NA/1000,0),266);
+ assert.equal(r(8*E(680)*NA/1000,-1),1410);assert.equal(r(2870/6,0),478);assert.equal(r(478/1410,2),0.34);assert.equal(r(478/(10*176),2),0.27);
+ assert.equal(6*3,18);assert.equal(6*2,12);
+ const A=(I,Am,K)=>Am*I/(K+I)-2;assert.equal(A(200,20,200),8);assert.equal(r(A(1000,20,200),1),14.7);
+ assert.equal(r(200*2/18,1),22.2);assert.equal(r(400*2/18,1),44.4);assert.equal(r(200*2/38,1),10.5);assert.equal(r(18.2*200/1.8,0),2022);
+ const b=2.897771955e-3;assert.equal(r(b/5772*1e9,0),502);assert.equal(r(b/4000*1e9,0),724);assert.equal(r(b/3000*1e9,0),966);assert.equal(r(b/2570*1e9,0),1128);
+ assert.equal(r(3.6697e-3/5772*1e9,-1),640);assert.equal(r(3.6697e-3/3000*1e9,-1),1220);
+ const z3=1.2020569031595942,G=x=>{let s=0;for(let k=1;k<500;k++)s+=Math.exp(-k*x)*(x*x/k+2*x/k/k+2/k**3);return s/(2*z3)};
+ const fr=(T,lo,hi)=>G(h*c/(hi*1e-9*kB*T))-G(h*c/(lo*1e-9*kB*T));
+ assert.deepEqual([5772,3000,2566].map(T=>r(fr(T,400,700),3)),[0.217,0.027,0.011]);assert.deepEqual([5772,3000,2566].map(T=>r(fr(T,400,750),3)),[0.256,0.038,0.017]);
+ assert.equal(r(0.217/0.027,1),8);assert.equal(r(0.256/0.038,1),6.7);assert.equal(r(fr(5772,400,750)/fr(5772,400,700),2),1.18);
+ assert.equal(r(2000*0.85/8,-1),210);assert.equal(r(210/30,0),7);assert.equal(r(6.63e-34*3e8/450e-9*1e19,2),4.42);assert.equal(r(4.42e-19*6.02e23/1000,0),266);assert.equal(r(3.65/1.14,1),3.2);assert.equal(r(0.45/0.55,2),0.82);assert.equal(r(0.05/0.55,2),0.09);
+ assert.equal(r(E(680)/eV,2),1.82);assert.equal(r(2*E(680)/eV,2),3.65);assert.equal(r(2*E(1000)/eV,2),2.48);assert.equal(r(3*E(1000)/eV,2),3.72);
+ assert.equal(r(Math.log(100)/0.04,0),115);assert.equal(r(Math.log(100)/0.5,0),9);
+ assert.equal(r(0.67*5772/2566,1),1.5);assert.equal(r(1.5*0.011/0.217,3),0.076);
+ // Model probes: K = 200 and 400 at I = 250 and 500 (A_max = 20, R_d = 2).
+ assert.deepEqual([A(250,20,200),A(500,20,200),A(250,20,400),A(500,20,400)].map(v=>r(v,2)),[9.11,12.29,5.69,9.11]);
+});
