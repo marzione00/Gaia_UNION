@@ -261,3 +261,31 @@ test('Fisica 33: correnti, dipoli e dinamo dei pianeti, numeri ricalcolati',()=>
  // Model probes: equatorial dipole field at r/R = 5.75 and 10.5 (25% and 50% of the domain) for B0 = 30 and 428 microtesla.
  const md=(x,b)=>b*1000/x**3;assert.deepEqual([md(5.75,30),md(10.5,30),md(5.75,428),md(10.5,428)].map(v=>+v.toPrecision(4)),[157.8,25.92,2251,369.7]);
 });
+test('Fisica 34: induzione, circuiti oscillanti e radio, numeri ricalcolati',()=>{
+ const fLC=(L,C)=>1/(2*Math.PI*Math.sqrt(L*C)),w2=2*Math.PI;
+ // Jansky, motional emf, Io and Europa.
+ assert.equal(r(c/20.5e6,1),14.6);assert.equal(r(40e-6*60*250,1),0.6);assert.equal(r(428/5.9**3,0),2);assert.equal(r(2e-6*3.64e6*57e3/1e3,-2),400);
+ // Induced electric field in a circular region.
+ assert.equal(r(2.5e5*1e-8*1e3,1),2.5);
+ // RL, energy densities, LC frequency.
+ assert.equal(r((1-Math.exp(-1))*100,0),63);assert.equal(r(Math.exp(-1)*100,0),37);
+ assert.equal(r((50e-6)**2/(2*mu0)*1e3,1),1);assert.equal(r(9/(2*mu0)/1e6,1),3.6);const um=1e20/(2*mu0);assert.equal(r(um/1e25,0),4);assert.ok(um/c**2/11340>1e4&&um/c**2/11340<1e5);
+ assert.equal(r(fLC(1e-6,100e-12)/1e6,1),15.9);assert.equal(r(fLC(1e-6,400e-12)/fLC(1e-6,100e-12),2),0.5);
+ // RLC and AC.
+ const Q=Math.sqrt(1e-6/100e-12)/2;assert.equal(Q,50);assert.equal(r(fLC(1e-6,100e-12)/Q/1e6,1),0.3);assert.equal(r(230*Math.SQRT2,0),325);
+ // Radio astronomy.
+ assert.equal(r(1/((w2*1420e6)**2*1e-6)*1e12,2),0.01);assert.equal(r(c/1420.405751e6*100,1),21.1);
+ // Experiment: free fall over 1 m.
+ assert.equal(r(Math.sqrt(2/9.81),2),0.45);
+ // Exercises.
+ assert.equal(r(100*0.5*0.01/0.1,1),5);assert.equal(r(mu0*1e6*1e-4*0.1*1e6,1),12.6);assert.equal(r(10e-3/100*1e3,2),0.1);assert.equal(r(fLC(1e-6,400e-12)/1e6,1),8);assert.equal(0.5*0.5*4,1);
+ assert.equal(r(1/((w2*20.5e6)**2*1e-6)*1e12,0),60);assert.equal(r((3/5e-5)**2/1e9,1),3.6);
+ const XL=w2*10e6*1e-6,XC=1/(w2*10e6*100e-12);assert.equal(r(XL,1),62.8);assert.equal(r(XC,0),159);assert.equal(r(XL-XC,1),-96.3);assert.equal(r(Math.hypot(50,XL-XC),0),109);assert.equal(r(Math.atan((XL-XC)/50)*180/Math.PI,0),-63);
+ const Eg=200*0.2*0.01*w2*50;assert.equal(r(Eg,0),126);assert.equal(r(Eg/Math.SQRT2,0),89);assert.equal(r(230*2*Math.cos(Math.PI/6),0),398);assert.equal(230*2,460);
+ const EIo=2e-6*3.64e6*5.7e4;assert.equal(r(EIo/1e5,1),4.1);assert.equal(r(EIo*1e6/1e11,0),4);
+ assert.equal(r(2.5e5*1e-8*1e3,1),2.5);assert.equal(r(2.5e5*1e-8*1e6,-2),2500);
+ assert.equal(r(1.42e9*1e5/3e8/1e6,2),0.47);assert.equal(r(1420.406e6/1e3/1e6,1),1.4);
+ assert.equal(r(1e20/(2*1.257e-6)/1e25,1),4);assert.equal(r(1e20/(2*1.257e-6)/c**2/1e8,1),4.4);assert.equal(r(1e20/(2*1.257e-6)/c**2/11340,-3),39000);
+ // Model probes: LC frequency at C = 257.5 and 505 pF (25% and 50% of the domain) for L = 1 and 10 microhenry.
+ const m=(x,a)=>1/(2*Math.PI*Math.sqrt(a*1e-6*x*1e-12))/1e6;assert.deepEqual([m(257.5,1),m(505,1),m(257.5,10),m(505,10)].map(v=>r(v,3)),[9.918,7.082,3.136,2.24]);
+});
