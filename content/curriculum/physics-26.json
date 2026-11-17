@@ -5,20 +5,23 @@
   "title": "Onde elettromagnetiche e pressione della luce",
   "sector": 1,
   "modelId": "physics-26",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Vela ideale perpendicolare alla luce della stella",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Onde elettromagnetiche piane, spettro e finestre atmosferiche, vettore di Poynting e intensità, legge dell’inverso del quadrato, costante solare e luminosità del Sole, pressione di radiazione, rapporto β della polvere e code delle comete, vele solari, polarizzazione e legge di Malus",
+  "narrativeStatus": "I dati provengono dalle misure dell’irradianza solare, dai valori nominali dell’Unione Astronomica Internazionale e dai comunicati delle missioni IKAROS, LightSail 2, ACS3 e Juno citati nel capitolo.",
   "objectives": [
-    "Spiegare: vela ideale perpendicolare alla luce della stella.",
-    "Applicare a = 2 S₀/(c σ) · (1 UA/r)², dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Descrivere un’onda elettromagnetica piana e collocare le bande dello spettro.",
+    "Calcolare intensità, campo elettrico e luminosità con la legge dell’inverso del quadrato.",
+    "Calcolare la pressione della luce e l’accelerazione di una vela solare.",
+    "Usare il rapporto β e la legge di Malus per interpretare polvere, comete e polarizzazione."
   ],
   "prerequisites": [
     "physics-25"
   ],
   "connections": [
-    "physics-24"
+    "physics-24",
+    "physics-27",
+    "physics-40"
   ],
   "sources": [
     "physics2",
@@ -27,241 +30,316 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Distanza dal Sole",
-      "definition": "Variabile indipendente, unità UA; intervallo [0,2; 5]."
+      "term": "Onda elettromagnetica",
+      "definition": "Perturbazione dei campi elettrico e magnetico che si propaga nel vuoto alla velocità c."
     },
     {
-      "term": "Accelerazione della vela",
-      "definition": "Risultato calcolato dal modello, unità mm/s²."
+      "term": "Intensità",
+      "definition": "Potenza media trasportata dall’onda per unità di superficie perpendicolare alla propagazione."
     },
     {
-      "term": "Densità superficiale σ",
-      "definition": "Parametro a, unità g/m²; intervallo [1; 50]."
+      "term": "Luminosità",
+      "definition": "Potenza totale emessa da una stella in tutte le direzioni."
+    },
+    {
+      "term": "Pressione di radiazione",
+      "definition": "Pressione esercitata dalla luce: I/c su una superficie che assorbe, 2I/c su una che riflette."
+    },
+    {
+      "term": "Vela solare",
+      "definition": "Membrana riflettente che usa la pressione della luce come propulsione, senza propellente."
+    },
+    {
+      "term": "Polarizzazione",
+      "definition": "Direzione lungo cui oscilla il campo elettrico di un’onda."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "La luce che spinge",
       "text": {
         "base": [
-          "Una sonda della stazione spiega una vela sottile verso la stella. Nessun motore si accende, eppure la sonda accelera: la luce trasporta quantità di moto.",
-          "La luce è un'onda elettromagnetica che trasporta energia e quantità di moto. L'intensità, potenza per unità di superficie, diminuisce con l'inverso del quadrato della distanza; una superficie che riflette tutta la luce riceve una pressione 2I/c."
+          "Nel 1619 Keplero notò che le code delle comete puntano sempre lontano dal Sole e immaginò che la luce le spingesse. La spiegazione arrivò con Maxwell nel 1865: la luce è un’onda di campi elettrici e magnetici che si propaga nel vuoto alla velocità c, e un’onda di questo tipo trasporta energia e quantità di moto. Hertz produsse e rivelò onde elettromagnetiche in laboratorio fra il 1886 e il 1888.",
+          "Quasi tutto ciò che si sa delle stelle arriva come radiazione elettromagnetica, dalle onde radio ai raggi gamma. L’atmosfera lascia passare soltanto le finestre ottica e radio; per l’ultravioletto, i raggi X e gran parte dell’infrarosso servono telescopi nello spazio, come Hubble e il James Webb Space Telescope. Questa unità studia come l’onda trasporta energia e quale spinta esercita."
         ],
         "intermediate": [
-          "Una sonda della stazione spiega una vela sottile verso la stella. Nessun motore si accende, eppure la sonda accelera: la luce trasporta quantità di moto.",
-          "Alla distanza di 1 UA dal Sole l'intensità è S₀ ≈ 1361 W/m². Su una vela perfettamente riflettente perpendicolare alla luce la pressione è 2S/c; dividendo per la massa per unità di superficie σ si ottiene a = 2S₀/(cσ)·(1 UA/r)²."
+          "Nel 1619 Keplero notò che le code delle comete puntano sempre lontano dal Sole e immaginò che la luce le spingesse. La spiegazione arrivò con Maxwell nel 1865: la luce è un’onda di campi elettrici e magnetici che si propaga nel vuoto alla velocità c, e un’onda di questo tipo trasporta energia e quantità di moto. Hertz produsse e rivelò onde elettromagnetiche in laboratorio fra il 1886 e il 1888.",
+          "Quasi tutto ciò che si sa delle stelle arriva come radiazione elettromagnetica, dalle onde radio ai raggi gamma. L’atmosfera lascia passare soltanto le finestre ottica e radio; per l’ultravioletto, i raggi X e gran parte dell’infrarosso servono telescopi nello spazio, come Hubble e il James Webb Space Telescope. Questa unità studia come l’onda trasporta energia e quale spinta esercita."
         ],
         "advanced": [
-          "Una sonda della stazione spiega una vela sottile verso la stella. Nessun motore si accende, eppure la sonda accelera: la luce trasporta quantità di moto.",
-          "Confronta l'accelerazione della vela con l'attrazione gravitazionale del Sole alla stessa distanza: per quale σ le due forze si equivalgono?",
-          "Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento."
+          "Nel 1619 Keplero notò che le code delle comete puntano sempre lontano dal Sole e immaginò che la luce le spingesse. La spiegazione arrivò con Maxwell nel 1865: la luce è un’onda di campi elettrici e magnetici che si propaga nel vuoto alla velocità c, e un’onda di questo tipo trasporta energia e quantità di moto. Hertz produsse e rivelò onde elettromagnetiche in laboratorio fra il 1886 e il 1888.",
+          "Quasi tutto ciò che si sa delle stelle arriva come radiazione elettromagnetica, dalle onde radio ai raggi gamma. L’atmosfera lascia passare soltanto le finestre ottica e radio; per l’ultravioletto, i raggi X e gran parte dell’infrarosso servono telescopi nello spazio, come Hubble e il James Webb Space Telescope. Questa unità studia come l’onda trasporta energia e quale spinta esercita.",
+          "Il campo magnetico di un’onda, misurato in tesla, sembra minuscolo rispetto al campo elettrico in volt al metro: alla luce del Sole corrispondono circa 1010 V/m e 3,4 μT. Le due densità di energia sono però uguali, e il campo magnetico è indispensabile per la propagazione e per la pressione della luce."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Intensità, pressione e polvere",
       "text": {
         "base": [
-          "La luce è un'onda elettromagnetica che trasporta energia e quantità di moto. L'intensità, potenza per unità di superficie, diminuisce con l'inverso del quadrato della distanza; una superficie che riflette tutta la luce riceve una pressione 2I/c.",
-          "Con σ = 10 g/m² a 1 UA l'accelerazione è circa 0,91 mm/s²: in un giorno la velocità cresce di circa 78 m/s. A 2 UA l'accelerazione si riduce a un quarto."
+          "Una sorgente che emette la potenza L in tutte le direzioni produce alla distanza d l’intensità I = L/(4πd²). La costante solare, 1361 W/m² a una unità astronomica, dà la luminosità del Sole, circa 3,83·10²⁶ W. Mercurio riceve circa 9100 W/m², Giove circa 50 e Nettuno circa 1,5: per questo la sonda Juno, a Giove, ricava dai suoi pannelli circa 500 W invece dei 14 kW che avrebbe vicino alla Terra.",
+          "La luce trasporta quantità di moto: una superficie che la assorbe riceve la pressione I/c, una che la riflette 2I/c. A una unità astronomica la pressione vale circa 4,5 μPa su una superficie nera e 9,1 μPa su uno specchio, venti miliardi di volte meno della pressione atmosferica. Fu misurata per la prima volta nel 1901 da Lebedev e da Nichols e Hull."
         ],
         "intermediate": [
-          "Alla distanza di 1 UA dal Sole l'intensità è S₀ ≈ 1361 W/m². Su una vela perfettamente riflettente perpendicolare alla luce la pressione è 2S/c; dividendo per la massa per unità di superficie σ si ottiene a = 2S₀/(cσ)·(1 UA/r)².",
-          "La variabile Distanza dal Sole è espressa in UA; Accelerazione della vela in mm/s². Il dominio dello strumento è [0,2; 5]. La relazione implementata è: a = 2 S₀/(c σ) · (1 UA/r)².",
-          "Con σ = 10 g/m² a 1 UA l'accelerazione è circa 0,91 mm/s²: in un giorno la velocità cresce di circa 78 m/s. A 2 UA l'accelerazione si riduce a un quarto."
+          "Una sorgente che emette la potenza L in tutte le direzioni produce alla distanza d l’intensità I = L/(4πd²). La costante solare, 1361 W/m² a una unità astronomica, dà la luminosità del Sole, circa 3,83·10²⁶ W. Mercurio riceve circa 9100 W/m², Giove circa 50 e Nettuno circa 1,5: per questo la sonda Juno, a Giove, ricava dai suoi pannelli circa 500 W invece dei 14 kW che avrebbe vicino alla Terra.",
+          "La luce trasporta quantità di moto: una superficie che la assorbe riceve la pressione I/c, una che la riflette 2I/c. A una unità astronomica la pressione vale circa 4,5 μPa su una superficie nera e 9,1 μPa su uno specchio, venti miliardi di volte meno della pressione atmosferica. Fu misurata per la prima volta nel 1901 da Lebedev e da Nichols e Hull.",
+          "Per un granello di polvere la spinta della luce e la gravità calano entrambe come 1/r², e il loro rapporto β dipende soltanto da raggio e densità: β ≈ 0,57/(ρs) con ρ in g/cm³ e s in μm. I granelli di silicato più piccoli di mezzo micrometro, liberati da un corpo in orbita circolare, lasciano il sistema solare; la polvere più grossa forma la coda incurvata delle comete."
         ],
         "advanced": [
-          "Alla distanza di 1 UA dal Sole l'intensità è S₀ ≈ 1361 W/m². Su una vela perfettamente riflettente perpendicolare alla luce la pressione è 2S/c; dividendo per la massa per unità di superficie σ si ottiene a = 2S₀/(cσ)·(1 UA/r)².",
-          "Confronta l'accelerazione della vela con l'attrazione gravitazionale del Sole alla stessa distanza: per quale σ le due forze si equivalgono?",
-          "La pressione della luce è piccola ma continua: una vela leggera accumula velocità per mesi. La luce assorbita spinge la metà di quella riflessa."
+          "Una sorgente che emette la potenza L in tutte le direzioni produce alla distanza d l’intensità I = L/(4πd²). La costante solare, 1361 W/m² a una unità astronomica, dà la luminosità del Sole, circa 3,83·10²⁶ W. Mercurio riceve circa 9100 W/m², Giove circa 50 e Nettuno circa 1,5: per questo la sonda Juno, a Giove, ricava dai suoi pannelli circa 500 W invece dei 14 kW che avrebbe vicino alla Terra.",
+          "La luce trasporta quantità di moto: una superficie che la assorbe riceve la pressione I/c, una che la riflette 2I/c. A una unità astronomica la pressione vale circa 4,5 μPa su una superficie nera e 9,1 μPa su uno specchio, venti miliardi di volte meno della pressione atmosferica. Fu misurata per la prima volta nel 1901 da Lebedev e da Nichols e Hull.",
+          "Per un granello di polvere la spinta della luce e la gravità calano entrambe come 1/r², e il loro rapporto β dipende soltanto da raggio e densità: β ≈ 0,57/(ρs) con ρ in g/cm³ e s in μm. I granelli di silicato più piccoli di mezzo micrometro, liberati da un corpo in orbita circolare, lasciano il sistema solare; la polvere più grossa forma la coda incurvata delle comete.",
+          "Una vela ideale perpendicolare al Sole ha accelerazione a = 2S₀/(cσ)·(1 UA/r)², dove σ è la massa per unità di area. IKAROS, lanciata da JAXA nel 2010, ha misurato una spinta di 1,12 mN su 196 m²; LightSail 2 ha alzato la propria orbita di circa 1,7 km in quattro giorni nel 2019; ACS3 ha aperto nel 2024 una vela di circa 80 m² con bracci di materiale composito."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio della vela",
       "text": {
         "base": [
-          "Nel laboratorio imposta Densità superficiale σ (a): 10 g/m². Prima di salvare A, prevedi come cambia Accelerazione della vela fra Distanza dal Sole=1,4 e 2,6 UA. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con σ = 10 g/m² a 1 UA l'accelerazione è circa 0,91 mm/s²: in un giorno la velocità cresce di circa 78 m/s. A 2 UA l'accelerazione si riduce a un quarto.",
-          "La variabile Distanza dal Sole è espressa in UA; Accelerazione della vela in mm/s². Il dominio dello strumento è [0,2; 5]. La relazione implementata è: a = 2 S₀/(c σ) · (1 UA/r)²."
+          "Nel laboratorio il grafico mostra l’accelerazione di una vela ideale in funzione della distanza dal Sole, da 0,2 a 5 unità astronomiche, in millimetri al secondo quadrato. Nella scheda «Regola» cambi la densità superficiale σ, da 1 a 50 grammi per metro quadrato, che comprende vela, struttura e carico. Con il valore predefinito, 10 g/m², a una unità astronomica l’accelerazione è circa 0,91 mm/s².",
+          "Protocollo. Il programma confronta due distanze fissate, 1,4 e 2,6 unità astronomiche. Con σ = 10 g/m² prevedi se l’accelerazione cresce, diminuisce o resta uguale passando dalla prima alla seconda distanza e salva A. Poi porta σ a 5 g/m², metà del valore iniziale, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con σ = 10 g/m² l’accelerazione scende da circa 0,46 a 0,13 mm/s²; con σ = 5 g/m² da circa 0,93 a 0,27 mm/s². In entrambi i casi diminuisce, di un fattore (2,6/1,4)² ≈ 3,4, perché segue l’inverso del quadrato della distanza. Dimezzare σ raddoppia l’accelerazione a ogni distanza: ogni grammo risparmiato conta quanto avvicinarsi al Sole."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Densità superficiale σ (a): 10 g/m². Prima di salvare A, prevedi come cambia Accelerazione della vela fra Distanza dal Sole=1,4 e 2,6 UA. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Distanza dal Sole è espressa in UA; Accelerazione della vela in mm/s². Il dominio dello strumento è [0,2; 5]. La relazione implementata è: a = 2 S₀/(c σ) · (1 UA/r)².",
-          "Alla distanza di 1 UA dal Sole l'intensità è S₀ ≈ 1361 W/m². Su una vela perfettamente riflettente perpendicolare alla luce la pressione è 2S/c; dividendo per la massa per unità di superficie σ si ottiene a = 2S₀/(cσ)·(1 UA/r)²."
+          "Nel laboratorio il grafico mostra l’accelerazione di una vela ideale in funzione della distanza dal Sole, da 0,2 a 5 unità astronomiche, in millimetri al secondo quadrato. Nella scheda «Regola» cambi la densità superficiale σ, da 1 a 50 grammi per metro quadrato, che comprende vela, struttura e carico. Con il valore predefinito, 10 g/m², a una unità astronomica l’accelerazione è circa 0,91 mm/s².",
+          "Protocollo. Il programma confronta due distanze fissate, 1,4 e 2,6 unità astronomiche. Con σ = 10 g/m² prevedi se l’accelerazione cresce, diminuisce o resta uguale passando dalla prima alla seconda distanza e salva A. Poi porta σ a 5 g/m², metà del valore iniziale, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con σ = 10 g/m² l’accelerazione scende da circa 0,46 a 0,13 mm/s²; con σ = 5 g/m² da circa 0,93 a 0,27 mm/s². In entrambi i casi diminuisce, di un fattore (2,6/1,4)² ≈ 3,4, perché segue l’inverso del quadrato della distanza. Dimezzare σ raddoppia l’accelerazione a ogni distanza: ogni grammo risparmiato conta quanto avvicinarsi al Sole."
         ],
         "advanced": [
-          "Nel laboratorio imposta Densità superficiale σ (a): 10 g/m². Prima di salvare A, prevedi come cambia Accelerazione della vela fra Distanza dal Sole=1,4 e 2,6 UA. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta l'accelerazione della vela con l'attrazione gravitazionale del Sole alla stessa distanza: per quale σ le due forze si equivalgono?",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra l’accelerazione di una vela ideale in funzione della distanza dal Sole, da 0,2 a 5 unità astronomiche, in millimetri al secondo quadrato. Nella scheda «Regola» cambi la densità superficiale σ, da 1 a 50 grammi per metro quadrato, che comprende vela, struttura e carico. Con il valore predefinito, 10 g/m², a una unità astronomica l’accelerazione è circa 0,91 mm/s².",
+          "Protocollo. Il programma confronta due distanze fissate, 1,4 e 2,6 unità astronomiche. Con σ = 10 g/m² prevedi se l’accelerazione cresce, diminuisce o resta uguale passando dalla prima alla seconda distanza e salva A. Poi porta σ a 5 g/m², metà del valore iniziale, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con σ = 10 g/m² l’accelerazione scende da circa 0,46 a 0,13 mm/s²; con σ = 5 g/m² da circa 0,93 a 0,27 mm/s². In entrambi i casi diminuisce, di un fattore (2,6/1,4)² ≈ 3,4, perché segue l’inverso del quadrato della distanza. Dimezzare σ raddoppia l’accelerazione a ogni distanza: ogni grammo risparmiato conta quanto avvicinarsi al Sole.",
+          "Una prova a casa: con occhiali da sole polarizzati davanti allo schermo di un computer, che emette luce polarizzata, ruotando la lente lo schermo passa da luminoso a quasi nero. Un secondo telefono con un’applicazione che legge il sensore di luce permette di misurare l’intensità ogni 15° e di confrontarla con la legge di Malus, I = I₀ cos²θ."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e limiti",
       "text": {
         "base": [
-          "La pressione della luce è piccola ma continua: una vela leggera accumula velocità per mesi. La luce assorbita spinge la metà di quella riflessa.",
-          "Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: applicare la legge dell’inverso del quadrato a ogni sorgente. Vale per una sorgente che irraggia in tutte le direzioni; un laser collimato o un’antenna direzionale concentrano la potenza in un angolo piccolo, e la loro intensità cala molto più lentamente con la distanza, finché la diffrazione non apre il fascio.",
+          "Secondo errore: dimenticare il fattore due della riflessione. Una superficie che riflette riceve una pressione doppia di quella che assorbe, perché la quantità di moto della luce si inverte. Terzo errore: attribuire alla luce entrambe le code delle comete. La coda di ioni, diritta, è trascinata dal vento solare; quella di polvere, incurvata, risponde alla pressione della luce."
         ],
         "intermediate": [
-          "La pressione della luce è piccola ma continua: una vela leggera accumula velocità per mesi. La luce assorbita spinge la metà di quella riflessa.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: applicare la legge dell’inverso del quadrato a ogni sorgente. Vale per una sorgente che irraggia in tutte le direzioni; un laser collimato o un’antenna direzionale concentrano la potenza in un angolo piccolo, e la loro intensità cala molto più lentamente con la distanza, finché la diffrazione non apre il fascio.",
+          "Secondo errore: dimenticare il fattore due della riflessione. Una superficie che riflette riceve una pressione doppia di quella che assorbe, perché la quantità di moto della luce si inverte. Terzo errore: attribuire alla luce entrambe le code delle comete. La coda di ioni, diritta, è trascinata dal vento solare; quella di polvere, incurvata, risponde alla pressione della luce.",
+          "Il modello del laboratorio descrive una vela perfettamente riflettente, piana e sempre perpendicolare alla luce. Trascura la gravità del Sole, che va confrontata con la spinta, la riflessione imperfetta delle membrane reali, l’inclinazione necessaria per manovrare e il riscaldamento. IKAROS ha misurato circa il 63 per cento della spinta ideale per la sua area."
         ],
         "advanced": [
-          "Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento.",
-          "Confronta l'accelerazione della vela con l'attrazione gravitazionale del Sole alla stessa distanza: per quale σ le due forze si equivalgono?",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: applicare la legge dell’inverso del quadrato a ogni sorgente. Vale per una sorgente che irraggia in tutte le direzioni; un laser collimato o un’antenna direzionale concentrano la potenza in un angolo piccolo, e la loro intensità cala molto più lentamente con la distanza, finché la diffrazione non apre il fascio.",
+          "Secondo errore: dimenticare il fattore due della riflessione. Una superficie che riflette riceve una pressione doppia di quella che assorbe, perché la quantità di moto della luce si inverte. Terzo errore: attribuire alla luce entrambe le code delle comete. La coda di ioni, diritta, è trascinata dal vento solare; quella di polvere, incurvata, risponde alla pressione della luce.",
+          "Il modello del laboratorio descrive una vela perfettamente riflettente, piana e sempre perpendicolare alla luce. Trascura la gravità del Sole, che va confrontata con la spinta, la riflessione imperfetta delle membrane reali, l’inclinazione necessaria per manovrare e il riscaldamento. IKAROS ha misurato circa il 63 per cento della spinta ideale per la sua area.",
+          "Approfondimento: per σ ≈ 1,5 g/m² la spinta di una vela ideale eguaglia la gravità del Sole a ogni distanza, perché le due forze calano come 1/r². Una vela di 10 g/m² si comporta come se il Sole avesse il 15 per cento di massa in meno. Per la polvere lo stesso confronto è il rapporto β, e il piccolo ritardo dovuto all’effetto Poynting-Robertson porta i granelli a spiraleggiare verso il Sole."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "La luce è un'onda elettromagnetica che trasporta energia e quantità di moto. L'intensità, potenza per unità di superficie, diminuisce con l'inverso del quadrato della distanza; una superficie che riflette tutta la luce riceve una pressione 2I/c.",
-          "Con σ = 10 g/m² a 1 UA l'accelerazione è circa 0,91 mm/s²: in un giorno la velocità cresce di circa 78 m/s. A 2 UA l'accelerazione si riduce a un quarto."
+          "Ripasso: onda piana trasversale con E/B = c; spettro e finestre atmosferiche; intensità e vettore di Poynting; legge dell’inverso del quadrato e costante solare; luminosità del Sole; pressione di radiazione I/c e 2I/c; rapporto β e code delle comete; vele solari IKAROS, LightSail 2 e ACS3; polarizzazione e legge di Malus.",
+          "Mini esercizio: a 0,5 UA una vela con σ = 10 g/m² ha un’accelerazione quattro volte maggiore che a 1 UA, circa 3,6 mm/s².",
+          "Nelle domande ricorda che l’intensità segue 1/r², che la riflessione raddoppia la pressione e che un polarizzatore trasmette cos²θ della luce polarizzata."
         ],
         "intermediate": [
-          "Alla distanza di 1 UA dal Sole l'intensità è S₀ ≈ 1361 W/m². Su una vela perfettamente riflettente perpendicolare alla luce la pressione è 2S/c; dividendo per la massa per unità di superficie σ si ottiene a = 2S₀/(cσ)·(1 UA/r)².",
-          "La variabile Distanza dal Sole è espressa in UA; Accelerazione della vela in mm/s². Il dominio dello strumento è [0,2; 5]. La relazione implementata è: a = 2 S₀/(c σ) · (1 UA/r)²."
+          "Ripasso: onda piana trasversale con E/B = c; spettro e finestre atmosferiche; intensità e vettore di Poynting; legge dell’inverso del quadrato e costante solare; luminosità del Sole; pressione di radiazione I/c e 2I/c; rapporto β e code delle comete; vele solari IKAROS, LightSail 2 e ACS3; polarizzazione e legge di Malus.",
+          "Mini esercizio: a 0,5 UA una vela con σ = 10 g/m² ha un’accelerazione quattro volte maggiore che a 1 UA, circa 3,6 mm/s².",
+          "Nelle domande ricorda che l’intensità segue 1/r², che la riflessione raddoppia la pressione e che un polarizzatore trasmette cos²θ della luce polarizzata."
         ],
         "advanced": [
-          "Confronta l'accelerazione della vela con l'attrazione gravitazionale del Sole alla stessa distanza: per quale σ le due forze si equivalgono?",
-          "Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento."
+          "Ripasso: onda piana trasversale con E/B = c; spettro e finestre atmosferiche; intensità e vettore di Poynting; legge dell’inverso del quadrato e costante solare; luminosità del Sole; pressione di radiazione I/c e 2I/c; rapporto β e code delle comete; vele solari IKAROS, LightSail 2 e ACS3; polarizzazione e legge di Malus.",
+          "Mini esercizio: a 0,5 UA una vela con σ = 10 g/m² ha un’accelerazione quattro volte maggiore che a 1 UA, circa 3,6 mm/s².",
+          "Nelle domande ricorda che l’intensità segue 1/r², che la riflessione raddoppia la pressione e che un polarizzatore trasmette cos²θ della luce polarizzata."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Vela ideale perpendicolare alla luce della stella.",
-          "Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento.",
-          "Collegamento consigliato: physics-24. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La luce come onda collega questa unità a «Induzione elettromagnetica», dove compaiono le equazioni di Maxwell, e a «Fotoni ed energia quantizzata», dove la stessa luce è descritta come flusso di fotoni. I telescopi che raccolgono questa luce sono il tema di «Specchi, lenti e telescopi»; le candele standard per le distanze delle galassie tornano in «Particelle, espansione e Big Bang».",
+          "Riepilogo dell’unità: campi elettrico e magnetico in fase e perpendicolari; spettro dalle onde radio ai raggi gamma; vettore di Poynting e intensità; inverso del quadrato e luminosità; pressione della luce e quantità di moto; polvere, effetto Poynting-Robertson e code delle comete; vele solari e accelerazione caratteristica; polarizzazione della luce del cielo, delle stelle e del fondo cosmico.",
+          "Nel diario registra A e B con le previsioni e calcola, per una vela di 5 g/m², la distanza alla quale l’accelerazione è uguale a quella della vela da 10 g/m² a una unità astronomica: circa 1,41 unità astronomiche, cioè la radice di due."
         ],
         "intermediate": [
-          "Alla distanza di 1 UA dal Sole l'intensità è S₀ ≈ 1361 W/m². Su una vela perfettamente riflettente perpendicolare alla luce la pressione è 2S/c; dividendo per la massa per unità di superficie σ si ottiene a = 2S₀/(cσ)·(1 UA/r)².",
-          "Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento.",
-          "Confronta l'accelerazione della vela con l'attrazione gravitazionale del Sole alla stessa distanza: per quale σ le due forze si equivalgono?"
+          "La luce come onda collega questa unità a «Induzione elettromagnetica», dove compaiono le equazioni di Maxwell, e a «Fotoni ed energia quantizzata», dove la stessa luce è descritta come flusso di fotoni. I telescopi che raccolgono questa luce sono il tema di «Specchi, lenti e telescopi»; le candele standard per le distanze delle galassie tornano in «Particelle, espansione e Big Bang».",
+          "Riepilogo dell’unità: campi elettrico e magnetico in fase e perpendicolari; spettro dalle onde radio ai raggi gamma; vettore di Poynting e intensità; inverso del quadrato e luminosità; pressione della luce e quantità di moto; polvere, effetto Poynting-Robertson e code delle comete; vele solari e accelerazione caratteristica; polarizzazione della luce del cielo, delle stelle e del fondo cosmico.",
+          "Nel diario registra A e B con le previsioni e calcola, per una vela di 5 g/m², la distanza alla quale l’accelerazione è uguale a quella della vela da 10 g/m² a una unità astronomica: circa 1,41 unità astronomiche, cioè la radice di due."
         ],
         "advanced": [
-          "Confronta l'accelerazione della vela con l'attrazione gravitazionale del Sole alla stessa distanza: per quale σ le due forze si equivalgono?",
-          "Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La luce come onda collega questa unità a «Induzione elettromagnetica», dove compaiono le equazioni di Maxwell, e a «Fotoni ed energia quantizzata», dove la stessa luce è descritta come flusso di fotoni. I telescopi che raccolgono questa luce sono il tema di «Specchi, lenti e telescopi»; le candele standard per le distanze delle galassie tornano in «Particelle, espansione e Big Bang».",
+          "Riepilogo dell’unità: campi elettrico e magnetico in fase e perpendicolari; spettro dalle onde radio ai raggi gamma; vettore di Poynting e intensità; inverso del quadrato e luminosità; pressione della luce e quantità di moto; polvere, effetto Poynting-Robertson e code delle comete; vele solari e accelerazione caratteristica; polarizzazione della luce del cielo, delle stelle e del fondo cosmico.",
+          "Nel diario registra A e B con le previsioni e calcola, per una vela di 5 g/m², la distanza alla quale l’accelerazione è uguale a quella della vela da 10 g/m² a una unità astronomica: circa 1,41 unità astronomiche, cioè la radice di due."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "physics-26-concept",
-      "prompt": "Se la distanza dalla stella raddoppia, l'accelerazione della vela:",
+      "id": "physics-26-q1",
+      "prompt": "Se la distanza dalla stella raddoppia, l’intensità della sua luce:",
       "options": [
         {
           "id": "A",
-          "text": "Resta uguale",
-          "feedback": "Alla distanza di 1 UA dal Sole l'intensità è S₀ ≈ 1361 W/m². Su una vela perfettamente riflettente perpendicolare alla luce la pressione è 2S/c; dividendo per la massa per unità di superficie σ si ottiene a = 2S₀/(cσ)·(1 UA/r)²."
+          "text": "Diventa un quarto",
+          "feedback": "Esatto: l’energia si distribuisce su una sfera di area 4πd²."
         },
         {
           "id": "B",
-          "text": "Diventa un quarto",
-          "feedback": "La luce è un'onda elettromagnetica che trasporta energia e quantità di moto. L'intensità, potenza per unità di superficie, diminuisce con l'inverso del quadrato della distanza; una superficie che riflette tutta la luce riceve una pressione 2I/c."
+          "text": "Si dimezza",
+          "feedback": "Questo varrebbe se l’area crescesse come d; cresce invece come d²."
         },
         {
           "id": "C",
-          "text": "Si dimezza",
-          "feedback": "La pressione della luce è piccola ma continua: una vela leggera accumula velocità per mesi. La luce assorbita spinge la metà di quella riflessa."
+          "text": "Resta uguale",
+          "feedback": "L’intensità resta costante soltanto in un fascio perfettamente collimato."
+        },
+        {
+          "id": "D",
+          "text": "Diventa un ottavo",
+          "feedback": "Il fattore 1/8 corrisponderebbe a una dipendenza da 1/d³."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-26-q2",
+      "prompt": "Una superficie che riflette tutta la luce riceve, rispetto a una che la assorbe:",
+      "options": [
+        {
+          "id": "A",
+          "text": "La stessa pressione",
+          "feedback": "La quantità di moto della luce riflessa si inverte, e la variazione è doppia."
+        },
+        {
+          "id": "B",
+          "text": "Una pressione doppia",
+          "feedback": "Esatto: la pressione passa da I/c a 2I/c."
+        },
+        {
+          "id": "C",
+          "text": "Una pressione nulla",
+          "feedback": "Anche la luce riflessa cede quantità di moto alla superficie."
+        },
+        {
+          "id": "D",
+          "text": "Metà della pressione",
+          "feedback": "La riflessione aumenta la spinta invece di ridurla."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "physics-26-calculation",
-      "prompt": "Calcolo: Densità superficiale σ (a)=10 g/m². Per Distanza dal Sole=1 UA, quanto vale Accelerazione della vela?",
+      "id": "physics-26-q3",
+      "prompt": "Perché il rapporto β fra spinta della luce e gravità non dipende dalla distanza dal Sole?",
       "options": [
         {
           "id": "A",
-          "text": "0,907961 mm/s²",
-          "feedback": "a = 2 S₀/(c σ) · (1 UA/r)². Con Densità superficiale σ (a)=10 g/m² e Distanza dal Sole=1 UA, il risultato è 0,907961 mm/s². Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché la polvere è sempre alla stessa distanza",
+          "feedback": "I granelli si trovano a distanze diverse, e β resta lo stesso per ciascuno."
         },
         {
           "id": "B",
-          "text": "1,90796 mm/s²",
-          "feedback": "Questo valore non soddisfa la relazione. a = 2 S₀/(c σ) · (1 UA/r)². Con Densità superficiale σ (a)=10 g/m² e Distanza dal Sole=1 UA, il risultato è 0,907961 mm/s². Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché le due forze calano entrambe come 1/r²",
+          "feedback": "Esatto: nel rapporto la distanza si semplifica."
         },
         {
           "id": "C",
-          "text": "-0,0920385 mm/s²",
-          "feedback": "Controlla sostituzione, segno e unità. a = 2 S₀/(c σ) · (1 UA/r)². Con Densità superficiale σ (a)=10 g/m² e Distanza dal Sole=1 UA, il risultato è 0,907961 mm/s². Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché la luce non dipende dalla distanza",
+          "feedback": "L’intensità della luce cala come 1/r²."
+        },
+        {
+          "id": "D",
+          "text": "Perché la gravità è costante",
+          "feedback": "Anche la gravità del Sole cala come 1/r²."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 10
-        },
-        "expected": 0.9079614671293699,
-        "unit": "mm/s²"
-      }
+      "correct": "B"
     },
     {
-      "id": "physics-26-transfer",
-      "prompt": "Trasferimento: Densità superficiale σ (a)=11 g/m². Per Distanza dal Sole=1 UA, quanto vale Accelerazione della vela?",
+      "id": "physics-26-q4",
+      "prompt": "Quale coda di una cometa è spinta soprattutto dalla pressione della luce?",
       "options": [
         {
           "id": "A",
-          "text": "1,82542 mm/s²",
-          "feedback": "Questo valore non soddisfa la relazione. a = 2 S₀/(c σ) · (1 UA/r)². Con Densità superficiale σ (a)=11 g/m² e Distanza dal Sole=1 UA, il risultato è 0,82542 mm/s². Conserva le unità e arrotonda solo alla fine."
+          "text": "La coda di ioni, diritta e bluastra",
+          "feedback": "La coda di ioni è trascinata dal vento solare, il flusso di particelle cariche."
         },
         {
           "id": "B",
-          "text": "-0,17458 mm/s²",
-          "feedback": "Controlla sostituzione, segno e unità. a = 2 S₀/(c σ) · (1 UA/r)². Con Densità superficiale σ (a)=11 g/m² e Distanza dal Sole=1 UA, il risultato è 0,82542 mm/s². Conserva le unità e arrotonda solo alla fine."
+          "text": "La coda di polvere, larga e incurvata",
+          "feedback": "Esatto: ogni granello segue un’orbita con gravità ridotta dalla luce."
         },
         {
           "id": "C",
-          "text": "0,82542 mm/s²",
-          "feedback": "a = 2 S₀/(c σ) · (1 UA/r)². Con Densità superficiale σ (a)=11 g/m² e Distanza dal Sole=1 UA, il risultato è 0,82542 mm/s². Conserva le unità e arrotonda solo alla fine."
+          "text": "Entrambe nello stesso modo",
+          "feedback": "Le due code rispondono a spinte diverse e per questo spesso si separano."
+        },
+        {
+          "id": "D",
+          "text": "Nessuna delle due",
+          "feedback": "La polvere delle comete risente in modo evidente della pressione della luce."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 11
-        },
-        "expected": 0.8254195155721544,
-        "unit": "mm/s²"
-      }
+      "correct": "B"
     },
     {
-      "id": "physics-26-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "physics-26-q5",
+      "prompt": "Dimezzando la densità superficiale σ di una vela ideale, a parità di distanza l’accelerazione:",
       "options": [
         {
           "id": "A",
-          "text": "Vela ideale perpendicolare alla luce della stella",
-          "feedback": "Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento."
+          "text": "Raddoppia",
+          "feedback": "Esatto: a = 2S₀/(cσ) a una unità astronomica, inversamente proporzionale a σ."
         },
         {
           "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento."
+          "text": "Si dimezza",
+          "feedback": "Una vela più leggera per unità di area accelera di più, con la stessa spinta per metro quadrato."
         },
         {
           "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento."
+          "text": "Quadruplica",
+          "feedback": "La dipendenza da σ è lineare inversa, senza il quadrato."
+        },
+        {
+          "id": "D",
+          "text": "Resta uguale",
+          "feedback": "La massa da spingere cambia, quindi cambia anche l’accelerazione."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-26-q6",
+      "prompt": "Luce polarizzata attraversa un polarizzatore con l’asse a 60° dal piano di polarizzazione. Quale frazione passa?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Un quarto",
+          "feedback": "Esatto: per la legge di Malus passa cos²60° = 1/4."
+        },
+        {
+          "id": "B",
+          "text": "Metà",
+          "feedback": "Metà passa per luce non polarizzata, oppure a 45° per luce polarizzata."
+        },
+        {
+          "id": "C",
+          "text": "Tre quarti",
+          "feedback": "Tre quarti passerebbero a 30°, dove cos²30° = 3/4."
+        },
+        {
+          "id": "D",
+          "text": "Nulla",
+          "feedback": "La luce si spegne soltanto con assi perpendicolari, a 90°."
         }
       ],
       "correct": "A"
