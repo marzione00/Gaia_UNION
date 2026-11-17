@@ -37586,6 +37586,348 @@
      "correct": "A"
     }
    ]
+  },
+  {
+   "id": "physics-32",
+   "title": "Particelle cariche nei campi magnetici",
+   "scope": "Campo magnetico e forza di Lorentz, campi incrociati ed esperimento di Thomson, effetto Hall e propulsori, moto circolare ed elicoidale, raggio e frequenza di ciclotrone, rigidità magnetica, spettrometri di massa, ciclotroni e sincrotroni, vento solare e magnetosfera, specchi magnetici e fasce di Van Allen, aurore, raggi cosmici e taglio geomagnetico",
+   "narrativeStatus": "I dati provengono dai valori CODATA, dalle missioni Explorer, Van Allen Probes, MAVEN, Rosetta e Curiosity, dal rapporto di progetto del LHC, dalle carte geomagnetiche dell’INGV e dalle fonti citate nel capitolo.",
+   "description": "Un campo magnetico curva il moto delle cariche senza cambiarne l’energia: dall’elettrone di Thomson agli acceleratori, dalle fasce di Van Allen alle aurore e ai raggi cosmici.",
+   "objectives": [
+    "Calcolare la forza di Lorentz e spiegare il selettore di velocità.",
+    "Calcolare raggio, periodo e frequenza del moto di una carica in un campo uniforme.",
+    "Descrivere spettrometri di massa, ciclotroni e sincrotroni.",
+    "Spiegare fasce di Van Allen, aurore e taglio geomagnetico dei raggi cosmici."
+   ],
+   "prerequisites": [
+    "physics-31"
+   ],
+   "connections": [
+    "physics-13",
+    "physics-24",
+    "physics-33"
+   ],
+   "sources": [
+    "physics2",
+    "si"
+   ],
+   "glossary": [
+    {
+     "term": "Forza di Lorentz",
+     "definition": "Forza q(E + v × B) che i campi elettrico e magnetico esercitano su una carica in moto."
+    },
+    {
+     "term": "Raggio di Larmor",
+     "definition": "Raggio del moto circolare di una carica attorno a una linea di campo, mv/(qB)."
+    },
+    {
+     "term": "Frequenza di ciclotrone",
+     "definition": "Frequenza qB/(2πm) del moto circolare di una carica in un campo magnetico, indipendente dalla velocità."
+    },
+    {
+     "term": "Rigidità magnetica",
+     "definition": "Rapporto fra quantità di moto e carica, che fissa la traiettoria di una particella in un campo magnetico."
+    },
+    {
+     "term": "Specchio magnetico",
+     "definition": "Regione di campo convergente che riflette le particelle che spiraleggiano lungo le linee di campo."
+    },
+    {
+     "term": "Fasce di Van Allen",
+     "definition": "Regioni attorno alla Terra in cui protoni ed elettroni energetici restano intrappolati dal campo magnetico."
+    }
+   ],
+   "steps": [
+    {
+     "label": "SCOPRI",
+     "title": "Un contatore che smette di contare",
+     "text": {
+      "base": [
+       "Il 31 gennaio 1958 Explorer 1, il primo satellite statunitense, portò in orbita un contatore Geiger progettato dal gruppo di James Van Allen. A certe quote il contatore smetteva di contare, saturato da un flusso enorme di particelle. Era la scoperta delle fasce di Van Allen: regioni attorno alla Terra dove protoni ed elettroni energetici restano intrappolati dal campo magnetico del pianeta.",
+       "Il meccanismo che li intrappola è la forza che un campo magnetico esercita su una carica in moto. Questa forza è sempre perpendicolare alla velocità: curva la traiettoria e lascia invariata l’energia. Lo stesso principio misura la carica dell’elettrone, separa gli isotopi negli spettrometri di massa, fa girare le particelle nei ciclotroni e negli anelli del CERN, accende le aurore."
+      ],
+      "intermediate": [
+       "Il 31 gennaio 1958 Explorer 1, il primo satellite statunitense, portò in orbita un contatore Geiger progettato dal gruppo di James Van Allen. A certe quote il contatore smetteva di contare, saturato da un flusso enorme di particelle. Era la scoperta delle fasce di Van Allen: regioni attorno alla Terra dove protoni ed elettroni energetici restano intrappolati dal campo magnetico del pianeta.",
+       "Il meccanismo che li intrappola è la forza che un campo magnetico esercita su una carica in moto. Questa forza è sempre perpendicolare alla velocità: curva la traiettoria e lascia invariata l’energia. Lo stesso principio misura la carica dell’elettrone, separa gli isotopi negli spettrometri di massa, fa girare le particelle nei ciclotroni e negli anelli del CERN, accende le aurore."
+      ],
+      "advanced": [
+       "Il 31 gennaio 1958 Explorer 1, il primo satellite statunitense, portò in orbita un contatore Geiger progettato dal gruppo di James Van Allen. A certe quote il contatore smetteva di contare, saturato da un flusso enorme di particelle. Era la scoperta delle fasce di Van Allen: regioni attorno alla Terra dove protoni ed elettroni energetici restano intrappolati dal campo magnetico del pianeta.",
+       "Il meccanismo che li intrappola è la forza che un campo magnetico esercita su una carica in moto. Questa forza è sempre perpendicolare alla velocità: curva la traiettoria e lascia invariata l’energia. Lo stesso principio misura la carica dell’elettrone, separa gli isotopi negli spettrometri di massa, fa girare le particelle nei ciclotroni e negli anelli del CERN, accende le aurore.",
+       "Il campo magnetico è anche uno scudo. Devia il vento solare, che su Marte, privo di un campo globale da circa quattro miliardi di anni, ha contribuito a strappare l’atmosfera. Respinge i raggi cosmici meno energetici, soprattutto vicino all’equatore. Fuori da questo scudo, durante un viaggio verso Marte, un astronauta riceverebbe in un anno circa 0,66 sievert."
+      ]
+     }
+    },
+    {
+     "label": "CAPISCI",
+     "title": "Lorentz, ciclotrone e specchi",
+     "text": {
+      "base": [
+       "Una carica q con velocità v in un campo B subisce la forza di Lorentz qv × B, perpendicolare sia alla velocità sia al campo, di modulo qvB sin φ. Con anche un campo elettrico la forza totale vale q(E + v × B). La parte magnetica compie lavoro nullo, perché cambia la direzione del moto e lascia invariata l’energia cinetica. Con campi incrociati passano diritte soltanto le particelle con v = E/B.",
+       "Nel 1897 Thomson usò campi incrociati per misurare il rapporto fra carica e massa dei raggi catodici, più di mille volte quello dello ione idrogeno, e scoprì l’elettrone. Nel 1879 Hall osservò che una lamina percorsa da corrente in un campo magnetico sviluppa una tensione trasversale, V = IB/(nqt), che rivela segno e densità dei portatori. Lo stesso equilibrio governa i propulsori a effetto Hall delle sonde."
+      ],
+      "intermediate": [
+       "Una carica q con velocità v in un campo B subisce la forza di Lorentz qv × B, perpendicolare sia alla velocità sia al campo, di modulo qvB sin φ. Con anche un campo elettrico la forza totale vale q(E + v × B). La parte magnetica compie lavoro nullo, perché cambia la direzione del moto e lascia invariata l’energia cinetica. Con campi incrociati passano diritte soltanto le particelle con v = E/B.",
+       "Nel 1897 Thomson usò campi incrociati per misurare il rapporto fra carica e massa dei raggi catodici, più di mille volte quello dello ione idrogeno, e scoprì l’elettrone. Nel 1879 Hall osservò che una lamina percorsa da corrente in un campo magnetico sviluppa una tensione trasversale, V = IB/(nqt), che rivela segno e densità dei portatori. Lo stesso equilibrio governa i propulsori a effetto Hall delle sonde.",
+       "In un campo uniforme una carica con velocità perpendicolare al campo percorre una circonferenza di raggio r = mv/(qB), il raggio di Larmor, con periodo 2πm/(qB) indipendente dalla velocità. Per un elettrone la frequenza di ciclotrone vale 28 gigahertz per tesla, per un protone 15,2 megahertz per tesla. Se la velocità ha una componente lungo il campo, il moto diventa un’elica avvolta attorno alle linee di campo."
+      ],
+      "advanced": [
+       "Una carica q con velocità v in un campo B subisce la forza di Lorentz qv × B, perpendicolare sia alla velocità sia al campo, di modulo qvB sin φ. Con anche un campo elettrico la forza totale vale q(E + v × B). La parte magnetica compie lavoro nullo, perché cambia la direzione del moto e lascia invariata l’energia cinetica. Con campi incrociati passano diritte soltanto le particelle con v = E/B.",
+       "Nel 1897 Thomson usò campi incrociati per misurare il rapporto fra carica e massa dei raggi catodici, più di mille volte quello dello ione idrogeno, e scoprì l’elettrone. Nel 1879 Hall osservò che una lamina percorsa da corrente in un campo magnetico sviluppa una tensione trasversale, V = IB/(nqt), che rivela segno e densità dei portatori. Lo stesso equilibrio governa i propulsori a effetto Hall delle sonde.",
+       "In un campo uniforme una carica con velocità perpendicolare al campo percorre una circonferenza di raggio r = mv/(qB), il raggio di Larmor, con periodo 2πm/(qB) indipendente dalla velocità. Per un elettrone la frequenza di ciclotrone vale 28 gigahertz per tesla, per un protone 15,2 megahertz per tesla. Se la velocità ha una componente lungo il campo, il moto diventa un’elica avvolta attorno alle linee di campo.",
+       "Gli spettrometri di massa separano gli isotopi perché il raggio dipende dalla massa; ROSINA ha trovato nell’acqua della cometa 67P un rapporto fra deuterio e idrogeno tre volte quello terrestre. Nelle fasce di Van Allen le particelle rimbalzano fra i due emisferi perché il campo, più intenso vicino ai poli, si comporta come uno specchio. I raggi cosmici devono superare una rigidità di taglio di circa 14,9·cos⁴λ gigavolt."
+      ]
+     }
+    },
+    {
+     "label": "SPERIMENTA",
+     "title": "Il laboratorio del raggio di Larmor",
+     "text": {
+      "base": [
+       "Nel laboratorio il grafico mostra il raggio di Larmor di un protone, in chilometri, in funzione del campo magnetico, da 1 a 100 nanotesla, secondo r = mv/(eB). Nella scheda «Regola» cambi la velocità del protone, perpendicolare al campo, da 200 a 900 chilometri al secondo. Il valore predefinito, 400 km/s, è quello del vento solare lento: con un campo di 5 nanotesla il raggio vale circa 840 chilometri.",
+       "Protocollo. Il programma confronta due campi fissati, circa 26 e 51 nanotesla. Con v = 400 km/s prevedi se il raggio cresce, diminuisce o resta uguale passando dal primo campo al secondo e salva A. Poi porta la velocità a 800 km/s, quella del vento solare veloce, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+       "Che cosa osservare. Con 400 km/s il raggio passa da circa 162 a circa 83 chilometri; con 800 km/s da circa 324 a circa 165. In entrambi i casi diminuisce e si dimezza quasi esattamente, perché il campo quasi raddoppia e il raggio è inversamente proporzionale al campo. Raddoppiare la velocità raddoppia tutti i raggi, senza cambiare il rapporto fra i due campi."
+      ],
+      "intermediate": [
+       "Nel laboratorio il grafico mostra il raggio di Larmor di un protone, in chilometri, in funzione del campo magnetico, da 1 a 100 nanotesla, secondo r = mv/(eB). Nella scheda «Regola» cambi la velocità del protone, perpendicolare al campo, da 200 a 900 chilometri al secondo. Il valore predefinito, 400 km/s, è quello del vento solare lento: con un campo di 5 nanotesla il raggio vale circa 840 chilometri.",
+       "Protocollo. Il programma confronta due campi fissati, circa 26 e 51 nanotesla. Con v = 400 km/s prevedi se il raggio cresce, diminuisce o resta uguale passando dal primo campo al secondo e salva A. Poi porta la velocità a 800 km/s, quella del vento solare veloce, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+       "Che cosa osservare. Con 400 km/s il raggio passa da circa 162 a circa 83 chilometri; con 800 km/s da circa 324 a circa 165. In entrambi i casi diminuisce e si dimezza quasi esattamente, perché il campo quasi raddoppia e il raggio è inversamente proporzionale al campo. Raddoppiare la velocità raddoppia tutti i raggi, senza cambiare il rapporto fra i due campi."
+      ],
+      "advanced": [
+       "Nel laboratorio il grafico mostra il raggio di Larmor di un protone, in chilometri, in funzione del campo magnetico, da 1 a 100 nanotesla, secondo r = mv/(eB). Nella scheda «Regola» cambi la velocità del protone, perpendicolare al campo, da 200 a 900 chilometri al secondo. Il valore predefinito, 400 km/s, è quello del vento solare lento: con un campo di 5 nanotesla il raggio vale circa 840 chilometri.",
+       "Protocollo. Il programma confronta due campi fissati, circa 26 e 51 nanotesla. Con v = 400 km/s prevedi se il raggio cresce, diminuisce o resta uguale passando dal primo campo al secondo e salva A. Poi porta la velocità a 800 km/s, quella del vento solare veloce, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+       "Che cosa osservare. Con 400 km/s il raggio passa da circa 162 a circa 83 chilometri; con 800 km/s da circa 324 a circa 165. In entrambi i casi diminuisce e si dimezza quasi esattamente, perché il campo quasi raddoppia e il raggio è inversamente proporzionale al campo. Raddoppiare la velocità raddoppia tutti i raggi, senza cambiare il rapporto fra i due campi.",
+       "Una prova a casa: il magnetometro di uno smartphone, letto con un’applicazione come phyphox, misura il campo magnetico terrestre, circa 46 microtesla in Italia centrale, con un’inclinazione di circa 58 gradi. Con il valore misurato si calcola il raggio di un elettrone che si muove a dieci milioni di metri al secondo, circa 1,2 metri: abbastanza per deviare il fascio dei vecchi televisori."
+      ]
+     }
+    },
+    {
+     "label": "INTERPRETA",
+     "title": "Errori e limiti",
+     "text": {
+      "base": [
+       "Errore frequente: pensare che un campo magnetico possa accelerare una particella. La forza magnetica è perpendicolare alla velocità e compie lavoro nullo; negli acceleratori l’energia è fornita dai campi elettrici, i magneti curvano e focalizzano i fasci. Secondo errore: dimenticare il segno della carica. Nello stesso campo elettroni e protoni girano in versi opposti.",
+       "Terzo errore: credere che il periodo dipenda dalla velocità. Nel moto non relativistico una particella più veloce percorre un cerchio più grande nello stesso tempo, ed è il principio del ciclotrone. Quarto errore: pensare che una carica ferma senta il campo magnetico. La forza è proporzionale alla velocità, e una carica ferma risente soltanto di un eventuale campo elettrico."
+      ],
+      "intermediate": [
+       "Errore frequente: pensare che un campo magnetico possa accelerare una particella. La forza magnetica è perpendicolare alla velocità e compie lavoro nullo; negli acceleratori l’energia è fornita dai campi elettrici, i magneti curvano e focalizzano i fasci. Secondo errore: dimenticare il segno della carica. Nello stesso campo elettroni e protoni girano in versi opposti.",
+       "Terzo errore: credere che il periodo dipenda dalla velocità. Nel moto non relativistico una particella più veloce percorre un cerchio più grande nello stesso tempo, ed è il principio del ciclotrone. Quarto errore: pensare che una carica ferma senta il campo magnetico. La forza è proporzionale alla velocità, e una carica ferma risente soltanto di un eventuale campo elettrico.",
+       "Il modello del laboratorio descrive un protone in un campo uniforme e costante, con velocità perpendicolare al campo e trascurabile rispetto a quella della luce. Trascura campi elettrici, urti e variazioni del campo. Nel vento solare la velocità che conta è quella relativa al plasma, perpendicolare al campo; per particelle relativistiche si usa la quantità di moto relativistica."
+      ],
+      "advanced": [
+       "Errore frequente: pensare che un campo magnetico possa accelerare una particella. La forza magnetica è perpendicolare alla velocità e compie lavoro nullo; negli acceleratori l’energia è fornita dai campi elettrici, i magneti curvano e focalizzano i fasci. Secondo errore: dimenticare il segno della carica. Nello stesso campo elettroni e protoni girano in versi opposti.",
+       "Terzo errore: credere che il periodo dipenda dalla velocità. Nel moto non relativistico una particella più veloce percorre un cerchio più grande nello stesso tempo, ed è il principio del ciclotrone. Quarto errore: pensare che una carica ferma senta il campo magnetico. La forza è proporzionale alla velocità, e una carica ferma risente soltanto di un eventuale campo elettrico.",
+       "Il modello del laboratorio descrive un protone in un campo uniforme e costante, con velocità perpendicolare al campo e trascurabile rispetto a quella della luce. Trascura campi elettrici, urti e variazioni del campo. Nel vento solare la velocità che conta è quella relativa al plasma, perpendicolare al campo; per particelle relativistiche si usa la quantità di moto relativistica.",
+       "Approfondimento: sulla linea di campo che attraversa l’equatore a quattro raggi terrestri, il campo alla superficie è più di cento volte quello all’equatore. Una particella resta intrappolata soltanto se all’equatore il suo angolo di passo supera circa 5,3 gradi; le altre, nel cono di perdita, scendono nell’atmosfera e possono contribuire ad accendere le aurore."
+      ]
+     }
+    },
+    {
+     "label": "VERIFICA",
+     "title": "Verifica",
+     "text": {
+      "base": [
+       "Ripasso: forza di Lorentz e tesla; lavoro nullo della forza magnetica; selettore di velocità ed esperimento di Thomson; effetto Hall; raggio, periodo e frequenza di ciclotrone; moto elicoidale e angolo di passo; rigidità magnetica; spettrometri di massa; ciclotroni e sincrotroni; vento solare e magnetosfera; specchi magnetici e fasce di Van Allen; aurore; raggi cosmici e taglio geomagnetico.",
+       "Mini esercizio: un elettrone a dieci milioni di metri al secondo, nel campo terrestre di 46 microtesla, percorre un cerchio di circa 1,24 metri di raggio.",
+       "Nelle domande ricorda che il raggio è proporzionale alla quantità di moto e inversamente proporzionale al campo, mentre il periodo dipende soltanto da massa, carica e campo."
+      ],
+      "intermediate": [
+       "Ripasso: forza di Lorentz e tesla; lavoro nullo della forza magnetica; selettore di velocità ed esperimento di Thomson; effetto Hall; raggio, periodo e frequenza di ciclotrone; moto elicoidale e angolo di passo; rigidità magnetica; spettrometri di massa; ciclotroni e sincrotroni; vento solare e magnetosfera; specchi magnetici e fasce di Van Allen; aurore; raggi cosmici e taglio geomagnetico.",
+       "Mini esercizio: un elettrone a dieci milioni di metri al secondo, nel campo terrestre di 46 microtesla, percorre un cerchio di circa 1,24 metri di raggio.",
+       "Nelle domande ricorda che il raggio è proporzionale alla quantità di moto e inversamente proporzionale al campo, mentre il periodo dipende soltanto da massa, carica e campo."
+      ],
+      "advanced": [
+       "Ripasso: forza di Lorentz e tesla; lavoro nullo della forza magnetica; selettore di velocità ed esperimento di Thomson; effetto Hall; raggio, periodo e frequenza di ciclotrone; moto elicoidale e angolo di passo; rigidità magnetica; spettrometri di massa; ciclotroni e sincrotroni; vento solare e magnetosfera; specchi magnetici e fasce di Van Allen; aurore; raggi cosmici e taglio geomagnetico.",
+       "Mini esercizio: un elettrone a dieci milioni di metri al secondo, nel campo terrestre di 46 microtesla, percorre un cerchio di circa 1,24 metri di raggio.",
+       "Nelle domande ricorda che il raggio è proporzionale alla quantità di moto e inversamente proporzionale al campo, mentre il periodo dipende soltanto da massa, carica e campo."
+      ]
+     }
+    },
+    {
+     "label": "COLLEGA",
+     "title": "Collegamenti",
+     "text": {
+      "base": [
+       "Il campo magnetico e le sue sorgenti sono introdotti in «Induzione elettromagnetica»; il moto circolare in «Orbite circolari»; le correnti che generano i campi dei pianeti in «Correnti, dipoli e dinamo dei pianeti». Le energie relativistiche dei raggi cosmici e degli acceleratori tornano in «Relatività ristretta», le righe delle aurore in «Onde di materia, atomi e righe spettrali».",
+       "Riepilogo dell’unità: forza di Lorentz; campi naturali dal vento solare alle magnetar; Thomson e l’elettrone; effetto Hall e propulsori delle sonde; moto di ciclotrone e raggio di Larmor; eliche e rigidità; spettrometri di massa e la cometa 67P; ciclotroni, sincrotroni e LHC; vento solare, magnetosfera e Marte; fasce di Van Allen e anomalia del Sud Atlantico; aurore su Terra e Giove; raggi cosmici e formula di Størmer.",
+       "Nel diario registra A e B con le previsioni e calcola il campo per cui un protone a 400 km/s ha un raggio di Larmor di 100 chilometri: circa 42 nanotesla, perché il raggio è inversamente proporzionale al campo."
+      ],
+      "intermediate": [
+       "Il campo magnetico e le sue sorgenti sono introdotti in «Induzione elettromagnetica»; il moto circolare in «Orbite circolari»; le correnti che generano i campi dei pianeti in «Correnti, dipoli e dinamo dei pianeti». Le energie relativistiche dei raggi cosmici e degli acceleratori tornano in «Relatività ristretta», le righe delle aurore in «Onde di materia, atomi e righe spettrali».",
+       "Riepilogo dell’unità: forza di Lorentz; campi naturali dal vento solare alle magnetar; Thomson e l’elettrone; effetto Hall e propulsori delle sonde; moto di ciclotrone e raggio di Larmor; eliche e rigidità; spettrometri di massa e la cometa 67P; ciclotroni, sincrotroni e LHC; vento solare, magnetosfera e Marte; fasce di Van Allen e anomalia del Sud Atlantico; aurore su Terra e Giove; raggi cosmici e formula di Størmer.",
+       "Nel diario registra A e B con le previsioni e calcola il campo per cui un protone a 400 km/s ha un raggio di Larmor di 100 chilometri: circa 42 nanotesla, perché il raggio è inversamente proporzionale al campo."
+      ],
+      "advanced": [
+       "Il campo magnetico e le sue sorgenti sono introdotti in «Induzione elettromagnetica»; il moto circolare in «Orbite circolari»; le correnti che generano i campi dei pianeti in «Correnti, dipoli e dinamo dei pianeti». Le energie relativistiche dei raggi cosmici e degli acceleratori tornano in «Relatività ristretta», le righe delle aurore in «Onde di materia, atomi e righe spettrali».",
+       "Riepilogo dell’unità: forza di Lorentz; campi naturali dal vento solare alle magnetar; Thomson e l’elettrone; effetto Hall e propulsori delle sonde; moto di ciclotrone e raggio di Larmor; eliche e rigidità; spettrometri di massa e la cometa 67P; ciclotroni, sincrotroni e LHC; vento solare, magnetosfera e Marte; fasce di Van Allen e anomalia del Sud Atlantico; aurore su Terra e Giove; raggi cosmici e formula di Størmer.",
+       "Nel diario registra A e B con le previsioni e calcola il campo per cui un protone a 400 km/s ha un raggio di Larmor di 100 chilometri: circa 42 nanotesla, perché il raggio è inversamente proporzionale al campo."
+      ]
+     }
+    }
+   ],
+   "questions": [
+    {
+     "id": "physics-32-q1",
+     "prompt": "Un protone si muove in un campo magnetico costante. La sua energia cinetica:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Resta costante",
+       "feedback": "Esatto: la forza magnetica è perpendicolare alla velocità e compie lavoro nullo."
+      },
+      {
+       "id": "B",
+       "text": "Cresce, perché il campo lo spinge",
+       "feedback": "La forza magnetica cambia la direzione del moto, senza aumentare la velocità."
+      },
+      {
+       "id": "C",
+       "text": "Diminuisce, perché la traiettoria si curva",
+       "feedback": "Curvare la traiettoria richiede una forza perpendicolare, che non sottrae energia."
+      },
+      {
+       "id": "D",
+       "text": "Oscilla con la frequenza di ciclotrone",
+       "feedback": "Il modulo della velocità resta costante lungo tutto il cerchio."
+      }
+     ],
+     "correct": "A"
+    },
+    {
+     "id": "physics-32-q2",
+     "prompt": "Se il campo magnetico raddoppia, il raggio dell’orbita di una carica con la stessa velocità:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Raddoppia",
+       "feedback": "Un campo più intenso curva di più la traiettoria."
+      },
+      {
+       "id": "B",
+       "text": "Si dimezza",
+       "feedback": "Esatto: r = mv/(qB) è inversamente proporzionale al campo."
+      },
+      {
+       "id": "C",
+       "text": "Resta uguale",
+       "feedback": "Il raggio dipende dal campo attraverso r = mv/(qB)."
+      },
+      {
+       "id": "D",
+       "text": "Si riduce a un quarto",
+       "feedback": "La dipendenza dal campo è lineare, senza il quadrato."
+      }
+     ],
+     "correct": "B"
+    },
+    {
+     "id": "physics-32-q3",
+     "prompt": "Nel ciclotrone basta una tensione a frequenza fissa perché:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Il periodo di rotazione è indipendente dalla velocità",
+       "feedback": "Esatto: T = 2πm/(qB) dipende soltanto da massa, carica e campo."
+      },
+      {
+       "id": "B",
+       "text": "Il raggio dell’orbita resta costante",
+       "feedback": "Il raggio cresce man mano che la particella guadagna energia."
+      },
+      {
+       "id": "C",
+       "text": "Il campo magnetico accelera le particelle",
+       "feedback": "L’energia è fornita dalla tensione fra gli elettrodi, il campo curva soltanto."
+      },
+      {
+       "id": "D",
+       "text": "Le particelle viaggiano alla velocità della luce",
+       "feedback": "Proprio vicino alla velocità della luce la sincronia si perde."
+      }
+     ],
+     "correct": "A"
+    },
+    {
+     "id": "physics-32-q4",
+     "prompt": "In un selettore di velocità con E = 10 000 V/m e B = 0,020 T passano diritte le particelle con velocità:",
+     "options": [
+      {
+       "id": "A",
+       "text": "5·10⁵ m/s",
+       "feedback": "Esatto: v = E/B = 10 000/0,020 m/s."
+      },
+      {
+       "id": "B",
+       "text": "200 m/s",
+       "feedback": "Il rapporto va fatto fra il campo elettrico e quello magnetico."
+      },
+      {
+       "id": "C",
+       "text": "Dipende dalla carica",
+       "feedback": "La condizione qE = qvB è indipendente dalla carica."
+      },
+      {
+       "id": "D",
+       "text": "Dipende dalla massa",
+       "feedback": "La massa compare soltanto quando la particella viene deviata."
+      }
+     ],
+     "correct": "A"
+    },
+    {
+     "id": "physics-32-q5",
+     "prompt": "Le particelle intrappolate nelle fasce di Van Allen rimbalzano fra i due emisferi perché:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Il campo, più intenso vicino ai poli, le riflette come uno specchio magnetico",
+       "feedback": "Esatto: crescendo il campo la velocità lungo le linee si annulla e la particella torna indietro."
+      },
+      {
+       "id": "B",
+       "text": "Urtano l’atmosfera e tornano indietro",
+       "feedback": "Le particelle che arrivano all’atmosfera si perdono, invece di rimbalzare."
+      },
+      {
+       "id": "C",
+       "text": "Il campo elettrico terrestre le respinge",
+       "feedback": "Il rimbalzo è dovuto alla geometria del campo magnetico."
+      },
+      {
+       "id": "D",
+       "text": "La gravità terrestre le richiama",
+       "feedback": "Per particelle così veloci la gravità è del tutto trascurabile."
+      }
+     ],
+     "correct": "A"
+    },
+    {
+     "id": "physics-32-q6",
+     "prompt": "I raggi cosmici meno energetici raggiungono più facilmente il suolo:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Vicino ai poli magnetici",
+       "feedback": "Esatto: lì possono scendere lungo le linee di campo, e la rigidità di taglio è piccola."
+      },
+      {
+       "id": "B",
+       "text": "All’equatore magnetico",
+       "feedback": "All’equatore serve la rigidità più alta, circa 15 gigavolt."
+      },
+      {
+       "id": "C",
+       "text": "Ovunque allo stesso modo",
+       "feedback": "L’effetto di latitudine scoperto da Clay mostra il contrario."
+      },
+      {
+       "id": "D",
+       "text": "Soltanto di notte",
+       "feedback": "Il taglio geomagnetico dipende dalla latitudine magnetica, molto più che dall’ora."
+      }
+     ],
+     "correct": "A"
+    }
+   ]
   }
  ]
 }

@@ -200,3 +200,35 @@ test('Fisica 31: legge di Gauss, gusci, pianeti e condensatori, numeri ricalcola
  // Model probes: gravity at r/R = 1 and 2 (25% and 50% of the domain) for g_s = 9.81 (Earth) and 3.71 m/s2 (Mars).
  assert.deepEqual([g(1,9.81),g(2,9.81),g(1,3.71),g(2,3.71)].map(v=>r(v,4)),[9.81,2.4525,3.71,0.9275]);
 });
+test('Fisica 32: particelle cariche nei campi magnetici, numeri ricalcolati',()=>{
+ const u=1.66053906892e-27,rL=(m,v,q,B)=>m*v/(q*B);
+ // Thomson, cyclotron frequencies and Larmor radii.
+ assert.equal(r(e/me/1e11,3),1.759);assert.ok(mp/me>1000);assert.equal(r(e/(2*Math.PI*me)/1e9,0),28);assert.equal(r(e/(2*Math.PI*mp)/1e6,1),15.2);assert.equal(r(e*46e-6/(2*Math.PI*me)/1e6,1),1.3);
+ assert.equal(r(rL(mp,4e5,e,5e-9)/1e3,-1),840);assert.equal(r(rL(me,4e5,e,5e-9),-1),450);assert.ok(mp/me>1800&&mp/me<2000);
+ const pc1=Math.sqrt(1+2*0.938);assert.equal(r(pc1,1),1.7);assert.ok(pc1*1e9/(c*5e-9)>1e9);
+ // Hall voltage in copper, mass spectrometry and the comet 67P.
+ assert.equal(r(5/(8.5e28*e*1e-4)*1e6,1),3.7);assert.equal(r(5.3e-4/1.56e-4,0),3);
+ // Accelerators.
+ assert.equal(r(7e12/(c*2804),2),8.33);assert.equal(r(7e12/(c*8.33)/1e3,1),2.8);
+ // Mirror and cutoff.
+ const Rc=l=>14.9*Math.cos(l*Math.PI/180)**4;assert.equal(r(Rc(0),1),14.9);assert.equal(r(Rc(45),1),3.7);assert.equal(r(Rc(60),2),0.93);assert.ok(Rc(60)<1);
+ assert.equal(r(2*Math.PI*me*40e6/e*1e3,1),1.4);assert.equal(r(2*Math.PI*me*40e6/e/46e-6,-1),30);
+ // Experiment.
+ assert.equal(r(rL(me,1e7,e,46e-6),1),1.2);assert.equal(r(0.5*me*1e14/e,-2),300);
+ // Exercises.
+ assert.equal(r(e*4e5*5e-9*1e22,1),3.2);assert.equal(r(mp*9.81*1e26,1),1.6);assert.equal(r(e*4e5*5e-9/(mp*9.81),-4),20000);
+ assert.equal(r(rL(me,1e7,e,46e-6),2),1.24);assert.equal(r(e/(2*Math.PI*me)/1e10,2),2.8);assert.equal(r(e*46e-6/(2*Math.PI*me)/1e6,2),1.29);
+ assert.equal(r(1e4/0.02/1e5,1),5);assert.equal(r(rL(mp,4e5,e,5e-9)/1e3,0),835);assert.equal(r(rL(me,4e5,e,5e-9),0),455);assert.equal(r(mp/me,0),1836);
+ assert.equal(r(2*Math.PI*mp/(e*5e-9),1),13.1);assert.equal(r(e*5e-9/(2*Math.PI*mp),3),0.076);
+ const rN=(m,V,B)=>Math.sqrt(2*m*u*V/e)/B;assert.equal(r(rN(19.99244,1000,0.1)*100,1),20.4);assert.equal(r(rN(21.991385,1000,0.1)*100,1),21.4);assert.equal(r(2*(rN(21.991385,1000,0.1)-rN(19.99244,1000,0.1))*100,1),2);
+ const Te=2*Math.PI*me/(e*46e-6);assert.equal(r(rL(me,1e7*0.5,e,46e-6),2),0.62);assert.equal(r(Te*1e7,1),7.8);assert.equal(r(1e7*Math.cos(Math.PI/6)*Te,1),6.7);
+ assert.equal(r(pc1,2),1.7);assert.equal(r(1.7e9/(3e8*5e-9)/1e9,1),1.1);assert.ok(1.13e9/3.844e8>2.9&&1.13e9/3.844e8<3);
+ assert.equal(r(e*1.5/(2*Math.PI*mp)/1e6,1),22.9);const Kc=(e*1.5*0.5)**2/(2*mp);assert.equal(r(Kc*1e12,1),4.3);assert.equal(r(Kc/e/1e6,0),27);
+ assert.equal(r(7e12/(3e8*2804),1),8.3);
+ const pc45=Rc(45);assert.equal(r(pc45,2),3.73);assert.equal(r(Math.sqrt(pc45**2+0.938**2),2),3.84);assert.equal(r(Math.sqrt(pc45**2+0.938**2)-0.938,1),2.9);
+ const Beq=30/64,Bs=30*Math.sqrt(1+3*0.75);assert.equal(r(Beq,3),0.469);assert.equal(r(Bs,1),54.1);assert.equal(r(Beq/Bs*1e3,1),8.7);assert.equal(r(Math.asin(Math.sqrt(Beq/Bs))*180/Math.PI,1),5.3);
+ assert.equal(r(2*Math.PI*9.11e-31*4e7/1.6e-19*1e3,2),1.43);
+ assert.equal(r(rN(18.011,3000,0.35)*100,2),9.56);assert.equal(r(rN(19.017,3000,0.35)*100,2),9.83);assert.equal(r(5.3/1.56,1),3.4);
+ // Model probes: Larmor radius at B = 25.75 and 50.5 nT (25% and 50% of the domain) for v = 400 and 800 km/s.
+ const m=(x,a)=>1.67262192e-27*a*1e3/(1.602176634e-19*x*1e-9)/1e3;assert.deepEqual([m(25.75,400),m(50.5,400),m(25.75,800),m(50.5,800)].map(v=>r(v,1)),[162.2,82.7,324.3,165.4]);
+});
