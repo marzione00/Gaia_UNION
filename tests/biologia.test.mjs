@@ -643,3 +643,20 @@ test('Biologia 33: biofirme, numeri ricalcolati',()=>{
  // Model probes: F = c/tau in ppm/yr at tau = 25.75 and 50.5 yr, c = 1.9 and 3.8 ppm.
  assert.deepEqual([1.9/25.75,1.9/50.5,3.8/25.75,3.8/50.5].map(v=>r(v,4)),[0.0738,0.0376,0.1476,0.0752]);
 });
+test('Biologia 34: panspermia e protezione planetaria, numeri ricalcolati',()=>{
+ const S=(d,t,D)=>10**(-d*t/D);assert.equal(r(S(10,10,1000),2),0.79);assert.equal(1000/10,100);assert.equal(1000/20,50);
+ assert.equal(r(1.84e-3*365.25,2),0.67);
+ assert.equal(r(5.03**2/2,1),12.7);assert.equal(r(11.19**2/2,1),62.6);assert.equal(r(11.19**2/5.03**2,1),4.9);assert.equal(r(2.38**2/2,1),2.8);assert.equal(r(10.36**2/2,1),53.7);
+ const a=(1+1.524)/2;assert.equal(r(a,3),1.262);assert.equal(r(a**1.5,2),1.42);assert.equal(r(a**1.5/2,2),0.71);assert.equal(r(a**1.5/2*365.25,0),259);
+ assert.equal(3e5/30,1e4);
+ assert.equal(r(2000/0.67,-2),3000);assert.equal(r(16e6*0.67/2000,-2),5400);assert.ok(1e6*0.672/2000>300);
+ assert.equal(16e6*1e-3,16000);assert.equal(r(S(1e-3,16e6,10000),3),0.025);
+ assert.equal(r(Math.sqrt(1e-6*10)*1e3,0),3);assert.equal(4*0.5,2);
+ assert.equal(r(59e-9*8766*1e4,1),5.2);assert.equal(r(S(0.5e-3,1e6,2000),2),0.56);
+ const beta=s=>3*3.83e26/(16*Math.PI*6.674e-11*1.99e30*3e8*1000*s);assert.equal(r(beta(0.5e-6),1),1.1);assert.equal(r(beta(5e-6),2),0.11);assert.equal(r(16*Math.PI*6.674e-11*1.99e30*3e8*5e-4/1e27,1),1);
+ assert.equal(r(6*2000/0.67,-3),18000);assert.equal(6*2000/1e-3,1.2e7);
+ assert.equal(r(1e5*1e-3*1e-4*0.1,6),0.001);
+ const D112=0.5*10**(13/21);assert.equal(r(D112,1),2.1);assert.equal(r(30/D112,0),14);
+ // Model probes: S = 10^(-d t / D10) at t = 25 and 50 years, D10 = 1000 Gy, d = 10 and 20 Gy/yr.
+ assert.deepEqual([S(10,25,1000),S(10,50,1000),S(20,25,1000),S(20,50,1000)].map(v=>r(v,4)),[0.5623,0.3162,0.3162,0.1]);
+});
