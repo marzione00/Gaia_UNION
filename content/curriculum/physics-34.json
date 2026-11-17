@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "physics-34",
+  "title": "Induzione, circuiti oscillanti e radio",
+  "sector": 1,
+  "modelId": "physics-34",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Circuito LC ideale",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: circuito lc ideale.",
+    "Applicare f = 1/(2π√(LC)), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "physics-33"
+  ],
+  "connections": [
+    "physics-23"
+  ],
+  "sources": [
+    "physics2",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Capacità C",
+      "definition": "Variabile indipendente, unità pF; intervallo [10; 1000]."
+    },
+    {
+      "term": "Frequenza di risonanza",
+      "definition": "Risultato calcolato dal modello, unità MHz."
+    },
+    {
+      "term": "Induttanza L",
+      "definition": "Parametro a, unità μH; intervallo [0,1; 100]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Il ricevitore della stazione deve sintonizzarsi sulle tempeste radio di un pianeta gigante. Un condensatore variabile sceglie la frequenza.",
+          "Un circuito con un induttore e un condensatore scambia energia fra campo elettrico e campo magnetico e oscilla alla frequenza f = 1/(2π√(LC)). Un segnale a quella frequenza viene amplificato dalla risonanza."
+        ],
+        "intermediate": [
+          "Il ricevitore della stazione deve sintonizzarsi sulle tempeste radio di un pianeta gigante. Un condensatore variabile sceglie la frequenza.",
+          "Nel circuito LC la carica soddisfa L d²q/dt² + q/C = 0, l'equazione di un oscillatore armonico con ω = 1/√(LC); quindi f = ω/(2π)."
+        ],
+        "advanced": [
+          "Il ricevitore della stazione deve sintonizzarsi sulle tempeste radio di un pianeta gigante. Un condensatore variabile sceglie la frequenza.",
+          "Calcola la capacità necessaria con L = 1 μH per sintonizzarsi a 1420 MHz e discuti perché a queste frequenze si usano cavità e guide d'onda.",
+          "Componenti ideali senza perdite; trascura resistenza dei fili, capacità parassite e accoppiamento con l'antenna."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Un circuito con un induttore e un condensatore scambia energia fra campo elettrico e campo magnetico e oscilla alla frequenza f = 1/(2π√(LC)). Un segnale a quella frequenza viene amplificato dalla risonanza.",
+          "Con L = 1 μH e C = 100 pF la risonanza cade a circa 15,9 MHz, vicino alle emissioni decametriche di Giove. Quadruplicando C la frequenza si dimezza."
+        ],
+        "intermediate": [
+          "Nel circuito LC la carica soddisfa L d²q/dt² + q/C = 0, l'equazione di un oscillatore armonico con ω = 1/√(LC); quindi f = ω/(2π).",
+          "La variabile Capacità C è espressa in pF; Frequenza di risonanza in MHz. Il dominio dello strumento è [10; 1000]. La relazione implementata è: f = 1/(2π√(LC)).",
+          "Con L = 1 μH e C = 100 pF la risonanza cade a circa 15,9 MHz, vicino alle emissioni decametriche di Giove. Quadruplicando C la frequenza si dimezza."
+        ],
+        "advanced": [
+          "Nel circuito LC la carica soddisfa L d²q/dt² + q/C = 0, l'equazione di un oscillatore armonico con ω = 1/√(LC); quindi f = ω/(2π).",
+          "Calcola la capacità necessaria con L = 1 μH per sintonizzarsi a 1420 MHz e discuti perché a queste frequenze si usano cavità e guide d'onda.",
+          "La risonanza concentra la risposta del circuito in una banda stretta attorno a f, tanto più stretta quanto minore è la resistenza; l'energia viene sempre dal segnale ricevuto."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Induttanza L (a): 1 μH. Prima di salvare A, prevedi come cambia Frequenza di risonanza fra Capacità C=257,5 e 505 pF. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con L = 1 μH e C = 100 pF la risonanza cade a circa 15,9 MHz, vicino alle emissioni decametriche di Giove. Quadruplicando C la frequenza si dimezza.",
+          "La variabile Capacità C è espressa in pF; Frequenza di risonanza in MHz. Il dominio dello strumento è [10; 1000]. La relazione implementata è: f = 1/(2π√(LC))."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Induttanza L (a): 1 μH. Prima di salvare A, prevedi come cambia Frequenza di risonanza fra Capacità C=257,5 e 505 pF. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Capacità C è espressa in pF; Frequenza di risonanza in MHz. Il dominio dello strumento è [10; 1000]. La relazione implementata è: f = 1/(2π√(LC)).",
+          "Nel circuito LC la carica soddisfa L d²q/dt² + q/C = 0, l'equazione di un oscillatore armonico con ω = 1/√(LC); quindi f = ω/(2π)."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Induttanza L (a): 1 μH. Prima di salvare A, prevedi come cambia Frequenza di risonanza fra Capacità C=257,5 e 505 pF. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Calcola la capacità necessaria con L = 1 μH per sintonizzarsi a 1420 MHz e discuti perché a queste frequenze si usano cavità e guide d'onda.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "La risonanza concentra la risposta del circuito in una banda stretta attorno a f, tanto più stretta quanto minore è la resistenza; l'energia viene sempre dal segnale ricevuto.",
+          "Componenti ideali senza perdite; trascura resistenza dei fili, capacità parassite e accoppiamento con l'antenna.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "La risonanza concentra la risposta del circuito in una banda stretta attorno a f, tanto più stretta quanto minore è la resistenza; l'energia viene sempre dal segnale ricevuto.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Componenti ideali senza perdite; trascura resistenza dei fili, capacità parassite e accoppiamento con l'antenna.",
+          "Calcola la capacità necessaria con L = 1 μH per sintonizzarsi a 1420 MHz e discuti perché a queste frequenze si usano cavità e guide d'onda.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Un circuito con un induttore e un condensatore scambia energia fra campo elettrico e campo magnetico e oscilla alla frequenza f = 1/(2π√(LC)). Un segnale a quella frequenza viene amplificato dalla risonanza.",
+          "Con L = 1 μH e C = 100 pF la risonanza cade a circa 15,9 MHz, vicino alle emissioni decametriche di Giove. Quadruplicando C la frequenza si dimezza."
+        ],
+        "intermediate": [
+          "Nel circuito LC la carica soddisfa L d²q/dt² + q/C = 0, l'equazione di un oscillatore armonico con ω = 1/√(LC); quindi f = ω/(2π).",
+          "La variabile Capacità C è espressa in pF; Frequenza di risonanza in MHz. Il dominio dello strumento è [10; 1000]. La relazione implementata è: f = 1/(2π√(LC))."
+        ],
+        "advanced": [
+          "Calcola la capacità necessaria con L = 1 μH per sintonizzarsi a 1420 MHz e discuti perché a queste frequenze si usano cavità e guide d'onda.",
+          "Componenti ideali senza perdite; trascura resistenza dei fili, capacità parassite e accoppiamento con l'antenna."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Circuito LC ideale.",
+          "Componenti ideali senza perdite; trascura resistenza dei fili, capacità parassite e accoppiamento con l'antenna.",
+          "Collegamento consigliato: physics-23. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Nel circuito LC la carica soddisfa L d²q/dt² + q/C = 0, l'equazione di un oscillatore armonico con ω = 1/√(LC); quindi f = ω/(2π).",
+          "Componenti ideali senza perdite; trascura resistenza dei fili, capacità parassite e accoppiamento con l'antenna.",
+          "Calcola la capacità necessaria con L = 1 μH per sintonizzarsi a 1420 MHz e discuti perché a queste frequenze si usano cavità e guide d'onda."
+        ],
+        "advanced": [
+          "Calcola la capacità necessaria con L = 1 μH per sintonizzarsi a 1420 MHz e discuti perché a queste frequenze si usano cavità e guide d'onda.",
+          "Componenti ideali senza perdite; trascura resistenza dei fili, capacità parassite e accoppiamento con l'antenna.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "physics-34-concept",
+      "prompt": "Se la capacità di un circuito LC quadruplica, la frequenza di risonanza:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Raddoppia",
+          "feedback": "La risonanza concentra la risposta del circuito in una banda stretta attorno a f, tanto più stretta quanto minore è la resistenza; l'energia viene sempre dal segnale ricevuto."
+        },
+        {
+          "id": "B",
+          "text": "Quadruplica",
+          "feedback": "Nel circuito LC la carica soddisfa L d²q/dt² + q/C = 0, l'equazione di un oscillatore armonico con ω = 1/√(LC); quindi f = ω/(2π)."
+        },
+        {
+          "id": "C",
+          "text": "Si dimezza",
+          "feedback": "Un circuito con un induttore e un condensatore scambia energia fra campo elettrico e campo magnetico e oscilla alla frequenza f = 1/(2π√(LC)). Un segnale a quella frequenza viene amplificato dalla risonanza."
+        }
+      ],
+      "correct": "C"
+    },
+    {
+      "id": "physics-34-calculation",
+      "prompt": "Calcolo: Induttanza L (a)=1 μH. Per Capacità C=100 pF, quanto vale Frequenza di risonanza?",
+      "options": [
+        {
+          "id": "A",
+          "text": "7,95775 MHz",
+          "feedback": "Controlla sostituzione, segno e unità. f = 1/(2π√(LC)). Con Induttanza L (a)=1 μH e Capacità C=100 pF, il risultato è 15,9155 MHz. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "15,9155 MHz",
+          "feedback": "f = 1/(2π√(LC)). Con Induttanza L (a)=1 μH e Capacità C=100 pF, il risultato è 15,9155 MHz. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "23,8732 MHz",
+          "feedback": "Questo valore non soddisfa la relazione. f = 1/(2π√(LC)). Con Induttanza L (a)=1 μH e Capacità C=100 pF, il risultato è 15,9155 MHz. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 100,
+        "parameters": {
+          "a": 1
+        },
+        "expected": 15.915494309189533,
+        "unit": "MHz"
+      }
+    },
+    {
+      "id": "physics-34-transfer",
+      "prompt": "Trasferimento: Induttanza L (a)=1,1 μH. Per Capacità C=100 pF, quanto vale Frequenza di risonanza?",
+      "options": [
+        {
+          "id": "A",
+          "text": "15,1748 MHz",
+          "feedback": "f = 1/(2π√(LC)). Con Induttanza L (a)=1,1 μH e Capacità C=100 pF, il risultato è 15,1748 MHz. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "22,7622 MHz",
+          "feedback": "Questo valore non soddisfa la relazione. f = 1/(2π√(LC)). Con Induttanza L (a)=1,1 μH e Capacità C=100 pF, il risultato è 15,1748 MHz. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "7,58741 MHz",
+          "feedback": "Controlla sostituzione, segno e unità. f = 1/(2π√(LC)). Con Induttanza L (a)=1,1 μH e Capacità C=100 pF, il risultato è 15,1748 MHz. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 100,
+        "parameters": {
+          "a": 1.1
+        },
+        "expected": 15.174828413163343,
+        "unit": "MHz"
+      }
+    },
+    {
+      "id": "physics-34-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Componenti ideali senza perdite; trascura resistenza dei fili, capacità parassite e accoppiamento con l'antenna."
+        },
+        {
+          "id": "B",
+          "text": "Circuito LC ideale",
+          "feedback": "Componenti ideali senza perdite; trascura resistenza dei fili, capacità parassite e accoppiamento con l'antenna."
+        },
+        {
+          "id": "C",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Componenti ideali senza perdite; trascura resistenza dei fili, capacità parassite e accoppiamento con l'antenna."
+        }
+      ],
+      "correct": "B"
+    }
+  ]
+}

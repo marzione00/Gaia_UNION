@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "physics-35",
+  "title": "Equazioni di Maxwell e magnetismo della materia",
+  "sector": 1,
+  "modelId": "physics-35",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Paramagnete ideale a due orientamenti",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: paramagnete ideale a due orientamenti.",
+    "Applicare M/M_s = tanh(μ_B B/(k T)), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "physics-34"
+  ],
+  "connections": [
+    "physics-24"
+  ],
+  "sources": [
+    "physics2",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Temperatura T",
+      "definition": "Variabile indipendente, unità K; intervallo [1; 300]."
+    },
+    {
+      "term": "Magnetizzazione relativa",
+      "definition": "Risultato calcolato dal modello, unità 1."
+    },
+    {
+      "term": "Campo B",
+      "definition": "Parametro a, unità T; intervallo [0,1; 10]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Una roccia lavica della stazione conserva una magnetizzazione acquisita quando si è raffreddata. Per leggerla bisogna capire come la materia risponde a un campo.",
+          "Gli elettroni hanno un momento magnetico. In una sostanza paramagnetica il campo tende ad allinearli e l'agitazione termica li disordina: la magnetizzazione dipende dal rapporto μ_B B/(kT)."
+        ],
+        "intermediate": [
+          "Una roccia lavica della stazione conserva una magnetizzazione acquisita quando si è raffreddata. Per leggerla bisogna capire come la materia risponde a un campo.",
+          "Per momenti μ_B che possono orientarsi soltanto lungo o contro il campo, i pesi di Boltzmann danno M/M_s = tanh(μ_B B/(kT)). Per argomenti piccoli tanh x ≈ x e si ritrova la legge di Curie: M proporzionale a B/T."
+        ],
+        "advanced": [
+          "Una roccia lavica della stazione conserva una magnetizzazione acquisita quando si è raffreddata. Per leggerla bisogna capire come la materia risponde a un campo.",
+          "Usa la legge di Curie per confrontare la magnetizzazione a 300 K e a 30 K e discuti perché i paramagneti si studiano a bassa temperatura.",
+          "Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Gli elettroni hanno un momento magnetico. In una sostanza paramagnetica il campo tende ad allinearli e l'agitazione termica li disordina: la magnetizzazione dipende dal rapporto μ_B B/(kT).",
+          "Con B = 1 T a 300 K l'argomento vale circa 0,0022 e la magnetizzazione è lo 0,22 % del massimo. A 1 K sale a circa il 59 %."
+        ],
+        "intermediate": [
+          "Per momenti μ_B che possono orientarsi soltanto lungo o contro il campo, i pesi di Boltzmann danno M/M_s = tanh(μ_B B/(kT)). Per argomenti piccoli tanh x ≈ x e si ritrova la legge di Curie: M proporzionale a B/T.",
+          "La variabile Temperatura T è espressa in K; Magnetizzazione relativa in 1. Il dominio dello strumento è [1; 300]. La relazione implementata è: M/M_s = tanh(μ_B B/(k T)).",
+          "Con B = 1 T a 300 K l'argomento vale circa 0,0022 e la magnetizzazione è lo 0,22 % del massimo. A 1 K sale a circa il 59 %."
+        ],
+        "advanced": [
+          "Per momenti μ_B che possono orientarsi soltanto lungo o contro il campo, i pesi di Boltzmann danno M/M_s = tanh(μ_B B/(kT)). Per argomenti piccoli tanh x ≈ x e si ritrova la legge di Curie: M proporzionale a B/T.",
+          "Usa la legge di Curie per confrontare la magnetizzazione a 300 K e a 30 K e discuti perché i paramagneti si studiano a bassa temperatura.",
+          "Un materiale ferromagnetico perde la magnetizzazione spontanea sopra la temperatura di Curie, circa 580 °C per la magnetite: per questo le rocce registrano il campo mentre si raffreddano."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Campo B (a): 1 T. Prima di salvare A, prevedi come cambia Magnetizzazione relativa fra Temperatura T=75,75 e 150,5 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con B = 1 T a 300 K l'argomento vale circa 0,0022 e la magnetizzazione è lo 0,22 % del massimo. A 1 K sale a circa il 59 %.",
+          "La variabile Temperatura T è espressa in K; Magnetizzazione relativa in 1. Il dominio dello strumento è [1; 300]. La relazione implementata è: M/M_s = tanh(μ_B B/(k T))."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Campo B (a): 1 T. Prima di salvare A, prevedi come cambia Magnetizzazione relativa fra Temperatura T=75,75 e 150,5 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Temperatura T è espressa in K; Magnetizzazione relativa in 1. Il dominio dello strumento è [1; 300]. La relazione implementata è: M/M_s = tanh(μ_B B/(k T)).",
+          "Per momenti μ_B che possono orientarsi soltanto lungo o contro il campo, i pesi di Boltzmann danno M/M_s = tanh(μ_B B/(kT)). Per argomenti piccoli tanh x ≈ x e si ritrova la legge di Curie: M proporzionale a B/T."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Campo B (a): 1 T. Prima di salvare A, prevedi come cambia Magnetizzazione relativa fra Temperatura T=75,75 e 150,5 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Usa la legge di Curie per confrontare la magnetizzazione a 300 K e a 30 K e discuti perché i paramagneti si studiano a bassa temperatura.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Un materiale ferromagnetico perde la magnetizzazione spontanea sopra la temperatura di Curie, circa 580 °C per la magnetite: per questo le rocce registrano il campo mentre si raffreddano.",
+          "Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Un materiale ferromagnetico perde la magnetizzazione spontanea sopra la temperatura di Curie, circa 580 °C per la magnetite: per questo le rocce registrano il campo mentre si raffreddano.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo.",
+          "Usa la legge di Curie per confrontare la magnetizzazione a 300 K e a 30 K e discuti perché i paramagneti si studiano a bassa temperatura.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Gli elettroni hanno un momento magnetico. In una sostanza paramagnetica il campo tende ad allinearli e l'agitazione termica li disordina: la magnetizzazione dipende dal rapporto μ_B B/(kT).",
+          "Con B = 1 T a 300 K l'argomento vale circa 0,0022 e la magnetizzazione è lo 0,22 % del massimo. A 1 K sale a circa il 59 %."
+        ],
+        "intermediate": [
+          "Per momenti μ_B che possono orientarsi soltanto lungo o contro il campo, i pesi di Boltzmann danno M/M_s = tanh(μ_B B/(kT)). Per argomenti piccoli tanh x ≈ x e si ritrova la legge di Curie: M proporzionale a B/T.",
+          "La variabile Temperatura T è espressa in K; Magnetizzazione relativa in 1. Il dominio dello strumento è [1; 300]. La relazione implementata è: M/M_s = tanh(μ_B B/(k T))."
+        ],
+        "advanced": [
+          "Usa la legge di Curie per confrontare la magnetizzazione a 300 K e a 30 K e discuti perché i paramagneti si studiano a bassa temperatura.",
+          "Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Paramagnete ideale a due orientamenti.",
+          "Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo.",
+          "Collegamento consigliato: physics-24. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Per momenti μ_B che possono orientarsi soltanto lungo o contro il campo, i pesi di Boltzmann danno M/M_s = tanh(μ_B B/(kT)). Per argomenti piccoli tanh x ≈ x e si ritrova la legge di Curie: M proporzionale a B/T.",
+          "Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo.",
+          "Usa la legge di Curie per confrontare la magnetizzazione a 300 K e a 30 K e discuti perché i paramagneti si studiano a bassa temperatura."
+        ],
+        "advanced": [
+          "Usa la legge di Curie per confrontare la magnetizzazione a 300 K e a 30 K e discuti perché i paramagneti si studiano a bassa temperatura.",
+          "Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "physics-35-concept",
+      "prompt": "Nel regime della legge di Curie, se la temperatura raddoppia la magnetizzazione:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Resta uguale",
+          "feedback": "Per momenti μ_B che possono orientarsi soltanto lungo o contro il campo, i pesi di Boltzmann danno M/M_s = tanh(μ_B B/(kT)). Per argomenti piccoli tanh x ≈ x e si ritrova la legge di Curie: M proporzionale a B/T."
+        },
+        {
+          "id": "B",
+          "text": "Si dimezza",
+          "feedback": "Gli elettroni hanno un momento magnetico. In una sostanza paramagnetica il campo tende ad allinearli e l'agitazione termica li disordina: la magnetizzazione dipende dal rapporto μ_B B/(kT)."
+        },
+        {
+          "id": "C",
+          "text": "Raddoppia",
+          "feedback": "Un materiale ferromagnetico perde la magnetizzazione spontanea sopra la temperatura di Curie, circa 580 °C per la magnetite: per questo le rocce registrano il campo mentre si raffreddano."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "physics-35-calculation",
+      "prompt": "Calcolo: Campo B (a)=1 T. Per Temperatura T=1 K, quanto vale Magnetizzazione relativa?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0,586106 (adimensionale)",
+          "feedback": "M/M_s = tanh(μ_B B/(k T)). Con Campo B (a)=1 T e Temperatura T=1 K, il risultato è 0,586106 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "1,58611 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. M/M_s = tanh(μ_B B/(k T)). Con Campo B (a)=1 T e Temperatura T=1 K, il risultato è 0,586106 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "-0,413894 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. M/M_s = tanh(μ_B B/(k T)). Con Campo B (a)=1 T e Temperatura T=1 K, il risultato è 0,586106 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 1,
+        "parameters": {
+          "a": 1
+        },
+        "expected": 0.5861060981043831,
+        "unit": "1"
+      }
+    },
+    {
+      "id": "physics-35-transfer",
+      "prompt": "Trasferimento: Campo B (a)=1,1 T. Per Temperatura T=1 K, quanto vale Magnetizzazione relativa?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1,62847 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. M/M_s = tanh(μ_B B/(k T)). Con Campo B (a)=1,1 T e Temperatura T=1 K, il risultato è 0,628471 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "-0,371529 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. M/M_s = tanh(μ_B B/(k T)). Con Campo B (a)=1,1 T e Temperatura T=1 K, il risultato è 0,628471 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "0,628471 (adimensionale)",
+          "feedback": "M/M_s = tanh(μ_B B/(k T)). Con Campo B (a)=1,1 T e Temperatura T=1 K, il risultato è 0,628471 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 1,
+        "parameters": {
+          "a": 1.1
+        },
+        "expected": 0.6284711514496405,
+        "unit": "1"
+      }
+    },
+    {
+      "id": "physics-35-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Paramagnete ideale a due orientamenti",
+          "feedback": "Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
+}

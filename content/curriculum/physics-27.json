@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "physics-27",
+  "title": "Specchi, lenti e telescopi",
+  "sector": 1,
+  "modelId": "physics-27",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Raccolta della luce per una sorgente puntiforme",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: raccolta della luce per una sorgente puntiforme.",
+    "Applicare m_lim = m_occhio + 5 log₁₀(D/d_p), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "physics-26"
+  ],
+  "connections": [
+    "physics-24"
+  ],
+  "sources": [
+    "physics3",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Diametro dell’obiettivo D",
+      "definition": "Variabile indipendente, unità cm; intervallo [1; 1000]."
+    },
+    {
+      "term": "Magnitudine limite",
+      "definition": "Risultato calcolato dal modello, unità mag."
+    },
+    {
+      "term": "Magnitudine limite a occhio nudo",
+      "definition": "Parametro a, unità mag; intervallo [4; 7]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Gli astronomi della stazione devono scegliere fra un piccolo rifrattore e un grande specchio. La domanda decisiva riguarda quante stelle deboli potranno vedere.",
+          "Un telescopio raccoglie la luce su una superficie proporzionale al quadrato del diametro e la concentra in un'immagine. Il flusso raccolto rispetto all'occhio cresce come (D/d_p)², e ogni fattore 100 nel flusso vale 5 magnitudini."
+        ],
+        "intermediate": [
+          "Gli astronomi della stazione devono scegliere fra un piccolo rifrattore e un grande specchio. La domanda decisiva riguarda quante stelle deboli potranno vedere.",
+          "La magnitudine cambia di −2,5 log₁₀ del rapporto fra i flussi. Con una pupilla di 7 mm il guadagno è 2,5 log₁₀((D/d_p)²) = 5 log₁₀(D/d_p), da sommare alla magnitudine limite a occhio nudo."
+        ],
+        "advanced": [
+          "Gli astronomi della stazione devono scegliere fra un piccolo rifrattore e un grande specchio. La domanda decisiva riguarda quante stelle deboli potranno vedere.",
+          "Calcola quante volte più luce raccoglie il JWST, con uno specchio equivalente di circa 6,5 m, rispetto a Hubble, che ne ha uno di 2,4 m.",
+          "Stima per stelle puntiformi, ottica perfetta e cielo buio; trascura assorbimento delle superfici, turbolenza e sensibilità dei rivelatori."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Un telescopio raccoglie la luce su una superficie proporzionale al quadrato del diametro e la concentra in un'immagine. Il flusso raccolto rispetto all'occhio cresce come (D/d_p)², e ogni fattore 100 nel flusso vale 5 magnitudini.",
+          "Con D = 10 cm e magnitudine limite 6 a occhio nudo si arriva circa a magnitudine 11,8. Uno specchio di 1 m guadagna altre 5 magnitudini."
+        ],
+        "intermediate": [
+          "La magnitudine cambia di −2,5 log₁₀ del rapporto fra i flussi. Con una pupilla di 7 mm il guadagno è 2,5 log₁₀((D/d_p)²) = 5 log₁₀(D/d_p), da sommare alla magnitudine limite a occhio nudo.",
+          "La variabile Diametro dell’obiettivo D è espressa in cm; Magnitudine limite in mag. Il dominio dello strumento è [1; 1000]. La relazione implementata è: m_lim = m_occhio + 5 log₁₀(D/d_p).",
+          "Con D = 10 cm e magnitudine limite 6 a occhio nudo si arriva circa a magnitudine 11,8. Uno specchio di 1 m guadagna altre 5 magnitudini."
+        ],
+        "advanced": [
+          "La magnitudine cambia di −2,5 log₁₀ del rapporto fra i flussi. Con una pupilla di 7 mm il guadagno è 2,5 log₁₀((D/d_p)²) = 5 log₁₀(D/d_p), da sommare alla magnitudine limite a occhio nudo.",
+          "Calcola quante volte più luce raccoglie il JWST, con uno specchio equivalente di circa 6,5 m, rispetto a Hubble, che ne ha uno di 2,4 m.",
+          "L'ingrandimento conta meno del diametro: ingrandire un'immagine debole la rende più grande e più fioca. Le stelle restano punti anche nei telescopi maggiori."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Magnitudine limite a occhio nudo (a): 6 mag. Prima di salvare A, prevedi come cambia Magnitudine limite fra Diametro dell’obiettivo D=250,75 e 500,5 cm. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con D = 10 cm e magnitudine limite 6 a occhio nudo si arriva circa a magnitudine 11,8. Uno specchio di 1 m guadagna altre 5 magnitudini.",
+          "La variabile Diametro dell’obiettivo D è espressa in cm; Magnitudine limite in mag. Il dominio dello strumento è [1; 1000]. La relazione implementata è: m_lim = m_occhio + 5 log₁₀(D/d_p)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Magnitudine limite a occhio nudo (a): 6 mag. Prima di salvare A, prevedi come cambia Magnitudine limite fra Diametro dell’obiettivo D=250,75 e 500,5 cm. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Diametro dell’obiettivo D è espressa in cm; Magnitudine limite in mag. Il dominio dello strumento è [1; 1000]. La relazione implementata è: m_lim = m_occhio + 5 log₁₀(D/d_p).",
+          "La magnitudine cambia di −2,5 log₁₀ del rapporto fra i flussi. Con una pupilla di 7 mm il guadagno è 2,5 log₁₀((D/d_p)²) = 5 log₁₀(D/d_p), da sommare alla magnitudine limite a occhio nudo."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Magnitudine limite a occhio nudo (a): 6 mag. Prima di salvare A, prevedi come cambia Magnitudine limite fra Diametro dell’obiettivo D=250,75 e 500,5 cm. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Calcola quante volte più luce raccoglie il JWST, con uno specchio equivalente di circa 6,5 m, rispetto a Hubble, che ne ha uno di 2,4 m.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "L'ingrandimento conta meno del diametro: ingrandire un'immagine debole la rende più grande e più fioca. Le stelle restano punti anche nei telescopi maggiori.",
+          "Stima per stelle puntiformi, ottica perfetta e cielo buio; trascura assorbimento delle superfici, turbolenza e sensibilità dei rivelatori.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "L'ingrandimento conta meno del diametro: ingrandire un'immagine debole la rende più grande e più fioca. Le stelle restano punti anche nei telescopi maggiori.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Stima per stelle puntiformi, ottica perfetta e cielo buio; trascura assorbimento delle superfici, turbolenza e sensibilità dei rivelatori.",
+          "Calcola quante volte più luce raccoglie il JWST, con uno specchio equivalente di circa 6,5 m, rispetto a Hubble, che ne ha uno di 2,4 m.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Un telescopio raccoglie la luce su una superficie proporzionale al quadrato del diametro e la concentra in un'immagine. Il flusso raccolto rispetto all'occhio cresce come (D/d_p)², e ogni fattore 100 nel flusso vale 5 magnitudini.",
+          "Con D = 10 cm e magnitudine limite 6 a occhio nudo si arriva circa a magnitudine 11,8. Uno specchio di 1 m guadagna altre 5 magnitudini."
+        ],
+        "intermediate": [
+          "La magnitudine cambia di −2,5 log₁₀ del rapporto fra i flussi. Con una pupilla di 7 mm il guadagno è 2,5 log₁₀((D/d_p)²) = 5 log₁₀(D/d_p), da sommare alla magnitudine limite a occhio nudo.",
+          "La variabile Diametro dell’obiettivo D è espressa in cm; Magnitudine limite in mag. Il dominio dello strumento è [1; 1000]. La relazione implementata è: m_lim = m_occhio + 5 log₁₀(D/d_p)."
+        ],
+        "advanced": [
+          "Calcola quante volte più luce raccoglie il JWST, con uno specchio equivalente di circa 6,5 m, rispetto a Hubble, che ne ha uno di 2,4 m.",
+          "Stima per stelle puntiformi, ottica perfetta e cielo buio; trascura assorbimento delle superfici, turbolenza e sensibilità dei rivelatori."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Raccolta della luce per una sorgente puntiforme.",
+          "Stima per stelle puntiformi, ottica perfetta e cielo buio; trascura assorbimento delle superfici, turbolenza e sensibilità dei rivelatori.",
+          "Collegamento consigliato: physics-24. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "La magnitudine cambia di −2,5 log₁₀ del rapporto fra i flussi. Con una pupilla di 7 mm il guadagno è 2,5 log₁₀((D/d_p)²) = 5 log₁₀(D/d_p), da sommare alla magnitudine limite a occhio nudo.",
+          "Stima per stelle puntiformi, ottica perfetta e cielo buio; trascura assorbimento delle superfici, turbolenza e sensibilità dei rivelatori.",
+          "Calcola quante volte più luce raccoglie il JWST, con uno specchio equivalente di circa 6,5 m, rispetto a Hubble, che ne ha uno di 2,4 m."
+        ],
+        "advanced": [
+          "Calcola quante volte più luce raccoglie il JWST, con uno specchio equivalente di circa 6,5 m, rispetto a Hubble, che ne ha uno di 2,4 m.",
+          "Stima per stelle puntiformi, ottica perfetta e cielo buio; trascura assorbimento delle superfici, turbolenza e sensibilità dei rivelatori.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "physics-27-concept",
+      "prompt": "Raddoppiando il diametro dell'obiettivo la luce raccolta:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Quadruplica",
+          "feedback": "Un telescopio raccoglie la luce su una superficie proporzionale al quadrato del diametro e la concentra in un'immagine. Il flusso raccolto rispetto all'occhio cresce come (D/d_p)², e ogni fattore 100 nel flusso vale 5 magnitudini."
+        },
+        {
+          "id": "B",
+          "text": "Raddoppia",
+          "feedback": "L'ingrandimento conta meno del diametro: ingrandire un'immagine debole la rende più grande e più fioca. Le stelle restano punti anche nei telescopi maggiori."
+        },
+        {
+          "id": "C",
+          "text": "Resta uguale",
+          "feedback": "La magnitudine cambia di −2,5 log₁₀ del rapporto fra i flussi. Con una pupilla di 7 mm il guadagno è 2,5 log₁₀((D/d_p)²) = 5 log₁₀(D/d_p), da sommare alla magnitudine limite a occhio nudo."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-27-calculation",
+      "prompt": "Calcolo: Magnitudine limite a occhio nudo (a)=6 mag. Per Diametro dell’obiettivo D=10 cm, quanto vale Magnitudine limite?",
+      "options": [
+        {
+          "id": "A",
+          "text": "17,6618 mag",
+          "feedback": "Questo valore non soddisfa la relazione. m_lim = m_occhio + 5 log₁₀(D/d_p). Con Magnitudine limite a occhio nudo (a)=6 mag e Diametro dell’obiettivo D=10 cm, il risultato è 11,7745 mag. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "5,88725 mag",
+          "feedback": "Controlla sostituzione, segno e unità. m_lim = m_occhio + 5 log₁₀(D/d_p). Con Magnitudine limite a occhio nudo (a)=6 mag e Diametro dell’obiettivo D=10 cm, il risultato è 11,7745 mag. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "11,7745 mag",
+          "feedback": "m_lim = m_occhio + 5 log₁₀(D/d_p). Con Magnitudine limite a occhio nudo (a)=6 mag e Diametro dell’obiettivo D=10 cm, il risultato è 11,7745 mag. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 10,
+        "parameters": {
+          "a": 6
+        },
+        "expected": 11.774509799928715,
+        "unit": "mag"
+      }
+    },
+    {
+      "id": "physics-27-transfer",
+      "prompt": "Trasferimento: Magnitudine limite a occhio nudo (a)=6,1 mag. Per Diametro dell’obiettivo D=10 cm, quanto vale Magnitudine limite?",
+      "options": [
+        {
+          "id": "A",
+          "text": "5,93725 mag",
+          "feedback": "Controlla sostituzione, segno e unità. m_lim = m_occhio + 5 log₁₀(D/d_p). Con Magnitudine limite a occhio nudo (a)=6,1 mag e Diametro dell’obiettivo D=10 cm, il risultato è 11,8745 mag. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "11,8745 mag",
+          "feedback": "m_lim = m_occhio + 5 log₁₀(D/d_p). Con Magnitudine limite a occhio nudo (a)=6,1 mag e Diametro dell’obiettivo D=10 cm, il risultato è 11,8745 mag. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "17,8118 mag",
+          "feedback": "Questo valore non soddisfa la relazione. m_lim = m_occhio + 5 log₁₀(D/d_p). Con Magnitudine limite a occhio nudo (a)=6,1 mag e Diametro dell’obiettivo D=10 cm, il risultato è 11,8745 mag. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 10,
+        "parameters": {
+          "a": 6.1
+        },
+        "expected": 11.874509799928715,
+        "unit": "mag"
+      }
+    },
+    {
+      "id": "physics-27-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Stima per stelle puntiformi, ottica perfetta e cielo buio; trascura assorbimento delle superfici, turbolenza e sensibilità dei rivelatori."
+        },
+        {
+          "id": "B",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Stima per stelle puntiformi, ottica perfetta e cielo buio; trascura assorbimento delle superfici, turbolenza e sensibilità dei rivelatori."
+        },
+        {
+          "id": "C",
+          "text": "Raccolta della luce per una sorgente puntiforme",
+          "feedback": "Stima per stelle puntiformi, ottica perfetta e cielo buio; trascura assorbimento delle superfici, turbolenza e sensibilità dei rivelatori."
+        }
+      ],
+      "correct": "C"
+    }
+  ]
+}

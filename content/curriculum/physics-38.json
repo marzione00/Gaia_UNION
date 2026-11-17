@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "physics-38",
+  "title": "Nuclei, decadimenti e datazioni",
+  "sector": 1,
+  "modelId": "physics-38",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Decadimento radioattivo in un sistema chiuso",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: decadimento radioattivo in un sistema chiuso.",
+    "Applicare t = (T½/ln 2) ln(1 + D/P), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "physics-37"
+  ],
+  "connections": [
+    "physics-25"
+  ],
+  "sources": [
+    "physics3",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Rapporto figlio/padre D/P",
+      "definition": "Variabile indipendente, unità 1; intervallo [0; 2]."
+    },
+    {
+      "term": "Età",
+      "definition": "Risultato calcolato dal modello, unità miliardi di anni."
+    },
+    {
+      "term": "Tempo di dimezzamento T½",
+      "definition": "Parametro a, unità miliardi di anni; intervallo [0,1; 50]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Un frammento di meteorite caduto sulla stazione contiene uranio e piombo. Il loro rapporto indica da quanto tempo la roccia si è solidificata.",
+          "I nuclei instabili decadono a caso con probabilità costante: il numero di nuclei padre diminuisce come e^(−λt). Ogni nucleo che decade produce un nucleo figlio, quindi il rapporto D/P cresce con il tempo."
+        ],
+        "intermediate": [
+          "Un frammento di meteorite caduto sulla stazione contiene uranio e piombo. Il loro rapporto indica da quanto tempo la roccia si è solidificata.",
+          "Da P = P₀e^(−λt) e D = P₀ − P si ottiene D/P = e^(λt) − 1, quindi t = ln(1 + D/P)/λ con λ = ln 2/T½."
+        ],
+        "advanced": [
+          "Un frammento di meteorite caduto sulla stazione contiene uranio e piombo. Il loro rapporto indica da quanto tempo la roccia si è solidificata.",
+          "Confronta l'età calcolata con uranio-238 e con potassio-40, tempo di dimezzamento 1,25 miliardi di anni, per lo stesso rapporto D/P.",
+          "Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "I nuclei instabili decadono a caso con probabilità costante: il numero di nuclei padre diminuisce come e^(−λt). Ogni nucleo che decade produce un nucleo figlio, quindi il rapporto D/P cresce con il tempo.",
+          "Con T½ = 4,47 miliardi di anni, quello dell'uranio-238, un rapporto D/P = 1 indica un'età uguale a un tempo di dimezzamento; D/P = 0,5 indica circa 2,6 miliardi di anni."
+        ],
+        "intermediate": [
+          "Da P = P₀e^(−λt) e D = P₀ − P si ottiene D/P = e^(λt) − 1, quindi t = ln(1 + D/P)/λ con λ = ln 2/T½.",
+          "La variabile Rapporto figlio/padre D/P è espressa in 1; Età in miliardi di anni. Il dominio dello strumento è [0; 2]. La relazione implementata è: t = (T½/ln 2) ln(1 + D/P).",
+          "Con T½ = 4,47 miliardi di anni, quello dell'uranio-238, un rapporto D/P = 1 indica un'età uguale a un tempo di dimezzamento; D/P = 0,5 indica circa 2,6 miliardi di anni."
+        ],
+        "advanced": [
+          "Da P = P₀e^(−λt) e D = P₀ − P si ottiene D/P = e^(λt) − 1, quindi t = ln(1 + D/P)/λ con λ = ln 2/T½.",
+          "Confronta l'età calcolata con uranio-238 e con potassio-40, tempo di dimezzamento 1,25 miliardi di anni, per lo stesso rapporto D/P.",
+          "Il tempo di dimezzamento è il tempo in cui decade metà di una popolazione grande di nuclei; ogni singolo nucleo può decadere in qualunque momento, con la stessa probabilità per unità di tempo."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Tempo di dimezzamento T½ (a): 4,47 miliardi di anni. Prima di salvare A, prevedi come cambia Età fra Rapporto figlio/padre D/P=0,5 e 1 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con T½ = 4,47 miliardi di anni, quello dell'uranio-238, un rapporto D/P = 1 indica un'età uguale a un tempo di dimezzamento; D/P = 0,5 indica circa 2,6 miliardi di anni.",
+          "La variabile Rapporto figlio/padre D/P è espressa in 1; Età in miliardi di anni. Il dominio dello strumento è [0; 2]. La relazione implementata è: t = (T½/ln 2) ln(1 + D/P)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Tempo di dimezzamento T½ (a): 4,47 miliardi di anni. Prima di salvare A, prevedi come cambia Età fra Rapporto figlio/padre D/P=0,5 e 1 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Rapporto figlio/padre D/P è espressa in 1; Età in miliardi di anni. Il dominio dello strumento è [0; 2]. La relazione implementata è: t = (T½/ln 2) ln(1 + D/P).",
+          "Da P = P₀e^(−λt) e D = P₀ − P si ottiene D/P = e^(λt) − 1, quindi t = ln(1 + D/P)/λ con λ = ln 2/T½."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Tempo di dimezzamento T½ (a): 4,47 miliardi di anni. Prima di salvare A, prevedi come cambia Età fra Rapporto figlio/padre D/P=0,5 e 1 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Confronta l'età calcolata con uranio-238 e con potassio-40, tempo di dimezzamento 1,25 miliardi di anni, per lo stesso rapporto D/P.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Il tempo di dimezzamento è il tempo in cui decade metà di una popolazione grande di nuclei; ogni singolo nucleo può decadere in qualunque momento, con la stessa probabilità per unità di tempo.",
+          "Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Il tempo di dimezzamento è il tempo in cui decade metà di una popolazione grande di nuclei; ogni singolo nucleo può decadere in qualunque momento, con la stessa probabilità per unità di tempo.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi.",
+          "Confronta l'età calcolata con uranio-238 e con potassio-40, tempo di dimezzamento 1,25 miliardi di anni, per lo stesso rapporto D/P.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "I nuclei instabili decadono a caso con probabilità costante: il numero di nuclei padre diminuisce come e^(−λt). Ogni nucleo che decade produce un nucleo figlio, quindi il rapporto D/P cresce con il tempo.",
+          "Con T½ = 4,47 miliardi di anni, quello dell'uranio-238, un rapporto D/P = 1 indica un'età uguale a un tempo di dimezzamento; D/P = 0,5 indica circa 2,6 miliardi di anni."
+        ],
+        "intermediate": [
+          "Da P = P₀e^(−λt) e D = P₀ − P si ottiene D/P = e^(λt) − 1, quindi t = ln(1 + D/P)/λ con λ = ln 2/T½.",
+          "La variabile Rapporto figlio/padre D/P è espressa in 1; Età in miliardi di anni. Il dominio dello strumento è [0; 2]. La relazione implementata è: t = (T½/ln 2) ln(1 + D/P)."
+        ],
+        "advanced": [
+          "Confronta l'età calcolata con uranio-238 e con potassio-40, tempo di dimezzamento 1,25 miliardi di anni, per lo stesso rapporto D/P.",
+          "Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Decadimento radioattivo in un sistema chiuso.",
+          "Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi.",
+          "Collegamento consigliato: physics-25. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Da P = P₀e^(−λt) e D = P₀ − P si ottiene D/P = e^(λt) − 1, quindi t = ln(1 + D/P)/λ con λ = ln 2/T½.",
+          "Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi.",
+          "Confronta l'età calcolata con uranio-238 e con potassio-40, tempo di dimezzamento 1,25 miliardi di anni, per lo stesso rapporto D/P."
+        ],
+        "advanced": [
+          "Confronta l'età calcolata con uranio-238 e con potassio-40, tempo di dimezzamento 1,25 miliardi di anni, per lo stesso rapporto D/P.",
+          "Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "physics-38-concept",
+      "prompt": "Un rapporto figlio/padre uguale a 3 corrisponde a:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Un tempo di dimezzamento",
+          "feedback": "Da P = P₀e^(−λt) e D = P₀ − P si ottiene D/P = e^(λt) − 1, quindi t = ln(1 + D/P)/λ con λ = ln 2/T½."
+        },
+        {
+          "id": "B",
+          "text": "Due tempi di dimezzamento",
+          "feedback": "I nuclei instabili decadono a caso con probabilità costante: il numero di nuclei padre diminuisce come e^(−λt). Ogni nucleo che decade produce un nucleo figlio, quindi il rapporto D/P cresce con il tempo."
+        },
+        {
+          "id": "C",
+          "text": "Tre tempi di dimezzamento",
+          "feedback": "Il tempo di dimezzamento è il tempo in cui decade metà di una popolazione grande di nuclei; ogni singolo nucleo può decadere in qualunque momento, con la stessa probabilità per unità di tempo."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "physics-38-calculation",
+      "prompt": "Calcolo: Tempo di dimezzamento T½ (a)=4,47 miliardi di anni. Per Rapporto figlio/padre D/P=1 (adimensionale), quanto vale Età?",
+      "options": [
+        {
+          "id": "A",
+          "text": "4,47 miliardi di anni",
+          "feedback": "t = (T½/ln 2) ln(1 + D/P). Con Tempo di dimezzamento T½ (a)=4,47 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 4,47 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "6,705 miliardi di anni",
+          "feedback": "Questo valore non soddisfa la relazione. t = (T½/ln 2) ln(1 + D/P). Con Tempo di dimezzamento T½ (a)=4,47 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 4,47 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "2,235 miliardi di anni",
+          "feedback": "Controlla sostituzione, segno e unità. t = (T½/ln 2) ln(1 + D/P). Con Tempo di dimezzamento T½ (a)=4,47 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 4,47 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 1,
+        "parameters": {
+          "a": 4.47
+        },
+        "expected": 4.47,
+        "unit": "miliardi di anni"
+      }
+    },
+    {
+      "id": "physics-38-transfer",
+      "prompt": "Trasferimento: Tempo di dimezzamento T½ (a)=4,48 miliardi di anni. Per Rapporto figlio/padre D/P=1 (adimensionale), quanto vale Età?",
+      "options": [
+        {
+          "id": "A",
+          "text": "6,72 miliardi di anni",
+          "feedback": "Questo valore non soddisfa la relazione. t = (T½/ln 2) ln(1 + D/P). Con Tempo di dimezzamento T½ (a)=4,48 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 4,48 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "2,24 miliardi di anni",
+          "feedback": "Controlla sostituzione, segno e unità. t = (T½/ln 2) ln(1 + D/P). Con Tempo di dimezzamento T½ (a)=4,48 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 4,48 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "4,48 miliardi di anni",
+          "feedback": "t = (T½/ln 2) ln(1 + D/P). Con Tempo di dimezzamento T½ (a)=4,48 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 4,48 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 1,
+        "parameters": {
+          "a": 4.48
+        },
+        "expected": 4.48,
+        "unit": "miliardi di anni"
+      }
+    },
+    {
+      "id": "physics-38-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Decadimento radioattivo in un sistema chiuso",
+          "feedback": "Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
+}

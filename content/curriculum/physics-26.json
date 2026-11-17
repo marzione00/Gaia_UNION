@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "physics-26",
+  "title": "Onde elettromagnetiche e pressione della luce",
+  "sector": 1,
+  "modelId": "physics-26",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Vela ideale perpendicolare alla luce della stella",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: vela ideale perpendicolare alla luce della stella.",
+    "Applicare a = 2 S₀/(c σ) · (1 UA/r)², dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "physics-25"
+  ],
+  "connections": [
+    "physics-24"
+  ],
+  "sources": [
+    "physics2",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Distanza dal Sole",
+      "definition": "Variabile indipendente, unità UA; intervallo [0,2; 5]."
+    },
+    {
+      "term": "Accelerazione della vela",
+      "definition": "Risultato calcolato dal modello, unità mm/s²."
+    },
+    {
+      "term": "Densità superficiale σ",
+      "definition": "Parametro a, unità g/m²; intervallo [1; 50]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Una sonda della stazione spiega una vela sottile verso la stella. Nessun motore si accende, eppure la sonda accelera: la luce trasporta quantità di moto.",
+          "La luce è un'onda elettromagnetica che trasporta energia e quantità di moto. L'intensità, potenza per unità di superficie, diminuisce con l'inverso del quadrato della distanza; una superficie che riflette tutta la luce riceve una pressione 2I/c."
+        ],
+        "intermediate": [
+          "Una sonda della stazione spiega una vela sottile verso la stella. Nessun motore si accende, eppure la sonda accelera: la luce trasporta quantità di moto.",
+          "Alla distanza di 1 UA dal Sole l'intensità è S₀ ≈ 1361 W/m². Su una vela perfettamente riflettente perpendicolare alla luce la pressione è 2S/c; dividendo per la massa per unità di superficie σ si ottiene a = 2S₀/(cσ)·(1 UA/r)²."
+        ],
+        "advanced": [
+          "Una sonda della stazione spiega una vela sottile verso la stella. Nessun motore si accende, eppure la sonda accelera: la luce trasporta quantità di moto.",
+          "Confronta l'accelerazione della vela con l'attrazione gravitazionale del Sole alla stessa distanza: per quale σ le due forze si equivalgono?",
+          "Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "La luce è un'onda elettromagnetica che trasporta energia e quantità di moto. L'intensità, potenza per unità di superficie, diminuisce con l'inverso del quadrato della distanza; una superficie che riflette tutta la luce riceve una pressione 2I/c.",
+          "Con σ = 10 g/m² a 1 UA l'accelerazione è circa 0,91 mm/s²: in un giorno la velocità cresce di circa 78 m/s. A 2 UA l'accelerazione si riduce a un quarto."
+        ],
+        "intermediate": [
+          "Alla distanza di 1 UA dal Sole l'intensità è S₀ ≈ 1361 W/m². Su una vela perfettamente riflettente perpendicolare alla luce la pressione è 2S/c; dividendo per la massa per unità di superficie σ si ottiene a = 2S₀/(cσ)·(1 UA/r)².",
+          "La variabile Distanza dal Sole è espressa in UA; Accelerazione della vela in mm/s². Il dominio dello strumento è [0,2; 5]. La relazione implementata è: a = 2 S₀/(c σ) · (1 UA/r)².",
+          "Con σ = 10 g/m² a 1 UA l'accelerazione è circa 0,91 mm/s²: in un giorno la velocità cresce di circa 78 m/s. A 2 UA l'accelerazione si riduce a un quarto."
+        ],
+        "advanced": [
+          "Alla distanza di 1 UA dal Sole l'intensità è S₀ ≈ 1361 W/m². Su una vela perfettamente riflettente perpendicolare alla luce la pressione è 2S/c; dividendo per la massa per unità di superficie σ si ottiene a = 2S₀/(cσ)·(1 UA/r)².",
+          "Confronta l'accelerazione della vela con l'attrazione gravitazionale del Sole alla stessa distanza: per quale σ le due forze si equivalgono?",
+          "La pressione della luce è piccola ma continua: una vela leggera accumula velocità per mesi. La luce assorbita spinge la metà di quella riflessa."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Densità superficiale σ (a): 10 g/m². Prima di salvare A, prevedi come cambia Accelerazione della vela fra Distanza dal Sole=1,4 e 2,6 UA. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con σ = 10 g/m² a 1 UA l'accelerazione è circa 0,91 mm/s²: in un giorno la velocità cresce di circa 78 m/s. A 2 UA l'accelerazione si riduce a un quarto.",
+          "La variabile Distanza dal Sole è espressa in UA; Accelerazione della vela in mm/s². Il dominio dello strumento è [0,2; 5]. La relazione implementata è: a = 2 S₀/(c σ) · (1 UA/r)²."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Densità superficiale σ (a): 10 g/m². Prima di salvare A, prevedi come cambia Accelerazione della vela fra Distanza dal Sole=1,4 e 2,6 UA. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Distanza dal Sole è espressa in UA; Accelerazione della vela in mm/s². Il dominio dello strumento è [0,2; 5]. La relazione implementata è: a = 2 S₀/(c σ) · (1 UA/r)².",
+          "Alla distanza di 1 UA dal Sole l'intensità è S₀ ≈ 1361 W/m². Su una vela perfettamente riflettente perpendicolare alla luce la pressione è 2S/c; dividendo per la massa per unità di superficie σ si ottiene a = 2S₀/(cσ)·(1 UA/r)²."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Densità superficiale σ (a): 10 g/m². Prima di salvare A, prevedi come cambia Accelerazione della vela fra Distanza dal Sole=1,4 e 2,6 UA. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Confronta l'accelerazione della vela con l'attrazione gravitazionale del Sole alla stessa distanza: per quale σ le due forze si equivalgono?",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "La pressione della luce è piccola ma continua: una vela leggera accumula velocità per mesi. La luce assorbita spinge la metà di quella riflessa.",
+          "Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "La pressione della luce è piccola ma continua: una vela leggera accumula velocità per mesi. La luce assorbita spinge la metà di quella riflessa.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento.",
+          "Confronta l'accelerazione della vela con l'attrazione gravitazionale del Sole alla stessa distanza: per quale σ le due forze si equivalgono?",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "La luce è un'onda elettromagnetica che trasporta energia e quantità di moto. L'intensità, potenza per unità di superficie, diminuisce con l'inverso del quadrato della distanza; una superficie che riflette tutta la luce riceve una pressione 2I/c.",
+          "Con σ = 10 g/m² a 1 UA l'accelerazione è circa 0,91 mm/s²: in un giorno la velocità cresce di circa 78 m/s. A 2 UA l'accelerazione si riduce a un quarto."
+        ],
+        "intermediate": [
+          "Alla distanza di 1 UA dal Sole l'intensità è S₀ ≈ 1361 W/m². Su una vela perfettamente riflettente perpendicolare alla luce la pressione è 2S/c; dividendo per la massa per unità di superficie σ si ottiene a = 2S₀/(cσ)·(1 UA/r)².",
+          "La variabile Distanza dal Sole è espressa in UA; Accelerazione della vela in mm/s². Il dominio dello strumento è [0,2; 5]. La relazione implementata è: a = 2 S₀/(c σ) · (1 UA/r)²."
+        ],
+        "advanced": [
+          "Confronta l'accelerazione della vela con l'attrazione gravitazionale del Sole alla stessa distanza: per quale σ le due forze si equivalgono?",
+          "Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Vela ideale perpendicolare alla luce della stella.",
+          "Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento.",
+          "Collegamento consigliato: physics-24. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Alla distanza di 1 UA dal Sole l'intensità è S₀ ≈ 1361 W/m². Su una vela perfettamente riflettente perpendicolare alla luce la pressione è 2S/c; dividendo per la massa per unità di superficie σ si ottiene a = 2S₀/(cσ)·(1 UA/r)².",
+          "Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento.",
+          "Confronta l'accelerazione della vela con l'attrazione gravitazionale del Sole alla stessa distanza: per quale σ le due forze si equivalgono?"
+        ],
+        "advanced": [
+          "Confronta l'accelerazione della vela con l'attrazione gravitazionale del Sole alla stessa distanza: per quale σ le due forze si equivalgono?",
+          "Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "physics-26-concept",
+      "prompt": "Se la distanza dalla stella raddoppia, l'accelerazione della vela:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Resta uguale",
+          "feedback": "Alla distanza di 1 UA dal Sole l'intensità è S₀ ≈ 1361 W/m². Su una vela perfettamente riflettente perpendicolare alla luce la pressione è 2S/c; dividendo per la massa per unità di superficie σ si ottiene a = 2S₀/(cσ)·(1 UA/r)²."
+        },
+        {
+          "id": "B",
+          "text": "Diventa un quarto",
+          "feedback": "La luce è un'onda elettromagnetica che trasporta energia e quantità di moto. L'intensità, potenza per unità di superficie, diminuisce con l'inverso del quadrato della distanza; una superficie che riflette tutta la luce riceve una pressione 2I/c."
+        },
+        {
+          "id": "C",
+          "text": "Si dimezza",
+          "feedback": "La pressione della luce è piccola ma continua: una vela leggera accumula velocità per mesi. La luce assorbita spinge la metà di quella riflessa."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "physics-26-calculation",
+      "prompt": "Calcolo: Densità superficiale σ (a)=10 g/m². Per Distanza dal Sole=1 UA, quanto vale Accelerazione della vela?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0,907961 mm/s²",
+          "feedback": "a = 2 S₀/(c σ) · (1 UA/r)². Con Densità superficiale σ (a)=10 g/m² e Distanza dal Sole=1 UA, il risultato è 0,907961 mm/s². Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "1,90796 mm/s²",
+          "feedback": "Questo valore non soddisfa la relazione. a = 2 S₀/(c σ) · (1 UA/r)². Con Densità superficiale σ (a)=10 g/m² e Distanza dal Sole=1 UA, il risultato è 0,907961 mm/s². Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "-0,0920385 mm/s²",
+          "feedback": "Controlla sostituzione, segno e unità. a = 2 S₀/(c σ) · (1 UA/r)². Con Densità superficiale σ (a)=10 g/m² e Distanza dal Sole=1 UA, il risultato è 0,907961 mm/s². Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 1,
+        "parameters": {
+          "a": 10
+        },
+        "expected": 0.9079614671293699,
+        "unit": "mm/s²"
+      }
+    },
+    {
+      "id": "physics-26-transfer",
+      "prompt": "Trasferimento: Densità superficiale σ (a)=11 g/m². Per Distanza dal Sole=1 UA, quanto vale Accelerazione della vela?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1,82542 mm/s²",
+          "feedback": "Questo valore non soddisfa la relazione. a = 2 S₀/(c σ) · (1 UA/r)². Con Densità superficiale σ (a)=11 g/m² e Distanza dal Sole=1 UA, il risultato è 0,82542 mm/s². Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "-0,17458 mm/s²",
+          "feedback": "Controlla sostituzione, segno e unità. a = 2 S₀/(c σ) · (1 UA/r)². Con Densità superficiale σ (a)=11 g/m² e Distanza dal Sole=1 UA, il risultato è 0,82542 mm/s². Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "0,82542 mm/s²",
+          "feedback": "a = 2 S₀/(c σ) · (1 UA/r)². Con Densità superficiale σ (a)=11 g/m² e Distanza dal Sole=1 UA, il risultato è 0,82542 mm/s². Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 1,
+        "parameters": {
+          "a": 11
+        },
+        "expected": 0.8254195155721544,
+        "unit": "mm/s²"
+      }
+    },
+    {
+      "id": "physics-26-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Vela ideale perpendicolare alla luce della stella",
+          "feedback": "Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
+}

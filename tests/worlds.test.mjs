@@ -4,8 +4,8 @@ import {value,defaults} from '../src/models/curriculum.js';
 import {planetProfile} from '../src/scene/assets.js';
 const json=p=>JSON.parse(fs.readFileSync(new URL('../'+p,import.meta.url),'utf8'));
 const catalogue=json('content/catalogue.json'),worlds=json('content/worlds/catalogue.json');
-test('Mondi: un fenomeno per ciascuna delle 110 unità, kit e superfici validi',()=>{
- const ids=catalogue.modules.map(m=>m.id);assert.equal(worlds.worlds.length,110);assert.deepEqual(worlds.worlds.map(w=>w.unit),ids);
+test('Mondi: un fenomeno per ciascuna delle 125 unità, kit e superfici validi',()=>{
+ const ids=catalogue.modules.map(m=>m.id);assert.equal(worlds.worlds.length,125);assert.deepEqual(worlds.worlds.map(w=>w.unit),ids);
  for(const w of worlds.worlds){assert.ok(w.phenomenon&&w.scene&&w.binding);assert.ok(w.kits.length&&w.kits.every(k=>k in worlds.kits));assert.ok(['simbiosi','marea','esodo'].includes(w.surface));assert.ok(['prototipo','da realizzare'].includes(w.status));assert.ok(!/—/.test(JSON.stringify(w)))}
  assert.deepEqual(worlds.worlds.filter(w=>w.status==='prototipo').map(w=>w.unit).sort(),[...PILOT_UNITS].sort());
 });
