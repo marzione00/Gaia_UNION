@@ -529,3 +529,23 @@ test('Biologia 27: cercare la vita su Marte, numeri ricalcolati',()=>{
  // Model probes: tau = 300 and 1000 years at t = 500 and 1000 years, c0 = 10 ppb.
  assert.deepEqual([c(500,10,300),c(1000,10,300),c(500,10,1000),c(1000,10,1000)].map(v=>r(v,3)),[1.889,0.357,6.065,3.679]);
 });
+test('Biologia 28: Europa e gli oceani, numeri ricalcolati',()=>{
+ const G=6.674e-11,MJ=1.898e27,M=4.80e22,R=1.5608e6,a=6.709e8,P=3.551*86400,e=0.0094,A=4*Math.PI*R**2;
+ assert.equal(r(G*M/R**2,3),1.315);assert.equal(r(4.7998e22/(4/3*Math.PI*R**3),-1),3010);assert.ok(MJ/M>3e4);assert.equal(r(100/5.2**2,0),4);assert.equal(r(9.81/1.315,2),7.46);assert.equal(r(9.81/0.113,0),87);
+ assert.equal(r(2*670900*0.009,-3),12000);assert.equal(r(2.5/0.087,0),29);
+ const n=2*Math.PI/P,X=G*MJ**2*R**5*n*e**2/a**6;assert.equal(r(n*1e5,2),2.05);assert.equal(r(X/1e13,1),4.4);assert.deepEqual([0.001,0.01].map(k=>r(10.5*k*X/1e11,0)),[5,46]);assert.deepEqual([0.001,0.01].map(k=>r(10.5*k*X/A*1e3,-1)),[20,150]);assert.equal(r(10.5*0.001*X/A*1e3,0),15);
+ assert.equal(r(10.5*0.0025*X/1e12,1),1.2);assert.equal(r(10.5*0.0025*X/A*1e3,0),38);assert.equal(r(A/1e13,2),3.06);
+ const q=3*170/29000;assert.equal(r(q*1e3,1),17.6);assert.equal(r(q*3.06e13/1e11,1),5.4);
+ assert.equal(r(1.315*100,1),131.5);assert.equal(r(131.5e6/(1025*9.81)/1e3,0),13);assert.ok(131.5/0.113>504);assert.equal(r(0.113*100,1),11.3);assert.equal(r(131.5/11.3,1),11.6);
+ assert.deepEqual([80,170].map(h=>r(1.315*h,-1)),[110,220]);assert.equal(r(210/1.315,-1),160);assert.equal(r(210/1.428,0),147);
+ assert.equal(r(917/1000*100,0),92);assert.equal(r(917/1030*100,0),89);assert.equal(r(917/1025*100,0),89);
+ assert.equal(r(110e6/(1000*1.315)/1e3,0),84);assert.equal(r(917*1.315*29000/1e6,0),35);assert.equal(r(35e6/(1025*9.81)/1e3,1),3.5);
+ const V=4/3*Math.PI*(1535.8**3-1435.8**3);assert.equal(r(V/1e9,1),2.8);assert.equal(r(V/1.34e9,1),2.1);
+ assert.equal(r(1/(1/9.925-1/85.23),1),11.2);assert.equal(r(3.551/1.769,3),2.007);assert.equal(r(7.155/3.551,3),2.015);
+ assert.equal(r(2400*86400/1e8,1),2.1);assert.equal(r(2400*86400/1000/2500,0),83);
+ assert.equal(r((1821.6/1560.8)**5*2.007*(0.0041/0.0094)**2*(670.9/421.7)**6,0),13);assert.equal(r((1821.6/1560.8)**5,2),2.17);assert.equal(r((670.9/421.7)**6,1),16.2);assert.equal(r((0.0041/0.0094)**2,2),0.19);
+ const w=2*Math.PI/(11.2*3600);assert.equal(r(w*1e4,2),1.56);assert.equal(r(Math.sqrt(2/(4e-7*Math.PI*3*w))/1e3,0),58);
+ const Rk=1560.8,ri=Rk-130,rb=3014,rhoi=(rb*Rk**3-1000*(Rk**3-ri**3))/ri**3;assert.equal(r(rhoi,-1),3610);assert.equal(r(0.4*(rhoi*ri**5+1000*(Rk**5-ri**5))/(rb*Rk**5),3),0.357);
+ // Model probes: g = 1.315 and 0.113 m/s2 at h = 37.5 and 75 km.
+ assert.deepEqual([1.315*37.5,1.315*75,0.113*37.5,0.113*75].map(v=>r(v,2)),[49.31,98.63,4.24,8.47]);
+});
