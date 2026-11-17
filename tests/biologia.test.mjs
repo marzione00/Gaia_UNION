@@ -245,3 +245,19 @@ test('Biologia 11: DNA, codice ed espressione, numeri ricalcolati',()=>{
  const deg=[6,6,6,4,4,4,4,4,3,3,2,2,2,2,2,2,2,2,2,1,1];assert.equal(deg.reduce((a,b)=>a+b,0),64);
  assert.equal(r(m(5,0.2,10),2),21.62);assert.equal(r(m(5,0.5,5),2),9.18);assert.equal(r(m(5,0.5,10),2),9.93);
 });
+test('Biologia 12: mutazioni e soglia d\'errore, numeri ricalcolati',()=>{
+ const P=(mu,n)=>1-(1-mu)**n;
+ assert.equal(r(P(1e-4,1000),3),0.095);assert.equal(r(P(1e-4,10000),2),0.63);assert.equal(r(Math.LN2/1e-4,-2),6900);assert.equal(r(Math.exp(-1),2),0.37);
+ assert.equal(r(0.21e-3*365.25*1e6,-4),80000);assert.equal(r(0.21e-3*365.25,3),0.077);assert.equal(r(5000/(0.21e-3*365.25),-3),65000);
+ assert.equal(r(1.2e-8*2*3.1e9,0),74);assert.equal(r(4.6e6*2.2e-10,3),0.001);assert.equal(r(0.003/1.7e5*1e8,1),1.8);
+ assert.equal(r(Math.exp(-0.5),3),0.607);assert.equal(r(0.5*Math.exp(-0.5),3),0.303);assert.equal(r(1-1.5*Math.exp(-0.5),2),0.09);
+ assert.equal(r(Math.LN10/1e-2,-1),230);assert.equal(r(Math.LN10/1e-4,-3),23000);assert.equal(r(Math.log(1000),1),6.9);
+ const Q=Math.exp(-399/400);assert.equal(r(Q,2),0.37);assert.equal(r(1/Q,1),2.7);
+ const x=(s,ml)=>(s*Math.exp(-ml)-1)/(s-1);assert.equal(r(x(10,1),2),0.3);assert.equal(r(x(10,2),2),0.04);assert.equal(r(Math.log(3),1),1.1);assert.equal(r(Math.LN10,1),2.3);
+ assert.equal(r(Math.LN10/(0.6*1e-2),0),384);assert.equal(r(Math.log(1000)/Math.LN10,6),3);
+ assert.equal(r(1-Math.exp(-0.1),3),0.095);assert.equal(2**15,32768);assert.equal(r(Math.LN10/0.03,0),77);
+ assert.equal(r(60/36,2),1.67);assert.equal(r(Math.exp(-60/36),2),0.19);assert.equal(r(600/36,1),16.7);
+ // Model probes: mu = 1e-4 and 2e-4 at n = 2500 and 5000.
+ assert.equal(r(P(1e-4,2500),3),0.221);assert.equal(r(P(1e-4,5000),3),0.393);assert.equal(r(P(2e-4,2500),3),0.393);assert.equal(r(P(2e-4,5000),3),0.632);
+ assert.equal(r(Math.log(3)/-Math.log(0.99),0),109);
+});

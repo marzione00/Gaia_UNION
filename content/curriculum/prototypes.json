@@ -27649,6 +27649,347 @@
      "correct": "B"
     }
    ]
+  },
+  {
+   "id": "biology-12",
+   "title": "Mutazioni e soglia d'errore",
+   "scope": "Tipi di mutazioni, cause chimiche e fisiche, riparazione del DNA, tassi di mutazione e regola di Drake, probabilità di almeno un errore, soglia d’errore e quasispecie, mutagenesi letale, paradosso di Eigen, esperimento di Luria e Delbrück",
+   "narrativeStatus": "Tassi di mutazione e risultati sperimentali sono pubblicati; il modello suppone errori indipendenti con la stessa probabilità in ogni sito.",
+   "description": "Errori di copiatura, riparazione e la lunghezza massima di un genoma primitivo, dalla soglia di Eigen alla mutagenesi letale.",
+   "objectives": [
+    "Classificare le mutazioni e prevederne l’effetto su una proteina.",
+    "Calcolare la probabilità di almeno un errore con 1 − (1 − μ)ⁿ.",
+    "Ricavare la soglia d’errore μL < ln σ e stimare lunghezze massime.",
+    "Spiegare il paradosso di Eigen e l’esperimento di Luria e Delbrück."
+   ],
+   "prerequisites": [
+    "biology-11"
+   ],
+   "connections": [
+    "math-c10",
+    "math-c06"
+   ],
+   "sources": [
+    "biology",
+    "statistics"
+   ],
+   "glossary": [
+    {
+     "term": "Mutazione sinonima",
+     "definition": "Sostituzione che cambia un codone senza cambiare l’amminoacido."
+    },
+    {
+     "term": "Tasso di mutazione",
+     "definition": "Numero di mutazioni per nucleotide per replicazione o per generazione."
+    },
+    {
+     "term": "Soglia d’errore",
+     "definition": "Lunghezza massima conservabile con una data probabilità di errore per sito."
+    },
+    {
+     "term": "Catastrofe d’errore",
+     "definition": "Perdita dell’informazione quando gli errori per copia superano la soglia."
+    },
+    {
+     "term": "Quasispecie",
+     "definition": "Sequenza maestra con una nube di varianti, in equilibrio fra mutazione e selezione."
+    },
+    {
+     "term": "Mutagenesi letale",
+     "definition": "Strategia antivirale che spinge un virus oltre la soglia d’errore."
+    }
+   ],
+   "steps": [
+    {
+     "label": "SCOPRI",
+     "title": "Errori che servono",
+     "text": {
+      "base": [
+       "Ogni volta che una cellula copia il proprio DNA commette qualche errore, e ogni giorno il DNA di ciascuna cellula subisce migliaia di danni chimici. Quasi tutti vengono corretti; i pochi che restano diventano mutazioni, cambiamenti ereditabili della sequenza. Le mutazioni causano molte malattie, ma senza di esse l’evoluzione sarebbe impossibile: ogni variazione su cui agisce la selezione è cominciata come un errore.",
+       "Per i primi replicatori il problema era grave. Un ribozima polimerasi del mondo a RNA sbaglia circa un nucleotide su cento. Con questa precisione, quanto lungo può essere un genoma prima che quasi ogni copia contenga un errore? Nel 1971 Manfred Eigen rispose con la soglia d’errore, uno dei risultati più importanti della teoria dell’origine della vita."
+      ],
+      "intermediate": [
+       "Ogni volta che una cellula copia il proprio DNA commette qualche errore, e ogni giorno il DNA di ciascuna cellula subisce migliaia di danni chimici. Quasi tutti vengono corretti; i pochi che restano diventano mutazioni, cambiamenti ereditabili della sequenza. Le mutazioni causano molte malattie, ma senza di esse l’evoluzione sarebbe impossibile: ogni variazione su cui agisce la selezione è cominciata come un errore.",
+       "Per i primi replicatori il problema era grave. Un ribozima polimerasi del mondo a RNA sbaglia circa un nucleotide su cento. Con questa precisione, quanto lungo può essere un genoma prima che quasi ogni copia contenga un errore? Nel 1971 Manfred Eigen rispose con la soglia d’errore, uno dei risultati più importanti della teoria dell’origine della vita."
+      ],
+      "advanced": [
+       "Ogni volta che una cellula copia il proprio DNA commette qualche errore, e ogni giorno il DNA di ciascuna cellula subisce migliaia di danni chimici. Quasi tutti vengono corretti; i pochi che restano diventano mutazioni, cambiamenti ereditabili della sequenza. Le mutazioni causano molte malattie, ma senza di esse l’evoluzione sarebbe impossibile: ogni variazione su cui agisce la selezione è cominciata come un errore.",
+       "Per i primi replicatori il problema era grave. Un ribozima polimerasi del mondo a RNA sbaglia circa un nucleotide su cento. Con questa precisione, quanto lungo può essere un genoma prima che quasi ogni copia contenga un errore? Nel 1971 Manfred Eigen rispose con la soglia d’errore, uno dei risultati più importanti della teoria dell’origine della vita.",
+       "La stessa idea è diventata una strategia contro i virus: farmaci come il molnupiravir aumentano il tasso di errore della polimerasi virale fino a spingere il virus oltre la soglia."
+      ]
+     }
+    },
+    {
+     "label": "CAPISCI",
+     "title": "Probabilità e soglia",
+     "text": {
+      "base": [
+       "Le sostituzioni di una base possono essere sinonime, se l’amminoacido non cambia, di senso alterato, se cambia, o nonsenso, se creano un codone di arresto. Inserzioni e delezioni spostano la cornice di lettura. Le cause sono gli errori della replicazione, i danni chimici spontanei, la luce ultravioletta e le radiazioni. Polimerasi, correzione di bozze e riparazione portano gli errori a circa uno ogni dieci miliardi di nucleotidi.",
+       "Se ogni sito di un genoma di n siti viene copiato in modo sbagliato con probabilità μ, indipendentemente dagli altri, la copia è perfetta con probabilità (1 − μ)ⁿ e contiene almeno un errore con probabilità P = 1 − (1 − μ)ⁿ. Per μ piccolo P ≈ 1 − e^(−nμ), e il numero medio di errori per copia è nμ."
+      ],
+      "intermediate": [
+       "Le sostituzioni di una base possono essere sinonime, se l’amminoacido non cambia, di senso alterato, se cambia, o nonsenso, se creano un codone di arresto. Inserzioni e delezioni spostano la cornice di lettura. Le cause sono gli errori della replicazione, i danni chimici spontanei, la luce ultravioletta e le radiazioni. Polimerasi, correzione di bozze e riparazione portano gli errori a circa uno ogni dieci miliardi di nucleotidi.",
+       "Se ogni sito di un genoma di n siti viene copiato in modo sbagliato con probabilità μ, indipendentemente dagli altri, la copia è perfetta con probabilità (1 − μ)ⁿ e contiene almeno un errore con probabilità P = 1 − (1 − μ)ⁿ. Per μ piccolo P ≈ 1 − e^(−nμ), e il numero medio di errori per copia è nμ.",
+       "Il prodotto nμ decide tutto: se è molto minore di 1 quasi tutte le copie sono perfette, se vale 1 lo è circa una copia su tre, se è molto maggiore di 1 quasi nessuna. Con μ = 10⁻⁴ e n = 10 000 la probabilità di almeno un errore è circa il 63%; con n = 1000 circa il 9,5%."
+      ],
+      "advanced": [
+       "Le sostituzioni di una base possono essere sinonime, se l’amminoacido non cambia, di senso alterato, se cambia, o nonsenso, se creano un codone di arresto. Inserzioni e delezioni spostano la cornice di lettura. Le cause sono gli errori della replicazione, i danni chimici spontanei, la luce ultravioletta e le radiazioni. Polimerasi, correzione di bozze e riparazione portano gli errori a circa uno ogni dieci miliardi di nucleotidi.",
+       "Se ogni sito di un genoma di n siti viene copiato in modo sbagliato con probabilità μ, indipendentemente dagli altri, la copia è perfetta con probabilità (1 − μ)ⁿ e contiene almeno un errore con probabilità P = 1 − (1 − μ)ⁿ. Per μ piccolo P ≈ 1 − e^(−nμ), e il numero medio di errori per copia è nμ.",
+       "Il prodotto nμ decide tutto: se è molto minore di 1 quasi tutte le copie sono perfette, se vale 1 lo è circa una copia su tre, se è molto maggiore di 1 quasi nessuna. Con μ = 10⁻⁴ e n = 10 000 la probabilità di almeno un errore è circa il 63%; con n = 1000 circa il 9,5%.",
+       "Una sequenza con vantaggio selettivo σ si conserva solo se σ volte la probabilità di una copia perfetta supera 1, cioè se μL < ln σ: è la soglia d’errore di Eigen. Con μ = 10⁻² e σ = 10 la lunghezza massima è circa 230 nucleotidi. Viroidi e virus a RNA vivono vicino alla soglia; i batteri, con circa 2·10⁻¹⁰ errori per nucleotide, molto al di sotto."
+      ]
+     }
+    },
+    {
+     "label": "SPERIMENTA",
+     "title": "Il laboratorio degli errori",
+     "text": {
+      "base": [
+       "Nel laboratorio il grafico mostra la probabilità che una copia contenga almeno un errore in funzione del numero di siti copiati n, da 0 a 10 000, secondo P = 1 − (1 − μ)ⁿ. Nella scheda «Regola» cambi la probabilità di errore per sito μ, da 0,00001 a 0,001. Con il valore predefinito, μ = 0,0001, la curva supera il 63% quando n arriva a 10 000, cioè quando nμ = 1.",
+       "Protocollo. Il programma confronta due lunghezze fissate, 2500 e 5000 siti. Con il valore predefinito prevedi se la probabilità di almeno un errore cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta μ a 0,0002, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+       "Che cosa osservare. Con μ = 0,0001 la probabilità passa da circa 0,221 a 0,393; con μ = 0,0002 da circa 0,393 a 0,632. Raddoppiare μ ha lo stesso effetto di raddoppiare n, perché conta solo il prodotto nμ. La crescita rallenta man mano che la probabilità si avvicina a 1."
+      ],
+      "intermediate": [
+       "Nel laboratorio il grafico mostra la probabilità che una copia contenga almeno un errore in funzione del numero di siti copiati n, da 0 a 10 000, secondo P = 1 − (1 − μ)ⁿ. Nella scheda «Regola» cambi la probabilità di errore per sito μ, da 0,00001 a 0,001. Con il valore predefinito, μ = 0,0001, la curva supera il 63% quando n arriva a 10 000, cioè quando nμ = 1.",
+       "Protocollo. Il programma confronta due lunghezze fissate, 2500 e 5000 siti. Con il valore predefinito prevedi se la probabilità di almeno un errore cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta μ a 0,0002, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+       "Che cosa osservare. Con μ = 0,0001 la probabilità passa da circa 0,221 a 0,393; con μ = 0,0002 da circa 0,393 a 0,632. Raddoppiare μ ha lo stesso effetto di raddoppiare n, perché conta solo il prodotto nμ. La crescita rallenta man mano che la probabilità si avvicina a 1."
+      ],
+      "advanced": [
+       "Nel laboratorio il grafico mostra la probabilità che una copia contenga almeno un errore in funzione del numero di siti copiati n, da 0 a 10 000, secondo P = 1 − (1 − μ)ⁿ. Nella scheda «Regola» cambi la probabilità di errore per sito μ, da 0,00001 a 0,001. Con il valore predefinito, μ = 0,0001, la curva supera il 63% quando n arriva a 10 000, cioè quando nμ = 1.",
+       "Protocollo. Il programma confronta due lunghezze fissate, 2500 e 5000 siti. Con il valore predefinito prevedi se la probabilità di almeno un errore cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta μ a 0,0002, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+       "Che cosa osservare. Con μ = 0,0001 la probabilità passa da circa 0,221 a 0,393; con μ = 0,0002 da circa 0,393 a 0,632. Raddoppiare μ ha lo stesso effetto di raddoppiare n, perché conta solo il prodotto nμ. La crescita rallenta man mano che la probabilità si avvicina a 1.",
+       "Una prova a casa: si scrive una sequenza di 60 lettere fra A, C, G e T e la si copia per dieci generazioni, lanciando due dadi per ogni lettera; con due sei la lettera viene cambiata. La probabilità di errore è 1/36, e il numero medio di errori per copia è circa 1,7: solo circa una copia su cinque è perfetta."
+      ]
+     }
+    },
+    {
+     "label": "INTERPRETA",
+     "title": "Errori e paradossi",
+     "text": {
+      "base": [
+       "Errore frequente: sommare le probabilità di errore invece di moltiplicare quelle di successo. Il numero medio di errori è nμ, ma la probabilità di almeno un errore è 1 − (1 − μ)ⁿ, che non supera mai 1. Le due quantità coincidono solo quando nμ è molto minore di 1.",
+       "Secondo errore: credere che le mutazioni compaiano quando servono. Nel 1943 Luria e Delbrück mostrarono che i batteri resistenti a un virus compaiono a caso durante la crescita, prima del contatto con il virus: le colture hanno numeri di resistenti molto diversi. La selezione si limita a far prevalere le mutazioni utili."
+      ],
+      "intermediate": [
+       "Errore frequente: sommare le probabilità di errore invece di moltiplicare quelle di successo. Il numero medio di errori è nμ, ma la probabilità di almeno un errore è 1 − (1 − μ)ⁿ, che non supera mai 1. Le due quantità coincidono solo quando nμ è molto minore di 1.",
+       "Secondo errore: credere che le mutazioni compaiano quando servono. Nel 1943 Luria e Delbrück mostrarono che i batteri resistenti a un virus compaiono a caso durante la crescita, prima del contatto con il virus: le colture hanno numeri di resistenti molto diversi. La selezione si limita a far prevalere le mutazioni utili.",
+       "La soglia dipende dal vantaggio selettivo solo attraverso un logaritmo: passare da σ = 10 a σ = 1000 triplica la lunghezza massima, mentre ridurre μ di dieci volte la moltiplica per dieci. È la precisione della copiatura a fissare l’ordine di grandezza."
+      ],
+      "advanced": [
+       "Errore frequente: sommare le probabilità di errore invece di moltiplicare quelle di successo. Il numero medio di errori è nμ, ma la probabilità di almeno un errore è 1 − (1 − μ)ⁿ, che non supera mai 1. Le due quantità coincidono solo quando nμ è molto minore di 1.",
+       "Secondo errore: credere che le mutazioni compaiano quando servono. Nel 1943 Luria e Delbrück mostrarono che i batteri resistenti a un virus compaiono a caso durante la crescita, prima del contatto con il virus: le colture hanno numeri di resistenti molto diversi. La selezione si limita a far prevalere le mutazioni utili.",
+       "La soglia dipende dal vantaggio selettivo solo attraverso un logaritmo: passare da σ = 10 a σ = 1000 triplica la lunghezza massima, mentre ridurre μ di dieci volte la moltiplica per dieci. È la precisione della copiatura a fissare l’ordine di grandezza.",
+       "Il paradosso di Eigen dice che senza un genoma lungo non c’è una polimerasi precisa, e senza una polimerasi precisa non c’è un genoma lungo. Le soluzioni proposte sono replicatori brevi che cooperano in un ipercicio, compartimenti che isolano i parassiti, siti neutri che tollerano errori e condizioni che migliorano la copiatura."
+      ]
+     }
+    },
+    {
+     "label": "VERIFICA",
+     "title": "Verifica",
+     "text": {
+      "base": [
+       "Ripasso: tipi di mutazione e loro effetti; cause chimiche e fisiche; sistemi di riparazione; tassi di mutazione di virus, batteri e uomo; regola di Drake; probabilità di almeno un errore; distribuzione di Poisson; soglia d’errore e catastrofe d’errore; quasispecie; mutagenesi letale; paradosso di Eigen; esperimento di Luria e Delbrück.",
+       "Mini esercizio: con μ = 10⁻³ un genoma riceve in media un errore per copia quando n = 1000 siti, e la frazione di copie perfette è circa e⁻¹, cioè il 37%.",
+       "Nelle domande ricorda che conta il prodotto nμ: il numero medio di errori per copia."
+      ],
+      "intermediate": [
+       "Ripasso: tipi di mutazione e loro effetti; cause chimiche e fisiche; sistemi di riparazione; tassi di mutazione di virus, batteri e uomo; regola di Drake; probabilità di almeno un errore; distribuzione di Poisson; soglia d’errore e catastrofe d’errore; quasispecie; mutagenesi letale; paradosso di Eigen; esperimento di Luria e Delbrück.",
+       "Mini esercizio: con μ = 10⁻³ un genoma riceve in media un errore per copia quando n = 1000 siti, e la frazione di copie perfette è circa e⁻¹, cioè il 37%.",
+       "Nelle domande ricorda che conta il prodotto nμ: il numero medio di errori per copia."
+      ],
+      "advanced": [
+       "Ripasso: tipi di mutazione e loro effetti; cause chimiche e fisiche; sistemi di riparazione; tassi di mutazione di virus, batteri e uomo; regola di Drake; probabilità di almeno un errore; distribuzione di Poisson; soglia d’errore e catastrofe d’errore; quasispecie; mutagenesi letale; paradosso di Eigen; esperimento di Luria e Delbrück.",
+       "Mini esercizio: con μ = 10⁻³ un genoma riceve in media un errore per copia quando n = 1000 siti, e la frazione di copie perfette è circa e⁻¹, cioè il 37%.",
+       "Nelle domande ricorda che conta il prodotto nμ: il numero medio di errori per copia."
+      ]
+     }
+    },
+    {
+     "label": "COLLEGA",
+     "title": "Collegamenti",
+     "text": {
+      "base": [
+       "La probabilità di eventi indipendenti è il tema dell’unità di matematica «Combinatoria, probabilità e statistica». In biologia il percorso prosegue con l’ereditarietà e la selezione naturale, che spiegano come una mutazione vantaggiosa si diffonde, e con la deriva genetica, che descrive il destino delle mutazioni neutre in popolazioni finite.",
+       "Riepilogo dell’unità: le mutazioni nascono da errori e danni e vengono in gran parte riparate; la probabilità che una copia di n siti contenga almeno un errore è 1 − (1 − μ)ⁿ; una popolazione conserva un genoma solo se μL < ln σ; i virus a RNA vivono vicino alla soglia, e la mutagenesi letale li spinge oltre.",
+       "Nel diario registra A e B con le previsioni e calcola, per μ = 0,0001 e μ = 0,0002, la lunghezza per cui metà delle copie contiene almeno un errore."
+      ],
+      "intermediate": [
+       "La probabilità di eventi indipendenti è il tema dell’unità di matematica «Combinatoria, probabilità e statistica». In biologia il percorso prosegue con l’ereditarietà e la selezione naturale, che spiegano come una mutazione vantaggiosa si diffonde, e con la deriva genetica, che descrive il destino delle mutazioni neutre in popolazioni finite.",
+       "Riepilogo dell’unità: le mutazioni nascono da errori e danni e vengono in gran parte riparate; la probabilità che una copia di n siti contenga almeno un errore è 1 − (1 − μ)ⁿ; una popolazione conserva un genoma solo se μL < ln σ; i virus a RNA vivono vicino alla soglia, e la mutagenesi letale li spinge oltre.",
+       "Nel diario registra A e B con le previsioni e calcola, per μ = 0,0001 e μ = 0,0002, la lunghezza per cui metà delle copie contiene almeno un errore."
+      ],
+      "advanced": [
+       "La probabilità di eventi indipendenti è il tema dell’unità di matematica «Combinatoria, probabilità e statistica». In biologia il percorso prosegue con l’ereditarietà e la selezione naturale, che spiegano come una mutazione vantaggiosa si diffonde, e con la deriva genetica, che descrive il destino delle mutazioni neutre in popolazioni finite.",
+       "Riepilogo dell’unità: le mutazioni nascono da errori e danni e vengono in gran parte riparate; la probabilità che una copia di n siti contenga almeno un errore è 1 − (1 − μ)ⁿ; una popolazione conserva un genoma solo se μL < ln σ; i virus a RNA vivono vicino alla soglia, e la mutagenesi letale li spinge oltre.",
+       "Nel diario registra A e B con le previsioni e calcola, per μ = 0,0001 e μ = 0,0002, la lunghezza per cui metà delle copie contiene almeno un errore."
+      ]
+     }
+    }
+   ],
+   "questions": [
+    {
+     "id": "biology-12-q1",
+     "prompt": "Il codone GAG, acido glutammico, diventa GAA, che indica ancora l’acido glutammico. La mutazione è:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Nonsenso",
+       "feedback": "Una mutazione nonsenso crea un codone di arresto."
+      },
+      {
+       "id": "B",
+       "text": "Sinonima",
+       "feedback": "Esatto: il codone cambia e l’amminoacido resta lo stesso."
+      },
+      {
+       "id": "C",
+       "text": "Di senso alterato",
+       "feedback": "L’amminoacido non è cambiato, quindi la proteina resta identica."
+      },
+      {
+       "id": "D",
+       "text": "Uno spostamento della cornice",
+       "feedback": "Una sostituzione lascia il numero di basi invariato."
+      }
+     ],
+     "correct": "B"
+    },
+    {
+     "id": "biology-12-q2",
+     "prompt": "Con μ = 10⁻³, un genoma di circa quanti siti ha in media un errore per copia?",
+     "options": [
+      {
+       "id": "A",
+       "text": "Circa 10",
+       "feedback": "Con 10 siti il numero medio di errori è 0,01."
+      },
+      {
+       "id": "B",
+       "text": "Circa 1000",
+       "feedback": "Esatto: il numero medio di errori nμ vale 1000 · 10⁻³ = 1."
+      },
+      {
+       "id": "C",
+       "text": "Circa un milione",
+       "feedback": "Con un milione di siti gli errori medi sarebbero mille."
+      },
+      {
+       "id": "D",
+       "text": "Nessuna lunghezza",
+       "feedback": "Il numero medio di errori cresce in proporzione alla lunghezza."
+      }
+     ],
+     "correct": "B"
+    },
+    {
+     "id": "biology-12-q3",
+     "prompt": "Con μ = 10⁻⁴ e n = 10 000, la probabilità di almeno un errore in una copia è circa:",
+     "options": [
+      {
+       "id": "A",
+       "text": "100%",
+       "feedback": "Il numero medio di errori è 1, e circa una copia su tre resta perfetta."
+      },
+      {
+       "id": "B",
+       "text": "63%",
+       "feedback": "Esatto: 1 − e⁻¹ vale circa 0,63."
+      },
+      {
+       "id": "C",
+       "text": "10%",
+       "feedback": "Questo è circa il valore per mille siti."
+      },
+      {
+       "id": "D",
+       "text": "1%",
+       "feedback": "Hai diviso per cento invece di calcolare 1 − e^(−nμ)."
+      }
+     ],
+     "correct": "B"
+    },
+    {
+     "id": "biology-12-q4",
+     "prompt": "Secondo la soglia di Eigen, come cambia la lunghezza massima di un genoma se μ si riduce di dieci volte?",
+     "options": [
+      {
+       "id": "A",
+       "text": "Si moltiplica per dieci",
+       "feedback": "Esatto: la lunghezza massima è ln σ/μ, inversamente proporzionale a μ."
+      },
+      {
+       "id": "B",
+       "text": "Raddoppia",
+       "feedback": "La dipendenza da μ è inversa e lineare."
+      },
+      {
+       "id": "C",
+       "text": "Resta uguale",
+       "feedback": "La soglia dipende proprio dalla precisione della copiatura."
+      },
+      {
+       "id": "D",
+       "text": "Si divide per dieci",
+       "feedback": "Una copiatura più precisa permette genomi più lunghi."
+      }
+     ],
+     "correct": "A"
+    },
+    {
+     "id": "biology-12-q5",
+     "prompt": "Che cosa mostrò l’esperimento di Luria e Delbrück?",
+     "options": [
+      {
+       "id": "A",
+       "text": "Che i batteri diventano resistenti solo dopo il contatto con il virus",
+       "feedback": "I resistenti erano già presenti, in numeri molto variabili fra colture."
+      },
+      {
+       "id": "B",
+       "text": "Che le mutazioni compaiono a caso, prima della pressione selettiva",
+       "feedback": "Esatto: alcune colture avevano moltissimi resistenti per una mutazione precoce."
+      },
+      {
+       "id": "C",
+       "text": "Che il DNA si replica in modo semiconservativo",
+       "feedback": "Questo fu mostrato da Meselson e Stahl nel 1958."
+      },
+      {
+       "id": "D",
+       "text": "Che i virus non mutano",
+       "feedback": "L’esperimento riguardava le mutazioni dei batteri."
+      }
+     ],
+     "correct": "B"
+    },
+    {
+     "id": "biology-12-q6",
+     "prompt": "Perché un farmaco che aumenta il tasso di mutazione può essere efficace contro i virus a RNA?",
+     "options": [
+      {
+       "id": "A",
+       "text": "Perché distrugge le membrane delle cellule infette",
+       "feedback": "Il meccanismo riguarda la copiatura dell’RNA virale."
+      },
+      {
+       "id": "B",
+       "text": "Perché i virus a RNA vivono vicino alla soglia d’errore e un piccolo aumento li spinge oltre",
+       "feedback": "Esatto: la popolazione virale perde la sequenza funzionale."
+      },
+      {
+       "id": "C",
+       "text": "Perché rende i virus più veloci",
+       "feedback": "Un tasso di errore maggiore danneggia la discendenza del virus."
+      },
+      {
+       "id": "D",
+       "text": "Perché ripara il genoma del virus",
+       "feedback": "Il farmaco introduce errori, al contrario di una riparazione."
+      }
+     ],
+     "correct": "B"
+    }
+   ]
   }
  ]
 }
