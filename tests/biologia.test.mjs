@@ -660,3 +660,22 @@ test('Biologia 34: panspermia e protezione planetaria, numeri ricalcolati',()=>{
  // Model probes: S = 10^(-d t / D10) at t = 25 and 50 years, D10 = 1000 Gy, d = 10 and 20 Gy/yr.
  assert.deepEqual([S(10,25,1000),S(10,50,1000),S(20,25,1000),S(20,50,1000)].map(v=>r(v,4)),[0.5623,0.3162,0.3162,0.1]);
 });
+test('Biologia 35: tecnofirme ed equazione di Drake, numeri ricalcolati',()=>{
+ assert.equal(1*0.01*10000,100);assert.equal(1*0.01*100000,1000);
+ assert.equal(r(2.998e8/1.4204e9,3),0.211);assert.equal(r(1/2.87e-15/1e14,1),3.5);assert.equal(r(1/2.87e-15/3.156e7/1e7,1),1.1);
+ assert.equal(r(1.4204e9*3e4/2.998e8/1e5,1),1.4);assert.equal(r(1.4204e9*3e4/2.998e8/1e3,0),142);
+ assert.equal(r(2*4.24,1),8.5);assert.equal(2*25000,50000);
+ const a=(7.29e-5)**2*6.378e6;assert.equal(r(a,3),0.034);assert.equal(r(1.42e9*0.034/3e8,2),0.16);assert.equal(r(1.4204e9*(7.292e-5)**2*6.378e6/2.998e8,2),0.16);
+ assert.equal(r(3e8*0.038/9.82e8,3),0.012);
+ const d=1000*9.461e15,F=2e13/(4*Math.PI*d*d);assert.equal(r(F/1e-26,1),1.8);
+ assert.equal(r(100/3.2616,1),30.7);assert.equal(r(4/3*Math.PI*30.7**3/1e5,1),1.2);assert.equal(r(4/3*Math.PI*30.7**3*0.1,-3),12000);
+ assert.equal(1e5/0.01,1e7);assert.equal(1e7/1e10,1e-3);
+ assert.equal(r(0.07*2e11/1e10,1),1.4);assert.equal(r(1.4e10*0.37/1e9,1),5.2);assert.equal(r(1.4e10*0.6/1e9,1),8.4);
+ const opt=10*0.5*3*1*0.5*1*1e9,pes=10*0.01*0.01*1e-6*1e-6*1*100;assert.equal(opt,7.5e9);assert.equal(+pes.toExponential(0),1e-13);assert.equal(r(Math.log10(opt/pes),0),23);assert.ok(Math.log10(5e9/pes)>22);assert.equal(+(pes*100).toExponential(0),1e-11);
+ const V=Math.PI*5e4**2*1e3;assert.equal(r(V/1e12,1),7.9);assert.equal(r(Math.cbrt(V/100),-2),4300);assert.equal(r(2*Math.cbrt(V/100),-2),8600);
+ assert.equal(r(Math.exp(-0.5),2),0.61);assert.equal(r(Math.exp(-3),2),0.05);
+ assert.equal(r(2.998e8/1.42e9*100,1),21.1);assert.equal(r(2.998e8/1.72e9*100,1),17.4);assert.equal((1720-1420)*1e6,3e8);
+ assert.equal(r(1.5/1.335e18,19),1.1e-18);assert.equal(r(1.65,2),1.65);
+ // Model probes: N = (R* fp ne)(fl fi fc) L at L = 25000 and 50000 yr, R* fp ne = 1/yr, fl fi fc = 0.01 and 0.001.
+ const m=(L,b)=>1*b*L;assert.deepEqual([m(25000,0.01),m(50000,0.01),m(25000,0.001),m(50000,0.001)].map(v=>r(v,2)),[250,500,25,50]);
+});

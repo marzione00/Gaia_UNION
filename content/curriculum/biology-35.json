@@ -5,268 +5,343 @@
   "title": "Tecnofirme, SETI ed equazione di Drake",
   "sector": 3,
   "modelId": "biology-35",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Equazione di Drake in stato stazionario",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Tecnofirme e biofirme, finestra delle microonde e pozza d’acqua, segnali a banda stretta, spostamento e deriva Doppler, storia dei programmi SETI, segnali Wow! e BLC1, equazione di Drake, incertezza dei fattori, paradosso di Fermi, sfera radio della Terra, messaggio di Arecibo, protocolli dopo una rivelazione",
+  "narrativeStatus": "I dati provengono dagli articoli dei programmi SETI, dalle statistiche degli esopianeti di Kepler e di Gaia e dalle analisi citate nel capitolo; lo stato dei programmi di ricerca è aggiornato al 2026.",
   "objectives": [
-    "Spiegare: equazione di drake in stato stazionario.",
-    "Applicare N = (R* f_p n_e)(f_l f_i f_c) L, dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Distinguere tecnofirme e biofirme e descrivere le principali tecnofirme cercate.",
+    "Calcolare lo spostamento e la deriva Doppler di un segnale artificiale.",
+    "Usare l’equazione di Drake come modello di stato stazionario e discutere l’incertezza dei fattori.",
+    "Descrivere il paradosso di Fermi e il protocollo di verifica di un candidato."
   ],
   "prerequisites": [
     "biology-34"
   ],
   "connections": [
-    "math-c10"
+    "biology-22",
+    "biology-31",
+    "biology-32",
+    "biology-33"
   ],
   "sources": [
-    "biology"
+    "biology",
+    "physics2",
+    "statistics"
   ],
   "originalSource": null,
   "glossary": [
     {
-      "term": "Durata L",
-      "definition": "Variabile indipendente, unità anni; intervallo [0; 100.000]."
+      "term": "Tecnofirma",
+      "definition": "Caratteristica osservabile che si spiega più facilmente con una tecnologia che con un processo naturale."
     },
     {
-      "term": "Civiltà comunicanti",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "SETI",
+      "definition": "Ricerca di intelligenza extraterrestre attraverso segnali artificiali, soprattutto radio e ottici."
     },
     {
-      "term": "R* f_p n_e",
-      "definition": "Parametro a, unità pianeti abitabili/anno; intervallo [0,1; 10]."
+      "term": "Finestra delle microonde",
+      "definition": "Intervallo di frequenze fra circa 1 e 10 GHz in cui il rumore di fondo del cielo è minimo."
     },
     {
-      "term": "f_l f_i f_c",
-      "definition": "Parametro b, unità 1; intervallo [0,0001; 1]."
+      "term": "Deriva Doppler",
+      "definition": "Variazione nel tempo della frequenza ricevuta, dovuta all’accelerazione del trasmettitore o del ricevitore."
+    },
+    {
+      "term": "Equazione di Drake",
+      "definition": "Prodotto dei fattori che determinano il numero di civiltà comunicanti presenti nella Galassia."
+    },
+    {
+      "term": "Paradosso di Fermi",
+      "definition": "Contrasto fra la facilità con cui civiltà antiche avrebbero potuto diffondersi nella Galassia e l’assenza di prove della loro presenza."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Ascoltare le stelle",
       "text": {
         "base": [
-          "Un radiotelescopio della stazione ascolta il cielo alla ricerca di segnali artificiali. Quanti segnali ci si può aspettare?",
-          "L'equazione di Drake stima il numero di civiltà comunicanti nella galassia come prodotto di un tasso di formazione di pianeti abitabili, di frazioni di probabilità e della durata L della fase comunicativa."
+          "Nel 1959 Giuseppe Cocconi e Philip Morrison proposero su Nature di ascoltare le stelle vicine alla frequenza della riga dell’idrogeno, a 1420 MHz; l’anno dopo Frank Drake puntò l’antenna di 26 metri di Green Bank verso Tau Ceti ed Epsilon Eridani. Il Progetto Ozma registrò soltanto un falso allarme, dovuto a un aereo, e diede inizio alla ricerca di intelligenza extraterrestre, chiamata SETI.",
+          "Le biofirme dei capitoli precedenti sono tracce della vita microbica. Le tecnofirme sono tracce di una tecnologia: un segnale radio largo un hertz o meno, impulsi laser di pochi nanosecondi, l’eccesso di infrarosso di una sfera di Dyson, gas industriali come i clorofluorocarburi. La natura le imita difficilmente, e si vedrebbero da molto lontano, a patto che esistano civiltà tecnologiche."
         ],
         "intermediate": [
-          "Un radiotelescopio della stazione ascolta il cielo alla ricerca di segnali artificiali. Quanti segnali ci si può aspettare?",
-          "In stato stazionario il numero di oggetti presenti è il tasso con cui compaiono moltiplicato per il tempo per cui restano: N = (tasso di nascita) × L."
+          "Nel 1959 Giuseppe Cocconi e Philip Morrison proposero su Nature di ascoltare le stelle vicine alla frequenza della riga dell’idrogeno, a 1420 MHz; l’anno dopo Frank Drake puntò l’antenna di 26 metri di Green Bank verso Tau Ceti ed Epsilon Eridani. Il Progetto Ozma registrò soltanto un falso allarme, dovuto a un aereo, e diede inizio alla ricerca di intelligenza extraterrestre, chiamata SETI.",
+          "Le biofirme dei capitoli precedenti sono tracce della vita microbica. Le tecnofirme sono tracce di una tecnologia: un segnale radio largo un hertz o meno, impulsi laser di pochi nanosecondi, l’eccesso di infrarosso di una sfera di Dyson, gas industriali come i clorofluorocarburi. La natura le imita difficilmente, e si vedrebbero da molto lontano, a patto che esistano civiltà tecnologiche."
         ],
         "advanced": [
-          "Un radiotelescopio della stazione ascolta il cielo alla ricerca di segnali artificiali. Quanti segnali ci si può aspettare?",
-          "Calcola N per L = 100 anni e per L = 1 milione di anni con gli stessi altri fattori, e discuti quale fattore domina l'incertezza.",
-          "Stato stazionario, fattori indipendenti e costanti nella storia della galassia."
+          "Nel 1959 Giuseppe Cocconi e Philip Morrison proposero su Nature di ascoltare le stelle vicine alla frequenza della riga dell’idrogeno, a 1420 MHz; l’anno dopo Frank Drake puntò l’antenna di 26 metri di Green Bank verso Tau Ceti ed Epsilon Eridani. Il Progetto Ozma registrò soltanto un falso allarme, dovuto a un aereo, e diede inizio alla ricerca di intelligenza extraterrestre, chiamata SETI.",
+          "Le biofirme dei capitoli precedenti sono tracce della vita microbica. Le tecnofirme sono tracce di una tecnologia: un segnale radio largo un hertz o meno, impulsi laser di pochi nanosecondi, l’eccesso di infrarosso di una sfera di Dyson, gas industriali come i clorofluorocarburi. La natura le imita difficilmente, e si vedrebbero da molto lontano, a patto che esistano civiltà tecnologiche.",
+          "Shaw propone di trasmettere sulla riga del maser dell’acqua a 22,235 GHz, dove però il rumore è più alto e il vapore acqueo di un’atmosfera abitata assorbe il segnale. Scrive anche che la transizione a 21 cm dell’idrogeno avviene una volta ogni milione di anni: il valore corretto, dal coefficiente di emissione spontanea, è circa undici volte più lungo, circa undici milioni di anni."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Segnali, derive e fattori",
       "text": {
         "base": [
-          "L'equazione di Drake stima il numero di civiltà comunicanti nella galassia come prodotto di un tasso di formazione di pianeti abitabili, di frazioni di probabilità e della durata L della fase comunicativa.",
-          "Con un pianeta abitabile all'anno, una probabilità complessiva dell'1% di sviluppare una civiltà comunicante e L = 10 000 anni si ottiene N = 100."
+          "La ricerca radio si concentra fra 1 e 10 GHz, nella finestra delle microonde: sotto domina il sincrotrone della Galassia, sopra crescono il rumore quantistico e l’assorbimento dell’atmosfera. Fra la riga dell’idrogeno e quelle dell’ossidrile, da 1420 a 1720 MHz, si trova la pozza d’acqua indicata dal progetto Cyclops nel 1971. Un segnale artificiale cambia frequenza per effetto Doppler, con una deriva di frazioni di hertz al secondo.",
+          "Per la rotazione terrestre l’accelerazione all’equatore è circa 0,034 m/s², e a 1420 MHz la deriva arriva a circa 0,16 Hz/s. I programmi moderni analizzano centinaia di milioni di canali e alternano la stella e posizioni vicine: un segnale vero compare soltanto sulla stella. Il segnale Wow! del 1977 restò isolato; BLC1, ricevuto da Proxima Centauri nel 2019, si rivelò nel 2021 un’interferenza terrestre."
         ],
         "intermediate": [
-          "In stato stazionario il numero di oggetti presenti è il tasso con cui compaiono moltiplicato per il tempo per cui restano: N = (tasso di nascita) × L.",
-          "La variabile Durata L è espressa in anni; Civiltà comunicanti in 1. Il dominio dello strumento è [0; 100.000]. La relazione implementata è: N = (R* f_p n_e)(f_l f_i f_c) L.",
-          "Con un pianeta abitabile all'anno, una probabilità complessiva dell'1% di sviluppare una civiltà comunicante e L = 10 000 anni si ottiene N = 100."
+          "La ricerca radio si concentra fra 1 e 10 GHz, nella finestra delle microonde: sotto domina il sincrotrone della Galassia, sopra crescono il rumore quantistico e l’assorbimento dell’atmosfera. Fra la riga dell’idrogeno e quelle dell’ossidrile, da 1420 a 1720 MHz, si trova la pozza d’acqua indicata dal progetto Cyclops nel 1971. Un segnale artificiale cambia frequenza per effetto Doppler, con una deriva di frazioni di hertz al secondo.",
+          "Per la rotazione terrestre l’accelerazione all’equatore è circa 0,034 m/s², e a 1420 MHz la deriva arriva a circa 0,16 Hz/s. I programmi moderni analizzano centinaia di milioni di canali e alternano la stella e posizioni vicine: un segnale vero compare soltanto sulla stella. Il segnale Wow! del 1977 restò isolato; BLC1, ricevuto da Proxima Centauri nel 2019, si rivelò nel 2021 un’interferenza terrestre.",
+          "L’equazione di Drake, scritta nel 1961, è un modello di stato stazionario: il numero di civiltà comunicanti presenti oggi è uguale al ritmo con cui compaiono moltiplicato per la loro durata, N = R* fp ne fl fi fc L. I fattori astronomici sono noti entro qualche unità: circa tre stelle nuove all’anno, quasi ogni stella con pianeti, fra 0,37 e 0,60 pianeti rocciosi abitabili per stella simile al Sole."
         ],
         "advanced": [
-          "In stato stazionario il numero di oggetti presenti è il tasso con cui compaiono moltiplicato per il tempo per cui restano: N = (tasso di nascita) × L.",
-          "Calcola N per L = 100 anni e per L = 1 milione di anni con gli stessi altri fattori, e discuti quale fattore domina l'incertezza.",
-          "L'equazione di Drake dà numeri molto incerti, perché alcuni fattori sono ignoti di molti ordini di grandezza. Serve a organizzare le domande più che a rispondervi."
+          "La ricerca radio si concentra fra 1 e 10 GHz, nella finestra delle microonde: sotto domina il sincrotrone della Galassia, sopra crescono il rumore quantistico e l’assorbimento dell’atmosfera. Fra la riga dell’idrogeno e quelle dell’ossidrile, da 1420 a 1720 MHz, si trova la pozza d’acqua indicata dal progetto Cyclops nel 1971. Un segnale artificiale cambia frequenza per effetto Doppler, con una deriva di frazioni di hertz al secondo.",
+          "Per la rotazione terrestre l’accelerazione all’equatore è circa 0,034 m/s², e a 1420 MHz la deriva arriva a circa 0,16 Hz/s. I programmi moderni analizzano centinaia di milioni di canali e alternano la stella e posizioni vicine: un segnale vero compare soltanto sulla stella. Il segnale Wow! del 1977 restò isolato; BLC1, ricevuto da Proxima Centauri nel 2019, si rivelò nel 2021 un’interferenza terrestre.",
+          "L’equazione di Drake, scritta nel 1961, è un modello di stato stazionario: il numero di civiltà comunicanti presenti oggi è uguale al ritmo con cui compaiono moltiplicato per la loro durata, N = R* fp ne fl fi fc L. I fattori astronomici sono noti entro qualche unità: circa tre stelle nuove all’anno, quasi ogni stella con pianeti, fra 0,37 e 0,60 pianeti rocciosi abitabili per stella simile al Sole.",
+          "I fattori biologici e la durata L restano ignoti di molti ordini di grandezza. Con le scelte ottimistiche di Shaw si ottengono miliardi di civiltà, con quelle pessimistiche 10^−13. Nel 2018 Sandberg, Drexler e Ord, trattando i fattori come distribuzioni di probabilità, stimarono fra il 53 e il 99,6 per cento la probabilità che nella Galassia manchino altre civiltà."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio di Drake",
       "text": {
         "base": [
-          "Nel laboratorio imposta R* f_p n_e (a): 1 pianeti abitabili/anno; f_l f_i f_c (b): 0,01 (adimensionale). Prima di salvare A, prevedi come cambia Civiltà comunicanti fra Durata L=25.000 e 50.000 anni. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con un pianeta abitabile all'anno, una probabilità complessiva dell'1% di sviluppare una civiltà comunicante e L = 10 000 anni si ottiene N = 100.",
-          "La variabile Durata L è espressa in anni; Civiltà comunicanti in 1. Il dominio dello strumento è [0; 100.000]. La relazione implementata è: N = (R* f_p n_e)(f_l f_i f_c) L."
+          "Nel laboratorio il grafico mostra il numero di civiltà comunicanti N in funzione della durata L, da 0 a 100 000 anni. Nella scheda «Regola» cambi il ritmo dei pianeti adatti, il prodotto R* fp ne, da 0,1 a 10 all’anno, e il prodotto delle frazioni fl fi fc, da 0,0001 a 1. Con i valori predefiniti, un pianeta adatto all’anno e una frazione di 0,01, una durata di 10 000 anni dà N = 100.",
+          "Protocollo. Il programma confronta due durate fissate, 25 000 e 50 000 anni. Con i valori predefiniti prevedi se N cresce, diminuisce o resta uguale passando dalla prima alla seconda durata e salva A. Poi porta il prodotto delle frazioni a 0,001, dieci volte meno, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con la frazione 0,01 il numero passa da 250 a 500 civiltà; con 0,001 da 25 a 50. In entrambi i casi raddoppia, perché N è proporzionale a L. Ridurre di dieci volte il prodotto delle frazioni ha lo stesso effetto di ridurre di dieci volte la durata: soltanto il prodotto di tutti i fattori conta, e un fattore ignoto di molti ordini di grandezza rende ignoto il risultato."
         ],
         "intermediate": [
-          "Nel laboratorio imposta R* f_p n_e (a): 1 pianeti abitabili/anno; f_l f_i f_c (b): 0,01 (adimensionale). Prima di salvare A, prevedi come cambia Civiltà comunicanti fra Durata L=25.000 e 50.000 anni. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Durata L è espressa in anni; Civiltà comunicanti in 1. Il dominio dello strumento è [0; 100.000]. La relazione implementata è: N = (R* f_p n_e)(f_l f_i f_c) L.",
-          "In stato stazionario il numero di oggetti presenti è il tasso con cui compaiono moltiplicato per il tempo per cui restano: N = (tasso di nascita) × L."
+          "Nel laboratorio il grafico mostra il numero di civiltà comunicanti N in funzione della durata L, da 0 a 100 000 anni. Nella scheda «Regola» cambi il ritmo dei pianeti adatti, il prodotto R* fp ne, da 0,1 a 10 all’anno, e il prodotto delle frazioni fl fi fc, da 0,0001 a 1. Con i valori predefiniti, un pianeta adatto all’anno e una frazione di 0,01, una durata di 10 000 anni dà N = 100.",
+          "Protocollo. Il programma confronta due durate fissate, 25 000 e 50 000 anni. Con i valori predefiniti prevedi se N cresce, diminuisce o resta uguale passando dalla prima alla seconda durata e salva A. Poi porta il prodotto delle frazioni a 0,001, dieci volte meno, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con la frazione 0,01 il numero passa da 250 a 500 civiltà; con 0,001 da 25 a 50. In entrambi i casi raddoppia, perché N è proporzionale a L. Ridurre di dieci volte il prodotto delle frazioni ha lo stesso effetto di ridurre di dieci volte la durata: soltanto il prodotto di tutti i fattori conta, e un fattore ignoto di molti ordini di grandezza rende ignoto il risultato."
         ],
         "advanced": [
-          "Nel laboratorio imposta R* f_p n_e (a): 1 pianeti abitabili/anno; f_l f_i f_c (b): 0,01 (adimensionale). Prima di salvare A, prevedi come cambia Civiltà comunicanti fra Durata L=25.000 e 50.000 anni. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Calcola N per L = 100 anni e per L = 1 milione di anni con gli stessi altri fattori, e discuti quale fattore domina l'incertezza.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra il numero di civiltà comunicanti N in funzione della durata L, da 0 a 100 000 anni. Nella scheda «Regola» cambi il ritmo dei pianeti adatti, il prodotto R* fp ne, da 0,1 a 10 all’anno, e il prodotto delle frazioni fl fi fc, da 0,0001 a 1. Con i valori predefiniti, un pianeta adatto all’anno e una frazione di 0,01, una durata di 10 000 anni dà N = 100.",
+          "Protocollo. Il programma confronta due durate fissate, 25 000 e 50 000 anni. Con i valori predefiniti prevedi se N cresce, diminuisce o resta uguale passando dalla prima alla seconda durata e salva A. Poi porta il prodotto delle frazioni a 0,001, dieci volte meno, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con la frazione 0,01 il numero passa da 250 a 500 civiltà; con 0,001 da 25 a 50. In entrambi i casi raddoppia, perché N è proporzionale a L. Ridurre di dieci volte il prodotto delle frazioni ha lo stesso effetto di ridurre di dieci volte la durata: soltanto il prodotto di tutti i fattori conta, e un fattore ignoto di molti ordini di grandezza rende ignoto il risultato.",
+          "Una prova a casa: un dispositivo riproduce rumore bianco e un tono debole a 3000 Hz, un altro mostra lo spettro del suono. Abbassando il tono il picco sparisce in un singolo spettro e ricompare mediandone molti, perché il rumore fluttua sempre meno. Se il tono cambia lentamente frequenza, il picco mediato si allarga e si abbassa: è il problema della deriva Doppler dei segnali SETI."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e limiti",
       "text": {
         "base": [
-          "L'equazione di Drake dà numeri molto incerti, perché alcuni fattori sono ignoti di molti ordini di grandezza. Serve a organizzare le domande più che a rispondervi.",
-          "Stato stazionario, fattori indipendenti e costanti nella storia della galassia.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: credere che sessant’anni di silenzio dimostrino l’assenza di civiltà. Nel 2018 Wright, Kanodia e Lubar stimarono che la frazione esplorata dello spazio dei parametri, fatto di direzioni, frequenze, larghezze di banda, potenze e tempi, sia paragonabile a una vasca idromassaggio confrontata con tutti gli oceani della Terra. Un risultato negativo vale soltanto per la porzione esplorata.",
+          "Secondo errore: trattare l’equazione di Drake come una misura. Il prodotto delle stime centrali dà un numero preciso, mentre l’incertezza dei fattori biologici rende il risultato compatibile con valori fra molto meno di uno e miliardi. Terzo errore: considerare scoperto ogni segnale stretto. Wow! e BLC1 mostrano che servono la ripetizione, l’assenza nelle posizioni vicine e la conferma con altri strumenti."
         ],
         "intermediate": [
-          "L'equazione di Drake dà numeri molto incerti, perché alcuni fattori sono ignoti di molti ordini di grandezza. Serve a organizzare le domande più che a rispondervi.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: credere che sessant’anni di silenzio dimostrino l’assenza di civiltà. Nel 2018 Wright, Kanodia e Lubar stimarono che la frazione esplorata dello spazio dei parametri, fatto di direzioni, frequenze, larghezze di banda, potenze e tempi, sia paragonabile a una vasca idromassaggio confrontata con tutti gli oceani della Terra. Un risultato negativo vale soltanto per la porzione esplorata.",
+          "Secondo errore: trattare l’equazione di Drake come una misura. Il prodotto delle stime centrali dà un numero preciso, mentre l’incertezza dei fattori biologici rende il risultato compatibile con valori fra molto meno di uno e miliardi. Terzo errore: considerare scoperto ogni segnale stretto. Wow! e BLC1 mostrano che servono la ripetizione, l’assenza nelle posizioni vicine e la conferma con altri strumenti.",
+          "Il modello del laboratorio suppone un ritmo di comparsa costante e una durata uguale per tutte le civiltà. Trascura l’evoluzione del ritmo di formazione stellare e della metallicità nella storia della Galassia, la posizione nella Galassia, la possibilità che una civiltà si espanda ad altri sistemi, e la distribuzione delle durate, che nello stato stazionario conta soltanto attraverso la sua media."
         ],
         "advanced": [
-          "Stato stazionario, fattori indipendenti e costanti nella storia della galassia.",
-          "Calcola N per L = 100 anni e per L = 1 milione di anni con gli stessi altri fattori, e discuti quale fattore domina l'incertezza.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: credere che sessant’anni di silenzio dimostrino l’assenza di civiltà. Nel 2018 Wright, Kanodia e Lubar stimarono che la frazione esplorata dello spazio dei parametri, fatto di direzioni, frequenze, larghezze di banda, potenze e tempi, sia paragonabile a una vasca idromassaggio confrontata con tutti gli oceani della Terra. Un risultato negativo vale soltanto per la porzione esplorata.",
+          "Secondo errore: trattare l’equazione di Drake come una misura. Il prodotto delle stime centrali dà un numero preciso, mentre l’incertezza dei fattori biologici rende il risultato compatibile con valori fra molto meno di uno e miliardi. Terzo errore: considerare scoperto ogni segnale stretto. Wow! e BLC1 mostrano che servono la ripetizione, l’assenza nelle posizioni vicine e la conferma con altri strumenti.",
+          "Il modello del laboratorio suppone un ritmo di comparsa costante e una durata uguale per tutte le civiltà. Trascura l’evoluzione del ritmo di formazione stellare e della metallicità nella storia della Galassia, la posizione nella Galassia, la possibilità che una civiltà si espanda ad altri sistemi, e la distribuzione delle durate, che nello stato stazionario conta soltanto attraverso la sua media.",
+          "Il paradosso di Fermi chiede perché, in una Galassia di più di dieci miliardi di anni attraversabile in dieci milioni di anni all’uno per cento della velocità della luce, nessuna civiltà sia arrivata fino a noi. Le risposte vanno dalla Terra rara e dal grande filtro di Hanson a civiltà che restano a casa o durano poco, fino a una ricerca ancora troppo breve per concludere qualcosa."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "L'equazione di Drake stima il numero di civiltà comunicanti nella galassia come prodotto di un tasso di formazione di pianeti abitabili, di frazioni di probabilità e della durata L della fase comunicativa.",
-          "Con un pianeta abitabile all'anno, una probabilità complessiva dell'1% di sviluppare una civiltà comunicante e L = 10 000 anni si ottiene N = 100."
+          "Ripasso: tecnofirme e biofirme; finestra delle microonde e pozza d’acqua; spostamento e deriva Doppler; Ozma, Big Ear e Wow!, Phoenix, SETI@home, Breakthrough Listen, BLC1; equazione di Drake come stato stazionario; fattori astronomici e biologici; paradosso di Fermi e grande filtro; messaggio di Arecibo; protocollo dopo una rivelazione.",
+          "Mini esercizio: se nella Galassia compare una civiltà comunicante ogni mille anni e ciascuna dura centomila anni, in ogni momento ne esistono circa cento.",
+          "Nelle domande ricorda che N è il prodotto del ritmo di comparsa per la durata L, e che una deriva Doppler vale ν·a/c."
         ],
         "intermediate": [
-          "In stato stazionario il numero di oggetti presenti è il tasso con cui compaiono moltiplicato per il tempo per cui restano: N = (tasso di nascita) × L.",
-          "La variabile Durata L è espressa in anni; Civiltà comunicanti in 1. Il dominio dello strumento è [0; 100.000]. La relazione implementata è: N = (R* f_p n_e)(f_l f_i f_c) L."
+          "Ripasso: tecnofirme e biofirme; finestra delle microonde e pozza d’acqua; spostamento e deriva Doppler; Ozma, Big Ear e Wow!, Phoenix, SETI@home, Breakthrough Listen, BLC1; equazione di Drake come stato stazionario; fattori astronomici e biologici; paradosso di Fermi e grande filtro; messaggio di Arecibo; protocollo dopo una rivelazione.",
+          "Mini esercizio: se nella Galassia compare una civiltà comunicante ogni mille anni e ciascuna dura centomila anni, in ogni momento ne esistono circa cento.",
+          "Nelle domande ricorda che N è il prodotto del ritmo di comparsa per la durata L, e che una deriva Doppler vale ν·a/c."
         ],
         "advanced": [
-          "Calcola N per L = 100 anni e per L = 1 milione di anni con gli stessi altri fattori, e discuti quale fattore domina l'incertezza.",
-          "Stato stazionario, fattori indipendenti e costanti nella storia della galassia."
+          "Ripasso: tecnofirme e biofirme; finestra delle microonde e pozza d’acqua; spostamento e deriva Doppler; Ozma, Big Ear e Wow!, Phoenix, SETI@home, Breakthrough Listen, BLC1; equazione di Drake come stato stazionario; fattori astronomici e biologici; paradosso di Fermi e grande filtro; messaggio di Arecibo; protocollo dopo una rivelazione.",
+          "Mini esercizio: se nella Galassia compare una civiltà comunicante ogni mille anni e ciascuna dura centomila anni, in ogni momento ne esistono circa cento.",
+          "Nelle domande ricorda che N è il prodotto del ritmo di comparsa per la durata L, e che una deriva Doppler vale ν·a/c."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Equazione di Drake in stato stazionario.",
-          "Stato stazionario, fattori indipendenti e costanti nella storia della galassia.",
-          "Collegamento consigliato: math-c10. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La statistica dei pianeti collega questa unità a «Scoprire gli esopianeti»; i pianeti adatti a «La zona abitabile»; i gas industriali e la spettroscopia a «Atmosfere degli esopianeti e JWST»; lo stato stazionario e la verifica dei candidati a «Biofirme e falsi positivi»; i tempi dell’evoluzione a «Le prime tracce della vita e il tempo geologico». È l’ultima unità del percorso di biologia.",
+          "Riepilogo dell’unità: tecnofirme radio, ottiche, infrarosse e chimiche; KIC 8462852 e ’Oumuamua; rumore del cielo e finestra delle microonde; deriva Doppler e confronto con posizioni vicine; sessant’anni di programmi SETI; equazione di Drake e stime di Shaw corrette; paradosso di Fermi; sfera radio della Terra; messaggio di Arecibo; principi dell’Accademia internazionale di astronautica.",
+          "Nel diario registra A e B con le previsioni e calcola, per N = 100 civiltà distribuite in un disco galattico di circa 7,9·10^12 anni luce cubi, la distanza tipica fra due vicine: circa 4300 anni luce, con un’attesa di 8600 anni fra domanda e risposta."
         ],
         "intermediate": [
-          "In stato stazionario il numero di oggetti presenti è il tasso con cui compaiono moltiplicato per il tempo per cui restano: N = (tasso di nascita) × L.",
-          "Stato stazionario, fattori indipendenti e costanti nella storia della galassia.",
-          "Calcola N per L = 100 anni e per L = 1 milione di anni con gli stessi altri fattori, e discuti quale fattore domina l'incertezza."
+          "La statistica dei pianeti collega questa unità a «Scoprire gli esopianeti»; i pianeti adatti a «La zona abitabile»; i gas industriali e la spettroscopia a «Atmosfere degli esopianeti e JWST»; lo stato stazionario e la verifica dei candidati a «Biofirme e falsi positivi»; i tempi dell’evoluzione a «Le prime tracce della vita e il tempo geologico». È l’ultima unità del percorso di biologia.",
+          "Riepilogo dell’unità: tecnofirme radio, ottiche, infrarosse e chimiche; KIC 8462852 e ’Oumuamua; rumore del cielo e finestra delle microonde; deriva Doppler e confronto con posizioni vicine; sessant’anni di programmi SETI; equazione di Drake e stime di Shaw corrette; paradosso di Fermi; sfera radio della Terra; messaggio di Arecibo; principi dell’Accademia internazionale di astronautica.",
+          "Nel diario registra A e B con le previsioni e calcola, per N = 100 civiltà distribuite in un disco galattico di circa 7,9·10^12 anni luce cubi, la distanza tipica fra due vicine: circa 4300 anni luce, con un’attesa di 8600 anni fra domanda e risposta."
         ],
         "advanced": [
-          "Calcola N per L = 100 anni e per L = 1 milione di anni con gli stessi altri fattori, e discuti quale fattore domina l'incertezza.",
-          "Stato stazionario, fattori indipendenti e costanti nella storia della galassia.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La statistica dei pianeti collega questa unità a «Scoprire gli esopianeti»; i pianeti adatti a «La zona abitabile»; i gas industriali e la spettroscopia a «Atmosfere degli esopianeti e JWST»; lo stato stazionario e la verifica dei candidati a «Biofirme e falsi positivi»; i tempi dell’evoluzione a «Le prime tracce della vita e il tempo geologico». È l’ultima unità del percorso di biologia.",
+          "Riepilogo dell’unità: tecnofirme radio, ottiche, infrarosse e chimiche; KIC 8462852 e ’Oumuamua; rumore del cielo e finestra delle microonde; deriva Doppler e confronto con posizioni vicine; sessant’anni di programmi SETI; equazione di Drake e stime di Shaw corrette; paradosso di Fermi; sfera radio della Terra; messaggio di Arecibo; principi dell’Accademia internazionale di astronautica.",
+          "Nel diario registra A e B con le previsioni e calcola, per N = 100 civiltà distribuite in un disco galattico di circa 7,9·10^12 anni luce cubi, la distanza tipica fra due vicine: circa 4300 anni luce, con un’attesa di 8600 anni fra domanda e risposta."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-35-concept",
-      "prompt": "Se la durata L delle civiltà comunicanti decuplica, N:",
+      "id": "biology-35-q1",
+      "prompt": "Se la durata media L delle civiltà comunicanti raddoppia, a parità degli altri fattori, il numero N:",
       "options": [
         {
           "id": "A",
-          "text": "Resta uguale",
-          "feedback": "L'equazione di Drake dà numeri molto incerti, perché alcuni fattori sono ignoti di molti ordini di grandezza. Serve a organizzare le domande più che a rispondervi."
-        },
-        {
-          "id": "B",
           "text": "Raddoppia",
-          "feedback": "In stato stazionario il numero di oggetti presenti è il tasso con cui compaiono moltiplicato per il tempo per cui restano: N = (tasso di nascita) × L."
-        },
-        {
-          "id": "C",
-          "text": "Decuplica",
-          "feedback": "L'equazione di Drake stima il numero di civiltà comunicanti nella galassia come prodotto di un tasso di formazione di pianeti abitabili, di frazioni di probabilità e della durata L della fase comunicativa."
-        }
-      ],
-      "correct": "C"
-    },
-    {
-      "id": "biology-35-calculation",
-      "prompt": "Calcolo: R* f_p n_e (a)=1 pianeti abitabili/anno; f_l f_i f_c (b)=0,01 (adimensionale). Per Durata L=10.000 anni, quanto vale Civiltà comunicanti?",
-      "options": [
-        {
-          "id": "A",
-          "text": "50 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. N = (R* f_p n_e)(f_l f_i f_c) L. Con R* f_p n_e (a)=1 pianeti abitabili/anno; f_l f_i f_c (b)=0,01 (adimensionale) e Durata L=10.000 anni, il risultato è 100 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "feedback": "Esatto: N è il ritmo di comparsa moltiplicato per la durata."
         },
         {
           "id": "B",
-          "text": "100 (adimensionale)",
-          "feedback": "N = (R* f_p n_e)(f_l f_i f_c) L. Con R* f_p n_e (a)=1 pianeti abitabili/anno; f_l f_i f_c (b)=0,01 (adimensionale) e Durata L=10.000 anni, il risultato è 100 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Si dimezza",
+          "feedback": "Una durata maggiore fa coesistere più civiltà nello stesso momento."
         },
         {
           "id": "C",
-          "text": "150 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. N = (R* f_p n_e)(f_l f_i f_c) L. Con R* f_p n_e (a)=1 pianeti abitabili/anno; f_l f_i f_c (b)=0,01 (adimensionale) e Durata L=10.000 anni, il risultato è 100 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Resta uguale",
+          "feedback": "Lo stato stazionario lega il numero presente alla durata."
+        },
+        {
+          "id": "D",
+          "text": "Quadruplica",
+          "feedback": "La dipendenza dalla durata è lineare, senza il quadrato."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 10000,
-        "parameters": {
-          "a": 1,
-          "b": 0.01
-        },
-        "expected": 100,
-        "unit": "1"
-      }
+      "correct": "A"
     },
     {
-      "id": "biology-35-transfer",
-      "prompt": "Trasferimento: R* f_p n_e (a)=1,1 pianeti abitabili/anno; f_l f_i f_c (b)=0,01 (adimensionale). Per Durata L=10.000 anni, quanto vale Civiltà comunicanti?",
+      "id": "biology-35-q2",
+      "prompt": "Perché la ricerca radio si concentra fra circa 1 e 10 GHz?",
       "options": [
         {
           "id": "A",
-          "text": "110 (adimensionale)",
-          "feedback": "N = (R* f_p n_e)(f_l f_i f_c) L. Con R* f_p n_e (a)=1,1 pianeti abitabili/anno; f_l f_i f_c (b)=0,01 (adimensionale) e Durata L=10.000 anni, il risultato è 110 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché le stelle emettono soltanto a quelle frequenze",
+          "feedback": "Le stelle emettono a tutte le frequenze, soprattutto nel visibile."
         },
         {
           "id": "B",
-          "text": "165 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. N = (R* f_p n_e)(f_l f_i f_c) L. Con R* f_p n_e (a)=1,1 pianeti abitabili/anno; f_l f_i f_c (b)=0,01 (adimensionale) e Durata L=10.000 anni, il risultato è 110 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché lì il rumore di fondo del cielo è minimo",
+          "feedback": "Esatto: sotto domina il sincrotrone, sopra il rumore quantistico e l’atmosfera."
         },
         {
           "id": "C",
-          "text": "55 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. N = (R* f_p n_e)(f_l f_i f_c) L. Con R* f_p n_e (a)=1,1 pianeti abitabili/anno; f_l f_i f_c (b)=0,01 (adimensionale) e Durata L=10.000 anni, il risultato è 110 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché lì l’atmosfera terrestre amplifica i segnali",
+          "feedback": "L’atmosfera assorbe e aggiunge rumore, senza amplificare nulla."
+        },
+        {
+          "id": "D",
+          "text": "Perché lì cade la riga del maser dell’acqua",
+          "feedback": "La riga del maser dell’acqua è a 22 GHz, fuori dalla finestra."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 10000,
-        "parameters": {
-          "a": 1.1,
-          "b": 0.01
-        },
-        "expected": 110.00000000000001,
-        "unit": "1"
-      }
+      "correct": "B"
     },
     {
-      "id": "biology-35-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "biology-35-q3",
+      "prompt": "Quanto vale circa la deriva Doppler a 1420 MHz dovuta alla rotazione terrestre all’equatore?",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Stato stazionario, fattori indipendenti e costanti nella storia della galassia."
+          "text": "0,16 Hz/s",
+          "feedback": "Esatto: 1,42·10^9 Hz per 0,034 m/s² diviso 3·10^8 m/s."
         },
         {
           "id": "B",
-          "text": "Equazione di Drake in stato stazionario",
-          "feedback": "Stato stazionario, fattori indipendenti e costanti nella storia della galassia."
+          "text": "16 Hz/s",
+          "feedback": "Il valore è cento volte troppo grande per un’accelerazione di 0,034 m/s²."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Stato stazionario, fattori indipendenti e costanti nella storia della galassia."
+          "text": "1420 Hz/s",
+          "feedback": "La deriva è una piccola frazione della frequenza, proporzionale ad a/c."
+        },
+        {
+          "id": "D",
+          "text": "Zero, perché la Terra ruota a velocità costante",
+          "feedback": "Il moto circolare uniforme ha un’accelerazione centripeta ω²R."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-35-q4",
+      "prompt": "Che cosa mostrò l’analisi del segnale BLC1 ricevuto da Proxima Centauri?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Che era un segnale artificiale extraterrestre",
+          "feedback": "L’analisi del 2021 trovò segnali dello stesso tipo in altre direzioni."
+        },
+        {
+          "id": "B",
+          "text": "Che era un’interferenza prodotta da apparecchi elettronici terrestri",
+          "feedback": "Esatto: le frequenze legate da rapporti semplici indicavano prodotti di intermodulazione."
+        },
+        {
+          "id": "C",
+          "text": "Che proveniva da una pulsar",
+          "feedback": "Una pulsar emette impulsi su bande larghe, con una firma diversa."
+        },
+        {
+          "id": "D",
+          "text": "Che era un’emissione di idrogeno neutro",
+          "feedback": "BLC1 era a circa 982 MHz, lontano dalla riga a 1420 MHz."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-35-q5",
+      "prompt": "Quali fattori dell’equazione di Drake sono oggi noti entro un fattore di qualche unità?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Le frazioni fl, fi e fc",
+          "feedback": "Le frazioni biologiche restano ignote di molti ordini di grandezza."
+        },
+        {
+          "id": "B",
+          "text": "R*, fp e ne",
+          "feedback": "Esatto: formazione stellare, frequenza dei pianeti e pianeti adatti sono misurati dalle survey."
+        },
+        {
+          "id": "C",
+          "text": "Soltanto la durata L",
+          "feedback": "Della durata L conosciamo soltanto il secolo della nostra civiltà radio."
+        },
+        {
+          "id": "D",
+          "text": "Tutti i fattori",
+          "feedback": "I fattori biologici e la durata restano incerti di sei o sette ordini di grandezza."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-35-q6",
+      "prompt": "Che cosa raccomanda la dichiarazione dell’Accademia internazionale di astronautica a chi crede di aver ricevuto un segnale?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Rispondere subito per stabilire un contatto",
+          "feedback": "La dichiarazione chiede di astenersi da risposte prima di consultazioni internazionali."
+        },
+        {
+          "id": "B",
+          "text": "Verificarlo con altri osservatori, renderlo pubblico e condividere i dati",
+          "feedback": "Esatto: conferme indipendenti e trasparenza vengono prima di ogni annuncio."
+        },
+        {
+          "id": "C",
+          "text": "Tenerlo segreto",
+          "feedback": "La dichiarazione chiede un’informazione aperta alla comunità e al pubblico."
+        },
+        {
+          "id": "D",
+          "text": "Pubblicarlo senza verifiche per primi",
+          "feedback": "La verifica con altri strumenti precede qualsiasi annuncio."
         }
       ],
       "correct": "B"
