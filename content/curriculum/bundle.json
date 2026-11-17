@@ -37573,265 +37573,344 @@
       "title": "Respirazione, fermentazione e chemiosintesi",
       "sector": 3,
       "modelId": "biology-19",
-      "coverage": "guided-foundation",
-      "editorialStatus": "original-draft",
-      "scope": "Bilancio di ATP a resa costante",
-      "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+      "coverage": "guided-lab",
+      "editorialStatus": "hand-written-draft",
+      "scope": "Ossidoriduzioni e potenziali di riduzione, ATP, glicolisi, fermentazione, ciclo di Krebs, catena di trasporto e chemiosmosi, resa in ATP, respirazione anaerobica e zonazione degli accettori, chemiolitotrofi e fissazione del carbonio, energia nelle condizioni reali, ciclo dell’azoto, energia e abitabilità",
+      "narrativeStatus": "Le grandezze termodinamiche sono valori standard tabulati; la resa in ATP è una media, e la soglia energetica minima della vita è una stima.",
       "objectives": [
-        "Spiegare: bilancio di atp a resa costante.",
-        "Applicare ATP = resa × glucosio, dichiarando variabili e unità.",
-        "Confrontare due configurazioni e discutere i limiti del modello."
+        "Calcolare l’energia libera di un’ossidoriduzione dai potenziali standard.",
+        "Descrivere glicolisi, fermentazione, ciclo di Krebs e chemiosmosi.",
+        "Confrontare la resa in ATP di fermentazione e respirazione.",
+        "Valutare l’energia chimica disponibile in un ambiente."
       ],
       "prerequisites": [
         "biology-18"
       ],
       "connections": [
-        "chemistry-16"
+        "chemistry-16",
+        "chemistry-23",
+        "chemistry-19"
       ],
       "sources": [
-        "biology"
+        "biology",
+        "chemistry"
       ],
       "originalSource": null,
       "glossary": [
         {
-          "term": "Glucosio utilizzato",
-          "definition": "Variabile indipendente, unità mmol; intervallo [0; 10]."
+          "term": "Donatore di elettroni",
+          "definition": "Sostanza che si ossida cedendo elettroni."
         },
         {
-          "term": "ATP nel bilancio",
-          "definition": "Risultato calcolato dal modello, unità mmol."
+          "term": "Accettore di elettroni",
+          "definition": "Sostanza che si riduce ricevendo elettroni."
         },
         {
-          "term": "Resa assunta",
-          "definition": "Parametro a, unità mol/mol; intervallo [2; 32]."
+          "term": "Fermentazione",
+          "definition": "Via metabolica senza accettore esterno, in cui gli elettroni tornano a un derivato del substrato."
+        },
+        {
+          "term": "Chemiosmosi",
+          "definition": "Produzione di ATP sfruttando un gradiente di protoni attraverso una membrana."
+        },
+        {
+          "term": "Chemiolitotrofo",
+          "definition": "Organismo che ricava energia dall’ossidazione di sostanze inorganiche."
+        },
+        {
+          "term": "ATP sintasi",
+          "definition": "Enzima di membrana che produce ATP sfruttando il flusso dei protoni."
         }
       ],
       "steps": [
         {
           "label": "SCOPRI",
-          "title": "La domanda della spedizione",
+          "title": "Elettroni in caduta",
           "text": {
             "base": [
-              "Un microrganismo del sottosuolo può respirare o fermentare lo stesso zucchero. Quanta energia in forma di ATP ottiene nei due casi?",
-              "La respirazione aerobica di una mole di glucosio produce circa 30-32 moli di ATP; la fermentazione ne produce 2. Il bilancio è ATP = resa × glucosio."
+              "Ogni cellula lavora senza sosta: costruisce proteine, copia il DNA, pompa ioni, si muove. L’energia viene da reazioni in cui elettroni passano da una sostanza che li cede, il donatore, a una che li accetta, l’accettore. Noi bruciamo zuccheri con l’ossigeno; un lievito senza ossigeno trasforma lo zucchero in alcol; alcuni batteri vivono di idrogeno, di zolfo o di ferro.",
+              "Quasi tutta la vita conosciuta usa lo stesso schema: l’energia degli elettroni pompa protoni attraverso una membrana, e i protoni rientrano attraverso una turbina molecolare, l’ATP sintasi, che produce ATP, la valuta energetica della cellula. Cambiano soltanto il donatore e l’accettore, e quindi l’energia ricavata."
             ],
             "intermediate": [
-              "Un microrganismo del sottosuolo può respirare o fermentare lo stesso zucchero. Quanta energia in forma di ATP ottiene nei due casi?",
-              "La glicolisi dà 2 ATP per glucosio; nella respirazione il piruvato è ossidato fino a CO₂ e gli elettroni passano all'ossigeno attraverso la catena di trasporto, che genera un gradiente di protoni usato dall'ATP sintasi."
+              "Ogni cellula lavora senza sosta: costruisce proteine, copia il DNA, pompa ioni, si muove. L’energia viene da reazioni in cui elettroni passano da una sostanza che li cede, il donatore, a una che li accetta, l’accettore. Noi bruciamo zuccheri con l’ossigeno; un lievito senza ossigeno trasforma lo zucchero in alcol; alcuni batteri vivono di idrogeno, di zolfo o di ferro.",
+              "Quasi tutta la vita conosciuta usa lo stesso schema: l’energia degli elettroni pompa protoni attraverso una membrana, e i protoni rientrano attraverso una turbina molecolare, l’ATP sintasi, che produce ATP, la valuta energetica della cellula. Cambiano soltanto il donatore e l’accettore, e quindi l’energia ricavata."
             ],
             "advanced": [
-              "Un microrganismo del sottosuolo può respirare o fermentare lo stesso zucchero. Quanta energia in forma di ATP ottiene nei due casi?",
-              "Calcola quanto glucosio deve consumare un fermentatore per ottenere lo stesso ATP di un organismo aerobico che consuma 1 mmol di glucosio.",
-              "Resa media costante; la resa reale dipende dall'organismo e dalle condizioni."
+              "Ogni cellula lavora senza sosta: costruisce proteine, copia il DNA, pompa ioni, si muove. L’energia viene da reazioni in cui elettroni passano da una sostanza che li cede, il donatore, a una che li accetta, l’accettore. Noi bruciamo zuccheri con l’ossigeno; un lievito senza ossigeno trasforma lo zucchero in alcol; alcuni batteri vivono di idrogeno, di zolfo o di ferro.",
+              "Quasi tutta la vita conosciuta usa lo stesso schema: l’energia degli elettroni pompa protoni attraverso una membrana, e i protoni rientrano attraverso una turbina molecolare, l’ATP sintasi, che produce ATP, la valuta energetica della cellula. Cambiano soltanto il donatore e l’accettore, e quindi l’energia ricavata.",
+              "Per l’astrobiologia la lezione è decisiva: dove manca la luce, la vita può alimentarsi con la chimica fra l’acqua e le rocce. Nel 2015 la sonda Cassini trovò idrogeno molecolare nei pennacchi di Encelado, il primo esempio misurato fuori dalla Terra di una fonte di energia chimica di questo tipo."
             ]
           }
         },
         {
           "label": "CAPISCI",
-          "title": "Dall’intuizione alla relazione",
+          "title": "Potenziali e rese",
           "text": {
             "base": [
-              "La respirazione aerobica di una mole di glucosio produce circa 30-32 moli di ATP; la fermentazione ne produce 2. Il bilancio è ATP = resa × glucosio.",
-              "Con resa 30 mol/mol, 2 mmol di glucosio danno 60 mmol di ATP; con la fermentazione, resa 2, se ne ottengono 4 mmol."
+              "La tendenza di una sostanza ad accettare elettroni si misura con il potenziale di riduzione E°’. L’energia libera di una reazione che trasferisce n moli di elettroni è ΔG°’ = −nFΔE°’, con F = 96 485 C/mol. Dal NADH, a −0,32 V, all’ossigeno, a +0,82 V, il salto è 1,14 V, e l’energia liberata circa 220 kJ per mole di NADH.",
+              "La glicolisi spezza il glucosio in due piruvati con un guadagno netto di 2 ATP. Senza ossigeno, la fermentazione rigenera il NAD⁺ cedendo gli elettroni al piruvato, e il bilancio resta di 2 ATP per glucosio. Con l’ossigeno, il ciclo di Krebs e la catena di trasporto ossidano il glucosio fino ad anidride carbonica, e la chemiosmosi produce circa 30 ATP per glucosio."
             ],
             "intermediate": [
-              "La glicolisi dà 2 ATP per glucosio; nella respirazione il piruvato è ossidato fino a CO₂ e gli elettroni passano all'ossigeno attraverso la catena di trasporto, che genera un gradiente di protoni usato dall'ATP sintasi.",
-              "La variabile Glucosio utilizzato è espressa in mmol; ATP nel bilancio in mmol. Il dominio dello strumento è [0; 10]. La relazione implementata è: ATP = resa × glucosio.",
-              "Con resa 30 mol/mol, 2 mmol di glucosio danno 60 mmol di ATP; con la fermentazione, resa 2, se ne ottengono 4 mmol."
+              "La tendenza di una sostanza ad accettare elettroni si misura con il potenziale di riduzione E°’. L’energia libera di una reazione che trasferisce n moli di elettroni è ΔG°’ = −nFΔE°’, con F = 96 485 C/mol. Dal NADH, a −0,32 V, all’ossigeno, a +0,82 V, il salto è 1,14 V, e l’energia liberata circa 220 kJ per mole di NADH.",
+              "La glicolisi spezza il glucosio in due piruvati con un guadagno netto di 2 ATP. Senza ossigeno, la fermentazione rigenera il NAD⁺ cedendo gli elettroni al piruvato, e il bilancio resta di 2 ATP per glucosio. Con l’ossigeno, il ciclo di Krebs e la catena di trasporto ossidano il glucosio fino ad anidride carbonica, e la chemiosmosi produce circa 30 ATP per glucosio.",
+              "Il bilancio si scrive ATP = resa × glucosio. Esempio: con resa 30 mol/mol, 2 mmol di glucosio danno 60 mmol di ATP; con la fermentazione, resa 2, se ne ottengono 4 mmol. Per avere lo stesso ATP un organismo che fermenta deve consumare circa quindici volte più glucosio, e lascia gran parte dell’energia nei prodotti, come l’etanolo."
             ],
             "advanced": [
-              "La glicolisi dà 2 ATP per glucosio; nella respirazione il piruvato è ossidato fino a CO₂ e gli elettroni passano all'ossigeno attraverso la catena di trasporto, che genera un gradiente di protoni usato dall'ATP sintasi.",
-              "Calcola quanto glucosio deve consumare un fermentatore per ottenere lo stesso ATP di un organismo aerobico che consuma 1 mmol di glucosio.",
-              "La fermentazione è un processo diverso dalla respirazione anaerobica. Manca la catena di trasporto, e gran parte dell'energia resta nei prodotti, come l'etanolo o il lattato."
+              "La tendenza di una sostanza ad accettare elettroni si misura con il potenziale di riduzione E°’. L’energia libera di una reazione che trasferisce n moli di elettroni è ΔG°’ = −nFΔE°’, con F = 96 485 C/mol. Dal NADH, a −0,32 V, all’ossigeno, a +0,82 V, il salto è 1,14 V, e l’energia liberata circa 220 kJ per mole di NADH.",
+              "La glicolisi spezza il glucosio in due piruvati con un guadagno netto di 2 ATP. Senza ossigeno, la fermentazione rigenera il NAD⁺ cedendo gli elettroni al piruvato, e il bilancio resta di 2 ATP per glucosio. Con l’ossigeno, il ciclo di Krebs e la catena di trasporto ossidano il glucosio fino ad anidride carbonica, e la chemiosmosi produce circa 30 ATP per glucosio.",
+              "Il bilancio si scrive ATP = resa × glucosio. Esempio: con resa 30 mol/mol, 2 mmol di glucosio danno 60 mmol di ATP; con la fermentazione, resa 2, se ne ottengono 4 mmol. Per avere lo stesso ATP un organismo che fermenta deve consumare circa quindici volte più glucosio, e lascia gran parte dell’energia nei prodotti, come l’etanolo.",
+              "Dove l’ossigeno manca, molti procarioti respirano nitrato, ossidi di ferro, solfato o anidride carbonica, ricavando meno energia. I chemiolitotrofi ossidano idrogeno, zolfo, ammoniaca o ferro e, se sono anche autotrofi, costruiscono le proprie molecole dall’anidride carbonica: sostengono ecosistemi interi senza luce, come quelli delle sorgenti idrotermali."
             ]
           }
         },
         {
           "label": "SPERIMENTA",
-          "title": "Prevedi, modifica, confronta",
+          "title": "Il laboratorio dell’ATP",
           "text": {
             "base": [
-              "Nel laboratorio imposta Resa assunta (a): 30 mol/mol. Prima di salvare A, prevedi come cambia ATP nel bilancio fra Glucosio utilizzato=2,5 e 5 mmol. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Con resa 30 mol/mol, 2 mmol di glucosio danno 60 mmol di ATP; con la fermentazione, resa 2, se ne ottengono 4 mmol.",
-              "La variabile Glucosio utilizzato è espressa in mmol; ATP nel bilancio in mmol. Il dominio dello strumento è [0; 10]. La relazione implementata è: ATP = resa × glucosio."
+              "Nel laboratorio il grafico mostra l’ATP ottenuto in funzione del glucosio consumato, da 0 a 10 mmol, secondo il bilancio ATP = resa × glucosio. Nella scheda «Regola» cambi la resa, da 2 a 32 moli di ATP per mole di glucosio. Con il valore predefinito, 30, la retta sale di 30 mmol di ATP per ogni millimole di glucosio.",
+              "Protocollo. Il programma confronta due quantità di glucosio fissate, 2,5 e 5 mmol. Con il valore predefinito prevedi se l’ATP cresce, diminuisce o resta uguale passando dalla prima alla seconda quantità e salva A. Poi porta la resa a 2, quella della fermentazione, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+              "Che cosa osservare. Con resa 30 l’ATP passa da 75 a 150 mmol; con resa 2 da 5 a 10 mmol. In entrambi i casi raddoppiare il glucosio raddoppia l’ATP, perché il bilancio è proporzionale; cambia la pendenza, quindici volte più bassa nella fermentazione."
             ],
             "intermediate": [
-              "Nel laboratorio imposta Resa assunta (a): 30 mol/mol. Prima di salvare A, prevedi come cambia ATP nel bilancio fra Glucosio utilizzato=2,5 e 5 mmol. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "La variabile Glucosio utilizzato è espressa in mmol; ATP nel bilancio in mmol. Il dominio dello strumento è [0; 10]. La relazione implementata è: ATP = resa × glucosio.",
-              "La glicolisi dà 2 ATP per glucosio; nella respirazione il piruvato è ossidato fino a CO₂ e gli elettroni passano all'ossigeno attraverso la catena di trasporto, che genera un gradiente di protoni usato dall'ATP sintasi."
+              "Nel laboratorio il grafico mostra l’ATP ottenuto in funzione del glucosio consumato, da 0 a 10 mmol, secondo il bilancio ATP = resa × glucosio. Nella scheda «Regola» cambi la resa, da 2 a 32 moli di ATP per mole di glucosio. Con il valore predefinito, 30, la retta sale di 30 mmol di ATP per ogni millimole di glucosio.",
+              "Protocollo. Il programma confronta due quantità di glucosio fissate, 2,5 e 5 mmol. Con il valore predefinito prevedi se l’ATP cresce, diminuisce o resta uguale passando dalla prima alla seconda quantità e salva A. Poi porta la resa a 2, quella della fermentazione, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+              "Che cosa osservare. Con resa 30 l’ATP passa da 75 a 150 mmol; con resa 2 da 5 a 10 mmol. In entrambi i casi raddoppiare il glucosio raddoppia l’ATP, perché il bilancio è proporzionale; cambia la pendenza, quindici volte più bassa nella fermentazione."
             ],
             "advanced": [
-              "Nel laboratorio imposta Resa assunta (a): 30 mol/mol. Prima di salvare A, prevedi come cambia ATP nel bilancio fra Glucosio utilizzato=2,5 e 5 mmol. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Calcola quanto glucosio deve consumare un fermentatore per ottenere lo stesso ATP di un organismo aerobico che consuma 1 mmol di glucosio.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Nel laboratorio il grafico mostra l’ATP ottenuto in funzione del glucosio consumato, da 0 a 10 mmol, secondo il bilancio ATP = resa × glucosio. Nella scheda «Regola» cambi la resa, da 2 a 32 moli di ATP per mole di glucosio. Con il valore predefinito, 30, la retta sale di 30 mmol di ATP per ogni millimole di glucosio.",
+              "Protocollo. Il programma confronta due quantità di glucosio fissate, 2,5 e 5 mmol. Con il valore predefinito prevedi se l’ATP cresce, diminuisce o resta uguale passando dalla prima alla seconda quantità e salva A. Poi porta la resa a 2, quella della fermentazione, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+              "Che cosa osservare. Con resa 30 l’ATP passa da 75 a 150 mmol; con resa 2 da 5 a 10 mmol. In entrambi i casi raddoppiare il glucosio raddoppia l’ATP, perché il bilancio è proporzionale; cambia la pendenza, quindici volte più bassa nella fermentazione.",
+              "Una prova a casa: la colonna di Vinogradskij, una bottiglia trasparente con fango di stagno, carta di giornale, gesso e acqua, tenuta per qualche settimana vicino a una finestra. Si formano strati colorati: in alto cianobatteri verdi, in mezzo batteri fotosintetici porpora e verdi che usano l’idrogeno solforato, in basso fango nero di solfuro di ferro. Va aperta solo all’aperto."
             ]
           }
         },
         {
           "label": "INTERPRETA",
-          "title": "Leggere senza sovrainterpretare",
+          "title": "Errori e limiti",
           "text": {
             "base": [
-              "La fermentazione è un processo diverso dalla respirazione anaerobica. Manca la catena di trasporto, e gran parte dell'energia resta nei prodotti, come l'etanolo o il lattato.",
-              "Resa media costante; la resa reale dipende dall'organismo e dalle condizioni.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Errore frequente: confondere fermentazione e respirazione anaerobica. Entrambe avvengono senza ossigeno, ma solo la respirazione anaerobica ha una catena di trasporto e un accettore esterno, come il nitrato o il solfato; nella fermentazione gli elettroni tornano a un derivato del substrato e l’ATP viene soltanto dalla glicolisi.",
+              "Secondo errore: dire che la catena di trasporto produce ATP. La catena usa l’energia degli elettroni per pompare protoni; è l’ATP sintasi a produrre ATP sfruttando il loro rientro. Peter Mitchell propose la chemiosmosi nel 1961 e ricevette il premio Nobel nel 1978; nel 1997 fu filmata la rotazione dell’ATP sintasi."
             ],
             "intermediate": [
-              "La fermentazione è un processo diverso dalla respirazione anaerobica. Manca la catena di trasporto, e gran parte dell'energia resta nei prodotti, come l'etanolo o il lattato.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Errore frequente: confondere fermentazione e respirazione anaerobica. Entrambe avvengono senza ossigeno, ma solo la respirazione anaerobica ha una catena di trasporto e un accettore esterno, come il nitrato o il solfato; nella fermentazione gli elettroni tornano a un derivato del substrato e l’ATP viene soltanto dalla glicolisi.",
+              "Secondo errore: dire che la catena di trasporto produce ATP. La catena usa l’energia degli elettroni per pompare protoni; è l’ATP sintasi a produrre ATP sfruttando il loro rientro. Peter Mitchell propose la chemiosmosi nel 1961 e ricevette il premio Nobel nel 1978; nel 1997 fu filmata la rotazione dell’ATP sintasi.",
+              "I potenziali standard valgono a concentrazioni di riferimento. L’energia reale segue ΔG = ΔG°’ + RT ln Q: per la metanogenesi, −131 kJ/mol in condizioni standard, con poco idrogeno, 10⁻⁴ bar, si scende a circa −40 kJ/mol. Sotto circa 10-20 kJ/mol la crescita sembra impossibile, e gli ambienti naturali restano spesso vicini a questa soglia."
             ],
             "advanced": [
-              "Resa media costante; la resa reale dipende dall'organismo e dalle condizioni.",
-              "Calcola quanto glucosio deve consumare un fermentatore per ottenere lo stesso ATP di un organismo aerobico che consuma 1 mmol di glucosio.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Errore frequente: confondere fermentazione e respirazione anaerobica. Entrambe avvengono senza ossigeno, ma solo la respirazione anaerobica ha una catena di trasporto e un accettore esterno, come il nitrato o il solfato; nella fermentazione gli elettroni tornano a un derivato del substrato e l’ATP viene soltanto dalla glicolisi.",
+              "Secondo errore: dire che la catena di trasporto produce ATP. La catena usa l’energia degli elettroni per pompare protoni; è l’ATP sintasi a produrre ATP sfruttando il loro rientro. Peter Mitchell propose la chemiosmosi nel 1961 e ricevette il premio Nobel nel 1978; nel 1997 fu filmata la rotazione dell’ATP sintasi.",
+              "I potenziali standard valgono a concentrazioni di riferimento. L’energia reale segue ΔG = ΔG°’ + RT ln Q: per la metanogenesi, −131 kJ/mol in condizioni standard, con poco idrogeno, 10⁻⁴ bar, si scende a circa −40 kJ/mol. Sotto circa 10-20 kJ/mol la crescita sembra impossibile, e gli ambienti naturali restano spesso vicini a questa soglia.",
+              "Il modello del laboratorio usa una resa media costante. La resa reale dipende dall’organismo, dal percorso con cui il NADH entra nel mitocondrio e dalle condizioni: le stime moderne danno 30-32 ATP per glucosio, mentre i testi più vecchi indicano 36 o 38, con ipotesi oggi superate."
             ]
           }
         },
         {
           "label": "VERIFICA",
-          "title": "Verifica ragionamento e calcolo",
+          "title": "Verifica",
           "text": {
             "base": [
-              "La respirazione aerobica di una mole di glucosio produce circa 30-32 moli di ATP; la fermentazione ne produce 2. Il bilancio è ATP = resa × glucosio.",
-              "Con resa 30 mol/mol, 2 mmol di glucosio danno 60 mmol di ATP; con la fermentazione, resa 2, se ne ottengono 4 mmol."
+              "Ripasso: donatori, accettori e potenziali di riduzione; energia libera di ossidoriduzione; ATP come valuta; glicolisi; fermentazione lattica e alcolica; ciclo di Krebs; catena di trasporto e chemiosmosi; resa in ATP; respirazione anaerobica e zonazione dei sedimenti; chemiolitotrofi; energia nelle condizioni reali; ciclo dell’azoto; energia come requisito di abitabilità.",
+              "Mini esercizio: per due elettroni ceduti dall’idrogeno all’ossigeno ΔE°’ = 0,82 − (−0,41) = 1,23 V, e ΔG°’ ≈ −237 kJ/mol.",
+              "Nelle domande ricorda che l’energia disponibile dipende dal dislivello fra donatore e accettore nella torre dei potenziali, e che l’ossigeno è l’accettore più energetico usato dalla vita."
             ],
             "intermediate": [
-              "La glicolisi dà 2 ATP per glucosio; nella respirazione il piruvato è ossidato fino a CO₂ e gli elettroni passano all'ossigeno attraverso la catena di trasporto, che genera un gradiente di protoni usato dall'ATP sintasi.",
-              "La variabile Glucosio utilizzato è espressa in mmol; ATP nel bilancio in mmol. Il dominio dello strumento è [0; 10]. La relazione implementata è: ATP = resa × glucosio."
+              "Ripasso: donatori, accettori e potenziali di riduzione; energia libera di ossidoriduzione; ATP come valuta; glicolisi; fermentazione lattica e alcolica; ciclo di Krebs; catena di trasporto e chemiosmosi; resa in ATP; respirazione anaerobica e zonazione dei sedimenti; chemiolitotrofi; energia nelle condizioni reali; ciclo dell’azoto; energia come requisito di abitabilità.",
+              "Mini esercizio: per due elettroni ceduti dall’idrogeno all’ossigeno ΔE°’ = 0,82 − (−0,41) = 1,23 V, e ΔG°’ ≈ −237 kJ/mol.",
+              "Nelle domande ricorda che l’energia disponibile dipende dal dislivello fra donatore e accettore nella torre dei potenziali, e che l’ossigeno è l’accettore più energetico usato dalla vita."
             ],
             "advanced": [
-              "Calcola quanto glucosio deve consumare un fermentatore per ottenere lo stesso ATP di un organismo aerobico che consuma 1 mmol di glucosio.",
-              "Resa media costante; la resa reale dipende dall'organismo e dalle condizioni."
+              "Ripasso: donatori, accettori e potenziali di riduzione; energia libera di ossidoriduzione; ATP come valuta; glicolisi; fermentazione lattica e alcolica; ciclo di Krebs; catena di trasporto e chemiosmosi; resa in ATP; respirazione anaerobica e zonazione dei sedimenti; chemiolitotrofi; energia nelle condizioni reali; ciclo dell’azoto; energia come requisito di abitabilità.",
+              "Mini esercizio: per due elettroni ceduti dall’idrogeno all’ossigeno ΔE°’ = 0,82 − (−0,41) = 1,23 V, e ΔG°’ ≈ −237 kJ/mol.",
+              "Nelle domande ricorda che l’energia disponibile dipende dal dislivello fra donatore e accettore nella torre dei potenziali, e che l’ossigeno è l’accettore più energetico usato dalla vita."
             ]
           }
         },
         {
           "label": "COLLEGA",
-          "title": "Conclusione e nuova domanda",
+          "title": "Collegamenti",
           "text": {
             "base": [
-              "Nel diario distingui previsione, risultato e interpretazione. Bilancio di ATP a resa costante.",
-              "Resa media costante; la resa reale dipende dall'organismo e dalle condizioni.",
-              "Collegamento consigliato: chemistry-16. Il completamento registra attività e autoverifica, non certifica competenze."
+              "L’energia libera e i potenziali di riduzione sono i temi delle unità di chimica «Termochimica e calorimetria» e «Ossidazione, riduzione ed elettrochimica». In biologia il percorso prosegue con la fotosintesi, che usa la luce per spingere gli elettroni in cima alla torre, e più avanti con gli oceani di Europa e di Encelado, dove l’energia potrebbe venire solo dalla chimica.",
+              "Riepilogo dell’unità: l’energia viene dal trasferimento di elettroni, ΔG°’ = −nFΔE°’; la fermentazione dà 2 ATP per glucosio, la respirazione circa 30; la chemiosmosi accoppia la caduta degli elettroni alla sintesi di ATP; gli accettori si consumano nell’ordine dei potenziali; i chemiolitotrofi vivono di chimica inorganica; una fonte di energia chimica è un requisito di abitabilità.",
+              "Nel diario registra A e B con le previsioni e calcola quanto glucosio deve consumare un organismo che fermenta per ottenere lo stesso ATP di uno che respira 1 mmol di glucosio: 15 mmol."
             ],
             "intermediate": [
-              "La glicolisi dà 2 ATP per glucosio; nella respirazione il piruvato è ossidato fino a CO₂ e gli elettroni passano all'ossigeno attraverso la catena di trasporto, che genera un gradiente di protoni usato dall'ATP sintasi.",
-              "Resa media costante; la resa reale dipende dall'organismo e dalle condizioni.",
-              "Calcola quanto glucosio deve consumare un fermentatore per ottenere lo stesso ATP di un organismo aerobico che consuma 1 mmol di glucosio."
+              "L’energia libera e i potenziali di riduzione sono i temi delle unità di chimica «Termochimica e calorimetria» e «Ossidazione, riduzione ed elettrochimica». In biologia il percorso prosegue con la fotosintesi, che usa la luce per spingere gli elettroni in cima alla torre, e più avanti con gli oceani di Europa e di Encelado, dove l’energia potrebbe venire solo dalla chimica.",
+              "Riepilogo dell’unità: l’energia viene dal trasferimento di elettroni, ΔG°’ = −nFΔE°’; la fermentazione dà 2 ATP per glucosio, la respirazione circa 30; la chemiosmosi accoppia la caduta degli elettroni alla sintesi di ATP; gli accettori si consumano nell’ordine dei potenziali; i chemiolitotrofi vivono di chimica inorganica; una fonte di energia chimica è un requisito di abitabilità.",
+              "Nel diario registra A e B con le previsioni e calcola quanto glucosio deve consumare un organismo che fermenta per ottenere lo stesso ATP di uno che respira 1 mmol di glucosio: 15 mmol."
             ],
             "advanced": [
-              "Calcola quanto glucosio deve consumare un fermentatore per ottenere lo stesso ATP di un organismo aerobico che consuma 1 mmol di glucosio.",
-              "Resa media costante; la resa reale dipende dall'organismo e dalle condizioni.",
-              "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+              "L’energia libera e i potenziali di riduzione sono i temi delle unità di chimica «Termochimica e calorimetria» e «Ossidazione, riduzione ed elettrochimica». In biologia il percorso prosegue con la fotosintesi, che usa la luce per spingere gli elettroni in cima alla torre, e più avanti con gli oceani di Europa e di Encelado, dove l’energia potrebbe venire solo dalla chimica.",
+              "Riepilogo dell’unità: l’energia viene dal trasferimento di elettroni, ΔG°’ = −nFΔE°’; la fermentazione dà 2 ATP per glucosio, la respirazione circa 30; la chemiosmosi accoppia la caduta degli elettroni alla sintesi di ATP; gli accettori si consumano nell’ordine dei potenziali; i chemiolitotrofi vivono di chimica inorganica; una fonte di energia chimica è un requisito di abitabilità.",
+              "Nel diario registra A e B con le previsioni e calcola quanto glucosio deve consumare un organismo che fermenta per ottenere lo stesso ATP di uno che respira 1 mmol di glucosio: 15 mmol."
             ]
           }
         }
       ],
       "questions": [
         {
-          "id": "biology-19-concept",
-          "prompt": "Per ottenere la stessa quantità di ATP, un organismo che fermenta consuma rispetto a uno che respira:",
+          "id": "biology-19-q1",
+          "prompt": "Per ottenere la stessa quantità di ATP, quanto glucosio consuma un organismo che fermenta rispetto a uno che respira?",
           "options": [
             {
               "id": "A",
-              "text": "Circa quindici volte più glucosio",
-              "feedback": "La respirazione aerobica di una mole di glucosio produce circa 30-32 moli di ATP; la fermentazione ne produce 2. Il bilancio è ATP = resa × glucosio."
+              "text": "La stessa quantità",
+              "feedback": "La fermentazione dà 2 ATP per glucosio, la respirazione circa 30."
             },
             {
               "id": "B",
-              "text": "La stessa quantità di glucosio",
-              "feedback": "La fermentazione è un processo diverso dalla respirazione anaerobica. Manca la catena di trasporto, e gran parte dell'energia resta nei prodotti, come l'etanolo o il lattato."
+              "text": "Circa quindici volte di più",
+              "feedback": "Esatto: il rapporto fra le rese, 30 diviso 2, vale 15."
             },
             {
               "id": "C",
-              "text": "La metà del glucosio",
-              "feedback": "La glicolisi dà 2 ATP per glucosio; nella respirazione il piruvato è ossidato fino a CO₂ e gli elettroni passano all'ossigeno attraverso la catena di trasporto, che genera un gradiente di protoni usato dall'ATP sintasi."
+              "text": "La metà",
+              "feedback": "Con meno glucosio il fermentatore otterrebbe molto meno ATP."
+            },
+            {
+              "id": "D",
+              "text": "Il doppio",
+              "feedback": "Il rapporto fra le rese è molto più grande di due."
+            }
+          ],
+          "correct": "B"
+        },
+        {
+          "id": "biology-19-q2",
+          "prompt": "Quanto vale ΔG°’ per due elettroni che passano dal NADH (−0,32 V) all’ossigeno (+0,82 V)?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Circa −220 kJ/mol",
+              "feedback": "Esatto: −2 · 96 485 · 1,14 J/mol."
+            },
+            {
+              "id": "B",
+              "text": "Circa −110 kJ/mol",
+              "feedback": "Hai considerato un solo elettrone invece di due."
+            },
+            {
+              "id": "C",
+              "text": "Circa +220 kJ/mol",
+              "feedback": "Una differenza di potenziale positiva dà un’energia libera negativa."
+            },
+            {
+              "id": "D",
+              "text": "Circa −2,3 J/mol",
+              "feedback": "Manca la costante di Faraday, che converte i volt in energia per mole di elettroni."
             }
           ],
           "correct": "A"
         },
         {
-          "id": "biology-19-calculation",
-          "prompt": "Calcolo: Resa assunta (a)=30 mol/mol. Per Glucosio utilizzato=2 mmol, quanto vale ATP nel bilancio?",
+          "id": "biology-19-q3",
+          "prompt": "Che cosa produce direttamente ATP nella respirazione aerobica?",
           "options": [
             {
               "id": "A",
-              "text": "90 mmol",
-              "feedback": "Questo valore non soddisfa la relazione. ATP = resa × glucosio. Con Resa assunta (a)=30 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 60 mmol. Conserva le unità e arrotonda solo alla fine."
+              "text": "La catena di trasporto degli elettroni",
+              "feedback": "La catena pompa protoni; non sintetizza ATP."
             },
             {
               "id": "B",
-              "text": "30 mmol",
-              "feedback": "Controlla sostituzione, segno e unità. ATP = resa × glucosio. Con Resa assunta (a)=30 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 60 mmol. Conserva le unità e arrotonda solo alla fine."
+              "text": "L’ATP sintasi, sfruttando il rientro dei protoni",
+              "feedback": "Esatto: è il cuore della chemiosmosi."
             },
             {
               "id": "C",
-              "text": "60 mmol",
-              "feedback": "ATP = resa × glucosio. Con Resa assunta (a)=30 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 60 mmol. Conserva le unità e arrotonda solo alla fine."
+              "text": "L’ossigeno",
+              "feedback": "L’ossigeno è l’accettore finale degli elettroni."
+            },
+            {
+              "id": "D",
+              "text": "Il ciclo di Krebs, per la maggior parte dell’ATP",
+              "feedback": "Il ciclo produce soprattutto NADH e FADH₂, e solo 2 ATP per glucosio."
             }
           ],
-          "correct": "C",
-          "numeric": {
-            "x": 2,
-            "parameters": {
-              "a": 30
-            },
-            "expected": 60,
-            "unit": "mmol"
-          }
+          "correct": "B"
         },
         {
-          "id": "biology-19-transfer",
-          "prompt": "Trasferimento: Resa assunta (a)=32 mol/mol. Per Glucosio utilizzato=2 mmol, quanto vale ATP nel bilancio?",
+          "id": "biology-19-q4",
+          "prompt": "In un sedimento, quale accettore viene consumato per ultimo?",
           "options": [
             {
               "id": "A",
-              "text": "32 mmol",
-              "feedback": "Controlla sostituzione, segno e unità. ATP = resa × glucosio. Con Resa assunta (a)=32 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 64 mmol. Conserva le unità e arrotonda solo alla fine."
+              "text": "L’ossigeno",
+              "feedback": "L’ossigeno, il più energetico, è consumato per primo vicino alla superficie."
             },
             {
               "id": "B",
-              "text": "64 mmol",
-              "feedback": "ATP = resa × glucosio. Con Resa assunta (a)=32 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 64 mmol. Conserva le unità e arrotonda solo alla fine."
+              "text": "Il nitrato",
+              "feedback": "Il nitrato è il secondo accettore della sequenza."
             },
             {
               "id": "C",
-              "text": "96 mmol",
-              "feedback": "Questo valore non soddisfa la relazione. ATP = resa × glucosio. Con Resa assunta (a)=32 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 64 mmol. Conserva le unità e arrotonda solo alla fine."
-            }
-          ],
-          "correct": "B",
-          "numeric": {
-            "x": 2,
-            "parameters": {
-              "a": 32
-            },
-            "expected": 64,
-            "unit": "mmol"
-          }
-        },
-        {
-          "id": "biology-19-limits",
-          "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-          "options": [
-            {
-              "id": "A",
-              "text": "Riproduce ogni dettaglio del pianeta reale",
-              "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Resa media costante; la resa reale dipende dall'organismo e dalle condizioni."
+              "text": "Il solfato, prima che prevalga la metanogenesi",
+              "feedback": "Esatto: il solfato è l’ultimo accettore esterno prima dell’anidride carbonica."
             },
             {
-              "id": "B",
-              "text": "Basta il grafico per provare una legge universale",
-              "feedback": "Una visualizzazione non è una dimostrazione universale. Resa media costante; la resa reale dipende dall'organismo e dalle condizioni."
-            },
-            {
-              "id": "C",
-              "text": "Bilancio di ATP a resa costante",
-              "feedback": "Resa media costante; la resa reale dipende dall'organismo e dalle condizioni."
+              "id": "D",
+              "text": "Gli ossidi di ferro",
+              "feedback": "Gli ossidi di ferro precedono il solfato nella sequenza."
             }
           ],
           "correct": "C"
+        },
+        {
+          "id": "biology-19-q5",
+          "prompt": "Che cosa caratterizza un chemiolitotrofo autotrofo?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Ricava energia dalla luce e carbonio dagli zuccheri",
+              "feedback": "Questo descrive in parte i fototrofi, ma non i chemiolitotrofi."
+            },
+            {
+              "id": "B",
+              "text": "Ricava energia da sostanze inorganiche e carbonio dall’anidride carbonica",
+              "feedback": "Esatto: può vivere senza luce né cibo organico."
+            },
+            {
+              "id": "C",
+              "text": "Vive solo in presenza di ossigeno",
+              "feedback": "Molti chemiolitotrofi usano nitrato, solfato o anidride carbonica come accettori."
+            },
+            {
+              "id": "D",
+              "text": "Fermenta gli zuccheri delle rocce",
+              "feedback": "Le rocce forniscono sostanze inorganiche, come idrogeno o ferro, e pochi zuccheri."
+            }
+          ],
+          "correct": "B"
+        },
+        {
+          "id": "biology-19-q6",
+          "prompt": "Perché la metanogenesi rende meno energia quando l’idrogeno è scarso?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Perché l’idrogeno compare alla quarta potenza nel quoziente di reazione",
+              "feedback": "Esatto: ΔG = ΔG°’ + RT ln Q cresce rapidamente se l’idrogeno diminuisce."
+            },
+            {
+              "id": "B",
+              "text": "Perché i potenziali standard cambiano con l’idrogeno",
+              "feedback": "I potenziali standard sono valori fissi a concentrazioni di riferimento."
+            },
+            {
+              "id": "C",
+              "text": "Perché il metano diventa più abbondante",
+              "feedback": "Il metano conta, ma con esponente uno, e il caso descritto riguarda l’idrogeno."
+            },
+            {
+              "id": "D",
+              "text": "Perché la temperatura scende",
+              "feedback": "La temperatura del calcolo è la stessa, 25 °C."
+            }
+          ],
+          "correct": "A"
         }
       ]
     },

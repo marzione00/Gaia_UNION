@@ -359,3 +359,20 @@ test('Biologia 18: estremofili, numeri ricalcolati',()=>{
  // Model probes: D10 = 10 and 2 kGy at D = 7.5 and 15 kGy.
  assert.equal(r(S(7.5,10),4),0.1778);assert.equal(r(S(15,10),4),0.0316);assert.equal(r(S(7.5,2)*1e4,3),1.778);assert.equal(r(S(15,2)*1e8,3),3.162);
 });
+test('Biologia 19: respirazione e chemiosintesi, numeri ricalcolati',()=>{
+ const F=96485,dG=(n,dE)=>-n*F*dE/1000,RT=8.314462618*298.15/1000;
+ assert.equal(r(0.82+0.32,2),1.14);assert.equal(r(dG(2,1.14),0),-220);assert.equal(r(dG(2,0.10),0),-19);assert.equal(r(dG(2,1.23),0),-237);
+ assert.equal(r(30*30.5,0),915);assert.equal(r(915/2870,2),0.32);assert.equal(r(30*50/2870,2),0.52);assert.equal(r(32*50/2870,2),0.56);
+ assert.equal(r(RT,2),2.48);const met=pH2=>-131+RT*Math.log(0.1/(pH2**4*0.1));
+ assert.equal(r(Math.log(1e16)*RT,0),91);assert.equal(r(met(1e-4),0),-40);assert.equal(r(met(1e-4)/-131,2),0.3);assert.equal(r(met(1e-5),1),-16.8);assert.equal(r(met(1e-3),1),-62.5);
+ assert.equal(r(Math.exp((-20+131)/(-4*RT)),7),1.38e-5);assert.equal(r(Math.log(Math.exp((-20+131)/(-4*RT))),1),-11.2);
+ assert.equal(r(met(1e-4)-RT*Math.log(1e8),0),-85);assert.equal(r(RT*Math.log(1e8),0),46);
+ assert.equal(10*2.5+2*1.5+4,32);assert.equal(32-2,30);assert.equal(15*2,30);
+ assert.equal(r(dG(2,0.19),0),-37);assert.equal(r(dG(2,1.23)/dG(2,0.19),1),6.5);assert.equal(r(4*dG(2,0.19),0),-147);
+ const mol=0.25*1440/22.4;assert.equal(r(mol,0),16);assert.equal(r(mol*2*2.5*507/1000,0),41);
+ assert.equal(r(16/30,2),0.53);assert.equal(r(16/30/2*180,0),48);
+ assert.equal(r(F*0.18/1000,1),17.4);assert.equal(r(50/(F*0.18/1000),1),2.9);assert.equal(r(10/3.7,1),2.7);
+ assert.deepEqual([1.14,0.74,0.35,0.10].map(e=>r(dG(2,e),0)),[-220,-143,-68,-19]);
+ // Model probes: yield 30 and 2 at glucose = 2.5 and 5 mmol.
+ assert.deepEqual([30*2.5,30*5,2*2.5,2*5],[75,150,5,10]);
+});
