@@ -279,3 +279,18 @@ test('Biologia 13: ereditarietà e selezione, numeri ricalcolati',()=>{
  // Heterozygote advantage trajectories.
  const st=q=>{const P=1-q,w=1-P*P*0.1-q*q*0.8;return (q*q*0.2+P*q)/w;};let q=0.5;for(let k=0;k<100;k++)q=st(q);assert.equal(r(q,3),0.111);
 });
+test('Biologia 14: deriva genetica, numeri ricalcolati',()=>{
+ const sd=(p,N)=>Math.sqrt(p*(1-p)/(2*N));
+ assert.equal(r(sd(0.5,100),3),0.035);assert.equal(r(sd(0.5,10),2),0.11);assert.equal(r(sd(0.5,1e4),4),0.0035);assert.equal(r(sd(0.5,1000),3),0.011);assert.equal(r(sd(0.1,100),3),0.021);
+ assert.equal(r(Math.exp(-100/100),2),0.37);assert.equal(r(Math.exp(-100/1e4),2),0.99);assert.equal(r(0.98**50,3),0.364);assert.equal(r(0.5*0.98**50,2),0.18);
+ assert.equal(r(4*100*Math.LN2,-1),280);assert.equal(r(4*50*Math.LN2,0),139);assert.equal(r(-200*(0.1*Math.log(0.1)+0.9*Math.log(0.9)),0),65);assert.equal(r(4*10*Math.LN2,0),28);
+ assert.equal(r(1-Math.exp(-0.02),4),0.0198);assert.equal(r((1-Math.exp(-0.02))/5e-5,-1),400);
+ const f=S=>S/(1-Math.exp(-S));assert.equal(r(f(-0.4),2),0.81);assert.equal(r(f(-40)*1e16,1),1.7);assert.equal(r(f(2),2),2.31);assert.equal(r(f(-2),2),0.31);
+ assert.equal(r(0.95**5,3),0.774);assert.equal(r(Math.log(0.774)/Math.log(1-1/2000),0),512);assert.equal(r(Math.log(0.95**5)/Math.log(1-1/2000),-1),510);
+ assert.equal(r(3/(1/1000+1/10+1/1000),0),29);
+ const V=4/3*Math.PI*(0.5e-6)**3*1000;assert.equal(r(V*1e16,1),5.2);assert.equal(r(1e-9*6.02214076e23*V,1),0.3);assert.equal(r(1e-9*6.02214076e23*V*1000,-1),320);
+ assert.equal(r(0.4/1.4,2),0.29);assert.equal(r(40/41,2),0.98);assert.equal(r(0.04/2e-9/1e6,0),20);
+ assert.equal(r(1000*Math.exp(-10),2),0.05);assert.equal(r(1000*Math.exp(-1),-1),370);
+ // Model probes: N = 100 and 400 at p = 0.25 and 0.5.
+ assert.equal(r(sd(0.25,100),4),0.0306);assert.equal(r(sd(0.5,100),4),0.0354);assert.equal(r(sd(0.25,400),4),0.0153);assert.equal(r(sd(0.5,400),4),0.0177);
+});

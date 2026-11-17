@@ -5,262 +5,340 @@
   "title": "Deriva genetica",
   "sector": 3,
   "modelId": "biology-14",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Campionamento binomiale in una generazione",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Modello di Wright e Fisher, ampiezza della deriva, perdita di eterozigosi, probabilità e tempi di fissazione, coalescenza, deriva e selezione, colli di bottiglia ed effetto del fondatore, dimensione effettiva, teoria neutrale e orologio molecolare, deriva nelle prime popolazioni",
+  "narrativeStatus": "Formule ed esempi sono pubblicati; il modello descrive il campionamento binomiale di una sola generazione, senza selezione.",
   "objectives": [
-    "Spiegare: campionamento binomiale in una generazione.",
-    "Applicare σ_p = √(p(1-p)/(2N)), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Calcolare la deviazione standard della deriva in una generazione.",
+    "Calcolare la perdita di eterozigosi e le probabilità di fissazione.",
+    "Confrontare deriva e selezione con il prodotto Ns.",
+    "Spiegare colli di bottiglia, teoria neutrale e orologio molecolare."
   ],
   "prerequisites": [
     "biology-13"
   ],
   "connections": [
-    "math-c10"
+    "math-c10",
+    "math-c06"
   ],
   "sources": [
-    "biology"
+    "biology",
+    "statistics"
   ],
   "originalSource": null,
   "glossary": [
     {
-      "term": "Frequenza p",
-      "definition": "Variabile indipendente, unità 1; intervallo [0; 1]."
+      "term": "Deriva genetica",
+      "definition": "Cambiamento casuale delle frequenze dovuto al numero finito di individui."
     },
     {
-      "term": "Deviazione dopo deriva",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Fissazione",
+      "definition": "Condizione in cui un allele è l’unico presente nella popolazione."
     },
     {
-      "term": "Dimensione diploide N",
-      "definition": "Parametro a, unità individui; intervallo [10; 1000]."
+      "term": "Eterozigosi",
+      "definition": "Probabilità che due copie estratte a caso siano alleli diversi."
+    },
+    {
+      "term": "Collo di bottiglia",
+      "definition": "Riduzione temporanea di una popolazione a pochi individui."
+    },
+    {
+      "term": "Dimensione effettiva",
+      "definition": "Dimensione di una popolazione ideale con la stessa deriva di quella reale."
+    },
+    {
+      "term": "Orologio molecolare",
+      "definition": "Datazione delle separazioni dal numero di differenze neutre fra sequenze."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Pochi fondatori",
       "text": {
         "base": [
-          "Pochi organismi colonizzano un nuovo lago portando con sé solo una parte della variabilità della popolazione d'origine. Quanto può cambiare una frequenza per puro caso?",
-          "In una popolazione diploide di N individui la frequenza di un allele cambia a ogni generazione per caso, con deviazione standard √(p(1-p)/(2N))."
+          "Un uccello trasporta nelle zampe infangate poche uova di un piccolo crostaceo in un lago appena formato. La nuova popolazione crescerà fino a milioni di individui, ma le frequenze dei suoi alleli saranno quelle delle poche uova arrivate, spostate dal caso come dieci lanci di moneta danno raramente cinque teste e cinque croci. Questo effetto del caso nelle popolazioni finite si chiama deriva genetica.",
+          "La deriva agisce a ogni generazione in ogni popolazione: chi lascia figli e chi no dipende anche dalla fortuna. Sposta le frequenze in direzioni imprevedibili, è tanto più forte quanto più la popolazione è piccola, e alla lunga porta ogni allele alla scomparsa o alla fissazione, cioè a essere l’unico rimasto."
         ],
         "intermediate": [
-          "Pochi organismi colonizzano un nuovo lago portando con sé solo una parte della variabilità della popolazione d'origine. Quanto può cambiare una frequenza per puro caso?",
-          "Le 2N copie di un gene della generazione successiva sono estratte a caso: la frequenza segue una distribuzione binomiale con varianza p(1-p)/(2N)."
+          "Un uccello trasporta nelle zampe infangate poche uova di un piccolo crostaceo in un lago appena formato. La nuova popolazione crescerà fino a milioni di individui, ma le frequenze dei suoi alleli saranno quelle delle poche uova arrivate, spostate dal caso come dieci lanci di moneta danno raramente cinque teste e cinque croci. Questo effetto del caso nelle popolazioni finite si chiama deriva genetica.",
+          "La deriva agisce a ogni generazione in ogni popolazione: chi lascia figli e chi no dipende anche dalla fortuna. Sposta le frequenze in direzioni imprevedibili, è tanto più forte quanto più la popolazione è piccola, e alla lunga porta ogni allele alla scomparsa o alla fissazione, cioè a essere l’unico rimasto."
         ],
         "advanced": [
-          "Pochi organismi colonizzano un nuovo lago portando con sé solo una parte della variabilità della popolazione d'origine. Quanto può cambiare una frequenza per puro caso?",
-          "Confronta la deviazione per N = 10, 100 e 1000; poi discuti perché le prime popolazioni di replicatori dovevano essere molto soggette alla deriva.",
-          "Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione."
+          "Un uccello trasporta nelle zampe infangate poche uova di un piccolo crostaceo in un lago appena formato. La nuova popolazione crescerà fino a milioni di individui, ma le frequenze dei suoi alleli saranno quelle delle poche uova arrivate, spostate dal caso come dieci lanci di moneta danno raramente cinque teste e cinque croci. Questo effetto del caso nelle popolazioni finite si chiama deriva genetica.",
+          "La deriva agisce a ogni generazione in ogni popolazione: chi lascia figli e chi no dipende anche dalla fortuna. Sposta le frequenze in direzioni imprevedibili, è tanto più forte quanto più la popolazione è piccola, e alla lunga porta ogni allele alla scomparsa o alla fissazione, cioè a essere l’unico rimasto.",
+          "Le prime popolazioni di replicatori, chiuse in piccole vescicole o nei pori di un camino idrotermale, contavano pochissime molecole: la loro storia era dominata dal caso più che dalla selezione."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Il caso misurato",
       "text": {
         "base": [
-          "In una popolazione diploide di N individui la frequenza di un allele cambia a ogni generazione per caso, con deviazione standard √(p(1-p)/(2N)).",
-          "Con p = 0,5 e N = 100 la deviazione standard è circa 0,035; con N = 10 è circa 0,11."
+          "Nel modello di Wright e Fisher una popolazione diploide di N individui ha 2N copie di ogni gene, e ogni copia della generazione successiva è estratta a caso fra quelle attuali. Il numero di copie di un allele con frequenza p segue una distribuzione binomiale: la frequenza resta in media p, con deviazione standard σ = √(p(1 − p)/(2N)).",
+          "Con p = 0,5 e N = 100 la deviazione standard è circa 0,035: in una generazione la frequenza cambia tipicamente di tre o quattro punti percentuali. Con N = 10 sale a circa 0,11. La deviazione diminuisce come 1/√N: una popolazione quattro volte più grande ha una deriva dimezzata."
         ],
         "intermediate": [
-          "Le 2N copie di un gene della generazione successiva sono estratte a caso: la frequenza segue una distribuzione binomiale con varianza p(1-p)/(2N).",
-          "La variabile Frequenza p è espressa in 1; Deviazione dopo deriva in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: σ_p = √(p(1-p)/(2N)).",
-          "Con p = 0,5 e N = 100 la deviazione standard è circa 0,035; con N = 10 è circa 0,11."
+          "Nel modello di Wright e Fisher una popolazione diploide di N individui ha 2N copie di ogni gene, e ogni copia della generazione successiva è estratta a caso fra quelle attuali. Il numero di copie di un allele con frequenza p segue una distribuzione binomiale: la frequenza resta in media p, con deviazione standard σ = √(p(1 − p)/(2N)).",
+          "Con p = 0,5 e N = 100 la deviazione standard è circa 0,035: in una generazione la frequenza cambia tipicamente di tre o quattro punti percentuali. Con N = 10 sale a circa 0,11. La deviazione diminuisce come 1/√N: una popolazione quattro volte più grande ha una deriva dimezzata.",
+          "Accumulandosi, la deriva consuma la variabilità: l’eterozigosi diminuisce di un fattore 1 − 1/(2N) a ogni generazione, con tempo caratteristico 2N generazioni. Un allele neutro si fissa con probabilità uguale alla sua frequenza, e una mutazione nuova con probabilità 1/(2N)."
         ],
         "advanced": [
-          "Le 2N copie di un gene della generazione successiva sono estratte a caso: la frequenza segue una distribuzione binomiale con varianza p(1-p)/(2N).",
-          "Confronta la deviazione per N = 10, 100 e 1000; poi discuti perché le prime popolazioni di replicatori dovevano essere molto soggette alla deriva.",
-          "La deriva cambia davvero le frequenze, e va distinta da un errore di misura. Nelle popolazioni piccole può fissare o eliminare alleli senza alcuna selezione."
+          "Nel modello di Wright e Fisher una popolazione diploide di N individui ha 2N copie di ogni gene, e ogni copia della generazione successiva è estratta a caso fra quelle attuali. Il numero di copie di un allele con frequenza p segue una distribuzione binomiale: la frequenza resta in media p, con deviazione standard σ = √(p(1 − p)/(2N)).",
+          "Con p = 0,5 e N = 100 la deviazione standard è circa 0,035: in una generazione la frequenza cambia tipicamente di tre o quattro punti percentuali. Con N = 10 sale a circa 0,11. La deviazione diminuisce come 1/√N: una popolazione quattro volte più grande ha una deriva dimezzata.",
+          "Accumulandosi, la deriva consuma la variabilità: l’eterozigosi diminuisce di un fattore 1 − 1/(2N) a ogni generazione, con tempo caratteristico 2N generazioni. Un allele neutro si fissa con probabilità uguale alla sua frequenza, e una mutazione nuova con probabilità 1/(2N).",
+          "Selezione e deriva si confrontano con il prodotto Ns. Una mutazione vantaggiosa si fissa con probabilità di circa 2s: con s = 0,01 si perde per caso nel 98% dei casi. Secondo la teoria neutrale di Kimura il tasso di sostituzione delle mutazioni neutre è uguale al tasso di mutazione, qualunque sia N: è la base dell’orologio molecolare."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio della deriva",
       "text": {
         "base": [
-          "Nel laboratorio imposta Dimensione diploide N (a): 100 individui. Prima di salvare A, prevedi come cambia Deviazione dopo deriva fra Frequenza p=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con p = 0,5 e N = 100 la deviazione standard è circa 0,035; con N = 10 è circa 0,11.",
-          "La variabile Frequenza p è espressa in 1; Deviazione dopo deriva in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: σ_p = √(p(1-p)/(2N))."
+          "Nel laboratorio il grafico mostra la deviazione standard della frequenza dopo una generazione di deriva, in funzione della frequenza p, da 0 a 1, secondo σ = √(p(1 − p)/(2N)). Nella scheda «Regola» cambi la dimensione diploide N, da 10 a 1000 individui. Con il valore predefinito, N = 100, la curva ha il massimo a p = 0,5, dove vale circa 0,035, e si annulla agli estremi.",
+          "Protocollo. Il programma confronta due frequenze fissate, 0,25 e 0,5. Con il valore predefinito prevedi se la deviazione cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta N a 400, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con N = 100 la deviazione passa da circa 0,031 a 0,035; con N = 400 da circa 0,015 a 0,018. Quadruplicare la popolazione dimezza la deviazione per ogni frequenza, e la forma della curva resta la stessa. Agli estremi la deviazione si annulla: un allele perso o fissato resta tale."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Dimensione diploide N (a): 100 individui. Prima di salvare A, prevedi come cambia Deviazione dopo deriva fra Frequenza p=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Frequenza p è espressa in 1; Deviazione dopo deriva in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: σ_p = √(p(1-p)/(2N)).",
-          "Le 2N copie di un gene della generazione successiva sono estratte a caso: la frequenza segue una distribuzione binomiale con varianza p(1-p)/(2N)."
+          "Nel laboratorio il grafico mostra la deviazione standard della frequenza dopo una generazione di deriva, in funzione della frequenza p, da 0 a 1, secondo σ = √(p(1 − p)/(2N)). Nella scheda «Regola» cambi la dimensione diploide N, da 10 a 1000 individui. Con il valore predefinito, N = 100, la curva ha il massimo a p = 0,5, dove vale circa 0,035, e si annulla agli estremi.",
+          "Protocollo. Il programma confronta due frequenze fissate, 0,25 e 0,5. Con il valore predefinito prevedi se la deviazione cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta N a 400, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con N = 100 la deviazione passa da circa 0,031 a 0,035; con N = 400 da circa 0,015 a 0,018. Quadruplicare la popolazione dimezza la deviazione per ogni frequenza, e la forma della curva resta la stessa. Agli estremi la deviazione si annulla: un allele perso o fissato resta tale."
         ],
         "advanced": [
-          "Nel laboratorio imposta Dimensione diploide N (a): 100 individui. Prima di salvare A, prevedi come cambia Deviazione dopo deriva fra Frequenza p=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta la deviazione per N = 10, 100 e 1000; poi discuti perché le prime popolazioni di replicatori dovevano essere molto soggette alla deriva.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra la deviazione standard della frequenza dopo una generazione di deriva, in funzione della frequenza p, da 0 a 1, secondo σ = √(p(1 − p)/(2N)). Nella scheda «Regola» cambi la dimensione diploide N, da 10 a 1000 individui. Con il valore predefinito, N = 100, la curva ha il massimo a p = 0,5, dove vale circa 0,035, e si annulla agli estremi.",
+          "Protocollo. Il programma confronta due frequenze fissate, 0,25 e 0,5. Con il valore predefinito prevedi se la deviazione cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta N a 400, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con N = 100 la deviazione passa da circa 0,031 a 0,035; con N = 400 da circa 0,015 a 0,018. Quadruplicare la popolazione dimezza la deviazione per ogni frequenza, e la forma della curva resta la stessa. Agli estremi la deviazione si annulla: un allele perso o fissato resta tale.",
+          "Una prova a casa: in un sacchetto si mettono dieci perline rosse e dieci bianche, si estraggono venti perline con reinserimento e si forma con i loro colori la generazione successiva. Si ripete finché un colore scompare. Il tempo medio previsto per arrivarci, con dieci individui e frequenza iniziale 0,5, è di circa 28 generazioni."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e conseguenze",
       "text": {
         "base": [
-          "La deriva cambia davvero le frequenze, e va distinta da un errore di misura. Nelle popolazioni piccole può fissare o eliminare alleli senza alcuna selezione.",
-          "Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: considerare la deriva un errore di misura. La deriva cambia davvero le frequenze della popolazione, perché i discendenti di ogni generazione sono un campione finito dei genitori. Un errore di campionamento nell’analisi, al contrario, cambia soltanto la stima.",
+          "Secondo errore: pensare che una popolazione tornata numerosa abbia recuperato la variabilità. L’elefante marino settentrionale, ridotto a circa venti individui nel 1892, oggi supera i duecentomila, ma la sua variabilità genetica è rimasta bassissima: dopo un collo di bottiglia solo nuove mutazioni o migrazioni la ricostruiscono, in tempi lunghissimi."
         ],
         "intermediate": [
-          "La deriva cambia davvero le frequenze, e va distinta da un errore di misura. Nelle popolazioni piccole può fissare o eliminare alleli senza alcuna selezione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: considerare la deriva un errore di misura. La deriva cambia davvero le frequenze della popolazione, perché i discendenti di ogni generazione sono un campione finito dei genitori. Un errore di campionamento nell’analisi, al contrario, cambia soltanto la stima.",
+          "Secondo errore: pensare che una popolazione tornata numerosa abbia recuperato la variabilità. L’elefante marino settentrionale, ridotto a circa venti individui nel 1892, oggi supera i duecentomila, ma la sua variabilità genetica è rimasta bassissima: dopo un collo di bottiglia solo nuove mutazioni o migrazioni la ricostruiscono, in tempi lunghissimi.",
+          "La deriva agisce in tutte le popolazioni finite, anche nelle grandi, dove è più lenta. La dimensione che conta è quella effettiva, la media armonica delle dimensioni nel tempo, spesso molto minore del numero di individui: una sola generazione con pochi individui pesa più di molte generazioni numerose."
         ],
         "advanced": [
-          "Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione.",
-          "Confronta la deviazione per N = 10, 100 e 1000; poi discuti perché le prime popolazioni di replicatori dovevano essere molto soggette alla deriva.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: considerare la deriva un errore di misura. La deriva cambia davvero le frequenze della popolazione, perché i discendenti di ogni generazione sono un campione finito dei genitori. Un errore di campionamento nell’analisi, al contrario, cambia soltanto la stima.",
+          "Secondo errore: pensare che una popolazione tornata numerosa abbia recuperato la variabilità. L’elefante marino settentrionale, ridotto a circa venti individui nel 1892, oggi supera i duecentomila, ma la sua variabilità genetica è rimasta bassissima: dopo un collo di bottiglia solo nuove mutazioni o migrazioni la ricostruiscono, in tempi lunghissimi.",
+          "La deriva agisce in tutte le popolazioni finite, anche nelle grandi, dove è più lenta. La dimensione che conta è quella effettiva, la media armonica delle dimensioni nel tempo, spesso molto minore del numero di individui: una sola generazione con pochi individui pesa più di molte generazioni numerose.",
+          "Nelle popolazioni piccole senza scambio di geni le mutazioni lievemente dannose si accumulano in modo irreversibile, il cricchetto di Muller. Nei compartimenti delle prime cellule, invece, le fluttuazioni casuali creavano vescicole con composizioni diverse, su cui la selezione poteva agire."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "In una popolazione diploide di N individui la frequenza di un allele cambia a ogni generazione per caso, con deviazione standard √(p(1-p)/(2N)).",
-          "Con p = 0,5 e N = 100 la deviazione standard è circa 0,035; con N = 10 è circa 0,11."
+          "Ripasso: modello di Wright e Fisher; deviazione standard della deriva; perdita di eterozigosi; probabilità e tempi di fissazione; coalescenza ed Eva mitocondriale; confronto fra deriva e selezione con Ns; colli di bottiglia ed effetto del fondatore; dimensione effettiva; teoria neutrale e orologio molecolare; cricchetto di Muller.",
+          "Mini esercizio: in una popolazione di 25 individui con eterozigosi 0,5, dopo 50 generazioni di sola deriva l’eterozigosi è 0,5 · 0,98⁵⁰, circa 0,18.",
+          "Nelle domande ricorda che la deviazione dovuta alla deriva è proporzionale a 1/√N."
         ],
         "intermediate": [
-          "Le 2N copie di un gene della generazione successiva sono estratte a caso: la frequenza segue una distribuzione binomiale con varianza p(1-p)/(2N).",
-          "La variabile Frequenza p è espressa in 1; Deviazione dopo deriva in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: σ_p = √(p(1-p)/(2N))."
+          "Ripasso: modello di Wright e Fisher; deviazione standard della deriva; perdita di eterozigosi; probabilità e tempi di fissazione; coalescenza ed Eva mitocondriale; confronto fra deriva e selezione con Ns; colli di bottiglia ed effetto del fondatore; dimensione effettiva; teoria neutrale e orologio molecolare; cricchetto di Muller.",
+          "Mini esercizio: in una popolazione di 25 individui con eterozigosi 0,5, dopo 50 generazioni di sola deriva l’eterozigosi è 0,5 · 0,98⁵⁰, circa 0,18.",
+          "Nelle domande ricorda che la deviazione dovuta alla deriva è proporzionale a 1/√N."
         ],
         "advanced": [
-          "Confronta la deviazione per N = 10, 100 e 1000; poi discuti perché le prime popolazioni di replicatori dovevano essere molto soggette alla deriva.",
-          "Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione."
+          "Ripasso: modello di Wright e Fisher; deviazione standard della deriva; perdita di eterozigosi; probabilità e tempi di fissazione; coalescenza ed Eva mitocondriale; confronto fra deriva e selezione con Ns; colli di bottiglia ed effetto del fondatore; dimensione effettiva; teoria neutrale e orologio molecolare; cricchetto di Muller.",
+          "Mini esercizio: in una popolazione di 25 individui con eterozigosi 0,5, dopo 50 generazioni di sola deriva l’eterozigosi è 0,5 · 0,98⁵⁰, circa 0,18.",
+          "Nelle domande ricorda che la deviazione dovuta alla deriva è proporzionale a 1/√N."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Campionamento binomiale in una generazione.",
-          "Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione.",
-          "Collegamento consigliato: math-c10. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La distribuzione binomiale e la deviazione standard sono il tema dell’unità di matematica «Combinatoria, probabilità e statistica». In biologia il percorso prosegue con l’albero universale della vita e con LUCA, l’antenato da cui discendono tutte le linee sopravvissute, ricostruito confrontando sequenze che la deriva e la selezione hanno modificato per miliardi di anni.",
+          "Riepilogo dell’unità: la deriva sposta le frequenze con deviazione √(p(1 − p)/(2N)); consuma la variabilità in circa 2N generazioni; fissa un allele neutro con probabilità uguale alla sua frequenza; domina sulla selezione quando Ns è piccolo; il tasso di sostituzione neutra è uguale al tasso di mutazione.",
+          "Nel diario registra A e B con le previsioni e calcola la deviazione per p = 0,5 con N = 10, 100 e 1000."
         ],
         "intermediate": [
-          "Le 2N copie di un gene della generazione successiva sono estratte a caso: la frequenza segue una distribuzione binomiale con varianza p(1-p)/(2N).",
-          "Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione.",
-          "Confronta la deviazione per N = 10, 100 e 1000; poi discuti perché le prime popolazioni di replicatori dovevano essere molto soggette alla deriva."
+          "La distribuzione binomiale e la deviazione standard sono il tema dell’unità di matematica «Combinatoria, probabilità e statistica». In biologia il percorso prosegue con l’albero universale della vita e con LUCA, l’antenato da cui discendono tutte le linee sopravvissute, ricostruito confrontando sequenze che la deriva e la selezione hanno modificato per miliardi di anni.",
+          "Riepilogo dell’unità: la deriva sposta le frequenze con deviazione √(p(1 − p)/(2N)); consuma la variabilità in circa 2N generazioni; fissa un allele neutro con probabilità uguale alla sua frequenza; domina sulla selezione quando Ns è piccolo; il tasso di sostituzione neutra è uguale al tasso di mutazione.",
+          "Nel diario registra A e B con le previsioni e calcola la deviazione per p = 0,5 con N = 10, 100 e 1000."
         ],
         "advanced": [
-          "Confronta la deviazione per N = 10, 100 e 1000; poi discuti perché le prime popolazioni di replicatori dovevano essere molto soggette alla deriva.",
-          "Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La distribuzione binomiale e la deviazione standard sono il tema dell’unità di matematica «Combinatoria, probabilità e statistica». In biologia il percorso prosegue con l’albero universale della vita e con LUCA, l’antenato da cui discendono tutte le linee sopravvissute, ricostruito confrontando sequenze che la deriva e la selezione hanno modificato per miliardi di anni.",
+          "Riepilogo dell’unità: la deriva sposta le frequenze con deviazione √(p(1 − p)/(2N)); consuma la variabilità in circa 2N generazioni; fissa un allele neutro con probabilità uguale alla sua frequenza; domina sulla selezione quando Ns è piccolo; il tasso di sostituzione neutra è uguale al tasso di mutazione.",
+          "Nel diario registra A e B con le previsioni e calcola la deviazione per p = 0,5 con N = 10, 100 e 1000."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-14-concept",
+      "id": "biology-14-q1",
       "prompt": "Se la popolazione diventa quattro volte più grande, la deviazione dovuta alla deriva:",
       "options": [
         {
           "id": "A",
           "text": "Si riduce a un quarto",
-          "feedback": "La deriva cambia davvero le frequenze, e va distinta da un errore di misura. Nelle popolazioni piccole può fissare o eliminare alleli senza alcuna selezione."
+          "feedback": "La deviazione dipende dalla radice quadrata di N."
         },
         {
           "id": "B",
-          "text": "Resta uguale",
-          "feedback": "Le 2N copie di un gene della generazione successiva sono estratte a caso: la frequenza segue una distribuzione binomiale con varianza p(1-p)/(2N)."
-        },
-        {
-          "id": "C",
           "text": "Si dimezza",
-          "feedback": "In una popolazione diploide di N individui la frequenza di un allele cambia a ogni generazione per caso, con deviazione standard √(p(1-p)/(2N))."
-        }
-      ],
-      "correct": "C"
-    },
-    {
-      "id": "biology-14-calculation",
-      "prompt": "Calcolo: Dimensione diploide N (a)=100 individui. Per Frequenza p=0,5 (adimensionale), quanto vale Deviazione dopo deriva?",
-      "options": [
-        {
-          "id": "A",
-          "text": "-0,964645 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. σ_p = √(p(1-p)/(2N)). Con Dimensione diploide N (a)=100 individui e Frequenza p=0,5 (adimensionale), il risultato è 0,0353553 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "B",
-          "text": "0,0353553 (adimensionale)",
-          "feedback": "σ_p = √(p(1-p)/(2N)). Con Dimensione diploide N (a)=100 individui e Frequenza p=0,5 (adimensionale), il risultato è 0,0353553 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "feedback": "Esatto: è proporzionale a 1/√N, e √4 = 2."
         },
         {
           "id": "C",
-          "text": "1,03536 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. σ_p = √(p(1-p)/(2N)). Con Dimensione diploide N (a)=100 individui e Frequenza p=0,5 (adimensionale), il risultato è 0,0353553 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Resta uguale",
+          "feedback": "La deriva dipende dalla dimensione della popolazione."
+        },
+        {
+          "id": "D",
+          "text": "Raddoppia",
+          "feedback": "Una popolazione più grande ha una deriva più debole."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 0.5,
-        "parameters": {
-          "a": 100
-        },
-        "expected": 0.035355339059327376,
-        "unit": "1"
-      }
+      "correct": "B"
     },
     {
-      "id": "biology-14-transfer",
-      "prompt": "Trasferimento: Dimensione diploide N (a)=110 individui. Per Frequenza p=0,5 (adimensionale), quanto vale Deviazione dopo deriva?",
+      "id": "biology-14-q2",
+      "prompt": "Con p = 0,5 e N = 100, la deviazione standard della frequenza dopo una generazione è circa:",
       "options": [
         {
           "id": "A",
-          "text": "0,03371 (adimensionale)",
-          "feedback": "σ_p = √(p(1-p)/(2N)). Con Dimensione diploide N (a)=110 individui e Frequenza p=0,5 (adimensionale), il risultato è 0,03371 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "0,35",
+          "feedback": "Hai dimenticato di dividere per 2N = 200 dentro la radice."
         },
         {
           "id": "B",
-          "text": "1,03371 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. σ_p = √(p(1-p)/(2N)). Con Dimensione diploide N (a)=110 individui e Frequenza p=0,5 (adimensionale), il risultato è 0,03371 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "0,035",
+          "feedback": "Esatto: la radice di 0,25/200 vale circa 0,035."
         },
         {
           "id": "C",
-          "text": "-0,96629 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. σ_p = √(p(1-p)/(2N)). Con Dimensione diploide N (a)=110 individui e Frequenza p=0,5 (adimensionale), il risultato è 0,03371 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "0,0035",
+          "feedback": "Questo è il valore per una popolazione cento volte più grande."
+        },
+        {
+          "id": "D",
+          "text": "0,5",
+          "feedback": "La deviazione non coincide con la frequenza dell’allele."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 0.5,
-        "parameters": {
-          "a": 110
-        },
-        "expected": 0.033709993123162106,
-        "unit": "1"
-      }
+      "correct": "B"
     },
     {
-      "id": "biology-14-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "biology-14-q3",
+      "prompt": "Qual è la probabilità che si fissi un allele neutro con frequenza 0,3?",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione."
+          "text": "0,3",
+          "feedback": "Esatto: per un allele neutro è uguale alla sua frequenza."
         },
         {
           "id": "B",
-          "text": "Campionamento binomiale in una generazione",
-          "feedback": "Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione."
+          "text": "0,5",
+          "feedback": "Senza selezione gli alleli hanno probabilità proporzionali alle loro frequenze."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione."
+          "text": "Zero",
+          "feedback": "Anche un allele minoritario può fissarsi per caso."
+        },
+        {
+          "id": "D",
+          "text": "1",
+          "feedback": "La fissazione è solo uno dei due esiti possibili."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-14-q4",
+      "prompt": "Perché una mutazione vantaggiosa con s = 0,01 si perde quasi sempre?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché la selezione la elimina",
+          "feedback": "La selezione la favorisce, ma all’inizio le sue copie sono pochissime."
+        },
+        {
+          "id": "B",
+          "text": "Perché nelle prime generazioni, con poche copie, il caso conta più del vantaggio",
+          "feedback": "Esatto: la probabilità di fissazione è circa 2s, cioè il 2%."
+        },
+        {
+          "id": "C",
+          "text": "Perché le mutazioni vantaggiose non esistono",
+          "feedback": "Le mutazioni vantaggiose esistono, anche se rare."
+        },
+        {
+          "id": "D",
+          "text": "Perché la popolazione è infinita",
+          "feedback": "In una popolazione infinita la deriva sarebbe assente."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-14-q5",
+      "prompt": "Perché l’elefante marino settentrionale ha poca variabilità genetica pur essendo oggi numeroso?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché la selezione ha eliminato tutte le varianti",
+          "feedback": "La causa principale è la riduzione a pochi individui, cioè la deriva."
+        },
+        {
+          "id": "B",
+          "text": "Perché nel 1892 era ridotto a circa venti individui, un collo di bottiglia",
+          "feedback": "Esatto: la variabilità persa si ricostruisce solo con nuove mutazioni."
+        },
+        {
+          "id": "C",
+          "text": "Perché si riproduce per clonazione",
+          "feedback": "Gli elefanti marini si riproducono sessualmente."
+        },
+        {
+          "id": "D",
+          "text": "Perché la sua popolazione è troppo grande",
+          "feedback": "Le popolazioni grandi conservano più variabilità, non meno."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-14-q6",
+      "prompt": "Perché il tasso di sostituzione delle mutazioni neutre non dipende dalla dimensione della popolazione?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché le mutazioni neutre non si fissano mai",
+          "feedback": "Si fissano, con probabilità 1/(2N) ciascuna."
+        },
+        {
+          "id": "B",
+          "text": "Perché nascono 2Nμ mutazioni per generazione e ciascuna si fissa con probabilità 1/(2N)",
+          "feedback": "Esatto: il prodotto vale μ, qualunque sia N."
+        },
+        {
+          "id": "C",
+          "text": "Perché tutte le popolazioni hanno la stessa dimensione",
+          "feedback": "Le dimensioni delle popolazioni variano moltissimo."
+        },
+        {
+          "id": "D",
+          "text": "Perché la selezione compensa la deriva",
+          "feedback": "Per le mutazioni neutre la selezione è assente per definizione."
         }
       ],
       "correct": "B"
