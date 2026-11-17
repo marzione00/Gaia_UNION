@@ -261,3 +261,21 @@ test('Biologia 12: mutazioni e soglia d\'errore, numeri ricalcolati',()=>{
  assert.equal(r(P(1e-4,2500),3),0.221);assert.equal(r(P(1e-4,5000),3),0.393);assert.equal(r(P(2e-4,2500),3),0.393);assert.equal(r(P(2e-4,5000),3),0.632);
  assert.equal(r(Math.log(3)/-Math.log(0.99),0),109);
 });
+test('Biologia 13: ereditarietà e selezione, numeri ricalcolati',()=>{
+ const sel=(p,s)=>p*(1+s)/(1+s*p);const odds=p=>p/(1-p);const back=o=>o/(1+o);
+ assert.equal(r(5474/1850,2),2.96);assert.equal(r(6022/2001,2),3.01);
+ const O=[315,108,101,32],A=[9,3,3,1].map(k=>556*k/16);assert.deepEqual(A,[312.75,104.25,104.25,34.75]);
+ assert.equal(r(O.reduce((t,o,i)=>t+(o-A[i])**2/A[i],0),2),0.47);
+ assert.equal((2*360+480)/2000,0.6);assert.equal((2*490+420)/2000,0.7);assert.equal(r(2*0.98*0.02,4),0.0392);assert.equal(r(2*0.99*0.01,4),0.0198);
+ assert.equal(r(sel(0.5,0.2),3),0.545);assert.equal(r(sel(0.25,0.2),3),0.286);assert.equal(r(odds(0.5)/odds(0.4),2),1.5);
+ const T=(p0,p1,s)=>(Math.log(odds(p1))-Math.log(odds(p0)))/Math.log(1+s);
+ assert.equal(r(T(0.01,0.99,0.1),0),96);assert.equal(r(T(0.01,0.99,0.01),0),924);assert.equal(r(T(0.01,0.99,0.5),0),23);assert.equal(r(2*Math.log(99),2),9.19);
+ assert.equal(r(Math.exp((Math.log(49)+Math.log(99))/47)-1,2),0.2);assert.equal(r(Math.log(49)+Math.log(99),2),8.49);
+ assert.equal(r(0.1/0.9,3),0.111);assert.equal(r((1/9)**2,3),0.012);assert.equal(r(2*(8/9)*(1/9),3),0.198);assert.equal(r(1-0.08/0.9,3),0.911);
+ assert.equal(r(back(odds(0.01)*1.1**10),3),0.026);assert.equal(r(back(odds(0.01)*1.5**10),2),0.37);assert.equal(r(back(0.9**10),2),0.26);
+ assert.equal(r(0.2*0.25/1.1,3),0.045);assert.equal(r(0.1*1e-4*0.99,7),9.9e-6);assert.equal(r(Math.log(100)/Math.log(1.3),1),17.6);
+ // Model probes: s = 0.2 and 0.5 at p = 0.25 and 0.5; iteration agrees with the odds formula.
+ assert.equal(r(sel(0.25,0.5),4),0.3333);assert.equal(r(sel(0.5,0.5),2),0.6);let p=0.01;for(let k=0;k<10;k++)p=sel(p,0.1);assert.equal(r(p,6),r(back(odds(0.01)*1.1**10),6));
+ // Heterozygote advantage trajectories.
+ const st=q=>{const P=1-q,w=1-P*P*0.1-q*q*0.8;return (q*q*0.2+P*q)/w;};let q=0.5;for(let k=0;k<100;k++)q=st(q);assert.equal(r(q,3),0.111);
+});
