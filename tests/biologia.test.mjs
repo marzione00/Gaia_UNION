@@ -187,3 +187,31 @@ test('Biologia 08: energia, enzimi e catalisi, numeri ricalcolati',()=>{
  assert.equal(r(1/0.2,0),5);assert.equal(r(1/v(5,10,2),3),0.14);
  assert.equal(r(Math.exp(80000/R*(1/298.15-1/373.15)),-1),660);
 });
+test('Biologia 09: sorgenti idrotermali e metanogenesi, numeri ricalcolati',()=>{
+ const RL=T=>R*T*Math.LN10/1000, F=96485.33212;
+ assert.equal(r((1025*9.81*2000+101325)/1e5,0),202);assert.equal(r(RL(298.15),2),5.71);assert.equal(r(4*RL(298.15),2),22.83);
+ // Methanogenesis: NBS formation energies, enthalpies and entropies.
+ const G0=-50.72-2*237.13+394.36;assert.equal(r(G0,1),-130.6);
+ const dH=-74.81-2*285.83+393.509,dS=(186.264+2*69.91-213.74-4*130.684)/1000;assert.equal(r(dH,1),-253);assert.equal(r(dS*1000,1),-410.4);assert.equal(r(dH-298.15*dS,1),-130.6);
+ const g=(lp,a=0,T=298.15)=>(T===298.15?G0:dH-T*dS)+RL(T)*a-4*RL(T)*lp;
+ assert.equal(r(g(-4),0),-39);assert.equal(r(g(-5),0),-16);assert.equal(r(10**(G0/(4*RL(298.15)))*1e6,1),1.9);
+ const th=(G0+20)/(4*RL(298.15));assert.equal(r(th,2),-4.84);assert.equal(r(10**th*1e5,1),1.4);assert.equal(r(10**th*0.78e-3*1e9,0),11);
+ assert.equal(r((G0-2*RL(298.15)+20)/(4*RL(298.15)),2),-5.34);assert.equal(r(10**((G0-2*RL(298.15)+20)/(4*RL(298.15)))*1e6,1),4.5);
+ assert.equal(r(8*F*0.17/1000,0),131);assert.equal(r(8*F*1.23/1000,-1),950);assert.equal(r(4*-237.13,0),-949);
+ // Temperature dependence.
+ assert.equal(r(dH-373.15*dS,0),-100);assert.equal(r(dH/dS-273.15,0),343);
+ const tz=lp=>dH/(dS+4*R*Math.LN10/1000*lp)-273.15;assert.equal(r(tz(-4),0),80);assert.equal(r(tz(-2),0),176);
+ // Exercise data (rounded tables).
+ assert.equal(r(-74.8-571.6+393.5,1),-252.9);assert.equal(r(186.3+139.8-213.7-522.8,1),-410.4);assert.equal(r(-252.9+298.15*0.4104,1),-130.5);
+ assert.equal(r(253000/410.4,0),616);assert.equal(r(253000/(410.4+8*R*Math.LN10)-273.15,0),176);
+ const g100=-253+373.15*0.4104;assert.equal(r(g100,1),-99.9);assert.equal(r(RL(373.15),2),7.14);assert.equal(r(g100+16*RL(373.15),1),14.4);
+ const lp100=(g100+20)/(4*RL(373.15));assert.equal(r(lp100,2),-2.79);assert.equal(r(10**lp100*1e3,1),1.6);assert.equal(r(10**lp100/10**th,-1),110);
+ // Pyrite, olivine, Henry, gradients, acetogens, ethanol, Enceladus.
+ assert.equal(r(-166.9+100.4+27.8,1),-38.7);assert.equal(r(1000/(55.845+32.06),1),11.4);assert.equal(r(1000/(55.845+32.06)*2.016,1),22.9);
+ const Mf=2*55.845+28.086+4*15.999;assert.equal(r(Mf,1),203.8);assert.equal(r(1000/Mf*2/3,2),3.27);assert.equal(r(1000/Mf*2/3*2.016,1),6.6);assert.equal(r(1000/Mf*2/3*22.71,0),74);
+ assert.equal(r(1.5/0.78,1),1.9);assert.equal(r(G0-4*RL(298.15)*Math.log10(1.5/0.78),0),-137);
+ assert.equal(r(3*RL(298.15),1),17.1);assert.equal(r(RL(298.15)/F*1e6,1),59.2);assert.equal(r(3.5*RL(298.15),1),20);assert.equal(r(F*0.18/1000,1),17.4);assert.equal(r(50/(F*0.18/1000),1),2.9);
+ assert.equal(r(-95+16*RL(298.15),1),-3.7);assert.equal(r((-95+20)/(4*RL(298.15)),2),-3.28);assert.equal(r(10**((-95+20)/(4*RL(298.15)))/10**th,0),36);
+ assert.equal(r(9.6-8*RL(298.15),0),-36);assert.equal(50/20,2.5);assert.equal(120/20,6);
+ assert.equal(r(10**(10-6.6),-2),2500);assert.equal(r(-0.0591596*10,2),-0.59);
+});
