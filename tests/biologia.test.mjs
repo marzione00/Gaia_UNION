@@ -294,3 +294,17 @@ test('Biologia 14: deriva genetica, numeri ricalcolati',()=>{
  // Model probes: N = 100 and 400 at p = 0.25 and 0.5.
  assert.equal(r(sd(0.25,100),4),0.0306);assert.equal(r(sd(0.5,100),4),0.0354);assert.equal(r(sd(0.25,400),4),0.0153);assert.equal(r(sd(0.5,400),4),0.0177);
 });
+test('Biologia 15: albero universale e LUCA, numeri ricalcolati',()=>{
+ const p=d=>0.75*(1-Math.exp(-4*d/3)),D=q=>-0.75*Math.log(1-4*q/3);
+ assert.equal(r(100*p(0.5),1),36.5);assert.equal(r(100*p(3),0),74);assert.equal(r(p(0.1),3),0.094);assert.equal(r(p(0.5),3),0.365);assert.equal(r(p(3),3),0.736);assert.equal(r(200*p(0.75),0),95);
+ assert.equal(r(D(0.3),2),0.38);assert.equal(r(D(0.7),1),2);assert.equal(r(D(0.28),2),0.35);assert.equal(r(D(0.32),2),0.42);assert.equal(r(D(0.68),2),1.78);assert.equal(r(D(0.72),2),2.41);
+ const S=['ACGTTGCAAGTCCTGAAGCT','ACGTTGCAAGTCCTGTAGCT','ACGATGCAAGTGCTGTAGCA','TCGATCCAGGTGCAGTAGCA'];
+ const dif=(a,b)=>[...a].filter((c,i)=>c!==b[i]).length;
+ assert.deepEqual([dif(S[0],S[1]),dif(S[0],S[2]),dif(S[1],S[2]),dif(S[0],S[3]),dif(S[1],S[3]),dif(S[2],S[3])],[1,4,3,8,7,4]);
+ assert.equal(r(D(0.05),3),0.052);assert.equal(r(D(0.4),2),0.57);assert.equal(r((0.4+0.35+0.2)/3/2,3),0.158);assert.equal(r((0.2+0.15)/2/2,4),0.0875);
+ assert.equal(r(D(0.05)*100*50,0),259);assert.equal(r(D(0.25)/2e-10/1e9,1),1.5);
+ const df=k=>{let x=1;for(let i=k;i>0;i-=2)x*=i;return x;};assert.equal(df(5),15);assert.equal(df(17),34459425);assert.equal(r(df(37)/1e21,1),8.2);
+ assert.equal(r(0.1-2/3*0.01,4),0.0933);assert.equal(r(p(0.1),4),0.0936);
+ // Model probes: L = 100 and 200 at d = 0.75 and 1.5.
+ assert.equal(r(100*p(0.75),2),47.41);assert.equal(r(100*p(1.5),2),64.85);assert.equal(r(200*p(0.75),2),94.82);assert.equal(r(200*p(1.5),2),129.7);
+});

@@ -5,265 +5,343 @@
   "title": "L'albero universale e LUCA",
   "sector": 3,
   "modelId": "biology-15",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Modello di Jukes-Cantor",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Lettura e costruzione degli alberi filogenetici, saturazione e modello di Jukes e Cantor, RNA ribosomiale e tre domini, radice dell’albero universale, trasferimento genico orizzontale, archei di Asgard, ricostruzione ed età di LUCA",
+  "narrativeStatus": "Le scoperte e le stime citate sono pubblicate; il modello di Jukes e Cantor suppone basi equiprobabili e velocità uniforme.",
   "objectives": [
-    "Spiegare: modello di jukes-cantor.",
-    "Applicare Differenze attese = L × 3/4(1-exp(-4d/3)), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Leggere un albero filogenetico e costruirne uno semplice.",
+    "Usare il modello di Jukes e Cantor per stimare le distanze.",
+    "Spiegare i tre domini e la radice dell’albero universale.",
+    "Descrivere le caratteristiche e l’età attribuite a LUCA."
   ],
   "prerequisites": [
     "biology-14"
   ],
   "connections": [
-    "math-c06"
+    "math-c06",
+    "math-c10"
   ],
   "sources": [
-    "biology"
+    "biology",
+    "precalculus"
   ],
   "originalSource": null,
   "glossary": [
     {
-      "term": "Divergenza d",
-      "definition": "Variabile indipendente, unità sostituzioni/sito; intervallo [0; 3]."
+      "term": "Albero filogenetico",
+      "definition": "Rappresentazione delle parentele come una serie di ramificazioni da antenati comuni."
     },
     {
-      "term": "Siti diversi attesi",
-      "definition": "Risultato calcolato dal modello, unità siti."
+      "term": "Saturazione",
+      "definition": "Perdita di informazione dovuta a più sostituzioni nello stesso sito."
     },
     {
-      "term": "Lunghezza sequenza L",
-      "definition": "Parametro a, unità siti; intervallo [20; 1000]."
+      "term": "Dominio",
+      "definition": "Categoria più ampia dei viventi: Batteri, Archei, Eucarioti."
+    },
+    {
+      "term": "Gruppo esterno",
+      "definition": "Organismo più lontano dagli altri, usato per collocare la radice."
+    },
+    {
+      "term": "LUCA",
+      "definition": "Ultimo antenato comune universale di tutti i viventi attuali."
+    },
+    {
+      "term": "Trasferimento orizzontale",
+      "definition": "Passaggio di geni fra organismi per vie diverse dalla discendenza."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Io penso",
       "text": {
         "base": [
-          "La stazione confronta la sequenza di un gene ribosomiale in organismi molto lontani. Quante differenze si vedono, e quante sostituzioni sono davvero avvenute?",
-          "Con il modello di Jukes-Cantor, dopo d sostituzioni per sito una sequenza di L siti mostra in media L·(3/4)(1 - exp(-4d/3)) differenze: per d grandi le differenze si saturano al 75%."
+          "Nel 1837 Charles Darwin disegnò nel suo taccuino un piccolo albero ramificato con sopra due parole: «I think», io penso. Se tutte le specie discendono da antenati comuni, la loro storia ha la forma di un albero, e risalendo i rami si arriva a un’unica radice. Per un secolo la radice rimase inaccessibile: forme e fossili servono poco per confrontare un batterio con un fungo.",
+          "Negli anni Settanta Carl Woese confrontò una molecola presente in tutti i viventi, l’RNA della subunità minore del ribosoma, e nel 1977 scoprì che i metanogeni erano diversi dai batteri quanto gli animali: i viventi si dividono in tre domini, Batteri, Archei ed Eucarioti. Dove i rami si congiungono sta LUCA, l’ultimo antenato comune universale."
         ],
         "intermediate": [
-          "La stazione confronta la sequenza di un gene ribosomiale in organismi molto lontani. Quante differenze si vedono, e quante sostituzioni sono davvero avvenute?",
-          "Ogni sostituzione cambia una base in una delle altre tre; dopo molte sostituzioni due sequenze tornano a coincidere per caso in un sito su quattro, da cui il limite 3/4."
+          "Nel 1837 Charles Darwin disegnò nel suo taccuino un piccolo albero ramificato con sopra due parole: «I think», io penso. Se tutte le specie discendono da antenati comuni, la loro storia ha la forma di un albero, e risalendo i rami si arriva a un’unica radice. Per un secolo la radice rimase inaccessibile: forme e fossili servono poco per confrontare un batterio con un fungo.",
+          "Negli anni Settanta Carl Woese confrontò una molecola presente in tutti i viventi, l’RNA della subunità minore del ribosoma, e nel 1977 scoprì che i metanogeni erano diversi dai batteri quanto gli animali: i viventi si dividono in tre domini, Batteri, Archei ed Eucarioti. Dove i rami si congiungono sta LUCA, l’ultimo antenato comune universale."
         ],
         "advanced": [
-          "La stazione confronta la sequenza di un gene ribosomiale in organismi molto lontani. Quante differenze si vedono, e quante sostituzioni sono davvero avvenute?",
-          "Inverti la formula per stimare d da una frazione di differenze del 30% e del 70%, e discuti quale stima è più incerta.",
-          "Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi."
+          "Nel 1837 Charles Darwin disegnò nel suo taccuino un piccolo albero ramificato con sopra due parole: «I think», io penso. Se tutte le specie discendono da antenati comuni, la loro storia ha la forma di un albero, e risalendo i rami si arriva a un’unica radice. Per un secolo la radice rimase inaccessibile: forme e fossili servono poco per confrontare un batterio con un fungo.",
+          "Negli anni Settanta Carl Woese confrontò una molecola presente in tutti i viventi, l’RNA della subunità minore del ribosoma, e nel 1977 scoprì che i metanogeni erano diversi dai batteri quanto gli animali: i viventi si dividono in tre domini, Batteri, Archei ed Eucarioti. Dove i rami si congiungono sta LUCA, l’ultimo antenato comune universale.",
+          "Le ricostruzioni più recenti descrivono LUCA come un procariote anaerobico che viveva di idrogeno e diossido di carbonio, forse circa 4,2 miliardi di anni fa: un organismo che oggi starebbe bene nell’oceano di Encelado."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Distanze e saturazione",
       "text": {
         "base": [
-          "Con il modello di Jukes-Cantor, dopo d sostituzioni per sito una sequenza di L siti mostra in media L·(3/4)(1 - exp(-4d/3)) differenze: per d grandi le differenze si saturano al 75%.",
-          "Con L = 100 siti e d = 0,5 sostituzioni per sito si attendono circa 36,5 differenze; con d = 3 circa 74, quasi il massimo di 75."
+          "Un albero filogenetico ha punte, gli organismi, nodi, gli antenati comuni, e una radice. Conta l’ordine delle ramificazioni, e nessuna specie attuale è più evoluta di un’altra. Gli alberi molecolari si costruiscono allineando sequenze omologhe e calcolando, per esempio, le distanze fra coppie di sequenze.",
+          "Per sequenze lontane le differenze osservate sottostimano le sostituzioni, perché più sostituzioni nello stesso sito si sovrappongono. Secondo il modello di Jukes e Cantor, dopo d sostituzioni per sito una sequenza di L siti mostra in media L·(3/4)(1 − e^(−4d/3)) differenze: per d grandi le differenze si saturano al 75% dei siti."
         ],
         "intermediate": [
-          "Ogni sostituzione cambia una base in una delle altre tre; dopo molte sostituzioni due sequenze tornano a coincidere per caso in un sito su quattro, da cui il limite 3/4.",
-          "La variabile Divergenza d è espressa in sostituzioni/sito; Siti diversi attesi in siti. Il dominio dello strumento è [0; 3]. La relazione implementata è: Differenze attese = L × 3/4(1-exp(-4d/3)).",
-          "Con L = 100 siti e d = 0,5 sostituzioni per sito si attendono circa 36,5 differenze; con d = 3 circa 74, quasi il massimo di 75."
+          "Un albero filogenetico ha punte, gli organismi, nodi, gli antenati comuni, e una radice. Conta l’ordine delle ramificazioni, e nessuna specie attuale è più evoluta di un’altra. Gli alberi molecolari si costruiscono allineando sequenze omologhe e calcolando, per esempio, le distanze fra coppie di sequenze.",
+          "Per sequenze lontane le differenze osservate sottostimano le sostituzioni, perché più sostituzioni nello stesso sito si sovrappongono. Secondo il modello di Jukes e Cantor, dopo d sostituzioni per sito una sequenza di L siti mostra in media L·(3/4)(1 − e^(−4d/3)) differenze: per d grandi le differenze si saturano al 75% dei siti.",
+          "Con L = 100 siti e d = 0,5 si attendono circa 36,5 differenze; con d = 3 circa 74, quasi il massimo di 75. Invertendo la relazione si stima la distanza: d = −(3/4) ln(1 − 4p/3), dove p è la frazione di siti diversi. Per p = 0,3 si ottiene circa 0,38, per p = 0,7 circa 2,0."
         ],
         "advanced": [
-          "Ogni sostituzione cambia una base in una delle altre tre; dopo molte sostituzioni due sequenze tornano a coincidere per caso in un sito su quattro, da cui il limite 3/4.",
-          "Inverti la formula per stimare d da una frazione di differenze del 30% e del 70%, e discuti quale stima è più incerta.",
-          "Contare le differenze sottostima le sostituzioni quando le sequenze sono molto divergenti: per questo gli alberi profondi richiedono modelli di correzione."
+          "Un albero filogenetico ha punte, gli organismi, nodi, gli antenati comuni, e una radice. Conta l’ordine delle ramificazioni, e nessuna specie attuale è più evoluta di un’altra. Gli alberi molecolari si costruiscono allineando sequenze omologhe e calcolando, per esempio, le distanze fra coppie di sequenze.",
+          "Per sequenze lontane le differenze osservate sottostimano le sostituzioni, perché più sostituzioni nello stesso sito si sovrappongono. Secondo il modello di Jukes e Cantor, dopo d sostituzioni per sito una sequenza di L siti mostra in media L·(3/4)(1 − e^(−4d/3)) differenze: per d grandi le differenze si saturano al 75% dei siti.",
+          "Con L = 100 siti e d = 0,5 si attendono circa 36,5 differenze; con d = 3 circa 74, quasi il massimo di 75. Invertendo la relazione si stima la distanza: d = −(3/4) ln(1 − 4p/3), dove p è la frazione di siti diversi. Per p = 0,3 si ottiene circa 0,38, per p = 0,7 circa 2,0.",
+          "L’albero universale si radica con geni duplicati prima di LUCA: le due copie fanno da gruppo esterno l’una per l’altra, e la radice cade fra i Batteri da una parte e Archei ed Eucarioti dall’altra. Le analisi recenti collocano gli eucarioti dentro gli archei di Asgard, e il trasferimento genico orizzontale trasforma la base dell’albero in una rete."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio delle differenze",
       "text": {
         "base": [
-          "Nel laboratorio imposta Lunghezza sequenza L (a): 100 siti. Prima di salvare A, prevedi come cambia Siti diversi attesi fra Divergenza d=0,75 e 1,5 sostituzioni/sito. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con L = 100 siti e d = 0,5 sostituzioni per sito si attendono circa 36,5 differenze; con d = 3 circa 74, quasi il massimo di 75.",
-          "La variabile Divergenza d è espressa in sostituzioni/sito; Siti diversi attesi in siti. Il dominio dello strumento è [0; 3]. La relazione implementata è: Differenze attese = L × 3/4(1-exp(-4d/3))."
+          "Nel laboratorio il grafico mostra il numero atteso di siti diversi fra due sequenze in funzione della divergenza d, da 0 a 3 sostituzioni per sito, secondo il modello di Jukes e Cantor. Nella scheda «Regola» cambi la lunghezza della sequenza L, da 20 a 1000 siti. Con il valore predefinito, L = 100, la curva parte con pendenza 1 e si appiattisce verso 75 siti.",
+          "Protocollo. Il programma confronta due divergenze fissate, 0,75 e 1,5 sostituzioni per sito. Con il valore predefinito prevedi se il numero di siti diversi cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta L a 200, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con L = 100 i siti diversi passano da circa 47,4 a 64,9: raddoppiare le sostituzioni aumenta le differenze solo del 37% circa, segno della saturazione. Con L = 200 i valori raddoppiano, circa 94,8 e 129,7, e la forma della curva resta la stessa: la saturazione dipende da d, non dalla lunghezza della sequenza."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Lunghezza sequenza L (a): 100 siti. Prima di salvare A, prevedi come cambia Siti diversi attesi fra Divergenza d=0,75 e 1,5 sostituzioni/sito. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Divergenza d è espressa in sostituzioni/sito; Siti diversi attesi in siti. Il dominio dello strumento è [0; 3]. La relazione implementata è: Differenze attese = L × 3/4(1-exp(-4d/3)).",
-          "Ogni sostituzione cambia una base in una delle altre tre; dopo molte sostituzioni due sequenze tornano a coincidere per caso in un sito su quattro, da cui il limite 3/4."
+          "Nel laboratorio il grafico mostra il numero atteso di siti diversi fra due sequenze in funzione della divergenza d, da 0 a 3 sostituzioni per sito, secondo il modello di Jukes e Cantor. Nella scheda «Regola» cambi la lunghezza della sequenza L, da 20 a 1000 siti. Con il valore predefinito, L = 100, la curva parte con pendenza 1 e si appiattisce verso 75 siti.",
+          "Protocollo. Il programma confronta due divergenze fissate, 0,75 e 1,5 sostituzioni per sito. Con il valore predefinito prevedi se il numero di siti diversi cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta L a 200, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con L = 100 i siti diversi passano da circa 47,4 a 64,9: raddoppiare le sostituzioni aumenta le differenze solo del 37% circa, segno della saturazione. Con L = 200 i valori raddoppiano, circa 94,8 e 129,7, e la forma della curva resta la stessa: la saturazione dipende da d, non dalla lunghezza della sequenza."
         ],
         "advanced": [
-          "Nel laboratorio imposta Lunghezza sequenza L (a): 100 siti. Prima di salvare A, prevedi come cambia Siti diversi attesi fra Divergenza d=0,75 e 1,5 sostituzioni/sito. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Inverti la formula per stimare d da una frazione di differenze del 30% e del 70%, e discuti quale stima è più incerta.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra il numero atteso di siti diversi fra due sequenze in funzione della divergenza d, da 0 a 3 sostituzioni per sito, secondo il modello di Jukes e Cantor. Nella scheda «Regola» cambi la lunghezza della sequenza L, da 20 a 1000 siti. Con il valore predefinito, L = 100, la curva parte con pendenza 1 e si appiattisce verso 75 siti.",
+          "Protocollo. Il programma confronta due divergenze fissate, 0,75 e 1,5 sostituzioni per sito. Con il valore predefinito prevedi se il numero di siti diversi cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta L a 200, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con L = 100 i siti diversi passano da circa 47,4 a 64,9: raddoppiare le sostituzioni aumenta le differenze solo del 37% circa, segno della saturazione. Con L = 200 i valori raddoppiano, circa 94,8 e 129,7, e la forma della curva resta la stessa: la saturazione dipende da d, non dalla lunghezza della sequenza.",
+          "Una prova a casa: con quattro sequenze di venti basi già allineate si contano le differenze fra ogni coppia, si calcolano le distanze corrette con la formula di Jukes e Cantor e si costruisce l’albero unendo a ogni passo le due sequenze o i due gruppi più vicini. La correzione è piccola per le coppie vicine e grande per quelle lontane."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e limiti",
       "text": {
         "base": [
-          "Contare le differenze sottostima le sostituzioni quando le sequenze sono molto divergenti: per questo gli alberi profondi richiedono modelli di correzione.",
-          "Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: contare le differenze come se fossero le sostituzioni. Per sequenze lontane la frazione di siti diversi tende a 3/4, e vicino a questo limite una piccola incertezza sulle differenze diventa un’incertezza enorme sulla distanza. Per gli alberi profondi servono geni lenti e modelli di sostituzione ricchi.",
+          "Secondo errore: leggere l’albero come una scala dal semplice al complesso. Tutte le specie attuali hanno alle spalle lo stesso tempo di evoluzione dalla radice; un gruppo che si separa vicino alla radice è un parente lontano delle altre specie, che ha continuato a evolvere per conto proprio."
         ],
         "intermediate": [
-          "Contare le differenze sottostima le sostituzioni quando le sequenze sono molto divergenti: per questo gli alberi profondi richiedono modelli di correzione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: contare le differenze come se fossero le sostituzioni. Per sequenze lontane la frazione di siti diversi tende a 3/4, e vicino a questo limite una piccola incertezza sulle differenze diventa un’incertezza enorme sulla distanza. Per gli alberi profondi servono geni lenti e modelli di sostituzione ricchi.",
+          "Secondo errore: leggere l’albero come una scala dal semplice al complesso. Tutte le specie attuali hanno alle spalle lo stesso tempo di evoluzione dalla radice; un gruppo che si separa vicino alla radice è un parente lontano delle altre specie, che ha continuato a evolvere per conto proprio.",
+          "LUCA è l’antenato comune più recente degli organismi attuali, preceduto da una lunga storia evolutiva e circondato da altri organismi le cui linee si sono estinte. Aveva già DNA, ribosomi, codice genetico e ATP: era un organismo complesso, con un genoma stimato di circa 2600 proteine."
         ],
         "advanced": [
-          "Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi.",
-          "Inverti la formula per stimare d da una frazione di differenze del 30% e del 70%, e discuti quale stima è più incerta.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: contare le differenze come se fossero le sostituzioni. Per sequenze lontane la frazione di siti diversi tende a 3/4, e vicino a questo limite una piccola incertezza sulle differenze diventa un’incertezza enorme sulla distanza. Per gli alberi profondi servono geni lenti e modelli di sostituzione ricchi.",
+          "Secondo errore: leggere l’albero come una scala dal semplice al complesso. Tutte le specie attuali hanno alle spalle lo stesso tempo di evoluzione dalla radice; un gruppo che si separa vicino alla radice è un parente lontano delle altre specie, che ha continuato a evolvere per conto proprio.",
+          "LUCA è l’antenato comune più recente degli organismi attuali, preceduto da una lunga storia evolutiva e circondato da altri organismi le cui linee si sono estinte. Aveva già DNA, ribosomi, codice genetico e ATP: era un organismo complesso, con un genoma stimato di circa 2600 proteine.",
+          "Il modello di Jukes e Cantor suppone basi ugualmente frequenti e la stessa velocità in tutti i siti e in tutte le linee. I dati reali richiedono modelli più ricchi, e la temperatura a cui viveva LUCA, calda o moderata, resta discussa."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Con il modello di Jukes-Cantor, dopo d sostituzioni per sito una sequenza di L siti mostra in media L·(3/4)(1 - exp(-4d/3)) differenze: per d grandi le differenze si saturano al 75%.",
-          "Con L = 100 siti e d = 0,5 sostituzioni per sito si attendono circa 36,5 differenze; con d = 3 circa 74, quasi il massimo di 75."
+          "Ripasso: parti di un albero filogenetico; allineamento e metodi di costruzione; saturazione e modello di Jukes e Cantor; RNA ribosomiale e tre domini; caratteristiche degli Archei; radice e geni duplicati; trasferimento orizzontale; archei di Asgard e schema a due domini; ricostruzione ed età di LUCA.",
+          "Mini esercizio: due sequenze differiscono nel 30% dei siti; la distanza di Jukes e Cantor è −0,75 · ln(1 − 0,4), circa 0,38 sostituzioni per sito.",
+          "Nelle domande ricorda che per sequenze lontanissime la frazione di siti diversi tende al 75%, non al 100%."
         ],
         "intermediate": [
-          "Ogni sostituzione cambia una base in una delle altre tre; dopo molte sostituzioni due sequenze tornano a coincidere per caso in un sito su quattro, da cui il limite 3/4.",
-          "La variabile Divergenza d è espressa in sostituzioni/sito; Siti diversi attesi in siti. Il dominio dello strumento è [0; 3]. La relazione implementata è: Differenze attese = L × 3/4(1-exp(-4d/3))."
+          "Ripasso: parti di un albero filogenetico; allineamento e metodi di costruzione; saturazione e modello di Jukes e Cantor; RNA ribosomiale e tre domini; caratteristiche degli Archei; radice e geni duplicati; trasferimento orizzontale; archei di Asgard e schema a due domini; ricostruzione ed età di LUCA.",
+          "Mini esercizio: due sequenze differiscono nel 30% dei siti; la distanza di Jukes e Cantor è −0,75 · ln(1 − 0,4), circa 0,38 sostituzioni per sito.",
+          "Nelle domande ricorda che per sequenze lontanissime la frazione di siti diversi tende al 75%, non al 100%."
         ],
         "advanced": [
-          "Inverti la formula per stimare d da una frazione di differenze del 30% e del 70%, e discuti quale stima è più incerta.",
-          "Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi."
+          "Ripasso: parti di un albero filogenetico; allineamento e metodi di costruzione; saturazione e modello di Jukes e Cantor; RNA ribosomiale e tre domini; caratteristiche degli Archei; radice e geni duplicati; trasferimento orizzontale; archei di Asgard e schema a due domini; ricostruzione ed età di LUCA.",
+          "Mini esercizio: due sequenze differiscono nel 30% dei siti; la distanza di Jukes e Cantor è −0,75 · ln(1 − 0,4), circa 0,38 sostituzioni per sito.",
+          "Nelle domande ricorda che per sequenze lontanissime la frazione di siti diversi tende al 75%, non al 100%."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Modello di Jukes-Cantor.",
-          "Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi.",
-          "Collegamento consigliato: math-c06. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La funzione esponenziale e il logaritmo sono il tema dell’unità di matematica «Esponenziali e logaritmi». In biologia il percorso prosegue con le prime tracce della vita nelle rocce, che fissano un limite all’età di LUCA, e con l’origine delle cellule eucariotiche dall’unione di un archeo e di un batterio.",
+          "Riepilogo dell’unità: un albero si legge dall’ordine delle ramificazioni; le distanze fra sequenze lontane vanno corrette con un modello, perché le differenze saturano a 3/4; l’RNA ribosomiale ha rivelato i tre domini; la radice sta fra Batteri e Archei; LUCA era un procariote anaerobico vissuto forse 4,2 miliardi di anni fa.",
+          "Nel diario registra A e B con le previsioni e calcola la distanza corretta per una frazione di differenze del 30% e del 70%."
         ],
         "intermediate": [
-          "Ogni sostituzione cambia una base in una delle altre tre; dopo molte sostituzioni due sequenze tornano a coincidere per caso in un sito su quattro, da cui il limite 3/4.",
-          "Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi.",
-          "Inverti la formula per stimare d da una frazione di differenze del 30% e del 70%, e discuti quale stima è più incerta."
+          "La funzione esponenziale e il logaritmo sono il tema dell’unità di matematica «Esponenziali e logaritmi». In biologia il percorso prosegue con le prime tracce della vita nelle rocce, che fissano un limite all’età di LUCA, e con l’origine delle cellule eucariotiche dall’unione di un archeo e di un batterio.",
+          "Riepilogo dell’unità: un albero si legge dall’ordine delle ramificazioni; le distanze fra sequenze lontane vanno corrette con un modello, perché le differenze saturano a 3/4; l’RNA ribosomiale ha rivelato i tre domini; la radice sta fra Batteri e Archei; LUCA era un procariote anaerobico vissuto forse 4,2 miliardi di anni fa.",
+          "Nel diario registra A e B con le previsioni e calcola la distanza corretta per una frazione di differenze del 30% e del 70%."
         ],
         "advanced": [
-          "Inverti la formula per stimare d da una frazione di differenze del 30% e del 70%, e discuti quale stima è più incerta.",
-          "Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La funzione esponenziale e il logaritmo sono il tema dell’unità di matematica «Esponenziali e logaritmi». In biologia il percorso prosegue con le prime tracce della vita nelle rocce, che fissano un limite all’età di LUCA, e con l’origine delle cellule eucariotiche dall’unione di un archeo e di un batterio.",
+          "Riepilogo dell’unità: un albero si legge dall’ordine delle ramificazioni; le distanze fra sequenze lontane vanno corrette con un modello, perché le differenze saturano a 3/4; l’RNA ribosomiale ha rivelato i tre domini; la radice sta fra Batteri e Archei; LUCA era un procariote anaerobico vissuto forse 4,2 miliardi di anni fa.",
+          "Nel diario registra A e B con le previsioni e calcola la distanza corretta per una frazione di differenze del 30% e del 70%."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-15-concept",
+      "id": "biology-15-q1",
       "prompt": "Per sequenze lontanissime la frazione di siti diversi tende a:",
       "options": [
         {
           "id": "A",
-          "text": "50%",
-          "feedback": "Ogni sostituzione cambia una base in una delle altre tre; dopo molte sostituzioni due sequenze tornano a coincidere per caso in un sito su quattro, da cui il limite 3/4."
+          "text": "75%",
+          "feedback": "Esatto: due basi casuali coincidono in un sito su quattro."
         },
         {
           "id": "B",
-          "text": "75%",
-          "feedback": "Con il modello di Jukes-Cantor, dopo d sostituzioni per sito una sequenza di L siti mostra in media L·(3/4)(1 - exp(-4d/3)) differenze: per d grandi le differenze si saturano al 75%."
+          "text": "100%",
+          "feedback": "Anche due sequenze casuali coincidono per caso in un quarto dei siti."
         },
         {
           "id": "C",
-          "text": "100%",
-          "feedback": "Contare le differenze sottostima le sostituzioni quando le sequenze sono molto divergenti: per questo gli alberi profondi richiedono modelli di correzione."
+          "text": "50%",
+          "feedback": "Con quattro basi la probabilità di coincidenza casuale è 1/4, non 1/2."
+        },
+        {
+          "id": "D",
+          "text": "25%",
+          "feedback": "Il 25% è la frazione di siti uguali, non di quelli diversi."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-15-q2",
+      "prompt": "Con L = 100 siti e d = 0,5 sostituzioni per sito, quante differenze si attendono?",
+      "options": [
+        {
+          "id": "A",
+          "text": "50",
+          "feedback": "Hai contato ogni sostituzione come una differenza visibile."
+        },
+        {
+          "id": "B",
+          "text": "Circa 36,5",
+          "feedback": "Esatto: 75 · (1 − e^(−2/3)) vale circa 36,5."
+        },
+        {
+          "id": "C",
+          "text": "75",
+          "feedback": "Questo è il limite per divergenze molto grandi."
+        },
+        {
+          "id": "D",
+          "text": "Circa 12",
+          "feedback": "Il valore è troppo basso: per d piccolo le differenze sono circa d · L."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "biology-15-calculation",
-      "prompt": "Calcolo: Lunghezza sequenza L (a)=100 siti. Per Divergenza d=0 sostituzioni/sito, quanto vale Siti diversi attesi?",
+      "id": "biology-15-q3",
+      "prompt": "Perché Woese scelse l’RNA ribosomiale per costruire l’albero universale?",
       "options": [
         {
           "id": "A",
-          "text": "0 siti",
-          "feedback": "Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=100 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché è una sequenza inutile che accumula mutazioni",
+          "feedback": "È essenziale per la traduzione, ed è proprio per questo conservato."
         },
         {
           "id": "B",
-          "text": "1,00000e-8 siti",
-          "feedback": "Questo valore non soddisfa la relazione. Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=100 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché è presente in tutti i viventi, ha la stessa funzione e cambia lentamente",
+          "feedback": "Esatto: permette confronti anche su miliardi di anni."
         },
         {
           "id": "C",
-          "text": "-1,00000e-8 siti",
-          "feedback": "Controlla sostituzione, segno e unità. Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=100 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché si trasferisce spesso fra specie diverse",
+          "feedback": "Il trasferimento orizzontale renderebbe l’albero meno affidabile."
+        },
+        {
+          "id": "D",
+          "text": "Perché è l’RNA più lungo della cellula",
+          "feedback": "La lunghezza conta meno dell’universalità e della conservazione."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 100
-        },
-        "expected": 0,
-        "unit": "siti"
-      }
+      "correct": "B"
     },
     {
-      "id": "biology-15-transfer",
-      "prompt": "Trasferimento: Lunghezza sequenza L (a)=120 siti. Per Divergenza d=0 sostituzioni/sito, quanto vale Siti diversi attesi?",
+      "id": "biology-15-q4",
+      "prompt": "Come si colloca la radice dell’albero universale, che non ha un gruppo esterno?",
       "options": [
         {
           "id": "A",
-          "text": "1,00000e-8 siti",
-          "feedback": "Questo valore non soddisfa la relazione. Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=120 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+          "text": "Con i fossili più antichi",
+          "feedback": "I fossili di microrganismi non indicano a quale dominio appartengono."
         },
         {
           "id": "B",
-          "text": "-1,00000e-8 siti",
-          "feedback": "Controlla sostituzione, segno e unità. Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=120 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+          "text": "Con geni duplicati prima di LUCA, le cui due copie fanno da gruppo esterno l’una per l’altra",
+          "feedback": "Esatto: la radice risulta fra Batteri e Archei."
         },
         {
           "id": "C",
-          "text": "0 siti",
-          "feedback": "Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=120 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+          "text": "Scegliendo l’organismo con il genoma più lungo",
+          "feedback": "La lunghezza del genoma non indica l’antichità."
+        },
+        {
+          "id": "D",
+          "text": "Mettendo la radice al centro dell’albero",
+          "feedback": "La radice si colloca con un criterio, non per simmetria."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 120
-        },
-        "expected": 0,
-        "unit": "siti"
-      }
+      "correct": "B"
     },
     {
-      "id": "biology-15-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "biology-15-q5",
+      "prompt": "Che cosa suggeriscono gli archei di Asgard sull’origine degli eucarioti?",
       "options": [
         {
           "id": "A",
-          "text": "Modello di Jukes-Cantor",
-          "feedback": "Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi."
+          "text": "Che gli eucarioti sono più antichi dei batteri",
+          "feedback": "Le analisi collocano gli eucarioti dentro gli archei, quindi dopo LUCA."
         },
         {
           "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi."
+          "text": "Che gli eucarioti nascono all’interno degli archei",
+          "feedback": "Esatto: gli archei di Asgard sono i loro parenti più stretti."
         },
         {
           "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi."
+          "text": "Che gli archei derivano dagli eucarioti",
+          "feedback": "La direzione è opposta: gli eucarioti hanno un antenato archeo."
+        },
+        {
+          "id": "D",
+          "text": "Che i tre domini sono indipendenti dall’origine",
+          "feedback": "Tutti i domini discendono da LUCA."
         }
       ],
-      "correct": "A"
+      "correct": "B"
+    },
+    {
+      "id": "biology-15-q6",
+      "prompt": "Quale descrizione di LUCA è più corretta?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Il primo essere vivente comparso sulla Terra",
+          "feedback": "LUCA era preceduto da una lunga storia evolutiva."
+        },
+        {
+          "id": "B",
+          "text": "L’antenato comune più recente di tutti i viventi attuali, già dotato di DNA, ribosomi e codice genetico",
+          "feedback": "Esatto: era un organismo complesso, forse con circa 2600 proteine."
+        },
+        {
+          "id": "C",
+          "text": "L’unico organismo vivente del suo tempo",
+          "feedback": "Viveva in una popolazione e in un ecosistema con altri organismi."
+        },
+        {
+          "id": "D",
+          "text": "Un virus a RNA",
+          "feedback": "Le ricostruzioni descrivono un procariote cellulare."
+        }
+      ],
+      "correct": "B"
     }
   ]
 }
