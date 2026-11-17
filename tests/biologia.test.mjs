@@ -326,3 +326,19 @@ test('Biologia 16: tempo geologico e prime tracce, numeri ricalcolati',()=>{
  // Model probes: half-life 1.25 and 4.5 Gyr at D/P = 0.5 and 1; extension U-238 at D/P = 0.9.
  assert.equal(r(age(1.25,0.5),3),0.731);assert.equal(age(1.25,1),1.25);assert.equal(r(age(4.5,0.5),3),2.632);assert.equal(age(4.5,1),4.5);assert.equal(r(age(4.468,0.9),2),4.14);
 });
+test('Biologia 17: ossigeno ed endosimbiosi, numeri ricalcolati',()=>{
+ const O=(S,tau,t)=>S*tau*(-Math.expm1(-t/tau));
+ assert.equal(r(1-Math.exp(-1),2),0.63);assert.equal(r(1-Math.exp(-3),2),0.95);assert.equal(r(1-Math.exp(-5),3),0.993);
+ assert.equal(r(O(1,50,100),1),43.2);assert.equal(r(1-Math.exp(-2),3),0.865);assert.equal(r(O(1,100,100),0),63);assert.equal(r(O(1,50,30),1),22.6);
+ const mol=5.15e18/0.02897*0.2095;assert.equal(r(mol/1e19,1),3.7);assert.equal(r(105e15/12/1e15,1),8.8);assert.equal(r(3.7e19/8.7e15,-2),4300);assert.equal(3.7e19/1e13,3.7e6);
+ let o=0;const seq=[];for(let k=0;k<10;k++){o=0.8*o+10;seq.push(o);}assert.deepEqual(seq.slice(0,4).map(v=>r(v,1)),[10,18,24.4,29.5]);assert.equal(r(seq[9],1),44.6);
+ const e10=seq[9]-O(1,50,100),e5=50*(1-0.9**20)-O(1,50,100);assert.equal(r(e5/e10,1),0.5);
+ assert.equal(r((1-0.8)*50,6),10);assert.equal(r((10+5)/25,2),0.6);
+ const q=0.1/22.414e-3*1e-6*1e6/3600;assert.equal(r(q*1e3,2),1.24);
+ const R=x=>Math.sqrt(6*2e-9*0.28*x/1.24e-3)*1000;assert.equal(r(R(1),2),1.65);assert.equal(r(R(0.1),2),0.52);assert.equal(r(R(0.01),2),0.16);assert.equal(r(1.65*Math.sqrt(0.1),2),0.52);assert.equal(r(R(0.25),2),0.82);assert.equal(r(O(1,50,250),1),49.7);assert.equal(r(O(1,100,125),1),71.3);
+ assert.equal(r(Math.sqrt(2*2e-9*0.28/1.24e-3)*1000,2),0.95);
+ assert.equal(r(13/37,2),0.35);assert.equal(2**5,32);assert.equal(r(0.21e-5*1e6,1),2.1);
+ assert.equal(r(867/3346,2),0.26);assert.equal(r(1-(867/3346)**0.01,3),0.013);assert.equal(r(Math.LN2,2),0.69);assert.equal(r(2.2/3.5,2),0.63);assert.equal(r(0.8/3.5,2),0.23);
+ // Model probes: tau = 50 and 100 at t = 125 and 250 (S = 1).
+ assert.equal(r(O(1,50,125),2),45.9);assert.equal(r(O(1,50,250),2),49.66);assert.equal(r(O(1,100,125),2),71.35);assert.equal(r(O(1,100,250),2),91.79);
+});
