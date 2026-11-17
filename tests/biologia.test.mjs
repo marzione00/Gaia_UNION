@@ -549,3 +549,21 @@ test('Biologia 28: Europa e gli oceani, numeri ricalcolati',()=>{
  // Model probes: g = 1.315 and 0.113 m/s2 at h = 37.5 and 75 km.
  assert.deepEqual([1.315*37.5,1.315*75,0.113*37.5,0.113*75].map(v=>r(v,2)),[49.31,98.63,4.24,8.47]);
 });
+test('Biologia 29: Encelado, numeri ricalcolati',()=>{
+ const G=6.674e-11,vf=(Rkm,rho)=>Rkm*1e3*Math.sqrt(8*Math.PI*G*rho/3);
+ assert.equal(r(vf(252.1,1610),0),239);assert.equal(r(vf(198.2,1149),0),159);assert.equal(r(239*(198.2/252.1)*Math.sqrt(1.15/1.61),0),159);assert.equal(r(198.2/252.1,3),0.786);assert.equal(r(Math.sqrt(1.15/1.61),3),0.845);
+ assert.deepEqual([[1560.8,3013],[1737.4,3344],[2574.7,1880],[2634.1,1936]].map(([R,d])=>r(vf(R,d)/1e3,1)),[2,2.4,2.6,2.7]);assert.equal(r(vf(252.1,1610)*3.6,-2),900);
+ assert.equal(r(vf(252.1,1610)/Math.SQRT2,0),169);assert.equal(r(G*1.080e20/252.1e3**2,3),0.113);assert.equal(r(5.97e24/1.08e20,-3),55000);assert.equal(r(Math.sqrt(2/0.113),1),4.2);assert.equal(r(Math.sqrt(2/9.81),2),0.45);
+ assert.equal(r(200*3.156e7/1e9,1),6.3);assert.equal(r(2.737/1.370,3),1.998);
+ const fr=(1-Math.sin(55*Math.PI/180))/2,Atot=4*Math.PI*252.1**2;assert.equal(r(fr,3),0.09);assert.equal(r(Atot/1e5,1),8);assert.equal(r(fr*Atot/1e4,1),7.2);assert.equal(r(16e9/(fr*Atot*1e6),2),0.22);assert.equal(r(0.22/0.087,1),2.5);
+ assert.equal(r(917*0.113*20000/1e6,1),2.1);assert.equal(r(1000*0.113*60000/1e6,1),6.8);assert.equal(r(6.78e6/(1025*9.81),-1),670);
+ assert.equal(r(239**2/2/1e4,1),2.9);assert.equal(r(239**2/2/2.83e6*100,0),1);assert.equal(r(200*2.83e6/1e9,2),0.57);assert.equal(r(200*2.83e6/16e9*100,1),3.5);
+ const x=0.01*2/(0.99*18+0.01*2);assert.equal(r(x,4),0.0011);assert.equal(r(200*x,2),0.22);assert.equal(r(200*x*3.156e7/1e6,0),7);assert.equal(r(200*x*3.156e7/2.016e-3/1e9,1),3.5);
+ assert.equal(r(Math.sqrt(3*8.314*273/0.018),0),615);
+ const V=4/3*Math.PI*(232**3-192**3);assert.equal(r(V/1e7,2),2.27);assert.equal(r(V*1e9*1000/200/1e17,1),1.1);assert.equal(r(V*1e9*1000/200/3.156e7/1e9,1),3.6);
+ const Vh=4/3*Math.PI*(252.1**3-192**3),Vc=4/3*Math.PI*192**3,mc=1.08e20-Vh*1e12;assert.equal(r(Vh/1e7,2),3.75);assert.equal(r(mc/1e19,2),7.05);assert.equal(r(Vc/1e7,2),2.96);assert.equal(r(mc/(Vc*1e9),-1),2380);
+ const ch4=3.5e9/4;assert.equal(r(ch4/1e8,1),8.8);assert.equal(r(ch4*50e3/1e13,1),4.4);assert.equal(r(ch4*120e3/1e14,2),1.05);assert.deepEqual([50e3,120e3].map(e=>r(ch4*e/3.156e7/1e6,1)),[1.4,3.3]);
+ assert.equal(r(vf(1560.8,3013)/vf(252.1,1610),1),8.5);assert.equal(r(vf(1560.8,3013)/615,1),3.3);assert.equal(r(9600/504.2,0),19);
+ // Model probes: rho = 1.61 and 3.01 g/cm3 at R = 825 and 1550 km (model uses G = 6.6743e-11).
+ const m=(R,d)=>R*1e3*Math.sqrt(8*Math.PI*6.6743e-11*d*1e3/3);assert.deepEqual([m(825,1.61),m(1550,1.61),m(825,3.01),m(1550,3.01)].map(v=>r(v,1)),[782.8,1470.6,1070.3,2010.8]);
+});
