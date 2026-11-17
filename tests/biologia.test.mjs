@@ -512,3 +512,20 @@ test('Biologia 26: acqua di Marte, numeri ricalcolati',()=>{
  // Model probes: R = 3389.5 and 6370 km at V = 12.5 and 25 million km3.
  const M=(V,Rk)=>V*1e15/(4*Math.PI*(Rk*1e3)**2);assert.deepEqual([M(12.5,3389.5),M(25,3389.5),M(12.5,6370),M(25,6370)].map(v=>r(v,2)),[86.58,173.16,24.51,49.03]);assert.equal(r(M(20,3389.5),1),138.5);assert.equal(r(500*4*Math.PI*3389500**2/1e15,0),72);
 });
+test('Biologia 27: cercare la vita su Marte, numeri ricalcolati',()=>{
+ const c=(t,c0,tau)=>c0*Math.exp(-t/tau);
+ assert.equal(r(c(300,10,300),1),3.7);assert.equal(r(c(1000,10,300),2),0.36);assert.equal(r(300*Math.LN2,0),208);assert.equal(r(Math.LN2,2),0.69);assert.equal(r(300*Math.log(100),-1),1380);
+ assert.equal(r(1900/0.41,-2),4600);assert.equal(r(1013/6.1,0),166);
+ const yr=0.21e-3*365.25;assert.equal(r(yr*1e3,0),77);assert.equal(r(yr*10,2),0.77);assert.equal(r(0.64*365.25,-1),230);assert.equal(r(0.64*365.25/2.4,-1),100);
+ assert.deepEqual([300,2000,1e4].map(D=>r(D/yr,-2)),[3900,26100,130400]);assert.equal(r(1e4/yr,-4),130000);assert.equal(r(2000/yr,-3),26000);
+ const M=35.453+4*15.999;assert.equal(r(M,2),99.45);assert.equal(r(5/M,3),0.05);assert.equal(r(10/M,2),0.1);assert.equal(r(10/M*31.998,1),3.2);assert.equal(r(10/M*22.414,1),2.3);
+ assert.equal(25*0.22,5.5);assert.equal(25-5.5,19.5);
+ const n=2.5e16/0.04334,m=0.41e-9*n*16.04/1e3;assert.equal(r(n/1e17,1),5.8);assert.equal(r(0.41e-9*n/1e8,1),2.4);assert.equal(r(m/1e6,1),3.8);assert.equal(r(3800/300,0),13);assert.equal(r(580e6/(m/1e3/300)/1e7,1),4.6);
+ const t=60*1.0275;assert.equal(r(t,1),61.7);assert.equal(r(t/365.25,3),0.169);assert.equal(r(Math.exp(-t/365.25/300),5),0.99944);assert.equal(r((1-Math.exp(-t/365.25/300))*100,2),0.06);
+ const D=yr*7.8e7;assert.equal(r(D/1e6,0),6);assert.equal(r(D/1e4,-2),600);
+ const mt=0.02e-9*n*16.04/1e6;assert.equal(r(mt,-1),190);assert.equal(r(mt,0),185);assert.equal(r(mt/300,1),0.6);assert.equal(r(12.65/(mt/300),-1),20);
+ const tau=343/Math.log(0.65/0.24);assert.equal(r(tau,0),344);assert.equal(r(686.98/2,0),343);assert.equal(r(300*365.25/tau,-2),300);
+ const R=0.011113;assert.equal(r(R*(1-0.137),6),0.009591);assert.equal(r(R*(1-0.06),6),0.010446);assert.equal(r((1-0.863/0.94)*100,0),8);
+ // Model probes: tau = 300 and 1000 years at t = 500 and 1000 years, c0 = 10 ppb.
+ assert.deepEqual([c(500,10,300),c(1000,10,300),c(500,10,1000),c(1000,10,1000)].map(v=>r(v,3)),[1.889,0.357,6.065,3.679]);
+});
