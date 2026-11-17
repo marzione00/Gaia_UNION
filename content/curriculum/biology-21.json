@@ -5,268 +5,342 @@
   "title": "Crescita delle popolazioni microbiche",
   "sector": 3,
   "modelId": "biology-21",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Modello logistico con parametri costanti",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Crescita esponenziale e tempo di raddoppio, fasi di una coltura, conteggio delle cellule, modello logistico e capacità portante, equazione di Monod e chemostato, temperatura e crescita sotto lo zero, vita nel sottosuolo profondo, crescita in condizioni marziane simulate e regioni speciali",
+  "narrativeStatus": "Le leggi di crescita sono modelli con parametri costanti; i tempi di raddoppio a bassa temperatura e i risultati delle simulazioni marziane provengono da esperimenti di laboratorio.",
   "objectives": [
-    "Spiegare: modello logistico con parametri costanti.",
-    "Applicare N = K/[1+(K/10-1) exp(-rt)], dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Calcolare tempo di raddoppio e tasso specifico di una crescita esponenziale.",
+    "Riconoscere le fasi di una coltura e leggere un grafico semilogaritmico.",
+    "Usare il modello logistico e la capacità portante.",
+    "Distinguere sopravvivenza e crescita negli ambienti estremi."
   ],
   "prerequisites": [
     "biology-20"
   ],
   "connections": [
-    "math-p08"
+    "math-c06",
+    "chemistry-18",
+    "biology-27"
   ],
   "sources": [
-    "biology"
+    "biology",
+    "precalculus",
+    "chemistry"
   ],
   "originalSource": null,
   "glossary": [
     {
-      "term": "Tempo",
-      "definition": "Variabile indipendente, unità u.t.; intervallo [0; 30]."
+      "term": "Tempo di raddoppio",
+      "definition": "Tempo in cui una popolazione in crescita esponenziale raddoppia."
     },
     {
-      "term": "Popolazione",
-      "definition": "Risultato calcolato dal modello, unità individui."
+      "term": "Tasso specifico di crescita",
+      "definition": "Aumento della popolazione per unità di tempo e per individuo."
     },
     {
-      "term": "Capacità K",
-      "definition": "Parametro a, unità individui; intervallo [20; 200]."
+      "term": "Capacità portante",
+      "definition": "Numero massimo di individui che un ambiente può sostenere."
     },
     {
-      "term": "Tasso r",
-      "definition": "Parametro b, unità 1/u.t.; intervallo [0,1; 0,6]."
+      "term": "Fase stazionaria",
+      "definition": "Fase di una coltura in cui il numero di cellule resta costante."
+    },
+    {
+      "term": "Chemostato",
+      "definition": "Apparecchio per colture continue in cui il terreno entra e la coltura esce alla stessa portata."
+    },
+    {
+      "term": "Regione speciale",
+      "definition": "Zona di Marte in cui un organismo terrestre potrebbe replicarsi."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Una cellula, poi due",
       "text": {
         "base": [
-          "Una coltura di batteri psicrofili cresce in un recipiente che simula il suolo freddo di Marte. La stazione registra quanti batteri ci sono nel tempo.",
-          "Una popolazione con risorse limitate cresce secondo il modello logistico N = K/[1 + (K/N₀ - 1)exp(-rt)], prima quasi esponenziale e poi rallentata fino alla capacità K."
+          "In un brodo nutriente a 37 °C una cellula di Escherichia coli si divide in due circa ogni venti minuti. Dopo dieci ore le cellule sarebbero circa un miliardo, e dopo un giorno, se nulla le fermasse, quasi cinquemila tonnellate. Nessuna coltura fa nulla del genere: il nutrimento finisce, i rifiuti si accumulano e la crescita rallenta fino a fermarsi.",
+          "Il conto mostra una proprietà fondamentale della vita: una popolazione che si riproduce cresce in proporzione a se stessa, quindi in modo esponenziale, finché l’ambiente lo permette. Capire come cresce una popolazione, e che cosa la ferma, serve in medicina, nella conservazione degli alimenti e nello studio degli ecosistemi microbici."
         ],
         "intermediate": [
-          "Una coltura di batteri psicrofili cresce in un recipiente che simula il suolo freddo di Marte. La stazione registra quanti batteri ci sono nel tempo.",
-          "dN/dt = rN(1 - N/K): quando N è piccolo la crescita è esponenziale con tasso r, quando si avvicina a K rallenta. Qui N₀ = 10."
+          "In un brodo nutriente a 37 °C una cellula di Escherichia coli si divide in due circa ogni venti minuti. Dopo dieci ore le cellule sarebbero circa un miliardo, e dopo un giorno, se nulla le fermasse, quasi cinquemila tonnellate. Nessuna coltura fa nulla del genere: il nutrimento finisce, i rifiuti si accumulano e la crescita rallenta fino a fermarsi.",
+          "Il conto mostra una proprietà fondamentale della vita: una popolazione che si riproduce cresce in proporzione a se stessa, quindi in modo esponenziale, finché l’ambiente lo permette. Capire come cresce una popolazione, e che cosa la ferma, serve in medicina, nella conservazione degli alimenti e nello studio degli ecosistemi microbici."
         ],
         "advanced": [
-          "Una coltura di batteri psicrofili cresce in un recipiente che simula il suolo freddo di Marte. La stazione registra quanti batteri ci sono nel tempo.",
-          "Calcola il tempo per arrivare a metà della capacità con r = 0,1 e r = 0,6, e collega r al tempo di raddoppio iniziale ln2/r.",
-          "Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura."
+          "In un brodo nutriente a 37 °C una cellula di Escherichia coli si divide in due circa ogni venti minuti. Dopo dieci ore le cellule sarebbero circa un miliardo, e dopo un giorno, se nulla le fermasse, quasi cinquemila tonnellate. Nessuna coltura fa nulla del genere: il nutrimento finisce, i rifiuti si accumulano e la crescita rallenta fino a fermarsi.",
+          "Il conto mostra una proprietà fondamentale della vita: una popolazione che si riproduce cresce in proporzione a se stessa, quindi in modo esponenziale, finché l’ambiente lo permette. Capire come cresce una popolazione, e che cosa la ferma, serve in medicina, nella conservazione degli alimenti e nello studio degli ecosistemi microbici.",
+          "Per l’astrobiologia la crescita è il criterio decisivo. Un organismo che sopravvive senza riprodursi finisce per scomparire; uno che si moltiplica, anche lentissimamente, può colonizzare un ambiente. Le regole di protezione planetaria definiscono infatti le regioni da proteggere su Marte come le zone in cui un organismo terrestre potrebbe replicarsi."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Esponenziale e logistica",
       "text": {
         "base": [
-          "Una popolazione con risorse limitate cresce secondo il modello logistico N = K/[1 + (K/N₀ - 1)exp(-rt)], prima quasi esponenziale e poi rallentata fino alla capacità K.",
-          "Con K = 100 e r = 0,3 la popolazione parte da 10, arriva a metà della capacità dopo circa 7,3 unità di tempo e si avvicina a 100."
+          "Con la scissione binaria ogni cellula diventa due. Se il tempo di raddoppio è g, la popolazione segue N = N0 · 2^(t/g), cioè N = N0 · e^(rt) con tasso specifico r = ln2/g. Con g = 20 minuti r vale circa 2,1 all’ora. In un grafico con l’asse verticale logaritmico la crescita esponenziale diventa una retta, e la sua pendenza dà il tempo di raddoppio.",
+          "Una coltura in un volume fisso di terreno attraversa quattro fasi: la latenza, in cui le cellule si adattano; la crescita esponenziale; la fase stazionaria, quando il nutrimento finisce; la fase di morte. Il conteggio su piastra rileva solo le cellule che formano colonie, spesso una piccola frazione di quelle presenti in un campione naturale."
         ],
         "intermediate": [
-          "dN/dt = rN(1 - N/K): quando N è piccolo la crescita è esponenziale con tasso r, quando si avvicina a K rallenta. Qui N₀ = 10.",
-          "La variabile Tempo è espressa in u.t.; Popolazione in individui. Il dominio dello strumento è [0; 30]. La relazione implementata è: N = K/[1+(K/10-1) exp(-rt)].",
-          "Con K = 100 e r = 0,3 la popolazione parte da 10, arriva a metà della capacità dopo circa 7,3 unità di tempo e si avvicina a 100."
+          "Con la scissione binaria ogni cellula diventa due. Se il tempo di raddoppio è g, la popolazione segue N = N0 · 2^(t/g), cioè N = N0 · e^(rt) con tasso specifico r = ln2/g. Con g = 20 minuti r vale circa 2,1 all’ora. In un grafico con l’asse verticale logaritmico la crescita esponenziale diventa una retta, e la sua pendenza dà il tempo di raddoppio.",
+          "Una coltura in un volume fisso di terreno attraversa quattro fasi: la latenza, in cui le cellule si adattano; la crescita esponenziale; la fase stazionaria, quando il nutrimento finisce; la fase di morte. Il conteggio su piastra rileva solo le cellule che formano colonie, spesso una piccola frazione di quelle presenti in un campione naturale.",
+          "Il modello logistico descrive una crescita che rallenta: dN/dt = rN(1 − N/K), dove K è la capacità portante, il numero massimo di individui che l’ambiente sostiene. La soluzione, partendo da N0, è N = K/[1 + (K/N0 − 1)e^(−rt)]. La velocità di crescita è massima a metà della capacità, dove vale rK/4, e la curva ha la forma di una S."
         ],
         "advanced": [
-          "dN/dt = rN(1 - N/K): quando N è piccolo la crescita è esponenziale con tasso r, quando si avvicina a K rallenta. Qui N₀ = 10.",
-          "Calcola il tempo per arrivare a metà della capacità con r = 0,1 e r = 0,6, e collega r al tempo di raddoppio iniziale ln2/r.",
-          "Qualunque risorsa finita arresta presto una crescita esponenziale. Al freddo i microrganismi crescono anche con tempi di raddoppio di giorni o mesi."
+          "Con la scissione binaria ogni cellula diventa due. Se il tempo di raddoppio è g, la popolazione segue N = N0 · 2^(t/g), cioè N = N0 · e^(rt) con tasso specifico r = ln2/g. Con g = 20 minuti r vale circa 2,1 all’ora. In un grafico con l’asse verticale logaritmico la crescita esponenziale diventa una retta, e la sua pendenza dà il tempo di raddoppio.",
+          "Una coltura in un volume fisso di terreno attraversa quattro fasi: la latenza, in cui le cellule si adattano; la crescita esponenziale; la fase stazionaria, quando il nutrimento finisce; la fase di morte. Il conteggio su piastra rileva solo le cellule che formano colonie, spesso una piccola frazione di quelle presenti in un campione naturale.",
+          "Il modello logistico descrive una crescita che rallenta: dN/dt = rN(1 − N/K), dove K è la capacità portante, il numero massimo di individui che l’ambiente sostiene. La soluzione, partendo da N0, è N = K/[1 + (K/N0 − 1)e^(−rt)]. La velocità di crescita è massima a metà della capacità, dove vale rK/4, e la curva ha la forma di una S.",
+          "La velocità di crescita dipende anche dal nutrimento. Secondo l’equazione di Monod il tasso vale μ = μmax · S/(Ks + S), con la stessa forma della legge di Michaelis e Menten. Al freddo la crescita rallenta secondo la legge di Arrhenius: nel permafrost siberiano il tempo di raddoppio passa da un giorno a 5 °C a circa centossessanta giorni a −20 °C."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio della coltura",
       "text": {
         "base": [
-          "Nel laboratorio imposta Capacità K (a): 100 individui; Tasso r (b): 0,3 1/u.t.. Prima di salvare A, prevedi come cambia Popolazione fra Tempo=7,5 e 15 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con K = 100 e r = 0,3 la popolazione parte da 10, arriva a metà della capacità dopo circa 7,3 unità di tempo e si avvicina a 100.",
-          "La variabile Tempo è espressa in u.t.; Popolazione in individui. Il dominio dello strumento è [0; 30]. La relazione implementata è: N = K/[1+(K/10-1) exp(-rt)]."
+          "Nel laboratorio il grafico mostra la popolazione in funzione del tempo, da 0 a 30 unità di tempo, secondo il modello logistico con dieci individui iniziali: N = K/[1 + (K/10 − 1)e^(−rt)]. Nella scheda «Regola» cambi la capacità portante K, da 20 a 200, e il tasso r, da 0,1 a 0,6. Con i valori predefiniti, K = 100 e r = 0,3, la popolazione raggiunge 50 dopo circa 7,3 unità di tempo.",
+          "Protocollo. Il programma confronta due istanti fissati, 7,5 e 15 unità di tempo. Con i valori predefiniti prevedi se la popolazione cresce, diminuisce o resta uguale passando dal primo al secondo istante e salva A. Poi porta r a 0,1, una popolazione che si divide tre volte più lentamente, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con r = 0,3 la popolazione passa da circa 51 a circa 91, vicino alla capacità; con r = 0,1 da circa 19 a circa 33, ancora nella parte ripida della curva. In entrambi i casi cresce, perché la popolazione resta sotto K. Il tasso cambia la velocità con cui si arriva a K, mentre il valore finale dipende solo dalla capacità portante."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Capacità K (a): 100 individui; Tasso r (b): 0,3 1/u.t.. Prima di salvare A, prevedi come cambia Popolazione fra Tempo=7,5 e 15 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Tempo è espressa in u.t.; Popolazione in individui. Il dominio dello strumento è [0; 30]. La relazione implementata è: N = K/[1+(K/10-1) exp(-rt)].",
-          "dN/dt = rN(1 - N/K): quando N è piccolo la crescita è esponenziale con tasso r, quando si avvicina a K rallenta. Qui N₀ = 10."
+          "Nel laboratorio il grafico mostra la popolazione in funzione del tempo, da 0 a 30 unità di tempo, secondo il modello logistico con dieci individui iniziali: N = K/[1 + (K/10 − 1)e^(−rt)]. Nella scheda «Regola» cambi la capacità portante K, da 20 a 200, e il tasso r, da 0,1 a 0,6. Con i valori predefiniti, K = 100 e r = 0,3, la popolazione raggiunge 50 dopo circa 7,3 unità di tempo.",
+          "Protocollo. Il programma confronta due istanti fissati, 7,5 e 15 unità di tempo. Con i valori predefiniti prevedi se la popolazione cresce, diminuisce o resta uguale passando dal primo al secondo istante e salva A. Poi porta r a 0,1, una popolazione che si divide tre volte più lentamente, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con r = 0,3 la popolazione passa da circa 51 a circa 91, vicino alla capacità; con r = 0,1 da circa 19 a circa 33, ancora nella parte ripida della curva. In entrambi i casi cresce, perché la popolazione resta sotto K. Il tasso cambia la velocità con cui si arriva a K, mentre il valore finale dipende solo dalla capacità portante."
         ],
         "advanced": [
-          "Nel laboratorio imposta Capacità K (a): 100 individui; Tasso r (b): 0,3 1/u.t.. Prima di salvare A, prevedi come cambia Popolazione fra Tempo=7,5 e 15 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Calcola il tempo per arrivare a metà della capacità con r = 0,1 e r = 0,6, e collega r al tempo di raddoppio iniziale ln2/r.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra la popolazione in funzione del tempo, da 0 a 30 unità di tempo, secondo il modello logistico con dieci individui iniziali: N = K/[1 + (K/10 − 1)e^(−rt)]. Nella scheda «Regola» cambi la capacità portante K, da 20 a 200, e il tasso r, da 0,1 a 0,6. Con i valori predefiniti, K = 100 e r = 0,3, la popolazione raggiunge 50 dopo circa 7,3 unità di tempo.",
+          "Protocollo. Il programma confronta due istanti fissati, 7,5 e 15 unità di tempo. Con i valori predefiniti prevedi se la popolazione cresce, diminuisce o resta uguale passando dal primo al secondo istante e salva A. Poi porta r a 0,1, una popolazione che si divide tre volte più lentamente, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con r = 0,3 la popolazione passa da circa 51 a circa 91, vicino alla capacità; con r = 0,1 da circa 19 a circa 33, ancora nella parte ripida della curva. In entrambi i casi cresce, perché la popolazione resta sotto K. Il tasso cambia la velocità con cui si arriva a K, mentre il valore finale dipende solo dalla capacità portante.",
+          "Una prova a casa: tre impasti di farina, acqua, zucchero e lievito di birra in tre bicchieri uguali, uno in frigorifero, uno a temperatura ambiente e uno in un luogo tiepido. Segnando l’altezza ogni quindici minuti si vede che la temperatura controlla la velocità dell’attività dei lieviti. Dalle velocità alle due temperature più alte si stima un coefficiente Q10."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e limiti",
       "text": {
         "base": [
-          "Qualunque risorsa finita arresta presto una crescita esponenziale. Al freddo i microrganismi crescono anche con tempi di raddoppio di giorni o mesi.",
-          "Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: confondere tasso di crescita e tempo di raddoppio. Il tasso specifico r si misura in inverso di un tempo e vale ln2/g: un tasso doppio dimezza il tempo di raddoppio. Secondo errore: credere che la crescita esponenziale possa durare. Il calcolo che porta a migliaia di tonnellate di batteri in un giorno mostra il potenziale, e le popolazioni reali si fermano molto prima.",
+          "Terzo errore: confondere sopravvivenza e crescita. Una spora può resistere per anni nel vuoto e al freddo senza mai dividersi. Per colonizzare un ambiente servono acqua liquida, temperatura adatta, energia e nutrienti nello stesso momento. Gli esperimenti in condizioni marziane simulate, a 7 millibar, 0 °C e in anidride carbonica, hanno trovato pochissimi batteri capaci di crescere."
         ],
         "intermediate": [
-          "Qualunque risorsa finita arresta presto una crescita esponenziale. Al freddo i microrganismi crescono anche con tempi di raddoppio di giorni o mesi.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: confondere tasso di crescita e tempo di raddoppio. Il tasso specifico r si misura in inverso di un tempo e vale ln2/g: un tasso doppio dimezza il tempo di raddoppio. Secondo errore: credere che la crescita esponenziale possa durare. Il calcolo che porta a migliaia di tonnellate di batteri in un giorno mostra il potenziale, e le popolazioni reali si fermano molto prima.",
+          "Terzo errore: confondere sopravvivenza e crescita. Una spora può resistere per anni nel vuoto e al freddo senza mai dividersi. Per colonizzare un ambiente servono acqua liquida, temperatura adatta, energia e nutrienti nello stesso momento. Gli esperimenti in condizioni marziane simulate, a 7 millibar, 0 °C e in anidride carbonica, hanno trovato pochissimi batteri capaci di crescere.",
+          "Il modello del laboratorio tratta r e K come costanti, e trascura la latenza, la fase di morte, i ritardi con cui la densità agisce e le variazioni di temperatura. Le colture batteriche si fermano perché il nutrimento finisce, e la capacità portante dipende dalla quantità iniziale di nutrimento più che dallo spazio disponibile."
         ],
         "advanced": [
-          "Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura.",
-          "Calcola il tempo per arrivare a metà della capacità con r = 0,1 e r = 0,6, e collega r al tempo di raddoppio iniziale ln2/r.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: confondere tasso di crescita e tempo di raddoppio. Il tasso specifico r si misura in inverso di un tempo e vale ln2/g: un tasso doppio dimezza il tempo di raddoppio. Secondo errore: credere che la crescita esponenziale possa durare. Il calcolo che porta a migliaia di tonnellate di batteri in un giorno mostra il potenziale, e le popolazioni reali si fermano molto prima.",
+          "Terzo errore: confondere sopravvivenza e crescita. Una spora può resistere per anni nel vuoto e al freddo senza mai dividersi. Per colonizzare un ambiente servono acqua liquida, temperatura adatta, energia e nutrienti nello stesso momento. Gli esperimenti in condizioni marziane simulate, a 7 millibar, 0 °C e in anidride carbonica, hanno trovato pochissimi batteri capaci di crescere.",
+          "Il modello del laboratorio tratta r e K come costanti, e trascura la latenza, la fase di morte, i ritardi con cui la densità agisce e le variazioni di temperatura. Le colture batteriche si fermano perché il nutrimento finisce, e la capacità portante dipende dalla quantità iniziale di nutrimento più che dallo spazio disponibile.",
+          "Al freddo i tempi di raddoppio diventano lunghissimi: Planococcus halocryophilus si divide ogni ora a 25 °C e ogni cinquanta giorni a −15 °C. Nei sedimenti marini profondi la biomassa si rinnova in secoli o millenni. Su Marte le salamoie stabili calcolate non superano −48 °C, più fredde di qualunque limite noto di crescita."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Una popolazione con risorse limitate cresce secondo il modello logistico N = K/[1 + (K/N₀ - 1)exp(-rt)], prima quasi esponenziale e poi rallentata fino alla capacità K.",
-          "Con K = 100 e r = 0,3 la popolazione parte da 10, arriva a metà della capacità dopo circa 7,3 unità di tempo e si avvicina a 100."
+          "Ripasso: scissione binaria e tempo di raddoppio; crescita esponenziale e grafico semilogaritmico; fasi di una coltura; conteggio su piastra e cellule coltivabili; modello logistico e capacità portante; equazione di Monod e chemostato; temperatura e legge di Arrhenius; vita nel sottosuolo profondo; condizioni marziane simulate e regioni speciali.",
+          "Mini esercizio: con K = 100, dieci individui iniziali e r = 0,3, la popolazione arriva a metà della capacità dopo t = ln9/0,3 ≈ 7,3 unità di tempo, e in quel momento cresce di 7,5 individui per unità di tempo.",
+          "Nelle domande ricorda che il tasso di crescita e il tempo di raddoppio sono inversamente proporzionali, e che la capacità portante fissa il valore finale della popolazione indipendentemente dal tasso."
         ],
         "intermediate": [
-          "dN/dt = rN(1 - N/K): quando N è piccolo la crescita è esponenziale con tasso r, quando si avvicina a K rallenta. Qui N₀ = 10.",
-          "La variabile Tempo è espressa in u.t.; Popolazione in individui. Il dominio dello strumento è [0; 30]. La relazione implementata è: N = K/[1+(K/10-1) exp(-rt)]."
+          "Ripasso: scissione binaria e tempo di raddoppio; crescita esponenziale e grafico semilogaritmico; fasi di una coltura; conteggio su piastra e cellule coltivabili; modello logistico e capacità portante; equazione di Monod e chemostato; temperatura e legge di Arrhenius; vita nel sottosuolo profondo; condizioni marziane simulate e regioni speciali.",
+          "Mini esercizio: con K = 100, dieci individui iniziali e r = 0,3, la popolazione arriva a metà della capacità dopo t = ln9/0,3 ≈ 7,3 unità di tempo, e in quel momento cresce di 7,5 individui per unità di tempo.",
+          "Nelle domande ricorda che il tasso di crescita e il tempo di raddoppio sono inversamente proporzionali, e che la capacità portante fissa il valore finale della popolazione indipendentemente dal tasso."
         ],
         "advanced": [
-          "Calcola il tempo per arrivare a metà della capacità con r = 0,1 e r = 0,6, e collega r al tempo di raddoppio iniziale ln2/r.",
-          "Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura."
+          "Ripasso: scissione binaria e tempo di raddoppio; crescita esponenziale e grafico semilogaritmico; fasi di una coltura; conteggio su piastra e cellule coltivabili; modello logistico e capacità portante; equazione di Monod e chemostato; temperatura e legge di Arrhenius; vita nel sottosuolo profondo; condizioni marziane simulate e regioni speciali.",
+          "Mini esercizio: con K = 100, dieci individui iniziali e r = 0,3, la popolazione arriva a metà della capacità dopo t = ln9/0,3 ≈ 7,3 unità di tempo, e in quel momento cresce di 7,5 individui per unità di tempo.",
+          "Nelle domande ricorda che il tasso di crescita e il tempo di raddoppio sono inversamente proporzionali, e che la capacità portante fissa il valore finale della popolazione indipendentemente dal tasso."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Modello logistico con parametri costanti.",
-          "Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura.",
-          "Collegamento consigliato: math-p08. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Gli esponenziali e i logaritmi sono il tema dell’unità di matematica «Esponenziali e logaritmi»; la legge di Arrhenius quello dell’unità di chimica «Temperatura e attivazione». In biologia il percorso prosegue con la ricerca della vita su Marte e con la protezione planetaria, dove la possibilità di crescita decide quali regioni vanno protette.",
+          "Riepilogo dell’unità: N = N0 · e^(rt) con r = ln2/g; quattro fasi di una coltura; il conteggio su piastra rileva le cellule coltivabili; la crescita logistica satura alla capacità portante, con velocità massima rK/4 a metà; l’equazione di Monod lega il tasso al nutrimento; il freddo allunga i tempi di raddoppio fino a settimane e mesi; crescere è più difficile che sopravvivere.",
+          "Nel diario registra A e B con le previsioni e calcola, per r = 0,1, 0,3 e 0,6, il tempo per arrivare a metà della capacità con K = 100: circa 22, 7,3 e 3,7 unità di tempo."
         ],
         "intermediate": [
-          "dN/dt = rN(1 - N/K): quando N è piccolo la crescita è esponenziale con tasso r, quando si avvicina a K rallenta. Qui N₀ = 10.",
-          "Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura.",
-          "Calcola il tempo per arrivare a metà della capacità con r = 0,1 e r = 0,6, e collega r al tempo di raddoppio iniziale ln2/r."
+          "Gli esponenziali e i logaritmi sono il tema dell’unità di matematica «Esponenziali e logaritmi»; la legge di Arrhenius quello dell’unità di chimica «Temperatura e attivazione». In biologia il percorso prosegue con la ricerca della vita su Marte e con la protezione planetaria, dove la possibilità di crescita decide quali regioni vanno protette.",
+          "Riepilogo dell’unità: N = N0 · e^(rt) con r = ln2/g; quattro fasi di una coltura; il conteggio su piastra rileva le cellule coltivabili; la crescita logistica satura alla capacità portante, con velocità massima rK/4 a metà; l’equazione di Monod lega il tasso al nutrimento; il freddo allunga i tempi di raddoppio fino a settimane e mesi; crescere è più difficile che sopravvivere.",
+          "Nel diario registra A e B con le previsioni e calcola, per r = 0,1, 0,3 e 0,6, il tempo per arrivare a metà della capacità con K = 100: circa 22, 7,3 e 3,7 unità di tempo."
         ],
         "advanced": [
-          "Calcola il tempo per arrivare a metà della capacità con r = 0,1 e r = 0,6, e collega r al tempo di raddoppio iniziale ln2/r.",
-          "Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Gli esponenziali e i logaritmi sono il tema dell’unità di matematica «Esponenziali e logaritmi»; la legge di Arrhenius quello dell’unità di chimica «Temperatura e attivazione». In biologia il percorso prosegue con la ricerca della vita su Marte e con la protezione planetaria, dove la possibilità di crescita decide quali regioni vanno protette.",
+          "Riepilogo dell’unità: N = N0 · e^(rt) con r = ln2/g; quattro fasi di una coltura; il conteggio su piastra rileva le cellule coltivabili; la crescita logistica satura alla capacità portante, con velocità massima rK/4 a metà; l’equazione di Monod lega il tasso al nutrimento; il freddo allunga i tempi di raddoppio fino a settimane e mesi; crescere è più difficile che sopravvivere.",
+          "Nel diario registra A e B con le previsioni e calcola, per r = 0,1, 0,3 e 0,6, il tempo per arrivare a metà della capacità con K = 100: circa 22, 7,3 e 3,7 unità di tempo."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-21-concept",
-      "prompt": "Quando N = K/2 la velocità di crescita dN/dt è:",
+      "id": "biology-21-q1",
+      "prompt": "Una coltura raddoppia ogni 30 minuti. Quanto vale il tasso specifico di crescita?",
       "options": [
         {
           "id": "A",
-          "text": "Minima",
-          "feedback": "dN/dt = rN(1 - N/K): quando N è piccolo la crescita è esponenziale con tasso r, quando si avvicina a K rallenta. Qui N₀ = 10."
+          "text": "Circa 1,4 all’ora",
+          "feedback": "Esatto: r = ln2/g = 0,693/0,5 h."
         },
         {
           "id": "B",
-          "text": "Massima",
-          "feedback": "Una popolazione con risorse limitate cresce secondo il modello logistico N = K/[1 + (K/N₀ - 1)exp(-rt)], prima quasi esponenziale e poi rallentata fino alla capacità K."
+          "text": "Circa 2 all’ora",
+          "feedback": "Questo sarebbe il fattore di crescita in mezz’ora, e il tasso usa il logaritmo naturale."
         },
         {
           "id": "C",
-          "text": "Nulla",
-          "feedback": "Qualunque risorsa finita arresta presto una crescita esponenziale. Al freddo i microrganismi crescono anche con tempi di raddoppio di giorni o mesi."
+          "text": "Circa 0,7 all’ora",
+          "feedback": "Hai usato un’ora come tempo di raddoppio invece di mezz’ora."
+        },
+        {
+          "id": "D",
+          "text": "30 all’ora",
+          "feedback": "Il tempo di raddoppio e il tasso sono grandezze inverse, con unità diverse."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-21-q2",
+      "prompt": "Nel modello logistico, dove è massima la velocità di crescita dN/dt?",
+      "options": [
+        {
+          "id": "A",
+          "text": "All’inizio, quando N è piccolo",
+          "feedback": "All’inizio il tasso per individuo è massimo, e gli individui sono pochi."
+        },
+        {
+          "id": "B",
+          "text": "A metà della capacità, N = K/2",
+          "feedback": "Esatto: la parabola rN(1 − N/K) ha il massimo in K/2, dove vale rK/4."
+        },
+        {
+          "id": "C",
+          "text": "Quando N = K",
+          "feedback": "Alla capacità portante la crescita si annulla."
+        },
+        {
+          "id": "D",
+          "text": "Sempre uguale",
+          "feedback": "La velocità cambia con N, e si annulla agli estremi."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "biology-21-calculation",
-      "prompt": "Calcolo: Capacità K (a)=100 individui; Tasso r (b)=0,3 1/u.t.. Per Tempo=0 u.t., quanto vale Popolazione?",
+      "id": "biology-21-q3",
+      "prompt": "Che cosa rappresenta una retta in un grafico semilogaritmico del numero di cellule?",
       "options": [
         {
           "id": "A",
-          "text": "10 individui",
-          "feedback": "N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=100 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
+          "text": "Una crescita lineare",
+          "feedback": "Una crescita lineare in scala logaritmica appare come una curva che si appiattisce."
         },
         {
           "id": "B",
-          "text": "15 individui",
-          "feedback": "Questo valore non soddisfa la relazione. N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=100 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
+          "text": "Una crescita esponenziale",
+          "feedback": "Esatto: la pendenza è proporzionale al tasso e dà il tempo di raddoppio."
         },
         {
           "id": "C",
-          "text": "5 individui",
-          "feedback": "Controlla sostituzione, segno e unità. N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=100 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
+          "text": "Una popolazione costante",
+          "feedback": "Una popolazione costante dà una retta orizzontale, un caso particolare con pendenza zero."
+        },
+        {
+          "id": "D",
+          "text": "Una crescita logistica",
+          "feedback": "La logistica in scala logaritmica parte quasi come retta e poi si appiattisce."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 100,
-          "b": 0.3
-        },
-        "expected": 10,
-        "unit": "individui"
-      }
+      "correct": "B"
     },
     {
-      "id": "biology-21-transfer",
-      "prompt": "Trasferimento: Capacità K (a)=110 individui; Tasso r (b)=0,3 1/u.t.. Per Tempo=0 u.t., quanto vale Popolazione?",
+      "id": "biology-21-q4",
+      "prompt": "Perché nei campioni naturali le colonie sulle piastre sono molte meno delle cellule viste al microscopio?",
       "options": [
         {
           "id": "A",
-          "text": "15 individui",
-          "feedback": "Questo valore non soddisfa la relazione. N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=110 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché il microscopio conta due volte ogni cellula",
+          "feedback": "Il conteggio al microscopio è accurato; la differenza arriva a fattori di mille o più."
         },
         {
           "id": "B",
-          "text": "5 individui",
-          "feedback": "Controlla sostituzione, segno e unità. N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=110 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché molte cellule vive crescono troppo lentamente o richiedono condizioni assenti nel terreno",
+          "feedback": "Esatto: è la grande anomalia del conteggio su piastra."
         },
         {
           "id": "C",
-          "text": "10 individui",
-          "feedback": "N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=110 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
+          "text": "Perché le piastre uccidono i batteri",
+          "feedback": "Le piastre offrono nutrimento, adatto però solo ad alcune specie."
+        },
+        {
+          "id": "D",
+          "text": "Perché le cellule naturali sono tutte morte",
+          "feedback": "Molte di quelle cellule sono attive, come mostrano altri metodi."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 0,
-        "parameters": {
-          "a": 110,
-          "b": 0.3
-        },
-        "expected": 10,
-        "unit": "individui"
-      }
+      "correct": "B"
     },
     {
-      "id": "biology-21-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "biology-21-q5",
+      "prompt": "Nel permafrost siberiano il tempo di raddoppio è circa 1 giorno a 5 °C e 160 giorni a −20 °C. Che cosa indica?",
       "options": [
         {
           "id": "A",
-          "text": "Modello logistico con parametri costanti",
-          "feedback": "Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura."
+          "text": "Che sotto lo zero la vita si ferma",
+          "feedback": "Le cellule continuano a dividersi, molto più lentamente."
         },
         {
           "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura."
+          "text": "Che la crescita rallenta fortemente con il freddo, secondo la legge di Arrhenius",
+          "feedback": "Esatto: l’energia di attivazione apparente è di circa 119 kJ/mol."
         },
         {
           "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura."
+          "text": "Che il freddo accelera la crescita",
+          "feedback": "Il tempo di raddoppio aumenta, quindi la crescita rallenta."
+        },
+        {
+          "id": "D",
+          "text": "Che la temperatura non conta",
+          "feedback": "Un fattore 160 in venticinque gradi indica una dipendenza molto forte."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-21-q6",
+      "prompt": "Perché la protezione planetaria definisce le regioni speciali di Marte in base alla replicazione?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché un organismo che si moltiplica può colonizzare un ambiente, uno che sopravvive soltanto no",
+          "feedback": "Esatto: la crescita, anche lenta, produce popolazioni grandi su tempi umani."
+        },
+        {
+          "id": "B",
+          "text": "Perché su Marte nessun organismo sopravvive",
+          "feedback": "Molte spore sopravvivono a lungo nel vuoto e al freddo."
+        },
+        {
+          "id": "C",
+          "text": "Perché la replicazione è più facile da misurare dalla Terra",
+          "feedback": "Le regioni speciali si definiscono con temperatura e attività dell’acqua, misurabili su Marte."
+        },
+        {
+          "id": "D",
+          "text": "Perché i perclorati favoriscono la crescita",
+          "feedback": "I perclorati, sotto la luce ultravioletta, diventano battericidi."
         }
       ],
       "correct": "A"
