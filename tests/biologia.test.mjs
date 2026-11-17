@@ -342,3 +342,20 @@ test('Biologia 17: ossigeno ed endosimbiosi, numeri ricalcolati',()=>{
  // Model probes: tau = 50 and 100 at t = 125 and 250 (S = 1).
  assert.equal(r(O(1,50,125),2),45.9);assert.equal(r(O(1,50,250),2),49.66);assert.equal(r(O(1,100,125),2),71.35);assert.equal(r(O(1,100,250),2),91.79);
 });
+test('Biologia 18: estremofili, numeri ricalcolati',()=>{
+ const S=(D,d)=>10**(-D/d),aw=(ions)=>55.5/(55.5+ions);
+ assert.equal(r((8.6e6-1e5)/(1025*9.81),-1),850);assert.equal(r(1025*9.81,-2),10100);
+ assert.equal(r(aw(2),3),0.965);assert.equal(r(aw(1),3),0.982);assert.equal(r(55.51/(55.51+12.3),2),0.82);assert.equal(r(aw(1.2),3),0.979);assert.equal(r(2*1.86*0.6,1),2.2);
+ assert.equal(10**5,1e5);assert.equal(r(10**4.5,-3),32000);
+ assert.equal(r(Math.log10(S(3,0.3)),6),-10);assert.equal(r(S(3,10),2),0.5);assert.equal(r(-Math.log10(S(10,0.3)),1),33.3);assert.equal(r(S(6,2),6),1e-3);
+ assert.equal(r(6*0.3,2),1.8);assert.equal(6*10,60);
+ assert.equal(r(10000/0.21e-3/365.25,-4),130000);const dose=0.21e-3*365.25*1e6;assert.equal(r(dose/1000,0),77);assert.equal(r(S(dose/1000,10)*1e8,0),2);
+ assert.equal(r((16.5-0.1)*1e6/(1025*9.81),-1),1630);assert.equal(r(0.1+1025*9.81*4964e-6,1),50);assert.equal(r(1025*9.81*4964e-6,1),49.9);
+ assert.equal(r(S(20,10),6),0.01);assert.equal(r(S(25,10)*1e3,1),3.2);
+ assert.equal(r(1000*0.113*40000/1e6,1),4.5);assert.equal(r(1000*1.31*120000/1e6,0),157);
+ assert.deepEqual([0.40,0.16,0.063].map((s,i)=>r(Math.log10(s)/(2*(i+1)),2)),[-0.2,-0.2,-0.2]);assert.equal(r(9*2,0),18);
+ assert.equal(r(2.303*8.314*333*3.9/1000,1),24.9);
+ const nacl10=10/58.44*10,nacl5=5/58.44*10;assert.equal(r(nacl10,1),1.7);assert.equal(r(aw(2*nacl10),2),0.94);assert.equal(r(aw(2*nacl5),2),0.97);
+ // Model probes: D10 = 10 and 2 kGy at D = 7.5 and 15 kGy.
+ assert.equal(r(S(7.5,10),4),0.1778);assert.equal(r(S(15,10),4),0.0316);assert.equal(r(S(7.5,2)*1e4,3),1.778);assert.equal(r(S(15,2)*1e8,3),3.162);
+});
