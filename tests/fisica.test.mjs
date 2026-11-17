@@ -232,3 +232,32 @@ test('Fisica 32: particelle cariche nei campi magnetici, numeri ricalcolati',()=
  // Model probes: Larmor radius at B = 25.75 and 50.5 nT (25% and 50% of the domain) for v = 400 and 800 km/s.
  const m=(x,a)=>1.67262192e-27*a*1e3/(1.602176634e-19*x*1e-9)/1e3;assert.deepEqual([m(25.75,400),m(50.5,400),m(25.75,800),m(50.5,800)].map(v=>r(v,1)),[162.2,82.7,324.3,165.4]);
 });
+test('Fisica 33: correnti, dipoli e dinamo dei pianeti, numeri ricalcolati',()=>{
+ const Bw=(I,r)=>mu0*I/(2*Math.PI*r);assert.equal(r(Bw(10,0.05)*1e6,0),40);assert.ok(Math.abs(mu0/(4*Math.PI*1e-7)-1)<1e-9);
+ // Loop on the axis tends to the dipole law.
+ const Bz=z=>1/(1+z*z)**1.5;assert.ok(Math.abs(Bz(3)*27-1)<0.15);assert.ok(Math.abs(Bz(10)*1000-1)<0.02);
+ assert.equal(r(mu0*1000*2*1e3,1),2.5);
+ // Earth's dipole from the IGRF-14 coefficients (2025).
+ const Bd=Math.hypot(29350,1410.3,4545.5)*1e-9,a=6.3712e6,m=4*Math.PI*a**3*Bd/mu0;assert.equal(r(m/1e22,1),7.7);assert.equal(r(Bd*1e6,0),30);assert.equal(r(Math.acos(29350e-9/Bd)*180/Math.PI,0),9);
+ assert.ok(0.2*30e-6>1e-6&&0.5*30e-6<1e-4);
+ // Dynamo: decay time, equivalent current, relative moments.
+ assert.equal(r(mu0*1e6*3.48e6**2/Math.PI**2/3.156e7,-4),50000);assert.equal(r(m/(Math.PI*3.48e6**2)/1e9,0),2);
+ const rel=(B,R)=>B/(Bd*1e9)*(R/6371.2)**3;assert.equal(r(1/rel(750,2634),-2),600);assert.equal(r(1/rel(195,2440),-3),3000);
+ assert.equal(r(30/1000*1e3,0),30);assert.equal(r(30/5,0),6);
+ // Magnetopause.
+ const Pd=n=>n*1e6*mp*(4e5)**2,mpz=(B0,P)=>(2*B0**2/(mu0*P))**(1/6);assert.equal(r(Pd(5)*1e9,1),1.3);assert.equal(r(mpz(Bd,Pd(5)),0),10);assert.equal(r((1-2**(-1/6))*100,0),11);
+ assert.equal(r(mpz(195e-9,Pd(5)/0.387**2),1),1.4);assert.equal(r(mpz(428e-6,Pd(5)/5.2**2),0),42);
+ // Exercises.
+ assert.equal(r(Bw(10,0.05)*1e5,1),4);assert.equal(r(mu0*2/0.1*1e5,1),2.5);assert.equal(r(mu0*100/(2*Math.PI*0.01)*1e3,1),2);assert.equal(r(mu0*2000*1e3,1),2.5);assert.equal(r(2.5e-3/50e-6,0),50);
+ const mu=100*0.5*Math.PI*0.02**2;assert.equal(r(mu,3),0.063);assert.equal(r(mu*0.1*1e3,1),6.3);assert.equal(r(30/64,2),0.47);
+ assert.equal(r(mu0*20*1e-3/(2*Math.PI*4e-6)*1e3,1),1);assert.equal(r(Bw(20,2e-3)*1e3,1),2);assert.equal(r(Bw(20,4e-3)*1e3,1),1);
+ assert.equal(r(4*Math.PI*6.371e6**3*29.7e-6/mu0/1e22,1),7.7);assert.equal(r(4*Math.PI*6.371e6**3*29.7e-6/mu0/(Math.PI*3.48e6**2)/1e9,0),2);assert.equal(r(2*29.7,0),59);
+ assert.equal(r(mu0*500/(2*Math.PI*0.1)*1e3,1),1);assert.equal(r(2*mu*0.1*1e2,1),1.3);
+ const rj=(71400/6378)**3;assert.equal(r(rj,-2),1400);assert.equal(r(20000/rj,0),14);assert.equal(r(0.31*20000/rj,1),4.4);
+ assert.equal(r(5e6*1.67e-27*16e10*1e9,2),1.34);assert.equal(r(2*(29.7e-6)**2/(mu0*1.34e-9)/1e6,2),1.05);assert.equal(r((2*(29.7e-6)**2/(mu0*1.34e-9))**(1/6),0),10);
+ assert.equal(r(1.34e-9/27*1e11,0),5);assert.equal(r(mpz(428e-6,1.34e-9/5.2**2),0),42);
+ assert.equal(r(0.025*780000/1e3,1),19.5);assert.equal(r(2*0.025*780000/1e3,0),39);
+ assert.equal(r(1.34e-9/0.387**2*1e9,1),8.9);assert.equal(r(mpz(1.95e-7,8.9e-9),1),1.4);
+ // Model probes: equatorial dipole field at r/R = 5.75 and 10.5 (25% and 50% of the domain) for B0 = 30 and 428 microtesla.
+ const md=(x,b)=>b*1000/x**3;assert.deepEqual([md(5.75,30),md(10.5,30),md(5.75,428),md(10.5,428)].map(v=>+v.toPrecision(4)),[157.8,25.92,2251,369.7]);
+});

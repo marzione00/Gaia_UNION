@@ -37928,6 +37928,348 @@
      "correct": "A"
     }
    ]
+  },
+  {
+   "id": "physics-33",
+   "title": "Correnti, dipoli e dinamo dei pianeti",
+   "scope": "Legge di Biot-Savart, campo di filo e spira, forza fra correnti, legge di Ampère, solenoidi e toroidi, momento magnetico e momento torcente, campo di dipolo, campo magnetico terrestre e sue variazioni, inversioni, dinamo planetarie, campi di Mercurio, Giove, Saturno, Urano, Nettuno e Ganimede, magnetopausa",
+   "narrativeStatus": "I dati provengono dal modello geomagnetico IGRF-14, dalle missioni Mariner 10, MESSENGER, Galileo, Cassini e Mars Global Surveyor, dai valori CODATA e dalle fonti citate nel capitolo.",
+   "description": "Le correnti generano campi magnetici: dal filo di Ørsted ai solenoidi e ai dipoli, fino alle dinamo nei nuclei dei pianeti e alle loro magnetosfere.",
+   "objectives": [
+    "Calcolare il campo di fili, spire e solenoidi con le leggi di Biot-Savart e di Ampère.",
+    "Calcolare la forza fra correnti e il momento torcente su una bobina.",
+    "Descrivere il campo di dipolo e il campo magnetico terrestre con le sue variazioni.",
+    "Spiegare la dinamo planetaria e stimare la distanza della magnetopausa."
+   ],
+   "prerequisites": [
+    "physics-32"
+   ],
+   "connections": [
+    "physics-23",
+    "physics-24",
+    "physics-31"
+   ],
+   "sources": [
+    "physics2",
+    "si"
+   ],
+   "glossary": [
+    {
+     "term": "Legge di Biot-Savart",
+     "definition": "Legge che dà il campo magnetico prodotto da un tratto di filo percorso da corrente."
+    },
+    {
+     "term": "Legge di Ampère",
+     "definition": "La circuitazione del campo magnetico lungo una linea chiusa vale μ₀ per la corrente concatenata."
+    },
+    {
+     "term": "Solenoide",
+     "definition": "Avvolgimento di molte spire che produce all’interno un campo quasi uniforme, μ₀nI."
+    },
+    {
+     "term": "Momento magnetico",
+     "definition": "Vettore NIA perpendicolare al piano di una bobina, che ne descrive il comportamento in un campo."
+    },
+    {
+     "term": "Dinamo autoeccitata",
+     "definition": "Meccanismo con cui un fluido conduttore in movimento mantiene un campo magnetico contro la dissipazione."
+    },
+    {
+     "term": "Magnetopausa",
+     "definition": "Confine della magnetosfera, dove la pressione del campo planetario equilibra quella del vento solare."
+    }
+   ],
+   "steps": [
+    {
+     "label": "SCOPRI",
+     "title": "L’ago di Ørsted e la Terra magnete",
+     "text": {
+      "base": [
+       "Nell’aprile del 1820, durante una lezione a Copenaghen, Hans Christian Ørsted vide l’ago di una bussola deviare vicino a un filo percorso da corrente. Era la prova che le correnti elettriche generano campi magnetici. In pochi mesi Biot, Savart e Ampère trovarono le leggi quantitative, e l’elettricità e il magnetismo cominciarono a diventare un’unica teoria.",
+       "Due secoli prima William Gilbert aveva sostenuto che la Terra è un grande magnete. Oggi sappiamo che dentro la Terra fa troppo caldo per un magnete permanente: il campo è prodotto da correnti di miliardi di ampere che scorrono nel ferro liquido del nucleo, mantenute da una dinamo naturale. Questa unità parte dal filo di Ørsted e arriva alle dinamo dei pianeti e alle loro magnetosfere."
+      ],
+      "intermediate": [
+       "Nell’aprile del 1820, durante una lezione a Copenaghen, Hans Christian Ørsted vide l’ago di una bussola deviare vicino a un filo percorso da corrente. Era la prova che le correnti elettriche generano campi magnetici. In pochi mesi Biot, Savart e Ampère trovarono le leggi quantitative, e l’elettricità e il magnetismo cominciarono a diventare un’unica teoria.",
+       "Due secoli prima William Gilbert aveva sostenuto che la Terra è un grande magnete. Oggi sappiamo che dentro la Terra fa troppo caldo per un magnete permanente: il campo è prodotto da correnti di miliardi di ampere che scorrono nel ferro liquido del nucleo, mantenute da una dinamo naturale. Questa unità parte dal filo di Ørsted e arriva alle dinamo dei pianeti e alle loro magnetosfere."
+      ],
+      "advanced": [
+       "Nell’aprile del 1820, durante una lezione a Copenaghen, Hans Christian Ørsted vide l’ago di una bussola deviare vicino a un filo percorso da corrente. Era la prova che le correnti elettriche generano campi magnetici. In pochi mesi Biot, Savart e Ampère trovarono le leggi quantitative, e l’elettricità e il magnetismo cominciarono a diventare un’unica teoria.",
+       "Due secoli prima William Gilbert aveva sostenuto che la Terra è un grande magnete. Oggi sappiamo che dentro la Terra fa troppo caldo per un magnete permanente: il campo è prodotto da correnti di miliardi di ampere che scorrono nel ferro liquido del nucleo, mantenute da una dinamo naturale. Questa unità parte dal filo di Ørsted e arriva alle dinamo dei pianeti e alle loro magnetosfere.",
+       "Un campo magnetico planetario è anche una difesa per l’atmosfera. La magnetopausa terrestre, dove la pressione del campo equilibra quella del vento solare, si trova a circa dieci raggi terrestri; Marte, che ha perso la sua dinamo miliardi di anni fa, ha visto il vento solare erodere la sua alta atmosfera. Quale corpo ha una dinamo, e perché, è una domanda centrale per l’abitabilità."
+      ]
+     }
+    },
+    {
+     "label": "CAPISCI",
+     "title": "Biot-Savart, Ampère e dipoli",
+     "text": {
+      "base": [
+       "La legge di Biot-Savart dà il campo prodotto da ogni tratto di filo; per un filo rettilineo lungo il campo vale μ₀I/(2πr), con linee circolari attorno al filo. Una spira produce al centro μ₀I/(2R) e lontano un campo che decresce come 1/z³: è un dipolo magnetico. Due fili paralleli si attraggono se le correnti sono concordi, con una forza per metro μ₀I₁I₂/(2πd).",
+       "La legge di Ampère afferma che la circuitazione del campo magnetico lungo una linea chiusa vale μ₀ per la corrente concatenata. Con la simmetria giusta dà il campo in una riga: per un filo spesso cresce linearmente dentro e decresce come 1/r fuori, in un solenoide vale μ₀nI ed è uniforme, in un toroide resta confinato all’interno. I grandi magneti delle macchine per la risonanza magnetica sono solenoidi superconduttori."
+      ],
+      "intermediate": [
+       "La legge di Biot-Savart dà il campo prodotto da ogni tratto di filo; per un filo rettilineo lungo il campo vale μ₀I/(2πr), con linee circolari attorno al filo. Una spira produce al centro μ₀I/(2R) e lontano un campo che decresce come 1/z³: è un dipolo magnetico. Due fili paralleli si attraggono se le correnti sono concordi, con una forza per metro μ₀I₁I₂/(2πd).",
+       "La legge di Ampère afferma che la circuitazione del campo magnetico lungo una linea chiusa vale μ₀ per la corrente concatenata. Con la simmetria giusta dà il campo in una riga: per un filo spesso cresce linearmente dentro e decresce come 1/r fuori, in un solenoide vale μ₀nI ed è uniforme, in un toroide resta confinato all’interno. I grandi magneti delle macchine per la risonanza magnetica sono solenoidi superconduttori.",
+       "Una bobina di N spire e area A percorsa da corrente I ha momento magnetico NIA. In un campo subisce un momento torcente μ × B che tende ad allinearla, come l’ago di una bussola, e ha energia −μ·B. Su questo principio funzionano galvanometri, motori elettrici e le bobine che orientano i satelliti in orbita bassa appoggiandosi al campo terrestre."
+      ],
+      "advanced": [
+       "La legge di Biot-Savart dà il campo prodotto da ogni tratto di filo; per un filo rettilineo lungo il campo vale μ₀I/(2πr), con linee circolari attorno al filo. Una spira produce al centro μ₀I/(2R) e lontano un campo che decresce come 1/z³: è un dipolo magnetico. Due fili paralleli si attraggono se le correnti sono concordi, con una forza per metro μ₀I₁I₂/(2πd).",
+       "La legge di Ampère afferma che la circuitazione del campo magnetico lungo una linea chiusa vale μ₀ per la corrente concatenata. Con la simmetria giusta dà il campo in una riga: per un filo spesso cresce linearmente dentro e decresce come 1/r fuori, in un solenoide vale μ₀nI ed è uniforme, in un toroide resta confinato all’interno. I grandi magneti delle macchine per la risonanza magnetica sono solenoidi superconduttori.",
+       "Una bobina di N spire e area A percorsa da corrente I ha momento magnetico NIA. In un campo subisce un momento torcente μ × B che tende ad allinearla, come l’ago di una bussola, e ha energia −μ·B. Su questo principio funzionano galvanometri, motori elettrici e le bobine che orientano i satelliti in orbita bassa appoggiandosi al campo terrestre.",
+       "Il campo di un dipolo all’equatore decresce come (R/r)³ ed è doppio sull’asse. La Terra ha un dipolo di circa 7,7·10²² ampere per metro quadrato, inclinato di circa 9 gradi, che varia nel tempo e si inverte a intervalli irregolari; l’ultima inversione risale a circa 780 000 anni fa. Giove ha un momento circa ventimila volte maggiore, Saturno un campo allineato con l’asse entro un centesimo di grado."
+      ]
+     }
+    },
+    {
+     "label": "SPERIMENTA",
+     "title": "Il laboratorio del campo di dipolo",
+     "text": {
+      "base": [
+       "Nel laboratorio il grafico mostra il campo di dipolo all’equatore magnetico, in nanotesla, in funzione della distanza dal centro del pianeta, da 1 a 20 raggi planetari, secondo B = B₀·(R/r)³. Nella scheda «Regola» cambi il campo sulla superficie all’equatore, B₀, da 0,1 a 1000 microtesla. Il valore predefinito, 30 microtesla, è quello della Terra: a 10 raggi il campo vale 30 nanotesla.",
+       "Protocollo. Il programma confronta due distanze fissate, circa 5,8 e 10,5 raggi planetari. Con B₀ = 30 microtesla prevedi se il campo cresce, diminuisce o resta uguale passando dalla prima distanza alla seconda e salva A. Poi porta B₀ a 428 microtesla, il campo equatoriale di Giove, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+       "Che cosa osservare. Con il campo terrestre il valore passa da circa 158 a circa 26 nanotesla; con quello di Giove da circa 2250 a circa 370. In entrambi i casi diminuisce di circa sei volte, perché la distanza cresce di un fattore 1,83 e il suo cubo vale circa 6,1. Il campo superficiale moltiplica tutti i valori senza cambiare il rapporto: la legge del dipolo è la stessa per ogni pianeta."
+      ],
+      "intermediate": [
+       "Nel laboratorio il grafico mostra il campo di dipolo all’equatore magnetico, in nanotesla, in funzione della distanza dal centro del pianeta, da 1 a 20 raggi planetari, secondo B = B₀·(R/r)³. Nella scheda «Regola» cambi il campo sulla superficie all’equatore, B₀, da 0,1 a 1000 microtesla. Il valore predefinito, 30 microtesla, è quello della Terra: a 10 raggi il campo vale 30 nanotesla.",
+       "Protocollo. Il programma confronta due distanze fissate, circa 5,8 e 10,5 raggi planetari. Con B₀ = 30 microtesla prevedi se il campo cresce, diminuisce o resta uguale passando dalla prima distanza alla seconda e salva A. Poi porta B₀ a 428 microtesla, il campo equatoriale di Giove, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+       "Che cosa osservare. Con il campo terrestre il valore passa da circa 158 a circa 26 nanotesla; con quello di Giove da circa 2250 a circa 370. In entrambi i casi diminuisce di circa sei volte, perché la distanza cresce di un fattore 1,83 e il suo cubo vale circa 6,1. Il campo superficiale moltiplica tutti i valori senza cambiare il rapporto: la legge del dipolo è la stessa per ogni pianeta."
+      ],
+      "advanced": [
+       "Nel laboratorio il grafico mostra il campo di dipolo all’equatore magnetico, in nanotesla, in funzione della distanza dal centro del pianeta, da 1 a 20 raggi planetari, secondo B = B₀·(R/r)³. Nella scheda «Regola» cambi il campo sulla superficie all’equatore, B₀, da 0,1 a 1000 microtesla. Il valore predefinito, 30 microtesla, è quello della Terra: a 10 raggi il campo vale 30 nanotesla.",
+       "Protocollo. Il programma confronta due distanze fissate, circa 5,8 e 10,5 raggi planetari. Con B₀ = 30 microtesla prevedi se il campo cresce, diminuisce o resta uguale passando dalla prima distanza alla seconda e salva A. Poi porta B₀ a 428 microtesla, il campo equatoriale di Giove, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+       "Che cosa osservare. Con il campo terrestre il valore passa da circa 158 a circa 26 nanotesla; con quello di Giove da circa 2250 a circa 370. In entrambi i casi diminuisce di circa sei volte, perché la distanza cresce di un fattore 1,83 e il suo cubo vale circa 6,1. Il campo superficiale moltiplica tutti i valori senza cambiare il rapporto: la legge del dipolo è la stessa per ogni pianeta.",
+       "Una prova a casa: con il magnetometro di uno smartphone e una piccola calamita al neodimio, posta lungo l’asse del sensore a distanze fra 4 e 16 centimetri, si misura il campo e si sottrae quello terrestre. Il grafico del logaritmo del campo in funzione del logaritmo della distanza è una retta di pendenza −3. La calamita va tenuta lontana dalle carte magnetiche e dai dispositivi medici."
+      ]
+     }
+    },
+    {
+     "label": "INTERPRETA",
+     "title": "Errori e limiti",
+     "text": {
+      "base": [
+       "Errore frequente: pensare che il campo terrestre sia prodotto da un magnete permanente. Nel nucleo la temperatura supera di molto la temperatura di Curie del ferro, e soltanto correnti rigenerate da una dinamo spiegano la variazione secolare e le inversioni. Secondo errore: credere che il polo verso cui punta l’ago della bussola sia un polo nord magnetico; è un polo sud, che attira il polo nord dell’ago.",
+       "Terzo errore: pensare che correnti concordi si respingano come cariche dello stesso segno; si attraggono. Quarto errore: credere che il campo di un dipolo decresca come 1/r², come quello di una carica. Decresce come 1/r³, perché i contributi dei due poli opposti si compensano sempre di più: a dieci raggi il campo è mille volte più debole che in superficie, contro cento volte per un campo che decresce come 1/r²."
+      ],
+      "intermediate": [
+       "Errore frequente: pensare che il campo terrestre sia prodotto da un magnete permanente. Nel nucleo la temperatura supera di molto la temperatura di Curie del ferro, e soltanto correnti rigenerate da una dinamo spiegano la variazione secolare e le inversioni. Secondo errore: credere che il polo verso cui punta l’ago della bussola sia un polo nord magnetico; è un polo sud, che attira il polo nord dell’ago.",
+       "Terzo errore: pensare che correnti concordi si respingano come cariche dello stesso segno; si attraggono. Quarto errore: credere che il campo di un dipolo decresca come 1/r², come quello di una carica. Decresce come 1/r³, perché i contributi dei due poli opposti si compensano sempre di più: a dieci raggi il campo è mille volte più debole che in superficie, contro cento volte per un campo che decresce come 1/r².",
+       "Il modello del laboratorio descrive un dipolo puro, centrato e allineato, nel vuoto. Trascura i termini di ordine superiore, importanti vicino alla superficie e responsabili dell’anomalia del Sud Atlantico; trascura lo spostamento dei dipoli di Mercurio, Urano e Nettuno; trascura soprattutto le correnti della magnetosfera, che oltre qualche raggio deformano il campo, lo comprimono dal lato del Sole e lo allungano in una coda."
+      ],
+      "advanced": [
+       "Errore frequente: pensare che il campo terrestre sia prodotto da un magnete permanente. Nel nucleo la temperatura supera di molto la temperatura di Curie del ferro, e soltanto correnti rigenerate da una dinamo spiegano la variazione secolare e le inversioni. Secondo errore: credere che il polo verso cui punta l’ago della bussola sia un polo nord magnetico; è un polo sud, che attira il polo nord dell’ago.",
+       "Terzo errore: pensare che correnti concordi si respingano come cariche dello stesso segno; si attraggono. Quarto errore: credere che il campo di un dipolo decresca come 1/r², come quello di una carica. Decresce come 1/r³, perché i contributi dei due poli opposti si compensano sempre di più: a dieci raggi il campo è mille volte più debole che in superficie, contro cento volte per un campo che decresce come 1/r².",
+       "Il modello del laboratorio descrive un dipolo puro, centrato e allineato, nel vuoto. Trascura i termini di ordine superiore, importanti vicino alla superficie e responsabili dell’anomalia del Sud Atlantico; trascura lo spostamento dei dipoli di Mercurio, Urano e Nettuno; trascura soprattutto le correnti della magnetosfera, che oltre qualche raggio deformano il campo, lo comprimono dal lato del Sole e lo allungano in una coda.",
+       "Approfondimento: uguagliando la pressione del campo compresso, che vale circa il doppio di quello del dipolo, con la pressione dinamica del vento solare si trova la magnetopausa a (2B₀²/(μ₀ρv²))^(1/6) raggi. Con cinque protoni per centimetro cubo a 400 chilometri al secondo si ottengono circa dieci raggi per la Terra, circa 1,4 per Mercurio e circa 42 per Giove, dove il plasma di Io spinge la magnetopausa ancora più lontano."
+      ]
+     }
+    },
+    {
+     "label": "VERIFICA",
+     "title": "Verifica",
+     "text": {
+      "base": [
+       "Ripasso: legge di Biot-Savart; campo di un filo e di una spira; forza fra correnti parallele e vecchia definizione dell’ampere; legge di Ampère, solenoidi e toroidi; momento magnetico, momento torcente ed energia di un dipolo; campo di dipolo; campo terrestre, declinazione e inversioni; dinamo planetarie; campi di Mercurio, Giove, Saturno, Urano, Nettuno e Ganimede; magnetopausa.",
+       "Mini esercizio: un solenoide con mille spire per metro percorso da 2 ampere produce all’interno circa 2,5 millitesla.",
+       "Nelle domande ricorda che il campo di un filo decresce come 1/r e quello di un dipolo come 1/r³, e che la circuitazione dipende soltanto dalla corrente concatenata."
+      ],
+      "intermediate": [
+       "Ripasso: legge di Biot-Savart; campo di un filo e di una spira; forza fra correnti parallele e vecchia definizione dell’ampere; legge di Ampère, solenoidi e toroidi; momento magnetico, momento torcente ed energia di un dipolo; campo di dipolo; campo terrestre, declinazione e inversioni; dinamo planetarie; campi di Mercurio, Giove, Saturno, Urano, Nettuno e Ganimede; magnetopausa.",
+       "Mini esercizio: un solenoide con mille spire per metro percorso da 2 ampere produce all’interno circa 2,5 millitesla.",
+       "Nelle domande ricorda che il campo di un filo decresce come 1/r e quello di un dipolo come 1/r³, e che la circuitazione dipende soltanto dalla corrente concatenata."
+      ],
+      "advanced": [
+       "Ripasso: legge di Biot-Savart; campo di un filo e di una spira; forza fra correnti parallele e vecchia definizione dell’ampere; legge di Ampère, solenoidi e toroidi; momento magnetico, momento torcente ed energia di un dipolo; campo di dipolo; campo terrestre, declinazione e inversioni; dinamo planetarie; campi di Mercurio, Giove, Saturno, Urano, Nettuno e Ganimede; magnetopausa.",
+       "Mini esercizio: un solenoide con mille spire per metro percorso da 2 ampere produce all’interno circa 2,5 millitesla.",
+       "Nelle domande ricorda che il campo di un filo decresce come 1/r e quello di un dipolo come 1/r³, e che la circuitazione dipende soltanto dalla corrente concatenata."
+      ]
+     }
+    },
+    {
+     "label": "COLLEGA",
+     "title": "Collegamenti",
+     "text": {
+      "base": [
+       "L’effetto del campo sulle cariche in moto è il tema di «Particelle cariche nei campi magnetici»; le correnti in «Circuiti e legge di Ohm»; la legge di Gauss, analoga alla legge di Ampère, in «Legge di Gauss: gusci, pianeti e condensatori». La dinamo richiede l’induzione, che sarà studiata in «Induzione, circuiti oscillanti e radio», e le leggi del campo si riuniscono in «Equazioni di Maxwell e magnetismo della materia».",
+       "Riepilogo dell’unità: esperienza di Ørsted; legge di Biot-Savart; filo e spira; forze fra correnti; legge di Ampère, solenoide e toroide; momento magnetico, motori e bobine dei satelliti; campo di dipolo; campo terrestre, IGRF, declinazione, strisce oceaniche e inversioni; dinamo autoeccitata e simulazioni; dinamo di Mercurio, Giove, Saturno, Urano, Nettuno e Ganimede; Marte e Venere; magnetopausa.",
+       "Nel diario registra A e B con le previsioni e calcola a quale distanza il campo di dipolo terrestre all’equatore scende a 5 nanotesla, il valore del vento solare: a circa 18 raggi terrestri, perché (30 000/5)^(1/3) vale circa 18,2."
+      ],
+      "intermediate": [
+       "L’effetto del campo sulle cariche in moto è il tema di «Particelle cariche nei campi magnetici»; le correnti in «Circuiti e legge di Ohm»; la legge di Gauss, analoga alla legge di Ampère, in «Legge di Gauss: gusci, pianeti e condensatori». La dinamo richiede l’induzione, che sarà studiata in «Induzione, circuiti oscillanti e radio», e le leggi del campo si riuniscono in «Equazioni di Maxwell e magnetismo della materia».",
+       "Riepilogo dell’unità: esperienza di Ørsted; legge di Biot-Savart; filo e spira; forze fra correnti; legge di Ampère, solenoide e toroide; momento magnetico, motori e bobine dei satelliti; campo di dipolo; campo terrestre, IGRF, declinazione, strisce oceaniche e inversioni; dinamo autoeccitata e simulazioni; dinamo di Mercurio, Giove, Saturno, Urano, Nettuno e Ganimede; Marte e Venere; magnetopausa.",
+       "Nel diario registra A e B con le previsioni e calcola a quale distanza il campo di dipolo terrestre all’equatore scende a 5 nanotesla, il valore del vento solare: a circa 18 raggi terrestri, perché (30 000/5)^(1/3) vale circa 18,2."
+      ],
+      "advanced": [
+       "L’effetto del campo sulle cariche in moto è il tema di «Particelle cariche nei campi magnetici»; le correnti in «Circuiti e legge di Ohm»; la legge di Gauss, analoga alla legge di Ampère, in «Legge di Gauss: gusci, pianeti e condensatori». La dinamo richiede l’induzione, che sarà studiata in «Induzione, circuiti oscillanti e radio», e le leggi del campo si riuniscono in «Equazioni di Maxwell e magnetismo della materia».",
+       "Riepilogo dell’unità: esperienza di Ørsted; legge di Biot-Savart; filo e spira; forze fra correnti; legge di Ampère, solenoide e toroide; momento magnetico, motori e bobine dei satelliti; campo di dipolo; campo terrestre, IGRF, declinazione, strisce oceaniche e inversioni; dinamo autoeccitata e simulazioni; dinamo di Mercurio, Giove, Saturno, Urano, Nettuno e Ganimede; Marte e Venere; magnetopausa.",
+       "Nel diario registra A e B con le previsioni e calcola a quale distanza il campo di dipolo terrestre all’equatore scende a 5 nanotesla, il valore del vento solare: a circa 18 raggi terrestri, perché (30 000/5)^(1/3) vale circa 18,2."
+      ]
+     }
+    }
+   ],
+   "questions": [
+    {
+     "id": "physics-33-q1",
+     "prompt": "Il campo magnetico di un filo rettilineo lungo, raddoppiando la distanza dal filo:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Si dimezza",
+       "feedback": "Esatto: B = μ₀I/(2πr) è inversamente proporzionale alla distanza."
+      },
+      {
+       "id": "B",
+       "text": "Si riduce a un quarto",
+       "feedback": "Il quarto riguarderebbe un campo che decresce come 1/r²."
+      },
+      {
+       "id": "C",
+       "text": "Si riduce a un ottavo",
+       "feedback": "L’ottavo riguarda il campo di un dipolo, che decresce come 1/r³."
+      },
+      {
+       "id": "D",
+       "text": "Resta uguale",
+       "feedback": "Il campo del filo diminuisce allontanandosi."
+      }
+     ],
+     "correct": "A"
+    },
+    {
+     "id": "physics-33-q2",
+     "prompt": "Due fili paralleli sono percorsi da correnti nello stesso verso. I fili:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Si attraggono",
+       "feedback": "Esatto: correnti concordi si attraggono, correnti discordi si respingono."
+      },
+      {
+       "id": "B",
+       "text": "Si respingono",
+       "feedback": "Il comportamento è opposto a quello delle cariche ferme dello stesso segno."
+      },
+      {
+       "id": "C",
+       "text": "Restano indifferenti",
+       "feedback": "Ogni filo si trova nel campo dell’altro e subisce una forza."
+      },
+      {
+       "id": "D",
+       "text": "Ruotano uno attorno all’altro",
+       "feedback": "La forza è diretta lungo la congiungente fra i fili."
+      }
+     ],
+     "correct": "A"
+    },
+    {
+     "id": "physics-33-q3",
+     "prompt": "Il campo all’interno di un lungo solenoide dipende:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Dal numero di spire per metro e dalla corrente",
+       "feedback": "Esatto: B = μ₀nI, indipendente dal raggio e dalla posizione."
+      },
+      {
+       "id": "B",
+       "text": "Dal raggio del solenoide",
+       "feedback": "Il raggio non compare nella legge di Ampère applicata al solenoide."
+      },
+      {
+       "id": "C",
+       "text": "Dalla distanza dall’asse",
+       "feedback": "All’interno il campo è uniforme."
+      },
+      {
+       "id": "D",
+       "text": "Dalla lunghezza totale del filo",
+       "feedback": "Conta il numero di spire per unità di lunghezza."
+      }
+     ],
+     "correct": "A"
+    },
+    {
+     "id": "physics-33-q4",
+     "prompt": "A dieci raggi dal centro, il campo di dipolo di un pianeta all’equatore è, rispetto a quello in superficie:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Mille volte più debole",
+       "feedback": "Esatto: il campo decresce come (R/r)³, e 10³ = 1000."
+      },
+      {
+       "id": "B",
+       "text": "Cento volte più debole",
+       "feedback": "Questo varrebbe per un campo che decresce come 1/r²."
+      },
+      {
+       "id": "C",
+       "text": "Dieci volte più debole",
+       "feedback": "Questo varrebbe per il campo di un filo."
+      },
+      {
+       "id": "D",
+       "text": "Uguale",
+       "feedback": "Il campo di dipolo diminuisce rapidamente con la distanza."
+      }
+     ],
+     "correct": "A"
+    },
+    {
+     "id": "physics-33-q5",
+     "prompt": "Il campo magnetico terrestre è attribuito a una dinamo nel nucleo perché:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Il nucleo è troppo caldo per un magnete permanente e il campo varia e si inverte",
+       "feedback": "Esatto: soltanto correnti rigenerate di continuo spiegano queste proprietà."
+      },
+      {
+       "id": "B",
+       "text": "Il nucleo è fatto di magnetite",
+       "feedback": "Il nucleo è una lega di ferro e nichel ben sopra la temperatura di Curie."
+      },
+      {
+       "id": "C",
+       "text": "Il Sole magnetizza la Terra",
+       "feedback": "Il campo solare vicino alla Terra è migliaia di volte più debole di quello terrestre."
+      },
+      {
+       "id": "D",
+       "text": "La crosta è magnetizzata uniformemente",
+       "feedback": "La magnetizzazione della crosta è debole e irregolare."
+      }
+     ],
+     "correct": "A"
+    },
+    {
+     "id": "physics-33-q6",
+     "prompt": "Raddoppiando la pressione del vento solare, la magnetopausa terrestre:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Si avvicina di circa l’11 per cento",
+       "feedback": "Esatto: la distanza dipende dalla pressione con esponente −1/6, e 2^(−1/6) vale circa 0,89."
+      },
+      {
+       "id": "B",
+       "text": "Si avvicina della metà",
+       "feedback": "La dipendenza dalla pressione è molto più debole."
+      },
+      {
+       "id": "C",
+       "text": "Si allontana",
+       "feedback": "Una pressione maggiore spinge la magnetopausa verso il pianeta."
+      },
+      {
+       "id": "D",
+       "text": "Resta ferma",
+       "feedback": "La posizione dipende dall’equilibrio delle pressioni."
+      }
+     ],
+     "correct": "A"
+    }
+   ]
   }
  ]
 }
