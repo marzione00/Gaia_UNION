@@ -132,3 +132,15 @@ test('Biologia 04: elementi e molecole nello spazio, numeri ricalcolati',()=>{
  const v=(m,T)=>Math.sqrt(8*kB*T/(Math.PI*m*u));assert.equal(r(v(2.01588,10),0),324);assert.equal(r(1e4*1e-15*v(2.01588,10)*100*1e7,1),3.2);assert.equal(r(1/(1e4*1e-15*v(2.01588,10)*100)/86400/7,0),5);
  assert.equal(r(1/(2e-9*1e4)/3600,0),14);assert.equal(r(v(28.0101,10),0),87);assert.equal(r(1/(1e-21*2e4*8.7e3)/3.15576e7/1e5,1),1.8);
 });
+test('Biologia 05: meteoriti, comete e asteroidi, numeri ricalcolati',()=>{
+ const M=(F,f,t)=>F*f*t*1e-5;
+ assert.equal(r(M(10,2,100),3),0.02);assert.equal(r(M(10,2,125),3),0.025);assert.equal(r(M(10,2,250),2),0.05);assert.equal(r(M(100,2,125),2),0.25);assert.equal(r(M(100,2,250),1),0.5);
+ assert.equal(r(1e7*0.02*1e8,-11),2e13);assert.equal(r(2e13/5.5e14,3),0.036);assert.equal(r(1e9*0.02*5e8/5.5e14,0),18);assert.equal(r(1e9*0.02*5e8*0.01/5.5e14,2),0.18);
+ // Isotopes.
+ const Rv=0.0111802;assert.equal(r(Rv*1.0445,6),0.011678);assert.equal(r(Rv*0.975,6),0.010901);assert.equal(r((Rv*1.0445)/(Rv*0.975)-1,2),0.07);
+ assert.equal(r((44.5-20)/(44.5+25),2),0.35);assert.equal(r(1.56e-4/2e-5,1),7.8);assert.equal(r(5.3e-4/1.56e-4,1),3.4);assert.equal(r((1.56-1.4)/(5.3-1.4),2),0.04);
+ // Comet 67P, flux, oceans, snow line, Strecker.
+ assert.equal(r(1e13/1.88e10,-1),530);assert.equal(r(1e10/1e13*100,1),0.1);assert.equal(r(1000*6.45,-2),6500);
+ assert.equal(r(5.2e9/5.1e8,0),10);assert.equal(r(5200/365,0),14);assert.equal(r(100*0.02,0),2);assert.equal(r(100*60e-6*1000,0),6);
+ assert.equal(r(1.4e21/0.1/5.97e24*100,2),0.23);assert.equal(r((278/170)**2,1),2.7);assert.equal(r(6/75.07*30.03,1),2.4);
+});
