@@ -41755,265 +41755,346 @@
       "title": "Scoprire gli esopianeti",
       "sector": 3,
       "modelId": "biology-31",
-      "coverage": "guided-foundation",
-      "editorialStatus": "original-draft",
-      "scope": "Transito geometrico senza oscuramento al bordo",
-      "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+      "coverage": "guided-lab",
+      "editorialStatus": "hand-written-draft",
+      "scope": "Velocità radiali e massa minima, transiti e profondità, probabilità geometrica, missioni Kepler e TESS, falsi positivi e validazione, microlenti, immagini dirette, astrometria, statistiche dei pianeti e valle dei raggi, missioni future",
+      "narrativeStatus": "I dati provengono dagli articoli di scoperta, dall’archivio degli esopianeti della NASA e dalle missioni citate nel capitolo; le stime di Shaw sul transito della Terra sono corrette nel testo.",
       "objectives": [
-        "Spiegare: transito geometrico senza oscuramento al bordo.",
-        "Applicare δ = (R_p/R_s)², dichiarando variabili e unità.",
-        "Confrontare due configurazioni e discutere i limiti del modello."
+        "Calcolare la profondità e la probabilità di un transito.",
+        "Stimare la semiampiezza delle velocità radiali prodotta da un pianeta.",
+        "Combinare massa e raggio per ricavare la densità media di un pianeta.",
+        "Riconoscere i falsi positivi e le preferenze dei diversi metodi di scoperta."
       ],
       "prerequisites": [
         "biology-30"
       ],
       "connections": [
-        "math-c11"
+        "physics-13",
+        "biology-22",
+        "biology-24",
+        "biology-32"
       ],
       "sources": [
-        "biology"
+        "biology",
+        "physics2",
+        "precalculus"
       ],
       "originalSource": null,
       "glossary": [
         {
-          "term": "Raggio del pianeta",
-          "definition": "Variabile indipendente, unità raggi terrestri; intervallo [0,5; 15]."
+          "term": "Velocità radiale",
+          "definition": "Componente della velocità di una stella lungo la linea di vista, misurata con l’effetto Doppler."
         },
         {
-          "term": "Profondità del transito",
-          "definition": "Risultato calcolato dal modello, unità ppm."
+          "term": "Transito",
+          "definition": "Passaggio di un pianeta davanti al disco della sua stella."
         },
         {
-          "term": "Raggio della stella",
-          "definition": "Parametro a, unità raggi solari; intervallo [0,1; 2]."
+          "term": "Massa minima",
+          "definition": "Il prodotto m sin i misurato con le velocità radiali, senza conoscere l’inclinazione dell’orbita."
+        },
+        {
+          "term": "Gioviano caldo",
+          "definition": "Pianeta gigante con periodo orbitale di pochi giorni."
+        },
+        {
+          "term": "Falso positivo",
+          "definition": "Segnale che imita un transito ed è prodotto da stelle binarie a eclisse o da altre cause."
+        },
+        {
+          "term": "Valle dei raggi",
+          "definition": "Scarsità di pianeti con raggi fra circa 1,5 e 2 raggi terrestri."
         }
       ],
       "steps": [
         {
           "label": "SCOPRI",
-          "title": "La domanda della spedizione",
+          "title": "Un pianeta inatteso",
           "text": {
             "base": [
-              "Il telescopio della stazione misura una piccola diminuzione periodica della luce di una stella. Quanto è grande il pianeta che la provoca?",
-              "Durante un transito il pianeta copre una frazione del disco stellare pari al rapporto delle aree: δ = (R_p/R_s)². Pianeti piccoli davanti a stelle piccole producono segnali più grandi."
+              "Nel 1995 Michel Mayor e Didier Queloz annunciarono un pianeta attorno a 51 Pegasi, una stella simile al Sole: una massa minima di circa metà di quella di Giove e un’orbita di 4,23 giorni, quasi venti volte più stretta di quella della Terra. Nessuna teoria lo aveva previsto. Trent’anni dopo i pianeti confermati fuori dal sistema solare sono più di seimila.",
+              "Vedere un pianeta direttamente è difficile: la Terra, vista da lontano, è circa dieci miliardi di volte più debole del Sole nella luce visibile e dista da esso appena un decimo di secondo d’arco a dieci parsec. Per questo quasi tutti i pianeti noti sono stati trovati in modo indiretto, dagli effetti che producono sulla luce della loro stella."
             ],
             "intermediate": [
-              "Il telescopio della stazione misura una piccola diminuzione periodica della luce di una stella. Quanto è grande il pianeta che la provoca?",
-              "Disco del pianeta πR_p² e disco della stella πR_s²: il loro rapporto è la frazione di luce bloccata, se si trascura l'oscuramento al bordo della stella."
+              "Nel 1995 Michel Mayor e Didier Queloz annunciarono un pianeta attorno a 51 Pegasi, una stella simile al Sole: una massa minima di circa metà di quella di Giove e un’orbita di 4,23 giorni, quasi venti volte più stretta di quella della Terra. Nessuna teoria lo aveva previsto. Trent’anni dopo i pianeti confermati fuori dal sistema solare sono più di seimila.",
+              "Vedere un pianeta direttamente è difficile: la Terra, vista da lontano, è circa dieci miliardi di volte più debole del Sole nella luce visibile e dista da esso appena un decimo di secondo d’arco a dieci parsec. Per questo quasi tutti i pianeti noti sono stati trovati in modo indiretto, dagli effetti che producono sulla luce della loro stella."
             ],
             "advanced": [
-              "Il telescopio della stazione misura una piccola diminuzione periodica della luce di una stella. Quanto è grande il pianeta che la provoca?",
-              "Calcola il raggio di un pianeta che produce un transito di 1000 ppm davanti al Sole e davanti a una nana rossa di 0,2 raggi solari.",
-              "Disco stellare uniforme e transito centrale; trascura l'oscuramento al bordo e la luce del pianeta."
+              "Nel 1995 Michel Mayor e Didier Queloz annunciarono un pianeta attorno a 51 Pegasi, una stella simile al Sole: una massa minima di circa metà di quella di Giove e un’orbita di 4,23 giorni, quasi venti volte più stretta di quella della Terra. Nessuna teoria lo aveva previsto. Trent’anni dopo i pianeti confermati fuori dal sistema solare sono più di seimila.",
+              "Vedere un pianeta direttamente è difficile: la Terra, vista da lontano, è circa dieci miliardi di volte più debole del Sole nella luce visibile e dista da esso appena un decimo di secondo d’arco a dieci parsec. Per questo quasi tutti i pianeti noti sono stati trovati in modo indiretto, dagli effetti che producono sulla luce della loro stella.",
+              "Shaw scriveva nel 2005, quando i pianeti noti erano 168. Alcune sue stime vanno corrette: per il transito della Terra davanti al Sole indica lo 0,05 per cento, sei volte troppo, e ne deduce che le variazioni del Sole renderebbero invisibili i pianeti come la Terra. La missione Kepler ha trovato decine di pianeti di dimensioni terrestri."
             ]
           }
         },
         {
           "label": "CAPISCI",
-          "title": "Dall’intuizione alla relazione",
+          "title": "Velocità radiali, transiti e altri metodi",
           "text": {
             "base": [
-              "Durante un transito il pianeta copre una frazione del disco stellare pari al rapporto delle aree: δ = (R_p/R_s)². Pianeti piccoli davanti a stelle piccole producono segnali più grandi.",
-              "Una Terra davanti al Sole produce un transito di circa 84 ppm; la stessa Terra davanti a una stella di 0,12 raggi solari circa 5800 ppm, cioè lo 0,58%."
+              "Le velocità radiali misurano l’oscillazione della stella attorno al centro di massa comune con il pianeta, attraverso lo spostamento Doppler delle righe dello spettro. La semiampiezza K cresce con la massa del pianeta e diminuisce con il periodo: Giove fa oscillare il Sole di circa 12,5 m/s, la Terra di appena 9 cm/s. Il metodo misura la massa minima, m sin i.",
+              "Un transito è il passaggio di un pianeta davanti alla sua stella: la luce cala di una frazione pari al rapporto fra le aree dei dischi, δ = (Rp/Rs)². La Terra davanti al Sole produrrebbe un calo di 84 parti per milione, Giove dell’1 per cento. Il transito si vede solo se l’orbita è quasi di taglio: per la Terra la probabilità è circa Rs/a, lo 0,47 per cento."
             ],
             "intermediate": [
-              "Disco del pianeta πR_p² e disco della stella πR_s²: il loro rapporto è la frazione di luce bloccata, se si trascura l'oscuramento al bordo della stella.",
-              "La variabile Raggio del pianeta è espressa in raggi terrestri; Profondità del transito in ppm. Il dominio dello strumento è [0,5; 15]. La relazione implementata è: δ = (R_p/R_s)².",
-              "Una Terra davanti al Sole produce un transito di circa 84 ppm; la stessa Terra davanti a una stella di 0,12 raggi solari circa 5800 ppm, cioè lo 0,58%."
+              "Le velocità radiali misurano l’oscillazione della stella attorno al centro di massa comune con il pianeta, attraverso lo spostamento Doppler delle righe dello spettro. La semiampiezza K cresce con la massa del pianeta e diminuisce con il periodo: Giove fa oscillare il Sole di circa 12,5 m/s, la Terra di appena 9 cm/s. Il metodo misura la massa minima, m sin i.",
+              "Un transito è il passaggio di un pianeta davanti alla sua stella: la luce cala di una frazione pari al rapporto fra le aree dei dischi, δ = (Rp/Rs)². La Terra davanti al Sole produrrebbe un calo di 84 parti per milione, Giove dell’1 per cento. Il transito si vede solo se l’orbita è quasi di taglio: per la Terra la probabilità è circa Rs/a, lo 0,47 per cento.",
+              "Kepler osservò circa 150 000 stelle per quattro anni e TESS osserva quasi tutto il cielo. Un calo periodico è però soltanto un candidato: binarie a eclisse e stelle di sfondo nello stesso pixel possono imitarlo. Si confrontano forma e profondità dei transiti, si fotografa la stella ad alta risoluzione, si misurano le velocità radiali o si ricorre alla validazione statistica."
             ],
             "advanced": [
-              "Disco del pianeta πR_p² e disco della stella πR_s²: il loro rapporto è la frazione di luce bloccata, se si trascura l'oscuramento al bordo della stella.",
-              "Calcola il raggio di un pianeta che produce un transito di 1000 ppm davanti al Sole e davanti a una nana rossa di 0,2 raggi solari.",
-              "Un transito si vede solo se l'orbita è allineata con la linea di vista, il che accade per una piccola frazione dei sistemi."
+              "Le velocità radiali misurano l’oscillazione della stella attorno al centro di massa comune con il pianeta, attraverso lo spostamento Doppler delle righe dello spettro. La semiampiezza K cresce con la massa del pianeta e diminuisce con il periodo: Giove fa oscillare il Sole di circa 12,5 m/s, la Terra di appena 9 cm/s. Il metodo misura la massa minima, m sin i.",
+              "Un transito è il passaggio di un pianeta davanti alla sua stella: la luce cala di una frazione pari al rapporto fra le aree dei dischi, δ = (Rp/Rs)². La Terra davanti al Sole produrrebbe un calo di 84 parti per milione, Giove dell’1 per cento. Il transito si vede solo se l’orbita è quasi di taglio: per la Terra la probabilità è circa Rs/a, lo 0,47 per cento.",
+              "Kepler osservò circa 150 000 stelle per quattro anni e TESS osserva quasi tutto il cielo. Un calo periodico è però soltanto un candidato: binarie a eclisse e stelle di sfondo nello stesso pixel possono imitarlo. Si confrontano forma e profondità dei transiti, si fotografa la stella ad alta risoluzione, si misurano le velocità radiali o si ricorre alla validazione statistica.",
+              "Altri metodi completano il quadro. Le microlenti gravitazionali trovano pianeti freddi a qualche unità astronomica; le immagini dirette, con coronografi e ottiche adattive, giganti giovani e lontani; l’astrometria, con Gaia, il moto della stella sul cielo; i tempi dei transiti, pianeti che non transitano. Ogni metodo ha preferenze, da correggere nelle statistiche."
             ]
           }
         },
         {
           "label": "SPERIMENTA",
-          "title": "Prevedi, modifica, confronta",
+          "title": "Il laboratorio della profondità del transito",
           "text": {
             "base": [
-              "Nel laboratorio imposta Raggio della stella (a): 1 raggi solari. Prima di salvare A, prevedi come cambia Profondità del transito fra Raggio del pianeta=4,125 e 7,75 raggi terrestri. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Una Terra davanti al Sole produce un transito di circa 84 ppm; la stessa Terra davanti a una stella di 0,12 raggi solari circa 5800 ppm, cioè lo 0,58%.",
-              "La variabile Raggio del pianeta è espressa in raggi terrestri; Profondità del transito in ppm. Il dominio dello strumento è [0,5; 15]. La relazione implementata è: δ = (R_p/R_s)²."
+              "Nel laboratorio il grafico mostra la profondità del transito δ, in parti per milione, in funzione del raggio del pianeta, da 0,5 a 15 raggi terrestri, secondo δ = (Rp/Rs)². Nella scheda «Regola» cambi il raggio della stella, da 0,1 a 2 raggi solari. Con il valore predefinito, il Sole, un pianeta di un raggio terrestre produce un transito di circa 84 parti per milione.",
+              "Protocollo. Il programma confronta due raggi fissati, 4,125 e 7,75 raggi terrestri. Con il valore predefinito prevedi se la profondità cresce, diminuisce o resta uguale passando dal primo al secondo raggio e salva A. Poi porta il raggio della stella a 0,5 raggi solari, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+              "Che cosa osservare. Davanti a una stella come il Sole la profondità passa da circa 1427 a 5037 parti per milione; davanti a una stella di mezzo raggio solare da circa 5708 a 20 148. In entrambi i casi cresce con il quadrato del raggio del pianeta. A parità di pianeta, dimezzare il raggio della stella quadruplica la profondità."
             ],
             "intermediate": [
-              "Nel laboratorio imposta Raggio della stella (a): 1 raggi solari. Prima di salvare A, prevedi come cambia Profondità del transito fra Raggio del pianeta=4,125 e 7,75 raggi terrestri. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "La variabile Raggio del pianeta è espressa in raggi terrestri; Profondità del transito in ppm. Il dominio dello strumento è [0,5; 15]. La relazione implementata è: δ = (R_p/R_s)².",
-              "Disco del pianeta πR_p² e disco della stella πR_s²: il loro rapporto è la frazione di luce bloccata, se si trascura l'oscuramento al bordo della stella."
+              "Nel laboratorio il grafico mostra la profondità del transito δ, in parti per milione, in funzione del raggio del pianeta, da 0,5 a 15 raggi terrestri, secondo δ = (Rp/Rs)². Nella scheda «Regola» cambi il raggio della stella, da 0,1 a 2 raggi solari. Con il valore predefinito, il Sole, un pianeta di un raggio terrestre produce un transito di circa 84 parti per milione.",
+              "Protocollo. Il programma confronta due raggi fissati, 4,125 e 7,75 raggi terrestri. Con il valore predefinito prevedi se la profondità cresce, diminuisce o resta uguale passando dal primo al secondo raggio e salva A. Poi porta il raggio della stella a 0,5 raggi solari, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+              "Che cosa osservare. Davanti a una stella come il Sole la profondità passa da circa 1427 a 5037 parti per milione; davanti a una stella di mezzo raggio solare da circa 5708 a 20 148. In entrambi i casi cresce con il quadrato del raggio del pianeta. A parità di pianeta, dimezzare il raggio della stella quadruplica la profondità."
             ],
             "advanced": [
-              "Nel laboratorio imposta Raggio della stella (a): 1 raggi solari. Prima di salvare A, prevedi come cambia Profondità del transito fra Raggio del pianeta=4,125 e 7,75 raggi terrestri. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Calcola il raggio di un pianeta che produce un transito di 1000 ppm davanti al Sole e davanti a una nana rossa di 0,2 raggi solari.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Nel laboratorio il grafico mostra la profondità del transito δ, in parti per milione, in funzione del raggio del pianeta, da 0,5 a 15 raggi terrestri, secondo δ = (Rp/Rs)². Nella scheda «Regola» cambi il raggio della stella, da 0,1 a 2 raggi solari. Con il valore predefinito, il Sole, un pianeta di un raggio terrestre produce un transito di circa 84 parti per milione.",
+              "Protocollo. Il programma confronta due raggi fissati, 4,125 e 7,75 raggi terrestri. Con il valore predefinito prevedi se la profondità cresce, diminuisce o resta uguale passando dal primo al secondo raggio e salva A. Poi porta il raggio della stella a 0,5 raggi solari, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+              "Che cosa osservare. Davanti a una stella come il Sole la profondità passa da circa 1427 a 5037 parti per milione; davanti a una stella di mezzo raggio solare da circa 5708 a 20 148. In entrambi i casi cresce con il quadrato del raggio del pianeta. A parità di pianeta, dimezzare il raggio della stella quadruplica la profondità.",
+              "Una prova a casa: in una stanza buia si accende una lampada lontana e si misura l’illuminazione con il sensore di luce di uno smartphone, poi si fanno passare davanti alla lampada palline di diverse dimensioni, vicino al telefono e lontano da esso. Il calo dipende dalla frazione della lampada coperta, e la forma della curva cambia con la posizione della pallina."
             ]
           }
         },
         {
           "label": "INTERPRETA",
-          "title": "Leggere senza sovrainterpretare",
+          "title": "Errori e limiti",
           "text": {
             "base": [
-              "Un transito si vede solo se l'orbita è allineata con la linea di vista, il che accade per una piccola frazione dei sistemi.",
-              "Disco stellare uniforme e transito centrale; trascura l'oscuramento al bordo e la luce del pianeta.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Errore frequente: confondere la profondità del transito con il rapporto dei raggi. La profondità è il rapporto delle aree, quindi il quadrato del rapporto dei raggi: un pianeta di raggio doppio produce un transito quattro volte più profondo. Secondo errore: credere che i gioviani caldi siano comuni perché abbondano nei cataloghi; girano attorno a circa l’1 per cento delle stelle simili al Sole.",
+              "Terzo errore: leggere la massa delle velocità radiali come massa vera. Senza l’inclinazione dell’orbita si misura m sin i, un limite inferiore; il transito, che richiede un’orbita quasi di taglio, permette di ricavare la massa vera e, con il raggio, la densità media. Quarto errore: prendere ogni calo di luce per un pianeta, dimenticando i falsi positivi."
             ],
             "intermediate": [
-              "Un transito si vede solo se l'orbita è allineata con la linea di vista, il che accade per una piccola frazione dei sistemi.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Errore frequente: confondere la profondità del transito con il rapporto dei raggi. La profondità è il rapporto delle aree, quindi il quadrato del rapporto dei raggi: un pianeta di raggio doppio produce un transito quattro volte più profondo. Secondo errore: credere che i gioviani caldi siano comuni perché abbondano nei cataloghi; girano attorno a circa l’1 per cento delle stelle simili al Sole.",
+              "Terzo errore: leggere la massa delle velocità radiali come massa vera. Senza l’inclinazione dell’orbita si misura m sin i, un limite inferiore; il transito, che richiede un’orbita quasi di taglio, permette di ricavare la massa vera e, con il raggio, la densità media. Quarto errore: prendere ogni calo di luce per un pianeta, dimenticando i falsi positivi.",
+              "Il modello del laboratorio tratta la stella come un disco uniforme e il pianeta come un disco opaco interamente davanti alla stella. Le stelle reali sono più scure al bordo, così il fondo della curva di luce è curvo; i transiti radenti coprono solo una parte del disco; l’atmosfera del pianeta aggiunge un piccolo contributo che dipende dalla lunghezza d’onda."
             ],
             "advanced": [
-              "Disco stellare uniforme e transito centrale; trascura l'oscuramento al bordo e la luce del pianeta.",
-              "Calcola il raggio di un pianeta che produce un transito di 1000 ppm davanti al Sole e davanti a una nana rossa di 0,2 raggi solari.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Errore frequente: confondere la profondità del transito con il rapporto dei raggi. La profondità è il rapporto delle aree, quindi il quadrato del rapporto dei raggi: un pianeta di raggio doppio produce un transito quattro volte più profondo. Secondo errore: credere che i gioviani caldi siano comuni perché abbondano nei cataloghi; girano attorno a circa l’1 per cento delle stelle simili al Sole.",
+              "Terzo errore: leggere la massa delle velocità radiali come massa vera. Senza l’inclinazione dell’orbita si misura m sin i, un limite inferiore; il transito, che richiede un’orbita quasi di taglio, permette di ricavare la massa vera e, con il raggio, la densità media. Quarto errore: prendere ogni calo di luce per un pianeta, dimenticando i falsi positivi.",
+              "Il modello del laboratorio tratta la stella come un disco uniforme e il pianeta come un disco opaco interamente davanti alla stella. Le stelle reali sono più scure al bordo, così il fondo della curva di luce è curvo; i transiti radenti coprono solo una parte del disco; l’atmosfera del pianeta aggiunge un piccolo contributo che dipende dalla lunghezza d’onda.",
+              "Una Terra davanti a una nana rossa ultrafredda di 0,12 raggi solari produce un transito circa settanta volte più profondo che davanti al Sole, e la zona abitabile, stretta, porta a periodi di pochi giorni. Per questo i primi pianeti rocciosi temperati di cui si studia l’atmosfera, come quelli di TRAPPIST-1, girano attorno a stelle piccole."
             ]
           }
         },
         {
           "label": "VERIFICA",
-          "title": "Verifica ragionamento e calcolo",
+          "title": "Verifica",
           "text": {
             "base": [
-              "Durante un transito il pianeta copre una frazione del disco stellare pari al rapporto delle aree: δ = (R_p/R_s)². Pianeti piccoli davanti a stelle piccole producono segnali più grandi.",
-              "Una Terra davanti al Sole produce un transito di circa 84 ppm; la stessa Terra davanti a una stella di 0,12 raggi solari circa 5800 ppm, cioè lo 0,58%."
+              "Ripasso: 51 Pegasi b e i gioviani caldi; velocità radiali, semiampiezza e massa minima; transiti, profondità, durata e probabilità geometrica; Kepler, TESS e falsi positivi; microlenti, immagini dirette, astrometria e tempi; super-Terre, sub-Nettuni e valle dei raggi; PLATO, Roman, ELT e Habitable Worlds Observatory.",
+              "Mini esercizio: un pianeta di 2 raggi terrestri davanti al Sole produce un transito di circa 4 · 84 ≈ 336 parti per milione, quattro volte quello della Terra.",
+              "Nelle domande ricorda che la profondità del transito è proporzionale al quadrato del raggio del pianeta e inversamente proporzionale al quadrato del raggio della stella, e che le velocità radiali danno la massa minima."
             ],
             "intermediate": [
-              "Disco del pianeta πR_p² e disco della stella πR_s²: il loro rapporto è la frazione di luce bloccata, se si trascura l'oscuramento al bordo della stella.",
-              "La variabile Raggio del pianeta è espressa in raggi terrestri; Profondità del transito in ppm. Il dominio dello strumento è [0,5; 15]. La relazione implementata è: δ = (R_p/R_s)²."
+              "Ripasso: 51 Pegasi b e i gioviani caldi; velocità radiali, semiampiezza e massa minima; transiti, profondità, durata e probabilità geometrica; Kepler, TESS e falsi positivi; microlenti, immagini dirette, astrometria e tempi; super-Terre, sub-Nettuni e valle dei raggi; PLATO, Roman, ELT e Habitable Worlds Observatory.",
+              "Mini esercizio: un pianeta di 2 raggi terrestri davanti al Sole produce un transito di circa 4 · 84 ≈ 336 parti per milione, quattro volte quello della Terra.",
+              "Nelle domande ricorda che la profondità del transito è proporzionale al quadrato del raggio del pianeta e inversamente proporzionale al quadrato del raggio della stella, e che le velocità radiali danno la massa minima."
             ],
             "advanced": [
-              "Calcola il raggio di un pianeta che produce un transito di 1000 ppm davanti al Sole e davanti a una nana rossa di 0,2 raggi solari.",
-              "Disco stellare uniforme e transito centrale; trascura l'oscuramento al bordo e la luce del pianeta."
+              "Ripasso: 51 Pegasi b e i gioviani caldi; velocità radiali, semiampiezza e massa minima; transiti, profondità, durata e probabilità geometrica; Kepler, TESS e falsi positivi; microlenti, immagini dirette, astrometria e tempi; super-Terre, sub-Nettuni e valle dei raggi; PLATO, Roman, ELT e Habitable Worlds Observatory.",
+              "Mini esercizio: un pianeta di 2 raggi terrestri davanti al Sole produce un transito di circa 4 · 84 ≈ 336 parti per milione, quattro volte quello della Terra.",
+              "Nelle domande ricorda che la profondità del transito è proporzionale al quadrato del raggio del pianeta e inversamente proporzionale al quadrato del raggio della stella, e che le velocità radiali danno la massa minima."
             ]
           }
         },
         {
           "label": "COLLEGA",
-          "title": "Conclusione e nuova domanda",
+          "title": "Collegamenti",
           "text": {
             "base": [
-              "Nel diario distingui previsione, risultato e interpretazione. Transito geometrico senza oscuramento al bordo.",
-              "Disco stellare uniforme e transito centrale; trascura l'oscuramento al bordo e la luce del pianeta.",
-              "Collegamento consigliato: math-c11. Il completamento registra attività e autoverifica, non certifica competenze."
+              "Le orbite collegano questa unità a «Orbite circolari»; la zona abitabile a «La zona abitabile»; le stelle piccole ad «Abitabilità attorno alle nane rosse». In biologia il percorso prosegue con lo studio della luce che attraversa le atmosfere dei pianeti in transito, in «Atmosfere degli esopianeti e JWST».",
+              "Riepilogo dell’unità: velocità radiali per la massa minima, transiti per il raggio, insieme per la densità; probabilità geometrica dei transiti; falsi positivi e validazione; metodi complementari; pianeti più comuni con raggi fra uno e quattro raggi terrestri; nuove missioni per trovare gemelli della Terra attorno a stelle simili al Sole.",
+              "Nel diario registra A e B con le previsioni e calcola il raggio di un pianeta che produce un transito di 1000 parti per milione davanti al Sole: circa 22 000 km, cioè circa 3,5 raggi terrestri."
             ],
             "intermediate": [
-              "Disco del pianeta πR_p² e disco della stella πR_s²: il loro rapporto è la frazione di luce bloccata, se si trascura l'oscuramento al bordo della stella.",
-              "Disco stellare uniforme e transito centrale; trascura l'oscuramento al bordo e la luce del pianeta.",
-              "Calcola il raggio di un pianeta che produce un transito di 1000 ppm davanti al Sole e davanti a una nana rossa di 0,2 raggi solari."
+              "Le orbite collegano questa unità a «Orbite circolari»; la zona abitabile a «La zona abitabile»; le stelle piccole ad «Abitabilità attorno alle nane rosse». In biologia il percorso prosegue con lo studio della luce che attraversa le atmosfere dei pianeti in transito, in «Atmosfere degli esopianeti e JWST».",
+              "Riepilogo dell’unità: velocità radiali per la massa minima, transiti per il raggio, insieme per la densità; probabilità geometrica dei transiti; falsi positivi e validazione; metodi complementari; pianeti più comuni con raggi fra uno e quattro raggi terrestri; nuove missioni per trovare gemelli della Terra attorno a stelle simili al Sole.",
+              "Nel diario registra A e B con le previsioni e calcola il raggio di un pianeta che produce un transito di 1000 parti per milione davanti al Sole: circa 22 000 km, cioè circa 3,5 raggi terrestri."
             ],
             "advanced": [
-              "Calcola il raggio di un pianeta che produce un transito di 1000 ppm davanti al Sole e davanti a una nana rossa di 0,2 raggi solari.",
-              "Disco stellare uniforme e transito centrale; trascura l'oscuramento al bordo e la luce del pianeta.",
-              "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+              "Le orbite collegano questa unità a «Orbite circolari»; la zona abitabile a «La zona abitabile»; le stelle piccole ad «Abitabilità attorno alle nane rosse». In biologia il percorso prosegue con lo studio della luce che attraversa le atmosfere dei pianeti in transito, in «Atmosfere degli esopianeti e JWST».",
+              "Riepilogo dell’unità: velocità radiali per la massa minima, transiti per il raggio, insieme per la densità; probabilità geometrica dei transiti; falsi positivi e validazione; metodi complementari; pianeti più comuni con raggi fra uno e quattro raggi terrestri; nuove missioni per trovare gemelli della Terra attorno a stelle simili al Sole.",
+              "Nel diario registra A e B con le previsioni e calcola il raggio di un pianeta che produce un transito di 1000 parti per milione davanti al Sole: circa 22 000 km, cioè circa 3,5 raggi terrestri."
             ]
           }
         }
       ],
       "questions": [
         {
-          "id": "biology-31-concept",
-          "prompt": "Se il raggio del pianeta raddoppia, la profondità del transito:",
+          "id": "biology-31-q1",
+          "prompt": "Se il raggio di un pianeta raddoppia, davanti alla stessa stella la profondità del transito:",
           "options": [
             {
               "id": "A",
-              "text": "Quadruplica",
-              "feedback": "Durante un transito il pianeta copre una frazione del disco stellare pari al rapporto delle aree: δ = (R_p/R_s)². Pianeti piccoli davanti a stelle piccole producono segnali più grandi."
+              "text": "Raddoppia",
+              "feedback": "La profondità è il rapporto delle aree, proporzionale al quadrato del raggio."
             },
             {
               "id": "B",
-              "text": "Raddoppia",
-              "feedback": "Un transito si vede solo se l'orbita è allineata con la linea di vista, il che accade per una piccola frazione dei sistemi."
+              "text": "Quadruplica",
+              "feedback": "Esatto: δ = (Rp/Rs)² cresce con il quadrato del raggio del pianeta."
             },
             {
               "id": "C",
               "text": "Resta uguale",
-              "feedback": "Disco del pianeta πR_p² e disco della stella πR_s²: il loro rapporto è la frazione di luce bloccata, se si trascura l'oscuramento al bordo della stella."
+              "feedback": "Un pianeta più grande copre una parte maggiore del disco della stella."
+            },
+            {
+              "id": "D",
+              "text": "Si dimezza",
+              "feedback": "Un disco più grande blocca più luce, e il calo aumenta."
+            }
+          ],
+          "correct": "B"
+        },
+        {
+          "id": "biology-31-q2",
+          "prompt": "Qual è la probabilità che un pianeta come la Terra, a 1 UA da una stella come il Sole, mostri transiti a un osservatore a caso?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Circa il 50 per cento",
+              "feedback": "Il transito richiede un’orbita vista quasi di taglio, entro una fascia stretta."
+            },
+            {
+              "id": "B",
+              "text": "Circa il 10 per cento",
+              "feedback": "È il valore per un gioviano caldo a 0,05 UA, con un’orbita molto più stretta."
+            },
+            {
+              "id": "C",
+              "text": "Circa lo 0,5 per cento",
+              "feedback": "Esatto: la probabilità è circa Rs/a, lo 0,47 per cento."
+            },
+            {
+              "id": "D",
+              "text": "Circa una su un milione",
+              "feedback": "È molto più alta: circa una stella ogni 215."
+            }
+          ],
+          "correct": "C"
+        },
+        {
+          "id": "biology-31-q3",
+          "prompt": "Che cosa misura il metodo delle velocità radiali, da solo?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Il raggio del pianeta",
+              "feedback": "Il raggio si ricava dal transito, dalla profondità del calo di luce."
+            },
+            {
+              "id": "B",
+              "text": "La massa minima del pianeta, m sin i",
+              "feedback": "Esatto: senza l’inclinazione dell’orbita si ottiene un limite inferiore della massa."
+            },
+            {
+              "id": "C",
+              "text": "La temperatura della superficie del pianeta",
+              "feedback": "Le velocità radiali misurano il moto della stella, causato dalla gravità del pianeta."
+            },
+            {
+              "id": "D",
+              "text": "La composizione dell’atmosfera",
+              "feedback": "L’atmosfera si studia con la spettroscopia dei transiti o delle immagini dirette."
+            }
+          ],
+          "correct": "B"
+        },
+        {
+          "id": "biology-31-q4",
+          "prompt": "Perché i primi pianeti trovati con le velocità radiali erano quasi tutti gioviani caldi?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Perché sono i pianeti più comuni",
+              "feedback": "Girano attorno a circa l’1 per cento delle stelle simili al Sole."
+            },
+            {
+              "id": "B",
+              "text": "Perché producono i segnali più grandi, essendo massicci e vicini alla stella",
+              "feedback": "Esatto: la semiampiezza cresce con la massa e diminuisce con il periodo."
+            },
+            {
+              "id": "C",
+              "text": "Perché sono i più luminosi",
+              "feedback": "Le velocità radiali misurano la luce della stella e le sue righe spettrali."
+            },
+            {
+              "id": "D",
+              "text": "Perché sono lontani dalla stella",
+              "feedback": "Sono vicinissimi, con periodi di pochi giorni."
+            }
+          ],
+          "correct": "B"
+        },
+        {
+          "id": "biology-31-q5",
+          "prompt": "Quale fenomeno può imitare il transito di un pianeta?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Una binaria a eclisse di sfondo che cade nello stesso pixel della stella",
+              "feedback": "Esatto: diluita dalla luce della stella, la sua eclisse sembra un transito poco profondo."
+            },
+            {
+              "id": "B",
+              "text": "La rotazione della Terra",
+              "feedback": "La rotazione della Terra causa l’alternarsi di giorno e notte, gestito dalle osservazioni dallo spazio."
+            },
+            {
+              "id": "C",
+              "text": "L’effetto Doppler",
+              "feedback": "L’effetto Doppler sposta le righe dello spettro e lascia invariata la luminosità."
+            },
+            {
+              "id": "D",
+              "text": "La parallasse",
+              "feedback": "La parallasse sposta la posizione apparente della stella, senza cambiarne la luce."
             }
           ],
           "correct": "A"
         },
         {
-          "id": "biology-31-calculation",
-          "prompt": "Calcolo: Raggio della stella (a)=1 raggi solari. Per Raggio del pianeta=1 raggi terrestri, quanto vale Profondità del transito?",
+          "id": "biology-31-q6",
+          "prompt": "Che cos’è la valle dei raggi?",
           "options": [
             {
               "id": "A",
-              "text": "125,795 ppm",
-              "feedback": "Questo valore non soddisfa la relazione. δ = (R_p/R_s)². Con Raggio della stella (a)=1 raggi solari e Raggio del pianeta=1 raggi terrestri, il risultato è 83,8632 ppm. Conserva le unità e arrotonda solo alla fine."
+              "text": "Un intervallo di raggi, fra circa 1,5 e 2 raggi terrestri, in cui i pianeti sono relativamente rari",
+              "feedback": "Esatto: la separa la perdita dell’involucro di idrogeno ed elio dei pianeti più piccoli e vicini."
             },
             {
               "id": "B",
-              "text": "41,9316 ppm",
-              "feedback": "Controlla sostituzione, segno e unità. δ = (R_p/R_s)². Con Raggio della stella (a)=1 raggi solari e Raggio del pianeta=1 raggi terrestri, il risultato è 83,8632 ppm. Conserva le unità e arrotonda solo alla fine."
+              "text": "La regione attorno a una stella in cui l’acqua è liquida",
+              "feedback": "Questa regione è la zona abitabile, definita dal flusso della stella."
             },
             {
               "id": "C",
-              "text": "83,8632 ppm",
-              "feedback": "δ = (R_p/R_s)². Con Raggio della stella (a)=1 raggi solari e Raggio del pianeta=1 raggi terrestri, il risultato è 83,8632 ppm. Conserva le unità e arrotonda solo alla fine."
+              "text": "Il calo della luce durante un transito",
+              "feedback": "La frazione di luce bloccata durante un transito è la profondità del transito."
+            },
+            {
+              "id": "D",
+              "text": "L’intervallo di periodi in cui i pianeti mancano",
+              "feedback": "La valle riguarda i raggi dei pianeti."
             }
           ],
-          "correct": "C",
-          "numeric": {
-            "x": 1,
-            "parameters": {
-              "a": 1
-            },
-            "expected": 83.86315626728506,
-            "unit": "ppm"
-          }
-        },
-        {
-          "id": "biology-31-transfer",
-          "prompt": "Trasferimento: Raggio della stella (a)=1,01 raggi solari. Per Raggio del pianeta=1 raggi terrestri, quanto vale Profondità del transito?",
-          "options": [
-            {
-              "id": "A",
-              "text": "41,1054 ppm",
-              "feedback": "Controlla sostituzione, segno e unità. δ = (R_p/R_s)². Con Raggio della stella (a)=1,01 raggi solari e Raggio del pianeta=1 raggi terrestri, il risultato è 82,2107 ppm. Conserva le unità e arrotonda solo alla fine."
-            },
-            {
-              "id": "B",
-              "text": "82,2107 ppm",
-              "feedback": "δ = (R_p/R_s)². Con Raggio della stella (a)=1,01 raggi solari e Raggio del pianeta=1 raggi terrestri, il risultato è 82,2107 ppm. Conserva le unità e arrotonda solo alla fine."
-            },
-            {
-              "id": "C",
-              "text": "123,316 ppm",
-              "feedback": "Questo valore non soddisfa la relazione. δ = (R_p/R_s)². Con Raggio della stella (a)=1,01 raggi solari e Raggio del pianeta=1 raggi terrestri, il risultato è 82,2107 ppm. Conserva le unità e arrotonda solo alla fine."
-            }
-          ],
-          "correct": "B",
-          "numeric": {
-            "x": 1,
-            "parameters": {
-              "a": 1.01
-            },
-            "expected": 82.2107207796148,
-            "unit": "ppm"
-          }
-        },
-        {
-          "id": "biology-31-limits",
-          "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-          "options": [
-            {
-              "id": "A",
-              "text": "Riproduce ogni dettaglio del pianeta reale",
-              "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Disco stellare uniforme e transito centrale; trascura l'oscuramento al bordo e la luce del pianeta."
-            },
-            {
-              "id": "B",
-              "text": "Basta il grafico per provare una legge universale",
-              "feedback": "Una visualizzazione non è una dimostrazione universale. Disco stellare uniforme e transito centrale; trascura l'oscuramento al bordo e la luce del pianeta."
-            },
-            {
-              "id": "C",
-              "text": "Transito geometrico senza oscuramento al bordo",
-              "feedback": "Disco stellare uniforme e transito centrale; trascura l'oscuramento al bordo e la luce del pianeta."
-            }
-          ],
-          "correct": "C"
+          "correct": "A"
         }
       ]
     },
