@@ -5,268 +5,341 @@
   "title": "Energia, enzimi e catalisi",
   "sector": 3,
   "modelId": "biology-08",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Michaelis-Menten nelle ipotesi dichiarate",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Sistemi aperti, energia di Gibbs, idrolisi dell’ATP e accoppiamento, energia di attivazione e legge di Arrhenius, catalizzatori ed equilibrio, enzimi e curva di Michaelis e Menten, inibitori, temperatura e pH, catalizzatori primordiali",
+  "narrativeStatus": "Energie, velocità e fattori di accelerazione sono dati pubblicati; il modello usa la curva di Michaelis e Menten con velocità iniziali.",
   "objectives": [
-    "Spiegare: michaelis-menten nelle ipotesi dichiarate.",
-    "Applicare v = V_max [S]/(K_m+[S]), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Calcolare ΔG di una reazione dalle concentrazioni e spiegare l’accoppiamento con l’ATP.",
+    "Collegare la riduzione dell’energia di attivazione al fattore di accelerazione.",
+    "Usare la curva di Michaelis e Menten e interpretare K_m e V_max.",
+    "Descrivere l’effetto degli inibitori e i possibili catalizzatori primordiali."
   ],
   "prerequisites": [
     "biology-07"
   ],
   "connections": [
+    "chemistry-16",
     "chemistry-18"
   ],
   "sources": [
-    "biology"
+    "biology",
+    "chemistry"
   ],
   "originalSource": null,
   "glossary": [
     {
-      "term": "Substrato",
-      "definition": "Variabile indipendente, unità mmol/L; intervallo [0; 10]."
+      "term": "Energia di Gibbs",
+      "definition": "Grandezza la cui diminuzione indica che una reazione procede spontaneamente."
     },
     {
-      "term": "Velocità iniziale",
-      "definition": "Risultato calcolato dal modello, unità μmol/min."
+      "term": "Energia di attivazione",
+      "definition": "Barriera energetica che i reagenti devono superare per trasformarsi in prodotti."
     },
     {
-      "term": "Velocità massima",
-      "definition": "Parametro a, unità μmol/min; intervallo [5; 30]."
+      "term": "Enzima",
+      "definition": "Catalizzatore biologico, quasi sempre una proteina, che lega il substrato nel sito attivo."
     },
     {
-      "term": "Costante K_m",
-      "definition": "Parametro b, unità mmol/L; intervallo [0,5; 5]."
+      "term": "Costante di Michaelis",
+      "definition": "Concentrazione di substrato alla quale l’enzima lavora a metà della velocità massima."
+    },
+    {
+      "term": "Numero di turnover",
+      "definition": "Molecole di substrato trasformate al secondo da una molecola di enzima saturato."
+    },
+    {
+      "term": "Inibitore competitivo",
+      "definition": "Molecola che occupa il sito attivo e aumenta la costante di Michaelis apparente."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Settantotto milioni di anni",
       "text": {
         "base": [
-          "Le reazioni della chimica prebiotica erano lentissime. La stazione confronta la velocità di una reazione catalizzata da un enzima con quella che avrebbe senza catalizzatore.",
-          "Un catalizzatore abbassa l'energia di attivazione senza cambiare l'energia di Gibbs della reazione. Per un enzima la velocità iniziale segue v = V_max[S]/(K_m + [S]) e satura a V_max."
+          "Senza catalizzatore la decarbossilazione dell’orotidina monofosfato, un passaggio della sintesi dei nucleotidi, ha un tempo di dimezzamento di circa 78 milioni di anni a 25 °C. L’enzima che la catalizza la compie in una frazione di secondo: la accelera di circa cento milioni di miliardi di volte. Ogni cellula vive grazie a migliaia di reazioni di questo tipo, possibili in tempi utili solo perché qualcosa le accelera.",
+          "Un organismo è un sistema aperto: assorbe energia e materia, le trasforma e restituisce calore e rifiuti all’ambiente. Una persona adulta consuma circa 8400 kJ al giorno, una potenza media di circa 97 W, simile a quella di una lampadina a incandescenza. Il metabolismo è l’insieme delle reazioni che usano questa energia."
         ],
         "intermediate": [
-          "Le reazioni della chimica prebiotica erano lentissime. La stazione confronta la velocità di una reazione catalizzata da un enzima con quella che avrebbe senza catalizzatore.",
-          "Ponendo [S] = K_m si ottiene v = V_max/2: K_m è la concentrazione di substrato a cui l'enzima lavora a metà della velocità massima."
+          "Senza catalizzatore la decarbossilazione dell’orotidina monofosfato, un passaggio della sintesi dei nucleotidi, ha un tempo di dimezzamento di circa 78 milioni di anni a 25 °C. L’enzima che la catalizza la compie in una frazione di secondo: la accelera di circa cento milioni di miliardi di volte. Ogni cellula vive grazie a migliaia di reazioni di questo tipo, possibili in tempi utili solo perché qualcosa le accelera.",
+          "Un organismo è un sistema aperto: assorbe energia e materia, le trasforma e restituisce calore e rifiuti all’ambiente. Una persona adulta consuma circa 8400 kJ al giorno, una potenza media di circa 97 W, simile a quella di una lampadina a incandescenza. Il metabolismo è l’insieme delle reazioni che usano questa energia."
         ],
         "advanced": [
-          "Le reazioni della chimica prebiotica erano lentissime. La stazione confronta la velocità di una reazione catalizzata da un enzima con quella che avrebbe senza catalizzatore.",
-          "Confronta l'effetto di raddoppiare V_max con quello di dimezzare K_m; poi discuti quali ioni metallici dei minerali potevano svolgere il ruolo dei primi catalizzatori.",
-          "Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività."
+          "Senza catalizzatore la decarbossilazione dell’orotidina monofosfato, un passaggio della sintesi dei nucleotidi, ha un tempo di dimezzamento di circa 78 milioni di anni a 25 °C. L’enzima che la catalizza la compie in una frazione di secondo: la accelera di circa cento milioni di miliardi di volte. Ogni cellula vive grazie a migliaia di reazioni di questo tipo, possibili in tempi utili solo perché qualcosa le accelera.",
+          "Un organismo è un sistema aperto: assorbe energia e materia, le trasforma e restituisce calore e rifiuti all’ambiente. Una persona adulta consuma circa 8400 kJ al giorno, una potenza media di circa 97 W, simile a quella di una lampadina a incandescenza. Il metabolismo è l’insieme delle reazioni che usano questa energia.",
+          "Le domande del capitolo riguardano anche l’origine della vita: prima delle proteine, quali catalizzatori potevano accelerare le reazioni prebiotiche? Metalli, superfici minerali e molecole di RNA sono i candidati principali."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Energia, barriere ed enzimi",
       "text": {
         "base": [
-          "Un catalizzatore abbassa l'energia di attivazione senza cambiare l'energia di Gibbs della reazione. Per un enzima la velocità iniziale segue v = V_max[S]/(K_m + [S]) e satura a V_max.",
-          "Con V_max = 10 μmol/min e K_m = 2 mmol/L, a [S] = 2 mmol/L la velocità è 5 μmol/min; a 10 mmol/L è circa 8,3 μmol/min."
+          "Una reazione procede spontaneamente se l’energia di Gibbs diminuisce, ΔG < 0. Il valore effettivo dipende dalle concentrazioni, ΔG = ΔG° + RT ln Q. L’idrolisi dell’ATP ha ΔG°′ = −30,5 kJ/mol, ma nelle cellule, dove l’ATP è molto più abbondante dell’ADP, libera circa 50 kJ/mol. Una reazione sfavorevole diventa possibile se è accoppiata all’idrolisi dell’ATP attraverso un intermedio comune.",
+          "La termodinamica dice se una reazione può avvenire, la cinetica quanto in fretta. La velocità dipende dall’energia di attivazione E_a secondo la legge di Arrhenius, k = A e^(−E_a/RT). Un catalizzatore offre un percorso con una barriera più bassa: abbassarla di 10 kJ/mol accelera la reazione di circa 56 volte a 25 °C. Il catalizzatore esce intatto e lascia invariato l’equilibrio.",
+          "Un enzima lega il substrato nel sito attivo e stabilizza lo stato di transizione. Con molto substrato tutti i siti sono occupati e la velocità tende a un massimo, V_max. La curva di Michaelis e Menten, v = V_max [S]/(K_m + [S]), descrive questa saturazione; K_m è la concentrazione alla quale la velocità è metà del massimo."
         ],
         "intermediate": [
-          "Ponendo [S] = K_m si ottiene v = V_max/2: K_m è la concentrazione di substrato a cui l'enzima lavora a metà della velocità massima.",
-          "La variabile Substrato è espressa in mmol/L; Velocità iniziale in μmol/min. Il dominio dello strumento è [0; 10]. La relazione implementata è: v = V_max [S]/(K_m+[S]).",
-          "Con V_max = 10 μmol/min e K_m = 2 mmol/L, a [S] = 2 mmol/L la velocità è 5 μmol/min; a 10 mmol/L è circa 8,3 μmol/min."
+          "Una reazione procede spontaneamente se l’energia di Gibbs diminuisce, ΔG < 0. Il valore effettivo dipende dalle concentrazioni, ΔG = ΔG° + RT ln Q. L’idrolisi dell’ATP ha ΔG°′ = −30,5 kJ/mol, ma nelle cellule, dove l’ATP è molto più abbondante dell’ADP, libera circa 50 kJ/mol. Una reazione sfavorevole diventa possibile se è accoppiata all’idrolisi dell’ATP attraverso un intermedio comune.",
+          "La termodinamica dice se una reazione può avvenire, la cinetica quanto in fretta. La velocità dipende dall’energia di attivazione E_a secondo la legge di Arrhenius, k = A e^(−E_a/RT). Un catalizzatore offre un percorso con una barriera più bassa: abbassarla di 10 kJ/mol accelera la reazione di circa 56 volte a 25 °C. Il catalizzatore esce intatto e lascia invariato l’equilibrio.",
+          "Un enzima lega il substrato nel sito attivo e stabilizza lo stato di transizione. Con molto substrato tutti i siti sono occupati e la velocità tende a un massimo, V_max. La curva di Michaelis e Menten, v = V_max [S]/(K_m + [S]), descrive questa saturazione; K_m è la concentrazione alla quale la velocità è metà del massimo."
         ],
         "advanced": [
-          "Ponendo [S] = K_m si ottiene v = V_max/2: K_m è la concentrazione di substrato a cui l'enzima lavora a metà della velocità massima.",
-          "Confronta l'effetto di raddoppiare V_max con quello di dimezzare K_m; poi discuti quali ioni metallici dei minerali potevano svolgere il ruolo dei primi catalizzatori.",
-          "Un catalizzatore lascia invariata l'energia di Gibbs della reazione. Accelera allo stesso modo la reazione diretta e quella inversa, e quindi è incapace di rendere spontanea una reazione sfavorevole."
+          "Una reazione procede spontaneamente se l’energia di Gibbs diminuisce, ΔG < 0. Il valore effettivo dipende dalle concentrazioni, ΔG = ΔG° + RT ln Q. L’idrolisi dell’ATP ha ΔG°′ = −30,5 kJ/mol, ma nelle cellule, dove l’ATP è molto più abbondante dell’ADP, libera circa 50 kJ/mol. Una reazione sfavorevole diventa possibile se è accoppiata all’idrolisi dell’ATP attraverso un intermedio comune.",
+          "La termodinamica dice se una reazione può avvenire, la cinetica quanto in fretta. La velocità dipende dall’energia di attivazione E_a secondo la legge di Arrhenius, k = A e^(−E_a/RT). Un catalizzatore offre un percorso con una barriera più bassa: abbassarla di 10 kJ/mol accelera la reazione di circa 56 volte a 25 °C. Il catalizzatore esce intatto e lascia invariato l’equilibrio.",
+          "Un enzima lega il substrato nel sito attivo e stabilizza lo stato di transizione. Con molto substrato tutti i siti sono occupati e la velocità tende a un massimo, V_max. La curva di Michaelis e Menten, v = V_max [S]/(K_m + [S]), descrive questa saturazione; K_m è la concentrazione alla quale la velocità è metà del massimo.",
+          "Gli inibitori riducono l’attività: un inibitore competitivo occupa il sito attivo e aumenta K_m apparente senza cambiare V_max, un inibitore non competitivo abbassa V_max. Temperatura e pH hanno un ottimo, oltre il quale l’enzima si denatura. Nel 1976 Harold White notò che molti cofattori contengono un nucleotide e li interpretò come fossili di un metabolismo basato sull’RNA."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio della saturazione",
       "text": {
         "base": [
-          "Nel laboratorio imposta Velocità massima (a): 10 μmol/min; Costante K_m (b): 2 mmol/L. Prima di salvare A, prevedi come cambia Velocità iniziale fra Substrato=2,5 e 5 mmol/L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con V_max = 10 μmol/min e K_m = 2 mmol/L, a [S] = 2 mmol/L la velocità è 5 μmol/min; a 10 mmol/L è circa 8,3 μmol/min.",
-          "La variabile Substrato è espressa in mmol/L; Velocità iniziale in μmol/min. Il dominio dello strumento è [0; 10]. La relazione implementata è: v = V_max [S]/(K_m+[S])."
+          "Nel laboratorio il grafico mostra la velocità iniziale v di una reazione enzimatica in funzione della concentrazione di substrato [S], da 0 a 10 mmol/L, secondo v = V_max [S]/(K_m + [S]). Nella scheda «Regola» cambi V_max, da 5 a 30 μmol/min, e K_m, da 0,5 a 5 mmol/L. Con i valori predefiniti, V_max = 10 μmol/min e K_m = 2 mmol/L, la velocità vale 5 μmol/min proprio per [S] = 2 mmol/L.",
+          "Protocollo. Il programma confronta due concentrazioni fissate, 2,5 e 5 mmol/L. Con i valori predefiniti prevedi se la velocità cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta K_m a 4 mmol/L, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con K_m = 2 mmol/L la velocità passa da circa 5,56 a 7,14 μmol/min: raddoppiare il substrato aumenta la velocità di meno del 30%, perché l’enzima è già vicino alla saturazione. Con K_m = 4 mmol/L passa da circa 3,85 a 5,56 μmol/min, con un aumento maggiore. Con V_max = 20 μmol/min i valori raddoppiano, circa 11,1 e 14,3, e la forma della curva resta la stessa."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Velocità massima (a): 10 μmol/min; Costante K_m (b): 2 mmol/L. Prima di salvare A, prevedi come cambia Velocità iniziale fra Substrato=2,5 e 5 mmol/L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Substrato è espressa in mmol/L; Velocità iniziale in μmol/min. Il dominio dello strumento è [0; 10]. La relazione implementata è: v = V_max [S]/(K_m+[S]).",
-          "Ponendo [S] = K_m si ottiene v = V_max/2: K_m è la concentrazione di substrato a cui l'enzima lavora a metà della velocità massima."
+          "Nel laboratorio il grafico mostra la velocità iniziale v di una reazione enzimatica in funzione della concentrazione di substrato [S], da 0 a 10 mmol/L, secondo v = V_max [S]/(K_m + [S]). Nella scheda «Regola» cambi V_max, da 5 a 30 μmol/min, e K_m, da 0,5 a 5 mmol/L. Con i valori predefiniti, V_max = 10 μmol/min e K_m = 2 mmol/L, la velocità vale 5 μmol/min proprio per [S] = 2 mmol/L.",
+          "Protocollo. Il programma confronta due concentrazioni fissate, 2,5 e 5 mmol/L. Con i valori predefiniti prevedi se la velocità cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta K_m a 4 mmol/L, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con K_m = 2 mmol/L la velocità passa da circa 5,56 a 7,14 μmol/min: raddoppiare il substrato aumenta la velocità di meno del 30%, perché l’enzima è già vicino alla saturazione. Con K_m = 4 mmol/L passa da circa 3,85 a 5,56 μmol/min, con un aumento maggiore. Con V_max = 20 μmol/min i valori raddoppiano, circa 11,1 e 14,3, e la forma della curva resta la stessa."
         ],
         "advanced": [
-          "Nel laboratorio imposta Velocità massima (a): 10 μmol/min; Costante K_m (b): 2 mmol/L. Prima di salvare A, prevedi come cambia Velocità iniziale fra Substrato=2,5 e 5 mmol/L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta l'effetto di raddoppiare V_max con quello di dimezzare K_m; poi discuti quali ioni metallici dei minerali potevano svolgere il ruolo dei primi catalizzatori.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra la velocità iniziale v di una reazione enzimatica in funzione della concentrazione di substrato [S], da 0 a 10 mmol/L, secondo v = V_max [S]/(K_m + [S]). Nella scheda «Regola» cambi V_max, da 5 a 30 μmol/min, e K_m, da 0,5 a 5 mmol/L. Con i valori predefiniti, V_max = 10 μmol/min e K_m = 2 mmol/L, la velocità vale 5 μmol/min proprio per [S] = 2 mmol/L.",
+          "Protocollo. Il programma confronta due concentrazioni fissate, 2,5 e 5 mmol/L. Con i valori predefiniti prevedi se la velocità cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta K_m a 4 mmol/L, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+          "Che cosa osservare. Con K_m = 2 mmol/L la velocità passa da circa 5,56 a 7,14 μmol/min: raddoppiare il substrato aumenta la velocità di meno del 30%, perché l’enzima è già vicino alla saturazione. Con K_m = 4 mmol/L passa da circa 3,85 a 5,56 μmol/min, con un aumento maggiore. Con V_max = 20 μmol/min i valori raddoppiano, circa 11,1 e 14,3, e la forma della curva resta la stessa.",
+          "Una prova a casa: pezzetti di patata cruda in acqua ossigenata producono una schiuma di ossigeno, perché la catalasi decompone il perossido di idrogeno. Patata bollita non fa schiuma, perché l’enzima è denaturato; il doppio della patata, e quindi dell’enzima, dà una schiuma circa doppia, come previsto da V_max proporzionale alla quantità di enzima."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e primi catalizzatori",
       "text": {
         "base": [
-          "Un catalizzatore lascia invariata l'energia di Gibbs della reazione. Accelera allo stesso modo la reazione diretta e quella inversa, e quindi è incapace di rendere spontanea una reazione sfavorevole.",
-          "Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che un enzima renda favorevole una reazione sfavorevole. Il catalizzatore accelera la reazione diretta e quella inversa dello stesso fattore, e la costante di equilibrio resta quella di prima. Una reazione con ΔG > 0 diventa possibile solo se è accoppiata a una reazione che libera più energia, come l’idrolisi dell’ATP.",
+          "Secondo errore: credere che la velocità cresca in proporzione al substrato senza limiti. Questo vale solo per [S] molto minore di K_m; per [S] = 9 K_m la velocità è già il 90% del massimo, per [S] = 99 K_m il 99%. Aggiungere substrato a un enzima saturo serve a poco: per andare più veloci serve più enzima."
         ],
         "intermediate": [
-          "Un catalizzatore lascia invariata l'energia di Gibbs della reazione. Accelera allo stesso modo la reazione diretta e quella inversa, e quindi è incapace di rendere spontanea una reazione sfavorevole.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che un enzima renda favorevole una reazione sfavorevole. Il catalizzatore accelera la reazione diretta e quella inversa dello stesso fattore, e la costante di equilibrio resta quella di prima. Una reazione con ΔG > 0 diventa possibile solo se è accoppiata a una reazione che libera più energia, come l’idrolisi dell’ATP.",
+          "Secondo errore: credere che la velocità cresca in proporzione al substrato senza limiti. Questo vale solo per [S] molto minore di K_m; per [S] = 9 K_m la velocità è già il 90% del massimo, per [S] = 99 K_m il 99%. Aggiungere substrato a un enzima saturo serve a poco: per andare più veloci serve più enzima.",
+          "Un errore di lettura: K_m piccolo indica un enzima che si satura a basse concentrazioni, non un enzima lento. La velocità per molecola di enzima è k_cat, il numero di turnover; la catalasi e l’anidrasi carbonica arrivano a milioni di reazioni al secondo. L’efficienza con poco substrato è misurata dal rapporto k_cat/K_m."
         ],
         "advanced": [
-          "Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività.",
-          "Confronta l'effetto di raddoppiare V_max con quello di dimezzare K_m; poi discuti quali ioni metallici dei minerali potevano svolgere il ruolo dei primi catalizzatori.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che un enzima renda favorevole una reazione sfavorevole. Il catalizzatore accelera la reazione diretta e quella inversa dello stesso fattore, e la costante di equilibrio resta quella di prima. Una reazione con ΔG > 0 diventa possibile solo se è accoppiata a una reazione che libera più energia, come l’idrolisi dell’ATP.",
+          "Secondo errore: credere che la velocità cresca in proporzione al substrato senza limiti. Questo vale solo per [S] molto minore di K_m; per [S] = 9 K_m la velocità è già il 90% del massimo, per [S] = 99 K_m il 99%. Aggiungere substrato a un enzima saturo serve a poco: per andare più veloci serve più enzima.",
+          "Un errore di lettura: K_m piccolo indica un enzima che si satura a basse concentrazioni, non un enzima lento. La velocità per molecola di enzima è k_cat, il numero di turnover; la catalasi e l’anidrasi carbonica arrivano a milioni di reazioni al secondo. L’efficienza con poco substrato è misurata dal rapporto k_cat/K_m.",
+          "I primi catalizzatori furono probabilmente più semplici delle proteine: nel 2020 il gruppo di Martin Preiner a Düsseldorf mostrò che minerali di nichel e ferro riducono il diossido di carbonio a formiato, acetato e piruvato con idrogeno e acqua calda, prodotti che coincidono con quelli di una via metabolica antica."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Un catalizzatore abbassa l'energia di attivazione senza cambiare l'energia di Gibbs della reazione. Per un enzima la velocità iniziale segue v = V_max[S]/(K_m + [S]) e satura a V_max.",
-          "Con V_max = 10 μmol/min e K_m = 2 mmol/L, a [S] = 2 mmol/L la velocità è 5 μmol/min; a 10 mmol/L è circa 8,3 μmol/min."
+          "Ripasso: sistemi aperti e potenza metabolica; energia di Gibbs ed equazione ΔG = ΔG° + RT ln Q; idrolisi dell’ATP e accoppiamento; energia di attivazione e legge di Arrhenius; catalizzatori ed equilibrio; enzimi, sito attivo, curva di Michaelis e Menten; inibitori; metalli, cofattori e ribozimi.",
+          "Mini esercizio: con V_max = 10 μmol/min e K_m = 2 mmol/L, per [S] = 10 mmol/L la velocità vale 10·10/12, circa 8,33 μmol/min; un inibitore competitivo che triplica K_m la riduce per [S] = 2 mmol/L da 5 a 2,5 μmol/min.",
+          "Nelle domande ricorda che il catalizzatore cambia la velocità e lascia invariato l’equilibrio."
         ],
         "intermediate": [
-          "Ponendo [S] = K_m si ottiene v = V_max/2: K_m è la concentrazione di substrato a cui l'enzima lavora a metà della velocità massima.",
-          "La variabile Substrato è espressa in mmol/L; Velocità iniziale in μmol/min. Il dominio dello strumento è [0; 10]. La relazione implementata è: v = V_max [S]/(K_m+[S])."
+          "Ripasso: sistemi aperti e potenza metabolica; energia di Gibbs ed equazione ΔG = ΔG° + RT ln Q; idrolisi dell’ATP e accoppiamento; energia di attivazione e legge di Arrhenius; catalizzatori ed equilibrio; enzimi, sito attivo, curva di Michaelis e Menten; inibitori; metalli, cofattori e ribozimi.",
+          "Mini esercizio: con V_max = 10 μmol/min e K_m = 2 mmol/L, per [S] = 10 mmol/L la velocità vale 10·10/12, circa 8,33 μmol/min; un inibitore competitivo che triplica K_m la riduce per [S] = 2 mmol/L da 5 a 2,5 μmol/min.",
+          "Nelle domande ricorda che il catalizzatore cambia la velocità e lascia invariato l’equilibrio."
         ],
         "advanced": [
-          "Confronta l'effetto di raddoppiare V_max con quello di dimezzare K_m; poi discuti quali ioni metallici dei minerali potevano svolgere il ruolo dei primi catalizzatori.",
-          "Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività."
+          "Ripasso: sistemi aperti e potenza metabolica; energia di Gibbs ed equazione ΔG = ΔG° + RT ln Q; idrolisi dell’ATP e accoppiamento; energia di attivazione e legge di Arrhenius; catalizzatori ed equilibrio; enzimi, sito attivo, curva di Michaelis e Menten; inibitori; metalli, cofattori e ribozimi.",
+          "Mini esercizio: con V_max = 10 μmol/min e K_m = 2 mmol/L, per [S] = 10 mmol/L la velocità vale 10·10/12, circa 8,33 μmol/min; un inibitore competitivo che triplica K_m la riduce per [S] = 2 mmol/L da 5 a 2,5 μmol/min.",
+          "Nelle domande ricorda che il catalizzatore cambia la velocità e lascia invariato l’equilibrio."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Michaelis-Menten nelle ipotesi dichiarate.",
-          "Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività.",
-          "Collegamento consigliato: chemistry-18. Il completamento registra attività e autoverifica, non certifica competenze."
+          "L’energia di Gibbs e le costanti di equilibrio sono i temi delle unità di chimica «Termochimica e calorimetria» ed «Equilibrio chimico», la legge di Arrhenius dell’unità «Temperatura e attivazione». In biologia il percorso prosegue con le sorgenti idrotermali, dove gradienti chimici e minerali catalitici potrebbero aver avviato il metabolismo, e con il mondo a RNA, dove le stesse molecole erano geni e catalizzatori.",
+          "Riepilogo dell’unità: una reazione è spontanea se ΔG < 0; l’ATP nelle cellule libera circa 50 kJ/mol; ridurre la barriera di ΔE_a moltiplica la velocità per e^(ΔE_a/RT); gli enzimi si saturano secondo la curva di Michaelis e Menten; gli inibitori cambiano K_m o V_max; minerali e cofattori suggeriscono come lavoravano i primi catalizzatori.",
+          "Nel diario registra A e B con le previsioni e calcola, per i due valori di K_m, la concentrazione di substrato alla quale la velocità raggiunge il 90% del massimo."
         ],
         "intermediate": [
-          "Ponendo [S] = K_m si ottiene v = V_max/2: K_m è la concentrazione di substrato a cui l'enzima lavora a metà della velocità massima.",
-          "Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività.",
-          "Confronta l'effetto di raddoppiare V_max con quello di dimezzare K_m; poi discuti quali ioni metallici dei minerali potevano svolgere il ruolo dei primi catalizzatori."
+          "L’energia di Gibbs e le costanti di equilibrio sono i temi delle unità di chimica «Termochimica e calorimetria» ed «Equilibrio chimico», la legge di Arrhenius dell’unità «Temperatura e attivazione». In biologia il percorso prosegue con le sorgenti idrotermali, dove gradienti chimici e minerali catalitici potrebbero aver avviato il metabolismo, e con il mondo a RNA, dove le stesse molecole erano geni e catalizzatori.",
+          "Riepilogo dell’unità: una reazione è spontanea se ΔG < 0; l’ATP nelle cellule libera circa 50 kJ/mol; ridurre la barriera di ΔE_a moltiplica la velocità per e^(ΔE_a/RT); gli enzimi si saturano secondo la curva di Michaelis e Menten; gli inibitori cambiano K_m o V_max; minerali e cofattori suggeriscono come lavoravano i primi catalizzatori.",
+          "Nel diario registra A e B con le previsioni e calcola, per i due valori di K_m, la concentrazione di substrato alla quale la velocità raggiunge il 90% del massimo."
         ],
         "advanced": [
-          "Confronta l'effetto di raddoppiare V_max con quello di dimezzare K_m; poi discuti quali ioni metallici dei minerali potevano svolgere il ruolo dei primi catalizzatori.",
-          "Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "L’energia di Gibbs e le costanti di equilibrio sono i temi delle unità di chimica «Termochimica e calorimetria» ed «Equilibrio chimico», la legge di Arrhenius dell’unità «Temperatura e attivazione». In biologia il percorso prosegue con le sorgenti idrotermali, dove gradienti chimici e minerali catalitici potrebbero aver avviato il metabolismo, e con il mondo a RNA, dove le stesse molecole erano geni e catalizzatori.",
+          "Riepilogo dell’unità: una reazione è spontanea se ΔG < 0; l’ATP nelle cellule libera circa 50 kJ/mol; ridurre la barriera di ΔE_a moltiplica la velocità per e^(ΔE_a/RT); gli enzimi si saturano secondo la curva di Michaelis e Menten; gli inibitori cambiano K_m o V_max; minerali e cofattori suggeriscono come lavoravano i primi catalizzatori.",
+          "Nel diario registra A e B con le previsioni e calcola, per i due valori di K_m, la concentrazione di substrato alla quale la velocità raggiunge il 90% del massimo."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-08-concept",
-      "prompt": "Quando [S] = K_m, la velocità vale:",
+      "id": "biology-08-q1",
+      "prompt": "Che effetto ha un catalizzatore sull’equilibrio di una reazione?",
       "options": [
         {
           "id": "A",
-          "text": "V_max",
-          "feedback": "Un catalizzatore lascia invariata l'energia di Gibbs della reazione. Accelera allo stesso modo la reazione diretta e quella inversa, e quindi è incapace di rendere spontanea una reazione sfavorevole."
+          "text": "Sposta l’equilibrio verso i prodotti",
+          "feedback": "Il catalizzatore accelera allo stesso modo la reazione diretta e quella inversa."
         },
         {
           "id": "B",
-          "text": "0",
-          "feedback": "Ponendo [S] = K_m si ottiene v = V_max/2: K_m è la concentrazione di substrato a cui l'enzima lavora a metà della velocità massima."
+          "text": "Lo lascia invariato e fa raggiungere l’equilibrio più in fretta",
+          "feedback": "Esatto: cambia la velocità, mentre la costante di equilibrio resta la stessa."
         },
         {
           "id": "C",
-          "text": "V_max/2",
-          "feedback": "Un catalizzatore abbassa l'energia di attivazione senza cambiare l'energia di Gibbs della reazione. Per un enzima la velocità iniziale segue v = V_max[S]/(K_m + [S]) e satura a V_max."
+          "text": "Rende spontanea una reazione con ΔG positivo",
+          "feedback": "Per questo serve l’accoppiamento con una reazione che libera più energia."
+        },
+        {
+          "id": "D",
+          "text": "Sposta l’equilibrio verso i reagenti",
+          "feedback": "Il catalizzatore esce intatto e non cambia il bilancio energetico."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-08-q2",
+      "prompt": "Perché nelle cellule l’idrolisi dell’ATP libera circa 50 kJ/mol invece di 30,5?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché nelle cellule la temperatura è molto più alta",
+          "feedback": "A 37 °C il termine RT cambia di poco rispetto a 25 °C."
+        },
+        {
+          "id": "B",
+          "text": "Perché le concentrazioni sono lontane da quelle standard, con molto più ATP che ADP",
+          "feedback": "Esatto: il termine RT ln Q è negativo e vale circa −20 kJ/mol."
+        },
+        {
+          "id": "C",
+          "text": "Perché gli enzimi aggiungono energia alla reazione",
+          "feedback": "Gli enzimi accelerano la reazione e lasciano invariato ΔG."
+        },
+        {
+          "id": "D",
+          "text": "Perché l’ATP si scinde in tre fosfati",
+          "feedback": "L’idrolisi considerata produce ADP e un solo fosfato."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-08-q3",
+      "prompt": "A 25 °C un catalizzatore abbassa l’energia di attivazione di 10 kJ/mol. Di quanto accelera la reazione?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Di circa 10 volte",
+          "feedback": "Il fattore cresce in modo esponenziale con la riduzione della barriera."
+        },
+        {
+          "id": "B",
+          "text": "Di circa 2 volte",
+          "feedback": "Questo è circa l’effetto di dieci gradi in più su una barriera di 50 kJ/mol."
+        },
+        {
+          "id": "C",
+          "text": "Di circa 56 volte",
+          "feedback": "Esatto: e elevato a 10 000/(8,314·298), cioè e^4,03, vale circa 56."
+        },
+        {
+          "id": "D",
+          "text": "Di un milione di volte",
+          "feedback": "Per un milione di volte serve una riduzione di circa 34 kJ/mol."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "biology-08-calculation",
-      "prompt": "Calcolo: Velocità massima (a)=10 μmol/min; Costante K_m (b)=2 mmol/L. Per Substrato=2 mmol/L, quanto vale Velocità iniziale?",
+      "id": "biology-08-q4",
+      "prompt": "Con V_max = 10 μmol/min e K_m = 2 mmol/L, quanto vale la velocità per [S] = 2 mmol/L?",
       "options": [
         {
           "id": "A",
-          "text": "2,5 μmol/min",
-          "feedback": "Controlla sostituzione, segno e unità. v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=10 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 5 μmol/min. Conserva le unità e arrotonda solo alla fine."
+          "text": "10 μmol/min",
+          "feedback": "La velocità massima si raggiunge solo a concentrazioni molto maggiori di K_m."
         },
         {
           "id": "B",
           "text": "5 μmol/min",
-          "feedback": "v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=10 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 5 μmol/min. Conserva le unità e arrotonda solo alla fine."
+          "feedback": "Esatto: per [S] = K_m la velocità è metà del massimo."
         },
         {
           "id": "C",
-          "text": "7,5 μmol/min",
-          "feedback": "Questo valore non soddisfa la relazione. v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=10 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 5 μmol/min. Conserva le unità e arrotonda solo alla fine."
+          "text": "2 μmol/min",
+          "feedback": "La velocità non coincide con la concentrazione di substrato."
+        },
+        {
+          "id": "D",
+          "text": "20 μmol/min",
+          "feedback": "La velocità non può superare V_max, il limite della saturazione."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 10,
-          "b": 2
-        },
-        "expected": 5,
-        "unit": "μmol/min"
-      }
+      "correct": "B"
     },
     {
-      "id": "biology-08-transfer",
-      "prompt": "Trasferimento: Velocità massima (a)=15 μmol/min; Costante K_m (b)=2 mmol/L. Per Substrato=2 mmol/L, quanto vale Velocità iniziale?",
+      "id": "biology-08-q5",
+      "prompt": "Un inibitore competitivo aumenta K_m apparente. Che cosa succede a concentrazioni altissime di substrato?",
       "options": [
         {
           "id": "A",
-          "text": "7,5 μmol/min",
-          "feedback": "v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=15 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 7,5 μmol/min. Conserva le unità e arrotonda solo alla fine."
+          "text": "La velocità tende alla stessa V_max di prima",
+          "feedback": "Esatto: con molto substrato il substrato vince la competizione per il sito attivo."
         },
         {
           "id": "B",
-          "text": "11,25 μmol/min",
-          "feedback": "Questo valore non soddisfa la relazione. v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=15 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 7,5 μmol/min. Conserva le unità e arrotonda solo alla fine."
+          "text": "La velocità si azzera",
+          "feedback": "L’inibitore competitivo viene spiazzato dal substrato abbondante."
         },
         {
           "id": "C",
-          "text": "3,75 μmol/min",
-          "feedback": "Controlla sostituzione, segno e unità. v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=15 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 7,5 μmol/min. Conserva le unità e arrotonda solo alla fine."
+          "text": "La velocità tende a metà di V_max",
+          "feedback": "Il dimezzamento di V_max è tipico di un inibitore non competitivo."
+        },
+        {
+          "id": "D",
+          "text": "La velocità supera V_max",
+          "feedback": "V_max dipende dalla quantità di enzima e resta un limite superiore."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 2,
-        "parameters": {
-          "a": 15,
-          "b": 2
-        },
-        "expected": 7.5,
-        "unit": "μmol/min"
-      }
+      "correct": "A"
     },
     {
-      "id": "biology-08-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "biology-08-q6",
+      "prompt": "Perché i cofattori che contengono un nucleotide sono considerati indizi di un metabolismo antico basato sull’RNA?",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività."
+          "text": "Perché catalizzano tutte le reazioni delle cellule moderne",
+          "feedback": "Le cellule moderne usano soprattutto enzimi proteici."
         },
         {
           "id": "B",
-          "text": "Michaelis-Menten nelle ipotesi dichiarate",
-          "feedback": "Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività."
+          "text": "Perché il nucleotide spesso non partecipa alla reazione e sembra un residuo di catalizzatori fatti di RNA",
+          "feedback": "Esatto: è l’interpretazione proposta da Harold White nel 1976."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività."
+          "text": "Perché si formano nelle scariche elettriche dell’esperimento di Miller",
+          "feedback": "L’esperimento di Miller produsse soprattutto amminoacidi."
+        },
+        {
+          "id": "D",
+          "text": "Perché contengono nichel e ferro",
+          "feedback": "I minerali di nichel e ferro sono un’altra classe di catalizzatori primordiali."
         }
       ],
       "correct": "B"

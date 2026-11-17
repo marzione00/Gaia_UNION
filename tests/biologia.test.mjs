@@ -170,3 +170,20 @@ test('Biologia 07: sintesi prebiotica, numeri ricalcolati',()=>{
  // Dice simulation.
  assert.equal(r(6/(1/6),0),36);assert.equal(r(Math.LN2/Math.log(6/5),1),3.8);
 });
+test('Biologia 08: energia, enzimi e catalisi, numeri ricalcolati',()=>{
+ const RT=(T)=>R*T/1000;
+ assert.equal(r(Math.exp(-14200/(R*298.15))*1e3,1),3.3);assert.equal(r(Math.exp(16300/(R*298.15)),-1),720);
+ assert.equal(r(-30.5+RT(310.15)*Math.log(5e-4),0),-50);assert.equal(r(RT(310.15),2),2.58);
+ assert.equal(r(Math.exp(10000/(R*298.15)),1),56.5);assert.equal(r(Math.exp(50000/(R*298.15))/1e8,2),5.75);assert.equal(r(Math.exp(20000/(R*298.15))/1e3,1),3.2);
+ assert.equal(r(RT(298.15)*Math.log(1e6),0),34);assert.equal(r(RT(298.15)*Math.LN10,1),5.7);
+ assert.equal(r(Math.exp(50000/R*(1/298.15-1/308.15)),1),1.9);assert.equal(r(10e-6/60/1e-9,0),167);
+ // OMP decarboxylase (Radzicka and Wolfenden 1995).
+ assert.equal(r(Math.LN2/2.8e-16/3.15576e7/1e6,0),78);assert.equal(r(Math.LN2/2.8e-16,-14),2.5e15);assert.equal(r(39/2.8e-16/1e17,1),1.4);assert.equal(r(RT(298.15)*Math.log(39/2.8e-16),0),98);
+ // ATP turnover and power.
+ assert.equal(r(0.4*8400/50,1),67.2);assert.equal(r(67.2*0.507,0),34);assert.equal(r(8.4e6/86400,0),97);
+ // Michaelis-Menten.
+ const v=(S,V,K)=>V*S/(K+S);
+ assert.equal(v(2,10,2),5);assert.equal(r(v(10,10,2),2),8.33);assert.equal(r(v(2,10,6),1),2.5);assert.equal(r(v(18,10,2)/10,2),0.9);assert.equal(r(v(198,10,2)/10,2),0.99);
+ assert.equal(r(1/0.2,0),5);assert.equal(r(1/v(5,10,2),3),0.14);
+ assert.equal(r(Math.exp(80000/R*(1/298.15-1/373.15)),-1),660);
+});
