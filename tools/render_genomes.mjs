@@ -1,4 +1,4 @@
-/** Writes content/worlds/genomes.json and the raw tiles of the contact sheet (top views of the 100 planets).
+/** Writes content/worlds/genomes.json and the raw tiles of the contact sheet (top views of the explorable planets).
  * Usage: node tools/render_genomes.mjs [tiles-dir]. The PNG sheet is assembled by tools/genome_sheet.py. */
 import fs from 'node:fs';
 import { buildGenomes, genomeDistance, STYLE_NAMES, MIN_DISTANCE } from '../src/worlds/genome.js';
@@ -27,6 +27,6 @@ for (const index of order) {
     const m = byIndex.get(index);
     tiles.push({ index, sector: m.sector, title: m.title, style: STYLE_NAMES[g.style], star: g.star.type, sky: g.atmosphere.sky, moons: g.satellites.moons, rings: g.satellites.rings, pilot: [20, 36, 69, 99].includes(index) });
 }
-let min = 9; for (let i = 0; i < 100; i++) for (let j = i + 1; j < 100; j++) min = Math.min(min, genomeDistance(genomes[i], genomes[j]));
+let min = 9; for (let i = 0; i < genomes.length; i++) for (let j = i + 1; j < genomes.length; j++) min = Math.min(min, genomeDistance(genomes[i], genomes[j]));
 fs.writeFileSync(`${out}/tiles.json`, JSON.stringify({ size: T, tiles, minDistance: min }));
 console.log('tiles', tiles.length, 'min distance', min.toFixed(3));

@@ -4,13 +4,13 @@ Ogni pianeta esplorabile ha una carta d’identità generata da `src/worlds/geno
 
 ## Come si garantisce la diversità
 
-- Ogni famiglia di pianeti ha tre stili di terreno; i quattro pianeti di un’area hanno famiglie diverse e quindi terreni diversi (controllato dai test).
+- Ogni famiglia di pianeti ha tre stili di terreno; i pianeti di un’area, da tre a sei, hanno famiglie diverse e quindi terreni diversi (controllato dai test).
 - Una distanza fra due carte, da 0 (identiche) a circa 1, pesa stile di terreno, famiglia, stella, livello del mare, rilievo, ruvidità, colore delle piante, atmosfera e gravità.
-- Il generatore crea i pianeti in ordine e rigenera i parametri liberi di ciascuno (fino a 160 tentativi) finché è ad almeno 0,2 da tutti i precedenti, oppure tiene il tentativo più lontano. Sui 100 pianeti la distanza minima fra due pianeti qualsiasi è 0,175; i test richiedono almeno 0,17.
+- Il generatore crea i pianeti in ordine e rigenera i parametri liberi di ciascuno (fino a 160 tentativi) finché è ad almeno 0,2 da tutti i precedenti, oppure tiene il tentativo più lontano. Sui 110 pianeti la distanza minima fra due pianeti qualsiasi è 0,175; i test richiedono almeno 0,17.
 
-- I tipi di stella sono cinque (nana rossa M, nana arancione K, nana gialla G, bianco-gialla F, bianco-azzurra A), cinque sistemi per tipo. Il colore della luce è approssimato; il pigmento delle piante cambia con la stella per contrasto, ispirato alle ipotesi di astrobiologia sulle piante sotto stelle diverse.
+- I tipi di stella sono cinque (nana rossa M, nana arancione K, nana gialla G, bianco-gialla F, bianco-azzurra A), cinque sistemi per i tipi K, F e A, sei per i tipi G e M. Il colore della luce è approssimato; il pigmento delle piante cambia con la stella per contrasto, ispirato alle ipotesi di astrobiologia sulle piante sotto stelle diverse.
 
-L’immagine con le 100 vedute dall’alto si rigenera con `node tools/render_genomes.mjs cartella` e `python3 tools/genome_sheet.py cartella foglio.png`. Le colonne «Giorno» dividono le durate in terzi (breve, medio, lungo); «Gravità» è relativa a un pianeta di raggio medio.
+L’immagine con le 110 vedute dall’alto si rigenera con `node tools/render_genomes.mjs cartella` e `python3 tools/genome_sheet.py cartella foglio.png`. Le colonne «Giorno» dividono le durate in terzi (breve, medio, lungo); «Gravità» è relativa a un pianeta di raggio medio.
 
 ## Matematica
 
@@ -68,7 +68,7 @@ L’immagine con le 100 vedute dall’alto si rigenera con `node tools/render_ge
 | Termodinamica e rendimento | Calore e termodinamica | desertico | Mare di dune | M, nana rossa | 5% | sottile | 1,22 | medio | 1 luna | aurora, eclissi |
 | Cariche e campo elettrico | Elettromagnetismo e quanti | oceanico | Fiordi | F, stella bianco-gialla | 53% | media | 1,02 | breve | 0 lune | aurora |
 | Potenziale ed energia elettrica | Elettromagnetismo e quanti | vulcanico | Colate laviche | F, stella bianco-gialla | 15% | densa | 1,12 | medio | 2 lune | aurora, eclissi, tempesta, eruzione di geyser |
-| Circuiti e legge di Ohm | Elettromagnetismo e quanti | desertico | Mare di dune | F, stella bianco-gialla | 8% | sottile | 0,92 | medio | 2 lune | aurora, eclissi |
+| Circuiti e legge di Ohm | Elettromagnetismo e quanti | desertico | Mare di dune | F, stella bianco-gialla | 8% | sottile | 0,92 | lungo | 2 lune | aurora, eclissi |
 | Induzione elettromagnetica | Elettromagnetismo e quanti | terrestre | Colline e fiumi | F, stella bianco-gialla | 37% | media | 1,00 | breve | 0 lune | aurora, tempesta |
 | Fotoni ed energia quantizzata | Elettromagnetismo e quanti | glaciale | Criovulcani | F, stella bianco-gialla | 24% | media | 0,91 | lungo | 2 lune | eclissi, eruzione di geyser |
 
@@ -106,28 +106,38 @@ L’immagine con le 100 vedute dall’alto si rigenera con `node tools/render_ge
 
 | Unità | Area | Famiglia | Terreno | Stella | Mare | Atmosfera | Gravità | Giorno | Lune, anelli | Eventi |
 |---|---|---|---|---|---|---|---|---|---|---|
-| Cellule, scala e superficie | La cellula | glaciale | Banchisa | K, nana arancione | 31% | media | 0,78 | breve | 1 luna | eclissi, eruzione di geyser |
-| Membrane e diffusione | La cellula | desertico | Mese e altipiani | K, nana arancione | 18% | media | 1,16 | medio | 1 luna | aurora, eclissi |
-| Osmosi e bilancio dell’acqua | La cellula | vulcanico | Campo vulcanico | K, nana arancione | 16% | media | 0,74 | breve | 0 lune | aurora, eruzione di geyser |
-| Enzimi e saturazione | Energia della vita | glaciale | Banchisa | M, nana rossa | 46% | media | 1,22 | breve | 1 luna | aurora, eclissi, eruzione di geyser |
-| Metabolismo e bilanci energetici | Energia della vita | terrestre | Altopiani a terrazze | M, nana rossa | 36% | densa | 0,84 | medio | 2 lune | eclissi, tempesta |
-| Fotosintesi e luce | Energia della vita | craterizzato | Pianura di crateri | M, nana rossa | 2% | assente | 0,83 | lungo | 2 lune | eclissi, pioggia di meteoriti |
-| Ciclo cellulare e proliferazione | Divisione ed ereditarietà | glaciale | Criovulcani | A, stella bianco-azzurra | 22% | media | 0,94 | medio | 1 luna | aurora, eclissi, eruzione di geyser |
-| Meiosi e assortimento | Divisione ed ereditarietà | desertico | Mare di dune | A, stella bianco-azzurra | 6% | media | 0,88 | lungo | 2 lune | eclissi |
-| Ereditarietà mendeliana | Divisione ed ereditarietà | terrestre | Pianura alluvionale | A, stella bianco-azzurra | 36% | densa | 0,89 | medio | 2 lune | aurora, eclissi, tempesta |
-| DNA e replicazione | Geni e mutazioni | desertico | Mare di dune | G, nana gialla | 12% | sottile | 1,22 | medio | 2 lune | aurora, eclissi |
-| Espressione genica | Geni e mutazioni | glaciale | Criovulcani | G, nana gialla | 26% | media | 0,98 | lungo | 0 lune | aurora, eruzione di geyser |
-| Mutazioni e probabilità | Geni e mutazioni | craterizzato | Pianura di crateri | G, nana gialla | 3% | assente | 1,02 | lungo | 0 lune | pioggia di meteoriti |
-| Selezione naturale | Evoluzione | glaciale | Criovulcani | K, nana arancione | 36% | media | 1,28 | medio | 0 lune | eruzione di geyser |
-| Deriva genetica | Evoluzione | desertico | Mare di dune | K, nana arancione | 4% | sottile | 1,19 | breve | 0 lune | nessuno |
-| Equilibrio di Hardy-Weinberg | Evoluzione | oceanico | Fiordi | K, nana arancione | 53% | media | 1,03 | medio | 1 luna | aurora, eclissi |
-| Speciazione e barriere riproduttive | Evoluzione | vulcanico | Caldera con lago | K, nana arancione | 20% | media | 1,14 | breve | 0 lune | eruzione di geyser |
-| Filogenesi e cambiamenti molecolari | Evoluzione | craterizzato | Dorsali e scarpate | K, nana arancione | 3% | assente | 1,06 | medio | 2 lune | eclissi, pioggia di meteoriti |
-| Biodiversità e misura delle comunità | Popolazioni e comunità | glaciale | Valli glaciali | F, stella bianco-gialla | 21% | sottile | 1,02 | medio | 1 luna | aurora, eclissi, eruzione di geyser |
-| Crescita delle popolazioni | Popolazioni e comunità | desertico | Mese e altipiani | F, stella bianco-gialla | 0% | media | 1,08 | lungo | 2 lune | aurora, eclissi |
-| Competizione ecologica | Popolazioni e comunità | vulcanico | Campo vulcanico | F, stella bianco-gialla | 8% | media | 0,81 | breve | 0 lune | eruzione di geyser |
-| Predazione e risposta funzionale | Popolazioni e comunità | craterizzato | Dorsali e scarpate | F, stella bianco-gialla | 1% | assente | 1,06 | lungo | 0 lune | pioggia di meteoriti |
-| Reti trofiche ed energia | Ecosistemi e regolazione | desertico | Canyon | A, stella bianco-azzurra | 1% | sottile | 0,83 | lungo | 2 lune | eclissi |
-| Cicli biogeochimici e serbatoi | Ecosistemi e regolazione | glaciale | Banchisa | A, stella bianco-azzurra | 50% | sottile | 1,17 | lungo | 0 lune | eruzione di geyser |
-| Omeostasi e retroazioni | Ecosistemi e regolazione | craterizzato | Dorsali e scarpate | A, stella bianco-azzurra | 3% | assente | 0,96 | breve | 2 lune | eclissi, pioggia di meteoriti |
-| Biosfera, albedo e sistemi accoppiati | Ecosistemi e regolazione | terrestre | Colline e fiumi | A, stella bianco-azzurra | 31% | densa | 0,73 | breve | 0 lune | tempesta |
+| Che cos'è la vita | La vita e la cellula | glaciale | Banchisa | K, nana arancione | 31% | media | 0,78 | breve | 1 luna | eclissi, eruzione di geyser |
+| Cellule, scala e superficie | La vita e la cellula | desertico | Mese e altipiani | K, nana arancione | 18% | media | 1,16 | medio | 1 luna | aurora, eclissi |
+| Membrane e protocellule | La vita e la cellula | vulcanico | Campo vulcanico | K, nana arancione | 16% | media | 0,74 | breve | 0 lune | aurora, eruzione di geyser |
+| Elementi e molecole della vita nello spazio | Molecole dal cosmo | glaciale | Banchisa | M, nana rossa | 46% | media | 1,22 | breve | 1 luna | aurora, eclissi, eruzione di geyser |
+| Meteoriti, comete e campioni di asteroidi | Molecole dal cosmo | terrestre | Altopiani a terrazze | M, nana rossa | 36% | densa | 0,84 | medio | 2 lune | eclissi, tempesta |
+| Chiralità e omochiralità | Molecole dal cosmo | craterizzato | Pianura di crateri | M, nana rossa | 2% | assente | 0,83 | lungo | 2 lune | eclissi, pioggia di meteoriti |
+| Miller-Urey e la sintesi prebiotica | Chimica prebiotica | glaciale | Criovulcani | A, stella bianco-azzurra | 22% | media | 0,94 | medio | 1 luna | aurora, eclissi, eruzione di geyser |
+| Energia, enzimi e catalisi | Chimica prebiotica | desertico | Mare di dune | A, stella bianco-azzurra | 6% | media | 0,88 | lungo | 2 lune | eclissi |
+| Sorgenti idrotermali e metabolismo primordiale | Chimica prebiotica | terrestre | Pianura alluvionale | A, stella bianco-azzurra | 36% | densa | 0,89 | medio | 2 lune | aurora, eclissi, tempesta |
+| Il mondo a RNA | Informazione e replicatori | desertico | Mare di dune | G, nana gialla | 12% | sottile | 1,22 | medio | 2 lune | aurora, eclissi |
+| DNA, codice genetico ed espressione | Informazione e replicatori | glaciale | Criovulcani | G, nana gialla | 26% | media | 0,98 | lungo | 0 lune | aurora, eruzione di geyser |
+| Mutazioni e soglia d'errore | Informazione e replicatori | craterizzato | Pianura di crateri | G, nana gialla | 3% | assente | 1,02 | lungo | 0 lune | pioggia di meteoriti |
+| Ereditarietà e selezione naturale | Evoluzione e albero della vita | glaciale | Criovulcani | K, nana arancione | 36% | media | 1,28 | medio | 0 lune | eruzione di geyser |
+| Deriva genetica | Evoluzione e albero della vita | desertico | Mare di dune | K, nana arancione | 4% | sottile | 1,19 | breve | 0 lune | nessuno |
+| L'albero universale e LUCA | Evoluzione e albero della vita | oceanico | Fiordi | K, nana arancione | 53% | media | 1,03 | lungo | 1 luna | aurora, eclissi |
+| Le prime tracce della vita e il tempo geologico | Evoluzione e albero della vita | vulcanico | Caldera con lago | K, nana arancione | 20% | media | 1,14 | breve | 0 lune | eruzione di geyser |
+| Ossigeno, endosimbiosi e cellule complesse | Evoluzione e albero della vita | craterizzato | Dorsali e scarpate | K, nana arancione | 3% | assente | 1,06 | medio | 2 lune | eclissi, pioggia di meteoriti |
+| Estremofili | Vita ai limiti | glaciale | Valli glaciali | F, stella bianco-gialla | 21% | sottile | 1,02 | medio | 1 luna | aurora, eclissi, eruzione di geyser |
+| Respirazione, fermentazione e chemiosintesi | Vita ai limiti | desertico | Mese e altipiani | F, stella bianco-gialla | 0% | media | 1,08 | lungo | 2 lune | aurora, eclissi |
+| Fotosintesi e luce di altre stelle | Vita ai limiti | vulcanico | Campo vulcanico | F, stella bianco-gialla | 8% | media | 0,81 | breve | 0 lune | eruzione di geyser |
+| Crescita delle popolazioni microbiche | Vita ai limiti | craterizzato | Dorsali e scarpate | F, stella bianco-gialla | 1% | assente | 1,06 | lungo | 0 lune | pioggia di meteoriti |
+| La zona abitabile | Pianeti abitabili | desertico | Canyon | A, stella bianco-azzurra | 1% | sottile | 0,83 | lungo | 2 lune | eclissi |
+| Atmosfere, effetto serra e clima | Pianeti abitabili | glaciale | Banchisa | A, stella bianco-azzurra | 50% | sottile | 1,17 | lungo | 0 lune | eruzione di geyser |
+| Abitabilità attorno alle nane rosse | Pianeti abitabili | craterizzato | Dorsali e scarpate | A, stella bianco-azzurra | 3% | assente | 0,96 | breve | 2 lune | eclissi, pioggia di meteoriti |
+| Biosfera, albedo e Daisyworld | Pianeti abitabili | terrestre | Colline e fiumi | A, stella bianco-azzurra | 31% | densa | 0,73 | breve | 0 lune | tempesta |
+| Marte: acqua e abitabilità passata | Mondi del sistema solare | desertico | Mese e altipiani | G, nana gialla | 15% | sottile | 1,17 | medio | 0 lune | pioggia di meteoriti |
+| Cercare la vita su Marte | Mondi del sistema solare | craterizzato | Pianura di crateri | G, nana gialla | 0% | sottile | 1,23 | medio | 0 lune | pioggia di meteoriti |
+| Europa e gli oceani sotto il ghiaccio | Mondi del sistema solare | glaciale | Banchisa | G, nana gialla | 39% | media | 1,12 | breve | 0 lune | eruzione di geyser |
+| Encelado e i suoi pennacchi | Mondi del sistema solare | oceanico | Fiordi | G, nana gialla | 64% | densa | 0,79 | medio | 1 luna | eclissi, tempesta |
+| Titano, la chimica senza acqua | Mondi del sistema solare | terrestre | Colline e fiumi | G, nana gialla | 29% | media | 1,26 | medio | 1 luna | aurora, eclissi |
+| Scoprire gli esopianeti | Cercare la vita nella galassia | vulcanico | Campo vulcanico | M, nana rossa | 10% | densa | 1,10 | breve | 1 luna | aurora, eclissi, tempesta, eruzione di geyser |
+| Atmosfere degli esopianeti e JWST | Cercare la vita nella galassia | oceanico | Atolli e lagune | M, nana rossa | 62% | media | 1,26 | breve | 1 luna | eclissi |
+| Biofirme e falsi positivi | Cercare la vita nella galassia | terrestre | Colline e fiumi | M, nana rossa | 26% | media | 1,09 | lungo | 1 luna | aurora, eclissi |
+| Panspermia e protezione planetaria | Cercare la vita nella galassia | desertico | Canyon | M, nana rossa | 1% | sottile | 0,89 | medio | 1 luna | eclissi |
+| Tecnofirme, SETI ed equazione di Drake | Cercare la vita nella galassia | craterizzato | Altopiano fratturato | M, nana rossa | 4% | assente | 1,15 | lungo | 2 lune | eclissi, pioggia di meteoriti |

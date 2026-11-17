@@ -9,7 +9,8 @@ const biologia=index.capitoli.filter(c=>c.volume==='Biologia');
 const minWords={'biology-03':7000};
 const r=(x,d)=>d<0?Math.round(x/10**-d)*10**-d:+x.toFixed(d);
 test('Biologia: ogni capitolo è completo, collegato e scritto nello stile del sito',async()=>{
- assert.ok(biologia.length>=1);
+ // The volume is complete: one chapter for each of the 35 biology units.
+ assert.deepEqual(biologia.map(c=>c.unit).sort(),Array.from({length:35},(_,i)=>`biology-${String(i+1).padStart(2,'0')}`));
  for(const c of biologia){
   const src=await read(c.file),ch=parseChapter(src),ids=new Set([...ch.toc.map(t=>t.id),...ch.figures,...ch.exercises.map(e=>e.id)]);
   assert.equal(ch.meta.unit,c.unit);assert.equal(ch.meta.volume,'Volume di biologia');assert.match(ch.meta.fonte,/Testo originale/,c.unit);assert.match(src,/## Fonti \{#fonti\}/);
@@ -19,6 +20,8 @@ test('Biologia: ogni capitolo è completo, collegato e scritto nello stile del s
   const text=src.replace(/^---[\s\S]*?\n---\n/,''),prose=text.replace(/::: figura[\s\S]*?\n---\n/g,'');
   assert.equal((text.match(/\$\$/g)||[]).length%2,0,c.unit);
   for(const para of prose.replace(/\$\$[\s\S]*?\$\$/g,'').split(/\n\s*\n/))assert.equal((para.match(/\$/g)||[]).length%2,0,c.unit+': '+para.slice(0,80));
+  // Control characters (for example a backspace left by an unescaped \\b) break MathJax.
+  assert.ok(!/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/.test(src),c.unit+' carattere di controllo');
   assert.ok(!src.includes('—'),c.unit);assert.ok(!/non solo/i.test(prose),c.unit);assert.ok(!/\bnon\b[^.;:\n]{0,80}\bma\b/i.test(prose),c.unit);assert.ok(!/\bnon\b[^.;\n]{0,70}:/i.test(prose),c.unit);assert.ok(!/, e non /i.test(prose),c.unit);
   // Figures are cited by number: every «figura N» must exist.
   for(const m of prose.matchAll(/\bfigura (\d+)\b/g))assert.ok(+m[1]>=1&&+m[1]<=ch.figures.length,c.unit+' figura '+m[1]);

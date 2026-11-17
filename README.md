@@ -30,16 +30,16 @@ Il server di sviluppo ascolta soltanto su `127.0.0.1`. Per una porta differente 
 
 | Ambito | Copertura |
 |---|---|
-| Galassia | 1.000.000 di punti 3D effettivi, 25 sistemi navigabili, 5–12 pianeti per sistema, quattro esplorabili |
+| Galassia | 1.000.000 di punti 3D effettivi, 27 sistemi navigabili, 5–12 pianeti per sistema, da tre a sei esplorabili |
 | Matematica | 25 unità del catalogo della dispensa; fonte integrale di 769 pagine consultabile in WebGL |
 | Dispensa di fisica | «Fisica generale e moderna», bozza revisionata del 25 ottobre 2026: 726 pagine consultabili in WebGL; ogni unità di fisica rimanda alle sezioni corrispondenti |
-| Mondi dei pianeti | Catalogo di 100 fenomeni, uno per pianeta, in `docs/MONDI.md`; quattro prototipi 3D in superficie: Daisyworld, laghi del cobalto, maree di una luna vicina, branco con la mappa logistica |
-| Carte d’identità dei pianeti | 100 carte generate in `content/worlds/genomes.json` (terreno, mare, stella, atmosfera, gravità, colori, eventi), tabella in `docs/CARTE_IDENTITA.md`, controllo automatico della diversità |
+| Mondi dei pianeti | Catalogo di 110 fenomeni, uno per pianeta, in `docs/MONDI.md`; quattro prototipi 3D in superficie: Daisyworld, laghi del cobalto, maree di una luna vicina, branco con la mappa logistica |
+| Carte d’identità dei pianeti | 110 carte generate in `content/worlds/genomes.json` (terreno, mare, stella, atmosfera, gravità, colori, eventi), tabella in `docs/CARTE_IDENTITA.md`, controllo automatico della diversità |
 | Teoria narrativa matematica | Quattro lezioni, 33 sezioni; Funzioni copre 8.1–8.11, le altre tre sono percorsi mirati |
 | Gaia | Sei nuove sezioni trasversali con ipotesi, formule, protocollo e limiti |
 | Verifiche | 40 quesiti interattivi originali di Funzioni, spiegazioni e alternative errate; gli altri quesiti rimangono nella fonte PDF |
 | Laboratori | Daisyworld e sei laboratori matematici collegati ai motori precedenti |
-| Fisica, chimica, biologia | 25 pianeti per disciplina: 75 posti riservati, senza lezioni o questionari inventati |
+| Fisica, chimica, biologia | 25 unità di fisica, 25 di chimica e 35 di biologia, orientate all'astrobiologia; ogni unità ha un percorso guidato e un capitolo del libro |
 
 **“Piattaforma integrata” non significa cento corsi terminati.** Il catalogo dichiara la disponibilità reale di ogni unità. La matematica non ancora rielaborata sul web si apre nella fonte originale, non in una lezione generica sostitutiva.
 
@@ -49,17 +49,18 @@ Nuovo ambiente cosmico: cinque regioni, quindici volumi 3D, ammassi, tre galassi
 
 L'interfaccia conserva navigazione, pannelli, controlli e tipografia della versione dell'utente. Le scene sono interattive, renderizzate da geometrie e shader locali:
 
-- Galassia a spirale con nucleo caldo, bracci freddi, polveri volumetriche e un milione di stelle 3D. Venticinque stelle del medesimo buffer sono sistemi esplorabili: la descrizione compare al passaggio del mouse e un clic avvia lo zoom. I pianeti compaiono nella vista del sistema: da 5 a 12 per sistema, 232 in totale, con quattro destinazioni esplorabili ciascuno. Le altre hanno una descrizione ma non aprono dossier o superfici.
-- Undici famiglie ispirate a Haegemonia: terrestri, oceanici, desertici, craterizzati, glaciali, vulcanici, rocciosi, atmosfere acide e tre famiglie di giganti. I corpi di contorno usano mappe NASA esterne; dalla 1.20.0 le cento destinazioni esplorabili usano mappe generate dalle loro carte d’identità. Le nuvole usano una mappa NASA. Atmosfera e illuminazione rimangono calcoli 3D. Lune, anelli e sonda sono geometrie 3D.
+- Galassia a spirale con nucleo caldo, bracci freddi, polveri volumetriche e un milione di stelle 3D. Ventisette stelle del medesimo buffer sono sistemi esplorabili: la descrizione compare al passaggio del mouse e un clic avvia lo zoom. I pianeti compaiono nella vista del sistema: da 5 a 12 per sistema, 253 in totale; in ogni sistema da tre a sei sono destinazioni esplorabili, una per unità. Le altre hanno una descrizione ma non aprono dossier o superfici.
+- Undici famiglie ispirate a Haegemonia: terrestri, oceanici, desertici, craterizzati, glaciali, vulcanici, rocciosi, atmosfere acide e tre famiglie di giganti. I corpi di contorno usano mappe NASA esterne; dalla 1.20.0 le destinazioni esplorabili usano mappe generate dalle loro carte d’identità. Le nuvole usano una mappa NASA. Atmosfera e illuminazione rimangono calcoli 3D. Lune, anelli e sonda sono geometrie 3D.
 - Simbiosi: architettura organica viola, flora aliena e nebbie verdi; Esodo: colonia terrazzata e ceramica chiara sul terreno ocra; Marea: distretti galleggianti, ponti e basalto.
 - Dalla 1.18.0 ogni pianeta ha una superficie di atterraggio generata dalla sua carta d’identità: terreno, mare, luce, cielo, lune e quattro stazioni compatte. Le tre scene Blender (672.891 vertici e 796.060 triangoli in 13 mesh) restano nel repository come riferimento dell’esportazione; dalla 1.20.1 il sito non scarica più le loro geometrie (52,6 MB) e ne usa solo i metadati.
-- Dalla 1.19.0 le superfici ospitano 310 specie generate dalle carte (180 piante e 130 animali, con nomi unici) e 402 luoghi d’interesse. Il pulsante «Esplora il pianeta» sposta la camera da una specie o da un luogo all’altro; ogni scoperta si registra nella scheda «Esplorazione» del diario. I 14 pianeti senza atmosfera apprezzabile non hanno specie in superficie.
+- Dalla 1.19.0 le superfici ospitano specie e luoghi generati dalle carte: con i 110 pianeti della 1.25.0 sono 340 specie (197 piante e 143 animali, con nomi unici) e 440 luoghi d’interesse. Il pulsante «Esplora il pianeta» sposta la camera da una specie o da un luogo all’altro; ogni scoperta si registra nella scheda «Esplorazione» del diario. I 16 pianeti senza atmosfera apprezzabile non hanno specie in superficie.
 - Dalla 1.21.0 i pianeti diventano i capitoli di un libro: «Leggi il capitolo» apre sopra la galassia una pagina con testo, formule, figure ed esercizi risolti. Il primo capitolo, pilota, è «Forze e leggi di Newton». Formato e regole in `docs/LIBRO.md`.
 - Dalla 1.22.0 il volume di fisica è completo: 25 capitoli, uno per pianeta, con il testo, i diagrammi e gli esercizi della dispensa di fisica del corso.
 - Dalla 1.23.0 comincia il volume di chimica, con il capitolo pilota «Mole e quantità di sostanza», scritto per il sito.
 - Dalla 1.24.0 il volume di chimica è completo: 25 capitoli scritti per il sito, dalla materia e dalla mole alla struttura quantistica dell'atomo, al legame, alla termochimica, alla cinetica, agli equilibri, all'elettrochimica, alla chimica organica e ai polimeri.
 - Dalla 1.24.1 il catalogo «Argomenti», la scheda dell'unità sulla mappa e il pannello del sistema aprono direttamente il capitolo del libro, quando esiste; il percorso dell'unità resta nell'orbita del pianeta.
-- Dalla 1.20.0 i 100 pianeti esplorabili hanno in orbita e nella vista del sistema una mappa generata dalla loro carta d’identità: stesso stile di terreno, stesso livello del mare e stessi colori della superficie. Nuvole e atmosfera seguono la copertura nuvolosa e la densità della carta. I corpi di contorno mantengono le mappe NASA.
+- Dalla 1.25.0 la biologia è dedicata all'astrobiologia: 35 unità in nove sistemi stellari, due dei quali nuovi, «Mondi del sistema solare» e «Cercare la vita nella galassia», ciascuna con un capitolo scritto per il sito e un percorso guidato scritto a mano. Il volume va dalle definizioni della vita alla chimica prebiotica, all'evoluzione, agli estremofili, alla zona abitabile, a Marte, Europa, Encelado e Titano, agli esopianeti, alle biofirme e alla ricerca di tecnofirme.
+- Dalla 1.20.0 i pianeti esplorabili hanno in orbita e nella vista del sistema una mappa generata dalla loro carta d’identità: stesso stile di terreno, stesso livello del mare e stessi colori della superficie. Nuvole e atmosfera seguono la copertura nuvolosa e la densità della carta. I corpi di contorno mantengono le mappe NASA.
 - Ombre filtrate, riflessi planari delle strutture sull'acqua, increspature animate, materiali con metallo/rugosità/emissione. Antialiasing e bloom agiscono sulla scena prima dei pannelli.
 - Transizioni della camera, pausa del movimento, selezione delle stazioni e collegamenti di ricerca evidenziati. La preferenza di movimento ridotto viene rispettata.
 

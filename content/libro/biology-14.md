@@ -124,7 +124,7 @@ Tomoko Ohta sviluppò negli anni Settanta la **teoria quasi neutrale**: molte mu
 
 La deriva si può descrivere anche guardando all'indietro nel tempo. Si prendano due copie di un gene nella popolazione di oggi e si risalga la loro genealogia, generazione per generazione. Nel modello di Wright e Fisher ogni copia ha un genitore scelto a caso fra le $2N$ copie della generazione precedente, e le due copie hanno lo stesso genitore con probabilità $1/(2N)$. Quando accade, le due linee genealogiche si fondono: si dice che **coalescono** nel loro ultimo antenato comune. Il numero di generazioni che occorre risalire segue una distribuzione geometrica, con media
 
-$$ar t_2=2N$$
+$$\bar t_2=2N$$
 
 generazioni. Per un campione di $n$ copie il tempo medio fino all'antenato comune di tutte è $4N(1-1/n)$, che per un campione grande si avvicina a $4N$ generazioni. È la stessa scala di tempo che governa la perdita di eterozigosi e la fissazione: la teoria della **coalescenza**, sviluppata da John Kingman nel 1982, è il modo moderno di analizzare la variabilità delle sequenze.
 
