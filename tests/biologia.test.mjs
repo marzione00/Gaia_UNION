@@ -113,3 +113,22 @@ test('Biologia 02: cellule, scala e superficie, numeri ricalcolati',()=>{
  const Vp=Math.PI*0.08**2*0.44+4/3*Math.PI*0.08**3,Sp=2*Math.PI*0.08*0.44+4*Math.PI*0.08**2;assert.equal(r(Vp,4),0.011);assert.equal(r(Sp,3),0.302);assert.equal(r(Sp/Vp,0),27);
  assert.equal(r(1-0.2**3,2),0.99);assert.equal(r(1-0.6**3,2),0.78);assert.equal(r(1-0.8**3,2),0.49);assert.equal(r(2*Math.SQRT2,1),2.8);
 });
+test('Biologia 04: elementi e molecole nello spazio, numeri ricalcolati',()=>{
+ const rel=(T,E)=>Math.exp(-E*1000/(R*T)),kB=1.380649e-23,h=6.62607015e-34,c=299792458,u=1.66053906660e-27;
+ assert.equal(r(rel(300,2),2),0.45);assert.equal(r(rel(100,2),3),0.09);assert.equal(r(rel(10,2)*1e11,1),3.6);assert.equal(r(Math.log10(rel(10,10)),0),-52);
+ assert.equal(r(5000/(R*Math.log(1000)),0),87);assert.equal(r(Math.exp(1000/R*(1/10-1/20)),-1),410);assert.equal(r(1000/R,1),120.3);
+ // Nuclear energies.
+ assert.equal(r((3*4.002602-12)*931.494,2),7.27);assert.equal(r((3*4.002602-12)/12.007806*100,3),0.065);
+ assert.equal(r((4*1.007825-4.002602)*931.494,1),26.7);assert.equal(r((4*1.007825-4.002602)/(4*1.007825)*100,2),0.71);
+ // Solar abundances (Asplund et al. 2009) and the phosphorus budget.
+ assert.equal(r(10**(8.69-12)*1e6,-1),490);assert.equal(r(10**(8.43-12)*1e6,-1),270);assert.equal(r(10**(7.83-12)*1e6,0),68);assert.equal(r(10**0.26,1),1.8);
+ assert.equal(r(1/10**(8.43-12),-2),3700);assert.equal(r(10**(8.43-5.41),-1),1050);assert.equal(r(10**(8.43-5.41)/106,0),10);
+ assert.equal(r((50/12.01)/(3/30.97),0),43);assert.equal(r(1050/43,0),24);assert.equal(r(1/0.013,-1),80);
+ // Molecules: CO line, levels, populations; glycine.
+ assert.equal(r(c/115.27e9*1e3,1),2.6);const hBk=h*57.64e9/kB;assert.equal(r(hBk,2),2.77);assert.deepEqual([1,2,3,4].map(J=>r(hBk*J*(J+1),1)),[5.5,16.6,33.2,55.3]);
+ assert.deepEqual([1,2,3,4].map(J=>r(2*57.64*J,1)),[115.3,230.6,345.8,461.1]);assert.equal(r(3*Math.exp(-5.53/10),2),1.73);assert.equal(r(3*Math.exp(-5.53/30),2),2.49);
+ assert.equal(r(2*12.011+5*1.008+14.007+2*15.999,2),75.07);
+ // Kinetics in a cloud.
+ const v=(m,T)=>Math.sqrt(8*kB*T/(Math.PI*m*u));assert.equal(r(v(2.01588,10),0),324);assert.equal(r(1e4*1e-15*v(2.01588,10)*100*1e7,1),3.2);assert.equal(r(1/(1e4*1e-15*v(2.01588,10)*100)/86400/7,0),5);
+ assert.equal(r(1/(2e-9*1e4)/3600,0),14);assert.equal(r(v(28.0101,10),0),87);assert.equal(r(1/(1e-21*2e4*8.7e3)/3.15576e7/1e5,1),1.8);
+});
