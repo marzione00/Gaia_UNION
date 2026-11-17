@@ -54,3 +54,23 @@ test('Fisica 26: onde elettromagnetiche e pressione della luce, numeri ricalcola
  // Model probes: sail acceleration at r = 1.4 and 2.6 AU (25% and 50% of the domain) for sigma = 10 and 5 g/m2.
  const m=(x,s)=>2*1361/(299792458*s/1000)/(x*x)*1000;assert.deepEqual([m(1.4,10),m(2.6,10),m(1.4,5),m(2.6,5)].map(v=>r(v,3)),[0.463,0.134,0.926,0.269]);
 });
+test('Fisica 27: specchi, lenti e telescopi, numeri ricalcolati',()=>{
+ const deg=x=>x*180/Math.PI,asin=x=>deg(Math.asin(x)),atan=x=>deg(Math.atan(x));
+ assert.equal(r(asin(Math.sin(Math.PI/4)/1.333),0),32);assert.equal(r(asin(1/1.5),1),41.8);assert.equal(r(asin(1/1.333),1),48.6);assert.equal(r(atan(1.333),0),53);
+ assert.equal(r(1/(0.5*(1/20+1/20)),0),20);assert.equal(r(1/(1-1/3),1),1.5);
+ assert.equal(900/25,36);assert.equal(900/10,90);assert.equal(r(206265/10000,1),20.6);assert.equal(r(0.5*Math.PI/180*10000,0),87);
+ const lim=(D,m0=6)=>m0+5*Math.log10(D/0.7);assert.equal(r(5*Math.log10(5/0.7),1),4.3);assert.equal(r(lim(10),1),11.8);assert.equal(r(lim(100),1),16.8);assert.equal(r(lim(1000),1),21.8);
+ assert.equal(r(978/(Math.PI*0.0035**2)/1e7,1),2.5);
+ // Exercises.
+ assert.equal(r(Math.sin(Math.PI/4)/1.333,3),0.530);assert.equal(r(asin(Math.sin(Math.PI/4)/1.333),1),32);assert.equal(r((200/7)**2,0),816);assert.equal(r(lim(20),1),13.3);
+ assert.equal(r(asin(1/1.52),1),41.1);assert.equal(r(206265/2000,0),103);assert.equal(r(1860/(206265/2000),0),18);
+ assert.equal(r(20/(2*0.53),1),18.9);assert.equal(r(20/(2*0.51),1),19.6);assert.equal(r(20/(2*0.51)-20/(2*0.53),1),0.7);assert.equal(16-34,-18);assert.equal(-18+16,-2);
+ assert.equal(r(atan(1.333),1),53.1);assert.equal(r(atan(1.5),1),56.3);
+ const AH=Math.PI*1.2**2;assert.equal(r(AH,1),4.5);assert.equal(r(25/AH,1),5.5);assert.equal(r(2.5*Math.log10(25/AH),1),1.9);
+ const pup=Math.PI*0.0035**2;assert.equal(r(pup*1e5,2),3.85);assert.equal(r(2.5*Math.log10(978/pup),1),18.5);assert.equal(r(978/AH,-1),220);
+ assert.equal(r(200/7,0),29);assert.equal(r(1000/(200/7),0),35);assert.equal((10/1)**2,100);assert.equal(r((39/10)**2,0),15);assert.equal(r(60/(39/10)**2,0),4);
+ assert.equal(r(633/20,0),32);assert.equal(r(2200/31.7,0),69);assert.equal(r(2200/500,1),4.4);assert.equal(-1000/-50,20);assert.equal(1000-50,950);
+ const sc=206265/123000;assert.equal(r(15*8.2,1),123);assert.equal(r(sc,2),1.68);assert.equal(r(sc*0.015,3),0.025);const th=1.22*2.2e-6/8.2*206265;assert.equal(r(th,3),0.068);assert.equal(r(th/(sc*0.015),1),2.7);
+ // Model probes: limiting magnitude at D = 250.75 and 500.5 cm (25% and 50% of the domain) for m0 = 6 and 5.
+ assert.deepEqual([lim(250.75),lim(500.5),lim(250.75,5),lim(500.5,5)].map(v=>r(v,2)),[18.77,20.27,17.77,19.27]);
+});
