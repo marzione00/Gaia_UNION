@@ -3,7 +3,7 @@ unit: biology-31
 titolo: Scoprire gli esopianeti
 sottotitolo: Velocità radiali, transiti, microlenti e immagini dirette, e la statistica di più di seimila mondi intorno ad altre stelle
 volume: Volume di biologia
-fonte: Testo originale; riferimenti principali A. M. Shaw, Astrochemistry, §7.9, §4.5
+fonte: Testo originale; riferimenti principali A. M. Shaw, Astrochemistry, §7.8, §7.1
 ---
 
 ## Prima di cominciare {#apertura}
@@ -307,7 +307,7 @@ Per Giove $a_\odot\approx0{,}0050$ UA, circa $7{,}4\cdot10^5$ km, che da $10$ pa
 
 ## Fonti {#fonti}
 
-Il testo, le figure, gli esempi e gli esercizi di questo capitolo sono originali. Per la scelta degli argomenti i riferimenti principali sono A. M. Shaw, *Astrochemistry: From Astronomy to Astrobiology*, Wiley, 2006, §7.9 (pianeti extrasolari) e §4.5 (velocità di fuga e gravità). Shaw scriveva quando erano noti $168$ pianeti, e i dati provengono dalle fonti primarie seguenti. Alcune affermazioni di Shaw sono state corrette: il periodo di 51 Pegasi b è di $4{,}23$ giorni, e la sua massa minima di circa $0{,}47$ masse di Giove; il metodo delle velocità radiali funziona anche quando il pianeta passa lontano dal disco della stella; la profondità del transito della Terra davanti al Sole è circa lo $0{,}0084\%$, sei volte meno dello $0{,}05\%$ indicato, e la variabilità del Sole sulle scale di ore è abbastanza piccola da permettere di vederlo; la «risoluzione di 20 UA» di Hubble va intesa come risoluzione angolare, circa $0{,}05$ secondi d'arco; i primi pianeti extrasolari confermati furono quelli della pulsar PSR B1257+12, nel 1992.
+Il testo, le figure, gli esempi e gli esercizi di questo capitolo sono originali. Per la scelta degli argomenti i riferimenti principali sono A. M. Shaw, *Astrochemistry: From Astronomy to Astrobiology*, Wiley, 2006, §7.8 (pianeti extrasolari) e §7.1 (struttura di un sistema stella-pianeta). Shaw scriveva quando erano noti $168$ pianeti, e i dati provengono dalle fonti primarie seguenti. Alcune affermazioni di Shaw sono state corrette: il periodo di 51 Pegasi b è di $4{,}23$ giorni, e la sua massa minima di circa $0{,}47$ masse di Giove; il metodo delle velocità radiali funziona anche quando il pianeta passa lontano dal disco della stella; la profondità del transito della Terra davanti al Sole è circa lo $0{,}0084\%$, sei volte meno dello $0{,}05\%$ indicato, e la variabilità del Sole sulle scale di ore è abbastanza piccola da permettere di vederlo; la «risoluzione di 20 UA» di Hubble va intesa come risoluzione angolare, circa $0{,}05$ secondi d'arco; i primi pianeti extrasolari confermati furono quelli della pulsar PSR B1257+12, nel 1992.
 
 1. A. Wolszczan, D. A. Frail, *Nature* 355, 145 (1992): i pianeti della pulsar; M. Mayor, D. Queloz, *Nature* 378, 355 (1995): 51 Pegasi b.
 2. M. Mayor e collaboratori, *The Messenger* 114, 20 (2003): lo spettrografo HARPS; F. Pepe e collaboratori, *Astronomy & Astrophysics* 645, A96 (2021): lo spettrografo ESPRESSO.

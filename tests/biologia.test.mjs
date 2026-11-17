@@ -604,3 +604,23 @@ test('Biologia 31: esopianeti, numeri ricalcolati',()=>{
  // Model probes: delta = (Rp/Rs)^2 in ppm at Rp = 4.125 and 7.75 Earth radii, Rs = 1 and 0.5 solar radii.
  const m=(Rp,Rs)=>(Rp*6371/(Rs*695700))**2*1e6;assert.deepEqual([m(4.125,1),m(7.75,1),m(4.125,0.5),m(7.75,0.5)].map(v=>r(v,1)),[1427,5037,5707.9,20148.1]);
 });
+test('Biologia 32: atmosfere degli esopianeti, numeri ricalcolati',()=>{
+ const R=8.314,H=(T,M,g)=>R*T/(M*g)/1e3,S=(Hk,Rp,Rs)=>2*Hk*Rp/Rs**2*1e6;
+ assert.equal(r(H(1400,0.0023,9.2),-1),550);assert.equal(r(H(290,0.029,9.81),1),8.5);assert.equal(r(550/8.475,0),65);
+ assert.equal(r(S(550,97200,1.155*695700),0),166);assert.equal(r(230/166,1),1.4);assert.equal(r(0.023*100,1),2.3);
+ const sE=S(8.5,6371,695700);assert.equal(r(sE,2),0.22);assert.equal(r(1/0.12**2,0),69);assert.equal(r(sE/0.0144,1),15.5);assert.equal(r(sE/0.0144,0),16);
+ assert.equal(r(28/2.3,1),12.2);assert.equal(2**4,16);assert.deepEqual([2349,667,3019].map(v=>r(1e4/v,2)),[4.26,14.99,3.31]);assert.equal(r(2898/300,1),9.7);
+ const gW=24.8*0.28/1.27**2;assert.equal(r(gW,1),4.3);const HW=H(1100,0.0023,gW);assert.equal(r(HW,-1),920);assert.equal(r(S(HW,1.27*71492,0.939*695700),-1),390);
+ const sl=4*Math.log(2);assert.equal(r(sl,1),2.8);assert.equal(r(sl*550,-2),1500);assert.equal(r(sl*166,-1),460);
+ const xp=14388/(24*1130),xs=14388/(24*6070),br=(Math.exp(xs)-1)/(Math.exp(xp)-1);assert.equal(r(xp,2),0.53);assert.equal(r(xs,3),0.099);assert.equal(r(br,3),0.148);assert.equal(r(0.118**2*br,4),0.0021);
+ assert.equal(r((30/(16/5))**2,0),88);
+ const gK=9.81*8.6/2.61**2;assert.equal(r(gK,1),12.4);const HK=H(255,0.0023,gK);assert.equal(r(HK,0),74);assert.equal(r(S(HK,2.61*6371,0.445*695700),0),26);
+ assert.equal(+(8.5/12742).toExponential(1),6.7e-4);assert.equal(r(Math.log(100),1),4.6);assert.equal(r(Math.log(100)*sE/0.0144,0),72);
+ const ecl=(rr,Tp,Ts,l)=>rr*rr*(Math.exp(14388/(l*Ts))-1)/(Math.exp(14388/(l*Tp))-1);const eE=ecl(6371/695700,288,5772,15),eT=ecl(1.116*6371/(0.119*695700),508,2566,15);
+ assert.equal(+eE.toExponential(1),5.6e-7);assert.equal(r((1.116*6371/(0.119*695700))**2,4),0.0074);assert.equal(r(eT*1e6,-2),600);assert.equal(r(eT/eE,-3),1000);
+ const d=(0.92*6371/(0.119*695700))**2;assert.equal(r(d*1e3,2),5.01);assert.equal(r(d/0.95*1e3,2),5.28);assert.equal(r((d/0.95-d)*1e6,-1),260);assert.ok((d/0.95-d)*1e6/16>15);
+ assert.equal(r(25.4/4.5,0),6);
+ const gT=9.81*0.692/0.92**2,sT=k=>S(H(250,k,gT),0.92*6371,0.119*695700);assert.equal(r(sT(0.028),0),16);assert.equal(r(sT(0.0023),0),193);assert.equal(r(sT(0.0023)/sT(0.028),1),12.2);
+ // Model probes: Delta delta = 2 H Rp / Rs^2 in ppm at H = 128.75 and 252.5 km, Rp = 1, Rs = 1 and 0.12.
+ const m=(x,b)=>2*x*6371/(b*695700)**2*1e6;assert.deepEqual([m(128.75,1),m(252.5,1),m(128.75,0.12),m(252.5,0.12)].map(v=>r(v,2)),[3.39,6.65,235.38,461.63]);
+});
