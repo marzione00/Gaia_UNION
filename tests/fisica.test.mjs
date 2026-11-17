@@ -125,3 +125,45 @@ test('Fisica 29: diffrazione e potere risolutivo, numeri ricalcolati',()=>{
  // Model probes: Rayleigh limit at D = 10.075 and 20.05 m (25% and 50% of the domain) for 0.55 and 2.2 micrometres.
  const m=(x,a)=>1.22*a*1e-6/x*206264.806;assert.deepEqual([m(10.075,.55),m(20.05,.55),m(10.075,2.2),m(20.05,2.2)].map(v=>r(v,4)),[0.0137,0.0069,0.0549,0.0276]);
 });
+test('Fisica 30: radiazione termica e luce delle stelle, numeri ricalcolati',()=>{
+ const b=2.897771955e-3,eV=e,Ts=5772,Rs=6.957e8,P=(l,T)=>2*h*c**2/l**5/Math.expm1(h*c/(l*kB*T));
+ // Stefan-Boltzmann constant from h, k and c, and the solar nominal values.
+ assert.ok(Math.abs(2*Math.PI**5*kB**4/(15*h**3*c**2)/sigma-1)<1e-9);assert.equal(2**4,16);assert.equal(r((2800/300)**4,-2),7600);
+ assert.equal(r(2*c*kB*Ts/(500e-9)**4/P(500e-9,Ts),-1),30);assert.equal(r(h*c/550e-9*1e19,1),3.6);assert.equal(r(h*c/550e-9/eV,2),2.25);assert.equal(r(h*c/10e-6/eV*8,1),1);
+ // Wien.
+ assert.equal(r(b/Ts*1e9,0),502);assert.equal(r(b/2980*1e9,0),972);assert.equal(r(b/25400*1e9,0),114);assert.equal(r(b/310*1e6,1),9.3);assert.equal(r(b/288*1e6,0),10);
+ const fk=2.8214393721*kB/h;assert.equal(r(fk/1e10,2),5.88);assert.equal(r(c/(fk*Ts)*1e9,-1),880);
+ // Stefan-Boltzmann, luminosity and solar constant.
+ assert.equal(r(sigma*Ts**4/1e7,2),6.29);assert.equal(r(4*Math.PI*Rs**2*sigma*Ts**4/1e26,3),3.828);assert.equal(r(LSUN/(4*Math.PI*AU**2),0),1361);
+ // Photons.
+ const Em=2.70*kB*Ts;assert.equal(r(Em*1e19,2),2.15);assert.equal(r(Em/eV,2),1.34);assert.equal(r(LSUN/Em/1e45,1),1.8);assert.equal(r(S0/Em/1e21,0),6);assert.equal(r(h*c/(1.12*eV)*1e6,1),1.1);
+ // Stars.
+ const dS=1/0.37921*3.0857e16,RA=6.048e-3/2/206264.806*dS;assert.equal(r(RA/Rs,2),1.71);assert.equal(r(1.713**2*(9845/Ts)**4,0),25);
+ const RB=Math.sqrt(0.02448)*(Ts/25369)**2;assert.equal(r(RB,4),0.0081);assert.equal(r(RB*Rs/1e3,-2),5600);assert.ok(RB*Rs<6.371e6);
+ assert.equal(r(760*Rs/AU,1),3.5);assert.ok(760*Rs/AU>1.524&&760*Rs/AU<5.2);assert.equal(r(0.146**2*(2980/Ts)**4,4),0.0015);
+ // Planets.
+ const Teq=(S,A)=>(S*(1-A)/(4*sigma))**0.25;assert.equal(r(Teq(S0,0.3),0),255);assert.equal(288-255,33);assert.equal(r(Teq(S0/0.723332**2,0.77),0),227);assert.equal(r(737-227,-2),500);assert.equal(r(Teq(S0/1.523679**2,0.25),-1),210);
+ assert.equal(r(Teq(S0/16,0.3)/Teq(S0,0.3),2),0.5);assert.equal(r(0.00151/0.0485**2,2),0.64);
+ assert.equal(r(Ts*Math.sqrt(Rs/(2*AU))*0.7**0.25,0),r(Teq(S0,0.3),0));
+ // Cosmic microwave background.
+ const T0=2.72548,hb=h/(2*Math.PI);assert.equal(r(3000/T0,-2),1100);assert.equal(r(fk*T0/1e9,0),160);assert.equal(r(c/(fk*T0)*1e3,1),1.9);assert.equal(r(b/T0*1e3,2),1.06);
+ assert.equal(r(4*sigma/c*T0**4/eV/1e6,2),0.26);assert.equal(r(2*1.2020569/Math.PI**2*(kB*T0/(hb*c))**3/1e6,0),411);
+ // Experiment and frequent errors.
+ assert.equal(r(0.10*900*6/60,0),9);assert.equal(r(9/(0.95*0.01),-1),950);assert.equal(r(950/1361,1),0.7);assert.equal(r(4*Math.PI*AU**2*S0/1e26,1),3.8);
+ assert.equal(r((293/20)**4,-3),46000);assert.equal(r(sigma*273.15**4,-2),300);assert.equal(r(1/0.02448,0),41);
+ // Exercises.
+ assert.equal(r(b/3000*1e9,0),966);assert.equal(r(1e9/(sigma*Ts**4),0),16);assert.equal(r(6.626e-34*3e8/5.5e-7*1e19,2),3.61);assert.equal(r(0.21/550e-9,-4),380000);assert.equal(r(h*c/0.21/eV*1e6,1),5.9);
+ assert.equal(0.5**2*2**4,4);assert.equal(r(b/1e-5,-1),290);assert.equal(r(b/1e-3,1),2.9);
+ assert.equal(r(4*Math.PI*Rs**2/1e18,2),6.08);assert.equal(r(6.08e18*6.29e7/1e26,2),3.82);assert.equal(r(4*Math.PI*Rs**2*sigma*Ts**4/(4*Math.PI*1.496e11**2),0),1361);
+ const RB2=Math.sqrt(0.0245)*(Ts/25400)**2;assert.equal(r(Math.sqrt(0.0245),3),0.157);assert.equal(r((Ts/25400)**2,4),0.0516);assert.equal(r(RB2,4),0.0081);assert.equal(r(RB2*6.957e5,-2),5600);
+ assert.equal(r(Teq(1361,0),0),278);
+ assert.equal(r(2.70*1.38e-23*5772*1e19,2),2.15);assert.equal(r(LSUN/2.15e-19/1e45,1),1.8);assert.equal(r(1361/2.15e-19/1e21,1),6.3);
+ assert.equal(r(764**2/1e5,2),5.84);assert.equal(r((3600/Ts)**4,3),0.151);assert.equal(r(764**2*(3600/Ts)**4/1e4,1),8.8);assert.equal(r(764**2*(3600/Ts)**4*LSUN/1e31,1),3.4);
+ assert.equal(r(Math.sqrt(0.00151),4),0.0389);assert.equal(r((Ts/2980)**2,2),3.75);assert.equal(r(Math.sqrt(0.00151)*(Ts/2980)**2,3),0.146);
+ const SV=1361/0.723**2;assert.equal(r(SV,-2),2600);assert.equal(r(Teq(2600,0.77),0),227);assert.equal(r(Teq(2600,0.3),0),299);
+ const kev=kB/eV;assert.equal(r(kev*1e5,3),8.617);assert.equal(r(2.70*kev*2.725*1e4,2),6.34);assert.equal(r(411*2.70*kev*2.725,2),0.26);assert.equal(r(4*sigma/c*1e16,3),7.566);assert.equal(r(4*sigma/c*2.725**4*1e14,2),4.17);
+ const Pp=0.15*900*4.2/60;assert.equal(r(Pp,2),9.45);assert.equal(r(Pp/(0.95*0.012),-1),830);assert.equal(r(Pp/(0.95*0.012)/1361*100,0),61);assert.equal(r(4*Math.PI*1.496e11**2*1361/1e26,2),3.83);
+ const Sb=1361*0.00151/0.0485**2;assert.equal(r(Sb,0),874);assert.equal(r(Sb/1361*100,0),64);assert.equal(r(Teq(874,0.3),0),228);assert.equal(r(Teq(1361,0.3)-Teq(874,0.3),0),27);
+ // Model probes: luminosity at T = 11875 and 21250 K (25% and 50% of the domain) for R = 1 and 10 solar radii.
+ const m=(x,a)=>a*a*(x/5772)**4;assert.deepEqual([m(11875,1),m(21250,1),m(11875,10),m(21250,10)].map(v=>+v.toPrecision(4)),[17.92,183.7,1792,18370]);
+});

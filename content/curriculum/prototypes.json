@@ -36902,6 +36902,348 @@
      "correct": "B"
     }
    ]
+  },
+  {
+   "id": "physics-30",
+   "title": "Radiazione termica e luce delle stelle",
+   "scope": "Irraggiamento ed emissività, corpo nero, catastrofe ultravioletta e legge di Planck, fotoni, legge di Wien, legge di Stefan-Boltzmann, temperatura efficace, luminosità e raggio delle stelle, indice di colore e classi spettrali, diagramma di Hertzsprung-Russell, temperatura di equilibrio dei pianeti ed effetto serra, fondo cosmico di microonde",
+   "narrativeStatus": "I dati provengono dai valori esatti del Sistema internazionale, dai valori solari nominali dell’Unione astronomica internazionale, dagli articoli su Sirio, Betelgeuse, Proxima Centauri e sul fondo cosmico, dalle schede planetarie della NASA e dalle fonti citate nel capitolo.",
+   "description": "Ogni corpo caldo emette luce secondo la propria temperatura: dalle leggi di Planck, Wien e Stefan-Boltzmann alla misura delle stelle, del clima dei pianeti e del fondo cosmico.",
+   "objectives": [
+    "Usare le leggi di Wien e di Stefan-Boltzmann per collegare spettro, temperatura e potenza emessa.",
+    "Calcolare luminosità, raggio e temperatura di una stella con L = 4πR²σT⁴.",
+    "Leggere il diagramma di Hertzsprung-Russell e collegare colori e classi spettrali.",
+    "Calcolare la temperatura di equilibrio di un pianeta e stimare l’effetto serra."
+   ],
+   "prerequisites": [
+    "physics-29"
+   ],
+   "connections": [
+    "physics-19",
+    "physics-25",
+    "physics-26"
+   ],
+   "sources": [
+    "physics3",
+    "si"
+   ],
+   "glossary": [
+    {
+     "term": "Corpo nero",
+     "definition": "Corpo ideale che assorbe tutta la radiazione incidente e il cui spettro dipende soltanto dalla temperatura."
+    },
+    {
+     "term": "Legge di Wien",
+     "definition": "Relazione λ_max T = 2,898 mm·K fra la temperatura di un corpo nero e il massimo del suo spettro."
+    },
+    {
+     "term": "Legge di Stefan-Boltzmann",
+     "definition": "Un corpo nero emette per metro quadrato la potenza σT⁴, proporzionale alla quarta potenza della temperatura."
+    },
+    {
+     "term": "Luminosità",
+     "definition": "Potenza totale emessa da una stella, L = 4πR²σT⁴."
+    },
+    {
+     "term": "Diagramma di Hertzsprung-Russell",
+     "definition": "Grafico della luminosità delle stelle in funzione della temperatura superficiale."
+    },
+    {
+     "term": "Temperatura di equilibrio",
+     "definition": "Temperatura alla quale un pianeta emette nell’infrarosso tutta la potenza che assorbe dalla sua stella."
+    }
+   ],
+   "steps": [
+    {
+     "label": "SCOPRI",
+     "title": "Il colore delle stelle",
+     "text": {
+      "base": [
+       "Nella costellazione di Orione, Betelgeuse appare arancione e Rigel bianco azzurro. La differenza di colore misura una differenza di temperatura: circa 3600 kelvin per la superficie di Betelgeuse, più di 10 000 per quella di Rigel. Ogni corpo emette luce per il solo fatto di avere una temperatura, e il colore di quella luce dice quanto è caldo, come sa ogni fabbro che guarda il ferro arroventato.",
+       "Questa unità usa le leggi della radiazione termica come strumenti di misura. Dalla luce di una stella, che nessuno potrà mai toccare, si ricavano la temperatura, la potenza emessa e il raggio. Dalla luce del Sole si ricava la temperatura che avrebbero i pianeti senza atmosfera, e quindi la forza dell’effetto serra; dal fondo di microonde che riempie l’universo si ricava la temperatura del cosmo."
+      ],
+      "intermediate": [
+       "Nella costellazione di Orione, Betelgeuse appare arancione e Rigel bianco azzurro. La differenza di colore misura una differenza di temperatura: circa 3600 kelvin per la superficie di Betelgeuse, più di 10 000 per quella di Rigel. Ogni corpo emette luce per il solo fatto di avere una temperatura, e il colore di quella luce dice quanto è caldo, come sa ogni fabbro che guarda il ferro arroventato.",
+       "Questa unità usa le leggi della radiazione termica come strumenti di misura. Dalla luce di una stella, che nessuno potrà mai toccare, si ricavano la temperatura, la potenza emessa e il raggio. Dalla luce del Sole si ricava la temperatura che avrebbero i pianeti senza atmosfera, e quindi la forza dell’effetto serra; dal fondo di microonde che riempie l’universo si ricava la temperatura del cosmo."
+      ],
+      "advanced": [
+       "Nella costellazione di Orione, Betelgeuse appare arancione e Rigel bianco azzurro. La differenza di colore misura una differenza di temperatura: circa 3600 kelvin per la superficie di Betelgeuse, più di 10 000 per quella di Rigel. Ogni corpo emette luce per il solo fatto di avere una temperatura, e il colore di quella luce dice quanto è caldo, come sa ogni fabbro che guarda il ferro arroventato.",
+       "Questa unità usa le leggi della radiazione termica come strumenti di misura. Dalla luce di una stella, che nessuno potrà mai toccare, si ricavano la temperatura, la potenza emessa e il raggio. Dalla luce del Sole si ricava la temperatura che avrebbero i pianeti senza atmosfera, e quindi la forza dell’effetto serra; dal fondo di microonde che riempie l’universo si ricava la temperatura del cosmo.",
+       "La stessa fisica decide se un pianeta extrasolare può avere acqua liquida. Proxima Centauri b riceve circa due terzi del flusso che la Terra riceve dal Sole, e la sua temperatura di equilibrio con l’albedo terrestre è di circa 228 kelvin. L’abitabilità dipende poi dall’atmosfera, come insegnano Venere e la Terra, che hanno effetti serra di circa cinquecento e trentatré kelvin."
+      ]
+     }
+    },
+    {
+     "label": "CAPISCI",
+     "title": "Planck, Wien e Stefan-Boltzmann",
+     "text": {
+      "base": [
+       "Un corpo nero assorbe tutta la radiazione che lo colpisce e ha uno spettro che dipende soltanto dalla temperatura. La fisica classica prevedeva un’emissione infinita alle lunghezze d’onda corte, la catastrofe ultravioletta. Nel 1900 Planck risolse il problema supponendo che l’energia sia scambiata in quanti hf; nel 1905 Einstein attribuì i quanti alla luce stessa, i fotoni, con energia E = hc/λ.",
+       "La legge di Wien collega il massimo dello spettro alla temperatura: λ_max T = 2,898 millimetri per kelvin. Il Sole, a 5772 K, ha il massimo a 502 nm; la Terra, a 288 K, a circa 10 μm; il fondo cosmico, a 2,725 K, a 1,06 mm. La legge di Stefan-Boltzmann dà la potenza emessa per metro quadrato, σT⁴: la fotosfera solare emette circa 63 megawatt per ogni metro quadrato."
+      ],
+      "intermediate": [
+       "Un corpo nero assorbe tutta la radiazione che lo colpisce e ha uno spettro che dipende soltanto dalla temperatura. La fisica classica prevedeva un’emissione infinita alle lunghezze d’onda corte, la catastrofe ultravioletta. Nel 1900 Planck risolse il problema supponendo che l’energia sia scambiata in quanti hf; nel 1905 Einstein attribuì i quanti alla luce stessa, i fotoni, con energia E = hc/λ.",
+       "La legge di Wien collega il massimo dello spettro alla temperatura: λ_max T = 2,898 millimetri per kelvin. Il Sole, a 5772 K, ha il massimo a 502 nm; la Terra, a 288 K, a circa 10 μm; il fondo cosmico, a 2,725 K, a 1,06 mm. La legge di Stefan-Boltzmann dà la potenza emessa per metro quadrato, σT⁴: la fotosfera solare emette circa 63 megawatt per ogni metro quadrato.",
+       "Per una stella di raggio R la luminosità vale L = 4πR²σT⁴. Rispetto al Sole, L/L_S = (R/R_S)²(T/T_S)⁴: la temperatura conta con la quarta potenza, il raggio con il quadrato. Sirio B, a 25 400 K, emette soltanto il 2,4 per cento della luce del Sole, quindi ha un raggio di circa 5600 km, più piccolo della Terra: è una nana bianca. Betelgeuse, più fredda del Sole, è decine di migliaia di volte più luminosa."
+      ],
+      "advanced": [
+       "Un corpo nero assorbe tutta la radiazione che lo colpisce e ha uno spettro che dipende soltanto dalla temperatura. La fisica classica prevedeva un’emissione infinita alle lunghezze d’onda corte, la catastrofe ultravioletta. Nel 1900 Planck risolse il problema supponendo che l’energia sia scambiata in quanti hf; nel 1905 Einstein attribuì i quanti alla luce stessa, i fotoni, con energia E = hc/λ.",
+       "La legge di Wien collega il massimo dello spettro alla temperatura: λ_max T = 2,898 millimetri per kelvin. Il Sole, a 5772 K, ha il massimo a 502 nm; la Terra, a 288 K, a circa 10 μm; il fondo cosmico, a 2,725 K, a 1,06 mm. La legge di Stefan-Boltzmann dà la potenza emessa per metro quadrato, σT⁴: la fotosfera solare emette circa 63 megawatt per ogni metro quadrato.",
+       "Per una stella di raggio R la luminosità vale L = 4πR²σT⁴. Rispetto al Sole, L/L_S = (R/R_S)²(T/T_S)⁴: la temperatura conta con la quarta potenza, il raggio con il quadrato. Sirio B, a 25 400 K, emette soltanto il 2,4 per cento della luce del Sole, quindi ha un raggio di circa 5600 km, più piccolo della Terra: è una nana bianca. Betelgeuse, più fredda del Sole, è decine di migliaia di volte più luminosa.",
+       "Il diagramma di Hertzsprung-Russell riporta la luminosità in funzione della temperatura. Nove stelle su dieci stanno sulla sequenza principale; le giganti e le supergiganti occupano l’angolo freddo e luminoso, le nane bianche quello caldo e debole. Le linee di raggio costante sono rette nel diagramma logaritmico. Un pianeta in equilibrio raggiunge invece T_eq = [S(1 − A)/(4σ)]^(1/4), circa 255 K per la Terra."
+      ]
+     }
+    },
+    {
+     "label": "SPERIMENTA",
+     "title": "Il laboratorio della luminosità",
+     "text": {
+      "base": [
+       "Nel laboratorio il grafico mostra la luminosità di una stella, in luminosità solari, in funzione della temperatura efficace, da 2500 a 40 000 kelvin, secondo L/L_S = (R/R_S)²(T/5772)⁴. Nella scheda «Regola» cambi il raggio da 0,1 a 100 raggi solari. Il valore predefinito, 1, è quello del Sole: con T = 5772 K il modello restituisce esattamente una luminosità solare.",
+       "Protocollo. Il programma confronta due temperature fissate, circa 11 900 e 21 300 kelvin. Con il raggio di 1 raggio solare prevedi se la luminosità cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta il raggio a 10 raggi solari, come una stella gigante, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+       "Che cosa osservare. Con 1 raggio solare la luminosità passa da circa 17,9 a 184 luminosità solari; con 10 raggi solari da circa 1790 a 18 400. In entrambi i casi cresce di circa dieci volte, perché la temperatura aumenta di un fattore 1,79 e la quarta potenza di 1,79 vale circa 10,3. Il raggio moltiplica tutte le luminosità per cento, senza cambiare il rapporto fra le due temperature."
+      ],
+      "intermediate": [
+       "Nel laboratorio il grafico mostra la luminosità di una stella, in luminosità solari, in funzione della temperatura efficace, da 2500 a 40 000 kelvin, secondo L/L_S = (R/R_S)²(T/5772)⁴. Nella scheda «Regola» cambi il raggio da 0,1 a 100 raggi solari. Il valore predefinito, 1, è quello del Sole: con T = 5772 K il modello restituisce esattamente una luminosità solare.",
+       "Protocollo. Il programma confronta due temperature fissate, circa 11 900 e 21 300 kelvin. Con il raggio di 1 raggio solare prevedi se la luminosità cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta il raggio a 10 raggi solari, come una stella gigante, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+       "Che cosa osservare. Con 1 raggio solare la luminosità passa da circa 17,9 a 184 luminosità solari; con 10 raggi solari da circa 1790 a 18 400. In entrambi i casi cresce di circa dieci volte, perché la temperatura aumenta di un fattore 1,79 e la quarta potenza di 1,79 vale circa 10,3. Il raggio moltiplica tutte le luminosità per cento, senza cambiare il rapporto fra le due temperature."
+      ],
+      "advanced": [
+       "Nel laboratorio il grafico mostra la luminosità di una stella, in luminosità solari, in funzione della temperatura efficace, da 2500 a 40 000 kelvin, secondo L/L_S = (R/R_S)²(T/5772)⁴. Nella scheda «Regola» cambi il raggio da 0,1 a 100 raggi solari. Il valore predefinito, 1, è quello del Sole: con T = 5772 K il modello restituisce esattamente una luminosità solare.",
+       "Protocollo. Il programma confronta due temperature fissate, circa 11 900 e 21 300 kelvin. Con il raggio di 1 raggio solare prevedi se la luminosità cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta il raggio a 10 raggi solari, come una stella gigante, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+       "Che cosa osservare. Con 1 raggio solare la luminosità passa da circa 17,9 a 184 luminosità solari; con 10 raggi solari da circa 1790 a 18 400. In entrambi i casi cresce di circa dieci volte, perché la temperatura aumenta di un fattore 1,79 e la quarta potenza di 1,79 vale circa 10,3. Il raggio moltiplica tutte le luminosità per cento, senza cambiare il rapporto fra le due temperature.",
+       "Una prova a casa: una piastra di alluminio di 0,10 kg, annerita su una faccia e isolata sul retro, esposta perpendicolare al Sole in una giornata limpida si scalda di circa 6 gradi nel primo minuto. La potenza assorbita vale m c ΔT/Δt, circa 9 watt, e il flusso al suolo circa 950 watt per metro quadrato. Il Sole non va mai guardato, neppure per orientare la piastra."
+      ]
+     }
+    },
+    {
+     "label": "INTERPRETA",
+     "title": "Errori e limiti",
+     "text": {
+      "base": [
+       "Errore frequente: usare i gradi Celsius nella legge di Stefan-Boltzmann. La legge vale soltanto con la temperatura assoluta; con 20 al posto di 293 il risultato sbaglia di un fattore di circa quarantaseimila. Secondo errore: credere che i corpi freddi non emettano. Un blocco di ghiaccio emette circa 300 watt per metro quadrato nell’infrarosso, e il fondo cosmico, a meno di 3 kelvin, riempie l’universo di microonde.",
+       "Terzo errore: dedurre la luminosità dal colore. Il colore misura la temperatura, la luminosità dipende anche dal quadrato del raggio: Betelgeuse è rossa e luminosissima, Sirio B è bianca e debolissima. Quarto errore: confondere la temperatura di equilibrio con quella della superficie. La superficie terrestre è circa 33 kelvin più calda dell’equilibrio, quella di Venere circa cinquecento, per l’effetto serra."
+      ],
+      "intermediate": [
+       "Errore frequente: usare i gradi Celsius nella legge di Stefan-Boltzmann. La legge vale soltanto con la temperatura assoluta; con 20 al posto di 293 il risultato sbaglia di un fattore di circa quarantaseimila. Secondo errore: credere che i corpi freddi non emettano. Un blocco di ghiaccio emette circa 300 watt per metro quadrato nell’infrarosso, e il fondo cosmico, a meno di 3 kelvin, riempie l’universo di microonde.",
+       "Terzo errore: dedurre la luminosità dal colore. Il colore misura la temperatura, la luminosità dipende anche dal quadrato del raggio: Betelgeuse è rossa e luminosissima, Sirio B è bianca e debolissima. Quarto errore: confondere la temperatura di equilibrio con quella della superficie. La superficie terrestre è circa 33 kelvin più calda dell’equilibrio, quella di Venere circa cinquecento, per l’effetto serra.",
+       "Il modello del laboratorio tratta la stella come un corpo nero sferico con temperatura uniforme. Trascura le righe di assorbimento, l’oscuramento verso il bordo del disco stellare e la differenza fra la temperatura efficace e quella degli strati profondi. Per le stelle reali la temperatura efficace è definita proprio in modo che la legge di Stefan-Boltzmann valga esattamente per la potenza totale."
+      ],
+      "advanced": [
+       "Errore frequente: usare i gradi Celsius nella legge di Stefan-Boltzmann. La legge vale soltanto con la temperatura assoluta; con 20 al posto di 293 il risultato sbaglia di un fattore di circa quarantaseimila. Secondo errore: credere che i corpi freddi non emettano. Un blocco di ghiaccio emette circa 300 watt per metro quadrato nell’infrarosso, e il fondo cosmico, a meno di 3 kelvin, riempie l’universo di microonde.",
+       "Terzo errore: dedurre la luminosità dal colore. Il colore misura la temperatura, la luminosità dipende anche dal quadrato del raggio: Betelgeuse è rossa e luminosissima, Sirio B è bianca e debolissima. Quarto errore: confondere la temperatura di equilibrio con quella della superficie. La superficie terrestre è circa 33 kelvin più calda dell’equilibrio, quella di Venere circa cinquecento, per l’effetto serra.",
+       "Il modello del laboratorio tratta la stella come un corpo nero sferico con temperatura uniforme. Trascura le righe di assorbimento, l’oscuramento verso il bordo del disco stellare e la differenza fra la temperatura efficace e quella degli strati profondi. Per le stelle reali la temperatura efficace è definita proprio in modo che la legge di Stefan-Boltzmann valga esattamente per la potenza totale.",
+       "Approfondimento: il fondo cosmico di microonde, misurato dal satellite COBE, segue lo spettro di un corpo nero a 2,72548 kelvin con scarti inferiori a 50 parti per milione del massimo. Ogni centimetro cubo dello spazio contiene circa 411 dei suoi fotoni, con una densità di energia di circa 0,26 elettronvolt. Per questi risultati Mather e Smoot ricevettero il premio Nobel nel 2006."
+      ]
+     }
+    },
+    {
+     "label": "VERIFICA",
+     "title": "Verifica",
+     "text": {
+      "base": [
+       "Ripasso: irraggiamento, emissività e potenza netta; corpo nero e radianza spettrale; catastrofe ultravioletta e legge di Planck; fotoni, E = hc/λ; legge di Wien, λ_max T = b; legge di Stefan-Boltzmann, σT⁴; luminosità L = 4πR²σT⁴; indice di colore e classi O B A F G K M; diagramma di Hertzsprung-Russell; temperatura di equilibrio ed effetto serra; fondo cosmico.",
+       "Mini esercizio: una stella con temperatura doppia di quella solare e raggio pari alla metà del raggio solare è quattro volte più luminosa del Sole.",
+       "Nelle domande ricorda che la temperatura conta con la quarta potenza e il raggio con il quadrato, e che il massimo dello spettro si sposta verso il blu quando la temperatura cresce."
+      ],
+      "intermediate": [
+       "Ripasso: irraggiamento, emissività e potenza netta; corpo nero e radianza spettrale; catastrofe ultravioletta e legge di Planck; fotoni, E = hc/λ; legge di Wien, λ_max T = b; legge di Stefan-Boltzmann, σT⁴; luminosità L = 4πR²σT⁴; indice di colore e classi O B A F G K M; diagramma di Hertzsprung-Russell; temperatura di equilibrio ed effetto serra; fondo cosmico.",
+       "Mini esercizio: una stella con temperatura doppia di quella solare e raggio pari alla metà del raggio solare è quattro volte più luminosa del Sole.",
+       "Nelle domande ricorda che la temperatura conta con la quarta potenza e il raggio con il quadrato, e che il massimo dello spettro si sposta verso il blu quando la temperatura cresce."
+      ],
+      "advanced": [
+       "Ripasso: irraggiamento, emissività e potenza netta; corpo nero e radianza spettrale; catastrofe ultravioletta e legge di Planck; fotoni, E = hc/λ; legge di Wien, λ_max T = b; legge di Stefan-Boltzmann, σT⁴; luminosità L = 4πR²σT⁴; indice di colore e classi O B A F G K M; diagramma di Hertzsprung-Russell; temperatura di equilibrio ed effetto serra; fondo cosmico.",
+       "Mini esercizio: una stella con temperatura doppia di quella solare e raggio pari alla metà del raggio solare è quattro volte più luminosa del Sole.",
+       "Nelle domande ricorda che la temperatura conta con la quarta potenza e il raggio con il quadrato, e che il massimo dello spettro si sposta verso il blu quando la temperatura cresce."
+      ]
+     }
+    },
+    {
+     "label": "COLLEGA",
+     "title": "Collegamenti",
+     "text": {
+      "base": [
+       "La radiazione come onda elettromagnetica è introdotta in «Onde elettromagnetiche e pressione della luce»; i quanti di energia in «Fotoni ed energia quantizzata»; i meccanismi di trasferimento del calore in «Calore e capacità termica». Le righe spettrali che le stelle sovrappongono al corpo nero tornano in «Onde di materia, atomi e righe spettrali», e l’energia che le alimenta in «Energia dal nucleo: fusione nelle stelle».",
+       "Riepilogo dell’unità: conduzione, convezione e irraggiamento; leggi di Kirchhoff, Stefan e Boltzmann; corpo nero, Rayleigh-Jeans e Planck; legge di Wien e termocamere; luminosità, temperatura e raggio di Sole, Sirio A e B, Proxima Centauri e Betelgeuse; indice di colore e classificazione di Harvard; diagramma di Hertzsprung-Russell; temperatura di equilibrio di Venere, Terra e Marte; fondo cosmico di microonde.",
+       "Nel diario registra A e B con le previsioni e calcola il raggio, in raggi solari, di una stella a 11 544 kelvin che ha la stessa luminosità del Sole: un quarto del raggio solare, perché la temperatura doppia moltiplica la luminosità per sedici."
+      ],
+      "intermediate": [
+       "La radiazione come onda elettromagnetica è introdotta in «Onde elettromagnetiche e pressione della luce»; i quanti di energia in «Fotoni ed energia quantizzata»; i meccanismi di trasferimento del calore in «Calore e capacità termica». Le righe spettrali che le stelle sovrappongono al corpo nero tornano in «Onde di materia, atomi e righe spettrali», e l’energia che le alimenta in «Energia dal nucleo: fusione nelle stelle».",
+       "Riepilogo dell’unità: conduzione, convezione e irraggiamento; leggi di Kirchhoff, Stefan e Boltzmann; corpo nero, Rayleigh-Jeans e Planck; legge di Wien e termocamere; luminosità, temperatura e raggio di Sole, Sirio A e B, Proxima Centauri e Betelgeuse; indice di colore e classificazione di Harvard; diagramma di Hertzsprung-Russell; temperatura di equilibrio di Venere, Terra e Marte; fondo cosmico di microonde.",
+       "Nel diario registra A e B con le previsioni e calcola il raggio, in raggi solari, di una stella a 11 544 kelvin che ha la stessa luminosità del Sole: un quarto del raggio solare, perché la temperatura doppia moltiplica la luminosità per sedici."
+      ],
+      "advanced": [
+       "La radiazione come onda elettromagnetica è introdotta in «Onde elettromagnetiche e pressione della luce»; i quanti di energia in «Fotoni ed energia quantizzata»; i meccanismi di trasferimento del calore in «Calore e capacità termica». Le righe spettrali che le stelle sovrappongono al corpo nero tornano in «Onde di materia, atomi e righe spettrali», e l’energia che le alimenta in «Energia dal nucleo: fusione nelle stelle».",
+       "Riepilogo dell’unità: conduzione, convezione e irraggiamento; leggi di Kirchhoff, Stefan e Boltzmann; corpo nero, Rayleigh-Jeans e Planck; legge di Wien e termocamere; luminosità, temperatura e raggio di Sole, Sirio A e B, Proxima Centauri e Betelgeuse; indice di colore e classificazione di Harvard; diagramma di Hertzsprung-Russell; temperatura di equilibrio di Venere, Terra e Marte; fondo cosmico di microonde.",
+       "Nel diario registra A e B con le previsioni e calcola il raggio, in raggi solari, di una stella a 11 544 kelvin che ha la stessa luminosità del Sole: un quarto del raggio solare, perché la temperatura doppia moltiplica la luminosità per sedici."
+      ]
+     }
+    }
+   ],
+   "questions": [
+    {
+     "id": "physics-30-q1",
+     "prompt": "A parità di raggio, una stella con temperatura doppia è più luminosa di un fattore:",
+     "options": [
+      {
+       "id": "A",
+       "text": "2",
+       "feedback": "La luminosità dipende dalla quarta potenza della temperatura."
+      },
+      {
+       "id": "B",
+       "text": "4",
+       "feedback": "Il fattore 4 corrisponderebbe al quadrato della temperatura."
+      },
+      {
+       "id": "C",
+       "text": "16",
+       "feedback": "Esatto: L è proporzionale a T⁴, e 2⁴ = 16."
+      },
+      {
+       "id": "D",
+       "text": "8",
+       "feedback": "Il cubo della temperatura compare in altre leggi, qui serve la quarta potenza."
+      }
+     ],
+     "correct": "C"
+    },
+    {
+     "id": "physics-30-q2",
+     "prompt": "Il massimo dello spettro di una nana rossa a 3000 K cade a circa:",
+     "options": [
+      {
+       "id": "A",
+       "text": "970 nm, nel vicino infrarosso",
+       "feedback": "Esatto: 2,898·10⁻³ m·K divisi per 3000 K danno circa 966 nm."
+      },
+      {
+       "id": "B",
+       "text": "500 nm, nel verde",
+       "feedback": "Questo è il massimo del Sole, a 5772 K."
+      },
+      {
+       "id": "C",
+       "text": "290 nm, nell’ultravioletto",
+       "feedback": "Questo è il massimo di una stella a 10 000 K."
+      },
+      {
+       "id": "D",
+       "text": "10 μm, nell’infrarosso termico",
+       "feedback": "Questo è il massimo della Terra, a circa 288 K."
+      }
+     ],
+     "correct": "A"
+    },
+    {
+     "id": "physics-30-q3",
+     "prompt": "Sirio B è molto calda e poco luminosa. Se ne deduce che:",
+     "options": [
+      {
+       "id": "A",
+       "text": "È molto lontana",
+       "feedback": "La luminosità è la potenza emessa e non dipende dalla distanza."
+      },
+      {
+       "id": "B",
+       "text": "Ha un raggio molto piccolo",
+       "feedback": "Esatto: con T alta e L bassa, L = 4πR²σT⁴ richiede un raggio minuscolo, circa 5600 km."
+      },
+      {
+       "id": "C",
+       "text": "Ha una massa molto piccola",
+       "feedback": "La massa di Sirio B è simile a quella del Sole; è il raggio a essere piccolo."
+      },
+      {
+       "id": "D",
+       "text": "È avvolta da polvere",
+       "feedback": "La polvere ridurrebbe la luce ricevuta, senza spiegare una potenza così bassa a una temperatura così alta."
+      }
+     ],
+     "correct": "B"
+    },
+    {
+     "id": "physics-30-q4",
+     "prompt": "Nel diagramma di Hertzsprung-Russell le supergiganti rosse si trovano:",
+     "options": [
+      {
+       "id": "A",
+       "text": "In alto a destra, fredde e luminose",
+       "feedback": "Esatto: temperatura bassa e luminosità altissima, quindi raggio enorme."
+      },
+      {
+       "id": "B",
+       "text": "In basso a sinistra, calde e deboli",
+       "feedback": "Questa è la regione delle nane bianche."
+      },
+      {
+       "id": "C",
+       "text": "In alto a sinistra, calde e luminose",
+       "feedback": "Qui si trovano le stelle O e B della sequenza principale."
+      },
+      {
+       "id": "D",
+       "text": "In basso a destra, fredde e deboli",
+       "feedback": "Qui si trovano le nane rosse come Proxima Centauri."
+      }
+     ],
+     "correct": "A"
+    },
+    {
+     "id": "physics-30-q5",
+     "prompt": "La temperatura di equilibrio della Terra vale circa 255 K, la temperatura media della superficie circa 288 K. La differenza è dovuta:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Al calore interno del pianeta",
+       "feedback": "Il flusso di calore interno è migliaia di volte più piccolo di quello solare."
+      },
+      {
+       "id": "B",
+       "text": "All’effetto serra dell’atmosfera",
+       "feedback": "Esatto: i gas serra rimandano verso il basso parte dell’infrarosso emesso dalla superficie."
+      },
+      {
+       "id": "C",
+       "text": "All’albedo delle nubi",
+       "feedback": "L’albedo è già inclusa nel calcolo della temperatura di equilibrio."
+      },
+      {
+       "id": "D",
+       "text": "Alla distanza variabile dal Sole",
+       "feedback": "L’eccentricità dell’orbita terrestre cambia il flusso di pochi punti percentuali."
+      }
+     ],
+     "correct": "B"
+    },
+    {
+     "id": "physics-30-q6",
+     "prompt": "Il fondo cosmico di microonde è considerato il corpo nero più preciso misurato perché:",
+     "options": [
+      {
+       "id": "A",
+       "text": "Il suo spettro devia dalla curva di Planck meno di 50 parti per milione del massimo",
+       "feedback": "Esatto: lo hanno mostrato le misure dello strumento FIRAS a bordo di COBE."
+      },
+      {
+       "id": "B",
+       "text": "Ha la temperatura più alta dell’universo",
+       "feedback": "La sua temperatura è di soltanto 2,725 K."
+      },
+      {
+       "id": "C",
+       "text": "È emesso dal Sole",
+       "feedback": "Proviene da tutte le direzioni del cielo, ed è un residuo dell’universo primordiale."
+      },
+      {
+       "id": "D",
+       "text": "Contiene righe spettrali molto nette",
+       "feedback": "Un corpo nero ha uno spettro continuo, senza righe."
+      }
+     ],
+     "correct": "A"
+    }
+   ]
   }
  ]
 }
