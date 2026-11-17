@@ -496,3 +496,19 @@ test('Biologia 25: albedo e Daisyworld, numeri ricalcolati',async()=>{
  // Model probes: A = 0.5 and 0.75 at L = 0.85 and 1.1.
  assert.deepEqual([C(T(0.85,0.5)),C(T(1.1,0.5)),C(T(0.85,0.75)),C(T(1.1,0.75))].map(v=>r(v,1)),[14.8,34,-31,-14.9]);
 });
+test('Biologia 26: acqua di Marte, numeri ricalcolati',()=>{
+ const R=3389.5,A=4*Math.PI*R**2,gel=(V,Rp=R)=>V/(4*Math.PI*Rp**2);
+ assert.equal(r(A/1e8,2),1.44);assert.equal(r(gel(1e6)*1000,1),6.9);assert.equal(r(gel(1.6e6)*1000,0),11);assert.equal(r(0.137*A/1e7,1),2);assert.equal(r(gel(1.34e9,6371),1),2.6);
+ assert.equal(r(3.71/9.81*100,0),38);assert.equal(r(687*24/24.66,0),669);assert.equal(r(24.66,2),24.66);assert.equal(r(611.657/100,1),6.1);assert.equal(r(210-273.15,0),-63);
+ const p=z=>6.1*Math.exp(-z/11);assert.equal(r(p(-7.2),1),11.7);assert.equal(r(p(-7.15),1),11.7);assert.equal(r(p(-4.5),1),9.2);assert.equal(r(p(-2.6),1),7.7);assert.equal(r(p(21.9),2),0.83);
+ assert.equal(r(0.5*A/1e7,1),7.2);assert.equal(r(0.5*A/1.34e9*100,1),5.4);assert.deepEqual([0.3,0.99].map(f=>r(1000*f,0)),[300,990]);
+ assert.equal(r(2.5e16*3.71/(A*1e6),-1),640);assert.equal(r(Math.PI*22.5**2*0.25,-1),400);assert.equal(r(gel(Math.PI*22.5**2*0.25)*1e6,1),2.8);
+ assert.equal(75/1e-3,75000);assert.equal(r(75/1e-4,0),750000);
+ const pice=T=>Math.exp(9.550426-5723.265/T+3.53068*Math.log(T)-0.00728332*T);assert.equal(r(pice(210),1),0.7);assert.equal(r(pice(250),0),76);
+ const inv=1/273.16-8.314/45000*Math.log(1200/611.657);assert.equal(r(1/273.16*1e3,3),3.661);assert.equal(r(8.314/45000*Math.log(1200/611.657)*1e4,2),1.25);assert.equal(r(inv*1e3,3),3.536);assert.equal(r(1/inv,0),283);assert.equal(r(1/inv-273.15,0),10);
+ assert.equal(r((1-1/7)*100,0),86);assert.equal(r(7**(-1/0.7),2),0.06);assert.equal(r((1-7**(-1/0.7))*100,0),94);
+ assert.deepEqual([1,2].map(h=>r(h*A/1e8,2)),[1.44,2.89]);assert.deepEqual([1,2].map(h=>r(h*A/1.34e9*100,0)),[11,22]);assert.deepEqual([1,2].map(h=>r(h*A/(0.137*A),0)),[7,15]);
+ assert.equal(r(1/(1+0.4*(1-(4.57-3.5)/4.57))*100,0),77);
+ // Model probes: R = 3389.5 and 6370 km at V = 12.5 and 25 million km3.
+ const M=(V,Rk)=>V*1e15/(4*Math.PI*(Rk*1e3)**2);assert.deepEqual([M(12.5,3389.5),M(25,3389.5),M(12.5,6370),M(25,6370)].map(v=>r(v,2)),[86.58,173.16,24.51,49.03]);assert.equal(r(M(20,3389.5),1),138.5);assert.equal(r(500*4*Math.PI*3389500**2/1e15,0),72);
+});
