@@ -215,3 +215,19 @@ test('Biologia 09: sorgenti idrotermali e metanogenesi, numeri ricalcolati',()=>
  assert.equal(r(9.6-8*RL(298.15),0),-36);assert.equal(50/20,2.5);assert.equal(120/20,6);
  assert.equal(r(10**(10-6.6),-2),2500);assert.equal(r(-0.0591596*10,2),-0.59);
 });
+test('Biologia 10: il mondo a RNA, numeri ricalcolati',()=>{
+ const G=(N0,f,n)=>N0*(1+f)**n;
+ assert.equal(G(1,1,10),1024);assert.equal(r(G(1,0.5,10),1),57.7);assert.equal(r(Math.LN2/Math.log(1.5),2),1.71);assert.equal(r(Math.LN2/Math.log(1.3),1),2.6);
+ assert.equal(Math.ceil(Math.log(1000)/Math.log(1.3)),27);assert.equal(r(Math.log(1000)/Math.log(1.3),1),26.3);assert.equal(r(Math.log(1000)/Math.LN2,2),9.97);
+ assert.equal(r(0.99**34,2),0.71);assert.equal(r(1.71**10,0),214);assert.equal(r(0.99**200,3),0.134);assert.equal(r(1.134**10,1),3.5);assert.equal(r(0.99**100,2),0.37);
+ assert.equal(r(Math.LN10/-Math.log(0.99),-1),230);assert.equal(r(220*Math.log10(4),2),132.45);assert.equal(r(4**20/1e12,1),1.1);assert.equal(r(1e15/4**20,-2),900);
+ const q=1088/1100;assert.equal(r(q,3),0.989);assert.equal(r(1/(1-q),0),92);assert.equal(r(q**34,2),0.69);assert.equal(r(q**95,2),0.35);assert.equal(r(q**200,2),0.11);
+ assert.equal(2**24,16777216);assert.equal(r(1e15/6.02214076e23*250*330*1e4,2),1.37);
+ assert.equal((1+0.5*10/2)**2,12.25);assert.equal(r(Math.exp(5),0),148);assert.equal(r(1.69**10,0),190);
+ assert.equal(r(Math.LN10/-Math.log(0.989),0),208);assert.equal(r(-Math.log(0.989),5),0.01106);assert.equal(r(Math.exp(-Math.LN10/200),4),0.9886);
+ assert.equal(r(1/0.05,6),20);assert.equal(r(20**2*0.05,6),20);
+ let N=226;const L=[];for(let k=0;k<3;k++){N=N+N*(1-N/1000);L.push(r(N,0));}assert.deepEqual(L,[401,641,871]);
+ let M=1;for(let k=0;k<8;k++)M=M+M*(1-M/1000);assert.equal(r(M,0),226);
+ assert.equal(r(6/Math.log10(15),1),5.1);assert.equal(r(4*1.5**6,1),45.6);assert.equal(r(4*(1+0.5*5/6)**6,1),32.3);assert.equal(r((1+0.5*5/6)**6/1.5**6,2),0.71);
+ assert.equal(G(1,1,3),8);assert.equal(G(1,1,6),64);assert.equal(r(G(1,0.5,3),3),3.375);assert.equal(r(G(1,0.5,6),2),11.39);
+});
