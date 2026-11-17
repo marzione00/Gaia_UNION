@@ -33404,271 +33404,343 @@
       "title": "Miller-Urey e la sintesi prebiotica",
       "sector": 3,
       "modelId": "biology-07",
-      "coverage": "guided-foundation",
-      "editorialStatus": "original-draft",
-      "scope": "Produzione costante con decomposizione del primo ordine",
-      "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+      "coverage": "guided-lab",
+      "editorialStatus": "hand-written-draft",
+      "scope": "Ipotesi di Oparin e Haldane, esperimento di Miller e riesame del 2008, atmosfera primitiva, sintesi di Strecker, adenina dall’acido cianidrico, formosio, chimica cianosolfidica, accumulo e decomposizione, ambienti che concentrano",
+      "narrativeStatus": "Esperimenti, rese e velocità di decomposizione sono dati pubblicati; il modello usa una produzione costante e una decomposizione del primo ordine.",
       "objectives": [
-        "Spiegare: produzione costante con decomposizione del primo ordine.",
-        "Applicare c(t) = (P/k)(1 - exp(-kt)), k = ln2/t½, dichiarando variabili e unità.",
-        "Confrontare due configurazioni e discutere i limiti del modello."
+        "Descrivere l’esperimento di Miller e i suoi limiti.",
+        "Scrivere le reazioni di Strecker, dell’adenina da HCN e del formosio.",
+        "Calcolare la concentrazione stazionaria con produzione costante e decomposizione del primo ordine.",
+        "Spiegare il ruolo degli ambienti che concentrano le molecole."
       ],
       "prerequisites": [
         "biology-06"
       ],
       "connections": [
-        "chemistry-17"
+        "chemistry-17",
+        "chemistry-18"
       ],
       "sources": [
-        "biology"
+        "biology",
+        "chemistry"
       ],
       "originalSource": null,
       "glossary": [
         {
-          "term": "Tempo",
-          "definition": "Variabile indipendente, unità anni; intervallo [0; 200]."
+          "term": "Chimica prebiotica",
+          "definition": "Studio delle reazioni che hanno prodotto le molecole della vita prima della vita."
         },
         {
-          "term": "Concentrazione",
-          "definition": "Risultato calcolato dal modello, unità μmol/L."
+          "term": "Sintesi di Strecker",
+          "definition": "Formazione di amminoacidi da aldeidi, ammoniaca e acido cianidrico."
         },
         {
-          "term": "Produzione P",
-          "definition": "Parametro a, unità μmol/(L·anno); intervallo [0,1; 10]."
+          "term": "Formosio",
+          "definition": "Miscela di zuccheri prodotta dalla formaldeide in ambiente basico."
         },
         {
-          "term": "Tempo di dimezzamento t½",
-          "definition": "Parametro b, unità anni; intervallo [1; 100]."
+          "term": "Valore stazionario",
+          "definition": "Concentrazione alla quale produzione e decomposizione si bilanciano: P/k."
+        },
+        {
+          "term": "Chimica cianosolfidica",
+          "definition": "Rete prebiotica basata su HCN, H₂S, luce ultravioletta e rame."
+        },
+        {
+          "term": "Atmosfera riducente",
+          "definition": "Atmosfera ricca di idrogeno, metano e ammoniaca."
         }
       ],
       "steps": [
         {
           "label": "SCOPRI",
-          "title": "La domanda della spedizione",
+          "title": "Scintille in un pallone",
           "text": {
             "base": [
-              "Una sorgente produce ogni anno una piccola quantità di amminoacidi, che però si decompongono lentamente in acqua. La stazione vuole sapere quale concentrazione si raggiunge.",
-              "Con produzione costante P e decomposizione del primo ordine con costante k, la concentrazione tende al valore stazionario P/k, dove produzione e perdita si bilanciano."
+              "Nel 1952 Stanley Miller, studente di Harold Urey a Chicago, chiuse in un apparecchio di vetro acqua, metano, ammoniaca e idrogeno, fece bollire l’acqua e fece scoccare scintille per una settimana. L’acqua divenne rossa, e la cromatografia rivelò glicina, alanina e altri amminoacidi. L’articolo uscì nel 1953 e fondò la chimica prebiotica: alcuni mattoni della vita si formano da soli, con una sorgente di energia comune su un pianeta giovane.",
+              "L’idea veniva da Oparin e Haldane, che negli anni Venti avevano immaginato un’atmosfera primitiva senza ossigeno, in cui la luce e i fulmini producevano molecole organiche accumulate in una zuppa prebiotica. L’assenza di ossigeno era corretta: le rocce mostrano che l’ossigeno è comparso nell’atmosfera circa 2,4 miliardi di anni fa."
             ],
             "intermediate": [
-              "Una sorgente produce ogni anno una piccola quantità di amminoacidi, che però si decompongono lentamente in acqua. La stazione vuole sapere quale concentrazione si raggiunge.",
-              "dc/dt = P - kc ha soluzione c(t) = (P/k)(1 - exp(-kt)). Il tempo di dimezzamento è t½ = ln2/k, quindi P/k = P·t½/ln2."
+              "Nel 1952 Stanley Miller, studente di Harold Urey a Chicago, chiuse in un apparecchio di vetro acqua, metano, ammoniaca e idrogeno, fece bollire l’acqua e fece scoccare scintille per una settimana. L’acqua divenne rossa, e la cromatografia rivelò glicina, alanina e altri amminoacidi. L’articolo uscì nel 1953 e fondò la chimica prebiotica: alcuni mattoni della vita si formano da soli, con una sorgente di energia comune su un pianeta giovane.",
+              "L’idea veniva da Oparin e Haldane, che negli anni Venti avevano immaginato un’atmosfera primitiva senza ossigeno, in cui la luce e i fulmini producevano molecole organiche accumulate in una zuppa prebiotica. L’assenza di ossigeno era corretta: le rocce mostrano che l’ossigeno è comparso nell’atmosfera circa 2,4 miliardi di anni fa."
             ],
             "advanced": [
-              "Una sorgente produce ogni anno una piccola quantità di amminoacidi, che però si decompongono lentamente in acqua. La stazione vuole sapere quale concentrazione si raggiunge.",
-              "Confronta il valore stazionario con t½ = 5 anni e 100 anni; poi spiega perché il freddo, che rallenta l'idrolisi, potrebbe favorire l'accumulo.",
-              "Produzione costante e decomposizione del primo ordine; niente evaporazione, adsorbimento o reazioni secondarie."
+              "Nel 1952 Stanley Miller, studente di Harold Urey a Chicago, chiuse in un apparecchio di vetro acqua, metano, ammoniaca e idrogeno, fece bollire l’acqua e fece scoccare scintille per una settimana. L’acqua divenne rossa, e la cromatografia rivelò glicina, alanina e altri amminoacidi. L’articolo uscì nel 1953 e fondò la chimica prebiotica: alcuni mattoni della vita si formano da soli, con una sorgente di energia comune su un pianeta giovane.",
+              "L’idea veniva da Oparin e Haldane, che negli anni Venti avevano immaginato un’atmosfera primitiva senza ossigeno, in cui la luce e i fulmini producevano molecole organiche accumulate in una zuppa prebiotica. L’assenza di ossigeno era corretta: le rocce mostrano che l’ossigeno è comparso nell’atmosfera circa 2,4 miliardi di anni fa.",
+              "Nel 2008 le fiale conservate da Miller furono riesaminate con strumenti moderni: l’apparecchio con un getto di vapore, simile a una nube vulcanica carica di fulmini, aveva prodotto ventidue amminoacidi e cinque ammine."
             ]
           }
         },
         {
           "label": "CAPISCI",
-          "title": "Dall’intuizione alla relazione",
+          "title": "Amminoacidi, basi e zuccheri",
           "text": {
             "base": [
-              "Con produzione costante P e decomposizione del primo ordine con costante k, la concentrazione tende al valore stazionario P/k, dove produzione e perdita si bilanciano.",
-              "Con P = 1 μmol/(L·anno) e t½ = 20 anni il valore stazionario è circa 28,9 μmol/L; dopo 50 anni la concentrazione è circa 23,8 μmol/L."
+              "Gli amminoacidi si formano per la sintesi di Strecker: un’aldeide, l’ammoniaca e l’acido cianidrico danno un amminonitrile, che con due molecole d’acqua diventa un amminoacido. La formaldeide dà la glicina, l’acetaldeide l’alanina; la reazione produce le due forme speculari in parti uguali.",
+              "L’adenina, C₅H₅N₅, è un pentamero dell’acido cianidrico e si forma scaldando soluzioni concentrate di cianuro di ammonio o conservandole a lungo nel ghiaccio. La reazione del formosio trasforma la formaldeide in una miscela di zuccheri, ma il ribosio ne è meno dell’uno per cento e si decompone in fretta: a pH 7 dimezza in 73 minuti a 100 °C e in 44 anni a 0 °C."
             ],
             "intermediate": [
-              "dc/dt = P - kc ha soluzione c(t) = (P/k)(1 - exp(-kt)). Il tempo di dimezzamento è t½ = ln2/k, quindi P/k = P·t½/ln2.",
-              "La variabile Tempo è espressa in anni; Concentrazione in μmol/L. Il dominio dello strumento è [0; 200]. La relazione implementata è: c(t) = (P/k)(1 - exp(-kt)), k = ln2/t½.",
-              "Con P = 1 μmol/(L·anno) e t½ = 20 anni il valore stazionario è circa 28,9 μmol/L; dopo 50 anni la concentrazione è circa 23,8 μmol/L."
+              "Gli amminoacidi si formano per la sintesi di Strecker: un’aldeide, l’ammoniaca e l’acido cianidrico danno un amminonitrile, che con due molecole d’acqua diventa un amminoacido. La formaldeide dà la glicina, l’acetaldeide l’alanina; la reazione produce le due forme speculari in parti uguali.",
+              "L’adenina, C₅H₅N₅, è un pentamero dell’acido cianidrico e si forma scaldando soluzioni concentrate di cianuro di ammonio o conservandole a lungo nel ghiaccio. La reazione del formosio trasforma la formaldeide in una miscela di zuccheri, ma il ribosio ne è meno dell’uno per cento e si decompone in fretta: a pH 7 dimezza in 73 minuti a 100 °C e in 44 anni a 0 °C.",
+              "L’atmosfera primitiva era probabilmente meno riducente di quella di Miller, fatta soprattutto di azoto e diossido di carbonio. Con queste miscele le rese crollano, ma si recuperano con un tampone di carbonati; gli impatti di grandi corpi ricchi di ferro avrebbero inoltre prodotto atmosfere temporaneamente ricche di idrogeno."
             ],
             "advanced": [
-              "dc/dt = P - kc ha soluzione c(t) = (P/k)(1 - exp(-kt)). Il tempo di dimezzamento è t½ = ln2/k, quindi P/k = P·t½/ln2.",
-              "Confronta il valore stazionario con t½ = 5 anni e 100 anni; poi spiega perché il freddo, che rallenta l'idrolisi, potrebbe favorire l'accumulo.",
-              "Una sintesi efficiente è solo metà del problema. Se i prodotti si decompongono in fretta la concentrazione resta bassa, e per questo contano gli ambienti che concentrano, come le pozze che evaporano."
+              "Gli amminoacidi si formano per la sintesi di Strecker: un’aldeide, l’ammoniaca e l’acido cianidrico danno un amminonitrile, che con due molecole d’acqua diventa un amminoacido. La formaldeide dà la glicina, l’acetaldeide l’alanina; la reazione produce le due forme speculari in parti uguali.",
+              "L’adenina, C₅H₅N₅, è un pentamero dell’acido cianidrico e si forma scaldando soluzioni concentrate di cianuro di ammonio o conservandole a lungo nel ghiaccio. La reazione del formosio trasforma la formaldeide in una miscela di zuccheri, ma il ribosio ne è meno dell’uno per cento e si decompone in fretta: a pH 7 dimezza in 73 minuti a 100 °C e in 44 anni a 0 °C.",
+              "L’atmosfera primitiva era probabilmente meno riducente di quella di Miller, fatta soprattutto di azoto e diossido di carbonio. Con queste miscele le rese crollano, ma si recuperano con un tampone di carbonati; gli impatti di grandi corpi ricchi di ferro avrebbero inoltre prodotto atmosfere temporaneamente ricche di idrogeno.",
+              "Nel 2009 il gruppo di John Sutherland ottenne nucleotidi pirimidinici senza passare dal ribosio libero, e nel 2015 propose la chimica cianosolfidica: acido cianidrico e acido solfidrico, con luce ultravioletta e rame, producono insieme i precursori di nucleotidi, amminoacidi e lipidi in pozze illuminate e soggette a cicli di asciutto e bagnato."
             ]
           }
         },
         {
           "label": "SPERIMENTA",
-          "title": "Prevedi, modifica, confronta",
+          "title": "Il laboratorio dell’accumulo",
           "text": {
             "base": [
-              "Nel laboratorio imposta Produzione P (a): 1 μmol/(L·anno); Tempo di dimezzamento t½ (b): 20 anni. Prima di salvare A, prevedi come cambia Concentrazione fra Tempo=50 e 100 anni. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Con P = 1 μmol/(L·anno) e t½ = 20 anni il valore stazionario è circa 28,9 μmol/L; dopo 50 anni la concentrazione è circa 23,8 μmol/L.",
-              "La variabile Tempo è espressa in anni; Concentrazione in μmol/L. Il dominio dello strumento è [0; 200]. La relazione implementata è: c(t) = (P/k)(1 - exp(-kt)), k = ln2/t½."
+              "Nel laboratorio il grafico mostra la concentrazione di una molecola prodotta a velocità costante P e decomposta con tempo di dimezzamento t½, c(t) = (P/k)(1 − e^(−kt)) con k = ln2/t½, per tempi da 0 a 200 anni. Nella scheda «Regola» cambi P, da 0,1 a 10 μmol/(L·anno), e t½, da 1 a 100 anni. Con P = 1 e t½ = 20 anni il valore stazionario è P·t½/ln2, circa 28,9 μmol/L.",
+              "Protocollo. Il programma confronta due tempi fissati, 50 e 100 anni. Con i valori predefiniti prevedi se la concentrazione cresce, diminuisce o resta uguale e salva A. Poi porta t½ a 40 anni, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+              "Che cosa osservare. Con t½ = 20 anni la concentrazione passa da circa 23,8 a 28,0 μmol/L, ormai vicina al valore stazionario; con t½ = 40 anni da circa 33,4 a 47,5 μmol/L, ancora lontana dal suo valore stazionario, circa 57,7. Raddoppiare t½ raddoppia il valore stazionario e anche il tempo per raggiungerlo; raddoppiare P raddoppia il valore stazionario senza cambiare i tempi."
             ],
             "intermediate": [
-              "Nel laboratorio imposta Produzione P (a): 1 μmol/(L·anno); Tempo di dimezzamento t½ (b): 20 anni. Prima di salvare A, prevedi come cambia Concentrazione fra Tempo=50 e 100 anni. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "La variabile Tempo è espressa in anni; Concentrazione in μmol/L. Il dominio dello strumento è [0; 200]. La relazione implementata è: c(t) = (P/k)(1 - exp(-kt)), k = ln2/t½.",
-              "dc/dt = P - kc ha soluzione c(t) = (P/k)(1 - exp(-kt)). Il tempo di dimezzamento è t½ = ln2/k, quindi P/k = P·t½/ln2."
+              "Nel laboratorio il grafico mostra la concentrazione di una molecola prodotta a velocità costante P e decomposta con tempo di dimezzamento t½, c(t) = (P/k)(1 − e^(−kt)) con k = ln2/t½, per tempi da 0 a 200 anni. Nella scheda «Regola» cambi P, da 0,1 a 10 μmol/(L·anno), e t½, da 1 a 100 anni. Con P = 1 e t½ = 20 anni il valore stazionario è P·t½/ln2, circa 28,9 μmol/L.",
+              "Protocollo. Il programma confronta due tempi fissati, 50 e 100 anni. Con i valori predefiniti prevedi se la concentrazione cresce, diminuisce o resta uguale e salva A. Poi porta t½ a 40 anni, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+              "Che cosa osservare. Con t½ = 20 anni la concentrazione passa da circa 23,8 a 28,0 μmol/L, ormai vicina al valore stazionario; con t½ = 40 anni da circa 33,4 a 47,5 μmol/L, ancora lontana dal suo valore stazionario, circa 57,7. Raddoppiare t½ raddoppia il valore stazionario e anche il tempo per raggiungerlo; raddoppiare P raddoppia il valore stazionario senza cambiare i tempi."
             ],
             "advanced": [
-              "Nel laboratorio imposta Produzione P (a): 1 μmol/(L·anno); Tempo di dimezzamento t½ (b): 20 anni. Prima di salvare A, prevedi come cambia Concentrazione fra Tempo=50 e 100 anni. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Confronta il valore stazionario con t½ = 5 anni e 100 anni; poi spiega perché il freddo, che rallenta l'idrolisi, potrebbe favorire l'accumulo.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Nel laboratorio il grafico mostra la concentrazione di una molecola prodotta a velocità costante P e decomposta con tempo di dimezzamento t½, c(t) = (P/k)(1 − e^(−kt)) con k = ln2/t½, per tempi da 0 a 200 anni. Nella scheda «Regola» cambi P, da 0,1 a 10 μmol/(L·anno), e t½, da 1 a 100 anni. Con P = 1 e t½ = 20 anni il valore stazionario è P·t½/ln2, circa 28,9 μmol/L.",
+              "Protocollo. Il programma confronta due tempi fissati, 50 e 100 anni. Con i valori predefiniti prevedi se la concentrazione cresce, diminuisce o resta uguale e salva A. Poi porta t½ a 40 anni, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+              "Che cosa osservare. Con t½ = 20 anni la concentrazione passa da circa 23,8 a 28,0 μmol/L, ormai vicina al valore stazionario; con t½ = 40 anni da circa 33,4 a 47,5 μmol/L, ancora lontana dal suo valore stazionario, circa 57,7. Raddoppiare t½ raddoppia il valore stazionario e anche il tempo per raggiungerlo; raddoppiare P raddoppia il valore stazionario senza cambiare i tempi.",
+              "Una prova a casa: in un vassoio si lanciano i dadi, si tolgono quelli che mostrano il sei e se ne aggiungono sei nuovi a ogni turno. Il numero di dadi cresce e poi oscilla attorno a 36, il valore in cui i dadi tolti eguagliano quelli aggiunti: è lo stesso modello, con un tempo di dimezzamento di circa 3,8 turni."
             ]
           }
         },
         {
           "label": "INTERPRETA",
-          "title": "Leggere senza sovrainterpretare",
+          "title": "Errori e ambienti",
           "text": {
             "base": [
-              "Una sintesi efficiente è solo metà del problema. Se i prodotti si decompongono in fretta la concentrazione resta bassa, e per questo contano gli ambienti che concentrano, come le pozze che evaporano.",
-              "Produzione costante e decomposizione del primo ordine; niente evaporazione, adsorbimento o reazioni secondarie.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Errore frequente: pensare che l’esperimento di Miller abbia prodotto la vita. Ha prodotto alcuni mattoni, soprattutto amminoacidi semplici, insieme a molto materiale catramoso; fra quei mattoni e una cellula restano i nucleotidi, i polimeri, le membrane e la replicazione.",
+              "Secondo errore: confondere velocità di produzione e concentrazione. Una sintesi rapida di una molecola fragile dà concentrazioni basse, perché il valore stazionario è P/k. Il ribosio, con un tempo di dimezzamento di circa dieci mesi a 25 °C, si accumula poco in un oceano tiepido; a 0 °C vive circa cinquanta volte di più."
             ],
             "intermediate": [
-              "Una sintesi efficiente è solo metà del problema. Se i prodotti si decompongono in fretta la concentrazione resta bassa, e per questo contano gli ambienti che concentrano, come le pozze che evaporano.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Errore frequente: pensare che l’esperimento di Miller abbia prodotto la vita. Ha prodotto alcuni mattoni, soprattutto amminoacidi semplici, insieme a molto materiale catramoso; fra quei mattoni e una cellula restano i nucleotidi, i polimeri, le membrane e la replicazione.",
+              "Secondo errore: confondere velocità di produzione e concentrazione. Una sintesi rapida di una molecola fragile dà concentrazioni basse, perché il valore stazionario è P/k. Il ribosio, con un tempo di dimezzamento di circa dieci mesi a 25 °C, si accumula poco in un oceano tiepido; a 0 °C vive circa cinquanta volte di più.",
+              "Un oceano è un pessimo reattore: le molecole si diluiscono e le reazioni fra due molecole, proporzionali al prodotto delle concentrazioni, rallentano moltissimo. Contano gli ambienti che concentrano: pozze che evaporano, vene di liquido nel ghiaccio, superfici di argille come la montmorillonite, fessure di roccia attraversate da gradienti di temperatura."
             ],
             "advanced": [
-              "Produzione costante e decomposizione del primo ordine; niente evaporazione, adsorbimento o reazioni secondarie.",
-              "Confronta il valore stazionario con t½ = 5 anni e 100 anni; poi spiega perché il freddo, che rallenta l'idrolisi, potrebbe favorire l'accumulo.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Errore frequente: pensare che l’esperimento di Miller abbia prodotto la vita. Ha prodotto alcuni mattoni, soprattutto amminoacidi semplici, insieme a molto materiale catramoso; fra quei mattoni e una cellula restano i nucleotidi, i polimeri, le membrane e la replicazione.",
+              "Secondo errore: confondere velocità di produzione e concentrazione. Una sintesi rapida di una molecola fragile dà concentrazioni basse, perché il valore stazionario è P/k. Il ribosio, con un tempo di dimezzamento di circa dieci mesi a 25 °C, si accumula poco in un oceano tiepido; a 0 °C vive circa cinquanta volte di più.",
+              "Un oceano è un pessimo reattore: le molecole si diluiscono e le reazioni fra due molecole, proporzionali al prodotto delle concentrazioni, rallentano moltissimo. Contano gli ambienti che concentrano: pozze che evaporano, vene di liquido nel ghiaccio, superfici di argille come la montmorillonite, fessure di roccia attraversate da gradienti di temperatura.",
+              "Le reazioni prebiotiche producono miscele di centinaia di molecole, di cui quelle biologiche sono una piccola parte. Per questo la chimica prebiotica moderna cerca reti di reazioni che producano insieme i mattoni di più sistemi, in ambienti geologici plausibili."
             ]
           }
         },
         {
           "label": "VERIFICA",
-          "title": "Verifica ragionamento e calcolo",
+          "title": "Verifica",
           "text": {
             "base": [
-              "Con produzione costante P e decomposizione del primo ordine con costante k, la concentrazione tende al valore stazionario P/k, dove produzione e perdita si bilanciano.",
-              "Con P = 1 μmol/(L·anno) e t½ = 20 anni il valore stazionario è circa 28,9 μmol/L; dopo 50 anni la concentrazione è circa 23,8 μmol/L."
+              "Ripasso: ipotesi di Oparin e Haldane; esperimento di Miller e riesame del 2008; atmosfere riducenti e neutre; sintesi di Strecker; adenina dall’acido cianidrico; reazione del formosio; chimica cianosolfidica; valore stazionario P/k; ambienti che concentrano.",
+              "Mini esercizio: con P = 1 μmol/(L·anno) e t½ = 20 anni il valore stazionario è 20/0,693, circa 28,9 μmol/L, e si raggiunge il 90% dopo circa 66 anni.",
+              "Nelle domande sull’accumulo ricorda che il valore stazionario è proporzionale sia a P sia a t½."
             ],
             "intermediate": [
-              "dc/dt = P - kc ha soluzione c(t) = (P/k)(1 - exp(-kt)). Il tempo di dimezzamento è t½ = ln2/k, quindi P/k = P·t½/ln2.",
-              "La variabile Tempo è espressa in anni; Concentrazione in μmol/L. Il dominio dello strumento è [0; 200]. La relazione implementata è: c(t) = (P/k)(1 - exp(-kt)), k = ln2/t½."
+              "Ripasso: ipotesi di Oparin e Haldane; esperimento di Miller e riesame del 2008; atmosfere riducenti e neutre; sintesi di Strecker; adenina dall’acido cianidrico; reazione del formosio; chimica cianosolfidica; valore stazionario P/k; ambienti che concentrano.",
+              "Mini esercizio: con P = 1 μmol/(L·anno) e t½ = 20 anni il valore stazionario è 20/0,693, circa 28,9 μmol/L, e si raggiunge il 90% dopo circa 66 anni.",
+              "Nelle domande sull’accumulo ricorda che il valore stazionario è proporzionale sia a P sia a t½."
             ],
             "advanced": [
-              "Confronta il valore stazionario con t½ = 5 anni e 100 anni; poi spiega perché il freddo, che rallenta l'idrolisi, potrebbe favorire l'accumulo.",
-              "Produzione costante e decomposizione del primo ordine; niente evaporazione, adsorbimento o reazioni secondarie."
+              "Ripasso: ipotesi di Oparin e Haldane; esperimento di Miller e riesame del 2008; atmosfere riducenti e neutre; sintesi di Strecker; adenina dall’acido cianidrico; reazione del formosio; chimica cianosolfidica; valore stazionario P/k; ambienti che concentrano.",
+              "Mini esercizio: con P = 1 μmol/(L·anno) e t½ = 20 anni il valore stazionario è 20/0,693, circa 28,9 μmol/L, e si raggiunge il 90% dopo circa 66 anni.",
+              "Nelle domande sull’accumulo ricorda che il valore stazionario è proporzionale sia a P sia a t½."
             ]
           }
         },
         {
           "label": "COLLEGA",
-          "title": "Conclusione e nuova domanda",
+          "title": "Collegamenti",
           "text": {
             "base": [
-              "Nel diario distingui previsione, risultato e interpretazione. Produzione costante con decomposizione del primo ordine.",
-              "Produzione costante e decomposizione del primo ordine; niente evaporazione, adsorbimento o reazioni secondarie.",
-              "Collegamento consigliato: chemistry-17. Il completamento registra attività e autoverifica, non certifica competenze."
+              "Le reazioni del primo ordine e il tempo di dimezzamento sono il tema dell’unità di chimica «Velocità di reazione», la legge di Arrhenius dell’unità «Temperatura e attivazione». In biologia il percorso prosegue con l’energia e la catalisi, che spiegano come una reazione possa accelerare senza cambiare il suo equilibrio, e con le sorgenti idrotermali come alternativa alla zuppa prebiotica.",
+              "Riepilogo dell’unità: scariche elettriche e luce ultravioletta producono amminoacidi in atmosfere riducenti o neutre tamponate; HCN dà l’adenina, la formaldeide dà zuccheri; la chimica cianosolfidica produce insieme i precursori di più classi di molecole; la concentrazione di una molecola fragile tende a P·t½/ln2; evaporazione, freddo e minerali favoriscono l’accumulo.",
+              "Nel diario registra A e B con le previsioni e stima il valore stazionario del ribosio a 0 e a 25 °C, a parità di produzione."
             ],
             "intermediate": [
-              "dc/dt = P - kc ha soluzione c(t) = (P/k)(1 - exp(-kt)). Il tempo di dimezzamento è t½ = ln2/k, quindi P/k = P·t½/ln2.",
-              "Produzione costante e decomposizione del primo ordine; niente evaporazione, adsorbimento o reazioni secondarie.",
-              "Confronta il valore stazionario con t½ = 5 anni e 100 anni; poi spiega perché il freddo, che rallenta l'idrolisi, potrebbe favorire l'accumulo."
+              "Le reazioni del primo ordine e il tempo di dimezzamento sono il tema dell’unità di chimica «Velocità di reazione», la legge di Arrhenius dell’unità «Temperatura e attivazione». In biologia il percorso prosegue con l’energia e la catalisi, che spiegano come una reazione possa accelerare senza cambiare il suo equilibrio, e con le sorgenti idrotermali come alternativa alla zuppa prebiotica.",
+              "Riepilogo dell’unità: scariche elettriche e luce ultravioletta producono amminoacidi in atmosfere riducenti o neutre tamponate; HCN dà l’adenina, la formaldeide dà zuccheri; la chimica cianosolfidica produce insieme i precursori di più classi di molecole; la concentrazione di una molecola fragile tende a P·t½/ln2; evaporazione, freddo e minerali favoriscono l’accumulo.",
+              "Nel diario registra A e B con le previsioni e stima il valore stazionario del ribosio a 0 e a 25 °C, a parità di produzione."
             ],
             "advanced": [
-              "Confronta il valore stazionario con t½ = 5 anni e 100 anni; poi spiega perché il freddo, che rallenta l'idrolisi, potrebbe favorire l'accumulo.",
-              "Produzione costante e decomposizione del primo ordine; niente evaporazione, adsorbimento o reazioni secondarie.",
-              "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+              "Le reazioni del primo ordine e il tempo di dimezzamento sono il tema dell’unità di chimica «Velocità di reazione», la legge di Arrhenius dell’unità «Temperatura e attivazione». In biologia il percorso prosegue con l’energia e la catalisi, che spiegano come una reazione possa accelerare senza cambiare il suo equilibrio, e con le sorgenti idrotermali come alternativa alla zuppa prebiotica.",
+              "Riepilogo dell’unità: scariche elettriche e luce ultravioletta producono amminoacidi in atmosfere riducenti o neutre tamponate; HCN dà l’adenina, la formaldeide dà zuccheri; la chimica cianosolfidica produce insieme i precursori di più classi di molecole; la concentrazione di una molecola fragile tende a P·t½/ln2; evaporazione, freddo e minerali favoriscono l’accumulo.",
+              "Nel diario registra A e B con le previsioni e stima il valore stazionario del ribosio a 0 e a 25 °C, a parità di produzione."
             ]
           }
         }
       ],
       "questions": [
         {
-          "id": "biology-07-concept",
-          "prompt": "Se il tempo di dimezzamento raddoppia, la concentrazione stazionaria:",
+          "id": "biology-07-q1",
+          "prompt": "Che cosa dimostrò l’esperimento di Miller del 1953?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Che la vita nasce spontaneamente in una settimana",
+              "feedback": "L’esperimento produsse molecole, non organismi né cellule."
+            },
+            {
+              "id": "B",
+              "text": "Che alcuni amminoacidi si formano da gas semplici con scariche elettriche",
+              "feedback": "Esatto: glicina, alanina e altri amminoacidi comparvero nella soluzione."
+            },
+            {
+              "id": "C",
+              "text": "Che l’atmosfera primitiva conteneva ossigeno",
+              "feedback": "Miller usò una miscela senza ossigeno, che avrebbe distrutto i prodotti."
+            },
+            {
+              "id": "D",
+              "text": "Che il DNA si forma da metano e ammoniaca",
+              "feedback": "L’esperimento non produsse nucleotidi né acidi nucleici."
+            }
+          ],
+          "correct": "B"
+        },
+        {
+          "id": "biology-07-q2",
+          "prompt": "Nella sintesi di Strecker, quale aldeide serve per ottenere l’alanina?",
+          "options": [
+            {
+              "id": "A",
+              "text": "La formaldeide",
+              "feedback": "Dalla formaldeide si ottiene la glicina, che ha un idrogeno come catena laterale."
+            },
+            {
+              "id": "B",
+              "text": "L’acetaldeide",
+              "feedback": "Esatto: il gruppo metilico dell’acetaldeide diventa la catena laterale dell’alanina."
+            },
+            {
+              "id": "C",
+              "text": "La glicolaldeide",
+              "feedback": "La glicolaldeide porta un gruppo ossidrilico e dà un amminoacido diverso."
+            },
+            {
+              "id": "D",
+              "text": "Nessuna aldeide",
+              "feedback": "La sintesi di Strecker parte sempre da un’aldeide o da un chetone."
+            }
+          ],
+          "correct": "B"
+        },
+        {
+          "id": "biology-07-q3",
+          "prompt": "Perché l’adenina si può considerare un pentamero dell’acido cianidrico?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Perché contiene cinque anelli",
+              "feedback": "L’adenina ha due anelli fusi, non cinque."
+            },
+            {
+              "id": "B",
+              "text": "Perché la sua formula C₅H₅N₅ contiene esattamente gli atomi di cinque molecole di HCN",
+              "feedback": "Esatto: le masse molari coincidono, 135,13 g/mol."
+            },
+            {
+              "id": "C",
+              "text": "Perché si forma in cinque minuti",
+              "feedback": "Il prefisso indica il numero di unità, non il tempo di reazione."
+            },
+            {
+              "id": "D",
+              "text": "Perché contiene cinque atomi di ossigeno",
+              "feedback": "L’adenina non contiene ossigeno."
+            }
+          ],
+          "correct": "B"
+        },
+        {
+          "id": "biology-07-q4",
+          "prompt": "Con P = 1 μmol/(L·anno) e t½ = 20 anni, quale concentrazione stazionaria si raggiunge?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Circa 20 μmol/L",
+              "feedback": "Hai dimenticato di dividere per ln2, circa 0,693."
+            },
+            {
+              "id": "B",
+              "text": "Circa 14 μmol/L",
+              "feedback": "Hai moltiplicato per ln2 invece di dividere."
+            },
+            {
+              "id": "C",
+              "text": "Circa 28,9 μmol/L",
+              "feedback": "Esatto: P·t½/ln2 = 20/0,693, cioè circa 28,9 μmol/L."
+            },
+            {
+              "id": "D",
+              "text": "Cresce senza limite",
+              "feedback": "La decomposizione aumenta con la concentrazione e alla fine bilancia la produzione."
+            }
+          ],
+          "correct": "C"
+        },
+        {
+          "id": "biology-07-q5",
+          "prompt": "Se il tempo di dimezzamento di una molecola raddoppia, la sua concentrazione stazionaria:",
           "options": [
             {
               "id": "A",
               "text": "Raddoppia",
-              "feedback": "Con produzione costante P e decomposizione del primo ordine con costante k, la concentrazione tende al valore stazionario P/k, dove produzione e perdita si bilanciano."
+              "feedback": "Esatto: c = P·t½/ln2 è proporzionale a t½."
             },
             {
               "id": "B",
               "text": "Si dimezza",
-              "feedback": "Una sintesi efficiente è solo metà del problema. Se i prodotti si decompongono in fretta la concentrazione resta bassa, e per questo contano gli ambienti che concentrano, come le pozze che evaporano."
+              "feedback": "Una molecola più stabile si accumula di più, non di meno."
             },
             {
               "id": "C",
               "text": "Resta uguale",
-              "feedback": "dc/dt = P - kc ha soluzione c(t) = (P/k)(1 - exp(-kt)). Il tempo di dimezzamento è t½ = ln2/k, quindi P/k = P·t½/ln2."
+              "feedback": "Il valore stazionario dipende dal bilancio fra produzione e decomposizione."
+            },
+            {
+              "id": "D",
+              "text": "Quadruplica",
+              "feedback": "La dipendenza da t½ è lineare, non quadratica."
             }
           ],
           "correct": "A"
         },
         {
-          "id": "biology-07-calculation",
-          "prompt": "Calcolo: Produzione P (a)=1 μmol/(L·anno); Tempo di dimezzamento t½ (b)=20 anni. Per Tempo=50 anni, quanto vale Concentrazione?",
+          "id": "biology-07-q6",
+          "prompt": "Perché le pozze che evaporano sono considerate ambienti favorevoli alla chimica prebiotica?",
           "options": [
             {
               "id": "A",
-              "text": "35,6298 μmol/L",
-              "feedback": "Questo valore non soddisfa la relazione. c(t) = (P/k)(1 - exp(-kt)), k = ln2/t½. Con Produzione P (a)=1 μmol/(L·anno); Tempo di dimezzamento t½ (b)=20 anni e Tempo=50 anni, il risultato è 23,7532 μmol/L. Conserva le unità e arrotonda solo alla fine."
+              "text": "Perché vi manca la luce",
+              "feedback": "Molte reazioni prebiotiche richiedono anzi la luce ultravioletta."
             },
             {
               "id": "B",
-              "text": "11,8766 μmol/L",
-              "feedback": "Controlla sostituzione, segno e unità. c(t) = (P/k)(1 - exp(-kt)), k = ln2/t½. Con Produzione P (a)=1 μmol/(L·anno); Tempo di dimezzamento t½ (b)=20 anni e Tempo=50 anni, il risultato è 23,7532 μmol/L. Conserva le unità e arrotonda solo alla fine."
+              "text": "Perché concentrano i soluti e favoriscono le condensazioni che l’acqua ostacola",
+              "feedback": "Esatto: i cicli di asciutto e bagnato aumentano le concentrazioni e uniscono i monomeri."
             },
             {
               "id": "C",
-              "text": "23,7532 μmol/L",
-              "feedback": "c(t) = (P/k)(1 - exp(-kt)), k = ln2/t½. Con Produzione P (a)=1 μmol/(L·anno); Tempo di dimezzamento t½ (b)=20 anni e Tempo=50 anni, il risultato è 23,7532 μmol/L. Conserva le unità e arrotonda solo alla fine."
+              "text": "Perché l’acqua vi bolle sempre",
+              "feedback": "L’evaporazione avviene anche a temperature moderate."
+            },
+            {
+              "id": "D",
+              "text": "Perché vi si forma ossigeno",
+              "feedback": "L’ossigeno distruggerebbe le molecole organiche."
             }
           ],
-          "correct": "C",
-          "numeric": {
-            "x": 50,
-            "parameters": {
-              "a": 1,
-              "b": 20
-            },
-            "expected": 23.753203584795322,
-            "unit": "μmol/L"
-          }
-        },
-        {
-          "id": "biology-07-transfer",
-          "prompt": "Trasferimento: Produzione P (a)=1,1 μmol/(L·anno); Tempo di dimezzamento t½ (b)=20 anni. Per Tempo=50 anni, quanto vale Concentrazione?",
-          "options": [
-            {
-              "id": "A",
-              "text": "13,0643 μmol/L",
-              "feedback": "Controlla sostituzione, segno e unità. c(t) = (P/k)(1 - exp(-kt)), k = ln2/t½. Con Produzione P (a)=1,1 μmol/(L·anno); Tempo di dimezzamento t½ (b)=20 anni e Tempo=50 anni, il risultato è 26,1285 μmol/L. Conserva le unità e arrotonda solo alla fine."
-            },
-            {
-              "id": "B",
-              "text": "26,1285 μmol/L",
-              "feedback": "c(t) = (P/k)(1 - exp(-kt)), k = ln2/t½. Con Produzione P (a)=1,1 μmol/(L·anno); Tempo di dimezzamento t½ (b)=20 anni e Tempo=50 anni, il risultato è 26,1285 μmol/L. Conserva le unità e arrotonda solo alla fine."
-            },
-            {
-              "id": "C",
-              "text": "39,1928 μmol/L",
-              "feedback": "Questo valore non soddisfa la relazione. c(t) = (P/k)(1 - exp(-kt)), k = ln2/t½. Con Produzione P (a)=1,1 μmol/(L·anno); Tempo di dimezzamento t½ (b)=20 anni e Tempo=50 anni, il risultato è 26,1285 μmol/L. Conserva le unità e arrotonda solo alla fine."
-            }
-          ],
-          "correct": "B",
-          "numeric": {
-            "x": 50,
-            "parameters": {
-              "a": 1.1,
-              "b": 20
-            },
-            "expected": 26.128523943274853,
-            "unit": "μmol/L"
-          }
-        },
-        {
-          "id": "biology-07-limits",
-          "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-          "options": [
-            {
-              "id": "A",
-              "text": "Riproduce ogni dettaglio del pianeta reale",
-              "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Produzione costante e decomposizione del primo ordine; niente evaporazione, adsorbimento o reazioni secondarie."
-            },
-            {
-              "id": "B",
-              "text": "Basta il grafico per provare una legge universale",
-              "feedback": "Una visualizzazione non è una dimostrazione universale. Produzione costante e decomposizione del primo ordine; niente evaporazione, adsorbimento o reazioni secondarie."
-            },
-            {
-              "id": "C",
-              "text": "Produzione costante con decomposizione del primo ordine",
-              "feedback": "Produzione costante e decomposizione del primo ordine; niente evaporazione, adsorbimento o reazioni secondarie."
-            }
-          ],
-          "correct": "C"
+          "correct": "B"
         }
       ]
     },

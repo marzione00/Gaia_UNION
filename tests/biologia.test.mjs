@@ -158,3 +158,15 @@ test('Biologia 06: chiralità e omochiralità, numeri ricalcolati',()=>{
  assert.equal(r(0.5**100*1e31,1),7.9);assert.equal(r(0.75**100*1e13,1),3.2);assert.equal(r(0.995**100,2),0.61);
  assert.equal(r((1+0.159)/2*100,0),58);assert.equal(r((1+0.211)/2*100,0),61);assert.equal(r((1+0.185)/2*100,0),59);
 });
+test('Biologia 07: sintesi prebiotica, numeri ricalcolati',()=>{
+ const c=(t,P,th)=>{const k=Math.LN2/th;return P/k*(1-Math.exp(-k*t));};
+ assert.equal(r(Math.LN2/20,4),0.0347);assert.equal(r(20/Math.LN2,1),28.9);assert.equal(r(c(50,1,20),1),23.8);assert.equal(r(c(100,1,20),1),28);assert.equal(r((1-Math.exp(-Math.LN2/20*50))*100,0),82);
+ assert.equal(r(Math.LN10/Math.LN2,2),3.32);assert.equal(r(20*Math.LN10/Math.LN2,0),66);assert.equal(r(1/(Math.LN2/20+0.1),1),7.4);assert.equal(r(40/Math.LN2,1),57.7);
+ assert.equal(r(5*(1.008+12.011+14.007),2),135.13);assert.equal(r(0.01*75.07,2),0.75);assert.equal(r(28.9*100/1000,1),2.9);
+ // Ribose (Larralde, Robertson, Miller 1995) and Arrhenius interpolation.
+ const t100=73/60/24/365.25,ratio=44/t100,Ea=R*Math.log(ratio)/(1/273.15-1/373.15);
+ assert.equal(r(ratio/1e5,2),3.17);assert.equal(r(Ea/1e3,0),107);const f25=Math.exp(Ea/R*(1/273.15-1/298.15));assert.equal(r(Math.log(f25),2),3.96);assert.equal(r(f25,0),53);assert.equal(r(44/f25,2),0.84);
+ assert.equal(r(44*Math.exp(-Ea/R*(1/273.15-1/333.15))*365.25,1),3.2);assert.equal(r(1440/73,1),19.7);assert.equal(r(2**(-1440/73)*1e6,1),1.2);
+ // Dice simulation.
+ assert.equal(r(6/(1/6),0),36);assert.equal(r(Math.LN2/Math.log(6/5),1),3.8);
+});
