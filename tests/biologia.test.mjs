@@ -480,3 +480,19 @@ test('Biologia 24: nane rosse, numeri ricalcolati',()=>{
  // Model probes: M = 0.12 and 0.09 at a = 0.0825 and 0.155 AU.
  assert.deepEqual([P(0.0825,0.12),P(0.155,0.12),P(0.0825,0.09),P(0.155,0.09)].map(v=>r(v,1)),[25,64.3,28.9,74.3]);
 });
+test('Biologia 25: albedo e Daisyworld, numeri ricalcolati',async()=>{
+ const dw=await import('../src/models/daisyworld.js');const sig=5.67e-8,T=(L,A)=>(917*L*(1-A)/sig)**0.25,C=k=>k-273.15;
+ assert.equal(917*0.5,458.5);assert.equal(r(T(1,0.5),1),299.9);assert.equal(r(C(T(1,0.5)),1),26.7);assert.equal(r(C(T(1,0.75)),0),-21);assert.equal(r(C(T(1,0.25)),0),59);assert.equal(r(T(1,0.75),0),252);assert.equal(r(T(1,0.25),0),332);
+ assert.equal(r(1361/4,0),340);assert.equal(r(254.6*(0.69/0.70)**0.25,1),253.7);assert.equal(r(-254.6/(4*0.7),0),-91);
+ assert.equal(r(0.28*0.25+0.40*0.75+0.32*0.5,2),0.53);assert.equal(r(dw.growth(15),2),0.82);assert.ok(dw.growth(40)<1e-3&&dw.growth(5)<1e-3);assert.equal(r(0.003265*17.5**2,3),1);
+ assert.equal(r(C(T(0.85,0.5)),1),14.8);assert.equal(r(C(T(1.1,0.5)),1),34);assert.equal(r(T(0.85,0.5),0),288);assert.equal(r(T(1.1,0.5),0),307);
+ assert.equal(1-0.3,0.7);const Aneed=L=>1-295.65**4*sig/(917*L);assert.equal(r(Aneed(1),2),0.53);assert.equal(r(Aneed(1.2),2),0.61);assert.equal(r(295.65**4*sig/917,3),0.472);
+ const s=dw.simulate({});assert.equal(r(s.final.black,2),0.28);assert.equal(r(s.final.white,2),0.4);assert.equal(r(s.final.ground,2),0.32);assert.equal(r(s.final.albedo,3),0.531);assert.equal(r(s.final.temperatureC,1),22);assert.equal(r(s.final.blackC,1),27.3);assert.equal(r(s.final.whiteC,1),17.7);assert.equal(r(s.final.blackC+s.final.whiteC,1),45);
+ assert.equal(r(s.final.temperatureK,1),295.2);assert.equal(r(s.final.temperatureK**4/1e9,2),7.59);assert.equal(r(C((s.final.temperatureK**4+2e9*(s.final.albedo-0.25))**0.25),1),27.3);
+ const sw=dw.sweep({},101),alive=sw.filter(x=>x.black+x.white>1e-3);assert.equal(r(alive[0].luminosity,2),0.71);assert.equal(r(alive.at(-1).luminosity,2),1.21);
+ assert.equal(r(Math.min(...alive.map(x=>x.temperatureC)),0),20);assert.equal(r(Math.max(...alive.map(x=>x.temperatureC)),0),26);assert.equal(r(alive[0].albedo,2),0.33);assert.equal(r(alive.at(-1).albedo,2),0.62);
+ assert.equal(r(C(T(0.71,0.5)),0),2);assert.equal(r(C(T(1.21,0.5)),0),41);assert.equal(r(C(T(1.3,0.5)),0),47);assert.equal(r(T(1.3,0.5),0),320);assert.equal(r(C(T(1.4,0.5)),0),53);assert.equal(r(T(1.4,0.5),0),326);
+ assert.equal(r(1.9e-6*1.8e20/1e14,1),3.4);assert.equal(r(3.4e14/9/1e13,1),3.8);assert.equal(r(3.8e13*16/1e14,0),6);assert.equal(r(100*(1-0.8),0),20);assert.equal(r(100*(1-0.1),0),90);
+ // Model probes: A = 0.5 and 0.75 at L = 0.85 and 1.1.
+ assert.deepEqual([C(T(0.85,0.5)),C(T(1.1,0.5)),C(T(0.85,0.75)),C(T(1.1,0.75))].map(v=>r(v,1)),[14.8,34,-31,-14.9]);
+});
