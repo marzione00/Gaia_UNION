@@ -90,3 +90,26 @@ test('Biologia 01: che cos\'è la vita, numeri ricalcolati',()=>{
  // Solar abundances (Asplund et al. 2009): carbon about eight times silicon by number.
  assert.equal(r(10**(8.43-7.51),0),8);
 });
+test('Biologia 02: cellule, scala e superficie, numeri ricalcolati',()=>{
+ const sv=d=>6/d,sph=d=>Math.PI/6*d**3;
+ assert.equal(sv(1),6);assert.equal(r(sv(10),1),0.6);assert.equal(r(sv(100),2),0.06);assert.equal(sv(0.4),15);assert.equal(sv(20),0.3);
+ // E. coli as a capsule 1 um wide and 2 um long.
+ const V=Math.PI*0.25+4/3*Math.PI*0.125,S=2*Math.PI*0.5+Math.PI;assert.equal(r(V,2),1.31);assert.equal(r(S,2),6.28);assert.equal(r(S/V,1),4.8);
+ const re=(3*V/4/Math.PI)**(1/3);assert.equal(r(re,2),0.68);assert.equal(r(3/re,1),4.4);assert.equal(r((S/V)/(3/re)*100-100,0),9);
+ // Abbe limit, cubes, Krogh radius.
+ assert.equal(r(550/2.8/1e3,2),0.2);assert.equal(r(450/2.8/1e3,2),0.16);assert.equal(54/27,2);assert.equal(162/27,6);
+ const q=0.25/22.414/60/0.07;assert.equal(r(0.25/22.414/60*1e4,2),1.86);assert.equal(r(q*1e3,1),2.7);assert.equal(r(Math.sqrt(6*2e-9*0.26/2.7e-3)*1e3,1),1.1);
+ assert.equal(r(Math.sqrt(35/21),2),1.29);assert.equal(r(Math.SQRT1_2,2),0.71);
+ // Diffusion times t = x^2/(6D).
+ assert.equal(r(1/(6*8),2),0.02);assert.equal(r(1e4/(6*7.7),0),216);assert.equal(r(1e8/(6*7.7)/86400,0),25);assert.equal(r(1e-6/(6*2e-9),0),83);assert.equal(r(100/48,1),2.1);assert.equal(r(0.01*1e6/3600,1),2.8);
+ // Volumes, genome, membrane fraction.
+ assert.equal(r(sph(20)/1.31,-2),3200);assert.equal(r(0.7e-12/18*NA/1e10,1),2.3);assert.equal(r((6*0.009/Math.PI)**(1/3),2),0.26);assert.equal(r(1.31/0.009,0),146);
+ const m=543000*650/NA,Vd=m/1.7/1e-12;assert.equal(r(m*1e16,2),5.86);assert.equal(r(Vd*1e4,1),3.4);assert.equal(r(sph(0.05)*1e5,1),6.5);assert.equal(r(Vd/sph(0.05),0),5);assert.equal(r(Vd/sph(0.1),2),0.66);
+ assert.equal(r(1-(41/50)**3,2),0.45);assert.equal(r(1-(391/400)**3,2),0.07);
+ // Red blood cell, hypha, giant and tiny bacteria, gelatine cubes.
+ const rr=(3*90/4/Math.PI)**(1/3);assert.equal(r(rr,2),2.78);assert.equal(r(4*Math.PI*rr**2,0),97);assert.equal(r(136/(4*Math.PI*rr**2),2),1.4);
+ const Vh=Math.PI*2.5**2*1e4,rh=(3*Vh/4/Math.PI)**(1/3);assert.equal(r(Vh/1e5,2),1.96);assert.equal(r(rh,0),36);assert.equal(r(3/rh,3),0.083);
+ assert.equal(r(1-(373/375)**3,3),0.016);
+ const Vp=Math.PI*0.08**2*0.44+4/3*Math.PI*0.08**3,Sp=2*Math.PI*0.08*0.44+4*Math.PI*0.08**2;assert.equal(r(Vp,4),0.011);assert.equal(r(Sp,3),0.302);assert.equal(r(Sp/Vp,0),27);
+ assert.equal(r(1-0.2**3,2),0.99);assert.equal(r(1-0.6**3,2),0.78);assert.equal(r(1-0.8**3,2),0.49);assert.equal(r(2*Math.SQRT2,1),2.8);
+});

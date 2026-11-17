@@ -31668,20 +31668,22 @@
       "title": "Cellule, scala e superficie",
       "sector": 3,
       "modelId": "biology-02",
-      "coverage": "guided-foundation",
-      "editorialStatus": "original-draft",
-      "scope": "Sfere ideali",
-      "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+      "coverage": "guided-lab",
+      "editorialStatus": "hand-written-draft",
+      "scope": "Teoria cellulare, procarioti ed eucarioti, scala delle dimensioni, rapporto superficie/volume, diffusione, cellule giganti e cellule minime, il caso ALH84001",
+      "narrativeStatus": "Dimensioni, coefficienti di diffusione e dati sul meteorite ALH84001 sono valori di riferimento reali; le cellule sono approssimate come sfere.",
       "objectives": [
-        "Spiegare: sfere ideali.",
-        "Applicare S/V = 6/d; d = a × fattore, dichiarando variabili e unità.",
-        "Confrontare due configurazioni e discutere i limiti del modello."
+        "Enunciare la teoria cellulare e descrivere i componenti di ogni cellula.",
+        "Distinguere procarioti ed eucarioti per organizzazione e dimensioni.",
+        "Calcolare il rapporto superficie/volume di una sfera e i tempi di diffusione.",
+        "Discutere il limite inferiore delle dimensioni di una cellula e il caso ALH84001."
       ],
       "prerequisites": [
         "biology-01"
       ],
       "connections": [
-        "math-c11"
+        "math-c11",
+        "math-c06"
       ],
       "sources": [
         "biology"
@@ -31689,241 +31691,316 @@
       "originalSource": null,
       "glossary": [
         {
-          "term": "Fattore scala",
-          "definition": "Variabile indipendente, unità 1; intervallo [0,5; 10]."
+          "term": "Procariote",
+          "definition": "Organismo unicellulare senza nucleo: batteri e archei."
         },
         {
-          "term": "Superficie/volume",
-          "definition": "Risultato calcolato dal modello, unità 1/μm."
+          "term": "Eucariote",
+          "definition": "Organismo con cellule dotate di nucleo e organelli delimitati da membrane."
         },
         {
-          "term": "Diametro riferimento",
-          "definition": "Parametro a, unità μm; intervallo [1; 20]."
+          "term": "Rapporto S/V",
+          "definition": "Superficie divisa per volume; per una sfera vale 6/d."
+        },
+        {
+          "term": "Diffusione",
+          "definition": "Spostamento netto di molecole per moto casuale; il tempo cresce con il quadrato della distanza."
+        },
+        {
+          "term": "Cellula minima",
+          "definition": "Cellula con il minimo numero di geni necessario a crescere e dividersi, come JCVI-syn3A."
+        },
+        {
+          "term": "Biofirma",
+          "definition": "Traccia chimica o fisica attribuibile con sicurezza a organismi viventi."
         }
       ],
       "steps": [
         {
           "label": "SCOPRI",
-          "title": "La domanda della spedizione",
+          "title": "Strutture troppo piccole",
           "text": {
             "base": [
-              "Un microscopio della stazione inquadra forme sferiche in una roccia. Prima di chiamarle cellule bisogna chiedersi se una cellula potrebbe davvero essere così piccola.",
-              "Per una sfera di diametro d il rapporto fra superficie e volume è 6/d: dimezzando il diametro raddoppia. Una cellula scambia materia attraverso la superficie e la consuma nel volume."
+              "Nel 1996 la NASA annunciò possibili tracce di vita nel meteorite marziano ALH84001: globuli di carbonati, molecole organiche, cristalli di magnetite e strutture allungate che ricordavano batteri. Quelle strutture misuravano fra venti e cento nanometri, da dieci a cinquanta volte meno della larghezza di un batterio terrestre. Una delle obiezioni più forti fu geometrica: in una sfera così piccola non c’è posto per ciò che serve a una cellula.",
+              "Per capire perché, bisogna sapere che cosa contiene una cellula e come le dimensioni condizionano gli scambi con l’ambiente. Ogni cellula ha una membrana, un citoplasma acquoso, un genoma di DNA, ribosomi che costruiscono le proteine e un sistema per ricavare energia. Le cellule dei procarioti, batteri e archei, misurano di solito da qualche decimo a qualche micrometro; quelle degli eucarioti, con nucleo e organelli, da qualche micrometro a qualche decina."
             ],
             "intermediate": [
-              "Un microscopio della stazione inquadra forme sferiche in una roccia. Prima di chiamarle cellule bisogna chiedersi se una cellula potrebbe davvero essere così piccola.",
-              "Superficie 4πr² e volume (4/3)πr³ danno S/V = 3/r = 6/d. Se il diametro è a volte un diametro di riferimento, S/V = 6/(a × fattore)."
+              "Nel 1996 la NASA annunciò possibili tracce di vita nel meteorite marziano ALH84001: globuli di carbonati, molecole organiche, cristalli di magnetite e strutture allungate che ricordavano batteri. Quelle strutture misuravano fra venti e cento nanometri, da dieci a cinquanta volte meno della larghezza di un batterio terrestre. Una delle obiezioni più forti fu geometrica: in una sfera così piccola non c’è posto per ciò che serve a una cellula.",
+              "Per capire perché, bisogna sapere che cosa contiene una cellula e come le dimensioni condizionano gli scambi con l’ambiente. Ogni cellula ha una membrana, un citoplasma acquoso, un genoma di DNA, ribosomi che costruiscono le proteine e un sistema per ricavare energia. Le cellule dei procarioti, batteri e archei, misurano di solito da qualche decimo a qualche micrometro; quelle degli eucarioti, con nucleo e organelli, da qualche micrometro a qualche decina."
             ],
             "advanced": [
-              "Un microscopio della stazione inquadra forme sferiche in una roccia. Prima di chiamarle cellule bisogna chiedersi se una cellula potrebbe davvero essere così piccola.",
-              "Calcola S/V per una cellula di 0,1 μm e discuti, con il numero di molecole che può contenere, se strutture di quella taglia possono essere cellule viventi.",
-              "Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne."
+              "Nel 1996 la NASA annunciò possibili tracce di vita nel meteorite marziano ALH84001: globuli di carbonati, molecole organiche, cristalli di magnetite e strutture allungate che ricordavano batteri. Quelle strutture misuravano fra venti e cento nanometri, da dieci a cinquanta volte meno della larghezza di un batterio terrestre. Una delle obiezioni più forti fu geometrica: in una sfera così piccola non c’è posto per ciò che serve a una cellula.",
+              "Per capire perché, bisogna sapere che cosa contiene una cellula e come le dimensioni condizionano gli scambi con l’ambiente. Ogni cellula ha una membrana, un citoplasma acquoso, un genoma di DNA, ribosomi che costruiscono le proteine e un sistema per ricavare energia. Le cellule dei procarioti, batteri e archei, misurano di solito da qualche decimo a qualche micrometro; quelle degli eucarioti, con nucleo e organelli, da qualche micrometro a qualche decina.",
+              "La teoria cellulare afferma che ogni organismo è fatto di cellule e che ogni cellula nasce da un’altra cellula. Lascia aperta la domanda su come sia nata la prima, che è il tema dei capitoli sulle protocellule e sul mondo a RNA."
             ]
           }
         },
         {
           "label": "CAPISCI",
-          "title": "Dall’intuizione alla relazione",
+          "title": "Superficie, volume e diffusione",
           "text": {
             "base": [
-              "Per una sfera di diametro d il rapporto fra superficie e volume è 6/d: dimezzando il diametro raddoppia. Una cellula scambia materia attraverso la superficie e la consuma nel volume.",
-              "Con diametro di riferimento 10 μm e fattore 2 il diametro è 20 μm e S/V = 0,3 μm⁻¹. Un batterio di 1 μm ha S/V = 6 μm⁻¹."
+              "Una cellula scambia materia attraverso la superficie e la consuma nel volume. Per una sfera di diametro d la superficie è πd² e il volume πd³/6, quindi il rapporto vale S/V = 6/d: dimezzando il diametro raddoppia. Una cellula di 1 μm ha S/V = 6 μm⁻¹, una di 10 μm soltanto 0,6 μm⁻¹. Lo stesso accade tagliando un cubo in cubetti: il volume resta uguale, la superficie totale cresce.",
+              "Dentro una cellula le molecole si muovono per diffusione, e il tempo per percorrere una distanza x è circa t = x²/(6D): cresce con il quadrato della distanza. Una proteina, con D di circa 8 μm²/s nel citoplasma batterico, attraversa un batterio in due centesimi di secondo e una cellula di cento micrometri in circa tre minuti e mezzo. Per questo le cellule grandi usano trasporto attivo, compartimenti e forme allungate o appiattite."
             ],
             "intermediate": [
-              "Superficie 4πr² e volume (4/3)πr³ danno S/V = 3/r = 6/d. Se il diametro è a volte un diametro di riferimento, S/V = 6/(a × fattore).",
-              "La variabile Fattore scala è espressa in 1; Superficie/volume in 1/μm. Il dominio dello strumento è [0,5; 10]. La relazione implementata è: S/V = 6/d; d = a × fattore.",
-              "Con diametro di riferimento 10 μm e fattore 2 il diametro è 20 μm e S/V = 0,3 μm⁻¹. Un batterio di 1 μm ha S/V = 6 μm⁻¹."
+              "Una cellula scambia materia attraverso la superficie e la consuma nel volume. Per una sfera di diametro d la superficie è πd² e il volume πd³/6, quindi il rapporto vale S/V = 6/d: dimezzando il diametro raddoppia. Una cellula di 1 μm ha S/V = 6 μm⁻¹, una di 10 μm soltanto 0,6 μm⁻¹. Lo stesso accade tagliando un cubo in cubetti: il volume resta uguale, la superficie totale cresce.",
+              "Dentro una cellula le molecole si muovono per diffusione, e il tempo per percorrere una distanza x è circa t = x²/(6D): cresce con il quadrato della distanza. Una proteina, con D di circa 8 μm²/s nel citoplasma batterico, attraversa un batterio in due centesimi di secondo e una cellula di cento micrometri in circa tre minuti e mezzo. Per questo le cellule grandi usano trasporto attivo, compartimenti e forme allungate o appiattite.",
+              "Un organismo che riceve ossigeno solo per diffusione dalla superficie non può superare un raggio R = √(6Dc₀/q), dove c₀ è la concentrazione esterna e q il consumo per unità di volume. Con il consumo medio del corpo umano e l’ossigeno disciolto in acqua il limite è di circa un millimetro: gli animali più grandi hanno bisogno della circolazione."
             ],
             "advanced": [
-              "Superficie 4πr² e volume (4/3)πr³ danno S/V = 3/r = 6/d. Se il diametro è a volte un diametro di riferimento, S/V = 6/(a × fattore).",
-              "Calcola S/V per una cellula di 0,1 μm e discuti, con il numero di molecole che può contenere, se strutture di quella taglia possono essere cellule viventi.",
-              "Un rapporto S/V alto ha anche un costo. Sotto qualche centinaio di nanometri il volume è troppo piccolo per contenere il macchinario minimo che copia un genoma."
+              "Una cellula scambia materia attraverso la superficie e la consuma nel volume. Per una sfera di diametro d la superficie è πd² e il volume πd³/6, quindi il rapporto vale S/V = 6/d: dimezzando il diametro raddoppia. Una cellula di 1 μm ha S/V = 6 μm⁻¹, una di 10 μm soltanto 0,6 μm⁻¹. Lo stesso accade tagliando un cubo in cubetti: il volume resta uguale, la superficie totale cresce.",
+              "Dentro una cellula le molecole si muovono per diffusione, e il tempo per percorrere una distanza x è circa t = x²/(6D): cresce con il quadrato della distanza. Una proteina, con D di circa 8 μm²/s nel citoplasma batterico, attraversa un batterio in due centesimi di secondo e una cellula di cento micrometri in circa tre minuti e mezzo. Per questo le cellule grandi usano trasporto attivo, compartimenti e forme allungate o appiattite.",
+              "Un organismo che riceve ossigeno solo per diffusione dalla superficie non può superare un raggio R = √(6Dc₀/q), dove c₀ è la concentrazione esterna e q il consumo per unità di volume. Con il consumo medio del corpo umano e l’ossigeno disciolto in acqua il limite è di circa un millimetro: gli animali più grandi hanno bisogno della circolazione.",
+              "Il limite inferiore è fissato dal contenuto. La cellula sintetica minima JCVI-syn3A ha 493 geni e un diametro di circa 400 nm; i batteri liberi più piccoli conosciuti hanno volumi di circa un centesimo di micrometro cubo, cioè diametri equivalenti di circa 0,25-0,30 μm. Il solo DNA del genoma minimo occupa circa 3,4 · 10⁻⁴ μm³, cinque volte il volume di una sfera di 50 nm."
             ]
           }
         },
         {
           "label": "SPERIMENTA",
-          "title": "Prevedi, modifica, confronta",
+          "title": "Il laboratorio della scala",
           "text": {
             "base": [
-              "Nel laboratorio imposta Diametro riferimento (a): 10 μm. Prima di salvare A, prevedi come cambia Superficie/volume fra Fattore scala=2,875 e 5,25 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Con diametro di riferimento 10 μm e fattore 2 il diametro è 20 μm e S/V = 0,3 μm⁻¹. Un batterio di 1 μm ha S/V = 6 μm⁻¹.",
-              "La variabile Fattore scala è espressa in 1; Superficie/volume in 1/μm. Il dominio dello strumento è [0,5; 10]. La relazione implementata è: S/V = 6/d; d = a × fattore."
+              "Nel laboratorio il grafico mostra il rapporto S/V di una cellula sferica di diametro d = a · f, dove a è il diametro di riferimento e f il fattore di scala sull’asse orizzontale, da 0,5 a 10. Nella scheda «Regola» cambi a, da 1 a 20 μm; il valore predefinito è 10 μm. Con a = 10 μm e f = 2 il diametro è 20 μm e S/V = 0,3 μm⁻¹.",
+              "Protocollo. Il programma confronta due fattori fissati, circa 2,9 e 5,3. Con a = 10 μm prevedi se S/V cresce, diminuisce o resta uguale e salva A. Poi porta a a 5 μm, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+              "Che cosa osservare. Con a = 10 μm il rapporto scende da circa 0,209 a 0,114 μm⁻¹; con a = 5 μm da circa 0,417 a 0,229 μm⁻¹. In entrambi i casi diminuisce, e dimezzare il diametro di riferimento raddoppia tutti i valori: la curva è un’iperbole, e il prodotto S/V · d resta sempre uguale a 6."
             ],
             "intermediate": [
-              "Nel laboratorio imposta Diametro riferimento (a): 10 μm. Prima di salvare A, prevedi come cambia Superficie/volume fra Fattore scala=2,875 e 5,25 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "La variabile Fattore scala è espressa in 1; Superficie/volume in 1/μm. Il dominio dello strumento è [0,5; 10]. La relazione implementata è: S/V = 6/d; d = a × fattore.",
-              "Superficie 4πr² e volume (4/3)πr³ danno S/V = 3/r = 6/d. Se il diametro è a volte un diametro di riferimento, S/V = 6/(a × fattore)."
+              "Nel laboratorio il grafico mostra il rapporto S/V di una cellula sferica di diametro d = a · f, dove a è il diametro di riferimento e f il fattore di scala sull’asse orizzontale, da 0,5 a 10. Nella scheda «Regola» cambi a, da 1 a 20 μm; il valore predefinito è 10 μm. Con a = 10 μm e f = 2 il diametro è 20 μm e S/V = 0,3 μm⁻¹.",
+              "Protocollo. Il programma confronta due fattori fissati, circa 2,9 e 5,3. Con a = 10 μm prevedi se S/V cresce, diminuisce o resta uguale e salva A. Poi porta a a 5 μm, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+              "Che cosa osservare. Con a = 10 μm il rapporto scende da circa 0,209 a 0,114 μm⁻¹; con a = 5 μm da circa 0,417 a 0,229 μm⁻¹. In entrambi i casi diminuisce, e dimezzare il diametro di riferimento raddoppia tutti i valori: la curva è un’iperbole, e il prodotto S/V · d resta sempre uguale a 6."
             ],
             "advanced": [
-              "Nel laboratorio imposta Diametro riferimento (a): 10 μm. Prima di salvare A, prevedi come cambia Superficie/volume fra Fattore scala=2,875 e 5,25 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Calcola S/V per una cellula di 0,1 μm e discuti, con il numero di molecole che può contenere, se strutture di quella taglia possono essere cellule viventi.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Nel laboratorio il grafico mostra il rapporto S/V di una cellula sferica di diametro d = a · f, dove a è il diametro di riferimento e f il fattore di scala sull’asse orizzontale, da 0,5 a 10. Nella scheda «Regola» cambi a, da 1 a 20 μm; il valore predefinito è 10 μm. Con a = 10 μm e f = 2 il diametro è 20 μm e S/V = 0,3 μm⁻¹.",
+              "Protocollo. Il programma confronta due fattori fissati, circa 2,9 e 5,3. Con a = 10 μm prevedi se S/V cresce, diminuisce o resta uguale e salva A. Poi porta a a 5 μm, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+              "Che cosa osservare. Con a = 10 μm il rapporto scende da circa 0,209 a 0,114 μm⁻¹; con a = 5 μm da circa 0,417 a 0,229 μm⁻¹. In entrambi i casi diminuisce, e dimezzare il diametro di riferimento raddoppia tutti i valori: la curva è un’iperbole, e il prodotto S/V · d resta sempre uguale a 6.",
+              "Una prova a casa: cubi di gelatina colorati con succo di cavolo rosso e resi basici con un po’ di bicarbonato diventano rossi dove arriva l’aceto. Dopo dieci minuti lo strato colorato ha lo stesso spessore in tutti i cubi, ma in un cubo di mezzo centimetro copre quasi tutto il volume, in uno di due centimetri circa la metà."
             ]
           }
         },
         {
           "label": "INTERPRETA",
-          "title": "Leggere senza sovrainterpretare",
+          "title": "Errori e cellule ai limiti",
           "text": {
             "base": [
-              "Un rapporto S/V alto ha anche un costo. Sotto qualche centinaio di nanometri il volume è troppo piccolo per contenere il macchinario minimo che copia un genoma.",
-              "Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Errore frequente: pensare che i tempi di diffusione crescano come la distanza. Crescono con il quadrato: una molecola che attraversa un batterio in un centesimo di secondo impiega quasi tre ore a percorrere un millimetro.",
+              "Secondo errore: riconoscere la vita dalla forma. Strutture rotonde o allungate di dimensioni cellulari si formano anche nei minerali. Nel caso di ALH84001 i carbonati, le molecole organiche e la magnetite si sono rivelati spiegabili senza la vita, e le strutture di venti-cento nanometri sono troppo piccole: una membrana spessa 4,5 nm occuperebbe quasi metà del volume di una sfera di 50 nm."
             ],
             "intermediate": [
-              "Un rapporto S/V alto ha anche un costo. Sotto qualche centinaio di nanometri il volume è troppo piccolo per contenere il macchinario minimo che copia un genoma.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Errore frequente: pensare che i tempi di diffusione crescano come la distanza. Crescono con il quadrato: una molecola che attraversa un batterio in un centesimo di secondo impiega quasi tre ore a percorrere un millimetro.",
+              "Secondo errore: riconoscere la vita dalla forma. Strutture rotonde o allungate di dimensioni cellulari si formano anche nei minerali. Nel caso di ALH84001 i carbonati, le molecole organiche e la magnetite si sono rivelati spiegabili senza la vita, e le strutture di venti-cento nanometri sono troppo piccole: una membrana spessa 4,5 nm occuperebbe quasi metà del volume di una sfera di 50 nm.",
+              "Terzo errore: credere che i procarioti siano sempre più piccoli degli eucarioti. Thiomargarita magnifica, un batterio, forma cellule lunghe quasi un centimetro; ci riesce con un grande vacuolo centrale e con il DNA distribuito in tanti piccoli compartimenti, in modo che ogni regione del citoplasma abbia istruzioni vicine. Le cellule giganti aggirano il vincolo geometrico senza eliminarlo."
             ],
             "advanced": [
-              "Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne.",
-              "Calcola S/V per una cellula di 0,1 μm e discuti, con il numero di molecole che può contenere, se strutture di quella taglia possono essere cellule viventi.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Errore frequente: pensare che i tempi di diffusione crescano come la distanza. Crescono con il quadrato: una molecola che attraversa un batterio in un centesimo di secondo impiega quasi tre ore a percorrere un millimetro.",
+              "Secondo errore: riconoscere la vita dalla forma. Strutture rotonde o allungate di dimensioni cellulari si formano anche nei minerali. Nel caso di ALH84001 i carbonati, le molecole organiche e la magnetite si sono rivelati spiegabili senza la vita, e le strutture di venti-cento nanometri sono troppo piccole: una membrana spessa 4,5 nm occuperebbe quasi metà del volume di una sfera di 50 nm.",
+              "Terzo errore: credere che i procarioti siano sempre più piccoli degli eucarioti. Thiomargarita magnifica, un batterio, forma cellule lunghe quasi un centimetro; ci riesce con un grande vacuolo centrale e con il DNA distribuito in tanti piccoli compartimenti, in modo che ogni regione del citoplasma abbia istruzioni vicine. Le cellule giganti aggirano il vincolo geometrico senza eliminarlo.",
+              "Le cellule più piccole conosciute raggiungono il limite rinunciando in parte all’autosufficienza: i batteri ultrapiccoli dell’acqua di falda e l’archeo Nanoarchaeum equitans dipendono da altri microrganismi per molte molecole."
             ]
           }
         },
         {
           "label": "VERIFICA",
-          "title": "Verifica ragionamento e calcolo",
+          "title": "Verifica",
           "text": {
             "base": [
-              "Per una sfera di diametro d il rapporto fra superficie e volume è 6/d: dimezzando il diametro raddoppia. Una cellula scambia materia attraverso la superficie e la consuma nel volume.",
-              "Con diametro di riferimento 10 μm e fattore 2 il diametro è 20 μm e S/V = 0,3 μm⁻¹. Un batterio di 1 μm ha S/V = 6 μm⁻¹."
+              "Ripasso: teoria cellulare; componenti comuni a ogni cellula; procarioti ed eucarioti; scala logaritmica delle dimensioni; S/V = 6/d; tempi di diffusione; raggio massimo senza circolazione; cellule giganti e cellule minime; il caso ALH84001.",
+              "Mini esercizio: una cellula di 2 μm ha S/V = 3 μm⁻¹, una di 20 μm ha 0,3 μm⁻¹; il diametro è dieci volte più grande e il rapporto dieci volte più piccolo.",
+              "Nelle domande ricorda che il volume cresce con il cubo del diametro e la superficie con il quadrato."
             ],
             "intermediate": [
-              "Superficie 4πr² e volume (4/3)πr³ danno S/V = 3/r = 6/d. Se il diametro è a volte un diametro di riferimento, S/V = 6/(a × fattore).",
-              "La variabile Fattore scala è espressa in 1; Superficie/volume in 1/μm. Il dominio dello strumento è [0,5; 10]. La relazione implementata è: S/V = 6/d; d = a × fattore."
+              "Ripasso: teoria cellulare; componenti comuni a ogni cellula; procarioti ed eucarioti; scala logaritmica delle dimensioni; S/V = 6/d; tempi di diffusione; raggio massimo senza circolazione; cellule giganti e cellule minime; il caso ALH84001.",
+              "Mini esercizio: una cellula di 2 μm ha S/V = 3 μm⁻¹, una di 20 μm ha 0,3 μm⁻¹; il diametro è dieci volte più grande e il rapporto dieci volte più piccolo.",
+              "Nelle domande ricorda che il volume cresce con il cubo del diametro e la superficie con il quadrato."
             ],
             "advanced": [
-              "Calcola S/V per una cellula di 0,1 μm e discuti, con il numero di molecole che può contenere, se strutture di quella taglia possono essere cellule viventi.",
-              "Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne."
+              "Ripasso: teoria cellulare; componenti comuni a ogni cellula; procarioti ed eucarioti; scala logaritmica delle dimensioni; S/V = 6/d; tempi di diffusione; raggio massimo senza circolazione; cellule giganti e cellule minime; il caso ALH84001.",
+              "Mini esercizio: una cellula di 2 μm ha S/V = 3 μm⁻¹, una di 20 μm ha 0,3 μm⁻¹; il diametro è dieci volte più grande e il rapporto dieci volte più piccolo.",
+              "Nelle domande ricorda che il volume cresce con il cubo del diametro e la superficie con il quadrato."
             ]
           }
         },
         {
           "label": "COLLEGA",
-          "title": "Conclusione e nuova domanda",
+          "title": "Collegamenti",
           "text": {
             "base": [
-              "Nel diario distingui previsione, risultato e interpretazione. Sfere ideali.",
-              "Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne.",
-              "Collegamento consigliato: math-c11. Il completamento registra attività e autoverifica, non certifica competenze."
+              "La geometria della sfera e del cubo è trattata nell’unità di matematica «Geometria elementare», le potenze e i logaritmi delle scale di grandezza in «Esponenziali e logaritmi». In biologia il percorso prosegue con le membrane che delimitano le cellule e con le prime protocellule.",
+              "Riepilogo dell’unità: ogni cellula ha membrana, citoplasma, genoma, ribosomi e metabolismo; S/V = 6/d per una sfera; i tempi di diffusione crescono con il quadrato della distanza; senza circolazione un organismo aerobico resta sotto il millimetro; una cellula libera non scende sotto circa 0,25 μm; le strutture di ALH84001 sono troppo piccole per essere cellule.",
+              "Nel diario registra A e B con le previsioni e spiega perché una cellula di 50 nm non potrebbe contenere il genoma della cellula minima."
             ],
             "intermediate": [
-              "Superficie 4πr² e volume (4/3)πr³ danno S/V = 3/r = 6/d. Se il diametro è a volte un diametro di riferimento, S/V = 6/(a × fattore).",
-              "Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne.",
-              "Calcola S/V per una cellula di 0,1 μm e discuti, con il numero di molecole che può contenere, se strutture di quella taglia possono essere cellule viventi."
+              "La geometria della sfera e del cubo è trattata nell’unità di matematica «Geometria elementare», le potenze e i logaritmi delle scale di grandezza in «Esponenziali e logaritmi». In biologia il percorso prosegue con le membrane che delimitano le cellule e con le prime protocellule.",
+              "Riepilogo dell’unità: ogni cellula ha membrana, citoplasma, genoma, ribosomi e metabolismo; S/V = 6/d per una sfera; i tempi di diffusione crescono con il quadrato della distanza; senza circolazione un organismo aerobico resta sotto il millimetro; una cellula libera non scende sotto circa 0,25 μm; le strutture di ALH84001 sono troppo piccole per essere cellule.",
+              "Nel diario registra A e B con le previsioni e spiega perché una cellula di 50 nm non potrebbe contenere il genoma della cellula minima."
             ],
             "advanced": [
-              "Calcola S/V per una cellula di 0,1 μm e discuti, con il numero di molecole che può contenere, se strutture di quella taglia possono essere cellule viventi.",
-              "Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne.",
-              "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+              "La geometria della sfera e del cubo è trattata nell’unità di matematica «Geometria elementare», le potenze e i logaritmi delle scale di grandezza in «Esponenziali e logaritmi». In biologia il percorso prosegue con le membrane che delimitano le cellule e con le prime protocellule.",
+              "Riepilogo dell’unità: ogni cellula ha membrana, citoplasma, genoma, ribosomi e metabolismo; S/V = 6/d per una sfera; i tempi di diffusione crescono con il quadrato della distanza; senza circolazione un organismo aerobico resta sotto il millimetro; una cellula libera non scende sotto circa 0,25 μm; le strutture di ALH84001 sono troppo piccole per essere cellule.",
+              "Nel diario registra A e B con le previsioni e spiega perché una cellula di 50 nm non potrebbe contenere il genoma della cellula minima."
             ]
           }
         }
       ],
       "questions": [
         {
-          "id": "biology-02-concept",
-          "prompt": "Se il diametro di una cellula sferica raddoppia, il rapporto S/V:",
+          "id": "biology-02-q1",
+          "prompt": "Se il diametro di una cellula sferica raddoppia, il rapporto superficie/volume:",
           "options": [
             {
               "id": "A",
               "text": "Raddoppia",
-              "feedback": "Un rapporto S/V alto ha anche un costo. Sotto qualche centinaio di nanometri il volume è troppo piccolo per contenere il macchinario minimo che copia un genoma."
+              "feedback": "La superficie cresce di quattro volte, il volume di otto: il rapporto non può crescere."
             },
             {
               "id": "B",
-              "text": "Resta uguale",
-              "feedback": "Superficie 4πr² e volume (4/3)πr³ danno S/V = 3/r = 6/d. Se il diametro è a volte un diametro di riferimento, S/V = 6/(a × fattore)."
+              "text": "Si dimezza",
+              "feedback": "Esatto: S/V = 6/d è inversamente proporzionale al diametro."
             },
             {
               "id": "C",
-              "text": "Si dimezza",
-              "feedback": "Per una sfera di diametro d il rapporto fra superficie e volume è 6/d: dimezzando il diametro raddoppia. Una cellula scambia materia attraverso la superficie e la consuma nel volume."
+              "text": "Resta uguale",
+              "feedback": "Superficie e volume crescono con potenze diverse del diametro, quindi il rapporto cambia."
+            },
+            {
+              "id": "D",
+              "text": "Diventa otto volte più piccolo",
+              "feedback": "Otto è il fattore del volume; il rapporto si riduce solo del fattore due."
+            }
+          ],
+          "correct": "B"
+        },
+        {
+          "id": "biology-02-q2",
+          "prompt": "Quale componente distingue una cellula eucariote da una procariote?",
+          "options": [
+            {
+              "id": "A",
+              "text": "La membrana plasmatica",
+              "feedback": "Tutte le cellule hanno una membrana plasmatica, procarioti compresi."
+            },
+            {
+              "id": "B",
+              "text": "I ribosomi",
+              "feedback": "I ribosomi sono presenti in tutte le cellule, anche se differiscono un poco."
+            },
+            {
+              "id": "C",
+              "text": "Il DNA",
+              "feedback": "Anche i procarioti hanno un genoma di DNA, raccolto nel nucleoide."
+            },
+            {
+              "id": "D",
+              "text": "Il nucleo delimitato da una membrana",
+              "feedback": "Esatto: negli eucarioti il DNA è racchiuso nel nucleo, nei procarioti è libero nel citoplasma."
+            }
+          ],
+          "correct": "D"
+        },
+        {
+          "id": "biology-02-q3",
+          "prompt": "Una proteina attraversa un batterio di 1 μm in circa 0,02 s per diffusione. Quanto impiega, nelle stesse condizioni, ad attraversare 10 μm?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Circa 0,2 s",
+              "feedback": "Questo varrebbe se il tempo crescesse come la distanza; cresce con il suo quadrato."
+            },
+            {
+              "id": "B",
+              "text": "Circa 2 s",
+              "feedback": "Esatto: dieci volte la distanza richiede cento volte il tempo."
+            },
+            {
+              "id": "C",
+              "text": "Circa 20 s",
+              "feedback": "Mille volte il tempo corrisponderebbe a una distanza circa trentadue volte maggiore."
+            },
+            {
+              "id": "D",
+              "text": "Circa 0,02 s",
+              "feedback": "Il tempo di diffusione dipende dalla distanza da percorrere."
+            }
+          ],
+          "correct": "B"
+        },
+        {
+          "id": "biology-02-q4",
+          "prompt": "Perché un organismo aerobico senza circolazione non può superare qualche millimetro?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Perché l’ossigeno arriva solo per diffusione e il centro resterebbe senza",
+              "feedback": "Esatto: il raggio massimo è √(6Dc₀/q), circa un millimetro con un metabolismo animale."
+            },
+            {
+              "id": "B",
+              "text": "Perché le cellule non possono dividersi oltre una certa taglia",
+              "feedback": "Le cellule si dividono a qualunque taglia dell’organismo; il limite riguarda il rifornimento."
+            },
+            {
+              "id": "C",
+              "text": "Perché la gravità schiaccerebbe i tessuti",
+              "feedback": "A queste dimensioni la gravità è trascurabile rispetto alle altre forze."
+            },
+            {
+              "id": "D",
+              "text": "Perché la superficie crescerebbe più del volume",
+              "feedback": "Crescendo, è il volume a crescere più della superficie."
+            }
+          ],
+          "correct": "A"
+        },
+        {
+          "id": "biology-02-q5",
+          "prompt": "Qual è, all’incirca, il diametro minimo di una cellula che vive in modo autonomo?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Circa 20 nm",
+              "feedback": "È la dimensione di un ribosoma: una cellula ne contiene centinaia."
+            },
+            {
+              "id": "B",
+              "text": "Circa 50 nm",
+              "feedback": "In una sfera di 50 nm non entra nemmeno il DNA della cellula minima."
+            },
+            {
+              "id": "C",
+              "text": "Circa 0,25-0,30 μm",
+              "feedback": "Esatto: sotto questa soglia non c’è posto per genoma, ribosomi e membrana."
+            },
+            {
+              "id": "D",
+              "text": "Circa 10 μm",
+              "feedback": "Moltissimi batteri sono dieci o cento volte più piccoli."
             }
           ],
           "correct": "C"
         },
         {
-          "id": "biology-02-calculation",
-          "prompt": "Calcolo: Diametro riferimento (a)=10 μm. Per Fattore scala=2 (adimensionale), quanto vale Superficie/volume?",
+          "id": "biology-02-q6",
+          "prompt": "Quale conclusione sulle strutture del meteorite ALH84001 è oggi accettata dalla maggior parte dei ricercatori?",
           "options": [
             {
               "id": "A",
-              "text": "-0,7 1/μm",
-              "feedback": "Controlla sostituzione, segno e unità. S/V = 6/d; d = a × fattore. Con Diametro riferimento (a)=10 μm e Fattore scala=2 (adimensionale), il risultato è 0,3 1/μm. Conserva le unità e arrotonda solo alla fine."
+              "text": "Sono batteri marziani fossili",
+              "feedback": "Gli indizi proposti nel 1996 si spiegano tutti senza la vita."
             },
             {
               "id": "B",
-              "text": "0,3 1/μm",
-              "feedback": "S/V = 6/d; d = a × fattore. Con Diametro riferimento (a)=10 μm e Fattore scala=2 (adimensionale), il risultato è 0,3 1/μm. Conserva le unità e arrotonda solo alla fine."
+              "text": "Sono troppo piccole per essere cellule, e gli altri indizi hanno spiegazioni abiotiche",
+              "feedback": "Esatto: carbonati, magnetite e molecole organiche si formano anche senza organismi."
             },
             {
               "id": "C",
-              "text": "1,3 1/μm",
-              "feedback": "Questo valore non soddisfa la relazione. S/V = 6/d; d = a × fattore. Con Diametro riferimento (a)=10 μm e Fattore scala=2 (adimensionale), il risultato è 0,3 1/μm. Conserva le unità e arrotonda solo alla fine."
-            }
-          ],
-          "correct": "B",
-          "numeric": {
-            "x": 2,
-            "parameters": {
-              "a": 10
-            },
-            "expected": 0.3,
-            "unit": "1/μm"
-          }
-        },
-        {
-          "id": "biology-02-transfer",
-          "prompt": "Trasferimento: Diametro riferimento (a)=11 μm. Per Fattore scala=2 (adimensionale), quanto vale Superficie/volume?",
-          "options": [
-            {
-              "id": "A",
-              "text": "0,272727 1/μm",
-              "feedback": "S/V = 6/d; d = a × fattore. Con Diametro riferimento (a)=11 μm e Fattore scala=2 (adimensionale), il risultato è 0,272727 1/μm. Conserva le unità e arrotonda solo alla fine."
+              "text": "Sono virus marziani",
+              "feedback": "Un virus fossile non si potrebbe riconoscere dalla forma, e i virus richiedono cellule ospiti."
             },
             {
-              "id": "B",
-              "text": "1,27273 1/μm",
-              "feedback": "Questo valore non soddisfa la relazione. S/V = 6/d; d = a × fattore. Con Diametro riferimento (a)=11 μm e Fattore scala=2 (adimensionale), il risultato è 0,272727 1/μm. Conserva le unità e arrotonda solo alla fine."
-            },
-            {
-              "id": "C",
-              "text": "-0,727273 1/μm",
-              "feedback": "Controlla sostituzione, segno e unità. S/V = 6/d; d = a × fattore. Con Diametro riferimento (a)=11 μm e Fattore scala=2 (adimensionale), il risultato è 0,272727 1/μm. Conserva le unità e arrotonda solo alla fine."
-            }
-          ],
-          "correct": "A",
-          "numeric": {
-            "x": 2,
-            "parameters": {
-              "a": 11
-            },
-            "expected": 0.2727272727272727,
-            "unit": "1/μm"
-          }
-        },
-        {
-          "id": "biology-02-limits",
-          "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
-          "options": [
-            {
-              "id": "A",
-              "text": "Basta il grafico per provare una legge universale",
-              "feedback": "Una visualizzazione non è una dimostrazione universale. Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne."
-            },
-            {
-              "id": "B",
-              "text": "Sfere ideali",
-              "feedback": "Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne."
-            },
-            {
-              "id": "C",
-              "text": "Riproduce ogni dettaglio del pianeta reale",
-              "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne."
+              "id": "D",
+              "text": "Sono contaminazione da batteri antartici moderni",
+              "feedback": "Una parte delle molecole organiche è terrestre, ma le strutture sono minerali."
             }
           ],
           "correct": "B"
