@@ -308,3 +308,21 @@ test('Biologia 15: albero universale e LUCA, numeri ricalcolati',()=>{
  // Model probes: L = 100 and 200 at d = 0.75 and 1.5.
  assert.equal(r(100*p(0.75),2),47.41);assert.equal(r(100*p(1.5),2),64.85);assert.equal(r(200*p(0.75),2),94.82);assert.equal(r(200*p(1.5),2),129.7);
 });
+test('Biologia 16: tempo geologico e prime tracce, numeri ricalcolati',()=>{
+ const age=(th,x)=>th/Math.LN2*Math.log1p(x),g=t=>365*(4567-t)/4567,dl=R=>(R/0.011113-1)*1000;
+ assert.equal(r(g(3480),0),87);assert.equal(r(g(2400),0),173);assert.equal(r(g(538.8),0),322);assert.equal(r(365*1440/4567,0),115);assert.equal(r(0.3*365*1440/4567,1),34.5);assert.equal(r(100*(4567-538.8)/4567,0),88);assert.equal(r(g(4031),1),42.8);
+ assert.equal(r((0.85080-0.70551)/2.9,5),0.0501);assert.equal(r(0.70551+0.0501*0.9,5),0.7506);assert.equal(r(age(49.6,0.0501),2),3.5);assert.equal(r(0.70551-0.0501*0.1,4),0.7005);
+ assert.equal(r(dl(0.010835),1),-25);assert.equal(r(dl(0.010891),1),-20);assert.equal(r((0+5)/(0+25),2),0.2);
+ assert.equal(r(Math.LN2/Math.log(6/5),2),3.8);assert.deepEqual([1,3,5,10].map(k=>r(100*(5/6)**k,0)),[83,58,40,16]);assert.equal(r(Math.log(1+40/60)/Math.log(6/5),1),2.8);assert.equal(r(Math.LN2/Math.log(12/11),1),8);
+ assert.equal(age(4.468,1),4.468);assert.equal(r(age(4.468,7)/4.468,6),3);
+ const s7=(0.75050-0.71020)/2;assert.equal(r(s7,5),0.02015);assert.equal(r(age(49.6,s7),2),1.43);assert.equal(r(0.71020-s7*0.5,5),0.70013);
+ assert.equal(r(0.05/0.107,3),0.467);assert.equal(r(age(1.248,0.05/0.107),2),0.69);assert.equal(r(age(1.248,0.05),3),0.088);assert.equal(r(age(1.248,0.05/0.107)/age(1.248,0.05),1),7.9);
+ assert.equal(r((-5+0.25*25)/0.75,1),1.7);assert.equal(r(0.5**(20000/5730),3),0.089);assert.equal(r(0.5**(50000/5730),4),0.0024);assert.equal(0.9*-30+0.1*-25,-29.5);
+ const sens=x=>x/((1+x)*Math.log1p(x));assert.equal(r(sens(0.01),3),0.995);assert.equal(r(sens(1),2),0.72);assert.equal(r(sens(100),2),0.21);
+ const a=2**(4/4.468)-1,b=2**(4/0.704)-1;assert.equal(r(a,3),0.86);assert.equal(r(b,1),50.3);assert.equal(r(0.8*a,3),0.688);assert.equal(r(0.8*b,1),40.3);
+ assert.equal(r(age(4.468,0.8*a),2),3.37);assert.equal(r(age(0.704,0.8*b),2),3.78);assert.equal(r(b/a,1),58.5);
+ assert.deepEqual([1,0.1,0.01].map(l=>r(1-Math.exp(-l*0.5),3)),[0.393,0.049,0.005]);
+ const s16=(0.90040-0.71002)/3.8;assert.equal(r(s16,4),0.0501);assert.equal(r(0.71002-s16*0.2,4),0.7);assert.equal(r(0.7+0.0501*1.6,4),0.7802);assert.equal(r(0.7+0.0501,4),0.7501);
+ // Model probes: half-life 1.25 and 4.5 Gyr at D/P = 0.5 and 1; extension U-238 at D/P = 0.9.
+ assert.equal(r(age(1.25,0.5),3),0.731);assert.equal(age(1.25,1),1.25);assert.equal(r(age(4.5,0.5),3),2.632);assert.equal(age(4.5,1),4.5);assert.equal(r(age(4.468,0.9),2),4.14);
+});
