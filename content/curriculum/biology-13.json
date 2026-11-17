@@ -2,24 +2,23 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-13",
-  "title": "Selezione naturale",
+  "title": "Ereditarietà e selezione naturale",
   "sector": 3,
   "modelId": "biology-13",
-  "coverage": "guided-lab",
-  "editorialStatus": "hand-written-draft",
-  "scope": "Ragionamento di Darwin e Wallace, fitness, coefficiente di selezione, modello di una generazione, tipi di selezione",
-  "narrativeStatus": "Il caso della falena delle betulle e le date storiche sono reali; il modello è una semplificazione.",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Selezione aploide con vantaggio costante",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
   "objectives": [
-    "Ricostruire il ragionamento della selezione naturale.",
-    "Definire fitness relativa e coefficiente di selezione.",
-    "Usare il modello p′ = p(1 + s)/(1 + sp).",
-    "Distinguere i tipi di selezione."
+    "Spiegare: selezione aploide con vantaggio costante.",
+    "Applicare p′ = p(1+s)/(1+sp), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
   ],
   "prerequisites": [
     "biology-12"
   ],
   "connections": [
-    "biology-14"
+    "math-c06"
   ],
   "sources": [
     "biology"
@@ -27,314 +26,244 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Selezione naturale",
-      "definition": "Riproduzione differenziale di individui con varianti ereditarie diverse."
+      "term": "Frequenza prima p",
+      "definition": "Variabile indipendente, unità 1; intervallo [0; 1]."
     },
     {
-      "term": "Fitness",
-      "definition": "Successo riproduttivo di una variante, di solito misurato rispetto alle altre."
+      "term": "Frequenza dopo selezione",
+      "definition": "Risultato calcolato dal modello, unità 1."
     },
     {
-      "term": "Coefficiente di selezione",
-      "definition": "Vantaggio relativo s di una variante."
-    },
-    {
-      "term": "Selezione stabilizzante",
-      "definition": "Selezione che favorisce i valori intermedi di un carattere."
-    },
-    {
-      "term": "Selezione sessuale",
-      "definition": "Selezione dei caratteri che aumentano il successo nell’accoppiamento."
+      "term": "Vantaggio s",
+      "definition": "Parametro a, unità 1; intervallo [-0,8; 1]."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Le falene di Manchester",
+      "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Intorno a Manchester, nell’Ottocento, la falena delle betulle era quasi sempre chiara e si mimetizzava sui tronchi coperti di licheni. La prima forma scura fu registrata nel 1848; alla fine del secolo, con i tronchi anneriti dalla fuliggine, era diventata la grande maggioranza. Quando le leggi sull’aria pulita ridussero lo smog, nel Novecento, la forma chiara tornò a prevalere.",
-          "Nel 1858 Charles Darwin e Alfred Russel Wallace presentarono insieme l’idea della selezione naturale, e nel 1859 Darwin pubblicò «L’origine delle specie». Il ragionamento ha quattro passi: gli individui di una popolazione variano; una parte della variazione è ereditaria; nascono più individui di quanti possano sopravvivere e riprodursi; chi ha caratteri più adatti all’ambiente lascia in media più discendenti. Le varianti favorite diventano più comuni."
+          "In una popolazione di microrganismi compare una variante che si riproduce un po' più in fretta. Di quanto cambia la sua frequenza in una generazione?",
+          "Se la variante ha un vantaggio relativo s, la sua frequenza passa da p a p(1+s)/(1+sp). Senza selezione e con accoppiamento casuale le frequenze resterebbero costanti (Hardy-Weinberg)."
         ],
         "intermediate": [
-          "Intorno a Manchester, nell’Ottocento, la falena delle betulle era quasi sempre chiara e si mimetizzava sui tronchi coperti di licheni. La prima forma scura fu registrata nel 1848; alla fine del secolo, con i tronchi anneriti dalla fuliggine, era diventata la grande maggioranza. Quando le leggi sull’aria pulita ridussero lo smog, nel Novecento, la forma chiara tornò a prevalere.",
-          "Nel 1858 Charles Darwin e Alfred Russel Wallace presentarono insieme l’idea della selezione naturale, e nel 1859 Darwin pubblicò «L’origine delle specie». Il ragionamento ha quattro passi: gli individui di una popolazione variano; una parte della variazione è ereditaria; nascono più individui di quanti possano sopravvivere e riprodursi; chi ha caratteri più adatti all’ambiente lascia in media più discendenti. Le varianti favorite diventano più comuni."
+          "In una popolazione di microrganismi compare una variante che si riproduce un po' più in fretta. Di quanto cambia la sua frequenza in una generazione?",
+          "Le due varianti contribuiscono alla generazione successiva in proporzione a p(1+s) e (1-p); dividendo per il totale 1 + sp si ottiene la nuova frequenza."
         ],
         "advanced": [
-          "Intorno a Manchester, nell’Ottocento, la falena delle betulle era quasi sempre chiara e si mimetizzava sui tronchi coperti di licheni. La prima forma scura fu registrata nel 1848; alla fine del secolo, con i tronchi anneriti dalla fuliggine, era diventata la grande maggioranza. Quando le leggi sull’aria pulita ridussero lo smog, nel Novecento, la forma chiara tornò a prevalere.",
-          "Nel 1858 Charles Darwin e Alfred Russel Wallace presentarono insieme l’idea della selezione naturale, e nel 1859 Darwin pubblicò «L’origine delle specie». Il ragionamento ha quattro passi: gli individui di una popolazione variano; una parte della variazione è ereditaria; nascono più individui di quanti possano sopravvivere e riprodursi; chi ha caratteri più adatti all’ambiente lascia in media più discendenti. Le varianti favorite diventano più comuni."
+          "In una popolazione di microrganismi compare una variante che si riproduce un po' più in fretta. Di quanto cambia la sua frequenza in una generazione?",
+          "Itera la formula per dieci generazioni partendo da p = 0,01 con s = 0,1 e confronta con s = 0,5.",
+          "Popolazione infinita, generazioni separate, vantaggio costante; niente deriva, migrazione o mutazione."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Fitness e frequenze",
+      "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "La fitness misura il successo riproduttivo: il numero medio di discendenti che sopravvivono e si riproducono. Conta la fitness relativa. Se una variante lascia in media 1,2 discendenti per ogni discendente dell’altra, il suo vantaggio, o coefficiente di selezione, è s = 0,2. Un s negativo indica uno svantaggio. La selezione agisce sugli individui, ma cambia la composizione delle popolazioni.",
-          "Un modello semplice: se una variante ha frequenza p e vantaggio s, dopo una generazione la sua frequenza è p′ = p(1 + s)/(1 + sp). Il rapporto p/(1 − p) si moltiplica per 1 + s a ogni generazione. Con s = 0,2, una variante che parte dall’1% arriva al 50% in circa 25 generazioni; con s = 0,01 ne servono circa 460.",
-          "La selezione assume forme diverse. È direzionale quando favorisce un estremo, come la resistenza agli antibiotici nei batteri esposti ai farmaci. È stabilizzante quando favorisce i valori intermedi, come il peso alla nascita nell’uomo. È divergente quando favorisce entrambi gli estremi. La selezione sessuale favorisce i caratteri che aiutano a trovare un partner, come la coda del pavone. Nelle zone di malaria gli eterozigoti per l’allele dell’anemia falciforme sono avvantaggiati, e l’allele resta frequente."
+          "Se la variante ha un vantaggio relativo s, la sua frequenza passa da p a p(1+s)/(1+sp). Senza selezione e con accoppiamento casuale le frequenze resterebbero costanti (Hardy-Weinberg).",
+          "Con p = 0,5 e s = 0,2 la frequenza diventa 0,6/1,1 ≈ 0,545 dopo una generazione."
         ],
         "intermediate": [
-          "La fitness misura il successo riproduttivo: il numero medio di discendenti che sopravvivono e si riproducono. Conta la fitness relativa. Se una variante lascia in media 1,2 discendenti per ogni discendente dell’altra, il suo vantaggio, o coefficiente di selezione, è s = 0,2. Un s negativo indica uno svantaggio. La selezione agisce sugli individui, ma cambia la composizione delle popolazioni.",
-          "Un modello semplice: se una variante ha frequenza p e vantaggio s, dopo una generazione la sua frequenza è p′ = p(1 + s)/(1 + sp). Il rapporto p/(1 − p) si moltiplica per 1 + s a ogni generazione. Con s = 0,2, una variante che parte dall’1% arriva al 50% in circa 25 generazioni; con s = 0,01 ne servono circa 460.",
-          "La selezione assume forme diverse. È direzionale quando favorisce un estremo, come la resistenza agli antibiotici nei batteri esposti ai farmaci. È stabilizzante quando favorisce i valori intermedi, come il peso alla nascita nell’uomo. È divergente quando favorisce entrambi gli estremi. La selezione sessuale favorisce i caratteri che aiutano a trovare un partner, come la coda del pavone. Nelle zone di malaria gli eterozigoti per l’allele dell’anemia falciforme sono avvantaggiati, e l’allele resta frequente."
+          "Le due varianti contribuiscono alla generazione successiva in proporzione a p(1+s) e (1-p); dividendo per il totale 1 + sp si ottiene la nuova frequenza.",
+          "La variabile Frequenza prima p è espressa in 1; Frequenza dopo selezione in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: p′ = p(1+s)/(1+sp).",
+          "Con p = 0,5 e s = 0,2 la frequenza diventa 0,6/1,1 ≈ 0,545 dopo una generazione."
         ],
         "advanced": [
-          "La fitness misura il successo riproduttivo: il numero medio di discendenti che sopravvivono e si riproducono. Conta la fitness relativa. Se una variante lascia in media 1,2 discendenti per ogni discendente dell’altra, il suo vantaggio, o coefficiente di selezione, è s = 0,2. Un s negativo indica uno svantaggio. La selezione agisce sugli individui, ma cambia la composizione delle popolazioni.",
-          "Un modello semplice: se una variante ha frequenza p e vantaggio s, dopo una generazione la sua frequenza è p′ = p(1 + s)/(1 + sp). Il rapporto p/(1 − p) si moltiplica per 1 + s a ogni generazione. Con s = 0,2, una variante che parte dall’1% arriva al 50% in circa 25 generazioni; con s = 0,01 ne servono circa 460.",
-          "La selezione assume forme diverse. È direzionale quando favorisce un estremo, come la resistenza agli antibiotici nei batteri esposti ai farmaci. È stabilizzante quando favorisce i valori intermedi, come il peso alla nascita nell’uomo. È divergente quando favorisce entrambi gli estremi. La selezione sessuale favorisce i caratteri che aiutano a trovare un partner, come la coda del pavone. Nelle zone di malaria gli eterozigoti per l’allele dell’anemia falciforme sono avvantaggiati, e l’allele resta frequente."
+          "Le due varianti contribuiscono alla generazione successiva in proporzione a p(1+s) e (1-p); dividendo per il totale 1 + sp si ottiene la nuova frequenza.",
+          "Itera la formula per dieci generazioni partendo da p = 0,01 con s = 0,1 e confronta con s = 0,5.",
+          "La selezione sceglie fra le varianti che le mutazioni hanno già prodotto, senza crearne di nuove. Hardy-Weinberg è un modello di riferimento, che le popolazioni reali rispettano solo in condizioni particolari."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Il laboratorio della selezione",
+      "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio il grafico mostra la frequenza dopo la selezione, p′, in funzione della frequenza prima, p, da 0 a 1; nella scheda «Regola» cambi il vantaggio s, da −0,8 a 1. Confronta la curva con la diagonale p′ = p.",
-          "Protocollo. La previsione riguarda il passaggio da p = 0,25 a p = 0,5. Con s = 0,2 prevedi e salva A. Poi porta s a −0,5, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con s = 0,2 p′ passa da circa 0,286 a 0,545: cresce, e la curva sta sopra la diagonale, perché la variante aumenta di 0,036 e di 0,045. Con s = −0,5 p′ cresce ancora con p, da circa 0,143 a 0,333, ma ora la curva sta sotto la diagonale: la variante perde terreno a ogni generazione. Per s = 0 curva e diagonale coincidono."
+          "Nel laboratorio imposta Vantaggio s (a): 0,2 (adimensionale). Prima di salvare A, prevedi come cambia Frequenza dopo selezione fra Frequenza prima p=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con p = 0,5 e s = 0,2 la frequenza diventa 0,6/1,1 ≈ 0,545 dopo una generazione.",
+          "La variabile Frequenza prima p è espressa in 1; Frequenza dopo selezione in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: p′ = p(1+s)/(1+sp)."
         ],
         "intermediate": [
-          "Nel laboratorio il grafico mostra la frequenza dopo la selezione, p′, in funzione della frequenza prima, p, da 0 a 1; nella scheda «Regola» cambi il vantaggio s, da −0,8 a 1. Confronta la curva con la diagonale p′ = p.",
-          "Protocollo. La previsione riguarda il passaggio da p = 0,25 a p = 0,5. Con s = 0,2 prevedi e salva A. Poi porta s a −0,5, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con s = 0,2 p′ passa da circa 0,286 a 0,545: cresce, e la curva sta sopra la diagonale, perché la variante aumenta di 0,036 e di 0,045. Con s = −0,5 p′ cresce ancora con p, da circa 0,143 a 0,333, ma ora la curva sta sotto la diagonale: la variante perde terreno a ogni generazione. Per s = 0 curva e diagonale coincidono."
+          "Nel laboratorio imposta Vantaggio s (a): 0,2 (adimensionale). Prima di salvare A, prevedi come cambia Frequenza dopo selezione fra Frequenza prima p=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Frequenza prima p è espressa in 1; Frequenza dopo selezione in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: p′ = p(1+s)/(1+sp).",
+          "Le due varianti contribuiscono alla generazione successiva in proporzione a p(1+s) e (1-p); dividendo per il totale 1 + sp si ottiene la nuova frequenza."
         ],
         "advanced": [
-          "Nel laboratorio il grafico mostra la frequenza dopo la selezione, p′, in funzione della frequenza prima, p, da 0 a 1; nella scheda «Regola» cambi il vantaggio s, da −0,8 a 1. Confronta la curva con la diagonale p′ = p.",
-          "Un modello semplice: se una variante ha frequenza p e vantaggio s, dopo una generazione la sua frequenza è p′ = p(1 + s)/(1 + sp). Il rapporto p/(1 − p) si moltiplica per 1 + s a ogni generazione. Con s = 0,2, una variante che parte dall’1% arriva al 50% in circa 25 generazioni; con s = 0,01 ne servono circa 460.",
-          "Protocollo. La previsione riguarda il passaggio da p = 0,25 a p = 0,5. Con s = 0,2 prevedi e salva A. Poi porta s a −0,5, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con s = 0,2 p′ passa da circa 0,286 a 0,545: cresce, e la curva sta sopra la diagonale, perché la variante aumenta di 0,036 e di 0,045. Con s = −0,5 p′ cresce ancora con p, da circa 0,143 a 0,333, ma ora la curva sta sotto la diagonale: la variante perde terreno a ogni generazione. Per s = 0 curva e diagonale coincidono."
+          "Nel laboratorio imposta Vantaggio s (a): 0,2 (adimensionale). Prima di salvare A, prevedi come cambia Frequenza dopo selezione fra Frequenza prima p=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Itera la formula per dieci generazioni partendo da p = 0,01 con s = 0,1 e confronta con s = 0,5.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Errori frequenti",
+      "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Errore frequente: pensare che gli individui si adattino cambiando i propri geni durante la vita. La selezione non modifica gli individui; cambia quali individui si riproducono, e quindi le frequenze nella generazione successiva.",
-          "Secondo errore: confondere «più adatto» con «più forte». La fitness dipende dall’ambiente: la falena scura era avvantaggiata sui tronchi anneriti e svantaggiata su quelli chiari.",
-          "La selezione assume forme diverse. È direzionale quando favorisce un estremo, come la resistenza agli antibiotici nei batteri esposti ai farmaci. È stabilizzante quando favorisce i valori intermedi, come il peso alla nascita nell’uomo. È divergente quando favorisce entrambi gli estremi. La selezione sessuale favorisce i caratteri che aiutano a trovare un partner, come la coda del pavone. Nelle zone di malaria gli eterozigoti per l’allele dell’anemia falciforme sono avvantaggiati, e l’allele resta frequente."
+          "La selezione sceglie fra le varianti che le mutazioni hanno già prodotto, senza crearne di nuove. Hardy-Weinberg è un modello di riferimento, che le popolazioni reali rispettano solo in condizioni particolari.",
+          "Popolazione infinita, generazioni separate, vantaggio costante; niente deriva, migrazione o mutazione.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ],
         "intermediate": [
-          "Errore frequente: pensare che gli individui si adattino cambiando i propri geni durante la vita. La selezione non modifica gli individui; cambia quali individui si riproducono, e quindi le frequenze nella generazione successiva.",
-          "Secondo errore: confondere «più adatto» con «più forte». La fitness dipende dall’ambiente: la falena scura era avvantaggiata sui tronchi anneriti e svantaggiata su quelli chiari.",
-          "La selezione assume forme diverse. È direzionale quando favorisce un estremo, come la resistenza agli antibiotici nei batteri esposti ai farmaci. È stabilizzante quando favorisce i valori intermedi, come il peso alla nascita nell’uomo. È divergente quando favorisce entrambi gli estremi. La selezione sessuale favorisce i caratteri che aiutano a trovare un partner, come la coda del pavone. Nelle zone di malaria gli eterozigoti per l’allele dell’anemia falciforme sono avvantaggiati, e l’allele resta frequente."
+          "La selezione sceglie fra le varianti che le mutazioni hanno già prodotto, senza crearne di nuove. Hardy-Weinberg è un modello di riferimento, che le popolazioni reali rispettano solo in condizioni particolari.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ],
         "advanced": [
-          "Errore frequente: pensare che gli individui si adattino cambiando i propri geni durante la vita. La selezione non modifica gli individui; cambia quali individui si riproducono, e quindi le frequenze nella generazione successiva.",
-          "Secondo errore: confondere «più adatto» con «più forte». La fitness dipende dall’ambiente: la falena scura era avvantaggiata sui tronchi anneriti e svantaggiata su quelli chiari.",
-          "Un modello semplice: se una variante ha frequenza p e vantaggio s, dopo una generazione la sua frequenza è p′ = p(1 + s)/(1 + sp). Il rapporto p/(1 − p) si moltiplica per 1 + s a ogni generazione. Con s = 0,2, una variante che parte dall’1% arriva al 50% in circa 25 generazioni; con s = 0,01 ne servono circa 460."
+          "Popolazione infinita, generazioni separate, vantaggio costante; niente deriva, migrazione o mutazione.",
+          "Itera la formula per dieci generazioni partendo da p = 0,01 con s = 0,1 e confronta con s = 0,5.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica",
+      "title": "Verifica ragionamento e calcolo",
       "text": {
         "base": [
-          "Ripasso: i quattro passi del ragionamento di Darwin e Wallace; fitness e coefficiente di selezione; modello p′ = p(1 + s)/(1 + sp); selezione direzionale, stabilizzante, divergente e sessuale; vantaggio degli eterozigoti.",
-          "Mini esercizio: con p = 0,5 e s = 1, p′ = 0,5 · 2/1,5 ≈ 0,667. Il rapporto p/(1 − p) passa da 1 a 2.",
-          "Nelle domande sulla selezione chiediti sempre in quale ambiente un carattere è vantaggioso."
+          "Se la variante ha un vantaggio relativo s, la sua frequenza passa da p a p(1+s)/(1+sp). Senza selezione e con accoppiamento casuale le frequenze resterebbero costanti (Hardy-Weinberg).",
+          "Con p = 0,5 e s = 0,2 la frequenza diventa 0,6/1,1 ≈ 0,545 dopo una generazione."
         ],
         "intermediate": [
-          "Ripasso: i quattro passi del ragionamento di Darwin e Wallace; fitness e coefficiente di selezione; modello p′ = p(1 + s)/(1 + sp); selezione direzionale, stabilizzante, divergente e sessuale; vantaggio degli eterozigoti.",
-          "Mini esercizio: con p = 0,5 e s = 1, p′ = 0,5 · 2/1,5 ≈ 0,667. Il rapporto p/(1 − p) passa da 1 a 2.",
-          "Nelle domande sulla selezione chiediti sempre in quale ambiente un carattere è vantaggioso."
+          "Le due varianti contribuiscono alla generazione successiva in proporzione a p(1+s) e (1-p); dividendo per il totale 1 + sp si ottiene la nuova frequenza.",
+          "La variabile Frequenza prima p è espressa in 1; Frequenza dopo selezione in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: p′ = p(1+s)/(1+sp)."
         ],
         "advanced": [
-          "Ripasso: i quattro passi del ragionamento di Darwin e Wallace; fitness e coefficiente di selezione; modello p′ = p(1 + s)/(1 + sp); selezione direzionale, stabilizzante, divergente e sessuale; vantaggio degli eterozigoti.",
-          "Mini esercizio: con p = 0,5 e s = 1, p′ = 0,5 · 2/1,5 ≈ 0,667. Il rapporto p/(1 − p) passa da 1 a 2.",
-          "Nelle domande sulla selezione chiediti sempre in quale ambiente un carattere è vantaggioso."
+          "Itera la formula per dieci generazioni partendo da p = 0,01 con s = 0,1 e confronta con s = 0,5.",
+          "Popolazione infinita, generazioni separate, vantaggio costante; niente deriva, migrazione o mutazione."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Collegamenti",
+      "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Non tutti i cambiamenti di frequenza dipendono dalla selezione: l’unità «Deriva genetica» studia quelli dovuti al caso.",
-          "Riepilogo dell’unità: la selezione naturale richiede variazione ereditaria e riproduzione differenziale; la fitness è relativa all’ambiente; con vantaggio s la frequenza diventa p(1 + s)/(1 + sp) e il rapporto p/(1 − p) si moltiplica per 1 + s; la selezione può essere direzionale, stabilizzante, divergente o sessuale.",
-          "Nel diario registra A e B con le previsioni e spiega che cosa indica la posizione della curva rispetto alla diagonale."
+          "Nel diario distingui previsione, risultato e interpretazione. Selezione aploide con vantaggio costante.",
+          "Popolazione infinita, generazioni separate, vantaggio costante; niente deriva, migrazione o mutazione.",
+          "Collegamento consigliato: math-c06. Il completamento registra attività e autoverifica, non certifica competenze."
         ],
         "intermediate": [
-          "Non tutti i cambiamenti di frequenza dipendono dalla selezione: l’unità «Deriva genetica» studia quelli dovuti al caso.",
-          "Riepilogo dell’unità: la selezione naturale richiede variazione ereditaria e riproduzione differenziale; la fitness è relativa all’ambiente; con vantaggio s la frequenza diventa p(1 + s)/(1 + sp) e il rapporto p/(1 − p) si moltiplica per 1 + s; la selezione può essere direzionale, stabilizzante, divergente o sessuale.",
-          "Nel diario registra A e B con le previsioni e spiega che cosa indica la posizione della curva rispetto alla diagonale."
+          "Le due varianti contribuiscono alla generazione successiva in proporzione a p(1+s) e (1-p); dividendo per il totale 1 + sp si ottiene la nuova frequenza.",
+          "Popolazione infinita, generazioni separate, vantaggio costante; niente deriva, migrazione o mutazione.",
+          "Itera la formula per dieci generazioni partendo da p = 0,01 con s = 0,1 e confronta con s = 0,5."
         ],
         "advanced": [
-          "Non tutti i cambiamenti di frequenza dipendono dalla selezione: l’unità «Deriva genetica» studia quelli dovuti al caso.",
-          "Riepilogo dell’unità: la selezione naturale richiede variazione ereditaria e riproduzione differenziale; la fitness è relativa all’ambiente; con vantaggio s la frequenza diventa p(1 + s)/(1 + sp) e il rapporto p/(1 − p) si moltiplica per 1 + s; la selezione può essere direzionale, stabilizzante, divergente o sessuale.",
-          "Nel diario registra A e B con le previsioni e spiega che cosa indica la posizione della curva rispetto alla diagonale."
+          "Itera la formula per dieci generazioni partendo da p = 0,01 con s = 0,1 e confronta con s = 0,5.",
+          "Popolazione infinita, generazioni separate, vantaggio costante; niente deriva, migrazione o mutazione.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-13-q1",
-      "prompt": "Quale condizione è indispensabile per la selezione naturale?",
+      "id": "biology-13-concept",
+      "prompt": "Con s = 0 la frequenza della variante:",
       "options": [
         {
           "id": "A",
-          "text": "Una variazione ereditaria tra gli individui",
-          "feedback": "Esatto: senza differenze trasmissibili non c’è nulla da selezionare."
+          "text": "Resta uguale",
+          "feedback": "Se la variante ha un vantaggio relativo s, la sua frequenza passa da p a p(1+s)/(1+sp). Senza selezione e con accoppiamento casuale le frequenze resterebbero costanti (Hardy-Weinberg)."
         },
         {
           "id": "B",
-          "text": "Un ambiente che non cambia mai",
-          "feedback": "La selezione agisce anche, e spesso di più, quando l’ambiente cambia."
+          "text": "Raddoppia",
+          "feedback": "La selezione sceglie fra le varianti che le mutazioni hanno già prodotto, senza crearne di nuove. Hardy-Weinberg è un modello di riferimento, che le popolazioni reali rispettano solo in condizioni particolari."
         },
         {
           "id": "C",
-          "text": "Individui che cambiano i geni durante la vita",
-          "feedback": "I geni di un individuo non cambiano per adattarsi."
-        },
-        {
-          "id": "D",
-          "text": "Una popolazione piccola",
-          "feedback": "La selezione agisce in popolazioni di ogni dimensione."
+          "text": "Va a zero",
+          "feedback": "Le due varianti contribuiscono alla generazione successiva in proporzione a p(1+s) e (1-p); dividendo per il totale 1 + sp si ottiene la nuova frequenza."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "biology-13-q2",
-      "prompt": "Che cosa misura la fitness?",
+      "id": "biology-13-calculation",
+      "prompt": "Calcolo: Vantaggio s (a)=0,2 (adimensionale). Per Frequenza prima p=0,5 (adimensionale), quanto vale Frequenza dopo selezione?",
       "options": [
         {
           "id": "A",
-          "text": "La forza fisica",
-          "feedback": "La forza conta solo se aumenta il numero di discendenti."
+          "text": "1,54545 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. p′ = p(1+s)/(1+sp). Con Vantaggio s (a)=0,2 (adimensionale) e Frequenza prima p=0,5 (adimensionale), il risultato è 0,545455 (adimensionale). Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "Il successo riproduttivo",
-          "feedback": "Esatto: quanti discendenti un individuo lascia in media."
+          "text": "-0,454545 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. p′ = p(1+s)/(1+sp). Con Vantaggio s (a)=0,2 (adimensionale) e Frequenza prima p=0,5 (adimensionale), il risultato è 0,545455 (adimensionale). Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "La durata della vita",
-          "feedback": "Una vita lunga senza figli non aumenta la fitness."
-        },
-        {
-          "id": "D",
-          "text": "La velocità di crescita",
-          "feedback": "La crescita conta solo attraverso i suoi effetti sulla riproduzione."
+          "text": "0,545455 (adimensionale)",
+          "feedback": "p′ = p(1+s)/(1+sp). Con Vantaggio s (a)=0,2 (adimensionale) e Frequenza prima p=0,5 (adimensionale), il risultato è 0,545455 (adimensionale). Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "B"
+      "correct": "C",
+      "numeric": {
+        "x": 0.5,
+        "parameters": {
+          "a": 0.2
+        },
+        "expected": 0.5454545454545454,
+        "unit": "1"
+      }
     },
     {
-      "id": "biology-13-q3",
-      "prompt": "Perché la falena scura divenne comune vicino a Manchester?",
+      "id": "biology-13-transfer",
+      "prompt": "Trasferimento: Vantaggio s (a)=0,3 (adimensionale). Per Frequenza prima p=0,5 (adimensionale), quanto vale Frequenza dopo selezione?",
       "options": [
         {
           "id": "A",
-          "text": "Perché la fuliggine cambiò il colore delle falene",
-          "feedback": "Il colore è ereditario: la fuliggine non lo cambia."
+          "text": "-0,434783 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. p′ = p(1+s)/(1+sp). Con Vantaggio s (a)=0,3 (adimensionale) e Frequenza prima p=0,5 (adimensionale), il risultato è 0,565217 (adimensionale). Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "Perché le falene scure erano più forti",
-          "feedback": "Il vantaggio dipendeva dal mimetismo, non dalla forza."
+          "text": "0,565217 (adimensionale)",
+          "feedback": "p′ = p(1+s)/(1+sp). Con Vantaggio s (a)=0,3 (adimensionale) e Frequenza prima p=0,5 (adimensionale), il risultato è 0,565217 (adimensionale). Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "Perché sui tronchi anneriti era meno visibile ai predatori",
-          "feedback": "Esatto: sopravviveva e si riproduceva di più."
+          "text": "1,56522 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. p′ = p(1+s)/(1+sp). Con Vantaggio s (a)=0,3 (adimensionale) e Frequenza prima p=0,5 (adimensionale), il risultato è 0,565217 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 0.5,
+        "parameters": {
+          "a": 0.3
+        },
+        "expected": 0.5652173913043479,
+        "unit": "1"
+      }
+    },
+    {
+      "id": "biology-13-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Popolazione infinita, generazioni separate, vantaggio costante; niente deriva, migrazione o mutazione."
         },
         {
-          "id": "D",
-          "text": "Perché le falene chiare emigrarono",
-          "feedback": "Il cambiamento è spiegato dalla predazione selettiva."
+          "id": "B",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Popolazione infinita, generazioni separate, vantaggio costante; niente deriva, migrazione o mutazione."
+        },
+        {
+          "id": "C",
+          "text": "Selezione aploide con vantaggio costante",
+          "feedback": "Popolazione infinita, generazioni separate, vantaggio costante; niente deriva, migrazione o mutazione."
         }
       ],
       "correct": "C"
-    },
-    {
-      "id": "biology-13-q4",
-      "prompt": "Con s = 0, che cosa succede alla frequenza p?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Raddoppia",
-          "feedback": "Senza vantaggio non c’è motivo di crescita."
-        },
-        {
-          "id": "B",
-          "text": "Si annulla",
-          "feedback": "Senza svantaggio non c’è motivo di diminuzione."
-        },
-        {
-          "id": "C",
-          "text": "Diventa 0,5",
-          "feedback": "Il modello non spinge le frequenze verso 0,5."
-        },
-        {
-          "id": "D",
-          "text": "Resta uguale",
-          "feedback": "Esatto: p′ = p e la curva coincide con la diagonale."
-        }
-      ],
-      "correct": "D"
-    },
-    {
-      "id": "biology-13-q5",
-      "prompt": "Con p = 0,5 e s = 1, qual è la frequenza dopo una generazione?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Circa 0,667",
-          "feedback": "Esatto: p′ = 0,5 · 2/1,5 ≈ 0,667."
-        },
-        {
-          "id": "B",
-          "text": "1",
-          "feedback": "Il vantaggio raddoppia il rapporto p/(1 − p), non porta subito la variante a 1."
-        },
-        {
-          "id": "C",
-          "text": "0,75",
-          "feedback": "Hai calcolato 0,5 · 1,5: la formula ha anche un denominatore."
-        },
-        {
-          "id": "D",
-          "text": "0,5",
-          "feedback": "Con s positivo la frequenza cresce."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-13-q6",
-      "prompt": "Che cosa favorisce la selezione stabilizzante?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Un estremo del carattere",
-          "feedback": "Questo descrive la selezione direzionale."
-        },
-        {
-          "id": "B",
-          "text": "I valori intermedi",
-          "feedback": "Esatto: come il peso alla nascita nell’uomo."
-        },
-        {
-          "id": "C",
-          "text": "Entrambi gli estremi",
-          "feedback": "Questo descrive la selezione divergente."
-        },
-        {
-          "id": "D",
-          "text": "Solo i maschi",
-          "feedback": "La selezione stabilizzante riguarda tutti gli individui."
-        }
-      ],
-      "correct": "B"
     }
   ]
 }

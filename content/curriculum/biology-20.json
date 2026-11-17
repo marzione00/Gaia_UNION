@@ -2,25 +2,23 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-20",
-  "title": "Competizione ecologica",
+  "title": "Fotosintesi e luce di altre stelle",
   "sector": 3,
   "modelId": "biology-20",
-  "coverage": "guided-activity",
-  "editorialStatus": "hand-written-draft",
-  "scope": "Interazioni tra specie, nicchia fondamentale e realizzata, esclusione competitiva, ripartizione delle risorse, modello di Lotka e Volterra",
-  "narrativeStatus": "Gli esperimenti di Connell, Gause e MacArthur sono reali.",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Curva di risposta alla luce empirica",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
   "objectives": [
-    "Classificare le interazioni tra specie.",
-    "Distinguere nicchia fondamentale e realizzata.",
-    "Enunciare il principio di esclusione competitiva.",
-    "Usare il modello di competizione di Lotka e Volterra."
+    "Spiegare: curva di risposta alla luce empirica.",
+    "Applicare Assimilazione = A_max I/(K+I)-R_d; R_d=2, dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
   ],
   "prerequisites": [
     "biology-19"
   ],
   "connections": [
-    "biology-21",
-    "biology-19"
+    "physics-25"
   ],
   "sources": [
     "biology"
@@ -28,553 +26,250 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Nicchia ecologica",
-      "definition": "Insieme delle condizioni e delle risorse di cui una specie ha bisogno."
+      "term": "Luce I",
+      "definition": "Variabile indipendente, unità μmol/(m² s); intervallo [0; 1000]."
     },
     {
-      "term": "Nicchia realizzata",
-      "definition": "Parte della nicchia occupata in presenza dei competitori."
+      "term": "Assimilazione netta",
+      "definition": "Risultato calcolato dal modello, unità μmol/(m² s)."
     },
     {
-      "term": "Esclusione competitiva",
-      "definition": "Due specie con la stessa nicchia non coesistono a lungo."
+      "term": "Assimilazione massima",
+      "definition": "Parametro a, unità μmol/(m² s); intervallo [10; 30]."
     },
     {
-      "term": "Mutualismo",
-      "definition": "Interazione vantaggiosa per entrambe le specie."
-    },
-    {
-      "term": "Ripartizione delle risorse",
-      "definition": "Uso di parti diverse di una risorsa da parte di specie simili."
+      "term": "Scala luminosa K",
+      "definition": "Parametro b, unità μmol/(m² s); intervallo [100; 400]."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Balani sulla scogliera",
+      "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Sulle scogliere della Scozia due specie di balani, piccoli crostacei fissati alla roccia, vivono a quote diverse: Chthamalus in alto, Balanus più in basso. Nel 1961 Joseph Connell tolse Balanus da alcune rocce: Chthamalus si diffuse anche più in basso. Le larve potevano vivere lì; era la competizione a escluderle.",
-          "Le specie di una comunità interagiscono in modi diversi, classificati secondo l’effetto su ciascuna. Nella competizione entrambe ci perdono. Nella predazione e nel parassitismo una guadagna e l’altra ci perde. Nel mutualismo entrambe ci guadagnano, come api e fiori. Nel commensalismo una ci guadagna e l’altra resta indifferente, come una pianta epifita che vive su un albero."
+          "Una pianta di un pianeta che orbita una nana rossa riceve molta luce rossa e poca blu. Quanto carbonio fissa al variare della luce?",
+          "L'assimilazione netta cresce con la luce e satura: A = A_max I/(K+I) - R_d, dove R_d è la respirazione al buio."
         ],
         "intermediate": [
-          "Sulle scogliere della Scozia due specie di balani, piccoli crostacei fissati alla roccia, vivono a quote diverse: Chthamalus in alto, Balanus più in basso. Nel 1961 Joseph Connell tolse Balanus da alcune rocce: Chthamalus si diffuse anche più in basso. Le larve potevano vivere lì; era la competizione a escluderle.",
-          "Le specie di una comunità interagiscono in modi diversi, classificati secondo l’effetto su ciascuna. Nella competizione entrambe ci perdono. Nella predazione e nel parassitismo una guadagna e l’altra ci perde. Nel mutualismo entrambe ci guadagnano, come api e fiori. Nel commensalismo una ci guadagna e l’altra resta indifferente, come una pianta epifita che vive su un albero."
+          "Una pianta di un pianeta che orbita una nana rossa riceve molta luce rossa e poca blu. Quanto carbonio fissa al variare della luce?",
+          "A luce bassa la fotosintesi è limitata dai fotoni, a luce alta dagli enzimi del ciclo di Calvin; il punto di compensazione è la luce a cui A = 0."
         ],
         "advanced": [
-          "Sulle scogliere della Scozia due specie di balani, piccoli crostacei fissati alla roccia, vivono a quote diverse: Chthamalus in alto, Balanus più in basso. Nel 1961 Joseph Connell tolse Balanus da alcune rocce: Chthamalus si diffuse anche più in basso. Le larve potevano vivere lì; era la competizione a escluderle.",
-          "Le specie di una comunità interagiscono in modi diversi, classificati secondo l’effetto su ciascuna. Nella competizione entrambe ci perdono. Nella predazione e nel parassitismo una guadagna e l’altra ci perde. Nel mutualismo entrambe ci guadagnano, come api e fiori. Nel commensalismo una ci guadagna e l’altra resta indifferente, come una pianta epifita che vive su un albero."
+          "Una pianta di un pianeta che orbita una nana rossa riceve molta luce rossa e poca blu. Quanto carbonio fissa al variare della luce?",
+          "Trova il punto di compensazione per K = 200 e confronta la curva con K = 400, che rappresenta una foglia meno adatta alla luce disponibile.",
+          "Curva empirica a una temperatura e concentrazione di CO₂ fissate; la luce di altre stelle cambia anche lo spettro, che il modello non descrive."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Nicchie, esclusione, modelli",
+      "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "La nicchia ecologica è l’insieme delle condizioni e delle risorse di cui una specie ha bisogno. La nicchia fondamentale è quella che la specie occuperebbe da sola; la nicchia realizzata è quella che occupa davvero in presenza dei competitori. Nell’esperimento di Connell la nicchia fondamentale di Chthamalus comprendeva tutta la scogliera, quella realizzata solo la parte alta.",
-          "Nel 1934 Gause allevò insieme due specie di parameci con lo stesso cibo: Paramecium aurelia finì sempre per eliminare Paramecium caudatum. È il principio di esclusione competitiva: due specie con la stessa nicchia non possono coesistere a lungo. Le specie coesistono quando si dividono le risorse: nel 1958 Robert MacArthur osservò cinque specie di uccelli che si nutrono degli insetti degli stessi abeti in parti diverse dell’albero.",
-          "Il modello di Lotka e Volterra descrive la competizione con un termine in più nella crescita logistica. Per la specie 1, con capacità portante K, la crescita pro capite è g₁ = r(1 − (N₁ + α N₂)/K), dove α misura quanto un individuo della specie 2 pesa sulle risorse della specie 1. Con r = 0,5, K = 100, N₂ = 20 e α = 1: per N₁ = 40, g₁ = 0,5 · (1 − 60/100) = 0,2."
+          "L'assimilazione netta cresce con la luce e satura: A = A_max I/(K+I) - R_d, dove R_d è la respirazione al buio.",
+          "Con A_max = 20, K = 200 e R_d = 2 μmol/(m² s), a I = 200 l'assimilazione netta è 8 μmol/(m² s)."
         ],
         "intermediate": [
-          "La nicchia ecologica è l’insieme delle condizioni e delle risorse di cui una specie ha bisogno. La nicchia fondamentale è quella che la specie occuperebbe da sola; la nicchia realizzata è quella che occupa davvero in presenza dei competitori. Nell’esperimento di Connell la nicchia fondamentale di Chthamalus comprendeva tutta la scogliera, quella realizzata solo la parte alta.",
-          "Nel 1934 Gause allevò insieme due specie di parameci con lo stesso cibo: Paramecium aurelia finì sempre per eliminare Paramecium caudatum. È il principio di esclusione competitiva: due specie con la stessa nicchia non possono coesistere a lungo. Le specie coesistono quando si dividono le risorse: nel 1958 Robert MacArthur osservò cinque specie di uccelli che si nutrono degli insetti degli stessi abeti in parti diverse dell’albero.",
-          "Il modello di Lotka e Volterra descrive la competizione con un termine in più nella crescita logistica. Per la specie 1, con capacità portante K, la crescita pro capite è g₁ = r(1 − (N₁ + α N₂)/K), dove α misura quanto un individuo della specie 2 pesa sulle risorse della specie 1. Con r = 0,5, K = 100, N₂ = 20 e α = 1: per N₁ = 40, g₁ = 0,5 · (1 − 60/100) = 0,2.",
-          "Il modello del programma calcola g₁ = r(1 − (N₁ + α · 20)/100) in funzione di N₁, con r e α regolabili: la retta scende al crescere di N₁ e si sposta in basso quando α cresce, perché la specie 2 sottrae risorse."
+          "A luce bassa la fotosintesi è limitata dai fotoni, a luce alta dagli enzimi del ciclo di Calvin; il punto di compensazione è la luce a cui A = 0.",
+          "La variabile Luce I è espressa in μmol/(m² s); Assimilazione netta in μmol/(m² s). Il dominio dello strumento è [0; 1000]. La relazione implementata è: Assimilazione = A_max I/(K+I)-R_d; R_d=2.",
+          "Con A_max = 20, K = 200 e R_d = 2 μmol/(m² s), a I = 200 l'assimilazione netta è 8 μmol/(m² s)."
         ],
         "advanced": [
-          "La nicchia ecologica è l’insieme delle condizioni e delle risorse di cui una specie ha bisogno. La nicchia fondamentale è quella che la specie occuperebbe da sola; la nicchia realizzata è quella che occupa davvero in presenza dei competitori. Nell’esperimento di Connell la nicchia fondamentale di Chthamalus comprendeva tutta la scogliera, quella realizzata solo la parte alta.",
-          "Nel 1934 Gause allevò insieme due specie di parameci con lo stesso cibo: Paramecium aurelia finì sempre per eliminare Paramecium caudatum. È il principio di esclusione competitiva: due specie con la stessa nicchia non possono coesistere a lungo. Le specie coesistono quando si dividono le risorse: nel 1958 Robert MacArthur osservò cinque specie di uccelli che si nutrono degli insetti degli stessi abeti in parti diverse dell’albero.",
-          "Il modello di Lotka e Volterra descrive la competizione con un termine in più nella crescita logistica. Per la specie 1, con capacità portante K, la crescita pro capite è g₁ = r(1 − (N₁ + α N₂)/K), dove α misura quanto un individuo della specie 2 pesa sulle risorse della specie 1. Con r = 0,5, K = 100, N₂ = 20 e α = 1: per N₁ = 40, g₁ = 0,5 · (1 − 60/100) = 0,2.",
-          "Il modello del programma calcola g₁ = r(1 − (N₁ + α · 20)/100) in funzione di N₁, con r e α regolabili: la retta scende al crescere di N₁ e si sposta in basso quando α cresce, perché la specie 2 sottrae risorse."
+          "A luce bassa la fotosintesi è limitata dai fotoni, a luce alta dagli enzimi del ciclo di Calvin; il punto di compensazione è la luce a cui A = 0.",
+          "Trova il punto di compensazione per K = 200 e confronta la curva con K = 400, che rappresenta una foglia meno adatta alla luce disponibile.",
+          "Oltre la saturazione le piante dissipano la luce in eccesso. Un pigmento diverso cambia i colori assorbiti, senza rendere automaticamente la pianta più efficiente."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Carte della competizione",
+      "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "L’attività ha quattro serie di carte: interazioni tra specie da classificare; casi di esclusione o di coesistenza; situazioni da ordinare per crescita pro capite nel modello di competizione; esempi di nicchia fondamentale o realizzata. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte, una sola nelle serie più brevi.",
-          "Per classificare un’interazione scrivi il segno dell’effetto su ciascuna specie: −/− competizione, +/− predazione o parassitismo, +/+ mutualismo, +/0 commensalismo.",
-          "Il modello di Lotka e Volterra descrive la competizione con un termine in più nella crescita logistica. Per la specie 1, con capacità portante K, la crescita pro capite è g₁ = r(1 − (N₁ + α N₂)/K), dove α misura quanto un individuo della specie 2 pesa sulle risorse della specie 1. Con r = 0,5, K = 100, N₂ = 20 e α = 1: per N₁ = 40, g₁ = 0,5 · (1 − 60/100) = 0,2."
+          "Nel laboratorio imposta Assimilazione massima (a): 20 μmol/(m² s); Scala luminosa K (b): 200 μmol/(m² s). Prima di salvare A, prevedi come cambia Assimilazione netta fra Luce I=250 e 500 μmol/(m² s). Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con A_max = 20, K = 200 e R_d = 2 μmol/(m² s), a I = 200 l'assimilazione netta è 8 μmol/(m² s).",
+          "La variabile Luce I è espressa in μmol/(m² s); Assimilazione netta in μmol/(m² s). Il dominio dello strumento è [0; 1000]. La relazione implementata è: Assimilazione = A_max I/(K+I)-R_d; R_d=2."
         ],
         "intermediate": [
-          "L’attività ha quattro serie di carte: interazioni tra specie da classificare; casi di esclusione o di coesistenza; situazioni da ordinare per crescita pro capite nel modello di competizione; esempi di nicchia fondamentale o realizzata. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte, una sola nelle serie più brevi.",
-          "Per classificare un’interazione scrivi il segno dell’effetto su ciascuna specie: −/− competizione, +/− predazione o parassitismo, +/+ mutualismo, +/0 commensalismo.",
-          "Il modello del programma calcola g₁ = r(1 − (N₁ + α · 20)/100) in funzione di N₁, con r e α regolabili: la retta scende al crescere di N₁ e si sposta in basso quando α cresce, perché la specie 2 sottrae risorse."
+          "Nel laboratorio imposta Assimilazione massima (a): 20 μmol/(m² s); Scala luminosa K (b): 200 μmol/(m² s). Prima di salvare A, prevedi come cambia Assimilazione netta fra Luce I=250 e 500 μmol/(m² s). Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Luce I è espressa in μmol/(m² s); Assimilazione netta in μmol/(m² s). Il dominio dello strumento è [0; 1000]. La relazione implementata è: Assimilazione = A_max I/(K+I)-R_d; R_d=2.",
+          "A luce bassa la fotosintesi è limitata dai fotoni, a luce alta dagli enzimi del ciclo di Calvin; il punto di compensazione è la luce a cui A = 0."
         ],
         "advanced": [
-          "L’attività ha quattro serie di carte: interazioni tra specie da classificare; casi di esclusione o di coesistenza; situazioni da ordinare per crescita pro capite nel modello di competizione; esempi di nicchia fondamentale o realizzata. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte, una sola nelle serie più brevi.",
-          "Per classificare un’interazione scrivi il segno dell’effetto su ciascuna specie: −/− competizione, +/− predazione o parassitismo, +/+ mutualismo, +/0 commensalismo."
+          "Nel laboratorio imposta Assimilazione massima (a): 20 μmol/(m² s); Scala luminosa K (b): 200 μmol/(m² s). Prima di salvare A, prevedi come cambia Assimilazione netta fra Luce I=250 e 500 μmol/(m² s). Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Trova il punto di compensazione per K = 200 e confronta la curva con K = 400, che rappresenta una foglia meno adatta alla luce disponibile.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Errori frequenti",
+      "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Errore frequente: pensare che la competizione sia sempre uno scontro diretto. Spesso le due specie non si incontrano mai: competono consumando la stessa risorsa.",
-          "Secondo errore: credere che una specie viva dove le condizioni sono migliori per lei. Spesso vive dove i competitori la lasciano vivere, come Chthamalus sulla parte alta della scogliera.",
-          "Nel 1934 Gause allevò insieme due specie di parameci con lo stesso cibo: Paramecium aurelia finì sempre per eliminare Paramecium caudatum. È il principio di esclusione competitiva: due specie con la stessa nicchia non possono coesistere a lungo. Le specie coesistono quando si dividono le risorse: nel 1958 Robert MacArthur osservò cinque specie di uccelli che si nutrono degli insetti degli stessi abeti in parti diverse dell’albero."
+          "Oltre la saturazione le piante dissipano la luce in eccesso. Un pigmento diverso cambia i colori assorbiti, senza rendere automaticamente la pianta più efficiente.",
+          "Curva empirica a una temperatura e concentrazione di CO₂ fissate; la luce di altre stelle cambia anche lo spettro, che il modello non descrive.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ],
         "intermediate": [
-          "Errore frequente: pensare che la competizione sia sempre uno scontro diretto. Spesso le due specie non si incontrano mai: competono consumando la stessa risorsa.",
-          "Secondo errore: credere che una specie viva dove le condizioni sono migliori per lei. Spesso vive dove i competitori la lasciano vivere, come Chthamalus sulla parte alta della scogliera.",
-          "Nel 1934 Gause allevò insieme due specie di parameci con lo stesso cibo: Paramecium aurelia finì sempre per eliminare Paramecium caudatum. È il principio di esclusione competitiva: due specie con la stessa nicchia non possono coesistere a lungo. Le specie coesistono quando si dividono le risorse: nel 1958 Robert MacArthur osservò cinque specie di uccelli che si nutrono degli insetti degli stessi abeti in parti diverse dell’albero."
+          "Oltre la saturazione le piante dissipano la luce in eccesso. Un pigmento diverso cambia i colori assorbiti, senza rendere automaticamente la pianta più efficiente.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ],
         "advanced": [
-          "Errore frequente: pensare che la competizione sia sempre uno scontro diretto. Spesso le due specie non si incontrano mai: competono consumando la stessa risorsa.",
-          "Secondo errore: credere che una specie viva dove le condizioni sono migliori per lei. Spesso vive dove i competitori la lasciano vivere, come Chthamalus sulla parte alta della scogliera.",
-          "Il modello del programma calcola g₁ = r(1 − (N₁ + α · 20)/100) in funzione di N₁, con r e α regolabili: la retta scende al crescere di N₁ e si sposta in basso quando α cresce, perché la specie 2 sottrae risorse."
+          "Curva empirica a una temperatura e concentrazione di CO₂ fissate; la luce di altre stelle cambia anche lo spettro, che il modello non descrive.",
+          "Trova il punto di compensazione per K = 200 e confronta la curva con K = 400, che rappresenta una foglia meno adatta alla luce disponibile.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica",
+      "title": "Verifica ragionamento e calcolo",
       "text": {
         "base": [
-          "Ripasso: tipi di interazione e segni degli effetti; nicchia fondamentale e realizzata; principio di esclusione competitiva; ripartizione delle risorse; modello di competizione di Lotka e Volterra.",
-          "Mini esercizio: con r = 0,5, K = 100, N₂ = 20 e α = 3, per N₁ = 20 si ha g₁ = 0,5 · (1 − 80/100) = 0,1.",
-          "Nelle domande sulla competizione chiediti quale risorsa è condivisa e se le specie possono dividersela."
+          "L'assimilazione netta cresce con la luce e satura: A = A_max I/(K+I) - R_d, dove R_d è la respirazione al buio.",
+          "Con A_max = 20, K = 200 e R_d = 2 μmol/(m² s), a I = 200 l'assimilazione netta è 8 μmol/(m² s)."
         ],
         "intermediate": [
-          "Ripasso: tipi di interazione e segni degli effetti; nicchia fondamentale e realizzata; principio di esclusione competitiva; ripartizione delle risorse; modello di competizione di Lotka e Volterra.",
-          "Mini esercizio: con r = 0,5, K = 100, N₂ = 20 e α = 3, per N₁ = 20 si ha g₁ = 0,5 · (1 − 80/100) = 0,1.",
-          "Nelle domande sulla competizione chiediti quale risorsa è condivisa e se le specie possono dividersela."
+          "A luce bassa la fotosintesi è limitata dai fotoni, a luce alta dagli enzimi del ciclo di Calvin; il punto di compensazione è la luce a cui A = 0.",
+          "La variabile Luce I è espressa in μmol/(m² s); Assimilazione netta in μmol/(m² s). Il dominio dello strumento è [0; 1000]. La relazione implementata è: Assimilazione = A_max I/(K+I)-R_d; R_d=2."
         ],
         "advanced": [
-          "Ripasso: tipi di interazione e segni degli effetti; nicchia fondamentale e realizzata; principio di esclusione competitiva; ripartizione delle risorse; modello di competizione di Lotka e Volterra.",
-          "Mini esercizio: con r = 0,5, K = 100, N₂ = 20 e α = 3, per N₁ = 20 si ha g₁ = 0,5 · (1 − 80/100) = 0,1.",
-          "Nelle domande sulla competizione chiediti quale risorsa è condivisa e se le specie possono dividersela."
+          "Trova il punto di compensazione per K = 200 e confronta la curva con K = 400, che rappresenta una foglia meno adatta alla luce disponibile.",
+          "Curva empirica a una temperatura e concentrazione di CO₂ fissate; la luce di altre stelle cambia anche lo spettro, che il modello non descrive."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Collegamenti",
+      "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Il modello di competizione aggiunge un termine alla crescita logistica dell’unità «Crescita delle popolazioni». In biologia si passa a «Predazione e risposta funzionale».",
-          "Riepilogo dell’unità: le interazioni si classificano dai segni degli effetti; la nicchia realizzata è più piccola di quella fondamentale per effetto dei competitori; due specie con la stessa nicchia non coesistono; la ripartizione delle risorse permette la coesistenza; nel modello di Lotka e Volterra α misura il peso del competitore.",
-          "Nel diario descrivi l’esperimento di Connell usando i termini nicchia fondamentale e nicchia realizzata."
+          "Nel diario distingui previsione, risultato e interpretazione. Curva di risposta alla luce empirica.",
+          "Curva empirica a una temperatura e concentrazione di CO₂ fissate; la luce di altre stelle cambia anche lo spettro, che il modello non descrive.",
+          "Collegamento consigliato: physics-25. Il completamento registra attività e autoverifica, non certifica competenze."
         ],
         "intermediate": [
-          "Il modello di competizione aggiunge un termine alla crescita logistica dell’unità «Crescita delle popolazioni». In biologia si passa a «Predazione e risposta funzionale».",
-          "Riepilogo dell’unità: le interazioni si classificano dai segni degli effetti; la nicchia realizzata è più piccola di quella fondamentale per effetto dei competitori; due specie con la stessa nicchia non coesistono; la ripartizione delle risorse permette la coesistenza; nel modello di Lotka e Volterra α misura il peso del competitore.",
-          "Nel diario descrivi l’esperimento di Connell usando i termini nicchia fondamentale e nicchia realizzata."
+          "A luce bassa la fotosintesi è limitata dai fotoni, a luce alta dagli enzimi del ciclo di Calvin; il punto di compensazione è la luce a cui A = 0.",
+          "Curva empirica a una temperatura e concentrazione di CO₂ fissate; la luce di altre stelle cambia anche lo spettro, che il modello non descrive.",
+          "Trova il punto di compensazione per K = 200 e confronta la curva con K = 400, che rappresenta una foglia meno adatta alla luce disponibile."
         ],
         "advanced": [
-          "Il modello di competizione aggiunge un termine alla crescita logistica dell’unità «Crescita delle popolazioni». In biologia si passa a «Predazione e risposta funzionale».",
-          "Riepilogo dell’unità: le interazioni si classificano dai segni degli effetti; la nicchia realizzata è più piccola di quella fondamentale per effetto dei competitori; due specie con la stessa nicchia non coesistono; la ripartizione delle risorse permette la coesistenza; nel modello di Lotka e Volterra α misura il peso del competitore.",
-          "Nel diario descrivi l’esperimento di Connell usando i termini nicchia fondamentale e nicchia realizzata."
+          "Trova il punto di compensazione per K = 200 e confronta la curva con K = 400, che rappresenta una foglia meno adatta alla luce disponibile.",
+          "Curva empirica a una temperatura e concentrazione di CO₂ fissate; la luce di altre stelle cambia anche lo spettro, che il modello non descrive.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-20-q1",
-      "prompt": "Che cosa afferma il principio di esclusione competitiva?",
+      "id": "biology-20-concept",
+      "prompt": "Al punto di compensazione l'assimilazione netta è:",
       "options": [
         {
           "id": "A",
-          "text": "Due specie con la stessa nicchia non coesistono a lungo",
-          "feedback": "Esatto: una finisce per eliminare l’altra."
+          "text": "Massima",
+          "feedback": "Oltre la saturazione le piante dissipano la luce in eccesso. Un pigmento diverso cambia i colori assorbiti, senza rendere automaticamente la pianta più efficiente."
         },
         {
           "id": "B",
-          "text": "Le specie più grandi escludono le più piccole",
-          "feedback": "Conta l’efficienza nell’uso della risorsa, non la taglia."
+          "text": "Pari a R_d",
+          "feedback": "A luce bassa la fotosintesi è limitata dai fotoni, a luce alta dagli enzimi del ciclo di Calvin; il punto di compensazione è la luce a cui A = 0."
         },
         {
           "id": "C",
-          "text": "I predatori escludono le prede",
-          "feedback": "Il principio riguarda la competizione, non la predazione."
-        },
-        {
-          "id": "D",
-          "text": "Due specie non possono vivere nello stesso habitat",
-          "feedback": "Possono, se si dividono le risorse."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-20-q2",
-      "prompt": "Che cos’è la nicchia realizzata?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Lo spazio fisico in cui vive un individuo",
-          "feedback": "La nicchia comprende risorse e condizioni, oltre allo spazio."
-        },
-        {
-          "id": "B",
-          "text": "La parte della nicchia occupata in presenza dei competitori",
-          "feedback": "Esatto: di solito è più piccola di quella fondamentale."
-        },
-        {
-          "id": "C",
-          "text": "La nicchia di una specie estinta",
-          "feedback": "Il concetto riguarda le specie viventi e le loro interazioni."
-        },
-        {
-          "id": "D",
-          "text": "Tutte le condizioni che la specie tollera",
-          "feedback": "Tutte le condizioni tollerate formano la nicchia fondamentale."
-        }
-      ],
-      "correct": "B"
-    },
-    {
-      "id": "biology-20-q3",
-      "prompt": "Come fanno le cinque specie di uccelli studiate da MacArthur a coesistere?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Mangiando cibi completamente diversi",
-          "feedback": "Si nutrono tutte di insetti degli stessi alberi."
-        },
-        {
-          "id": "B",
-          "text": "Vivendo in boschi diversi",
-          "feedback": "Vivono negli stessi abeti, nello stesso bosco."
-        },
-        {
-          "id": "C",
-          "text": "Cercando il cibo in parti diverse dell’albero",
-          "feedback": "Esatto: si dividono la stessa risorsa senza escludersi."
-        },
-        {
-          "id": "D",
-          "text": "Combattendo per il territorio",
-          "feedback": "La coesistenza nasce dalla divisione delle risorse."
+          "text": "Zero",
+          "feedback": "L'assimilazione netta cresce con la luce e satura: A = A_max I/(K+I) - R_d, dove R_d è la respirazione al buio."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "biology-20-q4",
-      "prompt": "Ape e fiore hanno un’interazione di tipo:",
+      "id": "biology-20-calculation",
+      "prompt": "Calcolo: Assimilazione massima (a)=20 μmol/(m² s); Scala luminosa K (b)=200 μmol/(m² s). Per Luce I=200 μmol/(m² s), quanto vale Assimilazione netta?",
       "options": [
         {
           "id": "A",
-          "text": "Competizione",
-          "feedback": "Nessuna delle due ci perde, quindi non è competizione."
+          "text": "4 μmol/(m² s)",
+          "feedback": "Controlla sostituzione, segno e unità. Assimilazione = A_max I/(K+I)-R_d; R_d=2. Con Assimilazione massima (a)=20 μmol/(m² s); Scala luminosa K (b)=200 μmol/(m² s) e Luce I=200 μmol/(m² s), il risultato è 8 μmol/(m² s). Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "Parassitismo",
-          "feedback": "Il fiore ottiene l’impollinazione: ci guadagna."
+          "text": "8 μmol/(m² s)",
+          "feedback": "Assimilazione = A_max I/(K+I)-R_d; R_d=2. Con Assimilazione massima (a)=20 μmol/(m² s); Scala luminosa K (b)=200 μmol/(m² s) e Luce I=200 μmol/(m² s), il risultato è 8 μmol/(m² s). Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "Commensalismo",
-          "feedback": "Entrambe ci guadagnano, non una sola."
-        },
-        {
-          "id": "D",
-          "text": "Mutualismo",
-          "feedback": "Esatto: l’ape ottiene nettare, il fiore viene impollinato."
+          "text": "12 μmol/(m² s)",
+          "feedback": "Questo valore non soddisfa la relazione. Assimilazione = A_max I/(K+I)-R_d; R_d=2. Con Assimilazione massima (a)=20 μmol/(m² s); Scala luminosa K (b)=200 μmol/(m² s) e Luce I=200 μmol/(m² s), il risultato è 8 μmol/(m² s). Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "D"
+      "correct": "B",
+      "numeric": {
+        "x": 200,
+        "parameters": {
+          "a": 20,
+          "b": 200
+        },
+        "expected": 8,
+        "unit": "μmol/(m² s)"
+      }
     },
     {
-      "id": "biology-20-q5",
-      "prompt": "Nel modello di competizione, che cosa significa α = 0?",
+      "id": "biology-20-transfer",
+      "prompt": "Trasferimento: Assimilazione massima (a)=25 μmol/(m² s); Scala luminosa K (b)=200 μmol/(m² s). Per Luce I=200 μmol/(m² s), quanto vale Assimilazione netta?",
       "options": [
         {
           "id": "A",
-          "text": "Che la specie 2 non sottrae risorse alla specie 1",
-          "feedback": "Esatto: la crescita torna logistica semplice."
+          "text": "10,5 μmol/(m² s)",
+          "feedback": "Assimilazione = A_max I/(K+I)-R_d; R_d=2. Con Assimilazione massima (a)=25 μmol/(m² s); Scala luminosa K (b)=200 μmol/(m² s) e Luce I=200 μmol/(m² s), il risultato è 10,5 μmol/(m² s). Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "Che la specie 1 si estingue",
-          "feedback": "Con α = 0 la specie 1 cresce senza disturbo."
+          "text": "15,75 μmol/(m² s)",
+          "feedback": "Questo valore non soddisfa la relazione. Assimilazione = A_max I/(K+I)-R_d; R_d=2. Con Assimilazione massima (a)=25 μmol/(m² s); Scala luminosa K (b)=200 μmol/(m² s) e Luce I=200 μmol/(m² s), il risultato è 10,5 μmol/(m² s). Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "Che le due specie sono identiche",
-          "feedback": "Due specie identiche avrebbero α = 1."
-        },
-        {
-          "id": "D",
-          "text": "Che la specie 2 è un predatore",
-          "feedback": "Il modello descrive la competizione, non la predazione."
+          "text": "5,25 μmol/(m² s)",
+          "feedback": "Controlla sostituzione, segno e unità. Assimilazione = A_max I/(K+I)-R_d; R_d=2. Con Assimilazione massima (a)=25 μmol/(m² s); Scala luminosa K (b)=200 μmol/(m² s) e Luce I=200 μmol/(m² s), il risultato è 10,5 μmol/(m² s). Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "A"
+      "correct": "A",
+      "numeric": {
+        "x": 200,
+        "parameters": {
+          "a": 25,
+          "b": 200
+        },
+        "expected": 10.5,
+        "unit": "μmol/(m² s)"
+      }
     },
     {
-      "id": "biology-20-q6",
-      "prompt": "Che cosa mostrò Connell togliendo Balanus dalle rocce?",
+      "id": "biology-20-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
       "options": [
         {
           "id": "A",
-          "text": "Che Chthamalus non sopravvive più in basso",
-          "feedback": "Chthamalus si diffuse proprio più in basso."
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Curva empirica a una temperatura e concentrazione di CO₂ fissate; la luce di altre stelle cambia anche lo spettro, che il modello non descrive."
         },
         {
           "id": "B",
-          "text": "Che la nicchia fondamentale di Chthamalus è più ampia di quella realizzata",
-          "feedback": "Esatto: era la competizione a limitarlo."
+          "text": "Curva di risposta alla luce empirica",
+          "feedback": "Curva empirica a una temperatura e concentrazione di CO₂ fissate; la luce di altre stelle cambia anche lo spettro, che il modello non descrive."
         },
         {
           "id": "C",
-          "text": "Che Balanus è un predatore",
-          "feedback": "Balanus compete per lo spazio, non preda Chthamalus."
-        },
-        {
-          "id": "D",
-          "text": "Che le due specie sono la stessa",
-          "feedback": "Sono specie distinte con esigenze diverse."
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Curva empirica a una temperatura e concentrazione di CO₂ fissate; la luce di altre stelle cambia anche lo spettro, che il modello non descrive."
         }
       ],
       "correct": "B"
     }
-  ],
-  "activity": {
-    "kind": "cards",
-    "goal": 3,
-    "rounds": [
-      {
-        "id": "interazioni",
-        "type": "classify",
-        "title": "Che tipo di interazione?",
-        "prompt": "Classifica le interazioni tra specie.",
-        "categories": [
-          {
-            "id": "competizione",
-            "label": "COMPETIZIONE"
-          },
-          {
-            "id": "predazione",
-            "label": "PREDAZIONE/PARASSITISMO"
-          },
-          {
-            "id": "mutualismo",
-            "label": "MUTUALISMO"
-          },
-          {
-            "id": "commensalismo",
-            "label": "COMMENSALISMO"
-          }
-        ],
-        "items": [
-          {
-            "id": "leoni",
-            "text": "Leoni e iene inseguono le stesse prede",
-            "why": "Entrambi ci perdono: −/−.",
-            "category": "competizione"
-          },
-          {
-            "id": "piante",
-            "text": "Due piante vicine si contendono la luce",
-            "why": "Entrambe crescono meno: −/−.",
-            "category": "competizione"
-          },
-          {
-            "id": "volpe",
-            "text": "Una volpe caccia un coniglio",
-            "why": "La volpe ci guadagna, il coniglio ci perde: +/−.",
-            "category": "predazione"
-          },
-          {
-            "id": "zecca",
-            "text": "Una zecca si nutre del sangue di un cane",
-            "why": "Il parassita ci guadagna, l’ospite ci perde: +/−.",
-            "category": "predazione"
-          },
-          {
-            "id": "ape",
-            "text": "Un’ape raccoglie nettare e impollina il fiore",
-            "why": "Entrambe ci guadagnano: +/+.",
-            "category": "mutualismo"
-          },
-          {
-            "id": "funghi",
-            "text": "Funghi delle radici scambiano sali minerali con zuccheri della pianta",
-            "why": "Le micorrize sono vantaggiose per entrambi: +/+.",
-            "category": "mutualismo"
-          },
-          {
-            "id": "pagliaccio",
-            "text": "Il pesce pagliaccio vive tra i tentacoli di un’anemone",
-            "why": "Protezione per il pesce, pulizia e difesa per l’anemone: +/+.",
-            "category": "mutualismo"
-          },
-          {
-            "id": "epifita",
-            "text": "Un’orchidea epifita cresce sui rami di un albero",
-            "why": "L’orchidea ottiene luce, l’albero resta indifferente: +/0.",
-            "category": "commensalismo"
-          },
-          {
-            "id": "remora",
-            "text": "Una remora si fa trasportare da uno squalo",
-            "why": "La remora viaggia e mangia avanzi, lo squalo resta indifferente: +/0.",
-            "category": "commensalismo"
-          }
-        ],
-        "explain": "I segni degli effetti su ciascuna specie definiscono l’interazione.",
-        "maxErrors": 2
-      },
-      {
-        "id": "esito",
-        "type": "classify",
-        "title": "Esclusione o coesistenza?",
-        "prompt": "Prevedi l’esito della competizione.",
-        "categories": [
-          {
-            "id": "esclusione",
-            "label": "ESCLUSIONE"
-          },
-          {
-            "id": "coesistenza",
-            "label": "COESISTENZA"
-          }
-        ],
-        "items": [
-          {
-            "id": "parameci",
-            "text": "Due parameci con lo stesso cibo nella stessa provetta",
-            "why": "Gause osservò sempre l’eliminazione di una specie.",
-            "category": "esclusione"
-          },
-          {
-            "id": "balani",
-            "text": "Balanus e Chthamalus nella parte bassa della scogliera",
-            "why": "Balanus esclude Chthamalus da quella zona.",
-            "category": "esclusione"
-          },
-          {
-            "id": "introdotta",
-            "text": "Una specie introdotta usa le stesse risorse di una locale con più efficienza",
-            "why": "Con la stessa nicchia la più efficiente prevale.",
-            "category": "esclusione"
-          },
-          {
-            "id": "uccelli",
-            "text": "Uccelli che cercano insetti in parti diverse dello stesso albero",
-            "why": "Si dividono la risorsa.",
-            "category": "coesistenza"
-          },
-          {
-            "id": "radici",
-            "text": "Piante con radici a profondità diverse",
-            "why": "Prendono acqua da strati diversi del suolo.",
-            "category": "coesistenza"
-          },
-          {
-            "id": "becchi",
-            "text": "Fringuelli con becchi di dimensioni diverse sulla stessa isola",
-            "why": "Mangiano semi di dimensioni diverse.",
-            "category": "coesistenza"
-          }
-        ],
-        "explain": "Stessa nicchia porta all’esclusione; risorse divise permettono la coesistenza.",
-        "maxErrors": 1
-      },
-      {
-        "id": "crescita",
-        "type": "order",
-        "title": "Quanto cresce la specie 1?",
-        "prompt": "Con r = 0,5, K = 100 e N₂ = 20, ordina le situazioni dalla crescita pro capite più alta alla più bassa.",
-        "items": [
-          {
-            "id": "a",
-            "text": "N₁ = 0, α = 1",
-            "why": "g₁ = 0,5 · (1 − 20/100) = 0,4."
-          },
-          {
-            "id": "b",
-            "text": "N₁ = 40, α = 0",
-            "why": "g₁ = 0,5 · (1 − 40/100) = 0,3."
-          },
-          {
-            "id": "c",
-            "text": "N₁ = 40, α = 1",
-            "why": "g₁ = 0,5 · (1 − 60/100) = 0,2."
-          },
-          {
-            "id": "d",
-            "text": "N₁ = 20, α = 3",
-            "why": "g₁ = 0,5 · (1 − 80/100) = 0,1."
-          },
-          {
-            "id": "e",
-            "text": "N₁ = 80, α = 1",
-            "why": "g₁ = 0,5 · (1 − 100/100) = 0."
-          },
-          {
-            "id": "f",
-            "text": "N₁ = 70, α = 2",
-            "why": "g₁ = 0,5 · (1 − 110/100) = −0,05: la specie 1 diminuisce."
-          }
-        ],
-        "explain": "Crescono i competitori nella parentesi, scende la crescita: N₁ e α · N₂ pesano allo stesso modo sulla capacità portante."
-      },
-      {
-        "id": "nicchia",
-        "type": "classify",
-        "title": "Fondamentale o realizzata?",
-        "prompt": "Classifica le descrizioni.",
-        "categories": [
-          {
-            "id": "fondamentale",
-            "label": "FONDAMENTALE"
-          },
-          {
-            "id": "realizzata",
-            "label": "REALIZZATA"
-          }
-        ],
-        "items": [
-          {
-            "id": "sola",
-            "text": "Tutte le condizioni in cui la specie potrebbe vivere da sola",
-            "why": "È la definizione di nicchia fondamentale.",
-            "category": "fondamentale"
-          },
-          {
-            "id": "laboratorio",
-            "text": "L’intervallo di temperature tollerato in laboratorio",
-            "why": "Misurato senza competitori.",
-            "category": "fondamentale"
-          },
-          {
-            "id": "rimosso",
-            "text": "Chthamalus su tutta la scogliera dopo la rimozione di Balanus",
-            "why": "Senza competitore la specie occupa tutta la nicchia possibile.",
-            "category": "fondamentale"
-          },
-          {
-            "id": "alto",
-            "text": "Chthamalus nella parte alta della scogliera, in natura",
-            "why": "Il competitore limita la zona occupata.",
-            "category": "realizzata"
-          },
-          {
-            "id": "prato",
-            "text": "L’area occupata da una pianta in un prato affollato",
-            "why": "Le altre piante ne riducono lo spazio.",
-            "category": "realizzata"
-          },
-          {
-            "id": "davvero",
-            "text": "La zona in cui la specie vive davvero tra i suoi competitori",
-            "why": "È la definizione di nicchia realizzata.",
-            "category": "realizzata"
-          }
-        ],
-        "explain": "La nicchia fondamentale è ciò che la specie potrebbe fare; quella realizzata ciò che i competitori le lasciano.",
-        "maxErrors": 1
-      }
-    ]
-  }
+  ]
 }

@@ -5,21 +5,19 @@
   "title": "Deriva genetica",
   "sector": 3,
   "modelId": "biology-14",
-  "coverage": "guided-activity",
-  "editorialStatus": "hand-written-draft",
-  "scope": "Deriva come campionamento, intensità e dimensione della popolazione, fissazione, colli di bottiglia ed effetto del fondatore",
-  "narrativeStatus": "Il caso degli elefanti marini e quello di Pingelap sono reali.",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Campionamento binomiale in una generazione",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
   "objectives": [
-    "Spiegare la deriva come effetto del campionamento.",
-    "Calcolare l’intensità della deriva in funzione di N e p.",
-    "Descrivere fissazione e perdita di alleli.",
-    "Riconoscere colli di bottiglia ed effetto del fondatore."
+    "Spiegare: campionamento binomiale in una generazione.",
+    "Applicare σ_p = √(p(1-p)/(2N)), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
   ],
   "prerequisites": [
     "biology-13"
   ],
   "connections": [
-    "biology-15",
     "math-c10"
   ],
   "sources": [
@@ -28,551 +26,244 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Deriva genetica",
-      "definition": "Cambiamento casuale delle frequenze alleliche tra le generazioni."
+      "term": "Frequenza p",
+      "definition": "Variabile indipendente, unità 1; intervallo [0; 1]."
     },
     {
-      "term": "Fissazione",
-      "definition": "Situazione in cui un allele diventa l’unico presente nella popolazione."
+      "term": "Deviazione dopo deriva",
+      "definition": "Risultato calcolato dal modello, unità 1."
     },
     {
-      "term": "Collo di bottiglia",
-      "definition": "Riduzione brusca della dimensione di una popolazione."
-    },
-    {
-      "term": "Effetto del fondatore",
-      "definition": "Deriva dovuta alla fondazione di una popolazione da parte di pochi individui."
-    },
-    {
-      "term": "Dimensione efficace",
-      "definition": "Dimensione di una popolazione ideale con la stessa intensità di deriva."
+      "term": "Dimensione diploide N",
+      "definition": "Parametro a, unità individui; intervallo [10; 1000]."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Venti elefanti marini",
+      "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Alla fine dell’Ottocento gli elefanti marini settentrionali furono cacciati fino quasi all’estinzione: nel 1892 ne restavano forse una ventina. Protetti, sono tornati a più di 200 000 individui. Eppure la loro variabilità genetica è rimasta bassissima: il caso, agendo su pochi individui, aveva già fatto sparire molte varianti.",
-          "La deriva genetica è il cambiamento casuale delle frequenze alleliche da una generazione all’altra. Ogni generazione è un campione dei gameti della precedente, e un campione piccolo si allontana più facilmente dalle proporzioni di partenza. Lanciando una moneta dieci volte si ottiene spesso 7 a 3; lanciandola mille volte, quasi sempre un valore vicino a metà."
+          "Pochi organismi colonizzano un nuovo lago portando con sé solo una parte della variabilità della popolazione d'origine. Quanto può cambiare una frequenza per puro caso?",
+          "In una popolazione diploide di N individui la frequenza di un allele cambia a ogni generazione per caso, con deviazione standard √(p(1-p)/(2N))."
         ],
         "intermediate": [
-          "Alla fine dell’Ottocento gli elefanti marini settentrionali furono cacciati fino quasi all’estinzione: nel 1892 ne restavano forse una ventina. Protetti, sono tornati a più di 200 000 individui. Eppure la loro variabilità genetica è rimasta bassissima: il caso, agendo su pochi individui, aveva già fatto sparire molte varianti.",
-          "La deriva genetica è il cambiamento casuale delle frequenze alleliche da una generazione all’altra. Ogni generazione è un campione dei gameti della precedente, e un campione piccolo si allontana più facilmente dalle proporzioni di partenza. Lanciando una moneta dieci volte si ottiene spesso 7 a 3; lanciandola mille volte, quasi sempre un valore vicino a metà."
+          "Pochi organismi colonizzano un nuovo lago portando con sé solo una parte della variabilità della popolazione d'origine. Quanto può cambiare una frequenza per puro caso?",
+          "Le 2N copie di un gene della generazione successiva sono estratte a caso: la frequenza segue una distribuzione binomiale con varianza p(1-p)/(2N)."
         ],
         "advanced": [
-          "Alla fine dell’Ottocento gli elefanti marini settentrionali furono cacciati fino quasi all’estinzione: nel 1892 ne restavano forse una ventina. Protetti, sono tornati a più di 200 000 individui. Eppure la loro variabilità genetica è rimasta bassissima: il caso, agendo su pochi individui, aveva già fatto sparire molte varianti.",
-          "La deriva genetica è il cambiamento casuale delle frequenze alleliche da una generazione all’altra. Ogni generazione è un campione dei gameti della precedente, e un campione piccolo si allontana più facilmente dalle proporzioni di partenza. Lanciando una moneta dieci volte si ottiene spesso 7 a 3; lanciandola mille volte, quasi sempre un valore vicino a metà."
+          "Pochi organismi colonizzano un nuovo lago portando con sé solo una parte della variabilità della popolazione d'origine. Quanto può cambiare una frequenza per puro caso?",
+          "Confronta la deviazione per N = 10, 100 e 1000; poi discuti perché le prime popolazioni di replicatori dovevano essere molto soggette alla deriva.",
+          "Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Intensità e conseguenze",
+      "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "In una popolazione diploide di N individui, la variazione casuale di una frequenza p in una generazione ha deviazione standard σ = √(p(1 − p)/(2N)). Con p = 0,5: per N = 10, σ ≈ 0,11; per N = 100, σ ≈ 0,035; per N = 1000, σ ≈ 0,011. Dividere per 100 la popolazione moltiplica la deriva per 10.",
-          "Generazione dopo generazione la deriva porta alcuni alleli a scomparire e altri a fissarsi, cioè a diventare gli unici. Un allele nuovo e neutro, presente in una sola copia su 2N, ha probabilità 1/(2N) di fissarsi. Nelle popolazioni piccole la deriva riduce la variabilità e può fissare anche alleli lievemente dannosi.",
-          "Due situazioni rendono la deriva particolarmente forte. Nel collo di bottiglia una popolazione si riduce bruscamente, come gli elefanti marini o, molto prima, i ghepardi. Nell’effetto del fondatore pochi individui fondano una nuova popolazione: sull’atollo di Pingelap, dopo un tifone del Settecento che lasciò pochi superstiti, una rara forma di cecità ai colori è diventata comune. La deriva conta anche quando il numero di figli varia molto da un individuo all’altro: la dimensione «efficace» è allora minore di quella contata."
+          "In una popolazione diploide di N individui la frequenza di un allele cambia a ogni generazione per caso, con deviazione standard √(p(1-p)/(2N)).",
+          "Con p = 0,5 e N = 100 la deviazione standard è circa 0,035; con N = 10 è circa 0,11."
         ],
         "intermediate": [
-          "In una popolazione diploide di N individui, la variazione casuale di una frequenza p in una generazione ha deviazione standard σ = √(p(1 − p)/(2N)). Con p = 0,5: per N = 10, σ ≈ 0,11; per N = 100, σ ≈ 0,035; per N = 1000, σ ≈ 0,011. Dividere per 100 la popolazione moltiplica la deriva per 10.",
-          "Generazione dopo generazione la deriva porta alcuni alleli a scomparire e altri a fissarsi, cioè a diventare gli unici. Un allele nuovo e neutro, presente in una sola copia su 2N, ha probabilità 1/(2N) di fissarsi. Nelle popolazioni piccole la deriva riduce la variabilità e può fissare anche alleli lievemente dannosi.",
-          "Due situazioni rendono la deriva particolarmente forte. Nel collo di bottiglia una popolazione si riduce bruscamente, come gli elefanti marini o, molto prima, i ghepardi. Nell’effetto del fondatore pochi individui fondano una nuova popolazione: sull’atollo di Pingelap, dopo un tifone del Settecento che lasciò pochi superstiti, una rara forma di cecità ai colori è diventata comune. La deriva conta anche quando il numero di figli varia molto da un individuo all’altro: la dimensione «efficace» è allora minore di quella contata.",
-          "Il modello del programma calcola σ = √(p(1 − p)/(2N)) in funzione di p, con N regolabile da 10 a 1000: la curva è massima per p = 0,5 e si annulla per p = 0 e p = 1, dove non c’è più nulla da far variare."
+          "Le 2N copie di un gene della generazione successiva sono estratte a caso: la frequenza segue una distribuzione binomiale con varianza p(1-p)/(2N).",
+          "La variabile Frequenza p è espressa in 1; Deviazione dopo deriva in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: σ_p = √(p(1-p)/(2N)).",
+          "Con p = 0,5 e N = 100 la deviazione standard è circa 0,035; con N = 10 è circa 0,11."
         ],
         "advanced": [
-          "In una popolazione diploide di N individui, la variazione casuale di una frequenza p in una generazione ha deviazione standard σ = √(p(1 − p)/(2N)). Con p = 0,5: per N = 10, σ ≈ 0,11; per N = 100, σ ≈ 0,035; per N = 1000, σ ≈ 0,011. Dividere per 100 la popolazione moltiplica la deriva per 10.",
-          "Generazione dopo generazione la deriva porta alcuni alleli a scomparire e altri a fissarsi, cioè a diventare gli unici. Un allele nuovo e neutro, presente in una sola copia su 2N, ha probabilità 1/(2N) di fissarsi. Nelle popolazioni piccole la deriva riduce la variabilità e può fissare anche alleli lievemente dannosi.",
-          "Due situazioni rendono la deriva particolarmente forte. Nel collo di bottiglia una popolazione si riduce bruscamente, come gli elefanti marini o, molto prima, i ghepardi. Nell’effetto del fondatore pochi individui fondano una nuova popolazione: sull’atollo di Pingelap, dopo un tifone del Settecento che lasciò pochi superstiti, una rara forma di cecità ai colori è diventata comune. La deriva conta anche quando il numero di figli varia molto da un individuo all’altro: la dimensione «efficace» è allora minore di quella contata.",
-          "Il modello del programma calcola σ = √(p(1 − p)/(2N)) in funzione di p, con N regolabile da 10 a 1000: la curva è massima per p = 0,5 e si annulla per p = 0 e p = 1, dove non c’è più nulla da far variare."
+          "Le 2N copie di un gene della generazione successiva sono estratte a caso: la frequenza segue una distribuzione binomiale con varianza p(1-p)/(2N).",
+          "Confronta la deviazione per N = 10, 100 e 1000; poi discuti perché le prime popolazioni di replicatori dovevano essere molto soggette alla deriva.",
+          "La deriva cambia davvero le frequenze, e va distinta da un errore di misura. Nelle popolazioni piccole può fissare o eliminare alleli senza alcuna selezione."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Carte della deriva",
+      "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "L’attività ha quattro serie di carte: scenari da attribuire a deriva, selezione, flusso genico o mutazione; popolazioni da ordinare per intensità della deriva; casi di collo di bottiglia o effetto del fondatore; fattori che aumentano o riducono la deriva. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte, una sola nelle serie più brevi.",
-          "Per distinguere deriva e selezione chiediti se il cambiamento dipende da un vantaggio. Se l’allele cambia frequenza per caso, senza alcun vantaggio, è deriva.",
-          "Il modello del programma calcola σ = √(p(1 − p)/(2N)) in funzione di p, con N regolabile da 10 a 1000: la curva è massima per p = 0,5 e si annulla per p = 0 e p = 1, dove non c’è più nulla da far variare."
+          "Nel laboratorio imposta Dimensione diploide N (a): 100 individui. Prima di salvare A, prevedi come cambia Deviazione dopo deriva fra Frequenza p=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con p = 0,5 e N = 100 la deviazione standard è circa 0,035; con N = 10 è circa 0,11.",
+          "La variabile Frequenza p è espressa in 1; Deviazione dopo deriva in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: σ_p = √(p(1-p)/(2N))."
         ],
         "intermediate": [
-          "L’attività ha quattro serie di carte: scenari da attribuire a deriva, selezione, flusso genico o mutazione; popolazioni da ordinare per intensità della deriva; casi di collo di bottiglia o effetto del fondatore; fattori che aumentano o riducono la deriva. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte, una sola nelle serie più brevi.",
-          "Per distinguere deriva e selezione chiediti se il cambiamento dipende da un vantaggio. Se l’allele cambia frequenza per caso, senza alcun vantaggio, è deriva.",
-          "Il modello del programma calcola σ = √(p(1 − p)/(2N)) in funzione di p, con N regolabile da 10 a 1000: la curva è massima per p = 0,5 e si annulla per p = 0 e p = 1, dove non c’è più nulla da far variare."
+          "Nel laboratorio imposta Dimensione diploide N (a): 100 individui. Prima di salvare A, prevedi come cambia Deviazione dopo deriva fra Frequenza p=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Frequenza p è espressa in 1; Deviazione dopo deriva in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: σ_p = √(p(1-p)/(2N)).",
+          "Le 2N copie di un gene della generazione successiva sono estratte a caso: la frequenza segue una distribuzione binomiale con varianza p(1-p)/(2N)."
         ],
         "advanced": [
-          "L’attività ha quattro serie di carte: scenari da attribuire a deriva, selezione, flusso genico o mutazione; popolazioni da ordinare per intensità della deriva; casi di collo di bottiglia o effetto del fondatore; fattori che aumentano o riducono la deriva. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte, una sola nelle serie più brevi.",
-          "Per distinguere deriva e selezione chiediti se il cambiamento dipende da un vantaggio. Se l’allele cambia frequenza per caso, senza alcun vantaggio, è deriva."
+          "Nel laboratorio imposta Dimensione diploide N (a): 100 individui. Prima di salvare A, prevedi come cambia Deviazione dopo deriva fra Frequenza p=0,25 e 0,5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Confronta la deviazione per N = 10, 100 e 1000; poi discuti perché le prime popolazioni di replicatori dovevano essere molto soggette alla deriva.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Errori frequenti",
+      "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Errore frequente: pensare che la deriva sia una forma di adattamento. La deriva è cieca: cambia le frequenze senza alcun legame con l’utilità degli alleli.",
-          "Secondo errore: credere che una popolazione tornata numerosa recuperi da sola la variabilità perduta. Le varianti scomparse tornano solo con nuove mutazioni o con l’arrivo di individui da altre popolazioni, e servono tempi lunghi.",
-          "Due situazioni rendono la deriva particolarmente forte. Nel collo di bottiglia una popolazione si riduce bruscamente, come gli elefanti marini o, molto prima, i ghepardi. Nell’effetto del fondatore pochi individui fondano una nuova popolazione: sull’atollo di Pingelap, dopo un tifone del Settecento che lasciò pochi superstiti, una rara forma di cecità ai colori è diventata comune. La deriva conta anche quando il numero di figli varia molto da un individuo all’altro: la dimensione «efficace» è allora minore di quella contata."
+          "La deriva cambia davvero le frequenze, e va distinta da un errore di misura. Nelle popolazioni piccole può fissare o eliminare alleli senza alcuna selezione.",
+          "Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ],
         "intermediate": [
-          "Errore frequente: pensare che la deriva sia una forma di adattamento. La deriva è cieca: cambia le frequenze senza alcun legame con l’utilità degli alleli.",
-          "Secondo errore: credere che una popolazione tornata numerosa recuperi da sola la variabilità perduta. Le varianti scomparse tornano solo con nuove mutazioni o con l’arrivo di individui da altre popolazioni, e servono tempi lunghi.",
-          "Generazione dopo generazione la deriva porta alcuni alleli a scomparire e altri a fissarsi, cioè a diventare gli unici. Un allele nuovo e neutro, presente in una sola copia su 2N, ha probabilità 1/(2N) di fissarsi. Nelle popolazioni piccole la deriva riduce la variabilità e può fissare anche alleli lievemente dannosi."
+          "La deriva cambia davvero le frequenze, e va distinta da un errore di misura. Nelle popolazioni piccole può fissare o eliminare alleli senza alcuna selezione.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ],
         "advanced": [
-          "Errore frequente: pensare che la deriva sia una forma di adattamento. La deriva è cieca: cambia le frequenze senza alcun legame con l’utilità degli alleli.",
-          "Secondo errore: credere che una popolazione tornata numerosa recuperi da sola la variabilità perduta. Le varianti scomparse tornano solo con nuove mutazioni o con l’arrivo di individui da altre popolazioni, e servono tempi lunghi.",
-          "Generazione dopo generazione la deriva porta alcuni alleli a scomparire e altri a fissarsi, cioè a diventare gli unici. Un allele nuovo e neutro, presente in una sola copia su 2N, ha probabilità 1/(2N) di fissarsi. Nelle popolazioni piccole la deriva riduce la variabilità e può fissare anche alleli lievemente dannosi."
+          "Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione.",
+          "Confronta la deviazione per N = 10, 100 e 1000; poi discuti perché le prime popolazioni di replicatori dovevano essere molto soggette alla deriva.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica",
+      "title": "Verifica ragionamento e calcolo",
       "text": {
         "base": [
-          "Ripasso: deriva come campionamento casuale; deviazione σ = √(p(1 − p)/(2N)); fissazione e perdita di alleli; probabilità di fissazione 1/(2N); collo di bottiglia ed effetto del fondatore; dimensione efficace.",
-          "Mini esercizio: con p = 0,1 e N = 50, σ = √(0,09/100) = 0,03.",
-          "Nelle domande sulla deriva guarda prima la dimensione della popolazione: è il fattore decisivo."
+          "In una popolazione diploide di N individui la frequenza di un allele cambia a ogni generazione per caso, con deviazione standard √(p(1-p)/(2N)).",
+          "Con p = 0,5 e N = 100 la deviazione standard è circa 0,035; con N = 10 è circa 0,11."
         ],
         "intermediate": [
-          "Ripasso: deriva come campionamento casuale; deviazione σ = √(p(1 − p)/(2N)); fissazione e perdita di alleli; probabilità di fissazione 1/(2N); collo di bottiglia ed effetto del fondatore; dimensione efficace.",
-          "Mini esercizio: con p = 0,1 e N = 50, σ = √(0,09/100) = 0,03.",
-          "Nelle domande sulla deriva guarda prima la dimensione della popolazione: è il fattore decisivo."
+          "Le 2N copie di un gene della generazione successiva sono estratte a caso: la frequenza segue una distribuzione binomiale con varianza p(1-p)/(2N).",
+          "La variabile Frequenza p è espressa in 1; Deviazione dopo deriva in 1. Il dominio dello strumento è [0; 1]. La relazione implementata è: σ_p = √(p(1-p)/(2N))."
         ],
         "advanced": [
-          "Ripasso: deriva come campionamento casuale; deviazione σ = √(p(1 − p)/(2N)); fissazione e perdita di alleli; probabilità di fissazione 1/(2N); collo di bottiglia ed effetto del fondatore; dimensione efficace.",
-          "Mini esercizio: con p = 0,1 e N = 50, σ = √(0,09/100) = 0,03.",
-          "Nelle domande sulla deriva guarda prima la dimensione della popolazione: è il fattore decisivo."
+          "Confronta la deviazione per N = 10, 100 e 1000; poi discuti perché le prime popolazioni di replicatori dovevano essere molto soggette alla deriva.",
+          "Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Collegamenti",
+      "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "La deviazione standard di un campione è un concetto dell’unità di matematica «Combinatoria, probabilità e statistica». In biologia, senza deriva né selezione, le frequenze restano stabili: è l’equilibrio di Hardy-Weinberg.",
-          "Riepilogo dell’unità: la deriva genetica cambia le frequenze per caso; la sua intensità per generazione è σ = √(p(1 − p)/(2N)), grande nelle popolazioni piccole; porta alleli a fissarsi o a scomparire; colli di bottiglia ed effetto del fondatore la rendono particolarmente forte e riducono la variabilità.",
-          "Nel diario spiega perché la conservazione di una specie rara richiede di mantenere popolazioni non troppo piccole."
+          "Nel diario distingui previsione, risultato e interpretazione. Campionamento binomiale in una generazione.",
+          "Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione.",
+          "Collegamento consigliato: math-c10. Il completamento registra attività e autoverifica, non certifica competenze."
         ],
         "intermediate": [
-          "La deviazione standard di un campione è un concetto dell’unità di matematica «Combinatoria, probabilità e statistica». In biologia, senza deriva né selezione, le frequenze restano stabili: è l’equilibrio di Hardy-Weinberg.",
-          "Riepilogo dell’unità: la deriva genetica cambia le frequenze per caso; la sua intensità per generazione è σ = √(p(1 − p)/(2N)), grande nelle popolazioni piccole; porta alleli a fissarsi o a scomparire; colli di bottiglia ed effetto del fondatore la rendono particolarmente forte e riducono la variabilità.",
-          "Nel diario spiega perché la conservazione di una specie rara richiede di mantenere popolazioni non troppo piccole."
+          "Le 2N copie di un gene della generazione successiva sono estratte a caso: la frequenza segue una distribuzione binomiale con varianza p(1-p)/(2N).",
+          "Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione.",
+          "Confronta la deviazione per N = 10, 100 e 1000; poi discuti perché le prime popolazioni di replicatori dovevano essere molto soggette alla deriva."
         ],
         "advanced": [
-          "La deviazione standard di un campione è un concetto dell’unità di matematica «Combinatoria, probabilità e statistica». In biologia, senza deriva né selezione, le frequenze restano stabili: è l’equilibrio di Hardy-Weinberg.",
-          "Riepilogo dell’unità: la deriva genetica cambia le frequenze per caso; la sua intensità per generazione è σ = √(p(1 − p)/(2N)), grande nelle popolazioni piccole; porta alleli a fissarsi o a scomparire; colli di bottiglia ed effetto del fondatore la rendono particolarmente forte e riducono la variabilità.",
-          "Nel diario spiega perché la conservazione di una specie rara richiede di mantenere popolazioni non troppo piccole."
+          "Confronta la deviazione per N = 10, 100 e 1000; poi discuti perché le prime popolazioni di replicatori dovevano essere molto soggette alla deriva.",
+          "Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-14-q1",
-      "prompt": "Che cos’è la deriva genetica?",
+      "id": "biology-14-concept",
+      "prompt": "Se la popolazione diventa quattro volte più grande, la deviazione dovuta alla deriva:",
       "options": [
         {
           "id": "A",
-          "text": "Un cambiamento casuale delle frequenze alleliche",
-          "feedback": "Esatto: nasce dal campionamento dei gameti a ogni generazione."
+          "text": "Si riduce a un quarto",
+          "feedback": "La deriva cambia davvero le frequenze, e va distinta da un errore di misura. Nelle popolazioni piccole può fissare o eliminare alleli senza alcuna selezione."
         },
         {
           "id": "B",
-          "text": "Un adattamento all’ambiente",
-          "feedback": "La deriva non dipende dall’utilità degli alleli."
-        },
-        {
-          "id": "C",
-          "text": "Lo spostamento di individui tra popolazioni",
-          "feedback": "Lo spostamento di individui e dei loro alleli è il flusso genico."
-        },
-        {
-          "id": "D",
-          "text": "La comparsa di nuovi alleli",
-          "feedback": "I nuovi alleli nascono dalle mutazioni."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-14-q2",
-      "prompt": "Con p = 0,5, come cambia σ passando da N = 100 a N = 10?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Si divide per 10",
-          "feedback": "Una popolazione più piccola ha più deriva, non meno."
-        },
-        {
-          "id": "B",
-          "text": "Cresce di circa 3,2 volte",
-          "feedback": "Esatto: σ cresce come 1/√N, e √10 ≈ 3,16."
-        },
-        {
-          "id": "C",
-          "text": "Cresce di 10 volte",
-          "feedback": "Per un fattore 10 servirebbe una popolazione cento volte più piccola."
-        },
-        {
-          "id": "D",
           "text": "Resta uguale",
-          "feedback": "σ dipende dalla dimensione della popolazione."
-        }
-      ],
-      "correct": "B"
-    },
-    {
-      "id": "biology-14-q3",
-      "prompt": "Qual è la probabilità che un nuovo allele neutro si fissi in una popolazione di 50 individui diploidi?",
-      "options": [
-        {
-          "id": "A",
-          "text": "1/50",
-          "feedback": "Gli individui diploidi portano 100 copie del gene."
-        },
-        {
-          "id": "B",
-          "text": "1/2",
-          "feedback": "Un allele raro ha poche probabilità di prevalere per caso."
+          "feedback": "Le 2N copie di un gene della generazione successiva sono estratte a caso: la frequenza segue una distribuzione binomiale con varianza p(1-p)/(2N)."
         },
         {
           "id": "C",
-          "text": "1/100",
-          "feedback": "Esatto: 1/(2N) con N = 50, perché le copie del gene sono 100."
-        },
-        {
-          "id": "D",
-          "text": "0",
-          "feedback": "Anche un allele neutro può fissarsi per caso."
+          "text": "Si dimezza",
+          "feedback": "In una popolazione diploide di N individui la frequenza di un allele cambia a ogni generazione per caso, con deviazione standard √(p(1-p)/(2N))."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "biology-14-q4",
-      "prompt": "Che cos’è l’effetto del fondatore?",
+      "id": "biology-14-calculation",
+      "prompt": "Calcolo: Dimensione diploide N (a)=100 individui. Per Frequenza p=0,5 (adimensionale), quanto vale Deviazione dopo deriva?",
       "options": [
         {
           "id": "A",
-          "text": "La selezione dei caratteri dei primi coloni",
-          "feedback": "Le frequenze cambiano per caso, non per vantaggio."
+          "text": "-0,964645 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. σ_p = √(p(1-p)/(2N)). Con Dimensione diploide N (a)=100 individui e Frequenza p=0,5 (adimensionale), il risultato è 0,0353553 (adimensionale). Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "La comparsa di mutazioni nei fondatori",
-          "feedback": "Non servono mutazioni nuove: basta un campione piccolo."
+          "text": "0,0353553 (adimensionale)",
+          "feedback": "σ_p = √(p(1-p)/(2N)). Con Dimensione diploide N (a)=100 individui e Frequenza p=0,5 (adimensionale), il risultato è 0,0353553 (adimensionale). Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "L’aumento di variabilità in una nuova colonia",
-          "feedback": "La variabilità di solito diminuisce."
-        },
-        {
-          "id": "D",
-          "text": "La deriva dovuta a pochi individui che fondano una popolazione",
-          "feedback": "Esatto: il campione iniziale è piccolo e casuale."
+          "text": "1,03536 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. σ_p = √(p(1-p)/(2N)). Con Dimensione diploide N (a)=100 individui e Frequenza p=0,5 (adimensionale), il risultato è 0,0353553 (adimensionale). Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "D"
+      "correct": "B",
+      "numeric": {
+        "x": 0.5,
+        "parameters": {
+          "a": 100
+        },
+        "expected": 0.035355339059327376,
+        "unit": "1"
+      }
     },
     {
-      "id": "biology-14-q5",
-      "prompt": "Perché gli elefanti marini settentrionali hanno poca variabilità genetica?",
+      "id": "biology-14-transfer",
+      "prompt": "Trasferimento: Dimensione diploide N (a)=110 individui. Per Frequenza p=0,5 (adimensionale), quanto vale Deviazione dopo deriva?",
       "options": [
         {
           "id": "A",
-          "text": "Per un collo di bottiglia di circa venti individui nel 1892",
-          "feedback": "Esatto: molte varianti scomparvero allora e non sono tornate."
+          "text": "0,03371 (adimensionale)",
+          "feedback": "σ_p = √(p(1-p)/(2N)). Con Dimensione diploide N (a)=110 individui e Frequenza p=0,5 (adimensionale), il risultato è 0,03371 (adimensionale). Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "Perché sono stati selezionati dai cacciatori",
-          "feedback": "La caccia ridusse la popolazione senza scegliere alleli precisi."
+          "text": "1,03371 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. σ_p = √(p(1-p)/(2N)). Con Dimensione diploide N (a)=110 individui e Frequenza p=0,5 (adimensionale), il risultato è 0,03371 (adimensionale). Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "Perché si riproducono poco",
-          "feedback": "Oggi sono più di 200 000: si riproducono con successo."
-        },
-        {
-          "id": "D",
-          "text": "Perché vivono in acqua",
-          "feedback": "L’ambiente marino non riduce la variabilità."
+          "text": "-0,96629 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. σ_p = √(p(1-p)/(2N)). Con Dimensione diploide N (a)=110 individui e Frequenza p=0,5 (adimensionale), il risultato è 0,03371 (adimensionale). Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "A"
+      "correct": "A",
+      "numeric": {
+        "x": 0.5,
+        "parameters": {
+          "a": 110
+        },
+        "expected": 0.033709993123162106,
+        "unit": "1"
+      }
     },
     {
-      "id": "biology-14-q6",
-      "prompt": "Per quale frequenza p la deriva in una generazione è massima?",
+      "id": "biology-14-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
       "options": [
         {
           "id": "A",
-          "text": "p = 0",
-          "feedback": "Con p = 0 l’allele è assente e non può variare."
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione."
         },
         {
           "id": "B",
-          "text": "p = 0,5",
-          "feedback": "Esatto: il prodotto p(1 − p) è massimo a metà."
+          "text": "Campionamento binomiale in una generazione",
+          "feedback": "Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione."
         },
         {
           "id": "C",
-          "text": "p = 1",
-          "feedback": "Con p = 1 l’allele è fissato e non può variare."
-        },
-        {
-          "id": "D",
-          "text": "Non dipende da p",
-          "feedback": "σ contiene il prodotto p(1 − p), che cambia con p."
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Accoppiamento casuale, popolazione costante, nessuna selezione; la stima vale per una sola generazione."
         }
       ],
       "correct": "B"
     }
-  ],
-  "activity": {
-    "kind": "cards",
-    "goal": 3,
-    "rounds": [
-      {
-        "id": "forze",
-        "type": "classify",
-        "title": "Quale forza evolutiva?",
-        "prompt": "Attribuisci ogni scenario alla forza che lo spiega.",
-        "categories": [
-          {
-            "id": "deriva",
-            "label": "DERIVA GENETICA"
-          },
-          {
-            "id": "selezione",
-            "label": "SELEZIONE NATURALE"
-          },
-          {
-            "id": "flusso",
-            "label": "FLUSSO GENICO"
-          },
-          {
-            "id": "mutazione",
-            "label": "MUTAZIONE"
-          }
-        ],
-        "items": [
-          {
-            "id": "isola",
-            "text": "Su un’isola fondata da pochi coloni un allele raro diventa comune",
-            "why": "È l’effetto del fondatore.",
-            "category": "deriva"
-          },
-          {
-            "id": "foche",
-            "text": "Dopo una caccia intensa restano poche decine di elefanti marini",
-            "why": "È un collo di bottiglia.",
-            "category": "deriva"
-          },
-          {
-            "id": "piante",
-            "text": "In una popolazione di 20 piante un allele neutro scompare",
-            "why": "Un allele neutro scompare per caso.",
-            "category": "deriva"
-          },
-          {
-            "id": "antibiotico",
-            "text": "I batteri resistenti sopravvivono all’antibiotico e si moltiplicano",
-            "why": "La resistenza dà un vantaggio.",
-            "category": "selezione"
-          },
-          {
-            "id": "falene",
-            "text": "Le falene scure diventano comuni nei boschi anneriti",
-            "why": "Il mimetismo dà un vantaggio.",
-            "category": "selezione"
-          },
-          {
-            "id": "polline",
-            "text": "Il vento porta polline da un’altra valle con alleli nuovi",
-            "why": "Alleli arrivano da un’altra popolazione.",
-            "category": "flusso"
-          },
-          {
-            "id": "branco",
-            "text": "Lupi di un altro branco si uniscono alla popolazione",
-            "why": "Gli immigrati portano i loro alleli.",
-            "category": "flusso"
-          },
-          {
-            "id": "errore",
-            "text": "Un errore di copiatura produce un allele mai visto",
-            "why": "Le varianti nuove nascono così.",
-            "category": "mutazione"
-          }
-        ],
-        "explain": "Le quattro forze cambiano le frequenze in modi diversi: per caso, per vantaggio, per migrazione, per errori nuovi.",
-        "maxErrors": 2
-      },
-      {
-        "id": "intensita",
-        "type": "order",
-        "title": "Dove la deriva è più forte?",
-        "prompt": "Ordina le popolazioni dalla deriva più forte alla più debole, usando σ = √(p(1 − p)/(2N)).",
-        "items": [
-          {
-            "id": "n10",
-            "text": "N = 10, p = 0,5",
-            "why": "σ ≈ 0,112."
-          },
-          {
-            "id": "n50",
-            "text": "N = 50, p = 0,5",
-            "why": "σ = 0,05."
-          },
-          {
-            "id": "n100",
-            "text": "N = 100, p = 0,5",
-            "why": "σ ≈ 0,035."
-          },
-          {
-            "id": "n100b",
-            "text": "N = 100, p = 0,1",
-            "why": "σ ≈ 0,021."
-          },
-          {
-            "id": "n1000",
-            "text": "N = 1000, p = 0,5",
-            "why": "σ ≈ 0,011."
-          },
-          {
-            "id": "n1000b",
-            "text": "N = 1000, p = 0,1",
-            "why": "σ ≈ 0,0067."
-          }
-        ],
-        "explain": "La deriva cresce quando N diminuisce e quando p si avvicina a 0,5."
-      },
-      {
-        "id": "eventi",
-        "type": "classify",
-        "title": "Fondatore o collo di bottiglia?",
-        "prompt": "Classifica i casi.",
-        "categories": [
-          {
-            "id": "fondatore",
-            "label": "EFFETTO DEL FONDATORE"
-          },
-          {
-            "id": "collo",
-            "label": "COLLO DI BOTTIGLIA"
-          },
-          {
-            "id": "nessuno",
-            "label": "NESSUNO DEI DUE"
-          }
-        ],
-        "items": [
-          {
-            "id": "coloni",
-            "text": "Pochi coloni popolano un’isola deserta",
-            "why": "Una nuova popolazione nasce da pochi individui.",
-            "category": "fondatore"
-          },
-          {
-            "id": "comunita",
-            "text": "Una comunità umana isolata discende da poche famiglie immigrate",
-            "why": "Il gruppo iniziale era piccolo.",
-            "category": "fondatore"
-          },
-          {
-            "id": "elefanti",
-            "text": "Gli elefanti marini ridotti a una ventina nel 1892",
-            "why": "Una popolazione esistente si riduce bruscamente.",
-            "category": "collo"
-          },
-          {
-            "id": "pingelap",
-            "text": "Un tifone lascia pochi superstiti sull’atollo di Pingelap",
-            "why": "La popolazione si riduce di colpo.",
-            "category": "collo"
-          },
-          {
-            "id": "insetti",
-            "text": "Una popolazione di milioni di insetti resta stabile",
-            "why": "La popolazione è grande e costante: la deriva è debole.",
-            "category": "nessuno"
-          },
-          {
-            "id": "antibiotico",
-            "text": "Batteri resistenti prevalgono dopo una terapia",
-            "why": "Qui agisce la selezione.",
-            "category": "nessuno"
-          }
-        ],
-        "explain": "Nel collo di bottiglia una popolazione si riduce; nell’effetto del fondatore una popolazione nuova nasce da pochi.",
-        "maxErrors": 1
-      },
-      {
-        "id": "fattori",
-        "type": "classify",
-        "title": "Più o meno deriva?",
-        "prompt": "Decidi l’effetto di ogni fattore sulla deriva.",
-        "categories": [
-          {
-            "id": "aumenta",
-            "label": "AUMENTA LA DERIVA"
-          },
-          {
-            "id": "riduce",
-            "label": "RIDUCE LA DERIVA"
-          }
-        ],
-        "items": [
-          {
-            "id": "riduzione",
-            "text": "La popolazione si riduce da 1000 a 50 individui",
-            "why": "Meno individui, campioni più piccoli.",
-            "category": "aumenta"
-          },
-          {
-            "id": "isolamento",
-            "text": "Un piccolo gruppo resta isolato dagli altri",
-            "why": "Senza scambi, il gruppo deriva da solo.",
-            "category": "aumenta"
-          },
-          {
-            "id": "figli",
-            "text": "Pochi maschi generano la maggior parte dei figli",
-            "why": "La dimensione efficace scende sotto quella contata.",
-            "category": "aumenta"
-          },
-          {
-            "id": "crescita",
-            "text": "La popolazione cresce da 100 a 10 000 individui",
-            "why": "Campioni più grandi, oscillazioni più piccole.",
-            "category": "riduce"
-          },
-          {
-            "id": "migrazione",
-            "text": "Arrivano regolarmente individui da una grande popolazione",
-            "why": "Il flusso genico riporta varianti e contrasta la deriva.",
-            "category": "riduce"
-          },
-          {
-            "id": "equilibrio",
-            "text": "Tutti gli individui hanno un numero simile di figli",
-            "why": "La dimensione efficace si avvicina a quella contata.",
-            "category": "riduce"
-          }
-        ],
-        "explain": "Tutto ciò che rende piccolo il campione di gameti aumenta la deriva.",
-        "maxErrors": 1
-      }
-    ]
-  }
+  ]
 }

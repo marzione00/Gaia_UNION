@@ -2,25 +2,23 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-02",
-  "title": "Membrane e diffusione",
+  "title": "Cellule, scala e superficie",
   "sector": 3,
   "modelId": "biology-02",
-  "coverage": "guided-lab",
-  "editorialStatus": "hand-written-draft",
-  "scope": "Struttura della membrana, permeabilità, legge di Fick, tempi di diffusione e tipi di trasporto",
-  "narrativeStatus": "I dati sui polmoni e sulla membrana sono valori tipici di riferimento.",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Sfere ideali",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
   "objectives": [
-    "Descrivere la membrana con il modello a mosaico fluido.",
-    "Prevedere quali sostanze attraversano il doppio strato.",
-    "Usare la legge di Fick e la dipendenza del tempo dalla distanza.",
-    "Distinguere trasporto passivo e attivo."
+    "Spiegare: sfere ideali.",
+    "Applicare S/V = 6/d; d = a × fattore, dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
   ],
   "prerequisites": [
     "biology-01"
   ],
   "connections": [
-    "biology-03",
-    "physics-14"
+    "math-c11"
   ],
   "sources": [
     "biology"
@@ -28,312 +26,241 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Doppio strato fosfolipidico",
-      "definition": "Struttura base della membrana, con code idrofobe verso l’interno."
+      "term": "Fattore scala",
+      "definition": "Variabile indipendente, unità 1; intervallo [0,5; 10]."
     },
     {
-      "term": "Diffusione",
-      "definition": "Movimento netto di molecole dalla concentrazione maggiore alla minore."
+      "term": "Superficie/volume",
+      "definition": "Risultato calcolato dal modello, unità 1/μm."
     },
     {
-      "term": "Legge di Fick",
-      "definition": "J = D Δc/L: il flusso cresce con la differenza di concentrazione e cala con lo spessore."
-    },
-    {
-      "term": "Trasporto attivo",
-      "definition": "Trasporto contro il gradiente che consuma ATP."
-    },
-    {
-      "term": "Acquaporina",
-      "definition": "Proteina canale che lascia passare l’acqua."
+      "term": "Diametro riferimento",
+      "definition": "Parametro a, unità μm; intervallo [1; 20]."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Un respiro",
+      "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "A ogni respiro l’ossigeno attraversa la parete degli alveoli polmonari e passa nel sangue. Nessuna pompa lo spinge: si muove da solo, dalla zona dove è più concentrato a quella dove lo è meno. I polmoni umani offrono circa 70 m² di superficie di scambio, e la barriera da attraversare è spessa circa mezzo micrometro.",
-          "La membrana plasmatica è un doppio strato di fosfolipidi spesso circa 7 nm: le teste idrofile guardano verso l’acqua, le code idrofobe verso l’interno. Nel 1972 Singer e Nicolson la descrissero con il modello a mosaico fluido: proteine immerse in un doppio strato che si muove lateralmente, con colesterolo e catene di zuccheri sulla superficie esterna."
+          "Un microscopio della stazione inquadra forme sferiche in una roccia. Prima di chiamarle cellule bisogna chiedersi se una cellula potrebbe davvero essere così piccola.",
+          "Per una sfera di diametro d il rapporto fra superficie e volume è 6/d: dimezzando il diametro raddoppia. Una cellula scambia materia attraverso la superficie e la consuma nel volume."
         ],
         "intermediate": [
-          "A ogni respiro l’ossigeno attraversa la parete degli alveoli polmonari e passa nel sangue. Nessuna pompa lo spinge: si muove da solo, dalla zona dove è più concentrato a quella dove lo è meno. I polmoni umani offrono circa 70 m² di superficie di scambio, e la barriera da attraversare è spessa circa mezzo micrometro.",
-          "La membrana plasmatica è un doppio strato di fosfolipidi spesso circa 7 nm: le teste idrofile guardano verso l’acqua, le code idrofobe verso l’interno. Nel 1972 Singer e Nicolson la descrissero con il modello a mosaico fluido: proteine immerse in un doppio strato che si muove lateralmente, con colesterolo e catene di zuccheri sulla superficie esterna."
+          "Un microscopio della stazione inquadra forme sferiche in una roccia. Prima di chiamarle cellule bisogna chiedersi se una cellula potrebbe davvero essere così piccola.",
+          "Superficie 4πr² e volume (4/3)πr³ danno S/V = 3/r = 6/d. Se il diametro è a volte un diametro di riferimento, S/V = 6/(a × fattore)."
         ],
         "advanced": [
-          "A ogni respiro l’ossigeno attraversa la parete degli alveoli polmonari e passa nel sangue. Nessuna pompa lo spinge: si muove da solo, dalla zona dove è più concentrato a quella dove lo è meno. I polmoni umani offrono circa 70 m² di superficie di scambio, e la barriera da attraversare è spessa circa mezzo micrometro.",
-          "La membrana plasmatica è un doppio strato di fosfolipidi spesso circa 7 nm: le teste idrofile guardano verso l’acqua, le code idrofobe verso l’interno. Nel 1972 Singer e Nicolson la descrissero con il modello a mosaico fluido: proteine immerse in un doppio strato che si muove lateralmente, con colesterolo e catene di zuccheri sulla superficie esterna."
+          "Un microscopio della stazione inquadra forme sferiche in una roccia. Prima di chiamarle cellule bisogna chiedersi se una cellula potrebbe davvero essere così piccola.",
+          "Calcola S/V per una cellula di 0,1 μm e discuti, con il numero di molecole che può contenere, se strutture di quella taglia possono essere cellule viventi.",
+          "Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Permeabilità e diffusione",
+      "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Il doppio strato è selettivo. Lo attraversano facilmente le molecole piccole e apolari, come ossigeno e anidride carbonica. L’acqua passa lentamente, e molto più in fretta attraverso canali proteici, le acquaporine, scoperte da Peter Agre, premio Nobel nel 2003. Ioni e molecole polari grandi, come il glucosio, hanno bisogno di canali o trasportatori.",
-          "La diffusione nasce dal moto casuale delle molecole: il flusso netto va dalla concentrazione maggiore alla minore. La legge di Fick lo quantifica: J = D Δc/L, dove J è il flusso per unità di area, D il coefficiente di diffusione, Δc la differenza di concentrazione, L lo spessore. Con D = 10⁻⁹ m²/s, Δc = 2 mol/m³ e L = 1 μm, J = 0,002 mol/(m²·s). Raddoppiare lo spessore dimezza il flusso; raddoppiare la differenza lo raddoppia.",
-          "Il tempo di diffusione cresce con il quadrato della distanza: t ≈ x²/(2D). Per l’ossigeno in acqua, D ≈ 2 · 10⁻⁹ m²/s: 10 μm richiedono circa 0,025 s, 1 mm circa 250 s, un metro circa otto anni. Per questo la diffusione basta dentro una cellula e attraverso una membrana sottile, mentre gli organismi grandi hanno bisogno di un sistema circolatorio."
+          "Per una sfera di diametro d il rapporto fra superficie e volume è 6/d: dimezzando il diametro raddoppia. Una cellula scambia materia attraverso la superficie e la consuma nel volume.",
+          "Con diametro di riferimento 10 μm e fattore 2 il diametro è 20 μm e S/V = 0,3 μm⁻¹. Un batterio di 1 μm ha S/V = 6 μm⁻¹."
         ],
         "intermediate": [
-          "Il doppio strato è selettivo. Lo attraversano facilmente le molecole piccole e apolari, come ossigeno e anidride carbonica. L’acqua passa lentamente, e molto più in fretta attraverso canali proteici, le acquaporine, scoperte da Peter Agre, premio Nobel nel 2003. Ioni e molecole polari grandi, come il glucosio, hanno bisogno di canali o trasportatori.",
-          "La diffusione nasce dal moto casuale delle molecole: il flusso netto va dalla concentrazione maggiore alla minore. La legge di Fick lo quantifica: J = D Δc/L, dove J è il flusso per unità di area, D il coefficiente di diffusione, Δc la differenza di concentrazione, L lo spessore. Con D = 10⁻⁹ m²/s, Δc = 2 mol/m³ e L = 1 μm, J = 0,002 mol/(m²·s). Raddoppiare lo spessore dimezza il flusso; raddoppiare la differenza lo raddoppia.",
-          "Il tempo di diffusione cresce con il quadrato della distanza: t ≈ x²/(2D). Per l’ossigeno in acqua, D ≈ 2 · 10⁻⁹ m²/s: 10 μm richiedono circa 0,025 s, 1 mm circa 250 s, un metro circa otto anni. Per questo la diffusione basta dentro una cellula e attraverso una membrana sottile, mentre gli organismi grandi hanno bisogno di un sistema circolatorio.",
-          "Oltre alla diffusione semplice esistono la diffusione facilitata, con proteine che aprono la strada senza consumare energia, e il trasporto attivo, che sposta sostanze contro il gradiente usando ATP. La pompa sodio-potassio porta fuori 3 ioni Na⁺ e dentro 2 ioni K⁺ per ogni ATP. Le particelle grandi entrano ed escono con endocitosi ed esocitosi."
+          "Superficie 4πr² e volume (4/3)πr³ danno S/V = 3/r = 6/d. Se il diametro è a volte un diametro di riferimento, S/V = 6/(a × fattore).",
+          "La variabile Fattore scala è espressa in 1; Superficie/volume in 1/μm. Il dominio dello strumento è [0,5; 10]. La relazione implementata è: S/V = 6/d; d = a × fattore.",
+          "Con diametro di riferimento 10 μm e fattore 2 il diametro è 20 μm e S/V = 0,3 μm⁻¹. Un batterio di 1 μm ha S/V = 6 μm⁻¹."
         ],
         "advanced": [
-          "Il doppio strato è selettivo. Lo attraversano facilmente le molecole piccole e apolari, come ossigeno e anidride carbonica. L’acqua passa lentamente, e molto più in fretta attraverso canali proteici, le acquaporine, scoperte da Peter Agre, premio Nobel nel 2003. Ioni e molecole polari grandi, come il glucosio, hanno bisogno di canali o trasportatori.",
-          "La diffusione nasce dal moto casuale delle molecole: il flusso netto va dalla concentrazione maggiore alla minore. La legge di Fick lo quantifica: J = D Δc/L, dove J è il flusso per unità di area, D il coefficiente di diffusione, Δc la differenza di concentrazione, L lo spessore. Con D = 10⁻⁹ m²/s, Δc = 2 mol/m³ e L = 1 μm, J = 0,002 mol/(m²·s). Raddoppiare lo spessore dimezza il flusso; raddoppiare la differenza lo raddoppia.",
-          "Il tempo di diffusione cresce con il quadrato della distanza: t ≈ x²/(2D). Per l’ossigeno in acqua, D ≈ 2 · 10⁻⁹ m²/s: 10 μm richiedono circa 0,025 s, 1 mm circa 250 s, un metro circa otto anni. Per questo la diffusione basta dentro una cellula e attraverso una membrana sottile, mentre gli organismi grandi hanno bisogno di un sistema circolatorio.",
-          "Oltre alla diffusione semplice esistono la diffusione facilitata, con proteine che aprono la strada senza consumare energia, e il trasporto attivo, che sposta sostanze contro il gradiente usando ATP. La pompa sodio-potassio porta fuori 3 ioni Na⁺ e dentro 2 ioni K⁺ per ogni ATP. Le particelle grandi entrano ed escono con endocitosi ed esocitosi."
+          "Superficie 4πr² e volume (4/3)πr³ danno S/V = 3/r = 6/d. Se il diametro è a volte un diametro di riferimento, S/V = 6/(a × fattore).",
+          "Calcola S/V per una cellula di 0,1 μm e discuti, con il numero di molecole che può contenere, se strutture di quella taglia possono essere cellule viventi.",
+          "Un rapporto S/V alto ha anche un costo. Sotto qualche centinaio di nanometri il volume è troppo piccolo per contenere il macchinario minimo che copia un genoma."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Il laboratorio di Fick",
+      "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio il grafico mostra il flusso J in funzione della differenza di concentrazione, da 0 a 10 mol/m³; nella scheda «Regola» cambi il coefficiente di diffusione D e lo spessore L, da 0,5 a 5 μm, come quello di una barriera di tessuto. Il modello è la legge di Fick.",
-          "Protocollo. La previsione riguarda il passaggio da Δc = 2,5 a Δc = 5 mol/m³. Con D = 10⁻⁹ m²/s e L = 1 μm prevedi e salva A. Poi porta L a 2 μm, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con L = 1 μm il flusso passa da 0,0025 a 0,005 mol/(m²·s): cresce, e raddoppia con Δc perché la relazione è lineare. Con L = 2 μm i valori si dimezzano, 0,00125 e 0,0025. Una malattia che ispessisce la barriera polmonare riduce lo scambio di ossigeno nello stesso modo."
+          "Nel laboratorio imposta Diametro riferimento (a): 10 μm. Prima di salvare A, prevedi come cambia Superficie/volume fra Fattore scala=2,875 e 5,25 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con diametro di riferimento 10 μm e fattore 2 il diametro è 20 μm e S/V = 0,3 μm⁻¹. Un batterio di 1 μm ha S/V = 6 μm⁻¹.",
+          "La variabile Fattore scala è espressa in 1; Superficie/volume in 1/μm. Il dominio dello strumento è [0,5; 10]. La relazione implementata è: S/V = 6/d; d = a × fattore."
         ],
         "intermediate": [
-          "Nel laboratorio il grafico mostra il flusso J in funzione della differenza di concentrazione, da 0 a 10 mol/m³; nella scheda «Regola» cambi il coefficiente di diffusione D e lo spessore L, da 0,5 a 5 μm, come quello di una barriera di tessuto. Il modello è la legge di Fick.",
-          "Protocollo. La previsione riguarda il passaggio da Δc = 2,5 a Δc = 5 mol/m³. Con D = 10⁻⁹ m²/s e L = 1 μm prevedi e salva A. Poi porta L a 2 μm, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con L = 1 μm il flusso passa da 0,0025 a 0,005 mol/(m²·s): cresce, e raddoppia con Δc perché la relazione è lineare. Con L = 2 μm i valori si dimezzano, 0,00125 e 0,0025. Una malattia che ispessisce la barriera polmonare riduce lo scambio di ossigeno nello stesso modo."
+          "Nel laboratorio imposta Diametro riferimento (a): 10 μm. Prima di salvare A, prevedi come cambia Superficie/volume fra Fattore scala=2,875 e 5,25 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Fattore scala è espressa in 1; Superficie/volume in 1/μm. Il dominio dello strumento è [0,5; 10]. La relazione implementata è: S/V = 6/d; d = a × fattore.",
+          "Superficie 4πr² e volume (4/3)πr³ danno S/V = 3/r = 6/d. Se il diametro è a volte un diametro di riferimento, S/V = 6/(a × fattore)."
         ],
         "advanced": [
-          "Nel laboratorio il grafico mostra il flusso J in funzione della differenza di concentrazione, da 0 a 10 mol/m³; nella scheda «Regola» cambi il coefficiente di diffusione D e lo spessore L, da 0,5 a 5 μm, come quello di una barriera di tessuto. Il modello è la legge di Fick.",
-          "Protocollo. La previsione riguarda il passaggio da Δc = 2,5 a Δc = 5 mol/m³. Con D = 10⁻⁹ m²/s e L = 1 μm prevedi e salva A. Poi porta L a 2 μm, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con L = 1 μm il flusso passa da 0,0025 a 0,005 mol/(m²·s): cresce, e raddoppia con Δc perché la relazione è lineare. Con L = 2 μm i valori si dimezzano, 0,00125 e 0,0025. Una malattia che ispessisce la barriera polmonare riduce lo scambio di ossigeno nello stesso modo."
+          "Nel laboratorio imposta Diametro riferimento (a): 10 μm. Prima di salvare A, prevedi come cambia Superficie/volume fra Fattore scala=2,875 e 5,25 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Calcola S/V per una cellula di 0,1 μm e discuti, con il numero di molecole che può contenere, se strutture di quella taglia possono essere cellule viventi.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Errori e trasporti",
+      "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Errore frequente: pensare che nella diffusione le molecole «sappiano» dove andare. Ogni molecola si muove a caso; il flusso netto nasce dal fatto che dalla zona più concentrata partono più molecole.",
-          "Secondo errore: credere che all’equilibrio la diffusione si fermi. Le molecole continuano a muoversi in entrambe le direzioni; si annulla solo il flusso netto.",
-          "Oltre alla diffusione semplice esistono la diffusione facilitata, con proteine che aprono la strada senza consumare energia, e il trasporto attivo, che sposta sostanze contro il gradiente usando ATP. La pompa sodio-potassio porta fuori 3 ioni Na⁺ e dentro 2 ioni K⁺ per ogni ATP. Le particelle grandi entrano ed escono con endocitosi ed esocitosi."
+          "Un rapporto S/V alto ha anche un costo. Sotto qualche centinaio di nanometri il volume è troppo piccolo per contenere il macchinario minimo che copia un genoma.",
+          "Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ],
         "intermediate": [
-          "Errore frequente: pensare che nella diffusione le molecole «sappiano» dove andare. Ogni molecola si muove a caso; il flusso netto nasce dal fatto che dalla zona più concentrata partono più molecole.",
-          "Secondo errore: credere che all’equilibrio la diffusione si fermi. Le molecole continuano a muoversi in entrambe le direzioni; si annulla solo il flusso netto.",
-          "Oltre alla diffusione semplice esistono la diffusione facilitata, con proteine che aprono la strada senza consumare energia, e il trasporto attivo, che sposta sostanze contro il gradiente usando ATP. La pompa sodio-potassio porta fuori 3 ioni Na⁺ e dentro 2 ioni K⁺ per ogni ATP. Le particelle grandi entrano ed escono con endocitosi ed esocitosi."
+          "Un rapporto S/V alto ha anche un costo. Sotto qualche centinaio di nanometri il volume è troppo piccolo per contenere il macchinario minimo che copia un genoma.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ],
         "advanced": [
-          "Errore frequente: pensare che nella diffusione le molecole «sappiano» dove andare. Ogni molecola si muove a caso; il flusso netto nasce dal fatto che dalla zona più concentrata partono più molecole.",
-          "Secondo errore: credere che all’equilibrio la diffusione si fermi. Le molecole continuano a muoversi in entrambe le direzioni; si annulla solo il flusso netto.",
-          "Il tempo di diffusione cresce con il quadrato della distanza: t ≈ x²/(2D). Per l’ossigeno in acqua, D ≈ 2 · 10⁻⁹ m²/s: 10 μm richiedono circa 0,025 s, 1 mm circa 250 s, un metro circa otto anni. Per questo la diffusione basta dentro una cellula e attraverso una membrana sottile, mentre gli organismi grandi hanno bisogno di un sistema circolatorio."
+          "Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne.",
+          "Calcola S/V per una cellula di 0,1 μm e discuti, con il numero di molecole che può contenere, se strutture di quella taglia possono essere cellule viventi.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica",
+      "title": "Verifica ragionamento e calcolo",
       "text": {
         "base": [
-          "Ripasso: struttura della membrana e modello a mosaico fluido; permeabilità selettiva; legge di Fick; tempo di diffusione e distanza; diffusione facilitata, trasporto attivo, endocitosi ed esocitosi.",
-          "Mini esercizio: con D = 10⁻⁹ m²/s, Δc = 4 mol/m³ e L = 2 μm, J = 10⁻⁹ · 4/(2 · 10⁻⁶) = 0,002 mol/(m²·s).",
-          "Nelle domande sulla diffusione chiediti se una grandezza sta al numeratore o al denominatore della legge di Fick."
+          "Per una sfera di diametro d il rapporto fra superficie e volume è 6/d: dimezzando il diametro raddoppia. Una cellula scambia materia attraverso la superficie e la consuma nel volume.",
+          "Con diametro di riferimento 10 μm e fattore 2 il diametro è 20 μm e S/V = 0,3 μm⁻¹. Un batterio di 1 μm ha S/V = 6 μm⁻¹."
         ],
         "intermediate": [
-          "Ripasso: struttura della membrana e modello a mosaico fluido; permeabilità selettiva; legge di Fick; tempo di diffusione e distanza; diffusione facilitata, trasporto attivo, endocitosi ed esocitosi.",
-          "Mini esercizio: con D = 10⁻⁹ m²/s, Δc = 4 mol/m³ e L = 2 μm, J = 10⁻⁹ · 4/(2 · 10⁻⁶) = 0,002 mol/(m²·s).",
-          "Nelle domande sulla diffusione chiediti se una grandezza sta al numeratore o al denominatore della legge di Fick."
+          "Superficie 4πr² e volume (4/3)πr³ danno S/V = 3/r = 6/d. Se il diametro è a volte un diametro di riferimento, S/V = 6/(a × fattore).",
+          "La variabile Fattore scala è espressa in 1; Superficie/volume in 1/μm. Il dominio dello strumento è [0,5; 10]. La relazione implementata è: S/V = 6/d; d = a × fattore."
         ],
         "advanced": [
-          "Ripasso: struttura della membrana e modello a mosaico fluido; permeabilità selettiva; legge di Fick; tempo di diffusione e distanza; diffusione facilitata, trasporto attivo, endocitosi ed esocitosi.",
-          "Mini esercizio: con D = 10⁻⁹ m²/s, Δc = 4 mol/m³ e L = 2 μm, J = 10⁻⁹ · 4/(2 · 10⁻⁶) = 0,002 mol/(m²·s).",
-          "Nelle domande sulla diffusione chiediti se una grandezza sta al numeratore o al denominatore della legge di Fick."
+          "Calcola S/V per una cellula di 0,1 μm e discuti, con il numero di molecole che può contenere, se strutture di quella taglia possono essere cellule viventi.",
+          "Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Collegamenti",
+      "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Il moto dell’acqua attraverso le membrane ha regole proprie: l’unità «Osmosi e bilancio dell’acqua» le studia. La pressione nei fluidi è il tema dell’unità di fisica «Fluidi e pressione».",
-          "Riepilogo dell’unità: la membrana è un doppio strato fosfolipidico con proteine; lascia passare facilmente le molecole piccole e apolari; la diffusione segue la legge di Fick, J = D Δc/L; il tempo di diffusione cresce con il quadrato della distanza; il trasporto attivo usa ATP per andare contro il gradiente.",
-          "Nel diario registra A e B con le previsioni e spiega perché un insetto può fare a meno di un cuore potente e un elefante no."
+          "Nel diario distingui previsione, risultato e interpretazione. Sfere ideali.",
+          "Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne.",
+          "Collegamento consigliato: math-c11. Il completamento registra attività e autoverifica, non certifica competenze."
         ],
         "intermediate": [
-          "Il moto dell’acqua attraverso le membrane ha regole proprie: l’unità «Osmosi e bilancio dell’acqua» le studia. La pressione nei fluidi è il tema dell’unità di fisica «Fluidi e pressione».",
-          "Riepilogo dell’unità: la membrana è un doppio strato fosfolipidico con proteine; lascia passare facilmente le molecole piccole e apolari; la diffusione segue la legge di Fick, J = D Δc/L; il tempo di diffusione cresce con il quadrato della distanza; il trasporto attivo usa ATP per andare contro il gradiente.",
-          "Nel diario registra A e B con le previsioni e spiega perché un insetto può fare a meno di un cuore potente e un elefante no."
+          "Superficie 4πr² e volume (4/3)πr³ danno S/V = 3/r = 6/d. Se il diametro è a volte un diametro di riferimento, S/V = 6/(a × fattore).",
+          "Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne.",
+          "Calcola S/V per una cellula di 0,1 μm e discuti, con il numero di molecole che può contenere, se strutture di quella taglia possono essere cellule viventi."
         ],
         "advanced": [
-          "Il moto dell’acqua attraverso le membrane ha regole proprie: l’unità «Osmosi e bilancio dell’acqua» le studia. La pressione nei fluidi è il tema dell’unità di fisica «Fluidi e pressione».",
-          "Riepilogo dell’unità: la membrana è un doppio strato fosfolipidico con proteine; lascia passare facilmente le molecole piccole e apolari; la diffusione segue la legge di Fick, J = D Δc/L; il tempo di diffusione cresce con il quadrato della distanza; il trasporto attivo usa ATP per andare contro il gradiente.",
-          "Nel diario registra A e B con le previsioni e spiega perché un insetto può fare a meno di un cuore potente e un elefante no."
+          "Calcola S/V per una cellula di 0,1 μm e discuti, con il numero di molecole che può contenere, se strutture di quella taglia possono essere cellule viventi.",
+          "Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-02-q1",
-      "prompt": "Quale sostanza attraversa più facilmente il doppio strato fosfolipidico?",
-      "options": [
-        {
-          "id": "A",
-          "text": "L’ossigeno",
-          "feedback": "Esatto: è piccolo e apolare, e si scioglie tra le code idrofobe."
-        },
-        {
-          "id": "B",
-          "text": "Lo ione sodio",
-          "feedback": "Gli ioni hanno carica e richiedono canali proteici."
-        },
-        {
-          "id": "C",
-          "text": "Il glucosio",
-          "feedback": "Il glucosio è polare e relativamente grande: usa trasportatori."
-        },
-        {
-          "id": "D",
-          "text": "Una proteina",
-          "feedback": "Le proteine sono troppo grandi: entrano con l’endocitosi."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-02-q2",
-      "prompt": "Secondo la legge di Fick, se lo spessore della barriera raddoppia il flusso:",
+      "id": "biology-02-concept",
+      "prompt": "Se il diametro di una cellula sferica raddoppia, il rapporto S/V:",
       "options": [
         {
           "id": "A",
           "text": "Raddoppia",
-          "feedback": "Lo spessore sta al denominatore: il flusso diminuisce."
+          "feedback": "Un rapporto S/V alto ha anche un costo. Sotto qualche centinaio di nanometri il volume è troppo piccolo per contenere il macchinario minimo che copia un genoma."
         },
         {
           "id": "B",
-          "text": "Si dimezza",
-          "feedback": "Esatto: lo spessore sta al denominatore di J = D Δc/L."
-        },
-        {
-          "id": "C",
           "text": "Resta uguale",
-          "feedback": "Il flusso dipende dallo spessore, che sta al denominatore."
-        },
-        {
-          "id": "D",
-          "text": "Si riduce a un quarto",
-          "feedback": "La dipendenza da L è inversa, non inversa al quadrato."
-        }
-      ],
-      "correct": "B"
-    },
-    {
-      "id": "biology-02-q3",
-      "prompt": "Che cosa distingue il trasporto attivo?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Avviene solo per l’acqua",
-          "feedback": "L’acqua si muove per osmosi, un processo passivo."
-        },
-        {
-          "id": "B",
-          "text": "Segue sempre il gradiente",
-          "feedback": "Il trasporto passivo segue il gradiente; quello attivo lo risale."
+          "feedback": "Superficie 4πr² e volume (4/3)πr³ danno S/V = 3/r = 6/d. Se il diametro è a volte un diametro di riferimento, S/V = 6/(a × fattore)."
         },
         {
           "id": "C",
-          "text": "Consuma energia per andare contro il gradiente",
-          "feedback": "Esatto: la pompa sodio-potassio usa ATP."
-        },
-        {
-          "id": "D",
-          "text": "Non richiede proteine",
-          "feedback": "Il trasporto attivo è svolto da proteine di membrana."
+          "text": "Si dimezza",
+          "feedback": "Per una sfera di diametro d il rapporto fra superficie e volume è 6/d: dimezzando il diametro raddoppia. Una cellula scambia materia attraverso la superficie e la consuma nel volume."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "biology-02-q4",
-      "prompt": "Quanti ioni sposta la pompa sodio-potassio per ogni ATP?",
+      "id": "biology-02-calculation",
+      "prompt": "Calcolo: Diametro riferimento (a)=10 μm. Per Fattore scala=2 (adimensionale), quanto vale Superficie/volume?",
       "options": [
         {
           "id": "A",
-          "text": "1 Na⁺ fuori e 1 K⁺ dentro",
-          "feedback": "Lo scambio non è uno a uno: escono più ioni di quanti ne entrano."
+          "text": "-0,7 1/μm",
+          "feedback": "Controlla sostituzione, segno e unità. S/V = 6/d; d = a × fattore. Con Diametro riferimento (a)=10 μm e Fattore scala=2 (adimensionale), il risultato è 0,3 1/μm. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "2 Na⁺ fuori e 3 K⁺ dentro",
-          "feedback": "Hai scambiato i due numeri: escono tre ioni sodio."
+          "text": "0,3 1/μm",
+          "feedback": "S/V = 6/d; d = a × fattore. Con Diametro riferimento (a)=10 μm e Fattore scala=2 (adimensionale), il risultato è 0,3 1/μm. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "3 K⁺ fuori e 2 Na⁺ dentro",
-          "feedback": "Il sodio esce dalla cellula e il potassio entra."
-        },
-        {
-          "id": "D",
-          "text": "3 Na⁺ fuori e 2 K⁺ dentro",
-          "feedback": "Esatto: per questo la pompa contribuisce alla carica dell’interno."
+          "text": "1,3 1/μm",
+          "feedback": "Questo valore non soddisfa la relazione. S/V = 6/d; d = a × fattore. Con Diametro riferimento (a)=10 μm e Fattore scala=2 (adimensionale), il risultato è 0,3 1/μm. Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "D"
+      "correct": "B",
+      "numeric": {
+        "x": 2,
+        "parameters": {
+          "a": 10
+        },
+        "expected": 0.3,
+        "unit": "1/μm"
+      }
     },
     {
-      "id": "biology-02-q5",
-      "prompt": "Perché gli organismi grandi hanno bisogno di un sistema circolatorio?",
+      "id": "biology-02-transfer",
+      "prompt": "Trasferimento: Diametro riferimento (a)=11 μm. Per Fattore scala=2 (adimensionale), quanto vale Superficie/volume?",
       "options": [
         {
           "id": "A",
-          "text": "Perché il tempo di diffusione cresce con il quadrato della distanza",
-          "feedback": "Esatto: su un metro la diffusione dell’ossigeno richiederebbe anni."
+          "text": "0,272727 1/μm",
+          "feedback": "S/V = 6/d; d = a × fattore. Con Diametro riferimento (a)=11 μm e Fattore scala=2 (adimensionale), il risultato è 0,272727 1/μm. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "Perché le loro cellule sono più grandi",
-          "feedback": "Le cellule di un elefante hanno dimensioni simili a quelle di un topo."
+          "text": "1,27273 1/μm",
+          "feedback": "Questo valore non soddisfa la relazione. S/V = 6/d; d = a × fattore. Con Diametro riferimento (a)=11 μm e Fattore scala=2 (adimensionale), il risultato è 0,272727 1/μm. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "Perché l’ossigeno non diffonde nei tessuti",
-          "feedback": "Diffonde, ma solo su distanze brevi in tempi utili."
-        },
-        {
-          "id": "D",
-          "text": "Perché hanno più membrane",
-          "feedback": "Il problema è la distanza da percorrere, non il numero di membrane."
+          "text": "-0,727273 1/μm",
+          "feedback": "Controlla sostituzione, segno e unità. S/V = 6/d; d = a × fattore. Con Diametro riferimento (a)=11 μm e Fattore scala=2 (adimensionale), il risultato è 0,272727 1/μm. Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "A"
+      "correct": "A",
+      "numeric": {
+        "x": 2,
+        "parameters": {
+          "a": 11
+        },
+        "expected": 0.2727272727272727,
+        "unit": "1/μm"
+      }
     },
     {
-      "id": "biology-02-q6",
-      "prompt": "Nel laboratorio, raddoppiando Δc da 2,5 a 5 mol/m³ con L = 1 μm, il flusso:",
+      "id": "biology-02-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
       "options": [
         {
           "id": "A",
-          "text": "Resta uguale",
-          "feedback": "Il flusso è proporzionale a Δc e cambia con essa."
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne."
         },
         {
           "id": "B",
-          "text": "Raddoppia",
-          "feedback": "Esatto: da 0,0025 a 0,005 mol/(m²·s)."
+          "text": "Sfere ideali",
+          "feedback": "Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne."
         },
         {
           "id": "C",
-          "text": "Quadruplica",
-          "feedback": "La dipendenza da Δc è lineare: il fattore è 2, non 4."
-        },
-        {
-          "id": "D",
-          "text": "Si dimezza",
-          "feedback": "Più differenza di concentrazione significa più flusso."
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Cellule sferiche e superficie liscia; le cellule reali hanno forme allungate, pieghe e membrane interne."
         }
       ],
       "correct": "B"

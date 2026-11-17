@@ -2,7 +2,7 @@
  * planet already has (family, size, moons, rings, spin, tilt, area) plus a star type for its system.
  * Everything that makes a world look different (terrain, sea, sky, light, colours, events) comes from here,
  * so the orbit view and the surface stay consistent. Values are illustrative, not astronomical data. */
-import { systemArchitecture, systemForPlanet, AREAS, seededRandom } from '../scene/systems.js';
+import { systemArchitecture, systemForPlanet, AREAS, SYSTEM_COUNT, UNIT_COUNT, seededRandom } from '../scene/systems.js';
 
 /** Star types, with an approximate colour of the light (sRGB) and a plant pigment chosen for contrast. */
 export const STARS = Object.freeze({
@@ -30,11 +30,14 @@ const ROCK = { terrestrial: [.42, .38, .32], oceanic: [.4, .4, .38], desert: [.7
 // Prototype worlds keep the terrain their phenomenon needs (src/worlds/pilots.js).
 const PILOT_STYLES = { 20: 'atollo', 36: 'arcipelago', 69: 'vulcani', 99: 'colline' };
 
-/** One star type per system: a balanced set of the five types, shuffled with a fixed seed. */
+/** One star type per system: a balanced set of the five types for the first 25 systems, shuffled with a
+ * fixed seed, then a yellow dwarf for the solar-system area and a red dwarf for the search for life in the
+ * galaxy, the most common host of known small planets. */
+export const EXTRA_STARS = Object.freeze(['G', 'M']);
 export function starTypes() {
     const r = seededRandom(0x53544152), list = Array.from({ length: 25 }, (_, i) => 'MKGFA'[i % 5]);
     for (let i = list.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [list[i], list[j]] = [list[j], list[i]]; }
-    return list;
+    return [...list, ...EXTRA_STARS].slice(0, SYSTEM_COUNT);
 }
 const between = (r, [a, b]) => a + (b - a) * r();
 const hueOf = ([r, g, b]) => { const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min; if (d < 1e-6) return 0; const h = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4; return (h * 60 + 360) % 360; };
@@ -90,12 +93,12 @@ export function genomeDistance(a, b) {
     ];
     return parts.reduce((s, [w, v]) => s + w * Math.min(1, v), 0);
 }
-/** Target used while generating, and the minimum guaranteed by the tests over all 4.950 pairs. */
+/** Target used while generating, and the minimum guaranteed by the tests over all pairs. */
 export const TARGET_DISTANCE = .2, MIN_DISTANCE = .17;
-/** Genomes of the 100 explorable planets, in planet-index order. Each planet is regenerated (up to 160
+/** Genomes of the explorable planets, in planet-index order. Each planet is regenerated (up to 160
  * attempts) until it is at least TARGET_DISTANCE from every planet already generated, keeping the
  * most distant attempt otherwise. */
-export function buildGenomes(count = 100) {
+export function buildGenomes(count = UNIT_COUNT) {
     const stars = starTypes(), out = [];
     for (let index = 0; index < count; index++) {
         let best = null, bestD = -1;

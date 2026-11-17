@@ -2,25 +2,23 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-15",
-  "title": "Equilibrio di Hardy-Weinberg",
+  "title": "L'albero universale e LUCA",
   "sector": 3,
   "modelId": "biology-15",
-  "coverage": "guided-activity",
-  "editorialStatus": "hand-written-draft",
-  "scope": "Frequenze alleliche e genotipiche, condizioni dell’equilibrio, stima dei portatori, verifica su dati, inincrocio",
-  "narrativeStatus": "Il dato sulla fibrosi cistica è un valore di riferimento per le popolazioni di origine europea.",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Modello di Jukes-Cantor",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
   "objectives": [
-    "Calcolare le frequenze dei genotipi da quelle degli alleli.",
-    "Elencare le condizioni dell’equilibrio.",
-    "Stimare i portatori di una malattia recessiva.",
-    "Valutare l’effetto della consanguineità."
+    "Spiegare: modello di jukes-cantor.",
+    "Applicare Differenze attese = L × 3/4(1-exp(-4d/3)), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
   ],
   "prerequisites": [
     "biology-14"
   ],
   "connections": [
-    "biology-16",
-    "biology-09"
+    "math-c06"
   ],
   "sources": [
     "biology"
@@ -28,583 +26,244 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Frequenza allelica",
-      "definition": "Frazione delle copie di un gene che porta un certo allele."
+      "term": "Divergenza d",
+      "definition": "Variabile indipendente, unità sostituzioni/sito; intervallo [0; 3]."
     },
     {
-      "term": "Equilibrio di Hardy-Weinberg",
-      "definition": "Stato in cui le frequenze dei genotipi sono p², 2pq e q² e restano costanti."
+      "term": "Siti diversi attesi",
+      "definition": "Risultato calcolato dal modello, unità siti."
     },
     {
-      "term": "Portatore sano",
-      "definition": "Eterozigote per un allele recessivo, senza la malattia."
-    },
-    {
-      "term": "Coefficiente di inincrocio",
-      "definition": "F: riduzione relativa degli eterozigoti dovuta alla consanguineità."
-    },
-    {
-      "term": "Accoppiamento casuale",
-      "definition": "Scelta del partner indipendente dal genotipo."
+      "term": "Lunghezza sequenza L",
+      "definition": "Parametro a, unità siti; intervallo [20; 1000]."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Una domanda del 1908",
+      "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Nel 1908 il matematico Godfrey Hardy e il medico Wilhelm Weinberg risposero, indipendentemente, a una domanda che sembrava ovvia: un allele dominante non dovrebbe diventare sempre più comune? La risposta è no. Senza forze che le cambino, le frequenze degli alleli restano costanti, e quelle dei genotipi si possono calcolare.",
-          "Con due alleli A e a di frequenze p e q = 1 − p, l’unione casuale dei gameti dà i genotipi con frequenze p² per AA, 2pq per Aa e q² per aa. La somma p² + 2pq + q² = (p + q)² = 1. Con p = 0,7: AA 0,49, Aa 0,42, aa 0,09. Dopo una generazione di accoppiamenti casuali le frequenze dei genotipi si stabilizzano a questi valori e non cambiano più."
+          "La stazione confronta la sequenza di un gene ribosomiale in organismi molto lontani. Quante differenze si vedono, e quante sostituzioni sono davvero avvenute?",
+          "Con il modello di Jukes-Cantor, dopo d sostituzioni per sito una sequenza di L siti mostra in media L·(3/4)(1 - exp(-4d/3)) differenze: per d grandi le differenze si saturano al 75%."
         ],
         "intermediate": [
-          "Nel 1908 il matematico Godfrey Hardy e il medico Wilhelm Weinberg risposero, indipendentemente, a una domanda che sembrava ovvia: un allele dominante non dovrebbe diventare sempre più comune? La risposta è no. Senza forze che le cambino, le frequenze degli alleli restano costanti, e quelle dei genotipi si possono calcolare.",
-          "Con due alleli A e a di frequenze p e q = 1 − p, l’unione casuale dei gameti dà i genotipi con frequenze p² per AA, 2pq per Aa e q² per aa. La somma p² + 2pq + q² = (p + q)² = 1. Con p = 0,7: AA 0,49, Aa 0,42, aa 0,09. Dopo una generazione di accoppiamenti casuali le frequenze dei genotipi si stabilizzano a questi valori e non cambiano più."
+          "La stazione confronta la sequenza di un gene ribosomiale in organismi molto lontani. Quante differenze si vedono, e quante sostituzioni sono davvero avvenute?",
+          "Ogni sostituzione cambia una base in una delle altre tre; dopo molte sostituzioni due sequenze tornano a coincidere per caso in un sito su quattro, da cui il limite 3/4."
         ],
         "advanced": [
-          "Nel 1908 il matematico Godfrey Hardy e il medico Wilhelm Weinberg risposero, indipendentemente, a una domanda che sembrava ovvia: un allele dominante non dovrebbe diventare sempre più comune? La risposta è no. Senza forze che le cambino, le frequenze degli alleli restano costanti, e quelle dei genotipi si possono calcolare.",
-          "Con due alleli A e a di frequenze p e q = 1 − p, l’unione casuale dei gameti dà i genotipi con frequenze p² per AA, 2pq per Aa e q² per aa. La somma p² + 2pq + q² = (p + q)² = 1. Con p = 0,7: AA 0,49, Aa 0,42, aa 0,09. Dopo una generazione di accoppiamenti casuali le frequenze dei genotipi si stabilizzano a questi valori e non cambiano più."
+          "La stazione confronta la sequenza di un gene ribosomiale in organismi molto lontani. Quante differenze si vedono, e quante sostituzioni sono davvero avvenute?",
+          "Inverti la formula per stimare d da una frazione di differenze del 30% e del 70%, e discuti quale stima è più incerta.",
+          "Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Condizioni, portatori, consanguineità",
+      "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "L’equilibrio vale sotto cinque condizioni: popolazione molto grande, accoppiamenti casuali, assenza di mutazioni, di migrazioni e di selezione. Nessuna popolazione reale le soddisfa tutte; il valore del modello sta proprio qui. Se le frequenze osservate si discostano da quelle attese, qualche forza evolutiva è al lavoro, e il confronto indica dove cercarla.",
-          "Il modello permette di stimare i portatori di una malattia recessiva. La fibrosi cistica colpisce circa 1 neonato su 2500 nelle popolazioni di origine europea: q² ≈ 1/2500, quindi q ≈ 0,02 e p ≈ 0,98. I portatori sani sono 2pq ≈ 0,039, circa 1 persona su 25: molto più numerosi dei malati, perché un allele raro si trova quasi sempre in eterozigosi.",
-          "Gli accoppiamenti tra consanguinei violano la condizione di casualità. Il coefficiente di inincrocio F misura la riduzione degli eterozigoti: H = 2pq(1 − F). Per i figli di cugini primi F = 1/16. Gli omozigoti recessivi diventano q² + F pq: con q = 0,02 si passa da 0,0004 a circa 0,0016, quattro volte di più. Per questo le malattie recessive rare sono più frequenti nelle famiglie consanguinee."
+          "Con il modello di Jukes-Cantor, dopo d sostituzioni per sito una sequenza di L siti mostra in media L·(3/4)(1 - exp(-4d/3)) differenze: per d grandi le differenze si saturano al 75%.",
+          "Con L = 100 siti e d = 0,5 sostituzioni per sito si attendono circa 36,5 differenze; con d = 3 circa 74, quasi il massimo di 75."
         ],
         "intermediate": [
-          "L’equilibrio vale sotto cinque condizioni: popolazione molto grande, accoppiamenti casuali, assenza di mutazioni, di migrazioni e di selezione. Nessuna popolazione reale le soddisfa tutte; il valore del modello sta proprio qui. Se le frequenze osservate si discostano da quelle attese, qualche forza evolutiva è al lavoro, e il confronto indica dove cercarla.",
-          "Il modello permette di stimare i portatori di una malattia recessiva. La fibrosi cistica colpisce circa 1 neonato su 2500 nelle popolazioni di origine europea: q² ≈ 1/2500, quindi q ≈ 0,02 e p ≈ 0,98. I portatori sani sono 2pq ≈ 0,039, circa 1 persona su 25: molto più numerosi dei malati, perché un allele raro si trova quasi sempre in eterozigosi.",
-          "Gli accoppiamenti tra consanguinei violano la condizione di casualità. Il coefficiente di inincrocio F misura la riduzione degli eterozigoti: H = 2pq(1 − F). Per i figli di cugini primi F = 1/16. Gli omozigoti recessivi diventano q² + F pq: con q = 0,02 si passa da 0,0004 a circa 0,0016, quattro volte di più. Per questo le malattie recessive rare sono più frequenti nelle famiglie consanguinee.",
-          "Il modello del programma calcola la frazione di eterozigoti H = 2p(1 − p)(1 − F) in funzione di p, con F regolabile da 0 a 1: per F = 0 la curva è una parabola con massimo 0,5 a p = 0,5; per F = 1 gli eterozigoti scompaiono."
+          "Ogni sostituzione cambia una base in una delle altre tre; dopo molte sostituzioni due sequenze tornano a coincidere per caso in un sito su quattro, da cui il limite 3/4.",
+          "La variabile Divergenza d è espressa in sostituzioni/sito; Siti diversi attesi in siti. Il dominio dello strumento è [0; 3]. La relazione implementata è: Differenze attese = L × 3/4(1-exp(-4d/3)).",
+          "Con L = 100 siti e d = 0,5 sostituzioni per sito si attendono circa 36,5 differenze; con d = 3 circa 74, quasi il massimo di 75."
         ],
         "advanced": [
-          "L’equilibrio vale sotto cinque condizioni: popolazione molto grande, accoppiamenti casuali, assenza di mutazioni, di migrazioni e di selezione. Nessuna popolazione reale le soddisfa tutte; il valore del modello sta proprio qui. Se le frequenze osservate si discostano da quelle attese, qualche forza evolutiva è al lavoro, e il confronto indica dove cercarla.",
-          "Il modello permette di stimare i portatori di una malattia recessiva. La fibrosi cistica colpisce circa 1 neonato su 2500 nelle popolazioni di origine europea: q² ≈ 1/2500, quindi q ≈ 0,02 e p ≈ 0,98. I portatori sani sono 2pq ≈ 0,039, circa 1 persona su 25: molto più numerosi dei malati, perché un allele raro si trova quasi sempre in eterozigosi.",
-          "Gli accoppiamenti tra consanguinei violano la condizione di casualità. Il coefficiente di inincrocio F misura la riduzione degli eterozigoti: H = 2pq(1 − F). Per i figli di cugini primi F = 1/16. Gli omozigoti recessivi diventano q² + F pq: con q = 0,02 si passa da 0,0004 a circa 0,0016, quattro volte di più. Per questo le malattie recessive rare sono più frequenti nelle famiglie consanguinee.",
-          "Il modello del programma calcola la frazione di eterozigoti H = 2p(1 − p)(1 − F) in funzione di p, con F regolabile da 0 a 1: per F = 0 la curva è una parabola con massimo 0,5 a p = 0,5; per F = 1 gli eterozigoti scompaiono."
+          "Ogni sostituzione cambia una base in una delle altre tre; dopo molte sostituzioni due sequenze tornano a coincidere per caso in un sito su quattro, da cui il limite 3/4.",
+          "Inverti la formula per stimare d da una frazione di differenze del 30% e del 70%, e discuti quale stima è più incerta.",
+          "Contare le differenze sottostima le sostituzioni quando le sequenze sono molto divergenti: per questo gli alberi profondi richiedono modelli di correzione."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Problemi guidati",
+      "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "L’attività propone quattro problemi guidati: le frequenze dei genotipi con p = 0,7; i portatori di una malattia recessiva; la verifica dell’equilibrio su dati osservati; l’effetto della consanguineità. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
-          "Parti sempre dalle frequenze degli alleli. Se conosci gli omozigoti recessivi, q è la radice quadrata della loro frequenza; se conosci i genotipi contati, p è (2 · AA + Aa)/(2 · totale).",
-          "Il modello del programma calcola la frazione di eterozigoti H = 2p(1 − p)(1 − F) in funzione di p, con F regolabile da 0 a 1: per F = 0 la curva è una parabola con massimo 0,5 a p = 0,5; per F = 1 gli eterozigoti scompaiono."
+          "Nel laboratorio imposta Lunghezza sequenza L (a): 100 siti. Prima di salvare A, prevedi come cambia Siti diversi attesi fra Divergenza d=0,75 e 1,5 sostituzioni/sito. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con L = 100 siti e d = 0,5 sostituzioni per sito si attendono circa 36,5 differenze; con d = 3 circa 74, quasi il massimo di 75.",
+          "La variabile Divergenza d è espressa in sostituzioni/sito; Siti diversi attesi in siti. Il dominio dello strumento è [0; 3]. La relazione implementata è: Differenze attese = L × 3/4(1-exp(-4d/3))."
         ],
         "intermediate": [
-          "L’attività propone quattro problemi guidati: le frequenze dei genotipi con p = 0,7; i portatori di una malattia recessiva; la verifica dell’equilibrio su dati osservati; l’effetto della consanguineità. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
-          "Parti sempre dalle frequenze degli alleli. Se conosci gli omozigoti recessivi, q è la radice quadrata della loro frequenza; se conosci i genotipi contati, p è (2 · AA + Aa)/(2 · totale)."
+          "Nel laboratorio imposta Lunghezza sequenza L (a): 100 siti. Prima di salvare A, prevedi come cambia Siti diversi attesi fra Divergenza d=0,75 e 1,5 sostituzioni/sito. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Divergenza d è espressa in sostituzioni/sito; Siti diversi attesi in siti. Il dominio dello strumento è [0; 3]. La relazione implementata è: Differenze attese = L × 3/4(1-exp(-4d/3)).",
+          "Ogni sostituzione cambia una base in una delle altre tre; dopo molte sostituzioni due sequenze tornano a coincidere per caso in un sito su quattro, da cui il limite 3/4."
         ],
         "advanced": [
-          "L’attività propone quattro problemi guidati: le frequenze dei genotipi con p = 0,7; i portatori di una malattia recessiva; la verifica dell’equilibrio su dati osservati; l’effetto della consanguineità. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
-          "Parti sempre dalle frequenze degli alleli. Se conosci gli omozigoti recessivi, q è la radice quadrata della loro frequenza; se conosci i genotipi contati, p è (2 · AA + Aa)/(2 · totale)."
+          "Nel laboratorio imposta Lunghezza sequenza L (a): 100 siti. Prima di salvare A, prevedi come cambia Siti diversi attesi fra Divergenza d=0,75 e 1,5 sostituzioni/sito. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Inverti la formula per stimare d da una frazione di differenze del 30% e del 70%, e discuti quale stima è più incerta.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Errori frequenti",
+      "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Errore frequente: pensare che un allele dominante debba diventare più comune. Dominanza e frequenza sono indipendenti: la polidattilia è dominante e rara.",
-          "Secondo errore: calcolare q come frequenza degli omozigoti recessivi. Gli omozigoti hanno frequenza q², e q è la sua radice: se 1 persona su 2500 è malata, q è 1/50, non 1/2500.",
-          "L’equilibrio vale sotto cinque condizioni: popolazione molto grande, accoppiamenti casuali, assenza di mutazioni, di migrazioni e di selezione. Nessuna popolazione reale le soddisfa tutte; il valore del modello sta proprio qui. Se le frequenze osservate si discostano da quelle attese, qualche forza evolutiva è al lavoro, e il confronto indica dove cercarla."
+          "Contare le differenze sottostima le sostituzioni quando le sequenze sono molto divergenti: per questo gli alberi profondi richiedono modelli di correzione.",
+          "Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ],
         "intermediate": [
-          "Errore frequente: pensare che un allele dominante debba diventare più comune. Dominanza e frequenza sono indipendenti: la polidattilia è dominante e rara.",
-          "Secondo errore: calcolare q come frequenza degli omozigoti recessivi. Gli omozigoti hanno frequenza q², e q è la sua radice: se 1 persona su 2500 è malata, q è 1/50, non 1/2500.",
-          "L’equilibrio vale sotto cinque condizioni: popolazione molto grande, accoppiamenti casuali, assenza di mutazioni, di migrazioni e di selezione. Nessuna popolazione reale le soddisfa tutte; il valore del modello sta proprio qui. Se le frequenze osservate si discostano da quelle attese, qualche forza evolutiva è al lavoro, e il confronto indica dove cercarla."
+          "Contare le differenze sottostima le sostituzioni quando le sequenze sono molto divergenti: per questo gli alberi profondi richiedono modelli di correzione.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ],
         "advanced": [
-          "Errore frequente: pensare che un allele dominante debba diventare più comune. Dominanza e frequenza sono indipendenti: la polidattilia è dominante e rara.",
-          "Secondo errore: calcolare q come frequenza degli omozigoti recessivi. Gli omozigoti hanno frequenza q², e q è la sua radice: se 1 persona su 2500 è malata, q è 1/50, non 1/2500.",
-          "L’equilibrio vale sotto cinque condizioni: popolazione molto grande, accoppiamenti casuali, assenza di mutazioni, di migrazioni e di selezione. Nessuna popolazione reale le soddisfa tutte; il valore del modello sta proprio qui. Se le frequenze osservate si discostano da quelle attese, qualche forza evolutiva è al lavoro, e il confronto indica dove cercarla."
+          "Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi.",
+          "Inverti la formula per stimare d da una frazione di differenze del 30% e del 70%, e discuti quale stima è più incerta.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica",
+      "title": "Verifica ragionamento e calcolo",
       "text": {
         "base": [
-          "Ripasso: frequenze alleliche e genotipiche; p² + 2pq + q² = 1; condizioni dell’equilibrio; stima dei portatori; verifica dell’equilibrio su dati osservati; inincrocio e H = 2pq(1 − F).",
-          "Mini esercizio: se gli omozigoti recessivi sono il 16%, q = 0,4, p = 0,6 e gli eterozigoti sono 2 · 0,6 · 0,4 = 0,48.",
-          "Nelle domande su Hardy-Weinberg scrivi sempre p e q prima di calcolare i genotipi."
+          "Con il modello di Jukes-Cantor, dopo d sostituzioni per sito una sequenza di L siti mostra in media L·(3/4)(1 - exp(-4d/3)) differenze: per d grandi le differenze si saturano al 75%.",
+          "Con L = 100 siti e d = 0,5 sostituzioni per sito si attendono circa 36,5 differenze; con d = 3 circa 74, quasi il massimo di 75."
         ],
         "intermediate": [
-          "Ripasso: frequenze alleliche e genotipiche; p² + 2pq + q² = 1; condizioni dell’equilibrio; stima dei portatori; verifica dell’equilibrio su dati osservati; inincrocio e H = 2pq(1 − F).",
-          "Mini esercizio: se gli omozigoti recessivi sono il 16%, q = 0,4, p = 0,6 e gli eterozigoti sono 2 · 0,6 · 0,4 = 0,48.",
-          "Nelle domande su Hardy-Weinberg scrivi sempre p e q prima di calcolare i genotipi."
+          "Ogni sostituzione cambia una base in una delle altre tre; dopo molte sostituzioni due sequenze tornano a coincidere per caso in un sito su quattro, da cui il limite 3/4.",
+          "La variabile Divergenza d è espressa in sostituzioni/sito; Siti diversi attesi in siti. Il dominio dello strumento è [0; 3]. La relazione implementata è: Differenze attese = L × 3/4(1-exp(-4d/3))."
         ],
         "advanced": [
-          "Ripasso: frequenze alleliche e genotipiche; p² + 2pq + q² = 1; condizioni dell’equilibrio; stima dei portatori; verifica dell’equilibrio su dati osservati; inincrocio e H = 2pq(1 − F).",
-          "Mini esercizio: se gli omozigoti recessivi sono il 16%, q = 0,4, p = 0,6 e gli eterozigoti sono 2 · 0,6 · 0,4 = 0,48.",
-          "Nelle domande su Hardy-Weinberg scrivi sempre p e q prima di calcolare i genotipi."
+          "Inverti la formula per stimare d da una frazione di differenze del 30% e del 70%, e discuti quale stima è più incerta.",
+          "Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Collegamenti",
+      "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Le frequenze dei genotipi derivano dalle combinazioni dei gameti, come nel quadrato di Punnett dell’unità «Ereditarietà mendeliana». In biologia si passa a «Speciazione e barriere riproduttive»: quando le popolazioni smettono di scambiarsi alleli.",
-          "Riepilogo dell’unità: senza forze evolutive le frequenze alleliche restano costanti e i genotipi sono p², 2pq e q²; il confronto con i dati rivela le forze al lavoro; un allele recessivo raro si trova soprattutto nei portatori; la consanguineità riduce gli eterozigoti di un fattore 1 − F.",
-          "Nel diario spiega perché la maggior parte degli alleli di una malattia recessiva rara si trova in persone sane."
+          "Nel diario distingui previsione, risultato e interpretazione. Modello di Jukes-Cantor.",
+          "Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi.",
+          "Collegamento consigliato: math-c06. Il completamento registra attività e autoverifica, non certifica competenze."
         ],
         "intermediate": [
-          "Le frequenze dei genotipi derivano dalle combinazioni dei gameti, come nel quadrato di Punnett dell’unità «Ereditarietà mendeliana». In biologia si passa a «Speciazione e barriere riproduttive»: quando le popolazioni smettono di scambiarsi alleli.",
-          "Riepilogo dell’unità: senza forze evolutive le frequenze alleliche restano costanti e i genotipi sono p², 2pq e q²; il confronto con i dati rivela le forze al lavoro; un allele recessivo raro si trova soprattutto nei portatori; la consanguineità riduce gli eterozigoti di un fattore 1 − F.",
-          "Nel diario spiega perché la maggior parte degli alleli di una malattia recessiva rara si trova in persone sane."
+          "Ogni sostituzione cambia una base in una delle altre tre; dopo molte sostituzioni due sequenze tornano a coincidere per caso in un sito su quattro, da cui il limite 3/4.",
+          "Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi.",
+          "Inverti la formula per stimare d da una frazione di differenze del 30% e del 70%, e discuti quale stima è più incerta."
         ],
         "advanced": [
-          "Le frequenze dei genotipi derivano dalle combinazioni dei gameti, come nel quadrato di Punnett dell’unità «Ereditarietà mendeliana». In biologia si passa a «Speciazione e barriere riproduttive»: quando le popolazioni smettono di scambiarsi alleli.",
-          "Riepilogo dell’unità: senza forze evolutive le frequenze alleliche restano costanti e i genotipi sono p², 2pq e q²; il confronto con i dati rivela le forze al lavoro; un allele recessivo raro si trova soprattutto nei portatori; la consanguineità riduce gli eterozigoti di un fattore 1 − F.",
-          "Nel diario spiega perché la maggior parte degli alleli di una malattia recessiva rara si trova in persone sane."
+          "Inverti la formula per stimare d da una frazione di differenze del 30% e del 70%, e discuti quale stima è più incerta.",
+          "Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-15-q1",
-      "prompt": "Con p = 0,7, qual è la frequenza attesa degli eterozigoti?",
+      "id": "biology-15-concept",
+      "prompt": "Per sequenze lontanissime la frazione di siti diversi tende a:",
       "options": [
         {
           "id": "A",
-          "text": "0,42",
-          "feedback": "Esatto: gli eterozigoti sono 2pq = 2 · 0,7 · 0,3."
+          "text": "50%",
+          "feedback": "Ogni sostituzione cambia una base in una delle altre tre; dopo molte sostituzioni due sequenze tornano a coincidere per caso in un sito su quattro, da cui il limite 3/4."
         },
         {
           "id": "B",
-          "text": "0,21",
-          "feedback": "Manca il fattore 2: gli eterozigoti si formano in due modi."
+          "text": "75%",
+          "feedback": "Con il modello di Jukes-Cantor, dopo d sostituzioni per sito una sequenza di L siti mostra in media L·(3/4)(1 - exp(-4d/3)) differenze: per d grandi le differenze si saturano al 75%."
         },
         {
           "id": "C",
-          "text": "0,49",
-          "feedback": "0,49 è la frequenza degli omozigoti AA."
-        },
-        {
-          "id": "D",
-          "text": "0,09",
-          "feedback": "0,09 è la frequenza degli omozigoti aa."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-15-q2",
-      "prompt": "Quale condizione non è richiesta dall’equilibrio di Hardy-Weinberg?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Accoppiamenti casuali",
-          "feedback": "Gli accoppiamenti casuali sono una delle cinque condizioni."
-        },
-        {
-          "id": "B",
-          "text": "Che l’allele dominante sia il più frequente",
-          "feedback": "Esatto: dominanza e frequenza sono indipendenti."
-        },
-        {
-          "id": "C",
-          "text": "Assenza di selezione",
-          "feedback": "Senza selezione nessun genotipo è favorito: è una delle condizioni."
-        },
-        {
-          "id": "D",
-          "text": "Popolazione molto grande",
-          "feedback": "Serve per rendere trascurabile la deriva."
+          "text": "100%",
+          "feedback": "Contare le differenze sottostima le sostituzioni quando le sequenze sono molto divergenti: per questo gli alberi profondi richiedono modelli di correzione."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "biology-15-q3",
-      "prompt": "Una malattia recessiva colpisce 1 persona su 10 000. Qual è circa q?",
+      "id": "biology-15-calculation",
+      "prompt": "Calcolo: Lunghezza sequenza L (a)=100 siti. Per Divergenza d=0 sostituzioni/sito, quanto vale Siti diversi attesi?",
       "options": [
         {
           "id": "A",
-          "text": "1/10 000",
-          "feedback": "Questa è la frequenza degli omozigoti, q²."
+          "text": "0 siti",
+          "feedback": "Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=100 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "1/50",
-          "feedback": "La radice di 1/10 000 è 1/100, non 1/50."
+          "text": "1,00000e-8 siti",
+          "feedback": "Questo valore non soddisfa la relazione. Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=100 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "1/100",
-          "feedback": "Esatto: q è la radice della frequenza dei malati, √(1/10 000)."
-        },
-        {
-          "id": "D",
-          "text": "1/2",
-          "feedback": "Una frequenza così alta darebbe un malato ogni quattro persone."
+          "text": "-1,00000e-8 siti",
+          "feedback": "Controlla sostituzione, segno e unità. Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=100 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "C"
-    },
-    {
-      "id": "biology-15-q4",
-      "prompt": "Nella fibrosi cistica, con q ≈ 0,02, quanti sono circa i portatori sani?",
-      "options": [
-        {
-          "id": "A",
-          "text": "1 su 2500",
-          "feedback": "Questa è la frequenza dei malati, q²."
+      "correct": "A",
+      "numeric": {
+        "x": 0,
+        "parameters": {
+          "a": 100
         },
-        {
-          "id": "B",
-          "text": "1 su 50",
-          "feedback": "Questa è la frequenza dell’allele, q."
-        },
-        {
-          "id": "C",
-          "text": "1 su 2",
-          "feedback": "I portatori sono una piccola minoranza."
-        },
-        {
-          "id": "D",
-          "text": "1 su 25",
-          "feedback": "Esatto: 2pq ≈ 2 · 0,98 · 0,02 ≈ 0,039."
-        }
-      ],
-      "correct": "D"
-    },
-    {
-      "id": "biology-15-q5",
-      "prompt": "Che effetto ha la consanguineità sulle frequenze dei genotipi?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Riduce gli eterozigoti e aumenta gli omozigoti",
-          "feedback": "Esatto: gli alleli identici per discendenza si incontrano più spesso."
-        },
-        {
-          "id": "B",
-          "text": "Cambia le frequenze degli alleli",
-          "feedback": "Da sola non cambia p e q; cambia come si combinano."
-        },
-        {
-          "id": "C",
-          "text": "Aumenta gli eterozigoti",
-          "feedback": "L’effetto è opposto: gli eterozigoti diminuiscono."
-        },
-        {
-          "id": "D",
-          "text": "Nessuno",
-          "feedback": "La consanguineità viola la condizione di accoppiamento casuale."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-15-q6",
-      "prompt": "In un campione si contano 360 AA, 480 Aa e 160 aa. La popolazione è in equilibrio?",
-      "options": [
-        {
-          "id": "A",
-          "text": "No, gli eterozigoti sono troppi",
-          "feedback": "Con p = 0,6 gli eterozigoti attesi sono proprio 480."
-        },
-        {
-          "id": "B",
-          "text": "Sì: con p = 0,6 i valori attesi coincidono con quelli osservati",
-          "feedback": "Esatto: 1000 · 0,36, 1000 · 0,48 e 1000 · 0,16."
-        },
-        {
-          "id": "C",
-          "text": "No, gli omozigoti aa sono troppo pochi",
-          "feedback": "Con q = 0,4 gli aa attesi sono 160."
-        },
-        {
-          "id": "D",
-          "text": "Non si può dire",
-          "feedback": "Dai conteggi si calcolano p e i valori attesi."
-        }
-      ],
-      "correct": "B"
-    }
-  ],
-  "activity": {
-    "kind": "steps",
-    "goal": 3,
-    "problems": [
-      {
-        "id": "genotipi",
-        "title": "Dalle frequenze alleliche ai genotipi",
-        "text": "In una popolazione in equilibrio p = 0,7. Quali sono le frequenze dei tre genotipi?",
-        "maxErrors": 1,
-        "explain": "p², 2pq e q², con q = 1 − p.",
-        "steps": [
-          {
-            "prompt": "Quanto vale q?",
-            "options": [
-              {
-                "text": "0,3",
-                "feedback": "Giusto: 1 − 0,7."
-              },
-              {
-                "text": "0,7",
-                "feedback": "Questo è p."
-              },
-              {
-                "text": "0,49",
-                "feedback": "0,49 è p²."
-              }
-            ],
-            "correct": 0,
-            "result": "q = 0,3."
-          },
-          {
-            "prompt": "Frequenza degli omozigoti AA?",
-            "options": [
-              {
-                "text": "0,49",
-                "feedback": "Giusto: 0,7²."
-              },
-              {
-                "text": "0,7",
-                "feedback": "Per un omozigote servono due copie: p²."
-              },
-              {
-                "text": "1,4",
-                "feedback": "Una frequenza non supera 1: hai calcolato 2p."
-              }
-            ],
-            "correct": 0,
-            "result": "AA = 0,49."
-          },
-          {
-            "prompt": "Frequenze di Aa e aa?",
-            "options": [
-              {
-                "text": "Aa 0,42; aa 0,09",
-                "feedback": "Giusto: 2 · 0,7 · 0,3 e 0,3². La somma con 0,49 è 1."
-              },
-              {
-                "text": "Aa 0,21; aa 0,09",
-                "feedback": "Gli eterozigoti si formano in due modi: 2pq."
-              },
-              {
-                "text": "Aa 0,42; aa 0,3",
-                "feedback": "0,3 è q, non q²."
-              }
-            ],
-            "correct": 0,
-            "result": "AA 0,49; Aa 0,42; aa 0,09."
-          }
-        ]
-      },
-      {
-        "id": "portatori",
-        "title": "Quanti portatori?",
-        "text": "Una malattia recessiva colpisce 1 neonato su 2500. Quanti sono i portatori sani?",
-        "maxErrors": 1,
-        "explain": "Dagli omozigoti recessivi si ricava q con la radice quadrata.",
-        "steps": [
-          {
-            "prompt": "Quanto vale q?",
-            "options": [
-              {
-                "text": "0,02",
-                "feedback": "Giusto: √(1/2500) = 1/50."
-              },
-              {
-                "text": "0,0004",
-                "feedback": "Questo è q², la frequenza dei malati."
-              },
-              {
-                "text": "0,5",
-                "feedback": "Con q = 0,5 i malati sarebbero un quarto."
-              }
-            ],
-            "correct": 0,
-            "result": "q = 0,02; p = 0,98."
-          },
-          {
-            "prompt": "Frequenza dei portatori?",
-            "options": [
-              {
-                "text": "Circa 0,039",
-                "feedback": "Giusto: 2 · 0,98 · 0,02."
-              },
-              {
-                "text": "Circa 0,0196",
-                "feedback": "Manca il fattore 2."
-              },
-              {
-                "text": "0,96",
-                "feedback": "Questa è circa la frequenza degli omozigoti sani."
-              }
-            ],
-            "correct": 0,
-            "result": "2pq ≈ 0,039."
-          },
-          {
-            "prompt": "Quante persone, circa, per ogni portatore?",
-            "options": [
-              {
-                "text": "Circa 25",
-                "feedback": "Giusto: 1/0,039 ≈ 25,5."
-              },
-              {
-                "text": "Circa 2500",
-                "feedback": "Questo è il rapporto per i malati."
-              },
-              {
-                "text": "Circa 50",
-                "feedback": "50 è l’inverso di q."
-              }
-            ],
-            "correct": 0,
-            "result": "Circa 1 persona su 25 è portatrice: cento volte più dei malati."
-          }
-        ]
-      },
-      {
-        "id": "verifica",
-        "title": "La popolazione è in equilibrio?",
-        "text": "In un campione di 1000 individui si contano 360 AA, 480 Aa e 160 aa.",
-        "maxErrors": 1,
-        "explain": "Si calcola p dai conteggi e si confrontano i valori attesi con quelli osservati.",
-        "steps": [
-          {
-            "prompt": "Quanto vale p?",
-            "options": [
-              {
-                "text": "0,6",
-                "feedback": "Giusto: (2 · 360 + 480)/2000 = 1200/2000."
-              },
-              {
-                "text": "0,36",
-                "feedback": "0,36 è la frequenza del genotipo AA, non dell’allele."
-              },
-              {
-                "text": "0,84",
-                "feedback": "Gli eterozigoti portano una sola copia di A: vanno contati una volta."
-              }
-            ],
-            "correct": 0,
-            "result": "p = 0,6; q = 0,4."
-          },
-          {
-            "prompt": "Quanti eterozigoti sono attesi?",
-            "options": [
-              {
-                "text": "480",
-                "feedback": "Giusto: 1000 · 2 · 0,6 · 0,4."
-              },
-              {
-                "text": "240",
-                "feedback": "Manca il fattore 2."
-              },
-              {
-                "text": "360",
-                "feedback": "360 sono gli AA attesi."
-              }
-            ],
-            "correct": 0,
-            "result": "Attesi: 360 AA, 480 Aa, 160 aa."
-          },
-          {
-            "prompt": "Conclusione?",
-            "options": [
-              {
-                "text": "I dati sono compatibili con l’equilibrio",
-                "feedback": "Giusto: osservati e attesi coincidono."
-              },
-              {
-                "text": "C’è un eccesso di eterozigoti",
-                "feedback": "Gli eterozigoti osservati sono esattamente quelli attesi."
-              },
-              {
-                "text": "C’è consanguineità",
-                "feedback": "La consanguineità ridurrebbe gli eterozigoti sotto 480."
-              }
-            ],
-            "correct": 0,
-            "result": "Nessuna forza evolutiva visibile in questo campione."
-          }
-        ]
-      },
-      {
-        "id": "consanguinei",
-        "title": "Figli di cugini primi",
-        "text": "Per i figli di cugini primi F = 1/16. Con q = 0,02, quanto aumenta la frequenza degli omozigoti recessivi?",
-        "maxErrors": 1,
-        "explain": "Con inincrocio gli omozigoti recessivi sono q² + F pq.",
-        "steps": [
-          {
-            "prompt": "Omozigoti recessivi senza inincrocio?",
-            "options": [
-              {
-                "text": "0,0004",
-                "feedback": "Giusto: 0,02²."
-              },
-              {
-                "text": "0,02",
-                "feedback": "Questo è q."
-              },
-              {
-                "text": "0,04",
-                "feedback": "Hai calcolato 2q."
-              }
-            ],
-            "correct": 0,
-            "result": "q² = 0,0004."
-          },
-          {
-            "prompt": "Termine aggiuntivo F pq?",
-            "options": [
-              {
-                "text": "Circa 0,0012",
-                "feedback": "Giusto: 0,0625 · 0,98 · 0,02."
-              },
-              {
-                "text": "Circa 0,0196",
-                "feedback": "Manca il fattore F = 1/16."
-              },
-              {
-                "text": "0,0625",
-                "feedback": "Questo è F da solo."
-              }
-            ],
-            "correct": 0,
-            "result": "F pq ≈ 0,0012."
-          },
-          {
-            "prompt": "Di quanto aumenta il rischio?",
-            "options": [
-              {
-                "text": "Circa 4 volte",
-                "feedback": "Giusto: da 0,0004 a circa 0,0016."
-              },
-              {
-                "text": "Circa 16 volte",
-                "feedback": "F = 1/16 non moltiplica il rischio per 16."
-              },
-              {
-                "text": "Non cambia",
-                "feedback": "Il termine F pq si aggiunge a q²."
-              }
-            ],
-            "correct": 0,
-            "result": "Il rischio passa da 1 su 2500 a circa 1 su 615."
-          }
-        ]
+        "expected": 0,
+        "unit": "siti"
       }
-    ]
-  }
+    },
+    {
+      "id": "biology-15-transfer",
+      "prompt": "Trasferimento: Lunghezza sequenza L (a)=120 siti. Per Divergenza d=0 sostituzioni/sito, quanto vale Siti diversi attesi?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1,00000e-8 siti",
+          "feedback": "Questo valore non soddisfa la relazione. Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=120 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "-1,00000e-8 siti",
+          "feedback": "Controlla sostituzione, segno e unità. Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=120 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "0 siti",
+          "feedback": "Differenze attese = L × 3/4(1-exp(-4d/3)). Con Lunghezza sequenza L (a)=120 siti e Divergenza d=0 sostituzioni/sito, il risultato è 0 siti. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 0,
+        "parameters": {
+          "a": 120
+        },
+        "expected": 0,
+        "unit": "siti"
+      }
+    },
+    {
+      "id": "biology-15-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Modello di Jukes-Cantor",
+          "feedback": "Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Basi equiprobabili, stessa velocità in tutti i siti e in tutte le linee; i dati reali richiedono modelli più ricchi."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
 }

@@ -2,25 +2,23 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-18",
-  "title": "Biodiversità e misura delle comunità",
+  "title": "Estremofili",
   "sector": 3,
   "modelId": "biology-18",
-  "coverage": "guided-activity",
-  "editorialStatus": "hand-written-draft",
-  "scope": "Livelli della biodiversità, ricchezza ed equiripartizione, indici di Shannon e Simpson, minacce",
-  "narrativeStatus": "I prati sono un esempio; le stime sul numero di specie e sulle minacce sono di fonte scientifica.",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Inattivazione esponenziale con D₁₀ costante",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
   "objectives": [
-    "Distinguere i livelli della biodiversità.",
-    "Separare ricchezza ed equiripartizione.",
-    "Calcolare gli indici di Shannon e di Simpson.",
-    "Elencare le principali minacce alla biodiversità."
+    "Spiegare: inattivazione esponenziale con d₁₀ costante.",
+    "Applicare S = 10^(-D/D₁₀), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
   ],
   "prerequisites": [
     "biology-17"
   ],
   "connections": [
-    "biology-19",
-    "math-p07"
+    "physics-25"
   ],
   "sources": [
     "biology"
@@ -28,547 +26,244 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Ricchezza",
-      "definition": "Numero di specie in una comunità."
+      "term": "Dose D",
+      "definition": "Variabile indipendente, unità kGy; intervallo [0; 30]."
     },
     {
-      "term": "Equiripartizione",
-      "definition": "Grado di somiglianza tra le abbondanze delle specie."
+      "term": "Frazione sopravvissuta",
+      "definition": "Risultato calcolato dal modello, unità 1."
     },
     {
-      "term": "Indice di Shannon",
-      "definition": "H = −Σ pᵢ ln pᵢ; massimo ln S per specie ugualmente abbondanti."
-    },
-    {
-      "term": "Indice di Simpson",
-      "definition": "D = Σ pᵢ², probabilità che due individui siano della stessa specie."
-    },
-    {
-      "term": "Punto caldo",
-      "definition": "Regione con un numero eccezionale di specie, spesso minacciate."
+      "term": "Dose decimale D₁₀",
+      "definition": "Parametro a, unità kGy; intervallo [0,1; 15]."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Due prati",
+      "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Due prati vicini ospitano le stesse quattro specie di fiori. Nel primo ciascuna occupa un quarto della superficie; nel secondo una sola specie copre quasi tutto, e le altre tre sono rare. Contando le specie i due prati sono uguali, eppure il primo sembra più vario. Per confrontarli serve una misura che tenga conto anche delle abbondanze.",
-          "La biodiversità si osserva a tre livelli: la diversità genetica dentro le specie, la diversità delle specie in una comunità, la diversità degli ecosistemi in una regione. Una stima del 2011 indica circa 8,7 milioni di specie eucariote sulla Terra, di cui solo una piccola parte è stata descritta. Le specie non sono distribuite in modo uniforme: alcune regioni, dette punti caldi, ne concentrano moltissime."
+          "La stazione espone due ceppi di batteri a dosi crescenti di radiazione. Uno è un batterio comune, l'altro un estremofilo noto per la sua resistenza.",
+          "Con la dose decimale D₁₀, la dose che riduce i sopravvissuti di dieci volte, la frazione sopravvissuta è 10^(-D/D₁₀)."
         ],
         "intermediate": [
-          "Due prati vicini ospitano le stesse quattro specie di fiori. Nel primo ciascuna occupa un quarto della superficie; nel secondo una sola specie copre quasi tutto, e le altre tre sono rare. Contando le specie i due prati sono uguali, eppure il primo sembra più vario. Per confrontarli serve una misura che tenga conto anche delle abbondanze.",
-          "La biodiversità si osserva a tre livelli: la diversità genetica dentro le specie, la diversità delle specie in una comunità, la diversità degli ecosistemi in una regione. Una stima del 2011 indica circa 8,7 milioni di specie eucariote sulla Terra, di cui solo una piccola parte è stata descritta. Le specie non sono distribuite in modo uniforme: alcune regioni, dette punti caldi, ne concentrano moltissime."
+          "La stazione espone due ceppi di batteri a dosi crescenti di radiazione. Uno è un batterio comune, l'altro un estremofilo noto per la sua resistenza.",
+          "Se ogni dose uguale uccide la stessa frazione di cellule, la sopravvivenza decresce in modo esponenziale; scritta in base dieci, ogni D₁₀ toglie un fattore dieci."
         ],
         "advanced": [
-          "Due prati vicini ospitano le stesse quattro specie di fiori. Nel primo ciascuna occupa un quarto della superficie; nel secondo una sola specie copre quasi tutto, e le altre tre sono rare. Contando le specie i due prati sono uguali, eppure il primo sembra più vario. Per confrontarli serve una misura che tenga conto anche delle abbondanze.",
-          "La biodiversità si osserva a tre livelli: la diversità genetica dentro le specie, la diversità delle specie in una comunità, la diversità degli ecosistemi in una regione. Una stima del 2011 indica circa 8,7 milioni di specie eucariote sulla Terra, di cui solo una piccola parte è stata descritta. Le specie non sono distribuite in modo uniforme: alcune regioni, dette punti caldi, ne concentrano moltissime."
+          "La stazione espone due ceppi di batteri a dosi crescenti di radiazione. Uno è un batterio comune, l'altro un estremofilo noto per la sua resistenza.",
+          "Trova la dose che lascia un sopravvissuto su un milione per D₁₀ = 10 kGy e per D₁₀ = 0,1 kGy; discuti le conseguenze per la protezione planetaria.",
+          "Curva esponenziale semplice; le curve reali hanno spesso una spalla iniziale e dipendono da temperatura, acqua e riparazione."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Ricchezza, Shannon, Simpson",
+      "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Per una comunità si distinguono due componenti. La ricchezza è il numero di specie, S. L’equiripartizione misura quanto le abbondanze sono simili: una comunità con quattro specie al 25% è perfettamente equiripartita, una con una specie al 97% no. Gli indici di diversità combinano le due componenti in un solo numero.",
-          "L’indice di Shannon, preso dalla teoria dell’informazione di Claude Shannon del 1948, è H = −Σ pᵢ ln pᵢ, dove pᵢ è la frazione di individui della specie i. Con S specie ugualmente abbondanti H = ln S, il valore massimo: per 4 specie ln 4 ≈ 1,386. Se una specie domina, H scende. Il rapporto J = H/ln S misura l’equiripartizione, da 0 a 1.",
-          "L’indice di Simpson, del 1949, è D = Σ pᵢ²: la probabilità che due individui presi a caso, con reinserimento, appartengano alla stessa specie. Il suo complemento 1 − D è la probabilità che appartengano a specie diverse, ed è più alto nelle comunità più diverse. Simpson dà più peso alle specie comuni; Shannon è più sensibile a quelle rare."
+          "Con la dose decimale D₁₀, la dose che riduce i sopravvissuti di dieci volte, la frazione sopravvissuta è 10^(-D/D₁₀).",
+          "Con D₁₀ = 10 kGy, dopo 10 kGy sopravvive il 10% delle cellule; un batterio comune con D₁₀ di circa 0,1 kGy sarebbe ridotto di cento ordini di grandezza."
         ],
         "intermediate": [
-          "Per una comunità si distinguono due componenti. La ricchezza è il numero di specie, S. L’equiripartizione misura quanto le abbondanze sono simili: una comunità con quattro specie al 25% è perfettamente equiripartita, una con una specie al 97% no. Gli indici di diversità combinano le due componenti in un solo numero.",
-          "L’indice di Shannon, preso dalla teoria dell’informazione di Claude Shannon del 1948, è H = −Σ pᵢ ln pᵢ, dove pᵢ è la frazione di individui della specie i. Con S specie ugualmente abbondanti H = ln S, il valore massimo: per 4 specie ln 4 ≈ 1,386. Se una specie domina, H scende. Il rapporto J = H/ln S misura l’equiripartizione, da 0 a 1.",
-          "L’indice di Simpson, del 1949, è D = Σ pᵢ²: la probabilità che due individui presi a caso, con reinserimento, appartengano alla stessa specie. Il suo complemento 1 − D è la probabilità che appartengano a specie diverse, ed è più alto nelle comunità più diverse. Simpson dà più peso alle specie comuni; Shannon è più sensibile a quelle rare.",
-          "Secondo la valutazione globale IPBES del 2019, circa un milione di specie è minacciato di estinzione. Le cause principali sono la perdita e la frammentazione degli habitat, lo sfruttamento diretto, i cambiamenti climatici, l’inquinamento e le specie invasive. Misurare la diversità serve a seguire questi cambiamenti nel tempo."
+          "Se ogni dose uguale uccide la stessa frazione di cellule, la sopravvivenza decresce in modo esponenziale; scritta in base dieci, ogni D₁₀ toglie un fattore dieci.",
+          "La variabile Dose D è espressa in kGy; Frazione sopravvissuta in 1. Il dominio dello strumento è [0; 30]. La relazione implementata è: S = 10^(-D/D₁₀).",
+          "Con D₁₀ = 10 kGy, dopo 10 kGy sopravvive il 10% delle cellule; un batterio comune con D₁₀ di circa 0,1 kGy sarebbe ridotto di cento ordini di grandezza."
         ],
         "advanced": [
-          "Per una comunità si distinguono due componenti. La ricchezza è il numero di specie, S. L’equiripartizione misura quanto le abbondanze sono simili: una comunità con quattro specie al 25% è perfettamente equiripartita, una con una specie al 97% no. Gli indici di diversità combinano le due componenti in un solo numero.",
-          "L’indice di Shannon, preso dalla teoria dell’informazione di Claude Shannon del 1948, è H = −Σ pᵢ ln pᵢ, dove pᵢ è la frazione di individui della specie i. Con S specie ugualmente abbondanti H = ln S, il valore massimo: per 4 specie ln 4 ≈ 1,386. Se una specie domina, H scende. Il rapporto J = H/ln S misura l’equiripartizione, da 0 a 1.",
-          "L’indice di Simpson, del 1949, è D = Σ pᵢ²: la probabilità che due individui presi a caso, con reinserimento, appartengano alla stessa specie. Il suo complemento 1 − D è la probabilità che appartengano a specie diverse, ed è più alto nelle comunità più diverse. Simpson dà più peso alle specie comuni; Shannon è più sensibile a quelle rare.",
-          "Secondo la valutazione globale IPBES del 2019, circa un milione di specie è minacciato di estinzione. Le cause principali sono la perdita e la frammentazione degli habitat, lo sfruttamento diretto, i cambiamenti climatici, l’inquinamento e le specie invasive. Misurare la diversità serve a seguire questi cambiamenti nel tempo.",
-          "Il modello del programma calcola H quando la specie 1 ha frequenza p e le altre S − 1 si dividono il resto in parti uguali, con S regolabile da 2 a 12: con S = 4 il massimo è ln 4 ≈ 1,386 per p = 0,25."
+          "Se ogni dose uguale uccide la stessa frazione di cellule, la sopravvivenza decresce in modo esponenziale; scritta in base dieci, ogni D₁₀ toglie un fattore dieci.",
+          "Trova la dose che lascia un sopravvissuto su un milione per D₁₀ = 10 kGy e per D₁₀ = 0,1 kGy; discuti le conseguenze per la protezione planetaria.",
+          "Ogni estremofilo è adattato a pochi fattori estremi, e molti muoiono nelle condizioni che per noi sono normali."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Problemi guidati",
+      "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "L’attività propone quattro problemi guidati: l’indice di Shannon con quattro specie uguali; una comunità con una specie dominante; una comunità di tre specie con abbondanze diverse; l’indice di Simpson per la stessa comunità. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
-          "Calcola un termine −pᵢ ln pᵢ per ogni specie e poi sommali. Ricorda che ln p è negativo per p < 1: con il segno meno davanti ogni termine diventa positivo.",
-          "Il modello del programma calcola H quando la specie 1 ha frequenza p e le altre S − 1 si dividono il resto in parti uguali, con S regolabile da 2 a 12: con S = 4 il massimo è ln 4 ≈ 1,386 per p = 0,25."
+          "Nel laboratorio imposta Dose decimale D₁₀ (a): 10 kGy. Prima di salvare A, prevedi come cambia Frazione sopravvissuta fra Dose D=7,5 e 15 kGy. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con D₁₀ = 10 kGy, dopo 10 kGy sopravvive il 10% delle cellule; un batterio comune con D₁₀ di circa 0,1 kGy sarebbe ridotto di cento ordini di grandezza.",
+          "La variabile Dose D è espressa in kGy; Frazione sopravvissuta in 1. Il dominio dello strumento è [0; 30]. La relazione implementata è: S = 10^(-D/D₁₀)."
         ],
         "intermediate": [
-          "L’attività propone quattro problemi guidati: l’indice di Shannon con quattro specie uguali; una comunità con una specie dominante; una comunità di tre specie con abbondanze diverse; l’indice di Simpson per la stessa comunità. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
-          "Calcola un termine −pᵢ ln pᵢ per ogni specie e poi sommali. Ricorda che ln p è negativo per p < 1: con il segno meno davanti ogni termine diventa positivo.",
-          "Il modello del programma calcola H quando la specie 1 ha frequenza p e le altre S − 1 si dividono il resto in parti uguali, con S regolabile da 2 a 12: con S = 4 il massimo è ln 4 ≈ 1,386 per p = 0,25."
+          "Nel laboratorio imposta Dose decimale D₁₀ (a): 10 kGy. Prima di salvare A, prevedi come cambia Frazione sopravvissuta fra Dose D=7,5 e 15 kGy. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Dose D è espressa in kGy; Frazione sopravvissuta in 1. Il dominio dello strumento è [0; 30]. La relazione implementata è: S = 10^(-D/D₁₀).",
+          "Se ogni dose uguale uccide la stessa frazione di cellule, la sopravvivenza decresce in modo esponenziale; scritta in base dieci, ogni D₁₀ toglie un fattore dieci."
         ],
         "advanced": [
-          "L’attività propone quattro problemi guidati: l’indice di Shannon con quattro specie uguali; una comunità con una specie dominante; una comunità di tre specie con abbondanze diverse; l’indice di Simpson per la stessa comunità. Per completare l’attività risolvi tre problemi, con al massimo un errore ciascuno.",
-          "Calcola un termine −pᵢ ln pᵢ per ogni specie e poi sommali. Ricorda che ln p è negativo per p < 1: con il segno meno davanti ogni termine diventa positivo."
+          "Nel laboratorio imposta Dose decimale D₁₀ (a): 10 kGy. Prima di salvare A, prevedi come cambia Frazione sopravvissuta fra Dose D=7,5 e 15 kGy. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Trova la dose che lascia un sopravvissuto su un milione per D₁₀ = 10 kGy e per D₁₀ = 0,1 kGy; discuti le conseguenze per la protezione planetaria.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Errori e minacce",
+      "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Errore frequente: misurare la diversità solo contando le specie. Due comunità con le stesse specie possono avere diversità molto diverse se le abbondanze sono diverse.",
-          "Secondo errore: confrontare valori di H calcolati con logaritmi in basi diverse. Con il logaritmo naturale H si misura in nat, con quello in base 2 in bit: i numeri cambiano, l’ordine delle comunità no.",
-          "Secondo la valutazione globale IPBES del 2019, circa un milione di specie è minacciato di estinzione. Le cause principali sono la perdita e la frammentazione degli habitat, lo sfruttamento diretto, i cambiamenti climatici, l’inquinamento e le specie invasive. Misurare la diversità serve a seguire questi cambiamenti nel tempo."
+          "Ogni estremofilo è adattato a pochi fattori estremi, e molti muoiono nelle condizioni che per noi sono normali.",
+          "Curva esponenziale semplice; le curve reali hanno spesso una spalla iniziale e dipendono da temperatura, acqua e riparazione.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ],
         "intermediate": [
-          "Errore frequente: misurare la diversità solo contando le specie. Due comunità con le stesse specie possono avere diversità molto diverse se le abbondanze sono diverse.",
-          "Secondo errore: confrontare valori di H calcolati con logaritmi in basi diverse. Con il logaritmo naturale H si misura in nat, con quello in base 2 in bit: i numeri cambiano, l’ordine delle comunità no.",
-          "Secondo la valutazione globale IPBES del 2019, circa un milione di specie è minacciato di estinzione. Le cause principali sono la perdita e la frammentazione degli habitat, lo sfruttamento diretto, i cambiamenti climatici, l’inquinamento e le specie invasive. Misurare la diversità serve a seguire questi cambiamenti nel tempo."
+          "Ogni estremofilo è adattato a pochi fattori estremi, e molti muoiono nelle condizioni che per noi sono normali.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ],
         "advanced": [
-          "Errore frequente: misurare la diversità solo contando le specie. Due comunità con le stesse specie possono avere diversità molto diverse se le abbondanze sono diverse.",
-          "Secondo errore: confrontare valori di H calcolati con logaritmi in basi diverse. Con il logaritmo naturale H si misura in nat, con quello in base 2 in bit: i numeri cambiano, l’ordine delle comunità no.",
-          "Secondo la valutazione globale IPBES del 2019, circa un milione di specie è minacciato di estinzione. Le cause principali sono la perdita e la frammentazione degli habitat, lo sfruttamento diretto, i cambiamenti climatici, l’inquinamento e le specie invasive. Misurare la diversità serve a seguire questi cambiamenti nel tempo."
+          "Curva esponenziale semplice; le curve reali hanno spesso una spalla iniziale e dipendono da temperatura, acqua e riparazione.",
+          "Trova la dose che lascia un sopravvissuto su un milione per D₁₀ = 10 kGy e per D₁₀ = 0,1 kGy; discuti le conseguenze per la protezione planetaria.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica",
+      "title": "Verifica ragionamento e calcolo",
       "text": {
         "base": [
-          "Ripasso: livelli della biodiversità; ricchezza ed equiripartizione; indice di Shannon e valore massimo ln S; equiripartizione J = H/ln S; indice di Simpson e suo complemento; principali minacce.",
-          "Mini esercizio: due specie al 50% danno H = ln 2 ≈ 0,693 e 1 − D = 1 − 0,5 = 0,5.",
-          "Nelle domande sulla diversità controlla prima che le frazioni pᵢ sommino a 1."
+          "Con la dose decimale D₁₀, la dose che riduce i sopravvissuti di dieci volte, la frazione sopravvissuta è 10^(-D/D₁₀).",
+          "Con D₁₀ = 10 kGy, dopo 10 kGy sopravvive il 10% delle cellule; un batterio comune con D₁₀ di circa 0,1 kGy sarebbe ridotto di cento ordini di grandezza."
         ],
         "intermediate": [
-          "Ripasso: livelli della biodiversità; ricchezza ed equiripartizione; indice di Shannon e valore massimo ln S; equiripartizione J = H/ln S; indice di Simpson e suo complemento; principali minacce.",
-          "Mini esercizio: due specie al 50% danno H = ln 2 ≈ 0,693 e 1 − D = 1 − 0,5 = 0,5.",
-          "Nelle domande sulla diversità controlla prima che le frazioni pᵢ sommino a 1."
+          "Se ogni dose uguale uccide la stessa frazione di cellule, la sopravvivenza decresce in modo esponenziale; scritta in base dieci, ogni D₁₀ toglie un fattore dieci.",
+          "La variabile Dose D è espressa in kGy; Frazione sopravvissuta in 1. Il dominio dello strumento è [0; 30]. La relazione implementata è: S = 10^(-D/D₁₀)."
         ],
         "advanced": [
-          "Ripasso: livelli della biodiversità; ricchezza ed equiripartizione; indice di Shannon e valore massimo ln S; equiripartizione J = H/ln S; indice di Simpson e suo complemento; principali minacce.",
-          "Mini esercizio: due specie al 50% danno H = ln 2 ≈ 0,693 e 1 − D = 1 − 0,5 = 0,5.",
-          "Nelle domande sulla diversità controlla prima che le frazioni pᵢ sommino a 1."
+          "Trova la dose che lascia un sopravvissuto su un milione per D₁₀ = 10 kGy e per D₁₀ = 0,1 kGy; discuti le conseguenze per la protezione planetaria.",
+          "Curva esponenziale semplice; le curve reali hanno spesso una spalla iniziale e dipendono da temperatura, acqua e riparazione."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Collegamenti",
+      "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "L’indice di Shannon è l’entropia dell’unità di matematica «Probabilità, informazione e fenomeni collettivi». In biologia si passa a «Crescita delle popolazioni»: come cambia nel tempo il numero di individui di una specie.",
-          "Riepilogo dell’unità: la biodiversità comprende geni, specie ed ecosistemi; la diversità di una comunità dipende da ricchezza ed equiripartizione; H = −Σ pᵢ ln pᵢ vale al massimo ln S; 1 − Σ pᵢ² è la probabilità che due individui siano di specie diverse.",
-          "Nel diario calcola H per i due prati della storia, con 25% ciascuno e con 97%, 1%, 1%, 1%, e spiega la differenza."
+          "Nel diario distingui previsione, risultato e interpretazione. Inattivazione esponenziale con D₁₀ costante.",
+          "Curva esponenziale semplice; le curve reali hanno spesso una spalla iniziale e dipendono da temperatura, acqua e riparazione.",
+          "Collegamento consigliato: physics-25. Il completamento registra attività e autoverifica, non certifica competenze."
         ],
         "intermediate": [
-          "L’indice di Shannon è l’entropia dell’unità di matematica «Probabilità, informazione e fenomeni collettivi». In biologia si passa a «Crescita delle popolazioni»: come cambia nel tempo il numero di individui di una specie.",
-          "Riepilogo dell’unità: la biodiversità comprende geni, specie ed ecosistemi; la diversità di una comunità dipende da ricchezza ed equiripartizione; H = −Σ pᵢ ln pᵢ vale al massimo ln S; 1 − Σ pᵢ² è la probabilità che due individui siano di specie diverse.",
-          "Nel diario calcola H per i due prati della storia, con 25% ciascuno e con 97%, 1%, 1%, 1%, e spiega la differenza."
+          "Se ogni dose uguale uccide la stessa frazione di cellule, la sopravvivenza decresce in modo esponenziale; scritta in base dieci, ogni D₁₀ toglie un fattore dieci.",
+          "Curva esponenziale semplice; le curve reali hanno spesso una spalla iniziale e dipendono da temperatura, acqua e riparazione.",
+          "Trova la dose che lascia un sopravvissuto su un milione per D₁₀ = 10 kGy e per D₁₀ = 0,1 kGy; discuti le conseguenze per la protezione planetaria."
         ],
         "advanced": [
-          "L’indice di Shannon è l’entropia dell’unità di matematica «Probabilità, informazione e fenomeni collettivi». In biologia si passa a «Crescita delle popolazioni»: come cambia nel tempo il numero di individui di una specie.",
-          "Riepilogo dell’unità: la biodiversità comprende geni, specie ed ecosistemi; la diversità di una comunità dipende da ricchezza ed equiripartizione; H = −Σ pᵢ ln pᵢ vale al massimo ln S; 1 − Σ pᵢ² è la probabilità che due individui siano di specie diverse.",
-          "Nel diario calcola H per i due prati della storia, con 25% ciascuno e con 97%, 1%, 1%, 1%, e spiega la differenza."
+          "Trova la dose che lascia un sopravvissuto su un milione per D₁₀ = 10 kGy e per D₁₀ = 0,1 kGy; discuti le conseguenze per la protezione planetaria.",
+          "Curva esponenziale semplice; le curve reali hanno spesso una spalla iniziale e dipendono da temperatura, acqua e riparazione.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-18-q1",
-      "prompt": "Che cosa misura la ricchezza di una comunità?",
+      "id": "biology-18-concept",
+      "prompt": "Con D₁₀ = 5 kGy, dopo 10 kGy sopravvive:",
       "options": [
         {
           "id": "A",
-          "text": "Il numero di specie",
-          "feedback": "Esatto: non tiene conto delle abbondanze."
+          "text": "Il 10% delle cellule",
+          "feedback": "Se ogni dose uguale uccide la stessa frazione di cellule, la sopravvivenza decresce in modo esponenziale; scritta in base dieci, ogni D₁₀ toglie un fattore dieci."
         },
         {
           "id": "B",
-          "text": "Il numero di individui",
-          "feedback": "Gli individui contano per le abbondanze, non per la ricchezza."
+          "text": "L'1% delle cellule",
+          "feedback": "Con la dose decimale D₁₀, la dose che riduce i sopravvissuti di dieci volte, la frazione sopravvissuta è 10^(-D/D₁₀)."
         },
         {
           "id": "C",
-          "text": "La biomassa totale",
-          "feedback": "La biomassa misura la quantità di materia vivente."
-        },
-        {
-          "id": "D",
-          "text": "La somiglianza tra le abbondanze",
-          "feedback": "La somiglianza tra le abbondanze è l’equiripartizione."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-18-q2",
-      "prompt": "Qual è il valore massimo dell’indice di Shannon con S specie?",
-      "options": [
-        {
-          "id": "A",
-          "text": "S",
-          "feedback": "Il massimo cresce come il logaritmo di S, non come S."
-        },
-        {
-          "id": "B",
-          "text": "ln S",
-          "feedback": "Esatto: si raggiunge quando tutte le specie sono ugualmente abbondanti."
-        },
-        {
-          "id": "C",
-          "text": "1",
-          "feedback": "L’indice di Shannon può superare 1: con 4 specie arriva a 1,386."
-        },
-        {
-          "id": "D",
-          "text": "1/S",
-          "feedback": "1/S è la frazione di ciascuna specie in una comunità equiripartita."
+          "text": "Il 50% delle cellule",
+          "feedback": "Ogni estremofilo è adattato a pochi fattori estremi, e molti muoiono nelle condizioni che per noi sono normali."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "biology-18-q3",
-      "prompt": "Quanto vale H per due specie al 50%?",
+      "id": "biology-18-calculation",
+      "prompt": "Calcolo: Dose decimale D₁₀ (a)=10 kGy. Per Dose D=10 kGy, quanto vale Frazione sopravvissuta?",
       "options": [
         {
           "id": "A",
-          "text": "0,5",
-          "feedback": "0,5 è la frazione di ciascuna specie."
+          "text": "0,1 (adimensionale)",
+          "feedback": "S = 10^(-D/D₁₀). Con Dose decimale D₁₀ (a)=10 kGy e Dose D=10 kGy, il risultato è 0,1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "1",
-          "feedback": "Con il logaritmo in base 2 si otterrebbe 1 bit; con quello naturale no."
+          "text": "1,1 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. S = 10^(-D/D₁₀). Con Dose decimale D₁₀ (a)=10 kGy e Dose D=10 kGy, il risultato è 0,1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "Circa 0,693",
-          "feedback": "Esatto: due termini da 0,347, cioè H = ln 2."
-        },
-        {
-          "id": "D",
-          "text": "2",
-          "feedback": "2 è il numero di specie, la ricchezza."
+          "text": "-0,9 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. S = 10^(-D/D₁₀). Con Dose decimale D₁₀ (a)=10 kGy e Dose D=10 kGy, il risultato è 0,1 (adimensionale). Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "C"
-    },
-    {
-      "id": "biology-18-q4",
-      "prompt": "Quale di due comunità con le stesse 4 specie è più diversa?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Quella in cui una specie domina",
-          "feedback": "La dominanza riduce l’equiripartizione e quindi H."
+      "correct": "A",
+      "numeric": {
+        "x": 10,
+        "parameters": {
+          "a": 10
         },
-        {
-          "id": "B",
-          "text": "Sono uguali, perché hanno le stesse specie",
-          "feedback": "La diversità dipende anche dalle abbondanze."
-        },
-        {
-          "id": "C",
-          "text": "Quella con più individui",
-          "feedback": "Il numero totale di individui non cambia gli indici."
-        },
-        {
-          "id": "D",
-          "text": "Quella con le specie ugualmente abbondanti",
-          "feedback": "Esatto: H raggiunge il massimo ln 4."
-        }
-      ],
-      "correct": "D"
-    },
-    {
-      "id": "biology-18-q5",
-      "prompt": "Che cosa misura 1 − D, con D indice di Simpson?",
-      "options": [
-        {
-          "id": "A",
-          "text": "La probabilità che due individui presi a caso siano di specie diverse",
-          "feedback": "Esatto: è una probabilità che cresce con la diversità."
-        },
-        {
-          "id": "B",
-          "text": "Il numero di specie rare",
-          "feedback": "L’indice usa le abbondanze di tutte le specie, comuni e rare."
-        },
-        {
-          "id": "C",
-          "text": "La frazione della specie più comune",
-          "feedback": "La frazione della specie più comune entra nel calcolo, ma non coincide con 1 − D."
-        },
-        {
-          "id": "D",
-          "text": "La biomassa media",
-          "feedback": "L’indice usa frazioni di individui, non masse."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-18-q6",
-      "prompt": "Qual è una delle cause principali della perdita di biodiversità?",
-      "options": [
-        {
-          "id": "A",
-          "text": "L’aumento delle specie descritte",
-          "feedback": "Descrivere nuove specie non le minaccia."
-        },
-        {
-          "id": "B",
-          "text": "La perdita e la frammentazione degli habitat",
-          "feedback": "Esatto: è tra le prime cause indicate dalle valutazioni globali."
-        },
-        {
-          "id": "C",
-          "text": "L’uso degli indici di diversità",
-          "feedback": "Gli indici servono a misurare il fenomeno, non lo causano."
-        },
-        {
-          "id": "D",
-          "text": "La selezione naturale",
-          "feedback": "La selezione agisce da sempre; le perdite attuali sono dovute soprattutto all’uomo."
-        }
-      ],
-      "correct": "B"
-    }
-  ],
-  "activity": {
-    "kind": "steps",
-    "goal": 3,
-    "problems": [
-      {
-        "id": "uguali",
-        "title": "Quattro specie uguali",
-        "text": "Una comunità ha 4 specie, ciascuna con il 25% degli individui. Quanto vale l’indice di Shannon?",
-        "maxErrors": 1,
-        "explain": "Con specie ugualmente abbondanti H = ln S.",
-        "steps": [
-          {
-            "prompt": "Quanto vale −p ln p per una specie?",
-            "options": [
-              {
-                "text": "Circa 0,347",
-                "feedback": "Giusto: −0,25 · ln 0,25 = 0,25 · 1,386."
-              },
-              {
-                "text": "Circa −1,386",
-                "feedback": "Questo è ln 0,25: va moltiplicato per −0,25."
-              },
-              {
-                "text": "0,25",
-                "feedback": "Questa è la frazione; manca il logaritmo."
-              }
-            ],
-            "correct": 0,
-            "result": "Ogni specie contribuisce circa 0,347."
-          },
-          {
-            "prompt": "Quanto vale H?",
-            "options": [
-              {
-                "text": "Circa 1,386",
-                "feedback": "Giusto: 4 · 0,347, cioè ln 4."
-              },
-              {
-                "text": "Circa 0,347",
-                "feedback": "Bisogna sommare i termini delle quattro specie."
-              },
-              {
-                "text": "4",
-                "feedback": "4 è la ricchezza, non l’indice."
-              }
-            ],
-            "correct": 0,
-            "result": "H = ln 4 ≈ 1,386, il massimo per 4 specie."
-          }
-        ]
-      },
-      {
-        "id": "dominante",
-        "title": "Una specie dominante",
-        "text": "Una comunità ha 2 specie, al 90% e al 10%. Quanto vale H? Quanto vale l’equiripartizione J?",
-        "maxErrors": 1,
-        "explain": "Si sommano i termini e si confronta con il massimo ln 2.",
-        "steps": [
-          {
-            "prompt": "Termini delle due specie?",
-            "options": [
-              {
-                "text": "Circa 0,095 e 0,230",
-                "feedback": "Giusto: −0,9 ln 0,9 e −0,1 ln 0,1."
-              },
-              {
-                "text": "0,9 e 0,1",
-                "feedback": "Queste sono le frazioni."
-              },
-              {
-                "text": "Circa 0,105 e 2,303",
-                "feedback": "Questi sono −ln p: vanno moltiplicati per p."
-              }
-            ],
-            "correct": 0,
-            "result": "Termini ≈ 0,095 e 0,230."
-          },
-          {
-            "prompt": "Quanto vale H?",
-            "options": [
-              {
-                "text": "Circa 0,325",
-                "feedback": "Giusto: 0,095 + 0,230."
-              },
-              {
-                "text": "Circa 0,693",
-                "feedback": "Questo è il massimo per due specie, ln 2."
-              },
-              {
-                "text": "1",
-                "feedback": "Una comunità così sbilanciata è lontana dal massimo."
-              }
-            ],
-            "correct": 0,
-            "result": "H ≈ 0,325."
-          },
-          {
-            "prompt": "Equiripartizione J = H/ln 2?",
-            "options": [
-              {
-                "text": "Circa 0,47",
-                "feedback": "Giusto: 0,325/0,693."
-              },
-              {
-                "text": "Circa 2,13",
-                "feedback": "Hai diviso ln 2 per H: J non supera 1."
-              },
-              {
-                "text": "1",
-                "feedback": "J = 1 solo con specie ugualmente abbondanti."
-              }
-            ],
-            "correct": 0,
-            "result": "J ≈ 0,47: la comunità è poco equiripartita."
-          }
-        ]
-      },
-      {
-        "id": "tre",
-        "title": "Tre specie",
-        "text": "In un campione di 100 individui ci sono 50, 30 e 20 individui di tre specie. Quanto valgono H e J?",
-        "maxErrors": 1,
-        "explain": "Frazioni, termini, somma, confronto con ln 3.",
-        "steps": [
-          {
-            "prompt": "Frazioni delle tre specie?",
-            "options": [
-              {
-                "text": "0,5; 0,3; 0,2",
-                "feedback": "Giusto: si divide per 100."
-              },
-              {
-                "text": "50; 30; 20",
-                "feedback": "Questi sono i conteggi: vanno divisi per il totale."
-              },
-              {
-                "text": "1/3 ciascuna",
-                "feedback": "Le abbondanze sono diverse."
-              }
-            ],
-            "correct": 0,
-            "result": "p = 0,5; 0,3; 0,2."
-          },
-          {
-            "prompt": "Quanto vale H?",
-            "options": [
-              {
-                "text": "Circa 1,03",
-                "feedback": "Giusto: 0,347 + 0,361 + 0,322."
-              },
-              {
-                "text": "Circa 1,10",
-                "feedback": "Questo è ln 3, il massimo per tre specie."
-              },
-              {
-                "text": "Circa 0,38",
-                "feedback": "Questo è l’indice di Simpson, Σ p²."
-              }
-            ],
-            "correct": 0,
-            "result": "H ≈ 1,03."
-          },
-          {
-            "prompt": "Equiripartizione J?",
-            "options": [
-              {
-                "text": "Circa 0,94",
-                "feedback": "Giusto: 1,03/1,099."
-              },
-              {
-                "text": "Circa 0,34",
-                "feedback": "Hai diviso per 3 invece che per ln 3."
-              },
-              {
-                "text": "Circa 1,07",
-                "feedback": "J non può superare 1: hai diviso ln 3 per H."
-              }
-            ],
-            "correct": 0,
-            "result": "J ≈ 0,94: abbondanze abbastanza simili."
-          }
-        ]
-      },
-      {
-        "id": "simpson",
-        "title": "L’indice di Simpson",
-        "text": "Per la stessa comunità, con frazioni 0,5, 0,3 e 0,2, calcola D = Σ p² e 1 − D.",
-        "maxErrors": 1,
-        "explain": "Si elevano al quadrato le frazioni e si sommano.",
-        "steps": [
-          {
-            "prompt": "Quanto vale D?",
-            "options": [
-              {
-                "text": "0,38",
-                "feedback": "Giusto: 0,25 + 0,09 + 0,04."
-              },
-              {
-                "text": "1",
-                "feedback": "1 è la somma delle frazioni, non dei loro quadrati."
-              },
-              {
-                "text": "0,03",
-                "feedback": "Questo è il prodotto delle frazioni."
-              }
-            ],
-            "correct": 0,
-            "result": "D = 0,38."
-          },
-          {
-            "prompt": "Che cosa indica 1 − D = 0,62?",
-            "options": [
-              {
-                "text": "La probabilità che due individui siano di specie diverse",
-                "feedback": "Giusto: 62%."
-              },
-              {
-                "text": "La frazione della specie più comune",
-                "feedback": "La specie più comune è al 50%."
-              },
-              {
-                "text": "Il numero di specie rare",
-                "feedback": "1 − D è una probabilità, non un conteggio."
-              }
-            ],
-            "correct": 0,
-            "result": "Due individui presi a caso sono di specie diverse nel 62% dei casi."
-          }
-        ]
+        "expected": 0.1,
+        "unit": "1"
       }
-    ]
-  }
+    },
+    {
+      "id": "biology-18-transfer",
+      "prompt": "Trasferimento: Dose decimale D₁₀ (a)=10,1 kGy. Per Dose D=10 kGy, quanto vale Frazione sopravvissuta?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1,10231 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. S = 10^(-D/D₁₀). Con Dose decimale D₁₀ (a)=10,1 kGy e Dose D=10 kGy, il risultato è 0,102306 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "-0,897694 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. S = 10^(-D/D₁₀). Con Dose decimale D₁₀ (a)=10,1 kGy e Dose D=10 kGy, il risultato è 0,102306 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "0,102306 (adimensionale)",
+          "feedback": "S = 10^(-D/D₁₀). Con Dose decimale D₁₀ (a)=10,1 kGy e Dose D=10 kGy, il risultato è 0,102306 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 10,
+        "parameters": {
+          "a": 10.1
+        },
+        "expected": 0.10230597298425086,
+        "unit": "1"
+      }
+    },
+    {
+      "id": "biology-18-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Inattivazione esponenziale con D₁₀ costante",
+          "feedback": "Curva esponenziale semplice; le curve reali hanno spesso una spalla iniziale e dipendono da temperatura, acqua e riparazione."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Curva esponenziale semplice; le curve reali hanno spesso una spalla iniziale e dipendono da temperatura, acqua e riparazione."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Curva esponenziale semplice; le curve reali hanno spesso una spalla iniziale e dipendono da temperatura, acqua e riparazione."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
 }

@@ -6,7 +6,7 @@ import { terrainHeights, colorAt } from '../src/worlds/terrain.js';
 import { AREAS } from '../src/scene/systems.js';
 const root = new URL('../', import.meta.url), catalogue = JSON.parse(fs.readFileSync(new URL('content/catalogue.json', root), 'utf8'));
 const genomes = buildGenomes(), byIndex = new Map(catalogue.modules.map(m => [m.planetIndex, m]));
-const snapshot = { schemaVersion: 1, note: "Carte d'identità dei 100 pianeti esplorabili, generate da src/worlds/genome.js. Valori illustrativi.", minDistance: MIN_DISTANCE,
+const snapshot = { schemaVersion: 1, note: `Carte d'identità dei ${genomes.length} pianeti esplorabili, generate da src/worlds/genome.js. Valori illustrativi.`, minDistance: MIN_DISTANCE,
     planets: genomes.map(g => ({ unit: byIndex.get(g.index).id, title: byIndex.get(g.index).title, styleName: STYLE_NAMES[g.style], ...g })) };
 fs.writeFileSync(new URL('content/worlds/genomes.json', root), JSON.stringify(snapshot, null, 1) + '\n');
 const out = process.argv[2]; if (!out) process.exit(0);

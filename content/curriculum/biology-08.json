@@ -2,24 +2,23 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-08",
-  "title": "Meiosi e assortimento",
+  "title": "Energia, enzimi e catalisi",
   "sector": 3,
   "modelId": "biology-08",
-  "coverage": "guided-lab",
-  "editorialStatus": "hand-written-draft",
-  "scope": "Meiosi I e II, crossing-over, assortimento indipendente e conteggio delle combinazioni",
-  "narrativeStatus": "La serra è immaginaria; i numeri dei cromosomi e le probabilità sono reali.",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Michaelis-Menten nelle ipotesi dichiarate",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
   "objectives": [
-    "Distinguere cellule diploidi e aploidi, cromosomi omologhi e cromatidi fratelli.",
-    "Descrivere che cosa si separa nella meiosi I e nella meiosi II.",
-    "Spiegare crossing-over e assortimento indipendente come fonti di variabilità.",
-    "Calcolare il numero di combinazioni 2ⁿ e la probabilità binomiale P(k) = C(n, k)/2ⁿ."
+    "Spiegare: michaelis-menten nelle ipotesi dichiarate.",
+    "Applicare v = V_max [S]/(K_m+[S]), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
   ],
   "prerequisites": [
     "biology-07"
   ],
   "connections": [
-    "biology-09"
+    "chemistry-18"
   ],
   "sources": [
     "biology"
@@ -27,333 +26,250 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Diploide e aploide",
-      "definition": "Una cellula diploide (2n) ha due copie di ogni cromosoma, una aploide (n) una sola."
+      "term": "Substrato",
+      "definition": "Variabile indipendente, unità mmol/L; intervallo [0; 10]."
     },
     {
-      "term": "Cromosomi omologhi",
-      "definition": "I due cromosomi di una coppia, uno materno e uno paterno, con gli stessi geni nelle stesse posizioni."
+      "term": "Velocità iniziale",
+      "definition": "Risultato calcolato dal modello, unità μmol/min."
     },
     {
-      "term": "Meiosi I",
-      "definition": "Divisione che separa i cromosomi omologhi e dimezza il numero di cromosomi."
+      "term": "Velocità massima",
+      "definition": "Parametro a, unità μmol/min; intervallo [5; 30]."
     },
     {
-      "term": "Meiosi II",
-      "definition": "Divisione che separa i cromatidi fratelli, come la mitosi."
-    },
-    {
-      "term": "Crossing-over",
-      "definition": "Scambio di tratti corrispondenti tra cromatidi non fratelli di due omologhi, nella profase I."
-    },
-    {
-      "term": "Assortimento indipendente",
-      "definition": "Orientamento casuale e indipendente delle coppie di omologhi nella metafase I."
-    },
-    {
-      "term": "Non disgiunzione",
-      "definition": "Mancata separazione di omologhi o cromatidi, che produce gameti con cromosomi in più o in meno."
+      "term": "Costante K_m",
+      "definition": "Parametro b, unità mmol/L; intervallo [0,5; 5]."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Fratelli simili e diversi",
+      "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Nella serra della stazione due piante sorelle, nate dagli stessi genitori, hanno foglie e fiori un po’ diversi. Anche due fratelli umani si somigliano senza essere uguali, salvo i gemelli identici. La causa sta nel modo in cui si formano i gameti, le cellule riproduttive: la meiosi mescola i cromosomi ricevuti dai genitori.",
-          "Le cellule del corpo umano sono diploidi: contengono 46 cromosomi, cioè 23 coppie. In ogni coppia un cromosoma viene dalla madre e uno dal padre. I due cromosomi di una coppia si chiamano omologhi: portano gli stessi geni nella stessa posizione, ma possono averne versioni diverse, cioè alleli diversi. Si scrive 2n = 46.",
-          "Se uovo e spermatozoo avessero 46 cromosomi ciascuno, lo zigote ne avrebbe 92, e il numero raddoppierebbe a ogni generazione. La meiosi evita il problema: produce gameti aploidi, con n = 23 cromosomi, uno per ogni coppia. La fecondazione riunisce due gameti aploidi e ripristina il numero diploide."
+          "Le reazioni della chimica prebiotica erano lentissime. La stazione confronta la velocità di una reazione catalizzata da un enzima con quella che avrebbe senza catalizzatore.",
+          "Un catalizzatore abbassa l'energia di attivazione senza cambiare l'energia di Gibbs della reazione. Per un enzima la velocità iniziale segue v = V_max[S]/(K_m + [S]) e satura a V_max."
         ],
         "intermediate": [
-          "Nella serra della stazione due piante sorelle, nate dagli stessi genitori, hanno foglie e fiori un po’ diversi. Anche due fratelli umani si somigliano senza essere uguali, salvo i gemelli identici. La causa sta nel modo in cui si formano i gameti, le cellule riproduttive: la meiosi mescola i cromosomi ricevuti dai genitori.",
-          "Le cellule del corpo umano sono diploidi: contengono 46 cromosomi, cioè 23 coppie. In ogni coppia un cromosoma viene dalla madre e uno dal padre. I due cromosomi di una coppia si chiamano omologhi: portano gli stessi geni nella stessa posizione, ma possono averne versioni diverse, cioè alleli diversi. Si scrive 2n = 46.",
-          "Se uovo e spermatozoo avessero 46 cromosomi ciascuno, lo zigote ne avrebbe 92, e il numero raddoppierebbe a ogni generazione. La meiosi evita il problema: produce gameti aploidi, con n = 23 cromosomi, uno per ogni coppia. La fecondazione riunisce due gameti aploidi e ripristina il numero diploide."
+          "Le reazioni della chimica prebiotica erano lentissime. La stazione confronta la velocità di una reazione catalizzata da un enzima con quella che avrebbe senza catalizzatore.",
+          "Ponendo [S] = K_m si ottiene v = V_max/2: K_m è la concentrazione di substrato a cui l'enzima lavora a metà della velocità massima."
         ],
         "advanced": [
-          "Nella serra della stazione due piante sorelle, nate dagli stessi genitori, hanno foglie e fiori un po’ diversi. Anche due fratelli umani si somigliano senza essere uguali, salvo i gemelli identici. La causa sta nel modo in cui si formano i gameti, le cellule riproduttive: la meiosi mescola i cromosomi ricevuti dai genitori.",
-          "Le cellule del corpo umano sono diploidi: contengono 46 cromosomi, cioè 23 coppie. In ogni coppia un cromosoma viene dalla madre e uno dal padre. I due cromosomi di una coppia si chiamano omologhi: portano gli stessi geni nella stessa posizione, ma possono averne versioni diverse, cioè alleli diversi. Si scrive 2n = 46.",
-          "Se uovo e spermatozoo avessero 46 cromosomi ciascuno, lo zigote ne avrebbe 92, e il numero raddoppierebbe a ogni generazione. La meiosi evita il problema: produce gameti aploidi, con n = 23 cromosomi, uno per ogni coppia. La fecondazione riunisce due gameti aploidi e ripristina il numero diploide."
+          "Le reazioni della chimica prebiotica erano lentissime. La stazione confronta la velocità di una reazione catalizzata da un enzima con quella che avrebbe senza catalizzatore.",
+          "Confronta l'effetto di raddoppiare V_max con quello di dimezzare K_m; poi discuti quali ioni metallici dei minerali potevano svolgere il ruolo dei primi catalizzatori.",
+          "Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Due divisioni, molte combinazioni",
+      "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "La meiosi comprende due divisioni successive, precedute da una sola duplicazione del DNA. Nella meiosi I si separano i cromosomi omologhi: ogni cellula figlia riceve un cromosoma di ogni coppia, ancora formato da due cromatidi. Nella meiosi II si separano i cromatidi fratelli, come nella mitosi. Da una cellula diploide si ottengono quattro cellule aploidi.",
-          "Nella profase I gli omologhi si appaiano lungo tutta la loro lunghezza e formano coppie strette, dette bivalenti o tetradi. In alcuni punti, chiamati chiasmi, due cromatidi non fratelli si scambiano tratti corrispondenti: è il crossing-over. Ne escono cromatidi che combinano alleli materni e paterni.",
-          "Nella metafase I le coppie di omologhi si allineano all’equatore, e l’orientamento di ogni coppia è casuale: il cromosoma materno può finire verso un polo o verso l’altro, indipendentemente dalle altre coppie. È l’assortimento indipendente.",
-          "Contiamo le possibilità. Con 2 coppie ci sono 2 · 2 = 4 combinazioni di origine dei cromosomi in un gamete: materno-materno, materno-paterno, paterno-materno, paterno-paterno. Con n coppie le combinazioni sono 2ⁿ. Per l’essere umano, con 23 coppie, sono 2²³ = 8 388 608, senza contare il crossing-over."
+          "Un catalizzatore abbassa l'energia di attivazione senza cambiare l'energia di Gibbs della reazione. Per un enzima la velocità iniziale segue v = V_max[S]/(K_m + [S]) e satura a V_max.",
+          "Con V_max = 10 μmol/min e K_m = 2 mmol/L, a [S] = 2 mmol/L la velocità è 5 μmol/min; a 10 mmol/L è circa 8,3 μmol/min."
         ],
         "intermediate": [
-          "La meiosi comprende due divisioni successive, precedute da una sola duplicazione del DNA. Nella meiosi I si separano i cromosomi omologhi: ogni cellula figlia riceve un cromosoma di ogni coppia, ancora formato da due cromatidi. Nella meiosi II si separano i cromatidi fratelli, come nella mitosi. Da una cellula diploide si ottengono quattro cellule aploidi.",
-          "Nella profase I gli omologhi si appaiano lungo tutta la loro lunghezza e formano coppie strette, dette bivalenti o tetradi. In alcuni punti, chiamati chiasmi, due cromatidi non fratelli si scambiano tratti corrispondenti: è il crossing-over. Ne escono cromatidi che combinano alleli materni e paterni.",
-          "Nella metafase I le coppie di omologhi si allineano all’equatore, e l’orientamento di ogni coppia è casuale: il cromosoma materno può finire verso un polo o verso l’altro, indipendentemente dalle altre coppie. È l’assortimento indipendente.",
-          "Contiamo le possibilità. Con 2 coppie ci sono 2 · 2 = 4 combinazioni di origine dei cromosomi in un gamete: materno-materno, materno-paterno, paterno-materno, paterno-paterno. Con n coppie le combinazioni sono 2ⁿ. Per l’essere umano, con 23 coppie, sono 2²³ = 8 388 608, senza contare il crossing-over.",
-          "Quanti cromosomi materni contiene un gamete? Se ogni coppia invia il materno con probabilità 1/2, indipendentemente dalle altre, il numero k di cromosomi materni segue la legge binomiale: P(k) = C(n, k)/2ⁿ, dove C(n, k) conta i modi di scegliere quali k coppie danno il materno. Con n = 4 i valori di C(4, k) sono 1, 4, 6, 4, 1 su 16 combinazioni: P(2) = 6/16 = 0,375."
+          "Ponendo [S] = K_m si ottiene v = V_max/2: K_m è la concentrazione di substrato a cui l'enzima lavora a metà della velocità massima.",
+          "La variabile Substrato è espressa in mmol/L; Velocità iniziale in μmol/min. Il dominio dello strumento è [0; 10]. La relazione implementata è: v = V_max [S]/(K_m+[S]).",
+          "Con V_max = 10 μmol/min e K_m = 2 mmol/L, a [S] = 2 mmol/L la velocità è 5 μmol/min; a 10 mmol/L è circa 8,3 μmol/min."
         ],
         "advanced": [
-          "La meiosi comprende due divisioni successive, precedute da una sola duplicazione del DNA. Nella meiosi I si separano i cromosomi omologhi: ogni cellula figlia riceve un cromosoma di ogni coppia, ancora formato da due cromatidi. Nella meiosi II si separano i cromatidi fratelli, come nella mitosi. Da una cellula diploide si ottengono quattro cellule aploidi.",
-          "Nella profase I gli omologhi si appaiano lungo tutta la loro lunghezza e formano coppie strette, dette bivalenti o tetradi. In alcuni punti, chiamati chiasmi, due cromatidi non fratelli si scambiano tratti corrispondenti: è il crossing-over. Ne escono cromatidi che combinano alleli materni e paterni.",
-          "Nella metafase I le coppie di omologhi si allineano all’equatore, e l’orientamento di ogni coppia è casuale: il cromosoma materno può finire verso un polo o verso l’altro, indipendentemente dalle altre coppie. È l’assortimento indipendente.",
-          "Quanti cromosomi materni contiene un gamete? Se ogni coppia invia il materno con probabilità 1/2, indipendentemente dalle altre, il numero k di cromosomi materni segue la legge binomiale: P(k) = C(n, k)/2ⁿ, dove C(n, k) conta i modi di scegliere quali k coppie danno il materno. Con n = 4 i valori di C(4, k) sono 1, 4, 6, 4, 1 su 16 combinazioni: P(2) = 6/16 = 0,375.",
-          "I casi estremi sono rari. Con 23 coppie la probabilità che un gamete contenga solo cromosomi materni è 1/2²³, circa 1,2 · 10⁻⁷. Combinando due gameti, uno per genitore, le combinazioni possibili per uno zigote sono (2²³)², circa 7,0 · 10¹³, ancora senza il crossing-over: per questo due fratelli non sono mai identici, salvo i gemelli monozigotici.",
-          "Confronto con la mitosi. La mitosi produce due cellule diploidi identiche alla madre e serve a crescere e riparare; la meiosi produce quattro cellule aploidi diverse tra loro e serve alla riproduzione sessuata. Nella mitosi gli omologhi non si appaiano; nella meiosi I si appaiano, si scambiano tratti e si separano."
+          "Ponendo [S] = K_m si ottiene v = V_max/2: K_m è la concentrazione di substrato a cui l'enzima lavora a metà della velocità massima.",
+          "Confronta l'effetto di raddoppiare V_max con quello di dimezzare K_m; poi discuti quali ioni metallici dei minerali potevano svolgere il ruolo dei primi catalizzatori.",
+          "Un catalizzatore lascia invariata l'energia di Gibbs della reazione. Accelera allo stesso modo la reazione diretta e quella inversa, e quindi è incapace di rendere spontanea una reazione sfavorevole."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Il laboratorio delle combinazioni",
+      "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio il grafico mostra, a barre, la probabilità P(k) che un gamete contenga esattamente k cromosomi materni. Nella scheda «Regola» scegli il numero di coppie n, da 2 a 12; il cursore orizzontale sceglie k. Le barre sono separate perché k è un numero intero.",
-          "Protocollo. Con n = 4, prevedi come cambia P(k) passando da k = 3 a k = 6: scegli «Cresce», «Diminuisce», «Uguale» o «Non definito» nella scheda «A / B» e premi «Salva A». Poi porta n a 12, fai una nuova previsione e premi «Salva B». Attenzione al caso n = 4: con quattro coppie un gamete non può avere sei cromosomi materni.",
-          "Prima di salvare, calcola a mano almeno un valore: per n = 4 e k = 3 ci sono 4 modi di scegliere le tre coppie che danno il materno, su 16 combinazioni.",
-          "Che cosa osservare. Con n = 4, P(3) = 4/16 = 0,25 e P(6) = 0, quindi la probabilità diminuisce. Con n = 12 la distribuzione si sposta e si allarga: P(3) ≈ 0,054 e P(6) ≈ 0,226, quindi cresce, perché 6 è il valore centrale. Con n = 2 entrambe le probabilità valgono zero. La barra più alta sta sempre a k = n/2, e la somma di tutte le barre vale 1."
+          "Nel laboratorio imposta Velocità massima (a): 10 μmol/min; Costante K_m (b): 2 mmol/L. Prima di salvare A, prevedi come cambia Velocità iniziale fra Substrato=2,5 e 5 mmol/L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con V_max = 10 μmol/min e K_m = 2 mmol/L, a [S] = 2 mmol/L la velocità è 5 μmol/min; a 10 mmol/L è circa 8,3 μmol/min.",
+          "La variabile Substrato è espressa in mmol/L; Velocità iniziale in μmol/min. Il dominio dello strumento è [0; 10]. La relazione implementata è: v = V_max [S]/(K_m+[S])."
         ],
         "intermediate": [
-          "Nel laboratorio il grafico mostra, a barre, la probabilità P(k) che un gamete contenga esattamente k cromosomi materni. Nella scheda «Regola» scegli il numero di coppie n, da 2 a 12; il cursore orizzontale sceglie k. Le barre sono separate perché k è un numero intero.",
-          "Protocollo. Con n = 4, prevedi come cambia P(k) passando da k = 3 a k = 6: scegli «Cresce», «Diminuisce», «Uguale» o «Non definito» nella scheda «A / B» e premi «Salva A». Poi porta n a 12, fai una nuova previsione e premi «Salva B». Attenzione al caso n = 4: con quattro coppie un gamete non può avere sei cromosomi materni.",
-          "Prima di salvare, calcola a mano almeno un valore: per n = 4 e k = 3 ci sono 4 modi di scegliere le tre coppie che danno il materno, su 16 combinazioni.",
-          "Che cosa osservare. Con n = 4, P(3) = 4/16 = 0,25 e P(6) = 0, quindi la probabilità diminuisce. Con n = 12 la distribuzione si sposta e si allarga: P(3) ≈ 0,054 e P(6) ≈ 0,226, quindi cresce, perché 6 è il valore centrale. Con n = 2 entrambe le probabilità valgono zero. La barra più alta sta sempre a k = n/2, e la somma di tutte le barre vale 1."
+          "Nel laboratorio imposta Velocità massima (a): 10 μmol/min; Costante K_m (b): 2 mmol/L. Prima di salvare A, prevedi come cambia Velocità iniziale fra Substrato=2,5 e 5 mmol/L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Substrato è espressa in mmol/L; Velocità iniziale in μmol/min. Il dominio dello strumento è [0; 10]. La relazione implementata è: v = V_max [S]/(K_m+[S]).",
+          "Ponendo [S] = K_m si ottiene v = V_max/2: K_m è la concentrazione di substrato a cui l'enzima lavora a metà della velocità massima."
         ],
         "advanced": [
-          "Nel laboratorio il grafico mostra, a barre, la probabilità P(k) che un gamete contenga esattamente k cromosomi materni. Nella scheda «Regola» scegli il numero di coppie n, da 2 a 12; il cursore orizzontale sceglie k. Le barre sono separate perché k è un numero intero.",
-          "Protocollo. Con n = 4, prevedi come cambia P(k) passando da k = 3 a k = 6: scegli «Cresce», «Diminuisce», «Uguale» o «Non definito» nella scheda «A / B» e premi «Salva A». Poi porta n a 12, fai una nuova previsione e premi «Salva B». Attenzione al caso n = 4: con quattro coppie un gamete non può avere sei cromosomi materni.",
-          "Che cosa osservare. Con n = 4, P(3) = 4/16 = 0,25 e P(6) = 0, quindi la probabilità diminuisce. Con n = 12 la distribuzione si sposta e si allarga: P(3) ≈ 0,054 e P(6) ≈ 0,226, quindi cresce, perché 6 è il valore centrale. Con n = 2 entrambe le probabilità valgono zero. La barra più alta sta sempre a k = n/2, e la somma di tutte le barre vale 1."
+          "Nel laboratorio imposta Velocità massima (a): 10 μmol/min; Costante K_m (b): 2 mmol/L. Prima di salvare A, prevedi come cambia Velocità iniziale fra Substrato=2,5 e 5 mmol/L. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Confronta l'effetto di raddoppiare V_max con quello di dimezzare K_m; poi discuti quali ioni metallici dei minerali potevano svolgere il ruolo dei primi catalizzatori.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Ipotesi del modello ed errori",
+      "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Errore frequente: pensare che il gamete riceva metà di ogni cromosoma. Riceve un cromosoma intero per ogni coppia, cioè metà dei cromosomi, e ciascun cromosoma porta tutti i suoi geni.",
-          "Secondo errore: pensare che il numero di cromosomi si dimezzi nella meiosi II. Si dimezza nella meiosi I, quando si separano gli omologhi; la meiosi II separa i cromatidi e lascia invariato il numero di cromosomi.",
-          "Il modello assume tre cose: ogni coppia si orienta in modo indipendente; materno e paterno sono equiprobabili; i cromosomi passano interi, senza crossing-over. La terza ipotesi è la meno realistica: con il crossing-over un cromosoma del gamete è spesso un mosaico di tratti materni e paterni, e la domanda «quanti cromosomi materni?» perde un significato preciso."
+          "Un catalizzatore lascia invariata l'energia di Gibbs della reazione. Accelera allo stesso modo la reazione diretta e quella inversa, e quindi è incapace di rendere spontanea una reazione sfavorevole.",
+          "Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ],
         "intermediate": [
-          "Errore frequente: pensare che il gamete riceva metà di ogni cromosoma. Riceve un cromosoma intero per ogni coppia, cioè metà dei cromosomi, e ciascun cromosoma porta tutti i suoi geni.",
-          "Secondo errore: pensare che il numero di cromosomi si dimezzi nella meiosi II. Si dimezza nella meiosi I, quando si separano gli omologhi; la meiosi II separa i cromatidi e lascia invariato il numero di cromosomi.",
-          "Il modello assume tre cose: ogni coppia si orienta in modo indipendente; materno e paterno sono equiprobabili; i cromosomi passano interi, senza crossing-over. La terza ipotesi è la meno realistica: con il crossing-over un cromosoma del gamete è spesso un mosaico di tratti materni e paterni, e la domanda «quanti cromosomi materni?» perde un significato preciso.",
-          "Talvolta gli omologhi, o i cromatidi, non si separano: è la non disgiunzione. Ne derivano gameti con un cromosoma in più o in meno. Uno zigote che riceve tre copie del cromosoma 21 sviluppa la sindrome di Down (trisomia 21). La probabilità di non disgiunzione aumenta con l’età materna."
+          "Un catalizzatore lascia invariata l'energia di Gibbs della reazione. Accelera allo stesso modo la reazione diretta e quella inversa, e quindi è incapace di rendere spontanea una reazione sfavorevole.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ],
         "advanced": [
-          "Il modello assume tre cose: ogni coppia si orienta in modo indipendente; materno e paterno sono equiprobabili; i cromosomi passano interi, senza crossing-over. La terza ipotesi è la meno realistica: con il crossing-over un cromosoma del gamete è spesso un mosaico di tratti materni e paterni, e la domanda «quanti cromosomi materni?» perde un significato preciso.",
-          "Anche l’assortimento indipendente ha un limite: vale per i cromosomi, e per i geni solo se stanno su cromosomi diversi o molto lontani sullo stesso cromosoma. Geni vicini tendono a passare insieme: è l’associazione genica, che si studia con le frequenze di ricombinazione.",
-          "Talvolta gli omologhi, o i cromatidi, non si separano: è la non disgiunzione. Ne derivano gameti con un cromosoma in più o in meno. Uno zigote che riceve tre copie del cromosoma 21 sviluppa la sindrome di Down (trisomia 21). La probabilità di non disgiunzione aumenta con l’età materna."
+          "Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività.",
+          "Confronta l'effetto di raddoppiare V_max con quello di dimezzare K_m; poi discuti quali ioni metallici dei minerali potevano svolgere il ruolo dei primi catalizzatori.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica",
+      "title": "Verifica ragionamento e calcolo",
       "text": {
         "base": [
-          "Ripasso: diploide e aploide; omologhi e cromatidi fratelli; che cosa separa la meiosi I e che cosa la meiosi II; dove e quando avviene il crossing-over; perché le combinazioni sono 2ⁿ; come si calcola P(k).",
-          "Mini esercizio: con n = 3 coppie le combinazioni sono 2³ = 8. Un solo cromosoma materno può venire da tre coppie diverse: P(1) = 3/8 = 0,375. Tutti materni: P(3) = 1/8.",
-          "Nelle domande numeriche scrivi prima quante combinazioni ci sono in tutto, poi quante soddisfano la richiesta."
+          "Un catalizzatore abbassa l'energia di attivazione senza cambiare l'energia di Gibbs della reazione. Per un enzima la velocità iniziale segue v = V_max[S]/(K_m + [S]) e satura a V_max.",
+          "Con V_max = 10 μmol/min e K_m = 2 mmol/L, a [S] = 2 mmol/L la velocità è 5 μmol/min; a 10 mmol/L è circa 8,3 μmol/min."
         ],
         "intermediate": [
-          "Ripasso: diploide e aploide; omologhi e cromatidi fratelli; che cosa separa la meiosi I e che cosa la meiosi II; dove e quando avviene il crossing-over; perché le combinazioni sono 2ⁿ; come si calcola P(k).",
-          "Mini esercizio: con n = 3 coppie le combinazioni sono 2³ = 8. Un solo cromosoma materno può venire da tre coppie diverse: P(1) = 3/8 = 0,375. Tutti materni: P(3) = 1/8.",
-          "Nelle domande numeriche scrivi prima quante combinazioni ci sono in tutto, poi quante soddisfano la richiesta."
+          "Ponendo [S] = K_m si ottiene v = V_max/2: K_m è la concentrazione di substrato a cui l'enzima lavora a metà della velocità massima.",
+          "La variabile Substrato è espressa in mmol/L; Velocità iniziale in μmol/min. Il dominio dello strumento è [0; 10]. La relazione implementata è: v = V_max [S]/(K_m+[S])."
         ],
         "advanced": [
-          "Ripasso: diploide e aploide; omologhi e cromatidi fratelli; che cosa separa la meiosi I e che cosa la meiosi II; dove e quando avviene il crossing-over; perché le combinazioni sono 2ⁿ; come si calcola P(k).",
-          "Mini esercizio: con n = 3 coppie le combinazioni sono 2³ = 8. Un solo cromosoma materno può venire da tre coppie diverse: P(1) = 3/8 = 0,375. Tutti materni: P(3) = 1/8.",
-          "Nelle domande numeriche scrivi prima quante combinazioni ci sono in tutto, poi quante soddisfano la richiesta."
+          "Confronta l'effetto di raddoppiare V_max con quello di dimezzare K_m; poi discuti quali ioni metallici dei minerali potevano svolgere il ruolo dei primi catalizzatori.",
+          "Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Collegamenti",
+      "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "L’unità successiva, «Ereditarietà mendeliana», mostra le conseguenze della meiosi sui caratteri: la separazione degli alleli nei gameti è la base del quadrato di Punnett.",
-          "Confronto con la mitosi. La mitosi produce due cellule diploidi identiche alla madre e serve a crescere e riparare; la meiosi produce quattro cellule aploidi diverse tra loro e serve alla riproduzione sessuata. Nella mitosi gli omologhi non si appaiano; nella meiosi I si appaiano, si scambiano tratti e si separano.",
-          "Nel diario registra le configurazioni A e B, le previsioni e i valori di P(k) letti nel laboratorio. Spiega perché la probabilità di un gamete con tutti cromosomi materni diventa trascurabile quando n cresce."
+          "Nel diario distingui previsione, risultato e interpretazione. Michaelis-Menten nelle ipotesi dichiarate.",
+          "Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività.",
+          "Collegamento consigliato: chemistry-18. Il completamento registra attività e autoverifica, non certifica competenze."
         ],
         "intermediate": [
-          "L’unità successiva, «Ereditarietà mendeliana», mostra le conseguenze della meiosi sui caratteri: la separazione degli alleli nei gameti è la base del quadrato di Punnett.",
-          "Confronto con la mitosi. La mitosi produce due cellule diploidi identiche alla madre e serve a crescere e riparare; la meiosi produce quattro cellule aploidi diverse tra loro e serve alla riproduzione sessuata. Nella mitosi gli omologhi non si appaiano; nella meiosi I si appaiano, si scambiano tratti e si separano.",
-          "Nel diario registra le configurazioni A e B, le previsioni e i valori di P(k) letti nel laboratorio. Spiega perché la probabilità di un gamete con tutti cromosomi materni diventa trascurabile quando n cresce."
+          "Ponendo [S] = K_m si ottiene v = V_max/2: K_m è la concentrazione di substrato a cui l'enzima lavora a metà della velocità massima.",
+          "Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività.",
+          "Confronta l'effetto di raddoppiare V_max con quello di dimezzare K_m; poi discuti quali ioni metallici dei minerali potevano svolgere il ruolo dei primi catalizzatori."
         ],
         "advanced": [
-          "L’unità successiva, «Ereditarietà mendeliana», mostra le conseguenze della meiosi sui caratteri: la separazione degli alleli nei gameti è la base del quadrato di Punnett.",
-          "I casi estremi sono rari. Con 23 coppie la probabilità che un gamete contenga solo cromosomi materni è 1/2²³, circa 1,2 · 10⁻⁷. Combinando due gameti, uno per genitore, le combinazioni possibili per uno zigote sono (2²³)², circa 7,0 · 10¹³, ancora senza il crossing-over: per questo due fratelli non sono mai identici, salvo i gemelli monozigotici.",
-          "Nel diario registra le configurazioni A e B, le previsioni e i valori di P(k) letti nel laboratorio. Spiega perché la probabilità di un gamete con tutti cromosomi materni diventa trascurabile quando n cresce."
+          "Confronta l'effetto di raddoppiare V_max con quello di dimezzare K_m; poi discuti quali ioni metallici dei minerali potevano svolgere il ruolo dei primi catalizzatori.",
+          "Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-08-q1",
-      "prompt": "In quale divisione si dimezza il numero di cromosomi?",
+      "id": "biology-08-concept",
+      "prompt": "Quando [S] = K_m, la velocità vale:",
       "options": [
         {
           "id": "A",
-          "text": "Nella meiosi I",
-          "feedback": "Esatto: separando gli omologhi, ogni cellula riceve un cromosoma per coppia."
+          "text": "V_max",
+          "feedback": "Un catalizzatore lascia invariata l'energia di Gibbs della reazione. Accelera allo stesso modo la reazione diretta e quella inversa, e quindi è incapace di rendere spontanea una reazione sfavorevole."
         },
         {
           "id": "B",
-          "text": "Nella meiosi II",
-          "feedback": "La meiosi II separa i cromatidi fratelli e lascia invariato il numero di cromosomi."
+          "text": "0",
+          "feedback": "Ponendo [S] = K_m si ottiene v = V_max/2: K_m è la concentrazione di substrato a cui l'enzima lavora a metà della velocità massima."
         },
         {
           "id": "C",
-          "text": "Nella mitosi",
-          "feedback": "La mitosi produce cellule con lo stesso numero di cromosomi della madre."
-        },
-        {
-          "id": "D",
-          "text": "Durante la fase S",
-          "feedback": "Nella fase S il DNA si duplica: il numero di cromatidi raddoppia, quello dei cromosomi resta uguale."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-08-q2",
-      "prompt": "Quanti cromosomi ha un gamete umano?",
-      "options": [
-        {
-          "id": "A",
-          "text": "46",
-          "feedback": "46 è il numero delle cellule diploidi del corpo."
-        },
-        {
-          "id": "B",
-          "text": "92",
-          "feedback": "92 è il numero dei cromatidi di una cellula diploide dopo la duplicazione."
-        },
-        {
-          "id": "C",
-          "text": "23",
-          "feedback": "Esatto: un cromosoma per ciascuna delle 23 coppie."
-        },
-        {
-          "id": "D",
-          "text": "11 o 12",
-          "feedback": "Ogni gamete riceve un cromosoma di ogni coppia, quindi 23."
+          "text": "V_max/2",
+          "feedback": "Un catalizzatore abbassa l'energia di attivazione senza cambiare l'energia di Gibbs della reazione. Per un enzima la velocità iniziale segue v = V_max[S]/(K_m + [S]) e satura a V_max."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "biology-08-q3",
-      "prompt": "Con 3 coppie di cromosomi, quante combinazioni di origine materna o paterna può avere un gamete?",
+      "id": "biology-08-calculation",
+      "prompt": "Calcolo: Velocità massima (a)=10 μmol/min; Costante K_m (b)=2 mmol/L. Per Substrato=2 mmol/L, quanto vale Velocità iniziale?",
       "options": [
         {
           "id": "A",
-          "text": "6",
-          "feedback": "Hai sommato 2 + 2 + 2: per ogni coppia la scelta si moltiplica con le altre."
+          "text": "2,5 μmol/min",
+          "feedback": "Controlla sostituzione, segno e unità. v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=10 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 5 μmol/min. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "3",
-          "feedback": "Tre sono le coppie; ogni coppia offre due possibilità."
+          "text": "5 μmol/min",
+          "feedback": "v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=10 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 5 μmol/min. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "9",
-          "feedback": "Hai calcolato 3²: il numero corretto è 2³."
-        },
-        {
-          "id": "D",
-          "text": "8",
-          "feedback": "Esatto: ogni coppia offre due scelte, quindi 2 · 2 · 2 = 2³ = 8."
+          "text": "7,5 μmol/min",
+          "feedback": "Questo valore non soddisfa la relazione. v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=10 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 5 μmol/min. Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "D"
+      "correct": "B",
+      "numeric": {
+        "x": 2,
+        "parameters": {
+          "a": 10,
+          "b": 2
+        },
+        "expected": 5,
+        "unit": "μmol/min"
+      }
     },
     {
-      "id": "biology-08-q4",
-      "prompt": "Con 4 coppie, qual è la probabilità che un gamete contenga esattamente 2 cromosomi materni?",
+      "id": "biology-08-transfer",
+      "prompt": "Trasferimento: Velocità massima (a)=15 μmol/min; Costante K_m (b)=2 mmol/L. Per Substrato=2 mmol/L, quanto vale Velocità iniziale?",
       "options": [
         {
           "id": "A",
-          "text": "0,5",
-          "feedback": "Metà dei cromosomi materni è il caso più probabile, ma la sua probabilità è 6/16."
+          "text": "7,5 μmol/min",
+          "feedback": "v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=15 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 7,5 μmol/min. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "0,375",
-          "feedback": "Esatto: C(4, 2) = 6 combinazioni su 16, cioè 6/16."
+          "text": "11,25 μmol/min",
+          "feedback": "Questo valore non soddisfa la relazione. v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=15 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 7,5 μmol/min. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "0,25",
-          "feedback": "4/16 è la probabilità di 1 o di 3 cromosomi materni."
+          "text": "3,75 μmol/min",
+          "feedback": "Controlla sostituzione, segno e unità. v = V_max [S]/(K_m+[S]). Con Velocità massima (a)=15 μmol/min; Costante K_m (b)=2 mmol/L e Substrato=2 mmol/L, il risultato è 7,5 μmol/min. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 2,
+        "parameters": {
+          "a": 15,
+          "b": 2
+        },
+        "expected": 7.5,
+        "unit": "μmol/min"
+      }
+    },
+    {
+      "id": "biology-08-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività."
         },
         {
-          "id": "D",
-          "text": "0,125",
-          "feedback": "Hai probabilmente contato solo 2 combinazioni su 16."
+          "id": "B",
+          "text": "Michaelis-Menten nelle ipotesi dichiarate",
+          "feedback": "Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività."
+        },
+        {
+          "id": "C",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Velocità iniziali, un solo substrato, approssimazione di stato stazionario; niente inibitori né cooperatività."
         }
       ],
       "correct": "B"
-    },
-    {
-      "id": "biology-08-q5",
-      "prompt": "Quando e tra chi avviene il crossing-over?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Nell’anafase II, tra cromatidi fratelli",
-          "feedback": "Nell’anafase II i cromatidi si separano, e due cromatidi fratelli sono identici: uno scambio tra loro non cambierebbe nulla."
-        },
-        {
-          "id": "B",
-          "text": "Nella profase I, tra cromatidi non fratelli di due omologhi",
-          "feedback": "Esatto: lo scambio unisce in un cromatidio tratti materni e paterni."
-        },
-        {
-          "id": "C",
-          "text": "Nella mitosi, tra cromosomi di coppie diverse",
-          "feedback": "Nella mitosi gli omologhi non si appaiano, e lo scambio avviene tra omologhi della stessa coppia."
-        },
-        {
-          "id": "D",
-          "text": "Nella fecondazione, tra il gamete materno e quello paterno",
-          "feedback": "La fecondazione unisce due nuclei e non scambia tratti di cromosomi."
-        }
-      ],
-      "correct": "B"
-    },
-    {
-      "id": "biology-08-q6",
-      "prompt": "Che cosa produce una non disgiunzione nella meiosi?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Gameti con un cromosoma in più o in meno",
-          "feedback": "Esatto: uno zigote con tre copie del cromosoma 21 sviluppa la trisomia 21."
-        },
-        {
-          "id": "B",
-          "text": "Gameti con tutti i cromosomi materni",
-          "feedback": "Tutti materni è un caso raro dell’assortimento normale, con il numero di cromosomi corretto."
-        },
-        {
-          "id": "C",
-          "text": "Gameti diploidi identici alla madre",
-          "feedback": "La non disgiunzione riguarda di solito una sola coppia di cromosomi."
-        },
-        {
-          "id": "D",
-          "text": "Un crossing-over più frequente",
-          "feedback": "Crossing-over e non disgiunzione sono fenomeni diversi."
-        }
-      ],
-      "correct": "A"
     }
   ]
 }

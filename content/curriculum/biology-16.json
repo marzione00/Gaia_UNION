@@ -2,25 +2,23 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-16",
-  "title": "Speciazione e barriere riproduttive",
+  "title": "Le prime tracce della vita e il tempo geologico",
   "sector": 3,
   "modelId": "biology-16",
-  "coverage": "guided-activity",
-  "editorialStatus": "hand-written-draft",
-  "scope": "Concetto biologico di specie, barriere prezigotiche e postzigotiche, combinazione delle barriere, modi di speciazione",
-  "narrativeStatus": "Gli esempi di scoiattoli, mulo e mosca della mela sono reali.",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Decadimento in un sistema chiuso",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
   "objectives": [
-    "Usare il concetto biologico di specie e riconoscerne i limiti.",
-    "Classificare le barriere riproduttive.",
-    "Calcolare l’isolamento prodotto da più barriere.",
-    "Distinguere speciazione allopatrica e simpatrica."
+    "Spiegare: decadimento in un sistema chiuso.",
+    "Applicare t = (t½/ln2)·ln(1 + D/P), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
   ],
   "prerequisites": [
     "biology-15"
   ],
   "connections": [
-    "biology-17",
-    "math-c01"
+    "physics-25"
   ],
   "sources": [
     "biology"
@@ -28,532 +26,244 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Specie biologica",
-      "definition": "Insieme di popolazioni che si incrociano producendo prole fertile."
+      "term": "Rapporto figlio/padre D/P",
+      "definition": "Variabile indipendente, unità 1; intervallo [0; 2]."
     },
     {
-      "term": "Barriera prezigotica",
-      "definition": "Barriera che impedisce la fecondazione."
+      "term": "Età",
+      "definition": "Risultato calcolato dal modello, unità miliardi di anni."
     },
     {
-      "term": "Barriera postzigotica",
-      "definition": "Barriera che agisce dopo la fecondazione, sull’ibrido."
-    },
-    {
-      "term": "Speciazione allopatrica",
-      "definition": "Formazione di specie in popolazioni separate geograficamente."
-    },
-    {
-      "term": "Poliploidia",
-      "definition": "Presenza di più di due corredi di cromosomi."
+      "term": "Tempo di dimezzamento",
+      "definition": "Parametro a, unità miliardi di anni; intervallo [0,1; 50]."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Due scoiattoli e un canyon",
+      "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Sui due lati del Grand Canyon vivono due scoiattoli dalle orecchie a ciuffo, uno con la coda bianca e uno con la coda grigia. Il canyon li separa da migliaia di anni, e le due popolazioni hanno preso strade diverse. Quando due popolazioni diventano due specie? La risposta dipende da che cosa impedisce loro di incrociarsi.",
-          "Nel 1942 Ernst Mayr formulò il concetto biologico di specie: gruppi di popolazioni che si incrociano, o possono incrociarsi, producendo prole fertile, e che sono isolati da altri gruppi simili. Il concetto funziona bene per gli animali a riproduzione sessuale; per batteri, organismi asessuali e fossili si usano criteri morfologici o molecolari."
+          "In una roccia con stromatoliti la stazione misura il rapporto fra un isotopo figlio e l'isotopo padre radioattivo. Quanti anni ha la roccia?",
+          "Un isotopo radioattivo decade con tempo di dimezzamento t½. Se tutti gli atomi figli D vengono dal decadimento dei padri P, l'età è t = (t½/ln2)·ln(1 + D/P)."
         ],
         "intermediate": [
-          "Sui due lati del Grand Canyon vivono due scoiattoli dalle orecchie a ciuffo, uno con la coda bianca e uno con la coda grigia. Il canyon li separa da migliaia di anni, e le due popolazioni hanno preso strade diverse. Quando due popolazioni diventano due specie? La risposta dipende da che cosa impedisce loro di incrociarsi.",
-          "Nel 1942 Ernst Mayr formulò il concetto biologico di specie: gruppi di popolazioni che si incrociano, o possono incrociarsi, producendo prole fertile, e che sono isolati da altri gruppi simili. Il concetto funziona bene per gli animali a riproduzione sessuale; per batteri, organismi asessuali e fossili si usano criteri morfologici o molecolari."
+          "In una roccia con stromatoliti la stazione misura il rapporto fra un isotopo figlio e l'isotopo padre radioattivo. Quanti anni ha la roccia?",
+          "P(t) = P₀exp(-λt) e D = P₀ - P, quindi P₀/P = 1 + D/P = exp(λt); con λ = ln2/t½ si ricava t."
         ],
         "advanced": [
-          "Sui due lati del Grand Canyon vivono due scoiattoli dalle orecchie a ciuffo, uno con la coda bianca e uno con la coda grigia. Il canyon li separa da migliaia di anni, e le due popolazioni hanno preso strade diverse. Quando due popolazioni diventano due specie? La risposta dipende da che cosa impedisce loro di incrociarsi.",
-          "Nel 1942 Ernst Mayr formulò il concetto biologico di specie: gruppi di popolazioni che si incrociano, o possono incrociarsi, producendo prole fertile, e che sono isolati da altri gruppi simili. Il concetto funziona bene per gli animali a riproduzione sessuale; per batteri, organismi asessuali e fossili si usano criteri morfologici o molecolari."
+          "In una roccia con stromatoliti la stazione misura il rapporto fra un isotopo figlio e l'isotopo padre radioattivo. Quanti anni ha la roccia?",
+          "Calcola l'età di uno zircone con il sistema uranio-238 (t½ = 4,468 miliardi di anni) per D/P = 0,9, e confrontala con l'età della Terra.",
+          "Sistema chiuso, nessun figlio iniziale, un solo decadimento; le datazioni reali usano più sistemi e isocrone."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Barriere e modi di speciazione",
+      "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Le barriere riproduttive si dividono in due gruppi. Le barriere prezigotiche impediscono la fecondazione: habitat diversi, stagioni riproduttive diverse, corteggiamenti diversi, organi riproduttivi incompatibili, gameti che non si riconoscono. Le barriere postzigotiche agiscono dopo: l’ibrido muore presto, oppure è sterile, come il mulo, figlio di una cavalla con 64 cromosomi e di un asino con 62, che ne ha 63 e non riesce a formare gameti normali.",
-          "Le barriere si sommano. Se una prima barriera blocca una frazione b₁ degli incroci e una seconda una frazione b₂ di quelli rimasti, l’isolamento totale è 1 − (1 − b₁)(1 − b₂). Con b₁ = 0,5 e b₂ = 0,3: 1 − 0,5 · 0,7 = 0,65. Barriere singolarmente deboli producono insieme un isolamento forte.",
-          "La speciazione allopatrica avviene quando una barriera geografica separa una popolazione: un canyon, un braccio di mare, una catena montuosa. Le due parti accumulano differenze per mutazione, selezione e deriva. La speciazione simpatrica avviene nello stesso luogo: nelle piante, un errore nella divisione può raddoppiare i cromosomi e isolare subito i discendenti; negli insetti, il passaggio a una nuova pianta ospite, come per la mosca della mela in Nord America, separa gli accoppiamenti."
+          "Un isotopo radioattivo decade con tempo di dimezzamento t½. Se tutti gli atomi figli D vengono dal decadimento dei padri P, l'età è t = (t½/ln2)·ln(1 + D/P).",
+          "Con t½ = 1,25 miliardi di anni, valore del potassio-40, un rapporto D/P = 1 corrisponde a un'età di 1,25 miliardi di anni."
         ],
         "intermediate": [
-          "Le barriere riproduttive si dividono in due gruppi. Le barriere prezigotiche impediscono la fecondazione: habitat diversi, stagioni riproduttive diverse, corteggiamenti diversi, organi riproduttivi incompatibili, gameti che non si riconoscono. Le barriere postzigotiche agiscono dopo: l’ibrido muore presto, oppure è sterile, come il mulo, figlio di una cavalla con 64 cromosomi e di un asino con 62, che ne ha 63 e non riesce a formare gameti normali.",
-          "Le barriere si sommano. Se una prima barriera blocca una frazione b₁ degli incroci e una seconda una frazione b₂ di quelli rimasti, l’isolamento totale è 1 − (1 − b₁)(1 − b₂). Con b₁ = 0,5 e b₂ = 0,3: 1 − 0,5 · 0,7 = 0,65. Barriere singolarmente deboli producono insieme un isolamento forte.",
-          "La speciazione allopatrica avviene quando una barriera geografica separa una popolazione: un canyon, un braccio di mare, una catena montuosa. Le due parti accumulano differenze per mutazione, selezione e deriva. La speciazione simpatrica avviene nello stesso luogo: nelle piante, un errore nella divisione può raddoppiare i cromosomi e isolare subito i discendenti; negli insetti, il passaggio a una nuova pianta ospite, come per la mosca della mela in Nord America, separa gli accoppiamenti."
+          "P(t) = P₀exp(-λt) e D = P₀ - P, quindi P₀/P = 1 + D/P = exp(λt); con λ = ln2/t½ si ricava t.",
+          "La variabile Rapporto figlio/padre D/P è espressa in 1; Età in miliardi di anni. Il dominio dello strumento è [0; 2]. La relazione implementata è: t = (t½/ln2)·ln(1 + D/P).",
+          "Con t½ = 1,25 miliardi di anni, valore del potassio-40, un rapporto D/P = 1 corrisponde a un'età di 1,25 miliardi di anni."
         ],
         "advanced": [
-          "Le barriere riproduttive si dividono in due gruppi. Le barriere prezigotiche impediscono la fecondazione: habitat diversi, stagioni riproduttive diverse, corteggiamenti diversi, organi riproduttivi incompatibili, gameti che non si riconoscono. Le barriere postzigotiche agiscono dopo: l’ibrido muore presto, oppure è sterile, come il mulo, figlio di una cavalla con 64 cromosomi e di un asino con 62, che ne ha 63 e non riesce a formare gameti normali.",
-          "Le barriere si sommano. Se una prima barriera blocca una frazione b₁ degli incroci e una seconda una frazione b₂ di quelli rimasti, l’isolamento totale è 1 − (1 − b₁)(1 − b₂). Con b₁ = 0,5 e b₂ = 0,3: 1 − 0,5 · 0,7 = 0,65. Barriere singolarmente deboli producono insieme un isolamento forte.",
-          "La speciazione allopatrica avviene quando una barriera geografica separa una popolazione: un canyon, un braccio di mare, una catena montuosa. Le due parti accumulano differenze per mutazione, selezione e deriva. La speciazione simpatrica avviene nello stesso luogo: nelle piante, un errore nella divisione può raddoppiare i cromosomi e isolare subito i discendenti; negli insetti, il passaggio a una nuova pianta ospite, come per la mosca della mela in Nord America, separa gli accoppiamenti.",
-          "Il modello del programma calcola 1 − (1 − b₁)(1 − b₂) in funzione della prima barriera, con la seconda regolabile da 0 a 1: con b₂ = 0,3 e b₁ = 0,5 l’isolamento vale 0,65."
+          "P(t) = P₀exp(-λt) e D = P₀ - P, quindi P₀/P = 1 + D/P = exp(λt); con λ = ln2/t½ si ricava t.",
+          "Calcola l'età di uno zircone con il sistema uranio-238 (t½ = 4,468 miliardi di anni) per D/P = 0,9, e confrontala con l'età della Terra.",
+          "La datazione richiede che il sistema sia rimasto chiuso e che il figlio iniziale sia noto: un minerale che ha perso o acquistato atomi dà un'età sbagliata."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Carte delle specie",
+      "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "L’attività ha quattro serie di carte: barriere prezigotiche e postzigotiche; casi di speciazione allopatrica o simpatrica; combinazioni di barriere da ordinare per isolamento totale; coppie di organismi da classificare come stessa specie o specie diverse. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo una carta.",
-          "Per le barriere chiediti se si forma uno zigote. Se la fecondazione non avviene, la barriera è prezigotica; se avviene ma l’ibrido non sopravvive o non si riproduce, è postzigotica.",
-          "Il modello del programma calcola 1 − (1 − b₁)(1 − b₂) in funzione della prima barriera, con la seconda regolabile da 0 a 1: con b₂ = 0,3 e b₁ = 0,5 l’isolamento vale 0,65."
+          "Nel laboratorio imposta Tempo di dimezzamento (a): 1,25 miliardi di anni. Prima di salvare A, prevedi come cambia Età fra Rapporto figlio/padre D/P=0,5 e 1 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con t½ = 1,25 miliardi di anni, valore del potassio-40, un rapporto D/P = 1 corrisponde a un'età di 1,25 miliardi di anni.",
+          "La variabile Rapporto figlio/padre D/P è espressa in 1; Età in miliardi di anni. Il dominio dello strumento è [0; 2]. La relazione implementata è: t = (t½/ln2)·ln(1 + D/P)."
         ],
         "intermediate": [
-          "L’attività ha quattro serie di carte: barriere prezigotiche e postzigotiche; casi di speciazione allopatrica o simpatrica; combinazioni di barriere da ordinare per isolamento totale; coppie di organismi da classificare come stessa specie o specie diverse. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo una carta.",
-          "Per le barriere chiediti se si forma uno zigote. Se la fecondazione non avviene, la barriera è prezigotica; se avviene ma l’ibrido non sopravvive o non si riproduce, è postzigotica.",
-          "Il modello del programma calcola 1 − (1 − b₁)(1 − b₂) in funzione della prima barriera, con la seconda regolabile da 0 a 1: con b₂ = 0,3 e b₁ = 0,5 l’isolamento vale 0,65."
+          "Nel laboratorio imposta Tempo di dimezzamento (a): 1,25 miliardi di anni. Prima di salvare A, prevedi come cambia Età fra Rapporto figlio/padre D/P=0,5 e 1 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Rapporto figlio/padre D/P è espressa in 1; Età in miliardi di anni. Il dominio dello strumento è [0; 2]. La relazione implementata è: t = (t½/ln2)·ln(1 + D/P).",
+          "P(t) = P₀exp(-λt) e D = P₀ - P, quindi P₀/P = 1 + D/P = exp(λt); con λ = ln2/t½ si ricava t."
         ],
         "advanced": [
-          "L’attività ha quattro serie di carte: barriere prezigotiche e postzigotiche; casi di speciazione allopatrica o simpatrica; combinazioni di barriere da ordinare per isolamento totale; coppie di organismi da classificare come stessa specie o specie diverse. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo una carta.",
-          "Per le barriere chiediti se si forma uno zigote. Se la fecondazione non avviene, la barriera è prezigotica; se avviene ma l’ibrido non sopravvive o non si riproduce, è postzigotica."
+          "Nel laboratorio imposta Tempo di dimezzamento (a): 1,25 miliardi di anni. Prima di salvare A, prevedi come cambia Età fra Rapporto figlio/padre D/P=0,5 e 1 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Calcola l'età di uno zircone con il sistema uranio-238 (t½ = 4,468 miliardi di anni) per D/P = 0,9, e confrontala con l'età della Terra.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Errori frequenti",
+      "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Errore frequente: pensare che due animali molto diversi d’aspetto siano specie diverse. Un chihuahua e un alano sono cani della stessa specie; due specie di uccelli possono essere quasi identiche e distinguersi solo per il canto.",
-          "Secondo errore: credere che un ibrido nato provi che due organismi sono della stessa specie. Conta la fertilità: il mulo nasce, ma è sterile, e cavallo e asino restano specie distinte.",
-          "Le barriere si sommano. Se una prima barriera blocca una frazione b₁ degli incroci e una seconda una frazione b₂ di quelli rimasti, l’isolamento totale è 1 − (1 − b₁)(1 − b₂). Con b₁ = 0,5 e b₂ = 0,3: 1 − 0,5 · 0,7 = 0,65. Barriere singolarmente deboli producono insieme un isolamento forte."
+          "La datazione richiede che il sistema sia rimasto chiuso e che il figlio iniziale sia noto: un minerale che ha perso o acquistato atomi dà un'età sbagliata.",
+          "Sistema chiuso, nessun figlio iniziale, un solo decadimento; le datazioni reali usano più sistemi e isocrone.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ],
         "intermediate": [
-          "Errore frequente: pensare che due animali molto diversi d’aspetto siano specie diverse. Un chihuahua e un alano sono cani della stessa specie; due specie di uccelli possono essere quasi identiche e distinguersi solo per il canto.",
-          "Secondo errore: credere che un ibrido nato provi che due organismi sono della stessa specie. Conta la fertilità: il mulo nasce, ma è sterile, e cavallo e asino restano specie distinte.",
-          "Le barriere si sommano. Se una prima barriera blocca una frazione b₁ degli incroci e una seconda una frazione b₂ di quelli rimasti, l’isolamento totale è 1 − (1 − b₁)(1 − b₂). Con b₁ = 0,5 e b₂ = 0,3: 1 − 0,5 · 0,7 = 0,65. Barriere singolarmente deboli producono insieme un isolamento forte."
+          "La datazione richiede che il sistema sia rimasto chiuso e che il figlio iniziale sia noto: un minerale che ha perso o acquistato atomi dà un'età sbagliata.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ],
         "advanced": [
-          "Errore frequente: pensare che due animali molto diversi d’aspetto siano specie diverse. Un chihuahua e un alano sono cani della stessa specie; due specie di uccelli possono essere quasi identiche e distinguersi solo per il canto.",
-          "Secondo errore: credere che un ibrido nato provi che due organismi sono della stessa specie. Conta la fertilità: il mulo nasce, ma è sterile, e cavallo e asino restano specie distinte.",
-          "Il modello del programma calcola 1 − (1 − b₁)(1 − b₂) in funzione della prima barriera, con la seconda regolabile da 0 a 1: con b₂ = 0,3 e b₁ = 0,5 l’isolamento vale 0,65."
+          "Sistema chiuso, nessun figlio iniziale, un solo decadimento; le datazioni reali usano più sistemi e isocrone.",
+          "Calcola l'età di uno zircone con il sistema uranio-238 (t½ = 4,468 miliardi di anni) per D/P = 0,9, e confrontala con l'età della Terra.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica",
+      "title": "Verifica ragionamento e calcolo",
       "text": {
         "base": [
-          "Ripasso: concetto biologico di specie e suoi limiti; barriere prezigotiche e postzigotiche; isolamento totale 1 − (1 − b₁)(1 − b₂); speciazione allopatrica e simpatrica; poliploidia.",
-          "Mini esercizio: due barriere che bloccano ciascuna il 70% danno insieme 1 − 0,3 · 0,3 = 0,91.",
-          "Nelle domande sulla speciazione chiediti se le popolazioni sono separate nello spazio o nello stesso luogo."
+          "Un isotopo radioattivo decade con tempo di dimezzamento t½. Se tutti gli atomi figli D vengono dal decadimento dei padri P, l'età è t = (t½/ln2)·ln(1 + D/P).",
+          "Con t½ = 1,25 miliardi di anni, valore del potassio-40, un rapporto D/P = 1 corrisponde a un'età di 1,25 miliardi di anni."
         ],
         "intermediate": [
-          "Ripasso: concetto biologico di specie e suoi limiti; barriere prezigotiche e postzigotiche; isolamento totale 1 − (1 − b₁)(1 − b₂); speciazione allopatrica e simpatrica; poliploidia.",
-          "Mini esercizio: due barriere che bloccano ciascuna il 70% danno insieme 1 − 0,3 · 0,3 = 0,91.",
-          "Nelle domande sulla speciazione chiediti se le popolazioni sono separate nello spazio o nello stesso luogo."
+          "P(t) = P₀exp(-λt) e D = P₀ - P, quindi P₀/P = 1 + D/P = exp(λt); con λ = ln2/t½ si ricava t.",
+          "La variabile Rapporto figlio/padre D/P è espressa in 1; Età in miliardi di anni. Il dominio dello strumento è [0; 2]. La relazione implementata è: t = (t½/ln2)·ln(1 + D/P)."
         ],
         "advanced": [
-          "Ripasso: concetto biologico di specie e suoi limiti; barriere prezigotiche e postzigotiche; isolamento totale 1 − (1 − b₁)(1 − b₂); speciazione allopatrica e simpatrica; poliploidia.",
-          "Mini esercizio: due barriere che bloccano ciascuna il 70% danno insieme 1 − 0,3 · 0,3 = 0,91.",
-          "Nelle domande sulla speciazione chiediti se le popolazioni sono separate nello spazio o nello stesso luogo."
+          "Calcola l'età di uno zircone con il sistema uranio-238 (t½ = 4,468 miliardi di anni) per D/P = 0,9, e confrontala con l'età della Terra.",
+          "Sistema chiuso, nessun figlio iniziale, un solo decadimento; le datazioni reali usano più sistemi e isocrone."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Collegamenti",
+      "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Le specie separate da tempo accumulano differenze nel DNA: l’unità «Filogenesi e cambiamenti molecolari» usa queste differenze per ricostruire gli alberi della vita.",
-          "Riepilogo dell’unità: una specie biologica è un insieme di popolazioni che si incrociano con prole fertile; le barriere prezigotiche impediscono la fecondazione e quelle postzigotiche agiscono dopo; più barriere si combinano in un isolamento 1 − (1 − b₁)(1 − b₂); la speciazione può essere allopatrica o simpatrica.",
-          "Nel diario spiega che cosa dovrebbe accadere perché i due scoiattoli del Grand Canyon siano considerati specie diverse."
+          "Nel diario distingui previsione, risultato e interpretazione. Decadimento in un sistema chiuso.",
+          "Sistema chiuso, nessun figlio iniziale, un solo decadimento; le datazioni reali usano più sistemi e isocrone.",
+          "Collegamento consigliato: physics-25. Il completamento registra attività e autoverifica, non certifica competenze."
         ],
         "intermediate": [
-          "Le specie separate da tempo accumulano differenze nel DNA: l’unità «Filogenesi e cambiamenti molecolari» usa queste differenze per ricostruire gli alberi della vita.",
-          "Riepilogo dell’unità: una specie biologica è un insieme di popolazioni che si incrociano con prole fertile; le barriere prezigotiche impediscono la fecondazione e quelle postzigotiche agiscono dopo; più barriere si combinano in un isolamento 1 − (1 − b₁)(1 − b₂); la speciazione può essere allopatrica o simpatrica.",
-          "Nel diario spiega che cosa dovrebbe accadere perché i due scoiattoli del Grand Canyon siano considerati specie diverse."
+          "P(t) = P₀exp(-λt) e D = P₀ - P, quindi P₀/P = 1 + D/P = exp(λt); con λ = ln2/t½ si ricava t.",
+          "Sistema chiuso, nessun figlio iniziale, un solo decadimento; le datazioni reali usano più sistemi e isocrone.",
+          "Calcola l'età di uno zircone con il sistema uranio-238 (t½ = 4,468 miliardi di anni) per D/P = 0,9, e confrontala con l'età della Terra."
         ],
         "advanced": [
-          "Le specie separate da tempo accumulano differenze nel DNA: l’unità «Filogenesi e cambiamenti molecolari» usa queste differenze per ricostruire gli alberi della vita.",
-          "Riepilogo dell’unità: una specie biologica è un insieme di popolazioni che si incrociano con prole fertile; le barriere prezigotiche impediscono la fecondazione e quelle postzigotiche agiscono dopo; più barriere si combinano in un isolamento 1 − (1 − b₁)(1 − b₂); la speciazione può essere allopatrica o simpatrica.",
-          "Nel diario spiega che cosa dovrebbe accadere perché i due scoiattoli del Grand Canyon siano considerati specie diverse."
+          "Calcola l'età di uno zircone con il sistema uranio-238 (t½ = 4,468 miliardi di anni) per D/P = 0,9, e confrontala con l'età della Terra.",
+          "Sistema chiuso, nessun figlio iniziale, un solo decadimento; le datazioni reali usano più sistemi e isocrone.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-16-q1",
-      "prompt": "Secondo il concetto biologico, quando due popolazioni sono della stessa specie?",
+      "id": "biology-16-concept",
+      "prompt": "Se D/P = 1, l'età della roccia è pari a:",
       "options": [
         {
           "id": "A",
-          "text": "Quando possono incrociarsi producendo prole fertile",
-          "feedback": "Esatto: è la definizione di specie biologica proposta da Mayr."
+          "text": "Un tempo di dimezzamento",
+          "feedback": "Un isotopo radioattivo decade con tempo di dimezzamento t½. Se tutti gli atomi figli D vengono dal decadimento dei padri P, l'età è t = (t½/ln2)·ln(1 + D/P)."
         },
         {
           "id": "B",
-          "text": "Quando si assomigliano molto",
-          "feedback": "L’aspetto può ingannare in entrambe le direzioni."
+          "text": "Due tempi di dimezzamento",
+          "feedback": "La datazione richiede che il sistema sia rimasto chiuso e che il figlio iniziale sia noto: un minerale che ha perso o acquistato atomi dà un'età sbagliata."
         },
         {
           "id": "C",
-          "text": "Quando vivono nello stesso luogo",
-          "feedback": "Specie diverse convivono spesso nello stesso habitat."
-        },
-        {
-          "id": "D",
-          "text": "Quando possono produrre un ibrido qualsiasi",
-          "feedback": "Anche cavallo e asino producono un ibrido, che però è sterile."
+          "text": "Metà del tempo di dimezzamento",
+          "feedback": "P(t) = P₀exp(-λt) e D = P₀ - P, quindi P₀/P = 1 + D/P = exp(λt); con λ = ln2/t½ si ricava t."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "biology-16-q2",
-      "prompt": "La sterilità del mulo è una barriera:",
+      "id": "biology-16-calculation",
+      "prompt": "Calcolo: Tempo di dimezzamento (a)=1,25 miliardi di anni. Per Rapporto figlio/padre D/P=1 (adimensionale), quanto vale Età?",
       "options": [
         {
           "id": "A",
-          "text": "Prezigotica",
-          "feedback": "La fecondazione avviene: il mulo nasce."
+          "text": "2,25 miliardi di anni",
+          "feedback": "Questo valore non soddisfa la relazione. t = (t½/ln2)·ln(1 + D/P). Con Tempo di dimezzamento (a)=1,25 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 1,25 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "Postzigotica",
-          "feedback": "Esatto: agisce sull’ibrido, che non forma gameti normali."
+          "text": "0,25 miliardi di anni",
+          "feedback": "Controlla sostituzione, segno e unità. t = (t½/ln2)·ln(1 + D/P). Con Tempo di dimezzamento (a)=1,25 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 1,25 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "Geografica",
-          "feedback": "Cavalli e asini possono vivere nello stesso luogo."
-        },
-        {
-          "id": "D",
-          "text": "Temporale",
-          "feedback": "Il problema non è la stagione riproduttiva."
+          "text": "1,25 miliardi di anni",
+          "feedback": "t = (t½/ln2)·ln(1 + D/P). Con Tempo di dimezzamento (a)=1,25 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 1,25 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "B"
+      "correct": "C",
+      "numeric": {
+        "x": 1,
+        "parameters": {
+          "a": 1.25
+        },
+        "expected": 1.25,
+        "unit": "miliardi di anni"
+      }
     },
     {
-      "id": "biology-16-q3",
-      "prompt": "Con b₁ = 0,5 e b₂ = 0,3, qual è l’isolamento totale?",
+      "id": "biology-16-transfer",
+      "prompt": "Trasferimento: Tempo di dimezzamento (a)=1,35 miliardi di anni. Per Rapporto figlio/padre D/P=1 (adimensionale), quanto vale Età?",
       "options": [
         {
           "id": "A",
-          "text": "0,8",
-          "feedback": "Le barriere non si sommano: la seconda agisce sugli incroci rimasti."
+          "text": "0,35 miliardi di anni",
+          "feedback": "Controlla sostituzione, segno e unità. t = (t½/ln2)·ln(1 + D/P). Con Tempo di dimezzamento (a)=1,35 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 1,35 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "0,15",
-          "feedback": "Questo è il prodotto b₁ · b₂, che non misura l’isolamento."
+          "text": "1,35 miliardi di anni",
+          "feedback": "t = (t½/ln2)·ln(1 + D/P). Con Tempo di dimezzamento (a)=1,35 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 1,35 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "0,65",
-          "feedback": "Esatto: passa il 70% della metà rimasta, 1 − 0,5 · 0,7."
+          "text": "2,35 miliardi di anni",
+          "feedback": "Questo valore non soddisfa la relazione. t = (t½/ln2)·ln(1 + D/P). Con Tempo di dimezzamento (a)=1,35 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 1,35 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 1,
+        "parameters": {
+          "a": 1.35
+        },
+        "expected": 1.35,
+        "unit": "miliardi di anni"
+      }
+    },
+    {
+      "id": "biology-16-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Sistema chiuso, nessun figlio iniziale, un solo decadimento; le datazioni reali usano più sistemi e isocrone."
         },
         {
-          "id": "D",
-          "text": "0,35",
-          "feedback": "Questa è la frazione di incroci che supera entrambe le barriere."
+          "id": "B",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Sistema chiuso, nessun figlio iniziale, un solo decadimento; le datazioni reali usano più sistemi e isocrone."
+        },
+        {
+          "id": "C",
+          "text": "Decadimento in un sistema chiuso",
+          "feedback": "Sistema chiuso, nessun figlio iniziale, un solo decadimento; le datazioni reali usano più sistemi e isocrone."
         }
       ],
       "correct": "C"
-    },
-    {
-      "id": "biology-16-q4",
-      "prompt": "Che cosa caratterizza la speciazione allopatrica?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Il raddoppio dei cromosomi",
-          "feedback": "Questo è un meccanismo tipico della speciazione simpatrica nelle piante."
-        },
-        {
-          "id": "B",
-          "text": "Il passaggio a una nuova pianta ospite",
-          "feedback": "Questo può causare speciazione nello stesso luogo."
-        },
-        {
-          "id": "C",
-          "text": "L’assenza di mutazioni",
-          "feedback": "Le popolazioni separate accumulano mutazioni diverse."
-        },
-        {
-          "id": "D",
-          "text": "Una separazione geografica delle popolazioni",
-          "feedback": "Esatto: come il Grand Canyon per gli scoiattoli."
-        }
-      ],
-      "correct": "D"
-    },
-    {
-      "id": "biology-16-q5",
-      "prompt": "Due specie di rane si riproducono in mesi diversi. Che barriera è?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Prezigotica temporale",
-          "feedback": "Esatto: gli incontri riproduttivi non avvengono."
-        },
-        {
-          "id": "B",
-          "text": "Postzigotica",
-          "feedback": "La fecondazione non avviene affatto."
-        },
-        {
-          "id": "C",
-          "text": "Meccanica",
-          "feedback": "Il problema non sono gli organi riproduttivi."
-        },
-        {
-          "id": "D",
-          "text": "Gametica",
-          "feedback": "I gameti non si incontrano nemmeno."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-16-q6",
-      "prompt": "Perché la poliploidia può creare una specie nuova in una sola generazione?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Perché aumenta la taglia della pianta",
-          "feedback": "La taglia non decide l’isolamento riproduttivo."
-        },
-        {
-          "id": "B",
-          "text": "Perché i discendenti poliploidi non producono prole fertile con i genitori",
-          "feedback": "Esatto: l’isolamento nasce subito, senza separazione geografica."
-        },
-        {
-          "id": "C",
-          "text": "Perché elimina le mutazioni",
-          "feedback": "La poliploidia non elimina mutazioni."
-        },
-        {
-          "id": "D",
-          "text": "Perché sposta la pianta in un altro luogo",
-          "feedback": "La pianta resta dov’è: per questo è speciazione simpatrica."
-        }
-      ],
-      "correct": "B"
     }
-  ],
-  "activity": {
-    "kind": "cards",
-    "goal": 3,
-    "rounds": [
-      {
-        "id": "barriere",
-        "type": "classify",
-        "title": "Prima o dopo lo zigote?",
-        "prompt": "Classifica le barriere riproduttive.",
-        "categories": [
-          {
-            "id": "pre",
-            "label": "PREZIGOTICA"
-          },
-          {
-            "id": "post",
-            "label": "POSTZIGOTICA"
-          }
-        ],
-        "items": [
-          {
-            "id": "mesi",
-            "text": "Due rane si riproducono in mesi diversi",
-            "why": "Gli incontri riproduttivi non avvengono.",
-            "category": "pre"
-          },
-          {
-            "id": "canto",
-            "text": "Due uccelli hanno canti di corteggiamento diversi",
-            "why": "Le femmine non rispondono al canto dell’altra specie.",
-            "category": "pre"
-          },
-          {
-            "id": "fiore",
-            "text": "Due fiori attirano impollinatori diversi",
-            "why": "Il polline non arriva all’altra specie.",
-            "category": "pre"
-          },
-          {
-            "id": "gameti",
-            "text": "I gameti di due ricci di mare non si riconoscono",
-            "why": "La fecondazione non avviene.",
-            "category": "pre"
-          },
-          {
-            "id": "habitat",
-            "text": "Due serpenti vivono uno in acqua e uno sulla terra",
-            "why": "Si incontrano raramente.",
-            "category": "pre"
-          },
-          {
-            "id": "mulo",
-            "text": "Il mulo è sterile",
-            "why": "L’ibrido nasce ma non forma gameti normali.",
-            "category": "post"
-          },
-          {
-            "id": "embrioni",
-            "text": "Gli embrioni ibridi muoiono presto",
-            "why": "Lo zigote si forma ma non si sviluppa.",
-            "category": "post"
-          },
-          {
-            "id": "nipoti",
-            "text": "Gli ibridi sono fertili, ma i loro figli sono deboli",
-            "why": "L’ibrido si riproduce, la generazione dopo no.",
-            "category": "post"
-          }
-        ],
-        "explain": "Se lo zigote non si forma la barriera è prezigotica; se si forma ma l’ibrido fallisce, è postzigotica.",
-        "maxErrors": 1
-      },
-      {
-        "id": "modi",
-        "type": "classify",
-        "title": "Separati o insieme?",
-        "prompt": "Classifica i casi di speciazione.",
-        "categories": [
-          {
-            "id": "allo",
-            "label": "ALLOPATRICA"
-          },
-          {
-            "id": "simpa",
-            "label": "SIMPATRICA"
-          }
-        ],
-        "items": [
-          {
-            "id": "canyon",
-            "text": "Un canyon separa due popolazioni di scoiattoli",
-            "why": "Una barriera geografica divide le popolazioni.",
-            "category": "allo"
-          },
-          {
-            "id": "isola",
-            "text": "Alcuni uccelli colonizzano un’isola lontana",
-            "why": "Il mare separa i coloni dalla popolazione d’origine.",
-            "category": "allo"
-          },
-          {
-            "id": "montagne",
-            "text": "Il sollevamento di una catena montuosa divide una popolazione",
-            "why": "Una barriera fisica separa i gruppi.",
-            "category": "allo"
-          },
-          {
-            "id": "poliploide",
-            "text": "Una pianta con cromosomi raddoppiati nasce nello stesso prato",
-            "why": "L’isolamento nasce senza separazione.",
-            "category": "simpa"
-          },
-          {
-            "id": "ospite",
-            "text": "Una mosca passa a deporre le uova su una nuova pianta ospite",
-            "why": "Gli accoppiamenti si separano nello stesso luogo.",
-            "category": "simpa"
-          },
-          {
-            "id": "lago",
-            "text": "Pesci di uno stesso lago si specializzano su cibi diversi",
-            "why": "La divergenza avviene senza barriere geografiche.",
-            "category": "simpa"
-          }
-        ],
-        "explain": "La speciazione allopatrica richiede una separazione geografica; quella simpatrica avviene nello stesso luogo.",
-        "maxErrors": 1
-      },
-      {
-        "id": "isolamento",
-        "type": "order",
-        "title": "Quanto isolamento?",
-        "prompt": "Ordina le combinazioni di due barriere dall’isolamento totale più debole al più forte.",
-        "items": [
-          {
-            "id": "a",
-            "text": "b₁ = 0,3 e b₂ = 0,2",
-            "why": "1 − 0,7 · 0,8 = 0,44."
-          },
-          {
-            "id": "b",
-            "text": "b₁ = 0,5 e b₂ = 0",
-            "why": "0,5: la seconda barriera non c’è."
-          },
-          {
-            "id": "c",
-            "text": "b₁ = 0,5 e b₂ = 0,3",
-            "why": "1 − 0,5 · 0,7 = 0,65."
-          },
-          {
-            "id": "d",
-            "text": "b₁ = 0,7 e b₂ = 0,5",
-            "why": "1 − 0,3 · 0,5 = 0,85."
-          },
-          {
-            "id": "e",
-            "text": "b₁ = 0,9 e b₂ = 0",
-            "why": "0,9."
-          },
-          {
-            "id": "f",
-            "text": "b₁ = 0,9 e b₂ = 0,5",
-            "why": "1 − 0,1 · 0,5 = 0,95."
-          }
-        ],
-        "explain": "Ogni barriera agisce sugli incroci rimasti: l’isolamento cresce ma non supera mai 1."
-      },
-      {
-        "id": "specie",
-        "type": "classify",
-        "title": "Stessa specie?",
-        "prompt": "Usa il concetto biologico di specie.",
-        "categories": [
-          {
-            "id": "stessa",
-            "label": "STESSA SPECIE"
-          },
-          {
-            "id": "diverse",
-            "label": "SPECIE DIVERSE"
-          }
-        ],
-        "items": [
-          {
-            "id": "cani",
-            "text": "Un chihuahua e un alano",
-            "why": "Cani di razze diverse producono prole fertile.",
-            "category": "stessa"
-          },
-          {
-            "id": "umani",
-            "text": "Esseri umani di continenti diversi",
-            "why": "Tutti gli esseri umani si incrociano con prole fertile.",
-            "category": "stessa"
-          },
-          {
-            "id": "uccelli",
-            "text": "Due popolazioni di uccelli con figli fertili",
-            "why": "L’incrocio con prole fertile definisce la specie.",
-            "category": "stessa"
-          },
-          {
-            "id": "cavallo",
-            "text": "Cavallo e asino",
-            "why": "Il mulo è sterile.",
-            "category": "diverse"
-          },
-          {
-            "id": "rane",
-            "text": "Due rane identiche che si riproducono in mesi diversi",
-            "why": "Una barriera temporale le isola.",
-            "category": "diverse"
-          }
-        ],
-        "explain": "Conta la possibilità di incrociarsi con prole fertile, non l’aspetto.",
-        "maxErrors": 1
-      }
-    ]
-  }
+  ]
 }

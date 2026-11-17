@@ -2,24 +2,23 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-09",
-  "title": "Ereditarietà mendeliana",
+  "title": "Sorgenti idrotermali e metabolismo primordiale",
   "sector": 3,
   "modelId": "biology-09",
-  "coverage": "guided-activity",
-  "editorialStatus": "hand-written-draft",
-  "scope": "Un gene con due alleli, dominanza completa e gameti indipendenti",
-  "narrativeStatus": "La serra e il pianeta sono immaginari; la genetica è quella dei piselli di Mendel.",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "ΔG = ΔG° + RT ln Q a 25 °C",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
   "objectives": [
-    "Distinguere genotipo e fenotipo, omozigote ed eterozigote.",
-    "Prevedere con il quadrato di Punnett i rapporti attesi di un incrocio monoibrido.",
-    "Confrontare frequenze osservate e attese e spiegare perché differiscono nei campioni piccoli.",
-    "Usare il reincrocio con una pianta aa per scoprire il genotipo di una pianta a fiori viola."
+    "Spiegare: δg = δg° + rt ln q a 25 °c.",
+    "Applicare ΔG = ΔG° - 4RT ln10·log p(H₂) + RT ln10·log(p(CH₄)/p(CO₂)); ΔG° = -130,5 kJ/mol, dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
   ],
   "prerequisites": [
     "biology-08"
   ],
   "connections": [
-    "biology-15"
+    "chemistry-23"
   ],
   "sources": [
     "biology"
@@ -27,333 +26,244 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Allele",
-      "definition": "Variante di un gene. Nel pisello di Mendel l’allele A dà fiori viola, l’allele a fiori bianchi."
+      "term": "log₁₀ p(H₂)",
+      "definition": "Variabile indipendente, unità bar; intervallo [-8; 0]."
     },
     {
-      "term": "Genotipo",
-      "definition": "Coppia di alleli posseduta da un individuo, per esempio Aa."
+      "term": "Energia di Gibbs",
+      "definition": "Risultato calcolato dal modello, unità kJ/mol."
     },
     {
-      "term": "Fenotipo",
-      "definition": "Carattere osservabile prodotto dal genotipo, per esempio il colore viola dei fiori."
-    },
-    {
-      "term": "Omozigote ed eterozigote",
-      "definition": "Un omozigote ha due alleli uguali (AA o aa), un eterozigote due alleli diversi (Aa)."
-    },
-    {
-      "term": "Dominante e recessivo",
-      "definition": "L’allele dominante si manifesta anche in una sola copia; quello recessivo solo in due copie."
-    },
-    {
-      "term": "Reincrocio",
-      "definition": "Incrocio con un omozigote recessivo aa, usato per scoprire il genotipo di un individuo a fenotipo dominante."
-    },
-    {
-      "term": "Chi quadro",
-      "definition": "Misura dello scarto tra conteggi osservati e attesi; con due classi, valori oltre 3,84 sono improbabili se il modello è corretto."
+      "term": "log₁₀ p(CH₄)/p(CO₂)",
+      "definition": "Parametro a, unità 1; intervallo [-6; 2]."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Fiori viola, fiori bianchi",
+      "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Nella serra della stazione crescono piante di pisello nate da semi portati dalla Terra. Alcune hanno fiori viola, altre fiori bianchi. I botanici vogliono prevedere il colore dei fiori nelle prossime generazioni e scoprire quali piante viola nascondono l’allele del bianco.",
-          "Incrociando due piante viola nascono a volte piante bianche. Il bianco era nascosto in entrambi i genitori e riappare nei figli. Prima di Mendel si pensava che i caratteri dei genitori si mescolassero come due colori; se così fosse, il bianco, una volta diluito, non potrebbe tornare puro.",
-          "Gregor Mendel studiò questo comportamento nel pisello e pubblicò i risultati nel 1866. Partì da linee pure, che davano sempre lo stesso colore, e le incrociò: la prima generazione ebbe solo fiori viola. Incrociando tra loro queste piante ibride ottenne 705 piante viola e 224 bianche, circa 3 a 1."
+          "Un camino idrotermale emette acqua ricca di idrogeno nell'oceano. La stazione vuole sapere se un microrganismo che produce metano da idrogeno e diossido di carbonio può ricavarne energia.",
+          "La metanogenesi CO₂ + 4 H₂ → CH₄ + 2 H₂O(l) ha ΔG° = -130,5 kJ/mol a 25 °C. Fuori dalle condizioni standard ΔG = ΔG° + RT ln Q, e con poco idrogeno il vantaggio diminuisce."
         ],
         "intermediate": [
-          "Nella serra della stazione crescono piante di pisello nate da semi portati dalla Terra. Alcune hanno fiori viola, altre fiori bianchi. I botanici vogliono prevedere il colore dei fiori nelle prossime generazioni e scoprire quali piante viola nascondono l’allele del bianco.",
-          "Incrociando due piante viola nascono a volte piante bianche. Il bianco era nascosto in entrambi i genitori e riappare nei figli. Prima di Mendel si pensava che i caratteri dei genitori si mescolassero come due colori; se così fosse, il bianco, una volta diluito, non potrebbe tornare puro.",
-          "Gregor Mendel studiò questo comportamento nel pisello e pubblicò i risultati nel 1866. Partì da linee pure, che davano sempre lo stesso colore, e le incrociò: la prima generazione ebbe solo fiori viola. Incrociando tra loro queste piante ibride ottenne 705 piante viola e 224 bianche, circa 3 a 1."
+          "Un camino idrotermale emette acqua ricca di idrogeno nell'oceano. La stazione vuole sapere se un microrganismo che produce metano da idrogeno e diossido di carbonio può ricavarne energia.",
+          "Q = p(CH₄)/(p(CO₂)·p(H₂)⁴), quindi RT ln Q = RT ln10·log(p(CH₄)/p(CO₂)) - 4RT ln10·log p(H₂). Ogni fattore dieci in meno di idrogeno aumenta ΔG di circa 22,8 kJ/mol."
         ],
         "advanced": [
-          "Nella serra della stazione crescono piante di pisello nate da semi portati dalla Terra. Alcune hanno fiori viola, altre fiori bianchi. I botanici vogliono prevedere il colore dei fiori nelle prossime generazioni e scoprire quali piante viola nascondono l’allele del bianco.",
-          "Gregor Mendel studiò questo comportamento nel pisello e pubblicò i risultati nel 1866. Partì da linee pure, che davano sempre lo stesso colore, e le incrociò: la prima generazione ebbe solo fiori viola. Incrociando tra loro queste piante ibride ottenne 705 piante viola e 224 bianche, circa 3 a 1.",
-          "Il rapporto 3:1 nasce dalla separazione dei due alleli nei gameti e dalla loro unione casuale. Oggi sappiamo che il gene del colore studiato da Mendel controlla la produzione dei pigmenti antociani nei petali: l’allele recessivo non produce il pigmento."
+          "Un camino idrotermale emette acqua ricca di idrogeno nell'oceano. La stazione vuole sapere se un microrganismo che produce metano da idrogeno e diossido di carbonio può ricavarne energia.",
+          "Trova la pressione di idrogeno sotto la quale la metanogenesi diventa sfavorevole, e confrontala con le stime per l'oceano di Encelado.",
+          "Gas ideali, 25 °C, acqua liquida pura; non considera la temperatura dei camini né l'energia minima che una cellula riesce a usare."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Alleli, genotipi, fenotipi",
+      "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Ogni pianta ha due copie del gene del colore, una ricevuta dal polline e una dall’ovulo. Le varianti del gene si chiamano alleli: indichiamo con A l’allele del viola e con a quello del bianco. Le combinazioni possibili sono tre: AA, Aa e aa.",
-          "A è dominante: basta una copia per avere fiori viola. Le piante AA e Aa sono viola, solo le aa sono bianche. Il genotipo è la coppia di alleli; il fenotipo è il carattere osservato. Una pianta con due alleli uguali si dice omozigote, una con due alleli diversi eterozigote.",
-          "Nella meiosi le due copie si separano: ogni gamete riceve un solo allele. Una pianta Aa produce gameti A e gameti a con la stessa probabilità, 1/2 ciascuno; una pianta AA produce solo gameti A. È la legge della segregazione. L’unità precedente ne ha mostrato la base: gli alleli stanno su cromosomi omologhi, e la meiosi I li separa.",
-          "Il quadrato di Punnett è una tabella di probabilità: le righe sono i gameti di un genitore, le colonne quelli dell’altro, e ogni cella è un possibile figlio. Con due genitori Aa le righe sono A e a, le colonne A e a. Le quattro celle sono AA, Aa, aA, aa, ciascuna con probabilità 1/4. Sommando le celle uguali si ottiene 1/4 AA, 1/2 Aa, 1/4 aa, cioè 3/4 viola e 1/4 bianchi."
+          "La metanogenesi CO₂ + 4 H₂ → CH₄ + 2 H₂O(l) ha ΔG° = -130,5 kJ/mol a 25 °C. Fuori dalle condizioni standard ΔG = ΔG° + RT ln Q, e con poco idrogeno il vantaggio diminuisce.",
+          "Con p(CH₄) = p(CO₂) e p(H₂) = 10⁻⁴ bar si ha ΔG ≈ -39 kJ/mol; con 10⁻⁵ bar circa -16 kJ/mol, ancora sfruttabile da un metanogeno."
         ],
         "intermediate": [
-          "Ogni pianta ha due copie del gene del colore, una ricevuta dal polline e una dall’ovulo. Le varianti del gene si chiamano alleli: indichiamo con A l’allele del viola e con a quello del bianco. Le combinazioni possibili sono tre: AA, Aa e aa.",
-          "A è dominante: basta una copia per avere fiori viola. Le piante AA e Aa sono viola, solo le aa sono bianche. Il genotipo è la coppia di alleli; il fenotipo è il carattere osservato. Una pianta con due alleli uguali si dice omozigote, una con due alleli diversi eterozigote.",
-          "Nella meiosi le due copie si separano: ogni gamete riceve un solo allele. Una pianta Aa produce gameti A e gameti a con la stessa probabilità, 1/2 ciascuno; una pianta AA produce solo gameti A. È la legge della segregazione. L’unità precedente ne ha mostrato la base: gli alleli stanno su cromosomi omologhi, e la meiosi I li separa.",
-          "Il quadrato di Punnett è una tabella di probabilità: le righe sono i gameti di un genitore, le colonne quelli dell’altro, e ogni cella è un possibile figlio. Con due genitori Aa le righe sono A e a, le colonne A e a. Le quattro celle sono AA, Aa, aA, aa, ciascuna con probabilità 1/4. Sommando le celle uguali si ottiene 1/4 AA, 1/2 Aa, 1/4 aa, cioè 3/4 viola e 1/4 bianchi.",
-          "Altri incroci si risolvono allo stesso modo. Aa × aa: le colonne sono a e a, le celle Aa, Aa, aa, aa, quindi metà viola e metà bianchi. AA × aa: tutte le celle sono Aa, tutti i figli viola. AA × Aa: metà AA e metà Aa, tutti viola."
+          "Q = p(CH₄)/(p(CO₂)·p(H₂)⁴), quindi RT ln Q = RT ln10·log(p(CH₄)/p(CO₂)) - 4RT ln10·log p(H₂). Ogni fattore dieci in meno di idrogeno aumenta ΔG di circa 22,8 kJ/mol.",
+          "La variabile log₁₀ p(H₂) è espressa in bar; Energia di Gibbs in kJ/mol. Il dominio dello strumento è [-8; 0]. La relazione implementata è: ΔG = ΔG° - 4RT ln10·log p(H₂) + RT ln10·log(p(CH₄)/p(CO₂)); ΔG° = -130,5 kJ/mol.",
+          "Con p(CH₄) = p(CO₂) e p(H₂) = 10⁻⁴ bar si ha ΔG ≈ -39 kJ/mol; con 10⁻⁵ bar circa -16 kJ/mol, ancora sfruttabile da un metanogeno."
         ],
         "advanced": [
-          "A è dominante: basta una copia per avere fiori viola. Le piante AA e Aa sono viola, solo le aa sono bianche. Il genotipo è la coppia di alleli; il fenotipo è il carattere osservato. Una pianta con due alleli uguali si dice omozigote, una con due alleli diversi eterozigote.",
-          "Nella meiosi le due copie si separano: ogni gamete riceve un solo allele. Una pianta Aa produce gameti A e gameti a con la stessa probabilità, 1/2 ciascuno; una pianta AA produce solo gameti A. È la legge della segregazione. L’unità precedente ne ha mostrato la base: gli alleli stanno su cromosomi omologhi, e la meiosi I li separa.",
-          "Il quadrato di Punnett è una tabella di probabilità: le righe sono i gameti di un genitore, le colonne quelli dell’altro, e ogni cella è un possibile figlio. Con due genitori Aa le righe sono A e a, le colonne A e a. Le quattro celle sono AA, Aa, aA, aa, ciascuna con probabilità 1/4. Sommando le celle uguali si ottiene 1/4 AA, 1/2 Aa, 1/4 aa, cioè 3/4 viola e 1/4 bianchi.",
-          "Altri incroci si risolvono allo stesso modo. Aa × aa: le colonne sono a e a, le celle Aa, Aa, aa, aa, quindi metà viola e metà bianchi. AA × aa: tutte le celle sono Aa, tutti i figli viola. AA × Aa: metà AA e metà Aa, tutti viola."
+          "Q = p(CH₄)/(p(CO₂)·p(H₂)⁴), quindi RT ln Q = RT ln10·log(p(CH₄)/p(CO₂)) - 4RT ln10·log p(H₂). Ogni fattore dieci in meno di idrogeno aumenta ΔG di circa 22,8 kJ/mol.",
+          "Trova la pressione di idrogeno sotto la quale la metanogenesi diventa sfavorevole, e confrontala con le stime per l'oceano di Encelado.",
+          "Una reazione favorevole in condizioni standard può diventare sfavorevole con concentrazioni diverse: conta ΔG, non ΔG°."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Incroci nella serra",
+      "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nella modalità «Incroci» scegli il genotipo dei due genitori e leggi il quadrato di Punnett con le probabilità attese. Poi semina 20, 100 o 1000 semi: il programma estrae a caso un gamete da ogni genitore per ogni seme e conta i fiori. Confronta i conteggi osservati con quelli attesi.",
-          "Prima di seminare scrivi nel diario la percentuale di piante bianche che ti aspetti. Ripeti più volte la semina da 20 semi e osserva quanto variano i risultati da una semina all’altra; poi semina 1000 semi e confronta.",
-          "Nella modalità «Piante misteriose» ricevi piante viola di genotipo sconosciuto, AA oppure Aa. Incrociale con una pianta bianca aa, un seme o dieci semi alla volta, e decidi. Per completare l’attività risolvi tre piante misteriose. La regola della serra chiede almeno sette figli tutti viola prima di dichiarare AA."
+          "Nel laboratorio imposta log₁₀ p(CH₄)/p(CO₂) (a): 0 (adimensionale). Prima di salvare A, prevedi come cambia Energia di Gibbs fra log₁₀ p(H₂)=-6 e -4 bar. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con p(CH₄) = p(CO₂) e p(H₂) = 10⁻⁴ bar si ha ΔG ≈ -39 kJ/mol; con 10⁻⁵ bar circa -16 kJ/mol, ancora sfruttabile da un metanogeno.",
+          "La variabile log₁₀ p(H₂) è espressa in bar; Energia di Gibbs in kJ/mol. Il dominio dello strumento è [-8; 0]. La relazione implementata è: ΔG = ΔG° - 4RT ln10·log p(H₂) + RT ln10·log(p(CH₄)/p(CO₂)); ΔG° = -130,5 kJ/mol."
         ],
         "intermediate": [
-          "Nella modalità «Incroci» scegli il genotipo dei due genitori e leggi il quadrato di Punnett con le probabilità attese. Poi semina 20, 100 o 1000 semi: il programma estrae a caso un gamete da ogni genitore per ogni seme e conta i fiori. Confronta i conteggi osservati con quelli attesi.",
-          "Prima di seminare scrivi nel diario la percentuale di piante bianche che ti aspetti. Ripeti più volte la semina da 20 semi e osserva quanto variano i risultati da una semina all’altra; poi semina 1000 semi e confronta.",
-          "Nella modalità «Piante misteriose» ricevi piante viola di genotipo sconosciuto, AA oppure Aa. Incrociale con una pianta bianca aa, un seme o dieci semi alla volta, e decidi. Per completare l’attività risolvi tre piante misteriose. La regola della serra chiede almeno sette figli tutti viola prima di dichiarare AA."
+          "Nel laboratorio imposta log₁₀ p(CH₄)/p(CO₂) (a): 0 (adimensionale). Prima di salvare A, prevedi come cambia Energia di Gibbs fra log₁₀ p(H₂)=-6 e -4 bar. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile log₁₀ p(H₂) è espressa in bar; Energia di Gibbs in kJ/mol. Il dominio dello strumento è [-8; 0]. La relazione implementata è: ΔG = ΔG° - 4RT ln10·log p(H₂) + RT ln10·log(p(CH₄)/p(CO₂)); ΔG° = -130,5 kJ/mol.",
+          "Q = p(CH₄)/(p(CO₂)·p(H₂)⁴), quindi RT ln Q = RT ln10·log(p(CH₄)/p(CO₂)) - 4RT ln10·log p(H₂). Ogni fattore dieci in meno di idrogeno aumenta ΔG di circa 22,8 kJ/mol."
         ],
         "advanced": [
-          "Nella modalità «Incroci» scegli il genotipo dei due genitori e leggi il quadrato di Punnett con le probabilità attese. Poi semina 20, 100 o 1000 semi: il programma estrae a caso un gamete da ogni genitore per ogni seme e conta i fiori. Confronta i conteggi osservati con quelli attesi.",
-          "Il laboratorio calcola la statistica chi quadro, χ² = Σ (osservato − atteso)²/atteso, sommata sui due fenotipi. Con due classi, un valore superiore a 3,84 significa che uno scarto così grande avrebbe probabilità inferiore al 5% se il modello fosse corretto. Un valore piccolo non dimostra il modello: dice solo che i dati non lo smentiscono.",
-          "Nella modalità «Piante misteriose» ricevi piante viola di genotipo sconosciuto, AA oppure Aa. Incrociale con una pianta bianca aa, un seme o dieci semi alla volta, e decidi. Per completare l’attività risolvi tre piante misteriose. La regola della serra chiede almeno sette figli tutti viola prima di dichiarare AA."
+          "Nel laboratorio imposta log₁₀ p(CH₄)/p(CO₂) (a): 0 (adimensionale). Prima di salvare A, prevedi come cambia Energia di Gibbs fra log₁₀ p(H₂)=-6 e -4 bar. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Trova la pressione di idrogeno sotto la quale la metanogenesi diventa sfavorevole, e confrontala con le stime per l'oceano di Encelado.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Attesi e osservati",
+      "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Il rapporto 3:1 descrive una probabilità, e un singolo raccolto può discostarsene. Con 4 figli di due genitori Aa può capitare di non trovare piante bianche: succede con probabilità (3/4)⁴, circa 32%.",
-          "Più semi si seminano, più la frazione osservata si avvicina a quella attesa. È la legge dei grandi numeri: con 20 semi trovare 3 o 8 piante bianche invece di 5 è normale; con 1000 semi le frazioni restano di solito entro pochi punti percentuali dal 25%.",
-          "Una pianta viola può essere AA o Aa. Incrociata con una pianta bianca aa, una pianta AA dà solo figli viola, mentre una pianta Aa dà in media metà figli bianchi. Basta un figlio bianco per concludere che il genitore viola è Aa: un figlio aa ha ricevuto a da entrambi i genitori."
+          "Una reazione favorevole in condizioni standard può diventare sfavorevole con concentrazioni diverse: conta ΔG, non ΔG°.",
+          "Gas ideali, 25 °C, acqua liquida pura; non considera la temperatura dei camini né l'energia minima che una cellula riesce a usare.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ],
         "intermediate": [
-          "Il rapporto 3:1 descrive una probabilità, e un singolo raccolto può discostarsene. Con 4 figli di due genitori Aa può capitare di non trovare piante bianche: succede con probabilità (3/4)⁴, circa 32%.",
-          "Più semi si seminano, più la frazione osservata si avvicina a quella attesa. È la legge dei grandi numeri: con 20 semi trovare 3 o 8 piante bianche invece di 5 è normale; con 1000 semi le frazioni restano di solito entro pochi punti percentuali dal 25%.",
-          "Una pianta viola può essere AA o Aa. Incrociata con una pianta bianca aa, una pianta AA dà solo figli viola, mentre una pianta Aa dà in media metà figli bianchi. Basta un figlio bianco per concludere che il genitore viola è Aa: un figlio aa ha ricevuto a da entrambi i genitori.",
-          "Il ragionamento opposto è più delicato: 10 figli tutti viola non dimostrano che il genitore è AA. Se fosse Aa, quel risultato avrebbe probabilità (1/2)¹⁰, circa 0,1%: abbastanza piccola per decidere, mai nulla. Con 7 figli la probabilità è (1/2)⁷, meno dell’1%: è la soglia scelta dalla regola della serra."
+          "Una reazione favorevole in condizioni standard può diventare sfavorevole con concentrazioni diverse: conta ΔG, non ΔG°.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ],
         "advanced": [
-          "Una pianta viola può essere AA o Aa. Incrociata con una pianta bianca aa, una pianta AA dà solo figli viola, mentre una pianta Aa dà in media metà figli bianchi. Basta un figlio bianco per concludere che il genitore viola è Aa: un figlio aa ha ricevuto a da entrambi i genitori.",
-          "Il ragionamento opposto è più delicato: 10 figli tutti viola non dimostrano che il genitore è AA. Se fosse Aa, quel risultato avrebbe probabilità (1/2)¹⁰, circa 0,1%: abbastanza piccola per decidere, mai nulla. Con 7 figli la probabilità è (1/2)⁷, meno dell’1%: è la soglia scelta dalla regola della serra.",
-          "Il laboratorio calcola la statistica chi quadro, χ² = Σ (osservato − atteso)²/atteso, sommata sui due fenotipi. Con due classi, un valore superiore a 3,84 significa che uno scarto così grande avrebbe probabilità inferiore al 5% se il modello fosse corretto. Un valore piccolo non dimostra il modello: dice solo che i dati non lo smentiscono."
+          "Gas ideali, 25 °C, acqua liquida pura; non considera la temperatura dei camini né l'energia minima che una cellula riesce a usare.",
+          "Trova la pressione di idrogeno sotto la quale la metanogenesi diventa sfavorevole, e confrontala con le stime per l'oceano di Encelado.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica",
+      "title": "Verifica ragionamento e calcolo",
       "text": {
         "base": [
-          "Ripasso: allele, genotipo, fenotipo; omozigote ed eterozigote; dominante e recessivo; la segregazione degli alleli nei gameti; come si costruisce il quadrato di Punnett; perché i conteggi osservati si discostano da quelli attesi; come si usa il reincrocio con aa.",
-          "Mini esercizio: Aa × Aa con 400 figli. Attesi: 300 viola e 100 bianchi. Se ne osservi 290 e 110, il chi quadro vale 10²/300 + 10²/100 ≈ 0,33 + 1 = 1,33, sotto 3,84: il risultato è compatibile con il modello.",
-          "Nelle domande distingui sempre il genotipo dal fenotipo, e il valore atteso dal risultato di un singolo raccolto."
+          "La metanogenesi CO₂ + 4 H₂ → CH₄ + 2 H₂O(l) ha ΔG° = -130,5 kJ/mol a 25 °C. Fuori dalle condizioni standard ΔG = ΔG° + RT ln Q, e con poco idrogeno il vantaggio diminuisce.",
+          "Con p(CH₄) = p(CO₂) e p(H₂) = 10⁻⁴ bar si ha ΔG ≈ -39 kJ/mol; con 10⁻⁵ bar circa -16 kJ/mol, ancora sfruttabile da un metanogeno."
         ],
         "intermediate": [
-          "Ripasso: allele, genotipo, fenotipo; omozigote ed eterozigote; dominante e recessivo; la segregazione degli alleli nei gameti; come si costruisce il quadrato di Punnett; perché i conteggi osservati si discostano da quelli attesi; come si usa il reincrocio con aa.",
-          "Mini esercizio: Aa × Aa con 400 figli. Attesi: 300 viola e 100 bianchi. Se ne osservi 290 e 110, il chi quadro vale 10²/300 + 10²/100 ≈ 0,33 + 1 = 1,33, sotto 3,84: il risultato è compatibile con il modello.",
-          "Nelle domande distingui sempre il genotipo dal fenotipo, e il valore atteso dal risultato di un singolo raccolto."
+          "Q = p(CH₄)/(p(CO₂)·p(H₂)⁴), quindi RT ln Q = RT ln10·log(p(CH₄)/p(CO₂)) - 4RT ln10·log p(H₂). Ogni fattore dieci in meno di idrogeno aumenta ΔG di circa 22,8 kJ/mol.",
+          "La variabile log₁₀ p(H₂) è espressa in bar; Energia di Gibbs in kJ/mol. Il dominio dello strumento è [-8; 0]. La relazione implementata è: ΔG = ΔG° - 4RT ln10·log p(H₂) + RT ln10·log(p(CH₄)/p(CO₂)); ΔG° = -130,5 kJ/mol."
         ],
         "advanced": [
-          "Ripasso: allele, genotipo, fenotipo; omozigote ed eterozigote; dominante e recessivo; la segregazione degli alleli nei gameti; come si costruisce il quadrato di Punnett; perché i conteggi osservati si discostano da quelli attesi; come si usa il reincrocio con aa.",
-          "Mini esercizio: Aa × Aa con 400 figli. Attesi: 300 viola e 100 bianchi. Se ne osservi 290 e 110, il chi quadro vale 10²/300 + 10²/100 ≈ 0,33 + 1 = 1,33, sotto 3,84: il risultato è compatibile con il modello.",
-          "Nelle domande distingui sempre il genotipo dal fenotipo, e il valore atteso dal risultato di un singolo raccolto."
+          "Trova la pressione di idrogeno sotto la quale la metanogenesi diventa sfavorevole, e confrontala con le stime per l'oceano di Encelado.",
+          "Gas ideali, 25 °C, acqua liquida pura; non considera la temperatura dei camini né l'energia minima che una cellula riesce a usare."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Collegamenti",
+      "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "La segregazione degli alleli è una conseguenza della meiosi, studiata nell’unità precedente. Le stesse probabilità tornano nell’equilibrio di Hardy-Weinberg, quando si passa da una famiglia a un’intera popolazione.",
-          "Molti caratteri seguono regole diverse: nella bocca di leone l’eterozigote ha fiori rosa (dominanza incompleta), e nei gruppi sanguigni AB0 gli alleli A e B si esprimono entrambi (codominanza).",
-          "Nel diario scrivi un incrocio, il rapporto atteso, i conteggi osservati e una frase su quanto si discostano. Aggiungi il ragionamento con cui hai identificato una pianta misteriosa."
+          "Nel diario distingui previsione, risultato e interpretazione. ΔG = ΔG° + RT ln Q a 25 °C.",
+          "Gas ideali, 25 °C, acqua liquida pura; non considera la temperatura dei camini né l'energia minima che una cellula riesce a usare.",
+          "Collegamento consigliato: chemistry-23. Il completamento registra attività e autoverifica, non certifica competenze."
         ],
         "intermediate": [
-          "La segregazione degli alleli è una conseguenza della meiosi, studiata nell’unità precedente. Le stesse probabilità tornano nell’equilibrio di Hardy-Weinberg, quando si passa da una famiglia a un’intera popolazione.",
-          "Molti caratteri seguono regole diverse: nella bocca di leone l’eterozigote ha fiori rosa (dominanza incompleta), e nei gruppi sanguigni AB0 gli alleli A e B si esprimono entrambi (codominanza).",
-          "Il modello vale per un gene con due alleli e gameti indipendenti. Geni vicini sullo stesso cromosoma vengono ereditati insieme più spesso del previsto: è l’associazione genica.",
-          "Nel diario scrivi un incrocio, il rapporto atteso, i conteggi osservati e una frase su quanto si discostano. Aggiungi il ragionamento con cui hai identificato una pianta misteriosa."
+          "Q = p(CH₄)/(p(CO₂)·p(H₂)⁴), quindi RT ln Q = RT ln10·log(p(CH₄)/p(CO₂)) - 4RT ln10·log p(H₂). Ogni fattore dieci in meno di idrogeno aumenta ΔG di circa 22,8 kJ/mol.",
+          "Gas ideali, 25 °C, acqua liquida pura; non considera la temperatura dei camini né l'energia minima che una cellula riesce a usare.",
+          "Trova la pressione di idrogeno sotto la quale la metanogenesi diventa sfavorevole, e confrontala con le stime per l'oceano di Encelado."
         ],
         "advanced": [
-          "Il modello vale per un gene con due alleli e gameti indipendenti. Geni vicini sullo stesso cromosoma vengono ereditati insieme più spesso del previsto: è l’associazione genica.",
-          "Molti caratteri seguono regole diverse: nella bocca di leone l’eterozigote ha fiori rosa (dominanza incompleta), e nei gruppi sanguigni AB0 gli alleli A e B si esprimono entrambi (codominanza).",
-          "Nel diario scrivi un incrocio, il rapporto atteso, i conteggi osservati e una frase su quanto si discostano. Aggiungi il ragionamento con cui hai identificato una pianta misteriosa."
+          "Trova la pressione di idrogeno sotto la quale la metanogenesi diventa sfavorevole, e confrontala con le stime per l'oceano di Encelado.",
+          "Gas ideali, 25 °C, acqua liquida pura; non considera la temperatura dei camini né l'energia minima che una cellula riesce a usare.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-09-q1",
-      "prompt": "Una pianta di pisello con genotipo Aa ha fiori:",
+      "id": "biology-09-concept",
+      "prompt": "Se la pressione di idrogeno diminuisce, l'energia di Gibbs della metanogenesi:",
       "options": [
         {
           "id": "A",
-          "text": "Bianchi",
-          "feedback": "Il bianco compare solo nel genotipo aa. Con un allele A la pianta produce il pigmento viola."
+          "text": "Non cambia",
+          "feedback": "Q = p(CH₄)/(p(CO₂)·p(H₂)⁴), quindi RT ln Q = RT ln10·log(p(CH₄)/p(CO₂)) - 4RT ln10·log p(H₂). Ogni fattore dieci in meno di idrogeno aumenta ΔG di circa 22,8 kJ/mol."
         },
         {
           "id": "B",
-          "text": "Rosa, a metà tra viola e bianco",
-          "feedback": "Questo accade con la dominanza incompleta, come nella bocca di leone. Per il colore del pisello la dominanza è completa."
+          "text": "Diventa meno negativa",
+          "feedback": "La metanogenesi CO₂ + 4 H₂ → CH₄ + 2 H₂O(l) ha ΔG° = -130,5 kJ/mol a 25 °C. Fuori dalle condizioni standard ΔG = ΔG° + RT ln Q, e con poco idrogeno il vantaggio diminuisce."
         },
         {
           "id": "C",
-          "text": "Viola",
-          "feedback": "Esatto: A è dominante e una sola copia basta per produrre il pigmento."
-        },
-        {
-          "id": "D",
-          "text": "Metà viola e metà bianchi",
-          "feedback": "Ogni pianta ha un solo fenotipo per questo carattere. Il genotipo Aa produce fiori tutti viola."
-        }
-      ],
-      "correct": "C"
-    },
-    {
-      "id": "biology-09-q2",
-      "prompt": "Incroci due piante Aa. Quale frazione dei figli ti aspetti con fiori bianchi?",
-      "options": [
-        {
-          "id": "A",
-          "text": "1/4",
-          "feedback": "Esatto: solo la cella aa del quadrato di Punnett dà fiori bianchi, e vale 1/4."
-        },
-        {
-          "id": "B",
-          "text": "1/2",
-          "feedback": "1/2 è la frazione attesa degli eterozigoti Aa, che hanno fiori viola."
-        },
-        {
-          "id": "C",
-          "text": "3/4",
-          "feedback": "3/4 è la frazione attesa dei fiori viola. Hai scambiato i due fenotipi."
-        },
-        {
-          "id": "D",
-          "text": "Nessuna, perché i genitori sono viola",
-          "feedback": "I genitori portano entrambi l’allele a: un figlio che lo riceve da tutti e due è aa e ha fiori bianchi."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-09-q3",
-      "prompt": "Incroci una pianta Aa con una pianta aa. Che rapporto viola : bianco ti aspetti?",
-      "options": [
-        {
-          "id": "A",
-          "text": "3 : 1",
-          "feedback": "Il 3:1 vale per l’incrocio Aa × Aa. Qui la pianta aa produce solo gameti a."
-        },
-        {
-          "id": "B",
-          "text": "1 : 1",
-          "feedback": "Esatto: la pianta Aa produce gameti A e a in parti uguali, la pianta aa solo gameti a. Metà dei figli è Aa, metà aa."
-        },
-        {
-          "id": "C",
-          "text": "Tutti viola",
-          "feedback": "Tutti i figli sarebbero viola solo se il genitore viola fosse AA."
-        },
-        {
-          "id": "D",
-          "text": "1 : 2 : 1",
-          "feedback": "1:2:1 è il rapporto dei genotipi nell’incrocio Aa × Aa; qui i fenotipi possibili sono due."
+          "text": "Diventa più negativa",
+          "feedback": "Una reazione favorevole in condizioni standard può diventare sfavorevole con concentrazioni diverse: conta ΔG, non ΔG°."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "biology-09-q4",
-      "prompt": "Da due genitori Aa nascono 8 piante, tutte viola. Che cosa puoi concludere?",
+      "id": "biology-09-calculation",
+      "prompt": "Calcolo: log₁₀ p(CH₄)/p(CO₂) (a)=0 (adimensionale). Per log₁₀ p(H₂)=-4 bar, quanto vale Energia di Gibbs?",
       "options": [
         {
           "id": "A",
-          "text": "Il modello è sbagliato: dovevano esserci 2 piante bianche",
-          "feedback": "2 è il valore atteso, e il modello prevede probabilità. Un campione piccolo può scostarsi dal valore atteso."
+          "text": "-39,1918 kJ/mol",
+          "feedback": "ΔG = ΔG° - 4RT ln10·log p(H₂) + RT ln10·log(p(CH₄)/p(CO₂)); ΔG° = -130,5 kJ/mol. Con log₁₀ p(CH₄)/p(CO₂) (a)=0 (adimensionale) e log₁₀ p(H₂)=-4 bar, il risultato è -39,1918 kJ/mol. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "L’allele a è scomparso",
-          "feedback": "Gli alleli non scompaiono: i genitori sono Aa e continuano a produrre gameti a."
+          "text": "-19,5959 kJ/mol",
+          "feedback": "Questo valore non soddisfa la relazione. ΔG = ΔG° - 4RT ln10·log p(H₂) + RT ln10·log(p(CH₄)/p(CO₂)); ΔG° = -130,5 kJ/mol. Con log₁₀ p(CH₄)/p(CO₂) (a)=0 (adimensionale) e log₁₀ p(H₂)=-4 bar, il risultato è -39,1918 kJ/mol. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "Uno dei genitori era in realtà AA",
-          "feedback": "È un’ipotesi possibile e il dato non basta a sostenerla: con genitori Aa il risultato ha una probabilità non trascurabile."
-        },
-        {
-          "id": "D",
-          "text": "Il risultato è compatibile con il modello: succede con probabilità (3/4)⁸, circa 10%",
-          "feedback": "Esatto: ogni figlio è viola con probabilità 3/4, e otto figli viola su otto capitano circa una volta su dieci."
+          "text": "-58,7878 kJ/mol",
+          "feedback": "Controlla sostituzione, segno e unità. ΔG = ΔG° - 4RT ln10·log p(H₂) + RT ln10·log(p(CH₄)/p(CO₂)); ΔG° = -130,5 kJ/mol. Con log₁₀ p(CH₄)/p(CO₂) (a)=0 (adimensionale) e log₁₀ p(H₂)=-4 bar, il risultato è -39,1918 kJ/mol. Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "D"
+      "correct": "A",
+      "numeric": {
+        "x": -4,
+        "parameters": {
+          "a": 0
+        },
+        "expected": -39.191847959435876,
+        "unit": "kJ/mol"
+      }
     },
     {
-      "id": "biology-09-q5",
-      "prompt": "Una pianta viola incrociata con una bianca dà 12 figli, tre dei quali bianchi. Qual è il genotipo della pianta viola?",
+      "id": "biology-09-transfer",
+      "prompt": "Trasferimento: log₁₀ p(CH₄)/p(CO₂) (a)=1 (adimensionale). Per log₁₀ p(H₂)=-4 bar, quanto vale Energia di Gibbs?",
       "options": [
         {
           "id": "A",
-          "text": "Aa",
-          "feedback": "Esatto: un figlio bianco aa riceve a da entrambi i genitori, quindi la pianta viola porta l’allele a."
+          "text": "-16,7419 kJ/mol",
+          "feedback": "Questo valore non soddisfa la relazione. ΔG = ΔG° - 4RT ln10·log p(H₂) + RT ln10·log(p(CH₄)/p(CO₂)); ΔG° = -130,5 kJ/mol. Con log₁₀ p(CH₄)/p(CO₂) (a)=1 (adimensionale) e log₁₀ p(H₂)=-4 bar, il risultato è -33,4838 kJ/mol. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "AA",
-          "feedback": "Una pianta AA darebbe solo figli Aa, cioè viola. Un solo figlio bianco basta a escluderla."
+          "text": "-50,2258 kJ/mol",
+          "feedback": "Controlla sostituzione, segno e unità. ΔG = ΔG° - 4RT ln10·log p(H₂) + RT ln10·log(p(CH₄)/p(CO₂)); ΔG° = -130,5 kJ/mol. Con log₁₀ p(CH₄)/p(CO₂) (a)=1 (adimensionale) e log₁₀ p(H₂)=-4 bar, il risultato è -33,4838 kJ/mol. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "aa",
-          "feedback": "Una pianta aa ha fiori bianchi. Il genitore descritto ha fiori viola."
+          "text": "-33,4838 kJ/mol",
+          "feedback": "ΔG = ΔG° - 4RT ln10·log p(H₂) + RT ln10·log(p(CH₄)/p(CO₂)); ΔG° = -130,5 kJ/mol. Con log₁₀ p(CH₄)/p(CO₂) (a)=1 (adimensionale) e log₁₀ p(H₂)=-4 bar, il risultato è -33,4838 kJ/mol. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": -4,
+        "parameters": {
+          "a": 1
+        },
+        "expected": -33.483838456900614,
+        "unit": "kJ/mol"
+      }
+    },
+    {
+      "id": "biology-09-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "ΔG = ΔG° + RT ln Q a 25 °C",
+          "feedback": "Gas ideali, 25 °C, acqua liquida pura; non considera la temperatura dei camini né l'energia minima che una cellula riesce a usare."
         },
         {
-          "id": "D",
-          "text": "Non si può dire senza altri figli",
-          "feedback": "Per escludere AA basta un figlio bianco. Servono molti figli solo quando sono tutti viola."
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Gas ideali, 25 °C, acqua liquida pura; non considera la temperatura dei camini né l'energia minima che una cellula riesce a usare."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Gas ideali, 25 °C, acqua liquida pura; non considera la temperatura dei camini né l'energia minima che una cellula riesce a usare."
         }
       ],
       "correct": "A"
-    },
-    {
-      "id": "biology-09-q6",
-      "prompt": "Quale situazione esce dai limiti del modello di questa unità?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Un incrocio Aa × Aa",
-          "feedback": "È il caso tipico del modello: un gene, due alleli, dominanza completa."
-        },
-        {
-          "id": "B",
-          "text": "Un reincrocio con una pianta aa",
-          "feedback": "Il reincrocio è un incrocio monoibrido e rientra nel modello."
-        },
-        {
-          "id": "C",
-          "text": "Due geni vicini sullo stesso cromosoma",
-          "feedback": "Esatto: geni associati non si separano in modo indipendente, e le previsioni del modello non valgono più."
-        },
-        {
-          "id": "D",
-          "text": "Un incrocio AA × aa",
-          "feedback": "Anche questo rientra nel modello: tutti i figli sono Aa e hanno fiori viola."
-        }
-      ],
-      "correct": "C"
     }
-  ],
-  "activity": {
-    "kind": "punnett"
-  }
+  ]
 }

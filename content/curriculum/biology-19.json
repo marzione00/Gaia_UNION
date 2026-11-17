@@ -2,25 +2,23 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-19",
-  "title": "Crescita delle popolazioni",
+  "title": "Respirazione, fermentazione e chemiosintesi",
   "sector": 3,
   "modelId": "biology-19",
-  "coverage": "guided-activity",
-  "editorialStatus": "hand-written-draft",
-  "scope": "Crescita esponenziale, tempo di raddoppio, modello logistico, capacità portante, fattori di regolazione",
-  "narrativeStatus": "Le serie di conteggi sono simulate con il modello logistico e piccoli scarti.",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Bilancio di ATP a resa costante",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
   "objectives": [
-    "Descrivere la crescita esponenziale e il tempo di raddoppio.",
-    "Usare il modello logistico e la capacità portante.",
-    "Stimare K e r da una serie di conteggi.",
-    "Distinguere fattori dipendenti e indipendenti dalla densità."
+    "Spiegare: bilancio di atp a resa costante.",
+    "Applicare ATP = resa × glucosio, dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
   ],
   "prerequisites": [
     "biology-18"
   ],
   "connections": [
-    "biology-20",
-    "math-p08"
+    "chemistry-16"
   ],
   "sources": [
     "biology"
@@ -28,421 +26,244 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Crescita esponenziale",
-      "definition": "Crescita con tasso pro capite costante, N = N₀ e^(rt)."
+      "term": "Glucosio utilizzato",
+      "definition": "Variabile indipendente, unità mmol; intervallo [0; 10]."
     },
     {
-      "term": "Capacità portante",
-      "definition": "Numero massimo di individui che l’ambiente può sostenere, K."
+      "term": "ATP nel bilancio",
+      "definition": "Risultato calcolato dal modello, unità mmol."
     },
     {
-      "term": "Modello logistico",
-      "definition": "dN/dt = rN(1 − N/K)."
-    },
-    {
-      "term": "Tempo di raddoppio",
-      "definition": "Tempo in cui una popolazione esponenziale raddoppia, ln 2/r."
-    },
-    {
-      "term": "Fattore dipendente dalla densità",
-      "definition": "Fattore il cui effetto cresce con il numero di individui."
+      "term": "Resa assunta",
+      "definition": "Parametro a, unità mol/mol; intervallo [2; 32]."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Parameci in provetta",
+      "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Nel 1934 il biologo russo Georgij Gause mise pochi parameci in una provetta con nutrimento costante e li contò ogni giorno. All’inizio il numero raddoppiava in fretta; poi la crescita rallentò e si fermò intorno a un valore stabile. La stessa curva a S si osserva nei lieviti, nelle pecore introdotte su un’isola, nei batteri di una coltura.",
-          "Se le risorse sono illimitate, ogni individuo contribuisce alla crescita allo stesso modo: dN/dt = rN, con r tasso di crescita. La soluzione è N = N₀ e^(rt), e la popolazione raddoppia ogni ln 2/r. Un batterio come Escherichia coli, in condizioni ideali, si divide ogni 20 minuti circa: in un giorno, senza limiti, una cellula darebbe un numero di discendenti con più di venti cifre."
+          "Un microrganismo del sottosuolo può respirare o fermentare lo stesso zucchero. Quanta energia in forma di ATP ottiene nei due casi?",
+          "La respirazione aerobica di una mole di glucosio produce circa 30-32 moli di ATP; la fermentazione ne produce 2. Il bilancio è ATP = resa × glucosio."
         ],
         "intermediate": [
-          "Nel 1934 il biologo russo Georgij Gause mise pochi parameci in una provetta con nutrimento costante e li contò ogni giorno. All’inizio il numero raddoppiava in fretta; poi la crescita rallentò e si fermò intorno a un valore stabile. La stessa curva a S si osserva nei lieviti, nelle pecore introdotte su un’isola, nei batteri di una coltura.",
-          "Se le risorse sono illimitate, ogni individuo contribuisce alla crescita allo stesso modo: dN/dt = rN, con r tasso di crescita. La soluzione è N = N₀ e^(rt), e la popolazione raddoppia ogni ln 2/r. Un batterio come Escherichia coli, in condizioni ideali, si divide ogni 20 minuti circa: in un giorno, senza limiti, una cellula darebbe un numero di discendenti con più di venti cifre."
+          "Un microrganismo del sottosuolo può respirare o fermentare lo stesso zucchero. Quanta energia in forma di ATP ottiene nei due casi?",
+          "La glicolisi dà 2 ATP per glucosio; nella respirazione il piruvato è ossidato fino a CO₂ e gli elettroni passano all'ossigeno attraverso la catena di trasporto, che genera un gradiente di protoni usato dall'ATP sintasi."
         ],
         "advanced": [
-          "Nel 1934 il biologo russo Georgij Gause mise pochi parameci in una provetta con nutrimento costante e li contò ogni giorno. All’inizio il numero raddoppiava in fretta; poi la crescita rallentò e si fermò intorno a un valore stabile. La stessa curva a S si osserva nei lieviti, nelle pecore introdotte su un’isola, nei batteri di una coltura.",
-          "Se le risorse sono illimitate, ogni individuo contribuisce alla crescita allo stesso modo: dN/dt = rN, con r tasso di crescita. La soluzione è N = N₀ e^(rt), e la popolazione raddoppia ogni ln 2/r. Un batterio come Escherichia coli, in condizioni ideali, si divide ogni 20 minuti circa: in un giorno, senza limiti, una cellula darebbe un numero di discendenti con più di venti cifre."
+          "Un microrganismo del sottosuolo può respirare o fermentare lo stesso zucchero. Quanta energia in forma di ATP ottiene nei due casi?",
+          "Calcola quanto glucosio deve consumare un fermentatore per ottenere lo stesso ATP di un organismo aerobico che consuma 1 mmol di glucosio.",
+          "Resa media costante; la resa reale dipende dall'organismo e dalle condizioni."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Logistica e regolazione",
+      "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Le risorse però finiscono. Nel 1838 Pierre-François Verhulst propose il modello logistico: dN/dt = rN(1 − N/K), dove K è la capacità portante, il numero massimo di individui che l’ambiente può sostenere. Finché N è piccolo la crescita è quasi esponenziale; quando N si avvicina a K rallenta e si ferma. La soluzione è N = K/[1 + (K/N₀ − 1)e^(−rt)], e la crescita è più rapida quando N = K/2.",
-          "I fattori che regolano una popolazione possono dipendere dalla densità, come la competizione per il cibo, le malattie che si diffondono meglio in popolazioni dense, la predazione; oppure no, come una gelata o una siccità che colpiscono comunque. Alcune specie investono in molti figli piccoli e crescono in fretta quando le condizioni sono buone; altre in pochi figli curati a lungo, e restano vicine a K.",
-          "La popolazione umana ha superato gli 8 miliardi di persone nel novembre 2022, secondo le Nazioni Unite. Per gran parte del Novecento è cresciuta più che esponenzialmente; da alcuni decenni il tasso di crescita diminuisce, e le proiezioni prevedono un massimo nella seconda metà di questo secolo."
+          "La respirazione aerobica di una mole di glucosio produce circa 30-32 moli di ATP; la fermentazione ne produce 2. Il bilancio è ATP = resa × glucosio.",
+          "Con resa 30 mol/mol, 2 mmol di glucosio danno 60 mmol di ATP; con la fermentazione, resa 2, se ne ottengono 4 mmol."
         ],
         "intermediate": [
-          "Le risorse però finiscono. Nel 1838 Pierre-François Verhulst propose il modello logistico: dN/dt = rN(1 − N/K), dove K è la capacità portante, il numero massimo di individui che l’ambiente può sostenere. Finché N è piccolo la crescita è quasi esponenziale; quando N si avvicina a K rallenta e si ferma. La soluzione è N = K/[1 + (K/N₀ − 1)e^(−rt)], e la crescita è più rapida quando N = K/2.",
-          "I fattori che regolano una popolazione possono dipendere dalla densità, come la competizione per il cibo, le malattie che si diffondono meglio in popolazioni dense, la predazione; oppure no, come una gelata o una siccità che colpiscono comunque. Alcune specie investono in molti figli piccoli e crescono in fretta quando le condizioni sono buone; altre in pochi figli curati a lungo, e restano vicine a K.",
-          "La popolazione umana ha superato gli 8 miliardi di persone nel novembre 2022, secondo le Nazioni Unite. Per gran parte del Novecento è cresciuta più che esponenzialmente; da alcuni decenni il tasso di crescita diminuisce, e le proiezioni prevedono un massimo nella seconda metà di questo secolo."
+          "La glicolisi dà 2 ATP per glucosio; nella respirazione il piruvato è ossidato fino a CO₂ e gli elettroni passano all'ossigeno attraverso la catena di trasporto, che genera un gradiente di protoni usato dall'ATP sintasi.",
+          "La variabile Glucosio utilizzato è espressa in mmol; ATP nel bilancio in mmol. Il dominio dello strumento è [0; 10]. La relazione implementata è: ATP = resa × glucosio.",
+          "Con resa 30 mol/mol, 2 mmol di glucosio danno 60 mmol di ATP; con la fermentazione, resa 2, se ne ottengono 4 mmol."
         ],
         "advanced": [
-          "Le risorse però finiscono. Nel 1838 Pierre-François Verhulst propose il modello logistico: dN/dt = rN(1 − N/K), dove K è la capacità portante, il numero massimo di individui che l’ambiente può sostenere. Finché N è piccolo la crescita è quasi esponenziale; quando N si avvicina a K rallenta e si ferma. La soluzione è N = K/[1 + (K/N₀ − 1)e^(−rt)], e la crescita è più rapida quando N = K/2.",
-          "I fattori che regolano una popolazione possono dipendere dalla densità, come la competizione per il cibo, le malattie che si diffondono meglio in popolazioni dense, la predazione; oppure no, come una gelata o una siccità che colpiscono comunque. Alcune specie investono in molti figli piccoli e crescono in fretta quando le condizioni sono buone; altre in pochi figli curati a lungo, e restano vicine a K.",
-          "La popolazione umana ha superato gli 8 miliardi di persone nel novembre 2022, secondo le Nazioni Unite. Per gran parte del Novecento è cresciuta più che esponenzialmente; da alcuni decenni il tasso di crescita diminuisce, e le proiezioni prevedono un massimo nella seconda metà di questo secolo.",
-          "Che cosa mostra il grafico. Una curva a S: un tratto iniziale quasi esponenziale, un flesso a metà altezza, un avvicinamento lento alla capacità portante. Con N₀ = 10 e K = 100, il flesso cade dove (K/N₀ − 1)e^(−rt) = 1, cioè a t = ln 9/r: con r = 0,3 circa 7,3 unità di tempo."
+          "La glicolisi dà 2 ATP per glucosio; nella respirazione il piruvato è ossidato fino a CO₂ e gli elettroni passano all'ossigeno attraverso la catena di trasporto, che genera un gradiente di protoni usato dall'ATP sintasi.",
+          "Calcola quanto glucosio deve consumare un fermentatore per ottenere lo stesso ATP di un organismo aerobico che consuma 1 mmol di glucosio.",
+          "La fermentazione è un processo diverso dalla respirazione anaerobica. Manca la catena di trasporto, e gran parte dell'energia resta nei prodotti, come l'etanolo o il lattato."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Adatta il modello ai conteggi",
+      "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "L’attività presenta tre serie di conteggi di una popolazione che parte da 10 individui. Il modello è logistico: nella prima serie regoli la capacità portante K, nella seconda il tasso r, nella terza entrambi. Per completare l’attività adatta il modello a due serie su tre.",
-          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi «Verifica»; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
-          "Suggerimento: K si legge dal valore a cui la curva si stabilizza. Il tasso r decide quanto in fretta si sale: il punto di flesso, dove N = K/2, arriva prima se r è grande."
+          "Nel laboratorio imposta Resa assunta (a): 30 mol/mol. Prima di salvare A, prevedi come cambia ATP nel bilancio fra Glucosio utilizzato=2,5 e 5 mmol. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con resa 30 mol/mol, 2 mmol di glucosio danno 60 mmol di ATP; con la fermentazione, resa 2, se ne ottengono 4 mmol.",
+          "La variabile Glucosio utilizzato è espressa in mmol; ATP nel bilancio in mmol. Il dominio dello strumento è [0; 10]. La relazione implementata è: ATP = resa × glucosio."
         ],
         "intermediate": [
-          "L’attività presenta tre serie di conteggi di una popolazione che parte da 10 individui. Il modello è logistico: nella prima serie regoli la capacità portante K, nella seconda il tasso r, nella terza entrambi. Per completare l’attività adatta il modello a due serie su tre.",
-          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi «Verifica»; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
-          "Suggerimento: K si legge dal valore a cui la curva si stabilizza. Il tasso r decide quanto in fretta si sale: il punto di flesso, dove N = K/2, arriva prima se r è grande."
+          "Nel laboratorio imposta Resa assunta (a): 30 mol/mol. Prima di salvare A, prevedi come cambia ATP nel bilancio fra Glucosio utilizzato=2,5 e 5 mmol. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Glucosio utilizzato è espressa in mmol; ATP nel bilancio in mmol. Il dominio dello strumento è [0; 10]. La relazione implementata è: ATP = resa × glucosio.",
+          "La glicolisi dà 2 ATP per glucosio; nella respirazione il piruvato è ossidato fino a CO₂ e gli elettroni passano all'ossigeno attraverso la catena di trasporto, che genera un gradiente di protoni usato dall'ATP sintasi."
         ],
         "advanced": [
-          "L’attività presenta tre serie di conteggi di una popolazione che parte da 10 individui. Il modello è logistico: nella prima serie regoli la capacità portante K, nella seconda il tasso r, nella terza entrambi. Per completare l’attività adatta il modello a due serie su tre.",
-          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi «Verifica»; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
-          "Suggerimento: K si legge dal valore a cui la curva si stabilizza. Il tasso r decide quanto in fretta si sale: il punto di flesso, dove N = K/2, arriva prima se r è grande."
+          "Nel laboratorio imposta Resa assunta (a): 30 mol/mol. Prima di salvare A, prevedi come cambia ATP nel bilancio fra Glucosio utilizzato=2,5 e 5 mmol. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Calcola quanto glucosio deve consumare un fermentatore per ottenere lo stesso ATP di un organismo aerobico che consuma 1 mmol di glucosio.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere il grafico ed evitare errori",
+      "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Che cosa mostra il grafico. Una curva a S: un tratto iniziale quasi esponenziale, un flesso a metà altezza, un avvicinamento lento alla capacità portante. Con N₀ = 10 e K = 100, il flesso cade dove (K/N₀ − 1)e^(−rt) = 1, cioè a t = ln 9/r: con r = 0,3 circa 7,3 unità di tempo.",
-          "Errore frequente: pensare che una popolazione alla capacità portante abbia smesso di riprodursi. Nascite e morti continuano e si bilanciano: il numero resta stabile.",
-          "Secondo errore: credere che K sia una proprietà fissa della specie. La capacità portante dipende dall’ambiente: cibo, spazio, predatori, clima."
+          "La fermentazione è un processo diverso dalla respirazione anaerobica. Manca la catena di trasporto, e gran parte dell'energia resta nei prodotti, come l'etanolo o il lattato.",
+          "Resa media costante; la resa reale dipende dall'organismo e dalle condizioni.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ],
         "intermediate": [
-          "Che cosa mostra il grafico. Una curva a S: un tratto iniziale quasi esponenziale, un flesso a metà altezza, un avvicinamento lento alla capacità portante. Con N₀ = 10 e K = 100, il flesso cade dove (K/N₀ − 1)e^(−rt) = 1, cioè a t = ln 9/r: con r = 0,3 circa 7,3 unità di tempo.",
-          "Errore frequente: pensare che una popolazione alla capacità portante abbia smesso di riprodursi. Nascite e morti continuano e si bilanciano: il numero resta stabile.",
-          "Secondo errore: credere che K sia una proprietà fissa della specie. La capacità portante dipende dall’ambiente: cibo, spazio, predatori, clima."
+          "La fermentazione è un processo diverso dalla respirazione anaerobica. Manca la catena di trasporto, e gran parte dell'energia resta nei prodotti, come l'etanolo o il lattato.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ],
         "advanced": [
-          "Che cosa mostra il grafico. Una curva a S: un tratto iniziale quasi esponenziale, un flesso a metà altezza, un avvicinamento lento alla capacità portante. Con N₀ = 10 e K = 100, il flesso cade dove (K/N₀ − 1)e^(−rt) = 1, cioè a t = ln 9/r: con r = 0,3 circa 7,3 unità di tempo.",
-          "Errore frequente: pensare che una popolazione alla capacità portante abbia smesso di riprodursi. Nascite e morti continuano e si bilanciano: il numero resta stabile.",
-          "Secondo errore: credere che K sia una proprietà fissa della specie. La capacità portante dipende dall’ambiente: cibo, spazio, predatori, clima."
+          "Resa media costante; la resa reale dipende dall'organismo e dalle condizioni.",
+          "Calcola quanto glucosio deve consumare un fermentatore per ottenere lo stesso ATP di un organismo aerobico che consuma 1 mmol di glucosio.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica",
+      "title": "Verifica ragionamento e calcolo",
       "text": {
         "base": [
-          "Ripasso: crescita esponenziale e tempo di raddoppio; modello logistico e capacità portante; punto di flesso a K/2; fattori dipendenti e indipendenti dalla densità; crescita della popolazione umana.",
-          "Mini esercizio: con r = 0,35 al giorno il tempo di raddoppio è ln 2/0,35 ≈ 2 giorni.",
-          "Nelle domande sulla crescita chiediti se le risorse sono abbondanti, curva esponenziale, o limitate, curva logistica."
+          "La respirazione aerobica di una mole di glucosio produce circa 30-32 moli di ATP; la fermentazione ne produce 2. Il bilancio è ATP = resa × glucosio.",
+          "Con resa 30 mol/mol, 2 mmol di glucosio danno 60 mmol di ATP; con la fermentazione, resa 2, se ne ottengono 4 mmol."
         ],
         "intermediate": [
-          "Ripasso: crescita esponenziale e tempo di raddoppio; modello logistico e capacità portante; punto di flesso a K/2; fattori dipendenti e indipendenti dalla densità; crescita della popolazione umana.",
-          "Mini esercizio: con r = 0,35 al giorno il tempo di raddoppio è ln 2/0,35 ≈ 2 giorni.",
-          "Nelle domande sulla crescita chiediti se le risorse sono abbondanti, curva esponenziale, o limitate, curva logistica."
+          "La glicolisi dà 2 ATP per glucosio; nella respirazione il piruvato è ossidato fino a CO₂ e gli elettroni passano all'ossigeno attraverso la catena di trasporto, che genera un gradiente di protoni usato dall'ATP sintasi.",
+          "La variabile Glucosio utilizzato è espressa in mmol; ATP nel bilancio in mmol. Il dominio dello strumento è [0; 10]. La relazione implementata è: ATP = resa × glucosio."
         ],
         "advanced": [
-          "Ripasso: crescita esponenziale e tempo di raddoppio; modello logistico e capacità portante; punto di flesso a K/2; fattori dipendenti e indipendenti dalla densità; crescita della popolazione umana.",
-          "Mini esercizio: con r = 0,35 al giorno il tempo di raddoppio è ln 2/0,35 ≈ 2 giorni.",
-          "Nelle domande sulla crescita chiediti se le risorse sono abbondanti, curva esponenziale, o limitate, curva logistica."
+          "Calcola quanto glucosio deve consumare un fermentatore per ottenere lo stesso ATP di un organismo aerobico che consuma 1 mmol di glucosio.",
+          "Resa media costante; la resa reale dipende dall'organismo e dalle condizioni."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Collegamenti",
+      "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Le iterazioni e la stabilità dei modelli di popolazione sono il tema dell’unità di matematica «Iterazioni, stabilità e precisione numerica». In biologia si passa a «Competizione ecologica»: che cosa succede quando due specie condividono le risorse.",
-          "Riepilogo dell’unità: con risorse illimitate la crescita è esponenziale e raddoppia ogni ln 2/r; con risorse limitate segue il modello logistico e si ferma alla capacità portante K; la crescita è massima a N = K/2; alcuni fattori di regolazione dipendono dalla densità, altri no.",
-          "Nel diario annota K e r trovati e calcola per ciascuna serie il tempo in cui la popolazione arriva a K/2."
+          "Nel diario distingui previsione, risultato e interpretazione. Bilancio di ATP a resa costante.",
+          "Resa media costante; la resa reale dipende dall'organismo e dalle condizioni.",
+          "Collegamento consigliato: chemistry-16. Il completamento registra attività e autoverifica, non certifica competenze."
         ],
         "intermediate": [
-          "Le iterazioni e la stabilità dei modelli di popolazione sono il tema dell’unità di matematica «Iterazioni, stabilità e precisione numerica». In biologia si passa a «Competizione ecologica»: che cosa succede quando due specie condividono le risorse.",
-          "Riepilogo dell’unità: con risorse illimitate la crescita è esponenziale e raddoppia ogni ln 2/r; con risorse limitate segue il modello logistico e si ferma alla capacità portante K; la crescita è massima a N = K/2; alcuni fattori di regolazione dipendono dalla densità, altri no.",
-          "Nel diario annota K e r trovati e calcola per ciascuna serie il tempo in cui la popolazione arriva a K/2."
+          "La glicolisi dà 2 ATP per glucosio; nella respirazione il piruvato è ossidato fino a CO₂ e gli elettroni passano all'ossigeno attraverso la catena di trasporto, che genera un gradiente di protoni usato dall'ATP sintasi.",
+          "Resa media costante; la resa reale dipende dall'organismo e dalle condizioni.",
+          "Calcola quanto glucosio deve consumare un fermentatore per ottenere lo stesso ATP di un organismo aerobico che consuma 1 mmol di glucosio."
         ],
         "advanced": [
-          "Le iterazioni e la stabilità dei modelli di popolazione sono il tema dell’unità di matematica «Iterazioni, stabilità e precisione numerica». In biologia si passa a «Competizione ecologica»: che cosa succede quando due specie condividono le risorse.",
-          "Riepilogo dell’unità: con risorse illimitate la crescita è esponenziale e raddoppia ogni ln 2/r; con risorse limitate segue il modello logistico e si ferma alla capacità portante K; la crescita è massima a N = K/2; alcuni fattori di regolazione dipendono dalla densità, altri no.",
-          "Nel diario annota K e r trovati e calcola per ciascuna serie il tempo in cui la popolazione arriva a K/2."
+          "Calcola quanto glucosio deve consumare un fermentatore per ottenere lo stesso ATP di un organismo aerobico che consuma 1 mmol di glucosio.",
+          "Resa media costante; la resa reale dipende dall'organismo e dalle condizioni.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-19-q1",
-      "prompt": "Una popolazione cresce esponenzialmente con r = 0,35 al giorno. Qual è il tempo di raddoppio?",
+      "id": "biology-19-concept",
+      "prompt": "Per ottenere la stessa quantità di ATP, un organismo che fermenta consuma rispetto a uno che respira:",
       "options": [
         {
           "id": "A",
-          "text": "Circa 2 giorni",
-          "feedback": "Esatto: il tempo di raddoppio è ln 2/0,35 ≈ 1,98 giorni."
+          "text": "Circa quindici volte più glucosio",
+          "feedback": "La respirazione aerobica di una mole di glucosio produce circa 30-32 moli di ATP; la fermentazione ne produce 2. Il bilancio è ATP = resa × glucosio."
         },
         {
           "id": "B",
-          "text": "0,35 giorni",
-          "feedback": "0,35 è il tasso di crescita, non un tempo."
+          "text": "La stessa quantità di glucosio",
+          "feedback": "La fermentazione è un processo diverso dalla respirazione anaerobica. Manca la catena di trasporto, e gran parte dell'energia resta nei prodotti, come l'etanolo o il lattato."
         },
         {
           "id": "C",
-          "text": "Circa 2,9 giorni",
-          "feedback": "2,9 giorni è 1/r: manca il fattore ln 2."
-        },
-        {
-          "id": "D",
-          "text": "0,24 giorni",
-          "feedback": "Hai moltiplicato ln 2 per r invece di dividere."
+          "text": "La metà del glucosio",
+          "feedback": "La glicolisi dà 2 ATP per glucosio; nella respirazione il piruvato è ossidato fino a CO₂ e gli elettroni passano all'ossigeno attraverso la catena di trasporto, che genera un gradiente di protoni usato dall'ATP sintasi."
         }
       ],
       "correct": "A"
     },
     {
-      "id": "biology-19-q2",
-      "prompt": "Che cos’è la capacità portante K?",
+      "id": "biology-19-calculation",
+      "prompt": "Calcolo: Resa assunta (a)=30 mol/mol. Per Glucosio utilizzato=2 mmol, quanto vale ATP nel bilancio?",
       "options": [
         {
           "id": "A",
-          "text": "Il tasso di crescita massimo",
-          "feedback": "Il tasso di crescita è r, un altro parametro del modello."
+          "text": "90 mmol",
+          "feedback": "Questo valore non soddisfa la relazione. ATP = resa × glucosio. Con Resa assunta (a)=30 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 60 mmol. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "Il numero massimo di individui che l’ambiente può sostenere",
-          "feedback": "Esatto: la popolazione si stabilizza intorno a K."
+          "text": "30 mmol",
+          "feedback": "Controlla sostituzione, segno e unità. ATP = resa × glucosio. Con Resa assunta (a)=30 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 60 mmol. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "Il numero iniziale di individui",
-          "feedback": "Il numero iniziale di individui è N₀."
-        },
-        {
-          "id": "D",
-          "text": "Il numero di figli per individuo",
-          "feedback": "Il numero di figli entra nel tasso r."
+          "text": "60 mmol",
+          "feedback": "ATP = resa × glucosio. Con Resa assunta (a)=30 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 60 mmol. Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "B"
+      "correct": "C",
+      "numeric": {
+        "x": 2,
+        "parameters": {
+          "a": 30
+        },
+        "expected": 60,
+        "unit": "mmol"
+      }
     },
     {
-      "id": "biology-19-q3",
-      "prompt": "Nel modello logistico, per quale N la crescita della popolazione è più rapida?",
+      "id": "biology-19-transfer",
+      "prompt": "Trasferimento: Resa assunta (a)=32 mol/mol. Per Glucosio utilizzato=2 mmol, quanto vale ATP nel bilancio?",
       "options": [
         {
           "id": "A",
-          "text": "N = 0",
-          "feedback": "Senza individui non c’è crescita: il prodotto rN è zero."
+          "text": "32 mmol",
+          "feedback": "Controlla sostituzione, segno e unità. ATP = resa × glucosio. Con Resa assunta (a)=32 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 64 mmol. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "N = K",
-          "feedback": "Alla capacità portante la crescita si ferma."
+          "text": "64 mmol",
+          "feedback": "ATP = resa × glucosio. Con Resa assunta (a)=32 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 64 mmol. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "N = K/2",
-          "feedback": "Esatto: lì il prodotto N(1 − N/K) è massimo."
+          "text": "96 mmol",
+          "feedback": "Questo valore non soddisfa la relazione. ATP = resa × glucosio. Con Resa assunta (a)=32 mol/mol e Glucosio utilizzato=2 mmol, il risultato è 64 mmol. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 2,
+        "parameters": {
+          "a": 32
+        },
+        "expected": 64,
+        "unit": "mmol"
+      }
+    },
+    {
+      "id": "biology-19-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Resa media costante; la resa reale dipende dall'organismo e dalle condizioni."
         },
         {
-          "id": "D",
-          "text": "N = 2K",
-          "feedback": "Oltre K la popolazione diminuisce invece di crescere."
+          "id": "B",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Resa media costante; la resa reale dipende dall'organismo e dalle condizioni."
+        },
+        {
+          "id": "C",
+          "text": "Bilancio di ATP a resa costante",
+          "feedback": "Resa media costante; la resa reale dipende dall'organismo e dalle condizioni."
         }
       ],
       "correct": "C"
-    },
-    {
-      "id": "biology-19-q4",
-      "prompt": "Quale fattore dipende dalla densità?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Una gelata improvvisa",
-          "feedback": "Una gelata colpisce indipendentemente dal numero di individui."
-        },
-        {
-          "id": "B",
-          "text": "Un’eruzione vulcanica",
-          "feedback": "Un’eruzione colpisce indipendentemente dal numero di individui."
-        },
-        {
-          "id": "C",
-          "text": "Una siccità",
-          "feedback": "La siccità colpisce comunque, anche popolazioni piccole."
-        },
-        {
-          "id": "D",
-          "text": "La competizione per il cibo",
-          "feedback": "Esatto: più individui significano meno cibo per ciascuno."
-        }
-      ],
-      "correct": "D"
-    },
-    {
-      "id": "biology-19-q5",
-      "prompt": "Perché all’inizio la curva logistica somiglia a un’esponenziale?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Perché N è molto minore di K e il freno 1 − N/K è quasi 1",
-          "feedback": "Esatto: le risorse sono ancora abbondanti."
-        },
-        {
-          "id": "B",
-          "text": "Perché r cambia nel tempo",
-          "feedback": "Nel modello r è costante: cambia solo il freno 1 − N/K."
-        },
-        {
-          "id": "C",
-          "text": "Perché K è zero all’inizio",
-          "feedback": "K è fissato dall’ambiente fin dall’inizio."
-        },
-        {
-          "id": "D",
-          "text": "Perché non ci sono nascite",
-          "feedback": "Senza nascite la popolazione non crescerebbe."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-19-q6",
-      "prompt": "Che cosa accade a una popolazione che ha raggiunto la capacità portante?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Smette di riprodursi",
-          "feedback": "Le nascite continuano, bilanciate dalle morti."
-        },
-        {
-          "id": "B",
-          "text": "Nascite e morti si bilanciano",
-          "feedback": "Esatto: il numero di individui resta stabile."
-        },
-        {
-          "id": "C",
-          "text": "Si estingue",
-          "feedback": "La capacità portante è un equilibrio, non un collasso."
-        },
-        {
-          "id": "D",
-          "text": "Continua a crescere esponenzialmente",
-          "feedback": "La crescita rallenta e si ferma vicino a K."
-        }
-      ],
-      "correct": "B"
     }
-  ],
-  "activity": {
-    "kind": "fit",
-    "goal": 2,
-    "rounds": [
-      {
-        "id": "capacita",
-        "title": "Quanti ne sostiene l’ambiente?",
-        "prompt": "Il tasso r è noto. Regola la capacità portante K guardando dove si stabilizzano i conteggi.",
-        "model": "biology-19",
-        "x": [
-          0,
-          4,
-          8,
-          12,
-          16,
-          20,
-          25,
-          30
-        ],
-        "noise": [
-          0,
-          1.5,
-          -2,
-          2.5,
-          -2,
-          1.5,
-          -1,
-          1
-        ],
-        "hidden": {
-          "a": 150,
-          "b": 0.3
-        },
-        "fit": [
-          "a"
-        ],
-        "explain": "K = 150 individui: dopo 25 unità di tempo la popolazione ci è quasi arrivata."
-      },
-      {
-        "id": "tasso",
-        "title": "Quanto in fretta cresce?",
-        "prompt": "La capacità portante è nota. Regola il tasso r: decide quando la curva sale.",
-        "model": "biology-19",
-        "x": [
-          0,
-          2,
-          4,
-          6,
-          8,
-          10,
-          12,
-          15
-        ],
-        "noise": [
-          0,
-          1,
-          -1.5,
-          1.5,
-          -1,
-          1,
-          -0.8,
-          0.5
-        ],
-        "hidden": {
-          "a": 100,
-          "b": 0.5
-        },
-        "fit": [
-          "b"
-        ],
-        "explain": "r = 0,5: il flesso, a metà della capacità portante, cade a t = ln 9/0,5 ≈ 4,4."
-      },
-      {
-        "id": "entrambi",
-        "title": "Due parametri insieme",
-        "prompt": "Né K né r sono noti. Stima K dal livello finale, poi r dalla salita.",
-        "model": "biology-19",
-        "x": [
-          0,
-          5,
-          10,
-          15,
-          20,
-          25,
-          30
-        ],
-        "noise": [
-          0,
-          1.5,
-          -2,
-          2,
-          -1.5,
-          1,
-          -1
-        ],
-        "hidden": {
-          "a": 180,
-          "b": 0.2
-        },
-        "fit": [
-          "a",
-          "b"
-        ],
-        "explain": "K = 180 e r = 0,2: una crescita lenta verso un ambiente capiente."
-      }
-    ]
-  }
+  ]
 }

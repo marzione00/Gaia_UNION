@@ -1,5 +1,5 @@
 /** Deterministic atlas navigation. No renderer, network, or inferred learning credit. */
-import { systemForPlanet, AREAS } from '../scene/systems.js';
+import { systemForPlanet, AREAS, SYSTEM_COUNT } from '../scene/systems.js';
 export const DISCIPLINES = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
 export const TEXT_SCALES = [1, 1.2, 1.4];
 export const normalize = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('it').trim();
@@ -10,7 +10,7 @@ export function cleanAtlas(value = {}) {
         version: 2,
         textScale: TEXT_SCALES.includes(value?.textScale) ? value.textScale : 1,
         contrast: value?.contrast === true,
-        visited: value?.version === 2 && Array.isArray(value?.visited) ? [...new Set(value.visited.filter(n => integer(n, 0, 24)))].slice(0,25) : [],
+        visited: value?.version === 2 && Array.isArray(value?.visited) ? [...new Set(value.visited.filter(n => integer(n, 0, SYSTEM_COUNT - 1)))].slice(0,SYSTEM_COUNT) : [],
         recent: Array.isArray(value?.recent) ? [...new Set(value.recent.filter(safeId))].slice(0,12) : [],
         lastUnit: safeId(value?.lastUnit) ? value.lastUnit : null,
         guideDone: value?.guideDone === true,

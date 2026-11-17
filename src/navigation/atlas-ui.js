@@ -5,7 +5,7 @@ import { AtlasScene } from './atlas-scene.js';
 import { DISCIPLINES, TEXT_SCALES, GUIDE, cleanAtlas, atlasLayout, contains, placeLabels, searchModules, unitStatus, rememberVisit } from './atlas-model.js';
 
 import { scaledText } from './text.js';
-import { systemForPlanet, indicesForSystem, AREAS } from '../scene/systems.js';
+import { systemForPlanet, indicesForSystem, AREAS, SYSTEM_COUNT, UNIT_COUNT } from '../scene/systems.js';
 const SECTOR_COLORS=DISCIPLINE;
 const basePalette=Object.fromEntries(Object.entries(C).map(([k,v])=>[k,[...v]]));
 export class AtlasUI {
@@ -31,7 +31,7 @@ export class AtlasUI {
     search(){this.open('list');if(this.input){this.input.disabled=false;this.input.value=this.query;this.input.focus();}}
     announce(text){this.api.say(text);}
     selectModule(id,center=false){const m=this.catalogue.modules.find(m=>m.id===id);if(!m)return;this.api.selectIndex(m.planetIndex);this.S.system=systemForPlanet(m.planetIndex);this.hoverId=null;this.previewPage=0;this.close();if(center)this.focusSystem(this.S.system);this.api.updateHash?.();this.announce(`${AREAS[this.S.system].name}. ${DISCIPLINES[m.sector]}: ${m.title}. Selezionata: premi Apri l’unità per studiarla.`);}
-    selectSystem(id,center=false){if(!Number.isInteger(id)||id<0||id>=25)return;const units=indicesForSystem(id),index=units.includes(this.S.selected)?this.S.selected:units[0];this.selectModule(this.catalogue.modules[index].id,center);}
+    selectSystem(id,center=false){if(!Number.isInteger(id)||id<0||id>=SYSTEM_COUNT)return;const units=indicesForSystem(id),index=units.includes(this.S.selected)?this.S.selected:units[0];this.selectModule(this.catalogue.modules[index].id,center);}
     startGuide(){this.open('guide');this.guideStep=0;}
     endGuide(){this.prefs.guideDone=true;this.save();this.close();}
     focusSystem(id=this.S.system){const position=this.world.systems[id]?.position;if(!position)return;
@@ -211,7 +211,7 @@ export class AtlasUI {
     welcomeUI(U,r){const lastId=this.prefs.lastUnit,last=lastId?this.catalogue.modules.find(m=>m.id===lastId):null,scale=this.prefs.textScale,line=24*scale,gap=56;
         const rows=[['welcome-search','CERCA UN ARGOMENTO',()=>{this.close();this.api.route('catalogue');}],['welcome-paths','SEGUI UN PERCORSO DI STUDIO',()=>{this.close();this.api.route('paths');}],['welcome-map','ESPLORA LA GALASSIA',()=>{this.close();if(!this.prefs.guideDone)this.startGuide();}]];
         if(last)rows.unshift(['welcome-resume','RIPRENDI: '+last.title,()=>{this.close();this.api.openCourse(last.id);}]);
-        const intro=r.w<560?'100 unità di matematica, fisica, chimica e biologia, ciascuna con lezione, laboratorio e verifica.':'GAIA raccoglie 100 unità di matematica, fisica, chimica e biologia. Ogni unità ha una lezione su tre livelli, un laboratorio e quattro domande di verifica. Puoi arrivarci in tre modi.';
+        const intro=r.w<560?UNIT_COUNT+' unità di matematica, fisica, chimica e biologia, ciascuna con lezione, laboratorio e verifica.':'GAIA raccoglie '+UNIT_COUNT+' unità di matematica, fisica, chimica e biologia. Ogni unità ha una lezione su tre livelli, un laboratorio e quattro domande di verifica. Puoi arrivarci in tre modi.';
         const room=Math.max(0,Math.floor((r.h-rows.length*gap-40)/line)),lines=fittedRows(this.R,[intro],r.w/scale).slice(0,room);
         lines.forEach((t,i)=>scaledText(this.R,t,r.x,r.y+i*line,'body',C.pale,scale));
         const top=r.y+lines.length*line+(lines.length?18:0);rows.forEach(([id,label,act],i)=>this.button(U,id,label,r.x,top+i*gap,r.w,act,{active:i===0}));
@@ -231,7 +231,7 @@ export class AtlasUI {
     }
     semanticKey(){return [this.S.system,this.S.selected,this.S.sector,this.hoverId,this.sheet,this.query,this.page,this.previewPage,this.level,this.pathId,this.guideStep,this.prefs.textScale,this.prefs.contrast,this.store.data.updatedAt].join('|');}
     semanticText(){const m=this.module,system=m?this.world.systems[systemForPlanet(m.planetIndex)]:null;if(!m||!system)return '';
-        let text=`Mappa di GAIA: quattro bracci, uno per disciplina, e 25 aree tematiche. ${system.discipline}, area ${system.name}, ${system.planets.length} unità. Selezionata: ${m.title}. ${m.description}. ${unitStatus(m,this.store.data).label}.`;
+        let text=`Mappa di GAIA: quattro bracci, uno per disciplina, e ${SYSTEM_COUNT} aree tematiche. ${system.discipline}, area ${system.name}, ${system.planets.length} unità. Selezionata: ${m.title}. ${m.description}. ${unitStatus(m,this.store.data).label}.`;
         if(this.sheet==='detail'){const d=this.bundle.courses.find(d=>d.id===this.catalogue.modules[this.S.selected].id);text+=' '+d.steps[0].text[['base','intermediate','advanced'][this.level]].join(' ')+' Ambito: '+d.scope;}
         if(this.sheet==='guide')text+=' Guida, '+GUIDE[this.guideStep].title+'. '+GUIDE[this.guideStep].text;
         if(this.sheet==='list')text+=' '+this.results.length+' risultati per '+(this.query||'tutti gli argomenti')+'.';

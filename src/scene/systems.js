@@ -1,9 +1,9 @@
 import { PLANET_TYPES } from './planet-types.js';
 export const MIN_STARS = 1000000;
-export const SYSTEM_COUNT = 25;
 export const SYSTEM_SCALE = .0025;
 /** Thematic areas: one galaxy arm per discipline, one star system per area, units in study order.
- * Indices refer to the catalogue order (0-24 mathematics, 25-49 physics, 50-74 chemistry, 75-99 biology). */
+ * Indices refer to the catalogue order (0-24 mathematics, 25-49 physics, 50-74 chemistry, 75-99 biology,
+ * 100-109 the two astrobiology areas added to the biology arm). */
 export const DISCIPLINE_NAMES = Object.freeze(['Matematica', 'Fisica', 'Chimica', 'Biologia']);
 export const AREAS = Object.freeze([
     { key:'mat-numeri', sector:0, name:'Numeri e ragionamento', units:[0, 13, 12, 17] },
@@ -24,17 +24,22 @@ export const AREAS = Object.freeze([
     { key:'chi-reazioni', sector:2, name:'Reazioni e quantità', units:[63, 64, 65] },
     { key:'chi-equilibrio', sector:2, name:'Velocità ed equilibrio', units:[66, 67, 68, 69] },
     { key:'chi-acidi', sector:2, name:'Acidi, redox e carbonio', units:[70, 71, 72, 73, 74] },
-    { key:'bio-cellula', sector:3, name:'La cellula', units:[75, 76, 77] },
-    { key:'bio-energia', sector:3, name:'Energia della vita', units:[78, 79, 80] },
-    { key:'bio-ereditarieta', sector:3, name:'Divisione ed ereditarietà', units:[81, 82, 83] },
-    { key:'bio-geni', sector:3, name:'Geni e mutazioni', units:[84, 85, 86] },
-    { key:'bio-evoluzione', sector:3, name:'Evoluzione', units:[87, 88, 89, 90, 91] },
-    { key:'bio-popolazioni', sector:3, name:'Popolazioni e comunità', units:[92, 93, 94, 95] },
-    { key:'bio-ecosistemi', sector:3, name:'Ecosistemi e regolazione', units:[96, 97, 98, 99] }
+    { key:'bio-cellula', sector:3, name:'La vita e la cellula', units:[75, 76, 77] },
+    { key:'bio-energia', sector:3, name:'Molecole dal cosmo', units:[78, 79, 80] },
+    { key:'bio-ereditarieta', sector:3, name:'Chimica prebiotica', units:[81, 82, 83] },
+    { key:'bio-geni', sector:3, name:'Informazione e replicatori', units:[84, 85, 86] },
+    { key:'bio-evoluzione', sector:3, name:'Evoluzione e albero della vita', units:[87, 88, 89, 90, 91] },
+    { key:'bio-popolazioni', sector:3, name:'Vita ai limiti', units:[92, 93, 94, 95] },
+    { key:'bio-ecosistemi', sector:3, name:'Pianeti abitabili', units:[96, 97, 98, 99] },
+    { key:'bio-sistema-solare', sector:3, name:'Mondi del sistema solare', units:[100, 101, 102, 103, 104] },
+    { key:'bio-galassia', sector:3, name:'Cercare la vita nella galassia', units:[105, 106, 107, 108, 109] }
 ]);
-const AREA_OF_UNIT = new Array(100).fill(0);
+/** Number of star systems (one per area) and of explorable planets (one per unit). */
+export const SYSTEM_COUNT = AREAS.length;
+export const UNIT_COUNT = AREAS.reduce((n, area) => n + area.units.length, 0);
+const AREA_OF_UNIT = new Array(UNIT_COUNT).fill(0);
 AREAS.forEach((area, id) => area.units.forEach(index => { AREA_OF_UNIT[index] = id; }));
-export const systemForPlanet = index => AREA_OF_UNIT[Math.max(0, Math.min(99, Math.floor(Number(index) || 0)))];
+export const systemForPlanet = index => AREA_OF_UNIT[Math.max(0, Math.min(UNIT_COUNT - 1, Math.floor(Number(index) || 0)))];
 export const indicesForSystem = index => [...(AREAS[Math.max(0, Math.min(SYSTEM_COUNT - 1, Math.floor(Number(index) || 0)))].units)];
 export const areaOf = index => AREAS[systemForPlanet(index)];
 /** Position of a unit inside its area, counted from 1, and the area's unit count. */
@@ -43,8 +48,11 @@ export function unitPlace(index) { const area = areaOf(index); return { position
 // a glacial world for logic, a volcanic one for molecular shapes, a living one for Mendel's greenhouse.
 // The four prototype worlds of the phenomena (src/worlds/pilots.js) need the matching landing
 // surface: sea for the herd island (20) and the tides (36), volcanic ground for the cobalt lakes (69),
-// meadows for Daisyworld (99).
-const UNIT_ANCHORS = { 1:'oceanic', 2:'desert', 3:'volcanic', 7:'terrestrial', 0:'arctic', 57:'volcanic', 83:'terrestrial', 20:'oceanic', 36:'oceanic', 69:'volcanic', 99:'terrestrial' };
+// meadows for Daisyworld (99). The solar-system area mirrors its subjects: desert and barren worlds for
+// Mars (100, 101), ice for Europa (102), an ocean for Enceladus (103), hills and rivers for Titan (104).
+// The galaxy area (105-109) uses the families that keep every pair of planets above the minimum distance.
+const UNIT_ANCHORS = { 1:'oceanic', 2:'desert', 3:'volcanic', 7:'terrestrial', 0:'arctic', 57:'volcanic', 83:'terrestrial', 20:'oceanic', 36:'oceanic', 69:'volcanic', 99:'terrestrial',
+    100:'desert', 101:'barren', 102:'arctic', 103:'oceanic', 104:'terrestrial', 105:'volcanic', 106:'oceanic', 107:'terrestrial', 108:'desert', 109:'barren' };
 
 export const SYSTEM_SEED = 0x47414941;
 const architectureCache=new Map();

@@ -40,7 +40,7 @@ with sync_playwright() as p:
         check('Welcome offers search, paths and map','GAIA.atlas.sheet==="welcome" && ["atlas-welcome-search","atlas-welcome-paths","atlas-welcome-map"].every(id=>GAIA.buttons.some(b=>b.id===id))')
         action('atlas-close')
         check('One million stars still rendered','GAIA.diagnostics().starsDrawn===1000000')
-        check('25 thematic areas on four arms, permanent 3D markers','GAIA.world.systems.length===25 && new Set(GAIA.world.systems.map(s=>s.sector)).size===4 && GAIA.diagnostics().atlasMarkers>0')
+        check('27 thematic areas on four arms, permanent 3D markers','GAIA.world.systems.length===27 && new Set(GAIA.world.systems.map(s=>s.sector)).size===4 && GAIA.diagnostics().atlasMarkers>0')
         check('No initial visit awards progress','GAIA.store.data.atlas.visited.length===0')
         report['renderer']=page.evaluate('GAIA.diagnostics()')
         page.screenshot(path=str(out/'desktop-map.png'))

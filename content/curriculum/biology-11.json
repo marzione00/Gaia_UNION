@@ -2,25 +2,23 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-11",
-  "title": "Espressione genica",
+  "title": "DNA, codice genetico ed espressione",
   "sector": 3,
   "modelId": "biology-11",
-  "coverage": "guided-activity",
-  "editorialStatus": "hand-written-draft",
-  "scope": "Dogma centrale, trascrizione, maturazione dell’mRNA, codice genetico, traduzione, regolazione e dinamica dell’mRNA",
-  "narrativeStatus": "Le serie di misure sono simulate con il modello di produzione e degradazione e piccoli scarti.",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Produzione e degradazione del primo ordine",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
   "objectives": [
-    "Descrivere trascrizione e traduzione.",
-    "Usare il codice genetico.",
-    "Spiegare la regolazione dell’espressione genica.",
-    "Interpretare il modello di produzione e degradazione dell’mRNA."
+    "Spiegare: produzione e degradazione del primo ordine.",
+    "Applicare m(t) = α/δ (1-exp(-δt)), m(0)=0, dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
   ],
   "prerequisites": [
     "biology-10"
   ],
   "connections": [
-    "biology-12",
-    "math-p11"
+    "math-c06"
   ],
   "sources": [
     "biology"
@@ -28,425 +26,250 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Trascrizione",
-      "definition": "Sintesi di RNA a partire da un filamento di DNA."
+      "term": "Tempo",
+      "definition": "Variabile indipendente, unità min; intervallo [0; 20]."
     },
     {
-      "term": "Traduzione",
-      "definition": "Sintesi di una proteina letta dall’mRNA sul ribosoma."
+      "term": "mRNA atteso",
+      "definition": "Risultato calcolato dal modello, unità molecole."
     },
     {
-      "term": "Codone",
-      "definition": "Tripletta di basi dell’mRNA che indica un amminoacido o lo stop."
+      "term": "Produzione α",
+      "definition": "Parametro a, unità molecole/min; intervallo [1; 10]."
     },
     {
-      "term": "Introne",
-      "definition": "Tratto di un gene eucariote rimosso dallo splicing."
-    },
-    {
-      "term": "Livello stazionario",
-      "definition": "Quantità a cui produzione e degradazione si bilanciano, α/δ."
+      "term": "Degradazione δ",
+      "definition": "Parametro b, unità 1/min; intervallo [0,1; 1]."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Un batterio cambia menu",
+      "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Un batterio Escherichia coli che passa da un terreno con glucosio a uno con lattosio comincia, in pochi minuti, a produrre gli enzimi per digerire il nuovo zucchero. Non ha cambiato i suoi geni: ha cambiato quali geni esprime. L’espressione genica è il percorso che porta dall’informazione del DNA a una proteina al lavoro.",
-          "Nel 1958 Francis Crick riassunse il flusso dell’informazione nel «dogma centrale»: il DNA viene trascritto in RNA, l’RNA viene tradotto in proteina. Nella trascrizione l’RNA polimerasi legge un filamento del gene e costruisce un RNA messaggero complementare, con uracile al posto della timina. Negli eucarioti l’RNA viene modificato prima di uscire dal nucleo: riceve un cappuccio e una coda di adenine, e lo splicing rimuove gli introni, i tratti che non codificano."
+          "Una cellula accende un gene in risposta a un cambiamento dell'ambiente. Quanto tempo serve perché l'RNA messaggero raggiunga il suo livello stabile?",
+          "Se l'mRNA viene prodotto con velocità α e degradato con costante δ, il numero di molecole tende ad α/δ con tempo caratteristico 1/δ."
         ],
         "intermediate": [
-          "Un batterio Escherichia coli che passa da un terreno con glucosio a uno con lattosio comincia, in pochi minuti, a produrre gli enzimi per digerire il nuovo zucchero. Non ha cambiato i suoi geni: ha cambiato quali geni esprime. L’espressione genica è il percorso che porta dall’informazione del DNA a una proteina al lavoro.",
-          "Nel 1958 Francis Crick riassunse il flusso dell’informazione nel «dogma centrale»: il DNA viene trascritto in RNA, l’RNA viene tradotto in proteina. Nella trascrizione l’RNA polimerasi legge un filamento del gene e costruisce un RNA messaggero complementare, con uracile al posto della timina. Negli eucarioti l’RNA viene modificato prima di uscire dal nucleo: riceve un cappuccio e una coda di adenine, e lo splicing rimuove gli introni, i tratti che non codificano."
+          "Una cellula accende un gene in risposta a un cambiamento dell'ambiente. Quanto tempo serve perché l'RNA messaggero raggiunga il suo livello stabile?",
+          "dm/dt = α - δm con m(0) = 0 dà m(t) = (α/δ)(1 - exp(-δt)). Il tempo di dimezzamento dell'mRNA è ln2/δ."
         ],
         "advanced": [
-          "Un batterio Escherichia coli che passa da un terreno con glucosio a uno con lattosio comincia, in pochi minuti, a produrre gli enzimi per digerire il nuovo zucchero. Non ha cambiato i suoi geni: ha cambiato quali geni esprime. L’espressione genica è il percorso che porta dall’informazione del DNA a una proteina al lavoro.",
-          "Nel 1958 Francis Crick riassunse il flusso dell’informazione nel «dogma centrale»: il DNA viene trascritto in RNA, l’RNA viene tradotto in proteina. Nella trascrizione l’RNA polimerasi legge un filamento del gene e costruisce un RNA messaggero complementare, con uracile al posto della timina. Negli eucarioti l’RNA viene modificato prima di uscire dal nucleo: riceve un cappuccio e una coda di adenine, e lo splicing rimuove gli introni, i tratti che non codificano."
+          "Una cellula accende un gene in risposta a un cambiamento dell'ambiente. Quanto tempo serve perché l'RNA messaggero raggiunga il suo livello stabile?",
+          "Confronta due geni con lo stesso livello stazionario ma δ diverse: quale risponde più in fretta a un segnale?",
+          "Produzione costante e degradazione del primo ordine; non descrive la traduzione né la variabilità fra cellule."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Codice, regolazione, dinamica",
+      "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Nella traduzione il ribosoma legge l’mRNA tre basi alla volta. Ogni tripletta, o codone, indica un amminoacido o la fine della proteina: con 4 basi si hanno 4³ = 64 codoni, 61 per i 20 amminoacidi e 3 di stop. Il codice è ridondante, perché più codoni indicano lo stesso amminoacido, e quasi universale. AUG indica la metionina e l’inizio. Nel 1961 Nirenberg e Matthaei decifrarono il primo codone: UUU significa fenilalanina.",
-          "Le cellule regolano quali geni esprimere e quanto. Nei batteri l’operone lac, descritto da Jacob e Monod nel 1961, si attiva quando c’è lattosio. Negli eucarioti fattori di trascrizione attivano o spengono i geni, e cellule con lo stesso DNA, come un neurone e una cellula del fegato, diventano diverse. Anche la degradazione dell’mRNA conta: nei batteri molti mRNA durano pochi minuti, nei mammiferi spesso ore.",
-          "Un modello semplice: l’mRNA è prodotto a velocità costante α e degradato con costante δ, quindi dm/dt = α − δm. Partendo da zero, m(t) = (α/δ)(1 − e^(−δt)). La quantità sale e si stabilizza al livello stazionario α/δ, dove produzione e degradazione si bilanciano. Con α = 5 molecole/min e δ = 0,2/min il livello è 25 molecole, e metà di esso si raggiunge dopo ln 2/δ ≈ 3,5 min."
+          "Se l'mRNA viene prodotto con velocità α e degradato con costante δ, il numero di molecole tende ad α/δ con tempo caratteristico 1/δ.",
+          "Con α = 5 molecole/min e δ = 0,2/min il livello stazionario è 25 molecole; dopo 5 minuti se ne hanno circa 15,8."
         ],
         "intermediate": [
-          "Nella traduzione il ribosoma legge l’mRNA tre basi alla volta. Ogni tripletta, o codone, indica un amminoacido o la fine della proteina: con 4 basi si hanno 4³ = 64 codoni, 61 per i 20 amminoacidi e 3 di stop. Il codice è ridondante, perché più codoni indicano lo stesso amminoacido, e quasi universale. AUG indica la metionina e l’inizio. Nel 1961 Nirenberg e Matthaei decifrarono il primo codone: UUU significa fenilalanina.",
-          "Le cellule regolano quali geni esprimere e quanto. Nei batteri l’operone lac, descritto da Jacob e Monod nel 1961, si attiva quando c’è lattosio. Negli eucarioti fattori di trascrizione attivano o spengono i geni, e cellule con lo stesso DNA, come un neurone e una cellula del fegato, diventano diverse. Anche la degradazione dell’mRNA conta: nei batteri molti mRNA durano pochi minuti, nei mammiferi spesso ore.",
-          "Un modello semplice: l’mRNA è prodotto a velocità costante α e degradato con costante δ, quindi dm/dt = α − δm. Partendo da zero, m(t) = (α/δ)(1 − e^(−δt)). La quantità sale e si stabilizza al livello stazionario α/δ, dove produzione e degradazione si bilanciano. Con α = 5 molecole/min e δ = 0,2/min il livello è 25 molecole, e metà di esso si raggiunge dopo ln 2/δ ≈ 3,5 min."
+          "dm/dt = α - δm con m(0) = 0 dà m(t) = (α/δ)(1 - exp(-δt)). Il tempo di dimezzamento dell'mRNA è ln2/δ.",
+          "La variabile Tempo è espressa in min; mRNA atteso in molecole. Il dominio dello strumento è [0; 20]. La relazione implementata è: m(t) = α/δ (1-exp(-δt)), m(0)=0.",
+          "Con α = 5 molecole/min e δ = 0,2/min il livello stazionario è 25 molecole; dopo 5 minuti se ne hanno circa 15,8."
         ],
         "advanced": [
-          "Nella traduzione il ribosoma legge l’mRNA tre basi alla volta. Ogni tripletta, o codone, indica un amminoacido o la fine della proteina: con 4 basi si hanno 4³ = 64 codoni, 61 per i 20 amminoacidi e 3 di stop. Il codice è ridondante, perché più codoni indicano lo stesso amminoacido, e quasi universale. AUG indica la metionina e l’inizio. Nel 1961 Nirenberg e Matthaei decifrarono il primo codone: UUU significa fenilalanina.",
-          "Le cellule regolano quali geni esprimere e quanto. Nei batteri l’operone lac, descritto da Jacob e Monod nel 1961, si attiva quando c’è lattosio. Negli eucarioti fattori di trascrizione attivano o spengono i geni, e cellule con lo stesso DNA, come un neurone e una cellula del fegato, diventano diverse. Anche la degradazione dell’mRNA conta: nei batteri molti mRNA durano pochi minuti, nei mammiferi spesso ore.",
-          "Un modello semplice: l’mRNA è prodotto a velocità costante α e degradato con costante δ, quindi dm/dt = α − δm. Partendo da zero, m(t) = (α/δ)(1 − e^(−δt)). La quantità sale e si stabilizza al livello stazionario α/δ, dove produzione e degradazione si bilanciano. Con α = 5 molecole/min e δ = 0,2/min il livello è 25 molecole, e metà di esso si raggiunge dopo ln 2/δ ≈ 3,5 min.",
-          "Che cosa mostra il grafico. All’inizio l’mRNA cresce quasi in linea retta con pendenza α, perché la degradazione è trascurabile; poi la crescita rallenta fino al livello α/δ. Una degradazione rapida abbassa il livello e lo fa raggiungere prima: la cellula risponde più in fretta ai cambiamenti."
+          "dm/dt = α - δm con m(0) = 0 dà m(t) = (α/δ)(1 - exp(-δt)). Il tempo di dimezzamento dell'mRNA è ln2/δ.",
+          "Confronta due geni con lo stesso livello stazionario ma δ diverse: quale risponde più in fretta a un segnale?",
+          "Il livello di un RNA messaggero dipende dalla produzione e anche dalla degradazione. Un mRNA instabile permette risposte rapide."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Adatta il modello alle misure",
+      "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "L’attività presenta tre serie di misure del numero di molecole di mRNA dopo l’accensione di un gene. Il modello è m(t) = (α/δ)(1 − e^(−δt)): nella prima serie regoli la produzione α, nella seconda la degradazione δ, nella terza entrambe. Per completare l’attività adatta il modello a due serie su tre.",
-          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi «Verifica»; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
-          "Suggerimento: il livello finale vale α/δ e il tempo per arrivare a metà vale ln 2/δ ≈ 0,69/δ. Stima prima δ dalla velocità con cui la curva si appiattisce, poi α dal livello finale."
+          "Nel laboratorio imposta Produzione α (a): 5 molecole/min; Degradazione δ (b): 0,2 1/min. Prima di salvare A, prevedi come cambia mRNA atteso fra Tempo=5 e 10 min. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con α = 5 molecole/min e δ = 0,2/min il livello stazionario è 25 molecole; dopo 5 minuti se ne hanno circa 15,8.",
+          "La variabile Tempo è espressa in min; mRNA atteso in molecole. Il dominio dello strumento è [0; 20]. La relazione implementata è: m(t) = α/δ (1-exp(-δt)), m(0)=0."
         ],
         "intermediate": [
-          "L’attività presenta tre serie di misure del numero di molecole di mRNA dopo l’accensione di un gene. Il modello è m(t) = (α/δ)(1 − e^(−δt)): nella prima serie regoli la produzione α, nella seconda la degradazione δ, nella terza entrambe. Per completare l’attività adatta il modello a due serie su tre.",
-          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi «Verifica»; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
-          "Suggerimento: il livello finale vale α/δ e il tempo per arrivare a metà vale ln 2/δ ≈ 0,69/δ. Stima prima δ dalla velocità con cui la curva si appiattisce, poi α dal livello finale."
+          "Nel laboratorio imposta Produzione α (a): 5 molecole/min; Degradazione δ (b): 0,2 1/min. Prima di salvare A, prevedi come cambia mRNA atteso fra Tempo=5 e 10 min. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Tempo è espressa in min; mRNA atteso in molecole. Il dominio dello strumento è [0; 20]. La relazione implementata è: m(t) = α/δ (1-exp(-δt)), m(0)=0.",
+          "dm/dt = α - δm con m(0) = 0 dà m(t) = (α/δ)(1 - exp(-δt)). Il tempo di dimezzamento dell'mRNA è ln2/δ."
         ],
         "advanced": [
-          "L’attività presenta tre serie di misure del numero di molecole di mRNA dopo l’accensione di un gene. Il modello è m(t) = (α/δ)(1 − e^(−δt)): nella prima serie regoli la produzione α, nella seconda la degradazione δ, nella terza entrambe. Per completare l’attività adatta il modello a due serie su tre.",
-          "In ogni serie i punti color ambra sono misure, con piccoli scarti dovuti agli strumenti; la curva azzurra è il modello con i parametri attuali. Con i pulsanti − e + cambi i parametri da regolare; quelli segnati come fissati restano al valore indicato. Lo scarto quadratico medio riassume in un solo numero quanto la curva si allontana dai punti: si calcola la differenza tra modello e misura in ogni punto, la si eleva al quadrato, si fa la media e si estrae la radice. Quando pensi di aver trovato i valori migliori premi «Verifica»; dopo due tentativi il messaggio suggerisce in quale direzione muoverti.",
-          "Suggerimento: il livello finale vale α/δ e il tempo per arrivare a metà vale ln 2/δ ≈ 0,69/δ. Stima prima δ dalla velocità con cui la curva si appiattisce, poi α dal livello finale."
+          "Nel laboratorio imposta Produzione α (a): 5 molecole/min; Degradazione δ (b): 0,2 1/min. Prima di salvare A, prevedi come cambia mRNA atteso fra Tempo=5 e 10 min. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Confronta due geni con lo stesso livello stazionario ma δ diverse: quale risponde più in fretta a un segnale?",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere il grafico ed evitare errori",
+      "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Che cosa mostra il grafico. All’inizio l’mRNA cresce quasi in linea retta con pendenza α, perché la degradazione è trascurabile; poi la crescita rallenta fino al livello α/δ. Una degradazione rapida abbassa il livello e lo fa raggiungere prima: la cellula risponde più in fretta ai cambiamenti.",
-          "Errore frequente: pensare che un gene «acceso» produca proteina senza limiti. La quantità si stabilizza, perché mRNA e proteine vengono anche degradati.",
-          "Secondo errore: credere che ogni cellula del corpo abbia geni diversi. Quasi tutte le cellule hanno lo stesso DNA; cambia quali geni vengono espressi."
+          "Il livello di un RNA messaggero dipende dalla produzione e anche dalla degradazione. Un mRNA instabile permette risposte rapide.",
+          "Produzione costante e degradazione del primo ordine; non descrive la traduzione né la variabilità fra cellule.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ],
         "intermediate": [
-          "Che cosa mostra il grafico. All’inizio l’mRNA cresce quasi in linea retta con pendenza α, perché la degradazione è trascurabile; poi la crescita rallenta fino al livello α/δ. Una degradazione rapida abbassa il livello e lo fa raggiungere prima: la cellula risponde più in fretta ai cambiamenti.",
-          "Errore frequente: pensare che un gene «acceso» produca proteina senza limiti. La quantità si stabilizza, perché mRNA e proteine vengono anche degradati.",
-          "Secondo errore: credere che ogni cellula del corpo abbia geni diversi. Quasi tutte le cellule hanno lo stesso DNA; cambia quali geni vengono espressi."
+          "Il livello di un RNA messaggero dipende dalla produzione e anche dalla degradazione. Un mRNA instabile permette risposte rapide.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ],
         "advanced": [
-          "Che cosa mostra il grafico. All’inizio l’mRNA cresce quasi in linea retta con pendenza α, perché la degradazione è trascurabile; poi la crescita rallenta fino al livello α/δ. Una degradazione rapida abbassa il livello e lo fa raggiungere prima: la cellula risponde più in fretta ai cambiamenti.",
-          "Errore frequente: pensare che un gene «acceso» produca proteina senza limiti. La quantità si stabilizza, perché mRNA e proteine vengono anche degradati.",
-          "Secondo errore: credere che ogni cellula del corpo abbia geni diversi. Quasi tutte le cellule hanno lo stesso DNA; cambia quali geni vengono espressi."
+          "Produzione costante e degradazione del primo ordine; non descrive la traduzione né la variabilità fra cellule.",
+          "Confronta due geni con lo stesso livello stazionario ma δ diverse: quale risponde più in fretta a un segnale?",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica",
+      "title": "Verifica ragionamento e calcolo",
       "text": {
         "base": [
-          "Ripasso: dogma centrale; trascrizione e maturazione dell’mRNA; codice genetico, codoni di inizio e di stop; traduzione; regolazione con l’operone lac e i fattori di trascrizione; livello stazionario α/δ.",
-          "Mini esercizio: con α = 6 molecole/min e δ = 0,3/min il livello stazionario è 20 molecole, raggiunto a metà dopo circa 2,3 min.",
-          "Nelle domande sulla dinamica dell’mRNA ricorda che δ decide i tempi e il rapporto α/δ il livello."
+          "Se l'mRNA viene prodotto con velocità α e degradato con costante δ, il numero di molecole tende ad α/δ con tempo caratteristico 1/δ.",
+          "Con α = 5 molecole/min e δ = 0,2/min il livello stazionario è 25 molecole; dopo 5 minuti se ne hanno circa 15,8."
         ],
         "intermediate": [
-          "Ripasso: dogma centrale; trascrizione e maturazione dell’mRNA; codice genetico, codoni di inizio e di stop; traduzione; regolazione con l’operone lac e i fattori di trascrizione; livello stazionario α/δ.",
-          "Mini esercizio: con α = 6 molecole/min e δ = 0,3/min il livello stazionario è 20 molecole, raggiunto a metà dopo circa 2,3 min.",
-          "Nelle domande sulla dinamica dell’mRNA ricorda che δ decide i tempi e il rapporto α/δ il livello."
+          "dm/dt = α - δm con m(0) = 0 dà m(t) = (α/δ)(1 - exp(-δt)). Il tempo di dimezzamento dell'mRNA è ln2/δ.",
+          "La variabile Tempo è espressa in min; mRNA atteso in molecole. Il dominio dello strumento è [0; 20]. La relazione implementata è: m(t) = α/δ (1-exp(-δt)), m(0)=0."
         ],
         "advanced": [
-          "Ripasso: dogma centrale; trascrizione e maturazione dell’mRNA; codice genetico, codoni di inizio e di stop; traduzione; regolazione con l’operone lac e i fattori di trascrizione; livello stazionario α/δ.",
-          "Mini esercizio: con α = 6 molecole/min e δ = 0,3/min il livello stazionario è 20 molecole, raggiunto a metà dopo circa 2,3 min.",
-          "Nelle domande sulla dinamica dell’mRNA ricorda che δ decide i tempi e il rapporto α/δ il livello."
+          "Confronta due geni con lo stesso livello stazionario ma δ diverse: quale risponde più in fretta a un segnale?",
+          "Produzione costante e degradazione del primo ordine; non descrive la traduzione né la variabilità fra cellule."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Collegamenti",
+      "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "La curva che si avvicina esponenzialmente a un livello di equilibrio richiama l’unità di matematica «Scala, energia, equilibrio e trasformazioni». In biologia si passa a «Mutazioni e probabilità»: che cosa succede se il messaggio contiene un errore.",
-          "Riepilogo dell’unità: il DNA viene trascritto in mRNA e l’mRNA tradotto in proteina; il codice ha 64 codoni, 61 per amminoacidi e 3 di stop; l’espressione è regolata; con produzione α e degradazione δ l’mRNA tende al livello α/δ e lo raggiunge a metà in ln 2/δ.",
-          "Nel diario annota α e δ trovati, calcola per ciascuna serie il livello stazionario e confrontalo con i punti."
+          "Nel diario distingui previsione, risultato e interpretazione. Produzione e degradazione del primo ordine.",
+          "Produzione costante e degradazione del primo ordine; non descrive la traduzione né la variabilità fra cellule.",
+          "Collegamento consigliato: math-c06. Il completamento registra attività e autoverifica, non certifica competenze."
         ],
         "intermediate": [
-          "La curva che si avvicina esponenzialmente a un livello di equilibrio richiama l’unità di matematica «Scala, energia, equilibrio e trasformazioni». In biologia si passa a «Mutazioni e probabilità»: che cosa succede se il messaggio contiene un errore.",
-          "Riepilogo dell’unità: il DNA viene trascritto in mRNA e l’mRNA tradotto in proteina; il codice ha 64 codoni, 61 per amminoacidi e 3 di stop; l’espressione è regolata; con produzione α e degradazione δ l’mRNA tende al livello α/δ e lo raggiunge a metà in ln 2/δ.",
-          "Nel diario annota α e δ trovati, calcola per ciascuna serie il livello stazionario e confrontalo con i punti."
+          "dm/dt = α - δm con m(0) = 0 dà m(t) = (α/δ)(1 - exp(-δt)). Il tempo di dimezzamento dell'mRNA è ln2/δ.",
+          "Produzione costante e degradazione del primo ordine; non descrive la traduzione né la variabilità fra cellule.",
+          "Confronta due geni con lo stesso livello stazionario ma δ diverse: quale risponde più in fretta a un segnale?"
         ],
         "advanced": [
-          "La curva che si avvicina esponenzialmente a un livello di equilibrio richiama l’unità di matematica «Scala, energia, equilibrio e trasformazioni». In biologia si passa a «Mutazioni e probabilità»: che cosa succede se il messaggio contiene un errore.",
-          "Riepilogo dell’unità: il DNA viene trascritto in mRNA e l’mRNA tradotto in proteina; il codice ha 64 codoni, 61 per amminoacidi e 3 di stop; l’espressione è regolata; con produzione α e degradazione δ l’mRNA tende al livello α/δ e lo raggiunge a metà in ln 2/δ.",
-          "Nel diario annota α e δ trovati, calcola per ciascuna serie il livello stazionario e confrontalo con i punti."
+          "Confronta due geni con lo stesso livello stazionario ma δ diverse: quale risponde più in fretta a un segnale?",
+          "Produzione costante e degradazione del primo ordine; non descrive la traduzione né la variabilità fra cellule.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-11-q1",
-      "prompt": "Qual è l’ordine del dogma centrale?",
+      "id": "biology-11-concept",
+      "prompt": "Raddoppiando la velocità di produzione α, il livello stazionario:",
       "options": [
         {
           "id": "A",
-          "text": "DNA → RNA → proteina",
-          "feedback": "Esatto: trascrizione, poi traduzione."
+          "text": "Si dimezza",
+          "feedback": "Il livello di un RNA messaggero dipende dalla produzione e anche dalla degradazione. Un mRNA instabile permette risposte rapide."
         },
         {
           "id": "B",
-          "text": "Proteina → RNA → DNA",
-          "feedback": "L’ordine è invertito: l’informazione parte dal DNA."
+          "text": "Resta uguale",
+          "feedback": "dm/dt = α - δm con m(0) = 0 dà m(t) = (α/δ)(1 - exp(-δt)). Il tempo di dimezzamento dell'mRNA è ln2/δ."
         },
         {
           "id": "C",
-          "text": "RNA → DNA → proteina",
-          "feedback": "Il DNA è la sorgente dell’informazione, non un passaggio intermedio."
-        },
-        {
-          "id": "D",
-          "text": "DNA → proteina → RNA",
-          "feedback": "L’RNA viene prima della proteina: è il messaggio da tradurre."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-11-q2",
-      "prompt": "Quanti codoni diversi esistono?",
-      "options": [
-        {
-          "id": "A",
-          "text": "20",
-          "feedback": "20 sono gli amminoacidi, non i codoni."
-        },
-        {
-          "id": "B",
-          "text": "64",
-          "feedback": "Esatto: 4 basi in posizioni da 3, cioè 4³."
-        },
-        {
-          "id": "C",
-          "text": "12",
-          "feedback": "Le combinazioni di tre posizioni con quattro basi sono di più."
-        },
-        {
-          "id": "D",
-          "text": "61",
-          "feedback": "61 sono i codoni che indicano un amminoacido; ne restano 3 di stop."
-        }
-      ],
-      "correct": "B"
-    },
-    {
-      "id": "biology-11-q3",
-      "prompt": "Con produzione α = 6 molecole/min e degradazione δ = 0,3/min, qual è il livello stazionario?",
-      "options": [
-        {
-          "id": "A",
-          "text": "1,8 molecole",
-          "feedback": "Hai moltiplicato α e δ: il livello è il loro rapporto."
-        },
-        {
-          "id": "B",
-          "text": "6 molecole",
-          "feedback": "Questa è la produzione per minuto, non il livello raggiunto."
-        },
-        {
-          "id": "C",
-          "text": "20 molecole",
-          "feedback": "Esatto: produzione e degradazione si bilanciano a α/δ = 6/0,3."
-        },
-        {
-          "id": "D",
-          "text": "0,05 molecole",
-          "feedback": "Hai diviso δ per α: il livello è α/δ."
+          "text": "Raddoppia",
+          "feedback": "Se l'mRNA viene prodotto con velocità α e degradato con costante δ, il numero di molecole tende ad α/δ con tempo caratteristico 1/δ."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "biology-11-q4",
-      "prompt": "Che cosa rimuove lo splicing?",
+      "id": "biology-11-calculation",
+      "prompt": "Calcolo: Produzione α (a)=5 molecole/min; Degradazione δ (b)=0,2 1/min. Per Tempo=0 min, quanto vale mRNA atteso?",
       "options": [
         {
           "id": "A",
-          "text": "Gli esoni",
-          "feedback": "Gli esoni restano e formano l’mRNA maturo."
+          "text": "-1,00000e-8 molecole",
+          "feedback": "Controlla sostituzione, segno e unità. m(t) = α/δ (1-exp(-δt)), m(0)=0. Con Produzione α (a)=5 molecole/min; Degradazione δ (b)=0,2 1/min e Tempo=0 min, il risultato è 0 molecole. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "Il codone di inizio",
-          "feedback": "Il codone AUG serve alla traduzione e resta."
+          "text": "0 molecole",
+          "feedback": "m(t) = α/δ (1-exp(-δt)), m(0)=0. Con Produzione α (a)=5 molecole/min; Degradazione δ (b)=0,2 1/min e Tempo=0 min, il risultato è 0 molecole. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "La coda di adenine",
-          "feedback": "La coda viene aggiunta, non rimossa."
-        },
-        {
-          "id": "D",
-          "text": "Gli introni",
-          "feedback": "Esatto: i tratti che non codificano."
+          "text": "1,00000e-8 molecole",
+          "feedback": "Questo valore non soddisfa la relazione. m(t) = α/δ (1-exp(-δt)), m(0)=0. Con Produzione α (a)=5 molecole/min; Degradazione δ (b)=0,2 1/min e Tempo=0 min, il risultato è 0 molecole. Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "D"
+      "correct": "B",
+      "numeric": {
+        "x": 0,
+        "parameters": {
+          "a": 5,
+          "b": 0.2
+        },
+        "expected": 0,
+        "unit": "molecole"
+      }
     },
     {
-      "id": "biology-11-q5",
-      "prompt": "Se la degradazione δ raddoppia, che cosa succede al livello stazionario?",
+      "id": "biology-11-transfer",
+      "prompt": "Trasferimento: Produzione α (a)=6 molecole/min; Degradazione δ (b)=0,2 1/min. Per Tempo=0 min, quanto vale mRNA atteso?",
       "options": [
         {
           "id": "A",
-          "text": "Si dimezza",
-          "feedback": "Esatto: α/δ diminuisce, e viene raggiunto più in fretta."
+          "text": "0 molecole",
+          "feedback": "m(t) = α/δ (1-exp(-δt)), m(0)=0. Con Produzione α (a)=6 molecole/min; Degradazione δ (b)=0,2 1/min e Tempo=0 min, il risultato è 0 molecole. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "Raddoppia",
-          "feedback": "Più degradazione significa meno mRNA a regime."
+          "text": "1,00000e-8 molecole",
+          "feedback": "Questo valore non soddisfa la relazione. m(t) = α/δ (1-exp(-δt)), m(0)=0. Con Produzione α (a)=6 molecole/min; Degradazione δ (b)=0,2 1/min e Tempo=0 min, il risultato è 0 molecole. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "Resta uguale",
-          "feedback": "Il livello dipende sia da α sia da δ."
-        },
-        {
-          "id": "D",
-          "text": "Diventa zero",
-          "feedback": "Finché α è positiva il livello resta positivo."
+          "text": "-1,00000e-8 molecole",
+          "feedback": "Controlla sostituzione, segno e unità. m(t) = α/δ (1-exp(-δt)), m(0)=0. Con Produzione α (a)=6 molecole/min; Degradazione δ (b)=0,2 1/min e Tempo=0 min, il risultato è 0 molecole. Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "A"
+      "correct": "A",
+      "numeric": {
+        "x": 0,
+        "parameters": {
+          "a": 6,
+          "b": 0.2
+        },
+        "expected": 0,
+        "unit": "molecole"
+      }
     },
     {
-      "id": "biology-11-q6",
-      "prompt": "Perché un neurone e una cellula del fegato sono diversi pur avendo lo stesso DNA?",
+      "id": "biology-11-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
       "options": [
         {
           "id": "A",
-          "text": "Perché hanno perso geni diversi",
-          "feedback": "Quasi tutte le cellule conservano l’intero genoma."
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Produzione costante e degradazione del primo ordine; non descrive la traduzione né la variabilità fra cellule."
         },
         {
           "id": "B",
-          "text": "Perché esprimono geni diversi",
-          "feedback": "Esatto: fattori di trascrizione diversi accendono geni diversi."
+          "text": "Produzione e degradazione del primo ordine",
+          "feedback": "Produzione costante e degradazione del primo ordine; non descrive la traduzione né la variabilità fra cellule."
         },
         {
           "id": "C",
-          "text": "Perché il codice genetico cambia da tessuto a tessuto",
-          "feedback": "Il codice è lo stesso in tutte le cellule."
-        },
-        {
-          "id": "D",
-          "text": "Perché hanno ribosomi diversi",
-          "feedback": "I ribosomi sono simili; cambiano gli mRNA che traducono."
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Produzione costante e degradazione del primo ordine; non descrive la traduzione né la variabilità fra cellule."
         }
       ],
       "correct": "B"
     }
-  ],
-  "activity": {
-    "kind": "fit",
-    "goal": 2,
-    "rounds": [
-      {
-        "id": "produzione",
-        "title": "Quanto produce il gene?",
-        "prompt": "La degradazione è nota. Regola la produzione α finché la curva segue le misure.",
-        "model": "biology-11",
-        "x": [
-          1,
-          2,
-          4,
-          6,
-          8,
-          10,
-          14,
-          18
-        ],
-        "noise": [
-          0.3,
-          -0.4,
-          0.3,
-          -0.3,
-          0.4,
-          -0.3,
-          0.2,
-          -0.2
-        ],
-        "hidden": {
-          "a": 6,
-          "b": 0.3
-        },
-        "fit": [
-          "a"
-        ],
-        "explain": "α = 6 molecole/min: il livello finale è 20 molecole."
-      },
-      {
-        "id": "degradazione",
-        "title": "Quanto dura l’mRNA?",
-        "prompt": "La produzione è nota. Regola la degradazione δ: decide il livello finale e la velocità con cui si raggiunge.",
-        "model": "biology-11",
-        "x": [
-          0.5,
-          1,
-          2,
-          3,
-          4,
-          6,
-          8,
-          12
-        ],
-        "noise": [
-          0.1,
-          -0.15,
-          0.15,
-          -0.1,
-          0.12,
-          -0.12,
-          0.1,
-          -0.08
-        ],
-        "hidden": {
-          "a": 4,
-          "b": 0.5
-        },
-        "fit": [
-          "b"
-        ],
-        "explain": "δ = 0,5/min: livello 8 molecole, raggiunto a metà in circa 1,4 min."
-      },
-      {
-        "id": "entrambi",
-        "title": "Due parametri insieme",
-        "prompt": "Né α né δ sono noti. Stima δ dalla curvatura, poi α dal livello.",
-        "model": "biology-11",
-        "x": [
-          1,
-          2,
-          4,
-          6,
-          8,
-          10,
-          13,
-          16,
-          20
-        ],
-        "noise": [
-          0.3,
-          -0.3,
-          0.4,
-          -0.4,
-          0.3,
-          -0.2,
-          0.3,
-          -0.3,
-          0.2
-        ],
-        "hidden": {
-          "a": 3,
-          "b": 0.1
-        },
-        "fit": [
-          "a",
-          "b"
-        ],
-        "explain": "α = 3 molecole/min e δ = 0,1/min: il livello finale, 30 molecole, è ancora lontano dopo 20 minuti."
-      }
-    ]
-  }
+  ]
 }

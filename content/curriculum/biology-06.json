@@ -2,25 +2,23 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-06",
-  "title": "Fotosintesi e luce",
+  "title": "Chiralità e omochiralità",
   "sector": 3,
   "modelId": "biology-06",
-  "coverage": "guided-lab",
-  "editorialStatus": "hand-written-draft",
-  "scope": "Bilancio e fasi della fotosintesi, pigmenti, curva di risposta alla luce, fattori limitanti, piante C4 e CAM",
-  "narrativeStatus": "Gli esperimenti storici sono reali; il modello della curva di luce è una semplificazione.",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Amplificazione schematica a guadagno costante",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
   "objectives": [
-    "Scrivere il bilancio della fotosintesi e localizzarne le fasi.",
-    "Spiegare il ruolo dei pigmenti.",
-    "Leggere una curva di risposta alla luce.",
-    "Riconoscere i fattori limitanti e gli adattamenti C4 e CAM."
+    "Spiegare: amplificazione schematica a guadagno costante.",
+    "Applicare ee_n = ee₀gⁿ/√(1+ee₀²(g²ⁿ-1)), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
   ],
   "prerequisites": [
     "biology-05"
   ],
   "connections": [
-    "biology-07",
-    "physics-25"
+    "math-c06"
   ],
   "sources": [
     "biology"
@@ -28,315 +26,250 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Fase luminosa",
-      "definition": "Reazioni nei tilacoidi che usano la luce per produrre ATP, NADPH e ossigeno."
+      "term": "Cicli n",
+      "definition": "Variabile indipendente, unità 1; intervallo [0; 10]."
     },
     {
-      "term": "Ciclo di Calvin",
-      "definition": "Reazioni nello stroma che fissano la CO₂ in zuccheri."
+      "term": "Eccesso enantiomerico",
+      "definition": "Risultato calcolato dal modello, unità %."
     },
     {
-      "term": "Clorofilla",
-      "definition": "Pigmento che assorbe luce blu e rossa."
+      "term": "Eccesso iniziale ee₀",
+      "definition": "Parametro a, unità %; intervallo [0,1; 10]."
     },
     {
-      "term": "Punto di compensazione",
-      "definition": "Intensità luminosa a cui fotosintesi e respirazione si bilanciano."
-    },
-    {
-      "term": "Fattore limitante",
-      "definition": "Il fattore che in un dato momento limita la velocità del processo."
+      "term": "Guadagno per ciclo g",
+      "definition": "Parametro b, unità 1; intervallo [1; 5]."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Le piante e l’aria",
+      "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Nel 1779 Jan Ingenhousz mostrò che le piante «purificano» l’aria solo alla luce: al buio, come gli animali, la consumano. Oggi sappiamo che una foglia alla luce assorbe anidride carbonica e libera ossigeno, mentre al buio respira e basta. La quantità di luce decide quale dei due processi prevale.",
-          "La fotosintesi ha come bilancio complessivo 6 CO₂ + 6 H₂O + luce → C₆H₁₂O₆ + 6 O₂. Avviene nei cloroplasti, in due fasi. Nelle reazioni della fase luminosa, sulle membrane dei tilacoidi, la luce scinde l’acqua, libera ossigeno e produce ATP e NADPH; esperimenti con isotopi dell’ossigeno, nel 1941, mostrarono che l’ossigeno liberato viene dall’acqua. Nel ciclo di Calvin, nello stroma, ATP e NADPH servono a fissare la CO₂ in zuccheri, con l’enzima rubisco, la proteina più abbondante della Terra."
+          "Gli amminoacidi raccolti in un meteorite mostrano un piccolo eccesso della forma sinistra. La stazione si chiede se un eccesso così piccolo possa diventare la preferenza totale della vita.",
+          "L'eccesso enantiomerico è ee = (L - D)/(L + D). Una reazione autocatalitica con inibizione incrociata può amplificare un piccolo eccesso fino quasi al 100%."
         ],
         "intermediate": [
-          "Nel 1779 Jan Ingenhousz mostrò che le piante «purificano» l’aria solo alla luce: al buio, come gli animali, la consumano. Oggi sappiamo che una foglia alla luce assorbe anidride carbonica e libera ossigeno, mentre al buio respira e basta. La quantità di luce decide quale dei due processi prevale.",
-          "La fotosintesi ha come bilancio complessivo 6 CO₂ + 6 H₂O + luce → C₆H₁₂O₆ + 6 O₂. Avviene nei cloroplasti, in due fasi. Nelle reazioni della fase luminosa, sulle membrane dei tilacoidi, la luce scinde l’acqua, libera ossigeno e produce ATP e NADPH; esperimenti con isotopi dell’ossigeno, nel 1941, mostrarono che l’ossigeno liberato viene dall’acqua. Nel ciclo di Calvin, nello stroma, ATP e NADPH servono a fissare la CO₂ in zuccheri, con l’enzima rubisco, la proteina più abbondante della Terra."
+          "Gli amminoacidi raccolti in un meteorite mostrano un piccolo eccesso della forma sinistra. La stazione si chiede se un eccesso così piccolo possa diventare la preferenza totale della vita.",
+          "Se a ogni ciclo il rapporto L/D viene moltiplicato per g, l'eccesso segue ee_n = ee₀gⁿ/√(1 + ee₀²(g²ⁿ - 1)), che cresce come ee₀gⁿ finché è piccolo e poi tende al 100%."
         ],
         "advanced": [
-          "Nel 1779 Jan Ingenhousz mostrò che le piante «purificano» l’aria solo alla luce: al buio, come gli animali, la consumano. Oggi sappiamo che una foglia alla luce assorbe anidride carbonica e libera ossigeno, mentre al buio respira e basta. La quantità di luce decide quale dei due processi prevale.",
-          "La fotosintesi ha come bilancio complessivo 6 CO₂ + 6 H₂O + luce → C₆H₁₂O₆ + 6 O₂. Avviene nei cloroplasti, in due fasi. Nelle reazioni della fase luminosa, sulle membrane dei tilacoidi, la luce scinde l’acqua, libera ossigeno e produce ATP e NADPH; esperimenti con isotopi dell’ossigeno, nel 1941, mostrarono che l’ossigeno liberato viene dall’acqua. Nel ciclo di Calvin, nello stroma, ATP e NADPH servono a fissare la CO₂ in zuccheri, con l’enzima rubisco, la proteina più abbondante della Terra."
+          "Gli amminoacidi raccolti in un meteorite mostrano un piccolo eccesso della forma sinistra. La stazione si chiede se un eccesso così piccolo possa diventare la preferenza totale della vita.",
+          "Trova quanti cicli servono per passare da ee₀ = 0,1% al 90% con g = 2 e con g = 4.",
+          "Modello schematico con guadagno costante; non descrive una reazione reale specifica."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Luce, pigmenti e curva",
+      "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "La clorofilla assorbe soprattutto la luce blu e rossa e riflette il verde: per questo le foglie appaiono verdi. Le piante usano la radiazione tra 400 e 700 nm, misurata come flusso di fotoni in μmol/(m²·s). In pieno sole a mezzogiorno si arriva a circa 2000 μmol/(m²·s); all’ombra di un bosco a poche decine.",
-          "La curva di risposta alla luce lega l’assimilazione netta di CO₂ all’intensità luminosa. Al buio è negativa, perché la foglia respira. Cresce con la luce e incontra lo zero al punto di compensazione, dove fotosintesi e respirazione si bilanciano. Ad alta intensità si appiattisce: la luce non è più il fattore limitante, lo diventano la CO₂ e la capacità degli enzimi. Il principio dei fattori limitanti fu formulato da Blackman nel 1905.",
-          "Il modello del programma usa A = A_max I/(K + I) − R_d, con R_d = 2 μmol/(m²·s) di respirazione. Con A_max = 20 e K = 200 il punto di compensazione è a I = 2K/(A_max − 2) ≈ 22 μmol/(m²·s), e a I = 200 l’assimilazione netta vale 8 μmol/(m²·s)."
+          "L'eccesso enantiomerico è ee = (L - D)/(L + D). Una reazione autocatalitica con inibizione incrociata può amplificare un piccolo eccesso fino quasi al 100%.",
+          "Con ee₀ = 1% e g = 3 l'eccesso diventa circa 26% dopo tre cicli, 92% dopo cinque e 99% dopo sei."
         ],
         "intermediate": [
-          "La clorofilla assorbe soprattutto la luce blu e rossa e riflette il verde: per questo le foglie appaiono verdi. Le piante usano la radiazione tra 400 e 700 nm, misurata come flusso di fotoni in μmol/(m²·s). In pieno sole a mezzogiorno si arriva a circa 2000 μmol/(m²·s); all’ombra di un bosco a poche decine.",
-          "La curva di risposta alla luce lega l’assimilazione netta di CO₂ all’intensità luminosa. Al buio è negativa, perché la foglia respira. Cresce con la luce e incontra lo zero al punto di compensazione, dove fotosintesi e respirazione si bilanciano. Ad alta intensità si appiattisce: la luce non è più il fattore limitante, lo diventano la CO₂ e la capacità degli enzimi. Il principio dei fattori limitanti fu formulato da Blackman nel 1905.",
-          "Il modello del programma usa A = A_max I/(K + I) − R_d, con R_d = 2 μmol/(m²·s) di respirazione. Con A_max = 20 e K = 200 il punto di compensazione è a I = 2K/(A_max − 2) ≈ 22 μmol/(m²·s), e a I = 200 l’assimilazione netta vale 8 μmol/(m²·s).",
-          "Le piante si adattano alla luce disponibile. Le piante d’ombra hanno un punto di compensazione basso e si saturano presto; quelle di pieno sole raggiungono valori massimi più alti. Le piante C4, come mais e canna da zucchero, concentrano la CO₂ attorno alla rubisco e lavorano bene con luce forte e caldo; le piante CAM, come i cactus, aprono gli stomi di notte per risparmiare acqua."
+          "Se a ogni ciclo il rapporto L/D viene moltiplicato per g, l'eccesso segue ee_n = ee₀gⁿ/√(1 + ee₀²(g²ⁿ - 1)), che cresce come ee₀gⁿ finché è piccolo e poi tende al 100%.",
+          "La variabile Cicli n è espressa in 1; Eccesso enantiomerico in %. Il dominio dello strumento è [0; 10], con soli valori interi. La relazione implementata è: ee_n = ee₀gⁿ/√(1+ee₀²(g²ⁿ-1)).",
+          "Con ee₀ = 1% e g = 3 l'eccesso diventa circa 26% dopo tre cicli, 92% dopo cinque e 99% dopo sei."
         ],
         "advanced": [
-          "La clorofilla assorbe soprattutto la luce blu e rossa e riflette il verde: per questo le foglie appaiono verdi. Le piante usano la radiazione tra 400 e 700 nm, misurata come flusso di fotoni in μmol/(m²·s). In pieno sole a mezzogiorno si arriva a circa 2000 μmol/(m²·s); all’ombra di un bosco a poche decine.",
-          "La curva di risposta alla luce lega l’assimilazione netta di CO₂ all’intensità luminosa. Al buio è negativa, perché la foglia respira. Cresce con la luce e incontra lo zero al punto di compensazione, dove fotosintesi e respirazione si bilanciano. Ad alta intensità si appiattisce: la luce non è più il fattore limitante, lo diventano la CO₂ e la capacità degli enzimi. Il principio dei fattori limitanti fu formulato da Blackman nel 1905.",
-          "Il modello del programma usa A = A_max I/(K + I) − R_d, con R_d = 2 μmol/(m²·s) di respirazione. Con A_max = 20 e K = 200 il punto di compensazione è a I = 2K/(A_max − 2) ≈ 22 μmol/(m²·s), e a I = 200 l’assimilazione netta vale 8 μmol/(m²·s).",
-          "Le piante si adattano alla luce disponibile. Le piante d’ombra hanno un punto di compensazione basso e si saturano presto; quelle di pieno sole raggiungono valori massimi più alti. Le piante C4, come mais e canna da zucchero, concentrano la CO₂ attorno alla rubisco e lavorano bene con luce forte e caldo; le piante CAM, come i cactus, aprono gli stomi di notte per risparmiare acqua."
+          "Se a ogni ciclo il rapporto L/D viene moltiplicato per g, l'eccesso segue ee_n = ee₀gⁿ/√(1 + ee₀²(g²ⁿ - 1)), che cresce come ee₀gⁿ finché è piccolo e poi tende al 100%.",
+          "Trova quanti cicli servono per passare da ee₀ = 0,1% al 90% con g = 2 e con g = 4.",
+          "La vita terrestre usa amminoacidi L e zuccheri D per ragioni storiche: una biochimica speculare sarebbe chimicamente possibile."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Il laboratorio della curva di luce",
+      "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio il grafico mostra l’assimilazione netta in funzione dell’intensità luminosa, da 0 a 1000 μmol/(m²·s); nella scheda «Regola» cambi l’assimilazione massima A_max, da 10 a 30, e la scala luminosa K, da 100 a 400.",
-          "Protocollo. La previsione riguarda il passaggio da I = 250 a I = 500 μmol/(m²·s). Con A_max = 20 e K = 200 prevedi e salva A. Poi porta K a 400, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con K = 200 l’assimilazione passa da circa 9,1 a 12,3 μmol/(m²·s): cresce, ma la luce raddoppiata dà solo un terzo in più, perché la curva si sta saturando. Con K = 400 i valori sono più bassi, circa 5,7 e 9,1, e l’aumento relativo è maggiore: la foglia ha bisogno di più luce per avvicinarsi al massimo."
+          "Nel laboratorio imposta Eccesso iniziale ee₀ (a): 1 %; Guadagno per ciclo g (b): 3 (adimensionale). Prima di salvare A, prevedi come cambia Eccesso enantiomerico fra Cicli n=3 e 5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con ee₀ = 1% e g = 3 l'eccesso diventa circa 26% dopo tre cicli, 92% dopo cinque e 99% dopo sei.",
+          "La variabile Cicli n è espressa in 1; Eccesso enantiomerico in %. Il dominio dello strumento è [0; 10], con soli valori interi. La relazione implementata è: ee_n = ee₀gⁿ/√(1+ee₀²(g²ⁿ-1))."
         ],
         "intermediate": [
-          "Nel laboratorio il grafico mostra l’assimilazione netta in funzione dell’intensità luminosa, da 0 a 1000 μmol/(m²·s); nella scheda «Regola» cambi l’assimilazione massima A_max, da 10 a 30, e la scala luminosa K, da 100 a 400.",
-          "Protocollo. La previsione riguarda il passaggio da I = 250 a I = 500 μmol/(m²·s). Con A_max = 20 e K = 200 prevedi e salva A. Poi porta K a 400, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con K = 200 l’assimilazione passa da circa 9,1 a 12,3 μmol/(m²·s): cresce, ma la luce raddoppiata dà solo un terzo in più, perché la curva si sta saturando. Con K = 400 i valori sono più bassi, circa 5,7 e 9,1, e l’aumento relativo è maggiore: la foglia ha bisogno di più luce per avvicinarsi al massimo."
+          "Nel laboratorio imposta Eccesso iniziale ee₀ (a): 1 %; Guadagno per ciclo g (b): 3 (adimensionale). Prima di salvare A, prevedi come cambia Eccesso enantiomerico fra Cicli n=3 e 5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Cicli n è espressa in 1; Eccesso enantiomerico in %. Il dominio dello strumento è [0; 10], con soli valori interi. La relazione implementata è: ee_n = ee₀gⁿ/√(1+ee₀²(g²ⁿ-1)).",
+          "Se a ogni ciclo il rapporto L/D viene moltiplicato per g, l'eccesso segue ee_n = ee₀gⁿ/√(1 + ee₀²(g²ⁿ - 1)), che cresce come ee₀gⁿ finché è piccolo e poi tende al 100%."
         ],
         "advanced": [
-          "Nel laboratorio il grafico mostra l’assimilazione netta in funzione dell’intensità luminosa, da 0 a 1000 μmol/(m²·s); nella scheda «Regola» cambi l’assimilazione massima A_max, da 10 a 30, e la scala luminosa K, da 100 a 400.",
-          "Protocollo. La previsione riguarda il passaggio da I = 250 a I = 500 μmol/(m²·s). Con A_max = 20 e K = 200 prevedi e salva A. Poi porta K a 400, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con K = 200 l’assimilazione passa da circa 9,1 a 12,3 μmol/(m²·s): cresce, ma la luce raddoppiata dà solo un terzo in più, perché la curva si sta saturando. Con K = 400 i valori sono più bassi, circa 5,7 e 9,1, e l’aumento relativo è maggiore: la foglia ha bisogno di più luce per avvicinarsi al massimo."
+          "Nel laboratorio imposta Eccesso iniziale ee₀ (a): 1 %; Guadagno per ciclo g (b): 3 (adimensionale). Prima di salvare A, prevedi come cambia Eccesso enantiomerico fra Cicli n=3 e 5 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Trova quanti cicli servono per passare da ee₀ = 0,1% al 90% con g = 2 e con g = 4.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Errori e adattamenti",
+      "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Errore frequente: pensare che le piante facciano la fotosintesi di giorno e respirino solo di notte. Respirano sempre; di giorno la fotosintesi supera la respirazione, e lo scambio netto è a favore dell’ossigeno.",
-          "Secondo errore: credere che la massa di un albero venga dal suolo. Viene quasi tutta dalla CO₂ dell’aria e dall’acqua; il suolo fornisce acqua e una piccola quantità di sali minerali.",
-          "Le piante si adattano alla luce disponibile. Le piante d’ombra hanno un punto di compensazione basso e si saturano presto; quelle di pieno sole raggiungono valori massimi più alti. Le piante C4, come mais e canna da zucchero, concentrano la CO₂ attorno alla rubisco e lavorano bene con luce forte e caldo; le piante CAM, come i cactus, aprono gli stomi di notte per risparmiare acqua."
+          "La vita terrestre usa amminoacidi L e zuccheri D per ragioni storiche: una biochimica speculare sarebbe chimicamente possibile.",
+          "Modello schematico con guadagno costante; non descrive una reazione reale specifica.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ],
         "intermediate": [
-          "Errore frequente: pensare che le piante facciano la fotosintesi di giorno e respirino solo di notte. Respirano sempre; di giorno la fotosintesi supera la respirazione, e lo scambio netto è a favore dell’ossigeno.",
-          "Secondo errore: credere che la massa di un albero venga dal suolo. Viene quasi tutta dalla CO₂ dell’aria e dall’acqua; il suolo fornisce acqua e una piccola quantità di sali minerali.",
-          "Le piante si adattano alla luce disponibile. Le piante d’ombra hanno un punto di compensazione basso e si saturano presto; quelle di pieno sole raggiungono valori massimi più alti. Le piante C4, come mais e canna da zucchero, concentrano la CO₂ attorno alla rubisco e lavorano bene con luce forte e caldo; le piante CAM, come i cactus, aprono gli stomi di notte per risparmiare acqua."
+          "La vita terrestre usa amminoacidi L e zuccheri D per ragioni storiche: una biochimica speculare sarebbe chimicamente possibile.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
         ],
         "advanced": [
-          "Errore frequente: pensare che le piante facciano la fotosintesi di giorno e respirino solo di notte. Respirano sempre; di giorno la fotosintesi supera la respirazione, e lo scambio netto è a favore dell’ossigeno.",
-          "Secondo errore: credere che la massa di un albero venga dal suolo. Viene quasi tutta dalla CO₂ dell’aria e dall’acqua; il suolo fornisce acqua e una piccola quantità di sali minerali.",
-          "Le piante si adattano alla luce disponibile. Le piante d’ombra hanno un punto di compensazione basso e si saturano presto; quelle di pieno sole raggiungono valori massimi più alti. Le piante C4, come mais e canna da zucchero, concentrano la CO₂ attorno alla rubisco e lavorano bene con luce forte e caldo; le piante CAM, come i cactus, aprono gli stomi di notte per risparmiare acqua."
+          "Modello schematico con guadagno costante; non descrive una reazione reale specifica.",
+          "Trova quanti cicli servono per passare da ee₀ = 0,1% al 90% con g = 2 e con g = 4.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica",
+      "title": "Verifica ragionamento e calcolo",
       "text": {
         "base": [
-          "Ripasso: equazione della fotosintesi; fase luminosa e ciclo di Calvin; pigmenti e luce utile; curva di risposta alla luce, punto di compensazione e saturazione; fattori limitanti; piante C4 e CAM.",
-          "Mini esercizio: con A_max = 20, K = 200 e R_d = 2, a I = 600 si ha A = 20 · 600/800 − 2 = 13 μmol/(m²·s).",
-          "Nelle domande sulla curva di luce ricorda che l’assimilazione netta è la fotosintesi meno la respirazione."
+          "L'eccesso enantiomerico è ee = (L - D)/(L + D). Una reazione autocatalitica con inibizione incrociata può amplificare un piccolo eccesso fino quasi al 100%.",
+          "Con ee₀ = 1% e g = 3 l'eccesso diventa circa 26% dopo tre cicli, 92% dopo cinque e 99% dopo sei."
         ],
         "intermediate": [
-          "Ripasso: equazione della fotosintesi; fase luminosa e ciclo di Calvin; pigmenti e luce utile; curva di risposta alla luce, punto di compensazione e saturazione; fattori limitanti; piante C4 e CAM.",
-          "Mini esercizio: con A_max = 20, K = 200 e R_d = 2, a I = 600 si ha A = 20 · 600/800 − 2 = 13 μmol/(m²·s).",
-          "Nelle domande sulla curva di luce ricorda che l’assimilazione netta è la fotosintesi meno la respirazione."
+          "Se a ogni ciclo il rapporto L/D viene moltiplicato per g, l'eccesso segue ee_n = ee₀gⁿ/√(1 + ee₀²(g²ⁿ - 1)), che cresce come ee₀gⁿ finché è piccolo e poi tende al 100%.",
+          "La variabile Cicli n è espressa in 1; Eccesso enantiomerico in %. Il dominio dello strumento è [0; 10], con soli valori interi. La relazione implementata è: ee_n = ee₀gⁿ/√(1+ee₀²(g²ⁿ-1))."
         ],
         "advanced": [
-          "Ripasso: equazione della fotosintesi; fase luminosa e ciclo di Calvin; pigmenti e luce utile; curva di risposta alla luce, punto di compensazione e saturazione; fattori limitanti; piante C4 e CAM.",
-          "Mini esercizio: con A_max = 20, K = 200 e R_d = 2, a I = 600 si ha A = 20 · 600/800 − 2 = 13 μmol/(m²·s).",
-          "Nelle domande sulla curva di luce ricorda che l’assimilazione netta è la fotosintesi meno la respirazione."
+          "Trova quanti cicli servono per passare da ee₀ = 0,1% al 90% con g = 2 e con g = 4.",
+          "Modello schematico con guadagno costante; non descrive una reazione reale specifica."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Collegamenti",
+      "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "L’energia della luce arriva in pacchetti, i fotoni: l’unità di fisica «Fotoni ed energia quantizzata» spiega perché conta il numero di fotoni. In biologia si passa al gruppo «Divisione ed ereditarietà».",
-          "Riepilogo dell’unità: la fotosintesi trasforma CO₂ e acqua in zuccheri e ossigeno con l’energia della luce; l’ossigeno viene dall’acqua; l’assimilazione netta è negativa al buio, si annulla al punto di compensazione e si satura con luce forte; quando la luce abbonda, i fattori limitanti diventano CO₂ ed enzimi.",
-          "Nel diario registra A e B con le previsioni e spiega perché una pianta d’ombra può crescere sotto gli alberi e una di pieno sole no."
+          "Nel diario distingui previsione, risultato e interpretazione. Amplificazione schematica a guadagno costante.",
+          "Modello schematico con guadagno costante; non descrive una reazione reale specifica.",
+          "Collegamento consigliato: math-c06. Il completamento registra attività e autoverifica, non certifica competenze."
         ],
         "intermediate": [
-          "L’energia della luce arriva in pacchetti, i fotoni: l’unità di fisica «Fotoni ed energia quantizzata» spiega perché conta il numero di fotoni. In biologia si passa al gruppo «Divisione ed ereditarietà».",
-          "Riepilogo dell’unità: la fotosintesi trasforma CO₂ e acqua in zuccheri e ossigeno con l’energia della luce; l’ossigeno viene dall’acqua; l’assimilazione netta è negativa al buio, si annulla al punto di compensazione e si satura con luce forte; quando la luce abbonda, i fattori limitanti diventano CO₂ ed enzimi.",
-          "Nel diario registra A e B con le previsioni e spiega perché una pianta d’ombra può crescere sotto gli alberi e una di pieno sole no."
+          "Se a ogni ciclo il rapporto L/D viene moltiplicato per g, l'eccesso segue ee_n = ee₀gⁿ/√(1 + ee₀²(g²ⁿ - 1)), che cresce come ee₀gⁿ finché è piccolo e poi tende al 100%.",
+          "Modello schematico con guadagno costante; non descrive una reazione reale specifica.",
+          "Trova quanti cicli servono per passare da ee₀ = 0,1% al 90% con g = 2 e con g = 4."
         ],
         "advanced": [
-          "L’energia della luce arriva in pacchetti, i fotoni: l’unità di fisica «Fotoni ed energia quantizzata» spiega perché conta il numero di fotoni. In biologia si passa al gruppo «Divisione ed ereditarietà».",
-          "Riepilogo dell’unità: la fotosintesi trasforma CO₂ e acqua in zuccheri e ossigeno con l’energia della luce; l’ossigeno viene dall’acqua; l’assimilazione netta è negativa al buio, si annulla al punto di compensazione e si satura con luce forte; quando la luce abbonda, i fattori limitanti diventano CO₂ ed enzimi.",
-          "Nel diario registra A e B con le previsioni e spiega perché una pianta d’ombra può crescere sotto gli alberi e una di pieno sole no."
+          "Trova quanti cicli servono per passare da ee₀ = 0,1% al 90% con g = 2 e con g = 4.",
+          "Modello schematico con guadagno costante; non descrive una reazione reale specifica.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-06-q1",
-      "prompt": "Quali sono i prodotti della fotosintesi?",
+      "id": "biology-06-concept",
+      "prompt": "Una miscela con il 75% di forma L e il 25% di forma D ha eccesso enantiomerico:",
       "options": [
         {
           "id": "A",
-          "text": "Glucosio e ossigeno",
-          "feedback": "Esatto: 6 CO₂ + 6 H₂O → C₆H₁₂O₆ + 6 O₂."
+          "text": "25%",
+          "feedback": "Se a ogni ciclo il rapporto L/D viene moltiplicato per g, l'eccesso segue ee_n = ee₀gⁿ/√(1 + ee₀²(g²ⁿ - 1)), che cresce come ee₀gⁿ finché è piccolo e poi tende al 100%."
         },
         {
           "id": "B",
-          "text": "Anidride carbonica e acqua",
-          "feedback": "Anidride carbonica e acqua sono i reagenti."
+          "text": "50%",
+          "feedback": "L'eccesso enantiomerico è ee = (L - D)/(L + D). Una reazione autocatalitica con inibizione incrociata può amplificare un piccolo eccesso fino quasi al 100%."
         },
         {
           "id": "C",
-          "text": "ATP e anidride carbonica",
-          "feedback": "L’ATP è un intermedio della fase luminosa e la CO₂ è consumata."
-        },
-        {
-          "id": "D",
-          "text": "Glucosio e anidride carbonica",
-          "feedback": "La CO₂ viene consumata, non prodotta."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-06-q2",
-      "prompt": "Da dove viene l’ossigeno liberato nella fotosintesi?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Dall’anidride carbonica",
-          "feedback": "Gli esperimenti con isotopi mostrarono il contrario."
-        },
-        {
-          "id": "B",
-          "text": "Dall’acqua",
-          "feedback": "Esatto: la fase luminosa scinde le molecole d’acqua."
-        },
-        {
-          "id": "C",
-          "text": "Dal glucosio",
-          "feedback": "Il glucosio è un prodotto, non una fonte di ossigeno."
-        },
-        {
-          "id": "D",
-          "text": "Dall’aria",
-          "feedback": "L’ossigeno viene liberato nell’aria, non preso da essa."
+          "text": "75%",
+          "feedback": "La vita terrestre usa amminoacidi L e zuccheri D per ragioni storiche: una biochimica speculare sarebbe chimicamente possibile."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "biology-06-q3",
-      "prompt": "Perché le foglie sono verdi?",
+      "id": "biology-06-calculation",
+      "prompt": "Calcolo: Eccesso iniziale ee₀ (a)=1 %; Guadagno per ciclo g (b)=3 (adimensionale). Per Cicli n=3 (adimensionale), quanto vale Eccesso enantiomerico?",
       "options": [
         {
           "id": "A",
-          "text": "Perché la clorofilla assorbe il verde",
-          "feedback": "Un pigmento ci appare del colore che non assorbe."
+          "text": "26,0678 %",
+          "feedback": "ee_n = ee₀gⁿ/√(1+ee₀²(g²ⁿ-1)). Con Eccesso iniziale ee₀ (a)=1 %; Guadagno per ciclo g (b)=3 (adimensionale) e Cicli n=3 (adimensionale), il risultato è 26,0678 %. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "Perché contengono rame",
-          "feedback": "Il colore viene dai pigmenti, non dal rame."
+          "text": "39,1017 %",
+          "feedback": "Questo valore non soddisfa la relazione. ee_n = ee₀gⁿ/√(1+ee₀²(g²ⁿ-1)). Con Eccesso iniziale ee₀ (a)=1 %; Guadagno per ciclo g (b)=3 (adimensionale) e Cicli n=3 (adimensionale), il risultato è 26,0678 %. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "Perché la clorofilla riflette il verde",
-          "feedback": "Esatto: assorbe soprattutto blu e rosso."
-        },
-        {
-          "id": "D",
-          "text": "Perché la luce del sole è verde",
-          "feedback": "La luce solare contiene tutti i colori."
+          "text": "13,0339 %",
+          "feedback": "Controlla sostituzione, segno e unità. ee_n = ee₀gⁿ/√(1+ee₀²(g²ⁿ-1)). Con Eccesso iniziale ee₀ (a)=1 %; Guadagno per ciclo g (b)=3 (adimensionale) e Cicli n=3 (adimensionale), il risultato è 26,0678 %. Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "C"
+      "correct": "A",
+      "numeric": {
+        "x": 3,
+        "parameters": {
+          "a": 1,
+          "b": 3
+        },
+        "expected": 26.067800086357153,
+        "unit": "%"
+      }
     },
     {
-      "id": "biology-06-q4",
-      "prompt": "Che cosa succede al punto di compensazione?",
+      "id": "biology-06-transfer",
+      "prompt": "Trasferimento: Eccesso iniziale ee₀ (a)=1,1 %; Guadagno per ciclo g (b)=3 (adimensionale). Per Cicli n=3 (adimensionale), quanto vale Eccesso enantiomerico?",
       "options": [
         {
           "id": "A",
-          "text": "La fotosintesi è massima",
-          "feedback": "Il massimo si raggiunge con luce molto più intensa."
+          "text": "42,7086 %",
+          "feedback": "Questo valore non soddisfa la relazione. ee_n = ee₀gⁿ/√(1+ee₀²(g²ⁿ-1)). Con Eccesso iniziale ee₀ (a)=1,1 %; Guadagno per ciclo g (b)=3 (adimensionale) e Cicli n=3 (adimensionale), il risultato è 28,4724 %. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "La pianta smette di respirare",
-          "feedback": "La pianta respira sempre, anche alla luce."
+          "text": "14,2362 %",
+          "feedback": "Controlla sostituzione, segno e unità. ee_n = ee₀gⁿ/√(1+ee₀²(g²ⁿ-1)). Con Eccesso iniziale ee₀ (a)=1,1 %; Guadagno per ciclo g (b)=3 (adimensionale) e Cicli n=3 (adimensionale), il risultato è 28,4724 %. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "La luce è assente",
-          "feedback": "Al buio l’assimilazione netta è negativa."
-        },
-        {
-          "id": "D",
-          "text": "Fotosintesi e respirazione si bilanciano",
-          "feedback": "Esatto: l’assimilazione netta è zero."
+          "text": "28,4724 %",
+          "feedback": "ee_n = ee₀gⁿ/√(1+ee₀²(g²ⁿ-1)). Con Eccesso iniziale ee₀ (a)=1,1 %; Guadagno per ciclo g (b)=3 (adimensionale) e Cicli n=3 (adimensionale), il risultato è 28,4724 %. Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "D"
+      "correct": "C",
+      "numeric": {
+        "x": 3,
+        "parameters": {
+          "a": 1.1,
+          "b": 3
+        },
+        "expected": 28.472423775926387,
+        "unit": "%"
+      }
     },
     {
-      "id": "biology-06-q5",
-      "prompt": "Con luce molto intensa la curva si appiattisce. Perché?",
+      "id": "biology-06-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
       "options": [
         {
           "id": "A",
-          "text": "Perché la luce non è più il fattore limitante",
-          "feedback": "Esatto: limitano la CO₂ e la capacità degli enzimi."
+          "text": "Amplificazione schematica a guadagno costante",
+          "feedback": "Modello schematico con guadagno costante; non descrive una reazione reale specifica."
         },
         {
           "id": "B",
-          "text": "Perché la clorofilla si consuma",
-          "feedback": "La clorofilla si rinnova e non spiega l’appiattimento."
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Modello schematico con guadagno costante; non descrive una reazione reale specifica."
         },
         {
           "id": "C",
-          "text": "Perché la pianta respira di più",
-          "feedback": "La respirazione cambia poco con la luce."
-        },
-        {
-          "id": "D",
-          "text": "Perché la luce diventa verde",
-          "feedback": "Il colore della luce non cambia con l’intensità."
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Modello schematico con guadagno costante; non descrive una reazione reale specifica."
         }
       ],
       "correct": "A"
-    },
-    {
-      "id": "biology-06-q6",
-      "prompt": "Nel laboratorio, con K = 200, passando da I = 250 a I = 500 l’assimilazione:",
-      "options": [
-        {
-          "id": "A",
-          "text": "Raddoppia",
-          "feedback": "La curva si sta saturando: cresce meno che in proporzione."
-        },
-        {
-          "id": "B",
-          "text": "Cresce di circa un terzo",
-          "feedback": "Esatto: da circa 9,1 a 12,3 μmol/(m²·s)."
-        },
-        {
-          "id": "C",
-          "text": "Diminuisce",
-          "feedback": "Più luce non riduce l’assimilazione in questo modello."
-        },
-        {
-          "id": "D",
-          "text": "Resta uguale",
-          "feedback": "A queste intensità la curva sale ancora."
-        }
-      ],
-      "correct": "B"
     }
   ]
 }

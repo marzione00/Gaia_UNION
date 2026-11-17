@@ -2,25 +2,23 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-21",
-  "title": "Predazione e risposta funzionale",
+  "title": "Crescita delle popolazioni microbiche",
   "sector": 3,
   "modelId": "biology-21",
-  "coverage": "guided-lab",
-  "editorialStatus": "hand-written-draft",
-  "scope": "Cicli preda-predatore, modello di Lotka e Volterra, risposte funzionali di Holling, tempo di manipolazione, effetti a cascata",
-  "narrativeStatus": "I registri della Baia di Hudson e l’esperimento di Holling sono reali.",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Modello logistico con parametri costanti",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
   "objectives": [
-    "Descrivere i cicli preda-predatore.",
-    "Distinguere le risposte funzionali di tipo I, II e III.",
-    "Usare il modello aN/(1 + ahN) e il limite 1/h.",
-    "Spiegare gli effetti a cascata dei predatori."
+    "Spiegare: modello logistico con parametri costanti.",
+    "Applicare N = K/[1+(K/10-1) exp(-rt)], dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
   ],
   "prerequisites": [
     "biology-20"
   ],
   "connections": [
-    "biology-22",
-    "biology-04"
+    "math-p08"
   ],
   "sources": [
     "biology"
@@ -28,315 +26,250 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Risposta funzionale",
-      "definition": "Relazione tra densità di prede e consumo di un predatore."
+      "term": "Tempo",
+      "definition": "Variabile indipendente, unità u.t.; intervallo [0; 30]."
     },
     {
-      "term": "Tempo di manipolazione",
-      "definition": "Tempo per catturare, mangiare e digerire una preda."
+      "term": "Popolazione",
+      "definition": "Risultato calcolato dal modello, unità individui."
     },
     {
-      "term": "Efficienza di ricerca",
-      "definition": "Area esplorata per unità di tempo, parametro a."
+      "term": "Capacità K",
+      "definition": "Parametro a, unità individui; intervallo [20; 200]."
     },
     {
-      "term": "Modello di Lotka e Volterra",
-      "definition": "Equazioni che descrivono prede e predatori con oscillazioni."
-    },
-    {
-      "term": "Effetto a cascata",
-      "definition": "Effetto di un predatore sui livelli più bassi della rete alimentare."
+      "term": "Tasso r",
+      "definition": "Parametro b, unità 1/u.t.; intervallo [0,1; 0,6]."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Linci e lepri",
+      "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Per circa un secolo la Compagnia della Baia di Hudson registrò le pelli di lince e di lepre americana acquistate dai cacciatori canadesi. I due numeri salgono e scendono in cicli di circa dieci anni, con i picchi delle linci che seguono quelli delle lepri. Come cambia il consumo di un predatore quando le prede abbondano?",
-          "Negli anni Venti del Novecento Alfred Lotka e Vito Volterra scrissero un modello in cui le prede crescono in assenza di predatori e i predatori crescono grazie alle prede catturate. Il modello produce oscillazioni: molte prede nutrono molti predatori, che riducono le prede, finché i predatori calano per fame e le prede si riprendono. I cicli reali dipendono anche dal cibo delle prede e da altri fattori."
+          "Una coltura di batteri psicrofili cresce in un recipiente che simula il suolo freddo di Marte. La stazione registra quanti batteri ci sono nel tempo.",
+          "Una popolazione con risorse limitate cresce secondo il modello logistico N = K/[1 + (K/N₀ - 1)exp(-rt)], prima quasi esponenziale e poi rallentata fino alla capacità K."
         ],
         "intermediate": [
-          "Per circa un secolo la Compagnia della Baia di Hudson registrò le pelli di lince e di lepre americana acquistate dai cacciatori canadesi. I due numeri salgono e scendono in cicli di circa dieci anni, con i picchi delle linci che seguono quelli delle lepri. Come cambia il consumo di un predatore quando le prede abbondano?",
-          "Negli anni Venti del Novecento Alfred Lotka e Vito Volterra scrissero un modello in cui le prede crescono in assenza di predatori e i predatori crescono grazie alle prede catturate. Il modello produce oscillazioni: molte prede nutrono molti predatori, che riducono le prede, finché i predatori calano per fame e le prede si riprendono. I cicli reali dipendono anche dal cibo delle prede e da altri fattori."
+          "Una coltura di batteri psicrofili cresce in un recipiente che simula il suolo freddo di Marte. La stazione registra quanti batteri ci sono nel tempo.",
+          "dN/dt = rN(1 - N/K): quando N è piccolo la crescita è esponenziale con tasso r, quando si avvicina a K rallenta. Qui N₀ = 10."
         ],
         "advanced": [
-          "Per circa un secolo la Compagnia della Baia di Hudson registrò le pelli di lince e di lepre americana acquistate dai cacciatori canadesi. I due numeri salgono e scendono in cicli di circa dieci anni, con i picchi delle linci che seguono quelli delle lepri. Come cambia il consumo di un predatore quando le prede abbondano?",
-          "Negli anni Venti del Novecento Alfred Lotka e Vito Volterra scrissero un modello in cui le prede crescono in assenza di predatori e i predatori crescono grazie alle prede catturate. Il modello produce oscillazioni: molte prede nutrono molti predatori, che riducono le prede, finché i predatori calano per fame e le prede si riprendono. I cicli reali dipendono anche dal cibo delle prede e da altri fattori."
+          "Una coltura di batteri psicrofili cresce in un recipiente che simula il suolo freddo di Marte. La stazione registra quanti batteri ci sono nel tempo.",
+          "Calcola il tempo per arrivare a metà della capacità con r = 0,1 e r = 0,6, e collega r al tempo di raddoppio iniziale ln2/r.",
+          "Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Risposte funzionali",
+      "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "La risposta funzionale descrive quante prede consuma un predatore in funzione della densità di prede. Nel 1959 Crawford Holling ne distinse tre tipi. Nel tipo I il consumo cresce in proporzione fino a un massimo, come negli animali filtratori. Nel tipo II cresce sempre più lentamente fino a un limite. Nel tipo III, a forma di S, a basse densità il predatore cattura poche prede, per esempio perché si nascondono meglio o perché il predatore deve imparare a cercarle.",
-          "Il tipo II nasce da un vincolo semplice: ogni preda richiede un tempo di manipolazione h, per catturarla, mangiarla e digerirla, durante il quale il predatore non cerca. Con efficienza di ricerca a, il consumo è aN/(1 + ahN). Per N grande il consumo tende a 1/h. Holling verificò la forma con un esperimento: una persona bendata cercava con le dita dischetti di carta vetrata su un tavolo.",
-          "Esempio svolto. Con a = 0,1 area per unità di tempo e h = 0,5 unità di tempo per preda: per N = 20, consumo = 0,1 · 20/(1 + 0,1 · 0,5 · 20) = 2/2 = 1 preda per unità di tempo. Il massimo possibile è 1/h = 2. Raddoppiando h il massimo si dimezza."
+          "Una popolazione con risorse limitate cresce secondo il modello logistico N = K/[1 + (K/N₀ - 1)exp(-rt)], prima quasi esponenziale e poi rallentata fino alla capacità K.",
+          "Con K = 100 e r = 0,3 la popolazione parte da 10, arriva a metà della capacità dopo circa 7,3 unità di tempo e si avvicina a 100."
         ],
         "intermediate": [
-          "La risposta funzionale descrive quante prede consuma un predatore in funzione della densità di prede. Nel 1959 Crawford Holling ne distinse tre tipi. Nel tipo I il consumo cresce in proporzione fino a un massimo, come negli animali filtratori. Nel tipo II cresce sempre più lentamente fino a un limite. Nel tipo III, a forma di S, a basse densità il predatore cattura poche prede, per esempio perché si nascondono meglio o perché il predatore deve imparare a cercarle.",
-          "Il tipo II nasce da un vincolo semplice: ogni preda richiede un tempo di manipolazione h, per catturarla, mangiarla e digerirla, durante il quale il predatore non cerca. Con efficienza di ricerca a, il consumo è aN/(1 + ahN). Per N grande il consumo tende a 1/h. Holling verificò la forma con un esperimento: una persona bendata cercava con le dita dischetti di carta vetrata su un tavolo.",
-          "Esempio svolto. Con a = 0,1 area per unità di tempo e h = 0,5 unità di tempo per preda: per N = 20, consumo = 0,1 · 20/(1 + 0,1 · 0,5 · 20) = 2/2 = 1 preda per unità di tempo. Il massimo possibile è 1/h = 2. Raddoppiando h il massimo si dimezza.",
-          "I predatori influenzano anche i livelli più bassi della rete alimentare. Il ritorno dei lupi nel parco di Yellowstone, nel 1995, è spesso citato come esempio: i cervi hanno cambiato abitudini e la vegetazione lungo i fiumi ne ha risentito. L’entità dell’effetto è ancora discussa dagli ecologi."
+          "dN/dt = rN(1 - N/K): quando N è piccolo la crescita è esponenziale con tasso r, quando si avvicina a K rallenta. Qui N₀ = 10.",
+          "La variabile Tempo è espressa in u.t.; Popolazione in individui. Il dominio dello strumento è [0; 30]. La relazione implementata è: N = K/[1+(K/10-1) exp(-rt)].",
+          "Con K = 100 e r = 0,3 la popolazione parte da 10, arriva a metà della capacità dopo circa 7,3 unità di tempo e si avvicina a 100."
         ],
         "advanced": [
-          "La risposta funzionale descrive quante prede consuma un predatore in funzione della densità di prede. Nel 1959 Crawford Holling ne distinse tre tipi. Nel tipo I il consumo cresce in proporzione fino a un massimo, come negli animali filtratori. Nel tipo II cresce sempre più lentamente fino a un limite. Nel tipo III, a forma di S, a basse densità il predatore cattura poche prede, per esempio perché si nascondono meglio o perché il predatore deve imparare a cercarle.",
-          "Il tipo II nasce da un vincolo semplice: ogni preda richiede un tempo di manipolazione h, per catturarla, mangiarla e digerirla, durante il quale il predatore non cerca. Con efficienza di ricerca a, il consumo è aN/(1 + ahN). Per N grande il consumo tende a 1/h. Holling verificò la forma con un esperimento: una persona bendata cercava con le dita dischetti di carta vetrata su un tavolo.",
-          "Esempio svolto. Con a = 0,1 area per unità di tempo e h = 0,5 unità di tempo per preda: per N = 20, consumo = 0,1 · 20/(1 + 0,1 · 0,5 · 20) = 2/2 = 1 preda per unità di tempo. Il massimo possibile è 1/h = 2. Raddoppiando h il massimo si dimezza.",
-          "I predatori influenzano anche i livelli più bassi della rete alimentare. Il ritorno dei lupi nel parco di Yellowstone, nel 1995, è spesso citato come esempio: i cervi hanno cambiato abitudini e la vegetazione lungo i fiumi ne ha risentito. L’entità dell’effetto è ancora discussa dagli ecologi."
+          "dN/dt = rN(1 - N/K): quando N è piccolo la crescita è esponenziale con tasso r, quando si avvicina a K rallenta. Qui N₀ = 10.",
+          "Calcola il tempo per arrivare a metà della capacità con r = 0,1 e r = 0,6, e collega r al tempo di raddoppio iniziale ln2/r.",
+          "Qualunque risorsa finita arresta presto una crescita esponenziale. Al freddo i microrganismi crescono anche con tempi di raddoppio di giorni o mesi."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Il laboratorio di Holling",
+      "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio il grafico mostra il consumo per predatore in funzione della densità di prede, da 0 a 100; nella scheda «Regola» cambi l’efficienza di ricerca a e il tempo di manipolazione h. Il modello è la risposta di tipo II.",
-          "Protocollo. La previsione riguarda il passaggio da N = 25 a N = 50. Con a = 0,1 e h = 0,5 prevedi e salva A. Poi porta h a 1, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con h = 0,5 il consumo passa da circa 1,11 a 1,43: cresce, ma raddoppiare le prede aumenta il consumo solo del 29%, perché il predatore passa sempre più tempo a manipolare. Con h = 1 i valori sono più bassi, circa 0,71 e 0,83, e la curva tende a 1 invece che a 2."
+          "Nel laboratorio imposta Capacità K (a): 100 individui; Tasso r (b): 0,3 1/u.t.. Prima di salvare A, prevedi come cambia Popolazione fra Tempo=7,5 e 15 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con K = 100 e r = 0,3 la popolazione parte da 10, arriva a metà della capacità dopo circa 7,3 unità di tempo e si avvicina a 100.",
+          "La variabile Tempo è espressa in u.t.; Popolazione in individui. Il dominio dello strumento è [0; 30]. La relazione implementata è: N = K/[1+(K/10-1) exp(-rt)]."
         ],
         "intermediate": [
-          "Nel laboratorio il grafico mostra il consumo per predatore in funzione della densità di prede, da 0 a 100; nella scheda «Regola» cambi l’efficienza di ricerca a e il tempo di manipolazione h. Il modello è la risposta di tipo II.",
-          "Protocollo. La previsione riguarda il passaggio da N = 25 a N = 50. Con a = 0,1 e h = 0,5 prevedi e salva A. Poi porta h a 1, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con h = 0,5 il consumo passa da circa 1,11 a 1,43: cresce, ma raddoppiare le prede aumenta il consumo solo del 29%, perché il predatore passa sempre più tempo a manipolare. Con h = 1 i valori sono più bassi, circa 0,71 e 0,83, e la curva tende a 1 invece che a 2."
+          "Nel laboratorio imposta Capacità K (a): 100 individui; Tasso r (b): 0,3 1/u.t.. Prima di salvare A, prevedi come cambia Popolazione fra Tempo=7,5 e 15 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Tempo è espressa in u.t.; Popolazione in individui. Il dominio dello strumento è [0; 30]. La relazione implementata è: N = K/[1+(K/10-1) exp(-rt)].",
+          "dN/dt = rN(1 - N/K): quando N è piccolo la crescita è esponenziale con tasso r, quando si avvicina a K rallenta. Qui N₀ = 10."
         ],
         "advanced": [
-          "Nel laboratorio il grafico mostra il consumo per predatore in funzione della densità di prede, da 0 a 100; nella scheda «Regola» cambi l’efficienza di ricerca a e il tempo di manipolazione h. Il modello è la risposta di tipo II.",
-          "Protocollo. La previsione riguarda il passaggio da N = 25 a N = 50. Con a = 0,1 e h = 0,5 prevedi e salva A. Poi porta h a 1, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con h = 0,5 il consumo passa da circa 1,11 a 1,43: cresce, ma raddoppiare le prede aumenta il consumo solo del 29%, perché il predatore passa sempre più tempo a manipolare. Con h = 1 i valori sono più bassi, circa 0,71 e 0,83, e la curva tende a 1 invece che a 2."
+          "Nel laboratorio imposta Capacità K (a): 100 individui; Tasso r (b): 0,3 1/u.t.. Prima di salvare A, prevedi come cambia Popolazione fra Tempo=7,5 e 15 u.t.. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Calcola il tempo per arrivare a metà della capacità con r = 0,1 e r = 0,6, e collega r al tempo di raddoppio iniziale ln2/r.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Errori e cascate",
+      "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Errore frequente: pensare che un predatore mangi in proporzione alle prede disponibili. Il tempo di manipolazione impone un limite: oltre una certa densità altre prede non aumentano quasi il consumo.",
-          "Secondo errore: credere che i predatori portino sempre le prede all’estinzione. Spesso, quando le prede diminuiscono, i predatori calano per primi o cambiano preda, e le prede si riprendono.",
-          "I predatori influenzano anche i livelli più bassi della rete alimentare. Il ritorno dei lupi nel parco di Yellowstone, nel 1995, è spesso citato come esempio: i cervi hanno cambiato abitudini e la vegetazione lungo i fiumi ne ha risentito. L’entità dell’effetto è ancora discussa dagli ecologi."
+          "Qualunque risorsa finita arresta presto una crescita esponenziale. Al freddo i microrganismi crescono anche con tempi di raddoppio di giorni o mesi.",
+          "Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ],
         "intermediate": [
-          "Errore frequente: pensare che un predatore mangi in proporzione alle prede disponibili. Il tempo di manipolazione impone un limite: oltre una certa densità altre prede non aumentano quasi il consumo.",
-          "Secondo errore: credere che i predatori portino sempre le prede all’estinzione. Spesso, quando le prede diminuiscono, i predatori calano per primi o cambiano preda, e le prede si riprendono.",
-          "I predatori influenzano anche i livelli più bassi della rete alimentare. Il ritorno dei lupi nel parco di Yellowstone, nel 1995, è spesso citato come esempio: i cervi hanno cambiato abitudini e la vegetazione lungo i fiumi ne ha risentito. L’entità dell’effetto è ancora discussa dagli ecologi."
+          "Qualunque risorsa finita arresta presto una crescita esponenziale. Al freddo i microrganismi crescono anche con tempi di raddoppio di giorni o mesi.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ],
         "advanced": [
-          "Errore frequente: pensare che un predatore mangi in proporzione alle prede disponibili. Il tempo di manipolazione impone un limite: oltre una certa densità altre prede non aumentano quasi il consumo.",
-          "Secondo errore: credere che i predatori portino sempre le prede all’estinzione. Spesso, quando le prede diminuiscono, i predatori calano per primi o cambiano preda, e le prede si riprendono.",
-          "I predatori influenzano anche i livelli più bassi della rete alimentare. Il ritorno dei lupi nel parco di Yellowstone, nel 1995, è spesso citato come esempio: i cervi hanno cambiato abitudini e la vegetazione lungo i fiumi ne ha risentito. L’entità dell’effetto è ancora discussa dagli ecologi."
+          "Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura.",
+          "Calcola il tempo per arrivare a metà della capacità con r = 0,1 e r = 0,6, e collega r al tempo di raddoppio iniziale ln2/r.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica",
+      "title": "Verifica ragionamento e calcolo",
       "text": {
         "base": [
-          "Ripasso: modello preda-predatore di Lotka e Volterra; risposte funzionali di tipo I, II e III; tempo di manipolazione e limite 1/h; consumo aN/(1 + ahN); effetti a cascata.",
-          "Mini esercizio: con a = 0,2 e h = 0,5, per N = 10 il consumo è 2/(1 + 1) = 1; il massimo è 2.",
-          "Nelle domande sulla risposta funzionale distingui il parametro di ricerca a da quello di manipolazione h."
+          "Una popolazione con risorse limitate cresce secondo il modello logistico N = K/[1 + (K/N₀ - 1)exp(-rt)], prima quasi esponenziale e poi rallentata fino alla capacità K.",
+          "Con K = 100 e r = 0,3 la popolazione parte da 10, arriva a metà della capacità dopo circa 7,3 unità di tempo e si avvicina a 100."
         ],
         "intermediate": [
-          "Ripasso: modello preda-predatore di Lotka e Volterra; risposte funzionali di tipo I, II e III; tempo di manipolazione e limite 1/h; consumo aN/(1 + ahN); effetti a cascata.",
-          "Mini esercizio: con a = 0,2 e h = 0,5, per N = 10 il consumo è 2/(1 + 1) = 1; il massimo è 2.",
-          "Nelle domande sulla risposta funzionale distingui il parametro di ricerca a da quello di manipolazione h."
+          "dN/dt = rN(1 - N/K): quando N è piccolo la crescita è esponenziale con tasso r, quando si avvicina a K rallenta. Qui N₀ = 10.",
+          "La variabile Tempo è espressa in u.t.; Popolazione in individui. Il dominio dello strumento è [0; 30]. La relazione implementata è: N = K/[1+(K/10-1) exp(-rt)]."
         ],
         "advanced": [
-          "Ripasso: modello preda-predatore di Lotka e Volterra; risposte funzionali di tipo I, II e III; tempo di manipolazione e limite 1/h; consumo aN/(1 + ahN); effetti a cascata.",
-          "Mini esercizio: con a = 0,2 e h = 0,5, per N = 10 il consumo è 2/(1 + 1) = 1; il massimo è 2.",
-          "Nelle domande sulla risposta funzionale distingui il parametro di ricerca a da quello di manipolazione h."
+          "Calcola il tempo per arrivare a metà della capacità con r = 0,1 e r = 0,6, e collega r al tempo di raddoppio iniziale ln2/r.",
+          "Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Collegamenti",
+      "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "La curva di tipo II ha la stessa forma della curva di Michaelis-Menten dell’unità «Enzimi e saturazione»: in entrambi i casi un tempo occupato limita la velocità. In biologia si passa a «Reti trofiche ed energia».",
-          "Riepilogo dell’unità: predatori e prede possono oscillare insieme; la risposta funzionale descrive il consumo in funzione delle prede; nel tipo II il tempo di manipolazione limita il consumo a 1/h; il consumo è aN/(1 + ahN); i predatori possono influenzare tutta la rete alimentare.",
-          "Nel diario registra A e B con le previsioni e spiega perché un predatore lento a digerire si sazia con meno prede."
+          "Nel diario distingui previsione, risultato e interpretazione. Modello logistico con parametri costanti.",
+          "Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura.",
+          "Collegamento consigliato: math-p08. Il completamento registra attività e autoverifica, non certifica competenze."
         ],
         "intermediate": [
-          "La curva di tipo II ha la stessa forma della curva di Michaelis-Menten dell’unità «Enzimi e saturazione»: in entrambi i casi un tempo occupato limita la velocità. In biologia si passa a «Reti trofiche ed energia».",
-          "Riepilogo dell’unità: predatori e prede possono oscillare insieme; la risposta funzionale descrive il consumo in funzione delle prede; nel tipo II il tempo di manipolazione limita il consumo a 1/h; il consumo è aN/(1 + ahN); i predatori possono influenzare tutta la rete alimentare.",
-          "Nel diario registra A e B con le previsioni e spiega perché un predatore lento a digerire si sazia con meno prede."
+          "dN/dt = rN(1 - N/K): quando N è piccolo la crescita è esponenziale con tasso r, quando si avvicina a K rallenta. Qui N₀ = 10.",
+          "Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura.",
+          "Calcola il tempo per arrivare a metà della capacità con r = 0,1 e r = 0,6, e collega r al tempo di raddoppio iniziale ln2/r."
         ],
         "advanced": [
-          "La curva di tipo II ha la stessa forma della curva di Michaelis-Menten dell’unità «Enzimi e saturazione»: in entrambi i casi un tempo occupato limita la velocità. In biologia si passa a «Reti trofiche ed energia».",
-          "Riepilogo dell’unità: predatori e prede possono oscillare insieme; la risposta funzionale descrive il consumo in funzione delle prede; nel tipo II il tempo di manipolazione limita il consumo a 1/h; il consumo è aN/(1 + ahN); i predatori possono influenzare tutta la rete alimentare.",
-          "Nel diario registra A e B con le previsioni e spiega perché un predatore lento a digerire si sazia con meno prede."
+          "Calcola il tempo per arrivare a metà della capacità con r = 0,1 e r = 0,6, e collega r al tempo di raddoppio iniziale ln2/r.",
+          "Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-21-q1",
-      "prompt": "Nella risposta di tipo II, qual è il consumo massimo per predatore?",
+      "id": "biology-21-concept",
+      "prompt": "Quando N = K/2 la velocità di crescita dN/dt è:",
       "options": [
         {
           "id": "A",
-          "text": "1/h",
-          "feedback": "Esatto: il predatore non può manipolare più di una preda ogni h unità di tempo."
+          "text": "Minima",
+          "feedback": "dN/dt = rN(1 - N/K): quando N è piccolo la crescita è esponenziale con tasso r, quando si avvicina a K rallenta. Qui N₀ = 10."
         },
         {
           "id": "B",
-          "text": "a",
-          "feedback": "L’efficienza di ricerca conta soprattutto a basse densità."
+          "text": "Massima",
+          "feedback": "Una popolazione con risorse limitate cresce secondo il modello logistico N = K/[1 + (K/N₀ - 1)exp(-rt)], prima quasi esponenziale e poi rallentata fino alla capacità K."
         },
         {
           "id": "C",
-          "text": "Infinito",
-          "feedback": "Il tempo di manipolazione impone un limite."
-        },
-        {
-          "id": "D",
-          "text": "a · h",
-          "feedback": "Il prodotto a · h compare al denominatore, ma non è il massimo."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-21-q2",
-      "prompt": "Che forma ha la risposta di tipo II?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Una retta che cresce senza limiti",
-          "feedback": "Questa sarebbe una risposta senza tempo di manipolazione."
-        },
-        {
-          "id": "B",
-          "text": "Una curva che cresce sempre più lentamente fino a un limite",
-          "feedback": "Esatto: è una curva di saturazione."
-        },
-        {
-          "id": "C",
-          "text": "Una curva a S",
-          "feedback": "La curva a S è la risposta di tipo III."
-        },
-        {
-          "id": "D",
-          "text": "Una curva che decresce",
-          "feedback": "Più prede non riducono il consumo del predatore."
+          "text": "Nulla",
+          "feedback": "Qualunque risorsa finita arresta presto una crescita esponenziale. Al freddo i microrganismi crescono anche con tempi di raddoppio di giorni o mesi."
         }
       ],
       "correct": "B"
     },
     {
-      "id": "biology-21-q3",
-      "prompt": "Con a = 0,1, h = 0,5 e N = 20, quanto vale il consumo?",
+      "id": "biology-21-calculation",
+      "prompt": "Calcolo: Capacità K (a)=100 individui; Tasso r (b)=0,3 1/u.t.. Per Tempo=0 u.t., quanto vale Popolazione?",
       "options": [
         {
           "id": "A",
-          "text": "2",
-          "feedback": "2 è il massimo 1/h, non il valore a N = 20."
+          "text": "10 individui",
+          "feedback": "N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=100 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "0,5",
-          "feedback": "0,5 è il tempo di manipolazione h, non il consumo."
+          "text": "15 individui",
+          "feedback": "Questo valore non soddisfa la relazione. N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=100 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "1",
-          "feedback": "Esatto: 0,1 · 20/(1 + 0,1 · 0,5 · 20) = 2/2."
-        },
-        {
-          "id": "D",
-          "text": "20",
-          "feedback": "Il predatore non mangia tutte le prede presenti."
+          "text": "5 individui",
+          "feedback": "Controlla sostituzione, segno e unità. N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=100 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "C"
+      "correct": "A",
+      "numeric": {
+        "x": 0,
+        "parameters": {
+          "a": 100,
+          "b": 0.3
+        },
+        "expected": 10,
+        "unit": "individui"
+      }
     },
     {
-      "id": "biology-21-q4",
-      "prompt": "Che periodo hanno i cicli di lince e lepre nei registri della Baia di Hudson?",
+      "id": "biology-21-transfer",
+      "prompt": "Trasferimento: Capacità K (a)=110 individui; Tasso r (b)=0,3 1/u.t.. Per Tempo=0 u.t., quanto vale Popolazione?",
       "options": [
         {
           "id": "A",
-          "text": "Circa un anno",
-          "feedback": "I cicli sono molto più lunghi delle stagioni."
+          "text": "15 individui",
+          "feedback": "Questo valore non soddisfa la relazione. N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=110 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "Circa cento anni",
-          "feedback": "I registri coprono circa un secolo e mostrano molti cicli."
+          "text": "5 individui",
+          "feedback": "Controlla sostituzione, segno e unità. N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=110 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "Non ci sono cicli",
-          "feedback": "I cicli sono tra i più noti dell’ecologia."
-        },
-        {
-          "id": "D",
-          "text": "Circa dieci anni",
-          "feedback": "Esatto: con i picchi delle linci che seguono quelli delle lepri."
+          "text": "10 individui",
+          "feedback": "N = K/[1+(K/10-1) exp(-rt)]. Con Capacità K (a)=110 individui; Tasso r (b)=0,3 1/u.t. e Tempo=0 u.t., il risultato è 10 individui. Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "D"
+      "correct": "C",
+      "numeric": {
+        "x": 0,
+        "parameters": {
+          "a": 110,
+          "b": 0.3
+        },
+        "expected": 10,
+        "unit": "individui"
+      }
     },
     {
-      "id": "biology-21-q5",
-      "prompt": "Che cosa succede alla curva di tipo II se il tempo di manipolazione raddoppia?",
+      "id": "biology-21-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
       "options": [
         {
           "id": "A",
-          "text": "Il consumo massimo si dimezza",
-          "feedback": "Esatto: il limite 1/h diventa la metà."
+          "text": "Modello logistico con parametri costanti",
+          "feedback": "Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura."
         },
         {
           "id": "B",
-          "text": "Il consumo massimo raddoppia",
-          "feedback": "Più tempo per preda significa meno prede consumate."
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura."
         },
         {
           "id": "C",
-          "text": "Non cambia nulla",
-          "feedback": "Il tempo di manipolazione decide il limite."
-        },
-        {
-          "id": "D",
-          "text": "La curva diventa una retta",
-          "feedback": "Una retta senza limite si ha solo con h = 0."
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Tasso e capacità costanti; niente fasi di latenza o di morte, né variazioni di temperatura."
         }
       ],
       "correct": "A"
-    },
-    {
-      "id": "biology-21-q6",
-      "prompt": "Nel laboratorio, con h = 0,5, raddoppiando le prede da 25 a 50 il consumo:",
-      "options": [
-        {
-          "id": "A",
-          "text": "Raddoppia",
-          "feedback": "Il tempo di manipolazione frena la crescita."
-        },
-        {
-          "id": "B",
-          "text": "Cresce di circa il 29%",
-          "feedback": "Esatto: da circa 1,11 a 1,43 prede per unità di tempo."
-        },
-        {
-          "id": "C",
-          "text": "Diminuisce",
-          "feedback": "Più prede non riducono il consumo nel tipo II."
-        },
-        {
-          "id": "D",
-          "text": "Resta uguale",
-          "feedback": "La curva è ancora in salita a queste densità."
-        }
-      ],
-      "correct": "B"
     }
   ]
 }

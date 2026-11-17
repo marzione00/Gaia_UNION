@@ -95,8 +95,8 @@ export const RESEARCH = [
     { id: 'atmosphere', label: 'ATMOSFERA', discipline: 2, pos: [9, 1, -1], module: 'chemistry-01' },
     { id: 'carbon', label: 'CICLO DEL CARBONIO', discipline: 2, pos: [9, -5, 0], module: 'chemistry-02' },
     { id: 'populations', label: 'POPOLAZIONI', discipline: 3, pos: [-3, -4, 1], module: 'gaia', section: 2 },
-    { id: 'ecosystem', label: 'ECOSISTEMI', discipline: 3, pos: [3, -6, -1], module: 'biology-01' },
-    { id: 'biodiversity', label: 'BIODIVERSITÀ', discipline: 3, pos: [-1, 7, -1], module: 'biology-02' },
+    { id: 'ecosystem', label: 'ZONA ABITABILE', discipline: 3, pos: [3, -6, -1], module: 'biology-22' },
+    { id: 'biodiversity', label: 'BIOFIRME', discipline: 3, pos: [-1, 7, -1], module: 'biology-33' },
     { id: 'feedback', label: 'RETROAZIONI', discipline: 4, pos: [0, 3, 1.5], module: 'gaia', section: 0 },
     { id: 'daisyworld', label: 'DAISYWORLD', discipline: 4, pos: [4, -1, 2], lab: 'daisyworld' },
     { id: 'exp', label: 'ESPONENZIALI', discipline: 0, pos: [-10, 6, -2], module: 'math-c06' }

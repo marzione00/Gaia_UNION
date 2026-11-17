@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "biology-34",
+  "title": "Panspermia e protezione planetaria",
+  "sector": 3,
+  "modelId": "biology-34",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Inattivazione esponenziale con dose costante",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: inattivazione esponenziale con dose costante.",
+    "Applicare S = 10^(-d·t/D₁₀), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "biology-33"
+  ],
+  "connections": [
+    "physics-25"
+  ],
+  "sources": [
+    "biology"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Tempo nello spazio",
+      "definition": "Variabile indipendente, unità anni; intervallo [0; 100]."
+    },
+    {
+      "term": "Frazione sopravvissuta",
+      "definition": "Risultato calcolato dal modello, unità 1."
+    },
+    {
+      "term": "Dose annua d",
+      "definition": "Parametro a, unità Gy/anno; intervallo [0,1; 100]."
+    },
+    {
+      "term": "Dose decimale D₁₀",
+      "definition": "Parametro b, unità Gy; intervallo [100; 10.000]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Un frammento di roccia espulso da un impatto vaga fra i pianeti con spore batteriche al suo interno. Quante sopravvivono al viaggio?",
+          "Con una dose annua d di radiazione e una dose decimale D₁₀, dopo t anni la frazione sopravvissuta è 10^(-d·t/D₁₀). All'interno di una roccia la dose è molto minore che in superficie."
+        ],
+        "intermediate": [
+          "Un frammento di roccia espulso da un impatto vaga fra i pianeti con spore batteriche al suo interno. Quante sopravvivono al viaggio?",
+          "La dose accumulata è d·t; ogni D₁₀ riduce i sopravvissuti di dieci volte, quindi il numero di riduzioni decimali è d·t/D₁₀."
+        ],
+        "advanced": [
+          "Un frammento di roccia espulso da un impatto vaga fra i pianeti con spore batteriche al suo interno. Quante sopravvivono al viaggio?",
+          "Calcola il tempo di viaggio che lascia sopravvivere una spora su un milione per d = 1 Gy/anno, e confrontalo con i tempi di trasferimento dei meteoriti marziani.",
+          "Inattivazione esponenziale, dose costante; trascura il vuoto, il calore dell'espulsione e dell'ingresso in atmosfera."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Con una dose annua d di radiazione e una dose decimale D₁₀, dopo t anni la frazione sopravvissuta è 10^(-d·t/D₁₀). All'interno di una roccia la dose è molto minore che in superficie.",
+          "Con d = 10 Gy/anno e D₁₀ = 1000 Gy, dopo 10 anni sopravvive circa il 79% delle spore; dopo mille anni solo una su dieci miliardi."
+        ],
+        "intermediate": [
+          "La dose accumulata è d·t; ogni D₁₀ riduce i sopravvissuti di dieci volte, quindi il numero di riduzioni decimali è d·t/D₁₀.",
+          "La variabile Tempo nello spazio è espressa in anni; Frazione sopravvissuta in 1. Il dominio dello strumento è [0; 100]. La relazione implementata è: S = 10^(-d·t/D₁₀).",
+          "Con d = 10 Gy/anno e D₁₀ = 1000 Gy, dopo 10 anni sopravvive circa il 79% delle spore; dopo mille anni solo una su dieci miliardi."
+        ],
+        "advanced": [
+          "La dose accumulata è d·t; ogni D₁₀ riduce i sopravvissuti di dieci volte, quindi il numero di riduzioni decimali è d·t/D₁₀.",
+          "Calcola il tempo di viaggio che lascia sopravvivere una spora su un milione per d = 1 Gy/anno, e confrontalo con i tempi di trasferimento dei meteoriti marziani.",
+          "La panspermia sposta il problema dell'origine della vita su un altro pianeta senza risolverlo. È invece un rischio concreto per le missioni, che possono portare microrganismi terrestri su altri mondi."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Dose annua d (a): 10 Gy/anno; Dose decimale D₁₀ (b): 1000 Gy. Prima di salvare A, prevedi come cambia Frazione sopravvissuta fra Tempo nello spazio=25 e 50 anni. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con d = 10 Gy/anno e D₁₀ = 1000 Gy, dopo 10 anni sopravvive circa il 79% delle spore; dopo mille anni solo una su dieci miliardi.",
+          "La variabile Tempo nello spazio è espressa in anni; Frazione sopravvissuta in 1. Il dominio dello strumento è [0; 100]. La relazione implementata è: S = 10^(-d·t/D₁₀)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Dose annua d (a): 10 Gy/anno; Dose decimale D₁₀ (b): 1000 Gy. Prima di salvare A, prevedi come cambia Frazione sopravvissuta fra Tempo nello spazio=25 e 50 anni. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Tempo nello spazio è espressa in anni; Frazione sopravvissuta in 1. Il dominio dello strumento è [0; 100]. La relazione implementata è: S = 10^(-d·t/D₁₀).",
+          "La dose accumulata è d·t; ogni D₁₀ riduce i sopravvissuti di dieci volte, quindi il numero di riduzioni decimali è d·t/D₁₀."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Dose annua d (a): 10 Gy/anno; Dose decimale D₁₀ (b): 1000 Gy. Prima di salvare A, prevedi come cambia Frazione sopravvissuta fra Tempo nello spazio=25 e 50 anni. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Calcola il tempo di viaggio che lascia sopravvivere una spora su un milione per d = 1 Gy/anno, e confrontalo con i tempi di trasferimento dei meteoriti marziani.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "La panspermia sposta il problema dell'origine della vita su un altro pianeta senza risolverlo. È invece un rischio concreto per le missioni, che possono portare microrganismi terrestri su altri mondi.",
+          "Inattivazione esponenziale, dose costante; trascura il vuoto, il calore dell'espulsione e dell'ingresso in atmosfera.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "La panspermia sposta il problema dell'origine della vita su un altro pianeta senza risolverlo. È invece un rischio concreto per le missioni, che possono portare microrganismi terrestri su altri mondi.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Inattivazione esponenziale, dose costante; trascura il vuoto, il calore dell'espulsione e dell'ingresso in atmosfera.",
+          "Calcola il tempo di viaggio che lascia sopravvivere una spora su un milione per d = 1 Gy/anno, e confrontalo con i tempi di trasferimento dei meteoriti marziani.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Con una dose annua d di radiazione e una dose decimale D₁₀, dopo t anni la frazione sopravvissuta è 10^(-d·t/D₁₀). All'interno di una roccia la dose è molto minore che in superficie.",
+          "Con d = 10 Gy/anno e D₁₀ = 1000 Gy, dopo 10 anni sopravvive circa il 79% delle spore; dopo mille anni solo una su dieci miliardi."
+        ],
+        "intermediate": [
+          "La dose accumulata è d·t; ogni D₁₀ riduce i sopravvissuti di dieci volte, quindi il numero di riduzioni decimali è d·t/D₁₀.",
+          "La variabile Tempo nello spazio è espressa in anni; Frazione sopravvissuta in 1. Il dominio dello strumento è [0; 100]. La relazione implementata è: S = 10^(-d·t/D₁₀)."
+        ],
+        "advanced": [
+          "Calcola il tempo di viaggio che lascia sopravvivere una spora su un milione per d = 1 Gy/anno, e confrontalo con i tempi di trasferimento dei meteoriti marziani.",
+          "Inattivazione esponenziale, dose costante; trascura il vuoto, il calore dell'espulsione e dell'ingresso in atmosfera."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Inattivazione esponenziale con dose costante.",
+          "Inattivazione esponenziale, dose costante; trascura il vuoto, il calore dell'espulsione e dell'ingresso in atmosfera.",
+          "Collegamento consigliato: physics-25. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "La dose accumulata è d·t; ogni D₁₀ riduce i sopravvissuti di dieci volte, quindi il numero di riduzioni decimali è d·t/D₁₀.",
+          "Inattivazione esponenziale, dose costante; trascura il vuoto, il calore dell'espulsione e dell'ingresso in atmosfera.",
+          "Calcola il tempo di viaggio che lascia sopravvivere una spora su un milione per d = 1 Gy/anno, e confrontalo con i tempi di trasferimento dei meteoriti marziani."
+        ],
+        "advanced": [
+          "Calcola il tempo di viaggio che lascia sopravvivere una spora su un milione per d = 1 Gy/anno, e confrontalo con i tempi di trasferimento dei meteoriti marziani.",
+          "Inattivazione esponenziale, dose costante; trascura il vuoto, il calore dell'espulsione e dell'ingresso in atmosfera.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "biology-34-concept",
+      "prompt": "Se la dose annua raddoppia, il tempo per ridurre i sopravvissuti di dieci volte:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Si dimezza",
+          "feedback": "Con una dose annua d di radiazione e una dose decimale D₁₀, dopo t anni la frazione sopravvissuta è 10^(-d·t/D₁₀). All'interno di una roccia la dose è molto minore che in superficie."
+        },
+        {
+          "id": "B",
+          "text": "Raddoppia",
+          "feedback": "La panspermia sposta il problema dell'origine della vita su un altro pianeta senza risolverlo. È invece un rischio concreto per le missioni, che possono portare microrganismi terrestri su altri mondi."
+        },
+        {
+          "id": "C",
+          "text": "Resta uguale",
+          "feedback": "La dose accumulata è d·t; ogni D₁₀ riduce i sopravvissuti di dieci volte, quindi il numero di riduzioni decimali è d·t/D₁₀."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "biology-34-calculation",
+      "prompt": "Calcolo: Dose annua d (a)=10 Gy/anno; Dose decimale D₁₀ (b)=1000 Gy. Per Tempo nello spazio=10 anni, quanto vale Frazione sopravvissuta?",
+      "options": [
+        {
+          "id": "A",
+          "text": "1,79433 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. S = 10^(-d·t/D₁₀). Con Dose annua d (a)=10 Gy/anno; Dose decimale D₁₀ (b)=1000 Gy e Tempo nello spazio=10 anni, il risultato è 0,794328 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "-0,205672 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. S = 10^(-d·t/D₁₀). Con Dose annua d (a)=10 Gy/anno; Dose decimale D₁₀ (b)=1000 Gy e Tempo nello spazio=10 anni, il risultato è 0,794328 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "0,794328 (adimensionale)",
+          "feedback": "S = 10^(-d·t/D₁₀). Con Dose annua d (a)=10 Gy/anno; Dose decimale D₁₀ (b)=1000 Gy e Tempo nello spazio=10 anni, il risultato è 0,794328 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 10,
+        "parameters": {
+          "a": 10,
+          "b": 1000
+        },
+        "expected": 0.7943282347242815,
+        "unit": "1"
+      }
+    },
+    {
+      "id": "biology-34-transfer",
+      "prompt": "Trasferimento: Dose annua d (a)=10,1 Gy/anno; Dose decimale D₁₀ (b)=1000 Gy. Per Tempo nello spazio=10 anni, quanto vale Frazione sopravvissuta?",
+      "options": [
+        {
+          "id": "A",
+          "text": "-0,207499 (adimensionale)",
+          "feedback": "Controlla sostituzione, segno e unità. S = 10^(-d·t/D₁₀). Con Dose annua d (a)=10,1 Gy/anno; Dose decimale D₁₀ (b)=1000 Gy e Tempo nello spazio=10 anni, il risultato è 0,792501 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "0,792501 (adimensionale)",
+          "feedback": "S = 10^(-d·t/D₁₀). Con Dose annua d (a)=10,1 Gy/anno; Dose decimale D₁₀ (b)=1000 Gy e Tempo nello spazio=10 anni, il risultato è 0,792501 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "1,7925 (adimensionale)",
+          "feedback": "Questo valore non soddisfa la relazione. S = 10^(-d·t/D₁₀). Con Dose annua d (a)=10,1 Gy/anno; Dose decimale D₁₀ (b)=1000 Gy e Tempo nello spazio=10 anni, il risultato è 0,792501 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "B",
+      "numeric": {
+        "x": 10,
+        "parameters": {
+          "a": 10.1,
+          "b": 1000
+        },
+        "expected": 0.7925013304804718,
+        "unit": "1"
+      }
+    },
+    {
+      "id": "biology-34-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Inattivazione esponenziale, dose costante; trascura il vuoto, il calore dell'espulsione e dell'ingresso in atmosfera."
+        },
+        {
+          "id": "B",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Inattivazione esponenziale, dose costante; trascura il vuoto, il calore dell'espulsione e dell'ingresso in atmosfera."
+        },
+        {
+          "id": "C",
+          "text": "Inattivazione esponenziale con dose costante",
+          "feedback": "Inattivazione esponenziale, dose costante; trascura il vuoto, il calore dell'espulsione e dell'ingresso in atmosfera."
+        }
+      ],
+      "correct": "C"
+    }
+  ]
+}

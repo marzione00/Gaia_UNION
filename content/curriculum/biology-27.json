@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "biology-27",
+  "title": "Cercare la vita su Marte",
+  "sector": 3,
+  "modelId": "biology-27",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Decadimento del primo ordine senza sorgenti",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "objectives": [
+    "Spiegare: decadimento del primo ordine senza sorgenti.",
+    "Applicare c(t) = c₀ exp(-t/τ), dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
+  ],
+  "prerequisites": [
+    "biology-26"
+  ],
+  "connections": [
+    "math-c06"
+  ],
+  "sources": [
+    "biology"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Tempo",
+      "definition": "Variabile indipendente, unità anni; intervallo [0; 2000]."
+    },
+    {
+      "term": "Metano residuo",
+      "definition": "Risultato calcolato dal modello, unità ppb."
+    },
+    {
+      "term": "Concentrazione iniziale c₀",
+      "definition": "Parametro a, unità ppb; intervallo [0,1; 50]."
+    },
+    {
+      "term": "Tempo di vita τ",
+      "definition": "Parametro b, unità anni; intervallo [10; 1000]."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "La domanda della spedizione",
+      "text": {
+        "base": [
+          "Uno strumento rileva un aumento di metano nell'atmosfera di un pianeta. Se nessuna sorgente lo rinnova, quanto tempo resta?",
+          "Un gas distrutto dalla luce ultravioletta e dalle reazioni chimiche diminuisce in modo esponenziale: c(t) = c₀exp(-t/τ), dove τ è il tempo di vita."
+        ],
+        "intermediate": [
+          "Uno strumento rileva un aumento di metano nell'atmosfera di un pianeta. Se nessuna sorgente lo rinnova, quanto tempo resta?",
+          "Se la velocità di distruzione è proporzionale alla concentrazione, dc/dt = -c/τ; la soluzione è un decadimento esponenziale con costante di tempo τ."
+        ],
+        "advanced": [
+          "Uno strumento rileva un aumento di metano nell'atmosfera di un pianeta. Se nessuna sorgente lo rinnova, quanto tempo resta?",
+          "Trova il tempo dopo il quale resta l'1% del metano per τ = 300 anni, e discuti perché variazioni stagionali di poche settimane sono difficili da spiegare con questo modello.",
+          "Distruzione del primo ordine con τ costante, nessuna sorgente; l'atmosfera è considerata ben mescolata."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Dall’intuizione alla relazione",
+      "text": {
+        "base": [
+          "Un gas distrutto dalla luce ultravioletta e dalle reazioni chimiche diminuisce in modo esponenziale: c(t) = c₀exp(-t/τ), dove τ è il tempo di vita.",
+          "Con c₀ = 10 ppb e τ = 300 anni, dopo 300 anni restano circa 3,7 ppb, cioè il 37% del valore iniziale."
+        ],
+        "intermediate": [
+          "Se la velocità di distruzione è proporzionale alla concentrazione, dc/dt = -c/τ; la soluzione è un decadimento esponenziale con costante di tempo τ.",
+          "La variabile Tempo è espressa in anni; Metano residuo in ppb. Il dominio dello strumento è [0; 2000]. La relazione implementata è: c(t) = c₀ exp(-t/τ).",
+          "Con c₀ = 10 ppb e τ = 300 anni, dopo 300 anni restano circa 3,7 ppb, cioè il 37% del valore iniziale."
+        ],
+        "advanced": [
+          "Se la velocità di distruzione è proporzionale alla concentrazione, dc/dt = -c/τ; la soluzione è un decadimento esponenziale con costante di tempo τ.",
+          "Trova il tempo dopo il quale resta l'1% del metano per τ = 300 anni, e discuti perché variazioni stagionali di poche settimane sono difficili da spiegare con questo modello.",
+          "Il metano è compatibile con la vita senza dimostrarla, perché anche processi geologici come la serpentinizzazione lo producono. Una variazione rapida richiede però una sorgente attiva o un pozzo sconosciuto."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Prevedi, modifica, confronta",
+      "text": {
+        "base": [
+          "Nel laboratorio imposta Concentrazione iniziale c₀ (a): 10 ppb; Tempo di vita τ (b): 300 anni. Prima di salvare A, prevedi come cambia Metano residuo fra Tempo=500 e 1000 anni. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con c₀ = 10 ppb e τ = 300 anni, dopo 300 anni restano circa 3,7 ppb, cioè il 37% del valore iniziale.",
+          "La variabile Tempo è espressa in anni; Metano residuo in ppb. Il dominio dello strumento è [0; 2000]. La relazione implementata è: c(t) = c₀ exp(-t/τ)."
+        ],
+        "intermediate": [
+          "Nel laboratorio imposta Concentrazione iniziale c₀ (a): 10 ppb; Tempo di vita τ (b): 300 anni. Prima di salvare A, prevedi come cambia Metano residuo fra Tempo=500 e 1000 anni. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Tempo è espressa in anni; Metano residuo in ppb. Il dominio dello strumento è [0; 2000]. La relazione implementata è: c(t) = c₀ exp(-t/τ).",
+          "Se la velocità di distruzione è proporzionale alla concentrazione, dc/dt = -c/τ; la soluzione è un decadimento esponenziale con costante di tempo τ."
+        ],
+        "advanced": [
+          "Nel laboratorio imposta Concentrazione iniziale c₀ (a): 10 ppb; Tempo di vita τ (b): 300 anni. Prima di salvare A, prevedi come cambia Metano residuo fra Tempo=500 e 1000 anni. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Trova il tempo dopo il quale resta l'1% del metano per τ = 300 anni, e discuti perché variazioni stagionali di poche settimane sono difficili da spiegare con questo modello.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Leggere senza sovrainterpretare",
+      "text": {
+        "base": [
+          "Il metano è compatibile con la vita senza dimostrarla, perché anche processi geologici come la serpentinizzazione lo producono. Una variazione rapida richiede però una sorgente attiva o un pozzo sconosciuto.",
+          "Distruzione del primo ordine con τ costante, nessuna sorgente; l'atmosfera è considerata ben mescolata.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ],
+        "intermediate": [
+          "Il metano è compatibile con la vita senza dimostrarla, perché anche processi geologici come la serpentinizzazione lo producono. Una variazione rapida richiede però una sorgente attiva o un pozzo sconosciuto.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+        ],
+        "advanced": [
+          "Distruzione del primo ordine con τ costante, nessuna sorgente; l'atmosfera è considerata ben mescolata.",
+          "Trova il tempo dopo il quale resta l'1% del metano per τ = 300 anni, e discuti perché variazioni stagionali di poche settimane sono difficili da spiegare con questo modello.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica ragionamento e calcolo",
+      "text": {
+        "base": [
+          "Un gas distrutto dalla luce ultravioletta e dalle reazioni chimiche diminuisce in modo esponenziale: c(t) = c₀exp(-t/τ), dove τ è il tempo di vita.",
+          "Con c₀ = 10 ppb e τ = 300 anni, dopo 300 anni restano circa 3,7 ppb, cioè il 37% del valore iniziale."
+        ],
+        "intermediate": [
+          "Se la velocità di distruzione è proporzionale alla concentrazione, dc/dt = -c/τ; la soluzione è un decadimento esponenziale con costante di tempo τ.",
+          "La variabile Tempo è espressa in anni; Metano residuo in ppb. Il dominio dello strumento è [0; 2000]. La relazione implementata è: c(t) = c₀ exp(-t/τ)."
+        ],
+        "advanced": [
+          "Trova il tempo dopo il quale resta l'1% del metano per τ = 300 anni, e discuti perché variazioni stagionali di poche settimane sono difficili da spiegare con questo modello.",
+          "Distruzione del primo ordine con τ costante, nessuna sorgente; l'atmosfera è considerata ben mescolata."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Conclusione e nuova domanda",
+      "text": {
+        "base": [
+          "Nel diario distingui previsione, risultato e interpretazione. Decadimento del primo ordine senza sorgenti.",
+          "Distruzione del primo ordine con τ costante, nessuna sorgente; l'atmosfera è considerata ben mescolata.",
+          "Collegamento consigliato: math-c06. Il completamento registra attività e autoverifica, non certifica competenze."
+        ],
+        "intermediate": [
+          "Se la velocità di distruzione è proporzionale alla concentrazione, dc/dt = -c/τ; la soluzione è un decadimento esponenziale con costante di tempo τ.",
+          "Distruzione del primo ordine con τ costante, nessuna sorgente; l'atmosfera è considerata ben mescolata.",
+          "Trova il tempo dopo il quale resta l'1% del metano per τ = 300 anni, e discuti perché variazioni stagionali di poche settimane sono difficili da spiegare con questo modello."
+        ],
+        "advanced": [
+          "Trova il tempo dopo il quale resta l'1% del metano per τ = 300 anni, e discuti perché variazioni stagionali di poche settimane sono difficili da spiegare con questo modello.",
+          "Distruzione del primo ordine con τ costante, nessuna sorgente; l'atmosfera è considerata ben mescolata.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "biology-27-concept",
+      "prompt": "Dopo un tempo pari a τ la concentrazione è ridotta a circa:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Zero",
+          "feedback": "Se la velocità di distruzione è proporzionale alla concentrazione, dc/dt = -c/τ; la soluzione è un decadimento esponenziale con costante di tempo τ."
+        },
+        {
+          "id": "B",
+          "text": "Il 37% del valore iniziale",
+          "feedback": "Un gas distrutto dalla luce ultravioletta e dalle reazioni chimiche diminuisce in modo esponenziale: c(t) = c₀exp(-t/τ), dove τ è il tempo di vita."
+        },
+        {
+          "id": "C",
+          "text": "La metà",
+          "feedback": "Il metano è compatibile con la vita senza dimostrarla, perché anche processi geologici come la serpentinizzazione lo producono. Una variazione rapida richiede però una sorgente attiva o un pozzo sconosciuto."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "biology-27-calculation",
+      "prompt": "Calcolo: Concentrazione iniziale c₀ (a)=10 ppb; Tempo di vita τ (b)=300 anni. Per Tempo=300 anni, quanto vale Metano residuo?",
+      "options": [
+        {
+          "id": "A",
+          "text": "3,67879 ppb",
+          "feedback": "c(t) = c₀ exp(-t/τ). Con Concentrazione iniziale c₀ (a)=10 ppb; Tempo di vita τ (b)=300 anni e Tempo=300 anni, il risultato è 3,67879 ppb. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "5,51819 ppb",
+          "feedback": "Questo valore non soddisfa la relazione. c(t) = c₀ exp(-t/τ). Con Concentrazione iniziale c₀ (a)=10 ppb; Tempo di vita τ (b)=300 anni e Tempo=300 anni, il risultato è 3,67879 ppb. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "1,8394 ppb",
+          "feedback": "Controlla sostituzione, segno e unità. c(t) = c₀ exp(-t/τ). Con Concentrazione iniziale c₀ (a)=10 ppb; Tempo di vita τ (b)=300 anni e Tempo=300 anni, il risultato è 3,67879 ppb. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "A",
+      "numeric": {
+        "x": 300,
+        "parameters": {
+          "a": 10,
+          "b": 300
+        },
+        "expected": 3.6787944117144233,
+        "unit": "ppb"
+      }
+    },
+    {
+      "id": "biology-27-transfer",
+      "prompt": "Trasferimento: Concentrazione iniziale c₀ (a)=10,1 ppb; Tempo di vita τ (b)=300 anni. Per Tempo=300 anni, quanto vale Metano residuo?",
+      "options": [
+        {
+          "id": "A",
+          "text": "5,57337 ppb",
+          "feedback": "Questo valore non soddisfa la relazione. c(t) = c₀ exp(-t/τ). Con Concentrazione iniziale c₀ (a)=10,1 ppb; Tempo di vita τ (b)=300 anni e Tempo=300 anni, il risultato è 3,71558 ppb. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "B",
+          "text": "1,85779 ppb",
+          "feedback": "Controlla sostituzione, segno e unità. c(t) = c₀ exp(-t/τ). Con Concentrazione iniziale c₀ (a)=10,1 ppb; Tempo di vita τ (b)=300 anni e Tempo=300 anni, il risultato è 3,71558 ppb. Conserva le unità e arrotonda solo alla fine."
+        },
+        {
+          "id": "C",
+          "text": "3,71558 ppb",
+          "feedback": "c(t) = c₀ exp(-t/τ). Con Concentrazione iniziale c₀ (a)=10,1 ppb; Tempo di vita τ (b)=300 anni e Tempo=300 anni, il risultato è 3,71558 ppb. Conserva le unità e arrotonda solo alla fine."
+        }
+      ],
+      "correct": "C",
+      "numeric": {
+        "x": 300,
+        "parameters": {
+          "a": 10.1,
+          "b": 300
+        },
+        "expected": 3.7155823558315673,
+        "unit": "ppb"
+      }
+    },
+    {
+      "id": "biology-27-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Decadimento del primo ordine senza sorgenti",
+          "feedback": "Distruzione del primo ordine con τ costante, nessuna sorgente; l'atmosfera è considerata ben mescolata."
+        },
+        {
+          "id": "B",
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Distruzione del primo ordine con τ costante, nessuna sorgente; l'atmosfera è considerata ben mescolata."
+        },
+        {
+          "id": "C",
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Distruzione del primo ordine con τ costante, nessuna sorgente; l'atmosfera è considerata ben mescolata."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
+}

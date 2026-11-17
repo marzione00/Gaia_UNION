@@ -2,25 +2,23 @@
   "schemaVersion": 1,
   "version": "1.0.0",
   "id": "biology-23",
-  "title": "Cicli biogeochimici e serbatoi",
+  "title": "Atmosfere, effetto serra e clima",
   "sector": 3,
   "modelId": "biology-23",
-  "coverage": "guided-activity",
-  "editorialStatus": "hand-written-draft",
-  "scope": "Serbatoi e flussi, ciclo del carbonio ed emissioni umane, ciclo dell’azoto, ciclo del fosforo, tempi di permanenza",
-  "narrativeStatus": "I valori di serbatoi ed emissioni sono stime di riferimento, in gran parte dalla valutazione IPCC del 2021.",
+  "coverage": "guided-foundation",
+  "editorialStatus": "original-draft",
+  "scope": "Atmosfera grigia nell'approssimazione di Eddington",
+  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
   "objectives": [
-    "Descrivere un ciclo con serbatoi e flussi.",
-    "Confrontare i serbatoi di carbonio e l’effetto delle emissioni.",
-    "Ricostruire le tappe del ciclo dell’azoto.",
-    "Calcolare tempi di permanenza e di dimezzamento."
+    "Spiegare: atmosfera grigia nell'approssimazione di eddington.",
+    "Applicare T_s = T_e (1 + 3τ/4)^(1/4) - 273,15, dichiarando variabili e unità.",
+    "Confrontare due configurazioni e discutere i limiti del modello."
   ],
   "prerequisites": [
     "biology-22"
   ],
   "connections": [
-    "biology-24",
-    "chemistry-17"
+    "physics-20"
   ],
   "sources": [
     "biology"
@@ -28,531 +26,244 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Serbatoio",
-      "definition": "Parte del sistema in cui un elemento si accumula, come l’oceano o l’atmosfera."
+      "term": "Profondità ottica τ",
+      "definition": "Variabile indipendente, unità 1; intervallo [0; 100]."
     },
     {
-      "term": "Flusso",
-      "definition": "Quantità di un elemento che passa da un serbatoio all’altro nell’unità di tempo."
+      "term": "Temperatura superficiale",
+      "definition": "Risultato calcolato dal modello, unità °C."
     },
     {
-      "term": "Azotofissazione",
-      "definition": "Trasformazione dell’N₂ dell’aria in ammoniaca."
-    },
-    {
-      "term": "Denitrificazione",
-      "definition": "Trasformazione dei nitrati in N₂ che torna all’aria."
-    },
-    {
-      "term": "Tempo di permanenza",
-      "definition": "Tempo medio che un atomo trascorre in un serbatoio, 1/k."
+      "term": "Temperatura di equilibrio T_e",
+      "definition": "Parametro a, unità K; intervallo [150; 320]."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "Il viaggio di un atomo",
+      "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Un atomo di carbonio del tuo corpo è stato, poco tempo fa, anidride carbonica nell’aria; prima ancora forse acqua di mare, roccia calcarea, tessuto di una pianta. A differenza dell’energia, che attraversa gli ecosistemi una volta sola, gli elementi ricircolano tra aria, acqua, suolo, rocce e viventi. Questi percorsi sono i cicli biogeochimici.",
-          "Ogni ciclo si descrive con serbatoi e flussi. Per il carbonio, in petagrammi (miliardi di tonnellate): l’oceano ne contiene circa 38 000, soprattutto disciolto in profondità; i suoli circa 1500-2400; la vegetazione circa 450; l’atmosfera circa 870 nel 2019. Ogni anno la fotosintesi delle terre emerse ne toglie all’aria più di 100, e respirazione e decomposizione ne restituiscono quasi altrettanti. Le rocce carbonatiche ne custodiscono decine di milioni, scambiati in tempi geologici."
+          "Tre pianeti vicini alla stessa stella hanno climi diversissimi. La stazione vuole capire quanto conta lo spessore dell'atmosfera.",
+          "In un'atmosfera grigia con profondità ottica τ per la radiazione infrarossa, la temperatura superficiale è circa T_s = T_e(1 + 3τ/4)^(1/4), dove T_e è la temperatura di equilibrio senza effetto serra."
         ],
         "intermediate": [
-          "Un atomo di carbonio del tuo corpo è stato, poco tempo fa, anidride carbonica nell’aria; prima ancora forse acqua di mare, roccia calcarea, tessuto di una pianta. A differenza dell’energia, che attraversa gli ecosistemi una volta sola, gli elementi ricircolano tra aria, acqua, suolo, rocce e viventi. Questi percorsi sono i cicli biogeochimici.",
-          "Ogni ciclo si descrive con serbatoi e flussi. Per il carbonio, in petagrammi (miliardi di tonnellate): l’oceano ne contiene circa 38 000, soprattutto disciolto in profondità; i suoli circa 1500-2400; la vegetazione circa 450; l’atmosfera circa 870 nel 2019. Ogni anno la fotosintesi delle terre emerse ne toglie all’aria più di 100, e respirazione e decomposizione ne restituiscono quasi altrettanti. Le rocce carbonatiche ne custodiscono decine di milioni, scambiati in tempi geologici."
+          "Tre pianeti vicini alla stessa stella hanno climi diversissimi. La stazione vuole capire quanto conta lo spessore dell'atmosfera.",
+          "La radiazione infrarossa uscente viene assorbita e riemessa molte volte; nell'approssimazione di Eddington la superficie deve irraggiare T_e⁴(1 + 3τ/4) per smaltire lo stesso flusso."
         ],
         "advanced": [
-          "Un atomo di carbonio del tuo corpo è stato, poco tempo fa, anidride carbonica nell’aria; prima ancora forse acqua di mare, roccia calcarea, tessuto di una pianta. A differenza dell’energia, che attraversa gli ecosistemi una volta sola, gli elementi ricircolano tra aria, acqua, suolo, rocce e viventi. Questi percorsi sono i cicli biogeochimici.",
-          "Ogni ciclo si descrive con serbatoi e flussi. Per il carbonio, in petagrammi (miliardi di tonnellate): l’oceano ne contiene circa 38 000, soprattutto disciolto in profondità; i suoli circa 1500-2400; la vegetazione circa 450; l’atmosfera circa 870 nel 2019. Ogni anno la fotosintesi delle terre emerse ne toglie all’aria più di 100, e respirazione e decomposizione ne restituiscono quasi altrettanti. Le rocce carbonatiche ne custodiscono decine di milioni, scambiati in tempi geologici."
+          "Tre pianeti vicini alla stessa stella hanno climi diversissimi. La stazione vuole capire quanto conta lo spessore dell'atmosfera.",
+          "Stima la profondità ottica necessaria per portare un pianeta con T_e = 210 K sopra 0 °C, e discuti come il ciclo dei carbonati può regolare τ.",
+          "Atmosfera grigia, in equilibrio radiativo, senza convezione, nubi né dipendenza dalla lunghezza d'onda."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Carbonio, azoto, fosforo",
+      "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Le attività umane hanno spostato il bilancio. Nel decennio 2010-2019 le emissioni sono state in media circa 10,9 petagrammi di carbonio l’anno: il 46% è rimasto nell’atmosfera, il 23% è stato assorbito dall’oceano, il 31% dalla vegetazione. La concentrazione di CO₂, circa 280 parti per milione prima dell’era industriale, ha superato le 420.",
-          "L’azoto forma il 78% dell’aria come N₂, ma pochi organismi sanno usarlo. L’azotofissazione lo trasforma in ammoniaca: la fanno batteri liberi o simbionti, come Rhizobium nei noduli delle leguminose, i fulmini e il processo industriale Haber-Bosch. La nitrificazione ossida l’ammonio a nitriti e nitrati, la forma che le piante assorbono meglio; l’ammonificazione restituisce ammonio dai resti organici; la denitrificazione, nei suoli senza ossigeno, riporta l’azoto all’aria come N₂.",
-          "Il fosforo segue un ciclo diverso: non ha una fase gassosa importante, e viene liberato lentamente dall’erosione delle rocce. Per questo è spesso il nutriente che limita la crescita delle alghe nei laghi, e gli scarichi ricchi di fosfati possono provocarne la proliferazione."
+          "In un'atmosfera grigia con profondità ottica τ per la radiazione infrarossa, la temperatura superficiale è circa T_s = T_e(1 + 3τ/4)^(1/4), dove T_e è la temperatura di equilibrio senza effetto serra.",
+          "Con T_e = 255 K, il valore della Terra, e τ = 1 la superficie è a circa 20 °C; senza effetto serra sarebbe a -18 °C."
         ],
         "intermediate": [
-          "Le attività umane hanno spostato il bilancio. Nel decennio 2010-2019 le emissioni sono state in media circa 10,9 petagrammi di carbonio l’anno: il 46% è rimasto nell’atmosfera, il 23% è stato assorbito dall’oceano, il 31% dalla vegetazione. La concentrazione di CO₂, circa 280 parti per milione prima dell’era industriale, ha superato le 420.",
-          "L’azoto forma il 78% dell’aria come N₂, ma pochi organismi sanno usarlo. L’azotofissazione lo trasforma in ammoniaca: la fanno batteri liberi o simbionti, come Rhizobium nei noduli delle leguminose, i fulmini e il processo industriale Haber-Bosch. La nitrificazione ossida l’ammonio a nitriti e nitrati, la forma che le piante assorbono meglio; l’ammonificazione restituisce ammonio dai resti organici; la denitrificazione, nei suoli senza ossigeno, riporta l’azoto all’aria come N₂.",
-          "Il fosforo segue un ciclo diverso: non ha una fase gassosa importante, e viene liberato lentamente dall’erosione delle rocce. Per questo è spesso il nutriente che limita la crescita delle alghe nei laghi, e gli scarichi ricchi di fosfati possono provocarne la proliferazione.",
-          "Un modello semplice: un serbatoio che perde in ogni istante una parte del contenuto proporzionale al contenuto stesso, con tasso k, si svuota come C(t) = C₀ e^(−kt). Il tempo medio di permanenza di un atomo è 1/k, e il serbatoio si dimezza in ln 2/k: con k = 0,1 all’anno, in circa 6,9 anni."
+          "La radiazione infrarossa uscente viene assorbita e riemessa molte volte; nell'approssimazione di Eddington la superficie deve irraggiare T_e⁴(1 + 3τ/4) per smaltire lo stesso flusso.",
+          "La variabile Profondità ottica τ è espressa in 1; Temperatura superficiale in °C. Il dominio dello strumento è [0; 100]. La relazione implementata è: T_s = T_e (1 + 3τ/4)^(1/4) - 273,15.",
+          "Con T_e = 255 K, il valore della Terra, e τ = 1 la superficie è a circa 20 °C; senza effetto serra sarebbe a -18 °C."
         ],
         "advanced": [
-          "Le attività umane hanno spostato il bilancio. Nel decennio 2010-2019 le emissioni sono state in media circa 10,9 petagrammi di carbonio l’anno: il 46% è rimasto nell’atmosfera, il 23% è stato assorbito dall’oceano, il 31% dalla vegetazione. La concentrazione di CO₂, circa 280 parti per milione prima dell’era industriale, ha superato le 420.",
-          "L’azoto forma il 78% dell’aria come N₂, ma pochi organismi sanno usarlo. L’azotofissazione lo trasforma in ammoniaca: la fanno batteri liberi o simbionti, come Rhizobium nei noduli delle leguminose, i fulmini e il processo industriale Haber-Bosch. La nitrificazione ossida l’ammonio a nitriti e nitrati, la forma che le piante assorbono meglio; l’ammonificazione restituisce ammonio dai resti organici; la denitrificazione, nei suoli senza ossigeno, riporta l’azoto all’aria come N₂.",
-          "Il fosforo segue un ciclo diverso: non ha una fase gassosa importante, e viene liberato lentamente dall’erosione delle rocce. Per questo è spesso il nutriente che limita la crescita delle alghe nei laghi, e gli scarichi ricchi di fosfati possono provocarne la proliferazione.",
-          "Un modello semplice: un serbatoio che perde in ogni istante una parte del contenuto proporzionale al contenuto stesso, con tasso k, si svuota come C(t) = C₀ e^(−kt). Il tempo medio di permanenza di un atomo è 1/k, e il serbatoio si dimezza in ln 2/k: con k = 0,1 all’anno, in circa 6,9 anni."
+          "La radiazione infrarossa uscente viene assorbita e riemessa molte volte; nell'approssimazione di Eddington la superficie deve irraggiare T_e⁴(1 + 3τ/4) per smaltire lo stesso flusso.",
+          "Stima la profondità ottica necessaria per portare un pianeta con T_e = 210 K sopra 0 °C, e discuti come il ciclo dei carbonati può regolare τ.",
+          "Senza effetto serra la Terra sarebbe ghiacciata. Il problema climatico attuale nasce dal suo aumento rapido."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Carte dei cicli",
+      "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "L’attività ha quattro serie di carte: serbatoi di carbonio da ordinare per dimensione; processi che tolgono o aggiungono CO₂ all’aria; tappe del ciclo dell’azoto; serbatoi da ordinare per tempo di dimezzamento. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte.",
-          "Per i tempi di dimezzamento usa ln 2/k ≈ 0,69/k: più grande è k, più in fretta si svuota il serbatoio.",
-          "Un modello semplice: un serbatoio che perde in ogni istante una parte del contenuto proporzionale al contenuto stesso, con tasso k, si svuota come C(t) = C₀ e^(−kt). Il tempo medio di permanenza di un atomo è 1/k, e il serbatoio si dimezza in ln 2/k: con k = 0,1 all’anno, in circa 6,9 anni."
+          "Nel laboratorio imposta Temperatura di equilibrio T_e (a): 255 K. Prima di salvare A, prevedi come cambia Temperatura superficiale fra Profondità ottica τ=25 e 50 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Con T_e = 255 K, il valore della Terra, e τ = 1 la superficie è a circa 20 °C; senza effetto serra sarebbe a -18 °C.",
+          "La variabile Profondità ottica τ è espressa in 1; Temperatura superficiale in °C. Il dominio dello strumento è [0; 100]. La relazione implementata è: T_s = T_e (1 + 3τ/4)^(1/4) - 273,15."
         ],
         "intermediate": [
-          "L’attività ha quattro serie di carte: serbatoi di carbonio da ordinare per dimensione; processi che tolgono o aggiungono CO₂ all’aria; tappe del ciclo dell’azoto; serbatoi da ordinare per tempo di dimezzamento. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte.",
-          "Per i tempi di dimezzamento usa ln 2/k ≈ 0,69/k: più grande è k, più in fretta si svuota il serbatoio.",
-          "Un modello semplice: un serbatoio che perde in ogni istante una parte del contenuto proporzionale al contenuto stesso, con tasso k, si svuota come C(t) = C₀ e^(−kt). Il tempo medio di permanenza di un atomo è 1/k, e il serbatoio si dimezza in ln 2/k: con k = 0,1 all’anno, in circa 6,9 anni."
+          "Nel laboratorio imposta Temperatura di equilibrio T_e (a): 255 K. Prima di salvare A, prevedi come cambia Temperatura superficiale fra Profondità ottica τ=25 e 50 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "La variabile Profondità ottica τ è espressa in 1; Temperatura superficiale in °C. Il dominio dello strumento è [0; 100]. La relazione implementata è: T_s = T_e (1 + 3τ/4)^(1/4) - 273,15.",
+          "La radiazione infrarossa uscente viene assorbita e riemessa molte volte; nell'approssimazione di Eddington la superficie deve irraggiare T_e⁴(1 + 3τ/4) per smaltire lo stesso flusso."
         ],
         "advanced": [
-          "L’attività ha quattro serie di carte: serbatoi di carbonio da ordinare per dimensione; processi che tolgono o aggiungono CO₂ all’aria; tappe del ciclo dell’azoto; serbatoi da ordinare per tempo di dimezzamento. Supera tre serie su quattro; nelle classificazioni puoi sbagliare al massimo due carte.",
-          "Per i tempi di dimezzamento usa ln 2/k ≈ 0,69/k: più grande è k, più in fretta si svuota il serbatoio."
+          "Nel laboratorio imposta Temperatura di equilibrio T_e (a): 255 K. Prima di salvare A, prevedi come cambia Temperatura superficiale fra Profondità ottica τ=25 e 50 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
+          "Stima la profondità ottica necessaria per portare un pianeta con T_e = 210 K sopra 0 °C, e discuti come il ciclo dei carbonati può regolare τ.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Errori frequenti",
+      "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Errore frequente: pensare che la CO₂ emessa resti tutta nell’aria. Oceano e vegetazione ne assorbono più della metà; il resto si accumula e fa crescere la concentrazione.",
-          "Secondo errore: credere che le piante prendano l’azoto direttamente dall’aria. Lo assorbono come nitrati o ammonio dal suolo; solo i batteri azotofissatori, anche quelli che vivono nelle loro radici, usano l’N₂.",
-          "Il fosforo segue un ciclo diverso: non ha una fase gassosa importante, e viene liberato lentamente dall’erosione delle rocce. Per questo è spesso il nutriente che limita la crescita delle alghe nei laghi, e gli scarichi ricchi di fosfati possono provocarne la proliferazione."
+          "Senza effetto serra la Terra sarebbe ghiacciata. Il problema climatico attuale nasce dal suo aumento rapido.",
+          "Atmosfera grigia, in equilibrio radiativo, senza convezione, nubi né dipendenza dalla lunghezza d'onda.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ],
         "intermediate": [
-          "Errore frequente: pensare che la CO₂ emessa resti tutta nell’aria. Oceano e vegetazione ne assorbono più della metà; il resto si accumula e fa crescere la concentrazione.",
-          "Secondo errore: credere che le piante prendano l’azoto direttamente dall’aria. Lo assorbono come nitrati o ammonio dal suolo; solo i batteri azotofissatori, anche quelli che vivono nelle loro radici, usano l’N₂.",
-          "Un modello semplice: un serbatoio che perde in ogni istante una parte del contenuto proporzionale al contenuto stesso, con tasso k, si svuota come C(t) = C₀ e^(−kt). Il tempo medio di permanenza di un atomo è 1/k, e il serbatoio si dimezza in ln 2/k: con k = 0,1 all’anno, in circa 6,9 anni."
+          "Senza effetto serra la Terra sarebbe ghiacciata. Il problema climatico attuale nasce dal suo aumento rapido.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
+          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
         ],
         "advanced": [
-          "Errore frequente: pensare che la CO₂ emessa resti tutta nell’aria. Oceano e vegetazione ne assorbono più della metà; il resto si accumula e fa crescere la concentrazione.",
-          "Secondo errore: credere che le piante prendano l’azoto direttamente dall’aria. Lo assorbono come nitrati o ammonio dal suolo; solo i batteri azotofissatori, anche quelli che vivono nelle loro radici, usano l’N₂.",
-          "Un modello semplice: un serbatoio che perde in ogni istante una parte del contenuto proporzionale al contenuto stesso, con tasso k, si svuota come C(t) = C₀ e^(−kt). Il tempo medio di permanenza di un atomo è 1/k, e il serbatoio si dimezza in ln 2/k: con k = 0,1 all’anno, in circa 6,9 anni."
+          "Atmosfera grigia, in equilibrio radiativo, senza convezione, nubi né dipendenza dalla lunghezza d'onda.",
+          "Stima la profondità ottica necessaria per portare un pianeta con T_e = 210 K sopra 0 °C, e discuti come il ciclo dei carbonati può regolare τ.",
+          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica",
+      "title": "Verifica ragionamento e calcolo",
       "text": {
         "base": [
-          "Ripasso: serbatoi e flussi; grandezza dei serbatoi di carbonio; effetto delle emissioni umane; tappe del ciclo dell’azoto; ciclo del fosforo; svuotamento esponenziale e tempo di dimezzamento.",
-          "Mini esercizio: con k = 0,05 all’anno il tempo medio di permanenza è 20 anni e il dimezzamento avviene in circa 13,9 anni.",
-          "Nelle domande sui cicli chiediti sempre da quale serbatoio esce l’elemento e in quale entra."
+          "In un'atmosfera grigia con profondità ottica τ per la radiazione infrarossa, la temperatura superficiale è circa T_s = T_e(1 + 3τ/4)^(1/4), dove T_e è la temperatura di equilibrio senza effetto serra.",
+          "Con T_e = 255 K, il valore della Terra, e τ = 1 la superficie è a circa 20 °C; senza effetto serra sarebbe a -18 °C."
         ],
         "intermediate": [
-          "Ripasso: serbatoi e flussi; grandezza dei serbatoi di carbonio; effetto delle emissioni umane; tappe del ciclo dell’azoto; ciclo del fosforo; svuotamento esponenziale e tempo di dimezzamento.",
-          "Mini esercizio: con k = 0,05 all’anno il tempo medio di permanenza è 20 anni e il dimezzamento avviene in circa 13,9 anni.",
-          "Nelle domande sui cicli chiediti sempre da quale serbatoio esce l’elemento e in quale entra."
+          "La radiazione infrarossa uscente viene assorbita e riemessa molte volte; nell'approssimazione di Eddington la superficie deve irraggiare T_e⁴(1 + 3τ/4) per smaltire lo stesso flusso.",
+          "La variabile Profondità ottica τ è espressa in 1; Temperatura superficiale in °C. Il dominio dello strumento è [0; 100]. La relazione implementata è: T_s = T_e (1 + 3τ/4)^(1/4) - 273,15."
         ],
         "advanced": [
-          "Ripasso: serbatoi e flussi; grandezza dei serbatoi di carbonio; effetto delle emissioni umane; tappe del ciclo dell’azoto; ciclo del fosforo; svuotamento esponenziale e tempo di dimezzamento.",
-          "Mini esercizio: con k = 0,05 all’anno il tempo medio di permanenza è 20 anni e il dimezzamento avviene in circa 13,9 anni.",
-          "Nelle domande sui cicli chiediti sempre da quale serbatoio esce l’elemento e in quale entra."
+          "Stima la profondità ottica necessaria per portare un pianeta con T_e = 210 K sopra 0 °C, e discuti come il ciclo dei carbonati può regolare τ.",
+          "Atmosfera grigia, in equilibrio radiativo, senza convezione, nubi né dipendenza dalla lunghezza d'onda."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Collegamenti",
+      "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Lo svuotamento esponenziale di un serbatoio segue la stessa legge della cinetica del primo ordine dell’unità di chimica «Velocità di reazione». In biologia si passa a «Omeostasi e retroazioni».",
-          "Riepilogo dell’unità: gli elementi ricircolano tra serbatoi; per il carbonio l’oceano è il serbatoio attivo più grande e l’atmosfera ne contiene circa 870 petagrammi; le emissioni umane si dividono tra aria, oceano e vegetazione; l’azoto entra nei viventi con l’azotofissazione e torna all’aria con la denitrificazione; un serbatoio con perdita k si dimezza in ln 2/k.",
-          "Nel diario segui un atomo di azoto dall’aria a una proteina e di nuovo all’aria, nominando ogni tappa."
+          "Nel diario distingui previsione, risultato e interpretazione. Atmosfera grigia nell'approssimazione di Eddington.",
+          "Atmosfera grigia, in equilibrio radiativo, senza convezione, nubi né dipendenza dalla lunghezza d'onda.",
+          "Collegamento consigliato: physics-20. Il completamento registra attività e autoverifica, non certifica competenze."
         ],
         "intermediate": [
-          "Lo svuotamento esponenziale di un serbatoio segue la stessa legge della cinetica del primo ordine dell’unità di chimica «Velocità di reazione». In biologia si passa a «Omeostasi e retroazioni».",
-          "Riepilogo dell’unità: gli elementi ricircolano tra serbatoi; per il carbonio l’oceano è il serbatoio attivo più grande e l’atmosfera ne contiene circa 870 petagrammi; le emissioni umane si dividono tra aria, oceano e vegetazione; l’azoto entra nei viventi con l’azotofissazione e torna all’aria con la denitrificazione; un serbatoio con perdita k si dimezza in ln 2/k.",
-          "Nel diario segui un atomo di azoto dall’aria a una proteina e di nuovo all’aria, nominando ogni tappa."
+          "La radiazione infrarossa uscente viene assorbita e riemessa molte volte; nell'approssimazione di Eddington la superficie deve irraggiare T_e⁴(1 + 3τ/4) per smaltire lo stesso flusso.",
+          "Atmosfera grigia, in equilibrio radiativo, senza convezione, nubi né dipendenza dalla lunghezza d'onda.",
+          "Stima la profondità ottica necessaria per portare un pianeta con T_e = 210 K sopra 0 °C, e discuti come il ciclo dei carbonati può regolare τ."
         ],
         "advanced": [
-          "Lo svuotamento esponenziale di un serbatoio segue la stessa legge della cinetica del primo ordine dell’unità di chimica «Velocità di reazione». In biologia si passa a «Omeostasi e retroazioni».",
-          "Riepilogo dell’unità: gli elementi ricircolano tra serbatoi; per il carbonio l’oceano è il serbatoio attivo più grande e l’atmosfera ne contiene circa 870 petagrammi; le emissioni umane si dividono tra aria, oceano e vegetazione; l’azoto entra nei viventi con l’azotofissazione e torna all’aria con la denitrificazione; un serbatoio con perdita k si dimezza in ln 2/k.",
-          "Nel diario segui un atomo di azoto dall’aria a una proteina e di nuovo all’aria, nominando ogni tappa."
+          "Stima la profondità ottica necessaria per portare un pianeta con T_e = 210 K sopra 0 °C, e discuti come il ciclo dei carbonati può regolare τ.",
+          "Atmosfera grigia, in equilibrio radiativo, senza convezione, nubi né dipendenza dalla lunghezza d'onda.",
+          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "biology-23-q1",
-      "prompt": "Qual è il più grande serbatoio di carbonio che scambia con l’atmosfera in tempi brevi?",
+      "id": "biology-23-concept",
+      "prompt": "Se la profondità ottica aumenta a T_e fissata, la temperatura superficiale:",
       "options": [
         {
           "id": "A",
-          "text": "L’oceano",
-          "feedback": "Esatto: circa 38 000 petagrammi, soprattutto in profondità."
+          "text": "Diminuisce",
+          "feedback": "Senza effetto serra la Terra sarebbe ghiacciata. Il problema climatico attuale nasce dal suo aumento rapido."
         },
         {
           "id": "B",
-          "text": "La vegetazione",
-          "feedback": "La vegetazione ne contiene circa 450 petagrammi."
+          "text": "Resta uguale",
+          "feedback": "La radiazione infrarossa uscente viene assorbita e riemessa molte volte; nell'approssimazione di Eddington la superficie deve irraggiare T_e⁴(1 + 3τ/4) per smaltire lo stesso flusso."
         },
         {
           "id": "C",
-          "text": "L’atmosfera",
-          "feedback": "L’atmosfera ne contiene circa 870 petagrammi."
-        },
-        {
-          "id": "D",
-          "text": "Gli animali",
-          "feedback": "Gli animali sono un serbatoio piccolissimo."
-        }
-      ],
-      "correct": "A"
-    },
-    {
-      "id": "biology-23-q2",
-      "prompt": "Quale processo toglie CO₂ dall’atmosfera?",
-      "options": [
-        {
-          "id": "A",
-          "text": "La respirazione",
-          "feedback": "La respirazione restituisce CO₂ all’aria."
-        },
-        {
-          "id": "B",
-          "text": "La fotosintesi",
-          "feedback": "Esatto: fissa il carbonio in sostanza organica."
-        },
-        {
-          "id": "C",
-          "text": "La combustione",
-          "feedback": "La combustione libera CO₂ nell’aria invece di toglierla."
-        },
-        {
-          "id": "D",
-          "text": "La decomposizione",
-          "feedback": "I decompositori liberano CO₂ respirando."
-        }
-      ],
-      "correct": "B"
-    },
-    {
-      "id": "biology-23-q3",
-      "prompt": "Che cosa fa l’azotofissazione?",
-      "options": [
-        {
-          "id": "A",
-          "text": "Trasforma i nitrati in N₂",
-          "feedback": "Trasformare nitrati in N₂ è la denitrificazione."
-        },
-        {
-          "id": "B",
-          "text": "Trasforma l’ammonio in nitrati",
-          "feedback": "Ossidare l’ammonio a nitrati è la nitrificazione."
-        },
-        {
-          "id": "C",
-          "text": "Trasforma l’N₂ dell’aria in ammoniaca",
-          "feedback": "Esatto: rende l’azoto utilizzabile dai viventi."
-        },
-        {
-          "id": "D",
-          "text": "Libera ammonio dai resti organici",
-          "feedback": "Liberare ammonio dai resti è l’ammonificazione."
+          "text": "Aumenta",
+          "feedback": "In un'atmosfera grigia con profondità ottica τ per la radiazione infrarossa, la temperatura superficiale è circa T_s = T_e(1 + 3τ/4)^(1/4), dove T_e è la temperatura di equilibrio senza effetto serra."
         }
       ],
       "correct": "C"
     },
     {
-      "id": "biology-23-q4",
-      "prompt": "Un serbatoio si svuota come C₀ e^(−kt) con k = 0,1 all’anno. In quanto tempo si dimezza?",
+      "id": "biology-23-calculation",
+      "prompt": "Calcolo: Temperatura di equilibrio T_e (a)=255 K. Per Profondità ottica τ=1 (adimensionale), quanto vale Temperatura superficiale?",
       "options": [
         {
           "id": "A",
-          "text": "5 anni",
-          "feedback": "La perdita si applica al contenuto rimasto, che diminuisce."
+          "text": "10,0708 °C",
+          "feedback": "Controlla sostituzione, segno e unità. T_s = T_e (1 + 3τ/4)^(1/4) - 273,15. Con Temperatura di equilibrio T_e (a)=255 K e Profondità ottica τ=1 (adimensionale), il risultato è 20,1416 °C. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "10 anni",
-          "feedback": "10 anni è il tempo medio di permanenza, 1/k."
+          "text": "20,1416 °C",
+          "feedback": "T_s = T_e (1 + 3τ/4)^(1/4) - 273,15. Con Temperatura di equilibrio T_e (a)=255 K e Profondità ottica τ=1 (adimensionale), il risultato è 20,1416 °C. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "2 anni",
-          "feedback": "Due anni bastano appena a perdere circa il 18%."
-        },
-        {
-          "id": "D",
-          "text": "Circa 6,9 anni",
-          "feedback": "Esatto: il tempo di dimezzamento è ln 2/0,1 ≈ 6,9 anni."
+          "text": "30,2125 °C",
+          "feedback": "Questo valore non soddisfa la relazione. T_s = T_e (1 + 3τ/4)^(1/4) - 273,15. Con Temperatura di equilibrio T_e (a)=255 K e Profondità ottica τ=1 (adimensionale), il risultato è 20,1416 °C. Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "D"
+      "correct": "B",
+      "numeric": {
+        "x": 1,
+        "parameters": {
+          "a": 255
+        },
+        "expected": 20.14164580837877,
+        "unit": "°C"
+      }
     },
     {
-      "id": "biology-23-q5",
-      "prompt": "Che frazione delle emissioni umane di CO₂ del decennio 2010-2019 è rimasta nell’atmosfera?",
+      "id": "biology-23-transfer",
+      "prompt": "Trasferimento: Temperatura di equilibrio T_e (a)=256 K. Per Profondità ottica τ=1 (adimensionale), quanto vale Temperatura superficiale?",
       "options": [
         {
           "id": "A",
-          "text": "Circa il 46%",
-          "feedback": "Esatto: il resto è stato assorbito da oceano e vegetazione."
+          "text": "21,2918 °C",
+          "feedback": "T_s = T_e (1 + 3τ/4)^(1/4) - 273,15. Con Temperatura di equilibrio T_e (a)=256 K e Profondità ottica τ=1 (adimensionale), il risultato è 21,2918 °C. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "B",
-          "text": "Il 100%",
-          "feedback": "Oceano e vegetazione ne hanno assorbito più della metà."
+          "text": "31,9377 °C",
+          "feedback": "Questo valore non soddisfa la relazione. T_s = T_e (1 + 3τ/4)^(1/4) - 273,15. Con Temperatura di equilibrio T_e (a)=256 K e Profondità ottica τ=1 (adimensionale), il risultato è 21,2918 °C. Conserva le unità e arrotonda solo alla fine."
         },
         {
           "id": "C",
-          "text": "Circa il 10%",
-          "feedback": "La frazione rimasta è molto più grande."
-        },
-        {
-          "id": "D",
-          "text": "Lo 0%",
-          "feedback": "La concentrazione è salita proprio per questo accumulo."
+          "text": "10,6459 °C",
+          "feedback": "Controlla sostituzione, segno e unità. T_s = T_e (1 + 3τ/4)^(1/4) - 273,15. Con Temperatura di equilibrio T_e (a)=256 K e Profondità ottica τ=1 (adimensionale), il risultato è 21,2918 °C. Conserva le unità e arrotonda solo alla fine."
         }
       ],
-      "correct": "A"
+      "correct": "A",
+      "numeric": {
+        "x": 1,
+        "parameters": {
+          "a": 256
+        },
+        "expected": 21.29180912527437,
+        "unit": "°C"
+      }
     },
     {
-      "id": "biology-23-q6",
-      "prompt": "Che cosa distingue il ciclo del fosforo da quelli di carbonio e azoto?",
+      "id": "biology-23-limits",
+      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
       "options": [
         {
           "id": "A",
-          "text": "Non coinvolge i viventi",
-          "feedback": "Il fosforo è essenziale per DNA e ATP."
+          "text": "Basta il grafico per provare una legge universale",
+          "feedback": "Una visualizzazione non è una dimostrazione universale. Atmosfera grigia, in equilibrio radiativo, senza convezione, nubi né dipendenza dalla lunghezza d'onda."
         },
         {
           "id": "B",
-          "text": "Non ha una fase gassosa importante",
-          "feedback": "Esatto: passa soprattutto per rocce, suolo e acqua."
+          "text": "Atmosfera grigia nell'approssimazione di Eddington",
+          "feedback": "Atmosfera grigia, in equilibrio radiativo, senza convezione, nubi né dipendenza dalla lunghezza d'onda."
         },
         {
           "id": "C",
-          "text": "È più veloce",
-          "feedback": "È lento, perché dipende dall’erosione delle rocce."
-        },
-        {
-          "id": "D",
-          "text": "Non esiste in natura",
-          "feedback": "Il fosforo circola come gli altri elementi, con tempi lunghi."
+          "text": "Riproduce ogni dettaglio del pianeta reale",
+          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Atmosfera grigia, in equilibrio radiativo, senza convezione, nubi né dipendenza dalla lunghezza d'onda."
         }
       ],
       "correct": "B"
     }
-  ],
-  "activity": {
-    "kind": "cards",
-    "goal": 3,
-    "rounds": [
-      {
-        "id": "serbatoi",
-        "type": "order",
-        "title": "Dove sta il carbonio?",
-        "prompt": "Ordina i serbatoi di carbonio dal più piccolo al più grande.",
-        "items": [
-          {
-            "id": "biota",
-            "text": "Gli organismi marini",
-            "why": "Circa 3 petagrammi: si rinnovano in fretta."
-          },
-          {
-            "id": "vegetazione",
-            "text": "La vegetazione terrestre",
-            "why": "Circa 450 petagrammi."
-          },
-          {
-            "id": "atmosfera",
-            "text": "L’atmosfera",
-            "why": "Circa 870 petagrammi nel 2019."
-          },
-          {
-            "id": "suoli",
-            "text": "I suoli",
-            "why": "Circa 1500-2400 petagrammi."
-          },
-          {
-            "id": "oceano",
-            "text": "L’oceano",
-            "why": "Circa 38 000 petagrammi."
-          },
-          {
-            "id": "rocce",
-            "text": "Le rocce carbonatiche",
-            "why": "Decine di milioni di petagrammi, scambiati in tempi geologici."
-          }
-        ],
-        "explain": "Il carbonio dell’aria è una piccola parte del totale, ma è quella che regola il clima."
-      },
-      {
-        "id": "co2",
-        "type": "classify",
-        "title": "Toglie o aggiunge CO₂?",
-        "prompt": "Classifica i processi secondo l’effetto sulla CO₂ dell’aria.",
-        "categories": [
-          {
-            "id": "toglie",
-            "label": "TOGLIE CO₂ DALL’ARIA"
-          },
-          {
-            "id": "aggiunge",
-            "label": "AGGIUNGE CO₂ ALL’ARIA"
-          }
-        ],
-        "items": [
-          {
-            "id": "fotosintesi",
-            "text": "Fotosintesi",
-            "why": "Fissa il carbonio in zuccheri.",
-            "category": "toglie"
-          },
-          {
-            "id": "oceano",
-            "text": "Dissoluzione nell’oceano",
-            "why": "La CO₂ si scioglie nell’acqua di mare.",
-            "category": "toglie"
-          },
-          {
-            "id": "rocce",
-            "text": "Alterazione delle rocce silicatiche",
-            "why": "Consuma CO₂ in tempi geologici.",
-            "category": "toglie"
-          },
-          {
-            "id": "respirazione",
-            "text": "Respirazione",
-            "why": "Ossida gli zuccheri a CO₂.",
-            "category": "aggiunge"
-          },
-          {
-            "id": "combustione",
-            "text": "Combustione di carbone e petrolio",
-            "why": "Libera carbonio rimasto sepolto per milioni di anni.",
-            "category": "aggiunge"
-          },
-          {
-            "id": "decomposizione",
-            "text": "Decomposizione",
-            "why": "I decompositori respirano i resti organici.",
-            "category": "aggiunge"
-          },
-          {
-            "id": "incendi",
-            "text": "Incendio di una foresta",
-            "why": "Il carbonio della vegetazione torna all’aria.",
-            "category": "aggiunge"
-          },
-          {
-            "id": "vulcani",
-            "text": "Eruzioni vulcaniche",
-            "why": "Liberano CO₂ dall’interno della Terra.",
-            "category": "aggiunge"
-          }
-        ],
-        "explain": "Fotosintesi, oceano e rocce tolgono CO₂; respirazione, combustione e decomposizione la restituiscono.",
-        "maxErrors": 2
-      },
-      {
-        "id": "azoto",
-        "type": "classify",
-        "title": "Quale tappa del ciclo?",
-        "prompt": "Classifica le trasformazioni dell’azoto.",
-        "categories": [
-          {
-            "id": "fissazione",
-            "label": "AZOTOFISSAZIONE"
-          },
-          {
-            "id": "nitrificazione",
-            "label": "NITRIFICAZIONE"
-          },
-          {
-            "id": "denitrificazione",
-            "label": "DENITRIFICAZIONE"
-          },
-          {
-            "id": "ammonificazione",
-            "label": "AMMONIFICAZIONE"
-          }
-        ],
-        "items": [
-          {
-            "id": "rhizobium",
-            "text": "Rhizobium nei noduli di un fagiolo produce ammoniaca da N₂",
-            "why": "L’N₂ dell’aria diventa ammoniaca.",
-            "category": "fissazione"
-          },
-          {
-            "id": "fulmine",
-            "text": "Un fulmine combina azoto e ossigeno dell’aria",
-            "why": "L’azoto atmosferico diventa un composto utilizzabile.",
-            "category": "fissazione"
-          },
-          {
-            "id": "haber",
-            "text": "Il processo Haber-Bosch produce ammoniaca",
-            "why": "È un’azotofissazione industriale.",
-            "category": "fissazione"
-          },
-          {
-            "id": "nitriti",
-            "text": "Batteri del suolo ossidano l’ammonio a nitriti",
-            "why": "Primo passo della nitrificazione.",
-            "category": "nitrificazione"
-          },
-          {
-            "id": "nitrati",
-            "text": "Altri batteri ossidano i nitriti a nitrati",
-            "why": "Secondo passo della nitrificazione.",
-            "category": "nitrificazione"
-          },
-          {
-            "id": "palude",
-            "text": "In un suolo allagato i nitrati diventano N₂",
-            "why": "Senza ossigeno l’azoto torna all’aria.",
-            "category": "denitrificazione"
-          },
-          {
-            "id": "resti",
-            "text": "I decompositori liberano ammonio dalle proteine dei resti",
-            "why": "L’azoto organico torna inorganico.",
-            "category": "ammonificazione"
-          }
-        ],
-        "explain": "L’azoto entra nei viventi con la fissazione, circola come ammonio e nitrati, torna all’aria con la denitrificazione.",
-        "maxErrors": 2
-      },
-      {
-        "id": "dimezzamento",
-        "type": "order",
-        "title": "Quanto in fretta si svuota?",
-        "prompt": "Ordina i serbatoi dal tempo di dimezzamento più breve al più lungo, con ln 2/k.",
-        "items": [
-          {
-            "id": "k20",
-            "text": "Tasso k = 0,2 all’anno",
-            "why": "Circa 3,5 anni."
-          },
-          {
-            "id": "k14",
-            "text": "Tasso k = 0,14 all’anno",
-            "why": "Circa 5,0 anni."
-          },
-          {
-            "id": "k10",
-            "text": "Tasso k = 0,1 all’anno",
-            "why": "Circa 6,9 anni."
-          },
-          {
-            "id": "k5",
-            "text": "Tasso k = 0,05 all’anno",
-            "why": "Circa 13,9 anni."
-          },
-          {
-            "id": "k2",
-            "text": "Tasso k = 0,02 all’anno",
-            "why": "Circa 34,7 anni."
-          }
-        ],
-        "explain": "Il tempo di dimezzamento è inversamente proporzionale al tasso k."
-      }
-    ]
-  }
+  ]
 }

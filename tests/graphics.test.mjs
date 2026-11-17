@@ -23,7 +23,7 @@ test('Grafica: tre biomi con 875 celle reali campionate e quattro stazioni',()=>
  assert.ok(biomes.marea.grid.cells.filter(p=>p.wet).length>800);
 });
 test('Grafica: cento profili riproducibili, Echo 08 resta Simbiosi',()=>{
- const profiles=Array.from({length:100},(_,i)=>planetProfile(i));assert.equal(profiles[7].biome,'simbiosi');assert.equal(new Set(profiles.map(p=>p.seed)).size,100);assert.equal(new Set(profiles.map(p=>p.kind)).size,4);assert.equal(new Set(profiles.map(p=>p.biome)).size,3);
+ const profiles=Array.from({length:110},(_,i)=>planetProfile(i));assert.equal(profiles[7].biome,'simbiosi');assert.equal(new Set(profiles.map(p=>p.seed)).size,110);assert.equal(new Set(profiles.map(p=>p.kind)).size,4);assert.equal(new Set(profiles.map(p=>p.biome)).size,3);
 });
 test('Grafica: sfondo celeste separato con 6000 stelle finite',()=>{
  const a=backgroundStars();assert.equal(a.length,42000);assert.deepEqual(a,backgroundStars());
@@ -65,8 +65,8 @@ test('Superfici generate: stazioni selezionabili, camera sopra il terreno, una s
   for(const p of w.projections)assert.equal(w.pick(p.x,p.y,s)?.index,p.index);
  }
  const signatures=new Set();
- for(let index=0;index<100;index++){const S=planetSurface(index,41);assert.ok(S.mesh.v.every(Number.isFinite));assert.equal(S.stations.length,4);
+ for(let index=0;index<110;index++){const S=planetSurface(index,41);assert.ok(S.mesh.v.every(Number.isFinite));assert.equal(S.stations.length,4);
   for(const st of S.stations)assert.ok(S.seaY===null||st.position[1]>=S.seaY+.44);
   signatures.add(Array.from(S.heights.filter((_,k)=>k%97===0),v=>v.toFixed(2)).join());}
- assert.equal(signatures.size,100);
+ assert.equal(signatures.size,110);
 });
