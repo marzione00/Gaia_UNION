@@ -74,3 +74,20 @@ test('Fisica 27: specchi, lenti e telescopi, numeri ricalcolati',()=>{
  // Model probes: limiting magnitude at D = 250.75 and 500.5 cm (25% and 50% of the domain) for m0 = 6 and 5.
  assert.deepEqual([lim(250.75),lim(500.5),lim(250.75,5),lim(500.5,5)].map(v=>r(v,2)),[18.77,20.27,17.77,19.27]);
 });
+test('Fisica 28: interferenza e interferometri, numeri ricalcolati',()=>{
+ assert.equal(r(4e3*1e-21/1.7e-15*1e3,1),2.4);assert.equal(r(550**2/300,-2),1000);assert.equal(r(633e-9*1/0.25e-3*1e3,1),2.5);
+ assert.equal(r(4*1.33*100,0),532);assert.equal(r(((1.5-1)/(1.5+1))**2,2),0.04);assert.equal(r(0.96**10,2),0.66);assert.equal(r(550/(4*1.38),0),100);
+ const I=(D,l)=>Math.cos(Math.PI*D/l)**2;assert.equal(r(I(266,1064),2),0.5);assert.equal(r(I(532,1064),6),0);
+ assert.equal(r(0.21/100*1.22*206265/60,0),9);assert.equal(r(1.3e-3/1.07e7*206265e6,0),25);assert.equal(r(1.7/(1.3e8*3.156e7)*1e16,0),4);
+ // Exercises.
+ assert.equal(r(532e-9*2/0.3e-3*1e3,1),3.5);assert.equal(r(0.15e-3*4e-3/1,9),6e-7);assert.equal(1.5/0.5,3);assert.equal(r(c/600e-9/1e14,1),5);assert.equal(600/1.5,400);
+ assert.equal(r(2*0.1e-3/633e-9,0),316);assert.equal(r(4*Math.cos(Math.PI/4)**2,6),2);assert.equal(r(600/(4*1.33),0),113);assert.equal(r(3*600/(4*1.33),0),338);
+ assert.equal(r(630**2/20/1e3,0),20);assert.equal(r(2e-3/(630**2/20*1e-9),-1),100);assert.equal(r(1e-21*4e3,20),4e-18);assert.equal(r(4e-18/1064e-9*1e12,0),4);assert.equal(r(4e-18/1.7e-15*1e3,1),2.4);
+ assert.equal(r(1.3e-3/16e3*206265,3),0.017);assert.equal(r(0.21/36e3*206265,1),1.2);assert.equal(r(1.3e8*3.156e7/1e15,1),4.1);
+ const GMc2=1.32712e20/c**2;assert.equal(r(GMc2,0),1477);const Rg=GMc2*6.5e9;assert.equal(r(Rg/1e12,1),9.6);const sh=2*Math.sqrt(27)*Rg;assert.equal(r(sh/1e14,1),1);const dM=16.8*3.0857e22;assert.equal(r(dM/1e23,2),5.18);assert.equal(r(sh/dM*206265e6,0),40);assert.equal(r(1.3e-3/1.07e7*1e10,1),1.2);
+ assert.equal(r(2*11*(3e4)**2/(5e-7*(3e8)**2),2),0.44);
+ const Rc=((1.5-1.38**2)/(1.5+1.38**2))**2;assert.equal(r(Rc*100,1),1.4);assert.equal(r((1-Rc)**10,2),0.87);
+ const th=0.047/206265;assert.equal(r(th*1e7,2),2.28);assert.equal(r(1.22*575e-9/th,1),3.1);assert.equal(r(170*3.0857e16/1e18,2),5.25);assert.equal(r(th*170*3.0857e16/1e12,1),1.2);assert.equal(r(th*170*3.0857e16/1.39e9,-1),860);
+ // Model probes: Michelson output at path differences 500 and 1000 nm (25% and 50% of the domain) for 1064 and 532 nm.
+ assert.deepEqual([I(500,1064),I(1000,1064),I(500,532),I(1000,532)].map(v=>r(v,4)),[0.0089,0.9647,0.9647,0.8638]);
+});
