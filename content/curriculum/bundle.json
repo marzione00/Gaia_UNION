@@ -38618,265 +38618,344 @@
       "title": "La zona abitabile",
       "sector": 3,
       "modelId": "biology-22",
-      "coverage": "guided-foundation",
-      "editorialStatus": "original-draft",
-      "scope": "Legge dell'inverso del quadrato su orbite circolari",
-      "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+      "coverage": "guided-lab",
+      "editorialStatus": "hand-written-draft",
+      "scope": "Luminosità e flusso, legge dell’inverso del quadrato, albedo e temperatura di equilibrio, effetto serra e modello a uno strato, limiti interno ed esterno, flusso efficace, zone abitabili di stelle diverse, evoluzione nel tempo, acqua oltre la zona abitabile, zona abitabile galattica",
+      "narrativeStatus": "Flussi e temperature di equilibrio sono calcoli esatti nel modello del corpo nero; i bordi della zona abitabile dipendono da modelli del clima con incertezze dovute soprattutto alle nubi.",
       "objectives": [
-        "Spiegare: legge dell'inverso del quadrato su orbite circolari.",
-        "Applicare d = √(L/S_eff), dichiarando variabili e unità.",
-        "Confrontare due configurazioni e discutere i limiti del modello."
+        "Calcolare il flusso di una stella con la legge dell’inverso del quadrato.",
+        "Ricavare la temperatura di equilibrio di un pianeta.",
+        "Descrivere i limiti interno ed esterno della zona abitabile.",
+        "Calcolare la zona abitabile di stelle di luminosità diversa."
       ],
       "prerequisites": [
         "biology-21"
       ],
       "connections": [
-        "physics-13"
+        "physics-25",
+        "physics-13",
+        "biology-23"
       ],
       "sources": [
-        "biology"
+        "biology",
+        "physics3"
       ],
       "originalSource": null,
       "glossary": [
         {
-          "term": "Luminosità L",
-          "definition": "Variabile indipendente, unità luminosità solari; intervallo [0,01; 4]."
+          "term": "Zona abitabile",
+          "definition": "Fascia di distanze da una stella in cui un pianeta roccioso con un’atmosfera adatta può avere acqua liquida in superficie."
         },
         {
-          "term": "Distanza",
-          "definition": "Risultato calcolato dal modello, unità UA."
+          "term": "Flusso",
+          "definition": "Potenza della radiazione che attraversa un metro quadrato perpendicolare ai raggi."
         },
         {
-          "term": "Flusso efficace S_eff",
-          "definition": "Parametro a, unità flussi terrestri; intervallo [0,3; 1,2]."
+          "term": "Albedo di Bond",
+          "definition": "Frazione della radiazione incidente riflessa da un pianeta a tutte le lunghezze d’onda."
+        },
+        {
+          "term": "Temperatura di equilibrio",
+          "definition": "Temperatura a cui un pianeta irraggerebbe come corpo nero l’energia che assorbe."
+        },
+        {
+          "term": "Serra galoppante",
+          "definition": "Condizione in cui l’atmosfera satura di vapore non riesce a irraggiare l’energia ricevuta e gli oceani evaporano."
+        },
+        {
+          "term": "Flusso efficace",
+          "definition": "Flusso in unità terrestri che corrisponde a un bordo della zona abitabile."
         }
       ],
       "steps": [
         {
           "label": "SCOPRI",
-          "title": "La domanda della spedizione",
+          "title": "Acqua liquida",
           "text": {
             "base": [
-              "La stazione osserva una stella più debole del Sole e vuole sapere a che distanza un pianeta riceverebbe lo stesso flusso della Terra.",
-              "Il flusso ricevuto da un pianeta è proporzionale a L/d². La distanza a cui il flusso vale S_eff volte quello terrestre è d = √(L/S_eff), con L in luminosità solari e d in unità astronomiche."
+              "Tutta la vita che conosciamo ha bisogno di acqua liquida, che scioglie i sali e le molecole organiche e partecipa a moltissime reazioni. La prima domanda che gli astrobiologi pongono a un pianeta è quindi semplice: la sua superficie può ospitare acqua liquida? La risposta dipende prima di tutto dalla distanza dalla stella e dall’atmosfera del pianeta.",
+              "Troppo vicino alla stella l’acqua evapora e si perde nello spazio; troppo lontano gela. Fra i due estremi c’è una fascia di orbite in cui un pianeta roccioso con un’atmosfera adatta può mantenere oceani in superficie: la zona abitabile. Venere e Marte, ai bordi della zona abitabile del Sole, mostrano però che trovarsi nella fascia giusta non basta."
             ],
             "intermediate": [
-              "La stazione osserva una stella più debole del Sole e vuole sapere a che distanza un pianeta riceverebbe lo stesso flusso della Terra.",
-              "S = L/(4πd²): rapportando al flusso della Terra a 1 UA dal Sole si ottiene il rapporto fra i flussi è uguale alla luminosità in luminosità solari divisa per il quadrato della distanza in UA, da cui la distanza."
+              "Tutta la vita che conosciamo ha bisogno di acqua liquida, che scioglie i sali e le molecole organiche e partecipa a moltissime reazioni. La prima domanda che gli astrobiologi pongono a un pianeta è quindi semplice: la sua superficie può ospitare acqua liquida? La risposta dipende prima di tutto dalla distanza dalla stella e dall’atmosfera del pianeta.",
+              "Troppo vicino alla stella l’acqua evapora e si perde nello spazio; troppo lontano gela. Fra i due estremi c’è una fascia di orbite in cui un pianeta roccioso con un’atmosfera adatta può mantenere oceani in superficie: la zona abitabile. Venere e Marte, ai bordi della zona abitabile del Sole, mostrano però che trovarsi nella fascia giusta non basta."
             ],
             "advanced": [
-              "La stazione osserva una stella più debole del Sole e vuole sapere a che distanza un pianeta riceverebbe lo stesso flusso della Terra.",
-              "Calcola i limiti della zona abitabile per una stella con L = 2 luminosità solari usando S_eff = 1,1 e 0,36, e confronta la larghezza della zona con quella del Sole.",
-              "Flusso medio su un'orbita circolare; i limiti S_eff dipendono dai modelli climatici e dal tipo di stella."
+              "Tutta la vita che conosciamo ha bisogno di acqua liquida, che scioglie i sali e le molecole organiche e partecipa a moltissime reazioni. La prima domanda che gli astrobiologi pongono a un pianeta è quindi semplice: la sua superficie può ospitare acqua liquida? La risposta dipende prima di tutto dalla distanza dalla stella e dall’atmosfera del pianeta.",
+              "Troppo vicino alla stella l’acqua evapora e si perde nello spazio; troppo lontano gela. Fra i due estremi c’è una fascia di orbite in cui un pianeta roccioso con un’atmosfera adatta può mantenere oceani in superficie: la zona abitabile. Venere e Marte, ai bordi della zona abitabile del Sole, mostrano però che trovarsi nella fascia giusta non basta.",
+              "Per cercare la vita fuori dal sistema solare la zona abitabile è il primo filtro: indica quali pianeti osservare con i telescopi. Le nane rosse, le stelle più comuni, hanno zone abitabili vicinissime, a pochi centesimi di unità astronomica; Proxima b e TRAPPIST-1e, pianeti di dimensioni terrestri, ricevono circa due terzi del flusso della Terra."
             ]
           }
         },
         {
           "label": "CAPISCI",
-          "title": "Dall’intuizione alla relazione",
+          "title": "Flusso, temperatura e limiti",
           "text": {
             "base": [
-              "Il flusso ricevuto da un pianeta è proporzionale a L/d². La distanza a cui il flusso vale S_eff volte quello terrestre è d = √(L/S_eff), con L in luminosità solari e d in unità astronomiche.",
-              "Per una stella con L = 0,0017 luminosità solari il flusso terrestre si riceve a circa 0,041 UA; con S_eff = 0,36, vicino al limite esterno, la distanza per il Sole sarebbe circa 1,67 UA."
+              "Una stella di luminosità L distribuisce la sua potenza su sfere sempre più grandi, e il flusso a distanza d vale S = L/(4πd²). In unità terrestri, con L in luminosità solari e d in unità astronomiche, la legge diventa S = L/d², e la distanza che riceve un dato flusso vale d = √(L/S). Alla distanza della Terra il flusso del Sole è di circa 1361 watt per metro quadrato.",
+              "Un pianeta intercetta la luce con un disco di area πR² e irraggia da tutta la sfera, di area 4πR². All’equilibrio la sua temperatura vale T = [(1 − A)S/(4σ)]^(1/4), dove A è l’albedo. Per la Terra si ottengono circa 255 K, mentre la superficie è in media a 288 K: la differenza di circa 33 gradi è l’effetto serra dell’atmosfera."
             ],
             "intermediate": [
-              "S = L/(4πd²): rapportando al flusso della Terra a 1 UA dal Sole si ottiene il rapporto fra i flussi è uguale alla luminosità in luminosità solari divisa per il quadrato della distanza in UA, da cui la distanza.",
-              "La variabile Luminosità L è espressa in luminosità solari; Distanza in UA. Il dominio dello strumento è [0,01; 4]. La relazione implementata è: d = √(L/S_eff).",
-              "Per una stella con L = 0,0017 luminosità solari il flusso terrestre si riceve a circa 0,041 UA; con S_eff = 0,36, vicino al limite esterno, la distanza per il Sole sarebbe circa 1,67 UA."
+              "Una stella di luminosità L distribuisce la sua potenza su sfere sempre più grandi, e il flusso a distanza d vale S = L/(4πd²). In unità terrestri, con L in luminosità solari e d in unità astronomiche, la legge diventa S = L/d², e la distanza che riceve un dato flusso vale d = √(L/S). Alla distanza della Terra il flusso del Sole è di circa 1361 watt per metro quadrato.",
+              "Un pianeta intercetta la luce con un disco di area πR² e irraggia da tutta la sfera, di area 4πR². All’equilibrio la sua temperatura vale T = [(1 − A)S/(4σ)]^(1/4), dove A è l’albedo. Per la Terra si ottengono circa 255 K, mentre la superficie è in media a 288 K: la differenza di circa 33 gradi è l’effetto serra dell’atmosfera.",
+              "Il bordo interno della zona abitabile è fissato dalla serra umida, in cui il vapore raggiunge l’alta atmosfera e l’idrogeno sfugge nello spazio, e dalla serra galoppante. Il bordo esterno è il massimo effetto serra dell’anidride carbonica. Per il Sole i limiti conservativi sono circa 0,99 e 1,70 unità astronomiche, quelli ottimistici 0,75 e 1,77."
             ],
             "advanced": [
-              "S = L/(4πd²): rapportando al flusso della Terra a 1 UA dal Sole si ottiene il rapporto fra i flussi è uguale alla luminosità in luminosità solari divisa per il quadrato della distanza in UA, da cui la distanza.",
-              "Calcola i limiti della zona abitabile per una stella con L = 2 luminosità solari usando S_eff = 1,1 e 0,36, e confronta la larghezza della zona con quella del Sole.",
-              "Essere nella zona abitabile è una condizione favorevole e insufficiente. Servono anche un'atmosfera adatta, acqua disponibile e un clima stabile, e fuori dalla zona possono esistere oceani sotto il ghiaccio."
+              "Una stella di luminosità L distribuisce la sua potenza su sfere sempre più grandi, e il flusso a distanza d vale S = L/(4πd²). In unità terrestri, con L in luminosità solari e d in unità astronomiche, la legge diventa S = L/d², e la distanza che riceve un dato flusso vale d = √(L/S). Alla distanza della Terra il flusso del Sole è di circa 1361 watt per metro quadrato.",
+              "Un pianeta intercetta la luce con un disco di area πR² e irraggia da tutta la sfera, di area 4πR². All’equilibrio la sua temperatura vale T = [(1 − A)S/(4σ)]^(1/4), dove A è l’albedo. Per la Terra si ottengono circa 255 K, mentre la superficie è in media a 288 K: la differenza di circa 33 gradi è l’effetto serra dell’atmosfera.",
+              "Il bordo interno della zona abitabile è fissato dalla serra umida, in cui il vapore raggiunge l’alta atmosfera e l’idrogeno sfugge nello spazio, e dalla serra galoppante. Il bordo esterno è il massimo effetto serra dell’anidride carbonica. Per il Sole i limiti conservativi sono circa 0,99 e 1,70 unità astronomiche, quelli ottimistici 0,75 e 1,77.",
+              "I limiti si esprimono con il flusso efficace, il flusso in unità terrestri che corrisponde a un bordo: circa 1,01 per il bordo interno e 0,34 per quello esterno, nel caso del Sole. Le stelle diventano più luminose con l’età, e la zona abitabile si sposta verso l’esterno: il Sole giovane era circa il 30 per cento meno luminoso di oggi."
             ]
           }
         },
         {
           "label": "SPERIMENTA",
-          "title": "Prevedi, modifica, confronta",
+          "title": "Il laboratorio della distanza",
           "text": {
             "base": [
-              "Nel laboratorio imposta Flusso efficace S_eff (a): 1 flussi terrestri. Prima di salvare A, prevedi come cambia Distanza fra Luminosità L=1,0075 e 2,005 luminosità solari. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Per una stella con L = 0,0017 luminosità solari il flusso terrestre si riceve a circa 0,041 UA; con S_eff = 0,36, vicino al limite esterno, la distanza per il Sole sarebbe circa 1,67 UA.",
-              "La variabile Luminosità L è espressa in luminosità solari; Distanza in UA. Il dominio dello strumento è [0,01; 4]. La relazione implementata è: d = √(L/S_eff)."
+              "Nel laboratorio il grafico mostra la distanza d = √(L/S_eff), in unità astronomiche, in funzione della luminosità della stella, da 0,01 a 4 luminosità solari. Nella scheda «Regola» cambi il flusso efficace, da 0,3 a 1,2 volte quello terrestre. Con il valore predefinito, 1, la curva dà la distanza a cui un pianeta riceve lo stesso flusso della Terra: per il Sole, una unità astronomica.",
+              "Protocollo. Il programma confronta due luminosità fissate, circa 1 e circa 2 luminosità solari. Con il valore predefinito prevedi se la distanza cresce, diminuisce o resta uguale passando dalla prima alla seconda luminosità e salva A. Poi porta il flusso efficace a 0,35, vicino al bordo esterno, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+              "Che cosa osservare. Con flusso efficace 1 la distanza passa da circa 1,00 a circa 1,42 unità astronomiche; con 0,35 da circa 1,70 a circa 2,39. Raddoppiando la luminosità la distanza cresce di √2, cioè del 41 per cento, in entrambi i casi. Il flusso efficace sposta tutta la curva: il bordo esterno è sempre circa 1,7 volte più lontano del punto con il flusso terrestre."
             ],
             "intermediate": [
-              "Nel laboratorio imposta Flusso efficace S_eff (a): 1 flussi terrestri. Prima di salvare A, prevedi come cambia Distanza fra Luminosità L=1,0075 e 2,005 luminosità solari. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "La variabile Luminosità L è espressa in luminosità solari; Distanza in UA. Il dominio dello strumento è [0,01; 4]. La relazione implementata è: d = √(L/S_eff).",
-              "S = L/(4πd²): rapportando al flusso della Terra a 1 UA dal Sole si ottiene il rapporto fra i flussi è uguale alla luminosità in luminosità solari divisa per il quadrato della distanza in UA, da cui la distanza."
+              "Nel laboratorio il grafico mostra la distanza d = √(L/S_eff), in unità astronomiche, in funzione della luminosità della stella, da 0,01 a 4 luminosità solari. Nella scheda «Regola» cambi il flusso efficace, da 0,3 a 1,2 volte quello terrestre. Con il valore predefinito, 1, la curva dà la distanza a cui un pianeta riceve lo stesso flusso della Terra: per il Sole, una unità astronomica.",
+              "Protocollo. Il programma confronta due luminosità fissate, circa 1 e circa 2 luminosità solari. Con il valore predefinito prevedi se la distanza cresce, diminuisce o resta uguale passando dalla prima alla seconda luminosità e salva A. Poi porta il flusso efficace a 0,35, vicino al bordo esterno, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+              "Che cosa osservare. Con flusso efficace 1 la distanza passa da circa 1,00 a circa 1,42 unità astronomiche; con 0,35 da circa 1,70 a circa 2,39. Raddoppiando la luminosità la distanza cresce di √2, cioè del 41 per cento, in entrambi i casi. Il flusso efficace sposta tutta la curva: il bordo esterno è sempre circa 1,7 volte più lontano del punto con il flusso terrestre."
             ],
             "advanced": [
-              "Nel laboratorio imposta Flusso efficace S_eff (a): 1 flussi terrestri. Prima di salvare A, prevedi come cambia Distanza fra Luminosità L=1,0075 e 2,005 luminosità solari. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Calcola i limiti della zona abitabile per una stella con L = 2 luminosità solari usando S_eff = 1,1 e 0,36, e confronta la larghezza della zona con quella del Sole.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Nel laboratorio il grafico mostra la distanza d = √(L/S_eff), in unità astronomiche, in funzione della luminosità della stella, da 0,01 a 4 luminosità solari. Nella scheda «Regola» cambi il flusso efficace, da 0,3 a 1,2 volte quello terrestre. Con il valore predefinito, 1, la curva dà la distanza a cui un pianeta riceve lo stesso flusso della Terra: per il Sole, una unità astronomica.",
+              "Protocollo. Il programma confronta due luminosità fissate, circa 1 e circa 2 luminosità solari. Con il valore predefinito prevedi se la distanza cresce, diminuisce o resta uguale passando dalla prima alla seconda luminosità e salva A. Poi porta il flusso efficace a 0,35, vicino al bordo esterno, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito», e il programma la confronta con i valori calcolati.",
+              "Che cosa osservare. Con flusso efficace 1 la distanza passa da circa 1,00 a circa 1,42 unità astronomiche; con 0,35 da circa 1,70 a circa 2,39. Raddoppiando la luminosità la distanza cresce di √2, cioè del 41 per cento, in entrambi i casi. Il flusso efficace sposta tutta la curva: il bordo esterno è sempre circa 1,7 volte più lontano del punto con il flusso terrestre.",
+              "Una prova a casa: due barattoli uguali, uno avvolto in carta nera e uno in carta bianca, pieni d’acqua e con un termometro, sotto una lampada da scrivania. Il barattolo scuro si scalda di più, perché ha albedo più bassa; spostando i barattoli dal doppio della distanza l’aumento di temperatura si riduce molto, come prevede la legge dell’inverso del quadrato."
             ]
           }
         },
         {
           "label": "INTERPRETA",
-          "title": "Leggere senza sovrainterpretare",
+          "title": "Errori e limiti",
           "text": {
             "base": [
-              "Essere nella zona abitabile è una condizione favorevole e insufficiente. Servono anche un'atmosfera adatta, acqua disponibile e un clima stabile, e fuori dalla zona possono esistere oceani sotto il ghiaccio.",
-              "Flusso medio su un'orbita circolare; i limiti S_eff dipendono dai modelli climatici e dal tipo di stella.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Errore frequente: credere che nella zona abitabile ci sia vita. La zona abitabile indica dove l’acqua liquida è possibile in superficie, con un’atmosfera adatta; acqua, atmosfera e vita vanno verificate con le osservazioni. Secondo errore: definire la zona abitabile con una temperatura di equilibrio fra 273 e 373 K. Con questo criterio la Terra, a 255 K, ne resterebbe fuori.",
+              "Terzo errore: pensare che fuori dalla zona abitabile l’acqua liquida sia impossibile. Il calore delle maree mantiene oceani sotto il ghiaccio di Europa ed Encelado, ben oltre il bordo esterno. Quarto errore: considerare fissa la zona abitabile. Il Sole diventa più luminoso, e fra circa un miliardo di anni la Terra riceverà un flusso del 10 per cento più alto di oggi."
             ],
             "intermediate": [
-              "Essere nella zona abitabile è una condizione favorevole e insufficiente. Servono anche un'atmosfera adatta, acqua disponibile e un clima stabile, e fuori dalla zona possono esistere oceani sotto il ghiaccio.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Errore frequente: credere che nella zona abitabile ci sia vita. La zona abitabile indica dove l’acqua liquida è possibile in superficie, con un’atmosfera adatta; acqua, atmosfera e vita vanno verificate con le osservazioni. Secondo errore: definire la zona abitabile con una temperatura di equilibrio fra 273 e 373 K. Con questo criterio la Terra, a 255 K, ne resterebbe fuori.",
+              "Terzo errore: pensare che fuori dalla zona abitabile l’acqua liquida sia impossibile. Il calore delle maree mantiene oceani sotto il ghiaccio di Europa ed Encelado, ben oltre il bordo esterno. Quarto errore: considerare fissa la zona abitabile. Il Sole diventa più luminoso, e fra circa un miliardo di anni la Terra riceverà un flusso del 10 per cento più alto di oggi.",
+              "Il modello del laboratorio usa la sola legge dell’inverso del quadrato su orbite circolari. I flussi efficaci vengono da modelli del clima senza nubi, e le incertezze maggiori dipendono proprio dalle nubi: nei pianeti in rotazione sincrona attorno alle nane rosse uno strato di nubi sopra il punto subastrale può spostare molto verso l’interno il bordo interno."
             ],
             "advanced": [
-              "Flusso medio su un'orbita circolare; i limiti S_eff dipendono dai modelli climatici e dal tipo di stella.",
-              "Calcola i limiti della zona abitabile per una stella con L = 2 luminosità solari usando S_eff = 1,1 e 0,36, e confronta la larghezza della zona con quella del Sole.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Errore frequente: credere che nella zona abitabile ci sia vita. La zona abitabile indica dove l’acqua liquida è possibile in superficie, con un’atmosfera adatta; acqua, atmosfera e vita vanno verificate con le osservazioni. Secondo errore: definire la zona abitabile con una temperatura di equilibrio fra 273 e 373 K. Con questo criterio la Terra, a 255 K, ne resterebbe fuori.",
+              "Terzo errore: pensare che fuori dalla zona abitabile l’acqua liquida sia impossibile. Il calore delle maree mantiene oceani sotto il ghiaccio di Europa ed Encelado, ben oltre il bordo esterno. Quarto errore: considerare fissa la zona abitabile. Il Sole diventa più luminoso, e fra circa un miliardo di anni la Terra riceverà un flusso del 10 per cento più alto di oggi.",
+              "Il modello del laboratorio usa la sola legge dell’inverso del quadrato su orbite circolari. I flussi efficaci vengono da modelli del clima senza nubi, e le incertezze maggiori dipendono proprio dalle nubi: nei pianeti in rotazione sincrona attorno alle nane rosse uno strato di nubi sopra il punto subastrale può spostare molto verso l’interno il bordo interno.",
+              "Su scala galattica alcuni modelli individuano una zona abitabile ad anello, fra 7 e 9 kiloparsec dal centro, con abbastanza elementi pesanti per formare pianeti rocciosi e poche supernove vicine. Il concetto è molto incerto: i pianeti piccoli si formano attorno a stelle di metallicità molto diversa, e la vita microbica sopporterebbe la perdita temporanea dello strato di ozono."
             ]
           }
         },
         {
           "label": "VERIFICA",
-          "title": "Verifica ragionamento e calcolo",
+          "title": "Verifica",
           "text": {
             "base": [
-              "Il flusso ricevuto da un pianeta è proporzionale a L/d². La distanza a cui il flusso vale S_eff volte quello terrestre è d = √(L/S_eff), con L in luminosità solari e d in unità astronomiche.",
-              "Per una stella con L = 0,0017 luminosità solari il flusso terrestre si riceve a circa 0,041 UA; con S_eff = 0,36, vicino al limite esterno, la distanza per il Sole sarebbe circa 1,67 UA."
+              "Ripasso: luminosità, flusso e legge dell’inverso del quadrato; albedo e temperatura di equilibrio; modello a uno strato dell’effetto serra; ciclo dei carbonati e dei silicati; serra umida, serra galoppante e massimo effetto serra; limiti conservativi e ottimistici; zone abitabili di stelle diverse; evoluzione nel tempo; oceani sotto il ghiaccio; zona abitabile galattica.",
+              "Mini esercizio: una stella di 4 luminosità solari fornisce il flusso terrestre a d = √4 = 2 unità astronomiche; con flusso efficace 0,36 il bordo esterno è a √(4/0,36) ≈ 3,3 unità astronomiche.",
+              "Nelle domande ricorda che la distanza cresce con la radice quadrata della luminosità, e che la temperatura di equilibrio dipende anche dall’albedo e ignora l’effetto serra."
             ],
             "intermediate": [
-              "S = L/(4πd²): rapportando al flusso della Terra a 1 UA dal Sole si ottiene il rapporto fra i flussi è uguale alla luminosità in luminosità solari divisa per il quadrato della distanza in UA, da cui la distanza.",
-              "La variabile Luminosità L è espressa in luminosità solari; Distanza in UA. Il dominio dello strumento è [0,01; 4]. La relazione implementata è: d = √(L/S_eff)."
+              "Ripasso: luminosità, flusso e legge dell’inverso del quadrato; albedo e temperatura di equilibrio; modello a uno strato dell’effetto serra; ciclo dei carbonati e dei silicati; serra umida, serra galoppante e massimo effetto serra; limiti conservativi e ottimistici; zone abitabili di stelle diverse; evoluzione nel tempo; oceani sotto il ghiaccio; zona abitabile galattica.",
+              "Mini esercizio: una stella di 4 luminosità solari fornisce il flusso terrestre a d = √4 = 2 unità astronomiche; con flusso efficace 0,36 il bordo esterno è a √(4/0,36) ≈ 3,3 unità astronomiche.",
+              "Nelle domande ricorda che la distanza cresce con la radice quadrata della luminosità, e che la temperatura di equilibrio dipende anche dall’albedo e ignora l’effetto serra."
             ],
             "advanced": [
-              "Calcola i limiti della zona abitabile per una stella con L = 2 luminosità solari usando S_eff = 1,1 e 0,36, e confronta la larghezza della zona con quella del Sole.",
-              "Flusso medio su un'orbita circolare; i limiti S_eff dipendono dai modelli climatici e dal tipo di stella."
+              "Ripasso: luminosità, flusso e legge dell’inverso del quadrato; albedo e temperatura di equilibrio; modello a uno strato dell’effetto serra; ciclo dei carbonati e dei silicati; serra umida, serra galoppante e massimo effetto serra; limiti conservativi e ottimistici; zone abitabili di stelle diverse; evoluzione nel tempo; oceani sotto il ghiaccio; zona abitabile galattica.",
+              "Mini esercizio: una stella di 4 luminosità solari fornisce il flusso terrestre a d = √4 = 2 unità astronomiche; con flusso efficace 0,36 il bordo esterno è a √(4/0,36) ≈ 3,3 unità astronomiche.",
+              "Nelle domande ricorda che la distanza cresce con la radice quadrata della luminosità, e che la temperatura di equilibrio dipende anche dall’albedo e ignora l’effetto serra."
             ]
           }
         },
         {
           "label": "COLLEGA",
-          "title": "Conclusione e nuova domanda",
+          "title": "Collegamenti",
           "text": {
             "base": [
-              "Nel diario distingui previsione, risultato e interpretazione. Legge dell'inverso del quadrato su orbite circolari.",
-              "Flusso medio su un'orbita circolare; i limiti S_eff dipendono dai modelli climatici e dal tipo di stella.",
-              "Collegamento consigliato: physics-13. Il completamento registra attività e autoverifica, non certifica competenze."
+              "La legge dell’inverso del quadrato e i fotoni sono temi dell’unità di fisica «Fotoni ed energia quantizzata»; le orbite dell’unità «Orbite circolari». In biologia il percorso prosegue con le atmosfere e il clima, con l’abitabilità attorno alle nane rosse e con gli oceani di Europa ed Encelado, abitabili ben oltre la zona classica.",
+              "Riepilogo dell’unità: S = L/d² in unità terrestri; T = [(1 − A)S/(4σ)]^(1/4), circa 255 K per la Terra; l’effetto serra porta la superficie a 288 K; bordo interno per serra umida e galoppante, bordo esterno per massimo effetto serra; per il Sole circa 0,99-1,70 unità astronomiche; zone vicinissime per le nane rosse; zona che si sposta con l’età della stella.",
+              "Nel diario registra A e B con le previsioni e calcola i bordi della zona abitabile di una stella di 2 luminosità solari con flussi efficaci 1,1 e 0,36: circa 1,35 e 2,36 unità astronomiche."
             ],
             "intermediate": [
-              "S = L/(4πd²): rapportando al flusso della Terra a 1 UA dal Sole si ottiene il rapporto fra i flussi è uguale alla luminosità in luminosità solari divisa per il quadrato della distanza in UA, da cui la distanza.",
-              "Flusso medio su un'orbita circolare; i limiti S_eff dipendono dai modelli climatici e dal tipo di stella.",
-              "Calcola i limiti della zona abitabile per una stella con L = 2 luminosità solari usando S_eff = 1,1 e 0,36, e confronta la larghezza della zona con quella del Sole."
+              "La legge dell’inverso del quadrato e i fotoni sono temi dell’unità di fisica «Fotoni ed energia quantizzata»; le orbite dell’unità «Orbite circolari». In biologia il percorso prosegue con le atmosfere e il clima, con l’abitabilità attorno alle nane rosse e con gli oceani di Europa ed Encelado, abitabili ben oltre la zona classica.",
+              "Riepilogo dell’unità: S = L/d² in unità terrestri; T = [(1 − A)S/(4σ)]^(1/4), circa 255 K per la Terra; l’effetto serra porta la superficie a 288 K; bordo interno per serra umida e galoppante, bordo esterno per massimo effetto serra; per il Sole circa 0,99-1,70 unità astronomiche; zone vicinissime per le nane rosse; zona che si sposta con l’età della stella.",
+              "Nel diario registra A e B con le previsioni e calcola i bordi della zona abitabile di una stella di 2 luminosità solari con flussi efficaci 1,1 e 0,36: circa 1,35 e 2,36 unità astronomiche."
             ],
             "advanced": [
-              "Calcola i limiti della zona abitabile per una stella con L = 2 luminosità solari usando S_eff = 1,1 e 0,36, e confronta la larghezza della zona con quella del Sole.",
-              "Flusso medio su un'orbita circolare; i limiti S_eff dipendono dai modelli climatici e dal tipo di stella.",
-              "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+              "La legge dell’inverso del quadrato e i fotoni sono temi dell’unità di fisica «Fotoni ed energia quantizzata»; le orbite dell’unità «Orbite circolari». In biologia il percorso prosegue con le atmosfere e il clima, con l’abitabilità attorno alle nane rosse e con gli oceani di Europa ed Encelado, abitabili ben oltre la zona classica.",
+              "Riepilogo dell’unità: S = L/d² in unità terrestri; T = [(1 − A)S/(4σ)]^(1/4), circa 255 K per la Terra; l’effetto serra porta la superficie a 288 K; bordo interno per serra umida e galoppante, bordo esterno per massimo effetto serra; per il Sole circa 0,99-1,70 unità astronomiche; zone vicinissime per le nane rosse; zona che si sposta con l’età della stella.",
+              "Nel diario registra A e B con le previsioni e calcola i bordi della zona abitabile di una stella di 2 luminosità solari con flussi efficaci 1,1 e 0,36: circa 1,35 e 2,36 unità astronomiche."
             ]
           }
         }
       ],
       "questions": [
         {
-          "id": "biology-22-concept",
+          "id": "biology-22-q1",
           "prompt": "Se la luminosità della stella quadruplica, la distanza che dà lo stesso flusso:",
           "options": [
             {
               "id": "A",
               "text": "Raddoppia",
-              "feedback": "Il flusso ricevuto da un pianeta è proporzionale a L/d². La distanza a cui il flusso vale S_eff volte quello terrestre è d = √(L/S_eff), con L in luminosità solari e d in unità astronomiche."
+              "feedback": "Esatto: d = √(L/S), e la radice di 4 è 2."
             },
             {
               "id": "B",
               "text": "Quadruplica",
-              "feedback": "Essere nella zona abitabile è una condizione favorevole e insufficiente. Servono anche un'atmosfera adatta, acqua disponibile e un clima stabile, e fuori dalla zona possono esistere oceani sotto il ghiaccio."
+              "feedback": "La distanza cresce con la radice quadrata della luminosità, più lentamente."
             },
             {
               "id": "C",
               "text": "Si dimezza",
-              "feedback": "S = L/(4πd²): rapportando al flusso della Terra a 1 UA dal Sole si ottiene il rapporto fra i flussi è uguale alla luminosità in luminosità solari divisa per il quadrato della distanza in UA, da cui la distanza."
+              "feedback": "Una stella più luminosa dà lo stesso flusso più lontano."
+            },
+            {
+              "id": "D",
+              "text": "Resta uguale",
+              "feedback": "Il flusso dipende dalla luminosità, quindi la distanza cambia."
             }
           ],
           "correct": "A"
         },
         {
-          "id": "biology-22-calculation",
-          "prompt": "Calcolo: Flusso efficace S_eff (a)=1 flussi terrestri. Per Luminosità L=1 luminosità solari, quanto vale Distanza?",
+          "id": "biology-22-q2",
+          "prompt": "Perché la temperatura media della superficie terrestre, 288 K, supera quella di equilibrio, circa 255 K?",
           "options": [
             {
               "id": "A",
-              "text": "2 UA",
-              "feedback": "Questo valore non soddisfa la relazione. d = √(L/S_eff). Con Flusso efficace S_eff (a)=1 flussi terrestri e Luminosità L=1 luminosità solari, il risultato è 1 UA. Conserva le unità e arrotonda solo alla fine."
+              "text": "Per il calore interno del pianeta",
+              "feedback": "Il calore interno della Terra è alcune migliaia di volte più piccolo del flusso solare assorbito."
             },
             {
               "id": "B",
-              "text": "0 UA",
-              "feedback": "Controlla sostituzione, segno e unità. d = √(L/S_eff). Con Flusso efficace S_eff (a)=1 flussi terrestri e Luminosità L=1 luminosità solari, il risultato è 1 UA. Conserva le unità e arrotonda solo alla fine."
+              "text": "Per l’effetto serra dell’atmosfera",
+              "feedback": "Esatto: vapore, nubi e anidride carbonica trattengono l’infrarosso."
             },
             {
               "id": "C",
-              "text": "1 UA",
-              "feedback": "d = √(L/S_eff). Con Flusso efficace S_eff (a)=1 flussi terrestri e Luminosità L=1 luminosità solari, il risultato è 1 UA. Conserva le unità e arrotonda solo alla fine."
+              "text": "Perché l’albedo è nulla",
+              "feedback": "L’albedo terrestre vale circa 0,30, ed è già inclusa nel calcolo."
+            },
+            {
+              "id": "D",
+              "text": "Per un errore di misura",
+              "feedback": "La differenza di 33 gradi è ben misurata e spiegata."
             }
           ],
-          "correct": "C",
-          "numeric": {
-            "x": 1,
-            "parameters": {
-              "a": 1
-            },
-            "expected": 1,
-            "unit": "UA"
-          }
+          "correct": "B"
         },
         {
-          "id": "biology-22-transfer",
-          "prompt": "Trasferimento: Flusso efficace S_eff (a)=1,05 flussi terrestri. Per Luminosità L=1 luminosità solari, quanto vale Distanza?",
+          "id": "biology-22-q3",
+          "prompt": "Venere riceve quasi il doppio del flusso terrestre. Perché la sua temperatura di equilibrio è più bassa di quella della Terra?",
           "options": [
             {
               "id": "A",
-              "text": "-0,0240999 UA",
-              "feedback": "Controlla sostituzione, segno e unità. d = √(L/S_eff). Con Flusso efficace S_eff (a)=1,05 flussi terrestri e Luminosità L=1 luminosità solari, il risultato è 0,9759 UA. Conserva le unità e arrotonda solo alla fine."
+              "text": "Perché è più piccola",
+              "feedback": "La temperatura di equilibrio non dipende dal raggio del pianeta."
             },
             {
               "id": "B",
-              "text": "0,9759 UA",
-              "feedback": "d = √(L/S_eff). Con Flusso efficace S_eff (a)=1,05 flussi terrestri e Luminosità L=1 luminosità solari, il risultato è 0,9759 UA. Conserva le unità e arrotonda solo alla fine."
+              "text": "Perché le sue nubi riflettono circa il 77 per cento della luce",
+              "feedback": "Esatto: con albedo 0,77 assorbe meno energia della Terra."
             },
             {
               "id": "C",
-              "text": "1,9759 UA",
-              "feedback": "Questo valore non soddisfa la relazione. d = √(L/S_eff). Con Flusso efficace S_eff (a)=1,05 flussi terrestri e Luminosità L=1 luminosità solari, il risultato è 0,9759 UA. Conserva le unità e arrotonda solo alla fine."
+              "text": "Perché ruota lentamente",
+              "feedback": "La rotazione cambia la distribuzione del calore, non il bilancio medio."
+            },
+            {
+              "id": "D",
+              "text": "Perché è più lontana dal Sole",
+              "feedback": "Venere è più vicina al Sole della Terra."
             }
           ],
-          "correct": "B",
-          "numeric": {
-            "x": 1,
-            "parameters": {
-              "a": 1.05
-            },
-            "expected": 0.9759000729485332,
-            "unit": "UA"
-          }
+          "correct": "B"
         },
         {
-          "id": "biology-22-limits",
-          "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+          "id": "biology-22-q4",
+          "prompt": "Che cosa fissa il bordo esterno della zona abitabile?",
           "options": [
             {
               "id": "A",
-              "text": "Riproduce ogni dettaglio del pianeta reale",
-              "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Flusso medio su un'orbita circolare; i limiti S_eff dipendono dai modelli climatici e dal tipo di stella."
+              "text": "Il punto in cui l’acqua bolle",
+              "feedback": "Il bordo legato all’evaporazione degli oceani è quello interno."
             },
             {
               "id": "B",
-              "text": "Basta il grafico per provare una legge universale",
-              "feedback": "Una visualizzazione non è una dimostrazione universale. Flusso medio su un'orbita circolare; i limiti S_eff dipendono dai modelli climatici e dal tipo di stella."
+              "text": "Il massimo effetto serra dell’anidride carbonica",
+              "feedback": "Esatto: oltre quel punto aggiungere gas raffredda per diffusione della luce e condensazione."
             },
             {
               "id": "C",
-              "text": "Legge dell'inverso del quadrato su orbite circolari",
-              "feedback": "Flusso medio su un'orbita circolare; i limiti S_eff dipendono dai modelli climatici e dal tipo di stella."
+              "text": "L’orbita di Marte",
+              "feedback": "Marte si trova vicino al bordo esterno, ma il bordo è fissato da un processo climatico."
+            },
+            {
+              "id": "D",
+              "text": "La temperatura di equilibrio di 273 K",
+              "feedback": "Con questo criterio la Terra stessa sarebbe fuori dalla zona."
             }
           ],
-          "correct": "C"
+          "correct": "B"
+        },
+        {
+          "id": "biology-22-q5",
+          "prompt": "Perché la zona abitabile del Sole si sposta verso l’esterno nel tempo?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Perché il Sole perde massa e i pianeti si avvicinano",
+              "feedback": "Le orbite cambiano pochissimo; conta la luminosità."
+            },
+            {
+              "id": "B",
+              "text": "Perché il Sole diventa più luminoso con l’età",
+              "feedback": "Esatto: era circa il 30 per cento meno luminoso alla nascita."
+            },
+            {
+              "id": "C",
+              "text": "Perché l’albedo dei pianeti aumenta",
+              "feedback": "L’albedo dipende dal pianeta; la zona dipende dalla stella."
+            },
+            {
+              "id": "D",
+              "text": "Perché la Terra si allontana dal Sole",
+              "feedback": "L’orbita della Terra resta quasi la stessa."
+            }
+          ],
+          "correct": "B"
+        },
+        {
+          "id": "biology-22-q6",
+          "prompt": "Europa ed Encelado sono ben oltre la zona abitabile. Come mantengono oceani liquidi?",
+          "options": [
+            {
+              "id": "A",
+              "text": "Con il calore delle maree e quello interno, sotto una crosta di ghiaccio",
+              "feedback": "Esatto: le deformazioni mareali scaldano l’interno delle lune."
+            },
+            {
+              "id": "B",
+              "text": "Con un forte effetto serra",
+              "feedback": "Queste lune hanno atmosfere quasi inesistenti."
+            },
+            {
+              "id": "C",
+              "text": "Ricevendo più luce del previsto",
+              "feedback": "A quelle distanze il flusso solare è pochi punti percentuali di quello terrestre."
+            },
+            {
+              "id": "D",
+              "text": "Grazie ai sali, che impediscono all’acqua di gelare a qualunque temperatura",
+              "feedback": "I sali abbassano il punto di congelamento solo di alcune decine di gradi."
+            }
+          ],
+          "correct": "A"
         }
       ]
     },
