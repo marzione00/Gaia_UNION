@@ -583,6 +583,11 @@ test('Biologia 30: Titano, numeri ricalcolati',()=>{
  assert.equal(r(Math.sqrt(3*R*94/0.028),-1),290);assert.equal(r(Math.sqrt(3*R*94/0.002),-1),1080);
  assert.equal(r((1.352/9.81)**1.5,3),0.051);assert.equal(r(Math.sqrt(1.225/5.2),2),0.49);assert.equal(r((1.352/9.81)**1.5*Math.sqrt(1.225/5.2),3),0.025);
  const c=106470/R;assert.equal(r(c,0),12806);assert.equal(r(c*(1/98-1/298),2),87.7);const l98=Math.log(1.05)+c*(1/98-1/298);assert.equal(r(l98,2),87.75);assert.equal(+Math.exp(l98).toExponential(1),1.3e38);const l170=Math.log(1.05)+c*(1/170-1/298);assert.equal(r(l170,1),32.4);assert.equal(+Math.exp(l170).toExponential(1),1.2e14);
+ // NIST-JANAF: ozone K at 298 K, and the ammonia exercise (N2 + 3 H2 -> 2 NH3) with van 't Hoff to 100 K.
+ const dGo=163.184-231.736;assert.equal(r(dGo,1),-68.6);assert.equal(r(Math.log10(Math.exp(-dGo*1e3/(8.314462*298.15))),0),12);assert.equal(r(-28.589+40.599,0),12);
+ const dG=2*-16.367,dH=2*-45.898;assert.equal(r(dG,2),-32.73);const l298=-dG*1e3/(8.314462*298.15);assert.equal(r(32730/(R*298),1),13.2);assert.equal(r(l298,1),13.2);assert.equal(+Math.exp(l298).toExponential(0),5e5);
+ assert.equal(r(-dH*1e3/R,-1),11040);assert.equal(r(11040*(1/100-1/298),1),73.4);assert.equal(r(13.2+73.4,1),86.6);const l100=l298-dH*1e3/8.314462*(1/100-1/298.15);assert.equal(r(l100,1),86.6);assert.equal(r(l100/Math.LN10,1),37.6);
+ assert.equal(r(2*17.777,1),35.6);const ratio=10**(l100/Math.LN10-2*17.777);assert.ok(ratio>80&&ratio<150,String(ratio));
  const lam=m=>6.674e-11*1.3452e23*m*1.66054e-27/(1.380649e-23*150*4.0747e6);assert.deepEqual([28,16,2].map(m=>r(lam(m),1)),[49.5,28.3,3.5]);
  assert.equal(r(450*1.352/5.2,0),117);assert.equal(r(1000*9.81/1.23,0),7976);assert.equal(r(Math.sqrt(117/7976),2),0.12);
  assert.equal(r(6.674e-11*1.3452e23/2574.7e3**2,3),1.354);assert.equal(r(2574.7e3*Math.sqrt(8*Math.PI*6.674e-11*1880/3)/1e3,2),2.64);assert.ok(2574.7>2439.7&&1.345e23/3.301e23<0.5);

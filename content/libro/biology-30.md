@@ -145,7 +145,7 @@ Per una reazione esotermica, $\Delta_rH<0$, la costante di equilibrio cresce qua
 Il freddo ha quindi due effetti opposti. La termodinamica favorisce i prodotti delle reazioni esotermiche, come la combinazione di frammenti in molecole più grandi, e gli equilibri si spostano molto verso di loro. La cinetica rende invece lentissime tutte le reazioni con una barriera. Ciò che si forma su Titano dipende quindi da quali reazioni hanno vie prive di barriera, più che dalle costanti di equilibrio.
 
 ::: errore Un segno sbagliato
-Nell'esempio 10.1 Shaw applica la legge di van 't Hoff alla formazione dell'ozono, $\mathrm O+\mathrm O_2\rightarrow\mathrm O_3$, con $\Delta_rH=-106{,}47$ kJ/mol e $K=1{,}05$ a $298$ K, e ottiene $K\approx8{,}85\cdot10^{-39}$ a $98$ K, concludendo che al freddo la reazione favorisce i reagenti. Il segno è sbagliato: con un'entalpia negativa $\ln K$ cresce di circa $87{,}7$ passando da $298$ a $98$ K, e $K$ diventa circa $1{,}3\cdot10^{38}$. Anche il valore riportato a $170$ K, $32{,}41$, è in realtà $\ln K$; la costante vale circa $1{,}2\cdot10^{14}$. Al freddo la reazione favorisce i prodotti, e il problema è la velocità.
+Nell'esempio 10.1 Shaw applica la legge di van 't Hoff alla formazione dell'ozono, $\mathrm O+\mathrm O_2\rightarrow\mathrm O_3$, con $\Delta_rH=-106{,}47$ kJ/mol e $K=1{,}05$ a $298$ K, e ottiene $K\approx8{,}85\cdot10^{-39}$ a $98$ K, concludendo che al freddo la reazione favorisce i reagenti. Il segno è sbagliato: con un'entalpia negativa $\ln K$ cresce di circa $87{,}7$ passando da $298$ a $98$ K, e $K$ diventa circa $1{,}3\cdot10^{38}$. Anche il valore riportato a $170$ K, $32{,}41$, è in realtà $\ln K$; la costante vale circa $1{,}2\cdot10^{14}$. Al freddo la reazione favorisce i prodotti, e il problema è la velocità. Anche il punto di partenza va corretto: dalle tabelle NIST-JANAF si ottiene $\Delta_rG\approx-68{,}6$ kJ/mol, quindi $K\approx10^{12}$ a $298$ K, e le costanti al freddo risultano ancora circa mille miliardi di volte più grandi.
 :::
 
 ## L'interno: un oceano o una melma? {#interno}
@@ -332,14 +332,22 @@ $$\begin{aligned}&\left(\frac{1{,}352}{9{,}81}\right)^{3/2}\sqrt{\frac{1{,}225}{
 circa quaranta volte meno potenza che sulla Terra.
 :::
 
-::: esercizio Il segno di van 't Hoff [avanzato]
-Per $\mathrm O+\mathrm O_2\rightarrow\mathrm O_3$ si usino, come nell'esempio di Shaw, $\Delta_rH=-106{,}47$ kJ/mol e $K=1{,}05$ a $298$ K. Calcolare $K$ a $98$ K e a $170$ K con la legge di van 't Hoff, e dire se il freddo favorisce i reagenti o i prodotti.
+::: esercizio Ammoniaca al freddo [avanzato]
+L'atmosfera di Titano contiene azoto e una piccola frazione di idrogeno, eppure lo spettrometro infrarosso di Cassini ha cercato invano l'ammoniaca nella stratosfera. Le tabelle NIST-JANAF danno per l'ammoniaca gassosa a $298$ K $\Delta_fH=-45{,}90$ kJ/mol e $\Delta_fG=-16{,}37$ kJ/mol. Per la reazione
+
+$$\mathrm N_2+3\,\mathrm H_2\rightarrow2\,\mathrm{NH_3}$$
+
+calcolare $K$ a $298$ K e, con la legge di van 't Hoff, a $100$ K. Confrontare il risultato con il valore delle tabelle a $100$ K, $\log_{10}K\approx35{,}6$, e spiegare perché su Titano l'ammoniaca manca.
 >>> soluzione
-Si ha $-\Delta_rH/R\approx12\,806$ K, e
+Per due moli di ammoniaca $\Delta_rG=-32{,}73$ kJ/mol, quindi
 
-$$\begin{aligned}\ln K_{98}&=\ln1{,}05+12\,806\left(\tfrac{1}{98}-\tfrac{1}{298}\right)\\&\approx0{,}05+87{,}70\approx87{,}75,\end{aligned}$$
+$$\ln K_{298}=\frac{32\,730}{8{,}314\cdot298}\approx13{,}2,$$
 
-quindi $K\approx1{,}3\cdot10^{38}$. A $170$ K, $\ln K\approx32{,}4$ e $K\approx1{,}2\cdot10^{14}$. Il freddo favorisce i prodotti di questa reazione esotermica.
+e $K\approx5\cdot10^{5}$. Con $-\Delta_rH/R\approx11\,040$ K,
+
+$$\begin{aligned}\ln K_{100}&\approx13{,}2+11\,040\left(\tfrac{1}{100}-\tfrac{1}{298}\right)\\&\approx13{,}2+73{,}4\approx86{,}6,\end{aligned}$$
+
+cioè $\log_{10}K\approx37{,}6$. Il valore delle tabelle è circa cento volte più piccolo, perché fra $298$ e $100$ K l'entalpia di reazione cambia, mentre la legge di van 't Hoff la tratta come costante. In entrambi i casi il freddo favorisce fortemente l'ammoniaca. Manca la via: rompere il triplo legame dell'azoto richiede un catalizzatore e temperature di qualche centinaio di gradi, come nel processo Haber-Bosch, e a $94$ K la reazione è di fatto ferma.
 :::
 
 ::: esercizio Chi sfugge dall'atmosfera [avanzato]
@@ -366,12 +374,13 @@ le gocce di Titano cadono circa otto volte più lentamente, come fiocchi di neve
 
 ## Fonti {#fonti}
 
-Il testo, le figure, gli esempi e gli esercizi di questo capitolo sono originali. Per la scelta e l'ordine degli argomenti il riferimento principale è A. M. Shaw, *Astrochemistry: From Astronomy to Astrobiology*, Wiley, 2006, capitolo 10, scritto nell'estate del 2005, prima dei risultati principali di Cassini e di Huygens; i dati provengono dalle fonti primarie seguenti. Alcune affermazioni di Shaw sono state corrette: il colore arancione di Titano viene dalla nebbia organica, e le nubi di metano vi contribuiscono poco (§10.1); nell'esempio 10.1 la legge di van 't Hoff è applicata con il segno sbagliato, e i valori corretti sono $K\approx1{,}3\cdot10^{38}$ a $98$ K e $K\approx1{,}2\cdot10^{14}$ a $170$ K (§10.3); l'oceano di acqua e ammoniaca profondo duecento chilometri è un modello pre-Cassini, oggi discusso (§10.2 e §10.6); Titano è l'unica luna con un'atmosfera densa, mentre anche Venere, Marte e i pianeti giganti hanno atmosfere importanti (sintesi del capitolo 10).
+Il testo, le figure, gli esempi e gli esercizi di questo capitolo sono originali. Per la scelta e l'ordine degli argomenti il riferimento principale è A. M. Shaw, *Astrochemistry: From Astronomy to Astrobiology*, Wiley, 2006, capitolo 10, scritto nell'estate del 2005, prima dei risultati principali di Cassini e di Huygens; i dati provengono dalle fonti primarie seguenti, con le grandezze termodinamiche delle tabelle NIST-JANAF. Alcune affermazioni di Shaw sono state corrette: il colore arancione di Titano viene dalla nebbia organica, e le nubi di metano vi contribuiscono poco (§10.1); nell'esempio 10.1 la legge di van 't Hoff è applicata con il segno sbagliato, e i valori corretti, a partire dalla stessa costante a $298$ K, sono $K\approx1{,}3\cdot10^{38}$ a $98$ K e $K\approx1{,}2\cdot10^{14}$ a $170$ K; la costante di partenza, $1{,}05$, è a sua volta lontana dal valore delle tabelle, circa $10^{12}$ (§10.3); l'oceano di acqua e ammoniaca profondo duecento chilometri è un modello pre-Cassini, oggi discusso (§10.2 e §10.6); Titano è l'unica luna con un'atmosfera densa, mentre anche Venere, Marte e i pianeti giganti hanno atmosfere importanti (sintesi del capitolo 10).
 
 1. M. Fulchignoni e collaboratori, *Nature* 438, 785 (2005): temperatura e pressione misurate da Huygens; H. B. Niemann e collaboratori, *Nature* 438, 779 (2005) e *Journal of Geophysical Research* 115, E12006 (2010): la composizione dell'atmosfera e gli isotopi; M. G. Tomasko e collaboratori, *Nature* 438, 765 (2005): le immagini della discesa.
 2. Y. L. Yung, M. Allen, J. P. Pinto, *Astrophysical Journal Supplement* 55, 465 (1984): la fotochimica di Titano; J. H. Waite e collaboratori, *Science* 316, 870 (2007): gli ioni pesanti dell'alta atmosfera; C. Sagan, B. N. Khare, *Nature* 277, 102 (1979): i tholin.
-3. C. P. McKay, J. B. Pollack, R. Courtin, *Science* 253, 1118 (1991): effetto serra e anti-serra.
-4. E. R. Stofan e collaboratori, *Nature* 445, 61 (2007): i laghi; M. Mastrogiuseppe e collaboratori, *Geophysical Research Letters* 41, 1432 (2014): la profondità di Ligeia Mare; R. H. Brown e collaboratori, *Nature* 454, 607 (2008): l'etano di Ontario Lacus; E. P. Turtle e collaboratori, *Science* 331, 1414 (2011): le piogge; R. D. Lorenz e collaboratori, *Science* 312, 724 (2006): le dune.
-5. L. Iess e collaboratori, *Science* 337, 457 (2012): la marea di Titano; F. Petricca e collaboratori, *Nature* (2025): l'interno semifuso.
-6. C. P. McKay, H. D. Smith, *Icarus* 178, 274 (2005): l'ipotesi di vita nel metano; D. F. Strobel, *Icarus* 208, 878 (2010) e R. N. Clark e collaboratori, *Journal of Geophysical Research* 115, E10005 (2010): idrogeno e acetilene.
-7. R. D. Lorenz e collaboratori, *Johns Hopkins APL Technical Digest* 34, 374 (2018): la missione Dragonfly; R. D. Lorenz e collaboratori, *Planetary Science Journal* 2, 24 (2021): il sito di atterraggio vicino al cratere Selk.
+3. M. W. Chase Jr., *NIST-JANAF Thermochemical Tables*, 4ª edizione, *Journal of Physical and Chemical Reference Data*, Monograph 9 (1998), tabelle di ozono, ossigeno atomico e ammoniaca; C. A. Nixon e collaboratori, *Faraday Discussions* 147, 65 (2010): i limiti superiori per l'ammoniaca nella stratosfera di Titano.
+4. C. P. McKay, J. B. Pollack, R. Courtin, *Science* 253, 1118 (1991): effetto serra e anti-serra.
+5. E. R. Stofan e collaboratori, *Nature* 445, 61 (2007): i laghi; M. Mastrogiuseppe e collaboratori, *Geophysical Research Letters* 41, 1432 (2014): la profondità di Ligeia Mare; R. H. Brown e collaboratori, *Nature* 454, 607 (2008): l'etano di Ontario Lacus; E. P. Turtle e collaboratori, *Science* 331, 1414 (2011): le piogge; R. D. Lorenz e collaboratori, *Science* 312, 724 (2006): le dune.
+6. L. Iess e collaboratori, *Science* 337, 457 (2012): la marea di Titano; F. Petricca e collaboratori, *Nature* (2025): l'interno semifuso.
+7. C. P. McKay, H. D. Smith, *Icarus* 178, 274 (2005): l'ipotesi di vita nel metano; D. F. Strobel, *Icarus* 208, 878 (2010) e R. N. Clark e collaboratori, *Journal of Geophysical Research* 115, E10005 (2010): idrogeno e acetilene.
+8. R. D. Lorenz e collaboratori, *Johns Hopkins APL Technical Digest* 34, 374 (2018): la missione Dragonfly; R. D. Lorenz e collaboratori, *Planetary Science Journal* 2, 24 (2021): il sito di atterraggio vicino al cratere Selk.
