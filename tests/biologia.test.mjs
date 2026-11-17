@@ -231,3 +231,17 @@ test('Biologia 10: il mondo a RNA, numeri ricalcolati',()=>{
  assert.equal(r(6/Math.log10(15),1),5.1);assert.equal(r(4*1.5**6,1),45.6);assert.equal(r(4*(1+0.5*5/6)**6,1),32.3);assert.equal(r((1+0.5*5/6)**6/1.5**6,2),0.71);
  assert.equal(G(1,1,3),8);assert.equal(G(1,1,6),64);assert.equal(r(G(1,0.5,3),3),3.375);assert.equal(r(G(1,0.5,6),2),11.39);
 });
+test('Biologia 11: DNA, codice ed espressione, numeri ricalcolati',()=>{
+ const m=(a,d,t)=>a/d*(1-Math.exp(-d*t));
+ assert.equal(r(4.64e6*0.34e-6,1),1.6);assert.equal(r(2*3.1e9*0.34e-9,1),2.1);assert.equal(r(4.64e6/2000,-1),2320);assert.equal(r(4.64e6/2000/60,0),39);
+ assert.equal(r(4.64e6*2.2e-10*1e3,1),1);assert.equal(r(1e9*4.64e6*2.2e-10/1e6,1),1);assert.equal(r(Math.exp(-4.64e6*2.2e-10),3),0.999);
+ assert.equal(5/0.2,25);assert.equal(r(Math.LN2/0.2,1),3.5);assert.equal(r(m(5,0.2,5),1),15.8);assert.equal(r(m(5,0.2,10),1),21.6);assert.equal(r(Math.LN10/0.2,1),11.5);assert.equal(r(Math.LN10/0.4,1),5.8);
+ assert.equal(r(m(5,0.2,2.5),1),9.8);assert.equal(r(m(10,0.4,2.5),1),15.8);assert.equal(r(25*Math.exp(-2),1),3.4);assert.equal(r(Math.log(25)/0.2,0),16);
+ assert.equal(r(299*110/1000,0),33);assert.equal(r(299/15,0),20);
+ assert.equal(r(0.9999**300,2),0.97);assert.equal(r(0.999**300,2),0.74);assert.equal(r(64/3,0),21);assert.equal(r(3/64,3),0.047);
+ assert.equal(Math.log2(64),6);assert.equal(r(Math.log2(21),2),4.39);assert.equal(r((6-Math.log2(21))/6*100,0),27);assert.equal(r(4.64e6*2/1e6,1),9.3);assert.equal(r(4.64e6*2/8/1e6,1),1.2);
+ assert.equal(r(25/(Math.LN2/30),-1),1080);assert.equal(r(30/Math.LN2,0),43);assert.equal(r(0.1e-3/2e-9,-3),50000);
+ // Codon table: 61 sense codons, 3 stop, degeneracies sum to 64.
+ const deg=[6,6,6,4,4,4,4,4,3,3,2,2,2,2,2,2,2,2,2,1,1];assert.equal(deg.reduce((a,b)=>a+b,0),64);
+ assert.equal(r(m(5,0.2,10),2),21.62);assert.equal(r(m(5,0.5,5),2),9.18);assert.equal(r(m(5,0.5,10),2),9.93);
+});
