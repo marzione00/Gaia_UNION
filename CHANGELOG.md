@@ -1,3 +1,9 @@
+# 1.24.1: I capitoli si aprono dal catalogo e dalla mappa
+
+- Nel catalogo «Argomenti», nella scheda dell'unità sulla mappa e nel pannello del sistema, le unità che hanno un capitolo del libro aprono il capitolo. Il pulsante si chiama «Leggi il capitolo». Fino alla 1.24.0 gli stessi pulsanti aprivano il percorso dell'unità, e i capitoli di fisica e di chimica erano raggiungibili soltanto dall'orbita del pianeta.
+- Il percorso dell'unità, con i tre livelli e le domande di verifica, resta nell'orbita del pianeta («Apri l'unità») e nella scheda («Percorso 3D»).
+- Il riferimento a `src/app.js` in `index.html` porta ora il numero di versione, così il browser scarica il codice nuovo dopo ogni rilascio.
+
 # 1.24.0: Il libro della galassia, volume di chimica
 
 - Tutte le 25 unità di chimica hanno un capitolo, scritto per il sito: circa 149.000 parole, 163 figure e 409 esercizi risolti su tre livelli. Ogni capitolo si apre con lo scenario del pianeta e rimanda ai capitoli vicini di chimica e di fisica.
