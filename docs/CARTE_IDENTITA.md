@@ -6,11 +6,11 @@ Ogni pianeta esplorabile ha una carta d’identità generata da `src/worlds/geno
 
 - Ogni famiglia di pianeti ha tre stili di terreno; i pianeti di un’area, da tre a sei, hanno famiglie diverse e quindi terreni diversi (controllato dai test).
 - Una distanza fra due carte, da 0 (identiche) a circa 1, pesa stile di terreno, famiglia, stella, livello del mare, rilievo, ruvidità, colore delle piante, atmosfera e gravità.
-- Il generatore crea i pianeti in ordine e rigenera i parametri liberi di ciascuno (fino a 160 tentativi) finché è ad almeno 0,2 da tutti i precedenti, oppure tiene il tentativo più lontano. Sui 110 pianeti la distanza minima fra due pianeti qualsiasi è 0,175; i test richiedono almeno 0,17.
+- Il generatore crea i pianeti in ordine e rigenera i parametri liberi di ciascuno (fino a 160 tentativi) finché è ad almeno 0,2 da tutti i precedenti, oppure tiene il tentativo più lontano. Sui 125 pianeti la distanza minima fra due pianeti qualsiasi è 0,175; i test richiedono almeno 0,17.
 
-- I tipi di stella sono cinque (nana rossa M, nana arancione K, nana gialla G, bianco-gialla F, bianco-azzurra A), cinque sistemi per i tipi K, F e A, sei per i tipi G e M. Il colore della luce è approssimato; il pigmento delle piante cambia con la stella per contrasto, ispirato alle ipotesi di astrobiologia sulle piante sotto stelle diverse.
+- I tipi di stella sono cinque (nana rossa M, nana arancione K, nana gialla G, bianco-gialla F, bianco-azzurra A), sei sistemi per ciascun tipo. Il colore della luce è approssimato; il pigmento delle piante cambia con la stella per contrasto, ispirato alle ipotesi di astrobiologia sulle piante sotto stelle diverse.
 
-L’immagine con le 110 vedute dall’alto si rigenera con `node tools/render_genomes.mjs cartella` e `python3 tools/genome_sheet.py cartella foglio.png`. Le colonne «Giorno» dividono le durate in terzi (breve, medio, lungo); «Gravità» è relativa a un pianeta di raggio medio.
+L’immagine con le 125 vedute dall’alto si rigenera con `node tools/render_genomes.mjs cartella` e `python3 tools/genome_sheet.py cartella foglio.png`. Le colonne «Giorno» dividono le durate in terzi (breve, medio, lungo); «Gravità» è relativa a un pianeta di raggio medio.
 
 ## Matematica
 
@@ -30,9 +30,9 @@ L’immagine con le 110 vedute dall’alto si rigenera con `node tools/render_ge
 | Dagli zeri alla struttura di un polinomio | Algebra ed equazioni | terrestre | Pianura alluvionale | F, stella bianco-gialla | 45% | media | 1,25 | lungo | 1 luna | aurora, eclissi |
 | Esistenza, unicità e approssimazione | Numeri e ragionamento | desertico | Mare di dune | K, nana arancione | 17% | sottile | 0,88 | breve | 2 lune | eclissi |
 | Ragionamento, conteggio e infinito | Numeri e ragionamento | oceanico | Fiordi | K, nana arancione | 65% | densa | 1,30 | breve | 2 lune | aurora, eclissi, tempesta |
-| Vettori, matrici, dati e vincoli | Geometria e trasformazioni | glaciale | Criovulcani | G, nana gialla | 46% | sottile | 1,05 | breve | 0 lune | aurora, eruzione di geyser |
+| Vettori, matrici, dati e vincoli | Geometria e trasformazioni | glaciale | Criovulcani | G, nana gialla | 46% | sottile | 1,05 | medio | 0 lune | aurora, eruzione di geyser |
 | Complessi, aritmetica e polinomi | Algebra ed equazioni | craterizzato | Pianura di crateri | F, stella bianco-gialla | 4% | assente | 1,27 | medio | 1 luna | eclissi, pioggia di meteoriti |
-| Limiti, variazione e accumulazione | Funzioni e variazione | vulcanico | Colate laviche | K, nana arancione | 11% | media | 0,79 | breve | 1 luna | aurora, eclissi, eruzione di geyser |
+| Limiti, variazione e accumulazione | Funzioni e variazione | vulcanico | Colate laviche | K, nana arancione | 11% | media | 0,79 | medio | 1 luna | aurora, eclissi, eruzione di geyser |
 | Radici, campi e nuovi sistemi numerici | Numeri e ragionamento | terrestre | Colline e fiumi | K, nana arancione | 40% | media | 1,20 | medio | 2 lune | aurora, eclissi |
 | Geometrie, trasformazioni e simmetrie | Geometria e trasformazioni | desertico | Mare di dune | G, nana gialla | 9% | media | 0,71 | medio | 2 lune | aurora, eclissi |
 | Probabilità, informazione e fenomeni collettivi | Probabilità e dati | desertico | Canyon | F, stella bianco-gialla | 13% | sottile | 1,08 | medio | 0 lune | aurora |
@@ -71,6 +71,21 @@ L’immagine con le 110 vedute dall’alto si rigenera con `node tools/render_ge
 | Circuiti e legge di Ohm | Elettromagnetismo e quanti | desertico | Mare di dune | F, stella bianco-gialla | 8% | sottile | 0,92 | lungo | 2 lune | aurora, eclissi |
 | Induzione elettromagnetica | Elettromagnetismo e quanti | terrestre | Colline e fiumi | F, stella bianco-gialla | 37% | media | 1,00 | breve | 0 lune | aurora, tempesta |
 | Fotoni ed energia quantizzata | Elettromagnetismo e quanti | glaciale | Criovulcani | F, stella bianco-gialla | 24% | media | 0,91 | lungo | 2 lune | eclissi, eruzione di geyser |
+| Onde elettromagnetiche e pressione della luce | Luce e telescopi | terrestre | Altopiani a terrazze | A, stella bianco-azzurra | 42% | media | 0,75 | breve | 1 luna | eclissi |
+| Specchi, lenti e telescopi | Luce e telescopi | oceanico | Atolli e lagune | A, stella bianco-azzurra | 55% | media | 0,92 | lungo | 1 luna | aurora, eclissi |
+| Interferenza e interferometri | Luce e telescopi | desertico | Mare di dune | A, stella bianco-azzurra | 1% | sottile | 1,06 | breve | 1 luna | eclissi, pioggia di meteoriti |
+| Diffrazione e potere risolutivo | Luce e telescopi | craterizzato | Altopiano fratturato | A, stella bianco-azzurra | 4% | sottile | 0,71 | breve | 2 lune | eclissi, pioggia di meteoriti |
+| Radiazione termica e luce delle stelle | Luce e telescopi | glaciale | Banchisa | A, stella bianco-azzurra | 21% | sottile | 0,73 | lungo | 1 luna | eclissi, eruzione di geyser |
+| Legge di Gauss: gusci, pianeti e condensatori | Campi e plasmi nello spazio | terrestre | Altopiani a terrazze | K, nana arancione | 32% | media | 0,90 | breve | 0 lune | aurora |
+| Particelle cariche nei campi magnetici | Campi e plasmi nello spazio | oceanico | Atolli e lagune | K, nana arancione | 70% | densa | 0,89 | lungo | 0 lune | tempesta |
+| Correnti, dipoli e dinamo dei pianeti | Campi e plasmi nello spazio | desertico | Canyon | K, nana arancione | 18% | sottile | 0,98 | lungo | 0 lune | aurora |
+| Induzione, circuiti oscillanti e radio | Campi e plasmi nello spazio | craterizzato | Pianura di crateri | K, nana arancione | 4% | assente | 0,97 | breve | 0 lune | pioggia di meteoriti |
+| Equazioni di Maxwell e magnetismo della materia | Campi e plasmi nello spazio | glaciale | Criovulcani | K, nana arancione | 40% | media | 0,73 | breve | 2 lune | eclissi, eruzione di geyser |
+| Relatività ristretta | Dalla relatività al Big Bang | terrestre | Pianura alluvionale | F, stella bianco-gialla | 32% | densa | 0,87 | breve | 2 lune | eclissi, tempesta |
+| Onde di materia, atomi e righe spettrali | Dalla relatività al Big Bang | glaciale | Banchisa | F, stella bianco-gialla | 47% | media | 0,98 | medio | 1 luna | aurora, eclissi, eruzione di geyser |
+| Nuclei, decadimenti e datazioni | Dalla relatività al Big Bang | desertico | Canyon | F, stella bianco-gialla | 2% | sottile | 1,19 | medio | 0 lune | aurora |
+| Energia dal nucleo: fusione nelle stelle | Dalla relatività al Big Bang | vulcanico | Caldera con lago | F, stella bianco-gialla | 7% | densa | 1,06 | lungo | 1 luna | eclissi, tempesta, eruzione di geyser |
+| Particelle, espansione e Big Bang | Dalla relatività al Big Bang | oceanico | Fiordi | F, stella bianco-gialla | 60% | densa | 0,82 | breve | 1 luna | eclissi, tempesta |
 
 ## Chimica
 
@@ -95,7 +110,7 @@ L’immagine con le 110 vedute dall’alto si rigenera con `node tools/render_ge
 | Velocità di reazione | Velocità ed equilibrio | craterizzato | Dorsali e scarpate | A, stella bianco-azzurra | 3% | assente | 1,28 | lungo | 2 lune | eclissi, pioggia di meteoriti |
 | Temperatura e attivazione | Velocità ed equilibrio | desertico | Canyon | A, stella bianco-azzurra | 17% | media | 1,28 | breve | 1 luna | aurora, eclissi |
 | Equilibrio chimico | Velocità ed equilibrio | oceanico | Arcipelago | A, stella bianco-azzurra | 68% | media | 0,90 | breve | 0 lune | nessuno |
-| Perturbazioni dell’equilibrio | Velocità ed equilibrio | vulcanico | Campo vulcanico | A, stella bianco-azzurra | 14% | densa | 1,11 | breve | 1 luna | aurora, eclissi, tempesta, eruzione di geyser |
+| Perturbazioni dell’equilibrio | Velocità ed equilibrio | vulcanico | Campo vulcanico | A, stella bianco-azzurra | 14% | densa | 1,11 | medio | 1 luna | aurora, eclissi, tempesta, eruzione di geyser |
 | Acidi, basi e pH | Acidi, redox e carbonio | vulcanico | Colate laviche | A, stella bianco-azzurra | 16% | media | 0,87 | breve | 0 lune | aurora, eruzione di geyser |
 | Soluzioni tampone | Acidi, redox e carbonio | craterizzato | Altopiano fratturato | A, stella bianco-azzurra | 1% | assente | 1,18 | lungo | 1 luna | eclissi, pioggia di meteoriti |
 | Ossidazione, riduzione ed elettrochimica | Acidi, redox e carbonio | terrestre | Colline e fiumi | A, stella bianco-azzurra | 45% | media | 1,30 | lungo | 0 lune | aurora |

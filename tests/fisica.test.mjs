@@ -10,7 +10,8 @@ const r=(x,d)=>d<0?Math.round(x/10**-d)*10**-d:+x.toFixed(d);
 // Constants: SI 2019 exact values, CODATA 2022, IAU 2015 nominal solar values.
 const c=299792458,G=6.6743e-11,AU=1.495978707e11,S0=1361,LSUN=3.828e26,MSUN=1.98840987e30,eps0=8.8541878188e-12,mu0=1.25663706127e-6,h=6.62607015e-34,kB=1.380649e-23,e=1.602176634e-19,me=9.1093837139e-31,mp=1.67262192595e-27,sigma=5.670374419e-8;
 test('Fisica: i capitoli originali sono completi, collegati e scritti nello stile del sito',async()=>{
- assert.ok(originali.length>=1);
+ // All fifteen astrophysics chapters (physics-26 ... physics-40) are written, in order.
+ assert.deepEqual(originali.map(c=>c.unit),Array.from({length:15},(_,i)=>'physics-'+(26+i)));
  for(const ch0 of originali){
   assert.match(ch0.unit,/^physics-(2[6-9]|3\d|40)$/);
   const src=await read(ch0.file),ch=parseChapter(src),ids=new Set([...ch.toc.map(t=>t.id),...ch.figures,...ch.exercises.map(e=>e.id)]);
