@@ -8,7 +8,7 @@
   "coverage": "guided-foundation",
   "editorialStatus": "original-draft",
   "scope": "Moto rettilineo a velocità costante",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "narrativeStatus": "Lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, calcolati con il modello dell’unità. I fatti storici e i valori reali citati nei testi, come costanti, misure ed esperimenti, si riferiscono al mondo reale.",
   "objectives": [
     "Spiegare: moto rettilineo a velocità costante.",
     "Applicare s(t) = at+b, dichiarando variabili e unità.",
@@ -62,17 +62,18 @@
       "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Una navetta procede lungo un corridoio senza cambiare velocità. Il controllo deve prevedere quando passerà davanti a un portello e distinguere una posizione iniziale da uno spostamento.",
-          "Nel moto rettilineo uniforme la velocità è costante. La posizione segue s(t)=s₀+vt. La pendenza del grafico posizione-tempo è la velocità; l’intercetta è la posizione al tempo zero."
+          "Una sonda scivola su un tratto di ghiaccio piatto, e ogni secondo percorre la stessa distanza: 2 metri. Dove si troverà dopo 3 secondi, se all’inizio era a 1 metro dal paletto di partenza? Per rispondere servono tre ingredienti: un punto di riferimento, un verso positivo e un orologio.",
+          "Un moto in linea retta a velocità costante si chiama moto rettilineo uniforme. La posizione cresce della stessa quantità in ogni secondo, e la legge oraria è s(t) = s₀ + v t, dove s₀ è la posizione iniziale e v la velocità. Per la sonda s(3) = 1 + 2 · 3 = 7 m.",
+          "La definizione è di Galileo Galilei, che nei Discorsi del 1638 chiamò uniforme un moto in cui il corpo percorre spazi uguali in tempi uguali, qualunque siano gli intervalli scelti. Per misurare i tempi Galileo pesava l’acqua uscita da un recipiente forato durante la prova."
         ],
         "intermediate": [
-          "Una navetta procede lungo un corridoio senza cambiare velocità. Il controllo deve prevedere quando passerà davanti a un portello e distinguere una posizione iniziale da uno spostamento.",
-          "Lo spostamento in un intervallo Δt è vΔt. Se v è negativo, la posizione diminuisce rispetto all’asse scelto: ciò non significa che il tempo scorra all’indietro. Per ricavare l’istante di passaggio risolvi t=(s-s₀)/v quando v≠0."
+          "Esempio svolto: leggere una tabella. Una sonda si trova a 1 m al tempo 0 s, a 3 m dopo 1 s, a 5 m dopo 2 s e a 7 m dopo 3 s. Ogni secondo la posizione aumenta di 2 m: la velocità è 2 m/s, la posizione iniziale è 1 m e la legge oraria è s(t) = 1 + 2t.",
+          "Esempio svolto: l’incontro. Due ciclisti partono nello stesso istante da due paesi distanti 30 km e si vengono incontro a 12 km/h e a 18 km/h. Ogni ora la distanza fra loro si riduce di 12 + 18 = 30 km, e quindi si incontrano dopo un’ora, a 12 km dal paese del primo.",
+          "Prova tu: una sonda parte da −5 m e si muove a 2,5 m/s. Scrivi la legge oraria e trova dove si trova dopo 4 s e quando passa per l’origine."
         ],
         "advanced": [
-          "Una navetta procede lungo un corridoio senza cambiare velocità. Il controllo deve prevedere quando passerà davanti a un portello e distinguere una posizione iniziale da uno spostamento.",
-          "Calcola il tempo di incontro fra due navette con velocità e posizioni iniziali diverse. Tratta separatamente il caso di velocità uguali.",
-          "Velocità costante, traiettoria rettilinea e riferimento inerziale sono ipotesi. Avvio, frenata, urti e rumore delle misure non sono inclusi."
+          "La definizione di Galileo contiene una precisazione importante. Nei Discorsi egli avverte che percorrere spazi uguali in alcuni intervalli uguali è insufficiente, perché un corpo potrebbe fare 2 metri in ogni secondo intero e muoversi in modo irregolare all’interno di ciascun secondo. La condizione deve valere per intervalli uguali di qualsiasi durata, ed è questa richiesta a rendere la velocità costante in ogni istante.",
+          "Prima di Galileo il moto era studiato soprattutto in termini qualitativi. Per Aristotele un corpo si muove finché una causa lo spinge, e si ferma quando la causa cessa. Il principio d’inerzia, secondo cui il moto rettilineo uniforme continua senza bisogno di una causa, fu intuito da Galileo e formulato in modo generale da Descartes e poi da Newton come prima legge della dinamica."
         ]
       }
     },
@@ -81,18 +82,24 @@
       "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Nel moto rettilineo uniforme la velocità è costante. La posizione segue s(t)=s₀+vt. La pendenza del grafico posizione-tempo è la velocità; l’intercetta è la posizione al tempo zero.",
-          "Con s₀=1 m e v=2 m/s, dopo 3 s la posizione è 7 m e lo spostamento è 6 m. Le due quantità differiscono perché l’origine non coincide con la partenza."
+          "Nel moto rettilineo uniforme la velocità è il rapporto fra lo spostamento e il tempo impiegato: v = Δs/Δt. Se in 4 s la posizione passa da 1 m a 9 m, lo spostamento è 8 m e la velocità è 8/4 = 2 m/s. Lo stesso rapporto vale per qualunque coppia di istanti.",
+          "La legge oraria s(t) = s₀ + v t ha un grafico molto semplice: una retta nel piano tempo e posizione. La velocità è la pendenza della retta, e la posizione iniziale s₀ è il punto in cui la retta incontra l’asse delle posizioni. Una retta più ripida indica una velocità più alta.",
+          "La velocità ha un segno. Con un verso positivo scelto, una velocità negativa indica un moto nel verso opposto, e la retta scende. Con v = −2 m/s e s₀ = 1 m la sonda si trova a −1 m dopo un secondo, a −3 m dopo due secondi: si allontana dall’origine nel verso negativo.",
+          "Esempio: con v = 2 m/s e s₀ = 1 m, dopo 3 s la posizione è 7 m. Se la velocità diventa 2,5 m/s, nello stesso tempo la sonda percorre 7,5 m e arriva a 8,5 m.",
+          "Il grafico tempo e posizione ha un’origine medievale. Nel Trecento Nicole Oresme, a Parigi, rappresentò grandezze che variano nel tempo con figure geometriche, e i maestri del Merton College di Oxford studiarono il moto con proporzioni fra spazi e tempi."
         ],
         "intermediate": [
-          "Lo spostamento in un intervallo Δt è vΔt. Se v è negativo, la posizione diminuisce rispetto all’asse scelto: ciò non significa che il tempo scorra all’indietro. Per ricavare l’istante di passaggio risolvi t=(s-s₀)/v quando v≠0.",
-          "La variabile Tempo è espressa in s; Posizione in m. Il dominio dello strumento è [0; 10]. La relazione implementata è: s(t) = at+b.",
-          "Con s₀=1 m e v=2 m/s, dopo 3 s la posizione è 7 m e lo spostamento è 6 m. Le due quantità differiscono perché l’origine non coincide con la partenza."
+          "Esempio svolto: il sorpasso. Un’auto A parte dall’origine a 20 m/s; un’auto B, nello stesso istante, si trova 100 m più avanti e viaggia a 15 m/s nello stesso verso. Le leggi orarie sono s_A = 20t e s_B = 100 + 15t. Uguagliando, 20t = 100 + 15t dà t = 20 s, e il sorpasso avviene a 400 m dall’origine. Nel grafico è il punto in cui le due rette si incrociano.",
+          "Esempio svolto: la velocità media di andata e ritorno. Un furgone va da un villaggio all’altro a 60 km/h e torna sulla stessa strada a 40 km/h. Se la distanza è 120 km, l’andata dura 2 h e il ritorno 3 h: 240 km in 5 h danno 48 km/h. La media dei due valori, 50 km/h, sarebbe sbagliata, perché il furgone passa più tempo alla velocità più bassa.",
+          "Esempio svolto: la luce. La luce si muove nel vuoto in modo uniforme a 299 792 458 m/s. Dal Sole alla Terra, circa 1,5 · 10¹¹ m, impiega 1,5 · 10¹¹/3,0 · 10⁸ ≈ 500 s, poco più di otto minuti. Nel 1676 Ole Rømer stimò per primo un tempo di questo tipo osservando i ritardi delle eclissi di Io, un satellite di Giove.",
+          "Il modello del laboratorio calcola s(t) = a t + b per t da 0 a 10 s, con la velocità a fra −3 e 5 m/s e la posizione iniziale b fra −5 e 5 m.",
+          "Prova tu: due ciclisti partono insieme dallo stesso punto e pedalano nello stesso verso a 18 km/h e a 24 km/h. Dopo quanto tempo la loro distanza è di 3 km?"
         ],
         "advanced": [
-          "Lo spostamento in un intervallo Δt è vΔt. Se v è negativo, la posizione diminuisce rispetto all’asse scelto: ciò non significa che il tempo scorra all’indietro. Per ricavare l’istante di passaggio risolvi t=(s-s₀)/v quando v≠0.",
-          "Calcola il tempo di incontro fra due navette con velocità e posizioni iniziali diverse. Tratta separatamente il caso di velocità uguali.",
-          "La quota del grafico non è la velocità. Una retta più in alto può descrivere lo stesso moto iniziato da una posizione diversa."
+          "La velocità istantanea è il limite del rapporto Δs/Δt quando l’intervallo Δt tende a zero, cioè la derivata ds/dt della legge oraria. Per una retta il rapporto è lo stesso per ogni intervallo, e la derivata coincide con la velocità media: il moto uniforme è il caso in cui la distinzione fra media e istante scompare.",
+          "Il problema della velocità in un istante fu uno dei motori della nascita del calcolo infinitesimale. Isaac Newton chiamò flussioni le velocità con cui variano le grandezze, mentre Gottfried Wilhelm Leibniz introdusse, in modo indipendente, la notazione ds/dt usata ancora oggi. La definizione rigorosa con i limiti arrivò soltanto nel corso dell’Ottocento, con Cauchy e Weierstrass.",
+          "Lo spostamento è l’area sotto il grafico tempo e velocità. Per una velocità costante il grafico è un segmento orizzontale, l’area è un rettangolo di base Δt e altezza v, e la sua misura v Δt è proprio lo spostamento. Un’area sotto l’asse dei tempi corrisponde a uno spostamento negativo.",
+          "In un esperimento reale le posizioni sono misurate in istanti discreti, con un errore. Una velocità stimata da due sole posizioni vicine è molto sensibile a quell’errore: con posizioni incerte di 2 mm e intervalli di 0,01 s, la velocità stimata è incerta di circa 2 · √2/0,01 ≈ 280 mm/s. Una retta adattata a molti punti, con il metodo dei minimi quadrati, dà una pendenza molto più affidabile."
         ]
       }
     },
@@ -101,19 +108,19 @@
       "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio imposta Velocità (a): 2 m/s; Posizione iniziale (b): 1 m. Prima di salvare A, prevedi come cambia Posizione fra Tempo=2,5 e 5 s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con s₀=1 m e v=2 m/s, dopo 3 s la posizione è 7 m e lo spostamento è 6 m. Le due quantità differiscono perché l’origine non coincide con la partenza.",
-          "La variabile Tempo è espressa in s; Posizione in m. Il dominio dello strumento è [0; 10]. La relazione implementata è: s(t) = at+b."
+          "Il grafico mostra la posizione s(t) = a t + b per un tempo da 0 a 10 s. Nella scheda «Regola» scegli la velocità a, da −3 a 5 m/s, e la posizione iniziale b, da −5 a 5 m.",
+          "Protocollo. La previsione riguarda il passaggio da t = 2,5 s a t = 5 s. Con a = 2 m/s e b = 1 m scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta a a −2 m/s, lasciando b = 1 m, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Prima di salvare B, chiediti che cosa indica una retta che scende."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Velocità (a): 2 m/s; Posizione iniziale (b): 1 m. Prima di salvare A, prevedi come cambia Posizione fra Tempo=2,5 e 5 s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Tempo è espressa in s; Posizione in m. Il dominio dello strumento è [0; 10]. La relazione implementata è: s(t) = at+b.",
-          "Lo spostamento in un intervallo Δt è vΔt. Se v è negativo, la posizione diminuisce rispetto all’asse scelto: ciò non significa che il tempo scorra all’indietro. Per ricavare l’istante di passaggio risolvi t=(s-s₀)/v quando v≠0."
+          "Il programma calcola la posizione s(t) = a t + b per t fra 0 e 10 s; nella scheda «Regola» la velocità a si regola a passi di 0,5 m/s e la posizione iniziale b a passi di 1 m.",
+          "Protocollo. Configurazione A: a = 2 m/s, b = 1 m, confronto fra t = 2,5 s e t = 5 s, previsione nella scheda «A / B» e «Salva A». Configurazione B: a = −2 m/s con lo stesso b, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. In A la posizione passa da 6 m a 11 m: cresce di 5 m, cioè 2 m/s per 2,5 s. In B passa da −4 m a −9 m e diminuisce della stessa quantità. Le due rette partono dallo stesso punto e sono simmetriche rispetto alla retta orizzontale s = 1 m."
         ],
         "advanced": [
-          "Nel laboratorio imposta Velocità (a): 2 m/s; Posizione iniziale (b): 1 m. Prima di salvare A, prevedi come cambia Posizione fra Tempo=2,5 e 5 s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Calcola il tempo di incontro fra due navette con velocità e posizioni iniziali diverse. Tratta separatamente il caso di velocità uguali.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il laboratorio rappresenta la funzione lineare s(t) = a t + b su t fra 0 e 10 s. La differenza s(5) − s(2,5) vale 2,5 a ed è indipendente da b; la posizione iniziale sposta la retta in verticale e lascia intatta la sua pendenza.",
+          "Protocollo. Con a = 2 m/s e b = 1 m scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il passaggio da t = 2,5 s a t = 5 s e premi «Salva A»; poi porta a a −2 m/s e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "Il segno della pendenza decide la previsione. Con a = 0 la retta è orizzontale e la previsione corretta diventa «Uguale»: la sonda è ferma. Un cambiamento di b, a pendenza fissa, lascia la previsione invariata, e una prova supplementare con b = −5 m lo verifica."
         ]
       }
     },
@@ -122,19 +129,19 @@
       "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "La quota del grafico non è la velocità. Una retta più in alto può descrivere lo stesso moto iniziato da una posizione diversa.",
-          "Velocità costante, traiettoria rettilinea e riferimento inerziale sono ipotesi. Avvio, frenata, urti e rumore delle misure non sono inclusi.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il primo errore frequente è leggere il grafico tempo e posizione come il disegno della strada. Una retta inclinata nel grafico descrive una sonda che si muove in linea retta a velocità costante; la pendenza indica quanto rapidamente cambia la posizione, e la forma del percorso resta un’altra cosa.",
+          "Il secondo errore è pensare che una velocità negativa significhi rallentare. Il segno indica il verso del moto rispetto all’asse scelto: una sonda a −2 m/s va veloce quanto una a 2 m/s, nel verso opposto.",
+          "Il terzo errore è confondere la distanza percorsa con lo spostamento. Un corpo che va avanti di 5 m e torna indietro di 5 m ha percorso 10 m, ma il suo spostamento è zero, e la sua velocità media è zero anche se si è mosso tutto il tempo."
         ],
         "intermediate": [
-          "La quota del grafico non è la velocità. Una retta più in alto può descrivere lo stesso moto iniziato da una posizione diversa.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Esempio svolto: due definizioni di media. Una sonda percorre 30 m verso est in 10 s e poi 30 m verso ovest in 20 s. La velocità media, spostamento diviso tempo, è 0/30 = 0 m/s; la velocità scalare media, distanza percorsa divisa tempo, è 60/30 = 2 m/s. Le due grandezze rispondono a domande diverse.",
+          "Esempio svolto: la posizione iniziale negativa. Con s(t) = −5 + 2t la sonda al tempo zero si trova 5 m dietro l’origine, e la raggiunge dopo 2,5 s. Il valore negativo riguarda la posizione e lascia invariato il tempo, che parte da zero.",
+          "Esempio svolto: un moto che sembra uniforme. Una sonda percorre 2 m nel primo secondo e 2 m nel secondo secondo, e nel mezzo di ciascun secondo si ferma per un istante. Le misure a ogni secondo intero suggeriscono un moto uniforme, che in realtà è irregolare, e soltanto misure più fitte lo rivelano. È esattamente la precisazione di Galileo sugli intervalli di qualsiasi durata."
         ],
         "advanced": [
-          "Velocità costante, traiettoria rettilinea e riferimento inerziale sono ipotesi. Avvio, frenata, urti e rumore delle misure non sono inclusi.",
-          "Calcola il tempo di incontro fra due navette con velocità e posizioni iniziali diverse. Tratta separatamente il caso di velocità uguali.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il modello del laboratorio descrive un moto ideale. Ogni moto reale ha un inizio, una fine e qualche forza che lo modifica: l’attrito rallenta la sonda, una pendenza del ghiaccio la accelera. Il moto uniforme è una buona descrizione quando queste forze si equilibrano o sono trascurabili nell’intervallo osservato.",
+          "Il principio d’inerzia dice che un corpo libero da forze si muove proprio in modo rettilineo uniforme; per questo il moto uniforme è il punto di partenza della dinamica, e qualunque deviazione da esso richiede una forza.",
+          "La validità della descrizione dipende anche dal riferimento: una sonda in moto uniforme rispetto al ghiaccio può apparire accelerata a un osservatore su una piattaforma che ruota. Il moto rettilineo uniforme ha senso soltanto rispetto a un riferimento inerziale."
         ]
       }
     },
@@ -161,19 +168,17 @@
       "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Moto rettilineo a velocità costante.",
-          "Velocità costante, traiettoria rettilinea e riferimento inerziale sono ipotesi. Avvio, frenata, urti e rumore delle misure non sono inclusi.",
-          "Collegamento consigliato: math-c04. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Il moto uniforme è il caso più semplice di moto e il punto di partenza per quelli più complessi. La pendenza di una retta come velocità media torna nell’unità di matematica «Limiti, variazione e accumulazione».",
+          "Riepilogo: nel moto rettilineo uniforme s(t) = s₀ + v t; la velocità è la pendenza della retta; il segno della velocità indica il verso.",
+          "Nel diario registra le configurazioni A e B e spiega perché in B la posizione diminuisce."
         ],
         "intermediate": [
-          "Lo spostamento in un intervallo Δt è vΔt. Se v è negativo, la posizione diminuisce rispetto all’asse scelto: ciò non significa che il tempo scorra all’indietro. Per ricavare l’istante di passaggio risolvi t=(s-s₀)/v quando v≠0.",
-          "Velocità costante, traiettoria rettilinea e riferimento inerziale sono ipotesi. Avvio, frenata, urti e rumore delle misure non sono inclusi.",
-          "Calcola il tempo di incontro fra due navette con velocità e posizioni iniziali diverse. Tratta separatamente il caso di velocità uguali."
+          "Trovare il punto di incontro di due moti uniformi significa risolvere un sistema di due equazioni lineari, come nell’unità di matematica «Equazioni e sistemi». Nella prossima unità di fisica, «Moto uniformemente accelerato», la velocità cambierà nel tempo e la retta diventerà una parabola. La pendenza resterà una velocità, ma media.",
+          "Nel diario risolvi il problema del sorpasso con l’auto B 150 m avanti, trova istante e posizione dell’incontro e spiega come cambia il punto di incrocio delle due rette nel grafico."
         ],
         "advanced": [
-          "Calcola il tempo di incontro fra due navette con velocità e posizioni iniziali diverse. Tratta separatamente il caso di velocità uguali.",
-          "Velocità costante, traiettoria rettilinea e riferimento inerziale sono ipotesi. Avvio, frenata, urti e rumore delle misure non sono inclusi.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La derivata come limite del rapporto incrementale è nell’unità di matematica «Limiti, variazione e accumulazione», insieme all’area sotto un grafico. Il principio d’inerzia diventerà la prima legge della dinamica nell’unità «Forze e leggi di Newton». Lì il moto uniforme sarà il comportamento di un corpo su cui la forza totale è nulla.",
+          "Nel diario spiega perché una velocità stimata da due posizioni vicine è più incerta di una pendenza ottenuta da molti punti, quale ruolo ha l’intervallo di campionamento e come sceglieresti quell’intervallo per una sonda lenta."
         ]
       }
     }

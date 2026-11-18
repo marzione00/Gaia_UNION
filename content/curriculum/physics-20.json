@@ -8,7 +8,7 @@
   "coverage": "guided-foundation",
   "editorialStatus": "original-draft",
   "scope": "Limite reversibile fra due sorgenti ideali",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "narrativeStatus": "Lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, calcolati con il modello dell’unità. I fatti storici e i valori reali citati nei testi, come costanti, misure ed esperimenti, si riferiscono al mondo reale.",
   "objectives": [
     "Spiegare: limite reversibile fra due sorgenti ideali.",
     "Applicare η_C = 1-T_f/T_c, dichiarando variabili e unità.",
@@ -58,17 +58,18 @@
       "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Una macchina ideale usa una sorgente calda e una fredda. La stazione vuole sapere quale limite teorico deve rispettare prima di discutere perdite e dettagli costruttivi.",
-          "Il rendimento di una macchina termica è il lavoro ottenuto diviso il calore assorbito dalla sorgente calda. Fra due temperature fissate, il rendimento di Carnot è un limite per una macchina reversibile."
+          "La centrale della base brucia combustibile per scaldare vapore e far girare una turbina. Gli ingegneri vorrebbero trasformare tutto il calore in lavoro elettrico, ma una parte deve sempre finire nell’acqua fredda del condensatore. È un difetto della centrale o una legge della natura?",
+          "È una legge della natura. Una macchina termica lavora fra una sorgente calda, a temperatura T_c, e una fredda, a temperatura T_f; prende calore dalla prima, ne trasforma una parte in lavoro e cede il resto alla seconda. Il rendimento, cioè la frazione del calore assorbito che diventa lavoro, ha un tetto invalicabile, il limite di Carnot, η_C = 1 − T_f/T_c, con le temperature in kelvin.",
+          "Fra 600 K e 300 K il rendimento massimo è 1 − 300/600 = 0,5: anche la macchina perfetta trasforma in lavoro soltanto metà del calore assorbito. Il limite fu scoperto nel 1824 da Sadi Carnot, giovane ingegnere francese, in un libretto intitolato Riflessioni sulla potenza motrice del fuoco."
         ],
         "intermediate": [
-          "Una macchina ideale usa una sorgente calda e una fredda. La stazione vuole sapere quale limite teorico deve rispettare prima di discutere perdite e dettagli costruttivi.",
-          "La relazione è η_C=1-T_fredda/T_calda, con temperature in kelvin. Abbassare la temperatura fredda o alzare quella calda aumenta il limite, ma non garantisce che una macchina reale lo raggiunga."
+          "Esempio svolto: il limite di Carnot. Con la sorgente fredda a 300 K e quella calda a 600 K, η_C = 0,5. Se la sorgente fredda sale a 325 K, η_C = 1 − 325/600 ≈ 0,458: scaldare l’acqua del condensatore riduce il rendimento massimo. Se la sorgente calda sale a 900 K, η_C = 1 − 300/900 ≈ 0,667.",
+          "Esempio svolto: il bilancio di una macchina. Una macchina con rendimento 0,4 assorbe 1000 J dalla sorgente calda. Produce 400 J di lavoro e cede 600 J alla sorgente fredda: l’energia si conserva, e il calore ceduto è la parte che non è diventata lavoro.",
+          "Prova tu: quale temperatura deve avere la sorgente calda perché il limite di Carnot sia del 75%, con la sorgente fredda a 300 K?"
         ],
         "advanced": [
-          "Una macchina ideale usa una sorgente calda e una fredda. La stazione vuole sapere quale limite teorico deve rispettare prima di discutere perdite e dettagli costruttivi.",
-          "Spiega perché avvicinare le temperature delle sorgenti riduce il lavoro teoricamente estraibile. Collega il risultato al bilancio di entropia di un ciclo reversibile.",
-          "Due sorgenti ideali a temperature costanti e ciclo reversibile come riferimento. Non sono modellati potenza, scambiatori o attriti."
+          "Le macchine a vapore precedettero la loro teoria di più di un secolo. La macchina di Thomas Newcomen, del 1712, pompava acqua dalle miniere con un rendimento inferiore all’1%; James Watt, dal 1765, la migliorò separando il condensatore dal cilindro, e quadruplicò l’efficienza. Nessuno sapeva però se ci fosse un limite al miglioramento.",
+          "Carnot rispose ragionando su una macchina ideale e reversibile, senza attriti e senza scambi di calore fra corpi a temperature diverse. Usava ancora la teoria del calorico, e immaginava il calore che scende da una temperatura alta a una bassa come l’acqua che cade su una ruota di mulino. Morì di colera nel 1832, a trentasei anni, e il suo lavoro fu riscoperto da Émile Clapeyron nel 1834 e da William Thomson e Rudolf Clausius intorno al 1850."
         ]
       }
     },
@@ -77,18 +78,24 @@
       "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Il rendimento di una macchina termica è il lavoro ottenuto diviso il calore assorbito dalla sorgente calda. Fra due temperature fissate, il rendimento di Carnot è un limite per una macchina reversibile.",
-          "Con sorgenti a 300 K e 600 K, il limite è 0,5, cioè 50%. Usare 27 °C e 327 °C nel rapporto darebbe un risultato fisicamente scorretto."
+          "Il primo principio della termodinamica è la conservazione dell’energia applicata al calore: la variazione di energia interna di un sistema è uguale al calore ricevuto meno il lavoro compiuto, ΔU = Q − W. In un ciclo completo la macchina torna allo stato iniziale, ΔU = 0, e il lavoro prodotto è uguale al calore netto assorbito.",
+          "Il secondo principio aggiunge un vincolo che il primo non contiene. Nella forma di Kelvin dice che è impossibile una macchina che, in un ciclo, trasformi in lavoro tutto il calore preso da una sola sorgente; nella forma di Clausius, che il calore non passa spontaneamente da un corpo freddo a uno caldo. Le due forme sono equivalenti.",
+          "Il limite di Carnot dipende soltanto dalle temperature delle sorgenti. Per aumentarlo bisogna rendere la sorgente calda più calda o quella fredda più fredda; la scelta del fluido, del metallo o della forma della macchina non conta.",
+          "Esempio: una centrale con vapore a 820 K e acqua di raffreddamento a 300 K ha un limite di Carnot di 1 − 300/820 ≈ 0,63. Le centrali a carbone reali raggiungono il 35 o 40%, perché attriti, perdite e scambi di calore a temperature diverse le allontanano dalla macchina ideale.",
+          "Il secondo principio fu formulato in modo esplicito da Clausius nel 1850 e da Thomson nel 1851. Nel 1865 Clausius introdusse l’entropia, una grandezza che in un sistema isolato può soltanto crescere o restare costante, e riassunse la termodinamica in due frasi: l’energia del mondo è costante, l’entropia del mondo tende a un massimo."
         ],
         "intermediate": [
-          "La relazione è η_C=1-T_fredda/T_calda, con temperature in kelvin. Abbassare la temperatura fredda o alzare quella calda aumenta il limite, ma non garantisce che una macchina reale lo raggiunga.",
-          "La variabile Sorgente calda T_c è espressa in K; Rendimento limite in 1. Il dominio dello strumento è [400; 1000]. La relazione implementata è: η_C = 1-T_f/T_c.",
-          "Con sorgenti a 300 K e 600 K, il limite è 0,5, cioè 50%. Usare 27 °C e 327 °C nel rapporto darebbe un risultato fisicamente scorretto."
+          "Esempio svolto: il frigorifero. Un frigorifero è una macchina termica che funziona al contrario: usa lavoro per portare calore dall’interno freddo alla cucina più calda. La sua efficienza si misura con il coefficiente di prestazione, il calore estratto diviso per il lavoro. Il limite ideale è T_f/(T_c − T_f): con 255 K dentro e 300 K fuori vale 255/45 ≈ 5,7.",
+          "Esempio svolto: la pompa di calore. Una pompa di calore porta calore dall’aria esterna, a 273 K, a una casa a 293 K. Il calore consegnato diviso per il lavoro ha un limite ideale di 293/20 ≈ 14,7; le pompe reali raggiungono valori fra 3 e 4. Con 1 kWh di elettricità consegnano 3 o 4 kWh di calore, senza violare alcun principio, perché la differenza viene dall’aria esterna.",
+          "Esempio svolto: l’entropia di uno scambio. Mille joule passano spontaneamente da un corpo a 600 K a uno a 300 K. Il primo perde un’entropia di 1000/600 ≈ 1,67 J/K, il secondo ne guadagna 1000/300 ≈ 3,33 J/K. L’entropia totale cresce di circa 1,67 J/K: lo scambio è irreversibile.",
+          "Il modello del laboratorio calcola η_C = 1 − T_f/T_c per una sorgente calda fra 400 e 1000 K, con la sorgente fredda fra 100 e 350 K a passi di 25.",
+          "Prova tu: quale coefficiente di prestazione ideale avrebbe un frigorifero con l’interno a 278 K in una cucina a 298 K?"
         ],
         "advanced": [
-          "La relazione è η_C=1-T_fredda/T_calda, con temperature in kelvin. Abbassare la temperatura fredda o alzare quella calda aumenta il limite, ma non garantisce che una macchina reale lo raggiunga.",
-          "Spiega perché avvicinare le temperature delle sorgenti riduce il lavoro teoricamente estraibile. Collega il risultato al bilancio di entropia di un ciclo reversibile.",
-          "Rendimento limite non significa rendimento garantito. Un valore inferiore a uno non viola la conservazione dell’energia: una parte del calore viene ceduta alla sorgente fredda."
+          "La dimostrazione del limite di Carnot procede per assurdo. Se esistesse una macchina più efficiente di quella reversibile, la si potrebbe accoppiare a una macchina di Carnot che funziona al contrario, come frigorifero, usando il lavoro della prima. Il risultato netto sarebbe un flusso di calore dal freddo al caldo senza lavoro esterno, contro il secondo principio. Lo stesso ragionamento mostra che tutte le macchine reversibili fra le stesse due sorgenti hanno lo stesso rendimento.",
+          "Per una macchina reversibile il rapporto fra calori scambiati è uguale al rapporto fra le temperature: Q_f/Q_c = T_f/T_c. Thomson usò proprio questa proprietà per definire la scala assoluta delle temperature, indipendente da qualunque sostanza termometrica. Lo zero di quella scala è lo zero assoluto.",
+          "Ludwig Boltzmann diede all’entropia un significato microscopico: S = k ln W, dove W è il numero di configurazioni microscopiche compatibili con lo stato macroscopico. La formula è incisa sulla sua tomba a Vienna. Il secondo principio diventa una legge statistica: le configurazioni disordinate sono enormemente più numerose di quelle ordinate, e un sistema lasciato a sé evolve verso di esse.",
+          "Una macchina reversibile è infinitamente lenta, e quindi produce potenza nulla. Nel 1975 Frank Curzon e Boris Ahlborn mostrarono che una macchina ottimizzata per la potenza ha un rendimento vicino a 1 − √(T_f/T_c): fra 600 e 300 K circa il 29%, un valore sorprendentemente vicino a quello di molte centrali reali."
         ]
       }
     },
@@ -97,19 +104,19 @@
       "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio imposta Sorgente fredda (a): 300 K. Prima di salvare A, prevedi come cambia Rendimento limite fra Sorgente calda T_c=550 e 700 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con sorgenti a 300 K e 600 K, il limite è 0,5, cioè 50%. Usare 27 °C e 327 °C nel rapporto darebbe un risultato fisicamente scorretto.",
-          "La variabile Sorgente calda T_c è espressa in K; Rendimento limite in 1. Il dominio dello strumento è [400; 1000]. La relazione implementata è: η_C = 1-T_f/T_c."
+          "Il grafico mostra il limite di Carnot η_C = 1 − T_f/T_c al variare della temperatura della sorgente calda, da 400 a 1000 K. Nella scheda «Regola» scegli la temperatura della sorgente fredda T_f, da 100 a 350 K.",
+          "Protocollo. La previsione riguarda il passaggio da T_c = 550 K a T_c = 700 K. Con T_f = 300 K scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta T_f a 200 K, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Prima di salvare B, chiediti se una sorgente fredda più fredda alzi o abbassi l’intera curva."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Sorgente fredda (a): 300 K. Prima di salvare A, prevedi come cambia Rendimento limite fra Sorgente calda T_c=550 e 700 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Sorgente calda T_c è espressa in K; Rendimento limite in 1. Il dominio dello strumento è [400; 1000]. La relazione implementata è: η_C = 1-T_f/T_c.",
-          "La relazione è η_C=1-T_fredda/T_calda, con temperature in kelvin. Abbassare la temperatura fredda o alzare quella calda aumenta il limite, ma non garantisce che una macchina reale lo raggiunga."
+          "Il programma calcola il limite di Carnot η_C = 1 − T_f/T_c per una sorgente calda fra 400 e 1000 K; nella scheda «Regola» la sorgente fredda si regola a passi di 25 K.",
+          "Protocollo. Configurazione A: T_f = 300 K, confronto fra T_c = 550 K e T_c = 700 K, previsione nella scheda «A / B» e «Salva A». Configurazione B: T_f = 200 K, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. In A il limite passa da circa 0,455 a 0,571, in B da circa 0,636 a 0,714. In entrambi i casi cresce; in B la curva è più alta e meno ripida, perché il guadagno di una sorgente calda più calda è minore quando il rendimento è già elevato."
         ],
         "advanced": [
-          "Nel laboratorio imposta Sorgente fredda (a): 300 K. Prima di salvare A, prevedi come cambia Rendimento limite fra Sorgente calda T_c=550 e 700 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Spiega perché avvicinare le temperature delle sorgenti riduce il lavoro teoricamente estraibile. Collega il risultato al bilancio di entropia di un ciclo reversibile.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il laboratorio rappresenta η_C(T_c) = 1 − T_f/T_c su T_c fra 400 e 1000 K. La derivata, T_f/T_c², è positiva e decresce: la curva sale verso 1 senza mai raggiungerlo, e ogni kelvin in più vale meno del precedente.",
+          "Protocollo. Con T_f = 300 K scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il passaggio da T_c = 550 K a T_c = 700 K e premi «Salva A»; poi porta T_f a 200 K e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "La differenza fra i due punti, T_f (1/550 − 1/700), è proporzionale a T_f: vale circa 0,117 in A e 0,078 in B. La previsione resta la stessa per ogni T_f positiva, mentre l’entità del guadagno cambia; il modello vale soltanto per T_c maggiore di T_f, condizione sempre soddisfatta nell’intervallo del laboratorio."
         ]
       }
     },
@@ -118,19 +125,19 @@
       "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Rendimento limite non significa rendimento garantito. Un valore inferiore a uno non viola la conservazione dell’energia: una parte del calore viene ceduta alla sorgente fredda.",
-          "Due sorgenti ideali a temperature costanti e ciclo reversibile come riferimento. Non sono modellati potenza, scambiatori o attriti.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il primo errore frequente è usare le temperature in gradi Celsius. Fra 327 °C e 27 °C il rapporto 27/327 darebbe un rendimento del 92%, del tutto sbagliato; in kelvin le temperature sono 600 K e 300 K, e il limite è il 50%.",
+          "Il secondo errore è pensare che il limite di Carnot si possa superare con una tecnologia migliore. È un limite di principio, che vale per qualunque macchina fra le stesse due temperature; la tecnologia può soltanto avvicinare le macchine reali al limite.",
+          "Il terzo errore è credere che il calore ceduto alla sorgente fredda sia energia distrutta. L’energia si conserva sempre; il secondo principio dice che una parte deve finire a bassa temperatura, dove è meno utilizzabile per produrre lavoro."
         ],
         "intermediate": [
-          "Rendimento limite non significa rendimento garantito. Un valore inferiore a uno non viola la conservazione dell’energia: una parte del calore viene ceduta alla sorgente fredda.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Esempio svolto: il frigorifero aperto. Un frigorifero con la porta aperta in una stanza chiusa scalda la stanza. Estrae calore dall’interno e lo restituisce alla stanza dal retro, insieme al lavoro elettrico del compressore: il bilancio netto è un aumento dell’energia nella stanza pari al lavoro consumato.",
+          "Esempio svolto: il rendimento delle auto. Un motore a benzina brucia la miscela a temperature di circa 2000 K e cede il calore all’aria a circa 300 K, con un limite di Carnot vicino all’85%. I motori reali convertono in lavoro circa il 25 o 30% dell’energia del carburante, perché il ciclo reale è molto diverso da quello di Carnot e le perdite sono grandi.",
+          "Esempio svolto: la pompa di calore. Una pompa di calore con coefficiente 3,5 consuma 1 kWh di elettricità e consegna 3,5 kWh di calore alla casa. Il primo principio è rispettato, perché 2,5 kWh provengono dall’aria esterna; il secondo anche, perché quel calore passa dal freddo al caldo grazie al lavoro del compressore."
         ],
         "advanced": [
-          "Due sorgenti ideali a temperature costanti e ciclo reversibile come riferimento. Non sono modellati potenza, scambiatori o attriti.",
-          "Spiega perché avvicinare le temperature delle sorgenti riduce il lavoro teoricamente estraibile. Collega il risultato al bilancio di entropia di un ciclo reversibile.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il modello del laboratorio descrive un limite reversibile fra due sorgenti ideali a temperatura fissa. Una sorgente reale si raffredda mentre cede calore, e i fumi di una centrale escono a temperature che vanno da quella della fiamma a quella del camino; il limite corretto si ottiene allora integrando su tutte le temperature.",
+          "Le macchine reali seguono cicli diversi, come il ciclo Otto dei motori a benzina e il ciclo Rankine delle centrali a vapore, con rendimenti teorici minori del limite di Carnot alle stesse temperature estreme. Le centrali a ciclo combinato, che usano i gas caldi di una turbina per produrre vapore, raggiungono rendimenti vicini al 60%.",
+          "Il secondo principio vale per sistemi macroscopici. Per sistemi di poche molecole l’entropia può diminuire per brevi istanti, con probabilità che i teoremi di fluttuazione degli anni Novanta hanno reso quantitative."
         ]
       }
     },
@@ -157,19 +164,17 @@
       "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Limite reversibile fra due sorgenti ideali.",
-          "Due sorgenti ideali a temperature costanti e ciclo reversibile come riferimento. Non sono modellati potenza, scambiatori o attriti.",
-          "Collegamento consigliato: physics-19. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Il limite di Carnot spiega perché centrali e motori disperdono calore e perché le pompe di calore conviene usarle con piccole differenze di temperatura. La capacità termica dell’unità «Calore e capacità termica» descrive le sorgenti.",
+          "Riepilogo: ΔU = Q − W; η_C = 1 − T_f/T_c con temperature in kelvin; nessuna macchina fra le stesse sorgenti supera il limite reversibile.",
+          "Nel diario registra A e B e spiega perché in B il rendimento limite è più alto."
         ],
         "intermediate": [
-          "La relazione è η_C=1-T_fredda/T_calda, con temperature in kelvin. Abbassare la temperatura fredda o alzare quella calda aumenta il limite, ma non garantisce che una macchina reale lo raggiunga.",
-          "Due sorgenti ideali a temperature costanti e ciclo reversibile come riferimento. Non sono modellati potenza, scambiatori o attriti.",
-          "Spiega perché avvicinare le temperature delle sorgenti riduce il lavoro teoricamente estraibile. Collega il risultato al bilancio di entropia di un ciclo reversibile."
+          "L’entropia e il secondo principio decidono anche la direzione delle reazioni chimiche, come mostra l’energia libera dell’unità di chimica «Ossidazione, riduzione ed elettrochimica». La radiazione delle stelle dell’unità «Radiazione termica e luce delle stelle» è l’esempio estremo di una sorgente calda.",
+          "Nel diario confronta il limite di Carnot e un rendimento reale del 40% per una centrale a 820 K con raffreddamento a 300 K, e calcola quanta energia finisce nel fiume per ogni megajoule elettrico prodotto."
         ],
         "advanced": [
-          "Spiega perché avvicinare le temperature delle sorgenti riduce il lavoro teoricamente estraibile. Collega il risultato al bilancio di entropia di un ciclo reversibile.",
-          "Due sorgenti ideali a temperature costanti e ciclo reversibile come riferimento. Non sono modellati potenza, scambiatori o attriti.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La formula di Boltzmann collega la termodinamica alla probabilità, studiata nell’unità di matematica «Probabilità, informazione e fenomeni collettivi», dove l’entropia di Shannon ha la stessa forma matematica. La fusione nucleare dell’unità «Energia dal nucleo: fusione nelle stelle» fornisce le sorgenti più calde dell’universo.",
+          "Nel diario ricostruisci il ragionamento per assurdo di Carnot, spiega perché tutte le macchine reversibili fra le stesse sorgenti hanno lo stesso rendimento e perché una macchina reversibile, a rigore, produce potenza nulla."
         ]
       }
     }

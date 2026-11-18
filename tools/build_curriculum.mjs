@@ -7,6 +7,8 @@ const root=fileURLToPath(new URL('../',import.meta.url));
 const load=p=>JSON.parse(fs.readFileSync(root+p,'utf8'));
 const write=(p,v)=>fs.writeFileSync(root+p,JSON.stringify(v,null,2)+'\n');
 const authored=load('content/curriculum/authored.json'),catalogue=load('content/catalogue.json'),prototypes=new Map(load('content/curriculum/prototypes.json').units.map(p=>[p.id,p]));
+// Rewritten reading levels for generated units: three distinct texts for each step except the quiz step (4).
+const leveled=new Map(Object.entries(load('content/curriculum/levels.json').units));
 const sources=[
  {id:'precalculus',title:'OpenStax — Precalculus 2e',url:'https://openstax.org/books/precalculus-2e/pages/preface'},
  {id:'calculus',title:'OpenStax — Calculus Volume 1',url:'https://openstax.org/books/calculus-volume-1/pages/preface'},
@@ -78,6 +80,9 @@ for(const [i,a] of authored.courses.entries()){
  const proto=prototypes.get(unit.id);
  if(proto){for(const key of ['title','scope','narrativeStatus','objectives','prerequisites','connections','sources','glossary','steps','questions'])definition[key]=structuredClone(proto[key]);
   if(proto.activity)definition.activity=structuredClone(proto.activity);definition.coverage=proto.activity?'guided-activity':'guided-lab';definition.editorialStatus='hand-written-draft';}
+ // A generated unit with rewritten levels keeps its model, questions and glossary; only the step texts change.
+ const lv=proto?null:leveled.get(unit.id);
+ if(lv){for(const [i,t] of Object.entries(lv.steps))definition.steps[+i].text=levels(t.base,t.intermediate,t.advanced);if(lv.narrativeStatus)definition.narrativeStatus=lv.narrativeStatus;}
  definitions.push(definition);
  unit.curriculum={path:`content/curriculum/${unit.id}.json`,modelId:unit.id,coverage:definition.coverage};
  if(unit.sector>0){unit.title=a.title;unit.status='guided';unit.coverage='guided-foundation';unit.description=a.concept;unit.prerequisites=definition.prerequisites;unit.tags=[['Matematica','Fisica','Chimica','Biologia'][unit.sector],a.title,a.bound];}

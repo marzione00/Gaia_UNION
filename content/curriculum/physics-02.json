@@ -8,7 +8,7 @@
   "coverage": "guided-foundation",
   "editorialStatus": "original-draft",
   "scope": "Componenti ortogonali nello stesso riferimento",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "narrativeStatus": "Lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, calcolati con il modello dell’unità. I fatti storici e i valori reali citati nei testi, come costanti, misure ed esperimenti, si riferiscono al mondo reale.",
   "objectives": [
     "Spiegare: componenti ortogonali nello stesso riferimento.",
     "Applicare |v| = √(v_x²+v_y²), dichiarando variabili e unità.",
@@ -58,17 +58,18 @@
       "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Il rover si muove verso est mentre il terreno trasporta lateralmente un sensore. Le componenti della velocità sono note: la velocità totale non si ottiene sommando semplicemente i numeri.",
-          "Un vettore possiede modulo, direzione e verso. Le componenti dipendono dagli assi scelti, mentre il modulo della velocità rispetto a uno stesso riferimento non cambia ruotando gli assi."
+          "Il rover avanza verso est a 4 m/s, mentre il terreno sabbioso lo trascina verso nord a 3 m/s. Quanto velocemente si muove davvero? Sommare i due numeri darebbe 7 m/s, e la risposta è sbagliata: le due velocità hanno direzioni diverse, e una grandezza con una direzione va trattata come un vettore.",
+          "Un vettore ha un modulo, cioè una lunghezza, una direzione e un verso. Si disegna come una freccia, e due frecce si sommano mettendo la coda della seconda sulla punta della prima. Con le due velocità perpendicolari del rover si ottiene un triangolo rettangolo, e il teorema di Pitagora dà il modulo: √(4² + 3²) = 5 m/s.",
+          "Per descrivere un vettore con numeri serve un sistema di riferimento, cioè un’origine e due assi. Le coordinate cartesiane portano il nome di René Descartes, che nel Seicento, insieme a Pierre de Fermat, collegò le equazioni dell’algebra alle figure della geometria."
         ],
         "intermediate": [
-          "Il rover si muove verso est mentre il terreno trasporta lateralmente un sensore. Le componenti della velocità sono note: la velocità totale non si ottiene sommando semplicemente i numeri.",
-          "Con componenti perpendicolari v_x e v_y, il teorema di Pitagora dà |v|=√(v_x²+v_y²). Le componenti possono essere negative; i quadrati assicurano un modulo non negativo."
+          "Esempio svolto: le componenti. Una velocità di 10 m/s forma un angolo di 30° con l’asse x. Le sue componenti sono v_x = 10 cos 30° ≈ 8,66 m/s e v_y = 10 sin 30° = 5,00 m/s. Il controllo √(8,66² + 5,00²) ≈ 10,0 m/s conferma il risultato.",
+          "Esempio svolto: il fiume. Una barca punta dritta verso l’altra riva a 4 m/s, e la corrente la trascina a valle a 3 m/s. Rispetto alla riva la barca si muove a 5 m/s, con un angolo di circa 37° rispetto alla direzione in cui punta. Se il fiume è largo 100 m, la traversata dura 100/4 = 25 s e la barca approda 3 · 25 = 75 m più a valle.",
+          "Prova tu: la pioggia cade in verticale a 8 m/s e un’auto viaggia a 6 m/s. Con quale velocità, e con quale inclinazione rispetto alla verticale, le gocce colpiscono il parabrezza visto dal guidatore?"
         ],
         "advanced": [
-          "Il rover si muove verso est mentre il terreno trasporta lateralmente un sensore. Le componenti della velocità sono note: la velocità totale non si ottiene sommando semplicemente i numeri.",
-          "Ruota gli assi di 90° e verifica che il modulo resti uguale. Confronta poi due velocità relative usando la composizione galileiana, dichiarando i riferimenti.",
-          "Il modello considera due componenti ortogonali di una stessa velocità. Non include trasformazioni relativistiche o accelerazioni del riferimento."
+          "Un vettore esiste indipendentemente dagli assi scelti per descriverlo; le sue componenti, invece, cambiano quando gli assi ruotano. Il modulo √(v_x² + v_y²) resta lo stesso in ogni coppia di assi perpendicolari, ed è per questo che rappresenta una proprietà fisica della velocità, mentre la singola componente dipende da una scelta di chi descrive.",
+          "Il linguaggio dei vettori è recente. Gli Elementi di Euclide trattavano lunghezze e direzioni con costruzioni geometriche, senza numeri associati; nel 1843 William Rowan Hamilton inventò i quaternioni per rappresentare le rotazioni nello spazio, e l’anno seguente Hermann Grassmann pubblicò un’algebra delle estensioni molto più generale. Il calcolo vettoriale usato oggi in fisica fu selezionato da quei sistemi, negli anni Ottanta dell’Ottocento, da Josiah Willard Gibbs e Oliver Heaviside."
         ]
       }
     },
@@ -77,18 +78,24 @@
       "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Un vettore possiede modulo, direzione e verso. Le componenti dipendono dagli assi scelti, mentre il modulo della velocità rispetto a uno stesso riferimento non cambia ruotando gli assi.",
-          "Per v_x=4 m/s e v_y=3 m/s il modulo è 5 m/s, non 7. La direzione può essere ricavata dall’angolo con l’asse orizzontale, controllando il quadrante."
+          "Per sommare due vettori si possono sommare le loro componenti lungo gli stessi assi. Se il rover ha componenti (4; 0) m/s e il trascinamento del terreno ha componenti (0; 3) m/s, la velocità totale ha componenti (4; 3) m/s. Il modulo si calcola poi con il teorema di Pitagora: |v| = √(v_x² + v_y²) = √(16 + 9) = 5 m/s.",
+          "Le componenti possono essere negative: una componente v_x = −4 m/s indica un moto verso ovest. Il quadrato elimina il segno, e per questo il modulo è sempre positivo o nullo. Il modulo è zero soltanto se entrambe le componenti sono zero.",
+          "La direzione si descrive con l’angolo θ fra il vettore e l’asse x. Nel triangolo rettangolo formato dalle componenti, tan θ = v_y/v_x: per il rover tan θ = 3/4, e θ ≈ 37° a nord dell’est.",
+          "Lo stesso vettore ha componenti diverse in assi diversi. Se si ruotano gli assi di 90°, la velocità del rover ha componenti (3; −4) m/s nel nuovo riferimento. Il modulo resta √(9 + 16) = 5 m/s: la velocità fisica è la stessa, è cambiata soltanto la descrizione.",
+          "L’idea di comporre forze e velocità con una figura geometrica è antica. Isaac Newton la enunciò nel 1687 come primo corollario delle leggi del moto: due forze che agiscono insieme producono lo stesso effetto della diagonale del parallelogramma che le ha per lati."
         ],
         "intermediate": [
-          "Con componenti perpendicolari v_x e v_y, il teorema di Pitagora dà |v|=√(v_x²+v_y²). Le componenti possono essere negative; i quadrati assicurano un modulo non negativo.",
-          "La variabile Componente v_x è espressa in m/s; Modulo velocità in m/s. Il dominio dello strumento è [0; 10]. La relazione implementata è: |v| = √(v_x²+v_y²).",
-          "Per v_x=4 m/s e v_y=3 m/s il modulo è 5 m/s, non 7. La direzione può essere ricavata dall’angolo con l’asse orizzontale, controllando il quadrante."
+          "Esempio svolto: l’aereo e il vento. Un aereo vola verso nord a 200 km/h rispetto all’aria, e un vento soffia verso est a 50 km/h. Rispetto al suolo la velocità ha componenti (50; 200) km/h e modulo √(2500 + 40 000) = √42 500 ≈ 206 km/h. La rotta devia di un angolo θ con tan θ = 50/200, cioè θ ≈ 14° a est del nord.",
+          "Esempio svolto: tre spostamenti. Un escursionista percorre 3 km verso est, poi 2 km verso nord, poi 1 km verso ovest. Sommando le componenti, lo spostamento totale è (3 − 1; 2) = (2; 2) km, con modulo √8 ≈ 2,83 km e direzione 45° a nord dell’est. La strada percorsa, 6 km, è più del doppio dello spostamento.",
+          "Esempio svolto: il prodotto scalare. Il prodotto scalare di due vettori si calcola con le componenti, a · b = a_x b_x + a_y b_y, e vale anche |a| |b| cos φ, dove φ è l’angolo fra i due. Per a = (4; 3) e b = (−3; 4) si ottiene −12 + 12 = 0: i due vettori sono perpendicolari. Il vettore a è la velocità del rover, e b è la stessa freccia ruotata di 90° in senso antiorario.",
+          "Il modello del laboratorio calcola |v| = √(v_x² + v_y²) per v_x da 0 a 10 m/s, con v_y regolabile da 0 a 8 m/s a passi di 1. Con v_y = 3 m/s e v_x = 4 m/s il modulo è 5 m/s; con v_y = 4 m/s e v_x = 4 m/s è √32 ≈ 5,66 m/s.",
+          "Prova tu: con v_x = 6 m/s e v_y = 8 m/s calcola il modulo della velocità e l’angolo con l’asse x."
         ],
         "advanced": [
-          "Con componenti perpendicolari v_x e v_y, il teorema di Pitagora dà |v|=√(v_x²+v_y²). Le componenti possono essere negative; i quadrati assicurano un modulo non negativo.",
-          "Ruota gli assi di 90° e verifica che il modulo resti uguale. Confronta poi due velocità relative usando la composizione galileiana, dichiarando i riferimenti.",
-          "La somma dei moduli coincide con il modulo della somma solo in casi particolari. Una rotazione degli assi non va confusa con un cambio di osservatore in moto rispetto al primo."
+          "La conservazione del modulo nelle rotazioni si dimostra con poche righe. Se gli assi ruotano di un angolo α, le nuove componenti sono v_x′ = v_x cos α + v_y sin α e v_y′ = −v_x sin α + v_y cos α. Sommando i quadrati, i termini misti 2 v_x v_y sin α cos α si cancellano e restano (v_x² + v_y²)(cos² α + sin² α) = v_x² + v_y². In linguaggio matriciale, il prodotto della trasposta di R per R è la matrice identità, e la lunghezza si conserva per questo motivo.",
+          "Il prodotto scalare è anch’esso invariante per rotazione, e permette di misurare angoli usando soltanto componenti: cos φ = (a · b)/(|a| |b|). La componente di un vettore lungo una direzione qualsiasi, individuata da un versore u, è il prodotto scalare v · u; le componenti cartesiane sono il caso particolare in cui u è uno degli assi.",
+          "La storia del formalismo spiega alcune sue particolarità. Hamilton incise la formula fondamentale dei quaternioni, i² = j² = k² = ijk = −1, su un ponte di Dublino il 16 ottobre 1843. Un quaternione ha una parte scalare e una parte vettoriale; Gibbs e Heaviside, lavorando in larga misura indipendentemente, separarono le due parti e definirono il prodotto scalare e il prodotto vettoriale come operazioni distinte, perché erano quelle che servivano all’elettromagnetismo di Maxwell.",
+          "La composizione delle velocità ha un’altra storia. Nel Dialogo del 1632 Galileo descrisse esperimenti nella stiva di una nave in moto uniforme, osservando che dall’interno è impossibile capire se la nave si muove. La velocità di un oggetto rispetto alla riva è la somma vettoriale della sua velocità rispetto alla nave e della velocità della nave rispetto alla riva: è la composizione galileiana delle velocità."
         ]
       }
     },
@@ -97,19 +104,19 @@
       "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio imposta Componente v_y (a): 3 m/s. Prima di salvare A, prevedi come cambia Modulo velocità fra Componente v_x=2,5 e 5 m/s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Per v_x=4 m/s e v_y=3 m/s il modulo è 5 m/s, non 7. La direzione può essere ricavata dall’angolo con l’asse orizzontale, controllando il quadrante.",
-          "La variabile Componente v_x è espressa in m/s; Modulo velocità in m/s. Il dominio dello strumento è [0; 10]. La relazione implementata è: |v| = √(v_x²+v_y²)."
+          "Il grafico mostra il modulo della velocità, √(v_x² + v_y²), al variare della componente v_x da 0 a 10 m/s. La componente v_y si sceglie nella scheda «Regola», da 0 a 8 m/s.",
+          "Protocollo. La previsione riguarda il passaggio da v_x = 2,5 m/s a v_x = 5 m/s. Con v_y = 3 m/s scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta v_y a 6 m/s, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Prima di salvare, chiediti se il modulo possa mai essere più piccolo della componente più grande."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Componente v_y (a): 3 m/s. Prima di salvare A, prevedi come cambia Modulo velocità fra Componente v_x=2,5 e 5 m/s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Componente v_x è espressa in m/s; Modulo velocità in m/s. Il dominio dello strumento è [0; 10]. La relazione implementata è: |v| = √(v_x²+v_y²).",
-          "Con componenti perpendicolari v_x e v_y, il teorema di Pitagora dà |v|=√(v_x²+v_y²). Le componenti possono essere negative; i quadrati assicurano un modulo non negativo."
+          "Il programma calcola il modulo √(v_x² + v_y²) per v_x fra 0 e 10 m/s; la componente v_y si regola nella scheda «Regola», a passi di 1 m/s.",
+          "Protocollo. Configurazione A: v_y = 3 m/s, confronto fra v_x = 2,5 e v_x = 5 m/s, previsione nella scheda «A / B» e «Salva A». Configurazione B: v_y = 6 m/s, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con v_y = 3 m/s il modulo passa da circa 3,91 a 5,83 m/s: cresce di circa 1,93 m/s, meno dei 2,5 m/s aggiunti a v_x. Con v_y = 6 m/s passa da 6,50 a 7,81 m/s e cresce soltanto di 1,31 m/s: quando la componente fissa è grande, aumentare l’altra cambia poco il modulo."
         ],
         "advanced": [
-          "Nel laboratorio imposta Componente v_y (a): 3 m/s. Prima di salvare A, prevedi come cambia Modulo velocità fra Componente v_x=2,5 e 5 m/s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Ruota gli assi di 90° e verifica che il modulo resti uguale. Confronta poi due velocità relative usando la composizione galileiana, dichiarando i riferimenti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il laboratorio rappresenta f(v_x) = √(v_x² + v_y²) per v_x fra 0 e 10 m/s. La derivata, v_x/√(v_x² + v_y²), vale zero in v_x = 0 e cresce verso 1: la curva parte orizzontale all’altezza v_y e si avvicina alla retta f = v_x per v_x molto maggiore di v_y.",
+          "Protocollo. Con v_y = 3 m/s scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il passaggio da v_x = 2,5 a 5 m/s e premi «Salva A»; poi porta v_y a 6 m/s e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "Il confronto fra A e B mostra l’effetto della componente fissa. Per v_x molto maggiore di v_y vale l’approssimazione √(v_x² + v_y²) ≈ v_x + v_y²/(2v_x): una componente trasversale piccola modifica il modulo soltanto al secondo ordine, e per questo un piccolo errore di direzione incide poco sulla velocità totale."
         ]
       }
     },
@@ -118,19 +125,19 @@
       "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "La somma dei moduli coincide con il modulo della somma solo in casi particolari. Una rotazione degli assi non va confusa con un cambio di osservatore in moto rispetto al primo.",
-          "Il modello considera due componenti ortogonali di una stessa velocità. Non include trasformazioni relativistiche o accelerazioni del riferimento.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il primo errore frequente è sommare i moduli. Velocità di 4 e 3 m/s danno 7 m/s soltanto se hanno la stessa direzione e lo stesso verso; se sono perpendicolari danno 5 m/s, se sono opposte 1 m/s. In generale il modulo della somma è compreso fra la differenza e la somma dei moduli.",
+          "Il secondo errore è credere che le componenti siano proprietà del moto. Cambiando gli assi le componenti cambiano, mentre il modulo e la direzione rispetto agli oggetti circostanti restano gli stessi.",
+          "Il terzo errore è confondere la rotazione degli assi con il cambio di osservatore. Ruotare gli assi è una scelta di descrizione; un osservatore su un treno in moto misura invece velocità diverse da quelle misurate da chi sta fermo sul marciapiede, perché si muove rispetto a lui."
         ],
         "intermediate": [
-          "La somma dei moduli coincide con il modulo della somma solo in casi particolari. Una rotazione degli assi non va confusa con un cambio di osservatore in moto rispetto al primo.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Esempio svolto: il quadrante. Una velocità ha componenti (−3; 4) m/s. Il rapporto v_y/v_x = −4/3 darebbe con la calcolatrice un angolo di circa −53°, che indica il quarto quadrante. Il vettore punta invece verso nord ovest, nel secondo quadrante, e l’angolo corretto con l’asse x è 180° − 53° ≈ 127°. Il disegno della freccia evita l’errore.",
+          "Esempio svolto: la disuguaglianza triangolare. Due spostamenti di 5 km e 2 km danno uno spostamento totale compreso fra 3 km e 7 km. Se un risultato fosse 8 km, l’errore sarebbe certo, qualunque sia l’angolo fra i due spostamenti.",
+          "Esempio svolto: la pioggia vista dall’auto. La pioggia cade in verticale a 8 m/s e l’auto viaggia a 6 m/s. Per il guidatore le gocce hanno una componente orizzontale di −6 m/s, opposta al moto, e arrivano a 10 m/s con un’inclinazione di circa 37° dalla verticale. Il guidatore e chi sta fermo sul marciapiede descrivono la stessa pioggia con velocità diverse, ed entrambi hanno ragione."
         ],
         "advanced": [
-          "Il modello considera due componenti ortogonali di una stessa velocità. Non include trasformazioni relativistiche o accelerazioni del riferimento.",
-          "Ruota gli assi di 90° e verifica che il modulo resti uguale. Confronta poi due velocità relative usando la composizione galileiana, dichiarando i riferimenti.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il modello del laboratorio presuppone due componenti perpendicolari misurate nello stesso riferimento. Se gli assi sono obliqui, il teorema di Pitagora va sostituito dal teorema del coseno, |a + b|² = |a|² + |b|² + 2|a| |b| cos φ, e il termine misto conta.",
+          "La composizione galileiana delle velocità vale soltanto per velocità piccole rispetto a quella della luce. Nella relatività ristretta due velocità parallele u e v si compongono come (u + v)/(1 + uv/c²): due velocità di 0,5c danno 0,8c, e nessuna composizione supera c. La correzione è trascurabile nella vita quotidiana, dove per due auto in autostrada uv/c² è dell’ordine di 10⁻¹⁴.",
+          "Infine, un riferimento che accelera o ruota fa comparire forze apparenti, come la forza centrifuga su una giostra; le leggi di Newton nella forma semplice valgono soltanto nei riferimenti inerziali."
         ]
       }
     },
@@ -157,19 +164,17 @@
       "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Componenti ortogonali nello stesso riferimento.",
-          "Il modello considera due componenti ortogonali di una stessa velocità. Non include trasformazioni relativistiche o accelerazioni del riferimento.",
-          "Collegamento consigliato: math-p06. Il completamento registra attività e autoverifica, non certifica competenze."
+          "I vettori servono in tutta la fisica che segue: spostamenti, velocità, forze e campi hanno una direzione. La geometria delle rotazioni torna nell’unità di matematica «Geometrie, trasformazioni e simmetrie».",
+          "Riepilogo: le componenti di vettori perpendicolari si combinano con il teorema di Pitagora; i vettori si sommano componente per componente; il modulo non dipende dagli assi scelti.",
+          "Nel diario registra le configurazioni A e B e spiega perché 4 m/s e 3 m/s possono dare 5 m/s."
         ],
         "intermediate": [
-          "Con componenti perpendicolari v_x e v_y, il teorema di Pitagora dà |v|=√(v_x²+v_y²). Le componenti possono essere negative; i quadrati assicurano un modulo non negativo.",
-          "Il modello considera due componenti ortogonali di una stessa velocità. Non include trasformazioni relativistiche o accelerazioni del riferimento.",
-          "Ruota gli assi di 90° e verifica che il modulo resti uguale. Confronta poi due velocità relative usando la composizione galileiana, dichiarando i riferimenti."
+          "La rotazione degli assi è una delle trasformazioni studiate nell’unità di matematica «Geometrie, trasformazioni e simmetrie», e le componenti tornano nell’unità «Traiettorie e lanci», dove il moto orizzontale e quello verticale di un proiettile si trattano separatamente.",
+          "Nel diario calcola la velocità rispetto alla riva di una barca che punta verso la sponda opposta a 3 m/s in una corrente di 4 m/s, e spiega di quanto approda a valle in un fiume largo 60 m."
         ],
         "advanced": [
-          "Ruota gli assi di 90° e verifica che il modulo resti uguale. Confronta poi due velocità relative usando la composizione galileiana, dichiarando i riferimenti.",
-          "Il modello considera due componenti ortogonali di una stessa velocità. Non include trasformazioni relativistiche o accelerazioni del riferimento.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "L’invarianza del modulo per rotazione è il primo esempio di una grandezza che non dipende dalla descrizione. Nell’unità «Relatività ristretta» la stessa idea si estende allo spaziotempo, dove a restare invariato è l’intervallo fra due eventi, e la composizione galileiana delle velocità lascia il posto a quella di Einstein.",
+          "Nel diario dimostra che il prodotto scalare di due vettori resta lo stesso quando gli assi ruotano, usando le formule di trasformazione delle componenti scritte nella tappa CAPISCI."
         ]
       }
     }

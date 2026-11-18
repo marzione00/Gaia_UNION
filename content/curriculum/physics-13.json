@@ -8,7 +8,7 @@
   "coverage": "guided-foundation",
   "editorialStatus": "original-draft",
   "scope": "Orbita circolare newtoniana non perturbata",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "narrativeStatus": "Lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, calcolati con il modello dell’unità. I fatti storici e i valori reali citati nei testi, come costanti, misure ed esperimenti, si riferiscono al mondo reale.",
   "objectives": [
     "Spiegare: orbita circolare newtoniana non perturbata.",
     "Applicare v_c = √(μ/r), dichiarando variabili e unità.",
@@ -58,17 +58,18 @@
       "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "La sonda deve mantenere un’orbita circolare attorno a una sorgente ideale. Non basta scegliere una traiettoria rotonda: la velocità deve essere coerente con il campo gravitazionale.",
-          "In un’orbita circolare la gravità fornisce l’accelerazione centripeta. Uguagliando μ/r² a v²/r ottieni v=√(μ/r). La massa della sonda si semplifica nel modello a sorgente dominante."
+          "Un satellite della base gira attorno al pianeta su un cerchio, sempre alla stessa quota, senza motori accesi. Che cosa gli impedisce di cadere? E perché un satellite su un’orbita più alta si muove più lentamente di uno su un’orbita bassa?",
+          "Il satellite sta cadendo di continuo. La gravità lo tira verso il centro, e la sua velocità orizzontale lo porta avanti; se la velocità è quella giusta, la caduta curva la traiettoria esattamente quanto si incurva il pianeta sotto di lui, e il satellite resta alla stessa distanza. In un’orbita circolare di raggio r la velocità necessaria è v = √(μ/r), con μ = G M.",
+          "La velocità diminuisce allontanandosi dal pianeta, perché la gravità è più debole. Per la Terra, vicino alla superficie servono quasi 8 km/s; la Luna, a 384 000 km, gira a poco più di 1 km/s. Il primo satellite artificiale, lo Sputnik 1, fu lanciato il 4 ottobre 1957."
         ],
         "intermediate": [
-          "La sonda deve mantenere un’orbita circolare attorno a una sorgente ideale. Non basta scegliere una traiettoria rotonda: la velocità deve essere coerente con il campo gravitazionale.",
-          "Il periodo orbitale è T=2πr/v, quindi T²=4π²r³/μ. Un raggio maggiore richiede una velocità circolare minore ma un periodo più lungo."
+          "Esempio svolto: la velocità circolare. Con μ = 100 m³/s², a r = 4 m la velocità circolare è √(100/4) = 5 m/s; con μ = 120 m³/s² diventa √30 ≈ 5,48 m/s. A r = 16 m, con μ = 100, scende a 2,5 m/s: quadruplicando il raggio la velocità si dimezza.",
+          "Esempio svolto: la Stazione spaziale. A 400 km di quota, cioè a 6771 km dal centro, con μ = 3,99 · 10¹⁴ m³/s², la velocità circolare è √(3,99 · 10¹⁴/6,771 · 10⁶) ≈ 7,67 km/s. Il periodo è 2π r/v ≈ 5540 s, circa 92 minuti: gli astronauti vedono sedici albe al giorno.",
+          "Prova tu: con quale velocità la Terra percorre la sua orbita attorno al Sole? Usa μ_Sole ≈ 1,33 · 10²⁰ m³/s² e r ≈ 1,50 · 10¹¹ m."
         ],
         "advanced": [
-          "La sonda deve mantenere un’orbita circolare attorno a una sorgente ideale. Non basta scegliere una traiettoria rotonda: la velocità deve essere coerente con il campo gravitazionale.",
-          "Confronta la velocità circolare con quella di fuga √(2μ/r). Spiega quale scelta del riferimento dell’energia permette di ottenere la seconda relazione.",
-          "Formula analitica per un problema a due corpi con sorgente dominante, orbita circolare e assenza di perturbazioni. Nessun integratore orbitale è eseguito in questa scheda."
+          "Johannes Kepler scoprì, nell’Harmonices mundi del 1619, che i quadrati dei periodi dei pianeti stanno fra loro come i cubi delle loro distanze medie dal Sole. Per Kepler era un’armonia del cosmo; per Newton, sessant’anni dopo, fu una conseguenza della legge dell’inverso del quadrato.",
+          "Nel 1705 Edmond Halley riconobbe nelle comete del 1531, del 1607 e del 1682 tre passaggi dello stesso corpo, con un periodo di circa 76 anni, e ne predisse il ritorno per il 1758. La cometa ricomparve davvero nella notte di Natale del 1758, sedici anni dopo la morte di Halley, e prese il suo nome. Il calcolo del ritorno richiese di includere le perturbazioni di Giove e di Saturno."
         ]
       }
     },
@@ -77,18 +78,24 @@
       "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "In un’orbita circolare la gravità fornisce l’accelerazione centripeta. Uguagliando μ/r² a v²/r ottieni v=√(μ/r). La massa della sonda si semplifica nel modello a sorgente dominante.",
-          "Con μ=100 m³/s² e r=4 m, la velocità circolare è 5 m/s. Il sistema è didattico e non corrisponde a un’orbita terrestre."
+          "In un’orbita circolare la gravità fornisce la forza centripeta necessaria a curvare il moto. Uguagliando G M m/r² a m v²/r, la massa del satellite si semplifica e resta v² = G M/r = μ/r. Satelliti di massa diversa sulla stessa orbita hanno la stessa velocità.",
+          "Il periodo di un’orbita circolare è il tempo di un giro, T = 2π r/v. Sostituendo la velocità si ottiene T² = 4π² r³/μ: il quadrato del periodo è proporzionale al cubo del raggio. È la terza legge di Keplero, valida anche per le orbite ellittiche con il semiasse maggiore al posto del raggio.",
+          "Le orbite più alte sono più lente in due sensi: la velocità è minore e il giro è più lungo. Quadruplicando il raggio la velocità si dimezza e il periodo diventa otto volte più lungo.",
+          "Esempio: Marte dista dal Sole in media circa 1,524 volte la Terra. Per la terza legge il suo periodo è 1,524^(3/2) ≈ 1,88 anni terrestri, in accordo con le osservazioni; Giove, a 5,2 volte la distanza della Terra, impiega circa 11,9 anni.",
+          "Esempio: un satellite geostazionario deve compiere un giro nello stesso tempo in cui la Terra ruota su se stessa, 86 164 s. Dalla terza legge il raggio dell’orbita è circa 42 164 km, e il satellite, visto da terra, resta fermo sopra un punto dell’equatore. Nel 1945 lo scrittore Arthur C. Clarke propose di usare quell’orbita per le telecomunicazioni."
         ],
         "intermediate": [
-          "Il periodo orbitale è T=2πr/v, quindi T²=4π²r³/μ. Un raggio maggiore richiede una velocità circolare minore ma un periodo più lungo.",
-          "La variabile Raggio orbitale è espressa in m; Velocità circolare in m/s. Il dominio dello strumento è [1; 20]. La relazione implementata è: v_c = √(μ/r).",
-          "Con μ=100 m³/s² e r=4 m, la velocità circolare è 5 m/s. Il sistema è didattico e non corrisponde a un’orbita terrestre."
+          "Esempio svolto: i satelliti GPS. I satelliti del sistema GPS orbitano a circa 26 560 km dal centro della Terra. La velocità circolare è √(3,99 · 10¹⁴/2,656 · 10⁷) ≈ 3,87 km/s, e il periodo 2π · 2,656 · 10⁷/3870 ≈ 43 100 s, quasi esattamente 12 ore: ogni satellite compie due giri mentre la Terra ne compie uno.",
+          "Esempio svolto: la Luna. La Luna orbita a circa 384 400 km dal centro della Terra. La sua velocità circolare è √(3,99 · 10¹⁴/3,844 · 10⁸) ≈ 1,02 km/s, e il periodo 2π · 3,844 · 10⁸/1020 ≈ 2,37 · 10⁶ s, circa 27,4 giorni. Il valore osservato, 27,3 giorni, tiene conto anche del fatto che Terra e Luna ruotano attorno al loro baricentro comune.",
+          "Esempio svolto: l’energia dell’orbita. L’energia cinetica di un satellite in orbita circolare vale μ m/(2r), e quella potenziale −μ m/r. L’energia totale è E = −μ m/(2r): negativa, perché il satellite è legato al pianeta, e uguale all’opposto dell’energia cinetica. Per sfuggire al pianeta il satellite deve portare l’energia totale a zero.",
+          "Il modello del laboratorio calcola v = √(μ/r) per un raggio orbitale fra 1 e 20 m, con μ regolabile da 20 a 200 m³/s² a passi di 20.",
+          "Prova tu: con μ = 100 m³/s², quale raggio corrisponde a una velocità circolare di 2 m/s, e qual è il periodo di quell’orbita? Confronta il periodo con quello dell’orbita di raggio 4 m."
         ],
         "advanced": [
-          "Il periodo orbitale è T=2πr/v, quindi T²=4π²r³/μ. Un raggio maggiore richiede una velocità circolare minore ma un periodo più lungo.",
-          "Confronta la velocità circolare con quella di fuga √(2μ/r). Spiega quale scelta del riferimento dell’energia permette di ottenere la seconda relazione.",
-          "Il cerchio disegnato non prova che ogni velocità su quel raggio produca un’orbita circolare. Una velocità diversa può condurre a traiettorie eccentriche o non legate."
+          "Il paradosso dell’orbita più alta. Per passare da un’orbita circolare bassa a una alta bisogna fornire energia, perché E = −μ m/(2r) cresce con r; eppure alla fine il satellite è più lento. La spiegazione è che l’energia potenziale aumenta del doppio di quanto diminuisca l’energia cinetica, e il motore paga la differenza.",
+          "Nel 1925 l’ingegnere tedesco Walter Hohmann descrisse il modo più economico, fra quelli con due spinte brevi, per passare da un’orbita circolare a un’altra nello stesso piano: una spinta in avanti porta il satellite su un’ellisse che tocca l’orbita alta, e una seconda spinta, all’apogeo, la rende circolare. Le missioni verso Marte seguono ancora varianti di quella traiettoria.",
+          "La velocità di fuga da un’orbita circolare è √2 volte la velocità circolare. Per la Terra, vicino alla superficie, la velocità circolare è circa 7,9 km/s e quella di fuga circa 11,2 km/s. Un corpo con velocità compresa fra le due segue un’ellisse, e uno con velocità superiore una traiettoria aperta.",
+          "Kepler aveva trovato le sue leggi sui pianeti attorno al Sole. Galileo aveva scoperto nel 1610 quattro satelliti di Giove, e la terza legge vale anche per loro, con il μ di Giove: confrontando i periodi e le distanze dei satelliti di un pianeta se ne ricava la massa, ed è così che si pesano i pianeti. Le masse dei pianeti senza satelliti, come Venere, si stimavano dalle perturbazioni sugli altri pianeti, e si sono misurate con precisione soltanto con le sonde spaziali."
         ]
       }
     },
@@ -97,19 +104,19 @@
       "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio imposta Parametro μ = GM (a): 100 m³/s². Prima di salvare A, prevedi come cambia Velocità circolare fra Raggio orbitale=5,75 e 10,5 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con μ=100 m³/s² e r=4 m, la velocità circolare è 5 m/s. Il sistema è didattico e non corrisponde a un’orbita terrestre.",
-          "La variabile Raggio orbitale è espressa in m; Velocità circolare in m/s. Il dominio dello strumento è [1; 20]. La relazione implementata è: v_c = √(μ/r)."
+          "Il grafico mostra la velocità circolare v = √(μ/r) al variare del raggio dell’orbita, da 1 a 20 m. Nella scheda «Regola» scegli il parametro μ = G M, da 20 a 200 m³/s².",
+          "Protocollo. La previsione riguarda il passaggio da r = 5,75 m a r = 10,5 m. Con μ = 100 m³/s² scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta μ a 200 m³/s², rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Prima di salvare, chiediti se un satellite più lontano debba correre di più per percorrere un cerchio più grande."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Parametro μ = GM (a): 100 m³/s². Prima di salvare A, prevedi come cambia Velocità circolare fra Raggio orbitale=5,75 e 10,5 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Raggio orbitale è espressa in m; Velocità circolare in m/s. Il dominio dello strumento è [1; 20]. La relazione implementata è: v_c = √(μ/r).",
-          "Il periodo orbitale è T=2πr/v, quindi T²=4π²r³/μ. Un raggio maggiore richiede una velocità circolare minore ma un periodo più lungo."
+          "Il programma calcola la velocità circolare v = √(μ/r) per un raggio fra 1 e 20 m; nella scheda «Regola» il parametro μ si regola a passi di 20 m³/s².",
+          "Protocollo. Configurazione A: μ = 100 m³/s², confronto fra r = 5,75 m e r = 10,5 m, previsione nella scheda «A / B» e «Salva A». Configurazione B: μ = 200 m³/s², nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. In A la velocità passa da circa 4,17 a 3,09 m/s, in B da circa 5,90 a 4,36 m/s. Il raggio cresce di un fattore 1,83 e la velocità si riduce di un fattore 1,35, la radice quadrata di 1,83; con il pianeta due volte più massiccio ogni velocità è √2 volte più grande."
         ],
         "advanced": [
-          "Nel laboratorio imposta Parametro μ = GM (a): 100 m³/s². Prima di salvare A, prevedi come cambia Velocità circolare fra Raggio orbitale=5,75 e 10,5 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta la velocità circolare con quella di fuga √(2μ/r). Spiega quale scelta del riferimento dell’energia permette di ottenere la seconda relazione.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il laboratorio rappresenta v(r) = √(μ/r) su r fra 1 e 20 m. La derivata, −√μ/(2 r^(3/2)), è negativa e il suo modulo diminuisce con r: la curva scende ripida vicino al pianeta e si appiattisce lontano.",
+          "Protocollo. Con μ = 100 m³/s² scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il passaggio da r = 5,75 m a r = 10,5 m e premi «Salva A»; poi porta μ a 200 m³/s² e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "Il rapporto v(5,75)/v(10,5) = √(10,5/5,75) ≈ 1,35 non dipende da μ. Il periodo, invece, cresce più rapidamente del raggio: fra i due punti di confronto aumenta di un fattore 1,83^(3/2) ≈ 2,47."
         ]
       }
     },
@@ -118,19 +125,19 @@
       "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Il cerchio disegnato non prova che ogni velocità su quel raggio produca un’orbita circolare. Una velocità diversa può condurre a traiettorie eccentriche o non legate.",
-          "Formula analitica per un problema a due corpi con sorgente dominante, orbita circolare e assenza di perturbazioni. Nessun integratore orbitale è eseguito in questa scheda.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il primo errore frequente è credere che i satelliti restino in alto perché lassù la gravità è assente. La gravità è ciò che li tiene in orbita: senza di essa un satellite proseguirebbe in linea retta e si allontanerebbe per sempre.",
+          "Il secondo errore è pensare che un satellite più pesante debba andare più veloce. La massa del satellite si semplifica nell’equazione dell’orbita, e una stazione spaziale e una vite perduta da un astronauta percorrono la stessa orbita alla stessa velocità.",
+          "Il terzo errore è credere che le orbite più alte siano più veloci, perché il cerchio è più grande. È vero il contrario: la Terra gira attorno al Sole a circa 30 km/s, Nettuno, trenta volte più lontano, a circa 5,4 km/s."
         ],
         "intermediate": [
-          "Il cerchio disegnato non prova che ogni velocità su quel raggio produca un’orbita circolare. Una velocità diversa può condurre a traiettorie eccentriche o non legate.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Esempio svolto: l’inseguimento in orbita. Una navetta vuole raggiungere una stazione che la precede di qualche chilometro sulla stessa orbita. Accelerare in avanti la porta su un’orbita più alta e più lenta, e la stazione si allontana; la manovra corretta è frenare, scendere su un’orbita più bassa e più veloce, recuperare il distacco e poi risalire.",
+          "Esempio svolto: la gravità a bordo. Un astronauta di 80 kg sulla Stazione spaziale è attirato dalla Terra con circa 80 · 8,7 ≈ 700 N. Una bilancia a bordo segna zero perché bilancia e astronauta cadono insieme con la stessa accelerazione.",
+          "Esempio svolto: il periodo non dipende dalla massa. Due satelliti di 100 kg e di 5000 kg alla stessa quota di 400 km impiegano entrambi circa 92 minuti per un giro. Se uno dei due fosse più veloce, sarebbe su un’orbita diversa."
         ],
         "advanced": [
-          "Formula analitica per un problema a due corpi con sorgente dominante, orbita circolare e assenza di perturbazioni. Nessun integratore orbitale è eseguito in questa scheda.",
-          "Confronta la velocità circolare con quella di fuga √(2μ/r). Spiega quale scelta del riferimento dell’energia permette di ottenere la seconda relazione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il modello considera un’orbita circolare attorno a un pianeta sferico, senza altre forze. Le orbite basse attraversano gli strati più alti dell’atmosfera, e la resistenza dell’aria le fa scendere lentamente; la Stazione spaziale ha bisogno di riaccensioni periodiche dei motori per mantenere la quota.",
+          "La Terra è schiacciata ai poli, e il rigonfiamento equatoriale fa ruotare lentamente il piano delle orbite inclinate. Le orbite eliosincrone sfruttano proprio questo effetto per passare sopra ogni regione alla stessa ora locale.",
+          "Il Sole, la Luna e gli altri pianeti perturbano ogni orbita. Nel problema dei tre corpi non esiste una soluzione generale in forma chiusa; Joseph-Louis Lagrange trovò nel 1772 cinque punti di equilibrio, oggi usati per osservatori spaziali come il telescopio James Webb, che opera vicino al secondo punto di Lagrange del sistema Sole e Terra."
         ]
       }
     },
@@ -157,19 +164,17 @@
       "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Orbita circolare newtoniana non perturbata.",
-          "Formula analitica per un problema a due corpi con sorgente dominante, orbita circolare e assenza di perturbazioni. Nessun integratore orbitale è eseguito in questa scheda.",
-          "Collegamento consigliato: math-c03. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le orbite circolari applicano la gravitazione dell’unità precedente e la dinamica del moto circolare. La radice quadrata della formula v = √(μ/r) torna nell’unità di matematica «Radicali».",
+          "Riepilogo: v = √(μ/r); T² = 4π² r³/μ; la massa del satellite si semplifica; le orbite più alte sono più lente.",
+          "Nel diario registra le configurazioni A e B e spiega perché la velocità circolare diminuisce con il raggio, anche se il cerchio da percorrere è più lungo."
         ],
         "intermediate": [
-          "Il periodo orbitale è T=2πr/v, quindi T²=4π²r³/μ. Un raggio maggiore richiede una velocità circolare minore ma un periodo più lungo.",
-          "Formula analitica per un problema a due corpi con sorgente dominante, orbita circolare e assenza di perturbazioni. Nessun integratore orbitale è eseguito in questa scheda.",
-          "Confronta la velocità circolare con quella di fuga √(2μ/r). Spiega quale scelta del riferimento dell’energia permette di ottenere la seconda relazione."
+          "La terza legge di Keplero e l’energia dell’orbita si collegano all’unità «Lavoro ed energia»; la conservazione del momento angolare dell’unità «Rotazione e momento d’inerzia» spiega la seconda legge di Keplero per le orbite ellittiche. Le aree spazzate restano uguali.",
+          "Nel diario calcola il raggio e la velocità di un’orbita circolare attorno alla Terra con un periodo di 24 ore siderali, cioè 86 164 s, confronta il risultato con il valore geostazionario e spiega perché si usa il giorno siderale."
         ],
         "advanced": [
-          "Confronta la velocità circolare con quella di fuga √(2μ/r). Spiega quale scelta del riferimento dell’energia permette di ottenere la seconda relazione.",
-          "Formula analitica per un problema a due corpi con sorgente dominante, orbita circolare e assenza di perturbazioni. Nessun integratore orbitale è eseguito in questa scheda.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La stessa dinamica delle orbite descrive le cariche nei campi magnetici dell’unità «Particelle cariche nei campi magnetici», dove una forza perpendicolare alla velocità produce un moto circolare, e la rotazione delle galassie, in cui le velocità orbitali osservate rivelano la presenza di materia oscura.",
+          "Nel diario ricava la velocità di fuga da un’orbita circolare a partire dall’energia, mostra che vale √2 volte la velocità circolare e calcola quanto deve aumentare la velocità della Stazione spaziale per sfuggire alla Terra."
         ]
       }
     }

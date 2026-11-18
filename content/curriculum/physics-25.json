@@ -8,7 +8,7 @@
   "coverage": "guided-foundation",
   "editorialStatus": "original-draft",
   "scope": "Fotoni monocromatici con energia hc/λ",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "narrativeStatus": "Lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, calcolati con il modello dell’unità. I fatti storici e i valori reali citati nei testi, come costanti, misure ed esperimenti, si riferiscono al mondo reale.",
   "objectives": [
     "Spiegare: fotoni monocromatici con energia hc/λ.",
     "Applicare E_tot = n hc/λ; hc ≈ 1239,842 eV nm, dichiarando variabili e unità.",
@@ -58,17 +58,18 @@
       "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Due sorgenti emettono luce di colore diverso. A parità di numero di fotoni, le energie totali non sono uguali. Devi distinguere energia per fotone e intensità complessiva.",
-          "L’energia di un fotone è E=hf=hc/λ. Una lunghezza d’onda minore corrisponde a un’energia maggiore. Per n fotoni della stessa lunghezza d’onda, l’energia totale è n volte quella del singolo fotone."
+          "I pannelli solari della base funzionano con la luce visibile, mentre un faro infrarosso molto intenso non riesce a farli funzionare. Una debole luce ultravioletta, invece, scolorisce in pochi giorni le etichette delle casse. Perché conta il colore della luce più della sua intensità?",
+          "Perché la luce arriva a pacchetti di energia, i fotoni. Ogni fotone di lunghezza d’onda λ porta un’energia E = h c/λ, dove h ≈ 6,626 · 10⁻³⁴ J s è la costante di Planck e c la velocità della luce. Comodamente, h c ≈ 1240 eV nm: un fotone di 500 nm, luce verde, porta circa 1240/500 ≈ 2,48 eV.",
+          "Più è corta la lunghezza d’onda, più energia ha ciascun fotone. La luce infrarossa a 1000 nm porta 1,24 eV per fotone, quella ultravioletta a 250 nm circa 5 eV, abbastanza per rompere molti legami chimici. L’intensità della luce dice quanti fotoni arrivano, e il colore quanta energia porta ciascuno."
         ],
         "intermediate": [
-          "Due sorgenti emettono luce di colore diverso. A parità di numero di fotoni, le energie totali non sono uguali. Devi distinguere energia per fotone e intensità complessiva.",
-          "Usando λ in nanometri ed E in elettronvolt, hc≈1239,842 eV nm. Il parametro n è intero e conta fotoni, non modifica la loro frequenza."
+          "Esempio svolto: energia di uno e di più fotoni. Un fotone di 500 nm porta circa 2,48 eV; due fotoni ne portano 4,96. In joule, 2,48 eV valgono 2,48 · 1,602 · 10⁻¹⁹ ≈ 3,97 · 10⁻¹⁹ J. Un fotone di 400 nm, violetto, porta 3,10 eV; uno di 700 nm, rosso, circa 1,77 eV.",
+          "Esempio svolto: quanti fotoni? Un puntatore laser verde da 1 mW a 532 nm emette fotoni da circa 2,33 eV, cioè 3,73 · 10⁻¹⁹ J ciascuno. In un secondo emette 10⁻³/3,73 · 10⁻¹⁹ ≈ 2,7 · 10¹⁵ fotoni. La luce ordinaria contiene così tanti fotoni che la loro natura granulare resta nascosta.",
+          "Prova tu: quanti fotoni al secondo emette un laser rosso da 5 mW a 650 nm?"
         ],
         "advanced": [
-          "Due sorgenti emettono luce di colore diverso. A parità di numero di fotoni, le energie totali non sono uguali. Devi distinguere energia per fotone e intensità complessiva.",
-          "Confronta questa relazione con una soglia di transizione atomica. Spiega perché una grande quantità di fotoni a energia insufficiente non equivale automaticamente a un singolo fotone sopra soglia in un processo lineare.",
-          "Fotoni monocromatici nel vuoto. Il modello non descrive probabilità di emissione, polarizzazione o interazione con un rivelatore."
+          "Il 14 dicembre 1900 Max Planck presentò a Berlino una formula per la radiazione emessa da un corpo caldo, ottenuta supponendo che gli oscillatori nelle pareti della cavità scambiassero energia soltanto a multipli di h f. Planck considerava quell’ipotesi un artificio di calcolo, e passò anni a cercare di eliminarla.",
+          "Nel 1905 Albert Einstein prese l’ipotesi sul serio e propose che la luce stessa fosse fatta di quanti di energia h f. Con quell’idea spiegò l’effetto fotoelettrico, scoperto da Heinrich Hertz nel 1887 e studiato da Philipp Lenard: una luce di frequenza sufficiente strappa elettroni a un metallo, mentre sotto una certa frequenza nessun elettrone esce, anche con una luce intensissima. Einstein ricevette il premio Nobel del 1921 proprio per questa spiegazione."
         ]
       }
     },
@@ -77,18 +78,24 @@
       "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "L’energia di un fotone è E=hf=hc/λ. Una lunghezza d’onda minore corrisponde a un’energia maggiore. Per n fotoni della stessa lunghezza d’onda, l’energia totale è n volte quella del singolo fotone.",
-          "Per λ=500 nm, un fotone ha energia circa 2,47968 eV. Due fotoni uguali hanno energia totale circa 4,95937 eV, ma ciascuno conserva la stessa energia individuale."
+          "L’energia di un fotone dipende soltanto dalla sua frequenza f, o dalla sua lunghezza d’onda: E = h f = h c/λ. Dimezzare la lunghezza d’onda raddoppia l’energia del fotone. L’energia totale di n fotoni uguali è n volte quella di uno: E_tot = n h c/λ.",
+          "L’elettronvolt è l’unità comoda per i fotoni: 1 eV ≈ 1,602 · 10⁻¹⁹ J. Con h c ≈ 1239,84 eV nm, l’energia in eV si ottiene dividendo 1240 per la lunghezza d’onda in nanometri. La luce visibile, fra circa 380 e 750 nm, porta fotoni fra circa 3,3 e 1,65 eV.",
+          "Nell’effetto fotoelettrico un fotone cede tutta la sua energia a un elettrone del metallo. Se l’energia supera il lavoro di estrazione W, l’energia necessaria a strappare l’elettrone, l’elettrone esce con un’energia cinetica massima K_max = h f − W. Se il fotone ha meno energia di W, nessun elettrone esce, per quanto intensa sia la luce.",
+          "Esempio: il sodio ha un lavoro di estrazione di circa 2,28 eV. Una luce di 400 nm, con fotoni da 3,10 eV, strappa elettroni con energia cinetica fino a circa 0,82 eV. La soglia del sodio è a 1240/2,28 ≈ 544 nm: la luce rossa, anche intensa, non produce effetto fotoelettrico.",
+          "Il nome fotone fu proposto dal chimico statunitense Gilbert Lewis nel 1926, più di vent’anni dopo l’ipotesi di Einstein. Il simbolo h della costante di Planck viene dal tedesco Hilfsgrösse, grandezza ausiliaria, il nome che Planck le diede pensando che fosse provvisoria."
         ],
         "intermediate": [
-          "Usando λ in nanometri ed E in elettronvolt, hc≈1239,842 eV nm. Il parametro n è intero e conta fotoni, non modifica la loro frequenza.",
-          "La variabile Lunghezza d’onda è espressa in nm; Energia n fotoni in eV. Il dominio dello strumento è [200; 1000]. La relazione implementata è: E_tot = n hc/λ; hc ≈ 1239,842 eV nm.",
-          "Per λ=500 nm, un fotone ha energia circa 2,47968 eV. Due fotoni uguali hanno energia totale circa 4,95937 eV, ma ciascuno conserva la stessa energia individuale."
+          "Esempio svolto: lo zinco e il sodio. Lo zinco ha un lavoro di estrazione di circa 4,3 eV, che corrisponde a una soglia di 1240/4,3 ≈ 288 nm, nell’ultravioletto. Una lampada germicida a 254 nm, con fotoni da 4,88 eV, strappa elettroni allo zinco con energia cinetica fino a circa 0,58 eV; la luce visibile, qualunque sia la sua intensità, lascia lo zinco inalterato.",
+          "Esempio svolto: la retta di Millikan. Robert Millikan, scettico sull’ipotesi di Einstein, misurò fra il 1914 e il 1916 l’energia massima degli elettroni emessi dal sodio a diverse frequenze. I punti si allineavano su una retta di pendenza h, e Millikan ricavò la costante di Planck con un errore inferiore all’uno per cento. L’esperimento confermò la formula che voleva smentire.",
+          "Esempio svolto: l’occhio. La sensibilità dell’occhio adattato al buio è straordinaria: esperimenti del 1942 mostrarono che una persona può percepire un lampo che porta alla retina una decina di fotoni, e oggi si sa che un singolo bastoncello risponde a un singolo fotone.",
+          "Il modello del laboratorio calcola E_tot = n h c/λ in elettronvolt, con λ fra 200 e 1000 nm e un numero di fotoni n fra 1 e 5.",
+          "Prova tu: qual è la lunghezza d’onda di soglia di un metallo con lavoro di estrazione 2,0 eV, e di che colore è quella luce? Quale energia cinetica massima hanno gli elettroni strappati da una luce di 450 nm?"
         ],
         "advanced": [
-          "Usando λ in nanometri ed E in elettronvolt, hc≈1239,842 eV nm. Il parametro n è intero e conta fotoni, non modifica la loro frequenza.",
-          "Confronta questa relazione con una soglia di transizione atomica. Spiega perché una grande quantità di fotoni a energia insufficiente non equivale automaticamente a un singolo fotone sopra soglia in un processo lineare.",
-          "Aumentare il numero di fotoni non rende ciascun fotone più energetico. La luminosità totale non determina da sola la lunghezza d’onda."
+          "Un fotone ha energia e anche quantità di moto, p = h/λ, pur avendo massa nulla. Nel 1923 Arthur Compton fece diffondere raggi X dagli elettroni di un bersaglio di grafite e trovò che la loro lunghezza d’onda aumenta di Δλ = (h/m c)(1 − cos θ), dove θ è l’angolo di deviazione. È esattamente il risultato di un urto elastico fra due particelle; la lunghezza h/m c per l’elettrone vale circa 2,43 picometri.",
+          "La luce mantiene però anche il comportamento ondulatorio. Nel 1909 Geoffrey Taylor fotografò una figura di interferenza con una luce così debole che, in media, nell’apparato c’era meno di un fotone alla volta; dopo tre mesi di esposizione le frange erano nitide come con la luce intensa. La figura si costruisce un fotone alla volta, e ogni fotone arriva in un punto preciso.",
+          "La formula E = h f è anche la chiave degli spettri. Un atomo emette un fotone quando un elettrone passa da un livello di energia a uno più basso, e la frequenza del fotone corrisponde esattamente alla differenza fra i due livelli. Le righe spettrali sono quindi un catalogo dei livelli dell’atomo.",
+          "Dal 2019 la costante di Planck ha il valore esatto 6,62607015 · 10⁻³⁴ J s, ed è lei a definire il chilogrammo. Le bilance di Kibble confrontano una forza meccanica con una forza elettromagnetica misurata con effetti quantistici, e realizzano il chilogrammo a partire da h."
         ]
       }
     },
@@ -97,19 +104,19 @@
       "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio imposta Numero fotoni n (a): 1 (adimensionale). Prima di salvare A, prevedi come cambia Energia n fotoni fra Lunghezza d’onda=400 e 600 nm. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Per λ=500 nm, un fotone ha energia circa 2,47968 eV. Due fotoni uguali hanno energia totale circa 4,95937 eV, ma ciascuno conserva la stessa energia individuale.",
-          "La variabile Lunghezza d’onda è espressa in nm; Energia n fotoni in eV. Il dominio dello strumento è [200; 1000]. La relazione implementata è: E_tot = n hc/λ; hc ≈ 1239,842 eV nm."
+          "Il grafico mostra l’energia totale di n fotoni, E_tot = n h c/λ, al variare della lunghezza d’onda, da 200 a 1000 nm. Nella scheda «Regola» scegli il numero di fotoni n, da 1 a 5.",
+          "Protocollo. La previsione riguarda il passaggio da λ = 400 nm, violetto, a λ = 600 nm, arancione. Con n = 1 scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta n a 3, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Prima di salvare, chiediti se la luce arancione porti più o meno energia per fotone di quella violetta."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Numero fotoni n (a): 1 (adimensionale). Prima di salvare A, prevedi come cambia Energia n fotoni fra Lunghezza d’onda=400 e 600 nm. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Lunghezza d’onda è espressa in nm; Energia n fotoni in eV. Il dominio dello strumento è [200; 1000]. La relazione implementata è: E_tot = n hc/λ; hc ≈ 1239,842 eV nm.",
-          "Usando λ in nanometri ed E in elettronvolt, hc≈1239,842 eV nm. Il parametro n è intero e conta fotoni, non modifica la loro frequenza."
+          "Il programma calcola l’energia E_tot = n h c/λ, con h c ≈ 1239,842 eV nm, per una lunghezza d’onda fra 200 e 1000 nm; nella scheda «Regola» il numero di fotoni è un intero fra 1 e 5.",
+          "Protocollo. Configurazione A: n = 1, confronto fra λ = 400 nm e λ = 600 nm, previsione nella scheda «A / B» e «Salva A». Configurazione B: n = 3, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. In A l’energia passa da circa 3,10 a 2,07 eV, in B da circa 9,30 a 6,20 eV. Il rapporto è lo stesso, 600/400 = 1,5: l’energia è inversamente proporzionale alla lunghezza d’onda, e il numero di fotoni moltiplica tutta la curva."
         ],
         "advanced": [
-          "Nel laboratorio imposta Numero fotoni n (a): 1 (adimensionale). Prima di salvare A, prevedi come cambia Energia n fotoni fra Lunghezza d’onda=400 e 600 nm. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta questa relazione con una soglia di transizione atomica. Spiega perché una grande quantità di fotoni a energia insufficiente non equivale automaticamente a un singolo fotone sopra soglia in un processo lineare.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il laboratorio rappresenta E_tot(λ) = n h c/λ su λ fra 200 e 1000 nm: un ramo d’iperbole, che scende ripido nell’ultravioletto e si appiattisce nell’infrarosso. La derivata, −n h c/λ², ha modulo che diminuisce con λ.",
+          "Protocollo. Con n = 1 scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il passaggio da λ = 400 nm a λ = 600 nm e premi «Salva A»; poi porta n a 3 e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "La configurazione B con 3 fotoni a 600 nm porta più energia totale, 6,20 eV, di un solo fotone a 400 nm, 3,10 eV; un metallo con lavoro di estrazione di 2,5 eV emette elettroni nel secondo caso e resta muto nel primo. Nell’effetto fotoelettrico ordinario conta l’energia del singolo fotone, perché ogni elettrone ne assorbe uno."
         ]
       }
     },
@@ -118,19 +125,19 @@
       "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Aumentare il numero di fotoni non rende ciascun fotone più energetico. La luminosità totale non determina da sola la lunghezza d’onda.",
-          "Fotoni monocromatici nel vuoto. Il modello non descrive probabilità di emissione, polarizzazione o interazione con un rivelatore.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il primo errore frequente è credere che una luce più intensa abbia fotoni più energetici. L’intensità aumenta il numero di fotoni; l’energia di ciascuno dipende soltanto dalla lunghezza d’onda. Una lampada rossa potente emette molti fotoni da circa 1,8 eV, e nessuno di essi può fare ciò che fa un solo fotone ultravioletto da 5 eV.",
+          "Il secondo errore è confondere l’energia di un fotone con l’energia totale di un fascio. Il laboratorio mostra l’energia di n fotoni; un fascio reale ne contiene miliardi di miliardi al secondo.",
+          "Il terzo errore è pensare che il fotone, essendo una particella, abbia una massa. Il fotone ha massa nulla, viaggia sempre alla velocità della luce e porta comunque energia e quantità di moto."
         ],
         "intermediate": [
-          "Aumentare il numero di fotoni non rende ciascun fotone più energetico. La luminosità totale non determina da sola la lunghezza d’onda.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Esempio svolto: l’abbronzatura. La radiazione ultravioletta B, intorno a 300 nm, porta fotoni da circa 4,1 eV, capaci di danneggiare le molecole del DNA. La luce infrarossa di una stufa, intorno a 3000 nm, porta fotoni da circa 0,4 eV: scalda la pelle facendo vibrare le molecole, senza rompere legami. Lo stesso calore percepito può corrispondere a effetti molto diversi.",
+          "Esempio svolto: eV e joule. Un fotone di 500 nm porta 2,48 eV. Chi lo scrive come 2,48 J sbaglia di un fattore 6 · 10¹⁸, il numero di elettronvolt in un joule. Un joule di luce verde contiene circa 2,5 · 10¹⁸ fotoni.",
+          "Esempio svolto: la soglia fotoelettrica. Un metallo con lavoro di estrazione 3,0 eV ha la soglia a circa 413 nm. A 400 nm gli elettroni escono con al più 0,10 eV; a 420 nm nessun elettrone esce, anche aumentando l’intensità mille volte. Aumentando l’intensità sopra la soglia cresce il numero degli elettroni emessi, e la loro energia massima resta la stessa."
         ],
         "advanced": [
-          "Fotoni monocromatici nel vuoto. Il modello non descrive probabilità di emissione, polarizzazione o interazione con un rivelatore.",
-          "Confronta questa relazione con una soglia di transizione atomica. Spiega perché una grande quantità di fotoni a energia insufficiente non equivale automaticamente a un singolo fotone sopra soglia in un processo lineare.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il modello considera fotoni monocromatici, tutti con la stessa lunghezza d’onda. La luce reale ha sempre una distribuzione di lunghezze d’onda, e anche un laser ha una larghezza di riga finita; l’energia di un fascio è la somma su tutte le componenti.",
+          "Il numero di fotoni in un fascio reale fluttua da un istante all’altro, e per una sorgente laser segue la statistica di Poisson. Con fasci molto deboli quelle fluttuazioni diventano misurabili, e sono il rumore che limita i rivelatori più sensibili. Lì il modello con n fisso va sostituito da una distribuzione.",
+          "Infine, con intensità altissime un elettrone può assorbire due fotoni insieme, e il fotoelettrico avviene anche sotto la soglia: è l’assorbimento a più fotoni, previsto da Maria Goeppert-Mayer nel 1931 e osservato dopo l’invenzione del laser."
         ]
       }
     },
@@ -157,19 +164,17 @@
       "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Fotoni monocromatici con energia hc/λ.",
-          "Fotoni monocromatici nel vuoto. Il modello non descrive probabilità di emissione, polarizzazione o interazione con un rivelatore.",
-          "Collegamento consigliato: chemistry-04. Il completamento registra attività e autoverifica, non certifica competenze."
+          "I fotoni collegano la luce agli atomi. Le righe spettrali e i livelli dell’atomo di idrogeno sono il tema dell’unità di chimica «Livelli atomici e spettri».",
+          "Riepilogo: E = h f = h c/λ; h c ≈ 1240 eV nm; l’intensità conta i fotoni, la lunghezza d’onda decide l’energia di ciascuno; nell’effetto fotoelettrico K_max = h f − W.",
+          "Nel diario registra A e B e spiega perché tre fotoni arancioni portano più energia di uno violetto."
         ],
         "intermediate": [
-          "Usando λ in nanometri ed E in elettronvolt, hc≈1239,842 eV nm. Il parametro n è intero e conta fotoni, non modifica la loro frequenza.",
-          "Fotoni monocromatici nel vuoto. Il modello non descrive probabilità di emissione, polarizzazione o interazione con un rivelatore.",
-          "Confronta questa relazione con una soglia di transizione atomica. Spiega perché una grande quantità di fotoni a energia insufficiente non equivale automaticamente a un singolo fotone sopra soglia in un processo lineare."
+          "La quantizzazione dell’energia degli oscillatori torna nell’unità «Calore e capacità termica» con il modello di Einstein dei solidi; la radiazione di un corpo caldo, da cui tutto cominciò, è il tema dell’unità «Radiazione termica e luce delle stelle». Planck partì proprio da quel problema nel 1900.",
+          "Nel diario spiega perché i pannelli fotovoltaici al silicio, con una soglia intorno a 1,1 eV, sfruttano la luce visibile e quasi nulla dell’infrarosso lontano, e calcola la lunghezza d’onda corrispondente alla soglia."
         ],
         "advanced": [
-          "Confronta questa relazione con una soglia di transizione atomica. Spiega perché una grande quantità di fotoni a energia insufficiente non equivale automaticamente a un singolo fotone sopra soglia in un processo lineare.",
-          "Fotoni monocromatici nel vuoto. Il modello non descrive probabilità di emissione, polarizzazione o interazione con un rivelatore.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La quantità di moto dei fotoni spiega la pressione della luce dell’unità «Onde elettromagnetiche e pressione della luce»; le onde di materia e i livelli atomici sono il tema dell’unità «Onde di materia, atomi e righe spettrali».",
+          "Nel diario calcola la variazione di lunghezza d’onda di un fotone X deviato di 90° da un elettrone fermo, confrontala con la lunghezza d’onda di un raggio X di 70 pm e spiega perché l’effetto Compton è invisibile con la luce visibile."
         ]
       }
     }

@@ -8,7 +8,7 @@
   "coverage": "guided-foundation",
   "editorialStatus": "original-draft",
   "scope": "Attrito statico ideale con coefficiente costante",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "narrativeStatus": "Lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, calcolati con il modello dell’unità. I fatti storici e i valori reali citati nei testi, come costanti, misure ed esperimenti, si riferiscono al mondo reale.",
   "objectives": [
     "Spiegare: attrito statico ideale con coefficiente costante.",
     "Applicare F_s,max = μ_s N, dichiarando variabili e unità.",
@@ -58,17 +58,18 @@
       "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Una cassa resta ferma mentre aumenta la spinta. La stazione deve capire quanto attrito può opporsi prima dello scorrimento, senza trattare il valore massimo come una forza sempre presente.",
-          "L’attrito statico si adatta entro un intervallo: il suo modulo può arrivare fino a μ_sN. Il coefficiente μ_s è adimensionale e N è la forza normale. La formula fornisce un massimo, non il valore effettivo in ogni situazione."
+          "Un robot spinge una cassa sul pavimento della base. Con una spinta leggera la cassa resta ferma; aumentando la spinta, a un certo punto la cassa comincia a muoversi. Che cosa la tratteneva? E perché una cassa più pesante richiede una spinta più forte per partire?",
+          "La forza che trattiene la cassa è l’attrito statico, esercitato dal pavimento sulla superficie di appoggio. L’attrito statico si adatta alla spinta: se il robot spinge con 3 N, l’attrito vale 3 N in verso opposto, e la cassa resta ferma. Questo adattamento ha però un limite massimo, superato il quale la cassa scivola.",
+          "Lo studiò per primo Leonardo da Vinci, intorno al 1500, trascinando blocchi di legno appoggiati su facce diverse. Scoprì che la forza necessaria dipende dal carico e quasi per nulla dall’area di contatto, un risultato che rimase sepolto nei suoi taccuini per secoli."
         ],
         "intermediate": [
-          "Una cassa resta ferma mentre aumenta la spinta. La stazione deve capire quanto attrito può opporsi prima dello scorrimento, senza trattare il valore massimo come una forza sempre presente.",
-          "Nel laboratorio F_s,max=μ_sN. Per una spinta tangenziale inferiore al limite, una cassa in equilibrio può avere un attrito uguale e contrario alla spinta. Dopo l’avvio dello scorrimento serve un modello di attrito dinamico distinto."
+          "Esempio svolto: il massimo attrito. Il massimo attrito statico è F_s,max = μ_s N, dove N è la forza con cui il pavimento sostiene la cassa e μ_s è un numero puro, il coefficiente di attrito statico. Con μ_s = 0,3 e N = 20 N il massimo vale 6 N; con μ_s = 0,4 vale 8 N.",
+          "Esempio svolto: ferma o in moto? Una cassa di 10 kg poggia su un pavimento orizzontale con μ_s = 0,5. La forza normale è uguale al peso, 10 · 9,81 = 98,1 N, e il massimo attrito statico è circa 49 N. Una spinta di 30 N lascia la cassa ferma, e l’attrito vale proprio 30 N; una spinta di 60 N la mette in moto.",
+          "Prova tu: una cassa di 5 kg poggia su un pavimento con μ_s = 0,4. Qual è la spinta orizzontale minima che la mette in moto?"
         ],
         "advanced": [
-          "Una cassa resta ferma mentre aumenta la spinta. La stazione deve capire quanto attrito può opporsi prima dello scorrimento, senza trattare il valore massimo come una forza sempre presente.",
-          "Analizza una superficie inclinata e ricava la condizione di equilibrio. Distingui componente del peso parallela e perpendicolare al piano.",
-          "Modello macroscopico di Coulomb con coefficiente costante. Non descrive adesione microscopica, lubrificazione, usura o transizione dettagliata allo scorrimento."
+          "Le leggi dell’attrito furono riscoperte indipendentemente da Guillaume Amontons, che nel 1699 le presentò all’Accademia delle scienze di Parigi: l’attrito è proporzionale al carico e non dipende dall’area apparente di contatto. Molti accademici trovarono la seconda affermazione incredibile, e soltanto le prove ripetute li convinsero.",
+          "Nel 1781 Charles-Augustin de Coulomb, ingegnere militare, vinse un premio dell’Accademia con uno studio sulle macchine semplici in cui distinse l’attrito statico da quello dinamico e osservò che l’attrito statico cresce con il tempo in cui due superfici restano a contatto. Il nome di legge di Amontons e Coulomb ricorda entrambi."
         ]
       }
     },
@@ -77,18 +78,24 @@
       "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "L’attrito statico si adatta entro un intervallo: il suo modulo può arrivare fino a μ_sN. Il coefficiente μ_s è adimensionale e N è la forza normale. La formula fornisce un massimo, non il valore effettivo in ogni situazione.",
-          "Con μ_s=0,3 e N=20 N, il massimo statico è 6 N. Una spinta di 2 N può essere bilanciata da 2 N di attrito: non da 6 N."
+          "L’attrito statico agisce fra due superfici ferme l’una rispetto all’altra e si oppone alla tendenza a scivolare. Il suo valore è quello necessario a mantenere l’equilibrio, fino a un massimo F_s,max = μ_s N. Se la spinta supera quel massimo, la cassa parte.",
+          "La forza normale N è la forza perpendicolare con cui una superficie sostiene un corpo. Su un pavimento orizzontale, con il corpo fermo e senza altre forze verticali, N è uguale al peso. Raddoppiando il peso della cassa raddoppia N, e raddoppia anche il massimo attrito statico.",
+          "Il coefficiente μ_s dipende dalla coppia di materiali e dallo stato delle superfici. Per la gomma su asfalto asciutto sta fra circa 0,7 e 1, per legno su legno sta fra circa 0,25 e 0,5, per il teflon su teflon è intorno a 0,04. Il ghiaccio bagnato scivola molto più di quello asciutto e molto freddo.",
+          "Quando la cassa scivola agisce l’attrito dinamico, F_d = μ_d N, con un coefficiente μ_d di solito un po’ minore di μ_s. Per questo una cassa, una volta partita, continua a muoversi con una spinta più debole di quella che è servita a smuoverla.",
+          "Esempio: una cassa con N = 20 N e μ_s = 0,3 resta ferma finché la spinta orizzontale non supera 6 N. Con una superficie più ruvida, μ_s = 0,4, servono più di 8 N. La soglia non dipende dalla velocità con cui il robot aumenta la spinta."
         ],
         "intermediate": [
-          "Nel laboratorio F_s,max=μ_sN. Per una spinta tangenziale inferiore al limite, una cassa in equilibrio può avere un attrito uguale e contrario alla spinta. Dopo l’avvio dello scorrimento serve un modello di attrito dinamico distinto.",
-          "La variabile Forza normale è espressa in N; Attrito statico massimo in N. Il dominio dello strumento è [0; 100]. La relazione implementata è: F_s,max = μ_s N.",
-          "Con μ_s=0,3 e N=20 N, il massimo statico è 6 N. Una spinta di 2 N può essere bilanciata da 2 N di attrito: non da 6 N."
+          "Esempio svolto: partenza e scivolamento. Un blocco di 8 kg poggia su un piano orizzontale con μ_s = 0,40 e μ_d = 0,30. Il massimo attrito statico è 0,40 · 8 · 9,81 ≈ 31,4 N. Con una spinta di 40 N il blocco parte; l’attrito dinamico è 0,30 · 8 · 9,81 ≈ 23,5 N, e l’accelerazione è (40 − 23,5)/8 ≈ 2,06 m/s².",
+          "Esempio svolto: il piano inclinato. Un blocco fermo su un piano inclinato di un angolo θ ha due componenti del peso: m g sin θ lungo il piano e m g cos θ contro il piano, che è la forza normale. Il blocco comincia a scivolare quando m g sin θ supera μ_s m g cos θ, cioè quando tan θ supera μ_s. Con μ_s = 0,3 l’angolo critico è circa 16,7°, qualunque sia la massa: è un modo semplice di misurare μ_s.",
+          "Esempio svolto: la trazione obliqua. Una valigia di 20 kg è trascinata con una forza di 80 N inclinata di 30° verso l’alto. La componente verticale della trazione, 40 N, sostiene parte del peso, e la forza normale scende da 196 N a circa 156 N. Anche l’attrito si riduce nella stessa proporzione.",
+          "Il modello del laboratorio calcola μ_s N per una forza normale da 0 a 100 N, con μ_s regolabile da 0 a 1 a passi di 0,1.",
+          "Prova tu: su quale inclinazione comincia a scivolare una gomma da cancellare se μ_s = 0,6?"
         ],
         "advanced": [
-          "Nel laboratorio F_s,max=μ_sN. Per una spinta tangenziale inferiore al limite, una cassa in equilibrio può avere un attrito uguale e contrario alla spinta. Dopo l’avvio dello scorrimento serve un modello di attrito dinamico distinto.",
-          "Analizza una superficie inclinata e ricava la condizione di equilibrio. Distingui componente del peso parallela e perpendicolare al piano.",
-          "Confondere μ_sN con l’attrito effettivo porta a prevedere movimenti o accelerazioni inesistenti. La normale non coincide sempre con il peso: dipende dai vincoli e dalle altre forze."
+          "L’origine microscopica dell’attrito spiega le leggi di Amontons. Due superfici che sembrano lisce si toccano soltanto nelle punte delle loro asperità, e l’area di contatto reale è una piccola frazione di quella apparente. Frank Bowden e David Tabor mostrarono intorno al 1950 che l’area reale cresce in proporzione al carico, perché le asperità si schiacciano; l’attrito, proporzionale all’area reale, risulta quindi proporzionale al carico e indipendente dall’area apparente.",
+          "L’attrito è anche ciò che permette di camminare e di guidare. Il piede spinge il suolo all’indietro e il suolo, con l’attrito statico, spinge il piede in avanti; uno pneumatico che rotola senza slittare è fermo rispetto all’asfalto nel punto di contatto, e l’attrito in gioco è statico. La massima decelerazione di un’auto in frenata è circa μ_s g: con μ_s = 0,8 vale circa 7,8 m/s².",
+          "La relazione F_s,max = μ_s N rappresenta una soglia, e la forza effettiva dell’attrito statico si trova con le equazioni dell’equilibrio. In un problema di statica si risolvono prima le equazioni con l’attrito incognito, e poi si controlla che il valore trovato sia minore di μ_s N; se il controllo fallisce, il corpo scivola, e l’attrito diventa quello dinamico.",
+          "Esempio svolto: l’equilibrio sul piano inclinato. Una cassa di 5 kg poggia su un piano inclinato di 10°, con μ_s = 0,3. La componente del peso lungo il piano è 5 · 9,81 · sin 10° ≈ 8,5 N, e la forza normale è 5 · 9,81 · cos 10° ≈ 48,3 N, con una soglia μ_s N ≈ 14,5 N. Poiché 8,5 N è sotto la soglia, la cassa resta ferma, e l’attrito statico vale 8,5 N, diretto verso l’alto lungo il piano."
         ]
       }
     },
@@ -97,19 +104,19 @@
       "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio imposta Coefficiente μ_s (a): 0,3 (adimensionale). Prima di salvare A, prevedi come cambia Attrito statico massimo fra Forza normale=25 e 50 N. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con μ_s=0,3 e N=20 N, il massimo statico è 6 N. Una spinta di 2 N può essere bilanciata da 2 N di attrito: non da 6 N.",
-          "La variabile Forza normale è espressa in N; Attrito statico massimo in N. Il dominio dello strumento è [0; 100]. La relazione implementata è: F_s,max = μ_s N."
+          "Il grafico mostra il massimo attrito statico μ_s N al variare della forza normale N, da 0 a 100 N. Nella scheda «Regola» scegli il coefficiente μ_s, da 0 a 1.",
+          "Protocollo. La previsione riguarda il passaggio da N = 25 N a N = 50 N. Con μ_s = 0,3 scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta μ_s a 0, una superficie ideale senza attrito, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Prima di salvare B, chiediti se su una superficie perfettamente liscia il carico conti ancora qualcosa."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Coefficiente μ_s (a): 0,3 (adimensionale). Prima di salvare A, prevedi come cambia Attrito statico massimo fra Forza normale=25 e 50 N. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Forza normale è espressa in N; Attrito statico massimo in N. Il dominio dello strumento è [0; 100]. La relazione implementata è: F_s,max = μ_s N.",
-          "Nel laboratorio F_s,max=μ_sN. Per una spinta tangenziale inferiore al limite, una cassa in equilibrio può avere un attrito uguale e contrario alla spinta. Dopo l’avvio dello scorrimento serve un modello di attrito dinamico distinto."
+          "Il programma calcola il massimo attrito statico μ_s N per una forza normale fra 0 e 100 N; nella scheda «Regola» il coefficiente μ_s si regola a passi di 0,1.",
+          "Protocollo. Configurazione A: μ_s = 0,3, confronto fra N = 25 N e N = 50 N, previsione nella scheda «A / B» e «Salva A». Configurazione B: μ_s = 0, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. In A il massimo attrito passa da 7,5 N a 15 N: raddoppia insieme al carico. In B resta zero in entrambi i punti, e la previsione corretta è «Uguale»: senza attrito, qualunque spinta orizzontale, anche minima, mette in moto la cassa."
         ],
         "advanced": [
-          "Nel laboratorio imposta Coefficiente μ_s (a): 0,3 (adimensionale). Prima di salvare A, prevedi come cambia Attrito statico massimo fra Forza normale=25 e 50 N. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Analizza una superficie inclinata e ricava la condizione di equilibrio. Distingui componente del peso parallela e perpendicolare al piano.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il laboratorio rappresenta la funzione lineare F(N) = μ_s N su N fra 0 e 100 N: una retta per l’origine di pendenza μ_s, che è anche la tangente dell’angolo critico del piano inclinato.",
+          "Protocollo. Con μ_s = 0,3 scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il passaggio da N = 25 N a N = 50 N e premi «Salva A»; poi porta μ_s a 0 e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "La configurazione B è un caso limite in cui la funzione è identicamente nulla, e la sua previsione è diversa da quella di qualunque μ_s positivo. Il modello lo tratta come un caso regolare; nella realtà nessuna coppia di materiali ha μ_s esattamente zero, e i valori più bassi, intorno a qualche millesimo, si ottengono con superfici speciali o con un velo di lubrificante."
         ]
       }
     },
@@ -118,19 +125,19 @@
       "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Confondere μ_sN con l’attrito effettivo porta a prevedere movimenti o accelerazioni inesistenti. La normale non coincide sempre con il peso: dipende dai vincoli e dalle altre forze.",
-          "Modello macroscopico di Coulomb con coefficiente costante. Non descrive adesione microscopica, lubrificazione, usura o transizione dettagliata allo scorrimento.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il primo errore frequente è credere che l’attrito statico valga sempre μ_s N. Quella è la soglia massima: una cassa ferma spinta con 2 N riceve dal pavimento un attrito di 2 N, anche se il massimo è 6 N.",
+          "Il secondo errore è pensare che la forza normale sia sempre uguale al peso. Su un piano inclinato è minore, m g cos θ; se qualcuno preme la cassa dall’alto è maggiore; se la tira verso l’alto con una corda inclinata è di nuovo minore.",
+          "Il terzo errore è credere che l’attrito si opponga sempre al moto. L’attrito si oppone allo scivolamento fra le due superfici: quando cammini, l’attrito del suolo sulla scarpa è rivolto in avanti, nel verso del tuo moto, ed è proprio lui a spingerti."
         ],
         "intermediate": [
-          "Confondere μ_sN con l’attrito effettivo porta a prevedere movimenti o accelerazioni inesistenti. La normale non coincide sempre con il peso: dipende dai vincoli e dalle altre forze.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Esempio svolto: l’area di contatto. Un mattone di 2 kg trascinato appoggiato sulla faccia larga o su quella stretta richiede, nel modello, la stessa forza: N è lo stesso, e μ_s non dipende dall’area. Con μ_s = 0,5 la soglia è circa 9,8 N in entrambi i casi.",
+          "Esempio svolto: la cassa premuta. La stessa cassa di 2 kg viene premuta dall’alto con 10 N. La forza normale diventa 19,6 + 10 = 29,6 N, e con μ_s = 0,5 la soglia sale a 14,8 N. Premere un oggetto contro il piano rende più difficile smuoverlo.",
+          "Esempio svolto: la frenata con le ruote bloccate. Se le ruote si bloccano, gli pneumatici strisciano sull’asfalto e l’attrito diventa dinamico, con un coefficiente minore. I sistemi antibloccaggio mantengono le ruote al limite del rotolamento, dove l’attrito è ancora statico, e su asfalto asciutto in genere accorciano lo spazio di frenata, oltre a lasciare al conducente la possibilità di sterzare."
         ],
         "advanced": [
-          "Modello macroscopico di Coulomb con coefficiente costante. Non descrive adesione microscopica, lubrificazione, usura o transizione dettagliata allo scorrimento.",
-          "Analizza una superficie inclinata e ricava la condizione di equilibrio. Distingui componente del peso parallela e perpendicolare al piano.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il modello di Amontons e Coulomb è un’approssimazione. Il coefficiente varia con la velocità di scivolamento, con la temperatura e con l’umidità, e l’attrito statico cresce lentamente con il tempo di contatto. Quando l’attrito dinamico diminuisce al crescere della velocità, il moto può diventare a scatti: è il fenomeno di stick-slip che fa cigolare le porte e vibrare la corda di un violino sotto l’archetto.",
+          "Lo stesso fenomeno, a scala enorme, avviene lungo le faglie: le rocce restano bloccate per anni e poi scivolano di colpo, liberando l’energia accumulata in un terremoto. I modelli di attrito usati in sismologia aggiungono alla legge di Coulomb una dipendenza dalla velocità e dalla storia del contatto.",
+          "Infine, il coefficiente può superare 1: gomme da competizione molto morbide e superfici adesive raggiungono valori maggiori, e lì l’adesione fra i materiali aggiunge una forza che il modello lineare ignora."
         ]
       }
     },
@@ -157,19 +164,17 @@
       "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Attrito statico ideale con coefficiente costante.",
-          "Modello macroscopico di Coulomb con coefficiente costante. Non descrive adesione microscopica, lubrificazione, usura o transizione dettagliata allo scorrimento.",
-          "Collegamento consigliato: physics-06. Il completamento registra attività e autoverifica, non certifica competenze."
+          "L’attrito e la forza normale sono forze di contatto che compaiono in quasi tutti i problemi di dinamica. Il diagramma delle forze dell’unità «Forze e leggi di Newton» va completato con queste forze.",
+          "Riepilogo: l’attrito statico si adatta alla spinta fino al massimo μ_s N; oltre quella soglia il corpo scivola, e agisce l’attrito dinamico μ_d N.",
+          "Nel diario registra le configurazioni A e B e spiega perché in B la previsione corretta è «Uguale»."
         ],
         "intermediate": [
-          "Nel laboratorio F_s,max=μ_sN. Per una spinta tangenziale inferiore al limite, una cassa in equilibrio può avere un attrito uguale e contrario alla spinta. Dopo l’avvio dello scorrimento serve un modello di attrito dinamico distinto.",
-          "Modello macroscopico di Coulomb con coefficiente costante. Non descrive adesione microscopica, lubrificazione, usura o transizione dettagliata allo scorrimento.",
-          "Analizza una superficie inclinata e ricava la condizione di equilibrio. Distingui componente del peso parallela e perpendicolare al piano."
+          "Il piano inclinato e la scomposizione del peso usano la trigonometria dell’unità di matematica «Trigonometria». Nella prossima unità di fisica, «Lavoro ed energia», si vedrà che l’attrito dinamico trasforma energia di movimento in calore. Il lavoro dell’attrito su un tratto di pavimento è il prodotto della forza per la strada percorsa.",
+          "Nel diario descrivi come misureresti μ_s fra una moneta e un libro inclinando lentamente il libro, quale grandezza leggeresti al momento della partenza e come ripeteresti la misura per stimarne l’incertezza."
         ],
         "advanced": [
-          "Analizza una superficie inclinata e ricava la condizione di equilibrio. Distingui componente del peso parallela e perpendicolare al piano.",
-          "Modello macroscopico di Coulomb con coefficiente costante. Non descrive adesione microscopica, lubrificazione, usura o transizione dettagliata allo scorrimento.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "L’attrito dinamico è il primo esempio di forza dissipativa: nell’unità «Lavoro ed energia» il suo lavoro negativo spiega perché l’energia meccanica diminuisce, e nell’unità «Calore e capacità termica» l’energia perduta ricompare come aumento di temperatura. Il riscaldamento delle mani strofinate è la versione quotidiana dello stesso fenomeno.",
+          "Nel diario spiega che cosa succede alla cassa ferma sul piano inclinato di 10° quando l’inclinazione cresce, e trova l’angolo oltre il quale comincia a scivolare con μ_s = 0,3."
         ]
       }
     }

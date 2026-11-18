@@ -8,7 +8,7 @@
   "coverage": "guided-foundation",
   "editorialStatus": "original-draft",
   "scope": "Oscillazione ideale senza smorzamento",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "narrativeStatus": "Lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, calcolati con il modello dell’unità. I fatti storici e i valori reali citati nei testi, come costanti, misure ed esperimenti, si riferiscono al mondo reale.",
   "objectives": [
     "Spiegare: oscillazione ideale senza smorzamento.",
     "Applicare x(t) = A cos(ωt), dichiarando variabili e unità.",
@@ -62,17 +62,18 @@
       "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Un sensore montato su una molla oscilla attorno a un punto di equilibrio. Il moto si ripete, ma ampiezza e rapidità delle oscillazioni non sono la stessa cosa.",
-          "Il moto armonico semplice è descritto da x(t)=A cos(ωt+φ). A è l’ampiezza, ω la pulsazione e φ la fase iniziale. Il laboratorio fissa φ=0."
+          "Un sismografo della base è fatto di una massa appesa a una molla. Dopo una scossa la massa sale e scende, sempre con lo stesso ritmo, finché a poco a poco si ferma. Perché il ritmo resta lo stesso anche quando le oscillazioni diventano più piccole? E perché proprio una curva a forma di onda?",
+          "Un oscillatore armonico è un sistema in cui la forza di richiamo verso l’equilibrio è proporzionale allo spostamento: F = −k x. Senza attriti, lo spostamento segue la legge x(t) = A cos(ω t), dove A è l’ampiezza, cioè lo spostamento massimo, e ω la pulsazione, in radianti al secondo. All’istante zero la massa è nella posizione più lontana, x = A.",
+          "Il periodo, il tempo di un’oscillazione completa, è T = 2π/ω, ed è indipendente dall’ampiezza. Si racconta che Galileo, giovane studente a Pisa, lo intuì osservando una lampada che oscillava nel duomo e misurando le oscillazioni con il proprio polso."
         ],
         "intermediate": [
-          "Un sensore montato su una molla oscilla attorno a un punto di equilibrio. Il moto si ripete, ma ampiezza e rapidità delle oscillazioni non sono la stessa cosa.",
-          "Il periodo è T=2π/ω. Derivando ottieni v=-Aω sin(ωt) e a=-Aω² cos(ωt)=-ω²x. L’accelerazione è sempre diretta verso l’equilibrio."
+          "Esempio svolto: leggere la legge oraria. Con A = 1 m e ω = 2 rad/s, all’istante t = 0 lo spostamento è 1 m; con A = 1,5 m è 1,5 m. Dopo 1 s, con A = 1 m, lo spostamento è cos 2 ≈ −0,42 m: la massa ha superato l’equilibrio e sta dall’altra parte. Il periodo è 2π/2 ≈ 3,14 s.",
+          "Esempio svolto: la massa e la molla. Per una massa m appesa a una molla di costante k la pulsazione è ω = √(k/m). Con m = 0,5 kg e k = 200 N/m si ottiene ω = 20 rad/s, un periodo di circa 0,31 s e una frequenza di circa 3,2 oscillazioni al secondo. Una massa quattro volte più grande dimezza la pulsazione.",
+          "Prova tu: quanto deve essere lungo un pendolo semplice perché il suo periodo sia di 1 s? Usa T = 2π √(L/g)."
         ],
         "advanced": [
-          "Un sensore montato su una molla oscilla attorno a un punto di equilibrio. Il moto si ripete, ma ampiezza e rapidità delle oscillazioni non sono la stessa cosa.",
-          "Ricava l’energia cinetica e potenziale per una molla ideale e verifica che la somma sia costante. Collega ω a massa e costante elastica.",
-          "Oscillatore ideale senza smorzamento o forzanti. Non si modellano deformazioni non lineari della molla."
+          "Il racconto della lampada viene, come quello della torre, dalla biografia di Vincenzo Viviani; quel che è certo è che Galileo studiò a lungo i pendoli e propose di usarli per regolare gli orologi. L’isocronismo che credeva di aver trovato è però soltanto approssimato: il periodo di un pendolo cresce un poco con l’ampiezza.",
+          "Christiaan Huygens costruì nel 1656 il primo orologio a pendolo affidabile, che ridusse l’errore degli orologi da circa un quarto d’ora a una quindicina di secondi al giorno. Nell’Horologium oscillatorium del 1673 dimostrò che un pendolo costretto a muoversi lungo una cicloide ha un periodo esattamente indipendente dall’ampiezza, e progettò guance metalliche a forma di cicloide per guidare il filo."
         ]
       }
     },
@@ -81,18 +82,24 @@
       "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Il moto armonico semplice è descritto da x(t)=A cos(ωt+φ). A è l’ampiezza, ω la pulsazione e φ la fase iniziale. Il laboratorio fissa φ=0.",
-          "Con A=1 m e ω=2 rad/s, al tempo zero x=1 m e v=0. Il periodo è π s. Al centro x=0, la velocità ha modulo massimo."
+          "Nel moto armonico l’accelerazione è proporzionale allo spostamento e ha verso opposto: a = −ω² x. Quando la massa è lontana dall’equilibrio la forza la richiama con intensità; quando passa per l’equilibrio la forza è zero, e la massa prosegue per inerzia.",
+          "Le grandezze del moto si alternano. Agli estremi, x = ±A, la velocità è zero e l’accelerazione è massima, ω² A; al centro la velocità è massima, ω A, e l’accelerazione è zero. Con A = 1 m e ω = 2 rad/s la velocità massima è 2 m/s e l’accelerazione massima 4 m/s².",
+          "La frequenza f è il numero di oscillazioni al secondo, f = 1/T = ω/(2π), e si misura in hertz. Il cuore a riposo batte circa una volta al secondo, una corda di chitarra vibra centinaia di volte al secondo, il cristallo di quarzo di un orologio 32 768 volte, cioè 2¹⁵.",
+          "L’energia di un oscillatore senza attriti resta costante e passa continuamente da una forma all’altra. Agli estremi è tutta energia elastica, k A²/2; al centro è tutta energia cinetica, m (ω A)²/2. Le due espressioni sono uguali perché k = m ω².",
+          "La legge di Hooke, F = −k x, fu pubblicata da Robert Hooke nel 1678 con il motto latino ut tensio, sic vis, come l’allungamento così la forza. Due anni prima Hooke l’aveva annunciata in forma di anagramma, per assicurarsi la priorità senza rivelarla."
         ],
         "intermediate": [
-          "Il periodo è T=2π/ω. Derivando ottieni v=-Aω sin(ωt) e a=-Aω² cos(ωt)=-ω²x. L’accelerazione è sempre diretta verso l’equilibrio.",
-          "La variabile Tempo è espressa in s; Spostamento in m. Il dominio dello strumento è [0; 10]. La relazione implementata è: x(t) = A cos(ωt).",
-          "Con A=1 m e ω=2 rad/s, al tempo zero x=1 m e v=0. Il periodo è π s. Al centro x=0, la velocità ha modulo massimo."
+          "Esempio svolto: energia e velocità. La massa di 0,5 kg sulla molla di 200 N/m oscilla con ampiezza 5 cm. L’energia totale è 200 · 0,05²/2 = 0,25 J, la velocità massima è ω A = 20 · 0,05 = 1 m/s e l’accelerazione massima ω² A = 400 · 0,05 = 20 m/s², il doppio dell’accelerazione di gravità.",
+          "Esempio svolto: il pendolo semplice. Per piccole oscillazioni un pendolo di lunghezza L ha periodo T = 2π √(L/g). Un pendolo lungo 1 m, con g = 9,81 m/s², ha T ≈ 2,01 s; il periodo è lo stesso per ogni massa appesa, che infatti manca nella formula. Un pendolo lungo circa 99,4 cm compie un’oscillazione semplice, da un estremo all’altro, in un secondo: è il pendolo che batte il secondo.",
+          "Esempio svolto: le condizioni iniziali. Se all’istante zero la massa passa per l’equilibrio con velocità v₀, la legge è x(t) = (v₀/ω) sin(ω t), e l’ampiezza è v₀/ω. In generale x(t) = C cos(ω t) + D sin(ω t), con C uguale allo spostamento iniziale e D uguale alla velocità iniziale divisa per ω.",
+          "Il modello del laboratorio calcola x(t) = A cos(ω t) per t da 0 a 10 s, con l’ampiezza A fra 0,5 e 3 m e la pulsazione ω fra 0,5 e 4 rad/s, entrambe a passi di 0,5.",
+          "Prova tu: una massa di 2 kg su una molla oscilla con periodo 1 s. Quanto vale la costante della molla?"
         ],
         "advanced": [
-          "Il periodo è T=2π/ω. Derivando ottieni v=-Aω sin(ωt) e a=-Aω² cos(ωt)=-ω²x. L’accelerazione è sempre diretta verso l’equilibrio.",
-          "Ricava l’energia cinetica e potenziale per una molla ideale e verifica che la somma sia costante. Collega ω a massa e costante elastica.",
-          "Velocità nulla agli estremi non significa accelerazione nulla. L’ampiezza misura una distanza, mentre il periodo misura un tempo."
+          "L’equazione del moto armonico è un’equazione differenziale: m d²x/dt² = −k x, cioè d²x/dt² + ω² x = 0. Le sue soluzioni sono tutte le combinazioni di cos(ω t) e sin(ω t), e due numeri, posizione e velocità iniziali, scelgono quella giusta. La stessa equazione descrive circuiti elettrici, molecole che vibrano e onde, e per questo l’oscillatore armonico è il modello più usato della fisica.",
+          "La sua universalità ha una ragione precisa. Vicino a un minimo di energia potenziale U(x), lo sviluppo di Taylor dà U ≈ U(x₀) + k (x − x₀)²/2, dove k è la derivata seconda di U nel minimo, perché la derivata prima è zero: ogni equilibrio stabile, per piccoli spostamenti, si comporta come una molla di costante k. Il pendolo è l’esempio classico, con sin θ ≈ θ per angoli piccoli misurati in radianti.",
+          "Nel 1672 l’astronomo Jean Richer portò un orologio a pendolo a Caienna, vicino all’equatore, e lo trovò in ritardo di circa due minuti e mezzo al giorno. Il pendolo andava più lento perché lì g è più piccola; Newton e Huygens interpretarono il fatto come una prova della rotazione e dello schiacciamento della Terra.",
+          "Con i numeri complessi l’oscillazione si scrive come la parte reale di A e^(iωt), un punto che ruota sulla circonferenza nel piano complesso con velocità angolare ω. La formula di Euler, e^(iθ) = cos θ + i sin θ, trasforma derivate in moltiplicazioni per iω e rende semplici i calcoli con lo smorzamento e le forze periodiche."
         ]
       }
     },
@@ -101,19 +108,19 @@
       "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio imposta Ampiezza A (a): 1 m; Pulsazione ω (b): 2 rad/s. Prima di salvare A, prevedi come cambia Spostamento fra Tempo=2,5 e 5 s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con A=1 m e ω=2 rad/s, al tempo zero x=1 m e v=0. Il periodo è π s. Al centro x=0, la velocità ha modulo massimo.",
-          "La variabile Tempo è espressa in s; Spostamento in m. Il dominio dello strumento è [0; 10]. La relazione implementata è: x(t) = A cos(ωt)."
+          "Il grafico mostra lo spostamento x(t) = A cos(ω t) per un tempo da 0 a 10 s. Nella scheda «Regola» scegli l’ampiezza A, da 0,5 a 3 m, e la pulsazione ω, da 0,5 a 4 rad/s.",
+          "Protocollo. La previsione riguarda il passaggio da t = 2,5 s a t = 5 s. Con A = 1 m e ω = 2 rad/s scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta la pulsazione a 1 rad/s, lasciando A = 1 m, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Attenzione: in un moto che va avanti e indietro, il risultato di un confronto fra due istanti dipende da dove si trova la massa in quei due istanti."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Ampiezza A (a): 1 m; Pulsazione ω (b): 2 rad/s. Prima di salvare A, prevedi come cambia Spostamento fra Tempo=2,5 e 5 s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Tempo è espressa in s; Spostamento in m. Il dominio dello strumento è [0; 10]. La relazione implementata è: x(t) = A cos(ωt).",
-          "Il periodo è T=2π/ω. Derivando ottieni v=-Aω sin(ωt) e a=-Aω² cos(ωt)=-ω²x. L’accelerazione è sempre diretta verso l’equilibrio."
+          "Il programma calcola lo spostamento x(t) = A cos(ω t) per t fra 0 e 10 s; nella scheda «Regola» ampiezza e pulsazione si regolano a passi di 0,5.",
+          "Protocollo. Configurazione A: A = 1 m, ω = 2 rad/s, confronto fra t = 2,5 s e t = 5 s, previsione nella scheda «A / B» e «Salva A». Configurazione B: ω = 1 rad/s con la stessa ampiezza, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. In A lo spostamento passa da cos 5 ≈ 0,28 m a cos 10 ≈ −0,84 m e diminuisce. In B passa da cos 2,5 ≈ −0,80 m a cos 5 ≈ 0,28 m e cresce. Cambiare soltanto il ritmo dell’oscillazione rovescia la previsione: con ω = 1 rad/s il periodo è 6,28 s, e nei due istanti la massa si trova in fasi diverse."
         ],
         "advanced": [
-          "Nel laboratorio imposta Ampiezza A (a): 1 m; Pulsazione ω (b): 2 rad/s. Prima di salvare A, prevedi come cambia Spostamento fra Tempo=2,5 e 5 s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Ricava l’energia cinetica e potenziale per una molla ideale e verifica che la somma sia costante. Collega ω a massa e costante elastica.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il laboratorio rappresenta x(t) = A cos(ω t) su t fra 0 e 10 s. La funzione è periodica, e il segno di x(5) − x(2,5) dipende dalle fasi ω · 2,5 e ω · 5, cioè da ω; l’ampiezza A moltiplica entrambi i valori e lascia intatto il segno della differenza.",
+          "Protocollo. Con A = 1 m e ω = 2 rad/s scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il passaggio da t = 2,5 s a t = 5 s e premi «Salva A»; poi porta la pulsazione a 1 rad/s e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "La differenza x(5) − x(2,5) = cos(5ω) − cos(2,5ω) si scrive anche −2 sin(3,75ω) sin(1,25ω), e cambia segno più volte quando ω varia fra 0,5 e 4 rad/s. Il confronto fra due istanti descrive due punti della curva e lascia aperta la forma del moto fra di essi: per un moto periodico servono molti campioni, almeno due per periodo."
         ]
       }
     },
@@ -122,19 +129,19 @@
       "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Velocità nulla agli estremi non significa accelerazione nulla. L’ampiezza misura una distanza, mentre il periodo misura un tempo.",
-          "Oscillatore ideale senza smorzamento o forzanti. Non si modellano deformazioni non lineari della molla.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il primo errore frequente è credere che oscillazioni più ampie richiedano più tempo. In un oscillatore armonico il periodo è lo stesso per ogni ampiezza: una massa che parte da più lontano va più veloce e impiega lo stesso tempo. Un pendolo reale si allontana un poco da questa regola soltanto per ampiezze grandi.",
+          "Il secondo errore è pensare che dove la massa è ferma anche la forza sia zero. Agli estremi la massa si ferma per un istante, e proprio lì la forza della molla è massima; al centro la massa corre e la forza è nulla.",
+          "Il terzo errore è credere che la massa del pendolo cambi il suo periodo. Il periodo di un pendolo semplice dipende dalla lunghezza e da g; quello di una massa su una molla dipende invece dalla massa, perché la forza della molla resta la stessa mentre l’inerzia cresce."
         ],
         "intermediate": [
-          "Velocità nulla agli estremi non significa accelerazione nulla. L’ampiezza misura una distanza, mentre il periodo misura un tempo.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Esempio svolto: gradi e radianti. Con ω = 2 rad/s e t = 1 s, ω t = 2 radianti, circa 115°, e cos 2 ≈ −0,42. Chi usa la calcolatrice in gradi ottiene cos 2° ≈ 0,9994, un valore che descrive la massa quasi ferma all’estremo. Nelle formule delle oscillazioni gli angoli sono sempre in radianti.",
+          "Esempio svolto: la molla verticale. Una massa di 0,5 kg appesa a una molla di 200 N/m allunga la molla di 0,5 · 9,81/200 ≈ 2,5 cm prima di oscillare. L’oscillazione avviene attorno a questa nuova posizione di equilibrio, con la stessa pulsazione di 20 rad/s; l’ampiezza si misura da lì, e la gravità sposta soltanto il centro dell’oscillazione.",
+          "Esempio svolto: la correzione del pendolo. Per un’ampiezza di 10°, cioè circa 0,175 rad, la prima correzione al periodo è θ₀²/16 ≈ 0,0019, lo 0,19%. Un orologio con quell’errore perderebbe circa 2,7 minuti al giorno; per questo gli orologi a pendolo di precisione oscillano con ampiezze molto piccole."
         ],
         "advanced": [
-          "Oscillatore ideale senza smorzamento o forzanti. Non si modellano deformazioni non lineari della molla.",
-          "Ricava l’energia cinetica e potenziale per una molla ideale e verifica che la somma sia costante. Collega ω a massa e costante elastica.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il modello del laboratorio descrive un’oscillazione ideale senza smorzamento. Ogni oscillatore reale perde energia per attrito, e l’ampiezza decresce con una legge esponenziale; il sismografo della base si ferma per questo, e gli strumenti di misura sono smorzati di proposito per tornare rapidamente a riposo.",
+          "Quando una forza periodica agisce su un oscillatore, l’ampiezza diventa grande se la frequenza della forza è vicina a quella propria del sistema: è la risonanza, che ha bisogno di energia in ingresso e viene limitata dallo smorzamento. Per spiegare una vibrazione grande non basta la coincidenza delle frequenze; bisogna dire da dove entra l’energia.",
+          "Per ampiezze grandi la forza di richiamo smette di essere proporzionale allo spostamento, e il periodo comincia a dipendere dall’ampiezza. Alla scala atomica l’oscillatore armonico diventa quantistico, con energie permesse (n + 1/2) ħ ω."
         ]
       }
     },
@@ -161,19 +168,17 @@
       "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Oscillazione ideale senza smorzamento.",
-          "Oscillatore ideale senza smorzamento o forzanti. Non si modellano deformazioni non lineari della molla.",
-          "Collegamento consigliato: math-p12. Il completamento registra attività e autoverifica, non certifica competenze."
+          "L’oscillatore armonico è il punto di partenza per le onde, i circuiti e le molecole. La prossima unità di fisica, «Onde e sovrapposizione», descrive oscillazioni che si propagano nello spazio.",
+          "Riepilogo: x(t) = A cos(ω t); a = −ω² x; T = 2π/ω non dipende dall’ampiezza; per una molla ω = √(k/m), per un pendolo T = 2π √(L/g).",
+          "Nel diario registra le configurazioni A e B e spiega perché cambiando soltanto ω la previsione si rovescia."
         ],
         "intermediate": [
-          "Il periodo è T=2π/ω. Derivando ottieni v=-Aω sin(ωt) e a=-Aω² cos(ωt)=-ω²x. L’accelerazione è sempre diretta verso l’equilibrio.",
-          "Oscillatore ideale senza smorzamento o forzanti. Non si modellano deformazioni non lineari della molla.",
-          "Ricava l’energia cinetica e potenziale per una molla ideale e verifica che la somma sia costante. Collega ω a massa e costante elastica."
+          "Il seno e il coseno vengono dall’unità di matematica «Trigonometria». L’energia che passa da elastica a cinetica completa il bilancio dell’unità «Lavoro ed energia», e il circuito con bobina e condensatore dell’unità «Induzione, circuiti oscillanti e radio» obbedisce alla stessa equazione.",
+          "Nel diario calcola il periodo di un pendolo di 2 m sulla Terra e sulla Luna, dove g ≈ 1,62 m/s², e spiega perché un orologio a pendolo portato sulla Luna andrebbe in ritardo."
         ],
         "advanced": [
-          "Ricava l’energia cinetica e potenziale per una molla ideale e verifica che la somma sia costante. Collega ω a massa e costante elastica.",
-          "Oscillatore ideale senza smorzamento o forzanti. Non si modellano deformazioni non lineari della molla.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Lo sviluppo di Taylor attorno a un minimo e le energie quantizzate dell’oscillatore tornano nell’unità di matematica «Oscillazioni, molecole e quantizzazione», dove le vibrazioni delle molecole si leggono negli spettri infrarossi.",
+          "Nel diario mostra che una combinazione C cos(ω t) + D sin(ω t) si può scrivere come A cos(ω t − φ), trova A e φ in funzione di C e D e applica il risultato a una massa che parte da 3 cm con velocità di 0,4 m/s e ω = 10 rad/s."
         ]
       }
     }

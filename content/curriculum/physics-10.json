@@ -8,7 +8,7 @@
   "coverage": "guided-foundation",
   "editorialStatus": "original-draft",
   "scope": "Massa puntiforme rispetto a un asse fissato",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "narrativeStatus": "Lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, calcolati con il modello dell’unità. I fatti storici e i valori reali citati nei testi, come costanti, misure ed esperimenti, si riferiscono al mondo reale.",
   "objectives": [
     "Spiegare: massa puntiforme rispetto a un asse fissato.",
     "Applicare I = mr², dichiarando variabili e unità.",
@@ -58,17 +58,18 @@
       "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Una massa viene spostata verso il bordo di un braccio rotante. La massa totale non cambia, ma la risposta alla rotazione sì. Devi identificare la grandezza che tiene conto della distribuzione.",
-          "Il momento d’inerzia di una massa puntiforme rispetto a un asse è I=mr², dove r è la distanza perpendicolare dall’asse. Per più masse si sommano i contributi, non soltanto le masse."
+          "Sulla giostra della base i tecnici montano due pesi da 2 kg su un’asta che ruota attorno al centro. Con i pesi vicini all’asse l’asta si mette in rotazione facilmente; spostandoli verso le estremità serve uno sforzo molto più grande, anche se la massa è la stessa. Che cosa è cambiato?",
+          "È cambiato il momento d’inerzia, che misura quanto un corpo resiste a cambiare la propria rotazione. Per una massa piccola m a distanza r dall’asse vale I = m r². La distanza conta al quadrato: un peso di 2 kg a 2 m dall’asse ha I = 2 · 4 = 8 kg m², quattro volte più che a 1 m.",
+          "Il nome momento d’inerzia fu introdotto da Leonhard Euler nel 1765, in un trattato sul moto dei corpi rigidi. Prima di lui Christiaan Huygens, studiando i pendoli degli orologi, aveva già usato somme di masse moltiplicate per i quadrati delle distanze dall’asse."
         ],
         "intermediate": [
-          "Una massa viene spostata verso il bordo di un braccio rotante. La massa totale non cambia, ma la risposta alla rotazione sì. Devi identificare la grandezza che tiene conto della distribuzione.",
-          "La dipendenza quadratica da r rende molto importante la distribuzione. Per un asse fisso, la relazione dinamica τ=Iα ha un ruolo analogo a F=ma, ma non rende intercambiabili moto traslazionale e rotazionale."
+          "Esempio svolto: il momento d’inerzia di più masse. Per più masse puntiformi i contributi si sommano: I = m₁ r₁² + m₂ r₂² + … Due pesi da 2 kg posti a 2 m dall’asse, uno per parte, danno I = 2 · 8 = 16 kg m². Spostati a 0,5 m, danno 2 · 2 · 0,25 = 1 kg m², sedici volte meno.",
+          "Esempio svolto: la massa conta in proporzione semplice. Un peso di 3 kg a 2 m dall’asse ha I = 3 · 4 = 12 kg m², una volta e mezza quello da 2 kg alla stessa distanza. Raddoppiare la distanza, invece, quadruplica I.",
+          "Prova tu: due sfere da 0,5 kg sono fissate alle estremità di un’asta leggera lunga 1 m, che ruota attorno al suo centro. Quanto vale il momento d’inerzia?"
         ],
         "advanced": [
-          "Una massa viene spostata verso il bordo di un braccio rotante. La massa totale non cambia, ma la risposta alla rotazione sì. Devi identificare la grandezza che tiene conto della distribuzione.",
-          "Costruisci un sistema di due masse e somma i contributi. Confronta la distribuzione vicino all’asse con quella lontano, mantenendo la massa totale costante.",
-          "Il modello tratta tutta la massa come puntiforme e ignora la massa del supporto. La circonferenza visualizzata indica la distanza dall’asse, non una simulazione dinamica."
+          "Huygens arrivò a quelle somme nel 1673, nell’Horologium oscillatorium, cercando la lunghezza del pendolo semplice equivalente a un pendolo composto, cioè a un corpo esteso che oscilla attorno a un perno. Il suo centro di oscillazione dipende proprio dal rapporto fra la somma delle masse per i quadrati delle distanze e la somma delle masse per le distanze.",
+          "Euler fece del momento d’inerzia la grandezza centrale della dinamica dei corpi rigidi, e mostrò che ogni corpo possiede tre assi principali, attorno ai quali può ruotare senza oscillare. Un libro lanciato in aria ruota in modo stabile attorno all’asse con il momento più grande e a quello con il momento più piccolo, e in modo instabile attorno all’asse intermedio."
         ]
       }
     },
@@ -77,18 +78,24 @@
       "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Il momento d’inerzia di una massa puntiforme rispetto a un asse è I=mr², dove r è la distanza perpendicolare dall’asse. Per più masse si sommano i contributi, non soltanto le masse.",
-          "Con m=2 kg a r=2 m, I=8 kg m². Spostando la stessa massa a r=1 m, I scende a 2 kg m², cioè a un quarto."
+          "Le grandezze della rotazione ricalcano quelle del moto in linea retta. Al posto della posizione c’è l’angolo, misurato in radianti; al posto della velocità c’è la velocità angolare ω, in radianti al secondo; al posto della massa c’è il momento d’inerzia I. Un punto a distanza r dall’asse si muove con velocità v = ω r.",
+          "L’energia cinetica di rotazione vale K = I ω²/2, come m v²/2 con I al posto di m e ω al posto di v. Per un punto di massa m a distanza r la formula torna quella di sempre: I ω²/2 = m r² ω²/2 = m v²/2.",
+          "Il momento d’inerzia dipende dall’asse scelto e da come la massa è distribuita intorno a esso. La stessa asta ha un momento piccolo se ruota attorno al proprio asse, grande se ruota attorno a un asse perpendicolare passante per il centro, ancora più grande se ruota attorno a un’estremità.",
+          "Esempio: un peso di 2 kg a 2 m dall’asse ha I = 8 kg m². Se l’asta ruota a 3 rad/s, il peso si muove a 6 m/s, e l’energia di rotazione è 8 · 9/2 = 36 J, la stessa che si ottiene con m v²/2 = 2 · 36/2.",
+          "Per corpi estesi si sommano tutti i contributi. Un anello sottile di massa M e raggio R ha tutta la massa alla stessa distanza, e I = M R²; un disco pieno ha I = M R²/2, perché molta massa sta vicino al centro; una sfera piena ha I = 2 M R²/5."
         ],
         "intermediate": [
-          "La dipendenza quadratica da r rende molto importante la distribuzione. Per un asse fisso, la relazione dinamica τ=Iα ha un ruolo analogo a F=ma, ma non rende intercambiabili moto traslazionale e rotazionale.",
-          "La variabile Distanza asse è espressa in m; Momento di inerzia in kg m². Il dominio dello strumento è [0,1; 4]. La relazione implementata è: I = mr².",
-          "Con m=2 kg a r=2 m, I=8 kg m². Spostando la stessa massa a r=1 m, I scende a 2 kg m², cioè a un quarto."
+          "Esempio svolto: la seconda legge della rotazione. Il momento di una forza, τ, produce un’accelerazione angolare α secondo τ = I α, l’analogo di F = m a. Per dare un’accelerazione angolare di 2 rad/s² all’asta con I = 8 kg m² serve un momento di 16 N m: per esempio una forza di 8 N applicata a 2 m dall’asse.",
+          "Esempio svolto: la gara di rotolamento. Una sfera piena, un cilindro pieno e un anello rotolano senza strisciare lungo un piano inclinato da un dislivello di 2 m. L’energia m g h si divide fra traslazione e rotazione, e con I = k M R² la velocità finale è √(2 g h/(1 + k)). Si ottengono circa 5,3 m/s per la sfera, 5,1 m/s per il cilindro e 4,4 m/s per l’anello; un blocco che scivolasse senza attrito arriverebbe a 6,3 m/s. La massa e il raggio si semplificano.",
+          "Esempio svolto: il volano. Un volano con I = 8 kg m² che gira a 100 rad/s immagazzina 8 · 10 000/2 = 40 000 J. Per fermarlo in 20 s serve un momento frenante medio di I ω/t = 800/20 = 40 N m.",
+          "Il modello del laboratorio calcola I = m r² per una massa puntiforme a una distanza dall’asse fra 0,1 e 4 m, con la massa regolabile da 1 a 8 kg.",
+          "Prova tu: quale velocità finale avrebbe un cilindro cavo a parete sottile, con I = M R², rotolando dallo stesso dislivello di 2 m?"
         ],
         "advanced": [
-          "La dipendenza quadratica da r rende molto importante la distribuzione. Per un asse fisso, la relazione dinamica τ=Iα ha un ruolo analogo a F=ma, ma non rende intercambiabili moto traslazionale e rotazionale.",
-          "Costruisci un sistema di due masse e somma i contributi. Confronta la distribuzione vicino all’asse con quella lontano, mantenendo la massa totale costante.",
-          "Il momento d’inerzia non è una proprietà del corpo senza specificare l’asse. Una sfera e un anello con la stessa massa e dimensione possono avere valori differenti."
+          "Per un corpo continuo la somma diventa un integrale, I = ∫ r² dm. Per un’asta sottile di massa M e lunghezza L che ruota attorno al centro, con densità lineare M/L, l’integrale di x² M/L dx fra −L/2 e L/2 dà M L²/12; attorno a un’estremità dà M L²/3. Il teorema degli assi paralleli, di Huygens e Steiner, collega i due valori: I = I_cm + M d², con d = L/2.",
+          "Il momento angolare L = I ω è l’analogo della quantità di moto, e si conserva quando il momento delle forze esterne è nullo. Una pattinatrice che chiude le braccia riduce I, per esempio da 3,0 a 1,0 kg m², e la sua velocità di rotazione triplica. La sua energia di rotazione, I ω²/2, triplica anch’essa: il lavoro lo fanno i muscoli delle braccia tirando le masse verso l’asse.",
+          "La stessa conservazione spiega le stelle di neutroni, che nascono dal collasso del nucleo di una stella massiccia, grande all’incirca come la Terra, fino a un raggio di una decina di chilometri. La riduzione di I è enorme, e la rotazione accelera fino a decine di giri al secondo: la pulsar della nebulosa del Granchio ruota con un periodo di circa 33 millisecondi.",
+          "La seconda legge di Keplero, l’uguaglianza delle aree spazzate in tempi uguali, è anch’essa una forma della conservazione del momento angolare, valida per qualunque forza diretta verso il Sole."
         ]
       }
     },
@@ -97,19 +104,19 @@
       "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio imposta Massa puntiforme (a): 2 kg. Prima di salvare A, prevedi come cambia Momento di inerzia fra Distanza asse=1,075 e 2,05 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con m=2 kg a r=2 m, I=8 kg m². Spostando la stessa massa a r=1 m, I scende a 2 kg m², cioè a un quarto.",
-          "La variabile Distanza asse è espressa in m; Momento di inerzia in kg m². Il dominio dello strumento è [0,1; 4]. La relazione implementata è: I = mr²."
+          "Il grafico mostra il momento d’inerzia I = m r² di una massa puntiforme al variare della sua distanza r dall’asse, da 0,1 a 4 m. Nella scheda «Regola» scegli la massa m, da 1 a 8 kg.",
+          "Protocollo. La previsione riguarda il passaggio da r ≈ 1,08 m a r ≈ 2,05 m. Con m = 2 kg scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta la massa a 6 kg, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Prima di salvare, stima di quante volte cresce I quando la distanza quasi raddoppia."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Massa puntiforme (a): 2 kg. Prima di salvare A, prevedi come cambia Momento di inerzia fra Distanza asse=1,075 e 2,05 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Distanza asse è espressa in m; Momento di inerzia in kg m². Il dominio dello strumento è [0,1; 4]. La relazione implementata è: I = mr².",
-          "La dipendenza quadratica da r rende molto importante la distribuzione. Per un asse fisso, la relazione dinamica τ=Iα ha un ruolo analogo a F=ma, ma non rende intercambiabili moto traslazionale e rotazionale."
+          "Il programma calcola il momento d’inerzia I = m r² per una distanza dall’asse fra 0,1 e 4 m; nella scheda «Regola» la massa si regola a passi di 1 kg.",
+          "Protocollo. Configurazione A: m = 2 kg, confronto fra le distanze 1,075 m e 2,05 m, previsione nella scheda «A / B» e «Salva A». Configurazione B: m = 6 kg, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. In A il momento d’inerzia passa da circa 2,31 a 8,41 kg m², in B da circa 6,93 a 25,2 kg m². La distanza cresce di un fattore 1,91 e I di un fattore 3,64, il quadrato di 1,91; la massa tripla triplica ogni valore."
         ],
         "advanced": [
-          "Nel laboratorio imposta Massa puntiforme (a): 2 kg. Prima di salvare A, prevedi come cambia Momento di inerzia fra Distanza asse=1,075 e 2,05 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Costruisci un sistema di due masse e somma i contributi. Confronta la distribuzione vicino all’asse con quella lontano, mantenendo la massa totale costante.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il laboratorio rappresenta la parabola I(r) = m r² sul dominio r da 0,1 a 4 m; i due punti di confronto, 1,075 m e 2,05 m, cadono al 25% e al 50% dell’intervallo.",
+          "Protocollo. Con m = 2 kg scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il passaggio da r = 1,075 m a r = 2,05 m e premi «Salva A»; poi porta la massa a 6 kg e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "Il rapporto I(2,05)/I(1,075) = (2,05/1,075)² ≈ 3,64 è lo stesso in A e in B, perché la massa è un fattore comune. La derivata dI/dr = 2 m r cresce con r: spostare un peso di un centimetro lontano dall’asse costa più che spostarlo di un centimetro vicino all’asse."
         ]
       }
     },
@@ -118,19 +125,19 @@
       "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Il momento d’inerzia non è una proprietà del corpo senza specificare l’asse. Una sfera e un anello con la stessa massa e dimensione possono avere valori differenti.",
-          "Il modello tratta tutta la massa come puntiforme e ignora la massa del supporto. La circonferenza visualizzata indica la distanza dall’asse, non una simulazione dinamica.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il primo errore frequente è trattare il momento d’inerzia come una proprietà fissa del corpo, come la massa. Lo stesso corpo ha momenti d’inerzia diversi rispetto ad assi diversi, e quando si dà un valore di I bisogna sempre dire rispetto a quale asse.",
+          "Il secondo errore è dimenticare il quadrato. Una massa a distanza doppia dall’asse non contribuisce il doppio, contribuisce quattro volte di più; per questo i volani hanno la massa concentrata sul bordo.",
+          "Il terzo errore è credere che tutti i punti di un corpo che ruota abbiano la stessa velocità. Hanno la stessa velocità angolare ω; la velocità v = ω r cresce con la distanza dall’asse, e il bordo di un disco va molto più veloce del suo centro."
         ],
         "intermediate": [
-          "Il momento d’inerzia non è una proprietà del corpo senza specificare l’asse. Una sfera e un anello con la stessa massa e dimensione possono avere valori differenti.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Esempio svolto: la stessa massa, distribuita diversamente. Un anello e un disco hanno entrambi massa 2 kg e raggio 0,5 m. L’anello ha I = 2 · 0,25 = 0,5 kg m², il disco 0,25 kg m². Con lo stesso momento di 1 N m il disco accelera a 4 rad/s², l’anello soltanto a 2 rad/s².",
+          "Esempio svolto: l’asse conta. Un’asta di 1 kg lunga 2 m ha I = 1 · 4/12 ≈ 0,33 kg m² rispetto al centro e I = 1 · 4/3 ≈ 1,33 kg m² rispetto a un’estremità: quattro volte di più. È più facile far girare un bastone tenendolo nel mezzo.",
+          "Esempio svolto: la velocità sul bordo. Una ruota di raggio 0,3 m gira a 20 rad/s. Il mozzo è fermo, un punto a 0,15 m dall’asse va a 3 m/s, il bordo a 6 m/s. Tutti compiono lo stesso angolo nello stesso tempo."
         ],
         "advanced": [
-          "Il modello tratta tutta la massa come puntiforme e ignora la massa del supporto. La circonferenza visualizzata indica la distanza dall’asse, non una simulazione dinamica.",
-          "Costruisci un sistema di due masse e somma i contributi. Confronta la distribuzione vicino all’asse con quella lontano, mantenendo la massa totale costante.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il modello del laboratorio considera una massa puntiforme a distanza fissa da un asse fissato. Un corpo reale ha dimensioni, e un peso di raggio non trascurabile aggiunge il proprio momento d’inerzia attorno al suo centro, secondo il teorema degli assi paralleli; per piccole distanze dall’asse quel termine aggiuntivo diventa dominante.",
+          "Il modello presuppone inoltre un corpo rigido. Un corpo che si deforma ruotando, come la Terra che si schiaccia ai poli, cambia il proprio momento d’inerzia, e un pattinatore che cambia posizione ne è l’esempio più chiaro.",
+          "Il momento d’inerzia rivela anche l’interno dei pianeti. Per una sfera uniforme I/(M R²) = 0,4; per la Terra il valore misurato è circa 0,33, segno che la massa è concentrata verso il centro, nel nucleo di ferro."
         ]
       }
     },
@@ -157,19 +164,17 @@
       "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Massa puntiforme rispetto a un asse fissato.",
-          "Il modello tratta tutta la massa come puntiforme e ignora la massa del supporto. La circonferenza visualizzata indica la distanza dall’asse, non una simulazione dinamica.",
-          "Collegamento consigliato: physics-11. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Il momento d’inerzia è la massa della rotazione, e torna in ogni problema di corpi che girano. La prossima unità di fisica, «Momenti, leve ed equilibrio», studia il momento delle forze, la causa delle rotazioni.",
+          "Riepilogo: I = m r² per una massa puntiforme; i contributi si sommano; I dipende dall’asse; l’energia di rotazione è I ω²/2.",
+          "Nel diario registra le configurazioni A e B e spiega perché I cresce più in fretta della distanza."
         ],
         "intermediate": [
-          "La dipendenza quadratica da r rende molto importante la distribuzione. Per un asse fisso, la relazione dinamica τ=Iα ha un ruolo analogo a F=ma, ma non rende intercambiabili moto traslazionale e rotazionale.",
-          "Il modello tratta tutta la massa come puntiforme e ignora la massa del supporto. La circonferenza visualizzata indica la distanza dall’asse, non una simulazione dinamica.",
-          "Costruisci un sistema di due masse e somma i contributi. Confronta la distribuzione vicino all’asse con quella lontano, mantenendo la massa totale costante."
+          "La seconda legge della rotazione, τ = I α, è il seguito naturale di F = m a dell’unità «Forze e leggi di Newton», e l’energia di rotazione completa il bilancio dell’unità «Lavoro ed energia». Le due leggi si leggono una accanto all’altra.",
+          "Nel diario spiega perché una sfera piena batte un anello nella gara di rotolamento lungo un piano inclinato, usando la divisione dell’energia fra traslazione e rotazione, e prevedi in quale posizione arriverebbe un cilindro pieno."
         ],
         "advanced": [
-          "Costruisci un sistema di due masse e somma i contributi. Confronta la distribuzione vicino all’asse con quella lontano, mantenendo la massa totale costante.",
-          "Il modello tratta tutta la massa come puntiforme e ignora la massa del supporto. La circonferenza visualizzata indica la distanza dall’asse, non una simulazione dinamica.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La conservazione del momento angolare spiega la seconda legge di Keplero dell’unità «Orbite circolari» e la rapidità di rotazione delle stelle compatte. L’integrale I = ∫ r² dm usa gli strumenti dell’unità di matematica «Limiti, variazione e accumulazione».",
+          "Nel diario calcola con l’integrale il momento d’inerzia di un disco pieno, dividendolo in anelli sottili di raggio r e spessore dr, e verifica che il risultato è metà di quello di un anello con la stessa massa e lo stesso raggio."
         ]
       }
     }

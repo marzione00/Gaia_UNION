@@ -1,6 +1,6 @@
 # I tre livelli dei percorsi guidati
 
-Ogni tappa di un percorso guidato si legge a tre livelli: Base, Applica e Approfondisci. Nei dati i tre testi si chiamano `base`, `intermediate` e `advanced`. Fino alla 1.33.1 i livelli erano spesso copie l'uno dell'altro; dalla 1.34.0 la chimica ha tre testi distinti in ogni tappa, e dalla 1.35.0 anche la matematica. Questo documento descrive il problema, la regola di scrittura e i controlli che la fanno rispettare.
+Ogni tappa di un percorso guidato si legge a tre livelli: Base, Applica e Approfondisci. Nei dati i tre testi si chiamano `base`, `intermediate` e `advanced`. Fino alla 1.33.1 i livelli erano spesso copie l'uno dell'altro; dalla 1.34.0 la chimica ha tre testi distinti in ogni tappa, dalla 1.35.0 anche la matematica e dalla 1.36.0 la fisica. Questo documento descrive il problema, la regola di scrittura e i controlli che la fanno rispettare.
 
 ## Il problema
 
@@ -12,13 +12,17 @@ Nella 1.33.1 le tappe con testo visibile erano 625: 125 unità per cinque tappe,
 - **Applica** svolge esempi numerici completi, con i dati del capitolo, e chiude con una domanda per lo studente.
 - **Approfondisci** estende il concetto: derivazioni, limiti del modello, incertezze, storia della scoperta.
 
-I tre livelli non condividono paragrafi. In matematica le spiegazioni sono più ampie e ogni livello racconta anche la storia dei concetti: le fonti antiche, gli autori, le date e i problemi da cui le idee sono nate. Base presenta il personaggio o il problema storico, Applica lo trasforma in un esempio svolto, Approfondisci ne discute le conseguenze e i limiti. Nella tappa Sperimenta delle unità con laboratorio, prive del pannello di attività, ogni livello spiega con parole proprie come salvare le due configurazioni con «Salva A» e «Salva B», perché lo studente legge un solo livello alla volta. In chimica i numeri vengono dai capitoli del libro, già verificati sulle fonti, oppure si ricavano da essi con calcoli riportati nel testo. Per la matematica il repository è privo di capitoli, quindi esempi e risultati vengono dalla dispensa «Matematica di base» o si ricavano con calcoli riportati nel testo e ricontrollati, mentre date e notizie storiche sono state confrontate con J. Gullberg, «Mathematics: From the Birth of Numbers» (Norton, 1997); le notizie assenti da quel libro sono dati di uso comune nella letteratura storica. I testi riassumono con parole proprie e non riportano brani del libro. I valori dei laboratori e delle attività, come le previsioni da salvare con «Salva A» e «Salva B» o lo scarto residuo delle serie di adattamento, sono ricalcolati con le stesse formule del programma.
+I tre livelli non condividono paragrafi. In matematica le spiegazioni sono più ampie e ogni livello racconta anche la storia dei concetti: le fonti antiche, gli autori, le date e i problemi da cui le idee sono nate. Base presenta il personaggio o il problema storico, Applica lo trasforma in un esempio svolto, Approfondisci ne discute le conseguenze e i limiti. Nella tappa Sperimenta delle unità con laboratorio, prive del pannello di attività, ogni livello spiega con parole proprie come salvare le due configurazioni con «Salva A» e «Salva B», perché lo studente legge un solo livello alla volta. In chimica i numeri vengono dai capitoli del libro, già verificati sulle fonti, oppure si ricavano da essi con calcoli riportati nel testo. Per la matematica il repository è privo di capitoli, quindi esempi e risultati vengono dalla dispensa «Matematica di base» o si ricavano con calcoli riportati nel testo e ricontrollati, mentre date e notizie storiche sono state confrontate con J. Gullberg, «Mathematics: From the Birth of Numbers» (Norton, 1997); le notizie assenti da quel libro sono dati di uso comune nella letteratura storica. I testi riassumono con parole proprie e non riportano brani del libro. In fisica i numeri vengono dai capitoli del libro, dalle costanti del Sistema internazionale e da valori di riferimento noti, oppure si ricavano con calcoli riportati nel testo e ricontrollati; anche qui ogni livello racconta la storia, dagli esperimenti di Galileo e di Faraday alle onde gravitazionali. I valori dei laboratori e delle attività, come le previsioni da salvare con «Salva A» e «Salva B» o lo scarto residuo delle serie di adattamento, sono ricalcolati con le stesse formule del programma.
+
+## Le unità generate
+
+Le unità di fisica da 1 a 25 sono generate da `content/curriculum/authored.json`, che fornisce modello, domande e glossario. Dalla 1.36.0 i loro testi vengono da `content/curriculum/levels.json`, che per ogni unità contiene i tre livelli delle tappe con testo visibile e la nota sulla narrazione. `tools/build_curriculum.mjs` sostituisce con questi i testi composti dai campi di `authored.json`; per le unità scritte a mano valgono i testi di `content/curriculum/prototypes.json`. La nota sulla narrazione delle 25 unità precisa che lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, mentre i fatti storici e i valori citati nei testi sono reali. I testi restano coerenti con le domande generate: i calcoli delle domande compaiono anche negli esempi.
 
 ## I controlli
 
-`tests/levels.test.mjs` verifica le discipline elencate in `REWRITTEN`, oggi chimica e matematica. Per ogni tappa con testo visibile controlla:
+`tests/levels.test.mjs` verifica le discipline elencate in `REWRITTEN`, oggi chimica, matematica e fisica. Per ogni tappa con testo visibile controlla:
 
-- che i tre livelli siano presenti e abbiano una lunghezza minima, fissata per disciplina in `MIN_BY`: in chimica 90 parole in Scopri, 230 in Capisci, 100 in Sperimenta, 120 in Interpreta e 75 in Collega; in matematica 140, 330, 130, 170 e 110;
+- che i tre livelli siano presenti e abbiano una lunghezza minima, fissata per disciplina in `MIN_BY`: in chimica 90 parole in Scopri, 230 in Capisci, 100 in Sperimenta, 120 in Interpreta e 75 in Collega; in matematica 140, 330, 130, 170 e 110; in fisica gli stessi valori della chimica;
 - che due livelli non condividano alcun paragrafo e che la somiglianza fra i loro testi, misurata come indice di Jaccard sulle sequenze di tre parole, non superi 0,2;
 - che nessun paragrafo si ripeta in due tappe della stessa unità;
 - che il testo eviti le costruzioni escluse dalla guida di stile del progetto;
@@ -54,6 +58,22 @@ Un percorso letto a un solo livello ha circa la stessa lunghezza di prima. Il gu
 
 In matematica il percorso letto a un solo livello si allunga di circa il 20 per cento, perché ogni tappa aggiunge esempi svolti e storia; la prosa distinta di un'unità cresce di circa tre volte e mezza. La tappa Sperimenta si accorcia leggermente, da una mediana di 159 a 137 parole a livello Base, perché i testi precedenti vi ripetevano la descrizione del modello già data nella tappa Capisci. La somiglianza più alta, 0,198, riguarda una tappa Sperimenta con laboratorio, dove i tre livelli descrivono lo stesso protocollo con parole diverse.
 
+## I numeri della fisica
+
+| Misura | 1.35.0 | 1.36.0 |
+|---|---:|---:|
+| Tappe con almeno un paragrafo condiviso fra due livelli | 200 su 200 | 0 su 200 |
+| Tappe con almeno due livelli uguali | 45 su 200 | 0 su 200 |
+| Somiglianza massima fra due livelli della stessa tappa | 1,000 | 0,174 |
+| Prosa distinta per unità, sommando i tre livelli (mediana, parole) | 386,5 | 2299,5 |
+| Prosa distinta in tutte le 40 unità (parole) | 25 950 | 96 021 |
+| Lunghezza di un percorso letto a un solo livello (mediana, parole: Base / Applica / Approfondisci) | 348,5 / 443,5 / 424 | 752,5 / 791,5 / 765,5 |
+| Tappa Capisci, livello Base (mediana, parole) | 58 | 247 |
+| Tappa Scopri, livello Base (mediana, parole) | 60,5 | 163 |
+| Tappa Interpreta, livello Base (mediana, parole) | 88 | 138 |
+
+Le unità di fisica sono 40, quindi le tappe con testo visibile sono 200 e le mediane cadono fra due valori. Prima della 1.36.0 ogni tappa aveva almeno un paragrafo in comune fra due livelli: nelle unità generate i livelli erano composti dagli stessi campi di `authored.json`, in quelle scritte a mano ogni livello ripeteva il precedente aggiungendo un paragrafo. Il percorso letto a livello Base ha ora più del doppio delle parole, e la tappa Capisci, che nelle unità generate conteneva soltanto il concetto e un esempio, passa da 58 a 247 parole. Nelle unità scritte a mano, da 26 a 40, i paragrafi già presenti restano, ciascuno in un solo livello, accanto a esempi svolti e notizie storiche nuove.
+
 ## Le prossime discipline
 
-Restano da riscrivere fisica e biologia, una disciplina per volta. Per ciascuna si aggiunge il prefisso a `REWRITTEN`. Per le unità di fisica da 1 a 25 serve anche cambiare la composizione dei livelli in `tools/build_curriculum.mjs`, oppure spostare le unità fra quelle scritte a mano in `content/curriculum/prototypes.json`.
+Resta da riscrivere la biologia. Si aggiunge il prefisso a `REWRITTEN` e, se servono lunghezze minime diverse, una voce a `MIN_BY`.

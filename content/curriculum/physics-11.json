@@ -8,7 +8,7 @@
   "coverage": "guided-foundation",
   "editorialStatus": "original-draft",
   "scope": "Braccio rigido e modulo del momento",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "narrativeStatus": "Lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, calcolati con il modello dell’unità. I fatti storici e i valori reali citati nei testi, come costanti, misure ed esperimenti, si riferiscono al mondo reale.",
   "objectives": [
     "Spiegare: braccio rigido e modulo del momento.",
     "Applicare τ = rF sin(θ), dichiarando variabili e unità.",
@@ -62,17 +62,18 @@
       "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Una porta della stazione non ruota facilmente quando la forza è applicata quasi verso la cerniera. La stessa intensità può avere effetti diversi a seconda della direzione.",
-          "Il momento torcente misura l’effetto rotazionale di una forza rispetto a un asse. Il modulo è τ=rF sinθ, dove θ è l’angolo fra vettore posizione e forza. Conta la componente perpendicolare."
+          "Un tecnico deve allentare un bullone bloccato sul carrello della sonda. Con una chiave corta non ci riesce; con una chiave lunga il doppio, spingendo con la stessa forza, il bullone si sblocca. Spingere vicino al bullone, invece, non serve quasi a nulla. Perché conta tanto il punto in cui si spinge?",
+          "La capacità di una forza di far ruotare un corpo si chiama momento della forza, o momento torcente. Dipende dalla forza F, dalla distanza r fra l’asse e il punto in cui la forza agisce, e dall’angolo θ fra la forza e la chiave: τ = r F sin θ. Con 10 N applicati perpendicolarmente a 2 m dall’asse il momento è 20 N m.",
+          "La legge della leva è una delle più antiche leggi della fisica. Archimede di Siracusa, nel III secolo a.C., dimostrò che due pesi sono in equilibrio su una leva quando le loro distanze dal fulcro sono inversamente proporzionali ai pesi. Secondo il matematico Pappo di Alessandria, disse: datemi un punto d’appoggio e solleverò la Terra."
         ],
         "intermediate": [
-          "Una porta della stazione non ruota facilmente quando la forza è applicata quasi verso la cerniera. La stessa intensità può avere effetti diversi a seconda della direzione.",
-          "Quando la forza è parallela al braccio, sinθ=0 e il momento è nullo. A 90° il modulo è massimo e vale rF. Il segno del momento richiede una convenzione di orientazione, qui non rappresentata dalla sola formula del modulo."
+          "Esempio svolto: l’altalena a bilico. Un bambino di 30 kg siede a 2 m dal fulcro; un altro di 40 kg deve sedersi dall’altra parte in modo da equilibrarlo. I momenti dei pesi devono essere uguali: 30 · 9,81 · 2 = 40 · 9,81 · d, e quindi d = 1,5 m. Il fattore 9,81 si semplifica, e basta uguagliare masse per distanze.",
+          "Esempio svolto: la chiave inglese. Un bullone richiede un momento di 50 N m. Con una chiave lunga 0,25 m, spingendo perpendicolarmente, serve una forza di 50/0,25 = 200 N. Se la forza forma un angolo di 30° con la chiave, sin 30° = 0,5 e la forza necessaria raddoppia a 400 N.",
+          "Prova tu: un bambino di 25 kg siede a 2,4 m dal fulcro. A quale distanza dall’altra parte deve sedersi un adulto di 40 kg per tenere l’altalena in equilibrio?"
         ],
         "advanced": [
-          "Una porta della stazione non ruota facilmente quando la forza è applicata quasi verso la cerniera. La stessa intensità può avere effetti diversi a seconda della direzione.",
-          "Imponi sia somma delle forze nulla sia somma dei momenti nulla per un oggetto in equilibrio statico. Mostra perché una sola delle due condizioni non basta.",
-          "Il controllo mostra il modulo per angoli da 0 a π e braccio rigido. Non simula deformazioni, cerniere o l’intero equilibrio di un corpo."
+          "La dimostrazione di Archimede, nel trattato Sull’equilibrio dei piani, parte da postulati di simmetria: pesi uguali a distanze uguali sono in equilibrio, e un peso si può dividere in parti uguali disposte simmetricamente senza alterare l’equilibrio. Da questi postulati ricava la proporzionalità inversa fra pesi e distanze. Nel 1883 Ernst Mach osservò che quei postulati contengono già, in forma nascosta, la legge che si vuole dimostrare.",
+          "Prima di Archimede un testo della scuola aristotelica, i Problemi meccanici, spiegava la leva osservando che il punto più lontano dal fulcro descrive un cerchio più grande e quindi si muove più velocemente. È un’intuizione vicina al principio dei lavori virtuali: ciò che la leva guadagna in forza lo perde in spostamento."
         ]
       }
     },
@@ -81,18 +82,24 @@
       "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Il momento torcente misura l’effetto rotazionale di una forza rispetto a un asse. Il modulo è τ=rF sinθ, dove θ è l’angolo fra vettore posizione e forza. Conta la componente perpendicolare.",
-          "Con r=2 m, F=10 N e θ=π/2, il momento è 20 N m. Con la stessa forza diretta lungo il braccio, il momento è zero."
+          "Il momento di una forza rispetto a un asse vale τ = r F sin θ, dove r è la distanza dall’asse al punto di applicazione e θ l’angolo fra la direzione di r e quella della forza. Il prodotto r sin θ è il braccio della forza, cioè la distanza fra l’asse e la retta lungo cui la forza agisce.",
+          "Il momento è massimo quando la forza è perpendicolare alla chiave, θ = 90°, e vale r F. È zero quando la forza punta verso l’asse o in verso opposto, θ = 0° o θ = 180°: tirare la chiave lungo la sua lunghezza non la fa girare. Per un angolo di 30° il momento è metà del massimo.",
+          "Un corpo è in equilibrio quando sono soddisfatte due condizioni insieme: la somma delle forze è zero, e quindi il corpo non trasla, e la somma dei momenti è zero, e quindi il corpo non ruota. Per i momenti si sceglie un verso positivo, di solito quello antiorario.",
+          "Esempio: con una forza di 10 N applicata perpendicolarmente a 2 m dall’asse il momento è 20 N m; con 11 N, alla stessa distanza, diventa 22 N m. Con 10 N a 45° il momento scende a 20 · sin 45° ≈ 14,1 N m.",
+          "Le leve si classificano secondo la posizione del fulcro. Nelle leve di primo genere il fulcro sta fra forza e carico, come nell’altalena e nelle forbici; in quelle di secondo genere il carico sta fra fulcro e forza, come nella carriola e nello schiaccianoci; in quelle di terzo genere la forza sta fra fulcro e carico, come nelle pinzette e nell’avambraccio."
         ],
         "intermediate": [
-          "Quando la forza è parallela al braccio, sinθ=0 e il momento è nullo. A 90° il modulo è massimo e vale rF. Il segno del momento richiede una convenzione di orientazione, qui non rappresentata dalla sola formula del modulo.",
-          "La variabile Angolo è espressa in rad; Momento torcente in N m. Il dominio dello strumento è [0; 3,14159]. La relazione implementata è: τ = rF sin(θ).",
-          "Con r=2 m, F=10 N e θ=π/2, il momento è 20 N m. Con la stessa forza diretta lungo il braccio, il momento è zero."
+          "Esempio svolto: la trave su due appoggi. Una trave di 10 kg lunga 3 m poggia su due supporti alle estremità A e B, e porta un carico di 30 kg a 1 m da A. Con i momenti rispetto ad A, il peso della trave agisce a 1,5 m e il carico a 1 m: R_B · 3 = 98,1 · 1,5 + 294,3 · 1, quindi R_B ≈ 147 N. Dall’equilibrio delle forze, R_A = 392,4 − 147,2 ≈ 245 N. Un controllo con i momenti rispetto a B dà lo stesso valore.",
+          "Esempio svolto: l’avambraccio. Il bicipite si attacca all’avambraccio a circa 4 cm dal gomito, e la mano regge un peso di 5 kg a circa 35 cm. Con l’avambraccio orizzontale, l’equilibrio dei momenti rispetto al gomito richiede una forza muscolare di circa 49 · 35/4 ≈ 430 N, quasi nove volte il peso. La leva di terzo genere perde in forza e guadagna in velocità della mano.",
+          "Esempio svolto: la porta. Per aprire una porta serve un momento di 5 N m. Spingendo sulla maniglia, a 0,8 m dai cardini, basta una forza di circa 6 N; spingendo a 10 cm dai cardini ne servono 50.",
+          "Il modello del laboratorio calcola τ = r F sin θ per un angolo da 0 a π rad, con la forza fra 1 e 20 N e il braccio fra 0,5 e 4 m a passi di 0,5.",
+          "Prova tu: nella trave su due appoggi, dove dovrebbe stare il carico di 30 kg perché i due supporti sostengano la stessa forza?"
         ],
         "advanced": [
-          "Quando la forza è parallela al braccio, sinθ=0 e il momento è nullo. A 90° il modulo è massimo e vale rF. Il segno del momento richiede una convenzione di orientazione, qui non rappresentata dalla sola formula del modulo.",
-          "Imponi sia somma delle forze nulla sia somma dei momenti nulla per un oggetto in equilibrio statico. Mostra perché una sola delle due condizioni non basta.",
-          "Un momento nullo rispetto a un asse non implica forza nulla. L’unità N m coincide dimensionalmente con il joule, ma momento ed energia sono grandezze differenti."
+          "Nella forma vettoriale il momento è il prodotto vettoriale τ = r × F, un vettore perpendicolare al piano di r e F, il cui verso è dato dalla regola della mano destra. Il suo modulo è r F sin θ, e il suo verso distingue le rotazioni orarie da quelle antiorarie. Per forze nel piano x y basta la componente z, τ_z = x F_y − y F_x.",
+          "Pierre Varignon dimostrò nel 1687 che il momento di una risultante è uguale alla somma dei momenti delle componenti. Il teorema permette di scomporre una forza obliqua in due parti comode, calcolare i momenti separatamente e sommarli. Lo stesso Varignon lo usò per ricavare le condizioni di equilibrio delle macchine semplici.",
+          "Per un corpo esteso, il momento del peso rispetto a un asse è lo stesso che si avrebbe concentrando tutta la massa nel baricentro. Un corpo appoggiato è in equilibrio stabile se la verticale per il baricentro cade dentro la base di appoggio: la torre di Pisa, inclinata di circa 4°, resta in piedi perché il suo baricentro resta sopra la base.",
+          "Il principio dei lavori virtuali, formulato in forma generale da Johann Bernoulli nel 1717, dà un altro modo di trovare l’equilibrio. Se la leva ruota di un piccolo angolo, il punto in cui agisce la forza si sposta di r₁ δθ e il carico di r₂ δθ, e all’equilibrio i due lavori sono uguali: F r₁ = P r₂."
         ]
       }
     },
@@ -101,19 +108,19 @@
       "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio imposta Forza (a): 10 N; Braccio r (b): 2 m. Prima di salvare A, prevedi come cambia Momento torcente fra Angolo=0,785398 e 1,5708 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con r=2 m, F=10 N e θ=π/2, il momento è 20 N m. Con la stessa forza diretta lungo il braccio, il momento è zero.",
-          "La variabile Angolo è espressa in rad; Momento torcente in N m. Il dominio dello strumento è [0; 3,14159]. La relazione implementata è: τ = rF sin(θ)."
+          "Il grafico mostra il momento τ = r F sin θ al variare dell’angolo θ fra la forza e la chiave, da 0 a π radianti, cioè da 0° a 180°. Nella scheda «Regola» scegli la forza F, da 1 a 20 N, e il braccio r, da 0,5 a 4 m.",
+          "Protocollo. La previsione riguarda il passaggio da θ = π/4, cioè 45°, a θ = π/2, cioè 90°. Con F = 10 N e r = 2 m scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta la forza a 20 N e il braccio a 1 m, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Prima di salvare B, confronta il prodotto r F nelle due configurazioni."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Forza (a): 10 N; Braccio r (b): 2 m. Prima di salvare A, prevedi come cambia Momento torcente fra Angolo=0,785398 e 1,5708 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Angolo è espressa in rad; Momento torcente in N m. Il dominio dello strumento è [0; 3,14159]. La relazione implementata è: τ = rF sin(θ).",
-          "Quando la forza è parallela al braccio, sinθ=0 e il momento è nullo. A 90° il modulo è massimo e vale rF. Il segno del momento richiede una convenzione di orientazione, qui non rappresentata dalla sola formula del modulo."
+          "Il programma calcola il momento τ = r F sin θ per un angolo fra 0 e π rad; nella scheda «Regola» la forza si regola a passi di 1 N e il braccio a passi di 0,5 m.",
+          "Protocollo. Configurazione A: F = 10 N, r = 2 m, confronto fra θ = π/4 e θ = π/2, previsione nella scheda «A / B» e «Salva A». Configurazione B: F = 20 N, r = 1 m, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. In A il momento passa da circa 14,1 N m a 20 N m. In B i valori sono identici, perché il prodotto r F vale 20 N m in entrambe le configurazioni: una forza doppia con braccio dimezzato fa girare la chiave esattamente come prima."
         ],
         "advanced": [
-          "Nel laboratorio imposta Forza (a): 10 N; Braccio r (b): 2 m. Prima di salvare A, prevedi come cambia Momento torcente fra Angolo=0,785398 e 1,5708 rad. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Imponi sia somma delle forze nulla sia somma dei momenti nulla per un oggetto in equilibrio statico. Mostra perché una sola delle due condizioni non basta.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il laboratorio rappresenta τ(θ) = r F sin θ su θ fra 0 e π. La derivata, r F cos θ, è positiva fino a π/2 e negativa dopo: il momento cresce fino al massimo r F, raggiunto con la forza perpendicolare, e poi diminuisce in modo simmetrico.",
+          "Protocollo. Con F = 10 N e r = 2 m scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il passaggio da θ = π/4 a θ = π/2 e premi «Salva A»; poi porta la forza a 20 N e il braccio a 1 m e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "Il confronto fra A e B mostra che il modello dipende da r e F soltanto attraverso il loro prodotto. Il rapporto τ(π/2)/τ(π/4) = 1/sin 45° = √2 ≈ 1,41 vale per qualunque coppia di parametri; fra π/2 e 3π/4 la previsione corretta sarebbe invece «Diminuisce»."
         ]
       }
     },
@@ -122,19 +129,19 @@
       "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Un momento nullo rispetto a un asse non implica forza nulla. L’unità N m coincide dimensionalmente con il joule, ma momento ed energia sono grandezze differenti.",
-          "Il controllo mostra il modulo per angoli da 0 a π e braccio rigido. Non simula deformazioni, cerniere o l’intero equilibrio di un corpo.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il primo errore frequente è credere che il momento dipenda soltanto dalla forza. Una forza grande applicata vicino all’asse, o diretta verso l’asse, fa girare poco o nulla; conta il prodotto della forza per il braccio.",
+          "Il secondo errore è usare come braccio la distanza dal punto di applicazione invece della distanza dalla retta d’azione. Le due coincidono soltanto se la forza è perpendicolare; altrimenti il braccio è r sin θ.",
+          "Il terzo errore è pensare che una leva produca energia gratis. Una leva che moltiplica la forza per quattro fa muovere il carico di un quarto della distanza percorsa dalla mano: il lavoro fatto dalla mano e quello fatto sul carico sono uguali, attriti a parte. È la stessa compensazione notata nei Problemi meccanici."
         ],
         "intermediate": [
-          "Un momento nullo rispetto a un asse non implica forza nulla. L’unità N m coincide dimensionalmente con il joule, ma momento ed energia sono grandezze differenti.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Esempio svolto: la coppia. Due forze di 10 N uguali e opposte agiscono sui due estremi di un volante di raggio 0,2 m, tangenti al bordo. La risultante è zero, e il volante non trasla; il momento totale è 2 · 0,2 · 10 = 4 N m, e il volante ruota. Una somma di forze nulla, da sola, non garantisce l’equilibrio.",
+          "Esempio svolto: il polo è libero. Per un corpo in equilibrio la somma dei momenti è zero rispetto a qualunque punto. Conviene scegliere il polo nel punto in cui agisce una forza incognita, perché il suo momento è nullo e sparisce dall’equazione; nella trave su due appoggi, il polo in A elimina R_A.",
+          "Esempio svolto: la chiave inclinata. Con 100 N su una chiave di 0,3 m il momento massimo è 30 N m. Se la mano spinge con un angolo di 60° rispetto alla chiave, il momento è 30 · sin 60° ≈ 26 N m; con 15° scende a circa 7,8 N m."
         ],
         "advanced": [
-          "Il controllo mostra il modulo per angoli da 0 a π e braccio rigido. Non simula deformazioni, cerniere o l’intero equilibrio di un corpo.",
-          "Imponi sia somma delle forze nulla sia somma dei momenti nulla per un oggetto in equilibrio statico. Mostra perché una sola delle due condizioni non basta.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il modello considera un braccio rigido e un asse fisso. Una chiave reale si flette, un bullone ha attrito nella filettatura, e una trave reale si incurva sotto il carico: la statica del corpo rigido è il primo passo, e la scienza delle costruzioni aggiunge la deformazione.",
+          "La deformazione diventa indispensabile nei problemi iperstatici. Una trave appoggiata su tre supporti ha tre reazioni incognite e soltanto due equazioni utili, quella delle forze verticali e quella dei momenti: le reazioni dipendono dalla rigidità della trave e dei supporti, e il modello rigido non basta a trovarle.",
+          "Infine, l’equilibrio può essere stabile, instabile o indifferente: una matita in punta è in equilibrio, ma il minimo spostamento crea un momento che la allontana ancora di più."
         ]
       }
     },
@@ -161,19 +168,17 @@
       "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Braccio rigido e modulo del momento.",
-          "Il controllo mostra il modulo per angoli da 0 a π e braccio rigido. Non simula deformazioni, cerniere o l’intero equilibrio di un corpo.",
-          "Collegamento consigliato: math-c09. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Il momento è la causa delle rotazioni studiate nell’unità «Rotazione e momento d’inerzia», e l’equilibrio dei momenti spiega leve, bilance e strutture. Il seno dell’angolo viene dall’unità di matematica «Trigonometria».",
+          "Riepilogo: τ = r F sin θ; il momento è massimo con la forza perpendicolare; l’equilibrio richiede somma delle forze e somma dei momenti nulle. La leva scambia forza con spostamento.",
+          "Nel diario registra le configurazioni A e B e spiega perché i due grafici coincidono punto per punto."
         ],
         "intermediate": [
-          "Quando la forza è parallela al braccio, sinθ=0 e il momento è nullo. A 90° il modulo è massimo e vale rF. Il segno del momento richiede una convenzione di orientazione, qui non rappresentata dalla sola formula del modulo.",
-          "Il controllo mostra il modulo per angoli da 0 a π e braccio rigido. Non simula deformazioni, cerniere o l’intero equilibrio di un corpo.",
-          "Imponi sia somma delle forze nulla sia somma dei momenti nulla per un oggetto in equilibrio statico. Mostra perché una sola delle due condizioni non basta."
+          "Il prodotto vettoriale e il calcolo delle componenti si collegano all’unità «Vettori e sistemi di riferimento». Nella prossima unità di fisica, «Gravitazione», il momento della forza di gravità rispetto al Sole risulterà nullo, con conseguenze sulle orbite.",
+          "Nel diario calcola le reazioni dei due supporti di una trave di 4 m e 20 kg con un carico di 40 kg posto a 1 m da un estremo, e controlla il risultato scegliendo il polo nell’altro supporto."
         ],
         "advanced": [
-          "Imponi sia somma delle forze nulla sia somma dei momenti nulla per un oggetto in equilibrio statico. Mostra perché una sola delle due condizioni non basta.",
-          "Il controllo mostra il modulo per angoli da 0 a π e braccio rigido. Non simula deformazioni, cerniere o l’intero equilibrio di un corpo.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Il momento angolare e la sua conservazione per forze centrali tornano nelle unità «Orbite circolari» e «Particelle cariche nei campi magnetici», e il principio dei lavori virtuali anticipa i metodi variazionali della meccanica analitica. Lì il braccio della forza diventa la distanza dalla traiettoria.",
+          "Nel diario mostra con il principio dei lavori virtuali che una carrucola mobile dimezza la forza necessaria a sollevare un carico, e spiega quanto filo deve tirare la mano per alzare il carico di un metro."
         ]
       }
     }

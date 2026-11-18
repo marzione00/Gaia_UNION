@@ -8,7 +8,7 @@
   "coverage": "guided-foundation",
   "editorialStatus": "original-draft",
   "scope": "Istantanea spaziale di un’onda sinusoidale",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "narrativeStatus": "Lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, calcolati con il modello dell’unità. I fatti storici e i valori reali citati nei testi, come costanti, misure ed esperimenti, si riferiscono al mondo reale.",
   "objectives": [
     "Spiegare: istantanea spaziale di un’onda sinusoidale.",
     "Applicare y(x) = A sin(2πx/λ), t=0, dichiarando variabili e unità.",
@@ -62,17 +62,18 @@
       "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Una perturbazione attraversa una guida. Il profilo sembra muoversi, ma il materiale della guida non viaggia insieme all’onda per tutta la sua lunghezza.",
-          "Un’onda descrive una perturbazione che si propaga. La lunghezza d’onda λ è la distanza fra punti con la stessa fase; l’ampiezza A è il massimo spostamento rispetto all’equilibrio."
+          "Un tecnico scuote un capo di una lunga corda tesa sul piazzale della base, e lungo la corda corre una serie regolare di creste e di avvallamenti. Ogni pezzo di corda va su e giù senza spostarsi in avanti, eppure la forma corre fino all’altro capo. Che cosa viaggia, allora, lungo la corda?",
+          "Viaggia un’onda: una perturbazione che si propaga e trasporta energia senza trasportare materia. In un’onda sinusoidale la forma della corda, fotografata in un istante, è y(x) = A sin(2π x/λ). A è l’ampiezza, lo spostamento massimo; λ è la lunghezza d’onda, la distanza fra due creste successive.",
+          "Con A = 1 m e λ = 4 m, a 1 m dall’origine la corda è sulla cresta, y = sin(π/2) = 1 m; a 2 m torna a zero; a 3 m è nel punto più basso, −1 m; a 4 m il disegno ricomincia uguale. La regolarità delle vibrazioni affascinava già i pitagorici, che collegarono le note musicali ai rapporti fra le lunghezze delle corde."
         ],
         "intermediate": [
-          "Una perturbazione attraversa una guida. Il profilo sembra muoversi, ma il materiale della guida non viaggia insieme all’onda per tutta la sua lunghezza.",
-          "Il laboratorio mostra l’istantanea a t=0 di y(x,t)=A sin(2πx/λ-ωt). Qui il controllo della posizione cambia il punto osservato, non il tempo. Per una propagazione con frequenza f, la velocità di fase è v=fλ."
+          "Esempio svolto: leggere l’istantanea. Con A = 1,5 m e λ = 4 m, a 1 m dall’origine lo spostamento è 1,5 m, alla cresta. Con λ = 8 m, nello stesso punto, è 1,5 · sin(π/4) ≈ 1,06 m: la cresta si trova più lontano, a 2 m.",
+          "Esempio svolto: velocità, frequenza e lunghezza d’onda. Un’onda percorre una lunghezza d’onda in un periodo, e quindi v = λ f. Il suono nell’aria a 20 °C viaggia a circa 343 m/s; il la del diapason, a 440 Hz, ha una lunghezza d’onda di 343/440 ≈ 0,78 m.",
+          "Prova tu: l’orecchio umano sente suoni fra circa 20 Hz e 20 000 Hz. Quali sono le lunghezze d’onda corrispondenti nell’aria?"
         ],
         "advanced": [
-          "Una perturbazione attraversa una guida. Il profilo sembra muoversi, ma il materiale della guida non viaggia insieme all’onda per tutta la sua lunghezza.",
-          "Somma due profili e osserva interferenza costruttiva e distruttiva. Distingui interferenza permanente e coincidenza momentanea delle creste.",
-          "Profilo sinusoidale ideale in un mezzo uniforme. Non sono calcolati dispersione, attenuazione o velocità del mezzo."
+          "La tradizione attribuisce a Pitagora la scoperta che due corde tese allo stesso modo suonano all’ottava se le loro lunghezze stanno come 2 a 1, e alla quinta se stanno come 3 a 2. Nel 1636 Marin Mersenne, nell’Harmonie universelle, stabilì le leggi complete della corda vibrante: la frequenza è inversamente proporzionale alla lunghezza e cresce con la radice quadrata della tensione.",
+          "Nel 1747 Jean le Rond d’Alembert scrisse l’equazione delle onde su una corda e ne trovò la soluzione generale: due forme qualsiasi che viaggiano in versi opposti senza deformarsi. Daniel Bernoulli sostenne poco dopo che ogni vibrazione della corda è una somma di vibrazioni sinusoidali semplici, e Leonhard Euler gli oppose che una somma di seni non può rappresentare qualunque forma. La disputa fu risolta soltanto nell’Ottocento, dopo i lavori di Joseph Fourier."
         ]
       }
     },
@@ -81,18 +82,24 @@
       "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Un’onda descrive una perturbazione che si propaga. La lunghezza d’onda λ è la distanza fra punti con la stessa fase; l’ampiezza A è il massimo spostamento rispetto all’equilibrio.",
-          "Con A=1 m e λ=4 m, in x=1 m il profilo vale 1 m. In x=2 m torna a zero. Il primo massimo è a un quarto della lunghezza d’onda."
+          "Un’onda ha due periodicità. Nello spazio, fotografata in un istante, si ripete ogni lunghezza d’onda λ; nel tempo, osservata in un punto, si ripete ogni periodo T. La frequenza f = 1/T è il numero di oscillazioni al secondo di ciascun punto, e la velocità dell’onda è v = λ f.",
+          "Nelle onde trasversali, come quelle di una corda, i punti del mezzo si muovono perpendicolarmente alla direzione di propagazione; nelle onde longitudinali, come il suono nell’aria, si muovono avanti e indietro lungo la stessa direzione, formando zone di compressione e di rarefazione.",
+          "La velocità di un’onda dipende dal mezzo. Su una corda vale v = √(T/μ), dove T è la tensione e μ la massa per unità di lunghezza: una corda più tesa trasmette le onde più velocemente, una più pesante più lentamente. Il suono viaggia nell’aria a circa 343 m/s, nell’acqua a circa 1500 m/s, nell’acciaio a circa 5900 m/s.",
+          "Quando due onde si incontrano nello stesso punto, gli spostamenti si sommano: è il principio di sovrapposizione. Due creste che si incontrano formano una cresta doppia; una cresta e un avvallamento uguali si annullano per un istante. Dopo l’incontro ciascuna onda prosegue come se l’altra non ci fosse.",
+          "Esempio: due onde di ampiezza 1 m, in fase, danno un’onda di ampiezza 2 m; in opposizione di fase danno zero. Le cuffie che cancellano il rumore producono un’onda in opposizione di fase a quella del rumore che arriva all’orecchio."
         ],
         "intermediate": [
-          "Il laboratorio mostra l’istantanea a t=0 di y(x,t)=A sin(2πx/λ-ωt). Qui il controllo della posizione cambia il punto osservato, non il tempo. Per una propagazione con frequenza f, la velocità di fase è v=fλ.",
-          "La variabile Posizione è espressa in m; Spostamento in m. Il dominio dello strumento è [0; 10]. La relazione implementata è: y(x) = A sin(2πx/λ), t=0.",
-          "Con A=1 m e λ=4 m, in x=1 m il profilo vale 1 m. In x=2 m torna a zero. Il primo massimo è a un quarto della lunghezza d’onda."
+          "Esempio svolto: la corda della chitarra. Una corda lunga 0,65 m, con μ = 4,0 · 10⁻³ kg/m e tensione di 100 N, trasmette le onde a √(100/0,004) ≈ 158 m/s. Con gli estremi fissi la vibrazione più semplice ha λ = 2L = 1,3 m, e la frequenza fondamentale è 158/1,3 ≈ 122 Hz. Per raddoppiare la frequenza bisogna quadruplicare la tensione, oppure dimezzare la lunghezza premendo il dito sul dodicesimo tasto.",
+          "Esempio svolto: le onde stazionarie. Due onde uguali che viaggiano in versi opposti formano un’onda stazionaria, con punti sempre fermi, i nodi, distanti λ/2 l’uno dall’altro, e punti di oscillazione massima, i ventri. Su una corda con estremi fissi stanno soltanto onde con un numero intero di mezze lunghezze d’onda: λ_n = 2L/n, e frequenze multiple della fondamentale.",
+          "Esempio svolto: i battimenti. Due diapason a 440 Hz e 444 Hz suonati insieme producono un suono che si alza e si abbassa di intensità 444 − 440 = 4 volte al secondo. Gli accordatori di pianoforte regolano le corde finché i battimenti scompaiono.",
+          "Il modello del laboratorio calcola l’istantanea y(x) = A sin(2π x/λ) per x da 0 a 10 m, con l’ampiezza A fra 0,5 e 3 m a passi di 0,5 e la lunghezza d’onda λ fra 1 e 8 m a passi di 1.",
+          "Prova tu: quale frequenza fondamentale ha la stessa corda di chitarra se la tensione sale a 144 N?"
         ],
         "advanced": [
-          "Il laboratorio mostra l’istantanea a t=0 di y(x,t)=A sin(2πx/λ-ωt). Qui il controllo della posizione cambia il punto osservato, non il tempo. Per una propagazione con frequenza f, la velocità di fase è v=fλ.",
-          "Somma due profili e osserva interferenza costruttiva e distruttiva. Distingui interferenza permanente e coincidenza momentanea delle creste.",
-          "La velocità della perturbazione non coincide con la velocità trasversale di un elemento del mezzo. Un grafico spaziale non è un grafico temporale senza un collegamento esplicito."
+          "L’equazione delle onde in una dimensione è ∂²y/∂t² = v² ∂²y/∂x². Si ricava applicando la seconda legge di Newton a un tratto di corda: la differenza delle componenti verticali della tensione ai due estremi è proporzionale alla curvatura della corda, e accelera il tratto. D’Alembert dimostrò che ogni soluzione è la somma f(x − v t) + g(x + v t) di due forme che viaggiano in versi opposti.",
+          "L’equazione è lineare: se y₁ e y₂ sono soluzioni, anche y₁ + y₂ lo è. Il principio di sovrapposizione non è quindi una legge separata; è la conseguenza della linearità, e vale finché gli spostamenti sono piccoli. Per onde molto grandi, come le onde del mare che frangono o le onde d’urto di un aereo supersonico, la linearità cade e la sovrapposizione con essa.",
+          "Joseph Fourier, studiando la propagazione del calore, sostenne nel 1807 che qualunque profilo, anche con spigoli, si può scrivere come una somma di seni e coseni. Gli accademici, fra cui Lagrange, accolsero l’idea con diffidenza; le condizioni precise furono stabilite più tardi da Dirichlet e Riemann. Oggi l’analisi di Fourier è il fondamento dell’elaborazione di suoni, immagini e segnali.",
+          "Nel 1842 Christian Doppler previde che la frequenza percepita cambia se la sorgente o l’osservatore si muovono, e nel 1845 Christoph Buys Ballot lo verificò con trombettisti su un treno in corsa e musicisti dall’orecchio assoluto lungo la ferrovia. Una sirena a 700 Hz che si avvicina a 30 m/s si sente a circa 700 · 343/313 ≈ 767 Hz, e allontanandosi a circa 644 Hz."
         ]
       }
     },
@@ -101,19 +108,19 @@
       "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio imposta Ampiezza A (a): 1 m; Lunghezza λ (b): 4 m. Prima di salvare A, prevedi come cambia Spostamento fra Posizione=2,5 e 5 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con A=1 m e λ=4 m, in x=1 m il profilo vale 1 m. In x=2 m torna a zero. Il primo massimo è a un quarto della lunghezza d’onda.",
-          "La variabile Posizione è espressa in m; Spostamento in m. Il dominio dello strumento è [0; 10]. La relazione implementata è: y(x) = A sin(2πx/λ), t=0."
+          "Il grafico mostra l’istantanea di un’onda, y(x) = A sin(2π x/λ), lungo un tratto di corda da 0 a 10 m. Nella scheda «Regola» scegli l’ampiezza A, da 0,5 a 3 m, e la lunghezza d’onda λ, da 1 a 8 m.",
+          "Protocollo. La previsione riguarda il passaggio da x = 2,5 m a x = 5 m. Con A = 1 m e λ = 4 m scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta la lunghezza d’onda a 8 m, lasciando A = 1 m, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Prima di salvare, individua dove cadono le creste e gli avvallamenti nelle due configurazioni."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Ampiezza A (a): 1 m; Lunghezza λ (b): 4 m. Prima di salvare A, prevedi come cambia Spostamento fra Posizione=2,5 e 5 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Posizione è espressa in m; Spostamento in m. Il dominio dello strumento è [0; 10]. La relazione implementata è: y(x) = A sin(2πx/λ), t=0.",
-          "Il laboratorio mostra l’istantanea a t=0 di y(x,t)=A sin(2πx/λ-ωt). Qui il controllo della posizione cambia il punto osservato, non il tempo. Per una propagazione con frequenza f, la velocità di fase è v=fλ."
+          "Il programma calcola lo spostamento y(x) = A sin(2π x/λ) per x fra 0 e 10 m; nella scheda «Regola» l’ampiezza si regola a passi di 0,5 m e la lunghezza d’onda a passi di 1 m.",
+          "Protocollo. Configurazione A: A = 1 m, λ = 4 m, confronto fra x = 2,5 m e x = 5 m, previsione nella scheda «A / B» e «Salva A». Configurazione B: λ = 8 m con la stessa ampiezza, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. In A lo spostamento passa da circa −0,71 m a 1 m: a 5 m c’è una cresta, perché 5 = λ + λ/4. In B passa da circa 0,92 m a −0,71 m e diminuisce: con λ = 8 m la cresta cade a 2 m, e a 5 m la corda è già scesa sotto lo zero."
         ],
         "advanced": [
-          "Nel laboratorio imposta Ampiezza A (a): 1 m; Lunghezza λ (b): 4 m. Prima di salvare A, prevedi come cambia Spostamento fra Posizione=2,5 e 5 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Somma due profili e osserva interferenza costruttiva e distruttiva. Distingui interferenza permanente e coincidenza momentanea delle creste.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il laboratorio rappresenta la funzione y(x) = A sin(2π x/λ) all’istante t = 0, su x fra 0 e 10 m. La fase nei due punti è 2π · 2,5/λ e 2π · 5/λ; il segno della differenza dipende da λ e non da A.",
+          "Protocollo. Con A = 1 m e λ = 4 m scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il passaggio da x = 2,5 m a x = 5 m e premi «Salva A»; poi porta la lunghezza d’onda a 8 m e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "Con λ = 2 m, una terza prova istruttiva, il primo punto cade su una cresta e il secondo su un punto di spostamento nullo, e la previsione corretta è «Diminuisce». Con λ = 1 m entrambi i punti hanno spostamento nullo: il calcolo in virgola mobile dà due numeri dell’ordine di 10⁻¹⁵, che il programma, con una tolleranza di 10⁻¹⁰, tratta come uguali, e la previsione corretta diventa «Uguale»."
         ]
       }
     },
@@ -122,19 +129,19 @@
       "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "La velocità della perturbazione non coincide con la velocità trasversale di un elemento del mezzo. Un grafico spaziale non è un grafico temporale senza un collegamento esplicito.",
-          "Profilo sinusoidale ideale in un mezzo uniforme. Non sono calcolati dispersione, attenuazione o velocità del mezzo.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il primo errore frequente è credere che l’onda trasporti il materiale del mezzo. Una boa sull’acqua sale e scende al passaggio delle onde e resta più o meno nello stesso posto; ciò che viaggia verso la riva è l’energia.",
+          "Il secondo errore è confondere la velocità dell’onda con la velocità dei punti del mezzo. La forma corre lungo la corda a v = λ f, mentre ogni punto va su e giù con una velocità che cambia continuamente e può essere molto diversa da v.",
+          "Il terzo errore è leggere il grafico dell’istantanea come un grafico nel tempo. L’asse orizzontale riporta la posizione lungo la corda in un istante fissato; la lunghezza d’onda si legge lì, mentre il periodo si legge sul grafico dello spostamento di un punto in funzione del tempo."
         ],
         "intermediate": [
-          "La velocità della perturbazione non coincide con la velocità trasversale di un elemento del mezzo. Un grafico spaziale non è un grafico temporale senza un collegamento esplicito.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Esempio svolto: il cambio di mezzo. Un suono a 440 Hz passa dall’aria all’acqua. La frequenza resta la stessa, perché la decide la sorgente; la velocità passa da 343 a circa 1500 m/s, e la lunghezza d’onda da 0,78 m a circa 3,4 m.",
+          "Esempio svolto: ampiezza e velocità. Una corda scossa più forte produce onde di ampiezza maggiore, che trasportano più energia, all’incirca in proporzione al quadrato dell’ampiezza. La loro velocità resta √(T/μ): dipende dalla corda, e la forza della scossa è irrilevante.",
+          "Esempio svolto: l’interferenza distruttiva. Due altoparlanti emettono lo stesso suono a 343 Hz, con λ = 1 m. Un ascoltatore che sta 2,5 m da uno e 3,0 m dall’altro riceve le due onde con una differenza di percorso di mezza lunghezza d’onda, e lì il suono si indebolisce molto. Spostandosi di qualche decina di centimetri l’ascoltatore trova punti in cui il suono è più forte."
         ],
         "advanced": [
-          "Profilo sinusoidale ideale in un mezzo uniforme. Non sono calcolati dispersione, attenuazione o velocità del mezzo.",
-          "Somma due profili e osserva interferenza costruttiva e distruttiva. Distingui interferenza permanente e coincidenza momentanea delle creste.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il modello del laboratorio è un’istantanea di un’onda sinusoidale ideale. Le onde reali hanno un inizio e una fine, e si attenuano lungo il percorso perché il mezzo assorbe energia; un’onda sferica, inoltre, si indebolisce allontanandosi dalla sorgente perché l’energia si distribuisce su una superficie che cresce come r².",
+          "Molti mezzi sono dispersivi: la velocità dipende dalla lunghezza d’onda. Le onde lunghe del mare in acqua profonda viaggiano più veloci di quelle corte, e un pacchetto di onde si allarga mentre procede; la luce in un prisma si separa nei colori per lo stesso motivo.",
+          "Infine, la sovrapposizione richiede spostamenti piccoli rispetto alle dimensioni del sistema; un suono molto intenso si deforma propagandosi, e le sue creste si irripidiscono fino a diventare un’onda d’urto."
         ]
       }
     },
@@ -161,19 +168,17 @@
       "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Istantanea spaziale di un’onda sinusoidale.",
-          "Profilo sinusoidale ideale in un mezzo uniforme. Non sono calcolati dispersione, attenuazione o velocità del mezzo.",
-          "Collegamento consigliato: math-p09. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le onde collegano l’oscillatore armonico dell’unità precedente alla luce e al suono. Le somme di seni e coseni tornano nell’unità di matematica «Onde, frequenze e ricostruzione».",
+          "Riepilogo: y(x) = A sin(2π x/λ) all’istante zero; v = λ f; le onde trasportano energia senza trasportare materia; spostamenti di onde diverse si sommano. Il mezzo decide la velocità, la sorgente la frequenza.",
+          "Nel diario registra le configurazioni A e B e spiega perché cambiando soltanto λ la previsione si rovescia, indicando dove cadono le creste."
         ],
         "intermediate": [
-          "Il laboratorio mostra l’istantanea a t=0 di y(x,t)=A sin(2πx/λ-ωt). Qui il controllo della posizione cambia il punto osservato, non il tempo. Per una propagazione con frequenza f, la velocità di fase è v=fλ.",
-          "Profilo sinusoidale ideale in un mezzo uniforme. Non sono calcolati dispersione, attenuazione o velocità del mezzo.",
-          "Somma due profili e osserva interferenza costruttiva e distruttiva. Distingui interferenza permanente e coincidenza momentanea delle creste."
+          "Le onde stazionarie e le frequenze multiple della fondamentale spiegano gli strumenti musicali; l’interferenza fra onde di luce è il tema dell’unità «Interferenza e interferometri». L’effetto Doppler, applicato alla luce delle galassie, torna nell’ultima unità di fisica.",
+          "Nel diario calcola le prime tre frequenze di una corda lunga 0,65 m con onde a 158 m/s, spiega perché un violinista accorcia la corda con il dito per suonare note più alte e quale lunghezza serve per salire di una quinta."
         ],
         "advanced": [
-          "Somma due profili e osserva interferenza costruttiva e distruttiva. Distingui interferenza permanente e coincidenza momentanea delle creste.",
-          "Profilo sinusoidale ideale in un mezzo uniforme. Non sono calcolati dispersione, attenuazione o velocità del mezzo.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "L’analisi di Fourier e il campionamento di un segnale sono nell’unità di matematica «Onde, frequenze e ricostruzione»; l’equazione delle onde per i campi elettrici e magnetici compare nell’unità «Onde elettromagnetiche e pressione della luce».",
+          "Nel diario verifica che y = A sin(k x − ω t) soddisfa l’equazione delle onde se ω = v k, interpreta la relazione come v = λ f e mostra che y = A sin(k x + ω t) descrive un’onda che viaggia nel verso opposto."
         ]
       }
     }

@@ -8,7 +8,7 @@
   "coverage": "guided-foundation",
   "editorialStatus": "original-draft",
   "scope": "Fluido statico con densità uniforme",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "narrativeStatus": "Lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, calcolati con il modello dell’unità. I fatti storici e i valori reali citati nei testi, come costanti, misure ed esperimenti, si riferiscono al mondo reale.",
   "objectives": [
     "Spiegare: fluido statico con densità uniforme.",
     "Applicare Δp = ρ g h, dichiarando variabili e unità.",
@@ -58,17 +58,18 @@
       "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Un sensore viene immerso in un bacino. La pressione cresce con la profondità, ma il display deve distinguere l’incremento dovuto al fluido dalla pressione assoluta.",
-          "In un fluido statico di densità uniforme, l’incremento di pressione è Δp=ρgh. La pressione è forza per unità di area ed è espressa in pascal."
+          "Il sommergibile della base scende nel lago sotterraneo, e a ogni metro gli strumenti registrano una pressione più alta sullo scafo. Da che cosa dipende quell’aumento: dalla quantità d’acqua del lago, dalla forma delle sue sponde o soltanto dalla profondità?",
+          "La pressione è una forza divisa per l’area su cui agisce: p = F/A. Si misura in pascal (Pa), cioè newton al metro quadrato. In un liquido fermo la pressione cresce con la profondità, perché ogni strato deve sostenere il peso del liquido sopra di sé, e l’aumento rispetto alla superficie è Δp = ρ g h, dove ρ è la densità del liquido e h la profondità.",
+          "A 2 m sotto la superficie dell’acqua, con ρ = 1000 kg/m³, la pressione supera quella della superficie di 1000 · 9,81 · 2 = 19 620 Pa. Ogni 10 m d’acqua aggiungono circa una volta la pressione dell’atmosfera."
         ],
         "intermediate": [
-          "Un sensore viene immerso in un bacino. La pressione cresce con la profondità, ma il display deve distinguere l’incremento dovuto al fluido dalla pressione assoluta.",
-          "Una colonna di fluido di sezione A e altezza h pesa ρAhg. Dividendo la forza per l’area A ottieni ρgh: la sezione si semplifica. La pressione assoluta richiede di aggiungere quella alla superficie."
+          "Esempio svolto: il subacqueo. In mare, con ρ ≈ 1025 kg/m³, a 30 m di profondità la pressione dovuta all’acqua è 1025 · 9,81 · 30 ≈ 302 000 Pa. Sommando la pressione atmosferica, circa 101 000 Pa, la pressione totale è circa 403 000 Pa, quattro volte quella in superficie.",
+          "Esempio svolto: un liquido più denso. Con ρ = 1100 kg/m³, a 2 m di profondità l’aumento di pressione è 1100 · 9,81 · 2 = 21 582 Pa, il 10% in più che nell’acqua dolce. La pressione è proporzionale alla densità.",
+          "Prova tu: quanto vale l’aumento di pressione sul fondo di una piscina profonda 3,5 m?"
         ],
         "advanced": [
-          "Un sensore viene immerso in un bacino. La pressione cresce con la profondità, ma il display deve distinguere l’incremento dovuto al fluido dalla pressione assoluta.",
-          "Confronta due liquidi alla stessa profondità. Studia il caso di densità variabile come integrale di ρ(h)g.",
-          "Fluido in quiete, densità costante e gravità uniforme. Non sono calcolati flussi, compressibilità o variazioni atmosferiche."
+          "La legge della pressione nei liquidi fu enunciata nel 1586 da Simon Stevin, ingegnere fiammingo, insieme a un risultato che sembrava assurdo: la forza dell’acqua sul fondo di un recipiente dipende soltanto dall’area del fondo e dall’altezza del liquido, mentre la quantità di liquido contenuta è irrilevante. Un vaso stretto e alto può premere sul fondo più di una vasca larga e bassa. È il paradosso idrostatico.",
+          "Blaise Pascal, negli anni intorno al 1650, mostrò che una pressione applicata a un liquido chiuso si trasmette invariata in ogni punto. Il racconto di una botte fatta scoppiare con un tubo sottile e lungo riempito d’acqua circola da secoli, e manca di una fonte diretta; resta comunque una buona illustrazione del paradosso di Stevin."
         ]
       }
     },
@@ -77,18 +78,24 @@
       "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "In un fluido statico di densità uniforme, l’incremento di pressione è Δp=ρgh. La pressione è forza per unità di area ed è espressa in pascal.",
-          "Con ρ=1000 kg/m³, g=9,81 m/s² e h=2 m, l’incremento è 19.620 Pa. Non è la pressione assoluta se alla superficie esiste già una pressione esterna."
+          "La legge di Stevino si ricava dall’equilibrio di una colonna di liquido. Si immagina un cilindro verticale di base A e altezza h dentro il liquido. Il suo peso è ρ A h g, e lo sostiene la differenza fra la forza dal basso e quella dall’alto: (p_fondo − p_cima) A = ρ A h g. Dividendo per A, Δp = ρ g h.",
+          "La pressione in un punto agisce in tutte le direzioni con la stessa intensità. Una piccola sfera immersa riceve la stessa pressione dall’alto, dal basso e dai lati; quello che cambia è la pressione fra un punto e l’altro a profondità diverse.",
+          "Tutti i punti di un liquido fermo che stanno alla stessa profondità hanno la stessa pressione, qualunque sia la forma del recipiente. Per questo in un sistema di vasi comunicanti il liquido raggiunge lo stesso livello in tutti i rami.",
+          "La pressione assoluta è la somma della pressione atmosferica e di ρ g h. La formula Δp = ρ g h dà la pressione relativa, quella che misura un manometro tarato a zero in superficie.",
+          "Esempio: a 2 m di profondità in acqua la pressione relativa è 19 620 Pa; a 4 m il doppio, 39 240 Pa. In un liquido con densità 1100 kg/m³, a 2 m, è 21 582 Pa. La pressione atmosferica media al livello del mare è 101 325 Pa."
         ],
         "intermediate": [
-          "Una colonna di fluido di sezione A e altezza h pesa ρAhg. Dividendo la forza per l’area A ottieni ρgh: la sezione si semplifica. La pressione assoluta richiede di aggiungere quella alla superficie.",
-          "La variabile Profondità è espressa in m; Pressione relativa in Pa. Il dominio dello strumento è [0; 10]. La relazione implementata è: Δp = ρ g h.",
-          "Con ρ=1000 kg/m³, g=9,81 m/s² e h=2 m, l’incremento è 19.620 Pa. Non è la pressione assoluta se alla superficie esiste già una pressione esterna."
+          "Esempio svolto: il barometro di Torricelli. Un tubo pieno di mercurio, rovesciato in una bacinella, si svuota fino a lasciare una colonna alta h, sopra la quale resta il vuoto. La pressione atmosferica sostiene la colonna: p_atm = ρ_Hg g h, e con ρ_Hg ≈ 13 600 kg/m³ si ottiene h = 101 325/(13 600 · 9,81) ≈ 0,76 m. Con l’acqua, quattordici volte meno densa, la colonna sarebbe alta più di 10 m.",
+          "Esempio svolto: il torchio idraulico. Due pistoni di area 2 cm² e 100 cm² sono collegati da olio. Una forza di 100 N sul piccolo crea una pressione di 100/0,0002 = 500 000 Pa, che si trasmette al grande e vi produce una forza di 500 000 · 0,01 = 5000 N, cinquanta volte maggiore. Per sollevare il pistone grande di 1 cm, il piccolo deve scendere di 50 cm.",
+          "Esempio svolto: la forza su una parete. La pressione su una parete verticale cresce linearmente con la profondità, e la forza totale è la pressione media per l’area. Su una parete larga 1 m di un acquario pieno d’acqua per 0,5 m, la pressione media è ρ g h/2 ≈ 2450 Pa e la forza è circa 1230 N.",
+          "Il modello del laboratorio calcola Δp = ρ g h per una profondità da 0 a 10 m, con la densità del fluido fra 500 e 1500 kg/m³ a passi di 100.",
+          "Prova tu: quale forza preme su un oblò di 0,05 m² di un sommergibile a 100 m di profondità in mare?"
         ],
         "advanced": [
-          "Una colonna di fluido di sezione A e altezza h pesa ρAhg. Dividendo la forza per l’area A ottieni ρgh: la sezione si semplifica. La pressione assoluta richiede di aggiungere quella alla superficie.",
-          "Confronta due liquidi alla stessa profondità. Studia il caso di densità variabile come integrale di ρ(h)g.",
-          "La pressione non è una forza: per ottenere la forza su una superficie devi considerare area e direzione. La densità non è necessariamente costante in ogni fluido reale."
+          "Evangelista Torricelli, allievo di Galileo, nel 1644 descrisse all’amico Michelangelo Ricci i suoi esperimenti con il mercurio e concluse che viviamo sul fondo di un oceano d’aria, che preme con il suo peso. Era una tesi controversa: molti filosofi ritenevano il vuoto impossibile, e attribuivano il sostegno della colonna a un orrore della natura per il vuoto.",
+          "Pascal propose la prova decisiva: se la colonna è sostenuta dal peso dell’aria, in montagna, dove sopra di noi c’è meno aria, deve essere più corta. Il 19 settembre 1648 suo cognato Florin Périer misurò la colonna ai piedi e sulla cima del Puy de Dôme, circa 1000 m più in alto, e la trovò più corta di circa 8 cm.",
+          "In forma differenziale la legge di Stevino è dp/dz = −ρ g, con z verso l’alto. Per un liquido incomprimibile ρ è costante e la pressione varia linearmente; per l’aria, la cui densità è proporzionale alla pressione a temperatura fissata, si ottiene una diminuzione esponenziale, p = p₀ e^(−z/H), con una scala di altezza H di circa 8 km. A 8 km di quota la pressione è circa un terzo di quella al suolo.",
+          "Negli anni Cinquanta del Seicento Otto von Guericke, borgomastro di Magdeburgo, fece il vuoto fra due emisferi di rame accostati, e due squadre di cavalli non riuscirono a separarli. La forza che li teneva uniti era la pressione atmosferica su una sezione di circa 2000 cm², circa 20 000 N."
         ]
       }
     },
@@ -97,19 +104,19 @@
       "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio imposta Densità fluido (a): 1000 kg/m³. Prima di salvare A, prevedi come cambia Pressione relativa fra Profondità=2,5 e 5 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con ρ=1000 kg/m³, g=9,81 m/s² e h=2 m, l’incremento è 19.620 Pa. Non è la pressione assoluta se alla superficie esiste già una pressione esterna.",
-          "La variabile Profondità è espressa in m; Pressione relativa in Pa. Il dominio dello strumento è [0; 10]. La relazione implementata è: Δp = ρ g h."
+          "Il grafico mostra la pressione relativa Δp = ρ g h al variare della profondità h, da 0 a 10 m. Nella scheda «Regola» scegli la densità del fluido ρ, da 500 a 1500 kg/m³.",
+          "Protocollo. La previsione riguarda il passaggio da h = 2,5 m a h = 5 m. Con ρ = 1000 kg/m³, l’acqua, scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta la densità a 500 kg/m³, un liquido leggero, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Prima di salvare B, chiediti a quale profondità il liquido leggero raggiunge la pressione che l’acqua ha a 2,5 m."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Densità fluido (a): 1000 kg/m³. Prima di salvare A, prevedi come cambia Pressione relativa fra Profondità=2,5 e 5 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Profondità è espressa in m; Pressione relativa in Pa. Il dominio dello strumento è [0; 10]. La relazione implementata è: Δp = ρ g h.",
-          "Una colonna di fluido di sezione A e altezza h pesa ρAhg. Dividendo la forza per l’area A ottieni ρgh: la sezione si semplifica. La pressione assoluta richiede di aggiungere quella alla superficie."
+          "Il programma calcola la pressione relativa Δp = ρ g h per una profondità fra 0 e 10 m; nella scheda «Regola» la densità si regola a passi di 100 kg/m³.",
+          "Protocollo. Configurazione A: ρ = 1000 kg/m³, confronto fra h = 2,5 m e h = 5 m, previsione nella scheda «A / B» e «Salva A». Configurazione B: ρ = 500 kg/m³, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. In A la pressione passa da 24 525 Pa a 49 050 Pa, in B da circa 12 263 a 24 525 Pa. In entrambi i casi raddoppia con la profondità; il liquido con densità dimezzata a 5 m ha la stessa pressione che l’acqua ha a 2,5 m."
         ],
         "advanced": [
-          "Nel laboratorio imposta Densità fluido (a): 1000 kg/m³. Prima di salvare A, prevedi come cambia Pressione relativa fra Profondità=2,5 e 5 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta due liquidi alla stessa profondità. Studia il caso di densità variabile come integrale di ρ(h)g.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il laboratorio rappresenta la funzione lineare Δp(h) = ρ g h su h fra 0 e 10 m: una retta per l’origine di pendenza ρ g, cioè circa 9810 Pa al metro per l’acqua.",
+          "Protocollo. Con ρ = 1000 kg/m³ scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il passaggio da h = 2,5 m a h = 5 m e premi «Salva A»; poi porta la densità a 500 kg/m³ e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "La previsione è la stessa per ogni densità positiva, e il rapporto Δp(5)/Δp(2,5) vale sempre 2. Il grafico mostra la pressione relativa; quella assoluta è la stessa retta spostata in alto di circa 101 kPa, e per essa il rapporto fra i due valori sarebbe molto più vicino a 1."
         ]
       }
     },
@@ -118,19 +125,19 @@
       "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "La pressione non è una forza: per ottenere la forza su una superficie devi considerare area e direzione. La densità non è necessariamente costante in ogni fluido reale.",
-          "Fluido in quiete, densità costante e gravità uniforme. Non sono calcolati flussi, compressibilità o variazioni atmosferiche.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il primo errore frequente è credere che la pressione dipenda dalla quantità di liquido. Sul fondo di una diga che trattiene un lago enorme e sul fondo di un tubo sottile pieno d’acqua alla stessa altezza la pressione è la stessa; la diga sopporta una forza totale più grande perché la sua superficie è più grande.",
+          "Il secondo errore è pensare che la pressione spinga soltanto verso il basso. In un punto del liquido la pressione agisce in tutte le direzioni: un buco nella parete laterale di una bottiglia fa uscire l’acqua di lato.",
+          "Il terzo errore è dimenticare la pressione atmosferica. A 10 m di profondità l’acqua aggiunge circa un’atmosfera, e la pressione totale è quindi circa il doppio di quella in superficie; i subacquei devono tenerne conto per i tempi di risalita."
         ],
         "intermediate": [
-          "La pressione non è una forza: per ottenere la forza su una superficie devi considerare area e direzione. La densità non è necessariamente costante in ogni fluido reale.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Esempio svolto: vasi di forma diversa. Tre recipienti, uno cilindrico, uno a imbuto e uno svasato verso l’alto, hanno la stessa area di base e lo stesso livello d’acqua, 20 cm. La pressione sul fondo è in tutti 1000 · 9,81 · 0,2 ≈ 1960 Pa, e la forza sul fondo è la stessa. I pesi dei tre recipienti sono diversi, perché le pareti inclinate sostengono parte del liquido o premono su di esso.",
+          "Esempio svolto: pressione e forza. Una persona di 60 kg in piedi su due tacchi a spillo di 1 cm² ciascuno esercita una pressione di circa 590/0,0002 ≈ 2,9 · 10⁶ Pa, circa centocinquanta volte quella che esercita con due scarpe piatte di 150 cm² ciascuna, circa 2 · 10⁴ Pa. La forza è la stessa, l’area diversa.",
+          "Esempio svolto: la pressione del sangue. Nel corpo di una persona in piedi, con il sangue di densità circa 1060 kg/m³, la differenza di pressione fra i piedi e la testa, distanti circa 1,2 m in verticale, è 1060 · 9,81 · 1,2 ≈ 12 500 Pa, quasi 94 mm di mercurio. Per questo la pressione si misura al braccio, all’altezza del cuore."
         ],
         "advanced": [
-          "Fluido in quiete, densità costante e gravità uniforme. Non sono calcolati flussi, compressibilità o variazioni atmosferiche.",
-          "Confronta due liquidi alla stessa profondità. Studia il caso di densità variabile come integrale di ρ(h)g.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il modello presuppone un fluido fermo, con densità uniforme e campo di gravità costante. L’acqua è quasi incomprimibile: anche nella fossa delle Marianne, a circa 11 km di profondità e a più di mille atmosfere, la sua densità aumenta soltanto di qualche per cento, e il modello lineare resta una buona approssimazione.",
+          "Per l’atmosfera, invece, la densità cambia molto con la quota, e la legge lineare vale soltanto per dislivelli piccoli. Sul Puy de Dôme, a mille metri di dislivello, la pressione scende di circa un decimo; sulla vetta dell’Everest è circa un terzo di quella al livello del mare.",
+          "Quando il fluido si muove compaiono nuovi termini: la pressione diminuisce dove la velocità aumenta, come descrive l’equazione di Daniel Bernoulli del 1738, e l’attrito interno, la viscosità, produce cadute di pressione lungo i tubi."
         ]
       }
     },
@@ -157,19 +164,17 @@
       "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Fluido statico con densità uniforme.",
-          "Fluido in quiete, densità costante e gravità uniforme. Non sono calcolati flussi, compressibilità o variazioni atmosferiche.",
-          "Collegamento consigliato: physics-15. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La pressione nei fluidi spiega barometri, freni idraulici e immersioni. La prossima unità di fisica, «Galleggiamento e Archimede», mostra che la differenza di pressione fra la parte alta e quella bassa di un corpo immerso produce la spinta verso l’alto.",
+          "Riepilogo: p = F/A; in un liquido fermo Δp = ρ g h; la pressione dipende soltanto dalla profondità e agisce in tutte le direzioni.",
+          "Nel diario registra A e B e spiega perché la pressione raddoppia in entrambe."
         ],
         "intermediate": [
-          "Una colonna di fluido di sezione A e altezza h pesa ρAhg. Dividendo la forza per l’area A ottieni ρgh: la sezione si semplifica. La pressione assoluta richiede di aggiungere quella alla superficie.",
-          "Fluido in quiete, densità costante e gravità uniforme. Non sono calcolati flussi, compressibilità o variazioni atmosferiche.",
-          "Confronta due liquidi alla stessa profondità. Studia il caso di densità variabile come integrale di ρ(h)g."
+          "Il torchio idraulico scambia forza con spostamento come la leva dell’unità «Momenti, leve ed equilibrio». La pressione atmosferica e quella dei gas tornano nell’unità «Gas ideali». Il barometro di Torricelli, infine, è un manometro che misura la pressione dell’aria confrontandola con il peso di una colonna di liquido, ed è il primo strumento della meteorologia.",
+          "Nel diario calcola l’altezza della colonna di un barometro ad acqua alla pressione atmosferica media e spiega perché Torricelli preferì il mercurio, considerando la densità e la lunghezza del tubo."
         ],
         "advanced": [
-          "Confronta due liquidi alla stessa profondità. Studia il caso di densità variabile come integrale di ρ(h)g.",
-          "Fluido in quiete, densità costante e gravità uniforme. Non sono calcolati flussi, compressibilità o variazioni atmosferiche.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La diminuzione esponenziale della pressione con la quota è la stessa legge di decadimento dell’unità di matematica «Esponenziali e logaritmi»; il legame fra pressione, densità e temperatura dell’aria è quello dell’unità «Gas ideali».",
+          "Nel diario ricava la pressione sulla cima del Monte Bianco, a 4808 m, con il modello esponenziale e una scala di altezza di 8 km, confrontala con la stima della legge lineare e spiega quale delle due è più vicina al vero."
         ]
       }
     }
