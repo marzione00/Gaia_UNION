@@ -1,29 +1,30 @@
-# Collaudo GAIA 1.33.1
+# Collaudo GAIA 1.34.0
 
-Eseguito il 18 novembre 2026 sul ramo `fix/telefoni-bassi-20261118`, costruito sopra `main` alla versione 1.33.0 (pull request #34), con Node.js 22.
+Eseguito il 18 novembre 2026 sul ramo `feat/livelli-chimica-20261118`, costruito sopra `main` alla versione 1.33.1 (pull request #35), con Node.js 22.
 
 | Controllo | Comando | Risultato |
 |---|---|---:|
-| Test Node | `node --test tests/*.test.mjs` | 446 / 446 |
+| Test Node | `node --test tests/*.test.mjs` | 472 / 472 |
+| Livelli dei percorsi di chimica | `node --test tests/levels.test.mjs` | 26 / 26 |
 | Riferimenti e risorse | `node scripts/check.mjs` | 3896 / 3896 |
 | Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 314 controlli |
 | Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 279 controlli |
 | Atlante in Chromium | `python3 tools/qa_atlas_browser.py --root dist` | 23 controlli, 30 sistemi, 280 pianeti, 125 esplorabili |
-| Vista del sistema e vista in orbita in Chromium | due sistemi a 320 × 568, uno a 390 × 844 e a 1440 × 900; vista in orbita a 320 × 568 e 390 × 844 | nessun errore; sottotitolo, numeri dei pianeti, scheda dell'unità e pulsanti in basso separati |
+| Lezione di chimica in Chromium | unità 03, tappa Capisci, livelli Base, Applica e Approfondisci a 1440 × 900 e a 390 × 844 | nessun errore; tre testi diversi, impaginati su più pagine |
 
 Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`.
 
-La correzione chiude la sovrapposizione della vista del sistema a 320 × 568 segnalata nel collaudo della 1.32.0. Su schermi così bassi la parte visibile del sistema in 3D resta stretta fra i numeri dei pianeti e la scheda dell'unità; i pianeti restano scelti dai numeri.
+La versione riscrive i testi dei 25 percorsi guidati di chimica; codice, modelli e domande restano quelli della 1.33.1, salvo la conversione di «ô» in `displayText`, le note sulla narrazione di tre unità e il commento di una domanda. I numeri dei testi vengono dai capitoli del libro; la regola dei tre livelli e i controlli sono in `docs/LIVELLI.md`.
 
-Collaudo precedente, 1.33.0 (18 novembre 2026, ramo `feat/regioni-20261118`): 446 test Node, 3896 controlli di riferimenti e risorse, 314 controlli HTTP, 279 flussi applicativi; atlante con 30 sistemi e 125 pianeti esplorabili; mappa, regioni e mondi di sintesi in Chromium su tre formati, nessun errore.
+Collaudo precedente, 1.33.1 (18 novembre 2026, ramo `fix/telefoni-bassi-20261118`): 446 test Node, 3896 controlli di riferimenti e risorse, 314 controlli HTTP, 279 flussi applicativi; vista del sistema e vista in orbita in Chromium a 320 × 568, 390 × 844 e 1440 × 900, nessun errore.
 
 ## Integrazione continua
 
-Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle risorse, build, verifiche HTTP, interazioni reali dell’atlante e pubblicazione su GitHub Pages. Il passo finale scarica dal sito pubblico `build-info.json` e il curriculum e verifica che corrispondano al commit appena pubblicato e ai corsi del curriculum, 125 dalla 1.26.0. L'ultima esecuzione su `main`, per l'unione della pull request #34 (`855b2d3`), è riuscita.
+Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle risorse, build, verifiche HTTP, interazioni reali dell’atlante e pubblicazione su GitHub Pages. Il passo finale scarica dal sito pubblico `build-info.json` e il curriculum e verifica che corrispondano al commit appena pubblicato e ai corsi del curriculum, 125 dalla 1.26.0. L'ultima esecuzione su `main`, per l'unione della pull request #35 (`96bddd7`), è riuscita.
 
 ## Controllo del repository
 
-- `main` ha un solo commit radice. Dei 33 rami presenti su GitHub, 32 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
+- `main` ha un solo commit radice. Dei 39 rami presenti su GitHub, 38 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
 - Nessuna pull request o segnalazione aperta.
 - Gli autori dei commit usano indirizzi noreply, di GitHub e di Anthropic.
 - Due esecuzioni fallite nella storia di `main`, entrambe superate dai commit successivi: il primo tentativo di pubblicazione (`bacea5c`, errore in `configure-pages`) e l’unione della pull request #5 (`1d6c911`, verifica del sito pubblicato con un numero di versione fisso, corretta in `b7dc1e8`).

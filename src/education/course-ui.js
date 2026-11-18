@@ -10,7 +10,7 @@ import {freshActivity} from './activities.js';
 const names={increases:'CRESCE',decreases:'DIMINUISCE',constant:'UGUALE',undefined:'NON DEFINITO'};
 /** Existing glyph atlas only: explicit fallbacks for the few characters it lacks, never missing squares.
  * Superscripts ⁰ to ⁹ with ⁺ and ⁻, σ, ′ and ⇌ are in the atlas since 1.9.0. */
-export function displayText(s){return String(s).replace(/[Åâˣℏ∫]/g,c=>({'Å':'angstrom','â':'a','ˣ':'^x','ℏ':'h/(2pi)','∫':'integrale '}[c]));}
+export function displayText(s){return String(s).replace(/[Åâôˣℏ∫]/g,c=>({'Å':'angstrom','â':'a','ô':'o','ˣ':'^x','ℏ':'h/(2pi)','∫':'integrale '}[c]));}
 export function fittedRows(R,paragraphs,width,style='body'){
  const rows=[];for(const para of paragraphs){let line='';for(const word of displayText(para).split(/\s+/)){
   if(R.textWidth(word,style)>width){if(line){rows.push(line);line='';}let chunk='';for(const ch of word){if(chunk&&R.textWidth(chunk+ch,style)>width){rows.push(chunk);chunk='';}chunk+=ch;}line=chunk;continue;}

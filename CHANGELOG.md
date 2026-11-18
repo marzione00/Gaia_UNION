@@ -1,3 +1,11 @@
+# 1.34.0: Tre livelli distinti nei percorsi di chimica
+
+- I 25 percorsi guidati di chimica hanno testi nuovi in tutte le tappe con testo visibile. Base spiega il concetto con un esempio semplice; Applica svolge esempi numerici completi e chiude con una domanda per lo studente; Approfondisci aggiunge derivazioni, limiti del modello e storia. Prima, in 101 tappe su 125, almeno due livelli coincidevano parola per parola.
+- I numeri vengono dai capitoli del libro di chimica. La prosa distinta di un'unità, sommando i tre livelli, passa da una mediana di 674 a 2000 parole; la tappa Capisci a livello Base passa da 189 a 247 parole. Un percorso letto a un solo livello ha circa la stessa lunghezza di prima.
+- Nelle unità con laboratorio ogni livello della tappa Sperimenta spiega come salvare le due configurazioni, perché lo studente legge un solo livello alla volta.
+- Le note sulla narrazione di tre unità (03, 04, 09) descrivono ora gli esempi dei testi nuovi, e il commento di una domanda dell'unità 06 usa le energie reticolari del capitolo, 787 e circa 3790 kJ/mol.
+- Nuovo `tests/levels.test.mjs`: per le discipline riscritte verifica lunghezze minime, assenza di paragrafi condivisi fra livelli e fra tappe, somiglianza fra livelli non oltre 0,2, stile e protocollo dei laboratori. `displayText` converte anche «ô». Regola e numeri in `docs/LIVELLI.md`.
+
 # 1.33.1: Vista del sistema e vista in orbita sui telefoni bassi
 
 - Sui telefoni alti meno di 700 pixel la vista del sistema nasconde il sottotitolo e la descrizione dell'unità, e la scheda dell'unità resta sopra i pulsanti in basso; prima, a 320 × 568, sottotitolo, numeri dei pianeti e scheda si sovrapponevano.
