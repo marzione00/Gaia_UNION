@@ -15,9 +15,10 @@ import { pilotWorld, worldParameters } from './worlds/pilots.js';
 import { planetGenomes, planetSpecies } from './worlds/surface.js';
 import { placeList } from './worlds/places.js';
 import { lifelessReason } from './worlds/species.js';
-import { planetPhysics, physicsRows, physicsText, speciesCount } from './worlds/planet-physics.js';
+import { planetPhysics, physicsRows, physicsText, speciesCount, it as italian } from './worlds/planet-physics.js';
 import { cleanPassages, exploration, linkOpen } from './navigation/passages.js';
-import { INSTRUMENTS, BASE_ROWS, instrumentForRow, cleanInstrumentSections, obtainedBy, onBoard, sectionsLeft, explorerMode } from './navigation/instruments.js';
+import { INSTRUMENTS, BASE_ROWS, SURFACE_ROWS, instrumentForRow, cleanInstrumentSections, obtainedBy, onBoard, sectionsLeft, explorerMode } from './navigation/instruments.js';
+import { SIGNATURES, VERDICTS, OUTCOMES, REFERENCE_WORLDS, SOURCES as GAIA_SOURCES, diagnosis } from './worlds/biosignatures.js';
 import { BookReader } from './book/reader.js';
 import { fittedRows } from './education/course-ui.js';
 import { descriptor as modelDescriptor } from './models/curriculum.js';
@@ -46,8 +47,8 @@ let hoverPointer = null, touchTarget = null, book = null, passages = [], instrum
 const sectors = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
 const sectorColors = DISCIPLINE;
 const nav = [['galaxy', 'MAPPA'], ['catalogue', 'ARGOMENTI'], ['paths', 'PERCORSI'], ['lab', 'LABORATORI'], ['journal', 'DIARIO']];
-const navGroups = { galaxy: ['galaxy', 'system', 'orbit', 'surface'], catalogue: ['catalogue', 'mission', 'briefing', 'theory', 'pdf', 'quiz', 'sources', 'research', 'pilot', 'libro'], paths: ['paths'], lab: ['lab'], journal: ['journal', 'ship'] };
-const sceneNames = { ship: 'NAVE', system: 'MAPPA', orbit: 'MAPPA', surface: 'MAPPA', mission: 'UNITÀ', briefing: 'UNITÀ', theory: 'TEORIA', pdf: 'DISPENSA', quiz: 'VERIFICA', sources: 'FONTI', research: 'RICERCA', pilot: 'MISSIONE' };
+const navGroups = { galaxy: ['galaxy', 'system', 'orbit', 'surface'], catalogue: ['catalogue', 'mission', 'briefing', 'theory', 'pdf', 'quiz', 'sources', 'research', 'pilot', 'libro'], paths: ['paths'], lab: ['lab'], journal: ['journal', 'ship', 'gaia'] };
+const sceneNames = { ship: 'NAVE', gaia: 'NUCLEO DI GAIA', system: 'MAPPA', orbit: 'MAPPA', surface: 'MAPPA', mission: 'UNITÀ', briefing: 'UNITÀ', theory: 'TEORIA', pdf: 'DISPENSA', quiz: 'VERIFICA', sources: 'FONTI', research: 'RICERCA', pilot: 'MISSIONE' };
 const areaTrail = (m, extra = []) => { const a = areaOf(m.planetIndex); return ['GALASSIA', sectors[a.sector].toUpperCase(), a.name.toUpperCase(), ...extra].join(' ▸ '); };
 const labNames = { daisyworld: 'Daisyworld', transform: 'Trasformazioni', rectangle: 'Area a perimetro fissato', radical: 'Dominio dei radicali', linear: 'Due vincoli lineari', reserve: 'Riserve e decadimento', rational: 'Zeri, segni e punti esclusi' };
 const labIds = Object.keys(labNames);
@@ -82,7 +83,7 @@ function route(scene, extra = {}) {
 }
 function enterSystem(id=S.system) { route('system',{system:id}); }
 function enterPlanet(index=S.selected) { route('orbit',{selected:index}); }
-function backToParent() { if(S.scene==='libro'||S.scene==='ship')route('orbit');else if(['mission','pilot'].includes(S.scene))route('briefing');else if(S.scene==='surface')route('orbit');else if(S.scene==='orbit')route('system',{system:S.system});else if(S.scene==='system')route('galaxy'); }
+function backToParent() { if(S.scene==='gaia')route('ship');else if(S.scene==='libro'||S.scene==='ship')route('orbit');else if(['mission','pilot'].includes(S.scene))route('briefing');else if(S.scene==='surface')route('orbit');else if(S.scene==='orbit')route('system',{system:S.system});else if(S.scene==='system')route('galaxy'); }
 function changeZoom(factor) { const limits=S.scene==='system'?[17,70]:S.scene==='orbit'?[14,38]:[23,100]; S.distance=clamp(S.distance*factor,...limits); hover.clear(); }
 function updateHash(mode = 'replace') {
     const q = new URLSearchParams();
@@ -404,11 +405,20 @@ function drawHover() {
 const physicsOpen = () => S.scene === 'orbit' && S.physicsFor === S.selected;
 /** Physical card of the planet in orbit: star and orbit, then the four spheres. Two columns on desktop,
  * two pages on phones. */
-/** Which card rows the ship can show now: all of them outside the explorer mode. */
-function cardReveal() {
+/** Which card rows the ship can show now: all of them outside the explorer mode. The presence of life is
+ * shown once the explorer has landed on the planet. */
+function cardReveal(index = S.selected) {
     if (!explorerMode(store.data)) return null;
-    const board = onBoard(store.data, instrumentSections);
-    return label => BASE_ROWS.includes(label) || board.has(instrumentForRow(label)?.id);
+    const board = onBoard(store.data, instrumentSections), down = landed(index);
+    return label => BASE_ROWS.includes(label) || board.has(instrumentForRow(label)?.id) || (down && SURFACE_ROWS.includes(label));
+}
+/** Whether the explorer has landed on planet `index` (a registered species also counts, from older saves). */
+const landed = index => { const r = store.data.explore[String(index)]; return !!(r && (r.v === 1 || r.s?.length)); };
+/** Records the landing on planet `index`. */
+function markLanded(index) {
+    const key = String(index);
+    if (store.data.explore[key]?.v === 1) return;
+    (store.data.explore[key] ||= { s: [], l: [] }).v = 1; store.save();
 }
 /** Logs in the diary which instruments have measured the planet in orbit. */
 function logMeasurements(index) {
@@ -423,7 +433,7 @@ function physicsPanel(m, mobile) {
     logMeasurements(S.selected);
     const pw = mobile ? w - 36 : Math.min(720, w - 420), px = mobile ? 18 : w - pw - 36, py = mobile ? 108 : 247, colW = mobile ? pw - 36 : (pw - 60) / 2, line = 18;
     // Narrow phones put each label above its value.
-    const stacked = colW < 300, labelW = stacked ? 0 : mobile ? 112 : 116, rowH = v => (stacked ? line : 0) + R.multilineCount(v, colW - labelW, 'micro') * line + 6;
+    const stacked = colW < 300, labelW = stacked ? 0 : mobile ? 126 : 130, rowH = v => (stacked ? line : 0) + R.multilineCount(v, colW - labelW, 'micro') * line + 6;
     const groupH = ([, rows]) => 26 + rows.reduce((s, [, v]) => s + rowH(v), 0) + 8, height = col => col.reduce((y, g) => y + groupH(g), 0);
     // Desktop: two columns. Phones: as many groups per page as the screen holds.
     let pages = [groups.slice(0, 2), groups.slice(2)];
@@ -436,7 +446,8 @@ function physicsPanel(m, mobile) {
     const page = Math.min(S.physicsPage || 0, pages.length - 1), columns = mobile ? [pages[page]] : pages;
     const ph = 58 + Math.max(...columns.map(height)) + (mobile ? 52 : 6);
     U.panel(px, py, pw, ph, tint, .92);
-    U.tag('Dati fisici del pianeta', px + 18, py + 18, tint);
+    // On the narrowest phones the shorter heading leaves room for the ship button.
+    U.tag(pw < 330 ? 'Dati fisici' : 'Dati fisici del pianeta', px + 18, py + 18, tint);
     if (reveal && !mobile) U.text(`Strumenti a bordo: ${onBoard(store.data, instrumentSections).size} di ${INSTRUMENTS.length}`, px + pw - 118, py + 19, 'micro', C.muted, { align: 'right' });
     U.button('physics-ship', 'NAVE', px + pw - 104, py + 8, 86, 32, () => route('ship'), { small: true }); U.buttons.at(-1).label = 'Apri la nave: strumenti a bordo e da ottenere';
     columns.forEach((col, k) => {
@@ -485,6 +496,7 @@ function orbitPanel(m, mobile) {
 }
 function surfaceUI() {
     const w = R.w, h = R.h, mobile = w < 850, m = selected(), tint = sectorColors[m.sector];
+    markLanded(S.selected);
     titleFade();
     titleShade();
     if (S.explore && exploreReady()) { exploreUI(m, mobile); return; }
@@ -961,16 +973,18 @@ function mapLog() {
 }
 function exploreLog() {
     const key = JSON.stringify(store.data.explore) + '|' + store.data.read.length + '|' + JSON.stringify(Object.values(store.data.courses || {}).map(r => r.stage + (r.completedAt ? 'c' : ''))) + '|' + (store.data.atlas?.visited || []).length; if (exploreLogCache[0] === key) return exploreLogCache[1];
-    const genomes = planetGenomes(), species = planetSpecies(), places = genomes.map(placeList), rows = [];
-    let s = 0, l = 0, planets = 0, measuredPlanets = 0;
+    const genomes = planetGenomes(), species = planetSpecies(), places = genomes.map(placeList), rows = [], physics = planetPhysics();
+    let s = 0, l = 0, planets = 0, measuredPlanets = 0, landings = 0;
+    for (const rec of Object.values(store.data.explore)) if (rec.v === 1 || rec.s.length) landings++;
     for (const [key, rec] of Object.entries(store.data.explore)) {
         const i = Number(key), m = data.modules[i], measured = (rec.m || []).map(id => INSTRUMENTS.find(x => x.id === id)?.name).filter(Boolean); if (!m || !(rec.s.length + rec.l.length + measured.length)) continue;
         planets++; s += rec.s.length; l += rec.l.length; if (measured.length) measuredPlanets++;
         const sp = species[i].filter(x => rec.s.includes(x.id)).map(x => x.name + ' (' + x.label + ')'), pl = places[i].filter(x => rec.l.includes(x.id)).map(x => x.name);
-        rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : '', measured.length ? 'Misure: ' + measured.join(', ') + '.' : ''].filter(Boolean).join(' '));
+        const d = rec.m?.includes('biofirme') ? diagnosis(physics[i], species[i].length, landed(i)) : null, lovelock = d ? 'Diagnosi di Lovelock: ' + VERDICTS[d.verdict] + (d.outcome === 'da-verificare' ? '' : ', ' + OUTCOMES[d.outcome]) + '.' : '';
+        rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : '', measured.length ? 'Misure: ' + measured.join(', ') + '.' : '', lovelock].filter(Boolean).join(' '));
     }
     const total = species.reduce((n, x) => n + x.length, 0), totalPlaces = places.reduce((n, x) => n + x.length, 0);
-    const head = `Pianeti con registrazioni: ${planets} su ${genomes.length}. Specie registrate: ${s} su ${total}. Luoghi registrati: ${l} su ${totalPlaces}. Pianeti misurati con gli strumenti della nave: ${measuredPlanets}; strumenti a bordo: ${onBoard(store.data, instrumentSections).size} su ${INSTRUMENTS.length}.`;
+    const head = `Pianeti visitati in superficie: ${landings} su ${genomes.length}. Pianeti con registrazioni: ${planets} su ${genomes.length}. Specie registrate: ${s} su ${total}. Luoghi registrati: ${l} su ${totalPlaces}. Pianeti misurati con gli strumenti della nave: ${measuredPlanets}; strumenti a bordo: ${onBoard(store.data, instrumentSections).size} su ${INSTRUMENTS.length}.`;
     exploreLogCache = [key, [...mapLog(), head, ...(rows.length ? rows : ['Nessuna registrazione. Scendi su un pianeta, scegli «Esplora il pianeta» e registra specie e luoghi; in orbita, «Dati fisici» registra le misure degli strumenti a bordo.'])].join('\n')];
     return exploreLogCache[1];
 }
@@ -979,6 +993,7 @@ const capital = s => s[0].toUpperCase() + s.slice(1);
 function instrumentStatus(i, short = false) {
     const how = obtainedBy(i, store.data, instrumentSections), chapter = moduleById(i.unit)?.title || i.unit, { left, total } = sectionsLeft(i, store.data, instrumentSections);
     if (how) return { on: true, text: how === 'percorso' ? 'A bordo: percorso guidato completato.' : 'A bordo: capitolo letto per intero.' };
+    if (!total) return { on: false, text: short ? 'Completa il percorso guidato.' : `Da ottenere: completa il percorso guidato dell’unità «${chapter}».` };
     return { on: false, text: short ? `Mancano ${left} sezioni su ${total} di «${chapter}», oppure il percorso guidato.` : `Da ottenere: leggi le ${total} sezioni del capitolo «${chapter}» (ne mancano ${left}) oppure completa il suo percorso guidato.` };
 }
 /** The exploration ship: instruments on board and to obtain, and the explorer mode. */
@@ -1004,12 +1019,126 @@ function shipUI() {
     });
     const bw = mobile ? (w - 48) / 2 : 220;
     if (pages > 1) { U.button('ship-prev', 'INDIETRO', mobile ? 18 : w - 2 * 130 - 40, h - 134, mobile ? bw : 120, 36, () => { S.shipPage = page - 1; }, { disabled: page === 0, small: true }); U.button('ship-next', 'AVANTI', mobile ? 30 + bw : w - 160, h - 134, mobile ? bw : 120, 36, () => { S.shipPage = page + 1; }, { disabled: page === pages - 1, small: true }); }
-    U.button('ship-orbit', mobile ? 'PIANETA' : 'TORNA AL PIANETA', mobile ? 18 : 35, h - 88, bw, 39, () => route('orbit'));
-    U.button('ship-journal', mobile ? 'DIARIO' : 'DIARIO DI ESPLORAZIONE', mobile ? 30 + bw : 267, h - 88, bw, 39, () => { S.journalTab = 'explore'; S.scroll = 0; route('journal'); });
+    const nb = mobile ? (w - 60) / 3 : 220;
+    U.button('ship-orbit', mobile ? 'PIANETA' : 'TORNA AL PIANETA', mobile ? 18 : 35, h - 88, nb, 39, () => route('orbit'), { small: mobile });
+    U.button('ship-journal', mobile ? 'DIARIO' : 'DIARIO DI ESPLORAZIONE', mobile ? 30 + nb : 267, h - 88, nb, 39, () => { S.journalTab = 'explore'; S.scroll = 0; route('journal'); }, { small: mobile });
+    U.button('ship-gaia', mobile ? 'GAIA' : 'NUCLEO DI GAIA', mobile ? 42 + 2 * nb : 499, h - 88, nb, 39, () => route('gaia'), { small: mobile }); U.buttons.at(-1).label = 'Apri il Nucleo di Gaia: la diagnosi di Lovelock dei pianeti misurati';
 }
 function shipText() {
     const board = onBoard(store.data, instrumentSections);
-    return `La nave da esplorazione. Strumenti a bordo: ${board.size} di ${INSTRUMENTS.length}. Modalità esploratore ${explorerMode(store.data) ? 'attiva: i dati fisici compaiono con gli strumenti' : 'disattivata: i dati fisici sono tutti visibili'}. ` + INSTRUMENTS.map(i => `${capital(i.name)}: misura ${i.measures}; rivela ${i.rows.join(', ')}. ${instrumentStatus(i).text}`).join(' ');
+    return `La nave da esplorazione. Strumenti a bordo: ${board.size} di ${INSTRUMENTS.length}. Modalità esploratore ${explorerMode(store.data) ? 'attiva: i dati fisici compaiono con gli strumenti' : 'disattivata: i dati fisici sono tutti visibili'}. ` + INSTRUMENTS.map(i => `${capital(i.name)}: ${i.verb || 'misura'} ${i.measures}; rivela ${i.rows.join(', ')}. ${instrumentStatus(i).text}`).join(' ');
+}
+/** Nucleo di Gaia: Lovelock's diagnosis of the planets the analyser of biosignatures has measured, beside
+ * the Solar System worlds that calibrate it (src/worlds/biosignatures.js). With the explorer mode off every
+ * planet is diagnosed and its surface is known. */
+function gaiaDiagnoses() {
+    const archive = !explorerMode(store.data), physics = planetPhysics(), out = [];
+    for (let i = 0; i < UNIT_COUNT; i++) {
+        const m = data.modules[i];
+        if (m && (archive || store.data.explore[String(i)]?.m?.includes('biofirme'))) out.push({ index: i, title: m.title, area: areaOf(i).name, ...diagnosis(physics[i], speciesCount(i), archive || landed(i)) });
+    }
+    return out;
+}
+const OUTCOME_COLOR = { confermata: C.lime, 'nessuna-vita': C.lime, superficie: C.amber, 'falso-negativo': C.red, 'falso-positivo': C.red, 'da-verificare': C.muted };
+const VERDICT_COLOR = { probabile: C.lime, incerta: C.amber, assente: C.dim };
+/** Outcomes counted in the summary of the diagnosis. */
+const OUTCOME_COUNTS = { confermata: n => n + (n === 1 ? ' diagnosi confermata' : ' diagnosi confermate'), superficie: n => n + ' con vita trovata oltre la diagnosi aperta', 'falso-negativo': n => n + (n === 1 ? ' falso negativo' : ' falsi negativi'), 'falso-positivo': n => n + (n === 1 ? ' falso positivo' : ' falsi positivi'), 'nessuna-vita': n => n + ' senza vita in superficie' };
+const jmol = x => italian(x, x >= 100 ? 4 : 2) + ' J/mol';
+const GAIA_INTRO = 'Un pianeta abitato mantiene nella sua atmosfera gas che senza la vita reagirebbero fino all’equilibrio. Lovelock propose nel 1965 di cercare la vita misurando questo squilibrio chimico, che si esprime come energia libera disponibile per mole di atmosfera.';
+const GAIA_WORLDS_NOTE = 'Con l’oceano la Terra supera Marte di circa 17 volte. La sua sola atmosfera, con 1,5 J/mol, resta sotto Marte, il cui squilibrio è prodotto dalla luce ultravioletta: per riconoscere la vita conta quali gas coesistono, oltre a quanto vale lo squilibrio. Valori di Krissansen-Totton, Bergsman e Catling (2016).';
+function gaiaSummary(list) {
+    const count = f => list.filter(f).length, done = list.filter(d => d.outcome !== 'da-verificare');
+    if (!list.length) return 'Nessun pianeta analizzato. Porta a bordo l’analizzatore di biofirme e apri i dati fisici di un pianeta in orbita: la sua firma atmosferica entra in questa diagnosi. Scendendo in superficie la diagnosi si confronta con le specie che vivono sul pianeta.';
+    const head = explorerMode(store.data) ? `Pianeti analizzati con l’analizzatore di biofirme: ${list.length} su ${UNIT_COUNT}.` : `Modalità esploratore disattivata: la diagnosi riguarda tutti i ${list.length} pianeti e la loro superficie è già nota.`;
+    const verdicts = Object.keys(VERDICTS).map(v => `${VERDICTS[v]} ${count(d => d.verdict === v)}`).join(', ');
+    const outcomes = Object.entries(OUTCOME_COUNTS).map(([o, f]) => [count(d => d.outcome === o), f]).filter(([n]) => n).map(([n, f]) => f(n));
+    return `${head} Verdetti dell’atmosfera: ${verdicts}. Confrontati con la superficie: ${done.length}${outcomes.length ? ' (' + outcomes.join(', ') + ')' : ''}.`;
+}
+/** Blocks of the current tab, each with its height and a draw function. Text is split into lines, so a
+ * page can end inside a paragraph on short screens; a block marked `keep` stays with the next one. */
+function gaiaBlocks(tab, list, x, ww, mobile) {
+    const line = 18, blocks = [], tx = x + 16, tw = ww - 32;
+    const lines = (t, w = tw) => fittedRows(R, [t], w, 'micro').filter(Boolean);
+    const para = (t, c = C.muted, at = tx, w = tw, gap = 10) => { const rows = lines(t, w); rows.forEach((r, k) => blocks.push({ h: line + (k === rows.length - 1 ? gap : 0), draw: y => U.text(r, at, y, 'micro', c) })); };
+    if (tab === 'mondi') {
+        para(GAIA_INTRO, C.pale);
+        const nameW = mobile ? 0 : 230, barX = tx + nameW + (mobile ? 0 : 14), valueW = 110, barW = tw - nameW - (mobile ? 0 : 14) - valueW, lo = -4, hi = 4;
+        para('Scala logaritmica da 0,0001 a 10.000 J/mol: ogni tacca è un fattore 10.', C.dim, mobile ? tx : barX, mobile ? tw : tw - nameW - 14, 6);
+        for (const r of REFERENCE_WORLDS) {
+            const top = mobile ? 22 : 0;
+            blocks.push({ h: top + 22, keep: true, draw: y => {
+                U.text(r.name, tx, y + 2, mobile ? 'micro' : 'mini', r.life ? C.lime : C.pale);
+                const by = y + top + 4, frac = (Math.log10(r.phi) - lo) / (hi - lo);
+                R.rect(barX, by, barW, 10, color(T.line, .9));
+                for (let k = 1; k < hi - lo; k++) R.rect(barX + barW * k / (hi - lo), by - 2, 1, 14, color(T.hover, 1));
+                R.rect(barX, by, Math.max(3, barW * frac), 10, r.life ? C.lime : C.cyan);
+                U.text(jmol(r.phi), x + ww - 16, y + top + 1, 'micro', C.pale, { align: 'right' });
+            } });
+            para('Causa: ' + r.cause + '.', C.muted, mobile ? tx : barX, mobile ? tw : tw - nameW - 14, 12);
+        }
+        para(GAIA_WORLDS_NOTE);
+    } else if (tab === 'firme') {
+        para('Cinque firme atmosferiche, ognuna con il criterio pubblicato che la interpreta. Il verdetto viene dalla sola atmosfera; la discesa in superficie dice se era giusto.', C.pale);
+        for (const [id, sg] of Object.entries(SIGNATURES)) {
+            const n = list.filter(d => d.signature === id).length;
+            blocks.push({ h: 24, keep: true, draw: y => { U.text(sg.name, tx, y, 'mini', C.pale); U.text(VERDICTS[sg.verdict].toUpperCase(), x + ww - 16, y + 1, 'micro', VERDICT_COLOR[sg.verdict], { align: 'right' }); } });
+            para(capital(sg.gases) + '. ' + sg.reading, C.muted, tx, tw, 0);
+            para('Fonte: ' + sg.source + '. Pianeti analizzati con questa firma: ' + n + '.', C.dim, tx, tw, 14);
+        }
+    } else {
+        para(gaiaSummary(list), C.pale);
+        for (const d of list) {
+            const verdictW = mobile ? 0 : 200, head = lines(d.title + ' · ' + d.area, tw - verdictW), text = lines(SIGNATURES[d.signature].name + '. ' + capital(OUTCOMES[d.outcome]) + '.');
+            // One planet is one block: its name, the verdict of the atmosphere and the outcome at the surface.
+            blocks.push({ h: (head.length + text.length + (mobile ? 1 : 0)) * line + 10, draw: y => {
+                head.forEach((r, k) => U.text(r, tx, y + k * line, 'micro', C.pale));
+                let yy = y + head.length * line;
+                if (mobile) { U.text(VERDICTS[d.verdict], tx, yy, 'micro', VERDICT_COLOR[d.verdict]); yy += line; }
+                else U.text(VERDICTS[d.verdict], x + ww - 16, y, 'micro', VERDICT_COLOR[d.verdict], { align: 'right' });
+                text.forEach((r, k) => U.text(r, tx, yy + k * line, 'micro', OUTCOME_COLOR[d.outcome]));
+            } });
+        }
+    }
+    return blocks;
+}
+function gaiaUI() {
+    const w = R.w, h = R.h, mobile = w < 850, short = h < 700, list = gaiaDiagnoses();
+    title('DIARIO ▸ NAVE ▸ NUCLEO DI GAIA', 'Il Nucleo di Gaia', short ? '' : mobile ? 'La diagnosi di Lovelock.' : 'La diagnosi di Lovelock, dall’atmosfera alla superficie dei pianeti.');
+    // Short phones drop the subtitle and give its room to the panel.
+    const x = mobile ? 18 : 40, ww = mobile ? w - 36 : w - 80, top = short ? 196 : 238, tab = S.gaiaTab ||= 'mondi', tw = Math.min(240, (ww - 16) / 3);
+    [['mondi', mobile ? 'MONDI' : 'MONDI DI RIFERIMENTO'], ['firme', mobile ? 'FIRME' : 'FIRME ATMOSFERICHE'], ['diagnosi', 'DIAGNOSI']].forEach(([id, label], k) => {
+        U.button('gaia-' + id, label, x + k * (tw + 8), top, tw, 36, () => { S.gaiaTab = id; S.gaiaPage = 0; }, { active: tab === id, small: mobile });
+    });
+    const py = top + 48, ph = h - py - (mobile ? 104 : 104), blocks = gaiaBlocks(tab, list, x, ww, mobile), room = ph - 28 - 50;
+    // Blocks are packed into pages as tall as the panel; a heading never ends a page.
+    const pages = [[]]; let used = 0;
+    blocks.forEach((b, k) => {
+        const need = b.h + (b.keep && blocks[k + 1] ? blocks[k + 1].h : 0);
+        if (pages.at(-1).length && used + need > room) { pages.push([]); used = 0; }
+        pages.at(-1).push(b); used += b.h;
+    });
+    const page = S.gaiaPage = clamp(S.gaiaPage || 0, 0, pages.length - 1);
+    U.panel(x, py, ww, ph, C.lime, .9);
+    let y = py + 16;
+    for (const b of pages[page]) { b.draw(y); y += b.h; }
+    if (pages.length > 1) {
+        // The page buttons leave room for the counter between them on the narrowest phones.
+        const by = py + ph - 46, pb = Math.min(110, (ww - 32 - 64) / 2);
+        U.text((page + 1) + ' di ' + pages.length, x + ww / 2, by + 11, 'micro', C.muted, { align: 'center' });
+        U.button('gaia-prev', 'INDIETRO', x + 16, by, pb, 36, () => { S.gaiaPage = page - 1; }, { disabled: page === 0, small: true }); U.buttons.at(-1).label = 'Pagina precedente del Nucleo di Gaia';
+        U.button('gaia-next', 'AVANTI', x + ww - 16 - pb, by, pb, 36, () => { S.gaiaPage = page + 1; }, { disabled: page === pages.length - 1, small: true }); U.buttons.at(-1).label = 'Pagina successiva del Nucleo di Gaia';
+    }
+    const bw = mobile ? (w - 48) / 2 : 220;
+    U.button('gaia-ship', mobile ? 'NAVE' : 'TORNA ALLA NAVE', mobile ? 18 : 35, h - 88, bw, 39, () => route('ship'), { small: mobile });
+    U.button('gaia-journal', mobile ? 'DIARIO' : 'DIARIO DI ESPLORAZIONE', mobile ? 30 + bw : 267, h - 88, bw, 39, () => { S.journalTab = 'explore'; S.scroll = 0; route('journal'); }, { small: mobile });
+}
+function gaiaText() {
+    const list = gaiaDiagnoses();
+    return ['Il Nucleo di Gaia. ' + GAIA_INTRO,
+        'Mondi di riferimento, energia libera disponibile: ' + REFERENCE_WORLDS.map(r => `${r.name} ${jmol(r.phi)}, per ${r.cause}`).join('; ') + '. ' + GAIA_WORLDS_NOTE,
+        'Firme atmosferiche: ' + Object.values(SIGNATURES).map(sg => `${sg.name}, ${VERDICTS[sg.verdict]}: ${sg.gases}. ${sg.reading} Fonte: ${sg.source}.`).join(' '),
+        'Diagnosi. ' + gaiaSummary(list) + ' ' + list.map(d => `${d.title}: ${SIGNATURES[d.signature].name.toLowerCase()}, ${VERDICTS[d.verdict]}, ${OUTCOMES[d.outcome]}.`).join(' '),
+        'Fonti: ' + GAIA_SOURCES.join(' ')].join(' ');
 }
 function journalUI() {
     const w = R.w, h = R.h, mobile = w < 850;
@@ -1052,9 +1181,8 @@ function journalUI() {
     if (S.editing === 'notes' && Math.floor(performance.now() / 600) % 2 === 0)
         R.rect(x + 24, Math.min(yy, by + hh - 25), 2, 19, C.lime);
     const bottom = h - 156, bw = mobile ? (ww - 16) / 3 : 170;
-    if (log) U.button('open-ship', 'LA NAVE', x, bottom, bw, 38, () => route('ship'));
-    else U.button('edit-notes', 'SCRIVI', x, bottom, bw, 38, () => startEdit('notes'), { active: S.editing === 'notes' });
-    U.button('save-notes', 'SALVA', x + bw + 8, bottom, bw, 38, () => finishEdit(true));
+    if (log) { U.button('open-ship', 'LA NAVE', x, bottom, bw, 38, () => route('ship')); U.button('open-gaia', mobile ? 'GAIA' : 'NUCLEO DI GAIA', x + bw + 8, bottom, bw, 38, () => route('gaia')); U.buttons.at(-1).label = 'Apri il Nucleo di Gaia: la diagnosi di Lovelock dei pianeti misurati'; }
+    else { U.button('edit-notes', 'SCRIVI', x, bottom, bw, 38, () => startEdit('notes'), { active: S.editing === 'notes' }); U.button('save-notes', 'SALVA', x + bw + 8, bottom, bw, 38, () => finishEdit(true)); }
     U.button('export-journal', 'ESPORTA', x + 2 * (bw + 8), bottom, bw, 38, () => {
         if (S.editing === 'notes')
             finishEdit();
@@ -1181,7 +1309,7 @@ function draw() {
     scrim();
     common();
     syncBook();
-    const screens = { libro: () => {}, ship: shipUI, galaxy: galaxyUI, system: systemUI, orbit: orbitUI, surface: surfaceUI, research: researchUI, catalogue: catalogueUI, briefing: briefingUI, theory: theoryUI, pdf: pdfUI, lab: labUI, quiz: quizUI, journal: journalUI, sources: sourcesUI, mission: () => education.drawUI(U, S), pilot: () => pilotEducation.drawUI(U,S), paths: () => education.drawPathsUI(U,S) };
+    const screens = { libro: () => {}, ship: shipUI, gaia: gaiaUI, galaxy: galaxyUI, system: systemUI, orbit: orbitUI, surface: surfaceUI, research: researchUI, catalogue: catalogueUI, briefing: briefingUI, theory: theoryUI, pdf: pdfUI, lab: labUI, quiz: quizUI, journal: journalUI, sources: sourcesUI, mission: () => education.drawUI(U, S), pilot: () => pilotEducation.drawUI(U,S), paths: () => education.drawPathsUI(U,S) };
     (screens[S.scene] || galaxyUI)();
     drawHover();
     overlay();
@@ -1244,11 +1372,11 @@ function syncSemantic() {
         if (e && document.activeElement !== e)
             e.value = b.value;
     }
-    const key = physicsOpen() ? 'physics-' + S.selected + '-' + store.data.updatedAt : S.scene === 'ship' ? 'ship-' + store.data.updatedAt + '-' + (S.shipPage || 0) : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticKey():S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
+    const key = physicsOpen() ? 'physics-' + S.selected + '-' + store.data.updatedAt : S.scene === 'ship' ? 'ship-' + store.data.updatedAt + '-' + (S.shipPage || 0) : S.scene === 'gaia' ? 'gaia-' + store.data.updatedAt + '-' + S.gaiaTab + '-' + (S.gaiaPage || 0) : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticKey():S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
     if (key !== textSignature) {
         const el = document.querySelector('#semantic-text');
         if (el)
-            el.textContent = physicsOpen() ? 'Dati fisici del pianeta ' + selected().title + '. ' + physicsText(planetPhysics()[S.selected], speciesCount(S.selected), cardReveal()) : S.scene === 'ship' ? shipText() : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndexes[docKey(S.pdfDoc)]?.[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
+            el.textContent = physicsOpen() ? 'Dati fisici del pianeta ' + selected().title + '. ' + physicsText(planetPhysics()[S.selected], speciesCount(S.selected), cardReveal()) : S.scene === 'ship' ? shipText() : S.scene === 'gaia' ? gaiaText() : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndexes[docKey(S.pdfDoc)]?.[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
         textSignature = key;
     }
 }
@@ -1497,7 +1625,7 @@ async function init() {
         computeLab();
         events();
         S.loaded = true;
-        window.GAIA = { version: '1.29.0-nave', state: S, get atlas() { return atlas; }, get book() { return book; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes ? W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0) : W.surface.mesh.i.length/3, planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:UNIT_COUNT, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
+        window.GAIA = { version: '1.30.0-gaia', state: S, get atlas() { return atlas; }, get book() { return book; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes ? W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0) : W.surface.mesh.i.length/3, planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:UNIT_COUNT, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
         U = new UI(R);
         pilotEducation = new MissionUI(R, store, missionDefinition, { state:S, route, openTheory, openPDF, download, say });
         education = new CourseUI(R,store,curriculum,{state:S,route,openCourse,openTheory,openPDF,openExternal,download,say,currentUnit:()=>selected().id});

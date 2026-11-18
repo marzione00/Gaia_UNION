@@ -17,7 +17,9 @@ export function cleanExplore(value) {
         const rec = { s: ids(v.s, x => /^s\d$/.test(x)), l: ids(v.l, x => /^l\d$/.test(x)) }, m = ids(v.m, x => known.has(x));
         if (m.length) rec.m = m;
         if (typeof v.at === 'string' && v.at.length < 40) rec.at = v.at;
-        if (rec.s.length || rec.l.length || m.length) out[k] = rec;
+        // v: the explorer has landed on the planet, which shows the presence of life on its card.
+        if (v.v === 1) rec.v = 1;
+        if (rec.s.length || rec.l.length || m.length || rec.v) out[k] = rec;
     }
     return out;
 }

@@ -5,7 +5,8 @@ import { systemArchitecture, systemForPlanet, AREAS, UNIT_COUNT, seededRandom } 
 import { planetCards } from './genome.js';
 import { planetSpecies } from './surface.js';
 import { surfaceState, zoneOf, periodDays, boilingPoint, TRIPLE_POINT_BAR, APPRECIABLE_DENSITY, bodyMass } from './physics.js';
-import { instrumentForRow } from '../navigation/instruments.js';
+import { instrumentForRow, SURFACE_ROWS } from '../navigation/instruments.js';
+import { signatureText } from './biosignatures.js';
 
 /** Earth's escape velocity (km/s) from the IAU 2015 nominal GM and equatorial radius. */
 export const EARTH_ESCAPE = Math.sqrt(2 * 3.986004e14 / 6.3781e6) / 1000;
@@ -44,19 +45,24 @@ export function it(x, digits = 2) {
     const v = Number(x.toPrecision(digits));
     return v.toLocaleString('it-IT', { maximumSignificantDigits: Math.max(digits, String(Math.round(Math.abs(v))).length) });
 }
-const ZONES = { interna: 'più vicino del bordo interno della zona abitabile', abitabile: 'dentro la zona abitabile', esterna: 'oltre il bordo esterno della zona abitabile' };
+const ZONES = { interna: 'il pianeta orbita più vicino del bordo interno', abitabile: 'il pianeta orbita al suo interno', esterna: 'il pianeta orbita oltre il bordo esterno' };
+/** Edges of the conservative habitable zone (AU): the distances where the stellar flux L/d² equals the
+ * inner and the outer limit, from S_outer ≤ L/d² ≤ S_inner. */
+export const habitableEdges = star => [Math.sqrt(star.luminosity / star.hz.inner), Math.sqrt(star.luminosity / star.hz.outer)];
 const times = x => it(x, 2) + (it(x, 2) === '1' ? ' volta' : ' volte');
 const celsius = t => { const c = Math.round(t - 273.15); return (c < 0 ? '−' + -c : String(c)) + ' °C'; };
 const year = d => d < 2 ? it(d * 24, 2) + ' ore' : d < 730 ? it(d, 3) + ' giorni' : it(d / 365.25, 2) + ' anni terrestri';
 const plain = s => s.replace(/\.$/, ''), lower = s => s[0].toLowerCase() + s.slice(1);
 /** Rows of the card, grouped by sphere: [heading, [[label, value, hidden], ...]]. `species` is the number of
- * species. `reveal(label)` says whether a row is shown; a hidden row names the instrument that measures it. */
+ * species. `reveal(label)` says whether a row is shown; a hidden row names the instrument that measures it,
+ * or the landing for the rows seen from the surface. */
 export function physicsRows(p, species, reveal = null) {
     const groups = [
         ['Stella e orbita', [
             ['Stella', `${p.star.spt}, ${it(p.star.teff, 4)} K, ${times(p.star.luminosity)} la luminosità del Sole`],
             ['Orbita', `${it(p.a, 2)} UA, periodo di ${year(p.period)}`],
-            ['Luce', `${times(p.flux)} quella che riceve la Terra, ${ZONES[p.zone]}`]]],
+            ['Luce', `${times(p.flux)} quella che riceve la Terra`],
+            ['Zona abitabile', `da ${habitableEdges(p.star).map(d => it(d, 2)).join(' a ')} UA; ${ZONES[p.zone]}`]]],
         ['Geosfera', [
             ['Raggio e massa', `${it(p.radius, 2)} e ${it(p.mass, 2)} volte la Terra`],
             ['Gravità', `${it(p.gravity, 2)} g, velocità di fuga ${it(p.escape, 2)} km/s`],
@@ -67,10 +73,11 @@ export function physicsRows(p, species, reveal = null) {
             ['Pressione', `${it(p.pressure, 2)} bar`],
             ['Effetto serra', `profondità ottica ${it(p.tau, 2)}, ${Math.round(p.greenhouse)} K sopra l'equilibrio`],
             ['Temperatura', `${Math.round(p.ts)} K (${celsius(p.ts)}); equilibrio ${Math.round(p.teq)} K con albedo ${it(p.albedo, 2)}`]]],
-        ['Biosfera', [['Vita', species > 0 ? `${species} specie in superficie` : 'nessuna specie in superficie']]]
+        ['Biosfera', [['Firma atmosferica', signatureText(p)], ['Vita', species > 0 ? `${species} specie in superficie` : 'nessuna specie in superficie']]]
     ];
     if (!reveal) return groups;
-    return groups.map(([h, rows]) => [h, rows.map(([label, value]) => reveal(label) ? [label, value] : [label, 'da misurare con ' + (instrumentForRow(label)?.the || 'uno strumento di bordo'), true])]);
+    const hidden = label => SURFACE_ROWS.includes(label) ? 'da osservare scendendo in superficie' : 'da misurare con ' + (instrumentForRow(label)?.the || 'uno strumento di bordo');
+    return groups.map(([h, rows]) => [h, rows.map(([label, value]) => reveal(label) ? [label, value] : [label, hidden(label), true])]);
 }
 /** Plain text of the card, for screen readers and the documentation. */
 export function physicsText(p, species, reveal = null) {
