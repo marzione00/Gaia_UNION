@@ -397,3 +397,42 @@ test('Fisica 37: onde di materia, atomi e righe spettrali, numeri ricalcolati',(
  // Model probes: Balmer and Lyman wavelengths at n2 = 4 and 6 (25% and 50% of the domain) for n1 = 2 and 1.
  assert.deepEqual([lam(2,4),lam(2,6),lam(1,4),lam(1,6)].map(v=>r(v,2)),[486.27,410.29,97.25,93.78]);
 });
+test('Fisica 38: nuclei, decadimenti e datazioni, numeri ricalcolati',()=>{
+ const u=931.49410242,kc=1.43996,mH=1.007825032,mn=1.008664916,yr=3.15576e7,age=(T,x)=>T/Math.LN2*Math.log1p(x);
+ // Nucleus discovery and properties.
+ assert.equal(r(2*79*kc/5,0),46);assert.equal(r(2*79*kc/7.7,1),29.5);assert.equal(r(1.2*197**(1/3),1),7);assert.equal(r(29.5/7,1),4.2);
+ assert.equal(r(1.2*238**(1/3),1),7.4);const rho=3*1.66054e-27/(4*Math.PI*(1.2e-15)**3);assert.equal(r(rho/1e17,1),2.3);assert.equal(r(rho*1e-6/1e3/1e6,-1),230);
+ assert.equal(r(1.4*MSUN/(4/3*Math.PI*1.2e4**3)/1e17,1),3.8);assert.equal(r((3*1.99e30/(4*Math.PI*rho))**(1/3)/1e3,0),13);
+ assert.equal(r(1.2*12**(1/3),2),2.75);assert.equal(r(1.2*208**(1/3),2),7.11);assert.equal(r(208/12,0),17);
+ assert.ok(2.01e19/13.8e9>1e9);
+ // Binding energies (AME2020).
+ const B=(Z,A,M)=>(Z*mH+(A-Z)*mn-M)*u;assert.equal(r(B(1,2,2.014101778),2),2.22);assert.equal(r(B(2,4,4.002603254),1),28.3);assert.equal(r(B(2,4,4.002603254)/4,2),7.07);
+ assert.equal(r(B(26,56,55.934936326)/56,2),8.79);assert.equal(r(B(28,62,61.928345)/62,1),8.8);assert.equal(r(B(92,238,238.050786936)/238,2),7.57);
+ assert.equal(r(2*1.007825+2*1.008665,6),4.03298);assert.equal(r(4.03298-4.002603,6),0.030377);assert.equal(r(0.030377*931.5,1),28.3);
+ // Decay law and activity.
+ assert.equal(r(Math.LN2/(1600*yr)*6.02214076e23/226.0254/1e10,1),3.7);assert.equal(1000/2**3,125);
+ assert.equal(r(Math.LN2/87.7*1e3,1),7.9);assert.equal(r(Math.LN2/(87.7*yr)*1e10,1),2.5);
+ // Alpha decay and tunnelling.
+ assert.equal(r((238.0507870-234.0436014-4.0026033)*u,2),4.27);assert.equal(r(0.004583*931.5,2),4.27);
+ const Rb=1.2*(234**(1/3)+4**(1/3));assert.equal(r(Rb,1),9.3);assert.equal(r(2*90*kc/Rb,0),28);assert.equal(r(2*90*kc/4.27,0),61);
+ assert.equal(r(Math.log10(4.468e9*yr/0.294e-6),0),24);
+ // Radioisotope generators.
+ const Pu=Math.LN2/(87.7*yr)*6.02214076e23/238.0495599*5.593*1.602176634e-13;assert.equal(r(Pu,2),0.57);assert.equal(r(2400*2**(-49/87.7),-1),1630);assert.equal(r(2**(-49/87.7),2),0.68);
+ // Beta decay, geoneutrinos, aluminium-26.
+ assert.equal(r(878.4*Math.LN2/60,0),10);assert.equal(r((20+4)/44,1),0.5);
+ const NAl=2.8*1.98841e30/(26*1.66054e-27),lAl=Math.LN2/(7.2e5*yr);assert.equal(r(NAl/1e56,1),1.3);assert.equal(r(lAl*1e14,2),3.05);assert.equal(r(NAl*lAl/1e42,1),3.9);
+ assert.equal(r(NAl*lAl*1.809*1.602176634e-13/1e30,1),1.1);assert.equal(r(NAl*lAl*1.809*1.602176634e-13/LSUN,-2),3000);
+ // Radiometric dating.
+ assert.equal(age(4.47,1),4.47);assert.equal(r(age(4.47,3)/4.47,6),2);assert.equal(r(age(4.47,7)/4.47,6),3);assert.equal(r(age(0.704,3),2),1.41);
+ assert.equal(r(5700*Math.log2(4),-2),11400);assert.equal(r(5700*Math.log2(10),-2),18900);assert.ok(0.5**(50000/5700)<1/400);
+ assert.equal(r(1e-6/238*6.02214076e23/1e15,1),2.5);assert.equal(r(4567.30-4404,0),163);
+ const l8=Math.LN2/4.468,l5=Math.LN2/0.7038;assert.equal(r(l5*4.55,2),4.48);assert.equal(r(l8*4.55,3),0.706);assert.equal(r(Math.exp(l5*4.55)-1,1),87.3);assert.equal(r(Math.exp(l8*4.55)-1,2),1.03);
+ assert.equal(r((Math.exp(l5*4.55)-1)/(Math.exp(l8*4.55)-1)/137.8,2),0.62);
+ assert.equal(r(2**(-2.2/2.6),2),0.56);assert.equal(r(2**(-7.5/2.6),2),0.14);assert.equal(r(4.5e9/2.6e6,-2),1700);
+ // Dose.
+ assert.equal(r(1.8/2.4*12,0),9);assert.equal(360*1.8+500*0.67,983);assert.equal(r(983/2.4,-1),410);assert.ok(648/983>0.65);
+ // Dice experiment.
+ assert.equal(r(Math.LN2/Math.log(6/5),1),3.8);assert.equal(r(600*(5/6)**10,0),97);
+ // Model probes: age at D/P = 0.5 and 1 (25% and 50% of the domain) for half-lives of 4.47 and 0.704 billion years.
+ assert.deepEqual([age(4.47,0.5),age(4.47,1),age(0.704,0.5),age(0.704,1)].map(v=>r(v,4)),[2.6148,4.47,0.4118,0.704]);
+});

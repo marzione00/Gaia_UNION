@@ -5,20 +5,23 @@
   "title": "Nuclei, decadimenti e datazioni",
   "sector": 1,
   "modelId": "physics-38",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Decadimento radioattivo in un sistema chiuso",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Scoperta del nucleo, raggio e densità nucleare, valle di stabilità, energia di legame per nucleone, legge del decadimento radioattivo, tempo di dimezzamento e attività, decadimento alfa ed effetto tunnel, decadimento beta e neutrini, datazione radiometrica, età dei meteoriti, della Terra e delle stelle, radioisotopi delle supernove, dose di radiazione, modelli nucleari",
+  "narrativeStatus": "I dati provengono dalle valutazioni AME2020 e NUBASE2020, dagli esperimenti di Geiger e Marsden, Patterson, KamLAND e Curiosity, dalle misure di Connelly, Wilde, Wallner, Diehl e Cayrel e dalle fonti citate nel capitolo.",
   "objectives": [
-    "Spiegare: decadimento radioattivo in un sistema chiuso.",
-    "Applicare t = (T½/ln 2) ln(1 + D/P), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Descrivere la scoperta del nucleo e calcolarne raggio e densità.",
+    "Calcolare l’energia di legame e interpretare la curva per nucleone.",
+    "Applicare la legge del decadimento e spiegare i decadimenti alfa e beta.",
+    "Calcolare l’età di un campione dal rapporto fra figli e padri e usare le unità di dose."
   ],
   "prerequisites": [
     "physics-37"
   ],
   "connections": [
-    "physics-25"
+    "physics-25",
+    "physics-36",
+    "physics-32"
   ],
   "sources": [
     "physics3",
@@ -27,241 +30,316 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Rapporto figlio/padre D/P",
-      "definition": "Variabile indipendente, unità 1; intervallo [0; 2]."
+      "term": "Isotopi",
+      "definition": "Nuclidi dello stesso elemento, con lo stesso numero di protoni e diverso numero di neutroni."
     },
     {
-      "term": "Età",
-      "definition": "Risultato calcolato dal modello, unità miliardi di anni."
+      "term": "Energia di legame",
+      "definition": "Energia necessaria per separare un nucleo nei suoi nucleoni, uguale al difetto di massa per c²."
     },
     {
-      "term": "Tempo di dimezzamento T½",
-      "definition": "Parametro a, unità miliardi di anni; intervallo [0,1; 50]."
+      "term": "Tempo di dimezzamento",
+      "definition": "Tempo in cui decade metà dei nuclei di un campione, T½ = ln 2/λ."
+    },
+    {
+      "term": "Decadimento alfa",
+      "definition": "Emissione di un nucleo di elio-4, che attraversa la barriera elettrica del nucleo per effetto tunnel."
+    },
+    {
+      "term": "Datazione radiometrica",
+      "definition": "Misura dell’età di un campione dal rapporto fra nuclei figli e nuclei padri."
+    },
+    {
+      "term": "Dose equivalente",
+      "definition": "Dose assorbita pesata secondo l’efficacia biologica della radiazione, misurata in sievert."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "L’età della Terra in un meteorite",
       "text": {
         "base": [
-          "Un frammento di meteorite caduto sulla stazione contiene uranio e piombo. Il loro rapporto indica da quanto tempo la roccia si è solidificata.",
-          "I nuclei instabili decadono a caso con probabilità costante: il numero di nuclei padre diminuisce come e^(−λt). Ogni nucleo che decade produce un nucleo figlio, quindi il rapporto D/P cresce con il tempo."
+          "Nel 1953 il geochimico Clair Patterson misurò gli isotopi del piombo nel meteorite di Canyon Diablo, il corpo che scavò il Meteor Crater in Arizona. Confrontandoli con il piombo di altri meteoriti, arricchito dal decadimento dell’uranio, ricavò che tutti avevano la stessa età. Nel 1956 pubblicò il risultato: 4,55 miliardi di anni, l’età del Sistema solare e della Terra.",
+          "L’orologio di Patterson è il decadimento radioattivo, che avviene nel nucleo atomico. Un nucleo instabile si trasforma spontaneamente in un altro con una probabilità costante nel tempo: il numero di nuclei padri diminuisce in modo esponenziale e quello dei nuclei figli cresce. Il rapporto fra figli e padri misura il tempo trascorso da quando il minerale si è formato."
         ],
         "intermediate": [
-          "Un frammento di meteorite caduto sulla stazione contiene uranio e piombo. Il loro rapporto indica da quanto tempo la roccia si è solidificata.",
-          "Da P = P₀e^(−λt) e D = P₀ − P si ottiene D/P = e^(λt) − 1, quindi t = ln(1 + D/P)/λ con λ = ln 2/T½."
+          "Nel 1953 il geochimico Clair Patterson misurò gli isotopi del piombo nel meteorite di Canyon Diablo, il corpo che scavò il Meteor Crater in Arizona. Confrontandoli con il piombo di altri meteoriti, arricchito dal decadimento dell’uranio, ricavò che tutti avevano la stessa età. Nel 1956 pubblicò il risultato: 4,55 miliardi di anni, l’età del Sistema solare e della Terra.",
+          "L’orologio di Patterson è il decadimento radioattivo, che avviene nel nucleo atomico. Un nucleo instabile si trasforma spontaneamente in un altro con una probabilità costante nel tempo: il numero di nuclei padri diminuisce in modo esponenziale e quello dei nuclei figli cresce. Il rapporto fra figli e padri misura il tempo trascorso da quando il minerale si è formato."
         ],
         "advanced": [
-          "Un frammento di meteorite caduto sulla stazione contiene uranio e piombo. Il loro rapporto indica da quanto tempo la roccia si è solidificata.",
-          "Confronta l'età calcolata con uranio-238 e con potassio-40, tempo di dimezzamento 1,25 miliardi di anni, per lo stesso rapporto D/P.",
-          "Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi."
+          "Nel 1953 il geochimico Clair Patterson misurò gli isotopi del piombo nel meteorite di Canyon Diablo, il corpo che scavò il Meteor Crater in Arizona. Confrontandoli con il piombo di altri meteoriti, arricchito dal decadimento dell’uranio, ricavò che tutti avevano la stessa età. Nel 1956 pubblicò il risultato: 4,55 miliardi di anni, l’età del Sistema solare e della Terra.",
+          "L’orologio di Patterson è il decadimento radioattivo, che avviene nel nucleo atomico. Un nucleo instabile si trasforma spontaneamente in un altro con una probabilità costante nel tempo: il numero di nuclei padri diminuisce in modo esponenziale e quello dei nuclei figli cresce. Il rapporto fra figli e padri misura il tempo trascorso da quando il minerale si è formato.",
+          "Gli isotopi radioattivi raccontano anche la storia del cielo. L’alluminio-26 prodotto dalle stelle massicce brilla nei raggi gamma lungo il piano della Galassia; il ferro-60 di supernove vicine si è depositato sul fondo degli oceani negli ultimi milioni di anni; l’uranio misurato nell’atmosfera di una stella antichissima ne fissa l’età a circa 12,5 miliardi di anni."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Nuclei, legame e decadimenti",
       "text": {
         "base": [
-          "I nuclei instabili decadono a caso con probabilità costante: il numero di nuclei padre diminuisce come e^(−λt). Ogni nucleo che decade produce un nucleo figlio, quindi il rapporto D/P cresce con il tempo.",
-          "Con T½ = 4,47 miliardi di anni, quello dell'uranio-238, un rapporto D/P = 1 indica un'età uguale a un tempo di dimezzamento; D/P = 0,5 indica circa 2,6 miliardi di anni."
+          "Il nucleo fu scoperto nel 1909 da Geiger e Marsden: circa una particella alfa su ottomila rimbalzava su una lamina d’oro. Ha un raggio di circa 1,2 femtometri per la radice cubica del numero di massa, e una densità di circa 2,3·10¹⁷ chilogrammi al metro cubo, la stessa delle stelle di neutroni. Protoni e neutroni sono tenuti insieme dalla forza nucleare forte, intensa e a corto raggio.",
+          "La massa di un nucleo è minore della somma delle masse dei nucleoni: la differenza, moltiplicata per c², è l’energia di legame. L’energia di legame per nucleone raggiunge un massimo di circa 8,8 MeV vicino al ferro; unire nuclei leggeri, nella fusione, o spezzare nuclei pesanti, nella fissione, libera energia. L’elio-4 è particolarmente legato, con circa 7,07 MeV per nucleone."
         ],
         "intermediate": [
-          "Da P = P₀e^(−λt) e D = P₀ − P si ottiene D/P = e^(λt) − 1, quindi t = ln(1 + D/P)/λ con λ = ln 2/T½.",
-          "La variabile Rapporto figlio/padre D/P è espressa in 1; Età in miliardi di anni. Il dominio dello strumento è [0; 2]. La relazione implementata è: t = (T½/ln 2) ln(1 + D/P).",
-          "Con T½ = 4,47 miliardi di anni, quello dell'uranio-238, un rapporto D/P = 1 indica un'età uguale a un tempo di dimezzamento; D/P = 0,5 indica circa 2,6 miliardi di anni."
+          "Il nucleo fu scoperto nel 1909 da Geiger e Marsden: circa una particella alfa su ottomila rimbalzava su una lamina d’oro. Ha un raggio di circa 1,2 femtometri per la radice cubica del numero di massa, e una densità di circa 2,3·10¹⁷ chilogrammi al metro cubo, la stessa delle stelle di neutroni. Protoni e neutroni sono tenuti insieme dalla forza nucleare forte, intensa e a corto raggio.",
+          "La massa di un nucleo è minore della somma delle masse dei nucleoni: la differenza, moltiplicata per c², è l’energia di legame. L’energia di legame per nucleone raggiunge un massimo di circa 8,8 MeV vicino al ferro; unire nuclei leggeri, nella fusione, o spezzare nuclei pesanti, nella fissione, libera energia. L’elio-4 è particolarmente legato, con circa 7,07 MeV per nucleone.",
+          "I nuclei instabili decadono secondo N = N₀ e^(−λt), con tempo di dimezzamento T½ = ln 2/λ. Nel decadimento alfa una particella alfa attraversa per effetto tunnel la barriera elettrica del nucleo: per l’uranio-238 la barriera è alta circa 28 MeV e la particella ha 4,27 MeV. Nel decadimento beta un neutrone diventa protone emettendo un elettrone e un antineutrino."
         ],
         "advanced": [
-          "Da P = P₀e^(−λt) e D = P₀ − P si ottiene D/P = e^(λt) − 1, quindi t = ln(1 + D/P)/λ con λ = ln 2/T½.",
-          "Confronta l'età calcolata con uranio-238 e con potassio-40, tempo di dimezzamento 1,25 miliardi di anni, per lo stesso rapporto D/P.",
-          "Il tempo di dimezzamento è il tempo in cui decade metà di una popolazione grande di nuclei; ogni singolo nucleo può decadere in qualunque momento, con la stessa probabilità per unità di tempo."
+          "Il nucleo fu scoperto nel 1909 da Geiger e Marsden: circa una particella alfa su ottomila rimbalzava su una lamina d’oro. Ha un raggio di circa 1,2 femtometri per la radice cubica del numero di massa, e una densità di circa 2,3·10¹⁷ chilogrammi al metro cubo, la stessa delle stelle di neutroni. Protoni e neutroni sono tenuti insieme dalla forza nucleare forte, intensa e a corto raggio.",
+          "La massa di un nucleo è minore della somma delle masse dei nucleoni: la differenza, moltiplicata per c², è l’energia di legame. L’energia di legame per nucleone raggiunge un massimo di circa 8,8 MeV vicino al ferro; unire nuclei leggeri, nella fusione, o spezzare nuclei pesanti, nella fissione, libera energia. L’elio-4 è particolarmente legato, con circa 7,07 MeV per nucleone.",
+          "I nuclei instabili decadono secondo N = N₀ e^(−λt), con tempo di dimezzamento T½ = ln 2/λ. Nel decadimento alfa una particella alfa attraversa per effetto tunnel la barriera elettrica del nucleo: per l’uranio-238 la barriera è alta circa 28 MeV e la particella ha 4,27 MeV. Nel decadimento beta un neutrone diventa protone emettendo un elettrone e un antineutrino.",
+          "In un sistema chiuso il rapporto fra figli e padri vale D/P = e^(λt) − 1, e quindi t = (T½/ln 2) ln(1 + D/P). Con l’uranio-238, l’uranio-235 e il potassio-40 si datano le rocce; con il carbonio-14, prodotto dai raggi cosmici, i reperti fino a circa cinquantamila anni. I primi solidi del Sistema solare hanno 4567,30 milioni di anni, lo zircone terrestre più antico 4404 milioni."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio della datazione",
       "text": {
         "base": [
-          "Nel laboratorio imposta Tempo di dimezzamento T½ (a): 4,47 miliardi di anni. Prima di salvare A, prevedi come cambia Età fra Rapporto figlio/padre D/P=0,5 e 1 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con T½ = 4,47 miliardi di anni, quello dell'uranio-238, un rapporto D/P = 1 indica un'età uguale a un tempo di dimezzamento; D/P = 0,5 indica circa 2,6 miliardi di anni.",
-          "La variabile Rapporto figlio/padre D/P è espressa in 1; Età in miliardi di anni. Il dominio dello strumento è [0; 2]. La relazione implementata è: t = (T½/ln 2) ln(1 + D/P)."
+          "Nel laboratorio il grafico mostra l’età di un campione, in miliardi di anni, in funzione del rapporto D/P fra nuclei figli e nuclei padri, da 0 a 2, secondo t = (T½/ln 2) ln(1 + D/P). Nella scheda «Regola» cambi il tempo di dimezzamento T½ da 0,1 a 50 miliardi di anni. Il valore predefinito è 4,47 miliardi di anni, quello dell’uranio-238, che decade in piombo-206.",
+          "Protocollo. Il programma confronta due rapporti fissati, D/P = 0,5 e D/P = 1. Con T½ = 4,47 miliardi di anni prevedi se l’età cresce, diminuisce o resta uguale passando dal primo rapporto al secondo e salva A. Poi porta T½ a 0,704 miliardi di anni, quello dell’uranio-235, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con l’uranio-238 l’età passa da circa 2,61 a 4,47 miliardi di anni; con l’uranio-235 da circa 0,412 a 0,704 miliardi di anni. In entrambi i casi cresce dello stesso fattore, circa 1,71, perché il rapporto ln 2/ln 1,5 non dipende dal tempo di dimezzamento. Un rapporto D/P uguale a 1 indica sempre un’età pari a un tempo di dimezzamento; un orologio rapido misura bene le età giovani, uno lento le rocce antiche."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Tempo di dimezzamento T½ (a): 4,47 miliardi di anni. Prima di salvare A, prevedi come cambia Età fra Rapporto figlio/padre D/P=0,5 e 1 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Rapporto figlio/padre D/P è espressa in 1; Età in miliardi di anni. Il dominio dello strumento è [0; 2]. La relazione implementata è: t = (T½/ln 2) ln(1 + D/P).",
-          "Da P = P₀e^(−λt) e D = P₀ − P si ottiene D/P = e^(λt) − 1, quindi t = ln(1 + D/P)/λ con λ = ln 2/T½."
+          "Nel laboratorio il grafico mostra l’età di un campione, in miliardi di anni, in funzione del rapporto D/P fra nuclei figli e nuclei padri, da 0 a 2, secondo t = (T½/ln 2) ln(1 + D/P). Nella scheda «Regola» cambi il tempo di dimezzamento T½ da 0,1 a 50 miliardi di anni. Il valore predefinito è 4,47 miliardi di anni, quello dell’uranio-238, che decade in piombo-206.",
+          "Protocollo. Il programma confronta due rapporti fissati, D/P = 0,5 e D/P = 1. Con T½ = 4,47 miliardi di anni prevedi se l’età cresce, diminuisce o resta uguale passando dal primo rapporto al secondo e salva A. Poi porta T½ a 0,704 miliardi di anni, quello dell’uranio-235, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con l’uranio-238 l’età passa da circa 2,61 a 4,47 miliardi di anni; con l’uranio-235 da circa 0,412 a 0,704 miliardi di anni. In entrambi i casi cresce dello stesso fattore, circa 1,71, perché il rapporto ln 2/ln 1,5 non dipende dal tempo di dimezzamento. Un rapporto D/P uguale a 1 indica sempre un’età pari a un tempo di dimezzamento; un orologio rapido misura bene le età giovani, uno lento le rocce antiche."
         ],
         "advanced": [
-          "Nel laboratorio imposta Tempo di dimezzamento T½ (a): 4,47 miliardi di anni. Prima di salvare A, prevedi come cambia Età fra Rapporto figlio/padre D/P=0,5 e 1 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Confronta l'età calcolata con uranio-238 e con potassio-40, tempo di dimezzamento 1,25 miliardi di anni, per lo stesso rapporto D/P.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra l’età di un campione, in miliardi di anni, in funzione del rapporto D/P fra nuclei figli e nuclei padri, da 0 a 2, secondo t = (T½/ln 2) ln(1 + D/P). Nella scheda «Regola» cambi il tempo di dimezzamento T½ da 0,1 a 50 miliardi di anni. Il valore predefinito è 4,47 miliardi di anni, quello dell’uranio-238, che decade in piombo-206.",
+          "Protocollo. Il programma confronta due rapporti fissati, D/P = 0,5 e D/P = 1. Con T½ = 4,47 miliardi di anni prevedi se l’età cresce, diminuisce o resta uguale passando dal primo rapporto al secondo e salva A. Poi porta T½ a 0,704 miliardi di anni, quello dell’uranio-235, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con l’uranio-238 l’età passa da circa 2,61 a 4,47 miliardi di anni; con l’uranio-235 da circa 0,412 a 0,704 miliardi di anni. In entrambi i casi cresce dello stesso fattore, circa 1,71, perché il rapporto ln 2/ln 1,5 non dipende dal tempo di dimezzamento. Un rapporto D/P uguale a 1 indica sempre un’età pari a un tempo di dimezzamento; un orologio rapido misura bene le età giovani, uno lento le rocce antiche.",
+          "Una prova a casa: cento dadi in una scatola simulano un campione radioattivo. A ogni lancio si tolgono i dadi che mostrano il sei, che rappresentano i nuclei decaduti, e si contano i superstiti. Il numero atteso dopo n lanci è 100·(5/6)ⁿ e il tempo di dimezzamento vale circa 3,8 lanci; dal rapporto fra dadi tolti e dadi rimasti si ricava il numero di lanci trascorsi con la formula della datazione."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e limiti",
       "text": {
         "base": [
-          "Il tempo di dimezzamento è il tempo in cui decade metà di una popolazione grande di nuclei; ogni singolo nucleo può decadere in qualunque momento, con la stessa probabilità per unità di tempo.",
-          "Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che dopo due tempi di dimezzamento il campione sia esaurito. Dopo un tempo di dimezzamento resta metà dei nuclei, dopo due un quarto, dopo tre un ottavo. Secondo errore: credere che un nucleo vecchio sia più vicino al decadimento. La probabilità di decadere per unità di tempo è la stessa per tutti i nuclei della stessa specie, qualunque sia la loro età.",
+          "Terzo errore: usare il carbonio-14 per datare rocce o dinosauri. Con un tempo di dimezzamento di circa 5700 anni serve fino a circa cinquantamila anni; per le rocce si usano orologi lenti come l’uranio e il potassio. Quarto errore: confondere becquerel, gray e sievert, cioè attività della sorgente, energia assorbita e dose pesata secondo l’efficacia biologica della radiazione."
         ],
         "intermediate": [
-          "Il tempo di dimezzamento è il tempo in cui decade metà di una popolazione grande di nuclei; ogni singolo nucleo può decadere in qualunque momento, con la stessa probabilità per unità di tempo.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che dopo due tempi di dimezzamento il campione sia esaurito. Dopo un tempo di dimezzamento resta metà dei nuclei, dopo due un quarto, dopo tre un ottavo. Secondo errore: credere che un nucleo vecchio sia più vicino al decadimento. La probabilità di decadere per unità di tempo è la stessa per tutti i nuclei della stessa specie, qualunque sia la loro età.",
+          "Terzo errore: usare il carbonio-14 per datare rocce o dinosauri. Con un tempo di dimezzamento di circa 5700 anni serve fino a circa cinquantamila anni; per le rocce si usano orologi lenti come l’uranio e il potassio. Quarto errore: confondere becquerel, gray e sievert, cioè attività della sorgente, energia assorbita e dose pesata secondo l’efficacia biologica della radiazione.",
+          "Il modello del laboratorio descrive un sistema chiuso, senza nuclei figli all’inizio e senza perdite o apporti di atomi. Nei minerali reali una parte del figlio può essere presente fin dall’inizio, o il sistema può essersi aperto durante un riscaldamento: il metodo delle isocrone, che confronta più minerali della stessa roccia, e il confronto fra due orologi indipendenti, come le due catene dell’uranio, servono a verificare queste ipotesi."
         ],
         "advanced": [
-          "Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi.",
-          "Confronta l'età calcolata con uranio-238 e con potassio-40, tempo di dimezzamento 1,25 miliardi di anni, per lo stesso rapporto D/P.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che dopo due tempi di dimezzamento il campione sia esaurito. Dopo un tempo di dimezzamento resta metà dei nuclei, dopo due un quarto, dopo tre un ottavo. Secondo errore: credere che un nucleo vecchio sia più vicino al decadimento. La probabilità di decadere per unità di tempo è la stessa per tutti i nuclei della stessa specie, qualunque sia la loro età.",
+          "Terzo errore: usare il carbonio-14 per datare rocce o dinosauri. Con un tempo di dimezzamento di circa 5700 anni serve fino a circa cinquantamila anni; per le rocce si usano orologi lenti come l’uranio e il potassio. Quarto errore: confondere becquerel, gray e sievert, cioè attività della sorgente, energia assorbita e dose pesata secondo l’efficacia biologica della radiazione.",
+          "Il modello del laboratorio descrive un sistema chiuso, senza nuclei figli all’inizio e senza perdite o apporti di atomi. Nei minerali reali una parte del figlio può essere presente fin dall’inizio, o il sistema può essersi aperto durante un riscaldamento: il metodo delle isocrone, che confronta più minerali della stessa roccia, e il confronto fra due orologi indipendenti, come le due catene dell’uranio, servono a verificare queste ipotesi.",
+          "Approfondimento: l’uranio-238 e l’uranio-235 decadono in due isotopi diversi del piombo con tempi di dimezzamento di 4,47 e 0,704 miliardi di anni. Il rapporto fra piombo-207 e piombo-206 radiogenici dipende soltanto dal tempo, perché il rapporto fra i due isotopi dell’uranio è lo stesso in tutto il Sistema solare: per 4,55 miliardi di anni vale circa 0,62. È il principio con cui Patterson misurò l’età della Terra."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "I nuclei instabili decadono a caso con probabilità costante: il numero di nuclei padre diminuisce come e^(−λt). Ogni nucleo che decade produce un nucleo figlio, quindi il rapporto D/P cresce con il tempo.",
-          "Con T½ = 4,47 miliardi di anni, quello dell'uranio-238, un rapporto D/P = 1 indica un'età uguale a un tempo di dimezzamento; D/P = 0,5 indica circa 2,6 miliardi di anni."
+          "Ripasso: esperimento di Geiger e Marsden; raggio e densità dei nuclei; valle di stabilità; energia di legame e curva per nucleone; legge del decadimento, tempo di dimezzamento e attività; decadimento alfa ed effetto tunnel; decadimento beta e neutrini; generatori a radioisotopi; geoneutrini e alluminio-26; datazione radiometrica e carbonio-14; ferro-60 e uranio stellare; dose; modelli a goccia e a strati.",
+          "Mini esercizio: un minerale con D/P = 3 per l’uranio-235 ha un’età di due tempi di dimezzamento, cioè circa 1,41 miliardi di anni.",
+          "Nelle domande ricorda che ogni tempo di dimezzamento dimezza i nuclei padri, che D/P = 1 corrisponde a un tempo di dimezzamento e che l’energia si libera passando verso nuclei più legati."
         ],
         "intermediate": [
-          "Da P = P₀e^(−λt) e D = P₀ − P si ottiene D/P = e^(λt) − 1, quindi t = ln(1 + D/P)/λ con λ = ln 2/T½.",
-          "La variabile Rapporto figlio/padre D/P è espressa in 1; Età in miliardi di anni. Il dominio dello strumento è [0; 2]. La relazione implementata è: t = (T½/ln 2) ln(1 + D/P)."
+          "Ripasso: esperimento di Geiger e Marsden; raggio e densità dei nuclei; valle di stabilità; energia di legame e curva per nucleone; legge del decadimento, tempo di dimezzamento e attività; decadimento alfa ed effetto tunnel; decadimento beta e neutrini; generatori a radioisotopi; geoneutrini e alluminio-26; datazione radiometrica e carbonio-14; ferro-60 e uranio stellare; dose; modelli a goccia e a strati.",
+          "Mini esercizio: un minerale con D/P = 3 per l’uranio-235 ha un’età di due tempi di dimezzamento, cioè circa 1,41 miliardi di anni.",
+          "Nelle domande ricorda che ogni tempo di dimezzamento dimezza i nuclei padri, che D/P = 1 corrisponde a un tempo di dimezzamento e che l’energia si libera passando verso nuclei più legati."
         ],
         "advanced": [
-          "Confronta l'età calcolata con uranio-238 e con potassio-40, tempo di dimezzamento 1,25 miliardi di anni, per lo stesso rapporto D/P.",
-          "Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi."
+          "Ripasso: esperimento di Geiger e Marsden; raggio e densità dei nuclei; valle di stabilità; energia di legame e curva per nucleone; legge del decadimento, tempo di dimezzamento e attività; decadimento alfa ed effetto tunnel; decadimento beta e neutrini; generatori a radioisotopi; geoneutrini e alluminio-26; datazione radiometrica e carbonio-14; ferro-60 e uranio stellare; dose; modelli a goccia e a strati.",
+          "Mini esercizio: un minerale con D/P = 3 per l’uranio-235 ha un’età di due tempi di dimezzamento, cioè circa 1,41 miliardi di anni.",
+          "Nelle domande ricorda che ogni tempo di dimezzamento dimezza i nuclei padri, che D/P = 1 corrisponde a un tempo di dimezzamento e che l’energia si libera passando verso nuclei più legati."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Decadimento radioattivo in un sistema chiuso.",
-          "Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi.",
-          "Collegamento consigliato: physics-25. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Il rapporto fra massa ed energia, E = mc², è discusso in «Relatività ristretta»; l’effetto tunnel in «Fotoni ed energia quantizzata»; i livelli e le righe degli atomi in «Onde di materia, atomi e righe spettrali»; i raggi cosmici che producono il carbonio-14 in «Particelle cariche nei campi magnetici». La fusione nelle stelle sarà il tema di «Energia dal nucleo: fusione nelle stelle».",
+          "Riepilogo dell’unità: Patterson e il meteorite di Canyon Diablo; Geiger, Marsden e Rutherford; raggio, densità e stelle di neutroni; valle di stabilità; energia di legame; legge del decadimento; decadimento alfa, Gamow e generatori delle Voyager; decadimento beta, neutrino e geoneutrini di KamLAND; alluminio-26 della Galassia; datazioni, carbonio-14, zirconi e primi solidi; ferro-60; uranio stellare; dose verso Marte; numeri magici.",
+          "Nel diario registra A e B con le previsioni e calcola quale rapporto D/P mostrerebbe oggi un minerale di uranio-238 formato con la Terra, 4,54 miliardi di anni fa: D/P = 2^(4,54/4,47) − 1, circa 1,02."
         ],
         "intermediate": [
-          "Da P = P₀e^(−λt) e D = P₀ − P si ottiene D/P = e^(λt) − 1, quindi t = ln(1 + D/P)/λ con λ = ln 2/T½.",
-          "Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi.",
-          "Confronta l'età calcolata con uranio-238 e con potassio-40, tempo di dimezzamento 1,25 miliardi di anni, per lo stesso rapporto D/P."
+          "Il rapporto fra massa ed energia, E = mc², è discusso in «Relatività ristretta»; l’effetto tunnel in «Fotoni ed energia quantizzata»; i livelli e le righe degli atomi in «Onde di materia, atomi e righe spettrali»; i raggi cosmici che producono il carbonio-14 in «Particelle cariche nei campi magnetici». La fusione nelle stelle sarà il tema di «Energia dal nucleo: fusione nelle stelle».",
+          "Riepilogo dell’unità: Patterson e il meteorite di Canyon Diablo; Geiger, Marsden e Rutherford; raggio, densità e stelle di neutroni; valle di stabilità; energia di legame; legge del decadimento; decadimento alfa, Gamow e generatori delle Voyager; decadimento beta, neutrino e geoneutrini di KamLAND; alluminio-26 della Galassia; datazioni, carbonio-14, zirconi e primi solidi; ferro-60; uranio stellare; dose verso Marte; numeri magici.",
+          "Nel diario registra A e B con le previsioni e calcola quale rapporto D/P mostrerebbe oggi un minerale di uranio-238 formato con la Terra, 4,54 miliardi di anni fa: D/P = 2^(4,54/4,47) − 1, circa 1,02."
         ],
         "advanced": [
-          "Confronta l'età calcolata con uranio-238 e con potassio-40, tempo di dimezzamento 1,25 miliardi di anni, per lo stesso rapporto D/P.",
-          "Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Il rapporto fra massa ed energia, E = mc², è discusso in «Relatività ristretta»; l’effetto tunnel in «Fotoni ed energia quantizzata»; i livelli e le righe degli atomi in «Onde di materia, atomi e righe spettrali»; i raggi cosmici che producono il carbonio-14 in «Particelle cariche nei campi magnetici». La fusione nelle stelle sarà il tema di «Energia dal nucleo: fusione nelle stelle».",
+          "Riepilogo dell’unità: Patterson e il meteorite di Canyon Diablo; Geiger, Marsden e Rutherford; raggio, densità e stelle di neutroni; valle di stabilità; energia di legame; legge del decadimento; decadimento alfa, Gamow e generatori delle Voyager; decadimento beta, neutrino e geoneutrini di KamLAND; alluminio-26 della Galassia; datazioni, carbonio-14, zirconi e primi solidi; ferro-60; uranio stellare; dose verso Marte; numeri magici.",
+          "Nel diario registra A e B con le previsioni e calcola quale rapporto D/P mostrerebbe oggi un minerale di uranio-238 formato con la Terra, 4,54 miliardi di anni fa: D/P = 2^(4,54/4,47) − 1, circa 1,02."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "physics-38-concept",
-      "prompt": "Un rapporto figlio/padre uguale a 3 corrisponde a:",
+      "id": "physics-38-q1",
+      "prompt": "Un rapporto fra nuclei figli e nuclei padri uguale a 3 corrisponde a:",
       "options": [
         {
           "id": "A",
-          "text": "Un tempo di dimezzamento",
-          "feedback": "Da P = P₀e^(−λt) e D = P₀ − P si ottiene D/P = e^(λt) − 1, quindi t = ln(1 + D/P)/λ con λ = ln 2/T½."
-        },
-        {
-          "id": "B",
           "text": "Due tempi di dimezzamento",
-          "feedback": "I nuclei instabili decadono a caso con probabilità costante: il numero di nuclei padre diminuisce come e^(−λt). Ogni nucleo che decade produce un nucleo figlio, quindi il rapporto D/P cresce con il tempo."
+          "feedback": "Esatto: dopo due dimezzamenti resta un quarto dei padri, e i figli sono tre quarti."
         },
         {
-          "id": "C",
+          "id": "B",
           "text": "Tre tempi di dimezzamento",
-          "feedback": "Il tempo di dimezzamento è il tempo in cui decade metà di una popolazione grande di nuclei; ogni singolo nucleo può decadere in qualunque momento, con la stessa probabilità per unità di tempo."
-        }
-      ],
-      "correct": "B"
-    },
-    {
-      "id": "physics-38-calculation",
-      "prompt": "Calcolo: Tempo di dimezzamento T½ (a)=4,47 miliardi di anni. Per Rapporto figlio/padre D/P=1 (adimensionale), quanto vale Età?",
-      "options": [
-        {
-          "id": "A",
-          "text": "4,47 miliardi di anni",
-          "feedback": "t = (T½/ln 2) ln(1 + D/P). Con Tempo di dimezzamento T½ (a)=4,47 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 4,47 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "B",
-          "text": "6,705 miliardi di anni",
-          "feedback": "Questo valore non soddisfa la relazione. t = (T½/ln 2) ln(1 + D/P). Con Tempo di dimezzamento T½ (a)=4,47 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 4,47 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+          "feedback": "Dopo tre dimezzamenti il rapporto vale 7, perché resta un ottavo dei padri."
         },
         {
           "id": "C",
-          "text": "2,235 miliardi di anni",
-          "feedback": "Controlla sostituzione, segno e unità. t = (T½/ln 2) ln(1 + D/P). Con Tempo di dimezzamento T½ (a)=4,47 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 4,47 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+          "text": "Un tempo di dimezzamento",
+          "feedback": "Dopo un dimezzamento figli e padri sono in numero uguale, e il rapporto vale 1."
+        },
+        {
+          "id": "D",
+          "text": "Un terzo del tempo di dimezzamento",
+          "feedback": "Il rapporto cresce come e^(λt) − 1, più rapidamente di quanto suggerisce questa risposta."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 4.47
-        },
-        "expected": 4.47,
-        "unit": "miliardi di anni"
-      }
+      "correct": "A"
     },
     {
-      "id": "physics-38-transfer",
-      "prompt": "Trasferimento: Tempo di dimezzamento T½ (a)=4,48 miliardi di anni. Per Rapporto figlio/padre D/P=1 (adimensionale), quanto vale Età?",
+      "id": "physics-38-q2",
+      "prompt": "Nell’esperimento di Geiger e Marsden circa una particella alfa su ottomila rimbalzava perché:",
       "options": [
         {
           "id": "A",
-          "text": "6,72 miliardi di anni",
-          "feedback": "Questo valore non soddisfa la relazione. t = (T½/ln 2) ln(1 + D/P). Con Tempo di dimezzamento T½ (a)=4,48 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 4,48 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+          "text": "La carica positiva e la massa dell’atomo sono concentrate in un nucleo minuscolo",
+          "feedback": "Esatto: soltanto una carica concentrata produce una repulsione così forte."
         },
         {
           "id": "B",
-          "text": "2,24 miliardi di anni",
-          "feedback": "Controlla sostituzione, segno e unità. t = (T½/ln 2) ln(1 + D/P). Con Tempo di dimezzamento T½ (a)=4,48 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 4,48 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+          "text": "Gli elettroni dell’oro respingono le particelle alfa",
+          "feedback": "Gli elettroni sono troppo leggeri per rimandare indietro una particella alfa."
         },
         {
           "id": "C",
-          "text": "4,48 miliardi di anni",
-          "feedback": "t = (T½/ln 2) ln(1 + D/P). Con Tempo di dimezzamento T½ (a)=4,48 miliardi di anni e Rapporto figlio/padre D/P=1 (adimensionale), il risultato è 4,48 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+          "text": "La lamina d’oro era troppo spessa",
+          "feedback": "Le lamine erano sottilissime, e il rimbalzo avviene in un singolo urto."
+        },
+        {
+          "id": "D",
+          "text": "La carica positiva è distribuita in tutto l’atomo",
+          "feedback": "Una carica diffusa produrrebbe soltanto deviazioni di frazioni di grado."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 4.48
-        },
-        "expected": 4.48,
-        "unit": "miliardi di anni"
-      }
+      "correct": "A"
     },
     {
-      "id": "physics-38-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "physics-38-q3",
+      "prompt": "L’energia di legame per nucleone è massima vicino:",
       "options": [
         {
           "id": "A",
-          "text": "Decadimento radioattivo in un sistema chiuso",
-          "feedback": "Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi."
+          "text": "Al ferro e al nichel, con circa 8,8 MeV",
+          "feedback": "Esatto: per questo fusione dei nuclei leggeri e fissione dei pesanti liberano energia."
         },
         {
           "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi."
+          "text": "All’idrogeno",
+          "feedback": "Il deuterone ha soltanto 1,1 MeV per nucleone, il valore più basso della curva."
         },
         {
           "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi."
+          "text": "All’uranio",
+          "feedback": "L’uranio-238 ha circa 7,6 MeV per nucleone, meno dei nuclei medi."
+        },
+        {
+          "id": "D",
+          "text": "All’elio",
+          "feedback": "L’elio-4 è molto legato, con 7,07 MeV per nucleone, ma resta sotto il massimo."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-38-q4",
+      "prompt": "Un nucleo di uranio-238 esiste da quattro miliardi di anni. La probabilità che decada nel prossimo secondo:",
+      "options": [
+        {
+          "id": "A",
+          "text": "È la stessa di un nucleo appena formato",
+          "feedback": "Esatto: i nuclei non invecchiano, e la costante di decadimento non cambia."
+        },
+        {
+          "id": "B",
+          "text": "È maggiore, perché il nucleo è vecchio",
+          "feedback": "La probabilità di decadimento per unità di tempo non dipende dall’età del nucleo."
+        },
+        {
+          "id": "C",
+          "text": "È nulla, perché ha superato un tempo di dimezzamento",
+          "feedback": "Il tempo di dimezzamento descrive una popolazione, e ogni nucleo può decadere in ogni istante."
+        },
+        {
+          "id": "D",
+          "text": "È uguale a un mezzo",
+          "feedback": "In un secondo la probabilità è minuscola, circa 5·10⁻¹⁸."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-38-q5",
+      "prompt": "Il carbonio-14 permette di datare:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Resti organici fino a circa cinquantamila anni",
+          "feedback": "Esatto: il tempo di dimezzamento di circa 5700 anni limita il metodo alle età recenti."
+        },
+        {
+          "id": "B",
+          "text": "Le rocce più antiche della Terra",
+          "feedback": "Per le rocce servono orologi lenti, come l’uranio e il potassio."
+        },
+        {
+          "id": "C",
+          "text": "I fossili di dinosauro",
+          "feedback": "I dinosauri hanno decine di milioni di anni, e il carbonio-14 è ormai scomparso."
+        },
+        {
+          "id": "D",
+          "text": "I meteoriti",
+          "feedback": "I meteoriti si datano con il piombo e l’uranio, come fece Patterson."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-38-q6",
+      "prompt": "Il ferro-60 trovato sui fondali oceanici dimostra che:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Alcune supernove sono esplose vicino al Sole negli ultimi milioni di anni",
+          "feedback": "Esatto: con un tempo di dimezzamento di 2,6 milioni di anni il ferro-60 primordiale è scomparso."
+        },
+        {
+          "id": "B",
+          "text": "Il ferro-60 si è conservato dalla nascita della Terra",
+          "feedback": "Sono trascorsi circa 1700 tempi di dimezzamento: il ferro-60 primordiale sarebbe scomparso del tutto."
+        },
+        {
+          "id": "C",
+          "text": "Il ferro-60 si forma nei vulcani sottomarini",
+          "feedback": "Il ferro-60 nasce nelle stelle massicce e nelle supernove, non nei processi geologici."
+        },
+        {
+          "id": "D",
+          "text": "Il Sole produce ferro-60",
+          "feedback": "Il Sole fonde idrogeno in elio e non produce elementi pesanti come il ferro."
         }
       ],
       "correct": "A"
