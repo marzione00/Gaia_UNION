@@ -15,6 +15,7 @@ import { pilotWorld, worldParameters } from './worlds/pilots.js';
 import { planetGenomes, planetSpecies } from './worlds/surface.js';
 import { placeList } from './worlds/places.js';
 import { lifelessReason } from './worlds/species.js';
+import { planetPhysics, physicsRows, physicsText, speciesCount } from './worlds/planet-physics.js';
 import { BookReader } from './book/reader.js';
 import { fittedRows } from './education/course-ui.js';
 import { descriptor as modelDescriptor } from './models/curriculum.js';
@@ -65,6 +66,8 @@ function route(scene, extra = {}) {
     const moved = navigation.move(S, scene, extra);
     // Exploration belongs to one surface: leaving it starts the next visit from the stations.
     if (moved.from !== moved.to && !extra.explore) Object.assign(S, { explore: false, exploreEntry: 0, exploreTrait: 0, exploreFocus: null, exploreGoal: null, exploreBlend: 0 });
+    // The physical card belongs to one orbit view: any other view closes it.
+    if (moved.from !== moved.to) Object.assign(S, { physicsFor: null, physicsPage: 0 });
     if(scene==='orbit')S.reader=selected().id;
     Object.assign(S, { scroll: 0, menu: false, settings: false, editing: null, hoveredTarget: null, observedBody:null });
     hover.clear(); touchTarget=null; if(U)U.focus=null;
@@ -328,7 +331,7 @@ function systemPanel(system){ const mobile=R.w<850; return mobile?null:{x:32,y:3
 function systemUI() {
     const w=R.w,h=R.h,mobile=w<850,system=W.systems[S.system],m=selected(),observed=S.observedBody===null?null:system.bodies[S.observedBody],place=unitPlace(S.selected),tint=sectorColors[system.sector];
     if(W.cameraProgress===1)planetBadges(system);titleFade();
-    title(areaTrail(m),system.name,mobile?system.planets.length+' unità · dall’orbita interna a quella esterna.':system.planets.length+' unità di '+system.discipline.toLowerCase()+' in ordine di studio, dall’orbita interna a quella esterna. Gli altri pianeti sono di contorno.');
+    title(areaTrail(m),system.name,mobile?system.planets.length+' unità · orbite alle distanze fisiche.':system.planets.length+' unità di '+system.discipline.toLowerCase()+', numerate in ordine di studio. Le orbite seguono la distanza fisica dalla stella; gli altri pianeti sono di contorno.');
     const px=mobile?18:w-337,pw=mobile?w-36:304,py=mobile?h-306:245,ph=mobile?222:365;
     U.panel(px,py,pw,ph,tint,.80);U.tag(observed?'PIANETA DI CONTORNO':'UNITÀ '+place.position+' DI '+place.count,px+18,py+19,tint);
     wrapClipText(observed?observed.profile.name:m.title,px+18,py+50,pw-36,'sub',C.pale,2);U.text(observed?'NESSUNA UNITÀ':planetProfile(S.selected).name+' · '+coverage(m),px+18,py+100,'micro',C.lime);
@@ -388,7 +391,7 @@ function drawHover() {
         U.text('CLIC PER SCEGLIERE L’AREA',x+16,y+ph-26,'micro',C.lime);
     }else if(hit.type==='ambient'){
         const body=W.systems[S.system].bodies[hit.index];U.tag('CORPO '+String(body.slot+1).padStart(2,'0')+' / '+body.profile.name.toUpperCase(),x+16,y+16,C.muted);
-        U.text('Pianeta di contorno',x+16,y+45,'mini',C.pale);wrapClipText(body.profile.name+' con '+body.moons+' lune'+(body.rings?' e anelli.':'.')+' Non contiene unità di studio.',x+16,y+73,pw-32,'mini',C.muted,4);
+        U.text('Pianeta di contorno',x+16,y+45,'mini',C.pale);wrapClipText(body.profile.name+' con '+body.moons+' lune'+(body.rings?' e anelli':'')+', a '+fmtNum(body.a,2)+' UA dalla stella. Non contiene unità di studio.',x+16,y+73,pw-32,'mini',C.muted,4);
         U.text('NESSUNA UNITÀ',x+16,y+ph-26,'micro',C.dim);
     }else{
         const m=data.modules[hit.index],place=unitPlace(hit.index);U.tag('UNITÀ '+place.position+' DI '+place.count,x+16,y+16,sectorColors[m.sector]);U.text(m.title,x+16,y+45,'mini',C.pale);
@@ -396,10 +399,56 @@ function drawHover() {
         U.text('CLIC PER AVVICINARTI AL PIANETA',x+16,y+ph-26,'micro',C.lime);
     }
 }
+const physicsOpen = () => S.scene === 'orbit' && S.physicsFor === S.selected;
+/** Physical card of the planet in orbit: star and orbit, then the four spheres. Two columns on desktop,
+ * two pages on phones. */
+function physicsPanel(m, mobile) {
+    const w = R.w, h = R.h, tint = sectorColors[m.sector], groups = physicsRows(planetPhysics()[S.selected], speciesCount(S.selected));
+    const pw = mobile ? w - 36 : Math.min(720, w - 420), px = mobile ? 18 : w - pw - 36, py = mobile ? 108 : 247, colW = mobile ? pw - 36 : (pw - 60) / 2, line = 18;
+    // Narrow phones put each label above its value.
+    const stacked = colW < 300, labelW = stacked ? 0 : mobile ? 112 : 116, rowH = v => (stacked ? line : 0) + R.multilineCount(v, colW - labelW, 'micro') * line + 6;
+    const groupH = ([, rows]) => 26 + rows.reduce((s, [, v]) => s + rowH(v), 0) + 8, height = col => col.reduce((y, g) => y + groupH(g), 0);
+    // Desktop: two columns. Phones: as many groups per page as the screen holds.
+    let pages = [groups.slice(0, 2), groups.slice(2)];
+    if (mobile) {
+        const room = h - py - 100 - 58 - 52, pack = limit => { const out = [[]]; for (const g of groups) { if (out.at(-1).length && height(out.at(-1)) + groupH(g) > limit) out.push([]); out.at(-1).push(g); } return out; };
+        // As few pages as the screen allows, then balanced so the last page is not nearly empty.
+        const n = pack(room).length; pages = pack(room);
+        for (let limit = height(groups) / n; limit < room; limit += 12) { const p = pack(limit); if (p.length === n) { pages = p; break; } }
+    }
+    const page = Math.min(S.physicsPage || 0, pages.length - 1), columns = mobile ? [pages[page]] : pages;
+    const ph = 58 + Math.max(...columns.map(height)) + (mobile ? 52 : 6);
+    U.panel(px, py, pw, ph, tint, .92);
+    U.tag('Dati fisici del pianeta', px + 18, py + 18, tint);
+    columns.forEach((col, k) => {
+        let x = px + 18 + k * (colW + 24), y = py + 48;
+        for (const [heading, rows] of col) {
+            U.text(heading, x, y, 'mini', C.amber); y += 26;
+            for (const [label, value] of rows) { U.text(label, x, y, 'micro', C.muted); if (stacked) y += line; y += U.wrap(value, x + labelW, y, colW - labelW, C.pale, line, 6, 'micro') * line + 6; }
+            y += 8;
+        }
+    });
+    if (mobile) {
+        const by = py + ph - 46;
+        U.text((page + 1) + ' di ' + pages.length, px + pw / 2, by + 11, 'micro', C.muted, { align: 'center' });
+        U.button('physics-prev', 'INDIETRO', px + 16, by, 96, 36, () => { S.physicsPage = page - 1; }, { disabled: page === 0, small: true }); U.buttons.at(-1).label = 'Pagina precedente dei dati fisici';
+        U.button('physics-next', 'AVANTI', px + pw - 112, by, 96, 36, () => { S.physicsPage = page + 1; }, { disabled: page === pages.length - 1, small: true }); U.buttons.at(-1).label = 'Pagina successiva dei dati fisici';
+    }
+}
 function orbitUI() {
     const w = R.w, h = R.h, m = selected(), mobile = w < 850;
-    titleFade();
-    title(areaTrail(m), m.title, 'Unità '+unitPlace(S.selected).position+' di '+unitPlace(S.selected).count+' dell’area '+areaOf(S.selected).name+'.');
+    // On phones the open card takes the place of the title.
+    if (!(mobile && physicsOpen())) { titleFade(); title(areaTrail(m), m.title, 'Unità '+unitPlace(S.selected).position+' di '+unitPlace(S.selected).count+' dell’area '+areaOf(S.selected).name+'.'); }
+    const toggle = () => Object.assign(S, physicsOpen() ? { physicsFor: null } : { physicsFor: S.selected, physicsPage: 0 });
+    if (physicsOpen()) physicsPanel(m, mobile);
+    else orbitPanel(m, mobile);
+    const bw = mobile ? (w - 60) / 3 : 0;
+    U.button('surface', mobile?'SUPERFICIE':'SCENDI IN SUPERFICIE', mobile?18:35, h-88, mobile?bw:230,39,()=>route('surface'),{small:mobile});
+    U.button('back-system',mobile?'ALL’AREA':'TORNA ALL’AREA',mobile?30+bw:277,h-88,mobile?bw:220,39,()=>route('system',{system:S.system}),{small:mobile});
+    U.button('physics', physicsOpen() ? (mobile ? 'CHIUDI' : 'CHIUDI LA SCHEDA') : 'DATI FISICI', mobile?42+2*bw:509,h-88,mobile?bw:200,39,toggle,{small:mobile,active:physicsOpen()});
+}
+function orbitPanel(m, mobile) {
+    const w = R.w, h = R.h;
     const px = mobile ? 18 : w - 370, pw = mobile ? w - 36 : 334, py = mobile ? h - 360 : 247, ph = mobile ? 276 : h - 337;
     U.panel(px, py, pw, ph, sectorColors[m.sector], .76);
     U.tag(sectors[m.sector] + ' · ' + areaOf(S.selected).name, px + 20, py + 19, sectorColors[m.sector]);
@@ -414,8 +463,6 @@ function orbitUI() {
         else if (y + 54 < py + ph - 110) { U.text('NELL’UNITÀ', px + 20, y, 'mini', C.amber); wrapClipText('Lezione su tre livelli · laboratorio · quattro domande · fonti', px + 20, y + 22, pw - 40, 'micro', C.muted, 2); }
     }
     buttonsModule(m, px + 18, py + ph - 110, pw - 36);
-    U.button('surface', mobile?'SUPERFICIE':'SCENDI IN SUPERFICIE', mobile?18:35, h-88, mobile?(w-48)/2:230,39,()=>route('surface'));
-    U.button('back-system',mobile?'ALL’AREA':'TORNA ALL’AREA',mobile?w/2+6:277,h-88,mobile?(w-48)/2:220,39,()=>route('system',{system:S.system}));
 }
 function surfaceUI() {
     const w = R.w, h = R.h, mobile = w < 850, m = selected(), tint = sectorColors[m.sector];
@@ -1130,11 +1177,11 @@ function syncSemantic() {
         if (e && document.activeElement !== e)
             e.value = b.value;
     }
-    const key = (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticKey():S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
+    const key = physicsOpen() ? 'physics-' + S.selected : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticKey():S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
     if (key !== textSignature) {
         const el = document.querySelector('#semantic-text');
         if (el)
-            el.textContent = (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndexes[docKey(S.pdfDoc)]?.[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
+            el.textContent = physicsOpen() ? 'Dati fisici del pianeta ' + selected().title + '. ' + physicsText(planetPhysics()[S.selected], speciesCount(S.selected)) : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndexes[docKey(S.pdfDoc)]?.[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
         textSignature = key;
     }
 }
@@ -1379,7 +1426,7 @@ async function init() {
         computeLab();
         events();
         S.loaded = true;
-        window.GAIA = { version: '1.26.0-libro', state: S, get atlas() { return atlas; }, get book() { return book; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes ? W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0) : W.surface.mesh.i.length/3, planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:UNIT_COUNT, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
+        window.GAIA = { version: '1.27.0-fisica', state: S, get atlas() { return atlas; }, get book() { return book; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes ? W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0) : W.surface.mesh.i.length/3, planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:UNIT_COUNT, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
         U = new UI(R);
         pilotEducation = new MissionUI(R, store, missionDefinition, { state:S, route, openTheory, openPDF, download, say });
         education = new CourseUI(R,store,curriculum,{state:S,route,openCourse,openTheory,openPDF,openExternal,download,say,currentUnit:()=>selected().id});

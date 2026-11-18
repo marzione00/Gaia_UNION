@@ -63,9 +63,9 @@ test('Camera: zoom multiscala termina entro due secondi senza salto di proiezion
  w.camera('galaxy',s);assert.equal(w.cameraProgress,1);assert.equal(w.cameraSpace,'galaxy');const returned=project(systems[7].position,w.vp,1600,1000);assert.ok(Math.hypot(before[0]-returned[0],before[1]-returned[1])<2);
 });
 
-test('Sistemi: conteggio casuale stabile da 5 a 12, un pianeta esplorabile per unità in ordine di studio',()=>{
+test('Sistemi: conteggio casuale stabile da 5 a 12, un pianeta esplorabile per unità, orbite in ordine di distanza fisica',()=>{
  const counts=new Set();let total=0;
- for(let i=0;i<AREAS.length;i++){const a=systemArchitecture(i),b=systemArchitecture(i);assert.deepEqual(a,b);assert.ok(a.count>=5&&a.count<=12);assert.equal(a.bodies.length,a.count);counts.add(a.count);total+=a.count;const explorable=a.bodies.filter(p=>p.explorable);assert.deepEqual(explorable.map(p=>p.index),indicesForSystem(i));assert.ok(explorable.every(p=>p.sector===AREAS[i].sector));assert.ok(a.bodies.filter(p=>!p.explorable).every(p=>p.index===null));assert.ok(a.bodies.filter(p=>p.explorable).every(p=>p.profile.solid));}
+ for(let i=0;i<AREAS.length;i++){const a=systemArchitecture(i),b=systemArchitecture(i);assert.deepEqual(a,b);assert.ok(a.count>=5&&a.count<=12);assert.equal(a.bodies.length,a.count);counts.add(a.count);total+=a.count;const explorable=a.bodies.filter(p=>p.explorable);assert.deepEqual(explorable.map(p=>p.index).sort((x,y)=>x-y),indicesForSystem(i).sort((x,y)=>x-y));assert.deepEqual(a.bodies.map(p=>p.slot),a.bodies.map((_,k)=>k));for(let k=1;k<a.bodies.length;k++)assert.ok(a.bodies[k].a>a.bodies[k-1].a&&a.bodies[k].orbit>a.bodies[k-1].orbit);assert.ok(explorable.every(p=>p.sector===AREAS[i].sector));assert.ok(a.bodies.filter(p=>!p.explorable).every(p=>p.index===null));assert.ok(a.bodies.filter(p=>p.explorable).every(p=>p.profile.solid));}
  assert.ok(counts.size>=6);assert.ok(total>150);assert.notDeepEqual(systemArchitecture(3,1),systemArchitecture(3,2));
 });
 test('Sistemi: famiglie, raggi, lune, anelli e orbite realmente eterogenei',()=>{
