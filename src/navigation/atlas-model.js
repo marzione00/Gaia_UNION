@@ -92,7 +92,7 @@ export function routeSystems(path, modules) {
     return (path?.units || []).map(id=>lookup.get(id)).filter((n,i,a)=>Number.isInteger(n)&&(i===0||a[i-1]!==n));
 }
 export const GUIDE = [
-    { title:'1 / Quattro bracci, quattro discipline', text:'Ogni braccio della galassia è una disciplina, riconoscibile dal colore: ambra la matematica, azzurro la fisica, viola la chimica, verde la biologia. Ogni esagono è un\u2019area tematica e l\u2019arco intorno conta le unità completate.', target:'map' },
+    { title:'1 / Quattro bracci, quattro discipline', text:'Ogni braccio è una disciplina: ambra la matematica, azzurro la fisica, viola la chimica, verde la biologia. Ogni esagono è un\u2019area: pieno se l\u2019hai visitata, con un arco per le unità completate. Le linee sono i passaggi scoperti leggendo.', target:'map' },
     { title:'2 / Scegli una disciplina', text:'Questi quattro pulsanti evidenziano un braccio, ne mostrano i nomi delle aree e limitano la ricerca a quella disciplina. Toccalo di nuovo per vederle tutte.', target:'legend' },
     { title:'3 / Apri un\u2019unità', text:'La scheda elenca le unità dell\u2019area selezionata. Scegline una e premi \u00abApri l\u2019unità\u00bb, oppure \u00abSistema 3D\u00bb per visitare i pianeti.', target:'card' },
     { title:'4 / Cerca per nome', text:'\u00abCerca\u00bb trova un argomento scrivendone il nome, per esempio \u00abgas\u00bb o \u00abgenetica\u00bb, e porta la mappa sulla sua area.', target:'list' },

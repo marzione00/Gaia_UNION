@@ -1,3 +1,11 @@
+# 1.28.0: La mappa da scoprire
+
+- Le aree tematiche mai visitate compaiono sulla mappa come segnali, con il solo contorno dell'esagono; diventano piene quando lo studente entra nel loro sistema o inizia una delle loro unità. Tutte restano raggiungibili dalla mappa, dalla ricerca e dai percorsi.
+- Nuova rete di 147 passaggi fra le 30 aree, ricavata da 624 rimandi: 426 collegamenti fra capitoli del libro e 198 collegamenti e prerequisiti dei percorsi guidati. Le 78 corsie uniscono aree dello stesso braccio, le 69 porte di salto aree di discipline diverse. Il file `content/atlas/passages.json` è generato da `tools/build_passages.mjs`.
+- Un passaggio si apre quando lo studente legge fino in fondo la sezione del capitolo che contiene il rimando, oppure quando un percorso guidato arriva alla stazione dei collegamenti. Sulla mappa i passaggi aperti sono archi, azzurri le corsie e dorati le porte di salto, più luminosi per l'area selezionata; in alto a sinistra la mappa conta aree visitate e passaggi aperti, e la scheda dell'area quelli che la toccano.
+- La scheda «Esplorazione» del diario elenca i passaggi aperti con il capitolo o il percorso che li ha aperti; il testo per i lettori di schermo della mappa riporta quelli dell'area selezionata. La guida della mappa spiega segnali e passaggi.
+- Regole e numeri in `docs/MAPPA_ESPLORAZIONE.md`; `tests/passages.test.mjs` verifica il file, la rete e le regole di apertura, e i flussi applicativi controllano che la lettura di una sezione apra il suo passaggio.
+
 # 1.27.0: Il modello fisico dei sistemi e dei pianeti
 
 - Ogni sistema ha una stella con temperatura, luminosità, raggio e massa di un sottotipo della tabella di Mamajek (nane di sequenza principale da M5V ad A0V) e una zona abitabile calcolata con i coefficienti di Kopparapu e colleghi (2014). I sei sistemi di ciascun tipo coprono i sottotipi dal più caldo al più freddo.

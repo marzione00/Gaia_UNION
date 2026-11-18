@@ -5,6 +5,7 @@ import { AtlasScene } from './atlas-scene.js';
 import { DISCIPLINES, TEXT_SCALES, GUIDE, cleanAtlas, atlasLayout, contains, placeLabels, searchModules, unitStatus, rememberVisit } from './atlas-model.js';
 
 import { scaledText } from './text.js';
+import { exploration, passagesOf, passageLabel } from './passages.js';
 import { systemForPlanet, indicesForSystem, AREAS, SYSTEM_COUNT, UNIT_COUNT } from '../scene/systems.js';
 const SECTOR_COLORS=DISCIPLINE;
 const basePalette=Object.fromEntries(Object.entries(C).map(([k,v])=>[k,[...v]]));
@@ -23,6 +24,11 @@ export class AtlasUI {
     get module(){const id=this.hoverId??this.S.system,units=indicesForSystem(id),index=units.includes(this.S.selected)?this.S.selected:units[0];return this.catalogue.modules[index];}
     get results(){return searchModules(this.catalogue.modules,this.query,this.S.sector,this.path);}
     save(){this.store.save();}
+    /** Map exploration (systems visited, passages open), recomputed only when the saved data change. */
+    get explored(){const d=this.store.data,key=[d.updatedAt,d.read?.length,(d.atlas?.visited||[]).length,this.api.passages?.length].join('|');
+        if(this.exploredKey!==key){this.exploredKey=key;this.exploredCache=exploration(this.api.passages||[],d);}return this.exploredCache;}
+    /** Open passages of system `id`, and how many it has in all. */
+    passagesFrom(id){const all=passagesOf(this.api.passages||[],id),open=this.explored.open;return {open:all.filter(p=>open.has(p.id)),total:all.length};}
     applyPreferences(){const p=this.prefs;this.R.readingScale=p.textScale;this.R.highContrast=p.contrast;
         for(const [key,value] of Object.entries(basePalette))C[key]=p.contrast&&['dim','muted'].includes(key)?color('#c5dce2'):[...value];
     }
@@ -59,7 +65,8 @@ export class AtlasUI {
         if(candidate!==this.hoverCandidate){this.hoverCandidate=candidate;this.hoverSince=performance.now();}
         this.hoverId=!blocked&&candidate!==null&&(focusMatch||performance.now()-this.hoverSince>=130)?candidate:null;
         state.hoveredTarget=this.hoverId!==null?this.world.projections.find(p=>p.type==='system'&&p.index===this.hoverId)||null:null;
-        this.scene.draw(this.world,state,this.layout,{selected:state.system,hover:this.hoverId,contrast:this.prefs.contrast,path:this.path,modules:this.catalogue.modules,progress:this.progress()});
+        const e=this.explored,open=(this.api.passages||[]).filter(p=>e.open.has(p.id));
+        this.scene.draw(this.world,state,this.layout,{selected:state.system,hover:this.hoverId,contrast:this.prefs.contrast,path:this.path,modules:this.catalogue.modules,progress:this.progress(),passages:open,visited:new Set(this.prefs.visited)});
     }
     /** Per area: completed units, unit count, and whether any unit was started or visited. */
     progress(){return this.world.systems.map(sys=>{const units=indicesForSystem(sys.id).map(i=>this.catalogue.modules[i]).filter(Boolean),codes=units.map(m=>unitStatus(m,this.store.data).code);
@@ -110,6 +117,10 @@ export class AtlasUI {
         this.legend(U,l);
         if(this.scene.edge){const e=this.scene.edge;this.text('CENTRA',clamp(e.x-28,l.map.x,l.map.x+l.map.w-60),clamp(e.y+18,l.map.y,l.map.y+l.map.h-18),64,'micro',C.amber,1);U.buttons.push({id:'atlas-offscreen',label:'Centra l’area selezionata, fuori campo',x:e.x-22,y:e.y-22,w:44,h:44,action:()=>this.focusSystem()});}
         if(this.path)this.text('PERCORSO · '+this.path.title,l.map.x+86,l.map.y+8,Math.max(60,l.map.w-90),'micro',C.amber,1);
+        else{// Exploration summary: top left of the map, below the controls when these sit in the top corner.
+            const e=this.explored,top=l.controls.y<l.map.y+30,long=`ESPLORATI ${e.visited} DI ${e.systems} SISTEMI · PASSAGGI ${e.opened} DI ${e.passages}`,short=`SISTEMI ${e.visited}/${e.systems} · PASSAGGI ${e.opened}/${e.passages}`;
+            const y=top?l.controls.y+l.controls.h+6:l.map.y+4,s=R.textWidth(long,'micro',.7)+16<=l.map.w-16?long:short,w=R.textWidth(s,'micro',.7)+16;
+            if(w<=l.map.w-8&&y+24<l.map.y+l.map.h-56){R.roundRect(l.map.x+4,y,w,24,4,color(T.bg,.88));U.tag(s,l.map.x+12,y+6,C.muted);}}
         this.card(U,c,l.compact||c.h<450);
         const entries=[['left','◂',()=>this.move(-.18)],['right','▸',()=>this.move(.18)],['minus','−',()=>this.api.zoom(1/.86)],['plus','+',()=>this.api.zoom(.86)],['center','Centra',()=>this.focusSystem()]];
         let kx=k.x;entries.forEach(([id,label,action])=>{const w=id==='center'?72:44;this.button(U,id,label,kx,k.y,w,action);kx+=w+6;});
@@ -131,7 +142,7 @@ export class AtlasUI {
             this.text(area.name,c.x+14,c.y+34,c.w-28,'mini',C.pale,1);
             this.text(`${k+1}/${n} · ${m.title}`,c.x+14,c.y+56,c.w-28,'body',C.pale,Math.min(1.2,this.prefs.textScale));
             if(c.h>=186){const y=c.y+88;this.button(U,'unit-prev','◂',c.x+14,y,48,()=>pick(k-1));U.buttons.at(-1).label='Unità precedente dell’area';this.button(U,'unit-next','▸',c.x+68,y,48,()=>pick(k+1));U.buttons.at(-1).label='Unità successiva dell’area';
-                this.text(unitStatus(m,this.store.data).label,c.x+128,y+14,c.w-142,'mini',C.lime,1);}
+                const ps=this.passagesFrom(id);this.text(unitStatus(m,this.store.data).label+` · passaggi ${ps.open.length} di ${ps.total}`,c.x+128,y+14,c.w-142,'mini',C.lime,1);}
             actions(c.y+c.h-56,(c.w-34)/2);return;
         }
         this.text(area.name,c.x+14,c.y+36,c.w-28,'body',C.pale,Math.min(1.2,this.prefs.textScale));
@@ -140,8 +151,9 @@ export class AtlasUI {
             this.button(U,'unit-'+mod.id,`${i+1}. ${mod.title}`,c.x+14,y0+i*rowH,c.w-28,()=>this.selectModule(mod.id),{active:index===m.planetIndex});
             U.buttons.at(-1).label=`Unità ${i+1} di ${n}: ${mod.title}`+(status==='complete'?', completata':['started','experiment'].includes(status)?', iniziata':'');
             if(status==='complete')scaledText(this.R,'✓',c.x+c.w-36,y0+i*rowH+12,'mini',C.lime,1);});
-        const top=y0+n*rowH+8,bottom=c.y+c.h-124,lines=fittedRows(this.R,[m.description],(c.w-28)/this.prefs.textScale),count=Math.max(0,Math.floor((bottom-top)/(23*this.prefs.textScale)));
+        const top=y0+n*rowH+8,bottom=c.y+c.h-148,lines=fittedRows(this.R,[m.description],(c.w-28)/this.prefs.textScale),count=Math.max(0,Math.floor((bottom-top)/(23*this.prefs.textScale)));
         lines.slice(0,count).forEach((t,i)=>scaledText(this.R,t,c.x+14,top+i*23*this.prefs.textScale,'body',C.muted,this.prefs.textScale));
+        const ps=this.passagesFrom(id);this.text(`PASSAGGI SCOPERTI DA QUEST’AREA: ${ps.open.length} DI ${ps.total}`,c.x+14,c.y+c.h-142,c.w-28,'micro',C.muted,1);
         this.text(unitStatus(m,this.store.data).label,c.x+14,c.y+c.h-118,c.w-28,'mini',C.lime,1);
         actions(c.y+c.h-94,(c.w-34)/2);
         this.text(`${n} UNITÀ IN ORDINE DI STUDIO · ${system.count} PIANETI`,c.x+14,c.y+c.h-30,c.w-28,'micro',C.muted,1);
@@ -236,6 +248,8 @@ export class AtlasUI {
         if(this.sheet==='guide')text+=' Guida, '+GUIDE[this.guideStep].title+'. '+GUIDE[this.guideStep].text;
         if(this.sheet==='list')text+=' '+this.results.length+' risultati per '+(this.query||'tutti gli argomenti')+'.';
         if(this.path)text+=' Percorso attivo: '+this.path.title+'.';
+        const e=this.explored,ps=this.passagesFrom(system.id);
+        text+=` Esplorati ${e.visited} sistemi su ${e.systems}; passaggi scoperti ${e.opened} su ${e.passages}. Da quest’area ${ps.open.length} passaggi scoperti su ${ps.total}`+(ps.open.length?': '+ps.open.map(p=>passageLabel(p,system.id)).join(', ')+'.':'.');
         return text;
     }
 }
