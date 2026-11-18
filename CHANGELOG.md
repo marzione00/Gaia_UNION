@@ -1,3 +1,12 @@
+# 1.29.0: La nave da esplorazione
+
+- Nuova schermata della nave (`#/ship`), raggiungibile dalla scheda «Dati fisici» e dalla scheda «Esplorazione» del diario. La nave porta i sensori di base, che danno stella e orbita, e sette strumenti: radiometro infrarosso, spettrografo, gravimetro, magnetometro, radar di profondità, laboratorio di datazione e analizzatore di biofirme.
+- Ogni strumento sale a bordo completando il percorso guidato della sua unità oppure leggendo fino in fondo tutte le sezioni del suo capitolo; la schermata indica quante sezioni restano e apre il capitolo. Le sezioni sono in `content/atlas/instruments.json`, generato da `tools/build_instruments.mjs`.
+- In modalità esploratore, attiva in partenza, ogni riga della scheda fisica compare quando è a bordo lo strumento che la misura; altrimenti la riga indica quale strumento serve. Disattivando la modalità dalla nave, la scheda mostra tutto. Gli strumenti lasciano aperti capitoli, percorsi e mappa.
+- Il diario registra quali strumenti hanno misurato ogni pianeta e ne tiene il conto nella scheda «Esplorazione».
+- Corretto: dalla 1.25.0 il salvataggio scartava a ogni riapertura le registrazioni del diario sui pianeti con indice da 100 in su; ora accetta tutti i 125 pianeti.
+- Documentazione in `docs/NAVE.md`; `tests/instruments.test.mjs` verifica strumenti, regole e salvataggio, e i flussi applicativi controllano che il radiometro, una volta a bordo, mostri luce e temperatura e registri la misura.
+
 # 1.28.0: La mappa da scoprire
 
 - Le aree tematiche mai visitate compaiono sulla mappa come segnali, con il solo contorno dell'esagono; diventano piene quando lo studente entra nel loro sistema o inizia una delle loro unità. Tutte restano raggiungibili dalla mappa, dalla ricerca e dai percorsi.

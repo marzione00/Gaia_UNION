@@ -1,18 +1,23 @@
 import { cleanAtlas } from './navigation/atlas-model.js';
 import { cleanCourseRecords } from './education/course-engine.js';
 import { cleanMissionRecords } from './education/mission-engine.js';
+import { INSTRUMENTS } from './navigation/instruments.js';
+import { UNIT_COUNT } from './scene/systems.js';
 export const STORE_KEY = 'gaia.beyond-knowledge.v1';
-export function fresh() { return { schema: 1, notes: {}, read: [], quiz: {}, missions: {}, courses: {}, atlas: cleanAtlas(), bookmarks: [], scenarios: [], explore: {}, preferences: { quality: 1000000, graphics: 'high', motion: true }, updatedAt: null }; }
-/** Exploration diary: per planet index, the registered species (s0, s1…) and places (l0, l1…). */
+export function fresh() { return { schema: 1, notes: {}, read: [], quiz: {}, missions: {}, courses: {}, atlas: cleanAtlas(), bookmarks: [], scenarios: [], explore: {}, preferences: { quality: 1000000, graphics: 'high', motion: true, explorer: true }, updatedAt: null }; }
+/** Exploration diary: per planet index, the registered species (s0, s1…), places (l0, l1…) and the
+ * instruments whose measurements are in the log (m). Planet indices run up to UNIT_COUNT - 1. */
 export function cleanExplore(value) {
     const out = {};
     if (!value || typeof value !== 'object' || Array.isArray(value)) return out;
+    const known = new Set(INSTRUMENTS.map(i => i.id));
     for (const [k, v] of Object.entries(value)) {
-        if (!/^\d{1,2}$/.test(k) || !v || typeof v !== 'object') continue;
-        const ids = (list, re) => Array.isArray(list) ? [...new Set(list.filter(x => typeof x === 'string' && re.test(x)))].slice(0, 20) : [];
-        const rec = { s: ids(v.s, /^s\d$/), l: ids(v.l, /^l\d$/) };
+        if (!/^\d{1,3}$/.test(k) || Number(k) >= UNIT_COUNT || !v || typeof v !== 'object') continue;
+        const ids = (list, test) => Array.isArray(list) ? [...new Set(list.filter(x => typeof x === 'string' && test(x)))].slice(0, 20) : [];
+        const rec = { s: ids(v.s, x => /^s\d$/.test(x)), l: ids(v.l, x => /^l\d$/.test(x)) }, m = ids(v.m, x => known.has(x));
+        if (m.length) rec.m = m;
         if (typeof v.at === 'string' && v.at.length < 40) rec.at = v.at;
-        if (rec.s.length || rec.l.length) out[k] = rec;
+        if (rec.s.length || rec.l.length || m.length) out[k] = rec;
     }
     return out;
 }
@@ -35,6 +40,7 @@ export function cleanState(value) {
     o.preferences.quality = 1000000;
     o.preferences.graphics = ['high','balanced','low'].includes(value.preferences?.graphics) ? value.preferences.graphics : value.preferences?.quality === 60000 ? 'low' : value.preferences?.quality === 250000 ? 'balanced' : 'high';
     o.preferences.motion = value.preferences?.motion !== false;
+    o.preferences.explorer = value.preferences?.explorer !== false;
     o.missions = cleanMissionRecords(value.missions);
     o.courses = cleanCourseRecords(value.courses);
     o.atlas = cleanAtlas(value.atlas);

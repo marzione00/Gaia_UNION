@@ -54,8 +54,9 @@ test('Superfici: luoghi distanti fra loro e dalle stazioni, individui nel propri
  }
 });
 test('Diario di esplorazione: record puliti e conservati nel salvataggio',()=>{
- const raw={'7':{s:['s0','s3','s3','x'],l:['l1'],at:'2026-11-16T10:00:00Z'},'abc':{s:['s1']},'101':{s:['s1']},'5':{s:[],l:[]},'9':'nope'};
- assert.deepEqual(cleanExplore(raw),{'7':{s:['s0','s3'],l:['l1'],at:'2026-11-16T10:00:00Z'}});
+ // Planets run from 0 to 124 since 1.26.0: 101 is kept, 125 and 1000 are dropped.
+ const raw={'7':{s:['s0','s3','s3','x'],l:['l1'],at:'2026-11-16T10:00:00Z'},'abc':{s:['s1']},'101':{s:['s1']},'125':{s:['s1']},'1000':{s:['s1']},'5':{s:[],l:[]},'9':'nope'};
+ assert.deepEqual(cleanExplore(raw),{'7':{s:['s0','s3'],l:['l1'],at:'2026-11-16T10:00:00Z'},'101':{s:['s1'],l:[]}});
  assert.deepEqual(fresh().explore,{});
  const kept=cleanState({...fresh(),explore:raw});assert.deepEqual(kept.explore,cleanExplore(raw));
  assert.deepEqual(cleanState({...fresh(),explore:undefined}).explore,{});
