@@ -5,7 +5,7 @@ L'intervento riguarda galassia, sistemi e dossier orbitali. Interfaccia, contenu
 ## Oggetti consegnati
 
 - Un milione di vertici stellari: nessuna riduzione nei preset grafici. Circa 12.000 posizioni non navigabili formano cinque ammassi; una piccola frazione delle stelle ha maggiore luminosità. Le 25 stelle navigabili sono escluse dalla modifica, conservando coordinate, colore e identificativo.
-- Cinque regioni deterministiche: formazione stellare, nube a riflessione, polveri, ammasso aperto, periferia. Le regioni vengono assegnate ai 25 sistemi per posizione.
+- Cinque regioni deterministiche: formazione stellare, nube a riflessione, polveri, ammasso aperto, periferia. Le regioni vengono assegnate ai 25 sistemi per posizione. Dalla 1.33.0 le regioni sono ancorate ai bracci delle discipline e ogni sistema appartiene alla nube del proprio braccio (`docs/REGIONI.md`).
 - Quindici volumi: cinque nebulose principali, cinque filamenti di polvere, un resto di supernova, una nebulosa planetaria con nucleo e tre galassie lontane. Tutti hanno centro, estensione e seed nello stesso spazio galattico.
 - Otto fasce con 280–459 asteroidi ciascuna: geometrie aggregate, superficie NASA lunare, illuminate dalla stella centrale. Si trovano oltre l'orbita esterna dei pianeti.
 - Tre comete con nucleo, coda ionica azzurra e coda di polvere curva. Sono geometrie 3D illustrative in posizioni persistenti; non viene simulata la dinamica orbitale della cometa.

@@ -5,8 +5,8 @@ export function resolveRoute(hash, modules, lessonIds) {
     const [path = '', query = ''] = String(hash).replace(/^#\/?/, '').split('?');
     const parts = path.split('/');
     const q = new URLSearchParams(query);
-    const aliases = { study: 'theory', planet: 'orbit', archive: 'catalogue', notebook: 'journal', nave: 'ship', nucleo: 'gaia', avamposto: 'outpost' };
-    const allowed = ['galaxy', 'system', 'orbit', 'surface', 'research', 'catalogue', 'briefing', 'theory', 'pdf', 'lab', 'quiz', 'journal', 'sources', 'mission', 'pilot', 'paths', 'libro', 'ship', 'gaia', 'outpost'];
+    const aliases = { study: 'theory', planet: 'orbit', archive: 'catalogue', notebook: 'journal', nave: 'ship', nucleo: 'gaia', avamposto: 'outpost', regione: 'region' };
+    const allowed = ['galaxy', 'system', 'orbit', 'surface', 'research', 'catalogue', 'briefing', 'theory', 'pdf', 'lab', 'quiz', 'journal', 'sources', 'mission', 'pilot', 'paths', 'libro', 'ship', 'gaia', 'outpost', 'region'];
     const name = aliases[parts[0]] || parts[0];
     let scene = allowed.includes(name) ? name : 'galaxy';
     const moduleId = q.get('unit') || (['study', 'planet', 'briefing'].includes(parts[0]) ? parts[1] : null);

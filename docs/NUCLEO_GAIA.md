@@ -8,7 +8,7 @@ Dalla versione 1.30.0 la nave ha un Nucleo di Gaia, una schermata che applica la
 - Nel diario, alla scheda «Esplorazione», il pulsante «Nucleo di Gaia».
 - All'indirizzo `#/gaia` (anche `#/nucleo`).
 
-La schermata ha tre schede: «Mondi di riferimento», «Firme atmosferiche» e «Diagnosi». Il testo è diviso in pagine quando lo schermo è basso, ed è disponibile per intero ai lettori di schermo.
+La schermata ha tre schede: «Mondi di riferimento», «Firme atmosferiche» e «Diagnosi». Dalla 1.33.0 se ne aggiunge una quarta, «Mondi di sintesi», con Venere, Marte e la Terra dell'Archeano (`docs/REGIONI.md`), e il Nucleo è anche una destinazione al centro della mappa. Il testo è diviso in pagine quando lo schermo è basso, ed è disponibile per intero ai lettori di schermo.
 
 ## Mondi di riferimento
 
