@@ -17,6 +17,7 @@ import { placeList } from './worlds/places.js';
 import { lifelessReason } from './worlds/species.js';
 import { planetPhysics, physicsRows, physicsText, speciesCount } from './worlds/planet-physics.js';
 import { cleanPassages, exploration, linkOpen } from './navigation/passages.js';
+import { INSTRUMENTS, BASE_ROWS, instrumentForRow, cleanInstrumentSections, obtainedBy, onBoard, sectionsLeft, explorerMode } from './navigation/instruments.js';
 import { BookReader } from './book/reader.js';
 import { fittedRows } from './education/course-ui.js';
 import { descriptor as modelDescriptor } from './models/curriculum.js';
@@ -41,12 +42,12 @@ function openCourse(id,stage=null){const m=moduleById(id);if(!m)return;selectInd
 function openExternal(url){if(!education.bundle.sources.some(s=>s.url===url))throw Error('Fonte non registrata');window.open(url,'_blank','noopener,noreferrer');}
 let R, U, W, cache, data, lessons, questions, readerIndex, textureManifest, worlds = { worlds: [] }, raf, prevTime = 0, pointer = null, activeSlider = null, semanticSignature = '', textSignature = '', frameCount = 0, worker = null;
 const navigation = new NavigationMemory(), hover = new HoverTarget();
-let hoverPointer = null, touchTarget = null, book = null, passages = [];
+let hoverPointer = null, touchTarget = null, book = null, passages = [], instrumentSections = {};
 const sectors = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
 const sectorColors = DISCIPLINE;
 const nav = [['galaxy', 'MAPPA'], ['catalogue', 'ARGOMENTI'], ['paths', 'PERCORSI'], ['lab', 'LABORATORI'], ['journal', 'DIARIO']];
-const navGroups = { galaxy: ['galaxy', 'system', 'orbit', 'surface'], catalogue: ['catalogue', 'mission', 'briefing', 'theory', 'pdf', 'quiz', 'sources', 'research', 'pilot', 'libro'], paths: ['paths'], lab: ['lab'], journal: ['journal'] };
-const sceneNames = { system: 'MAPPA', orbit: 'MAPPA', surface: 'MAPPA', mission: 'UNITÀ', briefing: 'UNITÀ', theory: 'TEORIA', pdf: 'DISPENSA', quiz: 'VERIFICA', sources: 'FONTI', research: 'RICERCA', pilot: 'MISSIONE' };
+const navGroups = { galaxy: ['galaxy', 'system', 'orbit', 'surface'], catalogue: ['catalogue', 'mission', 'briefing', 'theory', 'pdf', 'quiz', 'sources', 'research', 'pilot', 'libro'], paths: ['paths'], lab: ['lab'], journal: ['journal', 'ship'] };
+const sceneNames = { ship: 'NAVE', system: 'MAPPA', orbit: 'MAPPA', surface: 'MAPPA', mission: 'UNITÀ', briefing: 'UNITÀ', theory: 'TEORIA', pdf: 'DISPENSA', quiz: 'VERIFICA', sources: 'FONTI', research: 'RICERCA', pilot: 'MISSIONE' };
 const areaTrail = (m, extra = []) => { const a = areaOf(m.planetIndex); return ['GALASSIA', sectors[a.sector].toUpperCase(), a.name.toUpperCase(), ...extra].join(' ▸ '); };
 const labNames = { daisyworld: 'Daisyworld', transform: 'Trasformazioni', rectangle: 'Area a perimetro fissato', radical: 'Dominio dei radicali', linear: 'Due vincoli lineari', reserve: 'Riserve e decadimento', rational: 'Zeri, segni e punti esclusi' };
 const labIds = Object.keys(labNames);
@@ -81,7 +82,7 @@ function route(scene, extra = {}) {
 }
 function enterSystem(id=S.system) { route('system',{system:id}); }
 function enterPlanet(index=S.selected) { route('orbit',{selected:index}); }
-function backToParent() { if(S.scene==='libro')route('orbit');else if(['mission','pilot'].includes(S.scene))route('briefing');else if(S.scene==='surface')route('orbit');else if(S.scene==='orbit')route('system',{system:S.system});else if(S.scene==='system')route('galaxy'); }
+function backToParent() { if(S.scene==='libro'||S.scene==='ship')route('orbit');else if(['mission','pilot'].includes(S.scene))route('briefing');else if(S.scene==='surface')route('orbit');else if(S.scene==='orbit')route('system',{system:S.system});else if(S.scene==='system')route('galaxy'); }
 function changeZoom(factor) { const limits=S.scene==='system'?[17,70]:S.scene==='orbit'?[14,38]:[23,100]; S.distance=clamp(S.distance*factor,...limits); hover.clear(); }
 function updateHash(mode = 'replace') {
     const q = new URLSearchParams();
@@ -403,8 +404,23 @@ function drawHover() {
 const physicsOpen = () => S.scene === 'orbit' && S.physicsFor === S.selected;
 /** Physical card of the planet in orbit: star and orbit, then the four spheres. Two columns on desktop,
  * two pages on phones. */
+/** Which card rows the ship can show now: all of them outside the explorer mode. */
+function cardReveal() {
+    if (!explorerMode(store.data)) return null;
+    const board = onBoard(store.data, instrumentSections);
+    return label => BASE_ROWS.includes(label) || board.has(instrumentForRow(label)?.id);
+}
+/** Logs in the diary which instruments have measured the planet in orbit. */
+function logMeasurements(index) {
+    if (!explorerMode(store.data)) return;
+    const board = [...onBoard(store.data, instrumentSections)], key = String(index), rec = store.data.explore[key];
+    if (!board.length || board.every(id => rec?.m?.includes(id))) return;
+    const r = store.data.explore[key] ||= { s: [], l: [] };
+    r.m = INSTRUMENTS.map(i => i.id).filter(id => board.includes(id) || r.m?.includes(id)); store.save();
+}
 function physicsPanel(m, mobile) {
-    const w = R.w, h = R.h, tint = sectorColors[m.sector], groups = physicsRows(planetPhysics()[S.selected], speciesCount(S.selected));
+    const w = R.w, h = R.h, tint = sectorColors[m.sector], reveal = cardReveal(), groups = physicsRows(planetPhysics()[S.selected], speciesCount(S.selected), reveal);
+    logMeasurements(S.selected);
     const pw = mobile ? w - 36 : Math.min(720, w - 420), px = mobile ? 18 : w - pw - 36, py = mobile ? 108 : 247, colW = mobile ? pw - 36 : (pw - 60) / 2, line = 18;
     // Narrow phones put each label above its value.
     const stacked = colW < 300, labelW = stacked ? 0 : mobile ? 112 : 116, rowH = v => (stacked ? line : 0) + R.multilineCount(v, colW - labelW, 'micro') * line + 6;
@@ -421,11 +437,13 @@ function physicsPanel(m, mobile) {
     const ph = 58 + Math.max(...columns.map(height)) + (mobile ? 52 : 6);
     U.panel(px, py, pw, ph, tint, .92);
     U.tag('Dati fisici del pianeta', px + 18, py + 18, tint);
+    if (reveal && !mobile) U.text(`Strumenti a bordo: ${onBoard(store.data, instrumentSections).size} di ${INSTRUMENTS.length}`, px + pw - 118, py + 19, 'micro', C.muted, { align: 'right' });
+    U.button('physics-ship', 'NAVE', px + pw - 104, py + 8, 86, 32, () => route('ship'), { small: true }); U.buttons.at(-1).label = 'Apri la nave: strumenti a bordo e da ottenere';
     columns.forEach((col, k) => {
         let x = px + 18 + k * (colW + 24), y = py + 48;
         for (const [heading, rows] of col) {
             U.text(heading, x, y, 'mini', C.amber); y += 26;
-            for (const [label, value] of rows) { U.text(label, x, y, 'micro', C.muted); if (stacked) y += line; y += U.wrap(value, x + labelW, y, colW - labelW, C.pale, line, 6, 'micro') * line + 6; }
+            for (const [label, value, hidden] of rows) { U.text(label, x, y, 'micro', C.muted); if (stacked) y += line; y += U.wrap(value, x + labelW, y, colW - labelW, hidden ? C.dim : C.pale, line, 6, 'micro') * line + 6; }
             y += 8;
         }
     });
@@ -942,19 +960,56 @@ function mapLog() {
     return rows;
 }
 function exploreLog() {
-    const key = JSON.stringify(store.data.explore) + '|' + store.data.read.length + '|' + JSON.stringify(Object.values(store.data.courses || {}).map(r => r.stage)) + '|' + (store.data.atlas?.visited || []).length; if (exploreLogCache[0] === key) return exploreLogCache[1];
+    const key = JSON.stringify(store.data.explore) + '|' + store.data.read.length + '|' + JSON.stringify(Object.values(store.data.courses || {}).map(r => r.stage + (r.completedAt ? 'c' : ''))) + '|' + (store.data.atlas?.visited || []).length; if (exploreLogCache[0] === key) return exploreLogCache[1];
     const genomes = planetGenomes(), species = planetSpecies(), places = genomes.map(placeList), rows = [];
-    let s = 0, l = 0, planets = 0;
+    let s = 0, l = 0, planets = 0, measuredPlanets = 0;
     for (const [key, rec] of Object.entries(store.data.explore)) {
-        const i = Number(key), m = data.modules[i]; if (!m || !(rec.s.length + rec.l.length)) continue;
-        planets++; s += rec.s.length; l += rec.l.length;
+        const i = Number(key), m = data.modules[i], measured = (rec.m || []).map(id => INSTRUMENTS.find(x => x.id === id)?.name).filter(Boolean); if (!m || !(rec.s.length + rec.l.length + measured.length)) continue;
+        planets++; s += rec.s.length; l += rec.l.length; if (measured.length) measuredPlanets++;
         const sp = species[i].filter(x => rec.s.includes(x.id)).map(x => x.name + ' (' + x.label + ')'), pl = places[i].filter(x => rec.l.includes(x.id)).map(x => x.name);
-        rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : ''].filter(Boolean).join(' '));
+        rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : '', measured.length ? 'Misure: ' + measured.join(', ') + '.' : ''].filter(Boolean).join(' '));
     }
     const total = species.reduce((n, x) => n + x.length, 0), totalPlaces = places.reduce((n, x) => n + x.length, 0);
-    const head = `Pianeti con registrazioni: ${planets} su ${genomes.length}. Specie registrate: ${s} su ${total}. Luoghi registrati: ${l} su ${totalPlaces}.`;
-    exploreLogCache = [key, [...mapLog(), head, ...(rows.length ? rows : ['Nessuna registrazione. Scendi su un pianeta, scegli «Esplora il pianeta» e registra specie e luoghi.'])].join('\n')];
+    const head = `Pianeti con registrazioni: ${planets} su ${genomes.length}. Specie registrate: ${s} su ${total}. Luoghi registrati: ${l} su ${totalPlaces}. Pianeti misurati con gli strumenti della nave: ${measuredPlanets}; strumenti a bordo: ${onBoard(store.data, instrumentSections).size} su ${INSTRUMENTS.length}.`;
+    exploreLogCache = [key, [...mapLog(), head, ...(rows.length ? rows : ['Nessuna registrazione. Scendi su un pianeta, scegli «Esplora il pianeta» e registra specie e luoghi; in orbita, «Dati fisici» registra le misure degli strumenti a bordo.'])].join('\n')];
     return exploreLogCache[1];
+}
+const capital = s => s[0].toUpperCase() + s.slice(1);
+/** One line per instrument: how it came on board, or what to study to obtain it. */
+function instrumentStatus(i, short = false) {
+    const how = obtainedBy(i, store.data, instrumentSections), chapter = moduleById(i.unit)?.title || i.unit, { left, total } = sectionsLeft(i, store.data, instrumentSections);
+    if (how) return { on: true, text: how === 'percorso' ? 'A bordo: percorso guidato completato.' : 'A bordo: capitolo letto per intero.' };
+    return { on: false, text: short ? `Mancano ${left} sezioni su ${total} di «${chapter}», oppure il percorso guidato.` : `Da ottenere: leggi le ${total} sezioni del capitolo «${chapter}» (ne mancano ${left}) oppure completa il suo percorso guidato.` };
+}
+/** The exploration ship: instruments on board and to obtain, and the explorer mode. */
+function shipUI() {
+    const w = R.w, h = R.h, mobile = w < 850, board = onBoard(store.data, instrumentSections), explorer = explorerMode(store.data);
+    title('DIARIO ▸ NAVE', 'La nave da esplorazione', mobile ? `Strumenti a bordo: ${board.size} di ${INSTRUMENTS.length}.` : `Strumenti a bordo: ${board.size} di ${INSTRUMENTS.length}. Ogni strumento si ottiene studiando un’unità e mostra una parte dei dati fisici dei pianeti.`);
+    const x = mobile ? 18 : 40, ww = mobile ? w - 36 : w - 80, top = 238;
+    U.button('ship-explorer', explorer ? 'MODALITÀ ESPLORATORE: SÌ' : 'MODALITÀ ESPLORATORE: NO', x, top, mobile ? ww : 320, 38, () => { store.data.preferences.explorer = !explorer; store.save(); }, { active: explorer, small: mobile });
+    U.buttons.at(-1).label = explorer ? 'Modalità esploratore attiva: i dati fisici compaiono con gli strumenti. Premi per mostrarli tutti.' : 'Modalità esploratore disattivata: i dati fisici sono tutti visibili. Premi per farli comparire con gli strumenti.';
+    if (!mobile) wrapClipText(explorer ? 'I dati fisici compaiono quando lo strumento che li misura è a bordo.' : 'Tutti i dati fisici sono visibili, come in un archivio.', x + 340, top + 9, ww - 340, 'micro', C.muted, 2);
+    const y0 = top + 54, cols = w >= 1100 ? 2 : 1, cw = (ww - (cols - 1) * 16) / cols, ch = mobile ? Math.min(172, Math.max(112, h - y0 - 162)) : 128;
+    const per = cols * Math.max(1, Math.floor((h - y0 - 150) / (ch + 12))), pages = Math.ceil(INSTRUMENTS.length / per), page = S.shipPage = clamp(S.shipPage || 0, 0, pages - 1);
+    INSTRUMENTS.slice(page * per, (page + 1) * per).forEach((ins, k) => {
+        const cx = x + (k % cols) * (cw + 16), cy = y0 + Math.floor(k / cols) * (ch + 12), st = instrumentStatus(ins, mobile), unit = moduleById(ins.unit);
+        U.panel(cx, cy, cw, ch, st.on ? C.lime : C.cyan, .9);
+        U.text(capital(ins.name), cx + 16, cy + 14, 'sub', st.on ? C.pale : C.muted);
+        // Short phones keep one line of description, so the status always fits in the card.
+        const descLines = mobile ? (ch >= 160 ? 4 : 1) : 2, y = cy + 46 + 18 * wrapClipText(capital(ins.measures) + '. Rivela: ' + ins.rows.join(', ') + '.', cx + 16, cy + 46, cw - 32, 'micro', C.muted, descLines);
+        // On phones the study button sits in the bottom right corner, beside the status, clear of the name.
+        const study = !st.on && unit, side = study && mobile ? 112 : 0;
+        wrapClipText(st.text, cx + 16, y + 4, cw - 32 - side, 'micro', st.on ? C.lime : C.pale, Math.max(1, Math.floor((cy + ch - y - 8) / 18)));
+        if (study) { const label = book?.has(ins.unit) ? (mobile ? 'CAPITOLO' : 'LEGGI IL CAPITOLO') : (mobile ? 'UNITÀ' : 'APRI L’UNITÀ'); U.button('ship-study-' + ins.id, label, mobile ? cx + cw - 116 : cx + cw - 196, mobile ? cy + ch - 42 : cy + 10, mobile ? 100 : 180, 32, () => book?.has(ins.unit) ? openChapter(ins.unit) : openCourse(ins.unit), { small: true }); U.buttons.at(-1).label = 'Studia ' + unit.title + ' per ottenere ' + ins.the; }
+    });
+    const bw = mobile ? (w - 48) / 2 : 220;
+    if (pages > 1) { U.button('ship-prev', 'INDIETRO', mobile ? 18 : w - 2 * 130 - 40, h - 134, mobile ? bw : 120, 36, () => { S.shipPage = page - 1; }, { disabled: page === 0, small: true }); U.button('ship-next', 'AVANTI', mobile ? 30 + bw : w - 160, h - 134, mobile ? bw : 120, 36, () => { S.shipPage = page + 1; }, { disabled: page === pages - 1, small: true }); }
+    U.button('ship-orbit', mobile ? 'PIANETA' : 'TORNA AL PIANETA', mobile ? 18 : 35, h - 88, bw, 39, () => route('orbit'));
+    U.button('ship-journal', mobile ? 'DIARIO' : 'DIARIO DI ESPLORAZIONE', mobile ? 30 + bw : 267, h - 88, bw, 39, () => { S.journalTab = 'explore'; S.scroll = 0; route('journal'); });
+}
+function shipText() {
+    const board = onBoard(store.data, instrumentSections);
+    return `La nave da esplorazione. Strumenti a bordo: ${board.size} di ${INSTRUMENTS.length}. Modalità esploratore ${explorerMode(store.data) ? 'attiva: i dati fisici compaiono con gli strumenti' : 'disattivata: i dati fisici sono tutti visibili'}. ` + INSTRUMENTS.map(i => `${capital(i.name)}: misura ${i.measures}; rivela ${i.rows.join(', ')}. ${instrumentStatus(i).text}`).join(' ');
 }
 function journalUI() {
     const w = R.w, h = R.h, mobile = w < 850;
@@ -997,7 +1052,8 @@ function journalUI() {
     if (S.editing === 'notes' && Math.floor(performance.now() / 600) % 2 === 0)
         R.rect(x + 24, Math.min(yy, by + hh - 25), 2, 19, C.lime);
     const bottom = h - 156, bw = mobile ? (ww - 16) / 3 : 170;
-    U.button('edit-notes', 'SCRIVI', x, bottom, bw, 38, () => startEdit('notes'), { active: S.editing === 'notes', disabled: log });
+    if (log) U.button('open-ship', 'LA NAVE', x, bottom, bw, 38, () => route('ship'));
+    else U.button('edit-notes', 'SCRIVI', x, bottom, bw, 38, () => startEdit('notes'), { active: S.editing === 'notes' });
     U.button('save-notes', 'SALVA', x + bw + 8, bottom, bw, 38, () => finishEdit(true));
     U.button('export-journal', 'ESPORTA', x + 2 * (bw + 8), bottom, bw, 38, () => {
         if (S.editing === 'notes')
@@ -1125,7 +1181,7 @@ function draw() {
     scrim();
     common();
     syncBook();
-    const screens = { libro: () => {}, galaxy: galaxyUI, system: systemUI, orbit: orbitUI, surface: surfaceUI, research: researchUI, catalogue: catalogueUI, briefing: briefingUI, theory: theoryUI, pdf: pdfUI, lab: labUI, quiz: quizUI, journal: journalUI, sources: sourcesUI, mission: () => education.drawUI(U, S), pilot: () => pilotEducation.drawUI(U,S), paths: () => education.drawPathsUI(U,S) };
+    const screens = { libro: () => {}, ship: shipUI, galaxy: galaxyUI, system: systemUI, orbit: orbitUI, surface: surfaceUI, research: researchUI, catalogue: catalogueUI, briefing: briefingUI, theory: theoryUI, pdf: pdfUI, lab: labUI, quiz: quizUI, journal: journalUI, sources: sourcesUI, mission: () => education.drawUI(U, S), pilot: () => pilotEducation.drawUI(U,S), paths: () => education.drawPathsUI(U,S) };
     (screens[S.scene] || galaxyUI)();
     drawHover();
     overlay();
@@ -1188,11 +1244,11 @@ function syncSemantic() {
         if (e && document.activeElement !== e)
             e.value = b.value;
     }
-    const key = physicsOpen() ? 'physics-' + S.selected : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticKey():S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
+    const key = physicsOpen() ? 'physics-' + S.selected + '-' + store.data.updatedAt : S.scene === 'ship' ? 'ship-' + store.data.updatedAt + '-' + (S.shipPage || 0) : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticKey():S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
     if (key !== textSignature) {
         const el = document.querySelector('#semantic-text');
         if (el)
-            el.textContent = physicsOpen() ? 'Dati fisici del pianeta ' + selected().title + '. ' + physicsText(planetPhysics()[S.selected], speciesCount(S.selected)) : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndexes[docKey(S.pdfDoc)]?.[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
+            el.textContent = physicsOpen() ? 'Dati fisici del pianeta ' + selected().title + '. ' + physicsText(planetPhysics()[S.selected], speciesCount(S.selected), cardReveal()) : S.scene === 'ship' ? shipText() : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndexes[docKey(S.pdfDoc)]?.[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
         textSignature = key;
     }
 }
@@ -1401,6 +1457,8 @@ async function init() {
         const bookIndex = await json('content/libro/index.json');
         // Passages between systems, opened by reading the chapters and following the guided paths.
         passages = cleanPassages(await json('content/atlas/passages.json').catch(() => null));
+        // Chapter sections that bring each instrument of the ship on board.
+        instrumentSections = cleanInstrumentSections(await json('content/atlas/instruments.json').catch(() => null));
         book = new BookReader({
             index: bookIndex.capitoli, fetchText: async path => { const r = await fetch(asset(path)); if (!r.ok) throw Error('Capitolo mancante: ' + path); return r.text(); },
             onClose: () => backToParent(), onUnit: (unit, anchor) => openChapter(unit, anchor),
@@ -1439,7 +1497,7 @@ async function init() {
         computeLab();
         events();
         S.loaded = true;
-        window.GAIA = { version: '1.28.0-mappa', state: S, get atlas() { return atlas; }, get book() { return book; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes ? W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0) : W.surface.mesh.i.length/3, planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:UNIT_COUNT, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
+        window.GAIA = { version: '1.29.0-nave', state: S, get atlas() { return atlas; }, get book() { return book; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes ? W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0) : W.surface.mesh.i.length/3, planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:UNIT_COUNT, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
         U = new UI(R);
         pilotEducation = new MissionUI(R, store, missionDefinition, { state:S, route, openTheory, openPDF, download, say });
         education = new CourseUI(R,store,curriculum,{state:S,route,openCourse,openTheory,openPDF,openExternal,download,say,currentUnit:()=>selected().id});
