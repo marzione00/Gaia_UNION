@@ -1,4 +1,4 @@
-import { clamp, color } from '../renderer.js';
+import { clamp, color, project } from '../renderer.js';
 import { C, T, caseLabel, DISCIPLINE } from '../ui/toolkit.js';
 import { displayText, fittedRows } from '../education/course-ui.js';
 import { AtlasScene } from './atlas-scene.js';
@@ -109,10 +109,11 @@ export class AtlasUI {
         if(widths&&x-t.x>160){let trail=`Galassia ▸ ${DISCIPLINES[area.sector]} ▸ ${area.name}`;while(trail.includes(' ▸ ')&&R.textWidth(trail.toUpperCase(),'micro',.7)>x-t.x-16)trail=trail.slice(trail.indexOf(' ▸ ')+3);U.tag(trail,t.x,y+15,SECTOR_COLORS[area.sector]);}
         tabs.forEach(([id,label],i)=>{const w=widths?widths[i]:id==='access'?accessW:(t.w-accessW-gap*4)/4;
             this.button(U,id,label,x,y,w,()=>id==='guide'?this.startGuide():this.open(id),{active:this.sheet===id});if(id==='access')U.buttons.at(-1).label='Accessibilità: dimensione del testo, contrasto, movimento';this.rects[id]={x,y,w,h:44};x+=w+gap;});
+        const extra=this.extras(l);
         if(this.prefs.showLabels){const selected=this.hoverId??S.system,focus=S.sector>=0?S.sector:AREAS[S.system]?.sector,onPath=new Set((this.path?.units||[]).map(id=>{const m=this.catalogue.modules.find(m=>m.id===id);return m?systemForPlanet(m.planetIndex):-1;}));
             // Names of one arm at a time: the filtered discipline, or the one of the selected area.
             const show=i=>this.path?onPath.has(i):AREAS[i].sector===focus||i===this.hoverId;
-            const labels=placeLabels(this.world.projections,l.map,selected,s=>R.textWidth(s,'micro'),26,undefined,[l.controls,{x:l.map.x,y:l.map.y+l.map.h-52,w:Math.min(l.map.w,4*(l.compact||l.map.w<560?86:130)+18),h:52}],show);
+            const labels=placeLabels(this.world.projections,l.map,selected,s=>R.textWidth(s,'micro'),26,undefined,[l.controls,{x:l.map.x,y:l.map.y+l.map.h-52,w:Math.min(l.map.w,4*(l.compact||l.map.w<560?86:130)+18),h:52},...[extra.region,extra.core].filter(Boolean)],show);
             for(const p of labels){const sector=AREAS[p.index].sector,on=p.index===selected;R.roundRect(p.x,p.y,p.w,p.h,4,color(T.bg,.92));R.rect(p.x,p.y+4,2,p.h-8,SECTOR_COLORS[sector]);this.text(p.text,p.x+6,p.y+4,p.w-8,'micro',on?C.pale:SECTOR_COLORS[sector],1);}}
         this.legend(U,l);
         if(this.scene.edge){const e=this.scene.edge;this.text('CENTRA',clamp(e.x-28,l.map.x,l.map.x+l.map.w-60),clamp(e.y+18,l.map.y,l.map.y+l.map.h-18),64,'micro',C.amber,1);U.buttons.push({id:'atlas-offscreen',label:'Centra l’area selezionata, fuori campo',x:e.x-22,y:e.y-22,w:44,h:44,action:()=>this.focusSystem()});}
@@ -120,12 +121,27 @@ export class AtlasUI {
         else{// Exploration summary: top left of the map, below the controls when these sit in the top corner.
             const e=this.explored,top=l.controls.y<l.map.y+30,long=`ESPLORATI ${e.visited} DI ${e.systems} SISTEMI · PASSAGGI ${e.opened} DI ${e.passages}`,short=`SISTEMI ${e.visited}/${e.systems} · PASSAGGI ${e.opened}/${e.passages}`;
             const y=top?l.controls.y+l.controls.h+6:l.map.y+4,s=R.textWidth(long,'micro',.7)+16<=l.map.w-16?long:short,w=R.textWidth(s,'micro',.7)+16;
-            if(w<=l.map.w-8&&y+24<l.map.y+l.map.h-56){R.roundRect(l.map.x+4,y,w,24,4,color(T.bg,.88));U.tag(s,l.map.x+12,y+6,C.muted);}}
+            if(w<=l.map.w-8&&y+24<l.map.y+l.map.h-56){R.roundRect(l.map.x+4,y,w,24,4,color(T.bg,.88));U.tag(s,l.map.x+12,y+6,C.muted);}
+}
+        // The region of the highlighted arm, and the Nucleo di Gaia at the centre of the galaxy.
+        if(extra.region){const r=extra.region,k=S.sector;this.button(U,'region','Regione: '+DISCIPLINES[k],r.x,r.y,r.w,()=>{if(AREAS[S.system].sector!==k)this.selectSystem(AREAS.findIndex(a=>a.sector===k),true);this.api.route('region');});U.buttons.at(-1).label='Apri la regione del braccio della '+DISCIPLINES[k];}
+        if(extra.core){const c0=extra.core;R.roundRect(c0.dot[0]-5,c0.dot[1]-5,10,10,5,C.lime);this.button(U,'core',l.compact?'Nucleo':'Nucleo di Gaia',c0.x,c0.y,c0.w,()=>{S.gaiaTab='sintesi';S.gaiaPage=0;this.api.route('gaia');});U.buttons.at(-1).label='Nucleo di Gaia, al centro della galassia: mondi di sintesi e diagnosi di Lovelock';}
         this.card(U,c,l.compact||c.h<450);
         const entries=[['left','◂',()=>this.move(-.18)],['right','▸',()=>this.move(.18)],['minus','−',()=>this.api.zoom(1/.86)],['plus','+',()=>this.api.zoom(.86)],['center','Centra',()=>this.focusSystem()]];
         let kx=k.x;entries.forEach(([id,label,action])=>{const w=id==='center'?72:44;this.button(U,id,label,kx,k.y,w,action);kx+=w+6;});
         ['Ruota la mappa a sinistra','Ruota la mappa a destra','Allontana la camera','Avvicina la camera','Centra l’area selezionata'].forEach((label,i)=>{const b=U.buttons.find(b=>b.id==='atlas-'+entries[i][0]);if(b)b.label=label;});
     }
+    /** Places of the region button (with a discipline highlighted) and of the Nucleo di Gaia, the destination at
+     * the centre of the galaxy; each is left out when it would cover the controls, the legend or the other. */
+    extras(l){const S=this.S,m=l.map,hit=(a,b)=>a&&b&&a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y,out={region:null,core:null};
+        const legend={x:m.x,y:m.y+m.h-52,w:m.w,h:52},top=l.controls.y<m.y+30?l.controls.y+l.controls.h+6:m.y+4,chip={x:m.x+4,y:top,w:m.w-8,h:24};
+        if(!this.path&&S.sector>=0){const r={x:m.x+4,y:top+30,w:l.compact?168:220,h:44};if(r.y+r.h<legend.y-4)out.region=r;}
+        const p=this.world.vp&&project([0,0,0],this.world.vp,this.R.w,this.R.h),w=l.compact?104:160;
+        if(p&&p[2]>0&&!this.sheet&&this.world.cameraProgress===1&&contains(m,p[0],p[1]))for(const y of [p[1]+10,p[1]-54]){
+            const c={x:clamp(p[0]-w/2,m.x+4,m.x+m.w-w-4),y,w,h:44};
+            if(c.y>=m.y&&!hit(c,l.controls)&&!hit(c,legend)&&!hit(c,out.region)&&!hit(c,chip)){out.core={...c,dot:p};break;}
+        }
+        return out;}
     legend(U,l){const m=l.map,compact=l.compact||m.w<560,names=compact?['Mat','Fis','Chi','Bio']:['Matematica','Fisica','Chimica','Biologia'],bw=Math.min(compact?86:130,(m.w-18)/4),y=m.y+m.h-48,x0=m.x+(compact?0:8);
         names.forEach((name,i)=>{const x=x0+i*(bw+6),on=this.S.sector===i;this.button(U,'discipline-'+i,name,x,y,bw,()=>{this.S.sector=on?-1:i;this.page=0;if(!on&&this.catalogue.modules[this.S.selected]?.sector!==i)this.selectSystem(AREAS.findIndex(a=>a.sector===i),true);this.announce(on?'Tutte le discipline.':'Braccio della '+DISCIPLINES[i]+' evidenziato: la scheda mostra la sua prima area.');},{active:on});
             U.buttons.at(-1).label=on?'Mostra di nuovo tutte le discipline':'Evidenzia il braccio della '+DISCIPLINES[i];scaledText(this.R,'●',x+8,y+12,'mini',SECTOR_COLORS[i],1);});

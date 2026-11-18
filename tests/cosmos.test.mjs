@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {stars} from '../src/scene/data.js';
 import {buildSystems,MIN_STARS} from '../src/scene/systems.js';
-import {createCosmos,enrichCosmicStars,orderedVolumes,regionAt,volumeInterval,COSMIC_QUALITY,MAX_COSMIC_VOLUMES} from '../src/scene/cosmos.js';
+import {createCosmos,enrichCosmicStars,orderedVolumes,regionAt,volumeInterval,COSMIC_QUALITY,MAX_COSMIC_VOLUMES,COSMIC_FAMILIES,ARM_REGION,PERIPHERY_AREA,REGION_STAR_SHARE} from '../src/scene/cosmos.js';
 import {asteroidBelt,cometTail} from '../src/scene/minor-bodies.js';
 import {sphereMesh} from '../src/renderer.js';
 const points=stars(MIN_STARS),systems=buildSystems(points),cosmos=createCosmos(systems);
@@ -11,8 +11,13 @@ test('Cosmo: cinque regioni e quindici volumi stabili indipendenti dalla camera'
  for(const v of cosmos.volumes){assert.ok([...v.center,...v.axes,...v.color,v.strength,v.seed].every(Number.isFinite));assert.ok(v.axes.every(x=>x>0));}
  const before=JSON.stringify(cosmos);for(const eye of [[0,20,60],[10,0,0],[-20,3,-4]]){const sorted=orderedVolumes(cosmos,eye);assert.equal(sorted.length,15);assert.ok(Math.hypot(...sorted[0].center.map((x,i)=>x-eye[i]))>=Math.hypot(...sorted.at(-1).center.map((x,i)=>x-eye[i])));}assert.equal(JSON.stringify(cosmos),before);
 });
-test('Cosmo: tutti i sistemi hanno la medesima regione deterministica in ogni vista',()=>{
- for(const s of systems)assert.equal(cosmos.systems[s.id].region,regionAt(s.position,cosmos.regions).id);
+test('Cosmo: ogni braccio ha la sua nube, e la periferia sta in fondo al braccio della fisica',()=>{
+ for(const s of systems)assert.equal(cosmos.systems[s.id].region,s.id===PERIPHERY_AREA?4:ARM_REGION[s.sector]);
+ assert.deepEqual(ARM_REGION.map(r=>COSMIC_FAMILIES[r]),['Ammasso aperto','Nube a riflessione','Polveri interstellari','Formazione stellare']);
+ // Each arm cloud is closer to its own arm than to any other arm, on average over the arm.
+ for(let sector=0;sector<4;sector++){const mean=r=>{const arm=systems.filter(s=>s.sector===sector);return arm.reduce((a,s)=>a+Math.hypot(...s.position.map((x,k)=>x-cosmos.regions[r].center[k])),0)/arm.length;};for(let other=0;other<4;other++)if(other!==ARM_REGION[sector])assert.ok(mean(ARM_REGION[sector])<mean(other),sector+' '+other);}
+ assert.ok(Math.abs(REGION_STAR_SHARE.reduce((a,b)=>a+b,0)-1)<1e-12);assert.equal(Math.max(...REGION_STAR_SHARE),REGION_STAR_SHARE[ARM_REGION[0]]);
+ assert.equal(regionAt(cosmos.regions[3].center,cosmos.regions).id,3);
 });
 test('Cosmo: ammassi e stelle brillanti conservano 1M punti e tutte le 25 stelle navigabili',()=>{
  const a=points.slice(),b=points.slice();enrichCosmicStars(a,cosmos,systems);enrichCosmicStars(b,cosmos,systems);assert.deepEqual(a,b);assert.equal(a.length,MIN_STARS*7);assert.ok(a.every(Number.isFinite));

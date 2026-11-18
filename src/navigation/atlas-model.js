@@ -1,4 +1,5 @@
 /** Deterministic atlas navigation. No renderer, network, or inferred learning credit. */
+import { cleanVisited } from '../worlds/synthesis.js';
 import { systemForPlanet, AREAS, SYSTEM_COUNT } from '../scene/systems.js';
 export const DISCIPLINES = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
 export const TEXT_SCALES = [1, 1.2, 1.4];
@@ -14,7 +15,9 @@ export function cleanAtlas(value = {}) {
         recent: Array.isArray(value?.recent) ? [...new Set(value.recent.filter(safeId))].slice(0,12) : [],
         lastUnit: safeId(value?.lastUnit) ? value.lastUnit : null,
         guideDone: value?.guideDone === true,
-        showLabels: value?.showLabels !== false
+        showLabels: value?.showLabels !== false,
+        // Worlds of synthesis visited in the Nucleo di Gaia (src/worlds/synthesis.js).
+        core: cleanVisited(value?.core)
     };
 }
 export function searchModules(modules, query = '', sector = -1, path = null) {

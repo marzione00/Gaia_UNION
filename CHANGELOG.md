@@ -1,3 +1,11 @@
+# 1.33.0: Regioni dei bracci e mondi di sintesi
+
+- Ogni braccio della galassia ha la sua nube: un ammasso aperto per la Matematica, una nube a riflessione per la Fisica, polveri interstellari per la Chimica, una regione di formazione stellare per la Biologia; una nube tenue segna la periferia in fondo al braccio della Fisica. L'ammasso della Matematica riceve la quota più alta di stelle brillanti aggiunte.
+- Nuova scheda di regione (`#/region`), raggiungibile dalla mappa quando una disciplina è evidenziata e dall'avamposto: aree del braccio con avamposti, spedizioni e sezioni lette; corsie e porte di salto aperte; il cielo del braccio.
+- Il Nucleo di Gaia è una destinazione al centro della mappa, con un punto e un pulsante che aprono i mondi di sintesi.
+- Nuova scheda «Mondi di sintesi» nel Nucleo: Venere, Marte e la Terra dell'Archeano, con i dati delle schede NASA e delle fonti, ciò che ne dice il modello fisico del sito e la loro lettura nei termini di Lovelock. Per la Terra dell'Archeano il modello mostra il paradosso del Sole giovane e debole, con la luminosità della formula di Gough. Il diario conta i mondi visitati.
+- Documentazione in `docs/REGIONI.md`; aggiornati `docs/NUCLEO_GAIA.md` e `docs/COSMIC_ENVIRONMENT.md`. `tests/regions.test.mjs` verifica bracci, passaggi, formula di Gough, dati dei mondi e visite; `tests/cosmos.test.mjs` verifica le nubi dei bracci; i flussi applicativi aprono una regione e visitano due mondi.
+
 # 1.32.0: Gli avamposti di ricerca
 
 - Ognuno dei 30 sistemi ha un avamposto di ricerca (`#/outpost`), raggiungibile dalla vista del sistema. Riunisce ciò che lo studente ha fatto nell'area in tre schede: unità dell'area, spedizioni, esplorazione.
