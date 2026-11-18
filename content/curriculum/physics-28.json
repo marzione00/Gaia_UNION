@@ -1,0 +1,348 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "physics-28",
+  "title": "Interferenza e interferometri",
+  "sector": 1,
+  "modelId": "physics-28",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Principio di Huygens, fase e cammino ottico, coerenza, esperimento di Young, intensità delle frange, film sottili e trattamenti antiriflesso, interferometro di Michelson, esperimento di Michelson e Morley, rivelatori di onde gravitazionali LIGO e Virgo, interferometria astronomica ottica e radio, Event Horizon Telescope",
+  "narrativeStatus": "I dati provengono dagli articoli delle collaborazioni LIGO, Virgo, KAGRA ed Event Horizon Telescope, dagli esperimenti storici di Young, Michelson, Morley e Pease e dalle fonti citate nel capitolo.",
+  "objectives": [
+    "Collegare differenza di cammino, differenza di fase e tipo di interferenza.",
+    "Calcolare posizione e intensità delle frange di Young.",
+    "Applicare le condizioni dei film sottili e progettare uno strato antiriflesso.",
+    "Descrivere l’interferometro di Michelson, LIGO e la risoluzione λ/B degli interferometri astronomici."
+  ],
+  "prerequisites": [
+    "physics-27"
+  ],
+  "connections": [
+    "physics-17",
+    "physics-29",
+    "physics-36"
+  ],
+  "sources": [
+    "physics3",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Interferenza",
+      "definition": "Sovrapposizione di onde coerenti che si rinforzano o si annullano secondo la differenza di fase."
+    },
+    {
+      "term": "Coerenza",
+      "definition": "Relazione di fase costante nel tempo fra due onde, necessaria per osservare frange stabili."
+    },
+    {
+      "term": "Cammino ottico",
+      "definition": "Prodotto dello spessore attraversato per l’indice di rifrazione del mezzo."
+    },
+    {
+      "term": "Interferometro di Michelson",
+      "definition": "Strumento che divide un fascio lungo due bracci perpendicolari e lo ricombina su un rivelatore."
+    },
+    {
+      "term": "Onda gravitazionale",
+      "definition": "Perturbazione dello spazio-tempo che si propaga alla velocità della luce e cambia le distanze."
+    },
+    {
+      "term": "Base",
+      "definition": "Distanza fra due telescopi di un interferometro, che ne fissa la risoluzione, circa λ/B."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "Un righello di luce",
+      "text": {
+        "base": [
+          "Il 14 settembre 2015 i due rivelatori di LIGO registrarono a sette millesimi di secondo l’uno dall’altro il passaggio di un’onda gravitazionale, prodotta più di un miliardo di anni luce lontano dalla fusione di due buchi neri di circa 36 e 29 masse solari. L’onda aveva cambiato la lunghezza dei bracci di quattro chilometri di qualche millesimo del diametro di un protone.",
+          "Lo strumento che rende possibile una misura così piccola è l’interferometro: divide un fascio di luce, lo manda lungo due percorsi e poi lo ricompone. Due onde coerenti si rinforzano o si annullano secondo la differenza di cammino, e la lunghezza d’onda della luce diventa il righello. Questa unità parte dall’esperimento di Young e arriva ai radiotelescopi grandi come la Terra."
+        ],
+        "intermediate": [
+          "Il 14 settembre 2015 i due rivelatori di LIGO registrarono a sette millesimi di secondo l’uno dall’altro il passaggio di un’onda gravitazionale, prodotta più di un miliardo di anni luce lontano dalla fusione di due buchi neri di circa 36 e 29 masse solari. L’onda aveva cambiato la lunghezza dei bracci di quattro chilometri di qualche millesimo del diametro di un protone.",
+          "Lo strumento che rende possibile una misura così piccola è l’interferometro: divide un fascio di luce, lo manda lungo due percorsi e poi lo ricompone. Due onde coerenti si rinforzano o si annullano secondo la differenza di cammino, e la lunghezza d’onda della luce diventa il righello. Questa unità parte dall’esperimento di Young e arriva ai radiotelescopi grandi come la Terra."
+        ],
+        "advanced": [
+          "Il 14 settembre 2015 i due rivelatori di LIGO registrarono a sette millesimi di secondo l’uno dall’altro il passaggio di un’onda gravitazionale, prodotta più di un miliardo di anni luce lontano dalla fusione di due buchi neri di circa 36 e 29 masse solari. L’onda aveva cambiato la lunghezza dei bracci di quattro chilometri di qualche millesimo del diametro di un protone.",
+          "Lo strumento che rende possibile una misura così piccola è l’interferometro: divide un fascio di luce, lo manda lungo due percorsi e poi lo ricompone. Due onde coerenti si rinforzano o si annullano secondo la differenza di cammino, e la lunghezza d’onda della luce diventa il righello. Questa unità parte dall’esperimento di Young e arriva ai radiotelescopi grandi come la Terra.",
+          "L’interferenza si osserva soltanto con onde coerenti, ricavate dalla stessa sorgente. Due lampadine distinte producono treni d’onda con fasi casuali, e le frange si mediano a zero. La lunghezza di coerenza, circa λ²/Δλ, vale un micrometro per la luce bianca e può superare i chilometri per un laser stabilizzato."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Frange, film e interferometri",
+      "text": {
+        "base": [
+          "Nell’esperimento di Young due fenditure distanti d producono frange chiare dove d sin θ = mλ e scure dove la differenza di cammino è un numero dispari di mezze lunghezze d’onda. Per angoli piccoli le frange distano λD/d. Con 633 nm, d = 0,25 mm e D = 1 m distano circa 2,5 mm. L’intensità segue 4I₀ cos²(φ/2), con media 2I₀: l’energia si ridistribuisce senza perdite.",
+          "Nei film sottili la luce riflessa dalle due superfici interferisce: conta il cammino aggiuntivo 2nL e il salto di mezzo ciclo che avviene riflettendosi su un mezzo più rifrangente. Una bolla di sapone spessa 100 nm appare verde; uno strato di fluoruro di magnesio spesso un quarto di lunghezza d’onda nel materiale, circa 100 nm, elimina quasi tutti i riflessi delle lenti dei telescopi."
+        ],
+        "intermediate": [
+          "Nell’esperimento di Young due fenditure distanti d producono frange chiare dove d sin θ = mλ e scure dove la differenza di cammino è un numero dispari di mezze lunghezze d’onda. Per angoli piccoli le frange distano λD/d. Con 633 nm, d = 0,25 mm e D = 1 m distano circa 2,5 mm. L’intensità segue 4I₀ cos²(φ/2), con media 2I₀: l’energia si ridistribuisce senza perdite.",
+          "Nei film sottili la luce riflessa dalle due superfici interferisce: conta il cammino aggiuntivo 2nL e il salto di mezzo ciclo che avviene riflettendosi su un mezzo più rifrangente. Una bolla di sapone spessa 100 nm appare verde; uno strato di fluoruro di magnesio spesso un quarto di lunghezza d’onda nel materiale, circa 100 nm, elimina quasi tutti i riflessi delle lenti dei telescopi.",
+          "Nell’interferometro di Michelson la luce percorre due bracci perpendicolari e si ricombina sul rivelatore. Con differenza di cammino Δ l’intensità vale I₀ cos²(πΔ/λ); spostando uno specchio di λ/2 passa una frangia intera. Nel 1887 Michelson e Morley cercarono con questo strumento il moto della Terra nell’etere e trovarono meno di un ventesimo dell’effetto atteso."
+        ],
+        "advanced": [
+          "Nell’esperimento di Young due fenditure distanti d producono frange chiare dove d sin θ = mλ e scure dove la differenza di cammino è un numero dispari di mezze lunghezze d’onda. Per angoli piccoli le frange distano λD/d. Con 633 nm, d = 0,25 mm e D = 1 m distano circa 2,5 mm. L’intensità segue 4I₀ cos²(φ/2), con media 2I₀: l’energia si ridistribuisce senza perdite.",
+          "Nei film sottili la luce riflessa dalle due superfici interferisce: conta il cammino aggiuntivo 2nL e il salto di mezzo ciclo che avviene riflettendosi su un mezzo più rifrangente. Una bolla di sapone spessa 100 nm appare verde; uno strato di fluoruro di magnesio spesso un quarto di lunghezza d’onda nel materiale, circa 100 nm, elimina quasi tutti i riflessi delle lenti dei telescopi.",
+          "Nell’interferometro di Michelson la luce percorre due bracci perpendicolari e si ricombina sul rivelatore. Con differenza di cammino Δ l’intensità vale I₀ cos²(πΔ/λ); spostando uno specchio di λ/2 passa una frangia intera. Nel 1887 Michelson e Morley cercarono con questo strumento il moto della Terra nell’etere e trovarono meno di un ventesimo dell’effetto atteso.",
+          "Un interferometro astronomico con base B ha risoluzione circa λ/B. Michelson e Pease misurarono così nel 1920 il diametro di Betelgeuse, circa 0,047 secondi d’arco. L’Event Horizon Telescope, con basi di quasi 11 000 km a 1,3 mm, raggiunge circa 25 milionesimi di secondo d’arco e ha fotografato le ombre dei buchi neri di M87, nel 2019, e della Via Lattea, nel 2022."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Il laboratorio di Michelson",
+      "text": {
+        "base": [
+          "Nel laboratorio il grafico mostra l’intensità all’uscita di un interferometro di Michelson ideale, in unità del massimo, in funzione della differenza di cammino Δ fra i due bracci, da 0 a 2000 nanometri. Nella scheda «Regola» cambi la lunghezza d’onda del laser da 400 a 1100 nm. Il valore predefinito, 1064 nm, è quello dei laser di LIGO e Virgo: con Δ = 266 nm l’intensità è metà del massimo.",
+          "Protocollo. Il programma confronta due differenze di cammino fissate, 500 e 1000 nanometri. Con λ = 1064 nm prevedi se l’intensità cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta la lunghezza d’onda a 532 nm, la luce verde dei laser duplicati in frequenza, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con 1064 nm l’intensità passa da circa 0,009 a 0,965: da quasi una frangia scura a quasi una chiara, perché 500 nm sono quasi mezza lunghezza d’onda e 1000 nm quasi una intera. Con 532 nm passa da circa 0,965 a 0,864 e diminuisce. Lo stesso cammino corrisponde a fasi diverse per lunghezze d’onda diverse: per questo la luce bianca dà frange colorate."
+        ],
+        "intermediate": [
+          "Nel laboratorio il grafico mostra l’intensità all’uscita di un interferometro di Michelson ideale, in unità del massimo, in funzione della differenza di cammino Δ fra i due bracci, da 0 a 2000 nanometri. Nella scheda «Regola» cambi la lunghezza d’onda del laser da 400 a 1100 nm. Il valore predefinito, 1064 nm, è quello dei laser di LIGO e Virgo: con Δ = 266 nm l’intensità è metà del massimo.",
+          "Protocollo. Il programma confronta due differenze di cammino fissate, 500 e 1000 nanometri. Con λ = 1064 nm prevedi se l’intensità cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta la lunghezza d’onda a 532 nm, la luce verde dei laser duplicati in frequenza, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con 1064 nm l’intensità passa da circa 0,009 a 0,965: da quasi una frangia scura a quasi una chiara, perché 500 nm sono quasi mezza lunghezza d’onda e 1000 nm quasi una intera. Con 532 nm passa da circa 0,965 a 0,864 e diminuisce. Lo stesso cammino corrisponde a fasi diverse per lunghezze d’onda diverse: per questo la luce bianca dà frange colorate."
+        ],
+        "advanced": [
+          "Nel laboratorio il grafico mostra l’intensità all’uscita di un interferometro di Michelson ideale, in unità del massimo, in funzione della differenza di cammino Δ fra i due bracci, da 0 a 2000 nanometri. Nella scheda «Regola» cambi la lunghezza d’onda del laser da 400 a 1100 nm. Il valore predefinito, 1064 nm, è quello dei laser di LIGO e Virgo: con Δ = 266 nm l’intensità è metà del massimo.",
+          "Protocollo. Il programma confronta due differenze di cammino fissate, 500 e 1000 nanometri. Con λ = 1064 nm prevedi se l’intensità cresce, diminuisce o resta uguale passando dalla prima alla seconda e salva A. Poi porta la lunghezza d’onda a 532 nm, la luce verde dei laser duplicati in frequenza, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con 1064 nm l’intensità passa da circa 0,009 a 0,965: da quasi una frangia scura a quasi una chiara, perché 500 nm sono quasi mezza lunghezza d’onda e 1000 nm quasi una intera. Con 532 nm passa da circa 0,965 a 0,864 e diminuisce. Lo stesso cammino corrisponde a fasi diverse per lunghezze d’onda diverse: per questo la luce bianca dà frange colorate.",
+          "Una prova a casa: due righe parallele incise con due lamette affiancate su un vetrino annerito dalla fiamma di una candela, illuminate con un puntatore laser di classe 2, danno frange visibili su una parete a due o tre metri. Misurando la distanza fra dieci frange e quella fra le fenditure si ricava la lunghezza d’onda del laser con λ = dΔy/D. Il laser non va mai puntato verso gli occhi."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Errori e limiti",
+      "text": {
+        "base": [
+          "Errore frequente: pensare che l’interferenza distruttiva distrugga energia. Nelle frange scure l’energia manca perché si trova nelle frange chiare; in un interferometro di Michelson la luce che manca a un’uscita esce dall’altra, verso il laser. Secondo errore: aspettarsi interferenza fra due sorgenti indipendenti, che hanno fasi casuali.",
+          "Terzo errore: dimenticare il salto di fase nella riflessione su un mezzo più rifrangente, che scambia le condizioni di massimo e di minimo fra una bolla di sapone e un trattamento antiriflesso. Quarto errore: credere che un interferometro astronomico raccolga la luce di un telescopio grande quanto la base. Raggiunge la risoluzione di quel telescopio, ma raccoglie soltanto la luce delle sue antenne."
+        ],
+        "intermediate": [
+          "Errore frequente: pensare che l’interferenza distruttiva distrugga energia. Nelle frange scure l’energia manca perché si trova nelle frange chiare; in un interferometro di Michelson la luce che manca a un’uscita esce dall’altra, verso il laser. Secondo errore: aspettarsi interferenza fra due sorgenti indipendenti, che hanno fasi casuali.",
+          "Terzo errore: dimenticare il salto di fase nella riflessione su un mezzo più rifrangente, che scambia le condizioni di massimo e di minimo fra una bolla di sapone e un trattamento antiriflesso. Quarto errore: credere che un interferometro astronomico raccolga la luce di un telescopio grande quanto la base. Raggiunge la risoluzione di quel telescopio, ma raccoglie soltanto la luce delle sue antenne.",
+          "Il modello del laboratorio descrive un interferometro ideale con fasci di uguale intensità, luce perfettamente monocromatica e specchi perfetti. Trascura la lunghezza di coerenza finita, le perdite, il rumore dei fotoni e le vibrazioni. Nei rivelatori di onde gravitazionali proprio questi effetti, insieme al rumore termico degli specchi, fissano la sensibilità."
+        ],
+        "advanced": [
+          "Errore frequente: pensare che l’interferenza distruttiva distrugga energia. Nelle frange scure l’energia manca perché si trova nelle frange chiare; in un interferometro di Michelson la luce che manca a un’uscita esce dall’altra, verso il laser. Secondo errore: aspettarsi interferenza fra due sorgenti indipendenti, che hanno fasi casuali.",
+          "Terzo errore: dimenticare il salto di fase nella riflessione su un mezzo più rifrangente, che scambia le condizioni di massimo e di minimo fra una bolla di sapone e un trattamento antiriflesso. Quarto errore: credere che un interferometro astronomico raccolga la luce di un telescopio grande quanto la base. Raggiunge la risoluzione di quel telescopio, ma raccoglie soltanto la luce delle sue antenne.",
+          "Il modello del laboratorio descrive un interferometro ideale con fasci di uguale intensità, luce perfettamente monocromatica e specchi perfetti. Trascura la lunghezza di coerenza finita, le perdite, il rumore dei fotoni e le vibrazioni. Nei rivelatori di onde gravitazionali proprio questi effetti, insieme al rumore termico degli specchi, fissano la sensibilità.",
+          "Approfondimento: in LIGO un’onda con deformazione h = 10⁻²¹ cambia la differenza fra i bracci di 4 km di circa 4·10⁻¹⁸ m. Per misurarla la luce rimbalza alcune centinaia di volte in cavità lungo i bracci, nelle cavità circolano centinaia di kilowatt e gli specchi di 40 kg sono sospesi a pendoli multipli nel vuoto. Il catalogo dell’agosto 2025 conta 218 candidati."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica",
+      "text": {
+        "base": [
+          "Ripasso: differenza di fase e cammino ottico; coerenza e lunghezza di coerenza; frange di Young, d sin θ = mλ e Δy = λD/d; intensità 4I₀ cos²(φ/2); film sottili e salti di fase; trattamenti antiriflesso; interferometro di Michelson; esperimento di Michelson e Morley; LIGO, Virgo e GW150914; risoluzione λ/B e Event Horizon Telescope.",
+          "Mini esercizio: spostando uno specchio dell’interferometro di 0,10 mm con un laser di 633 nm passano circa 316 frange.",
+          "Nelle domande ricorda che una differenza di cammino di mezza lunghezza d’onda dà una frangia scura e che la risoluzione di un interferometro è circa λ/B."
+        ],
+        "intermediate": [
+          "Ripasso: differenza di fase e cammino ottico; coerenza e lunghezza di coerenza; frange di Young, d sin θ = mλ e Δy = λD/d; intensità 4I₀ cos²(φ/2); film sottili e salti di fase; trattamenti antiriflesso; interferometro di Michelson; esperimento di Michelson e Morley; LIGO, Virgo e GW150914; risoluzione λ/B e Event Horizon Telescope.",
+          "Mini esercizio: spostando uno specchio dell’interferometro di 0,10 mm con un laser di 633 nm passano circa 316 frange.",
+          "Nelle domande ricorda che una differenza di cammino di mezza lunghezza d’onda dà una frangia scura e che la risoluzione di un interferometro è circa λ/B."
+        ],
+        "advanced": [
+          "Ripasso: differenza di fase e cammino ottico; coerenza e lunghezza di coerenza; frange di Young, d sin θ = mλ e Δy = λD/d; intensità 4I₀ cos²(φ/2); film sottili e salti di fase; trattamenti antiriflesso; interferometro di Michelson; esperimento di Michelson e Morley; LIGO, Virgo e GW150914; risoluzione λ/B e Event Horizon Telescope.",
+          "Mini esercizio: spostando uno specchio dell’interferometro di 0,10 mm con un laser di 633 nm passano circa 316 frange.",
+          "Nelle domande ricorda che una differenza di cammino di mezza lunghezza d’onda dà una frangia scura e che la risoluzione di un interferometro è circa λ/B."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Collegamenti",
+      "text": {
+        "base": [
+          "La sovrapposizione delle onde è introdotta in «Onde e sovrapposizione»; la luce come onda elettromagnetica in «Onde elettromagnetiche e pressione della luce». Il limite di risoluzione dei singoli telescopi è il tema di «Diffrazione e potere risolutivo»; il risultato nullo di Michelson e Morley apre «Relatività ristretta».",
+          "Riepilogo dell’unità: principio di Huygens; fase, cammino ottico e coerenza; esperimento di Young e misura della lunghezza d’onda; intensità e visibilità delle frange; film sottili, bolle di sapone e trattamenti antiriflesso; filtri interferenziali; interferometro di Michelson; onde gravitazionali, LIGO, Virgo, KAGRA e LISA; interferometri ottici e radio; VLBI ed Event Horizon Telescope.",
+          "Nel diario registra A e B con le previsioni e calcola la più piccola differenza di cammino, diversa da zero, per cui entrambe le lunghezze d’onda danno una frangia chiara: 1064 nm, perché è un multiplo intero sia di 1064 sia di 532 nm."
+        ],
+        "intermediate": [
+          "La sovrapposizione delle onde è introdotta in «Onde e sovrapposizione»; la luce come onda elettromagnetica in «Onde elettromagnetiche e pressione della luce». Il limite di risoluzione dei singoli telescopi è il tema di «Diffrazione e potere risolutivo»; il risultato nullo di Michelson e Morley apre «Relatività ristretta».",
+          "Riepilogo dell’unità: principio di Huygens; fase, cammino ottico e coerenza; esperimento di Young e misura della lunghezza d’onda; intensità e visibilità delle frange; film sottili, bolle di sapone e trattamenti antiriflesso; filtri interferenziali; interferometro di Michelson; onde gravitazionali, LIGO, Virgo, KAGRA e LISA; interferometri ottici e radio; VLBI ed Event Horizon Telescope.",
+          "Nel diario registra A e B con le previsioni e calcola la più piccola differenza di cammino, diversa da zero, per cui entrambe le lunghezze d’onda danno una frangia chiara: 1064 nm, perché è un multiplo intero sia di 1064 sia di 532 nm."
+        ],
+        "advanced": [
+          "La sovrapposizione delle onde è introdotta in «Onde e sovrapposizione»; la luce come onda elettromagnetica in «Onde elettromagnetiche e pressione della luce». Il limite di risoluzione dei singoli telescopi è il tema di «Diffrazione e potere risolutivo»; il risultato nullo di Michelson e Morley apre «Relatività ristretta».",
+          "Riepilogo dell’unità: principio di Huygens; fase, cammino ottico e coerenza; esperimento di Young e misura della lunghezza d’onda; intensità e visibilità delle frange; film sottili, bolle di sapone e trattamenti antiriflesso; filtri interferenziali; interferometro di Michelson; onde gravitazionali, LIGO, Virgo, KAGRA e LISA; interferometri ottici e radio; VLBI ed Event Horizon Telescope.",
+          "Nel diario registra A e B con le previsioni e calcola la più piccola differenza di cammino, diversa da zero, per cui entrambe le lunghezze d’onda danno una frangia chiara: 1064 nm, perché è un multiplo intero sia di 1064 sia di 532 nm."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "physics-28-q1",
+      "prompt": "Due onde coerenti arrivano in un punto con differenza di cammino di mezza lunghezza d’onda. Si osserva:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Una frangia scura",
+          "feedback": "Esatto: le onde arrivano in opposizione di fase e si annullano."
+        },
+        {
+          "id": "B",
+          "text": "Una frangia chiara",
+          "feedback": "La frangia chiara richiede un numero intero di lunghezze d’onda."
+        },
+        {
+          "id": "C",
+          "text": "Metà dell’intensità massima",
+          "feedback": "Metà del massimo corrisponde a un quarto di lunghezza d’onda."
+        },
+        {
+          "id": "D",
+          "text": "Il doppio dell’intensità di una sola onda",
+          "feedback": "Il doppio è la media sulle frange; in quel punto l’intensità è nulla."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-28-q2",
+      "prompt": "Nell’esperimento di Young, avvicinando le due fenditure la distanza fra le frange:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Diminuisce",
+          "feedback": "La distanza λD/d cresce quando d diminuisce."
+        },
+        {
+          "id": "B",
+          "text": "Aumenta",
+          "feedback": "Esatto: le frange distano λD/d, inversamente proporzionale a d."
+        },
+        {
+          "id": "C",
+          "text": "Resta uguale",
+          "feedback": "La distanza fra le frange dipende dalla distanza fra le fenditure."
+        },
+        {
+          "id": "D",
+          "text": "Si annulla",
+          "feedback": "Le frange restano, e diventano più distanziate."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "physics-28-q3",
+      "prompt": "Perché due lampadine distinte non producono frange visibili?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché la loro luce è troppo debole",
+          "feedback": "Anche lampade intense danno frange che cambiano miliardi di volte al secondo."
+        },
+        {
+          "id": "B",
+          "text": "Perché le fasi delle loro onde cambiano a caso nel tempo",
+          "feedback": "Esatto: senza coerenza le frange si spostano di continuo e si mediano a zero."
+        },
+        {
+          "id": "C",
+          "text": "Perché emettono luce polarizzata",
+          "feedback": "La polarizzazione influisce sul contrasto, ma il problema è la coerenza."
+        },
+        {
+          "id": "D",
+          "text": "Perché la luce visibile non interferisce",
+          "feedback": "La luce visibile interferisce, come mostrano le bolle di sapone."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "physics-28-q4",
+      "prompt": "Uno strato antiriflesso di fluoruro di magnesio per 550 nm ha spessore circa:",
+      "options": [
+        {
+          "id": "A",
+          "text": "100 nm",
+          "feedback": "Esatto: un quarto della lunghezza d’onda nel materiale, 550/(4·1,38)."
+        },
+        {
+          "id": "B",
+          "text": "550 nm",
+          "feedback": "Uno strato spesso una lunghezza d’onda rinforzerebbe la riflessione."
+        },
+        {
+          "id": "C",
+          "text": "275 nm",
+          "feedback": "Mezza lunghezza d’onda nel vuoto darebbe un cammino aggiuntivo sbagliato."
+        },
+        {
+          "id": "D",
+          "text": "1 mm",
+          "feedback": "Gli strati antiriflesso sono migliaia di volte più sottili."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-28-q5",
+      "prompt": "In un interferometro di Michelson uno specchio si sposta di λ/2. Al rivelatore:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Passa una frangia intera",
+          "feedback": "Esatto: la differenza di cammino cambia di una lunghezza d’onda, perché il braccio è percorso due volte."
+        },
+        {
+          "id": "B",
+          "text": "Passa mezza frangia",
+          "feedback": "Mezza frangia corrisponde a uno spostamento di λ/4."
+        },
+        {
+          "id": "C",
+          "text": "Non cambia nulla",
+          "feedback": "Ogni spostamento dello specchio cambia la differenza di cammino."
+        },
+        {
+          "id": "D",
+          "text": "Passano due frange",
+          "feedback": "Due frange richiedono uno spostamento di una lunghezza d’onda intera."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-28-q6",
+      "prompt": "Un interferometro con base doppia, alla stessa lunghezza d’onda, ha una risoluzione:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Due volte più fine",
+          "feedback": "Esatto: l’angolo minimo vale circa λ/B e si dimezza."
+        },
+        {
+          "id": "B",
+          "text": "Due volte più grossolana",
+          "feedback": "Una base maggiore permette di distinguere dettagli più fini."
+        },
+        {
+          "id": "C",
+          "text": "Quattro volte più fine",
+          "feedback": "La dipendenza dalla base è lineare, senza il quadrato."
+        },
+        {
+          "id": "D",
+          "text": "Uguale",
+          "feedback": "La base è proprio la grandezza che fissa la risoluzione."
+        }
+      ],
+      "correct": "A"
+    }
+  ]
+}

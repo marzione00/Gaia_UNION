@@ -90,6 +90,32 @@ La conversione mantiene il testo della dispensa e cambia soltanto la forma: riqu
 
 I test controllano per ogni capitolo generato: formato, apertura, esercizi e fonti; soluzioni presenti e livelli diversi; rimandi validi; formule bilanciate; assenza di comandi LaTeX fuori dalle formule; figure SVG ben formate, con identificatori unici sulla pagina e tutte usate; regole di stile sul testo scritto per il sito; risultati numerici delle sezioni aggiunte, ricalcolati.
 
+## Unità di astrofisica del volume di fisica
+
+Dalla 1.26.0 il volume di fisica conta 40 capitoli. Ai 25 capitoli tratti dalla dispensa si aggiungono quindici unità orientate all'astrofisica, in tre nuovi sistemi stellari: «Luce e telescopi» (unità 26-30), «Campi e plasmi nello spazio» (31-35) e «Dalla relatività al Big Bang» (36-40). I capitoli sono scritti per il sito. Il manuale di D. Halliday, R. Resnick e J. Walker, *Fundamentals of Physics* (12ª edizione estesa, Wiley, 2022), è protetto da diritto d'autore e serve soltanto per la scelta e l'ordine degli argomenti: testi, figure, tabelle, esempi ed esercizi sono originali, e ogni capitolo cita nella sezione «Fonti» i moduli consultati. I dati vengono da articoli originali, dai risultati delle missioni spaziali e dei grandi esperimenti e da raccolte di riferimento come CODATA, NIST Atomic Spectra Database, AME2020 e NUBASE2020, Particle Data Group e i parametri cosmologici di Planck, aggiornati al 2026.
+
+I quindici capitoli contano circa 87.000 parole, 90 figure e 240 esercizi risolti. Ogni capitolo ha almeno 5000 parole, dodici sezioni, sei figure e sedici esercizi, con almeno sei esercizi di base, sei di livello medio e quattro avanzati, e comprende un'esperienza da svolgere a casa o in classe, errori frequenti, sintesi, glossario e fonti. Le figure sono disegnate nel capitolo da una descrizione JSON (`src/book/figures.js`).
+
+| unità | capitolo | Halliday, Resnick, Walker, moduli |
+|---|---|---|
+| 26 | Onde elettromagnetiche e pressione della luce | 33.1-33.4 |
+| 27 | Specchi, lenti e telescopi | 33.5-33.7, 34.1-34.5 |
+| 28 | Interferenza e interferometri | 35.1-35.5 |
+| 29 | Diffrazione e potere risolutivo | 36.1-36.7 |
+| 30 | Radiazione termica e luce delle stelle | 18.6, 38.1, 38.4 |
+| 31 | Legge di Gauss: gusci, pianeti e condensatori | 13.4, 23.1-23.6, 25.1-25.5 |
+| 32 | Particelle cariche nei campi magnetici | 28.1-28.5 |
+| 33 | Correnti, dipoli e dinamo dei pianeti | 28.7-28.8, 29.1-29.5 |
+| 34 | Induzione, circuiti oscillanti e radio | 30.1-30.9, 31.1-31.5 |
+| 35 | Equazioni di Maxwell e magnetismo della materia | 32.1-32.8 |
+| 36 | Relatività ristretta | 37.1-37.6 |
+| 37 | Onde di materia, atomi e righe spettrali | 38.5-38.7, 39.1-39.5, 40.1-40.7 |
+| 38 | Nuclei, decadimenti e datazioni | 42.1-42.8 |
+| 39 | Energia dal nucleo: fusione nelle stelle | 38.9, 43.1-43.6 |
+| 40 | Particelle, espansione e Big Bang | 44.1-44.4 |
+
+I test del volume, in `tests/fisica.test.mjs`, controllano che i quindici capitoli esistano e siano completi, con formato, lunghezza minima, sezioni, figure, esercizi e livelli, rimandi, formule bilanciate e regole di stile; un test per capitolo ricalcola i numeri del testo e delle soluzioni degli esercizi e i valori del laboratorio citati nel percorso guidato.
+
 ## Volume di chimica
 
 Il volume di chimica non dispone di una dispensa del corso: i capitoli sono scritti per il sito. Il manuale di R. H. Petrucci, F. G. Herring, J. D. Madura e C. Bissonnette, *General Chemistry: Principles and Modern Applications* (11ª edizione, Pearson Canada, 2017), è protetto da diritto d'autore e serve soltanto come riferimento per la scelta e l'ordine degli argomenti e per controllare definizioni e risultati. Dal manuale non si riprendono testi, figure, tabelle, esempi o esercizi, neppure tradotti; i capitoli lo citano nella sezione «Fonti» con i paragrafi consultati. Costanti e pesi atomici si prendono dalle fonti primarie: BIPM per le definizioni del SI, CODATA per le costanti misurate, CIAAW per i pesi atomici standard.

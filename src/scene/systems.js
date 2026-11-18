@@ -32,7 +32,10 @@ export const AREAS = Object.freeze([
     { key:'bio-popolazioni', sector:3, name:'Vita ai limiti', units:[92, 93, 94, 95] },
     { key:'bio-ecosistemi', sector:3, name:'Pianeti abitabili', units:[96, 97, 98, 99] },
     { key:'bio-sistema-solare', sector:3, name:'Mondi del sistema solare', units:[100, 101, 102, 103, 104] },
-    { key:'bio-galassia', sector:3, name:'Cercare la vita nella galassia', units:[105, 106, 107, 108, 109] }
+    { key:'bio-galassia', sector:3, name:'Cercare la vita nella galassia', units:[105, 106, 107, 108, 109] },
+    { key:'fis-luce', sector:1, name:'Luce e telescopi', units:[110, 111, 112, 113, 114] },
+    { key:'fis-campi', sector:1, name:'Campi e plasmi nello spazio', units:[115, 116, 117, 118, 119] },
+    { key:'fis-cosmo', sector:1, name:'Dalla relatività al Big Bang', units:[120, 121, 122, 123, 124] }
 ]);
 /** Number of star systems (one per area) and of explorable planets (one per unit). */
 export const SYSTEM_COUNT = AREAS.length;
@@ -51,8 +54,12 @@ export function unitPlace(index) { const area = areaOf(index); return { position
 // meadows for Daisyworld (99). The solar-system area mirrors its subjects: desert and barren worlds for
 // Mars (100, 101), ice for Europa (102), an ocean for Enceladus (103), hills and rivers for Titan (104).
 // The galaxy area (105-109) uses the families that keep every pair of planets above the minimum distance.
+// The three astrophysics areas of physics (110-124) take the families found by a search that keeps the
+// minimum distance between any two planets at its previous value.
 const UNIT_ANCHORS = { 1:'oceanic', 2:'desert', 3:'volcanic', 7:'terrestrial', 0:'arctic', 57:'volcanic', 83:'terrestrial', 20:'oceanic', 36:'oceanic', 69:'volcanic', 99:'terrestrial',
-    100:'desert', 101:'barren', 102:'arctic', 103:'oceanic', 104:'terrestrial', 105:'volcanic', 106:'oceanic', 107:'terrestrial', 108:'desert', 109:'barren' };
+    100:'desert', 101:'barren', 102:'arctic', 103:'oceanic', 104:'terrestrial', 105:'volcanic', 106:'oceanic', 107:'terrestrial', 108:'desert', 109:'barren',
+    110:'terrestrial', 111:'oceanic', 112:'desert', 113:'barren', 114:'arctic', 115:'terrestrial', 116:'oceanic', 117:'desert', 118:'barren', 119:'arctic',
+    120:'terrestrial', 121:'arctic', 122:'desert', 123:'volcanic', 124:'oceanic' };
 
 export const SYSTEM_SEED = 0x47414941;
 const architectureCache=new Map();

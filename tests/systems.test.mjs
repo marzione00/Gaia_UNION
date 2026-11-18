@@ -6,18 +6,18 @@ import {fresh,cleanState} from '../src/store.js';import {resolveRoute} from '../
 import {GPU,project} from '../src/renderer.js';import {World} from '../src/scene/world.js';
 const modules=JSON.parse(fs.readFileSync(new URL('../content/catalogue.json',import.meta.url))).modules;
 const points=stars(MIN_STARS),systems=buildSystems(points,modules);
-test('Sistemi: 27 stelle navigabili appartengono allo stesso buffer da un milione',()=>{
- assert.equal(systems.length,27);assert.equal(new Set(systems.map(s=>s.starIndex)).size,27);
+test('Sistemi: 30 stelle navigabili appartengono allo stesso buffer da un milione',()=>{
+ assert.equal(systems.length,30);assert.equal(new Set(systems.map(s=>s.starIndex)).size,30);
  for(const s of systems){assert.deepEqual(s.position,Array.from(points.slice(s.starIndex*7,s.starIndex*7+3)));assert.ok(s.planets.length>=3&&s.planets.length<=6);assert.equal(s.available,s.planets.length);}
  assert.throws(()=>buildSystems(stars(250000),modules),/1.000.000/);
 });
-test('Sistemi: tutte le 110 unità compaiono una volta, un\u2019area per sistema e un braccio per disciplina',()=>{
- const all=systems.flatMap(s=>s.planets);assert.equal(all.length,110);assert.equal(new Set(all).size,110);assert.equal(Math.min(...all),0);assert.equal(Math.max(...all),109);
+test('Sistemi: tutte le 125 unità compaiono una volta, un\u2019area per sistema e un braccio per disciplina',()=>{
+ const all=systems.flatMap(s=>s.planets);assert.equal(all.length,125);assert.equal(new Set(all).size,125);assert.equal(Math.min(...all),0);assert.equal(Math.max(...all),124);
  for(const s of systems){assert.ok(s.planets.every(i=>modules[i].sector===s.sector));assert.equal(s.name,AREAS[s.id].name);}
- assert.deepEqual([0,1,2,3].map(k=>systems.filter(s=>s.sector===k).length),[6,6,6,9]);
+ assert.deepEqual([0,1,2,3].map(k=>systems.filter(s=>s.sector===k).length),[6,9,6,9]);
  for(let k=0;k<4;k++){const arm=systems.filter(s=>s.sector===k),r=arm.map(s=>Math.hypot(s.position[0],s.position[2]));for(let j=1;j<r.length;j++)assert.ok(r[j]>r[j-1],'area '+arm[j].name+' oltre la precedente');
   for(const [j,s] of arm.entries()){const expected=k*Math.PI/2+1.85*Math.log(r[j]+1),delta=Math.atan2(Math.sin(Math.atan2(s.position[2],s.position[0])-expected),Math.cos(Math.atan2(s.position[2],s.position[0])-expected));assert.ok(Math.abs(delta)<.6,'area '+s.name+' sul suo braccio');}}
- for(let i=0;i<110;i++)assert.ok(indicesForSystem(systemForPlanet(i)).includes(i));
+ for(let i=0;i<125;i++)assert.ok(indicesForSystem(systemForPlanet(i)).includes(i));
 });
 test('Sistemi: evidenziare una stella conserva tutte le coordinate XYZ',()=>{
  const a=points.slice();highlightSystemStars(a,systems);
@@ -25,7 +25,7 @@ test('Sistemi: evidenziare una stella conserva tutte le coordinate XYZ',()=>{
  assert.ok(systems.every(s=>a[s.starIndex*7+6]===11));
 });
 test('Sistemi: orbite tridimensionali continue e separate dalla galassia',()=>{
- for(let i=0;i<110;i++){const a=systemPlanet(i,10),b=systemPlanet(i,10.016);assert.ok(Math.hypot(...a.position)>=a.orbit*(1-a.eccentricity)-1e-10&&Math.hypot(...a.position)<=a.orbit*(1+a.eccentricity)+1e-10);assert.ok(Math.hypot(...a.position.map((v,j)=>v-b.position[j]))<.01);assert.ok(a.radius<a.orbit/3);}
+ for(let i=0;i<125;i++){const a=systemPlanet(i,10),b=systemPlanet(i,10.016);assert.ok(Math.hypot(...a.position)>=a.orbit*(1-a.eccentricity)-1e-10&&Math.hypot(...a.position)<=a.orbit*(1+a.eccentricity)+1e-10);assert.ok(Math.hypot(...a.position.map((v,j)=>v-b.position[j]))<.01);assert.ok(a.radius<a.orbit/3);}
 });
 test('Hover: ritardo, cambio bersaglio, uscita e blocco durante trascinamento',()=>{
  const hover=new HoverTarget(130),a={type:'system',index:7},b={type:'system',index:8};assert.equal(hover.update(a,0),null);assert.equal(hover.update(a,129),null);assert.equal(hover.update(a,130),a);assert.equal(hover.update(b,140),null);assert.equal(hover.update(b,300),b);assert.equal(hover.update(b,301,true),null);assert.equal(hover.update(null,302),null);
@@ -43,7 +43,7 @@ test('Archivio: i vecchi budget diventano qualità effetti, mai meno stelle',()=
 test('Rotte: sistema nel permalink, compatibilità dei pianeti e parametri malformati',()=>{
  const resolve=hash=>resolveRoute(hash,modules,['math-c08','gaia']);
  assert.equal(resolve('#/system?system=12').system,12);assert.equal(resolve('#/system?system=12').selected,50);
- assert.equal(resolve('#/system?system=NaN').system,2);assert.equal(resolve('#/system?system=10000').system,26);
+ assert.equal(resolve('#/system?system=NaN').system,2);assert.equal(resolve('#/system?system=10000').system,29);
  assert.equal(resolve('#/orbit?unit=biology-08').system,20);assert.equal(resolve('#/planet/math-c08').scene,'orbit');
 });
 test('Renderer: la chiamata GPU invia un milione di punti, i budget minori sono rifiutati',()=>{

@@ -32,8 +32,9 @@ const PILOT_STYLES = { 20: 'atollo', 36: 'arcipelago', 69: 'vulcani', 99: 'colli
 
 /** One star type per system: a balanced set of the five types for the first 25 systems, shuffled with a
  * fixed seed, then a yellow dwarf for the solar-system area and a red dwarf for the search for life in the
- * galaxy, the most common host of known small planets. */
-export const EXTRA_STARS = Object.freeze(['G', 'M']);
+ * galaxy, the most common host of known small planets. The three astrophysics systems of physics take an A star
+ * for light and telescopes, a K dwarf for fields and plasmas and an F star for relativity and cosmology. */
+export const EXTRA_STARS = Object.freeze(['G', 'M', 'A', 'K', 'F']);
 export function starTypes() {
     const r = seededRandom(0x53544152), list = Array.from({ length: 25 }, (_, i) => 'MKGFA'[i % 5]);
     for (let i = list.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [list[i], list[j]] = [list[j], list[i]]; }

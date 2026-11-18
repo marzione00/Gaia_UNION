@@ -7,7 +7,7 @@ import {pilotWorld} from '../src/worlds/pilots.js';
 const json=p=>JSON.parse(fs.readFileSync(new URL('../'+p,import.meta.url),'utf8'));
 const genomes=buildGenomes(),snapshot=json('content/worlds/genomes.json'),catalogue=json('content/catalogue.json');
 test('Carte d’identità: generate in modo deterministico e uguali al file pubblicato',()=>{
- assert.equal(genomes.length,110);assert.deepEqual(JSON.parse(JSON.stringify(buildGenomes())),JSON.parse(JSON.stringify(genomes)));
+ assert.equal(genomes.length,125);assert.deepEqual(JSON.parse(JSON.stringify(buildGenomes())),JSON.parse(JSON.stringify(genomes)));
  snapshot.planets.forEach((p,i)=>{const {unit,title,styleName,...g}=p;assert.deepEqual(g,JSON.parse(JSON.stringify(genomes[i])));assert.equal(unit,catalogue.modules.find(m=>m.planetIndex===i).id)});
 });
 test('Carte d’identità: nessuna coppia di pianeti sotto la distanza minima; terreni diversi in ogni area',()=>{
@@ -17,7 +17,7 @@ test('Carte d’identità: nessuna coppia di pianeti sotto la distanza minima; t
  for(const g of genomes)assert.ok(STYLES[g.family].includes(g.terrain.style));
 });
 test('Carte d’identità: tipi di stella bilanciati, famiglie dei prototipi coerenti con la superficie',()=>{
- const count={};for(const t of starTypes())count[t]=(count[t]||0)+1;assert.deepEqual(count,{M:6,K:5,G:6,F:5,A:5});
+ const count={};for(const t of starTypes())count[t]=(count[t]||0)+1;assert.deepEqual(count,{M:6,K:6,G:6,F:6,A:6});
  for(const unit of ['biology-25','chemistry-20','physics-12','math-p08']){const m=catalogue.modules.find(m=>m.id===unit);assert.equal(planetProfile(m.planetIndex).biome,pilotWorld(unit).surface);assert.equal(genomes[m.planetIndex].family,{simbiosi:'terrestrial',marea:'oceanic',esodo:'volcanic'}[pilotWorld(unit).surface])}
 });
 test('Terreni: altezze finite in [0, 1], mare vicino alla frazione richiesta, colori validi',()=>{

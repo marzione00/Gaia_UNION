@@ -10,7 +10,7 @@ const root=new URL('../',import.meta.url),biomes=JSON.parse(await readFile(new U
 const genomes=planetGenomes(),species=planetSpecies();
 
 test('Specie: generate dalla carta, nomi unici, forme coerenti con atmosfera e mare',()=>{
- assert.equal(species.length,110);
+ assert.equal(species.length,125);
  assert.deepEqual(JSON.parse(JSON.stringify(allSpecies(genomes))),JSON.parse(JSON.stringify(species)));
  const genera=species.flat().map(s=>s.name.split(' ')[0]);assert.equal(new Set(genera).size,genera.length);
  species.forEach((list,i)=>{const g=genomes[i];

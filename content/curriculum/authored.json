@@ -955,6 +955,291 @@
       "connection": "chemistry-04"
     },
     {
+      "unitId": "physics-26",
+      "title": "Onde elettromagnetiche e pressione della luce",
+      "story": "Una sonda della stazione spiega una vela sottile verso la stella. Nessun motore si accende, eppure la sonda accelera: la luce trasporta quantità di moto.",
+      "concept": "La luce è un'onda elettromagnetica che trasporta energia e quantità di moto. L'intensità, potenza per unità di superficie, diminuisce con l'inverso del quadrato della distanza; una superficie che riflette tutta la luce riceve una pressione 2I/c.",
+      "derivation": "Alla distanza di 1 UA dal Sole l'intensità è S₀ ≈ 1361 W/m². Su una vela perfettamente riflettente perpendicolare alla luce la pressione è 2S/c; dividendo per la massa per unità di superficie σ si ottiene a = 2S₀/(cσ)·(1 UA/r)².",
+      "example": "Con σ = 10 g/m² a 1 UA l'accelerazione è circa 0,91 mm/s²: in un giorno la velocità cresce di circa 78 m/s. A 2 UA l'accelerazione si riduce a un quarto.",
+      "misconception": "La pressione della luce è piccola ma continua: una vela leggera accumula velocità per mesi. La luce assorbita spinge la metà di quella riflessa.",
+      "limit": "Vela piana, perfettamente riflettente e sempre perpendicolare alla luce; trascura gravità, inclinazione e assorbimento.",
+      "extension": "Confronta l'accelerazione della vela con l'attrazione gravitazionale del Sole alla stessa distanza: per quale σ le due forze si equivalgono?",
+      "question": "Se la distanza dalla stella raddoppia, l'accelerazione della vela:",
+      "answer": "Diventa un quarto",
+      "wrong": [
+        "Si dimezza",
+        "Resta uguale"
+      ],
+      "bound": "Vela ideale perpendicolare alla luce della stella",
+      "connection": "physics-24"
+    },
+    {
+      "unitId": "physics-27",
+      "title": "Specchi, lenti e telescopi",
+      "story": "Gli astronomi della stazione devono scegliere fra un piccolo rifrattore e un grande specchio. La domanda decisiva riguarda quante stelle deboli potranno vedere.",
+      "concept": "Un telescopio raccoglie la luce su una superficie proporzionale al quadrato del diametro e la concentra in un'immagine. Il flusso raccolto rispetto all'occhio cresce come (D/d_p)², e ogni fattore 100 nel flusso vale 5 magnitudini.",
+      "derivation": "La magnitudine cambia di −2,5 log₁₀ del rapporto fra i flussi. Con una pupilla di 7 mm il guadagno è 2,5 log₁₀((D/d_p)²) = 5 log₁₀(D/d_p), da sommare alla magnitudine limite a occhio nudo.",
+      "example": "Con D = 10 cm e magnitudine limite 6 a occhio nudo si arriva circa a magnitudine 11,8. Uno specchio di 1 m guadagna altre 5 magnitudini.",
+      "misconception": "L'ingrandimento conta meno del diametro: ingrandire un'immagine debole la rende più grande e più fioca. Le stelle restano punti anche nei telescopi maggiori.",
+      "limit": "Stima per stelle puntiformi, ottica perfetta e cielo buio; trascura assorbimento delle superfici, turbolenza e sensibilità dei rivelatori.",
+      "extension": "Calcola quante volte più luce raccoglie il JWST, con uno specchio equivalente di circa 6,5 m, rispetto a Hubble, che ne ha uno di 2,4 m.",
+      "question": "Raddoppiando il diametro dell'obiettivo la luce raccolta:",
+      "answer": "Quadruplica",
+      "wrong": [
+        "Raddoppia",
+        "Resta uguale"
+      ],
+      "bound": "Raccolta della luce per una sorgente puntiforme",
+      "connection": "physics-24"
+    },
+    {
+      "unitId": "physics-28",
+      "title": "Interferenza e interferometri",
+      "story": "Il rivelatore della stazione divide un fascio laser in due bracci lunghi chilometri. Una variazione di lunghezza minuscola deve cambiare la luce che arriva al fotodiodo.",
+      "concept": "Due onde coerenti che si sovrappongono si rinforzano o si annullano secondo la differenza di cammino. In un interferometro di Michelson con bracci uguali l'intensità in uscita è I₀ cos²(πΔ/λ).",
+      "derivation": "Due campi di uguale ampiezza sfasati di φ = 2πΔ/λ danno un campo risultante di ampiezza 2E cos(φ/2); l'intensità è proporzionale al quadrato, quindi a cos²(πΔ/λ).",
+      "example": "Con λ = 1064 nm e Δ = 266 nm, un quarto di lunghezza d'onda, l'intensità è metà di quella massima. Con Δ = 532 nm si ha una frangia scura.",
+      "misconception": "Nelle frange scure l'energia della luce resta intatta e si ridistribuisce verso le frange chiare o verso l'altra uscita dell'interferometro.",
+      "limit": "Onde piane monocromatiche, bracci uguali e ottica perfetta; trascura coerenza finita, perdite e rumore.",
+      "extension": "Un'onda gravitazionale cambia la lunghezza di un braccio di 4 km di circa 10⁻¹⁸ m. Confronta questo valore con λ e spiega perché servono cavità che moltiplicano il cammino.",
+      "question": "Se la differenza di cammino è mezza lunghezza d'onda, in uscita si osserva:",
+      "answer": "Una frangia scura",
+      "wrong": [
+        "Una frangia chiara",
+        "Metà dell'intensità massima"
+      ],
+      "bound": "Interferometro di Michelson ideale con luce monocromatica",
+      "connection": "physics-17"
+    },
+    {
+      "unitId": "physics-29",
+      "title": "Diffrazione e potere risolutivo",
+      "story": "Una stella doppia della stazione appare come un solo punto nel cercatore. Con quale telescopio si separeranno le due componenti?",
+      "concept": "Un'apertura circolare trasforma una sorgente puntiforme in un disco di Airy. Due sorgenti si separano quando la distanza angolare supera circa 1,22 λ/D, il criterio di Rayleigh.",
+      "derivation": "Il primo minimo della figura di diffrazione di un'apertura circolare cade a sin θ = 1,22 λ/D. Per angoli piccoli θ ≈ 1,22 λ/D in radianti; moltiplicando per 206 265 si ottengono secondi d'arco.",
+      "example": "Hubble, con D = 2,4 m, a 0,55 μm risolve circa 0,058 secondi d'arco. Lo stesso telescopio a 10 μm, nell'infrarosso medio, risolverebbe circa 1 secondo d'arco.",
+      "misconception": "Dal suolo la turbolenza limita la nitidezza a circa un secondo d'arco: senza ottica adattiva un telescopio grande raccoglie più luce senza vedere più dettagli.",
+      "limit": "Ottica perfetta, apertura piena e circolare, sorgenti di uguale luminosità; trascura ostruzione centrale, turbolenza e campionamento del rivelatore.",
+      "extension": "Calcola la risoluzione di un radiotelescopio di 100 m a 21 cm e confrontala con quella dell'occhio umano.",
+      "question": "Raddoppiando il diametro del telescopio l'angolo minimo risolto:",
+      "answer": "Si dimezza",
+      "wrong": [
+        "Raddoppia",
+        "Resta uguale"
+      ],
+      "bound": "Criterio di Rayleigh per un'apertura circolare",
+      "connection": "physics-17"
+    },
+    {
+      "unitId": "physics-30",
+      "title": "Radiazione termica e luce delle stelle",
+      "story": "La stazione osserva due stelle dello stesso colore, una molto più luminosa dell'altra. Il colore dice la temperatura; la luminosità rivela il raggio.",
+      "concept": "Una stella irraggia approssimativamente come un corpo nero. La potenza emessa per unità di superficie è σT⁴, quindi la luminosità è L = 4πR²σT⁴; la lunghezza d'onda del massimo è inversamente proporzionale a T.",
+      "derivation": "Dividendo L = 4πR²σT⁴ per lo stesso prodotto calcolato per il Sole, indicato con l'indice S e con T_S = 5772 K, si ottiene L/L_S = (R/R_S)²(T/T_S)⁴.",
+      "example": "Una stella con il raggio del Sole e T = 11 544 K, il doppio della temperatura solare, è 16 volte più luminosa. Una gigante rossa di 100 raggi solari a 3500 K emette circa 1350 volte la luce del Sole.",
+      "misconception": "Il colore rosso indica una superficie fredda e dice poco sulla luminosità: le supergiganti rosse sono fra le stelle più luminose.",
+      "limit": "Corpo nero sferico; trascura righe di assorbimento, oscuramento al bordo e la differenza fra temperatura efficace e temperatura degli strati profondi.",
+      "extension": "Usa la legge di Wien per trovare il massimo di emissione del Sole e di una nana rossa a 3000 K, e discuti in quale banda conviene osservarle.",
+      "question": "A parità di raggio, una stella con temperatura doppia è più luminosa di un fattore:",
+      "answer": "16",
+      "wrong": [
+        "2",
+        "4"
+      ],
+      "bound": "Stelle come corpi neri sferici",
+      "connection": "physics-25"
+    },
+    {
+      "unitId": "physics-31",
+      "title": "Legge di Gauss: gusci, pianeti e condensatori",
+      "story": "Un pozzo della stazione scende verso il centro di una luna rocciosa. Il peso di chi scende cresce, diminuisce o resta uguale?",
+      "concept": "La legge di Gauss lega il flusso di un campo attraverso una superficie chiusa alla sorgente racchiusa. Per la gravità di una sfera uniforme conta soltanto la massa entro il raggio r: fuori g cala come 1/r², dentro cresce linearmente con r.",
+      "derivation": "Una superficie sferica di raggio r racchiude la massa M(r). Il flusso vale −4πG M(r), quindi g(r) = GM(r)/r². Per densità uniforme M(r) = M r³/R³ e g = g_s r/R; fuori M(r) = M e g = g_s (R/r)².",
+      "example": "Con g_s = 9,81 m/s², a metà del raggio la gravità vale 4,9 m/s²; a due raggi dal centro, fuori dal pianeta, vale 2,45 m/s².",
+      "misconception": "Dentro un pianeta l'effetto della massa esterna al raggio r si annulla per simmetria: il guscio esterno attira ugualmente in tutte le direzioni, qualunque sia la sua massa.",
+      "limit": "Densità uniforme e simmetria sferica; i pianeti reali hanno nuclei densi e la gravità vicino al centro segue la loro distribuzione di massa.",
+      "extension": "Applica lo stesso ragionamento al campo elettrico di una sfera carica uniformemente e confronta i due andamenti.",
+      "question": "Al centro di un pianeta sferico la gravità vale:",
+      "answer": "Zero",
+      "wrong": [
+        "Il doppio che in superficie",
+        "Lo stesso valore che in superficie"
+      ],
+      "bound": "Sfera omogenea e legge di Gauss per la gravità",
+      "connection": "physics-12"
+    },
+    {
+      "unitId": "physics-32",
+      "title": "Particelle cariche nei campi magnetici",
+      "story": "I sensori della stazione registrano protoni del vento stellare che girano attorno alle linee del campo magnetico. Quanto sono larghe le loro spirali?",
+      "concept": "Una carica in moto in un campo magnetico subisce una forza perpendicolare alla velocità, F = qv × B. La forza curva la traiettoria senza cambiare la velocità: la carica percorre una circonferenza di raggio r = mv/(qB).",
+      "derivation": "Uguagliando la forza magnetica qvB alla forza centripeta mv²/r si ottiene r = mv/(qB); il periodo 2πm/(qB) non dipende dalla velocità.",
+      "example": "Un protone a 400 km/s in un campo di 5 nT, tipico del vento solare vicino alla Terra, percorre cerchi di circa 840 km di raggio.",
+      "misconception": "Il campo magnetico compie lavoro nullo sulla carica, perché la forza è sempre perpendicolare alla velocità; cambia la direzione del moto e lascia invariata l'energia cinetica.",
+      "limit": "Campo uniforme e costante, velocità perpendicolare al campo e moto non relativistico; trascura campi elettrici e collisioni.",
+      "extension": "Calcola il raggio per un elettrone con la stessa velocità e spiega perché elettroni e protoni seguono spirali così diverse.",
+      "question": "Se il campo magnetico raddoppia, il raggio dell'orbita della carica:",
+      "answer": "Si dimezza",
+      "wrong": [
+        "Raddoppia",
+        "Resta uguale"
+      ],
+      "bound": "Moto circolare di un protone in un campo uniforme",
+      "connection": "physics-24"
+    },
+    {
+      "unitId": "physics-33",
+      "title": "Correnti, dipoli e dinamo dei pianeti",
+      "story": "La stazione orbita attorno a un pianeta con un nucleo fuso. Il magnetometro di bordo misura un campo che si indebolisce rapidamente salendo di quota.",
+      "concept": "Una spira percorsa da corrente genera un campo di dipolo; molti pianeti hanno campi simili prodotti da correnti nel nucleo conduttore. Lontano dalla sorgente il campo di dipolo diminuisce come 1/r³.",
+      "derivation": "Per un dipolo di momento μ il campo sul piano equatoriale vale B = μ₀μ/(4πr³). Chiamando B₀ il valore alla superficie, r = R, si ottiene B = B₀(R/r)³.",
+      "example": "Con B₀ = 30 μT, simile al campo equatoriale terrestre, a 10 raggi dal centro il campo vale 30 nT, circa mille volte meno che al suolo.",
+      "misconception": "Il campo della Terra viene da correnti nel ferro liquido del nucleo, troppo caldo per restare magnetizzato come una calamita permanente.",
+      "limit": "Dipolo ideale e piano equatoriale; trascura le correnti della magnetosfera, la deformazione dovuta al vento solare e le componenti non dipolari.",
+      "extension": "Stima a quale distanza la pressione magnetica B²/(2μ₀) eguaglia la pressione dinamica del vento solare, circa 1 nPa, per trovare la posizione della magnetopausa.",
+      "question": "Il campo di un dipolo magnetico, a distanza tripla, diventa:",
+      "answer": "27 volte più debole",
+      "wrong": [
+        "3 volte più debole",
+        "9 volte più debole"
+      ],
+      "bound": "Campo di dipolo sul piano equatoriale",
+      "connection": "physics-24"
+    },
+    {
+      "unitId": "physics-34",
+      "title": "Induzione, circuiti oscillanti e radio",
+      "story": "Il ricevitore della stazione deve sintonizzarsi sulle tempeste radio di un pianeta gigante. Un condensatore variabile sceglie la frequenza.",
+      "concept": "Un circuito con un induttore e un condensatore scambia energia fra campo elettrico e campo magnetico e oscilla alla frequenza f = 1/(2π√(LC)). Un segnale a quella frequenza viene amplificato dalla risonanza.",
+      "derivation": "Nel circuito LC la carica soddisfa L d²q/dt² + q/C = 0, l'equazione di un oscillatore armonico con ω = 1/√(LC); quindi f = ω/(2π).",
+      "example": "Con L = 1 μH e C = 100 pF la risonanza cade a circa 15,9 MHz, vicino alle emissioni decametriche di Giove. Quadruplicando C la frequenza si dimezza.",
+      "misconception": "La risonanza concentra la risposta del circuito in una banda stretta attorno a f, tanto più stretta quanto minore è la resistenza; l'energia viene sempre dal segnale ricevuto.",
+      "limit": "Componenti ideali senza perdite; trascura resistenza dei fili, capacità parassite e accoppiamento con l'antenna.",
+      "extension": "Calcola la capacità necessaria con L = 1 μH per sintonizzarsi a 1420 MHz e discuti perché a queste frequenze si usano cavità e guide d'onda.",
+      "question": "Se la capacità di un circuito LC quadruplica, la frequenza di risonanza:",
+      "answer": "Si dimezza",
+      "wrong": [
+        "Raddoppia",
+        "Quadruplica"
+      ],
+      "bound": "Circuito LC ideale",
+      "connection": "physics-23"
+    },
+    {
+      "unitId": "physics-35",
+      "title": "Equazioni di Maxwell e magnetismo della materia",
+      "story": "Una roccia lavica della stazione conserva una magnetizzazione acquisita quando si è raffreddata. Per leggerla bisogna capire come la materia risponde a un campo.",
+      "concept": "Gli elettroni hanno un momento magnetico. In una sostanza paramagnetica il campo tende ad allinearli e l'agitazione termica li disordina: la magnetizzazione dipende dal rapporto μ_B B/(kT).",
+      "derivation": "Per momenti μ_B che possono orientarsi soltanto lungo o contro il campo, i pesi di Boltzmann danno M/M_s = tanh(μ_B B/(kT)). Per argomenti piccoli tanh x ≈ x e si ritrova la legge di Curie: M proporzionale a B/T.",
+      "example": "Con B = 1 T a 300 K l'argomento vale circa 0,0022 e la magnetizzazione è lo 0,22 % del massimo. A 1 K sale a circa il 59 %.",
+      "misconception": "Un materiale ferromagnetico perde la magnetizzazione spontanea sopra la temperatura di Curie, circa 580 °C per la magnetite: per questo le rocce registrano il campo mentre si raffreddano.",
+      "limit": "Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo.",
+      "extension": "Usa la legge di Curie per confrontare la magnetizzazione a 300 K e a 30 K e discuti perché i paramagneti si studiano a bassa temperatura.",
+      "question": "Nel regime della legge di Curie, se la temperatura raddoppia la magnetizzazione:",
+      "answer": "Si dimezza",
+      "wrong": [
+        "Raddoppia",
+        "Resta uguale"
+      ],
+      "bound": "Paramagnete ideale a due orientamenti",
+      "connection": "physics-24"
+    },
+    {
+      "unitId": "physics-36",
+      "title": "Relatività ristretta",
+      "story": "Una nave della stazione parte verso una stella vicina a velocità prossima a quella della luce. Al ritorno, l'orologio di bordo e quello della base non vanno d'accordo.",
+      "concept": "La velocità della luce è la stessa per tutti gli osservatori inerziali. Ne segue che un intervallo di tempo proprio τ, misurato da un orologio in moto, appare dilatato a terra: Δt = γτ con γ = 1/√(1−β²).",
+      "derivation": "Un orologio a luce fa rimbalzare un impulso fra due specchi. Visto da terra l'impulso percorre una diagonale più lunga alla stessa velocità c: con il teorema di Pitagora si ottiene Δt = τ/√(1−v²/c²).",
+      "example": "A β = 0,6 si ha γ = 1,25: un anno di bordo corrisponde a 1,25 anni a terra. A β = 0,99 il fattore supera 7.",
+      "misconception": "La dilatazione riguarda ogni processo, dal decadimento dei muoni all'invecchiamento, ed è simmetrica fra osservatori inerziali; gli orologi funzionano correttamente.",
+      "limit": "Moto rettilineo uniforme in assenza di gravità; il ritorno della nave richiede accelerazioni che la relatività ristretta tratta separatamente.",
+      "extension": "I muoni prodotti dai raggi cosmici a 15 km di quota vivono in media 2,2 μs. Calcola quale fattore γ serve perché la metà raggiunga il suolo.",
+      "question": "A β = 0,6, un'ora di bordo corrisponde a terra a:",
+      "answer": "1,25 ore",
+      "wrong": [
+        "0,8 ore",
+        "1,6 ore"
+      ],
+      "bound": "Dilatazione dei tempi in moto uniforme",
+      "connection": "physics-25"
+    },
+    {
+      "unitId": "physics-37",
+      "title": "Onde di materia, atomi e righe spettrali",
+      "story": "Lo spettrografo della stazione scompone la luce di una nebulosa in righe colorate. Ogni riga racconta un salto fra due livelli di un atomo.",
+      "concept": "Un elettrone legato in un atomo ha soltanto energie discrete. Passando da un livello n₂ a un livello n₁ emette un fotone di lunghezza d'onda fissata: per l'idrogeno 1/λ = R_H(1/n₁² − 1/n₂²).",
+      "derivation": "I livelli dell'idrogeno valgono E_n = −13,6 eV/n². L'energia del fotone è E_n₂ − E_n₁ e λ = hc/(E_n₂ − E_n₁); raccogliendo le costanti si ottiene la costante di Rydberg R_H ≈ 1,0968·10⁷ m⁻¹.",
+      "example": "La transizione da n₂ = 3 a n₁ = 2 dà la riga rossa Hα a circa 656 nm; da 4 a 2 la riga Hβ a 486 nm. Le righe con n₁ = 1 cadono nell'ultravioletto.",
+      "misconception": "Le righe di emissione e quelle di assorbimento vengono dagli stessi livelli: righe chiare in un gas caldo, righe scure davanti a una sorgente più calda.",
+      "limit": "Atomo di idrogeno isolato, nucleo di massa finita incluso in R_H; trascura struttura fine, effetti di campi esterni e spostamenti Doppler.",
+      "extension": "Calcola il limite della serie di Balmer, per n₂ molto grande, e spiega perché le stelle calde mostrano righe di Balmer intense e le più calde no.",
+      "question": "Nella serie di Balmer le righe hanno in comune:",
+      "answer": "Il livello inferiore n₁ = 2",
+      "wrong": [
+        "Il livello superiore n₂ = 2",
+        "La stessa lunghezza d'onda"
+      ],
+      "bound": "Livelli dell'atomo di idrogeno",
+      "connection": "chemistry-04"
+    },
+    {
+      "unitId": "physics-38",
+      "title": "Nuclei, decadimenti e datazioni",
+      "story": "Un frammento di meteorite caduto sulla stazione contiene uranio e piombo. Il loro rapporto indica da quanto tempo la roccia si è solidificata.",
+      "concept": "I nuclei instabili decadono a caso con probabilità costante: il numero di nuclei padre diminuisce come e^(−λt). Ogni nucleo che decade produce un nucleo figlio, quindi il rapporto D/P cresce con il tempo.",
+      "derivation": "Da P = P₀e^(−λt) e D = P₀ − P si ottiene D/P = e^(λt) − 1, quindi t = ln(1 + D/P)/λ con λ = ln 2/T½.",
+      "example": "Con T½ = 4,47 miliardi di anni, quello dell'uranio-238, un rapporto D/P = 1 indica un'età uguale a un tempo di dimezzamento; D/P = 0,5 indica circa 2,6 miliardi di anni.",
+      "misconception": "Il tempo di dimezzamento è il tempo in cui decade metà di una popolazione grande di nuclei; ogni singolo nucleo può decadere in qualunque momento, con la stessa probabilità per unità di tempo.",
+      "limit": "Sistema chiuso, senza figli iniziali e senza perdite; le datazioni reali usano isocrone e più coppie di isotopi per verificare queste ipotesi.",
+      "extension": "Confronta l'età calcolata con uranio-238 e con potassio-40, tempo di dimezzamento 1,25 miliardi di anni, per lo stesso rapporto D/P.",
+      "question": "Un rapporto figlio/padre uguale a 3 corrisponde a:",
+      "answer": "Due tempi di dimezzamento",
+      "wrong": [
+        "Tre tempi di dimezzamento",
+        "Un tempo di dimezzamento"
+      ],
+      "bound": "Decadimento radioattivo in un sistema chiuso",
+      "connection": "physics-25"
+    },
+    {
+      "unitId": "physics-39",
+      "title": "Energia dal nucleo: fusione nelle stelle",
+      "story": "La stazione orbita attorno a una stella giovane e massiccia. Quanto durerà la sua riserva di idrogeno rispetto a quella del Sole?",
+      "concept": "Una stella brucia idrogeno nel nucleo per un tempo proporzionale al combustibile, la massa M, diviso il ritmo di consumo, la luminosità L. Poiché L cresce circa come M^α con α vicino a 3,5, le stelle massicce vivono molto meno.",
+      "derivation": "Se t è proporzionale a M/L e L a M^α, allora t è proporzionale a M^(1−α). Normalizzando al Sole, indicato con l'indice S, con una durata di circa 10 miliardi di anni, t = 10 Gyr·(M/M_S)^(1−α).",
+      "example": "Con α = 3,5 una stella di 10 masse solari vive circa 30 milioni di anni; una di 0,5 masse solari circa 57 miliardi di anni, più dell'età dell'universo.",
+      "misconception": "Una stella più massiccia ha più combustibile ma lo consuma molto più in fretta: la durata diminuisce con la massa.",
+      "limit": "Relazione massa-luminosità con esponente unico e frazione di idrogeno bruciata uguale per tutte le stelle; per le stelle più massicce e più piccole l'esponente cambia.",
+      "extension": "Stima la durata di una stella di 20 masse solari con α = 3 e con α = 4 e discuti quanto la stima dipende dall'esponente.",
+      "question": "Con α = 3,5, una stella di 4 masse solari vive rispetto al Sole circa:",
+      "answer": "Un trentaduesimo",
+      "wrong": [
+        "Un quarto",
+        "Quattro volte di più"
+      ],
+      "bound": "Durata delle stelle dalla relazione massa-luminosità",
+      "connection": "physics-25"
+    },
+    {
+      "unitId": "physics-40",
+      "title": "Particelle, espansione e Big Bang",
+      "story": "I telescopi della stazione misurano lo spettro di galassie lontane. Più sono lontane, più le loro righe sono spostate verso il rosso.",
+      "concept": "Le galassie lontane si allontanano con velocità proporzionali alla distanza, v = H₀d: è l'espansione dell'universo. L'inverso di H₀ dà un'età caratteristica, vicina all'età misurata dell'universo.",
+      "derivation": "In un universo omogeneo che si espande in modo uniforme tutte le distanze crescono dello stesso fattore; la velocità relativa fra due galassie è proporzionale alla loro distanza, con costante H₀.",
+      "example": "Con H₀ = 70 km/s/Mpc una galassia a 100 Mpc si allontana a 7000 km/s. Il tempo 1/H₀ vale circa 14 miliardi di anni.",
+      "misconception": "L'espansione riguarda lo spazio ovunque, senza un centro: ogni galassia vede le altre allontanarsi da sé.",
+      "limit": "Legge lineare valida a distanze moderate, dove lo spostamento verso il rosso è piccolo; trascura i moti propri delle galassie e la variazione di H nel tempo.",
+      "extension": "Le misure con il fondo cosmico danno H₀ ≈ 67 km/s/Mpc, quelle con le cefeidi e le supernove circa 73. Calcola la differenza di velocità prevista a 500 Mpc.",
+      "question": "Per una galassia a distanza doppia, la velocità di recessione:",
+      "answer": "Raddoppia",
+      "wrong": [
+        "Resta uguale",
+        "Quadruplica"
+      ],
+      "bound": "Legge di Hubble-Lemaître a distanze moderate",
+      "connection": "physics-13"
+    },
+    {
       "unitId": "chemistry-01",
       "title": "Materia, proprietà e densità",
       "story": "Due contenitori hanno volumi uguali ma masse diverse. La stazione vuole confrontare i materiali senza confondere quantità di sostanza e proprietà del campione.",

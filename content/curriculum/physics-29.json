@@ -1,0 +1,348 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "physics-29",
+  "title": "Diffrazione e potere risolutivo",
+  "sector": 1,
+  "modelId": "physics-29",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Diffrazione da una fenditura, disco di Airy, criterio di Rayleigh, turbolenza atmosferica e ottica adattiva, campionamento dei rivelatori, coronografi e immagini dirette di pianeti, reticoli di diffrazione e potere risolutivo, spettrografi e velocità radiali, diffrazione dei raggi X e legge di Bragg",
+  "narrativeStatus": "I dati provengono dai lavori di Airy, Rayleigh, Fried, Lyot e Bragg, dagli articoli sulla scoperta di 51 Pegasi b e sui pianeti di HR 8799, dalla documentazione di HARPS, ESPRESSO, Hubble ed ELT e dalle fonti citate nel capitolo.",
+  "objectives": [
+    "Calcolare i minimi di diffrazione di una fenditura e la larghezza della banda centrale.",
+    "Applicare il criterio di Rayleigh a occhio, telescopi e radiotelescopi.",
+    "Spiegare il ruolo della turbolenza, dell’ottica adattiva e del campionamento dei pixel.",
+    "Usare l’equazione del reticolo, il potere risolutivo e la legge di Bragg."
+  ],
+  "prerequisites": [
+    "physics-28"
+  ],
+  "connections": [
+    "physics-27",
+    "physics-30",
+    "physics-37"
+  ],
+  "sources": [
+    "physics3",
+    "si"
+  ],
+  "originalSource": null,
+  "glossary": [
+    {
+      "term": "Diffrazione",
+      "definition": "Allargamento di un’onda che attraversa un’apertura o aggira un ostacolo."
+    },
+    {
+      "term": "Disco di Airy",
+      "definition": "Immagine di una sorgente puntiforme prodotta da un’apertura circolare perfetta, con il primo minimo a 1,22 λ/D."
+    },
+    {
+      "term": "Criterio di Rayleigh",
+      "definition": "Due sorgenti si distinguono se il massimo di una cade sul primo minimo dell’altra."
+    },
+    {
+      "term": "Seeing",
+      "definition": "Allargamento delle immagini stellari dovuto alla turbolenza dell’atmosfera."
+    },
+    {
+      "term": "Reticolo di diffrazione",
+      "definition": "Superficie con molti solchi equidistanti che separa la luce in righe secondo la lunghezza d’onda."
+    },
+    {
+      "term": "Legge di Bragg",
+      "definition": "Condizione 2d sin θ = mλ per le riflessioni dei raggi X dai piani di un cristallo."
+    }
+  ],
+  "steps": [
+    {
+      "label": "SCOPRI",
+      "title": "Il limite delle immagini",
+      "text": {
+        "base": [
+          "Lo specchio di Hubble è lucidato con una precisione di una decina di nanometri, eppure l’immagine di una stella lontana, praticamente puntiforme, appare come un dischetto circondato da anelli deboli. Nessuna lucidatura migliore potrebbe stringerlo: la luce è un’onda e, attraversando un’apertura di dimensioni finite, si allarga. Il fenomeno si chiama diffrazione e fissa il dettaglio più fine che uno strumento possa vedere.",
+          "Questa unità parte dalla fenditura singola e arriva ai telescopi giganti, agli spettrografi che hanno scoperto i pianeti extrasolari e ai cristalli analizzati con i raggi X su Marte. La stessa idea attraversa tutti i casi: un’onda che passa da un’apertura larga a produce una figura con larghezza angolare circa λ/a, e la geometria dell’apertura decide la forma della figura."
+        ],
+        "intermediate": [
+          "Lo specchio di Hubble è lucidato con una precisione di una decina di nanometri, eppure l’immagine di una stella lontana, praticamente puntiforme, appare come un dischetto circondato da anelli deboli. Nessuna lucidatura migliore potrebbe stringerlo: la luce è un’onda e, attraversando un’apertura di dimensioni finite, si allarga. Il fenomeno si chiama diffrazione e fissa il dettaglio più fine che uno strumento possa vedere.",
+          "Questa unità parte dalla fenditura singola e arriva ai telescopi giganti, agli spettrografi che hanno scoperto i pianeti extrasolari e ai cristalli analizzati con i raggi X su Marte. La stessa idea attraversa tutti i casi: un’onda che passa da un’apertura larga a produce una figura con larghezza angolare circa λ/a, e la geometria dell’apertura decide la forma della figura."
+        ],
+        "advanced": [
+          "Lo specchio di Hubble è lucidato con una precisione di una decina di nanometri, eppure l’immagine di una stella lontana, praticamente puntiforme, appare come un dischetto circondato da anelli deboli. Nessuna lucidatura migliore potrebbe stringerlo: la luce è un’onda e, attraversando un’apertura di dimensioni finite, si allarga. Il fenomeno si chiama diffrazione e fissa il dettaglio più fine che uno strumento possa vedere.",
+          "Questa unità parte dalla fenditura singola e arriva ai telescopi giganti, agli spettrografi che hanno scoperto i pianeti extrasolari e ai cristalli analizzati con i raggi X su Marte. La stessa idea attraversa tutti i casi: un’onda che passa da un’apertura larga a produce una figura con larghezza angolare circa λ/a, e la geometria dell’apertura decide la forma della figura.",
+          "Il problema conta anche per la ricerca della vita fuori dal Sistema solare. Una Terra attorno a una stella vicina appare a un decimo di secondo d’arco dalla stella ed è dieci miliardi di volte più debole nel visibile. Per separarla serve un telescopio abbastanza grande da risolvere quell’angolo e uno strumento capace di spegnere gli anelli di diffrazione della stella."
+        ]
+      }
+    },
+    {
+      "label": "CAPISCI",
+      "title": "Fenditure, dischi e reticoli",
+      "text": {
+        "base": [
+          "In una fenditura di larghezza a i minimi cadono dove a sin θ = mλ, con m intero diverso da zero. Il massimo centrale è largo il doppio dei laterali, e il primo laterale vale circa il 4,7 per cento del centrale. Con un laser di 633 nm e una fenditura di 0,1 mm il primo minimo cade a sin θ = 0,0063, e su uno schermo a 2 m la banda centrale è larga circa 2,5 cm.",
+          "Un’apertura circolare di diametro D produce il disco di Airy, con il primo minimo a sin θ = 1,22 λ/D e circa l’84 per cento della luce nel disco centrale. Secondo il criterio di Rayleigh due stelle si distinguono se distano almeno 1,22 λ/D. Hubble, con 2,4 m, risolve a 550 nm circa 0,058 secondi d’arco; la pupilla dell’occhio, di 3 mm, circa 46 secondi d’arco."
+        ],
+        "intermediate": [
+          "In una fenditura di larghezza a i minimi cadono dove a sin θ = mλ, con m intero diverso da zero. Il massimo centrale è largo il doppio dei laterali, e il primo laterale vale circa il 4,7 per cento del centrale. Con un laser di 633 nm e una fenditura di 0,1 mm il primo minimo cade a sin θ = 0,0063, e su uno schermo a 2 m la banda centrale è larga circa 2,5 cm.",
+          "Un’apertura circolare di diametro D produce il disco di Airy, con il primo minimo a sin θ = 1,22 λ/D e circa l’84 per cento della luce nel disco centrale. Secondo il criterio di Rayleigh due stelle si distinguono se distano almeno 1,22 λ/D. Hubble, con 2,4 m, risolve a 550 nm circa 0,058 secondi d’arco; la pupilla dell’occhio, di 3 mm, circa 46 secondi d’arco.",
+          "Dal suolo la turbolenza deforma i fronti d’onda su scale di 10-20 cm, il parametro di Fried, e allarga le immagini a 0,5-1 secondo d’arco. L’ottica adattiva corregge la deformazione con specchi deformabili. Un reticolo con passo d produce righe a d sin θ = mλ e separa lunghezze d’onda vicine con potere risolutivo R = Nm, dove N è il numero di solchi illuminati."
+        ],
+        "advanced": [
+          "In una fenditura di larghezza a i minimi cadono dove a sin θ = mλ, con m intero diverso da zero. Il massimo centrale è largo il doppio dei laterali, e il primo laterale vale circa il 4,7 per cento del centrale. Con un laser di 633 nm e una fenditura di 0,1 mm il primo minimo cade a sin θ = 0,0063, e su uno schermo a 2 m la banda centrale è larga circa 2,5 cm.",
+          "Un’apertura circolare di diametro D produce il disco di Airy, con il primo minimo a sin θ = 1,22 λ/D e circa l’84 per cento della luce nel disco centrale. Secondo il criterio di Rayleigh due stelle si distinguono se distano almeno 1,22 λ/D. Hubble, con 2,4 m, risolve a 550 nm circa 0,058 secondi d’arco; la pupilla dell’occhio, di 3 mm, circa 46 secondi d’arco.",
+          "Dal suolo la turbolenza deforma i fronti d’onda su scale di 10-20 cm, il parametro di Fried, e allarga le immagini a 0,5-1 secondo d’arco. L’ottica adattiva corregge la deformazione con specchi deformabili. Un reticolo con passo d produce righe a d sin θ = mλ e separa lunghezze d’onda vicine con potere risolutivo R = Nm, dove N è il numero di solchi illuminati.",
+          "Gli spettrografi a reticolo misurano lo spostamento Doppler delle righe stellari. 51 Pegasi oscilla di 59 m/s per il suo pianeta, scoperto nel 1995; HARPS raggiunge circa 1 m/s e ESPRESSO punta a 10 cm/s, mentre la Terra fa oscillare il Sole di soltanto 9 cm/s. Con i raggi X la legge di Bragg, 2d sin θ = mλ, rivela la struttura dei cristalli, anche sul suolo di Marte con lo strumento CheMin."
+        ]
+      }
+    },
+    {
+      "label": "SPERIMENTA",
+      "title": "Il laboratorio del potere risolutivo",
+      "text": {
+        "base": [
+          "Nel laboratorio il grafico mostra il limite di Rayleigh θ = 1,22 λ/D, convertito in secondi d’arco, in funzione del diametro D del telescopio, da 0,1 a 40 metri. Nella scheda «Regola» cambi la lunghezza d’onda λ da 0,3 a 30 micrometri. Il valore predefinito, 0,55 μm, è la luce verde a cui l’occhio è più sensibile: con D = 2,4 m il modello restituisce il limite di Hubble, circa 0,058 secondi d’arco.",
+          "Protocollo. Il programma confronta due diametri fissati, circa 10 e 20 metri. Con λ = 0,55 μm prevedi se l’angolo minimo cresce, diminuisce o resta uguale passando dal primo al secondo e salva A. Poi porta la lunghezza d’onda a 2,2 μm, la banda infrarossa K usata dall’ottica adattiva, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con 0,55 μm l’angolo passa da circa 0,0137 a 0,0069 secondi d’arco; con 2,2 μm da circa 0,0549 a 0,0276. In entrambi i casi diminuisce e si dimezza quasi esattamente, perché il diametro raddoppia. La lunghezza d’onda cambia la scala del grafico, quattro volte più alta nell’infrarosso, senza cambiarne la forma: conta soltanto il rapporto λ/D."
+        ],
+        "intermediate": [
+          "Nel laboratorio il grafico mostra il limite di Rayleigh θ = 1,22 λ/D, convertito in secondi d’arco, in funzione del diametro D del telescopio, da 0,1 a 40 metri. Nella scheda «Regola» cambi la lunghezza d’onda λ da 0,3 a 30 micrometri. Il valore predefinito, 0,55 μm, è la luce verde a cui l’occhio è più sensibile: con D = 2,4 m il modello restituisce il limite di Hubble, circa 0,058 secondi d’arco.",
+          "Protocollo. Il programma confronta due diametri fissati, circa 10 e 20 metri. Con λ = 0,55 μm prevedi se l’angolo minimo cresce, diminuisce o resta uguale passando dal primo al secondo e salva A. Poi porta la lunghezza d’onda a 2,2 μm, la banda infrarossa K usata dall’ottica adattiva, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con 0,55 μm l’angolo passa da circa 0,0137 a 0,0069 secondi d’arco; con 2,2 μm da circa 0,0549 a 0,0276. In entrambi i casi diminuisce e si dimezza quasi esattamente, perché il diametro raddoppia. La lunghezza d’onda cambia la scala del grafico, quattro volte più alta nell’infrarosso, senza cambiarne la forma: conta soltanto il rapporto λ/D."
+        ],
+        "advanced": [
+          "Nel laboratorio il grafico mostra il limite di Rayleigh θ = 1,22 λ/D, convertito in secondi d’arco, in funzione del diametro D del telescopio, da 0,1 a 40 metri. Nella scheda «Regola» cambi la lunghezza d’onda λ da 0,3 a 30 micrometri. Il valore predefinito, 0,55 μm, è la luce verde a cui l’occhio è più sensibile: con D = 2,4 m il modello restituisce il limite di Hubble, circa 0,058 secondi d’arco.",
+          "Protocollo. Il programma confronta due diametri fissati, circa 10 e 20 metri. Con λ = 0,55 μm prevedi se l’angolo minimo cresce, diminuisce o resta uguale passando dal primo al secondo e salva A. Poi porta la lunghezza d’onda a 2,2 μm, la banda infrarossa K usata dall’ottica adattiva, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con 0,55 μm l’angolo passa da circa 0,0137 a 0,0069 secondi d’arco; con 2,2 μm da circa 0,0549 a 0,0276. In entrambi i casi diminuisce e si dimezza quasi esattamente, perché il diametro raddoppia. La lunghezza d’onda cambia la scala del grafico, quattro volte più alta nell’infrarosso, senza cambiarne la forma: conta soltanto il rapporto λ/D.",
+          "Una prova a casa: un CD illuminato da un puntatore laser rosso di classe 2 si comporta come un reticolo con passo di 1,6 μm. Con il disco a 25 cm da un foglio, il primo ordine cade a circa 11 cm dal fascio diretto, a un angolo di circa 24 gradi, e dalla misura si ricava il passo con d = λ/sin θ. Il laser va sempre tenuto lontano dagli occhi, anche dopo una riflessione."
+        ]
+      }
+    },
+    {
+      "label": "INTERPRETA",
+      "title": "Errori e limiti",
+      "text": {
+        "base": [
+          "Errore frequente: pensare che un’ottica perfetta dia un’immagine puntiforme. Anche uno specchio senza difetti produce il disco di Airy, la cui larghezza dipende soltanto da λ/D. Secondo errore: confondere la condizione dei minimi della fenditura, a sin θ = mλ, con quella dei massimi del reticolo, d sin θ = mλ, che ha la stessa forma e un significato opposto.",
+          "Terzo errore: credere che un telescopio più grande dia sempre immagini più nitide. Dal suolo, oltre il parametro di Fried, la nitidezza è limitata dal seeing, e un telescopio di 8 metri senza correzione vede quanto uno di una ventina di centimetri. Quarto errore: applicare la legge di Bragg con l’angolo misurato dalla normale, mentre θ si misura fra il fascio e i piani del cristallo."
+        ],
+        "intermediate": [
+          "Errore frequente: pensare che un’ottica perfetta dia un’immagine puntiforme. Anche uno specchio senza difetti produce il disco di Airy, la cui larghezza dipende soltanto da λ/D. Secondo errore: confondere la condizione dei minimi della fenditura, a sin θ = mλ, con quella dei massimi del reticolo, d sin θ = mλ, che ha la stessa forma e un significato opposto.",
+          "Terzo errore: credere che un telescopio più grande dia sempre immagini più nitide. Dal suolo, oltre il parametro di Fried, la nitidezza è limitata dal seeing, e un telescopio di 8 metri senza correzione vede quanto uno di una ventina di centimetri. Quarto errore: applicare la legge di Bragg con l’angolo misurato dalla normale, mentre θ si misura fra il fascio e i piani del cristallo.",
+          "Il modello del laboratorio descrive un’apertura circolare perfetta, illuminata da luce monocromatica, senza atmosfera. Trascura lo specchio secondario e i suoi sostegni, che spostano luce dal disco agli anelli e, insieme ai bordi dei segmenti, producono le punte delle stelle nelle immagini di Webb. Trascura anche il seeing, gli errori di lucidatura e il campionamento dei pixel, che deve arrivare almeno a λ/(2D) per conservare tutti i dettagli."
+        ],
+        "advanced": [
+          "Errore frequente: pensare che un’ottica perfetta dia un’immagine puntiforme. Anche uno specchio senza difetti produce il disco di Airy, la cui larghezza dipende soltanto da λ/D. Secondo errore: confondere la condizione dei minimi della fenditura, a sin θ = mλ, con quella dei massimi del reticolo, d sin θ = mλ, che ha la stessa forma e un significato opposto.",
+          "Terzo errore: credere che un telescopio più grande dia sempre immagini più nitide. Dal suolo, oltre il parametro di Fried, la nitidezza è limitata dal seeing, e un telescopio di 8 metri senza correzione vede quanto uno di una ventina di centimetri. Quarto errore: applicare la legge di Bragg con l’angolo misurato dalla normale, mentre θ si misura fra il fascio e i piani del cristallo.",
+          "Il modello del laboratorio descrive un’apertura circolare perfetta, illuminata da luce monocromatica, senza atmosfera. Trascura lo specchio secondario e i suoi sostegni, che spostano luce dal disco agli anelli e, insieme ai bordi dei segmenti, producono le punte delle stelle nelle immagini di Webb. Trascura anche il seeing, gli errori di lucidatura e il campionamento dei pixel, che deve arrivare almeno a λ/(2D) per conservare tutti i dettagli.",
+          "Approfondimento: per fotografare una Terra a 0,1 secondi d’arco da una stella distante 10 parsec, un telescopio di 6 m a 500 nm deve lavorare a circa 5,8 λ/D. Lì gli anelli di Airy valgono ancora circa quattro decimillesimi del picco, milioni di volte più del pianeta. I coronografi, inventati da Bernard Lyot nel 1930 per la corona solare, bloccano la stella e la luce diffratta dai bordi dello specchio."
+        ]
+      }
+    },
+    {
+      "label": "VERIFICA",
+      "title": "Verifica",
+      "text": {
+        "base": [
+          "Ripasso: diffrazione e principio di Huygens; minimi della fenditura, a sin θ = mλ; disco di Airy e criterio di Rayleigh, 1,22 λ/D; seeing, parametro di Fried e ottica adattiva; campionamento di Nyquist; coronografi; reticoli, d sin θ = mλ e potere risolutivo R = Nm; spettrografi e velocità radiali; legge di Bragg.",
+          "Mini esercizio: un telescopio amatoriale di 20 cm risolve a 550 nm circa 0,69 secondi d’arco.",
+          "Nelle domande ricorda che l’angolo minimo risolto cresce con la lunghezza d’onda e diminuisce con il diametro, sempre attraverso il rapporto λ/D."
+        ],
+        "intermediate": [
+          "Ripasso: diffrazione e principio di Huygens; minimi della fenditura, a sin θ = mλ; disco di Airy e criterio di Rayleigh, 1,22 λ/D; seeing, parametro di Fried e ottica adattiva; campionamento di Nyquist; coronografi; reticoli, d sin θ = mλ e potere risolutivo R = Nm; spettrografi e velocità radiali; legge di Bragg.",
+          "Mini esercizio: un telescopio amatoriale di 20 cm risolve a 550 nm circa 0,69 secondi d’arco.",
+          "Nelle domande ricorda che l’angolo minimo risolto cresce con la lunghezza d’onda e diminuisce con il diametro, sempre attraverso il rapporto λ/D."
+        ],
+        "advanced": [
+          "Ripasso: diffrazione e principio di Huygens; minimi della fenditura, a sin θ = mλ; disco di Airy e criterio di Rayleigh, 1,22 λ/D; seeing, parametro di Fried e ottica adattiva; campionamento di Nyquist; coronografi; reticoli, d sin θ = mλ e potere risolutivo R = Nm; spettrografi e velocità radiali; legge di Bragg.",
+          "Mini esercizio: un telescopio amatoriale di 20 cm risolve a 550 nm circa 0,69 secondi d’arco.",
+          "Nelle domande ricorda che l’angolo minimo risolto cresce con la lunghezza d’onda e diminuisce con il diametro, sempre attraverso il rapporto λ/D."
+        ]
+      }
+    },
+    {
+      "label": "COLLEGA",
+      "title": "Collegamenti",
+      "text": {
+        "base": [
+          "La natura ondulatoria della luce è introdotta in «Onde elettromagnetiche e pressione della luce»; i telescopi e la raccolta della luce in «Specchi, lenti e telescopi»; l’interferenza di due o più onde in «Interferenza e interferometri». Gli spettri ottenuti con i reticoli tornano in «Radiazione termica e luce delle stelle» e in «Onde di materia, atomi e righe spettrali».",
+          "Riepilogo dell’unità: fenditura singola e intensità; disco di Airy; criterio di Rayleigh; turbolenza atmosferica, seeing e ottica adattiva; Extremely Large Telescope; pixel e campionamento; coronografi e immagini dirette di pianeti; reticoli e potere risolutivo; spettrografi, 51 Pegasi, HARPS ed ESPRESSO; raggi X, legge di Bragg e CheMin su Marte.",
+          "Nel diario registra A e B con le previsioni e calcola il diametro che a 2,2 μm dà lo stesso angolo minimo di un telescopio di 10 m a 0,55 μm: 40 m, quattro volte di più, quasi quanto l’Extremely Large Telescope."
+        ],
+        "intermediate": [
+          "La natura ondulatoria della luce è introdotta in «Onde elettromagnetiche e pressione della luce»; i telescopi e la raccolta della luce in «Specchi, lenti e telescopi»; l’interferenza di due o più onde in «Interferenza e interferometri». Gli spettri ottenuti con i reticoli tornano in «Radiazione termica e luce delle stelle» e in «Onde di materia, atomi e righe spettrali».",
+          "Riepilogo dell’unità: fenditura singola e intensità; disco di Airy; criterio di Rayleigh; turbolenza atmosferica, seeing e ottica adattiva; Extremely Large Telescope; pixel e campionamento; coronografi e immagini dirette di pianeti; reticoli e potere risolutivo; spettrografi, 51 Pegasi, HARPS ed ESPRESSO; raggi X, legge di Bragg e CheMin su Marte.",
+          "Nel diario registra A e B con le previsioni e calcola il diametro che a 2,2 μm dà lo stesso angolo minimo di un telescopio di 10 m a 0,55 μm: 40 m, quattro volte di più, quasi quanto l’Extremely Large Telescope."
+        ],
+        "advanced": [
+          "La natura ondulatoria della luce è introdotta in «Onde elettromagnetiche e pressione della luce»; i telescopi e la raccolta della luce in «Specchi, lenti e telescopi»; l’interferenza di due o più onde in «Interferenza e interferometri». Gli spettri ottenuti con i reticoli tornano in «Radiazione termica e luce delle stelle» e in «Onde di materia, atomi e righe spettrali».",
+          "Riepilogo dell’unità: fenditura singola e intensità; disco di Airy; criterio di Rayleigh; turbolenza atmosferica, seeing e ottica adattiva; Extremely Large Telescope; pixel e campionamento; coronografi e immagini dirette di pianeti; reticoli e potere risolutivo; spettrografi, 51 Pegasi, HARPS ed ESPRESSO; raggi X, legge di Bragg e CheMin su Marte.",
+          "Nel diario registra A e B con le previsioni e calcola il diametro che a 2,2 μm dà lo stesso angolo minimo di un telescopio di 10 m a 0,55 μm: 40 m, quattro volte di più, quasi quanto l’Extremely Large Telescope."
+        ]
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "physics-29-q1",
+      "prompt": "Restringendo una fenditura, alla stessa lunghezza d’onda, la banda centrale di diffrazione:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Si allarga",
+          "feedback": "Esatto: il primo minimo cade a sin θ = λ/a e cresce quando a diminuisce."
+        },
+        {
+          "id": "B",
+          "text": "Si restringe",
+          "feedback": "Una fenditura più stretta diffrange di più, e la banda si allarga."
+        },
+        {
+          "id": "C",
+          "text": "Resta uguale",
+          "feedback": "La larghezza angolare dipende dal rapporto fra lunghezza d’onda e larghezza."
+        },
+        {
+          "id": "D",
+          "text": "Scompare",
+          "feedback": "La banda centrale resta e diventa più larga e più debole."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-29-q2",
+      "prompt": "Raddoppiando il diametro di un telescopio, alla stessa lunghezza d’onda, l’angolo minimo risolto:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Raddoppia",
+          "feedback": "Un diametro maggiore permette di distinguere dettagli più fini."
+        },
+        {
+          "id": "B",
+          "text": "Si dimezza",
+          "feedback": "Esatto: il limite di Rayleigh vale 1,22 λ/D, inversamente proporzionale a D."
+        },
+        {
+          "id": "C",
+          "text": "Diventa un quarto",
+          "feedback": "Il quarto riguarda l’area raccolta; l’angolo dipende linearmente da D."
+        },
+        {
+          "id": "D",
+          "text": "Resta uguale",
+          "feedback": "Il diametro è proprio la grandezza che fissa la risoluzione."
+        }
+      ],
+      "correct": "B"
+    },
+    {
+      "id": "physics-29-q3",
+      "prompt": "Perché un telescopio di 8 m al suolo, senza ottica adattiva, vede circa quanto uno di 20 cm?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Perché la turbolenza allarga le immagini a circa λ/r₀",
+          "feedback": "Esatto: oltre il parametro di Fried la nitidezza è fissata dall’atmosfera."
+        },
+        {
+          "id": "B",
+          "text": "Perché lo specchio grande è lucidato peggio",
+          "feedback": "La lucidatura dei grandi specchi raggiunge pochi nanometri di errore."
+        },
+        {
+          "id": "C",
+          "text": "Perché la diffrazione cresce con il diametro",
+          "feedback": "La diffrazione diminuisce con il diametro, secondo 1,22 λ/D."
+        },
+        {
+          "id": "D",
+          "text": "Perché raccoglie troppa luce",
+          "feedback": "La luce raccolta aumenta la sensibilità senza ridurre la nitidezza."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-29-q4",
+      "prompt": "Un reticolo di 600 solchi per millimetro diffrange la riga a 656 nm. Il primo ordine cade a circa:",
+      "options": [
+        {
+          "id": "A",
+          "text": "23 gradi",
+          "feedback": "Esatto: sin θ = 656 nm / 1,67 μm = 0,394."
+        },
+        {
+          "id": "B",
+          "text": "52 gradi",
+          "feedback": "Questo è l’angolo del secondo ordine, con sin θ = 0,787."
+        },
+        {
+          "id": "C",
+          "text": "4 gradi",
+          "feedback": "Con un passo di 1,67 μm gli angoli sono molto più grandi."
+        },
+        {
+          "id": "D",
+          "text": "90 gradi",
+          "feedback": "A 90 gradi servirebbe un passo uguale alla lunghezza d’onda."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-29-q5",
+      "prompt": "Uno spettrografo con R = 115 000 misura velocità radiali di circa 1 m/s perché:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Combina lo spostamento di migliaia di righe con una calibrazione stabilissima",
+          "feedback": "Esatto: l’elemento di risoluzione vale circa 2,6 km/s, e la precisione nasce dalla media su molte righe."
+        },
+        {
+          "id": "B",
+          "text": "Il suo elemento di risoluzione vale 1 m/s",
+          "feedback": "L’elemento vale c/R, circa 2,6 km/s."
+        },
+        {
+          "id": "C",
+          "text": "Usa raggi X invece della luce visibile",
+          "feedback": "Gli spettrografi per pianeti lavorano nel visibile e nel vicino infrarosso."
+        },
+        {
+          "id": "D",
+          "text": "La stella si avvicina sempre all’osservatore",
+          "feedback": "La velocità radiale oscilla avanti e indietro con il periodo del pianeta."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-29-q6",
+      "prompt": "Nella legge di Bragg, 2d sin θ = mλ, l’angolo θ si misura:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Fra il fascio e la normale ai piani",
+          "feedback": "Questo è l’errore più frequente: la legge usa l’angolo radente."
+        },
+        {
+          "id": "B",
+          "text": "Fra il fascio e i piani del cristallo",
+          "feedback": "Esatto: θ è l’angolo radente, e il fascio viene deviato di 2θ."
+        },
+        {
+          "id": "C",
+          "text": "Fra due piani successivi",
+          "feedback": "I piani sono paralleli; la loro distanza è d."
+        },
+        {
+          "id": "D",
+          "text": "Fra il fascio incidente e lo schermo",
+          "feedback": "Lo schermo non compare nella condizione di Bragg."
+        }
+      ],
+      "correct": "B"
+    }
+  ]
+}

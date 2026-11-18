@@ -14,15 +14,15 @@ test('Curriculum: il bundle principale viene utilizzato quando disponibile', asy
     assert.deepEqual(paths, ['content/curriculum/bundle.json']);
 });
 
-test('Curriculum: fallback con 110 moduli conserva esattamente gli stessi dati', async () => {
+test('Curriculum: fallback con 125 moduli conserva esattamente gli stessi dati', async () => {
     const loaded = [];
     const result = await loadCurriculum(async p => {
         loaded.push(p);
         if (p === 'content/curriculum/bundle.json') throw Error('HTTP 404 memorizzato');
         return readJson(p);
     });
-    assert.equal(loaded.length, 114);
-    assert.equal(result.courses.length, 110);
+    assert.equal(loaded.length, 129);
+    assert.equal(result.courses.length, 125);
     assert.deepEqual(result, readJson('content/curriculum/bundle.json'));
 });
 
