@@ -353,3 +353,47 @@ test('Fisica 36: relatività ristretta, numeri ricalcolati',()=>{
  // Model probes: dilated time at beta = 0.2475 and 0.495 (25% and 50% of the domain) for tau = 1 and 2.2 microseconds.
  const m=(x,t)=>t/Math.sqrt(1-x*x);assert.deepEqual([m(0.2475,1),m(0.495,1),m(0.2475,2.2),m(0.495,2.2)].map(v=>r(v,4)),[1.0321,1.1509,2.2706,2.532]);
 });
+test('Fisica 37: onde di materia, atomi e righe spettrali, numeri ricalcolati',()=>{
+ const hb=h/(2*Math.PI),eV=e,RH=10967758.34,hc=h*c/e*1e9,lam=(n1,n2)=>1e9/(RH*(1/n1**2-1/n2**2));
+ // Matter waves.
+ assert.equal(r(h/Math.sqrt(2*me*e)*1e9,3),1.226);assert.equal(r(h/Math.sqrt(2*me*54*e)*1e9,3),0.167);assert.equal(r(h/(0.145*40)*1e34,1),1.1);
+ assert.equal(r(h/Math.sqrt(2*1.67492750e-27*0.025*e)*1e9,2),0.18);assert.equal(r(hc*1e-6/Math.sqrt(0.2**2+2*0.2*0.51099895)*1e3,1),2.5);
+ // Uncertainty, atom size, natural width.
+ assert.equal(r(hb/2e-10*1e25,1),5.3);assert.equal(r(hb/2e-10/me/1e5,1),5.8);assert.equal(r(hb/(2e-6*1e-9)*1e20,1),5.3);
+ const a0=4*Math.PI*eps0*hb**2/(me*e**2);assert.equal(r(a0*1e12,1),52.9);assert.equal(r(me*e**4/(8*eps0**2*h**2)/e,1),13.6);
+ const A=6.2648e8;assert.equal(r(1e9/A,1),1.6);assert.equal(r(hb*A/e*1e7,1),4.1);assert.equal(r(A/(2*Math.PI)/1e6,-1),100);
+ const nuL=c/(lam(1,2)*1e-9);assert.equal(r(A/(2*Math.PI)/nuL*1e8,1),4);assert.equal(r(nuL/1e15,3),2.466);const vth=Math.sqrt(2*kB*1e4/mp);assert.equal(r(vth/1e3,1),12.8);assert.equal(r(vth/c*1e5,1),4.3);assert.equal(r(vth/c/(A/(2*Math.PI)/nuL),-2),1100);
+ // Particle in a box.
+ const E1=L=>h**2/(8*me*L**2)/e;assert.equal(r(E1(1e-10),1),37.6);assert.equal(r(E1(1e-9),3),0.376);assert.ok(E1(1e-8)<4e-3);assert.equal(r(4*0.376,2),1.5);assert.equal(r(9*0.376,2),3.38);assert.equal(r(hc/(3*0.376),-2),1100);
+ // Hydrogen levels and series.
+ assert.equal(r(hc/13.6057,1),91.1);assert.equal(r(lam(1,1e9),1),91.2);assert.equal(r(lam(1,2),1),121.6);assert.equal(r(lam(2,3),1),656.5);assert.equal(r(lam(2,4),1),486.3);assert.equal(r(lam(2,5),1),434.2);assert.equal(r(lam(2,6),1),410.3);assert.equal(r(lam(2,1e9),1),364.7);
+ assert.equal(r(lam(3,4),1),1875.6);assert.equal(r(lam(3,1e9),1),820.6);assert.equal(r((1-RH/10973731.568)*1e4,1),5.4);assert.equal(r(2.77e-4*c/1e3,0),83);assert.equal(r(656.47-656.28,2),0.19);
+ assert.equal(2*3**2,18);assert.equal(1+3+5,9);
+ const nu=RH*c*(1/109**2-1/110**2);assert.equal(r(nu/1e6,0),5009);assert.equal(r(110**2*a0*1e6,2),0.64);assert.ok(110**2>1e4);assert.equal(r(RH*c/1e15,3),3.288);
+ // Deuterium.
+ const md=3.3435837724e-27,rD=(1+me/mp)/(1+me/md);assert.equal(r(rD,6),1.000272);assert.equal(r(656.47*(1-1/rD),3),0.179);assert.equal(r((rD-1)*c/1e3,0),82);
+ // Ionisation energies (NIST).
+ assert.equal(r(24.587,1),24.6);assert.equal(r(5.392,1),5.4);assert.equal(r(21.565,1),21.6);assert.equal(r(5.139,1),5.1);assert.equal(r(15.760,1),15.8);
+ // Zeeman effect and magnetic resonance.
+ const z=B=>2.5*e*(630.25e-9)**2*B/(4*Math.PI*me*c);assert.equal(r(z(0.3)*1e12,1),13.9);assert.equal(r(z(0.1)*1e12,1),4.6);assert.equal(r(e/(4*Math.PI*me*c),1),46.7);assert.equal(r(630.25e-9**2*1e13,2),3.97);
+ assert.equal(r(0.3/50e-6,-3),6000);assert.equal(r(42.577*1.5,0),64);
+ // X rays.
+ assert.equal(r(hc/35000*1e3,1),35.4);assert.equal(r(hc/30000*1e3,1),41.3);assert.equal(r(hc/60000*1e3,1),20.7);
+ const Ka=Z=>0.75*13.6*(Z-1)**2;assert.equal(r(Ka(26)/1e3,2),6.38);assert.equal(r(hc/Ka(26),3),0.194);assert.equal(r(Ka(29)/1e3,2),8);assert.equal(r(hc/Ka(29),3),0.155);assert.ok(Math.abs(Ka(26)/6400-1)<0.01&&Math.abs(Ka(29)/8050-1)<0.01);
+ // Lasers, lunar ranging.
+ assert.equal(r(2/(kB*300/e),1),77.4);assert.equal(r(Math.log10(Math.exp(-2/(kB*300/e))),0),-34);
+ const Er=hc/694.3;assert.equal(r(Er,2),1.79);assert.equal(r(Er/(kB*300/e),0),69);assert.equal(r(Math.log10(Math.exp(-Er/(kB*300/e))),0),-30);assert.equal(r(Er/(kB/e*Math.LN2),-3),30000);
+ assert.equal(r(2*384400e3/c,2),2.56);
+ // Masers and NGC 4258.
+ assert.equal(r(c/22.235e9*100,2),1.35);assert.equal(r(Math.hypot(0.082,0.076)/7.576*100,1),1.5);
+ const M=4e7*1.989e30,rr=0.2*3.0857e16,v=Math.sqrt(G*M/rr);assert.equal(r(M/1e37,2),7.96);assert.equal(r(G*M/1e27,2),5.31);assert.equal(r(rr/1e15,2),6.17);assert.equal(r(v/1e3,-1),930);assert.equal(r(2*Math.PI*rr/v/1e10,1),4.2);assert.equal(r(2*Math.PI*rr/v/3.156e7,-2),1300);
+ assert.equal(r(0.2/7.58e6*1e8,1),2.6);assert.equal(r(0.2/7.58e6*206264.8e3,1),5.4);
+ // Stellar lines: Boltzmann and Saha.
+ const b=T=>4*Math.exp(-10.2/(kB*T/e));assert.equal(r(kB*5772/e,3),0.497);assert.equal(r(b(5772)*1e9,0),5);assert.equal(r(kB*1e4/e,3),0.862);assert.equal(r(b(1e4)*1e5,1),2.9);assert.equal(r(b(1e4)/b(5772),-3),6000);
+ const saha=T=>{const ne=20/(kB*T),s=(2*Math.PI*me*kB*T/h**2)**1.5/ne*Math.exp(-13.598*e/(kB*T));return [b(T)/(1+b(T))/(1+s),s/(1+s)];};
+ let Tm=5000;for(let T=5000;T<=25000;T+=10)if(saha(T)[0]>saha(Tm)[0])Tm=T;assert.equal(r(Tm,-2),9900);assert.ok(saha(Tm)[0]<1e-5);assert.ok(saha(9000)[1]>0.2&&saha(8000)[1]<0.05);assert.ok(saha(2e4)[1]>0.99);
+ // Nebulae and the bench spectroscope.
+ assert.ok(2.5e19/1e4>1e15);const th=Math.asin(546.1e-9/2e-6);assert.equal(r(th*180/Math.PI,1),15.8);assert.equal(r(Math.tan(th)*100,0),28);
+ // Model probes: Balmer and Lyman wavelengths at n2 = 4 and 6 (25% and 50% of the domain) for n1 = 2 and 1.
+ assert.deepEqual([lam(2,4),lam(2,6),lam(1,4),lam(1,6)].map(v=>r(v,2)),[486.27,410.29,97.25,93.78]);
+});

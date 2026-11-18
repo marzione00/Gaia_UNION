@@ -5,20 +5,23 @@
   "title": "Onde di materia, atomi e righe spettrali",
   "sector": 1,
   "modelId": "physics-37",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Livelli dell'atomo di idrogeno",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Onde di materia e lunghezza di de Broglie, principio di indeterminazione, particella confinata, atomo di idrogeno, serie di Lyman, Balmer e Paschen, spin e principio di esclusione, tavola periodica, effetto Zeeman, raggi X e legge di Moseley, laser e maser astrofisici, righe spettrali delle stelle, righe proibite delle nebulose",
+  "narrativeStatus": "I dati provengono dal NIST Atomic Spectra Database, dagli esperimenti di Davisson e Germer, Urey, Moseley e Maiman, dalle osservazioni di Hale, Höglund e Mezger, Weaver, Cheung, Mumma, Tanaka e Reid e dalle fonti citate nel capitolo.",
   "objectives": [
-    "Spiegare: livelli dell'atomo di idrogeno.",
-    "Applicare 1/λ = R_H (1/n₁² − 1/n₂²), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Calcolare la lunghezza d’onda di de Broglie e usare il principio di indeterminazione.",
+    "Calcolare i livelli di una particella confinata e dell’atomo di idrogeno.",
+    "Usare la formula di Rydberg per le serie di Lyman, Balmer e Paschen.",
+    "Spiegare con Boltzmann e Saha l’intensità delle righe stellari e descrivere laser e maser naturali."
   ],
   "prerequisites": [
     "physics-36"
   ],
   "connections": [
-    "chemistry-04"
+    "physics-25",
+    "physics-30",
+    "physics-34"
   ],
   "sources": [
     "physics3",
@@ -27,244 +30,319 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Livello superiore n₂",
-      "definition": "Variabile indipendente, unità 1; intervallo [2; 10]."
+      "term": "Lunghezza d’onda di de Broglie",
+      "definition": "Lunghezza d’onda h/p associata a una particella di quantità di moto p."
     },
     {
-      "term": "Lunghezza d’onda",
-      "definition": "Risultato calcolato dal modello, unità nm."
+      "term": "Principio di indeterminazione",
+      "definition": "Limite Δx Δp ≥ ħ/2 alla precisione con cui posizione e quantità di moto possono essere definite insieme."
     },
     {
-      "term": "Livello inferiore n₁",
-      "definition": "Parametro a, unità 1; intervallo [1; 4]."
+      "term": "Serie spettrale",
+      "definition": "Insieme delle righe dovute ai salti verso uno stesso livello inferiore, come le serie di Lyman e di Balmer."
+    },
+    {
+      "term": "Principio di esclusione",
+      "definition": "Due elettroni dello stesso sistema non possono occupare lo stesso stato quantico."
+    },
+    {
+      "term": "Inversione di popolazione",
+      "definition": "Condizione in cui un livello superiore è più popolato di uno inferiore, necessaria per un laser o un maser."
+    },
+    {
+      "term": "Riga proibita",
+      "definition": "Riga dovuta a una transizione molto improbabile, osservabile soltanto in gas molto rarefatti come le nebulose."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Un elemento scoperto nel Sole",
       "text": {
         "base": [
-          "Lo spettrografo della stazione scompone la luce di una nebulosa in righe colorate. Ogni riga racconta un salto fra due livelli di un atomo.",
-          "Un elettrone legato in un atomo ha soltanto energie discrete. Passando da un livello n₂ a un livello n₁ emette un fotone di lunghezza d'onda fissata: per l'idrogeno 1/λ = R_H(1/n₁² − 1/n₂²)."
+          "Il 18 agosto 1868, durante un’eclissi totale di Sole osservata in India, Jules Janssen vide nella luce delle protuberanze una riga gialla brillante, vicina alle righe del sodio. Norman Lockyer la attribuì a un elemento sconosciuto sulla Terra e lo chiamò elio. Soltanto nel 1895 William Ramsay isolò l’elio da un minerale di uranio e ritrovò in laboratorio la stessa riga a circa 587,5 nanometri.",
+          "Ogni elemento emette e assorbe soltanto alcune lunghezze d’onda, le sue righe spettrali, e le righe si riconoscono anche nella luce di stelle e galassie lontanissime. Il motivo è la natura ondulatoria della materia: un elettrone legato a un nucleo è un’onda confinata, che può esistere soltanto con certe energie, e il salto fra due di esse produce un fotone di energia ben definita."
         ],
         "intermediate": [
-          "Lo spettrografo della stazione scompone la luce di una nebulosa in righe colorate. Ogni riga racconta un salto fra due livelli di un atomo.",
-          "I livelli dell'idrogeno valgono E_n = −13,6 eV/n². L'energia del fotone è E_n₂ − E_n₁ e λ = hc/(E_n₂ − E_n₁); raccogliendo le costanti si ottiene la costante di Rydberg R_H ≈ 1,0968·10⁷ m⁻¹."
+          "Il 18 agosto 1868, durante un’eclissi totale di Sole osservata in India, Jules Janssen vide nella luce delle protuberanze una riga gialla brillante, vicina alle righe del sodio. Norman Lockyer la attribuì a un elemento sconosciuto sulla Terra e lo chiamò elio. Soltanto nel 1895 William Ramsay isolò l’elio da un minerale di uranio e ritrovò in laboratorio la stessa riga a circa 587,5 nanometri.",
+          "Ogni elemento emette e assorbe soltanto alcune lunghezze d’onda, le sue righe spettrali, e le righe si riconoscono anche nella luce di stelle e galassie lontanissime. Il motivo è la natura ondulatoria della materia: un elettrone legato a un nucleo è un’onda confinata, che può esistere soltanto con certe energie, e il salto fra due di esse produce un fotone di energia ben definita."
         ],
         "advanced": [
-          "Lo spettrografo della stazione scompone la luce di una nebulosa in righe colorate. Ogni riga racconta un salto fra due livelli di un atomo.",
-          "Calcola il limite della serie di Balmer, per n₂ molto grande, e spiega perché le stelle calde mostrano righe di Balmer intense e le più calde no.",
-          "Atomo di idrogeno isolato, nucleo di massa finita incluso in R_H; trascura struttura fine, effetti di campi esterni e spostamenti Doppler."
+          "Il 18 agosto 1868, durante un’eclissi totale di Sole osservata in India, Jules Janssen vide nella luce delle protuberanze una riga gialla brillante, vicina alle righe del sodio. Norman Lockyer la attribuì a un elemento sconosciuto sulla Terra e lo chiamò elio. Soltanto nel 1895 William Ramsay isolò l’elio da un minerale di uranio e ritrovò in laboratorio la stessa riga a circa 587,5 nanometri.",
+          "Ogni elemento emette e assorbe soltanto alcune lunghezze d’onda, le sue righe spettrali, e le righe si riconoscono anche nella luce di stelle e galassie lontanissime. Il motivo è la natura ondulatoria della materia: un elettrone legato a un nucleo è un’onda confinata, che può esistere soltanto con certe energie, e il salto fra due di esse produce un fotone di energia ben definita.",
+          "Le righe raccontano la composizione, la temperatura, la densità, il campo magnetico e la velocità dei gas cosmici. Le nebulose rosse brillano nella riga Hα dell’idrogeno, quelle verdi nelle righe dell’ossigeno ionizzato; nelle nubi molecolari e attorno al buco nero della galassia NGC 4258 l’acqua amplifica le microonde come un maser, e nell’alta atmosfera di Marte l’anidride carbonica si comporta come un laser naturale."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Onde, livelli e righe",
       "text": {
         "base": [
-          "Un elettrone legato in un atomo ha soltanto energie discrete. Passando da un livello n₂ a un livello n₁ emette un fotone di lunghezza d'onda fissata: per l'idrogeno 1/λ = R_H(1/n₁² − 1/n₂²).",
-          "La transizione da n₂ = 3 a n₁ = 2 dà la riga rossa Hα a circa 656 nm; da 4 a 2 la riga Hβ a 486 nm. Le righe con n₁ = 1 cadono nell'ultravioletto."
+          "A ogni particella è associata un’onda di lunghezza λ = h/p: un elettrone di 54 elettronvolt ha λ circa 0,167 nanometri e si diffrange su un cristallo, come osservarono Davisson e Germer nel 1927. Il principio di indeterminazione, Δx Δp ≥ ħ/2, impedisce all’elettrone di cadere sul nucleo e fissa il raggio dell’atomo di idrogeno a circa 52,9 picometri.",
+          "Una particella confinata ha energie discrete. Nell’atomo di idrogeno i livelli valgono −13,6 eV/n², e un salto da n₂ a n₁ emette un fotone con 1/λ = R_H(1/n₁² − 1/n₂²), con R_H circa 1,0968·10⁷ m⁻¹. I salti verso n₁ = 1 formano la serie di Lyman, nell’ultravioletto; verso n₁ = 2 la serie di Balmer, con la riga rossa Hα a 656,5 nanometri nel vuoto; verso n₁ = 3 la serie di Paschen, nell’infrarosso."
         ],
         "intermediate": [
-          "I livelli dell'idrogeno valgono E_n = −13,6 eV/n². L'energia del fotone è E_n₂ − E_n₁ e λ = hc/(E_n₂ − E_n₁); raccogliendo le costanti si ottiene la costante di Rydberg R_H ≈ 1,0968·10⁷ m⁻¹.",
-          "La variabile Livello superiore n₂ è espressa in 1; Lunghezza d’onda in nm. Il dominio dello strumento è [2; 10], con soli valori interi. La relazione implementata è: 1/λ = R_H (1/n₁² − 1/n₂²).",
-          "La transizione da n₂ = 3 a n₁ = 2 dà la riga rossa Hα a circa 656 nm; da 4 a 2 la riga Hβ a 486 nm. Le righe con n₁ = 1 cadono nell'ultravioletto."
+          "A ogni particella è associata un’onda di lunghezza λ = h/p: un elettrone di 54 elettronvolt ha λ circa 0,167 nanometri e si diffrange su un cristallo, come osservarono Davisson e Germer nel 1927. Il principio di indeterminazione, Δx Δp ≥ ħ/2, impedisce all’elettrone di cadere sul nucleo e fissa il raggio dell’atomo di idrogeno a circa 52,9 picometri.",
+          "Una particella confinata ha energie discrete. Nell’atomo di idrogeno i livelli valgono −13,6 eV/n², e un salto da n₂ a n₁ emette un fotone con 1/λ = R_H(1/n₁² − 1/n₂²), con R_H circa 1,0968·10⁷ m⁻¹. I salti verso n₁ = 1 formano la serie di Lyman, nell’ultravioletto; verso n₁ = 2 la serie di Balmer, con la riga rossa Hα a 656,5 nanometri nel vuoto; verso n₁ = 3 la serie di Paschen, nell’infrarosso.",
+          "Il principio di esclusione di Pauli impedisce a due elettroni di occupare lo stesso stato: gli elettroni riempiono gusci successivi, e da questa struttura nascono la tavola periodica, l’inerzia dei gas nobili e la pressione che sostiene le nane bianche. Le righe X caratteristiche, studiate da Moseley nel 1913, ordinano gli elementi secondo il numero atomico; la riga del ferro a 6,4 keV sonda i dischi attorno ai buchi neri."
         ],
         "advanced": [
-          "I livelli dell'idrogeno valgono E_n = −13,6 eV/n². L'energia del fotone è E_n₂ − E_n₁ e λ = hc/(E_n₂ − E_n₁); raccogliendo le costanti si ottiene la costante di Rydberg R_H ≈ 1,0968·10⁷ m⁻¹.",
-          "Calcola il limite della serie di Balmer, per n₂ molto grande, e spiega perché le stelle calde mostrano righe di Balmer intense e le più calde no.",
-          "Le righe di emissione e quelle di assorbimento vengono dagli stessi livelli: righe chiare in un gas caldo, righe scure davanti a una sorgente più calda."
+          "A ogni particella è associata un’onda di lunghezza λ = h/p: un elettrone di 54 elettronvolt ha λ circa 0,167 nanometri e si diffrange su un cristallo, come osservarono Davisson e Germer nel 1927. Il principio di indeterminazione, Δx Δp ≥ ħ/2, impedisce all’elettrone di cadere sul nucleo e fissa il raggio dell’atomo di idrogeno a circa 52,9 picometri.",
+          "Una particella confinata ha energie discrete. Nell’atomo di idrogeno i livelli valgono −13,6 eV/n², e un salto da n₂ a n₁ emette un fotone con 1/λ = R_H(1/n₁² − 1/n₂²), con R_H circa 1,0968·10⁷ m⁻¹. I salti verso n₁ = 1 formano la serie di Lyman, nell’ultravioletto; verso n₁ = 2 la serie di Balmer, con la riga rossa Hα a 656,5 nanometri nel vuoto; verso n₁ = 3 la serie di Paschen, nell’infrarosso.",
+          "Il principio di esclusione di Pauli impedisce a due elettroni di occupare lo stesso stato: gli elettroni riempiono gusci successivi, e da questa struttura nascono la tavola periodica, l’inerzia dei gas nobili e la pressione che sostiene le nane bianche. Le righe X caratteristiche, studiate da Moseley nel 1913, ordinano gli elementi secondo il numero atomico; la riga del ferro a 6,4 keV sonda i dischi attorno ai buchi neri.",
+          "Le righe di Balmer in assorbimento partono dal livello n = 2. La legge di Boltzmann fa crescere con la temperatura la frazione di atomi in quel livello, mentre l’equazione di Saha descrive la ionizzazione che li sottrae; il risultato è un massimo vicino a 9900 kelvin, la temperatura delle stelle di tipo A come Vega. Cecilia Payne usò queste leggi nel 1925 e scoprì che le stelle sono fatte soprattutto di idrogeno."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio delle serie",
       "text": {
         "base": [
-          "Nel laboratorio imposta Livello inferiore n₁ (a): 2 (adimensionale). Prima di salvare A, prevedi come cambia Lunghezza d’onda fra Livello superiore n₂=4 e 6 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La transizione da n₂ = 3 a n₁ = 2 dà la riga rossa Hα a circa 656 nm; da 4 a 2 la riga Hβ a 486 nm. Le righe con n₁ = 1 cadono nell'ultravioletto.",
-          "La variabile Livello superiore n₂ è espressa in 1; Lunghezza d’onda in nm. Il dominio dello strumento è [2; 10], con soli valori interi. La relazione implementata è: 1/λ = R_H (1/n₁² − 1/n₂²)."
+          "Nel laboratorio il grafico mostra la lunghezza d’onda della riga emessa dall’idrogeno, in nanometri, in funzione del livello superiore n₂, da 2 a 10, secondo la formula di Rydberg 1/λ = R_H(1/n₁² − 1/n₂²). Nella scheda «Regola» scegli il livello inferiore n₁, da 1 a 4. Il valore predefinito è 2, cioè la serie di Balmer; i livelli superiori non maggiori di n₁ non danno righe.",
+          "Protocollo. Il programma confronta due livelli superiori fissati, n₂ = 4 e n₂ = 6. Con n₁ = 2 prevedi se la lunghezza d’onda cresce, diminuisce o resta uguale passando dal primo livello al secondo e salva A. Poi porta n₁ a 1, la serie di Lyman, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con n₁ = 2 la lunghezza d’onda passa da circa 486,3 nanometri, la riga Hβ, a circa 410,3 nanometri, la riga Hδ; con n₁ = 1 passa da circa 97,25 a circa 93,78 nanometri, nell’ultravioletto lontano. In entrambi i casi diminuisce, perché salti da livelli più alti liberano più energia; nella serie di Lyman la variazione relativa è più piccola, perché le righe sono già vicine al limite della serie."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Livello inferiore n₁ (a): 2 (adimensionale). Prima di salvare A, prevedi come cambia Lunghezza d’onda fra Livello superiore n₂=4 e 6 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Livello superiore n₂ è espressa in 1; Lunghezza d’onda in nm. Il dominio dello strumento è [2; 10], con soli valori interi. La relazione implementata è: 1/λ = R_H (1/n₁² − 1/n₂²).",
-          "I livelli dell'idrogeno valgono E_n = −13,6 eV/n². L'energia del fotone è E_n₂ − E_n₁ e λ = hc/(E_n₂ − E_n₁); raccogliendo le costanti si ottiene la costante di Rydberg R_H ≈ 1,0968·10⁷ m⁻¹."
+          "Nel laboratorio il grafico mostra la lunghezza d’onda della riga emessa dall’idrogeno, in nanometri, in funzione del livello superiore n₂, da 2 a 10, secondo la formula di Rydberg 1/λ = R_H(1/n₁² − 1/n₂²). Nella scheda «Regola» scegli il livello inferiore n₁, da 1 a 4. Il valore predefinito è 2, cioè la serie di Balmer; i livelli superiori non maggiori di n₁ non danno righe.",
+          "Protocollo. Il programma confronta due livelli superiori fissati, n₂ = 4 e n₂ = 6. Con n₁ = 2 prevedi se la lunghezza d’onda cresce, diminuisce o resta uguale passando dal primo livello al secondo e salva A. Poi porta n₁ a 1, la serie di Lyman, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con n₁ = 2 la lunghezza d’onda passa da circa 486,3 nanometri, la riga Hβ, a circa 410,3 nanometri, la riga Hδ; con n₁ = 1 passa da circa 97,25 a circa 93,78 nanometri, nell’ultravioletto lontano. In entrambi i casi diminuisce, perché salti da livelli più alti liberano più energia; nella serie di Lyman la variazione relativa è più piccola, perché le righe sono già vicine al limite della serie."
         ],
         "advanced": [
-          "Nel laboratorio imposta Livello inferiore n₁ (a): 2 (adimensionale). Prima di salvare A, prevedi come cambia Lunghezza d’onda fra Livello superiore n₂=4 e 6 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Calcola il limite della serie di Balmer, per n₂ molto grande, e spiega perché le stelle calde mostrano righe di Balmer intense e le più calde no.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "Nel laboratorio il grafico mostra la lunghezza d’onda della riga emessa dall’idrogeno, in nanometri, in funzione del livello superiore n₂, da 2 a 10, secondo la formula di Rydberg 1/λ = R_H(1/n₁² − 1/n₂²). Nella scheda «Regola» scegli il livello inferiore n₁, da 1 a 4. Il valore predefinito è 2, cioè la serie di Balmer; i livelli superiori non maggiori di n₁ non danno righe.",
+          "Protocollo. Il programma confronta due livelli superiori fissati, n₂ = 4 e n₂ = 6. Con n₁ = 2 prevedi se la lunghezza d’onda cresce, diminuisce o resta uguale passando dal primo livello al secondo e salva A. Poi porta n₁ a 1, la serie di Lyman, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con n₁ = 2 la lunghezza d’onda passa da circa 486,3 nanometri, la riga Hβ, a circa 410,3 nanometri, la riga Hδ; con n₁ = 1 passa da circa 97,25 a circa 93,78 nanometri, nell’ultravioletto lontano. In entrambi i casi diminuisce, perché salti da livelli più alti liberano più energia; nella serie di Lyman la variazione relativa è più piccola, perché le righe sono già vicine al limite della serie.",
+          "Una prova a casa: un reticolo in foglio da 500 linee per millimetro, tenuto davanti a un occhio a un metro da una lampada fluorescente coperta da un cartoncino con una fessura, mostra le righe del mercurio a 404,7, 435,8, 546,1, 577,0 e 579,1 nanometri. Misurando la posizione della riga verde, che cade a circa 28 centimetri dalla fessura, si ricava la lunghezza d’onda con d sen θ = λ. Il Sole non va mai guardato direttamente."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e limiti",
       "text": {
         "base": [
-          "Le righe di emissione e quelle di assorbimento vengono dagli stessi livelli: righe chiare in un gas caldo, righe scure davanti a una sorgente più calda.",
-          "Atomo di idrogeno isolato, nucleo di massa finita incluso in R_H; trascura struttura fine, effetti di campi esterni e spostamenti Doppler.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: immaginare l’elettrone su un’orbita come un pianeta. Lo stato dell’elettrone è un’onda stazionaria tridimensionale, e ha senso soltanto la probabilità di trovarlo a una certa distanza dal nucleo. Secondo errore: credere che righe di emissione e di assorbimento appartengano a livelli diversi. Corrispondono allo stesso salto percorso nei due versi, e compaiono chiare o scure secondo lo sfondo.",
+          "Terzo errore: dedurre l’abbondanza di un elemento dalla sola intensità delle sue righe. Le righe di Balmer sono più intense nelle stelle di tipo A che nel Sole, eppure la proporzione di idrogeno è quasi la stessa; decide soprattutto la temperatura. Quarto errore: credere che basti scaldare un gas per ottenere un laser. All’equilibrio termico il livello superiore resta sempre meno popolato, e serve un pompaggio fuori equilibrio."
         ],
         "intermediate": [
-          "Le righe di emissione e quelle di assorbimento vengono dagli stessi livelli: righe chiare in un gas caldo, righe scure davanti a una sorgente più calda.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "Errore frequente: immaginare l’elettrone su un’orbita come un pianeta. Lo stato dell’elettrone è un’onda stazionaria tridimensionale, e ha senso soltanto la probabilità di trovarlo a una certa distanza dal nucleo. Secondo errore: credere che righe di emissione e di assorbimento appartengano a livelli diversi. Corrispondono allo stesso salto percorso nei due versi, e compaiono chiare o scure secondo lo sfondo.",
+          "Terzo errore: dedurre l’abbondanza di un elemento dalla sola intensità delle sue righe. Le righe di Balmer sono più intense nelle stelle di tipo A che nel Sole, eppure la proporzione di idrogeno è quasi la stessa; decide soprattutto la temperatura. Quarto errore: credere che basti scaldare un gas per ottenere un laser. All’equilibrio termico il livello superiore resta sempre meno popolato, e serve un pompaggio fuori equilibrio.",
+          "Il modello del laboratorio descrive l’atomo di idrogeno isolato, con la massa finita del protone già inclusa nella costante R_H, e dà le lunghezze d’onda nel vuoto. Trascura la struttura fine, gli effetti dei campi magnetici ed elettrici e gli spostamenti Doppler; per confrontare i valori con i cataloghi di righe visibili bisogna ricordare che nell’aria le lunghezze d’onda sono più corte di circa tre parti su diecimila."
         ],
         "advanced": [
-          "Atomo di idrogeno isolato, nucleo di massa finita incluso in R_H; trascura struttura fine, effetti di campi esterni e spostamenti Doppler.",
-          "Calcola il limite della serie di Balmer, per n₂ molto grande, e spiega perché le stelle calde mostrano righe di Balmer intense e le più calde no.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: immaginare l’elettrone su un’orbita come un pianeta. Lo stato dell’elettrone è un’onda stazionaria tridimensionale, e ha senso soltanto la probabilità di trovarlo a una certa distanza dal nucleo. Secondo errore: credere che righe di emissione e di assorbimento appartengano a livelli diversi. Corrispondono allo stesso salto percorso nei due versi, e compaiono chiare o scure secondo lo sfondo.",
+          "Terzo errore: dedurre l’abbondanza di un elemento dalla sola intensità delle sue righe. Le righe di Balmer sono più intense nelle stelle di tipo A che nel Sole, eppure la proporzione di idrogeno è quasi la stessa; decide soprattutto la temperatura. Quarto errore: credere che basti scaldare un gas per ottenere un laser. All’equilibrio termico il livello superiore resta sempre meno popolato, e serve un pompaggio fuori equilibrio.",
+          "Il modello del laboratorio descrive l’atomo di idrogeno isolato, con la massa finita del protone già inclusa nella costante R_H, e dà le lunghezze d’onda nel vuoto. Trascura la struttura fine, gli effetti dei campi magnetici ed elettrici e gli spostamenti Doppler; per confrontare i valori con i cataloghi di righe visibili bisogna ricordare che nell’aria le lunghezze d’onda sono più corte di circa tre parti su diecimila.",
+          "Approfondimento: nel deuterio il nucleo pesa il doppio, la costante di Rydberg cresce di circa tre parti su diecimila e la riga Hα si sposta verso il blu di circa 0,18 nanometri, l’equivalente Doppler di circa 82 chilometri al secondo. Con questo spostamento Urey, Brickwedde e Murphy scoprirono il deuterio nel 1932, e oggi gli astronomi misurano il rapporto fra deuterio e idrogeno nelle nubi lontane che assorbono la luce dei quasar."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Un elettrone legato in un atomo ha soltanto energie discrete. Passando da un livello n₂ a un livello n₁ emette un fotone di lunghezza d'onda fissata: per l'idrogeno 1/λ = R_H(1/n₁² − 1/n₂²).",
-          "La transizione da n₂ = 3 a n₁ = 2 dà la riga rossa Hα a circa 656 nm; da 4 a 2 la riga Hβ a 486 nm. Le righe con n₁ = 1 cadono nell'ultravioletto."
+          "Ripasso: onde di materia e diffrazione degli elettroni; principio di indeterminazione e larghezza naturale delle righe; particella in una buca e punti quantici; livelli e numeri quantici dell’idrogeno; serie di Lyman, Balmer e Paschen; deuterio; principio di esclusione e tavola periodica; effetto Zeeman; raggi X e legge di Moseley; laser e maser; righe stellari, Boltzmann e Saha; righe proibite delle nebulose.",
+          "Mini esercizio: la riga Hα nasce nel salto da n = 3 a n = 2. Con 13,6 eV per il livello fondamentale il fotone ha circa 1,89 eV e una lunghezza d’onda di circa 656 nanometri.",
+          "Nelle domande ricorda che le righe di una serie si addensano verso il limite, che l’intensità delle righe stellari dipende soprattutto dalla temperatura e che un laser richiede un’inversione di popolazione."
         ],
         "intermediate": [
-          "I livelli dell'idrogeno valgono E_n = −13,6 eV/n². L'energia del fotone è E_n₂ − E_n₁ e λ = hc/(E_n₂ − E_n₁); raccogliendo le costanti si ottiene la costante di Rydberg R_H ≈ 1,0968·10⁷ m⁻¹.",
-          "La variabile Livello superiore n₂ è espressa in 1; Lunghezza d’onda in nm. Il dominio dello strumento è [2; 10], con soli valori interi. La relazione implementata è: 1/λ = R_H (1/n₁² − 1/n₂²)."
+          "Ripasso: onde di materia e diffrazione degli elettroni; principio di indeterminazione e larghezza naturale delle righe; particella in una buca e punti quantici; livelli e numeri quantici dell’idrogeno; serie di Lyman, Balmer e Paschen; deuterio; principio di esclusione e tavola periodica; effetto Zeeman; raggi X e legge di Moseley; laser e maser; righe stellari, Boltzmann e Saha; righe proibite delle nebulose.",
+          "Mini esercizio: la riga Hα nasce nel salto da n = 3 a n = 2. Con 13,6 eV per il livello fondamentale il fotone ha circa 1,89 eV e una lunghezza d’onda di circa 656 nanometri.",
+          "Nelle domande ricorda che le righe di una serie si addensano verso il limite, che l’intensità delle righe stellari dipende soprattutto dalla temperatura e che un laser richiede un’inversione di popolazione."
         ],
         "advanced": [
-          "Calcola il limite della serie di Balmer, per n₂ molto grande, e spiega perché le stelle calde mostrano righe di Balmer intense e le più calde no.",
-          "Atomo di idrogeno isolato, nucleo di massa finita incluso in R_H; trascura struttura fine, effetti di campi esterni e spostamenti Doppler."
+          "Ripasso: onde di materia e diffrazione degli elettroni; principio di indeterminazione e larghezza naturale delle righe; particella in una buca e punti quantici; livelli e numeri quantici dell’idrogeno; serie di Lyman, Balmer e Paschen; deuterio; principio di esclusione e tavola periodica; effetto Zeeman; raggi X e legge di Moseley; laser e maser; righe stellari, Boltzmann e Saha; righe proibite delle nebulose.",
+          "Mini esercizio: la riga Hα nasce nel salto da n = 3 a n = 2. Con 13,6 eV per il livello fondamentale il fotone ha circa 1,89 eV e una lunghezza d’onda di circa 656 nanometri.",
+          "Nelle domande ricorda che le righe di una serie si addensano verso il limite, che l’intensità delle righe stellari dipende soprattutto dalla temperatura e che un laser richiede un’inversione di popolazione."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Livelli dell'atomo di idrogeno.",
-          "Atomo di idrogeno isolato, nucleo di massa finita incluso in R_H; trascura struttura fine, effetti di campi esterni e spostamenti Doppler.",
-          "Collegamento consigliato: chemistry-04. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Le basi formali della meccanica quantistica, dall’equazione di Schrödinger all’atomo di idrogeno, sono in «Fotoni ed energia quantizzata»; i reticoli che separano le righe in «Diffrazione e potere risolutivo»; le classi spettrali e la radiazione delle stelle in «Radiazione termica e luce delle stelle»; la riga a 21 centimetri in «Induzione, circuiti oscillanti e radio»; lo spin e l’esperimento di Stern e Gerlach in «Equazioni di Maxwell e magnetismo della materia».",
+          "Riepilogo dell’unità: elio nel Sole; Davisson e Germer, fullerene e molecole giganti; indeterminazione e raggio di Bohr; buche, punti quantici e recinto quantistico; idrogeno e righe di ricombinazione radio; serie spettrali e deuterio; esclusione e ionizzazione; Zeeman e macchie solari; Moseley e il ferro di MCG-6-30-15; laser, stelle guida e Luna; maser di Orione e NGC 4258; laser di Marte; Payne e Saha; nebulio e coronio.",
+          "Nel diario registra A e B con le previsioni e calcola il limite della serie di Balmer, per n₂ molto grande: λ = 4/R_H, circa 364,7 nanometri, oltre il quale l’assorbimento diventa continuo."
         ],
         "intermediate": [
-          "I livelli dell'idrogeno valgono E_n = −13,6 eV/n². L'energia del fotone è E_n₂ − E_n₁ e λ = hc/(E_n₂ − E_n₁); raccogliendo le costanti si ottiene la costante di Rydberg R_H ≈ 1,0968·10⁷ m⁻¹.",
-          "Atomo di idrogeno isolato, nucleo di massa finita incluso in R_H; trascura struttura fine, effetti di campi esterni e spostamenti Doppler.",
-          "Calcola il limite della serie di Balmer, per n₂ molto grande, e spiega perché le stelle calde mostrano righe di Balmer intense e le più calde no."
+          "Le basi formali della meccanica quantistica, dall’equazione di Schrödinger all’atomo di idrogeno, sono in «Fotoni ed energia quantizzata»; i reticoli che separano le righe in «Diffrazione e potere risolutivo»; le classi spettrali e la radiazione delle stelle in «Radiazione termica e luce delle stelle»; la riga a 21 centimetri in «Induzione, circuiti oscillanti e radio»; lo spin e l’esperimento di Stern e Gerlach in «Equazioni di Maxwell e magnetismo della materia».",
+          "Riepilogo dell’unità: elio nel Sole; Davisson e Germer, fullerene e molecole giganti; indeterminazione e raggio di Bohr; buche, punti quantici e recinto quantistico; idrogeno e righe di ricombinazione radio; serie spettrali e deuterio; esclusione e ionizzazione; Zeeman e macchie solari; Moseley e il ferro di MCG-6-30-15; laser, stelle guida e Luna; maser di Orione e NGC 4258; laser di Marte; Payne e Saha; nebulio e coronio.",
+          "Nel diario registra A e B con le previsioni e calcola il limite della serie di Balmer, per n₂ molto grande: λ = 4/R_H, circa 364,7 nanometri, oltre il quale l’assorbimento diventa continuo."
         ],
         "advanced": [
-          "Calcola il limite della serie di Balmer, per n₂ molto grande, e spiega perché le stelle calde mostrano righe di Balmer intense e le più calde no.",
-          "Atomo di idrogeno isolato, nucleo di massa finita incluso in R_H; trascura struttura fine, effetti di campi esterni e spostamenti Doppler.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Le basi formali della meccanica quantistica, dall’equazione di Schrödinger all’atomo di idrogeno, sono in «Fotoni ed energia quantizzata»; i reticoli che separano le righe in «Diffrazione e potere risolutivo»; le classi spettrali e la radiazione delle stelle in «Radiazione termica e luce delle stelle»; la riga a 21 centimetri in «Induzione, circuiti oscillanti e radio»; lo spin e l’esperimento di Stern e Gerlach in «Equazioni di Maxwell e magnetismo della materia».",
+          "Riepilogo dell’unità: elio nel Sole; Davisson e Germer, fullerene e molecole giganti; indeterminazione e raggio di Bohr; buche, punti quantici e recinto quantistico; idrogeno e righe di ricombinazione radio; serie spettrali e deuterio; esclusione e ionizzazione; Zeeman e macchie solari; Moseley e il ferro di MCG-6-30-15; laser, stelle guida e Luna; maser di Orione e NGC 4258; laser di Marte; Payne e Saha; nebulio e coronio.",
+          "Nel diario registra A e B con le previsioni e calcola il limite della serie di Balmer, per n₂ molto grande: λ = 4/R_H, circa 364,7 nanometri, oltre il quale l’assorbimento diventa continuo."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "physics-37-concept",
-      "prompt": "Nella serie di Balmer le righe hanno in comune:",
+      "id": "physics-37-q1",
+      "prompt": "Un elettrone di 54 elettronvolt ha una lunghezza d’onda di de Broglie di circa:",
       "options": [
         {
           "id": "A",
-          "text": "Il livello superiore n₂ = 2",
-          "feedback": "Le righe di emissione e quelle di assorbimento vengono dagli stessi livelli: righe chiare in un gas caldo, righe scure davanti a una sorgente più calda."
+          "text": "0,167 nanometri",
+          "feedback": "Esatto: λ = h/√(2mK), paragonabile alle distanze fra gli atomi di un cristallo."
         },
         {
           "id": "B",
-          "text": "La stessa lunghezza d'onda",
-          "feedback": "I livelli dell'idrogeno valgono E_n = −13,6 eV/n². L'energia del fotone è E_n₂ − E_n₁ e λ = hc/(E_n₂ − E_n₁); raccogliendo le costanti si ottiene la costante di Rydberg R_H ≈ 1,0968·10⁷ m⁻¹."
+          "text": "656 nanometri",
+          "feedback": "Questa è la lunghezza d’onda della riga rossa Hα, un fotone visibile."
         },
         {
           "id": "C",
-          "text": "Il livello inferiore n₁ = 2",
-          "feedback": "Un elettrone legato in un atomo ha soltanto energie discrete. Passando da un livello n₂ a un livello n₁ emette un fotone di lunghezza d'onda fissata: per l'idrogeno 1/λ = R_H(1/n₁² − 1/n₂²)."
+          "text": "54 nanometri",
+          "feedback": "La lunghezza d’onda dipende dalla radice dell’energia, con la costante di Planck."
+        },
+        {
+          "id": "D",
+          "text": "10⁻³⁴ metri",
+          "feedback": "Questo è l’ordine di grandezza per una palla da baseball, molto più pesante."
         }
       ],
-      "correct": "C"
+      "correct": "A"
     },
     {
-      "id": "physics-37-calculation",
-      "prompt": "Calcolo: Livello inferiore n₁ (a)=2 (adimensionale). Per Livello superiore n₂=3 (adimensionale), quanto vale Lunghezza d’onda?",
+      "id": "physics-37-q2",
+      "prompt": "Le righe della serie di Balmer hanno in comune:",
       "options": [
         {
           "id": "A",
-          "text": "328,235 nm",
-          "feedback": "Controlla sostituzione, segno e unità. 1/λ = R_H (1/n₁² − 1/n₂²). Con Livello inferiore n₁ (a)=2 (adimensionale) e Livello superiore n₂=3 (adimensionale), il risultato è 656,47 nm. Conserva le unità e arrotonda solo alla fine."
+          "text": "Il livello inferiore n = 2",
+          "feedback": "Esatto: la serie di Balmer è formata dai salti che terminano nel livello n = 2."
         },
         {
           "id": "B",
-          "text": "656,47 nm",
-          "feedback": "1/λ = R_H (1/n₁² − 1/n₂²). Con Livello inferiore n₁ (a)=2 (adimensionale) e Livello superiore n₂=3 (adimensionale), il risultato è 656,47 nm. Conserva le unità e arrotonda solo alla fine."
+          "text": "Il livello superiore n = 2",
+          "feedback": "Il livello superiore varia e deve essere maggiore di 2."
         },
         {
           "id": "C",
-          "text": "984,704 nm",
-          "feedback": "Questo valore non soddisfa la relazione. 1/λ = R_H (1/n₁² − 1/n₂²). Con Livello inferiore n₁ (a)=2 (adimensionale) e Livello superiore n₂=3 (adimensionale), il risultato è 656,47 nm. Conserva le unità e arrotonda solo alla fine."
+          "text": "La stessa lunghezza d’onda",
+          "feedback": "Ogni riga ha una lunghezza d’onda diversa, da 656,5 a 364,7 nanometri."
+        },
+        {
+          "id": "D",
+          "text": "La regione ultravioletta lontana",
+          "feedback": "Nell’ultravioletto lontano cade la serie di Lyman, con livello inferiore n = 1."
         }
       ],
-      "correct": "B",
-      "numeric": {
-        "x": 3,
-        "parameters": {
-          "a": 2
-        },
-        "expected": 656.4696063498424,
-        "unit": "nm"
-      }
+      "correct": "A"
     },
     {
-      "id": "physics-37-transfer",
-      "prompt": "Trasferimento: Livello inferiore n₁ (a)=3 (adimensionale). Per Livello superiore n₂=4 (adimensionale), quanto vale Lunghezza d’onda?",
+      "id": "physics-37-q3",
+      "prompt": "Passando dal salto 4→2 al salto 6→2, la lunghezza d’onda della riga emessa:",
       "options": [
         {
           "id": "A",
-          "text": "1875,63 nm",
-          "feedback": "1/λ = R_H (1/n₁² − 1/n₂²). Con Livello inferiore n₁ (a)=3 (adimensionale) e Livello superiore n₂=4 (adimensionale), il risultato è 1875,63 nm. Conserva le unità e arrotonda solo alla fine."
+          "text": "Diminuisce, da circa 486 a circa 410 nanometri",
+          "feedback": "Esatto: il salto dal livello più alto libera più energia, e il fotone ha lunghezza d’onda minore."
         },
         {
           "id": "B",
-          "text": "2813,44 nm",
-          "feedback": "Questo valore non soddisfa la relazione. 1/λ = R_H (1/n₁² − 1/n₂²). Con Livello inferiore n₁ (a)=3 (adimensionale) e Livello superiore n₂=4 (adimensionale), il risultato è 1875,63 nm. Conserva le unità e arrotonda solo alla fine."
+          "text": "Cresce, da circa 410 a circa 486 nanometri",
+          "feedback": "Un salto più ampio produce un fotone più energetico, con lunghezza d’onda minore."
         },
         {
           "id": "C",
-          "text": "937,814 nm",
-          "feedback": "Controlla sostituzione, segno e unità. 1/λ = R_H (1/n₁² − 1/n₂²). Con Livello inferiore n₁ (a)=3 (adimensionale) e Livello superiore n₂=4 (adimensionale), il risultato è 1875,63 nm. Conserva le unità e arrotonda solo alla fine."
+          "text": "Resta uguale",
+          "feedback": "Le righe della serie hanno lunghezze d’onda diverse, che si addensano verso il limite."
+        },
+        {
+          "id": "D",
+          "text": "Non è definita",
+          "feedback": "Entrambi i salti sono permessi e producono righe ben misurate, Hβ e Hδ."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 4,
-        "parameters": {
-          "a": 3
-        },
-        "expected": 1875.6274467138353,
-        "unit": "nm"
-      }
+      "correct": "A"
     },
     {
-      "id": "physics-37-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "physics-37-q4",
+      "prompt": "Le righe di Balmer sono più intense nelle stelle di tipo A, a circa 10 000 kelvin, perché:",
       "options": [
         {
           "id": "A",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Atomo di idrogeno isolato, nucleo di massa finita incluso in R_H; trascura struttura fine, effetti di campi esterni e spostamenti Doppler."
+          "text": "Lì è massima la frazione di idrogeno neutro nel livello n = 2",
+          "feedback": "Esatto: nelle stelle più fredde gli atomi restano in n = 1, nelle più calde l’idrogeno è ionizzato."
         },
         {
           "id": "B",
-          "text": "Livelli dell'atomo di idrogeno",
-          "feedback": "Atomo di idrogeno isolato, nucleo di massa finita incluso in R_H; trascura struttura fine, effetti di campi esterni e spostamenti Doppler."
+          "text": "Quelle stelle contengono molto più idrogeno del Sole",
+          "feedback": "La proporzione di idrogeno è quasi la stessa; decide la temperatura."
         },
         {
           "id": "C",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Atomo di idrogeno isolato, nucleo di massa finita incluso in R_H; trascura struttura fine, effetti di campi esterni e spostamenti Doppler."
+          "text": "L’idrogeno è completamente ionizzato",
+          "feedback": "Un atomo ionizzato ha perso l’elettrone e non assorbe righe di Balmer."
+        },
+        {
+          "id": "D",
+          "text": "Tutti gli atomi si trovano nel livello fondamentale",
+          "feedback": "Dal livello fondamentale partono le righe di Lyman, nell’ultravioletto."
         }
       ],
-      "correct": "B"
+      "correct": "A"
+    },
+    {
+      "id": "physics-37-q5",
+      "prompt": "Per far funzionare un laser serve:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Un’inversione di popolazione, mantenuta pompando energia nel sistema",
+          "feedback": "Esatto: soltanto così l’emissione stimolata prevale sull’assorbimento."
+        },
+        {
+          "id": "B",
+          "text": "Scaldare il materiale a temperatura molto alta",
+          "feedback": "All’equilibrio termico il livello superiore resta sempre meno popolato."
+        },
+        {
+          "id": "C",
+          "text": "Raffreddare il materiale vicino allo zero assoluto",
+          "feedback": "A bassa temperatura quasi tutti gli atomi si trovano nel livello inferiore."
+        },
+        {
+          "id": "D",
+          "text": "Un campo magnetico intenso",
+          "feedback": "Il campo magnetico separa le righe per effetto Zeeman, senza produrre amplificazione."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-37-q6",
+      "prompt": "Le righe verdi del «nebulio» a 495,9 e 500,7 nanometri sono emesse da:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Ossigeno due volte ionizzato in transizioni proibite",
+          "feedback": "Esatto: Bowen lo dimostrò nel 1927; le righe si vedono soltanto nei gas molto rarefatti."
+        },
+        {
+          "id": "B",
+          "text": "Un elemento sconosciuto sulla Terra",
+          "feedback": "La legge di Moseley non lasciò posto nella tavola periodica per un nuovo elemento."
+        },
+        {
+          "id": "C",
+          "text": "Idrogeno nella serie di Balmer",
+          "feedback": "Le righe di Balmer cadono a 656,5, 486,3, 434,2 e 410,3 nanometri."
+        },
+        {
+          "id": "D",
+          "text": "Ferro ionizzato tredici volte",
+          "feedback": "Il ferro ionizzato tredici volte emette la riga verde della corona solare, a 530,3 nanometri."
+        }
+      ],
+      "correct": "A"
     }
   ]
 }
