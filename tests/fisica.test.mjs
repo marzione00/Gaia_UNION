@@ -436,3 +436,39 @@ test('Fisica 38: nuclei, decadimenti e datazioni, numeri ricalcolati',()=>{
  // Model probes: age at D/P = 0.5 and 1 (25% and 50% of the domain) for half-lives of 4.47 and 0.704 billion years.
  assert.deepEqual([age(4.47,0.5),age(4.47,1),age(0.704,0.5),age(0.704,1)].map(v=>r(v,4)),[2.6148,4.47,0.4118,0.704]);
 });
+test('Fisica 39: energia dal nucleo e fusione nelle stelle, numeri ricalcolati',()=>{
+ const MeV=1.602176634e-13,yr=3.15576e7,u=931.49410242,kev=kB/e/1e3,life=(M,a)=>10*M**(1-a);
+ // Kelvin-Helmholtz time and Eddington's mass defect.
+ const tKH=G*MSUN**2/(6.957e8*LSUN);assert.equal(r(tKH/yr/1e6,0),31);assert.ok(4.54e9/(tKH/yr)>100);
+ assert.equal(r(G*1.99e30**2/1e50,2),2.64);assert.equal(r(6.96e8*3.83e26/1e35,2),2.67);assert.equal(r(G*1.99e30**2/(6.96e8*3.83e26)/1e14,1),9.9);assert.equal(r(4540/31.4,-1),140);
+ // Fission.
+ assert.equal(r((8.5-7.6)*236,-2),200);assert.equal(r(200*MeV*1e11,1),3.2);assert.equal(r(1/(200*MeV)/1e10,1),3.1);
+ const N235=1000/235.0439*6.02214076e23;assert.equal(r(N235/1e24,2),2.56);assert.equal(r(N235*200*MeV/1e13,1),8.2);assert.equal(r(N235*200*MeV/29e6/1e3,-2),2800);
+ // Oklo.
+ const l8=Math.LN2/4.468,l5=Math.LN2/0.7038,r0=0.7204/99.2742,f=t=>{const x=r0*Math.exp((l5-l8)*t);return 100*x/(1+x);};
+ assert.equal(r(f(0),2),0.72);assert.equal(r(f(2),1),3.7);assert.equal(r((l5-l8)*2,2),1.66);assert.equal(r(Math.exp(1.66),1),5.3);assert.equal(r(0.00726*Math.exp(1.66),3),0.038);
+ // Coulomb barrier, Gamow peak.
+ const kT=15.7e6*kev;assert.equal(r(kT,2),1.35);assert.equal(r(1.44/2,2),0.72);assert.equal(r(720/1.35,-1),530);assert.equal(r(500/1.353,-1),370);
+ const EG=2*938.272/2*(Math.PI/137.035999)**2*1e3;assert.equal(r(EG,0),493);const E0=T=>(493*(T*kev)**2/4)**(1/3);assert.equal(r(E0(15.7e6),1),6.1);assert.equal(r(E0(15.7e6)/kT,1),4.5);assert.equal(r(E0(25e6),1),8.3);
+ const sum=(kt,eg)=>{let s=0;for(let E=0.5;E<=40;E+=0.5)s+=Math.exp(-E/kt-Math.sqrt(eg/E));return s;};
+ assert.equal(r(sum(1.488,493)/sum(1.353,493),2),1.65);const EGc=2*12/13*938.272*(6*Math.PI/137.036)**2;assert.equal(r(EGc,1),32.8);assert.equal(r((EGc*1e3*1.353**2/4)**(1/3),0),25);
+ assert.ok(sum(1.353,EGc*1e3)/sum(1.353,493)<1e-17);assert.equal(r(sum(1.488,EGc*1e3)/sum(1.353,EGc*1e3),0),6);
+ // Proton-proton chain and solar budget.
+ const dm=4*1.007825032-4.002603254;assert.equal(r(dm*u,1),26.7);assert.equal(r(dm/(4*1.007825032)*100,2),0.71);assert.equal(r(0.53/26.73*100,0),2);
+ assert.equal(r(4*1.007825-4.002603,6),0.028697);assert.equal(r(0.028697/4.0313*100,2),0.71);
+ const mdot=LSUN/(0.0071*c**2);assert.equal(r(mdot/1e11,1),6);assert.equal(r(mdot*1e10*yr/MSUN,2),0.1);assert.equal(r(LSUN/c**2/1e9,1),4.3);
+ const nnu=2*LSUN/(26.2*MeV);assert.equal(r(nnu/2/1e37,1),9.1);assert.equal(r(nnu/1e38,1),1.8);assert.equal(r(4*Math.PI*1.496e11**2/1e23,2),2.81);assert.equal(r(nnu/(4*Math.PI*AU**2)/1e4/1e10,1),6.5);assert.equal(r(6.5e10*86400/1e15,1),5.6);
+ assert.equal(r(6.957e8/c,1),2.3);assert.equal(r(150/11.34,0),13);
+ // Coal Sun.
+ assert.ok(MSUN*29e6/LSUN/yr<1e4&&MSUN*29e6/LSUN/yr>1e3);
+ // Lifetimes.
+ assert.equal(r(life(10,3.5)*1e3,0),32);assert.equal(r(life(20,3.5)*1e3,1),5.6);assert.equal(r(life(0.5,3.5),0),57);assert.equal(r(life(4,3.5)*1e3,-1),310);assert.equal(4**2.5,32);
+ assert.equal(life(20,3)*1e3,25);assert.equal(r(life(20,4)*1e3,2),1.25);assert.equal(r(20**0.5,1),4.5);assert.ok(10**3.5>3000);
+ // Controlled fusion.
+ assert.equal(r(17.6/5,1),3.5);assert.equal(r(17.6*4/5,1),14.1);assert.equal(r(150/15.7,1),9.6);assert.equal(r(1/1.56e-4,-2),6400);
+ assert.equal(3e21/(1e20*15),2);assert.ok(2.5e25/1e20>1e5);
+ const eDT=17.59*MeV/(5.0301*1.66054e-27);assert.equal(r(eDT/1e14,1),3.4);assert.equal(r(eDT/(N235*200*MeV),0),4);assert.equal(r(3.4e14*2e-7/1e6,0),68);assert.equal(r(69/29,1),2.4);assert.ok(2.4/2e-7>1e7);
+ assert.equal(r(3.15/2.05,2),1.54);assert.equal(r(8.6/2.08,1),4.1);
+ // Model probes: lifetime at M = 5.375 and 10.25 solar masses (25% and 50% of the domain) for alpha = 3.5 and 3.
+ assert.deepEqual([life(5.375,3.5),life(10.25,3.5),life(5.375,3),life(10.25,3)].map(v=>+v.toPrecision(4)),[0.1493,0.02973,0.3461,0.09518]);
+});

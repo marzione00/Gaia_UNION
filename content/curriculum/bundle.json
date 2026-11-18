@@ -23808,20 +23808,23 @@
       "title": "Energia dal nucleo: fusione nelle stelle",
       "sector": 1,
       "modelId": "physics-39",
-      "coverage": "guided-foundation",
-      "editorialStatus": "original-draft",
-      "scope": "Durata delle stelle dalla relazione massa-luminosità",
-      "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+      "coverage": "guided-lab",
+      "editorialStatus": "hand-written-draft",
+      "scope": "Fissione nucleare e reattori, reattore naturale di Oklo, fusione termonucleare, barriera coulombiana ed effetto tunnel, picco di Gamow, catena protone-protone, ciclo CNO, struttura interna del Sole, neutrini solari, relazione massa-luminosità e durata delle stelle, fasi finali delle stelle massicce, fusione controllata",
+      "narrativeStatus": "I dati provengono dalle misure delle masse atomiche, dalle osservazioni di Homestake, Super-Kamiokande, SNO e Borexino, dai neutrini di SN 1987A, dagli studi su Oklo, dai risultati di JET e della National Ignition Facility e dalle fonti citate nel capitolo.",
       "objectives": [
-        "Spiegare: durata delle stelle dalla relazione massa-luminosità.",
-        "Applicare t = t_S (M/M_S)^(1−α), dichiarando variabili e unità.",
-        "Confrontare due configurazioni e discutere i limiti del modello."
+        "Calcolare l’energia della fissione e descrivere la reazione a catena e il reattore di Oklo.",
+        "Spiegare la fusione nel Sole con la barriera coulombiana, l’effetto tunnel e il picco di Gamow.",
+        "Descrivere la catena protone-protone, il ciclo CNO e i neutrini solari.",
+        "Stimare la durata delle stelle con la relazione massa-luminosità e descrivere la fusione controllata."
       ],
       "prerequisites": [
         "physics-38"
       ],
       "connections": [
-        "physics-25"
+        "physics-36",
+        "physics-30",
+        "physics-32"
       ],
       "sources": [
         "physics3",
@@ -23830,244 +23833,319 @@
       "originalSource": null,
       "glossary": [
         {
-          "term": "Massa della stella",
-          "definition": "Variabile indipendente, unità masse solari; intervallo [0,5; 20]."
+          "term": "Fissione",
+          "definition": "Divisione di un nucleo pesante in due frammenti di massa intermedia, con emissione di neutroni ed energia."
         },
         {
-          "term": "Durata sulla sequenza principale",
-          "definition": "Risultato calcolato dal modello, unità miliardi di anni."
+          "term": "Picco di Gamow",
+          "definition": "Intervallo di energie in cui avviene la maggior parte delle reazioni di fusione in un plasma."
         },
         {
-          "term": "Esponente massa-luminosità α",
-          "definition": "Parametro a, unità 1; intervallo [3; 4]."
+          "term": "Catena protone-protone",
+          "definition": "Sequenza di reazioni che trasforma quattro protoni in elio-4 nel Sole, liberando 26,7 MeV."
+        },
+        {
+          "term": "Ciclo CNO",
+          "definition": "Sequenza di reazioni che trasforma idrogeno in elio usando carbonio, azoto e ossigeno come catalizzatori."
+        },
+        {
+          "term": "Oscillazione di neutrino",
+          "definition": "Trasformazione di un tipo di neutrino in un altro durante la propagazione."
+        },
+        {
+          "term": "Criterio di Lawson",
+          "definition": "Condizione sul prodotto di densità, temperatura e tempo di confinamento necessaria per un guadagno di energia da fusione."
         }
       ],
       "steps": [
         {
           "label": "SCOPRI",
-          "title": "La domanda della spedizione",
+          "title": "Che cosa fa brillare il Sole",
           "text": {
             "base": [
-              "La stazione orbita attorno a una stella giovane e massiccia. Quanto durerà la sua riserva di idrogeno rispetto a quella del Sole?",
-              "Una stella brucia idrogeno nel nucleo per un tempo proporzionale al combustibile, la massa M, diviso il ritmo di consumo, la luminosità L. Poiché L cresce circa come M^α con α vicino a 3,5, le stelle massicce vivono molto meno."
+              "Nell’Ottocento Kelvin e Helmholtz proposero che il Sole brillasse contraendosi lentamente sotto la propria gravità. Il calcolo dà una durata di circa trenta milioni di anni, troppo poca per la geologia e per l’evoluzione delle specie; le datazioni radiometriche avrebbero poi assegnato alla Terra 4,54 miliardi di anni. Il Sole doveva avere una fonte di energia più di cento volte più duratura.",
+              "Nel 1920 Arthur Eddington notò che un atomo di elio pesa circa lo 0,8 per cento meno di quattro atomi di idrogeno: se nel Sole l’idrogeno diventa elio, la massa mancante si trasforma in energia secondo E = mc². Nel 1939 Hans Bethe ricostruì le reazioni nucleari che alimentano il Sole e le stelle più massicce, e la meccanica quantistica spiegò come i protoni superano la loro repulsione."
             ],
             "intermediate": [
-              "La stazione orbita attorno a una stella giovane e massiccia. Quanto durerà la sua riserva di idrogeno rispetto a quella del Sole?",
-              "Se t è proporzionale a M/L e L a M^α, allora t è proporzionale a M^(1−α). Normalizzando al Sole, indicato con l'indice S, con una durata di circa 10 miliardi di anni, t = 10 Gyr·(M/M_S)^(1−α)."
+              "Nell’Ottocento Kelvin e Helmholtz proposero che il Sole brillasse contraendosi lentamente sotto la propria gravità. Il calcolo dà una durata di circa trenta milioni di anni, troppo poca per la geologia e per l’evoluzione delle specie; le datazioni radiometriche avrebbero poi assegnato alla Terra 4,54 miliardi di anni. Il Sole doveva avere una fonte di energia più di cento volte più duratura.",
+              "Nel 1920 Arthur Eddington notò che un atomo di elio pesa circa lo 0,8 per cento meno di quattro atomi di idrogeno: se nel Sole l’idrogeno diventa elio, la massa mancante si trasforma in energia secondo E = mc². Nel 1939 Hans Bethe ricostruì le reazioni nucleari che alimentano il Sole e le stelle più massicce, e la meccanica quantistica spiegò come i protoni superano la loro repulsione."
             ],
             "advanced": [
-              "La stazione orbita attorno a una stella giovane e massiccia. Quanto durerà la sua riserva di idrogeno rispetto a quella del Sole?",
-              "Stima la durata di una stella di 20 masse solari con α = 3 e con α = 4 e discuti quanto la stima dipende dall'esponente.",
-              "Relazione massa-luminosità con esponente unico e frazione di idrogeno bruciata uguale per tutte le stelle; per le stelle più massicce e più piccole l'esponente cambia."
+              "Nell’Ottocento Kelvin e Helmholtz proposero che il Sole brillasse contraendosi lentamente sotto la propria gravità. Il calcolo dà una durata di circa trenta milioni di anni, troppo poca per la geologia e per l’evoluzione delle specie; le datazioni radiometriche avrebbero poi assegnato alla Terra 4,54 miliardi di anni. Il Sole doveva avere una fonte di energia più di cento volte più duratura.",
+              "Nel 1920 Arthur Eddington notò che un atomo di elio pesa circa lo 0,8 per cento meno di quattro atomi di idrogeno: se nel Sole l’idrogeno diventa elio, la massa mancante si trasforma in energia secondo E = mc². Nel 1939 Hans Bethe ricostruì le reazioni nucleari che alimentano il Sole e le stelle più massicce, e la meccanica quantistica spiegò come i protoni superano la loro repulsione.",
+              "L’energia nucleare compare anche sulla Terra. La fissione dell’uranio alimenta le centrali, e due miliardi di anni fa un giacimento di uranio a Oklo, in Gabon, funzionò da reattore naturale per centinaia di migliaia di anni. La fusione dell’idrogeno, riprodotta nei laboratori con il deuterio e il trizio, è uno degli obiettivi più ambiziosi della tecnologia."
             ]
           }
         },
         {
           "label": "CAPISCI",
-          "title": "Dall’intuizione alla relazione",
+          "title": "Fissione, fusione e neutrini",
           "text": {
             "base": [
-              "Una stella brucia idrogeno nel nucleo per un tempo proporzionale al combustibile, la massa M, diviso il ritmo di consumo, la luminosità L. Poiché L cresce circa come M^α con α vicino a 3,5, le stelle massicce vivono molto meno.",
-              "Con α = 3,5 una stella di 10 masse solari vive circa 30 milioni di anni; una di 0,5 masse solari circa 57 miliardi di anni, più dell'età dell'universo."
+              "La fissione di un nucleo di uranio-235 libera circa 200 MeV e due o tre neutroni, che sostengono una reazione a catena; nei reattori un moderatore rallenta i neutroni e le barre di controllo tengono il fattore di moltiplicazione uguale a uno. Due miliardi di anni fa l’uranio-235 era circa il 3,7 per cento dell’uranio naturale, abbastanza per il reattore naturale di Oklo.",
+              "Nel nucleo del Sole, a 15,7 milioni di kelvin, l’energia termica vale circa 1,35 keV, centinaia di volte meno della barriera elettrica fra due protoni. I protoni la attraversano per effetto tunnel: le reazioni avvengono in una finestra stretta di energie, il picco di Gamow, vicino a 6 keV. La catena protone-protone trasforma quattro protoni in un nucleo di elio-4 e libera 26,7 MeV."
             ],
             "intermediate": [
-              "Se t è proporzionale a M/L e L a M^α, allora t è proporzionale a M^(1−α). Normalizzando al Sole, indicato con l'indice S, con una durata di circa 10 miliardi di anni, t = 10 Gyr·(M/M_S)^(1−α).",
-              "La variabile Massa della stella è espressa in masse solari; Durata sulla sequenza principale in miliardi di anni. Il dominio dello strumento è [0,5; 20]. La relazione implementata è: t = t_S (M/M_S)^(1−α).",
-              "Con α = 3,5 una stella di 10 masse solari vive circa 30 milioni di anni; una di 0,5 masse solari circa 57 miliardi di anni, più dell'età dell'universo."
+              "La fissione di un nucleo di uranio-235 libera circa 200 MeV e due o tre neutroni, che sostengono una reazione a catena; nei reattori un moderatore rallenta i neutroni e le barre di controllo tengono il fattore di moltiplicazione uguale a uno. Due miliardi di anni fa l’uranio-235 era circa il 3,7 per cento dell’uranio naturale, abbastanza per il reattore naturale di Oklo.",
+              "Nel nucleo del Sole, a 15,7 milioni di kelvin, l’energia termica vale circa 1,35 keV, centinaia di volte meno della barriera elettrica fra due protoni. I protoni la attraversano per effetto tunnel: le reazioni avvengono in una finestra stretta di energie, il picco di Gamow, vicino a 6 keV. La catena protone-protone trasforma quattro protoni in un nucleo di elio-4 e libera 26,7 MeV.",
+              "Ogni secondo il Sole trasforma circa seicento milioni di tonnellate di idrogeno in elio ed emette circa 1,8·10³⁸ neutrini, che raggiungono la Terra in otto minuti. Gli esperimenti sui neutrini solari, da Homestake a SNO e Borexino, hanno confermato il modello del Sole e hanno scoperto che i neutrini cambiano tipo durante il viaggio. Nelle stelle più massicce domina il ciclo CNO, catalizzato da carbonio, azoto e ossigeno."
             ],
             "advanced": [
-              "Se t è proporzionale a M/L e L a M^α, allora t è proporzionale a M^(1−α). Normalizzando al Sole, indicato con l'indice S, con una durata di circa 10 miliardi di anni, t = 10 Gyr·(M/M_S)^(1−α).",
-              "Stima la durata di una stella di 20 masse solari con α = 3 e con α = 4 e discuti quanto la stima dipende dall'esponente.",
-              "Una stella più massiccia ha più combustibile ma lo consuma molto più in fretta: la durata diminuisce con la massa."
+              "La fissione di un nucleo di uranio-235 libera circa 200 MeV e due o tre neutroni, che sostengono una reazione a catena; nei reattori un moderatore rallenta i neutroni e le barre di controllo tengono il fattore di moltiplicazione uguale a uno. Due miliardi di anni fa l’uranio-235 era circa il 3,7 per cento dell’uranio naturale, abbastanza per il reattore naturale di Oklo.",
+              "Nel nucleo del Sole, a 15,7 milioni di kelvin, l’energia termica vale circa 1,35 keV, centinaia di volte meno della barriera elettrica fra due protoni. I protoni la attraversano per effetto tunnel: le reazioni avvengono in una finestra stretta di energie, il picco di Gamow, vicino a 6 keV. La catena protone-protone trasforma quattro protoni in un nucleo di elio-4 e libera 26,7 MeV.",
+              "Ogni secondo il Sole trasforma circa seicento milioni di tonnellate di idrogeno in elio ed emette circa 1,8·10³⁸ neutrini, che raggiungono la Terra in otto minuti. Gli esperimenti sui neutrini solari, da Homestake a SNO e Borexino, hanno confermato il modello del Sole e hanno scoperto che i neutrini cambiano tipo durante il viaggio. Nelle stelle più massicce domina il ciclo CNO, catalizzato da carbonio, azoto e ossigeno.",
+              "La luminosità di una stella cresce circa come la potenza 3,5 della massa, e la durata della fase di sequenza principale come M elevato a 1 − α, cioè circa M alla −2,5: dieci miliardi di anni per il Sole, una trentina di milioni per una stella di dieci masse solari. Le stelle massicce fondono poi elio, carbonio, ossigeno e silicio fino a un nucleo di ferro, che collassa in una supernova."
             ]
           }
         },
         {
           "label": "SPERIMENTA",
-          "title": "Prevedi, modifica, confronta",
+          "title": "Il laboratorio della durata delle stelle",
           "text": {
             "base": [
-              "Nel laboratorio imposta Esponente massa-luminosità α (a): 3,5 (adimensionale). Prima di salvare A, prevedi come cambia Durata sulla sequenza principale fra Massa della stella=5,375 e 10,25 masse solari. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Con α = 3,5 una stella di 10 masse solari vive circa 30 milioni di anni; una di 0,5 masse solari circa 57 miliardi di anni, più dell'età dell'universo.",
-              "La variabile Massa della stella è espressa in masse solari; Durata sulla sequenza principale in miliardi di anni. Il dominio dello strumento è [0,5; 20]. La relazione implementata è: t = t_S (M/M_S)^(1−α)."
+              "Nel laboratorio il grafico mostra la durata della fase di sequenza principale di una stella, in miliardi di anni, in funzione della sua massa, da 0,5 a 20 masse solari, secondo t = 10 miliardi di anni · M^(1 − α), con la massa in masse solari. Nella scheda «Regola» cambi l’esponente α della relazione massa-luminosità da 3 a 4. Il valore predefinito è 3,5, adatto alle stelle simili al Sole.",
+              "Protocollo. Il programma confronta due masse fissate, circa 5,4 e 10,3 masse solari. Con α = 3,5 prevedi se la durata cresce, diminuisce o resta uguale passando dalla prima stella alla seconda e salva A. Poi porta l’esponente a 3, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+              "Che cosa osservare. Con α = 3,5 la durata passa da circa 149 a circa 30 milioni di anni; con α = 3 da circa 346 a circa 95 milioni di anni. In entrambi i casi diminuisce, perché la luminosità cresce più in fretta del combustibile disponibile; con l’esponente più alto la diminuzione è più marcata, un fattore cinque invece di un fattore 3,6. Raddoppiare la massa significa vivere da quattro a otto volte meno, secondo l’esponente."
             ],
             "intermediate": [
-              "Nel laboratorio imposta Esponente massa-luminosità α (a): 3,5 (adimensionale). Prima di salvare A, prevedi come cambia Durata sulla sequenza principale fra Massa della stella=5,375 e 10,25 masse solari. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "La variabile Massa della stella è espressa in masse solari; Durata sulla sequenza principale in miliardi di anni. Il dominio dello strumento è [0,5; 20]. La relazione implementata è: t = t_S (M/M_S)^(1−α).",
-              "Se t è proporzionale a M/L e L a M^α, allora t è proporzionale a M^(1−α). Normalizzando al Sole, indicato con l'indice S, con una durata di circa 10 miliardi di anni, t = 10 Gyr·(M/M_S)^(1−α)."
+              "Nel laboratorio il grafico mostra la durata della fase di sequenza principale di una stella, in miliardi di anni, in funzione della sua massa, da 0,5 a 20 masse solari, secondo t = 10 miliardi di anni · M^(1 − α), con la massa in masse solari. Nella scheda «Regola» cambi l’esponente α della relazione massa-luminosità da 3 a 4. Il valore predefinito è 3,5, adatto alle stelle simili al Sole.",
+              "Protocollo. Il programma confronta due masse fissate, circa 5,4 e 10,3 masse solari. Con α = 3,5 prevedi se la durata cresce, diminuisce o resta uguale passando dalla prima stella alla seconda e salva A. Poi porta l’esponente a 3, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+              "Che cosa osservare. Con α = 3,5 la durata passa da circa 149 a circa 30 milioni di anni; con α = 3 da circa 346 a circa 95 milioni di anni. In entrambi i casi diminuisce, perché la luminosità cresce più in fretta del combustibile disponibile; con l’esponente più alto la diminuzione è più marcata, un fattore cinque invece di un fattore 3,6. Raddoppiare la massa significa vivere da quattro a otto volte meno, secondo l’esponente."
             ],
             "advanced": [
-              "Nel laboratorio imposta Esponente massa-luminosità α (a): 3,5 (adimensionale). Prima di salvare A, prevedi come cambia Durata sulla sequenza principale fra Massa della stella=5,375 e 10,25 masse solari. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Stima la durata di una stella di 20 masse solari con α = 3 e con α = 4 e discuti quanto la stima dipende dall'esponente.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Nel laboratorio il grafico mostra la durata della fase di sequenza principale di una stella, in miliardi di anni, in funzione della sua massa, da 0,5 a 20 masse solari, secondo t = 10 miliardi di anni · M^(1 − α), con la massa in masse solari. Nella scheda «Regola» cambi l’esponente α della relazione massa-luminosità da 3 a 4. Il valore predefinito è 3,5, adatto alle stelle simili al Sole.",
+              "Protocollo. Il programma confronta due masse fissate, circa 5,4 e 10,3 masse solari. Con α = 3,5 prevedi se la durata cresce, diminuisce o resta uguale passando dalla prima stella alla seconda e salva A. Poi porta l’esponente a 3, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+              "Che cosa osservare. Con α = 3,5 la durata passa da circa 149 a circa 30 milioni di anni; con α = 3 da circa 346 a circa 95 milioni di anni. In entrambi i casi diminuisce, perché la luminosità cresce più in fretta del combustibile disponibile; con l’esponente più alto la diminuzione è più marcata, un fattore cinque invece di un fattore 3,6. Raddoppiare la massa significa vivere da quattro a otto volte meno, secondo l’esponente.",
+              "Una prova al computer: in un foglio di calcolo si moltiplica il fattore di Maxwell-Boltzmann e^(−E/kT), con kT = 1,353 keV, per il fattore di tunnel e^(−√(493 keV/E)), per energie da 0,5 a 40 keV. Il prodotto ha un massimo vicino a 6,1 keV, il picco di Gamow. Aumentando la temperatura del dieci per cento la somma dei prodotti cresce di circa il 65 per cento: le reazioni sono sensibilissime alla temperatura."
             ]
           }
         },
         {
           "label": "INTERPRETA",
-          "title": "Leggere senza sovrainterpretare",
+          "title": "Errori e limiti",
           "text": {
             "base": [
-              "Una stella più massiccia ha più combustibile ma lo consuma molto più in fretta: la durata diminuisce con la massa.",
-              "Relazione massa-luminosità con esponente unico e frazione di idrogeno bruciata uguale per tutte le stelle; per le stelle più massicce e più piccole l'esponente cambia.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Errore frequente: pensare che il Sole bruci come un fuoco. Una stella di carbone della sua massa si consumerebbe in poche migliaia di anni; la fusione nucleare libera per unità di massa milioni di volte più energia. Secondo errore: credere che i protoni scavalchino la barriera elettrica grazie alla temperatura. L’energia termica è centinaia di volte troppo piccola, e i protoni la attraversano per effetto tunnel.",
+              "Terzo errore: pensare che le stelle più massicce vivano di più perché hanno più combustibile. Una stella di dieci masse solari ha dieci volte più idrogeno, ma la sua luminosità è più di tremila volte quella del Sole. Quarto errore: credere che i neutrini solari mancanti indicassero un errore nel modello del Sole. Il flusso totale coincide con la previsione; i neutrini cambiano tipo durante il viaggio."
             ],
             "intermediate": [
-              "Una stella più massiccia ha più combustibile ma lo consuma molto più in fretta: la durata diminuisce con la massa.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Errore frequente: pensare che il Sole bruci come un fuoco. Una stella di carbone della sua massa si consumerebbe in poche migliaia di anni; la fusione nucleare libera per unità di massa milioni di volte più energia. Secondo errore: credere che i protoni scavalchino la barriera elettrica grazie alla temperatura. L’energia termica è centinaia di volte troppo piccola, e i protoni la attraversano per effetto tunnel.",
+              "Terzo errore: pensare che le stelle più massicce vivano di più perché hanno più combustibile. Una stella di dieci masse solari ha dieci volte più idrogeno, ma la sua luminosità è più di tremila volte quella del Sole. Quarto errore: credere che i neutrini solari mancanti indicassero un errore nel modello del Sole. Il flusso totale coincide con la previsione; i neutrini cambiano tipo durante il viaggio.",
+              "Il modello del laboratorio usa un’unica legge di potenza per la relazione massa-luminosità e suppone che tutte le stelle brucino la stessa frazione del loro idrogeno. Per le stelle molto massicce la luminosità cresce meno rapidamente e la stima dà durate troppo brevi; le nane rosse, completamente convettive, bruciano tutto il loro idrogeno e vivono più a lungo di quanto prevede la formula."
             ],
             "advanced": [
-              "Relazione massa-luminosità con esponente unico e frazione di idrogeno bruciata uguale per tutte le stelle; per le stelle più massicce e più piccole l'esponente cambia.",
-              "Stima la durata di una stella di 20 masse solari con α = 3 e con α = 4 e discuti quanto la stima dipende dall'esponente.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Errore frequente: pensare che il Sole bruci come un fuoco. Una stella di carbone della sua massa si consumerebbe in poche migliaia di anni; la fusione nucleare libera per unità di massa milioni di volte più energia. Secondo errore: credere che i protoni scavalchino la barriera elettrica grazie alla temperatura. L’energia termica è centinaia di volte troppo piccola, e i protoni la attraversano per effetto tunnel.",
+              "Terzo errore: pensare che le stelle più massicce vivano di più perché hanno più combustibile. Una stella di dieci masse solari ha dieci volte più idrogeno, ma la sua luminosità è più di tremila volte quella del Sole. Quarto errore: credere che i neutrini solari mancanti indicassero un errore nel modello del Sole. Il flusso totale coincide con la previsione; i neutrini cambiano tipo durante il viaggio.",
+              "Il modello del laboratorio usa un’unica legge di potenza per la relazione massa-luminosità e suppone che tutte le stelle brucino la stessa frazione del loro idrogeno. Per le stelle molto massicce la luminosità cresce meno rapidamente e la stima dà durate troppo brevi; le nane rosse, completamente convettive, bruciano tutto il loro idrogeno e vivono più a lungo di quanto prevede la formula.",
+              "Approfondimento: nelle stelle con più di circa otto masse solari, dopo l’idrogeno e l’elio, fondono carbonio, neon, ossigeno e silicio in fasi sempre più brevi; la fusione del silicio dura circa un giorno. Il ferro sta in cima alla curva dell’energia di legame: quando il nucleo di ferro supera circa 1,4 masse solari collassa in meno di un secondo, come mostrarono i neutrini della supernova SN 1987A."
             ]
           }
         },
         {
           "label": "VERIFICA",
-          "title": "Verifica ragionamento e calcolo",
+          "title": "Verifica",
           "text": {
             "base": [
-              "Una stella brucia idrogeno nel nucleo per un tempo proporzionale al combustibile, la massa M, diviso il ritmo di consumo, la luminosità L. Poiché L cresce circa come M^α con α vicino a 3,5, le stelle massicce vivono molto meno.",
-              "Con α = 3,5 una stella di 10 masse solari vive circa 30 milioni di anni; una di 0,5 masse solari circa 57 miliardi di anni, più dell'età dell'universo."
+              "Ripasso: problema dell’età del Sole e ipotesi di Eddington; fissione, reazione a catena e reattore; reattore naturale di Oklo; barriera coulombiana, effetto tunnel e picco di Gamow; catena protone-protone e bilancio energetico del Sole; ciclo CNO; struttura interna del Sole ed eliosismologia; neutrini solari e oscillazioni; SN 1987A; relazione massa-luminosità e durata delle stelle; processo tre alfa; fusione controllata.",
+              "Mini esercizio: con t = 10 miliardi di anni · M^(−2,5), una stella di 4 masse solari vive circa 10/32 miliardi di anni, cioè circa 310 milioni di anni.",
+              "Nelle domande ricorda che la fusione avviene per effetto tunnel, che il Sole trasforma in energia lo 0,71 per cento della massa dell’idrogeno e che le stelle massicce vivono molto meno di quelle piccole."
             ],
             "intermediate": [
-              "Se t è proporzionale a M/L e L a M^α, allora t è proporzionale a M^(1−α). Normalizzando al Sole, indicato con l'indice S, con una durata di circa 10 miliardi di anni, t = 10 Gyr·(M/M_S)^(1−α).",
-              "La variabile Massa della stella è espressa in masse solari; Durata sulla sequenza principale in miliardi di anni. Il dominio dello strumento è [0,5; 20]. La relazione implementata è: t = t_S (M/M_S)^(1−α)."
+              "Ripasso: problema dell’età del Sole e ipotesi di Eddington; fissione, reazione a catena e reattore; reattore naturale di Oklo; barriera coulombiana, effetto tunnel e picco di Gamow; catena protone-protone e bilancio energetico del Sole; ciclo CNO; struttura interna del Sole ed eliosismologia; neutrini solari e oscillazioni; SN 1987A; relazione massa-luminosità e durata delle stelle; processo tre alfa; fusione controllata.",
+              "Mini esercizio: con t = 10 miliardi di anni · M^(−2,5), una stella di 4 masse solari vive circa 10/32 miliardi di anni, cioè circa 310 milioni di anni.",
+              "Nelle domande ricorda che la fusione avviene per effetto tunnel, che il Sole trasforma in energia lo 0,71 per cento della massa dell’idrogeno e che le stelle massicce vivono molto meno di quelle piccole."
             ],
             "advanced": [
-              "Stima la durata di una stella di 20 masse solari con α = 3 e con α = 4 e discuti quanto la stima dipende dall'esponente.",
-              "Relazione massa-luminosità con esponente unico e frazione di idrogeno bruciata uguale per tutte le stelle; per le stelle più massicce e più piccole l'esponente cambia."
+              "Ripasso: problema dell’età del Sole e ipotesi di Eddington; fissione, reazione a catena e reattore; reattore naturale di Oklo; barriera coulombiana, effetto tunnel e picco di Gamow; catena protone-protone e bilancio energetico del Sole; ciclo CNO; struttura interna del Sole ed eliosismologia; neutrini solari e oscillazioni; SN 1987A; relazione massa-luminosità e durata delle stelle; processo tre alfa; fusione controllata.",
+              "Mini esercizio: con t = 10 miliardi di anni · M^(−2,5), una stella di 4 masse solari vive circa 10/32 miliardi di anni, cioè circa 310 milioni di anni.",
+              "Nelle domande ricorda che la fusione avviene per effetto tunnel, che il Sole trasforma in energia lo 0,71 per cento della massa dell’idrogeno e che le stelle massicce vivono molto meno di quelle piccole."
             ]
           }
         },
         {
           "label": "COLLEGA",
-          "title": "Conclusione e nuova domanda",
+          "title": "Collegamenti",
           "text": {
             "base": [
-              "Nel diario distingui previsione, risultato e interpretazione. Durata delle stelle dalla relazione massa-luminosità.",
-              "Relazione massa-luminosità con esponente unico e frazione di idrogeno bruciata uguale per tutte le stelle; per le stelle più massicce e più piccole l'esponente cambia.",
-              "Collegamento consigliato: physics-25. Il completamento registra attività e autoverifica, non certifica competenze."
+              "La curva dell’energia di legame e il decadimento alfa sono in «Nuclei, decadimenti e datazioni»; la relazione fra massa ed energia in «Relatività ristretta»; la temperatura e lo spettro delle stelle in «Radiazione termica e luce delle stelle»; il confinamento magnetico delle particelle cariche in «Particelle cariche nei campi magnetici». L’origine degli elementi più leggeri nei primi minuti dell’universo sarà il tema di «Particelle, espansione e Big Bang».",
+              "Riepilogo dell’unità: Kelvin, Eddington e Bethe; Hahn, Strassmann, Meitner e Frisch; la pila di Fermi; reattori e neutroni ritardati; Oklo e la costante di struttura fine; barriera coulombiana e picco di Gamow; catena protone-protone e ciclo CNO; interno del Sole ed eliosismologia; Homestake, SNO, Super-Kamiokande e Borexino; SN 1987A; durata delle stelle e processo tre alfa; JET, NIF e ITER.",
+              "Nel diario registra A e B con le previsioni e calcola con α = 3,5 la massa di una stella che vive un miliardo di anni: M = 10^(1/2,5) masse solari, circa 2,5 masse solari."
             ],
             "intermediate": [
-              "Se t è proporzionale a M/L e L a M^α, allora t è proporzionale a M^(1−α). Normalizzando al Sole, indicato con l'indice S, con una durata di circa 10 miliardi di anni, t = 10 Gyr·(M/M_S)^(1−α).",
-              "Relazione massa-luminosità con esponente unico e frazione di idrogeno bruciata uguale per tutte le stelle; per le stelle più massicce e più piccole l'esponente cambia.",
-              "Stima la durata di una stella di 20 masse solari con α = 3 e con α = 4 e discuti quanto la stima dipende dall'esponente."
+              "La curva dell’energia di legame e il decadimento alfa sono in «Nuclei, decadimenti e datazioni»; la relazione fra massa ed energia in «Relatività ristretta»; la temperatura e lo spettro delle stelle in «Radiazione termica e luce delle stelle»; il confinamento magnetico delle particelle cariche in «Particelle cariche nei campi magnetici». L’origine degli elementi più leggeri nei primi minuti dell’universo sarà il tema di «Particelle, espansione e Big Bang».",
+              "Riepilogo dell’unità: Kelvin, Eddington e Bethe; Hahn, Strassmann, Meitner e Frisch; la pila di Fermi; reattori e neutroni ritardati; Oklo e la costante di struttura fine; barriera coulombiana e picco di Gamow; catena protone-protone e ciclo CNO; interno del Sole ed eliosismologia; Homestake, SNO, Super-Kamiokande e Borexino; SN 1987A; durata delle stelle e processo tre alfa; JET, NIF e ITER.",
+              "Nel diario registra A e B con le previsioni e calcola con α = 3,5 la massa di una stella che vive un miliardo di anni: M = 10^(1/2,5) masse solari, circa 2,5 masse solari."
             ],
             "advanced": [
-              "Stima la durata di una stella di 20 masse solari con α = 3 e con α = 4 e discuti quanto la stima dipende dall'esponente.",
-              "Relazione massa-luminosità con esponente unico e frazione di idrogeno bruciata uguale per tutte le stelle; per le stelle più massicce e più piccole l'esponente cambia.",
-              "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+              "La curva dell’energia di legame e il decadimento alfa sono in «Nuclei, decadimenti e datazioni»; la relazione fra massa ed energia in «Relatività ristretta»; la temperatura e lo spettro delle stelle in «Radiazione termica e luce delle stelle»; il confinamento magnetico delle particelle cariche in «Particelle cariche nei campi magnetici». L’origine degli elementi più leggeri nei primi minuti dell’universo sarà il tema di «Particelle, espansione e Big Bang».",
+              "Riepilogo dell’unità: Kelvin, Eddington e Bethe; Hahn, Strassmann, Meitner e Frisch; la pila di Fermi; reattori e neutroni ritardati; Oklo e la costante di struttura fine; barriera coulombiana e picco di Gamow; catena protone-protone e ciclo CNO; interno del Sole ed eliosismologia; Homestake, SNO, Super-Kamiokande e Borexino; SN 1987A; durata delle stelle e processo tre alfa; JET, NIF e ITER.",
+              "Nel diario registra A e B con le previsioni e calcola con α = 3,5 la massa di una stella che vive un miliardo di anni: M = 10^(1/2,5) masse solari, circa 2,5 masse solari."
             ]
           }
         }
       ],
       "questions": [
         {
-          "id": "physics-39-concept",
+          "id": "physics-39-q1",
           "prompt": "Con α = 3,5, una stella di 4 masse solari vive rispetto al Sole circa:",
           "options": [
             {
               "id": "A",
               "text": "Un trentaduesimo",
-              "feedback": "Una stella brucia idrogeno nel nucleo per un tempo proporzionale al combustibile, la massa M, diviso il ritmo di consumo, la luminosità L. Poiché L cresce circa come M^α con α vicino a 3,5, le stelle massicce vivono molto meno."
+              "feedback": "Esatto: la durata scala come M alla −2,5, e 4 elevato a 2,5 vale 32."
             },
             {
               "id": "B",
               "text": "Un quarto",
-              "feedback": "Una stella più massiccia ha più combustibile ma lo consuma molto più in fretta: la durata diminuisce con la massa."
+              "feedback": "La durata diminuisce molto più rapidamente della massa."
             },
             {
               "id": "C",
               "text": "Quattro volte di più",
-              "feedback": "Se t è proporzionale a M/L e L a M^α, allora t è proporzionale a M^(1−α). Normalizzando al Sole, indicato con l'indice S, con una durata di circa 10 miliardi di anni, t = 10 Gyr·(M/M_S)^(1−α)."
+              "feedback": "Più massa significa una luminosità molto maggiore e una vita più breve."
+            },
+            {
+              "id": "D",
+              "text": "Lo stesso tempo",
+              "feedback": "La durata dipende fortemente dalla massa della stella."
             }
           ],
           "correct": "A"
         },
         {
-          "id": "physics-39-calculation",
-          "prompt": "Calcolo: Esponente massa-luminosità α (a)=3,5 (adimensionale). Per Massa della stella=1 masse solari, quanto vale Durata sulla sequenza principale?",
+          "id": "physics-39-q2",
+          "prompt": "Nel nucleo del Sole i protoni riescono a fondersi perché:",
           "options": [
             {
               "id": "A",
-              "text": "15 miliardi di anni",
-              "feedback": "Questo valore non soddisfa la relazione. t = t_S (M/M_S)^(1−α). Con Esponente massa-luminosità α (a)=3,5 (adimensionale) e Massa della stella=1 masse solari, il risultato è 10 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+              "text": "Attraversano la barriera elettrica per effetto tunnel",
+              "feedback": "Esatto: l’energia termica è centinaia di volte più piccola della barriera."
             },
             {
               "id": "B",
-              "text": "5 miliardi di anni",
-              "feedback": "Controlla sostituzione, segno e unità. t = t_S (M/M_S)^(1−α). Con Esponente massa-luminosità α (a)=3,5 (adimensionale) e Massa della stella=1 masse solari, il risultato è 10 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+              "text": "La temperatura basta a scavalcare la barriera",
+              "feedback": "A 15,7 milioni di kelvin l’energia tipica è di circa 1,35 keV, troppo poca."
             },
             {
               "id": "C",
-              "text": "10 miliardi di anni",
-              "feedback": "t = t_S (M/M_S)^(1−α). Con Esponente massa-luminosità α (a)=3,5 (adimensionale) e Massa della stella=1 masse solari, il risultato è 10 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+              "text": "La gravità annulla la repulsione elettrica",
+              "feedback": "La gravità comprime il nucleo, ma fra due protoni la forza elettrica resta enorme."
+            },
+            {
+              "id": "D",
+              "text": "I protoni sono neutri ad alta temperatura",
+              "feedback": "La carica del protone non dipende dalla temperatura."
             }
           ],
-          "correct": "C",
-          "numeric": {
-            "x": 1,
-            "parameters": {
-              "a": 3.5
-            },
-            "expected": 10,
-            "unit": "miliardi di anni"
-          }
+          "correct": "A"
         },
         {
-          "id": "physics-39-transfer",
-          "prompt": "Trasferimento: Esponente massa-luminosità α (a)=3,6 (adimensionale). Per Massa della stella=1 masse solari, quanto vale Durata sulla sequenza principale?",
+          "id": "physics-39-q3",
+          "prompt": "La catena protone-protone trasforma in energia circa:",
           "options": [
             {
               "id": "A",
-              "text": "5 miliardi di anni",
-              "feedback": "Controlla sostituzione, segno e unità. t = t_S (M/M_S)^(1−α). Con Esponente massa-luminosità α (a)=3,6 (adimensionale) e Massa della stella=1 masse solari, il risultato è 10 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+              "text": "Lo 0,71 per cento della massa dell’idrogeno",
+              "feedback": "Esatto: quattro protoni pesano lo 0,71 per cento più di un nucleo di elio-4."
             },
             {
               "id": "B",
-              "text": "10 miliardi di anni",
-              "feedback": "t = t_S (M/M_S)^(1−α). Con Esponente massa-luminosità α (a)=3,6 (adimensionale) e Massa della stella=1 masse solari, il risultato è 10 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+              "text": "Il 100 per cento della massa",
+              "feedback": "Soltanto la differenza di massa diventa energia."
             },
             {
               "id": "C",
-              "text": "15 miliardi di anni",
-              "feedback": "Questo valore non soddisfa la relazione. t = t_S (M/M_S)^(1−α). Con Esponente massa-luminosità α (a)=3,6 (adimensionale) e Massa della stella=1 masse solari, il risultato è 10 miliardi di anni. Conserva le unità e arrotonda solo alla fine."
+              "text": "Il 10 per cento della massa",
+              "feedback": "Il difetto di massa nella fusione dell’idrogeno è meno dell’uno per cento."
+            },
+            {
+              "id": "D",
+              "text": "Lo 0,001 per cento della massa",
+              "feedback": "Questa frazione è troppo piccola; le reazioni chimiche liberano frazioni ancora minori."
             }
           ],
-          "correct": "B",
-          "numeric": {
-            "x": 1,
-            "parameters": {
-              "a": 3.6
-            },
-            "expected": 10,
-            "unit": "miliardi di anni"
-          }
+          "correct": "A"
         },
         {
-          "id": "physics-39-limits",
-          "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+          "id": "physics-39-q4",
+          "prompt": "I primi esperimenti contavano circa un terzo dei neutrini solari previsti perché:",
           "options": [
             {
               "id": "A",
-              "text": "Riproduce ogni dettaglio del pianeta reale",
-              "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Relazione massa-luminosità con esponente unico e frazione di idrogeno bruciata uguale per tutte le stelle; per le stelle più massicce e più piccole l'esponente cambia."
+              "text": "I neutrini elettronici si trasformano in parte in altri tipi durante il viaggio",
+              "feedback": "Esatto: SNO mostrò che il flusso totale coincide con la previsione."
             },
             {
               "id": "B",
-              "text": "Basta il grafico per provare una legge universale",
-              "feedback": "Una visualizzazione non è una dimostrazione universale. Relazione massa-luminosità con esponente unico e frazione di idrogeno bruciata uguale per tutte le stelle; per le stelle più massicce e più piccole l'esponente cambia."
+              "text": "Il Sole produce meno energia del previsto",
+              "feedback": "La luminosità del Sole è misurata direttamente ed è coerente con il modello."
             },
             {
               "id": "C",
-              "text": "Durata delle stelle dalla relazione massa-luminosità",
-              "feedback": "Relazione massa-luminosità con esponente unico e frazione di idrogeno bruciata uguale per tutte le stelle; per le stelle più massicce e più piccole l'esponente cambia."
+              "text": "La Terra assorbe i neutrini",
+              "feedback": "La Terra è quasi trasparente ai neutrini."
+            },
+            {
+              "id": "D",
+              "text": "I neutrini decadono in fotoni",
+              "feedback": "I neutrini cambiano tipo, senza trasformarsi in luce."
             }
           ],
-          "correct": "C"
+          "correct": "A"
+        },
+        {
+          "id": "physics-39-q5",
+          "prompt": "Il reattore naturale di Oklo funzionò due miliardi di anni fa perché:",
+          "options": [
+            {
+              "id": "A",
+              "text": "L’uranio-235 era allora circa il 3,7 per cento dell’uranio naturale",
+              "feedback": "Esatto: l’uranio-235 decade più in fretta dell’uranio-238, e in passato era più abbondante."
+            },
+            {
+              "id": "B",
+              "text": "L’uranio-238 era fissile",
+              "feedback": "L’uranio-238 non sostiene una reazione a catena con neutroni lenti."
+            },
+            {
+              "id": "C",
+              "text": "Il giacimento conteneva plutonio",
+              "feedback": "Il plutonio si forma nei reattori; a Oklo il combustibile era uranio-235."
+            },
+            {
+              "id": "D",
+              "text": "Un fulmine innescò la reazione",
+              "feedback": "La reazione partì spontaneamente, moderata dall’acqua del sottosuolo."
+            }
+          ],
+          "correct": "A"
+        },
+        {
+          "id": "physics-39-q6",
+          "prompt": "Nella reazione fra deuterio e trizio il neutrone porta via circa:",
+          "options": [
+            {
+              "id": "A",
+              "text": "14,1 MeV, quattro quinti dell’energia",
+              "feedback": "Esatto: con quantità di moto uguali le energie stanno nel rapporto inverso delle masse."
+            },
+            {
+              "id": "B",
+              "text": "3,5 MeV",
+              "feedback": "Questa è l’energia della particella alfa, quattro volte più pesante del neutrone."
+            },
+            {
+              "id": "C",
+              "text": "Metà dell’energia",
+              "feedback": "Le energie si dividono secondo le masse, che sono diverse."
+            },
+            {
+              "id": "D",
+              "text": "Nessuna energia",
+              "feedback": "Il neutrone esce veloce e porta la maggior parte dell’energia."
+            }
+          ],
+          "correct": "A"
         }
       ]
     },
