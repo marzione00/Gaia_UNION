@@ -1,25 +1,25 @@
-# Collaudo GAIA 1.31.0
+# Collaudo GAIA 1.32.0
 
-Eseguito il 18 novembre 2026 sul ramo `feat/spedizioni-20261118`, costruito sopra `main` alla versione 1.30.0 (pull request #31), con Node.js 22.
+Eseguito il 18 novembre 2026 sul ramo `feat/avamposti-20261118`, costruito sopra `main` alla versione 1.31.0 (pull request #32), con Node.js 22.
 
 | Controllo | Comando | Risultato |
 |---|---|---:|
-| Test Node | `node --test tests/*.test.mjs` | 437 / 437 |
-| Riferimenti e risorse | `node scripts/check.mjs` | 3878 / 3878 |
-| Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 310 controlli |
-| Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 275 controlli |
+| Test Node | `node --test tests/*.test.mjs` | 441 / 441 |
+| Riferimenti e risorse | `node scripts/check.mjs` | 3884 / 3884 |
+| Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 312 controlli |
+| Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 276 controlli |
 | Atlante in Chromium | `python3 tools/qa_atlas_browser.py --root dist` | 23 controlli, 30 sistemi, 280 pianeti, 125 esplorabili |
-| Lettore e spedizioni in Chromium | pulsante «Segna come risolto» nel capitolo «Radiazione termica e luce delle stelle»; pannello delle spedizioni, vista in orbita e vista del sistema a 1440 × 900, 390 × 844 e 320 × 568 | pulsante spento a soluzione chiusa, acceso dopo l'apertura, esercizio registrato nel salvataggio; nessun errore, nessuna sovrapposizione |
+| Avamposti in Chromium | le tre schede di un avamposto costruito e la vista del sistema con il pulsante dell'avamposto o del cantiere, a 1440 × 900, 390 × 844 e 320 × 568 | nessun errore, nessuna sovrapposizione nei nuovi elementi |
 
 Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`.
 
-I test di `tests/expeditions.test.mjs` ricostruiscono le liste delle spedizioni dai 100 capitoli e controllano che ognuno dei 1928 esercizi stia in una sola spedizione, al suo livello; verificano il completamento e la riapertura di una spedizione, le domande dei percorsi di matematica, la pulizia del campo `solved` del salvataggio e lo stile dei testi. I flussi applicativi completano la spedizione in orbita di un capitolo di fisica, aprono il libro al primo esercizio della spedizione in superficie e completano con le domande del percorso la spedizione in orbita di «Disequazioni».
+I test di `tests/outposts.test.mjs` ricostruiscono le 1554 sezioni dei capitoli e le confrontano con quelle degli strumenti, controllano che i 30 avamposti coprano 125 unità e 325 spedizioni, che la prima spedizione completata costruisca l'avamposto della sua area e soltanto quello, e che sezioni lette, tappe dei percorsi, misure, discese e passaggi aperti entrino nel riepilogo. I flussi applicativi entrano nell'avamposto dalla vista del sistema, aprono da lì le spedizioni di un pianeta e il laboratorio di un percorso, e verificano il cantiere di un'area senza spedizioni. Sul telefono di 320 × 568 la vista del sistema mostra sovrapposizioni preesistenti fra sottotitolo, numeri dei pianeti e scheda dell'unità, presenti anche nella 1.31.0.
 
-Collaudo precedente, 1.30.0 (18 novembre 2026, ramo `feat/nucleo-gaia-20261118`): 432 test Node, 3874 controlli di riferimenti e risorse, 308 controlli HTTP, 274 flussi applicativi; atlante con 30 sistemi e 125 pianeti esplorabili; Nucleo di Gaia, nave e scheda fisica in Chromium su tre formati, nessun errore.
+Collaudo precedente, 1.31.0 (18 novembre 2026, ramo `feat/spedizioni-20261118`): 437 test Node, 3878 controlli di riferimenti e risorse, 310 controlli HTTP, 275 flussi applicativi; atlante con 30 sistemi e 125 pianeti esplorabili; lettore e spedizioni in Chromium su tre formati, nessun errore.
 
 ## Integrazione continua
 
-Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle risorse, build, verifiche HTTP, interazioni reali dell’atlante e pubblicazione su GitHub Pages. Il passo finale scarica dal sito pubblico `build-info.json` e il curriculum e verifica che corrispondano al commit appena pubblicato e ai corsi del curriculum, 125 dalla 1.26.0. L'ultima esecuzione su `main`, per l'unione della pull request #31 (`0da7dfb`), è riuscita.
+Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle risorse, build, verifiche HTTP, interazioni reali dell’atlante e pubblicazione su GitHub Pages. Il passo finale scarica dal sito pubblico `build-info.json` e il curriculum e verifica che corrispondano al commit appena pubblicato e ai corsi del curriculum, 125 dalla 1.26.0. L'ultima esecuzione su `main`, per l'unione della pull request #32 (`f949203`), è riuscita.
 
 ## Controllo del repository
 
