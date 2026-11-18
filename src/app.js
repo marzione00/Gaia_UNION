@@ -20,6 +20,7 @@ import { cleanPassages, exploration, linkOpen } from './navigation/passages.js';
 import { INSTRUMENTS, BASE_ROWS, SURFACE_ROWS, instrumentForRow, cleanInstrumentSections, obtainedBy, onBoard, sectionsLeft, explorerMode } from './navigation/instruments.js';
 import { SIGNATURES, VERDICTS, OUTCOMES, REFERENCE_WORLDS, SOURCES as GAIA_SOURCES, diagnosis } from './worlds/biosignatures.js';
 import { cleanExpeditionLists, expeditionProgress, expeditionTotals, setSolved, solvedKey } from './navigation/expeditions.js';
+import { PATH_STEPS, LAB_STAGE, cleanChapterSections, outpostReport } from './navigation/outposts.js';
 import { BookReader } from './book/reader.js';
 import { fittedRows } from './education/course-ui.js';
 import { descriptor as modelDescriptor } from './models/curriculum.js';
@@ -44,12 +45,12 @@ function openCourse(id,stage=null){const m=moduleById(id);if(!m)return;selectInd
 function openExternal(url){if(!education.bundle.sources.some(s=>s.url===url))throw Error('Fonte non registrata');window.open(url,'_blank','noopener,noreferrer');}
 let R, U, W, cache, data, lessons, questions, readerIndex, textureManifest, worlds = { worlds: [] }, raf, prevTime = 0, pointer = null, activeSlider = null, semanticSignature = '', textSignature = '', frameCount = 0, worker = null;
 const navigation = new NavigationMemory(), hover = new HoverTarget();
-let hoverPointer = null, touchTarget = null, book = null, passages = [], instrumentSections = {}, expeditionLists = {};
+let hoverPointer = null, touchTarget = null, book = null, passages = [], instrumentSections = {}, expeditionLists = {}, chapterSections = {};
 const sectors = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
 const sectorColors = DISCIPLINE;
 const nav = [['galaxy', 'MAPPA'], ['catalogue', 'ARGOMENTI'], ['paths', 'PERCORSI'], ['lab', 'LABORATORI'], ['journal', 'DIARIO']];
-const navGroups = { galaxy: ['galaxy', 'system', 'orbit', 'surface'], catalogue: ['catalogue', 'mission', 'briefing', 'theory', 'pdf', 'quiz', 'sources', 'research', 'pilot', 'libro'], paths: ['paths'], lab: ['lab'], journal: ['journal', 'ship', 'gaia'] };
-const sceneNames = { ship: 'NAVE', gaia: 'NUCLEO DI GAIA', system: 'MAPPA', orbit: 'MAPPA', surface: 'MAPPA', mission: 'UNITÀ', briefing: 'UNITÀ', theory: 'TEORIA', pdf: 'DISPENSA', quiz: 'VERIFICA', sources: 'FONTI', research: 'RICERCA', pilot: 'MISSIONE' };
+const navGroups = { galaxy: ['galaxy', 'system', 'orbit', 'surface', 'outpost'], catalogue: ['catalogue', 'mission', 'briefing', 'theory', 'pdf', 'quiz', 'sources', 'research', 'pilot', 'libro'], paths: ['paths'], lab: ['lab'], journal: ['journal', 'ship', 'gaia'] };
+const sceneNames = { ship: 'NAVE', gaia: 'NUCLEO DI GAIA', outpost: 'MAPPA', system: 'MAPPA', orbit: 'MAPPA', surface: 'MAPPA', mission: 'UNITÀ', briefing: 'UNITÀ', theory: 'TEORIA', pdf: 'DISPENSA', quiz: 'VERIFICA', sources: 'FONTI', research: 'RICERCA', pilot: 'MISSIONE' };
 const areaTrail = (m, extra = []) => { const a = areaOf(m.planetIndex); return ['GALASSIA', sectors[a.sector].toUpperCase(), a.name.toUpperCase(), ...extra].join(' ▸ '); };
 const labNames = { daisyworld: 'Daisyworld', transform: 'Trasformazioni', rectangle: 'Area a perimetro fissato', radical: 'Dominio dei radicali', linear: 'Due vincoli lineari', reserve: 'Riserve e decadimento', rational: 'Zeri, segni e punti esclusi' };
 const labIds = Object.keys(labNames);
@@ -84,7 +85,7 @@ function route(scene, extra = {}) {
 }
 function enterSystem(id=S.system) { route('system',{system:id}); }
 function enterPlanet(index=S.selected) { route('orbit',{selected:index}); }
-function backToParent() { if(S.scene==='gaia')route('ship');else if(S.scene==='libro'||S.scene==='ship')route('orbit');else if(['mission','pilot'].includes(S.scene))route('briefing');else if(S.scene==='surface')route('orbit');else if(S.scene==='orbit')route('system',{system:S.system});else if(S.scene==='system')route('galaxy'); }
+function backToParent() { if(S.scene==='outpost')route('system');else if(S.scene==='gaia')route('ship');else if(S.scene==='libro'||S.scene==='ship')route('orbit');else if(['mission','pilot'].includes(S.scene))route('briefing');else if(S.scene==='surface')route('orbit');else if(S.scene==='orbit')route('system',{system:S.system});else if(S.scene==='system')route('galaxy'); }
 function changeZoom(factor) { const limits=S.scene==='system'?[17,70]:S.scene==='orbit'?[14,38]:[23,100]; S.distance=clamp(S.distance*factor,...limits); hover.clear(); }
 function updateHash(mode = 'replace') {
     const q = new URLSearchParams();
@@ -347,11 +348,15 @@ function systemUI() {
     U.button('orbit-unit','PIANETA 3D',px+16,py+ph-56,bw,40,()=>enterPlanet(),{disabled:!!observed||W.cameraProgress<1});
     const chapter=!observed&&!!book?.has(m.id);U.button('system-open-unit',chapter?'LEGGI IL CAPITOLO':'APRI L’UNITÀ',px+22+bw,py+ph-56,bw,40,()=>chapter?openChapter(m.id):openCourse(m.id),{active:!observed,disabled:!!observed});
     const list=systemPanel(system);
+    // The research outpost of the area: built with its first completed expedition (src/navigation/outposts.js).
+    const built=outpostOf(S.system).built,outpost=(x,y,bw3,label)=>{U.button('system-outpost',label,x,y,bw3,mobile?32:38,()=>route('outpost'),{active:built,small:mobile});U.buttons.at(-1).label=built?'Entra nell’avamposto di ricerca dell’area':'Apri il cantiere dell’avamposto: si costruisce con la prima spedizione completata nell’area';};
     if(list){
         U.panel(list.x,list.y,list.w,list.h,tint,.48);U.tag('UNITÀ DELL’AREA',list.x+18,list.y+19,tint);
         system.planets.forEach((index,i)=>{const unit=data.modules[index];U.button('system-planet-'+index,(i+1)+'. '+unit.title,list.x+17,list.y+46+i*44,list.w-34,36,()=>{selectIndex(index);S.observedBody=null;},{active:S.selected===index,disabled:W.cameraProgress<1});});
+        outpost(list.x,list.y+list.h+12,list.w,built?'AVAMPOSTO DI RICERCA':'CANTIERE DELL’AVAMPOSTO');
     }else{
-        const n=system.planets.length,bw2=(w-36-(n-1)*4)/n;system.planets.forEach((index,i)=>U.button('system-planet-'+index,String(i+1),18+i*(bw2+4),239,bw2,32,()=>{selectIndex(index);touchTarget={type:'planet',index};},{active:S.selected===index,small:true,disabled:W.cameraProgress<1}));
+        outpost(w-18-104,239,104,built?'AVAMPOSTO':'CANTIERE');
+        const n=system.planets.length,bw2=(w-36-112-(n-1)*4)/n;system.planets.forEach((index,i)=>U.button('system-planet-'+index,String(i+1),18+i*(bw2+4),239,bw2,32,()=>{selectIndex(index);touchTarget={type:'planet',index};},{active:S.selected===index,small:true,disabled:W.cameraProgress<1}));
     }
     U.button('back-galaxy','TORNA ALLA MAPPA',35,h-88,mobile?180:220,39,()=>route('galaxy'));
     U.button('system-zoom-in','+',mobile?w-154:w/2-66,h-77,34,30,()=>changeZoom(.86));U.button('system-zoom-out','−',mobile?w-112:w/2-26,h-77,34,30,()=>changeZoom(1/.86));
@@ -1040,7 +1045,8 @@ function exploreLog() {
     const total = species.reduce((n, x) => n + x.length, 0), totalPlaces = places.reduce((n, x) => n + x.length, 0);
     const head = `Pianeti visitati in superficie: ${landings} su ${genomes.length}. Pianeti con registrazioni: ${planets} su ${genomes.length}. Specie registrate: ${s} su ${total}. Luoghi registrati: ${l} su ${totalPlaces}. Pianeti misurati con gli strumenti della nave: ${measuredPlanets}; strumenti a bordo: ${onBoard(store.data, instrumentSections).size} su ${INSTRUMENTS.length}.`;
     const t = expeditionTotals(store.data, expeditionLists), expeditionRows = data.modules.filter(m => expeditionsOf(m.planetIndex).some(x => x.solved)).map(m => m.title.toUpperCase() + ': spedizioni ' + expeditionLine(m.id, false));
-    const expeditionHead = `Spedizioni completate: ${t.done} su ${t.available}, su ${t.planets} pianeti. Esercizi del libro e domande dei percorsi di matematica risolti: ${t.solved} su ${t.total}. Gli esercizi contano quando lo studente li segna come risolti nel libro, dopo il confronto con la soluzione.`;
+    const outposts = AREAS.filter((x, k) => outpostOf(k).built).length;
+    const expeditionHead = `Avamposti di ricerca costruiti: ${outposts} su ${AREAS.length}. Spedizioni completate: ${t.done} su ${t.available}, su ${t.planets} pianeti. Esercizi del libro e domande dei percorsi di matematica risolti: ${t.solved} su ${t.total}. Gli esercizi contano quando lo studente li segna come risolti nel libro, dopo il confronto con la soluzione.`;
     exploreLogCache = [key, [...mapLog(), head, expeditionHead, ...expeditionRows, ...(rows.length ? rows : ['Nessuna registrazione. Scendi su un pianeta, scegli «Esplora il pianeta» e registra specie e luoghi; in orbita, «Dati fisici» registra le misure degli strumenti a bordo.'])].join('\n')];
     return exploreLogCache[1];
 }
@@ -1083,6 +1089,78 @@ function shipUI() {
 function shipText() {
     const board = onBoard(store.data, instrumentSections);
     return `La nave da esplorazione. Strumenti a bordo: ${board.size} di ${INSTRUMENTS.length}. Modalità esploratore ${explorerMode(store.data) ? 'attiva: i dati fisici compaiono con gli strumenti' : 'disattivata: i dati fisici sono tutti visibili'}. ` + INSTRUMENTS.map(i => `${capital(i.name)}: ${i.verb || 'misura'} ${i.measures}; rivela ${i.rows.join(', ')}. ${instrumentStatus(i).text}`).join(' ');
+}
+/** Research outposts (src/navigation/outposts.js): the summary of an area, reached from its system. */
+const modulesByPlanet = () => data.modules.reduce((a, m) => (a[m.planetIndex] = m, a), []);
+const outpostOf = area => outpostReport(area, modulesByPlanet(), store.data, { lists: expeditionLists, sections: chapterSections, passages });
+/** Lines of text as blocks of the paged panel; the last one carries the gap below the paragraph. */
+function textBlocks(t, c, at, w, gap = 10) {
+    const rows = fittedRows(R, [t], w, 'micro').filter(Boolean);
+    return rows.map((r, k) => ({ h: 18 + (k === rows.length - 1 ? gap : 0), draw: y => U.text(r, at, y, 'micro', c) }));
+}
+const pathLine = u => u.path.completed ? 'Percorso guidato completato' : `Percorso guidato: tappa ${u.path.stage + 1} di ${PATH_STEPS}`;
+const chapterLine = u => u.chapter ? `Capitolo: ${u.chapter.read} di ${u.chapter.total} sezioni lette` : 'Senza capitolo nel libro';
+function outpostIntro(r) {
+    const t = r.totals;
+    return (r.built ? `Avamposto costruito: ${t.done === 1 ? 'una spedizione completata' : t.done + ' spedizioni completate'} su ${t.available} nell’area.` : 'Cantiere: l’avamposto si costruisce completando la prima spedizione di un pianeta dell’area. Il riepilogo è già consultabile.')
+        + ` L’area «${r.name}» ha ${r.units.length} unità.`;
+}
+function outpostBlocks(r, tab, x, ww, mobile) {
+    // The status of the outpost opens the first tab; the other tabs start with their own totals.
+    const tx = x + 16, tw = ww - 32, t = r.totals, blocks = tab === 'unita' ? textBlocks(outpostIntro(r), r.built ? C.lime : C.pale, tx, tw) : [];
+    if (tab === 'unita') {
+        blocks.push(...textBlocks(`Sezioni lette nei capitoli dell’area: ${t.sectionsRead} di ${t.sections}. Percorsi guidati completati: ${t.paths} di ${r.units.length}. Ogni percorso ha il suo laboratorio alla terza tappa.`, C.muted, tx, tw));
+        r.units.forEach((u, k) => {
+            const head = fittedRows(R, [(k + 1) + '. ' + u.title], tw, 'micro').filter(Boolean).slice(0, 2), bw = Math.min(150, (tw - 16) / 3);
+            blocks.push({ h: head.length * 18 + 36 + 46, draw: y => {
+                head.forEach((row, i) => U.text(row, tx, y + i * 18, 'micro', C.pale));
+                const yy = y + head.length * 18;
+                U.text(chapterLine(u), tx, yy, 'micro', u.chapter && u.chapter.read === u.chapter.total ? C.lime : C.muted);
+                U.text(pathLine(u), tx, yy + 18, 'micro', u.path.completed ? C.lime : C.muted);
+                if (u.chapter) { U.button('outpost-book-' + u.index, 'LIBRO', tx, yy + 40, bw, 34, () => openChapter(u.unit), { small: true }); U.buttons.at(-1).label = 'Leggi il capitolo «' + u.title + '»'; }
+                U.button('outpost-lab-' + u.index, 'LABORATORIO', tx + bw + 8, yy + 40, bw, 34, () => openCourse(u.unit, LAB_STAGE), { small: true }); U.buttons.at(-1).label = 'Apri il laboratorio del percorso «' + u.title + '»';
+                U.button('outpost-planet-' + u.index, 'PIANETA', tx + 2 * (bw + 8), yy + 40, bw, 34, () => enterPlanet(u.index), { small: true }); U.buttons.at(-1).label = 'Vai in orbita al pianeta «' + u.title + '»';
+            } });
+        });
+    } else if (tab === 'spedizioni') {
+        blocks.push(...textBlocks(`Spedizioni completate nell’area: ${t.done} di ${t.available}. Esercizi del libro e domande dei percorsi risolti: ${t.solved} di ${t.exercises}.` + (r.built ? '' : ' La prima spedizione completata costruisce l’avamposto.'), r.built ? C.lime : C.pale, tx, tw));
+        r.units.forEach((u, k) => {
+            const head = fittedRows(R, [(k + 1) + '. ' + u.title], tw - 104, 'micro').filter(Boolean);
+            blocks.push({ h: Math.max(head.length * 18, 32) + u.expeditions.length * 18 + 12, draw: y => {
+                head.forEach((row, i) => U.text(row, tx, y + i * 18, 'micro', C.pale));
+                U.button('outpost-exp-' + u.index, 'APRI', x + ww - 16 - 92, y - 4, 92, 32, () => { enterPlanet(u.index); S.expeditionsFor = u.index; S.physicsFor = null; }, { small: true }); U.buttons.at(-1).label = 'Apri le spedizioni del pianeta «' + u.title + '»';
+                const yy = y + Math.max(head.length * 18, 32);
+                u.expeditions.forEach((e, i) => U.text(capital(e.place) + ': ' + expeditionStatus(e), tx + 12, yy + i * 18, 'micro', e.done ? C.lime : e.kind === 'attesa' ? C.dim : C.muted));
+            } });
+        });
+    } else {
+        blocks.push(...textBlocks(`Pianeti misurati con gli strumenti di bordo: ${t.measured} di ${r.units.length}. Pianeti visitati in superficie: ${t.landed}. Specie registrate: ${t.species}.`, C.pale, tx, tw));
+        blocks.push(...textBlocks(r.routes.length ? `Passaggi aperti verso altre aree: ${r.routes.length}; ancora chiusi: ${r.closed}.` : `Nessun passaggio aperto verso altre aree; passaggi ancora chiusi: ${r.closed}. Si aprono leggendo le sezioni con i rimandi e completando i percorsi.`, C.muted, tx, tw));
+        for (const p of r.routes) {
+            const label = (p.kind === 'salto' ? 'Porta di salto verso «' : 'Corsia verso «') + p.name + '»', rows = fittedRows(R, [label], tw - 104, 'micro').filter(Boolean).slice(0, 2);
+            blocks.push({ h: Math.max(rows.length * 18, 32) + 10, draw: y => {
+                rows.forEach((row, i) => U.text(row, tx, y + i * 18, 'micro', p.kind === 'salto' ? C.amber : C.cyan));
+                U.button('outpost-route-' + p.to, 'VAI', x + ww - 16 - 92, y - 4, 92, 32, () => enterSystem(p.to), { small: true }); U.buttons.at(-1).label = 'Vai al sistema «' + p.name + '»';
+            } });
+        }
+    }
+    return blocks;
+}
+function outpostUI() {
+    const w = R.w, h = R.h, mobile = w < 850, short = h < 700, r = outpostOf(S.system), m = selected(), tint = sectorColors[r.sector];
+    title(areaTrail(m, ['AVAMPOSTO']), r.built ? 'Avamposto di ricerca' : 'Cantiere dell’avamposto', short ? '' : mobile ? r.name + '.' : `«${r.name}»: capitoli, laboratori, spedizioni e rotte dell’area.`);
+    pagedTabs('outpost', 'dell’avamposto', [['unita', 'UNITÀ DELL’AREA', 'UNITÀ'], ['spedizioni', 'SPEDIZIONI'], ['rotte', 'ESPLORAZIONE', 'ROTTE']], 'outpostTab', 'outpostPage', (tab, x, ww, mob) => outpostBlocks(r, tab, x, ww, mob), tint);
+    const bw = mobile ? (w - 48) / 2 : 220;
+    U.button('outpost-system', mobile ? 'SISTEMA' : 'TORNA AL SISTEMA', mobile ? 18 : 35, h - 88, bw, 39, () => enterSystem(S.system), { small: mobile });
+    U.button('outpost-journal', mobile ? 'DIARIO' : 'DIARIO DI ESPLORAZIONE', mobile ? 30 + bw : 267, h - 88, bw, 39, () => { S.journalTab = 'explore'; S.scroll = 0; route('journal'); }, { small: mobile });
+}
+function outpostText() {
+    const r = outpostOf(S.system), t = r.totals;
+    return [`${r.built ? 'Avamposto di ricerca' : 'Cantiere dell’avamposto'} dell’area «${r.name}». ${outpostIntro(r)}`,
+        `Sezioni lette: ${t.sectionsRead} di ${t.sections}; percorsi guidati completati: ${t.paths} di ${r.units.length}.`,
+        ...r.units.map((u, k) => `${k + 1}. ${u.title}: ${chapterLine(u).toLowerCase()}; ${pathLine(u).toLowerCase()}; spedizioni ${u.expeditions.map(e => e.place + ' ' + expeditionStatus(e)).join(', ')}.`),
+        `Esercizi e domande risolti: ${t.solved} di ${t.exercises}. Pianeti misurati: ${t.measured}; visitati in superficie: ${t.landed}; specie registrate: ${t.species}.`,
+        r.routes.length ? 'Passaggi aperti: ' + r.routes.map(p => (p.kind === 'salto' ? 'porta di salto verso «' : 'corsia verso «') + p.name + '»').join(', ') + `. Ancora chiusi: ${r.closed}.` : `Nessun passaggio aperto; ancora chiusi: ${r.closed}.`].join(' ');
 }
 /** Nucleo di Gaia: Lovelock's diagnosis of the planets the analyser of biosignatures has measured, beside
  * the Solar System worlds that calibrate it (src/worlds/biosignatures.js). With the explorer mode off every
@@ -1157,15 +1235,14 @@ function gaiaBlocks(tab, list, x, ww, mobile) {
     }
     return blocks;
 }
-function gaiaUI() {
-    const w = R.w, h = R.h, mobile = w < 850, short = h < 700, list = gaiaDiagnoses();
-    title('DIARIO ▸ NAVE ▸ NUCLEO DI GAIA', 'Il Nucleo di Gaia', short ? '' : mobile ? 'La diagnosi di Lovelock.' : 'La diagnosi di Lovelock, dall’atmosfera alla superficie dei pianeti.');
-    // Short phones drop the subtitle and give its room to the panel.
-    const x = mobile ? 18 : 40, ww = mobile ? w - 36 : w - 80, top = short ? 196 : 238, tab = S.gaiaTab ||= 'mondi', tw = Math.min(240, (ww - 16) / 3);
-    [['mondi', mobile ? 'MONDI' : 'MONDI DI RIFERIMENTO'], ['firme', mobile ? 'FIRME' : 'FIRME ATMOSFERICHE'], ['diagnosi', 'DIAGNOSI']].forEach(([id, label], k) => {
-        U.button('gaia-' + id, label, x + k * (tw + 8), top, tw, 36, () => { S.gaiaTab = id; S.gaiaPage = 0; }, { active: tab === id, small: mobile });
-    });
-    const py = top + 48, ph = h - py - (mobile ? 104 : 104), blocks = gaiaBlocks(tab, list, x, ww, mobile), room = ph - 28 - 50;
+/** Tabs above a panel of blocks ({ h, draw(y), keep }) packed into pages, shared by the Nucleo di Gaia and
+ * the outposts. `tabs` are [id, label, phone label]; S[tabKey] and S[pageKey] hold the tab and the page. */
+function pagedTabs(prefix, name, tabs, tabKey, pageKey, blocksOf, tint = C.lime) {
+    const w = R.w, h = R.h, mobile = w < 850, short = h < 700;
+    // Short phones have no subtitle, and the tabs move up into its room.
+    const x = mobile ? 18 : 40, ww = mobile ? w - 36 : w - 80, top = short ? 196 : 238, tab = S[tabKey] ||= tabs[0][0], tw = Math.min(240, (ww - 8 * (tabs.length - 1)) / tabs.length);
+    tabs.forEach(([id, label, phone], k) => U.button(prefix + '-' + id, mobile && phone ? phone : label, x + k * (tw + 8), top, tw, 36, () => { S[tabKey] = id; S[pageKey] = 0; }, { active: tab === id, small: mobile }));
+    const py = top + 48, ph = h - py - 104, room = ph - 28 - 50, blocks = blocksOf(tab, x, ww, mobile);
     // Blocks are packed into pages as tall as the panel; a heading never ends a page.
     const pages = [[]]; let used = 0;
     blocks.forEach((b, k) => {
@@ -1173,17 +1250,22 @@ function gaiaUI() {
         if (pages.at(-1).length && used + need > room) { pages.push([]); used = 0; }
         pages.at(-1).push(b); used += b.h;
     });
-    const page = S.gaiaPage = clamp(S.gaiaPage || 0, 0, pages.length - 1);
-    U.panel(x, py, ww, ph, C.lime, .9);
+    const page = S[pageKey] = clamp(S[pageKey] || 0, 0, pages.length - 1);
+    U.panel(x, py, ww, ph, tint, .9);
     let y = py + 16;
     for (const b of pages[page]) { b.draw(y); y += b.h; }
     if (pages.length > 1) {
         // The page buttons leave room for the counter between them on the narrowest phones.
         const by = py + ph - 46, pb = Math.min(110, (ww - 32 - 64) / 2);
         U.text((page + 1) + ' di ' + pages.length, x + ww / 2, by + 11, 'micro', C.muted, { align: 'center' });
-        U.button('gaia-prev', 'INDIETRO', x + 16, by, pb, 36, () => { S.gaiaPage = page - 1; }, { disabled: page === 0, small: true }); U.buttons.at(-1).label = 'Pagina precedente del Nucleo di Gaia';
-        U.button('gaia-next', 'AVANTI', x + ww - 16 - pb, by, pb, 36, () => { S.gaiaPage = page + 1; }, { disabled: page === pages.length - 1, small: true }); U.buttons.at(-1).label = 'Pagina successiva del Nucleo di Gaia';
+        U.button(prefix + '-prev', 'INDIETRO', x + 16, by, pb, 36, () => { S[pageKey] = page - 1; }, { disabled: page === 0, small: true }); U.buttons.at(-1).label = 'Pagina precedente ' + name;
+        U.button(prefix + '-next', 'AVANTI', x + ww - 16 - pb, by, pb, 36, () => { S[pageKey] = page + 1; }, { disabled: page === pages.length - 1, small: true }); U.buttons.at(-1).label = 'Pagina successiva ' + name;
     }
+}
+function gaiaUI() {
+    const w = R.w, h = R.h, mobile = w < 850, short = h < 700, list = gaiaDiagnoses();
+    title('DIARIO ▸ NAVE ▸ NUCLEO DI GAIA', 'Il Nucleo di Gaia', short ? '' : mobile ? 'La diagnosi di Lovelock.' : 'La diagnosi di Lovelock, dall’atmosfera alla superficie dei pianeti.');
+    pagedTabs('gaia', 'del Nucleo di Gaia', [['mondi', 'MONDI DI RIFERIMENTO', 'MONDI'], ['firme', 'FIRME ATMOSFERICHE', 'FIRME'], ['diagnosi', 'DIAGNOSI']], 'gaiaTab', 'gaiaPage', (tab, x, ww, mobile) => gaiaBlocks(tab, list, x, ww, mobile));
     const bw = mobile ? (w - 48) / 2 : 220;
     U.button('gaia-ship', mobile ? 'NAVE' : 'TORNA ALLA NAVE', mobile ? 18 : 35, h - 88, bw, 39, () => route('ship'), { small: mobile });
     U.button('gaia-journal', mobile ? 'DIARIO' : 'DIARIO DI ESPLORAZIONE', mobile ? 30 + bw : 267, h - 88, bw, 39, () => { S.journalTab = 'explore'; S.scroll = 0; route('journal'); }, { small: mobile });
@@ -1365,7 +1447,7 @@ function draw() {
     scrim();
     common();
     syncBook();
-    const screens = { libro: () => {}, ship: shipUI, gaia: gaiaUI, galaxy: galaxyUI, system: systemUI, orbit: orbitUI, surface: surfaceUI, research: researchUI, catalogue: catalogueUI, briefing: briefingUI, theory: theoryUI, pdf: pdfUI, lab: labUI, quiz: quizUI, journal: journalUI, sources: sourcesUI, mission: () => education.drawUI(U, S), pilot: () => pilotEducation.drawUI(U,S), paths: () => education.drawPathsUI(U,S) };
+    const screens = { libro: () => {}, ship: shipUI, gaia: gaiaUI, outpost: outpostUI, galaxy: galaxyUI, system: systemUI, orbit: orbitUI, surface: surfaceUI, research: researchUI, catalogue: catalogueUI, briefing: briefingUI, theory: theoryUI, pdf: pdfUI, lab: labUI, quiz: quizUI, journal: journalUI, sources: sourcesUI, mission: () => education.drawUI(U, S), pilot: () => pilotEducation.drawUI(U,S), paths: () => education.drawPathsUI(U,S) };
     (screens[S.scene] || galaxyUI)();
     drawHover();
     overlay();
@@ -1428,11 +1510,11 @@ function syncSemantic() {
         if (e && document.activeElement !== e)
             e.value = b.value;
     }
-    const key = physicsOpen() ? 'physics-' + S.selected + '-' + store.data.updatedAt : expeditionsOpen() ? 'expeditions-' + S.selected + '-' + store.data.updatedAt : S.scene === 'ship' ? 'ship-' + store.data.updatedAt + '-' + (S.shipPage || 0) : S.scene === 'gaia' ? 'gaia-' + store.data.updatedAt + '-' + S.gaiaTab + '-' + (S.gaiaPage || 0) : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticKey():S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
+    const key = physicsOpen() ? 'physics-' + S.selected + '-' + store.data.updatedAt : expeditionsOpen() ? 'expeditions-' + S.selected + '-' + store.data.updatedAt : S.scene === 'ship' ? 'ship-' + store.data.updatedAt + '-' + (S.shipPage || 0) : S.scene === 'gaia' ? 'gaia-' + store.data.updatedAt + '-' + S.gaiaTab + '-' + (S.gaiaPage || 0) : S.scene === 'outpost' ? 'outpost-' + S.system + '-' + store.data.updatedAt : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticKey():S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
     if (key !== textSignature) {
         const el = document.querySelector('#semantic-text');
         if (el)
-            el.textContent = physicsOpen() ? 'Dati fisici del pianeta ' + selected().title + '. ' + physicsText(planetPhysics()[S.selected], speciesCount(S.selected), cardReveal()) : expeditionsOpen() ? expeditionsText(selected()) : S.scene === 'ship' ? shipText() : S.scene === 'gaia' ? gaiaText() : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndexes[docKey(S.pdfDoc)]?.[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
+            el.textContent = physicsOpen() ? 'Dati fisici del pianeta ' + selected().title + '. ' + physicsText(planetPhysics()[S.selected], speciesCount(S.selected), cardReveal()) : expeditionsOpen() ? expeditionsText(selected()) : S.scene === 'ship' ? shipText() : S.scene === 'gaia' ? gaiaText() : S.scene === 'outpost' ? outpostText() : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndexes[docKey(S.pdfDoc)]?.[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
         textSignature = key;
     }
 }
@@ -1645,6 +1727,8 @@ async function init() {
         instrumentSections = cleanInstrumentSections(await json('content/atlas/instruments.json').catch(() => null));
         // Exercises of each chapter by level, and the questions of the mathematics paths, for the expeditions.
         expeditionLists = cleanExpeditionLists(await json('content/atlas/expeditions.json').catch(() => null));
+        // Sections of each chapter, which the research outposts count as read.
+        chapterSections = cleanChapterSections(await json('content/atlas/chapters.json').catch(() => null));
         book = new BookReader({
             index: bookIndex.capitoli, fetchText: async path => { const r = await fetch(asset(path)); if (!r.ok) throw Error('Capitolo mancante: ' + path); return r.text(); },
             onClose: () => backToParent(), onUnit: (unit, anchor) => openChapter(unit, anchor),
@@ -1685,7 +1769,7 @@ async function init() {
         computeLab();
         events();
         S.loaded = true;
-        window.GAIA = { version: '1.31.0-spedizioni', state: S, get atlas() { return atlas; }, get book() { return book; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes ? W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0) : W.surface.mesh.i.length/3, planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:UNIT_COUNT, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
+        window.GAIA = { version: '1.32.0-avamposti', state: S, get atlas() { return atlas; }, get book() { return book; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes ? W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0) : W.surface.mesh.i.length/3, planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:UNIT_COUNT, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
         U = new UI(R);
         pilotEducation = new MissionUI(R, store, missionDefinition, { state:S, route, openTheory, openPDF, download, say });
         education = new CourseUI(R,store,curriculum,{state:S,route,openCourse,openTheory,openPDF,openExternal,download,say,currentUnit:()=>selected().id});

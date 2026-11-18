@@ -1,3 +1,12 @@
+# 1.32.0: Gli avamposti di ricerca
+
+- Ognuno dei 30 sistemi ha un avamposto di ricerca (`#/outpost`), raggiungibile dalla vista del sistema. Riunisce ciò che lo studente ha fatto nell'area in tre schede: unità dell'area, spedizioni, esplorazione.
+- La scheda delle unità mostra per ognuna le sezioni lette del capitolo e la tappa del percorso guidato, con i pulsanti per il capitolo, il laboratorio del percorso e il pianeta in orbita. La scheda delle spedizioni riporta lo stato delle tre spedizioni di ogni pianeta e apre il loro pannello. La scheda dell'esplorazione conta pianeti misurati e visitati, specie registrate e passaggi aperti verso altre aree, con un pulsante per raggiungerle.
+- L'avamposto si costruisce con la prima spedizione completata nell'area; prima di allora la stessa schermata è il suo cantiere, con il medesimo riepilogo. Il diario conta gli avamposti costruiti.
+- Le sezioni dei 100 capitoli (1554) sono in `content/atlas/chapters.json`, generato da `tools/build_chapters.mjs`.
+- Il Nucleo di Gaia e gli avamposti condividono ora le schede con le pagine, che si adattano all'altezza dello schermo.
+- Documentazione in `docs/AVAMPOSTI.md`; `tests/outposts.test.mjs` verifica la copertura delle aree, la costruzione e il riepilogo, e i flussi applicativi entrano in un avamposto costruito e in un cantiere.
+
 # 1.31.0: Le spedizioni
 
 - Ogni pianeta offre tre spedizioni fatte degli esercizi risolti del suo capitolo: in orbita gli esercizi di base, in superficie gli intermedi, in profondità gli avanzati. I 100 capitoli ne contano 1928: 680 di base, 684 intermedi, 564 avanzati.
