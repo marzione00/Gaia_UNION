@@ -19,6 +19,7 @@ import { planetPhysics, physicsRows, physicsText, speciesCount, it as italian } 
 import { cleanPassages, exploration, linkOpen } from './navigation/passages.js';
 import { INSTRUMENTS, BASE_ROWS, SURFACE_ROWS, instrumentForRow, cleanInstrumentSections, obtainedBy, onBoard, sectionsLeft, explorerMode } from './navigation/instruments.js';
 import { SIGNATURES, VERDICTS, OUTCOMES, REFERENCE_WORLDS, SOURCES as GAIA_SOURCES, diagnosis } from './worlds/biosignatures.js';
+import { cleanExpeditionLists, expeditionProgress, expeditionTotals, setSolved, solvedKey } from './navigation/expeditions.js';
 import { BookReader } from './book/reader.js';
 import { fittedRows } from './education/course-ui.js';
 import { descriptor as modelDescriptor } from './models/curriculum.js';
@@ -43,7 +44,7 @@ function openCourse(id,stage=null){const m=moduleById(id);if(!m)return;selectInd
 function openExternal(url){if(!education.bundle.sources.some(s=>s.url===url))throw Error('Fonte non registrata');window.open(url,'_blank','noopener,noreferrer');}
 let R, U, W, cache, data, lessons, questions, readerIndex, textureManifest, worlds = { worlds: [] }, raf, prevTime = 0, pointer = null, activeSlider = null, semanticSignature = '', textSignature = '', frameCount = 0, worker = null;
 const navigation = new NavigationMemory(), hover = new HoverTarget();
-let hoverPointer = null, touchTarget = null, book = null, passages = [], instrumentSections = {};
+let hoverPointer = null, touchTarget = null, book = null, passages = [], instrumentSections = {}, expeditionLists = {};
 const sectors = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
 const sectorColors = DISCIPLINE;
 const nav = [['galaxy', 'MAPPA'], ['catalogue', 'ARGOMENTI'], ['paths', 'PERCORSI'], ['lab', 'LABORATORI'], ['journal', 'DIARIO']];
@@ -327,6 +328,8 @@ function planetBadges(system) {
         if (on || hot) R.roundRect(p.x - r - 6, p.y - r - 6, 2 * r + 12, 2 * r + 12, r + 6, color('#000000', 0), on ? tint : color(T.line, 1));
         R.roundRect(bx, by, 22, 22, 11, on ? tint : color(T.raised, .95), on ? null : tint);
         U.text(String(order + 1), bx + 11, by + 4, 'micro', on ? color(T.ink) : C.pale, { align: 'center' });
+        // One green mark under the number for each expedition completed on the planet.
+        expeditionsOf(p.index).filter(x => x.done).forEach((x, k) => R.roundRect(bx + 2 + k * 7, by + 25, 5, 5, 2.5, C.lime));
         if ((on || hot) && R.w >= 850) { const name = data.modules[p.index].title, tw = R.textWidth(name, 'micro') + 16; R.roundRect(bx + 28, by + 1, tw, 20, 6, color(T.bg, .9)); U.text(name, bx + 36, by + 4, 'micro', on ? C.pale : C.muted); }
     }
 }
@@ -465,12 +468,60 @@ function physicsPanel(m, mobile) {
         U.button('physics-next', 'AVANTI', px + pw - 112, by, 96, 36, () => { S.physicsPage = page + 1; }, { disabled: page === pages.length - 1, small: true }); U.buttons.at(-1).label = 'Pagina successiva dei dati fisici';
     }
 }
+const expeditionsOpen = () => S.scene === 'orbit' && S.expeditionsFor === S.selected;
+let expeditionCache = { key: '', map: new Map() };
+/** Progress of the three expeditions of planet `index`, cached until the save changes. */
+function expeditionsOf(index) {
+    const key = store.data.updatedAt + '|' + store.data.solved.length;
+    if (expeditionCache.key !== key) expeditionCache = { key, map: new Map() };
+    const unit = data.modules[index]?.id;
+    if (!expeditionCache.map.has(index)) expeditionCache.map.set(index, unit ? expeditionProgress(unit, store.data, expeditionLists) : []);
+    return expeditionCache.map.get(index);
+}
+/** One line on the expeditions of a unit, for the book and the diary. */
+function expeditionLine(unit, withHead = true) {
+    const m = moduleById(unit); if (!m) return '';
+    const parts = expeditionsOf(m.planetIndex).map(x => x.kind === 'attesa' ? `${x.place} in attesa del capitolo` : `${x.place} ${x.done ? 'completata' : x.solved + ' di ' + x.total}`);
+    return (withHead ? 'Spedizioni del pianeta: ' : '') + parts.join('; ') + '.';
+}
+const EXPEDITION_HOW = { libro: x => x.levelName + ' del capitolo', percorso: () => 'domande del percorso guidato', attesa: () => 'in attesa del capitolo di matematica' };
+function expeditionStatus(x) { return x.kind === 'attesa' ? 'in attesa' : x.done ? 'completata' : `${x.solved} di ${x.total}`; }
+function expeditionsIntro(m) {
+    return book?.has(m.id) ? `Gli esercizi del capitolo «${m.title}», in tre livelli. Un esercizio conta quando lo segni come risolto nel libro, dopo aver confrontato il tuo svolgimento con la soluzione.` : 'Questa unità di matematica è senza capitolo; la spedizione in orbita usa le domande del percorso guidato, corrette dal percorso stesso.';
+}
+/** The three expeditions of the planet in orbit, in place of the unit panel. */
+function expeditionsPanel(m, mobile) {
+    // Short screens leave the introduction to the screen reader text and pack the cards closer, so the panel
+    // stays above the buttons.
+    const w = R.w, short = R.h < 700, tint = sectorColors[m.sector], list = expeditionsOf(S.selected), intro = short ? '' : expeditionsIntro(m);
+    const pw = mobile ? w - 36 : 420, px = mobile ? 18 : w - pw - 36, py = mobile ? 108 : 247, line = 18, introRows = intro ? R.multilineCount(intro, pw - 36, 'micro') : 0, ch = 92, gap = short ? 6 : 10;
+    const ph = 56 + introRows * line + 8 + list.length * (ch + gap) + 4;
+    U.panel(px, py, pw, ph, tint, .92);
+    U.tag(pw < 330 ? 'Spedizioni' : 'Spedizioni del pianeta', px + 18, py + 18, tint);
+    U.button('expeditions-close', 'CHIUDI', px + pw - 104, py + 8, 86, 32, () => { S.expeditionsFor = null; }, { small: true }); U.buttons.at(-1).label = 'Chiudi le spedizioni e torna alla scheda dell’unità';
+    if (intro) U.wrap(intro, px + 18, py + 48, pw - 36, C.muted, line, 8, 'micro');
+    list.forEach((x, k) => {
+        const y = py + 56 + introRows * line + 8 + k * (ch + gap), on = x.done, color2 = on ? C.lime : x.kind === 'attesa' ? C.dim : C.pale;
+        R.roundRect(px + 12, y, pw - 24, ch, 10, color(T.raised, .55), on ? C.lime : color(T.line, 1));
+        U.text(x.name, px + 26, y + 12, 'mini', color2);
+        U.text(expeditionStatus(x), px + pw - 26, y + 13, 'micro', on ? C.lime : C.muted, { align: 'right' });
+        U.text(capital(EXPEDITION_HOW[x.kind](x)), px + 26, y + 36, 'micro', C.muted);
+        const bar = pw - 24 - 28 - (x.kind === 'attesa' ? 0 : 124), frac = x.total ? x.solved / x.total : 0;
+        if (x.kind !== 'attesa') R.rect(px + 26, y + 66, bar, 8, color(T.line, .9)); if (frac) R.rect(px + 26, y + 66, bar * frac, 8, on ? C.lime : tint);
+        if (x.kind === 'libro') { U.button('expedition-' + x.level, 'ESERCIZI', px + pw - 132, y + 52, 106, 32, () => openChapter(m.id, x.next || expeditionLists[m.id][x.level][0]), { small: true }); U.buttons.at(-1).label = 'Apri nel libro gli ' + x.levelName + ' della ' + x.name.toLowerCase(); }
+        if (x.kind === 'percorso') { U.button('expedition-' + x.level, 'DOMANDE', px + pw - 132, y + 52, 106, 32, () => openCourse(m.id, 4), { small: true }); U.buttons.at(-1).label = 'Apri le domande del percorso guidato'; }
+    });
+}
+function expeditionsText(m) {
+    return 'Spedizioni del pianeta ' + m.title + '. ' + expeditionsIntro(m) + ' ' + expeditionsOf(S.selected).map(x => `${x.name}, ${EXPEDITION_HOW[x.kind](x)}: ${expeditionStatus(x)}.`).join(' ');
+}
 function orbitUI() {
     const w = R.w, h = R.h, m = selected(), mobile = w < 850;
     // On phones the open card takes the place of the title.
-    if (!(mobile && physicsOpen())) { titleFade(); title(areaTrail(m), m.title, 'Unità '+unitPlace(S.selected).position+' di '+unitPlace(S.selected).count+' dell’area '+areaOf(S.selected).name+'.'); }
-    const toggle = () => Object.assign(S, physicsOpen() ? { physicsFor: null } : { physicsFor: S.selected, physicsPage: 0 });
+    if (!(mobile && (physicsOpen() || expeditionsOpen()))) { titleFade(); title(areaTrail(m), m.title, 'Unità '+unitPlace(S.selected).position+' di '+unitPlace(S.selected).count+' dell’area '+areaOf(S.selected).name+'.'); }
+    const toggle = () => Object.assign(S, physicsOpen() ? { physicsFor: null } : { physicsFor: S.selected, physicsPage: 0, expeditionsFor: null });
     if (physicsOpen()) physicsPanel(m, mobile);
+    else if (expeditionsOpen()) expeditionsPanel(m, mobile);
     else orbitPanel(m, mobile);
     const bw = mobile ? (w - 60) / 3 : 0;
     U.button('surface', mobile?'SUPERFICIE':'SCENDI IN SUPERFICIE', mobile?18:35, h-88, mobile?bw:230,39,()=>route('surface'),{small:mobile});
@@ -485,13 +536,16 @@ function orbitPanel(m, mobile) {
     wrapClipText(m.title, px + 20, py + 50, pw - 40, 'sub', C.pale, 2);
     U.text(coverage(m), px + 20, py + 100, 'mini', C.lime);
     if (!mobile) {
-        const room = ph - 110 - 139, lines = Math.max(1, Math.min(5, Math.floor((room - 64) / 25)));
+        const room = ph - 110 - 48 - 139, lines = Math.max(1, Math.min(5, Math.floor((room - 64) / 25)));
         wrapClipText(m.description, px + 20, py + 139, pw - 40, 'body', C.muted, lines);
         const y = py + 139 + lines * 25 + 10;
         const entry = worldEntry(m.id);
-        if (entry && y + 70 < py + ph - 110) { U.text('Fenomeno del pianeta', px + 20, y, 'mini', C.amber); wrapClipText(entry.phenomenon + (entry.status === 'prototipo' ? ': scendi in superficie per vederlo.' : ': in preparazione.'), px + 20, y + 22, pw - 40, 'micro', C.muted, 2); }
-        else if (y + 54 < py + ph - 110) { U.text('NELL’UNITÀ', px + 20, y, 'mini', C.amber); wrapClipText('Lezione su tre livelli · laboratorio · quattro domande · fonti', px + 20, y + 22, pw - 40, 'micro', C.muted, 2); }
+        if (entry && y + 70 < py + ph - 158) { U.text('Fenomeno del pianeta', px + 20, y, 'mini', C.amber); wrapClipText(entry.phenomenon + (entry.status === 'prototipo' ? ': scendi in superficie per vederlo.' : ': in preparazione.'), px + 20, y + 22, pw - 40, 'micro', C.muted, 2); }
+        else if (y + 54 < py + ph - 158) { U.text('NELL’UNITÀ', px + 20, y, 'mini', C.amber); wrapClipText('Lezione su tre livelli · laboratorio · quattro domande · fonti', px + 20, y + 22, pw - 40, 'micro', C.muted, 2); }
     }
+    // The expeditions of the planet: exercises of the chapter, or questions of the mathematics path.
+    const done = expeditionsOf(S.selected).filter(x => x.done).length, open = expeditionsOf(S.selected).filter(x => x.kind !== 'attesa').length;
+    U.button('expeditions', `SPEDIZIONI · ${done} DI ${open}`, px + 18, mobile ? py + 124 : py + ph - 158, pw - 36, mobile ? 34 : 38, () => Object.assign(S, { expeditionsFor: S.selected, physicsFor: null }), { small: mobile }); U.buttons.at(-1).label = `Apri le spedizioni del pianeta: ${done} completate su ${open}`;
     buttonsModule(m, px + 18, py + ph - 110, pw - 36);
 }
 function surfaceUI() {
@@ -972,7 +1026,7 @@ function mapLog() {
     return rows;
 }
 function exploreLog() {
-    const key = JSON.stringify(store.data.explore) + '|' + store.data.read.length + '|' + JSON.stringify(Object.values(store.data.courses || {}).map(r => r.stage + (r.completedAt ? 'c' : ''))) + '|' + (store.data.atlas?.visited || []).length; if (exploreLogCache[0] === key) return exploreLogCache[1];
+    const key = store.data.updatedAt + '|' + JSON.stringify(store.data.explore) + '|' + store.data.read.length + '|' + JSON.stringify(Object.values(store.data.courses || {}).map(r => r.stage + (r.completedAt ? 'c' : ''))) + '|' + (store.data.atlas?.visited || []).length; if (exploreLogCache[0] === key) return exploreLogCache[1];
     const genomes = planetGenomes(), species = planetSpecies(), places = genomes.map(placeList), rows = [], physics = planetPhysics();
     let s = 0, l = 0, planets = 0, measuredPlanets = 0, landings = 0;
     for (const rec of Object.values(store.data.explore)) if (rec.v === 1 || rec.s.length) landings++;
@@ -985,7 +1039,9 @@ function exploreLog() {
     }
     const total = species.reduce((n, x) => n + x.length, 0), totalPlaces = places.reduce((n, x) => n + x.length, 0);
     const head = `Pianeti visitati in superficie: ${landings} su ${genomes.length}. Pianeti con registrazioni: ${planets} su ${genomes.length}. Specie registrate: ${s} su ${total}. Luoghi registrati: ${l} su ${totalPlaces}. Pianeti misurati con gli strumenti della nave: ${measuredPlanets}; strumenti a bordo: ${onBoard(store.data, instrumentSections).size} su ${INSTRUMENTS.length}.`;
-    exploreLogCache = [key, [...mapLog(), head, ...(rows.length ? rows : ['Nessuna registrazione. Scendi su un pianeta, scegli «Esplora il pianeta» e registra specie e luoghi; in orbita, «Dati fisici» registra le misure degli strumenti a bordo.'])].join('\n')];
+    const t = expeditionTotals(store.data, expeditionLists), expeditionRows = data.modules.filter(m => expeditionsOf(m.planetIndex).some(x => x.solved)).map(m => m.title.toUpperCase() + ': spedizioni ' + expeditionLine(m.id, false));
+    const expeditionHead = `Spedizioni completate: ${t.done} su ${t.available}, su ${t.planets} pianeti. Esercizi del libro e domande dei percorsi di matematica risolti: ${t.solved} su ${t.total}. Gli esercizi contano quando lo studente li segna come risolti nel libro, dopo il confronto con la soluzione.`;
+    exploreLogCache = [key, [...mapLog(), head, expeditionHead, ...expeditionRows, ...(rows.length ? rows : ['Nessuna registrazione. Scendi su un pianeta, scegli «Esplora il pianeta» e registra specie e luoghi; in orbita, «Dati fisici» registra le misure degli strumenti a bordo.'])].join('\n')];
     return exploreLogCache[1];
 }
 const capital = s => s[0].toUpperCase() + s.slice(1);
@@ -1372,11 +1428,11 @@ function syncSemantic() {
         if (e && document.activeElement !== e)
             e.value = b.value;
     }
-    const key = physicsOpen() ? 'physics-' + S.selected + '-' + store.data.updatedAt : S.scene === 'ship' ? 'ship-' + store.data.updatedAt + '-' + (S.shipPage || 0) : S.scene === 'gaia' ? 'gaia-' + store.data.updatedAt + '-' + S.gaiaTab + '-' + (S.gaiaPage || 0) : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticKey():S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
+    const key = physicsOpen() ? 'physics-' + S.selected + '-' + store.data.updatedAt : expeditionsOpen() ? 'expeditions-' + S.selected + '-' + store.data.updatedAt : S.scene === 'ship' ? 'ship-' + store.data.updatedAt + '-' + (S.shipPage || 0) : S.scene === 'gaia' ? 'gaia-' + store.data.updatedAt + '-' + S.gaiaTab + '-' + (S.gaiaPage || 0) : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticKey():S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
     if (key !== textSignature) {
         const el = document.querySelector('#semantic-text');
         if (el)
-            el.textContent = physicsOpen() ? 'Dati fisici del pianeta ' + selected().title + '. ' + physicsText(planetPhysics()[S.selected], speciesCount(S.selected), cardReveal()) : S.scene === 'ship' ? shipText() : S.scene === 'gaia' ? gaiaText() : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndexes[docKey(S.pdfDoc)]?.[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
+            el.textContent = physicsOpen() ? 'Dati fisici del pianeta ' + selected().title + '. ' + physicsText(planetPhysics()[S.selected], speciesCount(S.selected), cardReveal()) : expeditionsOpen() ? expeditionsText(selected()) : S.scene === 'ship' ? shipText() : S.scene === 'gaia' ? gaiaText() : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndexes[docKey(S.pdfDoc)]?.[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
         textSignature = key;
     }
 }
@@ -1587,11 +1643,15 @@ async function init() {
         passages = cleanPassages(await json('content/atlas/passages.json').catch(() => null));
         // Chapter sections that bring each instrument of the ship on board.
         instrumentSections = cleanInstrumentSections(await json('content/atlas/instruments.json').catch(() => null));
+        // Exercises of each chapter by level, and the questions of the mathematics paths, for the expeditions.
+        expeditionLists = cleanExpeditionLists(await json('content/atlas/expeditions.json').catch(() => null));
         book = new BookReader({
             index: bookIndex.capitoli, fetchText: async path => { const r = await fetch(asset(path)); if (!r.ok) throw Error('Capitolo mancante: ' + path); return r.text(); },
             onClose: () => backToParent(), onUnit: (unit, anchor) => openChapter(unit, anchor),
             onRead: (unit, id) => { const key = 'libro:' + unit + '#' + id; if (!store.data.read.includes(key)) { store.data.read.push(key); store.save(); } },
             isRead: (unit, id) => store.data.read.includes('libro:' + unit + '#' + id),
+            onSolved: (unit, id, value) => { if (setSolved(store.data, unit, id, value)) { store.save(); say(value ? 'Esercizio segnato come risolto.' : 'Esercizio di nuovo da risolvere.'); } },
+            isSolved: (unit, id) => store.data.solved.includes(solvedKey(unit, id)), expeditionNote: unit => expeditionLine(unit),
             unitInfo: unit => { const m = moduleById(unit); return m ? { title: m.title, area: areaOf(m.planetIndex).name } : null; },
             top: () => R.w < 850 ? 98 : 82
         });
@@ -1625,7 +1685,7 @@ async function init() {
         computeLab();
         events();
         S.loaded = true;
-        window.GAIA = { version: '1.30.0-gaia', state: S, get atlas() { return atlas; }, get book() { return book; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes ? W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0) : W.surface.mesh.i.length/3, planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:UNIT_COUNT, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
+        window.GAIA = { version: '1.31.0-spedizioni', state: S, get atlas() { return atlas; }, get book() { return book; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes ? W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0) : W.surface.mesh.i.length/3, planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:UNIT_COUNT, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
         U = new UI(R);
         pilotEducation = new MissionUI(R, store, missionDefinition, { state:S, route, openTheory, openPDF, download, say });
         education = new CourseUI(R,store,curriculum,{state:S,route,openCourse,openTheory,openPDF,openExternal,download,say,currentUnit:()=>selected().id});

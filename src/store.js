@@ -3,8 +3,9 @@ import { cleanCourseRecords } from './education/course-engine.js';
 import { cleanMissionRecords } from './education/mission-engine.js';
 import { INSTRUMENTS } from './navigation/instruments.js';
 import { UNIT_COUNT } from './scene/systems.js';
+import { cleanSolved } from './navigation/expeditions.js';
 export const STORE_KEY = 'gaia.beyond-knowledge.v1';
-export function fresh() { return { schema: 1, notes: {}, read: [], quiz: {}, missions: {}, courses: {}, atlas: cleanAtlas(), bookmarks: [], scenarios: [], explore: {}, preferences: { quality: 1000000, graphics: 'high', motion: true, explorer: true }, updatedAt: null }; }
+export function fresh() { return { schema: 1, notes: {}, read: [], quiz: {}, missions: {}, courses: {}, atlas: cleanAtlas(), bookmarks: [], scenarios: [], explore: {}, solved: [], preferences: { quality: 1000000, graphics: 'high', motion: true, explorer: true }, updatedAt: null }; }
 /** Exploration diary: per planet index, the registered species (s0, s1…), places (l0, l1…) and the
  * instruments whose measurements are in the log (m). Planet indices run up to UNIT_COUNT - 1. */
 export function cleanExplore(value) {
@@ -47,6 +48,8 @@ export function cleanState(value) {
     o.courses = cleanCourseRecords(value.courses);
     o.atlas = cleanAtlas(value.atlas);
     o.explore = cleanExplore(value.explore);
+    // Exercises of the book marked as solved, «unit#exercise» (src/navigation/expeditions.js).
+    o.solved = cleanSolved(value.solved);
     return o;
 }
 export function openStore(storage) {
