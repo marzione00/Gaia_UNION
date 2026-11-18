@@ -2,7 +2,7 @@
 
 Dalla versione 1.27.0 ogni sistema stellare e ogni pianeta esplorabile hanno un modello fisico. La stella ha un sottotipo spettrale con temperatura, luminosità, raggio e massa; ogni corpo del sistema ha un semiasse maggiore in unità astronomiche e un periodo orbitale; ogni pianeta esplorabile ha un albedo, una temperatura di equilibrio, un effetto serra e una temperatura superficiale, che insieme spiegano quello che il sito già disegna: i mari liquidi dei pianeti terrestri e oceanici, i ghiacci dei pianeti glaciali, i laghi caldi dei pianeti vulcanici. La carta d'identità di ogni pianeta (`docs/CARTE_IDENTITA.md`) resta invariata. Il modello sta in `src/worlds/physics.js` e `src/worlds/planet-physics.js`; questo documento è generato da `tools/physics_doc.mjs`, e i test di `tests/physics.test.mjs` ricalcolano ogni grandezza.
 
-Nella vista in orbita il pulsante «Dati fisici» apre la scheda del pianeta, divisa in stella e orbita, geosfera, idrosfera, atmosfera e biosfera. Dalla 1.29.0, in modalità esploratore, le righe compaiono con gli strumenti della nave (`docs/NAVE.md`).
+Nella vista in orbita il pulsante «Dati fisici» apre la scheda del pianeta, divisa in stella e orbita, geosfera, idrosfera, atmosfera e biosfera. Dalla 1.29.0, in modalità esploratore, le righe compaiono con gli strumenti della nave (`docs/NAVE.md`). Dalla 1.30.0 la riga «Luce» è affiancata dalla riga «Zona abitabile», con i bordi della zona in unità astronomiche, e la biosfera ha la riga «Firma atmosferica», con la diagnosi di Lovelock (`docs/NUCLEO_GAIA.md`), prima della riga «Vita».
 
 ## Stelle
 

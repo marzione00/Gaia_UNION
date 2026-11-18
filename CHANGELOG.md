@@ -1,3 +1,14 @@
+# 1.30.0: Il Nucleo di Gaia
+
+- Nuova schermata del Nucleo di Gaia (`#/gaia`), raggiungibile dalla nave e dalla scheda «Esplorazione» del diario. Applica la diagnosi di Lovelock: un pianeta abitato mantiene nella sua atmosfera gas che senza la vita reagirebbero fino all'equilibrio.
+- La scheda «Mondi di riferimento» confronta l'energia libera disponibile di Terra (2326 J/mol con l'oceano, 1,5 J/mol nella sola atmosfera), Marte, Titano, Venere e Giove, con i valori e le cause di Krissansen-Totton, Bergsman e Catling (2016).
+- La scheda «Firme atmosferiche» descrive le cinque firme dei pianeti, ognuna con il criterio pubblicato che la interpreta: ossigeno e metano, metano e anidride carbonica senza monossido di carbonio, ossigeno abiotico intorno alle nane rosse, gas vulcanici, assenza di atmosfera.
+- La scheda «Diagnosi» elenca i pianeti misurati con l'analizzatore di biofirme e confronta il verdetto dell'atmosfera con la superficie, quando lo studente ci è sceso. Sui 125 pianeti: 83 conferme, 20 casi di vita trovata oltre una diagnosi aperta, 18 pianeti senza vita, 4 falsi negativi, nessun falso positivo.
+- Nella scheda «Dati fisici» l'analizzatore di biofirme rivela ora la nuova riga «Firma atmosferica»; la riga «Vita» compare quando lo studente scende sul pianeta, e il diario registra le discese.
+- Ottavo strumento della nave: il computer di bordo, che si ottiene con il percorso guidato di «Disequazioni» e calcola la nuova riga «Zona abitabile», l'intervallo delle distanze in cui il flusso della stella resta fra i due limiti della zona.
+- Corretto: dalla 1.29.0, sui telefoni larghi 320 pixel, il titolo della scheda «Dati fisici» finiva sotto il pulsante «Nave»; ora la scheda mostra un titolo più breve.
+- Documentazione in `docs/NUCLEO_GAIA.md`; `tests/biosignatures.test.mjs` verifica firme, esiti, valori di riferimento e zona abitabile, e i flussi applicativi seguono un pianeta dalla misura dell'atmosfera alla discesa in superficie.
+
 # 1.29.0: La nave da esplorazione
 
 - Nuova schermata della nave (`#/ship`), raggiungibile dalla scheda «Dati fisici» e dalla scheda «Esplorazione» del diario. La nave porta i sensori di base, che danno stella e orbita, e sette strumenti: radiometro infrarosso, spettrografo, gravimetro, magnetometro, radar di profondità, laboratorio di datazione e analizzatore di biofirme.
