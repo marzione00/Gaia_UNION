@@ -1,6 +1,6 @@
-# Collaudo GAIA 1.33.0
+# Collaudo GAIA 1.33.1
 
-Eseguito il 18 novembre 2026 sul ramo `feat/regioni-20261118`, costruito sopra `main` alla versione 1.32.0 (pull request #33), con Node.js 22.
+Eseguito il 18 novembre 2026 sul ramo `fix/telefoni-bassi-20261118`, costruito sopra `main` alla versione 1.33.0 (pull request #34), con Node.js 22.
 
 | Controllo | Comando | Risultato |
 |---|---|---:|
@@ -9,17 +9,17 @@ Eseguito il 18 novembre 2026 sul ramo `feat/regioni-20261118`, costruito sopra `
 | Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 314 controlli |
 | Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 279 controlli |
 | Atlante in Chromium | `python3 tools/qa_atlas_browser.py --root dist` | 23 controlli, 30 sistemi, 280 pianeti, 125 esplorabili |
-| Regioni, mappa e mondi di sintesi in Chromium | mappa con il pulsante della regione e il Nucleo al centro, le tre schede di una regione, i mondi di sintesi e l'avamposto, a 1440 × 900, 390 × 844 e 320 × 568 | nessun errore; il pulsante del Nucleo resta nascosto a 320 × 568, dove coprirebbe quello della regione |
+| Vista del sistema e vista in orbita in Chromium | due sistemi a 320 × 568, uno a 390 × 844 e a 1440 × 900; vista in orbita a 320 × 568 e 390 × 844 | nessun errore; sottotitolo, numeri dei pianeti, scheda dell'unità e pulsanti in basso separati |
 
 Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`.
 
-I test di `tests/regions.test.mjs` controllano aree, unità e nubi dei quattro bracci, la divisione dei 147 passaggi in 78 corsie e 69 porte di salto, l'apertura di una porta con una sezione letta, la formula di Gough per il Sole giovane, il risultato del modello per la Terra dell'Archeano, i dati di Venere e Marte rispetto alle schede NASA e ai valori dello squilibrio, la registrazione delle visite e lo stile dei testi. `tests/cosmos.test.mjs` controlla ora che ogni sistema appartenga alla nube del suo braccio. I flussi applicativi aprono la regione dall'avamposto, tornano alla mappa con il braccio evidenziato e visitano due mondi di sintesi. Resta da correggere la sovrapposizione preesistente della vista del sistema a 320 × 568, segnalata nel collaudo della 1.32.0.
+La correzione chiude la sovrapposizione della vista del sistema a 320 × 568 segnalata nel collaudo della 1.32.0. Su schermi così bassi la parte visibile del sistema in 3D resta stretta fra i numeri dei pianeti e la scheda dell'unità; i pianeti restano scelti dai numeri.
 
-Collaudo precedente, 1.32.0 (18 novembre 2026, ramo `feat/avamposti-20261118`): 441 test Node, 3884 controlli di riferimenti e risorse, 312 controlli HTTP, 276 flussi applicativi; atlante con 30 sistemi e 125 pianeti esplorabili; avamposti e vista del sistema in Chromium su tre formati, nessun errore nei nuovi elementi.
+Collaudo precedente, 1.33.0 (18 novembre 2026, ramo `feat/regioni-20261118`): 446 test Node, 3896 controlli di riferimenti e risorse, 314 controlli HTTP, 279 flussi applicativi; atlante con 30 sistemi e 125 pianeti esplorabili; mappa, regioni e mondi di sintesi in Chromium su tre formati, nessun errore.
 
 ## Integrazione continua
 
-Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle risorse, build, verifiche HTTP, interazioni reali dell’atlante e pubblicazione su GitHub Pages. Il passo finale scarica dal sito pubblico `build-info.json` e il curriculum e verifica che corrispondano al commit appena pubblicato e ai corsi del curriculum, 125 dalla 1.26.0. L'ultima esecuzione su `main`, per l'unione della pull request #33 (`3d656b1`), è riuscita.
+Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle risorse, build, verifiche HTTP, interazioni reali dell’atlante e pubblicazione su GitHub Pages. Il passo finale scarica dal sito pubblico `build-info.json` e il curriculum e verifica che corrispondano al commit appena pubblicato e ai corsi del curriculum, 125 dalla 1.26.0. L'ultima esecuzione su `main`, per l'unione della pull request #34 (`855b2d3`), è riuscita.
 
 ## Controllo del repository
 
