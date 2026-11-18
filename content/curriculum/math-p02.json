@@ -8,7 +8,7 @@
   "coverage": "guided-activity",
   "editorialStatus": "hand-written-draft",
   "scope": "Vettori, matrici come trasformazioni, determinante, autovalori e iterazione",
-  "narrativeStatus": "Il sistema di navigazione è immaginario; vettori e matrici sono matematica reale.",
+  "narrativeStatus": "Il sistema di navigazione è immaginario; vettori e matrici sono matematica reale. Gli esempi con persone, oggetti e luoghi generici sono illustrativi; date e notizie storiche sono reali.",
   "objectives": [
     "Sommare vettori, calcolarne la norma e il prodotto scalare.",
     "Leggere una matrice come trasformazione del piano.",
@@ -66,16 +66,20 @@
       "title": "Frecce e tabelle",
       "text": {
         "base": [
-          "Il sistema di navigazione della stazione descrive spostamenti, velocità e forze con frecce, e le rotazioni della telecamera con tabelle di numeri. Le frecce sono vettori, le tabelle matrici: insieme permettono di calcolare trasformazioni del piano, di organizzare dati e di prevedere come un sistema evolve passo dopo passo.",
-          "Un vettore del piano ha due componenti, v = (v₁; v₂): uno spostamento di v₁ in orizzontale e v₂ in verticale. I vettori si sommano componente per componente, regola del parallelogramma, e si moltiplicano per un numero, cambiandone la lunghezza. La lunghezza, o norma, è |v| = √(v₁² + v₂²). Il prodotto scalare v · w = v₁w₁ + v₂w₂ vale zero se i vettori sono perpendicolari."
+          "Il sistema di navigazione della stazione descrive spostamenti, velocità e forze con frecce, e le rotazioni della telecamera con tabelle di numeri. Le frecce sono vettori, le tabelle matrici: insieme permettono di calcolare le trasformazioni del piano, di organizzare dati e di prevedere come un sistema evolve passo dopo passo.",
+          "Un vettore del piano ha due componenti, v = (v₁; v₂): uno spostamento di v₁ in orizzontale e di v₂ in verticale. I vettori si sommano componente per componente, come vuole la regola del parallelogramma: (3; 1) + (1; 2) = (4; 3). Si moltiplicano per un numero, cambiandone la lunghezza: 2 · (3; 1) = (6; 2). La lunghezza, o norma, è |v| = √(v₁² + v₂²), e per (4; 3) vale 5.",
+          "La regola del parallelogramma per comporre le forze era nota fin dall’antichità, e nel 1586 il fiammingo Simon Stevin la analizzò in un trattato sull’arte di pesare, aprendo la strada alla meccanica moderna. La parola vettore, dal latino vehere, trasportare, fu introdotta molto più tardi da William Rowan Hamilton, a metà dell’Ottocento."
         ],
         "intermediate": [
-          "Il sistema di navigazione della stazione descrive spostamenti, velocità e forze con frecce, e le rotazioni della telecamera con tabelle di numeri. Le frecce sono vettori, le tabelle matrici: insieme permettono di calcolare trasformazioni del piano, di organizzare dati e di prevedere come un sistema evolve passo dopo passo.",
-          "Un vettore del piano ha due componenti, v = (v₁; v₂): uno spostamento di v₁ in orizzontale e v₂ in verticale. I vettori si sommano componente per componente, regola del parallelogramma, e si moltiplicano per un numero, cambiandone la lunghezza. La lunghezza, o norma, è |v| = √(v₁² + v₂²). Il prodotto scalare v · w = v₁w₁ + v₂w₂ vale zero se i vettori sono perpendicolari."
+          "Il prodotto scalare di v = (v₁; v₂) e w = (w₁; w₂) è il numero v · w = v₁w₁ + v₂w₂. Vale zero quando i vettori sono perpendicolari, ed è legato all’angolo fra di essi: v · w = |v| |w| cos θ. Per v = (3; 4) e w = (4; −3) si ha v · w = 12 − 12 = 0, e infatti le due frecce formano un angolo retto.",
+          "Esempio svolto: l’angolo fra due vettori. Per v = (1; 0) e w = (1; 1) il prodotto scalare vale 1 e le norme 1 e √2, quindi cos θ = 1/√2 ≈ 0,707 e θ = 45 gradi. Lo stesso calcolo funziona in tre dimensioni, e in qualunque numero di dimensioni.",
+          "Esempio svolto: due forze. Due rimorchiatori tirano una nave con forze di 3 e di 4 kilonewton, ad angolo retto. La forza risultante è la somma dei vettori, (3; 4), con intensità √(9 + 16) = 5 kilonewton, diretta a circa 53 gradi rispetto alla prima forza.",
+          "Prova tu: calcola la norma di (6; 8), la somma (6; 8) + (−2; 1) e il prodotto scalare fra (6; 8) e (4; −3)."
         ],
         "advanced": [
-          "Il sistema di navigazione della stazione descrive spostamenti, velocità e forze con frecce, e le rotazioni della telecamera con tabelle di numeri. Le frecce sono vettori, le tabelle matrici: insieme permettono di calcolare trasformazioni del piano, di organizzare dati e di prevedere come un sistema evolve passo dopo passo.",
-          "Un vettore del piano ha due componenti, v = (v₁; v₂): uno spostamento di v₁ in orizzontale e v₂ in verticale. I vettori si sommano componente per componente, regola del parallelogramma, e si moltiplicano per un numero, cambiandone la lunghezza. La lunghezza, o norma, è |v| = √(v₁² + v₂²). Il prodotto scalare v · w = v₁w₁ + v₂w₂ vale zero se i vettori sono perpendicolari."
+          "Il calcolo vettoriale nacque nell’Ottocento da due strade indipendenti. Nel 1843 Hamilton scoprì i quaternioni, numeri con quattro componenti; nel 1844 il tedesco Hermann Grassmann pubblicò una «Teoria dell’estensione lineare» che trattava geometrie in un numero qualsiasi di dimensioni. Dalle idee di entrambi l’americano Josiah Willard Gibbs ricavò, intorno al 1881, il calcolo vettoriale usato ancora oggi in fisica.",
+          "Il prodotto scalare è la proiezione di un vettore sull’altro, moltiplicata per la lunghezza del secondo. Per questo misura il lavoro di una forza: una forza di 10 newton che sposta un carrello di 5 metri, formando un angolo di 60 gradi con lo spostamento, compie un lavoro di 10 · 5 · cos 60° = 25 joule.",
+          "In più dimensioni la norma generalizza il teorema di Pitagora: per un vettore (v₁; v₂; v₃) vale √(v₁² + v₂² + v₃²). La diagonale di una scatola di lati 2, 3 e 6 misura √(4 + 9 + 36) = 7."
         ]
       }
     },
@@ -84,26 +88,29 @@
       "title": "Matrici come trasformazioni",
       "text": {
         "base": [
-          "Una matrice 2 × 2, scritta qui per righe come (a b; c d), trasforma un vettore (x; y) nel vettore (ax + by; cx + dy). Le colonne della matrice sono le immagini dei due vettori di base (1; 0) e (0; 1): basta sapere dove vanno questi due per sapere dove va ogni punto. Esempio: (0 −1; 1 0) manda (1; 0) in (0; 1) e (0; 1) in (−1; 0), cioè ruota di 90° in senso antiorario.",
+          "Una matrice 2 × 2, scritta qui per righe come (a b; c d), trasforma un vettore (x; y) nel vettore (ax + by; cx + dy). Le colonne della matrice sono le immagini dei due vettori di base (1; 0) e (0; 1): basta sapere dove vanno questi due per sapere dove va ogni punto. Per esempio (0 −1; 1 0) manda (1; 0) in (0; 1) e (0; 1) in (−1; 0), cioè ruota di 90 gradi in senso antiorario.",
           "Le trasformazioni principali hanno matrici riconoscibili. Ingrandimento di fattore k: (k 0; 0 k). Rotazione di un angolo θ: (cos θ −sin θ; sin θ cos θ). Riflessione rispetto all’asse x: (1 0; 0 −1). Taglio orizzontale: (1 k; 0 1), che fa scivolare i punti in orizzontale in proporzione alla loro altezza.",
-          "Il determinante ad − bc misura come la trasformazione cambia le aree: un quadrato di area 1 diventa una figura di area |ad − bc|. Le rotazioni e le riflessioni hanno determinante ±1 e conservano le aree; il segno negativo indica che l’orientamento si capovolge, come in uno specchio. Se il determinante è zero il piano viene schiacciato su una retta, e la trasformazione non si può invertire.",
-          "Alcune direzioni vengono solo allungate o accorciate, senza ruotare: sono le direzioni degli autovettori, e il fattore è l’autovalore. Per la matrice diagonale (a 0; 0 b) gli autovettori sono gli assi, con autovalori a e b. Applicando la matrice n volte al vettore (1; 1) si ottiene (aⁿ; bⁿ), con norma √(a²ⁿ + b²ⁿ): è il modello del laboratorio di questa unità."
+          "Il determinante ad − bc misura come la trasformazione cambia le aree: un quadrato di area 1 diventa una figura di area |ad − bc|. Rotazioni e riflessioni hanno determinante ±1 e conservano le aree; il segno negativo indica che l’orientamento si capovolge, come in uno specchio. Se il determinante è zero il piano viene schiacciato su una retta, e la trasformazione è impossibile da invertire.",
+          "Alcune direzioni vengono soltanto allungate o accorciate, senza ruotare: sono le direzioni degli autovettori, e il fattore è l’autovalore. Per la matrice diagonale (a 0; 0 b) gli autovettori sono gli assi, con autovalori a e b. Applicando la matrice n volte al vettore (1; 1) si ottiene (aⁿ; bⁿ), con norma √(a²ⁿ + b²ⁿ): è il modello di questa unità.",
+          "Esempio: la matrice diagonale (0,8 0; 0 0,6) accorcia l’asse orizzontale del 20% e quello verticale del 40% a ogni applicazione. Dopo un passo (1; 1) diventa (0,8; 0,6), con norma 1, dopo due (0,64; 0,36), con norma circa 0,73.",
+          "La parola matrice, dal latino matrix, grembo o stampo, fu scelta nel 1850 dall’inglese James Joseph Sylvester per indicare la tabella da cui si generano i determinanti. Nel 1858 il suo amico Arthur Cayley pubblicò la prima teoria delle matrici come oggetti autonomi, con il prodotto definito in modo che corrisponda all’applicazione di due trasformazioni una dopo l’altra."
         ],
         "intermediate": [
-          "Una matrice 2 × 2, scritta qui per righe come (a b; c d), trasforma un vettore (x; y) nel vettore (ax + by; cx + dy). Le colonne della matrice sono le immagini dei due vettori di base (1; 0) e (0; 1): basta sapere dove vanno questi due per sapere dove va ogni punto. Esempio: (0 −1; 1 0) manda (1; 0) in (0; 1) e (0; 1) in (−1; 0), cioè ruota di 90° in senso antiorario.",
-          "Le trasformazioni principali hanno matrici riconoscibili. Ingrandimento di fattore k: (k 0; 0 k). Rotazione di un angolo θ: (cos θ −sin θ; sin θ cos θ). Riflessione rispetto all’asse x: (1 0; 0 −1). Taglio orizzontale: (1 k; 0 1), che fa scivolare i punti in orizzontale in proporzione alla loro altezza.",
-          "Il determinante ad − bc misura come la trasformazione cambia le aree: un quadrato di area 1 diventa una figura di area |ad − bc|. Le rotazioni e le riflessioni hanno determinante ±1 e conservano le aree; il segno negativo indica che l’orientamento si capovolge, come in uno specchio. Se il determinante è zero il piano viene schiacciato su una retta, e la trasformazione non si può invertire.",
-          "Applicare due trasformazioni una dopo l’altra corrisponde al prodotto delle matrici, e l’ordine conta: ruotare e poi riflettere dà in generale un risultato diverso da riflettere e poi ruotare. Anche un sistema lineare si scrive come matrice per vettore: risolverlo significa invertire la trasformazione, possibile solo se il determinante è diverso da zero.",
-          "Alcune direzioni vengono solo allungate o accorciate, senza ruotare: sono le direzioni degli autovettori, e il fattore è l’autovalore. Per la matrice diagonale (a 0; 0 b) gli autovettori sono gli assi, con autovalori a e b. Applicando la matrice n volte al vettore (1; 1) si ottiene (aⁿ; bⁿ), con norma √(a²ⁿ + b²ⁿ): è il modello del laboratorio di questa unità.",
-          "Iterare una matrice descrive sistemi che evolvono a passi: popolazioni divise per età, catene di Markov, algoritmi di ricerca. Dopo molti passi domina l’autovalore più grande in valore assoluto: se supera 1 la norma cresce, se tutti sono minori di 1 la norma tende a zero. Con autovalori 0,8 e 0,6, dopo 10 passi la norma è circa 0,108."
+          "Esempio svolto: applicare una matrice. La matrice (2 1; 0 1) manda (1; 0) in (2; 0) e (0; 1) in (1; 1), e quindi il punto (3; 2) in (2 · 3 + 1 · 2; 0 · 3 + 1 · 2) = (8; 2). Il quadrato unitario diventa un parallelogramma con lati (2; 0) e (1; 1), di area 2 · 1 − 1 · 0 = 2.",
+          "Esempio svolto: una rotazione di 30 gradi. Con cos 30° ≈ 0,866 e sin 30° = 0,5 la matrice è (0,866 −0,5; 0,5 0,866). Il punto (2; 0) va in (1,732; 1), che ha ancora distanza 2 dall’origine: una rotazione conserva le lunghezze, e il suo determinante vale 0,866² + 0,5² = 1.",
+          "Applicare due trasformazioni una dopo l’altra corrisponde al prodotto delle matrici, e l’ordine conta. Ruotare di 90 gradi e poi riflettere rispetto all’asse x manda (1; 0) in (0; 1) e poi in (0; −1); riflettere e poi ruotare lo manda prima in (1; 0) e poi in (0; 1). I due risultati sono diversi.",
+          "Anche un sistema lineare si scrive come matrice per vettore. Il sistema 2x + y = 5 e x − y = 1 diventa (2 1; 1 −1) · (x; y) = (5; 1), e risolverlo significa invertire la trasformazione, cosa possibile perché il determinante vale −2 − 1 = −3. La soluzione è x = 2 e y = 1.",
+          "Iterare una matrice descrive sistemi che evolvono a passi: popolazioni divise per età, catene di Markov, algoritmi di ricerca. Dopo molti passi domina l’autovalore più grande in valore assoluto: se supera 1 la norma cresce, se tutti sono minori di 1 la norma tende a zero. Con autovalori 0,8 e 0,6, dopo 10 passi la norma è circa 0,108.",
+          "Il modello del programma calcola la norma di (aⁿ; bⁿ) per n da 0 a 10, con gli autovalori a e b regolabili da 0 a 2 a passi di 0,1.",
+          "Prova tu: calcola il determinante di (3 1; 2 4) e l’area dell’immagine di un quadrato di lato 2."
         ],
         "advanced": [
-          "Una matrice 2 × 2, scritta qui per righe come (a b; c d), trasforma un vettore (x; y) nel vettore (ax + by; cx + dy). Le colonne della matrice sono le immagini dei due vettori di base (1; 0) e (0; 1): basta sapere dove vanno questi due per sapere dove va ogni punto. Esempio: (0 −1; 1 0) manda (1; 0) in (0; 1) e (0; 1) in (−1; 0), cioè ruota di 90° in senso antiorario.",
-          "Le trasformazioni principali hanno matrici riconoscibili. Ingrandimento di fattore k: (k 0; 0 k). Rotazione di un angolo θ: (cos θ −sin θ; sin θ cos θ). Riflessione rispetto all’asse x: (1 0; 0 −1). Taglio orizzontale: (1 k; 0 1), che fa scivolare i punti in orizzontale in proporzione alla loro altezza.",
-          "Il determinante ad − bc misura come la trasformazione cambia le aree: un quadrato di area 1 diventa una figura di area |ad − bc|. Le rotazioni e le riflessioni hanno determinante ±1 e conservano le aree; il segno negativo indica che l’orientamento si capovolge, come in uno specchio. Se il determinante è zero il piano viene schiacciato su una retta, e la trasformazione non si può invertire.",
-          "Applicare due trasformazioni una dopo l’altra corrisponde al prodotto delle matrici, e l’ordine conta: ruotare e poi riflettere dà in generale un risultato diverso da riflettere e poi ruotare. Anche un sistema lineare si scrive come matrice per vettore: risolverlo significa invertire la trasformazione, possibile solo se il determinante è diverso da zero.",
-          "Alcune direzioni vengono solo allungate o accorciate, senza ruotare: sono le direzioni degli autovettori, e il fattore è l’autovalore. Per la matrice diagonale (a 0; 0 b) gli autovettori sono gli assi, con autovalori a e b. Applicando la matrice n volte al vettore (1; 1) si ottiene (aⁿ; bⁿ), con norma √(a²ⁿ + b²ⁿ): è il modello del laboratorio di questa unità.",
-          "Iterare una matrice descrive sistemi che evolvono a passi: popolazioni divise per età, catene di Markov, algoritmi di ricerca. Dopo molti passi domina l’autovalore più grande in valore assoluto: se supera 1 la norma cresce, se tutti sono minori di 1 la norma tende a zero. Con autovalori 0,8 e 0,6, dopo 10 passi la norma è circa 0,108."
+          "Il significato del determinante come area si vede con un disegno. Il quadrato unitario diventa il parallelogramma con lati (a; c) e (b; d). Inscrivendolo nel rettangolo di lati a + b e c + d e togliendo i triangoli e i rettangoli d’angolo, si ottiene esattamente ad − bc. Joseph-Louis Lagrange, nel 1773, usò i determinanti di tre righe per calcolare volumi di tetraedri, uno dei primi usi di questi numeri fuori dai sistemi.",
+          "Gli autovalori si trovano risolvendo un’equazione. Un vettore v diverso da zero con A · v = λv esiste soltanto se la matrice A − λI schiaccia il piano, dove I è la matrice identità (1 0; 0 1), cioè se il determinante di A − λI è nullo. Per (2 1; 1 2) l’equazione è (2 − λ)² − 1 = 0, con soluzioni λ = 3 e λ = 1 e autovettori (1; 1) e (1; −1). Il prodotto degli autovalori, 3 · 1 = 3, è uguale al determinante, 4 − 1 = 3.",
+          "La somma degli autovalori, 3 + 1 = 4, è invece uguale alla traccia, la somma degli elementi sulla diagonale, 2 + 2. Queste due relazioni permettono di controllare in pochi secondi gli autovalori calcolati, e valgono per ogni matrice 2 × 2.",
+          "Per la stessa matrice, applicata dieci volte a (1; 0), la componente lungo (1; 1) cresce come 3¹⁰ = 59 049 e quella lungo (1; −1) resta costante: dopo pochi passi il vettore punta quasi esattamente nella direzione dell’autovettore dominante. È il metodo delle potenze, usato per trovare l’autovalore più grande di matrici enormi.",
+          "Su questa idea si basano modelli molto diversi. Nel 1945 il biologo Patrick Leslie descrisse una popolazione divisa per classi di età con una matrice, il cui autovalore dominante dà il tasso di crescita a lungo termine; nel 1998 l’algoritmo PageRank di Google ordinò le pagine del web secondo le componenti dell’autovettore dominante di una matrice di collegamenti.",
+          "Il nome autovalore viene dal tedesco Eigenwert, valore proprio, diffuso da David Hilbert all’inizio del Novecento."
         ]
       }
     },
@@ -112,18 +119,20 @@
       "title": "Carte di trasformazioni",
       "text": {
         "base": [
-          "L’attività ha tre serie di carte. Nella prima riconosci il tipo di trasformazione dalla matrice; nella seconda decidi, dal determinante, che cosa succede alle aree; nella terza ordini cinque matrici diagonali in base alla norma del vettore (1; 1) dopo dieci applicazioni. Supera tutte e tre le serie; nelle classificazioni puoi sbagliare al massimo due carte.",
-          "Per riconoscere una trasformazione calcola dove vanno (1; 0) e (0; 1): sono le due colonne. Poi disegna il quadrato unitario trasformato."
+          "L’attività ha tre serie di carte. Nella prima riconosci il tipo di trasformazione dalla matrice: rotazione, riflessione, ingrandimento o taglio. Nella seconda decidi, dal determinante, che cosa succede alle aree. Nella terza ordini sei matrici diagonali secondo la norma del vettore (1; 1) dopo dieci applicazioni.",
+          "Per completare l’attività supera tutte e tre le serie; nelle classificazioni puoi sbagliare al massimo due carte. Dopo ogni scelta una spiegazione mostra il calcolo, e la serie si può ripetere.",
+          "Per riconoscere una trasformazione calcola dove vanno (1; 0) e (0; 1): sono le due colonne della matrice. Poi disegna il quadrato unitario trasformato e guarda se è ruotato, ribaltato, ingrandito o inclinato.",
+          "Per le aree basta il determinante ad − bc, perché il suo valore assoluto è il fattore con cui cambiano le aree."
         ],
         "intermediate": [
-          "L’attività ha tre serie di carte. Nella prima riconosci il tipo di trasformazione dalla matrice; nella seconda decidi, dal determinante, che cosa succede alle aree; nella terza ordini cinque matrici diagonali in base alla norma del vettore (1; 1) dopo dieci applicazioni. Supera tutte e tre le serie; nelle classificazioni puoi sbagliare al massimo due carte.",
-          "Per riconoscere una trasformazione calcola dove vanno (1; 0) e (0; 1): sono le due colonne. Poi disegna il quadrato unitario trasformato.",
-          "Iterare una matrice descrive sistemi che evolvono a passi: popolazioni divise per età, catene di Markov, algoritmi di ricerca. Dopo molti passi domina l’autovalore più grande in valore assoluto: se supera 1 la norma cresce, se tutti sono minori di 1 la norma tende a zero. Con autovalori 0,8 e 0,6, dopo 10 passi la norma è circa 0,108."
+          "Nella prima serie alcune carte ingannano. (−1 0; 0 −1) cambia il segno di entrambe le coordinate e sembra una riflessione, eppure è una rotazione di 180 gradi: il determinante vale 1, e l’orientamento resta lo stesso. (0 1; 1 0) scambia x e y, ed è la riflessione rispetto alla bisettrice y = x, con determinante −1.",
+          "Nella seconda serie le matrici con determinante nullo, come (1 2; 2 4) e (3 1; 6 2), hanno colonne parallele, e l’immagine del quadrato è un segmento, di area zero. Il taglio (1 1; 0 1) deforma il quadrato e ne conserva l’area, perché il determinante vale 1.",
+          "Nella terza serie conta l’autovalore più grande: con autovalori 1,2 e 0 la norma dopo dieci passi è 1,2¹⁰ ≈ 6,19, la più grande; con 0,5 e 0,5 è √2 · 0,5¹⁰ ≈ 0,0014, la più piccola."
         ],
         "advanced": [
-          "L’attività ha tre serie di carte. Nella prima riconosci il tipo di trasformazione dalla matrice; nella seconda decidi, dal determinante, che cosa succede alle aree; nella terza ordini cinque matrici diagonali in base alla norma del vettore (1; 1) dopo dieci applicazioni. Supera tutte e tre le serie; nelle classificazioni puoi sbagliare al massimo due carte.",
-          "Per riconoscere una trasformazione calcola dove vanno (1; 0) e (0; 1): sono le due colonne. Poi disegna il quadrato unitario trasformato.",
-          "Una matrice è anche una tabella di dati: righe per gli oggetti, colonne per le grandezze misurate. Moltiplicare una tabella di quantità per un vettore di prezzi dà il costo di ogni ordine: le stesse operazioni servono alla geometria e alla gestione dei dati."
+          "Nella terza serie due carte stanno vicino a 1. Con autovalori 1 e 0,5 la norma è √(1 + 0,5²⁰) ≈ 1,0000005, con 0,9 e 0,9 è √2 · 0,9¹⁰ ≈ 0,49. La prima resta di fatto costante, perché l’autovalore 1 conserva la sua componente; la seconda si riduce lentamente.",
+          "Per stimare 1,1¹⁰ senza calcolatrice si usa il logaritmo: 10 · ln 1,1 ≈ 10 · 0,0953 = 0,953, ed e^0,953 ≈ 2,59. Con 0,8¹⁰ si ottiene 10 · ln 0,8 ≈ −2,23 ed e^(−2,23) ≈ 0,107.",
+          "Nella seconda serie, per ogni matrice con determinante negativo chiediti anche che cosa succede all’orientamento: (1 0; 0 −1) conserva l’area e la ribalta, come uno specchio. Il segno del determinante distingue le rotazioni dalle riflessioni anche quando le aree sono uguali. Le rotazioni hanno determinante 1, le riflessioni −1."
         ]
       }
     },
@@ -132,18 +141,19 @@
       "title": "Errori frequenti",
       "text": {
         "base": [
-          "Errore frequente: pensare che il prodotto di matrici sia commutativo come quello dei numeri. Ruotare di 90° e poi riflettere rispetto all’asse x manda (1; 0) in (0; −1); riflettere e poi ruotare lo manda in (0; 1).",
-          "Secondo errore: credere che un taglio cambi le aree perché deforma le figure. La matrice (1 1; 0 1) ha determinante 1: il quadrato diventa un parallelogramma con la stessa base e la stessa altezza, quindi con la stessa area.",
-          "Una matrice è anche una tabella di dati: righe per gli oggetti, colonne per le grandezze misurate. Moltiplicare una tabella di quantità per un vettore di prezzi dà il costo di ogni ordine: le stesse operazioni servono alla geometria e alla gestione dei dati."
+          "Il primo errore frequente è pensare che il prodotto di matrici sia commutativo come quello dei numeri. Ruotare di 90 gradi e poi riflettere rispetto all’asse x manda (1; 0) in (0; −1); riflettere e poi ruotare lo manda in (0; 1). L’ordine delle trasformazioni cambia il risultato, come infilare la camicia e poi il cappotto è diverso dal contrario.",
+          "Il secondo errore è credere che un taglio cambi le aree perché deforma le figure. La matrice (1 1; 0 1) ha determinante 1: il quadrato diventa un parallelogramma con la stessa base e la stessa altezza, quindi con la stessa area. È lo stesso principio per cui un mazzo di carte spinto di lato conserva il proprio volume.",
+          "Il terzo errore è confondere righe e colonne. In questa unità la matrice (a b; c d) è scritta per righe, e le immagini dei vettori di base sono le colonne, (a; c) e (b; d). Scambiare righe e colonne dà la matrice trasposta, che in generale descrive una trasformazione diversa."
         ],
         "intermediate": [
-          "Errore frequente: pensare che il prodotto di matrici sia commutativo come quello dei numeri. Ruotare di 90° e poi riflettere rispetto all’asse x manda (1; 0) in (0; −1); riflettere e poi ruotare lo manda in (0; 1).",
-          "Secondo errore: credere che un taglio cambi le aree perché deforma le figure. La matrice (1 1; 0 1) ha determinante 1: il quadrato diventa un parallelogramma con la stessa base e la stessa altezza, quindi con la stessa area.",
-          "Una matrice è anche una tabella di dati: righe per gli oggetti, colonne per le grandezze misurate. Moltiplicare una tabella di quantità per un vettore di prezzi dà il costo di ogni ordine: le stesse operazioni servono alla geometria e alla gestione dei dati."
+          "Esempio svolto: una tabella di dati. Una matrice è anche una tabella, con le righe per gli ordini e le colonne per i prodotti. Se un ordine contiene 3 pannelli e 2 cavi e un altro 1 pannello e 5 cavi, con prezzi di 40 euro per un pannello e di 6 per un cavo, il prodotto (3 2; 1 5) · (40; 6) = (132; 70) dà il costo dei due ordini.",
+          "Esempio svolto: un’inversa. La matrice (2 1; 1 1) ha determinante 1, e la sua inversa è (1 −1; −1 2): applicandole una dopo l’altra, il vettore (3; 2) va in (8; 5) e torna in (3; 2). Una matrice con determinante nullo, come (1 2; 2 4), manda (2; −1) e (0; 0) nello stesso punto, e per questo è priva di inversa.",
+          "Esempio svolto: un autovalore negativo. La matrice (−1 0; 0 0,5) applicata più volte a (1; 1) produce (−1; 0,5), (1; 0,25), (−1; 0,125): la prima componente cambia segno a ogni passo senza crescere, la seconda si dimezza. Un autovalore negativo fa oscillare la direzione."
         ],
         "advanced": [
-          "Errore frequente: pensare che il prodotto di matrici sia commutativo come quello dei numeri. Ruotare di 90° e poi riflettere rispetto all’asse x manda (1; 0) in (0; −1); riflettere e poi ruotare lo manda in (0; 1).",
-          "Secondo errore: credere che un taglio cambi le aree perché deforma le figure. La matrice (1 1; 0 1) ha determinante 1: il quadrato diventa un parallelogramma con la stessa base e la stessa altezza, quindi con la stessa area."
+          "Le matrici dei calcolatori pongono problemi di precisione. Una matrice con determinante piccolo, quasi nullo, schiaccia quasi il piano, e invertirla amplifica gli errori dei dati, come accadeva con le rette quasi parallele dell’unità «Equazioni e sistemi». Il numero di condizionamento misura questo effetto, e i programmi di calcolo lo segnalano prima di risolvere un sistema.",
+          "Anche il modello dell’iterazione ha limiti. Le matrici diagonali hanno direzioni proprie fisse e facili da leggere, mentre molte matrici reali, come una rotazione, sono prive di autovettori reali, e allora i vettori girano invece di allungarsi. Per una rotazione di 90 gradi gli autovalori sono i e −i, numeri complessi di modulo 1: la norma resta costante e la direzione ruota.",
+          "Nei dati, infine, una matrice di misure contiene errori, e i suoi autovalori più piccoli sono spesso dominati dal rumore. Le tecniche di analisi dei dati, come le componenti principali introdotte da Karl Pearson nel 1901, conservano soltanto le direzioni con gli autovalori più grandi. Con due misure per oggetto, come altezza e peso, la direzione dominante riassume in un solo numero la grandezza complessiva."
         ]
       }
     },
@@ -173,19 +183,19 @@
       "title": "Collegamenti",
       "text": {
         "base": [
-          "Vettori e matrici sono il linguaggio della fisica, della grafica al calcolatore e dell’analisi dei dati. Le trasformazioni del piano si studiano in «Geometrie, trasformazioni e simmetrie», e l’iterazione di matrici torna nei modelli di popolazione.",
-          "Riepilogo dell’unità: i vettori si sommano per componenti e hanno una norma; una matrice trasforma i vettori, e le sue colonne sono le immagini dei vettori di base; il determinante misura il cambiamento delle aree; gli autovalori dicono come cresce o si riduce un vettore iterando la trasformazione.",
-          "Nel diario disegna il quadrato unitario trasformato da una matrice a tua scelta e calcola il determinante per controllare l’area."
+          "Vettori e matrici sono il linguaggio della fisica, della grafica al calcolatore e dell’analisi dei dati. Le trasformazioni del piano si studiano nell’unità «Geometrie, trasformazioni e simmetrie», e l’iterazione delle matrici torna nei modelli di popolazione. Nei videogiochi ogni movimento della telecamera è un prodotto di matrici.",
+          "Riepilogo: i vettori si sommano per componenti e hanno una norma; una matrice trasforma i vettori, e le sue colonne sono le immagini dei vettori di base; il determinante misura il cambiamento delle aree; gli autovalori dicono come cresce o si riduce un vettore iterando la trasformazione.",
+          "Nel diario disegna il quadrato unitario trasformato da una matrice a tua scelta e calcola il determinante per controllare l’area. Indica se l’orientamento si capovolge."
         ],
         "intermediate": [
-          "Vettori e matrici sono il linguaggio della fisica, della grafica al calcolatore e dell’analisi dei dati. Le trasformazioni del piano si studiano in «Geometrie, trasformazioni e simmetrie», e l’iterazione di matrici torna nei modelli di popolazione.",
-          "Riepilogo dell’unità: i vettori si sommano per componenti e hanno una norma; una matrice trasforma i vettori, e le sue colonne sono le immagini dei vettori di base; il determinante misura il cambiamento delle aree; gli autovalori dicono come cresce o si riduce un vettore iterando la trasformazione.",
-          "Nel diario disegna il quadrato unitario trasformato da una matrice a tua scelta e calcola il determinante per controllare l’area."
+          "Il determinante di due righe torna dall’unità «Equazioni e sistemi», dove D = 0 segnalava rette parallele, e qui significa un piano schiacciato su una retta. Le rotazioni con seno e coseno vengono dalla «Trigonometria», e la moltiplicazione per i dei numeri complessi è la matrice (0 −1; 1 0).",
+          "L’iterazione di una matrice è un’iterazione come quelle dell’unità «Iterazioni, stabilità e precisione numerica»: l’origine è un punto fisso stabile se tutti gli autovalori hanno modulo minore di 1. Se un autovalore supera 1, il punto fisso diventa instabile.",
+          "Nel diario calcola la norma di (1; 1) dopo tre applicazioni di (1,5 0; 0 0,5) e confrontala con il valore di partenza, √2. Spiega quale autovalore domina."
         ],
         "advanced": [
-          "Vettori e matrici sono il linguaggio della fisica, della grafica al calcolatore e dell’analisi dei dati. Le trasformazioni del piano si studiano in «Geometrie, trasformazioni e simmetrie», e l’iterazione di matrici torna nei modelli di popolazione.",
-          "Riepilogo dell’unità: i vettori si sommano per componenti e hanno una norma; una matrice trasforma i vettori, e le sue colonne sono le immagini dei vettori di base; il determinante misura il cambiamento delle aree; gli autovalori dicono come cresce o si riduce un vettore iterando la trasformazione.",
-          "Nel diario disegna il quadrato unitario trasformato da una matrice a tua scelta e calcola il determinante per controllare l’area."
+          "Le matrici descrivono anche le reti: la tabella dei collegamenti fra i nodi di un grafo, come quelli dell’unità «Reti, conservazione e strategie», è una matrice. In fisica gli autovalori descrivono i livelli di energia della meccanica quantistica, come quelli dell’unità «Oscillazioni, molecole e quantizzazione».",
+          "La storia delle matrici, dalle tavole di bastoncini cinesi a Cayley e al calcolo moderno, mostra come una notazione nata per i sistemi lineari sia diventata il linguaggio della geometria, dei dati e della fisica.",
+          "Nel diario trova autovalori e autovettori di (3 0; 0 2) e di (2 1; 1 2), e spiega che cosa succede a un vettore dopo molte applicazioni. Usa il metodo delle potenze."
         ]
       }
     }

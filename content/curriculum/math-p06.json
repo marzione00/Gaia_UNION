@@ -8,7 +8,7 @@
   "coverage": "guided-lab",
   "editorialStatus": "hand-written-draft",
   "scope": "Isometrie del piano, rotazioni, composizione, simmetrie e similitudini",
-  "narrativeStatus": "Il braccio robotico è immaginario; le trasformazioni sono matematica reale.",
+  "narrativeStatus": "Il braccio robotico è immaginario; le trasformazioni sono matematica reale. Gli esempi con persone, oggetti e luoghi generici sono illustrativi; date e notizie storiche sono reali.",
   "objectives": [
     "Riconoscere traslazioni, rotazioni, riflessioni e glissoriflessioni.",
     "Calcolare le coordinate di un punto ruotato.",
@@ -67,16 +67,20 @@
       "title": "Dove finisce un punto?",
       "text": {
         "base": [
-          "Il braccio robotico della stazione ruota attorno al proprio perno: per comandarlo bisogna sapere dove finisce un punto dopo una rotazione di un certo angolo. Le trasformazioni geometriche, e le simmetrie che lasciano una figura uguale a sé stessa, permettono di rispondere e di classificare le forme.",
-          "Un’isometria è una trasformazione del piano che conserva le distanze. Le isometrie del piano sono di quattro tipi: traslazioni, che spostano tutti i punti dello stesso vettore; rotazioni attorno a un punto; riflessioni rispetto a una retta; glissoriflessioni, una riflessione seguita da una traslazione lungo la stessa retta."
+          "Il braccio robotico della stazione ruota attorno al proprio perno, e per comandarlo bisogna sapere dove finisce un punto dopo una rotazione di un certo angolo. Le trasformazioni geometriche rispondono a questa domanda, e le simmetrie, cioè le trasformazioni che lasciano una figura uguale a sé stessa, permettono di classificare le forme.",
+          "Un’isometria è una trasformazione del piano che conserva le distanze: due punti a 5 cm di distanza restano a 5 cm dopo la trasformazione. Le isometrie del piano sono di quattro tipi: le traslazioni, che spostano tutti i punti dello stesso vettore; le rotazioni attorno a un punto; le riflessioni rispetto a una retta; le glissoriflessioni, una riflessione seguita da una traslazione lungo la stessa retta, come le impronte lasciate camminando sulla sabbia.",
+          "Le simmetrie furono usate dall’arte prima che dalla matematica. I decoratori dell’Alhambra di Granada, nel XIV secolo, ricoprirono le pareti con piastrellature di moltissimi tipi diversi, e nel Novecento l’olandese Maurits Escher, dopo averle visitate, costruì su quelle regole disegni con pesci, uccelli e lucertole che si incastrano senza lasciare spazi."
         ],
         "intermediate": [
-          "Il braccio robotico della stazione ruota attorno al proprio perno: per comandarlo bisogna sapere dove finisce un punto dopo una rotazione di un certo angolo. Le trasformazioni geometriche, e le simmetrie che lasciano una figura uguale a sé stessa, permettono di rispondere e di classificare le forme.",
-          "Un’isometria è una trasformazione del piano che conserva le distanze. Le isometrie del piano sono di quattro tipi: traslazioni, che spostano tutti i punti dello stesso vettore; rotazioni attorno a un punto; riflessioni rispetto a una retta; glissoriflessioni, una riflessione seguita da una traslazione lungo la stessa retta."
+          "Esempio svolto: tre trasformazioni dello stesso punto. Il punto P(3; 1), traslato del vettore (−2; 4), va in (1; 5). Riflesso rispetto all’asse x va in (3; −1), rispetto all’asse y in (−3; 1), rispetto alla bisettrice y = x in (1; 3). Ruotato di 90 gradi in senso antiorario attorno all’origine va in (−1; 3).",
+          "Il controllo è immediato: la distanza di P dall’origine è √(9 + 1) = √10, e tutte le immagini ottenute con riflessioni e rotazioni attorno all’origine hanno la stessa distanza dall’origine. La traslazione sposta anche l’origine, e conserva le distanze fra i punti della figura, mentre cambia quella dall’origine.",
+          "Le quattro isometrie si dividono in due famiglie. Traslazioni e rotazioni conservano l’orientamento, e una lettera R resta leggibile. Riflessioni e glissoriflessioni lo capovolgono, e la R appare come allo specchio. Per questo una mano destra riflessa diventa una mano sinistra, e nessuna rotazione nel piano può riportarla destra.",
+          "Prova tu: trova l’immagine di (2; −3) con una rotazione di 180 gradi attorno all’origine e con una riflessione rispetto all’asse y, e controlla le distanze dall’origine."
         ],
         "advanced": [
-          "Il braccio robotico della stazione ruota attorno al proprio perno: per comandarlo bisogna sapere dove finisce un punto dopo una rotazione di un certo angolo. Le trasformazioni geometriche, e le simmetrie che lasciano una figura uguale a sé stessa, permettono di rispondere e di classificare le forme.",
-          "Un’isometria è una trasformazione del piano che conserva le distanze. Le isometrie del piano sono di quattro tipi: traslazioni, che spostano tutti i punti dello stesso vettore; rotazioni attorno a un punto; riflessioni rispetto a una retta; glissoriflessioni, una riflessione seguita da una traslazione lungo la stessa retta."
+          "Il teorema di classificazione afferma che ogni isometria del piano è di uno dei quattro tipi, e si basa su un’osservazione semplice: un’isometria è determinata dalle immagini di tre punti non allineati. Ogni isometria si scrive come composizione di al più tre riflessioni: una riflessione ne usa una, rotazioni e traslazioni ne richiedono due, le glissoriflessioni tre.",
+          "Già Euclide, negli «Elementi», usava la sovrapposizione delle figure per dimostrare l’uguaglianza dei triangoli, spostandone uno sull’altro. L’idea di studiare le trasformazioni in sé, invece delle figure, si affermò soltanto nell’Ottocento, e nel 1872 Felix Klein propose di definire ogni geometria attraverso il gruppo di trasformazioni che la caratterizza.",
+          "Hermann Weyl, nel libro «Simmetria» del 1952, attribuì a Leonardo da Vinci un’osservazione precisa: le simmetrie di una pianta architettonica centrale sono soltanto rotazioni, oppure rotazioni accompagnate da altrettanti assi di riflessione. È un teorema della geometria moderna, e vale per ogni figura limitata del piano."
         ]
       }
     },
@@ -85,22 +89,29 @@
       "title": "Rotazioni, composizioni, simmetrie",
       "text": {
         "base": [
-          "La rotazione di centro l’origine e angolo θ, in senso antiorario, porta il punto (x; y) in (x cos θ − y sin θ; x sin θ + y cos θ). Esempio: il punto (1; 0) ruotato di 90° va in (0; 1); ruotato di 180° in (−1; 0). Il laboratorio segue la prima coordinata, x′ = a cos θ − b sin θ, per il punto iniziale (a; b).",
-          "Componendo isometrie si ottengono ancora isometrie. Due riflessioni rispetto a rette che si incontrano con angolo α danno una rotazione di angolo 2α; due riflessioni rispetto a rette parallele danno una traslazione. Due rotazioni attorno allo stesso centro si sommano: ruotare di 30° e poi di 60° equivale a ruotare di 90°.",
-          "Una simmetria di una figura è un’isometria che la lascia invariata. Un quadrato ha 8 simmetrie: 4 rotazioni (0°, 90°, 180°, 270°) e 4 riflessioni (due assi mediani e due diagonali). Un triangolo equilatero ne ha 6, un cerchio infinite. L’insieme delle simmetrie con l’operazione di composizione forma un gruppo, e la teoria dei gruppi classifica le figure secondo le loro simmetrie."
+          "La rotazione di centro l’origine e angolo θ, in senso antiorario, porta il punto (x; y) in (x cos θ − y sin θ; x sin θ + y cos θ). Il punto (1; 0) ruotato di 90 gradi va in (0; 1), ruotato di 180 gradi in (−1; 0). Il modello di questa unità segue la prima coordinata, x′ = a cos θ − b sin θ, per il punto iniziale (a; b).",
+          "Esempio: per il punto (2; 1) ruotato di 90 gradi si ha cos 90° = 0 e sin 90° = 1, e il punto va in (2 · 0 − 1 · 1; 2 · 1 + 1 · 0) = (−1; 2).",
+          "Componendo isometrie si ottengono ancora isometrie. Due riflessioni rispetto a rette che si incontrano con un angolo α danno una rotazione di angolo 2α attorno al punto d’incontro; due riflessioni rispetto a rette parallele danno una traslazione, lunga il doppio della distanza fra le rette. Due rotazioni attorno allo stesso centro si sommano: ruotare di 30 gradi e poi di 60 equivale a ruotare di 90.",
+          "Una simmetria di una figura è un’isometria che la lascia invariata. Un quadrato ha 8 simmetrie: 4 rotazioni, di 0, 90, 180 e 270 gradi, e 4 riflessioni, rispetto ai due assi mediani e alle due diagonali. Un triangolo equilatero ne ha 6, un poligono regolare di n lati 2n, un cerchio infinite. Componendo due simmetrie si ottiene ancora una simmetria, e l’insieme delle simmetrie forma un gruppo.",
+          "Le similitudini conservano le forme e cambiano le dimensioni. Un’omotetia di centro O e rapporto k manda ogni punto P nel punto P′ della retta OP con OP′ = k · OP. Le lunghezze si moltiplicano per |k| e le aree per k², mentre gli angoli restano gli stessi. Una fotografia ingrandita è un’omotetia della stampa originale.",
+          "Nel 1611 Johannes Kepler scrisse un breve trattato, dedicato a un amico come dono di Capodanno, per chiedersi perché i fiocchi di neve abbiano sempre sei punte. La sua risposta, una disposizione regolare di particelle minuscole, anticipava di tre secoli la cristallografia moderna."
         ],
         "intermediate": [
-          "La rotazione di centro l’origine e angolo θ, in senso antiorario, porta il punto (x; y) in (x cos θ − y sin θ; x sin θ + y cos θ). Esempio: il punto (1; 0) ruotato di 90° va in (0; 1); ruotato di 180° in (−1; 0). Il laboratorio segue la prima coordinata, x′ = a cos θ − b sin θ, per il punto iniziale (a; b).",
-          "Componendo isometrie si ottengono ancora isometrie. Due riflessioni rispetto a rette che si incontrano con angolo α danno una rotazione di angolo 2α; due riflessioni rispetto a rette parallele danno una traslazione. Due rotazioni attorno allo stesso centro si sommano: ruotare di 30° e poi di 60° equivale a ruotare di 90°.",
-          "Una simmetria di una figura è un’isometria che la lascia invariata. Un quadrato ha 8 simmetrie: 4 rotazioni (0°, 90°, 180°, 270°) e 4 riflessioni (due assi mediani e due diagonali). Un triangolo equilatero ne ha 6, un cerchio infinite. L’insieme delle simmetrie con l’operazione di composizione forma un gruppo, e la teoria dei gruppi classifica le figure secondo le loro simmetrie.",
-          "Le similitudini conservano le forme e cambiano le dimensioni: un’omotetia di centro O e rapporto k manda ogni punto P nel punto P′ della retta OP con OP′ = k · OP. Le lunghezze si moltiplicano per |k|, le aree per k²."
+          "Esempio svolto: una rotazione di 60 gradi. Con cos 60° = 0,5 e sin 60° ≈ 0,866 il punto (2; 0) va in (1; 1,73), e il punto (0; 2) va in (−1,73; 1). Entrambi restano a distanza 2 dall’origine, e l’angolo fra le loro immagini resta retto: la rotazione conserva distanze e angoli.",
+          "Esempio svolto: due riflessioni. Riflettere (3; 1) rispetto all’asse x dà (3; −1), e riflettere poi rispetto alla bisettrice y = x dà (−1; 3). Le due rette si incontrano nell’origine con un angolo di 45 gradi, e il risultato è una rotazione di 90 gradi: infatti (3; 1) ruotato di 90 gradi va proprio in (−1; 3).",
+          "Esempio svolto: contare le simmetrie. Un rettangolo con lati diversi ha 4 simmetrie: l’identità, la rotazione di 180 gradi e le riflessioni rispetto ai due assi mediani. Le diagonali sono prive di questo ruolo, perché la riflessione rispetto a una diagonale manda un lato lungo su uno corto. La lettera S ha soltanto la rotazione di 180 gradi, oltre all’identità.",
+          "Esempio svolto: un’omotetia. Con centro l’origine e rapporto 3, il triangolo di vertici (0; 0), (2; 0) e (0; 1), di area 1, diventa quello di vertici (0; 0), (6; 0) e (0; 3), di area 9 = 3².",
+          "Le decorazioni che si ripetono lungo una striscia, i fregi, hanno esattamente 7 tipi possibili di simmetria; quelle che ricoprono il piano, come le piastrellature, ne hanno 17. Il russo Evgraf Fedorov classificò i 17 tipi nel 1891, e George Polya li ripresentò nel 1924 con disegni che ispirarono Escher.",
+          "Il modello del programma traccia x′ = a cos θ − b sin θ per θ da 0 a 2π, con le coordinate iniziali a e b da −3 a 3 a passi di 1. Con il punto (1; 0) il grafico è il coseno, con (0; 1) è il seno cambiato di segno.",
+          "Prova tu: componi una rotazione di 120 gradi con una di 240 gradi attorno allo stesso centro, e spiega perché ottieni l’identità."
         ],
         "advanced": [
-          "La rotazione di centro l’origine e angolo θ, in senso antiorario, porta il punto (x; y) in (x cos θ − y sin θ; x sin θ + y cos θ). Esempio: il punto (1; 0) ruotato di 90° va in (0; 1); ruotato di 180° in (−1; 0). Il laboratorio segue la prima coordinata, x′ = a cos θ − b sin θ, per il punto iniziale (a; b).",
-          "Componendo isometrie si ottengono ancora isometrie. Due riflessioni rispetto a rette che si incontrano con angolo α danno una rotazione di angolo 2α; due riflessioni rispetto a rette parallele danno una traslazione. Due rotazioni attorno allo stesso centro si sommano: ruotare di 30° e poi di 60° equivale a ruotare di 90°.",
-          "Una simmetria di una figura è un’isometria che la lascia invariata. Un quadrato ha 8 simmetrie: 4 rotazioni (0°, 90°, 180°, 270°) e 4 riflessioni (due assi mediani e due diagonali). Un triangolo equilatero ne ha 6, un cerchio infinite. L’insieme delle simmetrie con l’operazione di composizione forma un gruppo, e la teoria dei gruppi classifica le figure secondo le loro simmetrie.",
-          "Le similitudini conservano le forme e cambiano le dimensioni: un’omotetia di centro O e rapporto k manda ogni punto P nel punto P′ della retta OP con OP′ = k · OP. Le lunghezze si moltiplicano per |k|, le aree per k².",
-          "Le decorazioni che si ripetono lungo una striscia, i fregi, hanno esattamente 7 tipi possibili di simmetria; quelle che ricoprono il piano, come le piastrellature, ne hanno 17. Questi risultati, dimostrati tra Ottocento e Novecento, spiegano perché gli stessi motivi ricorrono in culture lontane."
+          "La formula della rotazione si ricava con le formule di addizione. Un punto a distanza r dall’origine con angolo φ ha coordinate (r cos φ; r sin φ); ruotato di θ ha coordinate (r cos(φ + θ); r sin(φ + θ)). Sviluppando, r cos(φ + θ) = r cos φ cos θ − r sin φ sin θ = x cos θ − y sin θ, e in modo simile per la seconda coordinata. Con i numeri complessi lo stesso calcolo è un prodotto: (x + iy)(cos θ + i sin θ).",
+          "Le simmetrie di una figura formano un gruppo perché soddisfano quattro proprietà: la composizione di due simmetrie è una simmetria, la composizione è associativa, l’identità è una simmetria, e ogni simmetria ha un’inversa. Il gruppo del quadrato, con 8 elementi, si chiama gruppo diedrale; quello del triangolo equilatero ha 6 elementi e coincide con il gruppo delle permutazioni dei tre vertici.",
+          "Il gruppo delle rotazioni di un poligono regolare di n lati è ciclico: tutte le sue rotazioni sono potenze della rotazione di 360/n gradi, come le potenze di una radice n-esima dell’unità. Per l’esagono la rotazione di base è di 60 gradi, e le sue sei potenze danno 60, 120, 180, 240, 300 e 360 gradi.",
+          "Il gruppo del quadrato è privo della proprietà commutativa. Ruotare di 90 gradi e poi riflettere rispetto all’asse orizzontale è diverso da riflettere e poi ruotare, perché i due risultati sono le riflessioni rispetto alle due diagonali. Lo stesso accade con le matrici dell’unità «Vettori, matrici, dati e vincoli».",
+          "Una piastrellatura periodica del piano ammette soltanto rotazioni di ordine 2, 3, 4 e 6: nessuna ripetizione regolare ha una simmetria di rotazione di ordine 5. Per questo fu una sorpresa, nel 1982, la scoperta da parte di Dan Shechtman dei quasicristalli, con una simmetria di ordine 5 e una struttura ordinata eppure priva di periodicità, che gli valse il premio Nobel per la chimica nel 2011. Roger Penrose aveva disegnato nel 1974 piastrellature prive di periodicità con la stessa simmetria.",
+          "La teoria dei gruppi nacque insieme dalle equazioni, con Galois, e dalla geometria; Arthur Cayley ne diede nel 1854 la prima definizione astratta."
         ]
       }
     },
@@ -109,19 +120,20 @@
       "title": "Il laboratorio della rotazione",
       "text": {
         "base": [
-          "Nel laboratorio il grafico mostra la prima coordinata x′ del punto (a; b) ruotato di un angolo θ, da 0 a 2π; nella scheda «Regola» cambi le coordinate iniziali a e b, da −3 a 3. Il cursore sceglie l’angolo.",
-          "Protocollo. La previsione riguarda il passaggio da θ = π/2 a θ = π. Con il punto (1; 0) prevedi e salva A. Poi porta a a −3, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con (1; 0), x′ vale 0 in π/2 e −1 in π: diminuisce, perché il punto passa dall’asse y al lato sinistro. Con (−3; 0) i valori sono 0 e 3: cresce. Il grafico è sempre una sinusoide di ampiezza √(a² + b²), la distanza del punto dall’origine: la rotazione conserva le distanze."
+          "Nel laboratorio il grafico mostra la prima coordinata x′ del punto (a; b) ruotato di un angolo θ, da 0 a 2π. Nella scheda «Regola» cambi le coordinate iniziali a e b, da −3 a 3. Il cursore sceglie l’angolo.",
+          "Protocollo. La previsione riguarda il passaggio da θ = π/2 a θ = π. Con il punto (1; 0) apri la scheda «A / B», scegli una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta a a −3, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Per prevedere, immagina il punto che gira: dopo un quarto di giro sta sull’asse verticale, dopo mezzo giro dall’altra parte dell’origine. La sua ascissa cresce o diminuisce in quel tratto?"
         ],
         "intermediate": [
-          "Nel laboratorio il grafico mostra la prima coordinata x′ del punto (a; b) ruotato di un angolo θ, da 0 a 2π; nella scheda «Regola» cambi le coordinate iniziali a e b, da −3 a 3. Il cursore sceglie l’angolo.",
-          "Protocollo. La previsione riguarda il passaggio da θ = π/2 a θ = π. Con il punto (1; 0) prevedi e salva A. Poi porta a a −3, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con (1; 0), x′ vale 0 in π/2 e −1 in π: diminuisce, perché il punto passa dall’asse y al lato sinistro. Con (−3; 0) i valori sono 0 e 3: cresce. Il grafico è sempre una sinusoide di ampiezza √(a² + b²), la distanza del punto dall’origine: la rotazione conserva le distanze."
+          "Il programma traccia l’ascissa x′ = a cos θ − b sin θ del punto ruotato, per θ fra 0 e 2π, e la scheda «Regola» fissa il punto di partenza con a e b, fra −3 e 3.",
+          "Protocollo. Configurazione A: punto (1; 0), confronto fra θ = π/2 e θ = π, previsione nella scheda «A / B» e «Salva A». Configurazione B: a = −3 con b = 0, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con (1; 0), x′ vale 0 in π/2 e −1 in π: diminuisce, perché il punto passa dall’asse verticale al lato sinistro. Con (−3; 0) i valori sono 0 e 3: cresce. Il grafico è sempre una sinusoide di ampiezza √(a² + b²), la distanza del punto dall’origine, perché la rotazione conserva le distanze."
         ],
         "advanced": [
-          "Nel laboratorio il grafico mostra la prima coordinata x′ del punto (a; b) ruotato di un angolo θ, da 0 a 2π; nella scheda «Regola» cambi le coordinate iniziali a e b, da −3 a 3. Il cursore sceglie l’angolo.",
-          "Protocollo. La previsione riguarda il passaggio da θ = π/2 a θ = π. Con il punto (1; 0) prevedi e salva A. Poi porta a a −3, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con (1; 0), x′ vale 0 in π/2 e −1 in π: diminuisce, perché il punto passa dall’asse y al lato sinistro. Con (−3; 0) i valori sono 0 e 3: cresce. Il grafico è sempre una sinusoide di ampiezza √(a² + b²), la distanza del punto dall’origine: la rotazione conserva le distanze."
+          "Il laboratorio usa x′ = a cos θ − b sin θ, la prima riga della matrice di rotazione applicata a (a; b), con θ da 0 a 2π e con a e b da −3 a 3 nella scheda «Regola».",
+          "Protocollo. Con il punto (1; 0) scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il tratto da θ = π/2 a θ = π e premi «Salva A»; poi porta a a −3 e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "La curva si può riscrivere come x′ = R cos(θ + φ), con R = √(a² + b²) e φ l’angolo del punto iniziale: la rotazione sposta la fase dell’onda e ne lascia invariata l’ampiezza. Prova il punto (1; 1): R = √2 ≈ 1,41, e il massimo di x′ cade in θ = 7π/4, quando il punto ruotato si trova sul semiasse positivo delle ascisse.",
+          "Con a = −3 confronta anche θ = 0 e θ = π: i valori sono −3 e 3, simmetrici, perché mezzo giro porta ogni punto nel suo opposto."
         ]
       }
     },
@@ -130,19 +142,20 @@
       "title": "Errori e invarianti",
       "text": {
         "base": [
-          "Errore frequente: ruotare in senso orario usando la formula antioraria. Per un angolo orario si usa −θ, cioè si cambia il segno dei termini con il seno.",
-          "Secondo errore: pensare che una riflessione si possa ottenere con una rotazione. Una riflessione capovolge l’orientamento: la lettera R riflessa non si sovrappone a nessuna R ruotata.",
-          "Le similitudini conservano le forme e cambiano le dimensioni: un’omotetia di centro O e rapporto k manda ogni punto P nel punto P′ della retta OP con OP′ = k · OP. Le lunghezze si moltiplicano per |k|, le aree per k²."
+          "Il primo errore frequente è ruotare in senso orario usando la formula antioraria. Per un angolo orario si usa −θ, e quindi si cambia il segno dei termini con il seno: la rotazione oraria di 90 gradi porta (x; y) in (y; −x).",
+          "Il secondo errore è pensare che una riflessione si possa ottenere con una rotazione nel piano. Una riflessione capovolge l’orientamento, e la lettera R riflessa resta diversa da ogni R ruotata. Uscendo dal piano, invece, una rotazione nello spazio può ribaltare una figura piatta, come quando si gira una carta da gioco.",
+          "Il terzo errore è contare male le simmetrie. Un quadrato ha 8 simmetrie, contando anche l’identità, cioè la trasformazione che lascia tutto fermo. Dimenticarla porta a 7, e rompe la regola per cui componendo una simmetria con la sua inversa si torna alla posizione di partenza.",
+          "Le isometrie conservano distanze e angoli; le similitudini conservano soltanto gli angoli e i rapporti fra le lunghezze. Una mappa in scala è una similitudine del territorio, e per questo le forme restano riconoscibili mentre le distanze si riducono."
         ],
         "intermediate": [
-          "Errore frequente: ruotare in senso orario usando la formula antioraria. Per un angolo orario si usa −θ, cioè si cambia il segno dei termini con il seno.",
-          "Secondo errore: pensare che una riflessione si possa ottenere con una rotazione. Una riflessione capovolge l’orientamento: la lettera R riflessa non si sovrappone a nessuna R ruotata.",
-          "Le decorazioni che si ripetono lungo una striscia, i fregi, hanno esattamente 7 tipi possibili di simmetria; quelle che ricoprono il piano, come le piastrellature, ne hanno 17. Questi risultati, dimostrati tra Ottocento e Novecento, spiegano perché gli stessi motivi ricorrono in culture lontane."
+          "Esempio svolto: una rotazione oraria. Il punto (2; 1) ruotato di 90 gradi in senso orario va in (1; −2), e in senso antiorario in (−1; 2). Le due immagini sono opposte rispetto all’origine, perché differiscono di mezzo giro.",
+          "Esempio svolto: le simmetrie di una lettera. La lettera H ha 4 simmetrie: l’identità, la rotazione di 180 gradi e le riflessioni rispetto all’asse verticale e a quello orizzontale. La lettera A ha soltanto la riflessione rispetto all’asse verticale, oltre all’identità, e la Z soltanto la rotazione di 180 gradi.",
+          "Esempio svolto: il programma di Klein. Secondo la proposta di Felix Klein del 1872, una geometria è lo studio delle proprietà invarianti per un gruppo di trasformazioni. Le similitudini conservano gli angoli, le trasformazioni affini il parallelismo, quelle proiettive l’allineamento. Un quadrato e un rombo sono diversi per la geometria euclidea e uguali per quella affine, perché una trasformazione affine porta l’uno nell’altro; un cerchio e un’ellisse sono uguali per la geometria affine, e un cerchio e un’iperbole per quella proiettiva."
         ],
         "advanced": [
-          "Secondo errore: pensare che una riflessione si possa ottenere con una rotazione. Una riflessione capovolge l’orientamento: la lettera R riflessa non si sovrappone a nessuna R ruotata.",
-          "Le decorazioni che si ripetono lungo una striscia, i fregi, hanno esattamente 7 tipi possibili di simmetria; quelle che ricoprono il piano, come le piastrellature, ne hanno 17. Questi risultati, dimostrati tra Ottocento e Novecento, spiegano perché gli stessi motivi ricorrono in culture lontane.",
-          "Le isometrie definiscono la geometria: secondo il programma proposto da Felix Klein nel 1872, una geometria è lo studio delle proprietà invarianti per un gruppo di trasformazioni. Le similitudini conservano gli angoli, le trasformazioni affini il parallelismo, quelle proiettive l’allineamento."
+          "Le simmetrie hanno conseguenze fisiche profonde. Nel 1918 Emmy Noether dimostrò che a ogni simmetria continua delle leggi fisiche corrisponde una grandezza che si conserva: l’invarianza per traslazioni nel tempo dà la conservazione dell’energia, quella per traslazioni nello spazio la conservazione della quantità di moto, quella per rotazioni la conservazione del momento angolare.",
+          "In chimica la simmetria di una molecola decide molte sue proprietà. La molecola d’acqua ha l’identità, una rotazione di 180 gradi e due piani di riflessione, quattro simmetrie in tutto; quella del metano, con la forma di un tetraedro regolare, ne ha 24. I chimici usano la teoria dei gruppi per prevedere quali vibrazioni e quali transizioni spettrali sono possibili. Un cristallo di sale da cucina, a forma di cubo, ha 48 simmetrie, quante quelle del cubo stesso.",
+          "Un limite del modello del laboratorio: il programma mostra una sola coordinata, mentre un punto che ruota descrive una circonferenza intera. La seconda coordinata, y′ = a sin θ + b cos θ, è anch’essa una sinusoide, sfasata di un quarto di giro rispetto alla prima."
         ]
       }
     },
@@ -172,20 +185,19 @@
       "title": "Collegamenti",
       "text": {
         "base": [
-          "Le trasformazioni si scrivono con le matrici dell’unità «Vettori, matrici, dati e vincoli» e con i numeri complessi, dove moltiplicare per cos θ + i sin θ ruota di θ. Le simmetrie tornano in chimica, nella forma delle molecole e dei cristalli.",
-          "Riepilogo dell’unità: le isometrie conservano le distanze e sono traslazioni, rotazioni, riflessioni e glissoriflessioni; la rotazione ha formula (x cos θ − y sin θ; x sin θ + y cos θ); le simmetrie di una figura formano un gruppo; le similitudini cambiano le dimensioni e conservano le forme.",
+          "Le trasformazioni si scrivono con le matrici dell’unità «Vettori, matrici, dati e vincoli» e con i numeri complessi dell’unità «Complessi, aritmetica e polinomi», dove moltiplicare per cos θ + i sin θ ruota di θ. Le simmetrie tornano in chimica, nella forma delle molecole e dei cristalli.",
+          "Riepilogo: le isometrie conservano le distanze e sono traslazioni, rotazioni, riflessioni e glissoriflessioni; la rotazione porta (x; y) in (x cos θ − y sin θ; x sin θ + y cos θ); le simmetrie di una figura formano un gruppo; le similitudini cambiano le dimensioni e conservano le forme.",
           "Nel diario registra A e B con le previsioni e spiega perché l’ampiezza della sinusoide è la distanza del punto dall’origine."
         ],
         "intermediate": [
-          "Le trasformazioni si scrivono con le matrici dell’unità «Vettori, matrici, dati e vincoli» e con i numeri complessi, dove moltiplicare per cos θ + i sin θ ruota di θ. Le simmetrie tornano in chimica, nella forma delle molecole e dei cristalli.",
-          "Riepilogo dell’unità: le isometrie conservano le distanze e sono traslazioni, rotazioni, riflessioni e glissoriflessioni; la rotazione ha formula (x cos θ − y sin θ; x sin θ + y cos θ); le simmetrie di una figura formano un gruppo; le similitudini cambiano le dimensioni e conservano le forme.",
-          "Nel diario registra A e B con le previsioni e spiega perché l’ampiezza della sinusoide è la distanza del punto dall’origine."
+          "Il rapporto k² fra le aree di figure simili viene dall’unità «Geometria elementare», e le formule di addizione della «Trigonometria» spiegano la formula della rotazione. La riflessione usata da Erone nell’unità «Geometria analitica» per trovare il percorso più breve è un’isometria.",
+          "La teoria dei gruppi, che qui classifica le simmetrie, nacque con Galois dallo studio delle equazioni, come racconta l’unità «Dagli zeri alla struttura di un polinomio». Le radici dell’unità dei numeri complessi, disposte ai vertici di un poligono regolare, formano il gruppo delle sue rotazioni.",
+          "Nel diario registra A e B e disegna tutte le simmetrie di un triangolo equilatero, indicando quali sono rotazioni e quali riflessioni. Scrivi quante sono in tutto."
         ],
         "advanced": [
-          "Le trasformazioni si scrivono con le matrici dell’unità «Vettori, matrici, dati e vincoli» e con i numeri complessi, dove moltiplicare per cos θ + i sin θ ruota di θ. Le simmetrie tornano in chimica, nella forma delle molecole e dei cristalli.",
-          "Riepilogo dell’unità: le isometrie conservano le distanze e sono traslazioni, rotazioni, riflessioni e glissoriflessioni; la rotazione ha formula (x cos θ − y sin θ; x sin θ + y cos θ); le simmetrie di una figura formano un gruppo; le similitudini cambiano le dimensioni e conservano le forme.",
-          "Le isometrie definiscono la geometria: secondo il programma proposto da Felix Klein nel 1872, una geometria è lo studio delle proprietà invarianti per un gruppo di trasformazioni. Le similitudini conservano gli angoli, le trasformazioni affini il parallelismo, quelle proiettive l’allineamento.",
-          "Nel diario registra A e B con le previsioni e spiega perché l’ampiezza della sinusoide è la distanza del punto dall’origine."
+          "Il teorema di Noether collega queste simmetrie alle leggi di conservazione della fisica, e la seconda coordinata della rotazione, sfasata di un quarto di giro, è l’onda dell’unità «Trigonometria». Le piastrellature prive di periodicità di Penrose aprono un capitolo ancora attivo della matematica e della scienza dei materiali.",
+          "Il programma di Klein, che definisce una geometria con un gruppo di trasformazioni, unifica le geometrie euclidee e non euclidee dell’unità «Geometria elementare». Per Klein la geometria della sfera e quella del piano differiscono proprio per il gruppo delle loro trasformazioni.",
+          "Nel diario registra A e B, ricava la formula della rotazione con le formule di addizione e verifica che due riflessioni con assi a 45 gradi danno una rotazione di 90 gradi."
         ]
       }
     }
