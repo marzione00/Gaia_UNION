@@ -24156,20 +24156,23 @@
       "title": "Particelle, espansione e Big Bang",
       "sector": 1,
       "modelId": "physics-40",
-      "coverage": "guided-foundation",
-      "editorialStatus": "original-draft",
-      "scope": "Legge di Hubble-Lemaître a distanze moderate",
-      "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+      "coverage": "guided-lab",
+      "editorialStatus": "hand-written-draft",
+      "scope": "Particelle e antiparticelle, leptoni, adroni e stranezza, leggi di conservazione, quark e particelle mediatrici, modello standard, legge di Hubble-Lemaître, spostamento verso il rosso cosmologico, radiazione cosmica di fondo, nucleosintesi primordiale, materia oscura ed energia oscura, tensione sulla costante di Hubble",
+      "narrativeStatus": "I dati provengono dalla Particle Data Group, dalle osservazioni di COBE, Planck, DESI e del telescopio Webb, dalle misure della costante di Hubble e dell’abbondanza del deuterio e dalle fonti citate nel capitolo.",
       "objectives": [
-        "Spiegare: legge di hubble-lemaître a distanze moderate.",
-        "Applicare v = H₀ d, dichiarando variabili e unità.",
-        "Confrontare due configurazioni e discutere i limiti del modello."
+        "Classificare le particelle e applicare le leggi di conservazione.",
+        "Descrivere il modello a quark e le particelle mediatrici del modello standard.",
+        "Usare la legge di Hubble-Lemaître e lo spostamento verso il rosso cosmologico.",
+        "Descrivere la radiazione di fondo, la nucleosintesi primordiale e la composizione dell’universo."
       ],
       "prerequisites": [
         "physics-39"
       ],
       "connections": [
-        "physics-13"
+        "physics-30",
+        "physics-36",
+        "physics-37"
       ],
       "sources": [
         "physics3",
@@ -24178,244 +24181,319 @@
       "originalSource": null,
       "glossary": [
         {
-          "term": "Distanza d",
-          "definition": "Variabile indipendente, unità Mpc; intervallo [0; 1000]."
+          "term": "Antiparticella",
+          "definition": "Particella con la stessa massa di un’altra e cariche opposte."
         },
         {
-          "term": "Velocità di recessione",
-          "definition": "Risultato calcolato dal modello, unità km/s."
+          "term": "Quark",
+          "definition": "Costituente degli adroni, con carica +2/3 o −1/3 della carica elementare; ne esistono sei tipi."
         },
         {
-          "term": "Costante di Hubble H₀",
-          "definition": "Parametro a, unità km/s/Mpc; intervallo [60; 80]."
+          "term": "Modello standard",
+          "definition": "Teoria delle particelle elementari e delle interazioni elettromagnetica, debole e forte."
+        },
+        {
+          "term": "Legge di Hubble-Lemaître",
+          "definition": "Proporzionalità fra la velocità di allontanamento delle galassie e la loro distanza, v = H₀d."
+        },
+        {
+          "term": "Radiazione cosmica di fondo",
+          "definition": "Radiazione di corpo nero a 2,7255 kelvin che riempie l’universo, emessa alla ricombinazione."
+        },
+        {
+          "term": "Energia oscura",
+          "definition": "Componente dell’universo responsabile dell’accelerazione dell’espansione, circa il 68 per cento del totale."
         }
       ],
       "steps": [
         {
           "label": "SCOPRI",
-          "title": "La domanda della spedizione",
+          "title": "Il rumore dell’antenna",
           "text": {
             "base": [
-              "I telescopi della stazione misurano lo spettro di galassie lontane. Più sono lontane, più le loro righe sono spostate verso il rosso.",
-              "Le galassie lontane si allontanano con velocità proporzionali alla distanza, v = H₀d: è l'espansione dell'universo. L'inverso di H₀ dà un'età caratteristica, vicina all'età misurata dell'universo."
+              "Nel 1964 Arno Penzias e Robert Wilson, ai Bell Laboratories, trovarono con una grande antenna a tromba un rumore radio uguale in tutte le direzioni del cielo, di giorno e di notte. Ripulirono l’antenna, cacciarono i piccioni che vi avevano nidificato, e il rumore rimase: era la radiazione di un corpo nero a pochi kelvin, la luce emessa dall’universo primordiale caldo e denso.",
+              "Quella radiazione, la radiazione cosmica di fondo, partì circa trecentottantamila anni dopo il Big Bang, quando l’universo divenne trasparente, ed è stata raffreddata dall’espansione fino a 2,7255 kelvin. Insieme all’allontanamento delle galassie, scoperto da Lemaître e Hubble, e all’elio formato nei primi minuti, è una delle tre prove principali del Big Bang caldo."
             ],
             "intermediate": [
-              "I telescopi della stazione misurano lo spettro di galassie lontane. Più sono lontane, più le loro righe sono spostate verso il rosso.",
-              "In un universo omogeneo che si espande in modo uniforme tutte le distanze crescono dello stesso fattore; la velocità relativa fra due galassie è proporzionale alla loro distanza, con costante H₀."
+              "Nel 1964 Arno Penzias e Robert Wilson, ai Bell Laboratories, trovarono con una grande antenna a tromba un rumore radio uguale in tutte le direzioni del cielo, di giorno e di notte. Ripulirono l’antenna, cacciarono i piccioni che vi avevano nidificato, e il rumore rimase: era la radiazione di un corpo nero a pochi kelvin, la luce emessa dall’universo primordiale caldo e denso.",
+              "Quella radiazione, la radiazione cosmica di fondo, partì circa trecentottantamila anni dopo il Big Bang, quando l’universo divenne trasparente, ed è stata raffreddata dall’espansione fino a 2,7255 kelvin. Insieme all’allontanamento delle galassie, scoperto da Lemaître e Hubble, e all’elio formato nei primi minuti, è una delle tre prove principali del Big Bang caldo."
             ],
             "advanced": [
-              "I telescopi della stazione misurano lo spettro di galassie lontane. Più sono lontane, più le loro righe sono spostate verso il rosso.",
-              "Le misure con il fondo cosmico danno H₀ ≈ 67 km/s/Mpc, quelle con le cefeidi e le supernove circa 73. Calcola la differenza di velocità prevista a 500 Mpc.",
-              "Legge lineare valida a distanze moderate, dove lo spostamento verso il rosso è piccolo; trascura i moti propri delle galassie e la variazione di H nel tempo."
+              "Nel 1964 Arno Penzias e Robert Wilson, ai Bell Laboratories, trovarono con una grande antenna a tromba un rumore radio uguale in tutte le direzioni del cielo, di giorno e di notte. Ripulirono l’antenna, cacciarono i piccioni che vi avevano nidificato, e il rumore rimase: era la radiazione di un corpo nero a pochi kelvin, la luce emessa dall’universo primordiale caldo e denso.",
+              "Quella radiazione, la radiazione cosmica di fondo, partì circa trecentottantamila anni dopo il Big Bang, quando l’universo divenne trasparente, ed è stata raffreddata dall’espansione fino a 2,7255 kelvin. Insieme all’allontanamento delle galassie, scoperto da Lemaître e Hubble, e all’elio formato nei primi minuti, è una delle tre prove principali del Big Bang caldo.",
+              "Per capire i primi minuti dell’universo servono le particelle elementari: quark e leptoni, i mediatori delle interazioni, le leggi di conservazione e le antiparticelle. Per misurare l’espansione servono le galassie lontane, le supernove e i maser. Le due scale estreme della fisica si incontrano nella cosmologia, che oggi discute ancora il valore esatto della costante di Hubble."
             ]
           }
         },
         {
           "label": "CAPISCI",
-          "title": "Dall’intuizione alla relazione",
+          "title": "Particelle ed espansione",
           "text": {
             "base": [
-              "Le galassie lontane si allontanano con velocità proporzionali alla distanza, v = H₀d: è l'espansione dell'universo. L'inverso di H₀ dà un'età caratteristica, vicina all'età misurata dell'universo.",
-              "Con H₀ = 70 km/s/Mpc una galassia a 100 Mpc si allontana a 7000 km/s. Il tempo 1/H₀ vale circa 14 miliardi di anni."
+              "Ogni particella ha un’antiparticella con la stessa massa e cariche opposte: un elettrone e un positrone si annichilano in due fotoni di 511 keV. Le particelle si dividono in leptoni, come l’elettrone e i neutrini, e adroni, come il protone e il pione; si conservano la carica, il numero barionico e i numeri leptonici, e il protone vive più di 10³⁴ anni.",
+              "Gli adroni sono formati da quark, con cariche di +2/3 o −1/3 della carica elementare: il protone è uud, il neutrone udd. I quark sono confinati, e quasi tutta la massa del protone è energia dell’interazione forte. Il modello standard comprende sei quark, sei leptoni, il fotone, i gluoni, i bosoni W e Z e il bosone di Higgs, scoperto al CERN nel 2012."
             ],
             "intermediate": [
-              "In un universo omogeneo che si espande in modo uniforme tutte le distanze crescono dello stesso fattore; la velocità relativa fra due galassie è proporzionale alla loro distanza, con costante H₀.",
-              "La variabile Distanza d è espressa in Mpc; Velocità di recessione in km/s. Il dominio dello strumento è [0; 1000]. La relazione implementata è: v = H₀ d.",
-              "Con H₀ = 70 km/s/Mpc una galassia a 100 Mpc si allontana a 7000 km/s. Il tempo 1/H₀ vale circa 14 miliardi di anni."
+              "Ogni particella ha un’antiparticella con la stessa massa e cariche opposte: un elettrone e un positrone si annichilano in due fotoni di 511 keV. Le particelle si dividono in leptoni, come l’elettrone e i neutrini, e adroni, come il protone e il pione; si conservano la carica, il numero barionico e i numeri leptonici, e il protone vive più di 10³⁴ anni.",
+              "Gli adroni sono formati da quark, con cariche di +2/3 o −1/3 della carica elementare: il protone è uud, il neutrone udd. I quark sono confinati, e quasi tutta la massa del protone è energia dell’interazione forte. Il modello standard comprende sei quark, sei leptoni, il fotone, i gluoni, i bosoni W e Z e il bosone di Higgs, scoperto al CERN nel 2012.",
+              "Le galassie si allontanano con velocità proporzionali alla distanza, v = H₀d, perché lo spazio stesso si espande, senza un centro. Lo spostamento verso il rosso cosmologico misura di quanto è cresciuto l’universo: 1 + z è il rapporto fra le dimensioni di oggi e quelle all’emissione. Il tempo 1/H₀ vale circa 14 miliardi di anni, vicino all’età dell’universo, 13,8 miliardi di anni."
             ],
             "advanced": [
-              "In un universo omogeneo che si espande in modo uniforme tutte le distanze crescono dello stesso fattore; la velocità relativa fra due galassie è proporzionale alla loro distanza, con costante H₀.",
-              "Le misure con il fondo cosmico danno H₀ ≈ 67 km/s/Mpc, quelle con le cefeidi e le supernove circa 73. Calcola la differenza di velocità prevista a 500 Mpc.",
-              "L'espansione riguarda lo spazio ovunque, senza un centro: ogni galassia vede le altre allontanarsi da sé."
+              "Ogni particella ha un’antiparticella con la stessa massa e cariche opposte: un elettrone e un positrone si annichilano in due fotoni di 511 keV. Le particelle si dividono in leptoni, come l’elettrone e i neutrini, e adroni, come il protone e il pione; si conservano la carica, il numero barionico e i numeri leptonici, e il protone vive più di 10³⁴ anni.",
+              "Gli adroni sono formati da quark, con cariche di +2/3 o −1/3 della carica elementare: il protone è uud, il neutrone udd. I quark sono confinati, e quasi tutta la massa del protone è energia dell’interazione forte. Il modello standard comprende sei quark, sei leptoni, il fotone, i gluoni, i bosoni W e Z e il bosone di Higgs, scoperto al CERN nel 2012.",
+              "Le galassie si allontanano con velocità proporzionali alla distanza, v = H₀d, perché lo spazio stesso si espande, senza un centro. Lo spostamento verso il rosso cosmologico misura di quanto è cresciuto l’universo: 1 + z è il rapporto fra le dimensioni di oggi e quelle all’emissione. Il tempo 1/H₀ vale circa 14 miliardi di anni, vicino all’età dell’universo, 13,8 miliardi di anni.",
+              "Nei primi minuti protoni e neutroni formarono l’elio-4, circa un quarto della massa della materia ordinaria, e tracce di deuterio e litio; il deuterio indica che la materia ordinaria è circa il 5 per cento del totale. Il resto è materia oscura, circa il 27 per cento, ed energia oscura, circa il 68 per cento, che fa accelerare l’espansione."
             ]
           }
         },
         {
           "label": "SPERIMENTA",
-          "title": "Prevedi, modifica, confronta",
+          "title": "Il laboratorio di Hubble",
           "text": {
             "base": [
-              "Nel laboratorio imposta Costante di Hubble H₀ (a): 70 km/s/Mpc. Prima di salvare A, prevedi come cambia Velocità di recessione fra Distanza d=250 e 500 Mpc. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Con H₀ = 70 km/s/Mpc una galassia a 100 Mpc si allontana a 7000 km/s. Il tempo 1/H₀ vale circa 14 miliardi di anni.",
-              "La variabile Distanza d è espressa in Mpc; Velocità di recessione in km/s. Il dominio dello strumento è [0; 1000]. La relazione implementata è: v = H₀ d."
+              "Nel laboratorio il grafico mostra la velocità di allontanamento di una galassia, in chilometri al secondo, in funzione della sua distanza, da 0 a 1000 megaparsec, secondo la legge di Hubble-Lemaître v = H₀d. Nella scheda «Regola» cambi la costante di Hubble H₀ da 60 a 80 km/s per megaparsec. Il valore predefinito è 70, a metà fra le misure ottenute con metodi diversi.",
+              "Protocollo. Il programma confronta due distanze fissate, 250 e 500 megaparsec. Con H₀ = 70 prevedi se la velocità cresce, diminuisce o resta uguale passando dalla prima galassia alla seconda e salva A. Poi porta H₀ a 73, il valore della scala delle distanze locali, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+              "Che cosa osservare. Con H₀ = 70 la velocità passa da 17 500 a 35 000 km/s; con H₀ = 73 da 18 250 a 36 500 km/s. In entrambi i casi raddoppia, perché la legge è una proporzionalità diretta: a distanza doppia corrisponde velocità doppia. Cambiare H₀ cambia la pendenza della retta; la differenza fra i valori 67,4 e 73,0 diventa a 500 megaparsec di circa 2800 km/s, facilmente misurabile."
             ],
             "intermediate": [
-              "Nel laboratorio imposta Costante di Hubble H₀ (a): 70 km/s/Mpc. Prima di salvare A, prevedi come cambia Velocità di recessione fra Distanza d=250 e 500 Mpc. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "La variabile Distanza d è espressa in Mpc; Velocità di recessione in km/s. Il dominio dello strumento è [0; 1000]. La relazione implementata è: v = H₀ d.",
-              "In un universo omogeneo che si espande in modo uniforme tutte le distanze crescono dello stesso fattore; la velocità relativa fra due galassie è proporzionale alla loro distanza, con costante H₀."
+              "Nel laboratorio il grafico mostra la velocità di allontanamento di una galassia, in chilometri al secondo, in funzione della sua distanza, da 0 a 1000 megaparsec, secondo la legge di Hubble-Lemaître v = H₀d. Nella scheda «Regola» cambi la costante di Hubble H₀ da 60 a 80 km/s per megaparsec. Il valore predefinito è 70, a metà fra le misure ottenute con metodi diversi.",
+              "Protocollo. Il programma confronta due distanze fissate, 250 e 500 megaparsec. Con H₀ = 70 prevedi se la velocità cresce, diminuisce o resta uguale passando dalla prima galassia alla seconda e salva A. Poi porta H₀ a 73, il valore della scala delle distanze locali, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+              "Che cosa osservare. Con H₀ = 70 la velocità passa da 17 500 a 35 000 km/s; con H₀ = 73 da 18 250 a 36 500 km/s. In entrambi i casi raddoppia, perché la legge è una proporzionalità diretta: a distanza doppia corrisponde velocità doppia. Cambiare H₀ cambia la pendenza della retta; la differenza fra i valori 67,4 e 73,0 diventa a 500 megaparsec di circa 2800 km/s, facilmente misurabile."
             ],
             "advanced": [
-              "Nel laboratorio imposta Costante di Hubble H₀ (a): 70 km/s/Mpc. Prima di salvare A, prevedi come cambia Velocità di recessione fra Distanza d=250 e 500 Mpc. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-              "Le misure con il fondo cosmico danno H₀ ≈ 67 km/s/Mpc, quelle con le cefeidi e le supernove circa 73. Calcola la differenza di velocità prevista a 500 Mpc.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Nel laboratorio il grafico mostra la velocità di allontanamento di una galassia, in chilometri al secondo, in funzione della sua distanza, da 0 a 1000 megaparsec, secondo la legge di Hubble-Lemaître v = H₀d. Nella scheda «Regola» cambi la costante di Hubble H₀ da 60 a 80 km/s per megaparsec. Il valore predefinito è 70, a metà fra le misure ottenute con metodi diversi.",
+              "Protocollo. Il programma confronta due distanze fissate, 250 e 500 megaparsec. Con H₀ = 70 prevedi se la velocità cresce, diminuisce o resta uguale passando dalla prima galassia alla seconda e salva A. Poi porta H₀ a 73, il valore della scala delle distanze locali, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+              "Che cosa osservare. Con H₀ = 70 la velocità passa da 17 500 a 35 000 km/s; con H₀ = 73 da 18 250 a 36 500 km/s. In entrambi i casi raddoppia, perché la legge è una proporzionalità diretta: a distanza doppia corrisponde velocità doppia. Cambiare H₀ cambia la pendenza della retta; la differenza fra i valori 67,4 e 73,0 diventa a 500 megaparsec di circa 2800 km/s, facilmente misurabile.",
+              "Una prova a casa: si incollano bollini di carta su un palloncino poco gonfio, si misurano con un metro da sarta le distanze da un bollino scelto come casa, poi si gonfia il palloncino in un tempo noto e si rimisura. L’aumento delle distanze diviso per il tempo, riportato in funzione della distanza iniziale, dà una retta passante per l’origine; cambiando casa si ottiene la stessa legge, perché nessun bollino è al centro."
             ]
           }
         },
         {
           "label": "INTERPRETA",
-          "title": "Leggere senza sovrainterpretare",
+          "title": "Errori e limiti",
           "text": {
             "base": [
-              "L'espansione riguarda lo spazio ovunque, senza un centro: ogni galassia vede le altre allontanarsi da sé.",
-              "Legge lineare valida a distanze moderate, dove lo spostamento verso il rosso è piccolo; trascura i moti propri delle galassie e la variazione di H nel tempo.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Errore frequente: pensare che il Big Bang sia stato un’esplosione in un punto dello spazio. L’espansione riguarda lo spazio in ogni punto, e l’universo primordiale riempiva tutto lo spazio. Secondo errore: credere che l’espansione ingrandisca anche atomi, pianeti e galassie. I sistemi legati da forze elettriche, nucleari o gravitazionali mantengono le loro dimensioni; si allontanano soltanto galassie e ammassi non legati fra loro.",
+              "Terzo errore: pensare che nessuna galassia possa allontanarsi più velocemente della luce. Le galassie abbastanza lontane si allontanano, per la dilatazione dello spazio, a velocità superiori a c, senza violare la relatività ristretta, che riguarda i moti nello spazio rispetto agli oggetti vicini. Quarto errore: confondere materia oscura ed energia oscura, che hanno effetti opposti: la prima attrae, la seconda fa accelerare l’espansione."
             ],
             "intermediate": [
-              "L'espansione riguarda lo spazio ovunque, senza un centro: ogni galassia vede le altre allontanarsi da sé.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-              "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+              "Errore frequente: pensare che il Big Bang sia stato un’esplosione in un punto dello spazio. L’espansione riguarda lo spazio in ogni punto, e l’universo primordiale riempiva tutto lo spazio. Secondo errore: credere che l’espansione ingrandisca anche atomi, pianeti e galassie. I sistemi legati da forze elettriche, nucleari o gravitazionali mantengono le loro dimensioni; si allontanano soltanto galassie e ammassi non legati fra loro.",
+              "Terzo errore: pensare che nessuna galassia possa allontanarsi più velocemente della luce. Le galassie abbastanza lontane si allontanano, per la dilatazione dello spazio, a velocità superiori a c, senza violare la relatività ristretta, che riguarda i moti nello spazio rispetto agli oggetti vicini. Quarto errore: confondere materia oscura ed energia oscura, che hanno effetti opposti: la prima attrae, la seconda fa accelerare l’espansione.",
+              "Il modello del laboratorio usa la legge lineare, valida a distanze moderate, dove lo spostamento verso il rosso è piccolo e la velocità si ricava come cz. Trascura i moti propri delle galassie, che negli ammassi raggiungono centinaia di chilometri al secondo, e la variazione della costante di Hubble nel tempo, dovuta alla gravità della materia e all’energia oscura; per le galassie più lontane servono i modelli cosmologici completi."
             ],
             "advanced": [
-              "Legge lineare valida a distanze moderate, dove lo spostamento verso il rosso è piccolo; trascura i moti propri delle galassie e la variazione di H nel tempo.",
-              "Le misure con il fondo cosmico danno H₀ ≈ 67 km/s/Mpc, quelle con le cefeidi e le supernove circa 73. Calcola la differenza di velocità prevista a 500 Mpc.",
-              "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+              "Errore frequente: pensare che il Big Bang sia stato un’esplosione in un punto dello spazio. L’espansione riguarda lo spazio in ogni punto, e l’universo primordiale riempiva tutto lo spazio. Secondo errore: credere che l’espansione ingrandisca anche atomi, pianeti e galassie. I sistemi legati da forze elettriche, nucleari o gravitazionali mantengono le loro dimensioni; si allontanano soltanto galassie e ammassi non legati fra loro.",
+              "Terzo errore: pensare che nessuna galassia possa allontanarsi più velocemente della luce. Le galassie abbastanza lontane si allontanano, per la dilatazione dello spazio, a velocità superiori a c, senza violare la relatività ristretta, che riguarda i moti nello spazio rispetto agli oggetti vicini. Quarto errore: confondere materia oscura ed energia oscura, che hanno effetti opposti: la prima attrae, la seconda fa accelerare l’espansione.",
+              "Il modello del laboratorio usa la legge lineare, valida a distanze moderate, dove lo spostamento verso il rosso è piccolo e la velocità si ricava come cz. Trascura i moti propri delle galassie, che negli ammassi raggiungono centinaia di chilometri al secondo, e la variazione della costante di Hubble nel tempo, dovuta alla gravità della materia e all’energia oscura; per le galassie più lontane servono i modelli cosmologici completi.",
+              "Approfondimento: la costante di Hubble ricavata dalla radiazione di fondo con il modello cosmologico standard vale 67,4 ± 0,5 km/s per megaparsec; quella della scala delle distanze, calibrata con parallassi, maser di NGC 4258, cefeidi e supernove, circa 73. La differenza, circa cinque deviazioni standard, è la tensione di Hubble: potrebbe nascondere errori sistematici o una fisica nuova nell’universo primordiale."
             ]
           }
         },
         {
           "label": "VERIFICA",
-          "title": "Verifica ragionamento e calcolo",
+          "title": "Verifica",
           "text": {
             "base": [
-              "Le galassie lontane si allontanano con velocità proporzionali alla distanza, v = H₀d: è l'espansione dell'universo. L'inverso di H₀ dà un'età caratteristica, vicina all'età misurata dell'universo.",
-              "Con H₀ = 70 km/s/Mpc una galassia a 100 Mpc si allontana a 7000 km/s. Il tempo 1/H₀ vale circa 14 miliardi di anni."
+              "Ripasso: antiparticelle e annichilazione; leptoni, adroni, fermioni e bosoni; leggi di conservazione e stabilità del protone; stranezza e multipletti; quark, confinamento e massa del protone; mediatori e modello standard; legge di Hubble-Lemaître e spostamento verso il rosso; radiazione cosmica di fondo; nucleosintesi primordiale; materia oscura ed energia oscura; tensione di Hubble.",
+              "Mini esercizio: con H₀ = 70 km/s per megaparsec, una galassia a 100 megaparsec si allontana a 7000 km/s, con uno spostamento verso il rosso di circa 0,023.",
+              "Nelle domande ricorda che la velocità di allontanamento è proporzionale alla distanza, che l’espansione non ha un centro e che la temperatura della radiazione di fondo cresce come 1 + z andando indietro nel tempo."
             ],
             "intermediate": [
-              "In un universo omogeneo che si espande in modo uniforme tutte le distanze crescono dello stesso fattore; la velocità relativa fra due galassie è proporzionale alla loro distanza, con costante H₀.",
-              "La variabile Distanza d è espressa in Mpc; Velocità di recessione in km/s. Il dominio dello strumento è [0; 1000]. La relazione implementata è: v = H₀ d."
+              "Ripasso: antiparticelle e annichilazione; leptoni, adroni, fermioni e bosoni; leggi di conservazione e stabilità del protone; stranezza e multipletti; quark, confinamento e massa del protone; mediatori e modello standard; legge di Hubble-Lemaître e spostamento verso il rosso; radiazione cosmica di fondo; nucleosintesi primordiale; materia oscura ed energia oscura; tensione di Hubble.",
+              "Mini esercizio: con H₀ = 70 km/s per megaparsec, una galassia a 100 megaparsec si allontana a 7000 km/s, con uno spostamento verso il rosso di circa 0,023.",
+              "Nelle domande ricorda che la velocità di allontanamento è proporzionale alla distanza, che l’espansione non ha un centro e che la temperatura della radiazione di fondo cresce come 1 + z andando indietro nel tempo."
             ],
             "advanced": [
-              "Le misure con il fondo cosmico danno H₀ ≈ 67 km/s/Mpc, quelle con le cefeidi e le supernove circa 73. Calcola la differenza di velocità prevista a 500 Mpc.",
-              "Legge lineare valida a distanze moderate, dove lo spostamento verso il rosso è piccolo; trascura i moti propri delle galassie e la variazione di H nel tempo."
+              "Ripasso: antiparticelle e annichilazione; leptoni, adroni, fermioni e bosoni; leggi di conservazione e stabilità del protone; stranezza e multipletti; quark, confinamento e massa del protone; mediatori e modello standard; legge di Hubble-Lemaître e spostamento verso il rosso; radiazione cosmica di fondo; nucleosintesi primordiale; materia oscura ed energia oscura; tensione di Hubble.",
+              "Mini esercizio: con H₀ = 70 km/s per megaparsec, una galassia a 100 megaparsec si allontana a 7000 km/s, con uno spostamento verso il rosso di circa 0,023.",
+              "Nelle domande ricorda che la velocità di allontanamento è proporzionale alla distanza, che l’espansione non ha un centro e che la temperatura della radiazione di fondo cresce come 1 + z andando indietro nel tempo."
             ]
           }
         },
         {
           "label": "COLLEGA",
-          "title": "Conclusione e nuova domanda",
+          "title": "Collegamenti",
           "text": {
             "base": [
-              "Nel diario distingui previsione, risultato e interpretazione. Legge di Hubble-Lemaître a distanze moderate.",
-              "Legge lineare valida a distanze moderate, dove lo spostamento verso il rosso è piccolo; trascura i moti propri delle galassie e la variazione di H nel tempo.",
-              "Collegamento consigliato: physics-13. Il completamento registra attività e autoverifica, non certifica competenze."
+              "I fotoni e la quantizzazione sono in «Fotoni ed energia quantizzata»; l’energia di riposo e la relatività in «Relatività ristretta»; lo spettro di corpo nero in «Radiazione termica e luce delle stelle»; le righe spettrali, il deuterio e i maser di NGC 4258 in «Onde di materia, atomi e righe spettrali»; il decadimento beta in «Nuclei, decadimenti e datazioni»; i neutrini e le masse dei neutrini in «Energia dal nucleo: fusione nelle stelle».",
+              "Riepilogo dell’unità: Penzias e Wilson; Dirac e il positrone di Anderson; antiprotone; pione e particelle strane; Ω⁻; quark, esperimenti dello SLAC, top quark; gluoni, W, Z e Higgs; Slipher, Lemaître e Hubble; MoM-z14; COBE, WMAP e Planck; Alpher, Bethe e Gamow; elio e deuterio primordiali; Zwicky, Rubin e l’ammasso Proiettile; supernove e accelerazione; DESI; SH0ES e la tensione di Hubble.",
+              "Nel diario registra A e B con le previsioni e calcola il tempo di Hubble per i due valori della costante: 977,8/67,4 miliardi di anni, circa 14,5, e 977,8/73, circa 13,4 miliardi di anni."
             ],
             "intermediate": [
-              "In un universo omogeneo che si espande in modo uniforme tutte le distanze crescono dello stesso fattore; la velocità relativa fra due galassie è proporzionale alla loro distanza, con costante H₀.",
-              "Legge lineare valida a distanze moderate, dove lo spostamento verso il rosso è piccolo; trascura i moti propri delle galassie e la variazione di H nel tempo.",
-              "Le misure con il fondo cosmico danno H₀ ≈ 67 km/s/Mpc, quelle con le cefeidi e le supernove circa 73. Calcola la differenza di velocità prevista a 500 Mpc."
+              "I fotoni e la quantizzazione sono in «Fotoni ed energia quantizzata»; l’energia di riposo e la relatività in «Relatività ristretta»; lo spettro di corpo nero in «Radiazione termica e luce delle stelle»; le righe spettrali, il deuterio e i maser di NGC 4258 in «Onde di materia, atomi e righe spettrali»; il decadimento beta in «Nuclei, decadimenti e datazioni»; i neutrini e le masse dei neutrini in «Energia dal nucleo: fusione nelle stelle».",
+              "Riepilogo dell’unità: Penzias e Wilson; Dirac e il positrone di Anderson; antiprotone; pione e particelle strane; Ω⁻; quark, esperimenti dello SLAC, top quark; gluoni, W, Z e Higgs; Slipher, Lemaître e Hubble; MoM-z14; COBE, WMAP e Planck; Alpher, Bethe e Gamow; elio e deuterio primordiali; Zwicky, Rubin e l’ammasso Proiettile; supernove e accelerazione; DESI; SH0ES e la tensione di Hubble.",
+              "Nel diario registra A e B con le previsioni e calcola il tempo di Hubble per i due valori della costante: 977,8/67,4 miliardi di anni, circa 14,5, e 977,8/73, circa 13,4 miliardi di anni."
             ],
             "advanced": [
-              "Le misure con il fondo cosmico danno H₀ ≈ 67 km/s/Mpc, quelle con le cefeidi e le supernove circa 73. Calcola la differenza di velocità prevista a 500 Mpc.",
-              "Legge lineare valida a distanze moderate, dove lo spostamento verso il rosso è piccolo; trascura i moti propri delle galassie e la variazione di H nel tempo.",
-              "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+              "I fotoni e la quantizzazione sono in «Fotoni ed energia quantizzata»; l’energia di riposo e la relatività in «Relatività ristretta»; lo spettro di corpo nero in «Radiazione termica e luce delle stelle»; le righe spettrali, il deuterio e i maser di NGC 4258 in «Onde di materia, atomi e righe spettrali»; il decadimento beta in «Nuclei, decadimenti e datazioni»; i neutrini e le masse dei neutrini in «Energia dal nucleo: fusione nelle stelle».",
+              "Riepilogo dell’unità: Penzias e Wilson; Dirac e il positrone di Anderson; antiprotone; pione e particelle strane; Ω⁻; quark, esperimenti dello SLAC, top quark; gluoni, W, Z e Higgs; Slipher, Lemaître e Hubble; MoM-z14; COBE, WMAP e Planck; Alpher, Bethe e Gamow; elio e deuterio primordiali; Zwicky, Rubin e l’ammasso Proiettile; supernove e accelerazione; DESI; SH0ES e la tensione di Hubble.",
+              "Nel diario registra A e B con le previsioni e calcola il tempo di Hubble per i due valori della costante: 977,8/67,4 miliardi di anni, circa 14,5, e 977,8/73, circa 13,4 miliardi di anni."
             ]
           }
         }
       ],
       "questions": [
         {
-          "id": "physics-40-concept",
-          "prompt": "Per una galassia a distanza doppia, la velocità di recessione:",
+          "id": "physics-40-q1",
+          "prompt": "Per una galassia a distanza doppia, la velocità di allontanamento:",
           "options": [
             {
               "id": "A",
-              "text": "Resta uguale",
-              "feedback": "L'espansione riguarda lo spazio ovunque, senza un centro: ogni galassia vede le altre allontanarsi da sé."
-            },
-            {
-              "id": "B",
-              "text": "Quadruplica",
-              "feedback": "In un universo omogeneo che si espande in modo uniforme tutte le distanze crescono dello stesso fattore; la velocità relativa fra due galassie è proporzionale alla loro distanza, con costante H₀."
-            },
-            {
-              "id": "C",
               "text": "Raddoppia",
-              "feedback": "Le galassie lontane si allontanano con velocità proporzionali alla distanza, v = H₀d: è l'espansione dell'universo. L'inverso di H₀ dà un'età caratteristica, vicina all'età misurata dell'universo."
-            }
-          ],
-          "correct": "C"
-        },
-        {
-          "id": "physics-40-calculation",
-          "prompt": "Calcolo: Costante di Hubble H₀ (a)=70 km/s/Mpc. Per Distanza d=100 Mpc, quanto vale Velocità di recessione?",
-          "options": [
-            {
-              "id": "A",
-              "text": "3500 km/s",
-              "feedback": "Controlla sostituzione, segno e unità. v = H₀ d. Con Costante di Hubble H₀ (a)=70 km/s/Mpc e Distanza d=100 Mpc, il risultato è 7000 km/s. Conserva le unità e arrotonda solo alla fine."
+              "feedback": "Esatto: la legge di Hubble-Lemaître è una proporzionalità diretta fra velocità e distanza."
             },
             {
               "id": "B",
-              "text": "7000 km/s",
-              "feedback": "v = H₀ d. Con Costante di Hubble H₀ (a)=70 km/s/Mpc e Distanza d=100 Mpc, il risultato è 7000 km/s. Conserva le unità e arrotonda solo alla fine."
+              "text": "Resta uguale",
+              "feedback": "Le galassie più lontane si allontanano più velocemente."
             },
             {
               "id": "C",
-              "text": "10.500 km/s",
-              "feedback": "Questo valore non soddisfa la relazione. v = H₀ d. Con Costante di Hubble H₀ (a)=70 km/s/Mpc e Distanza d=100 Mpc, il risultato è 7000 km/s. Conserva le unità e arrotonda solo alla fine."
+              "text": "Quadruplica",
+              "feedback": "La velocità cresce in proporzione alla distanza, senza elevarla al quadrato."
+            },
+            {
+              "id": "D",
+              "text": "Si dimezza",
+              "feedback": "Questo andamento contraddice le osservazioni di Lemaître e Hubble."
             }
           ],
-          "correct": "B",
-          "numeric": {
-            "x": 100,
-            "parameters": {
-              "a": 70
-            },
-            "expected": 7000,
-            "unit": "km/s"
-          }
+          "correct": "A"
         },
         {
-          "id": "physics-40-transfer",
-          "prompt": "Trasferimento: Costante di Hubble H₀ (a)=70,1 km/s/Mpc. Per Distanza d=100 Mpc, quanto vale Velocità di recessione?",
+          "id": "physics-40-q2",
+          "prompt": "Il protone è formato dai quark:",
           "options": [
             {
               "id": "A",
-              "text": "7010 km/s",
-              "feedback": "v = H₀ d. Con Costante di Hubble H₀ (a)=70,1 km/s/Mpc e Distanza d=100 Mpc, il risultato è 7010 km/s. Conserva le unità e arrotonda solo alla fine."
+              "text": "uud, con carica +2/3 +2/3 −1/3 = +1",
+              "feedback": "Esatto: due quark up e un quark down danno la carica del protone."
             },
             {
               "id": "B",
-              "text": "10.515 km/s",
-              "feedback": "Questo valore non soddisfa la relazione. v = H₀ d. Con Costante di Hubble H₀ (a)=70,1 km/s/Mpc e Distanza d=100 Mpc, il risultato è 7010 km/s. Conserva le unità e arrotonda solo alla fine."
+              "text": "udd",
+              "feedback": "Questo è il neutrone, con carica nulla."
             },
             {
               "id": "C",
-              "text": "3505 km/s",
-              "feedback": "Controlla sostituzione, segno e unità. v = H₀ d. Con Costante di Hubble H₀ (a)=70,1 km/s/Mpc e Distanza d=100 Mpc, il risultato è 7010 km/s. Conserva le unità e arrotonda solo alla fine."
+              "text": "uuu",
+              "feedback": "Tre quark up danno carica +2: è la particella Δ⁺⁺."
+            },
+            {
+              "id": "D",
+              "text": "Un quark e un antiquark",
+              "feedback": "Le coppie quark-antiquark formano i mesoni, come il pione."
             }
           ],
-          "correct": "A",
-          "numeric": {
-            "x": 100,
-            "parameters": {
-              "a": 70.1
-            },
-            "expected": 7009.999999999999,
-            "unit": "km/s"
-          }
+          "correct": "A"
         },
         {
-          "id": "physics-40-limits",
-          "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+          "id": "physics-40-q3",
+          "prompt": "Un elettrone e un positrone quasi fermi si annichilano producendo:",
           "options": [
             {
               "id": "A",
-              "text": "Basta il grafico per provare una legge universale",
-              "feedback": "Una visualizzazione non è una dimostrazione universale. Legge lineare valida a distanze moderate, dove lo spostamento verso il rosso è piccolo; trascura i moti propri delle galassie e la variazione di H nel tempo."
+              "text": "Due fotoni di 511 keV in versi opposti",
+              "feedback": "Esatto: l’energia di riposo diventa radiazione e la quantità di moto totale resta nulla."
             },
             {
               "id": "B",
-              "text": "Legge di Hubble-Lemaître a distanze moderate",
-              "feedback": "Legge lineare valida a distanze moderate, dove lo spostamento verso il rosso è piccolo; trascura i moti propri delle galassie e la variazione di H nel tempo."
+              "text": "Un solo fotone di 1022 keV",
+              "feedback": "Un solo fotone non potrebbe conservare la quantità di moto nulla."
             },
             {
               "id": "C",
-              "text": "Riproduce ogni dettaglio del pianeta reale",
-              "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Legge lineare valida a distanze moderate, dove lo spostamento verso il rosso è piccolo; trascura i moti propri delle galassie e la variazione di H nel tempo."
+              "text": "Un neutrone",
+              "feedback": "La carica e il numero barionico non sarebbero conservati."
+            },
+            {
+              "id": "D",
+              "text": "Nessuna radiazione",
+              "feedback": "L’energia di riposo delle due particelle deve trasformarsi in altre particelle."
             }
           ],
-          "correct": "B"
+          "correct": "A"
+        },
+        {
+          "id": "physics-40-q4",
+          "prompt": "La radiazione cosmica di fondo fu emessa quando:",
+          "options": [
+            {
+              "id": "A",
+              "text": "L’universo, a circa 3000 K, divenne trasparente formando atomi neutri",
+              "feedback": "Esatto: circa trecentottantamila anni dopo il Big Bang, a z vicino a 1090."
+            },
+            {
+              "id": "B",
+              "text": "Si formarono le prime galassie",
+              "feedback": "Le prime galassie si formarono centinaia di milioni di anni dopo."
+            },
+            {
+              "id": "C",
+              "text": "Il Sole iniziò a brillare",
+              "feedback": "Il Sole ha 4,6 miliardi di anni, molto meno dell’universo."
+            },
+            {
+              "id": "D",
+              "text": "Si formò l’elio, nei primi minuti",
+              "feedback": "A quell’epoca l’universo era ancora opaco e molto più caldo."
+            }
+          ],
+          "correct": "A"
+        },
+        {
+          "id": "physics-40-q5",
+          "prompt": "Se il rapporto fra neutroni e protoni era 1/7 quando si formò l’elio, la frazione in massa dell’elio vale circa:",
+          "options": [
+            {
+              "id": "A",
+              "text": "0,25",
+              "feedback": "Esatto: su sedici nucleoni, due neutroni e due protoni formano un nucleo di elio."
+            },
+            {
+              "id": "B",
+              "text": "1/7",
+              "feedback": "Ogni neutrone porta con sé un protone nell’elio, raddoppiando la massa coinvolta."
+            },
+            {
+              "id": "C",
+              "text": "0,5",
+              "feedback": "Questa frazione richiederebbe un neutrone ogni tre protoni."
+            },
+            {
+              "id": "D",
+              "text": "0,01",
+              "feedback": "Le misure nelle galassie povere di metalli danno circa 0,245, molto di più."
+            }
+          ],
+          "correct": "A"
+        },
+        {
+          "id": "physics-40-q6",
+          "prompt": "La tensione di Hubble è:",
+          "options": [
+            {
+              "id": "A",
+              "text": "La differenza fra il valore di H₀ dalla radiazione di fondo, circa 67, e quello dalle distanze locali, circa 73",
+              "feedback": "Esatto: la differenza supera cinque deviazioni standard e non ha ancora una spiegazione."
+            },
+            {
+              "id": "B",
+              "text": "La scoperta che l’universo si contrae",
+              "feedback": "Tutte le misure indicano un universo in espansione."
+            },
+            {
+              "id": "C",
+              "text": "Un errore di Hubble del 1929",
+              "feedback": "Il valore di Hubble era sbagliato per altri motivi, chiariti negli anni Cinquanta."
+            },
+            {
+              "id": "D",
+              "text": "La differenza fra materia oscura ed energia oscura",
+              "feedback": "Sono componenti diverse, ma la tensione riguarda la costante di Hubble."
+            }
+          ],
+          "correct": "A"
         }
       ]
     },

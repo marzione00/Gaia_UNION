@@ -472,3 +472,33 @@ test('Fisica 39: energia dal nucleo e fusione nelle stelle, numeri ricalcolati',
  // Model probes: lifetime at M = 5.375 and 10.25 solar masses (25% and 50% of the domain) for alpha = 3.5 and 3.
  assert.deepEqual([life(5.375,3.5),life(10.25,3.5),life(5.375,3),life(10.25,3)].map(v=>+v.toPrecision(4)),[0.1493,0.02973,0.3461,0.09518]);
 });
+test('Fisica 40: particelle, espansione e Big Bang, numeri ricalcolati',()=>{
+ const hc=h*c/e*1e9,Mpc=3.0857e22,kpc=3.0857e19,hub=(d,H)=>H*d;
+ // Penzias and Wilson, annihilation, pair production.
+ assert.equal(r(c/4.08e9*100,2),7.35);assert.equal(r(me*c**2/e/1e3,0),511);assert.equal(r(hc/511000*1e3,2),2.43);assert.equal(r(2*0.511,3),1.022);
+ // Conservation laws and proton lifetime.
+ assert.ok(1e34/13.8e9>5e23&&1e34/13.8e9<1e24);
+ // Quarks and the standard model.
+ assert.equal(2/3+2/3-1/3,1);assert.equal(r(2/3-1/3-1/3,6),0);assert.equal(r(2/3+1/3,6),1);assert.equal(r(3*2/3,6),2);
+ assert.equal(r((2*2.16+4.70)/938.272*100,2),0.96);assert.equal(r(2*2.16+4.7,1),9);
+ assert.equal(r(197.327/139.57,1),1.4);assert.equal(r(197.3/80400*1e3,1),2.5);assert.equal(r(1.4/2.45e-3,-2),600);
+ // Hubble-Lemaitre law and redshift.
+ assert.equal(hub(100,70),7000);assert.equal(r(7000/3e5,3),0.023);assert.equal(r(Mpc/1e3/70,-15)/1e17,4.41);assert.equal(r(Mpc/1e3/70/3.15576e16,1),14);
+ assert.equal(r(977.8/67.4,1),14.5);assert.equal(r(977.8/73,1),13.4);assert.equal(r(977.8/500,1),2);assert.equal(r((73-67.4)*500,0),2800);
+ assert.equal(r(121.567*15.44,0),1877);assert.equal(r(2.7255*15.44,0),42);
+ // Cosmic microwave background.
+ assert.equal(r(2.7255*1091,-1),2970);assert.equal(r(2.898e-3/2.7255*1e3,2),1.06);assert.equal(r(2.898e-3/2970*1e6,2),0.98);
+ const ng=16*Math.PI*1.2020569*(kB*2.7255/(h*c))**3;assert.equal(r(ng/1e6,0),411);
+ // Primordial nucleosynthesis.
+ assert.equal(r(Math.exp(-1.293/0.75),2),0.18);assert.equal(r(2*(1/7)/(1+1/7),3),0.25);assert.equal(r(2*(1/6)/(1+1/6),2),0.29);assert.equal(4/16,0.25);
+ const Xf=1/(1+Math.exp(1.2933/0.75)),Xn=Xf*Math.exp(-(200-(0.86/0.75)**2)/879.4);assert.equal(r(Xf,2),0.15);assert.equal(r(Xn,2),0.12);assert.equal(r(2*Xn,2),0.24);
+ assert.ok(1/6.1e-10>1e9);
+ // Densities and dark matter.
+ const H0s=67.4e3/Mpc,rc=3*H0s**2/(8*Math.PI*G),nb=411e6*6.1e-10;assert.equal(r(H0s*1e18,2),2.18);assert.equal(r(rc*1e27,1),8.5);assert.equal(r(nb,2),0.25);assert.equal(r(nb*mp*1e28,1),4.2);assert.equal(r(nb*mp/rc,3),0.049);
+ const Mc=1e6**2*3*Mpc/G;assert.equal(r(3*Mpc/1e22,2),9.26);assert.equal(r(Mc/1e45,1),1.4);assert.equal(r(Mc/MSUN/1e14,0),7);
+ const Mr=rr=>(2.2e5)**2*rr*kpc/G;assert.equal(r(8*kpc/1e20,2),2.47);assert.equal(r(Mr(8)/1e41,1),1.8);assert.equal(r(Mr(8)/MSUN/1e10,0),9);assert.equal(r(Mr(30)/MSUN/1e11,1),3.4);
+ // Hubble tension.
+ assert.ok((73.04-67.4)/Math.hypot(1.04,0.5)>4.5);assert.ok((73.5-67.4)/Math.hypot(0.81,0.5)>6);
+ // Model probes: recession velocity at 250 and 500 Mpc (25% and 50% of the domain) for H0 = 70 and 73 km/s/Mpc.
+ assert.deepEqual([hub(250,70),hub(500,70),hub(250,73),hub(500,73)],[17500,35000,18250,36500]);
+});
