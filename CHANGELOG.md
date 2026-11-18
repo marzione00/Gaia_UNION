@@ -1,3 +1,10 @@
+# 1.33.1: Vista del sistema e vista in orbita sui telefoni bassi
+
+- Sui telefoni alti meno di 700 pixel la vista del sistema nasconde il sottotitolo e la descrizione dell'unità, e la scheda dell'unità resta sopra i pulsanti in basso; prima, a 320 × 568, sottotitolo, numeri dei pianeti e scheda si sovrapponevano.
+- Il pulsante «Torna alla mappa» della vista del sistema si accorcia sui telefoni stretti («Mappa» sotto i 360 pixel) e non copre più i pulsanti dello zoom.
+- La riga con la famiglia del pianeta e la copertura dell'unità resta dentro la scheda.
+- Nella vista in orbita, sui telefoni bassi, il sottotitolo lascia spazio alla scheda dell'unità, che termina sopra i pulsanti in basso.
+
 # 1.33.0: Regioni dei bracci e mondi di sintesi
 
 - Ogni braccio della galassia ha la sua nube: un ammasso aperto per la Matematica, una nube a riflessione per la Fisica, polveri interstellari per la Chimica, una regione di formazione stellare per la Biologia; una nube tenue segna la periferia in fondo al braccio della Fisica. L'ammasso della Matematica riceve la quota più alta di stelle brillanti aggiunte.
