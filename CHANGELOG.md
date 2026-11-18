@@ -1,3 +1,12 @@
+# 1.31.0: Le spedizioni
+
+- Ogni pianeta offre tre spedizioni fatte degli esercizi risolti del suo capitolo: in orbita gli esercizi di base, in superficie gli intermedi, in profondità gli avanzati. I 100 capitoli ne contano 1928: 680 di base, 684 intermedi, 564 avanzati.
+- Nel lettore ogni esercizio ha il pulsante «Segna come risolto», che si attiva dopo l'apertura della soluzione: lo studente confronta il proprio svolgimento con quello scritto e lo segna, in un'autovalutazione dichiarata. In cima agli esercizi il lettore riporta lo stato delle tre spedizioni.
+- Nella vista in orbita il pulsante «Spedizioni» apre il pannello delle tre spedizioni, con gli esercizi risolti e un pulsante che apre il libro al primo esercizio ancora da risolvere. Nella vista del sistema un segno verde sotto il numero di ogni pianeta indica ogni spedizione completata; il diario conta spedizioni ed esercizi.
+- Le 25 unità di matematica, senza capitolo, hanno la spedizione in orbita fatta delle 6 domande del percorso guidato, che contano quando la risposta è corretta; le altre due spedizioni attendono un capitolo.
+- Le liste sono in `content/atlas/expeditions.json`, generato da `tools/build_expeditions.mjs`; il salvataggio registra gli esercizi risolti nel campo `solved`.
+- Documentazione in `docs/SPEDIZIONI.md`; `tests/expeditions.test.mjs` verifica liste, completamento, domande di matematica e salvataggio, e i flussi applicativi completano due spedizioni.
+
 # 1.30.0: Il Nucleo di Gaia
 
 - Nuova schermata del Nucleo di Gaia (`#/gaia`), raggiungibile dalla nave e dalla scheda «Esplorazione» del diario. Applica la diagnosi di Lovelock: un pianeta abitato mantiene nella sua atmosfera gas che senza la vita reagirebbero fino all'equilibrio.

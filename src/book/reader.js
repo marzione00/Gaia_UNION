@@ -1,7 +1,10 @@
 /** Reading layer of the GAIA book: an HTML page shown over the 3D scene for the chapter of a unit.
  * Text is selectable and searchable, formulas are typeset by MathJax (vendor/mathjax, loaded on first use),
  * figures are inline SVG. The app owns routing: it calls `show(unit, section)` and `hide()`, and receives
- * `onClose`, `onUnit(unit, anchor)` (a link to another chapter or planet) and `onRead(unit, sectionId)`. */
+ * `onClose`, `onUnit(unit, anchor)` (a link to another chapter or planet) and `onRead(unit, sectionId)`.
+ * Each exercise has a «Risolto» button, enabled once its solution has been opened, that calls
+ * `onSolved(unit, exerciseId, value)`; `expeditionNote(unit)` is the line on the expeditions shown at the
+ * start of the exercises. */
 import { parseChapter, escapeHtml } from './markdown.js';
 
 let mathjax = null;
@@ -23,8 +26,8 @@ function loadMathJax(base = 'vendor/mathjax/') {
 }
 
 export class BookReader {
-    constructor({ index, fetchText, onClose, onUnit, onRead, isRead = () => false, unitInfo = () => null, top = () => 82 }) {
-        Object.assign(this, { index, fetchText, onClose, onUnit, onRead, isRead, unitInfo, top });
+    constructor({ index, fetchText, onClose, onUnit, onRead, isRead = () => false, onSolved = null, isSolved = () => false, expeditionNote = () => '', unitInfo = () => null, top = () => 82 }) {
+        Object.assign(this, { index, fetchText, onClose, onUnit, onRead, isRead, onSolved, isSolved, expeditionNote, unitInfo, top });
         this.cache = new Map(); this.unit = null; this.visible = false;
         // Minimal DOMs (the Node application checks) may lack head, body or window events: the reader then stays inert.
         const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = 'src/book/reader.css'; (document.head || document.body)?.append?.(css);
@@ -79,7 +82,7 @@ export class BookReader {
  <article class="libro-capitolo">${ch.html}</article>
  <footer class="libro-piede"><div class="libro-navigazione">${prev ? `<a href="#" data-unit="${prev.unit}">◂ ${escapeHtml(prev.titolo)}</a>` : '<span></span>'}${next ? `<a href="#" data-unit="${next.unit}">${escapeHtml(next.titolo)} ▸</a>` : '<span></span>'}</div></footer>
 </div></main>`;
-        this.page = this.root.querySelector('.libro-pagina'); this.updateProgress();
+        this.page = this.root.querySelector('.libro-pagina'); this.exercises(unit); this.updateProgress();
         // A section counts as read once its end has been on screen.
         this.observer?.disconnect();
         this.observer = new IntersectionObserver(entries => {
@@ -98,9 +101,22 @@ export class BookReader {
         for (const h of this.root.querySelectorAll('.libro-sezione')) if (h.getBoundingClientRect().top <= top) current = h.id;
         for (const a of this.root.querySelectorAll('.libro-indice a')) a.classList.toggle('attiva', a.dataset.anchor === current);
     }
+    /** Adds the «Risolto» button to every exercise and the expeditions line at the start of the exercises. */
+    exercises(unit) {
+        if (!this.onSolved) return;
+        const section = this.root.querySelector('#esercizi');
+        if (section) section.querySelector('h2')?.insertAdjacentHTML('afterend', '<p class="libro-spedizioni" data-spedizioni></p><p class="libro-nota-spedizioni">Segna un esercizio come risolto dopo aver confrontato il tuo svolgimento con la soluzione: è un’autovalutazione, e conta per le spedizioni del pianeta.</p>');
+        for (const ex of this.root.querySelectorAll('.libro-esercizio')) {
+            const solution = ex.querySelector('details.libro-soluzione'), done = this.isSolved(unit, ex.id);
+            ex.insertAdjacentHTML('beforeend', `<div class="libro-risolto-riga"><button data-azione="risolto" data-esercizio="${ex.id}" aria-pressed="${done}"${done || !solution ? '' : ' disabled'}>${done ? 'Risolto ✓' : 'Segna come risolto'}</button>${done || !solution ? '' : '<span>Apri la soluzione per confrontarla con il tuo svolgimento.</span>'}</div>`);
+            // The button wakes up once the solution has been opened.
+            solution?.addEventListener('toggle', () => { const b = ex.querySelector('[data-azione="risolto"]'); if (solution.open && b) { b.disabled = false; b.nextElementSibling?.remove(); } });
+        }
+    }
     updateProgress() {
         const all = [...this.root.querySelectorAll('.libro-sezione')], read = all.filter(s => this.isRead(this.unit, s.id)).length, label = this.root.querySelector('[data-avanzamento]'), bar = this.root.querySelector('[data-barra]');
         if (label) label.textContent = `Sezioni lette: ${read} di ${all.length}`; if (bar) bar.style.width = (all.length ? 100 * read / all.length : 0) + '%';
+        const note = this.root.querySelector('[data-spedizioni]'); if (note) note.textContent = this.expeditionNote(this.unit);
     }
     scrollTo(id, smooth = false) { const el = this.root.querySelector('#' + CSS.escape(id)); if (el) { el.scrollIntoView({ block: 'start', behavior: smooth ? 'smooth' : 'instant' }); this.section = id; } this.root.classList.remove('indice-aperto'); }
     async typeset(section = null) {
@@ -143,6 +159,11 @@ export class BookReader {
         if (a.dataset.azione === 'chiudi') { e.preventDefault(); this.onClose?.(); return; }
         if (a.dataset.azione === 'stampa') { e.preventDefault(); Promise.resolve(this.loadAllFigures?.()).finally(() => print()); return; }
         if (a.dataset.azione === 'indice') { e.preventDefault(); this.root.classList.toggle('indice-aperto'); return; }
+        if (a.dataset.azione === 'risolto') {
+            e.preventDefault(); const value = a.getAttribute('aria-pressed') !== 'true';
+            this.onSolved?.(this.unit, a.dataset.esercizio, value);
+            a.setAttribute('aria-pressed', String(value)); a.textContent = value ? 'Risolto ✓' : 'Segna come risolto'; this.updateProgress(); return;
+        }
         if (a.dataset.unit) { e.preventDefault(); this.onUnit?.(a.dataset.unit, a.dataset.anchor || null); return; }
         if (a.dataset.anchor) { e.preventDefault(); this.scrollTo(a.dataset.anchor, true); }
     }
