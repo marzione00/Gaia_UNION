@@ -1,14 +1,13 @@
 /** Landing surface of a planet, generated from its identity card (src/worlds/genome.js) with the terrain
  * of src/worlds/terrain.js. It replaces the three shared Blender surfaces: every planet gets its own
  * ground, sea, light, sky, moons and a compact group of four stations at the side of the view. */
-import { buildGenomes, STARS, starTypes } from './genome.js';
+import { planetCards, STARS, starTypes } from './genome.js';
 import { terrainHeights, colorAt } from './terrain.js';
 import { seededRandom } from '../scene/systems.js';
 import { allSpecies, populate } from './species.js';
 import { placeList, locatePlaces } from './places.js';
 
-let cache = null;
-export const planetGenomes = () => cache ||= buildGenomes();
+export const planetGenomes = planetCards;
 let speciesCache = null;
 /** Species of every planet (names unique over the galaxy), in planet order. */
 export const planetSpecies = () => speciesCache ||= allSpecies(planetGenomes());

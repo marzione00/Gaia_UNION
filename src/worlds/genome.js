@@ -2,7 +2,7 @@
  * planet already has (family, size, moons, rings, spin, tilt, area) plus a star type for its system.
  * Everything that makes a world look different (terrain, sea, sky, light, colours, events) comes from here,
  * so the orbit view and the surface stay consistent. Values are illustrative, not astronomical data. */
-import { systemArchitecture, systemForPlanet, AREAS, SYSTEM_COUNT, UNIT_COUNT, seededRandom } from '../scene/systems.js';
+import { systemBodies, systemForPlanet, AREAS, SYSTEM_COUNT, UNIT_COUNT, seededRandom } from '../scene/layout.js';
 
 /** Star types, with an approximate colour of the light (sRGB) and a plant pigment chosen for contrast. */
 export const STARS = Object.freeze({
@@ -55,7 +55,7 @@ function skyColor(light, density, haze) {
 
 /** Candidate genome of planet `index` at attempt `k` (attempts change only the free parameters). */
 function candidate(index, k, stars) {
-    const system = systemForPlanet(index), body = systemArchitecture(system).bodies.find(b => b.index === index), family = body.type;
+    const system = systemForPlanet(index), body = systemBodies(system).bodies.find(b => b.index === index), family = body.type;
     const r = seededRandom((index + 1) * 0x9E3779B1 + k * 0x85EBCA6B), star = stars[system], S = STARS[star];
     // Attempts cycle through the styles of the family, so a crowded style can be avoided.
     const options = STYLES[family], style = PILOT_STYLES[index] || options[(index + k) % options.length];
@@ -112,3 +112,6 @@ export function buildGenomes(count = UNIT_COUNT) {
     }
     return out;
 }
+let cards = null;
+/** Identity cards of all explorable planets, built once and shared by the scene and the physics. */
+export const planetCards = () => cards ||= buildGenomes();

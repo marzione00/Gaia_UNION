@@ -515,6 +515,16 @@ export class GPU {
         }
         return n;
     }
+    /** Number of lines multiline() would draw, without drawing them. */
+    multilineCount(s, maxW, style = 'body', maxLines = 99) {
+        let line = '', n = 0;
+        for (const w of String(s).split(/\s+/)) {
+            const cand = line ? line + ' ' + w : w;
+            if (this.textWidth(cand, style) > maxW && line) { n++; line = w; if (n >= maxLines) return n; }
+            else line = cand;
+        }
+        return line ? Math.min(maxLines, n + 1) : n;
+    }
     lineGraph(points, x, y, w, h, c, width = 1.8) { let pts = points.map(([px, py]) => [x + px * w, y + (1 - py) * h]); this.polyline(pts, c, width, 4); }
     drawImage(texture, x, y, w, h, uv = [0, 0, 1, 1], invert = false) { this.drawUI(); this.uiData.length = 0; this.quad(x, y, w, h, [1, 1, 1, 1], invert ? 3 : 2, uv); this.drawUI(texture); this.uiData.length = 0; }
     flush() { this.drawUI(); this.uiData.length = 0; }

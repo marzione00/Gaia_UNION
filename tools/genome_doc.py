@@ -18,7 +18,7 @@ def stars_text():
     return ', '.join(parts)
 sec = [('math', 'Matematica'), ('physics', 'Fisica'), ('chemistry', 'Chimica'), ('biology', 'Biologia')]
 out = ['# Carte d’identità dei pianeti', '',
- 'Ogni pianeta esplorabile ha una carta d’identità generata da `src/worlds/genome.js` a partire da ciò che il pianeta ha già: famiglia, dimensione, lune, anelli, rotazione, inclinazione e area tematica, più un tipo di stella per ogni sistema. Dalla carta dipendono terreno, mare, cielo, luce, colori di piante e rocce, gravità ed eventi rari. I valori sono illustrativi: non sono dati astronomici.', '',
+ 'Ogni pianeta esplorabile ha una carta d’identità generata da `src/worlds/genome.js` a partire da ciò che il pianeta ha già: famiglia, dimensione, lune, anelli, rotazione, inclinazione e area tematica, più un tipo di stella per ogni sistema. Dalla carta dipendono terreno, mare, cielo, luce, colori di piante e rocce, gravità ed eventi rari. I valori sono illustrativi: non sono dati astronomici. Dalla 1.27.0 il modello fisico (`docs/FISICA_PIANETI.md`) dà a ogni pianeta una stella, un’orbita e una temperatura coerenti con la sua carta.', '',
  '## Come si garantisce la diversità', '',
  '- Ogni famiglia di pianeti ha tre stili di terreno; i pianeti di un’area, da tre a sei, hanno famiglie diverse e quindi terreni diversi (controllato dai test).',
  '- Una distanza fra due carte, da 0 (identiche) a circa 1, pesa stile di terreno, famiglia, stella, livello del mare, rilievo, ruvidità, colore delle piante, atmosfera e gravità.',
