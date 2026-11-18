@@ -317,3 +317,39 @@ test('Fisica 35: equazioni di Maxwell e magnetismo della materia, numeri ricalco
  // Model probes: magnetisation at T = 75.75 and 150.5 K (25% and 50% of the domain) for B = 1 and 10 T.
  const m=(x,b)=>Math.tanh(9.2740100783e-24*b/(1.380649e-23*x));assert.deepEqual([m(75.75,1),m(150.5,1),m(75.75,10),m(150.5,10)].map(v=>+v.toPrecision(4)),[0.008867,0.004463,0.08844,0.0446]);
 });
+test('Fisica 36: relatività ristretta, numeri ricalcolati',()=>{
+ const g=b=>1/Math.sqrt(1-b*b),tau=2.197e-6;
+ // Muons and time dilation.
+ assert.equal(r(c*2.2e-6,-2),700);assert.ok(c*2.2e-6>600);assert.equal(r(g(0.995),0),10);assert.equal(r(2.2*g(0.995),0),22);assert.ok(0.995*c*2.2e-6*g(0.995)>6000);
+ assert.equal(r((250/c)**2/2*1e13,0),3);assert.equal(r(g(0.5),2),1.15);assert.equal(r(g(0.9),1),2.3);assert.equal(r(g(0.99),1),7.1);
+ assert.equal(r(2.197*29.33,1),64.4);assert.equal(-184+144,-40);assert.equal(96+179,275);
+ assert.equal(r(15/g(0.995),1),1.5);assert.equal(r(Math.exp(-15000/(0.995*c*tau*g(0.995))),2),0.1);
+ // Velocity addition, Doppler, energy.
+ assert.equal(r(1.6/1.64,3),0.976);assert.equal(r(Math.sqrt(1.5/0.5)-1,2),0.73);
+ assert.equal(r((g(0.99)-1)*0.511,1),3.1);assert.equal(r(0.5*0.511*0.99**2,2),0.25);const gL=6.8e12/938.272e6;assert.equal(r(gL,-2),7200);assert.ok(c/(2*gL**2)<3);
+ assert.equal(r(LSUN/c**2/1e9,1),4.3);assert.equal(r(LSUN/c**2*4.6e9*3.156e7/MSUN*1e4,0),3);
+ // Twins, interstellar travel.
+ assert.equal(r(4.24/0.9,1),4.7);assert.equal(r(g(0.9),2),2.29);assert.equal(r(4.24/0.9/g(0.9),1),2.1);assert.ok(4.24/0.9*2-4.24/0.9/g(0.9)*2>5);
+ assert.equal(r((g(0.9)-1)*1000*c**2/1e20,1),1.2);assert.equal(r((g(0.9)-1)*1000*c**2/620e18,2),0.19);assert.equal(r(4.24/0.2,0),21);assert.equal(r((g(0.2)-1)*100,0),2);
+ // GPS.
+ assert.equal(r(c*1e-9,1),0.3);assert.equal(r((3874/c)**2/2*86400*1e6,0),7);assert.equal(r(45.7-7.2,0),39);assert.ok(38e-6*c>1e4);
+ // Superluminal motion.
+ assert.equal(r(g(0.99)*0.99,1),7);assert.equal(r(g(0.9)*0.9,1),2.1);
+ // Experiment: one muon per cm2 per minute.
+ assert.equal(r(1e4/60,-1),170);
+ // Exercises.
+ assert.equal(g(0.6),1.25);assert.equal(r(g(0.8),2),1.67);assert.equal(r(g(0.98),2),5.03);assert.equal(r(2.2*g(0.98),1),11.1);assert.equal(r(0.98*3e8*1.11e-5/1e3,1),3.3);
+ assert.equal(100/1.25,80);assert.equal(r(c*38e-6/1e3,0),11);assert.equal(r(me*c**2*1e14,2),8.19);assert.equal(r(me*c**2/1.602176634e-13,3),0.511);assert.equal(r((0.5+0.5)/1.25,1),0.8);
+ assert.equal(r(7660/c*1e5,2),2.56);assert.equal(r((7660/c)**2/2*1e10,1),3.3);assert.equal(r(182.5*86400/1e7,2),1.58);assert.equal(r((7660/c)**2/2*182.5*86400*1e3,0),5);
+ const z1=Math.sqrt(1.1/0.9);assert.equal(r(z1,4),1.1055);assert.equal(r(656.3*z1,1),725.6);assert.equal(r(656.3*1.1,1),721.9);assert.equal(r(656.3*z1-656.3*1.1,1),3.6);
+ assert.equal(r(g(0.99),2),7.09);assert.equal(r(g(0.99)*0.99*0.511,2),3.59);assert.ok(3.11/0.25>12);
+ assert.equal(r(3.83e26/9e16/1e9,1),4.3);assert.equal(r(3.83e26/9e16*3.16e7/1e17,1),1.3);
+ assert.equal(r(Math.sqrt(1-1/29.33**2),5),0.99942);assert.equal(r(0.99942*c*64.4e-6/1e3,1),19.3);assert.equal(r(0.99942*c*64.4e-6/(Math.PI*14),-1),440);
+ assert.equal(r(6.8e12/9.383e8,-1),7250);assert.equal(r(c/(2*7250**2),1),2.9);
+ const tFS=1907/(0.995*3e8);assert.equal(r(tFS*1e6,2),6.39);assert.equal(r(568*Math.exp(-6.39/2.2),0),31);assert.equal(r(568*Math.exp(-6.39/22),0),425);assert.equal(r(6.39/(2.2*Math.log(568/412)),0),9);
+ const th=10*Math.PI/180;assert.equal(r(0.99*Math.sin(th)/(1-0.99*Math.cos(th)),1),6.9);assert.equal(r(Math.acos(0.99)*180/Math.PI,1),8.1);
+ assert.equal(r(300e12*3600/1e18,2),1.08);assert.equal(r(300e12*3600/c**2,0),12);
+ assert.equal(r(3.2e20/9.383e8/1e11,1),3.4);assert.equal(r(1e5*3.16e7/3.4e11,0),9);
+ // Model probes: dilated time at beta = 0.2475 and 0.495 (25% and 50% of the domain) for tau = 1 and 2.2 microseconds.
+ const m=(x,t)=>t/Math.sqrt(1-x*x);assert.deepEqual([m(0.2475,1),m(0.495,1),m(0.2475,2.2),m(0.495,2.2)].map(v=>r(v,4)),[1.0321,1.1509,2.2706,2.532]);
+});
