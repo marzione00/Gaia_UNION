@@ -10,7 +10,7 @@ Il progetto è basato sul commit `7e311fbef37dcf912d4e5bb0db382c122eec9ada` e co
 
 Dal catalogo, selezionare una unità e aprire il percorso guidato. La voce MISSIONI apre l'unità selezionata. Le stazioni della superficie collegano i quattro settori del sistema. PERCORSI nel catalogo offre quattro sequenze disciplinari e tre itinerari interdisciplinari: clima, materia e popolazioni. La navigazione è libera; i prerequisiti sono consigliati, non blocchi.
 
-Ogni unità presenta sei fasi: Scopri, Capisci, Sperimenta, Interpreta, Verifica, Collega. Le tre profondità sono Base, Applica, Approfondisci. La stessa spiegazione può ricomparire nelle fasi appropriate: i numeri di parole non vanno moltiplicati per il numero di schermate.
+Ogni unità presenta sei fasi: Scopri, Capisci, Sperimenta, Interpreta, Verifica, Collega. Le tre profondità sono Base, Applica, Approfondisci. Dalla 1.34.0 in chimica i tre livelli sono testi distinti, senza paragrafi in comune fra livelli o fra tappe; nelle altre discipline la stessa spiegazione può ancora ricomparire in più livelli e in più fasi, e i numeri di parole non vanno moltiplicati per il numero di schermate. Regola di scrittura e controlli in `docs/LIVELLI.md`.
 
 Su telefono, LEZIONE, LAB 3D, ESPERIMENTO (PROVE sui display molto stretti) e FONTI separano i pannelli. ESPANDI aumenta l'area di lettura, mantenendo la navigazione tra pagine. Le alternative complete del quiz possono proseguire nella pagina successiva. Le etichette semantiche contengono il testo integrale. Touch, screen reader e tastiera devono comunque essere collaudati su dispositivi reali prima di dichiarare conformità.
 
