@@ -1,3 +1,11 @@
+# 1.35.0: Tre livelli distinti nei percorsi di matematica
+
+- I 25 percorsi guidati di matematica hanno testi nuovi in tutte le tappe con testo visibile. Base spiega il concetto con un esempio semplice e con la sua storia; Applica svolge esempi numerici completi, spesso tratti da problemi storici, e chiude con una domanda per lo studente; Approfondisci aggiunge dimostrazioni, limiti dei modelli e la storia delle idee. Prima, in 42 tappe su 125, i tre livelli coincidevano parola per parola.
+- Le spiegazioni sono più ampie: un percorso letto a un solo livello passa da una mediana di 743 a 963 parole a livello Base, la tappa Capisci a livello Base da 264 a 352, e la prosa distinta di un'unità da 839 a 2926 parole. La storia va dal papiro di Rhind e dalle tavolette babilonesi a Shannon, Nash e Feigenbaum.
+- Esempi e risultati vengono dalla dispensa «Matematica di base» o da calcoli riportati nel testo; date e notizie storiche sono confrontate con J. Gullberg, «Mathematics: From the Birth of Numbers». I valori dei laboratori e delle serie di adattamento sono ricalcolati con le formule del programma.
+- Le note sulla narrazione delle 25 unità precisano che gli esempi con persone, oggetti e luoghi generici sono illustrativi, mentre date e notizie storiche sono reali.
+- `tests/levels.test.mjs` controlla anche la matematica, con lunghezze minime proprie per disciplina: 140, 330, 130, 170 e 110 parole nelle tappe Scopri, Capisci, Sperimenta, Interpreta e Collega. Numeri e regola in `docs/LIVELLI.md`.
+
 # 1.34.0: Tre livelli distinti nei percorsi di chimica
 
 - I 25 percorsi guidati di chimica hanno testi nuovi in tutte le tappe con testo visibile. Base spiega il concetto con un esempio semplice; Applica svolge esempi numerici completi e chiude con una domanda per lo studente; Approfondisci aggiunge derivazioni, limiti del modello e storia. Prima, in 101 tappe su 125, almeno due livelli coincidevano parola per parola.

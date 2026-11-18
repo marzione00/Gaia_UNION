@@ -8,7 +8,7 @@
   "coverage": "guided-lab",
   "editorialStatus": "hand-written-draft",
   "scope": "Informazione di un evento, entropia di Shannon, unità di misura, compressione e leggi statistiche",
-  "narrativeStatus": "Il sensore è immaginario; la teoria dell’informazione è reale.",
+  "narrativeStatus": "Il sensore è immaginario; la teoria dell’informazione è reale. Gli esempi con persone, oggetti e luoghi generici sono illustrativi; date e notizie storiche sono reali.",
   "objectives": [
     "Calcolare l’informazione di un evento di probabilità nota.",
     "Calcolare e interpretare l’entropia di una sorgente con due esiti.",
@@ -66,16 +66,20 @@
       "title": "Quanto dice un messaggio?",
       "text": {
         "base": [
-          "La stazione trasmette a Terra lo stato di un sensore che può dare due risposte, guasto o funzionante. Se il sensore funziona quasi sempre, ogni messaggio «funzionante» dice poco; un messaggio «guasto», raro, dice molto. Quanta informazione porta in media un messaggio? La risposta di Claude Shannon, del 1948, è l’entropia, una grandezza nata per le telecomunicazioni e ritrovata in fisica, biologia e statistica.",
-          "L’informazione portata da un evento di probabilità p si misura con −log₂ p, in bit. Un evento certo, p = 1, porta 0 bit; il lancio di una moneta, p = 1/2, porta 1 bit; un evento con p = 1/8 porta 3 bit. Più un evento è raro, più è sorprendente, e più informazione porta. Il logaritmo fa sì che l’informazione di eventi indipendenti si sommi."
+          "La stazione trasmette a Terra lo stato di un sensore che può dare due risposte, guasto o funzionante. Se il sensore funziona quasi sempre, ogni messaggio «funzionante» dice poco; un messaggio «guasto», raro, dice molto. Quanta informazione porta in media un messaggio? La risposta fu data nel 1948 dall’ingegnere americano Claude Shannon, con una grandezza chiamata entropia, nata per le telecomunicazioni e ritrovata poi in fisica, biologia e statistica.",
+          "L’informazione portata da un evento di probabilità p si misura con −log₂ p, in bit. Un evento certo, con p = 1, porta 0 bit; il lancio di una moneta, con p = 1/2, porta 1 bit; un evento con p = 1/8 porta 3 bit, quanto tre lanci di moneta. Più un evento è raro, più è sorprendente, e più informazione porta.",
+          "L’idea che i messaggi frequenti debbano costare poco è più antica di Shannon. Negli anni Trenta dell’Ottocento Samuel Morse e Alfred Vail, per il loro telegrafo, assegnarono i codici più brevi alle lettere più frequenti in inglese, e la E, la più comune, divenne un solo punto. Per stimare le frequenze, si racconta, contarono i caratteri nelle cassette di una tipografia."
         ],
         "intermediate": [
-          "La stazione trasmette a Terra lo stato di un sensore che può dare due risposte, guasto o funzionante. Se il sensore funziona quasi sempre, ogni messaggio «funzionante» dice poco; un messaggio «guasto», raro, dice molto. Quanta informazione porta in media un messaggio? La risposta di Claude Shannon, del 1948, è l’entropia, una grandezza nata per le telecomunicazioni e ritrovata in fisica, biologia e statistica.",
-          "L’informazione portata da un evento di probabilità p si misura con −log₂ p, in bit. Un evento certo, p = 1, porta 0 bit; il lancio di una moneta, p = 1/2, porta 1 bit; un evento con p = 1/8 porta 3 bit. Più un evento è raro, più è sorprendente, e più informazione porta. Il logaritmo fa sì che l’informazione di eventi indipendenti si sommi."
+          "Esempio svolto: sommare informazioni. Un dado equo ha 6 esiti, e ogni lancio porta log₂ 6 ≈ 2,585 bit. Due lanci indipendenti hanno 36 esiti equiprobabili, e portano log₂ 36 ≈ 5,17 bit, il doppio: il logaritmo trasforma il prodotto delle probabilità di eventi indipendenti in una somma di informazioni.",
+          "Esempio svolto: il guasto raro. Se il sensore segnala «guasto» con probabilità 1/64, quel messaggio porta −log₂(1/64) = 6 bit, mentre «funzionante», con probabilità 63/64, porta circa 0,023 bit. Il messaggio raro informa molto, quello frequente quasi nulla.",
+          "Esempio svolto: domande sì o no. Per indovinare un numero da 1 a 64 con domande a risposta sì o no bastano 6 domande, dimezzando ogni volta l’intervallo: è proprio log₂ 64 = 6. Il bit è la quantità di informazione di una risposta sì o no fra due possibilità equiprobabili.",
+          "Prova tu: quanti bit porta l’estrazione di una carta da un mazzo di 32? E quella di una lettera scelta a caso fra 26?"
         ],
         "advanced": [
-          "La stazione trasmette a Terra lo stato di un sensore che può dare due risposte, guasto o funzionante. Se il sensore funziona quasi sempre, ogni messaggio «funzionante» dice poco; un messaggio «guasto», raro, dice molto. Quanta informazione porta in media un messaggio? La risposta di Claude Shannon, del 1948, è l’entropia, una grandezza nata per le telecomunicazioni e ritrovata in fisica, biologia e statistica.",
-          "L’informazione portata da un evento di probabilità p si misura con −log₂ p, in bit. Un evento certo, p = 1, porta 0 bit; il lancio di una moneta, p = 1/2, porta 1 bit; un evento con p = 1/8 porta 3 bit. Più un evento è raro, più è sorprendente, e più informazione porta. Il logaritmo fa sì che l’informazione di eventi indipendenti si sommi."
+          "La parola bit, contrazione di binary digit, cifra binaria, fu proposta dallo statistico John Tukey e resa celebre dall’articolo di Shannon del 1948, «Una teoria matematica della comunicazione». Già nel 1928 Ralph Hartley aveva misurato l’informazione con il logaritmo del numero dei messaggi possibili, e l’unità in base 10 porta il suo nome.",
+          "Shannon scelse il logaritmo per una ragione precisa: l’informazione di due eventi indipendenti deve essere la somma delle informazioni, mentre le loro probabilità si moltiplicano. La sola funzione continua e decrescente della probabilità con questa proprietà è, a meno di una costante, −log p.",
+          "Si racconta che fu John von Neumann a suggerire a Shannon il nome entropia, perché la formula somigliava a quella della termodinamica, e perché, aggiunse, nessuno sapeva bene che cosa fosse l’entropia, e in una discussione questo sarebbe stato un vantaggio. L’aneddoto è riferito da testimoni indiretti."
         ]
       }
     },
@@ -84,21 +88,30 @@
       "title": "Entropia e unità di misura",
       "text": {
         "base": [
-          "L’entropia è l’informazione media: H = −Σ p log p, sommato su tutti gli esiti. Per due esiti con probabilità p e 1 − p vale H(p) = −p log₂ p − (1 − p) log₂(1 − p). Con p = 1/2 si ottiene 1 bit, il massimo; con p = 0,25 circa 0,811 bit; con p = 0,1 circa 0,469 bit. Se uno dei due esiti è certo l’entropia è zero: il messaggio non dice nulla che non si sapesse.",
-          "La base del logaritmo fissa l’unità di misura: base 2 dà i bit, base e i nat, base 10 gli hartley. Cambiare base moltiplica tutti i valori per lo stesso fattore: un bit vale log₁₀ 2 ≈ 0,301 hartley. La forma della curva resta la stessa, con il massimo sempre in p = 1/2.",
-          "L’entropia è il limite della compressione: un messaggio lungo, prodotto da una sorgente con entropia H bit per simbolo, non si può codificare in media con meno di H bit per simbolo senza perdere informazione. Un testo con lettere molto prevedibili si comprime molto; dati casuali quasi per nulla."
+          "L’entropia è l’informazione media, H = −Σ p log p, sommata su tutti gli esiti. Per due esiti con probabilità p e 1 − p vale H(p) = −p log₂ p − (1 − p) log₂(1 − p). Con p = 1/2 si ottiene 1 bit, il massimo; con p = 0,25 circa 0,811 bit; con p = 0,1 circa 0,469 bit. Se uno dei due esiti è certo l’entropia è zero, perché il messaggio comunica soltanto ciò che si sapeva già.",
+          "La base del logaritmo fissa l’unità di misura: la base 2 dà i bit, la base e i nat, la base 10 gli hartley. Cambiare base moltiplica tutti i valori per lo stesso fattore: un bit vale log₁₀ 2 ≈ 0,301 hartley, e circa 0,693 nat. La forma della curva resta la stessa, con il massimo sempre in p = 1/2.",
+          "L’entropia è il limite della compressione. Un messaggio lungo, prodotto da una sorgente con entropia H bit per simbolo, si può codificare con circa H bit per simbolo, e mai con meno in media senza perdere informazione. Un testo con lettere molto prevedibili si comprime molto, mentre dati casuali si comprimono quasi per nulla.",
+          "I fenomeni collettivi seguono leggi statistiche anche quando i singoli componenti sono imprevedibili. Il numero di teste in mille lanci è prevedibile entro pochi punti percentuali, e la pressione di un gas è stabile anche se ogni molecola si muove in modo caotico. In fisica l’entropia di Boltzmann, S = k ln W, conta i microstati W compatibili con lo stato osservato, con la stessa struttura logaritmica.",
+          "Esempio: se il sensore segnala un guasto con probabilità p = 0,1 a ogni messaggio, la probabilità che il primo guasto arrivi esattamente al messaggio n è 0,9^(n − 1) · 0,1. Sommando su tutti gli n si ottiene una serie geometrica di ragione 0,9, che vale 0,1/(1 − 0,9) = 1: prima o poi il guasto arriva.",
+          "Ludwig Boltzmann scrisse la sua formula negli anni Settanta dell’Ottocento, e oggi essa è incisa sulla sua tomba a Vienna. Settant’anni più tardi Shannon ritrovò la stessa struttura studiando le linee telefoniche: un logaritmo che conta le possibilità."
         ],
         "intermediate": [
-          "L’entropia è l’informazione media: H = −Σ p log p, sommato su tutti gli esiti. Per due esiti con probabilità p e 1 − p vale H(p) = −p log₂ p − (1 − p) log₂(1 − p). Con p = 1/2 si ottiene 1 bit, il massimo; con p = 0,25 circa 0,811 bit; con p = 0,1 circa 0,469 bit. Se uno dei due esiti è certo l’entropia è zero: il messaggio non dice nulla che non si sapesse.",
-          "La base del logaritmo fissa l’unità di misura: base 2 dà i bit, base e i nat, base 10 gli hartley. Cambiare base moltiplica tutti i valori per lo stesso fattore: un bit vale log₁₀ 2 ≈ 0,301 hartley. La forma della curva resta la stessa, con il massimo sempre in p = 1/2.",
-          "L’entropia è il limite della compressione: un messaggio lungo, prodotto da una sorgente con entropia H bit per simbolo, non si può codificare in media con meno di H bit per simbolo senza perdere informazione. Un testo con lettere molto prevedibili si comprime molto; dati casuali quasi per nulla.",
-          "I fenomeni collettivi seguono leggi statistiche anche quando i singoli componenti sono imprevedibili. Il numero di teste in mille lanci è prevedibile entro pochi punti percentuali; la pressione di un gas è stabile anche se ogni molecola si muove in modo caotico. In fisica l’entropia di Boltzmann, S = k ln W, conta i microstati W compatibili con lo stato osservato, con la stessa struttura logaritmica."
+          "Esempio svolto: l’entropia di una sorgente sbilanciata. Con p = 0,25 si ha −0,25 · log₂ 0,25 = 0,25 · 2 = 0,5 e −0,75 · log₂ 0,75 ≈ 0,75 · 0,415 = 0,311, quindi H ≈ 0,811 bit. Una sorgente di questo tipo, su mille messaggi, porta in media circa 811 bit di informazione.",
+          "Esempio svolto: un codice efficiente. Una sorgente con quattro simboli di probabilità 1/2, 1/4, 1/8 e 1/8 ha entropia 1/2 · 1 + 1/4 · 2 + 1/8 · 3 + 1/8 · 3 = 1,75 bit. I codici 0, 10, 110 e 111, più corti per i simboli frequenti, hanno lunghezza media proprio 1,75 bit, contro i 2 bit di un codice con tutte le parole di due cifre.",
+          "Nel 1952 David Huffman, allora studente, trovò un metodo per costruire il codice più corto possibile per simboli con probabilità note, unendo ripetutamente i due simboli meno probabili. I programmi di compressione dei file e delle immagini usano ancora varianti del suo metodo.",
+          "Esempio svolto: cambiare unità. L’entropia di un dado equo è log₂ 6 ≈ 2,585 bit, cioè ln 6 ≈ 1,792 nat e log₁₀ 6 ≈ 0,778 hartley. I tre numeri descrivono la stessa incertezza con unità diverse, come metri e piedi descrivono la stessa lunghezza.",
+          "Esempio svolto: l’attesa del primo guasto. Con probabilità di guasto 0,1 per messaggio, il primo guasto arriva in media dopo 1/0,1 = 10 messaggi, e la probabilità di aspettarne più di 20 è 0,9²⁰ ≈ 0,12.",
+          "In una lingua naturale le lettere hanno frequenze molto diverse e dipendono da quelle precedenti. Shannon stimò nel 1951 che l’inglese scritto porta circa un bit per lettera, molto meno dei log₂ 27 ≈ 4,75 bit di simboli scelti a caso fra 26 lettere e lo spazio.",
+          "Il modello del programma traccia H(p) per p da 0 a 1, con la base del logaritmo a regolabile da 2 a 10. In base 2 il massimo vale 1 bit, in base 10 vale log₁₀ 2 ≈ 0,301.",
+          "Prova tu: calcola l’entropia di una sorgente con p = 0,1 e confrontala con quella con p = 0,9."
         ],
         "advanced": [
-          "L’entropia è l’informazione media: H = −Σ p log p, sommato su tutti gli esiti. Per due esiti con probabilità p e 1 − p vale H(p) = −p log₂ p − (1 − p) log₂(1 − p). Con p = 1/2 si ottiene 1 bit, il massimo; con p = 0,25 circa 0,811 bit; con p = 0,1 circa 0,469 bit. Se uno dei due esiti è certo l’entropia è zero: il messaggio non dice nulla che non si sapesse.",
-          "La base del logaritmo fissa l’unità di misura: base 2 dà i bit, base e i nat, base 10 gli hartley. Cambiare base moltiplica tutti i valori per lo stesso fattore: un bit vale log₁₀ 2 ≈ 0,301 hartley. La forma della curva resta la stessa, con il massimo sempre in p = 1/2.",
-          "L’entropia è il limite della compressione: un messaggio lungo, prodotto da una sorgente con entropia H bit per simbolo, non si può codificare in media con meno di H bit per simbolo senza perdere informazione. Un testo con lettere molto prevedibili si comprime molto; dati casuali quasi per nulla.",
-          "I fenomeni collettivi seguono leggi statistiche anche quando i singoli componenti sono imprevedibili. Il numero di teste in mille lanci è prevedibile entro pochi punti percentuali; la pressione di un gas è stabile anche se ogni molecola si muove in modo caotico. In fisica l’entropia di Boltzmann, S = k ln W, conta i microstati W compatibili con lo stato osservato, con la stessa struttura logaritmica."
+          "Il massimo dell’entropia per esiti equiprobabili si giustifica con la concavità del logaritmo. Per n esiti l’entropia vale al massimo log₂ n, e il massimo si raggiunge soltanto quando tutte le probabilità sono 1/n. Con due esiti la derivata di H(p) è log₂((1 − p)/p), che si annulla proprio in p = 1/2.",
+          "Con p = 0,1 la derivata vale log₂ 9 ≈ 3,17, positiva, e l’entropia cresce avvicinandosi a 1/2; con p = 0,9 vale −3,17, e l’entropia decresce. La curva è simmetrica rispetto a p = 1/2, perché scambiare i nomi dei due esiti lascia invariata l’incertezza.",
+          "Il teorema di Shannon sulla codifica di sorgente, del 1948, afferma che la lunghezza media di un codice senza perdite è almeno H bit per simbolo, e che codificando blocchi sempre più lunghi ci si avvicina quanto si vuole a H. Il secondo teorema, sulla codifica di canale, mostra che si può trasmettere in modo affidabile anche su un canale rumoroso, purché la velocità resti sotto una soglia detta capacità.",
+          "Il legame fra informazione e fisica è profondo. Nel 1867 James Clerk Maxwell immaginò un diavoletto capace di separare le molecole veloci da quelle lente senza spendere energia, in apparente contrasto con il secondo principio della termodinamica. La soluzione arrivò nel Novecento: nel 1961 Rolf Landauer mostrò che cancellare un bit di memoria dissipa almeno un’energia kT ln 2, e il diavoletto, per funzionare, deve cancellare le informazioni raccolte.",
+          "Il primo teorema ha anche un aspetto pratico. Il codice Morse, con uno o due simboli per le lettere più frequenti, si avvicina già all’idea di Shannon, e i formati di compressione moderni, come quelli dei file ZIP o delle immagini PNG, combinano la ricerca di ripetizioni con codici di Huffman.",
+          "A temperatura ambiente kT ln 2 vale circa 3 · 10⁻²¹ joule, una quantità minuscola; i calcolatori di oggi ne dissipano molte migliaia di volte di più per ogni operazione. In fisica statistica la stessa formula, con la costante di Boltzmann al posto della base 2, è l’entropia di Gibbs, S = −k Σ p ln p, che per W microstati equiprobabili diventa S = k ln W."
         ]
       }
     },
@@ -107,19 +120,20 @@
       "title": "Il laboratorio dell’entropia",
       "text": {
         "base": [
-          "Nel laboratorio il grafico mostra l’entropia H(p) di una sorgente con due esiti, per p da 0 a 1; nella scheda «Regola» cambi la base del logaritmo a, da 2 a 10. Il cursore sceglie la probabilità p.",
-          "Protocollo. La previsione riguarda il passaggio da p = 0,25 a p = 0,5. Con base 2 prevedi e salva A. Poi porta la base a 10, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. In base 2 l’entropia passa da circa 0,811 a 1: cresce, perché ci si avvicina agli esiti equiprobabili. In base 10 i valori diventano circa 0,244 e 0,301, cioè gli stessi moltiplicati per 0,301: la previsione non cambia. La curva è simmetrica, H(p) = H(1 − p): scambiare i nomi degli esiti non cambia l’informazione."
+          "Nel laboratorio il grafico mostra l’entropia H(p) di una sorgente con due esiti, per p da 0 a 1. Nella scheda «Regola» cambi la base del logaritmo a, da 2 a 10. Il cursore sceglie la probabilità p.",
+          "Protocollo. La previsione riguarda il passaggio da p = 0,25 a p = 0,5. Con base 2 apri la scheda «A / B», scegli una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta la base a 10, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Per prevedere, chiediti in quale dei due casi il risultato è più incerto: con p = 0,25 un esito è tre volte più probabile dell’altro, con p = 0,5 i due esiti sono alla pari."
         ],
         "intermediate": [
-          "Nel laboratorio il grafico mostra l’entropia H(p) di una sorgente con due esiti, per p da 0 a 1; nella scheda «Regola» cambi la base del logaritmo a, da 2 a 10. Il cursore sceglie la probabilità p.",
-          "Protocollo. La previsione riguarda il passaggio da p = 0,25 a p = 0,5. Con base 2 prevedi e salva A. Poi porta la base a 10, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. In base 2 l’entropia passa da circa 0,811 a 1: cresce, perché ci si avvicina agli esiti equiprobabili. In base 10 i valori diventano circa 0,244 e 0,301, cioè gli stessi moltiplicati per 0,301: la previsione non cambia. La curva è simmetrica, H(p) = H(1 − p): scambiare i nomi degli esiti non cambia l’informazione."
+          "Il programma traccia H(p) = −p log_a p − (1 − p) log_a(1 − p) per p fra 0 e 1, e la scheda «Regola» fissa la base a, fra 2 e 10.",
+          "Protocollo. Configurazione A: base 2, confronto fra p = 0,25 e p = 0,5, previsione nella scheda «A / B» e «Salva A». Configurazione B: base 10, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. In base 2 l’entropia passa da circa 0,811 a 1: cresce, perché ci si avvicina agli esiti equiprobabili. In base 10 i valori diventano circa 0,244 e 0,301, cioè gli stessi moltiplicati per 0,301, e la previsione resta la stessa. La curva è simmetrica, H(p) = H(1 − p), perché scambiare i nomi degli esiti lascia invariata l’informazione."
         ],
         "advanced": [
-          "Nel laboratorio il grafico mostra l’entropia H(p) di una sorgente con due esiti, per p da 0 a 1; nella scheda «Regola» cambi la base del logaritmo a, da 2 a 10. Il cursore sceglie la probabilità p.",
-          "Protocollo. La previsione riguarda il passaggio da p = 0,25 a p = 0,5. Con base 2 prevedi e salva A. Poi porta la base a 10, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. In base 2 l’entropia passa da circa 0,811 a 1: cresce, perché ci si avvicina agli esiti equiprobabili. In base 10 i valori diventano circa 0,244 e 0,301, cioè gli stessi moltiplicati per 0,301: la previsione non cambia. La curva è simmetrica, H(p) = H(1 − p): scambiare i nomi degli esiti non cambia l’informazione."
+          "Il laboratorio usa log_a, con la base a fra 2 e 10 nella scheda «Regola»; cambiare base equivale a dividere tutti i valori in bit per log₂ a, e quindi riscala la curva senza spostarne il massimo.",
+          "Protocollo. In base 2 scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il tratto da p = 0,25 a p = 0,5 e premi «Salva A»; poi porta la base a 10 e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "Cerca anche un confronto in cui la previsione corretta sia «Uguale»: per la simmetria, p = 0,25 e p = 0,75 danno la stessa entropia in qualunque base. Prova poi p = 0: il termine 0 · log 0 si interpreta come 0, perché p log p tende a zero quando p tende a zero, e l’entropia vale 0.",
+          "Nota infine la pendenza della curva vicino a p = 0: anche un evento molto raro, come un guasto su cento messaggi, porta già un’entropia di circa 0,08 bit per messaggio."
         ]
       }
     },
@@ -128,19 +142,20 @@
       "title": "Informazione e significato",
       "text": {
         "base": [
-          "Errore frequente: confondere informazione e significato. Per Shannon un messaggio porta tanta più informazione quanto meno è prevedibile, indipendentemente da ciò che dice. Una sequenza casuale di lettere ha entropia alta e nessun significato.",
-          "Secondo errore: credere che l’entropia sia massima quando un esito è molto probabile. È il contrario: l’incertezza, e quindi l’informazione media, è massima quando gli esiti sono equiprobabili.",
-          "I fenomeni collettivi seguono leggi statistiche anche quando i singoli componenti sono imprevedibili. Il numero di teste in mille lanci è prevedibile entro pochi punti percentuali; la pressione di un gas è stabile anche se ogni molecola si muove in modo caotico. In fisica l’entropia di Boltzmann, S = k ln W, conta i microstati W compatibili con lo stato osservato, con la stessa struttura logaritmica."
+          "Il primo errore frequente è confondere informazione e significato. Per Shannon un messaggio porta tanta più informazione quanto meno è prevedibile, indipendentemente da ciò che dice. Una sequenza casuale di lettere ha entropia alta e nessun significato, mentre una frase importante e prevedibile porta poca informazione nel senso tecnico.",
+          "Il secondo errore è credere che l’entropia sia massima quando un esito è molto probabile. Accade il contrario: l’incertezza, e quindi l’informazione media, è massima quando gli esiti sono equiprobabili, e minima quando uno di essi è certo. Per un dado l’entropia massima è log₂ 6 ≈ 2,585 bit, raggiunta soltanto se le sei facce sono equiprobabili.",
+          "Il terzo errore riguarda la compressione. Un file già compresso, o un file di dati casuali, si comprime pochissimo una seconda volta, perché la sua entropia è già vicina al massimo. Nessun programma può comprimere senza perdite qualunque file, e il conteggio lo conferma: i file di 1000 bit sono 2¹⁰⁰⁰, quelli più corti sono di meno, e quindi almeno un file deve restare della stessa lunghezza o allungarsi."
         ],
         "intermediate": [
-          "Errore frequente: confondere informazione e significato. Per Shannon un messaggio porta tanta più informazione quanto meno è prevedibile, indipendentemente da ciò che dice. Una sequenza casuale di lettere ha entropia alta e nessun significato.",
-          "Secondo errore: credere che l’entropia sia massima quando un esito è molto probabile. È il contrario: l’incertezza, e quindi l’informazione media, è massima quando gli esiti sono equiprobabili.",
-          "I fenomeni collettivi seguono leggi statistiche anche quando i singoli componenti sono imprevedibili. Il numero di teste in mille lanci è prevedibile entro pochi punti percentuali; la pressione di un gas è stabile anche se ogni molecola si muove in modo caotico. In fisica l’entropia di Boltzmann, S = k ln W, conta i microstati W compatibili con lo stato osservato, con la stessa struttura logaritmica."
+          "Esempio svolto: la diversità di un bosco. Gli ecologi misurano la diversità con l’indice di Shannon, l’entropia delle frequenze delle specie. Un bosco con quattro specie in parti uguali ha indice log₂ 4 = 2 bit; un bosco con le stesse quattro specie, in cui una rappresenta il 97% degli alberi e le altre l’1% ciascuna, ha indice di circa 0,24 bit, molto più basso.",
+          "Esempio svolto: i mille lanci. In mille lanci di una moneta equa la media delle teste è 500 e la deviazione standard √(1000 · 0,25) ≈ 15,8. Il numero di teste cade fra 468 e 532 circa il 95% delle volte: la frazione di teste è prevedibile entro circa tre punti percentuali, anche se ogni singolo lancio resta del tutto incerto.",
+          "Esempio svolto: la tavola di Galton. Nel 1889 Francis Galton descrisse una tavola inclinata con file di chiodi, su cui le palline rimbalzano a destra o a sinistra con uguale probabilità. Ogni pallina segue un percorso imprevedibile, eppure le palline raccolte in fondo formano sempre la stessa curva a campana."
         ],
         "advanced": [
-          "Errore frequente: confondere informazione e significato. Per Shannon un messaggio porta tanta più informazione quanto meno è prevedibile, indipendentemente da ciò che dice. Una sequenza casuale di lettere ha entropia alta e nessun significato.",
-          "Secondo errore: credere che l’entropia sia massima quando un esito è molto probabile. È il contrario: l’incertezza, e quindi l’informazione media, è massima quando gli esiti sono equiprobabili.",
-          "L’entropia è il limite della compressione: un messaggio lungo, prodotto da una sorgente con entropia H bit per simbolo, non si può codificare in media con meno di H bit per simbolo senza perdere informazione. Un testo con lettere molto prevedibili si comprime molto; dati casuali quasi per nulla."
+          "Il determinismo della fisica classica, espresso nel 1814 da Pierre-Simon de Laplace con l’immagine di un intelletto capace di conoscere posizione e velocità di ogni particella, si scontra con il numero enorme delle molecole. Un litro d’aria contiene circa 2,5 · 10²² molecole, e nessun calcolatore potrebbe seguirle una per una: la meccanica statistica rinuncia ai dettagli e calcola le medie.",
+          "Nel 1905 Albert Einstein mostrò che il moto disordinato dei granelli di polline nell’acqua, osservato da Robert Brown nel 1827, si spiega con gli urti delle molecole, e ne ricavò una legge statistica verificata pochi anni dopo da Jean Perrin. Fu una delle prove decisive dell’esistenza degli atomi.",
+          "L’entropia di Shannon misura l’incertezza di chi riceve, e dipende dal modello di probabilità scelto. Lo stesso messaggio ha entropie diverse per chi conosce la lingua e per chi la ignora, perché cambiano le probabilità assegnate alle lettere successive.",
+          "Il secondo principio della termodinamica, infine, ha una lettura statistica: un sistema isolato evolve verso gli stati macroscopici che corrispondono al maggior numero di microstati, semplicemente perché sono enormemente più probabili. Un mazzo di carte mescolato a caso torna in ordine con una probabilità di 1 su 52!, circa 1 su 8 · 10⁶⁷."
         ]
       }
     },
@@ -170,19 +185,19 @@
       "title": "Collegamenti",
       "text": {
         "base": [
-          "L’entropia collega probabilità, comunicazione e fisica. Torna nella chimica, dove decide insieme all’energia il verso delle trasformazioni, e nella biologia, nella misura della diversità di una comunità con l’indice di Shannon.",
-          "Riepilogo dell’unità: un evento raro porta più informazione di uno frequente, −log p; l’entropia è l’informazione media e vale al massimo log del numero di esiti, quando sono equiprobabili; la base fissa l’unità; l’entropia è il limite della compressione senza perdite.",
-          "Nel diario registra A e B con le previsioni e calcola l’entropia di una sorgente che dà «guasto» con probabilità 0,1."
+          "L’entropia collega probabilità, comunicazione e fisica. Torna nella chimica, dove decide insieme all’energia il verso delle trasformazioni, e nella biologia, nella misura della diversità di una comunità con l’indice di Shannon. In fisica descrive il disordine di un sistema di molte particelle.",
+          "Riepilogo: un evento raro porta più informazione di uno frequente, −log p; l’entropia è l’informazione media e vale al massimo il logaritmo del numero di esiti, quando sono equiprobabili; la base fissa l’unità; l’entropia è il limite della compressione senza perdite.",
+          "Nel diario registra A e B con le previsioni e calcola l’entropia di una sorgente che dà «guasto» con probabilità 0,1. Spiega perché il risultato è minore di 1 bit."
         ],
         "intermediate": [
-          "L’entropia collega probabilità, comunicazione e fisica. Torna nella chimica, dove decide insieme all’energia il verso delle trasformazioni, e nella biologia, nella misura della diversità di una comunità con l’indice di Shannon.",
-          "Riepilogo dell’unità: un evento raro porta più informazione di uno frequente, −log p; l’entropia è l’informazione media e vale al massimo log del numero di esiti, quando sono equiprobabili; la base fissa l’unità; l’entropia è il limite della compressione senza perdite.",
-          "Nel diario registra A e B con le previsioni e calcola l’entropia di una sorgente che dà «guasto» con probabilità 0,1."
+          "Il logaritmo dell’unità «Esponenziali e logaritmi», con le sue proprietà, è lo strumento che trasforma probabilità che si moltiplicano in informazioni che si sommano. La legge binomiale e la legge dei grandi numeri dell’unità «Combinatoria, probabilità e statistica» spiegano la stabilità dei fenomeni collettivi.",
+          "La serie geometrica dell’unità «Ragionamento, conteggio e infinito» descrive l’attesa del primo guasto: le probabilità p, (1 − p)p, (1 − p)²p e così via sommano a 1. In media il primo guasto arriva dopo 1/p messaggi.",
+          "Nel diario costruisci un codice per quattro simboli con probabilità 1/2, 1/4, 1/8 e 1/8 e calcola la sua lunghezza media. Confrontala con i 2 bit di un codice con parole tutte di due cifre."
         ],
         "advanced": [
-          "L’entropia collega probabilità, comunicazione e fisica. Torna nella chimica, dove decide insieme all’energia il verso delle trasformazioni, e nella biologia, nella misura della diversità di una comunità con l’indice di Shannon.",
-          "Riepilogo dell’unità: un evento raro porta più informazione di uno frequente, −log p; l’entropia è l’informazione media e vale al massimo log del numero di esiti, quando sono equiprobabili; la base fissa l’unità; l’entropia è il limite della compressione senza perdite.",
-          "Nel diario registra A e B con le previsioni e calcola l’entropia di una sorgente che dà «guasto» con probabilità 0,1."
+          "La mappa logistica dell’unità «Iterazioni, stabilità e precisione numerica», con a = 4, produce circa un bit di informazione nuova a ogni passo, e l’entropia misura quindi anche il caos. Il teorema del campionamento dell’unità «Onde, frequenze e ricostruzione» nacque negli stessi laboratori di Shannon, e stabilisce quante misure servono per conservare tutta l’informazione di un segnale.",
+          "Il principio di Landauer collega l’informazione all’energia, e quindi all’unità «Scala, energia, equilibrio e trasformazioni»: ogni bit cancellato ha un costo fisico minimo.",
+          "Nel diario spiega perché nessun programma può comprimere senza perdite ogni file, usando il conteggio dei file di lunghezza data. Aggiungi un esempio di file che si comprime molto e uno che si comprime poco."
         ]
       }
     }

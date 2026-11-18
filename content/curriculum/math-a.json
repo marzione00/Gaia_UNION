@@ -8,7 +8,7 @@
   "coverage": "guided-lab",
   "editorialStatus": "hand-written-draft",
   "scope": "Zeri, teorema del resto, regola di Ruffini, molteplicità e andamento del grafico",
-  "narrativeStatus": "La collina è immaginaria; i polinomi e le loro proprietà sono reali.",
+  "narrativeStatus": "La collina è immaginaria; i polinomi e le loro proprietà sono reali. Gli esempi con persone, oggetti e luoghi generici sono illustrativi; date e notizie storiche sono reali.",
   "objectives": [
     "Collegare uno zero r al fattore (x − r) con il teorema del resto.",
     "Dividere un polinomio con la regola di Ruffini.",
@@ -66,16 +66,20 @@
       "title": "Zeri e fattori",
       "text": {
         "base": [
-          "Il profilo di una collina vicino alla stazione è descritto da un polinomio. Per sapere dove il sentiero attraversa il livello del lago, dove lo sfiora soltanto e come si comporta lontano, non serve tracciare punto per punto: basta conoscere gli zeri del polinomio e la loro molteplicità.",
-          "Uno zero di un polinomio P è un numero r con P(r) = 0. Il teorema del resto collega gli zeri ai fattori: il resto della divisione di P(x) per (x − r) vale P(r). Quindi r è uno zero se e solo se (x − r) divide P(x), cioè P(x) = (x − r) · Q(x). Esempio: P(x) = x³ − 3x + 2 vale 1 − 3 + 2 = 0 in x = 1, e quindi è divisibile per x − 1."
+          "Il profilo di una collina vicino alla stazione è descritto da un polinomio, e la guida vuole sapere dove il sentiero attraversa il livello del lago, dove lo sfiora soltanto e come si comporta lontano. Tracciare il grafico punto per punto richiederebbe molti calcoli. Basta invece conoscere gli zeri del polinomio, cioè i punti in cui vale zero, e la loro molteplicità: da queste poche informazioni si ricava l’andamento intero.",
+          "Uno zero di un polinomio P è un numero r con P(r) = 0. Per esempio P(x) = x³ − 3x + 2 vale 1 − 3 + 2 = 0 in x = 1, e quindi 1 è uno zero. Il teorema del resto dice che a ogni zero corrisponde un fattore: poiché P(1) = 0, il polinomio si può scrivere come (x − 1) moltiplicato per un polinomio di grado più basso.",
+          "La ricerca degli zeri dei polinomi è uno dei grandi fili della storia dell’algebra. Nel 1545 Girolamo Cardano pubblicò a Norimberga l’«Ars magna», con le formule per risolvere le equazioni di terzo e di quarto grado, trovate da Scipione del Ferro, Niccolò Tartaglia e Ludovico Ferrari. Per il quinto grado una formula simile fu cercata invano per quasi tre secoli."
         ],
         "intermediate": [
-          "Il profilo di una collina vicino alla stazione è descritto da un polinomio. Per sapere dove il sentiero attraversa il livello del lago, dove lo sfiora soltanto e come si comporta lontano, non serve tracciare punto per punto: basta conoscere gli zeri del polinomio e la loro molteplicità.",
-          "Uno zero di un polinomio P è un numero r con P(r) = 0. Il teorema del resto collega gli zeri ai fattori: il resto della divisione di P(x) per (x − r) vale P(r). Quindi r è uno zero se e solo se (x − r) divide P(x), cioè P(x) = (x − r) · Q(x). Esempio: P(x) = x³ − 3x + 2 vale 1 − 3 + 2 = 0 in x = 1, e quindi è divisibile per x − 1."
+          "Il teorema del resto afferma che il resto della divisione di P(x) per (x − r) vale P(r). Ne segue che r è uno zero se e solo se (x − r) divide P(x), cioè se P(x) = (x − r) · Q(x) per un polinomio Q di grado più basso di uno. La dimostrazione è breve: la divisione dà P(x) = (x − r) · Q(x) + R, con R costante, e sostituendo x = r si trova P(r) = R.",
+          "Esempio svolto: trovare un coefficiente. Per quale k il binomio x − 2 divide x³ + kx − 6? Per il teorema del resto serve P(2) = 0, cioè 8 + 2k − 6 = 0, quindi k = −1. Il polinomio è x³ − x − 6, e infatti x³ − x − 6 = (x − 2)(x² + 2x + 3). Il secondo fattore ha discriminante 4 − 12 = −8, negativo, e quindi è privo di zeri reali.",
+          "Esempio svolto: dove cercare gli zeri interi. Se un polinomio a coefficienti interi ha uno zero intero, questo divide il termine noto. Per x³ − 3x + 2 i candidati sono ±1 e ±2: P(1) = 0 e P(−2) = −8 + 6 + 2 = 0, mentre P(−1) = 4 e P(2) = 4. Quattro prove bastano a trovare tutti gli zeri interi.",
+          "Prova tu: verifica che 3 è uno zero di x³ − 4x² + x + 6 e scrivi il fattore corrispondente."
         ],
         "advanced": [
-          "Il profilo di una collina vicino alla stazione è descritto da un polinomio. Per sapere dove il sentiero attraversa il livello del lago, dove lo sfiora soltanto e come si comporta lontano, non serve tracciare punto per punto: basta conoscere gli zeri del polinomio e la loro molteplicità.",
-          "Uno zero di un polinomio P è un numero r con P(r) = 0. Il teorema del resto collega gli zeri ai fattori: il resto della divisione di P(x) per (x − r) vale P(r). Quindi r è uno zero se e solo se (x − r) divide P(x), cioè P(x) = (x − r) · Q(x). Esempio: P(x) = x³ − 3x + 2 vale 1 − 3 + 2 = 0 in x = 1, e quindi è divisibile per x − 1."
+          "Il teorema del resto si chiama spesso teorema di Ruffini, dal matematico e medico Paolo Ruffini, attivo a Modena, che nel 1804 pubblicò anche il procedimento rapido di divisione che porta il suo nome. Lo stesso procedimento fu ritrovato in Inghilterra da William Horner nel 1819, e un metodo equivalente per calcolare i valori di un polinomio compare già nell’opera del cinese Qin Jiushao, nel 1247.",
+          "Ruffini legò il suo nome anche al problema del quinto grado. Fra il 1799 e il 1813 tentò di dimostrare che l’equazione generale di grado cinque è irrisolvibile per radicali, cioè con le sole operazioni aritmetiche e le estrazioni di radice. La sua dimostrazione aveva lacune; il norvegese Niels Henrik Abel ne pubblicò una a proprie spese nel 1824, e una versione corretta nel 1826. Évariste Galois trovò poi il criterio che distingue le equazioni risolvibili per radicali dalle altre.",
+          "Il punto è sottile. L’impossibilità riguarda una formula generale con radicali, mentre gli zeri esistono sempre fra i complessi e si possono calcolare con la precisione voluta. Per questo, dopo Abel, lo studio dei polinomi si spostò dalla ricerca di formule alla loro struttura: fattori, molteplicità, segni e grafici."
         ]
       }
     },
@@ -84,22 +88,26 @@
       "title": "Ruffini, molteplicità e andamento",
       "text": {
         "base": [
-          "La regola di Ruffini esegue la divisione per (x − r) usando solo i coefficienti. Per x³ + 0x² − 3x + 2 diviso x − 1: si abbassa 1; 1 · 1 + 0 = 1; 1 · 1 − 3 = −2; −2 · 1 + 2 = 0. Il quoziente è x² + x − 2 e il resto 0. Poi x² + x − 2 = (x − 1)(x + 2), quindi P(x) = (x − 1)²(x + 2).",
-          "La molteplicità di uno zero è il numero di volte in cui il suo fattore compare. In (x − 1)²(x + 2) lo zero 1 ha molteplicità 2 e lo zero −2 molteplicità 1. La molteplicità decide il comportamento del grafico: con molteplicità dispari il grafico attraversa l’asse x e il segno cambia; con molteplicità pari lo tocca e torna indietro, e il segno resta lo stesso.",
-          "Lontano dall’origine domina il termine di grado massimo. P(x) = (x − 1)²(x + 2) ha termine principale x³: per x molto grande è positivo e grandissimo, per x molto negativo è negativo. Un polinomio di grado n ha al massimo n zeri reali, e il suo grafico cambia direzione al massimo n − 1 volte.",
-          "Con zeri, molteplicità e termine principale si disegna l’andamento senza calcolare tabelle. Per (x − a)²(x + 2) con a = 1: il grafico arriva da −∞ a sinistra, attraversa l’asse in −2, sale, poi scende fino a toccare l’asse in x = 1 e risale verso +∞. In x = 0 vale (0 − 1)² · 2 = 2."
+          "La regola di Ruffini esegue la divisione per (x − r) usando soltanto i coefficienti, scritti in ordine di grado decrescente e con uno zero per ogni potenza mancante. Per dividere x³ − 3x + 2 per x − 1 si scrivono i coefficienti 1, 0, −3, 2. Si abbassa il primo, 1. Si moltiplica per r = 1 e si somma al successivo: 1 · 1 + 0 = 1. Poi 1 · 1 − 3 = −2, e infine −2 · 1 + 2 = 0. I numeri 1, 1, −2 sono i coefficienti del quoziente x² + x − 2, e l’ultimo, 0, è il resto.",
+          "Il quoziente si scompone a sua volta: x² + x − 2 = (x − 1)(x + 2). Quindi P(x) = (x − 1)²(x + 2). Lo zero 1 compare due volte, lo zero −2 una volta.",
+          "La molteplicità di uno zero è il numero di volte in cui il suo fattore compare nella scomposizione, e decide come il grafico incontra l’asse x. Con molteplicità dispari, come 1 o 3, il grafico attraversa l’asse e il segno del polinomio cambia. Con molteplicità pari, come 2, il grafico tocca l’asse e torna indietro, e il segno resta lo stesso. Il motivo è semplice: (x − 1)² è sempre maggiore o uguale a zero, qualunque x si scelga.",
+          "Lontano dall’origine conta soltanto il termine di grado massimo. P(x) = (x − 1)²(x + 2) ha termine principale x³: per x molto grande è positivo e grandissimo, per x molto negativo è negativo. Vicino all’origine invece si calcola: P(0) = (0 − 1)² · 2 = 2, positivo, quindi fra −2 e 1 il grafico sta sopra l’asse. Un polinomio di grado n ha al massimo n zeri reali, e il suo grafico cambia direzione al massimo n − 1 volte.",
+          "Dietro la regola c’è un’idea semplice: la divisione fra polinomi funziona come quella fra numeri interi. Ruffini ne conservò soltanto i coefficienti, eliminando le potenze di x che si ripetono a ogni riga dello schema in colonna. Il procedimento fu pubblicato nel 1804, e da allora è il modo più rapido per dividere a mano per x − r."
         ],
         "intermediate": [
-          "La regola di Ruffini esegue la divisione per (x − r) usando solo i coefficienti. Per x³ + 0x² − 3x + 2 diviso x − 1: si abbassa 1; 1 · 1 + 0 = 1; 1 · 1 − 3 = −2; −2 · 1 + 2 = 0. Il quoziente è x² + x − 2 e il resto 0. Poi x² + x − 2 = (x − 1)(x + 2), quindi P(x) = (x − 1)²(x + 2).",
-          "La molteplicità di uno zero è il numero di volte in cui il suo fattore compare. In (x − 1)²(x + 2) lo zero 1 ha molteplicità 2 e lo zero −2 molteplicità 1. La molteplicità decide il comportamento del grafico: con molteplicità dispari il grafico attraversa l’asse x e il segno cambia; con molteplicità pari lo tocca e torna indietro, e il segno resta lo stesso.",
-          "Lontano dall’origine domina il termine di grado massimo. P(x) = (x − 1)²(x + 2) ha termine principale x³: per x molto grande è positivo e grandissimo, per x molto negativo è negativo. Un polinomio di grado n ha al massimo n zeri reali, e il suo grafico cambia direzione al massimo n − 1 volte.",
-          "Con zeri, molteplicità e termine principale si disegna l’andamento senza calcolare tabelle. Per (x − a)²(x + 2) con a = 1: il grafico arriva da −∞ a sinistra, attraversa l’asse in −2, sale, poi scende fino a toccare l’asse in x = 1 e risale verso +∞. In x = 0 vale (0 − 1)² · 2 = 2."
+          "Esempio svolto: disegnare senza tabelle. Per P(x) = (x − 1)²(x + 2) si parte da sinistra. Il termine principale x³ dice che il grafico arriva da valori molto negativi. In −2, zero semplice, attraversa l’asse e diventa positivo; in x = 0 vale (0 − 1)² · 2 = 2; scende fino a toccare l’asse in x = 1, zero doppio, e risale verso valori grandissimi. Zeri, molteplicità e termine principale bastano per l’andamento.",
+          "Esempio svolto: Ruffini con un coefficiente mancante. Per dividere 2x³ − 5x² + 4 per x − 2 si scrivono i coefficienti 2, −5, 0, 4. Si abbassa 2; poi 2 · 2 − 5 = −1; −1 · 2 + 0 = −2; −2 · 2 + 4 = 0. Il resto è 0, e 2x³ − 5x² + 4 = (x − 2)(2x² − x − 2). Il controllo con il teorema del resto: P(2) = 16 − 20 + 4 = 0.",
+          "Esempio svolto: un resto diverso da zero. Dividendo x³ + 2x − 1 per x − 1, con i coefficienti 1, 0, 2, −1, si ottiene la riga 1, 1, 3 e il resto 2. Quindi x³ + 2x − 1 = (x − 1)(x² + x + 3) + 2, e infatti P(1) = 1 + 2 − 1 = 2.",
+          "Esempio storico: le relazioni di Viète. François Viète, nel 1591, descrisse il legame fra le radici e i coefficienti. Per x² + bx + c con radici r e s vale x² + bx + c = (x − r)(x − s) = x² − (r + s)x + rs, quindi r + s = −b e rs = c. Per x² − 5x + 6 la somma delle radici è 5 e il prodotto 6, e i numeri cercati sono 2 e 3.",
+          "Nel modello del laboratorio, P(x) = (x − a)²(x + 2), lo zero semplice −2 resta fermo mentre la radice doppia a si sposta. In x = 0 il polinomio vale a² · 2 = 2a², che cresce rapidamente con a.",
+          "Prova tu: con Ruffini dividi x³ − 4x² + x + 6 per x − 3, scomponi il quoziente e indica la molteplicità di ogni zero."
         ],
         "advanced": [
-          "La regola di Ruffini esegue la divisione per (x − r) usando solo i coefficienti. Per x³ + 0x² − 3x + 2 diviso x − 1: si abbassa 1; 1 · 1 + 0 = 1; 1 · 1 − 3 = −2; −2 · 1 + 2 = 0. Il quoziente è x² + x − 2 e il resto 0. Poi x² + x − 2 = (x − 1)(x + 2), quindi P(x) = (x − 1)²(x + 2).",
-          "La molteplicità di uno zero è il numero di volte in cui il suo fattore compare. In (x − 1)²(x + 2) lo zero 1 ha molteplicità 2 e lo zero −2 molteplicità 1. La molteplicità decide il comportamento del grafico: con molteplicità dispari il grafico attraversa l’asse x e il segno cambia; con molteplicità pari lo tocca e torna indietro, e il segno resta lo stesso.",
-          "Lontano dall’origine domina il termine di grado massimo. P(x) = (x − 1)²(x + 2) ha termine principale x³: per x molto grande è positivo e grandissimo, per x molto negativo è negativo. Un polinomio di grado n ha al massimo n zeri reali, e il suo grafico cambia direzione al massimo n − 1 volte.",
-          "Un polinomio può avere meno zeri reali del suo grado: x² + 1 non ne ha. Contando gli zeri complessi con la loro molteplicità, un polinomio di grado n ne ha esattamente n: è il teorema fondamentale dell’algebra. Gli zeri complessi non reali di un polinomio a coefficienti reali compaiono in coppie coniugate."
+          "Perché la molteplicità pari conserva il segno? Vicino a uno zero r di molteplicità m si può scrivere P(x) = (x − r)^m · Q(x), con Q(r) diverso da zero. Per x vicino a r, Q(x) ha lo stesso segno di Q(r), perché un polinomio è una funzione continua. Il segno di P è quindi deciso da (x − r)^m: se m è pari è positivo da entrambe le parti, se m è dispari cambia passando da sinistra a destra.",
+          "La regola dei segni di Cartesio, contenuta nella «Géométrie» del 1637, dà un’informazione rapida sugli zeri positivi. Il loro numero, contato con molteplicità, è uguale al numero di variazioni di segno fra i coefficienti diversi da zero, oppure è minore di un numero pari. Per x³ − 3x + 2 i segni sono +, −, +, con due variazioni, e gli zeri positivi sono due, contando due volte lo zero doppio 1. Per gli zeri negativi si applica la regola a P(−x) = −x³ + 3x + 2, con una sola variazione: c’è esattamente uno zero negativo, −2.",
+          "La regola fornisce soltanto un limite superiore. Per x² − x + 1 le variazioni sono due, eppure gli zeri positivi mancano del tutto, perché il discriminante 1 − 4 = −3 è negativo. La regola indica dove cercare; l’esistenza va dimostrata con altri strumenti.",
+          "Un polinomio può avere meno zeri reali del suo grado: x² + 1 ne è privo. Contando gli zeri complessi con la loro molteplicità, invece, un polinomio di grado n ne ha esattamente n: è il teorema fondamentale dell’algebra. Carl Friedrich Gauss lo dimostrò nella tesi di dottorato pubblicata nel 1799, e tornò sul teorema più volte, fino alla quarta dimostrazione del 1849. Gli zeri complessi non reali di un polinomio a coefficienti reali compaiono in coppie coniugate.",
+          "Il numero massimo di cambi di direzione, n − 1, si giustifica con la derivata, che per un polinomio di grado n è un polinomio di grado n − 1 e quindi ha al massimo n − 1 zeri."
         ]
       }
     },
@@ -108,19 +116,20 @@
       "title": "Il laboratorio della radice doppia",
       "text": {
         "base": [
-          "Nel laboratorio il grafico mostra P(x) = (x − a)²(x + 2) per x da −4 a 4; nella scheda «Regola» cambi la posizione a della radice doppia, da −1 a 3. Osserva come il punto di contatto si sposta mentre lo zero semplice in −2 resta fermo.",
-          "Protocollo. La previsione riguarda il passaggio da x = −2 a x = 0. Con a = 1, P(−2) = 0 e P(0) = 2: scegli la previsione e salva A. Poi porta a a 3, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con a = 3, P(0) = 9 · 2 = 18: il valore in 0 cresce come a². Con a = −1 la radice doppia si avvicina allo zero semplice. Se a valesse −2 i due fattori si fonderebbero in (x + 2)³, uno zero triplo in cui il grafico attraversa l’asse appiattendosi; il cursore del laboratorio si ferma a −1."
+          "Nel laboratorio il grafico mostra P(x) = (x − a)²(x + 2) per x da −4 a 4. Nella scheda «Regola» cambi la posizione a della radice doppia, da −1 a 3. Osserva come il punto di contatto si sposta mentre lo zero semplice in −2 resta fermo.",
+          "Protocollo. La previsione riguarda il passaggio da x = −2 a x = 0. Con a = 1 il polinomio vale 0 in −2 e 2 in 0. Nella scheda «A / B» scegli una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta a a 3, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Prima di salvare B, calcola a mente il valore in 0 per a = 3, cioè (0 − 3)² · 2, e confrontalo con quello di A."
         ],
         "intermediate": [
-          "Nel laboratorio il grafico mostra P(x) = (x − a)²(x + 2) per x da −4 a 4; nella scheda «Regola» cambi la posizione a della radice doppia, da −1 a 3. Osserva come il punto di contatto si sposta mentre lo zero semplice in −2 resta fermo.",
-          "Protocollo. La previsione riguarda il passaggio da x = −2 a x = 0. Con a = 1, P(−2) = 0 e P(0) = 2: scegli la previsione e salva A. Poi porta a a 3, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con a = 3, P(0) = 9 · 2 = 18: il valore in 0 cresce come a². Con a = −1 la radice doppia si avvicina allo zero semplice. Se a valesse −2 i due fattori si fonderebbero in (x + 2)³, uno zero triplo in cui il grafico attraversa l’asse appiattendosi; il cursore del laboratorio si ferma a −1."
+          "Il laboratorio rappresenta P(x) = (x − a)²(x + 2) fra x = −4 e x = 4, con la radice doppia a regolabile da −1 a 3 nella scheda «Regola». Prima di toccare il cursore, calcola i valori che ti servono: per a = 1, P(−2) = 0 e P(0) = (−1)² · 2 = 2; per a = 3, P(0) = 9 · 2 = 18.",
+          "Protocollo. La previsione riguarda il passaggio da x = −2 a x = 0. Imposta a = 1, scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito», e premi «Salva A». Porta poi a a 3, rifai la previsione con i nuovi valori e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Osserva anche la forma. Con a = 1 il grafico sale da −2, raggiunge un massimo e ridiscende a toccare l’asse in 1; con a = 3 il massimo si alza e il contatto si sposta a destra, fuori dal tratto fra −2 e 0."
         ],
         "advanced": [
-          "Nel laboratorio il grafico mostra P(x) = (x − a)²(x + 2) per x da −4 a 4; nella scheda «Regola» cambi la posizione a della radice doppia, da −1 a 3. Osserva come il punto di contatto si sposta mentre lo zero semplice in −2 resta fermo.",
-          "Protocollo. La previsione riguarda il passaggio da x = −2 a x = 0. Con a = 1, P(−2) = 0 e P(0) = 2: scegli la previsione e salva A. Poi porta a a 3, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con a = 3, P(0) = 9 · 2 = 18: il valore in 0 cresce come a². Con a = −1 la radice doppia si avvicina allo zero semplice. Se a valesse −2 i due fattori si fonderebbero in (x + 2)³, uno zero triplo in cui il grafico attraversa l’asse appiattendosi; il cursore del laboratorio si ferma a −1."
+          "Il laboratorio traccia P(x) = (x − a)²(x + 2) per x da −4 a 4, e il cursore della scheda «Regola» sposta la radice doppia a fra −1 e 3. La derivata vale (x − a)(3x + 4 − a), e mostra dove il grafico cambia direzione: in x = a, il punto di contatto, e in x = (a − 4)/3, dove c’è un massimo locale.",
+          "Protocollo. La previsione riguarda il passaggio da x = −2 a x = 0. Con a = 1 scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi porta a a 3, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Nota la sottigliezza. Con a = 1 il polinomio passa da 0 a 2, eppure nel frattempo sale fino a 4 in x = −1 e poi scende. La previsione riguarda i valori in −2 e in 0, e un confronto fra due valori dice poco sull’andamento intermedio. Con a = 3 il massimo cade in x = −1/3, dove P vale 500/27 ≈ 18,5, appena sopra P(0) = 18.",
+          "Se a valesse −2 i due fattori si fonderebbero in (x + 2)³, uno zero triplo in cui il grafico attraversa l’asse appiattendosi; il cursore del laboratorio si ferma a −1."
         ]
       }
     },
@@ -129,20 +138,19 @@
       "title": "Leggere il grafico",
       "text": {
         "base": [
-          "Errore frequente: pensare che a ogni zero corrisponda un cambio di segno. Allo zero doppio x = a il polinomio tocca l’asse e resta positivo; il segno cambia solo negli zeri di molteplicità dispari.",
-          "Secondo errore: confondere lo zero r con il fattore. Lo zero x = 3 corrisponde al fattore (x − 3), con il segno meno; lo zero x = −2 al fattore (x + 2).",
-          "Il grafico del laboratorio mostra un intervallo finito: il comportamento per |x| molto grande si deduce dal termine principale. Inoltre un polinomio descrive bene un profilo reale solo in un intervallo limitato: lontano, cresce senza limite."
+          "Il primo errore frequente è pensare che a ogni zero corrisponda un cambio di segno. Nel polinomio (x − 1)²(x + 2) lo zero doppio 1 tocca l’asse senza attraversarlo, e il polinomio resta positivo sia subito a sinistra sia subito a destra. Il segno cambia soltanto negli zeri di molteplicità dispari, come −2.",
+          "Il secondo errore è confondere lo zero con il fattore. Lo zero x = 3 corrisponde al fattore (x − 3), con il segno meno; lo zero x = −2 al fattore (x + 2), con il segno più. Il controllo è immediato: sostituendo lo zero nel fattore si deve ottenere 0.",
+          "Il terzo errore riguarda i limiti del modello. Il grafico del laboratorio mostra soltanto l’intervallo da −4 a 4, e il comportamento lontano si deduce dal termine principale. Inoltre un polinomio descrive bene un profilo reale soltanto in un tratto limitato: lontano dall’origine cresce senza limite, mentre nessuna collina vera sale all’infinito. Per questo la guida usa il modello soltanto per il sentiero vicino al lago."
         ],
         "intermediate": [
-          "Errore frequente: pensare che a ogni zero corrisponda un cambio di segno. Allo zero doppio x = a il polinomio tocca l’asse e resta positivo; il segno cambia solo negli zeri di molteplicità dispari.",
-          "Secondo errore: confondere lo zero r con il fattore. Lo zero x = 3 corrisponde al fattore (x − 3), con il segno meno; lo zero x = −2 al fattore (x + 2).",
-          "Il grafico del laboratorio mostra un intervallo finito: il comportamento per |x| molto grande si deduce dal termine principale. Inoltre un polinomio descrive bene un profilo reale solo in un intervallo limitato: lontano, cresce senza limite.",
-          "Con zeri, molteplicità e termine principale si disegna l’andamento senza calcolare tabelle. Per (x − a)²(x + 2) con a = 1: il grafico arriva da −∞ a sinistra, attraversa l’asse in −2, sale, poi scende fino a toccare l’asse in x = 1 e risale verso +∞. In x = 0 vale (0 − 1)² · 2 = 2."
+          "Esempio svolto: dal grafico alla formula. Un grafico attraversa l’asse in −1 e in 4, lo tocca in 2, e per x molto grande va verso +∞. Il polinomio più semplice con queste proprietà è P(x) = (x + 1)(x − 2)²(x − 4), di grado 4. Il controllo in x = 0 dà 1 · 4 · (−4) = −16: il grafico sta sotto l’asse fra −1 e 4, con un contatto in 2, e sopra l’asse fuori da quell’intervallo.",
+          "Esempio svolto: leggere il segno. Per (x − 1)²(x + 2) > 0 il fattore (x − 1)² è maggiore o uguale a zero, e il segno dipende da x + 2. Con il segno stretto le soluzioni sono x > −2 con x diverso da 1: lo zero doppio va escluso, anche se il polinomio è positivo ai suoi due lati.",
+          "Esempio svolto: interpretare una molteplicità. Se il profilo del terreno è (x − a)²(x + 2) e x = a è il punto in cui il sentiero sfiora il lago, la molteplicità pari dice che lì il sentiero tocca l’acqua e risale, senza immergersi. Uno zero semplice indicherebbe invece un sentiero che entra nell’acqua."
         ],
         "advanced": [
-          "Errore frequente: pensare che a ogni zero corrisponda un cambio di segno. Allo zero doppio x = a il polinomio tocca l’asse e resta positivo; il segno cambia solo negli zeri di molteplicità dispari.",
-          "Il grafico del laboratorio mostra un intervallo finito: il comportamento per |x| molto grande si deduce dal termine principale. Inoltre un polinomio descrive bene un profilo reale solo in un intervallo limitato: lontano, cresce senza limite.",
-          "Un polinomio può avere meno zeri reali del suo grado: x² + 1 non ne ha. Contando gli zeri complessi con la loro molteplicità, un polinomio di grado n ne ha esattamente n: è il teorema fondamentale dell’algebra. Gli zeri complessi non reali di un polinomio a coefficienti reali compaiono in coppie coniugate."
+          "Il numero degli zeri reali dipende dai coefficienti in modo discontinuo. Il polinomio (x − a)² + c, con c piccolo e positivo, è privo di zeri reali; con c = 0 ha uno zero doppio; con c negativo ha due zeri semplici vicini. Una radice doppia è quindi una situazione di confine, fragile per piccole perturbazioni, e per questo nei calcoli numerici le radici multiple sono le più difficili da determinare con precisione.",
+          "Lo stesso fenomeno spiega un fatto sorprendente studiato nel Novecento da James Wilkinson. Nel polinomio che ha per zeri i numeri da 1 a 20, cambiare un solo coefficiente di una quantità minuscola sposta molto alcuni zeri, e alcuni diventano complessi. Gli zeri di un polinomio possono essere estremamente sensibili ai coefficienti.",
+          "Infine il teorema fondamentale garantisce gli zeri senza dire come trovarli. Per il secondo grado c’è la formula risolutiva, per il terzo e il quarto le formule dell’«Ars magna», dal quinto in poi nessuna formula generale con radicali, come dimostrò Abel. In pratica gli zeri si calcolano con metodi approssimati, come la bisezione."
         ]
       }
     },
@@ -172,19 +180,20 @@
       "title": "Collegamenti",
       "text": {
         "base": [
-          "Gli zeri dei polinomi tornano nello studio delle funzioni e delle disequazioni, e nell’unità «Complessi, aritmetica e polinomi», dove gli zeri mancanti nei reali compaiono tra i complessi.",
-          "Riepilogo dell’unità: ogni zero r corrisponde a un fattore (x − r); Ruffini divide un polinomio per quel fattore; la molteplicità dice se il grafico attraversa o tocca l’asse; il termine principale dice dove va il grafico lontano dall’origine.",
-          "Nel diario registra A e B con le previsioni, descrivi a parole il grafico di (x − a)²(x + 2) per il valore di a che preferisci e scrivi una divisione con Ruffini."
+          "Gli zeri dei polinomi tornano nello studio delle funzioni e delle disequazioni, dove la tabella dei segni si costruisce proprio con i fattori, e nell’unità «Complessi, aritmetica e polinomi», dove gli zeri che mancano fra i reali compaiono fra i complessi.",
+          "Riepilogo: ogni zero r corrisponde a un fattore (x − r); la regola di Ruffini divide un polinomio per quel fattore; la molteplicità dice se il grafico attraversa o tocca l’asse; il termine principale dice dove va il grafico lontano dall’origine.",
+          "Nel diario registra A e B con le previsioni, scrivi una divisione con Ruffini e descrivi a parole il grafico di (x − a)²(x + 2) per il valore di a che preferisci."
         ],
         "intermediate": [
-          "Gli zeri dei polinomi tornano nello studio delle funzioni e delle disequazioni, e nell’unità «Complessi, aritmetica e polinomi», dove gli zeri mancanti nei reali compaiono tra i complessi.",
-          "Riepilogo dell’unità: ogni zero r corrisponde a un fattore (x − r); Ruffini divide un polinomio per quel fattore; la molteplicità dice se il grafico attraversa o tocca l’asse; il termine principale dice dove va il grafico lontano dall’origine.",
-          "Nel diario registra A e B con le previsioni, descrivi a parole il grafico di (x − a)²(x + 2) per il valore di a che preferisci e scrivi una divisione con Ruffini."
+          "La tabella dei segni dell’unità «Disequazioni» si costruisce con i fattori trovati qui, e la molteplicità spiega perché uno zero doppio lascia invariato il segno. Il teorema degli zeri dell’unità «Esistenza, unicità e approssimazione» garantisce uno zero reale quando un polinomio cambia segno fra due punti.",
+          "Le relazioni di Viète tornano nell’unità «Complessi, aritmetica e polinomi»: anche per due radici complesse coniugate somma e prodotto sono numeri reali, legati ai coefficienti.",
+          "La regola di Ruffini, che divide per x − r con pochi prodotti e somme, è anche il modo più economico per calcolare il valore di un polinomio in un punto, e i calcolatori la usano proprio per questo.",
+          "Nel diario registra A e B, scrivi la scomposizione di x³ − 4x² + x + 6 e disegna a mano il suo grafico con zeri e termine principale."
         ],
         "advanced": [
-          "Gli zeri dei polinomi tornano nello studio delle funzioni e delle disequazioni, e nell’unità «Complessi, aritmetica e polinomi», dove gli zeri mancanti nei reali compaiono tra i complessi.",
-          "Riepilogo dell’unità: ogni zero r corrisponde a un fattore (x − r); Ruffini divide un polinomio per quel fattore; la molteplicità dice se il grafico attraversa o tocca l’asse; il termine principale dice dove va il grafico lontano dall’origine.",
-          "Nel diario registra A e B con le previsioni, descrivi a parole il grafico di (x − a)²(x + 2) per il valore di a che preferisci e scrivi una divisione con Ruffini."
+          "La derivata, che qui ha spiegato i cambi di direzione, è l’oggetto dell’unità «Limiti, variazione e accumulazione», e la sensibilità degli zeri ai coefficienti torna nell’unità «Iterazioni, stabilità e precisione numerica». La storia del quinto grado, da Ruffini ad Abel e a Galois, è all’origine della teoria dei gruppi, che descrive anche le simmetrie studiate nell’unità «Geometrie, trasformazioni e simmetrie».",
+          "Il teorema fondamentale dell’algebra torna nell’unità «Complessi, aritmetica e polinomi», dove la formula di De Moivre trova esplicitamente gli n zeri complessi di xⁿ = 1, disposti ai vertici di un poligono regolare.",
+          "Nel diario registra A e B, spiega con la scomposizione P(x) = (x − r)^m · Q(x) perché uno zero di molteplicità pari conserva il segno, e applica la regola dei segni di Cartesio a un polinomio di tua scelta."
         ]
       }
     }

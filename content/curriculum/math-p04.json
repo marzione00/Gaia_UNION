@@ -8,7 +8,7 @@
   "coverage": "guided-activity",
   "editorialStatus": "hand-written-draft",
   "scope": "Limiti, rapporto incrementale e derivata, somme di rettangoli e integrale, teorema fondamentale",
-  "narrativeStatus": "La sonda e il registratore sono immaginari; i concetti di analisi sono quelli reali.",
+  "narrativeStatus": "La sonda e il registratore sono immaginari; i concetti di analisi sono quelli reali. Gli esempi con persone, oggetti e luoghi generici sono illustrativi; date e notizie storiche sono reali.",
   "objectives": [
     "Calcolare una velocità media e interpretarla come pendenza di una secante.",
     "Riconoscere limiti finiti, infiniti e inesistenti.",
@@ -70,16 +70,20 @@
       "title": "Media e istante",
       "text": {
         "base": [
-          "Il registratore di volo della sonda annota la posizione ogni secondo. Dalla tabella si ricava la velocità media su un intervallo; ma quanto valeva la velocità in un istante preciso? E, al contrario, conoscendo la velocità istante per istante, quanta strada si è percorsa? Le due domande portano ai due concetti centrali dell’analisi: la derivata e l’integrale, entrambi costruiti con il limite.",
-          "La velocità media tra gli istanti t e t + h è il rapporto tra lo spostamento e il tempo: [s(t + h) − s(t)]/h. Sul grafico della posizione è la pendenza della retta che congiunge due punti, detta secante. Per s(t) = t², tra t = 1 e t = 3 la velocità media vale (9 − 1)/2 = 4."
+          "Il registratore di volo della sonda annota la posizione ogni secondo. Dalla tabella si ricava facilmente la velocità media su un intervallo, cioè la strada percorsa divisa per il tempo impiegato. Più difficile è dire quanto valeva la velocità in un istante preciso, e altrettanto difficile è il problema inverso: conoscendo la velocità istante per istante, quanta strada si è percorsa? Le due domande portano ai due concetti centrali dell’analisi, la derivata e l’integrale, entrambi costruiti con il limite.",
+          "La velocità media fra gli istanti t e t + h è il rapporto fra lo spostamento e il tempo: [s(t + h) − s(t)]/h. Sul grafico della posizione è la pendenza della retta che congiunge due punti, detta secante. Per s(t) = t², fra t = 1 e t = 3 la velocità media vale (9 − 1)/2 = 4.",
+          "Il problema dell’istante è antico. Zenone di Elea, nel V secolo a.C., sostenne con i suoi paradossi che una freccia in volo, in ogni istante, occupa un luogo preciso ed è quindi ferma, e che il movimento è perciò impossibile. Ci vollero più di duemila anni per dare una risposta matematica soddisfacente, con il concetto di limite."
         ],
         "intermediate": [
-          "Il registratore di volo della sonda annota la posizione ogni secondo. Dalla tabella si ricava la velocità media su un intervallo; ma quanto valeva la velocità in un istante preciso? E, al contrario, conoscendo la velocità istante per istante, quanta strada si è percorsa? Le due domande portano ai due concetti centrali dell’analisi: la derivata e l’integrale, entrambi costruiti con il limite.",
-          "La velocità media tra gli istanti t e t + h è il rapporto tra lo spostamento e il tempo: [s(t + h) − s(t)]/h. Sul grafico della posizione è la pendenza della retta che congiunge due punti, detta secante. Per s(t) = t², tra t = 1 e t = 3 la velocità media vale (9 − 1)/2 = 4."
+          "Esempio svolto: restringere l’intervallo. Per s(t) = t² la velocità media fra 1 e 1 + h vale [(1 + h)² − 1]/h = 2 + h. Con h = 1 dà 3, con h = 0,1 dà 2,1, con h = 0,01 dà 2,01. Più l’intervallo si restringe, più la velocità media si avvicina a 2, e quel valore è la velocità nell’istante t = 1.",
+          "Il ragionamento ha due ingredienti. Il primo è la velocità media, un rapporto che si calcola con i dati. Il secondo è il passaggio al limite, che chiede a quale valore si avvicina il rapporto quando l’intervallo diventa piccolissimo, senza mai porre h uguale a zero: con h = 0 il rapporto diventerebbe 0/0, privo di significato.",
+          "Esempio svolto: dalla velocità alla strada. Se la sonda viaggia a 4 metri al secondo per 3 secondi, percorre 12 metri, l’area di un rettangolo di base 3 e altezza 4 sotto il grafico della velocità. Se la velocità cresce come v(t) = 2t, la strada fra 0 e 3 secondi è l’area del triangolo di base 3 e altezza 6, cioè 9 metri, proprio s(3) = 3².",
+          "Prova tu: calcola la velocità media di s(t) = t² fra 2 e 2 + h per h = 0,1 e per h = 0,01, e indovina la velocità nell’istante t = 2."
         ],
         "advanced": [
-          "Il registratore di volo della sonda annota la posizione ogni secondo. Dalla tabella si ricava la velocità media su un intervallo; ma quanto valeva la velocità in un istante preciso? E, al contrario, conoscendo la velocità istante per istante, quanta strada si è percorsa? Le due domande portano ai due concetti centrali dell’analisi: la derivata e l’integrale, entrambi costruiti con il limite.",
-          "La velocità media tra gli istanti t e t + h è il rapporto tra lo spostamento e il tempo: [s(t + h) − s(t)]/h. Sul grafico della posizione è la pendenza della retta che congiunge due punti, detta secante. Per s(t) = t², tra t = 1 e t = 3 la velocità media vale (9 − 1)/2 = 4."
+          "I greci aggirarono il paradosso dell’infinito con il metodo di esaustione, sviluppato da Eudosso di Cnido nel IV secolo a.C.: un’area sconosciuta si racchiude fra due aree calcolabili, una che cresce e una che decresce, fino a renderne la differenza più piccola di qualunque quantità fissata. Archimede lo usò per calcolare aree, volumi e centri di gravità con un procedimento molto vicino al calcolo integrale moderno.",
+          "Il risultato più celebre riguarda il segmento di parabola. Archimede dimostrò che la sua area è 4/3 dell’area del triangolo inscritto con la stessa base e lo stesso vertice. Per arrivarci riempì il segmento con triangoli sempre più piccoli, ciascun gruppo con un quarto dell’area del precedente, e sommò 1 + 1/4 + 1/16 + … = 4/3, una delle prime serie infinite della storia.",
+          "Il paradosso della freccia di Zenone trova risposta nella derivata: la velocità in un istante è il limite delle velocità medie su intervalli sempre più piccoli, un numero ben definito anche se in un singolo istante nessuno spostamento si osserva."
         ]
       }
     },
@@ -88,24 +92,28 @@
       "title": "Limiti, derivate, integrali",
       "text": {
         "base": [
-          "Il limite descrive il valore a cui una grandezza si avvicina quando un’altra si avvicina a un valore fissato. Scriviamo lim_(x→c) f(x) = L se f(x) si avvicina quanto si vuole a L per x abbastanza vicino a c, senza bisogno che f sia definita in c. Esempio: (x² − 4)/(x − 2) non è definita in 2; per x ≠ 2 vale x + 2, e x + 2 tende a 4.",
-          "La velocità istantanea è il limite della velocità media quando h tende a zero: s′(t) = lim_(h→0) [s(t + h) − s(t)]/h. Per s(t) = t²: [(t + h)² − t²]/h = (2th + h²)/h = 2t + h, che tende a 2t. In t = 1 la velocità è 2. Sul grafico, la derivata è la pendenza della retta tangente.",
-          "Il percorso inverso porta all’integrale. Se la velocità è costante, la strada è velocità per tempo, cioè l’area di un rettangolo sotto il grafico della velocità. Se la velocità cambia, si divide il tempo in tanti intervalli piccoli, si approssima con rettangoli e si sommano le aree. Il limite di queste somme, al crescere del numero di rettangoli, è l’integrale.",
-          "Esempio svolto: l’area sotto y = x² tra 0 e 1. Con 4 rettangoli di base 0,25 e altezza presa a sinistra si ottiene 0,25 · (0 + 0,0625 + 0,25 + 0,5625) = 0,21875; con l’altezza a destra 0,46875. Con 100 rettangoli a sinistra 0,32835. Il valore esatto è 1/3: le somme lo racchiudono e gli si avvicinano."
+          "Il limite descrive il valore a cui una grandezza si avvicina quando un’altra si avvicina a un valore fissato. Si scrive lim_(x→c) f(x) = L se f(x) si avvicina quanto si vuole a L per x abbastanza vicino a c, anche se f è priva di valore in c. Per esempio (x² − 4)/(x − 2) perde significato in 2; per x diverso da 2 vale x + 2, e x + 2 tende a 4.",
+          "La velocità istantanea è il limite della velocità media quando h tende a zero, e si chiama derivata: s′(t) = lim_(h→0) [s(t + h) − s(t)]/h. Per s(t) = t² si ha [(t + h)² − t²]/h = (2th + h²)/h = 2t + h, che tende a 2t. In t = 1 la velocità è 2, in t = 3 è 6. Sul grafico la derivata è la pendenza della retta tangente.",
+          "Il percorso inverso porta all’integrale. Se la velocità è costante, la strada è velocità per tempo, cioè l’area di un rettangolo sotto il grafico della velocità. Se la velocità cambia, si divide il tempo in tanti intervalli piccoli, su ciascuno si approssima la velocità con un valore costante e si sommano le aree dei rettangoli. Il limite di queste somme, al crescere del numero dei rettangoli, è l’integrale.",
+          "Esempio: l’area sotto y = x² fra 0 e 1. Con 4 rettangoli di base 0,25 e altezza presa a sinistra si ottiene 0,25 · (0 + 0,0625 + 0,25 + 0,5625) = 0,21875; con l’altezza a destra 0,46875. Con 100 rettangoli a sinistra si ottiene 0,32835. Il valore esatto è 1/3: le somme lo racchiudono e gli si avvicinano.",
+          "Il calcolo con derivate e integrali nacque nel Seicento con due autori. Isaac Newton lo usava già nel 1665 con il nome di calcolo delle flussioni, e lo pubblicò soltanto nel 1704; Gottfried Wilhelm Leibniz pubblicò il proprio nel 1684, con simboli più chiari, gli stessi che usiamo ancora. La questione della priorità divise per decenni i matematici inglesi da quelli del continente."
         ],
         "intermediate": [
-          "Il limite descrive il valore a cui una grandezza si avvicina quando un’altra si avvicina a un valore fissato. Scriviamo lim_(x→c) f(x) = L se f(x) si avvicina quanto si vuole a L per x abbastanza vicino a c, senza bisogno che f sia definita in c. Esempio: (x² − 4)/(x − 2) non è definita in 2; per x ≠ 2 vale x + 2, e x + 2 tende a 4.",
-          "La velocità istantanea è il limite della velocità media quando h tende a zero: s′(t) = lim_(h→0) [s(t + h) − s(t)]/h. Per s(t) = t²: [(t + h)² − t²]/h = (2th + h²)/h = 2t + h, che tende a 2t. In t = 1 la velocità è 2. Sul grafico, la derivata è la pendenza della retta tangente.",
-          "Il percorso inverso porta all’integrale. Se la velocità è costante, la strada è velocità per tempo, cioè l’area di un rettangolo sotto il grafico della velocità. Se la velocità cambia, si divide il tempo in tanti intervalli piccoli, si approssima con rettangoli e si sommano le aree. Il limite di queste somme, al crescere del numero di rettangoli, è l’integrale.",
-          "Esempio svolto: l’area sotto y = x² tra 0 e 1. Con 4 rettangoli di base 0,25 e altezza presa a sinistra si ottiene 0,25 · (0 + 0,0625 + 0,25 + 0,5625) = 0,21875; con l’altezza a destra 0,46875. Con 100 rettangoli a sinistra 0,32835. Il valore esatto è 1/3: le somme lo racchiudono e gli si avvicinano.",
-          "Il teorema fondamentale del calcolo collega le due idee: la funzione A(x) che misura l’area sotto f tra 0 e x ha come derivata f(x). Il laboratorio usa A(x) = ∫₀ˣ a t² dt = a x³/3: la sua pendenza in ogni punto è a x², proprio la funzione integrata. Con a = 1, A(3) = 9."
+          "Esempio svolto: la derivata di s(t) = t³. Il rapporto incrementale vale [(t + h)³ − t³]/h = (3t²h + 3th² + h³)/h = 3t² + 3th + h², che per h che tende a zero tende a 3t². In t = 2 la velocità è 12. In generale la derivata di tⁿ è n tⁿ⁻¹, una regola che Newton e Leibniz conoscevano.",
+          "Esempio svolto: un limite all’infinito. Per (2x + 1)/(x + 3) con x molto grande si dividono numeratore e denominatore per x: (2 + 1/x)/(1 + 3/x). I termini 1/x e 3/x tendono a zero, e il limite vale 2. In generale, per un rapporto fra polinomi dello stesso grado il limite all’infinito è il rapporto dei coefficienti principali.",
+          "Esempio svolto: limiti laterali. Per 1/x, avvicinandosi a 0 da destra i valori crescono senza limite, da sinistra diventano negativi senza limite: i due limiti laterali sono diversi, e il limite in 0 manca. Una cosa simile accade a sin x per x che tende all’infinito, perché continua a oscillare fra −1 e 1.",
+          "Il teorema fondamentale del calcolo collega derivata e integrale: la funzione A(x) che misura l’area sotto f fra 0 e x ha come derivata f(x). Il modello del programma usa A(x) = a x³/3, l’area sotto a t² fra 0 e x, e la sua pendenza in ogni punto è a x², proprio la funzione integrata. Con a = 1, A(3) = 9.",
+          "Esempio svolto: un’area con il teorema fondamentale. L’area sotto y = 2t fra 0 e 3 si trova cercando una funzione con derivata 2t, cioè t²: l’area vale 3² − 0² = 9, la stessa del triangolo calcolato con la geometria.",
+          "Esempio storico: le botti di Keplero. Nel 1615 Johannes Kepler, dopo aver comprato vino per le sue nozze, contestò il modo in cui i mercanti misuravano il volume delle botti con un’asta, e scrisse un trattato in cui calcolava volumi scomponendo i solidi in strati sottilissimi. È uno dei primi esempi europei di calcolo integrale applicato.",
+          "Prova tu: usa la definizione per calcolare la derivata di s(t) = 5t² in t = 1, e controlla il risultato con la regola."
         ],
         "advanced": [
-          "Il limite descrive il valore a cui una grandezza si avvicina quando un’altra si avvicina a un valore fissato. Scriviamo lim_(x→c) f(x) = L se f(x) si avvicina quanto si vuole a L per x abbastanza vicino a c, senza bisogno che f sia definita in c. Esempio: (x² − 4)/(x − 2) non è definita in 2; per x ≠ 2 vale x + 2, e x + 2 tende a 4.",
-          "Un limite può esistere solo da un lato. Per 1/x, avvicinandosi a 0 da destra i valori crescono senza limite, da sinistra diventano negativi senza limite: i due limiti laterali sono diversi e il limite in 0 non esiste. Lo stesso accade a sin x per x → ∞, che continua a oscillare.",
-          "La velocità istantanea è il limite della velocità media quando h tende a zero: s′(t) = lim_(h→0) [s(t + h) − s(t)]/h. Per s(t) = t²: [(t + h)² − t²]/h = (2th + h²)/h = 2t + h, che tende a 2t. In t = 1 la velocità è 2. Sul grafico, la derivata è la pendenza della retta tangente.",
-          "Esempio svolto: l’area sotto y = x² tra 0 e 1. Con 4 rettangoli di base 0,25 e altezza presa a sinistra si ottiene 0,25 · (0 + 0,0625 + 0,25 + 0,5625) = 0,21875; con l’altezza a destra 0,46875. Con 100 rettangoli a sinistra 0,32835. Il valore esatto è 1/3: le somme lo racchiudono e gli si avvicinano.",
-          "Il teorema fondamentale del calcolo collega le due idee: la funzione A(x) che misura l’area sotto f tra 0 e x ha come derivata f(x). Il laboratorio usa A(x) = ∫₀ˣ a t² dt = a x³/3: la sua pendenza in ogni punto è a x², proprio la funzione integrata. Con a = 1, A(3) = 9."
+          "Il teorema fondamentale si giustifica con un rettangolo sottile. L’incremento A(x + h) − A(x) è l’area di una striscia di larghezza h sotto la curva, compresa fra due rettangoli che hanno per altezza il valore minimo e il valore massimo di f nella striscia. Dividendo per h, il rapporto incrementale di A sta fra quei due valori, e se f è continua entrambi tendono a f(x) quando h tende a zero. Quindi A′(x) = f(x).",
+          "Molti pezzi del calcolo esistevano prima di Newton e di Leibniz. Bonaventura Cavalieri, allievo di Galileo, pubblicò nel 1635 il primo trattato sui metodi di integrazione, con gli indivisibili; Pierre de Fermat trovava massimi, minimi e aree con metodi oggi differenziali e integrali; Isaac Barrow, maestro di Newton a Cambridge, fu il primo a riconoscere che derivazione e integrazione sono operazioni inverse.",
+          "Il calcolo funzionava, eppure le sue basi erano incerte. Nel 1734 il filosofo George Berkeley derise gli infinitesimi, quantità ora diverse da zero e ora nulle, chiamandoli fantasmi di quantità scomparse. La risposta arrivò nell’Ottocento: Augustin-Louis Cauchy, nel «Cours d’analyse» del 1821, fondò il calcolo sul concetto di limite, e Karl Weierstrass ne diede la forma con ε e δ usata ancora oggi.",
+          "Il simbolo dell’integrale, una s allungata, fu introdotto da Leibniz in un manoscritto del 1675 come iniziale di summa, cioè somma, insieme alla scrittura dx per una differenza piccolissima della variabile x. I simboli suggeriscono il ragionamento stesso: l’integrale è una somma di prodotti f(x) · dx, aree di rettangoli con base dx.",
+          "Nella forma di Weierstrass, lim_(x→c) f(x) = L significa che per ogni ε > 0 esiste un δ > 0 tale che |f(x) − L| < ε ogni volta che 0 < |x − c| < δ. Per f(x) = 2x + 1 e c = 1, con L = 3, basta scegliere δ = ε/2: se |x − 1| < ε/2, allora |2x + 1 − 3| = 2|x − 1| < ε.",
+          "Il primo manuale completo di calcolo differenziale e integrale fu scritto da una milanese, Maria Gaetana Agnesi, che nel 1748 pubblicò le «Instituzioni analitiche», tradotte presto in francese e in inglese."
         ]
       }
     },
@@ -114,17 +122,21 @@
       "title": "Carte di analisi",
       "text": {
         "base": [
-          "L’attività ha tre serie di carte. Nella prima classifichi alcuni limiti: finito, infinito oppure inesistente. Nella seconda metti in ordine i passi che portano dalla velocità media alla velocità istantanea. Nella terza ordini le approssimazioni dell’area sotto y = x² tra 0 e 1, dalla più piccola alla più grande. Supera tutte e tre le serie; nella classificazione puoi sbagliare al massimo due carte.",
-          "Per un limite all’infinito di un rapporto tra polinomi confronta i gradi: se sono uguali il limite è il rapporto dei coefficienti principali. Per un limite in un punto prova prima a semplificare."
+          "L’attività ha tre serie di carte. Nella prima classifichi nove limiti in tre categorie: finito, infinito oppure inesistente. Nella seconda metti in ordine i passi che portano dalla velocità media alla velocità istantanea. Nella terza ordini sei approssimazioni dell’area sotto y = x² fra 0 e 1, dalla più piccola alla più grande.",
+          "Per completare l’attività supera tutte e tre le serie; nella classificazione puoi sbagliare al massimo due carte. Dopo ogni scelta una spiegazione mostra il ragionamento, e ogni serie si può ripetere.",
+          "Per un limite in un punto prova prima a semplificare l’espressione; per un limite all’infinito di un rapporto fra polinomi confronta i gradi. Se una funzione oscilla senza fermarsi, il limite manca.",
+          "Nella terza serie ricorda che il valore esatto è 1/3 ≈ 0,3333. Le stime a sinistra stanno sotto."
         ],
         "intermediate": [
-          "L’attività ha tre serie di carte. Nella prima classifichi alcuni limiti: finito, infinito oppure inesistente. Nella seconda metti in ordine i passi che portano dalla velocità media alla velocità istantanea. Nella terza ordini le approssimazioni dell’area sotto y = x² tra 0 e 1, dalla più piccola alla più grande. Supera tutte e tre le serie; nella classificazione puoi sbagliare al massimo due carte.",
-          "Per un limite all’infinito di un rapporto tra polinomi confronta i gradi: se sono uguali il limite è il rapporto dei coefficienti principali. Per un limite in un punto prova prima a semplificare."
+          "Nella prima serie alcune carte sembrano simili. 1/x per x → +∞ ha limite 0, finito; 1/x per x → 0⁺, da destra, ha limite +∞; 1/x per x → 0, senza specificare il lato, ha due limiti laterali diversi, e quindi il limite manca. La freccia e il segno ⁺ cambiano la risposta.",
+          "La carta su sin(x)/x riguarda un limite notevole: la funzione perde significato in 0, eppure il limite vale 1. Con x = 0,1 il rapporto vale circa 0,99833, con x = 0,01 circa 0,99998.",
+          "Nella seconda serie la chiave è l’ordine logico: prima l’intervallo, poi lo spostamento, poi il rapporto, infine il limite. Il limite viene per ultimo, perché si applica a un rapporto già costruito.",
+          "Nella terza serie la somma a destra con 4 rettangoli, 0,46875, sta sopra il valore esatto, perché con l’altezza a destra i rettangoli sporgono sopra una curva crescente."
         ],
         "advanced": [
-          "L’attività ha tre serie di carte. Nella prima classifichi alcuni limiti: finito, infinito oppure inesistente. Nella seconda metti in ordine i passi che portano dalla velocità media alla velocità istantanea. Nella terza ordini le approssimazioni dell’area sotto y = x² tra 0 e 1, dalla più piccola alla più grande. Supera tutte e tre le serie; nella classificazione puoi sbagliare al massimo due carte.",
-          "Per un limite all’infinito di un rapporto tra polinomi confronta i gradi: se sono uguali il limite è il rapporto dei coefficienti principali. Per un limite in un punto prova prima a semplificare.",
-          "Il teorema fondamentale del calcolo collega le due idee: la funzione A(x) che misura l’area sotto f tra 0 e x ha come derivata f(x). Il laboratorio usa A(x) = ∫₀ˣ a t² dt = a x³/3: la sua pendenza in ogni punto è a x², proprio la funzione integrata. Con a = 1, A(3) = 9."
+          "Nella terza serie le somme a sinistra si possono calcolare con una formula. Con n rettangoli la somma vale (1/n³)(0² + 1² + … + (n − 1)²) = (n − 1)(2n − 1)/(6n²). Con n = 10 dà 9 · 19/600 = 0,285, con n = 100 dà 99 · 199/60 000 = 0,32835, e per n molto grande tende a 2/6 = 1/3.",
+          "La differenza fra la somma a destra e quella a sinistra vale sempre 1/n, perché le due somme differiscono soltanto per il primo e per l’ultimo rettangolo, di altezze 0 e 1. Con 4 rettangoli la differenza è 0,46875 − 0,21875 = 0,25, e l’errore si dimezza ogni volta che si raddoppia n.",
+          "Nella prima serie, per (2x + 1)/(x + 3), controlla con un numero grande: con x = 1000 il rapporto vale 2001/1003 ≈ 1,995, già vicino a 2."
         ]
       }
     },
@@ -133,18 +145,19 @@
       "title": "Che cosa dice un limite",
       "text": {
         "base": [
-          "Errore frequente: pensare che il limite sia il valore della funzione nel punto. La funzione può non essere definita lì, oppure avere un valore diverso dal limite. Il limite descrive il comportamento vicino al punto.",
-          "Secondo errore: credere che un limite infinito «valga infinito» come un numero. Scrivere lim = +∞ significa che la funzione supera qualunque valore fissato; ∞ non è un numero e non si usa nei calcoli ordinari.",
-          "Un limite può esistere solo da un lato. Per 1/x, avvicinandosi a 0 da destra i valori crescono senza limite, da sinistra diventano negativi senza limite: i due limiti laterali sono diversi e il limite in 0 non esiste. Lo stesso accade a sin x per x → ∞, che continua a oscillare."
+          "Il primo errore frequente è pensare che il limite sia il valore della funzione nel punto. La funzione può essere priva di valore in quel punto, come (x² − 4)/(x − 2) in 2, oppure avere lì un valore diverso dal limite. Il limite descrive il comportamento vicino al punto, e il valore nel punto è un’altra informazione.",
+          "Il secondo errore è credere che un limite infinito «valga infinito» come se fosse un numero. Scrivere lim = +∞ significa che la funzione supera qualunque valore fissato; ∞ resta fuori dai numeri reali, e con esso le operazioni ordinarie perdono senso: ∞ − ∞ è una scrittura senza un valore definito.",
+          "Il terzo errore riguarda la derivata. La velocità istantanea si calcola con un rapporto in cui h è piccolo e diverso da zero, e soltanto alla fine si guarda il limite. Mettere subito h = 0 dà 0/0, una scrittura priva di significato: tutto il lavoro del limite consiste nell’evitare quel passaggio. Nei primi calcoli del Seicento gli incrementi erano trattati prima come diversi da zero e poi trascurati, proprio il passaggio che il limite rende rigoroso."
         ],
         "intermediate": [
-          "Errore frequente: pensare che il limite sia il valore della funzione nel punto. La funzione può non essere definita lì, oppure avere un valore diverso dal limite. Il limite descrive il comportamento vicino al punto.",
-          "Secondo errore: credere che un limite infinito «valga infinito» come un numero. Scrivere lim = +∞ significa che la funzione supera qualunque valore fissato; ∞ non è un numero e non si usa nei calcoli ordinari.",
-          "Un limite può esistere solo da un lato. Per 1/x, avvicinandosi a 0 da destra i valori crescono senza limite, da sinistra diventano negativi senza limite: i due limiti laterali sono diversi e il limite in 0 non esiste. Lo stesso accade a sin x per x → ∞, che continua a oscillare."
+          "Esempio svolto: un limite che inganna la calcolatrice. Per (1 − cos x)/x² il limite in 0 vale 1/2, e con x = 0,001 il valore esatto è circa 0,5. Una calcolatrice con poche cifre, però, calcola 1 − cos(0,001) = 1 − 0,9999995 con una forte perdita di precisione, e con x ancora più piccoli può dare 0. I limiti si studiano con il ragionamento, e i valori numerici sono soltanto indizi.",
+          "Esempio svolto: interpretare una derivata. Se s(t) misura i metri percorsi e s′(5) = 12, a 5 secondi la sonda viaggia a 12 metri al secondo: in un piccolo intervallo dopo t = 5, per esempio un decimo di secondo, percorre circa 1,2 metri. La derivata è un’approssimazione lineare del moto vicino a un istante.",
+          "Esempio svolto: interpretare un integrale. Se v(t) è la velocità di riempimento di un serbatoio in litri al minuto, l’integrale fra 0 e 10 è il numero di litri entrati nei primi dieci minuti. L’unità di misura dell’integrale è il prodotto delle unità dei due assi: litri al minuto per minuti fa litri."
         ],
         "advanced": [
-          "Errore frequente: pensare che il limite sia il valore della funzione nel punto. La funzione può non essere definita lì, oppure avere un valore diverso dal limite. Il limite descrive il comportamento vicino al punto.",
-          "Secondo errore: credere che un limite infinito «valga infinito» come un numero. Scrivere lim = +∞ significa che la funzione supera qualunque valore fissato; ∞ non è un numero e non si usa nei calcoli ordinari."
+          "Alcune funzioni sono prive di derivata in certi punti. La funzione |x| ha un angolo in 0: da destra il rapporto incrementale vale 1, da sinistra −1, e il limite manca. Nel 1872 Karl Weierstrass presentò una funzione continua in ogni punto e priva di derivata in ogni punto, un grafico fatto soltanto di angoli, che sorprese i matematici del suo tempo.",
+          "Anche l’integrale ha condizioni di validità. Bernhard Riemann precisò nel 1854 la definizione con le somme di rettangoli, che funziona per le funzioni continue su un intervallo chiuso. Per la funzione di Dirichlet, che vale 1 sui razionali e 0 sugli irrazionali, le somme con altezze prese nei razionali valgono 1 e quelle con altezze negli irrazionali valgono 0, qualunque sia il numero dei rettangoli, e l’integrale di Riemann manca.",
+          "Infine il limite di una successione è un caso particolare dello stesso concetto. La serie 1 + 1/2 + 1/4 + … ha somma 2 perché le somme parziali tendono a 2, ed è lo stesso ragionamento che Archimede usò per la parabola."
         ]
       }
     },
@@ -174,19 +187,19 @@
       "title": "Collegamenti",
       "text": {
         "base": [
-          "Derivate e integrali sono gli strumenti di base della fisica e di tutte le scienze quantitative. L’unità «Iterazioni, stabilità e precisione numerica» mostra che cosa succede quando questi calcoli si fanno al calcolatore con numeri approssimati.",
-          "Riepilogo dell’unità: il limite descrive il comportamento vicino a un punto; la derivata è il limite della pendenza delle secanti, e misura la variazione istantanea; l’integrale è il limite delle somme di rettangoli, e misura l’accumulazione; il teorema fondamentale dice che le due operazioni sono inverse.",
-          "Nel diario calcola la velocità media di s(t) = t² tra 2 e 2 + h per h = 1; 0,1; 0,01 e scrivi a quale valore si avvicina."
+          "Derivate e integrali sono gli strumenti di base della fisica e di tutte le scienze quantitative: velocità e accelerazione sono derivate, mentre strade percorse, lavoro e quantità accumulate sono integrali. L’unità «Iterazioni, stabilità e precisione numerica» mostra che cosa succede quando questi calcoli si fanno al calcolatore con numeri approssimati.",
+          "Riepilogo: il limite descrive il comportamento vicino a un punto; la derivata è il limite della pendenza delle secanti e misura la variazione istantanea; l’integrale è il limite delle somme di rettangoli e misura l’accumulazione; il teorema fondamentale dice che le due operazioni sono inverse.",
+          "Nel diario calcola la velocità media di s(t) = t² fra 2 e 2 + h per h = 1, 0,1 e 0,01, e scrivi a quale valore si avvicina."
         ],
         "intermediate": [
-          "Derivate e integrali sono gli strumenti di base della fisica e di tutte le scienze quantitative. L’unità «Iterazioni, stabilità e precisione numerica» mostra che cosa succede quando questi calcoli si fanno al calcolatore con numeri approssimati.",
-          "Riepilogo dell’unità: il limite descrive il comportamento vicino a un punto; la derivata è il limite della pendenza delle secanti, e misura la variazione istantanea; l’integrale è il limite delle somme di rettangoli, e misura l’accumulazione; il teorema fondamentale dice che le due operazioni sono inverse.",
-          "Nel diario calcola la velocità media di s(t) = t² tra 2 e 2 + h per h = 1; 0,1; 0,01 e scrivi a quale valore si avvicina."
+          "La serie geometrica dell’unità «Ragionamento, conteggio e infinito» è il primo esempio di limite, e la derivata di e^x, uguale a e^x, spiega la crescita esponenziale dell’unità «Esponenziali e logaritmi». Il segno della derivata dice dove una funzione cresce, e completa lo studio del segno dell’unità «Disequazioni».",
+          "Il vertice di una parabola dell’unità «Funzioni» è il punto in cui la derivata si annulla: per y = a(x − b)² la derivata vale 2a(x − b), nulla in x = b. Lo stesso criterio trova i massimi e i minimi di qualunque funzione derivabile.",
+          "Nel diario calcola con la definizione la derivata di t³ in t = 1 e confrontala con la regola n tⁿ⁻¹."
         ],
         "advanced": [
-          "Derivate e integrali sono gli strumenti di base della fisica e di tutte le scienze quantitative. L’unità «Iterazioni, stabilità e precisione numerica» mostra che cosa succede quando questi calcoli si fanno al calcolatore con numeri approssimati.",
-          "Riepilogo dell’unità: il limite descrive il comportamento vicino a un punto; la derivata è il limite della pendenza delle secanti, e misura la variazione istantanea; l’integrale è il limite delle somme di rettangoli, e misura l’accumulazione; il teorema fondamentale dice che le due operazioni sono inverse.",
-          "Nel diario calcola la velocità media di s(t) = t² tra 2 e 2 + h per h = 1; 0,1; 0,01 e scrivi a quale valore si avvicina."
+          "La stabilità di un punto fisso nell’unità «Iterazioni, stabilità e precisione numerica» si decide con la derivata, e i coefficienti delle armoniche nell’unità «Onde, frequenze e ricostruzione» si calcolano con integrali. Le equazioni del moto dell’unità «Oscillazioni, molecole e quantizzazione» legano una grandezza alla sua derivata seconda.",
+          "La storia del calcolo, da Zenone a Weierstrass, mostra un’idea usata con successo per due secoli prima di avere fondamenta solide: Newton e Leibniz calcolavano correttamente con infinitesimi che nessuno sapeva definire.",
+          "Nel diario spiega con un disegno perché la derivata dell’area A(x) è f(x), e calcola con la formula delle somme a sinistra il valore per n = 4. Poi confronta il risultato con 1/3."
         ]
       }
     }

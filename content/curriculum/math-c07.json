@@ -8,7 +8,7 @@
   "coverage": "guided-lab",
   "editorialStatus": "hand-written-draft",
   "scope": "Piano cartesiano, distanza e punto medio, retta, parallelismo e perpendicolarità, circonferenza",
-  "narrativeStatus": "Il radar e il rover sono immaginari; le formule sono reali.",
+  "narrativeStatus": "Il radar e il rover sono immaginari; le formule sono reali. Gli esempi con persone, oggetti e luoghi generici sono illustrativi; date e notizie storiche sono reali.",
   "objectives": [
     "Calcolare distanza e punto medio tra due punti.",
     "Scrivere l’equazione di una retta e interpretarne pendenza e intercetta.",
@@ -64,16 +64,20 @@
       "title": "Coordinate per misurare",
       "text": {
         "base": [
-          "Il radar della stazione segnala un oggetto nel punto di coordinate (0; 3) chilometri, mentre un rover si muove lungo una strada rettilinea che coincide con l’asse x. A che distanza si trova l’oggetto dal rover in ogni istante, e in quale punto della strada la distanza è minima? Le coordinate trasformano la geometria in calcolo.",
-          "Nel piano cartesiano ogni punto è individuato da una coppia ordinata (x; y): la distanza con segno dall’asse verticale e da quello orizzontale. Gli assi dividono il piano in quattro quadranti. Un punto sull’asse x ha y = 0, uno sull’asse y ha x = 0."
+          "Il radar della stazione segnala un oggetto nel punto di coordinate (0; 3) chilometri, mentre un rover si muove lungo una strada rettilinea che coincide con l’asse x. A che distanza si trova l’oggetto dal rover in ogni istante, e in quale punto della strada la distanza è minima? Con le coordinate la domanda geometrica diventa un calcolo con i numeri.",
+          "Nel piano cartesiano ogni punto è individuato da una coppia ordinata (x; y): x dice di quanto il punto sta a destra o a sinistra dell’asse verticale, y di quanto sta in alto o in basso rispetto all’asse orizzontale. Gli assi dividono il piano in quattro quadranti. Un punto sull’asse x ha y = 0, uno sull’asse y ha x = 0, e l’origine è (0; 0).",
+          "Il metodo prende il nome da René Descartes, latinizzato Cartesius, che nel 1637 pubblicò «La Géométrie» come appendice al «Discorso sul metodo». Pierre de Fermat aveva sviluppato idee simili negli stessi anni, e le sue note circolarono fra i matematici prima di essere stampate. Una leggenda racconta che Descartes ebbe l’idea osservando una mosca sul soffitto e chiedendosi come descriverne la posizione."
         ],
         "intermediate": [
-          "Il radar della stazione segnala un oggetto nel punto di coordinate (0; 3) chilometri, mentre un rover si muove lungo una strada rettilinea che coincide con l’asse x. A che distanza si trova l’oggetto dal rover in ogni istante, e in quale punto della strada la distanza è minima? Le coordinate trasformano la geometria in calcolo.",
-          "Nel piano cartesiano ogni punto è individuato da una coppia ordinata (x; y): la distanza con segno dall’asse verticale e da quello orizzontale. Gli assi dividono il piano in quattro quadranti. Un punto sull’asse x ha y = 0, uno sull’asse y ha x = 0."
+          "Esempio svolto: leggere le coordinate. Il punto A(−2; 3) sta 2 unità a sinistra dell’asse verticale e 3 sopra quello orizzontale, nel secondo quadrante; B(4; −1) sta nel quarto quadrante. Il punto simmetrico di A rispetto all’asse x è (−2; −3), rispetto all’asse y è (2; 3), rispetto all’origine è (2; −3).",
+          "Esempio svolto: la posizione del rover. Se il rover parte da (−4; 0) e percorre 1 km ogni 10 minuti verso destra, dopo t ore si trova in (−4 + 6t; 0). Dopo 40 minuti, cioè 2/3 di ora, è in (0; 0), proprio sotto l’oggetto segnalato dal radar.",
+          "Le coordinate sono più antiche di Descartes. Apollonio di Perga e Archimede, nel III secolo a.C., descrivevano già la posizione dei punti con distanze da linee fisse, e i geografi greci indicavano i luoghi con latitudine e longitudine. Descartes e Fermat trasformarono questa idea in un metodo sistematico per tradurre le curve in equazioni.",
+          "Prova tu: disegna i punti (1; 2), (−3; 2) e (−3; −1), scrivi in quale quadrante sta ciascuno e trova il quarto vertice del rettangolo che formano."
         ],
         "advanced": [
-          "Il radar della stazione segnala un oggetto nel punto di coordinate (0; 3) chilometri, mentre un rover si muove lungo una strada rettilinea che coincide con l’asse x. A che distanza si trova l’oggetto dal rover in ogni istante, e in quale punto della strada la distanza è minima? Le coordinate trasformano la geometria in calcolo.",
-          "Nel piano cartesiano ogni punto è individuato da una coppia ordinata (x; y): la distanza con segno dall’asse verticale e da quello orizzontale. Gli assi dividono il piano in quattro quadranti. Un punto sull’asse x ha y = 0, uno sull’asse y ha x = 0."
+          "Il cambiamento introdotto da Descartes fu un rovesciamento di prospettiva. I greci studiavano le curve con costruzioni geometriche e usavano l’algebra, quando la usavano, come strumento ausiliario; Descartes mostrò che ogni problema geometrico si può tradurre in equazioni, e che ogni equazione in due variabili descrive una curva. La geometria diventava calcolabile, e l’algebra visibile.",
+          "Fermat scrisse intorno al 1636 un breve trattato, «Introduzione ai luoghi piani e solidi», in cui mostrava che un’equazione di primo grado in due incognite rappresenta una retta, e una di secondo grado una conica. Il testo fu pubblicato soltanto nel 1679, dopo la sua morte, e per questo la priorità pubblica andò a Descartes.",
+          "Nel Trecento il francese Nicola d’Oresme aveva già rappresentato una grandezza che varia nel tempo con segmenti verticali sopra una linea orizzontale, un’anticipazione del grafico di una funzione. Nella sua idea il tempo correva in orizzontale e l’intensità della grandezza in verticale."
         ]
       }
     },
@@ -82,25 +86,28 @@
       "title": "Distanze, rette, circonferenze",
       "text": {
         "base": [
-          "La distanza tra A(x₁; y₁) e B(x₂; y₂) si ricava con Pitagora: i due punti sono i vertici di un triangolo rettangolo con cateti |x₂ − x₁| e |y₂ − y₁|. Quindi AB = √((x₂ − x₁)² + (y₂ − y₁)²). Esempio: da (0; 3) a (4; 0) la distanza è √(16 + 9) = 5. Il punto medio ha coordinate ((x₁ + x₂)/2; (y₁ + y₂)/2).",
-          "Una retta non verticale ha equazione y = mx + q. Il coefficiente angolare m è la pendenza: di quanto sale y quando x aumenta di 1, cioè m = (y₂ − y₁)/(x₂ − x₁) per due punti della retta. q è l’ordinata del punto in cui la retta taglia l’asse y. Le rette verticali hanno equazione x = k.",
-          "Due rette sono parallele se hanno lo stesso coefficiente angolare, perpendicolari se il prodotto dei coefficienti vale −1: y = 2x + 1 e y = −x/2 + 3 sono perpendicolari. Il motivo è geometrico: ruotare di 90° una direzione con pendenza m produce la pendenza −1/m.",
-          "Una circonferenza è l’insieme dei punti a distanza r da un centro (a; b): applicando la formula della distanza si ottiene la sua equazione, (x − a)² + (y − b)² = r². Per esempio x² + y² = 25 è la circonferenza di centro l’origine e raggio 5, che passa per (3; 4)."
+          "La distanza fra A(x₁; y₁) e B(x₂; y₂) si ricava con il teorema di Pitagora: i due punti sono i vertici di un triangolo rettangolo con cateti |x₂ − x₁| e |y₂ − y₁|. Quindi AB = √((x₂ − x₁)² + (y₂ − y₁)²). Da (0; 3) a (4; 0) la distanza è √(16 + 9) = 5. Il punto medio ha coordinate ((x₁ + x₂)/2; (y₁ + y₂)/2), e per questi due punti è (2; 1,5).",
+          "Una retta non verticale ha equazione y = mx + q. Il coefficiente angolare m è la pendenza: dice di quanto sale y quando x aumenta di 1, e per due punti della retta vale m = (y₂ − y₁)/(x₂ − x₁). Il numero q è l’ordinata del punto in cui la retta taglia l’asse y. Le rette verticali hanno equazione x = k. Per esempio la retta per (0; 3) e (4; 0) ha pendenza −3/4 ed equazione y = −3x/4 + 3.",
+          "Due rette sono parallele se hanno lo stesso coefficiente angolare, perpendicolari se il prodotto dei coefficienti vale −1. Le rette y = 2x + 1 e y = −x/2 + 3 sono perpendicolari, perché 2 · (−1/2) = −1. Il motivo è geometrico: ruotando di 90 gradi una direzione con pendenza m si ottiene la pendenza −1/m.",
+          "Una circonferenza è l’insieme dei punti a distanza r da un centro (a; b). Applicando la formula della distanza si ottiene la sua equazione, (x − a)² + (y − b)² = r². Per esempio x² + y² = 25 è la circonferenza di centro l’origine e raggio 5, che passa per (3; 4), perché 9 + 16 = 25.",
+          "Per il rover, la distanza dall’oggetto in (0; 3) quando si trova in (x; 0) vale √(x² + 9). È minima per x = 0, dove vale 3: il punto più vicino della strada sta proprio sotto l’oggetto, ai piedi della perpendicolare.",
+          "La formula della distanza è il teorema di Pitagora scritto con le coordinate, e trasforma ogni problema di lunghezze in un calcolo. Per questo la geometria analitica conquistò presto la fisica: Isaac Newton, nei «Principia» del 1687, ragionava ancora con le figure di Euclide, mentre Joseph-Louis Lagrange, nella «Mécanique analytique» del 1788, scrisse la meccanica interamente con le equazioni e si vantò di non usare alcuna figura."
         ],
         "intermediate": [
-          "La distanza tra A(x₁; y₁) e B(x₂; y₂) si ricava con Pitagora: i due punti sono i vertici di un triangolo rettangolo con cateti |x₂ − x₁| e |y₂ − y₁|. Quindi AB = √((x₂ − x₁)² + (y₂ − y₁)²). Esempio: da (0; 3) a (4; 0) la distanza è √(16 + 9) = 5. Il punto medio ha coordinate ((x₁ + x₂)/2; (y₁ + y₂)/2).",
-          "Una retta non verticale ha equazione y = mx + q. Il coefficiente angolare m è la pendenza: di quanto sale y quando x aumenta di 1, cioè m = (y₂ − y₁)/(x₂ − x₁) per due punti della retta. q è l’ordinata del punto in cui la retta taglia l’asse y. Le rette verticali hanno equazione x = k.",
-          "Due rette sono parallele se hanno lo stesso coefficiente angolare, perpendicolari se il prodotto dei coefficienti vale −1: y = 2x + 1 e y = −x/2 + 3 sono perpendicolari. Il motivo è geometrico: ruotare di 90° una direzione con pendenza m produce la pendenza −1/m.",
-          "Una circonferenza è l’insieme dei punti a distanza r da un centro (a; b): applicando la formula della distanza si ottiene la sua equazione, (x − a)² + (y − b)² = r². Per esempio x² + y² = 25 è la circonferenza di centro l’origine e raggio 5, che passa per (3; 4).",
-          "La distanza di un punto da una retta si misura lungo la perpendicolare. Per la retta ax + by + c = 0 vale |ax₀ + by₀ + c|/√(a² + b²). Per il punto (0; 3) e l’asse x, cioè y = 0, la distanza è 3: il rover è più vicino all’oggetto quando passa per (0; 0), proprio sotto di esso."
+          "Esempio svolto: la retta per due punti. Per A(1; 2) e B(3; 6) la pendenza è (6 − 2)/(3 − 1) = 2, e la retta ha equazione y − 2 = 2(x − 1), cioè y = 2x. La retta parallela per (0; 5) è y = 2x + 5, la perpendicolare per lo stesso punto è y = −x/2 + 5.",
+          "Esempio svolto: dove si incontrano due rette. Le rette y = 2x e y = −x + 6 si incontrano dove 2x = −x + 6, cioè x = 2 e y = 4. Il punto d’incontro (2; 4) è la soluzione del sistema formato dalle due equazioni, come nell’unità «Equazioni e sistemi».",
+          "Esempio svolto: riconoscere una circonferenza. L’equazione x² + y² − 6x + 4y − 12 = 0 si riordina completando i quadrati: (x² − 6x + 9) + (y² + 4y + 4) = 12 + 9 + 4, cioè (x − 3)² + (y + 2)² = 25. È la circonferenza di centro (3; −2) e raggio 5.",
+          "La distanza di un punto da una retta si misura lungo la perpendicolare. Per la retta ax + by + c = 0 e il punto (x₀; y₀) vale |ax₀ + by₀ + c|/√(a² + b²). Per esempio il punto (4; 5) dista dalla retta 3x + 4y − 7 = 0 la quantità |12 + 20 − 7|/5 = 25/5 = 5.",
+          "Il modello del programma calcola la distanza fra il punto fisso (a; b) e un punto (x; 0) dell’asse x: d = √((x − a)² + b²), con a da −3 a 3 e b da 0 a 5. La distanza è minima in x = a e vale b; allontanandosi cresce, e per x lontani si avvicina a |x − a|.",
+          "Esempio svolto: il punto medio come controllo. Il punto medio di A(−2; 5) e B(4; −1) è ((−2 + 4)/2; (5 − 1)/2) = (1; 2), e le distanze da A e da B valgono entrambe √(9 + 9) = √18 ≈ 4,24.",
+          "Prova tu: trova il centro e il raggio della circonferenza x² + y² + 2x − 8y + 8 = 0."
         ],
         "advanced": [
-          "La distanza tra A(x₁; y₁) e B(x₂; y₂) si ricava con Pitagora: i due punti sono i vertici di un triangolo rettangolo con cateti |x₂ − x₁| e |y₂ − y₁|. Quindi AB = √((x₂ − x₁)² + (y₂ − y₁)²). Esempio: da (0; 3) a (4; 0) la distanza è √(16 + 9) = 5. Il punto medio ha coordinate ((x₁ + x₂)/2; (y₁ + y₂)/2).",
-          "Una retta non verticale ha equazione y = mx + q. Il coefficiente angolare m è la pendenza: di quanto sale y quando x aumenta di 1, cioè m = (y₂ − y₁)/(x₂ − x₁) per due punti della retta. q è l’ordinata del punto in cui la retta taglia l’asse y. Le rette verticali hanno equazione x = k.",
-          "Due rette sono parallele se hanno lo stesso coefficiente angolare, perpendicolari se il prodotto dei coefficienti vale −1: y = 2x + 1 e y = −x/2 + 3 sono perpendicolari. Il motivo è geometrico: ruotare di 90° una direzione con pendenza m produce la pendenza −1/m.",
-          "Una circonferenza è l’insieme dei punti a distanza r da un centro (a; b): applicando la formula della distanza si ottiene la sua equazione, (x − a)² + (y − b)² = r². Per esempio x² + y² = 25 è la circonferenza di centro l’origine e raggio 5, che passa per (3; 4).",
-          "La distanza di un punto da una retta si misura lungo la perpendicolare. Per la retta ax + by + c = 0 vale |ax₀ + by₀ + c|/√(a² + b²). Per il punto (0; 3) e l’asse x, cioè y = 0, la distanza è 3: il rover è più vicino all’oggetto quando passa per (0; 0), proprio sotto di esso.",
-          "Il laboratorio calcola la distanza tra il punto fisso (a; b) e un punto (x; 0) dell’asse x: d = √((x − a)² + b²). La distanza è minima in x = a e vale b; allontanandosi cresce, e per x lontani si avvicina a |x − a|."
+          "Il criterio m₁ · m₂ = −1 si dimostra con Pitagora. Le rette y = m₁x e y = m₂x passano per l’origine e per i punti (1; m₁) e (1; m₂). L’angolo nell’origine è retto se e solo se il triangolo con questi tre vertici soddisfa il teorema di Pitagora: (1 + m₁²) + (1 + m₂²) = (m₁ − m₂)². Sviluppando si ottiene 2 = −2m₁m₂, cioè m₁m₂ = −1.",
+          "La formula della distanza da una retta si ricava cercando un minimo. Per la retta y = 0 e il punto (a; b) la distanza dai punti (x; 0) è √((x − a)² + b²), minima per x = a; nel caso generale si ruota il sistema di riferimento in modo che la retta diventi un asse, e la formula |ax₀ + by₀ + c|/√(a² + b²) ne è il risultato. Il denominatore rende il risultato indipendente dalla scelta dei coefficienti: 3x + 4y − 7 = 0 e 6x + 8y − 14 = 0 sono la stessa retta.",
+          "Le curve di secondo grado sono le coniche di Apollonio. L’ellisse è l’insieme dei punti con somma costante delle distanze da due fuochi, l’iperbole quello dei punti con differenza costante. Nel 1609 Johannes Kepler scoprì che i pianeti percorrono ellissi con il Sole in un fuoco, e nel Novecento sistemi di navigazione radio come il LORAN localizzavano le navi misurando differenze di distanza da coppie di stazioni, cioè su iperboli.",
+          "Anche i problemi di minimo hanno una lunga storia. Erone di Alessandria dimostrò che un raggio di luce riflesso da uno specchio segue il percorso più breve, e che per questo l’angolo di incidenza è uguale all’angolo di riflessione. Il trucco è riflettere uno dei due punti rispetto allo specchio, così il percorso più breve diventa un segmento rettilineo.",
+          "Per esempio, per andare da (0; 3) a (6; 1) toccando l’asse x, si riflette (6; 1) in (6; −1). La retta da (0; 3) a (6; −1) taglia l’asse x in x = 4,5, e il percorso minimo vale √(36 + 16) = √52 ≈ 7,21."
         ]
       }
     },
@@ -109,21 +116,19 @@
       "title": "Il laboratorio della distanza",
       "text": {
         "base": [
-          "Nel laboratorio il grafico mostra d al variare di x da −5 a 5; nella scheda «Regola» cambi l’ascissa a (da −3 a 3) e l’ordinata b (da 0 a 5) del punto fisso. Il cursore sceglie la posizione x del rover.",
-          "Il laboratorio calcola la distanza tra il punto fisso (a; b) e un punto (x; 0) dell’asse x: d = √((x − a)² + b²). La distanza è minima in x = a e vale b; allontanandosi cresce, e per x lontani si avvicina a |x − a|.",
-          "Protocollo. La previsione riguarda il passaggio da x = −2,5 a x = 0. Con a = 0 e b = 3 prevedi e salva A. Poi porta a a −3, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con a = 0 e b = 3 la distanza passa da circa 3,91 a 3: diminuisce, perché il rover si avvicina al punto sotto l’oggetto. Con a = −3 il minimo sta in x = −3, a sinistra dell’intervallo: da −2,5 a 0 la distanza cresce, da circa 3,04 a 4,24. Con b = 0 l’oggetto sta sulla strada e il grafico diventa una V con il vertice a zero."
+          "Nel laboratorio il grafico mostra la distanza d fra il rover e l’oggetto al variare di x da −5 a 5. Nella scheda «Regola» cambi l’ascissa a, da −3 a 3, e l’ordinata b, da 0 a 5, dell’oggetto. Il cursore sceglie la posizione x del rover.",
+          "Protocollo. La previsione riguarda il passaggio da x = −2,5 a x = 0. Con a = 0 e b = 3 scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta a a −3, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
+          "Per prevedere, chiediti dove sta il punto della strada più vicino all’oggetto: proprio sotto di esso, in x = a. Mentre va da −2,5 a 0, il rover si avvicina a quel punto o se ne allontana?"
         ],
         "intermediate": [
-          "Nel laboratorio il grafico mostra d al variare di x da −5 a 5; nella scheda «Regola» cambi l’ascissa a (da −3 a 3) e l’ordinata b (da 0 a 5) del punto fisso. Il cursore sceglie la posizione x del rover.",
-          "Il laboratorio calcola la distanza tra il punto fisso (a; b) e un punto (x; 0) dell’asse x: d = √((x − a)² + b²). La distanza è minima in x = a e vale b; allontanandosi cresce, e per x lontani si avvicina a |x − a|.",
-          "Protocollo. La previsione riguarda il passaggio da x = −2,5 a x = 0. Con a = 0 e b = 3 prevedi e salva A. Poi porta a a −3, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con a = 0 e b = 3 la distanza passa da circa 3,91 a 3: diminuisce, perché il rover si avvicina al punto sotto l’oggetto. Con a = −3 il minimo sta in x = −3, a sinistra dell’intervallo: da −2,5 a 0 la distanza cresce, da circa 3,04 a 4,24. Con b = 0 l’oggetto sta sulla strada e il grafico diventa una V con il vertice a zero."
+          "Il programma traccia d = √((x − a)² + b²) per x fra −5 e 5: la scheda «Regola» sposta l’oggetto con a, fra −3 e 3, e lo allontana dalla strada con b, fra 0 e 5.",
+          "Protocollo. Configurazione A: a = 0 e b = 3, confronto fra x = −2,5 e x = 0, previsione nella scheda «A / B» e «Salva A». Configurazione B: a = −3 con lo stesso b, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con a = 0 e b = 3 la distanza passa da circa 3,91 a 3: diminuisce, perché il rover si avvicina al punto sotto l’oggetto. Con a = −3 il minimo sta in x = −3, a sinistra dell’intervallo, e da −2,5 a 0 la distanza cresce, da circa 3,04 a 4,24. Con b = 0 l’oggetto sta sulla strada e il grafico diventa una V con il vertice a zero."
         ],
         "advanced": [
-          "Nel laboratorio il grafico mostra d al variare di x da −5 a 5; nella scheda «Regola» cambi l’ascissa a (da −3 a 3) e l’ordinata b (da 0 a 5) del punto fisso. Il cursore sceglie la posizione x del rover.",
-          "Protocollo. La previsione riguarda il passaggio da x = −2,5 a x = 0. Con a = 0 e b = 3 prevedi e salva A. Poi porta a a −3, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A»; poi cambia un parametro, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati e conserva separate le due configurazioni.",
-          "Che cosa osservare. Con a = 0 e b = 3 la distanza passa da circa 3,91 a 3: diminuisce, perché il rover si avvicina al punto sotto l’oggetto. Con a = −3 il minimo sta in x = −3, a sinistra dell’intervallo: da −2,5 a 0 la distanza cresce, da circa 3,04 a 4,24. Con b = 0 l’oggetto sta sulla strada e il grafico diventa una V con il vertice a zero."
+          "Il grafico del laboratorio, d(x) = √((x − a)² + b²), è un ramo di iperbole: elevando al quadrato si ottiene d² − (x − a)² = b², una differenza di quadrati costante. Per b = 0 l’iperbole degenera nella V del valore assoluto |x − a|, e per x lontano la curva si avvicina a questi due asintoti.",
+          "Protocollo. Fissa a = 0 e b = 3, decidi nella scheda «A / B» fra «Cresce», «Diminuisce», «Uguale» e «Non definito» per il tratto da x = −2,5 a x = 0, e premi «Salva A»; poi sposta a a −3 e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "Cerca anche una configurazione in cui la previsione corretta sia «Uguale». Le due distanze coincidono quando −2,5 e 0 sono simmetrici rispetto al minimo, cioè per a = −1,25; il cursore di a procede però a passi di 1. Con a = −1 la distanza diminuisce, da circa 3,35 a 3,16, con a = −2 cresce, da circa 3,04 a 3,61: nessun valore ammesso dà «Uguale»."
         ]
       }
     },
@@ -132,17 +137,19 @@
       "title": "Errori frequenti",
       "text": {
         "base": [
-          "Errore frequente: scrivere la distanza come (x₂ − x₁) + (y₂ − y₁). Con questa formula da (0; 0) a (3; 4) si otterrebbe 7, mentre la distanza in linea retta è 5: la somma delle differenze è la lunghezza di un percorso a scalini.",
-          "Secondo errore: confondere pendenza e angolo. Una pendenza m = 1 corrisponde a 45°, ma m = 2 non corrisponde a 90°: la pendenza è la tangente dell’angolo, e cresce senza limite avvicinandosi alla verticale."
+          "Il primo errore frequente è scrivere la distanza come (x₂ − x₁) + (y₂ − y₁). Con questa formula da (0; 0) a (3; 4) si otterrebbe 7, mentre la distanza in linea retta è 5: la somma delle differenze è la lunghezza di un percorso a scalini, come quello di un taxi fra gli isolati di una città.",
+          "Il secondo errore è confondere pendenza e angolo. Una pendenza m = 1 corrisponde a 45 gradi, eppure m = 2 corrisponde a circa 63 gradi, invece di 90: la pendenza è la tangente dell’angolo, e cresce senza limite avvicinandosi alla verticale.",
+          "Il terzo errore riguarda le rette verticali. La retta x = 2 ha una pendenza priva di valore, perché due suoi punti hanno la stessa x e la formula (y₂ − y₁)/(x₂ − x₁) richiederebbe una divisione per zero. Per questo la forma y = mx + q descrive tutte le rette tranne quelle verticali, mentre la forma ax + by + c = 0 le descrive tutte. Le due forme coincidono quando b è diverso da zero."
         ],
         "intermediate": [
-          "Errore frequente: scrivere la distanza come (x₂ − x₁) + (y₂ − y₁). Con questa formula da (0; 0) a (3; 4) si otterrebbe 7, mentre la distanza in linea retta è 5: la somma delle differenze è la lunghezza di un percorso a scalini.",
-          "Secondo errore: confondere pendenza e angolo. Una pendenza m = 1 corrisponde a 45°, ma m = 2 non corrisponde a 90°: la pendenza è la tangente dell’angolo, e cresce senza limite avvicinandosi alla verticale.",
-          "La distanza di un punto da una retta si misura lungo la perpendicolare. Per la retta ax + by + c = 0 vale |ax₀ + by₀ + c|/√(a² + b²). Per il punto (0; 3) e l’asse x, cioè y = 0, la distanza è 3: il rover è più vicino all’oggetto quando passa per (0; 0), proprio sotto di esso."
+          "Esempio svolto: un percorso a scalini. Un corriere che si muove soltanto lungo strade parallele agli assi, da (0; 0) a (3; 4), percorre 3 + 4 = 7 isolati, qualunque giro faccia, purché proceda sempre verso destra o verso l’alto. Questa distanza, detta del taxi o di Manhattan, fu studiata da Hermann Minkowski alla fine dell’Ottocento, ed è utile quando il movimento è vincolato a una griglia.",
+          "Esempio svolto: perpendicolari sbagliate. Uno studente scrive che la perpendicolare a y = 3x + 1 ha pendenza −3. Il controllo con il prodotto smentisce la scelta: 3 · (−3) = −9. La pendenza giusta è −1/3, perché 3 · (−1/3) = −1.",
+          "Esempio svolto: un’equazione ingannevole. L’equazione x² + y² + 4 = 0 sembra una circonferenza, eppure dà x² + y² = −4, impossibile perché una somma di quadrati è maggiore o uguale a zero: nessun punto la soddisfa. Prima di leggere centro e raggio conviene controllare che il secondo membro sia positivo; con secondo membro nullo, come in x² + y² = 0, la circonferenza si riduce al solo punto (0; 0)."
         ],
         "advanced": [
-          "Errore frequente: scrivere la distanza come (x₂ − x₁) + (y₂ − y₁). Con questa formula da (0; 0) a (3; 4) si otterrebbe 7, mentre la distanza in linea retta è 5: la somma delle differenze è la lunghezza di un percorso a scalini.",
-          "Secondo errore: confondere pendenza e angolo. Una pendenza m = 1 corrisponde a 45°, ma m = 2 non corrisponde a 90°: la pendenza è la tangente dell’angolo, e cresce senza limite avvicinandosi alla verticale."
+          "La scelta della distanza è una scelta di geometria. Con la distanza euclidea i punti a distanza 1 dall’origine formano una circonferenza; con la distanza del taxi formano un quadrato ruotato, con vertici in (1; 0), (0; 1), (−1; 0) e (0; −1). Entrambe soddisfano la disuguaglianza triangolare, e quindi sono distanze in senso matematico, eppure producono geometrie diverse.",
+          "Un altro errore sottile riguarda le unità. Se x è misurato in chilometri e y in metri, la formula della distanza mescola grandezze diverse e dà un numero privo di significato. Prima di usare Pitagora bisogna esprimere le due coordinate nella stessa unità.",
+          "Il modello del laboratorio, infine, descrive una strada perfettamente rettilinea e un oggetto fermo. Se l’oggetto si muove, la distanza dipende anche dal tempo, e il punto di minima distanza va ricalcolato istante per istante: è il problema di intercettazione dei radar. Con un oggetto che si muove a velocità costante, la distanza al quadrato è un polinomio di secondo grado nel tempo, e il suo minimo si trova con il vertice della parabola."
         ]
       }
     },
@@ -172,19 +179,19 @@
       "title": "Collegamenti",
       "text": {
         "base": [
-          "La geometria analitica è il punto di incontro tra algebra e geometria: risolvere un sistema significa trovare l’intersezione di due rette, e le funzioni si studiano attraverso i loro grafici. Torna nella trigonometria e nei vettori.",
-          "Riepilogo dell’unità: le coordinate trasformano punti in coppie di numeri; Pitagora dà la distanza; una retta è determinata da pendenza e intercetta; parallele hanno la stessa pendenza, perpendicolari pendenze con prodotto −1; la circonferenza è l’insieme dei punti a distanza fissa da un centro.",
-          "Nel diario registra A e B con le previsioni e spiega perché, con a = −3, la distanza cresce tra −2,5 e 0."
+          "La geometria analitica è il punto d’incontro fra algebra e geometria: risolvere un sistema significa trovare l’intersezione di due rette, e le funzioni si studiano attraverso i loro grafici. Torna nella «Trigonometria» e nell’unità «Vettori, matrici, dati e vincoli».",
+          "Riepilogo: le coordinate trasformano punti in coppie di numeri; il teorema di Pitagora dà la distanza; una retta è determinata da pendenza e intercetta; le parallele hanno la stessa pendenza, le perpendicolari pendenze con prodotto −1; la circonferenza è l’insieme dei punti a distanza fissa da un centro.",
+          "Nel diario registra A e B con le previsioni e spiega perché, con a = −3, la distanza cresce fra −2,5 e 0."
         ],
         "intermediate": [
-          "La geometria analitica è il punto di incontro tra algebra e geometria: risolvere un sistema significa trovare l’intersezione di due rette, e le funzioni si studiano attraverso i loro grafici. Torna nella trigonometria e nei vettori.",
-          "Riepilogo dell’unità: le coordinate trasformano punti in coppie di numeri; Pitagora dà la distanza; una retta è determinata da pendenza e intercetta; parallele hanno la stessa pendenza, perpendicolari pendenze con prodotto −1; la circonferenza è l’insieme dei punti a distanza fissa da un centro.",
-          "Nel diario registra A e B con le previsioni e spiega perché, con a = −3, la distanza cresce tra −2,5 e 0."
+          "Le soluzioni di un sistema lineare dell’unità «Equazioni e sistemi» sono i punti d’incontro di due rette, e un sistema impossibile corrisponde a due rette parallele. La parabola dell’unità «Funzioni» è il luogo dei punti equidistanti da un punto, il fuoco, e da una retta, la direttrice.",
+          "La distanza fra punti diventa nella «Trigonometria» la base per misurare angoli e coordinate sulla circonferenza unitaria, e nell’unità «Vettori, matrici, dati e vincoli» la norma di un vettore.",
+          "Nel diario registra A e B, scrivi l’equazione della circonferenza di centro (a; b) che passa per il rover in x = 0, e controllala con un punto. Indica il raggio con un numero."
         ],
         "advanced": [
-          "La geometria analitica è il punto di incontro tra algebra e geometria: risolvere un sistema significa trovare l’intersezione di due rette, e le funzioni si studiano attraverso i loro grafici. Torna nella trigonometria e nei vettori.",
-          "Riepilogo dell’unità: le coordinate trasformano punti in coppie di numeri; Pitagora dà la distanza; una retta è determinata da pendenza e intercetta; parallele hanno la stessa pendenza, perpendicolari pendenze con prodotto −1; la circonferenza è l’insieme dei punti a distanza fissa da un centro.",
-          "Nel diario registra A e B con le previsioni e spiega perché, con a = −3, la distanza cresce tra −2,5 e 0."
+          "Le coniche di Apollonio, descritte qui con le distanze dai fuochi, tornano nella fisica delle orbite e dell’ottica, e il principio di riflessione di Erone è un primo esempio dei principi di minimo che governano la meccanica. La distanza del taxi, con la sua geometria a quadrati, mostra che la scelta della distanza è una scelta di modello, come accade nell’analisi dei dati.",
+          "La rotazione degli assi usata per la distanza da una retta torna nell’unità «Geometrie, trasformazioni e simmetrie», e il minimo della distanza dalla strada nell’unità «Limiti, variazione e accumulazione», dove la derivata di d(x) si annulla in x = a.",
+          "Nel diario registra A e B e risolvi il problema di Erone per due punti a tua scelta sopra l’asse x."
         ]
       }
     }
