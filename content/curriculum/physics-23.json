@@ -8,7 +8,7 @@
   "coverage": "guided-foundation",
   "editorialStatus": "original-draft",
   "scope": "Resistore ohmico a resistenza costante",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "narrativeStatus": "Lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, calcolati con il modello dell’unità. I fatti storici e i valori reali citati nei testi, come costanti, misure ed esperimenti, si riferiscono al mondo reale.",
   "objectives": [
     "Spiegare: resistore ohmico a resistenza costante.",
     "Applicare I = V/R, dichiarando variabili e unità.",
@@ -58,17 +58,18 @@
       "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Una resistenza ideale viene collegata a tensioni diverse. Il controllo vuole capire se la corrente aumenta proporzionalmente e come cambia sostituendo il componente.",
-          "Per un resistore ohmico a condizioni costanti, V=RI. La resistenza misura il rapporto fra tensione e corrente. Nel laboratorio I=V/R e R è sempre positiva."
+          "La base è alimentata da batterie a 12 volt. Collegando una lampada si accende; collegando un riscaldatore la batteria fornisce molta più corrente e il cavo si scalda. Da che cosa dipende la corrente che attraversa un dispositivo, a parità di batteria?",
+          "La corrente elettrica è la quantità di carica che attraversa una sezione di un conduttore in un secondo, e si misura in ampere: 1 A = 1 C/s. In molti conduttori, a temperatura costante, la corrente è proporzionale alla tensione applicata: I = V/R. La costante R è la resistenza, misurata in ohm (Ω). È la legge di Ohm.",
+          "Con 12 V applicati a una resistenza di 10 Ω passa una corrente di 1,2 A; con 11 Ω circa 1,09 A. Georg Simon Ohm, insegnante di matematica a Colonia, pubblicò la legge nel 1827, dopo anni di misure con fili di lunghezze e spessori diversi."
         ],
         "intermediate": [
-          "Una resistenza ideale viene collegata a tensioni diverse. Il controllo vuole capire se la corrente aumenta proporzionalmente e come cambia sostituendo il componente.",
-          "La pendenza del grafico corrente-tensione è 1/R, chiamata conduttanza. La potenza dissipata è P=VI=V²/R=I²R, ma il valore di R può cambiare in un componente reale quando si riscalda."
+          "Esempio svolto: la legge di Ohm. Una resistenza di 10 Ω collegata a 12 V è attraversata da 12/10 = 1,2 A. A 6 V la corrente si dimezza, 0,6 A; a 24 V raddoppia, 2,4 A. Con una resistenza di 4 Ω, a 12 V, passano 3 A.",
+          "Esempio svolto: la potenza. La potenza assorbita da un dispositivo è P = V I. La resistenza di 10 Ω a 12 V assorbe 12 · 1,2 = 14,4 W, che si trasformano in calore. Un bollitore da 2000 W collegato a 230 V assorbe una corrente di 2000/230 ≈ 8,7 A, e la sua resistenza è 230/8,7 ≈ 26 Ω.",
+          "Prova tu: quale corrente attraversa una lampadina da 60 W collegata a 230 V, e quale resistenza ha mentre è accesa?"
         ],
         "advanced": [
-          "Una resistenza ideale viene collegata a tensioni diverse. Il controllo vuole capire se la corrente aumenta proporzionalmente e come cambia sostituendo il componente.",
-          "Combina resistori in serie e parallelo, poi verifica le correnti con le leggi di Kirchhoff. Distingui sempre il componente dal generatore.",
-          "Resistore ideale con R costante e regime stazionario. Il laboratorio non valuta limiti di potenza o sicurezza di circuiti reali."
+          "La legge fu accolta con freddezza in Germania, dove una parte dei fisici diffidava di un approccio così matematico all’elettricità, e Ohm lasciò l’insegnamento a Colonia. Il riconoscimento arrivò dall’Inghilterra: nel 1841 la Royal Society gli assegnò la medaglia Copley. Nel 1881 il nome dell’unità di resistenza fu scelto in suo onore.",
+          "Per le sue misure Ohm aveva bisogno di una sorgente stabile, e le pile dell’epoca si scaricavano rapidamente. Usò allora una termocoppia, scoperta da Thomas Seebeck nel 1821: due giunzioni fra rame e bismuto, una nell’acqua bollente e l’altra nel ghiaccio, producevano una tensione piccola e costante. La corrente la misurava dalla deviazione di un ago magnetico."
         ]
       }
     },
@@ -77,18 +78,24 @@
       "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Per un resistore ohmico a condizioni costanti, V=RI. La resistenza misura il rapporto fra tensione e corrente. Nel laboratorio I=V/R e R è sempre positiva.",
-          "Con V=12 V e R=10 Ω, la corrente è 1,2 A. Raddoppiando R a tensione costante, I si dimezza."
+          "Un circuito è un percorso chiuso in cui le cariche circolano spinte da un generatore. Il generatore mantiene una differenza di potenziale fra i suoi poli; nel circuito esterno la corrente va, per convenzione, dal polo positivo a quello negativo, anche se gli elettroni, che portano carica negativa, si muovono nel verso opposto.",
+          "In un resistore l’energia potenziale elettrica delle cariche si trasforma in calore: è l’effetto Joule, studiato da James Prescott Joule nel 1841. La potenza dissipata è P = V I = R I² = V²/R. La corrente che esce da un resistore è la stessa che entra; ciò che si consuma è l’energia, mentre la carica si conserva.",
+          "La resistenza di un filo dipende dal materiale, dalla lunghezza L e dalla sezione A: R = ρ L/A, dove ρ è la resistività. Il rame ha ρ ≈ 1,7 · 10⁻⁸ Ω m: un filo di rame lungo 10 m con sezione di 1 mm² ha una resistenza di circa 0,17 Ω. Raddoppiando la lunghezza la resistenza raddoppia; raddoppiando la sezione si dimezza.",
+          "Esempio: a 6 V una resistenza di 10 Ω è attraversata da 0,6 A e dissipa 3,6 W; a 12 V da 1,2 A e dissipa 14,4 W. Raddoppiando la tensione la potenza quadruplica.",
+          "Il grafico della corrente in funzione della tensione è una retta per l’origine di pendenza 1/R per i conduttori che obbediscono alla legge di Ohm, detti ohmici. Una resistenza più piccola dà una retta più ripida."
         ],
         "intermediate": [
-          "La pendenza del grafico corrente-tensione è 1/R, chiamata conduttanza. La potenza dissipata è P=VI=V²/R=I²R, ma il valore di R può cambiare in un componente reale quando si riscalda.",
-          "La variabile Tensione è espressa in V; Corrente in A. Il dominio dello strumento è [0; 24]. La relazione implementata è: I = V/R.",
-          "Con V=12 V e R=10 Ω, la corrente è 1,2 A. Raddoppiando R a tensione costante, I si dimezza."
+          "Esempio svolto: resistori in serie. Due resistori di 4 Ω e 6 Ω in serie sono attraversati dalla stessa corrente, e la loro resistenza totale è la somma, 10 Ω. Con 12 V la corrente è 1,2 A; la tensione si divide in 4 · 1,2 = 4,8 V sul primo e 6 · 1,2 = 7,2 V sul secondo, e la somma è 12 V.",
+          "Esempio svolto: resistori in parallelo. Gli stessi resistori in parallelo hanno la stessa tensione, 12 V, e correnti diverse: 12/4 = 3 A e 12/6 = 2 A, per un totale di 5 A. La resistenza equivalente è 12/5 = 2,4 Ω, minore di ciascuna delle due: 1/R = 1/4 + 1/6. Le prese di una casa sono collegate in parallelo, e ogni apparecchio riceve la piena tensione.",
+          "Esempio svolto: le leggi di Kirchhoff. Gustav Kirchhoff, ancora studente, enunciò nel 1845 due regole per i circuiti complessi. In ogni nodo la somma delle correnti entranti è uguale a quella delle uscenti, per la conservazione della carica; lungo ogni maglia chiusa la somma delle tensioni è zero, per la conservazione dell’energia. Con queste due regole si risolve qualunque rete di resistori e generatori.",
+          "Il modello del laboratorio calcola I = V/R per una tensione fra 0 e 24 V, con la resistenza fra 1 e 20 Ω a passi di 1.",
+          "Prova tu: tre resistori da 6 Ω sono collegati in parallelo a 12 V. Quanto vale la resistenza equivalente, e quale corrente fornisce il generatore?"
         ],
         "advanced": [
-          "La pendenza del grafico corrente-tensione è 1/R, chiamata conduttanza. La potenza dissipata è P=VI=V²/R=I²R, ma il valore di R può cambiare in un componente reale quando si riscalda.",
-          "Combina resistori in serie e parallelo, poi verifica le correnti con le leggi di Kirchhoff. Distingui sempre il componente dal generatore.",
-          "La legge di Ohm non è universale per ogni componente: un diodo non si comporta come una resistenza costante. Mantenere costante la tensione è diverso dal mantenere costante la corrente."
+          "Il modello di Paul Drude, del 1900, spiega la legge di Ohm con il moto degli elettroni liberi. Un campo elettrico li accelera, e gli urti con il reticolo li frenano; il risultato è una velocità media di deriva proporzionale al campo, e quindi una corrente proporzionale alla tensione. La velocità di deriva è sorprendentemente piccola: in un filo di rame di 1 mm² con 1 A, circa 1/(8,5 · 10²⁸ · 1,6 · 10⁻¹⁹ · 10⁻⁶) ≈ 7 · 10⁻⁵ m/s, meno di un decimo di millimetro al secondo.",
+          "La lampada si accende comunque all’istante, perché a viaggiare veloce è il segnale: il campo elettrico si stabilisce lungo il filo quasi alla velocità della luce, e mette in moto contemporaneamente gli elettroni di tutto il circuito.",
+          "Ogni generatore reale ha una resistenza interna r, e la tensione ai suoi morsetti diminuisce quando eroga corrente: V = ε − r I, dove ε è la forza elettromotrice. Una batteria d’auto con ε = 12,6 V e r = 0,01 Ω, durante l’avviamento a 200 A, scende a circa 10,6 V. Le luci dell’auto si abbassano per un attimo.",
+          "Negli anni Ottanta dell’Ottocento la diffusione dell’elettricità oppose Thomas Edison, sostenitore della corrente continua, a George Westinghouse e Nikola Tesla, sostenitori di quella alternata. La corrente alternata vinse perché i trasformatori ne permettono di alzare la tensione per il trasporto, riducendo le perdite R I² lungo le linee."
         ]
       }
     },
@@ -97,19 +104,19 @@
       "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio imposta Resistenza R (a): 10 Ω. Prima di salvare A, prevedi come cambia Corrente fra Tensione=6 e 12 V. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con V=12 V e R=10 Ω, la corrente è 1,2 A. Raddoppiando R a tensione costante, I si dimezza.",
-          "La variabile Tensione è espressa in V; Corrente in A. Il dominio dello strumento è [0; 24]. La relazione implementata è: I = V/R."
+          "Il grafico mostra la corrente I = V/R al variare della tensione V, da 0 a 24 V. Nella scheda «Regola» scegli la resistenza R, da 1 a 20 Ω.",
+          "Protocollo. La previsione riguarda il passaggio da V = 6 V a V = 12 V. Con R = 10 Ω scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta la resistenza a 4 Ω, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Prima di salvare B, chiediti se la retta con la resistenza più piccola sia più ripida o meno ripida."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Resistenza R (a): 10 Ω. Prima di salvare A, prevedi come cambia Corrente fra Tensione=6 e 12 V. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Tensione è espressa in V; Corrente in A. Il dominio dello strumento è [0; 24]. La relazione implementata è: I = V/R.",
-          "La pendenza del grafico corrente-tensione è 1/R, chiamata conduttanza. La potenza dissipata è P=VI=V²/R=I²R, ma il valore di R può cambiare in un componente reale quando si riscalda."
+          "Il programma calcola la corrente I = V/R per una tensione fra 0 e 24 V; nella scheda «Regola» la resistenza si regola a passi di 1 Ω.",
+          "Protocollo. Configurazione A: R = 10 Ω, confronto fra V = 6 V e V = 12 V, previsione nella scheda «A / B» e «Salva A». Configurazione B: R = 4 Ω, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. In A la corrente passa da 0,6 a 1,2 A, in B da 1,5 a 3 A. In entrambi i casi raddoppia con la tensione; con la resistenza più piccola ogni corrente è due volte e mezza più grande, e la retta è due volte e mezza più ripida."
         ],
         "advanced": [
-          "Nel laboratorio imposta Resistenza R (a): 10 Ω. Prima di salvare A, prevedi come cambia Corrente fra Tensione=6 e 12 V. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Combina resistori in serie e parallelo, poi verifica le correnti con le leggi di Kirchhoff. Distingui sempre il componente dal generatore.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il laboratorio rappresenta la funzione lineare I(V) = V/R su V fra 0 e 24 V: una retta per l’origine di pendenza 1/R, la conduttanza, misurata in siemens. La previsione «Cresce» vale per ogni resistenza positiva.",
+          "Protocollo. Con R = 10 Ω scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il passaggio da V = 6 V a V = 12 V e premi «Salva A»; poi porta la resistenza a 4 Ω e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "La linearità è l’ipotesi centrale del modello. Un filamento di lampadina, che si scalda passando dal buio all’accensione, ha una resistenza che cresce con la tensione, e la sua curva si piega verso il basso; un diodo lascia passare corrente quasi soltanto in un verso, e la sua curva è fortemente non lineare."
         ]
       }
     },
@@ -118,19 +125,19 @@
       "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "La legge di Ohm non è universale per ogni componente: un diodo non si comporta come una resistenza costante. Mantenere costante la tensione è diverso dal mantenere costante la corrente.",
-          "Resistore ideale con R costante e regime stazionario. Il laboratorio non valuta limiti di potenza o sicurezza di circuiti reali.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il primo errore frequente è credere che la corrente si consumi attraversando una lampadina. La corrente che entra è la stessa che esce, perché la carica si conserva; ciò che la lampadina trasforma in luce e calore è l’energia delle cariche.",
+          "Il secondo errore è pensare che una batteria fornisca sempre la stessa corrente. Una batteria fornisce all’incirca una tensione costante, e la corrente dipende dal circuito collegato: con una resistenza piccola la corrente è grande, e un cortocircuito può surriscaldare i fili.",
+          "Il terzo errore è credere che gli elettroni corrano a grande velocità nei fili. Avanzano di frazioni di millimetro al secondo; il segnale che accende la lampada viaggia invece quasi alla velocità della luce. È come in un tubo già pieno d’acqua, dove l’acqua esce subito dall’altro capo."
         ],
         "intermediate": [
-          "La legge di Ohm non è universale per ogni componente: un diodo non si comporta come una resistenza costante. Mantenere costante la tensione è diverso dal mantenere costante la corrente.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Esempio svolto: la lampada e il cavo. Una lampada da 60 W a 230 V assorbe circa 0,26 A. Il cavo di rame che la alimenta, con una resistenza di 0,17 Ω, dissipa R I² ≈ 0,17 · 0,068 ≈ 0,012 W, una frazione trascurabile; un riscaldatore da 2000 W, con 8,7 A, fa dissipare nello stesso cavo circa 13 W. Per questo i cavi degli apparecchi potenti sono più spessi.",
+          "Esempio svolto: aggiungere un ramo in parallelo. Accendendo un secondo apparecchio in parallelo al primo, la resistenza totale diminuisce e la corrente totale aumenta. Ogni apparecchio riceve la stessa tensione e funziona come prima; il contatore vede la somma delle correnti, e l’interruttore generale scatta se la somma supera il suo limite.",
+          "Esempio svolto: resistenza a freddo e a caldo. Il filamento di tungsteno di una lampadina a incandescenza ha a temperatura ambiente una resistenza circa dieci volte più piccola di quella che ha acceso, a circa 2700 K. All’accensione la corrente è quindi per un istante molto più grande di quella di regime, ed è il momento in cui le lampadine si bruciano più spesso."
         ],
         "advanced": [
-          "Resistore ideale con R costante e regime stazionario. Il laboratorio non valuta limiti di potenza o sicurezza di circuiti reali.",
-          "Combina resistori in serie e parallelo, poi verifica le correnti con le leggi di Kirchhoff. Distingui sempre il componente dal generatore.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il modello del laboratorio descrive un resistore ohmico a temperatura costante. La resistività dei metalli cresce con la temperatura, all’incirca in modo lineare vicino alla temperatura ambiente; quella dei semiconduttori diminuisce, perché il calore libera portatori di carica.",
+          "Nel 1911 Heike Kamerlingh Onnes scoprì che il mercurio, raffreddato sotto circa 4,2 K, perde del tutto la propria resistenza: è la superconduttività. In un anello superconduttore una corrente può circolare per anni senza generatore, e i magneti delle macchine per la risonanza magnetica usano proprio bobine superconduttrici.",
+          "Infine, per correnti che cambiano rapidamente contano anche le capacità e le induttanze dei fili, e il comportamento di un circuito dipende dalla frequenza. Un cavo lungo, a frequenze alte, si comporta come una linea di trasmissione, in cui i segnali viaggiano e si riflettono."
         ]
       }
     },
@@ -157,19 +164,17 @@
       "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Resistore ohmico a resistenza costante.",
-          "Resistore ideale con R costante e regime stazionario. Il laboratorio non valuta limiti di potenza o sicurezza di circuiti reali.",
-          "Collegamento consigliato: math-p10. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La legge di Ohm e l’effetto Joule descrivono come il potenziale dell’unità precedente spinge le cariche nei circuiti. Le regole dei nodi e delle maglie si collegano alle reti dell’unità di matematica «Reti, conservazione e strategie».",
+          "Riepilogo: I = V/R; in serie le resistenze si sommano, in parallelo si sommano i loro inversi; la potenza è P = V I = R I².",
+          "Nel diario registra A e B e spiega perché la retta di B è più ripida."
         ],
         "intermediate": [
-          "La pendenza del grafico corrente-tensione è 1/R, chiamata conduttanza. La potenza dissipata è P=VI=V²/R=I²R, ma il valore di R può cambiare in un componente reale quando si riscalda.",
-          "Resistore ideale con R costante e regime stazionario. Il laboratorio non valuta limiti di potenza o sicurezza di circuiti reali.",
-          "Combina resistori in serie e parallelo, poi verifica le correnti con le leggi di Kirchhoff. Distingui sempre il componente dal generatore."
+          "Le leggi di Kirchhoff applicano la conservazione della carica e dell’energia, come nell’unità di matematica «Reti, conservazione e strategie», dove i flussi nei nodi di una rete obbediscono alla stessa regola. Nella prossima unità di fisica, «Induzione elettromagnetica», la tensione nasce da un campo magnetico che cambia.",
+          "Nel diario calcola la corrente e la potenza di ciascun resistore in un circuito con 2 Ω e 3 Ω in serie, collegati a 10 V, e ripeti il calcolo con i due resistori in parallelo."
         ],
         "advanced": [
-          "Combina resistori in serie e parallelo, poi verifica le correnti con le leggi di Kirchhoff. Distingui sempre il componente dal generatore.",
-          "Resistore ideale con R costante e regime stazionario. Il laboratorio non valuta limiti di potenza o sicurezza di circuiti reali.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "I circuiti con bobine e condensatori dell’unità «Induzione, circuiti oscillanti e radio» estendono la legge di Ohm alle correnti alternate; le correnti nei pianeti e le dinamo dell’unità «Correnti, dipoli e dinamo dei pianeti» mostrano gli stessi principi su scala enorme.",
+          "Nel diario calcola la perdita di potenza su una linea di 10 Ω che trasporta 1 MW a 10 kV e a 100 kV, e spiega perché il trasporto si fa ad alta tensione."
         ]
       }
     }

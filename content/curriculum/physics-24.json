@@ -8,7 +8,7 @@
   "coverage": "guided-foundation",
   "editorialStatus": "original-draft",
   "scope": "Flusso sinusoidale imposto in una spira ideale",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "narrativeStatus": "Lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, calcolati con il modello dell’unità. I fatti storici e i valori reali citati nei testi, come costanti, misure ed esperimenti, si riferiscono al mondo reale.",
   "objectives": [
     "Spiegare: flusso sinusoidale imposto in una spira ideale.",
     "Applicare ε(t) = -Φ₀ω cos(ωt), dichiarando variabili e unità.",
@@ -62,17 +62,18 @@
       "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Il flusso magnetico attraverso una spira cambia periodicamente. Il massimo della forza elettromotrice non coincide con il massimo del flusso: serve ragionare sulla variazione.",
-          "La legge di Faraday collega la forza elettromotrice indotta alla derivata temporale del flusso concatenato. Per una spira, ε=-dΦ/dt. Il segno esprime l’orientazione e la legge di Lenz."
+          "Il generatore di emergenza della base è una bobina di filo di rame che ruota fra i poli di un magnete. Nessuna batteria è collegata, eppure ai capi della bobina compare una tensione, che cresce, si annulla e cambia segno a ogni giro. Da dove viene quella tensione?",
+          "Viene dalla variazione del flusso magnetico attraverso la bobina. Il flusso Φ misura quanto campo magnetico attraversa la superficie della spira; per un campo uniforme B perpendicolare a una spira di area A vale Φ = B A, e si misura in weber (Wb). Quando il flusso cambia nel tempo, nella spira compare una forza elettromotrice ε = −dΦ/dt: è la legge dell’induzione di Faraday.",
+          "Il 29 agosto 1831 Michael Faraday avvolse due bobine sullo stesso anello di ferro. Chiudendo e aprendo il circuito della prima, vide l’ago di un galvanometro collegato alla seconda muoversi per un istante: una corrente che cambia in una bobina induce una corrente nell’altra. Una corrente costante, invece, lasciava l’ago fermo."
         ],
         "intermediate": [
-          "Il flusso magnetico attraverso una spira cambia periodicamente. Il massimo della forza elettromotrice non coincide con il massimo del flusso: serve ragionare sulla variazione.",
-          "Assumendo Φ(t)=Φ₀sin(ωt), si ottiene ε=-Φ₀ωcos(ωt). Un flusso momentaneamente nullo può avere derivata massima; un flusso al massimo ha derivata nulla."
+          "Esempio svolto: un flusso che cambia. Una bobina di 100 spire, ciascuna di area 0,01 m², si trova in un campo che passa da 0 a 0,5 T in 0,1 s. Il flusso in ogni spira cambia di 0,5 · 0,01 = 0,005 Wb, e la forza elettromotrice media è 100 · 0,005/0,1 = 5 V. Se il campo cambiasse in 1 s, la tensione sarebbe dieci volte più piccola.",
+          "Esempio svolto: il flusso sinusoidale. Se il flusso in una spira varia come Φ(t) = Φ₀ sin(ω t), la forza elettromotrice è ε(t) = −Φ₀ ω cos(ω t). Con Φ₀ = 0,1 Wb e ω = 2 rad/s, all’istante zero ε = −0,2 V; con Φ₀ = 0,15 Wb, ε = −0,3 V. La tensione massima è Φ₀ ω: raddoppia se raddoppia la rapidità della variazione.",
+          "Prova tu: una spira è attraversata da un flusso che diminuisce in modo uniforme da 0,4 Wb a 0,1 Wb in 0,5 s. Quale forza elettromotrice si induce?"
         ],
         "advanced": [
-          "Il flusso magnetico attraverso una spira cambia periodicamente. Il massimo della forza elettromotrice non coincide con il massimo del flusso: serve ragionare sulla variazione.",
-          "Estendi la formula a N spire con lo stesso flusso per spira. Collega lo sfasamento fra seno e coseno al concetto di derivata.",
-          "Una spira ideale e flusso sinusoidale imposto. Non sono calcolati autoinduzione, resistenza, correnti o campo generato dalla spira."
+          "Il cammino verso l’induzione cominciò nell’aprile del 1820, quando Hans Christian Ørsted, durante una lezione a Copenaghen, vide che una corrente elettrica devia un ago magnetico. André-Marie Ampère sviluppò in poche settimane la teoria delle forze fra correnti. Se una corrente produce magnetismo, ci si chiedeva, il magnetismo può produrre una corrente? Faraday cercò la risposta per quasi dieci anni.",
+          "La risposta fu più sottile del previsto: un magnete fermo vicino a una bobina non produce nulla, e la corrente compare soltanto quando qualcosa cambia. Nell’autunno del 1831 Faraday costruì un disco di rame che ruotava fra i poli di un magnete, il primo generatore. Negli Stati Uniti Joseph Henry scoprì l’induzione in modo indipendente negli stessi anni, e l’unità di induttanza porta il suo nome."
         ]
       }
     },
@@ -81,18 +82,24 @@
       "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "La legge di Faraday collega la forza elettromotrice indotta alla derivata temporale del flusso concatenato. Per una spira, ε=-dΦ/dt. Il segno esprime l’orientazione e la legge di Lenz.",
-          "Con Φ₀=0,1 Wb e ω=2 rad/s, a t=0 la forza elettromotrice è -0,2 V. Il segno dipende dalla convenzione di orientazione scelta."
+          "La legge di Faraday dice che la forza elettromotrice indotta in una spira è uguale alla rapidità con cui cambia il flusso magnetico attraverso di essa, con il segno meno: ε = −dΦ/dt. Per una bobina di N spire uguali la tensione è N volte più grande.",
+          "Il flusso può cambiare in tre modi: cambiando l’intensità del campo, cambiando l’area della spira o cambiando l’angolo fra la spira e il campo. Nel caso generale Φ = B A cos θ, dove θ è l’angolo fra il campo e la perpendicolare alla spira. In un generatore la bobina ruota, θ cambia continuamente e il flusso oscilla.",
+          "Il segno meno esprime la legge di Lenz, formulata da Heinrich Lenz nel 1834: la corrente indotta ha un verso tale da opporsi alla variazione di flusso che la produce. Se un magnete si avvicina a una spira, la corrente indotta crea un campo che lo respinge; se si allontana, un campo che lo trattiene.",
+          "Esempio: con Φ(t) = Φ₀ sin(ω t), Φ₀ = 0,1 Wb e ω = 2 rad/s, la tensione è ε(t) = −0,2 cos(2t) volt. Quando il flusso è massimo, la sua variazione è nulla e anche la tensione è nulla; quando il flusso passa per zero, cambia più rapidamente e la tensione è massima.",
+          "Il weber, unità del flusso magnetico, porta il nome di Wilhelm Weber, che a Gottinga con Gauss costruì nel 1833 uno dei primi telegrafi elettrici, lungo circa un chilometro."
         ],
         "intermediate": [
-          "Assumendo Φ(t)=Φ₀sin(ωt), si ottiene ε=-Φ₀ωcos(ωt). Un flusso momentaneamente nullo può avere derivata massima; un flusso al massimo ha derivata nulla.",
-          "La variabile Tempo è espressa in s; Forza elettromotrice in V. Il dominio dello strumento è [0; 10]. La relazione implementata è: ε(t) = -Φ₀ω cos(ωt).",
-          "Con Φ₀=0,1 Wb e ω=2 rad/s, a t=0 la forza elettromotrice è -0,2 V. Il segno dipende dalla convenzione di orientazione scelta."
+          "Esempio svolto: la barra che scorre. Una barra metallica lunga 0,2 m scorre su due binari a 3 m/s in un campo di 0,5 T perpendicolare al piano. L’area del circuito cresce di 0,2 · 3 = 0,6 m² al secondo, e la forza elettromotrice è B L v = 0,5 · 0,2 · 3 = 0,3 V. Se i binari sono chiusi da una resistenza di 1 Ω, passa una corrente di 0,3 A, e la forza magnetica sulla barra la frena.",
+          "Esempio svolto: l’alternatore. Una bobina di 200 spire di area 0,01 m² ruota a 50 giri al secondo, cioè con ω ≈ 314 rad/s, in un campo di 0,2 T. La forza elettromotrice massima è N B A ω ≈ 200 · 0,2 · 0,01 · 314 ≈ 126 V, e la tensione oscilla cinquanta volte al secondo, come quella della rete elettrica europea.",
+          "Esempio svolto: il trasformatore. Due bobine avvolte sullo stesso nucleo di ferro sono attraversate dallo stesso flusso variabile. La tensione in ciascuna è proporzionale al suo numero di spire: con 2000 spire al primario collegato a 230 V e 100 al secondario, la tensione in uscita è 230 · 100/2000 = 11,5 V. Il trasformatore funziona soltanto con correnti variabili.",
+          "Il modello del laboratorio calcola ε(t) = −Φ₀ ω cos(ω t) per t da 0 a 10 s, con Φ₀ fra 0,05 e 0,5 Wb e ω fra 0,5 e 4 rad/s, entrambi a passi di 0,05 e 0,5.",
+          "Prova tu: quale forza elettromotrice si induce fra le estremità dell’ala di un aereo di 40 m che vola a 250 m/s, se la componente verticale del campo terrestre vale 4 · 10⁻⁵ T?"
         ],
         "advanced": [
-          "Assumendo Φ(t)=Φ₀sin(ωt), si ottiene ε=-Φ₀ωcos(ωt). Un flusso momentaneamente nullo può avere derivata massima; un flusso al massimo ha derivata nulla.",
-          "Estendi la formula a N spire con lo stesso flusso per spira. Collega lo sfasamento fra seno e coseno al concetto di derivata.",
-          "Campo magnetico grande ma costante non produce necessariamente induzione in una spira ferma. La forza elettromotrice non è una forza meccanica misurata in newton."
+          "James Clerk Maxwell lesse la legge di Faraday in un modo nuovo: un campo magnetico che cambia nel tempo crea un campo elettrico, anche in assenza di qualunque spira. Le linee di quel campo si chiudono su se stesse, e il lavoro del campo lungo un percorso chiuso è −dΦ/dt. Il campo elettrico indotto non è conservativo, e per lui il potenziale elettrostatico perde significato.",
+          "La legge di Lenz è una conseguenza della conservazione dell’energia. Se la corrente indotta favorisse la variazione di flusso, un magnete appena spinto verso una spira verrebbe attirato sempre più forte, e si otterrebbe energia dal nulla. Con il segno corretto, chi muove il magnete deve compiere lavoro, che si ritrova come energia elettrica e calore nella spira.",
+          "Le correnti indotte nei conduttori massicci, dette correnti parassite, frenano un magnete che cade in un tubo di rame fino a fargli impiegare secondi per un tragitto che in caduta libera durerebbe una frazione di secondo. Gli stessi fenomeni scaldano i nuclei dei trasformatori, che per questo sono fatti di lamierini isolati, e sono il principio dei piani di cottura a induzione e dei freni dei treni ad alta velocità.",
+          "Nel 1832 Hippolyte Pixii, costruttore di strumenti a Parigi, realizzò il primo generatore a manovella con un magnete rotante, che produceva corrente alternata; per ottenere corrente continua dovette aggiungere un commutatore. Oggi quasi tutta l’elettricità del mondo è prodotta da alternatori che applicano la legge di Faraday."
         ]
       }
     },
@@ -101,19 +108,19 @@
       "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio imposta Ampiezza flusso Φ₀ (a): 0,1 Wb; Pulsazione ω (b): 2 rad/s. Prima di salvare A, prevedi come cambia Forza elettromotrice fra Tempo=2,5 e 5 s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con Φ₀=0,1 Wb e ω=2 rad/s, a t=0 la forza elettromotrice è -0,2 V. Il segno dipende dalla convenzione di orientazione scelta.",
-          "La variabile Tempo è espressa in s; Forza elettromotrice in V. Il dominio dello strumento è [0; 10]. La relazione implementata è: ε(t) = -Φ₀ω cos(ωt)."
+          "Il grafico mostra la forza elettromotrice ε(t) = −Φ₀ ω cos(ω t) indotta da un flusso sinusoidale Φ₀ sin(ω t), per un tempo da 0 a 10 s. Nella scheda «Regola» scegli l’ampiezza del flusso Φ₀, da 0,05 a 0,5 Wb, e la pulsazione ω, da 0,5 a 4 rad/s.",
+          "Protocollo. La previsione riguarda il passaggio da t = 2,5 s a t = 5 s. Con Φ₀ = 0,1 Wb e ω = 2 rad/s scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta la pulsazione a 1 rad/s, lasciando Φ₀ = 0,1 Wb, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Prima di salvare, ricorda che la tensione oscilla: il risultato dipende dalla fase dei due istanti."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Ampiezza flusso Φ₀ (a): 0,1 Wb; Pulsazione ω (b): 2 rad/s. Prima di salvare A, prevedi come cambia Forza elettromotrice fra Tempo=2,5 e 5 s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Tempo è espressa in s; Forza elettromotrice in V. Il dominio dello strumento è [0; 10]. La relazione implementata è: ε(t) = -Φ₀ω cos(ωt).",
-          "Assumendo Φ(t)=Φ₀sin(ωt), si ottiene ε=-Φ₀ωcos(ωt). Un flusso momentaneamente nullo può avere derivata massima; un flusso al massimo ha derivata nulla."
+          "Il programma calcola la forza elettromotrice ε(t) = −Φ₀ ω cos(ω t) per t fra 0 e 10 s; nella scheda «Regola» Φ₀ si regola a passi di 0,05 Wb e ω a passi di 0,5 rad/s.",
+          "Protocollo. Configurazione A: Φ₀ = 0,1 Wb, ω = 2 rad/s, confronto fra t = 2,5 s e t = 5 s, previsione nella scheda «A / B» e «Salva A». Configurazione B: ω = 1 rad/s con lo stesso Φ₀, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. In A la tensione passa da circa −0,057 V a 0,168 V e cresce. In B passa da circa 0,080 V a −0,028 V e diminuisce. Dimezzando ω si dimezza anche l’ampiezza della tensione, da 0,2 a 0,1 V, perché il flusso cambia più lentamente, e le fasi nei due istanti cambiano."
         ],
         "advanced": [
-          "Nel laboratorio imposta Ampiezza flusso Φ₀ (a): 0,1 Wb; Pulsazione ω (b): 2 rad/s. Prima di salvare A, prevedi come cambia Forza elettromotrice fra Tempo=2,5 e 5 s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Estendi la formula a N spire con lo stesso flusso per spira. Collega lo sfasamento fra seno e coseno al concetto di derivata.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il laboratorio rappresenta ε(t) = −Φ₀ ω cos(ω t), la derivata cambiata di segno del flusso Φ₀ sin(ω t). L’ampiezza Φ₀ ω dipende da entrambi i parametri, mentre la fase dipende soltanto da ω.",
+          "Protocollo. Con Φ₀ = 0,1 Wb e ω = 2 rad/s scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il passaggio da t = 2,5 s a t = 5 s e premi «Salva A»; poi porta la pulsazione a 1 rad/s e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "La previsione dipende soltanto da ω: Φ₀ moltiplica entrambi i valori e lascia invariato il segno della differenza. Con Φ₀ = 0,2 Wb e ω = 1 rad/s i valori raddoppiano, circa 0,160 e −0,057 V, e la previsione resta «Diminuisce». Rispetto al flusso, la tensione è sfasata di un quarto di periodo."
         ]
       }
     },
@@ -122,19 +129,19 @@
       "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Campo magnetico grande ma costante non produce necessariamente induzione in una spira ferma. La forza elettromotrice non è una forza meccanica misurata in newton.",
-          "Una spira ideale e flusso sinusoidale imposto. Non sono calcolati autoinduzione, resistenza, correnti o campo generato dalla spira.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il primo errore frequente è credere che un campo magnetico forte induca sempre una tensione. Un magnete potentissimo fermo accanto a una bobina ferma lascia la bobina senza tensione, perché a contare è la variazione del flusso.",
+          "Il secondo errore è aspettarsi la tensione massima quando il flusso è massimo. In quell’istante il flusso smette per un attimo di crescere e comincia a diminuire, la sua variazione è nulla, e la tensione è zero; la tensione è massima quando il flusso passa per zero.",
+          "Il terzo errore è dimenticare la legge di Lenz. La corrente indotta si oppone sempre alla variazione che la produce, ed è per questo che girare un alternatore collegato a una lampada richiede uno sforzo, mentre a circuito aperto la manovella gira libera."
         ],
         "intermediate": [
-          "Campo magnetico grande ma costante non produce necessariamente induzione in una spira ferma. La forza elettromotrice non è una forza meccanica misurata in newton.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Esempio svolto: la corrente che si oppone. Un magnete con il polo nord rivolto verso una spira si avvicina. Il flusso verso la spira cresce, e la corrente indotta circola in modo da creare un polo nord rivolto verso il magnete, che lo respinge. Allontanando il magnete la corrente si inverte e crea un polo sud, che lo trattiene.",
+          "Esempio svolto: la bobina che ruota. In un generatore la bobina ruota a velocità costante. Quando il piano della bobina è perpendicolare al campo il flusso è massimo e la tensione è zero; un quarto di giro dopo il piano è parallelo al campo, il flusso è zero e la tensione è massima. Il grafico della tensione è una sinusoide spostata di un quarto di periodo rispetto a quello del flusso.",
+          "Esempio svolto: perché il trasformatore ha bisogno della corrente alternata. Collegando il primario di un trasformatore a una batteria, il flusso nel nucleo si stabilizza in una frazione di secondo e poi resta costante: al secondario compare soltanto un breve impulso all’inizio. Con una tensione alternata il flusso cambia di continuo, e il secondario riceve una tensione per tutto il tempo."
         ],
         "advanced": [
-          "Una spira ideale e flusso sinusoidale imposto. Non sono calcolati autoinduzione, resistenza, correnti o campo generato dalla spira.",
-          "Estendi la formula a N spire con lo stesso flusso per spira. Collega lo sfasamento fra seno e coseno al concetto di derivata.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il modello del laboratorio impone un flusso sinusoidale in una spira ideale, senza resistenza e senza induttanza propria. In una bobina reale la corrente indotta produce a sua volta un flusso, che si oppone alla variazione e ritarda la risposta: è l’autoinduzione, misurata dall’induttanza L.",
+          "Quando la spira è chiusa su una resistenza, la potenza dissipata viene dal lavoro di chi fa cambiare il flusso; il modello calcola soltanto la forza elettromotrice a circuito aperto e ignora questa reazione.",
+          "Per variazioni molto rapide la descrizione con una forza elettromotrice concentrata nella spira smette di funzionare, e bisogna trattare il campo elettrico come un’onda che si propaga; è il passo che porta dall’induzione alle onde elettromagnetiche. Le antenne delle radio funzionano proprio in questo regime."
         ]
       }
     },
@@ -161,19 +168,17 @@
       "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Flusso sinusoidale imposto in una spira ideale.",
-          "Una spira ideale e flusso sinusoidale imposto. Non sono calcolati autoinduzione, resistenza, correnti o campo generato dalla spira.",
-          "Collegamento consigliato: math-p04. Il completamento registra attività e autoverifica, non certifica competenze."
+          "L’induzione spiega generatori, trasformatori e piani di cottura, e completa il legame fra elettricità e magnetismo. La derivata di una funzione sinusoidale viene dall’unità di matematica «Limiti, variazione e accumulazione».",
+          "Riepilogo: ε = −dΦ/dt; il flusso è Φ = B A cos θ; la corrente indotta si oppone alla variazione che la produce; la tensione è massima quando il flusso cambia più in fretta.",
+          "Nel diario registra A e B e spiega perché cambiando ω la previsione si rovescia."
         ],
         "intermediate": [
-          "Assumendo Φ(t)=Φ₀sin(ωt), si ottiene ε=-Φ₀ωcos(ωt). Un flusso momentaneamente nullo può avere derivata massima; un flusso al massimo ha derivata nulla.",
-          "Una spira ideale e flusso sinusoidale imposto. Non sono calcolati autoinduzione, resistenza, correnti o campo generato dalla spira.",
-          "Estendi la formula a N spire con lo stesso flusso per spira. Collega lo sfasamento fra seno e coseno al concetto di derivata."
+          "La derivata del flusso usa gli strumenti dell’unità di matematica «Limiti, variazione e accumulazione»; la prossima unità di fisica, «Fotoni ed energia quantizzata», mostra che la luce prodotta dalle onde elettromagnetiche arriva a pacchetti. La rete elettrica è il loro punto d’incontro.",
+          "Nel diario calcola la tensione massima di un alternatore con 500 spire di 0,02 m² che ruotano a 50 giri al secondo in un campo di 0,1 T, e spiega come cambierebbe raddoppiando la velocità di rotazione."
         ],
         "advanced": [
-          "Estendi la formula a N spire con lo stesso flusso per spira. Collega lo sfasamento fra seno e coseno al concetto di derivata.",
-          "Una spira ideale e flusso sinusoidale imposto. Non sono calcolati autoinduzione, resistenza, correnti o campo generato dalla spira.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La lettura di Maxwell della legge di Faraday, con un campo elettrico indotto dal campo magnetico variabile, porta alle onde elettromagnetiche dell’unità «Onde elettromagnetiche e pressione della luce» e alle equazioni dell’unità «Equazioni di Maxwell e magnetismo della materia».",
+          "Nel diario spiega con la conservazione dell’energia perché un magnete cade lentamente in un tubo di rame, che cosa cambierebbe con un tubo di plastica e con un tubo di rame tagliato per tutta la lunghezza."
         ]
       }
     }

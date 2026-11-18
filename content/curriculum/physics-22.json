@@ -8,7 +8,7 @@
   "coverage": "guided-foundation",
   "editorialStatus": "original-draft",
   "scope": "Energia relativa a un riferimento di potenziale",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "narrativeStatus": "Lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, calcolati con il modello dell’unità. I fatti storici e i valori reali citati nei testi, come costanti, misure ed esperimenti, si riferiscono al mondo reale.",
   "objectives": [
     "Spiegare: energia relativa a un riferimento di potenziale.",
     "Applicare U = qV, dichiarando variabili e unità.",
@@ -58,17 +58,18 @@
       "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Un trasportatore sposta piccole cariche fra zone a potenziale diverso. Un valore di tensione da solo non dice quanta energia viene trasferita: serve conoscere la carica.",
-          "Il potenziale è energia potenziale per unità di carica. Rispetto a un riferimento scelto, U=qV; per un trasferimento, ΔU=qΔV. Il segno dipende dalla carica e dalla differenza di potenziale."
+          "Nel laboratorio della base una piccola sfera carica viene portata vicino a una piastra a 100 volt. Per avvicinarla bisogna spingerla, come quando si solleva un sasso contro la gravità, e il lavoro fatto resta immagazzinato. Quanto lavoro serve, e da che cosa dipende?",
+          "Il potenziale elettrico V di un punto è l’energia potenziale per unità di carica che una carica avrebbe in quel punto, rispetto a un riferimento scelto come zero. Una carica q in un punto a potenziale V ha energia potenziale U = q V. Il potenziale si misura in volt: 1 V = 1 J/C.",
+          "Una carica di 2 microcoulomb in un punto a 100 V ha un’energia potenziale di 2 · 10⁻⁶ · 100 = 2 · 10⁻⁴ J, cioè 200 microjoule. L’unità porta il nome di Alessandro Volta, che nel 1800, a Como, costruì la pila, il primo generatore di corrente continua."
         ],
         "intermediate": [
-          "Un trasportatore sposta piccole cariche fra zone a potenziale diverso. Un valore di tensione da solo non dice quanta energia viene trasferita: serve conoscere la carica.",
-          "Nel laboratorio q è in microcoulomb e V in volt; il prodotto è in microjoule. Il potenziale zero è una scelta di riferimento, mentre le differenze di energia per uno stesso spostamento restano fisicamente significative."
+          "Esempio svolto: la carica e il potenziale. Una carica di 2 μC a 100 V ha energia 200 μJ; a 125 V la stessa carica ha 250 μJ. Una carica doppia, 4 μC, a 100 V ha 400 μJ: l’energia è proporzionale sia alla carica sia al potenziale.",
+          "Esempio svolto: la pila. Una pila da 1,5 V che fa passare un coulomb di carica attraverso un circuito gli fornisce 1,5 J di energia. Una batteria da cellulare da 3,7 V e 4000 mAh, cioè 4 · 3600 = 14 400 C, immagazzina circa 3,7 · 14 400 ≈ 53 000 J.",
+          "Prova tu: quanta energia acquista una carica di 5 μC che passa da un punto a 0 V a un punto a 200 V?"
         ],
         "advanced": [
-          "Un trasportatore sposta piccole cariche fra zone a potenziale diverso. Un valore di tensione da solo non dice quanta energia viene trasferita: serve conoscere la carica.",
-          "Collega il campo al gradiente del potenziale in una dimensione. Confronta il segno del lavoro del campo con quello della variazione di energia potenziale.",
-          "Carica positiva controllata e potenziale imposto. Nessun circuito o processo di scarica reale è simulato."
+          "Nel 1791 Luigi Galvani osservò che le zampe di rana sezionate si contraevano a contatto con due metalli diversi, e attribuì il fenomeno a un’elettricità animale. Volta sostenne invece che l’elettricità nasceva dal contatto fra i metalli, e per dimostrarlo impilò dischi di zinco e di rame separati da cartone imbevuto di salamoia. La pila, annunciata in una lettera alla Royal Society nel marzo del 1800, diede alla fisica la prima corrente continua.",
+          "La parola potenziale fu introdotta dal matematico inglese George Green nel 1828, in un saggio sull’elettricità e il magnetismo che stampò a proprie spese e che quasi nessuno lesse finché William Thomson non lo riscoprì nel 1845. Green era un mugnaio autodidatta di Nottingham, e il suo teorema è oggi uno strumento di base della fisica matematica."
         ]
       }
     },
@@ -77,18 +78,25 @@
       "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Il potenziale è energia potenziale per unità di carica. Rispetto a un riferimento scelto, U=qV; per un trasferimento, ΔU=qΔV. Il segno dipende dalla carica e dalla differenza di potenziale.",
-          "Con q=2 μC e V=100 V, U=200 μJ rispetto al riferimento. Non sono 200 J: il prefisso micro introduce un fattore 10⁻⁶."
+          "Il campo elettrico compie lavoro su una carica che si sposta, come la gravità su un sasso che cade. Il lavoro del campo da un punto A a un punto B dipende soltanto dai due punti e non dal percorso, e si scrive W = q (V_A − V_B). Per questo si può associare a ogni punto un potenziale, come a ogni quota un’energia potenziale gravitazionale.",
+          "Una carica positiva lasciata libera si sposta spontaneamente verso potenziali più bassi, perdendo energia potenziale e guadagnando energia cinetica. Una carica negativa fa il contrario e si sposta verso potenziali più alti: per lei U = q V diminuisce quando V cresce.",
+          "Il valore del potenziale dipende dalla scelta dello zero, che è arbitraria; contano le differenze di potenziale, misurate dal voltmetro e chiamate anche tensioni. Nei circuiti lo zero si fissa di solito al polo negativo della batteria o alla terra; per una carica isolata nello spazio, all’infinito.",
+          "Esempio: con V = 100 V una carica di 2,5 μC ha 250 μJ e una di 5 μC ne ha 500. Con V = −100 V le energie sono −250 e −500 μJ: un potenziale negativo dà energie negative alle cariche positive.",
+          "L’elettronvolt è l’energia che una carica elementare acquista attraversando una differenza di potenziale di 1 V: 1 eV ≈ 1,602 · 10⁻¹⁹ J. È l’unità naturale della fisica atomica: un fotone di luce visibile porta circa 2 eV, un legame chimico qualche eV."
         ],
         "intermediate": [
-          "Nel laboratorio q è in microcoulomb e V in volt; il prodotto è in microjoule. Il potenziale zero è una scelta di riferimento, mentre le differenze di energia per uno stesso spostamento restano fisicamente significative.",
-          "La variabile Carica è espressa in μC; Energia potenziale in μJ. Il dominio dello strumento è [0; 10]. La relazione implementata è: U = qV.",
-          "Con q=2 μC e V=100 V, U=200 μJ rispetto al riferimento. Non sono 200 J: il prefisso micro introduce un fattore 10⁻⁶."
+          "Esempio svolto: un elettrone accelerato. Un elettrone che parte da fermo e attraversa una differenza di potenziale di 100 V acquista un’energia di 100 eV, circa 1,6 · 10⁻¹⁷ J. La sua velocità finale è √(2 · 1,6 · 10⁻¹⁷/9,11 · 10⁻³¹) ≈ 5,9 · 10⁶ m/s, circa il 2% di quella della luce.",
+          "Esempio svolto: dal potenziale al campo. Due piastre parallele a 1 cm di distanza, una a 100 V e l’altra a 0 V, creano fra loro un campo uniforme di 100/0,01 = 10 000 V/m, diretto dalla piastra positiva a quella negativa. Il volt al metro coincide con il newton al coulomb, e il campo è la rapidità con cui il potenziale cambia nello spazio.",
+          "Esempio svolto: il condensatore. Un condensatore accumula carica Q = C V sulle sue armature, e immagazzina un’energia C V²/2. Il condensatore del flash di una fotocamera, di circa 150 microfarad caricato a 300 V, contiene circa 150 · 10⁻⁶ · 300²/2 ≈ 6,8 J, liberati in un millesimo di secondo.",
+          "Il modello del laboratorio calcola U = q V per una carica fra 0 e 10 μC, con il potenziale fra −200 e 200 V a passi di 25; il prodotto di microcoulomb per volt si legge in microjoule.",
+          "Prova tu: quale velocità raggiunge un protone, di massa 1,67 · 10⁻²⁷ kg, accelerato da fermo attraverso 2000 V? Confrontala con quella di un elettrone accelerato dalla stessa tensione."
         ],
         "advanced": [
-          "Nel laboratorio q è in microcoulomb e V in volt; il prodotto è in microjoule. Il potenziale zero è una scelta di riferimento, mentre le differenze di energia per uno stesso spostamento restano fisicamente significative.",
-          "Collega il campo al gradiente del potenziale in una dimensione. Confronta il segno del lavoro del campo con quello della variazione di energia potenziale.",
-          "Tensione non è corrente e non è energia totale. Un potenziale costante nello spazio può essere non nullo mentre il campo locale, legato al gradiente, è nullo."
+          "Per una carica puntiforme Q il potenziale a distanza r, con lo zero all’infinito, vale V = k Q/r. Il campo è l’opposto della derivata del potenziale: E = −dV/dr = k Q/r², la legge di Coulomb. In tre dimensioni il campo è l’opposto del gradiente del potenziale, e le superfici equipotenziali sono sempre perpendicolari alle linee di campo.",
+          "In un conduttore in equilibrio le cariche libere si dispongono in modo che il campo interno sia nullo, e tutto il conduttore è allo stesso potenziale. Una gabbia metallica scherma il suo interno dai campi esterni: è la gabbia di Faraday, che protegge i passeggeri di un’auto colpita da un fulmine.",
+          "L’energia di un condensatore si può pensare come immagazzinata nel campo fra le armature, con una densità ε₀ E²/2 per metro cubo. Questa lettura diventa necessaria con le onde elettromagnetiche, che trasportano energia attraverso il vuoto senza cariche.",
+          "Il primo condensatore fu la bottiglia di Leida, inventata fra il 1745 e il 1746 da Ewald von Kleist e, indipendentemente, da Pieter van Musschenbroek: un vaso di vetro rivestito di metallo dentro e fuori. Le scosse che dava sorpresero i suoi inventori e divennero uno spettacolo nei salotti del Settecento.",
+          "Il volt, insieme all’ohm e all’ampere, fu adottato come unità pratica nel 1881 dal Congresso internazionale degli elettricisti di Parigi, quando la telegrafia e l’illuminazione elettrica avevano reso necessario un linguaggio comune fra laboratori e industrie di paesi diversi."
         ]
       }
     },
@@ -97,19 +105,19 @@
       "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio imposta Potenziale V (a): 100 V. Prima di salvare A, prevedi come cambia Energia potenziale fra Carica=2,5 e 5 μC. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con q=2 μC e V=100 V, U=200 μJ rispetto al riferimento. Non sono 200 J: il prefisso micro introduce un fattore 10⁻⁶.",
-          "La variabile Carica è espressa in μC; Energia potenziale in μJ. Il dominio dello strumento è [0; 10]. La relazione implementata è: U = qV."
+          "Il grafico mostra l’energia potenziale U = q V al variare della carica q, da 0 a 10 microcoulomb. Nella scheda «Regola» scegli il potenziale V, da −200 a 200 V.",
+          "Protocollo. La previsione riguarda il passaggio da q = 2,5 μC a q = 5 μC. Con V = 100 V scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta il potenziale a −100 V, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Prima di salvare B, chiediti che segno ha l’energia di una carica positiva in un punto a potenziale negativo."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Potenziale V (a): 100 V. Prima di salvare A, prevedi come cambia Energia potenziale fra Carica=2,5 e 5 μC. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Carica è espressa in μC; Energia potenziale in μJ. Il dominio dello strumento è [0; 10]. La relazione implementata è: U = qV.",
-          "Nel laboratorio q è in microcoulomb e V in volt; il prodotto è in microjoule. Il potenziale zero è una scelta di riferimento, mentre le differenze di energia per uno stesso spostamento restano fisicamente significative."
+          "Il programma calcola l’energia U = q V per una carica fra 0 e 10 μC; nella scheda «Regola» il potenziale si regola a passi di 25 V.",
+          "Protocollo. Configurazione A: V = 100 V, confronto fra q = 2,5 μC e q = 5 μC, previsione nella scheda «A / B» e «Salva A». Configurazione B: V = −100 V, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. In A l’energia passa da 250 a 500 μJ e cresce. In B passa da −250 a −500 μJ e diminuisce: più carica in un punto a potenziale negativo significa un’energia sempre più negativa. Con V = 0 l’energia sarebbe zero per ogni carica, e la previsione corretta diventerebbe «Uguale»."
         ],
         "advanced": [
-          "Nel laboratorio imposta Potenziale V (a): 100 V. Prima di salvare A, prevedi come cambia Energia potenziale fra Carica=2,5 e 5 μC. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Collega il campo al gradiente del potenziale in una dimensione. Confronta il segno del lavoro del campo con quello della variazione di energia potenziale.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il laboratorio rappresenta la funzione lineare U(q) = q V su q fra 0 e 10 μC: una retta per l’origine di pendenza V. Il segno della pendenza, cioè del potenziale, decide da solo la previsione.",
+          "Protocollo. Con V = 100 V scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il passaggio da q = 2,5 μC a q = 5 μC e premi «Salva A»; poi porta il potenziale a −100 V e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "Il segno di U dipende dalla scelta dello zero del potenziale, che è convenzionale. Spostando lo zero di 200 V, il potenziale di B diventerebbe +100 V e la retta salirebbe: la previsione cambierebbe, mentre le differenze di energia fra due configurazioni con la stessa carica, le sole misurabili, resterebbero le stesse."
         ]
       }
     },
@@ -118,19 +126,19 @@
       "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Tensione non è corrente e non è energia totale. Un potenziale costante nello spazio può essere non nullo mentre il campo locale, legato al gradiente, è nullo.",
-          "Carica positiva controllata e potenziale imposto. Nessun circuito o processo di scarica reale è simulato.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il primo errore frequente è confondere il potenziale con l’energia potenziale. Il potenziale è una proprietà del punto, in volt; l’energia potenziale è una proprietà della carica posta in quel punto, in joule, e vale q V.",
+          "Il secondo errore è credere che un potenziale alto sia pericoloso di per sé. Una scintilla elettrostatica può avere migliaia di volt e trasporta una carica così piccola da essere innocua; il pericolo dipende dall’energia e dalla corrente che passano nel corpo.",
+          "Il terzo errore è pensare che lo zero del potenziale sia fissato dalla natura. È una scelta, come lo zero delle quote: si può misurare l’altezza dal livello del mare o dal pavimento, e le differenze restano le stesse. Per questo si parla sempre di tensione fra due punti."
         ],
         "intermediate": [
-          "Tensione non è corrente e non è energia totale. Un potenziale costante nello spazio può essere non nullo mentre il campo locale, legato al gradiente, è nullo.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Esempio svolto: il segno della carica. Un elettrone passa da un punto a 0 V a un punto a 100 V. La sua energia potenziale cambia di q ΔV = (−1,6 · 10⁻¹⁹)(100) = −1,6 · 10⁻¹⁷ J: diminuisce, e l’elettrone accelera. Un protone nello stesso percorso aumenterebbe la propria energia potenziale e verrebbe frenato.",
+          "Esempio svolto: la scossa della maniglia. Camminando su una moquette si può arrivare a qualche migliaio di volt rispetto alla terra, con una capacità del corpo di circa 100 picofarad. L’energia immagazzinata, C V²/2 con 10 000 V, è circa 100 · 10⁻¹² · 10⁸/2 = 5 · 10⁻³ J: pochi millijoule, sufficienti per una scintilla visibile e innocui.",
+          "Esempio svolto: lavoro e percorso. Una carica di 1 μC viene portata da un punto a 50 V a un punto a 150 V lungo un percorso tortuoso. Il lavoro necessario è 10⁻⁶ · 100 = 100 μJ, lo stesso che lungo un percorso diretto, perché il campo elettrostatico è conservativo."
         ],
         "advanced": [
-          "Carica positiva controllata e potenziale imposto. Nessun circuito o processo di scarica reale è simulato.",
-          "Collega il campo al gradiente del potenziale in una dimensione. Confronta il segno del lavoro del campo con quello della variazione di energia potenziale.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il modello del laboratorio calcola l’energia di una carica di prova in un potenziale dato e trascura l’effetto della carica stessa sul campo. Per cariche grandi, o per conduttori vicini, la carica di prova induce cariche sugli oggetti circostanti e modifica il potenziale che dovrebbe misurare.",
+          "Il potenziale elettrostatico ha senso finché i campi sono statici. Quando i campi magnetici cambiano nel tempo, come nell’induzione, il lavoro del campo elettrico lungo un percorso chiuso non è più zero, e la differenza di potenziale fra due punti dipende dal percorso: è il caso dei generatori e dei trasformatori.",
+          "Infine, alle energie della fisica delle particelle anche l’elettronvolt diventa piccolo: un acceleratore come LHC porta i protoni a energie di qualche teraelettronvolt, cioè migliaia di miliardi di eV."
         ]
       }
     },
@@ -157,19 +165,17 @@
       "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Energia relativa a un riferimento di potenziale.",
-          "Carica positiva controllata e potenziale imposto. Nessun circuito o processo di scarica reale è simulato.",
-          "Collegamento consigliato: physics-23. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Il potenziale collega il campo elettrico all’energia, e la differenza di potenziale è la grandezza che spinge le cariche nei circuiti. La prossima unità di fisica, «Circuiti e legge di Ohm», studia proprio questo movimento.",
+          "Riepilogo: U = q V; il potenziale si misura in volt, cioè joule al coulomb; contano le differenze di potenziale; 1 eV ≈ 1,6 · 10⁻¹⁹ J.",
+          "Nel diario registra A e B e spiega perché in B l’energia diminuisce."
         ],
         "intermediate": [
-          "Nel laboratorio q è in microcoulomb e V in volt; il prodotto è in microjoule. Il potenziale zero è una scelta di riferimento, mentre le differenze di energia per uno stesso spostamento restano fisicamente significative.",
-          "Carica positiva controllata e potenziale imposto. Nessun circuito o processo di scarica reale è simulato.",
-          "Collega il campo al gradiente del potenziale in una dimensione. Confronta il segno del lavoro del campo con quello della variazione di energia potenziale."
+          "L’energia potenziale elettrica è l’analoga di m g h dell’unità «Lavoro ed energia», con q al posto di m e V al posto di g h. Le pile e i potenziali di elettrodo sono il tema dell’unità di chimica «Ossidazione, riduzione ed elettrochimica». Una pila è una differenza di potenziale chimica.",
+          "Nel diario calcola l’energia, in elettronvolt e in joule, di un elettrone accelerato da 5000 V, la sua velocità finale e la frazione della velocità della luce che essa rappresenta."
         ],
         "advanced": [
-          "Collega il campo al gradiente del potenziale in una dimensione. Confronta il segno del lavoro del campo con quello della variazione di energia potenziale.",
-          "Carica positiva controllata e potenziale imposto. Nessun circuito o processo di scarica reale è simulato.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Il legame fra campo e potenziale come gradiente usa le derivate parziali dell’unità «Cariche e campo elettrico»; il condensatore e la legge di Gauss tornano nell’unità «Legge di Gauss: gusci, pianeti e condensatori», e il potenziale variabile nel tempo nell’unità «Induzione elettromagnetica».",
+          "Nel diario mostra che l’energia di un condensatore piano carico, C V²/2, è uguale alla densità ε₀ E²/2 moltiplicata per il volume fra le armature, usando C = ε₀ A/d ed E = V/d."
         ]
       }
     }

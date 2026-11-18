@@ -8,7 +8,7 @@
   "coverage": "guided-foundation",
   "editorialStatus": "original-draft",
   "scope": "Letture indipendenti con dispersione costante",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "narrativeStatus": "Lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, calcolati con il modello dell’unità. I fatti storici e i valori reali citati nei testi, come costanti, misure ed esperimenti, si riferiscono al mondo reale.",
   "objectives": [
     "Spiegare: letture indipendenti con dispersione costante.",
     "Applicare σ_media = a / √n, dichiarando variabili e unità.",
@@ -56,17 +56,18 @@
       "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "La stessa lunghezza viene misurata più volte. Il gruppo spera che cento letture eliminino ogni errore. Prima di calcolare la media, separa la dispersione casuale da uno strumento sistematicamente fuori taratura.",
-          "Una misura comprende un valore, un’unità e un’incertezza. Ripetizioni indipendenti con la stessa distribuzione permettono di ridurre l’incertezza casuale della media. Non correggono automaticamente un errore sistematico comune a tutte le letture."
+          "La stessa lunghezza viene misurata più volte con lo stesso strumento, e le letture differiscono di qualche millimetro. Il gruppo della spedizione spera che cento letture eliminino ogni errore. Prima di calcolare la media bisogna separare due cose diverse: la dispersione casuale delle letture, che la media riduce, e un eventuale difetto di taratura dello strumento, che la media lascia intatto.",
+          "Una misura completa ha tre parti: un valore, un’unità e un’incertezza. Scrivere 25,3 ± 0,2 cm significa dichiarare che il valore più plausibile è 25,3 centimetri e che lo scarto tipico delle letture è di circa due millimetri.",
+          "Le unità stesse hanno una lunga storia. Il metro nacque con la Rivoluzione francese, alla fine del Settecento, come la decimilionesima parte della distanza fra il polo e l’equatore; dal 1983 è definito attraverso la velocità della luce, e dal 2019 tutte le unità del Sistema internazionale si basano su costanti di natura con valori fissati."
         ],
         "intermediate": [
-          "La stessa lunghezza viene misurata più volte. Il gruppo spera che cento letture eliminino ogni errore. Prima di calcolare la media, separa la dispersione casuale da uno strumento sistematicamente fuori taratura.",
-          "Se ogni lettura ha deviazione standard σ, la varianza della media di n letture indipendenti è σ²/n. La deviazione standard della media è quindi σ/√n. Il divisore è la radice del numero di prove, non il numero stesso."
+          "Esempio svolto: media e dispersione. Cinque letture di una lunghezza danno 25,1, 25,4, 25,3, 25,2 e 25,5 cm. La media è 126,5/5 = 25,3 cm. Gli scarti dalla media sono −0,2, 0,1, 0, −0,1 e 0,2 cm, e la deviazione standard campionaria, con il divisore n − 1 = 4, vale √(0,10/4) ≈ 0,16 cm.",
+          "Esempio svolto: le cifre significative. Una lunghezza di 25,3 cm con incertezza di 0,16 cm si scrive 25,3 ± 0,2 cm: l’incertezza si arrotonda a una cifra, e il valore all’ultima cifra che l’incertezza lascia significativa. Scrivere 25,31748 cm darebbe una precisione falsa.",
+          "Prova tu: con le letture 12,0, 12,4, 11,8 e 12,2 s calcola la media e la deviazione standard campionaria, e scrivi il risultato con il numero giusto di cifre."
         ],
         "advanced": [
-          "La stessa lunghezza viene misurata più volte. Il gruppo spera che cento letture eliminino ogni errore. Prima di calcolare la media, separa la dispersione casuale da uno strumento sistematicamente fuori taratura.",
-          "Progetta un controllo con un riferimento noto per cercare un bias. Confronta l’errore standard con la deviazione delle singole letture e spiega quale descrive la variabilità di una nuova osservazione.",
-          "Il laboratorio assume σ nota, indipendenza e assenza di variazioni del fenomeno durante le misure. Non calcola un intervallo di confidenza da dati campionari."
+          "La distinzione fra errori casuali e sistematici ha una lunga storia. Carl Friedrich Gauss, all’inizio dell’Ottocento, descrisse la distribuzione degli errori casuali con la curva a campana che porta il suo nome, e la usò insieme ai minimi quadrati per ricavare orbite di asteroidi da osservazioni imprecise. Un errore sistematico sposta invece tutte le letture nello stesso verso, e soltanto il confronto con un riferimento lo rivela.",
+          "Precisione, accuratezza e risoluzione sono tre proprietà distinte. La precisione riguarda quanto le letture si somigliano fra loro, l’accuratezza quanto la loro media si avvicina al valore vero, la risoluzione la più piccola variazione che lo strumento distingue. Un calibro digitale può mostrare il centesimo di millimetro ed essere starato di un millimetro intero."
         ]
       }
     },
@@ -75,18 +76,25 @@
       "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Una misura comprende un valore, un’unità e un’incertezza. Ripetizioni indipendenti con la stessa distribuzione permettono di ridurre l’incertezza casuale della media. Non correggono automaticamente un errore sistematico comune a tutte le letture.",
-          "Con σ=2 mm e n=4, l’errore standard della media è 1 mm. Per dimezzarlo ancora servono 16 letture totali. Un errore di taratura di +3 mm resterebbe invece presente nella media."
+          "Se ogni lettura ha una dispersione tipica σ, la media di n letture indipendenti ha una dispersione più piccola, σ/√n, detta errore standard della media. Il motivo è che gli scarti casuali di letture diverse hanno segni diversi e si compensano in parte quando si sommano. La compensazione è soltanto parziale, e per questo il divisore è √n, più piccolo di n.",
+          "Esempio: con σ = 2 mm e n = 4 letture, l’errore standard della media è 2/√4 = 1 mm. Per dimezzarlo ancora, fino a 0,5 mm, servono 16 letture, cioè quattro volte tante; per scendere a 0,2 mm ne servono 100. Ogni cifra decimale in più costa cento volte le misure.",
+          "La media riduce soltanto la parte casuale. Se lo strumento è starato di +3 mm, ogni lettura è spostata di 3 mm, e anche la media di cento letture resta spostata di 3 mm. Un errore sistematico si scopre confrontando lo strumento con un campione di riferimento, e si corregge con una taratura.",
+          "Il controllo delle unità è il primo strumento contro gli errori di calcolo. In un’uguaglianza fisica i due membri devono avere le stesse dimensioni, e si possono sommare soltanto grandezze omogenee: lunghezze con lunghezze, tempi con tempi. Una formula che dà una velocità in metri al secondo quadrato è sicuramente sbagliata.",
+          "Il Sistema internazionale di unità fu adottato nel 1960. Fino al 2019 il chilogrammo era la massa di un cilindro di platino e iridio custodito a Sèvres, vicino a Parigi, dal 1889; oggi è definito fissando il valore della costante di Planck, e qualunque laboratorio attrezzato può realizzarlo."
         ],
         "intermediate": [
-          "Se ogni lettura ha deviazione standard σ, la varianza della media di n letture indipendenti è σ²/n. La deviazione standard della media è quindi σ/√n. Il divisore è la radice del numero di prove, non il numero stesso.",
-          "La variabile Ripetizioni n è espressa in 1; Errore standard in mm. Il dominio dello strumento è [1; 100], con soli valori interi. La relazione implementata è: σ_media = a / √n.",
-          "Con σ=2 mm e n=4, l’errore standard della media è 1 mm. Per dimezzarlo ancora servono 16 letture totali. Un errore di taratura di +3 mm resterebbe invece presente nella media."
+          "Esempio svolto: quante letture servono? Con σ = 2 mm si vuole un errore standard di 0,25 mm. Da 2/√n = 0,25 segue √n = 8, cioè n = 64 letture. Con 16 letture l’errore standard sarebbe 0,5 mm, con 100 letture 0,2 mm.",
+          "Esempio svolto: la propagazione dell’incertezza. L’area di un rettangolo di lati (20,0 ± 0,1) cm e (10,0 ± 0,1) cm vale 200 cm². Le incertezze relative dei lati sono 0,5% e 1%; per un prodotto di grandezze indipendenti le incertezze relative si combinano in quadratura, √(0,5² + 1²) ≈ 1,1%, e l’area è (200 ± 2) cm².",
+          "Esempio svolto: un controllo dimensionale. Nella formula s = v²/(2a) per lo spazio di frenata, le dimensioni di v²/a sono (L²T⁻²)/(LT⁻²) = L, una lunghezza, come deve essere. Se qualcuno scrivesse s = v/(2a), le dimensioni sarebbero T, un tempo, e l’errore si vedrebbe prima di ogni calcolo.",
+          "Il modello del laboratorio calcola σ/√n per n da 1 a 100 letture, con σ regolabile da 0,5 a 5 mm a passi di 0,5. Con σ = 2 mm l’errore standard vale 2 mm per una lettura, 1 mm per quattro, 0,2 mm per cento.",
+          "Esempio svolto: incertezza relativa. Una massa di 50,0 g misurata con incertezza di 0,5 g ha incertezza relativa 0,5/50 = 1%. Una distanza di 1000 m nota a meno di 1 m ha incertezza relativa 0,1%, dieci volte migliore. Per confrontare la qualità di misure di grandezze diverse si usano le incertezze relative, che sono numeri puri.",
+          "Prova tu: con σ = 3 mm, quante letture servono per un errore standard di 0,5 mm?"
         ],
         "advanced": [
-          "Se ogni lettura ha deviazione standard σ, la varianza della media di n letture indipendenti è σ²/n. La deviazione standard della media è quindi σ/√n. Il divisore è la radice del numero di prove, non il numero stesso.",
-          "Progetta un controllo con un riferimento noto per cercare un bias. Confronta l’errore standard con la deviazione delle singole letture e spiega quale descrive la variabilità di una nuova osservazione.",
-          "Più cifre sul display non implicano più accuratezza. Precisione, accuratezza e risoluzione sono concetti distinti; ripetere una misura correlata non dà lo stesso beneficio di nuove osservazioni indipendenti."
+          "La regola σ/√n viene dalle proprietà della varianza. Per letture indipendenti la varianza di una somma è la somma delle varianze, e la somma di n letture ha varianza nσ². La media è la somma divisa per n, e dividere per n divide la varianza per n²: resta σ²/n, la cui radice è σ/√n. L’ipotesi decisiva è l’indipendenza; se le letture sono correlate, la varianza della somma contiene anche termini incrociati, e la riduzione è minore.",
+          "La stessa idea dà la regola generale di propagazione. Se una grandezza q dipende da misure indipendenti x₁, x₂ e così via, al primo ordine la sua varianza è la somma dei quadrati delle derivate parziali moltiplicati per le varianze delle misure. Le derivate misurano la sensibilità del risultato a ciascun dato, e un dato con una grande derivata domina l’incertezza finale anche se è misurato bene.",
+          "La teoria degli errori nacque dall’astronomia. Nel 1805 Adrien-Marie Legendre pubblicò il metodo dei minimi quadrati, e nel 1809 Gauss lo giustificò con la distribuzione normale degli errori. Pierre-Simon de Laplace dimostrò poi che la somma di molti piccoli errori indipendenti tende a quella distribuzione, qualunque sia la forma dei singoli errori: è il teorema del limite centrale.",
+          "L’incertezza ha infine due componenti che si trattano in modo diverso. La componente casuale si stima dalla dispersione delle letture e si riduce ripetendo; quella sistematica si stima confrontando metodi e strumenti diversi, e la ripetizione della stessa misura la lascia invariata. Le norme internazionali chiamano queste due valutazioni di tipo A e di tipo B."
         ]
       }
     },
@@ -95,19 +103,19 @@
       "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio imposta Deviazione σ (a): 2 mm. Prima di salvare A, prevedi come cambia Errore standard fra Ripetizioni n=26 e 51 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con σ=2 mm e n=4, l’errore standard della media è 1 mm. Per dimezzarlo ancora servono 16 letture totali. Un errore di taratura di +3 mm resterebbe invece presente nella media.",
-          "La variabile Ripetizioni n è espressa in 1; Errore standard in mm. Il dominio dello strumento è [1; 100], con soli valori interi. La relazione implementata è: σ_media = a / √n."
+          "Nel laboratorio il grafico mostra l’errore standard della media, σ/√n, al crescere del numero n di letture, da 1 a 100. Nella scheda «Regola» scegli la deviazione σ delle singole letture, da 0,5 a 5 mm.",
+          "Protocollo. La previsione riguarda il passaggio da n = 26 a n = 51 letture. Con σ = 2 mm scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta σ a 4 mm, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Prima di salvare, chiediti se aggiungere letture indipendenti possa mai far crescere l’errore standard della media."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Deviazione σ (a): 2 mm. Prima di salvare A, prevedi come cambia Errore standard fra Ripetizioni n=26 e 51 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Ripetizioni n è espressa in 1; Errore standard in mm. Il dominio dello strumento è [1; 100], con soli valori interi. La relazione implementata è: σ_media = a / √n.",
-          "Se ogni lettura ha deviazione standard σ, la varianza della media di n letture indipendenti è σ²/n. La deviazione standard della media è quindi σ/√n. Il divisore è la radice del numero di prove, non il numero stesso."
+          "Il programma calcola l’errore standard σ/√n per un numero intero di letture fra 1 e 100; la deviazione σ si imposta nella scheda «Regola», a passi di 0,5 mm.",
+          "Protocollo. Configurazione A: σ = 2 mm, confronto fra 26 e 51 letture, previsione nella scheda «A / B» e «Salva A». Configurazione B: σ = 4 mm, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con σ = 2 mm l’errore standard passa da circa 0,39 a 0,28 mm: diminuisce, e molto meno di quanto il raddoppio delle letture lascerebbe sperare, perché √(51/26) ≈ 1,40. Con σ = 4 mm i valori raddoppiano, 0,78 e 0,56 mm, e la previsione resta la stessa."
         ],
         "advanced": [
-          "Nel laboratorio imposta Deviazione σ (a): 2 mm. Prima di salvare A, prevedi come cambia Errore standard fra Ripetizioni n=26 e 51 1. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Progetta un controllo con un riferimento noto per cercare un bias. Confronta l’errore standard con la deviazione delle singole letture e spiega quale descrive la variabilità di una nuova osservazione.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "Il laboratorio rappresenta f(n) = σ/√n su valori interi di n fra 1 e 100: una curva che scende rapidamente all’inizio e poi sempre più lentamente, perché la sua derivata, −σ/(2n^(3/2)), si riduce in modulo al crescere di n.",
+          "Protocollo. Con σ = 2 mm scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il passaggio da n = 26 a n = 51 e premi «Salva A»; poi porta σ a 4 mm e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "Il rapporto fra le due configurazioni è costante: per ogni n l’errore standard con σ = 4 mm è il doppio di quello con σ = 2 mm. Cambiare σ scala la curva in verticale e ne lascia invariata la forma, e per questo la previsione è la stessa in A e in B."
         ]
       }
     },
@@ -116,19 +124,19 @@
       "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Più cifre sul display non implicano più accuratezza. Precisione, accuratezza e risoluzione sono concetti distinti; ripetere una misura correlata non dà lo stesso beneficio di nuove osservazioni indipendenti.",
-          "Il laboratorio assume σ nota, indipendenza e assenza di variazioni del fenomeno durante le misure. Non calcola un intervallo di confidenza da dati campionari.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il primo errore frequente è pensare che più cifre sul display significhino più accuratezza. Un termometro digitale che mostra 21,37 °C può essere starato di un grado intero: la risoluzione è di un centesimo, l’accuratezza molto peggiore.",
+          "Il secondo errore è confondere la dispersione delle singole letture con l’errore standard della media. Se si chiede quanto varierà la prossima lettura, la risposta è σ, che resta 2 mm anche dopo cento misure; l’errore standard, 0,2 mm, riguarda soltanto la media.",
+          "Il terzo errore è credere che ripetere la misura elimini ogni difetto. Ripetere riduce la parte casuale; una taratura sbagliata, un metro allungato dal caldo o una lettura sempre fatta di sbieco spostano tutte le letture nello stesso verso, e la media le conserva."
         ],
         "intermediate": [
-          "Più cifre sul display non implicano più accuratezza. Precisione, accuratezza e risoluzione sono concetti distinti; ripetere una misura correlata non dà lo stesso beneficio di nuove osservazioni indipendenti.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. Quando gli indici sono numerosi, è mostrato un campionamento dichiarato; il cursore calcola ogni indice richiesto."
+          "Esempio svolto: un errore sistematico. Cento letture di un campione di riferimento lungo 100,0 mm danno una media di 103,1 mm con errore standard 0,2 mm. La differenza di 3,1 mm è più di quindici volte l’errore standard: è certamente un errore sistematico, e lo strumento va tarato sottraendo 3,1 mm a ogni lettura.",
+          "Esempio svolto: letture correlate. Se le cento letture sono fatte tutte nello stesso minuto, con lo strumento e l’oggetto alla stessa temperatura, una variazione di temperatura successiva le sposterebbe tutte insieme. Le letture sono correlate, e la loro media è meno affidabile di quanto suggerisca σ/√n.",
+          "Esempio svolto: confrontare due risultati. Due gruppi misurano la stessa lunghezza e ottengono (25,30 ± 0,05) cm e (25,45 ± 0,05) cm. La differenza, 0,15 cm, è circa due volte l’incertezza combinata √(0,05² + 0,05²) ≈ 0,07 cm: i due risultati sono al limite della compatibilità, e conviene cercare una causa."
         ],
         "advanced": [
-          "Il laboratorio assume σ nota, indipendenza e assenza di variazioni del fenomeno durante le misure. Non calcola un intervallo di confidenza da dati campionari.",
-          "Progetta un controllo con un riferimento noto per cercare un bias. Confronta l’errore standard con la deviazione delle singole letture e spiega quale descrive la variabilità di una nuova osservazione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il modello del laboratorio presuppone che σ sia nota, che le letture siano indipendenti e che il fenomeno resti fermo durante le misure. In un esperimento reale σ si stima dai dati, con la deviazione standard campionaria, e con poche letture anche questa stima è incerta: con quattro letture l’incertezza relativa di σ stimata è di circa il 40%.",
+          "Per questo, con pochi dati, gli intervalli di confidenza si costruiscono con la distribuzione t di Student, introdotta nel 1908 da William Gosset, chimico della birreria Guinness, che pubblicò con lo pseudonimo Student perché l’azienda vietava ai dipendenti di firmare articoli.",
+          "Esiste infine un limite pratico: ogni dimezzamento dell’errore costa il quadruplo delle misure, e oltre un certo punto conviene migliorare lo strumento invece di ripetere."
         ]
       }
     },
@@ -155,19 +163,17 @@
       "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Letture indipendenti con dispersione costante.",
-          "Il laboratorio assume σ nota, indipendenza e assenza di variazioni del fenomeno durante le misure. Non calcola un intervallo di confidenza da dati campionari.",
-          "Collegamento consigliato: math-c10. Il completamento registra attività e autoverifica, non certifica competenze."
+          "Incertezza e unità accompagnano ogni misura delle unità successive: velocità, forze ed energie hanno senso soltanto con la loro unità e con una stima dell’errore. La statistica delle misure torna nell’unità di matematica «Combinatoria, probabilità e statistica».",
+          "Riepilogo: una misura ha valore, unità e incertezza; la media di n letture indipendenti ha errore standard σ/√n; ripetere riduce la parte casuale e lascia intatta quella sistematica.",
+          "Nel diario registra A e B e spiega quante letture servono per dimezzare l’errore standard."
         ],
         "intermediate": [
-          "Se ogni lettura ha deviazione standard σ, la varianza della media di n letture indipendenti è σ²/n. La deviazione standard della media è quindi σ/√n. Il divisore è la radice del numero di prove, non il numero stesso.",
-          "Il laboratorio assume σ nota, indipendenza e assenza di variazioni del fenomeno durante le misure. Non calcola un intervallo di confidenza da dati campionari.",
-          "Progetta un controllo con un riferimento noto per cercare un bias. Confronta l’errore standard con la deviazione delle singole letture e spiega quale descrive la variabilità di una nuova osservazione."
+          "La deviazione standard e la media vengono dall’unità di matematica «Combinatoria, probabilità e statistica», e il controllo dimensionale è lo stesso dell’unità «Scala, energia, equilibrio e trasformazioni». Nella prossima unità di fisica, sui vettori, le grandezze misurate avranno anche una direzione.",
+          "Nel diario calcola quante letture servono, con σ = 2 mm, per un errore standard di 0,1 mm, e spiega perché un errore sistematico di 3 mm renderebbe inutile quella precisione anche con migliaia di misure."
         ],
         "advanced": [
-          "Progetta un controllo con un riferimento noto per cercare un bias. Confronta l’errore standard con la deviazione delle singole letture e spiega quale descrive la variabilità di una nuova osservazione.",
-          "Il laboratorio assume σ nota, indipendenza e assenza di variazioni del fenomeno durante le misure. Non calcola un intervallo di confidenza da dati campionari.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La propagazione delle incertezze usa le derivate dell’unità «Limiti, variazione e accumulazione», e la deviazione standard di partenza è quella dell’unità «Combinatoria, probabilità e statistica». Nel 2019 la ridefinizione del Sistema internazionale ha legato ogni unità a costanti fisiche, come la carica elementare e la costante di Boltzmann.",
+          "Nel diario stima l’incertezza dell’area di un foglio A4 misurato con un righello millimetrato, propagando le incertezze dei due lati, e indica quale dei due lati pesa di più sull’incertezza finale."
         ]
       }
     }

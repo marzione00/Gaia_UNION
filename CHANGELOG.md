@@ -1,3 +1,11 @@
+# 1.36.0: Tre livelli distinti nei percorsi di fisica
+
+- I 40 percorsi guidati di fisica hanno testi nuovi in tutte le tappe con testo visibile. Base spiega il concetto con un esempio semplice e con la sua storia; Applica svolge esempi numerici completi e chiude con una domanda per lo studente; Approfondisci aggiunge derivazioni, limiti dei modelli e la storia degli esperimenti. Prima ogni tappa aveva almeno un paragrafo in comune fra due livelli, e in 45 tappe su 200 almeno due livelli coincidevano parola per parola.
+- Le spiegazioni sono più ampie: un percorso letto a livello Base passa da una mediana di 348,5 a 752,5 parole, la tappa Capisci a livello Base da 58 a 247, e la prosa distinta di tutte le 40 unità da 25 950 a 96 021 parole. La storia va dal metro della Rivoluzione francese e dal piano inclinato di Galileo alle onde gravitazionali e alla tensione sulla costante di Hubble.
+- I numeri vengono dai capitoli del libro, dalle costanti del Sistema internazionale e da valori di riferimento noti, oppure da calcoli riportati nel testo; le previsioni da salvare con «Salva A» e «Salva B» sono ricalcolate con le formule dei laboratori. Nelle unità da 26 a 40 i paragrafi già presenti restano, ciascuno in un solo livello.
+- Le unità da 1 a 25, generate da `content/curriculum/authored.json`, prendono i testi dal nuovo `content/curriculum/levels.json`, che `tools/build_curriculum.mjs` applica dopo la generazione; modelli, domande e glossario restano quelli generati. La loro nota sulla narrazione distingue lo scenario di fantasia e i dati sintetici del laboratorio dai fatti storici e dai valori reali citati nei testi.
+- `tests/levels.test.mjs` controlla anche la fisica, con le stesse lunghezze minime della chimica. Numeri e regola in `docs/LIVELLI.md`.
+
 # 1.35.0: Tre livelli distinti nei percorsi di matematica
 
 - I 25 percorsi guidati di matematica hanno testi nuovi in tutte le tappe con testo visibile. Base spiega il concetto con un esempio semplice e con la sua storia; Applica svolge esempi numerici completi, spesso tratti da problemi storici, e chiude con una domanda per lo studente; Approfondisci aggiunge dimostrazioni, limiti dei modelli e la storia delle idee. Prima, in 42 tappe su 125, i tre livelli coincidevano parola per parola.

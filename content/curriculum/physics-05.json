@@ -8,7 +8,7 @@
   "coverage": "guided-foundation",
   "editorialStatus": "original-draft",
   "scope": "Lancio ideale senza resistenza dell’aria",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "narrativeStatus": "Lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, calcolati con il modello dell’unità. I fatti storici e i valori reali citati nei testi, come costanti, misure ed esperimenti, si riferiscono al mondo reale.",
   "objectives": [
     "Spiegare: lancio ideale senza resistenza dell’aria.",
     "Applicare y = x tan(θ)-g x²/(2v₀² cos²θ), dichiarando variabili e unità.",
@@ -62,17 +62,18 @@
       "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Un campione deve raggiungere un bersaglio oltre un ostacolo. La stazione imposta velocità e inclinazione del lancio. Devi stimare la traiettoria e dichiarare quali effetti sono stati esclusi.",
-          "Nel lancio ideale senza resistenza, il moto orizzontale è uniforme e quello verticale ha accelerazione -g. Le due componenti condividono lo stesso tempo, ma evolvono secondo equazioni diverse."
+          "Una sonda lancia una capsula di campioni verso un compagno lontano. La capsula sale, si piega e ricade lungo una curva. Con quale angolo conviene lanciarla per farla arrivare più lontano? E che cosa succede alla sua velocità nel punto più alto?",
+          "Senza aria, il moto della capsula è la combinazione di due moti indipendenti. In orizzontale nessuna forza agisce, e la capsula avanza con velocità costante; in verticale la gravità la accelera verso il basso con g ≈ 9,81 m/s². La combinazione dei due moti dà una curva chiamata parabola.",
+          "Fu Galileo Galilei a dimostrarlo, nella quarta giornata dei Discorsi del 1638. Prima di lui si pensava che un proiettile salisse in linea retta finché la sua spinta si esauriva e poi cadesse quasi in verticale; Galileo mostrò che l’intera traiettoria è un’unica curva regolare."
         ],
         "intermediate": [
-          "Un campione deve raggiungere un bersaglio oltre un ostacolo. La stazione imposta velocità e inclinazione del lancio. Devi stimare la traiettoria e dichiarare quali effetti sono stati esclusi.",
-          "Da x=v₀cosθ·t e y=v₀sinθ·t-gt²/2 elimini t. Ottieni y=x tanθ-gx²/(2v₀²cos²θ). Il laboratorio usa g=9,81 m/s² e interrompe la curva dopo il ritorno alla quota del suolo."
+          "Esempio svolto: il lancio orizzontale. Una pallina rotola giù da un tavolo alto 0,80 m a 3,0 m/s. Il tempo di caduta dipende soltanto dalla quota: t = √(2 · 0,80/9,81) ≈ 0,40 s. In quel tempo la pallina avanza in orizzontale di 3,0 · 0,40 ≈ 1,2 m, e lì tocca il pavimento.",
+          "Esempio svolto: la gittata. Una capsula lanciata da terra a 20 m/s con un angolo di 45° ricade a una distanza v₀²/g = 400/9,81 ≈ 40,8 m e raggiunge un’altezza massima di circa 10,2 m. Con 30° o con 60° la gittata è la stessa, circa 35,3 m: angoli che differiscono da 45° della stessa quantità danno la stessa distanza.",
+          "Prova tu: con quale velocità orizzontale deve lasciare il tavolo la pallina per toccare terra a 2 m di distanza?"
         ],
         "advanced": [
-          "Un campione deve raggiungere un bersaglio oltre un ostacolo. La stazione imposta velocità e inclinazione del lancio. Devi stimare la traiettoria e dichiarare quali effetti sono stati esclusi.",
-          "Ricava gittata e altezza massima. Spiega perché l’angolo di massima gittata cambia quando partenza e arrivo hanno quote diverse o quando interviene la resistenza.",
-          "Assenza di aria, gravità uniforme e suolo piano sono ipotesi. La scena non va usata per progettare lanci o valutare la sicurezza di oggetti reali."
+          "Galileo dimostrò anche che due lanci con la stessa velocità e angoli simmetrici rispetto a 45° hanno la stessa gittata, e che a 45° la gittata è massima. Un secolo prima, nella Nova scientia del 1537, Niccolò Tartaglia aveva già affermato che i cannoni tirano più lontano a 45°, senza una teoria del moto capace di giustificarlo.",
+          "La teoria precedente era quella dell’impeto, sviluppata nel Trecento da Giovanni Buridano: il lanciatore imprimerebbe al proiettile una forza interna che si consuma durante il volo. L’idea spiegava perché un sasso continua a muoversi dopo il lancio, e conduceva a traiettorie fatte di un tratto rettilineo e di una caduta. La dinamica di Newton la sostituì con l’inerzia, che non si consuma."
         ]
       }
     },
@@ -81,18 +82,24 @@
       "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Nel lancio ideale senza resistenza, il moto orizzontale è uniforme e quello verticale ha accelerazione -g. Le due componenti condividono lo stesso tempo, ma evolvono secondo equazioni diverse.",
-          "Con v₀=20 m/s e θ=45°, in x=10 m la quota è 10-9,81×100/400=7,5475 m. Questo è un valore del modello, non una misura di un lancio reale."
+          "Il trucco per studiare un lancio è scomporre la velocità iniziale v₀ in due componenti, lungo gli assi orizzontale e verticale. Con un angolo θ rispetto all’orizzontale, la componente orizzontale è v₀ cos θ e quella verticale è v₀ sin θ. A 45° e a 20 m/s le due componenti sono uguali, circa 14,1 m/s.",
+          "In orizzontale la capsula avanza di v₀ cos θ metri ogni secondo, e dopo un tempo t si trova a x = v₀ cos θ · t. In verticale si comporta come un sasso lanciato verso l’alto: la sua quota è y = v₀ sin θ · t − g t²/2. I due moti avvengono insieme e condividono soltanto il tempo.",
+          "Ricavando t dalla prima equazione e sostituendolo nella seconda si ottiene l’equazione della traiettoria, y = x tan θ − g x²/(2 v₀² cos² θ). Il primo termine è la retta lungo cui la capsula partirebbe senza gravità; il secondo, che cresce come x², è la caduta accumulata.",
+          "Esempio: con θ = 45° e v₀ = 20 m/s, a 10 m di distanza orizzontale la quota è 10 − 9,81 · 100/400 ≈ 7,55 m. Con θ = 50° e la stessa velocità, allo stesso punto, la capsula è più in alto, a circa 8,95 m.",
+          "Nel punto più alto la componente verticale della velocità è zero, e quella orizzontale resta v₀ cos θ. L’accelerazione, invece, è sempre g verso il basso, anche lassù."
         ],
         "intermediate": [
-          "Da x=v₀cosθ·t e y=v₀sinθ·t-gt²/2 elimini t. Ottieni y=x tanθ-gx²/(2v₀²cos²θ). Il laboratorio usa g=9,81 m/s² e interrompe la curva dopo il ritorno alla quota del suolo.",
-          "La variabile Distanza orizzontale è espressa in m; Quota in m. Il dominio dello strumento è [0; 40]. La relazione implementata è: y = x tan(θ)-g x²/(2v₀² cos²θ).",
-          "Con v₀=20 m/s e θ=45°, in x=10 m la quota è 10-9,81×100/400=7,5475 m. Questo è un valore del modello, non una misura di un lancio reale."
+          "Esempio svolto: superare un muro. Una capsula è lanciata a 20 m/s e 45° verso un muro alto 7 m, distante 30 m. La capsula raggiunge il muro dopo 30/(20 cos 45°) ≈ 2,12 s, e in quell’istante la sua quota è 30 − 9,81 · 900/400 ≈ 7,9 m: supera il muro di circa 0,9 m. Il confronto va fatto alla distanza del muro, che qui non coincide con il punto più alto.",
+          "Esempio svolto: la gittata e l’altezza massima. Per un lancio da terra la capsula ricade quando y = 0, cioè a una distanza R = v₀² sin 2θ/g. Il massimo di sin 2θ è 1, per θ = 45°. L’altezza massima è H = v₀² sin² θ/(2g): a 20 m/s vale circa 5,1 m a 30°, 10,2 m a 45°, 15,3 m a 60°.",
+          "Esempio svolto: due lanci che arrivano insieme. Le capsule lanciate a 20 m/s con 15° e con 75° cadono entrambe a circa 20,4 m; la prima sale soltanto a 1,4 m e arriva in circa 1,1 s, la seconda sale a 19,0 m e resta in volo circa 3,9 s.",
+          "Il modello del laboratorio calcola la quota y(x) per x da 0 a 40 m, con l’angolo θ fra 15° e 75° a passi di 5° e la velocità v₀ fra 10 e 30 m/s a passi di 2.",
+          "Prova tu: con v₀ = 14 m/s, a quale angolo la gittata è di 10 m? Trova le due soluzioni."
         ],
         "advanced": [
-          "Da x=v₀cosθ·t e y=v₀sinθ·t-gt²/2 elimini t. Ottieni y=x tanθ-gx²/(2v₀²cos²θ). Il laboratorio usa g=9,81 m/s² e interrompe la curva dopo il ritorno alla quota del suolo.",
-          "Ricava gittata e altezza massima. Spiega perché l’angolo di massima gittata cambia quando partenza e arrivo hanno quote diverse o quando interviene la resistenza.",
-          "La velocità verticale si annulla al culmine, ma la componente orizzontale non si annulla. Il proiettile non è in equilibrio al punto più alto: continua ad avere accelerazione verso il basso."
+          "La formula della gittata si ricava dalla traiettoria. Ponendo y = 0 nell’equazione y = x tan θ − g x²/(2 v₀² cos² θ) si trovano x = 0, il punto di lancio, e x = 2 v₀² sin θ cos θ/g = v₀² sin 2θ/g. Poiché sin 2θ = sin(180° − 2θ), gli angoli θ e 90° − θ danno la stessa gittata: è il teorema di Galileo sugli angoli simmetrici rispetto a 45°.",
+          "Se il lancio parte da una quota h sopra il punto di arrivo, il ragionamento cambia: il proiettile ha più tempo per volare, e l’angolo migliore è più piccolo di 45°. Un lancio del peso parte da circa due metri d’altezza, e gli angoli usati dagli atleti sono sensibilmente inferiori a 45°, anche perché un braccio spinge meglio in direzione quasi orizzontale.",
+          "Christiaan Huygens nel 1673, nell’Horologium oscillatorium, studiò il moto circolare e mostrò che una deviazione continua dal moto rettilineo richiede un’accelerazione rivolta verso il centro, di modulo v²/r. Lo stesso ragionamento si applica a un punto qualsiasi della parabola: l’accelerazione g si scompone in una parte lungo la traiettoria, che cambia il modulo della velocità, e in una perpendicolare, che ne cambia la direzione.",
+          "Il cannone di Newton collega i lanci alle orbite. Un proiettile sparato in orizzontale dalla cima di un monte altissimo cade tanto più lontano quanto più è veloce; oltre una certa velocità la Terra curva sotto di lui alla stessa velocità con cui cade, e il proiettile non tocca più il suolo. Vicino alla superficie terrestre quella velocità è di circa 7,9 km/s."
         ]
       }
     },
@@ -101,19 +108,19 @@
       "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio imposta Angolo θ (a): 45 °; Velocità iniziale (b): 20 m/s. Prima di salvare A, prevedi come cambia Quota fra Distanza orizzontale=10 e 20 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con v₀=20 m/s e θ=45°, in x=10 m la quota è 10-9,81×100/400=7,5475 m. Questo è un valore del modello, non una misura di un lancio reale.",
-          "La variabile Distanza orizzontale è espressa in m; Quota in m. Il dominio dello strumento è [0; 40]. La relazione implementata è: y = x tan(θ)-g x²/(2v₀² cos²θ)."
+          "Il grafico mostra la quota della capsula in funzione della distanza orizzontale, da 0 a 40 m. Nella scheda «Regola» scegli l’angolo di lancio θ, da 15° a 75°, e la velocità iniziale v₀, da 10 a 30 m/s.",
+          "Protocollo. La previsione riguarda il passaggio da 10 m a 20 m di distanza orizzontale. Con θ = 45° e v₀ = 20 m/s scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta θ a 75°, lasciando v₀ = 20 m/s, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "Prima di salvare B, chiediti dove si trova il punto più alto di un lancio molto ripido."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Angolo θ (a): 45 °; Velocità iniziale (b): 20 m/s. Prima di salvare A, prevedi come cambia Quota fra Distanza orizzontale=10 e 20 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Distanza orizzontale è espressa in m; Quota in m. Il dominio dello strumento è [0; 40]. La relazione implementata è: y = x tan(θ)-g x²/(2v₀² cos²θ).",
-          "Da x=v₀cosθ·t e y=v₀sinθ·t-gt²/2 elimini t. Ottieni y=x tanθ-gx²/(2v₀²cos²θ). Il laboratorio usa g=9,81 m/s² e interrompe la curva dopo il ritorno alla quota del suolo."
+          "Il programma calcola la quota y(x) = x tan θ − g x²/(2 v₀² cos² θ) per x fra 0 e 40 m; nella scheda «Regola» l’angolo θ si regola a passi di 5° e la velocità v₀ a passi di 2 m/s.",
+          "Protocollo. Configurazione A: θ = 45°, v₀ = 20 m/s, confronto fra 10 m e 20 m, previsione nella scheda «A / B» e «Salva A». Configurazione B: θ = 75° con la stessa velocità, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. In A la quota passa da circa 7,55 m a 10,19 m: cresce, e a 20 m la capsula è quasi al culmine, che si trova a 20,4 m. In B passa da circa 19,0 m a 1,4 m e diminuisce: il lancio ripido raggiunge il culmine già intorno a 10,2 m e a 20 m sta per toccare terra."
         ],
         "advanced": [
-          "Nel laboratorio imposta Angolo θ (a): 45 °; Velocità iniziale (b): 20 m/s. Prima di salvare A, prevedi come cambia Quota fra Distanza orizzontale=10 e 20 m. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Ricava gittata e altezza massima. Spiega perché l’angolo di massima gittata cambia quando partenza e arrivo hanno quote diverse o quando interviene la resistenza.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il laboratorio rappresenta y(x) = x tan θ − g x²/(2 v₀² cos² θ) su x fra 0 e 40 m. Il vertice della parabola si trova a x = v₀² sin 2θ/(2g), metà della gittata; le quote calcolate oltre la gittata sono negative e descrivono un punto sotto il livello di lancio.",
+          "Protocollo. Con θ = 45° e v₀ = 20 m/s scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il passaggio da x = 10 m a x = 20 m e premi «Salva A»; poi porta θ a 75° e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "La previsione dipende dalla posizione del vertice rispetto ai due punti di confronto. In A il vertice è a 20,4 m, oltre entrambi i punti, e la quota cresce; in B è a 10,2 m, appena dopo il primo punto, e la quota a 20 m è molto più bassa. Un confronto con θ = 15° mostra un terzo caso, in cui la capsula a 20 m è già quasi a terra."
         ]
       }
     },
@@ -122,19 +129,20 @@
       "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "La velocità verticale si annulla al culmine, ma la componente orizzontale non si annulla. Il proiettile non è in equilibrio al punto più alto: continua ad avere accelerazione verso il basso.",
-          "Assenza di aria, gravità uniforme e suolo piano sono ipotesi. La scena non va usata per progettare lanci o valutare la sicurezza di oggetti reali.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il primo errore frequente è pensare che nel punto più alto la velocità sia zero. È zero soltanto la componente verticale; la capsula continua ad avanzare con la sua velocità orizzontale, ed è per questo che la traiettoria prosegue invece di ricadere in verticale.",
+          "Il secondo errore è credere che la componente orizzontale della velocità diminuisca durante il volo. Senza aria nessuna forza agisce in orizzontale, e la capsula percorre distanze orizzontali uguali in tempi uguali dall’inizio alla fine.",
+          "Il terzo errore è leggere il grafico della quota come una funzione del tempo. Sull’asse orizzontale c’è la distanza: la curva è la forma della traiettoria, e il tempo si ricava dividendo la distanza per la velocità orizzontale.",
+          "Infine, senza aria la massa della capsula è irrilevante, e una capsula pesante e una leggera, lanciate allo stesso modo, seguono la stessa parabola."
         ],
         "intermediate": [
-          "La velocità verticale si annulla al culmine, ma la componente orizzontale non si annulla. Il proiettile non è in equilibrio al punto più alto: continua ad avere accelerazione verso il basso.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Esempio svolto: due palline dallo stesso tavolo. Da un tavolo alto 0,80 m una pallina cade in verticale e un’altra parte in orizzontale a 3 m/s nello stesso istante. Toccano il pavimento insieme, dopo circa 0,40 s, perché il moto verticale è lo stesso per entrambe; la seconda arriva soltanto più lontano.",
+          "Esempio svolto: la scimmia e il cacciatore. Un cacciatore punta dritto verso un frutto appeso a un ramo, e il frutto si stacca nell’istante dello sparo. Senza aria il proiettile e il frutto cadono della stessa quantità in ogni istante, e il proiettile colpisce il frutto qualunque sia la sua velocità, purché arrivi prima che il frutto tocchi terra. È una dimostrazione classica dell’indipendenza dei due moti.",
+          "Esempio svolto: la velocità all’arrivo. Una capsula lanciata da terra ricade con la stessa velocità, in modulo, con cui era partita, e con un angolo uguale verso il basso. La velocità orizzontale è rimasta la stessa, e la verticale ha soltanto cambiato verso."
         ],
         "advanced": [
-          "Assenza di aria, gravità uniforme e suolo piano sono ipotesi. La scena non va usata per progettare lanci o valutare la sicurezza di oggetti reali.",
-          "Ricava gittata e altezza massima. Spiega perché l’angolo di massima gittata cambia quando partenza e arrivo hanno quote diverse o quando interviene la resistenza.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il modello trascura la resistenza dell’aria, che per un proiettile veloce conta molto. La resistenza cresce all’incirca con il quadrato della velocità: rallenta soprattutto la parte iniziale del volo, accorcia la gittata, rende la discesa più ripida della salita e sposta l’angolo migliore sotto i 45°.",
+          "Nel Settecento Benjamin Robins misurò la velocità delle palle di moschetto con il pendolo balistico e mostrò che le traiettorie reali si allontanano molto dalla parabola di Galileo. La balistica esterna moderna integra numericamente le equazioni del moto con coefficienti di resistenza misurati.",
+          "Il modello presuppone inoltre g costante e un suolo piatto. Per gittate di molti chilometri contano la diminuzione di g con la quota, la curvatura della Terra e la sua rotazione."
         ]
       }
     },
@@ -161,19 +169,17 @@
       "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Lancio ideale senza resistenza dell’aria.",
-          "Assenza di aria, gravità uniforme e suolo piano sono ipotesi. La scena non va usata per progettare lanci o valutare la sicurezza di oggetti reali.",
-          "Collegamento consigliato: math-c08. Il completamento registra attività e autoverifica, non certifica competenze."
+          "I lanci mostrano come due moti già noti, quello uniforme e quello accelerato, si combinino in due dimensioni. La parabola e la sua equazione tornano nell’unità di matematica «Funzioni».",
+          "Riepilogo: in orizzontale velocità costante, in verticale accelerazione g; la traiettoria è una parabola; nel punto più alto la velocità verticale è zero e l’accelerazione no.",
+          "Nel diario registra le configurazioni A e B e spiega perché in B la quota diminuisce già fra 10 e 20 m."
         ],
         "intermediate": [
-          "Da x=v₀cosθ·t e y=v₀sinθ·t-gt²/2 elimini t. Ottieni y=x tanθ-gx²/(2v₀²cos²θ). Il laboratorio usa g=9,81 m/s² e interrompe la curva dopo il ritorno alla quota del suolo.",
-          "Assenza di aria, gravità uniforme e suolo piano sono ipotesi. La scena non va usata per progettare lanci o valutare la sicurezza di oggetti reali.",
-          "Ricava gittata e altezza massima. Spiega perché l’angolo di massima gittata cambia quando partenza e arrivo hanno quote diverse o quando interviene la resistenza."
+          "La scomposizione della velocità in componenti viene dall’unità «Vettori e sistemi di riferimento», e la formula della gittata usa le identità dell’unità di matematica «Trigonometria». Nella prossima unità di fisica, «Forze e leggi di Newton», si vedrà perché in orizzontale la velocità resta costante.",
+          "Nel diario confronta la gittata, l’altezza massima e il tempo di volo di due lanci a 20 m/s con angoli di 30° e di 60°, e spiega quale dei due conviene per superare un ostacolo alto."
         ],
         "advanced": [
-          "Ricava gittata e altezza massima. Spiega perché l’angolo di massima gittata cambia quando partenza e arrivo hanno quote diverse o quando interviene la resistenza.",
-          "Assenza di aria, gravità uniforme e suolo piano sono ipotesi. La scena non va usata per progettare lanci o valutare la sicurezza di oggetti reali.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "Il cannone di Newton conduce alle orbite delle unità «Gravitazione» e «Orbite circolari», dove la stessa caduta continua, accompagnata da un moto orizzontale abbastanza veloce, diventa un moto circolare attorno al pianeta. La velocità necessaria dipende dal raggio del pianeta.",
+          "Nel diario ricava la gittata per un lancio da una quota h e spiega, anche con un esempio numerico a 14 m/s da 2 m di altezza, perché l’angolo migliore diventa minore di 45°, confrontando le gittate a 40° e a 45°."
         ]
       }
     }

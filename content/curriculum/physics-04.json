@@ -8,7 +8,7 @@
   "coverage": "guided-foundation",
   "editorialStatus": "original-draft",
   "scope": "Accelerazione costante in una dimensione",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "narrativeStatus": "Lo scenario della spedizione è di fantasia e i dati del laboratorio sono sintetici, calcolati con il modello dell’unità. I fatti storici e i valori reali citati nei testi, come costanti, misure ed esperimenti, si riferiscono al mondo reale.",
   "objectives": [
     "Spiegare: accelerazione costante in una dimensione.",
     "Applicare s(t) = bt+at²/2, dichiarando variabili e unità.",
@@ -62,17 +62,18 @@
       "title": "La domanda della spedizione",
       "text": {
         "base": [
-          "Un carrello viene accelerato lungo una guida. Le distanze percorse in intervalli uguali aumentano: una previsione fondata sulla sola velocità iniziale non basta.",
-          "Accelerazione significa variazione della velocità nel tempo. Quando è costante, v(t)=v₀+at. Lo spostamento si ottiene accumulando la velocità: Δs=v₀t+at²/2."
+          "Una sonda parte da ferma su una pista e il suo motore la spinge sempre allo stesso modo. Nel primo secondo percorre poco, nel secondo di più, nel terzo ancora di più: la velocità cresce in modo regolare. Quanto spazio avrà percorso dopo due secondi, se la velocità aumenta di 1 m/s ogni secondo?",
+          "Un moto in cui la velocità cambia della stessa quantità in tempi uguali si chiama uniformemente accelerato. L’accelerazione a misura di quanto cambia la velocità in un secondo, e si esprime in metri al secondo quadrato. Partendo da fermi, lo spostamento cresce come il quadrato del tempo: s = a t²/2. Per la sonda, dopo 2 s, s = 1 · 4/2 = 2 m.",
+          "Galileo Galilei scoprì questa legge facendo rotolare sfere lungo un piano inclinato, che rallenta la caduta e la rende misurabile con gli orologi ad acqua del Seicento. Trovò che gli spazi percorsi in secondi successivi stanno fra loro come i numeri dispari 1, 3, 5, 7."
         ],
         "intermediate": [
-          "Un carrello viene accelerato lungo una guida. Le distanze percorse in intervalli uguali aumentano: una previsione fondata sulla sola velocità iniziale non basta.",
-          "L’area sotto il grafico velocità-tempo è un rettangolo v₀t più un triangolo at²/2. La derivata dello spostamento restituisce v₀+at e una seconda derivata restituisce a."
+          "Esempio svolto: la regola dei numeri dispari. Con a = 2 m/s² e partenza da fermo, dopo 1, 2, 3 e 4 s gli spostamenti totali sono 1, 4, 9 e 16 m. Gli spazi percorsi in ciascun secondo sono le differenze: 1, 3, 5 e 7 m, proprio la sequenza trovata da Galileo.",
+          "Esempio svolto: la caduta libera. Vicino alla superficie terrestre, trascurando l’aria, ogni corpo cade con accelerazione g ≈ 9,81 m/s². Un sasso lasciato cadere da 20 m arriva a terra dopo t = √(2 · 20/9,81) ≈ 2,02 s, con una velocità di circa 9,81 · 2,02 ≈ 19,8 m/s.",
+          "Prova tu: una sonda parte da ferma con a = 3 m/s². Calcola la velocità e lo spazio percorso dopo 4 s."
         ],
         "advanced": [
-          "Un carrello viene accelerato lungo una guida. Le distanze percorse in intervalli uguali aumentano: una previsione fondata sulla sola velocità iniziale non basta.",
-          "Ricava la relazione v²-v₀²=2aΔs eliminando il tempo. Verifica le dimensioni di ogni termine e confronta frenata e accelerazione.",
-          "Si descrive un moto unidimensionale con accelerazione imposta. Non sono calcolate forze, attrito o limiti del motore."
+          "Prima di Galileo il problema era già stato studiato a tavolino. Intorno al 1330 un gruppo di maestri del Merton College di Oxford dimostrò che un corpo che accelera in modo uniforme percorre lo stesso spazio di un corpo che si muove sempre alla velocità media, e Nicole Oresme a Parigi ne diede una dimostrazione geometrica con l’area di un triangolo. Galileo trasformò quel teorema in una legge del moto reale e lo sottopose a misure.",
+          "La storia della torre di Pisa, da cui Galileo avrebbe lasciato cadere corpi di pesi diversi, viene da una biografia scritta dal suo allievo Vincenzo Viviani, e gli storici ne dubitano. La prova più spettacolare dell’uguaglianza delle accelerazioni arrivò nel 1971, quando l’astronauta David Scott lasciò cadere insieme un martello e una piuma sulla Luna, dove l’aria è assente, e i due toccarono il suolo nello stesso istante."
         ]
       }
     },
@@ -81,18 +82,24 @@
       "title": "Dall’intuizione alla relazione",
       "text": {
         "base": [
-          "Accelerazione significa variazione della velocità nel tempo. Quando è costante, v(t)=v₀+at. Lo spostamento si ottiene accumulando la velocità: Δs=v₀t+at²/2.",
-          "Partendo da fermo con a=1 m/s², dopo 2 s lo spostamento è 2 m e la velocità è 2 m/s. Usare la velocità finale per tutto l’intervallo darebbe erroneamente 4 m."
+          "Nel moto uniformemente accelerato la velocità cresce in modo lineare: v(t) = v₀ + a t. Se una sonda ha una velocità iniziale di 2 m/s e accelera di 3 m/s², dopo 4 s la sua velocità è 2 + 3 · 4 = 14 m/s.",
+          "Lo spostamento ha due parti: quella dovuta alla velocità iniziale, v₀ t, e quella dovuta all’accelerazione, a t²/2. La legge oraria è s(t) = v₀ t + a t²/2. Con v₀ = 0 e a = 1 m/s², dopo 2 s lo spostamento è 2 m; con a = 1,5 m/s², nello stesso tempo, è 1,5 · 4/2 = 3 m.",
+          "Il grafico tempo e posizione di questo moto è un arco di parabola. Con partenza da fermo, raddoppiare il tempo quadruplica lo spazio: dopo 4 s la sonda con a = 1 m/s² ha percorso 8 m, quattro volte i 2 m percorsi dopo 2 s.",
+          "Una formula utile collega velocità e spostamento senza il tempo: v² = v₀² + 2 a s. Si ottiene ricavando t dalla legge della velocità e sostituendolo nella legge oraria. Serve per esempio a calcolare lo spazio di frenata.",
+          "La regola della velocità media spiega il fattore un mezzo. Se la velocità cresce in modo uniforme da 0 a v in un tempo t, la sua media è v/2, e lo spazio è v t/2 = a t²/2. È il teorema del Merton College, del Trecento, riletto con le formule moderne."
         ],
         "intermediate": [
-          "L’area sotto il grafico velocità-tempo è un rettangolo v₀t più un triangolo at²/2. La derivata dello spostamento restituisce v₀+at e una seconda derivata restituisce a.",
-          "La variabile Tempo è espressa in s; Spostamento in m. Il dominio dello strumento è [0; 10]. La relazione implementata è: s(t) = bt+at²/2.",
-          "Partendo da fermo con a=1 m/s², dopo 2 s lo spostamento è 2 m e la velocità è 2 m/s. Usare la velocità finale per tutto l’intervallo darebbe erroneamente 4 m."
+          "Esempio svolto: lo spazio di arresto. Un’auto viaggia a 25 m/s, cioè 90 km/h. Il conducente reagisce in 1,0 s, durante il quale l’auto procede ancora a velocità costante per 25 m. Poi frena con a = −5 m/s². Dalla formula v² = v₀² + 2 a s con v = 0 si ricava s = 25²/(2 · 5) = 62,5 m. Lo spazio di arresto totale è 87,5 m.",
+          "Esempio svolto: il doppio della velocità. A 50 m/s, con lo stesso tempo di reazione e la stessa frenata, lo spazio di reazione diventa 50 m e quello di frenata 50²/10 = 250 m, quattro volte tanto. Lo spazio di arresto totale, 300 m, è più del triplo di quello a 25 m/s.",
+          "Esempio svolto: il lancio verso l’alto. Un sasso è lanciato verso l’alto a 15 m/s. La velocità si annulla dopo 15/9,81 ≈ 1,53 s, e in quell’istante il sasso raggiunge l’altezza massima 15²/(2 · 9,81) ≈ 11,5 m. Poi ricade, e dopo altri 1,53 s ripassa dal punto di lancio con velocità di 15 m/s verso il basso.",
+          "Il modello del laboratorio calcola s(t) = b t + a t²/2 per t da 0 a 10 s, con l’accelerazione a fra −2 e 3 m/s² a passi di 0,5 e la velocità iniziale b fra 0 e 5 m/s.",
+          "Prova tu: un treno a 30 m/s frena con a = −0,5 m/s². Quanto tempo e quanta strada servono per fermarlo?"
         ],
         "advanced": [
-          "L’area sotto il grafico velocità-tempo è un rettangolo v₀t più un triangolo at²/2. La derivata dello spostamento restituisce v₀+at e una seconda derivata restituisce a.",
-          "Ricava la relazione v²-v₀²=2aΔs eliminando il tempo. Verifica le dimensioni di ogni termine e confronta frenata e accelerazione.",
-          "Accelerazione positiva non significa sempre aumento del modulo della velocità: conta anche il segno della velocità iniziale. Il parametro è costante solo nell’intervallo in cui l’ipotesi è ragionevole."
+          "Il legame fra velocità e spostamento passa per l’area sotto il grafico tempo e velocità. Per v(t) = v₀ + a t la figura è un trapezio di basi v₀ e v₀ + a t e altezza t, con area v₀ t + a t²/2. Con il calcolo integrale, s(t) è la primitiva di v(t) che vale zero all’istante iniziale, e v(t) la primitiva di a.",
+          "La formula v² = v₀² + 2 a s ha anche un significato energetico, che apparirà nell’unità sul lavoro: moltiplicata per m/2, dice che la variazione di energia cinetica è uguale al prodotto della forza m a per lo spostamento. Lo stesso legame vale per la caduta: un corpo che cade da un’altezza h arriva con velocità √(2 g h).",
+          "Il piano inclinato di Galileo nasconde una sottigliezza. Un blocco che scivola senza attrito su un piano inclinato di un angolo θ accelera con g sin θ; una sfera che rotola senza strisciare accelera di meno, con (5/7) g sin θ, perché parte dell’energia va nella rotazione. Le proporzioni fra spazi e tempi restano le stesse, e per questo Galileo poté trovare la legge giusta anche senza conoscere quel fattore.",
+          "Nel 1961 lo storico Thomas Settle ricostruì l’esperimento con un piano inclinato e un orologio ad acqua costruiti come quelli descritti nei Discorsi, e ottenne una precisione sufficiente a confermare la regola dei numeri dispari. La ricostruzione rispose ai dubbi di chi riteneva quelle misure impossibili con i mezzi dell’epoca."
         ]
       }
     },
@@ -101,19 +108,19 @@
       "title": "Prevedi, modifica, confronta",
       "text": {
         "base": [
-          "Nel laboratorio imposta Accelerazione (a): 1 m/s²; Velocità iniziale (b): 0 m/s. Prima di salvare A, prevedi come cambia Spostamento fra Tempo=2,5 e 5 s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Partendo da fermo con a=1 m/s², dopo 2 s lo spostamento è 2 m e la velocità è 2 m/s. Usare la velocità finale per tutto l’intervallo darebbe erroneamente 4 m.",
-          "La variabile Tempo è espressa in s; Spostamento in m. Il dominio dello strumento è [0; 10]. La relazione implementata è: s(t) = bt+at²/2."
+          "Il grafico mostra lo spostamento s(t) = b t + a t²/2 per un tempo da 0 a 10 s. Nella scheda «Regola» scegli l’accelerazione a, da −2 a 3 m/s², e la velocità iniziale b, da 0 a 5 m/s.",
+          "Protocollo. La previsione riguarda il passaggio da t = 2,5 s a t = 5 s. Con a = 1 m/s² e b = 0 scegli nella scheda «A / B» una previsione fra «Cresce», «Diminuisce», «Uguale» e «Non definito» e premi «Salva A». Poi porta a a −2 m/s² e b a 5 m/s, rifai la previsione e premi «Salva B». Il programma confronta ogni previsione con i valori calcolati.",
+          "La configurazione B somiglia a un sasso lanciato verso l’alto: prima di salvare, chiediti dove si trova nei due istanti."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Accelerazione (a): 1 m/s²; Velocità iniziale (b): 0 m/s. Prima di salvare A, prevedi come cambia Spostamento fra Tempo=2,5 e 5 s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Tempo è espressa in s; Spostamento in m. Il dominio dello strumento è [0; 10]. La relazione implementata è: s(t) = bt+at²/2.",
-          "L’area sotto il grafico velocità-tempo è un rettangolo v₀t più un triangolo at²/2. La derivata dello spostamento restituisce v₀+at e una seconda derivata restituisce a."
+          "Il programma calcola lo spostamento s(t) = b t + a t²/2 per t fra 0 e 10 s; nella scheda «Regola» l’accelerazione a si regola a passi di 0,5 m/s² e la velocità iniziale b a passi di 1 m/s.",
+          "Protocollo. Configurazione A: a = 1 m/s², b = 0, confronto fra t = 2,5 s e t = 5 s, previsione nella scheda «A / B» e «Salva A». Configurazione B: a = −2 m/s², b = 5 m/s, nuova previsione e «Salva B». Le previsioni possibili sono «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. In A lo spostamento passa da 3,125 m a 12,5 m: raddoppiando il tempo diventa quattro volte più grande. In B la sonda sale fino a 6,25 m, il massimo, proprio a t = 2,5 s, e a t = 5 s è tornata al punto di partenza: lo spostamento diminuisce a zero."
         ],
         "advanced": [
-          "Nel laboratorio imposta Accelerazione (a): 1 m/s²; Velocità iniziale (b): 0 m/s. Prima di salvare A, prevedi come cambia Spostamento fra Tempo=2,5 e 5 s. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Ricava la relazione v²-v₀²=2aΔs eliminando il tempo. Verifica le dimensioni di ogni termine e confronta frenata e accelerazione.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Il laboratorio rappresenta la parabola s(t) = b t + a t²/2 su t fra 0 e 10 s. La derivata s′(t) = b + a t è la velocità; con a negativa si annulla in t = −b/a, dove la parabola ha il vertice.",
+          "Protocollo. Con a = 1 m/s² e b = 0 scegli nella scheda «A / B», fra «Cresce», «Diminuisce», «Uguale» e «Non definito», la previsione per il passaggio da t = 2,5 s a t = 5 s e premi «Salva A»; poi porta a a −2 m/s² e b a 5 m/s e, dopo la nuova previsione, premi «Salva B». Il programma confronta le previsioni con i valori calcolati.",
+          "In B il vertice cade esattamente nel primo istante di confronto, t = 5/2 = 2,5 s, e la parabola è simmetrica rispetto ad esso: s(5) = s(0) = 0. Il confronto fra due istanti dice soltanto che lo spostamento finale è minore di quello iniziale; il fatto che fra 0 e 2,5 s la sonda salga richiede altri punti del grafico."
         ]
       }
     },
@@ -122,19 +129,20 @@
       "title": "Leggere senza sovrainterpretare",
       "text": {
         "base": [
-          "Accelerazione positiva non significa sempre aumento del modulo della velocità: conta anche il segno della velocità iniziale. Il parametro è costante solo nell’intervallo in cui l’ipotesi è ragionevole.",
-          "Si descrive un moto unidimensionale con accelerazione imposta. Non sono calcolate forze, attrito o limiti del motore.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il primo errore frequente è credere che un’accelerazione negativa significhi sempre rallentare. Il segno dipende dal verso scelto: un sasso che ricade verso il basso ha accelerazione negativa, se l’asse punta in alto, e intanto la sua velocità cresce in modulo.",
+          "Il secondo errore riguarda il punto più alto di un lancio. Lì la velocità è zero per un istante, e l’accelerazione resta quella di gravità; se anche l’accelerazione fosse zero, il sasso resterebbe sospeso a mezz’aria.",
+          "Il terzo errore è pensare che i corpi pesanti cadano più in fretta. Nel vuoto tutti i corpi cadono con la stessa accelerazione; nell’aria una piuma cade lentamente perché l’attrito dell’aria è grande rispetto al suo peso.",
+          "Un controllo rapido evita molti di questi errori: disegnare l’asse con il suo verso positivo e scrivere accanto a ogni velocità e accelerazione il segno che le spetta."
         ],
         "intermediate": [
-          "Accelerazione positiva non significa sempre aumento del modulo della velocità: conta anche il segno della velocità iniziale. Il parametro è costante solo nell’intervallo in cui l’ipotesi è ragionevole.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Esempio svolto: il fattore un mezzo dimenticato. Una sonda parte da ferma con a = 2 m/s². Dopo 3 s la sua velocità è 6 m/s. Chi scrive lo spazio come v t ottiene 18 m, il doppio del valore giusto, a t²/2 = 9 m: la sonda ha avuto velocità 6 m/s soltanto alla fine, e la sua velocità media è stata 3 m/s.",
+          "Esempio svolto: il segno nel lancio. Con l’asse verso l’alto, un sasso lanciato a 10 m/s ha v(t) = 10 − 9,81 t. Dopo 2 s la velocità è circa −9,6 m/s: il sasso sta scendendo, e il suo modulo di velocità cresce anche se l’accelerazione è negativa.",
+          "Esempio svolto: la regola del quadrato. Lo spazio cresce come t² soltanto partendo da fermo. Con v₀ = 4 m/s e a = 2 m/s², dopo 1 s lo spostamento è 5 m e dopo 2 s è 12 m: raddoppiando il tempo diventa 2,4 volte più grande, meno del quadruplo."
         ],
         "advanced": [
-          "Si descrive un moto unidimensionale con accelerazione imposta. Non sono calcolate forze, attrito o limiti del motore.",
-          "Ricava la relazione v²-v₀²=2aΔs eliminando il tempo. Verifica le dimensioni di ogni termine e confronta frenata e accelerazione.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Il modello presuppone un’accelerazione costante in una dimensione. Nella caduta reale l’aria esercita una forza che cresce con la velocità, e l’accelerazione diminuisce fino ad annullarsi: un paracadutista a braccia aperte raggiunge una velocità limite di circa 55 m/s, una goccia di pioggia grande di circa 9 m/s.",
+          "Quando l’accelerazione cambia nel tempo, le formule del moto uniformemente accelerato smettono di valere, e la velocità si ricava sommando piccoli contributi a Δt, passo dopo passo, o con un integrale. Con passi finiti la somma è un’approssimazione, e il suo errore diminuisce quando il passo si riduce.",
+          "Anche g è costante soltanto in prima approssimazione: diminuisce con la quota e varia leggermente con la latitudine, da circa 9,78 m/s² all’equatore a circa 9,83 m/s² ai poli."
         ]
       }
     },
@@ -161,19 +169,17 @@
       "title": "Conclusione e nuova domanda",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Accelerazione costante in una dimensione.",
-          "Si descrive un moto unidimensionale con accelerazione imposta. Non sono calcolate forze, attrito o limiti del motore.",
-          "Collegamento consigliato: physics-06. Il completamento registra attività e autoverifica, non certifica competenze."
+          "L’accelerazione costante descrive la caduta, la frenata e molti avvii. Nella prossima unità di fisica, «Traiettorie e lanci», un moto uniforme in orizzontale e uno accelerato in verticale formano la traiettoria di un proiettile.",
+          "Riepilogo: v = v₀ + a t; s = v₀ t + a t²/2; v² = v₀² + 2 a s; partendo da fermo lo spazio cresce come il quadrato del tempo.",
+          "Nel diario registra A e B e spiega perché in B la sonda torna al punto di partenza."
         ],
         "intermediate": [
-          "L’area sotto il grafico velocità-tempo è un rettangolo v₀t più un triangolo at²/2. La derivata dello spostamento restituisce v₀+at e una seconda derivata restituisce a.",
-          "Si descrive un moto unidimensionale con accelerazione imposta. Non sono calcolate forze, attrito o limiti del motore.",
-          "Ricava la relazione v²-v₀²=2aΔs eliminando il tempo. Verifica le dimensioni di ogni termine e confronta frenata e accelerazione."
+          "L’accelerazione costante ha una causa, una forza costante, come mostrerà l’unità «Forze e leggi di Newton»; la formula v² = v₀² + 2 a s anticipa il teorema dell’energia cinetica dell’unità «Lavoro ed energia».",
+          "Nel diario calcola lo spazio di arresto di un’auto a 30 m/s con tempo di reazione di 1 s e frenata di −6 m/s², confrontalo con quello a 15 m/s e spiega quale delle due parti dello spazio di arresto cresce di più."
         ],
         "advanced": [
-          "Ricava la relazione v²-v₀²=2aΔs eliminando il tempo. Verifica le dimensioni di ogni termine e confronta frenata e accelerazione.",
-          "Si descrive un moto unidimensionale con accelerazione imposta. Non sono calcolate forze, attrito o limiti del motore.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "L’area sotto un grafico e la primitiva di una funzione sono nell’unità di matematica «Limiti, variazione e accumulazione», che tratta anche le somme di rettangoli usate per ricostruire un moto passo dopo passo.",
+          "Nel diario ricostruisci con passi di 1 s il moto di una sonda con accelerazione a(t) = 0,5 t, partendo da ferma, confronta la velocità dopo 4 s con il valore esatto 0,25 t² = 4 m/s e spiega da dove viene la differenza."
         ]
       }
     }
