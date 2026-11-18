@@ -5,20 +5,23 @@
   "title": "Equazioni di Maxwell e magnetismo della materia",
   "sector": 1,
   "modelId": "physics-35",
-  "coverage": "guided-foundation",
-  "editorialStatus": "original-draft",
-  "scope": "Paramagnete ideale a due orientamenti",
-  "narrativeStatus": "Scenario di fantasia e dati sintetici calcolati. Nessuna osservazione del pianeta immaginario è dichiarata reale.",
+  "coverage": "guided-lab",
+  "editorialStatus": "hand-written-draft",
+  "scope": "Legge di Gauss per il magnetismo, campi magnetici indotti, corrente di spostamento, equazioni di Maxwell, momento magnetico dell’elettrone, diamagnetismo, paramagnetismo e legge di Curie, ferromagnetismo, temperatura di Curie, paleomagnetismo e magnetismo della crosta di Marte e della Luna",
+  "narrativeStatus": "I dati provengono dai valori CODATA, dai lavori di Maxwell, Stern e Gerlach, Curie e Weiss, dalle misure di Mars Global Surveyor e InSight, dagli studi sulla dinamo lunare e dalle fonti citate nel capitolo.",
   "objectives": [
-    "Spiegare: paramagnete ideale a due orientamenti.",
-    "Applicare M/M_s = tanh(μ_B B/(k T)), dichiarando variabili e unità.",
-    "Confrontare due configurazioni e discutere i limiti del modello."
+    "Scrivere le equazioni di Maxwell e ricavarne la velocità della luce.",
+    "Calcolare la corrente di spostamento e il campo magnetico indotto in un condensatore.",
+    "Distinguere diamagnetismo, paramagnetismo e ferromagnetismo e usare la legge di Curie.",
+    "Spiegare il paleomagnetismo e la magnetizzazione della crosta di Marte e della Luna."
   ],
   "prerequisites": [
     "physics-34"
   ],
   "connections": [
-    "physics-24"
+    "physics-26",
+    "physics-31",
+    "physics-33"
   ],
   "sources": [
     "physics2",
@@ -27,241 +30,316 @@
   "originalSource": null,
   "glossary": [
     {
-      "term": "Temperatura T",
-      "definition": "Variabile indipendente, unità K; intervallo [1; 300]."
+      "term": "Corrente di spostamento",
+      "definition": "Termine ε₀ dΦ/dt che fa di un campo elettrico variabile una sorgente di campo magnetico."
     },
     {
-      "term": "Magnetizzazione relativa",
-      "definition": "Risultato calcolato dal modello, unità 1."
+      "term": "Equazioni di Maxwell",
+      "definition": "Le quattro equazioni che descrivono i campi elettrico e magnetico e le loro sorgenti."
     },
     {
-      "term": "Campo B",
-      "definition": "Parametro a, unità T; intervallo [0,1; 10]."
+      "term": "Magnetone di Bohr",
+      "definition": "Unità naturale dei momenti magnetici atomici, circa 9,274·10⁻²⁴ joule per tesla."
+    },
+    {
+      "term": "Legge di Curie",
+      "definition": "Per un paramagnete in campi deboli la magnetizzazione è proporzionale a B/T."
+    },
+    {
+      "term": "Temperatura di Curie",
+      "definition": "Temperatura sopra la quale un ferromagnete perde la magnetizzazione spontanea e diventa paramagnetico."
+    },
+    {
+      "term": "Magnetizzazione termoresidua",
+      "definition": "Magnetizzazione acquisita da una roccia che si raffredda sotto la temperatura di Curie in presenza di un campo."
     }
   ],
   "steps": [
     {
       "label": "SCOPRI",
-      "title": "La domanda della spedizione",
+      "title": "Le equazioni che prevedono la luce",
       "text": {
         "base": [
-          "Una roccia lavica della stazione conserva una magnetizzazione acquisita quando si è raffreddata. Per leggerla bisogna capire come la materia risponde a un campo.",
-          "Gli elettroni hanno un momento magnetico. In una sostanza paramagnetica il campo tende ad allinearli e l'agitazione termica li disordina: la magnetizzazione dipende dal rapporto μ_B B/(kT)."
+          "Nel 1865 James Clerk Maxwell riunì le leggi di Coulomb, Gauss, Ampère e Faraday in un sistema unico, aggiunse un termine nuovo e scoprì che le equazioni prevedevano onde elettromagnetiche. La loro velocità, calcolata dalle sole costanti elettriche e magnetiche misurate in laboratorio, coincideva con quella della luce. Maxwell concluse che la luce è un’onda elettromagnetica, e Hertz lo confermò ventidue anni dopo.",
+          "Le equazioni di Maxwell descrivono i campi nel vuoto; nella materia entrano in gioco gli elettroni, piccoli magneti con un momento proprio. Il loro comportamento collettivo spiega perché il ferro è attratto fortemente da una calamita, l’ossigeno liquido debolmente, l’acqua debolmente respinta. Questa unità completa le leggi del campo e studia diamagnetismo, paramagnetismo e ferromagnetismo."
         ],
         "intermediate": [
-          "Una roccia lavica della stazione conserva una magnetizzazione acquisita quando si è raffreddata. Per leggerla bisogna capire come la materia risponde a un campo.",
-          "Per momenti μ_B che possono orientarsi soltanto lungo o contro il campo, i pesi di Boltzmann danno M/M_s = tanh(μ_B B/(kT)). Per argomenti piccoli tanh x ≈ x e si ritrova la legge di Curie: M proporzionale a B/T."
+          "Nel 1865 James Clerk Maxwell riunì le leggi di Coulomb, Gauss, Ampère e Faraday in un sistema unico, aggiunse un termine nuovo e scoprì che le equazioni prevedevano onde elettromagnetiche. La loro velocità, calcolata dalle sole costanti elettriche e magnetiche misurate in laboratorio, coincideva con quella della luce. Maxwell concluse che la luce è un’onda elettromagnetica, e Hertz lo confermò ventidue anni dopo.",
+          "Le equazioni di Maxwell descrivono i campi nel vuoto; nella materia entrano in gioco gli elettroni, piccoli magneti con un momento proprio. Il loro comportamento collettivo spiega perché il ferro è attratto fortemente da una calamita, l’ossigeno liquido debolmente, l’acqua debolmente respinta. Questa unità completa le leggi del campo e studia diamagnetismo, paramagnetismo e ferromagnetismo."
         ],
         "advanced": [
-          "Una roccia lavica della stazione conserva una magnetizzazione acquisita quando si è raffreddata. Per leggerla bisogna capire come la materia risponde a un campo.",
-          "Usa la legge di Curie per confrontare la magnetizzazione a 300 K e a 30 K e discuti perché i paramagneti si studiano a bassa temperatura.",
-          "Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo."
+          "Nel 1865 James Clerk Maxwell riunì le leggi di Coulomb, Gauss, Ampère e Faraday in un sistema unico, aggiunse un termine nuovo e scoprì che le equazioni prevedevano onde elettromagnetiche. La loro velocità, calcolata dalle sole costanti elettriche e magnetiche misurate in laboratorio, coincideva con quella della luce. Maxwell concluse che la luce è un’onda elettromagnetica, e Hertz lo confermò ventidue anni dopo.",
+          "Le equazioni di Maxwell descrivono i campi nel vuoto; nella materia entrano in gioco gli elettroni, piccoli magneti con un momento proprio. Il loro comportamento collettivo spiega perché il ferro è attratto fortemente da una calamita, l’ossigeno liquido debolmente, l’acqua debolmente respinta. Questa unità completa le leggi del campo e studia diamagnetismo, paramagnetismo e ferromagnetismo.",
+          "Il magnetismo della materia conserva anche la memoria dei pianeti. Le lave che si raffreddano sotto la temperatura di Curie registrano il campo del loro tempo. Così la crosta di Marte, scoperta magnetizzata dalla sonda Mars Global Surveyor, e i campioni lunari delle missioni Apollo raccontano dinamo spente da miliardi di anni, legate all’evoluzione delle atmosfere e dell’abitabilità."
         ]
       }
     },
     {
       "label": "CAPISCI",
-      "title": "Dall’intuizione alla relazione",
+      "title": "Maxwell, spin e materiali magnetici",
       "text": {
         "base": [
-          "Gli elettroni hanno un momento magnetico. In una sostanza paramagnetica il campo tende ad allinearli e l'agitazione termica li disordina: la magnetizzazione dipende dal rapporto μ_B B/(kT).",
-          "Con B = 1 T a 300 K l'argomento vale circa 0,0022 e la magnetizzazione è lo 0,22 % del massimo. A 1 K sale a circa il 59 %."
+          "Il flusso del campo magnetico attraverso una superficie chiusa è nullo: le linee sono chiuse e non esistono monopoli magnetici osservati. Un campo elettrico variabile genera un campo magnetico, e Maxwell completò la legge di Ampère con la corrente di spostamento ε₀ dΦ/dt. In un condensatore che si carica la corrente di spostamento fra le armature è uguale alla corrente nei fili.",
+          "Le quattro equazioni, legge di Gauss, legge di Gauss per il magnetismo, legge di Faraday e legge di Ampère completata, descrivono tutto l’elettromagnetismo. Nel vuoto ammettono onde che viaggiano a 1/√(μ₀ε₀), circa 299 792 chilometri al secondo. L’elettrone ha un momento magnetico intrinseco circa uguale al magnetone di Bohr, 9,274·10⁻²⁴ joule per tesla."
         ],
         "intermediate": [
-          "Per momenti μ_B che possono orientarsi soltanto lungo o contro il campo, i pesi di Boltzmann danno M/M_s = tanh(μ_B B/(kT)). Per argomenti piccoli tanh x ≈ x e si ritrova la legge di Curie: M proporzionale a B/T.",
-          "La variabile Temperatura T è espressa in K; Magnetizzazione relativa in 1. Il dominio dello strumento è [1; 300]. La relazione implementata è: M/M_s = tanh(μ_B B/(k T)).",
-          "Con B = 1 T a 300 K l'argomento vale circa 0,0022 e la magnetizzazione è lo 0,22 % del massimo. A 1 K sale a circa il 59 %."
+          "Il flusso del campo magnetico attraverso una superficie chiusa è nullo: le linee sono chiuse e non esistono monopoli magnetici osservati. Un campo elettrico variabile genera un campo magnetico, e Maxwell completò la legge di Ampère con la corrente di spostamento ε₀ dΦ/dt. In un condensatore che si carica la corrente di spostamento fra le armature è uguale alla corrente nei fili.",
+          "Le quattro equazioni, legge di Gauss, legge di Gauss per il magnetismo, legge di Faraday e legge di Ampère completata, descrivono tutto l’elettromagnetismo. Nel vuoto ammettono onde che viaggiano a 1/√(μ₀ε₀), circa 299 792 chilometri al secondo. L’elettrone ha un momento magnetico intrinseco circa uguale al magnetone di Bohr, 9,274·10⁻²⁴ joule per tesla.",
+          "I materiali diamagnetici, come l’acqua, sviluppano un piccolo momento opposto al campo e vengono respinti debolmente. I paramagnetici hanno momenti atomici permanenti, parzialmente allineati dal campo contro l’agitazione termica: per momenti a due orientamenti la magnetizzazione relativa vale tanh(μ_B·B/(kT)), e per campi deboli è proporzionale a B/T, secondo la legge di Curie."
         ],
         "advanced": [
-          "Per momenti μ_B che possono orientarsi soltanto lungo o contro il campo, i pesi di Boltzmann danno M/M_s = tanh(μ_B B/(kT)). Per argomenti piccoli tanh x ≈ x e si ritrova la legge di Curie: M proporzionale a B/T.",
-          "Usa la legge di Curie per confrontare la magnetizzazione a 300 K e a 30 K e discuti perché i paramagneti si studiano a bassa temperatura.",
-          "Un materiale ferromagnetico perde la magnetizzazione spontanea sopra la temperatura di Curie, circa 580 °C per la magnetite: per questo le rocce registrano il campo mentre si raffreddano."
+          "Il flusso del campo magnetico attraverso una superficie chiusa è nullo: le linee sono chiuse e non esistono monopoli magnetici osservati. Un campo elettrico variabile genera un campo magnetico, e Maxwell completò la legge di Ampère con la corrente di spostamento ε₀ dΦ/dt. In un condensatore che si carica la corrente di spostamento fra le armature è uguale alla corrente nei fili.",
+          "Le quattro equazioni, legge di Gauss, legge di Gauss per il magnetismo, legge di Faraday e legge di Ampère completata, descrivono tutto l’elettromagnetismo. Nel vuoto ammettono onde che viaggiano a 1/√(μ₀ε₀), circa 299 792 chilometri al secondo. L’elettrone ha un momento magnetico intrinseco circa uguale al magnetone di Bohr, 9,274·10⁻²⁴ joule per tesla.",
+          "I materiali diamagnetici, come l’acqua, sviluppano un piccolo momento opposto al campo e vengono respinti debolmente. I paramagnetici hanno momenti atomici permanenti, parzialmente allineati dal campo contro l’agitazione termica: per momenti a due orientamenti la magnetizzazione relativa vale tanh(μ_B·B/(kT)), e per campi deboli è proporzionale a B/T, secondo la legge di Curie.",
+          "Nei ferromagneti l’interazione di scambio allinea spontaneamente i momenti in domini. Il ciclo di isteresi mostra magnetizzazione residua e campo coercitivo; sopra la temperatura di Curie il materiale diventa paramagnetico. La magnetite perde la magnetizzazione sopra circa 850 kelvin: raffreddandosi sotto quella soglia, le rocce registrano il campo, e il paleomagnetismo ne ricostruisce la storia."
         ]
       }
     },
     {
       "label": "SPERIMENTA",
-      "title": "Prevedi, modifica, confronta",
+      "title": "Il laboratorio del paramagnete",
       "text": {
         "base": [
-          "Nel laboratorio imposta Campo B (a): 1 T. Prima di salvare A, prevedi come cambia Magnetizzazione relativa fra Temperatura T=75,75 e 150,5 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Con B = 1 T a 300 K l'argomento vale circa 0,0022 e la magnetizzazione è lo 0,22 % del massimo. A 1 K sale a circa il 59 %.",
-          "La variabile Temperatura T è espressa in K; Magnetizzazione relativa in 1. Il dominio dello strumento è [1; 300]. La relazione implementata è: M/M_s = tanh(μ_B B/(k T))."
+          "Nel laboratorio il grafico mostra la magnetizzazione relativa di un paramagnete con momenti di un magnetone di Bohr, in funzione della temperatura, da 1 a 300 kelvin, secondo M/Ms = tanh(μ_B·B/(kT)). Nella scheda «Regola» cambi il campo da 0,1 a 10 tesla. Il valore predefinito, 1 tesla, a 1 kelvin dà una magnetizzazione di circa il 59 per cento, a 300 kelvin appena lo 0,22 per cento.",
+          "Protocollo. Il programma confronta due temperature fissate, circa 76 e 151 kelvin. Con un campo di 1 tesla prevedi se la magnetizzazione cresce, diminuisce o resta uguale passando dalla prima temperatura alla seconda e salva A. Poi porta il campo a 10 tesla, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con 1 tesla la magnetizzazione relativa passa da circa 0,0089 a circa 0,0045; con 10 tesla da circa 0,088 a circa 0,045. In entrambi i casi diminuisce e si dimezza quasi esattamente, perché la temperatura raddoppia: è la legge di Curie. Il campo moltiplica tutti i valori per dieci, finché l’argomento della tangente iperbolica resta piccolo."
         ],
         "intermediate": [
-          "Nel laboratorio imposta Campo B (a): 1 T. Prima di salvare A, prevedi come cambia Magnetizzazione relativa fra Temperatura T=75,75 e 150,5 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "La variabile Temperatura T è espressa in K; Magnetizzazione relativa in 1. Il dominio dello strumento è [1; 300]. La relazione implementata è: M/M_s = tanh(μ_B B/(k T)).",
-          "Per momenti μ_B che possono orientarsi soltanto lungo o contro il campo, i pesi di Boltzmann danno M/M_s = tanh(μ_B B/(kT)). Per argomenti piccoli tanh x ≈ x e si ritrova la legge di Curie: M proporzionale a B/T."
+          "Nel laboratorio il grafico mostra la magnetizzazione relativa di un paramagnete con momenti di un magnetone di Bohr, in funzione della temperatura, da 1 a 300 kelvin, secondo M/Ms = tanh(μ_B·B/(kT)). Nella scheda «Regola» cambi il campo da 0,1 a 10 tesla. Il valore predefinito, 1 tesla, a 1 kelvin dà una magnetizzazione di circa il 59 per cento, a 300 kelvin appena lo 0,22 per cento.",
+          "Protocollo. Il programma confronta due temperature fissate, circa 76 e 151 kelvin. Con un campo di 1 tesla prevedi se la magnetizzazione cresce, diminuisce o resta uguale passando dalla prima temperatura alla seconda e salva A. Poi porta il campo a 10 tesla, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con 1 tesla la magnetizzazione relativa passa da circa 0,0089 a circa 0,0045; con 10 tesla da circa 0,088 a circa 0,045. In entrambi i casi diminuisce e si dimezza quasi esattamente, perché la temperatura raddoppia: è la legge di Curie. Il campo moltiplica tutti i valori per dieci, finché l’argomento della tangente iperbolica resta piccolo."
         ],
         "advanced": [
-          "Nel laboratorio imposta Campo B (a): 1 T. Prima di salvare A, prevedi come cambia Magnetizzazione relativa fra Temperatura T=75,75 e 150,5 K. Registra A. Cambia un parametro, formula una nuova previsione e salva B. Le due configurazioni restano indipendenti.",
-          "Usa la legge di Curie per confrontare la magnetizzazione a 300 K e a 30 K e discuti perché i paramagneti si studiano a bassa temperatura.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Nel laboratorio il grafico mostra la magnetizzazione relativa di un paramagnete con momenti di un magnetone di Bohr, in funzione della temperatura, da 1 a 300 kelvin, secondo M/Ms = tanh(μ_B·B/(kT)). Nella scheda «Regola» cambi il campo da 0,1 a 10 tesla. Il valore predefinito, 1 tesla, a 1 kelvin dà una magnetizzazione di circa il 59 per cento, a 300 kelvin appena lo 0,22 per cento.",
+          "Protocollo. Il programma confronta due temperature fissate, circa 76 e 151 kelvin. Con un campo di 1 tesla prevedi se la magnetizzazione cresce, diminuisce o resta uguale passando dalla prima temperatura alla seconda e salva A. Poi porta il campo a 10 tesla, rifai la previsione e salva B. Nella scheda «A / B» scegli una previsione tra «Cresce», «Diminuisce», «Uguale» e «Non definito».",
+          "Che cosa osservare. Con 1 tesla la magnetizzazione relativa passa da circa 0,0089 a circa 0,0045; con 10 tesla da circa 0,088 a circa 0,045. In entrambi i casi diminuisce e si dimezza quasi esattamente, perché la temperatura raddoppia: è la legge di Curie. Il campo moltiplica tutti i valori per dieci, finché l’argomento della tangente iperbolica resta piccolo.",
+          "Una prova a casa: due acini d’uva infilati alle estremità di una cannuccia libera di ruotare si allontanano lentamente da una calamita al neodimio, perché l’acqua è diamagnetica. Con la stessa calamita, trascinata in una ciotola d’acqua con cereali addizionati di ferro, si raccolgono granuli di ferro metallico, attratti per ferromagnetismo: la differenza fra i due effetti è enorme."
         ]
       }
     },
     {
       "label": "INTERPRETA",
-      "title": "Leggere senza sovrainterpretare",
+      "title": "Errori e limiti",
       "text": {
         "base": [
-          "Un materiale ferromagnetico perde la magnetizzazione spontanea sopra la temperatura di Curie, circa 580 °C per la magnetite: per questo le rocce registrano il campo mentre si raffreddano.",
-          "Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che i poli magnetici siano come le cariche elettriche. Spezzando una calamita si ottengono sempre altre calamite con due poli, e il flusso magnetico attraverso ogni superficie chiusa è nullo. Secondo errore: credere che la corrente di spostamento sia un flusso di cariche. Fra le armature passa soltanto un campo elettrico che cambia, che produce un campo magnetico come una corrente.",
+          "Terzo errore: pensare che tutti i metalli siano attratti da una calamita. Il rame e l’oro sono diamagnetici, l’alluminio debolmente paramagnetico; soltanto i ferromagneti, come ferro, nichel e cobalto, sono attratti in modo evidente. Quarto errore: credere che sopra la temperatura di Curie un materiale smetta di rispondere ai campi; diventa paramagnetico e risponde debolmente."
         ],
         "intermediate": [
-          "Un materiale ferromagnetico perde la magnetizzazione spontanea sopra la temperatura di Curie, circa 580 °C per la magnetite: per questo le rocce registrano il campo mentre si raffreddano.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti.",
-          "Il grafico è costruito da mesh 3D: profondità, spessore dei tubi e colori servono alla leggibilità e non rappresentano una grandezza aggiuntiva. Le scale si adattano ai valori e al confronto A. La curva collega un numero finito di campioni calcolati; non è una prova del comportamento tra tutti i punti."
+          "Errore frequente: pensare che i poli magnetici siano come le cariche elettriche. Spezzando una calamita si ottengono sempre altre calamite con due poli, e il flusso magnetico attraverso ogni superficie chiusa è nullo. Secondo errore: credere che la corrente di spostamento sia un flusso di cariche. Fra le armature passa soltanto un campo elettrico che cambia, che produce un campo magnetico come una corrente.",
+          "Terzo errore: pensare che tutti i metalli siano attratti da una calamita. Il rame e l’oro sono diamagnetici, l’alluminio debolmente paramagnetico; soltanto i ferromagneti, come ferro, nichel e cobalto, sono attratti in modo evidente. Quarto errore: credere che sopra la temperatura di Curie un materiale smetta di rispondere ai campi; diventa paramagnetico e risponde debolmente.",
+          "Il modello del laboratorio descrive momenti indipendenti con due soli orientamenti possibili, lungo o contro il campo. Trascura le interazioni fra i momenti, che a bassa temperatura possono produrre ordinamenti ferromagnetici o antiferromagnetici; trascura i momenti più grandi di un magnetone, con più orientamenti possibili, e il contributo diamagnetico sempre presente."
         ],
         "advanced": [
-          "Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo.",
-          "Usa la legge di Curie per confrontare la magnetizzazione a 300 K e a 30 K e discuti perché i paramagneti si studiano a bassa temperatura.",
-          "Il confronto usa due punti del dominio, non dimostra monotonia sull'intero intervallo. «Non definito» significa che almeno un punto è escluso dal modello. Nel grafico i vuoti non vengono uniti; gli indici interi sono visualizzati come campioni discreti."
+          "Errore frequente: pensare che i poli magnetici siano come le cariche elettriche. Spezzando una calamita si ottengono sempre altre calamite con due poli, e il flusso magnetico attraverso ogni superficie chiusa è nullo. Secondo errore: credere che la corrente di spostamento sia un flusso di cariche. Fra le armature passa soltanto un campo elettrico che cambia, che produce un campo magnetico come una corrente.",
+          "Terzo errore: pensare che tutti i metalli siano attratti da una calamita. Il rame e l’oro sono diamagnetici, l’alluminio debolmente paramagnetico; soltanto i ferromagneti, come ferro, nichel e cobalto, sono attratti in modo evidente. Quarto errore: credere che sopra la temperatura di Curie un materiale smetta di rispondere ai campi; diventa paramagnetico e risponde debolmente.",
+          "Il modello del laboratorio descrive momenti indipendenti con due soli orientamenti possibili, lungo o contro il campo. Trascura le interazioni fra i momenti, che a bassa temperatura possono produrre ordinamenti ferromagnetici o antiferromagnetici; trascura i momenti più grandi di un magnetone, con più orientamenti possibili, e il contributo diamagnetico sempre presente.",
+          "Approfondimento: nel 1922 Stern e Gerlach fecero passare atomi d’argento in un campo non uniforme. La fisica classica prevedeva una macchia continua; si formarono due macchie separate, perché la componente del momento magnetico lungo il campo assume soltanto due valori. È la stessa ipotesi dei due orientamenti usata nel modello del laboratorio."
         ]
       }
     },
     {
       "label": "VERIFICA",
-      "title": "Verifica ragionamento e calcolo",
+      "title": "Verifica",
       "text": {
         "base": [
-          "Gli elettroni hanno un momento magnetico. In una sostanza paramagnetica il campo tende ad allinearli e l'agitazione termica li disordina: la magnetizzazione dipende dal rapporto μ_B B/(kT).",
-          "Con B = 1 T a 300 K l'argomento vale circa 0,0022 e la magnetizzazione è lo 0,22 % del massimo. A 1 K sale a circa il 59 %."
+          "Ripasso: legge di Gauss per il magnetismo e monopoli; campi magnetici indotti e corrente di spostamento; le quattro equazioni di Maxwell e la velocità della luce; spin e magnetone di Bohr; esperimento di Stern e Gerlach; diamagnetismo e levitazione; paramagnetismo e legge di Curie; ferromagnetismo, domini, isteresi e temperatura di Curie; paleomagnetismo; Marte e la Luna.",
+          "Mini esercizio: secondo la legge di Curie, abbassando la temperatura da 300 a 30 kelvin la magnetizzazione di un paramagnete diventa dieci volte maggiore.",
+          "Nelle domande ricorda che le linee del campo magnetico sono chiuse, che la corrente di spostamento è un campo elettrico che cambia e che la magnetizzazione di un paramagnete cresce con il campo e diminuisce con la temperatura."
         ],
         "intermediate": [
-          "Per momenti μ_B che possono orientarsi soltanto lungo o contro il campo, i pesi di Boltzmann danno M/M_s = tanh(μ_B B/(kT)). Per argomenti piccoli tanh x ≈ x e si ritrova la legge di Curie: M proporzionale a B/T.",
-          "La variabile Temperatura T è espressa in K; Magnetizzazione relativa in 1. Il dominio dello strumento è [1; 300]. La relazione implementata è: M/M_s = tanh(μ_B B/(k T))."
+          "Ripasso: legge di Gauss per il magnetismo e monopoli; campi magnetici indotti e corrente di spostamento; le quattro equazioni di Maxwell e la velocità della luce; spin e magnetone di Bohr; esperimento di Stern e Gerlach; diamagnetismo e levitazione; paramagnetismo e legge di Curie; ferromagnetismo, domini, isteresi e temperatura di Curie; paleomagnetismo; Marte e la Luna.",
+          "Mini esercizio: secondo la legge di Curie, abbassando la temperatura da 300 a 30 kelvin la magnetizzazione di un paramagnete diventa dieci volte maggiore.",
+          "Nelle domande ricorda che le linee del campo magnetico sono chiuse, che la corrente di spostamento è un campo elettrico che cambia e che la magnetizzazione di un paramagnete cresce con il campo e diminuisce con la temperatura."
         ],
         "advanced": [
-          "Usa la legge di Curie per confrontare la magnetizzazione a 300 K e a 30 K e discuti perché i paramagneti si studiano a bassa temperatura.",
-          "Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo."
+          "Ripasso: legge di Gauss per il magnetismo e monopoli; campi magnetici indotti e corrente di spostamento; le quattro equazioni di Maxwell e la velocità della luce; spin e magnetone di Bohr; esperimento di Stern e Gerlach; diamagnetismo e levitazione; paramagnetismo e legge di Curie; ferromagnetismo, domini, isteresi e temperatura di Curie; paleomagnetismo; Marte e la Luna.",
+          "Mini esercizio: secondo la legge di Curie, abbassando la temperatura da 300 a 30 kelvin la magnetizzazione di un paramagnete diventa dieci volte maggiore.",
+          "Nelle domande ricorda che le linee del campo magnetico sono chiuse, che la corrente di spostamento è un campo elettrico che cambia e che la magnetizzazione di un paramagnete cresce con il campo e diminuisce con la temperatura."
         ]
       }
     },
     {
       "label": "COLLEGA",
-      "title": "Conclusione e nuova domanda",
+      "title": "Collegamenti",
       "text": {
         "base": [
-          "Nel diario distingui previsione, risultato e interpretazione. Paramagnete ideale a due orientamenti.",
-          "Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo.",
-          "Collegamento consigliato: physics-24. Il completamento registra attività e autoverifica, non certifica competenze."
+          "La legge di Gauss per il campo elettrico è in «Legge di Gauss: gusci, pianeti e condensatori»; la legge di Ampère in «Correnti, dipoli e dinamo dei pianeti»; la legge di Faraday in «Induzione, circuiti oscillanti e radio». Le onde previste da Maxwell sono il tema di «Onde elettromagnetiche e pressione della luce», lo spin dell’elettrone tornerà in «Onde di materia, atomi e righe spettrali».",
+          "Riepilogo dell’unità: assenza di monopoli e ricerche di Dirac e MoEDAL; corrente di spostamento; equazioni di Maxwell; spin, magnetone di Bohr ed esperimento di Stern e Gerlach; diamagnetismo, rana levitante e superconduttori; paramagnetismo, ossigeno liquido, legge di Curie e refrigeratori magnetici; ferromagnetismo, domini, isteresi e temperature di Curie; paleomagnetismo, archeomagnetismo, Marte, InSight e dinamo lunare.",
+          "Nel diario registra A e B con le previsioni e calcola a quale temperatura, con un campo di 1 tesla, la magnetizzazione relativa vale circa l’1 per cento: circa 67 kelvin, perché nel regime di Curie M/Ms vale circa 0,672·B/T."
         ],
         "intermediate": [
-          "Per momenti μ_B che possono orientarsi soltanto lungo o contro il campo, i pesi di Boltzmann danno M/M_s = tanh(μ_B B/(kT)). Per argomenti piccoli tanh x ≈ x e si ritrova la legge di Curie: M proporzionale a B/T.",
-          "Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo.",
-          "Usa la legge di Curie per confrontare la magnetizzazione a 300 K e a 30 K e discuti perché i paramagneti si studiano a bassa temperatura."
+          "La legge di Gauss per il campo elettrico è in «Legge di Gauss: gusci, pianeti e condensatori»; la legge di Ampère in «Correnti, dipoli e dinamo dei pianeti»; la legge di Faraday in «Induzione, circuiti oscillanti e radio». Le onde previste da Maxwell sono il tema di «Onde elettromagnetiche e pressione della luce», lo spin dell’elettrone tornerà in «Onde di materia, atomi e righe spettrali».",
+          "Riepilogo dell’unità: assenza di monopoli e ricerche di Dirac e MoEDAL; corrente di spostamento; equazioni di Maxwell; spin, magnetone di Bohr ed esperimento di Stern e Gerlach; diamagnetismo, rana levitante e superconduttori; paramagnetismo, ossigeno liquido, legge di Curie e refrigeratori magnetici; ferromagnetismo, domini, isteresi e temperature di Curie; paleomagnetismo, archeomagnetismo, Marte, InSight e dinamo lunare.",
+          "Nel diario registra A e B con le previsioni e calcola a quale temperatura, con un campo di 1 tesla, la magnetizzazione relativa vale circa l’1 per cento: circa 67 kelvin, perché nel regime di Curie M/Ms vale circa 0,672·B/T."
         ],
         "advanced": [
-          "Usa la legge di Curie per confrontare la magnetizzazione a 300 K e a 30 K e discuti perché i paramagneti si studiano a bassa temperatura.",
-          "Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo.",
-          "Scrivi quale evidenza aggiuntiva servirebbe per trasferire la conclusione a un sistema reale."
+          "La legge di Gauss per il campo elettrico è in «Legge di Gauss: gusci, pianeti e condensatori»; la legge di Ampère in «Correnti, dipoli e dinamo dei pianeti»; la legge di Faraday in «Induzione, circuiti oscillanti e radio». Le onde previste da Maxwell sono il tema di «Onde elettromagnetiche e pressione della luce», lo spin dell’elettrone tornerà in «Onde di materia, atomi e righe spettrali».",
+          "Riepilogo dell’unità: assenza di monopoli e ricerche di Dirac e MoEDAL; corrente di spostamento; equazioni di Maxwell; spin, magnetone di Bohr ed esperimento di Stern e Gerlach; diamagnetismo, rana levitante e superconduttori; paramagnetismo, ossigeno liquido, legge di Curie e refrigeratori magnetici; ferromagnetismo, domini, isteresi e temperature di Curie; paleomagnetismo, archeomagnetismo, Marte, InSight e dinamo lunare.",
+          "Nel diario registra A e B con le previsioni e calcola a quale temperatura, con un campo di 1 tesla, la magnetizzazione relativa vale circa l’1 per cento: circa 67 kelvin, perché nel regime di Curie M/Ms vale circa 0,672·B/T."
         ]
       }
     }
   ],
   "questions": [
     {
-      "id": "physics-35-concept",
-      "prompt": "Nel regime della legge di Curie, se la temperatura raddoppia la magnetizzazione:",
+      "id": "physics-35-q1",
+      "prompt": "Il flusso del campo magnetico attraverso una superficie chiusa che racchiude una calamita vale:",
       "options": [
         {
           "id": "A",
-          "text": "Resta uguale",
-          "feedback": "Per momenti μ_B che possono orientarsi soltanto lungo o contro il campo, i pesi di Boltzmann danno M/M_s = tanh(μ_B B/(kT)). Per argomenti piccoli tanh x ≈ x e si ritrova la legge di Curie: M proporzionale a B/T."
+          "text": "Zero",
+          "feedback": "Esatto: le linee del campo magnetico sono chiuse, e tutte quelle che escono rientrano."
         },
         {
           "id": "B",
+          "text": "Il momento magnetico diviso per μ₀",
+          "feedback": "Non esistono cariche magnetiche che facciano da sorgente al flusso."
+        },
+        {
+          "id": "C",
+          "text": "Dipende dalla forma della superficie",
+          "feedback": "Il flusso attraverso qualunque superficie chiusa è nullo."
+        },
+        {
+          "id": "D",
+          "text": "Dipende da quale polo è più vicino",
+          "feedback": "Ogni linea che esce da un polo rientra dall’altro dentro la stessa superficie."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-35-q2",
+      "prompt": "Fra le armature di un condensatore che si carica compare un campo magnetico perché:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Il campo elettrico cambia e produce una corrente di spostamento",
+          "feedback": "Esatto: il termine ε₀ dΦ/dt agisce come sorgente di campo magnetico."
+        },
+        {
+          "id": "B",
+          "text": "Le cariche saltano da un’armatura all’altra",
+          "feedback": "Fra le armature non passano cariche."
+        },
+        {
+          "id": "C",
+          "text": "Le armature sono calamite",
+          "feedback": "Le armature sono conduttori non magnetizzati."
+        },
+        {
+          "id": "D",
+          "text": "Il campo magnetico terrestre si concentra fra le armature",
+          "feedback": "Il campo indotto dipende dalla corrente di carica, non dal campo terrestre."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-35-q3",
+      "prompt": "La velocità delle onde elettromagnetiche prevista dalle equazioni di Maxwell vale:",
+      "options": [
+        {
+          "id": "A",
+          "text": "1/√(μ₀ε₀)",
+          "feedback": "Esatto: circa 2,998·10⁸ metri al secondo, la velocità della luce."
+        },
+        {
+          "id": "B",
+          "text": "μ₀ε₀",
+          "feedback": "Il prodotto μ₀ε₀ ha le dimensioni dell’inverso di una velocità al quadrato."
+        },
+        {
+          "id": "C",
+          "text": "√(μ₀/ε₀)",
+          "feedback": "Questo rapporto è un’impedenza, circa 377 ohm."
+        },
+        {
+          "id": "D",
+          "text": "Dipende dalla frequenza",
+          "feedback": "Nel vuoto tutte le frequenze viaggiano alla stessa velocità."
+        }
+      ],
+      "correct": "A"
+    },
+    {
+      "id": "physics-35-q4",
+      "prompt": "Un paramagnete obbedisce alla legge di Curie. Se la temperatura assoluta raddoppia, la magnetizzazione:",
+      "options": [
+        {
+          "id": "A",
           "text": "Si dimezza",
-          "feedback": "Gli elettroni hanno un momento magnetico. In una sostanza paramagnetica il campo tende ad allinearli e l'agitazione termica li disordina: la magnetizzazione dipende dal rapporto μ_B B/(kT)."
+          "feedback": "Esatto: nel regime di Curie la magnetizzazione è proporzionale a B/T."
         },
         {
-          "id": "C",
+          "id": "B",
           "text": "Raddoppia",
-          "feedback": "Un materiale ferromagnetico perde la magnetizzazione spontanea sopra la temperatura di Curie, circa 580 °C per la magnetite: per questo le rocce registrano il campo mentre si raffreddano."
-        }
-      ],
-      "correct": "B"
-    },
-    {
-      "id": "physics-35-calculation",
-      "prompt": "Calcolo: Campo B (a)=1 T. Per Temperatura T=1 K, quanto vale Magnetizzazione relativa?",
-      "options": [
-        {
-          "id": "A",
-          "text": "0,586106 (adimensionale)",
-          "feedback": "M/M_s = tanh(μ_B B/(k T)). Con Campo B (a)=1 T e Temperatura T=1 K, il risultato è 0,586106 (adimensionale). Conserva le unità e arrotonda solo alla fine."
-        },
-        {
-          "id": "B",
-          "text": "1,58611 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. M/M_s = tanh(μ_B B/(k T)). Con Campo B (a)=1 T e Temperatura T=1 K, il risultato è 0,586106 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "feedback": "L’agitazione termica disordina i momenti e riduce la magnetizzazione."
         },
         {
           "id": "C",
-          "text": "-0,413894 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. M/M_s = tanh(μ_B B/(k T)). Con Campo B (a)=1 T e Temperatura T=1 K, il risultato è 0,586106 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Resta uguale",
+          "feedback": "La magnetizzazione dipende dalla temperatura."
+        },
+        {
+          "id": "D",
+          "text": "Si annulla",
+          "feedback": "Diminuisce in modo graduale, senza annullarsi."
         }
       ],
-      "correct": "A",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 1
-        },
-        "expected": 0.5861060981043831,
-        "unit": "1"
-      }
+      "correct": "A"
     },
     {
-      "id": "physics-35-transfer",
-      "prompt": "Trasferimento: Campo B (a)=1,1 T. Per Temperatura T=1 K, quanto vale Magnetizzazione relativa?",
+      "id": "physics-35-q5",
+      "prompt": "Un acino d’uva viene respinto debolmente da una calamita intensa perché l’acqua è:",
       "options": [
         {
           "id": "A",
-          "text": "1,62847 (adimensionale)",
-          "feedback": "Questo valore non soddisfa la relazione. M/M_s = tanh(μ_B B/(k T)). Con Campo B (a)=1,1 T e Temperatura T=1 K, il risultato è 0,628471 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Diamagnetica",
+          "feedback": "Esatto: sviluppa un piccolo momento opposto al campo ed è spinta verso il campo debole."
         },
         {
           "id": "B",
-          "text": "-0,371529 (adimensionale)",
-          "feedback": "Controlla sostituzione, segno e unità. M/M_s = tanh(μ_B B/(k T)). Con Campo B (a)=1,1 T e Temperatura T=1 K, il risultato è 0,628471 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Ferromagnetica",
+          "feedback": "Un ferromagnete sarebbe attratto, e con forza."
         },
         {
           "id": "C",
-          "text": "0,628471 (adimensionale)",
-          "feedback": "M/M_s = tanh(μ_B B/(k T)). Con Campo B (a)=1,1 T e Temperatura T=1 K, il risultato è 0,628471 (adimensionale). Conserva le unità e arrotonda solo alla fine."
+          "text": "Paramagnetica",
+          "feedback": "Un paramagnete sarebbe attratto debolmente."
+        },
+        {
+          "id": "D",
+          "text": "Elettricamente carica",
+          "feedback": "L’acino è neutro; l’effetto è magnetico."
         }
       ],
-      "correct": "C",
-      "numeric": {
-        "x": 1,
-        "parameters": {
-          "a": 1.1
-        },
-        "expected": 0.6284711514496405,
-        "unit": "1"
-      }
+      "correct": "A"
     },
     {
-      "id": "physics-35-limits",
-      "prompt": "Quale affermazione descrive correttamente l’ambito di questo esperimento?",
+      "id": "physics-35-q6",
+      "prompt": "I grandi bacini d’impatto di Marte, come Hellas, sono privi di magnetizzazione perché:",
       "options": [
         {
           "id": "A",
-          "text": "Paramagnete ideale a due orientamenti",
-          "feedback": "Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo."
+          "text": "Si sono raffreddati quando la dinamo marziana era già spenta",
+          "feedback": "Esatto: le rocce fuse dall’impatto non trovarono un campo globale da registrare."
         },
         {
           "id": "B",
-          "text": "Riproduce ogni dettaglio del pianeta reale",
-          "feedback": "Il pianeta è una cornice narrativa; i dati sono sintetici. Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo."
+          "text": "Sono fatti di ghiaccio",
+          "feedback": "Sono bacini rocciosi, scavati da impatti nella crosta di basalto."
         },
         {
           "id": "C",
-          "text": "Basta il grafico per provare una legge universale",
-          "feedback": "Una visualizzazione non è una dimostrazione universale. Momenti indipendenti con due soli orientamenti; trascura le interazioni fra momenti che producono il ferromagnetismo."
+          "text": "Il vento solare li ha smagnetizzati",
+          "feedback": "Il vento solare non cancella la magnetizzazione delle rocce."
+        },
+        {
+          "id": "D",
+          "text": "La magnetite non esiste su Marte",
+          "feedback": "La crosta marziana contiene minerali magnetici, come mostrano le regioni magnetizzate."
         }
       ],
       "correct": "A"

@@ -289,3 +289,31 @@ test('Fisica 34: induzione, circuiti oscillanti e radio, numeri ricalcolati',()=
  // Model probes: LC frequency at C = 257.5 and 505 pF (25% and 50% of the domain) for L = 1 and 10 microhenry.
  const m=(x,a)=>1/(2*Math.PI*Math.sqrt(a*1e-6*x*1e-12))/1e6;assert.deepEqual([m(257.5,1),m(505,1),m(257.5,10),m(505,10)].map(v=>r(v,3)),[9.918,7.082,3.136,2.24]);
 });
+test('Fisica 35: equazioni di Maxwell e magnetismo della materia, numeri ricalcolati',()=>{
+ const muB=e*(h/(2*Math.PI))/(2*me),R=0.05;
+ // Maxwell: speed of light and displacement current between circular plates.
+ assert.equal(r(1/Math.sqrt(mu0*eps0)/1e8,3),2.998);assert.equal(r(mu0*1*0.03/(2*Math.PI*R**2)*1e6,1),2.4);assert.equal(r(50/2.4,0),21);
+ // Electron moment and thermal energy.
+ assert.equal(r(muB*1e24,3),9.274);assert.equal(r(2*muB/e*1e4,1),1.2);assert.equal(r(kB*300/e,3),0.026);assert.ok(kB*300/(2*muB)>200);assert.ok(mp/me>1800);
+ // Diamagnetic levitation of water.
+ assert.equal(r(mu0*1000*9.81/9e-6,-2),1400);
+ // Two-level paramagnet.
+ const M=(T,B)=>Math.tanh(muB*B/(kB*T));assert.equal(r(muB/kB*300/300,3),0.672);assert.equal(r(muB/(kB*300)*1e4,0),22);assert.equal(r(M(300,1)*100,2),0.22);assert.equal(r(M(1,1)*100,0),59);
+ // Ferromagnetism: iron moment per atom.
+ const nFe=7874/55.845e-3*6.02214076e23;assert.equal(r(1.71e6/nFe/muB,1),2.2);
+ // Experiment: water versus iron susceptibility.
+ assert.ok(5000/9e-6>1e8);
+ // Exercises.
+ assert.equal(r(1e-9*1e6*1e3,1),1);assert.equal(r(1.2566e-6*8.854e-12*1e17,4),1.1126);assert.equal(r(1/Math.sqrt(1.2566e-6*8.854e-12)/1e8,3),2.998);
+ assert.equal(r(1.602e-19*1.055e-34/(2*9.109e-31)*1e24,2),9.28);assert.equal(r(2*muB*1e23,3),1.855);assert.equal(r(2*muB/e*1e4,2),1.16);assert.equal(r(kB*300/e,4),0.0259);
+ assert.equal(r(mu0*1*0.05/(2*Math.PI*R**2)*1e6,1),4);assert.equal(r(mu0*1/(2*Math.PI*0.1)*1e6,1),2);assert.equal(r(1/(eps0*Math.PI*R**2)/1e13,1),1.4);
+ assert.equal(r(muB/kB,3),0.672);assert.equal(r(M(1,1),3),0.586);assert.equal(r(M(4.2,1),3),0.159);assert.equal(r(muB/(kB*4.2),3),0.16);assert.ok((muB/(kB*4.2)-M(4.2,1))/M(4.2,1)<0.01);assert.ok((muB/kB-M(1,1))/M(1,1)>0.14);
+ assert.equal(r(1.257e-6*1000*9.81/9e-6/16,0),86);
+ assert.equal(r(nFe/1e28,2),8.49);assert.equal(r(1.71e6/nFe*1e23,1),2);assert.equal(r((853-288)/25,0),23);
+ const mAg=107.8682*1.66053906892e-27,aSG=muB*1000/mAg,tSG=0.035/550;assert.equal(r(mAg*1e25,2),1.79);assert.equal(r(muB*1000*1e21,2),9.27);assert.equal(r(aSG/1e4,1),5.2);assert.equal(r(tSG*1e5,1),6.4);assert.equal(r(0.5*aSG*tSG**2*1e3,2),0.1);assert.equal(r(aSG*tSG**2*1e3,1),0.2);
+ assert.equal(r(1.41e-26*3/(1.381e-23*310)*1e6,1),9.9);
+ const jd=8.85e-12*2*Math.PI*1e8*1000;assert.equal(r(jd,1),5.6);assert.ok(4000/jd>700);assert.ok(1/Math.sqrt(Math.PI*1e8*mu0*4)<0.05);
+ assert.equal(r((3.107-2.998)/2.998*100,1),3.6);assert.equal(r((2.98-2.998)/2.998*100,1),-0.6);
+ // Model probes: magnetisation at T = 75.75 and 150.5 K (25% and 50% of the domain) for B = 1 and 10 T.
+ const m=(x,b)=>Math.tanh(9.2740100783e-24*b/(1.380649e-23*x));assert.deepEqual([m(75.75,1),m(150.5,1),m(75.75,10),m(150.5,10)].map(v=>+v.toPrecision(4)),[0.008867,0.004463,0.08844,0.0446]);
+});
