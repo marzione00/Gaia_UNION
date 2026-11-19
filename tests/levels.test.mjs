@@ -1,11 +1,11 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
 // Reading levels: Base, Applica and Approfondisci must be three distinct explanations, not copies of one another.
 // REWRITTEN lists the disciplines whose path texts have been rewritten; extend it with each new discipline.
-const REWRITTEN=['chemistry','math','physics'];
+const REWRITTEN=['chemistry','math','physics','biology'];
 const root=new URL('../',import.meta.url),bundle=JSON.parse(fs.readFileSync(new URL('content/curriculum/bundle.json',root),'utf8'));
 const LEVELS=['base','intermediate','advanced'],MAX_SIMILARITY=.2;
 // Minimum words per step and level. Mathematics asks for wider explanations, with more history.
-const MIN_BY={chemistry:{0:90,1:230,2:100,3:120,5:75},math:{0:140,1:330,2:130,3:170,5:110},physics:{0:90,1:230,2:100,3:120,5:75}};
+const MIN_BY={chemistry:{0:90,1:230,2:100,3:120,5:75},math:{0:140,1:330,2:130,3:170,5:110},physics:{0:90,1:230,2:100,3:120,5:75},biology:{0:90,1:230,2:100,3:120,5:75}};
 // Phrasings the project style guide forbids in site prose.
 const STYLE=[/—/,/\bnon (solo|soltanto)\b/i,/\bnon\b[^.;:\n]{0,80}\bma\b/i,/\bnon\b[^.;\n]{0,70}:/i,/, e non /i];
 const words=t=>t.join(' ').split(/\s+/).filter(Boolean).length;

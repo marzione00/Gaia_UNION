@@ -1,3 +1,11 @@
+# 1.37.0: Tre livelli distinti nei percorsi di biologia
+
+- I 35 percorsi guidati di biologia hanno testi nuovi in tutte le tappe con testo visibile. Base spiega il concetto con un esempio semplice e con la sua storia; Applica svolge esempi numerici completi e chiude con una domanda per lo studente; Approfondisci aggiunge derivazioni, limiti dei modelli e la storia delle scoperte, compresi gli annunci poi smentiti. Prima ogni tappa aveva almeno un paragrafo in comune fra due livelli, in 106 tappe su 175 almeno due livelli coincidevano parola per parola e in 35 coincidevano tutti e tre.
+- La prosa distinta di un'unità passa da una mediana di 1015 a 2418 parole, quella di tutte le 35 unità da 35 651 a 84 807; la tappa Capisci a livello Base passa da 121 a 235 parole. Il percorso letto ad Approfondisci si accorcia, da 1015 a 877 parole, perché prima conteneva anche i paragrafi di Base e di Applica. La storia va da Pasteur, Darwin e Mendel alle sonde Viking e Cassini, a JWST e ai campioni di Perseverance.
+- I numeri vengono dai capitoli del libro, dagli articoli e dalle missioni citati nei capitoli e da valori di riferimento noti, oppure da calcoli riportati nel testo; le previsioni da salvare con «Salva A» e «Salva B» sono ricalcolate con le formule dei laboratori. I paragrafi già presenti restano, ciascuno in un solo livello.
+- In «Titano, la chimica senza acqua» il rallentamento a 94 K di una reazione con energia di attivazione di 100 kJ/mol è ora circa 10³⁸ volte, come dà la legge di Arrhenius, invece di 10⁴⁰, nel testo e nella risposta della domanda corrispondente; in «Mutazioni e soglia d'errore» è corretto il refuso «ipercicio».
+- `tests/levels.test.mjs` controlla anche la biologia, con le stesse lunghezze minime della chimica e della fisica. Numeri e regola in `docs/LIVELLI.md`.
+
 # 1.36.0: Tre livelli distinti nei percorsi di fisica
 
 - I 40 percorsi guidati di fisica hanno testi nuovi in tutte le tappe con testo visibile. Base spiega il concetto con un esempio semplice e con la sua storia; Applica svolge esempi numerici completi e chiude con una domanda per lo studente; Approfondisci aggiunge derivazioni, limiti dei modelli e la storia degli esperimenti. Prima ogni tappa aveva almeno un paragrafo in comune fra due livelli, e in 45 tappe su 200 almeno due livelli coincidevano parola per parola.
