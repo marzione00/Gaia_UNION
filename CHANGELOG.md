@@ -1,3 +1,12 @@
+# 1.38.0: Generatore e catalogo di 300 stazioni e navi
+
+- Nuovo generatore in `src/craft/`: costruisce dal codice, a partire da un seme, 300 modelli tridimensionali, dieci per ognuno dei 30 sistemi. Ogni sistema ha un porto nello stile della propria disciplina, una porta di passaggio nello stile civile, quattro stazioni legate ai suoi temi e quattro navi, due nello stile della disciplina e due in quello civile.
+- Le stazioni sono 180, di dodici tipi: porto, porta, raffineria, radiotelescopio, telescopio, serra, miniera, cantiere, centrale, laboratorio dei campi, deposito criogenico e stazione poliedrica. Le navi sono 120, dieci per ognuna di dodici classi, dalla navetta alla nave gru. Le miniere stanno solo nei dieci sistemi con la fascia di asteroidi.
+- Cinque stili di costruzione: la matematica usa scafi sfaccettati e poliedri, la fisica bobine e antenne, la chimica tubazioni, serbatoi e fasce di pericolo, la biologia forme arrotondate e vetro verde; lo stile civile è quello del traffico fra i sistemi.
+- Ogni modello ha un nome unico, formato dal tipo e da uno scienziato della disciplina oppure, nello stile civile, da un vento o da una stella. Due modelli dello stesso tipo e stile differiscono in almeno due scelte strutturali; `scripts/craft-reroll.mjs` ricalcola i semi che lo garantiscono.
+- Una stazione conta da 2148 a 27 690 triangoli, una nave da 920 a 8988; i dieci modelli di un sistema ne sommano da 44 260 a 92 504. In questa versione i modelli restano fuori dalla mappa; il collocamento nei sistemi e le rotte delle navi arriveranno nei due aggiornamenti successivi. Descrizione completa in `docs/STAZIONI_NAVI.md`.
+- `tests/craft.test.mjs` controlla numero e distribuzione dei modelli, nomi, stili, determinismo, validità delle mesh, limiti di triangoli e varietà delle strutture.
+
 # 1.37.0: Tre livelli distinti nei percorsi di biologia
 
 - I 35 percorsi guidati di biologia hanno testi nuovi in tutte le tappe con testo visibile. Base spiega il concetto con un esempio semplice e con la sua storia; Applica svolge esempi numerici completi e chiude con una domanda per lo studente; Approfondisci aggiunge derivazioni, limiti dei modelli e la storia delle scoperte, compresi gli annunci poi smentiti. Prima ogni tappa aveva almeno un paragrafo in comune fra due livelli, in 106 tappe su 175 almeno due livelli coincidevano parola per parola e in 35 coincidevano tutti e tre.
