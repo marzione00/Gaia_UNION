@@ -12,6 +12,8 @@ import { planetSurface, surfaceScatter, systemStarLight, planetGenomes } from '.
 import { orbitMap } from '../worlds/orbit-texture.js';
 import { systemCraft, build as buildCraft } from '../craft/catalog.js';
 import { placeStations, stationPosition, stationYaw } from '../craft/placement.js';
+import { Economy, RESOURCES, stationReport, shipReport } from '../craft/economy.js';
+import { SHIP_SIZE, shipPose, shipMatrix } from '../craft/traffic.js';
 import { tuft, rock, station as stationMesh, seaPlane, grazer, frond, tree, column, cushion, cup, patch, hexapod, flyer, floater, beacon, curtain } from '../worlds/geometry.js';
 /** Mesh, instance mode, motion uniform and PBR of each body plan of the species (src/worlds/species.js). */
 const BODIES = {
@@ -25,7 +27,9 @@ export const PLACE_TINTS = { vetta: [.95, .82, .45, 1], forma: [.55, .82, .98, 1
 /** Drawn radius: the scale is illustrative, so planets of the units are enlarged to be read and
  * picked, ambient bodies slightly. Orbits keep their computed spacing. */
 export const displayRadius = body => body.radius * (body.explorable ? 1.55 : 1.1);
-/** Glow of a far station, in the colour of its construction style (src/craft/styles.js). */
+/** Seed of the life of the systems: it changes with every run of the site, so routes and stocks differ. */
+const SESSION = (globalThis.crypto?.getRandomValues ? globalThis.crypto.getRandomValues(new Uint32Array(1))[0] : Math.floor(Math.random() * 2 ** 32)) >>> 0;
+/** Glow of a far station or ship, in the colour of its construction style (src/craft/styles.js). */
 const CRAFT_TINTS = { matematica: [.95, .72, .4, 1], fisica: [.5, .7, 1, 1], chimica: [.71, .61, 1, 1], biologia: [.44, .83, .63, 1], civile: [1, .58, .4, 1] };
 /** Rotation of a moving part after `time`: angular speeds `w` around x, y and z (column-major, Ry · Rx · Rz). */
 function spin(w, time) {
@@ -316,35 +320,84 @@ export class World {
         }
         if(!this.travelling&&this.cameraSpace==='system')this.drawStations(s,id,system);
     }
-    /** Stations of the open system (src/craft/): only that system is built, one model per frame, and the
-     * meshes of the previous system are released. Far stations are drawn as a point of light in the colour of
-     * their style; the running lights appear once a station is large on screen. */
+    /** Stations and ships of the open system (src/craft/). Only that system is built, one model per frame,
+     * and the meshes of the previous system are released. The economy of the system (src/craft/economy.js)
+     * runs while the system is open and keeps its state for the rest of the visit; its seed changes with
+     * every run of the site. Far stations and ships are points of light in the colour of their style, near
+     * ones are drawn whole, with running lights, engine flames and the goods moving while a ship docks. */
     drawStations(s,id,system) {
         const R=this.R,C=this.craft;
         if(C.system!==id){
             C.list.forEach((item,k)=>{item.model?.parts.forEach((_,i)=>R.deleteMesh('craft-'+k+'-'+i));if(item.model?.field)R.deleteMesh('craft-'+k+'-field');});
-            C.system=id;C.list=placeStations(system,systemCraft(id),displayRadius).map(placement=>({placement,model:null}));
+            (C.models||[]).forEach((item,j)=>item.model?.parts.forEach((_,i)=>R.deleteMesh('ship-'+j+'-'+i)));
+            const entries=systemCraft(id);C.system=id;C.list=placeStations(system,entries,displayRadius).map(placement=>({placement,model:null}));
+            C.models=entries.filter(e=>e.kind==='nave').map(entry=>({entry,model:null}));
+            C.sites={time:null,hosts:new Map()};
+            const site=place=>this.craftSite(system,place,C.siteTime??s.time);
+            this.lives??=new Map();
+            if(!this.lives.has(id))this.lives.set(id,new Economy({stations:C.list.map(item=>item.placement.entry),ships:C.models.map(m=>m.entry),bodies:system.bodies.map(b=>b.slot),seed:SESSION^Math.imul(id+1,0x27D4EB2F),time:s.time,distance:(a,b)=>{const p=site(a).position,q=site(b).position;return Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2]);}}));
+            C.life=this.lives.get(id);
         }
-        const next=C.list.findIndex(item=>!item.model);
+        const next=C.list.findIndex(item=>!item.model),nextShip=C.models.findIndex(item=>!item.model);
         if(next>=0){const item=C.list[next],m=buildCraft(item.placement.entry);m.parts.forEach((p,i)=>R.makeMesh('craft-'+next+'-'+i,p.mesh));if(m.field)R.makeMesh('craft-'+next+'-field',m.field);item.model=m;}
-        const hosts=new Map(),hostAt=slot=>{if(!hosts.has(slot))hosts.set(slot,bodyAtTime(system.bodies.find(b=>b.slot===slot),s.time).position);return hosts.get(slot);};
+        else if(nextShip>=0){const item=C.models[nextShip],m=buildCraft(item.entry);m.parts.forEach((p,i)=>R.makeMesh('ship-'+nextShip+'-'+i,p.mesh));item.model=m;}
+        C.siteTime=s.time;C.hosts=new Map();
+        const life=C.life.update(s.time),site=place=>this.craftSite(system,place,s.time),avoid=system.starRadius*2.2+1;
         const k2=2*Math.tan(this.fov/2),lightColor=systemStarLight(id).map(v=>v*.8),shadowKey=R.shadowKey;R.shadowKey=null;
+        const glow=(p,r,tint,opacity)=>R.drawMesh('lowSphere',this.vp,transform(...p,r),{eye:this.eye,material:17,tint,opacity});
+        const lights=(m,mats,size,flame)=>{for(const l of m.lights){
+            const M=mats[l.part],p=[0,1,2].map(i=>M[i]*l.p[0]+M[4+i]*l.p[1]+M[8+i]*l.p[2]+M[12+i]),on=!l.blink?1:l.blink<0?(((s.time*1.1+l.blink)%1+1)%1<.3?1:.12):(Math.sin(s.time*TAU*l.blink)>-.2?1:.15),f=l.flame?flame:1;
+            if(f>.04)glow(p,l.size*size/m.radius*(l.flame?f:2.4),l.color,(l.flame?.85:.95)*on);}};
         C.list.forEach((item,k)=>{
-            const pl=item.placement,pos=stationPosition(pl,s.time,hostAt),xy=project(pos,this.vp,R.w,R.h);if(xy[2]<=0)return;
+            const pl=item.placement,state=life.stations[k],pos=site({station:k}).position,xy=project(pos,this.vp,R.w,R.h);if(xy[2]<=0)return;
             const pixel=xy[2]*k2/R.h,apparent=pl.size/pixel,tint=CRAFT_TINTS[pl.entry.style];
-            if(s.scene==='system')this.projections.push({type:'craft',index:k,entry:pl.entry,...xyToObj(xy),r:Math.max(12,apparent*1.3),apparent,position:pos,worldRadius:pl.size});
-            if(apparent<9&&s.scene!=='system')R.drawMesh('lowSphere',this.vp,transform(...pos,pixel*4.5),{eye:this.eye,material:17,tint,opacity:.95*Math.min(1,(9-apparent)/4)});
+            if(s.scene==='system')this.projections.push({type:'craft',index:k,entry:pl.entry,lines:stationReport(state),active:state.producing,...xyToObj(xy),r:Math.max(12,apparent*1.3),apparent,position:pos,worldRadius:pl.size});
+            if(apparent<9&&s.scene!=='system')glow(pos,pixel*4.5,tint,.95*Math.min(1,(9-apparent)/4));
             const m=item.model;if(!m||apparent<1.2)return;
             const light=normal(pos.map(v=>-v)),base=transform(...pos,pl.size/m.radius,stationYaw(pl,s.time,pos)),mats=m.parts.map(p=>p.spin?mul(base,spin(p.spin,s.time)):base);
             m.parts.forEach((p,i)=>R.drawMesh('craft-'+k+'-'+i,this.vp,mats[i],{eye:this.eye,light,lightColor,material:10}));
             if(m.field)R.drawMesh('craft-'+k+'-field',this.vp,base,{eye:this.eye,light,material:10,opacity:.8,lightColor:[.1,.1,.1]});
-            if(apparent<22||R.sceneQuality==='low')return;
-            for(const l of m.lights){
-                const M=mats[l.part],p=[0,1,2].map(i=>M[i]*l.p[0]+M[4+i]*l.p[1]+M[8+i]*l.p[2]+M[12+i]),on=!l.blink?1:l.blink<0?(((s.time*1.1+l.blink)%1+1)%1<.3?1:.12):(Math.sin(s.time*TAU*l.blink)>-.2?1:.15);
-                R.drawMesh('lowSphere',this.vp,transform(...p,l.size*pl.size/m.radius*(l.flame?1:2.4)),{eye:this.eye,material:17,tint:l.color,opacity:(l.flame?.85:.95)*on});
+            // Flares and drills burn while the station produces.
+            if(apparent>=22&&R.sceneQuality!=='low')lights(m,mats,pl.size,.35+.65*state.producing);
+        });
+        life.ships.forEach(ship=>{
+            const slot=C.models.findIndex(item=>item.entry===ship.entry),m=C.models[slot]?.model,size=SHIP_SIZE[ship.entry.type]||.07,tint=CRAFT_TINTS[ship.entry.style];
+            const pose=shipPose(ship,s.time,site,avoid),xy=project(pose.position,this.vp,R.w,R.h);if(xy[2]<=0)return;
+            const pixel=xy[2]*k2/R.h,apparent=size/pixel;
+            if(s.scene==='system'){
+                const back=pose.thrust>.05?project(shipPose(ship,s.time-1.5,site,avoid).position,this.vp,R.w,R.h):null;
+                this.projections.push({type:'craft',index:100+ship.id,entry:{...ship.entry,name:ship.name},lines:shipReport(ship,s.time,place=>this.craftName(system,place)),tail:back&&back[2]>0?[back[0],back[1]]:null,...xyToObj(xy),r:Math.max(10,apparent*1.4),apparent,position:pose.position,worldRadius:size});
             }
+            // Goods moving between a docked ship and its station.
+            if(pose.docked&&(ship.task==='carica'||ship.task==='scarica')&&ship.cargo){
+                const a=ship.task==='carica'?pose.docked:pose.position,b=ship.task==='carica'?pose.position:pose.docked,c=RESOURCES[ship.cargo.res].color;
+                for(let q=0;q<4;q++){const u=((s.time*.7+q/4)%1),p=a.map((v,i)=>v+(b[i]-v)*u);glow(p,Math.max(size*.18,pixel*1.6),c,.8*Math.sin(u*Math.PI));}
+            }
+            if(apparent<6){
+                glow(pose.position,pixel*(2.4+1.6*pose.thrust),tint,.55+.4*pose.thrust);
+                if(pose.thrust>.05)for(let q=1;q<=3;q++){const back=shipPose(ship,s.time-q*.45,site,avoid);if(back.docked)break;glow(back.position,pixel*(2.2-q*.45),tint,(.5-q*.12)*pose.thrust);}
+            }
+            if(!m||apparent<1)return;
+            const base=shipMatrix(pose.position,pose.forward,size/m.radius),mats=m.parts.map(p=>p.spin?mul(base,spin(p.spin,s.time)):base),light=normal(pose.position.map(v=>-v));
+            m.parts.forEach((p,i)=>R.drawMesh('ship-'+slot+'-'+i,this.vp,mats[i],{eye:this.eye,light,lightColor,material:10}));
+            if(apparent>=18&&R.sceneQuality!=='low')lights(m,mats,size,pose.thrust);
         });
         R.shadowKey=shadowKey;
+    }
+    /** Position and size of a station or a planet of the open system at `time`. */
+    craftSite(system,place,time){
+        const C=this.craft;
+        if(place.station!==undefined){const pl=C.list[place.station].placement;return {position:stationPosition(pl,time,slot=>this.craftHost(system,slot,time)),radius:pl.size};}
+        const body=system.bodies.find(b=>b.slot===place.body);return {position:this.craftHost(system,place.body,time),radius:displayRadius(body)};
+    }
+    craftHost(system,slot,time){
+        const C=this.craft,key=slot+':'+time;if(C.hosts?.has(key))return C.hosts.get(key);
+        const p=bodyAtTime(system.bodies.find(b=>b.slot===slot),time).position;if(C.hosts&&C.hosts.size<400)C.hosts.set(key,p);return p;
+    }
+    /** Name of a place for the ship reports. */
+    craftName(system,place){
+        if(place.station!==undefined)return this.craft.list[place.station].placement.entry.name;
+        const body=system.bodies.find(b=>b.slot===place.body);return 'corpo '+(body.slot+1)+' ('+body.profile.name.toLowerCase()+')';
     }
     draw(scene, s, data) {
         const R = this.R;

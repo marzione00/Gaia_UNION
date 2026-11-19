@@ -1,3 +1,11 @@
+# 1.40.0: Vita dei sistemi
+
+- Ogni sistema aperto ha un'economia: miniere, raffinerie, serre, centrali, telescopi e laboratori producono minerale, carburante, cibo, energia e dati; il cantiere trasforma minerale ed energia in parti di nave; il porto consuma cibo, carburante ed energia; la porta importa merci dagli altri sistemi ed esporta dati e parti.
+- Le navi trasportano le merci dove mancano: ogni nave libera sceglie il carico più conveniente fra quelli della sua classe, lo prenota, lo carica e lo consegna; senza nulla da trasportare osserva i pianeti, pattuglia le stazioni, cura le boe della porta o lavora al cantiere. Ogni nave del catalogo può viaggiare con una o due navi gemelle, quindi un sistema ha da 4 a 11 navi.
+- Ogni avvio del sito sceglie un seme nuovo: scorte iniziali, navi gemelle, partenze e rotte cambiano a ogni visita.
+- Le navi seguono archi sopra il piano delle orbite e girano al largo della stella. Nella vista del sistema sono punti colorati con una scia, e i rombi delle stazioni pulsano mentre producono; il puntatore mostra in tempo reale produzione e richieste delle stazioni, carico, destinazione e arrivo delle navi. In orbita si vedono le navi intere, i motori accesi in volo e le merci che passano fra nave e stazione durante il carico.
+- Nuovi `src/craft/economy.js` e `src/craft/traffic.js`; `tests/life.test.mjs` controlla scorte, consegne, varietà fra i semi, distanza dalla stella e testi dei resoconti. Descrizione in `docs/STAZIONI_NAVI.md`.
+
 # 1.39.0: Stazioni nei sistemi
 
 - Le sei stazioni di ogni sistema compaiono nella vista del sistema e attorno ai pianeti visti in orbita. Ogni stazione ha un pianeta ospite adatto al suo compito: il porto e il cantiere orbitano attorno al primo pianeta di studio, la raffineria attorno a un gigante gassoso, la serra attorno a un pianeta oceanico o terrestre, il deposito criogenico attorno a un mondo ghiacciato, telescopi e radiotelescopi attorno ai pianeti più esterni; la miniera ruota con la fascia di asteroidi e la porta sta oltre la fascia, con l'anello rivolto verso la stella.

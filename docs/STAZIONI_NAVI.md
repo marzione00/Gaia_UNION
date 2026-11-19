@@ -1,6 +1,6 @@
 # Stazioni e navi dei sistemi
 
-I trenta sistemi stellari ospitano 300 modelli tridimensionali: dieci per sistema, cioè sei stazioni e quattro navi. Il lavoro procede in tre aggiornamenti: la 1.38.0 ha portato il generatore dei modelli e il loro catalogo, la 1.39.0 colloca le stazioni nei sistemi, il terzo aggiornamento farà muovere le navi lungo le rotte.
+I trenta sistemi stellari ospitano 300 modelli tridimensionali: dieci per sistema, cioè sei stazioni e quattro navi. Il lavoro è arrivato in tre aggiornamenti: la 1.38.0 ha portato il generatore dei modelli e il loro catalogo, la 1.39.0 ha collocato le stazioni nei sistemi, la 1.40.0 dà vita ai sistemi, con stazioni che producono e navi che trasportano le merci.
 
 ## Come sono costruiti
 
@@ -11,7 +11,9 @@ Il sito non scarica geometrie. Ogni modello nasce dal codice in `src/craft/` a p
 - `styles.js` definisce i cinque stili di costruzione;
 - `stations.js` e `ships.js` contengono i dodici tipi di stazione e le dodici classi di nave;
 - `catalog.js` assegna i modelli ai sistemi, sceglie i nomi e costruisce un modello su richiesta con `build(voce)`;
-- `placement.js` decide dove stanno le stazioni di un sistema e dove si trovano in ogni istante.
+- `placement.js` decide dove stanno le stazioni di un sistema e dove si trovano in ogni istante;
+- `economy.js` contiene le regole della vita di un sistema: produzione, consumi, scelta dei viaggi delle navi;
+- `traffic.js` calcola le rotte delle navi, la loro posizione e il loro orientamento.
 
 Un modello è un elenco di parti (le parti mobili ruotano attorno a un asse che passa per l'origine), un elenco di luci di posizione e di scarichi dei motori, l'eventuale campo di una porta e la ricetta, cioè l'elenco delle scelte strutturali estratte dal seme. Le mesh usano il vertice a 16 valori di `src/renderer.js` e il materiale 10 nella variante per gli scafi.
 
@@ -120,14 +122,45 @@ Una stazione orbita a 1,75 raggi del pianeta disegnato più una volta e mezza la
 
 Il sito costruisce soltanto le stazioni del sistema aperto, un modello per fotogramma, e libera le mesh del sistema precedente quando se ne apre un altro. Nella vista del sistema una stazione lontana è un piccolo rombo nel colore del suo stile; passando con il puntatore compaiono nome, stile e funzione, e un tocco li mostra nella barra dei messaggi. In orbita attorno a un pianeta le stazioni vicine si vedono intere, illuminate dalla stella del sistema; le luci di posizione si accendono quando una stazione supera i 22 pixel di raggio sullo schermo, salvo con la grafica al livello più basso.
 
+## La vita dei sistemi
+
+Dalla 1.40.0 ogni sistema aperto ha un'economia: le stazioni producono e consumano merci, le navi le portano dove mancano. Le merci sono sette: minerale, carburante, cibo, energia (in celle), dati, parti di nave ed equipaggi. Le quantità sono per secondo del tempo della scena, che scorre di un secondo al secondo (al massimo 0,08 s per fotogramma) e si ferma con il movimento ridotto.
+
+| Stazione | Produce | Consuma | Chiede |
+|---|---|---|---|
+| Miniera | minerale, 1,6 t/s | | |
+| Raffineria | carburante, 1,4 t/s | | |
+| Serra | cibo, 1 t/s | | |
+| Centrale | energia, 1,2 celle/s | | |
+| Telescopio, radiotelescopio, stazione poliedrica | dati, 0,5, 0,6 e 0,4 TB/s | | |
+| Laboratorio dei campi | dati, 0,45 TB/s | energia, 0,15 celle/s | energia |
+| Cantiere | parti, 0,25 moduli/s | minerale 0,9 t/s, energia 0,3 celle/s | minerale ed energia |
+| Deposito criogenico | | | carburante fino a 260 t; ne cede oltre 110 t |
+| Porto | equipaggi, 0,25 persone/s | cibo 0,3 t/s, carburante 0,35 t/s, energia 0,15 celle/s | cibo, carburante ed energia |
+| Porta | importa equipaggi, cibo, carburante, energia e minerale | dati 0,3 TB/s, parti 0,08 moduli/s | dati e parti |
+
+Le stazioni diverse dal porto e dalla porta consumano anche 0,06 persone di equipaggio al secondo e ne chiedono 16. Laboratorio e cantiere si fermano quando manca un ingrediente; ogni stazione si ferma quando il suo magazzino è pieno. Le capacità e le altre soglie sono in `RECIPES`.
+
+Ogni nave del catalogo viaggia con fino a due navi gemelle dello stesso modello (con il nome seguito da II e III); navette, navi cargo, cisterne e navi passeggeri ne possono avere due, le altre una. Un sistema ha quindi da 4 a 11 navi. Quando una nave è libera sceglie il trasporto migliore fra quelli che la sua classe può fare: la quantità divisa per la strada da percorrere, con un fattore casuale fra 0,7 e 1,3, e un carico minimo pari al 30 % della stiva. La merce viene prenotata alla partenza, così due navi non vanno a prendere lo stesso carico. Senza nulla da trasportare ogni classe ha il suo comportamento: le navi scientifiche, le esploratrici e le sonde osservano un pianeta e ne riportano dati, la nave di soccorso fa il giro delle stazioni, il posaboe va e viene dalla porta, la nave gru lavora al cantiere, navette e navi passeggeri si spostano fra le stazioni.
+
+Le navi viaggiano su archi sollevati sopra il piano delle orbite di un ottavo della distanza, accelerano e frenano agli estremi e girano al largo della stella quando il percorso diretto le passerebbe a meno di 2,2 raggi stellari più un'unità. Le velocità vanno da 1,2 a 3,2 unità al secondo; un viaggio dura 2 s più la distanza divisa per la velocità, una sosta in stazione da 4 a 12 s secondo la classe, con una variazione casuale del 20 %.
+
+Ogni avvio del sito sceglie un seme nuovo con `crypto.getRandomValues`, quindi scorte iniziali (dal 15 al 75 % della capacità), navi gemelle, posizioni di partenza e scelte dei viaggi cambiano da una visita all'altra. L'economia di un sistema gira mentre il sistema è aperto e conserva il suo stato per tutta la visita; quando si torna in un sistema dopo un'assenza, recupera al massimo due minuti.
+
+Nella vista del sistema ogni nave è un punto nel colore del suo stile, con una scia breve mentre viaggia, e i rombi delle stazioni pulsano mentre producono. Il puntatore mostra lo stato in tempo reale: per una stazione che cosa produce e che cosa chiede, per una nave il carico, la destinazione e il tempo di arrivo. In orbita le navi vicine si vedono intere, con i motori accesi in volo; durante il carico e lo scarico quattro luci nel colore della merce passano fra la nave e la stazione, e le fiamme delle stazioni, come le torce delle raffinerie, si abbassano quando la produzione si ferma.
+
+Una simulazione di 1200 s per ognuno dei 30 sistemi con tre semi diversi muove tutte le 590 navi coinvolte; le navi passano in viaggio dal 35 al 65 % del tempo, con mediana del 50 %, e nessuna arriva a meno di 2,73 raggi stellari dalla stella.
+
 ## Controlli
 
 `tests/craft.test.mjs` verifica che i modelli siano 300, dieci per sistema con sei stazioni e quattro navi, che le miniere stiano solo nei sistemi con la fascia, che nomi e identificatori siano unici e scritti con l'atlante dei caratteri, che gli stili seguano la regola descritta sopra, che la generazione sia deterministica, che le mesh contengano solo valori finiti e indici validi entro i limiti di triangoli, e che due modelli dello stesso tipo e stile differiscano in almeno due scelte.
 
 `tests/stations.test.mjs` verifica che ogni sistema abbia sei stazioni collocate in modo deterministico, la porta oltre la fascia, la miniera dentro la fascia, il porto attorno a un pianeta di studio e il cantiere accanto al porto, la raffineria attorno a un gigante quando il sistema ne ha uno; che le stazioni restino alla distanza prevista dall'ospite, fuori dal pianeta disegnato; e che la scena costruisca un modello per fotogramma, renda selezionabili le stazioni e liberi le mesh al cambio di sistema.
 
-## Prossimi aggiornamenti
+`tests/life.test.mjs` verifica che ogni stazione e ogni nave abbiano regole valide; che in 1800 s di simulazione le scorte restino nei limiti, le prenotazioni non scendano sotto zero, ogni nave compia almeno tre viaggi e i carichi vengano consegnati; che lo stesso seme ripeta le stesse rotte e semi diversi ne diano di diverse; che nessuna nave passi vicino alla stella; e che i resoconti mostrati sullo schermo siano brevi, nello stile del sito e scritti con l'atlante dei caratteri.
+
+## Aggiornamenti
 
 1. Generatore e catalogo (1.38.0).
 2. Stazioni nei sistemi (1.39.0).
-3. Navi e rotte: le navi percorreranno rotte fra porti, porte e stazioni del sistema.
+3. Vita dei sistemi: produzione delle stazioni e traffico delle navi (1.40.0).

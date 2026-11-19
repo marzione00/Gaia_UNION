@@ -363,16 +363,16 @@ function gru(d, st) {
 }
 
 export const SHIPS = {
-    navetta: { name: 'Navetta', build: navetta, size: 'circa 50 m' },
-    corriere: { name: 'Corriere', build: corriere, size: 'circa 70 m' },
-    cargo: { name: 'Nave cargo', build: cargo, size: 'circa 150 m' },
-    cisterna: { name: 'Cisterna', build: cisterna, size: 'circa 140 m' },
-    rimorchiatore: { name: 'Rimorchiatore minerario', build: rimorchiatore, size: 'circa 45 m' },
-    scientifica: { name: 'Nave scientifica', build: scientifica, size: 'circa 80 m' },
-    esploratrice: { name: 'Nave da esplorazione', build: esploratrice, size: 'circa 100 m' },
-    passeggeri: { name: 'Nave passeggeri', build: passeggeri, size: 'circa 120 m' },
-    posaboe: { name: 'Posaboe', build: posaboe, size: 'circa 60 m' },
-    soccorso: { name: 'Nave di soccorso', build: soccorso, size: 'circa 60 m' },
-    sonda: { name: 'Sonda', build: sonda, size: 'circa 15 m' },
-    gru: { name: 'Nave gru', build: gru, size: 'circa 70 m' }
+    navetta: { name: 'Navetta', build: navetta, size: 'circa 50 m', about: 'Porta gli equipaggi fra le stazioni del sistema.' },
+    corriere: { name: 'Corriere', build: corriere, size: 'circa 70 m', about: 'Nave veloce per dati e passeggeri urgenti.' },
+    cargo: { name: 'Nave cargo', build: cargo, size: 'circa 150 m', about: 'Trasporta in container minerale, parti, cibo e celle di energia.' },
+    cisterna: { name: 'Cisterna', build: cisterna, size: 'circa 140 m', about: 'Trasporta carburante dalle raffinerie ai depositi e ai porti.' },
+    rimorchiatore: { name: 'Rimorchiatore minerario', build: rimorchiatore, size: 'circa 45 m', about: 'Porta il minerale dalla miniera al cantiere.' },
+    scientifica: { name: 'Nave scientifica', build: scientifica, size: 'circa 80 m', about: 'Osserva i pianeti del sistema e porta i dati alla porta.' },
+    esploratrice: { name: 'Nave da esplorazione', build: esploratrice, size: 'circa 100 m', about: 'Esplora i pianeti del sistema e ne riporta i dati.' },
+    passeggeri: { name: 'Nave passeggeri', build: passeggeri, size: 'circa 120 m', about: 'Collega porto, porta e stazioni con decine di passeggeri.' },
+    posaboe: { name: 'Posaboe', build: posaboe, size: 'circa 60 m', about: 'Mantiene le boe di segnalazione attorno alla porta.' },
+    soccorso: { name: 'Nave di soccorso', build: soccorso, size: 'circa 60 m', about: 'Pattuglia le stazioni e porta celle di energia e cibo dove servono.' },
+    sonda: { name: 'Sonda', build: sonda, size: 'circa 15 m', about: 'Sonda senza equipaggio che raccoglie dati sui pianeti.' },
+    gru: { name: 'Nave gru', build: gru, size: 'circa 70 m', about: 'Lavora al cantiere e sposta parti di nave fra cantiere e porto.' }
 };
