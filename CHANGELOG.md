@@ -1,3 +1,10 @@
+# 1.39.0: Stazioni nei sistemi
+
+- Le sei stazioni di ogni sistema compaiono nella vista del sistema e attorno ai pianeti visti in orbita. Ogni stazione ha un pianeta ospite adatto al suo compito: il porto e il cantiere orbitano attorno al primo pianeta di studio, la raffineria attorno a un gigante gassoso, la serra attorno a un pianeta oceanico o terrestre, il deposito criogenico attorno a un mondo ghiacciato, telescopi e radiotelescopi attorno ai pianeti più esterni; la miniera ruota con la fascia di asteroidi e la porta sta oltre la fascia, con l'anello rivolto verso la stella.
+- Nella vista del sistema ogni stazione lontana è segnata da un piccolo rombo nel colore del suo stile; il puntatore mostra nome, stile e funzione, un tocco li riporta nella barra dei messaggi. In orbita le stazioni vicine si vedono intere, con parti mobili e luci di posizione.
+- Il sito costruisce soltanto le sei stazioni del sistema aperto, una per fotogramma, e libera le mesh del sistema precedente al cambio di sistema.
+- Nuovo `src/craft/placement.js`; `tests/stations.test.mjs` controlla ospiti, distanze, determinismo e gestione delle mesh. Descrizione in `docs/STAZIONI_NAVI.md`.
+
 # 1.38.0: Generatore e catalogo di 300 stazioni e navi
 
 - Nuovo generatore in `src/craft/`: costruisce dal codice, a partire da un seme, 300 modelli tridimensionali, dieci per ognuno dei 30 sistemi. Ogni sistema ha un porto nello stile della propria disciplina, una porta di passaggio nello stile civile, quattro stazioni legate ai suoi temi e quattro navi, due nello stile della disciplina e due in quello civile.

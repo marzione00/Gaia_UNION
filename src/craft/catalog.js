@@ -47,7 +47,7 @@ export const CATALOG = (() => {
         [...stations.map(([t, s]) => ['stazione', t, s]), ...ships.map(([t, s]) => ['nave', t, s])].forEach(([kind, type, styleKey], slot) => {
             const spec = kind === 'stazione' ? STATIONS[type] : SHIPS[type];
             const nth = out.filter(e => e.type === type).length;
-            out.push({ id: `s${String(system).padStart(2, '0')}-${slot}`, system, slot, nth, kind, type, typeName: spec.name, style: styleKey, sector: area.sector, name: name(spec.name, styleKey), size: spec.size, seed: seedOf(system, slot) });
+            out.push({ id: `s${String(system).padStart(2, '0')}-${slot}`, system, slot, nth, kind, type, typeName: spec.name, style: styleKey, sector: area.sector, name: name(spec.name, styleKey), size: spec.size, about: spec.about || '', seed: seedOf(system, slot) });
         });
     });
     return Object.freeze(out.map(Object.freeze));

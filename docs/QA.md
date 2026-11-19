@@ -1,22 +1,22 @@
-# Collaudo GAIA 1.38.0
+# Collaudo GAIA 1.39.0
 
-Eseguito il 19 novembre 2026 sul ramo `feat/stazioni-navi-20261119`, costruito sopra `main` alla versione 1.37.0 (pull request #39), con Node.js 22.
+Eseguito il 19 novembre 2026 sul ramo `feat/stazioni-sistemi-20261119`, costruito sopra `main` alla versione 1.38.0 (pull request #40), con Node.js 22.
 
 | Controllo | Comando | Risultato |
 |---|---|---:|
-| Test Node | `node --test tests/*.test.mjs` | 579 / 579 |
-| Stazioni e navi | `node --test tests/craft.test.mjs` | 7 / 7 |
-| Riferimenti e risorse | `node scripts/check.mjs` | 3919 / 3919 |
+| Test Node | `node --test tests/*.test.mjs` | 582 / 582 |
+| Stazioni nei sistemi | `node --test tests/stations.test.mjs` | 3 / 3 |
+| Riferimenti e risorse | `node scripts/check.mjs` | 3924 / 3924 |
 | Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 314 controlli |
 | Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 279 controlli |
 | Atlante in Chromium | `python3 tools/qa_atlas_browser.py --root dist` | 23 controlli, 30 sistemi, 280 pianeti, 125 esplorabili |
-| Catalogo in Chromium | 300 modelli costruiti e disegnati con il renderer del sito; vista 3D a 1280 × 800 e a 390 × 844 | nessun errore |
+| Stazioni nel sito in Chromium | vista del sistema a 1440 × 900 e a 390 × 844, vista in orbita di tre pianeti a 1440 × 900 | nessun errore; stazioni costruite e segnate |
 
 Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`.
 
-La versione aggiunge il generatore di stazioni e navi in `src/craft/`, il suo test e la descrizione in `docs/STAZIONI_NAVI.md`. Nessun modulo del sito importa ancora `src/craft/`, quindi mappa, percorsi e laboratori restano quelli della 1.37.0; il controllo delle risorse sale a 3919 voci perché esamina anche i sei moduli nuovi, con le loro 11 importazioni e l'assenza di `eval` e di Canvas 2D in ciascuno. Il catalogo è stato verificato disegnando i 300 modelli con `src/renderer.js` in Chromium con SwiftShader.
+La versione colloca le sei stazioni di ogni sistema nella vista del sistema e in orbita (`src/craft/placement.js`, `src/scene/world.js`, `src/app.js`); percorsi e laboratori restano quelli della 1.38.0. Il controllo delle risorse sale a 3924 voci per il modulo nuovo e per le due importazioni aggiunte a `src/scene/world.js`. Con SwiftShader, un renderer software, la vista in orbita disegna fra 0,13 e 0,2 fotogrammi al secondo con le stazioni e 0,2 senza, la vista di un sistema a 390 × 844 ne disegna 0,73 con le stazioni e 0,8 senza; questi tempi descrivono il renderer software e restano da misurare su GPU reali.
 
-Collaudo precedente, 1.37.0 (18 novembre 2026, ramo `feat/livelli-biologia-20261118`): 572 test Node, 126 test dei livelli, 3896 controlli di riferimenti e risorse, 314 controlli HTTP, 279 flussi applicativi; lezione di biologia in Chromium a 1440 × 900 e a 390 × 844, nessun errore.
+Collaudo precedente, 1.38.0 (19 novembre 2026, ramo `feat/stazioni-navi-20261119`): 579 test Node, 7 test di stazioni e navi, 3919 controlli di riferimenti e risorse, 314 controlli HTTP, 279 flussi applicativi, 23 controlli dell'atlante; i 300 modelli disegnati in Chromium senza errori.
 
 ## Integrazione continua
 

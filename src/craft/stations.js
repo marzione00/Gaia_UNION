@@ -659,16 +659,16 @@ function poliedrica(d, st) {
 }
 
 export const STATIONS = {
-    porto: { name: 'Porto', build: porto, size: 'circa 1,2 km' },
-    porta: { name: 'Porta', build: porta, size: 'circa 2 km' },
-    raffineria: { name: 'Raffineria', build: raffineria, size: 'circa 1,6 km' },
-    radiotelescopio: { name: 'Radiotelescopio', build: radiotelescopio, size: 'circa 1,5 km' },
-    telescopio: { name: 'Telescopio', build: telescopio, size: 'circa 1 km' },
-    serra: { name: 'Serra', build: serra, size: 'circa 1,8 km' },
-    miniera: { name: 'Miniera', build: miniera, size: 'circa 1,5 km' },
-    cantiere: { name: 'Cantiere', build: cantiere, size: 'circa 1,4 km' },
-    centrale: { name: 'Centrale', build: centrale, size: 'circa 1,3 km' },
-    laboratorio: { name: 'Laboratorio dei campi', build: laboratorio, size: 'circa 1,2 km' },
-    deposito: { name: 'Deposito criogenico', build: deposito, size: 'circa 1 km' },
-    poliedrica: { name: 'Stazione poliedrica', build: poliedrica, size: 'circa 1 km' }
+    porto: { name: 'Porto', build: porto, size: 'circa 1,2 km', about: 'Scalo principale del sistema, con attracchi per le navi e alloggi per gli equipaggi.' },
+    porta: { name: 'Porta', build: porta, size: 'circa 2 km', about: 'Anello di passaggio verso gli altri sistemi della galassia, rivolto verso la stella.' },
+    raffineria: { name: 'Raffineria', build: raffineria, size: 'circa 1,6 km', about: 'Separa e immagazzina i gas raccolti nel sistema, con colonne di distillazione e serbatoi.' },
+    radiotelescopio: { name: 'Radiotelescopio', build: radiotelescopio, size: 'circa 1,5 km', about: 'Ascolta il cielo nelle onde radio con una o più antenne paraboliche.' },
+    telescopio: { name: 'Telescopio', build: telescopio, size: 'circa 1 km', about: 'Osserva il cielo nel visibile e nell\'infrarosso, lontano dalla luce della stella.' },
+    serra: { name: 'Serra', build: serra, size: 'circa 1,8 km', about: 'Coltiva piante in moduli trasparenti e nutre gli equipaggi del sistema.' },
+    miniera: { name: 'Miniera', build: miniera, size: 'circa 1,5 km', about: 'Estrae metalli e ghiacci da un asteroide catturato nella fascia.' },
+    cantiere: { name: 'Cantiere', build: cantiere, size: 'circa 1,4 km', about: 'Costruisce e ripara gli scafi delle navi, vicino al porto del sistema.' },
+    centrale: { name: 'Centrale', build: centrale, size: 'circa 1,3 km', about: 'Produce energia per il sistema e cede il calore allo spazio con grandi radiatori.' },
+    laboratorio: { name: 'Laboratorio dei campi', build: laboratorio, size: 'circa 1,2 km', about: 'Studia campi magnetici e plasmi con bobine, acceleratori e antenne.' },
+    deposito: { name: 'Deposito criogenico', build: deposito, size: 'circa 1 km', about: 'Conserva gas liquefatti a bassissima temperatura, al riparo dalla luce della stella.' },
+    poliedrica: { name: 'Stazione poliedrica', build: poliedrica, size: 'circa 1 km', about: 'Stazione di calcolo costruita attorno a un poliedro.' }
 };
