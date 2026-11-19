@@ -1,22 +1,22 @@
-# Collaudo GAIA 1.39.0
+# Collaudo GAIA 1.40.0
 
-Eseguito il 19 novembre 2026 sul ramo `feat/stazioni-sistemi-20261119`, costruito sopra `main` alla versione 1.38.0 (pull request #40), con Node.js 22.
+Eseguito il 19 novembre 2026 sul ramo `feat/universo-dinamico-20261119`, costruito sopra `main` alla versione 1.39.0 (pull request #41), con Node.js 22.
 
 | Controllo | Comando | Risultato |
 |---|---|---:|
-| Test Node | `node --test tests/*.test.mjs` | 582 / 582 |
-| Stazioni nei sistemi | `node --test tests/stations.test.mjs` | 3 / 3 |
-| Riferimenti e risorse | `node scripts/check.mjs` | 3924 / 3924 |
+| Test Node | `node --test tests/*.test.mjs` | 587 / 587 |
+| Vita dei sistemi | `node --test tests/life.test.mjs` | 5 / 5 |
+| Riferimenti e risorse | `node scripts/check.mjs` | 3931 / 3931 |
 | Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 314 controlli |
 | Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 279 controlli |
 | Atlante in Chromium | `python3 tools/qa_atlas_browser.py --root dist` | 23 controlli, 30 sistemi, 280 pianeti, 125 esplorabili |
-| Stazioni nel sito in Chromium | vista del sistema a 1440 × 900 e a 390 × 844, vista in orbita di tre pianeti a 1440 × 900 | nessun errore; stazioni costruite e segnate |
+| Traffico nel sito in Chromium | vista del sistema «Legami e molecole» e vista in orbita di «Geometria molecolare e VSEPR» a 1440 × 900 | nessun errore; navi in viaggio con scia, carico al porto visibile |
 
 Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`.
 
-La versione colloca le sei stazioni di ogni sistema nella vista del sistema e in orbita (`src/craft/placement.js`, `src/scene/world.js`, `src/app.js`); percorsi e laboratori restano quelli della 1.38.0. Il controllo delle risorse sale a 3924 voci per il modulo nuovo e per le due importazioni aggiunte a `src/scene/world.js`. Con SwiftShader, un renderer software, la vista in orbita disegna fra 0,13 e 0,2 fotogrammi al secondo con le stazioni e 0,2 senza, la vista di un sistema a 390 × 844 ne disegna 0,73 con le stazioni e 0,8 senza; questi tempi descrivono il renderer software e restano da misurare su GPU reali.
+La versione aggiunge l'economia dei sistemi e il traffico delle navi (`src/craft/economy.js`, `src/craft/traffic.js`, `src/scene/world.js`, `src/app.js`); percorsi e laboratori restano quelli della 1.39.0. Il controllo delle risorse sale a 3931 voci per i due moduli nuovi e per le due importazioni aggiunte a `src/scene/world.js`. Una simulazione di 1200 s per ognuno dei 30 sistemi con tre semi muove tutte le 590 navi coinvolte, che passano in viaggio dal 35 al 65 % del tempo e restano ad almeno 2,73 raggi stellari dalla stella. Con SwiftShader la vista in orbita resta lenta, come nella 1.39.0; i tempi per fotogramma restano da misurare su GPU reali.
 
-Collaudo precedente, 1.38.0 (19 novembre 2026, ramo `feat/stazioni-navi-20261119`): 579 test Node, 7 test di stazioni e navi, 3919 controlli di riferimenti e risorse, 314 controlli HTTP, 279 flussi applicativi, 23 controlli dell'atlante; i 300 modelli disegnati in Chromium senza errori.
+Collaudo precedente, 1.39.0 (19 novembre 2026, ramo `feat/stazioni-sistemi-20261119`): 582 test Node, 3 test delle stazioni nei sistemi, 3924 controlli di riferimenti e risorse, 314 controlli HTTP, 279 flussi applicativi, 23 controlli dell'atlante; stazioni nella vista del sistema e in orbita senza errori.
 
 ## Integrazione continua
 

@@ -36,15 +36,16 @@ test('orbite: posizioni finite, distanza costante dall\'ospite, nessuna stazione
   }
  }
 });
-test('scena: un modello costruito per fotogramma, mesh liberate al cambio di sistema, stazioni selezionabili',()=>{
+test('scena: un modello costruito per fotogramma, mesh liberate al cambio di sistema, stazioni e navi selezionabili',()=>{
  const made=new Set(),deleted=[],draws=[];
- const R={w:1600,h:1000,makeStars(){},makeMesh(id){if(id.startsWith('craft-'))made.add(id);},deleteMesh(id){if(id.startsWith('craft-')){deleted.push(id);made.delete(id);}},drawMesh(id){draws.push(id);},shadowKey:'surface',sceneQuality:'high'};
+ const R={w:1600,h:1000,makeStars(){},makeMesh(id){if(/^(craft|ship)-/.test(id))made.add(id);},deleteMesh(id){if(/^(craft|ship)-/.test(id)){deleted.push(id);made.delete(id);}},drawMesh(id){draws.push(id);},shadowKey:'surface',sceneQuality:'high'};
  const biomes=JSON.parse(fs.readFileSync(new URL('../assets/scenes/manifest.json',import.meta.url))).biomes,w=new World(R,{},biomes);w.cameraSpace='system';w.travelling=false;w.fov=.78;w.eye=[0,30,60];w.vp=mul(perspective(.78,1.6,.012,400),lookAt(w.eye,[0,0,0]));
  const s={scene:'system',time:3},first=systemOf(13);
  for(let frame=1;frame<=6;frame++){w.projections=[];w.drawStations(s,13,first);assert.equal(w.craft.list.filter(i=>i.model).length,frame);}
+ for(let frame=1;frame<=4;frame++){w.projections=[];w.drawStations(s,13,first);assert.equal(w.craft.models.filter(i=>i.model).length,frame);}
  assert.equal(R.shadowKey,'surface','la mappa delle ombre della superficie va ripristinata');
- assert.ok(made.size>=6);assert.equal(w.projections.filter(p=>p.type==='craft').length,6);
- assert.ok(w.projections.filter(p=>p.type==='craft').every(p=>p.entry&&p.entry.system===13&&Number.isFinite(p.x)));
+ assert.ok(made.size>=10);assert.equal(w.projections.filter(p=>p.type==='craft'&&p.index<100).length,6);assert.ok(w.projections.filter(p=>p.type==='craft'&&p.index>=100).length>=4);
+ assert.ok(w.projections.filter(p=>p.type==='craft').every(p=>p.entry&&p.entry.system===13&&Number.isFinite(p.x)&&p.lines.length===2));
  const before=made.size;w.drawStations(s,1,systemOf(1));
  assert.equal(deleted.length,before,'mesh del sistema precedente non liberate');assert.equal(w.craft.system,1);
 });

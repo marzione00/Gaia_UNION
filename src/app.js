@@ -51,7 +51,7 @@ let hoverPointer = null, touchTarget = null, book = null, passages = [], instrum
 const sectors = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
 const sectorColors = DISCIPLINE;
 /** Colour and label of the construction styles of stations and ships (src/craft/styles.js). */
-const CRAFT_STYLE = { matematica: [DISCIPLINE[0], 'Matematica'], fisica: [DISCIPLINE[1], 'Fisica'], chimica: [DISCIPLINE[2], 'Chimica'], biologia: [DISCIPLINE[3], 'Biologia'], civile: [color('#ff9466'), 'Traffico civile'] };
+const CRAFT_STYLE = { matematica: [DISCIPLINE[0], 'Matematica', '#f2b766'], fisica: [DISCIPLINE[1], 'Fisica', '#7fb2ff'], chimica: [DISCIPLINE[2], 'Chimica', '#b49cff'], biologia: [DISCIPLINE[3], 'Biologia', '#6fd3a0'], civile: [color('#ff9466'), 'Traffico civile', '#ff9466'] };
 const nav = [['galaxy', 'MAPPA'], ['catalogue', 'ARGOMENTI'], ['paths', 'PERCORSI'], ['lab', 'LABORATORI'], ['journal', 'DIARIO']];
 const navGroups = { galaxy: ['galaxy', 'system', 'orbit', 'surface', 'outpost', 'region'], catalogue: ['catalogue', 'mission', 'briefing', 'theory', 'pdf', 'quiz', 'sources', 'research', 'pilot', 'libro'], paths: ['paths'], lab: ['lab'], journal: ['journal', 'ship', 'gaia'] };
 const sceneNames = { ship: 'NAVE', gaia: 'NUCLEO DI GAIA', outpost: 'MAPPA', region: 'MAPPA', system: 'MAPPA', orbit: 'MAPPA', surface: 'MAPPA', mission: 'UNITÀ', briefing: 'UNITÀ', theory: 'TEORIA', pdf: 'DISPENSA', quiz: 'VERIFICA', sources: 'FONTI', research: 'RICERCA', pilot: 'MISSIONE' };
@@ -320,13 +320,23 @@ function titleShade(x1 = 760, y0 = 82, y1 = 262) { if (R.w >= 850) R.shadeRect(0
 /** Dark band fading downwards behind the screen title on phones, where it overlaps the 3D scene. */
 function titleFade(y0 = 90, y1 = 290) { if (R.w >= 850) return; const n = 22; for (let i = 0; i < n; i++) R.rect(0, y0 + (y1 - y0) * i / n, R.w, (y1 - y0) / n + 1, color(T.bg, .88 * (1 - (i / n) ** 2))); }
 /** Small diamond on each station of the open system while it is still small on screen, in the colour of
- * its construction style; the hovered one shows its name. */
+ * its construction style, with a slow pulse while it produces; ships are lights in the scene and get a ring
+ * only when hovered. The hovered station or ship shows its name. */
 function craftMarkers() {
     for (const p of W.projections) {
         if (p.type !== 'craft' || p.depth <= 0 || !Number.isFinite(p.x) || p.apparent > 10 || p.y < 235 || p.y > R.h - 115) continue;
         const [tint] = CRAFT_STYLE[p.entry.style], hot = S.hoveredTarget?.type === 'craft' && S.hoveredTarget.index === p.index, r = hot ? 7 : 5;
-        const q = [[p.x, p.y - r], [p.x + r, p.y], [p.x, p.y + r], [p.x - r, p.y]];
-        R.poly([[p.x, p.y], ...q, q[0]], tint); R.polyline([...q, q[0]], color(T.bg, .9), 1.2);
+        if (p.entry.kind === 'nave') {
+            // A moving ship leaves a short wake towards where it was a moment ago.
+            if (p.tail && Math.hypot(p.tail[0] - p.x, p.tail[1] - p.y) > 2) R.line(p.tail, [p.x, p.y], color(CRAFT_STYLE[p.entry.style][2], .5), 2);
+            R.roundRect(p.x - 2.5, p.y - 2.5, 5, 5, 2.5, tint);
+            if (hot) R.roundRect(p.x - 9, p.y - 9, 18, 18, 9, color('#000000', 0), tint);
+        }
+        else {
+            const q = [[p.x, p.y - r], [p.x + r, p.y], [p.x, p.y + r], [p.x - r, p.y]];
+            if (p.active && !S.paused) { const k = (S.time * .6 + p.index * .17) % 1, e = r + 3 + k * 9, ring = [[p.x, p.y - e], [p.x + e, p.y], [p.x, p.y + e], [p.x - e, p.y]]; R.polyline([...ring, ring[0]], color(CRAFT_STYLE[p.entry.style][2], .55 * (1 - k)), 1.2); }
+            R.poly([[p.x, p.y], ...q, q[0]], tint); R.polyline([...q, q[0]], color(T.bg, .9), 1.2);
+        }
         if (hot && R.w >= 850) { const tw = R.textWidth(p.entry.name, 'micro') + 16; R.roundRect(p.x + 12, p.y - 10, tw, 20, 6, color(T.bg, .9)); U.text(p.entry.name, p.x + 20, p.y - 7, 'micro', C.pale); }
     }
 }
@@ -418,8 +428,9 @@ function drawHover() {
         wrapClipText(system.description,x+16,y+73,pw-32,'mini',C.muted,4);
         U.text('CLIC PER SCEGLIERE L’AREA',x+16,y+ph-26,'micro',C.lime);
     }else if(hit.type==='craft'){
-        const e=hit.entry,[tint,label]=CRAFT_STYLE[e.style];U.tag((e.kind==='nave'?'NAVE':'STAZIONE')+' · '+label.toUpperCase(),x+16,y+16,tint);U.text(e.name,x+16,y+45,'mini',C.pale);
-        wrapClipText(e.about+' Lunga '+e.size+'.',x+16,y+73,pw-32,'mini',C.muted,4);
+        const e=p.entry||hit.entry,lines=p.lines||hit.lines||[],[tint,label]=CRAFT_STYLE[e.style];U.tag((e.kind==='nave'?'NAVE':'STAZIONE')+' · '+label.toUpperCase(),x+16,y+16,tint);U.text(e.name,x+16,y+45,'mini',C.pale);
+        lines.forEach((t,k)=>U.text(t,x+16,y+71+k*20,'micro',k?C.muted:C.amber));
+        wrapClipText(e.about||(e.typeName+', lunga '+e.size+'.'),x+16,y+71+lines.length*20+6,pw-32,'micro',C.muted,2);
         U.text(e.typeName.toUpperCase(),x+16,y+ph-26,'micro',C.dim);
     }else if(hit.type==='ambient'){
         const body=W.systems[S.system].bodies[hit.index];U.tag('CORPO '+String(body.slot+1).padStart(2,'0')+' / '+body.profile.name.toUpperCase(),x+16,y+16,C.muted);
@@ -1663,7 +1674,7 @@ function events() {
                     if(touch&&!same){touchTarget=hit;S.hoveredTarget=hit;if(hit.type==='system'){const units=indicesForSystem(hit.index);selectIndex(units.includes(S.selected)?S.selected:units[0]);}else selectIndex(hit.index);updateHash();}
                     else if(hit.type==='system')enterSystem(hit.index);else enterPlanet(hit.index);
                 }else if(hit?.type==='ambient'){touchTarget=hit;S.observedBody=hit.index;say(hit.body.profile.name+' · destinazione non esplorabile');}
-                else if(hit?.type==='craft'){touchTarget=hit;say(hit.entry.name+' · '+hit.entry.about);}
+                else if(hit?.type==='craft'){touchTarget=hit;say([hit.entry.name,...(hit.lines||[])].join(' · '));}
                 else if(hit?.type==='node')S.node=hit.index;
                 else if(hit?.type==='station')S.station=hit.index;
                 else if(hit?.type==='place')selectTarget({type:'place',index:hit.index});
@@ -1865,7 +1876,7 @@ async function init() {
         computeLab();
         events();
         S.loaded = true;
-        window.GAIA = { version: '1.39.0-stazioni-sistemi', state: S, get atlas() { return atlas; }, get book() { return book; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes ? W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0) : W.surface.mesh.i.length/3, planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:UNIT_COUNT, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
+        window.GAIA = { version: '1.40.0-universo-dinamico', state: S, get atlas() { return atlas; }, get book() { return book; }, get education() { return education; }, get catalogue() { return data; }, get buttons() { return U?.buttons || []; }, get store() { return store; }, get world() { return W; }, get renderer() { return R; }, route, openCourse, openTheory, openPDF, computeLab, enterSystem, enterPlanet, backToParent, diagnostics() { const gl = R.gl, ext = gl.getExtension('WEBGL_debug_renderer_info'); return { webgl: gl.getParameter(gl.VERSION), renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER), starsGenerated: R.starCount, starsDrawn: R.frameStats.stars, starDrawCalls:R.frameStats.starDrawCalls, navigableSystems:W.systems.length, atlasMarkers:R.frameStats.atlasMarkers||0, systemStarIndices:W.systems.map(s=>s.starIndex), activeSystem:S.system, cosmicRegion:W.cosmos?.systems[S.system]?.region, cosmicVolumes:R.frameStats.cosmicVolumes||0, volumeSteps:R.frameStats.volumeSteps||0, cameraProgress:W.cameraProgress, biome: W.biome, sceneTriangles: W.surface.meshes ? W.surface.meshes.reduce((n,m)=>n+m.indexCount/3,0) : W.surface.mesh.i.length/3, planets: data.modules.length, mathModules: data.modules.filter(m => m.sector === 0).length, planned: data.modules.filter(m => m.status === 'planned').length, lessonSections: Object.values(lessons).reduce((a, l) => a + l.sections.length, 0), questions: questions.length, guidedModules:education.bundle.courses.length, guidedQuestions:education.bundle.courses.reduce((n,d)=>n+d.questions.length,0),courseTriangles:R.frameStats.courseTriangles||0, sourcePages: pdfIndexes.mat.length, physicsSourcePages: DOCUMENTS.fis.pages, terrainCells: W.terrain.height.size, webglError: gl.getError(), textureErrors: [...cache.errors,...W.planetTextures.errors], planetCounts:W.systems.map(s=>s.count),totalPlanetBodies:W.systems.reduce((n,s)=>n+s.count,0),explorablePlanets:UNIT_COUNT, persistent: store.persistent, allVisiblePixelsWebGL: true, graphicsBackend: 'WebGL 2 (API browser, non OpenGL desktop)', timeUnit: 'tempo del modello', frameCount }; }, saveScenario, exportLab };
         U = new UI(R);
         pilotEducation = new MissionUI(R, store, missionDefinition, { state:S, route, openTheory, openPDF, download, say });
         education = new CourseUI(R,store,curriculum,{state:S,route,openCourse,openTheory,openPDF,openExternal,download,say,currentUnit:()=>selected().id});
