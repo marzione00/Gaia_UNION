@@ -1,22 +1,22 @@
-# Collaudo GAIA 1.37.0
+# Collaudo GAIA 1.38.0
 
-Eseguito il 18 novembre 2026 sul ramo `feat/livelli-biologia-20261118`, costruito sopra `main` alla versione 1.36.0 (pull request #38), con Node.js 22.
+Eseguito il 19 novembre 2026 sul ramo `feat/stazioni-navi-20261119`, costruito sopra `main` alla versione 1.37.0 (pull request #39), con Node.js 22.
 
 | Controllo | Comando | Risultato |
 |---|---|---:|
-| Test Node | `node --test tests/*.test.mjs` | 572 / 572 |
-| Livelli dei percorsi di chimica, matematica, fisica e biologia | `node --test tests/levels.test.mjs` | 126 / 126 |
-| Riferimenti e risorse | `node scripts/check.mjs` | 3896 / 3896 |
+| Test Node | `node --test tests/*.test.mjs` | 579 / 579 |
+| Stazioni e navi | `node --test tests/craft.test.mjs` | 7 / 7 |
+| Riferimenti e risorse | `node scripts/check.mjs` | 3919 / 3919 |
 | Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 314 controlli |
 | Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 279 controlli |
 | Atlante in Chromium | `python3 tools/qa_atlas_browser.py --root dist` | 23 controlli, 30 sistemi, 280 pianeti, 125 esplorabili |
-| Lezione di biologia in Chromium | unità 10, tappa Capisci, livelli Base, Applica e Approfondisci a 1440 × 900 e a 390 × 844 | nessun errore; tre testi diversi, impaginati su più pagine |
+| Catalogo in Chromium | 300 modelli costruiti e disegnati con il renderer del sito; vista 3D a 1280 × 800 e a 390 × 844 | nessun errore |
 
 Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`.
 
-La versione riscrive i testi dei 35 percorsi guidati di biologia; codice, modelli e laboratori restano quelli della 1.36.0. Cambiano una risposta di domanda, in «Titano, la chimica senza acqua», dove il valore 10⁴⁰ diventa 10³⁸ come dà la legge di Arrhenius, e le discipline controllate da `tests/levels.test.mjs`. I numeri vengono dai capitoli del libro, dagli articoli e dalle missioni citati nei capitoli e da valori di riferimento noti, oppure da calcoli riportati nel testo; le previsioni dei laboratori sono ricalcolate con le formule del programma. La regola dei tre livelli e i controlli sono in `docs/LIVELLI.md`.
+La versione aggiunge il generatore di stazioni e navi in `src/craft/`, il suo test e la descrizione in `docs/STAZIONI_NAVI.md`. Nessun modulo del sito importa ancora `src/craft/`, quindi mappa, percorsi e laboratori restano quelli della 1.37.0; il controllo delle risorse sale a 3919 voci perché esamina anche i sei moduli nuovi, con le loro 11 importazioni e l'assenza di `eval` e di Canvas 2D in ciascuno. Il catalogo è stato verificato disegnando i 300 modelli con `src/renderer.js` in Chromium con SwiftShader.
 
-Collaudo precedente, 1.36.0 (18 novembre 2026, ramo `feat/livelli-fisica-20261118`): 537 test Node, 91 test dei livelli, 3896 controlli di riferimenti e risorse, 314 controlli HTTP, 279 flussi applicativi; lezione di fisica in Chromium a 1440 × 900 e a 390 × 844, nessun errore.
+Collaudo precedente, 1.37.0 (18 novembre 2026, ramo `feat/livelli-biologia-20261118`): 572 test Node, 126 test dei livelli, 3896 controlli di riferimenti e risorse, 314 controlli HTTP, 279 flussi applicativi; lezione di biologia in Chromium a 1440 × 900 e a 390 × 844, nessun errore.
 
 ## Integrazione continua
 
