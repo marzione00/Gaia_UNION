@@ -10,6 +10,8 @@ import { DISCIPLINE } from '../ui/toolkit.js';
 import { pilotWorld } from '../worlds/pilots.js';
 import { planetSurface, surfaceScatter, systemStarLight, planetGenomes } from '../worlds/surface.js';
 import { orbitMap } from '../worlds/orbit-texture.js';
+import { systemCraft, build as buildCraft } from '../craft/catalog.js';
+import { placeStations, stationPosition, stationYaw } from '../craft/placement.js';
 import { tuft, rock, station as stationMesh, seaPlane, grazer, frond, tree, column, cushion, cup, patch, hexapod, flyer, floater, beacon, curtain } from '../worlds/geometry.js';
 /** Mesh, instance mode, motion uniform and PBR of each body plan of the species (src/worlds/species.js). */
 const BODIES = {
@@ -23,6 +25,13 @@ export const PLACE_TINTS = { vetta: [.95, .82, .45, 1], forma: [.55, .82, .98, 1
 /** Drawn radius: the scale is illustrative, so planets of the units are enlarged to be read and
  * picked, ambient bodies slightly. Orbits keep their computed spacing. */
 export const displayRadius = body => body.radius * (body.explorable ? 1.55 : 1.1);
+/** Glow of a far station, in the colour of its construction style (src/craft/styles.js). */
+const CRAFT_TINTS = { matematica: [.95, .72, .4, 1], fisica: [.5, .7, 1, 1], chimica: [.71, .61, 1, 1], biologia: [.44, .83, .63, 1], civile: [1, .58, .4, 1] };
+/** Rotation of a moving part after `time`: angular speeds `w` around x, y and z (column-major, Ry · Rx · Rz). */
+function spin(w, time) {
+    const [rx, ry, rz] = w.map(v => v * time), [a, b, c, d, e, f] = [Math.cos(rx), Math.sin(rx), Math.cos(ry), Math.sin(ry), Math.cos(rz), Math.sin(rz)];
+    return mul([c, 0, -d, 0, 0, 1, 0, 0, d, 0, c, 0, 0, 0, 0, 1], mul([1, 0, 0, 0, 0, a, b, 0, 0, -b, a, 0, 0, 0, 0, 1], [e, f, 0, 0, -f, e, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]));
+}
 // Earth maps become fictional worlds: mirrored in both directions and shifted in hue.
 const DISGUISE = { earth: 1, 'earth-winter': 2 };
 const normal = v => { let n = Math.hypot(...v) || 1; return v.map(x => x / n); }, cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
@@ -112,6 +121,7 @@ export class World {
         this.cameraScene = null;
         gpu.makeStars(backgroundStars(), true);
         this.systems = [];
+        this.craft = { system: -1, list: [] };
         this.cameraSpace = 'other';
         this.cameraSystem = 7;
         this.projections = [];
@@ -304,6 +314,37 @@ export class World {
             const xy=project(center,this.vp,R.w,R.h),apparent=radius*R.h/(2*Math.tan(this.fov/2)*xy[2]);
             if(s.scene==='system'&&!this.travelling)this.projections.push({type:body.explorable?'planet':'ambient',index:body.explorable?body.index:body.slot,body,...xyToObj(xy),r:Math.max(11,apparent*1.12),position:center,worldRadius:radius});
         }
+        if(!this.travelling&&this.cameraSpace==='system')this.drawStations(s,id,system);
+    }
+    /** Stations of the open system (src/craft/): only that system is built, one model per frame, and the
+     * meshes of the previous system are released. Far stations are drawn as a point of light in the colour of
+     * their style; the running lights appear once a station is large on screen. */
+    drawStations(s,id,system) {
+        const R=this.R,C=this.craft;
+        if(C.system!==id){
+            C.list.forEach((item,k)=>{item.model?.parts.forEach((_,i)=>R.deleteMesh('craft-'+k+'-'+i));if(item.model?.field)R.deleteMesh('craft-'+k+'-field');});
+            C.system=id;C.list=placeStations(system,systemCraft(id),displayRadius).map(placement=>({placement,model:null}));
+        }
+        const next=C.list.findIndex(item=>!item.model);
+        if(next>=0){const item=C.list[next],m=buildCraft(item.placement.entry);m.parts.forEach((p,i)=>R.makeMesh('craft-'+next+'-'+i,p.mesh));if(m.field)R.makeMesh('craft-'+next+'-field',m.field);item.model=m;}
+        const hosts=new Map(),hostAt=slot=>{if(!hosts.has(slot))hosts.set(slot,bodyAtTime(system.bodies.find(b=>b.slot===slot),s.time).position);return hosts.get(slot);};
+        const k2=2*Math.tan(this.fov/2),lightColor=systemStarLight(id).map(v=>v*.8),shadowKey=R.shadowKey;R.shadowKey=null;
+        C.list.forEach((item,k)=>{
+            const pl=item.placement,pos=stationPosition(pl,s.time,hostAt),xy=project(pos,this.vp,R.w,R.h);if(xy[2]<=0)return;
+            const pixel=xy[2]*k2/R.h,apparent=pl.size/pixel,tint=CRAFT_TINTS[pl.entry.style];
+            if(s.scene==='system')this.projections.push({type:'craft',index:k,entry:pl.entry,...xyToObj(xy),r:Math.max(12,apparent*1.3),apparent,position:pos,worldRadius:pl.size});
+            if(apparent<9&&s.scene!=='system')R.drawMesh('lowSphere',this.vp,transform(...pos,pixel*4.5),{eye:this.eye,material:17,tint,opacity:.95*Math.min(1,(9-apparent)/4)});
+            const m=item.model;if(!m||apparent<1.2)return;
+            const light=normal(pos.map(v=>-v)),base=transform(...pos,pl.size/m.radius,stationYaw(pl,s.time,pos)),mats=m.parts.map(p=>p.spin?mul(base,spin(p.spin,s.time)):base);
+            m.parts.forEach((p,i)=>R.drawMesh('craft-'+k+'-'+i,this.vp,mats[i],{eye:this.eye,light,lightColor,material:10}));
+            if(m.field)R.drawMesh('craft-'+k+'-field',this.vp,base,{eye:this.eye,light,material:10,opacity:.8,lightColor:[.1,.1,.1]});
+            if(apparent<22||R.sceneQuality==='low')return;
+            for(const l of m.lights){
+                const M=mats[l.part],p=[0,1,2].map(i=>M[i]*l.p[0]+M[4+i]*l.p[1]+M[8+i]*l.p[2]+M[12+i]),on=!l.blink?1:l.blink<0?(((s.time*1.1+l.blink)%1+1)%1<.3?1:.12):(Math.sin(s.time*TAU*l.blink)>-.2?1:.15);
+                R.drawMesh('lowSphere',this.vp,transform(...p,l.size*pl.size/m.radius*(l.flame?1:2.4)),{eye:this.eye,material:17,tint:l.color,opacity:(l.flame?.85:.95)*on});
+            }
+        });
+        R.shadowKey=shadowKey;
     }
     draw(scene, s, data) {
         const R = this.R;
