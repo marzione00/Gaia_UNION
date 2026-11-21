@@ -34,12 +34,17 @@ export const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * 
 export const unit = a => { const l = Math.hypot(...a) || 1; return a.map(v => v / l); };
 const shade = (c, k) => [c[0] * k, c[1] * k, c[2] * k, c[3] ?? 1];
 
-/** Mesh builder with a frame stack, a current colour, current PBR values and the running lights. */
+/** Mesh builder with a frame stack, a current colour, current PBR values and the running lights. With
+ * `style.detail` below 1 the kit builds the low level of detail of the same model: round parts get fewer
+ * segments, and plates, greebles, seams, truss diagonals, windows and light bulbs are left out, so the
+ * silhouette stays and the triangle count drops. */
 export class Kit {
     constructor(style) {
         this.style = style; this.v = []; this.i = []; this.F = { R: rotation(), t: [0, 0, 0] }; this.stack = []; this.lights = [];
-        this.color = style.hull; this.pbr = [.55, .5, 0, 4];
+        this.color = style.hull; this.pbr = [.55, .5, 0, 4]; this.detail = style.detail ?? 1; this.low = this.detail < 1;
     }
+    /** Segment count at the current detail: counts at or below `keep` are shapes (squares, hexagons) and stay. */
+    seg(n, keep = 8, min = keep) { return this.low && n > keep ? Math.max(min, Math.round(n * this.detail)) : n; }
     push(t = [0, 0, 0], r = [0, 0, 0]) { this.stack.push(this.F); const C = { R: rotation(...r), t }; this.F = { R: m3(this.F.R, C.R), t: apply(this.F, C.t) }; return this; }
     pop() { this.F = this.stack.pop(); return this; }
     paint(color, metal = .55, rough = .5, glow = 0) { this.color = color; this.pbr = [metal, rough, glow, 4]; return this; }
@@ -65,6 +70,7 @@ export class Kit {
     /** Box centred at c with half sizes h. With `plates` each face is covered by inset panels of slightly
      * different tints over a dark base, so the seams read as shadowed lines; `greebles` adds small boxes. */
     box(c, h, plates = 0, greebles = 0) {
+        if (this.low) plates = greebles = 0;
         const [x, y, z] = c, [a, b, d] = h, P = [[x - a, y - b, z - d], [x + a, y - b, z - d], [x + a, y + b, z - d], [x - a, y + b, z - d], [x - a, y - b, z + d], [x + a, y - b, z + d], [x + a, y + b, z + d], [x - a, y + b, z + d]];
         const faces = [[1, 0, 3, 2], [4, 5, 6, 7], [0, 4, 7, 3], [5, 1, 2, 6], [3, 7, 6, 2], [0, 1, 5, 4]], base = this.color;
         for (const [fi, f] of faces.entries()) {
@@ -91,6 +97,7 @@ export class Kit {
     }
     /** Frustum along y from y0 (radius r0) to y1 (radius r1). `bands` adds plated rings with seams. */
     cyl(r0, r1, y0, y1, seg = 24, { caps = true, bands = 0, outward = true, start = 0 } = {}) {
+        seg = this.seg(seg); if (this.low) bands = 0;
         const s = outward ? 1 : -1, slope = (r0 - r1) / (y1 - y0 || 1), base = this.color, rows = Math.max(1, bands), seams = bands > 0 && outward;
         const P = (a, y, r) => [Math.cos(a) * r, y, Math.sin(a) * r], N = a => unit([Math.cos(a) * s, slope * s, Math.sin(a) * s]);
         const strip = (a0, a1, ya, yb, ra, rb, col) => {
@@ -120,6 +127,7 @@ export class Kit {
     /** Torus in the xz plane: major radius R, tube radius r, optionally only an arc of the ring (arc,
      * start) or a band of the tube (b0 to b1, measured from the outer equator towards +y). */
     torus(R, r, seg = 48, sides = 12, arc = TAU, start = 0, b0 = 0, b1 = TAU) {
+        seg = this.seg(seg, 12); sides = this.seg(sides, 4);
         const base = this.v.length / 16;
         for (let k = 0; k <= seg; k++) for (let j = 0; j <= sides; j++) {
             const a = start + k / seg * arc, b = b0 + j / sides * (b1 - b0), n = [Math.cos(a) * Math.cos(b), Math.sin(b), Math.sin(a) * Math.cos(b)];
@@ -129,6 +137,7 @@ export class Kit {
     }
     /** Sphere, or the zone between polar angles t0 and t1, with optional per-vertex displacement. */
     sphere(c, r, u = 18, w = 12, t0 = 0, t1 = Math.PI, bump = null) {
+        u = this.seg(u, 8); w = this.seg(w, 4);
         const base = this.v.length / 16;
         for (let j = 0; j <= w; j++) for (let k = 0; k <= u; k++) {
             const t = t0 + (t1 - t0) * j / w, a = k / u * TAU, n = [Math.cos(a) * Math.sin(t), Math.cos(t), Math.sin(a) * Math.sin(t)], rr = bump ? r * bump(n, k % u, j) : r;
@@ -149,16 +158,18 @@ export class Kit {
     }
     /** Square truss from a to b: four longerons, rings and diagonals. */
     truss(a, b, half = .45, step = 1.2, w = .05) {
+        if (this.low) step *= 2;
         const d = unit(sub(b, a)), u = unit(cross(d, Math.abs(d[1]) < .9 ? [0, 1, 0] : [1, 0, 0])), v = cross(d, u), L = Math.hypot(...sub(b, a)), n = Math.max(1, Math.round(L / step));
         const corner = (p, k) => add(p, add(scale(u, (k === 0 || k === 3 ? -1 : 1) * half), scale(v, (k < 2 ? -1 : 1) * half)));
         for (let k = 0; k < 4; k++) this.beam(corner(a, k), corner(b, k), w);
         for (let s = 0; s <= n; s++) {
             const p = add(a, scale(d, L * s / n)), q = add(a, scale(d, L * Math.min(n, s + 1) / n));
-            for (let k = 0; k < 4; k++) { this.beam(corner(p, k), corner(p, (k + 1) % 4), w * .8); if (s < n) this.beam(corner(p, k), corner(q, (k + 1) % 4), w * .6); }
+            for (let k = 0; k < 4; k++) { this.beam(corner(p, k), corner(p, (k + 1) % 4), w * .8); if (s < n && !this.low) this.beam(corner(p, k), corner(q, (k + 1) % 4), w * .6); }
         }
     }
     /** Paraboloid dish opening towards +y, radius R and depth D, both faces. */
     dish(R, D, seg = 40, rings = 10) {
+        seg = this.seg(seg, 12); rings = this.seg(rings, 3);
         for (const side of [1, -1]) {
             const base = this.v.length / 16, off = side > 0 ? 0 : -.05 * R / 4;
             for (let j = 0; j <= rings; j++) for (let k = 0; k <= seg; k++) {
@@ -198,7 +209,7 @@ export class Kit {
      * frequency in hertz, negative a phase in a chase sequence, zero a steady light. */
     light(p, color, size = .12, blink = 0) {
         const keep = [this.color, this.pbr];
-        this.paint(color, 0, .4, 4); this.sphere(p, size * .45, 8, 6);
+        if (!this.low) { this.paint(color, 0, .4, 4); this.sphere(p, size * .45, 8, 6); }
         [this.color, this.pbr] = keep;
         this.lights.push({ p: apply(this.F, p), color, size, blink });
     }
@@ -206,6 +217,7 @@ export class Kit {
     flame(p, color, size = .6) { this.lights.push({ p: apply(this.F, p), color, size, blink: 0, flame: 1 }); }
     /** Row of lit windows along +x from p. */
     windows(p, n, gap = .3, w = .14, h = .08, color = this.style.window, depth = .02) {
+        if (this.low) return;
         const keep = [this.color, this.pbr];
         this.paint(color, 0, .4, 2.2);
         for (let k = 0; k < n; k++) if (hash(k, p[0] * 5 + p[1], p[2]) > .18) this.box([p[0] + k * gap, p[1], p[2]], [w / 2, h / 2, depth]);
@@ -213,6 +225,7 @@ export class Kit {
     }
     /** Flat glowing pane centred at c, facing n, long side along t: windows drawn with two triangles. */
     pane(c, n, t, w, h, color = this.style.window, glow = 2.2) {
+        if (this.low) return;
         const b = cross(n, t), o = add(c, scale(n, .012)), keep = [this.color, this.pbr];
         this.glow(color, glow);
         const p = (s, q) => add(o, add(scale(t, s * w / 2), scale(b, q * h / 2)));
@@ -232,16 +245,37 @@ export function assemble(kits, field = null) {
     const lights = kits.flatMap(([kit], part) => kit.lights.map(l => ({ ...l, p: [...l.p], part })));
     // Models are centred on their bounding box, so their radius is as small as it can be. A part turning
     // around an axis through the origin allows a shift only along that axis; gates keep their ring centred.
+    // The bulbs of the running lights count with their sphere even in the low level of detail, which leaves
+    // them out, so the two levels share centre and radius and change places without a jump in size.
+    const bulbs = lights.filter(l => !l.flame).map(l => ({ p: l.p, r: l.size * .45 }));
     const free = [0, 1, 2].filter(a => !field && parts.every(p => !p.spin || p.spin.every((w, b) => b === a || !w)));
     if (free.length) {
         const lo = [Infinity, Infinity, Infinity], hi = [-Infinity, -Infinity, -Infinity];
         for (const p of parts) for (let i = 0; i < p.mesh.v.length; i += 16) for (let a = 0; a < 3; a++) { lo[a] = Math.min(lo[a], p.mesh.v[i + a]); hi[a] = Math.max(hi[a], p.mesh.v[i + a]); }
+        for (const b of bulbs) for (let a = 0; a < 3; a++) { lo[a] = Math.min(lo[a], b.p[a] - b.r); hi[a] = Math.max(hi[a], b.p[a] + b.r); }
         const c = lo.map((v, a) => free.includes(a) ? (v + hi[a]) / 2 : 0);
         for (const m of [...parts.map(p => p.mesh.v), ...(field ? [field.v] : [])]) for (let i = 0; i < m.length; i += 16) for (let a = 0; a < 3; a++) m[i + a] -= c[a];
         for (const l of lights) for (let a = 0; a < 3; a++) l.p[a] -= c[a];
     }
     let radius = 0;
     for (const p of parts) for (let i = 0; i < p.mesh.v.length; i += 16) radius = Math.max(radius, Math.hypot(p.mesh.v[i], p.mesh.v[i + 1], p.mesh.v[i + 2]));
+    for (const b of bulbs) radius = Math.max(radius, Math.hypot(...b.p) + b.r);
     const triangles = parts.reduce((n, p) => n + p.mesh.i.length / 3, 0) + (field ? field.i.length / 3 : 0);
     return { parts, lights, field: field ? field.mesh() : null, radius, triangles };
+}
+/** Model ready for the GPU: the parts that do not turn become one mesh (one draw call, and the mesh the
+ * ships of a class share as instances), the turning parts stay apart with their spin. `parts` keeps only
+ * the spin of each part, which the running lights need to follow their part. */
+export function pack(model) {
+    const still = model.parts.filter(p => !p.spin).map(p => p.mesh);
+    return {
+        ...model, body: still.length ? merge(still) : null, parts: model.parts.map(p => ({ spin: p.spin })),
+        spinning: model.parts.flatMap((p, part) => p.spin ? [{ mesh: p.mesh, spin: p.spin, part }] : []),
+    };
+}
+function merge(list) {
+    const v = new Float32Array(list.reduce((n, m) => n + m.v.length, 0)), i = new Uint32Array(list.reduce((n, m) => n + m.i.length, 0));
+    let ov = 0, oi = 0;
+    for (const m of list) { v.set(m.v, ov); const base = ov / 16; for (let k = 0; k < m.i.length; k++) i[oi + k] = m.i[k] + base; ov += m.v.length; oi += m.i.length; }
+    return { v, i, stride: 16 };
 }

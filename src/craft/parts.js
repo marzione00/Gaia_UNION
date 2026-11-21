@@ -9,6 +9,7 @@ export { shade };
 /** Solar array centred at the origin in the xz plane: frame and dark cells on both faces. */
 export function solarWing(k, len, wid, cells = [8, 3]) {
     k.steel(); k.box([0, 0, 0], [len / 2, .03, wid / 2]);
+    if (k.low) cells = [1, 1];
     const [nx, nz] = cells, cw = len / nx, cd = wid / nz, P = k.style.panel;
     k.paint(P, .2, .25, 0);
     for (let i = 0; i < nx; i++) for (let j = 0; j < nz; j++) for (const y of [.035, -.035]) {
@@ -20,7 +21,7 @@ export function solarWing(k, len, wid, cells = [8, 3]) {
 /** Radiator panel in the xy plane, pale with ribs; `hot` adds a glowing root along its lower edge. */
 export function radiator(k, w, h, ribs = 6, hot = 0) {
     k.paint([.8, .8, .8, 1], .2, .6); k.box([0, 0, 0], [w / 2, h / 2, .025], Math.max(w, h) / ribs);
-    k.steel(); for (let r = 0; r <= ribs; r++) k.box([-w / 2 + r * w / ribs, 0, 0], [.025, h / 2, .045]);
+    if (!k.low) { k.steel(); for (let r = 0; r <= ribs; r++) k.box([-w / 2 + r * w / ribs, 0, 0], [.025, h / 2, .045]); }
     if (hot) { k.glow([1, .45, .2, 1], 1.2 * hot); k.box([0, -h / 2 - .04, 0], [w / 2, .05, .06]); }
 }
 /** Hangar facing +x: plated pod with a recessed lit mouth, an accent frame and approach beacons. */
@@ -87,6 +88,7 @@ export function pipe(k, pts, r = .07, color = null) {
 }
 /** Tube of radius r swept along points, with parallel-transport frames. */
 export function tube(k, pts, r, sides = 10, closed = false) {
+    if (k.low) { sides = Math.max(4, Math.round(sides * k.detail)); if (pts.length > 40) pts = pts.filter((_, i) => i % 3 === 0); }
     const n = pts.length, T = pts.map((p, i) => unit(sub(pts[closed ? (i + 1) % n : Math.min(n - 1, i + 1)], pts[closed ? (i - 1 + n) % n : Math.max(0, i - 1)])));
     let N = unit(cross(T[0], Math.abs(T[0][1]) < .9 ? [0, 1, 0] : [1, 0, 0])); const base = k.v.length / 16, rings = closed ? n + 1 : n;
     for (let i = 0; i < rings; i++) {

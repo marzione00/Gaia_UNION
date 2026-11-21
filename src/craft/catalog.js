@@ -53,10 +53,12 @@ export const CATALOG = (() => {
     return Object.freeze(out.map(Object.freeze));
 })();
 
-/** Meshes, lights and recipe of one entry; `seed` replaces the entry's own seed (used to choose REROLL). */
-export function build(entry, seed = entry.seed) {
+/** Meshes, lights and recipe of one entry; `seed` replaces the entry's own seed (used to choose REROLL) and
+ * `detail` below 1 builds the low level of detail of the same model (src/craft/kit.js). */
+export const LOW_DETAIL = .35;
+export function build(entry, seed = entry.seed, { detail = 1 } = {}) {
     const spec = entry.kind === 'stazione' ? STATIONS[entry.type] : SHIPS[entry.type], d = dice(seed, entry.nth);
-    const model = spec.build(d, style(entry.style, entry.type === 'porta' ? FIELD[entry.sector] : null));
+    const model = spec.build(d, { ...style(entry.style, entry.type === 'porta' ? FIELD[entry.sector] : null), detail });
     model.recipe = d.notes.slice();
     return model;
 }

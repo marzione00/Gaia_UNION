@@ -36,16 +36,28 @@ test('orbite: posizioni finite, distanza costante dall\'ospite, nessuna stazione
   }
  }
 });
-test('scena: un modello costruito per fotogramma, mesh liberate al cambio di sistema, stazioni e navi selezionabili',()=>{
- const made=new Set(),deleted=[],draws=[];
- const R={w:1600,h:1000,makeStars(){},makeMesh(id){if(/^(craft|ship)-/.test(id))made.add(id);},deleteMesh(id){if(/^(craft|ship)-/.test(id)){deleted.push(id);made.delete(id);}},drawMesh(id){draws.push(id);},shadowKey:'surface',sceneQuality:'high'};
+test('scena: modelli semplificati uno per fotogramma, completi da vicino, navi in istanze, mesh liberate al cambio di sistema',()=>{
+ const made=new Set(),deleted=[],draws=[],sets=new Map();
+ const R={w:1600,h:1000,makeStars(){},makeMesh(id){if(/^(craft|ship)-/.test(id))made.add(id);},deleteMesh(id){if(/^(craft|ship)-/.test(id)){deleted.push(id);made.delete(id);}},drawMesh(id,vp,model,o={}){draws.push({id,o});},
+  makeInstances(key,mesh,data){assert.ok(made.has(mesh)||mesh==='lowSphere');sets.set(key,{mesh,n:data.length/8});},updateInstances(key,data){sets.get(key).n=data.length/8;},deleteInstances(key){sets.delete(key);},shadowKey:'surface',sceneQuality:'high'};
  const biomes=JSON.parse(fs.readFileSync(new URL('../assets/scenes/manifest.json',import.meta.url))).biomes,w=new World(R,{},biomes);w.cameraSpace='system';w.travelling=false;w.fov=.78;w.eye=[0,30,60];w.vp=mul(perspective(.78,1.6,.012,400),lookAt(w.eye,[0,0,0]));
  const s={scene:'system',time:3},first=systemOf(13);
- for(let frame=1;frame<=6;frame++){w.projections=[];w.drawStations(s,13,first);assert.equal(w.craft.list.filter(i=>i.model).length,frame);}
- for(let frame=1;frame<=4;frame++){w.projections=[];w.drawStations(s,13,first);assert.equal(w.craft.models.filter(i=>i.model).length,frame);}
+ // Without workers (Node) the factory builds one model per frame: the low level of the stations, then of the ships.
+ for(let frame=1;frame<=6;frame++){w.projections=[];w.drawStations(s,13,first);assert.equal(w.craft.list.filter(i=>i.levels[1]).length,frame);}
+ for(let frame=1;frame<=4;frame++){w.projections=[];w.drawStations(s,13,first);assert.equal(w.craft.models.filter(i=>i.levels[1]).length,frame);}
+ assert.ok(w.craft.list.every(i=>!i.levels[0]),'nessun modello completo da lontano');
  assert.equal(R.shadowKey,'surface','la mappa delle ombre della superficie va ripristinata');
  assert.ok(made.size>=10);assert.equal(w.projections.filter(p=>p.type==='craft'&&p.index<100).length,6);assert.ok(w.projections.filter(p=>p.type==='craft'&&p.index>=100).length>=4);
  assert.ok(w.projections.filter(p=>p.type==='craft').every(p=>p.entry&&p.entry.system===13&&Number.isFinite(p.x)&&p.lines.length===2));
+ const stats=w.craftStats;assert.equal(stats.full+stats.low+stats.light,w.projections.filter(p=>p.type==='craft').length);
+ for(const d of draws.filter(d=>d.o.instances)){assert.equal(d.o.instanceMode,d.id==='lowSphere'?6:5);assert.equal(sets.get(d.o.instances).mesh,d.id);assert.ok(sets.get(d.o.instances).n>=1);}
+ assert.ok(!draws.some(d=>d.id==='lowSphere'&&!d.o.instances),'bagliori disegnati uno per uno');
+ // Near a station the full model is built and drawn in its place.
+ const near=w.craftSite(first,{station:0},s.time).position,size=w.craft.list[0].placement.size;
+ w.eye=near.map((v,i)=>v+[0,size*2,size*6][i]);w.vp=mul(perspective(.78,1.6,.012,400),lookAt(w.eye,near));
+ for(let frame=0;frame<3;frame++){w.projections=[];draws.length=0;w.drawStations(s,13,first);}
+ assert.ok(w.craft.list[0].levels[0],'modello completo non costruito');assert.ok(w.craftStats.full>=1);
+ assert.ok(draws.some(d=>d.id==='craft-0-0-body'),'modello completo non disegnato');assert.ok(!draws.some(d=>d.id==='craft-0-1-body'));
  const before=made.size;w.drawStations(s,1,systemOf(1));
- assert.equal(deleted.length,before,'mesh del sistema precedente non liberate');assert.equal(w.craft.system,1);
+ assert.equal(deleted.length,before,'mesh del sistema precedente non liberate');assert.equal(w.craft.system,1);assert.equal(sets.size,0,'istanze del sistema precedente non liberate');
 });
