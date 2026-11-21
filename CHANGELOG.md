@@ -1,3 +1,11 @@
+# 1.49.0: Lo Sciame della Frontiera
+
+- Un avversario per la galassia: lo Sciame della Frontiera, un'intelligenza sintetica venuta dal margine della galassia che trasforma la materia in substrato di calcolo, con sonde autoreplicanti alla von Neumann e una fame spiegata dal limite di Landauer.
+- Il fronte parte dai quattro sistemi di frontiera e può contendere fino agli ultimi quattro sistemi di ogni braccio. Le incursioni, ogni 170-300 s e sempre più grandi, colpiscono la linea del fronte: una incursione respinta fa arretrare il fronte, una riuscita converte stazioni per 300 s e lo fa avanzare; nessun sistema resta perso.
+- Nel sistema aperto l'incursione si combatte dal vivo: i droni crescono come cristalli attorno a una roccia, volano verso una stazione, la flotta li intercetta con fino a sei navi e quelli che passano fermano la stazione per 40 s, ne trasformano le scorte e tornano polvere lasciando danni. Fuori dalla scena decide la forza della flotta del sistema.
+- Sulla mappa della galassia un anello azzurro segna i sistemi contesi e un riquadro ne dà il conto; la Cronaca della frontiera entra nella cronaca del sistema aperto.
+- Nuovo `src/craft/swarm.js`; `tests/sciame.test.mjs` controlla fronte, conversioni, battaglie e scena. Descrizione in `docs/STAZIONI_NAVI.md`.
+
 # 1.48.0: Minacce naturali
 
 - Tre minacce naturali scelte dal caso: sciami di 14-24 meteoroidi e asteroidi vaganti che arrivano da oltre l'anello esterno verso una stazione, e brillamenti della stella. La prima arriva fra 80 e 140 s, le altre ogni 220-400 s.

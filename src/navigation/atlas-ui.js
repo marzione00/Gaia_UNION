@@ -115,6 +115,10 @@ export class AtlasUI {
             const show=i=>this.path?onPath.has(i):AREAS[i].sector===focus||i===this.hoverId;
             const labels=placeLabels(this.world.projections,l.map,selected,s=>R.textWidth(s,'micro'),26,undefined,[l.controls,{x:l.map.x,y:l.map.y+l.map.h-52,w:Math.min(l.map.w,4*(l.compact||l.map.w<560?86:130)+18),h:52},...[extra.region,extra.core].filter(Boolean)],show);
             for(const p of labels){const sector=AREAS[p.index].sector,on=p.index===selected;R.roundRect(p.x,p.y,p.w,p.h,4,color(T.bg,.92));R.rect(p.x,p.y+4,2,p.h-8,SECTOR_COLORS[sector]);this.text(p.text,p.x+6,p.y+4,p.w-8,'micro',on?C.pale:SECTOR_COLORS[sector],1);}}
+        // The front of the Sciame della Frontiera (1.49.0): a cyan ring on each system where the Sciame is present,
+        // pulsing where an incursion is under way or stations are converted.
+        const front=this.world.frontier;
+        if(front){const pulse=.5+.5*Math.sin(Date.now()/300);for(const p of this.world.projections){if(p.type!=='system'||!contains(l.map,p.x,p.y))continue;const v=front.pressure(p.index);if(!v)continue;const hot=v>=.8,r=18+8*v+(hot?4*pulse:0),a=hot?.5+.45*pulse:.45+.4*v;for(const [q,w] of [[0,2.2],[5,1.2]]){const pts=[];for(let i=0;i<=40;i++){const t=i/40*Math.PI*2;pts.push([p.x+Math.cos(t)*(r+q),p.y+Math.sin(t)*(r+q)]);}R.polyline(pts,color('#7fe3ff',q?a*.5:a),w);}}}
         this.legend(U,l);
         if(this.scene.edge){const e=this.scene.edge;this.text('CENTRA',clamp(e.x-28,l.map.x,l.map.x+l.map.w-60),clamp(e.y+18,l.map.y,l.map.y+l.map.h-18),64,'micro',C.amber,1);U.buttons.push({id:'atlas-offscreen',label:'Centra l’area selezionata, fuori campo',x:e.x-22,y:e.y-22,w:44,h:44,action:()=>this.focusSystem()});}
         if(this.path)this.text('PERCORSO · '+this.path.title,l.map.x+86,l.map.y+8,Math.max(60,l.map.w-90),'micro',C.amber,1);
@@ -122,6 +126,9 @@ export class AtlasUI {
             const e=this.explored,top=l.controls.y<l.map.y+30,long=`ESPLORATI ${e.visited} DI ${e.systems} SISTEMI · PASSAGGI ${e.opened} DI ${e.passages}`,short=`SISTEMI ${e.visited}/${e.systems} · PASSAGGI ${e.opened}/${e.passages}`;
             const y=top?l.controls.y+l.controls.h+6:l.map.y+4,s=R.textWidth(long,'micro',.7)+16<=l.map.w-16?long:short,w=R.textWidth(s,'micro',.7)+16;
             if(w<=l.map.w-8&&y+24<l.map.y+l.map.h-56){R.roundRect(l.map.x+4,y,w,24,4,color(T.bg,.88));U.tag(s,l.map.x+12,y+6,C.muted);}
+            // State of the front, under the exploration summary.
+            if(front){const n=front.contested().length,c=front.converted.size,f=c?`FRONTE DELLO SCIAME · ${n} SISTEMI CONTESI · ${c} CON STAZIONI CONVERTITE`:`FRONTE DELLO SCIAME · ${n} SISTEMI CONTESI`,fw=R.textWidth(f,'micro',.7)+16;
+                const fy=extra.region?extra.region.y+extra.region.h+6:y+30;if(fw<=l.map.w-8&&fy+24<l.map.y+l.map.h-56){R.roundRect(l.map.x+4,fy,fw,24,4,color(T.bg,.88));U.tag(f,l.map.x+12,fy+6,color('#7fe3ff'));}}
 }
         // The region of the highlighted arm, and the Nucleo di Gaia at the centre of the galaxy.
         if(extra.region){const r=extra.region,k=S.sector;this.button(U,'region','Regione: '+DISCIPLINES[k],r.x,r.y,r.w,()=>{if(AREAS[S.system].sector!==k)this.selectSystem(AREAS.findIndex(a=>a.sector===k),true);this.api.route('region');});U.buttons.at(-1).label='Apri la regione del braccio della '+DISCIPLINES[k];}
