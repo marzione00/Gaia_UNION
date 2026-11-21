@@ -220,6 +220,8 @@ export class Economy {
             // A damaged station works more slowly, and a flare halves the work of the stations it reaches.
             s.flare = !!this.threats?.flared(s);
             if (s.damage) s.producing *= 1 - THREAT.slow * s.damage;
+            // Drones of the Sciame on board (1.49.0): the station stops and its stores turn into substrate.
+            if (s.converted) { s.producing = 0; const k = Math.min(.08, THREAT.raid.drain * s.converted.drones) * h; for (const r of Object.keys(s.stock)) s.stock[r] = Math.max(s.reserved[r] || 0, s.stock[r] * (1 - k)); }
             if (s.flare) s.producing *= .5;
             if (s.repair) this.threats.mend(s);
             if (s.producing) for (const [r, v] of Object.entries(s.make)) s.stock[r] = Math.min(s.cap[r], (s.stock[r] || 0) + v * h * s.producing);
@@ -416,7 +418,8 @@ export function stationReport(s) {
     const kind = s.entry.works || s.entry.type, made = Object.keys(s.make).filter(r => r !== 'equipaggi' || kind === 'porto' || kind === 'habitat'), name = r => RESOURCES[r].name, unit = r => RESOURCES[r].unit;
     const short = items => items.length > 3 ? list([...items.slice(0, 2), `altre ${items.length - 2} merci`]) : list(items);
     let first;
-    if (kind === 'deposito') first = `Conserva carburante: ${fmt(s.stock.carburante)} su ${fmt(s.cap.carburante)} t`;
+    if (s.converted) first = `Conversione in corso: ${s.converted.drones} ${s.converted.drones > 1 ? 'droni' : 'drone'} a bordo`;
+    else if (kind === 'deposito') first = `Conserva carburante: ${fmt(s.stock.carburante)} su ${fmt(s.cap.carburante)} t`;
     else if (kind === 'porto') first = `${fmt(s.stock.equipaggi)} persone in attesa di imbarco`;
     else if (kind === 'habitat') first = `${fmt(s.stock.equipaggi)} persone pronte a imbarcarsi`;
     else if (kind === 'magazzino') first = `Smista merci: ${fmt(Object.values(s.stock).reduce((a, b) => a + b, 0) - (s.stock.equipaggi || 0))} unità in deposito`;
@@ -432,7 +435,7 @@ export function stationReport(s) {
     const needs = Object.keys(s.want).filter(r => (s.stock[r] || 0) < s.want[r] * .6 && r !== 'equipaggi');
     const second = needs.length ? `Chiede ${short(needs.map(name))}` : Object.keys(s.want).length ? 'Scorte sufficienti' : 'Carica le navi in arrivo';
     const level = s.level > 1 ? `Livello ${s.level} · ` : '', kit = s.kit ? `Per crescere chiede ${list(Object.keys(s.kit).map(name))}` : null;
-    const line = s.flare ? 'Brillamento: produzione a metà' : s.damage ? `Danni: lavora al ${Math.round((1 - THREAT.slow * s.damage) * 100)} %, chiede ${s.repair.parti} parti` : kit || level + second;
+    const line = s.converted ? 'Lo Sciame trasforma la materia in calcolo' : s.flare ? 'Brillamento: produzione a metà' : s.damage ? `Danni: lavora al ${Math.round((1 - THREAT.slow * s.damage) * 100)} %, chiede ${s.repair.parti} parti` : kit || level + second;
     return [first, line.length > 60 ? level + `Chiede ${needs.length} merci` : line];
 }
 /** First line of a defensive station that has what it needs (1.47.0). */

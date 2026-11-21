@@ -12,13 +12,17 @@ export const THREAT = {
     first: [80, 140], every: [220, 400], weights: [['sciame', .5], ['asteroide', .3], ['brillamento', .2]],
     flight: { sciame: [48, 62], asteroide: [56, 72] }, fragments: [14, 24], pass: .7, window: [5, 3],
     flare: { length: 45, speed: 2.4, cover: 14 }, beyond: 12,
-    damage: { fragment: .04, asteroid: .6, cap: .8, hardened: .5, loss: .3 }, slow: .75
+    damage: { fragment: .04, asteroid: .6, cap: .8, hardened: .5, loss: .3 }, slow: .75,
+    // Incursions of the Sciame della Frontiera (1.49.0, src/craft/swarm.js): drones grow at a rock beyond the
+    // system for `growth` seconds, fly to a station, and those that get through convert it for `attach`
+    // seconds; each drone takes `hp` units of defence power to destroy.
+    raid: { growth: 12, flight: [50, 62], hp: 3, attach: 40, drain: .004, harm: .06, defenders: 6 }
 };
 /** What one ship or station of the defence destroys in a pass: fragments of a swarm, and against a rogue
  * asteroid at least 8 is needed (from the frigate up, or a fortress near the target). */
 export const POWER = { caccia: 6, intercettore: 5, pattugliatore: 4, corvetta: 6, fregata: 8, cacciatorpediniere: 10, incrociatore: 12, incrociatorePesante: 14, corazzata: 16, portaerei: 12, superportaerei: 18, piattaforma: 6, fortezza: 10 };
-export const THREAT_NAMES = { sciame: 'Sciame di meteoroidi', asteroide: 'Asteroide vagante', brillamento: 'Brillamento della stella' };
-const WHAT = { sciame: 'lo sciame di meteoroidi', asteroide: 'l\'asteroide vagante' };
+export const THREAT_NAMES = { sciame: 'Sciame di meteoroidi', asteroide: 'Asteroide vagante', brillamento: 'Brillamento della stella', incursione: 'Incursione dello Sciame' };
+const WHAT = { sciame: 'lo sciame di meteoroidi', asteroide: 'l\'asteroide vagante', incursione: 'i droni dello Sciame' };
 const range = (R, [a, b]) => a + (b - a) * R();
 const lerp = (a, b, u) => a.map((v, i) => v + (b[i] - v) * u);
 const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
@@ -26,7 +30,8 @@ const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
 export class Threats {
     constructor(economy, seed, time) {
         this.E = economy; this.rng = seededRandom((seed ^ 0x7A11C0DE) >>> 0); this.events = []; this.next = time + range(this.rng, THREAT.first); this.nextId = 1;
-        this.log = { sciame: 0, asteroide: 0, brillamento: 0, fragments: 0, killed: 0, hits: 0, destroyed: 0, impacts: 0, repairs: 0 };
+        this.log = { sciame: 0, asteroide: 0, brillamento: 0, incursione: 0, fragments: 0, killed: 0, hits: 0, destroyed: 0, impacts: 0, repairs: 0, drones: 0, downed: 0, repelled: 0, converted: 0 };
+        this.onRaid = null;
     }
     /** Events still drawn: active ones and those ended in the last few seconds. */
     get active() { return this.events; }
@@ -41,11 +46,14 @@ export class Threats {
             if (!ev.dispatched && t >= ev.detected) this.dispatch(ev);
             if (!ev.resolved && t >= ev.tPass - THREAT.window[0]) this.resolve(ev);
             if (!ev.done && t >= ev.tImpact) this.impact(ev);
+            if (ev.kind === 'incursione' && ev.done && !ev.finished && t >= ev.tImpact + THREAT.raid.attach) this.release(ev);
         }
         this.events = this.events.filter(e => t < e.tEnd + 4);
     }
-    /** A new threat. `kind` is chosen by the schedule, or given by a test or a demonstration. */
-    spawn(kind) {
+    /** A new threat. `kind` is chosen by the schedule, or given by a test or a demonstration; an incursion of
+     * the Sciame comes from src/craft/swarm.js with its number of drones in `opts.n` and its record in
+     * `opts.raid`. */
+    spawn(kind, opts = {}) {
         const E = this.E, R = this.rng, t = E.time, id = this.nextId++;
         this.log[kind]++;
         if (kind === 'brillamento') {
@@ -60,13 +68,14 @@ export class Threats {
         const targets = E.stations.filter(s => s.entry.type !== 'porta'), target = targets[Math.floor(R() * targets.length)];
         const reach = Math.max(...E.stations.map(s => Math.hypot(...E.position({ station: s.i })))) + THREAT.beyond, a = R() * Math.PI * 2;
         const from = [Math.cos(a) * reach, (R() - .5) * 3, Math.sin(a) * reach], aim = E.position({ station: target.i }), at = lerp(from, aim, THREAT.pass);
-        const flight = range(R, THREAT.flight[kind]), n = kind === 'sciame' ? Math.round(range(R, THREAT.fragments)) : 1;
+        const raid = kind === 'incursione', flight = range(R, raid ? THREAT.raid.flight : THREAT.flight[kind]), n = raid ? opts.n : kind === 'sciame' ? Math.round(range(R, THREAT.fragments)) : 1;
         // With a working surveillance station the defence moves at once; otherwise when the threat has covered
-        // a third of its way.
-        const watch = E.stations.some(s => s.entry.works === 'difesa-sorveglianza' && !s.missing.length);
-        const ev = { id, kind, name: THREAT_NAMES[kind], t0: t, tPass: t + flight * THREAT.pass, tImpact: t + flight, tEnd: t + flight + 6, target: target.i, from, at, n, detected: t + (watch ? 0 : flight * .3), watch, killed: 0, kills: [], defenders: [], hits: 0, outcome: null };
+        // a third of its way. The drones of an incursion first grow at their rock, in plain sight.
+        const watch = E.stations.some(s => s.entry.works === 'difesa-sorveglianza' && !s.missing.length), go = raid ? t + THREAT.raid.growth : t;
+        const ev = { id, kind, name: THREAT_NAMES[kind], t0: t, tLaunch: go, tPass: go + flight * THREAT.pass, tImpact: go + flight, tEnd: go + flight + (raid ? THREAT.raid.attach + 6 : 6), target: target.i, from, at, n, detected: raid ? (watch ? t : go) : t + (watch ? 0 : flight * .3), watch, killed: 0, kills: [], defenders: [], hits: 0, outcome: null, raid: opts.raid || null };
         this.events.push(ev);
-        E.tell(`${ev.name} in arrivo su ${target.entry.name}: impatto fra ${Math.round(flight)} s`);
+        if (raid) { this.log.drones += n; E.tell(`Lo Sciame della Frontiera fa crescere ${n} droni oltre il sistema: obiettivo ${target.entry.name}`); }
+        else E.tell(`${ev.name} in arrivo su ${target.entry.name}: impatto fra ${Math.round(flight)} s`);
         return ev;
     }
     /** Defence ships sent to the point where the threat will pass: the ones that get there first, up to four
@@ -79,7 +88,7 @@ export class Threats {
         let pool = free.map(s => ({ s, eta: eta(s) })).filter(o => t + o.eta < ev.tPass - 2);
         if (ev.kind === 'asteroide') { const heavy = pool.filter(o => power(o.s) >= 8); if (heavy.length) pool = heavy; }
         pool.sort((a, b) => a.eta - b.eta);
-        for (const { s } of pool.slice(0, ev.kind === 'sciame' ? 4 : 2)) {
+        for (const { s } of pool.slice(0, ev.kind === 'sciame' ? 4 : ev.kind === 'incursione' ? THREAT.raid.defenders : 2)) {
             s.alert = ev.id; s.alertKind = ev.kind; ev.defenders.push(s.id);
             if (s.phase === 'dock') s.t1 = t;
         }
@@ -93,12 +102,13 @@ export class Threats {
         const near = E.stations.filter(s => (s.entry.type === 'piattaforma' || s.entry.type === 'fortezza') && !s.missing.length && dist(E.position({ station: s.i }), E.position({ station: ev.target })) <= 10);
         const fleet = present.reduce((n, s) => n + (POWER[s.entry.type] || 4), 0), guns = near.reduce((n, s) => n + POWER[s.entry.type], 0);
         const [before, after] = THREAT.window, start = ev.tPass - before, span = before + after, last = ev.tImpact - 6;
-        if (ev.kind === 'sciame') {
-            const byFleet = Math.min(ev.n, fleet), byGuns = Math.min(ev.n - byFleet, guns);
+        if (ev.kind === 'sciame' || ev.kind === 'incursione') {
+            // A fragment falls to one unit of power, a drone to three.
+            const hp = ev.kind === 'incursione' ? THREAT.raid.hp : 1, byFleet = Math.min(ev.n, Math.floor(fleet / hp)), byGuns = Math.min(ev.n - byFleet, Math.floor(guns / hp));
             for (let j = 0; j < byFleet; j++) ev.kills.push({ j, t: start + span * (j + .5) / byFleet, by: { ship: present[j % present.length].id } });
             for (let j = 0; j < byGuns; j++) ev.kills.push({ j: byFleet + j, t: last + 5 * (j + .5) / byGuns, by: { station: near[j % near.length].i } });
             ev.killed = byFleet + byGuns;
-            if (byFleet) E.tell(`La flotta intercetta lo sciame: ${byFleet} frammenti su ${ev.n}`);
+            if (byFleet) E.tell(ev.kind === 'incursione' ? `La flotta intercetta i droni: ${byFleet} distrutti su ${ev.n}` : `La flotta intercetta lo sciame: ${byFleet} frammenti su ${ev.n}`);
         } else {
             const best = present.reduce((m, s) => !m || (POWER[s.entry.type] || 4) > (POWER[m.entry.type] || 4) ? s : m, null), fort = near.find(s => POWER[s.entry.type] >= 8);
             if (best && fleet >= 8) ev.kills.push({ j: 0, t: ev.tPass, by: { ship: best.id } });
@@ -109,7 +119,14 @@ export class Threats {
     /** End of the path: what was not destroyed hits the target. */
     impact(ev) {
         const E = this.E, s = E.stations[ev.target], D = THREAT.damage; ev.done = true;
-        ev.hits = ev.n - ev.killed; this.log.fragments += ev.kind === 'sciame' ? ev.n : 0; this.log.killed += ev.kind === 'sciame' ? ev.killed : 0;
+        ev.hits = ev.n - ev.killed;
+        if (ev.kind === 'incursione') {
+            this.log.downed += ev.killed;
+            if (!ev.hits) { this.log.repelled++; ev.outcome = 'respinta'; ev.finished = true; E.tell(`Incursione respinta: ${ev.killed} droni distrutti su ${ev.n}`); this.onRaid?.(ev); return; }
+            this.log.converted++; ev.outcome = 'conversione'; s.converted = { until: ev.tImpact + THREAT.raid.attach, drones: ev.hits };
+            E.tell(`${ev.hits} ${ev.hits > 1 ? 'droni' : 'drone'} su ${s.entry.name}: la materia diventa substrato di calcolo`); return;
+        }
+        this.log.fragments += ev.kind === 'sciame' ? ev.n : 0; this.log.killed += ev.kind === 'sciame' ? ev.killed : 0;
         if (ev.kind === 'asteroide') {
             if (ev.killed) { this.log.destroyed++; const k = ev.kills[0].by; ev.outcome = 'distrutto'; E.tell(`${ev.name} distrutto da ${k.ship !== undefined ? E.ships[k.ship].name : E.stations[k.station].entry.name}`); return; }
             this.log.impacts++; ev.outcome = 'impatto'; this.harm(s, D.asteroid);
@@ -120,6 +137,12 @@ export class Threats {
         if (!ev.hits) { ev.outcome = 'fermato'; E.tell(`Sciame fermato: ${ev.killed} frammenti distrutti su ${ev.n}`); return; }
         ev.outcome = 'impatto'; this.harm(s, ev.hits * D.fragment);
         E.tell(`${ev.hits} ${ev.hits > 1 ? 'frammenti' : 'frammento'} su ${s.entry.name}: danni al ${Math.round(s.damage * 100)} %`);
+    }
+    /** End of a conversion: the drones return to dust and leave damage behind. */
+    release(ev) {
+        const E = this.E, s = E.stations[ev.target]; ev.finished = true; s.converted = null;
+        this.harm(s, ev.hits * THREAT.raid.harm);
+        E.tell(`I droni su ${s.entry.name} tornano polvere: danni al ${Math.round(s.damage * 100)} %`); this.onRaid?.(ev);
     }
     /** Damage to a station: defensive stations are hardened and take half. Repairs need parts. */
     harm(s, amount) {
@@ -136,10 +159,10 @@ export class Threats {
     /** Position of fragment `j` of event `ev` at `time`, given the position of its target now: along the
      * path to the point where the defence waits, then towards the target, with the spread of the swarm. */
     static fragment(ev, j, time, target) {
-        const u = Math.max(0, Math.min(1, (time - ev.t0) / (ev.tImpact - ev.t0))), p = THREAT.pass;
+        const t0 = ev.tLaunch ?? ev.t0, u = Math.max(0, Math.min(1, (time - t0) / (ev.tImpact - t0))), p = THREAT.pass;
         const c = u <= p ? lerp(ev.from, ev.at, u / p) : lerp(ev.at, target, (u - p) / (1 - p));
-        if (ev.kind !== 'sciame') return c;
-        const h = q => { const v = Math.sin(ev.id * 91.7 + j * 37.3 + q * 11.1) * 43758.5; return v - Math.floor(v) - .5; }, spread = .7 * (1 - .6 * u);
+        if (ev.kind !== 'sciame' && ev.kind !== 'incursione') return c;
+        const h = q => { const v = Math.sin(ev.id * 91.7 + j * 37.3 + q * 11.1) * 43758.5; return v - Math.floor(v) - .5; }, spread = (ev.kind === 'incursione' ? 1.1 : .7) * (1 - .6 * u);
         return [c[0] + h(1) * spread * 2, c[1] + h(2) * spread, c[2] + h(3) * spread * 2];
     }
 }

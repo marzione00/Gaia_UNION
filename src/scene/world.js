@@ -16,6 +16,9 @@ import { chooseLevels, LOW_SHARE } from '../craft/detail.js';
 import { placeStations, stationPosition, stationYaw } from '../craft/placement.js';
 import { Economy, RESOURCES, stationReport, shipReport } from '../craft/economy.js';
 import { Threats, THREAT } from '../craft/threats.js';
+import { Frontier, raidLength } from '../craft/swarm.js';
+import { Kit } from '../craft/kit.js';
+import { polyhedron } from '../craft/parts.js';
 import { SHIP_SIZE, shipPose, shipMatrix } from '../craft/traffic.js';
 import { tuft, rock, station as stationMesh, seaPlane, grazer, frond, tree, column, cushion, cup, patch, hexapod, flyer, floater, beacon, curtain } from '../worlds/geometry.js';
 /** Mesh, instance mode, motion uniform and PBR of each body plan of the species (src/worlds/species.js). */
@@ -32,6 +35,15 @@ export const PLACE_TINTS = { vetta: [.95, .82, .45, 1], forma: [.55, .82, .98, 1
 export const displayRadius = body => body.radius * (body.explorable ? 1.55 : 1.1);
 /** Seed of the life of the systems: it changes with every run of the site, so routes and stocks differ. */
 const SESSION = (globalThis.crypto?.getRandomValues ? globalThis.crypto.getRandomValues(new Uint32Array(1))[0] : Math.floor(Math.random() * 2 ** 32)) >>> 0;
+/** Drone of the Sciame della Frontiera (1.49.0): a dark truncated octahedron with raised faces, a glowing
+ * core and four spines, about one unit across, pointing towards +z. */
+function droneMesh(){
+    const st={hull:[.1,.12,.16,1],dark:[.04,.05,.07,1],steel:[.28,.32,.4,1],trim:[.4,.9,1,1],accent:[.45,.95,1,1],glass:[.05,.1,.14,1],window:[.5,.95,1,1],panel:[.04,.06,.1,1],seg:n=>n},k=new Kit(st);
+    k.hull();polyhedron(k,'ottaedro troncato',[0,0,0],.62,[[.1,.12,.16,1],[.16,.2,.26,1],[.07,.09,.12,1]],.06);
+    k.glow([.45,.95,1,1],3.2);k.sphere([0,0,.58],.14,10,8);
+    for(const [x,y] of [[1,0],[-1,0],[0,1],[0,-1]]){k.steel();k.beam([x*.4,y*.4,-.1],[x*.95,y*.95,-.55],.035);k.glow([.45,.95,1,1],2.6);k.sphere([x*.95,y*.95,-.55],.06,8,6);}
+    return k.mesh();
+}
 /** Places of the ships of a formation (1.47.0), in sizes of the leader: side and distance behind. */
 const WINGMEN=[[0,0],[1,1],[-1,1]];
 /** Drawn size of a station of level 2 or 3 (1.46.0): an eighth larger for each level. */
@@ -364,6 +376,14 @@ export class World {
         for(const item of items)for(const level of [1,0])if(!item.levels[level]){const m=F.take(item.entry,level?LOW_DETAIL:1);if(m)this.uploadCraft(item,level,m);}
         C.siteTime=s.time;C.hosts=new Map();
         const life=C.life.update(s.time),site=place=>this.craftSite(system,place,s.time),avoid=system.starRadius*2.2+1;
+        // The Sciame della Frontiera (1.49.0): an incursion on this system is fought here, and its outcome goes
+        // back to the front; the Cronaca della frontiera enters the news of the system.
+        const FR=this.frontier;
+        if(FR&&life.threats){
+            life.threats.onRaid??=ev=>{if(ev.raid)FR.settle(ev.raid,ev.outcome,ev.killed);};
+            for(const r of FR.raids)if(!r.settled&&!r.live&&r.system===id){FR.goLive(r,s.time);life.threats.spawn('incursione',{n:r.n,raid:r});}
+            life.frontSeen??=FR.serial;for(const e of FR.log)if(e.n>life.frontSeen)life.tell('Fronte: '+e.text);life.frontSeen=FR.serial;
+        }
         const k2=2*Math.tan(this.fov/2),lightColor=systemStarLight(id).map(v=>v*.8),shadowKey=R.shadowKey;R.shadowKey=null;
         // Glows are collected and drawn at the end in one instanced call, after every hull.
         const glows=[],glow=(p,r,tint,opacity)=>glows.push(p[0],p[1],p[2],r,tint[0],tint[1],tint[2],opacity);
@@ -435,6 +455,7 @@ export class World {
         // and stations that destroy them, the flash of what gets through, and the front of a flare with the
         // shield around a shield generator.
         if(life.threats){
+            this.drones=[];
             const now=s.time,px=p=>Math.hypot(p[0]-this.eye[0],p[1]-this.eye[1],p[2]-this.eye[2])*k2/R.h,HOT=[1,.72,.45],BEAM=[1,.38,.24],SHIELD=[.45,.8,1];
             const hash=(a,b)=>{const v=Math.sin(a*12.9898+b*78.233)*43758.5453;return v-Math.floor(v)-.5;};
             for(const ev of life.threats.active){
@@ -449,6 +470,7 @@ export class World {
                 }
                 if(now>ev.tEnd)continue;
                 const target=site({station:ev.target}).position,rock=ev.kind==='asteroide';
+                if(ev.kind==='incursione'){this.drawRaid(ev,now,target,glow,px,hash,life,site,avoid,s.scene,C.list[ev.target].entry.name);continue;}
                 for(let j=0;j<ev.n;j++){
                     const kill=ev.kills.find(k=>k.j===j);
                     if(kill&&now>=kill.t){
@@ -477,6 +499,7 @@ export class World {
                 }
             }
             stats.threats=life.threats.active.length;
+            if(this.drones?.length){const key='instances-drones',data=new Float32Array(this.drones);if(C.instances.has(key))R.updateInstances(key,data);else{R.makeInstances(key,'swarm-drone',data);C.instances.add(key);}R.drawMesh('swarm-drone',this.vp,IDENTITY,{eye:this.eye,light:[0,0,0],lightColor,material:10,instances:key,instanceMode:5});}
         }
         // Minor traffic (1.46.0): shuttles and pods between each station and its nearest neighbour, drawn
         // only as small lights moving along the line between the two.
@@ -504,6 +527,48 @@ export class World {
             R.drawMesh('lowSphere',this.vp,IDENTITY,{eye:this.eye,material:17,instances:key,instanceMode:6,blend:true});
         }
         stats.glows=glows.length/8;R.shadowKey=shadowKey;this.craftStats=stats;
+    }
+    /** An incursion of the Sciame (1.49.0): drones growing like crystals at their rock, flying to the target
+     * with their spines forward, the beams of the defence and the flashes of the drones it destroys, the
+     * drones on board the converted station and their return to dust. Drones go to `this.drones` for one
+     * instanced call. */
+    drawRaid(ev,now,target,glow,px,hash,life,site,avoid,scene,name){
+        const R=this.R,CYAN=[.45,.95,1],DUST=[.6,.7,.8],size=.06;
+        if(!this.droneReady){R.makeMesh('swarm-drone',droneMesh());this.droneReady=true;}
+        this.drones??=[];
+        // The incursion can be pointed at while the drones grow, fly or sit on board.
+        if(scene==='system'&&now<ev.tImpact+THREAT.raid.attach&&(now<ev.tImpact||ev.hits>0)){
+            const p=now<ev.tImpact?Threats.fragment(ev,0,now,target):target,xy=project(p,this.vp,R.w,R.h),done=ev.kills.filter(k=>k.t<=now).length;
+            const line=now<ev.tLaunch?`Crescono ${ev.n} droni · partenza fra ${Math.ceil(ev.tLaunch-now)} s`:now<ev.tImpact?`Impatto fra ${Math.ceil(ev.tImpact-now)} s · ${ev.n} droni, ${done} distrutti`:`Conversione: ${ev.hits} ${ev.hits>1?'droni':'drone'} a bordo`;
+            if(xy[2]>0)this.projections.push({type:'craft',index:5000+ev.id,entry:{name:ev.name,kind:'minaccia',style:'minaccia',typeName:'Sciame della Frontiera',about:'Sonde che si replicano con la materia degli asteroidi e la trasformano in substrato di calcolo.'},lines:[`Verso ${name}`,line],...xyToObj(xy),r:14,apparent:1,position:p,worldRadius:.1});
+        }
+        const put=(p,f,sc)=>this.drones.push(p[0],p[1],p[2],sc,f[0],f[1],f[2],0),dir=normal(ev.at.map((v,i)=>v-ev.from[i]));
+        if(now<ev.tLaunch){
+            // Growth at the rock: the drones swell from nothing, with a cold glow.
+            const g=Math.max(.05,(now-ev.t0)/(ev.tLaunch-ev.t0));R.drawMesh('lowSphere',this.vp,transform(...ev.from,.28,now*.2),{eye:this.eye,light:normal(ev.from.map(v=>-v)),material:12,texture:this.textures?.moon});
+            glow(ev.from,px(ev.from)*(4+3*Math.sin(now*3)**2),CYAN,.45);
+            for(let j=0;j<ev.n;j++){const p=Threats.fragment(ev,j,now,target);put(p,dir,size*g);}
+            return;
+        }
+        const hits=[];
+        for(let j=0;j<ev.n;j++){
+            const kill=ev.kills.find(k=>k.j===j);
+            if(kill&&now>=kill.t){const c=Threats.fragment(ev,j,kill.t,target),age=now-kill.t;if(age<.7)glow(c,px(c)*4.5,[.8,1,1],.95*(1-age/.7));if(age<3)for(let q=0;q<6;q++){const p=[c[0]+hash(q,j)*age,c[1]+hash(q,j+1)*age*.5,c[2]+hash(q,j+2)*age];glow(p,px(p)*1.3,DUST,.6*(1-age/3));}continue;}
+            if(now<ev.tImpact){const p=Threats.fragment(ev,j,now,target),q=Threats.fragment(ev,j,now-.4,target);put(p,normal(p.map((v,i)=>v-q[i])),size);glow(q,px(q)*1.5,CYAN,.35);}
+            else hits.push(j);
+        }
+        // On board: the drones circle the station until they return to dust.
+        const end=ev.tImpact+THREAT.raid.attach;
+        hits.forEach((j,n)=>{
+            const a=now*.8+n*TAU/hits.length,r=.32+.05*Math.sin(now*2+n),p=[target[0]+Math.cos(a)*r,target[1]+Math.sin(now+n)*.08,target[2]+Math.sin(a)*r];
+            if(now<end)put(p,[-Math.sin(a),0,Math.cos(a)],size*.8);
+            else if(now<end+4){const age=now-end;for(let q=0;q<4;q++){const d=[p[0]+hash(q,n)*age*.6,p[1]+hash(q,n+3)*age*.3,p[2]+hash(q,n+5)*age*.6];glow(d,px(d)*1.4,DUST,.55*(1-age/4));}}
+        });
+        if(hits.length&&now>=ev.tImpact&&now<end)glow(target,px(target)*(3+Math.sin(now*5)),CYAN,.3);
+        for(const k of ev.kills)if(now>k.t-.9&&now<k.t){
+            const ship=k.by.ship!==undefined?life.ships[k.by.ship]:null,from=ship?shipPose(ship,now,site,avoid).position:site({station:k.by.station}).position,to=Threats.fragment(ev,k.j,now,target),on=.55+.45*Math.sin(now*40+k.j);
+            for(let q=0;q<8;q++){const p=from.map((v,i)=>v+(to[i]-v)*(q+.5)/8);glow(p,px(p)*1.3,[1,.38,.24],.8*on);}
+        }
     }
     /** Upload one level of a model; the mesh names carry the slot of the station or ship and the level. */
     uploadCraft(item,level,m){
@@ -551,6 +616,8 @@ export class World {
     }
     draw(scene, s, data) {
         const R = this.R;
+        // The front of the Sciame della Frontiera runs in every scene; the open system fights its incursions.
+        this.frontier??=new Frontier(SESSION,s.time);this.frontier.update(s.time,(scene==='system'||scene==='orbit')&&!this.travelling?this.craft?.system??null:null);
         const surface=scene==='surface';
         if(scene==='system'||scene==='orbit')this.orbitTick(6,scene==='orbit'?s.selected:-1);
         if(surface)this.activatePlanet(s.selected);else this.activateBiome(s.selected);
