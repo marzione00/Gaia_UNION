@@ -6,9 +6,9 @@
  * built from its seed, and its structural choices are written down as the recipe. */
 import { Kit, TAU, hash, section, assemble, WHITE, RED, GREEN, AMBER } from './kit.js';
 import { mast, smallDish, hangar, radiator, solarWing, polyhedron, windowRing } from './parts.js';
-import { hull, canopy, nozzle, engines, wingPair, fins } from './ships.js';
+import { canopy, wingPair } from './ships.js';
 
-const GUN = [1, .38, .26, 1], SHIELD = [.45, .8, 1, 1], HOT = [1, .6, .3, 1];
+const GUN = [1, .38, .26, 1], SHIELD = [.45, .8, 1, 1], ENGINE = [.55, .78, 1, 1];
 const around = (n, f, offset = 0) => { for (let s = 0; s < n; s++) f(offset + s / n * TAU, s); };
 const shade = (c, k) => [c[0] * k, c[1] * k, c[2] * k, c[3] ?? 1];
 
@@ -58,162 +58,248 @@ function shieldEmitter(k, p, r) {
     k.push(p); k.steel(); k.cyl(r * .45, r * .3, 0, r * .5, 10); k.accent(.6); k.push([0, r * .55, 0]); k.torus(r, r * .1, 28, 6); k.pop();
     k.glow(SHIELD, 3); k.sphere([0, r * .55, 0], r * .32, 12, 8); k.light([0, r * .55, 0], SHIELD, r * .55, 0); k.pop();
 }
-/** Flight deck from z0 to z1 at height y, half width w: runway marks and a chase of approach lights. */
-function deck(k, z0, z1, w, y, lights = 6) {
-    const L = z1 - z0; k.dark(); k.box([0, y, (z0 + z1) / 2], [w, .06, L / 2], .7);
-    k.paint([.86, .84, .78, 1], .2, .6); for (let i = 0; i < 7; i++) k.box([0, y + .065, z0 + L * (i + .5) / 7], [.04, .005, L * .03]);
-    k.paint(k.style.trim, .4, .5); for (const sx of [1, -1]) k.box([sx * w * .97, y + .065, (z0 + z1) / 2], [.03, .008, L / 2]);
-    for (let i = 0; i < lights; i++) for (const sx of [1, -1]) k.light([sx * w * .97, y + .1, z1 - L * i / lights], i ? AMBER : WHITE, .05, -(i * .09));
-}
 /** Hangar mouth on the face z of a hull, w wide and h high at height y, lit inside. */
-function bay(k, z, w, h, y = 0, facing = 1) {
-    k.dark(); k.box([0, y, z], [w, h, .1]); k.glow(k.style.window, 1.4); k.box([0, y, z + facing * .11], [w * .86, h * .8, .01]);
-    k.accent(.5); for (const sx of [1, -1]) k.box([sx * w * 1.04, y, z + facing * .05], [.04, h * 1.05, .07]);
+function bay(k, z, w, h, y = 0, facing = 1, x = 0) {
+    k.push([x, 0, 0]); k.dark(); k.box([0, y, z], [w, h, .1]); k.glow(k.style.window, 1.4); k.box([0, y, z + facing * .11], [w * .86, h * .8, .01]);
+    k.accent(.5); for (const sx of [1, -1]) k.box([sx * w * 1.04, y, z + facing * .05], [.04, h * 1.05, .07]); k.pop();
 }
-/** Engine block at the stern z: n nozzles (one to eight) in rows of up to four. */
-function block(k, n, z, spread, r, color = HOT) {
-    if (n <= 4) { engines(k, n, z, spread, r, 0, color); return; }
-    const a = Math.ceil(n / 2), b = n - a;
-    engines(k, a, z, spread, r, spread * .55, color); engines(k, b, z, spread * .8, r, -spread * .6, color);
+/** Hexagonal section of an armour plate: half width w, half height h, centre height y, chamfer c. */
+const plateSec = (z, w, h, y, c) => ({ z, pts: [[w * (1 - c), y - h], [w, y], [w * (1 - c), y + h], [-w * (1 - c), y + h], [-w, y], [-w * (1 - c), y - h]] });
+/** Armour plate through stations [z, w, h, y] from the bow to the stern, centred at x: a lit top, two
+ * shaded bevels on each side and a dark underside. `tone` is hull, dark, steel or trim (the fleet colour). */
+function plate(k, stations, tone = 'hull', x = 0, c = .3) {
+    // Long plates are cut into panels about 0.8 units long, each with its own shade, and every fourth seam
+    // is a darker joint, so the armour reads as plating.
+    const st = k.style, base = st[tone], cut = [];
+    stations.forEach((a, i) => { cut.push(a); const b = stations[i + 1]; if (!b) return; const n = k.low ? 1 : Math.max(1, Math.round((a[0] - b[0]) / .8)); for (let j = 1; j < n; j++) cut.push(a.map((v, m) => v + (b[m] - v) * j / n)); });
+    const panel = s => tone === 'trim' ? 1 : s % 4 === 3 ? .74 : .88 + .2 * hash(s, x, stations.length);
+    const paint = (m, s, q) => shade(base, panel(s) * (q === 2 ? 1.04 : q === 1 || q === 3 ? .84 : q === 5 ? .45 : .66));
+    k.push([x, 0, 0]); k.paint(base, tone === 'trim' ? .4 : .55, .5); k.loft(cut.map(([z, w, h, y]) => plateSec(z, w, h, y, c)), { paint }); k.pop();
 }
-const navStubs = (k, W, L, y = 0) => wingPair(k, [[W * .9, -L * .05], [W * 1.5, -L * .12], [W * 1.5, -L * .2], [W * .9, -L * .22]], y, .03);
+/** Dark recessed strip along both sides of a hull at height y, from z0 to z1, set in by `inset`. */
+function recess(k, W, H, y, z0, z1) { for (const sx of [1, -1]) plate(k, [[z0, .06, H, y], [z1, .06, H, y]], 'dark', sx * W, .2); }
+/** Field of greebles on a deck: a low box covered with small blocks. */
+function greebles(k, c, h, n = 2) { k.steel(); k.box(c, h, .4, n); }
+/** Band in the fleet colour wrapped across the top of a plate at z: a thin raised plate. */
+const band = (k, z, len, w, y, x = 0) => plate(k, [[z + len / 2, w, .035, y], [z - len / 2, w, .035, y]], 'trim', x, .2);
+/** Engine bank at the stern z: a dark housing with cols × rows rectangular nozzles glowing blue-white, and
+ * one flame for each column. */
+function engineBank(k, z, w, h, cols, rows, y = 0, x = 0) {
+    const cw = 2 * w / cols, rh = 2 * h / rows;
+    k.push([x, y, z]); k.dark(); k.box([0, 0, .25], [w * 1.04, h * 1.06, .3], .5);
+    for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) {
+        const cx = -w + cw * (i + .5), cy = -h + rh * (j + .5);
+        k.steel(); k.box([cx, cy, -.08], [cw * .44, rh * .4, .1]); k.glow(glowOf(k), 3.2); k.box([cx, cy, -.19], [cw * .34, rh * .3, .01]);
+    }
+    for (let i = 0; i < cols; i++) k.flame([-w + cw * (i + .5), 0, -.5], glowOf(k), Math.min(cw * 1.1, h * 1.4));
+    k.pop();
+}
+/** Thin fin at p, length len and height h, swept back, canted by `cant` around the bow axis. */
+function vane(k, p, len, h, cant = 0, sweep = .35) {
+    k.push(p, [0, 0, cant]); k.hull(); k.push([0, 0, 0], [0, 0, Math.PI / 2]); k.extrude([[0, len * .5], [h, len * (.5 - sweep)], [h, -len * (.5 - sweep * .3)], [0, -len * .5]], -.035, .035); k.pop();
+    k.trim(); k.box([0, h * .93, -len * (.15 + sweep * .2)], [.045, h * .07, len * .2]); k.pop();
+}
+/** Antenna from a to b with a light at the tip. */
+function spike(k, a, b, color = WHITE, blink = 1.3) { k.steel(); k.beam(a, b, .025); k.light(b, color, .05, blink); }
+/** Lit windows along the side x of a plate, at height y between z0 and z1, on both sides. */
+function portholes(k, x, y, z0, z1, n) { for (let i = 0; i < n; i++) { if (hash(i, x, y) < .2) continue; const z = z0 + (z1 - z0) * (i + .5) / n; for (const sx of [1, -1]) k.pane([sx * (x + .015), y, z], [sx, 0, 0], [0, 0, 1], .12, .05); } }
+/** Running lights: red to port (+x), green to starboard (−x). */
+function nav(k, X, y, z) { k.light([X, y, z], RED, .07, .9); k.light([-X, y, z], GREEN, .07, .9); }
+/** Flight deck lights of a carrier pod at x: a chase of amber lights along both edges. */
+function runway(k, x, z0, z1, w, y, n = 6) { for (let i = 0; i < n; i++) for (const sx of [1, -1]) k.light([x + sx * w, y, z1 - (z1 - z0) * i / n], i ? AMBER : WHITE, .05, -(i * .09)); }
 
-// Ships
+/** Pointed prong at x, y from z0 (tip) back to z1, half width w and half height h. */
+const prong = (k, x, y, z0, z1, w, h, tone = 'hull') => plate(k, [[z0, .02, .02, y], [z0 - (z0 - z1) * .45, w, h, y], [z1, w * .85, h * .85, y]], tone, x, .5);
+/** Flat blade in the plane y: a thin triangle from its root (x0, z0 to z1) out to the tip (x1, zt). */
+function blade(k, y, x0, z0, z1, x1, zt, t = .04) { k.dark(); k.extrude([[x0, z0], [x1, zt], [x0, z1]], y - t, y + t); k.trim(); k.extrude([[x1, zt], [x1 - (x1 - x0) * .18, zt + (z0 - zt) * .18], [x1 - (x1 - x0) * .18, zt - (zt - z1) * .18]], y - t - .01, y + t + .01); }
+/** Engine glow of the style: amber in the defence fleet. */
+const glowOf = k => k.style.engine || ENGINE;
+/** Engine pod at the stern z of a sponson: an angular block with one glowing nozzle and a flame. */
+function pod(k, x, y, z0, z1, w, h) {
+    plate(k, [[z0, w * .4, h * .4, y], [z0 - (z0 - z1) * .3, w, h, y], [z1, w, h, y]], 'steel', x, .45);
+    k.glow(glowOf(k), 3.2); k.box([x, y, z1 - .02], [w * .7, h * .6, .02]); k.flame([x, y, z1 - w], glowOf(k), w * 1.8);
+}
+
+// Ships. Dark, angular and asymmetric hulls: faceted armour plates, prongs of different length, blades and
+// spikes, sponsons and pods on one side, command spires set off the axis, panels and joints in the fleet
+// colour and banks of engines glowing amber.
 function caccia(d, st) {
-    const k = new Kit(st), L = d.range(3.4, 4.2), W = d.range(.42, .52), H = W * .72, liv = d.choose('livrea', ['fascia', 'dorso', 'prua']), wing = d.cycle('ali', ['delta', 'freccia', 'avanti']);
-    hull(k, d, L, [[0, .04, .04], [.15, W * .45, H * .45], [.4, W * .85, H * .85], [.7, W, H], [1, W * .8, H * .75]], liv);
-    canopy(k, L * .3, L * .04, W * .55, H * .65, H * .35);
-    const plan = wing === 'delta' ? [[W * .8, L * .1], [W * 3.1, -L * .38], [W * 3.1, -L * .45], [W * .85, -L * .42]] : wing === 'freccia' ? [[W * .8, -L * .02], [W * 3.3, -L * .3], [W * 3.3, -L * .37], [W * .85, -L * .36]] : [[W * .85, -L * .38], [W * 3, -L * .1], [W * 3, -L * .03], [W * .8, -L * .2]];
-    wingPair(k, plan, -H * .2, .035);
-    const tip = plan.reduce((m, p) => p[0] > m[0] ? p : m);
-    for (const sx of [1, -1]) { k.steel(); k.beam([sx * tip[0], -H * .2, tip[1] - .15], [sx * tip[0], -H * .2, tip[1] + L * .22], .035); }
-    engines(k, d.count('ugelli', 1, 2), -L / 2, W * .42, W * .34, 0, HOT);
-    fins(k, d.count('derive', 1, 2), -L * .36, H * 1.1, L * .25, H * .6, W);
-    k.light([0, H * .3, -L / 2 + .1], WHITE, .05, 1.4);
+    const k = new Kit(st), L = d.range(3.8, 4.3), W = d.range(.45, .55), H = W * .5, wing = d.cycle('ali', ['a freccia', 'a lama', 'a delta']), side = d.choose('punta lunga', ['sinistra', 'destra']);
+    const sx = side === 'sinistra' ? 1 : -1;
+    plate(k, [[L * .3, W * .3, H * .5, 0], [L * .05, W * .7, H, 0], [-L * .4, W * .75, H, 0], [-L * .5, W * .6, H * .8, 0]], 'hull', 0, .45);
+    prong(k, sx * W * .3, 0, L * .62, L * .1, W * .2, H * .45, 'steel'); prong(k, -sx * W * .3, -H * .1, L * .42, L * .1, W * .16, H * .35, 'steel');
+    canopy(k, L * .12, -L * .12, W * .3, H * .9, H * .3);
+    const plan = wing === 'a freccia' ? [[W * .7, -L * .05], [W * 2.4, -L * .32], [W * 2.2, -L * .42], [W * .7, -L * .34]] : wing === 'a lama' ? [[W * .7, L * .05], [W * 2.6, -L * .22], [W * 2.6, -L * .28], [W * .7, -L * .3]] : [[W * .7, L * .08], [W * 2.2, -L * .4], [W * .7, -L * .42]];
+    wingPair(k, plan, -H * .2, .03);
+    blade(k, H * .9, sx * W * .1, -L * .1, -L * .45, sx * W * .15, -L * .5);
+    engineBank(k, -L * .5, W * .45, H * .55, 2, 1);
     return assemble([[k]]);
 }
 function intercettore(d, st) {
-    const k = new Kit(st), L = d.range(4.6, 5.4), W = d.range(.36, .44), H = W * .9, liv = d.choose('livrea', ['fascia', 'dorso', 'prua']), boost = d.count('propulsori laterali', 0, 2) * 2;
-    hull(k, d, L, [[0, .02, .02], [.25, W * .5, H * .5], [.6, W, H], [1, W * 1.1, H * 1.05]], liv);
-    canopy(k, L * .2, -L * .02, W * .5, H * .6, H * .3);
-    nozzle(k, [0, 0, -L / 2], W * 1, W * 1.8, HOT);
-    around(boost, a => { const p = [Math.cos(a) * W * 1.5, Math.sin(a) * W * 1.1, -L * .25]; k.push(p, [Math.PI / 2, 0, 0]); k.dark(); k.capsule(W * .3, -L * .18, L * .14, 10); k.pop(); nozzle(k, [p[0], p[1], -L * .44], W * .26, W * .5, HOT); k.steel(); k.beam([p[0] * .5, p[1] * .5, -L * .25], p, .04); }, 0);
-    wingPair(k, [[W * .7, L * .2], [W * 1.7, L * .12], [W * 1.7, L * .08], [W * .7, L * .07]], 0, .025);
-    wingPair(k, [[W * .9, -L * .15], [W * 2.4, -L * .36], [W * 2.4, -L * .42], [W * .9, -L * .4]], 0, .03);
-    fins(k, 1, -L * .36, H * 1.2, L * .25, H * .7, W);
+    const k = new Kit(st), L = d.range(4.8, 5.4), W = d.range(.36, .42), H = W * .7, fins = d.count('lame', 2, 3), probe = d.choose('sonda', ['destra', 'sinistra']);
+    prong(k, 0, 0, L * .5, -L * .2, W * .5, H * .6);
+    plate(k, [[-L * .15, W * .7, H * .8, 0], [-L * .25, W * 1.05, H * 1.1, 0], [-L * .5, W * 1.05, H * 1.1, 0]], 'steel', 0, .45);
+    engineBank(k, -L * .5, W * .9, H * .9, 2, 2);
+    canopy(k, L * .15, -L * .05, W * .28, H * .5, H * .26);
+    const sx = probe === 'destra' ? -1 : 1;
+    for (let i = 0; i < fins; i++) { const s2 = i % 2 ? -1 : 1, y = i === 2 ? H * 1.1 : 0; blade(k, y, s2 * W, -L * .15, -L * .45, s2 * W * (i === 2 ? 1.2 : 2.6), -L * .02 - i * L * .04); }
+    spike(k, [sx * W * .3, H * .2, L * .1], [sx * W * .3, H * .2, L * .72], RED, 1.6);
+    nav(k, W * 1.1, 0, -L * .45);
     return assemble([[k]]);
 }
 function pattugliatore(d, st) {
-    const k = new Kit(st), L = d.range(5.2, 6.2), W = d.range(.8, .95), H = W * .65, guns = d.count('canne', 1, 2), radar = d.choose('radar', ['albero', 'parabola']);
-    armour(k, L, [[0, W * .3, H * .3], [.15, W * .8, H * .75], [.4, W, H], [.85, W, H * .95], [1, W * .85, H * .8]]);
-    canopy(k, L * .32, L * .12, W * .55, H * .85, H * .3);
-    turret(k, [0, H * .9, L * .05], .32, guns);
-    if (radar === 'albero') { k.push([0, H * .95, -L * .2]); mast(k, 1, 1, 1.2); k.pop(); } else { k.push([0, H * .95, -L * .2], [.3, 0, 0]); smallDish(k, .4, .12); k.pop(); }
-    pointDefence(k, [0, -H * .9, -L * .05], .2, true);
-    k.light([0, -H * .4, L * .48], WHITE, .1, 0);
-    navStubs(k, W, L);
-    engines(k, 2, -L / 2, W * .45, W * .3, 0, HOT);
+    const k = new Kit(st), L = d.range(5.8, 6.4), W = d.range(.75, .85), H = W * .5, guns = d.count('canne', 1, 2), side = d.choose('sponsone', ['sinistra', 'destra']);
+    const sx = side === 'sinistra' ? 1 : -1;
+    prong(k, 0, -H * .1, L * .5, L * .1, W * .5, H * .7);
+    plate(k, [[L * .2, W * .8, H, 0], [-L * .3, W, H * 1.1, 0], [-L * .5, W * .9, H, 0]], 'hull', 0, .45);
+    plate(k, [[L * .05, W * .35, H * .3, H * 1.2], [-L * .35, W * .45, H * .4, H * 1.3]], 'steel', -sx * W * .2, .5);
+    k.steel(); k.box([sx * W * 1.1, 0, -L * .05], [W * .2, H * .15, L * .1]); pod(k, sx * W * 1.4, 0, L * .2, -L * .45, W * .3, H * .5); turret(k, [sx * W * 1.4, H * .5, L * .02], .26, guns);
+    spike(k, [-sx * W * .9, H * .2, L * .1], [-sx * W * 1.1, H * .2, L * .55]);
+    bridge(k, [-sx * W * .2, H * 1.7, -L * .2], .2, .3, .22, false);
+    blade(k, -H * .9, 0, -L * .05, -L * .4, 0, -L * .45);
+    engineBank(k, -L * .5, W * .7, H * .75, 2, 2);
+    k.light([0, -H * .2, L * .5], WHITE, .1, 0); nav(k, W * 1.75, 0, -L * .3);
     return assemble([[k]]);
 }
 function corvetta(d, st) {
-    const k = new Kit(st), L = d.range(6.8, 7.8), W = d.range(.9, 1.05), H = W * .7, rows = d.count('file di lanciatori', 1, 2), nEng = d.count('ugelli', 2, 3);
-    armour(k, L, [[0, W * .2, H * .25], [.12, W * .7, H * .7], [.35, W, H], [.6, W, H * 1.15, H * .15], [.85, W * .95, H * 1.1, H * .1], [1, W * .8, H * .8]]);
-    turret(k, [0, H * .95, L * .2], .38, 2);
-    bridge(k, [0, H * 1.25, -L * .08], W * .5, .55, .4, false);
-    launcher(k, [0, H * 1.3, -L * .3], W * .45, .12 * rows, .35, rows, 4);
-    for (const sx of [1, -1]) pointDefence(k, [sx * W * .95, 0, L * .05], .16);
-    navStubs(k, W, L, -H * .2); fins(k, 2, -L * .4, H * .9, L * .2, H * .7, W);
-    engines(k, nEng, -L / 2, W * .48, W * .3, 0, HOT);
+    const k = new Kit(st), L = d.range(7.2, 7.9), W = d.range(.9, 1), H = W * .5, rows = d.count('file di lanciatori', 1, 2), side = d.choose('punta lunga', ['sinistra', 'destra']);
+    const sx = side === 'sinistra' ? 1 : -1;
+    plate(k, [[L * .3, W * .55, H * .6, 0], [L * .05, W, H, 0], [-L * .4, W * 1.05, H * 1.05, 0], [-L * .5, W * .95, H * .95, 0]], 'hull', 0, .45);
+    prong(k, sx * W * .45, 0, L * .62, L * .1, W * .3, H * .55); prong(k, -sx * W * .45, -H * .1, L * .46, L * .1, W * .26, H * .5);
+    plate(k, [[L * .1, W * .3, H * .3, H * 1.1], [-L * .4, W * .5, H * .45, H * 1.2]], 'steel', 0, .5);
+    for (const z of [.0, -.25]) band(k, L * z, L * .03, W * 1.06, H * .7);
+    turret(k, [0, H * 1.45, L * .02], .32, 2);
+    bridge(k, [-sx * W * .3, H * 1.6, -L * .28], W * .2, .5, .32);
+    launcher(k, [sx * W * .55, H * 1.0, -L * .15], W * .2, .1 * rows, .3, rows, 2);
+    blade(k, H * .5, sx * W * 1.0, -L * .1, -L * .45, sx * W * 2.0, -L * .4); blade(k, H * .5, -sx * W * 1.0, -L * .25, -L * .45, -sx * W * 1.5, -L * .45);
+    engineBank(k, -L * .5, W * .85, H * .85, 3, 2);
+    nav(k, W * 1.08, 0, -L * .4);
     return assemble([[k]]);
 }
 function fregata(d, st) {
-    const k = new Kit(st), L = d.range(8.5, 9.5), W = d.range(1.05, 1.2), H = W * .7, aft = d.choose('torretta di poppa', ['dorsale', 'ventrale']), side = d.flag('lanciatori laterali', .6);
-    armour(k, L, [[0, W * .2, H * .2], [.1, W * .65, H * .65], [.3, W, H], [.7, W, H * 1.1, H * .1], [.9, W * 1.05, H * 1.05], [1, W * .9, H * .9]]);
-    turret(k, [0, H * .95, L * .25], .4, 2);
-    turret(k, aft === 'dorsale' ? [0, H * 1.15, -L * .28] : [0, -H * .95, -L * .1], .36, 2, aft !== 'dorsale');
-    bridge(k, [0, H * 1.05, L * .02], W * .55, .7, .5);
-    bay(k, -L / 2 + .05, W * .5, H * .35, -H * .35, -1);
-    if (side) for (const sx of [1, -1]) launcher(k, [sx * W * 1.05, H * .2, -L * .1], .14, .22, .7, 2, 1);
-    for (const sx of [1, -1]) pointDefence(k, [sx * W * .9, -H * .5, L * .3], .16, true);
-    navStubs(k, W, L, -H * .2);
-    block(k, 3, -L / 2, W * .5, W * .3);
+    const k = new Kit(st), L = d.range(9.2, 9.8), W = d.range(1.05, 1.15), H = W * .5, aft = d.choose('torretta di poppa', ['dorsale', 'ventrale']), side = d.choose('lato dell\'hangar', ['sinistra', 'destra']);
+    const sx = side === 'sinistra' ? 1 : -1;
+    plate(k, [[L * .3, W * .5, H * .55, 0], [L * .05, W * .95, H, 0], [-L * .4, W, H * 1.05, 0], [-L * .5, W * .9, H * .95, 0]], 'hull', 0, .45);
+    prong(k, 0, -H * .5, L * .58, L * .15, W * .25, H * .4, 'steel');
+    plate(k, [[L * .15, W * .35, H * .3, H * 1.05], [-L * .42, W * .5, H * .45, H * 1.2]], 'steel', -sx * W * .15, .5);
+    k.steel(); k.box([sx * W * 1.2, 0, -L * .05], [W * .3, H * .2, L * .12]);
+    plate(k, [[L * .25, W * .3, H * .5, 0], [L * .1, W * .45, H * .75, 0], [-L * .4, W * .45, H * .75, 0]], 'hull', sx * W * 1.75, .45); bay(k, L * .245, W * .32, H * .45, 0, 1, sx * W * 1.75); pod(k, sx * W * 1.75, -H * .2, -L * .3, -L * .48, W * .3, H * .4);
+    k.steel(); k.box([-sx * W * 1.1, 0, -L * .25], [W * .2, H * .15, L * .06]); launcher(k, [-sx * W * 1.35, 0, -L * .2], W * .18, H * .3, .4, 2, 1);
+    turret(k, [0, H * 1.0, L * .15], .36, 2);
+    turret(k, aft === 'dorsale' ? [-sx * W * .15, H * 1.62, -L * .3] : [0, -H * .95, -L * .15], .32, 2, aft !== 'dorsale');
+    bridge(k, [-sx * W * .15, H * 1.62, -L * .08], W * .22, .55, .35);
+    for (const z of [.05, -.3]) band(k, L * z, L * .03, W * 1.02, H * .72);
+    blade(k, 0, -sx * W, -L * .35, -L * .5, -sx * W * 2, -L * .48);
+    engineBank(k, -L * .5, W * .8, H * .85, 3, 2);
+    spike(k, [sx * W * .3, 0, L * .3], [sx * W * .35, 0, L * .62]);
+    nav(k, W * 2.2, 0, -L * .3);
     return assemble([[k]]);
 }
 function cacciatorpediniere(d, st) {
-    const k = new Kit(st), L = d.range(10.5, 11.5), W = d.range(.85, .95), H = W * .8, spike = d.flag('sperone di prua', .6), n = d.count('torrette', 3, 3);
-    armour(k, L, [[0, W * .15, H * .15], [.12, W * .6, H * .6], [.3, W, H], [.8, W, H], [1, W * .9, H * .85]]);
-    if (spike) { k.steel(); k.beam([0, 0, L / 2], [0, 0, L / 2 + L * .12], .06); k.light([0, 0, L / 2 + L * .12], RED, .07, 1.5); }
-    for (let i = 0; i < n; i++) turret(k, [0, H * .95, L * (.28 - i * .17)], .36, i === 1 ? 3 : 2);
-    bridge(k, [0, H * .95, -L * .26], W * .55, .65, .45);
-    for (const sx of [1, -1]) launcher(k, [sx * W * 1.02, 0, L * .02], .12, .3, L * .18, 3, 1);
-    for (const sx of [1, -1]) pointDefence(k, [sx * W * .8, -H * .7, -L * .15], .16, true);
-    navStubs(k, W, L); fins(k, 2, -L * .42, H * .9, L * .14, H * .8, W);
-    block(k, 4, -L / 2, W * .5, W * .26);
+    const k = new Kit(st), L = d.range(12, 12.8), W = d.range(.9, 1), H = W * .55, n = d.count('torrette', 3, 3), side = d.choose('punta lunga', ['sinistra', 'destra']);
+    const sx = side === 'sinistra' ? 1 : -1;
+    plate(k, [[L * .3, W * .5, H * .6, 0], [L * .1, W * .8, H * .9, 0], [-L * .4, W, H, 0], [-L * .5, W * .95, H * .95, 0]], 'hull', 0, .45);
+    prong(k, 0, 0, L * .62, L * .2, W * .3, H * .5, 'steel'); prong(k, sx * W * .6, -H * .2, L * .5, L * .05, W * .22, H * .4); prong(k, -sx * W * .6, -H * .2, L * .4, L * .05, W * .2, H * .35);
+    plate(k, [[L * .2, W * .3, H * .3, H * .95], [-L * .42, W * .45, H * .4, H * 1.05]], 'steel', 0, .5);
+    for (let i = 0; i < n; i++) turret(k, [0, H * 1.35, L * (.12 - i * .14)], .32, i === 1 ? 3 : 2);
+    bridge(k, [-sx * W * .3, H * 1.45, -L * .32], W * .22, .65, .36);
+    k.steel(); k.box([sx * W * 1.05, 0, -L * .05], [W * .2, H * .12, L * .05]); plate(k, [[L * .12, W * .22, H * .3, 0], [-L * .22, W * .3, H * .4, 0]], 'dark', sx * W * 1.4, .45); launcher(k, [sx * W * 1.4, 0, L * .12], W * .16, H * .2, .05, 1, 3);
+    for (let i = 0; i < 3; i++) blade(k, H * .2, -sx * W, -L * (.05 + i * .13), -L * (.12 + i * .13), -sx * W * 1.6, -L * (.1 + i * .13));
+    for (const z of [.15, -.1, -.35]) band(k, L * z, L * .025, W * 1.02, H * .7);
+    blade(k, H * 1.1, 0, -L * .3, -L * .48, 0, -L * .5);
+    engineBank(k, -L * .5, W * .85, H * .8, 4, 2);
+    nav(k, W * 1.75, 0, -L * .1);
     return assemble([[k]]);
 }
+/** Wide angular capital hull: keel, a long armoured back, flanks of dark plates and joints in the fleet
+ * colour. Returns the height of the back. */
+function capital(k, L, W, H, segs) {
+    plate(k, [[L * .32, W * .45, H * .5, -H * .1], [L * .15, W * .9, H * .9, 0], [-L * .4, W, H, 0], [-L * .5, W * .95, H * .95, 0]], 'hull', 0, .45);
+    plate(k, [[L * .2, W * .55, H * .35, H * .9], [-L * .44, W * .7, H * .45, H * 1.0]], 'steel', 0, .5);
+    for (const sx of [1, -1]) plate(k, [[L * .18, W * .08, H * .5, -H * .1], [-L * .42, W * .12, H * .7, -H * .1]], 'dark', sx * W * 1.02, .3);
+    for (let i = 0; i < segs; i++) band(k, L * (.12 - i * .5 / Math.max(1, segs - 1)), L * .02, W * 1.03, H * .55);
+    portholes(k, W * 1.0, H * .25, L * .1, -L * .38, 10);
+    return H * 1.45;
+}
 function incrociatore(d, st) {
-    const k = new Kit(st), L = d.range(12.5, 13.5), W = d.range(1.25, 1.4), H = W * .7, sponsons = d.flag('sponsoni', .6), shield = d.choose('scudo', ['prua', 'ponte']);
-    armour(k, L, [[0, W * .25, H * .2], [.12, W * .7, H * .6], [.3, W, H], [.65, W * 1.05, H * 1.1], [.9, W, H], [1, W * .85, H * .85]]);
-    for (const [z, flip] of [[.28, false], [.12, false], [.2, true], [-.05, true]]) turret(k, [0, flip ? -H * .95 : H * .95, L * z], .42, 2, flip);
-    bridge(k, [0, H * 1.05, -L * .12], W * .55, .9, .6);
-    shieldEmitter(k, shield === 'prua' ? [0, H * .7, L * .4] : [0, H * 1.05, -L * .32], .45);
-    if (sponsons) for (const sx of [1, -1]) { k.dark(); k.box([sx * W * 1.12, 0, -L * .05], [W * .18, H * .35, L * .18], .5); pointDefence(k, [sx * W * 1.12, H * .35, L * .05], .16); pointDefence(k, [sx * W * 1.12, H * .35, -L * .15], .16); }
-    navStubs(k, W, L, -H * .3); fins(k, 2, -L * .42, H, L * .16, H * .8, W);
-    block(k, 4, -L / 2, W * .5, W * .3);
+    const k = new Kit(st), L = d.range(13, 13.8), W = d.range(1.25, 1.35), H = W * .5, side = d.choose('torre', ['destra', 'sinistra']), shield = d.choose('scudo', ['prua', 'poppa']);
+    const top = capital(k, L, W, H, 4), sx = side === 'destra' ? -1 : 1;
+    prong(k, sx * W * .4, 0, L * .6, L * .2, W * .35, H * .55); prong(k, -sx * W * .4, -H * .2, L * .45, L * .2, W * .3, H * .45, 'steel');
+    for (const [z, flip] of [[.22, false], [.08, false], [.15, true], [-.1, true]]) turret(k, [0, flip ? -H * .95 : top, L * z], .38, 2, flip);
+    plate(k, [[-L * .1, W * .25, H * .5, top + H * .3], [-L * .32, W * .32, H * .7, top + H * .4]], 'hull', sx * W * .35, .5); bridge(k, [sx * W * .35, top + H * 1.1, -L * .24], W * .2, .8, .38);
+    plate(k, [[-L * .25, W * .15, H * .2, top + H * .1], [-L * .38, W * .2, H * .3, top + H * .15]], 'steel', -sx * W * .4, .5);
+    shieldEmitter(k, shield === 'prua' ? [-sx * W * .3, H * .55, L * .32] : [-sx * W * .4, top + H * .4, -L * .32], .36);
+    blade(k, 0, sx * W, -L * .05, -L * .4, sx * W * 2.2, -L * .32); blade(k, 0, -sx * W, -L * .25, -L * .45, -sx * W * 1.6, -L * .45);
+    engineBank(k, -L * .5, W * .85, H * .85, 4, 3);
+    nav(k, W * 1.08, 0, -L * .45);
     return assemble([[k]]);
 }
 function incrociatorePesante(d, st) {
-    const k = new Kit(st), L = d.range(14, 15.5), W = d.range(1.45, 1.6), H = W * .72, belt = d.choose('corazza', ['fasce', 'piastre']), nEng = d.count('ugelli', 5, 6);
-    armour(k, L, [[0, W * .3, H * .25], [.1, W * .75, H * .65], [.28, W, H], [.7, W * 1.05, H * 1.05], [.92, W, H], [1, W * .85, H * .85]]);
-    for (const sx of [1, -1]) { k.dark(); if (belt === 'fasce') k.box([sx * W * 1.02, 0, 0], [.08, H * .45, L * .32], .5); else for (let i = 0; i < 4; i++) k.box([sx * W * 1.02, 0, L * (.24 - i * .16)], [.1, H * .42, L * .07], .4); }
-    for (const [z, flip] of [[.3, false], [.16, false], [.02, false], [.22, true], [-.12, true]]) turret(k, [0, flip ? -H * .95 : H * .95, L * z], .46, flip ? 2 : 3, flip);
-    for (const sx of [1, -1]) launcher(k, [sx * W * .55, H * 1.1, -L * .3], .26, .18, .6, 2, 3);
-    bridge(k, [0, H * .95, -L * .15], W * .5, 1, .6);
-    shieldEmitter(k, [0, H * .7, L * .42], .5);
-    navStubs(k, W, L, -H * .3);
-    block(k, nEng, -L / 2, W * .55, W * .26);
+    const k = new Kit(st), L = d.range(14.6, 15.6), W = d.range(1.45, 1.55), H = W * .5, gun = d.flag('arma spinale', .6), nEng = d.count('colonne di ugelli', 4, 5);
+    const top = capital(k, L, W, H, 5), side = d.choose('punta lunga', ['sinistra', 'destra']), sx = side === 'sinistra' ? 1 : -1;
+    prong(k, sx * W * .55, 0, L * .66, L * .18, W * .32, H * .6); prong(k, -sx * W * .55, 0, L * .5, L * .18, W * .3, H * .55);
+    if (gun) { plate(k, [[L * .38, W * .15, H * .2, 0], [L * .18, W * .22, H * .3, 0]], 'dark', 0, .4); k.glow(GUN, 2.5); k.box([0, 0, L * .38], [W * .1, H * .1, .02]); k.light([0, 0, L * .39], GUN, .12, .5); }
+    for (const [z, flip] of [[.08, false], [-.08, false], [.18, true], [0, true], [-.18, true]]) turret(k, [0, flip ? -H * .95 : top, L * z], .42, flip ? 2 : 3, flip);
+    launcher(k, [sx * W * .6, top - H * .2, -L * .28], .22, .14, .45, 2, 3);
+    plate(k, [[-L * .14, W * .3, H * .5, top + H * .3], [-L * .36, W * .36, H * .75, top + H * .4]], 'hull', -sx * W * .35, .5); bridge(k, [-sx * W * .35, top + H * 1.15, -L * .28], W * .22, .9, .4);
+    for (let i = 0; i < 4; i++) for (const s2 of [1, -1]) if (s2 === sx || i % 2 === 0) blade(k, H * .1, s2 * W * 1.08, L * (.05 - i * .12), L * (-.03 - i * .12), s2 * W * (1.5 + (i % 2) * .3), L * (-.01 - i * .12));
+    engineBank(k, -L * .5, W * .88, H * .85, nEng, 3);
+    nav(k, W * .9, 0, L * .4);
     return assemble([[k]]);
 }
 function corazzata(d, st) {
-    const k = new Kit(st), L = d.range(16, 18), W = d.range(1.8, 2), H = W * .66, spinal = d.flag('cannone spinale', .5), nEng = d.count('ugelli', 6, 8);
-    armour(k, L, [[0, W * .35, H * .3], [.08, W * .8, H * .7], [.25, W, H], [.75, W * 1.05, H * 1.05], [.93, W, H], [1, W * .9, H * .9]]);
-    for (const sx of [1, -1]) for (let i = 0; i < 5; i++) { k.dark(); k.box([sx * W * 1.03, H * .1, L * (.3 - i * .14)], [.12, H * .5, L * .06], .45); }
-    for (const [z, flip] of [[.3, false], [.16, false], [-.2, false], [.25, true], [.05, true], [-.15, true]]) turret(k, [0, flip ? -H * .95 : H * .95, L * z], .55, 3, flip);
-    if (spinal) { k.steel(); k.push([0, 0, L / 2], [Math.PI / 2, 0, 0]); k.cyl(W * .28, W * .22, -L * .1, 0, 12, { bands: 2 }); k.pop(); k.glow(GUN, 2.5); k.push([0, 0, L / 2 + L * .1], [Math.PI / 2, 0, 0]); k.cyl(W * .2, W * .2, -.02, 0, 12); k.pop(); }
-    bridge(k, [0, H * .95, -L * .04], W * .45, 1.3, .7);
-    for (const sx of [1, -1]) { shieldEmitter(k, [sx * W * .6, H * .95, L * .38], .4); pointDefence(k, [sx * W * .7, H * .95, -L * .32], .2); pointDefence(k, [sx * W * .7, -H * .95, -L * .32], .2, true); }
-    navStubs(k, W, L, -H * .3);
-    block(k, nEng, -L / 2, W * .55, W * .28);
+    const k = new Kit(st), L = d.range(17, 18.2), W = d.range(1.75, 1.9), H = W * .5, spinal = d.flag('cannone spinale', .5), side = d.choose('torre', ['destra', 'sinistra']);
+    const top = capital(k, L, W, H, 6), sx = side === 'destra' ? -1 : 1;
+    plate(k, [[L * .1, W * .45, H * .3, top + H * .1], [-L * .42, W * .55, H * .4, top + H * .2]], 'steel', 0, .5);
+    prong(k, sx * W * .5, -H * .1, L * .62, L * .22, W * .38, H * .6); prong(k, -sx * W * .5, -H * .1, L * .48, L * .22, W * .34, H * .5, 'steel');
+    plate(k, [[L * .3, W * .06, H * .05, -H * .8], [L * .15, W * .07, H * .4, -H * 1.1], [-L * .35, W * .08, H * .5, -H * 1.15]], 'steel', 0, .3);
+    for (const [z, flip, y] of [[.24, false, top], [.12, false, top], [-.04, false, top + H * .65], [.22, true, 0], [.06, true, 0], [-.12, true, 0]]) turret(k, [0, flip ? -H * .95 : y, L * z], .5, 3, flip);
+    if (spinal) { k.glow(GUN, 2.5); k.box([0, 0, L * .33], [W * .12, H * .12, .02]); k.light([0, 0, L * .34], GUN, .14, .5); }
+    plate(k, [[-L * .12, W * .3, H * .7, top + H * .9], [-L * .32, W * .38, H * 1.0, top + H * 1.1]], 'hull', sx * W * .35, .5); bridge(k, [sx * W * .35, top + H * 2.05, -L * .25], W * .24, 1.1, .45);
+    spike(k, [sx * W * .35, top + H * 3.3, -L * .27], [sx * W * .35, top + H * 4.3, -L * .3], RED, .8);
+    shieldEmitter(k, [-sx * W * .5, top + H * .65, -L * .3], .4); shieldEmitter(k, [sx * W * .55, top, L * .28], .34);
+    for (let i = 0; i < 5; i++) for (const s2 of [1, -1]) blade(k, H * .1, s2 * W * 1.1, L * (.12 - i * .12), L * (.05 - i * .12), s2 * W * (1.45 + (s2 === sx ? .35 : 0)), L * (.07 - i * .12));
+    engineBank(k, -L * .5, W * .9, H * .9, 6, 3);
+    nav(k, W * 1.12, 0, -L * .45);
     return assemble([[k]]);
 }
 function portaerei(d, st) {
-    const k = new Kit(st), L = d.range(17, 19), W = d.range(2, 2.3), H = W * .42, island = d.choose('isola', ['dritta', 'sinistra']), lifts = d.count('elevatori', 2, 3);
-    armour(k, L, [[0, W * .45, H * .4], [.08, W * .85, H * .8], [.2, W, H], [.9, W, H], [1, W * .9, H * .9]]);
-    const top = H + .3; k.steel(); k.box([0, H + .12, 0], [W * .9, .14, L * .45]);
-    deck(k, -L * .48, L * .5, W * 1.25, top, 7);
-    for (let i = 0; i < lifts; i++) { k.paint(shade(k.style.hull, .75), .5, .5); k.box([(i % 2 ? 1 : -1) * W * .72, top + .07, L * (.2 - i * .22)], [W * .28, .01, L * .05]); }
-    const sx = island === 'dritta' ? -1 : 1; bridge(k, [sx * W * 1.02, top + .06, -L * .08], W * .22, 1.4, L * .08);
-    bay(k, L / 2 - .1, W * .7, H * .45, top - .45, 1); bay(k, -L / 2 + .1, W * .6, H * .4, -H * .2, -1);
-    for (const x of [1, -1]) for (const z of [.42, -.42]) pointDefence(k, [x * W * 1.2, top - .2, L * z], .2, true);
-    shieldEmitter(k, [0, -H * .95, L * .1], .45);
-    navStubs(k, W, L, -H * .3);
-    block(k, 4, -L / 2, W * .5, W * .32);
+    const k = new Kit(st), L = d.range(18.4, 19.4), W = d.range(1.2, 1.3), H = W * .55, side = d.choose('lato dell\'hangar maggiore', ['sinistra', 'destra']), links = d.count('ponti di collegamento', 2, 3);
+    const sx = side === 'sinistra' ? 1 : -1;
+    plate(k, [[L * .38, W * .45, H * .5, 0], [L * .2, W * .85, H * .9, 0], [-L * .4, W * .9, H * .95, 0], [-L * .5, W * .85, H * .9, 0]], 'hull', 0, .45);
+    prong(k, 0, 0, L * .55, L * .3, W * .3, H * .45, 'steel');
+    // The main hangar hull on one side, a shorter one with the command spire on the other.
+    plate(k, [[L * .48, W * .7, H * .8, 0], [L * .4, W * .8, H, 0], [-L * .38, W * .8, H, 0], [-L * .46, W * .7, H * .85, 0]], 'hull', sx * W * 2, .4);
+    bay(k, L * .475, W * .55, H * .6, 0, 1, sx * W * 2); runway(k, sx * W * 2, -L * .3, L * .42, W * .62, H * 1.05, 7); pod(k, sx * W * 2, -H * .3, -L * .3, -L * .5, W * .45, H * .5);
+    plate(k, [[L * .25, W * .5, H * .6, 0], [L * .15, W * .6, H * .8, 0], [-L * .3, W * .6, H * .8, 0]], 'steel', -sx * W * 1.8, .45); bay(k, L * .245, W * .4, H * .45, 0, 1, -sx * W * 1.8);
+    plate(k, [[-L * .05, W * .3, H * .8, H * 1.4], [-L * .28, W * .38, H, H * 1.6]], 'hull', -sx * W * 1.8, .5); bridge(k, [-sx * W * 1.8, H * 2.55, -L * .2], W * .25, 1, .45);
+    for (let i = 0; i < links; i++) { const z = L * (.25 - i * .55 / Math.max(1, links - 1)); k.steel(); k.box([0, 0, z], [W * 2.3, H * .25, L * .03], .5); }
+    for (let i = 0; i < 3; i++) band(k, L * (.1 - i * .2), L * .025, W * .92, H * .95);
+    for (const z of [.3, -.2]) pointDefence(k, [sx * W * 2.85, H * .4, L * z], .18);
+    engineBank(k, -L * .5, W * .75, H * .75, 3, 2);
+    nav(k, W * 2.8, 0, L * .3);
     return assemble([[k]]);
 }
 function superportaerei(d, st) {
-    const k = new Kit(st), ring = new Kit(st), L = d.range(23, 26), W = d.range(1.6, 1.8), D = d.range(3.2, 3.6), H = W * .5, towers = d.count('torri di comando', 1, 2), spokes = d.choose('raggi dell\'anello', [4, 6]);
+    const k = new Kit(st), ring = new Kit(st), L = d.range(23.5, 26), W = d.range(1.6, 1.75), D = d.range(3.2, 3.5), H = W * .5, towers = d.count('guglie di comando', 1, 2), spokes = d.choose('raggi dell\'anello', [4, 6]);
+    const long = d.choose('scafo più lungo', ['sinistra', 'destra']) === 'sinistra' ? 1 : -1;
     for (const sx of [1, -1]) {
-        k.push([sx * D, 0, 0]); armour(k, L, [[0, W * .4, H * .4], [.07, W * .85, H * .8], [.18, W, H], [.92, W, H], [1, W * .9, H * .9]]);
-        deck(k, -L * .48, L * .49, W * 1.15, H + .2, 6); bay(k, L / 2 - .1, W * .6, H * .5, H - .2, 1); block(k, 4, -L / 2, W * .5, W * .3); k.pop();
+        const x = sx * D, f = sx === long ? 1 : .86;
+        plate(k, [[L * .5 * f, W * .4, H * .5, 0], [L * .4 * f, W * .9, H * .9, 0], [-L * .4, W, H, 0], [-L * .5, W * .9, H * .95, 0]], 'hull', x, .45);
+        plate(k, [[L * .3 * f, W * .55, H * .3, H * .95], [-L * .44, W * .7, H * .4, H * 1.05]], 'steel', x, .5);
+        bay(k, L * .495 * f, W * .35, H * .4, 0, 1, x); runway(k, x, -L * .38, L * .3 * f, W * .6, H * 1.5, 6);
+        for (let i = 0; i < 4; i++) band(k, L * (.3 - i * .2), L * .02, W * 1.02, H * .55, x);
+        engineBank(k, -L * .5, W * .8, H * .8, 3, 3, 0, x);
+        for (let i = 0; i < 4; i++) blade(k, 0, x + sx * W, L * (.25 - i * .17), L * (.18 - i * .17), x + sx * W * 1.5, L * (.2 - i * .17));
     }
-    k.dark(); k.box([0, 0, L * .02], [D - W * .8, H * .55, L * .3], .6); k.steel(); for (const z of [.3, -.3]) k.box([0, 0, L * z], [D - W * .8, H * .3, .3]);
-    for (let t = 0; t < towers; t++) bridge(k, [0, H * .55, L * (.12 - t * .25)], W * .6, 1.8, .9);
-    for (const sx of [1, -1]) shieldEmitter(k, [sx * D, -H * .95, L * .3], .55);
-    for (const z of [.4, .15, -.1, -.35]) for (const sx of [1, -1]) pointDefence(k, [sx * (D + W * 1.05), 0, L * z], .22);
+    plate(k, [[L * .32, D * .55, H * .45, 0], [-L * .44, D * .62, H * .5, 0]], 'dark', 0, .4);
+    for (let t = 0; t < towers; t++) { const z = L * (.12 - t * .26), x = (t ? -1 : 1) * long * W * .5; plate(k, [[z + L * .08, W * .45, H * .8, H * 1.2], [z - L * .08, W * .6, H * 1.1, H * 1.4]], 'hull', x, .5); bridge(k, [x, H * 2.5, z], W * .35, 1.2, .55); }
+    for (const sx of [1, -1]) shieldEmitter(k, [sx * D, -H * .9, L * .3], .48);
+    spike(k, [long * D, H * .6, L * .5], [long * D, H * .6, L * .62], RED);
     // Crew ring around the spine, turning for gravity.
-    const Rr = D * .55, zr = -L * .32; ring.push([0, 0, zr], [Math.PI / 2, 0, 0]); ring.hull(); ring.torus(Rr, .22, st.seg(40), 8);
+    const Rr = D * .55, zr = -L * .32; ring.push([0, 0, zr], [Math.PI / 2, 0, 0]); ring.dark(); ring.torus(Rr, .22, st.seg(40), 8);
     around(spokes, a => { ring.steel(); ring.beam([Math.cos(a) * .4, 0, Math.sin(a) * .4], [Math.cos(a) * Rr, 0, Math.sin(a) * Rr], .06); }); around(Math.round(Rr * 7), a => ring.pane([Math.cos(a) * (Rr + .22), 0, Math.sin(a) * (Rr + .22)], [Math.cos(a), 0, Math.sin(a)], [-Math.sin(a), 0, Math.cos(a)], .14, .07)); ring.pop();
-    wingPair(k, [[D + W * .9, -L * .1], [D + W * 1.6, -L * .16], [D + W * 1.6, -L * .22], [D + W * .9, -L * .24]], -H * .2, .04);
+    nav(k, D + W * 1.5, 0, L * .2);
     return assemble([[k], [ring, [0, 0, .2]]]);
 }
 
@@ -296,12 +382,12 @@ export const DEFENCE_SHIPS = {
     intercettore: { name: 'Intercettore', gender: 'm', build: intercettore, size: 'circa 24 m', drawn: .03, speed: 5, dock: 10, wing: 2, about: 'Il più veloce della flotta: vola in coppia e raggiunge per primo ogni allarme.' },
     pattugliatore: { name: 'Pattugliatore', gender: 'm', build: pattugliatore, size: 'circa 40 m', drawn: .045, speed: 3.2, dock: 14, about: 'Piccola nave di ronda fra le stazioni, con una torretta laser e un faro.' },
     corvetta: { name: 'Corvetta', gender: 'f', build: corvetta, size: 'circa 70 m', drawn: .055, speed: 2.8, dock: 16, about: 'Nave di scorta leggera con una torretta, lanciatori di droni intercettori e difese ravvicinate.' },
-    fregata: { name: 'Fregata', gender: 'f', build: fregata, size: 'circa 110 m', drawn: .07, speed: 2.5, dock: 18, about: 'Scorta i convogli alla porta; un hangar di poppa ospita i droni di ricognizione.' },
-    cacciatorpediniere: { name: 'Cacciatorpediniere', gender: 'm', build: cacciatorpediniere, size: 'circa 150 m', drawn: .085, speed: 2.4, dock: 18, about: 'Nave lunga e veloce con tre torrette in fila e due batterie di lanciatori sui fianchi.' },
+    fregata: { name: 'Fregata', gender: 'f', build: fregata, size: 'circa 110 m', drawn: .07, speed: 2.5, dock: 18, about: 'Scorta i convogli alla porta; uno scafo hangar sul fianco ospita i droni di ricognizione.' },
+    cacciatorpediniere: { name: 'Cacciatorpediniere', gender: 'm', build: cacciatorpediniere, size: 'circa 150 m', drawn: .085, speed: 2.4, dock: 18, about: 'Nave lunga e veloce con tre punte di prua, tre torrette in fila e una batteria di lanciatori su un fianco.' },
     incrociatore: { name: 'Incrociatore', gender: 'm', build: incrociatore, size: 'circa 210 m', drawn: .11, speed: 2, dock: 22, about: 'Nave di linea con quattro torrette, un ponte di comando e un emettitore di scudo.' },
-    incrociatorePesante: { name: 'Incrociatore pesante', gender: 'm', build: incrociatorePesante, size: 'circa 280 m', drawn: .13, speed: 1.8, dock: 24, about: 'Fasce di corazza sui fianchi, cinque torrette e due batterie di lanciatori.' },
+    incrociatorePesante: { name: 'Incrociatore pesante', gender: 'm', build: incrociatorePesante, size: 'circa 280 m', drawn: .13, speed: 1.8, dock: 24, about: 'Due punte di prua di lunghezza diversa, cinque torrette, lame sui fianchi e una batteria di lanciatori.' },
     corazzata: { name: 'Corazzata', gender: 'f', build: corazzata, size: 'circa 380 m', drawn: .16, speed: 1.4, dock: 28, about: 'La nave più protetta della flotta: sei torrette, piastre di corazza e due emettitori di scudo.' },
-    portaerei: { name: 'Portaerei', gender: 'f', build: portaerei, size: 'circa 420 m', drawn: .18, speed: 1.4, dock: 28, about: 'Un ponte di volo lungo tutto lo scafo, hangar a prua e a poppa e un\'isola di comando sul fianco.' },
+    portaerei: { name: 'Portaerei', gender: 'f', build: portaerei, size: 'circa 420 m', drawn: .18, speed: 1.4, dock: 28, about: 'Uno scafo hangar con pista e bocca illuminata su un lato, uno scafo minore con la guglia di comando sull\'altro.' },
     superportaerei: { name: 'Superportaerei', gender: 'f', build: superportaerei, size: 'circa 720 m', drawn: .26, speed: 1.1, dock: 32, about: 'Ammiraglia della frontiera: due scafi con due ponti di volo, torri di comando sulla trave centrale e un anello abitato che ruota.' }
 };
 export const DEFENCE_SHIP_KEYS = Object.keys(DEFENCE_SHIPS);

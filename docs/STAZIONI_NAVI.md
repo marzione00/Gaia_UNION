@@ -349,23 +349,23 @@ La simulazione di 1200 s su 30 sistemi e tre semi, con tutte le stazioni, parte 
 
 ## La flotta di difesa
 
-Dalla 1.47.0 ogni sistema ha una difesa propria, costruita in un sesto stile, quello della flotta: scafi sfaccettati grigio azzurri, chiglie scure, una fascia rossa dietro la prua, scudi azzurro chiaro. Stazioni e navi prendono i nomi di esploratori, navigatori e astronauti. Il codice è in `src/craft/defence.js`.
+Dalla 1.47.0 ogni sistema ha una difesa propria, costruita in un sesto stile, quello della flotta. Dalla 1.47.1 le navi sono scure, spigolose e asimmetriche: piastre di corazza sfaccettate in grigio antracite e canna di fucile, punte di prua di lunghezza diversa, lame e antenne, sponsoni e scafi laterali su un solo lato, guglie di comando fuori asse, giunti e bordi arancio rosso nel colore della flotta, finestre e motori color ambra. Anche le stazioni di difesa prendono i colori scuri dello stile. Lo stile riprende la fantascienza navale delle grandi flotte spaziali senza copiare navi esistenti. Stazioni e navi prendono i nomi di esploratori, navigatori e astronauti. Il codice è in `src/craft/defence.js`.
 
 Le classi di navi sono undici, dalla più piccola:
 
 | Classe | Lunghezza | Forma |
 |---|---|---|
-| Caccia | circa 18 m | ali a delta, a freccia o a freccia invertita, armi alle estremità; vola in formazione di tre |
-| Intercettore | circa 24 m | scafo ad ago, un grande ugello, alette di prua e propulsori laterali; vola in coppia |
-| Pattugliatore | circa 40 m | scafo corazzato corto, una torretta laser, radar e faro |
-| Corvetta | circa 70 m | una torretta, ponte di comando, lanciatori di droni intercettori, difese ravvicinate |
-| Fregata | circa 110 m | due torrette, hangar di poppa per i droni di ricognizione, spesso lanciatori laterali |
-| Cacciatorpediniere | circa 150 m | scafo lungo con tre torrette in fila, due batterie di lanciatori, spesso uno sperone di prua |
-| Incrociatore | circa 210 m | quattro torrette sopra e sotto lo scafo, emettitore di scudo, spesso sponsoni |
-| Incrociatore pesante | circa 280 m | fasce o piastre di corazza, cinque torrette, due batterie di lanciatori |
-| Corazzata | circa 380 m | sei torrette, piastre di corazza, due emettitori di scudo, a volte un cannone spinale |
-| Portaerei | circa 420 m | ponte di volo lungo tutto lo scafo con luci di avvicinamento, isola di comando, hangar a prua e a poppa |
-| Superportaerei | circa 720 m | due scafi con due ponti di volo, torri di comando sulla trave centrale, anello abitato che ruota |
+| Caccia | circa 18 m | corpo a cuneo con due punte di lunghezza diversa, ali a freccia, a lama o a delta, una lama dorsale su un lato; vola in formazione di tre |
+| Intercettore | circa 24 m | scafo ad ago davanti a un blocco motori, due o tre lame inclinate, una sonda su un lato; vola in coppia |
+| Pattugliatore | circa 40 m | prua a punta, uno sponsone su un lato con torretta e motore, un'antenna sull'altro, sovrastruttura spostata |
+| Corvetta | circa 70 m | due punte di prua di lunghezza diversa, dorso corazzato, torretta, lanciatori, lame di poppa diverse sui due lati, motori 3 × 2 |
+| Fregata | circa 110 m | punta ventrale, scafo hangar su un lato e lanciatori sull'altro, due torrette, sovrastruttura spostata, motori 3 × 2 |
+| Cacciatorpediniere | circa 150 m | tre punte di prua sfalsate, tre torrette, gondola di lanciatori su un lato e lame sull'altro, motori 4 × 2 |
+| Incrociatore | circa 210 m | punte di prua diverse, quattro torrette, torre di comando su un lato e una minore sull'altro, emettitore di scudo, ali a lama asimmetriche, motori 4 × 3 |
+| Incrociatore pesante | circa 280 m | due punte di lunghezza diversa, spesso un'arma spinale fra le due, cinque torrette, lame sui fianchi, motori fino a 5 × 3 |
+| Corazzata | circa 380 m | dorso a due livelli, punte di prua diverse, lama ventrale, sei torrette, guglia di comando su un lato, due emettitori di scudo, file di lame sui fianchi, motori 6 × 3 |
+| Portaerei | circa 420 m | scafo hangar maggiore su un lato con pista e bocca illuminata, scafo minore con la guglia di comando sull'altro, motori 3 × 2 |
+| Superportaerei | circa 720 m | due scafi di lunghezza diversa con hangar e piste, trave centrale con una o due guglie spostate, anello abitato che ruota, motori 3 × 3 su ogni scafo |
 
 Le stazioni di difesa sono cinque: la base della flotta, con bracci di attracco, ormeggi e un hangar; la stazione di sorveglianza, con schiere di antenne, parabole e un anello radar che ruota; la piattaforma di difesa, esagonale, con torrette, pannelli o radiatori; la fortezza orbitale, un poliedro corazzato con due piani di torrette; il generatore di scudo, con anelli emettitori che ruotano in versi opposti attorno a un reattore.
 
@@ -383,7 +383,7 @@ In tutto le stazioni di difesa sono 84 e i modelli di nave 134, con tutte le cla
 
 | | Modelli | Triangoli | Mediana | Livello semplificato |
 |---|---:|---:|---:|---:|
-| Navi | 134 | da 896 a 13 350 | 1920 | 37,6 % |
+| Navi | 134 | da 524 a 9118 | 1696 | 40,1 % |
 | Stazioni | 84 | da 1484 a 6480 | 3712 | 27,4 % |
 
 Le stazioni di difesa formano una linea 1,8 unità oltre la porta e oltre l'anello esterno: base della flotta, fortezza e generatore di scudo accanto alla porta, la piattaforma a metà strada, la stazione di sorveglianza dalla parte opposta del sistema. Vengono collocate per ultime, così le altre stazioni restano dove erano. Nelle prove su 900 s una stazione di difesa resta ad almeno 4,6 volte la somma dei raggi da ogni altra stazione e ad almeno 7,3 volte da ogni pianeta.
@@ -428,3 +428,4 @@ Nella simulazione di 1200 s su 30 sistemi e tre semi la difesa aggiunge 252 staz
 8. Economia delle catene: 24 merci, 31 ricette, porte che bilanciano i sistemi (1.45.0).
 9. Stazioni che crescono, cantieri che varano navi, convogli fra i sistemi, cronaca del sistema, traffico minore (1.46.0).
 10. Flotta di difesa: 11 classi dal caccia alla superportaerei, 5 stazioni di difesa, linea di difesa, pattuglie (1.47.0).
+11. Nuovo disegno delle navi di difesa: scafi scuri, spigolosi e asimmetrici, punte di prua, lame, motori color ambra (1.47.1).

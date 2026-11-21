@@ -1,3 +1,8 @@
+# 1.47.1: Nuovo disegno della flotta di difesa
+
+- Le undici classi di navi di difesa sono ridisegnate: scure, spigolose e asimmetriche. Le piastre di corazza sono sfaccettate, in grigio antracite e canna di fucile, con giunti e bordi arancio rosso nel colore della flotta. Le prue hanno punte di lunghezza diversa; lame e antenne sporgono dai fianchi, sponsoni e scafi laterali stanno su un solo lato, le guglie di comando sono fuori asse; finestre e motori sono color ambra.
+- Anche le stazioni di difesa prendono i colori scuri dello stile. Una nave conta ora da 524 a 9118 triangoli, con mediana 1696; il livello semplificato ne ha il 40,1 %. Classi, catalogo, linea di difesa e pattuglie restano quelli della 1.47.0.
+
 # 1.47.0: Flotta di difesa
 
 - Undici classi di navi di difesa, dal caccia alla superportaerei, e cinque stazioni di difesa (base della flotta, stazione di sorveglianza, piattaforma di difesa, fortezza orbitale, generatore di scudo), in un nuovo stile della flotta: scafi sfaccettati e corazzati, torrette laser, difese ravvicinate, lanciatori di droni intercettori, emettitori di scudo, hangar e ponti di volo. Nomi di esploratori, navigatori e astronauti.
