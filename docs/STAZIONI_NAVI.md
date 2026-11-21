@@ -1,6 +1,6 @@
 # Stazioni e navi dei sistemi
 
-I trenta sistemi stellari ospitano 300 modelli tridimensionali: dieci per sistema, cioè sei stazioni e quattro navi. Il lavoro è arrivato in tre aggiornamenti: la 1.38.0 ha portato il generatore dei modelli e il loro catalogo, la 1.39.0 ha collocato le stazioni nei sistemi, la 1.40.0 dà vita ai sistemi, con stazioni che producono e navi che trasportano le merci.
+I trenta sistemi stellari ospitano 300 modelli tridimensionali: dieci per sistema, cioè sei stazioni e quattro navi. Il lavoro è arrivato in tre aggiornamenti: la 1.38.0 ha portato il generatore dei modelli e il loro catalogo, la 1.39.0 ha collocato le stazioni nei sistemi, la 1.40.0 dà vita ai sistemi, con stazioni che producono e navi che trasportano le merci. La 1.41.0 ha rinnovato il motore di disegno e la 1.42.0 aggiunge una grammatica dei tipi con 120 tipi di stazione, che entreranno nei sistemi con la 1.43.0.
 
 ## Come sono costruiti
 
@@ -9,7 +9,8 @@ Il sito non scarica geometrie. Ogni modello nasce dal codice in `src/craft/` a p
 - `kit.js` raccoglie le primitive (scatole a pannelli, cilindri e coni con giunture, tori, sfere, parabole, tralicci, scafi raccordati fra sezioni) e il generatore di numeri casuali `dice`, che annota ogni scelta strutturale;
 - `parts.js` contiene i moduli comuni: pannelli solari, radiatori, hangar illuminati, antenne, serbatoi, bobine, tubazioni, fasce di pericolo, finestre e i poliedri convessi, le cui facce vengono ricavate dai vertici;
 - `styles.js` definisce i cinque stili di costruzione;
-- `stations.js` e `ships.js` contengono i dodici tipi di stazione e le dodici classi di nave;
+- `stations.js` e `ships.js` contengono i dodici tipi classici di stazione e le dodici classi di nave;
+- `modules.js`, `families.js` e `grammar.js` formano la grammatica dei 120 tipi di stazione della 1.42.0;
 - `catalog.js` assegna i modelli ai sistemi, sceglie i nomi e costruisce un modello su richiesta con `build(voce)`;
 - `placement.js` decide dove stanno le stazioni di un sistema e dove si trovano in ogni istante;
 - `economy.js` contiene le regole della vita di un sistema: produzione, consumi, scelta dei viaggi delle navi;
@@ -182,6 +183,44 @@ Nella vista in orbita i 65 bagliori del fotogramma occupano una sola chiamata; n
 
 Aggiungendo `?diagnostica` all'indirizzo, prima del cancelletto (per esempio `index.html?diagnostica#/system?unit=chemistry-08`), un pannello in basso a destra si aggiorna ogni mezzo secondo con i fotogrammi al secondo, la durata media e massima degli ultimi 120 fotogrammi, il tempo di disegno sul processore, le chiamate di disegno e i triangoli del fotogramma, quante navi e stazioni sono complete, semplificate o punti luce, i modelli costruiti e quelli in coda, la grafica scelta, le dimensioni della tela e della scena e il nome della GPU. Il pannello lascia passare il puntatore, quindi la scena sotto resta utilizzabile. `GAIA.diagnostics().performance` restituisce gli stessi numeri. Con SwiftShader, il renderer software dei collaudi, la vista del sistema «Legami e molecole» a 1440 × 900 procede a circa 0,2 fotogrammi al secondo mentre il disegno sul processore richiede circa 14 ms per fotogramma: il tempo si spende quasi tutto nella GPU emulata. La pagina serve a misurare le GPU reali delle scuole e degli studenti.
 
+## La grammatica dei tipi
+
+Dalla 1.42.0 i tipi di stazione sono dati: ogni tipo unisce una famiglia di forme, che decide la sagoma del nucleo, e un ruolo, che decide i moduli montati sul nucleo. Dodici famiglie e dieci ruoli danno 120 tipi, dieci volte i dodici tipi classici di `stations.js`, che restano come sono. Il nome segue la regola «ruolo + famiglia», con l'aggettivo concordato: «Habitat a ruota», «Fonderia sferica», «Impianto chimico su asteroide».
+
+| Famiglia | Nucleo | Prese per i moduli |
+|---|---|---|
+| a spina | sezioni cilindriche impilate | una o due corone di 3-5 moduli, le due estremità, prese minori sulle altre sezioni |
+| a ruota | anello rotante con raggi attorno a un mozzo | 3-6 moduli sul bordo dell'anello, che girano con lui; sopra e sotto il mozzo |
+| a disco | disco basso con bordo finestrato | 3-5 moduli e uno centrale sul ponte, uno sotto, prese minori sul bordo |
+| a grappolo | piccolo nodo centrale | bracci lunghi in 4, 6 o 8 direzioni, un modulo ciascuno |
+| a traliccio | trave reticolare lunga 14-17 unità con 3-4 nodi | sopra e sotto ogni nodo, alle due estremità |
+| sferica | grande sfera con cintura | 4-6 moduli sulla cintura, i due poli |
+| poliedrica | icosaedro, dodecaedro, ottaedro o cubottaedro con telaio | sui vertici o sulle facce, alternando moduli maggiori e minori |
+| a torre | ponti che si restringono su una base larga | 3-5 moduli sulla base, due corone sui ponti |
+| a croce | quattro bracci attorno a un mozzo | estremità dei bracci, sopra e sotto il mozzo |
+| a piattaforma | piattaforma piatta con travature sotto | griglia di 2 × 2 o 3 × 2 moduli sul ponte, due sotto |
+| a tamburo | cilindro lungo che ruota sul proprio asse, con specchi | le due estremità e due corone statiche di 2-3 moduli |
+| su asteroide | roccia irregolare con anello di ormeggio | 4-6 moduli sulla roccia |
+
+| Ruolo | Nome | Moduli |
+|---|---|---|
+| abitazione | Habitat | modulo abitato, cupola abitata, baccelli, anello abitato, terrazze, parco |
+| cantiere | Arsenale | scalo, gru, bacino, hangar, rampa di varo, officina |
+| fonderia | Fonderia | forno, tramoggia, frantoio, camino, colata, radiatori caldi |
+| chimica | Impianto chimico | colonna, sfere, reattore, scambiatore, fascio di tubi, torcia |
+| energia | Centrale | pannelli, toro di fusione, radiatori, accumulatori, specchio, traliccio elettrico |
+| ricerca | Laboratorio | laboratorio, bobine, acceleratore, camera a vuoto, campionatore, braccio sensore |
+| osservazione | Osservatorio | parabola, telescopio, schiera, schermo solare, cupola ottica, interferometro |
+| agricoltura | Fattoria | serra, biocupola, vasche di alghe, anello verde, alveare, petali |
+| deposito | Magazzino | serbatoi, container, silo, rastrelliera, capsule, criogenico |
+| comunicazioni | Ripetitore | pannello a fase, ripetitore, guglia, terminale laser, ventaglio di antenne, antenna |
+
+I 60 moduli di `modules.js` si disegnano tutti lungo un asse, dentro una lunghezza e un raggio assegnati dalla presa, con un collo che li stacca dallo scafo; così qualunque famiglia può offrire una presa e qualunque ruolo può riempirla. Ogni istanza sceglie dal seme i parametri della famiglia e tre moduli del ruolo: il principale e il secondario si alternano sulle prese maggiori, il minore occupa circa tre quarti delle prese minori. Ogni ruolo ha anche proporzioni proprie: i ripetitori allungano i moduli del 70 % e li assottigliano, centrali e osservatori li allargano del 40-50 % per pannelli e parabole, i magazzini li accorciano. Il ruolo colora le fasce del nucleo: luce calda per le fonderie, verde per le fattorie, il colore della disciplina per centrali e ripetitori. Gli stili restano quelli dei tipi classici: in matematica nuclei e colli sfaccettati, in fisica bobine, in chimica tubi e fasce di pericolo, in biologia forme arrotondate.
+
+Su 600 modelli (ogni tipo nei cinque stili) un tipo conta da 3248 a 28 752 triangoli, con mediana 11 102, e porta da 5 a 95 luci; il livello semplificato ne ha il 32,8 %. Le famiglie più pesanti sono la piattaforma e il traliccio, la più leggera l'asteroide.
+
+Le sagome si confrontano in `tests/grammar.test.mjs`: ogni modello, nello stile civile, si proietta dall'alto, di fronte e di lato su una griglia di 32 × 32 celle scalata sul suo raggio, e due tipi si confrontano con la sovrapposizione media delle tre sagome (area dell'intersezione divisa per l'area dell'unione). Fra due tipi della stessa famiglia la sovrapposizione ha mediana 0,59 e massimo 0,81 (osservatorio e magazzino a torre); fra famiglie diverse ha mediana 0,36 e massimo 0,69. Il test chiede meno di 0,88 per ogni coppia, meno di 0,8 fra famiglie diverse e mediane sotto 0,7 e 0,45.
+
 ## Controlli
 
 `tests/craft.test.mjs` verifica che i modelli siano 300, dieci per sistema con sei stazioni e quattro navi, che le miniere stiano solo nei sistemi con la fascia, che nomi e identificatori siano unici e scritti con l'atlante dei caratteri, che gli stili seguano la regola descritta sopra, che la generazione sia deterministica, che le mesh contengano solo valori finiti e indici validi entro i limiti di triangoli, e che due modelli dello stesso tipo e stile differiscano in almeno due scelte.
@@ -189,6 +228,8 @@ Aggiungendo `?diagnostica` all'indirizzo, prima del cancelletto (per esempio `in
 `tests/stations.test.mjs` verifica che ogni sistema abbia sei stazioni collocate in modo deterministico, la porta oltre la fascia, la miniera dentro la fascia, il porto attorno a un pianeta di studio e il cantiere accanto al porto, la raffineria attorno a un gigante quando il sistema ne ha uno; che le stazioni restino alla distanza prevista dall'ospite, fuori dal pianeta disegnato; e che la scena costruisca prima i modelli semplificati, uno per fotogramma quando manca il worker, poi il modello completo di una stazione vicina, disegni le navi e i bagliori a istanze, renda selezionabili stazioni e navi e liberi mesh e istanze al cambio di sistema.
 
 `tests/life.test.mjs` verifica che ogni stazione e ogni nave abbiano regole valide; che in 1800 s di simulazione le scorte restino nei limiti, le prenotazioni non scendano sotto zero, ogni nave compia almeno tre viaggi e i carichi vengano consegnati; che lo stesso seme ripeta le stesse rotte e semi diversi ne diano di diverse; che nessuna nave passi vicino alla stella; e che i resoconti mostrati sullo schermo siano brevi, nello stile del sito e scritti con l'atlante dei caratteri.
+
+`tests/grammar.test.mjs` verifica che i tipi siano 120, uno per ruolo e famiglia, con nomi unici concordati e scritti con l'atlante dei caratteri; che i moduli siano almeno 60 e restino entro la presa in ogni stile; che ogni tipo, in ognuno dei cinque stili, abbia mesh valide, al massimo 30 000 triangoli, almeno una luce e un raggio fra 4 e 15; che lo stesso seme ripeta lo stesso modello e che il livello semplificato resti sotto il 40 % dei triangoli; e che le sagome dei tipi siano diverse, con i limiti descritti in «La grammatica dei tipi».
 
 `tests/engine.test.mjs` verifica che il modello semplificato di ognuno dei 300 modelli abbia la stessa ricetta, le stesse parti e luci, meno del 70 % dei triangoli e un raggio entro il 3 % del completo; che il modello impacchettato conservi tutti i triangoli; che la scelta dei livelli rispetti soglie, ordine e bilanci; che la coda dei lavori metta prima i semplificati, consegni ogni modello una volta e scarti le risposte di un sistema già chiuso; che il worker trasferisca i buffer; che la base costruita nello shader coincida con `shipMatrix`; e che il pannello diagnostico calcoli frequenza e durata dei fotogrammi.
 
@@ -198,3 +239,5 @@ Aggiungendo `?diagnostica` all'indirizzo, prima del cancelletto (per esempio `in
 2. Stazioni nei sistemi (1.39.0).
 3. Vita dei sistemi: produzione delle stazioni e traffico delle navi (1.40.0).
 4. Motore: livelli di dettaglio, costruzione in un worker, navi e bagliori a istanze, pagina diagnostica (1.41.0).
+5. Grammatica dei tipi: 60 moduli, 12 famiglie, 10 ruoli, 120 tipi di stazione (1.42.0).
+6. I nuovi tipi nei sistemi, da 12 a 20 stazioni ciascuno (1.43.0, da fare).
