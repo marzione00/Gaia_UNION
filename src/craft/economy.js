@@ -29,6 +29,9 @@ export const RECIPES = {
     laboratorio: { make: { dati: .45 }, use: { energia: .15 }, inputs: true, cap: { dati: 90, energia: 60 }, want: { energia: 40 } },
     cantiere: { make: { parti: .25 }, use: { minerale: .9, energia: .3 }, inputs: true, cap: { parti: 40, minerale: 160, energia: 80 }, want: { minerale: 110, energia: 50 } },
     deposito: { cap: { carburante: 400 }, want: { carburante: 260 }, keep: { carburante: 110 } },
+    habitat: { make: { equipaggi: .2 }, use: { cibo: .3, energia: .15 }, cap: { equipaggi: 50, cibo: 100, energia: 70 }, want: { cibo: 70, energia: 45 } },
+    magazzino: { cap: { minerale: 200, cibo: 150, energia: 150, carburante: 200, parti: 60 }, want: { minerale: 110, cibo: 80, energia: 80, carburante: 110, parti: 30 }, keep: { minerale: 50, cibo: 35, energia: 35, carburante: 50, parti: 12 } },
+    ripetitore: { use: { energia: .12 }, cap: { energia: 60 }, want: { energia: 40 } },
     porto: { make: { equipaggi: .25 }, use: { cibo: .3, carburante: .35, energia: .15 }, cap: { equipaggi: 60, cibo: 120, carburante: 160, energia: 80 }, want: { cibo: 80, carburante: 110, energia: 50 } },
     porta: { make: { equipaggi: .15, cibo: .25, carburante: .3, energia: .15, minerale: .3 }, use: { dati: .3, parti: .08 }, cap: { equipaggi: 40, cibo: 120, carburante: 140, energia: 80, minerale: 120, dati: 120, parti: 40 }, want: { dati: 80, parti: 25 }, keep: { cibo: 20, carburante: 40, energia: 20, minerale: 20 } }
 };
@@ -50,7 +53,7 @@ export const FLEET = {
     sonda: { carries: ['dati'], capacity: 15, speed: 2.4, dock: 4, idle: 'survey' },
     gru: { carries: ['parti', 'minerale', 'energia'], capacity: 30, speed: 1.2, dock: 12, idle: 'shipyard' }
 };
-const ROMAN = ['', ' II', ' III', ' IV'];
+const ROMAN = ['', ' II', ' III', ' IV', ' V', ' VI'];
 
 /** Economy and traffic of one system. `stations` and `ships` are catalogue entries (src/craft/catalog.js);
  * `bodies` the slots of the planets ships may visit; `distance(a, b)` the current distance between two
@@ -60,15 +63,20 @@ export class Economy {
         this.rng = seededRandom(seed >>> 0); this.time = time; this.distance = distance; this.bodies = bodies;
         const R = this.rng;
         this.stations = stations.map((entry, i) => {
-            const rec = RECIPES[entry.type] || {}, crew = !rec.make?.equipaggi;
+            const rec = RECIPES[entry.works || entry.type] || {}, crew = !rec.make?.equipaggi;
             const cap = { ...rec.cap, ...(crew ? { equipaggi: CREW.cap } : {}) }, want = { ...rec.want, ...(crew ? { equipaggi: CREW.want } : {}) }, use = { ...rec.use, ...(crew ? { equipaggi: CREW.use } : {}) };
             const stock = Object.fromEntries(Object.keys(cap).map(r => [r, Math.round(cap[r] * (.15 + .6 * R()))]));
             return { i, entry, make: rec.make || {}, use, inputs: !!rec.inputs, cap, want, keep: { ...want, ...rec.keep }, stock, reserved: {}, incoming: {}, producing: 0, missing: [] };
         });
-        // Each catalogue ship sails with zero to two sister ships of the same model, as chance has it.
-        this.ships = [];
+        // With more stations than the six of the catalogue the gate exports more data and parts and imports
+        // less, because the system makes more of its own goods.
+        const busy = Math.max(1, this.stations.length / 6), gate = this.stations.find(s => s.entry.type === 'porta');
+        if (gate) { gate.use = Object.fromEntries(Object.entries(gate.use).map(([r, v]) => [r, v * busy])); gate.make = Object.fromEntries(Object.entries(gate.make).map(([r, v]) => [r, v / busy])); }
+        // Each catalogue ship sails with up to two sister ships of the same model, as chance has it; beyond the
+        // six stations of the catalogue every five stations add one or two more sisters to each model.
+        this.ships = []; const more = Math.max(0, (this.stations.length - 6) / 5);
         for (const entry of ships) {
-            const copies = 1 + Math.floor(R() * (['cargo', 'cisterna', 'navetta', 'passeggeri'].includes(entry.type) ? 3 : 2));
+            const copies = 1 + Math.floor(R() * (['cargo', 'cisterna', 'navetta', 'passeggeri'].includes(entry.type) ? 3 : 2)) + (more ? Math.round(more * (.5 + .5 * R())) : 0);
             for (let c = 0; c < copies; c++) {
                 const start = { station: Math.floor(R() * this.stations.length) };
                 this.ships.push({ id: this.ships.length, entry, name: entry.name + ROMAN[c], cls: FLEET[entry.type], phase: 'dock', at: start, task: 'sosta', t0: time, t1: time + 1 + R() * 12, cargo: null, job: null });
@@ -183,10 +191,13 @@ const list = items => items.length < 2 ? items.join('') : items.slice(0, -1).joi
 const departure = left => left > 0 ? `partenza fra ${left} s` : 'in partenza';
 /** Two short lines on what a station is doing now. */
 export function stationReport(s) {
-    const made = Object.keys(s.make).filter(r => r !== 'equipaggi' || s.entry.type === 'porto'), name = r => RESOURCES[r].name, unit = r => RESOURCES[r].unit;
+    const kind = s.entry.works || s.entry.type, made = Object.keys(s.make).filter(r => r !== 'equipaggi' || kind === 'porto' || kind === 'habitat'), name = r => RESOURCES[r].name, unit = r => RESOURCES[r].unit;
     let first;
-    if (s.entry.type === 'deposito') first = `Conserva carburante: ${fmt(s.stock.carburante)} su ${fmt(s.cap.carburante)} t`;
-    else if (s.entry.type === 'porto') first = `${fmt(s.stock.equipaggi)} persone in attesa di imbarco`;
+    if (kind === 'deposito') first = `Conserva carburante: ${fmt(s.stock.carburante)} su ${fmt(s.cap.carburante)} t`;
+    else if (kind === 'porto') first = `${fmt(s.stock.equipaggi)} persone in attesa di imbarco`;
+    else if (kind === 'habitat') first = `${fmt(s.stock.equipaggi)} persone pronte a imbarcarsi`;
+    else if (kind === 'magazzino') first = `Smista merci: ${fmt(Object.values(s.stock).reduce((a, b) => a + b, 0) - (s.stock.equipaggi || 0))} unità in deposito`;
+    else if (kind === 'ripetitore') first = (s.stock.energia || 0) > 1 ? 'Ritrasmette i segnali del sistema' : 'Ferma: manca energia';
     else if (s.entry.type === 'porta') first = 'Importa merci, esporta dati e parti';
     else if (!made.length) first = 'Nessuna produzione';
     else if (s.missing.length) first = `Ferma: ${s.missing.length > 1 ? 'mancano' : 'manca'} ${list(s.missing.map(name))}`;

@@ -6,7 +6,8 @@ import { AREAS, seededRandom } from '../scene/layout.js';
 import { dice } from './kit.js';
 import { style, DISCIPLINE_STYLES } from './styles.js';
 import { STATIONS } from './stations.js';
-import { GRAMMAR_STATIONS } from './grammar.js';
+import { GRAMMAR_STATIONS, TYPE_BY_KEY, ROLES } from './grammar.js';
+import { FAMILY_KEYS } from './families.js';
 import { SHIPS } from './ships.js';
 
 const CODE = { Y: 'poliedrica', Dp: 'deposito', C: 'cantiere', D: 'radiotelescopio', M: 'miniera', E: 'centrale', T: 'telescopio', L: 'laboratorio', S: 'serra', R: 'raffineria' };
@@ -71,3 +72,46 @@ export function recipeDistance(a, b) {
 }
 /** Entries of one system: six stations and four ships. */
 export const systemCraft = system => CATALOG.filter(e => e.system === system);
+
+/** Number of stations of a system from 1.43.0: the six of the catalogue and 6 to 14 types of the grammar
+ * (src/craft/grammar.js), from 12 to 20 in all, each value appearing in three or four systems. */
+export const stationCount = system => 12 + (system * 7 + 3) % 9;
+/** Roles of the added stations by discipline, most frequent first; past ten the list starts again. */
+const ROLE_ORDER = [
+    ['osservazione', 'ricerca', 'comunicazioni', 'energia', 'abitazione', 'deposito', 'cantiere', 'fonderia', 'chimica', 'agricoltura'],
+    ['energia', 'ricerca', 'osservazione', 'comunicazioni', 'fonderia', 'abitazione', 'deposito', 'cantiere', 'chimica', 'agricoltura'],
+    ['chimica', 'fonderia', 'deposito', 'energia', 'ricerca', 'cantiere', 'abitazione', 'comunicazioni', 'osservazione', 'agricoltura'],
+    ['agricoltura', 'abitazione', 'ricerca', 'chimica', 'osservazione', 'deposito', 'energia', 'comunicazioni', 'cantiere', 'fonderia']
+];
+/** Roles built in the civil style first; the others take the style of the discipline first. */
+const CIVIL_ROLES = new Set(['abitazione', 'deposito', 'comunicazioni', 'cantiere']);
+/** The stations added in 1.43.0, in system order after the ten entries of each system (slots from 10 on).
+ * In a system no two have the same type and a family repeats only when all twelve are taken; in the whole
+ * catalogue no type appears twice in the same style, so every added model has its own type and style. */
+export const EXTRAS = (() => {
+    const out = [], pairs = new Set(), taken = new Set(CATALOG.map(e => e.name));
+    const pools = Object.fromEntries(Object.entries(NAMES).map(([k, v], i) => [k, shuffled(v, 0xBEEF + i)])), next = Object.fromEntries(Object.keys(NAMES).map(k => [k, 0]));
+    const name = (typeName, styleKey) => {
+        const pool = pools[styleKey];
+        for (let tries = 0; tries < pool.length * 2; tries++) { const n = typeName + ' ' + pool[next[styleKey]++ % pool.length]; if (!taken.has(n)) { taken.add(n); return n; } }
+        throw new Error('nomi esauriti: ' + styleKey);
+    };
+    AREAS.forEach((area, system) => {
+        const disc = DISCIPLINE_STYLES[area.sector], order = ROLE_ORDER[area.sector], families = shuffled(FAMILY_KEYS, 0xFA11 + system), here = new Set(), uses = {};
+        for (let k = 0; k < stationCount(system) - 6; k++) {
+            const role = order[k % order.length], styles = CIVIL_ROLES.has(role) ? ['civile', disc] : [disc, 'civile'];
+            let pick = null;
+            for (let most = 1; !pick && most <= 3; most++) for (const family of families) {
+                const type = role + '-' + family, styleKey = styles.find(s => !pairs.has(type + '/' + s));
+                if ((uses[family] || 0) < most && !here.has(type) && styleKey) { pick = { type, family, styleKey }; break; }
+            }
+            if (!pick) throw new Error('tipi esauriti nel sistema ' + system);
+            here.add(pick.type); pairs.add(pick.type + '/' + pick.styleKey); uses[pick.family] = (uses[pick.family] || 0) + 1;
+            const t = TYPE_BY_KEY[pick.type], slot = 10 + k;
+            out.push(Object.freeze({ id: `s${String(system).padStart(2, '0')}-${slot}`, system, slot, nth: out.filter(e => e.type === pick.type).length, kind: 'stazione', type: pick.type, typeName: t.name, style: pick.styleKey, sector: area.sector, name: name(t.name, pick.styleKey), size: 1, about: t.about, seed: seedFor(system, slot), role: t.role, family: t.family, works: ROLES[t.role].recipe }));
+        }
+    });
+    return Object.freeze(out);
+})();
+/** Stations added to one system in 1.43.0. */
+export const systemExtras = system => EXTRAS.filter(e => e.system === system);

@@ -1,6 +1,6 @@
 # Stazioni e navi dei sistemi
 
-I trenta sistemi stellari ospitano 300 modelli tridimensionali: dieci per sistema, cioè sei stazioni e quattro navi. Il lavoro è arrivato in tre aggiornamenti: la 1.38.0 ha portato il generatore dei modelli e il loro catalogo, la 1.39.0 ha collocato le stazioni nei sistemi, la 1.40.0 dà vita ai sistemi, con stazioni che producono e navi che trasportano le merci. La 1.41.0 ha rinnovato il motore di disegno e la 1.42.0 aggiunge una grammatica dei tipi con 120 tipi di stazione, che entreranno nei sistemi con la 1.43.0.
+I trenta sistemi stellari ospitano 300 modelli tridimensionali: dieci per sistema, cioè sei stazioni e quattro navi. Il lavoro è arrivato in tre aggiornamenti: la 1.38.0 ha portato il generatore dei modelli e il loro catalogo, la 1.39.0 ha collocato le stazioni nei sistemi, la 1.40.0 dà vita ai sistemi, con stazioni che producono e navi che trasportano le merci. La 1.41.0 ha rinnovato il motore di disegno, la 1.42.0 ha aggiunto una grammatica dei tipi con 120 tipi di stazione e la 1.43.0 porta questi tipi nei sistemi: ogni sistema ha ora da 12 a 20 stazioni.
 
 ## Come sono costruiti
 
@@ -221,6 +221,29 @@ Su 600 modelli (ogni tipo nei cinque stili) un tipo conta da 3248 a 28 752 trian
 
 Le sagome si confrontano in `tests/grammar.test.mjs`: ogni modello, nello stile civile, si proietta dall'alto, di fronte e di lato su una griglia di 32 × 32 celle scalata sul suo raggio, e due tipi si confrontano con la sovrapposizione media delle tre sagome (area dell'intersezione divisa per l'area dell'unione). Fra due tipi della stessa famiglia la sovrapposizione ha mediana 0,59 e massimo 0,81 (osservatorio e magazzino a torre); fra famiglie diverse ha mediana 0,36 e massimo 0,69. Il test chiede meno di 0,88 per ogni coppia, meno di 0,8 fra famiglie diverse e mediane sotto 0,7 e 0,45.
 
+## Le stazioni aggiunte
+
+Dalla 1.43.0 ogni sistema ha, oltre alle sei stazioni del catalogo, da 6 a 14 stazioni della grammatica dei tipi (`EXTRAS` in `catalog.js`, 300 in tutto): i sistemi hanno da 12 a 20 stazioni, e ognuno di questi nove numeri ricorre in tre o quattro sistemi. I ruoli seguono la disciplina del sistema, con un ordine di frequenza proprio di ognuna: osservatori, laboratori e ripetitori per la matematica, centrali, laboratori e osservatori per la fisica, impianti chimici, fonderie e magazzini per la chimica, fattorie, habitat e laboratori per la biologia; oltre i dieci ruoli l'elenco ricomincia. Habitat, magazzini, ripetitori e arsenali prendono lo stile civile, gli altri ruoli quello della disciplina; quando quella coppia di tipo e stile è già usata altrove si passa all'altro stile o a un'altra famiglia. In un sistema nessun tipo si ripete e una famiglia si ripete solo dove le stazioni aggiunte sono più di dodici; in tutto il catalogo nessun tipo compare due volte nello stesso stile. Le 300 stazioni usano 115 dei 120 tipi; il nome segue la regola dei tipi classici: «Laboratorio a disco Wöhler», «Centrale su asteroide Vega».
+
+Le sei stazioni classiche restano dove erano. Le aggiunte cercano posto in quattro modi, nell'ordine:
+
+1. un pianeta adatto al ruolo, con al massimo tre stazioni attorno, solo se la nuova orbita sta dentro lo spazio libero fra il pianeta e le orbite vicine, comprese le stazioni che le occupano, e almeno 0,4 unità oltre la stazione precedente dello stesso pianeta;
+2. una corsia attorno alla stella, fra due orbite consecutive (oppure dentro la prima o fuori dall'ultima), lontana da pianeti e stazioni: le stazioni di una corsia hanno lo stesso raggio e la stessa velocità, quindi non si incontrano mai, e la corsia scelta è quella più vicina al pianeta preferito dal ruolo;
+3. un anello esterno, fra la fascia di asteroidi (o il bordo del sistema) e la porta, con le stazioni distribuite lontano dalla porta;
+4. le stazioni su asteroide dei dieci sistemi con la fascia ruotano con la fascia, come la miniera.
+
+I ripetitori non orbitano mai attorno ai pianeti. Sulle 300 stazioni aggiunte 196 stanno nelle corsie, 87 nell'anello esterno, 9 attorno a un pianeta e 8 nella fascia: i pianeti disegnati sono grandi rispetto alla distanza fra le orbite, quindi raramente lasciano spazio. Campionando le posizioni ogni 7,3 s per 600 s, una stazione aggiunta resta ad almeno 1,56 volte la somma dei raggi da ogni altra stazione e ad almeno 1,23 volte la somma dei raggi da ogni pianeta che non la ospita.
+
+L'economia usa le ricette dei ruoli: fonderie e arsenali come il cantiere, impianti chimici come la raffineria, centrali, laboratori, osservatori e fattorie come le stazioni classiche omonime. Tre ricette sono nuove:
+
+| Ricetta | Produce | Consuma | Chiede |
+|---|---|---|---|
+| Habitat | equipaggi, 0,2 persone/s | cibo 0,3 t/s, energia 0,15 celle/s | cibo ed energia |
+| Magazzino | | | minerale, cibo, energia, carburante e parti fino a circa metà della capacità; li cede oltre una scorta minima |
+| Ripetitore | | energia, 0,12 celle/s | energia |
+
+Con più stazioni del catalogo la porta esporta più dati e parti e importa meno, in proporzione al numero di stazioni diviso per sei. Ogni modello di nave viaggia con le sue gemelle come prima, più altre da una a tre secondo quante stazioni il sistema ha oltre le sei (il nome continua con IV, V e VI). Una simulazione di 1200 s per ognuno dei 30 sistemi con tre semi muove tutte le 1149 navi coinvolte, contro 581 con le sole stazioni classiche; le consegne passano da 12 833 a 32 734. Le stazioni classiche che producono qualcosa lavorano il 55,7 % del tempo invece del 46,0 %, perché trovano più acquirenti; le aggiunte il 36,3 %, e per il resto hanno il magazzino pieno o aspettano un ingrediente. La domanda, più del numero delle navi, limita oggi la produzione: l'economia con più merci e catene di lavorazione arriverà con la 1.45.0.
+
 ## Controlli
 
 `tests/craft.test.mjs` verifica che i modelli siano 300, dieci per sistema con sei stazioni e quattro navi, che le miniere stiano solo nei sistemi con la fascia, che nomi e identificatori siano unici e scritti con l'atlante dei caratteri, che gli stili seguano la regola descritta sopra, che la generazione sia deterministica, che le mesh contengano solo valori finiti e indici validi entro i limiti di triangoli, e che due modelli dello stesso tipo e stile differiscano in almeno due scelte.
@@ -228,6 +251,8 @@ Le sagome si confrontano in `tests/grammar.test.mjs`: ogni modello, nello stile 
 `tests/stations.test.mjs` verifica che ogni sistema abbia sei stazioni collocate in modo deterministico, la porta oltre la fascia, la miniera dentro la fascia, il porto attorno a un pianeta di studio e il cantiere accanto al porto, la raffineria attorno a un gigante quando il sistema ne ha uno; che le stazioni restino alla distanza prevista dall'ospite, fuori dal pianeta disegnato; e che la scena costruisca prima i modelli semplificati, uno per fotogramma quando manca il worker, poi il modello completo di una stazione vicina, disegni le navi e i bagliori a istanze, renda selezionabili stazioni e navi e liberi mesh e istanze al cambio di sistema.
 
 `tests/life.test.mjs` verifica che ogni stazione e ogni nave abbiano regole valide; che in 1800 s di simulazione le scorte restino nei limiti, le prenotazioni non scendano sotto zero, ogni nave compia almeno tre viaggi e i carichi vengano consegnati; che lo stesso seme ripeta le stesse rotte e semi diversi ne diano di diverse; che nessuna nave passi vicino alla stella; e che i resoconti mostrati sullo schermo siano brevi, nello stile del sito e scritti con l'atlante dei caratteri.
+
+`tests/added.test.mjs` verifica che le stazioni aggiunte siano 300, da 12 a 20 per sistema, con identificatori e nomi unici, tipi mai ripetuti in un sistema, coppie di tipo e stile mai ripetute, stile civile o della disciplina e ricette esistenti; che le sei stazioni classiche restino dove erano; che le aggiunte, campionate per 900 s, restino ad almeno 1,2 volte la somma dei raggi da ogni altra stazione e ad almeno 1,1 volte da ogni pianeta che non le ospita; e che in tre sistemi tutte le navi viaggino, le stazioni aggiunte ricevano merci e i resoconti restino brevi e scritti con l'atlante.
 
 `tests/grammar.test.mjs` verifica che i tipi siano 120, uno per ruolo e famiglia, con nomi unici concordati e scritti con l'atlante dei caratteri; che i moduli siano almeno 60 e restino entro la presa in ogni stile; che ogni tipo, in ognuno dei cinque stili, abbia mesh valide, al massimo 30 000 triangoli, almeno una luce e un raggio fra 4 e 15; che lo stesso seme ripeta lo stesso modello e che il livello semplificato resti sotto il 40 % dei triangoli; e che le sagome dei tipi siano diverse, con i limiti descritti in «La grammatica dei tipi».
 
@@ -240,4 +265,4 @@ Le sagome si confrontano in `tests/grammar.test.mjs`: ogni modello, nello stile 
 3. Vita dei sistemi: produzione delle stazioni e traffico delle navi (1.40.0).
 4. Motore: livelli di dettaglio, costruzione in un worker, navi e bagliori a istanze, pagina diagnostica (1.41.0).
 5. Grammatica dei tipi: 60 moduli, 12 famiglie, 10 ruoli, 120 tipi di stazione (1.42.0).
-6. I nuovi tipi nei sistemi, da 12 a 20 stazioni ciascuno (1.43.0, da fare).
+6. I nuovi tipi nei sistemi, da 12 a 20 stazioni ciascuno, con nuove ricette e più navi (1.43.0).

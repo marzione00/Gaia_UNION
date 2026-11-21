@@ -3,10 +3,10 @@
  * never waits behind a long queue. Without workers (Node tests, a browser that refuses module workers, or
  * after a worker error) one job is built on the main thread at each call of `pump()`, that is once per frame.
  * Jobs for the low level of detail go before the full models. */
-import { CATALOG, build } from './catalog.js';
+import { CATALOG, EXTRAS, build } from './catalog.js';
 import { pack } from './kit.js';
 
-const BY_ID = new Map(CATALOG.map(e => [e.id, e]));
+const BY_ID = new Map([...CATALOG, ...EXTRAS].map(e => [e.id, e]));
 const clock = () => globalThis.performance?.now() ?? Date.now();
 
 /** Model of one job ({id, detail}), packed for the GPU. */

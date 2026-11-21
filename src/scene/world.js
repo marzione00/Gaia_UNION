@@ -10,7 +10,7 @@ import { DISCIPLINE } from '../ui/toolkit.js';
 import { pilotWorld } from '../worlds/pilots.js';
 import { planetSurface, surfaceScatter, systemStarLight, planetGenomes } from '../worlds/surface.js';
 import { orbitMap } from '../worlds/orbit-texture.js';
-import { systemCraft, LOW_DETAIL } from '../craft/catalog.js';
+import { systemCraft, systemExtras, LOW_DETAIL } from '../craft/catalog.js';
 import { CraftFactory } from '../craft/factory.js';
 import { chooseLevels, LOW_SHARE } from '../craft/detail.js';
 import { placeStations, stationPosition, stationYaw } from '../craft/placement.js';
@@ -335,7 +335,8 @@ export class World {
         const R=this.R,C=this.craft,F=this.factory??=new CraftFactory();
         if(C.system!==id){
             this.releaseCraft();F.clear();
-            const entries=systemCraft(id);C.system=id;
+            // The six stations and four ships of the catalogue, then the stations of the grammar added in 1.43.0.
+            const entries=[...systemCraft(id),...systemExtras(id)];C.system=id;
             C.list=placeStations(system,entries,displayRadius).map((placement,k)=>({entry:placement.entry,placement,prefix:'craft-'+k,levels:[null,null]}));
             C.models=entries.filter(e=>e.kind==='nave').map((entry,j)=>({entry,prefix:'ship-'+j,levels:[null,null]}));
             C.sites={time:null,hosts:new Map()};
