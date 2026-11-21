@@ -9,6 +9,8 @@ import { STATIONS } from './stations.js';
 import { GRAMMAR_STATIONS, TYPE_BY_KEY, ROLES } from './grammar.js';
 import { FAMILY_KEYS } from './families.js';
 import { SHIPS } from './ships.js';
+import { GRAMMAR_SHIPS, SHIP_TYPE_BY_KEY, SHIP_ROLES, HULL_KEYS, shipTrade } from './shipclasses.js';
+import { FLEET } from './economy.js';
 
 const CODE = { Y: 'poliedrica', Dp: 'deposito', C: 'cantiere', D: 'radiotelescopio', M: 'miniera', E: 'centrale', T: 'telescopio', L: 'laboratorio', S: 'serra', R: 'raffineria' };
 /** Four thematic stations per system, in system order. Mines only in the systems with an asteroid belt. */
@@ -59,7 +61,7 @@ export const CATALOG = (() => {
  * `detail` below 1 builds the low level of detail of the same model (src/craft/kit.js). */
 export const LOW_DETAIL = .35;
 export function build(entry, seed = entry.seed, { detail = 1 } = {}) {
-    const spec = entry.kind === 'stazione' ? STATIONS[entry.type] || GRAMMAR_STATIONS[entry.type] : SHIPS[entry.type], d = dice(seed, entry.nth);
+    const spec = entry.kind === 'stazione' ? STATIONS[entry.type] || GRAMMAR_STATIONS[entry.type] : SHIPS[entry.type] || GRAMMAR_SHIPS[entry.type], d = dice(seed, entry.nth);
     const model = spec.build(d, { ...style(entry.style, entry.type === 'porta' ? FIELD[entry.sector] : null), detail });
     model.recipe = d.notes.slice();
     return model;
@@ -115,3 +117,46 @@ export const EXTRAS = (() => {
 })();
 /** Stations added to one system in 1.43.0. */
 export const systemExtras = system => EXTRAS.filter(e => e.system === system);
+
+/** Number of ship models added to a system in 1.44.0: from 4 to 8, three for every five added stations. */
+export const shipCount = system => Math.round((stationCount(system) - 6) * .6);
+/** Roles of the added ships by discipline, most frequent first. */
+const SHIP_ROLE_ORDER = [
+    ['corriere', 'scientifica', 'navetta', 'cargo', 'passeggeri', 'soccorso', 'costruzione', 'cisterna', 'minerario', 'rimorchiatore'],
+    ['scientifica', 'corriere', 'cargo', 'costruzione', 'navetta', 'soccorso', 'cisterna', 'passeggeri', 'rimorchiatore', 'minerario'],
+    ['cisterna', 'minerario', 'cargo', 'rimorchiatore', 'costruzione', 'soccorso', 'navetta', 'corriere', 'scientifica', 'passeggeri'],
+    ['passeggeri', 'navetta', 'cargo', 'scientifica', 'soccorso', 'cisterna', 'corriere', 'costruzione', 'minerario', 'rimorchiatore']
+];
+/** The ship models added in 1.44.0, in system order, with slots from 30 on. A slot takes the first role of
+ * the discipline, among the first three still to place, that has classes not yet in the catalogue (or any
+ * such role), so all 120 classes appear; in a system the hull families differ as long as possible, no class
+ * repeats and no class appears twice in the same style in the whole catalogue. Each entry
+ * carries its trade (goods, hold, speed) for src/craft/economy.js and its drawn radius. */
+export const SHIP_EXTRAS = (() => {
+    const out = [], pairs = new Set(), seen = new Set(), taken = new Set([...CATALOG, ...EXTRAS].map(e => e.name));
+    const pools = Object.fromEntries(Object.entries(NAMES).map(([k, v], i) => [k, shuffled(v, 0x5A11 + i)])), next = Object.fromEntries(Object.keys(NAMES).map(k => [k, 0]));
+    const name = (typeName, styleKey) => {
+        const pool = pools[styleKey];
+        for (let tries = 0; tries < pool.length * 2; tries++) { const n = typeName + ' ' + pool[next[styleKey]++ % pool.length]; if (!taken.has(n)) { taken.add(n); return n; } }
+        throw new Error('nomi esauriti: ' + styleKey);
+    };
+    AREAS.forEach((area, system) => {
+        const disc = DISCIPLINE_STYLES[area.sector], order = [...SHIP_ROLE_ORDER[area.sector]], families = shuffled(HULL_KEYS, 0x5F1E + system), here = new Set(), uses = {};
+        const missing = r => families.some(f => !seen.has(r + '-' + f));
+        for (let k = 0; k < shipCount(system); k++) {
+            const role = order.slice(0, 3).find(missing) || order.find(missing) || order[0];
+            order.splice(order.indexOf(role), 1);
+            // Families not used yet in this system come first, then the classes still missing from the catalogue.
+            const rank = f => (uses[f] || 0) * 2 + (seen.has(role + '-' + f) ? 1 : 0), pool = families.filter(f => !here.has(role + '-' + f)).sort((a, b) => rank(a) - rank(b));
+            let pick = null;
+            for (const family of pool) { const type = role + '-' + family, styleKey = [k % 2 ? 'civile' : disc, k % 2 ? disc : 'civile'].find(s => !pairs.has(type + '/' + s)); if (styleKey) { pick = { type, family, styleKey }; break; } }
+            if (!pick) throw new Error('classi esaurite nel sistema ' + system);
+            here.add(pick.type); seen.add(pick.type); pairs.add(pick.type + '/' + pick.styleKey); uses[pick.family] = (uses[pick.family] || 0) + 1;
+            const t = SHIP_TYPE_BY_KEY[pick.type], slot = 30 + k, role0 = SHIP_ROLES[t.role];
+            out.push(Object.freeze({ id: `s${String(system).padStart(2, '0')}-${slot}`, system, slot, nth: out.filter(e => e.type === pick.type).length, kind: 'nave', type: pick.type, typeName: t.name, style: pick.styleKey, sector: area.sector, name: name(t.name, pick.styleKey), size: role0.length, about: t.about, seed: seedFor(system, slot), role: t.role, family: t.family, drawn: role0.drawn, fleet: Object.freeze(shipTrade(t, FLEET)) }));
+        }
+    });
+    return Object.freeze(out);
+})();
+/** Ship models added to one system in 1.44.0. */
+export const systemShipExtras = system => SHIP_EXTRAS.filter(e => e.system === system);

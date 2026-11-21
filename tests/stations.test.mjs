@@ -3,7 +3,7 @@ import { AREAS, systemArchitecture, bodyAtTime } from '../src/scene/systems.js';
 import { asteroidBelt } from '../src/scene/minor-bodies.js';
 import { sphereMesh, perspective, lookAt, mul } from '../src/renderer.js';
 import { World, displayRadius } from '../src/scene/world.js';
-import { systemCraft, systemExtras } from '../src/craft/catalog.js';
+import { systemCraft, systemExtras, systemShipExtras } from '../src/craft/catalog.js';
 import { placeStations, stationPosition, STATION_SIZE } from '../src/craft/placement.js';
 // Stations in the star systems: each station has a host suited to its role and stays clear of it.
 const rock=sphereMesh(6,4);
@@ -45,7 +45,8 @@ test('scena: modelli semplificati uno per fotogramma, completi da vicino, navi i
  // Without workers (Node) the factory builds one model per frame: the low level of the stations, then of the ships.
  w.projections=[];w.drawStations(s,13,first);const stations=w.craft.list.length;assert.equal(stations,6+systemExtras(13).length);assert.equal(w.craft.list.filter(i=>i.levels[1]).length,1);
  for(let frame=2;frame<=stations;frame++){w.projections=[];w.drawStations(s,13,first);assert.equal(w.craft.list.filter(i=>i.levels[1]).length,frame);}
- for(let frame=1;frame<=4;frame++){w.projections=[];w.drawStations(s,13,first);assert.equal(w.craft.models.filter(i=>i.levels[1]).length,frame);}
+ assert.equal(w.craft.models.length,4+systemShipExtras(13).length);
+ for(let frame=1;frame<=w.craft.models.length;frame++){w.projections=[];w.drawStations(s,13,first);assert.equal(w.craft.models.filter(i=>i.levels[1]).length,frame);}
  assert.ok(w.craft.list.every(i=>!i.levels[0]),'nessun modello completo da lontano');
  assert.equal(R.shadowKey,'surface','la mappa delle ombre della superficie va ripristinata');
  assert.ok(made.size>=10);assert.equal(w.projections.filter(p=>p.type==='craft'&&p.index<100).length,stations);assert.ok(w.projections.filter(p=>p.type==='craft'&&p.index>=100).length>=4);

@@ -76,10 +76,11 @@ export class Economy {
         // six stations of the catalogue every five stations add one or two more sisters to each model.
         this.ships = []; const more = Math.max(0, (this.stations.length - 6) / 5);
         for (const entry of ships) {
-            const copies = 1 + Math.floor(R() * (['cargo', 'cisterna', 'navetta', 'passeggeri'].includes(entry.type) ? 3 : 2)) + (more ? Math.round(more * (.5 + .5 * R())) : 0);
+            // The ship classes of the grammar (1.44.0) sail alone or with one sister.
+            const copies = entry.fleet ? 1 + (R() < .35 ? 1 : 0) : 1 + Math.floor(R() * (['cargo', 'cisterna', 'navetta', 'passeggeri'].includes(entry.type) ? 3 : 2)) + (more ? Math.round(more * (.5 + .5 * R())) : 0);
             for (let c = 0; c < copies; c++) {
                 const start = { station: Math.floor(R() * this.stations.length) };
-                this.ships.push({ id: this.ships.length, entry, name: entry.name + ROMAN[c], cls: FLEET[entry.type], phase: 'dock', at: start, task: 'sosta', t0: time, t1: time + 1 + R() * 12, cargo: null, job: null });
+                this.ships.push({ id: this.ships.length, entry, name: entry.name + ROMAN[c], cls: entry.fleet || FLEET[entry.type], phase: 'dock', at: start, task: 'sosta', t0: time, t1: time + 1 + R() * 12, cargo: null, job: null });
             }
         }
     }

@@ -376,3 +376,5 @@ export const SHIPS = {
     sonda: { name: 'Sonda', build: sonda, size: 'circa 15 m', about: 'Sonda senza equipaggio che raccoglie dati sui pianeti.' },
     gru: { name: 'Nave gru', build: gru, size: 'circa 70 m', about: 'Lavora al cantiere e sposta parti di nave fra cantiere e porto.' }
 };
+/** Hull helpers shared with the ship classes of the grammar (src/craft/shipclasses.js). */
+export { hull, widthAt, band, sideWindows, canopy, nozzle, engines, wingPair, fins, styleDetail, WINGS };

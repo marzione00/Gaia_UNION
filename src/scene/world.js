@@ -10,7 +10,7 @@ import { DISCIPLINE } from '../ui/toolkit.js';
 import { pilotWorld } from '../worlds/pilots.js';
 import { planetSurface, surfaceScatter, systemStarLight, planetGenomes } from '../worlds/surface.js';
 import { orbitMap } from '../worlds/orbit-texture.js';
-import { systemCraft, systemExtras, LOW_DETAIL } from '../craft/catalog.js';
+import { systemCraft, systemExtras, systemShipExtras, LOW_DETAIL } from '../craft/catalog.js';
 import { CraftFactory } from '../craft/factory.js';
 import { chooseLevels, LOW_SHARE } from '../craft/detail.js';
 import { placeStations, stationPosition, stationYaw } from '../craft/placement.js';
@@ -335,8 +335,8 @@ export class World {
         const R=this.R,C=this.craft,F=this.factory??=new CraftFactory();
         if(C.system!==id){
             this.releaseCraft();F.clear();
-            // The six stations and four ships of the catalogue, then the stations of the grammar added in 1.43.0.
-            const entries=[...systemCraft(id),...systemExtras(id)];C.system=id;
+            // The six stations and four ships of the catalogue, the stations of the grammar (1.43.0) and its ships (1.44.0).
+            const entries=[...systemCraft(id),...systemExtras(id),...systemShipExtras(id)];C.system=id;
             C.list=placeStations(system,entries,displayRadius).map((placement,k)=>({entry:placement.entry,placement,prefix:'craft-'+k,levels:[null,null]}));
             C.models=entries.filter(e=>e.kind==='nave').map((entry,j)=>({entry,prefix:'ship-'+j,levels:[null,null]}));
             C.sites={time:null,hosts:new Map()};
@@ -362,7 +362,7 @@ export class World {
         const seen=[];
         C.list.forEach((item,k)=>{const pos=site({station:k}).position,xy=project(pos,this.vp,R.w,R.h);if(xy[2]<=0)return;const pixel=xy[2]*k2/R.h;seen.push({item,k,pos,xy,pixel,size:item.placement.size,apparent:item.placement.size/pixel,min:1.2});});
         life.ships.forEach(ship=>{
-            const slot=C.models.findIndex(item=>item.entry===ship.entry),item=C.models[slot],size=SHIP_SIZE[ship.entry.type]||.07;
+            const slot=C.models.findIndex(item=>item.entry===ship.entry),item=C.models[slot],size=SHIP_SIZE[ship.entry.type]||ship.entry.drawn||.07;
             const pose=shipPose(ship,s.time,site,avoid),xy=project(pose.position,this.vp,R.w,R.h);if(xy[2]<=0)return;
             const pixel=xy[2]*k2/R.h;seen.push({item,ship,slot,pose,xy,pixel,size,apparent:size/pixel,min:1});
         });
