@@ -1,3 +1,12 @@
+# 1.50.0: Lo Sciame che impara e il Rapporto
+
+- Lo Sciame impara: tiene un peso per ogni braccio della galassia e sceglie dove colpire in proporzione ai pesi; una conversione rafforza il braccio, un'incursione respinta lo indebolisce, e la cronaca annuncia il braccio preferito.
+- La debolezza dello Sciame è la sua conoscenza: la difesa recupera campioni dai droni abbattuti, i laboratori ne ricavano una chiave e i corrieri la portano ai quattro fronti. La chiave libera parte di ogni ondata prima della battaglia; lo Sciame cambia protocollo a ogni uso, e dopo otto usi la chiave smette di funzionare.
+- I droni liberati restano nel sistema, fino a 40 per sistema: riparano le stazioni senza attendere le parti e lavorano accanto alle miniere. Nella scena si staccano dall'ondata con un lampo verde, raggiungono il porto e volano fra le stazioni; la cronaca del sistema ne indica il numero.
+- Il riquadro del fronte sulla mappa della galassia apre il Rapporto sullo Sciame della Frontiera: per ogni braccio la probabilità della prossima incursione, l'ondata attesa, i droni che la chiave libererebbe, la probabilità di respingerla e la chiave; poi i pesi imparati, i campioni, le chiavi, le ultime incursioni con previsione ed esito e due punteggi delle previsioni, fra cui quello di Brier.
+- Nel modello della galassia, su otto semi e 60 minuti: 123 incursioni, 18 chiavi, la prima fra 1150 e 1480 s, 407 droni liberati; punteggio di Brier delle previsioni di esito 0,126.
+- `tests/rapporto.test.mjs` controlla apprendimento, chiavi, droni liberati, previsioni, Rapporto, economia, battaglia dal vivo, scena e scheda. Descrizione in `docs/STAZIONI_NAVI.md`.
+
 # 1.49.0: Lo Sciame della Frontiera
 
 - Un avversario per la galassia: lo Sciame della Frontiera, un'intelligenza sintetica venuta dal margine della galassia che trasforma la materia in substrato di calcolo, con sonde autoreplicanti alla von Neumann e una fame spiegata dal limite di Landauer.

@@ -37,13 +37,15 @@ export const displayRadius = body => body.radius * (body.explorable ? 1.55 : 1.1
 const SESSION = (globalThis.crypto?.getRandomValues ? globalThis.crypto.getRandomValues(new Uint32Array(1))[0] : Math.floor(Math.random() * 2 ** 32)) >>> 0;
 /** Drone of the Sciame della Frontiera (1.49.0): a dark truncated octahedron with raised faces, a glowing
  * core and four spines, about one unit across, pointing towards +z. */
-function droneMesh(){
-    const st={hull:[.1,.12,.16,1],dark:[.04,.05,.07,1],steel:[.28,.32,.4,1],trim:[.4,.9,1,1],accent:[.45,.95,1,1],glass:[.05,.1,.14,1],window:[.5,.95,1,1],panel:[.04,.06,.1,1],seg:n=>n},k=new Kit(st);
-    k.hull();polyhedron(k,'ottaedro troncato',[0,0,0],.62,[[.1,.12,.16,1],[.16,.2,.26,1],[.07,.09,.12,1]],.06);
-    k.glow([.45,.95,1,1],3.2);k.sphere([0,0,.58],.14,10,8);
-    for(const [x,y] of [[1,0],[-1,0],[0,1],[0,-1]]){k.steel();k.beam([x*.4,y*.4,-.1],[x*.95,y*.95,-.55],.035);k.glow([.45,.95,1,1],2.6);k.sphere([x*.95,y*.95,-.55],.06,8,6);}
+function droneMesh(core=[.45,.95,1,1],faces=[[.1,.12,.16,1],[.16,.2,.26,1],[.07,.09,.12,1]]){
+    const st={hull:faces[0],dark:[.04,.05,.07,1],steel:[.28,.32,.4,1],trim:core,accent:core,glass:[.05,.1,.14,1],window:core,panel:[.04,.06,.1,1],seg:n=>n},k=new Kit(st);
+    k.hull();polyhedron(k,'ottaedro troncato',[0,0,0],.62,faces,.06);
+    k.glow(core,3.2);k.sphere([0,0,.58],.14,10,8);
+    for(const [x,y] of [[1,0],[-1,0],[0,1],[0,-1]]){k.steel();k.beam([x*.4,y*.4,-.1],[x*.95,y*.95,-.55],.035);k.glow(core,2.6);k.sphere([x*.95,y*.95,-.55],.06,8,6);}
     return k.mesh();
 }
+/** Free drone (1.50.0): the same body in pale grey with a green core, once the key has cut its link. */
+const FREE_CORE=[.55,1,.6,1],freeMesh=()=>droneMesh(FREE_CORE,[[.5,.54,.56,1],[.62,.66,.68,1],[.42,.46,.48,1]]);
 /** Places of the ships of a formation (1.47.0), in sizes of the leader: side and distance behind. */
 const WINGMEN=[[0,0],[1,1],[-1,1]];
 /** Drawn size of a station of level 2 or 3 (1.46.0): an eighth larger for each level. */
@@ -380,8 +382,9 @@ export class World {
         // back to the front; the Cronaca della frontiera enters the news of the system.
         const FR=this.frontier;
         if(FR&&life.threats){
-            life.threats.onRaid??=ev=>{if(ev.raid)FR.settle(ev.raid,ev.outcome,ev.killed);};
-            for(const r of FR.raids)if(!r.settled&&!r.live&&r.system===id){FR.goLive(r,s.time);life.threats.spawn('incursione',{n:r.n,raid:r});}
+            for(const r of FR.raids)if(!r.settled&&!r.live&&r.system===id){FR.goLive(r,s.time);life.threats.spawn('incursione',{n:r.n,raid:r,freed:FR.freedBy(r.arm,r.n)});}
+            life.threats.onRaid=ev=>{if(ev.raid)FR.settle(ev.raid,ev.outcome,ev.killed,ev.freed);};
+            life.helpers=FR.freed.get(id)||0;
             life.frontSeen??=FR.serial;for(const e of FR.log)if(e.n>life.frontSeen)life.tell('Fronte: '+e.text);life.frontSeen=FR.serial;
         }
         const k2=2*Math.tan(this.fov/2),lightColor=systemStarLight(id).map(v=>v*.8),shadowKey=R.shadowKey;R.shadowKey=null;
@@ -455,7 +458,7 @@ export class World {
         // and stations that destroy them, the flash of what gets through, and the front of a flare with the
         // shield around a shield generator.
         if(life.threats){
-            this.drones=[];
+            this.drones=[];this.freeDrones=[];
             const now=s.time,px=p=>Math.hypot(p[0]-this.eye[0],p[1]-this.eye[1],p[2]-this.eye[2])*k2/R.h,HOT=[1,.72,.45],BEAM=[1,.38,.24],SHIELD=[.45,.8,1];
             const hash=(a,b)=>{const v=Math.sin(a*12.9898+b*78.233)*43758.5453;return v-Math.floor(v)-.5;};
             for(const ev of life.threats.active){
@@ -499,6 +502,12 @@ export class World {
                 }
             }
             stats.threats=life.threats.active.length;
+            // Free drones (1.50.0) settled in the system fly between the stations, up to sixteen in sight.
+            if(life.helpers&&C.list.length>1){
+                const lanes=C.lanes??=minorLanes(C.list.map((_,k)=>site({station:k}).position));
+                for(let i=0;i<Math.min(16,life.helpers);i++){const [a,b]=lanes[i%lanes.length],pa=site({station:a}).position,pb=site({station:b}).position,run=now*.03+i*.37,back=Math.floor(run)%2,u=run%1,w=back?1-u:u,p=pa.map((v,q)=>v+(pb[q]-v)*w+(q===1?.25+Math.sin(w*Math.PI)*.4:0)),f=normal(pb.map((v,q)=>(v-pa[q])*(back?-1:1)));this.freeDrones.push(p[0],p[1],p[2],.05,f[0],f[1],f[2],0);}
+            }
+            if(this.freeDrones.length){if(!this.freeReady){R.makeMesh('free-drone',freeMesh());this.freeReady=true;}const key='instances-free',data=new Float32Array(this.freeDrones);if(C.instances.has(key))R.updateInstances(key,data);else{R.makeInstances(key,'free-drone',data);C.instances.add(key);}R.drawMesh('free-drone',this.vp,IDENTITY,{eye:this.eye,light:[0,0,0],lightColor,material:10,instances:key,instanceMode:5});}
             if(this.drones?.length){const key='instances-drones',data=new Float32Array(this.drones);if(C.instances.has(key))R.updateInstances(key,data);else{R.makeInstances(key,'swarm-drone',data);C.instances.add(key);}R.drawMesh('swarm-drone',this.vp,IDENTITY,{eye:this.eye,light:[0,0,0],lightColor,material:10,instances:key,instanceMode:5});}
         }
         // Minor traffic (1.46.0): shuttles and pods between each station and its nearest neighbour, drawn
@@ -533,7 +542,7 @@ export class World {
      * drones on board the converted station and their return to dust. Drones go to `this.drones` for one
      * instanced call. */
     drawRaid(ev,now,target,glow,px,hash,life,site,avoid,scene,name){
-        const R=this.R,CYAN=[.45,.95,1],DUST=[.6,.7,.8],size=.06;
+        const R=this.R,C=this.craft,CYAN=[.45,.95,1],DUST=[.6,.7,.8],size=.06;
         if(!this.droneReady){R.makeMesh('swarm-drone',droneMesh());this.droneReady=true;}
         this.drones??=[];
         // The incursion can be pointed at while the drones grow, fly or sit on board.
@@ -550,9 +559,11 @@ export class World {
             for(let j=0;j<ev.n;j++){const p=Threats.fragment(ev,j,now,target);put(p,dir,size*g);}
             return;
         }
-        const hits=[];
+        const hits=[],port=site({station:Math.max(0,C.list.findIndex(item=>item.entry.type==='porto'))}).position;
         for(let j=0;j<ev.n;j++){
-            const kill=ev.kills.find(k=>k.j===j);
+            const kill=ev.kills.find(k=>k.j===j),free=ev.frees?.find(f=>f.j===j);
+            // Reached by the key: a green flash, then the drone turns pale and flies to the port.
+            if(free&&now>=free.t){const c=Threats.fragment(ev,j,free.t,target),age=now-free.t;if(age<.8)glow(c,px(c)*4,FREE_CORE,.9*(1-age/.8));if(age<20){const u=age/20,p=c.map((v,i)=>v+(port[i]-v)*u);(this.freeDrones??=[]).push(p[0],p[1],p[2],size,...normal(port.map((v,i)=>v-c[i]+1e-6)),0);}continue;}
             if(kill&&now>=kill.t){const c=Threats.fragment(ev,j,kill.t,target),age=now-kill.t;if(age<.7)glow(c,px(c)*4.5,[.8,1,1],.95*(1-age/.7));if(age<3)for(let q=0;q<6;q++){const p=[c[0]+hash(q,j)*age,c[1]+hash(q,j+1)*age*.5,c[2]+hash(q,j+2)*age];glow(p,px(p)*1.3,DUST,.6*(1-age/3));}continue;}
             if(now<ev.tImpact){const p=Threats.fragment(ev,j,now,target),q=Threats.fragment(ev,j,now-.4,target);put(p,normal(p.map((v,i)=>v-q[i])),size);glow(q,px(q)*1.5,CYAN,.35);}
             else hits.push(j);

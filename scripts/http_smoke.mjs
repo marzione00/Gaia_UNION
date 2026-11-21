@@ -9,5 +9,5 @@ try{
   const response=await fetch(`http://127.0.0.1:${port}/${path}`),bytes=Buffer.from(await response.arrayBuffer());assert.equal(response.status,200,path);if(path.endsWith('.js'))assert.match(response.headers.get('content-type'),/^(text|application)\/javascript\b/,path);assert.equal(sha(bytes),sha(await readFile(root+'dist/'+path)));results.push({path,status:response.status,bytes:bytes.length,type:response.headers.get('content-type')});
  }
  const missing=await fetch(`http://127.0.0.1:${port}/missing-resource.json`);assert.equal(missing.status,404);results.push({path:'missing-resource.json',status:404});
- await writeFile(root+'docs/HTTP_SMOKE.json',JSON.stringify({version:'1.49.0',passed:results.length,checks:results},null,2));console.log('HTTP distribution checks:',results.length);
+ await writeFile(root+'docs/HTTP_SMOKE.json',JSON.stringify({version:'1.50.0',passed:results.length,checks:results},null,2));console.log('HTTP distribution checks:',results.length);
 }finally{server.kill();}
