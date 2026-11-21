@@ -1,6 +1,6 @@
 # Stazioni e navi dei sistemi
 
-I trenta sistemi stellari ospitano 300 modelli tridimensionali: dieci per sistema, cioè sei stazioni e quattro navi. Il lavoro è arrivato in tre aggiornamenti: la 1.38.0 ha portato il generatore dei modelli e il loro catalogo, la 1.39.0 ha collocato le stazioni nei sistemi, la 1.40.0 dà vita ai sistemi, con stazioni che producono e navi che trasportano le merci. La 1.41.0 ha rinnovato il motore di disegno, la 1.42.0 ha aggiunto una grammatica dei tipi con 120 tipi di stazione e la 1.43.0 porta questi tipi nei sistemi: ogni sistema ha ora da 12 a 20 stazioni.
+I trenta sistemi stellari ospitano 300 modelli tridimensionali: dieci per sistema, cioè sei stazioni e quattro navi. Il lavoro è arrivato in tre aggiornamenti: la 1.38.0 ha portato il generatore dei modelli e il loro catalogo, la 1.39.0 ha collocato le stazioni nei sistemi, la 1.40.0 dà vita ai sistemi, con stazioni che producono e navi che trasportano le merci. La 1.41.0 ha rinnovato il motore di disegno, la 1.42.0 ha aggiunto una grammatica dei tipi con 120 tipi di stazione e la 1.43.0 porta questi tipi nei sistemi: ogni sistema ha ora da 12 a 20 stazioni. La 1.44.0 fa lo stesso per le navi civili, con 120 classi e da 4 a 8 modelli in più per sistema.
 
 ## Come sono costruiti
 
@@ -11,6 +11,7 @@ Il sito non scarica geometrie. Ogni modello nasce dal codice in `src/craft/` a p
 - `styles.js` definisce i cinque stili di costruzione;
 - `stations.js` e `ships.js` contengono i dodici tipi classici di stazione e le dodici classi di nave;
 - `modules.js`, `families.js` e `grammar.js` formano la grammatica dei 120 tipi di stazione della 1.42.0;
+- `shipclasses.js` contiene la grammatica delle 120 classi di navi civili della 1.44.0;
 - `catalog.js` assegna i modelli ai sistemi, sceglie i nomi e costruisce un modello su richiesta con `build(voce)`;
 - `placement.js` decide dove stanno le stazioni di un sistema e dove si trovano in ogni istante;
 - `economy.js` contiene le regole della vita di un sistema: produzione, consumi, scelta dei viaggi delle navi;
@@ -244,6 +245,44 @@ L'economia usa le ricette dei ruoli: fonderie e arsenali come il cantiere, impia
 
 Con più stazioni del catalogo la porta esporta più dati e parti e importa meno, in proporzione al numero di stazioni diviso per sei. Ogni modello di nave viaggia con le sue gemelle come prima, più altre da una a tre secondo quante stazioni il sistema ha oltre le sei (il nome continua con IV, V e VI). Una simulazione di 1200 s per ognuno dei 30 sistemi con tre semi muove tutte le 1149 navi coinvolte, contro 581 con le sole stazioni classiche; le consegne passano da 12 833 a 32 734. Le stazioni classiche che producono qualcosa lavorano il 55,7 % del tempo invece del 46,0 %, perché trovano più acquirenti; le aggiunte il 36,3 %, e per il resto hanno il magazzino pieno o aspettano un ingrediente. La domanda, più del numero delle navi, limita oggi la produzione: l'economia con più merci e catene di lavorazione arriverà con la 1.45.0.
 
+## Le classi di navi
+
+Dalla 1.44.0 le navi civili seguono la stessa grammatica delle stazioni (`shipclasses.js`): ogni classe unisce una famiglia di scafo, che decide sagoma e motori, e un ruolo, che decide i moduli di bordo e il mestiere. Dodici famiglie e dieci ruoli danno 120 classi, dieci volte le dodici classi di `ships.js`, che restano come sono. Il nome segue la regola «ruolo + famiglia»: «Cisterna a sfere», «Cargo a telaio», «Nave passeggeri ad anello».
+
+| Famiglia | Scafo | Velocità | Stiva |
+|---|---|---:|---:|
+| affusolata | lungo e sottile, ali a freccia | 1,25 | 0,8 |
+| a cuneo | basso a prua, largo a poppa | 1,1 | 0,9 |
+| a fuso | asse sottile con moduli a raggiera | 1 | 1 |
+| a telaio | trave reticolare aperta con i carichi agganciati | 0,85 | 1,3 |
+| a capsula | corto e arrotondato | 0,9 | 0,9 |
+| a doppio scafo | due scafi uniti da un ponte | 0,95 | 1,2 |
+| a tre scafi | scafo centrale e due scafi minori sui bracci | 1 | 1,1 |
+| ad anello | scafo sottile con un anello rotante | 0,9 | 1,1 |
+| a disco | disco piatto con una prua sporgente | 1 | 1 |
+| modulare | blocchi squadrati in fila | 0,8 | 1,35 |
+| ad ala | ala a delta attorno a uno scafo corto | 1,2 | 0,85 |
+| a sfere | sfere unite da tubi | 0,9 | 1,2 |
+
+| Ruolo | Nome | Moduli di bordo | Mestiere come |
+|---|---|---|---|
+| cargo | Cargo | fila di container, blocco di container, stiva, pianale | nave cargo |
+| cisterna | Cisterna | serbatoio lungo, sfere in fila, fascio di serbatoi, sfera di carico | cisterna |
+| passeggeri | Nave passeggeri | ponte passeggeri, cupola panoramica, veranda, modulo cabine | nave passeggeri |
+| corriere | Corriere | capsula postale, propulsore ausiliario, antenna veloce, vano dati | corriere |
+| minerario | Nave mineraria | tramoggia di bordo, frantoio di bordo, cassoni, braccio laser | rimorchiatore minerario, solo minerale |
+| scientifica | Nave scientifica | braccio sensore, parabola, capsula strumenti, magnetometro | nave scientifica |
+| rimorchiatore | Rimorchiatore | artigli, argano, motore di spinta, paraurti | rimorchiatore minerario |
+| soccorso | Nave di soccorso | modulo medico, faro, capsula di salvataggio, segnalatore | nave di soccorso |
+| costruzione | Nave officina | gru di bordo, telaio, portaparti, braccio saldatore | nave gru |
+| navetta | Navetta | cabina, bagagliaio, sensore, oblò | navetta |
+
+Una presa di bordo ha un punto, una normale, un'altezza, una mezza larghezza e una mezza lunghezza lungo lo scafo; i 40 moduli di bordo si disegnano con la lunghezza lungo lo scafo, e sul lato destro (verso −x) la presa gira il modulo di mezzo giro, così ugelli e bracci guardano sempre verso poppa o verso prua come devono. Il ruolo allunga o allarga lo scafo (i cargo e le cisterne sono più lunghi, i rimorchiatori più larghi e corti, i corrieri più sottili) e dà proporzioni proprie ai moduli; cargo, cisterne, navi minerarie e navi officina montano moduli anche sulle prese minori. Il mestiere di una classe (merci, stiva, velocità, sosta e comportamento quando non ha carichi) è quello della classe classica indicata nella tabella, con velocità e stiva moltiplicate per i fattori della famiglia.
+
+Su 600 modelli (ogni classe nei cinque stili) una classe conta da 792 a 9496 triangoli, con mediana 3212, e porta da 1 a 27 luci; il livello semplificato ne ha il 46,1 %, più che per le stazioni, perché gli scafi raccordati hanno pochi segmenti da ridurre. Nelle sagome proiettate da tre lati su 32 × 32 celle due classi della stessa famiglia si sovrappongono con mediana 0,64 e al massimo per lo 0,92 della loro unione (navetta e nave di soccorso a sfere), due classi di famiglie diverse con mediana 0,44 e al massimo 0,74: le navi di una famiglia si somigliano più delle stazioni, come le navi reali costruite sullo stesso scafo, e si distinguono soprattutto per i moduli di bordo.
+
+Ogni sistema riceve da 4 a 8 modelli di queste classi (`SHIP_EXTRAS` in `catalog.js`, 179 in tutto, tre ogni cinque stazioni aggiunte), con identificatori dallo slot 30. I ruoli seguono la disciplina, come per le stazioni; fra i primi tre ruoli ancora da assegnare vale quello che ha classi non ancora presenti nel catalogo, così compaiono tutte le 120 classi. In un sistema le famiglie di scafo non si ripetono, e in tutto il catalogo nessuna classe compare due volte nello stesso stile. Ognuno di questi modelli viaggia da solo o, con probabilità 0,35, con una gemella. La simulazione di 1200 s su 30 sistemi e tre semi muove ora 1864 navi, tutte in viaggio, contro le 1149 della 1.43.0; le consegne salgono da 32 734 a 44 871, le stazioni classiche che producono lavorano il 57,6 % del tempo e le stazioni aggiunte il 40,1 %.
+
 ## Controlli
 
 `tests/craft.test.mjs` verifica che i modelli siano 300, dieci per sistema con sei stazioni e quattro navi, che le miniere stiano solo nei sistemi con la fascia, che nomi e identificatori siano unici e scritti con l'atlante dei caratteri, che gli stili seguano la regola descritta sopra, che la generazione sia deterministica, che le mesh contengano solo valori finiti e indici validi entro i limiti di triangoli, e che due modelli dello stesso tipo e stile differiscano in almeno due scelte.
@@ -251,6 +290,8 @@ Con più stazioni del catalogo la porta esporta più dati e parti e importa meno
 `tests/stations.test.mjs` verifica che ogni sistema abbia sei stazioni collocate in modo deterministico, la porta oltre la fascia, la miniera dentro la fascia, il porto attorno a un pianeta di studio e il cantiere accanto al porto, la raffineria attorno a un gigante quando il sistema ne ha uno; che le stazioni restino alla distanza prevista dall'ospite, fuori dal pianeta disegnato; e che la scena costruisca prima i modelli semplificati, uno per fotogramma quando manca il worker, poi il modello completo di una stazione vicina, disegni le navi e i bagliori a istanze, renda selezionabili stazioni e navi e liberi mesh e istanze al cambio di sistema.
 
 `tests/life.test.mjs` verifica che ogni stazione e ogni nave abbiano regole valide; che in 1800 s di simulazione le scorte restino nei limiti, le prenotazioni non scendano sotto zero, ogni nave compia almeno tre viaggi e i carichi vengano consegnati; che lo stesso seme ripeta le stesse rotte e semi diversi ne diano di diverse; che nessuna nave passi vicino alla stella; e che i resoconti mostrati sullo schermo siano brevi, nello stile del sito e scritti con l'atlante dei caratteri.
+
+`tests/shipclasses.test.mjs` verifica che le classi siano 120 con nomi unici e concordati; che i 40 moduli di bordo restino entro la presa in ogni stile e che sul lato destro gli ugelli guardino verso poppa; che ogni classe, nei cinque stili, abbia mesh valide, al massimo 10 000 triangoli, luci, un raggio fra 1,5 e 8 e un mestiere valido; che il livello semplificato resti sotto il 50 %; che le sagome si sovrappongano meno di 0,93 per ogni coppia e meno di 0,82 fra famiglie diverse; che il catalogo contenga tutte le 120 classi con nomi e coppie di classe e stile unici; e che in tre sistemi le navi aggiunte viaggino e trasportino merci.
 
 `tests/added.test.mjs` verifica che le stazioni aggiunte siano 300, da 12 a 20 per sistema, con identificatori e nomi unici, tipi mai ripetuti in un sistema, coppie di tipo e stile mai ripetute, stile civile o della disciplina e ricette esistenti; che le sei stazioni classiche restino dove erano; che le aggiunte, campionate per 900 s, restino ad almeno 1,2 volte la somma dei raggi da ogni altra stazione e ad almeno 1,1 volte da ogni pianeta che non le ospita; e che in tre sistemi tutte le navi viaggino, le stazioni aggiunte ricevano merci e i resoconti restino brevi e scritti con l'atlante.
 
@@ -266,3 +307,4 @@ Con più stazioni del catalogo la porta esporta più dati e parti e importa meno
 4. Motore: livelli di dettaglio, costruzione in un worker, navi e bagliori a istanze, pagina diagnostica (1.41.0).
 5. Grammatica dei tipi: 60 moduli, 12 famiglie, 10 ruoli, 120 tipi di stazione (1.42.0).
 6. I nuovi tipi nei sistemi, da 12 a 20 stazioni ciascuno, con nuove ricette e più navi (1.43.0).
+7. Navi civili: 40 moduli di bordo, 12 famiglie di scafo, 10 ruoli, 120 classi, da 4 a 8 modelli in più per sistema (1.44.0).

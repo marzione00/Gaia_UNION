@@ -1,3 +1,10 @@
+# 1.44.0: 120 classi di navi civili
+
+- Le navi civili seguono la grammatica delle stazioni: ogni classe unisce una famiglia di scafo (affusolata, a cuneo, a fuso, a telaio, a capsula, a doppio scafo, a tre scafi, ad anello, a disco, modulare, ad ala, a sfere) e un ruolo (Cargo, Cisterna, Nave passeggeri, Corriere, Nave mineraria, Nave scientifica, Rimorchiatore, Nave di soccorso, Nave officina, Navetta). Dodici famiglie e dieci ruoli danno 120 classi, dieci volte le dodici classiche, che restano come sono.
+- Nuova libreria di 40 moduli di bordo, dai container ai serbatoi sferici, dalle cupole panoramiche ai bracci laser delle navi minerarie, disegnati lungo lo scafo. Ogni classe ha il mestiere della classe classica del suo ruolo, con velocità e stiva della sua famiglia: le navi affusolate vanno più veloci e caricano meno, quelle modulari il contrario.
+- Una classe conta da 792 a 9496 triangoli, con mediana 3212 su 600 modelli. Ogni sistema riceve da 4 a 8 modelli di queste classi, 179 in tutto, con tutte le 120 classi presenti e famiglie di scafo diverse in ogni sistema. Nella simulazione di 1200 s su 30 sistemi e tre semi viaggiano 1864 navi invece di 1149 e le consegne salgono da 32 734 a 44 871.
+- Nuovo `src/craft/shipclasses.js`; `tests/shipclasses.test.mjs` controlla classi, nomi, moduli, mesh, mestieri, sagome, catalogo ed economia. Descrizione in `docs/STAZIONI_NAVI.md`.
+
 # 1.43.0: Stazioni aggiunte nei sistemi
 
 - Ogni sistema ha ora da 12 a 20 stazioni: alle sei del catalogo si aggiungono da 6 a 14 tipi della grammatica, 300 in tutto, scelti secondo la disciplina del sistema (osservatori e ripetitori per la matematica, centrali e laboratori per la fisica, impianti chimici e fonderie per la chimica, fattorie e habitat per la biologia). In un sistema nessun tipo si ripete, e in tutto il catalogo nessun tipo compare due volte nello stesso stile.
