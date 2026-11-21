@@ -38,6 +38,8 @@ const PREFER_ROLE = {
     deposito: [b => ICY.includes(b.type), (b, all) => all.indexOf(b) >= all.length - 4],
     comunicazioni: []
 };
+/** Angle of each defensive station from the gate along the defence line (1.47.0). */
+const DEFENCE_PHASE = { baseflotta: .17, fortezza: -.17, scudo: .34, piattaforma: -Math.PI * .55, sorveglianza: Math.PI };
 /** At most three stations orbit one planet; the next ones move to the gaps between the orbits. */
 const PER_HOST = 3;
 
@@ -52,7 +54,7 @@ export function placeStations(system, entries, radiusOf) {
         for (const free of [true, false]) for (const test of tests) { const b = bodies.find(x => test(x, bodies) && (!free || !used.has(x.slot))); if (b) return b; }
         return bodies.find(x => !used.has(x.slot)) || bodies[0];
     };
-    let port = null, lanes = null, ring = 0; const pending = [];
+    let port = null, lanes = null, ring = 0; const pending = [], guard = [];
     // Lanes around the star between consecutive orbits, clear of the planets, of their eccentric paths and
     // of the stations orbiting them (also inside the first orbit and outside the last one): stations in a
     // lane share radius and speed, so they never meet each other, and stay at least half the lane width
@@ -87,7 +89,8 @@ export function placeStations(system, entries, radiusOf) {
         return null;
     };
     for (const entry of entries.filter(e => e.kind === 'stazione')) {
-        const size = STATION_SIZE[entry.type] ?? STATION_SIZE.default;
+        const size = entry.drawn ?? STATION_SIZE[entry.type] ?? STATION_SIZE.default;
+        if (entry.defence) { const later = { entry, size }; out.push(later); guard.push(later); continue; }
         if (entry.role) {
             if (entry.family === 'asteroide' && system.belt) { out.push({ entry, kind: 'belt', size, distance: system.belt.inner + (system.belt.outer - system.belt.inner) * (.25 + .5 * rng()), height: (rng() - .5) * .5, phase: rng() * Math.PI * 2 }); continue; }
             // A planet that suits the role and has room, then a lane near such a planet, then the outer ring.
@@ -113,6 +116,13 @@ export function placeStations(system, entries, radiusOf) {
         const gate = out.find(q => q.entry.type === 'porta'), r = ring++;
         const last = bodies.at(-1), clear = last.orbit * (1 + last.eccentricity) + reach(last) + p.size * 3;
         Object.assign(p, { kind: 'edge', distance: Math.max(system.belt ? system.belt.outer + 1.05 : system.outerRadius + 2.6, clear), phase: (gate ? gate.phase : 0) + Math.PI * (.5 + .618 * r) });
+    }
+    // The defensive stations (1.47.0) form a line 1.8 units beyond the gate and the outer ring: the fleet
+    // base, the fortress and the shield generator beside the gate, the surveillance station on the far side
+    // of the system and the platform between the two. They come last, so the other stations keep their places.
+    if (guard.length) {
+        const gate = out.find(q => q.entry.type === 'porta'), line = Math.max(gate ? gate.distance : system.outerRadius + 5.2, ...out.filter(q => q.kind === 'edge').map(q => q.distance)) + 1.8;
+        for (const p of guard) Object.assign(p, { kind: 'edge', distance: line, phase: (gate ? gate.phase : 0) + DEFENCE_PHASE[p.entry.type] });
     }
     return out;
 }
