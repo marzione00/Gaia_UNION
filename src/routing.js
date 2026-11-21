@@ -5,8 +5,8 @@ export function resolveRoute(hash, modules, lessonIds) {
     const [path = '', query = ''] = String(hash).replace(/^#\/?/, '').split('?');
     const parts = path.split('/');
     const q = new URLSearchParams(query);
-    const aliases = { study: 'theory', planet: 'orbit', archive: 'catalogue', notebook: 'journal', nave: 'ship', nucleo: 'gaia', avamposto: 'outpost', regione: 'region' };
-    const allowed = ['galaxy', 'system', 'orbit', 'surface', 'research', 'catalogue', 'briefing', 'theory', 'pdf', 'lab', 'quiz', 'journal', 'sources', 'mission', 'pilot', 'paths', 'libro', 'ship', 'gaia', 'outpost', 'region'];
+    const aliases = { study: 'theory', planet: 'orbit', archive: 'catalogue', notebook: 'journal', nave: 'ship', nucleo: 'gaia', avamposto: 'outpost', regione: 'region', modelli: 'craft' };
+    const allowed = ['galaxy', 'system', 'orbit', 'surface', 'research', 'catalogue', 'briefing', 'theory', 'pdf', 'lab', 'quiz', 'journal', 'sources', 'mission', 'pilot', 'paths', 'libro', 'ship', 'gaia', 'outpost', 'region', 'craft'];
     const name = aliases[parts[0]] || parts[0];
     let scene = allowed.includes(name) ? name : 'galaxy';
     const moduleId = q.get('unit') || (['study', 'planet', 'briefing'].includes(parts[0]) ? parts[1] : null);
@@ -38,6 +38,8 @@ export function resolveRoute(hash, modules, lessonIds) {
         reader = 'math-c08';
     }
     let system=systemForPlanet(selected);
+    // The 3D catalogue of stations and ships (1.51.0) opens on one model, named by its identifier.
+    const craftModel = scene === 'craft' && /^s\d{2}-\d{1,3}$/.test(q.get('model') || '') ? q.get('model') : null;
     if(scene==='system' && q.has('system')){system=integer('system',system,0,SYSTEM_COUNT-1);if(systemForPlanet(selected)!==system)selected=indicesForSystem(system)[0];}
-    return { scene, selected, system, reader, section: integer('section', 0, 0, 100), pdfDoc, pdfPage, lab, courseStage, explore: scene === 'surface' && q.get('mode') === 'esplora', bookSection: scene === 'libro' && /^[\w-]{1,80}$/.test(q.get('sezione') || '') ? q.get('sezione') : null };
+    return { scene, selected, system, reader, section: integer('section', 0, 0, 100), pdfDoc, pdfPage, lab, courseStage, explore: scene === 'surface' && q.get('mode') === 'esplora', bookSection: scene === 'libro' && /^[\w-]{1,80}$/.test(q.get('sezione') || '') ? q.get('sezione') : null, craftModel };
 }

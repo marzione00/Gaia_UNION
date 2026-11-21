@@ -18,6 +18,7 @@ import { Economy, RESOURCES, stationReport, shipReport } from '../craft/economy.
 import { Threats, THREAT } from '../craft/threats.js';
 import { Frontier, raidLength } from '../craft/swarm.js';
 import { Kit } from '../craft/kit.js';
+import { CRAFT, CRAFT_BY_ID } from '../craft/registry.js';
 import { polyhedron } from '../craft/parts.js';
 import { SHIP_SIZE, shipPose, shipMatrix } from '../craft/traffic.js';
 import { tuft, rock, station as stationMesh, seaPlane, grazer, frond, tree, column, cushion, cup, patch, hexapod, flyer, floater, beacon, curtain } from '../worlds/geometry.js';
@@ -271,6 +272,9 @@ export class World {
             const fc=s.worldFocus,x0=w<850?(fc?fc[0]:gen?-4:-3):gen?2:3,z0=w<850?(fc?fc[1]:gen?8:-1):gen?2:-2,tx=b?x0+(s.exploreFocus[0]-x0)*b:x0,tz=b?z0+(s.exploreFocus[1]-z0)*b:z0,ty=wc?wc.targetY:gen?Math.max(this.surface.seaY??-99,this.surface.heightAt(tx,tz))+3:1.8;
             eye=[tx+Math.sin(angle)*distance*Math.cos(pitch),Math.sin(pitch)*distance+2+(gen?ty-3:0),tz+Math.cos(angle)*distance*Math.cos(pitch)];target=[tx,ty,tz];fov=gen?.72:.60;
             if(gen)eye[1]=Math.max(eye[1],Math.max(this.surface.heightAt(eye[0],eye[2]),this.surface.seaY??-99)+5);
+        }else if(scene==='craft'){
+            // The 3D catalogue (1.51.0): one model at the centre with radius 3; on phones it sits above the card.
+            const d=(s.distance||11)*Math.max(1,1/(w/h)),p=.12+(s.pitch-.45)*.8;eye=[Math.sin(s.yaw)*d*Math.cos(p),Math.sin(p)*d,Math.cos(s.yaw)*d*Math.cos(p)];target=w<850?[0,-1.8,0]:[0,-.3,0];fov=.62;
         }else if(scene==='research')eye=[Math.sin(s.yaw*.12)*3,1,37];
         else if(scene==='lab'&&s.lab==='daisyworld')eye=[0,4,30];
         else eye=[0,5,32];
@@ -589,6 +593,35 @@ export class World {
         if(m.field){ids.field=tag+'-field';R.makeMesh(ids.field,m.field);}
         item.levels[level]={ids,parts:m.parts,lights:m.lights,radius:m.radius,triangles:m.triangles,recipe:m.recipe};
     }
+    /** The model shown by the 3D catalogue (1.51.0), `s.craftModel`: built by the same factory as the systems,
+     * first simplified and then whole, turning slowly unless `s.craftTurn` is false, with its moving parts,
+     * its shield and its lights. `viewerInfo` tells the page what is shown and how many triangles it has. */
+    drawViewer(s){
+        const R=this.R,F=this.factory??=new CraftFactory(),entry=CRAFT_BY_ID.get(s.craftModel)||CRAFT[0],V=this.viewer??={entry:null,prefix:'viewer',levels:[null,null],instances:new Set()};
+        if(V.entry!==entry){this.releaseViewer();V.entry=entry;V.prefix='viewer-'+entry.id;}
+        for(const level of [1,0])if(!V.levels[level]){F.want(entry,level?LOW_DETAIL:1);}
+        F.pump();
+        for(const level of [1,0])if(!V.levels[level]){const m=F.take(entry,level?LOW_DETAIL:1);if(m)this.uploadCraft(V,level,m);}
+        const m=V.levels[0]||V.levels[1];
+        this.viewerInfo={id:entry.id,loading:!V.levels[0],full:V.levels[0]?.triangles??null,low:V.levels[1]?.triangles??null};
+        if(!m)return;
+        const k=3/m.radius,base=transform(0,0,0,k,s.craftTurn===false?0:s.time*.12),mats=m.parts.map(p=>p.spin?mul(base,spin(p.spin,s.time)):base);
+        const light=normal([-.45,.62,.64]),lightColor=[.95,.92,.86],draw={eye:this.eye,light,lightColor,material:10};
+        if(m.ids.body)R.drawMesh(m.ids.body,this.vp,base,draw);
+        for(const p of m.ids.spinning)R.drawMesh(p.id,this.vp,mats[p.part],draw);
+        if(m.ids.field)R.drawMesh(m.ids.field,this.vp,base,{eye:this.eye,light,material:10,opacity:.8,lightColor:[.1,.1,.1]});
+        // Running lights and engine flames, as in the systems, in one instanced call.
+        const glows=[];
+        for(const l of m.lights){const M=mats[l.part],p=[0,1,2].map(i=>M[i]*l.p[0]+M[4+i]*l.p[1]+M[8+i]*l.p[2]+M[12+i]),on=!l.blink?1:l.blink<0?(((s.time*1.1+l.blink)%1+1)%1<.3?1:.12):(Math.sin(s.time*TAU*l.blink)>-.2?1:.15);glows.push(p[0],p[1],p[2],l.size*k*(l.flame?.8:2.4),...l.color.slice(0,3),(l.flame?.85:.95)*on);}
+        if(glows.length){const key='instances-viewer',data=new Float32Array(glows);if(V.instances.has(key))R.updateInstances(key,data);else{R.makeInstances(key,'lowSphere',data);V.instances.add(key);}R.drawMesh('lowSphere',this.vp,IDENTITY,{eye:this.eye,material:17,instances:key,instanceMode:6,blend:true});}
+    }
+    /** Release the meshes of the model shown by the 3D catalogue. */
+    releaseViewer(){
+        const R=this.R,V=this.viewer;if(!V)return;
+        for(const key of V.instances)R.deleteInstances(key);V.instances.clear();
+        for(const m of V.levels)if(m){if(m.ids.body)R.deleteMesh(m.ids.body);m.ids.spinning.forEach(p=>R.deleteMesh(p.id));if(m.ids.field)R.deleteMesh(m.ids.field);}
+        V.levels=[null,null];
+    }
     /** Release the meshes and instance sets of the open system. */
     releaseCraft(){
         const R=this.R,C=this.craft;
@@ -651,6 +684,7 @@ export class World {
                 this.projections.push({type:'system',index:system.id,...xyToObj(xy),r:14,starIndex:system.starIndex});
             }
         }else if(scene==='system'||scene==='orbit')this.drawSystem(s);
+        else if(scene==='craft')this.drawViewer(s);
         else if (scene === 'surface') {
             const S0=this.surface,ortho=new Float32Array([1/60,0,0,0,0,1/60,0,0,0,0,-2/180,0,0,0,-1,1]);
             const light=S0.light.direction,lightColor=S0.light.color,lightEye=light.map(x=>x*90),lightVP=mul(ortho,lookAt(lightEye,[0,0,0]));

@@ -1,5 +1,5 @@
 import { systemForPlanet, indicesForSystem, SYSTEM_COUNT } from './systems.js';
-const defaults = scene => scene === 'galaxy' ? {yaw:0,pitch:.45,distance:60,sector:-1} : scene === 'system' ? {yaw:0,pitch:.48,distance:34} : scene === 'orbit' ? {yaw:0,pitch:.45,distance:22} : {yaw:0,pitch:.45,distance:60};
+const defaults = scene => scene === 'galaxy' ? {yaw:0,pitch:.45,distance:60,sector:-1} : scene === 'system' ? {yaw:0,pitch:.48,distance:34} : scene === 'orbit' ? {yaw:0,pitch:.45,distance:22} : scene === 'craft' ? {yaw:.7,pitch:.5,distance:11} : {yaw:0,pitch:.45,distance:60};
 export function viewKey(scene,s) { return scene==='system' ? 'system:'+s.system : ['orbit','surface'].includes(scene) ? scene+':'+s.selected : scene; }
 export class NavigationMemory {
     constructor() { this.views = new Map(); }
