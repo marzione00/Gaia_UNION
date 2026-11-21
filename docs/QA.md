@@ -11,11 +11,11 @@ Eseguito il 21 novembre 2026 sul ramo `feat/scafi-difesa-20261121`, costruito so
 | Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 279 controlli |
 | Atlante in Chromium | `python3 tools/qa_atlas_browser.py --root dist` | 23 controlli, 30 sistemi, 280 pianeti, 125 esplorabili |
 | Modelli in Chromium | tavola delle 11 classi di navi di difesa | tutte costruite e disegnate |
-| Sistema in Chromium | sistema di frontiera «Acidi, redox e carbonio» a 1600 × 1000 | nessun errore WebGL o di pagina; 22 stazioni di cui 5 di difesa, 40 navi di cui 11 di difesa |
+| Sistema in Chromium | sistema di frontiera «Acidi, redox e carbonio» a 1600 × 1000 | nessun errore WebGL o di pagina; 22 stazioni di cui 5 di difesa, 38 navi di cui 11 di difesa |
 
 Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`.
 
-La versione ridisegna le navi di difesa (`src/craft/defence.js`) e cambia i colori dello stile della flotta (`src/craft/styles.js`); stazioni, catalogo, linea di difesa, pattuglie ed economia restano quelli della 1.47.0. Una nave di difesa conta ora da 516 a 9748 triangoli, con mediana 2204.
+La versione ridisegna le navi di difesa (`src/craft/defence.js`) e cambia i colori dello stile della flotta (`src/craft/styles.js`); stazioni, catalogo, linea di difesa, pattuglie ed economia restano quelli della 1.47.0. Una nave di difesa conta ora da 1056 a 9828 triangoli, con mediana 2030.
 
 Collaudo precedente, 1.47.0 (21 novembre 2026, ramo `feat/flotta-di-difesa-20261121`): 620 test Node, 4 test della flotta di difesa, 3974 controlli di riferimenti e risorse, 314 controlli HTTP, 279 flussi applicativi, 23 controlli dell'atlante; modelli e sistema di frontiera in Chromium senza errori.
 
