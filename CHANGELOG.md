@@ -1,3 +1,11 @@
+# 1.51.0: Catalogo 3D dei modelli
+
+- Un catalogo 3D di tutti i 997 modelli della galassia, 564 stazioni e 433 navi, di cui 218 della flotta di difesa. Si apre dal pulsante «Catalogo dei modelli» di ogni sistema (su telefono «Navi») o con un clic su una stazione o una nave della scena; l'indirizzo nomina il modello e si può condividere.
+- Il modello gira al centro con parti mobili, scudo e luci, si trascina e si avvicina; la fabbrica dei sistemi lo costruisce prima semplificato e poi completo.
+- L'elenco filtra per gruppo (tutti, stazioni, navi, difesa) e mostra il sistema del modello o tutta la galassia; «Precedente» e «Successivo» scorrono i modelli. La scheda riporta tipo, sistema, processo e merci di una stazione, carico e velocità di una nave civile, forza contro lo Sciame di una nave di difesa, la descrizione e i triangoli del modello. Su telefono la scheda sta sotto il modello e l'elenco la sostituisce a richiesta.
+- Nuovo `docs/CATALOGO.md`, generato dal codice con `node scripts/craft-catalogue.mjs`: tutti i modelli sistema per sistema, con tipo, genere, stile e lavoro. L'introduzione di `docs/STAZIONI_NAVI.md` riassume ora tutti gli aggiornamenti dalla 1.38.0.
+- Nuovi `src/craft/registry.js` e `tests/catalogo.test.mjs`; il collaudo dell'applicazione apre il catalogo da un sistema, scorre i modelli, filtra, segue un indirizzo e torna al sistema.
+
 # 1.50.0: Lo Sciame che impara e il Rapporto
 
 - Lo Sciame impara: tiene un peso per ogni braccio della galassia e sceglie dove colpire in proporzione ai pesi; una conversione rafforza il braccio, un'incursione respinta lo indebolisce, e la cronaca annuncia il braccio preferito.

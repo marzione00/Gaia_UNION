@@ -7,6 +7,7 @@ import { MIN_STARS, UNIT_COUNT, AREAS, systemForPlanet, indicesForSystem, areaOf
 import { NavigationMemory } from './scene/navigation.js';
 import { sceneMetadata, planetProfile, PlanetTextures } from './scene/assets.js';
 import { resolveRoute } from './routing.js';
+import { CRAFT, CRAFT_BY_ID, GROUPS, craftList, craftStep, craftCard, craftText } from './craft/registry.js';
 import { GPU, color, clamp, project, transform, mesh } from './renderer.js';
 import { World, RESEARCH, EDGES, box } from './scene/world.js';
 import { UI, C, T, ImageCache, caseLabel, DISCIPLINE, fmtNum } from './ui/toolkit.js';
@@ -30,7 +31,7 @@ import { descriptor as modelDescriptor } from './models/curriculum.js';
 import { openStore, grade } from './store.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.50.0-rapporto';
+const VERSION = '1.51.0-catalogo';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -55,8 +56,8 @@ const sectorColors = DISCIPLINE;
 /** Colour and label of the construction styles of stations and ships (src/craft/styles.js). */
 const CRAFT_STYLE = { matematica: [DISCIPLINE[0], 'Matematica', '#f2b766'], fisica: [DISCIPLINE[1], 'Fisica', '#7fb2ff'], chimica: [DISCIPLINE[2], 'Chimica', '#b49cff'], biologia: [DISCIPLINE[3], 'Biologia', '#6fd3a0'], civile: [color('#ff9466'), 'Traffico civile', '#ff9466'], difesa: [color('#e8665a'), 'Flotta di difesa', '#e8665a'], minaccia: [color('#ffae5c'), 'Minaccia naturale', '#ffae5c'] };
 const nav = [['galaxy', 'MAPPA'], ['catalogue', 'ARGOMENTI'], ['paths', 'PERCORSI'], ['lab', 'LABORATORI'], ['journal', 'DIARIO']];
-const navGroups = { galaxy: ['galaxy', 'system', 'orbit', 'surface', 'outpost', 'region'], catalogue: ['catalogue', 'mission', 'briefing', 'theory', 'pdf', 'quiz', 'sources', 'research', 'pilot', 'libro'], paths: ['paths'], lab: ['lab'], journal: ['journal', 'ship', 'gaia'] };
-const sceneNames = { ship: 'NAVE', gaia: 'NUCLEO DI GAIA', outpost: 'MAPPA', region: 'MAPPA', system: 'MAPPA', orbit: 'MAPPA', surface: 'MAPPA', mission: 'UNITÀ', briefing: 'UNITÀ', theory: 'TEORIA', pdf: 'DISPENSA', quiz: 'VERIFICA', sources: 'FONTI', research: 'RICERCA', pilot: 'MISSIONE' };
+const navGroups = { galaxy: ['galaxy', 'system', 'orbit', 'surface', 'outpost', 'region', 'craft'], catalogue: ['catalogue', 'mission', 'briefing', 'theory', 'pdf', 'quiz', 'sources', 'research', 'pilot', 'libro'], paths: ['paths'], lab: ['lab'], journal: ['journal', 'ship', 'gaia'] };
+const sceneNames = { ship: 'NAVE', gaia: 'NUCLEO DI GAIA', craft: 'CATALOGO DEI MODELLI', outpost: 'MAPPA', region: 'MAPPA', system: 'MAPPA', orbit: 'MAPPA', surface: 'MAPPA', mission: 'UNITÀ', briefing: 'UNITÀ', theory: 'TEORIA', pdf: 'DISPENSA', quiz: 'VERIFICA', sources: 'FONTI', research: 'RICERCA', pilot: 'MISSIONE' };
 const areaTrail = (m, extra = []) => { const a = areaOf(m.planetIndex); return ['GALASSIA', sectors[a.sector].toUpperCase(), a.name.toUpperCase(), ...extra].join(' ▸ '); };
 const labNames = { daisyworld: 'Daisyworld', transform: 'Trasformazioni', rectangle: 'Area a perimetro fissato', radical: 'Dominio dei radicali', linear: 'Due vincoli lineari', reserve: 'Riserve e decadimento', rational: 'Zeri, segni e punti esclusi' };
 const labIds = Object.keys(labNames);
@@ -91,8 +92,8 @@ function route(scene, extra = {}) {
 }
 function enterSystem(id=S.system) { route('system',{system:id}); }
 function enterPlanet(index=S.selected) { route('orbit',{selected:index}); }
-function backToParent() { if(S.scene==='region')route('galaxy');else if(S.scene==='outpost')route('system');else if(S.scene==='gaia')route('ship');else if(S.scene==='libro'||S.scene==='ship')route('orbit');else if(['mission','pilot'].includes(S.scene))route('briefing');else if(S.scene==='surface')route('orbit');else if(S.scene==='orbit')route('system',{system:S.system});else if(S.scene==='system')route('galaxy'); }
-function changeZoom(factor) { const limits=S.scene==='system'?[17,70]:S.scene==='orbit'?[14,38]:[23,100]; S.distance=clamp(S.distance*factor,...limits); hover.clear(); }
+function backToParent() { if(S.scene==='region')route('galaxy');else if(S.scene==='outpost'||S.scene==='craft')route('system');else if(S.scene==='gaia')route('ship');else if(S.scene==='libro'||S.scene==='ship')route('orbit');else if(['mission','pilot'].includes(S.scene))route('briefing');else if(S.scene==='surface')route('orbit');else if(S.scene==='orbit')route('system',{system:S.system});else if(S.scene==='system')route('galaxy'); }
+function changeZoom(factor) { const limits=S.scene==='system'?[17,70]:S.scene==='orbit'?[14,38]:S.scene==='craft'?[7,20]:[23,100]; S.distance=clamp(S.distance*factor,...limits); hover.clear(); }
 function updateHash(mode = 'replace') {
     const q = new URLSearchParams();
     q.set('unit', selected().id);
@@ -103,6 +104,8 @@ function updateHash(mode = 'replace') {
     }
     if (S.scene === 'lab')
         q.set('model', S.lab);
+    if (S.scene === 'craft')
+        q.set('model', craftEntry().id);
     if (S.scene === 'surface' && S.explore)
         q.set('mode', 'esplora');
     if (S.scene === 'libro' && S.bookSection)
@@ -388,6 +391,8 @@ function systemUI() {
         U.panel(list.x,list.y,list.w,list.h,tint,.48);U.tag('UNITÀ DELL’AREA',list.x+18,list.y+19,tint);
         system.planets.forEach((index,i)=>{const unit=data.modules[index];U.button('system-planet-'+index,(i+1)+'. '+unit.title,list.x+17,list.y+46+i*44,list.w-34,36,()=>{selectIndex(index);S.observedBody=null;},{active:S.selected===index,disabled:W.cameraProgress<1});});
         outpost(list.x,list.y+list.h+12,list.w,built?'AVAMPOSTO DI RICERCA':'CANTIERE DELL’AVAMPOSTO');
+        // The 3D catalogue of the stations and ships of the area (1.51.0).
+        U.button('system-craft','CATALOGO DEI MODELLI',list.x,list.y+list.h+58,list.w,38,()=>openCraft());U.buttons.at(-1).label='Apri il catalogo 3D delle stazioni e delle navi del sistema';
     }else{
         outpost(w-18-104,239,104,built?'AVAMPOSTO':'CANTIERE');
         const n=system.planets.length,bw2=(w-36-112-(n-1)*4)/n;system.planets.forEach((index,i)=>U.button('system-planet-'+index,String(i+1),18+i*(bw2+4),239,bw2,32,()=>{selectIndex(index);touchTarget={type:'planet',index};},{active:S.selected===index,small:true,disabled:W.cameraProgress<1}));
@@ -395,6 +400,7 @@ function systemUI() {
     U.button('back-galaxy',mobile&&w<360?'MAPPA':'TORNA ALLA MAPPA',mobile?18:35,h-88,mobile?Math.min(180,w-154-26):220,39,()=>route('galaxy'));
     U.button('system-zoom-in','+',mobile?w-154:w/2-66,h-77,34,30,()=>changeZoom(.86));U.button('system-zoom-out','−',mobile?w-112:w/2-26,h-77,34,30,()=>changeZoom(1/.86));
     if(!mobile)U.button('system-reset','CENTRA',w/2+14,h-77,80,30,()=>{S.yaw=0;S.pitch=.48;S.distance=34;},{small:true});
+    else{U.button('system-craft','NAVI',w-70,h-77,52,30,()=>openCraft(),{small:true});U.buttons.at(-1).label='Apri il catalogo 3D delle stazioni e delle navi del sistema';}
     newsTicker();
 }
 /** Room for the news of the system under the unit panel on desktop, up to 200 px high; none when the
@@ -456,7 +462,7 @@ function drawHover() {
         const e=p.entry||hit.entry,lines=p.lines||hit.lines||[],[tint,label]=CRAFT_STYLE[e.style];U.tag((e.kind==='nave'?'NAVE':e.kind==='minaccia'?'MINACCIA':'STAZIONE')+' · '+label.toUpperCase(),x+16,y+16,tint);U.text(e.name,x+16,y+45,'mini',C.pale);
         lines.forEach((t,k)=>U.text(t,x+16,y+71+k*20,'micro',k?C.muted:C.amber));
         wrapClipText(e.about||(e.typeName+', lunga '+e.size+'.'),x+16,y+71+lines.length*20+6,pw-32,'micro',C.muted,2);
-        U.text(e.typeName.toUpperCase(),x+16,y+ph-26,'micro',C.dim);
+        U.text(CRAFT_BY_ID.has(e.id)?'CLIC PER APRIRE NEL CATALOGO':e.typeName.toUpperCase(),x+16,y+ph-26,'micro',CRAFT_BY_ID.has(e.id)?C.lime:C.dim);
     }else if(hit.type==='ambient'){
         const body=W.systems[S.system].bodies[hit.index];U.tag('CORPO '+String(body.slot+1).padStart(2,'0')+' / '+body.profile.name.toUpperCase(),x+16,y+16,C.muted);
         U.text('Pianeta di contorno',x+16,y+45,'mini',C.pale);wrapClipText(body.profile.name+' con '+body.moons+' lune'+(body.rings?' e anelli':'')+', a '+fmtNum(body.a,2)+' UA dalla stella. Non contiene unità di studio.',x+16,y+73,pw-32,'mini',C.muted,4);
@@ -1259,6 +1265,80 @@ function regionBlocks(r, tab, x, ww, mobile) {
     }
     return blocks;
 }
+/** The 3D catalogue of stations and ships (1.51.0, src/craft/registry.js): the model turns at the centre, the
+ * list on the left filters by group and by system, the card on the right says what the model is and what
+ * it does in the economy or in the defence. On phones the card sits under the model and the list takes its
+ * place on request. */
+const fmtInt = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+function craftEntry() { return CRAFT_BY_ID.get(S.craftModel) || craftList({ system: S.system })[0] || CRAFT[0]; }
+function craftItems() { return craftList({ group: S.craftGroup || 'tutti', system: S.craftScope === 'galassia' ? -1 : craftEntry().system }); }
+/** Opens the catalogue on a model, from the system or from a station or ship of the scene. */
+function openCraft(id = null) { const e = CRAFT_BY_ID.get(id) || craftList({ system: S.system })[0]; Object.assign(S, { craftModel: e.id, craftPage: null, craftScope: 'sistema', craftListOpen: false }); route('craft', { craftModel: e.id }); }
+function pickCraft(e) { if (!e) return; S.craftModel = e.id; S.craftPage = null; updateHash(); }
+/** Accessible description of the catalogue page: the model, its card and the size of its mesh. */
+function craftPageText() { const e = craftEntry(), info = W.viewerInfo?.id === e.id && W.viewerInfo.full ? W.viewerInfo : null; return 'Catalogo dei modelli: ' + craftItems().length + ' modelli nell’elenco. ' + craftText(e, info); }
+function craftUI() {
+    const w = R.w, h = R.h, mobile = w < 850, e = craftEntry(), card = craftCard(e), items = craftItems(), [tint] = CRAFT_STYLE[e.style], info = W.viewerInfo?.id === e.id ? W.viewerInfo : null;
+    if (S.craftModel !== e.id) S.craftModel = e.id;
+    titleShade(); titleFade();
+    const kicker = mobile ? AREAS[e.system].name.toUpperCase() : 'GALASSIA ▸ ' + AREAS[e.system].name.toUpperCase() + ' ▸ CATALOGO DEI MODELLI';
+    title(kicker, card.title, mobile ? '' : card.kind + ', ' + card.style + '. Trascina per girare il modello.');
+    const tris = info?.full ? `${fmtInt(info.full)} triangoli, ${fmtInt(info.low)} nella versione semplificata` : 'Costruzione del modello in corso';
+    // The list: groups, this system or the whole galaxy, then one page of models.
+    const listUI = (x, y, lw, lh) => {
+        U.panel(x, y, lw, lh, C.lime, .78); U.tag(`CATALOGO · ${items.length} MODELLI`, x + 18, y + 18, C.lime);
+        const gw = (lw - 36 - 6) / 2; GROUPS.forEach(([id, label], i) => { U.button('craft-group-' + id, label.toUpperCase(), x + 18 + (i % 2) * (gw + 6), y + 42 + Math.floor(i / 2) * 40, gw, 34, () => { S.craftGroup = id; S.craftPage = null; }, { active: (S.craftGroup || 'tutti') === id, small: true }); });
+        [['sistema', mobile ? 'SISTEMA' : 'QUESTO SISTEMA'], ['galassia', mobile ? 'GALASSIA' : 'TUTTA LA GALASSIA']].forEach(([id, label], i) => { U.button('craft-scope-' + id, label, x + 18 + i * (gw + 6), y + 128, gw, 34, () => { S.craftScope = id; S.craftPage = null; }, { active: (S.craftScope || 'sistema') === id, small: true }); U.buttons.at(-1).label = id === 'sistema' ? 'Modelli del sistema ' + AREAS[e.system].name : 'Modelli di tutta la galassia'; });
+        const top = y + 176, rows = Math.max(1, Math.floor((lh - 176 - 52) / 40)), pages = Math.max(1, Math.ceil(items.length / rows)), at = items.indexOf(e);
+        if (S.craftPage === null || S.craftPage === undefined) S.craftPage = at >= 0 ? Math.floor(at / rows) : 0;
+        S.craftPage = clamp(S.craftPage, 0, pages - 1);
+        items.slice(S.craftPage * rows, S.craftPage * rows + rows).forEach((m, i) => { U.button('craft-item-' + m.id, m.name, x + 18, top + i * 40, lw - 36, 34, () => { pickCraft(m); if (mobile) S.craftListOpen = false; }, { active: m.id === e.id, small: true }); U.buttons.at(-1).label = m.name + ', ' + craftCard(m).kind.toLowerCase(); });
+        const py = y + lh - 46;
+        U.button('craft-page-prev', '◂', x + 18, py, 44, 34, () => S.craftPage--, { disabled: S.craftPage <= 0, small: true }); U.buttons.at(-1).label = 'Pagina precedente dell’elenco';
+        U.button('craft-page-next', '▸', x + lw - 62, py, 44, 34, () => S.craftPage++, { disabled: S.craftPage >= pages - 1, small: true }); U.buttons.at(-1).label = 'Pagina successiva dell’elenco';
+        U.text(`PAGINA ${S.craftPage + 1} DI ${pages}`, x + lw / 2 - R.textWidth(`PAGINA ${S.craftPage + 1} DI ${pages}`, 'micro', .7) / 2, py + 11, 'micro', C.muted, { track: .7 });
+    };
+    const step = k => pickCraft(craftStep(items.length ? items : [e], e.id, k));
+    if (!mobile) {
+        listUI(35, 245, 300, Math.max(330, h - 355));
+        // The card of the model.
+        // The card is as tall as its text, within the room between the title and the bottom buttons.
+        const cx = w - 337, cw = 304, rows = t => Math.max(1, R.multilineCount(t, cw - 36, 'mini', 5));
+        const need = 47 + card.lines.reduce((a, l) => a + 19 * Math.min(2, rows(l)) + 4, 0) + 6 + 19 * rows(card.about) + 8 + 40 + 72, ch = Math.min(h - 355, Math.max(300, need));
+        U.panel(cx, 245, cw, ch, tint, .82); U.tag(card.kind.toUpperCase(), cx + 18, 263, tint);
+        let y = 292; for (const line of card.lines) { const n = U.wrap(line, cx + 18, y, cw - 36, C.pale, 19, 2, 'mini'); y += 19 * Math.max(1, n || 1) + 4; }
+        y += 6; const n = U.wrap(card.about, cx + 18, y, cw - 36, C.muted, 19, 5, 'mini'); y += 19 * Math.max(1, n || 1) + 8;
+        if (y < 245 + ch - 100) U.wrap(tris, cx + 18, y, cw - 36, C.dim, 17, 2, 'micro');
+        const bw = (cw - 42) / 2;
+        U.button('craft-system', 'VAI AL SISTEMA', cx + 16, 245 + ch - 56, bw, 40, () => enterSystem(e.system), { active: true }); U.buttons.at(-1).label = 'Vai al sistema ' + AREAS[e.system].name + ', dove si trova il modello';
+        U.button('craft-turn', S.craftTurn === false ? 'RUOTA' : 'FERMA', cx + 26 + bw, 245 + ch - 56, bw, 40, () => S.craftTurn = S.craftTurn === false); U.buttons.at(-1).label = S.craftTurn === false ? 'Fai ruotare il modello' : 'Ferma la rotazione del modello';
+        U.button('back-system', 'TORNA AL SISTEMA', 35, h - 88, 220, 39, () => enterSystem(S.system));
+        const bx = w / 2 - 166;
+        U.button('craft-prev', '◂ PRECEDENTE', bx, h - 77, 120, 30, () => step(-1), { small: true }); U.buttons.at(-1).label = 'Modello precedente dell’elenco';
+        U.button('craft-zoom-in', '+', bx + 128, h - 77, 34, 30, () => changeZoom(.86)); U.button('craft-zoom-out', '−', bx + 170, h - 77, 34, 30, () => changeZoom(1 / .86));
+        U.button('craft-next', 'SUCCESSIVO ▸', bx + 212, h - 77, 120, 30, () => step(1), { small: true }); U.buttons.at(-1).label = 'Modello successivo dell’elenco';
+        return;
+    }
+    // Phones: the card or the list under the model, the way back and the zoom at the bottom.
+    const short = h < 700, pw = w - 36;
+    if (S.craftListOpen) listUI(18, short ? 150 : 200, pw, h - (short ? 150 : 200) - 100);
+    else {
+        const ph = short ? 168 : 214, py = h - ph - 100;
+        U.panel(18, py, pw, ph, tint, .84); U.tag(card.kind.toUpperCase() + ' · ' + card.style.toUpperCase(), 36, py + 18, tint);
+        // The system line drops the arm on phones; the other lines wrap while there is room above the buttons.
+        let y = py + 42; const end = py + ph - 60, lines = [card.lines[0], 'Sistema ' + AREAS[e.system].name, ...card.lines.slice(2)];
+        for (const line of lines) { if (y + 17 > end) break; const n = U.wrap(line, 36, y, pw - 36, C.pale, 17, y + 34 <= end ? 2 : 1, 'micro'); y += 17 * Math.max(1, n || 1) + 4; }
+        if (y + 21 <= end) U.wrap(card.about, 36, y + 4, pw - 36, C.muted, 17, Math.floor((end - y - 4) / 17), 'micro');
+        const bw = (pw - 36 - 12) / 3;
+        U.button('craft-prev', '◂', 34, py + ph - 52, bw, 38, () => step(-1)); U.buttons.at(-1).label = 'Modello precedente dell’elenco';
+        U.button('craft-list', 'ELENCO', 40 + bw, py + ph - 52, bw, 38, () => { S.craftListOpen = true; S.craftPage = null; }, { active: true }); U.buttons.at(-1).label = 'Apri l’elenco dei modelli';
+        U.button('craft-next', '▸', 46 + 2 * bw, py + ph - 52, bw, 38, () => step(1)); U.buttons.at(-1).label = 'Modello successivo dell’elenco';
+    }
+    U.button('back-system', w < 360 ? 'SISTEMA' : 'TORNA AL SISTEMA', 18, h - 88, Math.min(190, w - 154 - 26), 39, () => S.craftListOpen ? S.craftListOpen = false : enterSystem(S.system));
+    if (S.craftListOpen) U.buttons.at(-1).label = 'Chiudi l’elenco dei modelli';
+    U.button('craft-zoom-in', '+', w - 154, h - 77, 34, 30, () => changeZoom(.86)); U.button('craft-zoom-out', '−', w - 112, h - 77, 34, 30, () => changeZoom(1 / .86));
+    U.button('craft-turn', S.craftTurn === false ? 'RUOTA' : 'FERMA', w - 70, h - 77, 52, 30, () => S.craftTurn = S.craftTurn === false, { small: true }); U.buttons.at(-1).label = S.craftTurn === false ? 'Fai ruotare il modello' : 'Ferma la rotazione del modello';
+}
 function regionUI() {
     const w = R.w, h = R.h, mobile = w < 850, short = h < 700, sector = AREAS[S.system].sector, r = regionOf(sector), tint = sectorColors[sector];
     title('GALASSIA ▸ ' + r.name.toUpperCase() + ' ▸ REGIONE', 'Braccio della ' + r.name, short ? '' : mobile ? r.cloud.family + '.' : `${r.cloud.family}: ${r.totals.areas} aree, ${r.totals.built} avamposti costruiti.`);
@@ -1578,7 +1658,7 @@ function draw() {
     scrim();
     common();
     syncBook();
-    const screens = { libro: () => {}, ship: shipUI, gaia: gaiaUI, outpost: outpostUI, region: regionUI, galaxy: galaxyUI, system: systemUI, orbit: orbitUI, surface: surfaceUI, research: researchUI, catalogue: catalogueUI, briefing: briefingUI, theory: theoryUI, pdf: pdfUI, lab: labUI, quiz: quizUI, journal: journalUI, sources: sourcesUI, mission: () => education.drawUI(U, S), pilot: () => pilotEducation.drawUI(U,S), paths: () => education.drawPathsUI(U,S) };
+    const screens = { libro: () => {}, ship: shipUI, gaia: gaiaUI, outpost: outpostUI, region: regionUI, craft: craftUI, galaxy: galaxyUI, system: systemUI, orbit: orbitUI, surface: surfaceUI, research: researchUI, catalogue: catalogueUI, briefing: briefingUI, theory: theoryUI, pdf: pdfUI, lab: labUI, quiz: quizUI, journal: journalUI, sources: sourcesUI, mission: () => education.drawUI(U, S), pilot: () => pilotEducation.drawUI(U,S), paths: () => education.drawPathsUI(U,S) };
     (screens[S.scene] || galaxyUI)();
     drawHover();
     overlay();
@@ -1647,11 +1727,11 @@ function syncSemantic() {
         if (e && document.activeElement !== e)
             e.value = b.value;
     }
-    const key = physicsOpen() ? 'physics-' + S.selected + '-' + store.data.updatedAt : expeditionsOpen() ? 'expeditions-' + S.selected + '-' + store.data.updatedAt : S.scene === 'ship' ? 'ship-' + store.data.updatedAt + '-' + (S.shipPage || 0) : S.scene === 'gaia' ? 'gaia-' + store.data.updatedAt + '-' + S.gaiaTab + '-' + (S.gaiaPage || 0) + '-' + S.gaiaWorld : S.scene === 'region' ? 'region-' + S.system + '-' + store.data.updatedAt : S.scene === 'outpost' ? 'outpost-' + S.system + '-' + store.data.updatedAt : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticKey():S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
+    const key = physicsOpen() ? 'physics-' + S.selected + '-' + store.data.updatedAt : expeditionsOpen() ? 'expeditions-' + S.selected + '-' + store.data.updatedAt : S.scene === 'ship' ? 'ship-' + store.data.updatedAt + '-' + (S.shipPage || 0) : S.scene === 'gaia' ? 'gaia-' + store.data.updatedAt + '-' + S.gaiaTab + '-' + (S.gaiaPage || 0) + '-' + S.gaiaWorld : S.scene === 'region' ? 'region-' + S.system + '-' + store.data.updatedAt : S.scene === 'craft' ? 'craft-' + craftEntry().id + '-' + (W.viewerInfo?.full ?? 0) : S.scene === 'outpost' ? 'outpost-' + S.system + '-' + store.data.updatedAt : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticKey():S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
     if (key !== textSignature) {
         const el = document.querySelector('#semantic-text');
         if (el)
-            el.textContent = physicsOpen() ? 'Dati fisici del pianeta ' + selected().title + '. ' + physicsText(planetPhysics()[S.selected], speciesCount(S.selected), cardReveal()) : expeditionsOpen() ? expeditionsText(selected()) : S.scene === 'ship' ? shipText() : S.scene === 'gaia' ? gaiaText() : S.scene === 'outpost' ? outpostText() : S.scene === 'region' ? regionText() : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndexes[docKey(S.pdfDoc)]?.[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
+            el.textContent = physicsOpen() ? 'Dati fisici del pianeta ' + selected().title + '. ' + physicsText(planetPhysics()[S.selected], speciesCount(S.selected), cardReveal()) : expeditionsOpen() ? expeditionsText(selected()) : S.scene === 'ship' ? shipText() : S.scene === 'gaia' ? gaiaText() : S.scene === 'craft' ? craftPageText() : S.scene === 'outpost' ? outpostText() : S.scene === 'region' ? regionText() : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndexes[docKey(S.pdfDoc)]?.[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
         textSignature = key;
     }
 }
@@ -1682,7 +1762,7 @@ function events() {
         }
         else if (pointer.moved && !pointer.blocked) {
             atlas?.cancelFlight();
-            if (['galaxy', 'system', 'orbit', 'surface', 'research'].includes(S.scene) || (['mission','pilot'].includes(S.scene) && activeEducation().scene.contains(pointer.startX, pointer.startY) && !S.menu && !S.settings)) {
+            if (['galaxy', 'system', 'orbit', 'surface', 'research', 'craft'].includes(S.scene) || (['mission','pilot'].includes(S.scene) && activeEducation().scene.contains(pointer.startX, pointer.startY) && !S.menu && !S.settings)) {
                 S.yaw += dx * .006;
                 S.pitch = clamp(S.pitch + dy * .003, .1, 1.2);
             }
@@ -1705,7 +1785,7 @@ function events() {
                     if(touch&&!same){touchTarget=hit;S.hoveredTarget=hit;if(hit.type==='system'){const units=indicesForSystem(hit.index);selectIndex(units.includes(S.selected)?S.selected:units[0]);}else selectIndex(hit.index);updateHash();}
                     else if(hit.type==='system')enterSystem(hit.index);else enterPlanet(hit.index);
                 }else if(hit?.type==='ambient'){touchTarget=hit;S.observedBody=hit.index;say(hit.body.profile.name+' · destinazione non esplorabile');}
-                else if(hit?.type==='craft'){touchTarget=hit;say([hit.entry.name,...(hit.lines||[])].join(' · '));}
+                else if(hit?.type==='craft'){const touch=pointer.pointerType==='touch',same=touchTarget?.type==='craft'&&touchTarget?.index===hit.index;if(CRAFT_BY_ID.has(hit.entry.id)&&(!touch||same))openCraft(hit.entry.id);else{touchTarget=hit;say([hit.entry.name,...(hit.lines||[])].join(' · '));}}
                 else if(hit?.type==='node')S.node=hit.index;
                 else if(hit?.type==='station')S.station=hit.index;
                 else if(hit?.type==='place')selectTarget({type:'place',index:hit.index});
