@@ -15,6 +15,7 @@ import { CraftFactory } from '../craft/factory.js';
 import { chooseLevels, LOW_SHARE } from '../craft/detail.js';
 import { placeStations, stationPosition, stationYaw } from '../craft/placement.js';
 import { Economy, RESOURCES, stationReport, shipReport } from '../craft/economy.js';
+import { Threats, THREAT } from '../craft/threats.js';
 import { SHIP_SIZE, shipPose, shipMatrix } from '../craft/traffic.js';
 import { tuft, rock, station as stationMesh, seaPlane, grazer, frond, tree, column, cushion, cup, patch, hexapod, flyer, floater, beacon, curtain } from '../worlds/geometry.js';
 /** Mesh, instance mode, motion uniform and PBR of each body plan of the species (src/worlds/species.js). */
@@ -354,7 +355,7 @@ export class World {
             C.sites={time:null,hosts:new Map()};
             const site=place=>this.craftSite(system,place,C.siteTime??s.time);
             this.lives??=new Map();
-            if(!this.lives.has(id))this.lives.set(id,new Economy({stations:C.list.map(item=>item.placement.entry),ships:C.models.map(m=>m.entry),bodies:system.bodies.map(b=>b.slot),seed:SESSION^Math.imul(id+1,0x27D4EB2F),time:s.time,neighbours:this.neighbourNames(id),distance:(a,b)=>{const p=site(a).position,q=site(b).position;return Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2]);}}));
+            if(!this.lives.has(id))this.lives.set(id,new Economy({stations:C.list.map(item=>item.placement.entry),ships:C.models.map(m=>m.entry),bodies:system.bodies.map(b=>b.slot),seed:SESSION^Math.imul(id+1,0x27D4EB2F),time:s.time,neighbours:this.neighbourNames(id),position:place=>site(place).position,distance:(a,b)=>{const p=site(a).position,q=site(b).position;return Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2]);}}));
             C.life=this.lives.get(id);C.lanes=null;
         }
         const items=[...C.list,...C.models];
@@ -430,6 +431,53 @@ export class World {
                 if(apparent>=18&&R.sceneQuality!=='low')lights(m,mats,size,pose.thrust);
             }
         }
+        // Natural threats (1.48.0): fragments of a swarm and rogue asteroids on their way, the beams of the ships
+        // and stations that destroy them, the flash of what gets through, and the front of a flare with the
+        // shield around a shield generator.
+        if(life.threats){
+            const now=s.time,px=p=>Math.hypot(p[0]-this.eye[0],p[1]-this.eye[1],p[2]-this.eye[2])*k2/R.h,HOT=[1,.72,.45],BEAM=[1,.38,.24],SHIELD=[.45,.8,1];
+            const hash=(a,b)=>{const v=Math.sin(a*12.9898+b*78.233)*43758.5453;return v-Math.floor(v)-.5;};
+            for(const ev of life.threats.active){
+                if(now<ev.t0)continue;
+                if(ev.kind==='brillamento'){
+                    if(now>ev.tEnd)continue;
+                    const age=now-ev.t0,fade=1-age/(ev.tEnd-ev.t0),r=age*THREAT.flare.speed;
+                    glow([0,0,0],system.starRadius*(3+2*Math.sin(age*3)**2),[1,.85,.55],.55*fade);
+                    if(r<90)for(let q=0;q<96;q++){const a=q/96*TAU,p=[Math.cos(a)*r,Math.sin(a*5+age)*.15,Math.sin(a)*r];glow(p,px(p)*3,[1,.8,.5],.75*Math.max(0,1-r/90));}
+                    if(ev.shields)for(const item of C.list)if(item.entry.works==='difesa-scudo'){const c=site({station:C.list.indexOf(item)}).position;for(let q=0;q<40;q++){const a=q/40*TAU,p=[c[0]+Math.cos(a)*THREAT.flare.cover,c[1],c[2]+Math.sin(a)*THREAT.flare.cover];glow(p,px(p)*1.8,SHIELD,(.25+.1*Math.sin(now*4+q))*fade);}}
+                    continue;
+                }
+                if(now>ev.tEnd)continue;
+                const target=site({station:ev.target}).position,rock=ev.kind==='asteroide';
+                for(let j=0;j<ev.n;j++){
+                    const kill=ev.kills.find(k=>k.j===j);
+                    if(kill&&now>=kill.t){
+                        const c=Threats.fragment(ev,j,kill.t,target),age=now-kill.t;
+                        if(age<.7)glow(c,px(c)*(rock?7:4),[1,.88,.65],.95*(1-age/.7));
+                        if(rock&&age<4)for(let q=0;q<10;q++){const p=[c[0]+hash(q,1)*age*1.3,c[1]+hash(q,2)*age*.6,c[2]+hash(q,3)*age*1.3];glow(p,px(p)*1.6,HOT,.8*(1-age/4));}
+                        continue;
+                    }
+                    if(now>=ev.tImpact)continue;
+                    const p=Threats.fragment(ev,j,now,target);
+                    if(rock){R.drawMesh('lowSphere',this.vp,transform(...p,.13,now*.7),{eye:this.eye,light:normal(p.map(v=>-v)),material:12,texture:this.textures?.moon});glow(p,px(p)*2.5,HOT,.35);}
+                    else glow(p,Math.max(.02,px(p)*2.2),HOT,.9);
+                    for(const back of [.35,.7]){const q=Threats.fragment(ev,j,now-back,target);glow(q,px(q)*(rock?2.2:1.6),HOT,(rock?.45:.35)*(1-back));}
+                }
+                for(const k of ev.kills)if(now>k.t-.9&&now<k.t){
+                    const ship=k.by.ship!==undefined?life.ships[k.by.ship]:null,from=ship?shipPose(ship,now,site,avoid).position:site({station:k.by.station}).position,to=Threats.fragment(ev,k.j,now,target),on=.55+.45*Math.sin(now*40+k.j);
+                    for(let q=0;q<8;q++){const p=from.map((v,i)=>v+(to[i]-v)*(q+.5)/8);glow(p,px(p)*1.3,BEAM,.8*on);}
+                }
+                if(ev.hits>0&&now>=ev.tImpact&&now<ev.tImpact+3){const age=now-ev.tImpact;glow(target,px(target)*(6+5*age),[1,.6,.3],.85*(1-age/3));for(let q=0;q<8;q++){const p=[target[0]+hash(q,ev.id)*age,target[1]+hash(q,ev.id+1)*age*.5,target[2]+hash(q,ev.id+2)*age];glow(p,px(p)*1.5,HOT,.7*(1-age/3));}}
+                // A threat on its way can be pointed at: where it goes, when it strikes, what the defence is doing.
+                if(s.scene==='system'&&now<ev.tImpact){
+                    const p=Threats.fragment(ev,0,now,target),xy=project(p,this.vp,R.w,R.h);
+                    if(xy[2]>0){const left=Math.max(0,Math.ceil(ev.tImpact-now)),done=ev.kills.filter(k=>k.t<=now).length,name=C.list[ev.target].entry.name;
+                        const second=rock?(done?'Distrutto dalla difesa':ev.defenders.length?`${ev.defenders.length} ${ev.defenders.length>1?'navi':'nave'} in volo per fermarlo`:'Nessuna nave in volo'):`${ev.n} frammenti, ${done} distrutti`;
+                        this.projections.push({type:'craft',index:5000+ev.id,entry:{name:ev.name,kind:'minaccia',style:'minaccia',typeName:'Minaccia naturale',about:rock?'Roccia vagante: per distruggerla serve una nave dalla fregata in su, o una fortezza vicina.':'Nube di frammenti di roccia e ghiaccio: la flotta la aspetta lungo la rotta.'},lines:[`Verso ${name}`,left>0?`Impatto fra ${left} s · ${second}`:second],...xyToObj(xy),r:14,apparent:1,position:p,worldRadius:.1});}
+                }
+            }
+            stats.threats=life.threats.active.length;
+        }
         // Minor traffic (1.46.0): shuttles and pods between each station and its nearest neighbour, drawn
         // only as small lights moving along the line between the two.
         if(R.sceneQuality!=='low'&&C.list.length>1){
@@ -474,6 +522,8 @@ export class World {
     /** Position and size of a station or a planet of the open system at `time`. */
     craftSite(system,place,time){
         const C=this.craft;
+        // A point in space: where a defence ship waits for a threat (1.48.0).
+        if(place.point)return {position:place.point,radius:0};
         if(place.station!==undefined){const pl=C.list[place.station].placement;return {position:stationPosition(pl,time,slot=>this.craftHost(system,slot,time)),radius:pl.size*grown(C.life?.stations[place.station])};}
         // Beyond the gate: the convoys of the neighbouring systems come and go from three points past it.
         if(place.beyond!==undefined){
@@ -494,6 +544,7 @@ export class World {
     }
     /** Name of a place for the ship reports. */
     craftName(system,place){
+        if(place.point)return 'punto di intercettazione';
         if(place.station!==undefined)return this.craft.list[place.station].placement.entry.name;
         if(place.beyond!==undefined)return 'fuori dal sistema';
         const body=system.bodies.find(b=>b.slot===place.body);return 'corpo '+(body.slot+1)+' ('+body.profile.name.toLowerCase()+')';

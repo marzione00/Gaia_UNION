@@ -1,3 +1,12 @@
+# 1.48.0: Minacce naturali
+
+- Tre minacce naturali scelte dal caso: sciami di 14-24 meteoroidi e asteroidi vaganti che arrivano da oltre l'anello esterno verso una stazione, e brillamenti della stella. La prima arriva fra 80 e 140 s, le altre ogni 220-400 s.
+- La flotta di difesa intercetta: la stazione di sorveglianza vede la minaccia subito, partono le navi che arrivano per prime sulla rotta (fino a quattro contro uno sciame, fino a due contro un asteroide, dalla fregata in su quando ci sono), aspettano in posizione e sparano; piattaforme e fortezze vicine al bersaglio colpiscono negli ultimi secondi.
+- Ciò che passa danneggia la stazione, che lavora più piano finché le navi non portano le parti per le riparazioni; un asteroide distrugge anche il 30 % delle scorte. Un brillamento dimezza per 45 s il lavoro delle stazioni scoperte; le stazioni di difesa e quelle vicine a un generatore di scudo restano intere.
+- Nella scena: frammenti con scie, rocce, raggi, lampi, il fronte del brillamento, l'anello dello scudo e un triangolo che indica la minaccia, con resoconto al passaggio del puntatore; la cronaca racconta ogni fase.
+- Nella simulazione di 1800 s su 30 sistemi e tre semi la flotta distrugge l'87,9 % dei frammenti e 139 asteroidi su 146; senza flotta il tempo a pieno ritmo delle stazioni scende dall'82,3 al 74,5 %, con la flotta dall'81,2 al 78,1 %.
+- Nuovo `src/craft/threats.js`; `tests/minacce.test.mjs` controlla calendario, sciami, asteroidi, danni e riparazioni, brillamenti, testi e scena. Descrizione in `docs/STAZIONI_NAVI.md`.
+
 # 1.47.1: Nuovo disegno della flotta di difesa
 
 - Le undici classi di navi di difesa sono ridisegnate: scure, spigolose e asimmetriche. Le piastre di corazza sono sfaccettate, in grigio antracite e canna di fucile, con giunti e bordi arancio rosso nel colore della flotta. Le prue hanno punte di lunghezza diversa; lame e antenne sporgono dai fianchi, sponsoni e scafi laterali stanno su un solo lato, le guglie di comando sono fuori asse; finestre e motori sono color ambra.

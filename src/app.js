@@ -30,7 +30,7 @@ import { descriptor as modelDescriptor } from './models/curriculum.js';
 import { openStore, grade } from './store.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.47.1-difesa';
+const VERSION = '1.48.0-minacce';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -53,7 +53,7 @@ let hoverPointer = null, touchTarget = null, book = null, passages = [], instrum
 const sectors = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
 const sectorColors = DISCIPLINE;
 /** Colour and label of the construction styles of stations and ships (src/craft/styles.js). */
-const CRAFT_STYLE = { matematica: [DISCIPLINE[0], 'Matematica', '#f2b766'], fisica: [DISCIPLINE[1], 'Fisica', '#7fb2ff'], chimica: [DISCIPLINE[2], 'Chimica', '#b49cff'], biologia: [DISCIPLINE[3], 'Biologia', '#6fd3a0'], civile: [color('#ff9466'), 'Traffico civile', '#ff9466'], difesa: [color('#e8665a'), 'Flotta di difesa', '#e8665a'] };
+const CRAFT_STYLE = { matematica: [DISCIPLINE[0], 'Matematica', '#f2b766'], fisica: [DISCIPLINE[1], 'Fisica', '#7fb2ff'], chimica: [DISCIPLINE[2], 'Chimica', '#b49cff'], biologia: [DISCIPLINE[3], 'Biologia', '#6fd3a0'], civile: [color('#ff9466'), 'Traffico civile', '#ff9466'], difesa: [color('#e8665a'), 'Flotta di difesa', '#e8665a'], minaccia: [color('#ffae5c'), 'Minaccia naturale', '#ffae5c'] };
 const nav = [['galaxy', 'MAPPA'], ['catalogue', 'ARGOMENTI'], ['paths', 'PERCORSI'], ['lab', 'LABORATORI'], ['journal', 'DIARIO']];
 const navGroups = { galaxy: ['galaxy', 'system', 'orbit', 'surface', 'outpost', 'region'], catalogue: ['catalogue', 'mission', 'briefing', 'theory', 'pdf', 'quiz', 'sources', 'research', 'pilot', 'libro'], paths: ['paths'], lab: ['lab'], journal: ['journal', 'ship', 'gaia'] };
 const sceneNames = { ship: 'NAVE', gaia: 'NUCLEO DI GAIA', outpost: 'MAPPA', region: 'MAPPA', system: 'MAPPA', orbit: 'MAPPA', surface: 'MAPPA', mission: 'UNITÀ', briefing: 'UNITÀ', theory: 'TEORIA', pdf: 'DISPENSA', quiz: 'VERIFICA', sources: 'FONTI', research: 'RICERCA', pilot: 'MISSIONE' };
@@ -328,7 +328,12 @@ function craftMarkers() {
     for (const p of W.projections) {
         if (p.type !== 'craft' || p.depth <= 0 || !Number.isFinite(p.x) || p.apparent > 10 || p.y < 235 || p.y > R.h - 115) continue;
         const [tint] = CRAFT_STYLE[p.entry.style], hot = S.hoveredTarget?.type === 'craft' && S.hoveredTarget.index === p.index, r = hot ? 7 : 5;
-        if (p.entry.kind === 'nave') {
+        if (p.entry.kind === 'minaccia') {
+            // A natural threat (1.48.0): a pulsing warning triangle.
+            const k = .7 + .3 * Math.sin(S.time * 6), e = r + 3, tri = [[p.x, p.y - e], [p.x + e, p.y + e * .8], [p.x - e, p.y + e * .8]];
+            R.poly([[p.x, p.y], ...tri, tri[0]], color(CRAFT_STYLE.minaccia[2], .35 + .4 * k)); R.polyline([...tri, tri[0]], tint, 1.6);
+        }
+        else if (p.entry.kind === 'nave') {
             // A moving ship leaves a short wake towards where it was a moment ago.
             if (p.tail && Math.hypot(p.tail[0] - p.x, p.tail[1] - p.y) > 2) R.line(p.tail, [p.x, p.y], color(CRAFT_STYLE[p.entry.style][2], .5), 2);
             R.roundRect(p.x - 2.5, p.y - 2.5, 5, 5, 2.5, tint);
@@ -448,7 +453,7 @@ function drawHover() {
         wrapClipText(system.description,x+16,y+73,pw-32,'mini',C.muted,4);
         U.text('CLIC PER SCEGLIERE L’AREA',x+16,y+ph-26,'micro',C.lime);
     }else if(hit.type==='craft'){
-        const e=p.entry||hit.entry,lines=p.lines||hit.lines||[],[tint,label]=CRAFT_STYLE[e.style];U.tag((e.kind==='nave'?'NAVE':'STAZIONE')+' · '+label.toUpperCase(),x+16,y+16,tint);U.text(e.name,x+16,y+45,'mini',C.pale);
+        const e=p.entry||hit.entry,lines=p.lines||hit.lines||[],[tint,label]=CRAFT_STYLE[e.style];U.tag((e.kind==='nave'?'NAVE':e.kind==='minaccia'?'MINACCIA':'STAZIONE')+' · '+label.toUpperCase(),x+16,y+16,tint);U.text(e.name,x+16,y+45,'mini',C.pale);
         lines.forEach((t,k)=>U.text(t,x+16,y+71+k*20,'micro',k?C.muted:C.amber));
         wrapClipText(e.about||(e.typeName+', lunga '+e.size+'.'),x+16,y+71+lines.length*20+6,pw-32,'micro',C.muted,2);
         U.text(e.typeName.toUpperCase(),x+16,y+ph-26,'micro',C.dim);
