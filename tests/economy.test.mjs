@@ -5,7 +5,7 @@ import { sphereMesh } from '../src/renderer.js';
 import { displayRadius } from '../src/scene/world.js';
 import { systemCraft, systemExtras, systemShipExtras, EXTRAS } from '../src/craft/catalog.js';
 import { placeStations, stationPosition } from '../src/craft/placement.js';
-import { Economy, RESOURCES, RECIPES, FLEET, stationReport } from '../src/craft/economy.js';
+import { Economy, RESOURCES, RECIPES, FLEET, GROWTH, kitOf, stationReport } from '../src/craft/economy.js';
 import { ROLES, TYPES, worksOf } from '../src/craft/grammar.js';
 // Economy 2.0 (1.45.0): 24 goods in production chains, gates that balance the chains, carriers for every good.
 const glyphs=JSON.parse(fs.readFileSync(new URL('../assets/glyphs.json',import.meta.url),'utf8')).styles.body.glyphs;
@@ -36,8 +36,10 @@ test('porte e navi: ogni catena si chiude e ogni merce richiesta ha una nave che
  for(const g of Object.keys(RESOURCES))assert.ok(Object.values(FLEET).some(c=>c.carries.includes(g)),'nessuna classe porta '+g);
  for(const full of [false,true])AREAS.forEach((_,id)=>{
   const {E}=world(id,3,full),gate=E.stations.find(s=>s.entry.type==='porta'),made={},used={};
+  // Expansion kits (1.46.0) count as a small steady use.
+  for(const s of E.stations)if(s!==gate&&s.grows)for(const [g,v] of Object.entries(kitOf(s)))used[g]=(used[g]||0)+v/(GROWTH.time*3);
   for(const s of E.stations)if(s!==gate){for(const [g,v] of Object.entries(s.make))made[g]=(made[g]||0)+v;for(const [g,v] of Object.entries(s.use))if(g!=='equipaggi')used[g]=(used[g]||0)+v;}
-  for(const [g,u] of Object.entries(used)){const m=made[g]||0;if(m<u*1.5)assert.ok(gate.make[g]>=Math.max(u-m,u*.25)-1e-3,`sistema ${id}: la porta non importa ${g}`);}
+  for(const [g,u] of Object.entries(used)){const m=made[g]||0;if(m<u*1.5)assert.ok(gate.imports[g]>=Math.max(u-m,u*.25)-1e-3,`sistema ${id}: la porta non importa ${g}`);}
   for(const [g,m] of Object.entries(made))if(g!=='equipaggi'&&m>=(used[g]||0)*1.5&&m>(used[g]||0))assert.ok(gate.use[g]>0,`sistema ${id}: la porta non esporta ${g}`);
   for(const g of Object.keys(RESOURCES))assert.ok(gate.cap[g]>0,`sistema ${id}: la porta non accetta ${g}`);
   const carried=new Set(E.ships.flatMap(s=>s.cls.carries));
@@ -51,10 +53,10 @@ test('vita: le stazioni lavorano quasi sempre, le catene consegnano le loro merc
   for(w.clock.t=0;w.clock.t<=1200;w.clock.t+=1){
    w.E.update(w.clock.t);
    for(const s of w.E.stations){if(!Object.keys(s.make).length||s.entry.type==='porta')continue;n++;if(s.producing===1)full++;if(s.inputs&&s.missing.length)stop++;for(const [g,v] of Object.entries(s.stock))assert.ok(v>=-1e-9&&v<=(s.cap[g]??Infinity)+1e-9,s.entry.id+' '+g);}
-   for(const sh of w.E.ships){if(sh.phase==='travel')moved.add(sh.id);if(sh.phase==='dock'&&sh.task==='scarica'&&sh.cargo)delivered.add(sh.cargo.res);}
+   for(const sh of w.E.ships){if(sh.phase==='travel'&&sh.born<=900)moved.add(sh.id);if(sh.phase==='dock'&&sh.task==='scarica'&&sh.cargo)delivered.add(sh.cargo.res);}
    if(w.clock.t%60===0)for(const s of w.E.stations)stationReport(s).forEach(x=>texts.add(x));
   }
-  assert.equal(moved.size,w.E.ships.length,'sistema '+id+': navi ferme');
+  assert.equal(moved.size,w.E.ships.filter(sh=>sh.born<=900).length,'sistema '+id+': navi ferme');
  }
  assert.ok(full/n>.7,'a pieno ritmo '+(full/n).toFixed(3));assert.ok(stop/n<.05,'ferme per mancanza di ingredienti '+(stop/n).toFixed(3));
  assert.ok(delivered.size>=20,'merci consegnate: '+delivered.size);
