@@ -120,7 +120,7 @@ Dalla 1.39.0 le sei stazioni di ogni sistema compaiono nella vista del sistema e
 
 Una stazione orbita a 1,75 raggi del pianeta disegnato più una volta e mezza la propria dimensione; ogni stazione successiva attorno allo stesso pianeta si allontana di altri 0,6 raggi. Le orbite hanno inclinazioni fra 0,25 e 0,6 radianti e versi diversi. Il raggio disegnato di una stazione è 0,2 unità del sistema per il porto, 0,55 per la porta, 0,17 per la miniera e 0,15 per le altre; i pianeti disegnati misurano da 0,33 a 0,99 unità di raggio.
 
-Il sito costruisce soltanto le stazioni del sistema aperto, un modello per fotogramma, e libera le mesh del sistema precedente quando se ne apre un altro. Nella vista del sistema una stazione lontana è un piccolo rombo nel colore del suo stile; passando con il puntatore compaiono nome, stile e funzione, e un tocco li mostra nella barra dei messaggi. In orbita attorno a un pianeta le stazioni vicine si vedono intere, illuminate dalla stella del sistema; le luci di posizione si accendono quando una stazione supera i 22 pixel di raggio sullo schermo, salvo con la grafica al livello più basso.
+Il sito costruisce soltanto le stazioni del sistema aperto e libera le mesh del sistema precedente quando se ne apre un altro; dalla 1.41.0 i modelli si costruiscono in un worker, come descritto in «Il motore». Nella vista del sistema una stazione lontana è un piccolo rombo nel colore del suo stile; passando con il puntatore compaiono nome, stile e funzione, e un tocco li mostra nella barra dei messaggi. In orbita attorno a un pianeta le stazioni vicine si vedono intere, illuminate dalla stella del sistema; le luci di posizione si accendono quando una stazione supera i 22 pixel di raggio sullo schermo, salvo con la grafica al livello più basso.
 
 ## La vita dei sistemi
 
@@ -151,16 +151,50 @@ Nella vista del sistema ogni nave è un punto nel colore del suo stile, con una 
 
 Una simulazione di 1200 s per ognuno dei 30 sistemi con tre semi diversi muove tutte le 590 navi coinvolte; le navi passano in viaggio dal 35 al 65 % del tempo, con mediana del 50 %, e nessuna arriva a meno di 2,73 raggi stellari dalla stella.
 
+## Il motore
+
+Dalla 1.41.0 ogni stazione e ogni nave ha tre livelli di dettaglio, scelti a ogni fotogramma dal raggio apparente sullo schermo (`src/craft/detail.js`).
+
+| Livello | Quando | Che cosa si disegna |
+|---|---|---|
+| 0, modello completo | raggio apparente da 40 pixel in su, entro il bilancio di triangoli | il modello del catalogo |
+| 1, modello semplificato | da 1,2 pixel per le stazioni e da 1 pixel per le navi fino a 40 | lo stesso modello costruito con dettaglio 0,35 |
+| 2, punto luce | sotto queste soglie | un bagliore nel colore dello stile |
+
+Il modello semplificato nasce dalla stessa ricetta del completo e ha le stesse parti, le stesse parti mobili e le stesse luci. Le parti rotonde hanno circa un terzo dei segmenti, con un minimo che conserva la forma (8 lati per i cilindri, 12 per tori e parabole); mancano piastre, sporgenze, fasce, diagonali delle travature, finestre, celle dei pannelli solari, nervature dei radiatori e lampadine delle luci di posizione. Le luci restano come bagliori, e le lampadine contano nel centro e nel raggio del modello anche dove mancano, così i due livelli hanno la stessa dimensione: i raggi differiscono al massimo dell'1,3 %. Sul catalogo i 300 modelli semplificati sommano 588 664 triangoli contro 2 038 346, il 28,9 %. Per un singolo modello la quota va dal 6,3 % di un telescopio coperto di pannelli al 63,2 % di un corriere, che ha già poche parti rotonde, con mediana 32,0 %; una stazione semplificata conta da 204 a 7440 triangoli, una nave da 392 a 3424.
+
+Il modello completo spetta a ciò che è vicino, dal più grande sullo schermo in giù, finché i triangoli di navi e stazioni del fotogramma restano entro un bilancio che dipende dalla grafica scelta nelle impostazioni: 600 000 con dettaglio alto, 250 000 con grafica bilanciata, 120 000 con grafica leggera. Se i soli modelli semplificati superano il bilancio, i più piccoli sullo schermo diventano punti luce. Il modello completo si costruisce la prima volta che qualcosa si avvicina; fino a quel momento resta il semplificato.
+
+I modelli si costruiscono in un worker del browser (`src/craft/factory.js` e `src/craft/worker.js`), che restituisce le mesh pronte trasferendo i buffer, e il ciclo di disegno carica soltanto mesh finite sulla scheda grafica. Prima arrivano i modelli semplificati di tutte le stazioni, poi quelli delle navi, poi i completi richiesti. Il worker riceve due lavori alla volta, così il primo lavoro della coda aspetta al massimo i due già in costruzione. Quando il browser rifiuta i worker di modulo, o il worker si interrompe per un errore, la costruzione torna sul thread principale, un modello per fotogramma come nelle versioni precedenti; nei test con Node accade sempre. Con Node sulla macchina di sviluppo un modello completo richiede in media 8,5 ms e fino a 67 ms per i più complessi, un semplificato 2,7 ms; prima questi tempi cadevano dentro un fotogramma.
+
+Le parti ferme di un modello formano una sola mesh (`pack` in `src/craft/kit.js`), le parti che ruotano restano separate. Le navi della stessa classe e dello stesso livello condividono la mesh e si disegnano con una sola chiamata a istanze: ogni nave porta posizione, scala e direzione di marcia, e lo shader costruisce l'orientamento con la stessa base di `shipMatrix` in `src/craft/traffic.js`, con la luce della stella calcolata in ogni punto dello scafo. Anche tutti i bagliori del sistema (luci di posizione, fiamme, scie e merci in movimento) si disegnano con una sola chiamata, dopo gli scafi. In Chromium una nave disegnata a istanze e la stessa nave disegnata con la propria matrice differiscono al massimo di 2 livelli su 255 per pixel.
+
+Un fotogramma delle stesse viste a 1440 × 900, misurato in Chromium con la 1.40.0 e con la 1.41.0, dà questi conteggi per tutta la scena (stelle escluse); le navi presenti cambiano a ogni avvio, quindi i numeri sono indicativi.
+
+| Vista | Chiamate di disegno, 1.40.0 | 1.41.0 | Triangoli, 1.40.0 | 1.41.0 |
+|---|---:|---:|---:|---:|
+| Sistema «Legami e molecole» | 83 | 76 | 234 008 | 165 642 |
+| Orbita di «Geometria molecolare e VSEPR» | 125 | 66 | 301 528 | 265 162 |
+
+Nella vista in orbita i 65 bagliori del fotogramma occupano una sola chiamata; nella vista del sistema le 12 stazioni e navi disegnate come modelli usano tutte il semplificato, per 29 138 triangoli, dove la 1.40.0 disegnava i completi.
+
+### Pagina diagnostica
+
+Aggiungendo `?diagnostica` all'indirizzo, prima del cancelletto (per esempio `index.html?diagnostica#/system?unit=chemistry-08`), un pannello in basso a destra si aggiorna ogni mezzo secondo con i fotogrammi al secondo, la durata media e massima degli ultimi 120 fotogrammi, il tempo di disegno sul processore, le chiamate di disegno e i triangoli del fotogramma, quante navi e stazioni sono complete, semplificate o punti luce, i modelli costruiti e quelli in coda, la grafica scelta, le dimensioni della tela e della scena e il nome della GPU. Il pannello lascia passare il puntatore, quindi la scena sotto resta utilizzabile. `GAIA.diagnostics().performance` restituisce gli stessi numeri. Con SwiftShader, il renderer software dei collaudi, la vista del sistema «Legami e molecole» a 1440 × 900 procede a circa 0,2 fotogrammi al secondo mentre il disegno sul processore richiede circa 14 ms per fotogramma: il tempo si spende quasi tutto nella GPU emulata. La pagina serve a misurare le GPU reali delle scuole e degli studenti.
+
 ## Controlli
 
 `tests/craft.test.mjs` verifica che i modelli siano 300, dieci per sistema con sei stazioni e quattro navi, che le miniere stiano solo nei sistemi con la fascia, che nomi e identificatori siano unici e scritti con l'atlante dei caratteri, che gli stili seguano la regola descritta sopra, che la generazione sia deterministica, che le mesh contengano solo valori finiti e indici validi entro i limiti di triangoli, e che due modelli dello stesso tipo e stile differiscano in almeno due scelte.
 
-`tests/stations.test.mjs` verifica che ogni sistema abbia sei stazioni collocate in modo deterministico, la porta oltre la fascia, la miniera dentro la fascia, il porto attorno a un pianeta di studio e il cantiere accanto al porto, la raffineria attorno a un gigante quando il sistema ne ha uno; che le stazioni restino alla distanza prevista dall'ospite, fuori dal pianeta disegnato; e che la scena costruisca un modello per fotogramma, renda selezionabili le stazioni e liberi le mesh al cambio di sistema.
+`tests/stations.test.mjs` verifica che ogni sistema abbia sei stazioni collocate in modo deterministico, la porta oltre la fascia, la miniera dentro la fascia, il porto attorno a un pianeta di studio e il cantiere accanto al porto, la raffineria attorno a un gigante quando il sistema ne ha uno; che le stazioni restino alla distanza prevista dall'ospite, fuori dal pianeta disegnato; e che la scena costruisca prima i modelli semplificati, uno per fotogramma quando manca il worker, poi il modello completo di una stazione vicina, disegni le navi e i bagliori a istanze, renda selezionabili stazioni e navi e liberi mesh e istanze al cambio di sistema.
 
 `tests/life.test.mjs` verifica che ogni stazione e ogni nave abbiano regole valide; che in 1800 s di simulazione le scorte restino nei limiti, le prenotazioni non scendano sotto zero, ogni nave compia almeno tre viaggi e i carichi vengano consegnati; che lo stesso seme ripeta le stesse rotte e semi diversi ne diano di diverse; che nessuna nave passi vicino alla stella; e che i resoconti mostrati sullo schermo siano brevi, nello stile del sito e scritti con l'atlante dei caratteri.
+
+`tests/engine.test.mjs` verifica che il modello semplificato di ognuno dei 300 modelli abbia la stessa ricetta, le stesse parti e luci, meno del 70 % dei triangoli e un raggio entro il 3 % del completo; che il modello impacchettato conservi tutti i triangoli; che la scelta dei livelli rispetti soglie, ordine e bilanci; che la coda dei lavori metta prima i semplificati, consegni ogni modello una volta e scarti le risposte di un sistema già chiuso; che il worker trasferisca i buffer; che la base costruita nello shader coincida con `shipMatrix`; e che il pannello diagnostico calcoli frequenza e durata dei fotogrammi.
 
 ## Aggiornamenti
 
 1. Generatore e catalogo (1.38.0).
 2. Stazioni nei sistemi (1.39.0).
 3. Vita dei sistemi: produzione delle stazioni e traffico delle navi (1.40.0).
+4. Motore: livelli di dettaglio, costruzione in un worker, navi e bagliori a istanze, pagina diagnostica (1.41.0).

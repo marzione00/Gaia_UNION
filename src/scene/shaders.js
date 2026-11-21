@@ -20,9 +20,13 @@ void main(){vec3 vertex=aPos,normal=aNormal;vec4 color=aColor;if(uMaterial==10&&
   if(uInstanced==2){float t=fract(uTime*uMotion.x+a*.1592);base.y+=t*uMotion.y;base.x+=sin(t*6.283+a)*uMotion.z;s*=(1.-t)*(.4+t*2.2);}
   if(uInstanced==3){float w=uTime*uMotion.x*(.7+.6*fract(a*7.13))+a;base.x+=cos(w)*uMotion.y;base.z+=sin(w)*uMotion.y;a=atan(-cos(w),-sin(w));base.y+=abs(sin(w*9.))*.06;}
   if(uInstanced==4){float w=uTime*uMotion.x*(.7+.6*fract(a*7.13))+a;base.x+=cos(w)*uMotion.y;base.z+=sin(w)*uMotion.y;base.y+=sin(w*2.+a)*.8;vertex.y+=sin(uTime*7.+a*5.)*max(abs(vertex.z)-.12,0.)*.7;a=atan(-cos(w),-sin(w));}
-  vertex=turn(vertex,a)*s+base;normal=turn(normal,a);
+  // 5: ships and stations of the systems; the second vector is the heading (the +z of the model), y stays up.
+  if(uInstanced==5){vec3 f=normalize(aInstC.xyz),x=cross(vec3(0,1,0),f);x=dot(x,x)>1e-8?normalize(x):vec3(1,0,0);vec3 y=cross(f,x);vertex=(x*vertex.x+y*vertex.y+f*vertex.z)*s+base;normal=x*normal.x+y*normal.y+f*normal.z;}
+  // 6: glows of the systems (running lights, flames, wakes, goods): colour and opacity come with the instance.
+  else if(uInstanced==6){vertex=vertex*s+base;color=aInstC;}
+  else{vertex=turn(vertex,a)*s+base;normal=turn(normal,a);
   // The instance colour replaces only the white parts of a mesh (petals, bodies, water), so centres, stems and legs keep their own colour.
-  if(min(color.r,min(color.g,color.b))>.97)color.rgb*=aInstC.rgb;
+  if(min(color.r,min(color.g,color.b))>.97)color.rgb*=aInstC.rgb;}
  }
  // Open sea of the phenomenon worlds: tide offset plus three travelling waves.
  if(uMaterial==18&&uInstanced==0){vec2 q=vertex.xz;float t=uTime;vertex.y+=uMotion.x+uMotion.y*(sin(q.x*.21+t*.9)*.5+sin(q.x*.07+q.y*.18-t*.6)*.35+sin(q.y*.33+t*1.3)*.15);
@@ -45,7 +49,8 @@ vec3 shade(vec3 c,vec3 n,vec3 l,vec3 v,float metal,float rough,float visibility)
 }
 void main(){
  if(vWorld.y<uClipBelow)discard;
- vec3 n=normalize(vNormal),l=normalize(uLight),v=normalize(uEye-vWorld),p=normalize(vLocal),c=vColor.rgb*uTint.rgb;float alpha=uOpacity*vColor.a;
+ // A zero light vector means a star at the origin: each fragment is lit from its own direction (instanced craft).
+ vec3 n=normalize(vNormal),l=dot(uLight,uLight)>0.?normalize(uLight):normalize(-vWorld),v=normalize(uEye-vWorld),p=normalize(vLocal),c=vColor.rgb*uTint.rgb;float alpha=uOpacity*vColor.a;
  // Flat colour for map markers and orbit lines: the tint is the colour, independent of the light.
  if(uMaterial==16){outColor=vec4(uTint.rgb*(.82+.18*abs(dot(n,v))),alpha);return;}
  // Water of the phenomenon worlds (sea and lakes): colour from the instance or the tint, fresnel and sun glint.
@@ -55,7 +60,7 @@ void main(){
  // Soft puffs (steam, spores): opaque towards the centre of each small sphere.
  if(uMaterial==19){float f=pow(max(dot(n,v),0.),2.6);outColor=vec4(film(c*(.55+.45*max(dot(n,l),0.))),alpha*f);return;}
  // Star glow: transparent at the rim of the sphere, denser towards the centre of the disc.
- if(uMaterial==17){float f=dot(n,v);if(f<0.)discard;outColor=vec4(uTint.rgb,alpha*pow(f,2.4)*.6);return;}
+ if(uMaterial==17){float f=dot(n,v);if(f<0.)discard;outColor=vec4(c,alpha*pow(f,2.4)*.6);return;}
  if(uMaterial==6){
   if(dot(n,v)<0.)discard;
   vec3 ro=uEye-uCenter,rd=-v;float b=dot(ro,rd),rr=uRadius*1.028,disc=b*b-dot(ro,ro)+rr*rr;if(disc<0.)discard;

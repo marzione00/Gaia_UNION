@@ -10,7 +10,9 @@ import { DISCIPLINE } from '../ui/toolkit.js';
 import { pilotWorld } from '../worlds/pilots.js';
 import { planetSurface, surfaceScatter, systemStarLight, planetGenomes } from '../worlds/surface.js';
 import { orbitMap } from '../worlds/orbit-texture.js';
-import { systemCraft, build as buildCraft } from '../craft/catalog.js';
+import { systemCraft, LOW_DETAIL } from '../craft/catalog.js';
+import { CraftFactory } from '../craft/factory.js';
+import { chooseLevels, LOW_SHARE } from '../craft/detail.js';
 import { placeStations, stationPosition, stationYaw } from '../craft/placement.js';
 import { Economy, RESOURCES, stationReport, shipReport } from '../craft/economy.js';
 import { SHIP_SIZE, shipPose, shipMatrix } from '../craft/traffic.js';
@@ -30,6 +32,7 @@ export const displayRadius = body => body.radius * (body.explorable ? 1.55 : 1.1
 /** Seed of the life of the systems: it changes with every run of the site, so routes and stocks differ. */
 const SESSION = (globalThis.crypto?.getRandomValues ? globalThis.crypto.getRandomValues(new Uint32Array(1))[0] : Math.floor(Math.random() * 2 ** 32)) >>> 0;
 /** Glow of a far station or ship, in the colour of its construction style (src/craft/styles.js). */
+const IDENTITY = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]);
 const CRAFT_TINTS = { matematica: [.95, .72, .4, 1], fisica: [.5, .7, 1, 1], chimica: [.71, .61, 1, 1], biologia: [.44, .83, .63, 1], civile: [1, .58, .4, 1] };
 /** Rotation of a moving part after `time`: angular speeds `w` around x, y and z (column-major, Ry · Rx · Rz). */
 function spin(w, time) {
@@ -125,7 +128,7 @@ export class World {
         this.cameraScene = null;
         gpu.makeStars(backgroundStars(), true);
         this.systems = [];
-        this.craft = { system: -1, list: [] };
+        this.craft = { system: -1, list: [], models: [], instances: new Set() };
         this.cameraSpace = 'other';
         this.cameraSystem = 7;
         this.projections = [];
@@ -320,50 +323,71 @@ export class World {
         }
         if(!this.travelling&&this.cameraSpace==='system')this.drawStations(s,id,system);
     }
-    /** Stations and ships of the open system (src/craft/). Only that system is built, one model per frame,
-     * and the meshes of the previous system are released. The economy of the system (src/craft/economy.js)
-     * runs while the system is open and keeps its state for the rest of the visit; its seed changes with
-     * every run of the site. Far stations and ships are points of light in the colour of their style, near
-     * ones are drawn whole, with running lights, engine flames and the goods moving while a ship docks. */
+    /** Stations and ships of the open system (src/craft/). Only that system is built, and the meshes of the
+     * previous system are released. Models come from the factory (src/craft/factory.js, a module worker in
+     * the browser): first the low level of detail of every station and ship, then the full model of what
+     * comes near the camera (src/craft/detail.js). Ships of one class share their mesh and are drawn in one
+     * instanced call. The economy of the system (src/craft/economy.js) runs while the system is open and
+     * keeps its state for the rest of the visit; its seed changes with every run of the site. Far stations
+     * and ships are points of light in the colour of their style, near ones are drawn whole, with running
+     * lights, engine flames and the goods moving while a ship docks. */
     drawStations(s,id,system) {
-        const R=this.R,C=this.craft;
+        const R=this.R,C=this.craft,F=this.factory??=new CraftFactory();
         if(C.system!==id){
-            C.list.forEach((item,k)=>{item.model?.parts.forEach((_,i)=>R.deleteMesh('craft-'+k+'-'+i));if(item.model?.field)R.deleteMesh('craft-'+k+'-field');});
-            (C.models||[]).forEach((item,j)=>item.model?.parts.forEach((_,i)=>R.deleteMesh('ship-'+j+'-'+i)));
-            const entries=systemCraft(id);C.system=id;C.list=placeStations(system,entries,displayRadius).map(placement=>({placement,model:null}));
-            C.models=entries.filter(e=>e.kind==='nave').map(entry=>({entry,model:null}));
+            this.releaseCraft();F.clear();
+            const entries=systemCraft(id);C.system=id;
+            C.list=placeStations(system,entries,displayRadius).map((placement,k)=>({entry:placement.entry,placement,prefix:'craft-'+k,levels:[null,null]}));
+            C.models=entries.filter(e=>e.kind==='nave').map((entry,j)=>({entry,prefix:'ship-'+j,levels:[null,null]}));
             C.sites={time:null,hosts:new Map()};
             const site=place=>this.craftSite(system,place,C.siteTime??s.time);
             this.lives??=new Map();
             if(!this.lives.has(id))this.lives.set(id,new Economy({stations:C.list.map(item=>item.placement.entry),ships:C.models.map(m=>m.entry),bodies:system.bodies.map(b=>b.slot),seed:SESSION^Math.imul(id+1,0x27D4EB2F),time:s.time,distance:(a,b)=>{const p=site(a).position,q=site(b).position;return Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2]);}}));
             C.life=this.lives.get(id);
         }
-        const next=C.list.findIndex(item=>!item.model),nextShip=C.models.findIndex(item=>!item.model);
-        if(next>=0){const item=C.list[next],m=buildCraft(item.placement.entry);m.parts.forEach((p,i)=>R.makeMesh('craft-'+next+'-'+i,p.mesh));if(m.field)R.makeMesh('craft-'+next+'-field',m.field);item.model=m;}
-        else if(nextShip>=0){const item=C.models[nextShip],m=buildCraft(item.entry);m.parts.forEach((p,i)=>R.makeMesh('ship-'+nextShip+'-'+i,p.mesh));item.model=m;}
+        const items=[...C.list,...C.models];
+        for(const item of items)if(!item.levels[1])F.want(item.entry,LOW_DETAIL);
+        F.pump();
+        for(const item of items)for(const level of [1,0])if(!item.levels[level]){const m=F.take(item.entry,level?LOW_DETAIL:1);if(m)this.uploadCraft(item,level,m);}
         C.siteTime=s.time;C.hosts=new Map();
         const life=C.life.update(s.time),site=place=>this.craftSite(system,place,s.time),avoid=system.starRadius*2.2+1;
         const k2=2*Math.tan(this.fov/2),lightColor=systemStarLight(id).map(v=>v*.8),shadowKey=R.shadowKey;R.shadowKey=null;
-        const glow=(p,r,tint,opacity)=>R.drawMesh('lowSphere',this.vp,transform(...p,r),{eye:this.eye,material:17,tint,opacity});
+        // Glows are collected and drawn at the end in one instanced call, after every hull.
+        const glows=[],glow=(p,r,tint,opacity)=>glows.push(p[0],p[1],p[2],r,tint[0],tint[1],tint[2],opacity);
         const lights=(m,mats,size,flame)=>{for(const l of m.lights){
             const M=mats[l.part],p=[0,1,2].map(i=>M[i]*l.p[0]+M[4+i]*l.p[1]+M[8+i]*l.p[2]+M[12+i]),on=!l.blink?1:l.blink<0?(((s.time*1.1+l.blink)%1+1)%1<.3?1:.12):(Math.sin(s.time*TAU*l.blink)>-.2?1:.15),f=l.flame?flame:1;
             if(f>.04)glow(p,l.size*size/m.radius*(l.flame?f:2.4),l.color,(l.flame?.85:.95)*on);}};
-        C.list.forEach((item,k)=>{
-            const pl=item.placement,state=life.stations[k],pos=site({station:k}).position,xy=project(pos,this.vp,R.w,R.h);if(xy[2]<=0)return;
-            const pixel=xy[2]*k2/R.h,apparent=pl.size/pixel,tint=CRAFT_TINTS[pl.entry.style];
-            if(s.scene==='system')this.projections.push({type:'craft',index:k,entry:pl.entry,lines:stationReport(state),active:state.producing,...xyToObj(xy),r:Math.max(12,apparent*1.3),apparent,position:pos,worldRadius:pl.size});
-            if(apparent<9&&s.scene!=='system')glow(pos,pixel*4.5,tint,.95*Math.min(1,(9-apparent)/4));
-            const m=item.model;if(!m||apparent<1.2)return;
-            const light=normal(pos.map(v=>-v)),base=transform(...pos,pl.size/m.radius,stationYaw(pl,s.time,pos)),mats=m.parts.map(p=>p.spin?mul(base,spin(p.spin,s.time)):base);
-            m.parts.forEach((p,i)=>R.drawMesh('craft-'+k+'-'+i,this.vp,mats[i],{eye:this.eye,light,lightColor,material:10}));
-            if(m.field)R.drawMesh('craft-'+k+'-field',this.vp,base,{eye:this.eye,light,material:10,opacity:.8,lightColor:[.1,.1,.1]});
-            // Flares and drills burn while the station produces.
-            if(apparent>=22&&R.sceneQuality!=='low')lights(m,mats,pl.size,.35+.65*state.producing);
-        });
+        const turning=(m,base)=>m.parts.map(p=>p.spin?mul(base,spin(p.spin,s.time)):base);
+        // Where everything is this frame, then one level of detail each.
+        const seen=[];
+        C.list.forEach((item,k)=>{const pos=site({station:k}).position,xy=project(pos,this.vp,R.w,R.h);if(xy[2]<=0)return;const pixel=xy[2]*k2/R.h;seen.push({item,k,pos,xy,pixel,size:item.placement.size,apparent:item.placement.size/pixel,min:1.2});});
         life.ships.forEach(ship=>{
-            const slot=C.models.findIndex(item=>item.entry===ship.entry),m=C.models[slot]?.model,size=SHIP_SIZE[ship.entry.type]||.07,tint=CRAFT_TINTS[ship.entry.style];
+            const slot=C.models.findIndex(item=>item.entry===ship.entry),item=C.models[slot],size=SHIP_SIZE[ship.entry.type]||.07;
             const pose=shipPose(ship,s.time,site,avoid),xy=project(pose.position,this.vp,R.w,R.h);if(xy[2]<=0)return;
-            const pixel=xy[2]*k2/R.h,apparent=size/pixel;
+            const pixel=xy[2]*k2/R.h;seen.push({item,ship,slot,pose,xy,pixel,size,apparent:size/pixel,min:1});
+        });
+        const levels=chooseLevels(seen.map(o=>{const low=o.item?.levels[1]?.triangles??0;return {apparent:o.apparent,min:o.min,low,full:o.item?.levels[0]?.triangles??low/LOW_SHARE};}),R.sceneQuality);
+        const stats={stations:C.list.length,ships:life.ships.length,full:0,low:0,light:0,triangles:0,pending:F.pending(),worker:F.stats.worker},groups=new Map();
+        seen.forEach((o,n)=>{
+            const want=levels[n];if(want===0&&o.item&&!o.item.levels[0])F.want(o.item.entry,1);
+            o.model=want===2||!o.item?null:want===0?o.item.levels[0]||o.item.levels[1]:o.item.levels[1]||o.item.levels[0];
+            if(!o.model)stats.light++;else{stats[o.model===o.item.levels[0]?'full':'low']++;stats.triangles+=o.model.triangles;}
+        });
+        for(const o of seen){
+            if(o.ship)continue;
+            const {item,k,pos,xy,pixel,apparent,size}=o,pl=item.placement,state=life.stations[k],tint=CRAFT_TINTS[pl.entry.style];
+            if(s.scene==='system')this.projections.push({type:'craft',index:k,entry:pl.entry,lines:stationReport(state),active:state.producing,...xyToObj(xy),r:Math.max(12,apparent*1.3),apparent,position:pos,worldRadius:size});
+            if(apparent<9&&s.scene!=='system')glow(pos,pixel*4.5,tint,.95*Math.min(1,(9-apparent)/4));
+            const m=o.model;if(!m)continue;
+            const light=normal(pos.map(v=>-v)),base=transform(...pos,size/m.radius,stationYaw(pl,s.time,pos)),mats=turning(m,base),draw={eye:this.eye,light,lightColor,material:10};
+            if(m.ids.body)R.drawMesh(m.ids.body,this.vp,base,draw);
+            for(const p of m.ids.spinning)R.drawMesh(p.id,this.vp,mats[p.part],draw);
+            if(m.ids.field)R.drawMesh(m.ids.field,this.vp,base,{eye:this.eye,light,material:10,opacity:.8,lightColor:[.1,.1,.1]});
+            // Flares and drills burn while the station produces.
+            if(apparent>=22&&R.sceneQuality!=='low')lights(m,mats,size,.35+.65*state.producing);
+        }
+        for(const o of seen){
+            if(!o.ship)continue;
+            const {ship,slot,pose,xy,pixel,apparent,size}=o,tint=CRAFT_TINTS[ship.entry.style];
             if(s.scene==='system'){
                 const back=pose.thrust>.05?project(shipPose(ship,s.time-1.5,site,avoid).position,this.vp,R.w,R.h):null;
                 this.projections.push({type:'craft',index:100+ship.id,entry:{...ship.entry,name:ship.name},lines:shipReport(ship,s.time,place=>this.craftName(system,place)),tail:back&&back[2]>0?[back[0],back[1]]:null,...xyToObj(xy),r:Math.max(10,apparent*1.4),apparent,position:pose.position,worldRadius:size});
@@ -377,12 +401,41 @@ export class World {
                 glow(pose.position,pixel*(2.4+1.6*pose.thrust),tint,.55+.4*pose.thrust);
                 if(pose.thrust>.05)for(let q=1;q<=3;q++){const back=shipPose(ship,s.time-q*.45,site,avoid);if(back.docked)break;glow(back.position,pixel*(2.2-q*.45),tint,(.5-q*.12)*pose.thrust);}
             }
-            if(!m||apparent<1)return;
-            const base=shipMatrix(pose.position,pose.forward,size/m.radius),mats=m.parts.map(p=>p.spin?mul(base,spin(p.spin,s.time)):base),light=normal(pose.position.map(v=>-v));
-            m.parts.forEach((p,i)=>R.drawMesh('ship-'+slot+'-'+i,this.vp,mats[i],{eye:this.eye,light,lightColor,material:10}));
-            if(apparent>=18&&R.sceneQuality!=='low')lights(m,mats,size,pose.thrust);
-        });
-        R.shadowKey=shadowKey;
+            const m=o.model;if(!m)continue;
+            const scale=size/m.radius;
+            if(m.ids.body){const key=m.ids.body;let g=groups.get(key);if(!g)groups.set(key,g=[]);g.push(...pose.position,scale,...pose.forward,0);}
+            if(m.ids.spinning.length||apparent>=18&&R.sceneQuality!=='low'){
+                const mats=turning(m,shipMatrix(pose.position,pose.forward,scale));
+                for(const p of m.ids.spinning)R.drawMesh(p.id,this.vp,mats[p.part],{eye:this.eye,light:normal(pose.position.map(v=>-v)),lightColor,material:10});
+                if(apparent>=18&&R.sceneQuality!=='low')lights(m,mats,size,pose.thrust);
+            }
+        }
+        // One instanced call for each class and level: the ships of a class differ only by place and heading.
+        for(const [mesh,list] of groups){
+            const key='instances-'+mesh,data=new Float32Array(list);
+            if(C.instances.has(key))R.updateInstances(key,data);else{R.makeInstances(key,mesh,data);C.instances.add(key);}
+            R.drawMesh(mesh,this.vp,IDENTITY,{eye:this.eye,light:[0,0,0],lightColor,material:10,instances:key,instanceMode:5});
+        }
+        if(glows.length){
+            const key='instances-glows',data=new Float32Array(glows);
+            if(C.instances.has(key))R.updateInstances(key,data);else{R.makeInstances(key,'lowSphere',data);C.instances.add(key);}
+            R.drawMesh('lowSphere',this.vp,IDENTITY,{eye:this.eye,material:17,instances:key,instanceMode:6,blend:true});
+        }
+        stats.glows=glows.length/8;R.shadowKey=shadowKey;this.craftStats=stats;
+    }
+    /** Upload one level of a model; the mesh names carry the slot of the station or ship and the level. */
+    uploadCraft(item,level,m){
+        const R=this.R,tag=item.prefix+'-'+level,ids={body:null,spinning:[],field:null};
+        if(m.body){ids.body=tag+'-body';R.makeMesh(ids.body,m.body);}
+        m.spinning.forEach((p,n)=>{const id=tag+'-turn-'+n;R.makeMesh(id,p.mesh);ids.spinning.push({id,part:p.part});});
+        if(m.field){ids.field=tag+'-field';R.makeMesh(ids.field,m.field);}
+        item.levels[level]={ids,parts:m.parts,lights:m.lights,radius:m.radius,triangles:m.triangles,recipe:m.recipe};
+    }
+    /** Release the meshes and instance sets of the open system. */
+    releaseCraft(){
+        const R=this.R,C=this.craft;
+        for(const key of C.instances||[])R.deleteInstances(key);C.instances=new Set();
+        for(const item of [...(C.list||[]),...(C.models||[])])for(const m of item.levels)if(m){if(m.ids.body)R.deleteMesh(m.ids.body);m.ids.spinning.forEach(p=>R.deleteMesh(p.id));if(m.ids.field)R.deleteMesh(m.ids.field);}
     }
     /** Position and size of a station or a planet of the open system at `time`. */
     craftSite(system,place,time){
