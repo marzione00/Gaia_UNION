@@ -6,7 +6,7 @@ import { AREAS, seededRandom } from '../scene/layout.js';
 import { dice } from './kit.js';
 import { style, DISCIPLINE_STYLES } from './styles.js';
 import { STATIONS } from './stations.js';
-import { GRAMMAR_STATIONS, TYPE_BY_KEY, ROLES } from './grammar.js';
+import { GRAMMAR_STATIONS, TYPE_BY_KEY, worksOf } from './grammar.js';
 import { FAMILY_KEYS } from './families.js';
 import { SHIPS } from './ships.js';
 import { GRAMMAR_SHIPS, SHIP_TYPE_BY_KEY, SHIP_ROLES, HULL_KEYS, shipTrade } from './shipclasses.js';
@@ -110,7 +110,7 @@ export const EXTRAS = (() => {
             if (!pick) throw new Error('tipi esauriti nel sistema ' + system);
             here.add(pick.type); pairs.add(pick.type + '/' + pick.styleKey); uses[pick.family] = (uses[pick.family] || 0) + 1;
             const t = TYPE_BY_KEY[pick.type], slot = 10 + k;
-            out.push(Object.freeze({ id: `s${String(system).padStart(2, '0')}-${slot}`, system, slot, nth: out.filter(e => e.type === pick.type).length, kind: 'stazione', type: pick.type, typeName: t.name, style: pick.styleKey, sector: area.sector, name: name(t.name, pick.styleKey), size: 1, about: t.about, seed: seedFor(system, slot), role: t.role, family: t.family, works: ROLES[t.role].recipe }));
+            out.push(Object.freeze({ id: `s${String(system).padStart(2, '0')}-${slot}`, system, slot, nth: out.filter(e => e.type === pick.type).length, kind: 'stazione', type: pick.type, typeName: t.name, style: pick.styleKey, sector: area.sector, name: name(t.name, pick.styleKey), size: 1, about: t.about, seed: seedFor(system, slot), role: t.role, family: t.family, works: worksOf(t) }));
         }
     });
     return Object.freeze(out);

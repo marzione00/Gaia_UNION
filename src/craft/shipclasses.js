@@ -236,13 +236,13 @@ export const HULLS = {
 export const HULL_KEYS = Object.keys(HULL_BUILDERS);
 /** Roles of the ship classes: hull proportions (length and width factors), module proportions, noun and
  * gender, modules, the classic class whose trade they follow, drawn radius in system units and length.
- * Mining ships carry only ore. */
+ * Mining ships carry only raw goods from rocks and ice. */
 export const SHIP_ROLES = {
     cargo: { hull: [1.15, 1.1], scale: [1.15, 1.2, 1.1], dense: true, noun: 'Cargo', gender: 'm', modules: ['fila di container', 'blocco di container', 'stiva', 'pianale'], fleet: 'cargo', drawn: .1, length: 'circa 140 m', about: 'Trasporta in container minerale, parti, cibo e celle di energia.' },
     cisterna: { hull: [1.1, 1.05], scale: [1.1, 1.15, 1.1], dense: true, noun: 'Cisterna', gender: 'f', modules: ['serbatoio lungo', 'sfere in fila', 'fascio di serbatoi', 'sfera di carico'], fleet: 'cisterna', drawn: .1, length: 'circa 130 m', about: 'Trasporta carburante nei serbatoi.' },
     passeggeri: { hull: [1.05, 1.1], scale: [1, 1.1, 1], noun: 'Nave passeggeri', gender: 'f', modules: ['ponte passeggeri', 'cupola panoramica', 'veranda', 'modulo cabine'], fleet: 'passeggeri', drawn: .1, length: 'circa 120 m', about: 'Porta passeggeri ed equipaggi fra le stazioni.' },
     corriere: { hull: [1, .8], scale: [.8, .8, .9], noun: 'Corriere', gender: 'm', modules: ['capsula postale', 'propulsore ausiliario', 'antenna veloce', 'vano dati'], fleet: 'corriere', drawn: .07, length: 'circa 70 m', about: 'Porta dati e passeggeri urgenti alla massima velocità.' },
-    minerario: { hull: [.9, 1.2], scale: [1.1, 1.25, 1], dense: true, noun: 'Nave mineraria', gender: 'f', modules: ['tramoggia di bordo', 'frantoio di bordo', 'cassoni', 'braccio laser'], fleet: 'rimorchiatore', carries: ['minerale'], drawn: .09, length: 'circa 90 m', about: 'Raccoglie e porta il minerale.' },
+    minerario: { hull: [.9, 1.2], scale: [1.1, 1.25, 1], dense: true, noun: 'Nave mineraria', gender: 'f', modules: ['tramoggia di bordo', 'frantoio di bordo', 'cassoni', 'braccio laser'], fleet: 'rimorchiatore', carries: ['minerale', 'silicati', 'ghiaccio', 'terre'], drawn: .09, length: 'circa 90 m', about: 'Raccoglie e porta il minerale.' },
     scientifica: { hull: [1.05, .9], scale: [1.45, .9, 1], noun: 'Nave scientifica', gender: 'f', modules: ['braccio sensore', 'parabola', 'capsula strumenti', 'magnetometro'], fleet: 'scientifica', drawn: .08, length: 'circa 80 m', about: 'Osserva i pianeti e porta i dati alle stazioni.' },
     rimorchiatore: { hull: [.8, 1.25], scale: [1, 1.3, .9], noun: 'Rimorchiatore', gender: 'm', modules: ['artigli', 'argano', 'motore di spinta', 'paraurti'], fleet: 'rimorchiatore', drawn: .07, length: 'circa 50 m', about: 'Traina carichi pesanti di minerale e parti.' },
     soccorso: { hull: [.95, 1], scale: [1, 1, 1], noun: 'Nave di soccorso', gender: 'f', modules: ['modulo medico', 'faro', 'capsula di salvataggio', 'segnalatore'], fleet: 'soccorso', drawn: .07, length: 'circa 60 m', about: 'Pattuglia le stazioni e porta energia, cibo e carburante dove mancano.' },
