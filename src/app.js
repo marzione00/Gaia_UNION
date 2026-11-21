@@ -30,7 +30,7 @@ import { descriptor as modelDescriptor } from './models/curriculum.js';
 import { openStore, grade } from './store.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.46.0-vita';
+const VERSION = '1.47.0-difesa';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -53,7 +53,7 @@ let hoverPointer = null, touchTarget = null, book = null, passages = [], instrum
 const sectors = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
 const sectorColors = DISCIPLINE;
 /** Colour and label of the construction styles of stations and ships (src/craft/styles.js). */
-const CRAFT_STYLE = { matematica: [DISCIPLINE[0], 'Matematica', '#f2b766'], fisica: [DISCIPLINE[1], 'Fisica', '#7fb2ff'], chimica: [DISCIPLINE[2], 'Chimica', '#b49cff'], biologia: [DISCIPLINE[3], 'Biologia', '#6fd3a0'], civile: [color('#ff9466'), 'Traffico civile', '#ff9466'] };
+const CRAFT_STYLE = { matematica: [DISCIPLINE[0], 'Matematica', '#f2b766'], fisica: [DISCIPLINE[1], 'Fisica', '#7fb2ff'], chimica: [DISCIPLINE[2], 'Chimica', '#b49cff'], biologia: [DISCIPLINE[3], 'Biologia', '#6fd3a0'], civile: [color('#ff9466'), 'Traffico civile', '#ff9466'], difesa: [color('#e8665a'), 'Flotta di difesa', '#e8665a'] };
 const nav = [['galaxy', 'MAPPA'], ['catalogue', 'ARGOMENTI'], ['paths', 'PERCORSI'], ['lab', 'LABORATORI'], ['journal', 'DIARIO']];
 const navGroups = { galaxy: ['galaxy', 'system', 'orbit', 'surface', 'outpost', 'region'], catalogue: ['catalogue', 'mission', 'briefing', 'theory', 'pdf', 'quiz', 'sources', 'research', 'pilot', 'libro'], paths: ['paths'], lab: ['lab'], journal: ['journal', 'ship', 'gaia'] };
 const sceneNames = { ship: 'NAVE', gaia: 'NUCLEO DI GAIA', outpost: 'MAPPA', region: 'MAPPA', system: 'MAPPA', orbit: 'MAPPA', surface: 'MAPPA', mission: 'UNITÀ', briefing: 'UNITÀ', theory: 'TEORIA', pdf: 'DISPENSA', quiz: 'VERIFICA', sources: 'FONTI', research: 'RICERCA', pilot: 'MISSIONE' };

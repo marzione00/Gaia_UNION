@@ -347,6 +347,53 @@ Il traffico minore unisce ogni stazione alla più vicina: su ogni corsia due o t
 
 La simulazione di 1200 s su 30 sistemi e tre semi, con tutte le stazioni, parte da 1908 navi e ne vara altre 210; le consegne salgono a 63 502, contro 59 453 nella 1.45.0 misurata allo stesso modo, e arrivano 1218 convogli. Alla fine 649 stazioni su 1440 hanno almeno il secondo livello e 160 il terzo. Le stazioni che producono lavorano a pieno ritmo l'83,9 % del tempo (81,8 % nella 1.45.0), a metà ritmo il 6,2 %, restano ferme per un ingrediente l'1,1 % (1,5 %) e con il magazzino pieno l'8,9 %. Nei sistemi con le sole sei stazioni classiche le consegne passano da 17 287 a 18 756 e il tempo da fermi per un ingrediente scende dal 4,5 al 2,8 %.
 
+## La flotta di difesa
+
+Dalla 1.47.0 ogni sistema ha una difesa propria, costruita in un sesto stile, quello della flotta: scafi sfaccettati grigio azzurri, chiglie scure, una fascia rossa dietro la prua, scudi azzurro chiaro. Stazioni e navi prendono i nomi di esploratori, navigatori e astronauti. Il codice è in `src/craft/defence.js`.
+
+Le classi di navi sono undici, dalla più piccola:
+
+| Classe | Lunghezza | Forma |
+|---|---|---|
+| Caccia | circa 18 m | ali a delta, a freccia o a freccia invertita, armi alle estremità; vola in formazione di tre |
+| Intercettore | circa 24 m | scafo ad ago, un grande ugello, alette di prua e propulsori laterali; vola in coppia |
+| Pattugliatore | circa 40 m | scafo corazzato corto, una torretta laser, radar e faro |
+| Corvetta | circa 70 m | una torretta, ponte di comando, lanciatori di droni intercettori, difese ravvicinate |
+| Fregata | circa 110 m | due torrette, hangar di poppa per i droni di ricognizione, spesso lanciatori laterali |
+| Cacciatorpediniere | circa 150 m | scafo lungo con tre torrette in fila, due batterie di lanciatori, spesso uno sperone di prua |
+| Incrociatore | circa 210 m | quattro torrette sopra e sotto lo scafo, emettitore di scudo, spesso sponsoni |
+| Incrociatore pesante | circa 280 m | fasce o piastre di corazza, cinque torrette, due batterie di lanciatori |
+| Corazzata | circa 380 m | sei torrette, piastre di corazza, due emettitori di scudo, a volte un cannone spinale |
+| Portaerei | circa 420 m | ponte di volo lungo tutto lo scafo con luci di avvicinamento, isola di comando, hangar a prua e a poppa |
+| Superportaerei | circa 720 m | due scafi con due ponti di volo, torri di comando sulla trave centrale, anello abitato che ruota |
+
+Le stazioni di difesa sono cinque: la base della flotta, con bracci di attracco, ormeggi e un hangar; la stazione di sorveglianza, con schiere di antenne, parabole e un anello radar che ruota; la piattaforma di difesa, esagonale, con torrette, pannelli o radiatori; la fortezza orbitale, un poliedro corazzato con due piani di torrette; il generatore di scudo, con anelli emettitori che ruotano in versi opposti attorno a un reattore.
+
+La forza della difesa cresce verso la frontiera, cioè verso l'ultimo sistema di ogni braccio della galassia, il più lontano dal centro. Ogni sistema ha la base della flotta, la stazione di sorveglianza, un'ala leggera (caccia nei sistemi pari, intercettori nei dispari), un pattugliatore e una corvetta; il resto dipende dalla distanza dalla frontiera, contata in sistemi lungo il braccio:
+
+| Distanza | Sistemi | Navi in più | Stazioni in più |
+|---:|---:|---|---|
+| 4 o più | 14 | | |
+| 3 | 4 | fregata | |
+| 2 | 4 | cacciatorpediniere, corazzata | piattaforma |
+| 1 | 4 | fregata, incrociatore, portaerei | piattaforma, fortezza |
+| 0 | 4 | caccia e intercettori insieme, fregata, cacciatorpediniere, incrociatore pesante, superportaerei | piattaforma, fortezza, generatore di scudo |
+
+In tutto le stazioni di difesa sono 84 e i modelli di nave 134, con tutte le classi e tutte le stazioni presenti; le superportaerei stanno solo nei quattro sistemi di frontiera.
+
+| | Modelli | Triangoli | Mediana | Livello semplificato |
+|---|---:|---:|---:|---:|
+| Navi | 134 | da 896 a 13 350 | 1920 | 37,6 % |
+| Stazioni | 84 | da 1484 a 6480 | 3712 | 27,4 % |
+
+Le stazioni di difesa formano una linea 1,8 unità oltre la porta e oltre l'anello esterno: base della flotta, fortezza e generatore di scudo accanto alla porta, la piattaforma a metà strada, la stazione di sorveglianza dalla parte opposta del sistema. Vengono collocate per ultime, così le altre stazioni restano dove erano. Nelle prove su 900 s una stazione di difesa resta ad almeno 4,6 volte la somma dei raggi da ogni altra stazione e ad almeno 7,3 volte da ogni pianeta.
+
+Le navi di difesa viaggiano senza merci e pattugliano fra la base, le stazioni di difesa, la porta e il porto; a volte passano accanto a una stazione qualunque del sistema, e fra una pattuglia e l'altra si riforniscono alla base. Caccia e intercettori volano in formazione dietro la nave guida, nella stessa chiamata a istanze della loro classe. Dall'incrociatore in su una nave naviga senza gemelle. Il resoconto dice se la nave è in pattuglia, di guardia o in rifornimento.
+
+Le stazioni di difesa consumano merci e quindi entrano nelle catene: la base chiede carburante, energia, cibo e parti per la flotta, la fortezza energia e parti, la piattaforma energia, il generatore di scudo energia e un poco di idrogeno; la stazione di sorveglianza consuma energia e produce dati. Senza ciò che chiedono lavorano a metà forza e il resoconto lo dice («A metà forza, senza carburante»); le stazioni di difesa non crescono.
+
+Nella simulazione di 1200 s su 30 sistemi e tre semi la difesa aggiunge 252 stazioni e 596 navi; le consegne salgono da 63 502 a 66 950 e il tempo a pieno ritmo delle stazioni che producono scende dall'83,9 all'82,2 %, perché la difesa consuma energia e carburante. Su due semi la base della flotta lavora a metà forza il 13,3 % del tempo, il generatore di scudo il 19,7 %, le altre stazioni di difesa meno del 2 %.
+
 ## Controlli
 
 `tests/craft.test.mjs` verifica che i modelli siano 300, dieci per sistema con sei stazioni e quattro navi, che le miniere stiano solo nei sistemi con la fascia, che nomi e identificatori siano unici e scritti con l'atlante dei caratteri, che gli stili seguano la regola descritta sopra, che la generazione sia deterministica, che le mesh contengano solo valori finiti e indici validi entro i limiti di triangoli, e che due modelli dello stesso tipo e stile differiscano in almeno due scelte.
@@ -356,6 +403,8 @@ La simulazione di 1200 s su 30 sistemi e tre semi, con tutte le stazioni, parte 
 `tests/life.test.mjs` verifica che ogni stazione e ogni nave abbiano regole valide; che in 1800 s di simulazione le scorte restino nei limiti, le prenotazioni non scendano sotto zero, ogni nave compia almeno tre viaggi e i carichi vengano consegnati; che lo stesso seme ripeta le stesse rotte e semi diversi ne diano di diverse; che nessuna nave passi vicino alla stella; e che i resoconti mostrati sullo schermo siano brevi, nello stile del sito e scritti con l'atlante dei caratteri.
 
 `tests/economy.test.mjs` verifica che le merci siano 24 nelle cinque famiglie; che ogni ricetta usi merci note con capacità sufficienti e un processo con un nome breve; che ogni merce sia prodotta e usata da qualche stazione e che ogni variante dei ruoli compaia nel catalogo; che in ogni sistema, con le sole stazioni classiche e con tutte, la porta importi le merci scarse ed esporti quelle in eccesso e che ogni merce richiesta abbia una nave che la porta; e che in quattro sistemi, in 1200 s, tutte le navi viaggino, le stazioni lavorino a pieno ritmo più del 70 % del tempo e restino ferme per un ingrediente meno del 5 %, arrivino almeno 20 merci diverse e i resoconti restino brevi, nello stile del sito e scritti con l'atlante.
+
+`tests/difesa.test.mjs` verifica che le stazioni di difesa siano 84 e i modelli di nave 134, con le undici classi e le cinque stazioni, il numero previsto per ogni sistema e le superportaerei solo alla frontiera, nomi e identificatori unici, lo stile della flotta e lettere dell'atlante; che ogni classe e ogni stazione abbiano mesh valide, luci, triangoli entro i limiti e dimensioni che crescono dal caccia alla superportaerei, e che il livello semplificato conservi parti, raggio e ricetta; che la linea di difesa stia oltre la porta e l'anello esterno senza spostare le altre stazioni e lontano da stazioni e pianeti; e che in tre sistemi le navi di difesa viaggino senza merci, sostino alle stazioni di difesa e abbiano resoconti brevi, mentre le stazioni di difesa restano al primo livello e raramente a metà forza.
 
 `tests/vita.test.mjs` verifica che in 1500 s le stazioni salgano di livello solo dopo un kit, mai oltre il terzo, con ritmi e magazzini cresciuti nella misura prevista e il livello nel resoconto, e che la porta non cresca; che le navi varate restino entro il limite della flotta, con nomi unici, partano da un cantiere a non meno di 120 s l'una dall'altra e trovino lavoro; che i convogli vengano dai sistemi vicini, seguano arrivo, scarico alla porta e partenza, abbiano resoconti brevi e che la porta non importi più in modo continuo; che la cronaca tenga al più 24 notizie in ordine di tempo, brevi, nello stile del sito, scritte con l'atlante e ripetibili con lo stesso seme; e che il traffico minore dia a ogni stazione una corsia senza doppioni.
 
@@ -378,3 +427,4 @@ La simulazione di 1200 s su 30 sistemi e tre semi, con tutte le stazioni, parte 
 7. Navi civili: 40 moduli di bordo, 12 famiglie di scafo, 10 ruoli, 120 classi, da 4 a 8 modelli in più per sistema (1.44.0).
 8. Economia delle catene: 24 merci, 31 ricette, porte che bilanciano i sistemi (1.45.0).
 9. Stazioni che crescono, cantieri che varano navi, convogli fra i sistemi, cronaca del sistema, traffico minore (1.46.0).
+10. Flotta di difesa: 11 classi dal caccia alla superportaerei, 5 stazioni di difesa, linea di difesa, pattuglie (1.47.0).

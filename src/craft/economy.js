@@ -80,7 +80,14 @@ export const RECIPES = {
     magazzino: { process: 'Smistamento', cap: { minerale: 200, metalli: 160, cibo: 150, acqua: 150, energia: 150, carburante: 200, parti: 60 }, want: { minerale: 110, metalli: 80, cibo: 80, acqua: 80, energia: 80, carburante: 110, parti: 30 }, keep: { minerale: 50, metalli: 35, cibo: 35, acqua: 35, energia: 35, carburante: 50, parti: 12 } },
     ripetitore: recipe('Ritrasmissione', {}, { energia: .12 }),
     porto: recipe('Imbarco', { equipaggi: .25 }, { cibo: .3, acqua: .2, ossigeno: .15, carburante: .35, energia: .15, medicinali: .02 }, { cap: { equipaggi: 60 } }),
-    porta: { process: 'Porta', make: { equipaggi: .15 }, use: {}, cap: { equipaggi: 40 }, want: {}, keep: {} }
+    porta: { process: 'Porta', make: { equipaggi: .15 }, use: {}, cap: { equipaggi: 40 }, want: {}, keep: {} },
+    // Defensive stations (1.47.0): the base supplies the fleet, the others use energy; without it they work
+    // at half strength. The surveillance station sends out what it observes as data.
+    'difesa-base': recipe('Rifornimento della flotta', {}, { carburante: .3, energia: .2, cibo: .08, parti: .03 }, { soft: true }),
+    'difesa-sorveglianza': recipe('Sorveglianza dei confini', { dati: .25 }, { energia: .1 }, { soft: true }),
+    'difesa-piattaforma': recipe('Difesa ravvicinata', {}, { energia: .12 }, { soft: true }),
+    'difesa-fortezza': recipe('Difesa della porta', {}, { energia: .3, parti: .02 }, { soft: true }),
+    'difesa-scudo': recipe('Scudo della porta', {}, { energia: .45, idrogeno: .03 }, { soft: true })
 };
 /** Crews rotate on every station except the port, the habitats and the gate, where they arrive. */
 const CREW = { use: .06, cap: 24, want: 16 };
@@ -112,6 +119,8 @@ export const LAUNCH = { cost: 30, every: 120 };
  * and leave with what it exports. */
 export const CONVOY = { every: [60, 120], approach: 14, dock: 10 };
 const YARDS = ['cantiere', 'montaggio'];
+/** Stations that grow: those that produce, apart from the gate and the defensive stations. */
+const growsOf = s => Object.keys(s.make).length > 0 && s.entry.type !== 'porta' && !s.entry.defence;
 export const kitOf = s => ['habitat', 'porto'].includes(s.entry.works || s.entry.type) ? { moduli: 4 } : { parti: 12 };
 const scaled = (o, f) => Object.fromEntries(Object.entries(o).map(([r, v]) => [r, +(v * f).toFixed(4)]));
 
@@ -135,7 +144,7 @@ export class Economy {
         if (gate) {
             const made = {}, used = {};
             // Expansion kits count as a small steady use, so the gate also brings parts and modules.
-            for (const s of this.stations) if (s !== gate && Object.keys(s.make).length) for (const [r, v] of Object.entries(kitOf(s))) used[r] = (used[r] || 0) + v / (GROWTH.time * 3);
+            for (const s of this.stations) if (s !== gate && growsOf(s)) for (const [r, v] of Object.entries(kitOf(s))) used[r] = (used[r] || 0) + v / (GROWTH.time * 3);
             for (const s of this.stations) if (s !== gate) { for (const [r, v] of Object.entries(s.make)) made[r] = (made[r] || 0) + v; for (const [r, v] of Object.entries(s.use)) if (r !== 'equipaggi') used[r] = (used[r] || 0) + v; }
             for (const r of new Set([...Object.keys(made), ...Object.keys(used)])) {
                 const u = used[r] || 0, m = made[r] || 0; if (r === 'equipaggi' || (!u && m < .01)) continue;
@@ -150,7 +159,7 @@ export class Economy {
         this.ships = []; const more = Math.max(0, (this.stations.length - 6) / 5);
         for (const entry of ships) {
             // The ship classes of the grammar (1.44.0) sail alone or with one sister.
-            const copies = entry.fleet ? 1 + (R() < .35 ? 1 : 0) : 1 + Math.floor(R() * (['cargo', 'cisterna', 'navetta', 'passeggeri'].includes(entry.type) ? 3 : 2)) + (more ? Math.round(more * (.5 + .5 * R())) : 0);
+            const copies = entry.fleet ? 1 + (R() < .35 && !(entry.defence && entry.drawn >= .11) ? 1 : 0) : 1 + Math.floor(R() * (['cargo', 'cisterna', 'navetta', 'passeggeri'].includes(entry.type) ? 3 : 2)) + (more ? Math.round(more * (.5 + .5 * R())) : 0);
             for (let c = 0; c < copies; c++) {
                 const start = { station: Math.floor(R() * this.stations.length) };
                 this.ships.push({ id: this.ships.length, entry, name: entry.name + ROMAN[c], cls: entry.fleet || FLEET[entry.type], phase: 'dock', at: start, task: 'sosta', t0: time, t1: time + 1 + R() * 12, cargo: null, job: null });
@@ -165,7 +174,7 @@ export class Economy {
         this.news = []; this.visitors = []; this.nextVisitor = 10000; this.neighbours = neighbours;
         this.fleetCap = this.ships.length + Math.max(2, Math.round(this.stations.length / 4));
         for (const ship of this.ships) ship.born = time;
-        for (const s of this.stations) Object.assign(s, { level: 1, growth: 0, kit: null, grows: Object.keys(s.make).length > 0 && s.entry.type !== 'porta', yard: YARDS.includes(s.entry.works || s.entry.type), base: { make: { ...s.make }, use: { ...s.use }, cap: { ...s.cap }, want: { ...s.want }, keep: { ...s.keep } }, state: 'run', since: time, told: -Infinity });
+        for (const s of this.stations) Object.assign(s, { level: 1, growth: 0, kit: null, grows: growsOf(s), yard: YARDS.includes(s.entry.works || s.entry.type), base: { make: { ...s.make }, use: { ...s.use }, cap: { ...s.cap }, want: { ...s.want }, keep: { ...s.keep } }, state: 'run', since: time, told: -Infinity });
         this.gate = gate || null;
         if (gate) {
             gate.imports = Object.fromEntries(Object.entries(gate.make).filter(([r]) => r !== 'equipaggi'));
@@ -358,6 +367,13 @@ export class Economy {
             case 'survey': return here !== undefined && this.bodies.length && R() < .75 ? { body: this.bodies[Math.floor(R() * this.bodies.length)] } : { station: find('porto') ?? 0 };
             case 'buoys': { const gate = find('porta'); return here === gate ? { station: find('porto') ?? 0 } : { station: gate ?? 0 }; }
             case 'patrol': return { station: ((here ?? -1) + 1) % n };
+            // The defence fleet (1.47.0) patrols between its base, the defensive stations, the gate and the port,
+            // and now and then sweeps past any station of the system; it rests at the base between patrols.
+            case 'guard': {
+                const posts = this.posts ??= this.stations.filter(s => s.entry.defence || s.entry.type === 'porta' || s.entry.type === 'porto').map(s => s.i), base = this.stations.find(s => s.entry.works === 'difesa-base')?.i ?? posts[0] ?? 0;
+                const post = () => R() < .3 ? other() : { station: posts[Math.floor(R() * posts.length)] };
+                return here === base ? (R() < .8 ? post() : null) : R() < .5 ? { station: base } : post();
+            }
             case 'shipyard': { const yard = find('cantiere') ?? find('porto') ?? 0, port = find('porto') ?? 0; return here === yard ? (R() < .4 ? { station: port } : null) : { station: yard }; }
             default: return R() < .3 ? other() : null;
         }
@@ -379,6 +395,7 @@ export function stationReport(s) {
     else if (kind === 'habitat') first = `${fmt(s.stock.equipaggi)} persone pronte a imbarcarsi`;
     else if (kind === 'magazzino') first = `Smista merci: ${fmt(Object.values(s.stock).reduce((a, b) => a + b, 0) - (s.stock.equipaggi || 0))} unità in deposito`;
     else if (kind === 'ripetitore') first = (s.stock.energia || 0) > 1 ? 'Ritrasmette i segnali del sistema' : 'Ferma: manca energia';
+    else if (kind.startsWith('difesa-') && kind !== 'difesa-sorveglianza') first = s.missing.length ? `A metà forza, senza ${short(s.missing.map(name))}` : DEFENCE_READY[kind];
     else if (s.entry.type === 'porta') { const out = Object.keys(s.use).length, inn = Object.keys(s.imports || {}).length; first = `Importa ${inn} merci, ne esporta ${out}`; }
     else if (!made.length) first = 'Nessuna produzione';
     else if (s.inputs && s.missing.length) first = `Ferma: ${s.missing.length > 1 ? 'mancano' : 'manca'} ${short(s.missing.map(name))}`;
@@ -392,6 +409,8 @@ export function stationReport(s) {
     const line = kit || level + second;
     return [first, line.length > 60 ? level + `Chiede ${needs.length} merci` : line];
 }
+/** First line of a defensive station that has what it needs (1.47.0). */
+const DEFENCE_READY = { 'difesa-base': 'Rifornisce la flotta di difesa', 'difesa-piattaforma': 'Torrette pronte', 'difesa-fortezza': 'Torrette e difese pronte', 'difesa-scudo': 'Scudo acceso davanti alla porta' };
 /** Two short lines on what a ship is doing now; `placeName(place)` names a station or a planet. */
 export function shipReport(ship, time, placeName) {
     const left = Math.max(0, Math.ceil(ship.t1 - time)), c = ship.cargo, load = c ? `${fmt(c.amount)} ${RESOURCES[c.res].unit} di ${RESOURCES[c.res].name}` : '';
@@ -399,6 +418,11 @@ export function shipReport(ship, time, placeName) {
         if (ship.task === 'arrivo') return [`Viene da ${ship.origin}`, `Verso la porta, arrivo fra ${left} s`];
         if (ship.task === 'scarica') return [c ? `Scarica ${load}` : 'Scarica le merci importate', `Porta, ${departure(left)}`];
         return [c ? `Esporta ${load}` : 'Riparte senza carico', `Verso ${ship.origin}`];
+    }
+    if (ship.cls.idle === 'guard') {
+        if (ship.phase === 'travel') return [`In pattuglia, arrivo fra ${left} s`, `Verso ${placeName(ship.to)}`];
+        const where = placeName(ship.at);
+        return [where.startsWith('Base della flotta') ? 'Rifornimento alla base' : 'Di guardia', `${where}, ${departure(left)}`];
     }
     if (ship.task === 'varo') return ['Appena varata', `${placeName(ship.at)}, ${departure(left)}`];
     if (ship.phase === 'travel') {

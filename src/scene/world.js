@@ -10,7 +10,7 @@ import { DISCIPLINE } from '../ui/toolkit.js';
 import { pilotWorld } from '../worlds/pilots.js';
 import { planetSurface, surfaceScatter, systemStarLight, planetGenomes } from '../worlds/surface.js';
 import { orbitMap } from '../worlds/orbit-texture.js';
-import { systemCraft, systemExtras, systemShipExtras, LOW_DETAIL } from '../craft/catalog.js';
+import { systemCraft, systemExtras, systemShipExtras, systemDefence, systemDefenceShips, LOW_DETAIL } from '../craft/catalog.js';
 import { CraftFactory } from '../craft/factory.js';
 import { chooseLevels, LOW_SHARE } from '../craft/detail.js';
 import { placeStations, stationPosition, stationYaw } from '../craft/placement.js';
@@ -31,6 +31,8 @@ export const PLACE_TINTS = { vetta: [.95, .82, .45, 1], forma: [.55, .82, .98, 1
 export const displayRadius = body => body.radius * (body.explorable ? 1.55 : 1.1);
 /** Seed of the life of the systems: it changes with every run of the site, so routes and stocks differ. */
 const SESSION = (globalThis.crypto?.getRandomValues ? globalThis.crypto.getRandomValues(new Uint32Array(1))[0] : Math.floor(Math.random() * 2 ** 32)) >>> 0;
+/** Places of the ships of a formation (1.47.0), in sizes of the leader: side and distance behind. */
+const WINGMEN=[[0,0],[1,1],[-1,1]];
 /** Drawn size of a station of level 2 or 3 (1.46.0): an eighth larger for each level. */
 const grown=state=>1+.125*((state?.level||1)-1);
 /** Pairs of stations for the minor traffic: each station with its nearest neighbour, once per pair, with
@@ -42,7 +44,7 @@ export function minorLanes(points){
 }
 /** Glow of a far station or ship, in the colour of its construction style (src/craft/styles.js). */
 const IDENTITY = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]);
-const CRAFT_TINTS = { matematica: [.95, .72, .4, 1], fisica: [.5, .7, 1, 1], chimica: [.71, .61, 1, 1], biologia: [.44, .83, .63, 1], civile: [1, .58, .4, 1] };
+const CRAFT_TINTS = { matematica: [.95, .72, .4, 1], fisica: [.5, .7, 1, 1], chimica: [.71, .61, 1, 1], biologia: [.44, .83, .63, 1], civile: [1, .58, .4, 1], difesa: [.91, .4, .35, 1] };
 /** Rotation of a moving part after `time`: angular speeds `w` around x, y and z (column-major, Ry · Rx · Rz). */
 function spin(w, time) {
     const [rx, ry, rz] = w.map(v => v * time), [a, b, c, d, e, f] = [Math.cos(rx), Math.sin(rx), Math.cos(ry), Math.sin(ry), Math.cos(rz), Math.sin(rz)];
@@ -344,8 +346,9 @@ export class World {
         const R=this.R,C=this.craft,F=this.factory??=new CraftFactory();
         if(C.system!==id){
             this.releaseCraft();F.clear();
-            // The six stations and four ships of the catalogue, the stations of the grammar (1.43.0) and its ships (1.44.0).
-            const entries=[...systemCraft(id),...systemExtras(id),...systemShipExtras(id)];C.system=id;
+            // The six stations and four ships of the catalogue, the stations of the grammar (1.43.0), its ships
+            // (1.44.0) and the defence of the system (1.47.0).
+            const entries=[...systemCraft(id),...systemExtras(id),...systemShipExtras(id),...systemDefence(id),...systemDefenceShips(id)];C.system=id;
             C.list=placeStations(system,entries,displayRadius).map((placement,k)=>({entry:placement.entry,placement,prefix:'craft-'+k,levels:[null,null]}));
             C.models=entries.filter(e=>e.kind==='nave').map((entry,j)=>({entry,prefix:'ship-'+j,levels:[null,null]}));
             C.sites={time:null,hosts:new Map()};
@@ -416,7 +419,11 @@ export class World {
             }
             const m=o.model;if(!m)continue;
             const scale=size/m.radius;
-            if(m.ids.body){const key=m.ids.body;let g=groups.get(key);if(!g)groups.set(key,g=[]);g.push(...pose.position,scale,...pose.forward,0);}
+            if(m.ids.body){
+                const key=m.ids.body;let g=groups.get(key);if(!g)groups.set(key,g=[]);
+                // Fighters and interceptors (1.47.0) fly in formation: the wingmen follow behind on either side.
+                for(const [x,z] of WINGMEN.slice(0,ship.entry.wing||1)){const f=pose.forward,r=Math.hypot(f[0],f[2])>1e-6?[f[2]/Math.hypot(f[0],f[2]),0,-f[0]/Math.hypot(f[0],f[2])]:[1,0,0];g.push(...pose.position.map((v,i)=>v+r[i]*x*size*2.4-f[i]*z*size*2.4),scale,...f,0);}
+            }
             if(m.ids.spinning.length||apparent>=18&&R.sceneQuality!=='low'){
                 const mats=turning(m,shipMatrix(pose.position,pose.forward,scale));
                 for(const p of m.ids.spinning)R.drawMesh(p.id,this.vp,mats[p.part],{eye:this.eye,light:normal(pose.position.map(v=>-v)),lightColor,material:10});

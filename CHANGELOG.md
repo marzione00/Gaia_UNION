@@ -1,3 +1,11 @@
+# 1.47.0: Flotta di difesa
+
+- Undici classi di navi di difesa, dal caccia alla superportaerei, e cinque stazioni di difesa (base della flotta, stazione di sorveglianza, piattaforma di difesa, fortezza orbitale, generatore di scudo), in un nuovo stile della flotta: scafi sfaccettati e corazzati, torrette laser, difese ravvicinate, lanciatori di droni intercettori, emettitori di scudo, hangar e ponti di volo. Nomi di esploratori, navigatori e astronauti.
+- La forza della difesa cresce verso la frontiera, l'ultimo sistema di ogni braccio: ogni sistema ha da 2 a 5 stazioni di difesa e da 3 a 8 modelli di nave, 84 stazioni e 134 navi in tutto, con le superportaerei nei quattro sistemi di frontiera. Una nave conta da 896 a 13 350 triangoli, una stazione da 1484 a 6480.
+- Le stazioni di difesa formano una linea oltre la porta e l'anello esterno, senza spostare le altre stazioni. Le navi pattugliano fra base, stazioni di difesa, porta e porto; caccia e intercettori volano in formazione. Le stazioni di difesa consumano carburante, energia, cibo, parti e idrogeno e senza queste merci lavorano a metà forza.
+- Nella simulazione di 1200 s su 30 sistemi e tre semi le consegne salgono da 63 502 a 66 950.
+- Nuovo `src/craft/defence.js`; `tests/difesa.test.mjs` controlla catalogo, modelli, linea di difesa e pattuglie. Descrizione in `docs/STAZIONI_NAVI.md`.
+
 # 1.46.0: Vita dei sistemi
 
 - Le stazioni che producono crescono fino al terzo livello: dopo 300 s a pieno ritmo (600 s al secondo livello) chiedono un kit di ampliamento di parti di nave o di moduli abitativi, e ogni livello aggiunge un quarto ai ritmi e un quinto ai magazzini. Le stazioni cresciute si disegnano più grandi e il resoconto mostra il livello; la porta rifà il bilancio delle catene dopo ogni ampliamento.

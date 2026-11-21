@@ -4,13 +4,14 @@
  * built on demand from their seed; `build(entry)` returns the meshes, the lights and the recipe. */
 import { AREAS, seededRandom } from '../scene/layout.js';
 import { dice } from './kit.js';
-import { style, DISCIPLINE_STYLES } from './styles.js';
+import { style, DISCIPLINE_STYLES, DEFENCE_STYLE } from './styles.js';
 import { STATIONS } from './stations.js';
 import { GRAMMAR_STATIONS, TYPE_BY_KEY, worksOf } from './grammar.js';
 import { FAMILY_KEYS } from './families.js';
 import { SHIPS } from './ships.js';
 import { GRAMMAR_SHIPS, SHIP_TYPE_BY_KEY, SHIP_ROLES, HULL_KEYS, shipTrade } from './shipclasses.js';
 import { FLEET } from './economy.js';
+import { DEFENCE_SHIPS, DEFENCE_STATIONS } from './defence.js';
 
 const CODE = { Y: 'poliedrica', Dp: 'deposito', C: 'cantiere', D: 'radiotelescopio', M: 'miniera', E: 'centrale', T: 'telescopio', L: 'laboratorio', S: 'serra', R: 'raffineria' };
 /** Four thematic stations per system, in system order. Mines only in the systems with an asteroid belt. */
@@ -26,6 +27,8 @@ const NAMES = {
     fisica: ['Galilei', 'Newton', 'Huygens', 'Hooke', 'Keplero', 'Faraday', 'Maxwell', 'Ampère', 'Volta', 'Ohm', 'Joule', 'Kelvin', 'Carnot', 'Clausius', 'Boltzmann', 'Gibbs', 'Hertz', 'Lorentz', 'Planck', 'Einstein', 'Bohr', 'Heisenberg', 'Schrödinger', 'Dirac', 'Pauli', 'Fermi', 'Majorana', 'Born', 'Rutherford', 'Meitner', 'Chandrasekhar', 'Hubble', 'Lemaître', 'Friedmann', 'Gamow', 'Penzias', 'Feynman', 'Yukawa', 'Wu', 'Rubin', 'Burnell', 'Leavitt', 'Hawking', 'Bose', 'Raman', 'Compton', 'Millikan', 'Michelson', 'Doppler', 'Fresnel', 'Fraunhofer', 'Kirchhoff', 'Coulomb', 'Ørsted', 'Tesla', 'Lenz', 'Laue', 'Bragg', 'Mach', 'Rayleigh', 'Stokes', 'Torricelli', 'Fizeau', 'Foucault', 'Herschel', 'Schiaparelli', 'Alfvén', 'Zwicky', 'Oort', 'Eddington', 'Hoyle'],
     chimica: ['Lavoisier', 'Dalton', 'Avogadro', 'Mendeleev', 'Berzelius', 'Cannizzaro', 'Arrhenius', 'Le Chatelier', 'Pauling', 'Lewis', 'Haber', 'Bosch', 'Nobel', 'Curie', 'Hodgkin', 'Kekulé', 'Wöhler', 'Liebig', 'Bunsen', 'Davy', 'Priestley', 'Scheele', 'Boyle', 'Gay-Lussac', 'Proust', 'Natta', 'Ziegler', 'Levi', 'Sabatier', 'Grignard', 'Werner', 'Nernst', 'Ostwald', 'Moseley', 'Hess', 'Raoult', 'Langmuir', 'Seaborg', 'Sanger', 'Woodward', 'Crutzen', 'Molina', 'Rowland', 'Lehn', 'Dewar', 'Cavendish', 'Ramsay', 'Berthollet'],
     biologia: ['Darwin', 'Wallace', 'Mendel', 'Pasteur', 'Koch', 'Lamarck', 'Linneo', 'Cuvier', 'Humboldt', 'Haeckel', 'Spallanzani', 'Redi', 'Malpighi', 'Golgi', 'Morgan', 'McClintock', 'Watson', 'Crick', 'Franklin', 'Avery', 'Hershey', 'Chase', 'Monod', 'Jacob', 'Margulis', 'Woese', 'Oparin', 'Haldane', 'Miller', 'Urey', 'Orgel', 'Eigen', 'Szostak', 'Sagan', 'Drake', 'Tarter', 'Seager', 'Mayr', 'Dobzhansky', 'Fisher', 'Levi-Montalcini', 'Carson', 'Goodall', 'Lovelock', 'Leeuwenhoek', 'Schwann', 'Virchow', 'Harvey', 'Galvani', 'Fleming', 'Calvin', 'Krebs', 'Mitchell', 'Lederberg', 'Gould', 'Kimura', 'Deamer', 'Wächtershäuser', 'Cronin', 'Pizzarello', 'Chyba', 'McKay', 'Brenner', 'Nirenberg', 'Khorana', 'Barghoorn', 'Schopf', 'Bernal', 'Ponnamperuma', 'Huxley', 'Wilkins', 'Pääbo'],
+    // Explorers, navigators and astronauts for the defence fleet (1.47.0).
+    difesa: ['Magellano', 'Colombo', 'Vespucci', 'Caboto', 'Verrazzano', 'Pigafetta', 'Polo', 'Zheng He', 'Ibn Battuta', 'Cook', 'Tasman', 'Bering', 'Hudson', 'Baffin', 'Bougainville', 'Malaspina', 'La Pérouse', 'Amundsen', 'Nansen', 'Shackleton', 'Scott', 'Peary', 'Henson', 'Nobile', 'Bonatti', 'Hillary', 'Norgay', 'Messner', 'Earhart', 'Lindbergh', 'Gagarin', 'Tereshkova', 'Leonov', 'Glenn', 'Shepard', 'Armstrong', 'Aldrin', 'Collins', 'Lovell', 'Ride', 'Jemison', 'Cristoforetti', 'Parmitano', 'Nespoli', 'Vittori', 'Guidoni', 'Malerba', 'Chrétien', 'Komarov', 'Titov', 'Savitskaja', 'Chawla', 'Mukai', 'Hadfield', 'Garneau', 'Peake', 'Gerst', 'Pesquet', 'Kuipers', 'Akiyama', 'Yang Liwei', 'Wang Yaping', 'Cousteau', 'Piccard', 'Heyerdahl', 'Ross', 'Franklin', 'Livingstone', 'Burton', 'Speke', 'Bird', 'Kingsley'],
     civile: ['Maestrale', 'Libeccio', 'Scirocco', 'Grecale', 'Tramontana', 'Levante', 'Ponente', 'Ostro', 'Bora', 'Favonio', 'Garbino', 'Aliseo', 'Monsone', 'Zefiro', 'Borea', 'Austro', 'Vega', 'Altair', 'Deneb', 'Rigel', 'Antares', 'Aldebaran', 'Arturo', 'Sirio', 'Canopo', 'Polare', 'Betelgeuse', 'Capella', 'Spica', 'Regolo', 'Fomalhaut', 'Achernar', 'Mira', 'Alcor', 'Mizar', 'Castore', 'Polluce', 'Procione', 'Bellatrix', 'Algol', 'Alnilam', 'Mintaka', 'Saiph', 'Shaula', 'Nunki', 'Alioth', 'Dubhe', 'Merak', 'Megrez', 'Alkaid', 'Thuban', 'Kochab', 'Mirfak', 'Hamal', 'Menkar', 'Sadr', 'Albireo', 'Alphard', 'Denebola', 'Zosma', 'Markab', 'Scheat', 'Enif', 'Rasalhague', 'Sabik', 'Atria', 'Hadar', 'Acrux', 'Gacrux', 'Mimosa', 'Avior', 'Suhail', 'Wezen', 'Adhara', 'Mirzam', 'Alhena', 'Elnath', 'Tejat', 'Wasat', 'Propus', 'Ankaa', 'Diphda', 'Menkent', 'Zubenelgenubi', 'Alderamin', 'Errai', 'Caph', 'Schedar', 'Ruchbah', 'Algenib']
 };
 /** Seed of one model, from its system and slot; `REROLL` moves a few seeds on, so that no two models of the
@@ -61,7 +64,7 @@ export const CATALOG = (() => {
  * `detail` below 1 builds the low level of detail of the same model (src/craft/kit.js). */
 export const LOW_DETAIL = .35;
 export function build(entry, seed = entry.seed, { detail = 1 } = {}) {
-    const spec = entry.kind === 'stazione' ? STATIONS[entry.type] || GRAMMAR_STATIONS[entry.type] : SHIPS[entry.type] || GRAMMAR_SHIPS[entry.type], d = dice(seed, entry.nth);
+    const spec = entry.kind === 'stazione' ? STATIONS[entry.type] || GRAMMAR_STATIONS[entry.type] || DEFENCE_STATIONS[entry.type] : SHIPS[entry.type] || GRAMMAR_SHIPS[entry.type] || DEFENCE_SHIPS[entry.type], d = dice(seed, entry.nth);
     const model = spec.build(d, { ...style(entry.style, entry.type === 'porta' ? FIELD[entry.sector] : null), detail });
     model.recipe = d.notes.slice();
     return model;
@@ -160,3 +163,42 @@ export const SHIP_EXTRAS = (() => {
 })();
 /** Ship models added to one system in 1.44.0. */
 export const systemShipExtras = system => SHIP_EXTRAS.filter(e => e.system === system);
+
+/** Distance of a system from the frontier (1.47.0): 0 for the last system of its discipline arm, the farthest
+ * from the core of the galaxy, 1 for the one before, and so on. */
+export const frontierRank = system => { const area = AREAS[system], peers = AREAS.filter(a => a.sector === area.sector); return peers.length - 1 - peers.indexOf(area); };
+/** Defensive stations of a system, in order: the fleet base and the surveillance station everywhere, then
+ * the platform, the fortress and the shield generator in the systems nearer the frontier (five at the
+ * frontier, four, three, then two). */
+const DEFENCE_STATION_ORDER = ['baseflotta', 'sorveglianza', 'piattaforma', 'fortezza', 'scudo'];
+export const defenceStationCount = system => [5, 4, 3][frontierRank(system)] ?? 2;
+/** Ship classes of the defence fleet of a system: a light wing (fighters in the even systems, interceptors
+ * in the odd ones), a patrol boat and a corvette everywhere, heavier ships nearer the frontier, where the
+ * frontier systems hold the heavy cruisers and the super-carriers, the systems before them the cruisers and
+ * the carriers, then the destroyers and the battleships. */
+export const defenceShipClasses = system => {
+    const light = system % 2 ? 'intercettore' : 'caccia', base = [light, 'pattugliatore', 'corvetta'];
+    return [[ 'caccia', 'intercettore', 'pattugliatore', 'corvetta', 'fregata', 'cacciatorpediniere', 'incrociatorePesante', 'superportaerei'], [...base, 'fregata', 'incrociatore', 'portaerei'], [...base, 'cacciatorpediniere', 'corazzata'], [...base, 'fregata']][frontierRank(system)] ?? base;
+};
+/** The defence entries (1.47.0): stations with slots from 60 on and ships with slots from 70 on, in the
+ * defence style, named after explorers, navigators and astronauts. Ships carry their trade for
+ * src/craft/economy.js (no goods: they patrol) and the size of the formation they fly in. */
+const defenceEntries = (() => {
+    const stations = [], ships = [], taken = new Set([...CATALOG, ...EXTRAS, ...SHIP_EXTRAS].map(e => e.name)), pool = shuffled(NAMES.difesa, 0xDEF), counter = { n: 0 };
+    const name = typeName => { for (let tries = 0; tries < pool.length * 2; tries++) { const n = typeName + ' ' + pool[counter.n++ % pool.length]; if (!taken.has(n)) { taken.add(n); return n; } } throw new Error('nomi esauriti: difesa'); };
+    AREAS.forEach((area, system) => {
+        DEFENCE_STATION_ORDER.slice(0, defenceStationCount(system)).forEach((type, k) => {
+            const spec = DEFENCE_STATIONS[type], slot = 60 + k;
+            stations.push(Object.freeze({ id: `s${String(system).padStart(2, '0')}-${slot}`, system, slot, nth: stations.filter(e => e.type === type).length, kind: 'stazione', type, typeName: spec.name, style: DEFENCE_STYLE, sector: area.sector, name: name(spec.name), size: spec.size, about: spec.about, seed: seedFor(system, slot), defence: true, works: spec.works, drawn: spec.drawn }));
+        });
+        defenceShipClasses(system).forEach((type, k) => {
+            const spec = DEFENCE_SHIPS[type], slot = 70 + k;
+            ships.push(Object.freeze({ id: `s${String(system).padStart(2, '0')}-${slot}`, system, slot, nth: ships.filter(e => e.type === type).length, kind: 'nave', type, typeName: spec.name, style: DEFENCE_STYLE, sector: area.sector, name: name(spec.name), size: spec.size, about: spec.about, seed: seedFor(system, slot), defence: true, drawn: spec.drawn, wing: spec.wing || 1, fleet: Object.freeze({ carries: [], capacity: 0, speed: spec.speed, dock: spec.dock, idle: 'guard' }) }));
+        });
+    });
+    return { stations: Object.freeze(stations), ships: Object.freeze(ships) };
+})();
+export const DEFENCE = defenceEntries.stations, DEFENCE_FLEET = defenceEntries.ships;
+/** Defensive stations and defence ships of one system (1.47.0). */
+export const systemDefence = system => DEFENCE.filter(e => e.system === system);
+export const systemDefenceShips = system => DEFENCE_FLEET.filter(e => e.system === system);
