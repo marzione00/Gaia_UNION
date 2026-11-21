@@ -24,8 +24,26 @@ const PREFER = {
     radiotelescopio: [(b, all) => b === all.at(-2), (b, all) => b === all.at(-1), (b, all) => b === all.at(-3)]
 };
 
+/** Host preferences of the roles of the type grammar (src/craft/grammar.js), used for the stations added in
+ * 1.43.0; shipyards stay with the port and relays sit between the orbits of the planets. */
+const PREFER_ROLE = {
+    abitazione: [b => b.explorable && LIVING.includes(b.type), b => b.explorable, b => LIVING.includes(b.type)],
+    cantiere: [b => b.explorable],
+    fonderia: [b => b.type === 'volcanic', b => ['rocky', 'barren', 'desert'].includes(b.type)],
+    chimica: [b => GIANTS.includes(b.type), b => b.type === 'acid'],
+    energia: [(b, all) => all.indexOf(b) < 3],
+    ricerca: [b => b.type === 'ringed', b => b.explorable, b => GIANTS.includes(b.type)],
+    osservazione: [(b, all) => all.indexOf(b) >= all.length - 3],
+    agricoltura: [b => LIVING.includes(b.type), b => b.type === 'desert'],
+    deposito: [b => ICY.includes(b.type), (b, all) => all.indexOf(b) >= all.length - 4],
+    comunicazioni: []
+};
+/** At most three stations orbit one planet; the next ones move to the gaps between the orbits. */
+const PER_HOST = 3;
+
 /** Placements of the stations of `system` (the result of systemArchitecture, with `id`), for the catalogue
- * entries `entries` of that system, in order. */
+ * entries `entries` of that system, in order. The six classic stations come first and keep the placements
+ * they had before 1.43.0; the stations of the grammar follow. */
 export function placeStations(system, entries, radiusOf) {
     const bodies = system.bodies, used = new Map(), rng = seededRandom(0x5741 ^ Math.imul(system.id + 1, 0x2C1B3C6D)), out = [];
     const pick = type => {
@@ -34,15 +52,67 @@ export function placeStations(system, entries, radiusOf) {
         for (const free of [true, false]) for (const test of tests) { const b = bodies.find(x => test(x, bodies) && (!free || !used.has(x.slot))); if (b) return b; }
         return bodies.find(x => !used.has(x.slot)) || bodies[0];
     };
-    let port = null;
+    let port = null, lanes = null, ring = 0; const pending = [];
+    // Lanes around the star between consecutive orbits, clear of the planets, of their eccentric paths and
+    // of the stations orbiting them (also inside the first orbit and outside the last one): stations in a
+    // lane share radius and speed, so they never meet each other, and stay at least half the lane width
+    // from every planet. Lanes are drawn after all the planet orbits are assigned.
+    const lane = near => {
+        if (!lanes) {
+            const edges = bodies.map(b => [b.orbit * (1 - b.eccentricity) - reach(b), b.orbit * (1 + b.eccentricity) + reach(b), b]);
+            const inner = system.starRadius * 3 + 1, outer = system.belt ? system.belt.inner - .3 : system.outerRadius + 1;
+            lanes = [[inner, edges[0][0], edges[0][2], 0], ...edges.slice(1).map((e, i) => [edges[i][1], e[0], edges[i][2], i + 1]), [edges.at(-1)[1], outer, edges.at(-1)[2], edges.length]]
+                .map(([lo, hi, ref, i]) => ({ i, r: (lo + hi) / 2, w: (hi - lo) / 2, speed: ref.speed * Math.pow(ref.orbit / ((lo + hi) / 2), 1.5), phase: rng() * Math.PI * 2, n: 0 }))
+                .filter(l => l.w >= .3);
+        }
+        const open = lanes.filter(l => l.n < 6);
+        if (!open.length) return null;
+        const at = near ? bodies.indexOf(near) : -1, l = open.reduce((m, x) => { const d = at < 0 ? 0 : Math.min(Math.abs(x.i - at), Math.abs(x.i - at - 1)), e = at < 0 ? 0 : Math.min(Math.abs(m.i - at), Math.abs(m.i - at - 1)); return d < e || d === e && x.n < m.n ? x : m; });
+        return { l, j: l.n++ };
+    };
+    // An added station orbits a planet only when the orbit stays inside the clearance between the planet and
+    // the neighbouring orbits, at least 0.4 units beyond the previous station of that planet.
+    const orbitOf = (host, size) => Math.max(radiusOf(host) * 1.5 + size * 1.5, ...out.filter(p => p.kind === 'orbit' && p.host === host.slot).map(p => p.distance + Math.max(radiusOf(host) * .5, .4)));
+    // Reach of a planet: its radius or the farthest station orbiting it.
+    const reach = b => Math.max(radiusOf(b), ...out.filter(p => p.kind === 'orbit' && p.host === b.slot).map(p => p.distance + p.size));
+    const room = host => {
+        const i = bodies.indexOf(host), a = bodies[i - 1], c = bodies[i + 1], near = host.orbit * (1 - host.eccentricity), far = host.orbit * (1 + host.eccentricity);
+        return Math.min(a ? near - a.orbit * (1 + a.eccentricity) - reach(a) : Infinity, c ? c.orbit * (1 - c.eccentricity) - reach(c) - far : Infinity);
+    };
+    const fits = (x, size) => (used.get(x.slot) || 0) < PER_HOST && orbitOf(x, size) + size * 2 <= room(x);
+    const preferred = role => { for (const test of PREFER_ROLE[role] || []) { const b = bodies.find(x => test(x, bodies)); if (b) return b; } return null; };
+    const least = (tests, size) => {
+        const fewest = list => list.reduce((m, x) => (used.get(x.slot) || 0) < (used.get(m.slot) || 0) ? x : m);
+        for (const test of tests) { const list = bodies.filter(x => test(x, bodies) && fits(x, size)); if (list.length) return fewest(list); }
+        return null;
+    };
     for (const entry of entries.filter(e => e.kind === 'stazione')) {
         const size = STATION_SIZE[entry.type] ?? STATION_SIZE.default;
+        if (entry.role) {
+            if (entry.family === 'asteroide' && system.belt) { out.push({ entry, kind: 'belt', size, distance: system.belt.inner + (system.belt.outer - system.belt.inner) * (.25 + .5 * rng()), height: (rng() - .5) * .5, phase: rng() * Math.PI * 2 }); continue; }
+            // A planet that suits the role and has room, then a lane near such a planet, then the outer ring.
+            const host = entry.role === 'comunicazioni' ? null : entry.role === 'cantiere' && port && fits(port, size) ? port : least(PREFER_ROLE[entry.role] || [], size);
+            if (host) {
+                const k = used.get(host.slot) || 0, distance = orbitOf(host, size); used.set(host.slot, k + 1);
+                out.push({ entry, kind: 'orbit', host: host.slot, size, distance, phase: rng() * Math.PI * 2 + k * 2.1, speed: .05 / (1 + k * .4) * (rng() < .5 ? 1 : -1), inclination: .25 + rng() * .35, node: rng() * Math.PI * 2 });
+                continue;
+            }
+            const later = { entry, size }; out.push(later); pending.push(later);
+            continue;
+        }
         if (entry.type === 'porta') { out.push({ entry, kind: 'edge', size, distance: system.outerRadius + 5.2, phase: rng() * Math.PI * 2 }); continue; }
         if (entry.type === 'miniera' && system.belt) { out.push({ entry, kind: 'belt', size, distance: (system.belt.inner + system.belt.outer) / 2, height: .25, phase: rng() * Math.PI * 2 }); continue; }
         const host = entry.type === 'cantiere' && port ? port : pick(entry.type), k = used.get(host.slot) || 0;
         used.set(host.slot, k + 1); if (entry.type === 'porto') port = host;
         const distance = radiusOf(host) * (1.75 + .6 * k) + size * 1.5;
         out.push({ entry, kind: 'orbit', host: host.slot, size, distance, phase: rng() * Math.PI * 2 + k * 2.1, speed: .05 / (1 + k * .4) * (rng() < .5 ? 1 : -1), inclination: .25 + rng() * .35, node: rng() * Math.PI * 2 });
+    }
+    for (const p of pending) {
+        const spot = lane(p.entry.role === 'comunicazioni' ? null : preferred(p.entry.role));
+        if (spot) { Object.assign(p, { kind: 'star', distance: spot.l.r, height: 0, phase: spot.l.phase + spot.j * 2.39996, speed: spot.l.speed }); continue; }
+        const gate = out.find(q => q.entry.type === 'porta'), r = ring++;
+        const last = bodies.at(-1), clear = last.orbit * (1 + last.eccentricity) + reach(last) + p.size * 3;
+        Object.assign(p, { kind: 'edge', distance: Math.max(system.belt ? system.belt.outer + 1.05 : system.outerRadius + 2.6, clear), phase: (gate ? gate.phase : 0) + Math.PI * (.5 + .618 * r) });
     }
     return out;
 }
@@ -51,6 +121,7 @@ export function placeStations(system, entries, radiusOf) {
 export function stationPosition(p, time, hostAt) {
     if (p.kind === 'edge') return [Math.cos(p.phase) * p.distance, 0, Math.sin(p.phase) * p.distance];
     if (p.kind === 'belt') { const a = p.phase - time * BELT_SPIN; return [Math.cos(a) * p.distance, p.height, Math.sin(a) * p.distance]; }
+    if (p.kind === 'star') { const a = p.phase + time * p.speed; return [Math.cos(a) * p.distance, p.height, Math.sin(a) * p.distance]; }
     const a = p.phase + time * p.speed, x = Math.cos(a) * p.distance, z = Math.sin(a) * p.distance, ci = Math.cos(p.inclination), si = Math.sin(p.inclination);
     const y = z * si, zz = z * ci, cn = Math.cos(p.node), sn = Math.sin(p.node), h = hostAt(p.host);
     return [h[0] + x * cn - zz * sn, h[1] + y, h[2] + x * sn + zz * cn];

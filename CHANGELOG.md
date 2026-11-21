@@ -1,3 +1,10 @@
+# 1.43.0: Stazioni aggiunte nei sistemi
+
+- Ogni sistema ha ora da 12 a 20 stazioni: alle sei del catalogo si aggiungono da 6 a 14 tipi della grammatica, 300 in tutto, scelti secondo la disciplina del sistema (osservatori e ripetitori per la matematica, centrali e laboratori per la fisica, impianti chimici e fonderie per la chimica, fattorie e habitat per la biologia). In un sistema nessun tipo si ripete, e in tutto il catalogo nessun tipo compare due volte nello stesso stile.
+- Le sei stazioni classiche restano dove erano. Le aggiunte orbitano attorno a un pianeta solo se c'è spazio fra le orbite vicine; altrimenti viaggiano in corsie attorno alla stella fra due orbite, con raggio e velocità comuni, oppure in un anello fra la fascia e la porta; le stazioni su asteroide ruotano con la fascia. Nelle prove una stazione aggiunta resta ad almeno 1,56 volte la somma dei raggi da ogni altra stazione e ad almeno 1,23 volte da ogni pianeta che non la ospita.
+- Nuove ricette per habitat (equipaggi da cibo ed energia), magazzini (ricevono e cedono cinque merci) e ripetitori (consumano energia). La porta esporta e importa in proporzione al numero di stazioni, e ogni modello di nave porta con sé da una a tre gemelle in più, secondo il numero di stazioni. In una simulazione di 1200 s su 30 sistemi e tre semi viaggiano 1149 navi invece di 581 e le consegne salgono da 12 833 a 32 734.
+- `tests/added.test.mjs` controlla catalogo, collocamento, distanze ed economia delle stazioni aggiunte. Descrizione in `docs/STAZIONI_NAVI.md`.
+
 # 1.42.0: Grammatica dei tipi di stazione
 
 - I tipi di stazione diventano dati: ogni tipo unisce una famiglia di forme, che decide la sagoma del nucleo, e un ruolo, che decide i moduli montati sul nucleo. Dodici famiglie (a spina, a ruota, a disco, a grappolo, a traliccio, sferica, poliedrica, a torre, a croce, a piattaforma, a tamburo, su asteroide) e dieci ruoli (Habitat, Arsenale, Fonderia, Impianto chimico, Centrale, Laboratorio, Osservatorio, Fattoria, Magazzino, Ripetitore) danno 120 tipi, dieci volte i dodici tipi classici, che restano come sono.
