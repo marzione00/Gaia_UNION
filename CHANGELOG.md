@@ -1,7 +1,7 @@
 # 1.47.1: Nuovo disegno della flotta di difesa
 
-- Le undici classi di navi di difesa sono ridisegnate. Gli scafi sono lunghi e affusolati, fatti di segmenti sovrapposti con giunti sottili: dorso chiaro, fianchi blu ardesia, ventre scuro, uno spigolo netto sui lati e una prua che si appiattisce a lama. Alcuni giunti sono rossi, nel colore della flotta; sulla poppa brillano blocchi di motori e gondole su piloni a luce bianco azzurra. Le navi maggiori hanno punte di prua, dorsi rialzati, ali e scafi laterali; le portaerei scafi hangar con bocche illuminate e luci di pista.
-- Una nave conta ora da 1056 a 9828 triangoli, con mediana 2030; il livello semplificato ne ha il 50,1 %. Stazioni di difesa, classi, catalogo, linea di difesa e pattuglie restano quelli della 1.47.0.
+- Le undici classi di navi di difesa sono ridisegnate: scure, spigolose e asimmetriche. Le piastre di corazza sono sfaccettate, in grigio antracite e canna di fucile, con giunti e bordi arancio rosso nel colore della flotta. Le prue hanno punte di lunghezza diversa; lame e antenne sporgono dai fianchi, sponsoni e scafi laterali stanno su un solo lato, le guglie di comando sono fuori asse; finestre e motori sono color ambra.
+- Anche le stazioni di difesa prendono i colori scuri dello stile. Una nave conta ora da 524 a 9118 triangoli, con mediana 1696; il livello semplificato ne ha il 40,1 %. Classi, catalogo, linea di difesa e pattuglie restano quelli della 1.47.0.
 
 # 1.47.0: Flotta di difesa
 

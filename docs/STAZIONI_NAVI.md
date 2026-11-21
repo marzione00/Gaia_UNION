@@ -349,23 +349,23 @@ La simulazione di 1200 s su 30 sistemi e tre semi, con tutte le stazioni, parte 
 
 ## La flotta di difesa
 
-Dalla 1.47.0 ogni sistema ha una difesa propria, costruita in un sesto stile, quello della flotta. Dalla 1.47.1 gli scafi delle navi sono lunghi e affusolati, fatti di segmenti sovrapposti con giunti sottili: dorso chiaro, fianchi blu ardesia, ventre scuro e uno spigolo netto sui lati. Verso la prua lo scafo si appiattisce a lama; alcuni giunti sono rossi, nel colore della flotta; sulla poppa brillano blocchi di motori e gondole su piloni a luce bianco azzurra. Le navi maggiori hanno punte di prua, dorsi rialzati, ali e scafi laterali, e la sovrastruttura di comando sta spesso su un lato. Lo stile riprende la fantascienza navale delle grandi flotte spaziali senza copiare navi esistenti. Stazioni e navi prendono i nomi di esploratori, navigatori e astronauti. Il codice è in `src/craft/defence.js`.
+Dalla 1.47.0 ogni sistema ha una difesa propria, costruita in un sesto stile, quello della flotta. Dalla 1.47.1 le navi sono scure, spigolose e asimmetriche: piastre di corazza sfaccettate in grigio antracite e canna di fucile, punte di prua di lunghezza diversa, lame e antenne, sponsoni e scafi laterali su un solo lato, guglie di comando fuori asse, giunti e bordi arancio rosso nel colore della flotta, finestre e motori color ambra. Anche le stazioni di difesa prendono i colori scuri dello stile. Lo stile riprende la fantascienza navale delle grandi flotte spaziali senza copiare navi esistenti. Stazioni e navi prendono i nomi di esploratori, navigatori e astronauti. Il codice è in `src/craft/defence.js`.
 
 Le classi di navi sono undici, dalla più piccola:
 
 | Classe | Lunghezza | Forma |
 |---|---|---|
-| Caccia | circa 18 m | scafo affusolato a segmenti, ali a freccia, a freccia invertita o a delta, una o due gondole motrici; vola in formazione di tre |
-| Intercettore | circa 24 m | scafo ad ago davanti a una grande gondola motrice, due o tre alette, una sonda su un lato; vola in coppia |
-| Pattugliatore | circa 40 m | scafo a segmenti, una torretta laser, sovrastruttura, due gondole motrici su piloni, faro |
-| Corvetta | circa 70 m | scafo a segmenti, a volte due punte di prua, sovrastruttura su un lato, torretta, lanciatori, due gondole su piloni |
-| Fregata | circa 110 m | scafo lungo fra due punte di prua, due torrette, lanciatori o hangar sui fianchi, gondole su piloni e blocco motori |
-| Cacciatorpediniere | circa 150 m | scafo molto lungo con prua ad ago o a forchetta, tre torrette, gondole laterali con lanciatori, blocco motori 4 × 2 |
-| Incrociatore | circa 210 m | dorso rialzato, ali sui fianchi, quattro torrette, sovrastruttura su un lato, emettitore di scudo, gondole su piloni e blocco motori |
-| Incrociatore pesante | circa 280 m | due lunghe punte di prua, spesso un'arma spinale fra le due, dorso rialzato, cinque torrette, lanciatori, blocco motori e due gondole |
-| Corazzata | circa 380 m | scafo largo con scafi laterali, lama ventrale, sei torrette, sovrastruttura su un lato, due emettitori di scudo, blocco motori 6 × 2 e gondole |
-| Portaerei | circa 420 m | scafo centrale fra due scafi hangar con bocche illuminate e luci di pista, ponti di collegamento, sovrastruttura su un lato, blocco motori |
-| Superportaerei | circa 720 m | due lunghi scafi con hangar e piste, trave centrale con una o due sovrastrutture, anello abitato che ruota, blocchi motori su ogni scafo |
+| Caccia | circa 18 m | corpo a cuneo con due punte di lunghezza diversa, ali a freccia, a lama o a delta, una lama dorsale su un lato; vola in formazione di tre |
+| Intercettore | circa 24 m | scafo ad ago davanti a un blocco motori, due o tre lame inclinate, una sonda su un lato; vola in coppia |
+| Pattugliatore | circa 40 m | prua a punta, uno sponsone su un lato con torretta e motore, un'antenna sull'altro, sovrastruttura spostata |
+| Corvetta | circa 70 m | due punte di prua di lunghezza diversa, dorso corazzato, torretta, lanciatori, lame di poppa diverse sui due lati, motori 3 × 2 |
+| Fregata | circa 110 m | punta ventrale, scafo hangar su un lato e lanciatori sull'altro, due torrette, sovrastruttura spostata, motori 3 × 2 |
+| Cacciatorpediniere | circa 150 m | tre punte di prua sfalsate, tre torrette, gondola di lanciatori su un lato e lame sull'altro, motori 4 × 2 |
+| Incrociatore | circa 210 m | punte di prua diverse, quattro torrette, torre di comando su un lato e una minore sull'altro, emettitore di scudo, ali a lama asimmetriche, motori 4 × 3 |
+| Incrociatore pesante | circa 280 m | due punte di lunghezza diversa, spesso un'arma spinale fra le due, cinque torrette, lame sui fianchi, motori fino a 5 × 3 |
+| Corazzata | circa 380 m | dorso a due livelli, punte di prua diverse, lama ventrale, sei torrette, guglia di comando su un lato, due emettitori di scudo, file di lame sui fianchi, motori 6 × 3 |
+| Portaerei | circa 420 m | scafo hangar maggiore su un lato con pista e bocca illuminata, scafo minore con la guglia di comando sull'altro, motori 3 × 2 |
+| Superportaerei | circa 720 m | due scafi di lunghezza diversa con hangar e piste, trave centrale con una o due guglie spostate, anello abitato che ruota, motori 3 × 3 su ogni scafo |
 
 Le stazioni di difesa sono cinque: la base della flotta, con bracci di attracco, ormeggi e un hangar; la stazione di sorveglianza, con schiere di antenne, parabole e un anello radar che ruota; la piattaforma di difesa, esagonale, con torrette, pannelli o radiatori; la fortezza orbitale, un poliedro corazzato con due piani di torrette; il generatore di scudo, con anelli emettitori che ruotano in versi opposti attorno a un reattore.
 
@@ -383,7 +383,7 @@ In tutto le stazioni di difesa sono 84 e i modelli di nave 134, con tutte le cla
 
 | | Modelli | Triangoli | Mediana | Livello semplificato |
 |---|---:|---:|---:|---:|
-| Navi | 134 | da 1056 a 9828 | 2030 | 50,1 % |
+| Navi | 134 | da 524 a 9118 | 1696 | 40,1 % |
 | Stazioni | 84 | da 1484 a 6480 | 3712 | 27,4 % |
 
 Le stazioni di difesa formano una linea 1,8 unità oltre la porta e oltre l'anello esterno: base della flotta, fortezza e generatore di scudo accanto alla porta, la piattaforma a metà strada, la stazione di sorveglianza dalla parte opposta del sistema. Vengono collocate per ultime, così le altre stazioni restano dove erano. Nelle prove su 900 s una stazione di difesa resta ad almeno 4,6 volte la somma dei raggi da ogni altra stazione e ad almeno 7,3 volte da ogni pianeta.
@@ -428,4 +428,4 @@ Nella simulazione di 1200 s su 30 sistemi e tre semi la difesa aggiunge 252 staz
 8. Economia delle catene: 24 merci, 31 ricette, porte che bilanciano i sistemi (1.45.0).
 9. Stazioni che crescono, cantieri che varano navi, convogli fra i sistemi, cronaca del sistema, traffico minore (1.46.0).
 10. Flotta di difesa: 11 classi dal caccia alla superportaerei, 5 stazioni di difesa, linea di difesa, pattuglie (1.47.0).
-11. Nuovo disegno delle navi di difesa: scafi lunghi a segmenti in due toni, prue a lama, gondole e blocchi motori (1.47.1).
+11. Nuovo disegno delle navi di difesa: scafi scuri, spigolosi e asimmetrici, punte di prua, lame, motori color ambra (1.47.1).

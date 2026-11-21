@@ -29,12 +29,12 @@ const STYLES = {
         hull: [.52, .52, .52, 1], dark: [.14, .14, .14, 1], steel: [.35, .35, .37, 1], trim: [.9, .75, .2, 1],
         glass: [.06, .1, .14, 1], window: [1, .82, .55, 1], panel: [.05, .09, .2, 1], seg: n => n, civil: 1
     },
-    // Defence fleet (1.47.0): pale backs over slate-blue flanks, dark bellies and engine housings, joints
-    // in the fleet colour, blue-white engines and pale blue shields.
+    // Defence fleet (1.47.0): dark armour in charcoal and gunmetal, joints and blade edges in the fleet
+    // colour, amber windows and engines, pale blue shields.
     difesa: {
         key: 'difesa', name: 'Flotta di difesa', accent: hex('#e8665a'),
-        hull: [.74, .73, .69, 1], dark: [.12, .13, .15, 1], steel: [.27, .31, .38, 1], trim: [.78, .2, .12, 1],
-        glass: [.05, .08, .12, 1], window: [1, .62, .45, 1], panel: [.04, .07, .14, 1], seg: n => n, armour: 1
+        hull: [.17, .175, .19, 1], dark: [.06, .062, .07, 1], steel: [.3, .31, .33, 1], trim: [.86, .3, .12, 1],
+        glass: [.05, .04, .03, 1], window: [1, .58, .28, 1], panel: [.06, .05, .05, 1], engine: [1, .62, .28, 1], seg: n => n, armour: 1
     }
 };
 export const DISCIPLINE_STYLES = ['matematica', 'fisica', 'chimica', 'biologia'];
