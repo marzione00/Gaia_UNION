@@ -5,6 +5,7 @@ import { AtlasScene } from './atlas-scene.js';
 import { DISCIPLINES, TEXT_SCALES, GUIDE, cleanAtlas, atlasLayout, contains, placeLabels, searchModules, unitStatus, rememberVisit } from './atlas-model.js';
 
 import { scaledText } from './text.js';
+import { rapporto } from '../craft/swarm.js';
 import { exploration, passagesOf, passageLabel } from './passages.js';
 import { systemForPlanet, indicesForSystem, AREAS, SYSTEM_COUNT, UNIT_COUNT } from '../scene/systems.js';
 const SECTOR_COLORS=DISCIPLINE;
@@ -127,8 +128,9 @@ export class AtlasUI {
             const y=top?l.controls.y+l.controls.h+6:l.map.y+4,s=R.textWidth(long,'micro',.7)+16<=l.map.w-16?long:short,w=R.textWidth(s,'micro',.7)+16;
             if(w<=l.map.w-8&&y+24<l.map.y+l.map.h-56){R.roundRect(l.map.x+4,y,w,24,4,color(T.bg,.88));U.tag(s,l.map.x+12,y+6,C.muted);}
             // State of the front, under the exploration summary.
-            if(front){const n=front.contested().length,c=front.converted.size,f=c?`FRONTE DELLO SCIAME · ${n} SISTEMI CONTESI · ${c} CON STAZIONI CONVERTITE`:`FRONTE DELLO SCIAME · ${n} SISTEMI CONTESI`,fw=R.textWidth(f,'micro',.7)+16;
-                const fy=extra.region?extra.region.y+extra.region.h+6:y+30;if(fw<=l.map.w-8&&fy+24<l.map.y+l.map.h-56){R.roundRect(l.map.x+4,fy,fw,24,4,color(T.bg,.88));U.tag(f,l.map.x+12,fy+6,color('#7fe3ff'));}}
+            // State of the front, under the exploration summary: it opens the Rapporto (1.50.0).
+            if(front){const n=front.contested().length,c=front.converted.size,f=l.compact?`Rapporto sullo Sciame · ${n} contesi`:c?`Rapporto sullo Sciame · ${n} sistemi contesi · ${c} con stazioni convertite`:`Rapporto sullo Sciame · ${n} sistemi contesi`,fw=Math.min(l.map.w-8,R.textWidth(f,'mini')*Math.min(this.prefs.textScale,1.25)+28);
+                const fy=extra.region?extra.region.y+extra.region.h+6:y+30;if(fy+44<l.map.y+l.map.h-56){this.button(U,'rapporto',f,l.map.x+4,fy,fw,()=>this.open('rapporto'));U.buttons.at(-1).label='Apri il Rapporto sullo Sciame della Frontiera: previsioni, chiavi e droni liberati';}}
 }
         // The region of the highlighted arm, and the Nucleo di Gaia at the centre of the galaxy.
         if(extra.region){const r=extra.region,k=S.sector;this.button(U,'region','Regione: '+DISCIPLINES[k],r.x,r.y,r.w,()=>{if(AREAS[S.system].sector!==k)this.selectSystem(AREAS.findIndex(a=>a.sector===k),true);this.api.route('region');});U.buttons.at(-1).label='Apri la regione del braccio della '+DISCIPLINES[k];}
@@ -187,8 +189,8 @@ export class AtlasUI {
         const r=narrow?{x:base.x+(base.w-sw)/2,y:base.y+Math.max(0,Math.min(60,(base.h-sh)/3)),w:sw,h:sh}:base;
         // Modal controls replace underlying actions, including map and global navigation.
         U.buttons=[];this.R.rect(0,90,this.R.w,this.R.h-90,color('#03121d',.97));U.panel(r.x,r.y,r.w,r.h,C.cyan,1);
-        const headings={list:'CERCA UN ARGOMENTO',detail:'SCHEDA DELL’UNITÀ',routes:'PERCORSI DI STUDIO',history:'UNITÀ STUDIATE DI RECENTE',access:'ACCESSIBILITÀ',welcome:'BENVENUTO IN GAIA'};
-        this.text(headings[this.sheet],r.x+14,r.y+16,r.w-126,'mini',C.lime,1);
+        const headings={list:'CERCA UN ARGOMENTO',detail:'SCHEDA DELL’UNITÀ',routes:'PERCORSI DI STUDIO',history:'UNITÀ STUDIATE DI RECENTE',access:'ACCESSIBILITÀ',welcome:'BENVENUTO IN GAIA',rapporto:'RAPPORTO SULLO SCIAME DELLA FRONTIERA'};
+        this.text(this.sheet==='rapporto'&&r.w<560?'RAPPORTO SULLO SCIAME':headings[this.sheet],r.x+14,r.y+16,r.w-126,'mini',C.lime,1);
         this.button(U,'close','CHIUDI',r.x+r.w-108,r.y+4,94,()=>this.close());
         const body={x:r.x+14,y:r.y+62,w:r.w-28,h:r.h-72};
         if(this.sheet==='list')this.listUI(U,body);
@@ -197,6 +199,25 @@ export class AtlasUI {
         if(this.sheet==='history')this.historyUI(U,body);
         if(this.sheet==='welcome')this.welcomeUI(U,body);
         if(this.sheet==='access')this.accessUI(U,body);
+        if(this.sheet==='rapporto')this.rapportoUI(U,body);
+    }
+    /** The Rapporto (1.50.0): forecast of the next incursion of the Sciame by arm, what the Sciame has
+     * learned, the score of the forecasts, samples, keys and free drones, and the last incursions. */
+    rapportoUI(U,r){const F=this.world.frontier;if(!F){this.text('Il fronte non è ancora attivo.',r.x,r.y,r.w,'body');return;}
+        const rp=rapporto(F),R=this.R,scale=this.prefs.textScale,wide=r.w>=720,cyan=color('#7fe3ff'),end=r.y+r.h;let y=r.y;
+        // Wrapped paragraph within the body: returns false when the body is full.
+        const para=(t,style,tint,lh)=>{for(const line of fittedRows(R,[t],r.w/scale,style)){if(y+lh>end)return false;scaledText(R,line,r.x,y,style,tint,scale);y+=lh*scale;}return true;};
+        para(`Previsione statistica della prossima incursione, attesa fra circa ${rp.next} s. Vale per molte incursioni insieme: una sola può smentirla.`,'mini',C.muted,20);y+=8;
+        if(wide){
+            const cols=[['BRACCIO',.12],['SISTEMA SUL FRONTE',.25],['PROBABILITÀ',.12],['DRONI',.09],['LIBERATI',.1],['RESPINTA',.1],['CHIAVE',.22]];let x=r.x;
+            for(const [h,w] of cols){this.text(h,x,y,r.w*w-8,'micro',cyan);x+=r.w*w;}y+=22*scale;
+            for(const row of rp.rows){x=r.x;R.rect(r.x,y-5,r.w,1,color(T.line,.7));for(const [v,w] of [[row.arm,.12],[row.system,.25],[row.p,.12],[row.wave,.09],[String(row.freed),.1],[row.repel,.1],[row.key,.22]]){this.text(v,x,y+2,r.w*w-8,'mini',C.pale);x+=r.w*w;}y+=28*scale;}
+        }else for(const row of rp.rows){this.text(`${row.arm} · ${row.system}`,r.x,y,r.w,'mini',C.pale);this.text(`probabilità ${row.p} · ${row.wave} droni · respinta ${row.repel}`,r.x,y+19*scale,r.w,'micro',C.muted);this.text(row.key+(row.freed?` · libera ${row.freed} droni`:''),r.x,y+35*scale,r.w,'micro',C.muted);y+=54*scale;}
+        y+=6;if(y+40>end)return;this.text('LO SCIAME IMPARA: PESO DI OGNI BRACCIO',r.x,y,r.w,'micro',cyan);y+=20*scale;
+        const bw=(r.w-18)/4;rp.learning.forEach((a,i)=>{const x=r.x+i*(bw+6);R.roundRect(x,y,bw,8,3,color(T.raised,.95));R.roundRect(x,y,Math.max(3,bw*a.share),8,3,DISCIPLINE[i]);this.text(`${wide?a.arm:a.arm.slice(0,3)} ${Math.round(a.share*100)} %`,x,y+13,bw,'micro',C.muted);});y+=44*scale;
+        if(!para(rp.score,'mini',C.pale,20)||!para(rp.keys,'mini',C.pale,20))return;y+=8;
+        if(rp.recent.length&&y+40<end){this.text('ULTIME INCURSIONI: PREVISIONE ED ESITO',r.x,y,r.w,'micro',cyan);y+=20*scale;for(const x of rp.recent){const a=`${x.system} · ${x.n} droni`,b=`respinta prevista ${x.predicted} · esito: ${x.outcome}${x.freed?` · ${x.freed} liberati`:''}`;
+            if(wide){if(y+18>end)break;this.text(`${a} · ${b}`,r.x,y,r.w,'micro',C.muted);y+=18*scale;}else{if(y+34>end)break;this.text(a,r.x,y,r.w,'micro',C.pale);this.text(b,r.x,y+16*scale,r.w,'micro',C.muted);y+=36*scale;}}}
     }
     listUI(U,r){const q=this.query||'Scrivi un argomento, per esempio gas o genetica';
         this.button(U,'search',q,r.x,r.y,r.w-56,()=>this.search());this.button(U,'clear','X',r.x+r.w-48,r.y,48,()=>{this.query='';this.page=0;if(this.input)this.input.value='';});
@@ -269,6 +290,7 @@ export class AtlasUI {
         let text=`Mappa di GAIA: quattro bracci, uno per disciplina, e ${SYSTEM_COUNT} aree tematiche. ${system.discipline}, area ${system.name}, ${system.planets.length} unità. Selezionata: ${m.title}. ${m.description}. ${unitStatus(m,this.store.data).label}.`;
         if(this.sheet==='detail'){const d=this.bundle.courses.find(d=>d.id===this.catalogue.modules[this.S.selected].id);text+=' '+d.steps[0].text[['base','intermediate','advanced'][this.level]].join(' ')+' Ambito: '+d.scope;}
         if(this.sheet==='guide')text+=' Guida, '+GUIDE[this.guideStep].title+'. '+GUIDE[this.guideStep].text;
+        if(this.sheet==='rapporto'&&this.world.frontier)text+=' '+rapporto(this.world.frontier).text;
         if(this.sheet==='list')text+=' '+this.results.length+' risultati per '+(this.query||'tutti gli argomenti')+'.';
         if(this.path)text+=' Percorso attivo: '+this.path.title+'.';
         const e=this.explored,ps=this.passagesFrom(system.id);

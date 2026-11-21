@@ -196,6 +196,17 @@ export class Economy {
         }
         s.asked = extra;
     }
+    /** Free drones (1.50.0), freed by a key from the Sciame and settled in the system: they mend damaged
+     * stations without waiting for parts and dig beside the mines, a fiftieth more ore each, up to half. */
+    helped(s, h) {
+        const n = this.helpers;
+        if (s.damage) {
+            s.damage = Math.max(0, s.damage - Math.min(.01, .0004 * n) * h);
+            if (!s.damage) { s.repair = null; this.ask(s); this.tell(`I droni liberati riparano ${s.entry.name}`); }
+            else if (s.repair && Math.round(5 + s.damage * 25) < s.repair.parti) { s.repair.parti = Math.round(5 + s.damage * 25); this.ask(s); }
+        }
+        if (s.producing && (s.make.minerale || s.make.silicati)) for (const r of ['minerale', 'silicati']) if (s.make[r]) s.stock[r] = Math.min(s.cap[r], s.stock[r] + s.make[r] * h * s.producing * Math.min(.5, .02 * n));
+    }
     /** A line for the news of the system; the last 24 are kept. */
     tell(text) { this.news.push({ time: this.time, text }); if (this.news.length > 24) this.news.shift(); }
     surplus(s, r) { return (s.stock[r] || 0) - (s.reserved[r] || 0) - (s.keep[r] || 0); }
@@ -225,6 +236,7 @@ export class Economy {
             if (s.flare) s.producing *= .5;
             if (s.repair) this.threats.mend(s);
             if (s.producing) for (const [r, v] of Object.entries(s.make)) s.stock[r] = Math.min(s.cap[r], (s.stock[r] || 0) + v * h * s.producing);
+            if (this.helpers) this.helped(s, h);
             this.grow(s, h); this.watch(s);
         }
         if (this.ships.length < this.fleetCap) for (const yard of this.stations) if (yard.yard && this.time >= (yard.nextLaunch || 0) && (yard.stock.parti || 0) - (yard.reserved.parti || 0) >= LAUNCH.cost) { this.launch(yard); break; }

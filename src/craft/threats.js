@@ -72,7 +72,9 @@ export class Threats {
         // With a working surveillance station the defence moves at once; otherwise when the threat has covered
         // a third of its way. The drones of an incursion first grow at their rock, in plain sight.
         const watch = E.stations.some(s => s.entry.works === 'difesa-sorveglianza' && !s.missing.length), go = raid ? t + THREAT.raid.growth : t;
-        const ev = { id, kind, name: THREAT_NAMES[kind], t0: t, tLaunch: go, tPass: go + flight * THREAT.pass, tImpact: go + flight, tEnd: go + flight + (raid ? THREAT.raid.attach + 6 : 6), target: target.i, from, at, n, detected: raid ? (watch ? t : go) : t + (watch ? 0 : flight * .3), watch, killed: 0, kills: [], defenders: [], hits: 0, outcome: null, raid: opts.raid || null };
+        const ev = { id, kind, name: THREAT_NAMES[kind], t0: t, tLaunch: go, tPass: go + flight * THREAT.pass, tImpact: go + flight, tEnd: go + flight + (raid ? THREAT.raid.attach + 6 : 6), target: target.i, from, at, n, detected: raid ? (watch ? t : go) : t + (watch ? 0 : flight * .3), watch, killed: 0, kills: [], defenders: [], hits: 0, outcome: null, raid: opts.raid || null, freed: 0, frees: [] };
+        // Drones reached by the key of the arm (1.50.0) break away a few seconds after the launch.
+        if (raid && opts.freed) { ev.freed = Math.min(n, opts.freed); for (let k = 0; k < ev.freed; k++) ev.frees.push({ j: n - 1 - k, t: go + 5 + 6 * (k + .5) / ev.freed }); }
         this.events.push(ev);
         if (raid) { this.log.drones += n; E.tell(`Lo Sciame della Frontiera fa crescere ${n} droni oltre il sistema: obiettivo ${target.entry.name}`); }
         else E.tell(`${ev.name} in arrivo su ${target.entry.name}: impatto fra ${Math.round(flight)} s`);
@@ -104,7 +106,7 @@ export class Threats {
         const [before, after] = THREAT.window, start = ev.tPass - before, span = before + after, last = ev.tImpact - 6;
         if (ev.kind === 'sciame' || ev.kind === 'incursione') {
             // A fragment falls to one unit of power, a drone to three.
-            const hp = ev.kind === 'incursione' ? THREAT.raid.hp : 1, byFleet = Math.min(ev.n, Math.floor(fleet / hp)), byGuns = Math.min(ev.n - byFleet, Math.floor(guns / hp));
+            const hp = ev.kind === 'incursione' ? THREAT.raid.hp : 1, left = ev.n - (ev.freed || 0), byFleet = Math.min(left, Math.floor(fleet / hp)), byGuns = Math.min(left - byFleet, Math.floor(guns / hp));
             for (let j = 0; j < byFleet; j++) ev.kills.push({ j, t: start + span * (j + .5) / byFleet, by: { ship: present[j % present.length].id } });
             for (let j = 0; j < byGuns; j++) ev.kills.push({ j: byFleet + j, t: last + 5 * (j + .5) / byGuns, by: { station: near[j % near.length].i } });
             ev.killed = byFleet + byGuns;
@@ -119,8 +121,9 @@ export class Threats {
     /** End of the path: what was not destroyed hits the target. */
     impact(ev) {
         const E = this.E, s = E.stations[ev.target], D = THREAT.damage; ev.done = true;
-        ev.hits = ev.n - ev.killed;
+        ev.hits = ev.n - (ev.freed || 0) - ev.killed;
         if (ev.kind === 'incursione') {
+            if (ev.freed) E.helpers = (E.helpers || 0) + ev.freed;
             this.log.downed += ev.killed;
             if (!ev.hits) { this.log.repelled++; ev.outcome = 'respinta'; ev.finished = true; E.tell(`Incursione respinta: ${ev.killed} droni distrutti su ${ev.n}`); this.onRaid?.(ev); return; }
             this.log.converted++; ev.outcome = 'conversione'; s.converted = { until: ev.tImpact + THREAT.raid.attach, drones: ev.hits };

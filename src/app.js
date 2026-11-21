@@ -30,7 +30,7 @@ import { descriptor as modelDescriptor } from './models/curriculum.js';
 import { openStore, grade } from './store.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.49.0-sciame';
+const VERSION = '1.50.0-rapporto';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -404,7 +404,7 @@ function tickerBox(){const w=R.w,h=Math.min(200,R.h-115-622);return w>=850&&h>=9
  * first, with how long ago they happened. */
 function newsTicker(){
     const box=tickerBox(),life=W.craft?.system===S.system?W.craft.life:null;if(!box||!life||W.cameraProgress<1)return;
-    U.panel(box.x,box.y,box.w,box.h,C.amber,.62);U.tag('CRONACA DEL SISTEMA',box.x+18,box.y+16,C.amber);
+    U.panel(box.x,box.y,box.w,box.h,C.amber,.62);const head=life.helpers?`CRONACA DEL SISTEMA · ${life.helpers} DRONI LIBERATI`:'CRONACA DEL SISTEMA';U.tag(R.textWidth(head,'micro',.7)>box.w-36?`CRONACA · ${life.helpers} DRONI LIBERATI`:head,box.x+18,box.y+16,C.amber);
     if(!life.news.length){U.wrap('Ancora nessun evento: le stazioni avviano la produzione.',box.x+18,box.y+42,box.w-36,C.muted,15,2,'micro');return;}
     // Newest first, each item whole on up to three lines, as many as the box holds.
     let y=box.y+42;
