@@ -1,6 +1,6 @@
 # Stazioni e navi dei sistemi
 
-I trenta sistemi stellari ospitano 300 modelli tridimensionali: dieci per sistema, cioè sei stazioni e quattro navi. Il lavoro è arrivato in tre aggiornamenti: la 1.38.0 ha portato il generatore dei modelli e il loro catalogo, la 1.39.0 ha collocato le stazioni nei sistemi, la 1.40.0 dà vita ai sistemi, con stazioni che producono e navi che trasportano le merci. La 1.41.0 ha rinnovato il motore di disegno, la 1.42.0 ha aggiunto una grammatica dei tipi con 120 tipi di stazione e la 1.43.0 porta questi tipi nei sistemi: ogni sistema ha ora da 12 a 20 stazioni. La 1.44.0 fa lo stesso per le navi civili, con 120 classi e da 4 a 8 modelli in più per sistema.
+I trenta sistemi stellari ospitano 300 modelli tridimensionali: dieci per sistema, cioè sei stazioni e quattro navi. Il lavoro è arrivato in tre aggiornamenti: la 1.38.0 ha portato il generatore dei modelli e il loro catalogo, la 1.39.0 ha collocato le stazioni nei sistemi, la 1.40.0 dà vita ai sistemi, con stazioni che producono e navi che trasportano le merci. La 1.41.0 ha rinnovato il motore di disegno, la 1.42.0 ha aggiunto una grammatica dei tipi con 120 tipi di stazione e la 1.43.0 porta questi tipi nei sistemi: ogni sistema ha ora da 12 a 20 stazioni. La 1.44.0 fa lo stesso per le navi civili, con 120 classi e da 4 a 8 modelli in più per sistema, e la 1.45.0 porta le merci da 7 a 24, legate in catene di lavorazione.
 
 ## Come sono costruiti
 
@@ -126,24 +126,24 @@ Il sito costruisce soltanto le stazioni del sistema aperto e libera le mesh del 
 
 ## La vita dei sistemi
 
-Dalla 1.40.0 ogni sistema aperto ha un'economia: le stazioni producono e consumano merci, le navi le portano dove mancano. Le merci sono sette: minerale, carburante, cibo, energia (in celle), dati, parti di nave ed equipaggi. Le quantità sono per secondo del tempo della scena, che scorre di un secondo al secondo (al massimo 0,08 s per fotogramma) e si ferma con il movimento ridotto.
+Dalla 1.40.0 ogni sistema aperto ha un'economia: le stazioni producono e consumano merci, le navi le portano dove mancano. Le merci erano sette fino alla 1.44.0; dalla 1.45.0 sono 24 e formano catene di lavorazione, descritte in «L'economia delle catene». La tabella riporta le ricette attuali delle dodici stazioni classiche. Le quantità sono per secondo del tempo della scena, che scorre di un secondo al secondo (al massimo 0,08 s per fotogramma) e si ferma con il movimento ridotto.
 
-| Stazione | Produce | Consuma | Chiede |
+| Stazione | Processo | Produce | Consuma |
 |---|---|---|---|
-| Miniera | minerale, 1,6 t/s | | |
-| Raffineria | carburante, 1,4 t/s | | |
-| Serra | cibo, 1 t/s | | |
-| Centrale | energia, 1,2 celle/s | | |
-| Telescopio, radiotelescopio, stazione poliedrica | dati, 0,5, 0,6 e 0,4 TB/s | | |
-| Laboratorio dei campi | dati, 0,45 TB/s | energia, 0,15 celle/s | energia |
-| Cantiere | parti, 0,25 moduli/s | minerale 0,9 t/s, energia 0,3 celle/s | minerale ed energia |
-| Deposito criogenico | | | carburante fino a 260 t; ne cede oltre 110 t |
-| Porto | equipaggi, 0,25 persone/s | cibo 0,3 t/s, carburante 0,35 t/s, energia 0,15 celle/s | cibo, carburante ed energia |
-| Porta | importa equipaggi, cibo, carburante, energia e minerale | dati 0,3 TB/s, parti 0,08 moduli/s | dati e parti |
+| Miniera | estrazione | minerale 1,2 t/s, silicati 0,5 t/s, ghiaccio 0,4 t/s, terre rare 0,08 kg/s | |
+| Raffineria | distillazione dei gas | idrogeno 0,8 t/s, carburante 0,6 t/s | energia 0,1 celle/s |
+| Serra | fotosintesi | cibo 0,8 t/s, biomassa 0,3 t/s | acqua 0,3 t/s, fertilizzanti 0,08 t/s, energia 0,08 celle/s |
+| Centrale | fusione dell'idrogeno | energia 1,5 celle/s | idrogeno 0,12 t/s |
+| Telescopio, radiotelescopio, stazione poliedrica | osservazione, ascolto radio, calcolo | dati 0,5, 0,6 e 0,4 TB/s | energia 0,05 celle/s |
+| Laboratorio dei campi | esperimenti | dati 0,35 TB/s, medicinali 0,06 kg/s | energia 0,15 celle/s, biomassa 0,05 t/s, strumenti 0,01 unità/s |
+| Cantiere | montaggio di navi | parti 0,25 moduli/s | metalli 0,5 t/s, leghe 0,06 t/s, polimeri 0,12 t/s, energia 0,3 celle/s |
+| Deposito criogenico | deposito | | chiede carburante fino a 260 t, acqua fino a 120 t, ossigeno fino a 90 t |
+| Porto | imbarco | equipaggi 0,25 persone/s | cibo 0,3 t/s, acqua 0,2 t/s, ossigeno 0,15 t/s, carburante 0,35 t/s, energia 0,15 celle/s, medicinali 0,02 kg/s |
+| Porta | | equipaggi 0,15 persone/s e le merci che il sistema non produce abbastanza | le merci che il sistema produce in eccesso |
 
-Le stazioni diverse dal porto e dalla porta consumano anche 0,06 persone di equipaggio al secondo e ne chiedono 16. Laboratorio e cantiere si fermano quando manca un ingrediente; ogni stazione si ferma quando il suo magazzino è pieno. Le capacità e le altre soglie sono in `RECIPES`.
+Le stazioni diverse dal porto, dagli habitat e dalla porta consumano anche 0,06 persone di equipaggio al secondo e ne chiedono 16. Il cantiere si ferma quando manca un ingrediente; raffineria, serra, centrale, laboratorio e osservatori lavorano a metà ritmo; ogni stazione si ferma quando il suo magazzino è pieno. Le capacità e le altre soglie sono in `RECIPES`.
 
-Ogni nave del catalogo viaggia con fino a due navi gemelle dello stesso modello (con il nome seguito da II e III); navette, navi cargo, cisterne e navi passeggeri ne possono avere due, le altre una. Un sistema ha quindi da 4 a 11 navi. Quando una nave è libera sceglie il trasporto migliore fra quelli che la sua classe può fare: la quantità divisa per la strada da percorrere, con un fattore casuale fra 0,7 e 1,3, e un carico minimo pari al 30 % della stiva. La merce viene prenotata alla partenza, così due navi non vanno a prendere lo stesso carico. Senza nulla da trasportare ogni classe ha il suo comportamento: le navi scientifiche, le esploratrici e le sonde osservano un pianeta e ne riportano dati, la nave di soccorso fa il giro delle stazioni, il posaboe va e viene dalla porta, la nave gru lavora al cantiere, navette e navi passeggeri si spostano fra le stazioni.
+Ogni nave del catalogo viaggia con fino a due navi gemelle dello stesso modello (con il nome seguito da II e III); navette, navi cargo, cisterne e navi passeggeri ne possono avere due, le altre una. Un sistema ha quindi da 4 a 11 navi. Quando una nave è libera sceglie il trasporto migliore fra quelli che la sua classe può fare: la quantità divisa per la strada da percorrere, con un fattore casuale fra 0,7 e 1,3, e un carico minimo pari al 30 % della stiva (dalla 1.45.0 anche la metà di quanto chiede la stazione, se è meno, e con la precedenza alle stazioni a corto di un ingrediente). La merce viene prenotata alla partenza, così due navi non vanno a prendere lo stesso carico. Senza nulla da trasportare ogni classe ha il suo comportamento: le navi scientifiche, le esploratrici e le sonde osservano un pianeta e ne riportano dati, la nave di soccorso fa il giro delle stazioni, il posaboe va e viene dalla porta, la nave gru lavora al cantiere, navette e navi passeggeri si spostano fra le stazioni.
 
 Le navi viaggiano su archi sollevati sopra il piano delle orbite di un ottavo della distanza, accelerano e frenano agli estremi e girano al largo della stella quando il percorso diretto le passerebbe a meno di 2,2 raggi stellari più un'unità. Le velocità vanno da 1,2 a 3,2 unità al secondo; un viaggio dura 2 s più la distanza divisa per la velocità, una sosta in stazione da 4 a 12 s secondo la classe, con una variazione casuale del 20 %.
 
@@ -151,7 +151,7 @@ Ogni avvio del sito sceglie un seme nuovo con `crypto.getRandomValues`, quindi s
 
 Nella vista del sistema ogni nave è un punto nel colore del suo stile, con una scia breve mentre viaggia, e i rombi delle stazioni pulsano mentre producono. Il puntatore mostra lo stato in tempo reale: per una stazione che cosa produce e che cosa chiede, per una nave il carico, la destinazione e il tempo di arrivo. In orbita le navi vicine si vedono intere, con i motori accesi in volo; durante il carico e lo scarico quattro luci nel colore della merce passano fra la nave e la stazione, e le fiamme delle stazioni, come le torce delle raffinerie, si abbassano quando la produzione si ferma.
 
-Una simulazione di 1200 s per ognuno dei 30 sistemi con tre semi diversi muove tutte le 590 navi coinvolte; le navi passano in viaggio dal 35 al 65 % del tempo, con mediana del 50 %, e nessuna arriva a meno di 2,73 raggi stellari dalla stella.
+Nella 1.40.0 una simulazione di 1200 s per ognuno dei 30 sistemi con tre semi diversi muoveva tutte le 590 navi coinvolte; le navi passavano in viaggio dal 35 al 65 % del tempo, con mediana del 50 %, e nessuna arrivava a meno di 2,73 raggi stellari dalla stella.
 
 ## Il motore
 
@@ -283,6 +283,54 @@ Su 600 modelli (ogni classe nei cinque stili) una classe conta da 792 a 9496 tri
 
 Ogni sistema riceve da 4 a 8 modelli di queste classi (`SHIP_EXTRAS` in `catalog.js`, 179 in tutto, tre ogni cinque stazioni aggiunte), con identificatori dallo slot 30. I ruoli seguono la disciplina, come per le stazioni; fra i primi tre ruoli ancora da assegnare vale quello che ha classi non ancora presenti nel catalogo, così compaiono tutte le 120 classi. In un sistema le famiglie di scafo non si ripetono, e in tutto il catalogo nessuna classe compare due volte nello stesso stile. Ognuno di questi modelli viaggia da solo o, con probabilità 0,35, con una gemella. La simulazione di 1200 s su 30 sistemi e tre semi muove ora 1864 navi, tutte in viaggio, contro le 1149 della 1.43.0; le consegne salgono da 32 734 a 44 871, le stazioni classiche che producono lavorano il 57,6 % del tempo e le stazioni aggiunte il 40,1 %.
 
+## L'economia delle catene
+
+Dalla 1.45.0 le merci sono 24, in cinque famiglie:
+
+| Famiglia | Merci |
+|---|---|
+| grezze | minerale, ghiaccio, idrogeno, silicati, terre rare |
+| lavorate | metalli, acqua, ossigeno, vetro, carburante, polimeri, fertilizzanti, semiconduttori, leghe |
+| per la vita | cibo, biomassa, medicinali, energia |
+| avanzate | parti di nave, elettronica, strumenti, moduli abitativi, dati |
+| persone | equipaggi |
+
+Le catene seguono processi reali: il minerale si riduce in metalli, i silicati fondono in vetro o crescono in cristalli di silicio per i semiconduttori, il ghiaccio fonde in acqua, l'acqua si separa per elettrolisi in ossigeno e idrogeno, l'idrogeno dà ammoniaca per i fertilizzanti (come nel processo Haber-Bosch), polimeri e propellente, piante e alghe trasformano la luce in cibo, biomassa e ossigeno. Ogni ruolo della grammatica dei tipi ha una o più ricette, che si alternano lungo le dodici famiglie (`worksOf` in `grammar.js`): fonderie, impianti chimici, arsenali e laboratori di famiglie diverse lavorano su anelli diversi della catena.
+
+| Ruolo | Processo | Produce | Consuma |
+|---|---|---|---|
+| Habitat | vita a bordo | equipaggi 0,2 persone/s | cibo 0,3, acqua 0,25, ossigeno 0,15 t/s, energia 0,15 celle/s, medicinali 0,02 kg/s, moduli abitativi 0,01 unità/s |
+| Arsenale | montaggio di parti | parti 0,25 moduli/s | metalli 0,5, polimeri 0,12 t/s, energia 0,3 celle/s |
+| | assemblaggio di circuiti | elettronica 0,15 moduli/s | semiconduttori 0,2 kg/s, metalli 0,1 t/s, energia 0,2 celle/s |
+| | costruzione di moduli | moduli abitativi 0,1 unità/s | parti 0,15 moduli/s, vetro 0,2 t/s, elettronica 0,05 moduli/s, energia 0,2 celle/s |
+| Fonderia | riduzione del minerale | metalli 0,6 t/s | minerale 1 t/s, energia 0,3 celle/s |
+| | fusione di leghe | leghe 0,25 t/s | metalli 0,4 t/s, terre rare 0,05 kg/s, energia 0,25 celle/s |
+| | fusione dei silicati | vetro 0,5 t/s | silicati 0,8 t/s, energia 0,25 celle/s |
+| | crescita del silicio | semiconduttori 0,12 kg/s | silicati 0,3 t/s, terre rare 0,03 kg/s, energia 0,35 celle/s |
+| Impianto chimico | fusione del ghiaccio | acqua 1 t/s | ghiaccio 1,1 t/s, energia 0,1 celle/s |
+| | elettrolisi dell'acqua | ossigeno 0,5, idrogeno 0,1 t/s | acqua 0,6 t/s, energia 0,4 celle/s |
+| | sintesi dell'ammoniaca | fertilizzanti 0,3 t/s | idrogeno 0,3 t/s, energia 0,3 celle/s |
+| | polimerizzazione | polimeri 0,4 t/s | idrogeno 0,25, biomassa 0,1 t/s, energia 0,2 celle/s |
+| | sintesi del propellente | carburante 0,8 t/s | idrogeno 0,5, ossigeno 0,2 t/s |
+| Centrale | fusione dell'idrogeno | energia 1,5 celle/s | idrogeno 0,12 t/s (a metà ritmo senza) |
+| | pannelli solari | energia 1,1 celle/s | |
+| Laboratorio | costruzione di strumenti | strumenti 0,1 unità/s | elettronica 0,08 moduli/s, vetro 0,1 t/s, energia 0,2 celle/s |
+| | sintesi di farmaci | medicinali 0,15 kg/s | biomassa 0,2, acqua 0,1 t/s, energia 0,15 celle/s |
+| | esperimenti | come il laboratorio dei campi | |
+| Osservatorio | osservazione del cielo | dati 0,5 TB/s | energia 0,05 celle/s (a metà ritmo senza) |
+| Fattoria | fotosintesi | come la serra | |
+| | fotobioreattore | biomassa 0,6, ossigeno 0,25 t/s | acqua 0,3 t/s, energia 0,05 celle/s (a metà ritmo senza) |
+| Magazzino | smistamento | | chiede e cede minerale, metalli, cibo, acqua, energia, carburante e parti |
+| Ripetitore | ritrasmissione | | energia 0,12 celle/s |
+
+Le stazioni di trasformazione (arsenali, fonderie, impianti chimici, laboratori di strumenti e farmaci, cantiere) si fermano quando manca un ingrediente; raffinerie, serre, centrali a fusione, laboratori degli esperimenti, osservatori e fotobioreattori lavorano a metà ritmo; miniere, pannelli solari, habitat e porti producono comunque. Il magazzino di una stazione tiene 160 s di ogni prodotto e 450 s di ogni ingrediente, e la stazione chiede 300 s di ogni ingrediente.
+
+La porta di ogni sistema bilancia le catene. Per ogni merce somma ciò che le stazioni producono e consumano: se producono meno di una volta e mezza ciò che consumano, la porta importa la differenza con un quinto in più, e almeno un quarto del consumo come riserva; se producono di più, la porta esporta l'eccedenza. Ogni merce senza acquirente può comunque essere scaricata alla porta. Le classi di navi portano merci più varie di prima: le navi cargo quasi tutte le merci solide e avanzate, le cisterne i fluidi, navette e navi passeggeri anche acqua e ossigeno; se nessuna nave di un sistema porta una merce richiesta, la nave con la stiva più grande la aggiunge alle sue. Una nave libera sceglie il trasporto come prima, con due regole nuove: il carico minimo scende alla metà di quanto chiede la stazione, se è meno del 30 % della stiva, così anche gli ingredienti lenti come vetro, polimeri ed elettronica trovano una nave; e una stazione con meno di 90 s di un ingrediente vale tre volte tanto se rischia di fermarsi, due volte se rischia di scendere a metà ritmo.
+
+Il resoconto di una stazione nomina il processo e il prodotto principale («Elettrolisi dell'acqua: 120 t di ossigeno»), oppure che cosa la ferma («Ferma: manca acqua», «A metà: manca idrogeno»); la seconda riga elenca ciò che chiede.
+
+La simulazione di 1200 s su 30 sistemi e tre semi muove 1897 navi, tutte in viaggio; le consegne salgono a 59 455, contro 44 871 nella 1.44.0, e arrivano a destinazione tutte le 24 merci. Le stazioni classiche che producono lavorano il 95,2 % del tempo e le stazioni aggiunte l'86,2 %, contro il 57,6 e il 40,1 % della 1.44.0. Sul totale delle stazioni che producono, il tempo si divide così: 81,8 % a pieno ritmo, 7,3 % a metà ritmo, 1,5 % ferme per un ingrediente, 9,4 % con il magazzino pieno. Nei sistemi con le sole sei stazioni classiche le consegne passano da 12 833 a 17 299.
+
 ## Controlli
 
 `tests/craft.test.mjs` verifica che i modelli siano 300, dieci per sistema con sei stazioni e quattro navi, che le miniere stiano solo nei sistemi con la fascia, che nomi e identificatori siano unici e scritti con l'atlante dei caratteri, che gli stili seguano la regola descritta sopra, che la generazione sia deterministica, che le mesh contengano solo valori finiti e indici validi entro i limiti di triangoli, e che due modelli dello stesso tipo e stile differiscano in almeno due scelte.
@@ -290,6 +338,8 @@ Ogni sistema riceve da 4 a 8 modelli di queste classi (`SHIP_EXTRAS` in `catalog
 `tests/stations.test.mjs` verifica che ogni sistema abbia sei stazioni collocate in modo deterministico, la porta oltre la fascia, la miniera dentro la fascia, il porto attorno a un pianeta di studio e il cantiere accanto al porto, la raffineria attorno a un gigante quando il sistema ne ha uno; che le stazioni restino alla distanza prevista dall'ospite, fuori dal pianeta disegnato; e che la scena costruisca prima i modelli semplificati, uno per fotogramma quando manca il worker, poi il modello completo di una stazione vicina, disegni le navi e i bagliori a istanze, renda selezionabili stazioni e navi e liberi mesh e istanze al cambio di sistema.
 
 `tests/life.test.mjs` verifica che ogni stazione e ogni nave abbiano regole valide; che in 1800 s di simulazione le scorte restino nei limiti, le prenotazioni non scendano sotto zero, ogni nave compia almeno tre viaggi e i carichi vengano consegnati; che lo stesso seme ripeta le stesse rotte e semi diversi ne diano di diverse; che nessuna nave passi vicino alla stella; e che i resoconti mostrati sullo schermo siano brevi, nello stile del sito e scritti con l'atlante dei caratteri.
+
+`tests/economy.test.mjs` verifica che le merci siano 24 nelle cinque famiglie; che ogni ricetta usi merci note con capacità sufficienti e un processo con un nome breve; che ogni merce sia prodotta e usata da qualche stazione e che ogni variante dei ruoli compaia nel catalogo; che in ogni sistema, con le sole stazioni classiche e con tutte, la porta importi le merci scarse ed esporti quelle in eccesso e che ogni merce richiesta abbia una nave che la porta; e che in quattro sistemi, in 1200 s, tutte le navi viaggino, le stazioni lavorino a pieno ritmo più del 70 % del tempo e restino ferme per un ingrediente meno del 5 %, arrivino almeno 20 merci diverse e i resoconti restino brevi, nello stile del sito e scritti con l'atlante.
 
 `tests/shipclasses.test.mjs` verifica che le classi siano 120 con nomi unici e concordati; che i 40 moduli di bordo restino entro la presa in ogni stile e che sul lato destro gli ugelli guardino verso poppa; che ogni classe, nei cinque stili, abbia mesh valide, al massimo 10 000 triangoli, luci, un raggio fra 1,5 e 8 e un mestiere valido; che il livello semplificato resti sotto il 50 %; che le sagome si sovrappongano meno di 0,93 per ogni coppia e meno di 0,82 fra famiglie diverse; che il catalogo contenga tutte le 120 classi con nomi e coppie di classe e stile unici; e che in tre sistemi le navi aggiunte viaggino e trasportino merci.
 
@@ -308,3 +358,4 @@ Ogni sistema riceve da 4 a 8 modelli di queste classi (`SHIP_EXTRAS` in `catalog
 5. Grammatica dei tipi: 60 moduli, 12 famiglie, 10 ruoli, 120 tipi di stazione (1.42.0).
 6. I nuovi tipi nei sistemi, da 12 a 20 stazioni ciascuno, con nuove ricette e più navi (1.43.0).
 7. Navi civili: 40 moduli di bordo, 12 famiglie di scafo, 10 ruoli, 120 classi, da 4 a 8 modelli in più per sistema (1.44.0).
+8. Economia delle catene: 24 merci, 31 ricette, porte che bilanciano i sistemi (1.45.0).

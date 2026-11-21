@@ -34,7 +34,7 @@ const models=SHIP_TYPES.map((t,i)=>STYLE_KEYS.map((sk,j)=>buildShipType(t,dice(s
 test('ogni classe in ogni stile: mesh valide, al massimo 10 000 triangoli, luci, raggio, commercio valido',()=>{
  SHIP_TYPES.forEach((t,i)=>models[i].forEach((m,j)=>{const id=t.key+' '+STYLE_KEYS[j];for(const p of m.parts)assert.ok(finite(p.mesh),id);assert.ok(m.triangles<=10000,id+': '+m.triangles);assert.ok(m.lights.length>=1,id);assert.ok(m.radius>1.5&&m.radius<8,id+': '+m.radius);}));
  for(const t of SHIP_TYPES){const f=shipTrade(t,FLEET);assert.ok(f.capacity>0&&f.speed>0&&f.dock>0,t.key);assert.ok(f.carries.length&&f.carries.every(r=>RESOURCES[r]),t.key);assert.equal(f.idle,FLEET[SHIP_ROLES[t.role].fleet].idle);}
- assert.deepEqual(shipTrade(SHIP_TYPES.find(t=>t.role==='minerario'),FLEET).carries,['minerale']);
+ assert.deepEqual(shipTrade(SHIP_TYPES.find(t=>t.role==='minerario'),FLEET).carries,['minerale','silicati','ghiaccio','terre']);
  const fast=shipTrade(SHIP_TYPES.find(t=>t.key==='corriere-affusolato'),FLEET),slow=shipTrade(SHIP_TYPES.find(t=>t.key==='corriere-modulare'),FLEET);assert.ok(fast.speed>slow.speed&&fast.capacity<slow.capacity);
  let full=0,low=0;SHIP_TYPES.forEach((t,i)=>{const e={kind:'nave',type:t.key,style:'civile',nth:0,seed:seedOf(i)},f=build(e),l=build(e,e.seed,{detail:LOW_DETAIL});full+=f.triangles;low+=l.triangles;assert.equal(l.parts.length,f.parts.length);assert.ok(Math.abs(l.radius/f.radius-1)<.03,t.key);});
  assert.ok(low/full<.5,'quota '+(low/full).toFixed(3));assert.equal(Object.keys(GRAMMAR_SHIPS).length,120);

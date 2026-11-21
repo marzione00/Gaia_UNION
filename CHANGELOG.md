@@ -1,3 +1,11 @@
+# 1.45.0: Economia delle catene
+
+- Le merci passano da 7 a 24, in cinque famiglie (grezze, lavorate, per la vita, avanzate, persone), e formano catene di lavorazione che seguono processi reali: riduzione del minerale in metalli, fusione dei silicati in vetro, crescita del silicio per i semiconduttori, fusione del ghiaccio, elettrolisi dell'acqua in ossigeno e idrogeno, sintesi dell'ammoniaca per i fertilizzanti, polimerizzazione, sintesi del propellente, fotosintesi e fotobioreattori.
+- Le ricette sono 31. Fonderie, impianti chimici, arsenali, laboratori, centrali e fattorie della grammatica dei tipi lavorano su anelli diversi della catena secondo la loro famiglia. Le stazioni di trasformazione si fermano senza un ingrediente, le altre lavorano a metà ritmo; il resoconto nomina il processo («Elettrolisi dell'acqua: 120 t di ossigeno») o che cosa manca.
+- La porta di ogni sistema bilancia le catene: importa le merci scarse con una riserva ed esporta quelle in eccesso. Le navi portano merci più varie, accettano carichi piccoli per gli ingredienti lenti e danno la precedenza alle stazioni che stanno per fermarsi; una merce che nessuna nave del sistema porta passa alla nave con la stiva più grande.
+- Nella simulazione di 1200 s su 30 sistemi e tre semi le consegne salgono da 44 871 a 59 455, arrivano tutte le 24 merci e le stazioni classiche e aggiunte che producono lavorano il 95,2 e l'86,2 % del tempo, contro il 57,6 e il 40,1 % della 1.44.0.
+- `tests/economy.test.mjs` controlla merci, ricette, bilancio delle porte, navi per ogni merce e vita dei sistemi. Descrizione in `docs/STAZIONI_NAVI.md`.
+
 # 1.44.0: 120 classi di navi civili
 
 - Le navi civili seguono la grammatica delle stazioni: ogni classe unisce una famiglia di scafo (affusolata, a cuneo, a fuso, a telaio, a capsula, a doppio scafo, a tre scafi, ad anello, a disco, modulare, ad ala, a sfere) e un ruolo (Cargo, Cisterna, Nave passeggeri, Corriere, Nave mineraria, Nave scientifica, Rimorchiatore, Nave di soccorso, Nave officina, Navetta). Dodici famiglie e dieci ruoli danno 120 classi, dieci volte le dodici classiche, che restano come sono.
