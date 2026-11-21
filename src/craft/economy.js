@@ -100,13 +100,26 @@ export const FLEET = {
     sonda: { carries: ['dati'], capacity: 15, speed: 2.4, dock: 4, idle: 'survey' },
     gru: { carries: ['parti', 'metalli', 'leghe', 'vetro', 'polimeri', 'elettronica', 'moduli', 'energia'], capacity: 30, speed: 1.2, dock: 12, idle: 'shipyard' }
 };
-const ROMAN = ['', ' II', ' III', ' IV', ' V', ' VI'];
+const ROMAN = ['', ' II', ' III', ' IV', ' V', ' VI', ' VII', ' VIII', ' IX', ' X', ' XI', ' XII'];
+/** Growth of the stations (1.46.0): after 300 s at full rate per level a station asks for an expansion kit
+ * (12 ship parts, or 4 habitat modules for habitats and ports) and, once it has it, moves up one level, up
+ * to three: each level adds a quarter to its rates and a fifth to its stores. */
+export const GROWTH = { time: 300, max: 3, rate: .25, store: .2 };
+/** Shipyards launch a ship when they have 30 parts in store, at most every 120 s, while the fleet is below
+ * its limit (the starting fleet plus a quarter of the stations, at least two). */
+export const LAUNCH = { cost: 30, every: 120 };
+/** Convoys from the neighbouring systems reach the gate every 60 to 120 s, unload what the system imports
+ * and leave with what it exports. */
+export const CONVOY = { every: [60, 120], approach: 14, dock: 10 };
+const YARDS = ['cantiere', 'montaggio'];
+export const kitOf = s => ['habitat', 'porto'].includes(s.entry.works || s.entry.type) ? { moduli: 4 } : { parti: 12 };
+const scaled = (o, f) => Object.fromEntries(Object.entries(o).map(([r, v]) => [r, +(v * f).toFixed(4)]));
 
 /** Economy and traffic of one system. `stations` and `ships` are catalogue entries (src/craft/catalog.js);
  * `bodies` the slots of the planets ships may visit; `distance(a, b)` the current distance between two
  * places, where a place is { station: i } or { body: slot }. */
 export class Economy {
-    constructor({ stations, ships, bodies = [], seed = 1, time = 0, distance }) {
+    constructor({ stations, ships, bodies = [], seed = 1, time = 0, distance, neighbours = ['un sistema vicino'] }) {
         this.rng = seededRandom(seed >>> 0); this.time = time; this.distance = distance; this.bodies = bodies;
         const R = this.rng;
         this.stations = stations.map((entry, i) => {
@@ -121,6 +134,8 @@ export class Economy {
         const gate = this.stations.find(s => s.entry.type === 'porta');
         if (gate) {
             const made = {}, used = {};
+            // Expansion kits count as a small steady use, so the gate also brings parts and modules.
+            for (const s of this.stations) if (s !== gate && Object.keys(s.make).length) for (const [r, v] of Object.entries(kitOf(s))) used[r] = (used[r] || 0) + v / (GROWTH.time * 3);
             for (const s of this.stations) if (s !== gate) { for (const [r, v] of Object.entries(s.make)) made[r] = (made[r] || 0) + v; for (const [r, v] of Object.entries(s.use)) if (r !== 'equipaggi') used[r] = (used[r] || 0) + v; }
             for (const r of new Set([...Object.keys(made), ...Object.keys(used)])) {
                 const u = used[r] || 0, m = made[r] || 0; if (r === 'equipaggi' || (!u && m < .01)) continue;
@@ -145,7 +160,21 @@ export class Economy {
         const carried = new Set(this.ships.flatMap(sh => sh.cls.carries)), biggest = this.ships.reduce((m, sh) => !m || sh.cls.capacity > m.cls.capacity ? sh : m, null);
         const needed = [...new Set(this.stations.flatMap(st => Object.keys(st.want).filter(r => r !== 'equipaggi')))].filter(r => !carried.has(r));
         if (biggest && needed.length) biggest.cls = { ...biggest.cls, carries: [...biggest.cls.carries, ...needed] };
+        // Growth, launches, convoys and news (1.46.0). The gate no longer imports continuously: its imports
+        // arrive with the convoys, in the amount the import rates give for the time since the last one.
+        this.news = []; this.visitors = []; this.nextVisitor = 10000; this.neighbours = neighbours;
+        this.fleetCap = this.ships.length + Math.max(2, Math.round(this.stations.length / 4));
+        for (const ship of this.ships) ship.born = time;
+        for (const s of this.stations) Object.assign(s, { level: 1, growth: 0, kit: null, grows: Object.keys(s.make).length > 0 && s.entry.type !== 'porta', yard: YARDS.includes(s.entry.works || s.entry.type), base: { make: { ...s.make }, use: { ...s.use }, cap: { ...s.cap }, want: { ...s.want }, keep: { ...s.keep } }, state: 'run', since: time, told: -Infinity });
+        this.gate = gate || null;
+        if (gate) {
+            gate.imports = Object.fromEntries(Object.entries(gate.make).filter(([r]) => r !== 'equipaggi'));
+            for (const r of Object.keys(gate.imports)) delete gate.make[r];
+            this.convoy = { next: time + 15 + R() * 30, last: time, exported: {} };
+        }
     }
+    /** A line for the news of the system; the last 24 are kept. */
+    tell(text) { this.news.push({ time: this.time, text }); if (this.news.length > 24) this.news.shift(); }
     surplus(s, r) { return (s.stock[r] || 0) - (s.reserved[r] || 0) - (s.keep[r] || 0); }
     deficit(s, r) { return s.want[r] ? s.want[r] - (s.stock[r] || 0) - (s.incoming[r] || 0) : 0; }
     /** Advances the system to `time`, in steps of at most one second. */
@@ -162,12 +191,93 @@ export class Economy {
             // A station uses its inputs first; with strict inputs it produces only with all of them, with soft
             // inputs it works at half rate when one is missing; it always needs room in the store.
             const missing = s.inputs || s.soft ? Object.keys(s.use).filter(r => r !== 'equipaggi' && (s.stock[r] || 0) < s.use[r] * h) : [];
-            for (const [r, v] of Object.entries(s.use)) s.stock[r] = Math.max(0, (s.stock[r] || 0) - v * h);
+            for (const [r, v] of Object.entries(s.use)) { const take = Math.min(s.stock[r] || 0, v * h); s.stock[r] = (s.stock[r] || 0) - take; if (s === this.gate) this.convoy.exported[r] = (this.convoy.exported[r] || 0) + take; }
             const room = Object.keys(s.make).some(r => (s.stock[r] || 0) < s.cap[r]);
             s.producing = Object.keys(s.make).length && room && !(s.inputs && missing.length) ? (missing.length ? .5 : 1) : 0; s.missing = missing;
             if (s.producing) for (const [r, v] of Object.entries(s.make)) s.stock[r] = Math.min(s.cap[r], (s.stock[r] || 0) + v * h * s.producing);
+            this.grow(s, h); this.watch(s);
         }
+        if (this.ships.length < this.fleetCap) for (const yard of this.stations) if (yard.yard && this.time >= (yard.nextLaunch || 0) && (yard.stock.parti || 0) - (yard.reserved.parti || 0) >= LAUNCH.cost) { this.launch(yard); break; }
+        if (this.gate && this.time >= this.convoy.next) this.sendConvoy();
         for (const ship of this.ships) if (this.time >= ship.t1) ship.phase === 'travel' ? this.arrive(ship) : this.finish(ship);
+        for (const v of [...this.visitors]) if (this.time >= v.t1) this.moveVisitor(v);
+    }
+    /** Growth of a station: progress at full rate, then a kit, then the next level. */
+    grow(s, h) {
+        if (!s.grows || s.level >= GROWTH.max) return;
+        if (!s.kit) {
+            if (s.producing === 1) s.growth += h;
+            if (s.growth < GROWTH.time * s.level) return;
+            s.kit = kitOf(s);
+            for (const [r, v] of Object.entries(s.kit)) { s.want[r] = (s.base.want[r] || 0) + v; s.keep[r] = s.want[r]; s.cap[r] = Math.max(s.cap[r] || 0, s.want[r] + 10); s.stock[r] ??= 0; }
+            return;
+        }
+        if (!Object.entries(s.kit).every(([r, v]) => (s.stock[r] || 0) >= v)) return;
+        for (const [r, v] of Object.entries(s.kit)) s.stock[r] -= v;
+        s.level++; s.growth = 0; s.kit = null;
+        const f = 1 + GROWTH.rate * (s.level - 1), g = 1 + GROWTH.store * (s.level - 1);
+        s.make = scaled(s.base.make, f); s.use = scaled(s.base.use, f); s.cap = { ...s.cap, ...scaled(s.base.cap, g) };
+        for (const r of Object.keys(kitOf(s))) { if (s.base.want[r] === undefined) { delete s.want[r]; delete s.keep[r]; } else { s.want[r] = s.base.want[r]; s.keep[r] = s.base.keep[r]; } }
+        this.tell(`${s.entry.name} sale al livello ${s.level}`);
+        this.rebalance();
+    }
+    /** After a station grows the gate balances the chains again with the same rule as at the start, keeping
+     * its stores: imports and exports follow the new rates. */
+    rebalance() {
+        const gate = this.gate; if (!gate) return;
+        const made = {}, used = {}, imports = {}, exports = {};
+        for (const s of this.stations) if (s !== gate) {
+            if (s.grows && s.level < GROWTH.max) for (const [r, v] of Object.entries(kitOf(s))) used[r] = (used[r] || 0) + v / (GROWTH.time * 3);
+            for (const [r, v] of Object.entries(s.make)) made[r] = (made[r] || 0) + v;
+            for (const [r, v] of Object.entries(s.use)) if (r !== 'equipaggi') used[r] = (used[r] || 0) + v;
+        }
+        for (const r of new Set([...Object.keys(made), ...Object.keys(used)])) {
+            const u = used[r] || 0, m = made[r] || 0; if (r === 'equipaggi' || (!u && m < .01)) continue;
+            if (u > 0 && m < u * 1.5) imports[r] = +Math.max((u - m) * 1.2, u * .25).toFixed(3); else exports[r] = +(m - u).toFixed(3);
+        }
+        for (const r of Object.keys(gate.use)) if (!(r in exports)) { delete gate.use[r]; delete gate.want[r]; delete gate.keep[r]; }
+        for (const [r, v] of Object.entries(imports)) { gate.cap[r] = Math.max(gate.cap[r] || 0, 60, Math.round(v * 300)); gate.keep[r] = 10; }
+        for (const [r, v] of Object.entries(exports)) { gate.use[r] = v; gate.cap[r] = Math.max(gate.cap[r] || 0, 60, Math.round(v * 300)); gate.want[r] = gate.keep[r] = Math.round(gate.cap[r] * .7); }
+        gate.imports = imports;
+    }
+    /** News when a processing station stops for a missing input after working a while, and when it restarts. */
+    watch(s) {
+        if (!s.inputs) return;
+        const now = s.missing.length ? 'stop' : 'run';
+        if (now === s.state) return;
+        if (now === 'stop' && this.time - s.since >= 30 && this.time - s.told >= 180) { this.tell(`${s.entry.name}: produzione ferma, senza ${RESOURCES[s.missing[0]].name}`); s.told = this.time; s.reported = true; }
+        else if (now === 'run' && s.reported) { this.tell(`${s.entry.name}: produzione ripresa`); s.reported = false; }
+        s.state = now; s.since = this.time;
+    }
+    /** A shipyard launches a model of the system's fleet: the one whose goods the stations miss most. */
+    launch(yard) {
+        const models = [...new Map(this.ships.map(sh => [sh.entry, sh])).values()];
+        const need = sh => sh.cls.carries.reduce((n, r) => n + this.stations.reduce((m, st) => m + Math.max(0, this.deficit(st, r)), 0), 0);
+        const pick = models.reduce((m, sh) => need(sh) > need(m) ? sh : m), n = this.ships.filter(sh => sh.entry === pick.entry).length;
+        const ship = { id: this.ships.length, entry: pick.entry, name: pick.entry.name + (ROMAN[n] ?? ' ' + (n + 1)), cls: pick.cls, phase: 'dock', at: { station: yard.i }, task: 'varo', t0: this.time, t1: this.time + 8, cargo: null, job: null, born: this.time, yard: yard.i };
+        this.ships.push(ship); yard.stock.parti -= LAUNCH.cost; yard.nextLaunch = this.time + LAUNCH.every;
+        this.tell(`${yard.entry.name} vara ${ship.name}`);
+    }
+    /** A convoy sets out from a neighbouring system towards the gate. */
+    sendConvoy() {
+        const R = this.rng, fleet = [...new Map(this.ships.map(sh => [sh.entry, sh])).values()], model = fleet.reduce((m, sh) => sh.cls.capacity > m.cls.capacity ? sh : m, fleet[0]);
+        const origin = this.neighbours[Math.floor(R() * this.neighbours.length)], id = this.nextVisitor++, beyond = { beyond: id % 3 };
+        this.visitors.push({ id, visitor: true, entry: model.entry, cls: model.cls, name: 'Convoglio da ' + origin, origin, phase: 'travel', task: 'arrivo', from: beyond, to: { station: this.gate.i }, at: beyond, beyond, t0: this.time, t1: this.time + CONVOY.approach, cargo: null, job: null });
+        this.convoy.next = this.time + CONVOY.every[0] + R() * (CONVOY.every[1] - CONVOY.every[0]);
+    }
+    /** Next step of a convoy: unloading at the gate, then back where it came from, then gone. */
+    moveVisitor(v) {
+        const gate = this.gate;
+        if (v.phase === 'travel' && v.task === 'arrivo') {
+            const span = this.time - this.convoy.last, load = Object.entries(gate.imports).map(([r, rate]) => [r, rate * span]).sort((a, b) => b[1] - a[1]);
+            for (const [r, a] of load) gate.stock[r] = Math.min(gate.cap[r], (gate.stock[r] || 0) + a);
+            this.convoy.last = this.time;
+            if (load.length) { const [r, a] = load[0], more = load.length - 1; v.cargo = { res: r, amount: Math.round(a) }; this.tell(`Convoglio da ${v.origin} alla porta: ${Math.round(a)} ${RESOURCES[r].unit} di ${RESOURCES[r].name}${more ? ` e altre ${more} merci` : ''}`); }
+            Object.assign(v, { phase: 'dock', task: 'scarica', at: { station: gate.i }, t0: this.time, t1: this.time + CONVOY.dock });
+        } else if (v.phase === 'dock') {
+            const out = Object.entries(this.convoy.exported).sort((a, b) => b[1] - a[1])[0]; this.convoy.exported = {};
+            Object.assign(v, { phase: 'travel', task: 'partenza', from: { station: gate.i }, to: v.beyond, t0: this.time, t1: this.time + CONVOY.approach, cargo: out && out[1] >= 1 ? { res: out[0], amount: Math.round(out[1]) } : null });
+        } else this.visitors.splice(this.visitors.indexOf(v), 1);
     }
     arrive(ship) {
         const job = ship.job, here = ship.to, s = here.station !== undefined ? this.stations[here.station] : null, D = ship.cls.dock * (.8 + .4 * this.rng());
@@ -269,7 +379,7 @@ export function stationReport(s) {
     else if (kind === 'habitat') first = `${fmt(s.stock.equipaggi)} persone pronte a imbarcarsi`;
     else if (kind === 'magazzino') first = `Smista merci: ${fmt(Object.values(s.stock).reduce((a, b) => a + b, 0) - (s.stock.equipaggi || 0))} unità in deposito`;
     else if (kind === 'ripetitore') first = (s.stock.energia || 0) > 1 ? 'Ritrasmette i segnali del sistema' : 'Ferma: manca energia';
-    else if (s.entry.type === 'porta') { const out = Object.keys(s.use).length, inn = Object.keys(s.make).length - 1; first = `Importa ${inn} merci, ne esporta ${out}`; }
+    else if (s.entry.type === 'porta') { const out = Object.keys(s.use).length, inn = Object.keys(s.imports || {}).length; first = `Importa ${inn} merci, ne esporta ${out}`; }
     else if (!made.length) first = 'Nessuna produzione';
     else if (s.inputs && s.missing.length) first = `Ferma: ${s.missing.length > 1 ? 'mancano' : 'manca'} ${short(s.missing.map(name))}`;
     else if (!s.producing) first = `Magazzino pieno di ${name(made[0])}`;
@@ -278,11 +388,19 @@ export function stationReport(s) {
     if (first.length > 60) first = `${s.process}: ${name(made[0])}`;
     const needs = Object.keys(s.want).filter(r => (s.stock[r] || 0) < s.want[r] * .6 && r !== 'equipaggi');
     const second = needs.length ? `Chiede ${short(needs.map(name))}` : Object.keys(s.want).length ? 'Scorte sufficienti' : 'Carica le navi in arrivo';
-    return [first, second.length > 60 ? `Chiede ${needs.length} merci` : second];
+    const level = s.level > 1 ? `Livello ${s.level} · ` : '', kit = s.kit ? `Per crescere chiede ${list(Object.keys(s.kit).map(name))}` : null;
+    const line = kit || level + second;
+    return [first, line.length > 60 ? level + `Chiede ${needs.length} merci` : line];
 }
 /** Two short lines on what a ship is doing now; `placeName(place)` names a station or a planet. */
 export function shipReport(ship, time, placeName) {
     const left = Math.max(0, Math.ceil(ship.t1 - time)), c = ship.cargo, load = c ? `${fmt(c.amount)} ${RESOURCES[c.res].unit} di ${RESOURCES[c.res].name}` : '';
+    if (ship.visitor) {
+        if (ship.task === 'arrivo') return [`Viene da ${ship.origin}`, `Verso la porta, arrivo fra ${left} s`];
+        if (ship.task === 'scarica') return [c ? `Scarica ${load}` : 'Scarica le merci importate', `Porta, ${departure(left)}`];
+        return [c ? `Esporta ${load}` : 'Riparte senza carico', `Verso ${ship.origin}`];
+    }
+    if (ship.task === 'varo') return ['Appena varata', `${placeName(ship.at)}, ${departure(left)}`];
     if (ship.phase === 'travel') {
         const where = placeName(ship.to);
         if (c) return [`Trasporta ${load}`, `Verso ${where}, arrivo fra ${left} s`];

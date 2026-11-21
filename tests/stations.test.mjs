@@ -37,9 +37,9 @@ test('orbite: posizioni finite, distanza costante dall\'ospite, nessuna stazione
  }
 });
 test('scena: modelli semplificati uno per fotogramma, completi da vicino, navi in istanze, mesh liberate al cambio di sistema',()=>{
- const made=new Set(),deleted=[],draws=[],sets=new Map();
+ const made=new Set(),deleted=[],draws=[],sets=new Map(),gone=[];
  const R={w:1600,h:1000,makeStars(){},makeMesh(id){if(/^(craft|ship)-/.test(id))made.add(id);},deleteMesh(id){if(/^(craft|ship)-/.test(id)){deleted.push(id);made.delete(id);}},drawMesh(id,vp,model,o={}){draws.push({id,o});},
-  makeInstances(key,mesh,data){assert.ok(made.has(mesh)||mesh==='lowSphere');sets.set(key,{mesh,n:data.length/8});},updateInstances(key,data){sets.get(key).n=data.length/8;},deleteInstances(key){sets.delete(key);},shadowKey:'surface',sceneQuality:'high'};
+  makeInstances(key,mesh,data){assert.ok(made.has(mesh)||mesh==='lowSphere');sets.set(key,{mesh,n:data.length/8});},updateInstances(key,data){sets.get(key).n=data.length/8;},deleteInstances(key){sets.delete(key);gone.push(key);},shadowKey:'surface',sceneQuality:'high'};
  const biomes=JSON.parse(fs.readFileSync(new URL('../assets/scenes/manifest.json',import.meta.url))).biomes,w=new World(R,{},biomes);w.cameraSpace='system';w.travelling=false;w.fov=.78;w.eye=[0,30,60];w.vp=mul(perspective(.78,1.6,.012,400),lookAt(w.eye,[0,0,0]));
  const s={scene:'system',time:3},first=systemOf(13);
  // Without workers (Node) the factory builds one model per frame: the low level of the stations, then of the ships.
@@ -60,6 +60,6 @@ test('scena: modelli semplificati uno per fotogramma, completi da vicino, navi i
  for(let frame=0;frame<3;frame++){w.projections=[];draws.length=0;w.drawStations(s,13,first);}
  assert.ok(w.craft.list[0].levels[0],'modello completo non costruito');assert.ok(w.craftStats.full>=1);
  assert.ok(draws.some(d=>d.id==='craft-0-0-body'),'modello completo non disegnato');assert.ok(!draws.some(d=>d.id==='craft-0-1-body'));
- const before=made.size;w.drawStations(s,1,systemOf(1));
- assert.equal(deleted.length,before,'mesh del sistema precedente non liberate');assert.equal(w.craft.system,1);assert.equal(sets.size,0,'istanze del sistema precedente non liberate');
+ const before=made.size,keys=[...sets.keys()];gone.length=0;w.drawStations(s,1,systemOf(1));
+ assert.equal(deleted.length,before,'mesh del sistema precedente non liberate');assert.equal(w.craft.system,1);assert.ok(keys.every(k=>gone.includes(k)),'istanze del sistema precedente non liberate');assert.ok([...sets.keys()].every(k=>k==='instances-glows'),'istanze di navi prima dei modelli');
 });

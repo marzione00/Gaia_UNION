@@ -30,7 +30,7 @@ import { descriptor as modelDescriptor } from './models/curriculum.js';
 import { openStore, grade } from './store.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.45.0-economia';
+const VERSION = '1.46.0-vita';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -390,13 +390,31 @@ function systemUI() {
     U.button('back-galaxy',mobile&&w<360?'MAPPA':'TORNA ALLA MAPPA',mobile?18:35,h-88,mobile?Math.min(180,w-154-26):220,39,()=>route('galaxy'));
     U.button('system-zoom-in','+',mobile?w-154:w/2-66,h-77,34,30,()=>changeZoom(.86));U.button('system-zoom-out','−',mobile?w-112:w/2-26,h-77,34,30,()=>changeZoom(1/.86));
     if(!mobile)U.button('system-reset','CENTRA',w/2+14,h-77,80,30,()=>{S.yaw=0;S.pitch=.48;S.distance=34;},{small:true});
+    newsTicker();
+}
+/** Room for the news of the system under the unit panel on desktop, up to 200 px high; none when the
+ * window leaves less than 90 px. */
+function tickerBox(){const w=R.w,h=Math.min(200,R.h-115-622);return w>=850&&h>=90?{x:w-337,y:622,w:304,h}:null;}
+/** «Cronaca del sistema»: the last events of the economy of the open system (src/craft/economy.js), newest
+ * first, with how long ago they happened. */
+function newsTicker(){
+    const box=tickerBox(),life=W.craft?.system===S.system?W.craft.life:null;if(!box||!life||W.cameraProgress<1)return;
+    U.panel(box.x,box.y,box.w,box.h,C.amber,.62);U.tag('CRONACA DEL SISTEMA',box.x+18,box.y+16,C.amber);
+    if(!life.news.length){U.wrap('Ancora nessun evento: le stazioni avviano la produzione.',box.x+18,box.y+42,box.w-36,C.muted,15,2,'micro');return;}
+    // Newest first, each item whole on up to three lines, as many as the box holds.
+    let y=box.y+42;
+    for(const [k,item] of life.news.slice().reverse().entries()){
+        const lines=R.multilineCount(item.text,box.w-80,'micro',3);if(y+lines*15>box.y+box.h-8)break;
+        const age=Math.max(0,life.time-item.time),when=age<10?'ora':age<60?Math.round(age)+' s':Math.round(age/60)+' min';
+        U.text(when,box.x+18,y,'micro',k?C.dim:C.amber);U.wrap(item.text,box.x+62,y,box.w-80,k?C.muted:C.pale,15,3,'micro');y+=lines*15+7;
+    }
 }
 function sceneBlocked(x,y) {
     if(S.scene==='galaxy'&&atlas)return atlas.blocked(x,y);
     const w=R.w,h=R.h,mobile=w<850;
     if(S.menu||S.settings||S.editing||y<235||y>h-115)return true;
     if(mobile)return y<278||y>h-306;
-    if(['galaxy','system'].includes(S.scene)){const list=S.scene==='system'?systemPanel(W.systems[S.system]):null;return (x>=w-337&&x<=w-33&&y>=245&&y<=610)||(!!list&&x>=list.x&&x<=list.x+list.w&&y>=list.y&&y<=list.y+list.h);}
+    if(['galaxy','system'].includes(S.scene)){const list=S.scene==='system'?systemPanel(W.systems[S.system]):null;const news=S.scene==='system'?tickerBox():null;return (x>=w-337&&x<=w-33&&y>=245&&y<=610)||(!!news&&x>=news.x&&x<=news.x+news.w&&y>=news.y&&y<=news.y+news.h)||(!!list&&x>=list.x&&x<=list.x+list.w&&y>=list.y&&y<=list.y+list.h);}
     return false;
 }
 function sceneActions() {

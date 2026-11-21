@@ -31,6 +31,15 @@ export const PLACE_TINTS = { vetta: [.95, .82, .45, 1], forma: [.55, .82, .98, 1
 export const displayRadius = body => body.radius * (body.explorable ? 1.55 : 1.1);
 /** Seed of the life of the systems: it changes with every run of the site, so routes and stocks differ. */
 const SESSION = (globalThis.crypto?.getRandomValues ? globalThis.crypto.getRandomValues(new Uint32Array(1))[0] : Math.floor(Math.random() * 2 ** 32)) >>> 0;
+/** Drawn size of a station of level 2 or 3 (1.46.0): an eighth larger for each level. */
+const grown=state=>1+.125*((state?.level||1)-1);
+/** Pairs of stations for the minor traffic: each station with its nearest neighbour, once per pair, with
+ * two lights on short lanes and three on long ones. */
+export function minorLanes(points){
+    const pairs=new Map();
+    points.forEach((p,a)=>{let best=-1,dist=Infinity;points.forEach((q,b)=>{if(b===a)return;const d=Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2]);if(d<dist){dist=d;best=b;}});if(best>=0){const key=Math.min(a,best)+':'+Math.max(a,best);if(!pairs.has(key))pairs.set(key,[Math.min(a,best),Math.max(a,best),dist>6?3:2]);}});
+    return [...pairs.values()];
+}
 /** Glow of a far station or ship, in the colour of its construction style (src/craft/styles.js). */
 const IDENTITY = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]);
 const CRAFT_TINTS = { matematica: [.95, .72, .4, 1], fisica: [.5, .7, 1, 1], chimica: [.71, .61, 1, 1], biologia: [.44, .83, .63, 1], civile: [1, .58, .4, 1] };
@@ -342,8 +351,8 @@ export class World {
             C.sites={time:null,hosts:new Map()};
             const site=place=>this.craftSite(system,place,C.siteTime??s.time);
             this.lives??=new Map();
-            if(!this.lives.has(id))this.lives.set(id,new Economy({stations:C.list.map(item=>item.placement.entry),ships:C.models.map(m=>m.entry),bodies:system.bodies.map(b=>b.slot),seed:SESSION^Math.imul(id+1,0x27D4EB2F),time:s.time,distance:(a,b)=>{const p=site(a).position,q=site(b).position;return Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2]);}}));
-            C.life=this.lives.get(id);
+            if(!this.lives.has(id))this.lives.set(id,new Economy({stations:C.list.map(item=>item.placement.entry),ships:C.models.map(m=>m.entry),bodies:system.bodies.map(b=>b.slot),seed:SESSION^Math.imul(id+1,0x27D4EB2F),time:s.time,neighbours:this.neighbourNames(id),distance:(a,b)=>{const p=site(a).position,q=site(b).position;return Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2]);}}));
+            C.life=this.lives.get(id);C.lanes=null;
         }
         const items=[...C.list,...C.models];
         for(const item of items)if(!item.levels[1])F.want(item.entry,LOW_DETAIL);
@@ -360,14 +369,17 @@ export class World {
         const turning=(m,base)=>m.parts.map(p=>p.spin?mul(base,spin(p.spin,s.time)):base);
         // Where everything is this frame, then one level of detail each.
         const seen=[];
-        C.list.forEach((item,k)=>{const pos=site({station:k}).position,xy=project(pos,this.vp,R.w,R.h);if(xy[2]<=0)return;const pixel=xy[2]*k2/R.h;seen.push({item,k,pos,xy,pixel,size:item.placement.size,apparent:item.placement.size/pixel,min:1.2});});
-        life.ships.forEach(ship=>{
-            const slot=C.models.findIndex(item=>item.entry===ship.entry),item=C.models[slot],size=SHIP_SIZE[ship.entry.type]||ship.entry.drawn||.07;
+        C.list.forEach((item,k)=>{const pos=site({station:k}).position,xy=project(pos,this.vp,R.w,R.h);if(xy[2]<=0)return;const pixel=xy[2]*k2/R.h,size=item.placement.size*grown(life.stations[k]);seen.push({item,k,pos,xy,pixel,size,apparent:size/pixel,min:1.2});});
+        // Convoys from the neighbouring systems (1.46.0) appear and vanish beyond the gate with a flash.
+        [...life.ships,...life.visitors].forEach(ship=>{
+            const slot=C.models.findIndex(item=>item.entry===ship.entry),item=C.models[slot],u=(s.time-ship.t0)/Math.max(1e-6,ship.t1-ship.t0);
+            const fade=!ship.visitor||ship.phase!=='travel'?1:Math.max(.02,Math.min(1,(ship.task==='arrivo'?u:1-u)*5)),size=(SHIP_SIZE[ship.entry.type]||ship.entry.drawn||.07)*fade;
             const pose=shipPose(ship,s.time,site,avoid),xy=project(pose.position,this.vp,R.w,R.h);if(xy[2]<=0)return;
-            const pixel=xy[2]*k2/R.h;seen.push({item,ship,slot,pose,xy,pixel,size,apparent:size/pixel,min:1});
+            const pixel=xy[2]*k2/R.h;if(fade<1)glow(pose.position,pixel*(3+9*(1-fade)),[.75,.9,1],.9*(1-fade));
+            seen.push({item,ship,slot,pose,xy,pixel,size,apparent:size/pixel,min:1});
         });
         const levels=chooseLevels(seen.map(o=>{const low=o.item?.levels[1]?.triangles??0;return {apparent:o.apparent,min:o.min,low,full:o.item?.levels[0]?.triangles??low/LOW_SHARE};}),R.sceneQuality);
-        const stats={stations:C.list.length,ships:life.ships.length,full:0,low:0,light:0,triangles:0,pending:F.pending(),worker:F.stats.worker},groups=new Map();
+        const stats={stations:C.list.length,ships:life.ships.length,visitors:life.visitors.length,full:0,low:0,light:0,triangles:0,pending:F.pending(),worker:F.stats.worker},groups=new Map();
         seen.forEach((o,n)=>{
             const want=levels[n];if(want===0&&o.item&&!o.item.levels[0])F.want(o.item.entry,1);
             o.model=want===2||!o.item?null:want===0?o.item.levels[0]||o.item.levels[1]:o.item.levels[1]||o.item.levels[0];
@@ -391,7 +403,7 @@ export class World {
             const {ship,slot,pose,xy,pixel,apparent,size}=o,tint=CRAFT_TINTS[ship.entry.style];
             if(s.scene==='system'){
                 const back=pose.thrust>.05?project(shipPose(ship,s.time-1.5,site,avoid).position,this.vp,R.w,R.h):null;
-                this.projections.push({type:'craft',index:100+ship.id,entry:{...ship.entry,name:ship.name},lines:shipReport(ship,s.time,place=>this.craftName(system,place)),tail:back&&back[2]>0?[back[0],back[1]]:null,...xyToObj(xy),r:Math.max(10,apparent*1.4),apparent,position:pose.position,worldRadius:size});
+                this.projections.push({type:'craft',index:100+ship.id,entry:{...ship.entry,name:ship.name,...(ship.visitor?{about:'Convoglio di linea fra '+ship.origin+' e questo sistema: consegna alla porta del sistema le merci importate e riparte con quelle esportate.'}:{})},lines:shipReport(ship,s.time,place=>this.craftName(system,place)),tail:back&&back[2]>0?[back[0],back[1]]:null,...xyToObj(xy),r:Math.max(10,apparent*1.4),apparent,position:pose.position,worldRadius:size});
             }
             // Goods moving between a docked ship and its station.
             if(pose.docked&&(ship.task==='carica'||ship.task==='scarica')&&ship.cargo){
@@ -410,6 +422,20 @@ export class World {
                 for(const p of m.ids.spinning)R.drawMesh(p.id,this.vp,mats[p.part],{eye:this.eye,light:normal(pose.position.map(v=>-v)),lightColor,material:10});
                 if(apparent>=18&&R.sceneQuality!=='low')lights(m,mats,size,pose.thrust);
             }
+        }
+        // Minor traffic (1.46.0): shuttles and pods between each station and its nearest neighbour, drawn
+        // only as small lights moving along the line between the two.
+        if(R.sceneQuality!=='low'&&C.list.length>1){
+            C.lanes??=minorLanes(C.list.map((_,k)=>site({station:k}).position));
+            let minor=0;
+            for(const [a,b,n] of C.lanes){
+                const pa=site({station:a}).position,pb=site({station:b}).position,d=Math.hypot(pb[0]-pa[0],pb[1]-pa[1],pb[2]-pa[2]);
+                for(let q=0;q<n;q++){
+                    const run=s.time*.9/Math.max(1,d)+q/n+(a*.37+b*.11)%1,back=Math.floor(run)%2,u=run%1,w=back?1-u:u,p=pa.map((v,i)=>v+(pb[i]-v)*w+(i===1?Math.sin(w*Math.PI)*d*.06:0));
+                    const pixel=Math.hypot(p[0]-this.eye[0],p[1]-this.eye[1],p[2]-this.eye[2])*k2/R.h;glow(p,pixel*1.5,[1,.85,.62],.5*Math.sin(u*Math.PI));minor++;
+                }
+            }
+            stats.minor=minor;
         }
         // One instanced call for each class and level: the ships of a class differ only by place and heading.
         for(const [mesh,list] of groups){
@@ -441,8 +467,19 @@ export class World {
     /** Position and size of a station or a planet of the open system at `time`. */
     craftSite(system,place,time){
         const C=this.craft;
-        if(place.station!==undefined){const pl=C.list[place.station].placement;return {position:stationPosition(pl,time,slot=>this.craftHost(system,slot,time)),radius:pl.size};}
+        if(place.station!==undefined){const pl=C.list[place.station].placement;return {position:stationPosition(pl,time,slot=>this.craftHost(system,slot,time)),radius:pl.size*grown(C.life?.stations[place.station])};}
+        // Beyond the gate: the convoys of the neighbouring systems come and go from three points past it.
+        if(place.beyond!==undefined){
+            const gate=C.list.findIndex(item=>item.entry.type==='porta'),g=gate<0?[40,0,0]:this.craftSite(system,{station:gate},time).position,a=Math.atan2(g[2],g[0])+(place.beyond-1)*.35;
+            return {position:[g[0]+Math.cos(a)*20,g[1]+(place.beyond-1)*2,g[2]+Math.sin(a)*20],radius:0};
+        }
         const body=system.bodies.find(b=>b.slot===place.body);return {position:this.craftHost(system,place.body,time),radius:displayRadius(body)};
+    }
+    /** Names of the three systems nearest to `id` in the galaxy, where its convoys come from. */
+    neighbourNames(id){
+        const all=this.systems||[],me=all[id];if(!me)return ['un sistema vicino'];
+        const d=o=>(o.position[0]-me.position[0])**2+(o.position[1]-me.position[1])**2+(o.position[2]-me.position[2])**2;
+        return all.filter(o=>o!==me).sort((a,b)=>d(a)-d(b)).slice(0,3).map(o=>o.name);
     }
     craftHost(system,slot,time){
         const C=this.craft,key=slot+':'+time;if(C.hosts?.has(key))return C.hosts.get(key);
@@ -451,6 +488,7 @@ export class World {
     /** Name of a place for the ship reports. */
     craftName(system,place){
         if(place.station!==undefined)return this.craft.list[place.station].placement.entry.name;
+        if(place.beyond!==undefined)return 'fuori dal sistema';
         const body=system.bodies.find(b=>b.slot===place.body);return 'corpo '+(body.slot+1)+' ('+body.profile.name.toLowerCase()+')';
     }
     draw(scene, s, data) {

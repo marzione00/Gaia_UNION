@@ -1,3 +1,12 @@
+# 1.46.0: Vita dei sistemi
+
+- Le stazioni che producono crescono fino al terzo livello: dopo 300 s a pieno ritmo (600 s al secondo livello) chiedono un kit di ampliamento di parti di nave o di moduli abitativi, e ogni livello aggiunge un quarto ai ritmi e un quinto ai magazzini. Le stazioni cresciute si disegnano più grandi e il resoconto mostra il livello; la porta rifà il bilancio delle catene dopo ogni ampliamento.
+- I cantieri varano navi con 30 parti ciascuna, al più una ogni 120 s, entro un limite di flotta per sistema; il modello è quello che porta le merci più richieste.
+- Le importazioni della porta arrivano con convogli dai tre sistemi più vicini nella galassia, ogni 60-120 s: compaiono oltre la porta, scaricano, ripartono con le merci esportate e spariscono.
+- Nuova cronaca del sistema sotto il pannello dell'unità, su schermi da computer: navi varate, stazioni che crescono, convogli, stazioni che si fermano e ripartono. Nuovo traffico minore: luci di navette fra ogni stazione e la più vicina.
+- Nella simulazione di 1200 s su 30 sistemi e tre semi vengono varate 210 navi, arrivano 1218 convogli, 649 stazioni su 1440 crescono almeno di un livello e le consegne salgono da 59 453 a 63 502; il tempo a pieno ritmo delle stazioni che producono passa dall'81,8 all'83,9 %.
+- `tests/vita.test.mjs` controlla crescita, vari, convogli, cronaca e traffico minore. Descrizione in `docs/STAZIONI_NAVI.md`.
+
 # 1.45.0: Economia delle catene
 
 - Le merci passano da 7 a 24, in cinque famiglie (grezze, lavorate, per la vita, avanzate, persone), e formano catene di lavorazione che seguono processi reali: riduzione del minerale in metalli, fusione dei silicati in vetro, crescita del silicio per i semiconduttori, fusione del ghiaccio, elettrolisi dell'acqua in ossigeno e idrogeno, sintesi dell'ammoniaca per i fertilizzanti, polimerizzazione, sintesi del propellente, fotosintesi e fotobioreattori.
