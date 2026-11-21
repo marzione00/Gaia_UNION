@@ -29,10 +29,11 @@ const STYLES = {
         hull: [.52, .52, .52, 1], dark: [.14, .14, .14, 1], steel: [.35, .35, .37, 1], trim: [.9, .75, .2, 1],
         glass: [.06, .1, .14, 1], window: [1, .82, .55, 1], panel: [.05, .09, .2, 1], seg: n => n, civil: 1
     },
-    // Defence fleet (1.47.0): blue-grey armour, dark keels, red trim and shields in pale blue.
+    // Defence fleet (1.47.0): pale armour plates, dark undersides and engine housings, bands in the fleet
+    // colour, blue-white engines and pale blue shields.
     difesa: {
         key: 'difesa', name: 'Flotta di difesa', accent: hex('#e8665a'),
-        hull: [.4, .43, .47, 1], dark: [.1, .11, .13, 1], steel: [.29, .31, .34, 1], trim: [.78, .24, .2, 1],
+        hull: [.66, .65, .61, 1], dark: [.15, .16, .18, 1], steel: [.36, .37, .4, 1], trim: [.72, .22, .14, 1],
         glass: [.05, .08, .12, 1], window: [1, .62, .45, 1], panel: [.04, .07, .14, 1], seg: n => n, armour: 1
     }
 };
