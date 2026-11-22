@@ -8,6 +8,7 @@ import { NavigationMemory } from './scene/navigation.js';
 import { sceneMetadata, planetProfile, PlanetTextures } from './scene/assets.js';
 import { resolveRoute } from './routing.js';
 import { CRAFT, CRAFT_BY_ID, GROUPS, craftList, craftStep, craftCard, craftText } from './craft/registry.js';
+import { CHAIN_STATIONS, chainable, chainStation, chainExercises } from './craft/esercizi-catene.js';
 import { GPU, color, clamp, project, transform, mesh } from './renderer.js';
 import { World, RESEARCH, EDGES, box } from './scene/world.js';
 import { UI, C, T, ImageCache, caseLabel, DISCIPLINE, fmtNum } from './ui/toolkit.js';
@@ -31,7 +32,7 @@ import { descriptor as modelDescriptor } from './models/curriculum.js';
 import { openStore, grade } from './store.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.52.0-esercizi';
+const VERSION = '1.53.0-catene';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -1274,15 +1275,43 @@ function craftEntry() { return CRAFT_BY_ID.get(S.craftModel) || craftList({ syst
 function craftItems() { return craftList({ group: S.craftGroup || 'tutti', system: S.craftScope === 'galassia' ? -1 : craftEntry().system }); }
 /** Opens the catalogue on a model, from the system or from a station or ship of the scene. */
 function openCraft(id = null) { const e = CRAFT_BY_ID.get(id) || craftList({ system: S.system })[0]; Object.assign(S, { craftModel: e.id, craftPage: null, craftScope: 'sistema', craftListOpen: false }); route('craft', { craftModel: e.id }); }
-function pickCraft(e) { if (!e) return; S.craftModel = e.id; S.craftPage = null; updateHash(); }
+function pickCraft(e) { if (!e) return; S.craftModel = e.id; S.craftPage = null; if (S.craftDrill?.id !== e.id) S.craftDrill = null; updateHash(); }
+/** Exercises on a station of the catalogue (1.53.0, src/craft/esercizi-catene.js): the stores are those of the
+ * open system when the station is there; they stay fixed while the student answers. */
+function openStationDrill(e) { const seed = (S.craftDrill?.seed || 0) + 1, life = W.craft?.system === e.system ? W.craft.life : null, live = life?.stations.find(s => s.entry.id === e.id) || null; S.craftDrill = { id: e.id, seed, i: 0, chosen: [], live: !!live, list: chainExercises(chainStation(e, live, seed), seed) }; }
+/** From the card of a unit on the map: a station of the unit's system with exercises, or the first one. */
+function openUnitStationDrill(id) { const m = moduleById(id), sys = m ? systemForPlanet(m.planetIndex) : 0, e = CHAIN_STATIONS.find(x => x.system === sys) || CHAIN_STATIONS[0]; openCraft(e.id); S.craftModel = e.id; openStationDrill(e); }
+/** One exercise at a time in a panel: question, four options, then the right answer and the worked solution. */
+function drillPanel(D, x, y, w, h, tint, compact) {
+    const e = D.list[D.i = clamp(D.i, 0, D.list.length - 1)], pick = D.chosen[D.i], answered = pick !== undefined, right = D.chosen.filter((c, i) => c === D.list[i].correct).length, done = D.chosen.filter(c => c !== undefined).length, bottom = y + h - 60, score = done ? ` · ESATTE ${right} SU ${done}` : '';
+    U.panel(x, y, w, h, tint, .9);
+    let yy = y + 18; U.tag(`ESERCIZIO ${D.i + 1} DI ${D.list.length}${score}`, x + 18, yy, tint); yy += 22; U.tag(e.title.toUpperCase(), x + 18, yy, C.lime); yy += 26;
+    const wrap = (t, tint, lh, style, max) => { const n = U.wrap(t, x + 18, yy, w - 36, tint, lh, max, style); yy += lh * Math.max(1, n || 1) + 6; };
+    const cols = compact ? 2 : 1, ow = (w - 36 - (cols - 1) * 6) / cols, rows = Math.ceil(e.options.length / cols), lines = (t, style) => R.multilineCount(t, w - 36, style, 99);
+    // Once answered, the solution needs room: first the options give way, then the question.
+    const solution = 40 + e.steps.reduce((a, t) => a + 17 * lines(t, 'micro') + 6, 0), room = bottom - yy, ask = (compact ? 17 : 19) * lines(e.prompt, compact ? 'micro' : 'mini') + 6;
+    const showOpts = !answered || ask + rows * 46 + solution <= room, showAsk = !answered || ask + (showOpts ? rows * 46 : 0) + solution <= room;
+    if (showAsk) wrap(e.prompt, C.pale, compact ? 17 : 19, compact ? 'micro' : 'mini', 12);
+    if (showOpts) { const top = yy; e.options.forEach((o, k) => { U.button('drill-option-' + k, o, x + 18 + (k % cols) * (ow + 6), top + Math.floor(k / cols) * 46, ow, 40, () => { if (D.chosen[D.i] === undefined) { D.chosen[D.i] = k; if (!compact) say(k === e.correct ? 'Esatto.' : 'La risposta corretta è ' + e.options[e.correct] + '.'); } }, { active: answered && k === e.correct, disabled: answered && k !== e.correct && k !== pick, small: true }); U.buttons.at(-1).label = `Risposta ${'ABCD'[k]}: ${o}`; }); yy = top + rows * 46 + 4; }
+    if (answered) { wrap(pick === e.correct ? `Esatto: ${e.options[e.correct]}.` : `Hai scelto ${e.options[pick]}; la risposta corretta è ${e.options[e.correct]}.`, pick === e.correct ? C.lime : C.amber, 18, 'micro', 3); for (const t of e.steps) { if (yy + 17 > bottom) break; wrap(t, C.muted, 17, 'micro', Math.max(1, Math.floor((bottom - yy) / 17))); } }
+    const bw = 44, mw = (w - 36 - 2 * bw - 12) / 2, by = y + h - 52, chapter = book?.has(e.unit);
+    U.button('drill-prev', '◂', x + 18, by, bw, 38, () => D.i--, { disabled: D.i <= 0 }); U.buttons.at(-1).label = 'Esercizio precedente';
+    U.button('drill-card', 'Scheda', x + 24 + bw, by, mw, 38, () => S.craftDrill = null, { small: true }); U.buttons.at(-1).label = 'Torna alla scheda del modello';
+    U.button('drill-unit', 'Unità', x + 30 + bw + mw, by, mw, 38, () => chapter ? openChapter(e.unit) : openCourse(e.unit), { active: true, small: true }); U.buttons.at(-1).label = 'Apri l’unità ' + (moduleById(e.unit)?.title || e.unit);
+    U.button('drill-next', '▸', x + w - 18 - bw, by, bw, 38, () => D.i++, { disabled: D.i >= D.list.length - 1 }); U.buttons.at(-1).label = 'Esercizio successivo';
+}
 /** Accessible description of the catalogue page: the model, its card and the size of its mesh. */
-function craftPageText() { const e = craftEntry(), info = W.viewerInfo?.id === e.id && W.viewerInfo.full ? W.viewerInfo : null; return 'Catalogo dei modelli: ' + craftItems().length + ' modelli nell’elenco. ' + craftText(e, info); }
+function craftPageText() { const e = craftEntry(), info = W.viewerInfo?.id === e.id && W.viewerInfo.full ? W.viewerInfo : null, D = S.craftDrill?.id === e.id && S.craftDrill.list.length ? S.craftDrill : null;
+    let text = 'Catalogo dei modelli: ' + craftItems().length + ' modelli nell’elenco. ' + craftText(e, info);
+    if (D) { const x = D.list[clamp(D.i, 0, D.list.length - 1)], pick = D.chosen[D.i]; text += ` Esercizio ${D.i + 1} di ${D.list.length} sulla stazione, ${x.title}. ${x.prompt} Risposte: ${x.options.map((o, k) => 'ABCD'[k] + ', ' + o).join('; ')}.` + (pick === undefined ? '' : ` ${pick === x.correct ? 'Esatto.' : 'La risposta corretta è ' + x.options[x.correct] + '.'} ${x.steps.join(' ')}`); }
+    return text; }
 function craftUI() {
-    const w = R.w, h = R.h, mobile = w < 850, e = craftEntry(), card = craftCard(e), items = craftItems(), [tint] = CRAFT_STYLE[e.style], info = W.viewerInfo?.id === e.id ? W.viewerInfo : null;
+    const w = R.w, h = R.h, mobile = w < 850, e = craftEntry(), card = craftCard(e), canDrill = chainable(e), drill = S.craftDrill?.id === e.id && S.craftDrill.list.length ? S.craftDrill : null, items = craftItems(), [tint] = CRAFT_STYLE[e.style], info = W.viewerInfo?.id === e.id ? W.viewerInfo : null;
     if (S.craftModel !== e.id) S.craftModel = e.id;
     titleShade(); titleFade();
     const kicker = mobile ? AREAS[e.system].name.toUpperCase() : 'GALASSIA ▸ ' + AREAS[e.system].name.toUpperCase() + ' ▸ CATALOGO DEI MODELLI';
-    title(kicker, card.title, mobile ? '' : card.kind + ', ' + card.style + '. Trascina per girare il modello.');
+    // On phones the exercises take the room of the title of the model.
+    title(kicker, mobile && drill ? '' : card.title, mobile ? '' : card.kind + ', ' + card.style + '. Trascina per girare il modello.');
     const tris = info?.full ? `${fmtInt(info.full)} triangoli, ${fmtInt(info.low)} nella versione semplificata` : 'Costruzione del modello in corso';
     // The list: groups, this system or the whole galaxy, then one page of models.
     const listUI = (x, y, lw, lh) => {
@@ -1301,10 +1330,11 @@ function craftUI() {
     const step = k => pickCraft(craftStep(items.length ? items : [e], e.id, k));
     if (!mobile) {
         listUI(35, 245, 300, Math.max(330, h - 355));
-        // The card of the model.
+        // The card of the model, or the exercises on the station in its place (1.53.0).
+        if (drill) drillPanel(drill, w - 357, 245, 324, h - 355, tint, false);
         // The card is as tall as its text, within the room between the title and the bottom buttons.
-        const cx = w - 337, cw = 304, rows = t => Math.max(1, R.multilineCount(t, cw - 36, 'mini', 5));
-        const need = 47 + card.lines.reduce((a, l) => a + 19 * Math.min(2, rows(l)) + 4, 0) + 6 + 19 * rows(card.about) + 8 + 40 + 72, ch = Math.min(h - 355, Math.max(300, need));
+        else { const cx = w - 337, cw = 304, rows = t => Math.max(1, R.multilineCount(t, cw - 36, 'mini', 5));
+        const need = 47 + card.lines.reduce((a, l) => a + 19 * Math.min(2, rows(l)) + 4, 0) + 6 + 19 * rows(card.about) + 8 + 40 + 72 + (canDrill ? 48 : 0), ch = Math.min(h - 355, Math.max(300, need));
         U.panel(cx, 245, cw, ch, tint, .82); U.tag(card.kind.toUpperCase(), cx + 18, 263, tint);
         let y = 292; for (const line of card.lines) { const n = U.wrap(line, cx + 18, y, cw - 36, C.pale, 19, 2, 'mini'); y += 19 * Math.max(1, n || 1) + 4; }
         y += 6; const n = U.wrap(card.about, cx + 18, y, cw - 36, C.muted, 19, 5, 'mini'); y += 19 * Math.max(1, n || 1) + 8;
@@ -1312,6 +1342,7 @@ function craftUI() {
         const bw = (cw - 42) / 2;
         U.button('craft-system', 'VAI AL SISTEMA', cx + 16, 245 + ch - 56, bw, 40, () => enterSystem(e.system), { active: true }); U.buttons.at(-1).label = 'Vai al sistema ' + AREAS[e.system].name + ', dove si trova il modello';
         U.button('craft-turn', S.craftTurn === false ? 'RUOTA' : 'FERMA', cx + 26 + bw, 245 + ch - 56, bw, 40, () => S.craftTurn = S.craftTurn === false); U.buttons.at(-1).label = S.craftTurn === false ? 'Fai ruotare il modello' : 'Ferma la rotazione del modello';
+        if (canDrill) { U.button('craft-drill', 'ESERCIZI SULLA STAZIONE', cx + 16, 245 + ch - 104, cw - 32, 40, () => openStationDrill(e)); U.buttons.at(-1).label = 'Esercizi di stechiometria e velocità con la ricetta di questa stazione'; } }
         U.button('back-system', 'TORNA AL SISTEMA', 35, h - 88, 220, 39, () => enterSystem(S.system));
         const bx = w / 2 - 166;
         U.button('craft-prev', '◂ PRECEDENTE', bx, h - 77, 120, 30, () => step(-1), { small: true }); U.buttons.at(-1).label = 'Modello precedente dell’elenco';
@@ -1322,6 +1353,7 @@ function craftUI() {
     // Phones: the card or the list under the model, the way back and the zoom at the bottom.
     const short = h < 700, pw = w - 36;
     if (S.craftListOpen) listUI(18, short ? 150 : 200, pw, h - (short ? 150 : 200) - 100);
+    else if (drill) { drillPanel(drill, 18, 136, pw, h - 136 - 48, tint, true); return; }
     else {
         const ph = short ? 168 : 214, py = h - ph - 100;
         U.panel(18, py, pw, ph, tint, .84); U.tag(card.kind.toUpperCase() + ' · ' + card.style.toUpperCase(), 36, py + 18, tint);
@@ -1329,10 +1361,11 @@ function craftUI() {
         let y = py + 42; const end = py + ph - 60, lines = [card.lines[0], 'Sistema ' + AREAS[e.system].name, ...card.lines.slice(2)];
         for (const line of lines) { if (y + 17 > end) break; const n = U.wrap(line, 36, y, pw - 36, C.pale, 17, y + 34 <= end ? 2 : 1, 'micro'); y += 17 * Math.max(1, n || 1) + 4; }
         if (y + 21 <= end) U.wrap(card.about, 36, y + 4, pw - 36, C.muted, 17, Math.floor((end - y - 4) / 17), 'micro');
-        const bw = (pw - 36 - 12) / 3;
+        const n = canDrill ? 4 : 3, bw = (pw - 36 - 6 * (n - 1)) / n;
         U.button('craft-prev', '◂', 34, py + ph - 52, bw, 38, () => step(-1)); U.buttons.at(-1).label = 'Modello precedente dell’elenco';
-        U.button('craft-list', 'ELENCO', 40 + bw, py + ph - 52, bw, 38, () => { S.craftListOpen = true; S.craftPage = null; }, { active: true }); U.buttons.at(-1).label = 'Apri l’elenco dei modelli';
-        U.button('craft-next', '▸', 46 + 2 * bw, py + ph - 52, bw, 38, () => step(1)); U.buttons.at(-1).label = 'Modello successivo dell’elenco';
+        U.button('craft-list', 'Elenco', 40 + bw, py + ph - 52, bw, 38, () => { S.craftListOpen = true; S.craftPage = null; }, { active: true, small: true }); U.buttons.at(-1).label = 'Apri l’elenco dei modelli';
+        if (canDrill) { U.button('craft-drill', 'Esercizi', 46 + 2 * bw, py + ph - 52, bw, 38, () => openStationDrill(e), { small: true }); U.buttons.at(-1).label = 'Esercizi di stechiometria e velocità con la ricetta di questa stazione'; }
+        U.button('craft-next', '▸', 34 + (n - 1) * (bw + 6), py + ph - 52, bw, 38, () => step(1)); U.buttons.at(-1).label = 'Modello successivo dell’elenco';
     }
     U.button('back-system', w < 360 ? 'SISTEMA' : 'TORNA AL SISTEMA', 18, h - 88, Math.min(190, w - 154 - 26), 39, () => S.craftListOpen ? S.craftListOpen = false : enterSystem(S.system));
     if (S.craftListOpen) U.buttons.at(-1).label = 'Chiudi l’elenco dei modelli';
@@ -1727,7 +1760,7 @@ function syncSemantic() {
         if (e && document.activeElement !== e)
             e.value = b.value;
     }
-    const key = physicsOpen() ? 'physics-' + S.selected + '-' + store.data.updatedAt : expeditionsOpen() ? 'expeditions-' + S.selected + '-' + store.data.updatedAt : S.scene === 'ship' ? 'ship-' + store.data.updatedAt + '-' + (S.shipPage || 0) : S.scene === 'gaia' ? 'gaia-' + store.data.updatedAt + '-' + S.gaiaTab + '-' + (S.gaiaPage || 0) + '-' + S.gaiaWorld : S.scene === 'region' ? 'region-' + S.system + '-' + store.data.updatedAt : S.scene === 'craft' ? 'craft-' + craftEntry().id + '-' + (W.viewerInfo?.full ?? 0) : S.scene === 'outpost' ? 'outpost-' + S.system + '-' + store.data.updatedAt : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticKey():S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
+    const key = physicsOpen() ? 'physics-' + S.selected + '-' + store.data.updatedAt : expeditionsOpen() ? 'expeditions-' + S.selected + '-' + store.data.updatedAt : S.scene === 'ship' ? 'ship-' + store.data.updatedAt + '-' + (S.shipPage || 0) : S.scene === 'gaia' ? 'gaia-' + store.data.updatedAt + '-' + S.gaiaTab + '-' + (S.gaiaPage || 0) + '-' + S.gaiaWorld : S.scene === 'region' ? 'region-' + S.system + '-' + store.data.updatedAt : S.scene === 'craft' ? 'craft-' + craftEntry().id + '-' + (W.viewerInfo?.full ?? 0) + '-' + (S.craftDrill ? S.craftDrill.id + S.craftDrill.seed + '-' + S.craftDrill.i + '-' + S.craftDrill.chosen.join('.') : '') : S.scene === 'outpost' ? 'outpost-' + S.system + '-' + store.data.updatedAt : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticKey():S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
     if (key !== textSignature) {
         const el = document.querySelector('#semantic-text');
         if (el)
@@ -1992,7 +2025,7 @@ async function init() {
         pilotEducation = new MissionUI(R, store, missionDefinition, { state:S, route, openTheory, openPDF, download, say });
         education = new CourseUI(R,store,curriculum,{state:S,route,openCourse,openTheory,openPDF,openExternal,download,say,currentUnit:()=>selected().id});
         education.select(selected().id);
-        atlas = new AtlasUI(R,W,store,data,curriculum,{state:S,passages,selectIndex,enterSystem,openCourse,openChapter,hasChapter:id=>!!book?.has(id),route,zoom:changeZoom,updateHash,say,
+        atlas = new AtlasUI(R,W,store,data,curriculum,{state:S,passages,selectIndex,enterSystem,openCourse,openChapter,openStationDrill:openUnitStationDrill,hasChapter:id=>!!book?.has(id),route,zoom:changeZoom,updateHash,say,
             invalidate:()=>{semanticSignature='';textSignature='';},focusCanvas:()=>canvas.focus(),reducedMotion:()=>matchMedia('(prefers-reduced-motion: reduce)').matches});
         atlas.onRoute(S.scene);
         if(S.scene==='galaxy'&&!/[a-z]/i.test(initialHash.replace(/^#\/?(galaxy)?/,'')))atlas.open('welcome');
