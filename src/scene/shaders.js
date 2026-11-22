@@ -35,7 +35,7 @@ void main(){vec3 vertex=aPos,normal=aNormal;vec4 color=aColor;if(uMaterial==10&&
 export const fsMesh = `#version 300 es
 precision highp float;
 in vec3 vNormal,vWorld,vLocal;in vec2 vUV;in vec4 vColor,vPBR,vShadow,vReflection;out vec4 outColor;
-uniform sampler2D uTex,uShadow,uReflection;uniform vec3 uEye,uLight,uCenter,uFogColor,uAtmosColor;uniform vec4 uTint;
+uniform sampler2D uTex,uShadow,uReflection,uTexPrev;uniform float uTexFade;uniform vec3 uEye,uLight,uCenter,uFogColor,uAtmosColor;uniform vec4 uTint;
 uniform int uOccluderCount;uniform vec4 uOccluder[4];
 // Atmosphere of a planet (1.59.0): outer radius of the shell, inverse scale height (radii), optical scale, twilight strength.
 uniform vec4 uShell;
@@ -59,7 +59,7 @@ void main(){
  // Water of the phenomenon worlds (sea and lakes): colour from the instance or the tint, fresnel and sun glint.
  if(uMaterial==18){c=pow(c,vec3(2.2));float a1=vWorld.x*1.7+vWorld.z*.9+uTime*.7,b1=vWorld.z*2.3-vWorld.x*.6-uTime*.5;vec3 nn=normalize(n+vec3(cos(a1)*.05+cos(b1*1.7)*.02,0,sin(b1)*.05+sin(a1*1.9)*.02));
   float fres=pow(1.-max(0.,dot(nn,v)),4.),glint=pow(max(dot(reflect(-l,nn),v),0.),90.);vec3 col=(c*(.42+.62*max(dot(nn,l),0.)))*uLightColor+vec3(.16,.24,.3)*fres*.6+vec3(1.9,1.7,1.4)*glint*uLightColor;
-  float fog=1.-exp(-length(uEye-vWorld)*uFog*.8);col=mix(film(col*.78),uFogColor,clamp(fog,0.,.8));outColor=vec4(col,alpha*(.86+.14*fres));return;}
+  float dist=length(uEye-vWorld),fog=1.-exp(-dist*uFog*.8);col=mix(film(col*.78),uFogColor,max(clamp(fog,0.,.8),smoothstep(1250.,1750.,dist)));outColor=vec4(col,alpha*(.86+.14*fres));return;}
  // Soft puffs (steam, spores): opaque towards the centre of each small sphere.
  if(uMaterial==19){float f=pow(max(dot(n,v),0.),2.6);outColor=vec4(film(c*(.55+.45*max(dot(n,l),0.))),alpha*f);return;}
  // Star glow: transparent at the rim of the sphere, denser towards the centre of the disc.
@@ -78,7 +78,7 @@ void main(){
  if(uMaterial==5){if(dot(n,v)<0.)discard;float a=texture(uTex,vUV).r;float cs=dot(n,l),vis=solarVisibility(vWorld,l),sun=max(0.,cs)*vis,band=exp(-pow((cs-.04)/.12,2.))*uShell.w*vis;alpha*=smoothstep(.12,.95,a)*.84;outColor=vec4(film(vec3(.001)+mix(dusk(uAtmosColor),vec3(1.),smoothstep(.02,.3,cs))*sun+dusk(uAtmosColor)*band*.35),alpha);return;}
  if(uMaterial==12||uMaterial==15){
   if(uMaterial==15)l=normalize(uCenter-vWorld);
-  vec2 uv=uDisguise>.5?vec2(1.-vUV.x,1.-vUV.y):vUV;vec4 texel=texture(uTex,uv);vec3 albedo=texel.rgb;float water=max(uOcean*smoothstep(.01,.12,albedo.b-max(albedo.r,albedo.g*.85)),1.-texel.a);
+  vec2 uv=uDisguise>.5?vec2(1.-vUV.x,1.-vUV.y):vUV;vec4 texel=texture(uTex,uv);if(uTexFade<1.)texel=mix(texture(uTexPrev,uv),texel,uTexFade);vec3 albedo=texel.rgb;float water=max(uOcean*smoothstep(.01,.12,albedo.b-max(albedo.r,albedo.g*.85)),1.-texel.a);
   if(uDisguise>.5){float a=uDisguise>1.5?.55:-.62;vec3 k=vec3(.57735);albedo=clamp(albedo*cos(a)+cross(k,albedo)*sin(a)+k*dot(k,albedo)*(1.-cos(a)),0.,1.);}
   vec3 base=pow(albedo,vec3(2.2))*uTint.rgb;c=shade(base,n,l,v,0.,mix(.88,.18,water),solarVisibility(vWorld,l));
   float day=smoothstep(-.12,.08,dot(n,l));c*=mix(.035,1.,day);
@@ -94,7 +94,9 @@ void main(){
  if(uMaterial==11){if(dot(n,v)<0.)discard;float rim=pow(1.-max(0.,dot(n,v)),3.4);float flame=.65+.35*noise3(p*12.+uTime*.02);outColor=vec4(uTint.rgb,alpha*rim*flame*.40);return;}
  if(uMaterial==10){
   float kind=vPBR.w,rough=clamp(vPBR.y,.08,1.),metal=clamp(vPBR.x,0.,1.);vec3 base=max(c,vec3(0));
-  if(kind<1.5){float grain=fbm(vWorld*.7);base*=.5+grain*1.0;base*=mix(vec3(.72,.80,.64),vec3(1.12,1.08,.93),smoothstep(.34,.63,fbm(vWorld*2.5)));vec3 dp1=dFdx(vWorld),dp2=dFdy(vWorld),r1=cross(dp2,n),r2=cross(n,dp1);float det=dot(dp1,r1),h=noise3(vWorld*4.)*.013;n=normalize(n-sign(det)*(dFdx(h)*r1+dFdy(h)*r2)/max(abs(det),.00001));}
+  // Grain, tint and bumps of the ground fade out between 60 and 240 units (1.62.0): further away they are
+  // smaller than a pixel and would flicker as the camera moves.
+  if(kind<1.5){float near=1.-smoothstep(60.,240.,length(uEye-vWorld)),grain=fbm(vWorld*.7);base*=mix(1.,.5+grain*1.0,near);base*=mix(vec3(.92,.94,.79),mix(vec3(.72,.80,.64),vec3(1.12,1.08,.93),smoothstep(.34,.63,fbm(vWorld*2.5))),near);vec3 dp1=dFdx(vWorld),dp2=dFdy(vWorld),r1=cross(dp2,n),r2=cross(n,dp1);float det=dot(dp1,r1),h=noise3(vWorld*4.)*.013*near;n=normalize(n-sign(det)*(dFdx(h)*r1+dFdy(h)*r2)/max(abs(det),.00001));}
   if(kind>1.5&&kind<2.5){float a=vWorld.x*2.3+vWorld.z*1.45+uTime*.48,b=vWorld.z*3.6-vWorld.x*.7-uTime*.32;n=normalize(n+vec3(cos(a)*.036+cos(b*1.8)*.012,0,sin(b)*.037+sin(a*2.1)*.014));base=vec3(.008,.046,.065);rough=.16;metal=.05;}
   c=shade(base,n,l,v,metal,rough,shadow(normalize(vNormal),l))*uLightColor;
   if(kind>1.5&&kind<2.5){float fres=pow(1.-max(0.,dot(n,v)),5.);c+=vec3(.2,.33,.38)*(.12+fres*.65);c+=pow(max(dot(reflect(-l,n),v),0.),120.)*vec3(2.1,1.8,1.4);}
@@ -102,7 +104,8 @@ void main(){
   if(kind>2.5&&kind<3.5)c+=base*max(0.,dot(-n,l))*.8;
   float distanceToEye=length(uEye-vWorld),heightDensity=exp(-max(vWorld.y,0.)*.12);float fog=1.-exp(-distanceToEye*uFog*(.45+.55*heightDensity));
   c=film(c*(kind>3.5?.76:.48));if(kind>1.5&&kind<2.5){vec2 uv=vReflection.xy/vReflection.w*.5+.5;uv+=n.xz*.018;vec3 reflection=texture(uReflection,clamp(uv,.002,.998)).rgb;float f=.28+.48*pow(1.-max(0.,dot(n,v)),3.);c=mix(c,reflection,f);}
-  c=mix(c,uFogColor,clamp(fog,0.,.84));
+  // The rings of the horizon (1.62.0) end in the haze of the horizon from 1250 units on.
+  c=mix(c,uFogColor,max(clamp(fog,0.,.84),smoothstep(1250.,1750.,distanceToEye)));
   if(uMist>.5){float optical=0.;for(int j=0;j<8;j++){vec3 q=mix(uEye,vWorld,(float(j)+.5)/8.);vec3 a=(q-vec3(-15,1.4,-7))/vec3(11,2.3,9),b=(q-vec3(9,1.7,-9))/vec3(10,2.2,8),d=(q-vec3(0,2.8,-20))/vec3(19,3.2,7);optical+=(exp(-dot(a,a)*2.)+exp(-dot(b,b)*2.)+exp(-dot(d,d)*2.))*(.65+.35*noise3(q*.3+uTime*.015));}float fogVolume=1.-exp(-optical*distanceToEye*.008);c=mix(c,vec3(.15,.23,.12),fogVolume);}
   outColor=vec4(c,alpha);return;
  }

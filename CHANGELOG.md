@@ -1,3 +1,11 @@
+# 1.62.0: Mondi vivi, il terreno dalla sfera
+
+- Prima versione della serie «Mondi vivi» sulle superfici dei pianeti. Scendendo in superficie il paesaggio cambiava, perché il suolo era generato a parte dalla mappa vista dall'orbita. Ora il suolo è il pezzo di pianeta sotto il sito di atterraggio: lo stesso campo d'altezza della mappa d'orbita letto sul piano tangente alla sfera, con le forme locali dello stile del terreno sopra. Mari, coste e colori dell'orizzonte coincidono con quelli visti dall'orbita.
+- Siti di atterraggio sulla terraferma, con la costa in vista e il mare nell'area delle specie dove il pianeta ha mari; i 125 siti sono calcolati da `node scripts/landing-sites.mjs` e salvati in `src/worlds/landing-sites.js`. Nella vista in orbita una piccola luce segna il sito.
+- Quadrato delle stazioni di 224 × 224 unità con un punto per unità, e quattro anelli di terreno sempre più radi fino a 1792 unità, cuciti senza crepe; mare lontano fino all'orizzonte, foschia più leggera, lune oltre l'orizzonte. Attorno alla base il rilievo locale è più basso, e la camera sale quando una cresta coprirebbe le stazioni.
+- Il dettaglio fine del suolo si spegne con la distanza, così non sfarfalla quando la camera si muove; le mappe d'orbita più nitide entrano con una dissolvenza di 0,6 s.
+- Le specie del mare vivono nel mare più vicino quando questo resta fuori dall'area; nuovo `tests/terreno.test.mjs`; descrizione in `docs/GRAPHICS.md`, sezione «Terreno dalla sfera».
+
 # 1.61.2: Pagina «FONTI» sui telefoni
 
 - I tre pulsanti in fondo alla pagina «FONTI» (dispensa di matematica, dispensa di fisica, dossier GAIA) uscivano dallo schermo dei telefoni. Dove non stanno affiancati si dividono la larghezza del riquadro, con i nomi brevi «Matematica», «Fisica» e «Dossier» e un'altezza di 44 px; il livello accessibile conserva i nomi completi.
