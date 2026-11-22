@@ -1,31 +1,30 @@
-# Collaudo GAIA 1.61.0
+# Collaudo GAIA 1.61.1
 
-Eseguito il 22 novembre 2026 sul ramo `feat/galassia-viva-collaudo-20261122`, costruito sopra `main` alla versione 1.60.0 (pull request #63), con Node.js 22.
+Eseguito il 22 novembre 2026 sul ramo `fix/autore-licenza-20261122`, costruito sopra `main` alla versione 1.61.0 (pull request #64), con Node.js 22.
 
 | Controllo | Comando | Risultato |
 |---|---|---:|
-| Test Node | `node --test tests/*.test.mjs` | 689 / 689 |
-| Serie «Galassia viva» | `node --test tests/galassia.test.mjs` | 4 / 4 |
-| Riferimenti e risorse | `node scripts/check.mjs` | 4047 / 4047 |
+| Test Node | `node --test tests/*.test.mjs` | 691 / 691 |
+| Autore e licenza | `node --test tests/licenza.test.mjs` | 2 / 2 |
+| Riferimenti e risorse | `node scripts/check.mjs` | 4050 / 4050 |
 | Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 314 controlli |
 | Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 282 controlli |
 | Atlante in Chromium | `python3 tools/qa_atlas_browser.py --root dist` | 23 controlli, 30 sistemi, 280 pianeti, 125 esplorabili, nessun errore WebGL |
-| Prestazioni dei 30 sistemi | `node scripts/prestazioni.mjs` | 90 misure alle tre impostazioni e 7 oggetti seguiti, entro i limiti di `tests/galassia.test.mjs` |
-| Contatore e renderer a confronto | sistema 13 a 1600 × 1000 in Chromium, letto con `GAIA.diagnostics().performance` | 119 chiamate di disegno alle tre impostazioni contro le 116 del contatore; triangoli 0,69, 0,65 e 0,61 milioni contro 0,67, 0,62 e 0,59; nessun errore di pagina |
+| Autore e licenza in Chromium | galassia e pagina «FONTI» a 1280 × 800, 390 × 844 e 320 × 568; clic sulla riga della barra dal livello accessibile | riga leggibile in ogni larghezza, pagina «FONTI» aperta con la voce «Autore e licenza» e il pulsante della licenza, nessun errore di pagina |
 
-Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`, `PRESTAZIONI.md`.
+Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`.
 
-La versione chiude la serie «Galassia viva» con `docs/GALASSIA_VIVA.md` e con le prestazioni misurate in `docs/PRESTAZIONI.md`. Il calcolo degli sciami (`meteorShowers` in `src/scene/comete.js`) è più rapido e dà gli stessi risultati, confrontati in `tests/galassia.test.mjs` con il calcolo precedente. Nel confronto con il browser la sessione ha un seme diverso da quello fissato dallo script, quindi navi e mezzi di servizio sono in posizioni diverse; le differenze restano sotto il 5 % dei triangoli e sono di tre chiamate di disegno.
+La versione cambia la licenza delle parti originali in CC BY-NC 4.0 e mostra autore e licenza nel sito. A 320 × 568 la voce «Autore e licenza» si legge fino alla terza riga, con i puntini, e il testo intero resta nel livello accessibile e nella pagina della licenza; la fila di pulsanti in fondo alla pagina «FONTI» supera la larghezza dei telefoni, come nelle versioni precedenti.
 
-Collaudo precedente, 1.60.0 (22 novembre 2026, ramo `feat/galassia-viva-comete-20261122`): 685 test Node, 6 test di comete, sciami e cinture, 4047 controlli di riferimenti e risorse, 314 controlli HTTP, 282 flussi applicativi, 23 controlli dell'atlante; comete, cinture e stelle cadenti in Chromium senza errori.
+Collaudo precedente, 1.61.0 (22 novembre 2026, ramo `feat/galassia-viva-collaudo-20261122`): 689 test Node, 4 test della serie «Galassia viva», 4047 controlli di riferimenti e risorse, 314 controlli HTTP, 282 flussi applicativi, 23 controlli dell'atlante; prestazioni dei 30 sistemi entro i limiti e contatore confrontato con il renderer in Chromium.
 
 ## Integrazione continua
 
-Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle risorse, build, verifiche HTTP, interazioni reali dell’atlante e pubblicazione su GitHub Pages. Il passo finale scarica dal sito pubblico `build-info.json` e il curriculum e verifica che corrispondano al commit appena pubblicato e ai corsi del curriculum, 125 dalla 1.26.0. L'ultima esecuzione su `main`, per l'unione della pull request #63 (`0599d2c`), è riuscita.
+Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle risorse, build, verifiche HTTP, interazioni reali dell’atlante e pubblicazione su GitHub Pages. Il passo finale scarica dal sito pubblico `build-info.json` e il curriculum e verifica che corrispondano al commit appena pubblicato e ai corsi del curriculum, 125 dalla 1.26.0. L'ultima esecuzione su `main`, per l'unione della pull request #64 (`2b85b18`), è riuscita.
 
 ## Controllo del repository
 
-- `main` ha un solo commit radice. Dei 67 rami presenti su GitHub con quello di questo collaudo, 66 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
+- `main` ha un solo commit radice. Dei 68 rami presenti su GitHub con quello di questo collaudo, 67 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
 - Nessuna pull request o segnalazione aperta.
 - Gli autori dei commit usano indirizzi noreply, di GitHub e di Anthropic.
 - Due esecuzioni fallite nella storia di `main`, entrambe superate dai commit successivi: il primo tentativo di pubblicazione (`bacea5c`, errore in `configure-pages`) e l’unione della pull request #5 (`1d6c911`, verifica del sito pubblicato con un numero di versione fisso, corretta in `b7dc1e8`).

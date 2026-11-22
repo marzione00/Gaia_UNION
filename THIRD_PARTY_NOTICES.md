@@ -1,6 +1,6 @@
 # Componenti e attribuzioni
 
-Le parti originali del progetto sono distribuite con CC BY 4.0; per ambito ed esclusioni vedere [LICENSE.md](LICENSE.md). I materiali elencati di seguito conservano le condizioni delle rispettive fonti.
+Le parti originali del progetto sono distribuite con CC BY-NC 4.0; per ambito ed esclusioni vedere [LICENSE.md](LICENSE.md). I materiali elencati di seguito conservano le condizioni delle rispettive fonti.
 
 ## Contenuti didattici
 

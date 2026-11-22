@@ -135,9 +135,9 @@ La build include anche `LICENSE`, `LICENSE.md`, `THIRD_PARTY_NOTICES.md`, le not
 
 ## Licenza
 
-Le parti originali di GAIA — Beyond Knowledge sono distribuite con **Creative Commons Attribution 4.0 International (CC BY 4.0)**. Vedi [ambito e attribuzione](LICENSE.md), [testo integrale](LICENSE) e [licenza ufficiale](https://creativecommons.org/licenses/by/4.0/).
+Le parti originali di GAIA — Beyond Knowledge, di Marzio De Corato, sono distribuite con **Creative Commons Attribuzione-NonCommerciale 4.0 Internazionale (CC BY-NC 4.0)**: si possono condividere e adattare citando l'autore, per fini non commerciali. Vedi [ambito e attribuzione](LICENSE.md), [testo integrale](LICENSE) e [licenza ufficiale](https://creativecommons.org/licenses/by-nc/4.0/).
 
-Il PDF, le lezioni e i quesiti preesistenti, le risorse NASA e gli altri materiali di terzi conservano le condizioni delle rispettive fonti: la CC BY 4.0 del progetto non le sostituisce. I crediti sono in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Il PDF, le lezioni e i quesiti preesistenti, le risorse NASA e gli altri materiali di terzi conservano le condizioni delle rispettive fonti: la CC BY-NC 4.0 del progetto non le sostituisce. I crediti sono in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ## Limiti da conoscere
 

@@ -31,9 +31,10 @@ import { BookReader } from './book/reader.js';
 import { fittedRows } from './education/course-ui.js';
 import { descriptor as modelDescriptor } from './models/curriculum.js';
 import { openStore, grade } from './store.js';
+import { AUTHOR, LICENCE, CREDIT, LICENCE_ROW } from './licenza.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.61.0-collaudo';
+const VERSION = '1.61.1-licenza';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -237,7 +238,13 @@ function common() {
     }
     R.rect(0, h - 36, w, 36, color(T.bg, .97));
     R.line([0, h - 35.5], [w, h - 35.5], color(T.line, .9), 1);
-    U.text('GAIA · Atlante scientifico', 26, h - 26, 'micro', C.dim);
+    // Author and licence (1.61.1, src/licenza.js) at the right of the bar, in place of the name where the two
+    // do not fit; a click opens the page «FONTI», whose first entry explains the licence.
+    const lead = 'GAIA · Atlante scientifico', both = R.textWidth(lead, 'micro') + R.textWidth(CREDIT.long, 'micro') + 100 <= w, credit = both ? CREDIT.long : CREDIT.short, cw = R.textWidth(credit, 'micro'), cx = both ? w - 26 - cw : 26;
+    if (both) U.text(lead, 26, h - 26, 'micro', C.dim);
+    U.text(credit, cx, h - 26, 'micro', U.hover === 'credits' ? C.pale : C.dim);
+    if (U.focus === 'credits') R.roundRect(cx - 8, h - 33, cw + 16, 30, 8, color('#000000', 0), color('#ffffff', .85), 0);
+    U.buttons.push({ id: 'credits', label: `Autore e licenza: ${AUTHOR}, ${LICENCE.short}`, x: cx - 8, y: h - 36, w: cw + 16, h: 36, action: () => route('sources') });
 }
 /** Text screens sit on a near-opaque veil; the 3D graph of a unit, when visible, keeps a window. */
 function scrim() {
@@ -1690,21 +1697,36 @@ function importJournal(value) {
         store.import(value);
     say('Diario importato e verificato.');
 }
+/** Entries of the page «FONTI»: author and licence first (1.61.1), then the sources and their limits. */
+function sourceRows() { return [LICENCE_ROW, ['CONTENUTI DIDATTICI', 'Dispensa «Matematica di base» di Marzio De Corato e Danilo Liuzzi: 769 pagine, 25 unità. Quattro lezioni narrative e 40 quesiti di Funzioni conservati dalla V7.'], ['DAISYWORLD', 'Equazioni di Watson & Lovelock (1983), scelte numeriche documentate. Il modello non è una previsione del clima terrestre e non garantisce autoregolazione universale.'], ['GEOMETRIA E TEXTURE', 'Mappe planetarie: NASA Earth Observatory, NASA/GSFC/SVS, NASA/JPL-Caltech/USGS e NASA VTAD. File e risoluzioni originali documentati. Famiglie ispirate a Haegemonia. Nessuna texture planetaria inventata o generata con IA.'], ['COPERTURA', UNIT_COUNT + ' nuclei guidati: 25 per matematica, fisica e chimica, 35 per la biologia orientata all’astrobiologia, con modelli ed esercizi specifici. Non sono manuali integrali: revisione scientifico-didattica umana da completare.'], ['RENDERING', 'Tutti i pixel visibili del sito sono composti in WebGL 2. Testi matematici e pagine originali sono texture tipografiche su superfici GPU. Il livello semantico non visibile supporta tastiera e lettura assistita.']]; }
+/** The page «FONTI» as text, for the accessible layer. */
+function sourcesText() { return 'Fonti e limiti. ' + sourceRows().map(([a, b]) => caseLabel(a).replace(/ E /g, ' e ') + '. ' + b).join(' '); }
 function sourcesUI() {
     const w = R.w, h = R.h;
     title('TRACCIABILITÀ / FONTI E LIMITI', 'CHE COSA STAI OSSERVANDO', 'Sorgenti, risultati di modelli e ambientazioni illustrative sono distinti.');
     const x = 36, ww = w - 72, y = 248;
     U.panel(x, y, ww, h - y - 112, C.cyan, .84);
-    const rows = [['CONTENUTI DIDATTICI', 'Dispensa «Matematica di base» di Marzio De Corato e Danilo Liuzzi: 769 pagine, 25 unità. Quattro lezioni narrative e 40 quesiti di Funzioni conservati dalla V7.'], ['DAISYWORLD', 'Equazioni di Watson & Lovelock (1983), scelte numeriche documentate. Il modello non è una previsione del clima terrestre e non garantisce autoregolazione universale.'], ['GEOMETRIA E TEXTURE', 'Mappe planetarie: NASA Earth Observatory, NASA/GSFC/SVS, NASA/JPL-Caltech/USGS e NASA VTAD. File e risoluzioni originali documentati. Famiglie ispirate a Haegemonia. Nessuna texture planetaria inventata o generata con IA.'], ['COPERTURA', UNIT_COUNT + ' nuclei guidati: 25 per matematica, fisica e chimica, 35 per la biologia orientata all’astrobiologia, con modelli ed esercizi specifici. Non sono manuali integrali: revisione scientifico-didattica umana da completare.'], ['RENDERING', 'Tutti i pixel visibili del sito sono composti in WebGL 2. Testi matematici e pagine originali sono texture tipografiche su superfici GPU. Il livello semantico non visibile supporta tastiera e lettura assistita.']];
-    let yy = y + 22 - S.scroll;
-    for (const [a, b] of rows) {
-        if (yy >= y && yy < h - 180) {
+    const rows = sourceRows();
+    // Each entry takes the lines its text needs (1.61.1), at least 145 px, and stays inside the panel; the first
+    // one, author and licence, ends with the button to the licence.
+    const bottom = h - 112, line = 27;
+    let yy = y + 22 - S.scroll, total = 0, shownAny = false;
+    rows.forEach(([a, b], k) => {
+        const n = R.multilineCount(b, ww - 48, 'body', 99), extra = k === 0 ? 56 : 0, height = Math.max(145, 50 + n * line + extra);
+        // An entry is drawn whole; only the first one in view may be cut, on screens too low to hold it.
+        if (yy >= y && yy < bottom - 70 && (!shownAny || yy + 38 + n * line + extra <= bottom - 8)) {
+            shownAny = true;
             U.tag(a, x + 24, yy, C.lime);
-            U.wrap(b, x + 24, yy + 30, ww - 48, C.pale, 27, 5);
+            const shown = Math.max(1, Math.min(n, Math.floor((bottom - 12 - extra - yy - 30) / line)));
+            // A cut entry ends with an ellipsis on its last line.
+            let text = b;
+            if (shown < n) { const words = b.split(/\s+/); let lo = 1, hi = words.length; while (lo < hi) { const mid = (lo + hi + 1) >> 1; if (R.multilineCount(words.slice(0, mid).join(' ') + ' …', ww - 48, 'body', 99) <= shown) lo = mid; else hi = mid - 1; } text = words.slice(0, lo).join(' ') + ' …'; }
+            U.wrap(text, x + 24, yy + 30, ww - 48, C.pale, line, shown);
+            if (extra && yy + 38 + shown * line + 44 <= bottom - 8) { U.button('source-licence', 'LEGGI LA LICENZA', x + 24, yy + 38 + shown * line, 220, 44, () => window.open(LICENCE.url, '_blank', 'noopener,noreferrer')); U.buttons.at(-1).label = 'Apri la licenza ' + LICENCE.short + ' sul sito di Creative Commons'; }
         }
-        yy += 145;
-    }
-    S.maxScroll = Math.max(0, rows.length * 145 - (h - y - 145));
+        yy += height; total += height;
+    });
+    S.maxScroll = Math.max(0, total - (h - y - 145));
     U.button('source-pdf', 'DISPENSA DI MATEMATICA', x, h - 88, 230, 39, () => openPDF(1));
     U.button('source-pdf-fis', 'DISPENSA DI FISICA', x + 238, h - 88, 210, 39, () => openPDF(1, 'fis'));
     U.button('source-model', 'DOSSIER GAIA', x + 456, h - 88, 180, 39, () => openTheory('gaia'));
@@ -1846,7 +1868,7 @@ function syncSemantic() {
     if (key !== textSignature) {
         const el = document.querySelector('#semantic-text');
         if (el)
-            el.textContent = S.scene === 'system' && S.follow && W.followed ? followText() : physicsOpen() ? 'Dati fisici del pianeta ' + selected().title + '. ' + physicsText(planetPhysics()[S.selected], speciesCount(S.selected), cardReveal()) : expeditionsOpen() ? expeditionsText(selected()) : S.scene === 'ship' ? shipText() : S.scene === 'gaia' ? gaiaText() : S.scene === 'craft' ? craftPageText() : S.scene === 'outpost' ? outpostText() : S.scene === 'region' ? regionText() : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndexes[docKey(S.pdfDoc)]?.[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
+            el.textContent = S.scene === 'system' && S.follow && W.followed ? followText() : physicsOpen() ? 'Dati fisici del pianeta ' + selected().title + '. ' + physicsText(planetPhysics()[S.selected], speciesCount(S.selected), cardReveal()) : expeditionsOpen() ? expeditionsText(selected()) : S.scene === 'ship' ? shipText() : S.scene === 'gaia' ? gaiaText() : S.scene === 'craft' ? craftPageText() : S.scene === 'outpost' ? outpostText() : S.scene === 'region' ? regionText() : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndexes[docKey(S.pdfDoc)]?.[S.pdfPage - 1]?.text : S.scene === 'sources' ? sourcesText() : readerIndex[key]?.text || selected().description;
         textSignature = key;
     }
 }
