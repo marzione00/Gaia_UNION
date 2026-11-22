@@ -1,30 +1,30 @@
-# Collaudo GAIA 1.51.0
+# Collaudo GAIA 1.52.0
 
-Eseguito il 21 novembre 2026 sul ramo `feat/catalogo-3d-20261121`, costruito sopra `main` alla versione 1.50.0 (pull request #53), con Node.js 22.
+Eseguito il 22 novembre 2026 sul ramo `feat/esercizi-rapporto-20261122`, costruito sopra `main` alla versione 1.51.0 (pull request #54), con Node.js 22.
 
 | Controllo | Comando | Risultato |
 |---|---|---:|
-| Test Node | `node --test tests/*.test.mjs` | 645 / 645 |
-| Catalogo 3D | `node --test tests/catalogo.test.mjs` | 6 / 6 |
-| Riferimenti e risorse | `node scripts/check.mjs` | 3996 / 3996 |
+| Test Node | `node --test tests/*.test.mjs` | 650 / 650 |
+| Esercizi sul Rapporto | `node --test tests/esercizi.test.mjs` | 5 / 5 |
+| Riferimenti e risorse | `node scripts/check.mjs` | 4000 / 4000 |
 | Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 314 controlli |
-| Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 280 controlli, fra cui il catalogo 3D |
+| Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 280 controlli |
 | Atlante in Chromium | `python3 tools/qa_atlas_browser.py --root dist` | 23 controlli, 30 sistemi, 280 pianeti, 125 esplorabili |
-| Catalogo in Chromium | sistema «Acidi, redox e carbonio», pulsante del catalogo, tre modelli (base della flotta, porto, fregata) ed elenco, a 1600 × 1000 e a 390 × 844 | nessun errore WebGL o di pagina; modelli completi costruiti e disegnati con luci; scheda, elenco e descrizione accessibile corretti |
+| Esercizi in Chromium | un'ora del modello della galassia, Rapporto, esercizi, risposta sbagliata e svolgimento, a 1600 × 1000, 390 × 844 e 320 × 568 | nessun errore WebGL o di pagina; domanda, risposte e svolgimento entro i margini |
 
 Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`.
 
-La versione aggiunge l'elenco dei 997 modelli con filtri e schede (`src/craft/registry.js`), il visore del catalogo (`src/scene/world.js`), la pagina, i pulsanti e l'indirizzo del catalogo (`src/app.js`, `src/routing.js`, `src/scene/navigation.js`) e il catalogo generato `docs/CATALOGO.md` (`scripts/craft-catalogue.mjs`).
+La versione aggiunge gli esercizi di probabilità e statistica sul Rapporto (`src/craft/esercizi.js`) e la loro scheda sulla mappa, con i pulsanti nel Rapporto e nella scheda delle unità math-c10 e math-p07 (`src/navigation/atlas-ui.js`).
 
-Collaudo precedente, 1.50.0 (21 novembre 2026, ramo `feat/rapporto-sciame-20261121`): 639 test Node, 8 test di apprendimento, chiavi e Rapporto, 3988 controlli di riferimenti e risorse, 314 controlli HTTP, 279 flussi applicativi, 23 controlli dell'atlante; incursione con chiave e Rapporto in Chromium senza errori.
+Collaudo precedente, 1.51.0 (21 novembre 2026, ramo `feat/catalogo-3d-20261121`): 645 test Node, 6 test del catalogo 3D, 3996 controlli di riferimenti e risorse, 314 controlli HTTP, 280 flussi applicativi, 23 controlli dell'atlante; catalogo in Chromium senza errori.
 
 ## Integrazione continua
 
-Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle risorse, build, verifiche HTTP, interazioni reali dell’atlante e pubblicazione su GitHub Pages. Il passo finale scarica dal sito pubblico `build-info.json` e il curriculum e verifica che corrispondano al commit appena pubblicato e ai corsi del curriculum, 125 dalla 1.26.0. L'ultima esecuzione su `main`, per l'unione della pull request #53 (`eb48e35`), è riuscita.
+Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle risorse, build, verifiche HTTP, interazioni reali dell’atlante e pubblicazione su GitHub Pages. Il passo finale scarica dal sito pubblico `build-info.json` e il curriculum e verifica che corrispondano al commit appena pubblicato e ai corsi del curriculum, 125 dalla 1.26.0. L'ultima esecuzione su `main`, per l'unione della pull request #54 (`918829c`), è riuscita.
 
 ## Controllo del repository
 
-- `main` ha un solo commit radice. Dei 57 rami presenti su GitHub con quello di questo collaudo, 56 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
+- `main` ha un solo commit radice. Dei 58 rami presenti su GitHub con quello di questo collaudo, 57 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
 - Nessuna pull request o segnalazione aperta.
 - Gli autori dei commit usano indirizzi noreply, di GitHub e di Anthropic.
 - Due esecuzioni fallite nella storia di `main`, entrambe superate dai commit successivi: il primo tentativo di pubblicazione (`bacea5c`, errore in `configure-pages`) e l’unione della pull request #5 (`1d6c911`, verifica del sito pubblicato con un numero di versione fisso, corretta in `b7dc1e8`).

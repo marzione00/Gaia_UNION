@@ -6,6 +6,7 @@ import { DISCIPLINES, TEXT_SCALES, GUIDE, cleanAtlas, atlasLayout, contains, pla
 
 import { scaledText } from './text.js';
 import { rapporto } from '../craft/swarm.js';
+import { exercises, EXERCISE_UNITS } from '../craft/esercizi.js';
 import { exploration, passagesOf, passageLabel } from './passages.js';
 import { systemForPlanet, indicesForSystem, AREAS, SYSTEM_COUNT, UNIT_COUNT } from '../scene/systems.js';
 const SECTOR_COLORS=DISCIPLINE;
@@ -189,8 +190,8 @@ export class AtlasUI {
         const r=narrow?{x:base.x+(base.w-sw)/2,y:base.y+Math.max(0,Math.min(60,(base.h-sh)/3)),w:sw,h:sh}:base;
         // Modal controls replace underlying actions, including map and global navigation.
         U.buttons=[];this.R.rect(0,90,this.R.w,this.R.h-90,color('#03121d',.97));U.panel(r.x,r.y,r.w,r.h,C.cyan,1);
-        const headings={list:'CERCA UN ARGOMENTO',detail:'SCHEDA DELL’UNITÀ',routes:'PERCORSI DI STUDIO',history:'UNITÀ STUDIATE DI RECENTE',access:'ACCESSIBILITÀ',welcome:'BENVENUTO IN GAIA',rapporto:'RAPPORTO SULLO SCIAME DELLA FRONTIERA'};
-        this.text(this.sheet==='rapporto'&&r.w<560?'RAPPORTO SULLO SCIAME':headings[this.sheet],r.x+14,r.y+16,r.w-126,'mini',C.lime,1);
+        const headings={list:'CERCA UN ARGOMENTO',detail:'SCHEDA DELL’UNITÀ',routes:'PERCORSI DI STUDIO',history:'UNITÀ STUDIATE DI RECENTE',access:'ACCESSIBILITÀ',welcome:'BENVENUTO IN GAIA',rapporto:'RAPPORTO SULLO SCIAME DELLA FRONTIERA',esercizi:'ESERCIZI SUL RAPPORTO'};
+        this.text(this.sheet==='rapporto'&&r.w<560?'RAPPORTO SULLO SCIAME':this.sheet==='esercizi'&&r.w<400?'ESERCIZI':headings[this.sheet],r.x+14,r.y+16,r.w-126,'mini',C.lime,1);
         this.button(U,'close','CHIUDI',r.x+r.w-108,r.y+4,94,()=>this.close());
         const body={x:r.x+14,y:r.y+62,w:r.w-28,h:r.h-72};
         if(this.sheet==='list')this.listUI(U,body);
@@ -200,11 +201,38 @@ export class AtlasUI {
         if(this.sheet==='welcome')this.welcomeUI(U,body);
         if(this.sheet==='access')this.accessUI(U,body);
         if(this.sheet==='rapporto')this.rapportoUI(U,body);
+        if(this.sheet==='esercizi')this.eserciziUI(U,body);
+    }
+    /** Opens the exercises on the Rapporto (1.52.0) with the numbers of this moment: they stay fixed while the
+     * student answers, and the next opening takes new ones. */
+    openExercises(){const F=this.world.frontier;this.drill={list:F?exercises(F,(this.drill?.seed||0)+1):[],seed:(this.drill?.seed||0)+1,i:0,chosen:[]};this.open('esercizi');}
+    /** One exercise at a time: question, four options, then whether the answer is right and the worked solution. */
+    eserciziUI(U,r){const D=this.drill,R=this.R,scale=this.prefs.textScale,cyan=color('#7fe3ff'),bottom=r.y+r.h-54;
+        if(!D?.list.length){this.text('Il fronte si attiva fra qualche minuto; torna allora.',r.x,r.y,r.w,'body');return;}
+        D.i=clamp(D.i,0,D.list.length-1);const e=D.list[D.i],pick=D.chosen[D.i],answered=pick!==undefined,unit=this.catalogue.modules.find(m=>m.id===e.unit),right=D.chosen.filter((c,i)=>c===D.list[i].correct).length,done=D.chosen.filter(c=>c!==undefined).length;let y=r.y;
+        const para=(t,style,tint,lh,max=99)=>{let n=0;for(const line of fittedRows(R,[t],r.w/scale,style).slice(0,-1)){if(y+lh*scale>bottom||n++>=max)return false;scaledText(R,line,r.x,y,style,tint,scale);y+=lh*scale;}y+=6*scale;return true;};
+        const score=done?` · ESATTE ${right} SU ${done}`:'';
+        // On narrow sheets the title of the exercise goes on its own line.
+        if(r.w<560){this.text(`ESERCIZIO ${D.i+1} DI ${D.list.length}${score}`,r.x,y,r.w,'micro',cyan);y+=19*scale;this.text(e.title.toUpperCase(),r.x,y,r.w,'micro',cyan);y+=22*scale;}
+        else{this.text(`ESERCIZIO ${D.i+1} DI ${D.list.length} · ${e.title.toUpperCase()}${score}`,r.x,y,r.w,'micro',cyan);y+=22*scale;}
+        // On very short sheets the worked solution takes the place of the question once it is answered.
+        if(!answered||r.h>=560*scale){para(e.prompt,'mini',C.pale,20);y+=8;}
+        // Once answered, on short sheets the worked solution takes the place of the options.
+        // The options are short numbers: on narrow sheets they go two by two.
+        const cols=r.w<560?2:1,ow=(r.w-(cols-1)*6)/cols,rows=Math.ceil(e.options.length/cols),roomy=bottom-y>=rows*50+150;
+        if(!answered||roomy){const top=y;e.options.forEach((o,k)=>{this.button(U,'drill-option-'+k,o,r.x+(k%cols)*(ow+6),top+Math.floor(k/cols)*50,ow,()=>{if(D.chosen[D.i]===undefined){D.chosen[D.i]=k;this.announce(k===e.correct?'Esatto.':'La risposta corretta è '+e.options[e.correct]+'.');}},{active:answered&&k===e.correct,disabled:answered&&k!==e.correct&&k!==pick});U.buttons.at(-1).label=`Risposta ${'ABCD'[k]}: ${o}`;});y=top+rows*50+4;}
+        if(answered){para(pick===e.correct?`Esatto: ${e.options[e.correct]}.`:`Hai scelto ${e.options[pick]}; la risposta corretta è ${e.options[e.correct]}.`,'mini',pick===e.correct?C.lime:C.amber,20);y+=4;for(const st of e.steps)if(!para(st,'micro',C.muted,18))break;}
+        const bw=Math.min(64,(r.w-18)/5),mw=(r.w-2*bw-18)/2,by=r.y+r.h-46;
+        this.button(U,'drill-prev','◂',r.x,by,bw,()=>D.i--,{disabled:D.i<=0});U.buttons.at(-1).label='Esercizio precedente';
+        this.button(U,'drill-rapporto',r.w<560?'Rapporto':'Torna al Rapporto',r.x+bw+6,by,mw,()=>this.open('rapporto'));
+        const chapter=!!this.api.hasChapter?.(e.unit);this.button(U,'drill-unit',r.w<560?'UNITÀ':'APRI L’UNITÀ',r.x+bw+mw+12,by,mw,()=>chapter?this.api.openChapter(e.unit):this.api.openCourse(e.unit),{active:true});U.buttons.at(-1).label='Apri l’unità '+(unit?.title||e.unit);
+        this.button(U,'drill-next','▸',r.x+r.w-bw,by,bw,()=>D.i++,{disabled:D.i>=D.list.length-1});U.buttons.at(-1).label='Esercizio successivo';
     }
     /** The Rapporto (1.50.0): forecast of the next incursion of the Sciame by arm, what the Sciame has
      * learned, the score of the forecasts, samples, keys and free drones, and the last incursions. */
     rapportoUI(U,r){const F=this.world.frontier;if(!F){this.text('Il fronte non è ancora attivo.',r.x,r.y,r.w,'body');return;}
-        const rp=rapporto(F),R=this.R,scale=this.prefs.textScale,wide=r.w>=720,cyan=color('#7fe3ff'),end=r.y+r.h;let y=r.y;
+        const rp=rapporto(F),R=this.R,scale=this.prefs.textScale,wide=r.w>=720,cyan=color('#7fe3ff'),end=r.y+r.h-54;let y=r.y;
+        this.button(U,'rapporto-esercizi','Esercizi sul Rapporto',r.x,r.y+r.h-46,Math.min(r.w,360),()=>this.openExercises(),{active:true});U.buttons.at(-1).label='Esercizi di probabilità e statistica con i numeri del Rapporto';
         // Wrapped paragraph within the body: returns false when the body is full.
         const para=(t,style,tint,lh)=>{for(const line of fittedRows(R,[t],r.w/scale,style)){if(y+lh>end)return false;scaledText(R,line,r.x,y,style,tint,scale);y+=lh*scale;}return true;};
         para(`Previsione statistica della prossima incursione, attesa fra circa ${rp.next} s. Vale per molte incursioni insieme: una sola può smentirla.`,'mini',C.muted,20);y+=8;
@@ -235,7 +263,10 @@ export class AtlasUI {
         this.text(m.title,r.x,r.y+54,r.w,'body',C.pale,Math.min(this.prefs.textScale,1.2));
         const lw=(r.w-12)/3;['SCOPRI','COMPRENDI','AVANZATO'].forEach((label,i)=>this.button(U,'level-'+i,label,r.x+i*(lw+6),r.y+86,lw,()=>{this.level=i;this.previewPage=0;},{active:this.level===i}));
         const level=['base','intermediate','advanced'][this.level],paragraphs=[m.title,...d.steps[0].text[level]];
-        this.body(U,paragraphs,{x:r.x-14,y:r.y+140,w:r.w+28,h:r.h-194});
+        const drill=EXERCISE_UNITS.includes(m.id)&&!!this.world.frontier;
+        this.body(U,paragraphs,{x:r.x-14,y:r.y+140,w:r.w+28,h:r.h-194-(drill?52:0)});
+        // Units with exercises on the Rapporto (1.52.0) lead to them.
+        if(drill){this.button(U,'detail-esercizi',r.w<560?'Esercizi nella galassia':'Esercizi nella galassia: il Rapporto sullo Sciame',r.x,r.y+r.h-98,r.w,()=>this.openExercises());U.buttons.at(-1).label='Esercizi di probabilità e statistica con i numeri del Rapporto sullo Sciame della Frontiera';}
         const w=(r.w-6)/2;this.button(U,'detail-enter','SISTEMA 3D',r.x,r.y+r.h-46,w,()=>this.api.enterSystem(sys));const chapter=!!this.api.hasChapter?.(m.id);this.button(U,'learn',chapter?'LEGGI IL CAPITOLO':'APRI L’UNITÀ',r.x+w+6,r.y+r.h-46,w,()=>chapter?this.api.openChapter(m.id):this.api.openCourse(m.id),{active:true});
     }
     routesUI(U,r){const rows=[{id:null,title:'NESSUN PERCORSO · Esplorazione libera'},...this.bundle.paths],cap=Math.max(1,Math.floor((r.h-108)/50)),pages=Math.max(1,Math.ceil(rows.length/cap));this.page=clamp(this.page,0,pages-1);
@@ -291,6 +322,7 @@ export class AtlasUI {
         if(this.sheet==='detail'){const d=this.bundle.courses.find(d=>d.id===this.catalogue.modules[this.S.selected].id);text+=' '+d.steps[0].text[['base','intermediate','advanced'][this.level]].join(' ')+' Ambito: '+d.scope;}
         if(this.sheet==='guide')text+=' Guida, '+GUIDE[this.guideStep].title+'. '+GUIDE[this.guideStep].text;
         if(this.sheet==='rapporto'&&this.world.frontier)text+=' '+rapporto(this.world.frontier).text;
+        if(this.sheet==='esercizi'&&this.drill?.list.length){const D=this.drill,e=D.list[clamp(D.i,0,D.list.length-1)],pick=D.chosen[D.i];text+=` Esercizio ${D.i+1} di ${D.list.length}, ${e.title}. ${e.prompt} Risposte: ${e.options.map((o,k)=>'ABCD'[k]+', '+o).join('; ')}.`+(pick===undefined?'':` ${pick===e.correct?'Esatto.':'La risposta corretta è '+e.options[e.correct]+'.'} ${e.steps.join(' ')}`);}
         if(this.sheet==='list')text+=' '+this.results.length+' risultati per '+(this.query||'tutti gli argomenti')+'.';
         if(this.path)text+=' Percorso attivo: '+this.path.title+'.';
         const e=this.explored,ps=this.passagesFrom(system.id);
