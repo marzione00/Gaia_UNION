@@ -1,3 +1,10 @@
+# 1.53.0: Esercizi sulle stazioni
+
+- Le ricette delle stazioni diventano esercizi per «Stechiometria e reagente limitante» (chemistry-14) e «Velocità di reazione» (chemistry-17): una stazione lavora come una reazione a proporzioni fisse. Hanno esercizi le 178 stazioni che trasformano almeno due merci in prodotti.
+- Cinque esercizi: merce limitante e tempo prima che finisca, merce in eccesso, proporzione fra una merce e il prodotto, velocità media da due letture del magazzino, condizioni che rallentano il lavoro. Le scorte sono quelle del sistema aperto quando la stazione è lì; lo svolgimento distingue le stazioni che si fermano da quelle che rallentano a metà ritmo.
+- Si aprono dalla scheda del catalogo 3D («Esercizi sulla stazione») e dalla scheda delle due unità sulla mappa. Su schermo largo prendono il posto della scheda accanto al modello; su telefono occupano la pagina, con le risposte due per riga.
+- Nuovi `src/craft/esercizi-catene.js` e `tests/catene.test.mjs`; il collaudo dell'applicazione apre gli esercizi da una stazione e da un'unità di chimica.
+
 # 1.52.0: Esercizi sul Rapporto
 
 - Il Rapporto sullo Sciame diventa materia di esercizio per «Combinatoria, probabilità e statistica» (math-c10) e «Probabilità, informazione e fenomeni collettivi» (math-p07). Cinque esercizi con i numeri del momento: probabilità dai pesi, valore atteso dell'ondata, probabilità totale di respingere un'incursione, punteggio di Brier delle ultime previsioni, scarto in deviazioni standard fra colpi osservati e attesi.

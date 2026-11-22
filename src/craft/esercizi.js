@@ -6,7 +6,7 @@
 import { seededRandom, DISCIPLINE_NAMES } from '../scene/layout.js';
 
 export const EXERCISE_UNITS = Object.freeze(['math-c10', 'math-p07']);
-const dec = (v, k = 2) => v.toFixed(k).replace('.', ',').replace(/^-(0,0*)$/, '$1');
+export const dec = (v, k = 2) => v.toFixed(k).replace('.', ',').replace(/^-(0,0*)$/, '$1');
 const pct = (v, k = 1) => dec(v * 100, k) + ' %';
 const round = (v, k) => Math.round(v * 10 ** k) / 10 ** k;
 const arm = k => 'della ' + DISCIPLINE_NAMES[k];
@@ -18,7 +18,7 @@ function shares(values) {
     return base.map(v => v / 1000);
 }
 /** Four options: the answer and three mistakes, distinct once written, in an order fixed by the random source. */
-function options(R, answer, mistakes, write) {
+export function options(R, answer, mistakes, write) {
     const seen = new Set([write(answer)]), wrong = [];
     for (const m of mistakes) { if (wrong.length === 3 || !Number.isFinite(m)) continue; const t = write(m); if (!seen.has(t)) { seen.add(t); wrong.push(t); } }
     if (wrong.length < 3) return null;

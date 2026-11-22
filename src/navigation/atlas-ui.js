@@ -7,6 +7,7 @@ import { DISCIPLINES, TEXT_SCALES, GUIDE, cleanAtlas, atlasLayout, contains, pla
 import { scaledText } from './text.js';
 import { rapporto } from '../craft/swarm.js';
 import { exercises, EXERCISE_UNITS } from '../craft/esercizi.js';
+import { CHAIN_UNITS } from '../craft/esercizi-catene.js';
 import { exploration, passagesOf, passageLabel } from './passages.js';
 import { systemForPlanet, indicesForSystem, AREAS, SYSTEM_COUNT, UNIT_COUNT } from '../scene/systems.js';
 const SECTOR_COLORS=DISCIPLINE;
@@ -263,10 +264,10 @@ export class AtlasUI {
         this.text(m.title,r.x,r.y+54,r.w,'body',C.pale,Math.min(this.prefs.textScale,1.2));
         const lw=(r.w-12)/3;['SCOPRI','COMPRENDI','AVANZATO'].forEach((label,i)=>this.button(U,'level-'+i,label,r.x+i*(lw+6),r.y+86,lw,()=>{this.level=i;this.previewPage=0;},{active:this.level===i}));
         const level=['base','intermediate','advanced'][this.level],paragraphs=[m.title,...d.steps[0].text[level]];
-        const drill=EXERCISE_UNITS.includes(m.id)&&!!this.world.frontier;
+        const chain=CHAIN_UNITS.includes(m.id)&&!!this.api.openStationDrill,drill=chain||EXERCISE_UNITS.includes(m.id)&&!!this.world.frontier;
         this.body(U,paragraphs,{x:r.x-14,y:r.y+140,w:r.w+28,h:r.h-194-(drill?52:0)});
-        // Units with exercises on the Rapporto (1.52.0) lead to them.
-        if(drill){this.button(U,'detail-esercizi',r.w<560?'Esercizi nella galassia':'Esercizi nella galassia: il Rapporto sullo Sciame',r.x,r.y+r.h-98,r.w,()=>this.openExercises());U.buttons.at(-1).label='Esercizi di probabilità e statistica con i numeri del Rapporto sullo Sciame della Frontiera';}
+        // Units with exercises on the Rapporto (1.52.0) or on the stations of the catalogue (1.53.0) lead to them.
+        if(drill){this.button(U,'detail-esercizi',r.w<560?'Esercizi nella galassia':chain?'Esercizi nella galassia: le stazioni del catalogo':'Esercizi nella galassia: il Rapporto sullo Sciame',r.x,r.y+r.h-98,r.w,()=>chain?(this.close(),this.api.openStationDrill(m.id)):this.openExercises());U.buttons.at(-1).label=chain?'Esercizi di stechiometria e velocità con le ricette delle stazioni':'Esercizi di probabilità e statistica con i numeri del Rapporto sullo Sciame della Frontiera';}
         const w=(r.w-6)/2;this.button(U,'detail-enter','SISTEMA 3D',r.x,r.y+r.h-46,w,()=>this.api.enterSystem(sys));const chapter=!!this.api.hasChapter?.(m.id);this.button(U,'learn',chapter?'LEGGI IL CAPITOLO':'APRI L’UNITÀ',r.x+w+6,r.y+r.h-46,w,()=>chapter?this.api.openChapter(m.id):this.api.openCourse(m.id),{active:true});
     }
     routesUI(U,r){const rows=[{id:null,title:'NESSUN PERCORSO · Esplorazione libera'},...this.bundle.paths],cap=Math.max(1,Math.floor((r.h-108)/50)),pages=Math.max(1,Math.ceil(rows.length/cap));this.page=clamp(this.page,0,pages-1);
