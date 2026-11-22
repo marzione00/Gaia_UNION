@@ -1,4 +1,5 @@
-import { asteroidBelt, cometTail } from './minor-bodies.js';
+import { beltRing, dustBand, unitTail } from './minor-bodies.js';
+import { distanceMap, systemBelts, systemComets, cometState, streamOf, meteorShowers, showerState, ringOmega, years, visViva } from './comete.js';
 import { createCosmos, enrichCosmicStars, regionAt } from './cosmos.js';
 import { galaxyCamera } from '../navigation/atlas-model.js';
 import { MIN_STARS, SYSTEM_SCALE, buildSystems, bodyAtTime, systemArchitecture, systemPlanet, systemForPlanet, indicesForSystem, pickProjected } from './systems.js';
@@ -75,7 +76,7 @@ export function shellOf(p, haze = .5) {
 /** What the docked ships are doing, for the panel «Che cosa succede» (1.58.0). */
 const TASKS = { carica: 'Carica merci', scarica: 'Scarica merci', sosta: 'Sosta', osserva: 'Osserva il pianeta', varo: 'Appena varata', intercetta: 'In posizione di tiro', arrivo: 'Arrivo alla porta', partenza: 'Partenza' };
 /** Distance of the camera from a followed object, in radii of the object, when the follow starts. */
-export const FOLLOW_ZOOM = Object.freeze({ service: 9, ship: 8, station: 6, planet: 5, star: 3.6 }), FOLLOW_LIMITS = Object.freeze([2.2, 40]);
+export const FOLLOW_ZOOM = Object.freeze({ service: 9, ship: 8, station: 6, planet: 5, star: 3.6, comet: 7, belt: 3.2 }), FOLLOW_LIMITS = Object.freeze([2.2, 40]);
 const CHAIN_IDS = new Set(CHAIN_STATIONS.map(e => e.id));
 /** Layout of the follow mode (1.58.0) on a screen of w × h pixels: the panel «Che cosa succede» and the point
  * of the screen where the followed object sits, between the title and the panel on phones, between the list
@@ -261,15 +262,15 @@ export class World {
     }
     bindStars(stars, modules) {
         this.systems=buildSystems(stars,modules);this.cosmos=createCosmos(this.systems);this.R.cosmos=this.cosmos;enrichCosmicStars(stars,this.cosmos,this.systems);
-        const rock=sphereMesh(6,4);
         for(const system of this.systems){
             for(const body of system.bodies)this.R.makeMesh('orbit-'+body.id,orbitMesh(body));
-            if(system.id%3===1){const belt=asteroidBelt(system,rock);system.belt={count:belt.count,inner:belt.inner,outer:belt.outer};this.R.makeMesh('belt-'+system.id,belt);}
-            if(system.id%9===3){
-                const head=[-system.outerRadius*.6,2.2,-system.outerRadius*.65];system.comet={head};
-                this.R.makeMesh('ion-tail-'+system.id,cometTail(head,7,.16));this.R.makeMesh('dust-tail-'+system.id,cometTail(head,5,.42,1.5));
-            }
+            // Belts and comets (1.60.0, src/scene/comete.js): an icy belt in every system, a rocky one where a gap
+            // between the planets leaves room near the snow line, one or two comets with their meteoroid streams;
+            // the meshes of the belts are built when the system is drawn.
+            minorBodies(system);
+            if(this.R.makeInstances)system.comets.forEach((c,k)=>{const p=streamOf(c,system.map),d=new Float32Array(p.length/3*8);for(let j=0;j<p.length/3;j++)d.set([p[j*3],p[j*3+1],p[j*3+2],.022,.82,.74,.6,.24],j*8);this.R.makeInstances(`stream-${system.id}-${k}`,'lowSphere',d);});
         }
+        this.R.makeMesh('comet-ion',unitTail(.025));this.R.makeMesh('comet-dust',unitTail(.085,.3));
         return this.systems;
     }
     systemPosition(id) { return this.systems[id]?.position || [0,0,0]; }
@@ -375,13 +376,33 @@ export class World {
         R.drawMesh('sphere',this.vp,transform(...origin,starRadius*1.19),{eye:this.eye,material:11,tint:[...starColor,1],opacity:.75,radius:starRadius,center:origin});
         // Soft glow in the colour of the star, brightest towards the centre of the disc.
         if(s.scene!=='galaxy')R.drawMesh('sphere',this.vp,transform(...origin,starRadius*2.8),{eye:this.eye,material:17,tint:[...starColor,1],opacity:.9,radius:starRadius,center:origin});
-        if(system.belt)R.drawMesh('belt-'+id,this.vp,transform(...origin,scale,s.time*.0008),{eye:this.eye,center:origin,material:15,texture:this.textures.moon});
-        if(system.comet){
-            const head=map(system.comet.head);
-            R.drawMesh('lowSphere',this.vp,transform(...head,.075*scale),{eye:this.eye,material:12,texture:this.textures.moon});
-            R.drawMesh('dust-tail-'+id,this.vp,transform(...origin,scale),{eye:this.eye,material:14,tint:[.6,.49,.28,1],opacity:.45});
-            R.drawMesh('ion-tail-'+id,this.vp,transform(...origin,scale),{eye:this.eye,material:14,tint:[.18,.56,.92,1],opacity:.65});
+        // Belts (1.60.0): every ring turns with the angular speed of an orbit at its radius, inner rings faster.
+        // Their meshes are built when a system is first drawn; the belts of the three systems drawn last stay.
+        if(system.belts&&!this.beltBuilt?.includes(id)){
+            const rock=this.beltRock??=sphereMesh(6,4);this.beltBuilt??=[];
+            system.belts.forEach((b,k)=>{b.rings.forEach((_,j)=>R.makeMesh(`belt-${id}-${k}-${j}`,beltRing(b,j,rock,Math.round(b.count/b.rings.length))));R.makeMesh(`belt-dust-${id}-${k}`,dustBand(b));});
+            this.beltBuilt.push(id);
+            if(this.beltBuilt.length>3){const old=this.beltBuilt.shift();this.systems[old].belts.forEach((b,k)=>{b.rings.forEach((_,j)=>R.deleteMesh?.(`belt-${old}-${k}-${j}`));R.deleteMesh?.(`belt-dust-${old}-${k}`);});}
         }
+        (system.belts||[]).forEach((b,k)=>{
+            const icy=b.kind==='ghiacciata';
+            b.rings.forEach((ring,j)=>R.drawMesh(`belt-${id}-${k}-${j}`,this.vp,transform(...origin,scale,-ring.omega*s.time),{eye:this.eye,center:origin,material:15,texture:this.textures.moon,tint:icy?[.85,.93,1,1]:[1,.9,.78,1]}));
+            R.drawMesh(`belt-dust-${id}-${k}`,this.vp,transform(...origin,scale),{eye:this.eye,material:14,tint:icy?[.62,.78,1,1]:[.95,.76,.52,1],opacity:icy?.8:.95});
+        });
+        // Comets on their ellipses: nucleus, coma and tails grow near the star; the ion tail points away from it,
+        // the dust tail bends back along the orbit. The meteoroid stream marks the whole orbit.
+        (system.comets||[]).forEach((c,k)=>{
+            const st=cometState(c,s.time,system.map,system.star),head=map(st.position),act=st.activity,coma=(.05+.22*Math.sqrt(act))*scale;
+            R.drawMesh('lowSphere',this.vp,transform(...head,.045*scale),{eye:this.eye,material:12,texture:this.textures.moon,light:st.out.map(v=>-v)});
+            if(R.instanceSets?.has(`stream-${id}-${k}`))R.drawMesh('lowSphere',this.vp,transform(...origin,scale),{eye:this.eye,material:17,instances:`stream-${id}-${k}`,instanceMode:6,blend:true});
+            if(act>0){
+                R.drawMesh('sphere',this.vp,transform(...head,coma*2.6),{eye:this.eye,material:17,tint:[.72,.88,1,1],opacity:.45+.45*act,radius:coma,center:head});
+                const ion=(.4+7*act**.7)*scale,dust=(.3+5*act**.7)*scale,trail=normal(st.out.map((v,i)=>v*.85-st.ahead[i]*.5));
+                R.drawMesh('comet-ion',this.vp,basisMatrix(head,st.out,st.ahead.map(v=>-v),ion),{eye:this.eye,material:14,tint:[.25,.62,1,1],opacity:.75*Math.min(1,act*3)});
+                R.drawMesh('comet-dust',this.vp,basisMatrix(head,trail,st.ahead.map(v=>-v),dust),{eye:this.eye,material:14,tint:[.85,.72,.45,1],opacity:.6*Math.min(1,act*3)});
+            }
+            if(s.scene==='system'&&!this.travelling){const xy=project(head,this.vp,R.w,R.h),apparent=coma*R.h/(2*Math.tan(this.fov/2)*xy[2]);this.projections.push({type:'comet',index:k,follow:{kind:'comet',k},name:c.name,lines:[`A ${dec2(st.r)} UA dalla stella, ${dec1(st.v)} km/s`,act>0?`Coda attiva al ${Math.round(act*100)} %`:'Nucleo spento, lontano dalla stella'],...xyToObj(xy),r:Math.max(11,apparent*1.3),position:head,worldRadius:coma});}
+        });
         for(const body of system.bodies){
             const p=bodyAtTime(body,s.time),center=map(p.position),radius=displayRadius(p)*scale;
             // Orbits of the units in the colour of the discipline; the others stay faint.
@@ -557,13 +578,14 @@ export class World {
         // tankers and escorts drawn as 3D models, one instanced call per kind. The plan follows the stations,
         // their levels and the graphics quality.
         if(C.list.length>1){
+            minorBodies(system);
             const kinds=C.list.map((item,k)=>({type:item.entry.type==='porta'?'porta':item.entry.works||item.entry.type,level:life.stations[k]?.level||1})),key=R.sceneQuality+':'+kinds.map(x=>x.level).join('');
-            if(C.serviceKey!==key){C.service=planService({stations:kinds,points:C.list.map((_,k)=>site({station:k}).position),belt:system.belt?{inner:system.belt.inner,outer:system.belt.outer}:null,quality:R.sceneQuality,time:s.time});C.serviceKey=key;}
+            if(C.serviceKey!==key){C.service=planService({stations:kinds,points:C.list.map((_,k)=>site({station:k}).position),belt:system.miningBelt?{inner:system.miningBelt.inner,outer:system.miningBelt.outer}:null,quality:R.sceneQuality,time:s.time});C.serviceKey=key;}
             if(!this.serviceReady){for(const k of SERVICE_KINDS)R.makeMesh('service-'+k,serviceMesh(k));this.serviceReady=true;}
             const docked=[],visitors=[];
             for(const ship of life.ships)if(ship.phase!=='travel'){const p=shipPose(ship,s.time,site,avoid);docked.push({id:ship.id,at:ship.at?.station??-1,position:p.position,forward:p.forward,name:ship.name,t0:ship.t0,t1:ship.t1});}
             for(const ship of life.visitors){const p=shipPose(ship,s.time,site,avoid);visitors.push({id:ship.id,position:p.position,forward:p.forward,name:ship.name,docked:ship.phase!=='travel'});}
-            const ctx={station:k=>site({station:k}),stationAt:(k,t)=>this.craftSite(system,{station:k},t),names:C.list.map(item=>item.entry.name),docked,visitors,beltSpin:.0008};C.serviceCtx={names:ctx.names,docked,visitors,beltSpin:.0008};const sets=Object.fromEntries(SERVICE_KINDS.map(k=>[k,[]]));let count=0;
+            const ctx={station:k=>site({station:k}),stationAt:(k,t)=>this.craftSite(system,{station:k},t),names:C.list.map(item=>item.entry.name),docked,visitors,belt:system.miningBelt?{omega:r=>ringOmega(system.miningBelt,r),au:r=>system.map.toAU(r),mass:system.star.mass,icy:system.miningBelt.kind==='ghiacciata'}:null};C.serviceCtx={names:ctx.names,docked,visitors,belt:ctx.belt};const sets=Object.fromEntries(SERVICE_KINDS.map(k=>[k,[]]));let count=0;
             for(const v of C.service){
                 const p=servicePose(v,s.time,ctx);if(!p.visible)continue;
                 const xy=project(p.position,this.vp,R.w,R.h);if(xy[2]<=0)continue;
@@ -710,19 +732,51 @@ export class World {
         if(place.beyond!==undefined)return 'fuori dal sistema';
         const body=system.bodies.find(b=>b.slot===place.body);return 'corpo '+(body.slot+1)+' ('+body.profile.name.toLowerCase()+')';
     }
+    /** Shooting stars in the sky of the surface at `s.time` (1.60.0): none without an atmosphere. Each meteor
+     * is a function of its slot of time, so the sky is the same for the same time. */
+    meteors(s){
+        const g=this.surface.genome;if(!g||g.atmosphere.density<APPRECIABLE_DENSITY)return [];
+        const system=this.systems?.find(x=>x.bodies.some(b=>b.index===s.selected));let shower=null;
+        if(system){minorBodies(system);system.showers??=meteorShowers(system,system.comets,system.map);const body=system.bodies.find(b=>b.index===s.selected),list=system.showers.get(body.slot)||[];for(const sh of list){const st=showerState(body,sh,s.time);if(st.active&&(!shower||st.strength>shower.strength))shower={...sh,...st};}}
+        // The meteors fall in the part of the sky in front of the camera, low enough to be in view.
+        const out=[],life=.9,eye=this.eye,t=this.target||[0,0,0],look=Math.atan2(t[2]-eye[2],t[0]-eye[0]),pitch=Math.atan2(t[1]-eye[1],Math.hypot(t[0]-eye[0],t[2]-eye[2])),fov=this.fov||.8,hash=(n,k)=>{const x=Math.sin(n*127.1+k*311.7)*43758.5453;return x-Math.floor(x);};
+        const one=(n,dt,radiant,salt=0)=>{
+            const t0=n*dt+hash(n+salt,1)*dt*.6,u=(s.time-t0)/life;if(u<0||u>1)return;
+            const az=look+(hash(n+salt,2)-.5)*fov*1.6,el=Math.max(.04,pitch+fov*(.12+.3*hash(n+salt,3))),dir=[Math.cos(el)*Math.cos(az),Math.sin(el),Math.cos(el)*Math.sin(az)];
+            let move=radiant?normal(dir.map((v,i)=>v-radiant[i])):normal([Math.cos(az+(hash(n+salt,5)<.5?1.4:-1.4)),-.35,Math.sin(az+(hash(n+salt,5)<.5?1.4:-1.4))]);
+            const start=dir.map((v,i)=>eye[i]+v*55),head=start.map((v,i)=>v+move[i]*14*u);
+            out.push({head,back:move.map(v=>-v),length:4+5*hash(n+salt,4),opacity:Math.sin(u*Math.PI)});
+        };
+        const now=s.time;for(let n=Math.floor(now/7)-1;n<=Math.floor(now/7);n++)one(n,7,null);
+        if(shower){const er=Math.max(.1,pitch+fov*.5),r=[Math.cos(look+Math.sin(shower.mean*7)*.4)*Math.cos(er),Math.sin(er),Math.sin(look+Math.sin(shower.mean*7)*.4)*Math.cos(er)],dt=.8/Math.max(.25,shower.strength);for(let n=Math.floor(now/dt)-2;n<=Math.floor(now/dt);n++)one(n,dt,normal(r),100000);}
+        return out;
+    }
     /** The object followed by the camera in the open system (1.58.0), resolved at `s.time`: its position and
      * radius for the camera, and the subject of the panel «Che cosa succede» (src/craft/succede.js). Null
      * when the object has left the scene: a ship gone beyond the gate, a plan of the service traffic made
      * again for a new quality. */
     followSubject(s){
-        const f=s.follow,id=s.system,system=this.systems[id];if(!f||!system)return null;
+        const f=s.follow,id=s.system,system=this.systems[id];if(!f||!system)return null;minorBodies(system);
         const arch=systemArchitecture(id),star=arch.star;
         if(f.kind==='star')return {kind:'star',position:[0,0,0],radius:system.starRadius,subject:{kind:'star',name:`Stella di «${system.name}»`,spt:star.spt,teff:star.teff,L:star.luminosity,R:star.radius,M:star.mass}};
+        if(f.kind==='comet'){
+            const c=system.comets?.[f.k];if(!c)return null;
+            const st=cometState(c,s.time,system.map,star),act=st.activity,M=star.mass;
+            return {kind:'comet',position:st.position,radius:Math.max(.12,.05+.22*Math.sqrt(act)),subject:{kind:'comet',name:c.name,r:st.r,q:c.q,Q:c.Q,a:c.a,e:c.e,years:years(c.a,M),v:st.v,vq:visViva(c.q,c.a,M),vQ:visViva(c.Q,c.a,M),activity:act,flux:st.flux,ract:st.ract,ion:act>0?.4+7*act**.7:0,dust:act>0?.3+5*act**.7:0,retro:c.inclination>Math.PI/2,L:star.luminosity,M}};
+        }
+        if(f.kind==='belt'){
+            const b=system.belts?.[f.k];if(!b)return null;
+            const mid=(b.inner+b.outer)/2,a=f.angle+ringOmega(b,mid)*s.time;
+            return {kind:'belt',position:[Math.cos(a)*mid,0,Math.sin(a)*mid],radius:(b.outer-b.inner)/2,subject:{kind:'belt',name:b.name,icy:b.kind==='ghiacciata',aIn:b.aIn,aOut:b.aOut,M:star.mass,count:b.count,inner:b.inner,outer:b.outer,laps:b.rings.map(r=>2*Math.PI/r.omega)}};
+        }
         if(f.kind==='planet'){
             const body=system.bodies.find(b=>b.slot===f.slot);if(!body)return null;
             const unit=Number.isInteger(body.index)?body.index:null,card=unit===null?null:(physics??=planetPhysics())[unit];
             const genome=unit===null?null:planetGenomes()[unit]?.atmosphere,atm=card&&genome?{pressure:card.pressure,tau:card.tau,teq:card.teq,ts:card.ts,greenhouse:card.greenhouse,albedo:card.albedo,exosphere:card.exosphere,sky:genome.sky,haze:genome.haze,clouds:genome.clouds}:null;
-            return {kind:'planet',position:bodyAtTime(body,s.time).position,radius:displayRadius(body),subject:{kind:'planet',name:body.profile.name,a:body.a,M:star.mass,L:star.luminosity,teff:star.teff,atm,unit:unit===null?null:{index:unit}}};
+            // Meteor showers (1.60.0): the streams of the comets this planet crosses, computed once per system.
+            system.showers??=meteorShowers(system,system.comets||[],system.map);
+            const showers=(system.showers.get(body.slot)||[]).map(sh=>({...sh,...showerState(body,sh,s.time)})),air=atm?!atm.exosphere:!!body.profile.atmosphere;
+            return {kind:'planet',position:bodyAtTime(body,s.time).position,radius:displayRadius(body),subject:{kind:'planet',name:body.profile.name,a:body.a,M:star.mass,L:star.luminosity,teff:star.teff,atm,air,showers,unit:unit===null?null:{index:unit}}};
         }
         const C=this.craft;if(C.system!==id||!C.life)return null;
         const life=C.life,site=place=>this.craftSite(system,place,s.time),avoid=system.starRadius*2.2+1;
@@ -795,6 +849,9 @@ export class World {
             const share=R.sceneQuality==='low'?.4:R.sceneQuality==='balanced'?.7:1;
             (this.population||[]).forEach((p,k)=>{const b=BODIES[p.species.mesh];if(p.instances.length)R.drawMesh(b[0],this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:'planet-sp-'+k,instanceMode:b[1],motion:b[2],pbr:b[3],count:Math.max(1,Math.ceil(p.instances.length*share))});});
             if(R.instanceSets?.has('planet-geyser'))R.drawMesh('lowSphere',this.vp,id,{eye:this.eye,light,material:19,instances:'planet-geyser',instanceMode:2,motion:[.16,10,.7,0],opacity:.32});
+            // Shooting stars (1.60.0) on worlds with an atmosphere: a sporadic one every 7 s, one every 0.8 s while
+            // the planet crosses the stream of a comet, radiating from one point of the sky.
+            for(const m of this.meteors(s))R.drawMesh('comet-ion',this.vp,basisMatrix(m.head,m.back,[0,1,0],m.length),{eye:this.eye,material:14,tint:[1,1,.92,1],opacity:m.opacity});
             // Aurora in sky coordinates around the eye, swaying slowly; drawn after the ground, so the relief hides it.
             if(this.aurora){const m=transform(...this.eye,1,Math.sin(s.time*.05)*.03);R.drawMesh('planet-aurora',this.vp,m,{eye:this.eye,material:16,tint:[.35,1,.62,1],opacity:.4});const m2=transform(this.eye[0],this.eye[1]+18,this.eye[2],1.04,Math.sin(s.time*.05+1)*.03);R.drawMesh('planet-aurora',this.vp,m2,{eye:this.eye,material:16,tint:[1,.35,.5,1],opacity:.18});}
             if(R.instanceSets?.has('planet-rocks'))R.drawMesh('world-rock',this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:'planet-rocks',instanceMode:1,pbr:[0,.9,0,1]});
@@ -862,7 +919,11 @@ export class World {
             // craft (1.57.0) must leave the planets and the stations reachable. A mark behind the stellar disc
             // gives way to the star, which can be followed (1.58.0).
             const star=project([0,0,0],this.vp,this.R.w,this.R.h),r=star[2]>0?this.systems[s.system].starRadius*this.R.h/(2*Math.tan(this.fov/2)*star[2]):0,onStar=star[2]>0&&Math.hypot(star[0]-x,star[1]-y)<Math.max(10,r);
-            const hit=this.projections.filter(p=>p.depth>0&&Math.hypot(p.x-x,p.y-y)<=p.r&&!(onStar&&star[2]<p.depth)).sort((a,b)=>(Math.hypot(a.x-x,a.y-y)/a.r-Math.hypot(b.x-x,b.y-y)/b.r)||a.depth-b.depth)[0];
+            // Belts (1.60.0): the point of the middle of a belt nearest to the pointer, within 12 pixels.
+            const system=this.systems[s.system],marks=[...this.projections];
+            (system.belts||[]).forEach((b,k)=>{const mid=(b.inner+b.outer)/2;let best=null;for(let j=0;j<96;j++){const a=j/96*Math.PI*2,q=project([Math.cos(a)*mid,0,Math.sin(a)*mid],this.vp,this.R.w,this.R.h);if(q[2]>0){const d=Math.hypot(q[0]-x,q[1]-y);if(!best||d<best.d)best={d,a,q};}}
+                if(best&&best.d<=12)marks.push({type:'belt',index:k,belt:b,follow:{kind:'belt',k,angle:best.a-b.rings[Math.floor(b.rings.length/2)].omega*s.time},...xyToObj(best.q),r:12});});
+            const hit=marks.filter(p=>p.depth>0&&Math.hypot(p.x-x,p.y-y)<=p.r&&!(onStar&&star[2]<p.depth)).sort((a,b)=>(Math.hypot(a.x-x,a.y-y)/a.r-Math.hypot(b.x-x,b.y-y)/b.r)||a.depth-b.depth)[0];
             return hit||(onStar?{type:'star',index:s.system,x:star[0],y:star[1],depth:star[2],r:Math.max(10,r)}:null);
         }
         if(s.scene==='surface'){
@@ -879,5 +940,20 @@ export class World {
     }
 }
 function xyToObj(p) { return { x: p[0], y: p[1], depth: p[2] }; }
+/** Belts, comets and the map of distances of a system (1.60.0), computed once and kept on the system. */
+export function minorBodies(system) {
+    // `belt` keeps its meaning for the stations (src/craft/placement.js): the outer belt of the systems whose id
+    // leaves remainder 1 on division by 3, as before 1.60.0; the miners work the rocky belt where there is one.
+    if (!system.map) { system.map = distanceMap(system); system.belts = systemBelts(system, system.map); system.comets = systemComets(system); const icy = system.belts.find(b => b.kind === 'ghiacciata'); system.belt = system.id % 3 === 1 ? icy : null; system.miningBelt = system.belts.find(b => b.kind === 'rocciosa') || system.belt; }
+    return system;
+}
+/** Model matrix with +z along `axis`, +x towards `side` (made perpendicular) and uniform scale (1.60.0). */
+export function basisMatrix(position, axis, side, scale) {
+    const z = normal(axis), d = side[0] * z[0] + side[1] * z[1] + side[2] * z[2];
+    let x = side.map((v, i) => v - d * z[i]); if (Math.hypot(...x) < 1e-6) x = Math.abs(z[1]) < .9 ? normal(cross([0, 1, 0], z)) : [1, 0, 0]; x = normal(x);
+    const y = cross(z, x);
+    return new Float32Array([...x.map(v => v * scale), 0, ...y.map(v => v * scale), 0, ...z.map(v => v * scale), 0, ...position, 1]);
+}
+const dec1 = v => v.toFixed(1).replace('.', ','), dec2 = v => (v < 10 ? v.toFixed(2) : v.toFixed(1)).replace('.', ',');
 /** Identity of a followed object, for the camera transition. */
 export function followKey(f) { return f.kind + ':' + (f.k ?? f.id ?? f.slot ?? '') + (f.visitor ? 'v' : ''); }

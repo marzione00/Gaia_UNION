@@ -10,11 +10,13 @@ export const CONCEPT_UNITS = Object.freeze({
     'physics-02': 'Vettori e sistemi di riferimento',
     'physics-03': 'Moto rettilineo uniforme',
     'physics-04': 'Moto uniformemente accelerato',
-    'physics-10': 'Rotazione e momento d’inerzia',
+    'physics-08': 'Lavoro ed energia',
+    'physics-12': 'Gravitazione',
     'physics-13': 'Orbite circolari',
     'physics-26': 'Onde elettromagnetiche e pressione della luce',
     'biology-23': 'Atmosfere, effetto serra e clima',
     'physics-30': 'Radiazione termica e luce delle stelle',
+    'chemistry-11': 'Stati della materia e transizioni',
     'chemistry-14': 'Stechiometria e reagente limitante',
     'chemistry-15': 'Resa e bilanci di materia',
     'chemistry-17': 'Velocità di reazione',
@@ -57,6 +59,8 @@ export function whatHappens(x) {
     if (x.kind === 'service') return service(x);
     if (x.kind === 'planet') return planet(x);
     if (x.kind === 'star') return star(x);
+    if (x.kind === 'comet') return comet(x);
+    if (x.kind === 'belt') return belt(x);
     throw new Error('oggetto sconosciuto: ' + x.kind);
 }
 function ship(x) {
@@ -123,9 +127,13 @@ function service(x) {
         return { ...base, rows, concept: concept('physics-13', `${what} Nel moto circolare uniforme la velocità è v = 2πR/T = ωR: con R = ${dec(f.R, 2)} u e un giro in ${dec(period, 1)} s risulta ${dec(v, 3)} u/s, sempre tangente alla circonferenza.`) };
     }
     if (x.role === 'fascia') {
-        const v = f.omega * f.r, period = TAU / f.omega;
-        return { ...base, rows: [['Distanza dalla stella', dec(f.r, 2) + ' u'], ['Velocità angolare', dec(f.omega, 4) + ' rad/s'], ['Velocità', dec(v, 4) + ' u/s'], ['Stiva', `piena al ${dec(f.fill * 100, 0)} %`]],
-            concept: concept('physics-10', `Il minatore si muove con la fascia, che ruota come un corpo rigido: ogni roccia compie un giro in ${dec(period, 0)} s, con la stessa velocità angolare ω = ${dec(f.omega, 4)} rad/s. La velocità lineare cresce con la distanza dal centro, v = ωr = ${dec(v, 4)} u/s a ${dec(f.r, 2)} u.`) };
+        // A belt turns in rings (1.60.0): each rock orbits on its own, with the period of Kepler's third law.
+        const v = f.omega * f.r, lap = TAU / f.omega, rows = [['Distanza dalla stella', f.au ? dec(f.au, f.au < 10 ? 2 : 1) + ' UA' : dec(f.r, 2) + ' u'], ['Un giro sulla mappa', dec(lap, 0) + ' s'], ['Velocità sulla mappa', dec(v, 3) + ' u/s'], ['Stiva', `piena al ${dec(f.fill * 100, 0)} %`]];
+        if (f.au && f.mass) {
+            const T = Math.sqrt(f.au ** 3 / f.mass); rows.splice(1, 0, ['Periodo orbitale', dec(T, T < 10 ? 2 : 1) + ' anni']);
+            return { ...base, rows, concept: concept('physics-13', `Il minatore segue le rocce del suo anello: in una cintura ogni roccia orbita per conto suo, e per la terza legge di Keplero, T² = a³/M, il periodo cresce con la distanza. A ${dec(f.au, 2)} UA da una stella di ${dec(f.mass, 2)} masse solari un giro dura ${dec(T, 2)} anni; sulla mappa, accelerata, ${dec(lap, 0)} s, più degli anelli interni.`) };
+        }
+        return { ...base, rows, concept: concept('physics-13', `Il minatore si muove con la fascia: con una velocità angolare ω = ${dec(f.omega, 4)} rad/s compie un giro in ${dec(lap, 0)} s, e a ${dec(f.r, 2)} u dal centro la sua velocità è v = ωr = ${dec(v, 4)} u/s.`) };
     }
     if (x.role === 'rifornimento') {
         const rows = [['Base', f.park], ['Nave', f.ship || 'Nessuna, in attesa']];
@@ -164,7 +172,32 @@ function planet(x) {
                 concept: concept('physics-26', `Le molecole dell'aria diffondono la luce con un'intensità proporzionale a 1/λ⁴: il blu a 450 nm è diffuso (700/450)⁴ = ${dec(ratio, 1)} volte più del rosso a 700 nm. ${why}`) });
         }
     }
+    if (x.showers?.length) {
+        // Meteor showers (1.60.0): the dust of a comet hits the planet at the relative speed of the two orbits.
+        const sh = x.showers[0], v = sh.speed, E = .5 * v * v, tnt = E / 4.184;
+        const rows = [['Sciame', `della ${sh.name.replace(/^Cometa/, 'cometa')}`], ['Stato', sh.active ? 'In corso' : `fra ${secs(sh.next)}`], ['Velocità d\'impatto', dec(v, 1) + ' km/s'], ['Energia di 1 g', dec(E, E < 10 ? 1 : 0) + ' kJ']];
+        if (x.showers.length > 1) rows.push(['Altro sciame', `della ${x.showers[1].name.replace(/^Cometa/, 'cometa')}`]);
+        const end = x.air ? 'Nell\'aria il granello si ferma in pochi secondi, la scalda e la fa brillare: è una stella cadente.' : 'Senza un\'atmosfera che lo fermi, il granello arriva al suolo e scava un piccolo cratere.';
+        pages.push({ key: 'meteore', label: 'METEORE', rows, concept: concept('physics-08', `Una volta per giro il pianeta attraversa la scia di polvere della ${sh.name.replace(/^Cometa/, 'cometa')}, che lo colpisce a ${dec(v, 1)} km/s. Un granello di 1 g porta l'energia cinetica ½mv² = ½ × 0,001 kg × (${dec(v * 1000, 0)} m/s)² = ${dec(E, 0)} kJ, quanto ${tnt < 1000 ? dec(tnt, 0) + ' g' : dec(tnt / 1000, 1) + ' kg'} di tritolo. ${end}`) });
+    }
+    if (pages.length > 3) pages.forEach(p => { if (p.key === 'atmosfera') p.label = 'ARIA'; });
     return { tag: x.unit ? 'PIANETA DI STUDIO' : 'PIANETA DI CONTORNO', title: x.name, subtitle: x.unit ? x.unit.title : 'Pianeta senza unità di studio', style: null, open: x.unit ? x.unit.id : null, rows: orbit.rows, concept: orbit.concept, pages: pages.length > 1 ? pages : null };
+}
+function comet(x) {
+    // Kepler's laws and the vis-viva equation on the ellipse; sublimation of the ices near the star.
+    const T = x.years, period = T < 2 ? dec(T * 365.25, 0) + ' giorni' : dec(T, T < 100 ? 1 : 0) + ' anni';
+    const orbit = { key: 'orbita', label: 'ORBITA', rows: [['Distanza dalla stella', dec(x.r, x.r < 10 ? 2 : 1) + ' UA'], ['Perielio e afelio', `${dec(x.q, x.q < 1 ? 3 : 2)} e ${dec(x.Q, x.Q < 10 ? 2 : 1)} UA`], ['Eccentricità', dec(x.e, 3)], ['Periodo', period], ['Velocità', dec(x.v, 1) + ' km/s']],
+        concept: concept('physics-12', `La cometa percorre un'ellisse con la stella in un fuoco, e il raggio che la unisce alla stella spazza aree uguali in tempi uguali: corre al perielio e si attarda all'afelio. La velocità segue v = √(GM(2/r − 1/a)): ${dec(x.vq, 1)} km/s al perielio, ${dec(x.vQ, 2)} km/s all'afelio, ora ${dec(x.v, 1)} km/s a ${dec(x.r, 2)} UA.${x.retro ? ' Gira in senso opposto ai pianeti, come la cometa di Halley.' : ''}`) };
+    const active = x.activity > 0;
+    const tail = { key: 'coda', label: 'CODA', rows: [['Luce ricevuta', `${dec(x.flux, x.flux < 10 ? 3 : 0)} volte la Terra`], ['Sublimazione', `entro ${dec(x.ract, 2)} UA`], ['Attività', dec(x.activity * 100, 0) + ' %'], ['Coda di ioni', active ? dec(x.ion, 1) + ' u' : 'Assente'], ['Coda di polveri', active ? dec(x.dust, 1) + ' u' : 'Assente']],
+        concept: concept('chemistry-11', `Il nucleo è ghiaccio e polvere. Vicino alla stella il ghiaccio sublima, cioè passa da solido a gas senza fondere: nel vuoto manca la pressione che serve al liquido. Per il Sole accade entro circa 3 UA, qui entro ${dec(x.ract, 2)} UA. ${active ? 'Il gas ionizzato, spinto dal vento stellare, forma la coda azzurra diritta; la polvere, spinta dalla pressione della luce, la coda curva.' : 'Ora la cometa è troppo lontana, e il nucleo resta spento.'}`) };
+    return { tag: 'COMETA', title: x.name, subtitle: x.retro ? 'Orbita retrograda' : 'Orbita diretta', style: null, rows: orbit.rows, concept: orbit.concept, pages: [orbit, tail] };
+}
+function belt(x) {
+    const tIn = Math.sqrt(x.aIn ** 3 / x.M), tOut = Math.sqrt(x.aOut ** 3 / x.M), y = t => dec(t, t < 10 ? 2 : 1) + ' anni';
+    return { tag: 'CINTURA', title: x.name, subtitle: x.icy ? 'Ghiaccio e roccia oltre i pianeti' : 'Roccia e metalli fra i pianeti', style: null,
+        rows: [['Distanza dalla stella', `da ${dec(x.aIn, x.aIn < 10 ? 2 : 1)} a ${dec(x.aOut, x.aOut < 10 ? 2 : 1)} UA`], ['Periodo al bordo interno', y(tIn)], ['Periodo al bordo esterno', y(tOut)], ['Giro sulla mappa', `da ${dec(Math.min(...x.laps), 0)} a ${dec(Math.max(...x.laps), 0)} s`], ['Rocce disegnate', String(x.count)]],
+        concept: concept('physics-13', `Una cintura è fatta di corpi che orbitano ciascuno per conto proprio, senza girare come un disco rigido. Per la terza legge di Keplero, T² = a³/M, al bordo interno un giro dura ${y(tIn)}, al bordo esterno ${y(tOut)}: ${dec(tOut / tIn, 2)} volte di più. Sulla mappa la cintura gira in anelli, ciascuno più lento di quello che lo precede.`) };
 }
 function star(x) {
     const s = starOf(x.teff, x.R);

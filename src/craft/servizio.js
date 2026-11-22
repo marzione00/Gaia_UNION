@@ -97,8 +97,9 @@ function along(pa, pb, r, time) {
 /** Where a craft of the plan is at `time`. `ctx` gives `station(k)` → { position, radius } at `time`,
  * `stationAt(k, t)` the same at any time t, `names[k]`, the
  * `docked` ships ({ id, at, position, forward, name, t0, t1 }, `at` the index of their station), the convoys of the neighbouring systems
- * (`visitors`: { id, position, forward, name, docked }) and the belt
- * rotation `beltSpin` in radians per second. The result tells what the craft is doing, for the scene and its
+ * (`visitors`: { id, position, forward, name, docked }) and the belt: `belt.omega(r)`, the angular speed on the map of
+ * the ring at radius r, forwards, and `belt.au(r)`, its physical distance (1.60.0); without it the belt turns
+ * rigidly backwards at `beltSpin` radians per second, as before. The result tells what the craft is doing, for the scene and its
  * hover lines: `tow` is the container behind a tug, `beam` a mining beam, `link` a refuelling hose. */
 export function servicePose(v, time, ctx) {
     const size = SERVICE_SIZE[v.kind], at = k => ctx.station(k), name = k => ctx.names[k], when = (k, t) => ctx.stationAt ? ctx.stationAt(k, t) : ctx.station(k);
@@ -127,10 +128,9 @@ export function servicePose(v, time, ctx) {
         return { ...p, size, visible: true, tow, facts: { from: name(v.from), to: name(k), d: dist(pa, pb), T: r.T, left: p.left, moving: p.moving, out }, lines: out ? [`Container per ${name(k)}`, p.moving ? `Lo traina, arrivo fra ${Math.ceil(p.left)} s` : 'Aggancia il container'] : [`Torna vuoto a ${name(v.from)}`, p.moving ? `Arrivo fra ${Math.ceil(p.left)} s` : 'Sgancia il container'] };
     }
     if (v.role === 'fascia') {
-        // The miner moves with the belt, hovers over a rock and fills its hold in two minutes.
-        // The scene turns the belt by −beltSpin · time around the vertical axis (transform in src/renderer.js).
-        const a = v.angle - time * (ctx.beltSpin ?? .0008), bob = Math.sin(time * .7 + v.angle * 5) * .04, p = [Math.cos(a) * v.radius, v.lift + bob, Math.sin(a) * v.radius], rock = [Math.cos(a) * (v.radius - .12), v.lift - .05, Math.sin(a) * (v.radius - .12)];
-        return { position: p, forward: norm(rock.map((x, i) => x - p[i])), size, visible: true, moving: false, beam: [p, rock], lines: ['Estrae minerale nella fascia degli asteroidi', `Stiva piena al ${Math.round(frac(time / 120 + v.angle) * 100)} %`], facts: { omega: ctx.beltSpin ?? .0008, r: v.radius, fill: frac(time / 120 + v.angle), fillTime: 120 } };
+        // The miner moves with its ring of the belt, hovers over a rock and fills its hold in two minutes.
+        const w = ctx.belt ? ctx.belt.omega(v.radius) : -(ctx.beltSpin ?? .0008), a = v.angle + time * w, bob = Math.sin(time * .7 + v.angle * 5) * .04, p = [Math.cos(a) * v.radius, v.lift + bob, Math.sin(a) * v.radius], rock = [Math.cos(a) * (v.radius - .12), v.lift - .05, Math.sin(a) * (v.radius - .12)];
+        return { position: p, forward: norm(rock.map((x, i) => x - p[i])), size, visible: true, moving: false, beam: [p, rock], lines: [ctx.belt?.icy ? 'Estrae ghiaccio nella cintura esterna' : 'Estrae minerale nella cintura di asteroidi', `Stiva piena al ${Math.round(frac(time / 120 + v.angle) * 100)} %`], facts: { omega: Math.abs(w), r: v.radius, fill: frac(time / 120 + v.angle), fillTime: 120, au: ctx.belt ? ctx.belt.au(v.radius) : null, mass: ctx.belt?.mass ?? null } };
     }
     if (v.role === 'miniera') {
         const S = at(v.at), a = time * .3 + v.slot * TAU / 3, R = S.radius * 2.2 + .1, p = [S.position[0] + Math.cos(a) * R, S.position[1] + .08 * Math.sin(a), S.position[2] + Math.sin(a) * R];

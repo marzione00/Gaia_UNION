@@ -1,3 +1,12 @@
+# 1.60.0: Comete, sciami e cinture
+
+- Cinture in ogni sistema: una di ghiaccio oltre i pianeti, dove stava la fascia, e in 16 sistemi una di asteroidi vicino alla linea del ghiaccio. Ogni cintura gira in quattro anelli, gli interni più veloci, con una fascia di polvere visibile da lontano; stazioni e minatori seguono il loro anello.
+- 40 comete su ellissi risolte con l'equazione di Keplero, 12 retrograde: corrono al perielio, dove il ghiaccio sublima e crescono la coda di ioni, diritta e lontana dalla stella, e la coda di polveri, curva lungo l'orbita.
+- Scie di polvere lungo le orbite delle comete e sciami di meteore sui 24 pianeti che le attraversano, con la velocità d'impatto calcolata dalle due orbite.
+- Stelle cadenti sulla superficie dei pianeti con un'atmosfera, più fitte durante uno sciame.
+- Il pannello «Che cosa succede» segue anche comete e cinture: leggi di Keplero ed equazione dell'energia (physics-12), sublimazione e pressione della luce (chemistry-11), periodi ai bordi della cintura (physics-13), energia cinetica di un granello di meteora (physics-08). I minatori di cintura passano dalla rotazione rigida alla terza legge di Keplero.
+- Nuovo `tests/comete.test.mjs`; descrizioni in `docs/STAZIONI_NAVI.md` e in `docs/GRAPHICS.md`.
+
 # 1.59.0: Atmosfere visibili
 
 - Il guscio dell'atmosfera segue la carta del pianeta: spessore, altezza di scala e spessore ottico crescono con la pressione al suolo, dall'1,8 % al 6,8 % del raggio fra 0,01 e 100 bar, e la foschia rende l'aria più opaca. Guardando verso la stella l'atmosfera si accende in controluce.
