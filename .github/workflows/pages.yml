@@ -1,8 +1,8 @@
 name: Test and deploy GAIA
+# Pull requests do not start the workflow, to limit the use of GitHub Actions: the same checks run locally
+# before a pull request is opened (docs/QA.md), and "Run workflow" starts them on any branch when needed.
 on:
   push:
-    branches: [main]
-  pull_request:
     branches: [main]
   workflow_dispatch:
 permissions:
