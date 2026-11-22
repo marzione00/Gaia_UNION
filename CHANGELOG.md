@@ -1,3 +1,10 @@
+# 1.61.1: Autore e licenza nel sito
+
+- Licenza delle parti originali cambiata in Creative Commons Attribuzione-NonCommerciale 4.0 Internazionale (CC BY-NC 4.0): condivisione e adattamento citando l'autore, per fini non commerciali. `LICENSE` contiene il testo legale ufficiale; `LICENSE.md`, `README.md`, `THIRD_PARTY_NOTICES.md` e `package.json` sono aggiornati. Le versioni fino alla 1.61.0 restano pubblicate con CC BY 4.0.
+- Autore, Marzio De Corato, e licenza nella barra in basso di ogni schermata; il clic apre la pagina «FONTI», che ora comincia con la voce «Autore e licenza» e il pulsante per leggere la licenza sul sito di Creative Commons.
+- Nella pagina «FONTI» ogni voce prende le righe che le servono e resta dentro il riquadro; sugli schermi bassi una voce tagliata finisce con i puntini. Il testo della pagina arriva anche al livello accessibile.
+- `index.html` dichiara autore e licenza; nuovo `tests/licenza.test.mjs` controlla che sito, metadati e file di licenza dicano la stessa cosa.
+
 # 1.61.0: Documentazione e collaudo della serie «Galassia viva»
 
 - `docs/GALASSIA_VIVA.md`: che cosa contiene un sistema, come si segue un oggetto, la mappa dei concetti del pannello «Che cosa succede» (21 situazioni, 13 unità) e suggerimenti per la classe con i numeri del sistema 13.
