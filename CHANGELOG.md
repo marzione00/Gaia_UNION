@@ -1,3 +1,10 @@
+# 1.54.0: Energia e informazione
+
+- Una seconda serie di esercizi sul Rapporto, per «Termodinamica e rendimento» (physics-20) e «Probabilità, informazione e fenomeni collettivi» (math-p07): i droni dello Sciame trasformano la materia in calcolo, e il calcolo ha un prezzo termodinamico.
+- Cinque esercizi con le temperature di equilibrio dei pianeti del sistema sul fronte: limite di Landauer per cancellare un bit, vantaggio del freddo fra il pianeta più caldo e il più freddo, rendimento di Carnot di una centrale a fusione, entropia di Shannon delle probabilità per braccio, sorpresa dell'ultima incursione.
+- Il Rapporto ha due pulsanti, «Esercizi di statistica» ed «Energia e informazione»; la scheda dell'unità di termodinamica sulla mappa porta alla nuova serie.
+- Nuovi `src/craft/esercizi-energia.js` e `tests/energia.test.mjs`; descrizione in `docs/STAZIONI_NAVI.md`.
+
 # 1.53.0: Esercizi sulle stazioni
 
 - Le ricette delle stazioni diventano esercizi per «Stechiometria e reagente limitante» (chemistry-14) e «Velocità di reazione» (chemistry-17): una stazione lavora come una reazione a proporzioni fisse. Hanno esercizi le 178 stazioni che trasformano almeno due merci in prodotti.
