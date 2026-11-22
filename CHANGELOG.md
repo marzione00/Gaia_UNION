@@ -1,3 +1,9 @@
+# 1.56.0: Guida per il docente
+
+- Nuova `docs/GUIDA_DOCENTE.md` sugli esercizi dai sistemi della galassia: per ciascuna delle quattro serie le unità, dove si apre, le formule, le ipotesi da dichiarare in classe, gli errori che le risposte sbagliate permettono di riconoscere e uno spunto per la lezione; i tempi in cui compaiono gli esercizi che richiedono una storia, misurati su dodici sessioni.
+- Nuovo `docs/ESERCIZI_SISTEMI.md`, generato con `node scripts/esercizi-esempi.mjs`: un esempio completo di ogni esercizio, con semi fissati, da leggere prima di una lezione.
+- Indice comune delle serie in `src/craft/esercizi-indice.js`; `tests/serie.test.mjs` collauda la serie nel suo insieme (indice, regole comuni, posizione della risposta corretta, schede delle unità, esempi e tempi citati nella guida).
+
 # 1.55.0: Crescita e replicazione
 
 - Una terza serie di esercizi sul Rapporto, per «Crescita delle popolazioni microbiche» (biology-21): lo Sciame si comporta come una popolazione.
