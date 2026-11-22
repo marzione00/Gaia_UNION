@@ -37,6 +37,9 @@ precision highp float;
 in vec3 vNormal,vWorld,vLocal;in vec2 vUV;in vec4 vColor,vPBR,vShadow,vReflection;out vec4 outColor;
 uniform sampler2D uTex,uShadow,uReflection;uniform vec3 uEye,uLight,uCenter,uFogColor,uAtmosColor;uniform vec4 uTint;
 uniform int uOccluderCount;uniform vec4 uOccluder[4];
+// Atmosphere of a planet (1.59.0): outer radius of the shell, inverse scale height (radii), optical scale, twilight strength.
+uniform vec4 uShell;
+vec3 dusk(vec3 sky){vec3 c=clamp(1.05-sky/max(max(sky.r,sky.g),max(sky.b,.01))*.9,.05,1.);return c/max(c.r,max(c.g,c.b));}
 uniform float uTexWeight,uOpacity,uRim,uEmission,uTime,uSeed,uRadius,uFog,uHasShadow,uMist,uClipBelow,uOcean,uDisguise;uniform vec3 uLightColor;uniform highp int uMaterial;
 ${noise}
 float solarVisibility(vec3 point,vec3 light){float visibility=1.;for(int k=0;k<4;k++){if(k>=uOccluderCount)break;vec3 delta=uOccluder[k].xyz-point;float along=dot(delta,light);if(along>0.){float impact=length(delta-light*along),r=uOccluder[k].w;visibility*=smoothstep(r*.94,r*1.06,impact);}}return visibility;}
@@ -63,20 +66,24 @@ void main(){
  if(uMaterial==17){float f=dot(n,v);if(f<0.)discard;outColor=vec4(c,alpha*pow(f,2.4)*.6);return;}
  if(uMaterial==6){
   if(dot(n,v)<0.)discard;
-  vec3 ro=uEye-uCenter,rd=-v;float b=dot(ro,rd),rr=uRadius*1.028,disc=b*b-dot(ro,ro)+rr*rr;if(disc<0.)discard;
+  // The shell follows the card of the planet: thicker, denser and with a stronger twilight for higher pressures.
+  bool card=uShell.x>1.;float outer=card?uShell.x:1.028,invH=card?uShell.y:155.,k=card?uShell.z:6.;vec3 sunset=dusk(uAtmosColor);float forward=1.+2.5*pow(max(dot(-v,l),0.),8.);
+  vec3 ro=uEye-uCenter,rd=-v;float b=dot(ro,rd),rr=uRadius*outer,disc=b*b-dot(ro,ro)+rr*rr;if(disc<0.)discard;
   float nearT=max(0.,-b-sqrt(disc)),farT=-b+sqrt(disc),ground=b*b-dot(ro,ro)+uRadius*uRadius;
   if(ground>0.){float hit=-b-sqrt(ground);if(hit>0.)farT=min(farT,hit);}
   float dt=max(0.,farT-nearT)/14.,opt=0.;vec3 scatter=vec3(0);
-  for(int i=0;i<14;i++){vec3 q=ro+rd*(nearT+(float(i)+.5)*dt);float h=max(0.,length(q)/uRadius-1.);float density=exp(-h*155.);float sun=smoothstep(-.13,.18,dot(normalize(q),l))*solarVisibility(q+uCenter,l);vec3 tint=mix(vec3(.34,.12,.04),uAtmosColor,sun);float d=density*dt/uRadius*6.;scatter+=exp(-opt)*d*tint*(.1+sun*1.5);opt+=d;}
+  for(int i=0;i<14;i++){vec3 q=ro+rd*(nearT+(float(i)+.5)*dt);float h=max(0.,length(q)/uRadius-1.);float density=exp(-h*invH);float cs=dot(normalize(q),l),sun=smoothstep(-.13,.18,cs)*solarVisibility(q+uCenter,l),band=exp(-cs*cs/.026);vec3 tint=mix(sunset*.3,uAtmosColor,sun)+sunset*band*.7;float d=density*dt/uRadius*k;scatter+=exp(-opt)*d*tint*(.1+sun*1.5*forward+band*.6);opt+=d;}
   alpha=(1.-exp(-opt))*.92;outColor=vec4(pow(clamp(scatter/max(alpha,.001),0.,1.),vec3(.65)),alpha*uOpacity);return;
  }
- if(uMaterial==5){if(dot(n,v)<0.)discard;float a=texture(uTex,vUV).r;float sun=max(0.,dot(n,l))*solarVisibility(vWorld,l);alpha*=smoothstep(.12,.95,a)*.84;outColor=vec4(film(vec3(.001)+vec3(1.)*sun),alpha);return;}
+ if(uMaterial==5){if(dot(n,v)<0.)discard;float a=texture(uTex,vUV).r;float cs=dot(n,l),vis=solarVisibility(vWorld,l),sun=max(0.,cs)*vis,band=exp(-pow((cs-.04)/.12,2.))*uShell.w*vis;alpha*=smoothstep(.12,.95,a)*.84;outColor=vec4(film(vec3(.001)+mix(dusk(uAtmosColor),vec3(1.),smoothstep(.02,.3,cs))*sun+dusk(uAtmosColor)*band*.35),alpha);return;}
  if(uMaterial==12||uMaterial==15){
   if(uMaterial==15)l=normalize(uCenter-vWorld);
   vec2 uv=uDisguise>.5?vec2(1.-vUV.x,1.-vUV.y):vUV;vec4 texel=texture(uTex,uv);vec3 albedo=texel.rgb;float water=max(uOcean*smoothstep(.01,.12,albedo.b-max(albedo.r,albedo.g*.85)),1.-texel.a);
   if(uDisguise>.5){float a=uDisguise>1.5?.55:-.62;vec3 k=vec3(.57735);albedo=clamp(albedo*cos(a)+cross(k,albedo)*sin(a)+k*dot(k,albedo)*(1.-cos(a)),0.,1.);}
   vec3 base=pow(albedo,vec3(2.2))*uTint.rgb;c=shade(base,n,l,v,0.,mix(.88,.18,water),solarVisibility(vWorld,l));
   float day=smoothstep(-.12,.08,dot(n,l));c*=mix(.035,1.,day);
+  // Twilight (1.59.0): along the terminator an atmosphere lights the ground with the colour of its dusk.
+  c+=(base*.6+vec3(.04))*dusk(uAtmosColor)*exp(-pow((dot(n,l)+.03)/.1,2.))*uShell.w*solarVisibility(vWorld,l);
   c+=water*pow(max(dot(reflect(-l,n),v),0.),110.)*vec3(.65,.62,.55)*day;
   if(uMaterial==15)c*=.12;
   outColor=vec4(film(c*.8),alpha);return;

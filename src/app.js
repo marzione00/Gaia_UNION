@@ -33,7 +33,7 @@ import { descriptor as modelDescriptor } from './models/curriculum.js';
 import { openStore, grade } from './store.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.58.0-zoom';
+const VERSION = '1.59.0-atmosfere';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -94,7 +94,7 @@ function route(scene, extra = {}) {
 }
 function enterSystem(id=S.system) { route('system',{system:id}); }
 /** Follows an object of the open system with the camera and opens «Che cosa succede» (1.58.0). */
-function startFollow(f) { S.follow = f; S.followZoom = null; S.followPage = 'numeri'; S.observedBody = null; hover.clear(); touchTarget = null; S.hoveredTarget = null; }
+function startFollow(f) { S.follow = f; S.followZoom = null; S.followPage = 'numeri'; S.followTab = null; S.observedBody = null; hover.clear(); touchTarget = null; S.hoveredTarget = null; }
 function stopFollow() { S.follow = null; S.followZoom = null; hover.clear(); }
 function enterPlanet(index=S.selected) { route('orbit',{selected:index}); }
 function backToParent() { if(S.scene==='region')route('galaxy');else if(S.scene==='outpost'||S.scene==='craft')route('system');else if(S.scene==='gaia')route('ship');else if(S.scene==='libro'||S.scene==='ship')route('orbit');else if(['mission','pilot'].includes(S.scene))route('briefing');else if(S.scene==='surface')route('orbit');else if(S.scene==='orbit')route('system',{system:S.system});else if(S.scene==='system')route('galaxy'); }
@@ -383,37 +383,44 @@ function planetBadges(system) {
  * them (src/craft/succede.js), right of the object on wide screens and under it on phones. */
 function followView(F){
     const sub={...F.subject};
-    if(sub.kind==='planet'&&sub.unit){const m=data.modules[sub.unit.index];sub.unit=m?{id:m.id,title:m.title,index:sub.unit.index}:null;}
+    if(sub.kind==='planet'&&sub.unit){
+        const index=sub.unit.index,m=data.modules[index],reveal=cardReveal(index);sub.unit=m?{id:m.id,title:m.title,index}:null;
+        // The rows measured by the instruments of the ship stay hidden until they are on board, as on the physical card.
+        if(reveal){sub.hidden={};for(const label of ['Luce','Temperatura','Pressione','Effetto serra'])if(!reveal(label))sub.hidden[label]='da misurare con '+(instrumentForRow(label)?.the||'uno strumento di bordo');}
+    }
     return {sub,v:whatHappens(sub)};
 }
 /** The panel as text, for the accessible layer. */
-function followText(){const {v}=followView(W.followed);return `Che cosa succede: ${v.tag.toLowerCase()}, ${v.title}. ${v.rows.map(([l,x])=>l+': '+x).join('; ')}. Il concetto, ${v.concept.title}: ${v.concept.text}`;}
+function followText(){const {v}=followView(W.followed);return `Che cosa succede: ${v.tag.toLowerCase()}, ${v.title}. `+(v.pages||[v]).map(p=>(p.label?caseLabel(p.label)+'. ':'')+p.rows.map(([l,x])=>l+': '+x).join('; ')+`. Il concetto, ${p.concept.title}: ${p.concept.text}`).join(' ');}
 function followPanel(F,areaTint){
     const w=R.w,h=R.h,mobile=w<850,{sub,v}=followView(F),hex=v.style&&CRAFT_STYLE[v.style]?CRAFT_STYLE[v.style][2]:sub.kind==='star'?'#ffae5c':null,tint=hex?color(hex):areaTint;
-    const {x,y,w:pw,h:ph}=followFrame(w,h).panel,short=mobile&&h<700;
+    const {x,y,w:pw,h:ph}=followFrame(w,h).panel,short=mobile&&h<700,compact=mobile||ph<520;
     U.panel(x,y,pw,ph,tint,.92);U.tag(v.tag,x+18,y+19,tint);
     U.button('follow-close','CHIUDI',x+pw-16-78,y+11,78,28,stopFollow,{small:true});U.buttons.at(-1).label='Smetti di seguire e torna alla vista del sistema';
     let yy=y+46;
-    // Phones show the numbers and the concept one at a time.
-    const page=mobile?S.followPage||'numeri':'tutto';
-    if(mobile){U.button('follow-page',page==='numeri'?'CONCETTO':'NUMERI',x+pw-16-100,y+42,100,28,()=>{S.followPage=page==='numeri'?'concetto':'numeri';},{small:true});U.buttons.at(-1).label=page==='numeri'?'Mostra il concetto':'Mostra i numeri';wrapClipText(v.title,x+18,yy,pw-36-110,'mini',C.pale,1);yy+=24;}
+    // Phones and low windows show the numbers and the concept one at a time.
+    const page=compact?S.followPage||'numeri':'tutto';
+    if(compact){U.button('follow-page',page==='numeri'?'CONCETTO':'NUMERI',x+pw-16-100,y+42,100,28,()=>{S.followPage=page==='numeri'?'concetto':'numeri';},{small:true});U.buttons.at(-1).label=page==='numeri'?'Mostra il concetto':'Mostra i numeri';wrapClipText(v.title,x+18,yy,pw-36-110,'mini',C.pale,1);yy+=28;}
     else{const n=R.multilineCount(v.title,pw-36,'sub',2);wrapClipText(v.title,x+18,yy,pw-36,'sub',C.pale,2);yy+=n*25+2;}
-    if(v.subtitle&&!short){wrapClipText(v.subtitle,x+18,yy,pw-36,'micro',hex?color(hex):C.lime,1);yy+=20;}
+    if(v.subtitle&&!short&&!(compact&&v.pages)){wrapClipText(v.subtitle,x+18,yy,pw-36,'micro',hex?color(hex):C.lime,1);yy+=20;}
+    // Planets with an atmosphere (1.59.0) have three pages: orbit, atmosphere and sky.
+    const tab=v.pages?v.pages.find(p=>p.key===S.followTab)||v.pages[0]:v;
+    if(v.pages){const n=v.pages.length,tw=(pw-36-(n-1)*6)/n;v.pages.forEach((p,k)=>{U.button('follow-tab-'+p.key,p.label,x+18+k*(tw+6),yy,tw,26,()=>{S.followTab=p.key;},{small:true,active:p===tab});U.buttons.at(-1).label='Mostra '+caseLabel(p.label).toLowerCase();});yy+=34;}
     if(page!=='concetto'){
         // Live numbers: label on the left, value on the right on up to two lines, as many as the panel holds.
         const vx=x+(mobile?Math.round(Math.min(150,pw*.44)):140),vw=x+pw-18-vx;
-        for(const [label,value] of v.rows){const n=Math.max(R.multilineCount(value,vw,'micro',2),R.multilineCount(label,vx-x-24,'micro',2));if(yy+n*15>y+ph-60)break;U.wrap(label,x+18,yy,vx-x-24,C.muted,15,2,'micro');U.wrap(value,vx,yy,vw,C.pale,15,2,'micro');yy+=n*15+5;}
+        for(const [label,value] of tab.rows){const n=Math.max(R.multilineCount(value,vw,'micro',2),R.multilineCount(label,vx-x-24,'micro',2));if(yy+n*15>y+ph-60)break;U.wrap(label,x+18,yy,vx-x-24,C.muted,15,2,'micro');U.wrap(value,vx,yy,vw,C.pale,15,2,'micro');yy+=n*15+5;}
     }
     if(page!=='numeri'){
         // The concept, with the formula worked out on the numbers above.
         if(page==='tutto'){yy+=4;R.rect(x+18,yy,pw-36,1,color(hex||'#9fd8c6',.35));yy+=10;}
         // Short phones keep the unit title for the button and give its line to the text.
-        U.tag('IL CONCETTO',x+18,yy,tint);yy+=18;if(!short){wrapClipText(v.concept.title,x+18,yy,pw-36,'micro',C.pale,1);yy+=19;}
-        const lh=short?14:15,room=Math.floor((y+ph-60-yy)/lh);if(room>0)U.wrap(v.concept.text,x+18,yy,pw-36,C.muted,lh,room,'micro');
+        U.tag('IL CONCETTO',x+18,yy,tint);yy+=18;if(!short){const n=mobile?1:R.multilineCount(tab.concept.title,pw-36,'micro',2);U.wrap(tab.concept.title,x+18,yy,pw-36,C.pale,15,n,'micro');yy+=n*15+4;}
+        const lh=short?14:15,room=Math.floor((y+ph-60-yy)/lh);if(room>0)U.wrap(tab.concept.text,x+18,yy,pw-36,C.muted,lh,room,'micro');
     }
     // The unit of the concept, then the exercises of a station, the catalogue or the planet of a unit.
-    const bw=(pw-38)/2,unit=moduleById(v.concept.unit),chapter=!!unit&&!!book?.has(unit.id);
-    U.button('follow-unit',chapter?'LEGGI IL CAPITOLO':'APRI L’UNITÀ',x+16,y+ph-52,bw,38,()=>chapter?openChapter(unit.id):openCourse(unit.id),{active:true,small:mobile,disabled:!unit});U.buttons.at(-1).label='Apri l’unità «'+v.concept.title+'»';
+    const bw=(pw-38)/2,unit=moduleById(tab.concept.unit),chapter=!!unit&&!!book?.has(unit.id);
+    U.button('follow-unit',chapter?'LEGGI IL CAPITOLO':'APRI L’UNITÀ',x+16,y+ph-52,bw,38,()=>chapter?openChapter(unit.id):openCourse(unit.id),{active:true,small:mobile,disabled:!unit});U.buttons.at(-1).label='Apri l’unità «'+tab.concept.title+'»';
     const e=v.catalog?CRAFT_BY_ID.get(v.catalog):null;
     if(v.drill&&e){U.button('follow-drill','ESERCIZI',x+22+bw,y+ph-52,bw,38,()=>{openCraft(e.id);S.craftModel=e.id;openStationDrill(e);},{small:mobile});U.buttons.at(-1).label='Esercizi sulla ricetta di '+e.name;}
     else if(e){U.button('follow-catalog','CATALOGO',x+22+bw,y+ph-52,bw,38,()=>openCraft(e.id),{small:mobile});U.buttons.at(-1).label='Apri '+e.name+' nel catalogo 3D';}

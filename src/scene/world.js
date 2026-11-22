@@ -24,6 +24,7 @@ import { polyhedron } from '../craft/parts.js';
 import { SHIP_SIZE, shipPose, shipMatrix } from '../craft/traffic.js';
 import { CHAIN_STATIONS } from '../craft/esercizi-catene.js';
 import { planetPhysics } from '../worlds/planet-physics.js';
+import { pressureFromDensity, APPRECIABLE_DENSITY } from '../worlds/physics.js';
 import { tuft, rock, station as stationMesh, seaPlane, grazer, frond, tree, column, cushion, cup, patch, hexapod, flyer, floater, beacon, curtain } from '../worlds/geometry.js';
 /** Mesh, instance mode, motion uniform and PBR of each body plan of the species (src/worlds/species.js). */
 const BODIES = {
@@ -63,6 +64,14 @@ export function minorLanes(points){
 }
 /** Glow of a far station or ship, in the colour of its construction style (src/craft/styles.js). */
 const IDENTITY = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]);
+/** Atmosphere of a planet for the shaders (1.59.0): outer radius of the shell, inverse scale height in radii,
+ * optical scale and strength of the twilight, from the pressure at the ground `p` in bar and the haze of the
+ * card. Between 0.01 and 100 bar the shell grows from 1.8 % to 6.8 % of the radius; no shell without air. */
+export function shellOf(p, haze = .5) {
+    if (!(p > 0)) return null;
+    const s = Math.min(1, Math.max(0, (Math.log10(p) + 2) / 4)), thick = .018 + .05 * s;
+    return [1 + thick, 4 / thick, (3 + 12 * s) * (.7 + .6 * haze), .25 + .75 * s];
+}
 /** What the docked ships are doing, for the panel «Che cosa succede» (1.58.0). */
 const TASKS = { carica: 'Carica merci', scarica: 'Scarica merci', sosta: 'Sosta', osserva: 'Osserva il pianeta', varo: 'Appena varata', intercetta: 'In posizione di tiro', arrivo: 'Arrivo alla porta', partenza: 'Partenza' };
 /** Distance of the camera from a followed object, in radii of the object, when the follow starts. */
@@ -342,12 +351,14 @@ export class World {
         // Explorable planets use the map generated from their identity card, so orbit and surface agree.
         const card=body.explorable?planetGenomes()[body.index]:null,generated=card?this.orbitTexture(body.index,detailed):null,sky=card?card.atmosphere.sky:null,skyMax=sky?Math.max(...sky,.01):1;
         const R=this.R,profile=body.profile,options={eye:this.eye,light,material:12,center,radius,texture:generated||this.planetTextures?.get(profile.texture,detailed)||this.textures[profile.texture],atmosphere:generated?sky.map(v=>v/skyMax*.9):profile.atmosphere,ocean:generated?false:profile.ocean,disguise:generated?0:DISGUISE[profile.texture]||0,tint:tint||[1,1,1,1],occluders:moons.map(m=>[...m.center,m.radius])},size=radius/5.3;
+        // The atmosphere follows the card: pressure from its density, haze, sky (1.59.0).
+        const pressure=generated?(card.atmosphere.density<APPRECIABLE_DENSITY?0:pressureFromDensity(card.atmosphere.density)):profile.atmosphere?(body.type==='desert'?.07:1):0,air=shellOf(pressure,generated?card.atmosphere.haze:.5);options.shell=air||[0,0,0,0];
         const geometry=this.R.meshes.has('planet-'+profile.texture)?'planet-'+profile.texture:detailed?'fineSphere':'sphere',rotation=time*body.spin+body.rotation;
         R.drawMesh(geometry,this.vp,transform(...center,radius,rotation,body.tilt),options);
         // Clouds and atmosphere follow the card: cloud cover and density decide whether and how strongly they show.
-        const clouds=generated?(card.atmosphere.clouds>0?Math.min(.9,card.atmosphere.clouds*1.4):0):profile.clouds?.9:0,shell=generated?(card.atmosphere.density>.05?.3+.55*card.atmosphere.density:0):profile.atmosphere?(body.type==='desert'?.35:.85):0;
+        const clouds=generated?(card.atmosphere.clouds>0?Math.min(.9,card.atmosphere.clouds*1.4):0):profile.clouds?.9:0;
         if(clouds)R.drawMesh(geometry,this.vp,transform(...center,radius*1.006,rotation+time*.002,body.tilt),{...options,texture:this.planetTextures?.get('clouds',detailed)||this.textures.clouds,material:5,opacity:clouds});
-        if(shell)R.drawMesh(geometry,this.vp,transform(...center,radius*1.028),{...options,material:6,opacity:shell});
+        if(air)R.drawMesh(geometry,this.vp,transform(...center,radius*air[0]),{...options,material:6,opacity:.95});
         if(body.rings)R.drawMesh('planet-rings',this.vp,transform(...center,radius,0,body.tilt),{eye:this.eye,light,texture:this.textures.rings,material:13,opacity:.88});
         for(const moon of moons)R.drawMesh(detailed?'sphere':'lowSphere',this.vp,transform(...moon.center,moon.radius,moon.angle),{eye:this.eye,light,material:12,texture:this.textures.moon,occluders:[[...center,radius]]});
         if(detailed&&body.explorable){
@@ -710,7 +721,8 @@ export class World {
         if(f.kind==='planet'){
             const body=system.bodies.find(b=>b.slot===f.slot);if(!body)return null;
             const unit=Number.isInteger(body.index)?body.index:null,card=unit===null?null:(physics??=planetPhysics())[unit];
-            return {kind:'planet',position:bodyAtTime(body,s.time).position,radius:displayRadius(body),subject:{kind:'planet',name:body.profile.name,a:body.a,M:star.mass,L:star.luminosity,teq:card?.teq??null,unit:unit===null?null:{index:unit}}};
+            const genome=unit===null?null:planetGenomes()[unit]?.atmosphere,atm=card&&genome?{pressure:card.pressure,tau:card.tau,teq:card.teq,ts:card.ts,greenhouse:card.greenhouse,albedo:card.albedo,exosphere:card.exosphere,sky:genome.sky,haze:genome.haze,clouds:genome.clouds}:null;
+            return {kind:'planet',position:bodyAtTime(body,s.time).position,radius:displayRadius(body),subject:{kind:'planet',name:body.profile.name,a:body.a,M:star.mass,L:star.luminosity,teff:star.teff,atm,unit:unit===null?null:{index:unit}}};
         }
         const C=this.craft;if(C.system!==id||!C.life)return null;
         const life=C.life,site=place=>this.craftSite(system,place,s.time),avoid=system.starRadius*2.2+1;

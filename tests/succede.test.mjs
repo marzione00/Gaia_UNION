@@ -14,7 +14,7 @@ const style=(t,max)=>{assert.equal(typeof t,'string');assert.ok(t.length>0&&(!ma
 function check(v){
  style(v.tag,28);assert.equal(v.tag,v.tag.toUpperCase());style(v.title,48);if(v.subtitle)style(v.subtitle,90);
  assert.ok(v.rows.length>=2&&v.rows.length<=6,'righe: '+v.rows.length);for(const [l,x] of v.rows){style(l,30);style(x,52);}
- assert.ok(CONCEPT_UNITS[v.concept.unit],'unità sconosciuta: '+v.concept.unit);assert.equal(v.concept.title,CONCEPT_UNITS[v.concept.unit]);style(v.concept.text,330);
+ assert.ok(CONCEPT_UNITS[v.concept.unit],'unità sconosciuta: '+v.concept.unit);assert.equal(v.concept.title,CONCEPT_UNITS[v.concept.unit]);style(v.concept.text,345);
  return v;
 }
 const num=t=>Number(t.replace(',','.'));
@@ -57,9 +57,9 @@ test('pannelli: numeri ricalcolati per navi, stazioni, mezzi di servizio, pianet
  check(whatHappens({kind:'service',serviceKind:'cisterna',role:'rifornimento',name:'Cisterna 2',typeName:'Cisterna',facts:{ship:null,park:'Porta',left:null,transfer:null}}));
  v=check(whatHappens({kind:'service',serviceKind:'scorta',role:'scorta',name:'Caccia di scorta 1',typeName:'Caccia',facts:{convoy:'Convoglio da Alfa',docked:false},speed:1.234}));assert.equal(v.concept.unit,'physics-02');assert.equal(v.style,'difesa');assert.ok(v.concept.text.includes('1,23 u/s'));
  // An Earth twin around a Sun twin, and the Sun itself.
- v=check(whatHappens({kind:'planet',name:'Terrestre',a:1,M:1,L:1,teq:255,unit:{id:'physics-13',title:'Orbite circolari'}}));
- assert.equal(v.concept.unit,'physics-13');assert.ok(v.rows.some(r=>r[1]==='365,3 giorni')&&v.rows.some(r=>r[1]==='29,8 km/s')&&v.rows.some(r=>r[1]==='255 K'));assert.equal(v.open,'physics-13');
- assert.ok(check(whatHappens({kind:'planet',name:'Gigante',a:5.2,M:1,L:1,teq:null,unit:null})).rows.some(r=>r[1]==='11,86 anni'));
+ v=check(whatHappens({kind:'planet',name:'Terrestre',a:1,M:1,L:1,teff:5772,atm:{pressure:1,tau:.836,teq:255,ts:288,greenhouse:33,albedo:.3,exosphere:false,sky:[.4,.6,1],haze:.2,clouds:.6},unit:{id:'physics-13',title:'Orbite circolari'}}));
+ assert.equal(v.concept.unit,'physics-13');assert.ok(v.rows.some(r=>r[1]==='365,3 giorni')&&v.rows.some(r=>r[1]==='29,8 km/s'));assert.ok(v.pages[1].rows.some(r=>r[1]==='255 K'));assert.equal(v.open,'physics-13');
+ assert.ok(check(whatHappens({kind:'planet',name:'Gigante',a:5.2,M:1,L:1,teff:5772,atm:null,unit:null})).rows.some(r=>r[1]==='11,86 anni'));
  v=check(whatHappens({kind:'star',name:'Stella di Prova',spt:'G2V',teff:5772,L:1,R:1,M:1}));assert.equal(v.concept.unit,'physics-30');assert.ok(v.rows.some(r=>r[1]===(WIEN/5772).toFixed(0)+' nm'));assert.ok(v.concept.text.includes('= 1,0000'));
  assert.throws(()=>whatHappens({kind:'boh'}));
 });

@@ -1,3 +1,12 @@
+# 1.59.0: Atmosfere visibili
+
+- Il guscio dell'atmosfera segue la carta del pianeta: spessore, altezza di scala e spessore ottico crescono con la pressione al suolo, dall'1,8 % al 6,8 % del raggio fra 0,01 e 100 bar, e la foschia rende l'aria più opaca. Guardando verso la stella l'atmosfera si accende in controluce.
+- Crepuscolo: lungo il terminatore suolo, nubi e guscio prendono il colore della luce che ha attraversato molta aria, ricavato dal cielo della carta; un cielo azzurro dà un crepuscolo arancione o giallo, un cielo caldo un crepuscolo azzurro.
+- Il pannello di un pianeta delle unità ha le pagine «Orbita», «Atmosfera» e «Cielo»: pressione, profondità ottica, temperature ed effetto serra con il modello a strato grigio (biology-23); colore del cielo e del crepuscolo, foschia, nubi e diffusione di Rayleigh (physics-26).
+- Le righe misurate dagli strumenti di bordo restano nascoste finché lo strumento manca, come nella carta fisica; questo vale anche per la temperatura e la luce ricevuta, che la 1.58.0 mostrava subito.
+- Sui telefoni le pagine si scelgono con tre pulsanti sopra le righe; nelle finestre basse anche il desktop mostra numeri e concetto uno alla volta.
+- Nuovo `tests/atmosfere.test.mjs`; descrizioni in `docs/GRAPHICS.md` e in `docs/STAZIONI_NAVI.md`.
+
 # 1.58.0: Zoom e «Che cosa succede»
 
 - Un clic su una nave, una stazione, un mezzo di servizio, la stella o un pianeta di contorno porta la camera sull'oggetto e lo segue; per i pianeti delle unità c'è il pulsante «Segui» della scheda. Rotella e pulsanti più e meno cambiano la distanza, il trascinamento gira attorno all'oggetto, «Chiudi», «Centra» ed Esc tornano al sistema.
