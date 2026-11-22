@@ -34,7 +34,7 @@ import { openStore, grade } from './store.js';
 import { AUTHOR, LICENCE, CREDIT, LICENCE_ROW } from './licenza.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.61.1-licenza';
+const VERSION = '1.61.2-fonti';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -1727,9 +1727,11 @@ function sourcesUI() {
         yy += height; total += height;
     });
     S.maxScroll = Math.max(0, total - (h - y - 145));
-    U.button('source-pdf', 'DISPENSA DI MATEMATICA', x, h - 88, 230, 39, () => openPDF(1));
-    U.button('source-pdf-fis', 'DISPENSA DI FISICA', x + 238, h - 88, 210, 39, () => openPDF(1, 'fis'));
-    U.button('source-model', 'DOSSIER GAIA', x + 456, h - 88, 180, 39, () => openTheory('gaia'));
+    // Where the three buttons do not fit side by side (1.61.2), they share the width of the panel with short names.
+    const links = [['source-pdf', 'DISPENSA DI MATEMATICA', 'MATEMATICA', 230, () => openPDF(1)], ['source-pdf-fis', 'DISPENSA DI FISICA', 'FISICA', 210, () => openPDF(1, 'fis')], ['source-model', 'DOSSIER GAIA', 'DOSSIER', 180, () => openTheory('gaia')]];
+    if (x + 636 <= w - 36) links.reduce((at, [id, label, , bw, action]) => { U.button(id, label, at, h - 88, bw, 39, action); return at + bw + 8; }, x);
+    else { const need = links.map(l => R.textWidth(caseLabel(l[2]), 'mini') + 24), k = (ww - 16) / need.reduce((a, b) => a + b, 0); let at = x;
+        links.forEach(([id, label, short, , action], i) => { const bw = need[i] * k; U.button(id, short, at, h - 88, bw, 44, action); U.buttons.at(-1).label = caseLabel(label); at += bw + 8; }); }
 }
 function overlay() {
     const w = R.w, h = R.h;
