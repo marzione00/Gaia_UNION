@@ -48,7 +48,7 @@ test('scheda degli esercizi: dal Rapporto e dall\'unità, risposta, svolgimento 
   f.click('atlas-drill-next');f.draw();assert.equal(D.i,1);f.click('atlas-drill-rapporto');assert.equal(f.A.sheet,'rapporto');
   f.click('atlas-rapporto-esercizi');assert.equal(f.A.drill.seed,2);assert.equal(f.A.drill.chosen.length,0);
   for(const id of EXERCISE_UNITS){const i=catalogue.modules.findIndex(m=>m.id===id);f.api.selectIndex(i);f.A.open('detail');f.draw();assert.ok(f.U.buttons.some(b=>b.id==='atlas-detail-esercizi'),id);assert.deepEqual(layoutErrors(f),[],`${id} ${w}x${h}`);}
-  f.api.selectIndex(catalogue.modules.findIndex(m=>m.id==='physics-20'));f.A.open('detail');f.draw();assert.ok(!f.U.buttons.some(b=>b.id==='atlas-detail-esercizi'));
+  f.api.selectIndex(catalogue.modules.findIndex(m=>m.id==='physics-11'));f.A.open('detail');f.draw();assert.ok(!f.U.buttons.some(b=>b.id==='atlas-detail-esercizi'));
  }
 });
 test('scheda degli esercizi: domanda e svolgimento entrano interi anche sul telefono più piccolo',()=>{

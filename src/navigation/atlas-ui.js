@@ -8,6 +8,7 @@ import { scaledText } from './text.js';
 import { rapporto } from '../craft/swarm.js';
 import { exercises, EXERCISE_UNITS } from '../craft/esercizi.js';
 import { CHAIN_UNITS } from '../craft/esercizi-catene.js';
+import { energyExercises } from '../craft/esercizi-energia.js';
 import { exploration, passagesOf, passageLabel } from './passages.js';
 import { systemForPlanet, indicesForSystem, AREAS, SYSTEM_COUNT, UNIT_COUNT } from '../scene/systems.js';
 const SECTOR_COLORS=DISCIPLINE;
@@ -191,8 +192,8 @@ export class AtlasUI {
         const r=narrow?{x:base.x+(base.w-sw)/2,y:base.y+Math.max(0,Math.min(60,(base.h-sh)/3)),w:sw,h:sh}:base;
         // Modal controls replace underlying actions, including map and global navigation.
         U.buttons=[];this.R.rect(0,90,this.R.w,this.R.h-90,color('#03121d',.97));U.panel(r.x,r.y,r.w,r.h,C.cyan,1);
-        const headings={list:'CERCA UN ARGOMENTO',detail:'SCHEDA DELL’UNITÀ',routes:'PERCORSI DI STUDIO',history:'UNITÀ STUDIATE DI RECENTE',access:'ACCESSIBILITÀ',welcome:'BENVENUTO IN GAIA',rapporto:'RAPPORTO SULLO SCIAME DELLA FRONTIERA',esercizi:'ESERCIZI SUL RAPPORTO'};
-        this.text(this.sheet==='rapporto'&&r.w<560?'RAPPORTO SULLO SCIAME':this.sheet==='esercizi'&&r.w<400?'ESERCIZI':headings[this.sheet],r.x+14,r.y+16,r.w-126,'mini',C.lime,1);
+        const headings={list:'CERCA UN ARGOMENTO',detail:'SCHEDA DELL’UNITÀ',routes:'PERCORSI DI STUDIO',history:'UNITÀ STUDIATE DI RECENTE',access:'ACCESSIBILITÀ',welcome:'BENVENUTO IN GAIA',rapporto:'RAPPORTO SULLO SCIAME DELLA FRONTIERA',esercizi:this.drill?.topic==='energia'?'ENERGIA E INFORMAZIONE':'ESERCIZI SUL RAPPORTO'};
+        this.text(this.sheet==='rapporto'&&r.w<560?'RAPPORTO SULLO SCIAME':this.sheet==='esercizi'&&r.w<400?(this.drill?.topic==='energia'?'ENERGIA':'ESERCIZI'):headings[this.sheet],r.x+14,r.y+16,r.w-126,'mini',C.lime,1);
         this.button(U,'close','CHIUDI',r.x+r.w-108,r.y+4,94,()=>this.close());
         const body={x:r.x+14,y:r.y+62,w:r.w-28,h:r.h-72};
         if(this.sheet==='list')this.listUI(U,body);
@@ -206,7 +207,9 @@ export class AtlasUI {
     }
     /** Opens the exercises on the Rapporto (1.52.0) with the numbers of this moment: they stay fixed while the
      * student answers, and the next opening takes new ones. */
-    openExercises(){const F=this.world.frontier;this.drill={list:F?exercises(F,(this.drill?.seed||0)+1):[],seed:(this.drill?.seed||0)+1,i:0,chosen:[]};this.open('esercizi');}
+    openExercises(topic='statistica'){const F=this.world.frontier,seeds=this.drillSeeds??={},seed=(seeds[topic]||0)+1;seeds[topic]=seed;
+        // Statistics on the Rapporto (1.52.0), or energy and information with the planets of the front (1.54.0).
+        this.drill={topic,list:F?(topic==='energia'?energyExercises(F,seed):exercises(F,seed)):[],seed,i:0,chosen:[]};this.open('esercizi');}
     /** One exercise at a time: question, four options, then whether the answer is right and the worked solution. */
     eserciziUI(U,r){const D=this.drill,R=this.R,scale=this.prefs.textScale,cyan=color('#7fe3ff'),bottom=r.y+r.h-54;
         if(!D?.list.length){this.text('Il fronte si attiva fra qualche minuto; torna allora.',r.x,r.y,r.w,'body');return;}
@@ -233,7 +236,9 @@ export class AtlasUI {
      * learned, the score of the forecasts, samples, keys and free drones, and the last incursions. */
     rapportoUI(U,r){const F=this.world.frontier;if(!F){this.text('Il fronte non è ancora attivo.',r.x,r.y,r.w,'body');return;}
         const rp=rapporto(F),R=this.R,scale=this.prefs.textScale,wide=r.w>=720,cyan=color('#7fe3ff'),end=r.y+r.h-54;let y=r.y;
-        this.button(U,'rapporto-esercizi','Esercizi sul Rapporto',r.x,r.y+r.h-46,Math.min(r.w,360),()=>this.openExercises(),{active:true});U.buttons.at(-1).label='Esercizi di probabilità e statistica con i numeri del Rapporto';
+        const ew=Math.min((r.w-6)/2,300);
+        this.button(U,'rapporto-esercizi',r.w<560?'Statistica':'Esercizi di statistica',r.x,r.y+r.h-46,ew,()=>this.openExercises(),{active:true});U.buttons.at(-1).label='Esercizi di probabilità e statistica con i numeri del Rapporto';
+        this.button(U,'rapporto-energia',r.w<560?'Energia':'Energia e informazione',r.x+ew+6,r.y+r.h-46,ew,()=>this.openExercises('energia'),{active:true});U.buttons.at(-1).label='Esercizi di energia e informazione: limite di Landauer, rendimento di Carnot, entropia delle previsioni';
         // Wrapped paragraph within the body: returns false when the body is full.
         const para=(t,style,tint,lh)=>{for(const line of fittedRows(R,[t],r.w/scale,style)){if(y+lh>end)return false;scaledText(R,line,r.x,y,style,tint,scale);y+=lh*scale;}return true;};
         para(`Previsione statistica della prossima incursione, attesa fra circa ${rp.next} s. Vale per molte incursioni insieme: una sola può smentirla.`,'mini',C.muted,20);y+=8;
@@ -264,10 +269,10 @@ export class AtlasUI {
         this.text(m.title,r.x,r.y+54,r.w,'body',C.pale,Math.min(this.prefs.textScale,1.2));
         const lw=(r.w-12)/3;['SCOPRI','COMPRENDI','AVANZATO'].forEach((label,i)=>this.button(U,'level-'+i,label,r.x+i*(lw+6),r.y+86,lw,()=>{this.level=i;this.previewPage=0;},{active:this.level===i}));
         const level=['base','intermediate','advanced'][this.level],paragraphs=[m.title,...d.steps[0].text[level]];
-        const chain=CHAIN_UNITS.includes(m.id)&&!!this.api.openStationDrill,drill=chain||EXERCISE_UNITS.includes(m.id)&&!!this.world.frontier;
+        const chain=CHAIN_UNITS.includes(m.id)&&!!this.api.openStationDrill,energy=m.id==='physics-20'&&!!this.world.frontier,drill=chain||energy||EXERCISE_UNITS.includes(m.id)&&!!this.world.frontier;
         this.body(U,paragraphs,{x:r.x-14,y:r.y+140,w:r.w+28,h:r.h-194-(drill?52:0)});
         // Units with exercises on the Rapporto (1.52.0) or on the stations of the catalogue (1.53.0) lead to them.
-        if(drill){this.button(U,'detail-esercizi',r.w<560?'Esercizi nella galassia':chain?'Esercizi nella galassia: le stazioni del catalogo':'Esercizi nella galassia: il Rapporto sullo Sciame',r.x,r.y+r.h-98,r.w,()=>chain?(this.close(),this.api.openStationDrill(m.id)):this.openExercises());U.buttons.at(-1).label=chain?'Esercizi di stechiometria e velocità con le ricette delle stazioni':'Esercizi di probabilità e statistica con i numeri del Rapporto sullo Sciame della Frontiera';}
+        if(drill){this.button(U,'detail-esercizi',r.w<560?'Esercizi nella galassia':chain?'Esercizi nella galassia: le stazioni del catalogo':energy?'Esercizi nella galassia: energia e informazione':'Esercizi nella galassia: il Rapporto sullo Sciame',r.x,r.y+r.h-98,r.w,()=>chain?(this.close(),this.api.openStationDrill(m.id)):this.openExercises(energy?'energia':'statistica'));U.buttons.at(-1).label=chain?'Esercizi di stechiometria e velocità con le ricette delle stazioni':energy?'Esercizi di energia e informazione con le temperature dei pianeti del fronte':'Esercizi di probabilità e statistica con i numeri del Rapporto sullo Sciame della Frontiera';}
         const w=(r.w-6)/2;this.button(U,'detail-enter','SISTEMA 3D',r.x,r.y+r.h-46,w,()=>this.api.enterSystem(sys));const chapter=!!this.api.hasChapter?.(m.id);this.button(U,'learn',chapter?'LEGGI IL CAPITOLO':'APRI L’UNITÀ',r.x+w+6,r.y+r.h-46,w,()=>chapter?this.api.openChapter(m.id):this.api.openCourse(m.id),{active:true});
     }
     routesUI(U,r){const rows=[{id:null,title:'NESSUN PERCORSO · Esplorazione libera'},...this.bundle.paths],cap=Math.max(1,Math.floor((r.h-108)/50)),pages=Math.max(1,Math.ceil(rows.length/cap));this.page=clamp(this.page,0,pages-1);
