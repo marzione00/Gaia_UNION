@@ -1,3 +1,11 @@
+# 1.58.0: Zoom e «Che cosa succede»
+
+- Un clic su una nave, una stazione, un mezzo di servizio, la stella o un pianeta di contorno porta la camera sull'oggetto e lo segue; per i pianeti delle unità c'è il pulsante «Segui» della scheda. Rotella e pulsanti più e meno cambiano la distanza, il trascinamento gira attorno all'oggetto, «Chiudi», «Centra» ed Esc tornano al sistema.
+- Il pannello «Che cosa succede» (`src/craft/succede.js`) mostra i numeri del momento: rotta, strada da percorrere, velocità media, arrivo e carico delle navi; processo, produzione, stato e reagente limitante delle stazioni; periodo, velocità orbitale e luce ricevuta dei pianeti; temperatura, luminosità e picco di emissione della stella.
+- «Il concetto» svolge su quei numeri la formula di una delle nove unità collegate (velocità media, moto accelerato, moto circolare, rotazione, sistemi di riferimento, terza legge di Keplero, leggi di Wien e di Stefan-Boltzmann, reagente limitante, velocità di produzione, bilanci di materia) e apre l'unità; dalle stazioni si arriva anche al catalogo e agli esercizi.
+- Sui telefoni il pannello sta in basso, con numeri e concetto uno alla volta; il testo accessibile riporta il pannello. Fra i mezzi di servizio il puntatore sceglie il segno più vicino in proporzione alla sua grandezza, e la stella diventa indicabile.
+- Nuovo `tests/succede.test.mjs`; un controllo in più nei flussi applicativi; descrizione nella sezione «Che cosa succede» di `docs/STAZIONI_NAVI.md`.
+
 # 1.57.0: Densità e interazioni
 
 - Traffico di servizio in 3D in ogni sistema (`src/craft/servizio.js`): navette sulle corsie fra stazioni vicine e su linee regolari dal porto principale, chiatte in coda che attraccano a turno, rimorchiatori con container, minatori nella fascia di asteroidi o attorno alle miniere, cisterne che riforniscono le navi attraccate, caccia di scorta ai convogli e moduli di manutenzione attorno a ogni stazione.

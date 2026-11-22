@@ -10,7 +10,8 @@ import { resolveRoute } from './routing.js';
 import { CRAFT, CRAFT_BY_ID, GROUPS, craftList, craftStep, craftCard, craftText } from './craft/registry.js';
 import { CHAIN_STATIONS, chainable, chainStation, chainExercises } from './craft/esercizi-catene.js';
 import { GPU, color, clamp, project, transform, mesh } from './renderer.js';
-import { World, RESEARCH, EDGES, box } from './scene/world.js';
+import { World, RESEARCH, EDGES, box, FOLLOW_ZOOM, FOLLOW_LIMITS, followFrame, followKey } from './scene/world.js';
+import { whatHappens } from './craft/succede.js';
 import { UI, C, T, ImageCache, caseLabel, DISCIPLINE, fmtNum } from './ui/toolkit.js';
 import { FrameMeter, diagnosticLines, mountDiagnostics } from './ui/diagnostics.js';
 import { DOCUMENTS, docOf, docKey, printedLabel } from './documents.js';
@@ -32,7 +33,7 @@ import { descriptor as modelDescriptor } from './models/curriculum.js';
 import { openStore, grade } from './store.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.57.0-densita';
+const VERSION = '1.58.0-zoom';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -80,7 +81,7 @@ function route(scene, extra = {}) {
     // Exploration belongs to one surface: leaving it starts the next visit from the stations.
     if (moved.from !== moved.to && !extra.explore) Object.assign(S, { explore: false, exploreEntry: 0, exploreTrait: 0, exploreFocus: null, exploreGoal: null, exploreBlend: 0 });
     // The physical card belongs to one orbit view: any other view closes it.
-    if (moved.from !== moved.to) Object.assign(S, { physicsFor: null, physicsPage: 0 });
+    if (moved.from !== moved.to) Object.assign(S, { physicsFor: null, physicsPage: 0, follow: null, followZoom: null });
     if(scene==='orbit')S.reader=selected().id;
     Object.assign(S, { scroll: 0, menu: false, settings: false, editing: null, hoveredTarget: null, observedBody:null });
     hover.clear(); touchTarget=null; if(U)U.focus=null;
@@ -92,9 +93,12 @@ function route(scene, extra = {}) {
     semanticSignature = '';
 }
 function enterSystem(id=S.system) { route('system',{system:id}); }
+/** Follows an object of the open system with the camera and opens «Che cosa succede» (1.58.0). */
+function startFollow(f) { S.follow = f; S.followZoom = null; S.followPage = 'numeri'; S.observedBody = null; hover.clear(); touchTarget = null; S.hoveredTarget = null; }
+function stopFollow() { S.follow = null; S.followZoom = null; hover.clear(); }
 function enterPlanet(index=S.selected) { route('orbit',{selected:index}); }
 function backToParent() { if(S.scene==='region')route('galaxy');else if(S.scene==='outpost'||S.scene==='craft')route('system');else if(S.scene==='gaia')route('ship');else if(S.scene==='libro'||S.scene==='ship')route('orbit');else if(['mission','pilot'].includes(S.scene))route('briefing');else if(S.scene==='surface')route('orbit');else if(S.scene==='orbit')route('system',{system:S.system});else if(S.scene==='system')route('galaxy'); }
-function changeZoom(factor) { const limits=S.scene==='system'?[17,70]:S.scene==='orbit'?[14,38]:S.scene==='craft'?[7,20]:[23,100]; S.distance=clamp(S.distance*factor,...limits); hover.clear(); }
+function changeZoom(factor) { if(S.scene==='system'&&S.follow&&W.followed){S.followZoom=clamp((S.followZoom||FOLLOW_ZOOM[W.followed.kind])*factor,...FOLLOW_LIMITS);hover.clear();return;} const limits=S.scene==='system'?[17,70]:S.scene==='orbit'?[14,38]:S.scene==='craft'?[7,20]:[23,100]; S.distance=clamp(S.distance*factor,...limits); hover.clear(); }
 function updateHash(mode = 'replace') {
     const q = new URLSearchParams();
     q.set('unit', selected().id);
@@ -375,21 +379,69 @@ function planetBadges(system) {
         if ((on || hot) && R.w >= 850) { const name = data.modules[p.index].title, tw = R.textWidth(name, 'micro') + 16; R.roundRect(bx + 28, by + 1, tw, 20, 6, color(T.bg, .9)); U.text(name, bx + 36, by + 4, 'micro', on ? C.pale : C.muted); }
     }
 }
+/** «Che cosa succede» (1.58.0): the live numbers of the followed object and the concept of a unit worked out on
+ * them (src/craft/succede.js), right of the object on wide screens and under it on phones. */
+function followView(F){
+    const sub={...F.subject};
+    if(sub.kind==='planet'&&sub.unit){const m=data.modules[sub.unit.index];sub.unit=m?{id:m.id,title:m.title,index:sub.unit.index}:null;}
+    return {sub,v:whatHappens(sub)};
+}
+/** The panel as text, for the accessible layer. */
+function followText(){const {v}=followView(W.followed);return `Che cosa succede: ${v.tag.toLowerCase()}, ${v.title}. ${v.rows.map(([l,x])=>l+': '+x).join('; ')}. Il concetto, ${v.concept.title}: ${v.concept.text}`;}
+function followPanel(F,areaTint){
+    const w=R.w,h=R.h,mobile=w<850,{sub,v}=followView(F),hex=v.style&&CRAFT_STYLE[v.style]?CRAFT_STYLE[v.style][2]:sub.kind==='star'?'#ffae5c':null,tint=hex?color(hex):areaTint;
+    const {x,y,w:pw,h:ph}=followFrame(w,h).panel,short=mobile&&h<700;
+    U.panel(x,y,pw,ph,tint,.92);U.tag(v.tag,x+18,y+19,tint);
+    U.button('follow-close','CHIUDI',x+pw-16-78,y+11,78,28,stopFollow,{small:true});U.buttons.at(-1).label='Smetti di seguire e torna alla vista del sistema';
+    let yy=y+46;
+    // Phones show the numbers and the concept one at a time.
+    const page=mobile?S.followPage||'numeri':'tutto';
+    if(mobile){U.button('follow-page',page==='numeri'?'CONCETTO':'NUMERI',x+pw-16-100,y+42,100,28,()=>{S.followPage=page==='numeri'?'concetto':'numeri';},{small:true});U.buttons.at(-1).label=page==='numeri'?'Mostra il concetto':'Mostra i numeri';wrapClipText(v.title,x+18,yy,pw-36-110,'mini',C.pale,1);yy+=24;}
+    else{const n=R.multilineCount(v.title,pw-36,'sub',2);wrapClipText(v.title,x+18,yy,pw-36,'sub',C.pale,2);yy+=n*25+2;}
+    if(v.subtitle&&!short){wrapClipText(v.subtitle,x+18,yy,pw-36,'micro',hex?color(hex):C.lime,1);yy+=20;}
+    if(page!=='concetto'){
+        // Live numbers: label on the left, value on the right on up to two lines, as many as the panel holds.
+        const vx=x+(mobile?Math.round(Math.min(150,pw*.44)):140),vw=x+pw-18-vx;
+        for(const [label,value] of v.rows){const n=Math.max(R.multilineCount(value,vw,'micro',2),R.multilineCount(label,vx-x-24,'micro',2));if(yy+n*15>y+ph-60)break;U.wrap(label,x+18,yy,vx-x-24,C.muted,15,2,'micro');U.wrap(value,vx,yy,vw,C.pale,15,2,'micro');yy+=n*15+5;}
+    }
+    if(page!=='numeri'){
+        // The concept, with the formula worked out on the numbers above.
+        if(page==='tutto'){yy+=4;R.rect(x+18,yy,pw-36,1,color(hex||'#9fd8c6',.35));yy+=10;}
+        // Short phones keep the unit title for the button and give its line to the text.
+        U.tag('IL CONCETTO',x+18,yy,tint);yy+=18;if(!short){wrapClipText(v.concept.title,x+18,yy,pw-36,'micro',C.pale,1);yy+=19;}
+        const lh=short?14:15,room=Math.floor((y+ph-60-yy)/lh);if(room>0)U.wrap(v.concept.text,x+18,yy,pw-36,C.muted,lh,room,'micro');
+    }
+    // The unit of the concept, then the exercises of a station, the catalogue or the planet of a unit.
+    const bw=(pw-38)/2,unit=moduleById(v.concept.unit),chapter=!!unit&&!!book?.has(unit.id);
+    U.button('follow-unit',chapter?'LEGGI IL CAPITOLO':'APRI L’UNITÀ',x+16,y+ph-52,bw,38,()=>chapter?openChapter(unit.id):openCourse(unit.id),{active:true,small:mobile,disabled:!unit});U.buttons.at(-1).label='Apri l’unità «'+v.concept.title+'»';
+    const e=v.catalog?CRAFT_BY_ID.get(v.catalog):null;
+    if(v.drill&&e){U.button('follow-drill','ESERCIZI',x+22+bw,y+ph-52,bw,38,()=>{openCraft(e.id);S.craftModel=e.id;openStationDrill(e);},{small:mobile});U.buttons.at(-1).label='Esercizi sulla ricetta di '+e.name;}
+    else if(e){U.button('follow-catalog','CATALOGO',x+22+bw,y+ph-52,bw,38,()=>openCraft(e.id),{small:mobile});U.buttons.at(-1).label='Apri '+e.name+' nel catalogo 3D';}
+    else if(sub.kind==='planet'&&sub.unit){U.button('follow-planet','PIANETA 3D',x+22+bw,y+ph-52,bw,38,()=>enterPlanet(sub.unit.index),{small:mobile});U.buttons.at(-1).label='Apri il pianeta dell’unità «'+sub.unit.title+'»';}
+}
 function systemPanel(system){ const mobile=R.w<850; return mobile?null:{x:32,y:300,w:268,h:64+system.planets.length*44}; }
 function systemUI() {
     const w=R.w,h=R.h,mobile=w<850,system=W.systems[S.system],m=selected(),observed=S.observedBody===null?null:system.bodies[S.observedBody],place=unitPlace(S.selected),tint=sectorColors[system.sector];
-    if(W.cameraProgress===1){planetBadges(system);craftMarkers();}titleFade();
+    if(W.cameraProgress===1){planetBadges(system);craftMarkers();}if(!(mobile&&h<700&&S.follow))titleFade();
     // Short phones drop the subtitle and the description, and the unit panel stays above the bottom buttons.
     const short=mobile&&h<700;
-    title(areaTrail(m),system.name,short?'':mobile?system.planets.length+(w<360?' unità.':' unità · orbite alle distanze fisiche.'):system.planets.length+' unità di '+system.discipline.toLowerCase()+', numerate in ordine di studio. Le orbite seguono la distanza fisica dalla stella; gli altri pianeti sono di contorno.');
-    const px=mobile?18:w-337,pw=mobile?w-36:304,ph=mobile?(short?176:222):365,py=mobile?h-ph-100:245;
-    U.panel(px,py,pw,ph,tint,.80);U.tag(observed?'PIANETA DI CONTORNO':'UNITÀ '+place.position+' DI '+place.count,px+18,py+19,tint);
-    wrapClipText(observed?observed.profile.name:m.title,px+18,py+50,pw-36,'sub',C.pale,2);wrapClipText(observed?'NESSUNA UNITÀ':planetProfile(S.selected).name+' · '+coverage(m),px+18,py+100,pw-36,'micro',C.lime,1);
-    if(!mobile)wrapClipText(observed?'Un pianeta del sistema senza unità di studio.':m.description,px+18,py+130,pw-36,'body',C.muted,5);
-    else if(!short)wrapClipText(observed?'Pianeta senza unità di studio.':m.description,px+18,py+124,pw-36,'mini',C.muted,2);
-    const bw=(pw-38)/2;
-    U.button('orbit-unit','PIANETA 3D',px+16,py+ph-56,bw,40,()=>enterPlanet(),{disabled:!!observed||W.cameraProgress<1});
-    const chapter=!observed&&!!book?.has(m.id);U.button('system-open-unit',chapter?'LEGGI IL CAPITOLO':'APRI L’UNITÀ',px+22+bw,py+ph-56,bw,40,()=>chapter?openChapter(m.id):openCourse(m.id),{active:!observed,disabled:!!observed});
+    if(!(short&&S.follow))title(areaTrail(m),system.name,short||(mobile&&S.follow)?'':mobile?system.planets.length+(w<360?' unità.':' unità · orbite alle distanze fisiche.'):system.planets.length+' unità di '+system.discipline.toLowerCase()+', numerate in ordine di studio. Le orbite seguono la distanza fisica dalla stella; gli altri pianeti sono di contorno.');
+    // «Che cosa succede» (1.58.0) takes the place of the unit card while the camera follows an object.
+    const F=S.follow?W.followed:null;
+    if(S.follow&&!F){stopFollow();say('L’oggetto seguito ha lasciato la scena.');}
+    if(F)followPanel(F,tint);
+    else{
+        const px=mobile?18:w-337,pw=mobile?w-36:304,ph=mobile?(short?176:222):365,py=mobile?h-ph-100:245;
+        U.panel(px,py,pw,ph,tint,.80);U.tag(observed?'PIANETA DI CONTORNO':'UNITÀ '+place.position+' DI '+place.count,px+18,py+19,tint);
+        wrapClipText(observed?observed.profile.name:m.title,px+18,py+50,pw-36,'sub',C.pale,2);wrapClipText(observed?'NESSUNA UNITÀ':planetProfile(S.selected).name+' · '+coverage(m),px+18,py+100,pw-36,'micro',C.lime,1);
+        if(!mobile)wrapClipText(observed?'Un pianeta del sistema senza unità di studio.':m.description,px+18,py+130,pw-36,'body',C.muted,5);
+        else if(!short)wrapClipText(observed?'Pianeta senza unità di studio.':m.description,px+18,py+124,pw-36,'mini',C.muted,2);
+        const bw=(pw-38)/2;
+        U.button('orbit-unit','PIANETA 3D',px+16,py+ph-56,bw,40,()=>enterPlanet(),{disabled:!!observed||W.cameraProgress<1});
+        const chapter=!observed&&!!book?.has(m.id);U.button('system-open-unit',chapter?'LEGGI IL CAPITOLO':'APRI L’UNITÀ',px+22+bw,py+ph-56,bw,40,()=>chapter?openChapter(m.id):openCourse(m.id),{active:!observed,disabled:!!observed});
+        // The planet of the unit can be followed too (1.58.0).
+        const body=system.bodies.find(b=>b.index===S.selected);if(body&&!observed){U.button('system-follow-planet','SEGUI',px+pw-16-70,py+12,70,28,()=>startFollow({kind:'planet',slot:body.slot}),{small:true,disabled:W.cameraProgress<1});U.buttons.at(-1).label='Segui il pianeta da vicino, con i numeri della sua orbita';}
+    }
     const list=systemPanel(system);
     // The research outpost of the area: built with its first completed expedition (src/navigation/outposts.js).
     const built=outpostOf(S.system).built,outpost=(x,y,bw3,label)=>{U.button('system-outpost',label,x,y,bw3,mobile?32:38,()=>route('outpost'),{active:built,small:mobile});U.buttons.at(-1).label=built?'Entra nell’avamposto di ricerca dell’area':'Apri il cantiere dell’avamposto: si costruisce con la prima spedizione completata nell’area';};
@@ -399,15 +451,15 @@ function systemUI() {
         outpost(list.x,list.y+list.h+12,list.w,built?'AVAMPOSTO DI RICERCA':'CANTIERE DELL’AVAMPOSTO');
         // The 3D catalogue of the stations and ships of the area (1.51.0).
         U.button('system-craft','CATALOGO DEI MODELLI',list.x,list.y+list.h+58,list.w,38,()=>openCraft());U.buttons.at(-1).label='Apri il catalogo 3D delle stazioni e delle navi del sistema';
-    }else{
+    }else if(!S.follow){
         outpost(w-18-104,239,104,built?'AVAMPOSTO':'CANTIERE');
         const n=system.planets.length,bw2=(w-36-112-(n-1)*4)/n;system.planets.forEach((index,i)=>U.button('system-planet-'+index,String(i+1),18+i*(bw2+4),239,bw2,32,()=>{selectIndex(index);touchTarget={type:'planet',index};},{active:S.selected===index,small:true,disabled:W.cameraProgress<1}));
     }
     U.button('back-galaxy',mobile&&w<360?'MAPPA':'TORNA ALLA MAPPA',mobile?18:35,h-88,mobile?Math.min(180,w-154-26):220,39,()=>route('galaxy'));
     U.button('system-zoom-in','+',mobile?w-154:w/2-66,h-77,34,30,()=>changeZoom(.86));U.button('system-zoom-out','−',mobile?w-112:w/2-26,h-77,34,30,()=>changeZoom(1/.86));
-    if(!mobile)U.button('system-reset','CENTRA',w/2+14,h-77,80,30,()=>{S.yaw=0;S.pitch=.48;S.distance=34;},{small:true});
+    if(!mobile)U.button('system-reset','CENTRA',w/2+14,h-77,80,30,()=>{stopFollow();S.yaw=0;S.pitch=.48;S.distance=34;},{small:true});
     else{U.button('system-craft','NAVI',w-70,h-77,52,30,()=>openCraft(),{small:true});U.buttons.at(-1).label='Apri il catalogo 3D delle stazioni e delle navi del sistema';}
-    newsTicker();
+    if(!F)newsTicker();
 }
 /** Room for the news of the system under the unit panel on desktop, up to 200 px high; none when the
  * window leaves less than 90 px. */
@@ -429,7 +481,10 @@ function newsTicker(){
 function sceneBlocked(x,y) {
     if(S.scene==='galaxy'&&atlas)return atlas.blocked(x,y);
     const w=R.w,h=R.h,mobile=w<850;
+    // In the follow mode (1.58.0) the panel takes the right column, or the bottom of a phone.
+    if(S.scene==='system'&&S.follow&&mobile){const f=followFrame(w,h);return S.menu||S.settings||S.editing||y<f.top||y>f.panel.y;}
     if(S.menu||S.settings||S.editing||y<235||y>h-115)return true;
+    if(S.scene==='system'&&S.follow){const f=followFrame(w,h);if(x>=f.panel.x&&x<=f.panel.x+f.panel.w)return true;}
     if(mobile)return y<278||y>h-306;
     if(['galaxy','system'].includes(S.scene)){const list=S.scene==='system'?systemPanel(W.systems[S.system]):null;const news=S.scene==='system'?tickerBox():null;return (x>=w-337&&x<=w-33&&y>=245&&y<=610)||(!!news&&x>=news.x&&x<=news.x+news.w&&y>=news.y&&y<=news.y+news.h)||(!!list&&x>=list.x&&x<=list.x+list.w&&y>=list.y&&y<=list.y+list.h);}
     return false;
@@ -449,6 +504,8 @@ function drawHover() {
     else if(hoverPointer){const {x,y}=hoverPointer;hit=hover.update(W.pick(x,y,S),performance.now(),!!pointer||sceneBlocked(x,y)||!!U.hit(x,y)||W.cameraProgress<1);}
     else hover.clear();
     if(W.cameraProgress<1||S.menu||S.settings)hit=null;
+    // The followed object has its panel: no hover card on it (1.58.0).
+    if(hit&&S.scene==='system'&&S.follow&&(hit.type==='star'?S.follow.kind==='star':hit.type==='ambient'?S.follow.kind==='planet'&&S.follow.slot===hit.body?.slot:hit.follow&&followKey(hit.follow)===followKey(S.follow)))hit=null;
     S.hoveredTarget=hit;
     if(hoverPointer)canvas.style.cursor=U.hit(hoverPointer.x,hoverPointer.y)?'pointer':hit?'pointer':'grab';
     if(!hit)return;
@@ -459,6 +516,8 @@ function drawHover() {
     let x=(p.x||R.w*.5)+22,y=(p.y||R.h*.45)-60;
     if(x+pw>R.w-25)x=(p.x||R.w*.5)-pw-22;
     x=clamp(x,20,R.w-pw-20);y=clamp(y,238,R.h-ph-118);
+    // Beside the panel «Che cosa succede», never over it (1.58.0).
+    if(S.scene==='system'&&S.follow&&x+pw>R.w-345)x=Math.max(20,(p.x||R.w*.5)-pw-22);
     U.panel(x,y,pw,ph,C.lime,.97);
     if(hit.type==='system'){
         const system=W.systems[hit.index];U.tag(system.discipline+' · '+system.name,x+16,y+16,sectorColors[system.sector]);U.text(system.planets.length+' unità in ordine di studio',x+16,y+45,'mini',C.pale);
@@ -468,11 +527,15 @@ function drawHover() {
         const e=p.entry||hit.entry,lines=p.lines||hit.lines||[],[tint,label]=CRAFT_STYLE[e.style];U.tag((e.kind==='nave'?'NAVE':e.kind==='minaccia'?'MINACCIA':e.kind==='servizio'?'SERVIZIO':'STAZIONE')+' · '+label.toUpperCase(),x+16,y+16,tint);U.text(e.name,x+16,y+45,'mini',C.pale);
         lines.forEach((t,k)=>U.text(t,x+16,y+71+k*20,'micro',k?C.muted:C.amber));
         wrapClipText(e.about||(e.typeName+', lunga '+e.size+'.'),x+16,y+71+lines.length*20+6,pw-32,'micro',C.muted,2);
-        U.text(CRAFT_BY_ID.has(e.id)?'CLIC PER APRIRE NEL CATALOGO':e.typeName.toUpperCase(),x+16,y+ph-26,'micro',CRAFT_BY_ID.has(e.id)?C.lime:C.dim);
+        U.text(p.follow?'CLIC PER SEGUIRLO DA VICINO':e.typeName.toUpperCase(),x+16,y+ph-26,'micro',p.follow?C.lime:C.dim);
     }else if(hit.type==='ambient'){
         const body=W.systems[S.system].bodies[hit.index];U.tag('CORPO '+String(body.slot+1).padStart(2,'0')+' / '+body.profile.name.toUpperCase(),x+16,y+16,C.muted);
         U.text('Pianeta di contorno',x+16,y+45,'mini',C.pale);wrapClipText(body.profile.name+' con '+body.moons+' lune'+(body.rings?' e anelli':'')+', a '+fmtNum(body.a,2)+' UA dalla stella. Non contiene unità di studio.',x+16,y+73,pw-32,'mini',C.muted,4);
-        U.text('NESSUNA UNITÀ',x+16,y+ph-26,'micro',C.dim);
+        U.text('CLIC PER SEGUIRLO DA VICINO',x+16,y+ph-26,'micro',C.lime);
+    }else if(hit.type==='star'){
+        const sub=W.followSubject({follow:{kind:'star'},system:S.system,time:S.time})?.subject;U.tag('STELLA DEL SISTEMA',x+16,y+16,C.amber);U.text(sub?.name||'Stella',x+16,y+45,'mini',C.pale);
+        if(sub)wrapClipText(`Nana di tipo ${sub.spt}, ${Math.round(sub.teff)} K, ${fmtNum(sub.L,3)} volte la luminosità del Sole.`,x+16,y+73,pw-32,'mini',C.muted,3);
+        U.text('CLIC PER SEGUIRLA DA VICINO',x+16,y+ph-26,'micro',C.lime);
     }else{
         const m=data.modules[hit.index],place=unitPlace(hit.index);U.tag('UNITÀ '+place.position+' DI '+place.count,x+16,y+16,sectorColors[m.sector]);U.text(m.title,x+16,y+45,'mini',C.pale);
         wrapClipText(m.description,x+16,y+73,pw-32,'mini',C.muted,4);
@@ -1765,11 +1828,11 @@ function syncSemantic() {
         if (e && document.activeElement !== e)
             e.value = b.value;
     }
-    const key = physicsOpen() ? 'physics-' + S.selected + '-' + store.data.updatedAt : expeditionsOpen() ? 'expeditions-' + S.selected + '-' + store.data.updatedAt : S.scene === 'ship' ? 'ship-' + store.data.updatedAt + '-' + (S.shipPage || 0) : S.scene === 'gaia' ? 'gaia-' + store.data.updatedAt + '-' + S.gaiaTab + '-' + (S.gaiaPage || 0) + '-' + S.gaiaWorld : S.scene === 'region' ? 'region-' + S.system + '-' + store.data.updatedAt : S.scene === 'craft' ? 'craft-' + craftEntry().id + '-' + (W.viewerInfo?.full ?? 0) + '-' + (S.craftDrill ? S.craftDrill.id + S.craftDrill.seed + '-' + S.craftDrill.i + '-' + S.craftDrill.chosen.join('.') : '') : S.scene === 'outpost' ? 'outpost-' + S.system + '-' + store.data.updatedAt : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticKey():S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
+    const key = S.scene === 'system' && S.follow && W.followed ? 'follow-' + followKey(S.follow) + '-' + Math.floor(S.time / 5) : physicsOpen() ? 'physics-' + S.selected + '-' + store.data.updatedAt : expeditionsOpen() ? 'expeditions-' + S.selected + '-' + store.data.updatedAt : S.scene === 'ship' ? 'ship-' + store.data.updatedAt + '-' + (S.shipPage || 0) : S.scene === 'gaia' ? 'gaia-' + store.data.updatedAt + '-' + S.gaiaTab + '-' + (S.gaiaPage || 0) + '-' + S.gaiaWorld : S.scene === 'region' ? 'region-' + S.system + '-' + store.data.updatedAt : S.scene === 'craft' ? 'craft-' + craftEntry().id + '-' + (W.viewerInfo?.full ?? 0) + '-' + (S.craftDrill ? S.craftDrill.id + S.craftDrill.seed + '-' + S.craftDrill.i + '-' + S.craftDrill.chosen.join('.') : '') : S.scene === 'outpost' ? 'outpost-' + S.system + '-' + store.data.updatedAt : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticKey():S.scene==='paths'?'paths-'+education.pathIndex+'-'+education.pathPage+'-'+store.data.updatedAt:['mission','pilot'].includes(S.scene) ? activeEducation().semanticKey() : S.scene === 'theory' ? lessons[S.reader]?.sections[S.section]?.id : S.scene === 'quiz' ? (quizList()[S.quizIndex]?.id + (S.quizSolution ? '-solution' : '-question')) : S.scene === 'pdf' ? 'pdf-' + S.pdfPage : S.scene;
     if (key !== textSignature) {
         const el = document.querySelector('#semantic-text');
         if (el)
-            el.textContent = physicsOpen() ? 'Dati fisici del pianeta ' + selected().title + '. ' + physicsText(planetPhysics()[S.selected], speciesCount(S.selected), cardReveal()) : expeditionsOpen() ? expeditionsText(selected()) : S.scene === 'ship' ? shipText() : S.scene === 'gaia' ? gaiaText() : S.scene === 'craft' ? craftPageText() : S.scene === 'outpost' ? outpostText() : S.scene === 'region' ? regionText() : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndexes[docKey(S.pdfDoc)]?.[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
+            el.textContent = S.scene === 'system' && S.follow && W.followed ? followText() : physicsOpen() ? 'Dati fisici del pianeta ' + selected().title + '. ' + physicsText(planetPhysics()[S.selected], speciesCount(S.selected), cardReveal()) : expeditionsOpen() ? expeditionsText(selected()) : S.scene === 'ship' ? shipText() : S.scene === 'gaia' ? gaiaText() : S.scene === 'craft' ? craftPageText() : S.scene === 'outpost' ? outpostText() : S.scene === 'region' ? regionText() : (S.scene==='galaxy'||atlas?.sheet)?atlas?.semanticText():S.scene==='paths'?education.semanticPathsText():['mission','pilot'].includes(S.scene) ? activeEducation().semanticText() : S.scene === 'pdf' ? pdfIndexes[docKey(S.pdfDoc)]?.[S.pdfPage - 1]?.text : readerIndex[key]?.text || selected().description;
         textSignature = key;
     }
 }
@@ -1822,8 +1885,9 @@ function events() {
                     const touch=pointer.pointerType==='touch',same=touchTarget?.type===hit.type&&touchTarget?.index===hit.index;
                     if(touch&&!same){touchTarget=hit;S.hoveredTarget=hit;if(hit.type==='system'){const units=indicesForSystem(hit.index);selectIndex(units.includes(S.selected)?S.selected:units[0]);}else selectIndex(hit.index);updateHash();}
                     else if(hit.type==='system')enterSystem(hit.index);else enterPlanet(hit.index);
-                }else if(hit?.type==='ambient'){touchTarget=hit;S.observedBody=hit.index;say(hit.body.profile.name+' · destinazione non esplorabile');}
-                else if(hit?.type==='craft'){const touch=pointer.pointerType==='touch',same=touchTarget?.type==='craft'&&touchTarget?.index===hit.index;if(CRAFT_BY_ID.has(hit.entry.id)&&(!touch||same))openCraft(hit.entry.id);else{touchTarget=hit;say([hit.entry.name,...(hit.lines||[])].join(' · '));}}
+                }else if(hit?.type==='ambient')startFollow({kind:'planet',slot:hit.body.slot});
+                else if(hit?.type==='star')startFollow({kind:'star'});
+                else if(hit?.type==='craft'){if(hit.follow)startFollow(hit.follow);else{touchTarget=hit;say([hit.entry.name,...(hit.lines||[])].join(' · '));}}
                 else if(hit?.type==='node')S.node=hit.index;
                 else if(hit?.type==='station')S.station=hit.index;
                 else if(hit?.type==='place')selectTarget({type:'place',index:hit.index});
@@ -1861,6 +1925,7 @@ function events() {
         if (e.target?.tagName === 'BUTTON' && ['Enter', ' '].includes(e.key))
             return;
         if (e.key === 'Escape') {
+            if(S.scene==='system'&&S.follow&&!S.menu&&!S.settings&&!S.editing){stopFollow();return;}
             if(!S.menu&&!S.settings&&!S.editing)backToParent();
             S.menu = false;
             S.settings = false;
