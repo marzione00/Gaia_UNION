@@ -1,3 +1,8 @@
+# 1.61.2: Pagina «FONTI» sui telefoni
+
+- I tre pulsanti in fondo alla pagina «FONTI» (dispensa di matematica, dispensa di fisica, dossier GAIA) uscivano dallo schermo dei telefoni. Dove non stanno affiancati si dividono la larghezza del riquadro, con i nomi brevi «Matematica», «Fisica» e «Dossier» e un'altezza di 44 px; il livello accessibile conserva i nomi completi.
+- `tools/qa_application_curriculum.mjs` controlla a 1280 × 900, 390 × 844 e 320 × 568 che la riga di autore e licenza apra la pagina «FONTI» e che i suoi pulsanti restino sullo schermo.
+
 # 1.61.1: Autore e licenza nel sito
 
 - Licenza delle parti originali cambiata in Creative Commons Attribuzione-NonCommerciale 4.0 Internazionale (CC BY-NC 4.0): condivisione e adattamento citando l'autore, per fini non commerciali. `LICENSE` contiene il testo legale ufficiale; `LICENSE.md`, `README.md`, `THIRD_PARTY_NOTICES.md` e `package.json` sono aggiornati. Le versioni fino alla 1.61.0 restano pubblicate con CC BY 4.0.
