@@ -110,17 +110,26 @@ export function streamOf(c, map, count = 480) {
  * per orbit, at the mean anomaly `mean`. `speed` is the speed of the meteoroids relative to the planet in
  * km/s, from the velocities of the comet at that point and of the planet on its orbit. */
 export function meteorShowers(system, comets, map) {
+    // The closest pair of 360 points of the comet orbit and 180 points of the planet orbit. The points are
+    // worked out once (1.61.0) and compared by squared distance; a pair within a hair of the best one is
+    // compared again by its distance, as before, so the crossing found is the same and it costs about a twentieth.
     const M = system.star.mass, out = new Map();
+    const tracks = comets.map(c => { const q = new Float64Array(360 * 3); for (let i = 0; i < 360; i++) { const s = cometAt(c, TAU * i / 360, M), r = map.toScene(s.r); for (let k = 0; k < 3; k++) q[i * 3 + k] = s.p[k] / s.r * r; } return q; });
     for (const body of system.bodies) {
-        const list = [];
+        const list = [], cn = Math.cos(body.node), sn = Math.sin(body.node), P = new Float64Array(180 * 3);
+        for (let j = 0; j < 180; j++) {
+            const F = TAU * j / 180, x = body.orbit * (Math.cos(F) - body.eccentricity), z = body.orbit * Math.sqrt(1 - body.eccentricity ** 2) * Math.sin(F), zz = z * Math.cos(body.inclination);
+            P[j * 3] = x * cn - zz * sn; P[j * 3 + 1] = z * Math.sin(body.inclination); P[j * 3 + 2] = x * sn + zz * cn;
+        }
         comets.forEach((c, k) => {
-            let best = { gap: Infinity };
+            const q = tracks[k];let best = { gap: Infinity }, near = Infinity;
             for (let i = 0; i < 360; i++) {
-                const E = TAU * i / 360, s = cometAt(c, E, M), r = map.toScene(s.r), q = s.p.map(x => x / s.r * r);
+                const qx = q[i * 3], qy = q[i * 3 + 1], qz = q[i * 3 + 2];
                 for (let j = 0; j < 180; j++) {
-                    const F = TAU * j / 180, x = body.orbit * (Math.cos(F) - body.eccentricity), z = body.orbit * Math.sqrt(1 - body.eccentricity ** 2) * Math.sin(F), cn = Math.cos(body.node), sn = Math.sin(body.node), zz = z * Math.cos(body.inclination);
-                    const p = [x * cn - zz * sn, z * Math.sin(body.inclination), x * sn + zz * cn], gap = Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2]);
-                    if (gap < best.gap) best = { gap, E, F, p };
+                    const dx = P[j * 3] - qx, dy = P[j * 3 + 1] - qy, dz = P[j * 3 + 2] - qz, d2 = dx * dx + dy * dy + dz * dz;
+                    if (d2 > near) continue;
+                    const gap = Math.hypot(dx, dy, dz);
+                    if (gap < best.gap) { best = { gap, E: TAU * i / 360, F: TAU * j / 180, p: [P[j * 3], P[j * 3 + 1], P[j * 3 + 2]] }; near = d2 * (1 + 1e-9); }
                 }
             }
             if (best.gap > .3) return;

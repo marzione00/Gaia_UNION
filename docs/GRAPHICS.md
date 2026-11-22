@@ -77,6 +77,13 @@ La qualità alta usa la risoluzione della scena al 100%, bilanciata all’80%, r
 - Stelle cadenti: la coda di ioni scalata a 4-9 unità, a 55 unità dalla camera nella parte alta della vista, per 0,9 s.
 - Il modello e i numeri sono descritti in `docs/STAZIONI_NAVI.md`, sezione «Comete, sciami e cinture».
 
+## Costo di un fotogramma (1.61.0)
+
+- `scripts/prestazioni.mjs` disegna ogni sistema con il codice del sito e con un contatore al posto di `src/renderer.js`, che segue le sue regole: una chiamata su una mesh o su un gruppo di istanze mancante si salta, una chiamata con istanze conta i triangoli della mesh per ogni istanza. Il risultato è `docs/PRESTAZIONI.md`.
+- Navi, stazioni e mezzi della stessa classe e dello stesso livello di dettaglio sono una sola chiamata con istanze, e i punti luce sono un'altra: per questo le chiamate di un fotogramma restano le stesse alle tre impostazioni, che cambiano il numero delle istanze.
+- Le maglie delle cinture si costruiscono alla prima visita di un sistema e restano per gli ultimi tre sistemi disegnati; le scie delle comete sono gruppi di istanze creati all'apertura della galassia.
+- `tests/galassia.test.mjs` controlla i limiti di un fotogramma: 160 chiamate di disegno, 1,2 milioni di triangoli e 2500 istanze.
+
 ## Riprodurre l'export
 
 Richiede Blender 4.3 e il suo Python con numpy:
