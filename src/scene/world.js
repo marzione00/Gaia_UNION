@@ -19,6 +19,7 @@ import { Threats, THREAT } from '../craft/threats.js';
 import { Frontier, raidLength } from '../craft/swarm.js';
 import { Kit } from '../craft/kit.js';
 import { CRAFT, CRAFT_BY_ID } from '../craft/registry.js';
+import { SERVICE_KINDS, SERVICE_NAMES, SERVICE_ABOUT, SERVICE_SIZE, planService, servicePose, serviceMesh } from '../craft/servizio.js';
 import { polyhedron } from '../craft/parts.js';
 import { SHIP_SIZE, shipPose, shipMatrix } from '../craft/traffic.js';
 import { tuft, rock, station as stationMesh, seaPlane, grazer, frond, tree, column, cushion, cup, patch, hexapod, flyer, floater, beacon, curtain } from '../worlds/geometry.js';
@@ -60,6 +61,8 @@ export function minorLanes(points){
 }
 /** Glow of a far station or ship, in the colour of its construction style (src/craft/styles.js). */
 const IDENTITY = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]);
+/** Running light of each kind of service craft (1.57.0), seen from afar. */
+const SERVICE_LIGHT = { navetta: [1, .86, .62], chiatta: [1, .78, .5], rimorchiatore: [1, .7, .45], container: [.9, .8, .6], minatore: [1, .62, .32], cisterna: [.75, 1, .8], scorta: [1, .45, .38], manutenzione: [.75, .88, 1] };
 const CRAFT_TINTS = { matematica: [.95, .72, .4, 1], fisica: [.5, .7, 1, 1], chimica: [.71, .61, 1, 1], biologia: [.44, .83, .63, 1], civile: [1, .58, .4, 1], difesa: [.91, .4, .35, 1] };
 /** Rotation of a moving part after `time`: angular speeds `w` around x, y and z (column-major, Ry · Rx · Rz). */
 function spin(w, time) {
@@ -374,7 +377,7 @@ export class World {
             const site=place=>this.craftSite(system,place,C.siteTime??s.time);
             this.lives??=new Map();
             if(!this.lives.has(id))this.lives.set(id,new Economy({stations:C.list.map(item=>item.placement.entry),ships:C.models.map(m=>m.entry),bodies:system.bodies.map(b=>b.slot),seed:SESSION^Math.imul(id+1,0x27D4EB2F),time:s.time,neighbours:this.neighbourNames(id),position:place=>site(place).position,distance:(a,b)=>{const p=site(a).position,q=site(b).position;return Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2]);}}));
-            C.life=this.lives.get(id);C.lanes=null;
+            C.life=this.lives.get(id);C.lanes=null;C.serviceKey=null;
         }
         const items=[...C.list,...C.models];
         for(const item of items)if(!item.levels[1])F.want(item.entry,LOW_DETAIL);
@@ -514,19 +517,32 @@ export class World {
             if(this.freeDrones.length){if(!this.freeReady){R.makeMesh('free-drone',freeMesh());this.freeReady=true;}const key='instances-free',data=new Float32Array(this.freeDrones);if(C.instances.has(key))R.updateInstances(key,data);else{R.makeInstances(key,'free-drone',data);C.instances.add(key);}R.drawMesh('free-drone',this.vp,IDENTITY,{eye:this.eye,light:[0,0,0],lightColor,material:10,instances:key,instanceMode:5});}
             if(this.drones?.length){const key='instances-drones',data=new Float32Array(this.drones);if(C.instances.has(key))R.updateInstances(key,data);else{R.makeInstances(key,'swarm-drone',data);C.instances.add(key);}R.drawMesh('swarm-drone',this.vp,IDENTITY,{eye:this.eye,light:[0,0,0],lightColor,material:10,instances:key,instanceMode:5});}
         }
-        // Minor traffic (1.46.0): shuttles and pods between each station and its nearest neighbour, drawn
-        // only as small lights moving along the line between the two.
-        if(R.sceneQuality!=='low'&&C.list.length>1){
-            C.lanes??=minorLanes(C.list.map((_,k)=>site({station:k}).position));
-            let minor=0;
-            for(const [a,b,n] of C.lanes){
-                const pa=site({station:a}).position,pb=site({station:b}).position,d=Math.hypot(pb[0]-pa[0],pb[1]-pa[1],pb[2]-pa[2]);
-                for(let q=0;q<n;q++){
-                    const run=s.time*.9/Math.max(1,d)+q/n+(a*.37+b*.11)%1,back=Math.floor(run)%2,u=run%1,w=back?1-u:u,p=pa.map((v,i)=>v+(pb[i]-v)*w+(i===1?Math.sin(w*Math.PI)*d*.06:0));
-                    const pixel=Math.hypot(p[0]-this.eye[0],p[1]-this.eye[1],p[2]-this.eye[2])*k2/R.h;glow(p,pixel*1.5,[1,.85,.62],.5*Math.sin(u*Math.PI));minor++;
-                }
+        // Service traffic (1.57.0, src/craft/servizio.js): shuttles, barges, tugs with their containers, miners,
+        // tankers and escorts drawn as 3D models, one instanced call per kind. The plan follows the stations,
+        // their levels and the graphics quality.
+        if(C.list.length>1){
+            const kinds=C.list.map((item,k)=>({type:item.entry.type==='porta'?'porta':item.entry.works||item.entry.type,level:life.stations[k]?.level||1})),key=R.sceneQuality+':'+kinds.map(x=>x.level).join('');
+            if(C.serviceKey!==key){C.service=planService({stations:kinds,points:C.list.map((_,k)=>site({station:k}).position),belt:system.belt?{inner:system.belt.inner,outer:system.belt.outer}:null,quality:R.sceneQuality,time:s.time});C.serviceKey=key;}
+            if(!this.serviceReady){for(const k of SERVICE_KINDS)R.makeMesh('service-'+k,serviceMesh(k));this.serviceReady=true;}
+            const docked=[],visitors=[];
+            for(const ship of life.ships)if(ship.phase!=='travel'){const p=shipPose(ship,s.time,site,avoid);docked.push({id:ship.id,at:ship.at?.station??-1,position:p.position,forward:p.forward,name:ship.name,t0:ship.t0,t1:ship.t1});}
+            for(const ship of life.visitors){const p=shipPose(ship,s.time,site,avoid);visitors.push({id:ship.id,position:p.position,forward:p.forward,name:ship.name,docked:ship.phase!=='travel'});}
+            const ctx={station:k=>site({station:k}),stationAt:(k,t)=>this.craftSite(system,{station:k},t),names:C.list.map(item=>item.entry.name),docked,visitors,beltSpin:.0008},sets=Object.fromEntries(SERVICE_KINDS.map(k=>[k,[]]));let count=0;
+            for(const v of C.service){
+                const p=servicePose(v,s.time,ctx);if(!p.visible)continue;
+                const xy=project(p.position,this.vp,R.w,R.h);if(xy[2]<=0)continue;
+                const pixel=xy[2]*k2/R.h,apparent=p.size/pixel;
+                sets[v.kind].push(...p.position,p.size,...p.forward,0);count++;
+                if(p.tow){sets.container.push(...p.tow.position,SERVICE_SIZE.container,...p.tow.forward,0);count++;}
+                // A running light keeps the far craft visible; engines while moving, mining beams towards the rock,
+                // refuelling hoses and the inspection light of the maintenance pods.
+                if(apparent<6)glow(p.position,pixel*2.6,SERVICE_LIGHT[v.kind],.95*Math.min(1,(6-apparent)/3));
+                if(p.moving)glow(p.position.map((x,i)=>x-p.forward[i]*p.size*1.1),Math.max(p.size*.45,pixel*1.1),v.kind==='scorta'?[1,.62,.28]:[.55,.8,1],.65);
+                for(const [ends,tint] of [[p.beam,[1,.7,.35]],[p.link,[.6,1,.7]],[p.scan,[.8,.92,1]]])if(ends)for(let q=0;q<3;q++){const u=((s.time*1.4+q/3)%1),c=ends[0].map((x,i)=>x+(ends[1][i]-x)*u);glow(c,Math.max(p.size*.22,pixel*1.1),tint,.7*Math.sin(u*Math.PI));}
+                if(s.scene==='system'){const back=p.moving?project(servicePose(v,s.time-1.5,ctx).position,this.vp,R.w,R.h):null;this.projections.push({type:'craft',index:20000+v.id,entry:{name:`${SERVICE_NAMES[v.kind]} ${v.id+1}`,kind:'servizio',style:v.kind==='scorta'?'difesa':'civile',typeName:SERVICE_NAMES[v.kind],about:SERVICE_ABOUT[v.kind]},lines:p.lines,tail:back&&back[2]>0?[back[0],back[1]]:null,...xyToObj(xy),r:Math.max(8,apparent*1.4),apparent,position:p.position,worldRadius:p.size});}
             }
-            stats.minor=minor;
+            for(const k of SERVICE_KINDS){const data=sets[k];if(!data.length)continue;const key='instances-service-'+k,f=new Float32Array(data);if(C.instances.has(key))R.updateInstances(key,f);else{R.makeInstances(key,'service-'+k,f);C.instances.add(key);}R.drawMesh('service-'+k,this.vp,IDENTITY,{eye:this.eye,light:[0,0,0],lightColor,material:10,instances:key,instanceMode:5});}
+            stats.service=count;stats.minor=count;
         }
         // One instanced call for each class and level: the ships of a class differ only by place and heading.
         for(const [mesh,list] of groups){
