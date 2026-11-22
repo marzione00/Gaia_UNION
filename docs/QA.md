@@ -1,30 +1,30 @@
-# Collaudo GAIA 1.54.0
+# Collaudo GAIA 1.55.0
 
-Eseguito il 22 novembre 2026 sul ramo `feat/energia-informazione-20261122`, costruito sopra `main` alla versione 1.53.0 (pull request #56), con Node.js 22.
+Eseguito il 22 novembre 2026 sul ramo `feat/crescita-replicazione-20261122`, costruito sopra `main` alla versione 1.54.0 (pull request #57), con Node.js 22.
 
 | Controllo | Comando | Risultato |
 |---|---|---:|
-| Test Node | `node --test tests/*.test.mjs` | 658 / 658 |
-| Energia e informazione | `node --test tests/energia.test.mjs` | 4 / 4 |
-| Riferimenti e risorse | `node scripts/check.mjs` | 4017 / 4017 |
+| Test Node | `node --test tests/*.test.mjs` | 661 / 661 |
+| Crescita e replicazione | `node --test tests/crescita.test.mjs` | 3 / 3 |
+| Riferimenti e risorse | `node scripts/check.mjs` | 4024 / 4024 |
 | Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 314 controlli |
 | Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 281 controlli |
 | Atlante in Chromium | `python3 tools/qa_atlas_browser.py --root dist` | 23 controlli, 30 sistemi, 280 pianeti, 125 esplorabili |
-| Esercizi in Chromium | un'ora del modello della galassia, Rapporto con i due pulsanti, esercizi di energia e informazione, risposta sbagliata e svolgimento, a 1600 × 1000 e 320 × 568 | nessun errore WebGL o di pagina; notazione scientifica leggibile e testo entro i margini |
+| Esercizi in Chromium | un'ora del modello della galassia, Rapporto con i tre pulsanti, esercizi di crescita e replicazione, risposta sbagliata e svolgimento, a 1600 × 1000 e 320 × 568 | nessun errore WebGL o di pagina; testo entro i margini |
 
 Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`.
 
-La versione aggiunge gli esercizi di energia e informazione (`src/craft/esercizi-energia.js`) e la loro apertura dal Rapporto e dalla scheda dell'unità physics-20 (`src/navigation/atlas-ui.js`).
+La versione aggiunge gli esercizi di crescita e replicazione (`src/craft/esercizi-crescita.js`), il terzo pulsante del Rapporto, il pulsante nella scheda dell'unità biology-21 e titoli più corti del Rapporto sui telefoni più piccoli (`src/navigation/atlas-ui.js`).
 
-Collaudo precedente, 1.53.0 (22 novembre 2026, ramo `feat/esercizi-catene-20261122`): 654 test Node, 4 test degli esercizi sulle stazioni, 4009 controlli di riferimenti e risorse, 314 controlli HTTP, 281 flussi applicativi, 23 controlli dell'atlante; esercizi nel catalogo in Chromium senza errori.
+Collaudo precedente, 1.54.0 (22 novembre 2026, ramo `feat/energia-informazione-20261122`): 658 test Node, 4 test di energia e informazione, 4017 controlli di riferimenti e risorse, 314 controlli HTTP, 281 flussi applicativi, 23 controlli dell'atlante; esercizi in Chromium senza errori.
 
 ## Integrazione continua
 
-Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle risorse, build, verifiche HTTP, interazioni reali dell’atlante e pubblicazione su GitHub Pages. Il passo finale scarica dal sito pubblico `build-info.json` e il curriculum e verifica che corrispondano al commit appena pubblicato e ai corsi del curriculum, 125 dalla 1.26.0. L'ultima esecuzione su `main`, per l'unione della pull request #56 (`bbc5d39`), è riuscita.
+Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle risorse, build, verifiche HTTP, interazioni reali dell’atlante e pubblicazione su GitHub Pages. Il passo finale scarica dal sito pubblico `build-info.json` e il curriculum e verifica che corrispondano al commit appena pubblicato e ai corsi del curriculum, 125 dalla 1.26.0. L'ultima esecuzione su `main`, per l'unione della pull request #57 (`98d129f`), è riuscita.
 
 ## Controllo del repository
 
-- `main` ha un solo commit radice. Dei 60 rami presenti su GitHub con quello di questo collaudo, 59 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
+- `main` ha un solo commit radice. Dei 61 rami presenti su GitHub con quello di questo collaudo, 60 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
 - Nessuna pull request o segnalazione aperta.
 - Gli autori dei commit usano indirizzi noreply, di GitHub e di Anthropic.
 - Due esecuzioni fallite nella storia di `main`, entrambe superate dai commit successivi: il primo tentativo di pubblicazione (`bacea5c`, errore in `configure-pages`) e l’unione della pull request #5 (`1d6c911`, verifica del sito pubblicato con un numero di versione fisso, corretta in `b7dc1e8`).

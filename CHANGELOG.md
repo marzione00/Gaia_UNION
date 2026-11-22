@@ -1,3 +1,10 @@
+# 1.55.0: Crescita e replicazione
+
+- Una terza serie di esercizi sul Rapporto, per «Crescita delle popolazioni microbiche» (biology-21): lo Sciame si comporta come una popolazione.
+- Cinque esercizi con i numeri del momento: tempo per arrivare all'ondata prevista con un raddoppio ogni 12 s, crescita lineare dell'ondata contro una crescita del 10 % a incursione, modello logistico dei droni liberati con la capacità di 40 per sistema, usi prima che la chiave perda effetto (come un antibiotico contro batteri resistenti), conversioni che portano un peso al massimo.
+- Il Rapporto ha tre pulsanti, «Esercizi di statistica», «Energia e informazione» e «Crescita e replicazione»; la scheda dell'unità sulla crescita microbica porta alla nuova serie. Sui telefoni più piccoli titoli e righe del Rapporto si accorciano.
+- Nuovi `src/craft/esercizi-crescita.js` e `tests/crescita.test.mjs`; descrizione in `docs/STAZIONI_NAVI.md`.
+
 # 1.54.0: Energia e informazione
 
 - Una seconda serie di esercizi sul Rapporto, per «Termodinamica e rendimento» (physics-20) e «Probabilità, informazione e fenomeni collettivi» (math-p07): i droni dello Sciame trasformano la materia in calcolo, e il calcolo ha un prezzo termodinamico.
