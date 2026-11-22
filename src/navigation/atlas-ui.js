@@ -9,6 +9,7 @@ import { rapporto } from '../craft/swarm.js';
 import { exercises, EXERCISE_UNITS } from '../craft/esercizi.js';
 import { CHAIN_UNITS } from '../craft/esercizi-catene.js';
 import { energyExercises } from '../craft/esercizi-energia.js';
+import { growthExercises } from '../craft/esercizi-crescita.js';
 import { exploration, passagesOf, passageLabel } from './passages.js';
 import { systemForPlanet, indicesForSystem, AREAS, SYSTEM_COUNT, UNIT_COUNT } from '../scene/systems.js';
 const SECTOR_COLORS=DISCIPLINE;
@@ -192,8 +193,8 @@ export class AtlasUI {
         const r=narrow?{x:base.x+(base.w-sw)/2,y:base.y+Math.max(0,Math.min(60,(base.h-sh)/3)),w:sw,h:sh}:base;
         // Modal controls replace underlying actions, including map and global navigation.
         U.buttons=[];this.R.rect(0,90,this.R.w,this.R.h-90,color('#03121d',.97));U.panel(r.x,r.y,r.w,r.h,C.cyan,1);
-        const headings={list:'CERCA UN ARGOMENTO',detail:'SCHEDA DELL’UNITÀ',routes:'PERCORSI DI STUDIO',history:'UNITÀ STUDIATE DI RECENTE',access:'ACCESSIBILITÀ',welcome:'BENVENUTO IN GAIA',rapporto:'RAPPORTO SULLO SCIAME DELLA FRONTIERA',esercizi:this.drill?.topic==='energia'?'ENERGIA E INFORMAZIONE':'ESERCIZI SUL RAPPORTO'};
-        this.text(this.sheet==='rapporto'&&r.w<560?'RAPPORTO SULLO SCIAME':this.sheet==='esercizi'&&r.w<400?(this.drill?.topic==='energia'?'ENERGIA':'ESERCIZI'):headings[this.sheet],r.x+14,r.y+16,r.w-126,'mini',C.lime,1);
+        const headings={list:'CERCA UN ARGOMENTO',detail:'SCHEDA DELL’UNITÀ',routes:'PERCORSI DI STUDIO',history:'UNITÀ STUDIATE DI RECENTE',access:'ACCESSIBILITÀ',welcome:'BENVENUTO IN GAIA',rapporto:'RAPPORTO SULLO SCIAME DELLA FRONTIERA',esercizi:this.drill?.topic==='energia'?'ENERGIA E INFORMAZIONE':this.drill?.topic==='crescita'?'CRESCITA E REPLICAZIONE':'ESERCIZI SUL RAPPORTO'};
+        this.text(this.sheet==='rapporto'&&r.w<560?(r.w<400?'RAPPORTO':'RAPPORTO SULLO SCIAME'):this.sheet==='esercizi'&&r.w<400?({energia:'ENERGIA',crescita:'CRESCITA'}[this.drill?.topic]||'ESERCIZI'):headings[this.sheet],r.x+14,r.y+16,r.w-126,'mini',C.lime,1);
         this.button(U,'close','CHIUDI',r.x+r.w-108,r.y+4,94,()=>this.close());
         const body={x:r.x+14,y:r.y+62,w:r.w-28,h:r.h-72};
         if(this.sheet==='list')this.listUI(U,body);
@@ -208,8 +209,9 @@ export class AtlasUI {
     /** Opens the exercises on the Rapporto (1.52.0) with the numbers of this moment: they stay fixed while the
      * student answers, and the next opening takes new ones. */
     openExercises(topic='statistica'){const F=this.world.frontier,seeds=this.drillSeeds??={},seed=(seeds[topic]||0)+1;seeds[topic]=seed;
-        // Statistics on the Rapporto (1.52.0), or energy and information with the planets of the front (1.54.0).
-        this.drill={topic,list:F?(topic==='energia'?energyExercises(F,seed):exercises(F,seed)):[],seed,i:0,chosen:[]};this.open('esercizi');}
+        // Statistics on the Rapporto (1.52.0), energy and information with the planets of the front (1.54.0),
+        // growth and replication of the Sciame (1.55.0).
+        this.drill={topic,list:F?(topic==='energia'?energyExercises(F,seed):topic==='crescita'?growthExercises(F,seed):exercises(F,seed)):[],seed,i:0,chosen:[]};this.open('esercizi');}
     /** One exercise at a time: question, four options, then whether the answer is right and the worked solution. */
     eserciziUI(U,r){const D=this.drill,R=this.R,scale=this.prefs.textScale,cyan=color('#7fe3ff'),bottom=r.y+r.h-54;
         if(!D?.list.length){this.text('Il fronte si attiva fra qualche minuto; torna allora.',r.x,r.y,r.w,'body');return;}
@@ -236,8 +238,9 @@ export class AtlasUI {
      * learned, the score of the forecasts, samples, keys and free drones, and the last incursions. */
     rapportoUI(U,r){const F=this.world.frontier;if(!F){this.text('Il fronte non è ancora attivo.',r.x,r.y,r.w,'body');return;}
         const rp=rapporto(F),R=this.R,scale=this.prefs.textScale,wide=r.w>=720,cyan=color('#7fe3ff'),end=r.y+r.h-54;let y=r.y;
-        const ew=Math.min((r.w-6)/2,300);
+        const ew=Math.min((r.w-12)/3,280);
         this.button(U,'rapporto-esercizi',r.w<560?'Statistica':'Esercizi di statistica',r.x,r.y+r.h-46,ew,()=>this.openExercises(),{active:true});U.buttons.at(-1).label='Esercizi di probabilità e statistica con i numeri del Rapporto';
+        this.button(U,'rapporto-crescita',r.w<560?'Crescita':'Crescita e replicazione',r.x+2*(ew+6),r.y+r.h-46,ew,()=>this.openExercises('crescita'),{active:true});U.buttons.at(-1).label='Esercizi di crescita delle popolazioni: replicazione, crescita lineare, esponenziale e logistica, resistenza';
         this.button(U,'rapporto-energia',r.w<560?'Energia':'Energia e informazione',r.x+ew+6,r.y+r.h-46,ew,()=>this.openExercises('energia'),{active:true});U.buttons.at(-1).label='Esercizi di energia e informazione: limite di Landauer, rendimento di Carnot, entropia delle previsioni';
         // Wrapped paragraph within the body: returns false when the body is full.
         const para=(t,style,tint,lh)=>{for(const line of fittedRows(R,[t],r.w/scale,style)){if(y+lh>end)return false;scaledText(R,line,r.x,y,style,tint,scale);y+=lh*scale;}return true;};
@@ -246,8 +249,8 @@ export class AtlasUI {
             const cols=[['BRACCIO',.12],['SISTEMA SUL FRONTE',.25],['PROBABILITÀ',.12],['DRONI',.09],['LIBERATI',.1],['RESPINTA',.1],['CHIAVE',.22]];let x=r.x;
             for(const [h,w] of cols){this.text(h,x,y,r.w*w-8,'micro',cyan);x+=r.w*w;}y+=22*scale;
             for(const row of rp.rows){x=r.x;R.rect(r.x,y-5,r.w,1,color(T.line,.7));for(const [v,w] of [[row.arm,.12],[row.system,.25],[row.p,.12],[row.wave,.09],[String(row.freed),.1],[row.repel,.1],[row.key,.22]]){this.text(v,x,y+2,r.w*w-8,'mini',C.pale);x+=r.w*w;}y+=28*scale;}
-        }else for(const row of rp.rows){this.text(`${row.arm} · ${row.system}`,r.x,y,r.w,'mini',C.pale);this.text(`probabilità ${row.p} · ${row.wave} droni · respinta ${row.repel}`,r.x,y+19*scale,r.w,'micro',C.muted);this.text(row.key+(row.freed?` · libera ${row.freed} droni`:''),r.x,y+35*scale,r.w,'micro',C.muted);y+=54*scale;}
-        y+=6;if(y+40>end)return;this.text('LO SCIAME IMPARA: PESO DI OGNI BRACCIO',r.x,y,r.w,'micro',cyan);y+=20*scale;
+        }else for(const row of rp.rows){this.text(`${row.arm} · ${row.system}`,r.x,y,r.w,'mini',C.pale);this.text(`${r.w<400?'':'probabilità '}${row.p} · ${row.wave} droni · respinta ${row.repel}`,r.x,y+19*scale,r.w,'micro',C.muted);this.text(row.key+(row.freed?` · libera ${row.freed} droni`:''),r.x,y+35*scale,r.w,'micro',C.muted);y+=54*scale;}
+        y+=6;if(y+40>end)return;this.text(r.w<400?'PESO DI OGNI BRACCIO':'LO SCIAME IMPARA: PESO DI OGNI BRACCIO',r.x,y,r.w,'micro',cyan);y+=20*scale;
         const bw=(r.w-18)/4;rp.learning.forEach((a,i)=>{const x=r.x+i*(bw+6);R.roundRect(x,y,bw,8,3,color(T.raised,.95));R.roundRect(x,y,Math.max(3,bw*a.share),8,3,DISCIPLINE[i]);this.text(`${wide?a.arm:a.arm.slice(0,3)} ${Math.round(a.share*100)} %`,x,y+13,bw,'micro',C.muted);});y+=44*scale;
         if(!para(rp.score,'mini',C.pale,20)||!para(rp.keys,'mini',C.pale,20))return;y+=8;
         if(rp.recent.length&&y+40<end){this.text('ULTIME INCURSIONI: PREVISIONE ED ESITO',r.x,y,r.w,'micro',cyan);y+=20*scale;for(const x of rp.recent){const a=`${x.system} · ${x.n} droni`,b=`respinta prevista ${x.predicted} · esito: ${x.outcome}${x.freed?` · ${x.freed} liberati`:''}`;
@@ -269,10 +272,10 @@ export class AtlasUI {
         this.text(m.title,r.x,r.y+54,r.w,'body',C.pale,Math.min(this.prefs.textScale,1.2));
         const lw=(r.w-12)/3;['SCOPRI','COMPRENDI','AVANZATO'].forEach((label,i)=>this.button(U,'level-'+i,label,r.x+i*(lw+6),r.y+86,lw,()=>{this.level=i;this.previewPage=0;},{active:this.level===i}));
         const level=['base','intermediate','advanced'][this.level],paragraphs=[m.title,...d.steps[0].text[level]];
-        const chain=CHAIN_UNITS.includes(m.id)&&!!this.api.openStationDrill,energy=m.id==='physics-20'&&!!this.world.frontier,drill=chain||energy||EXERCISE_UNITS.includes(m.id)&&!!this.world.frontier;
+        const chain=CHAIN_UNITS.includes(m.id)&&!!this.api.openStationDrill,energy=m.id==='physics-20'&&!!this.world.frontier,growth=m.id==='biology-21'&&!!this.world.frontier,drill=chain||energy||growth||EXERCISE_UNITS.includes(m.id)&&!!this.world.frontier;
         this.body(U,paragraphs,{x:r.x-14,y:r.y+140,w:r.w+28,h:r.h-194-(drill?52:0)});
         // Units with exercises on the Rapporto (1.52.0) or on the stations of the catalogue (1.53.0) lead to them.
-        if(drill){this.button(U,'detail-esercizi',r.w<560?'Esercizi nella galassia':chain?'Esercizi nella galassia: le stazioni del catalogo':energy?'Esercizi nella galassia: energia e informazione':'Esercizi nella galassia: il Rapporto sullo Sciame',r.x,r.y+r.h-98,r.w,()=>chain?(this.close(),this.api.openStationDrill(m.id)):this.openExercises(energy?'energia':'statistica'));U.buttons.at(-1).label=chain?'Esercizi di stechiometria e velocità con le ricette delle stazioni':energy?'Esercizi di energia e informazione con le temperature dei pianeti del fronte':'Esercizi di probabilità e statistica con i numeri del Rapporto sullo Sciame della Frontiera';}
+        if(drill){this.button(U,'detail-esercizi',r.w<560?'Esercizi nella galassia':chain?'Esercizi nella galassia: le stazioni del catalogo':energy?'Esercizi nella galassia: energia e informazione':growth?'Esercizi nella galassia: crescita e replicazione':'Esercizi nella galassia: il Rapporto sullo Sciame',r.x,r.y+r.h-98,r.w,()=>chain?(this.close(),this.api.openStationDrill(m.id)):this.openExercises(energy?'energia':growth?'crescita':'statistica'));U.buttons.at(-1).label=chain?'Esercizi di stechiometria e velocità con le ricette delle stazioni':energy?'Esercizi di energia e informazione con le temperature dei pianeti del fronte':growth?'Esercizi di crescita delle popolazioni con i numeri dello Sciame':'Esercizi di probabilità e statistica con i numeri del Rapporto sullo Sciame della Frontiera';}
         const w=(r.w-6)/2;this.button(U,'detail-enter','SISTEMA 3D',r.x,r.y+r.h-46,w,()=>this.api.enterSystem(sys));const chapter=!!this.api.hasChapter?.(m.id);this.button(U,'learn',chapter?'LEGGI IL CAPITOLO':'APRI L’UNITÀ',r.x+w+6,r.y+r.h-46,w,()=>chapter?this.api.openChapter(m.id):this.api.openCourse(m.id),{active:true});
     }
     routesUI(U,r){const rows=[{id:null,title:'NESSUN PERCORSO · Esplorazione libera'},...this.bundle.paths],cap=Math.max(1,Math.floor((r.h-108)/50)),pages=Math.max(1,Math.ceil(rows.length/cap));this.page=clamp(this.page,0,pages-1);
