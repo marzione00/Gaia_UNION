@@ -1,3 +1,10 @@
+# 1.52.0: Esercizi sul Rapporto
+
+- Il Rapporto sullo Sciame diventa materia di esercizio per «Combinatoria, probabilità e statistica» (math-c10) e «Probabilità, informazione e fenomeni collettivi» (math-p07). Cinque esercizi con i numeri del momento: probabilità dai pesi, valore atteso dell'ondata, probabilità totale di respingere un'incursione, punteggio di Brier delle ultime previsioni, scarto in deviazioni standard fra colpi osservati e attesi.
+- Quattro risposte per esercizio, le sbagliate prese da errori frequenti; conta la prima risposta, poi la scheda mostra quella corretta e lo svolgimento passo per passo. Ogni apertura prende i numeri nuovi.
+- Si aprono dal pulsante «Esercizi sul Rapporto» e dalla scheda delle due unità sulla mappa. Su telefono le risposte stanno due per riga; sugli schermi più bassi lo svolgimento prende il posto della domanda.
+- Nuovi `src/craft/esercizi.js` e `tests/esercizi.test.mjs`; descrizione in `docs/STAZIONI_NAVI.md`.
+
 # 1.51.0: Catalogo 3D dei modelli
 
 - Un catalogo 3D di tutti i 997 modelli della galassia, 564 stazioni e 433 navi, di cui 218 della flotta di difesa. Si apre dal pulsante «Catalogo dei modelli» di ogni sistema (su telefono «Navi») o con un clic su una stazione o una nave della scena; l'indirizzo nomina il modello e si può condividere.
