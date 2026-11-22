@@ -61,7 +61,14 @@ La qualità alta usa la risoluzione della scena al 100%, bilanciata all’80%, r
 - `src/worlds/orbit-texture.js` calcola la mappa equirettangolare di un pianeta esplorabile con lo stesso stile di terreno della superficie, valutato con rumore 3D sulla sfera: nessuna cucitura sulla linea del cambio di data e nessuna deformazione ai poli. Crateri, atolli, vulcani, criovulcani e caldere diventano calotte distribuite sulla sfera; le dune si allineano lungo le fasce di vento delle basse latitudini, come su Titano.
 - Il livello del mare è il quantile della carta calcolato sull’area (4000 punti distribuiti uniformemente); il colore viene da `colorAt`, la stessa funzione della superficie, con un’ombreggiatura leggera sui pendii. Il canale alfa vale 0 sul mare: il materiale 12 lo usa per il riflesso speculare dell’acqua.
 - `World.orbitTexture` crea subito una mappa 128 × 64 (15-46 ms in Node su otto pianeti di prova), poi costruisce in `orbitTick` la mappa 512 × 256 (125-248 ms) e, per il pianeta in orbita, quella 1024 × 512 (517-911 ms), circa 6 ms per fotogramma. Restano in memoria le 12 mappe medie e le 3 grandi usate più di recente.
-- Nuvole e guscio dell’atmosfera seguono la carta: opacità delle nuvole 1,4 volte la copertura (massimo 0,9), guscio visibile sopra densità 0,05 con opacità 0,3 + 0,55 × densità, colore dal cielo della carta.
+- Nuvole e guscio dell’atmosfera seguono la carta: opacità delle nuvole 1,4 volte la copertura (massimo 0,9), guscio con spessore, altezza di scala e spessore ottico ricavati dalla pressione della carta (sezione «Atmosfere visibili»), colore dal cielo della carta.
+
+## Atmosfere visibili (1.59.0)
+
+- Il guscio dell'atmosfera segue la pressione al suolo della carta, p = 10^(4,5d − 2,5) bar per una densità d di almeno 0,1 (`src/worlds/physics.js`). Fra 0,01 e 100 bar lo spessore del guscio cresce dall'1,8 % al 6,8 % del raggio, l'altezza di scala è un quarto dello spessore e lo spessore ottico va da 3 a 15, moltiplicato per 0,7 più 0,6 volte la foschia (`shellOf` in `src/scene/world.js`). Nei 103 pianeti delle unità con un'atmosfera la pressione va da 0,009 a 45,5 bar; i 22 con un'esosfera restano senza guscio.
+- Lo shader del guscio (materiale 6) integra la luce lungo il raggio con questi parametri, rinforza la diffusione in avanti quando si guarda verso la stella e aggiunge una fascia di crepuscolo lungo il terminatore.
+- Il colore del crepuscolo viene dal cielo della carta: la luce che attraversa un lungo tratto d'aria perde i colori che il cielo diffonde. La funzione `twilightOf` di `src/craft/succede.js` e la funzione `dusk` degli shader usano la stessa formula. Un cielo azzurro dà un crepuscolo arancione o giallo, un cielo caldo un crepuscolo azzurro, come su Marte; nei 103 pianeti i crepuscoli sono 38 arancioni, 37 azzurri, 22 gialli, 4 verdi e 2 bianchi.
+- La stessa fascia colora il suolo lungo il terminatore (materiale 12) e le nubi (materiale 5), con un'intensità che cresce con la pressione da 0,25 a 1.
 
 ## Riprodurre l'export
 

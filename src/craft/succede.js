@@ -12,6 +12,8 @@ export const CONCEPT_UNITS = Object.freeze({
     'physics-04': 'Moto uniformemente accelerato',
     'physics-10': 'Rotazione e momento d’inerzia',
     'physics-13': 'Orbite circolari',
+    'physics-26': 'Onde elettromagnetiche e pressione della luce',
+    'biology-23': 'Atmosfere, effetto serra e clima',
     'physics-30': 'Radiazione termica e luce delle stelle',
     'chemistry-14': 'Stechiometria e reagente limitante',
     'chemistry-15': 'Resa e bilanci di materia',
@@ -29,6 +31,20 @@ const concept = (unit, text) => ({ unit, title: CONCEPT_UNITS[unit], text });
 export function orbitOf(a, M, L) {
     const years = Math.sqrt(a ** 3 / M);
     return { years, days: years * YEAR, speed: V_EARTH * Math.sqrt(M / a), flux: L / a ** 2, kepler: 1 / M };
+}
+/** Colour of the light at dusk under a sky of colour `sky` (1.59.0): the light that crosses a long path of air
+ * loses the colours the sky scatters, so the dusk takes the colours the sky lacks. The same formula tints
+ * the twilight band of the planets (src/scene/shaders.js, materials 5, 6 and 12). */
+export function twilightOf(sky) { const m = Math.max(...sky, .01), c = sky.map(v => Math.min(1, Math.max(.05, 1.05 - v / m * .9))), top = Math.max(...c); return c.map(v => v / top); }
+/** Italian name of a colour, masculine or feminine; muted colours are pale, colours without a hue white when
+ * bright and grey otherwise. */
+export function colourName(rgb, feminine = false) {
+    const [r, g, b] = rgb, hi = Math.max(r, g, b), lo = Math.min(r, g, b), sat = hi > 0 ? (hi - lo) / hi : 0;
+    if (sat < .08) return hi > .95 ? (feminine ? 'bianca' : 'bianco') : feminine ? 'grigia' : 'grigio';
+    const d = hi - lo, h = (hi === r ? ((g - b) / d + 6) % 6 : hi === g ? (b - r) / d + 2 : (r - g) / d + 4) * 60;
+    const names = [[15, 'rosso', 'rossa'], [40, 'arancione', 'arancione'], [70, 'giallo', 'gialla'], [160, 'verde', 'verde'], [225, 'azzurro', 'azzurra'], [262, 'blu', 'blu'], [300, 'viola', 'viola'], [345, 'rosa', 'rosa'], [361, 'rosso', 'rossa']];
+    const [, m, f] = names.find(([edge]) => h < edge);
+    return (feminine ? f : m) + (sat < .25 ? (feminine ? ' pallida' : ' pallido') : '');
 }
 /** Peak wavelength in nm and luminosity from radius and temperature, in solar units. */
 export function starOf(teff, R) { return { peak: WIEN / teff, L: R ** 2 * (teff / T_SUN) ** 4 }; }
@@ -123,11 +139,32 @@ function service(x) {
     throw new Error('ruolo sconosciuto: ' + x.role);
 }
 function planet(x) {
+    // Rows measured by an instrument of the ship stay hidden until it is on board (src/navigation/instruments.js).
+    const shown = label => x.hidden?.[label] || null, value = (label, v) => shown(label) || v;
     const o = orbitOf(x.a, x.M, x.L), period = o.days < 730 ? dec(o.days, o.days < 10 ? 2 : 1) + ' giorni' : dec(o.years, 2) + ' anni';
-    const rows = [['Distanza dalla stella', dec(x.a, x.a < .1 ? 4 : 3) + ' UA'], ['Periodo orbitale', period], ['Velocità orbitale', dec(o.speed, 1) + ' km/s'], ['Luce ricevuta', `${dec(o.flux, o.flux < 10 ? 2 : 0)} volte la Terra`]];
-    if (x.teq) rows.push(['Temperatura di equilibrio', dec(x.teq, 0) + ' K']);
-    return { tag: x.unit ? 'PIANETA DI STUDIO' : 'PIANETA DI CONTORNO', title: x.name, subtitle: x.unit ? x.unit.title : 'Pianeta senza unità di studio', style: null, open: x.unit ? x.unit.id : null, rows,
+    const orbit = { key: 'orbita', label: 'ORBITA', rows: [['Distanza dalla stella', dec(x.a, x.a < .1 ? 4 : 3) + ' UA'], ['Periodo orbitale', period], ['Velocità orbitale', dec(o.speed, 1) + ' km/s'], ['Luce ricevuta', value('Luce', `${dec(o.flux, o.flux < 10 ? 2 : 0)} volte la Terra`)]],
         concept: concept('physics-13', `Sull'orbita la gravità della stella fa da forza centripeta, quindi v = √(GM/a): con M = ${dec(x.M, 2)} masse solari e a = ${dec(x.a, 3)} UA la velocità è ${dec(o.speed, 1)} km/s. Il periodo segue la terza legge di Keplero, T² = a³/M in anni: T = ${dec(o.years, 3)} anni. Sulla mappa le distanze crescono con il logaritmo e il moto è accelerato.`) };
+    const pages = [orbit], A = x.atm;
+    if (A) {
+        // Greenhouse effect of a grey atmosphere (src/worlds/physics.js): Ts = Teq (1 + 0.75 τ)^(1/4).
+        const known = !shown('Pressione') && !shown('Effetto serra') && !shown('Temperatura');
+        const rows = A.exosphere ? [['Pressione al suolo', value('Pressione', 'esosfera, meno di un centesimo di bar')], ['Temperatura al suolo', value('Temperatura', dec(A.ts, 0) + ' K')]]
+            : [['Pressione al suolo', value('Pressione', dec(A.pressure, A.pressure < 10 ? 2 : 0) + ' bar')], ['Profondità ottica', value('Effetto serra', dec(A.tau, 2))], ['Temperatura di equilibrio', value('Temperatura', dec(A.teq, 0) + ' K')], ['Temperatura al suolo', value('Temperatura', dec(A.ts, 0) + ' K')], ['Effetto serra', value('Effetto serra', `${dec(A.greenhouse, 0)} K`)]];
+        const text = A.exosphere ? (known ? `Senza un'atmosfera apprezzabile manca l'effetto serra: la superficie resta alla temperatura di equilibrio, ${dec(A.ts, 0)} K, quella di un corpo che riflette il ${dec(A.albedo * 100, 0)} % della luce e irraggia il resto.` : 'Senza un\'atmosfera apprezzabile manca l\'effetto serra, e la superficie resta alla temperatura di equilibrio. Il radiometro infrarosso di bordo la misura.')
+            : known ? `La luce della stella, con un'albedo del ${dec(A.albedo * 100, 0)} %, porta il pianeta alla temperatura di equilibrio Teq = ${dec(A.teq, 0)} K. L'atmosfera trattiene parte della radiazione infrarossa: con uno strato grigio di profondità ottica τ, Ts = Teq · ⁴√(1 + 0,75τ) = ${dec(A.teq, 0)} × ⁴√(1 + 0,75 × ${dec(A.tau, 2)}) = ${dec(A.ts, 0)} K, cioè ${dec(A.greenhouse, 0)} K di effetto serra.`
+            : 'Con lo spettrografo di bordo si misurano pressione e profondità ottica τ, con il radiometro infrarosso le temperature. Nel modello a strato grigio la temperatura al suolo è Ts = Teq · ⁴√(1 + 0,75τ): più l\'atmosfera è opaca all\'infrarosso, più la superficie è calda.';
+        pages.push({ key: 'atmosfera', label: 'ATMOSFERA', rows, concept: concept('biology-23', text) });
+        if (!A.exosphere) {
+            const dusk = twilightOf(A.sky), peak = WIEN / x.teff, ratio = (700 / 450) ** 4, sky = colourName(A.sky), late = colourName(dusk, true);
+            // A blue sky comes from the molecules; a grey one from droplets; a warm one from dust that absorbs blue.
+            const why = /^(azzurro|blu)/.test(sky) ? `Qui il cielo è ${sky}, come prevede la diffusione dalle molecole; al crepuscolo la luce attraversa molta più aria, perde il blu e arriva ${late}.`
+                : /^grigio/.test(sky) ? `Qui il cielo è grigio: con una foschia del ${dec(A.haze * 100, 0)} % le goccioline, più grandi delle molecole, diffondono tutti i colori quasi allo stesso modo; al crepuscolo la luce arriva ${late}.`
+                : `Qui il cielo è ${sky}: diffondono soprattutto le polveri, che assorbono parte del blu; al crepuscolo la luce arriva ${late}${/^(azzurr|blu)/.test(late) ? ', come nei tramonti di Marte' : ''}.`;
+            pages.push({ key: 'cielo', label: 'CIELO', rows: [['Colore del cielo', sky], ['Luce al crepuscolo', late], ['Foschia', dec(A.haze * 100, 0) + ' %'], ['Nubi', `coprono il ${dec(A.clouds * 100, 0)} % del cielo`], ['Picco della stella', dec(peak, 0) + ' nm']],
+                concept: concept('physics-26', `Le molecole dell'aria diffondono la luce con un'intensità proporzionale a 1/λ⁴: il blu a 450 nm è diffuso (700/450)⁴ = ${dec(ratio, 1)} volte più del rosso a 700 nm. ${why}`) });
+        }
+    }
+    return { tag: x.unit ? 'PIANETA DI STUDIO' : 'PIANETA DI CONTORNO', title: x.name, subtitle: x.unit ? x.unit.title : 'Pianeta senza unità di studio', style: null, open: x.unit ? x.unit.id : null, rows: orbit.rows, concept: orbit.concept, pages: pages.length > 1 ? pages : null };
 }
 function star(x) {
     const s = starOf(x.teff, x.R);
