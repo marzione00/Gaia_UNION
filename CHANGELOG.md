@@ -1,3 +1,10 @@
+# 1.57.0: Densità e interazioni
+
+- Traffico di servizio in 3D in ogni sistema (`src/craft/servizio.js`): navette sulle corsie fra stazioni vicine e su linee regolari dal porto principale, chiatte in coda che attraccano a turno, rimorchiatori con container, minatori nella fascia di asteroidi o attorno alle miniere, cisterne che riforniscono le navi attraccate, caccia di scorta ai convogli e moduli di manutenzione attorno a ogni stazione.
+- Da 110 a 171 mezzi di servizio per sistema in alta qualità, a cui si aggiungono le navi dell'economia; la qualità equilibrata ne disegna il 65 % e la bassa il 35 %. Una chiamata a istanze per ognuno degli otto tipi di mezzo.
+- Viaggi misurati sulla distanza del momento, perché le stazioni di pianeti diversi si allontanano lungo le orbite; luci di posizione da lontano, motori, raggi di estrazione, tubi del propellente, scie brevi e un riquadro con l'attività di ogni mezzo.
+- Nuovo `tests/servizio.test.mjs`; descrizione nella sezione «Traffico di servizio» di `docs/STAZIONI_NAVI.md`.
+
 # 1.56.0: Guida per il docente
 
 - Nuova `docs/GUIDA_DOCENTE.md` sugli esercizi dai sistemi della galassia: per ciascuna delle quattro serie le unità, dove si apre, le formule, le ipotesi da dichiarare in classe, gli errori che le risposte sbagliate permettono di riconoscere e uno spunto per la lezione; i tempi in cui compaiono gli esercizi che richiedono una storia, misurati su dodici sessioni.

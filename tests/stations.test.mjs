@@ -39,7 +39,7 @@ test('orbite: posizioni finite, distanza costante dall\'ospite, nessuna stazione
 test('scena: modelli semplificati uno per fotogramma, completi da vicino, navi in istanze, mesh liberate al cambio di sistema',()=>{
  const made=new Set(),deleted=[],draws=[],sets=new Map(),gone=[];
  const R={w:1600,h:1000,makeStars(){},makeMesh(id){if(/^(craft|ship)-/.test(id))made.add(id);},deleteMesh(id){if(/^(craft|ship)-/.test(id)){deleted.push(id);made.delete(id);}},drawMesh(id,vp,model,o={}){draws.push({id,o});},
-  makeInstances(key,mesh,data){assert.ok(made.has(mesh)||mesh==='lowSphere');sets.set(key,{mesh,n:data.length/8});},updateInstances(key,data){sets.get(key).n=data.length/8;},deleteInstances(key){sets.delete(key);gone.push(key);},shadowKey:'surface',sceneQuality:'high'};
+  makeInstances(key,mesh,data){assert.ok(made.has(mesh)||mesh==='lowSphere'||mesh.startsWith('service-'));sets.set(key,{mesh,n:data.length/8});},updateInstances(key,data){sets.get(key).n=data.length/8;},deleteInstances(key){sets.delete(key);gone.push(key);},shadowKey:'surface',sceneQuality:'high'};
  const biomes=JSON.parse(fs.readFileSync(new URL('../assets/scenes/manifest.json',import.meta.url))).biomes,w=new World(R,{},biomes);w.cameraSpace='system';w.travelling=false;w.fov=.78;w.eye=[0,30,60];w.vp=mul(perspective(.78,1.6,.012,400),lookAt(w.eye,[0,0,0]));
  const s={scene:'system',time:3},first=systemOf(13);
  // Without workers (Node) the factory builds one model per frame: the low level of the stations, then of the ships.
@@ -49,9 +49,11 @@ test('scena: modelli semplificati uno per fotogramma, completi da vicino, navi i
  for(let frame=1;frame<=w.craft.models.length;frame++){w.projections=[];w.drawStations(s,13,first);assert.equal(w.craft.models.filter(i=>i.levels[1]).length,frame);}
  assert.ok(w.craft.list.every(i=>!i.levels[0]),'nessun modello completo da lontano');
  assert.equal(R.shadowKey,'surface','la mappa delle ombre della superficie va ripristinata');
- assert.ok(made.size>=10);assert.equal(w.projections.filter(p=>p.type==='craft'&&p.index<100).length,stations);assert.ok(w.projections.filter(p=>p.type==='craft'&&p.index>=100).length>=4);
- assert.ok(w.projections.filter(p=>p.type==='craft').every(p=>p.entry&&p.entry.system===13&&Number.isFinite(p.x)&&p.lines.length===2));
- const stats=w.craftStats;assert.equal(stats.full+stats.low+stats.light,w.projections.filter(p=>p.type==='craft').length);
+ // Service traffic (1.57.0) has projections of its own, numbered from 20000.
+ const craft=w.projections.filter(p=>p.type==='craft'&&p.entry.kind!=='servizio');assert.ok(w.projections.filter(p=>p.entry?.kind==='servizio').every(p=>p.index>=20000));
+ assert.ok(made.size>=10);assert.equal(craft.filter(p=>p.index<100).length,stations);assert.ok(craft.filter(p=>p.index>=100).length>=4);
+ assert.ok(craft.every(p=>p.entry&&p.entry.system===13&&Number.isFinite(p.x)&&p.lines.length===2));
+ const stats=w.craftStats;assert.equal(stats.full+stats.low+stats.light,craft.length);
  for(const d of draws.filter(d=>d.o.instances)){assert.equal(d.o.instanceMode,d.id==='lowSphere'?6:5);assert.equal(sets.get(d.o.instances).mesh,d.id);assert.ok(sets.get(d.o.instances).n>=1);}
  assert.ok(!draws.some(d=>d.id==='lowSphere'&&!d.o.instances),'bagliori disegnati uno per uno');
  // Near a station the full model is built and drawn in its place.
@@ -61,5 +63,5 @@ test('scena: modelli semplificati uno per fotogramma, completi da vicino, navi i
  assert.ok(w.craft.list[0].levels[0],'modello completo non costruito');assert.ok(w.craftStats.full>=1);
  assert.ok(draws.some(d=>d.id==='craft-0-0-body'),'modello completo non disegnato');assert.ok(!draws.some(d=>d.id==='craft-0-1-body'));
  const before=made.size,keys=[...sets.keys()];gone.length=0;w.drawStations(s,1,systemOf(1));
- assert.equal(deleted.length,before,'mesh del sistema precedente non liberate');assert.equal(w.craft.system,1);assert.ok(keys.every(k=>gone.includes(k)),'istanze del sistema precedente non liberate');assert.ok([...sets.keys()].every(k=>k==='instances-glows'),'istanze di navi prima dei modelli');
+ assert.equal(deleted.length,before,'mesh del sistema precedente non liberate');assert.equal(w.craft.system,1);assert.ok(keys.every(k=>gone.includes(k)),'istanze del sistema precedente non liberate');assert.ok([...sets.keys()].every(k=>k==='instances-glows'||k.startsWith('instances-service-')),'istanze di navi prima dei modelli');
 });

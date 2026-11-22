@@ -32,7 +32,7 @@ import { descriptor as modelDescriptor } from './models/curriculum.js';
 import { openStore, grade } from './store.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.56.0-guida';
+const VERSION = '1.57.0-densita';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -337,6 +337,11 @@ function craftMarkers() {
             const k = .7 + .3 * Math.sin(S.time * 6), e = r + 3, tri = [[p.x, p.y - e], [p.x + e, p.y + e * .8], [p.x - e, p.y + e * .8]];
             R.poly([[p.x, p.y], ...tri, tri[0]], color(CRAFT_STYLE.minaccia[2], .35 + .4 * k)); R.polyline([...tri, tri[0]], tint, 1.6);
         }
+        else if (p.entry.kind === 'servizio') {
+            // Service craft (1.57.0) are many: a faint wake while they move, a ring only on the hovered one.
+            if (p.tail && Math.hypot(p.tail[0] - p.x, p.tail[1] - p.y) > 2) R.line(p.tail, [p.x, p.y], color(CRAFT_STYLE[p.entry.style][2], .3), 1.2);
+            if (hot) R.roundRect(p.x - 8, p.y - 8, 16, 16, 8, color('#000000', 0), tint);
+        }
         else if (p.entry.kind === 'nave') {
             // A moving ship leaves a short wake towards where it was a moment ago.
             if (p.tail && Math.hypot(p.tail[0] - p.x, p.tail[1] - p.y) > 2) R.line(p.tail, [p.x, p.y], color(CRAFT_STYLE[p.entry.style][2], .5), 2);
@@ -460,7 +465,7 @@ function drawHover() {
         wrapClipText(system.description,x+16,y+73,pw-32,'mini',C.muted,4);
         U.text('CLIC PER SCEGLIERE L’AREA',x+16,y+ph-26,'micro',C.lime);
     }else if(hit.type==='craft'){
-        const e=p.entry||hit.entry,lines=p.lines||hit.lines||[],[tint,label]=CRAFT_STYLE[e.style];U.tag((e.kind==='nave'?'NAVE':e.kind==='minaccia'?'MINACCIA':'STAZIONE')+' · '+label.toUpperCase(),x+16,y+16,tint);U.text(e.name,x+16,y+45,'mini',C.pale);
+        const e=p.entry||hit.entry,lines=p.lines||hit.lines||[],[tint,label]=CRAFT_STYLE[e.style];U.tag((e.kind==='nave'?'NAVE':e.kind==='minaccia'?'MINACCIA':e.kind==='servizio'?'SERVIZIO':'STAZIONE')+' · '+label.toUpperCase(),x+16,y+16,tint);U.text(e.name,x+16,y+45,'mini',C.pale);
         lines.forEach((t,k)=>U.text(t,x+16,y+71+k*20,'micro',k?C.muted:C.amber));
         wrapClipText(e.about||(e.typeName+', lunga '+e.size+'.'),x+16,y+71+lines.length*20+6,pw-32,'micro',C.muted,2);
         U.text(CRAFT_BY_ID.has(e.id)?'CLIC PER APRIRE NEL CATALOGO':e.typeName.toUpperCase(),x+16,y+ph-26,'micro',CRAFT_BY_ID.has(e.id)?C.lime:C.dim);
