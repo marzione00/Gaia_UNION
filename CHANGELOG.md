@@ -1,3 +1,10 @@
+# 1.61.0: Documentazione e collaudo della serie «Galassia viva»
+
+- `docs/GALASSIA_VIVA.md`: che cosa contiene un sistema, come si segue un oggetto, la mappa dei concetti del pannello «Che cosa succede» (21 situazioni, 13 unità) e suggerimenti per la classe con i numeri del sistema 13.
+- Prestazioni misurate: `scripts/prestazioni.mjs` disegna i 30 sistemi alle tre impostazioni della grafica con un contatore al posto della scheda grafica e scrive `docs/PRESTAZIONI.md`, con chiamate di disegno, triangoli, istanze, tempo del processore, costo dell'oggetto seguito, cinture, comete e sciami.
+- Sciami calcolati in meno di un ventesimo del tempo: i punti delle orbite si calcolano una volta e si confrontano per distanza al quadrato, con gli stessi incroci. Scompare un'attesa fino a 110 ms la prima volta che si segue un pianeta o si scende su un pianeta con aria.
+- Nuovo `tests/galassia.test.mjs`: limiti di un fotogramma (160 chiamate di disegno, 1,2 milioni di triangoli, 2500 istanze), cinture in memoria per tre sistemi, sciami uguali al confronto completo, documenti della serie coerenti con il codice.
+
 # 1.60.0: Comete, sciami e cinture
 
 - Cinture in ogni sistema: una di ghiaccio oltre i pianeti, dove stava la fascia, e in 16 sistemi una di asteroidi vicino alla linea del ghiaccio. Ogni cintura gira in quattro anelli, gli interni più veloci, con una fascia di polvere visibile da lontano; stazioni e minatori seguono il loro anello.
