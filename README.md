@@ -127,7 +127,7 @@ Vedi [sistemi e texture NASA](docs/PLANET_SYSTEMS.md), [architettura](docs/ARCHI
 
 ## Pubblicazione
 
-Il workflow `.github/workflows/pages.yml` esegue test, controlli delle risorse, build e verifiche HTTP della cartella `dist/`. Le pull request eseguono i controlli senza pubblicare. Ogni push su `main`, o un avvio manuale su `main`, pubblica la distribuzione e verifica via HTTPS i file essenziali del sito.
+Il workflow `.github/workflows/pages.yml` esegue test, controlli delle risorse, build e verifiche HTTP della cartella `dist/`. Per contenere il consumo di GitHub Actions le pull request non avviano il workflow: gli stessi controlli si eseguono in locale prima di aprirle, come registrato in `docs/QA.md`, e «Run workflow» li avvia a mano su qualsiasi ramo, pubblicando solo da `main`. Ogni push su `main`, o un avvio manuale su `main`, pubblica la distribuzione e verifica via HTTPS i file essenziali del sito.
 
 In **Settings → Pages → Build and deployment → Source** deve essere selezionato **GitHub Actions**; questa impostazione va attivata una sola volta per ogni nuovo repository. `configure-pages` viene eseguito nel job di deploy con i permessi Pages necessari. Non servono token personali o chiavi API. I deploy in corso non vengono interrotti da un nuovo push.
 
