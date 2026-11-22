@@ -22,6 +22,8 @@ import { CRAFT, CRAFT_BY_ID } from '../craft/registry.js';
 import { SERVICE_KINDS, SERVICE_NAMES, SERVICE_ABOUT, SERVICE_SIZE, planService, servicePose, serviceMesh } from '../craft/servizio.js';
 import { polyhedron } from '../craft/parts.js';
 import { SHIP_SIZE, shipPose, shipMatrix } from '../craft/traffic.js';
+import { CHAIN_STATIONS } from '../craft/esercizi-catene.js';
+import { planetPhysics } from '../worlds/planet-physics.js';
 import { tuft, rock, station as stationMesh, seaPlane, grazer, frond, tree, column, cushion, cup, patch, hexapod, flyer, floater, beacon, curtain } from '../worlds/geometry.js';
 /** Mesh, instance mode, motion uniform and PBR of each body plan of the species (src/worlds/species.js). */
 const BODIES = {
@@ -61,6 +63,20 @@ export function minorLanes(points){
 }
 /** Glow of a far station or ship, in the colour of its construction style (src/craft/styles.js). */
 const IDENTITY = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]);
+/** What the docked ships are doing, for the panel «Che cosa succede» (1.58.0). */
+const TASKS = { carica: 'Carica merci', scarica: 'Scarica merci', sosta: 'Sosta', osserva: 'Osserva il pianeta', varo: 'Appena varata', intercetta: 'In posizione di tiro', arrivo: 'Arrivo alla porta', partenza: 'Partenza' };
+/** Distance of the camera from a followed object, in radii of the object, when the follow starts. */
+export const FOLLOW_ZOOM = Object.freeze({ service: 9, ship: 8, station: 6, planet: 5, star: 3.6 }), FOLLOW_LIMITS = Object.freeze([2.2, 40]);
+const CHAIN_IDS = new Set(CHAIN_STATIONS.map(e => e.id));
+/** Layout of the follow mode (1.58.0) on a screen of w × h pixels: the panel «Che cosa succede» and the point
+ * of the screen where the followed object sits, between the title and the panel on phones, between the list
+ * of units and the panel on wide screens. */
+export function followFrame(w, h) {
+    // Short phones hide the title of the page while following, so the object has the band under the menu.
+    if (w < 850) { const top = h < 700 ? 100 : 175, ph = Math.round(Math.max(200, Math.min(320, h - 100 - top - (h < 700 ? 110 : 180)))); return { panel: { x: 18, y: h - 100 - ph, w: w - 36, h: ph }, top, center: [w / 2, (top + h - 100 - ph) / 2] }; }
+    const ph = Math.min(560, h - 360); return { panel: { x: w - 337, y: 245, w: 304, h: ph }, top: 235, center: [(300 + w - 337) / 2, (235 + h - 115) / 2] };
+}
+let physics = null;
 /** Running light of each kind of service craft (1.57.0), seen from afar. */
 const SERVICE_LIGHT = { navetta: [1, .86, .62], chiatta: [1, .78, .5], rimorchiatore: [1, .7, .45], container: [.9, .8, .6], minatore: [1, .62, .32], cisterna: [.75, 1, .8], scorta: [1, .45, .38], manutenzione: [.75, .88, 1] };
 const CRAFT_TINTS = { matematica: [.95, .72, .4, 1], fisica: [.5, .7, 1, 1], chimica: [.71, .61, 1, 1], biologia: [.44, .83, .63, 1], civile: [1, .58, .4, 1], difesa: [.91, .4, .35, 1] };
@@ -260,6 +276,15 @@ export class World {
         }else if(scene==='system'){
             const distance=s.distance*Math.max(1,systemArchitecture(system).outerRadius/13)*Math.max(1,1.05/(w/h)),pitch=s.pitch;
             eye=[Math.sin(s.yaw)*distance*Math.cos(pitch),distance*Math.sin(pitch),Math.cos(s.yaw)*distance*Math.cos(pitch)];target=w<850?[0,0,0]:[2.4,0,0];fov=.78;space='system';
+            // A followed object (1.58.0): the camera turns around it at a distance measured in its radii, with
+            // the object left of the panel on wide screens and above it on phones.
+            const F=this.followed=s.follow?this.followSubject(s):null;
+            if(F){
+                const d=Math.max(.1,(s.followZoom||FOLLOW_ZOOM[F.kind])*F.radius),dir=[Math.sin(s.yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(s.yaw)*Math.cos(pitch)];
+                const right=normal(cross(dir.map(v=>-v),[0,1,0])),up=cross(right,dir.map(v=>-v)),k=Math.tan(fov/2)*d,[cx,cy]=followFrame(w,h).center,nx=2*cx/w-1,ny=1-2*cy/h;
+                const shift=right.map((v,i)=>-v*nx*k*w/h-up[i]*ny*k);
+                target=F.position.map((v,i)=>v+shift[i]);eye=target.map((v,i)=>v+dir[i]*d);
+            }
         }else if(scene==='orbit'){
             // The camera sits about 65° away from the star direction, so the day/night line is visible.
             const body=systemPlanet(s.selected,s.time),phone=w<850,angle=s.yaw*.45+Math.atan2(-body.position[0],-body.position[2])+1.15,pitch=.14+(s.pitch-.45)*.35,scale=displayRadius(body)/5.3,distance=(s.distance||22)*(phone?1.38:1);
@@ -284,7 +309,7 @@ export class World {
         return {eye,target,fov,space,system};
     }
     camera(scene,s) {
-        const desired=this.desiredCamera(scene,s),key=viewKey(scene,s),previous=this.cameraSpace;
+        const desired=this.desiredCamera(scene,s),key=viewKey(scene,s)+(scene==='system'&&s.follow&&this.followed?'|'+followKey(s.follow):''),previous=this.cameraSpace;
         if(this.cameraScene!==key){
             this.cameraFrom=this.vp?{eye:[...this.eye],target:[...this.target],fov:this.fov,space:this.cameraSpace,system:this.cameraSystem}:null;
             this.cameraProgress=0;this.cameraScene=key;
@@ -422,7 +447,7 @@ export class World {
         for(const o of seen){
             if(o.ship)continue;
             const {item,k,pos,xy,pixel,apparent,size}=o,pl=item.placement,state=life.stations[k],tint=CRAFT_TINTS[pl.entry.style];
-            if(s.scene==='system')this.projections.push({type:'craft',index:k,entry:pl.entry,lines:stationReport(state),active:state.producing,...xyToObj(xy),r:Math.max(12,apparent*1.3),apparent,position:pos,worldRadius:size});
+            if(s.scene==='system')this.projections.push({type:'craft',index:k,follow:{kind:'station',k},entry:pl.entry,lines:stationReport(state),active:state.producing,...xyToObj(xy),r:Math.max(12,apparent*1.3),apparent,position:pos,worldRadius:size});
             if(apparent<9&&s.scene!=='system')glow(pos,pixel*4.5,tint,.95*Math.min(1,(9-apparent)/4));
             const m=o.model;if(!m)continue;
             const light=normal(pos.map(v=>-v)),base=transform(...pos,size/m.radius,stationYaw(pl,s.time,pos)),mats=turning(m,base),draw={eye:this.eye,light,lightColor,material:10};
@@ -437,7 +462,7 @@ export class World {
             const {ship,slot,pose,xy,pixel,apparent,size}=o,tint=CRAFT_TINTS[ship.entry.style];
             if(s.scene==='system'){
                 const back=pose.thrust>.05?project(shipPose(ship,s.time-1.5,site,avoid).position,this.vp,R.w,R.h):null;
-                this.projections.push({type:'craft',index:100+ship.id,entry:{...ship.entry,name:ship.name,...(ship.visitor?{about:'Convoglio di linea fra '+ship.origin+' e questo sistema: consegna alla porta del sistema le merci importate e riparte con quelle esportate.'}:{})},lines:shipReport(ship,s.time,place=>this.craftName(system,place)),tail:back&&back[2]>0?[back[0],back[1]]:null,...xyToObj(xy),r:Math.max(10,apparent*1.4),apparent,position:pose.position,worldRadius:size});
+                this.projections.push({type:'craft',index:100+ship.id,follow:{kind:'ship',id:ship.id,visitor:!!ship.visitor},entry:{...ship.entry,name:ship.name,...(ship.visitor?{about:'Convoglio di linea fra '+ship.origin+' e questo sistema: consegna alla porta del sistema le merci importate e riparte con quelle esportate.'}:{})},lines:shipReport(ship,s.time,place=>this.craftName(system,place)),tail:back&&back[2]>0?[back[0],back[1]]:null,...xyToObj(xy),r:Math.max(10,apparent*1.4),apparent,position:pose.position,worldRadius:size});
             }
             // Goods moving between a docked ship and its station.
             if(pose.docked&&(ship.task==='carica'||ship.task==='scarica')&&ship.cargo){
@@ -527,7 +552,7 @@ export class World {
             const docked=[],visitors=[];
             for(const ship of life.ships)if(ship.phase!=='travel'){const p=shipPose(ship,s.time,site,avoid);docked.push({id:ship.id,at:ship.at?.station??-1,position:p.position,forward:p.forward,name:ship.name,t0:ship.t0,t1:ship.t1});}
             for(const ship of life.visitors){const p=shipPose(ship,s.time,site,avoid);visitors.push({id:ship.id,position:p.position,forward:p.forward,name:ship.name,docked:ship.phase!=='travel'});}
-            const ctx={station:k=>site({station:k}),stationAt:(k,t)=>this.craftSite(system,{station:k},t),names:C.list.map(item=>item.entry.name),docked,visitors,beltSpin:.0008},sets=Object.fromEntries(SERVICE_KINDS.map(k=>[k,[]]));let count=0;
+            const ctx={station:k=>site({station:k}),stationAt:(k,t)=>this.craftSite(system,{station:k},t),names:C.list.map(item=>item.entry.name),docked,visitors,beltSpin:.0008};C.serviceCtx={names:ctx.names,docked,visitors,beltSpin:.0008};const sets=Object.fromEntries(SERVICE_KINDS.map(k=>[k,[]]));let count=0;
             for(const v of C.service){
                 const p=servicePose(v,s.time,ctx);if(!p.visible)continue;
                 const xy=project(p.position,this.vp,R.w,R.h);if(xy[2]<=0)continue;
@@ -539,7 +564,7 @@ export class World {
                 if(apparent<6)glow(p.position,pixel*2.6,SERVICE_LIGHT[v.kind],.95*Math.min(1,(6-apparent)/3));
                 if(p.moving)glow(p.position.map((x,i)=>x-p.forward[i]*p.size*1.1),Math.max(p.size*.45,pixel*1.1),v.kind==='scorta'?[1,.62,.28]:[.55,.8,1],.65);
                 for(const [ends,tint] of [[p.beam,[1,.7,.35]],[p.link,[.6,1,.7]],[p.scan,[.8,.92,1]]])if(ends)for(let q=0;q<3;q++){const u=((s.time*1.4+q/3)%1),c=ends[0].map((x,i)=>x+(ends[1][i]-x)*u);glow(c,Math.max(p.size*.22,pixel*1.1),tint,.7*Math.sin(u*Math.PI));}
-                if(s.scene==='system'){const back=p.moving?project(servicePose(v,s.time-1.5,ctx).position,this.vp,R.w,R.h):null;this.projections.push({type:'craft',index:20000+v.id,entry:{name:`${SERVICE_NAMES[v.kind]} ${v.id+1}`,kind:'servizio',style:v.kind==='scorta'?'difesa':'civile',typeName:SERVICE_NAMES[v.kind],about:SERVICE_ABOUT[v.kind]},lines:p.lines,tail:back&&back[2]>0?[back[0],back[1]]:null,...xyToObj(xy),r:Math.max(8,apparent*1.4),apparent,position:p.position,worldRadius:p.size});}
+                if(s.scene==='system'){const back=p.moving?project(servicePose(v,s.time-1.5,ctx).position,this.vp,R.w,R.h):null;this.projections.push({type:'craft',index:20000+v.id,follow:{kind:'service',id:v.id,plan:C.serviceKey},entry:{name:`${SERVICE_NAMES[v.kind]} ${v.id+1}`,kind:'servizio',style:v.kind==='scorta'?'difesa':'civile',typeName:SERVICE_NAMES[v.kind],about:SERVICE_ABOUT[v.kind]},lines:p.lines,tail:back&&back[2]>0?[back[0],back[1]]:null,...xyToObj(xy),r:Math.max(8,apparent*1.4),apparent,position:p.position,worldRadius:p.size});}
             }
             for(const k of SERVICE_KINDS){const data=sets[k];if(!data.length)continue;const key='instances-service-'+k,f=new Float32Array(data);if(C.instances.has(key))R.updateInstances(key,f);else{R.makeInstances(key,'service-'+k,f);C.instances.add(key);}R.drawMesh('service-'+k,this.vp,IDENTITY,{eye:this.eye,light:[0,0,0],lightColor,material:10,instances:key,instanceMode:5});}
             stats.service=count;stats.minor=count;
@@ -674,6 +699,51 @@ export class World {
         if(place.beyond!==undefined)return 'fuori dal sistema';
         const body=system.bodies.find(b=>b.slot===place.body);return 'corpo '+(body.slot+1)+' ('+body.profile.name.toLowerCase()+')';
     }
+    /** The object followed by the camera in the open system (1.58.0), resolved at `s.time`: its position and
+     * radius for the camera, and the subject of the panel «Che cosa succede» (src/craft/succede.js). Null
+     * when the object has left the scene: a ship gone beyond the gate, a plan of the service traffic made
+     * again for a new quality. */
+    followSubject(s){
+        const f=s.follow,id=s.system,system=this.systems[id];if(!f||!system)return null;
+        const arch=systemArchitecture(id),star=arch.star;
+        if(f.kind==='star')return {kind:'star',position:[0,0,0],radius:system.starRadius,subject:{kind:'star',name:`Stella di «${system.name}»`,spt:star.spt,teff:star.teff,L:star.luminosity,R:star.radius,M:star.mass}};
+        if(f.kind==='planet'){
+            const body=system.bodies.find(b=>b.slot===f.slot);if(!body)return null;
+            const unit=Number.isInteger(body.index)?body.index:null,card=unit===null?null:(physics??=planetPhysics())[unit];
+            return {kind:'planet',position:bodyAtTime(body,s.time).position,radius:displayRadius(body),subject:{kind:'planet',name:body.profile.name,a:body.a,M:star.mass,L:star.luminosity,teq:card?.teq??null,unit:unit===null?null:{index:unit}}};
+        }
+        const C=this.craft;if(C.system!==id||!C.life)return null;
+        const life=C.life,site=place=>this.craftSite(system,place,s.time),avoid=system.starRadius*2.2+1;
+        const moving=k=>{const a=this.craftSite(system,{station:k},s.time).position,b=this.craftSite(system,{station:k},s.time-1).position;return Math.hypot(a[0]-b[0],a[1]-b[1],a[2]-b[2]);};
+        const res=(r,amount)=>({name:RESOURCES[r].name,unit:RESOURCES[r].unit,amount});
+        if(f.kind==='station'){
+            const item=C.list[f.k],state=life.stations[f.k];if(!item||!state)return null;
+            const e=item.entry,make=Object.entries(state.make).filter(([r])=>r!=='equipaggi').map(([r,rate])=>({...res(r),rate,stock:state.stock[r]||0,cap:state.cap[r]||0}));
+            const use=Object.entries(state.use).filter(([r,rate])=>rate>0&&r!=='equipaggi').map(([r,rate])=>({...res(r),rate,stock:state.stock[r]||0}));
+            const gate=e.type==='porta'?{imports:Object.keys(state.imports||{}).length,exports:Object.keys(state.use).length}:null;
+            return {kind:'station',position:site({station:f.k}).position,radius:site({station:f.k}).radius,subject:{kind:'station',name:e.name,typeName:e.typeName||e.name,style:e.style,process:state.process,level:state.level,make,use:gate?[]:use,producing:state.producing,missing:(state.missing||[]).map(r=>RESOURCES[r].name),gate,frameSpeed:moving(f.k),chain:CHAIN_IDS.has(e.id),catalog:CRAFT_BY_ID.has(e.id)?e.id:null}};
+        }
+        if(f.kind==='ship'){
+            const ship=(f.visitor?life.visitors:life.ships).find(x=>x.id===f.id);if(!ship)return null;
+            const pose=shipPose(ship,s.time,site,avoid),size=SHIP_SIZE[ship.entry.type]||ship.entry.drawn||.07,name=place=>place?.beyond!==undefined&&ship.visitor?ship.origin:this.craftName(system,place);
+            const base={kind:'ship',name:ship.name,typeName:ship.entry.typeName||ship.entry.name,style:ship.entry.style,visitor:!!ship.visitor,cargo:ship.cargo?res(ship.cargo.res,ship.cargo.amount):null,capacity:ship.cls?.capacity||0,left:ship.t1-s.time,catalog:CRAFT_BY_ID.has(ship.entry.id)?ship.entry.id:null};
+            if(ship.phase==='travel'){
+                // The length of the path, sampled along the arc of the trip as it stands now.
+                const arc=(a,b,n)=>{let L=0,q=null;for(let i=0;i<=n;i++){const p=shipPose(ship,a+(b-a)*i/n,site,avoid).position;if(q)L+=Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2]);q=p;}return L;};
+                const now=Math.min(ship.t1,Math.max(ship.t0,s.time));
+                return {kind:'ship',position:pose.position,radius:size,subject:{...base,travel:true,from:name(ship.from),to:name(ship.to),L:arc(ship.t0,ship.t1,32),rem:arc(now,ship.t1,24),T:ship.t1-ship.t0}};
+            }
+            return {kind:'ship',position:pose.position,radius:size,subject:{...base,travel:false,where:name(ship.at),task:TASKS[ship.task]||'Sosta',frameSpeed:ship.at?.station!==undefined?moving(ship.at.station):0}};
+        }
+        if(f.kind==='service'){
+            const v=C.serviceKey===f.plan?C.service?.[f.id]:null;if(!v)return null;
+            const ctx={...C.serviceCtx,station:k=>site({station:k}),stationAt:(k,t)=>this.craftSite(system,{station:k},t)};
+            const p=servicePose(v,s.time,ctx);if(!p.visible)return null;
+            const q=servicePose(v,s.time-1,ctx),speed=Math.hypot(...p.position.map((x,i)=>x-q.position[i]));
+            return {kind:'service',position:p.position,radius:p.size,subject:{kind:'service',serviceKind:v.kind,role:v.role,name:`${SERVICE_NAMES[v.kind]} ${v.id+1}`,typeName:'Traffico di servizio',facts:p.facts,speed}};
+        }
+        return null;
+    }
     draw(scene, s, data) {
         const R = this.R;
         // The front of the Sciame della Frontiera runs in every scene; the open system fights its incursions.
@@ -776,11 +846,12 @@ export class World {
         if(this.cameraProgress<1)return null;
         if(s.scene==='galaxy')return pickProjected(this.projections,x,y);
         if(s.scene==='system'){
-            const hits=this.projections.filter(p=>p.depth>0&&Math.hypot(p.x-x,p.y-y)<=p.r).sort((a,b)=>a.depth-b.depth);
-            const hit=hits[0];if(!hit)return null;
-            // Do not pick a planet hidden behind the stellar disc.
-            const star=project([0,0,0],this.vp,this.R.w,this.R.h),r=this.systems[s.system].starRadius*this.R.h/(2*Math.tan(this.fov/2)*star[2]);
-            return star[2]>0&&star[2]<hit.depth&&Math.hypot(star[0]-x,star[1]-y)<r?null:hit;
+            // The nearest mark to the pointer in proportion to its size, the nearer one on a tie: a hundred service
+            // craft (1.57.0) must leave the planets and the stations reachable. A mark behind the stellar disc
+            // gives way to the star, which can be followed (1.58.0).
+            const star=project([0,0,0],this.vp,this.R.w,this.R.h),r=star[2]>0?this.systems[s.system].starRadius*this.R.h/(2*Math.tan(this.fov/2)*star[2]):0,onStar=star[2]>0&&Math.hypot(star[0]-x,star[1]-y)<Math.max(10,r);
+            const hit=this.projections.filter(p=>p.depth>0&&Math.hypot(p.x-x,p.y-y)<=p.r&&!(onStar&&star[2]<p.depth)).sort((a,b)=>(Math.hypot(a.x-x,a.y-y)/a.r-Math.hypot(b.x-x,b.y-y)/b.r)||a.depth-b.depth)[0];
+            return hit||(onStar?{type:'star',index:s.system,x:star[0],y:star[1],depth:star[2],r:Math.max(10,r)}:null);
         }
         if(s.scene==='surface'){
             const f=normal(this.target.map((v,i)=>v-this.eye[i])),right=normal(cross(f,[0,1,0])),up=cross(right,f),t=Math.tan(this.fov/2);
@@ -796,3 +867,5 @@ export class World {
     }
 }
 function xyToObj(p) { return { x: p[0], y: p[1], depth: p[2] }; }
+/** Identity of a followed object, for the camera transition. */
+export function followKey(f) { return f.kind + ':' + (f.k ?? f.id ?? f.slot ?? '') + (f.visitor ? 'v' : ''); }

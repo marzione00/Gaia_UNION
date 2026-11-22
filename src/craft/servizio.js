@@ -107,15 +107,15 @@ export function servicePose(v, time, ctx) {
         const ends = (n, t) => { const [x, y] = (n + v.flip) % 2 ? [v.b, v.a] : [v.a, v.b], X = when(x, t), Y = when(y, t); return [x, y, dock(X, Y.position), dock(Y, X.position)]; };
         const r = trip(v, time, (n, t) => { const e = ends(n, t); return Math.max(1.5, dist(e[2], e[3]) / SERVICE_SPEED.navetta); }), [x, y, pa, pb] = ends(r.n, time), p = along(pa, pb, r, time);
         const lines = p.moving ? [`Verso ${name(y)}`, `${v.line ? 'Linea regolare, a' : 'A'}rrivo fra ${Math.ceil(p.left)} s`] : [`Attraccata a ${name(x)}`, `Riparte fra ${Math.ceil(p.left)} s`];
-        return { ...p, size, visible: true, lines };
+        return { ...p, size, visible: true, lines, facts: { from: name(x), to: name(y), d: dist(pa, pb), T: r.T, left: p.left, moving: p.moving, line: !!v.line } };
     }
     if (v.role === 'attesa') {
         // A cycle of 60 s: each barge has 20 s, of which 4 to approach, 4 docked and 4 to rejoin the circle.
         const S = at(v.at), R = S.radius * 3 + .25, a = time * .12 + v.slot * TAU / 3, ring = [S.position[0] + Math.cos(a) * R, S.position[1] + .05 * Math.sin(a * 2), S.position[2] + Math.sin(a) * R];
         const t = frac(time / 60) * 60 - v.slot * 20, port = dock(S, ring), tangent = norm([-Math.sin(a), 0, Math.cos(a)]);
-        if (t >= 0 && t < 12) { const u = t < 4 ? smooth(t / 4) : t < 8 ? 1 : smooth((12 - t) / 4), p = mix(ring, port, u); return { position: p, forward: t < 8 ? norm(port.map((x, i) => x - ring[i])) : tangent, size, visible: true, moving: t < 4 || t >= 8, lines: [t < 8 ? `Attracca a ${name(v.at)}` : `Lascia ${name(v.at)}`, 'Carico e scarico a turno, una chiatta alla volta'] }; }
+        if (t >= 0 && t < 12) { const u = t < 4 ? smooth(t / 4) : t < 8 ? 1 : smooth((12 - t) / 4), p = mix(ring, port, u); return { position: p, forward: t < 8 ? norm(port.map((x, i) => x - ring[i])) : tangent, size, visible: true, moving: t < 4 || t >= 8, lines: [t < 8 ? `Attracca a ${name(v.at)}` : `Lascia ${name(v.at)}`, 'Carico e scarico a turno, una chiatta alla volta'], facts: { station: name(v.at), omega: .12, R, cycle: 60, turn: 20, wait: 0 } }; }
         const wait = Math.ceil(((v.slot * 20 - frac(time / 60) * 60) % 60 + 60) % 60);
-        return { position: ring, forward: tangent, size, visible: true, moving: true, lines: [`In coda a ${name(v.at)}`, `Attracca fra ${wait} s`] };
+        return { position: ring, forward: tangent, size, visible: true, moving: true, lines: [`In coda a ${name(v.at)}`, `Attracca fra ${wait} s`], facts: { station: name(v.at), omega: .12, R, cycle: 60, turn: 20, wait } };
     }
     if (v.role === 'traino') {
         if (!v.targets.length) return { position: at(v.from).position, forward: [0, 0, 1], size, visible: false, lines: [] };
@@ -124,17 +124,17 @@ export function servicePose(v, time, ctx) {
         const ends = (n, t) => { const F = when(v.from, t), k = v.targets[(n >> 1) % v.targets.length], T = when(k, t), yard = [F.position[0], F.position[1] + F.radius * 1.6 + .05, F.position[2]], there = dock(T, F.position); return [k, ...(n % 2 ? [there, yard] : [yard, there])]; };
         const r = trip(v, time, (n, t) => { const e = ends(n, t); return Math.max(2, dist(e[1], e[2]) / SERVICE_SPEED.rimorchiatore); }), [k, pa, pb] = ends(r.n, time), p = along(pa, pb, r, time), out = r.n % 2 === 0;
         const tow = out ? { position: p.position.map((x, i) => x - p.forward[i] * size * 2.4), forward: p.forward } : null;
-        return { ...p, size, visible: true, tow, lines: out ? [`Container per ${name(k)}`, p.moving ? `Lo traina, arrivo fra ${Math.ceil(p.left)} s` : 'Aggancia il container'] : [`Torna vuoto a ${name(v.from)}`, p.moving ? `Arrivo fra ${Math.ceil(p.left)} s` : 'Sgancia il container'] };
+        return { ...p, size, visible: true, tow, facts: { from: name(v.from), to: name(k), d: dist(pa, pb), T: r.T, left: p.left, moving: p.moving, out }, lines: out ? [`Container per ${name(k)}`, p.moving ? `Lo traina, arrivo fra ${Math.ceil(p.left)} s` : 'Aggancia il container'] : [`Torna vuoto a ${name(v.from)}`, p.moving ? `Arrivo fra ${Math.ceil(p.left)} s` : 'Sgancia il container'] };
     }
     if (v.role === 'fascia') {
         // The miner moves with the belt, hovers over a rock and fills its hold in two minutes.
         // The scene turns the belt by −beltSpin · time around the vertical axis (transform in src/renderer.js).
         const a = v.angle - time * (ctx.beltSpin ?? .0008), bob = Math.sin(time * .7 + v.angle * 5) * .04, p = [Math.cos(a) * v.radius, v.lift + bob, Math.sin(a) * v.radius], rock = [Math.cos(a) * (v.radius - .12), v.lift - .05, Math.sin(a) * (v.radius - .12)];
-        return { position: p, forward: norm(rock.map((x, i) => x - p[i])), size, visible: true, moving: false, beam: [p, rock], lines: ['Estrae minerale nella fascia degli asteroidi', `Stiva piena al ${Math.round(frac(time / 120 + v.angle) * 100)} %`] };
+        return { position: p, forward: norm(rock.map((x, i) => x - p[i])), size, visible: true, moving: false, beam: [p, rock], lines: ['Estrae minerale nella fascia degli asteroidi', `Stiva piena al ${Math.round(frac(time / 120 + v.angle) * 100)} %`], facts: { omega: ctx.beltSpin ?? .0008, r: v.radius, fill: frac(time / 120 + v.angle), fillTime: 120 } };
     }
     if (v.role === 'miniera') {
         const S = at(v.at), a = time * .3 + v.slot * TAU / 3, R = S.radius * 2.2 + .1, p = [S.position[0] + Math.cos(a) * R, S.position[1] + .08 * Math.sin(a), S.position[2] + Math.sin(a) * R];
-        return { position: p, forward: norm([-Math.sin(a), 0, Math.cos(a)]), size, visible: true, moving: true, beam: [p, S.position], lines: [`Porta minerale a ${name(v.at)}`, 'Giro di carico attorno alla miniera'] };
+        return { position: p, forward: norm([-Math.sin(a), 0, Math.cos(a)]), size, visible: true, moving: true, beam: [p, S.position], lines: [`Porta minerale a ${name(v.at)}`, 'Giro di carico attorno alla miniera'], facts: { station: name(v.at), omega: .3, R } };
     }
     if (v.role === 'rifornimento') {
         // Each tanker serves the ships docked at its station, the one docked first; it reaches the ship in four
@@ -143,24 +143,24 @@ export function servicePose(v, time, ctx) {
         const ship = (ctx.docked || []).filter(d => d.at === v.park && time >= d.t0 && time <= d.t1).sort((x, y) => x.t0 - y.t0 || x.id - y.id)[0];
         if (ship) {
             const side = norm([ship.forward[2], 0, -ship.forward[0]]), beside = ship.position.map((x, i) => x + side[i] * .12), u = smooth(Math.max(0, Math.min(1, (time - ship.t0) / 4, (ship.t1 - time) / 4))), p = mix(park, beside, u);
-            if (u > .98) return { position: p, forward: ship.forward, size, visible: true, moving: false, link: [p, ship.position], lines: [`Rifornisce ${ship.name}`, `Trasferisce propellente per ${Math.max(0, Math.ceil(ship.t1 - time - 4))} s`] };
-            return { position: p, forward: norm(beside.map((x, i) => x - park[i]).map(x => (time - ship.t0 < 4 ? x : -x))), size, visible: true, moving: true, lines: [time - ship.t0 < 4 ? `Si avvicina a ${ship.name}` : `Lascia ${ship.name}`, 'Rifornimento di propellente'] };
+            if (u > .98) return { position: p, forward: ship.forward, size, visible: true, moving: false, link: [p, ship.position], lines: [`Rifornisce ${ship.name}`, `Trasferisce propellente per ${Math.max(0, Math.ceil(ship.t1 - time - 4))} s`], facts: { ship: ship.name, park: name(v.park), left: Math.max(0, ship.t1 - time - 4), transfer: Math.max(0, ship.t1 - ship.t0 - 8) } };
+            return { position: p, forward: norm(beside.map((x, i) => x - park[i]).map(x => (time - ship.t0 < 4 ? x : -x))), size, visible: true, moving: true, lines: [time - ship.t0 < 4 ? `Si avvicina a ${ship.name}` : `Lascia ${ship.name}`, 'Rifornimento di propellente'], facts: { ship: ship.name, park: name(v.park), left: null, transfer: Math.max(0, ship.t1 - ship.t0 - 8) } };
         }
-        return { position: park, forward: norm(P.position.map((x, i) => x - park[i])), size, visible: true, moving: false, lines: [`In attesa presso ${name(v.park)}`, 'Pronta a rifornire le navi in arrivo'] };
+        return { position: park, forward: norm(P.position.map((x, i) => x - park[i])), size, visible: true, moving: false, lines: [`In attesa presso ${name(v.park)}`, 'Pronta a rifornire le navi in arrivo'], facts: { ship: null, park: name(v.park), left: null, transfer: null } };
     }
     if (v.role === 'scorta') {
         // Two fighters for each convoy whose number leaves remainder n on division by four.
         const c = (ctx.visitors || []).find(x => x.id % 4 === v.n);
         if (!c) return { position: [0, 0, 0], forward: [0, 0, 1], size, visible: false, lines: [] };
         const side = norm([c.forward[2], 0, -c.forward[0]]), p = c.position.map((x, i) => x + side[i] * v.side * .16 - c.forward[i] * .08 + (i === 1 ? .03 : 0));
-        return { position: p, forward: c.forward, size, visible: true, moving: true, lines: [`Scorta il ${c.name.replace(/^Convoglio/, 'convoglio')}`, c.docked ? 'In attesa accanto al convoglio attraccato' : 'In formazione al suo fianco'] };
+        return { position: p, forward: c.forward, size, visible: true, moving: true, lines: [`Scorta il ${c.name.replace(/^Convoglio/, 'convoglio')}`, c.docked ? 'In attesa accanto al convoglio attraccato' : 'In formazione al suo fianco'], facts: { convoy: c.name, docked: !!c.docked } };
     }
     if (v.role === 'ronda') {
         // A slow orbit on a tilted plane, one per pod, with a stop every 40 s to inspect a point of the hull.
         const S = at(v.at), t = time + v.at * 7.3 + v.slot * 13, lap = 40, a = t * TAU / lap / 2 + v.slot * TAU / v.of, tilt = .5 + v.slot * .7, R = S.radius * 1.35 + .04;
         const c = Math.cos(tilt), d = Math.sin(tilt), x = Math.cos(a) * R, y = Math.sin(a) * R, p = [S.position[0] + x, S.position[1] + y * d, S.position[2] + y * c];
         const forward = norm([-Math.sin(a), Math.cos(a) * d, Math.cos(a) * c]), check = frac(t / lap) > .8;
-        return { position: p, forward, size, visible: true, moving: !check, scan: check ? [p, mix(p, S.position, .6)] : null, lines: [`Ispeziona ${name(v.at)}`, check ? 'Controllo dello scafo in corso' : `Prossimo controllo dello scafo fra ${Math.ceil((.8 - frac(t / lap)) * lap)} s`] };
+        return { position: p, forward, size, visible: true, moving: !check, scan: check ? [p, mix(p, S.position, .6)] : null, lines: [`Ispeziona ${name(v.at)}`, check ? 'Controllo dello scafo in corso' : `Prossimo controllo dello scafo fra ${Math.ceil((.8 - frac(t / lap)) * lap)} s`], facts: { station: name(v.at), R, lap: 2 * lap, check, next: check ? 0 : (.8 - frac(t / lap)) * lap } };
     }
     throw new Error('ruolo sconosciuto: ' + v.role);
 }
