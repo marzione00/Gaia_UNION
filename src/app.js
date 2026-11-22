@@ -33,7 +33,7 @@ import { descriptor as modelDescriptor } from './models/curriculum.js';
 import { openStore, grade } from './store.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.59.0-atmosfere';
+const VERSION = '1.60.0-comete';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -512,7 +512,7 @@ function drawHover() {
     else hover.clear();
     if(W.cameraProgress<1||S.menu||S.settings)hit=null;
     // The followed object has its panel: no hover card on it (1.58.0).
-    if(hit&&S.scene==='system'&&S.follow&&(hit.type==='star'?S.follow.kind==='star':hit.type==='ambient'?S.follow.kind==='planet'&&S.follow.slot===hit.body?.slot:hit.follow&&followKey(hit.follow)===followKey(S.follow)))hit=null;
+    if(hit&&S.scene==='system'&&S.follow&&(hit.type==='star'?S.follow.kind==='star':hit.type==='belt'?S.follow.kind==='belt'&&S.follow.k===hit.index:hit.type==='ambient'?S.follow.kind==='planet'&&S.follow.slot===hit.body?.slot:hit.follow&&followKey(hit.follow)===followKey(S.follow)))hit=null;
     S.hoveredTarget=hit;
     if(hoverPointer)canvas.style.cursor=U.hit(hoverPointer.x,hoverPointer.y)?'pointer':hit?'pointer':'grab';
     if(!hit)return;
@@ -539,6 +539,13 @@ function drawHover() {
         const body=W.systems[S.system].bodies[hit.index];U.tag('CORPO '+String(body.slot+1).padStart(2,'0')+' / '+body.profile.name.toUpperCase(),x+16,y+16,C.muted);
         U.text('Pianeta di contorno',x+16,y+45,'mini',C.pale);wrapClipText(body.profile.name+' con '+body.moons+' lune'+(body.rings?' e anelli':'')+', a '+fmtNum(body.a,2)+' UA dalla stella. Non contiene unità di studio.',x+16,y+73,pw-32,'mini',C.muted,4);
         U.text('CLIC PER SEGUIRLO DA VICINO',x+16,y+ph-26,'micro',C.lime);
+    }else if(hit.type==='comet'){
+        U.tag('COMETA',x+16,y+16,C.cyan);U.text(hit.name,x+16,y+45,'mini',C.pale);hit.lines.forEach((t,k)=>wrapClipText(t,x+16,y+73+k*20,pw-32,'micro',C.muted,1));
+        U.text('CLIC PER SEGUIRLA DA VICINO',x+16,y+ph-26,'micro',C.lime);
+    }else if(hit.type==='belt'){
+        const b=hit.belt;U.tag('CINTURA',x+16,y+16,C.amber);U.text(b.name,x+16,y+45,'mini',C.pale);
+        wrapClipText(`${b.count} rocce disegnate, ${b.kind==='ghiacciata'?'ghiaccio e roccia oltre i pianeti':'roccia e metalli fra i pianeti'}; ogni anello gira con la sua velocità.`,x+16,y+73,pw-32,'mini',C.muted,3);
+        U.text('CLIC PER SEGUIRLA DA VICINO',x+16,y+ph-26,'micro',C.lime);
     }else if(hit.type==='star'){
         const sub=W.followSubject({follow:{kind:'star'},system:S.system,time:S.time})?.subject;U.tag('STELLA DEL SISTEMA',x+16,y+16,C.amber);U.text(sub?.name||'Stella',x+16,y+45,'mini',C.pale);
         if(sub)wrapClipText(`Nana di tipo ${sub.spt}, ${Math.round(sub.teff)} K, ${fmtNum(sub.L,3)} volte la luminosità del Sole.`,x+16,y+73,pw-32,'mini',C.muted,3);
@@ -1894,6 +1901,7 @@ function events() {
                     else if(hit.type==='system')enterSystem(hit.index);else enterPlanet(hit.index);
                 }else if(hit?.type==='ambient')startFollow({kind:'planet',slot:hit.body.slot});
                 else if(hit?.type==='star')startFollow({kind:'star'});
+                else if((hit?.type==='comet'||hit?.type==='belt')&&hit.follow)startFollow(hit.follow);
                 else if(hit?.type==='craft'){if(hit.follow)startFollow(hit.follow);else{touchTarget=hit;say([hit.entry.name,...(hit.lines||[])].join(' · '));}}
                 else if(hit?.type==='node')S.node=hit.index;
                 else if(hit?.type==='station')S.station=hit.index;

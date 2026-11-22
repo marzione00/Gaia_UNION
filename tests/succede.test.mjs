@@ -52,7 +52,7 @@ test('pannelli: numeri ricalcolati per navi, stazioni, mezzi di servizio, pianet
   v=check(whatHappens({kind:'service',serviceKind:'chiatta',role,name:'Mezzo 1',typeName:'Mezzo',facts}));assert.equal(v.concept.unit,'physics-13');
   const omega=role==='ronda'?2*Math.PI/80:facts.omega;assert.ok(v.concept.text.includes((omega*facts.R).toFixed(3).replace('.',',')+' u/s'),role);assert.ok(v.rows.some(r=>r[1]===(2*Math.PI/omega).toFixed(1).replace('.',',')+' s'),role);
  }
- v=check(whatHappens({kind:'service',serviceKind:'minatore',role:'fascia',name:'Minatore 9',typeName:'Minatore',facts:{omega:.0008,r:30.5,fill:.42,fillTime:120}}));assert.equal(v.concept.unit,'physics-10');assert.ok(v.concept.text.includes('7854 s')&&v.concept.text.includes('0,0244 u/s'));
+ v=check(whatHappens({kind:'service',serviceKind:'minatore',role:'fascia',name:'Minatore 9',typeName:'Minatore',facts:{omega:.0008,r:30.5,fill:.42,fillTime:120}}));assert.equal(v.concept.unit,'physics-13');assert.ok(v.concept.text.includes('7854 s')&&v.concept.text.includes('0,0244 u/s'));
  v=check(whatHappens({kind:'service',serviceKind:'cisterna',role:'rifornimento',name:'Cisterna 2',typeName:'Cisterna',facts:{ship:'Cargo Alfa',park:'Porta',left:6,transfer:12}}));assert.equal(v.concept.unit,'chemistry-15');
  check(whatHappens({kind:'service',serviceKind:'cisterna',role:'rifornimento',name:'Cisterna 2',typeName:'Cisterna',facts:{ship:null,park:'Porta',left:null,transfer:null}}));
  v=check(whatHappens({kind:'service',serviceKind:'scorta',role:'scorta',name:'Caccia di scorta 1',typeName:'Caccia',facts:{convoy:'Convoglio da Alfa',docked:false},speed:1.234}));assert.equal(v.concept.unit,'physics-02');assert.equal(v.style,'difesa');assert.ok(v.concept.text.includes('1,23 u/s'));

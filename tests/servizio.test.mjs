@@ -1,8 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
 import { systemArchitecture, bodyAtTime } from '../src/scene/systems.js';
-import { asteroidBelt } from '../src/scene/minor-bodies.js';
 import { sphereMesh, perspective, lookAt, mul } from '../src/renderer.js';
-import { World, displayRadius } from '../src/scene/world.js';
+import { World, displayRadius, minorBodies } from '../src/scene/world.js';
 import { systemCraft, systemExtras, systemShipExtras, systemDefence, systemDefenceShips } from '../src/craft/catalog.js';
 import { placeStations, stationPosition } from '../src/craft/placement.js';
 import { SERVICE_KINDS, SERVICE_NAMES, SERVICE_ABOUT, SERVICE_SIZE, SERVICE_BUDGET, planService, servicePose, serviceMesh, serviceLanes } from '../src/craft/servizio.js';
@@ -14,11 +13,12 @@ const style=(t,max=60)=>{assert.equal(typeof t,'string');assert.ok(t.length>0&&t
 const rock=sphereMesh(6,4);
 /** Stations of a system as the scene builds them, with their positions at `time`. */
 function scene(id){
- const sys={...systemArchitecture(id),id};if(id%3===1){const b=asteroidBelt(sys,rock);sys.belt={inner:b.inner,outer:b.outer};}
+ // Since 1.60.0 the miners work the rocky belt where there is one, otherwise the belt of the stations.
+ const sys=minorBodies({...systemArchitecture(id),id});
  const entries=[...systemCraft(id),...systemExtras(id),...systemShipExtras(id),...systemDefence(id),...systemDefenceShips(id)],P=placeStations(sys,entries,displayRadius);
  const at=(k,t)=>({position:stationPosition(P[k],t,s=>bodyAtTime(sys.bodies.find(b=>b.slot===s),t).position),radius:P[k].size});
  const stations=P.map(p=>({type:p.entry.type==='porta'?'porta':p.entry.works||p.entry.type,level:1}));
- return {sys,P,at,stations,ships:entries.filter(e=>e.kind==='nave').length,names:P.map(p=>p.entry.name),plan:(quality,levels)=>planService({time:0,stations:levels?stations.map(s=>({...s,level:levels})):stations,points:P.map((_,k)=>at(k,0).position),belt:sys.belt?{inner:sys.belt.inner,outer:sys.belt.outer}:null,quality})};
+ return {sys,P,at,stations,ships:entries.filter(e=>e.kind==='nave').length,names:P.map(p=>p.entry.name),plan:(quality,levels)=>planService({time:0,stations:levels?stations.map(s=>({...s,level:levels})):stations,points:P.map((_,k)=>at(k,0).position),belt:sys.miningBelt?{inner:sys.miningBelt.inner,outer:sys.miningBelt.outer}:null,quality})};
 }
 const drawn=plan=>plan.length+plan.filter(v=>v.role==='traino').length;
 test('piano: oltre cento mezzi per sistema in alta qualità con le navi, meno nelle qualità inferiori, ruoli secondo il sistema',()=>{
@@ -34,7 +34,7 @@ test('piano: oltre cento mezzi per sistema in alta qualità con le navi, meno ne
   for(const v of high)kinds.add(v.kind);
   w.stations.forEach((_,k)=>assert.ok(high.filter(v=>v.role==='ronda'&&v.at===k).length>=2,'stazione senza manutenzione'));
   const mines=w.stations.filter(s=>['miniera','ghiaccio'].includes(s.type)).length;
-  if(w.sys.belt){assert.equal(high.filter(v=>v.role==='fascia').length,16);assert.equal(high.filter(v=>v.role==='miniera').length,0);}
+  if(w.sys.miningBelt){assert.equal(high.filter(v=>v.role==='fascia').length,16);assert.equal(high.filter(v=>v.role==='miniera').length,0);}
   else{assert.equal(high.filter(v=>v.role==='fascia').length,0);assert.equal(high.filter(v=>v.role==='miniera').length,3*mines);}
   assert.equal(high.filter(v=>v.role==='scorta').length%2,0);assert.ok(low.filter(v=>v.role==='scorta').length>=2);
   assert.ok(high.filter(v=>v.role==='rifornimento').length<=6);assert.equal(new Set(high.filter(v=>v.role==='rifornimento').map(v=>v.park)).size,high.filter(v=>v.role==='rifornimento').length,'due cisterne alla stessa stazione');
@@ -115,6 +115,6 @@ test('scena: un disegno per tipo di mezzo, mezzi indicabili con il loro riquadro
  assert.ok(w.craftStats.service<high*.5,'qualità bassa: '+w.craftStats.service);assert.equal(count(),w.craftStats.service);
  // Another system: the instances of the first are released and the plan follows the new stations.
  R.sceneQuality='high';const other={...systemArchitecture(2),id:2},first=w.craft.service.length;s.time=32;w.projections=[];w.drawStations(s,2,other);
- assert.ok(!w.craft.service.some(v=>v.role==='fascia'),'minatori della fascia in un sistema senza fascia');assert.notEqual(w.craft.service.length,first);
+ const belt=minorBodies(other).miningBelt;assert.ok(w.craft.service.filter(v=>v.role==='fascia').length===(belt?16:0)&&w.craft.service.filter(v=>v.role==='fascia').every(v=>v.radius>=belt.inner&&v.radius<=belt.outer),'minatori fuori dalla cintura');assert.notEqual(w.craft.service.length,first);
  assert.equal(count(),w.craftStats.service);
 });

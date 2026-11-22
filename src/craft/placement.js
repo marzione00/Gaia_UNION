@@ -8,8 +8,15 @@ import { seededRandom } from '../scene/layout.js';
 const GIANTS = ['gas', 'ringed', 'icegiant'], ICY = ['icegiant', 'arctic'], LIVING = ['oceanic', 'terrestrial'];
 /** Drawn size (radius in system units) of each kind of station. */
 export const STATION_SIZE = { porto: .2, porta: .55, miniera: .17, default: .15 };
-/** Rotation of the asteroid belt, as drawn by src/scene/world.js (radians per unit of time). */
+/** Rotation of a belt without rings, backwards (radians per unit of time), as before 1.60.0. */
 export const BELT_SPIN = .0008;
+/** Angular speed of a station in a belt: forwards with the ring of the belt that holds it (src/scene/comete.js),
+ * or backwards at BELT_SPIN for a belt without rings. */
+function beltSpin(belt, distance) {
+    if (!belt.rings) return -BELT_SPIN;
+    const j = Math.min(belt.rings.length - 1, Math.max(0, Math.floor((distance - belt.inner) / (belt.outer - belt.inner) * belt.rings.length)));
+    return belt.rings[j].omega;
+}
 
 /** Host preferences of each station type: an ordered list of tests on the bodies of the system. */
 const PREFER = {
@@ -92,7 +99,7 @@ export function placeStations(system, entries, radiusOf) {
         const size = entry.drawn ?? STATION_SIZE[entry.type] ?? STATION_SIZE.default;
         if (entry.defence) { const later = { entry, size }; out.push(later); guard.push(later); continue; }
         if (entry.role) {
-            if (entry.family === 'asteroide' && system.belt) { out.push({ entry, kind: 'belt', size, distance: system.belt.inner + (system.belt.outer - system.belt.inner) * (.25 + .5 * rng()), height: (rng() - .5) * .5, phase: rng() * Math.PI * 2 }); continue; }
+            if (entry.family === 'asteroide' && system.belt) { const distance = system.belt.inner + (system.belt.outer - system.belt.inner) * (.25 + .5 * rng()); out.push({ entry, kind: 'belt', size, distance, height: (rng() - .5) * .5, phase: rng() * Math.PI * 2, spin: beltSpin(system.belt, distance) }); continue; }
             // A planet that suits the role and has room, then a lane near such a planet, then the outer ring.
             const host = entry.role === 'comunicazioni' ? null : entry.role === 'cantiere' && port && fits(port, size) ? port : least(PREFER_ROLE[entry.role] || [], size);
             if (host) {
@@ -104,7 +111,7 @@ export function placeStations(system, entries, radiusOf) {
             continue;
         }
         if (entry.type === 'porta') { out.push({ entry, kind: 'edge', size, distance: system.outerRadius + 5.2, phase: rng() * Math.PI * 2 }); continue; }
-        if (entry.type === 'miniera' && system.belt) { out.push({ entry, kind: 'belt', size, distance: (system.belt.inner + system.belt.outer) / 2, height: .25, phase: rng() * Math.PI * 2 }); continue; }
+        if (entry.type === 'miniera' && system.belt) { const distance = (system.belt.inner + system.belt.outer) / 2; out.push({ entry, kind: 'belt', size, distance, height: .25, phase: rng() * Math.PI * 2, spin: beltSpin(system.belt, distance) }); continue; }
         const host = entry.type === 'cantiere' && port ? port : pick(entry.type), k = used.get(host.slot) || 0;
         used.set(host.slot, k + 1); if (entry.type === 'porto') port = host;
         const distance = radiusOf(host) * (1.75 + .6 * k) + size * 1.5;
@@ -130,7 +137,7 @@ export function placeStations(system, entries, radiusOf) {
 /** Position of a placement at `time`; `hostAt(slot)` gives the position of a body at the same time. */
 export function stationPosition(p, time, hostAt) {
     if (p.kind === 'edge') return [Math.cos(p.phase) * p.distance, 0, Math.sin(p.phase) * p.distance];
-    if (p.kind === 'belt') { const a = p.phase - time * BELT_SPIN; return [Math.cos(a) * p.distance, p.height, Math.sin(a) * p.distance]; }
+    if (p.kind === 'belt') { const a = p.phase + time * (p.spin ?? -BELT_SPIN); return [Math.cos(a) * p.distance, p.height, Math.sin(a) * p.distance]; }
     if (p.kind === 'star') { const a = p.phase + time * p.speed; return [Math.cos(a) * p.distance, p.height, Math.sin(a) * p.distance]; }
     const a = p.phase + time * p.speed, x = Math.cos(a) * p.distance, z = Math.sin(a) * p.distance, ci = Math.cos(p.inclination), si = Math.sin(p.inclination);
     const y = z * si, zz = z * ci, cn = Math.cos(p.node), sn = Math.sin(p.node), h = hostAt(p.host);

@@ -70,6 +70,13 @@ La qualità alta usa la risoluzione della scena al 100%, bilanciata all’80%, r
 - Il colore del crepuscolo viene dal cielo della carta: la luce che attraversa un lungo tratto d'aria perde i colori che il cielo diffonde. La funzione `twilightOf` di `src/craft/succede.js` e la funzione `dusk` degli shader usano la stessa formula. Un cielo azzurro dà un crepuscolo arancione o giallo, un cielo caldo un crepuscolo azzurro, come su Marte; nei 103 pianeti i crepuscoli sono 38 arancioni, 37 azzurri, 22 gialli, 4 verdi e 2 bianchi.
 - La stessa fascia colora il suolo lungo il terminatore (materiale 12) e le nubi (materiale 5), con un'intensità che cresce con la pressione da 0,25 a 1.
 
+## Comete, sciami e cinture (1.60.0)
+
+- Cinture: per ogni anello una mesh statica di rocce (sfere basse deformate con la mappa lunare NASA, tinte calde per la roccia e fredde per il ghiaccio) ruotata ogni fotogramma con la sua velocità angolare, più un anello piatto di polvere con il materiale delle code, più luminoso a metà larghezza.
+- Comete: nucleo con il materiale dei pianeti, chioma con il bagliore delle stelle, due code (`unitTail` in `src/scene/minor-bodies.js`) orientate con una matrice di base (`basisMatrix` in `src/scene/world.js`): +z lontano dalla stella, la curva verso l'indietro dell'orbita. Le scie sono istanze di bagliori statiche, una per cometa.
+- Stelle cadenti: la coda di ioni scalata a 4-9 unità, a 55 unità dalla camera nella parte alta della vista, per 0,9 s.
+- Il modello e i numeri sono descritti in `docs/STAZIONI_NAVI.md`, sezione «Comete, sciami e cinture».
+
 ## Riprodurre l'export
 
 Richiede Blender 4.3 e il suo Python con numpy:
