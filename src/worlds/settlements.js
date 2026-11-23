@@ -144,6 +144,8 @@ export function colonyPlan(s, ops = [], reserve = null) {
     if (!centres.length) centres.push([VIEW[0][0] + Math.cos(base) * 40, VIEW[0][1] + Math.sin(base) * 40]);
     // On rugged planets (canyons, steep relief) a second round accepts steeper streets and deeper cuts, as in
     // the hill towns of the Earth. A plan with its hub beats one without.
+    // The spec of a type does not depend on the attempt, so every attempt shares it.
+    const specs = new Map();
     const better = (t, o) => !o || t.placed.length + (t.hub ? 15 : 0) > o.placed.length + (o.hub ? 15 : 0);
     let plan = null;
     for (const steep of [false, true]) { for (const [k, c] of centres.entries()) { const t = layout(c, k, steep); if (better(t, plan)) plan = t; if (plan.hub && plan.placed.length >= target * .8) break; } if (plan.hub && plan.placed.length >= target * .5) break; }
@@ -151,7 +153,7 @@ export function colonyPlan(s, ops = [], reserve = null) {
     const { placed, streets, edges, types, centre } = plan, dd = plan.d, C = siteChecks(s, placed, streets, reserve);
     function layout(centre, attempt, steep) {
     const d = dice((g.terrain.seed ^ 0xC0105) + 101 * (attempt + 1) + (steep ? 7 : 0)), CUT = steep ? 6 : 3.5, placed = [], streets = [], ops = [], C = siteChecks(s, placed, streets, reserve), W = 2.4, RISE = steep ? .4 : .28;
-    const types = {}, spec = t => (types[t] ||= archSpec(t, dice((g.terrain.seed ^ 0xB11D) + Object.keys(ARCH_TYPES[typ]).indexOf(t) * 7919), P)), SQUARE = spec(HUB[typ]).radius + .5;
+    const types = {}, spec = t => (types[t] ||= specs.get(t) || specs.set(t, archSpec(t, dice((g.terrain.seed ^ 0xB11D) + Object.keys(ARCH_TYPES[typ]).indexOf(t) * 7919), P)).get(t)), SQUARE = spec(HUB[typ]).radius + .5;
     // Polar lattice: S spokes from the hub, rings R1 + (i − 1) B apart; on the second and the fourth ring every
     // arc is split in two, so the blocks stay about as long as they are deep.
     const S = d.int(5, 7), T0 = d.range(0, TAU), R1 = SQUARE + d.range(8, 10), B = d.range(14, 17), RINGS = 6, per = i => S * (i >= 4 ? 4 : i >= 2 ? 2 : 1);
