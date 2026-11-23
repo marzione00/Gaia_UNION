@@ -34,7 +34,7 @@ import { openStore, grade } from './store.js';
 import { AUTHOR, LICENCE, CREDIT, LICENCE_ROW } from './licenza.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.63.0-vita';
+const VERSION = '1.64.0-citta';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -272,12 +272,13 @@ function worldTick() {
 }
 const worldEntry = id => worlds.worlds.find(w => w.unit === id) || null;
 // Exploration of a generated surface: species and places of the planet, registered in the diary.
-const PLACE_KINDS = { vetta: 'Luogo · punto più alto', forma: 'Luogo · forma del paesaggio', costa: 'Luogo · costa', evento: 'Luogo · fenomeno raro' };
+const PLACE_KINDS = { vetta: 'Luogo · punto più alto', forma: 'Luogo · forma del paesaggio', costa: 'Luogo · costa', evento: 'Luogo · fenomeno raro', colonia: 'Luogo · colonia umana', villaggio: 'Luogo · villaggio nativo' };
 const exploreReady = () => W?.surface?.index === S.selected && Array.isArray(W.surface.species);
 function exploreEntries() {
     if (!exploreReady()) return [];
     const s = W.surface, pop = W.population || [];
-    return [...s.species.map((sp, k) => ({ type: 'species', index: k, id: sp.id, data: sp, at: pop[k]?.centre || null })), ...s.places.map((p, k) => ({ type: 'place', index: k, id: p.id, data: p, at: p.position }))];
+    return [...s.species.map((sp, k) => ({ type: 'species', index: k, id: sp.id, data: sp, at: pop[k]?.centre || null })), ...s.places.map((p, k) => ({ type: 'place', index: k, id: p.id, data: p, at: p.position })),
+        ...(s.settlements || []).map((p, k) => ({ type: 'settlement', index: k, id: p.id, data: p, at: p.position }))];
 }
 const exploreRecord = index => store.data.explore[String(index)] || { s: [], l: [] };
 const isRegistered = (e, rec) => (e.type === 'species' ? rec.s : rec.l).includes(e.id);
@@ -757,7 +758,7 @@ function exploreUI(m, mobile) {
         wrapClipText(e.data.name, px + 18, py + 44, pw - 36, 'sub', C.pale, 1);
         U.text(species ? (e.data.kind === 'plant' ? 'Pianta' : e.data.kind === 'fungus' ? 'Fungo' : 'Animale') + ' · ' + e.data.label + ' · ' + e.data.habitatName : PLACE_KINDS[e.data.kind], px + 18, py + 76, 'micro', species ? C.lime : tint);
         // Phones show one trait at a time; wide screens show them all.
-        const parts = species ? e.data.traits : ns ? [e.data.text] : [e.data.text, lifelessReason(W.surface.genome)], bottom = py + ph - 104;
+        const parts = species || e.type === 'settlement' ? e.data.traits : ns ? [e.data.text] : [e.data.text, lifelessReason(W.surface.genome)], bottom = py + ph - 104;
         let y = py + 102;
         if (mobile) {
             const k = Math.min(S.exploreTrait, parts.length - 1); U.wrap(parts[k], px + 18, y, pw - 36, C.pale, 19, 5, 'micro');
@@ -772,8 +773,8 @@ function exploreUI(m, mobile) {
     if (!mobile) {
         U.text('Ipotesi illustrative ricavate dalla carta d’identità del pianeta.', 35, h - 112, 'micro', C.muted);
         for (const p of W.projections) {
-            if (p.type !== 'place' || !Number.isFinite(p.x) || p.depth <= 0) continue;
-            const place = W.surface.places[p.index], on = S.exploreTarget?.type === 'place' && S.exploreTarget.index === p.index, label = (exploreRecord(S.selected).l.includes(place.id) ? '✓ ' : '') + place.name, tw = R.textWidth(label, 'mini') + 24, x = p.x - tw / 2, y = p.y - 34;
+            if ((p.type !== 'place' && p.type !== 'settlement') || !Number.isFinite(p.x) || p.depth <= 0) continue;
+            const place = (p.type === 'place' ? W.surface.places : W.surface.settlements)[p.index], on = S.exploreTarget?.type === p.type && S.exploreTarget.index === p.index, label = (exploreRecord(S.selected).l.includes(place.id) ? '✓ ' : '') + place.name, tw = R.textWidth(label, 'mini') + 24, x = p.x - tw / 2, y = p.y - 34;
             if (x < 20 || x + tw > w - 370 || y < 96 || (y < 250 && x < 760) || y > h - 120) continue;
             R.roundRect(x, y, tw, 26, 13, color(T.bg, .88), on ? tint : color(T.line, 1));
             U.text(label, x + 12, y + 6, 'mini', on ? C.pale : C.muted);
@@ -1929,7 +1930,7 @@ function events() {
                 else if(hit?.type==='craft'){if(hit.follow)startFollow(hit.follow);else{touchTarget=hit;say([hit.entry.name,...(hit.lines||[])].join(' · '));}}
                 else if(hit?.type==='node')S.node=hit.index;
                 else if(hit?.type==='station')S.station=hit.index;
-                else if(hit?.type==='place')selectTarget({type:'place',index:hit.index});
+                else if(hit?.type==='place'||hit?.type==='settlement')selectTarget({type:hit.type,index:hit.index});
                 else if(hit?.type==='ground'){const near=W.nearest(hit.point);if(near)selectTarget(near);else S.exploreGoal=[hit.point[0],hit.point[2]];}
             }
         }

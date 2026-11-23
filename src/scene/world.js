@@ -30,6 +30,9 @@ import { horizonMesh, CORE, RINGS } from '../worlds/field.js';
 import { LANDING_SITES } from '../worlds/landing-sites.js';
 import { tuft, rock, station as stationMesh, seaPlane, seaRing, beacon, curtain } from '../worlds/geometry.js';
 import { bodyMesh } from '../worlds/bodyplan.js';
+import { buildingMesh } from '../worlds/buildings.js';
+import { colonistMesh, nativeMesh, nativeLegs } from '../worlds/people.js';
+import { WALK } from '../worlds/settlements.js';
 /** Instance mode, motion uniform and PBR of each form of the species (src/worlds/species.js); every species
  * has its own two meshes, built from its body plan (src/worlds/bodyplan.js). For walking animals the fourth
  * motion value, the height of the legs in the mesh, is written per species and makes the legs swing. */
@@ -42,15 +45,33 @@ const LIFE = {
 const LEGS = { pascolatore: p => p.legs, cacciatore: p => p.legs, bipede: p => p.height * .55, esapode: p => p.legs * .9, ottopode: p => p.legs * .7 };
 /** Distances of the levels of detail of the species (1.63.0): detailed shapes within LIFE_NEAR of the camera,
  * light ones up to LIFE_FAR, none beyond; the split is made again when the camera moves by LIFE_STEP. */
-export const LIFE_NEAR = 40, LIFE_FAR = 260, LIFE_STEP = 6, LIFE_SLOTS = 32;
+export const LIFE_NEAR = 40, LIFE_FAR = 260, LIFE_STEP = 6;
 /** Share of the individuals drawn at each graphics setting; the golden ratio spreads the kept ones evenly. */
 export const LIFE_SHARE = Object.freeze({ high: 1, balanced: .7, low: .4 });
 /** The detailed shapes come closer to the camera at the lighter settings, chosen on phones. */
 export const LIFE_NEAR_SHARE = Object.freeze({ high: 1, balanced: .8, low: .6 });
 const kept = (i, share) => share >= 1 || (i * .6180339887) % 1 < share;
+/** Settlements (1.64.0): buildings in two levels of detail within TOWN_NEAR and up to TOWN_FAR, inhabitants
+ * within FOLK_NEAR and up to FOLK_FAR. Walkers go back and forth along a stretch of street (shader mode 7):
+ * the slope of the stretch travels in the heading, as whole hundredths, seven units apart. */
+export const TOWN_NEAR = 70, TOWN_FAR = 900, FOLK_NEAR = 26, FOLK_FAR = 180, WALK_SPEED = .9;
+export const walkHeading = (h, slope) => (((h % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)) + 7 * (Math.round(Math.max(-.5, Math.min(.5, slope)) * 100) + 50);
+/** Ribbons of the streets and paths of the settlements, as one mesh following their points. */
+function streetMesh(settlements, palette) {
+    const v = [], i = [];
+    for (const t of settlements) {
+        const c = t.kind === 'colonia' ? palette.road : palette.path;
+        for (const st of t.streets) {
+            const P = st.points, h = st.width / 2, base = v.length / 12;
+            P.forEach((p, k) => { const a = P[Math.max(0, k - 1)], b = P[Math.min(P.length - 1, k + 1)], dx = b[0] - a[0], dz = b[2] - a[2], l = Math.hypot(dx, dz) || 1, nx = -dz / l * h, nz = dx / l * h; v.push(p[0] + nx, p[1], p[2] + nz, 0, 1, 0, 0, k, ...c, p[0] - nx, p[1], p[2] - nz, 0, 1, 0, 1, k, ...c); });
+            for (let k = 0; k + 1 < P.length; k++) { const a = base + k * 2; i.push(a, a + 2, a + 1, a + 1, a + 2, a + 3); }
+        }
+    }
+    return { v: new Float32Array(v.length ? v : 12), i: new Uint32Array(i.length ? i : [0, 0, 0]), stride: 12 };
+}
 const MESHES = { 'planet-beacon': beacon };
 /** Colour of the marker of each kind of place. */
-export const PLACE_TINTS = { vetta: [.95, .82, .45, 1], forma: [.55, .82, .98, 1], costa: [.45, .9, .85, 1], evento: [.95, .55, .85, 1] };
+export const PLACE_TINTS = { vetta: [.95, .82, .45, 1], forma: [.55, .82, .98, 1], costa: [.45, .9, .85, 1], evento: [.95, .55, .85, 1], colonia: [1, .62, .3, 1], villaggio: [.75, .95, .45, 1] };
 /** Drawn radius: the scale is illustrative, so planets of the units are enlarged to be read and
  * picked, ambient bodies slightly. Orbits keep their computed spacing. */
 const clock = () => globalThis.performance?.now() ?? Date.now();
@@ -242,14 +263,25 @@ export class World {
             const sc = surfaceScatter(s), pack = l => { const a = new Float32Array(Math.max(1, l.length) * 8); l.forEach((o, i) => a.set([o.x, o.y, o.z, o.s, o.r, o.g, o.b, o.h], i * 8)); return a; };
             this.population = sc.species; this.planetCounts = [sc.species.reduce((n, p) => n + p.instances.length, 0), sc.rocks.length]; this.lifeAt = null;
             if (R.makeInstances) {
-                for (let k = 0; k < LIFE_SLOTS; k++) for (const l of [0, 1]) { R.deleteInstances?.(`life-${k}-${l}`); if (k >= sc.species.length) R.deleteMesh?.(`life-mesh-${k}-${l}`); }
+                for (const G of this.groups || []) for (const l of [0, 1]) { R.deleteInstances?.(G.sets[l]); R.deleteMesh?.(G.meshes[l]); }
                 R.makeInstances('planet-rocks', 'world-rock', pack(sc.rocks));
-                // Two meshes per species from its body plan, and two instance sets with room for all its individuals.
+                // Groups drawn with instances in two levels of detail, each with two meshes and two instance sets
+                // with room for all its items: the species, the buildings of each type, the inhabitants of each figure.
+                const groups = this.groups = [], group = (name, mesh, items, o) => {
+                    const G = { meshes: [0, 1].map(l => o.meshIds ? o.meshIds[l] : `${name}-mesh-${l}`), sets: [0, 1].map(l => `${name}-${l}`), all: pack(items), items, n: items.length, drawn: [0, 0], ...o };
+                    for (const l of [0, 1]) { R.makeMesh(G.meshes[l], mesh(l)); if (items.length) R.makeInstances(G.sets[l], G.meshes[l], G.all); }
+                    groups.push(G); return G;
+                };
                 sc.species.forEach((p, k) => {
-                    const sp = p.species, all = pack(p.instances), legs = LEGS[sp.form];
-                    p.life = { all, mode: LIFE[sp.form][0], motion: legs ? [...LIFE[sp.form][1].slice(0, 3), legs(sp.plan)] : LIFE[sp.form][1], pbr: LIFE[sp.form][2], drawn: [0, 0] };
-                    for (const l of [0, 1]) { R.makeMesh(`life-mesh-${k}-${l}`, bodyMesh(sp.plan, l)); if (p.instances.length) R.makeInstances(`life-${k}-${l}`, `life-mesh-${k}-${l}`, all); }
+                    const sp = p.species, legs = LEGS[sp.form];
+                    p.life = group(`life-${k}`, l => bodyMesh(sp.plan, l), p.instances, { meshIds: [`life-mesh-${k}-0`, `life-mesh-${k}-1`], mode: LIFE[sp.form][0], motion: legs ? [...LIFE[sp.form][1].slice(0, 3), legs(sp.plan)] : LIFE[sp.form][1], pbr: LIFE[sp.form][2], near: LIFE_NEAR, far: LIFE_FAR, thin: true });
                 });
+                (s.settlements || []).forEach((t, a) => {
+                    Object.entries(t.types).forEach(([type, spec], b) => group(`town-${a}-${b}`, l => buildingMesh(spec, l), t.buildings.filter(x => x.type === type).map(x => ({ x: x.x, y: x.y, z: x.z, s: x.s, r: x.tint[0], g: x.tint[1], b: x.tint[2], h: x.h })), { mode: 1, motion: [0, 0, 0, 0], pbr: [.05, .8, 0, 4], near: TOWN_NEAR, far: TOWN_FAR, thin: false }));
+                    t.figures.forEach((f, b) => group(`folk-${a}-${b}`, l => t.kind === 'colonia' ? colonistMesh(f, l) : nativeMesh(f, l), t.walkers.filter(w => w.figure === b).map(w => ({ x: w.x, y: w.y, z: w.z, s: w.s, r: w.tint[0], g: w.tint[1], b: w.tint[2], h: walkHeading(w.h, w.slope) })), { mode: 7, motion: [WALK_SPEED, WALK[t.kind], 0, t.kind === 'colonia' ? f.legs : nativeLegs(f)], pbr: [0, .75, 0, 0], near: FOLK_NEAR, far: FOLK_FAR, thin: true }));
+                });
+                const rock = s.genome.palette.rock, sealed = s.genome.atmosphere.density < .3;
+                R.makeMesh('planet-streets', streetMesh(s.settlements || [], { road: sealed ? [...rock.map(v => .35 + v * .25), 1] : [.27, .27, .29, 1], path: [...rock.map(v => v * .55 + .18), 1] }));
                 R.deleteInstances?.('planet-geyser');
                 const geyser = s.places.find(p => p.event === 'eruzione di geyser');
                 if (geyser) { const r = random(s.index + 77), q = geyser.position; R.makeInstances('planet-geyser', 'lowSphere', pack(Array.from({ length: 46 }, () => ({ x: q[0] + (r() - .5) * 1.2, y: q[1] + .2, z: q[2] + (r() - .5) * 1.2, s: .7 + r() * .8, r: .92, g: .94, b: .96, h: r() * 6.283 })))); }
@@ -262,22 +294,23 @@ export class World {
     /** Splits the individuals of each species between the detailed and the light mesh by their distance from
      * the camera (1.63.0); runs again only when the camera has moved by LIFE_STEP or the graphics changed. */
     lifeSplit(force = false) {
-        const R = this.R, pop = this.population, e = this.eye; if (!pop || !R.updateInstances || !e) return;
+        const R = this.R, groups = this.groups, e = this.eye; if (!groups || !R.updateInstances || !e) return;
         const q = R.sceneQuality || 'high', last = this.lifeAt;
         if (!force && last && last[2] === q && Math.hypot(e[0] - last[0], e[2] - last[1]) < LIFE_STEP) return;
         this.lifeAt = [e[0], e[2], q];
-        const share = LIFE_SHARE[q] ?? 1, near = LIFE_NEAR * (LIFE_NEAR_SHARE[q] ?? 1), scratch = this.lifeScratch ||= [new Float32Array(0), new Float32Array(0)];
-        pop.forEach((p, k) => {
-            const L = p.life, n = p.instances.length; if (!L || !n) return;
+        const scratch = this.lifeScratch ||= [new Float32Array(0), new Float32Array(0)];
+        for (const L of groups) {
+            const n = L.n; if (!n) continue;
+            const share = L.thin ? LIFE_SHARE[q] ?? 1 : 1, near = L.near * (LIFE_NEAR_SHARE[q] ?? 1);
             if (scratch[0].length < n * 8) { scratch[0] = new Float32Array(n * 8); scratch[1] = new Float32Array(n * 8); }
             const c = [0, 0];
             for (let i = 0; i < n; i++) {
                 if (!kept(i, share)) continue;
-                const o = p.instances[i], d = Math.hypot(o.x - e[0], o.z - e[2]); if (d > LIFE_FAR) continue;
+                const o = L.items[i], d = Math.hypot(o.x - e[0], o.z - e[2]); if (d > L.far) continue;
                 const l = d < near ? 0 : 1; scratch[l].set(L.all.subarray(i * 8, i * 8 + 8), c[l]++ * 8);
             }
-            for (const l of [0, 1]) { R.updateInstances(`life-${k}-${l}`, scratch[l].subarray(0, c[l] * 8)); L.drawn[l] = c[l]; }
-        });
+            for (const l of [0, 1]) { R.updateInstances(L.sets[l], scratch[l].subarray(0, c[l] * 8)); L.drawn[l] = c[l]; }
+        }
     }
     /** Orbit map of explorable planet `index`, generated from its identity card. A 128 × 64 map is made at
      * once; 512 × 256 maps and, for the planet seen from orbit, a 1024 × 512 map are built a few rows per
@@ -354,7 +387,8 @@ export class World {
             const gen=this.surface?.heightAt,b=gen&&s.exploreFocus?(s.exploreBlend??1):0,wc=b>0?null:s.worldCamera,angle=.6+s.yaw*.5,base=wc?wc.pitch:gen?.2+.22*b:.58,pitch=Math.max(gen||wc?.06:.24,Math.min(.96,base+(s.pitch-.45)*.6)),distance=wc?wc.distance:gen?64+((w<850?42:36)-64)*b:52;
             const fc=s.worldFocus,x0=w<850?(fc?fc[0]:gen?-4:-3):gen?2:3,z0=w<850?(fc?fc[1]:gen?8:-1):gen?2:-2,tx=b?x0+(s.exploreFocus[0]-x0)*b:x0,tz=b?z0+(s.exploreFocus[1]-z0)*b:z0,ty=wc?wc.targetY:gen?Math.max(this.surface.seaY??-99,this.surface.heightAt(tx,tz))+3:1.8;
             eye=[tx+Math.sin(angle)*distance*Math.cos(pitch),Math.sin(pitch)*distance+2+(gen?ty-3:0),tz+Math.cos(angle)*distance*Math.cos(pitch)];target=[tx,ty,tz];fov=gen?.72:.60;
-            if(gen){const ground=(x,z)=>Math.max(this.surface.heightAt(x,z),this.surface.seaY??-99);eye[1]=Math.max(eye[1],ground(eye[0],eye[2])+5);
+            // Since 1.64.0 the roofs of the settlements count as ground for the camera.
+            if(gen){const roof=this.surface.clear?.roofAt,ground=(x,z)=>Math.max(this.surface.heightAt(x,z),this.surface.seaY??-99,roof?roof(x,z):-99);eye[1]=Math.max(eye[1],ground(eye[0],eye[2])+5);
                 // The relief of the planet (1.62.0) may rise between the camera and the target or the stations: the
                 // camera goes up until the lines of sight pass at least 1.5 units over the ground.
                 let lift=0;for(const end of [target,...(b>0?[]:this.surface.stations.map(st=>st.position))])for(let k=1;k<20;k++){const t=k/20,x=eye[0]+(end[0]-eye[0])*t,z=eye[2]+(end[2]-eye[2])*t,y=eye[1]+(end[1]-eye[1])*t;lift=Math.max(lift,(ground(x,z)+1.5-y)/(1-t));}
@@ -907,7 +941,9 @@ export class World {
             if(S0.seaY!==null&&S0.field&&!world?.hidesWater)R.drawMesh('planet-sea-far',this.vp,id,{eye:this.eye,light,lightColor,material:18,tint:[...S0.water.map(v=>Math.min(1,v*1.6)),1],motion:[S0.seaY,.12,0,0],opacity:.96});
             // Species in two levels of detail (1.63.0); lower graphics settings draw a share of the individuals.
             this.lifeSplit();
-            (this.population||[]).forEach((p,k)=>{const L=p.life;if(L)for(const l of [0,1])if(L.drawn[l])R.drawMesh(`life-mesh-${k}-${l}`,this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:`life-${k}-${l}`,instanceMode:L.mode,motion:L.motion,pbr:L.pbr});});
+            for(const L of this.groups||[])for(const l of [0,1])if(L.drawn[l])R.drawMesh(L.meshes[l],this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:L.sets[l],instanceMode:L.mode,motion:L.motion,pbr:L.pbr});
+            // Streets and paths of the settlements (1.64.0).
+            if(S0.settlements&&this.groups)R.drawMesh('planet-streets',this.vp,id,{eye:this.eye,light,lightColor,material:10,pbr:[0,.92,0,0]});
             if(R.instanceSets?.has('planet-geyser'))R.drawMesh('lowSphere',this.vp,id,{eye:this.eye,light,material:19,instances:'planet-geyser',instanceMode:2,motion:[.16,10,.7,0],opacity:.32});
             // Shooting stars (1.60.0) on worlds with an atmosphere: a sporadic one every 7 s, one every 0.8 s while
             // the planet crosses the stream of a comet, radiating from one point of the sky.
@@ -936,6 +972,11 @@ export class World {
                     R.drawMesh('lowSphere',this.vp,transform(q[0],q[1]+5.3,q[2],on?.55:.42),{eye:this.eye,material:16,tint:PLACE_TINTS[p.kind]});
                     if(on)R.drawMesh('ring',this.vp,transform(q[0],q[1]+.3,q[2],3.2),{eye:this.eye,tint:PLACE_TINTS[p.kind],emission:.7,opacity:.75});
                     this.projections.push({type:'place',index:k,...xyToObj(project([q[0],q[1]+6.6,q[2]],this.vp,R.w,R.h)),r:26,position:q});});
+                // Settlements (1.64.0): a marker over the square of the colony and over the fire of the village.
+                (S0.settlements||[]).forEach((t0,k)=>{const q=t0.position,on=s.exploreTarget?.type==='settlement'&&s.exploreTarget.index===k,top=Math.max(...t0.buildings.filter(b=>Math.hypot(b.x-q[0],b.z-q[2])<12).map(b=>b.y+b.height),q[1])+3;
+                    R.drawMesh('lowSphere',this.vp,transform(q[0],top+2.3,q[2],on?.7:.55),{eye:this.eye,material:16,tint:PLACE_TINTS[t0.kind]});
+                    if(on)R.drawMesh('ring',this.vp,transform(q[0],q[1]+.3,q[2],t0.kind==='colonia'?14:10),{eye:this.eye,tint:PLACE_TINTS[t0.kind],emission:.7,opacity:.75});
+                    this.projections.push({type:'settlement',index:k,...xyToObj(project([q[0],top+3.6,q[2]],this.vp,R.w,R.h)),r:28,position:q});});
                 const t=s.exploreTarget,c=t?.type==='species'?this.population?.[t.index]?.centre:null;
                 if(c)R.drawMesh('ring',this.vp,transform(c[0],c[1]+.3,c[2],7),{eye:this.eye,tint:[.6,.95,.7,1],emission:.7,opacity:.6});
             }
@@ -970,6 +1011,8 @@ export class World {
         let best = null, d0 = radius;
         (this.population || []).forEach((p, k) => { for (const o of p.instances) { const d = Math.hypot(o.x - point[0], o.z - point[2]); if (d < d0) { d0 = d; best = { type: 'species', index: k }; } } });
         (this.surface?.places || []).forEach((p, k) => { const d = Math.hypot(p.position[0] - point[0], p.position[2] - point[2]); if (d < d0 + 2) { d0 = d - 2; best = { type: 'place', index: k }; } });
+        // A building or a street of a settlement selects the settlement (1.64.0).
+        (this.surface?.settlements || []).forEach((t, k) => { for (const b of t.buildings) { const d = Math.hypot(b.x - point[0], b.z - point[2]) - b.radius; if (d < d0) { d0 = d; best = { type: 'settlement', index: k }; } } });
         return best;
     }
     pick(x, y, s) {
@@ -992,7 +1035,7 @@ export class World {
             const direction=normal(f.map((v,i)=>v+right[i]*(2*x/this.R.w-1)*t*this.R.w/this.R.h+up[i]*(1-2*y/this.R.h)*t));
             const label=this.projections.find(p=>p.depth>0&&Math.hypot(p.x-x,p.y-y)<p.r);if(label)return label;
             // Exploration: the first point where the ray meets the ground or the sea.
-            if(s.explore&&this.surface.heightAt){const S0=this.surface;for(let t=1;t<420;t+=.5){const q=this.eye.map((v,i)=>v+direction[i]*t);if(Math.abs(q[0])>110||Math.abs(q[2])>110)break;const ground=Math.max(S0.heightAt(q[0],q[2]),S0.seaY??-99);if(q[1]<=ground)return {type:'ground',point:[q[0],ground,q[2]]};}return null;}
+            if(s.explore&&this.surface.heightAt){const S0=this.surface;for(let t=1;t<420;t+=.5){const q=this.eye.map((v,i)=>v+direction[i]*t);if(Math.abs(q[0])>110||Math.abs(q[2])>110)break;const ground=Math.max(S0.heightAt(q[0],q[2]),S0.seaY??-99,S0.clear?S0.clear.roofAt(q[0],q[2]):-99);if(q[1]<=ground)return {type:'ground',point:[q[0],ground,q[2]]};}return null;}
             let hit=null,near=Infinity;
             for(const station of this.surface.stations){const center=[station.position[0],(station.position[1]+station.labelPosition[1])*.5,station.position[2]],d=raySphere(this.eye,direction,center,station.radius);if(d!==null&&d<near){near=d;hit={type:'station',index:station.index};}}
             return hit;
