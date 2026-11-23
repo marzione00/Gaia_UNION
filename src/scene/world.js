@@ -28,14 +28,27 @@ import { planetPhysics } from '../worlds/planet-physics.js';
 import { pressureFromDensity, APPRECIABLE_DENSITY } from '../worlds/physics.js';
 import { horizonMesh, CORE, RINGS } from '../worlds/field.js';
 import { LANDING_SITES } from '../worlds/landing-sites.js';
-import { tuft, rock, station as stationMesh, seaPlane, seaRing, grazer, frond, tree, column, cushion, cup, patch, hexapod, flyer, floater, beacon, curtain } from '../worlds/geometry.js';
-/** Mesh, instance mode, motion uniform and PBR of each body plan of the species (src/worlds/species.js). */
-const BODIES = {
-    tuft: ['world-tuft', 1, [0, 0, .06, 0], [0, .8, .02, 3]], frond: ['sp-frond', 1, [0, 0, .03, 0], [0, .75, .02, 3]], tree: ['sp-tree', 1, [0, 0, .012, 0], [0, .8, .02, 3]],
-    column: ['sp-column', 1, [0, 0, 0, 0], [0, .6, .02, 3]], cushion: ['sp-cushion', 1, [0, 0, 0, 0], [0, .85, .02, 3]], cup: ['sp-cup', 1, [0, 0, .02, 0], [0, .6, .12, 3]], patch: ['sp-patch', 1, [0, 0, 0, 0], [0, .9, 0, 3]],
-    grazer: ['sp-grazer', 3, [.05, 1.6, 0, 0], [0, .7, 0, 0]], hexapod: ['sp-hexapod', 3, [.08, 1.2, 0, 0], [0, .45, 0, 0]], flyer: ['sp-flyer', 4, [.12, 9, 0, 0], [0, .6, 0, 0]], floater: ['sp-floater', 3, [.025, 2.5, 0, 0], [0, .35, .05, 0]]
+import { tuft, rock, station as stationMesh, seaPlane, seaRing, beacon, curtain } from '../worlds/geometry.js';
+import { bodyMesh } from '../worlds/bodyplan.js';
+/** Instance mode, motion uniform and PBR of each form of the species (src/worlds/species.js); every species
+ * has its own two meshes, built from its body plan (src/worlds/bodyplan.js). For walking animals the fourth
+ * motion value, the height of the legs in the mesh, is written per species and makes the legs swing. */
+const LIFE = {
+    ciuffo: [1, [0, 0, .06, 0], [0, .8, .02, 3]], felce: [1, [0, 0, .03, 0], [0, .75, .02, 3]], albero: [1, [0, 0, .012, 0], [0, .8, .02, 3]], arbusto: [1, [0, 0, .02, 0], [0, .8, .02, 3]], canneto: [1, [0, 0, .05, 0], [0, .7, .02, 3]],
+    colonna: [1, [0, 0, 0, 0], [0, .6, .02, 3]], cuscino: [1, [0, 0, 0, 0], [0, .85, .02, 3]], calice: [1, [0, 0, .02, 0], [0, .6, .12, 3]], crosta: [1, [0, 0, 0, 0], [0, .9, 0, 3]], fungo: [1, [0, 0, 0, 0], [0, .7, .06, 3]],
+    pascolatore: [3, [.05, 1.6, 0, 0], [0, .7, 0, 0]], cacciatore: [3, [.09, 2.6, 0, 0], [0, .6, 0, 0]], bipede: [3, [.07, 2.2, 0, 0], [0, .6, 0, 0]], saltatore: [3, [.1, 1.4, 0, 0], [0, .75, 0, 0]],
+    esapode: [3, [.08, 1.2, 0, 0], [0, .45, 0, 0]], ottopode: [3, [.05, 1, 0, 0], [0, .5, 0, 0]], serpentino: [3, [.04, 1.4, 0, 0], [0, .4, 0, 0]], volatore: [4, [.12, 9, 0, 0], [0, .6, 0, 0]], medusa: [3, [.025, 2.5, 0, 0], [0, .35, .05, 0]]
 };
-const MESHES = { 'sp-frond': frond, 'sp-tree': tree, 'sp-column': column, 'sp-cushion': cushion, 'sp-cup': cup, 'sp-patch': patch, 'sp-grazer': grazer, 'sp-hexapod': hexapod, 'sp-flyer': flyer, 'sp-floater': floater, 'planet-beacon': beacon };
+const LEGS = { pascolatore: p => p.legs, cacciatore: p => p.legs, bipede: p => p.height * .55, esapode: p => p.legs * .9, ottopode: p => p.legs * .7 };
+/** Distances of the levels of detail of the species (1.63.0): detailed shapes within LIFE_NEAR of the camera,
+ * light ones up to LIFE_FAR, none beyond; the split is made again when the camera moves by LIFE_STEP. */
+export const LIFE_NEAR = 40, LIFE_FAR = 260, LIFE_STEP = 6, LIFE_SLOTS = 32;
+/** Share of the individuals drawn at each graphics setting; the golden ratio spreads the kept ones evenly. */
+export const LIFE_SHARE = Object.freeze({ high: 1, balanced: .7, low: .4 });
+/** The detailed shapes come closer to the camera at the lighter settings, chosen on phones. */
+export const LIFE_NEAR_SHARE = Object.freeze({ high: 1, balanced: .8, low: .6 });
+const kept = (i, share) => share >= 1 || (i * .6180339887) % 1 < share;
+const MESHES = { 'planet-beacon': beacon };
 /** Colour of the marker of each kind of place. */
 export const PLACE_TINTS = { vetta: [.95, .82, .45, 1], forma: [.55, .82, .98, 1], costa: [.45, .9, .85, 1], evento: [.95, .55, .85, 1] };
 /** Drawn radius: the scale is illustrative, so planets of the units are enlarged to be read and
@@ -227,11 +240,16 @@ export class World {
             if (!this.planetMeshes) { R.makeMesh('world-tuft', tuft()); R.makeMesh('world-rock', rock()); R.makeMesh('planet-station', stationMesh()); R.makeMesh('planet-sea', seaPlane(900, 900, 180, 180)); R.makeMesh('planet-sea-far', seaRing(HORIZON, 448)); for (const [id, make] of Object.entries(MESHES)) R.makeMesh(id, make()); this.planetMeshes = true; }
             // Species, rocks, geyser plume and aurora of this planet.
             const sc = surfaceScatter(s), pack = l => { const a = new Float32Array(Math.max(1, l.length) * 8); l.forEach((o, i) => a.set([o.x, o.y, o.z, o.s, o.r, o.g, o.b, o.h], i * 8)); return a; };
-            this.population = sc.species; this.planetCounts = [sc.species.reduce((n, p) => n + p.instances.length, 0), sc.rocks.length];
+            this.population = sc.species; this.planetCounts = [sc.species.reduce((n, p) => n + p.instances.length, 0), sc.rocks.length]; this.lifeAt = null;
             if (R.makeInstances) {
-                for (let k = 0; k < 8; k++) R.deleteInstances?.('planet-sp-' + k);
+                for (let k = 0; k < LIFE_SLOTS; k++) for (const l of [0, 1]) { R.deleteInstances?.(`life-${k}-${l}`); if (k >= sc.species.length) R.deleteMesh?.(`life-mesh-${k}-${l}`); }
                 R.makeInstances('planet-rocks', 'world-rock', pack(sc.rocks));
-                sc.species.forEach((p, k) => { if (p.instances.length) R.makeInstances('planet-sp-' + k, BODIES[p.species.mesh][0], pack(p.instances)); });
+                // Two meshes per species from its body plan, and two instance sets with room for all its individuals.
+                sc.species.forEach((p, k) => {
+                    const sp = p.species, all = pack(p.instances), legs = LEGS[sp.form];
+                    p.life = { all, mode: LIFE[sp.form][0], motion: legs ? [...LIFE[sp.form][1].slice(0, 3), legs(sp.plan)] : LIFE[sp.form][1], pbr: LIFE[sp.form][2], drawn: [0, 0] };
+                    for (const l of [0, 1]) { R.makeMesh(`life-mesh-${k}-${l}`, bodyMesh(sp.plan, l)); if (p.instances.length) R.makeInstances(`life-${k}-${l}`, `life-mesh-${k}-${l}`, all); }
+                });
                 R.deleteInstances?.('planet-geyser');
                 const geyser = s.places.find(p => p.event === 'eruzione di geyser');
                 if (geyser) { const r = random(s.index + 77), q = geyser.position; R.makeInstances('planet-geyser', 'lowSphere', pack(Array.from({ length: 46 }, () => ({ x: q[0] + (r() - .5) * 1.2, y: q[1] + .2, z: q[2] + (r() - .5) * 1.2, s: .7 + r() * .8, r: .92, g: .94, b: .96, h: r() * 6.283 })))); }
@@ -240,6 +258,26 @@ export class World {
             this.aurora = s.genome.events.includes('aurora');
             this.uploadedPlanet = s.key; this.builtWorld = null; this.towers = s.stations.map(t => t.position); this.terrain = { height: new Map(s.grid.cells.map((p, i) => [String(i), p])) };
         }
+    }
+    /** Splits the individuals of each species between the detailed and the light mesh by their distance from
+     * the camera (1.63.0); runs again only when the camera has moved by LIFE_STEP or the graphics changed. */
+    lifeSplit(force = false) {
+        const R = this.R, pop = this.population, e = this.eye; if (!pop || !R.updateInstances || !e) return;
+        const q = R.sceneQuality || 'high', last = this.lifeAt;
+        if (!force && last && last[2] === q && Math.hypot(e[0] - last[0], e[2] - last[1]) < LIFE_STEP) return;
+        this.lifeAt = [e[0], e[2], q];
+        const share = LIFE_SHARE[q] ?? 1, near = LIFE_NEAR * (LIFE_NEAR_SHARE[q] ?? 1), scratch = this.lifeScratch ||= [new Float32Array(0), new Float32Array(0)];
+        pop.forEach((p, k) => {
+            const L = p.life, n = p.instances.length; if (!L || !n) return;
+            if (scratch[0].length < n * 8) { scratch[0] = new Float32Array(n * 8); scratch[1] = new Float32Array(n * 8); }
+            const c = [0, 0];
+            for (let i = 0; i < n; i++) {
+                if (!kept(i, share)) continue;
+                const o = p.instances[i], d = Math.hypot(o.x - e[0], o.z - e[2]); if (d > LIFE_FAR) continue;
+                const l = d < near ? 0 : 1; scratch[l].set(L.all.subarray(i * 8, i * 8 + 8), c[l]++ * 8);
+            }
+            for (const l of [0, 1]) { R.updateInstances(`life-${k}-${l}`, scratch[l].subarray(0, c[l] * 8)); L.drawn[l] = c[l]; }
+        });
     }
     /** Orbit map of explorable planet `index`, generated from its identity card. A 128 × 64 map is made at
      * once; 512 × 256 maps and, for the planet seen from orbit, a 1024 × 512 map are built a few rows per
@@ -867,9 +905,9 @@ export class World {
             if(S0.field)R.drawMesh('planet-horizon',this.vp,id,{eye:this.eye,light,lightColor,material:10});
             if(S0.seaY!==null&&!world?.hidesWater)R.drawMesh('planet-sea',this.vp,id,{eye:this.eye,light,lightColor,material:18,tint:[...S0.water.map(v=>Math.min(1,v*1.6)),1],motion:[S0.seaY,.12,0,0],opacity:.96});
             if(S0.seaY!==null&&S0.field&&!world?.hidesWater)R.drawMesh('planet-sea-far',this.vp,id,{eye:this.eye,light,lightColor,material:18,tint:[...S0.water.map(v=>Math.min(1,v*1.6)),1],motion:[S0.seaY,.12,0,0],opacity:.96});
-            // Lower graphics settings draw a subset of each species (instances are spread over the clusters).
-            const share=R.sceneQuality==='low'?.4:R.sceneQuality==='balanced'?.7:1;
-            (this.population||[]).forEach((p,k)=>{const b=BODIES[p.species.mesh];if(p.instances.length)R.drawMesh(b[0],this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:'planet-sp-'+k,instanceMode:b[1],motion:b[2],pbr:b[3],count:Math.max(1,Math.ceil(p.instances.length*share))});});
+            // Species in two levels of detail (1.63.0); lower graphics settings draw a share of the individuals.
+            this.lifeSplit();
+            (this.population||[]).forEach((p,k)=>{const L=p.life;if(L)for(const l of [0,1])if(L.drawn[l])R.drawMesh(`life-mesh-${k}-${l}`,this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:`life-${k}-${l}`,instanceMode:L.mode,motion:L.motion,pbr:L.pbr});});
             if(R.instanceSets?.has('planet-geyser'))R.drawMesh('lowSphere',this.vp,id,{eye:this.eye,light,material:19,instances:'planet-geyser',instanceMode:2,motion:[.16,10,.7,0],opacity:.32});
             // Shooting stars (1.60.0) on worlds with an atmosphere: a sporadic one every 7 s, one every 0.8 s while
             // the planet crosses the stream of a comet, radiating from one point of the sky.

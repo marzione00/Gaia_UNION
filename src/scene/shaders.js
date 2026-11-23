@@ -18,7 +18,9 @@ void main(){vec3 vertex=aPos,normal=aNormal;vec4 color=aColor;if(uMaterial==10&&
   vec3 base=aInst.xyz;float s=aInst.w,a=aInstC.w;
   if(uInstanced==1&&uMotion.z>0.)vertex.x+=sin(uTime*1.3+a*3.)*uMotion.z*max(vertex.y,0.);
   if(uInstanced==2){float t=fract(uTime*uMotion.x+a*.1592);base.y+=t*uMotion.y;base.x+=sin(t*6.283+a)*uMotion.z;s*=(1.-t)*(.4+t*2.2);}
-  if(uInstanced==3){float w=uTime*uMotion.x*(.7+.6*fract(a*7.13))+a;base.x+=cos(w)*uMotion.y;base.z+=sin(w)*uMotion.y;a=atan(-cos(w),-sin(w));base.y+=abs(sin(w*9.))*.06;}
+  if(uInstanced==3){float w=uTime*uMotion.x*(.7+.6*fract(a*7.13))+a;base.x+=cos(w)*uMotion.y;base.z+=sin(w)*uMotion.y;a=atan(-cos(w),-sin(w));base.y+=abs(sin(w*9.))*.06;
+   // Legs below the height uMotion.w swing forwards and back, left and right legs and front and hind legs in opposite phase.
+   if(uMotion.w>0.)vertex.x+=sin(w*9.+(vertex.z>0.?0.:3.1416)+(vertex.x>0.?3.1416:0.))*max(uMotion.w-vertex.y,0.)*.35;}
   if(uInstanced==4){float w=uTime*uMotion.x*(.7+.6*fract(a*7.13))+a;base.x+=cos(w)*uMotion.y;base.z+=sin(w)*uMotion.y;base.y+=sin(w*2.+a)*.8;vertex.y+=sin(uTime*7.+a*5.)*max(abs(vertex.z)-.12,0.)*.7;a=atan(-cos(w),-sin(w));}
   // 5: ships and stations of the systems; the second vector is the heading (the +z of the model), y stays up.
   if(uInstanced==5){vec3 f=normalize(aInstC.xyz),x=cross(vec3(0,1,0),f);x=dot(x,x)>1e-8?normalize(x):vec3(1,0,0);vec3 y=cross(f,x);vertex=(x*vertex.x+y*vertex.y+f*vertex.z)*s+base;normal=x*normal.x+y*normal.y+f*normal.z;}
