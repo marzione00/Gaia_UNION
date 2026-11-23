@@ -64,10 +64,12 @@ test('Diario di esplorazione: record puliti e conservati nel salvataggio',()=>{
 test('Esplorazione: camera sul punto scelto, clic sul terreno, specie vicina',()=>{
  const w=new World({w:1600,h:1000,makeStars(){},makeMesh(){}},{},biomes),s={scene:'surface',selected:7,yaw:0,pitch:.45,distance:60,paused:true,lastFrameMs:16};
  w.activatePlanet(7);w.camera('surface',s);const station=[...w.target];
- s.explore=true;s.exploreFocus=[-30,10];s.exploreBlend=1;w.cameraScene=null;w.camera('surface',s);w.camera('surface',s);
- assert.ok(Math.abs(w.target[0]+30)<1e-6&&Math.abs(w.target[2]-10)<1e-6);assert.ok(Math.hypot(...w.eye.map((v,i)=>v-w.target[i]))<50);assert.ok(Math.hypot(station[0]+30,station[2]-10)>20);
+ // A point of open ground, away from the buildings of the colony (1.66.0), which would lift the camera.
+ const [fx,fz]=[[-30,10],[-50,20],[-30,-50]].find(([x,z])=>w.surface.settlements.every(t=>t.buildings.every(b=>Math.hypot(b.x-x,b.z-z)>b.radius+15)));
+ s.explore=true;s.exploreFocus=[fx,fz];s.exploreBlend=1;w.cameraScene=null;w.camera('surface',s);w.camera('surface',s);
+ assert.ok(Math.abs(w.target[0]-fx)<1e-6&&Math.abs(w.target[2]-fz)<1e-6);assert.ok(Math.hypot(...w.eye.map((v,i)=>v-w.target[i]))<50);assert.ok(Math.hypot(station[0]-fx,station[2]-fz)>20);
  assert.ok(w.eye[1]>w.surface.heightAt(w.eye[0],w.eye[2])+4.9);
- w.projections=[];const hit=w.pick(800,500,s);assert.equal(hit?.type,'ground');assert.ok(Math.hypot(hit.point[0]+30,hit.point[2]-10)<6);
+ w.projections=[];const hit=w.pick(800,500,s);assert.equal(hit?.type,'ground');assert.ok(Math.hypot(hit.point[0]-fx,hit.point[2]-fz)<6);
  // An individual of the first species away from the places and the settlements (1.64.0).
  const p=w.population[0],o=p.instances.find(o=>w.surface.places.every(q=>Math.hypot(q.position[0]-o.x,q.position[2]-o.z)>9)&&w.surface.settlements.every(t=>t.buildings.every(b=>Math.hypot(b.x-o.x,b.z-o.z)>b.radius+7)));assert.deepEqual(w.nearest([o.x,0,o.z]),{type:'species',index:0});
  const place=w.surface.places[0];assert.deepEqual(w.nearest(place.position),{type:'place',index:0});

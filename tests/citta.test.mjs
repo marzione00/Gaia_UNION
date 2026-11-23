@@ -2,7 +2,8 @@ import test from 'node:test';import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {planetGenomes,planetSpecies,planetSurface,surfaceScatter} from '../src/worlds/surface.js';
 import {colonyParams,VILLAGE_RULE,COLONY_ID,VILLAGE_ID,WALK,grade} from '../src/worlds/settlements.js';
-import {buildingMesh,COLONY_TYPES,VILLAGE_TYPES} from '../src/worlds/buildings.js';
+import {buildingMesh,VILLAGE_TYPES} from '../src/worlds/buildings.js';
+import {archMesh,ARCH_TYPES} from '../src/worlds/architecture.js';
 import {colonistMesh,nativeMesh} from '../src/worlds/people.js';
 import {World,walkHeading,TOWN_NEAR,FOLK_NEAR} from '../src/scene/world.js';
 import {counter,BUDGET} from '../scripts/prestazioni.mjs';
@@ -16,20 +17,19 @@ const STYLE=[/—/,/\bnon solo\b|\bnon soltanto\b/i,/\bnon\b[^.;:\n]{0,80}\bma\b
 const seg=(x,z,a,b)=>{const dx=b[0]-a[0],dz=b[2]-a[2],l=dx*dx+dz*dz||1,t=Math.max(0,Math.min(1,((x-a[0])*dx+(z-a[2])*dz)/l));return Math.hypot(x-a[0]-t*dx,z-a[2]-t*dz);};
 
 test('città: una colonia su ogni pianeta, adattata alla carta, su terreno spianato',()=>{
- for(const [i,s] of surfaces){const g=genomes[i],c=s.settlements[0],P=colonyParams(g),sea=s.seaY;
-  assert.equal(c.id,COLONY_ID);assert.equal(c.kind,'colonia');assert.ok(c.buildings.length>=30&&c.buildings.length<=300,i+' '+c.buildings.length);
-  assert.ok(Object.keys(c.types).every(t=>t in COLONY_TYPES));
-  // Sealed domes and suits where the air is too thin; low buildings under high gravity; piles only on oceanic planets.
-  assert.equal(P.sealed,g.atmosphere.density<.3);if(P.sealed)assert.ok(c.counts.cupola>0);assert.equal(c.figures[0].suit,P.sealed);
-  if(g.gravity>1.15){assert.ok(!c.counts.torre);assert.ok(Object.values(c.types).every(t=>!t.floors||t.floors<=2));}
-  if(c.counts.palafitta)assert.equal(g.family,'oceanic');
+ for(const [i,s] of surfaces){const g=genomes[i],c=s.settlements[0],P=colonyParams(g,species[i].length),sea=s.seaY;
+  assert.equal(c.id,COLONY_ID);assert.equal(c.kind,'colonia');assert.ok(c.buildings.length>=20&&c.buildings.length<=150,i+' '+c.buildings.length);
+  assert.ok(Object.keys(c.types).every(t=>t in ARCH_TYPES[c.typology]));
+  // Pressure suits where the air is too thin; at most two floors under high gravity.
+  assert.equal(P.sealed,g.atmosphere.density<.3);assert.equal(c.figures[0].gear,P.sealed?'tuta':c.typology==='simbiotico'?'leggero':'maschera');
+  if(g.gravity>1.15)assert.ok(Object.values(c.types).every(t=>!t.floors||t.floors<=2));
   c.buildings.forEach((b,k)=>{
    assert.ok(Math.abs(b.x)+b.radius<104&&Math.abs(b.z)+b.radius<104);
    for(const st of s.stations)assert.ok(Math.hypot(st.position[0]-b.x,st.position[2]-b.z)>b.radius+5);
    for(const p of s.places)assert.ok(Math.hypot(p.position[0]-b.x,p.position[2]-b.z)>b.radius+4);
    for(const o of c.buildings.slice(k+1))assert.ok(Math.hypot(o.x-b.x,o.z-b.z)>o.radius+b.radius+.5);
-   // The ground under a building is levelled to its floor; houses on piles stand over the sea.
-   if(b.type==='palafitta')assert.ok(sea!==null&&s.heightAt(b.x,b.z)<sea+.3&&Math.abs(b.y-sea-1.1)<1e-9);else assert.ok(Math.abs(s.heightAt(b.x,b.z)-b.y)<.05,`${i} ${b.type}`);
+   // The ground under a building is levelled to its floor.
+   assert.ok(Math.abs(s.heightAt(b.x,b.z)-b.y)<.05,`${i} ${b.type}`);
   });
   for(const st of c.streets){const P0=st.points;for(let k=0;k<P0.length;k++){const p=P0[k],ground=s.heightAt(p[0],p[2]);
    // The ribbon of the street lies just above the graded ground.
@@ -64,9 +64,9 @@ test('villaggi: solo dove ci sono mare, aria densa e una biosfera ricca, lontano
 test('modelli: edifici e abitanti in due livelli di dettaglio, diversi da colonia a colonia',()=>{
  const keys=new Set();let n=0;
  for(const s of surfaces.values())for(const t of s.settlements){for(const sp of Object.values(t.types)){n++;keys.add(JSON.stringify(sp));
-   const a=buildingMesh(sp,0),b=buildingMesh(sp,1);for(const m of [a,b]){assert.equal(m.stride,16);assert.ok(m.v.every(Number.isFinite));const nv=m.v.length/16;assert.ok(m.i.length&&m.i.every(x=>x<nv));}
+   const make=t.kind==='colonia'?archMesh:buildingMesh,a=make(sp,0),b=make(sp,1);for(const m of [a,b]){assert.equal(m.stride,16);assert.ok(m.v.every(Number.isFinite));const nv=m.v.length/16;assert.ok(m.i.length&&m.i.every(x=>x<nv));}
    assert.ok(b.i.length<=a.i.length,sp.type);assert.ok(a.i.length/3<=6000,sp.type+' '+a.i.length/3);}
-  for(const f of t.figures){const make=t.kind==='colonia'?colonistMesh:nativeMesh,a=make(f,0),b=make(f,1);assert.ok(b.i.length<a.i.length);let white=0;for(let j=8;j<a.v.length;j+=12)if(Math.min(a.v[j],a.v[j+1],a.v[j+2])>.97)white++;assert.ok(white>0);}}
+  for(const f of t.figures){const make=t.kind==='colonia'?colonistMesh:nativeMesh,a=make(f,0),b=make(f,1);assert.ok(b.i.length<a.i.length);let white=0;const st=a.stride||12;for(let j=8;j<a.v.length;j+=st)if(Math.min(a.v[j],a.v[j+1],a.v[j+2])>.97)white++;assert.ok(white>0);}}
  // Every type of every settlement of the sample is a different model.
  assert.equal(keys.size,n);assert.ok(n>=200);
  // The heading of a walker carries the slope of its stretch of street.
