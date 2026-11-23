@@ -8,6 +8,7 @@ import { shaped } from './geometry.js';
 import { merge } from './bodyplan.js';
 import { Kit } from '../craft/kit.js';
 import { smooth, sweep } from './architecture.js';
+import { Shape, curve, profile, WHITE as PALE } from './organic.js';
 
 const WHITE = [1, 1, 1, 1], round = x => Math.round(x * 1000) / 1000;
 const LEVEL = [{ sphere: [10, 7], tube: 6 }, { sphere: [6, 4], tube: 3 }];
@@ -81,20 +82,40 @@ export function nativeSpec(r, card) {
     return { height: round((.95 + r() * .45) * tall), neck: round(.04 + r() * .2), arms: r() < .3 ? 4 : 2, crest: r() < .5, tail: round(r() < .4 ? .3 + r() * .3 : 0), ears: round(r() * .14), thick: round(.04 + .02 * g), head: round(.09 + r() * .05),
         cloth: [...[0, 1, 2].map(() => round(.3 + r() * .6)), 1], eye: [...[0, 1, 2].map(() => round(r() * .3)), 1] };
 }
+/** A native body (1.67.0): digitigrade legs that walk on the balls of the feet, a slender torso on a long
+ * neck, a small head with large eyes, two or four long arms, a tail where the plan has one, and a wrap of
+ * cloth round the hips with a sash across the body. The skin is white and takes the tint of each inhabitant. */
 export function nativeMesh(p, level = 0) {
-    const L = LEVEL[level], parts = [], H = p.height, hip = H * .46, chest = hip + H * .22, neckTop = chest + H * .12 + p.neck;
-    for (const z of [.08, -.08]) parts.push(tube(L, [[0, hip, z], [.05, hip * .5, z * 1.1], [0, .02, z * 1.1]], p.thick, WHITE));
-    parts.push(blob(L, [.13, H * .17, .14], [0, hip + H * .13, 0], WHITE));
-    parts.push(blob(L, [.15, .07, .16], [0, hip + .02, 0], p.cloth));
-    parts.push(tube(L, [[0, chest, 0], [.03, neckTop, 0]], .045, WHITE));
-    parts.push(blob(L, [p.head * 1.25, p.head, p.head * .9], [.05, neckTop + p.head * .7, 0], WHITE));
-    for (const z of [.035, -.035]) parts.push(blob(L, [.022, .022, .022], [.05 + p.head * 1.1, neckTop + p.head * .85, z * 1.6], p.eye));
-    const pairs = p.arms === 4 ? [chest, chest - H * .1] : [chest];
-    for (const y of pairs) for (const z of [.16, -.16]) parts.push(tube(L, [[0, y, z * .8], [.05, y - H * .14, z * 1.05], [.1, y - H * .26, z]], .03, WHITE));
-    if (p.tail) parts.push(tube(L, [[-.1, hip, 0], [-.1 - p.tail * .6, hip - .1, 0], [-.1 - p.tail, hip - .25, 0]], .04, WHITE));
-    if (p.crest) parts.push(blob(L, [p.head * .9, p.head * .45, .02], [.0, neckTop + p.head * 1.55, 0], p.cloth));
-    if (p.ears) for (const z of [1, -1]) parts.push(tube(L, [[.02, neckTop + p.head, z * p.head * .7], [-.02, neckTop + p.head + p.ears, z * (p.head * .7 + p.ears * .6)]], .02, WHITE));
-    return merge(parts);
+    const S = new Shape(level), low = level > 0, H = p.height, hip = H * .46, chest = hip + H * .3, neckTop = chest + H * .1 + p.neck, ph = p.head, t = p.thick;
+    for (const z of [1, -1]) {
+        const w = z * .075;
+        S.tube(curve([[0, hip + .02, w], [.07, hip * .62, w * 1.05], [-.06, hip * .28, w * 1.1], [.03, .06, w * 1.1], [.11, .02, w * 1.1]], S.n(2, 1)), q => t * (1.45 - q * 1.05), 7, WHITE, { capStart: true });
+        if (!low) for (const dz of [-.025, 0, .025]) S.tube([[.09, .02, w * 1.1 + dz], [.15, .01, w * 1.1 + dz * 1.6]], .012, 3, WHITE);
+    }
+    // Pelvis, waist, ribcage and shoulders, then the neck and a small head looking forward.
+    const spine = curve([[0, hip - .04, 0], [.01, hip + .06, 0], [.0, hip + H * .14, 0], [.02, chest - .02, 0], [.03, chest + .05, 0], [.05, neckTop - .02, 0]], S.n(2, 1)), K = spine.length - 1;
+    const wy = profile([[0, .07], [.18, .1], [.42, .075], [.72, .1], [.84, .08], [1, .035]]), wz = profile([[0, .11], [.18, .13], [.42, .09], [.72, .14], [.84, .1], [1, .035]]);
+    S.tube(spine, q => [wy(q), wz(q)], 9, WHITE, { capStart: true, capEnd: false, up: [1, 0, 0] });
+    const hc = [.06 + ph * .35, neckTop + ph * .75, 0];
+    S.tube(curve([[.04, neckTop - .04, 0], [hc[0] - ph * .6, hc[1] - ph * .3, 0], [hc[0], hc[1], 0], [hc[0] + ph * 1.05, hc[1] - ph * .25, 0]], S.n(2, 1)), q => [ph * (.5 + .55 * Math.sin(Math.PI * Math.min(1, q * 1.15))), ph * (.45 + .45 * Math.sin(Math.PI * Math.min(1, q * 1.15)))], 9, WHITE, { capStart: true });
+    if (!low) for (const z of [1, -1]) S.ellipsoid([hc[0] + ph * .55, hc[1] + ph * .2, z * ph * .42], [ph * .22, ph * .18, ph * .14], 7, 5, p.eye);
+    if (p.ears) for (const z of [1, -1]) S.ribbon(curve([[hc[0] - ph * .1, hc[1] + ph * .5, z * ph * .5], [hc[0] - ph * .4 - p.ears * .3, hc[1] + ph * .7 + p.ears * .6, z * (ph * .6 + p.ears * .5)]], 2), q => ph * .25 * (1 - q * .8), [1, 0, 0], WHITE, { fold: .2 });
+    if (p.crest) S.ribbon(curve([[hc[0] - ph * .9, hc[1] + ph * .4, 0], [hc[0] - ph * .2, hc[1] + ph * 1.2, 0], [hc[0] + ph * .5, hc[1] + ph * .9, 0]], 2), ph * .3, [0, 1, 0], p.cloth);
+    // Arms: one or two pairs, long and thin, slightly bent forward.
+    for (const [k, y] of (p.arms === 4 ? [chest, chest - H * .1] : [chest]).entries()) for (const z of [1, -1]) {
+        const sh = [.02, y, z * .13];
+        S.tube(curve([sh, [.04, y - H * .16, z * .16], [.12, y - H * .29, z * .15], [.16, y - H * .35 - .02 * k, z * .14]], S.n(2, 1)), q => .032 - q * .016, 6, WHITE, { capStart: true });
+    }
+    if (p.tail) S.tube(curve([[-.08, hip + .02, 0], [-.1 - p.tail * .5, hip - .05, 0], [-.1 - p.tail, hip - .2, 0]], 2), q => .045 * (1 - q * .8), 6, WHITE);
+    // Cloth: a wrap from the hips to mid thigh and a sash from the shoulder across the body.
+    const wrap = []; for (const [y, k] of [[hip + .08, 1.05], [hip - .02, 1.12], [hip - H * .1, 1.25]]) wrap.push(Array.from({ length: S.n(14, 7) }, (_, j) => { const a = j / S.n(14, 7) * Math.PI * 2; return [Math.cos(a) * .085 * k + .005, y + (low ? 0 : .015 * Math.sin(a * 3)), Math.sin(a) * .135 * k]; }));
+    S.surface(wrap, p.cloth);
+    if (!low) S.tube(curve([[.1, chest + .03, .1], [.115, hip + H * .17, 0], [.07, hip + .05, -.11], [-.06, hip + .08, -.1], [-.09, hip + H * .2, .02], [-.05, chest + .04, .11], [.1, chest + .03, .1]], 2), .018, 4, p.cloth, { capEnd: false });
+    // The body is built with a long neck and then scaled, so the top of the head is at the height of the plan.
+    const m = S.mesh(), k = nativeScale(p); for (let i = 0; i < m.v.length; i += 12) for (let q = 0; q < 3; q++) m.v[i + q] *= k;
+    return m;
 }
+/** Scale that brings the top of the head of a native body to its height. */
+const nativeScale = p => p.height / (p.height * .86 + p.neck + p.head * 1.7);
 /** Hip height of a native body: the legs below it swing while walking. */
-export const nativeLegs = p => p.height * .46;
+export const nativeLegs = p => p.height * .46 * nativeScale(p);

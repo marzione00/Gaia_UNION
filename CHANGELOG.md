@@ -1,3 +1,10 @@
+# 1.67.0: Mondi vivi, natura e popoli nativi
+
+- Seconda parte della revisione dello stile. Animali, piante, popoli nativi e villaggi erano fatti di sfere scalate e tubi; ora sono superfici lisce costruite con il nuovo `src/worlds/organic.js`.
+- Animali con un corpo unico dalla coda al muso, zampe articolate con il garretto all'indietro, ali con il bordo frastagliato, insetti con capo, torace e addome, ottopodi, serpentini sinuosi e colonie galleggianti con campana, vela e tentacoli. Piante con tronchi, radici e rami, chiome di fogliame irregolare, conifere a palchi, salici, palme, erba e felci a strisce sottili, canne con pennacchi, colonne a costole, calici a vaso, funghi con le lamelle. Le 1388 specie conservano nomi, colori e posizioni.
+- Popoli nativi digitigradi, snelli, con collo lungo, testa piccola, occhi grandi, gonnellino e fascia a tracolla. Villaggi con capanne di pali e graticcio sotto paglia a strati, case lunghe a volta, granai su pali con scala, fuoco in un cerchio di pietre, totem scolpiti.
+- Un individuo costa in media 99 triangoli nel livello leggero, contro 101 prima; su tutti i 125 pianeti un fotogramma di superficie resta entro 93 chiamate di disegno e 1,10 milioni di triangoli con il dettaglio alto, 0,58 milioni con la grafica leggera. Nuovo `tests/natura.test.mjs`; descrizione in `docs/GRAPHICS.md`, sezione «Natura e popoli nativi».
+
 # 1.66.0: Mondi vivi, stile delle colonie
 
 - Le colonie cambiano stile. La 1.64.0 le disegnava con archetipi terrestri (case a falde, palazzi a griglia di finestre, piazze con monumento) e colori pastello. Ora ogni colonia appartiene a una di tre tipologie scelte dalla carta: 46 avamposti sigillati dove l'aria è troppo sottile, 41 insediamenti simbiotici dove la biosfera è ricca e l'aria densa, 38 città adattate sugli altri pianeti. La guida di stile è in `docs/STILE_COLONIE.md`.
