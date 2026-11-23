@@ -14,8 +14,9 @@ export function cleanExplore(value) {
     const known = new Set(INSTRUMENTS.map(i => i.id));
     for (const [k, v] of Object.entries(value)) {
         if (!/^\d{1,3}$/.test(k) || Number(k) >= UNIT_COUNT || !v || typeof v !== 'object') continue;
-        const ids = (list, test) => Array.isArray(list) ? [...new Set(list.filter(x => typeof x === 'string' && test(x)))].slice(0, 20) : [];
-        const rec = { s: ids(v.s, x => /^s\d$/.test(x)), l: ids(v.l, x => /^l\d$/.test(x)) }, m = ids(v.m, x => known.has(x));
+        const ids = (list, test, most = 20) => Array.isArray(list) ? [...new Set(list.filter(x => typeof x === 'string' && test(x)))].slice(0, most) : [];
+        // Up to 24 species per planet since 1.63.0, numbered from s0 to s23.
+        const rec = { s: ids(v.s, x => /^s\d{1,2}$/.test(x), 32), l: ids(v.l, x => /^l\d$/.test(x)) }, m = ids(v.m, x => known.has(x));
         if (m.length) rec.m = m;
         if (typeof v.at === 'string' && v.at.length < 40) rec.at = v.at;
         // v: the explorer has landed on the planet, which shows the presence of life on its card.

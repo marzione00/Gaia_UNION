@@ -34,7 +34,7 @@ import { openStore, grade } from './store.js';
 import { AUTHOR, LICENCE, CREDIT, LICENCE_ROW } from './licenza.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.62.0-terreno';
+const VERSION = '1.63.0-vita';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -755,7 +755,7 @@ function exploreUI(m, mobile) {
         const done = isRegistered(e, rec), species = e.type === 'species';
         U.tag((species ? 'Specie ' : 'Luogo ') + (S.exploreEntry + 1) + ' di ' + list.length + (done ? ' · nel diario' : ''), px + 18, py + 18, species ? C.lime : tint);
         wrapClipText(e.data.name, px + 18, py + 44, pw - 36, 'sub', C.pale, 1);
-        U.text(species ? (e.data.kind === 'plant' ? 'Pianta' : 'Animale') + ' · ' + e.data.label + ' · ' + e.data.habitatName : PLACE_KINDS[e.data.kind], px + 18, py + 76, 'micro', species ? C.lime : tint);
+        U.text(species ? (e.data.kind === 'plant' ? 'Pianta' : e.data.kind === 'fungus' ? 'Fungo' : 'Animale') + ' · ' + e.data.label + ' · ' + e.data.habitatName : PLACE_KINDS[e.data.kind], px + 18, py + 76, 'micro', species ? C.lime : tint);
         // Phones show one trait at a time; wide screens show them all.
         const parts = species ? e.data.traits : ns ? [e.data.text] : [e.data.text, lifelessReason(W.surface.genome)], bottom = py + ph - 104;
         let y = py + 102;

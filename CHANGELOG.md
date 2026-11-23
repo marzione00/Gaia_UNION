@@ -1,3 +1,11 @@
+# 1.63.0: Mondi vivi, la vita
+
+- Seconda versione della serie «Mondi vivi». Le superfici avevano poche specie, da una a sei per pianeta, tutte con la stessa forma per ciascun tipo. Ora i 107 pianeti abitati hanno 1388 specie: da 18 a 23 sui pianeti terrestri, da 16 a 21 sugli oceanici, meno su quelli freddi, secchi o con l'aria sottile. Le 391 specie delle versioni precedenti restano con nomi, colori e posizioni, e il diario conserva le specie già registrate.
+- Otto forme nuove: arbusto, canna di riva, fungo, saltatore, animale strisciante, cacciatore a quattro zampe, corridore bipede e ottopode. Ogni specie ha un piano corporeo proprio, ricavato dal suo seme e dalla carta del pianeta (chioma, altezza, zampe, coda, corna, ali...), con proporzioni che seguono la gravità; gli alberi hanno cinque tipi di chioma.
+- Rete alimentare: produttori, erbivori, filtratori, predatori e decompositori. Gli erbivori mangiano piante del loro ambiente, i predatori erbivori e filtratori; il diario dice di che cosa si nutre ogni animale. I funghi compaiono nel diario come «Fungo».
+- Da 102 a 3395 individui per pianeta (mediana 1570), disegnati con istanze in due livelli di dettaglio: maglia dettagliata entro 40 unità dalla camera, leggera fino a 260. Le grafiche bilanciata e leggera disegnano sette e quattro individui su dieci. Gli animali che camminano muovono le zampe.
+- Su tutti i 125 pianeti un fotogramma di superficie resta entro 60 chiamate di disegno e 0,87 milioni di triangoli con il dettaglio alto, 0,46 milioni con la grafica leggera. Nuovo `tests/specie.test.mjs`; descrizione in `docs/GRAPHICS.md`, sezione «Vita».
+
 # 1.62.0: Mondi vivi, il terreno dalla sfera
 
 - Prima versione della serie «Mondi vivi» sulle superfici dei pianeti. Scendendo in superficie il paesaggio cambiava, perché il suolo era generato a parte dalla mappa vista dall'orbita. Ora il suolo è il pezzo di pianeta sotto il sito di atterraggio: lo stesso campo d'altezza della mappa d'orbita letto sul piano tangente alla sfera, con le forme locali dello stile del terreno sopra. Mari, coste e colori dell'orizzonte coincidono con quelli visti dall'orbita.

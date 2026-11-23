@@ -56,7 +56,7 @@ test('anelli dell\'orizzonte: fino a 1792 unità, senza crepe fra anelli e quadr
 test('vita e luoghi sulla nuova superficie: ogni specie ha individui, i luoghi restano nell\'area',()=>{
  let far=0;
  for(const i of [0,1,14,30,36,60,99,119]){const s=planetSurface(i,113),sc=surfaceScatter(s);
-  for(const p of sc.species){assert.ok(p.instances.length>0,i+' '+p.species.name);if(p.instances.some(o=>Math.max(Math.abs(o.x),Math.abs(o.z))>78)){far++;assert.equal(p.species.habitat,'mare');}}
+  for(const p of sc.species){assert.ok(p.instances.length>0,i+' '+p.species.name);if(p.instances.some(o=>Math.max(Math.abs(o.x),Math.abs(o.z))>p.species.reach)){far++;assert.equal(p.species.habitat,'mare');}}
   for(const p of s.places)assert.ok(Math.abs(p.position[0])<=72&&Math.abs(p.position[2])<=72);
   // Beyond the square the height is the field itself.
   assert.ok(Math.abs(s.heightAt(300,-200)-s.field.Y(300,-200))<1e-9);}
