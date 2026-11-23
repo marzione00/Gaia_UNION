@@ -93,7 +93,7 @@ test('specie: individui in superficie, divisi per distanza, entro i limiti di un
    }
    // The split is made again only after the camera has moved by LIFE_STEP.
    const before=updates;w.lifeSplit();assert.equal(updates,before);
-   w.eye=[w.eye[0]+LIFE_STEP*1.01,w.eye[1],w.eye[2]];w.lifeSplit();assert.equal(updates,before+2*w.population.filter(p=>p.instances.length).length);
+   w.eye=[w.eye[0]+LIFE_STEP*1.01,w.eye[1],w.eye[2]];w.lifeSplit();assert.equal(updates,before+2*w.groups.filter(G=>G.n).length);
   }
  }
  // At the lighter setting about four individuals in ten are kept, spread over the clusters.

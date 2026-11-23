@@ -275,6 +275,8 @@ export function populate(s, species) {
     const hot = (x, z) => s.lavaAt ? s.lavaAt(x, z) > .2 : s.heightAt(x, z) > q70;
     const fits = (habitat, x, z, reach = 78) => {
         if (Math.abs(x) > reach || Math.abs(z) > reach || near(x, z, 7)) return false;
+        // Streets and buildings of the settlements (1.64.0) stay free.
+        if (habitat !== 'mare' && habitat !== 'bassofondo' && s.clear?.blocked(x, z)) return false;
         const y = s.heightAt(x, z), wet = sea !== null && y <= sea + .3;
         if (habitat === 'mare') return sea !== null && y < sea - .8;
         if (habitat === 'bassofondo') return sea !== null && y < sea - .1;

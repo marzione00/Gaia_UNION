@@ -68,7 +68,8 @@ test('Esplorazione: camera sul punto scelto, clic sul terreno, specie vicina',()
  assert.ok(Math.abs(w.target[0]+30)<1e-6&&Math.abs(w.target[2]-10)<1e-6);assert.ok(Math.hypot(...w.eye.map((v,i)=>v-w.target[i]))<50);assert.ok(Math.hypot(station[0]+30,station[2]-10)>20);
  assert.ok(w.eye[1]>w.surface.heightAt(w.eye[0],w.eye[2])+4.9);
  w.projections=[];const hit=w.pick(800,500,s);assert.equal(hit?.type,'ground');assert.ok(Math.hypot(hit.point[0]+30,hit.point[2]-10)<6);
- const p=w.population[0],o=p.instances[0];assert.deepEqual(w.nearest([o.x,0,o.z]),{type:'species',index:0});
+ // An individual of the first species away from the places and the settlements (1.64.0).
+ const p=w.population[0],o=p.instances.find(o=>w.surface.places.every(q=>Math.hypot(q.position[0]-o.x,q.position[2]-o.z)>9)&&w.surface.settlements.every(t=>t.buildings.every(b=>Math.hypot(b.x-o.x,b.z-o.z)>b.radius+7)));assert.deepEqual(w.nearest([o.x,0,o.z]),{type:'species',index:0});
  const place=w.surface.places[0];assert.deepEqual(w.nearest(place.position),{type:'place',index:0});
  w.projections=w.surface.places.map((q,k)=>{const xy=project([q.position[0],q.position[1]+6.6,q.position[2]],w.vp,1600,1000);return {type:'place',index:k,x:xy[0],y:xy[1],depth:xy[2],r:26};}).filter(q=>q.depth>0);
  for(const q of w.projections)assert.equal(w.pick(q.x,q.y,s)?.type,'place');

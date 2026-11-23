@@ -9,6 +9,7 @@ import { LANDING_SITES } from './landing-sites.js';
 import { seededRandom } from '../scene/systems.js';
 import { allSpecies, populate } from './species.js';
 import { placeList, locatePlaces } from './places.js';
+import { settle, clearance } from './settlements.js';
 
 export const planetGenomes = planetCards;
 let speciesCache = null;
@@ -41,6 +42,22 @@ export function planetSurface(index, n = GRID) {
     for (const s of stations) for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) { const d = Math.hypot(X(i) - s.position[0], X(j) - s.position[2]); if (d < 3.4 && !s.platform) { const w = d < 2.2 ? 1 : 1 - (d - 2.2) / 1.2; Y[j * n + i] += (s.position[1] - .3 - Y[j * n + i]) * w; } }
     // The edges meet the first ring of the horizon (src/worlds/field.js) on its grid lines.
     for (const edge of [k => k, k => (n - 1) * n + k, k => k * n, k => k * n + n - 1]) stitch(Y, n, cell, RINGS[0], edge);
+    const sunAz = r() * Math.PI * 2, sunEl = .45 + r() * .45, light = norm([Math.cos(sunAz) * Math.cos(sunEl), Math.sin(sunEl), Math.sin(sunAz) * Math.cos(sunEl)]);
+    const density = g.atmosphere.density, horizon = density > .04 ? g.atmosphere.sky : [.035, .035, .04], top = density > .04 ? mix([.004, .006, .012], g.atmosphere.sky.map(c => c * .45), Math.min(1, density * 1.4)) : [.002, .002, .004];
+    const out = {
+        key: 'planet-' + index, index, genome: g, n, cell, heights: Y, heightAt, lavaAt, seaY, stations, mesh: null, field: F, site: F.site,
+        grid: { radius: 2, cells: [] }, water: g.palette.water, light: { direction: light, color: g.star.light },
+        fog: { color: horizon, density: .0004 + .0016 * density }, sky: { top, horizon, sun: g.star.light, stars: Math.max(0, 1 - density * 3) },
+        // Moons sit right of the screen title, from the centre of the view to its right edge.
+        moons: Array.from({ length: g.satellites.moons }, (_, k) => ({ azimuth: .1 + k * .14 + r() * .05, elevation: .06 + r() * .08, size: 4 + r() * 6 })),
+        vegetation: ['terrestrial', 'oceanic', 'volcanic'].includes(g.family) ? Math.min(1, density * 1.6) * (g.family === 'volcanic' ? .25 : 1) : 0,
+        species: planetSpecies()[index]
+    };
+    // Points of interest, placed on the final heights (after the station pads).
+    out.places = locatePlaces(out, placeList(g));
+    // The colony and, on the planets with a rich biosphere, the village of a native people (1.64.0); their
+    // streets and pads are graded into the heights before the mesh is built.
+    out.settlements = settle(out, out.species.length, { Y, n, cell }); out.clear = clearance(out.settlements);
     // Mesh: position, normal, uv, colour, PBR (metal, roughness, emission, kind 1 = ground).
     const v = new Float32Array(n * n * 16), idx = new Uint32Array((n - 1) * (n - 1) * 6);
     for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {
@@ -51,21 +68,9 @@ export function planetSurface(index, n = GRID) {
     }
     let q = 0; for (let j = 0; j < n - 1; j++) for (let i = 0; i < n - 1; i++) { const a = j * n + i; idx.set([a, a + n, a + 1, a + 1, a + n, a + n + 1], q); q += 6; }
     // Cells for the phenomena (same shape as the old grid): every 2 units inside ±50.
-    const cells = [];
+    const cells = out.grid.cells;
     for (let z = -50; z <= 50; z += 2) for (let x = -50; x <= 50; x += 2) { const y = heightAt(x, z); cells.push({ x, z, groundY: y, wet: seaY !== null && y <= seaY + .05, veg: 0 }); }
-    const sunAz = r() * Math.PI * 2, sunEl = .45 + r() * .45, light = norm([Math.cos(sunAz) * Math.cos(sunEl), Math.sin(sunEl), Math.sin(sunAz) * Math.cos(sunEl)]);
-    const density = g.atmosphere.density, horizon = density > .04 ? g.atmosphere.sky : [.035, .035, .04], top = density > .04 ? mix([.004, .006, .012], g.atmosphere.sky.map(c => c * .45), Math.min(1, density * 1.4)) : [.002, .002, .004];
-    const out = {
-        key: 'planet-' + index, index, genome: g, n, cell, heights: Y, heightAt, lavaAt, seaY, stations, mesh: { v, i: idx, stride: 16 }, field: F, site: F.site,
-        grid: { radius: 2, cells }, water: g.palette.water, light: { direction: light, color: g.star.light },
-        fog: { color: horizon, density: .0004 + .0016 * density }, sky: { top, horizon, sun: g.star.light, stars: Math.max(0, 1 - density * 3) },
-        // Moons sit right of the screen title, from the centre of the view to its right edge.
-        moons: Array.from({ length: g.satellites.moons }, (_, k) => ({ azimuth: .1 + k * .14 + r() * .05, elevation: .06 + r() * .08, size: 4 + r() * 6 })),
-        vegetation: ['terrestrial', 'oceanic', 'volcanic'].includes(g.family) ? Math.min(1, density * 1.6) * (g.family === 'volcanic' ? .25 : 1) : 0,
-        species: planetSpecies()[index]
-    };
-    // Points of interest, placed on the final heights (after the station pads).
-    out.places = locatePlaces(out, placeList(g));
+    out.mesh = { v, i: idx, stride: 16 };
     return out;
 }
 /** Instances of the species (src/worlds/species.js) and of the rocks for the surface, deterministic. */
@@ -73,9 +78,13 @@ export function surfaceScatter(s) {
     const g = s.genome, r = seededRandom(g.terrain.seed ^ 0xF10), rocks = [], near = (x, z) => s.stations.some(st => Math.hypot(st.position[0] - x, st.position[2] - z) < 6);
     for (let k = 0; k < 900 && rocks.length < 260; k++) {
         const x = (r() - .5) * 130, z = (r() - .5) * 130, y = s.heightAt(x, z);
-        if ((s.seaY !== null && y < s.seaY - .2) || near(x, z)) continue;
+        if ((s.seaY !== null && y < s.seaY - .2) || near(x, z) || s.clear?.blocked(x, z)) continue;
         const c = g.palette.rock.map(v => v * (.7 + r() * .4));
         rocks.push({ x, y: y - .25, z, s: .5 + r() * r() * 2.6, r: c[0], g: c[1], b: c[2], h: r() * 6.283 });
     }
-    return { rocks, species: populate(s, s.species) };
+    // Streets and buildings of the settlements stay free of plants and grazing animals; flyers and floating
+    // colonies stay, and a species never loses all its individuals.
+    const species = populate(s, s.species);
+    if (s.clear) for (const p of species) { if (p.species.form === 'volatore' || p.species.form === 'medusa') continue; const kept = p.instances.filter(o => !s.clear.blocked(o.x, o.z)); if (kept.length) p.instances = kept; }
+    return { rocks, species };
 }

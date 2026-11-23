@@ -21,6 +21,12 @@ void main(){vec3 vertex=aPos,normal=aNormal;vec4 color=aColor;if(uMaterial==10&&
   if(uInstanced==3){float w=uTime*uMotion.x*(.7+.6*fract(a*7.13))+a;base.x+=cos(w)*uMotion.y;base.z+=sin(w)*uMotion.y;a=atan(-cos(w),-sin(w));base.y+=abs(sin(w*9.))*.06;
    // Legs below the height uMotion.w swing forwards and back, left and right legs and front and hind legs in opposite phase.
    if(uMotion.w>0.)vertex.x+=sin(w*9.+(vertex.z>0.?0.:3.1416)+(vertex.x>0.?3.1416:0.))*max(uMotion.w-vertex.y,0.)*.35;}
+  // 7: inhabitants walking back and forth along a stretch of street of length uMotion.y (1.64.0). The heading
+  // carries the slope of the stretch in whole hundredths, seven units apart.
+  if(uInstanced==7){float k=floor(a/7.);a-=k*7.;float slope=(k-50.)/100.,t=fract(uTime*uMotion.x/(2.*uMotion.y)*(.8+.4*fract(a*3.7))+fract(a*.61)),u=1.-abs(t*2.-1.)*2.,d=u*uMotion.y*.5;
+   base.x+=cos(a)*d;base.z-=sin(a)*d;base.y+=d*slope+abs(sin(d*5.))*.03;
+   if(uMotion.w>0.)vertex.x+=sin(d*5.+(vertex.z>0.?0.:3.1416))*max(uMotion.w-vertex.y,0.)*.6;
+   if(t>.5)a+=3.1416;}
   if(uInstanced==4){float w=uTime*uMotion.x*(.7+.6*fract(a*7.13))+a;base.x+=cos(w)*uMotion.y;base.z+=sin(w)*uMotion.y;base.y+=sin(w*2.+a)*.8;vertex.y+=sin(uTime*7.+a*5.)*max(abs(vertex.z)-.12,0.)*.7;a=atan(-cos(w),-sin(w));}
   // 5: ships and stations of the systems; the second vector is the heading (the +z of the model), y stays up.
   if(uInstanced==5){vec3 f=normalize(aInstC.xyz),x=cross(vec3(0,1,0),f);x=dot(x,x)>1e-8?normalize(x):vec3(1,0,0);vec3 y=cross(f,x);vertex=(x*vertex.x+y*vertex.y+f*vertex.z)*s+base;normal=x*normal.x+y*normal.y+f*normal.z;}
