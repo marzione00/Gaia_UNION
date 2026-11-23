@@ -31,6 +31,7 @@ import { LANDING_SITES } from '../worlds/landing-sites.js';
 import { tuft, rock, station as stationMesh, seaPlane, seaRing, beacon, curtain } from '../worlds/geometry.js';
 import { bodyMesh } from '../worlds/bodyplan.js';
 import { buildingMesh } from '../worlds/buildings.js';
+import { archMesh, worksMesh } from '../worlds/architecture.js';
 import { colonistMesh, nativeMesh, nativeLegs } from '../worlds/people.js';
 import { WALK } from '../worlds/settlements.js';
 import { ecosystem, dayOf, sunAt, gaitHeading, SPEED, HUNT, VIGILANCE } from '../worlds/ecosystem.js';
@@ -282,11 +283,16 @@ export class World {
                 // Herds, packs, flocks and drifting colonies (1.65.0), and the day of the landing site.
                 this.eco = ecosystem(s, sc.species); this.day = dayOf(s.genome, s.site, s.light.direction); this.landTime = null; this.ecoTime = null;
                 (s.settlements || []).forEach((t, a) => {
-                    Object.entries(t.types).forEach(([type, spec], b) => group(`town-${a}-${b}`, l => buildingMesh(spec, l), t.buildings.filter(x => x.type === type).map(x => ({ x: x.x, y: x.y, z: x.z, s: x.s, r: x.tint[0], g: x.tint[1], b: x.tint[2], h: x.h })), { mode: 1, motion: [0, 0, 0, 0], pbr: [.05, .8, 0, 4], near: TOWN_NEAR, far: TOWN_FAR, thin: false }));
+                    Object.entries(t.types).forEach(([type, spec], b) => group(`town-${a}-${b}`, l => t.kind === 'colonia' ? archMesh(spec, l) : buildingMesh(spec, l), t.buildings.filter(x => x.type === type).map(x => ({ x: x.x, y: x.y, z: x.z, s: x.s, r: x.tint[0], g: x.tint[1], b: x.tint[2], h: x.h })), { mode: 1, motion: [0, 0, 0, 0], pbr: [.05, .8, 0, 4], near: TOWN_NEAR, far: TOWN_FAR, thin: false }));
                     t.figures.forEach((f, b) => group(`folk-${a}-${b}`, l => t.kind === 'colonia' ? colonistMesh(f, l) : nativeMesh(f, l), t.walkers.filter(w => w.figure === b).map(w => ({ x: w.x, y: w.y, z: w.z, s: w.s, r: w.tint[0], g: w.tint[1], b: w.tint[2], h: walkHeading(w.h, w.slope) })), { mode: 7, motion: [WALK_SPEED, WALK[t.kind], 0, t.kind === 'colonia' ? f.legs : nativeLegs(f)], pbr: [0, .75, 0, 0], near: FOLK_NEAR, far: FOLK_FAR, thin: true }));
                 });
-                const rock = s.genome.palette.rock, sealed = s.genome.atmosphere.density < .3;
-                R.makeMesh('planet-streets', streetMesh(s.settlements || [], { road: sealed ? [...rock.map(v => .35 + v * .25), 1] : [.27, .27, .29, 1], path: [...rock.map(v => v * .55 + .18), 1] }));
+                // Streets in the material of each kind of colony (1.66.0): light rover tracks on the regolith of the
+                // sealed outposts, packed soil with the colour of the biomass in the symbiotic settlements,
+                // sintered regolith in the adapted towns; lamps and pipelines along them in one more mesh.
+                const rock = s.genome.palette.rock, pig = s.genome.palette.pigment, colony = (s.settlements || []).find(t => t.kind === 'colonia'), typ = colony?.typology;
+                const road = typ === 'sigillato' ? rock.map(v => .35 + v * .25) : typ === 'simbiotico' ? rock.map((v, q) => (v * .7 + pig[q] * .3) * .5 + .08) : rock.map(v => v * .45 + .12);
+                R.makeMesh('planet-streets', streetMesh(s.settlements || [], { road: [...road, 1], path: [...rock.map(v => v * .55 + .18), 1] }));
+                if (colony) R.makeMesh('planet-works', worksMesh(colony));
                 R.deleteInstances?.('planet-geyser');
                 const geyser = s.places.find(p => p.event === 'eruzione di geyser');
                 if (geyser) { const r = random(s.index + 77), q = geyser.position; R.makeInstances('planet-geyser', 'lowSphere', pack(Array.from({ length: 46 }, () => ({ x: q[0] + (r() - .5) * 1.2, y: q[1] + .2, z: q[2] + (r() - .5) * 1.2, s: .7 + r() * .8, r: .92, g: .94, b: .96, h: r() * 6.283 })))); }
@@ -996,6 +1002,7 @@ export class World {
             for(const L of this.groups||[])for(const l of [0,1])if(L.drawn[l])R.drawMesh(L.meshes[l],this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:L.sets[l],instanceMode:L.mode,motion:L.motion,pbr:L.pbr});
             // Streets and paths of the settlements (1.64.0).
             if(S0.settlements&&this.groups)R.drawMesh('planet-streets',this.vp,id,{eye:this.eye,light,lightColor,material:10,pbr:[0,.92,0,0]});
+            if(S0.settlements&&this.groups&&R.meshes.has('planet-works'))R.drawMesh('planet-works',this.vp,id,{eye:this.eye,light,lightColor,material:10});
             if(R.instanceSets?.has('planet-geyser'))R.drawMesh('lowSphere',this.vp,id,{eye:this.eye,light,material:19,instances:'planet-geyser',instanceMode:2,motion:[.16,10,.7,0],opacity:.32});
             // Shooting stars (1.60.0) on worlds with an atmosphere: a sporadic one every 7 s, one every 0.8 s while
             // the planet crosses the stream of a comet, radiating from one point of the sky.
