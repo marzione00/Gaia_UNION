@@ -33,14 +33,17 @@ import { bodyMesh } from '../worlds/bodyplan.js';
 import { buildingMesh } from '../worlds/buildings.js';
 import { colonistMesh, nativeMesh, nativeLegs } from '../worlds/people.js';
 import { WALK } from '../worlds/settlements.js';
+import { ecosystem, dayOf, sunAt, gaitHeading, SPEED, HUNT, VIGILANCE } from '../worlds/ecosystem.js';
 /** Instance mode, motion uniform and PBR of each form of the species (src/worlds/species.js); every species
  * has its own two meshes, built from its body plan (src/worlds/bodyplan.js). For walking animals the fourth
  * motion value, the height of the legs in the mesh, is written per species and makes the legs swing. */
 const LIFE = {
     ciuffo: [1, [0, 0, .06, 0], [0, .8, .02, 3]], felce: [1, [0, 0, .03, 0], [0, .75, .02, 3]], albero: [1, [0, 0, .012, 0], [0, .8, .02, 3]], arbusto: [1, [0, 0, .02, 0], [0, .8, .02, 3]], canneto: [1, [0, 0, .05, 0], [0, .7, .02, 3]],
     colonna: [1, [0, 0, 0, 0], [0, .6, .02, 3]], cuscino: [1, [0, 0, 0, 0], [0, .85, .02, 3]], calice: [1, [0, 0, .02, 0], [0, .6, .12, 3]], crosta: [1, [0, 0, 0, 0], [0, .9, 0, 3]], fungo: [1, [0, 0, 0, 0], [0, .7, .06, 3]],
-    pascolatore: [3, [.05, 1.6, 0, 0], [0, .7, 0, 0]], cacciatore: [3, [.09, 2.6, 0, 0], [0, .6, 0, 0]], bipede: [3, [.07, 2.2, 0, 0], [0, .6, 0, 0]], saltatore: [3, [.1, 1.4, 0, 0], [0, .75, 0, 0]],
-    esapode: [3, [.08, 1.2, 0, 0], [0, .45, 0, 0]], ottopode: [3, [.05, 1, 0, 0], [0, .5, 0, 0]], serpentino: [3, [.04, 1.4, 0, 0], [0, .4, 0, 0]], volatore: [4, [.12, 9, 0, 0], [0, .6, 0, 0]], medusa: [3, [.025, 2.5, 0, 0], [0, .35, .05, 0]]
+    // Since 1.65.0 the animals are moved by the ecosystem (src/worlds/ecosystem.js) and drawn with mode 8: the
+    // third motion value makes the wings flap, the fourth is the height of the legs.
+    pascolatore: [8, [0, 0, 0, 0], [0, .7, 0, 0]], cacciatore: [8, [0, 0, 0, 0], [0, .6, 0, 0]], bipede: [8, [0, 0, 0, 0], [0, .6, 0, 0]], saltatore: [8, [0, 0, 0, 0], [0, .75, 0, 0]],
+    esapode: [8, [0, 0, 0, 0], [0, .45, 0, 0]], ottopode: [8, [0, 0, 0, 0], [0, .5, 0, 0]], serpentino: [8, [0, 0, 0, 0], [0, .4, 0, 0]], volatore: [8, [0, 0, 1, 0], [0, .6, 0, 0]], medusa: [8, [0, 0, 0, 0], [0, .35, .05, 0]]
 };
 const LEGS = { pascolatore: p => p.legs, cacciatore: p => p.legs, bipede: p => p.height * .55, esapode: p => p.legs * .9, ottopode: p => p.legs * .7 };
 /** Distances of the levels of detail of the species (1.63.0): detailed shapes within LIFE_NEAR of the camera,
@@ -274,8 +277,10 @@ export class World {
                 };
                 sc.species.forEach((p, k) => {
                     const sp = p.species, legs = LEGS[sp.form];
-                    p.life = group(`life-${k}`, l => bodyMesh(sp.plan, l), p.instances, { meshIds: [`life-mesh-${k}-0`, `life-mesh-${k}-1`], mode: LIFE[sp.form][0], motion: legs ? [...LIFE[sp.form][1].slice(0, 3), legs(sp.plan)] : LIFE[sp.form][1], pbr: LIFE[sp.form][2], near: LIFE_NEAR, far: LIFE_FAR, thin: true });
+                    p.life = group(`life-${k}`, l => bodyMesh(sp.plan, l), p.instances, { meshIds: [`life-mesh-${k}-0`, `life-mesh-${k}-1`], mode: LIFE[sp.form][0], motion: legs ? [...LIFE[sp.form][1].slice(0, 3), legs(sp.plan)] : LIFE[sp.form][1], pbr: LIFE[sp.form][2], near: LIFE_NEAR, far: LIFE_FAR, thin: true, live: sp.kind === 'animal' });
                 });
+                // Herds, packs, flocks and drifting colonies (1.65.0), and the day of the landing site.
+                this.eco = ecosystem(s, sc.species); this.day = dayOf(s.genome, s.site, s.light.direction); this.landTime = null; this.ecoTime = null;
                 (s.settlements || []).forEach((t, a) => {
                     Object.entries(t.types).forEach(([type, spec], b) => group(`town-${a}-${b}`, l => buildingMesh(spec, l), t.buildings.filter(x => x.type === type).map(x => ({ x: x.x, y: x.y, z: x.z, s: x.s, r: x.tint[0], g: x.tint[1], b: x.tint[2], h: x.h })), { mode: 1, motion: [0, 0, 0, 0], pbr: [.05, .8, 0, 4], near: TOWN_NEAR, far: TOWN_FAR, thin: false }));
                     t.figures.forEach((f, b) => group(`folk-${a}-${b}`, l => t.kind === 'colonia' ? colonistMesh(f, l) : nativeMesh(f, l), t.walkers.filter(w => w.figure === b).map(w => ({ x: w.x, y: w.y, z: w.z, s: w.s, r: w.tint[0], g: w.tint[1], b: w.tint[2], h: walkHeading(w.h, w.slope) })), { mode: 7, motion: [WALK_SPEED, WALK[t.kind], 0, t.kind === 'colonia' ? f.legs : nativeLegs(f)], pbr: [0, .75, 0, 0], near: FOLK_NEAR, far: FOLK_FAR, thin: true }));
@@ -291,17 +296,58 @@ export class World {
             this.uploadedPlanet = s.key; this.builtWorld = null; this.towers = s.stations.map(t => t.position); this.terrain = { height: new Map(s.grid.cells.map((p, i) => [String(i), p])) };
         }
     }
+    /** Sun, light, sky and fog of the landing site at time s.time, and one step of the ecosystem (1.65.0).
+     * Below the horizon the light comes from the side opposite the sun, pale blue and dim, as moonlight or
+     * starlight; near the horizon it turns to the colours of dusk. */
+    skyNow(s) {
+        const S0 = this.surface; if (this.landTime === null) this.landTime = s.time;
+        const sun = sunAt(this.day, s.time - this.landTime), h = Math.sin(sun.height), smooth = (a, b, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+        const day = smooth(-.12, .06, h), high = smooth(.05, .4, h), base = S0.light.color, dusk = [base[0], base[1] * .62, base[2] * .38], night = S0.moons.length ? [.16, .19, .3] : [.08, .1, .16];
+        const mix = (a, b, t) => a.map((v, i) => v + (b[i] - v) * t), lit = mix(dusk, base, high), color = mix(night, lit, day);
+        const moon = [-sun.dir[0], Math.abs(sun.dir[1]) * .5 + .45, -sun.dir[2]], ml = Math.hypot(...moon), light = day > .5 ? sun.dir : moon.map(v => v / ml);
+        const fog = mix(S0.fog.color.map(v => v * .1), mix(S0.fog.color.map((v, i) => v * [1, .75, .55][i]), S0.fog.color, high), day);
+        const sky = { top: mix(S0.sky.top.map(v => v * .08), S0.sky.top, day), horizon: fog, sun: S0.sky.sun.map(v => v * day), stars: Math.max(S0.sky.stars, 1 - day) };
+        this.sunNow = { ...sun, daylight: day, color, light, fog, sky, hours: this.day.hours };
+        // The ecosystem advances with the time of the scene; a paused scene stands still.
+        const dt = this.ecoTime === null || s.paused ? 0 : s.time - this.ecoTime; this.ecoTime = s.time;
+        if (this.eco && dt > 0 && this.eco.step(dt, day)) this.ecoDirty = true;
+    }
+    /** Subject of «Che cosa succede» on the ground (src/craft/succede.js): the group of animals of species
+     * `f.k` nearest to the focus of the camera, or the sun of the landing site when `f.k` is null. */
+    groundSubject(f) {
+        const S0 = this.surface, sun = this.sunNow, deg = x => x * 180 / Math.PI; if (!S0 || !sun) return null;
+        if (f.k === null || f.k === undefined) return { ground: true, kind: 'sole', name: 'Stella di tipo ' + S0.genome.star.type, label: S0.genome.star.name, hour: sun.hour, hours: sun.hours, height: deg(sun.height), lat: deg(this.day.lat) };
+        const G = this.eco?.groupOf(f.k, this.target ? [this.target[0], this.target[2]] : [0, 0]); if (!G) return null;
+        const sp = G.species, n = G.members.length, base = { ground: true, name: sp.name, label: sp.label, n, state: G.state, speed: G.speed };
+        const dist = H => Math.hypot(H.x - G.x, H.z - G.z);
+        if (G.kind === 'mandria') { const P = this.eco.groups.filter(H => (H.kind === 'branco' || H.kind === 'rapace') && H.species.diet.includes(sp.id)).sort((a, b) => dist(a) - dist(b))[0]; return { ...base, kind: 'mandria', vigilance: VIGILANCE, threat: P && dist(P) < 80 ? { name: P.species.name, distance: dist(P) } : null }; }
+        if (G.kind === 'branco' || G.kind === 'rapace') { const H = G.prey || this.eco.groups.filter(H => H.kind === 'mandria' && sp.diet.includes(H.species.id)).sort((a, b) => dist(a) - dist(b))[0]; return { ...base, kind: 'branco', prey: H && dist(H) < 80 ? { name: H.species.name, distance: dist(H) } : null, hunts: G.hunts, catches: G.catches, nocturnal: G.nocturnal, sprint: SPEED.sprint, flee: SPEED.flee, sprintTime: HUNT.sprintTime, sprintFrom: HUNT.sprintFrom }; }
+        if (G.kind === 'stormo') { const flying = G.state === 'volo', u = G.vel.map(v => { const l = Math.hypot(...v) || 1; return [v[0] / l, v[1] / l]; }), m = u.reduce((a, v) => [a[0] + v[0] / n, a[1] + v[1] / n], [0, 0]); return { ...base, kind: 'stormo', speed: flying ? G.vel.reduce((a, v) => a + Math.hypot(...v), 0) / n : 0, order: flying ? Math.hypot(...m) : 0, height: Math.max(0, G.members.reduce((a, i) => a + G.items[i].y - S0.heightAt(G.items[i].x, G.items[i].z), 0) / n) }; }
+        // The wind in components towards the east and the north of the landing site (src/worlds/ecosystem.js, sunAt).
+        const az = this.day.az, sign = this.day.lat < 0 ? -1 : 1, east = [-Math.sin(az), Math.cos(az)], north = [-Math.cos(az) * sign, -Math.sin(az) * sign], w = G.wind || this.eco.wind;
+        return { ...base, kind: 'deriva', wind: [w[0] * east[0] + w[1] * east[1], w[0] * north[0] + w[1] * north[1]] };
+    }
+    /** Centre of the group of species `k` nearest to the focus of the camera: animals move since 1.65.0. */
+    liveCentre(k, near = this.target ? [this.target[0], this.target[2]] : [0, 0]) {
+        const G = this.eco?.groupOf(k, near); if (!G) return this.population?.[k]?.centre || null;
+        return [G.x, this.surface.heightAt(G.x, G.z), G.z];
+    }
     /** Splits the individuals of each species between the detailed and the light mesh by their distance from
      * the camera (1.63.0); runs again only when the camera has moved by LIFE_STEP or the graphics changed. */
     lifeSplit(force = false) {
         const R = this.R, groups = this.groups, e = this.eye; if (!groups || !R.updateInstances || !e) return;
-        const q = R.sceneQuality || 'high', last = this.lifeAt;
-        if (!force && last && last[2] === q && Math.hypot(e[0] - last[0], e[2] - last[1]) < LIFE_STEP) return;
-        this.lifeAt = [e[0], e[2], q];
+        const q = R.sceneQuality || 'high', last = this.lifeAt, night = this.sunNow ? this.sunNow.daylight < .2 : false;
+        const moved = force || !last || last[2] !== q || last[3] !== night || Math.hypot(e[0] - last[0], e[2] - last[1]) >= LIFE_STEP, live = this.ecoDirty;
+        if (!moved && !live) return;
+        if (moved) this.lifeAt = [e[0], e[2], q, night];
+        this.ecoDirty = false;
         const scratch = this.lifeScratch ||= [new Float32Array(0), new Float32Array(0)];
         for (const L of groups) {
-            const n = L.n; if (!n) continue;
-            const share = L.thin ? LIFE_SHARE[q] ?? 1 : 1, near = L.near * (LIFE_NEAR_SHARE[q] ?? 1);
+            const n = L.n; if (!n || (!moved && !L.live)) continue;
+            // Animals moved by the ecosystem write their place, heading and gait into the instance data.
+            if (L.live) L.items.forEach((o, i) => { L.all[i * 8] = o.x; L.all[i * 8 + 1] = o.y; L.all[i * 8 + 2] = o.z; L.all[i * 8 + 7] = gaitHeading(o.h, o.gait || 0); });
+            // At night most inhabitants are at home (1.65.0).
+            const share = (L.thin ? LIFE_SHARE[q] ?? 1 : 1) * (night && L.mode === 7 ? .3 : 1), near = L.near * (LIFE_NEAR_SHARE[q] ?? 1);
             if (scratch[0].length < n * 8) { scratch[0] = new Float32Array(n * 8); scratch[1] = new Float32Array(n * 8); }
             const c = [0, 0];
             for (let i = 0; i < n; i++) {
@@ -387,6 +433,9 @@ export class World {
             const gen=this.surface?.heightAt,b=gen&&s.exploreFocus?(s.exploreBlend??1):0,wc=b>0?null:s.worldCamera,angle=.6+s.yaw*.5,base=wc?wc.pitch:gen?.2+.22*b:.58,pitch=Math.max(gen||wc?.06:.24,Math.min(.96,base+(s.pitch-.45)*.6)),distance=wc?wc.distance:gen?64+((w<850?42:36)-64)*b:52;
             const fc=s.worldFocus,x0=w<850?(fc?fc[0]:gen?-4:-3):gen?2:3,z0=w<850?(fc?fc[1]:gen?8:-1):gen?2:-2,tx=b?x0+(s.exploreFocus[0]-x0)*b:x0,tz=b?z0+(s.exploreFocus[1]-z0)*b:z0,ty=wc?wc.targetY:gen?Math.max(this.surface.seaY??-99,this.surface.heightAt(tx,tz))+3:1.8;
             eye=[tx+Math.sin(angle)*distance*Math.cos(pitch),Math.sin(pitch)*distance+2+(gen?ty-3:0),tz+Math.cos(angle)*distance*Math.cos(pitch)];target=[tx,ty,tz];fov=gen?.72:.60;
+            // On phones the exploration panel covers the lower half: the camera looks at a point 9 units nearer, so
+            // the focus shows in the upper half of the screen (1.65.0).
+            if(gen&&b>0&&w<850){const o=9*b,qx=tx+Math.sin(angle)*o,qz=tz+Math.cos(angle)*o;target=[qx,Math.max(this.surface.seaY??-99,this.surface.heightAt(qx,qz))+3,qz];}
             // Since 1.64.0 the roofs of the settlements count as ground for the camera.
             if(gen){const roof=this.surface.clear?.roofAt,ground=(x,z)=>Math.max(this.surface.heightAt(x,z),this.surface.seaY??-99,roof?roof(x,z):-99);eye[1]=Math.max(eye[1],ground(eye[0],eye[2])+5);
                 // The relief of the planet (1.62.0) may rise between the camera and the target or the stations: the
@@ -912,11 +961,14 @@ export class World {
         this.camera(scene, s); R.time=s.time;
         this.projections = [];
         const planet=surface&&this.surface.genome;
-        R.fogColor=planet?this.surface.fog.color:this.surface.fog.color.map(x=>x*.58);R.fogDensity=surface?this.surface.fog.density:0;R.mist=false;
+        // Day and night on the landing site and the step of the ecosystem (1.65.0).
+        if(planet&&this.day)this.skyNow(s);else this.sunNow=null;
+        const sun=this.sunNow;
+        R.fogColor=sun?sun.fog:planet?this.surface.fog.color:this.surface.fog.color.map(x=>x*.58);R.fogDensity=surface?this.surface.fog.density:0;R.mist=false;
         const cosmic=['galaxy','system','orbit'].includes(scene);
         // Inside a system the nebulae are dimmed, so the planets keep their contrast.
         const exposure=scene==='system'?.42:scene==='orbit'?.55:cosmic?.72:1;this.exposure=s.paused||this.exposure===undefined?exposure:this.exposure+(exposure-this.exposure)*.08;
-        R.drawEnvironment(surface?2:cosmic?1:0,cosmic?this.galaxyEye:this.eye,cosmic?this.galaxyTarget:this.target,this.fov,this.surface.light.direction,R.fogColor,this.exposure,planet?this.surface.sky:null);
+        R.drawEnvironment(surface?2:cosmic?1:0,cosmic?this.galaxyEye:this.eye,cosmic?this.galaxyTarget:this.target,this.fov,sun?sun.dir:this.surface.light.direction,R.fogColor,this.exposure,planet?sun?.sky||this.surface.sky:null);
         if(cosmic){
             if(R.starCount<MIN_STARS)throw Error('Rendering interrotto: meno di un milione di stelle');
             R.drawStars(this.galaxyVP,R.starCount,0,false,.28+.57*Math.min(1,Math.hypot(...this.galaxyEye.map((v,i)=>v-this.galaxyTarget[i]))/30));
@@ -931,7 +983,7 @@ export class World {
         else if(scene==='craft')this.drawViewer(s);
         else if (scene === 'surface') {
             const S0=this.surface,ortho=new Float32Array([1/60,0,0,0,0,1/60,0,0,0,0,-2/180,0,0,0,-1,1]);
-            const light=S0.light.direction,lightColor=S0.light.color,lightEye=light.map(x=>x*90),lightVP=mul(ortho,lookAt(lightEye,[0,0,0]));
+            const light=sun?sun.light:S0.light.direction,lightColor=sun?sun.color:S0.light.color,lightEye=light.map(x=>x*90),lightVP=mul(ortho,lookAt(lightEye,[0,0,0]));
             R.renderShadow(this.biome,['planet-terrain'],lightVP);
             // Prototype worlds draw their phenomenon on top of the generated surface (src/worlds/pilots.js).
             const unit=data?.modules?.[s.selected]?.id,world=unit&&s.worldState?pilotWorld(unit):null,id=transform();
@@ -977,7 +1029,7 @@ export class World {
                     R.drawMesh('lowSphere',this.vp,transform(q[0],top+2.3,q[2],on?.7:.55),{eye:this.eye,material:16,tint:PLACE_TINTS[t0.kind]});
                     if(on)R.drawMesh('ring',this.vp,transform(q[0],q[1]+.3,q[2],t0.kind==='colonia'?14:10),{eye:this.eye,tint:PLACE_TINTS[t0.kind],emission:.7,opacity:.75});
                     this.projections.push({type:'settlement',index:k,...xyToObj(project([q[0],top+3.6,q[2]],this.vp,R.w,R.h)),r:28,position:q});});
-                const t=s.exploreTarget,c=t?.type==='species'?this.population?.[t.index]?.centre:null;
+                const t=s.exploreTarget,c=t?.type==='species'?this.liveCentre(t.index):null;
                 if(c)R.drawMesh('ring',this.vp,transform(c[0],c[1]+.3,c[2],7),{eye:this.eye,tint:[.6,.95,.7,1],emission:.7,opacity:.6});
             }
         }

@@ -1,3 +1,10 @@
+# 1.65.0: Mondi vivi, ecosistemi
+
+- Quarta versione della serie «Mondi vivi». Gli animali si muovono in gruppi: 408 mandrie che pascolano e cambiano pascolo restando nel loro ambiente, 137 gruppi di predatori che perlustrano, si avvicinano di soppiatto e scattano, mentre la mandria fugge, 122 stormi che volano allineati secondo le regole di Reynolds, 96 colonie galleggianti che vanno alla deriva con il vento. Nessun animale sparisce: dopo una caccia riuscita il predatore si ferma a nutrirsi.
+- Giorno e notte sul sito di atterraggio: il sole sorge, attraversa il cielo e tramonta secondo la latitudine e la durata del giorno della carta (da 15 a 51 ore, un giorno di 24 ore in 10 minuti); luce del crepuscolo, notte azzurra e stelle, finestre accese. Di notte le mandrie riposano, gli stormi scendono a terra, quasi metà dei gruppi di predatori va a caccia e le strade si svuotano.
+- Pannello «Che cosa succede» a terra: i pulsanti «Segui» e «Sole» dell'esplorazione mostrano numeri dal vivo e un concetto delle unità (vigilanza di una mandria, inseguimento, allineamento di uno stormo, deriva come somma di vettori, luce del sole sul suolo). L'ora locale compare nella riga del diario.
+- Modalità 8 del vertex shader per l'andatura degli animali; sui telefoni il punto seguito resta sopra il pannello. Su tutti i 125 pianeti un fotogramma di superficie resta entro 88 chiamate di disegno e 0,91 milioni di triangoli. Nuovo `tests/ecosistemi.test.mjs`; descrizione in `docs/GRAPHICS.md`, sezione «Ecosistemi, giorno e notte».
+
 # 1.64.0: Mondi vivi, città e abitanti
 
 - Terza versione della serie «Mondi vivi». Ogni pianeta ha una colonia umana: una piazza, strade su isolati e da 36 a 271 edifici (in tutto 20 393), con una strada verso le stazioni e da 20 a 149 abitanti che camminano per le strade. Il terreno sotto strade e case viene spianato, con pendenze moderate e raccordi, prima di costruire la maglia del suolo.
