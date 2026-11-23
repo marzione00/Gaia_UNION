@@ -26,7 +26,9 @@ import { SHIP_SIZE, shipPose, shipMatrix } from '../craft/traffic.js';
 import { CHAIN_STATIONS } from '../craft/esercizi-catene.js';
 import { planetPhysics } from '../worlds/planet-physics.js';
 import { pressureFromDensity, APPRECIABLE_DENSITY } from '../worlds/physics.js';
-import { tuft, rock, station as stationMesh, seaPlane, grazer, frond, tree, column, cushion, cup, patch, hexapod, flyer, floater, beacon, curtain } from '../worlds/geometry.js';
+import { horizonMesh, CORE, RINGS } from '../worlds/field.js';
+import { LANDING_SITES } from '../worlds/landing-sites.js';
+import { tuft, rock, station as stationMesh, seaPlane, seaRing, grazer, frond, tree, column, cushion, cup, patch, hexapod, flyer, floater, beacon, curtain } from '../worlds/geometry.js';
 /** Mesh, instance mode, motion uniform and PBR of each body plan of the species (src/worlds/species.js). */
 const BODIES = {
     tuft: ['world-tuft', 1, [0, 0, .06, 0], [0, .8, .02, 3]], frond: ['sp-frond', 1, [0, 0, .03, 0], [0, .75, .02, 3]], tree: ['sp-tree', 1, [0, 0, .012, 0], [0, .8, .02, 3]],
@@ -38,6 +40,9 @@ const MESHES = { 'sp-frond': frond, 'sp-tree': tree, 'sp-column': column, 'sp-cu
 export const PLACE_TINTS = { vetta: [.95, .82, .45, 1], forma: [.55, .82, .98, 1], costa: [.45, .9, .85, 1], evento: [.95, .55, .85, 1] };
 /** Drawn radius: the scale is illustrative, so planets of the units are enlarged to be read and
  * picked, ambient bodies slightly. Orbits keep their computed spacing. */
+const clock = () => globalThis.performance?.now() ?? Date.now();
+/** Half side of the terrain of a landing surface with its rings (1.62.0): 1792 units. */
+export const HORIZON = CORE / 2 * 2 ** RINGS.length;
 export const displayRadius = body => body.radius * (body.explorable ? 1.55 : 1.1);
 /** Seed of the life of the systems: it changes with every run of the site, so routes and stocks differ. */
 const SESSION = (globalThis.crypto?.getRandomValues ? globalThis.crypto.getRandomValues(new Uint32Array(1))[0] : Math.floor(Math.random() * 2 ** 32)) >>> 0;
@@ -217,7 +222,9 @@ export class World {
         this.surface = s; this.biome = s.key;
         if (this.uploadedPlanet !== s.key) {
             const R = this.R; R.makeMesh('planet-terrain', s.mesh);
-            if (!this.planetMeshes) { R.makeMesh('world-tuft', tuft()); R.makeMesh('world-rock', rock()); R.makeMesh('planet-station', stationMesh()); R.makeMesh('planet-sea', seaPlane(900, 900, 180, 180)); for (const [id, make] of Object.entries(MESHES)) R.makeMesh(id, make()); this.planetMeshes = true; }
+            // The rings of the horizon (1.62.0, src/worlds/field.js): the planet seen from orbit around the landing site.
+            R.makeMesh('planet-horizon', horizonMesh(s.genome, s.field));
+            if (!this.planetMeshes) { R.makeMesh('world-tuft', tuft()); R.makeMesh('world-rock', rock()); R.makeMesh('planet-station', stationMesh()); R.makeMesh('planet-sea', seaPlane(900, 900, 180, 180)); R.makeMesh('planet-sea-far', seaRing(HORIZON, 448)); for (const [id, make] of Object.entries(MESHES)) R.makeMesh(id, make()); this.planetMeshes = true; }
             // Species, rocks, geyser plume and aurora of this planet.
             const sc = surfaceScatter(s), pack = l => { const a = new Float32Array(Math.max(1, l.length) * 8); l.forEach((o, i) => a.set([o.x, o.y, o.z, o.s, o.r, o.g, o.b, o.h], i * 8)); return a; };
             this.population = sc.species; this.planetCounts = [sc.species.reduce((n, p) => n + p.instances.length, 0), sc.rocks.length];
@@ -309,7 +316,11 @@ export class World {
             const gen=this.surface?.heightAt,b=gen&&s.exploreFocus?(s.exploreBlend??1):0,wc=b>0?null:s.worldCamera,angle=.6+s.yaw*.5,base=wc?wc.pitch:gen?.2+.22*b:.58,pitch=Math.max(gen||wc?.06:.24,Math.min(.96,base+(s.pitch-.45)*.6)),distance=wc?wc.distance:gen?64+((w<850?42:36)-64)*b:52;
             const fc=s.worldFocus,x0=w<850?(fc?fc[0]:gen?-4:-3):gen?2:3,z0=w<850?(fc?fc[1]:gen?8:-1):gen?2:-2,tx=b?x0+(s.exploreFocus[0]-x0)*b:x0,tz=b?z0+(s.exploreFocus[1]-z0)*b:z0,ty=wc?wc.targetY:gen?Math.max(this.surface.seaY??-99,this.surface.heightAt(tx,tz))+3:1.8;
             eye=[tx+Math.sin(angle)*distance*Math.cos(pitch),Math.sin(pitch)*distance+2+(gen?ty-3:0),tz+Math.cos(angle)*distance*Math.cos(pitch)];target=[tx,ty,tz];fov=gen?.72:.60;
-            if(gen)eye[1]=Math.max(eye[1],Math.max(this.surface.heightAt(eye[0],eye[2]),this.surface.seaY??-99)+5);
+            if(gen){const ground=(x,z)=>Math.max(this.surface.heightAt(x,z),this.surface.seaY??-99);eye[1]=Math.max(eye[1],ground(eye[0],eye[2])+5);
+                // The relief of the planet (1.62.0) may rise between the camera and the target or the stations: the
+                // camera goes up until the lines of sight pass at least 1.5 units over the ground.
+                let lift=0;for(const end of [target,...(b>0?[]:this.surface.stations.map(st=>st.position))])for(let k=1;k<20;k++){const t=k/20,x=eye[0]+(end[0]-eye[0])*t,z=eye[2]+(end[2]-eye[2])*t,y=eye[1]+(end[1]-eye[1])*t;lift=Math.max(lift,(ground(x,z)+1.5-y)/(1-t));}
+                eye[1]+=lift;}
         }else if(scene==='craft'){
             // The 3D catalogue (1.51.0): one model at the centre with radius 3; on phones it sits above the card.
             const d=(s.distance||11)*Math.max(1,1/(w/h)),p=.12+(s.pitch-.45)*.8;eye=[Math.sin(s.yaw)*d*Math.cos(p),Math.sin(p)*d,Math.cos(s.yaw)*d*Math.cos(p)];target=w<850?[0,-1.8,0]:[0,-.3,0];fov=.62;
@@ -342,7 +353,9 @@ export class World {
             this.target=from.target.map((v,i)=>v*(1-targetT)+to.target[i]*targetT);this.eye=this.target.map((v,i)=>v+direction[i]*distance);this.fov=from.fov*(1-t)+to.fov*t;
         }else{this.eye=[...to.eye];this.target=[...to.target];this.fov=to.fov;}
         this.cameraSpace=this.travelling?'galaxy':desired.space;this.cameraSystem=this.travelling?this.travelSystem:desired.system;
-        this.vp=mul(perspective(this.fov,this.R.w/this.R.h,this.cameraSpace==='galaxy'?.00004:.012,400),lookAt(this.eye,this.target));
+        // Landing surfaces reach the haze of the horizon at HORIZON units (1.62.0).
+        const ground=scene==='surface'&&!!this.surface?.field;
+        this.vp=mul(perspective(this.fov,this.R.w/this.R.h,this.cameraSpace==='galaxy'?.00004:ground?.05:.012,ground?HORIZON*2.2:400),lookAt(this.eye,this.target));
         const cosmic=this.galacticCamera({eye:this.eye,target:this.target,fov:this.fov,space:this.cameraSpace,system:this.cameraSystem});
         this.galaxyEye=cosmic.eye;this.galaxyTarget=cosmic.target;
         this.galaxyVP=mul(perspective(this.fov,this.R.w/this.R.h,.00004,500),lookAt(cosmic.eye,cosmic.target));
@@ -351,11 +364,18 @@ export class World {
         const moons=Array.from({length:body.moons},(_,j)=>{const a=time*(.06/(j+1))+body.phase+j*2.4,d=radius*(2.8+j*.65);return {center:center.map((v,i)=>v+[Math.cos(a)*d,Math.sin(a)*d*.12,Math.sin(a)*d][i]),radius:radius*(.12+j*.025),angle:a};});
         // Explorable planets use the map generated from their identity card, so orbit and surface agree.
         const card=body.explorable?planetGenomes()[body.index]:null,generated=card?this.orbitTexture(body.index,detailed):null,sky=card?card.atmosphere.sky:null,skyMax=sky?Math.max(...sky,.01):1;
-        const R=this.R,profile=body.profile,options={eye:this.eye,light,material:12,center,radius,texture:generated||this.planetTextures?.get(profile.texture,detailed)||this.textures[profile.texture],atmosphere:generated?sky.map(v=>v/skyMax*.9):profile.atmosphere,ocean:generated?false:profile.ocean,disguise:generated?0:DISGUISE[profile.texture]||0,tint:tint||[1,1,1,1],occluders:moons.map(m=>[...m.center,m.radius])},size=radius/5.3;
+        // A sharper map fades in over 0.6 s instead of replacing the previous one at once (1.62.0).
+        let fadeFrom=null,fade=1;
+        if(generated){const F=this.mapFades??=new Map(),now=clock(),e=F.get(body.index);if(!e)F.set(body.index,{tex:generated,prev:null,t0:now});else if(e.tex!==generated){F.set(body.index,{tex:generated,prev:e.tex,t0:now});}const f=F.get(body.index);if(f.prev&&this.R.gl?.isTexture&&!this.R.gl.isTexture(f.prev))f.prev=null;if(f.prev){fade=(now-f.t0)/600;if(fade>=1)f.prev=null;else fadeFrom=f.prev;}}
+        const R=this.R,profile=body.profile,options={eye:this.eye,light,material:12,center,radius,textureFrom:fadeFrom,textureFade:fade,texture:generated||this.planetTextures?.get(profile.texture,detailed)||this.textures[profile.texture],atmosphere:generated?sky.map(v=>v/skyMax*.9):profile.atmosphere,ocean:generated?false:profile.ocean,disguise:generated?0:DISGUISE[profile.texture]||0,tint:tint||[1,1,1,1],occluders:moons.map(m=>[...m.center,m.radius])},size=radius/5.3;
         // The atmosphere follows the card: pressure from its density, haze, sky (1.59.0).
         const pressure=generated?(card.atmosphere.density<APPRECIABLE_DENSITY?0:pressureFromDensity(card.atmosphere.density)):profile.atmosphere?(body.type==='desert'?.07:1):0,air=shellOf(pressure,generated?card.atmosphere.haze:.5);options.shell=air||[0,0,0,0];
         const geometry=this.R.meshes.has('planet-'+profile.texture)?'planet-'+profile.texture:detailed?'fineSphere':'sphere',rotation=time*body.spin+body.rotation;
-        R.drawMesh(geometry,this.vp,transform(...center,radius,rotation,body.tilt),options);
+        const model=transform(...center,radius,rotation,body.tilt);R.drawMesh(geometry,this.vp,model,options);
+        // The landing site (1.62.0, src/worlds/landing-sites.js) as a small light on the planet seen from orbit,
+        // on the side facing the camera: «Scendi in superficie» lands there.
+        if(detailed&&card&&LANDING_SITES[body.index]){const [x,y,z]=LANDING_SITES[body.index],p=[0,1,2].map(i=>model[i]*x+model[4+i]*y+model[8+i]*z+model[12+i]),n=normal(p.map((v,i)=>v-center[i]));
+            if(n.reduce((a,v,i)=>a+v*(this.eye[i]-p[i]),0)>0){const q=p.map((v,i)=>v+n[i]*radius*.01);R.drawMesh('lowSphere',this.vp,transform(...q,radius*.018),{eye:this.eye,material:17,tint:[1,.82,.35,1],opacity:.95,radius:radius*.018,center:q});this.landingMark=q;}else this.landingMark=null;}
         // Clouds and atmosphere follow the card: cloud cover and density decide whether and how strongly they show.
         const clouds=generated?(card.atmosphere.clouds>0?Math.min(.9,card.atmosphere.clouds*1.4):0):profile.clouds?.9:0;
         if(clouds)R.drawMesh(geometry,this.vp,transform(...center,radius*1.006,rotation+time*.002,body.tilt),{...options,texture:this.planetTextures?.get('clouds',detailed)||this.textures.clouds,material:5,opacity:clouds});
@@ -844,7 +864,9 @@ export class World {
             // Prototype worlds draw their phenomenon on top of the generated surface (src/worlds/pilots.js).
             const unit=data?.modules?.[s.selected]?.id,world=unit&&s.worldState?pilotWorld(unit):null,id=transform();
             R.drawMesh('planet-terrain',this.vp,id,{eye:this.eye,light,lightColor,material:10});
+            if(S0.field)R.drawMesh('planet-horizon',this.vp,id,{eye:this.eye,light,lightColor,material:10});
             if(S0.seaY!==null&&!world?.hidesWater)R.drawMesh('planet-sea',this.vp,id,{eye:this.eye,light,lightColor,material:18,tint:[...S0.water.map(v=>Math.min(1,v*1.6)),1],motion:[S0.seaY,.12,0,0],opacity:.96});
+            if(S0.seaY!==null&&S0.field&&!world?.hidesWater)R.drawMesh('planet-sea-far',this.vp,id,{eye:this.eye,light,lightColor,material:18,tint:[...S0.water.map(v=>Math.min(1,v*1.6)),1],motion:[S0.seaY,.12,0,0],opacity:.96});
             // Lower graphics settings draw a subset of each species (instances are spread over the clusters).
             const share=R.sceneQuality==='low'?.4:R.sceneQuality==='balanced'?.7:1;
             (this.population||[]).forEach((p,k)=>{const b=BODIES[p.species.mesh];if(p.instances.length)R.drawMesh(b[0],this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:'planet-sp-'+k,instanceMode:b[1],motion:b[2],pbr:b[3],count:Math.max(1,Math.ceil(p.instances.length*share))});});
@@ -856,7 +878,8 @@ export class World {
             if(this.aurora){const m=transform(...this.eye,1,Math.sin(s.time*.05)*.03);R.drawMesh('planet-aurora',this.vp,m,{eye:this.eye,material:16,tint:[.35,1,.62,1],opacity:.4});const m2=transform(this.eye[0],this.eye[1]+18,this.eye[2],1.04,Math.sin(s.time*.05+1)*.03);R.drawMesh('planet-aurora',this.vp,m2,{eye:this.eye,material:16,tint:[1,.35,.5,1],opacity:.18});}
             if(R.instanceSets?.has('planet-rocks'))R.drawMesh('world-rock',this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:'planet-rocks',instanceMode:1,pbr:[0,.9,0,1]});
             // Moons above the horizon, right of the default view, where the sky is clear of the title.
-            for(const m of S0.moons){const az=Math.atan2(-Math.cos(.6),-Math.sin(.6))+m.azimuth,d=320,pos=[Math.cos(az)*d,Math.tan(m.elevation*.7)*d+6,Math.sin(az)*d];const back=normal(this.eye.map((v,i)=>v-pos[i])),moonLight=normal(light.map((v,i)=>v+back[i]*.7));R.drawMesh('sphere',this.vp,transform(...pos,m.size),{eye:this.eye,light:moonLight,material:12,texture:this.textures.moon});}
+            // Moons beyond the horizon (1.62.0), with the same apparent size as before at 320 units.
+            for(const m of S0.moons){const az=Math.atan2(-Math.cos(.6),-Math.sin(.6))+m.azimuth,d=S0.field?3200:320,pos=[Math.cos(az)*d,Math.tan(m.elevation*.7)*d+6,Math.sin(az)*d];const back=normal(this.eye.map((v,i)=>v-pos[i])),moonLight=normal(light.map((v,i)=>v+back[i]*.7));R.drawMesh('sphere',this.vp,transform(...pos,m.size*d/320),{eye:this.eye,light:moonLight,material:12,texture:this.textures.moon});}
             if(world){
                 if(this.builtWorld!==unit){world.build(R,S0);this.builtWorld=unit;}
                 world.update(R,s.worldState);world.draw(R,{vp:this.vp,eye:this.eye,target:this.target,light,sun:light,lightColor,identity:id},s.worldState,this.textures);

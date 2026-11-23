@@ -142,8 +142,8 @@ export function populate(s, species) {
     const near = (x, z, d) => s.stations.some(st => Math.hypot(st.position[0] - x, st.position[2] - z) < d);
     const slope = (x, z) => Math.hypot(s.heightAt(x + 1, z) - s.heightAt(x - 1, z), s.heightAt(x, z + 1) - s.heightAt(x, z - 1)) / 2;
     const hot = (x, z) => s.lavaAt ? s.lavaAt(x, z) > .2 : s.heightAt(x, z) > q70;
-    const fits = (habitat, x, z) => {
-        if (Math.abs(x) > 78 || Math.abs(z) > 78 || near(x, z, 7)) return false;
+    const fits = (habitat, x, z, reach = 78) => {
+        if (Math.abs(x) > reach || Math.abs(z) > reach || near(x, z, 7)) return false;
         const y = s.heightAt(x, z), wet = sea !== null && y <= sea + .3;
         if (habitat === 'mare') return sea !== null && y < sea - .8;
         if (habitat === 'bassofondo') return sea !== null && y < sea - .1;
@@ -164,10 +164,14 @@ export function populate(s, species) {
             found.push([x, 0, z]);
         }
         if (!found.length) for (let t = 0; t < 600 && !found.length; t++) { const x = (r() - .5) * 150, z = (r() - .5) * 150; if (fits(relaxed(sp.habitat), x, z)) found.push([x, 0, z]); }
+        // Since 1.62.0 the landing site may leave the sea beyond the area: sea species then live in the nearest
+        // sea, up to 150 and then 400 units away.
+        let reach = 78;
+        for (const far of [150, 400]) if (!found.length && sp.habitat === 'mare') for (let t = 0; t < 600 && !found.length; t++) { const x = (r() - .5) * 2 * far, z = (r() - .5) * 2 * far; if (fits('mare', x, z, far)) { found.push([x, 0, z]); reach = far; } }
         for (const c of found) { c[1] = sp.habitat === 'mare' ? sea : s.heightAt(c[0], c[2]); centres.push(c); }
         for (let t = 0; t < sp.count * 12 && items.length < sp.count && found.length; t++) {
             const c = found[t % found.length], a = r() * Math.PI * 2, d = Math.sqrt(r()) * spread, x = c[0] + Math.cos(a) * d, z = c[2] + Math.sin(a) * d;
-            if (!fits(sp.habitat, x, z) && !(t > sp.count * 8 && fits(relaxed(sp.habitat), x, z))) continue;
+            if (!fits(sp.habitat, x, z, reach) && !(t > sp.count * 8 && fits(relaxed(sp.habitat), x, z, reach))) continue;
             const ground = s.heightAt(x, z), y = sp.mesh === 'floater' ? sea + .05 : sp.mesh === 'flyer' ? ground + 9 + r() * 6 : ground - .05, k2 = .78 + r() * .44;
             const tone = .86 + r() * .28;
             items.push({ x, y, z, s: sp.size * k2, r: Math.min(1, sp.color[0] * tone), g: Math.min(1, sp.color[1] * tone), b: Math.min(1, sp.color[2] * tone), h: r() * 6.283 });

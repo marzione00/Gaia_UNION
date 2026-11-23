@@ -50,6 +50,12 @@ function styleHeight(style, N, F, u, v) {
 }
 const FEATURES = { atollo: [9, .04, .11], crateri: [14, .025, .12], criovulcani: [4, .05, .1], vulcani: [3, .08, .16], caldera: [1, .3, .34] };
 
+/** The style of the genome as a function of (u, v), unclamped and defined beyond [0, 1]²: the shapes of
+ * terrainHeights with the same seed and features, for the landing surface (src/worlds/field.js, 1.62.0). */
+export function styleField(genome) {
+    const t = genome.terrain, N = noiseField(t.seed), spec = FEATURES[t.style], F = spec ? features(N.r, ...spec) : [];
+    return (u, v) => .5 + (styleHeight(t.style, N, F, u, v) - .5) * (.6 + .8 * t.relief) + (N.fbm(u * 40, v * 40, 3) - .5) * .12 * t.roughness;
+}
 /** Heights of the planet on an n × n grid, plus its sea level (same units). */
 export function terrainHeights(genome, n = 128) {
     const t = genome.terrain, N = noiseField(t.seed), spec = FEATURES[t.style], F = spec ? features(N.r, ...spec) : [], h = new Float32Array(n * n);

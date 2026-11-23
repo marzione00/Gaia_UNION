@@ -28,6 +28,14 @@ export function seaPlane(width = 150, depth = 110, nx = 150, nz = 110, cx = -2, 
     for (let z = 0; z < nz; z++) for (let x = 0; x < nx; x++) { const a = z * (nx + 1) + x; i.push(a, a + nx + 1, a + 1, a + 1, a + nx + 1, a + nx + 2); }
     return { v: new Float32Array(v), i: new Uint32Array(i), stride: 12 };
 }
+/** Flat square ring of sea from half side `inner` to half side `outer` (1.62.0), under the edge of the near
+ * sea plane so the two overlap, with the layout of seaPlane. */
+export function seaRing(outer = 1792, inner = 448, step = 64) {
+    const v = [], i = [], n = Math.round(2 * outer / step) + 1, X = k => -outer + k * step;
+    for (let z = 0; z < n; z++) for (let x = 0; x < n; x++) v.push(X(x), -.06, X(z), 0, 1, 0, x / (n - 1), z / (n - 1), 1, 1, 1, 1);
+    for (let z = 0; z < n - 1; z++) for (let x = 0; x < n - 1; x++) { if (Math.abs(X(x) + step / 2) < inner && Math.abs(X(z) + step / 2) < inner) continue; const a = z * n + x; i.push(a, a + n, a + 1, a + 1, a + n, a + n + 1); }
+    return { v: new Float32Array(v), i: new Uint32Array(i), stride: 12 };
+}
 /** A daisy about one unit tall: green stem, ten petals, a yellow centre. Petals take the instance colour. */
 export function daisy() {
     const stem = tinted(tubePath([[0, 0, 0], [.04, .45, .02], [0, .9, 0]], .05, 5), [.28, .52, .22, 1]);
