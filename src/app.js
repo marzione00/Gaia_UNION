@@ -34,7 +34,7 @@ import { openStore, grade } from './store.js';
 import { AUTHOR, LICENCE, CREDIT, LICENCE_ROW } from './licenza.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.64.0-citta';
+const VERSION = '1.65.0-ecosistemi';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -277,7 +277,7 @@ const exploreReady = () => W?.surface?.index === S.selected && Array.isArray(W.s
 function exploreEntries() {
     if (!exploreReady()) return [];
     const s = W.surface, pop = W.population || [];
-    return [...s.species.map((sp, k) => ({ type: 'species', index: k, id: sp.id, data: sp, at: pop[k]?.centre || null })), ...s.places.map((p, k) => ({ type: 'place', index: k, id: p.id, data: p, at: p.position })),
+    return [...s.species.map((sp, k) => ({ type: 'species', index: k, id: sp.id, data: sp, at: sp.kind === 'animal' ? W.liveCentre(k) || pop[k]?.centre || null : pop[k]?.centre || null })), ...s.places.map((p, k) => ({ type: 'place', index: k, id: p.id, data: p, at: p.position })),
         ...(s.settlements || []).map((p, k) => ({ type: 'settlement', index: k, id: p.id, data: p, at: p.position }))];
 }
 const exploreRecord = index => store.data.explore[String(index)] || { s: [], l: [] };
@@ -289,7 +289,7 @@ function selectEntry(i, fly = true) {
 }
 function selectTarget(t) { const k = exploreEntries().findIndex(e => e.type === t.type && e.index === t.index); if (k >= 0) selectEntry(k); }
 function startExplore() { S.explore = true; S.exploreGoal = null; updateHash(); }
-function stopExplore() { S.explore = false; updateHash(); }
+function stopExplore() { S.explore = false; S.groundFollow = null; updateHash(); }
 function register(e) {
     const key = String(S.selected), rec = store.data.explore[key] ||= { s: [], l: [] }, list = e.type === 'species' ? rec.s : rec.l;
     if (list.includes(e.id)) return;
@@ -304,9 +304,14 @@ function exploreTick() {
     if (!S.explore) { S.exploreTarget = null; if (!S.exploreBlend) { S.exploreFocus = null; S.exploreGoal = null; } return; }
     // A new exploration (button or link) starts from the station view and flies to the current entry.
     if (!S.exploreGoal) { if (!exploreReady()) return; S.exploreFocus ||= R.w < 850 ? [-4, 8] : [2, 2]; S.exploreGoal = [...S.exploreFocus]; selectEntry(S.exploreEntry); }
+    // While «Che cosa succede» follows a group of animals (1.65.0) the camera keeps it in view.
+    if (S.groundFollow && Number.isInteger(S.groundFollow.k)) { const c = W.liveCentre(S.groundFollow.k); if (c) S.exploreGoal = [c[0], c[2]]; }
     S.exploreFocus = S.exploreFocus.map((v, i) => v + (S.exploreGoal[i] - v) * k);
     const e = exploreEntries()[S.exploreEntry]; S.exploreTarget = e ? { type: e.type, index: e.index } : null;
 }
+/** «Che cosa succede» on the ground (1.65.0): a group of animals of species `k`, or the sun when `k` is null. */
+function followGround(k) { S.groundFollow = { k }; S.followPage = 'numeri'; S.followTab = null; }
+function stopGround() { S.groundFollow = null; }
 function moveExplore(forward, right) {
     const a = .6 + S.yaw * .5, f = [-Math.sin(a), -Math.cos(a)], r = [-f[1], f[0]];
     S.exploreGoal = (S.exploreGoal || [2, 2]).map((v, i) => clamp(v + (f[i] * forward + r[i] * right) * 6, -85, 85));
@@ -400,11 +405,11 @@ function followView(F){
 }
 /** The panel as text, for the accessible layer. */
 function followText(){const {v}=followView(W.followed);return `Che cosa succede: ${v.tag.toLowerCase()}, ${v.title}. `+(v.pages||[v]).map(p=>(p.label?caseLabel(p.label)+'. ':'')+p.rows.map(([l,x])=>l+': '+x).join('; ')+`. Il concetto, ${p.concept.title}: ${p.concept.text}`).join(' ');}
-function followPanel(F,areaTint){
+function followPanel(F,areaTint,close=stopFollow){
     const w=R.w,h=R.h,mobile=w<850,{sub,v}=followView(F),hex=v.style&&CRAFT_STYLE[v.style]?CRAFT_STYLE[v.style][2]:sub.kind==='star'?'#ffae5c':null,tint=hex?color(hex):areaTint;
     const {x,y,w:pw,h:ph}=followFrame(w,h).panel,short=mobile&&h<700,compact=mobile||ph<520;
     U.panel(x,y,pw,ph,tint,.92);U.tag(v.tag,x+18,y+19,tint);
-    U.button('follow-close','CHIUDI',x+pw-16-78,y+11,78,28,stopFollow,{small:true});U.buttons.at(-1).label='Smetti di seguire e torna alla vista del sistema';
+    U.button('follow-close','CHIUDI',x+pw-16-78,y+11,78,28,close,{small:true});U.buttons.at(-1).label=close===stopFollow?'Smetti di seguire e torna alla vista del sistema':'Chiudi il pannello e torna all’esplorazione';
     let yy=y+46;
     // Phones and low windows show the numbers and the concept one at a time.
     const page=compact?S.followPage||'numeri':'tutto';
@@ -750,11 +755,15 @@ function exploreUI(m, mobile) {
     const w = R.w, h = R.h, tint = sectorColors[m.sector], list = exploreEntries(), rec = exploreRecord(S.selected);
     title(areaTrail(m, ['SUPERFICIE', 'ESPLORAZIONE']), m.title, mobile ? 'Tocca il terreno per spostarti, trascina per ruotare.' : 'Clic sul terreno o sui segnali per spostarti; W A S D per muoverti.');
     const px = mobile ? 18 : w - 353, pw = mobile ? w - 36 : 320, ph = mobile ? 300 : Math.min(520, h - 368), py = mobile ? h - 384 : 258;
+    // «Che cosa succede» on the ground (1.65.0) takes the place of the exploration panel.
+    const ground = S.groundFollow ? W.groundSubject(S.groundFollow) : null;
+    if (ground) followPanel({ subject: ground }, tint, stopGround);
+    else {
     U.panel(px, py, pw, ph, tint, .84);
     const ns = list.filter(e => e.type === 'species').length, np = list.length - ns, e = list[S.exploreEntry] || list[0];
     if (e) {
         const done = isRegistered(e, rec), species = e.type === 'species';
-        U.tag((species ? 'Specie ' : 'Luogo ') + (S.exploreEntry + 1) + ' di ' + list.length + (done ? ' · nel diario' : ''), px + 18, py + 18, species ? C.lime : tint);
+        U.tag((species ? 'Specie ' : 'Luogo ') + (S.exploreEntry + 1) + ' di ' + list.length + (done && !W.sunNow ? ' · nel diario' : ''), px + 18, py + 18, species ? C.lime : tint);
         wrapClipText(e.data.name, px + 18, py + 44, pw - 36, 'sub', C.pale, 1);
         U.text(species ? (e.data.kind === 'plant' ? 'Pianta' : e.data.kind === 'fungus' ? 'Fungo' : 'Animale') + ' · ' + e.data.label + ' · ' + e.data.habitatName : PLACE_KINDS[e.data.kind], px + 18, py + 76, 'micro', species ? C.lime : tint);
         // Phones show one trait at a time; wide screens show them all.
@@ -769,7 +778,12 @@ function exploreUI(m, mobile) {
         U.button('explore-next', '▸', px + 66, by + 20, 44, 36, () => selectEntry(S.exploreEntry + 1)); U.buttons.at(-1).label = 'Voce successiva';
         U.button('explore-register', done ? 'NEL DIARIO ✓' : 'REGISTRA NEL DIARIO', px + 118, by + 20, pw - 134, 36, () => register(e), { active: !done, disabled: done });
     } else wrapClipText(lifelessReason(W.surface.genome), px + 18, py + 52, pw - 36, 'body', C.pale, 6);
-    U.text(`Diario: ${rec.s.length} specie su ${ns} · ${rec.l.length} luoghi su ${np}`, px + 18, py + ph - 26, 'micro', C.muted);
+    const sun = W.sunNow, hour = sun ? ` · ore ${String(Math.floor(sun.hour)).padStart(2, '0')}:${String(Math.floor(sun.hour % 1 * 60)).padStart(2, '0')}` : '';
+    U.text(`Diario: ${rec.s.length} specie su ${ns} · ${rec.l.length} luoghi su ${np}${hour}`, px + 18, py + ph - 26, 'micro', C.muted);
+    // The sun of the landing site and, for an animal, its group: both open «Che cosa succede».
+    if (sun) { U.button('ground-sun', 'SOLE', px + pw - 16 - 62, py + 10, 62, 26, () => followGround(null), { small: true }); U.buttons.at(-1).label = 'Il sole e il giorno del sito: che cosa succede'; }
+    if (e?.type === 'species' && e.data.kind === 'animal' && W.eco) { U.button('ground-follow', 'SEGUI', px + pw - 16 - 62 - 68, py + 10, 62, 26, () => followGround(e.index), { small: true }); U.buttons.at(-1).label = 'Segui ' + e.data.name + ' e guarda che cosa succede'; }
+    }
     if (!mobile) {
         U.text('Ipotesi illustrative ricavate dalla carta d’identità del pianeta.', 35, h - 112, 'micro', C.muted);
         for (const p of W.projections) {

@@ -21,6 +21,12 @@ export const CONCEPT_UNITS = Object.freeze({
     'chemistry-15': 'Resa e bilanci di materia',
     'chemistry-17': 'Velocità di reazione',
 });
+/** Units quoted only by the panel on the ground (1.65.0), besides physics-02 and physics-03. */
+export const GROUND_UNITS = Object.freeze({
+    'biology-20': 'Fotosintesi e luce di altre stelle',
+    'math-c10': 'Combinatoria, probabilità e statistica',
+    'math-p07': 'Probabilità, informazione e fenomeni collettivi',
+});
 /** Wien's constant in nm·K, the Sun's effective temperature in K and Earth's orbital speed in km/s. */
 export const WIEN = 2.898e6, T_SUN = 5772, V_EARTH = 29.78;
 const YEAR = 365.25, TAU = Math.PI * 2;
@@ -54,6 +60,7 @@ export function starOf(teff, R) { return { peak: WIEN / teff, L: R ** 2 * (teff 
 /** The panel of a subject: tag, title, rows of [label, value], the concept with its unit, and the buttons
  * the object allows (catalogue, exercises). */
 export function whatHappens(x) {
+    if (x.ground) return ground(x);
     if (x.kind === 'ship') return ship(x);
     if (x.kind === 'station') return station(x);
     if (x.kind === 'service') return service(x);
@@ -204,4 +211,35 @@ function star(x) {
     return { tag: 'STELLA', title: x.name, subtitle: 'Nana di tipo ' + x.spt, style: null,
         rows: [['Temperatura', dec(x.teff, 0) + ' K'], ['Raggio', dec(x.R, 3) + ' volte il Sole'], ['Massa', dec(x.M, 2) + ' volte il Sole'], ['Luminosità', dec(x.L, x.L < .1 ? 4 : 3) + ' volte il Sole'], ['Picco di emissione', dec(s.peak, 0) + ' nm']],
         concept: concept('physics-30', `La stella emette come un corpo nero: il picco cade a λ = b/T = 2,898·10⁶ nm·K / ${dec(x.teff, 0)} K = ${dec(s.peak, 0)} nm. La potenza cresce con la superficie e con la quarta potenza della temperatura: in unità solari L = R²(T/5772)⁴ = ${dec(x.R, 3)}² × (${dec(x.teff, 0)}/5772)⁴ = ${dec(s.L, 4)}, vicino al valore della tabella delle nane, ${dec(x.L, 4)}.`) };
+}
+
+/** «Che cosa succede» on the ground (1.65.0): a herd, a predator, a flock, a drifting colony or the sun of the
+ * landing site (src/worlds/ecosystem.js). Speeds are in units of the surface per second of the scene. */
+const STATES = { pascolo: 'pascola', cammino: 'cammina verso un altro pascolo', fuga: 'fugge', riposo: 'riposa', pattuglia: 'perlustra il territorio', agguato: 'si avvicina di soppiatto', scatto: 'scatta verso la preda', pasto: 'si nutre', sosta: 'riprende fiato dopo la caccia', volo: 'in volo', deriva: 'va alla deriva' };
+const clock = h => { const m = Math.floor(Math.max(0, h) * 60); return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'); };
+const times = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+const signed = v => v < 0 ? `(${dec(v, 2)})` : dec(v, 2);
+const speed = v => dec(v, 1) + ' u/s';
+function ground(x) {
+    const head = (tag, rows, c) => ({ tag, title: x.name, subtitle: x.label, style: null, rows, concept: c }), concept = (unit, text) => ({ unit, title: CONCEPT_UNITS[unit] || GROUND_UNITS[unit], text });
+    if (x.kind === 'mandria') {
+        const p = x.vigilance, none = (1 - p) ** x.n, rows = [['Individui', String(x.n)], ['Che cosa fa', STATES[x.state] || x.state], ['Velocità', speed(x.speed)], ['Predatore più vicino', x.threat ? `${x.threat.name}, a ${dec(x.threat.distance, 0)} u` : 'nessuno in vista']];
+        return head('MANDRIA', rows, concept('math-c10', `Se ogni animale tiene la testa alta per il ${dec(p * 100, 0)} % del tempo, la probabilità che nessuno dei ${x.n} guardi è ${dec(1 - p, 1)}^${x.n} = ${dec(none, 2)}: almeno uno vigila con probabilità ${dec(1 - none, 2)}. Da solo un animale vigila con probabilità ${dec(p, 1)}, e in un attacco la probabilità che il bersaglio sia proprio lui scende a 1/${x.n}.`));
+    }
+    if (x.kind === 'branco') {
+        const rows = [['Individui', String(x.n)], ['Che cosa fa', STATES[x.state] || x.state], ['Velocità', speed(x.speed)], ['Preda', x.prey ? `${x.prey.name}, a ${dec(x.prey.distance, 0)} u` : 'nessuna in vista'], ['Cacce', `${times(x.hunts, 'tentata', 'tentate')}, ${times(x.catches, 'riuscita', 'riuscite')}`], ['Attività', x.nocturnal ? 'notturna' : 'diurna']];
+        const d = x.prey ? x.prey.distance : x.sprintFrom, gap = x.sprint - x.flee, t = d / gap;
+        return head('PREDATORE', rows, concept('physics-03', `Nello scatto il predatore corre a ${speed(x.sprint)} e la preda fugge a ${speed(x.flee)}: la distanza cala di ${dec(gap, 1)} u ogni secondo. Da ${dec(d, 0)} u servono ${dec(d, 0)}/${dec(gap, 1)} = ${dec(t, 1)} s, e lo scatto dura ${dec(x.sprintTime, 0)} s: ${t <= x.sprintTime ? 'la raggiunge' : 'la preda resta fuori portata'}. Per questo il predatore si avvicina di soppiatto fino a ${dec(x.sprintFrom, 0)} u.`));
+    }
+    if (x.kind === 'stormo') {
+        const rows = [['Individui', String(x.n)], ['Che cosa fa', STATES[x.state] || x.state], ['Velocità media', speed(x.speed)], ['Allineamento', dec(x.order, 2)], ['Quota media', dec(x.height, 1) + ' u sul suolo']];
+        return head('STORMO', rows, concept('math-p07', `Ogni uccello segue tre regole sui vicini: si avvicina al centro del gruppo, si allinea alla loro velocità e si scosta da chi è troppo vicino (Reynolds, 1987). L'allineamento è la lunghezza della media dei versori delle velocità: qui vale ${dec(x.order, 2)}. Vicino a 1 lo stormo vola compatto nella stessa direzione, vicino a 0 ogni uccello va per conto suo.`));
+    }
+    if (x.kind === 'deriva') {
+        const v = Math.hypot(x.wind[0], x.wind[1]), rows = [['Individui', String(x.n)], ['Che cosa fa', STATES.deriva], ['Vento, componente est', speed(x.wind[0])], ['Vento, componente nord', speed(x.wind[1])], ['Velocità', speed(v)]];
+        return head('COLONIA GALLEGGIANTE', rows, concept('physics-02', `La vela riceve la spinta del vento e la colonia si muove con la sua velocità, un vettore con componenti ${dec(x.wind[0], 2)} e ${dec(x.wind[1], 2)} u/s. Il modulo è la radice della somma dei quadrati: √(${signed(x.wind[0])}² + ${signed(x.wind[1])}²) = ${dec(v, 2)} u/s. Quando la colonia arriva alla riva il vento gira e la riporta al largo.`));
+    }
+    // The sun of the landing site.
+    const h = Math.max(0, x.height), share = Math.sin(h * Math.PI / 180), rows = [['Ora locale', clock(x.hour)], ['Durata del giorno', dec(x.hours, 1) + ' ore'], ['Altezza del sole', dec(x.height, 0) + '°'], ['Latitudine del sito', dec(Math.abs(x.lat), 0) + '° ' + (x.lat >= 0 ? 'nord' : 'sud')], ['Luce sul suolo', x.height > 0 ? dec(share * 100, 0) + ' % del sole allo zenit' : 'notte']];
+    return head('SOLE E GIORNO', rows, concept('biology-20', x.height > 0 ? `Un raggio di luce che arriva con un'altezza di ${dec(x.height, 0)}° si distribuisce su una superficie di suolo più ampia: ogni metro quadrato riceve sin ${dec(x.height, 0)}° = ${dec(share, 2)} della luce che riceverebbe con il sole allo zenit. Il modello tiene il sole sull'equatore celeste, come agli equinozi: il giorno dura metà della rotazione a ogni latitudine.` : `Il sole è ${dec(-x.height, 0)}° sotto l'orizzonte: senza luce la fotosintesi si ferma e le piante consumano con la respirazione una parte degli zuccheri prodotti di giorno. Il modello tiene il sole sull'equatore celeste, come agli equinozi: la notte dura metà della rotazione a ogni latitudine.`));
 }
