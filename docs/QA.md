@@ -10,7 +10,7 @@ Eseguito il 23 novembre 2026 sul ramo `feat/natura-realistica-20261123`, costrui
 | Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 314 controlli |
 | Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 283 controlli |
 | Atlante in Chromium | `python3 tools/qa_atlas_browser.py --root dist` | 23 controlli, 125 pianeti esplorabili, nessun errore WebGL |
-| Superfici in Chromium | pianeti 7 e 1 a 1280 × 800: piante, animali, villaggio e abitanti, confrontati con la 1.66.0; pianeta 7 a 390 × 844 | PHONE_RESULT |
+| Superfici in Chromium | pianeti 7 e 1 a 1280 × 800: piante, animali, villaggio e abitanti, confrontati con la 1.66.0; pianeta 7 a 390 × 844 | alberi con rami e chiome, mandria di pascolatori, villaggio con capanne, granaio, fuoco, totem e abitanti che camminano; sul telefono la scena resta sopra il pannello; nessun errore di pagina |
 
 Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`.
 
@@ -24,7 +24,7 @@ Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle
 
 ## Controllo del repository
 
-- `main` ha un solo commit radice. Dei 75 rami presenti su GitHub con quello di questo collaudo, 74 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
+- `main` ha un solo commit radice. Dei 76 rami presenti su GitHub con quello di questo collaudo, 75 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
 - Nessuna pull request o segnalazione aperta.
 - Gli autori dei commit usano indirizzi noreply, di GitHub e di Anthropic.
 - Due esecuzioni fallite nella storia di `main`, entrambe superate dai commit successivi: il primo tentativo di pubblicazione (`bacea5c`, errore in `configure-pages`) e l’unione della pull request #5 (`1d6c911`, verifica del sito pubblicato con un numero di versione fisso, corretta in `b7dc1e8`).
