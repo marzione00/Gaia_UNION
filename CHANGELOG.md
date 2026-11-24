@@ -1,3 +1,12 @@
+# 1.68.0: Mondi vivi, esplorazione da videogioco
+
+- Settima versione della serie «Mondi vivi». «Esplora il pianeta» mette a terra un esploratore nella tenuta della colonia, seguito da una camera in terza persona. Cammina a 1,4 m/s e corre a 3,6 m/s, sale pendii fino a 35°, guada fino a 0,8 m d'acqua, gira intorno agli edifici e alle stazioni e cammina sulle strade.
+- Il salto segue la gravità della carta: con la stessa spinta di 3,1 m/s si sale di h = v²/(2a), 49 cm sulla Terra e da 38 a 69 cm sui 125 pianeti. Il pulsante «Fisica» svolge il conto nel pannello «Che cosa succede» con l'unità «Moto uniformemente accelerato».
+- Un rover a sei ruote nello stile della colonia, pressurizzato negli avamposti sigillati e aperto negli altri, fino a 10 m/s, inclinato secondo il suolo sotto le ruote.
+- Comandi: W A S D o frecce, Maiuscolo, spazio, R per il rover, F per lo scanner, clic sul terreno o su un segnale per andarci. Sui telefoni un joystick, i pulsanti «Salta», «Rover», «Scanner» e la scheda della voce, che si alterna con i controlli. Le frecce della scheda portano alla voce con un viaggio rapido.
+- Lo scanner registra nel diario la specie o il luogo più vicino entro circa 40 m e ne dice distanza e direzione. Il diario conserva per ogni pianeta i metri a piedi e in rover, i salti e il salto più alto.
+- Nuovo `src/worlds/explorer.js`, segnale del bipede nella modalità 8 del vertex shader, camera che si avvicina invece di alzarsi quando un ostacolo copre l'esploratore. Nuovo `tests/esploratore.test.mjs`; descrizione in `docs/GRAPHICS.md`, sezione «Esplorazione da videogioco».
+
 # 1.67.0: Mondi vivi, natura e popoli nativi
 
 - Seconda parte della revisione dello stile. Animali, piante, popoli nativi e villaggi erano fatti di sfere scalate e tubi; ora sono superfici lisce costruite con il nuovo `src/worlds/organic.js`.

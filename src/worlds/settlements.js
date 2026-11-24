@@ -71,17 +71,18 @@ export function grade(T, ops) {
 }
 
 /** Spatial index of the footprints and streets of the settlements: what the species must leave free and what
- * the camera must stay above. */
+ * the camera must stay above. `solid` tells only the buildings, which the explorer of 1.68.0 walks round. */
 export function clearance(settlements) {
     const cell = 4, map = new Map(), key = (i, j) => i * 4096 + j, roofs = new Map();
     const add = (x0, z0, x1, z1, item) => { for (let i = Math.floor(x0 / cell); i <= Math.floor(x1 / cell); i++) for (let j = Math.floor(z0 / cell); j <= Math.floor(z1 / cell); j++) { const k = key(i, j); if (!map.has(k)) map.set(k, []); map.get(k).push(item); } };
     for (const t of settlements) {
-        for (const b of t.buildings) { const r = b.radius + .4; add(b.x - r, b.z - r, b.x + r, b.z + r, { c: [b.x, b.z, r] }); for (let i = Math.floor((b.x - b.radius) / 2); i <= Math.floor((b.x + b.radius) / 2); i++) for (let j = Math.floor((b.z - b.radius) / 2); j <= Math.floor((b.z + b.radius) / 2); j++) { const k = key(i, j); roofs.set(k, Math.max(roofs.get(k) ?? -1e9, b.y + b.height)); } }
+        for (const b of t.buildings) { const r = b.radius + .4; add(b.x - r, b.z - r, b.x + r, b.z + r, { c: [b.x, b.z, r], r: b.radius }); for (let i = Math.floor((b.x - b.radius) / 2); i <= Math.floor((b.x + b.radius) / 2); i++) for (let j = Math.floor((b.z - b.radius) / 2); j <= Math.floor((b.z + b.radius) / 2); j++) { const k = key(i, j); roofs.set(k, Math.max(roofs.get(k) ?? -1e9, b.y + b.height)); } }
         for (const st of t.streets) for (let k = 1; k < st.points.length; k++) { const a = st.points[k - 1], b = st.points[k], w = st.width / 2 + .5; add(Math.min(a[0], b[0]) - w, Math.min(a[2], b[2]) - w, Math.max(a[0], b[0]) + w, Math.max(a[2], b[2]) + w, { s: [a[0], a[2], b[0], b[2], w] }); }
     }
     const blocked = (x, z) => (map.get(key(Math.floor(x / cell), Math.floor(z / cell))) || []).some(it => it.c ? Math.hypot(x - it.c[0], z - it.c[1]) < it.c[2] : segment(x, z, ...it.s.slice(0, 4)) < it.s[4]);
+    const solid = (x, z) => (map.get(key(Math.floor(x / cell), Math.floor(z / cell))) || []).some(it => it.c && Math.hypot(x - it.c[0], z - it.c[1]) < it.r);
     const roofAt = (x, z) => roofs.get(key(Math.floor(x / 2), Math.floor(z / 2))) ?? -1e9;
-    return { blocked, roofAt };
+    return { blocked, solid, roofAt };
 }
 function segment(x, z, ax, az, bx, bz) { const dx = bx - ax, dz = bz - az, l = dx * dx + dz * dz || 1, t = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / l)); return Math.hypot(x - ax - t * dx, z - az - t * dz); }
 

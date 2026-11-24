@@ -31,8 +31,9 @@ import { LANDING_SITES } from '../worlds/landing-sites.js';
 import { tuft, rock, station as stationMesh, seaPlane, seaRing, beacon, curtain } from '../worlds/geometry.js';
 import { bodyMesh } from '../worlds/bodyplan.js';
 import { buildingMesh } from '../worlds/buildings.js';
-import { archMesh, worksMesh } from '../worlds/architecture.js';
-import { colonistMesh, nativeMesh, nativeLegs } from '../worlds/people.js';
+import { archMesh, worksMesh, roverMesh, archPalette, typologyOf } from '../worlds/architecture.js';
+import { colonistMesh, colonistSpec, nativeMesh, nativeLegs, GEAR } from '../worlds/people.js';
+import { roverMatrix } from '../worlds/explorer.js';
 import { WALK } from '../worlds/settlements.js';
 import { ecosystem, dayOf, sunAt, gaitHeading, SPEED, HUNT, VIGILANCE } from '../worlds/ecosystem.js';
 /** Instance mode, motion uniform and PBR of each form of the species (src/worlds/species.js); every species
@@ -59,6 +60,9 @@ const kept = (i, share) => share >= 1 || (i * .6180339887) % 1 < share;
  * within FOLK_NEAR and up to FOLK_FAR. Walkers go back and forth along a stretch of street (shader mode 7):
  * the slope of the stretch travels in the heading, as whole hundredths, seven units apart. */
 export const TOWN_NEAR = 70, TOWN_FAR = 900, FOLK_NEAR = 26, FOLK_FAR = 180, WALK_SPEED = .9;
+/** The explorer of 1.68.0: a colonist with a backpack in the gear of the colony of the planet, drawn in this
+ * colour; the stations keep it out within STATION_CLEAR units of their centre. */
+export const EXPLORER_TINT = Object.freeze([.93, .52, .2]), STATION_CLEAR = 2.6;
 export const walkHeading = (h, slope) => (((h % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)) + 7 * (Math.round(Math.max(-.5, Math.min(.5, slope)) * 100) + 50);
 /** Ribbons of the streets and paths of the settlements, as one mesh following their points. */
 function streetMesh(settlements, palette) {
@@ -293,6 +297,10 @@ export class World {
                 const road = typ === 'sigillato' ? rock.map(v => .35 + v * .25) : typ === 'simbiotico' ? rock.map((v, q) => (v * .7 + pig[q] * .3) * .5 + .08) : rock.map(v => v * .45 + .12);
                 R.makeMesh('planet-streets', streetMesh(s.settlements || [], { road: [...road, 1], path: [...rock.map(v => v * .55 + .18), 1] }));
                 if (colony) R.makeMesh('planet-works', worksMesh(colony));
+                // The explorer and its rover (1.68.0), in the style of the colony or of the colony the planet would have.
+                const typ0 = typ || typologyOf(s.genome, s.species.length); this.explorerFigure = colonistSpec('zaino', GEAR[typ0], s.index % 4); this.explorerData = new Float32Array(8);
+                R.makeMesh('explorer-mesh', colonistMesh(this.explorerFigure, 0)); R.makeInstances('explorer', 'explorer-mesh', this.explorerData);
+                R.makeMesh('planet-rover', roverMesh(archPalette(s.genome, typ0), typ0, 0));
                 R.deleteInstances?.('planet-geyser');
                 const geyser = s.places.find(p => p.event === 'eruzione di geyser');
                 if (geyser) { const r = random(s.index + 77), q = geyser.position; R.makeInstances('planet-geyser', 'lowSphere', pack(Array.from({ length: 46 }, () => ({ x: q[0] + (r() - .5) * 1.2, y: q[1] + .2, z: q[2] + (r() - .5) * 1.2, s: .7 + r() * .8, r: .92, g: .94, b: .96, h: r() * 6.283 })))); }
@@ -441,13 +449,30 @@ export class World {
             eye=[tx+Math.sin(angle)*distance*Math.cos(pitch),Math.sin(pitch)*distance+2+(gen?ty-3:0),tz+Math.cos(angle)*distance*Math.cos(pitch)];target=[tx,ty,tz];fov=gen?.72:.60;
             // On phones the exploration panel covers the lower half: the camera looks at a point 9 units nearer, so
             // the focus shows in the upper half of the screen (1.65.0).
-            if(gen&&b>0&&w<850){const o=9*b,qx=tx+Math.sin(angle)*o,qz=tz+Math.cos(angle)*o;target=[qx,Math.max(this.surface.seaY??-99,this.surface.heightAt(qx,qz))+3,qz];}
+            if(gen&&b>0&&w<850&&!s.avatar){const o=9*b,qx=tx+Math.sin(angle)*o,qz=tz+Math.cos(angle)*o;target=[qx,Math.max(this.surface.seaY??-99,this.surface.heightAt(qx,qz))+3,qz];}
+            // The explorer (1.68.0): a chase camera behind it, 7.5 units away on foot and 12 in the rover, which
+            // rises by half of a jump; dragging turns it round the explorer. It blends with the station view.
+            const chase=gen&&b>0&&!!s.avatar;
+            if(chase){
+                const A=s.avatar,S0=this.surface,rover=A.mode==='rover',f=s.exploreFocus,floor=(x,z)=>Math.max(S0.heightAt(x,z),S0.seaY??-99),cd=(rover?12:7.5)*(s.chaseZoom||1),ca=A.cam-Math.PI/2+(s.chaseOrbit||0);
+                const cp=Math.max(.04,Math.min(1.1,(rover?.3:.26)+(s.pitch-.45)*.6)),lift=rover?1.6:1.1,ty2=floor(f[0],f[1])+Math.max(0,A.y-floor(A.x,A.z))*.5+lift;
+                let t2=[f[0],ty2,f[1]];const e2=[f[0]+Math.sin(ca)*cd*Math.cos(cp),ty2+Math.sin(cp)*cd,f[1]+Math.cos(ca)*cd*Math.cos(cp)];
+                // On phones with the card open the explorer shows in the upper half of the screen.
+                if(w<850&&s.exploreCard){const qx=f[0]+Math.sin(ca)*3,qz=f[1]+Math.cos(ca)*3;t2=[qx,floor(qx,qz)+lift*.5,qz];}
+                eye=eye.map((v,i)=>v+(e2[i]-v)*b);target=target.map((v,i)=>v+(t2[i]-v)*b);
+            }
             // Since 1.64.0 the roofs of the settlements count as ground for the camera.
-            if(gen){const roof=this.surface.clear?.roofAt,ground=(x,z)=>Math.max(this.surface.heightAt(x,z),this.surface.seaY??-99,roof?roof(x,z):-99);eye[1]=Math.max(eye[1],ground(eye[0],eye[2])+5);
+            if(gen){const roof=this.surface.clear?.roofAt,ground=(x,z)=>Math.max(this.surface.heightAt(x,z),this.surface.seaY??-99,roof?roof(x,z):-99);if(!chase)eye[1]=Math.max(eye[1],ground(eye[0],eye[2])+5);
                 // The relief of the planet (1.62.0) may rise between the camera and the target or the stations: the
                 // camera goes up until the lines of sight pass at least 1.5 units over the ground.
-                let lift=0;for(const end of [target,...(b>0?[]:this.surface.stations.map(st=>st.position))])for(let k=1;k<20;k++){const t=k/20,x=eye[0]+(end[0]-eye[0])*t,z=eye[2]+(end[2]-eye[2])*t,y=eye[1]+(end[1]-eye[1])*t;lift=Math.max(lift,(ground(x,z)+1.5-y)/(1-t));}
-                eye[1]+=lift;}
+                // The chase camera of the explorer (1.68.0) comes closer instead, to the last point of the line of
+                // sight that is free, from the explorer outwards; then it stays 1.2 units over the ground.
+                // Roofs count only inside the footprints of the buildings here.
+                if(chase){const solid=this.surface.clear?.solid,near=(x,z)=>Math.max(this.surface.heightAt(x,z),this.surface.seaY??-99,roof&&solid?.(x,z)?roof(x,z):-99);
+                    let keep=1;for(let k=1;k<=24;k++){const t=k/24,q=target.map((v,i)=>v+(eye[i]-v)*t);if(q[1]<near(q[0],q[2])+.3){keep=Math.max(.2,(k-1)/24);break;}}
+                    if(keep<1)eye=target.map((v,i)=>v+(eye[i]-v)*keep);eye[1]=Math.max(eye[1],near(eye[0],eye[2])+1.2);}
+                else{let lift=0;for(const end of [target,...(b>0?[]:this.surface.stations.map(st=>st.position))])for(let k=1;k<20;k++){const t=k/20,x=eye[0]+(end[0]-eye[0])*t,z=eye[2]+(end[2]-eye[2])*t,y=eye[1]+(end[1]-eye[1])*t;lift=Math.max(lift,(ground(x,z)+1.5-y)/(1-t));}
+                eye[1]+=lift;}}
         }else if(scene==='craft'){
             // The 3D catalogue (1.51.0): one model at the centre with radius 3; on phones it sits above the card.
             const d=(s.distance||11)*Math.max(1,1/(w/h)),p=.12+(s.pitch-.45)*.8;eye=[Math.sin(s.yaw)*d*Math.cos(p),Math.sin(p)*d,Math.cos(s.yaw)*d*Math.cos(p)];target=w<850?[0,-1.8,0]:[0,-.3,0];fov=.62;
@@ -1003,6 +1028,13 @@ export class World {
             // Streets and paths of the settlements (1.64.0).
             if(S0.settlements&&this.groups)R.drawMesh('planet-streets',this.vp,id,{eye:this.eye,light,lightColor,material:10,pbr:[0,.92,0,0]});
             if(S0.settlements&&this.groups&&R.meshes.has('planet-works'))R.drawMesh('planet-works',this.vp,id,{eye:this.eye,light,lightColor,material:10});
+            // The explorer on foot (mode 8 with the biped flag) and its rover, parked or driven (1.68.0).
+            const A=s.avatar&&(s.explore||s.exploreBlend>0)?s.avatar:null;
+            if(A&&R.instanceSets?.has('explorer')){
+                if(A.mode!=='rover'){this.explorerData.set([A.x,A.y,A.z,1,...EXPLORER_TINT,gaitHeading(A.h,A.gait)]);R.updateInstances('explorer',this.explorerData);R.drawMesh('explorer-mesh',this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:'explorer',instanceMode:8,motion:[0,1,0,this.explorerFigure.legs],pbr:[0,.75,0,0]});}
+                const v=A.rover;if(v&&R.meshes.has('planet-rover'))R.drawMesh('planet-rover',this.vp,roverMatrix(v.x,v.y??S0.heightAt(v.x,v.z),v.z,v.h,v.pitch||0,v.roll||0),{eye:this.eye,light,lightColor,material:10});
+                if(s.scanTarget){const c=s.scanTarget;R.drawMesh('ring',this.vp,transform(c[0],c[1]+.3,c[2],1.6+.5*Math.sin(s.time*4)),{eye:this.eye,tint:[.55,.95,1,1],emission:.8,opacity:.7});}
+            }
             if(R.instanceSets?.has('planet-geyser'))R.drawMesh('lowSphere',this.vp,id,{eye:this.eye,light,material:19,instances:'planet-geyser',instanceMode:2,motion:[.16,10,.7,0],opacity:.32});
             // Shooting stars (1.60.0) on worlds with an atmosphere: a sporadic one every 7 s, one every 0.8 s while
             // the planet crosses the stream of a comet, radiating from one point of the sky.
@@ -1066,6 +1098,13 @@ export class World {
         }
     }
     /** Nearest species (by its individuals) or place within `radius` of a ground point, for exploration. */
+    /** Ground of the explorer (1.68.0, src/worlds/explorer.js): the relief, the sea, the buildings (the streets
+     * are free) and the stations of the landing site, and the gravity of the planet. */
+    explorerEnv() {
+        const S0 = this.surface; if (!S0?.heightAt) return null;
+        if (this.envOf?.key !== S0.key) this.envOf = { key: S0.key, env: { ground: (x, z) => S0.heightAt(x, z), sea: S0.seaY, gravity: S0.genome.gravity, blocked: (x, z) => !!S0.clear?.solid(x, z) || S0.stations.some(st => Math.hypot(st.position[0] - x, st.position[2] - z) < STATION_CLEAR) } };
+        return this.envOf.env;
+    }
     nearest(point, radius = 7) {
         let best = null, d0 = radius;
         (this.population || []).forEach((p, k) => { for (const o of p.instances) { const d = Math.hypot(o.x - point[0], o.z - point[2]); if (d < d0) { d0 = d; best = { type: 'species', index: k }; } } });

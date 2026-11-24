@@ -21,7 +21,10 @@ export function cleanExplore(value) {
         if (typeof v.at === 'string' && v.at.length < 40) rec.at = v.at;
         // v: the explorer has landed on the planet, which shows the presence of life on its card.
         if (v.v === 1) rec.v = 1;
-        if (rec.s.length || rec.l.length || m.length || rec.v) out[k] = rec;
+        // p (1.68.0): metres walked and driven by the explorer, best jump in centimetres and number of jumps.
+        const whole = (x, top) => Number.isInteger(x) && x >= 0 && x <= top;
+        if (v.p && typeof v.p === 'object' && whole(v.p.w, 1e7) && whole(v.p.d, 1e7) && whole(v.p.j, 1e4) && whole(v.p.n, 1e6) && v.p.w + v.p.d + v.p.n > 0) rec.p = { w: v.p.w, d: v.p.d, j: v.p.j, n: v.p.n };
+        if (rec.s.length || rec.l.length || m.length || rec.v || rec.p) out[k] = rec;
     }
     return out;
 }

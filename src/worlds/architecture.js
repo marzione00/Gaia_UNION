@@ -680,3 +680,39 @@ export function worksMesh(colony) {
     }
     return k.mesh();
 }
+
+/** The rover of the explorer (1.68.0): six wheels on rocker arms, a chassis with lights, and a pressurised cab
+ * with a window band in the sealed outposts, an open frame with two seats and a roll bar elsewhere. It faces
+ * +x and is about 4 m long; the origin is on the ground under its centre. */
+export function roverMesh(c, typology, level = 0) {
+    const k = new Kit({ ...c, panel: c.dark, detail: level ? .35 : 1 }), low = level > 0, seg = n => low ? Math.max(6, Math.round(n * .5)) : n, R = .38;
+    for (const x of [-1.1, 0, 1.1]) for (const z of [-.98, .98]) {
+        k.push([x, R, z], [Math.PI / 2, 0, 0]); k.paint([.09, .09, .1, 1], .1, .9); k.cyl(R, R, -.15, .15, seg(18), { caps: true, bands: low ? 0 : 3 });
+        k.paint(c.steel, .7, .35); k.cyl(R * .55, R * .55, z > 0 ? .15 : -.17, z > 0 ? .17 : -.15, seg(12), { caps: true }); k.pop();
+        k.paint(c.steel, .6, .4); k.beam([x, R, z * .82], [x * .55, .62, z * .62], .05);
+    }
+    k.paint(c.steel, .6, .4); for (const z of [-.62, .62]) k.beam([-.7, .62, z], [.7, .62, z], .06);
+    block(k, [0, 0, 0], 2.7, 1.35, .32, .58, c.hull, .2, 0);
+    k.paint(c.dark, .4, .5); k.box([1.36, .72, 0], [.04, .07, .6]); k.paint([1, .95, .8, 1], 0, .3, 2.5); for (const z of [-.45, .45]) k.box([1.39, .74, z], [.02, .045, .12]);
+    k.paint([1, .25, .2, 1], 0, .3, 2); for (const z of [-.55, .55]) k.box([-1.36, .74, z], [.02, .04, .07]);
+    if (typology === 'sigillato') {
+        // A pressurised cab with rounded corners, a window band and a hatch at the back.
+        k.paint(c.hull, .15, .55); k.push([.1, 0, 0]); k.extrude(rrect(2, 1.25, .45, low ? 2 : 5), .9, 1.7); k.extrude(rrect(1.8, 1.1, .4, low ? 2 : 5), 1.7, 1.85);
+        k.paint(shade(c.glass, .8), .85, .1, .1); k.extrude(rrect(2.04, 1.29, .47, low ? 2 : 5), 1.25, 1.55); k.pop();
+        k.paint(c.accent, .2, .45); k.box([.1, .93, 0], [1.02, .03, .64]);
+        // A docking hatch at the back, which joins the cab to the habitats: frame, door with a handle, status light;
+        // below it a step on the chassis.
+        k.paint(c.steel, .7, .35); k.box([-.91, 1.32, 0], [.03, .34, .38]); k.paint(shade(c.hull, .86), .15, .55); k.box([-.94, 1.32, 0], [.02, .29, .32]);
+        k.paint(c.dark, .5, .5); k.box([-.97, 1.3, 0], [.02, .025, .15]); k.paint(c.accent, .2, .4, 1.2); k.box([-.95, 1.6, .3], [.02, .03, .03]);
+        k.paint(c.steel, .6, .4); k.box([-1.42, .55, 0], [.08, .02, .32]);
+        k.paint(c.steel, .7, .35); k.cyl(.03, .02, 1.85, 2.6, 6, { caps: true }); lamp(k, [-.5, 2.62, .3], [1, .3, .25, 1], .05);
+    } else {
+        // An open frame: two seats, a roll bar, a console, a cargo rack with a solar panel behind.
+        k.paint(c.dark, .3, .6); for (const z of [-.33, .33]) { k.box([.35, 1.05, z], [.22, .12, .2]); k.box([.15, 1.35, z], [.05, .3, .2]); }
+        k.paint(c.steel, .6, .4); for (const z of [-.6, .6]) { k.beam([-.05, .9, z], [-.05, 1.85, z * .9], .04); k.beam([-.05, 1.85, z * .9], [.9, 1.55, z * .8], .035); k.beam([.9, 1.55, z * .8], [1.15, .9, z * .85], .035); }
+        k.beam([-.05, 1.85, -.54], [-.05, 1.85, .54], .04); k.paint(c.dark, .4, .5); k.box([.85, 1.05, 0], [.1, .15, .45]); k.paint(c.window, .6, .3, .9); k.box([.93, 1.12, 0], [.02, .06, .25]);
+        k.paint(c.hull, .15, .55); k.box([-.85, 1, 0], [.4, .14, .6], low ? 0 : .5); k.push([-.85, 1.3, 0], [0, 0, .35]); k.paint([.05, .08, .17, 1], .85, .12, .02); k.box([0, 0, 0], [.45, .02, .62]); k.pop();
+        k.paint(c.steel, .7, .35); k.cyl(.02, .015, .9, 2.2, 6, { caps: true }); k.push([-1.2, 0, .55]); k.cyl(.02, .015, .9, 2.1, 6, { caps: true }); k.pop(); lamp(k, [-1.2, 2.12, .55], c.accent, .05);
+    }
+    return k.mesh();
+}

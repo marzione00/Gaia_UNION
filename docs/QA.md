@@ -1,30 +1,30 @@
-# Collaudo GAIA 1.67.0
+# Collaudo GAIA 1.68.0
 
-Eseguito il 23 novembre 2026 sul ramo `feat/natura-realistica-20261123`, costruito sopra `main` alla versione 1.66.0 (pull request #72), con Node.js 22.
+Eseguito il 24 novembre 2026 sul ramo `feat/esplorazione-20261124`, costruito sopra `main` alla versione 1.67.0 (pull request #73), con Node.js 22.
 
 | Controllo | Comando | Risultato |
 |---|---|---:|
-| Test Node | `node --test tests/*.test.mjs` | 717 / 717 |
-| Natura e popoli nativi | `node --test tests/natura.test.mjs` | 3 / 3 |
-| Riferimenti e risorse | `node scripts/check.mjs` | 4102 / 4102 |
+| Test Node | `node --test tests/*.test.mjs` | 723 / 723 |
+| Esploratore e rover | `node --test tests/esploratore.test.mjs` | 6 / 6 |
+| Riferimenti e risorse | `node scripts/check.mjs` | 4106 / 4106 |
 | Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 314 controlli |
 | Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 283 controlli |
 | Atlante in Chromium | `python3 tools/qa_atlas_browser.py --root dist` | 23 controlli, 125 pianeti esplorabili, nessun errore WebGL |
-| Superfici in Chromium | pianeti 7 e 1 a 1280 × 800: piante, animali, villaggio e abitanti, confrontati con la 1.66.0; pianeta 7 a 390 × 844 | alberi con rami e chiome, mandria di pascolatori, villaggio con capanne, granaio, fuoco, totem e abitanti che camminano; sul telefono la scena resta sopra il pannello; nessun errore di pagina |
+| Esplorazione in Chromium | pianeti 42 e 7 a 1280 × 800: esploratore fermo, salto, rover; pianeta 7 a 390 × 844: joystick, corsa, scanner, scheda | camera dietro l'esploratore e dietro il rover, salto misurato di 68 cm sul pianeta 42 (0,72 g), specie registrata dallo scanner con distanza e direzione, pannello del salto; nessun errore di pagina né WebGL |
 
 Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`.
 
-La versione ricostruisce le maglie delle 1388 specie, dei popoli nativi e degli edifici dei villaggi come superfici lisce; è descritta nella sezione «Natura e popoli nativi» di `docs/GRAPHICS.md`.
+La versione aggiunge l'esploratore in terza persona, il rover, il joystick sui telefoni, il salto con la gravità del pianeta, lo scanner e i percorsi nel diario; è descritta nella sezione «Esplorazione da videogioco» di `docs/GRAPHICS.md`.
 
-Collaudo precedente, 1.66.0 (23 novembre 2026, ramo `feat/stile-colonie-20261123`): 714 test Node, 4097 controlli di riferimenti e risorse, 314 controlli HTTP, 283 flussi applicativi, 23 controlli dell'atlante; colonie dei pianeti 25, 7 e 70 in Chromium senza errori.
+Collaudo precedente, 1.67.0 (23 novembre 2026, ramo `feat/natura-realistica-20261123`): 717 test Node, 4102 controlli di riferimenti e risorse, 314 controlli HTTP, 283 flussi applicativi, 23 controlli dell'atlante; specie, villaggi e nativi dei pianeti 7 e 1 in Chromium senza errori.
 
 ## Integrazione continua
 
-Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle risorse, build, verifiche HTTP, interazioni reali dell’atlante e pubblicazione su GitHub Pages. Dal 22 novembre 2026, dopo la pull request #66, le pull request non avviano più il workflow, per ridurre il consumo di GitHub Actions. Ogni versione è collaudata in locale con gli stessi comandi prima di aprire la pull request, e l'esecuzione su `main` dopo l'unione resta la condizione per pubblicare. Il passo finale scarica dal sito pubblico `build-info.json` e il curriculum e verifica che corrispondano al commit appena pubblicato e ai corsi del curriculum, 125 dalla 1.26.0. L'ultima esecuzione su `main`, per l'unione della pull request #72 (`3de12af`), è riuscita, con la verifica del sito pubblicato.
+Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle risorse, build, verifiche HTTP, interazioni reali dell’atlante e pubblicazione su GitHub Pages. Dal 22 novembre 2026, dopo la pull request #66, le pull request non avviano più il workflow, per ridurre il consumo di GitHub Actions. Ogni versione è collaudata in locale con gli stessi comandi prima di aprire la pull request, e l'esecuzione su `main` dopo l'unione resta la condizione per pubblicare. Il passo finale scarica dal sito pubblico `build-info.json` e il curriculum e verifica che corrispondano al commit appena pubblicato e ai corsi del curriculum, 125 dalla 1.26.0. L'ultima esecuzione su `main`, per l'unione della pull request #73 (`fd56111`), è riuscita, con la verifica del sito pubblicato.
 
 ## Controllo del repository
 
-- `main` ha un solo commit radice. Dei 76 rami presenti su GitHub con quello di questo collaudo, 75 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
+- `main` ha un solo commit radice. Dei 77 rami presenti su GitHub con quello di questo collaudo, 76 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
 - Nessuna pull request o segnalazione aperta.
 - Gli autori dei commit usano indirizzi noreply, di GitHub e di Anthropic.
 - Due esecuzioni fallite nella storia di `main`, entrambe superate dai commit successivi: il primo tentativo di pubblicazione (`bacea5c`, errore in `configure-pages`) e l’unione della pull request #5 (`1d6c911`, verifica del sito pubblicato con un numero di versione fisso, corretta in `b7dc1e8`).
