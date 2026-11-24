@@ -38,8 +38,9 @@ export function resolveRoute(hash, modules, lessonIds) {
         reader = 'math-c08';
     }
     let system=systemForPlanet(selected);
-    // The 3D catalogue of stations and ships (1.51.0) opens on one model, named by its identifier.
-    const craftModel = scene === 'craft' && /^s\d{2}-\d{1,3}$/.test(q.get('model') || '') ? q.get('model') : null;
+    // The 3D catalogue of stations and ships (1.51.0) opens on one model, named by its identifier; since 1.69.0
+    // also the models of the living worlds: species, buildings and natives of a planet, colonists and rovers.
+    const craftModel = scene === 'craft' && (/^s\d{2}-\d{1,3}$/.test(q.get('model') || '') || /^(m\d{1,3}-(s\d{1,2}|[cv]-[a-z]{2,12}|n)|colono-(tuta|maschera|leggero)-(adulto|zaino|bambino)-[0-3]|rover-(sigillato|simbiotico|adattato))$/.test(q.get('model') || '')) ? q.get('model') : null;
     if(scene==='system' && q.has('system')){system=integer('system',system,0,SYSTEM_COUNT-1);if(systemForPlanet(selected)!==system)selected=indicesForSystem(system)[0];}
     return { scene, selected, system, reader, section: integer('section', 0, 0, 100), pdfDoc, pdfPage, lab, courseStage, explore: scene === 'surface' && q.get('mode') === 'esplora', bookSection: scene === 'libro' && /^[\w-]{1,80}$/.test(q.get('sezione') || '') ? q.get('sezione') : null, craftModel };
 }

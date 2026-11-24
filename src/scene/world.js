@@ -34,6 +34,7 @@ import { buildingMesh } from '../worlds/buildings.js';
 import { archMesh, worksMesh, roverMesh, archPalette, typologyOf } from '../worlds/architecture.js';
 import { colonistMesh, colonistSpec, nativeMesh, nativeLegs, GEAR } from '../worlds/people.js';
 import { roverMatrix } from '../worlds/explorer.js';
+import { worldMesh, worldLook, meshSize } from '../worlds/catalogo.js';
 import { WALK } from '../worlds/settlements.js';
 import { ecosystem, dayOf, sunAt, gaitHeading, SPEED, HUNT, VIGILANCE } from '../worlds/ecosystem.js';
 /** Instance mode, motion uniform and PBR of each form of the species (src/worlds/species.js); every species
@@ -843,6 +844,9 @@ export class World {
      * first simplified and then whole, turning slowly unless `s.craftTurn` is false, with its moving parts,
      * its shield and its lights. `viewerInfo` tells the page what is shown and how many triangles it has. */
     drawViewer(s){
+        // The models of the living worlds (1.69.0) have their own viewer; `worldModels` is set by the page.
+        const world=this.worldModels?.get(s.craftModel);if(world){if(this.viewer?.entry){this.releaseViewer();this.viewer.entry=null;}this.drawWorldModel(s,world);return;}
+        if(this.worldViewer?.id)this.releaseWorldModel();
         const R=this.R,F=this.factory??=new CraftFactory(),entry=CRAFT_BY_ID.get(s.craftModel)||CRAFT[0],V=this.viewer??={entry:null,prefix:'viewer',levels:[null,null],instances:new Set()};
         if(V.entry!==entry){this.releaseViewer();V.entry=entry;V.prefix='viewer-'+entry.id;}
         for(const level of [1,0])if(!V.levels[level]){F.want(entry,level?LOW_DETAIL:1);}
@@ -860,6 +864,32 @@ export class World {
         const glows=[];
         for(const l of m.lights){const M=mats[l.part],p=[0,1,2].map(i=>M[i]*l.p[0]+M[4+i]*l.p[1]+M[8+i]*l.p[2]+M[12+i]),on=!l.blink?1:l.blink<0?(((s.time*1.1+l.blink)%1+1)%1<.3?1:.12):(Math.sin(s.time*TAU*l.blink)>-.2?1:.15);glows.push(p[0],p[1],p[2],l.size*k*(l.flame?.8:2.4),...l.color.slice(0,3),(l.flame?.85:.95)*on);}
         if(glows.length){const key='instances-viewer',data=new Float32Array(glows);if(V.instances.has(key))R.updateInstances(key,data);else{R.makeInstances(key,'lowSphere',data);V.instances.add(key);}R.drawMesh('lowSphere',this.vp,IDENTITY,{eye:this.eye,material:17,instances:key,instanceMode:6,blend:true});}
+    }
+    /** A model of the living worlds in the 3D catalogue (1.69.0), built by the same functions as on the surfaces
+     * (src/worlds/catalogo.js): the light level first, the detailed one on the next frame. Species, buildings and
+     * inhabitants are drawn as one instance, so their white parts take the colour they have on the planet;
+     * animals and people walk in place with the shader modes of the surfaces. Rovers have their own colours. */
+    drawWorldModel(s,e){
+        const R=this.R,V=this.worldViewer??={id:null,levels:[null,null]};
+        if(V.id!==e.id){this.releaseWorldModel();V.id=e.id;V.look=worldLook(e);}
+        const level=!V.levels[1]?1:!V.levels[0]?0:-1;
+        if(level>=0){const m=worldMesh(e,level),id='viewer-world-'+level,size=meshSize(m);R.makeMesh(id,m);V.levels[level]={id,triangles:m.i.length/3,bottom:size.bottom,top:size.top,radius:Math.max(size.radius,(size.top-size.bottom)/2,.05)};if(V.look.tint&&R.makeInstances)R.makeInstances(id+'-i',id,new Float32Array(8));}
+        const m=V.levels[0]||V.levels[1],L=V.look;
+        this.viewerInfo={id:e.id,loading:!V.levels[0],full:V.levels[0]?.triangles??null,low:V.levels[1]?.triangles??null};
+        const k=2.5/Math.hypot(m.radius,(m.top-m.bottom)/2),y0=-k*(m.top+m.bottom)/2,turn=s.craftTurn===false?0:s.time*.12;
+        const light=normal([-.45,.62,.64]),draw={eye:this.eye,light,lightColor:[.95,.92,.86],material:10};
+        if(!L.tint){R.drawMesh(m.id,this.vp,transform(0,y0,0,k,turn),draw);return;}
+        const life=L.form?LIFE[L.form]:null,legs=L.form&&LEGS[L.form]?LEGS[L.form](L.plan):L.legs||0,mode=life?life[0]:L.biped?8:1;
+        const motion=life?(legs?[...life[1].slice(0,3),legs]:life[1]):L.biped?[0,1,0,legs]:[0,0,0,0],pbr=life?life[2]:L.biped?[0,.75,0,0]:[.05,.8,0,4];
+        // Animals and people walk in place; the flyers beat their wings.
+        const heading=mode===8?gaitHeading(turn,L.form==='volatore'?2:1):turn;
+        V.data??=new Float32Array(8);V.data.set([0,y0,0,k,...L.tint,heading]);R.updateInstances(m.id+'-i',V.data);
+        R.drawMesh(m.id,this.vp,IDENTITY,{...draw,instances:m.id+'-i',instanceMode:mode,motion,pbr});
+    }
+    releaseWorldModel(){
+        const R=this.R,V=this.worldViewer;if(!V)return;
+        for(const m of V.levels)if(m){R.deleteInstances?.(m.id+'-i');R.deleteMesh?.(m.id);}
+        V.levels=[null,null];V.id=null;
     }
     /** Release the meshes of the model shown by the 3D catalogue. */
     releaseViewer(){

@@ -8,6 +8,7 @@ import { NavigationMemory } from './scene/navigation.js';
 import { sceneMetadata, planetProfile, PlanetTextures } from './scene/assets.js';
 import { resolveRoute } from './routing.js';
 import { CRAFT, CRAFT_BY_ID, GROUPS, craftList, craftStep, craftCard, craftText } from './craft/registry.js';
+import { worldModels, worldCard, WORLD_GROUPS, WORLD_KINDS } from './worlds/catalogo.js';
 import { CHAIN_STATIONS, chainable, chainStation, chainExercises } from './craft/esercizi-catene.js';
 import { GPU, color, clamp, project, transform, mesh } from './renderer.js';
 import { World, RESEARCH, EDGES, box, FOLLOW_ZOOM, FOLLOW_LIMITS, followFrame, followKey } from './scene/world.js';
@@ -35,7 +36,7 @@ import { openStore, grade } from './store.js';
 import { AUTHOR, LICENCE, CREDIT, LICENCE_ROW } from './licenza.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.68.0-esplorazione';
+const VERSION = '1.69.0-catalogo';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -58,10 +59,15 @@ const navigation = new NavigationMemory(), hover = new HoverTarget();
 const held = new Set();
 let stick = null;
 let hoverPointer = null, touchTarget = null, book = null, passages = [], instrumentSections = {}, expeditionLists = {}, chapterSections = {};
+/** Index of the models of the living worlds (content/worlds/modelli.json) and their entries, built on the first
+ * visit to the catalogue (1.69.0). */
+let worldIndex = null, worldCache = null, worldById = new Map(), itemsCache = ['', []];
 const sectors = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
 const sectorColors = DISCIPLINE;
 /** Colour and label of the construction styles of stations and ships (src/craft/styles.js). */
-const CRAFT_STYLE = { matematica: [DISCIPLINE[0], 'Matematica', '#f2b766'], fisica: [DISCIPLINE[1], 'Fisica', '#7fb2ff'], chimica: [DISCIPLINE[2], 'Chimica', '#b49cff'], biologia: [DISCIPLINE[3], 'Biologia', '#6fd3a0'], civile: [color('#ff9466'), 'Traffico civile', '#ff9466'], difesa: [color('#e8665a'), 'Flotta di difesa', '#e8665a'], minaccia: [color('#ffae5c'), 'Minaccia naturale', '#ffae5c'] };
+const CRAFT_STYLE = { matematica: [DISCIPLINE[0], 'Matematica', '#f2b766'], fisica: [DISCIPLINE[1], 'Fisica', '#7fb2ff'], chimica: [DISCIPLINE[2], 'Chimica', '#b49cff'], biologia: [DISCIPLINE[3], 'Biologia', '#6fd3a0'], civile: [color('#ff9466'), 'Traffico civile', '#ff9466'], difesa: [color('#e8665a'), 'Flotta di difesa', '#e8665a'], minaccia: [color('#ffae5c'), 'Minaccia naturale', '#ffae5c'],
+    // Models of the living worlds in the catalogue (1.69.0).
+    plant: [color('#8fd88a'), 'Piante', '#8fd88a'], animal: [color('#e6b878'), 'Animali', '#e6b878'], fungus: [color('#c9a2e6'), 'Funghi', '#c9a2e6'], sigillato: [color('#cfd8e0'), 'Avamposti sigillati', '#cfd8e0'], simbiotico: [color('#7fd6b0'), 'Insediamenti simbiotici', '#7fd6b0'], adattato: [color('#e0a070'), 'Città adattate', '#e0a070'], villaggio: [color('#d9b46a'), 'Villaggi nativi', '#d9b46a'] };
 const nav = [['galaxy', 'MAPPA'], ['catalogue', 'ARGOMENTI'], ['paths', 'PERCORSI'], ['lab', 'LABORATORI'], ['journal', 'DIARIO']];
 const navGroups = { galaxy: ['galaxy', 'system', 'orbit', 'surface', 'outpost', 'region', 'craft'], catalogue: ['catalogue', 'mission', 'briefing', 'theory', 'pdf', 'quiz', 'sources', 'research', 'pilot', 'libro'], paths: ['paths'], lab: ['lab'], journal: ['journal', 'ship', 'gaia'] };
 const sceneNames = { ship: 'NAVE', gaia: 'NUCLEO DI GAIA', craft: 'CATALOGO DEI MODELLI', outpost: 'MAPPA', region: 'MAPPA', system: 'MAPPA', orbit: 'MAPPA', surface: 'MAPPA', mission: 'UNITÀ', briefing: 'UNITÀ', theory: 'TEORIA', pdf: 'DISPENSA', quiz: 'VERIFICA', sources: 'FONTI', research: 'RICERCA', pilot: 'MISSIONE' };
@@ -822,6 +828,14 @@ function surfaceUI() {
     for (let i = 0; i < 4; i++)
         U.button('station-' + i, mobile ? String(i + 1) : (i + 1) + ' · ' + short[i], 35 + i * (sw + 8), h - 86, sw, 36, () => S.station = i, { active: S.station === i });
 }
+/** Identifier of the model of an exploration entry in the catalogue (1.69.0): the species, or the first
+ * building of the colony or of the village; places have none. */
+function entryModel(e) {
+    const rec = worldIndex?.planets?.[S.selected]; if (!rec || !e) return null;
+    if (e.type === 'species') return `m${S.selected}-${e.data.id}`;
+    if (e.type !== 'settlement') return null;
+    return e.data.kind === 'colonia' ? (rec.t[0] ? `m${S.selected}-c-${rec.t[0]}` : null) : rec.v?.t[0] ? `m${S.selected}-v-${rec.v.t[0]}` : null;
+}
 /** Where the joystick of the explorer is drawn (1.68.0): on phones while the card is closed, and on wide
  * screens once a touch has been seen. */
 function stickZone() {
@@ -904,7 +918,10 @@ function exploreUI(m, mobile) {
         const by = py + ph - 92;
         U.button('explore-prev', '◂', px + 16, by + 20, 44, 36, () => selectEntry(S.exploreEntry - 1)); U.buttons.at(-1).label = 'Voce precedente';
         U.button('explore-next', '▸', px + 66, by + 20, 44, 36, () => selectEntry(S.exploreEntry + 1)); U.buttons.at(-1).label = 'Voce successiva';
-        U.button('explore-register', done ? 'NEL DIARIO ✓' : 'REGISTRA NEL DIARIO', px + 118, by + 20, pw - 134, 36, () => register(e), { active: !done, disabled: done });
+        // The model of the species or of the settlement in the 3D catalogue (1.69.0).
+        const model = entryModel(e);
+        U.button('explore-register', done ? 'NEL DIARIO ✓' : 'REGISTRA NEL DIARIO', px + 118, by + 20, pw - 134 - (model ? 50 : 0), 36, () => register(e), { active: !done, disabled: done });
+        if (model) { U.button('explore-model', '3D', px + pw - 60, by + 20, 44, 36, () => openCraft(model)); U.buttons.at(-1).label = 'Apri il modello 3D di ' + e.data.name + ' nel catalogo'; }
     } else wrapClipText(lifelessReason(W.surface.genome), px + 18, py + 52, pw - 36, 'body', C.pale, 6);
     const sun = W.sunNow, hour = sun ? ` · ore ${String(Math.floor(sun.hour)).padStart(2, '0')}:${String(Math.floor(sun.hour % 1 * 60)).padStart(2, '0')}` : '';
     U.text(`Diario: ${rec.s.length} specie su ${ns} · ${rec.l.length} luoghi su ${np}${hour}`, px + 18, py + ph - 26, 'micro', C.muted);
@@ -1506,10 +1523,33 @@ function regionBlocks(r, tab, x, ww, mobile) {
  * it does in the economy or in the defence. On phones the card sits under the model and the list takes its
  * place on request. */
 const fmtInt = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-function craftEntry() { return CRAFT_BY_ID.get(S.craftModel) || craftList({ system: S.system })[0] || CRAFT[0]; }
-function craftItems() { return craftList({ group: S.craftGroup || 'tutti', system: S.craftScope === 'galassia' ? -1 : craftEntry().system }); }
-/** Opens the catalogue on a model, from the system or from a station or ship of the scene. */
-function openCraft(id = null) { const e = CRAFT_BY_ID.get(id) || craftList({ system: S.system })[0]; Object.assign(S, { craftModel: e.id, craftPage: null, craftScope: 'sistema', craftListOpen: false }); route('craft', { craftModel: e.id }); }
+/** The models of the living worlds (1.69.0): species, buildings, inhabitants and rovers of the 125 planets. */
+function worldList() { if (!worldCache && worldIndex) { worldCache = worldModels(worldIndex); worldById = new Map(worldCache.map(e => [e.id, e])); if (W) W.worldModels = worldById; } return worldCache || []; }
+const isWorldId = id => /^(m\d|colono-|rover-)/.test(String(id || ''));
+const modelById = id => CRAFT_BY_ID.get(id) || (isWorldId(id) ? (worldList(), worldById.get(id)) : null);
+/** The catalogue has two families, each with its groups: stations and ships, models of the living worlds. */
+const FAMILY_GROUPS = { spazio: GROUPS, mondi: [['tutti', 'Tutti'], ...WORLD_GROUPS] };
+const familyOf = () => S.craftFamily || (craftEntry().family === 'mondi' ? 'mondi' : 'spazio');
+const groupIn = fam => FAMILY_GROUPS[fam].some(([g]) => g === S.craftGroup) ? S.craftGroup : 'tutti';
+/** Card of a model of the catalogue: a station or ship, or a model of the living worlds. */
+const modelCard = e => e.family === 'mondi' ? worldCard(e, i => data?.modules[i]?.title || 'pianeta ' + (i + 1)) : craftCard(e);
+const modelKind = e => e.family === 'mondi' ? WORLD_KINDS[e.kind] : craftCard(e).kind;
+function catalogueText(e, levels = null) {
+    if (e.family !== 'mondi') return craftText(e, levels);
+    const c = modelCard(e), tri = levels ? ` Modello di ${levels.full} triangoli, ${levels.low} nella versione semplificata.` : '';
+    return `${c.kind} ${c.title}, ${c.style}. ${c.lines.join('. ')}. ${c.about}${tri}`;
+}
+function craftEntry() { return modelById(S.craftModel) || craftList({ system: S.system })[0] || CRAFT[0]; }
+/** The list of the catalogue: stations, ships and models of the living worlds of the group, in the system of
+ * the model shown or in the whole galaxy. */
+function craftItems() {
+    const fam = familyOf(), g = groupIn(fam), sys = S.craftScope === 'galassia' ? -1 : craftEntry().system, key = [fam, g, sys, worldCache ? 1 : 0].join('|');
+    if (itemsCache[0] !== key) itemsCache = [key, fam === 'spazio' ? craftList({ group: g, system: sys }) : worldList().filter(e => (g === 'tutti' || e.group === g) && (sys < 0 || e.system === sys))];
+    return itemsCache[1];
+}
+/** Opens the catalogue on a model, from the system, from a station or ship of the scene or, for the models of
+ * the living worlds, from the exploration of a planet. */
+function openCraft(id = null) { const e = modelById(id) || craftList({ system: S.system })[0]; Object.assign(S, { craftModel: e.id, craftPage: null, craftScope: 'sistema', craftListOpen: false, craftDrill: null, craftFamily: null, craftGroup: 'tutti' }); route('craft', { craftModel: e.id, ...(e.family === 'mondi' ? { selected: e.planet } : {}) }); }
 function pickCraft(e) { if (!e) return; S.craftModel = e.id; S.craftPage = null; if (S.craftDrill?.id !== e.id) S.craftDrill = null; updateHash(); }
 /** Exercises on a station of the catalogue (1.53.0, src/craft/esercizi-catene.js): the stores are those of the
  * open system when the station is there; they stay fixed while the student answers. */
@@ -1537,12 +1577,13 @@ function drillPanel(D, x, y, w, h, tint, compact) {
 }
 /** Accessible description of the catalogue page: the model, its card and the size of its mesh. */
 function craftPageText() { const e = craftEntry(), info = W.viewerInfo?.id === e.id && W.viewerInfo.full ? W.viewerInfo : null, D = S.craftDrill?.id === e.id && S.craftDrill.list.length ? S.craftDrill : null;
-    let text = 'Catalogo dei modelli: ' + craftItems().length + ' modelli nell’elenco. ' + craftText(e, info);
+    let text = 'Catalogo dei modelli: ' + craftItems().length + ' modelli nell’elenco. ' + catalogueText(e, info);
     if (D) { const x = D.list[clamp(D.i, 0, D.list.length - 1)], pick = D.chosen[D.i]; text += ` Esercizio ${D.i + 1} di ${D.list.length} sulla stazione, ${x.title}. ${x.prompt} Risposte: ${x.options.map((o, k) => 'ABCD'[k] + ', ' + o).join('; ')}.` + (pick === undefined ? '' : ` ${pick === x.correct ? 'Esatto.' : 'La risposta corretta è ' + x.options[x.correct] + '.'} ${x.steps.join(' ')}`); }
     return text; }
 function craftUI() {
-    const w = R.w, h = R.h, mobile = w < 850, e = craftEntry(), card = craftCard(e), canDrill = chainable(e), drill = S.craftDrill?.id === e.id && S.craftDrill.list.length ? S.craftDrill : null, items = craftItems(), [tint] = CRAFT_STYLE[e.style], info = W.viewerInfo?.id === e.id ? W.viewerInfo : null;
+    const w = R.w, h = R.h, mobile = w < 850, e = craftEntry(), card = modelCard(e), world = e.family === 'mondi', canDrill = chainable(e), drill = S.craftDrill?.id === e.id && S.craftDrill.list.length ? S.craftDrill : null, items = craftItems(), [tint] = CRAFT_STYLE[e.style], info = W.viewerInfo?.id === e.id ? W.viewerInfo : null;
     if (S.craftModel !== e.id) S.craftModel = e.id;
+    if (worldCache && W.worldModels !== worldById) W.worldModels = worldById;
     titleShade(); titleFade();
     const kicker = mobile ? AREAS[e.system].name.toUpperCase() : 'GALASSIA ▸ ' + AREAS[e.system].name.toUpperCase() + ' ▸ CATALOGO DEI MODELLI';
     // On phones the exercises take the room of the title of the model.
@@ -1550,13 +1591,16 @@ function craftUI() {
     const tris = info?.full ? `${fmtInt(info.full)} triangoli, ${fmtInt(info.low)} nella versione semplificata` : 'Costruzione del modello in corso';
     // The list: groups, this system or the whole galaxy, then one page of models.
     const listUI = (x, y, lw, lh) => {
-        U.panel(x, y, lw, lh, C.lime, .78); U.tag(`CATALOGO · ${items.length} MODELLI`, x + 18, y + 18, C.lime);
-        const gw = (lw - 36 - 6) / 2; GROUPS.forEach(([id, label], i) => { U.button('craft-group-' + id, label.toUpperCase(), x + 18 + (i % 2) * (gw + 6), y + 42 + Math.floor(i / 2) * 40, gw, 34, () => { S.craftGroup = id; S.craftPage = null; }, { active: (S.craftGroup || 'tutti') === id, small: true }); });
-        [['sistema', mobile ? 'SISTEMA' : 'QUESTO SISTEMA'], ['galassia', mobile ? 'GALASSIA' : 'TUTTA LA GALASSIA']].forEach(([id, label], i) => { U.button('craft-scope-' + id, label, x + 18 + i * (gw + 6), y + 128, gw, 34, () => { S.craftScope = id; S.craftPage = null; }, { active: (S.craftScope || 'sistema') === id, small: true }); U.buttons.at(-1).label = id === 'sistema' ? 'Modelli del sistema ' + AREAS[e.system].name : 'Modelli di tutta la galassia'; });
-        const top = y + 176, rows = Math.max(1, Math.floor((lh - 176 - 52) / 40)), pages = Math.max(1, Math.ceil(items.length / rows)), at = items.indexOf(e);
+        U.panel(x, y, lw, lh, C.lime, .78); U.tag(`${items.length} MODELLI`, x + 18, y + 18, C.lime);
+        // Two families (1.69.0): stations and ships of the systems, models of the living worlds of the planets.
+        const fam = familyOf(), gw = (lw - 36 - 6) / 2, groups = FAMILY_GROUPS[fam], gh = Math.ceil(groups.length / 2) * 40, group = groupIn(fam);
+        [['spazio', 'SPAZIO'], ['mondi', 'MONDI']].forEach(([id, label], i) => { U.button('craft-family-' + id, label, x + lw - 18 - 134 + i * 70, y + 10, 64, 28, () => { S.craftFamily = id; S.craftGroup = 'tutti'; S.craftPage = null; }, { active: fam === id, small: true }); U.buttons.at(-1).label = id === 'spazio' ? 'Stazioni e navi dei sistemi' : 'Specie, edifici, abitanti e rover dei pianeti'; });
+        groups.forEach(([id, label], i) => { U.button('craft-group-' + id, label.toUpperCase(), x + 18 + (i % 2) * (gw + 6), y + 42 + Math.floor(i / 2) * 40, gw, 34, () => { S.craftGroup = id; S.craftPage = null; }, { active: group === id, small: true }); });
+        [['sistema', mobile ? 'SISTEMA' : 'QUESTO SISTEMA'], ['galassia', mobile ? 'GALASSIA' : 'TUTTA LA GALASSIA']].forEach(([id, label], i) => { U.button('craft-scope-' + id, label, x + 18 + i * (gw + 6), y + 48 + gh, gw, 34, () => { S.craftScope = id; S.craftPage = null; }, { active: (S.craftScope || 'sistema') === id, small: true }); U.buttons.at(-1).label = id === 'sistema' ? 'Modelli del sistema ' + AREAS[e.system].name : 'Modelli di tutta la galassia'; });
+        const top = y + 96 + gh, rows = Math.max(1, Math.floor((lh - 96 - gh - 52) / 40)), pages = Math.max(1, Math.ceil(items.length / rows)), at = items.indexOf(e);
         if (S.craftPage === null || S.craftPage === undefined) S.craftPage = at >= 0 ? Math.floor(at / rows) : 0;
         S.craftPage = clamp(S.craftPage, 0, pages - 1);
-        items.slice(S.craftPage * rows, S.craftPage * rows + rows).forEach((m, i) => { U.button('craft-item-' + m.id, m.name, x + 18, top + i * 40, lw - 36, 34, () => { pickCraft(m); if (mobile) S.craftListOpen = false; }, { active: m.id === e.id, small: true }); U.buttons.at(-1).label = m.name + ', ' + craftCard(m).kind.toLowerCase(); });
+        items.slice(S.craftPage * rows, S.craftPage * rows + rows).forEach((m, i) => { U.button('craft-item-' + m.id, m.name, x + 18, top + i * 40, lw - 36, 34, () => { pickCraft(m); if (mobile) S.craftListOpen = false; }, { active: m.id === e.id, small: true }); U.buttons.at(-1).label = m.name + ', ' + modelKind(m).toLowerCase(); });
         const py = y + lh - 46;
         U.button('craft-page-prev', '◂', x + 18, py, 44, 34, () => S.craftPage--, { disabled: S.craftPage <= 0, small: true }); U.buttons.at(-1).label = 'Pagina precedente dell’elenco';
         U.button('craft-page-next', '▸', x + lw - 62, py, 44, 34, () => S.craftPage++, { disabled: S.craftPage >= pages - 1, small: true }); U.buttons.at(-1).label = 'Pagina successiva dell’elenco';
@@ -1575,10 +1619,12 @@ function craftUI() {
         y += 6; const n = U.wrap(card.about, cx + 18, y, cw - 36, C.muted, 19, 5, 'mini'); y += 19 * Math.max(1, n || 1) + 8;
         if (y < 245 + ch - 100) U.wrap(tris, cx + 18, y, cw - 36, C.dim, 17, 2, 'micro');
         const bw = (cw - 42) / 2;
-        U.button('craft-system', 'VAI AL SISTEMA', cx + 16, 245 + ch - 56, bw, 40, () => enterSystem(e.system), { active: true }); U.buttons.at(-1).label = 'Vai al sistema ' + AREAS[e.system].name + ', dove si trova il modello';
+        if (world) { U.button('craft-planet', 'SUL PIANETA', cx + 16, 245 + ch - 56, bw, 40, () => route('surface', { selected: e.planet }), { active: true }); U.buttons.at(-1).label = 'Scendi sulla superficie del pianeta ' + (data.modules[e.planet]?.title || '') + ', dove si trova il modello'; }
+        else { U.button('craft-system', 'VAI AL SISTEMA', cx + 16, 245 + ch - 56, bw, 40, () => enterSystem(e.system), { active: true }); U.buttons.at(-1).label = 'Vai al sistema ' + AREAS[e.system].name + ', dove si trova il modello'; }
         U.button('craft-turn', S.craftTurn === false ? 'RUOTA' : 'FERMA', cx + 26 + bw, 245 + ch - 56, bw, 40, () => S.craftTurn = S.craftTurn === false); U.buttons.at(-1).label = S.craftTurn === false ? 'Fai ruotare il modello' : 'Ferma la rotazione del modello';
         if (canDrill) { U.button('craft-drill', 'ESERCIZI SULLA STAZIONE', cx + 16, 245 + ch - 104, cw - 32, 40, () => openStationDrill(e)); U.buttons.at(-1).label = 'Esercizi di stechiometria e velocità con la ricetta di questa stazione'; } }
-        U.button('back-system', 'TORNA AL SISTEMA', 35, h - 88, 220, 39, () => enterSystem(S.system));
+        if (world) U.button('back-planet', 'TORNA AL PIANETA', 35, h - 88, 220, 39, () => route('orbit', { selected: e.planet }));
+        else U.button('back-system', 'TORNA AL SISTEMA', 35, h - 88, 220, 39, () => enterSystem(S.system));
         const bx = w / 2 - 166;
         U.button('craft-prev', '◂ PRECEDENTE', bx, h - 77, 120, 30, () => step(-1), { small: true }); U.buttons.at(-1).label = 'Modello precedente dell’elenco';
         U.button('craft-zoom-in', '+', bx + 128, h - 77, 34, 30, () => changeZoom(.86)); U.button('craft-zoom-out', '−', bx + 170, h - 77, 34, 30, () => changeZoom(1 / .86));
@@ -1591,9 +1637,9 @@ function craftUI() {
     else if (drill) { drillPanel(drill, 18, 136, pw, h - 136 - 48, tint, true); return; }
     else {
         const ph = short ? 168 : 214, py = h - ph - 100;
-        U.panel(18, py, pw, ph, tint, .84); U.tag(card.kind.toUpperCase() + ' · ' + card.style.toUpperCase(), 36, py + 18, tint);
+        U.panel(18, py, pw, ph, tint, .84); U.tag(world ? card.kind.toUpperCase() : card.kind.toUpperCase() + ' · ' + card.style.toUpperCase(), 36, py + 18, tint);
         // The system line drops the arm on phones; the other lines wrap while there is room above the buttons.
-        let y = py + 42; const end = py + ph - 60, lines = [card.lines[0], 'Sistema ' + AREAS[e.system].name, ...card.lines.slice(2)];
+        let y = py + 42; const end = py + ph - 60, lines = world ? card.lines : [card.lines[0], 'Sistema ' + AREAS[e.system].name, ...card.lines.slice(2)];
         for (const line of lines) { if (y + 17 > end) break; const n = U.wrap(line, 36, y, pw - 36, C.pale, 17, y + 34 <= end ? 2 : 1, 'micro'); y += 17 * Math.max(1, n || 1) + 4; }
         if (y + 21 <= end) U.wrap(card.about, 36, y + 4, pw - 36, C.muted, 17, Math.floor((end - y - 4) / 17), 'micro');
         const n = canDrill ? 4 : 3, bw = (pw - 36 - 6 * (n - 1)) / n;
@@ -1602,7 +1648,7 @@ function craftUI() {
         if (canDrill) { U.button('craft-drill', 'Esercizi', 46 + 2 * bw, py + ph - 52, bw, 38, () => openStationDrill(e), { small: true }); U.buttons.at(-1).label = 'Esercizi di stechiometria e velocità con la ricetta di questa stazione'; }
         U.button('craft-next', '▸', 34 + (n - 1) * (bw + 6), py + ph - 52, bw, 38, () => step(1)); U.buttons.at(-1).label = 'Modello successivo dell’elenco';
     }
-    U.button('back-system', w < 360 ? 'SISTEMA' : 'TORNA AL SISTEMA', 18, h - 88, Math.min(190, w - 154 - 26), 39, () => S.craftListOpen ? S.craftListOpen = false : enterSystem(S.system));
+    U.button(world ? 'back-planet' : 'back-system', w < 360 ? (world ? 'PIANETA' : 'SISTEMA') : world ? 'TORNA AL PIANETA' : 'TORNA AL SISTEMA', 18, h - 88, Math.min(190, w - 154 - 26), 39, () => S.craftListOpen ? S.craftListOpen = false : world ? route('orbit', { selected: e.planet }) : enterSystem(S.system));
     if (S.craftListOpen) U.buttons.at(-1).label = 'Chiudi l’elenco dei modelli';
     U.button('craft-zoom-in', '+', w - 154, h - 77, 34, 30, () => changeZoom(.86)); U.button('craft-zoom-out', '−', w - 112, h - 77, 34, 30, () => changeZoom(1 / .86));
     U.button('craft-turn', S.craftTurn === false ? 'RUOTA' : 'FERMA', w - 70, h - 77, 52, 30, () => S.craftTurn = S.craftTurn === false, { small: true }); U.buttons.at(-1).label = S.craftTurn === false ? 'Fai ruotare il modello' : 'Ferma la rotazione del modello';
@@ -2250,6 +2296,7 @@ async function init() {
         expeditionLists = cleanExpeditionLists(await json('content/atlas/expeditions.json').catch(() => null));
         // Sections of each chapter, which the research outposts count as read.
         chapterSections = cleanChapterSections(await json('content/atlas/chapters.json').catch(() => null));
+        worldIndex = await json('content/worlds/modelli.json').catch(() => null);
         book = new BookReader({
             index: bookIndex.capitoli, fetchText: async path => { const r = await fetch(asset(path)); if (!r.ok) throw Error('Capitolo mancante: ' + path); return r.text(); },
             onClose: () => backToParent(), onUnit: (unit, anchor) => openChapter(unit, anchor),
