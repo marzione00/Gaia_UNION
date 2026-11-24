@@ -30,6 +30,17 @@ export function colonyParams(g, speciesCount = 0) {
     const power = g.family === 'volcanic' ? 'geotermia' : d > .6 ? 'vento' : 'sole';
     return { typology, sealed: typology === 'sigillato', low, tall, cold, hot, volcanic: g.family === 'volcanic', power, gravity: g.gravity, floorsMax: low ? 2 : tall ? 5 : 4, colors: archPalette(g, typology) };
 }
+/** Spec of the building type `type` in the colony of card `g` with parameters P: the same in every colony
+ * plan and in the 3D catalogue (1.69.0), since it depends only on the card and the type. */
+export function colonySpec(g, P, type) { return archSpec(type, dice((g.terrain.seed ^ 0xB11D) + Object.keys(ARCH_TYPES[P.typology]).indexOf(type) * 7919), P); }
+/** Parameters of the village of card `g`: gravity, shape of the huts and colours. The plan of the village
+ * draws the shape of the huts first from its own dice, so it gets the same value. */
+export function villageParams(g) {
+    const d = dice(g.terrain.seed ^ 0x51AE);
+    return { gravity: g.gravity, hutShape: d.chance(.5) ? 'cono' : 'cupola', colors: { roof: rgba(mix(g.palette.pigment, [.62, .5, .3], .55)), dark: rgba(g.palette.rock.map(v => v * .4)), steel: [.5, .45, .4, 1], trim: [.6, .5, .38, 1], accent: rgba(mix(g.palette.pigment, [.9, .3, .2], .5)), glass: [.3, .4, .5, 1], window: [1, .7, .4, 1], soil: rgba(g.palette.rock.map(v => v * .55)) } };
+}
+/** Spec of the village building type `type` on card `g`, as for colonySpec. */
+export function villageSpec(g, P, type) { return buildingSpec(type, dice((g.terrain.seed ^ 0x5EED) + Object.keys(VILLAGE_TYPES).indexOf(type) * 7919), P); }
 /** Number of buildings the colony of a planet aims at: more where the planet is easier to live on. */
 const HOSPITALITY = { terrestrial: 1, oceanic: .85, volcanic: .45, desert: .35, arctic: .35, barren: .15 };
 export const colonyTarget = (g, u) => Math.round(28 + 72 * HOSPITALITY[g.family] * (.75 + .25 * u));
@@ -120,7 +131,9 @@ export const ZONE_NAMES = Object.freeze({ nucleo: 'nucleo abitato', abitativo: '
 const CAPS = { reattore: 1, estrattore: 2, processore: 2, hangar: 2, container: 3, torreviva: 4, antenna: 2, regolatore: 4, ramo: 3, pila: 4 };
 const SECTORS = { 5: ['abitativo', 'agricolo', 'abitativo', 'industriale', 'scientifico'], 6: ['abitativo', 'agricolo', 'abitativo', 'industriale', 'abitativo', 'scientifico'], 7: ['abitativo', 'agricolo', 'abitativo', 'industriale', 'abitativo', 'agricolo', 'scientifico'] };
 const SERVICES = { sigillato: [['piattaforma', 2], ['solare', 3], ['radiatori', 1], ['antenna', 1]], simbiotico: [['foglia', 2], ['regolatore', 2], ['ramo', 1]], adattato: [['piattaforma', 1], ['energia', 2], ['antenna', 1]] };
-const ROLES = [[.86, .46, .16], [.27, .42, .66], [.86, .72, .22], [.9, .9, .88], [.68, .22, .16], [.3, .56, .36]];
+/** Colours of the roles of the colonists and of the buildings of the zones; white parts of the models take them. */
+export const ROLE_COLORS = Object.freeze([[.86, .46, .16], [.27, .42, .66], [.86, .72, .22], [.9, .9, .88], [.68, .22, .16], [.3, .56, .36]]);
+const ROLES = ROLE_COLORS;
 
 /** The colony: a hub at the centre, streets along spokes and rings grown over the flat dry ground, buildings
  * along the streets by zone, services at the edge, inhabitants walking along the streets. */
@@ -154,7 +167,7 @@ export function colonyPlan(s, ops = [], reserve = null) {
     const { placed, streets, edges, types, centre } = plan, dd = plan.d, C = siteChecks(s, placed, streets, reserve);
     function layout(centre, attempt, steep) {
     const d = dice((g.terrain.seed ^ 0xC0105) + 101 * (attempt + 1) + (steep ? 7 : 0)), CUT = steep ? 6 : 3.5, placed = [], streets = [], ops = [], C = siteChecks(s, placed, streets, reserve), W = 2.4, RISE = steep ? .4 : .28;
-    const types = {}, spec = t => (types[t] ||= specs.get(t) || specs.set(t, archSpec(t, dice((g.terrain.seed ^ 0xB11D) + Object.keys(ARCH_TYPES[typ]).indexOf(t) * 7919), P)).get(t)), SQUARE = spec(HUB[typ]).radius + .5;
+    const types = {}, spec = t => (types[t] ||= specs.get(t) || specs.set(t, colonySpec(g, P, t)).get(t)), SQUARE = spec(HUB[typ]).radius + .5;
     // Polar lattice: S spokes from the hub, rings R1 + (i − 1) B apart; on the second and the fourth ring every
     // arc is split in two, so the blocks stay about as long as they are deep.
     const S = d.int(5, 7), T0 = d.range(0, TAU), R1 = SQUARE + d.range(8, 10), B = d.range(14, 17), RINGS = 6, per = i => S * (i >= 4 ? 4 : i >= 2 ? 2 : 1);
@@ -312,8 +325,8 @@ export function villageSite(s) {
 export function villagePlan(s, colony, ops = [], site = villageSite(s)) {
     const g = s.genome, d = dice(g.terrain.seed ^ 0x51AE), sea = s.seaY, placed = [], streets = [], C = siteChecks(s, placed, streets), centre = site;
     if (!centre) return null;
-    const P = { gravity: g.gravity, hutShape: d.chance(.5) ? 'cono' : 'cupola', colors: { roof: rgba(mix(g.palette.pigment, [.62, .5, .3], .55)), dark: rgba(g.palette.rock.map(v => v * .4)), steel: [.5, .45, .4, 1], trim: [.6, .5, .38, 1], accent: rgba(mix(g.palette.pigment, [.9, .3, .2], .5)), glass: [.3, .4, .5, 1], window: [1, .7, .4, 1], soil: rgba(g.palette.rock.map(v => v * .55)) } };
-    const types = {}, spec = t => (types[t] ||= buildingSpec(t, dice((g.terrain.seed ^ 0x5EED) + Object.keys(VILLAGE_TYPES).indexOf(t) * 7919), P));
+    const P = villageParams(g); d.next();
+    const types = {}, spec = t => (types[t] ||= villageSpec(g, P, t));
     const mud = [rgba(mix(g.palette.rock, [.8, .7, .55], .5)), rgba(mix(g.palette.rock, [.6, .45, .3], .4)), rgba(mix(g.palette.rock, [.9, .85, .75], .6))];
     const [cx, cz] = centre, put = (t, x, z, h, tint) => { const sp = spec(t), y = C.level(x, z, sp.radius, null, 2); if (y === null || !C.clearOf(x, z, sp.radius)) return false; placed.push({ type: t, x, y, z, h, s: 1, radius: sp.radius, height: sp.height, tint }); ops.push({ pad: [x, z], y, r: sp.radius + .1, fall: 1.2 }); return true; };
     put('focolare', cx, cz, 0, [1, 1, 1, 1]);

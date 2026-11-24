@@ -1,3 +1,11 @@
+# 1.69.0: Mondi vivi, catalogo dei mondi, collaudo e prestazioni
+
+- Ottava e ultima versione della serie «Mondi vivi». Il catalogo 3D ha una seconda famiglia, «Mondi», con i 2868 modelli delle superfici: 1388 specie, 1201 edifici delle colonie, 200 edifici dei villaggi, 40 popoli nativi, 36 coloni e 3 rover. Con le stazioni e le navi i modelli del catalogo sono 3865.
+- I modelli si scelgono per sistema o in tutta la galassia, con i gruppi «Specie», «Edifici» e «Abitanti e rover». Ogni modello ha il colore che ha sul pianeta, animali e abitanti camminano sul posto. La scheda riporta il pianeta, le misure in metri e una descrizione.
+- Nell'esplorazione il pulsante «3D» apre il modello della specie o dell'insediamento; dal catalogo «Sul pianeta» riporta alla superficie. I modelli dei mondi hanno un indirizzo proprio.
+- Le specifiche degli edifici passano per `colonySpec` e `villageSpec`, comuni alla costruzione degli insediamenti e al catalogo. L'indice `content/worlds/modelli.json` e l'elenco `docs/CATALOGO_MONDI.md` sono generati da `node scripts/catalogo-mondi.mjs`.
+- Documentazione della serie in `docs/MONDI_VIVI.md`, con la mappa dei concetti a terra; prestazioni misurate sui 125 pianeti in `docs/PRESTAZIONI_MONDI.md`, generato da `node scripts/prestazioni-mondi.mjs`. Nuovo `tests/mondi.test.mjs`.
+
 # 1.68.0: Mondi vivi, esplorazione da videogioco
 
 - Settima versione della serie «Mondi vivi». «Esplora il pianeta» mette a terra un esploratore nella tenuta della colonia, seguito da una camera in terza persona. Cammina a 1,4 m/s e corre a 3,6 m/s, sale pendii fino a 35°, guada fino a 0,8 m d'acqua, gira intorno agli edifici e alle stazioni e cammina sulle strade.
