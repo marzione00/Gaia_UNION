@@ -1,30 +1,30 @@
-# Collaudo GAIA 1.66.0
+# Collaudo GAIA 1.67.0
 
-Eseguito il 23 novembre 2026 sul ramo `feat/stile-colonie-20261123`, costruito sopra `main` alla versione 1.65.0 (pull request #71), con Node.js 22.
+Eseguito il 23 novembre 2026 sul ramo `feat/natura-realistica-20261123`, costruito sopra `main` alla versione 1.66.0 (pull request #72), con Node.js 22.
 
 | Controllo | Comando | Risultato |
 |---|---|---:|
-| Test Node | `node --test tests/*.test.mjs` | 714 / 714 |
-| Stile delle colonie | `node --test tests/stile.test.mjs` | 5 / 5 |
-| Riferimenti e risorse | `node scripts/check.mjs` | 4097 / 4097 |
+| Test Node | `node --test tests/*.test.mjs` | 717 / 717 |
+| Natura e popoli nativi | `node --test tests/natura.test.mjs` | 3 / 3 |
+| Riferimenti e risorse | `node scripts/check.mjs` | 4102 / 4102 |
 | Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 314 controlli |
 | Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 283 controlli |
 | Atlante in Chromium | `python3 tools/qa_atlas_browser.py --root dist` | 23 controlli, 125 pianeti esplorabili, nessun errore WebGL |
-| Superfici in Chromium | colonie dei pianeti 25, 7 e 70 a 1280 × 800, dall'alto, a livello strada, in esplorazione e di notte; pianeta 7 a 390 × 844 | edifici delle tre tipologie, condotte e lampioni lungo le strade, luci accese di notte; sul telefono la colonia resta sopra il pannello del diario; nessun errore di pagina |
+| Superfici in Chromium | pianeti 7 e 1 a 1280 × 800: piante, animali, villaggio e abitanti, confrontati con la 1.66.0; pianeta 7 a 390 × 844 | alberi con rami e chiome, mandria di pascolatori, villaggio con capanne, granaio, fuoco, totem e abitanti che camminano; sul telefono la scena resta sopra il pannello; nessun errore di pagina |
 
 Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`.
 
-La versione ridisegna le colonie in tre tipologie scelte dalla carta, con edifici nel linguaggio delle stazioni, pianta a raggiera e coloni nuovi; è descritta nella sezione «Stile delle colonie» di `docs/GRAPHICS.md` e nella guida `docs/STILE_COLONIE.md`. Prima di estenderla a tutti i pianeti, una prova sulle colonie dei pianeti 25, 7 e 70 è stata confrontata con la 1.64.0 e approvata.
+La versione ricostruisce le maglie delle 1388 specie, dei popoli nativi e degli edifici dei villaggi come superfici lisce; è descritta nella sezione «Natura e popoli nativi» di `docs/GRAPHICS.md`.
 
-Collaudo precedente, 1.65.0 (23 novembre 2026, ramo `feat/mondi-vivi-ecosistemi-20261123`): 709 test Node, 4089 controlli di riferimenti e risorse, 314 controlli HTTP, 283 flussi applicativi, 23 controlli dell'atlante; mandria, stormo, crepuscolo e notte del pianeta 7 in Chromium senza errori.
+Collaudo precedente, 1.66.0 (23 novembre 2026, ramo `feat/stile-colonie-20261123`): 714 test Node, 4097 controlli di riferimenti e risorse, 314 controlli HTTP, 283 flussi applicativi, 23 controlli dell'atlante; colonie dei pianeti 25, 7 e 70 in Chromium senza errori.
 
 ## Integrazione continua
 
-Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle risorse, build, verifiche HTTP, interazioni reali dell’atlante e pubblicazione su GitHub Pages. Dal 22 novembre 2026, dopo la pull request #66, le pull request non avviano più il workflow, per ridurre il consumo di GitHub Actions. Ogni versione è collaudata in locale con gli stessi comandi prima di aprire la pull request, e l'esecuzione su `main` dopo l'unione resta la condizione per pubblicare. Il passo finale scarica dal sito pubblico `build-info.json` e il curriculum e verifica che corrispondano al commit appena pubblicato e ai corsi del curriculum, 125 dalla 1.26.0. L'ultima esecuzione su `main`, per l'unione della pull request #71 (`63feea2`), è riuscita, con la verifica del sito pubblicato.
+Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle risorse, build, verifiche HTTP, interazioni reali dell’atlante e pubblicazione su GitHub Pages. Dal 22 novembre 2026, dopo la pull request #66, le pull request non avviano più il workflow, per ridurre il consumo di GitHub Actions. Ogni versione è collaudata in locale con gli stessi comandi prima di aprire la pull request, e l'esecuzione su `main` dopo l'unione resta la condizione per pubblicare. Il passo finale scarica dal sito pubblico `build-info.json` e il curriculum e verifica che corrispondano al commit appena pubblicato e ai corsi del curriculum, 125 dalla 1.26.0. L'ultima esecuzione su `main`, per l'unione della pull request #72 (`3de12af`), è riuscita, con la verifica del sito pubblicato.
 
 ## Controllo del repository
 
-- `main` ha un solo commit radice. Dei 75 rami presenti su GitHub con quello di questo collaudo, 74 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
+- `main` ha un solo commit radice. Dei 76 rami presenti su GitHub con quello di questo collaudo, 75 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
 - Nessuna pull request o segnalazione aperta.
 - Gli autori dei commit usano indirizzi noreply, di GitHub e di Anthropic.
 - Due esecuzioni fallite nella storia di `main`, entrambe superate dai commit successivi: il primo tentativo di pubblicazione (`bacea5c`, errore in `configure-pages`) e l’unione della pull request #5 (`1d6c911`, verifica del sito pubblicato con un numero di versione fisso, corretta in `b7dc1e8`).

@@ -363,7 +363,7 @@ function villageText(g, v, species) {
     const plants = species.filter(s => s.kind === 'plant'), trees = plants.filter(s => s.form === 'albero' || s.form === 'canneto'), grazers = species.filter(s => s.role === 'erbivoro' && s.form !== 'volatore');
     const huts = (v.counts.capanna || 0) + (v.counts.casalunga || 0), B = v.body, thatch = plants.find(s => s.form === 'ciuffo' || s.form === 'felce') || plants[0], wood = trees[0] || plants[1] || plants[0];
     const parts = [`${v.name}: ${huts} abitazioni e ${v.walkers.length} abitanti del popolo ${v.people}, intorno al fuoco.`];
-    parts.push(`Camminano su due gambe, con ${B.arms === 4 ? 'quattro braccia' : 'due braccia'}${B.tail ? ' e una coda che bilancia il corpo' : ''}. Con una gravità di ${comma(g.gravity)} g sono alti circa ${comma(B.height / 1.1 * 1.75, 1)} m, se un colono misura 1,75 m.`);
+    parts.push(`Camminano su due gambe appoggiando a terra solo le dita, come i cani e i gatti, con ${B.arms === 4 ? 'quattro braccia' : 'due braccia'}${B.tail ? ' e una coda che bilancia il corpo' : ''}. Con una gravità di ${comma(g.gravity)} g sono alti circa ${comma(B.height / 1.1 * 1.75, 1)} m, se un colono misura 1,75 m.`);
     parts.push(`I tetti sono di foglie di ${thatch.name}${wood && wood !== thatch ? `, i pali di ${wood.name}` : ''}: materiali del luogo, come nelle capanne della Terra.`);
     if (grazers.length) parts.push(`Allevano ${grazers[0].name} e conservano le scorte nei granai, sollevati da terra.`);
     if (v.water !== null) parts.push(`L’acqua è a circa ${Math.round(v.water / 5) * 5} unità: un sentiero la raggiunge dal fuoco.`);
