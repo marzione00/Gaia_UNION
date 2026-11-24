@@ -28,9 +28,10 @@ void main(){vec3 vertex=aPos,normal=aNormal;vec4 color=aColor;if(uMaterial==10&&
    if(uMotion.w>0.)vertex.x+=sin(d*5.+(vertex.z>0.?0.:3.1416))*max(uMotion.w-vertex.y,0.)*.6;
    if(t>.5)a+=3.1416;}
   // 8: animals placed by the ecosystem (1.65.0). The heading carries the gait, seven units apart: 0 standing,
-  // 1 walking, 2 running or flying; legs below uMotion.w swing and wings beat where uMotion.z is set.
+  // 1 walking, 2 running or flying; legs below uMotion.w swing and wings beat where uMotion.z is set. Where
+  // uMotion.y is 1 the body is a biped, the explorer of 1.68.0, and each leg swings as one piece.
   if(uInstanced==8){float k=floor(a/7.);a-=k*7.;float g=min(k,2.)*.5,ph=uTime*(5.+6.*g)+fract(a*3.7)*6.283;base.y+=abs(sin(ph))*.05*min(g*2.,1.)*(1.-uMotion.z);
-   if(uMotion.w>0.)vertex.x+=sin(ph+(vertex.z>0.?0.:3.1416)+(vertex.x>0.?3.1416:0.))*max(uMotion.w-vertex.y,0.)*.45*min(g*2.,1.);
+   if(uMotion.w>0.)vertex.x+=sin(ph+(vertex.z>0.?0.:3.1416)+(uMotion.y>.5?0.:(vertex.x>0.?3.1416:0.)))*max(uMotion.w-vertex.y,0.)*.45*min(g*2.,1.);
    if(uMotion.z>0.)vertex.y+=sin(uTime*7.+a*5.)*max(abs(vertex.z)-.12,0.)*.7*step(.9,g);}
   if(uInstanced==4){float w=uTime*uMotion.x*(.7+.6*fract(a*7.13))+a;base.x+=cos(w)*uMotion.y;base.z+=sin(w)*uMotion.y;base.y+=sin(w*2.+a)*.8;vertex.y+=sin(uTime*7.+a*5.)*max(abs(vertex.z)-.12,0.)*.7;a=atan(-cos(w),-sin(w));}
   // 5: ships and stations of the systems; the second vector is the heading (the +z of the model), y stays up.

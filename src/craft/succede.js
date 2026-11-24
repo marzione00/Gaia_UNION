@@ -21,7 +21,8 @@ export const CONCEPT_UNITS = Object.freeze({
     'chemistry-15': 'Resa e bilanci di materia',
     'chemistry-17': 'Velocità di reazione',
 });
-/** Units quoted only by the panel on the ground (1.65.0), besides physics-02 and physics-03. */
+/** Units quoted only by the panel on the ground (1.65.0), besides physics-02, physics-03 and, for the jump of
+ * the explorer (1.68.0), physics-04. */
 export const GROUND_UNITS = Object.freeze({
     'biology-20': 'Fotosintesi e luce di altre stelle',
     'math-c10': 'Combinatoria, probabilità e statistica',
@@ -238,6 +239,13 @@ function ground(x) {
     if (x.kind === 'deriva') {
         const v = Math.hypot(x.wind[0], x.wind[1]), rows = [['Individui', String(x.n)], ['Che cosa fa', STATES.deriva], ['Vento, componente est', speed(x.wind[0])], ['Vento, componente nord', speed(x.wind[1])], ['Velocità', speed(v)]];
         return head('COLONIA GALLEGGIANTE', rows, concept('physics-02', `La vela riceve la spinta del vento e la colonia si muove con la sua velocità, un vettore con componenti ${dec(x.wind[0], 2)} e ${dec(x.wind[1], 2)} u/s. Il modulo è la radice della somma dei quadrati: √(${signed(x.wind[0])}² + ${signed(x.wind[1])}²) = ${dec(v, 2)} u/s. Quando la colonia arriva alla riva il vento gira e la riporta al largo.`));
+    }
+    if (x.kind === 'salto') {
+        // The jump of the explorer (1.68.0): the same push gives a height inversely proportional to the gravity.
+        const a = x.gravity * x.g0, h = x.speed * x.speed / (2 * a), t = 2 * x.speed / a, ratio = x.earth / h;
+        const rows = [['Gravità', `${dec(x.gravity, 2)} g, ${dec(a, 2)} m/s²`], ['Velocità di stacco', dec(x.speed, 1) + ' m/s'], ['Altezza del salto', dec(h * 100, 0) + ' cm'], ['Sulla Terra', dec(x.earth * 100, 0) + ' cm'], ['Tempo di volo', dec(t, 2) + ' s'], ['Ultimo salto misurato', x.last > 0 ? dec(x.last * 100, 0) + ' cm' : 'nessuno, premi SALTA'], ['Salti fatti qui', String(x.jumps)]];
+        const compare = Math.abs(1 / ratio - 1) < .02 ? 'uguale a quella terrestre' : `${dec(1 / ratio, 2)} volte quella terrestre`;
+        return head('SALTO', rows, concept('physics-04', `L'esploratore lascia il suolo a ${dec(x.speed, 1)} m/s e la gravità del pianeta gli toglie ${dec(a, 2)} m/s di velocità ogni secondo. Sale per v/a = ${dec(x.speed / a, 2)} s fino a h = v²/(2a) = ${dec(x.speed, 1)}²/(2 · ${dec(a, 2)}) = ${dec(h, 2)} m, poi ricade nello stesso tempo. Con la stessa spinta l'altezza va come 1/g: qui è ${compare}.`));
     }
     // The sun of the landing site.
     const h = Math.max(0, x.height), share = Math.sin(h * Math.PI / 180), rows = [['Ora locale', clock(x.hour)], ['Durata del giorno', dec(x.hours, 1) + ' ore'], ['Altezza del sole', dec(x.height, 0) + '°'], ['Latitudine del sito', dec(Math.abs(x.lat), 0) + '° ' + (x.lat >= 0 ? 'nord' : 'sud')], ['Luce sul suolo', x.height > 0 ? dec(share * 100, 0) + ' % del sole allo zenit' : 'notte']];

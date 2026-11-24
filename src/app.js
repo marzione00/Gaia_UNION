@@ -12,6 +12,7 @@ import { CHAIN_STATIONS, chainable, chainStation, chainExercises } from './craft
 import { GPU, color, clamp, project, transform, mesh } from './renderer.js';
 import { World, RESEARCH, EDGES, box, FOLLOW_ZOOM, FOLLOW_LIMITS, followFrame, followKey } from './scene/world.js';
 import { whatHappens } from './craft/succede.js';
+import { newExplorer, stepExplorer, toggleRover, travelTo, freeSpot, jumpOf, forward as aheadOf, METRE, G0, JUMP } from './worlds/explorer.js';
 import { UI, C, T, ImageCache, caseLabel, DISCIPLINE, fmtNum } from './ui/toolkit.js';
 import { FrameMeter, diagnosticLines, mountDiagnostics } from './ui/diagnostics.js';
 import { DOCUMENTS, docOf, docKey, printedLabel } from './documents.js';
@@ -34,7 +35,7 @@ import { openStore, grade } from './store.js';
 import { AUTHOR, LICENCE, CREDIT, LICENCE_ROW } from './licenza.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.67.0-natura';
+const VERSION = '1.68.0-esplorazione';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -53,6 +54,9 @@ function openCourse(id,stage=null){const m=moduleById(id);if(!m)return;selectInd
 function openExternal(url){if(!education.bundle.sources.some(s=>s.url===url))throw Error('Fonte non registrata');window.open(url,'_blank','noopener,noreferrer');}
 let R, U, W, cache, data, lessons, questions, readerIndex, textureManifest, worlds = { worlds: [] }, raf, prevTime = 0, pointer = null, activeSlider = null, semanticSignature = '', textSignature = '', frameCount = 0, worker = null, meter = new FrameMeter(), diagnosticPanel = null, diagnosticTime = 0;
 const navigation = new NavigationMemory(), hover = new HoverTarget();
+/** Keys held down and the joystick of phones (1.68.0), for the explorer on the ground. */
+const held = new Set();
+let stick = null;
 let hoverPointer = null, touchTarget = null, book = null, passages = [], instrumentSections = {}, expeditionLists = {}, chapterSections = {};
 const sectors = ['Matematica', 'Fisica', 'Chimica', 'Biologia'];
 const sectorColors = DISCIPLINE;
@@ -80,7 +84,7 @@ function route(scene, extra = {}) {
     }
     const moved = navigation.move(S, scene, extra);
     // Exploration belongs to one surface: leaving it starts the next visit from the stations.
-    if (moved.from !== moved.to && !extra.explore) Object.assign(S, { explore: false, exploreEntry: 0, exploreTrait: 0, exploreFocus: null, exploreGoal: null, exploreBlend: 0 });
+    if (moved.from !== moved.to && !extra.explore) { saveExplorer(); Object.assign(S, { explore: false, exploreEntry: 0, exploreTrait: 0, exploreFocus: null, exploreGoal: null, exploreBlend: 0, avatar: null, scanTarget: null, scanInfo: null }); held.clear(); stick = null; }
     // The physical card belongs to one orbit view: any other view closes it.
     if (moved.from !== moved.to) Object.assign(S, { physicsFor: null, physicsPage: 0, follow: null, followZoom: null });
     if(scene==='orbit')S.reader=selected().id;
@@ -282,14 +286,22 @@ function exploreEntries() {
 }
 const exploreRecord = index => store.data.explore[String(index)] || { s: [], l: [] };
 const isRegistered = (e, rec) => (e.type === 'species' ? rec.s : rec.l).includes(e.id);
+/** Selects entry `i`. With `fly` the explorer reaches it by a quick travel (1.68.0): it stops a few units
+ * before it, on free ground, and the camera flies there. */
 function selectEntry(i, fly = true) {
     const list = exploreEntries(); if (!list.length) return;
     S.exploreEntry = ((i % list.length) + list.length) % list.length; S.exploreTrait = 0;
-    const e = list[S.exploreEntry]; if (fly && e.at) S.exploreGoal = [e.at[0], e.at[2]];
+    const e = list[S.exploreEntry]; if (!fly || !e.at) return;
+    const env = W.explorerEnv?.(); if (S.avatar && env) { travelTo(S.avatar, e.at[0], e.at[2], env); S.exploreGoal = null; S.chaseYaw = S.yaw; } else S.exploreGoal = [e.at[0], e.at[2]];
 }
-function selectTarget(t) { const k = exploreEntries().findIndex(e => e.type === t.type && e.index === t.index); if (k >= 0) selectEntry(k); }
-function startExplore() { S.explore = true; S.exploreGoal = null; updateHash(); }
-function stopExplore() { S.explore = false; S.groundFollow = null; updateHash(); }
+/** A marker or a species picked on the screen: the explorer walks (or drives) there. */
+function selectTarget(t) {
+    const list = exploreEntries(), k = list.findIndex(e => e.type === t.type && e.index === t.index); if (k < 0) return;
+    if (!S.avatar) { selectEntry(k); return; }
+    selectEntry(k, false); const at = list[k].at; if (at) { S.exploreGoal = [at[0], at[2]]; S.exploreStop = t.type === 'settlement' ? 6 : 4; }
+}
+function startExplore() { S.explore = true; S.exploreGoal = null; S.exploreCard = R.w >= 850; updateHash(); }
+function stopExplore() { saveExplorer(); S.explore = false; S.groundFollow = null; held.clear(); stick = null; updateHash(); }
 function register(e) {
     const key = String(S.selected), rec = store.data.explore[key] ||= { s: [], l: [] }, list = e.type === 'species' ? rec.s : rec.l;
     if (list.includes(e.id)) return;
@@ -302,20 +314,80 @@ function exploreTick() {
     const k = S.paused ? 1 : Math.min(1, (S.lastFrameMs || 16) / 380), want = S.explore ? 1 : 0, b = S.exploreBlend || 0;
     S.exploreBlend = Math.abs(want - b) < .003 ? want : b + (want - b) * k;
     if (!S.explore) { S.exploreTarget = null; if (!S.exploreBlend) { S.exploreFocus = null; S.exploreGoal = null; } return; }
-    // A new exploration (button or link) starts from the station view and flies to the current entry.
-    if (!S.exploreGoal) { if (!exploreReady()) return; S.exploreFocus ||= R.w < 850 ? [-4, 8] : [2, 2]; S.exploreGoal = [...S.exploreFocus]; selectEntry(S.exploreEntry); }
-    // While «Che cosa succede» follows a group of animals (1.65.0) the camera keeps it in view.
-    if (S.groundFollow && Number.isInteger(S.groundFollow.k)) { const c = W.liveCentre(S.groundFollow.k); if (c) S.exploreGoal = [c[0], c[2]]; }
-    S.exploreFocus = S.exploreFocus.map((v, i) => v + (S.exploreGoal[i] - v) * k);
+    const env = exploreReady() ? W.explorerEnv() : null; if (!env) return;
+    // A new exploration (button or link) puts the explorer beside the stations, facing the current entry.
+    if (!S.avatar || S.avatar.planet !== S.selected) startAvatar(env);
+    const A = S.avatar, dt = Math.min(.1, (S.lastFrameMs || 16) / 1000), key = c => held.has(c);
+    const fwd = (key('w') || key('arrowup') ? 1 : 0) - (key('s') || key('arrowdown') ? 1 : 0), turn = (key('a') || key('arrowleft') ? 1 : 0) - (key('d') || key('arrowright') ? 1 : 0);
+    const input = { forward: fwd, turn, run: key('shift'), jump: !!S.jumpAsk }; S.jumpAsk = false;
+    // The joystick points where to go on the screen, from the view at the moment it was touched.
+    if (stick && stick.push > .12) { input.heading = stick.view + Math.atan2(-stick.v[0], -stick.v[1]); input.push = stick.push; }
+    if (fwd || turn || input.heading !== undefined) S.exploreGoal = null;
+    // While «Che cosa succede» follows a group of animals (1.65.0) the explorer walks up to 10 units from it.
+    else if (S.groundFollow && Number.isInteger(S.groundFollow.k)) { const c = W.liveCentre(S.groundFollow.k); if (c) { S.exploreGoal = [c[0], c[2]]; S.exploreStop = 10; } }
+    if (S.exploreGoal) { input.goal = S.exploreGoal; input.stop = S.exploreStop; }
+    const ev = stepExplorer(A, input, dt, env);
+    if (ev.includes('arrivato') && !S.groundFollow) S.exploreGoal = null;
+    if (ev.includes('fermo') && S.exploreGoal && !S.groundFollow) { S.exploreGoal = null; say('Il passaggio è chiuso: aggira l’ostacolo.'); }
+    // The camera follows the explorer closely and glides after a quick travel; it turns back behind it while
+    // it moves, unless the view is being dragged.
+    const far = Math.hypot(S.exploreFocus[0] - A.x, S.exploreFocus[1] - A.z) > 6, kf = far ? k : Math.min(1, dt / .08);
+    S.exploreFocus = [S.exploreFocus[0] + (A.x - S.exploreFocus[0]) * kf, S.exploreFocus[1] + (A.z - S.exploreFocus[1]) * kf];
+    if (Math.abs(A.speed) > .05 && !pointer?.moved) S.yaw += (S.chaseYaw - S.yaw) * Math.min(1, dt * 1.2);
+    S.chaseOrbit = S.yaw - S.chaseYaw;
+    if (S.scanInfo) S.scanInfo = { ...S.scanInfo, ...bearing(A, S.scanTarget) };
+    if (Date.now() - (A.savedAt || 0) > 8000) saveExplorer();
     const e = exploreEntries()[S.exploreEntry]; S.exploreTarget = e ? { type: e.type, index: e.index } : null;
+}
+/** A new explorer on free ground next to the station view, facing the current entry, with the totals of the
+ * diary of the planet. */
+function startAvatar(env) {
+    const f = S.exploreFocus || (R.w < 850 ? [-4, 8] : [2, 2]), spot = freeSpot(f[0], f[1], env) || f, e = exploreEntries()[S.exploreEntry];
+    const h = e?.at ? Math.atan2(-(e.at[2] - spot[1]), e.at[0] - spot[0]) : 0, A = S.avatar = newExplorer(spot[0], spot[1], h, env);
+    A.planet = S.selected; A.base = { w: 0, d: 0, j: 0, n: 0, ...exploreRecord(S.selected).p }; A.savedAt = Date.now();
+    S.exploreFocus = [...f]; S.chaseYaw = S.yaw; S.exploreGoal = null; S.scanTarget = null; S.scanInfo = null;
+}
+/** Totals of the explorer on the planet for the diary: metres walked and driven, best jump, jumps. */
+function explorerTotals(A = S.avatar) {
+    if (!A) return null; const b = A.base;
+    return { w: b.w + Math.round(A.walked), d: b.d + Math.round(A.driven), j: Math.max(b.j, Math.round(A.best * 100)), n: b.n + A.jumps };
+}
+/** Writes the totals of the explorer into the diary, when they changed. */
+function saveExplorer() {
+    const A = S.avatar, p = explorerTotals(A); if (!p) return; A.savedAt = Date.now();
+    if (p.w + p.d + p.n === 0) return;
+    const rec = store.data.explore[String(A.planet)] ||= { s: [], l: [] }, old = rec.p;
+    if (old && old.w === p.w && old.d === p.d && old.j === p.j && old.n === p.n) return;
+    rec.p = p; store.save();
+}
+/** Distance in metres and direction, relative to the heading of the explorer, of the point q. */
+function bearing(A, q) {
+    if (!q) return {}; const dx = q[0] - A.x, dz = q[2] - A.z, d = Math.hypot(dx, dz), [fx, fz] = aheadOf(A.h), ahead = (dx * fx + dz * fz) / (d || 1), left = (dx * fz - dz * fx) / (d || 1);
+    const side = left > .38 ? 'a sinistra' : left < -.38 ? 'a destra' : '', front = ahead > .38 ? 'davanti' : ahead < -.38 ? 'dietro' : '';
+    return { metres: d / METRE, where: d < 2 ? 'qui' : [front, side].filter(Boolean).join(' ') || 'qui vicino' };
+}
+/** The scanner (1.68.0): the nearest species, place or settlement within 25 units of the explorer is
+ * selected and written in the diary, with its distance and direction. */
+function scan() {
+    const A = S.avatar; if (!A) return;
+    const near = W.nearest([A.x, A.y, A.z], 25);
+    if (!near) { S.scanTarget = null; S.scanInfo = { name: null }; say('Scanner: nulla entro circa 40 metri.'); return; }
+    const list = exploreEntries(), k = list.findIndex(e => e.type === near.type && e.index === near.index); if (k < 0) return;
+    const e = list[k], pop = W.population?.[near.index], closest = near.type === 'species' && pop ? pop.instances.reduce((b, o) => Math.hypot(o.x - A.x, o.z - A.z) < Math.hypot(b.x - A.x, b.z - A.z) ? o : b, pop.instances[0]) : null;
+    const at = closest && e.data.kind !== 'animal' ? [closest.x, closest.y, closest.z] : e.at;
+    selectEntry(k, false); S.scanTarget = at; S.scanInfo = { name: e.data.name, type: e.type, ...bearing(A, at) };
+    const fresh = !isRegistered(e, exploreRecord(S.selected)); register(e);
+    if (!fresh) say(`Scanner: ${e.data.name}, già nel diario.`);
+}
+/** Boards or leaves the rover. */
+function roverToggle() {
+    const A = S.avatar, env = W.explorerEnv?.(); if (!A || !env) return;
+    const was = A.mode; if (toggleRover(A, env)) { S.exploreGoal = null; say(was === 'rover' ? 'A piedi.' : 'Alla guida del rover.'); }
+    else say(was === 'rover' ? 'Non c’è spazio per scendere qui.' : 'Il rover è lontano: avvicinati a meno di 9,5 metri.');
 }
 /** «Che cosa succede» on the ground (1.65.0): a group of animals of species `k`, or the sun when `k` is null. */
 function followGround(k) { S.groundFollow = { k }; S.followPage = 'numeri'; S.followTab = null; }
 function stopGround() { S.groundFollow = null; }
-function moveExplore(forward, right) {
-    const a = .6 + S.yaw * .5, f = [-Math.sin(a), -Math.cos(a)], r = [-f[1], f[0]];
-    S.exploreGoal = (S.exploreGoal || [2, 2]).map((v, i) => clamp(v + (f[i] * forward + r[i] * right) * 6, -85, 85));
-}
 function worldPanel(m, mobile) {
     const pw = pilotWorld(m.id), entry = worldEntry(m.id), st = S.worldState; if (!pw || !entry || !st) return;
     const w = R.w, tint = sectorColors[m.sector], controls = modelDescriptor(m.id).controls.map(c => ({ ...c, id: 'world-param-' + c.key, get: () => worldSession.params[m.id][c.key], set: v => { worldSession.params[m.id] = { ...worldSession.params[m.id], [c.key]: v }; } }));
@@ -750,15 +822,71 @@ function surfaceUI() {
     for (let i = 0; i < 4; i++)
         U.button('station-' + i, mobile ? String(i + 1) : (i + 1) + ' · ' + short[i], 35 + i * (sw + 8), h - 86, sw, 36, () => S.station = i, { active: S.station === i });
 }
+/** Where the joystick of the explorer is drawn (1.68.0): on phones while the card is closed, and on wide
+ * screens once a touch has been seen. */
+function stickZone() {
+    if (S.scene !== 'surface' || !S.explore || !S.avatar) return null;
+    const mobile = R.w < 850; if (mobile ? S.exploreCard || S.groundFollow : !S.touch) return null;
+    return mobile ? { x: 92, y: R.h - 196, r: 56 } : { x: 95, y: R.h - 340, r: 56 };
+}
+function moveStick(x, y) { const z = stickZone(); if (!z || !stick) return; let dx = (x - z.x) / z.r, dy = (y - z.y) / z.r; const m = Math.hypot(dx, dy); if (m > 1) { dx /= m; dy /= m; } stick.v = [dx, dy]; stick.push = Math.min(1, m); }
+/** The subject «Che cosa succede» of the jump of the explorer (src/craft/succede.js). */
+function jumpSubject() {
+    const A = S.avatar, g = W.surface?.genome?.gravity; if (!A || !g) return null;
+    return { ground: true, kind: 'salto', name: 'Il salto dell’esploratore', label: 'Stessa spinta, gravità diversa', gravity: g, g0: G0, speed: JUMP, earth: JUMP * JUMP / (2 * G0), last: A.last, jumps: A.jumps };
+}
+/** Lines of the explorer: how it moves, its jump against the Earth's, the scanner and the walk to a goal. */
+function explorerLines(mobile) {
+    const A = S.avatar, J = jumpOf(W.surface.genome.gravity), one = v => v.toFixed(1).replace('.', ','), cm = v => Math.round(v * 100) + ' cm', v = Math.abs(A.speed) / METRE;
+    const how = A.mode === 'rover' ? 'Rover' : !A.grounded ? 'In salto' : v > 2.5 ? 'Di corsa' : v > .05 ? 'A piedi' : 'Fermo';
+    const jump = A.mode === 'rover' ? 'Per saltare scendi dal rover' : `Salto ${cm(J.height)}, sulla Terra ${cm(J.earth)}` + (A.last > 0 ? ` · ultimo ${cm(A.last)}` : '');
+    const I = S.scanInfo, scanner = I ? I.name ? `Scanner: ${I.name}, ${Math.round(I.metres)} m ${I.where}` : 'Scanner: nulla entro circa 40 metri' : mobile ? 'Scanner: tocca SCANNER vicino a specie e luoghi' : 'Scanner: premi F vicino a specie e luoghi';
+    const goal = S.exploreGoal ? `Verso la meta: ${Math.round(Math.hypot(S.exploreGoal[0] - A.x, S.exploreGoal[1] - A.z) / METRE)} m` : null;
+    return { tag: 'Esploratore · ' + (A.mode === 'rover' ? 'rover' : 'a piedi'), motion: `${how} · ${one(v)} m/s · gravità ${W.surface.genome.gravity.toFixed(2).replace('.', ',')} g`, jump, scanner, goal };
+}
+/** The explorer on the ground (1.68.0): its numbers, the jump, rover and scanner buttons and, on phones, the
+ * joystick. On phones the card of the entry closes to show them. */
+function explorerHUD(mobile, card, tint) {
+    const A = S.avatar; if (!A || !W.surface?.genome) return;
+    const w = R.w, h = R.h, L = explorerLines(mobile), rover = A.mode === 'rover';
+    const jump = (x, y, bw, bh, small) => { U.button('explore-jump', 'SALTA', x, y, bw, bh, () => { S.jumpAsk = true; }, { active: !rover, small, disabled: rover }); U.buttons.at(-1).label = 'Salta con la gravità del pianeta'; };
+    if (!mobile) {
+        const x = 35, hw = Math.min(420, w - 35 - 353 - 24), y = h - 262, bw = (hw - 36 - 24) / 4;
+        U.panel(x, y, hw, 134, tint, .84); U.tag(L.tag, x + 18, y + 16, C.lime);
+        wrapClipText(L.motion, x + 18, y + 36, hw - 36, 'micro', C.pale, 1); wrapClipText(L.goal || L.jump, x + 18, y + 54, hw - 36, 'micro', C.pale, 1); wrapClipText(L.scanner, x + 18, y + 72, hw - 36, 'micro', S.scanInfo?.name ? C.lime : C.muted, 1);
+        jump(x + 16, y + 94, bw, 30, true);
+        U.button('explore-rover', rover ? 'SCENDI' : 'ROVER', x + 16 + (bw + 8), y + 94, bw, 30, roverToggle, { small: true }); U.buttons.at(-1).label = rover ? 'Scendi dal rover' : 'Sali sul rover';
+        U.button('explore-scan', 'SCANNER', x + 16 + 2 * (bw + 8), y + 94, bw, 30, scan, { small: true }); U.buttons.at(-1).label = 'Scanner: registra nel diario la specie o il luogo più vicino';
+        U.button('explore-physics', 'FISICA', x + 16 + 3 * (bw + 8), y + 94, bw, 30, () => followGround('salto'), { small: true }); U.buttons.at(-1).label = 'La fisica del salto su questo pianeta';
+    } else if (!card) {
+        const y = 196; U.panel(18, y, w - 36, 74, tint, .84); U.tag(L.tag, 36, y + 14, C.lime);
+        wrapClipText(L.motion, 36, y + 32, w - 72, 'micro', C.pale, 1); wrapClipText(S.scanInfo || !L.goal ? L.scanner : L.goal, 36, y + 51, w - 72, 'micro', S.scanInfo?.name ? C.lime : C.muted, 1);
+        const bx = w - 134;
+        jump(bx, h - 312, 116, 48, false);
+        U.button('explore-rover', rover ? 'SCENDI' : 'ROVER', bx, h - 256, 116, 36, roverToggle, { small: true }); U.buttons.at(-1).label = rover ? 'Scendi dal rover' : 'Sali sul rover';
+        U.button('explore-scan', 'SCANNER', bx, h - 212, 116, 36, scan, { small: true }); U.buttons.at(-1).label = 'Scanner: registra nel diario la specie o il luogo più vicino';
+        U.button('explore-card', 'SCHEDA', bx, h - 168, 116, 36, () => { S.exploreCard = true; }, { small: true }); U.buttons.at(-1).label = 'Apri la scheda della voce scelta';
+        U.button('explore-physics', 'FISICA DEL SALTO', 18, y + 82, 150, 28, () => followGround('salto'), { small: true }); U.buttons.at(-1).label = 'La fisica del salto su questo pianeta';
+    }
+    const z = stickZone();
+    if (z) {
+        R.roundRect(z.x - z.r, z.y - z.r, 2 * z.r, 2 * z.r, z.r, color(T.bg, .55), color(T.line, 1));
+        const v = stick?.v || [0, 0], kx = z.x + v[0] * z.r * .6, ky = z.y + v[1] * z.r * .6;
+        R.roundRect(kx - 24, ky - 24, 48, 48, 24, stick ? C.cyan : color(T.raised, .95), color(T.line, 1));
+    }
+}
 /** Exploration panel: one species or place at a time, with its explanation and the diary button. */
 function exploreUI(m, mobile) {
     const w = R.w, h = R.h, tint = sectorColors[m.sector], list = exploreEntries(), rec = exploreRecord(S.selected);
-    title(areaTrail(m, ['SUPERFICIE', 'ESPLORAZIONE']), m.title, mobile ? 'Tocca il terreno per spostarti, trascina per ruotare.' : 'Clic sul terreno o sui segnali per spostarti; W A S D per muoverti.');
+    // On phones the card of the entry and the controls of the explorer take turns (1.68.0).
+    const card = !mobile || S.exploreCard || !!S.groundFollow;
+    title(areaTrail(m, ['SUPERFICIE', 'ESPLORAZIONE']), m.title, mobile ? (card ? 'Tocca il terreno per andarci, trascina per ruotare.' : '') : 'W A S D per camminare, Maiuscolo per correre, spazio per saltare, R per il rover, F per lo scanner.');
     const px = mobile ? 18 : w - 353, pw = mobile ? w - 36 : 320, ph = mobile ? 300 : Math.min(520, h - 368), py = mobile ? h - 384 : 258;
+    explorerHUD(mobile, card, tint);
     // «Che cosa succede» on the ground (1.65.0) takes the place of the exploration panel.
-    const ground = S.groundFollow ? W.groundSubject(S.groundFollow) : null;
+    const ground = S.groundFollow ? (S.groundFollow.k === 'salto' ? jumpSubject() : W.groundSubject(S.groundFollow)) : null;
     if (ground) followPanel({ subject: ground }, tint, stopGround);
-    else {
+    else if (card) {
     U.panel(px, py, pw, ph, tint, .84);
     const ns = list.filter(e => e.type === 'species').length, np = list.length - ns, e = list[S.exploreEntry] || list[0];
     if (e) {
@@ -783,6 +911,7 @@ function exploreUI(m, mobile) {
     // The sun of the landing site and, for an animal, its group: both open «Che cosa succede».
     if (sun) { U.button('ground-sun', 'SOLE', px + pw - 16 - 62, py + 10, 62, 26, () => followGround(null), { small: true }); U.buttons.at(-1).label = 'Il sole e il giorno del sito: che cosa succede'; }
     if (e?.type === 'species' && e.data.kind === 'animal' && W.eco) { U.button('ground-follow', 'SEGUI', px + pw - 16 - 62 - 68, py + 10, 62, 26, () => followGround(e.index), { small: true }); U.buttons.at(-1).label = 'Segui ' + e.data.name + ' e guarda che cosa succede'; }
+    if (mobile) { U.button('explore-play', 'CONTROLLI', px + pw - 132, py - 40, 132, 30, () => { S.exploreCard = false; }, { small: true }); U.buttons.at(-1).label = 'Chiudi la scheda e mostra i controlli dell’esploratore'; }
     }
     if (!mobile) {
         U.text('Ipotesi illustrative ricavate dalla carta d’identità del pianeta.', 35, h - 112, 'micro', C.muted);
@@ -1203,17 +1332,19 @@ function mapLog() {
 function exploreLog() {
     const key = store.data.updatedAt + '|' + JSON.stringify(store.data.explore) + '|' + store.data.read.length + '|' + JSON.stringify(Object.values(store.data.courses || {}).map(r => r.stage + (r.completedAt ? 'c' : ''))) + '|' + (store.data.atlas?.visited || []).length; if (exploreLogCache[0] === key) return exploreLogCache[1];
     const genomes = planetGenomes(), species = planetSpecies(), places = genomes.map(placeList), rows = [], physics = planetPhysics();
-    let s = 0, l = 0, planets = 0, measuredPlanets = 0, landings = 0;
-    for (const rec of Object.values(store.data.explore)) if (rec.v === 1 || rec.s.length) landings++;
+    let s = 0, l = 0, planets = 0, measuredPlanets = 0, landings = 0, walked = 0, driven = 0;
+    for (const rec of Object.values(store.data.explore)) { if (rec.v === 1 || rec.s.length) landings++; walked += rec.p?.w || 0; driven += rec.p?.d || 0; }
     for (const [key, rec] of Object.entries(store.data.explore)) {
-        const i = Number(key), m = data.modules[i], measured = (rec.m || []).map(id => INSTRUMENTS.find(x => x.id === id)?.name).filter(Boolean); if (!m || !(rec.s.length + rec.l.length + measured.length)) continue;
+        const i = Number(key), m = data.modules[i], measured = (rec.m || []).map(id => INSTRUMENTS.find(x => x.id === id)?.name).filter(Boolean); if (!m || !(rec.s.length + rec.l.length + measured.length + (rec.p ? 1 : 0))) continue;
         planets++; s += rec.s.length; l += rec.l.length; if (measured.length) measuredPlanets++;
         const sp = species[i].filter(x => rec.s.includes(x.id)).map(x => x.name + ' (' + x.label + ')'), pl = places[i].filter(x => rec.l.includes(x.id)).map(x => x.name);
         const d = rec.m?.includes('biofirme') ? diagnosis(physics[i], species[i].length, landed(i)) : null, lovelock = d ? 'Diagnosi di Lovelock: ' + VERDICTS[d.verdict] + (d.outcome === 'da-verificare' ? '' : ', ' + OUTCOMES[d.outcome]) + '.' : '';
-        rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : '', measured.length ? 'Misure: ' + measured.join(', ') + '.' : '', lovelock].filter(Boolean).join(' '));
+        // The explorer on the ground (1.68.0): distances in metres and the best jump against the Earth's 49 cm.
+        const p = rec.p, trip = p ? `Esploratore: ${p.w} m a piedi, ${p.d} m in rover, ${p.n === 1 ? '1 salto' : p.n + ' salti'}${p.n ? ', il più alto di ' + p.j + ' cm (sulla Terra la stessa spinta dà ' + Math.round(JUMP * JUMP / (2 * G0) * 100) + ' cm)' : ''}.` : '';
+        rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : '', measured.length ? 'Misure: ' + measured.join(', ') + '.' : '', trip, lovelock].filter(Boolean).join(' '));
     }
     const total = species.reduce((n, x) => n + x.length, 0), totalPlaces = places.reduce((n, x) => n + x.length, 0);
-    const head = `Pianeti visitati in superficie: ${landings} su ${genomes.length}. Pianeti con registrazioni: ${planets} su ${genomes.length}. Specie registrate: ${s} su ${total}. Luoghi registrati: ${l} su ${totalPlaces}. Pianeti misurati con gli strumenti della nave: ${measuredPlanets}; strumenti a bordo: ${onBoard(store.data, instrumentSections).size} su ${INSTRUMENTS.length}.`;
+    const head = `Pianeti visitati in superficie: ${landings} su ${genomes.length}. Pianeti con registrazioni: ${planets} su ${genomes.length}. Specie registrate: ${s} su ${total}. Luoghi registrati: ${l} su ${totalPlaces}. Pianeti misurati con gli strumenti della nave: ${measuredPlanets}; strumenti a bordo: ${onBoard(store.data, instrumentSections).size} su ${INSTRUMENTS.length}.${walked + driven ? ` Percorsi a terra: ${walked} m a piedi e ${driven} m in rover.` : ''}`;
     const t = expeditionTotals(store.data, expeditionLists), expeditionRows = data.modules.filter(m => expeditionsOf(m.planetIndex).some(x => x.solved)).map(m => m.title.toUpperCase() + ': spedizioni ' + expeditionLine(m.id, false));
     const outposts = AREAS.filter((x, k) => outpostOf(k).built).length;
     const expeditionHead = `Mondi di sintesi visitati nel Nucleo di Gaia: ${(store.data.atlas.core || []).length} su ${SYNTHESIS_WORLDS.length}. Avamposti di ricerca costruiti: ${outposts} su ${AREAS.length}. Spedizioni completate: ${t.done} su ${t.available}, su ${t.planets} pianeti. Esercizi del libro e domande dei percorsi di matematica risolti: ${t.solved} su ${t.total}. Gli esercizi contano quando lo studente li segna come risolti nel libro, dopo il confronto con la soluzione.`;
@@ -1893,7 +2024,12 @@ function pointerXY(e) { const r = canvas.getBoundingClientRect(); return [e.clie
 function events() {
     canvas.addEventListener('pointerdown', e => {
         const [x, y] = pointerXY(e), b = U.hit(x, y);
-        pointer = { x, y, startX: x, startY: y, moved: false, pointerType:e.pointerType||'mouse', blocked:!!b||(['galaxy','system'].includes(S.scene)&&sceneBlocked(x,y)) };
+        if (e.pointerType === 'touch') S.touch = true;
+        // The joystick of the explorer (1.68.0) has its own finger, so another one can turn the view.
+        const z = stickZone();
+        if (z && !b && !stick && Math.hypot(x - z.x, y - z.y) < z.r * 1.35) { stick = { id: e.pointerId, v: [0, 0], push: 0, view: S.avatar.cam + (S.chaseOrbit || 0) }; moveStick(x, y); canvas.setPointerCapture(e.pointerId); return; }
+        if (pointer && pointer.id !== e.pointerId && pointer.pointerType === 'touch') return;
+        pointer = { id: e.pointerId, x, y, startX: x, startY: y, moved: false, pointerType:e.pointerType||'mouse', blocked:!!b||(['galaxy','system'].includes(S.scene)&&sceneBlocked(x,y)) };
         hover.clear();S.hoveredTarget=null;
         activeSlider = b?.slider ? b : null;
         if (activeSlider)
@@ -1902,6 +2038,8 @@ function events() {
     });
     canvas.addEventListener('pointermove', e => {
         const [x, y] = pointerXY(e);
+        if (stick && e.pointerId === stick.id) { moveStick(x, y); return; }
+        if (pointer && e.pointerId !== pointer.id) return;
         hoverPointer={x,y};
         if(e.pointerType!=='touch')touchTarget=null;
         U.hover = U.hit(x, y)?.id || null;
@@ -1928,6 +2066,8 @@ function events() {
     });
     canvas.addEventListener('pointerup', e => {
         const [x, y] = pointerXY(e);
+        if (stick && e.pointerId === stick.id) { stick = null; return; }
+        if (pointer && e.pointerId !== pointer.id) return;
         if (pointer && !pointer.moved && !activeSlider) {
             const b = U.hit(x, y);
             if (b)
@@ -1945,13 +2085,15 @@ function events() {
                 else if(hit?.type==='node')S.node=hit.index;
                 else if(hit?.type==='station')S.station=hit.index;
                 else if(hit?.type==='place'||hit?.type==='settlement')selectTarget({type:hit.type,index:hit.index});
-                else if(hit?.type==='ground'){const near=W.nearest(hit.point);if(near)selectTarget(near);else S.exploreGoal=[hit.point[0],hit.point[2]];}
+                else if(hit?.type==='ground'){const near=W.nearest(hit.point);if(near)selectTarget(near);else{S.exploreGoal=[hit.point[0],hit.point[2]];S.exploreStop=undefined;}}
             }
         }
         pointer = null;
         activeSlider = null;
     });
-    canvas.addEventListener('pointercancel',()=>{pointer=null;activeSlider=null;hover.clear();S.hoveredTarget=null;});
+    canvas.addEventListener('pointercancel',e=>{if(stick&&e.pointerId===stick.id){stick=null;return;}pointer=null;activeSlider=null;hover.clear();S.hoveredTarget=null;});
+    window.addEventListener('keyup', e => { held.delete(e.key.toLowerCase()); if (e.key === 'Shift') held.delete('shift'); });
+    window.addEventListener('blur', () => { held.clear(); stick = null; });
     canvas.addEventListener('pointerleave',()=>{hoverPointer=null;hover.clear();S.hoveredTarget=null;U.hover=null;});
     canvas.addEventListener('wheel', e => {
         e.preventDefault();
@@ -1992,10 +2134,14 @@ function events() {
             startEdit('search');
             return;
         }
-        // Exploration: W A S D move the focus on the ground, relative to the camera.
-        if (S.scene === 'surface' && S.explore && !e.ctrlKey && !e.metaKey && !e.altKey) {
-            const step = { w: [1, 0], s: [-1, 0], a: [0, -1], d: [0, 1] }[e.key.toLowerCase()];
-            if (step) { moveExplore(...step); return; }
+        // Exploration (1.68.0): W A S D or the arrows move the explorer while held, Shift runs, the space bar
+        // jumps, R boards or leaves the rover, F runs the scanner.
+        if (S.scene === 'surface' && S.explore && S.avatar && !e.ctrlKey && !e.metaKey && !e.altKey) {
+            const c = e.key.toLowerCase();
+            if (['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright', 'shift'].includes(c)) { held.add(c); e.preventDefault(); return; }
+            if (c === ' ') { e.preventDefault(); if (!e.repeat) S.jumpAsk = true; return; }
+            if (c === 'r' && !e.repeat) { roverToggle(); return; }
+            if (c === 'f' && !e.repeat) { scan(); return; }
         }
         if (e.key === 'ArrowLeft')
             S.yaw -= .1;
