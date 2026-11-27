@@ -1,3 +1,12 @@
+# 1.72.0: Mondi aperti, flora e fauna dei biomi
+
+- Terza versione della serie «Mondi aperti». Piante e animali vivono in tutta la zona di atterraggio, con densità che cambiano da un bioma all'altro: foreste e paludi fitte, steppe e brughiere rade, saline e ghiaccio azzurro quasi spogli, piante raccolte a chiazze.
+- 562 specie endemiche, una per ogni bioma con vita diverso da quello della base: 362 piante, 187 animali e 13 funghi, con nomi unici, una forma permessa dalla fisica del pianeta, un adattamento al bioma descritto nel diario e un posto nella rete alimentare. Le specie della galassia passano da 1388 a 1950.
+- Ogni bioma ospita anche le specie del pianeta il cui habitat vi si trova. Le piante e gli animali si generano a gruppi di 64 × 64 unità attorno alla camera, come le rocce; gli animali vagano attorno al loro posto, con soste, e i volatori girano in cerchio sopra di esso.
+- Lo scanner riconosce gli individui della zona; la scheda di una specie endemica porta al punto più vicino in cui vive e il messaggio del primo ingresso in un bioma ne nomina l'endemica.
+- Il catalogo 3D dei mondi passa da 2868 a 3430 modelli, 4427 con stazioni e navi. Il diario e il conteggio delle specie includono le endemiche.
+- Nuovo `src/worlds/zone-life.js`; `docs/BIOMI.md` ha la sezione «Vita dei biomi» e le endemiche di ogni pianeta; controlli in `tests/vita-biomi.test.mjs`. Descrizione in `docs/GRAPHICS.md`, sezione «Flora e fauna dei biomi».
+
 # 1.71.0: Mondi aperti, biomi della zona
 
 - Seconda versione della serie «Mondi aperti». La zona di atterraggio di ogni pianeta è un mosaico di biomi: da cinque a otto per pianeta fra 46 tipi, scelti nella famiglia del pianeta secondo la densità dell'aria e l'estensione dei mari. Due pianeti non hanno mai lo stesso insieme di biomi.

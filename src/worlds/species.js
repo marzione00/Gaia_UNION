@@ -4,6 +4,7 @@
  * illustrative hypotheses, inspired by published speculation on life on other worlds, not predictions. */
 import { seededRandom } from '../scene/systems.js';
 import { bodyPlan } from './bodyplan.js';
+import { BIOME, LIFE, biomesOf } from './biomes.js';
 
 /** Body plans. `size` is the scale of the mesh at 1 g; `count` the number of individuals on the surface. */
 export const FORMS = Object.freeze({
@@ -259,6 +260,58 @@ function foodWeb(g, list) {
 export function allSpecies(genomes) {
     const used = new Set(), base = genomes.map(g => speciesOf(g, used));
     return base.map((list, i) => foodWeb(genomes[i], [...list, ...extraSpecies(genomes[i], list, used)]));
+}
+
+/** Endemic species of the biomes (1.72.0): on a planet with life, one species for every biome other than the
+ * one of the planet's own style that has a life of its own (LIFE in src/worlds/biomes.js), with one of the forms
+ * of that biome that the physics of the planet allows. Its habitat is the biome; the camouflage of the animals
+ * and the colour of the plants take a share of the colour of the ground there. `list` are the species of the
+ * planet, so the identifiers follow theirs, and `used` the genera of the galaxy, so the names stay unique. */
+export function endemicSpecies(g, list, used = new Set()) {
+    const r = seededRandom(g.terrain.seed ^ 0xE4D3A1C), d = g.atmosphere.density, out = [];
+    if (!list.length) return out;
+    for (const id of biomesOf(g).slice(1)) {
+        const L = LIFE[id], b = BIOME[id]; if (!L) continue;
+        const forms = L.forms.filter(f => allowedExtra(f, g)); if (!forms.length) continue;
+        const form = forms[Math.floor(r() * forms.length)], F = FORMS[form], kind = F.kind, choices = ROLE_CHOICES[form], role = kind === 'animal' ? choices[Math.floor(r() * choices.length)] : roleOf(form, kind);
+        const own = kind === 'plant' ? shiftHue(g.palette.pigment, (r() - .5) * 60).map(v => Math.min(1, v * (form === 'crosta' ? .8 : 1.1)))
+            : kind === 'fungus' ? shiftHue(mix(g.palette.rock, [.92, .86, .74], .5 + r() * .3), (r() - .5) * 80)
+            : form === 'volatore' ? shiftHue(mix(g.palette.pigment, [.95, .9, .8], .45), 150 + r() * 60)
+            : shiftHue(mix(g.palette.rock, [.85, .8, .72], .35 + r() * .25), (r() - .5) * 50);
+        const color = b.tone ? mix(own, b.tone, kind === 'animal' ? .35 : .15) : own;
+        let genus = '';
+        for (let t = 0; t < 80 && (!genus || used.has(genus)); t++) {
+            const middle = SYLLABLES[Math.floor(r() * SYLLABLES.length)] + (t > 20 ? SYLLABLES[Math.floor(r() * SYLLABLES.length)] : '');
+            genus = ROOTS[form] + middle + ENDINGS[Math.floor(r() * ENDINGS.length)];
+        }
+        used.add(genus);
+        const size = +(F.size * Math.pow(1 / g.gravity, kind === 'animal' ? .35 : .6)).toFixed(3), count = Math.round(F.count[0] + (F.count[1] - F.count[0]) * r());
+        // The first trait, that of the form, and the second, that of the role, are written with the diet below.
+        const traits = [null, L.trait, kind === 'plant' && form !== 'calice' && form !== 'crosta' ? PIGMENT_TRAIT[g.star.type] : null, gravityTrait(form, kind, g.gravity), climateTrait(kind, g)];
+        out.push({ id: 's' + (list.length + out.length), form, kind, mesh: F.mesh, label: F.label, habitat: L.habitats[0], habitatName: b.name.toLowerCase() + ', endemica', name: genus + ' ' + L.epithet, color: color.map(v => +v.toFixed(3)), size, count, traits, role, biome: id });
+    }
+    // Body plan and diet: herbivores eat the plants of their biome, or else those of their habitat; predators the
+    // consumers of their biome, or else those of the planet.
+    const all = [...list, ...out], w = seededRandom(g.terrain.seed ^ 0xE4D3F00);
+    out.forEach((sp, j) => {
+        const k = list.length + j;
+        sp.level = ROLES[sp.role]; sp.plan = bodyPlan(sp.form, seededRandom((g.terrain.seed ^ 0xB0D7) + Math.imul(k + 1, 0x9E3779B1)), g);
+        if (sp.form === 'albero') sp.label = CROWN[sp.plan.crown][0];
+        let menu = [];
+        if (sp.role === 'erbivoro') { const plants = all.filter(p => p.kind === 'plant'), here = plants.filter(p => p.biome === sp.biome), near = plants.filter(p => !p.biome && (p.habitat === sp.habitat || p.habitat === 'ovunque')); menu = here.length ? here : near.length ? near : plants; }
+        else if (sp.role === 'predatore') { const prey = all.filter(p => p !== sp && consumer(p)), here = prey.filter(p => p.biome === sp.biome); menu = here.length ? here : prey; }
+        sp.diet = shuffled(menu, w).slice(0, Math.min(menu.length, 1 + Math.floor(w() * 3))).map(p => p.id);
+        const meal = names(sp.diet.map(id => all.find(p => p.id === id).name));
+        const role = sp.role === 'erbivoro' ? `Erbivoro: si nutre di ${meal}.` : sp.role === 'predatore' ? `Predatore: caccia ${meal}.`
+            : sp.role === 'decompositore' ? 'Decompositore: si nutre dei resti di piante e animali e ne restituisce i nutrienti al suolo.' : null;
+        sp.traits = [formTrait(sp.form, sp.plan), role, ...sp.traits.slice(1)].filter(Boolean).slice(0, 5);
+    });
+    return out;
+}
+/** Endemic species of all the planets (1.72.0), after every species of `species`, so the genera stay unique. */
+export function allEndemics(genomes, species) {
+    const used = new Set(species.flat().map(sp => sp.name.split(' ')[0]));
+    return genomes.map((g, i) => endemicSpecies(g, species[i], used));
 }
 
 /** Individuals of each species on a generated surface (src/worlds/surface.js), in clusters that fit the

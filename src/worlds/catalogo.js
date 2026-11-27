@@ -1,10 +1,11 @@
-/** The models of the living worlds in the 3D catalogue (1.69.0): the 1388 species, the buildings of the 125
- * colonies and of the 40 villages, the inhabitants and the rovers of the explorer. Species, specs and bodies
- * come from the identity cards through the same functions the surfaces use. Which building types a colony or
- * a village actually built, and the body and the names of each native people, depend on the ground, so they
+/** The models of the living worlds in the 3D catalogue (1.69.0): the 1388 species and, since 1.72.0, the 562
+ * endemic species of the biomes, the buildings of the 125 colonies and of the 40 villages, the inhabitants and
+ * the rovers of the explorer. Species, specs and bodies come from the identity cards through the same
+ * functions the surfaces use. Which building types a colony or a village actually built, and the body and the
+ * names of each native people, depend on the ground, so they
  * are read from the index content/worlds/modelli.json, written by `node scripts/catalogo-mondi.mjs` from the
  * built surfaces; tests/mondi.test.mjs checks that the index matches the code. */
-import { planetGenomes, planetSpecies } from './surface.js';
+import { planetGenomes, planetSpecies, planetEndemics } from './surface.js';
 import { bodyMesh } from './bodyplan.js';
 import { archMesh, archPalette, roverMesh, typologyOf, ARCH_TYPES, TYPOLOGIES } from './architecture.js';
 import { buildingMesh, VILLAGE_TYPES } from './buildings.js';
@@ -42,11 +43,12 @@ export function indexRecord(s) {
  * colonists and rovers, shared by several planets, under the first planet where they appear. */
 export function worldModels(index) {
     if (!index?.planets || index.planets.length !== UNIT_COUNT) return [];
-    const cards = planetGenomes(), species = planetSpecies(), out = [], shared = new Map();
+    const cards = planetGenomes(), species = planetSpecies(), endemics = planetEndemics(), out = [], shared = new Map();
     const share = (id, make, planet) => { if (shared.has(id)) shared.get(id).planets.push(planet); else { const e = make(); e.planets = [planet]; shared.set(id, e); out.push(e); } };
     index.planets.forEach((rec, i) => {
         const g = cards[i], list = species[i], typ = typologyOf(g, list.length), system = systemForPlanet(i), base = { family: 'mondi', planet: i, system };
-        list.forEach(sp => out.push({ ...base, id: `m${i}-${sp.id}`, kind: 'specie', group: 'specie', key: sp.id, name: sp.name, typeName: capital(sp.label), style: sp.kind }));
+        // The endemic species of the biomes (1.72.0) follow those of the planet.
+        [...list, ...endemics[i]].forEach(sp => out.push({ ...base, id: `m${i}-${sp.id}`, kind: 'specie', group: 'specie', key: sp.id, name: sp.name, typeName: capital(sp.label) + (sp.biome ? ', endemica' : ''), style: sp.kind }));
         for (const t of rec.t) out.push({ ...base, id: `m${i}-c-${t}`, kind: 'colonia', group: 'edifici', key: t, typology: typ, name: `${capital(BUILDING_NAMES[t])} · ${rec.c}`, typeName: capital(ARCH_TYPES[typ][t]), place: rec.c, style: typ });
         if (rec.v) {
             for (const t of rec.v.t) out.push({ ...base, id: `m${i}-v-${t}`, kind: 'villaggio', group: 'edifici', key: t, name: `${capital(BUILDING_NAMES[t])} · ${rec.v.n}`, typeName: capital(VILLAGE_TYPES[t]), place: rec.v.n, style: 'villaggio' });
@@ -62,7 +64,7 @@ export function worldCounts(list) {
     const by = {}; for (const e of list) by[e.kind] = (by[e.kind] || 0) + 1;
     return { total: list.length, kinds: by, groups: Object.fromEntries(WORLD_GROUPS.map(([g]) => [g, list.filter(e => e.group === g).length])) };
 }
-const speciesOf = e => planetSpecies()[e.planet].find(sp => sp.id === e.key);
+const speciesOf = e => planetSpecies()[e.planet].find(sp => sp.id === e.key) || planetEndemics()[e.planet].find(sp => sp.id === e.key);
 /** Mesh of a model at level 0 (detailed) or 1 (light), built by the same functions as on the surfaces. */
 export function worldMesh(e, level = 0) {
     const g = planetGenomes()[e.planet];

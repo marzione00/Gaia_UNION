@@ -31,6 +31,7 @@ import { GroundClipmap, LEVELS as GROUND_LEVELS } from '../worlds/clipmap.js';
 import { LANDING_SITES } from '../worlds/landing-sites.js';
 import { tuft, rock, slab, spire, station as stationMesh, seaPlane, seaRing, beacon, curtain } from '../worlds/geometry.js';
 import { chunkRocks, CHUNK } from '../worlds/biomes.js';
+import { assemblages, chunkLife, wander } from '../worlds/zone-life.js';
 import { bodyMesh } from '../worlds/bodyplan.js';
 import { buildingMesh } from '../worlds/buildings.js';
 import { archMesh, worksMesh, roverMesh, archPalette, typologyOf } from '../worlds/architecture.js';
@@ -66,6 +67,8 @@ export const TOWN_NEAR = 70, TOWN_FAR = 900, FOLK_NEAR = 26, FOLK_FAR = 180, WAL
 /** The explorer of 1.68.0: a colonist with a backpack in the gear of the colony of the planet, drawn in this
  * colour; the stations keep it out within STATION_CLEAR units of their centre. */
 export const EXPLORER_TINT = Object.freeze([.93, .52, .2]), STATION_CLEAR = 2.6;
+/** Instance data of a list of items (x, y, z, size, r, g, b, heading), eight numbers each. */
+const packItems = l => { const a = new Float32Array(Math.max(1, l.length) * 8); l.forEach((o, i) => a.set([o.x, o.y, o.z, o.s, o.r, o.g, o.b, o.h], i * 8)); return a; };
 export const walkHeading = (h, slope) => (((h % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)) + 7 * (Math.round(Math.max(-.5, Math.min(.5, slope)) * 100) + 50);
 /** Ribbons of the streets and paths of the settlements, as one mesh following their points. */
 function streetMesh(settlements, palette) {
@@ -270,23 +273,28 @@ export class World {
             // The ground streamed around the camera (1.70.0, src/worlds/clipmap.js): six nested grids up to the
             // horizon, centred here on the view of the stations and moved with the camera at every frame.
             this.ground = new GroundClipmap(s); for (const k of this.ground.update(2, 2)) R.makeMesh('planet-ground-' + k, this.ground.levels[k].mesh);
-            // Rocks of the biomes around the camera (1.71.0), in chunks of 64 units, made again when it changes chunk.
+            // Rocks (1.71.0), plants and animals (1.72.0) of the biomes around the camera, in chunks of 64 units, made
+            // again when it changes chunk.
             this.rockChunks = new Map(); this.rockKey = null; for (const k of [0, 1, 2]) R.deleteInstances?.('biome-rocks-' + k);
             if (!this.planetMeshes) { R.makeMesh('world-tuft', tuft()); R.makeMesh('world-rock', rock()); R.makeMesh('world-slab', slab()); R.makeMesh('world-spire', spire()); R.makeMesh('planet-station', stationMesh()); R.makeMesh('planet-sea', seaPlane(900, 900, 180, 180)); R.makeMesh('planet-sea-far', seaRing(HORIZON, 448)); for (const [id, make] of Object.entries(MESHES)) R.makeMesh(id, make()); this.planetMeshes = true; }
             // Species, rocks, geyser plume and aurora of this planet.
-            const sc = surfaceScatter(s), pack = l => { const a = new Float32Array(Math.max(1, l.length) * 8); l.forEach((o, i) => a.set([o.x, o.y, o.z, o.s, o.r, o.g, o.b, o.h], i * 8)); return a; };
-            this.population = sc.species; this.planetCounts = [sc.species.reduce((n, p) => n + p.instances.length, 0), sc.rocks.length]; this.lifeAt = null;
+            const sc = surfaceScatter(s);
+            // The endemic species of the biomes (1.72.0) follow those of the planet: they live only in the zone,
+            // where zoneChunks places them with the other species of each biome.
+            this.population = [...sc.species, ...(s.endemics || []).map((sp, j) => ({ species: sp, instances: [], centre: null, index: sc.species.length + j }))];
+            this.planetCounts = [sc.species.reduce((n, p) => n + p.instances.length, 0), sc.rocks.length]; this.lifeAt = null;
+            this.lifeSets = s.field?.biomes ? assemblages(s, this.population) : null; this.zoneAnimals = [];
             if (R.makeInstances) {
                 for (const G of this.groups || []) for (const l of [0, 1]) { R.deleteInstances?.(G.sets[l]); R.deleteMesh?.(G.meshes[l]); }
-                R.makeInstances('planet-rocks', 'world-rock', pack(sc.rocks));
+                R.makeInstances('planet-rocks', 'world-rock', packItems(sc.rocks));
                 // Groups drawn with instances in two levels of detail, each with two meshes and two instance sets
                 // with room for all its items: the species, the buildings of each type, the inhabitants of each figure.
                 const groups = this.groups = [], group = (name, mesh, items, o) => {
-                    const G = { meshes: [0, 1].map(l => o.meshIds ? o.meshIds[l] : `${name}-mesh-${l}`), sets: [0, 1].map(l => `${name}-${l}`), all: pack(items), items, n: items.length, drawn: [0, 0], ...o };
+                    const G = { meshes: [0, 1].map(l => o.meshIds ? o.meshIds[l] : `${name}-mesh-${l}`), sets: [0, 1].map(l => `${name}-${l}`), all: packItems(items), items, n: items.length, drawn: [0, 0], ...o };
                     for (const l of [0, 1]) { R.makeMesh(G.meshes[l], mesh(l)); if (items.length) R.makeInstances(G.sets[l], G.meshes[l], G.all); }
                     groups.push(G); return G;
                 };
-                sc.species.forEach((p, k) => {
+                this.population.forEach((p, k) => {
                     const sp = p.species, legs = LEGS[sp.form];
                     p.life = group(`life-${k}`, l => bodyMesh(sp.plan, l), p.instances, { meshIds: [`life-mesh-${k}-0`, `life-mesh-${k}-1`], mode: LIFE[sp.form][0], motion: legs ? [...LIFE[sp.form][1].slice(0, 3), legs(sp.plan)] : LIFE[sp.form][1], pbr: LIFE[sp.form][2], near: LIFE_NEAR, far: LIFE_FAR, thin: true, live: sp.kind === 'animal' });
                 });
@@ -309,7 +317,7 @@ export class World {
                 R.makeMesh('planet-rover', roverMesh(archPalette(s.genome, typ0), typ0, 0));
                 R.deleteInstances?.('planet-geyser');
                 const geyser = s.places.find(p => p.event === 'eruzione di geyser');
-                if (geyser) { const r = random(s.index + 77), q = geyser.position; R.makeInstances('planet-geyser', 'lowSphere', pack(Array.from({ length: 46 }, () => ({ x: q[0] + (r() - .5) * 1.2, y: q[1] + .2, z: q[2] + (r() - .5) * 1.2, s: .7 + r() * .8, r: .92, g: .94, b: .96, h: r() * 6.283 })))); }
+                if (geyser) { const r = random(s.index + 77), q = geyser.position; R.makeInstances('planet-geyser', 'lowSphere', packItems(Array.from({ length: 46 }, () => ({ x: q[0] + (r() - .5) * 1.2, y: q[1] + .2, z: q[2] + (r() - .5) * 1.2, s: .7 + r() * .8, r: .92, g: .94, b: .96, h: r() * 6.283 })))); }
             }
             if (s.genome.events.includes('aurora')) R.makeMesh('planet-aurora', curtain(Math.atan2(-Math.cos(.6), -Math.sin(.6)) - .35, 1.5, s.index % 7));
             this.aurora = s.genome.events.includes('aurora');
@@ -331,6 +339,8 @@ export class World {
         // The ecosystem advances with the time of the scene; a paused scene stands still.
         const dt = this.ecoTime === null || s.paused ? 0 : s.time - this.ecoTime; this.ecoTime = s.time;
         if (this.eco && dt > 0 && this.eco.step(dt, day)) this.ecoDirty = true;
+        // The animals of the zone (1.72.0) wander around the places where they were set.
+        if (dt > 0 && this.zoneAnimals?.length && wander(S0, this.zoneAnimals, s.time - this.landTime)) this.ecoDirty = true;
     }
     /** Subject of «Che cosa succede» on the ground (src/craft/succede.js): the group of animals of species
      * `f.k` nearest to the focus of the camera, or the sun of the landing site when `f.k` is null. */
@@ -351,6 +361,29 @@ export class World {
     liveCentre(k, near = this.target ? [this.target[0], this.target[2]] : [0, 0]) {
         const G = this.eco?.groupOf(k, near); if (!G) return this.population?.[k]?.centre || null;
         return [G.x, this.surface.heightAt(G.x, G.z), G.z];
+    }
+    /** Where to find species `k` from the ground point `near` (1.72.0): the nearest of its group at the base, its
+     * cluster there and its individuals in the zone; an endemic species not yet met is sought in the nearest
+     * cell of its biome. */
+    spotOf(k, near = this.target ? [this.target[0], this.target[2]] : [0, 0]) {
+        const p = this.population?.[k]; if (!p) return null;
+        let best = null, d0 = Infinity; const take = c => { if (!c) return; const d = Math.hypot(c[0] - near[0], c[2] - near[1]); if (d < d0) { d0 = d; best = c; } };
+        if (p.instances.length) take(p.species.kind === 'animal' ? this.liveCentre(k, near) : p.centre);
+        for (const o of p.zone || []) take([o.x, o.y, o.z]);
+        if (!best && p.species.biome && this.surface?.field?.biomes) {
+            // The search is kept until the point moves by 60 units: the cards ask for it at every frame.
+            const S0 = this.surface, B = S0.field.biomes(), t = B.ids.indexOf(p.species.biome), memo = (this.biomeSpots ||= new Map()).get(S0.key + ':' + k);
+            if (memo && Math.hypot(memo.near[0] - near[0], memo.near[1] - near[1]) < 60) return memo.spot;
+            // The point of the cell, or the first dry point around it within 120 units, still in the biome.
+            const dry = (x, z) => (S0.seaY === null || S0.heightAt(x, z) > S0.seaY + .5) && B.weights(x, z)[t] > .5;
+            for (const c of B.zone) if (c.t === t && Math.abs(c.x) <= EDGE && Math.abs(c.z) <= EDGE) {
+                let spot = dry(c.x, c.z) ? [c.x, c.z] : null;
+                for (let d = 30; !spot && d <= 120; d += 30) for (let a = 0; a < 8 && !spot; a++) { const x = c.x + Math.cos(a * Math.PI / 4) * d, z = c.z + Math.sin(a * Math.PI / 4) * d; if (dry(x, z)) spot = [x, z]; }
+                if (spot) take([spot[0], S0.heightAt(spot[0], spot[1]), spot[1]]);
+            }
+            this.biomeSpots.set(S0.key + ':' + k, { near: [...near], spot: best });
+        }
+        return best;
     }
     /** Splits the individuals of each species between the detailed and the light mesh by their distance from
      * the camera (1.63.0); runs again only when the camera has moved by LIFE_STEP or the graphics changed. */
@@ -891,13 +924,26 @@ export class World {
         V.data??=new Float32Array(8);V.data.set([0,y0,0,k,...L.tint,heading]);R.updateInstances(m.id+'-i',V.data);
         R.drawMesh(m.id,this.vp,IDENTITY,{...draw,instances:m.id+'-i',instanceMode:mode,motion,pbr});
     }
-    /** Rocks of the biomes in the chunks within about 200 units of the point f (1.71.0): chunks already made are
-     * kept, the others made with chunkRocks; one instance set per shape. */
-    biomeRocks(f){
-        const R=this.R,S0=this.surface,ci=Math.floor(f[0]/CHUNK),cj=Math.floor(f[2]/CHUNK),keep=new Map(),lists=[[],[],[]];
-        for(let dj=-3;dj<=3;dj++)for(let di=-3;di<=3;di++){if(Math.hypot(di,dj)>3.2)continue;const key=(ci+di)+','+(cj+dj),c=this.rockChunks.get(key)||chunkRocks(S0,ci+di,cj+dj);keep.set(key,c);for(let k=0;k<3;k++)for(const v of c[k])lists[k].push(v);}
+    /** Rocks, plants and animals of the biomes in the chunks within about 200 units of the point f (1.71.0,
+     * 1.72.0): chunks already made are kept, the others made with chunkRocks and chunkLife; one instance set per
+     * shape of rock, and the individuals of the zone join those of the base in the groups of their species. */
+    zoneChunks(f){
+        // At most two new chunks a frame, the nearest first; the others follow in the next frames, so a change of
+        // chunk costs a few milliseconds spread over three or four frames.
+        const R=this.R,S0=this.surface,ci=Math.floor(f[0]/CHUNK),cj=Math.floor(f[2]/CHUNK),keep=new Map(),lists=[[],[],[]],life=[],around=[];let made=0;
+        for(let dj=-3;dj<=3;dj++)for(let di=-3;di<=3;di++)if(Math.hypot(di,dj)<=3.2)around.push([di,dj]);
+        around.sort((a,b)=>Math.hypot(...a)-Math.hypot(...b));
+        for(const [di,dj] of around){const key=(ci+di)+','+(cj+dj);let c=this.rockChunks.get(key);
+            if(!c){if(made>=2){this.rockKey=null;continue;}made++;c={rocks:chunkRocks(S0,ci+di,cj+dj),life:this.lifeSets?chunkLife(S0,this.population,this.lifeSets,ci+di,cj+dj):[]};}
+            keep.set(key,c);for(let k=0;k<3;k++)for(const v of c.rocks[k])lists[k].push(v);for(const o of c.life)life.push(o);}
         this.rockChunks=keep;
         lists.forEach((l,k)=>{const key='biome-rocks-'+k,data=new Float32Array(l);if(R.instanceSets?.has(key))R.updateInstances(key,data);else if(l.length)R.makeInstances(key,['world-rock','world-slab','world-spire'][k],data);});
+        const byK=new Map();for(const o of life){if(!byK.has(o.k))byK.set(o.k,[]);byK.get(o.k).push(o);}
+        this.zoneAnimals=life.filter(o=>o.home);
+        (this.population||[]).forEach((p,k)=>{p.zone=byK.get(k)||[];const G=p.life;if(!G)return;
+            G.items=p.instances.concat(p.zone);G.all=packItems(G.items);G.n=G.items.length;
+            for(const l of [0,1])if(G.n&&!R.instanceSets?.has(G.sets[l]))R.makeInstances(G.sets[l],G.meshes[l],G.all);});
+        this.lifeAt=null;
     }
     releaseWorldModel(){
         const R=this.R,V=this.worldViewer;if(!V)return;
@@ -1063,7 +1109,7 @@ export class World {
             // point looked at shifts by less than 8 units a frame, so a flight never rebuilds every grid each frame.
             const focus=this.target||[2,0,2],last=this.groundFocus,jump=last?Math.hypot(focus[0]-last[0],focus[2]-last[1]):0;this.groundFocus=[focus[0],focus[2]];
             if(this.ground&&jump<8)for(const k of this.ground.update(focus[0],focus[2]))R.makeMesh('planet-ground-'+k,this.ground.levels[k].mesh);
-            const rk=Math.floor(focus[0]/CHUNK)+','+Math.floor(focus[2]/CHUNK);if(S0.field&&jump<8&&rk!==this.rockKey&&R.makeInstances){this.rockKey=rk;this.biomeRocks(focus);}
+            const rk=Math.floor(focus[0]/CHUNK)+','+Math.floor(focus[2]/CHUNK);if(S0.field&&jump<8&&rk!==this.rockKey&&R.makeInstances){this.rockKey=rk;this.zoneChunks(focus);}
             const sc=[Math.round(focus[0]/8)*8,Math.round(focus[2]/8)*8],cy=S0.heightAt?S0.heightAt(sc[0],sc[1]):0,sea=[Math.round(focus[0]/320)*320,Math.round(focus[2]/320)*320],seaM=transform(sea[0],0,sea[1]);
             const light=sun?sun.light:S0.light.direction,lightColor=sun?sun.color:S0.light.color,lightVP=mul(ortho,lookAt([sc[0]+light[0]*90,cy+light[1]*90,sc[1]+light[2]*90],[sc[0],cy,sc[1]]));
             R.renderShadow(this.biome+':'+sc.join(','),['planet-ground-0','planet-ground-1'],lightVP);
@@ -1158,7 +1204,7 @@ export class World {
     }
     nearest(point, radius = 7) {
         let best = null, d0 = radius;
-        (this.population || []).forEach((p, k) => { for (const o of p.instances) { const d = Math.hypot(o.x - point[0], o.z - point[2]); if (d < d0) { d0 = d; best = { type: 'species', index: k }; } } });
+        (this.population || []).forEach((p, k) => { for (const o of p.instances.concat(p.zone || [])) { const d = Math.hypot(o.x - point[0], o.z - point[2]); if (d < d0) { d0 = d; best = { type: 'species', index: k }; } } });
         (this.surface?.places || []).forEach((p, k) => { const d = Math.hypot(p.position[0] - point[0], p.position[2] - point[2]); if (d < d0 + 2) { d0 = d - 2; best = { type: 'place', index: k }; } });
         // A building or a street of a settlement selects the settlement (1.64.0).
         (this.surface?.settlements || []).forEach((t, k) => { for (const b of t.buildings) { const d = Math.hypot(b.x - point[0], b.z - point[2]) - b.radius; if (d < d0) { d0 = d; best = { type: 'settlement', index: k }; } } });

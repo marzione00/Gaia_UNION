@@ -22,9 +22,9 @@ test('mondi: l’indice dei modelli corrisponde alle superfici costruite dal cod
 test('mondi: CATALOGO_MONDI.md generato dall’indice',async()=>{
  assert.equal(worldCatalogueMarkdown(index,modules.map(m=>m.title)),await read('docs/CATALOGO_MONDI.md'));
 });
-test('mondi: 2868 modelli con identificatori unici e indirizzi del catalogo',async()=>{
- const c=worldCounts(list);assert.equal(c.total,2868);assert.deepEqual(c.kinds,{specie:1388,colonia:1201,villaggio:200,nativo:40,colono:36,rover:3});
- assert.equal(c.total+CRAFT.length,3865);assert.equal(new Set([...list,...CRAFT].map(e=>e.id)).size,3865);
+test('mondi: 3430 modelli con identificatori unici e indirizzi del catalogo',async()=>{
+ const c=worldCounts(list);assert.equal(c.total,3430);assert.deepEqual(c.kinds,{specie:1950,colonia:1201,villaggio:200,nativo:40,colono:36,rover:3});
+ assert.equal(c.total+CRAFT.length,4427);assert.equal(new Set([...list,...CRAFT].map(e=>e.id)).size,4427);
  // Every model has an address of the catalogue, with the planet of the model as the unit of the page.
  for(const e of list){const r=resolveRoute(`#/craft?unit=${modules[e.planet].id}&model=${e.id}`,modules,[]);assert.equal(r.craftModel,e.id,e.id);assert.equal(r.selected,e.planet);}
  assert.equal(resolveRoute('#/craft?model=m7-x-1',modules,[]).craftModel,null);

@@ -7,7 +7,7 @@ import { colorAt } from './terrain.js';
 import { surfaceField, stitch, CORE, RINGS } from './field.js';
 import { LANDING_SITES } from './landing-sites.js';
 import { seededRandom } from '../scene/systems.js';
-import { allSpecies, populate } from './species.js';
+import { allSpecies, allEndemics, populate } from './species.js';
 import { placeList, locatePlaces } from './places.js';
 import { settle, clearance } from './settlements.js';
 
@@ -15,6 +15,9 @@ export const planetGenomes = planetCards;
 let speciesCache = null;
 /** Species of every planet (names unique over the galaxy), in planet order. */
 export const planetSpecies = () => speciesCache ||= allSpecies(planetGenomes());
+let endemicCache = null;
+/** Endemic species of the biomes of every planet (1.72.0), numbered after the species of the planet. */
+export const planetEndemics = () => endemicCache ||= allEndemics(planetGenomes(), planetSpecies());
 export const systemStarLight = system => STARS[starTypes()[system]].light;
 export const EXTENT = CORE, GRID = 225;
 const mix = (a, b, t) => a.map((x, i) => x + (b[i] - x) * t);
@@ -51,7 +54,7 @@ export function planetSurface(index, n = GRID) {
         // Moons sit right of the screen title, from the centre of the view to its right edge.
         moons: Array.from({ length: g.satellites.moons }, (_, k) => ({ azimuth: .1 + k * .14 + r() * .05, elevation: .06 + r() * .08, size: 4 + r() * 6 })),
         vegetation: ['terrestrial', 'oceanic', 'volcanic'].includes(g.family) ? Math.min(1, density * 1.6) * (g.family === 'volcanic' ? .25 : 1) : 0,
-        species: planetSpecies()[index]
+        species: planetSpecies()[index], endemics: planetEndemics()[index]
     };
     // Points of interest, placed on the final heights (after the station pads).
     out.places = locatePlaces(out, placeList(g));

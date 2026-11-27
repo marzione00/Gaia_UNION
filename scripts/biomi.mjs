@@ -1,12 +1,15 @@
-/** Writes docs/BIOMI.md, the biomes of the zones of the landing sites (1.71.0), from the code of
- * src/worlds/biomes.js and the fields of the 125 planets: `node scripts/biomi.mjs`. tests/biomi.test.mjs
- * checks that the file matches the code. */
+/** Writes docs/BIOMI.md, the biomes of the zones of the landing sites (1.71.0) and their life (1.72.0), from
+ * the code of src/worlds/biomes.js, src/worlds/species.js and src/worlds/zone-life.js and the fields of the 125
+ * planets: `node scripts/biomi.mjs`. tests/biomi.test.mjs checks that the file matches the code. */
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { planetCards } from '../src/worlds/genome.js';
 import { surfaceField } from '../src/worlds/field.js';
 import { LANDING_SITES } from '../src/worlds/landing-sites.js';
-import { BIOMES, BIOME, STYLE_BIOME, planetBiomes, conditionOf, biomeWeight, SPACING, BLEND, INNER, OUTER, MIN_CELLS, CHUNK } from '../src/worlds/biomes.js';
+import { BIOMES, BIOME, STYLE_BIOME, LIFE, BASE_LIFE, planetBiomes, conditionOf, biomeWeight, SPACING, BLEND, INNER, OUTER, MIN_CELLS, CHUNK } from '../src/worlds/biomes.js';
+import { planetSpecies, planetEndemics } from '../src/worlds/surface.js';
+import { FORMS, FLIGHT_DENSITY as FLIGHT } from '../src/worlds/species.js';
+import { PLANTS_MOST, GROUP_SHARE, ENDEMIC_WEIGHT } from '../src/worlds/zone-life.js';
 import { EDGE, METRE } from '../src/worlds/explorer.js';
 import { PLANET_TYPES } from '../src/scene/planet-types.js';
 import { STYLE_NAMES } from '../src/worlds/genome.js';
@@ -52,13 +55,23 @@ export function biomesMarkdown(cards = planetCards(), titles = JSON.parse(fs.rea
         }
         out.push('');
     }
+    // Life of the biomes (1.72.0).
+    const species = planetSpecies(), endemics = planetEndemics(), ends = endemics.flat(), kinds = k => ends.filter(sp => sp.kind === k).length, most = Math.max(...species.map((l, i) => l.length + endemics[i].length));
+    const pct = v => Math.round(v * 100) + ' %', families = ['terrestrial', 'oceanic', 'desert', 'arctic', 'volcanic'];
+    out.push('## Vita dei biomi', '');
+    out.push(`Dalla versione 1.72.0 piante e animali vivono in tutta la zona. Su ogni pianeta con vita ogni bioma diverso da quello della base ha una specie endemica, che vive soltanto lì: in tutto ${ends.length} specie endemiche (${kinds('plant')} piante, ${kinds('animal')} animali e ${kinds('fungus')} funghi), che si aggiungono alle ${species.flat().length} specie delle versioni precedenti; un pianeta ne ha al più ${most} in tutto. La forma dell’endemica è una di quelle del bioma che la fisica del pianeta consente: gli animali richiedono un’aria con densità almeno 0,2, i grandi animali almeno 0,35 e i volatori almeno ${String(FLIGHT).replace('.', ',')}. Le piante prendono il pigmento del pianeta; nei biomi con un colore proprio del suolo gli animali ne prendono una parte, per mimetismo, e le piante una parte minore. Gli erbivori mangiano le piante del loro bioma, i predatori i consumatori del bioma o del pianeta.`, '');
+    out.push(`Ogni bioma ospita anche le specie del pianeta il cui habitat vi si trova (pianure, alture, rive, zone calde o tutto il paesaggio); il bioma della base le ospita tutte, e l’endemica pesa ${ENDEMIC_WEIGHT} volte le altre nella scelta. In ogni gruppo di ${CHUNK} × ${CHUNK} unità attorno alla camera ci sono ${PLANTS_MOST} punti candidati per le piante: ciascuno porta una pianta con la quota del bioma, ridotta dove l’aria è rada e raccolta a chiazze da un rumore; sulla terraferma ogni gruppo ha poi una probabilità di ospitare un branco, una coppia di predatori o uno stormo pari a ${String(GROUP_SHARE).replace('.', ',')} volte la quota di animali del bioma. Gli animali della zona vagano su cerchi di 2-6 unità attorno al loro posto, 12-20 unità per i volatori, con una sosta di alcuni secondi ogni 30 secondi circa.`, '');
+    out.push(`Nel bioma della base la quota di piante e quella di animali dipendono dalla famiglia del pianeta: ${families.map(f => `${PLANET_TYPES[f].name.toLowerCase()} ${pct(BASE_LIFE[f].flora)} e ${pct(BASE_LIFE[f].fauna)}`).join(', ')}.`, '');
+    out.push('| Bioma | Adattamento dell’endemica | Forme possibili | Epiteto | Piante | Animali | Pianeti con l’endemica |', '|---|---|---|---|---:|---:|---:|');
+    for (const b of BIOMES.filter(b => LIFE[b.id])) { const L = LIFE[b.id], n = ends.filter(sp => sp.biome === b.id).length; out.push(`| ${b.name} | ${L.trait} | ${L.forms.map(f => FORMS[f].label).join(', ')} | *${L.epithet}* | ${pct(L.flora)} | ${pct(L.fauna)} | ${n} |`); }
+    out.push('');
     const first = data.flatMap(d => d.first), gaps = data.flatMap(d => d.gaps), each = data.map(d => median(d.gaps));
     out.push('## Varietà lungo il cammino', '');
     out.push(`Su ogni pianeta il codice percorre otto linee rette dalla base al confine della zona, a passi di 4 unità, e annota il bioma con più peso in ogni punto. Il primo bioma diverso da quello della base si incontra in mediana a ${metres(median(first))} m; i cambi successivi si susseguono in mediana ogni ${metres(median(gaps))} m, con una mediana per pianeta compresa fra ${metres(Math.min(...each))} e ${metres(Math.max(...each))} m. Lungo le ${data.length * 8} linee i cambi di bioma sono ${first.length + gaps.length}.`, '');
-    out.push('## Biomi dei pianeti', '', 'Per ogni pianeta i biomi, il primo dei quali è quello della base, con il numero di celle che ognuno occupa nella zona.', '');
+    out.push('## Biomi dei pianeti', '', 'Per ogni pianeta i biomi, il primo dei quali è quello della base, con il numero di celle che ognuno occupa nella zona, e le specie endemiche con il loro bioma.', '');
     cards.forEach((g, i) => {
-        const d = data[i];
-        out.push(`- **${titles[i]}** (pianeta ${i + 1}, ${PLANET_TYPES[g.family].name.toLowerCase()}): ${d.ids.map((id, t) => `${BIOME[id].name} ${d.cells[t]}`).join(', ')}.`);
+        const d = data[i], e = endemics[i].map(sp => `*${sp.name}* (${BIOME[sp.biome].name.toLowerCase()})`);
+        out.push(`- **${titles[i]}** (pianeta ${i + 1}, ${PLANET_TYPES[g.family].name.toLowerCase()}): ${d.ids.map((id, t) => `${BIOME[id].name} ${d.cells[t]}`).join(', ')}.${e.length ? ' Endemiche: ' + e.join(', ') + '.' : ''}`);
     });
     out.push('');
     return out.join('\n');
