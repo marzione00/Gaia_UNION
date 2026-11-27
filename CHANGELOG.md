@@ -1,3 +1,12 @@
+# 1.70.0: Mondi aperti, terreno in streaming
+
+- Prima versione della serie «Mondi aperti», alla Starfield: attorno a ogni atterraggio una zona di circa 4 × 4 km da esplorare. Fino alla 1.69.0 l'esploratore restava in un quadrato di circa 320 m di lato.
+- Il suolo è fatto di sei griglie annidate che seguono la camera, con passo da 1 a 32 unità, fino a 2048 unità in ogni direzione, senza crepe fra una griglia e l'altra. Attorno alla base la griglia più fine riproduce il suolo di prima; altrove le altezze sono quelle del pianeta visto dall'orbita.
+- Quando la camera si sposta si calcolano soltanto le file nuove di punti; durante un viaggio rapido il suolo si aggiorna all'arrivo.
+- Ombre e mare seguono la camera; le increspature fini del mare sfumano in lontananza.
+- Al confine della zona l'esploratore si ferma; il pulsante «Base» e il tasto B riportano alla base. La scheda dell'esploratore indica la distanza dalla base.
+- Nuovo `src/worlds/clipmap.js`; `tests/terreno.test.mjs` controlla le griglie, le misure in `docs/PRESTAZIONI_MONDI.md` aggiungono il rover a 1,3 km dalla base. Descrizione in `docs/GRAPHICS.md`, sezione «Terreno in streaming».
+
 # 1.69.0: Mondi vivi, catalogo dei mondi, collaudo e prestazioni
 
 - Ottava e ultima versione della serie «Mondi vivi». Il catalogo 3D ha una seconda famiglia, «Mondi», con i 2868 modelli delle superfici: 1388 specie, 1201 edifici delle colonie, 200 edifici dei villaggi, 40 popoli nativi, 36 coloni e 3 rover. Con le stazioni e le navi i modelli del catalogo sono 3865.

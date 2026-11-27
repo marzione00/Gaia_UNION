@@ -50,7 +50,7 @@ I test della serie sono 40, in otto file elencati nella tabella delle versioni. 
 
 ## Prestazioni
 
-`docs/PRESTAZIONI_MONDI.md` riporta le misure sui 125 pianeti, generate da `node scripts/prestazioni-mondi.mjs` con il contatore delle chiamate di disegno di `scripts/prestazioni.mjs`. Con il dettaglio alto un fotogramma di superficie richiede al più 97 chiamate di disegno e 1,13 milioni di triangoli, con l'esploratore in corsa; con la grafica leggera al più 0,61 milioni di triangoli. Maglie e istanze di una superficie occupano da 16,9 a 21,9 MiB; i tempi di costruzione e di preparazione dei fotogrammi sono nelle tabelle del documento.
+`docs/PRESTAZIONI_MONDI.md` riporta le misure sui 125 pianeti, generate da `node scripts/prestazioni-mondi.mjs` con il contatore delle chiamate di disegno di `scripts/prestazioni.mjs`. Con il dettaglio alto un fotogramma di superficie richiede al più 101 chiamate di disegno e 1,06 milioni di triangoli, con l'esploratore in corsa; con la grafica leggera al più 0,59 milioni di triangoli. Maglie e istanze di una superficie occupano da 16,6 a 21,5 MiB; i tempi di costruzione e di preparazione dei fotogrammi sono nelle tabelle del documento. Dalla 1.70.0 le misure riguardano anche il suolo in streaming della serie «Mondi aperti» e un rover a 1,3 km dalla base.
 
 ## Limiti
 

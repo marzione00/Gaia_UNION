@@ -47,6 +47,10 @@ test('esploratore: passo, corsa, pendii, acqua ed edifici',()=>{
  const wall={...flat(),blocked:x=>x>2};
  const s=newExplorer(0,0,-Math.PI/4,wall);run(s,{forward:1},wall,6);assert.ok(s.x<=2&&s.z>3);
  assert.ok(!passable(EDGE+.1,0,EDGE,0,flat(),FOOT,false)&&passable(EDGE-.1,0,EDGE-.2,0,flat(),FOOT,false));
+ // The zone of the landing site is 2 × 1250 units on a side, about 4 km (1.70.0): at its edge the explorer stops.
+ assert.equal(EDGE,1250);assert.ok(Math.abs(2*EDGE/METRE-3977)<1);
+ const edge=newExplorer(EDGE-1,0,0,flat()),ec=run(edge,{forward:1,run:true},flat(),2);assert.ok(ec.includes('confine')&&ec.includes('fermo')&&edge.x<=EDGE);
+ const inside=newExplorer(EDGE-30,0,Math.PI,flat());assert.ok(!run(inside,{forward:1},flat(),2).includes('confine'));
  // Walking off a ledge starts a fall with the gravity of the planet.
  const ledge={...flat(),ground:x=>x<1?2:0},f=newExplorer(0,0,0,ledge);f.y=2;run(f,{forward:1},ledge,3);assert.ok(f.x>1&&f.y===0&&f.grounded&&f.jumps===0);
 });

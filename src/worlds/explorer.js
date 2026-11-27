@@ -8,7 +8,10 @@ export const G0 = 9.81;
 export const WALK = 1.4, RUN = 3.6, JUMP = 3.1;
 export const FOOT = Object.freeze({ slope: 35, wade: .5, turn: 2.4, accel: 6 });
 export const ROVER = Object.freeze({ top: 10, accel: 2.5, brake: 6, turn: .9, slope: 25, wade: .3, length: 1.3, width: .9 });
-export const EDGE = 100;
+/** Half side of the zone of the landing site that the explorer may walk (1.70.0): 1250 units, about 2 km, so
+ * the zone is about 4 km × 4 km around the base, as in Starfield, where one lands at a point and explores
+ * the land round it. Until 1.69.0 the explorer stayed within 100 units. */
+export const EDGE = 1250;
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x)), wrap = a => Math.atan2(Math.sin(a), Math.cos(a));
 
 /** A standing jump with the gravity `g` of the planet, in units of the Earth's: height and time of flight from
@@ -39,7 +42,8 @@ export function passable(x, z, x0, z0, env, limits, airborne) {
 
 /** One step of `dt` seconds. `input` has forward and turn in [−1, 1], run and jump; a heading with a push,
  * from a joystick; or a goal [x, z] that steers the explorer there and a distance `stop` at which it halts.
- * Returns the events of the step: 'salto', 'atterraggio', 'fermo', 'arrivato'. */
+ * Returns the events of the step: 'salto', 'atterraggio', 'fermo', 'arrivato', and 'confine' at the edge
+ * of the zone. */
 export function stepExplorer(a, input, dt, env) {
     dt = clamp(dt, 0, .1);
     const rover = a.mode === 'rover', L = rover ? ROVER : FOOT, M = METRE, ev = [];
@@ -68,7 +72,7 @@ export function stepExplorer(a, input, dt, env) {
     if (Math.abs(step) > 1e-7) {
         const [fx, fz] = forward(a.h), air = !a.grounded, ok = (x, z) => passable(x, z, a.x, a.z, env, L, air) && (!rover || corners(x, z, a.h).every(([cx, cz]) => !env.blocked(cx, cz)));
         let nx = a.x + fx * step, nz = a.z + fz * step;
-        if (!ok(nx, nz)) { if (Math.abs(nx - a.x) > 1e-9 && ok(nx, a.z)) nz = a.z; else if (Math.abs(nz - a.z) > 1e-9 && ok(a.x, nz)) nx = a.x; else { nx = a.x; nz = a.z; a.speed = 0; ev.push('fermo'); } }
+        if (!ok(nx, nz)) { if (Math.abs(nx) > EDGE || Math.abs(nz) > EDGE) ev.push('confine'); if (Math.abs(nx - a.x) > 1e-9 && ok(nx, a.z)) nz = a.z; else if (Math.abs(nz - a.z) > 1e-9 && ok(a.x, nz)) nx = a.x; else { nx = a.x; nz = a.z; a.speed = 0; ev.push('fermo'); } }
         const moved = Math.hypot(nx - a.x, nz - a.z) / M; a.x = nx; a.z = nz;
         if (rover) a.driven += moved; else a.walked += moved;
     }

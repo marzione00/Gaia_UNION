@@ -75,8 +75,8 @@ test('mondi: documenti della serie, mappa dei concetti e prestazioni entro i lim
  for(const f of ['docs/CATALOGO_MONDI.md','docs/PRESTAZIONI_MONDI.md','content/worlds/modelli.json'])assert.ok(md.includes('`'+f+'`'),f);
  const p=await read('docs/PRESTAZIONI_MONDI.md'),num=t=>Number(t.replace(/\./g,'').replace(',','.'));
  assert.ok(p.startsWith('# Prestazioni misurate della serie «Mondi vivi»')&&p.includes('`node scripts/prestazioni-mondi.mjs`')&&p.includes('Le superfici di 125 pianeti'));
- const frame=[...p.matchAll(/^\| (camera delle stazioni|esploratore in corsa) \| [^|]+ \| [\d,]+ ms \| [\d,]+ ms \| [\d,]+ ms \| (\d+) \/ (\d+) \| ([\d,]+) milioni \| ([\d.]+) \|$/gm)];
- assert.equal(frame.length,6);for(const r of frame){assert.ok(num(r[3])<=BUDGET.draws);assert.ok(num(r[4])*1e6<=BUDGET.triangles);assert.ok(num(r[5])<=BUDGET.instances);}
+ const frame=[...p.matchAll(/^\| (camera delle stazioni|esploratore in corsa|rover a 1,3 km dalla base) \| [^|]+ \| [\d,]+ ms \| [\d,]+ ms \| [\d,]+ ms \| (\d+) \/ (\d+) \| ([\d,]+) milioni \| ([\d.]+) \|$/gm)];
+ assert.equal(frame.length,9);for(const r of frame){assert.ok(num(r[3])<=BUDGET.draws);assert.ok(num(r[4])*1e6<=BUDGET.triangles);assert.ok(num(r[5])<=BUDGET.instances);}
  const build=[...p.matchAll(/^\| (Superficie dalla carta|Maglie dei modelli) \| (\d+) ms \| (\d+) ms \| (\d+) ms \|$/gm)];assert.equal(build.length,2);assert.ok(build.every(r=>num(r[4])<=BUDGET.buildMs));
  const mem=/^\| Memoria delle maglie e delle istanze \| [\d,]+ MiB \| [\d,]+ MiB \| ([\d,]+) MiB \|$/m.exec(p);assert.ok(mem&&num(mem[1])<=BUDGET.meshMiB);
  assert.equal([...p.matchAll(/^\| \d+ \| [\d,]+ ms · \d+ \| [\d,]+ ms · \d+ \|/gm)].length,125);

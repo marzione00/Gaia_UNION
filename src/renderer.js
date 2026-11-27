@@ -386,7 +386,7 @@ export class GPU {
         g.uniformMatrix4fv(this.uniform(p,'uVP'),false,vp);g.uniform1f(this.uniform(p,'uPixels'),this.h*this.dpr*this.sceneScale*(background ? .22 : .087));g.uniform1f(this.uniform(p,'uTime'),this.time);
         g.uniform1i(this.uniform(p,'uHoverStar'),background?-1:(this.hoverStarIndex??-1));g.uniform1f(this.uniform(p,'uGain'),gain);const submitted=Math.min(count,(background ? this.backgroundCount : this.starCount)-offset);g.drawArrays(g.POINTS,offset,submitted);this.frameStats.stars+=submitted;this.frameStats.starDrawCalls++;g.depthMask(true);g.disable(g.BLEND);
     }
-    drawMesh(id, vp, model, { texture = null, tint = [1,1,1,1], opacity = 1, rim = 0, emission = 0, eye = [0,8,40], light = [.4,1,.7], material = 0, seed = 0, center = [0,0,0], radius = 5.3, atmosphere = [.11,.36,.81], ocean = false, disguise = 0, lightColor = [1,1,1], occluders = [], instances = null, instanceMode = 1, count = null, motion = [0,0,0,0], pbr = [0,.65,0,0], blend = false, textureFrom = null, textureFade = 1, shell = [0,0,0,0] } = {}) {
+    drawMesh(id, vp, model, { texture = null, tint = [1,1,1,1], opacity = 1, rim = 0, emission = 0, eye = [0,8,40], light = [.4,1,.7], material = 0, seed = 0, center = [0,0,0], radius = 5.3, atmosphere = [.11,.36,.81], ocean = false, disguise = 0, lightColor = [1,1,1], occluders = [], instances = null, instanceMode = 1, count = null, motion = [0,0,0,0], pbr = [0,.65,0,0], blend = false, textureFrom = null, textureFade = 1, shell = [0,0,0,0], depthBias = 0 } = {}) {
         const m=this.meshes.get(id);if(!m)return;const set=instances?this.instanceSets?.get(instances):null;if(instances&&!set)return;
         const g=this.gl,p=this.pMesh;g.useProgram(p);g.bindVertexArray(set?set.vao:m.vao);
         if(m.stride!==16)g.vertexAttrib4f(4,...pbr);
@@ -403,8 +403,12 @@ export class GPU {
         g.activeTexture(g.TEXTURE3);g.bindTexture(g.TEXTURE_2D,textureFrom||this.blank);g.uniform1i(this.uniform(p,'uTexPrev'),3);g.uniform1f(this.uniform(p,'uTexFade'),textureFrom?Math.max(0,Math.min(1,textureFade)):1);
         const blended=opacity<1||blend;if(blended){g.enable(g.BLEND);g.blendFunc(g.SRC_ALPHA,g.ONE_MINUS_SRC_ALPHA);g.depthMask(false);}
         const fs=this.frameStats;fs.draws=(fs.draws||0)+1;
+        // A surface that lies on another, as the sea on a shallow bed far away, is pulled towards the eye in the
+        // depth buffer by `depthBias` steps, so it is not cut into a pattern by the limited precision (1.70.0).
+        if(depthBias){g.enable(g.POLYGON_OFFSET_FILL);g.polygonOffset(-1,-depthBias);}
         if(set){const n=Math.min(set.n,count??set.n);if(n>0)g.drawElementsInstanced(g.TRIANGLES,m.count,g.UNSIGNED_INT,0,n);fs.triangles=(fs.triangles||0)+m.count/3*Math.max(0,n);}else{g.drawElements(g.TRIANGLES,m.count,g.UNSIGNED_INT,0);fs.triangles=(fs.triangles||0)+m.count/3;}
         if(blended){g.depthMask(true);g.disable(g.BLEND);}
+        if(depthBias)g.disable(g.POLYGON_OFFSET_FILL);
         g.activeTexture(g.TEXTURE0);
     }
     // GPU-rendered rounded panels, borders, data glyphs and all text.
