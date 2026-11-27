@@ -18,7 +18,7 @@ import { UI, C, T, ImageCache, caseLabel, DISCIPLINE, fmtNum } from './ui/toolki
 import { FrameMeter, diagnosticLines, mountDiagnostics } from './ui/diagnostics.js';
 import { DOCUMENTS, docOf, docKey, printedLabel } from './documents.js';
 import { pilotWorld, worldParameters } from './worlds/pilots.js';
-import { planetGenomes, planetSpecies } from './worlds/surface.js';
+import { planetGenomes, planetSpecies, planetEndemics } from './worlds/surface.js';
 import { placeList } from './worlds/places.js';
 import { BIOME, biomesOf } from './worlds/biomes.js';
 import { lifelessReason } from './worlds/species.js';
@@ -37,7 +37,7 @@ import { openStore, grade } from './store.js';
 import { AUTHOR, LICENCE, CREDIT, LICENCE_ROW } from './licenza.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.71.0-biomi';
+const VERSION = '1.72.0-vita';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -287,8 +287,9 @@ const PLACE_KINDS = { vetta: 'Luogo · punto più alto', forma: 'Luogo · forma 
 const exploreReady = () => W?.surface?.index === S.selected && Array.isArray(W.surface.species);
 function exploreEntries() {
     if (!exploreReady()) return [];
-    const s = W.surface, pop = W.population || [];
-    return [...s.species.map((sp, k) => ({ type: 'species', index: k, id: sp.id, data: sp, at: sp.kind === 'animal' ? W.liveCentre(k) || pop[k]?.centre || null : pop[k]?.centre || null })), ...s.places.map((p, k) => ({ type: 'place', index: k, id: p.id, data: p, at: p.position })),
+    // The endemic species of the biomes (1.72.0) follow those of the planet; each is sought where it is nearest.
+    const s = W.surface, pop = W.population || [], all = [...s.species, ...(s.endemics || [])];
+    return [...all.map((sp, k) => ({ type: 'species', index: k, id: sp.id, data: sp, at: W.spotOf?.(k) || (sp.kind === 'animal' ? W.liveCentre(k) || pop[k]?.centre || null : pop[k]?.centre || null) })), ...s.places.map((p, k) => ({ type: 'place', index: k, id: p.id, data: p, at: p.position })),
         ...(s.settlements || []).map((p, k) => ({ type: 'settlement', index: k, id: p.id, data: p, at: p.position }))];
 }
 const exploreRecord = index => store.data.explore[String(index)] || { s: [], l: [] };
@@ -369,7 +370,9 @@ function visitBiome(planet, b) {
     const rec = store.data.explore[String(planet)] ||= { s: [], l: [] }, list = rec.b ||= [];
     if (list.includes(b.id)) return;
     list.push(b.id); rec.at = new Date().toISOString(); store.save();
-    say(`Nuovo bioma: ${b.name}. ${b.about}`);
+    // Its endemic species, if any (1.72.0), is named: the scanner finds it among the plants and animals there.
+    const own = W.surface?.endemics?.find(sp => sp.biome === b.id);
+    say(`Nuovo bioma: ${b.name}. ${b.about}${own ? ` Specie endemica: ${own.name}.` : ''}`);
 }
 function saveExplorer() {
     const A = S.avatar, p = explorerTotals(A); if (!p) return; A.savedAt = Date.now();
@@ -391,7 +394,7 @@ function scan() {
     const near = W.nearest([A.x, A.y, A.z], 25);
     if (!near) { S.scanTarget = null; S.scanInfo = { name: null }; say('Scanner: nulla entro circa 40 metri.'); return; }
     const list = exploreEntries(), k = list.findIndex(e => e.type === near.type && e.index === near.index); if (k < 0) return;
-    const e = list[k], pop = W.population?.[near.index], closest = near.type === 'species' && pop ? pop.instances.reduce((b, o) => Math.hypot(o.x - A.x, o.z - A.z) < Math.hypot(b.x - A.x, b.z - A.z) ? o : b, pop.instances[0]) : null;
+    const e = list[k], pop = W.population?.[near.index], ones = pop ? pop.instances.concat(pop.zone || []) : [], closest = near.type === 'species' && ones.length ? ones.reduce((b, o) => Math.hypot(o.x - A.x, o.z - A.z) < Math.hypot(b.x - A.x, b.z - A.z) ? o : b, ones[0]) : null;
     const at = closest && e.data.kind !== 'animal' ? [closest.x, closest.y, closest.z] : e.at;
     selectEntry(k, false); S.scanTarget = at; S.scanInfo = { name: e.data.name, type: e.type, ...bearing(A, at) };
     const fresh = !isRegistered(e, exploreRecord(S.selected)); register(e);
@@ -1371,13 +1374,13 @@ function mapLog() {
 }
 function exploreLog() {
     const key = store.data.updatedAt + '|' + JSON.stringify(store.data.explore) + '|' + store.data.read.length + '|' + JSON.stringify(Object.values(store.data.courses || {}).map(r => r.stage + (r.completedAt ? 'c' : ''))) + '|' + (store.data.atlas?.visited || []).length; if (exploreLogCache[0] === key) return exploreLogCache[1];
-    const genomes = planetGenomes(), species = planetSpecies(), places = genomes.map(placeList), rows = [], physics = planetPhysics();
+    const genomes = planetGenomes(), species = planetSpecies(), endemics = planetEndemics(), places = genomes.map(placeList), rows = [], physics = planetPhysics();
     let s = 0, l = 0, planets = 0, measuredPlanets = 0, landings = 0, walked = 0, driven = 0;
     for (const rec of Object.values(store.data.explore)) { if (rec.v === 1 || rec.s.length) landings++; walked += rec.p?.w || 0; driven += rec.p?.d || 0; }
     for (const [key, rec] of Object.entries(store.data.explore)) {
         const i = Number(key), m = data.modules[i], measured = (rec.m || []).map(id => INSTRUMENTS.find(x => x.id === id)?.name).filter(Boolean); if (!m || !(rec.s.length + rec.l.length + measured.length + (rec.p ? 1 : 0) + (rec.b?.length || 0))) continue;
         planets++; s += rec.s.length; l += rec.l.length; if (measured.length) measuredPlanets++;
-        const sp = species[i].filter(x => rec.s.includes(x.id)).map(x => x.name + ' (' + x.label + ')'), pl = places[i].filter(x => rec.l.includes(x.id)).map(x => x.name);
+        const sp = [...species[i], ...endemics[i]].filter(x => rec.s.includes(x.id)).map(x => x.name + ' (' + x.label + ')'), pl = places[i].filter(x => rec.l.includes(x.id)).map(x => x.name);
         const d = rec.m?.includes('biofirme') ? diagnosis(physics[i], species[i].length, landed(i)) : null, lovelock = d ? 'Diagnosi di Lovelock: ' + VERDICTS[d.verdict] + (d.outcome === 'da-verificare' ? '' : ', ' + OUTCOMES[d.outcome]) + '.' : '';
         // The explorer on the ground (1.68.0): distances in metres and the best jump against the Earth's 49 cm.
         const p = rec.p, trip = p ? `Esploratore: ${p.w} m a piedi, ${p.d} m in rover, ${p.n === 1 ? '1 salto' : p.n + ' salti'}${p.n ? ', il più alto di ' + p.j + ' cm (sulla Terra la stessa spinta dà ' + Math.round(JUMP * JUMP / (2 * G0) * 100) + ' cm)' : ''}.` : '';
@@ -1385,7 +1388,7 @@ function exploreLog() {
         const own = biomesOf(genomes[i]), crossed = own.filter(id => rec.b?.includes(id)).map(id => BIOME[id].name), biomes = crossed.length ? `Biomi attraversati: ${crossed.join(', ')} (${crossed.length} su ${own.length}).` : '';
         rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : '', measured.length ? 'Misure: ' + measured.join(', ') + '.' : '', trip, biomes, lovelock].filter(Boolean).join(' '));
     }
-    const total = species.reduce((n, x) => n + x.length, 0), totalPlaces = places.reduce((n, x) => n + x.length, 0);
+    const total = species.reduce((n, x) => n + x.length, 0) + endemics.reduce((n, x) => n + x.length, 0), totalPlaces = places.reduce((n, x) => n + x.length, 0);
     const head = `Pianeti visitati in superficie: ${landings} su ${genomes.length}. Pianeti con registrazioni: ${planets} su ${genomes.length}. Specie registrate: ${s} su ${total}. Luoghi registrati: ${l} su ${totalPlaces}. Pianeti misurati con gli strumenti della nave: ${measuredPlanets}; strumenti a bordo: ${onBoard(store.data, instrumentSections).size} su ${INSTRUMENTS.length}.${walked + driven ? ` Percorsi a terra: ${walked} m a piedi e ${driven} m in rover.` : ''}`;
     const t = expeditionTotals(store.data, expeditionLists), expeditionRows = data.modules.filter(m => expeditionsOf(m.planetIndex).some(x => x.solved)).map(m => m.title.toUpperCase() + ': spedizioni ' + expeditionLine(m.id, false));
     const outposts = AREAS.filter((x, k) => outpostOf(k).built).length;
