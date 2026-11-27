@@ -25,7 +25,7 @@ Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle
 
 ## Controllo del repository
 
-- `main` ha un solo commit radice. Dei 78 rami presenti su GitHub con quello di questo collaudo, 77 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
+- `main` ha un solo commit radice. Dei 79 rami presenti su GitHub con quello di questo collaudo, 78 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
 - Nessuna pull request o segnalazione aperta.
 - Gli autori dei commit usano indirizzi noreply, di GitHub e di Anthropic.
 - Due esecuzioni fallite nella storia di `main`, entrambe superate dai commit successivi: il primo tentativo di pubblicazione (`bacea5c`, errore in `configure-pages`) e l’unione della pull request #5 (`1d6c911`, verifica del sito pubblicato con un numero di versione fisso, corretta in `b7dc1e8`).
