@@ -4,9 +4,12 @@
  * landing surface is the piece of the planet seen from orbit: the same seas, coasts, craters and colours,
  * with the fine relief that a map of the whole planet leaves out. Since 1.70.0 the ground is drawn by nested
  * grids that follow the camera (src/worlds/clipmap.js); the half side of the square of the stations, 112, is
- * still a multiple of the spacing of the rings of 1.62.0, so its edges fall on the lines of a 4-unit grid. */
+ * still a multiple of the spacing of the rings of 1.62.0, so its edges fall on the lines of a 4-unit grid.
+ * Since 1.71.0 the zone beyond the square is a mosaic of biomes (src/worlds/biomes.js), with their shapes and
+ * colours, on the heights and coasts of the map of the sphere. */
 import { sphereTerrain } from './orbit-texture.js';
-import { styleField } from './terrain.js';
+import { styleField, colorAt } from './terrain.js';
+import { biomeMap, biomeColour, biomeWeight, INNER } from './biomes.js';
 
 /** Side of the detailed square in scene units, radians of the sphere per scene unit, and the rings around
  * the square: each doubles the side and the spacing of the one inside it. */
@@ -93,13 +96,39 @@ function scales(g) { const S = 90 + 90 * g.terrain.relief; return { S, L: (12 + 
  * Y(x, z) in scene units (sea at 0), the lava mask and the direction on the sphere of a point. The landing
  * site is the stored one when given (src/worlds/landing-sites.js), otherwise it is searched. */
 export function surfaceField(g, stored = null) {
+    // g is a card of src/worlds/genome.js; its index chooses the biomes of the planet (src/worlds/biomes.js).
     const T = sphereTerrain(g), style = styleField(g), site = stored ? siteOf(stored) : landingSite(g, T, style), { S, L } = scales(g), { dir: d, e1, e2, offset } = site;
     // The local shapes are lower around the base and fade to a quarter between 150 and 600 units, so the
     // coasts of the horizon are those of the orbit map (localWeight).
     const local = (x, z) => (style(x / CORE + .5 + offset[0], z / CORE + .5 + offset[1]) - .5) * L * localWeight(x, z);
     const dir = (x, z) => unit([d[0] + (x * e1[0] + z * e2[0]) * ANGLE, d[1] + (x * e1[1] + z * e2[1]) * ANGLE, d[2] + (x * e1[2] + z * e2[2]) * ANGLE]);
-    const E = (x, z) => T.height(dir(x, z)) + local(x, z);
-    return { site, sea: T.sea, S, L, dir, E, Y: (x, z) => (E(x, z) - T.sea) * S, lava: (x, z) => T.lava(dir(x, z)), terrain: T };
+    // Beyond 160 units from the base the biomes take the place of the local style on dry land (1.71.0): the
+    // seas and the coasts stay those of the earlier field, map of the sphere and local style, and so does the
+    // ground under the sea. The map of the biomes is made the first time a point there is asked for. Over the
+    // square of the stations, within 158 units of the base, the ground is the earlier one.
+    let map = null;
+    const biomes = () => map ||= biomeMap(g, { T, dir, own: (x, z) => style(x / CORE + .5 + offset[0], z / CORE + .5 + offset[1]), S, L });
+    const E = (x, z) => {
+        const r = Math.hypot(x, z), sv = style(x / CORE + .5 + offset[0], z / CORE + .5 + offset[1]) - .5, near = sv * L * localWeight(x, z), e = T.height(dir(x, z)) + near;
+        if (r <= INNER || e <= T.sea) return e;
+        return T.sea + biomes().height(x, z, (e - T.sea) * S, biomeWeight(r), sv * L * S, near * S) / S;
+    };
+    const lava = (x, z) => { const m = T.lava(dir(x, z)), r = Math.hypot(x, z); return r <= INNER ? m : Math.max(m, biomeWeight(r) * biomes().lava(x, z)); };
+    /** Ground colour at a point of height e (field units) and slope: the colours of the biomes there, blended
+     * with those of the earlier surface near the base; the last value is the roughness. */
+    const colour = (x, z, e, slope, lv = 0) => {
+        const r = Math.hypot(x, z);
+        if (r <= INNER) return colorAt(g, e, T.sea, slope, 0, lv);
+        const B = biomes(), w = B.weights(x, z), wb = biomeWeight(r), c = [0, 0, 0]; let rough = 0;
+        for (let t = 0; t < B.types.length; t++) if (w[t]) { const b = B.types[t], k = biomeColour(g, b, t === 0, e, T.sea, slope); for (let i = 0; i < 3; i++) c[i] += w[t] * k[i]; rough += w[t] * (b.rough ?? (.88 - .3 * (g.family === 'arctic'))); }
+        const near = colorAt(g, e, T.sea, slope, 0, 0), out = near.map((v, i) => v + (c[i] - v) * wb);
+        if (lv > 0) for (let i = 0; i < 3; i++) out[i] += ([1, .38, .1][i] - out[i]) * Math.min(1, lv * 1.2);
+        out.push(.88 - .3 * (g.family === 'arctic') + (rough - (.88 - .3 * (g.family === 'arctic'))) * wb);
+        return out;
+    };
+    /** The biome with most weight at a point: the planet's own style near the base. */
+    const biomeAt = (x, z) => { const B = biomes(); return B.types[biomeWeight(Math.hypot(x, z)) < .5 ? 0 : B.at(x, z)]; };
+    return { site, sea: T.sea, S, L, dir, E, Y: (x, z) => (E(x, z) - T.sea) * S, lava, colour, biomes, biomeAt, terrain: T };
 }
 /** Heights on the edge of a grid of spacing `cell` set on the straight lines between its points `step`
  * apart (a whole multiple of the spacing), so the grid meets the coarser one around it without cracks.

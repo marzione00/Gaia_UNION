@@ -4,10 +4,11 @@ import { cleanMissionRecords } from './education/mission-engine.js';
 import { INSTRUMENTS } from './navigation/instruments.js';
 import { UNIT_COUNT } from './scene/systems.js';
 import { cleanSolved } from './navigation/expeditions.js';
+import { BIOME } from './worlds/biomes.js';
 export const STORE_KEY = 'gaia.beyond-knowledge.v1';
 export function fresh() { return { schema: 1, notes: {}, read: [], quiz: {}, missions: {}, courses: {}, atlas: cleanAtlas(), bookmarks: [], scenarios: [], explore: {}, solved: [], preferences: { quality: 1000000, graphics: 'high', motion: true, explorer: true }, updatedAt: null }; }
-/** Exploration diary: per planet index, the registered species (s0, s1…), places (l0, l1…) and the
- * instruments whose measurements are in the log (m). Planet indices run up to UNIT_COUNT - 1. */
+/** Exploration diary: per planet index, the registered species (s0, s1…), places (l0, l1…), the
+ * instruments whose measurements are in the log (m) and the biomes crossed (b). Planet indices run up to UNIT_COUNT - 1. */
 export function cleanExplore(value) {
     const out = {};
     if (!value || typeof value !== 'object' || Array.isArray(value)) return out;
@@ -24,7 +25,9 @@ export function cleanExplore(value) {
         // p (1.68.0): metres walked and driven by the explorer, best jump in centimetres and number of jumps.
         const whole = (x, top) => Number.isInteger(x) && x >= 0 && x <= top;
         if (v.p && typeof v.p === 'object' && whole(v.p.w, 1e7) && whole(v.p.d, 1e7) && whole(v.p.j, 1e4) && whole(v.p.n, 1e6) && v.p.w + v.p.d + v.p.n > 0) rec.p = { w: v.p.w, d: v.p.d, j: v.p.j, n: v.p.n };
-        if (rec.s.length || rec.l.length || m.length || rec.v || rec.p) out[k] = rec;
+        // b (1.71.0): the biomes crossed by the explorer, at most the eight of a planet.
+        const b = ids(v.b, x => Object.hasOwn(BIOME, x), 8); if (b.length) rec.b = b;
+        if (rec.s.length || rec.l.length || m.length || rec.v || rec.p || rec.b) out[k] = rec;
     }
     return out;
 }

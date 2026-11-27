@@ -6,7 +6,8 @@
  * graded grid with streets and pads, beyond it the field of the planet. The finest grid samples whole units,
  * as the grid of the stations, so there it reproduces the earlier ground exactly. Points are cached in a
  * window per level that wraps round (a toroidal array), so moving by a few units computes only the new rows.
- * The outer edge of every grid is set on the straight lines of the coarser one, with no cracks between them. */
+ * The outer edge of every grid is set on the straight lines of the coarser one, with no cracks between them.
+ * Since 1.71.0 the colour and roughness of a point come from the biomes of the field (field.colour). */
 import { colorAt } from './terrain.js';
 import { CORE, stitch } from './field.js';
 
@@ -52,9 +53,9 @@ export class GroundClipmap {
         if (L.rTag[i * 2] === a && L.rTag[i * 2 + 1] === b) return o;
         const H = L.heights, p = this.point(L, a, b), y = H[p * 3], h = k => H[k * 3], s = L.step, g = this.s.genome, F = this.s.field;
         const hx = (h(this.point(L, a + 1, b)) - h(this.point(L, a - 1, b))) / (2 * s), hz = (h(this.point(L, a, b + 1)) - h(this.point(L, a, b - 1))) / (2 * s);
-        const l = Math.hypot(hx, 1, hz), slope = Math.min(1, Math.hypot(hx, hz) * .9), lava = H[p * 3 + 2], c = colorAt(g, H[p * 3 + 1], F.sea, slope, 0, lava), x = a * s, z = b * s;
+        const l = Math.hypot(hx, 1, hz), slope = Math.min(1, Math.hypot(hx, hz) * .9), lava = H[p * 3 + 2], x = a * s, z = b * s, c = F.colour ? F.colour(x, z, H[p * 3 + 1], slope, lava) : colorAt(g, H[p * 3 + 1], F.sea, slope, 0, lava);
         const R = L.rec; R[o] = x; R[o + 1] = y; R[o + 2] = z; R[o + 3] = -hx / l; R[o + 4] = 1 / l; R[o + 5] = -hz / l; R[o + 6] = x / CORE + .5; R[o + 7] = z / CORE + .5;
-        R[o + 8] = Math.pow(c[0], 1.6); R[o + 9] = Math.pow(c[1], 1.6); R[o + 10] = Math.pow(c[2], 1.6); R[o + 11] = 1; R[o + 12] = 0; R[o + 13] = this.rough; R[o + 14] = lava > .3 ? .9 : 0; R[o + 15] = 1;
+        R[o + 8] = Math.pow(c[0], 1.6); R[o + 9] = Math.pow(c[1], 1.6); R[o + 10] = Math.pow(c[2], 1.6); R[o + 11] = 1; R[o + 12] = 0; R[o + 13] = c[3] ?? this.rough; R[o + 14] = lava > .3 ? .9 : 0; R[o + 15] = 1;
         L.rTag[i * 2] = a; L.rTag[i * 2 + 1] = b;
         return o;
     }

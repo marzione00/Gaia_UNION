@@ -29,7 +29,8 @@ import { pressureFromDensity, APPRECIABLE_DENSITY } from '../worlds/physics.js';
 import { CORE, RINGS } from '../worlds/field.js';
 import { GroundClipmap, LEVELS as GROUND_LEVELS } from '../worlds/clipmap.js';
 import { LANDING_SITES } from '../worlds/landing-sites.js';
-import { tuft, rock, station as stationMesh, seaPlane, seaRing, beacon, curtain } from '../worlds/geometry.js';
+import { tuft, rock, slab, spire, station as stationMesh, seaPlane, seaRing, beacon, curtain } from '../worlds/geometry.js';
+import { chunkRocks, CHUNK } from '../worlds/biomes.js';
 import { bodyMesh } from '../worlds/bodyplan.js';
 import { buildingMesh } from '../worlds/buildings.js';
 import { archMesh, worksMesh, roverMesh, archPalette, typologyOf } from '../worlds/architecture.js';
@@ -269,7 +270,9 @@ export class World {
             // The ground streamed around the camera (1.70.0, src/worlds/clipmap.js): six nested grids up to the
             // horizon, centred here on the view of the stations and moved with the camera at every frame.
             this.ground = new GroundClipmap(s); for (const k of this.ground.update(2, 2)) R.makeMesh('planet-ground-' + k, this.ground.levels[k].mesh);
-            if (!this.planetMeshes) { R.makeMesh('world-tuft', tuft()); R.makeMesh('world-rock', rock()); R.makeMesh('planet-station', stationMesh()); R.makeMesh('planet-sea', seaPlane(900, 900, 180, 180)); R.makeMesh('planet-sea-far', seaRing(HORIZON, 448)); for (const [id, make] of Object.entries(MESHES)) R.makeMesh(id, make()); this.planetMeshes = true; }
+            // Rocks of the biomes around the camera (1.71.0), in chunks of 64 units, made again when it changes chunk.
+            this.rockChunks = new Map(); this.rockKey = null; for (const k of [0, 1, 2]) R.deleteInstances?.('biome-rocks-' + k);
+            if (!this.planetMeshes) { R.makeMesh('world-tuft', tuft()); R.makeMesh('world-rock', rock()); R.makeMesh('world-slab', slab()); R.makeMesh('world-spire', spire()); R.makeMesh('planet-station', stationMesh()); R.makeMesh('planet-sea', seaPlane(900, 900, 180, 180)); R.makeMesh('planet-sea-far', seaRing(HORIZON, 448)); for (const [id, make] of Object.entries(MESHES)) R.makeMesh(id, make()); this.planetMeshes = true; }
             // Species, rocks, geyser plume and aurora of this planet.
             const sc = surfaceScatter(s), pack = l => { const a = new Float32Array(Math.max(1, l.length) * 8); l.forEach((o, i) => a.set([o.x, o.y, o.z, o.s, o.r, o.g, o.b, o.h], i * 8)); return a; };
             this.population = sc.species; this.planetCounts = [sc.species.reduce((n, p) => n + p.instances.length, 0), sc.rocks.length]; this.lifeAt = null;
@@ -888,6 +891,14 @@ export class World {
         V.data??=new Float32Array(8);V.data.set([0,y0,0,k,...L.tint,heading]);R.updateInstances(m.id+'-i',V.data);
         R.drawMesh(m.id,this.vp,IDENTITY,{...draw,instances:m.id+'-i',instanceMode:mode,motion,pbr});
     }
+    /** Rocks of the biomes in the chunks within about 200 units of the point f (1.71.0): chunks already made are
+     * kept, the others made with chunkRocks; one instance set per shape. */
+    biomeRocks(f){
+        const R=this.R,S0=this.surface,ci=Math.floor(f[0]/CHUNK),cj=Math.floor(f[2]/CHUNK),keep=new Map(),lists=[[],[],[]];
+        for(let dj=-3;dj<=3;dj++)for(let di=-3;di<=3;di++){if(Math.hypot(di,dj)>3.2)continue;const key=(ci+di)+','+(cj+dj),c=this.rockChunks.get(key)||chunkRocks(S0,ci+di,cj+dj);keep.set(key,c);for(let k=0;k<3;k++)for(const v of c[k])lists[k].push(v);}
+        this.rockChunks=keep;
+        lists.forEach((l,k)=>{const key='biome-rocks-'+k,data=new Float32Array(l);if(R.instanceSets?.has(key))R.updateInstances(key,data);else if(l.length)R.makeInstances(key,['world-rock','world-slab','world-spire'][k],data);});
+    }
     releaseWorldModel(){
         const R=this.R,V=this.worldViewer;if(!V)return;
         for(const m of V.levels)if(m){R.deleteInstances?.(m.id+'-i');R.deleteMesh?.(m.id);}
@@ -1052,6 +1063,7 @@ export class World {
             // point looked at shifts by less than 8 units a frame, so a flight never rebuilds every grid each frame.
             const focus=this.target||[2,0,2],last=this.groundFocus,jump=last?Math.hypot(focus[0]-last[0],focus[2]-last[1]):0;this.groundFocus=[focus[0],focus[2]];
             if(this.ground&&jump<8)for(const k of this.ground.update(focus[0],focus[2]))R.makeMesh('planet-ground-'+k,this.ground.levels[k].mesh);
+            const rk=Math.floor(focus[0]/CHUNK)+','+Math.floor(focus[2]/CHUNK);if(S0.field&&jump<8&&rk!==this.rockKey&&R.makeInstances){this.rockKey=rk;this.biomeRocks(focus);}
             const sc=[Math.round(focus[0]/8)*8,Math.round(focus[2]/8)*8],cy=S0.heightAt?S0.heightAt(sc[0],sc[1]):0,sea=[Math.round(focus[0]/320)*320,Math.round(focus[2]/320)*320],seaM=transform(sea[0],0,sea[1]);
             const light=sun?sun.light:S0.light.direction,lightColor=sun?sun.color:S0.light.color,lightVP=mul(ortho,lookAt([sc[0]+light[0]*90,cy+light[1]*90,sc[1]+light[2]*90],[sc[0],cy,sc[1]]));
             R.renderShadow(this.biome+':'+sc.join(','),['planet-ground-0','planet-ground-1'],lightVP);
@@ -1080,6 +1092,7 @@ export class World {
             // Aurora in sky coordinates around the eye, swaying slowly; drawn after the ground, so the relief hides it.
             if(this.aurora){const m=transform(...this.eye,1,Math.sin(s.time*.05)*.03);R.drawMesh('planet-aurora',this.vp,m,{eye:this.eye,material:16,tint:[.35,1,.62,1],opacity:.4});const m2=transform(this.eye[0],this.eye[1]+18,this.eye[2],1.04,Math.sin(s.time*.05+1)*.03);R.drawMesh('planet-aurora',this.vp,m2,{eye:this.eye,material:16,tint:[1,.35,.5,1],opacity:.18});}
             if(R.instanceSets?.has('planet-rocks'))R.drawMesh('world-rock',this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:'planet-rocks',instanceMode:1,pbr:[0,.9,0,1]});
+            ['world-rock','world-slab','world-spire'].forEach((mesh,k)=>{if(R.instanceSets?.get('biome-rocks-'+k)?.n)R.drawMesh(mesh,this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:'biome-rocks-'+k,instanceMode:1,pbr:[0,.9,0,1]});});
             // Moons above the horizon, right of the default view, where the sky is clear of the title.
             // Moons beyond the horizon (1.62.0), with the same apparent size as before at 320 units.
             for(const m of S0.moons){const az=Math.atan2(-Math.cos(.6),-Math.sin(.6))+m.azimuth,d=S0.field?3200:320,pos=[Math.cos(az)*d,Math.tan(m.elevation*.7)*d+6,Math.sin(az)*d];const back=normal(this.eye.map((v,i)=>v-pos[i])),moonLight=normal(light.map((v,i)=>v+back[i]*.7));R.drawMesh('sphere',this.vp,transform(...pos,m.size*d/320),{eye:this.eye,light:moonLight,material:12,texture:this.textures.moon});}

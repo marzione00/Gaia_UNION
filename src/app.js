@@ -20,6 +20,7 @@ import { DOCUMENTS, docOf, docKey, printedLabel } from './documents.js';
 import { pilotWorld, worldParameters } from './worlds/pilots.js';
 import { planetGenomes, planetSpecies } from './worlds/surface.js';
 import { placeList } from './worlds/places.js';
+import { BIOME, biomesOf } from './worlds/biomes.js';
 import { lifelessReason } from './worlds/species.js';
 import { planetPhysics, physicsRows, physicsText, speciesCount, it as italian } from './worlds/planet-physics.js';
 import { cleanPassages, exploration, linkOpen } from './navigation/passages.js';
@@ -36,7 +37,7 @@ import { openStore, grade } from './store.js';
 import { AUTHOR, LICENCE, CREDIT, LICENCE_ROW } from './licenza.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.70.0-terreno';
+const VERSION = '1.71.0-biomi';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -333,6 +334,8 @@ function exploreTick() {
     else if (S.groundFollow && Number.isInteger(S.groundFollow.k)) { const c = W.liveCentre(S.groundFollow.k); if (c) { S.exploreGoal = [c[0], c[2]]; S.exploreStop = 10; } }
     if (S.exploreGoal) { input.goal = S.exploreGoal; input.stop = S.exploreStop; }
     const ev = stepExplorer(A, input, dt, env);
+    // The biome under the explorer (1.71.0): the first visit of each goes into the diary.
+    const here = W.surface?.field?.biomeAt?.(A.x, A.z); if (here && here.id !== S.biomeHere) { S.biomeHere = here.id; visitBiome(A.planet, here); }
     if (ev.includes('arrivato') && !S.groundFollow) S.exploreGoal = null;
     if (ev.includes('fermo') && S.exploreGoal && !S.groundFollow) { S.exploreGoal = null; say(ev.includes('confine') ? 'La meta è oltre il confine della zona di atterraggio.' : 'Il passaggio è chiuso: aggira l’ostacolo.'); }
     // The zone of the landing site is about 4 km × 4 km (1.70.0): at its edge the explorer stops.
@@ -353,7 +356,7 @@ function startAvatar(env) {
     const f = S.exploreFocus || (R.w < 850 ? [-4, 8] : [2, 2]), spot = freeSpot(f[0], f[1], env) || f, e = exploreEntries()[S.exploreEntry];
     const h = e?.at ? Math.atan2(-(e.at[2] - spot[1]), e.at[0] - spot[0]) : 0, A = S.avatar = newExplorer(spot[0], spot[1], h, env);
     A.planet = S.selected; A.base = { w: 0, d: 0, j: 0, n: 0, ...exploreRecord(S.selected).p }; A.savedAt = Date.now();
-    S.exploreFocus = [...f]; S.chaseYaw = S.yaw; S.exploreGoal = null; S.scanTarget = null; S.scanInfo = null;
+    S.exploreFocus = [...f]; S.chaseYaw = S.yaw; S.exploreGoal = null; S.scanTarget = null; S.scanInfo = null; S.biomeHere = null;
 }
 /** Totals of the explorer on the planet for the diary: metres walked and driven, best jump, jumps. */
 function explorerTotals(A = S.avatar) {
@@ -361,6 +364,13 @@ function explorerTotals(A = S.avatar) {
     return { w: b.w + Math.round(A.walked), d: b.d + Math.round(A.driven), j: Math.max(b.j, Math.round(A.best * 100)), n: b.n + A.jumps };
 }
 /** Writes the totals of the explorer into the diary, when they changed. */
+/** A biome reached for the first time on planet `planet` (1.71.0): kept in the diary and described. */
+function visitBiome(planet, b) {
+    const rec = store.data.explore[String(planet)] ||= { s: [], l: [] }, list = rec.b ||= [];
+    if (list.includes(b.id)) return;
+    list.push(b.id); rec.at = new Date().toISOString(); store.save();
+    say(`Nuovo bioma: ${b.name}. ${b.about}`);
+}
 function saveExplorer() {
     const A = S.avatar, p = explorerTotals(A); if (!p) return; A.savedAt = Date.now();
     if (p.w + p.d + p.n === 0) return;
@@ -863,7 +873,11 @@ function explorerLines(mobile) {
     const I = S.scanInfo, scanner = I ? I.name ? `Scanner: ${I.name}, ${Math.round(I.metres)} m ${I.where}` : 'Scanner: nulla entro circa 40 metri' : mobile ? 'Scanner: tocca SCANNER vicino a specie e luoghi' : 'Scanner: premi F vicino a specie e luoghi';
     const goal = S.exploreGoal ? `Verso la meta: ${Math.round(Math.hypot(S.exploreGoal[0] - A.x, S.exploreGoal[1] - A.z) / METRE)} m` : null;
     const b = baseOf(), far = Math.hypot(A.x - b[0], A.z - b[1]) / METRE, home = far > 50 ? ` · base a ${far >= 1000 ? (far / 1000).toFixed(2).replace('.', ',') + ' km' : Math.round(far) + ' m'}` : '';
-    return { tag: 'Esploratore · ' + (A.mode === 'rover' ? 'rover' : 'a piedi') + home, motion: `${how} · ${one(v)} m/s · gravità ${W.surface.genome.gravity.toFixed(2).replace('.', ',')} g`, jump, scanner, goal };
+    // The biome where the explorer stands (1.71.0): in the title on large screens, at the start of the line of
+    // motion on phones, where the title has no room for it.
+    const biome = W.surface.field?.biomeAt?.(A.x, A.z)?.name, g = W.surface.genome.gravity.toFixed(2).replace('.', ',');
+    const motion = mobile && biome ? `${biome} · ${how} · ${one(v)} m/s · ${g} g` : `${how} · ${one(v)} m/s · gravità ${g} g`;
+    return { tag: 'Esploratore · ' + (A.mode === 'rover' ? 'rover' : 'a piedi') + (biome && !mobile ? ' · ' + biome : '') + home, motion, jump, scanner, goal };
 }
 /** The explorer on the ground (1.68.0): its numbers, the jump, rover and scanner buttons and, on phones, the
  * joystick. On phones the card of the entry closes to show them. */
@@ -1361,13 +1375,15 @@ function exploreLog() {
     let s = 0, l = 0, planets = 0, measuredPlanets = 0, landings = 0, walked = 0, driven = 0;
     for (const rec of Object.values(store.data.explore)) { if (rec.v === 1 || rec.s.length) landings++; walked += rec.p?.w || 0; driven += rec.p?.d || 0; }
     for (const [key, rec] of Object.entries(store.data.explore)) {
-        const i = Number(key), m = data.modules[i], measured = (rec.m || []).map(id => INSTRUMENTS.find(x => x.id === id)?.name).filter(Boolean); if (!m || !(rec.s.length + rec.l.length + measured.length + (rec.p ? 1 : 0))) continue;
+        const i = Number(key), m = data.modules[i], measured = (rec.m || []).map(id => INSTRUMENTS.find(x => x.id === id)?.name).filter(Boolean); if (!m || !(rec.s.length + rec.l.length + measured.length + (rec.p ? 1 : 0) + (rec.b?.length || 0))) continue;
         planets++; s += rec.s.length; l += rec.l.length; if (measured.length) measuredPlanets++;
         const sp = species[i].filter(x => rec.s.includes(x.id)).map(x => x.name + ' (' + x.label + ')'), pl = places[i].filter(x => rec.l.includes(x.id)).map(x => x.name);
         const d = rec.m?.includes('biofirme') ? diagnosis(physics[i], species[i].length, landed(i)) : null, lovelock = d ? 'Diagnosi di Lovelock: ' + VERDICTS[d.verdict] + (d.outcome === 'da-verificare' ? '' : ', ' + OUTCOMES[d.outcome]) + '.' : '';
         // The explorer on the ground (1.68.0): distances in metres and the best jump against the Earth's 49 cm.
         const p = rec.p, trip = p ? `Esploratore: ${p.w} m a piedi, ${p.d} m in rover, ${p.n === 1 ? '1 salto' : p.n + ' salti'}${p.n ? ', il più alto di ' + p.j + ' cm (sulla Terra la stessa spinta dà ' + Math.round(JUMP * JUMP / (2 * G0) * 100) + ' cm)' : ''}.` : '';
-        rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : '', measured.length ? 'Misure: ' + measured.join(', ') + '.' : '', trip, lovelock].filter(Boolean).join(' '));
+        // The biomes crossed (1.71.0), in the order of the planet's list, out of the five to eight it has.
+        const own = biomesOf(genomes[i]), crossed = own.filter(id => rec.b?.includes(id)).map(id => BIOME[id].name), biomes = crossed.length ? `Biomi attraversati: ${crossed.join(', ')} (${crossed.length} su ${own.length}).` : '';
+        rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : '', measured.length ? 'Misure: ' + measured.join(', ') + '.' : '', trip, biomes, lovelock].filter(Boolean).join(' '));
     }
     const total = species.reduce((n, x) => n + x.length, 0), totalPlaces = places.reduce((n, x) => n + x.length, 0);
     const head = `Pianeti visitati in superficie: ${landings} su ${genomes.length}. Pianeti con registrazioni: ${planets} su ${genomes.length}. Specie registrate: ${s} su ${total}. Luoghi registrati: ${l} su ${totalPlaces}. Pianeti misurati con gli strumenti della nave: ${measuredPlanets}; strumenti a bordo: ${onBoard(store.data, instrumentSections).size} su ${INSTRUMENTS.length}.${walked + driven ? ` Percorsi a terra: ${walked} m a piedi e ${driven} m in rover.` : ''}`;
@@ -1959,9 +1975,10 @@ function overlay() {
         U.button('confirm-page', 'VAI ALLA PAGINA', x + 20, 301, pw - 40, 38, () => finishEdit());
     }
     if (S.toast && performance.now() < S.toastUntil) {
-        const pw = Math.min(w - 30, 850), x = (w - pw) / 2;
-        U.panel(x, h - 47 - 68, pw, 62, C.lime, .96);
-        U.wrap(S.toast, x + 14, h - 103, pw - 28, C.pale, 22, 2, 'mini');
+        // Two lines, up to four for a long message on a narrow screen (the descriptions of the biomes, 1.71.0).
+        const pw = Math.min(w - 30, 850), x = (w - pw) / 2, n = Math.max(2, Math.min(4, R.multilineCount(S.toast, pw - 28, 'mini'))), up = (n - 2) * 22;
+        U.panel(x, h - 47 - 68 - up, pw, 62 + up, C.lime, .96);
+        U.wrap(S.toast, x + 14, h - 103 - up, pw - 28, C.pale, 22, n, 'mini');
     }
 }
 function drawMathObjects() {

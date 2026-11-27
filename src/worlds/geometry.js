@@ -84,6 +84,22 @@ export function station() {
 }
 /** Rock: a flattened, slightly irregular sphere. */
 export function rock() { const m = shaped(sphereMesh(10, 7), { scale: [1, .55, .8] }); for (let i = 0; i < m.v.length; i += 12) { const k = 1 + .18 * Math.sin(m.v[i] * 7.1 + m.v[i + 2] * 5.3); m.v[i] *= k; m.v[i + 1] *= k; m.v[i + 2] *= k; } return m; }
+/** Rocks of the biomes (1.71.0), besides the boulder: a slab of layered rock, wide and thin, with its edges broken
+ * into facets, and a spire of columnar rock, narrow and tall. Both stand on their base, about half sunk. */
+function broken(m, a, b) {
+    const v = m.v, n = new Float32Array(v.length / 12 * 3);
+    for (let i = 0; i < v.length; i += 12) { const x = v[i], y = v[i + 1], z = v[i + 2], k = 1 + a * Math.sin(x * 6.3 + z * 4.1) + b * Math.sin(y * 11.7 + x * 3.3 - z * 5.9); v[i] *= k; v[i + 2] *= k; v[i + 1] *= 1 + .5 * (k - 1); }
+    // Normals of the displaced surface, from the faces around each vertex (the triangles of sphereMesh turn inwards).
+    for (let t = 0; t < m.i.length; t += 3) {
+        const [p, q, r] = [m.i[t], m.i[t + 1], m.i[t + 2]], e = [0, 1, 2].map(c => v[q * 12 + c] - v[p * 12 + c]), f = [0, 1, 2].map(c => v[r * 12 + c] - v[p * 12 + c]);
+        const c = [e[1] * f[2] - e[2] * f[1], e[2] * f[0] - e[0] * f[2], e[0] * f[1] - e[1] * f[0]];
+        for (const w of [p, q, r]) for (let k = 0; k < 3; k++) n[w * 3 + k] -= c[k];
+    }
+    for (let w = 0; w < n.length / 3; w++) { const l = Math.hypot(n[w * 3], n[w * 3 + 1], n[w * 3 + 2]); if (l > 1e-9) for (let k = 0; k < 3; k++) v[w * 12 + 3 + k] = n[w * 3 + k] / l; }
+    return m;
+}
+export function slab() { return broken(shaped(sphereMesh(8, 5), { scale: [1.35, .3, 1] }), .16, .08); }
+export function spire() { return broken(shaped(sphereMesh(6, 9), { scale: [.42, 1.7, .4], move: [0, .45, 0] }), .12, .1); }
 
 // Body plans of the species (src/worlds/species.js). White parts take the colour of the species.
 const WHITE = [1, 1, 1, 1];
