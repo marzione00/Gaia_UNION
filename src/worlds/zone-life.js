@@ -39,7 +39,8 @@ const pick = (list, u) => { const sum = list.reduce((a, [, w]) => a + w, 0); let
  * biome there and a patch noise, on dry ground that is not too steep (near the sea for the species of the
  * shore); then at most one group of animals, on land or, for floating colonies, on the sea. Each item has the
  * index k of its species and the 8 numbers of an instance; animals also have the centre and pace of their
- * wandering. Nothing falls in the square of the stations (|x|, |z| ≤ 120). */
+ * wandering. Nothing falls in the square of the stations (|x|, |z| ≤ 120), and nothing that stands on the
+ * ground on the sites of the zone (1.73.0, s.siteClear). */
 export function chunkLife(s, population, A, ci, cj) {
     const out = []; if (!population.length) return out;
     const B = s.field.biomes(), seed = s.genome.terrain.seed % 1000003, sea = s.seaY, N = (s.lifeNoise ||= noiseField(s.genome.terrain.seed ^ 0x9A7C4));
@@ -60,7 +61,7 @@ export function chunkLife(s, population, A, ci, cj) {
         const patch = smooth(.3, .7, N.fbm(x / 48, z / 48, 2));
         if (h(3) >= a.flora * (.3 + 1.4 * patch)) continue;
         const k = pick(a.plants, h(4)), sp = population[k].species, y = s.heightAt(x, z);
-        if (!fits(sp, x, z, y)) continue;
+        if (!fits(sp, x, z, y) || s.siteClear?.(x, z)) continue;
         out.push(item(k, x, y - .05, z, h(5), h(6), h(7) * 6.283));
     }
     // One group of animals at most: a herd of grazers (3 to 6), a pair of predators, a flock (3 to 5) or a few others.
@@ -70,7 +71,8 @@ export function chunkLife(s, population, A, ci, cj) {
         const k = pick(list, h(4)), sp = population[k].species, n = sp.role === 'predatore' ? 1 + Math.floor(h(5) * 2) : GRAZERS.has(sp.form) ? 3 + Math.floor(h(5) * 4) : 2 + Math.floor(h(5) * 3);
         for (let m = 0; m < n; m++) {
             const e = c => hash3(ci * 1039 + m, cj * 1049 + c, seed ^ 0xBEA57), ang = e(1) * 6.283, d = Math.sqrt(e(2)) * 5, px = x + Math.cos(ang) * d, pz = z + Math.sin(ang) * d, y = s.heightAt(px, pz);
-            if (!fits(sp, px, pz, y)) continue;
+            // Animals that walk keep their whole circle off the sites of the zone (1.73.0); flyers pass over them.
+            if (!fits(sp, px, pz, y) || sp.form !== 'volatore' && s.siteClear?.(px, pz, 6)) continue;
             const fly = sp.form === 'volatore', float = sp.form === 'medusa', alt = fly ? 9 + 6 * e(3) : 0;
             const o = item(k, px, float ? sea + .05 : y - .05 + alt, pz, e(4), e(5), e(6) * 6.283);
             // Wandering: a circle of 2 to 6 units around the place (12 to 20 for flyers), walked at the pace of
