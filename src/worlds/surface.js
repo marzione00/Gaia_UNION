@@ -45,7 +45,7 @@ export function planetSurface(index, n = GRID) {
     const sunAz = r() * Math.PI * 2, sunEl = .45 + r() * .45, light = norm([Math.cos(sunAz) * Math.cos(sunEl), Math.sin(sunEl), Math.sin(sunAz) * Math.cos(sunEl)]);
     const density = g.atmosphere.density, horizon = density > .04 ? g.atmosphere.sky : [.035, .035, .04], top = density > .04 ? mix([.004, .006, .012], g.atmosphere.sky.map(c => c * .45), Math.min(1, density * 1.4)) : [.002, .002, .004];
     const out = {
-        key: 'planet-' + index, index, genome: g, n, cell, heights: Y, heightAt, lavaAt, seaY, stations, mesh: null, field: F, site: F.site,
+        key: 'planet-' + index, index, genome: g, n, cell, heights: Y, fieldGrid: E, heightAt, lavaAt, seaY, stations, mesh: null, field: F, site: F.site,
         grid: { radius: 2, cells: [] }, water: g.palette.water, light: { direction: light, color: g.star.light },
         fog: { color: horizon, density: .0004 + .0016 * density }, sky: { top, horizon, sun: g.star.light, stars: Math.max(0, 1 - density * 3) },
         // Moons sit right of the screen title, from the centre of the view to its right edge.

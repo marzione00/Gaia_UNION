@@ -26,14 +26,15 @@ import { SHIP_SIZE, shipPose, shipMatrix } from '../craft/traffic.js';
 import { CHAIN_STATIONS } from '../craft/esercizi-catene.js';
 import { planetPhysics } from '../worlds/planet-physics.js';
 import { pressureFromDensity, APPRECIABLE_DENSITY } from '../worlds/physics.js';
-import { horizonMesh, CORE, RINGS } from '../worlds/field.js';
+import { CORE, RINGS } from '../worlds/field.js';
+import { GroundClipmap, LEVELS as GROUND_LEVELS } from '../worlds/clipmap.js';
 import { LANDING_SITES } from '../worlds/landing-sites.js';
 import { tuft, rock, station as stationMesh, seaPlane, seaRing, beacon, curtain } from '../worlds/geometry.js';
 import { bodyMesh } from '../worlds/bodyplan.js';
 import { buildingMesh } from '../worlds/buildings.js';
 import { archMesh, worksMesh, roverMesh, archPalette, typologyOf } from '../worlds/architecture.js';
 import { colonistMesh, colonistSpec, nativeMesh, nativeLegs, GEAR } from '../worlds/people.js';
-import { roverMatrix } from '../worlds/explorer.js';
+import { roverMatrix, EDGE } from '../worlds/explorer.js';
 import { worldMesh, worldLook, meshSize } from '../worlds/catalogo.js';
 import { WALK } from '../worlds/settlements.js';
 import { ecosystem, dayOf, sunAt, gaitHeading, SPEED, HUNT, VIGILANCE } from '../worlds/ecosystem.js';
@@ -264,9 +265,10 @@ export class World {
         if (!s) { s = planetSurface(index); this.planetCache.set(index, s); if (this.planetCache.size > 3) this.planetCache.delete(this.planetCache.keys().next().value); }
         this.surface = s; this.biome = s.key;
         if (this.uploadedPlanet !== s.key) {
-            const R = this.R; R.makeMesh('planet-terrain', s.mesh);
-            // The rings of the horizon (1.62.0, src/worlds/field.js): the planet seen from orbit around the landing site.
-            R.makeMesh('planet-horizon', horizonMesh(s.genome, s.field));
+            const R = this.R;
+            // The ground streamed around the camera (1.70.0, src/worlds/clipmap.js): six nested grids up to the
+            // horizon, centred here on the view of the stations and moved with the camera at every frame.
+            this.ground = new GroundClipmap(s); for (const k of this.ground.update(2, 2)) R.makeMesh('planet-ground-' + k, this.ground.levels[k].mesh);
             if (!this.planetMeshes) { R.makeMesh('world-tuft', tuft()); R.makeMesh('world-rock', rock()); R.makeMesh('planet-station', stationMesh()); R.makeMesh('planet-sea', seaPlane(900, 900, 180, 180)); R.makeMesh('planet-sea-far', seaRing(HORIZON, 448)); for (const [id, make] of Object.entries(MESHES)) R.makeMesh(id, make()); this.planetMeshes = true; }
             // Species, rocks, geyser plume and aurora of this planet.
             const sc = surfaceScatter(s), pack = l => { const a = new Float32Array(Math.max(1, l.length) * 8); l.forEach((o, i) => a.set([o.x, o.y, o.z, o.s, o.r, o.g, o.b, o.h], i * 8)); return a; };
@@ -1044,14 +1046,20 @@ export class World {
         else if(scene==='craft')this.drawViewer(s);
         else if (scene === 'surface') {
             const S0=this.surface,ortho=new Float32Array([1/60,0,0,0,0,1/60,0,0,0,0,-2/180,0,0,0,-1,1]);
-            const light=sun?sun.light:S0.light.direction,lightColor=sun?sun.color:S0.light.color,lightEye=light.map(x=>x*90),lightVP=mul(ortho,lookAt(lightEye,[0,0,0]));
-            R.renderShadow(this.biome,['planet-terrain'],lightVP);
+            // The ground follows the point the camera looks at (1.70.0), and so do the shadows of its two finest
+            // grids, on a square of 120 units, and the near sea, moved by whole steps of its waves.
+            // While the camera flies across the zone (a quick travel) the ground waits: it moves again once the
+            // point looked at shifts by less than 8 units a frame, so a flight never rebuilds every grid each frame.
+            const focus=this.target||[2,0,2],last=this.groundFocus,jump=last?Math.hypot(focus[0]-last[0],focus[2]-last[1]):0;this.groundFocus=[focus[0],focus[2]];
+            if(this.ground&&jump<8)for(const k of this.ground.update(focus[0],focus[2]))R.makeMesh('planet-ground-'+k,this.ground.levels[k].mesh);
+            const sc=[Math.round(focus[0]/8)*8,Math.round(focus[2]/8)*8],cy=S0.heightAt?S0.heightAt(sc[0],sc[1]):0,sea=[Math.round(focus[0]/320)*320,Math.round(focus[2]/320)*320],seaM=transform(sea[0],0,sea[1]);
+            const light=sun?sun.light:S0.light.direction,lightColor=sun?sun.color:S0.light.color,lightVP=mul(ortho,lookAt([sc[0]+light[0]*90,cy+light[1]*90,sc[1]+light[2]*90],[sc[0],cy,sc[1]]));
+            R.renderShadow(this.biome+':'+sc.join(','),['planet-ground-0','planet-ground-1'],lightVP);
             // Prototype worlds draw their phenomenon on top of the generated surface (src/worlds/pilots.js).
             const unit=data?.modules?.[s.selected]?.id,world=unit&&s.worldState?pilotWorld(unit):null,id=transform();
-            R.drawMesh('planet-terrain',this.vp,id,{eye:this.eye,light,lightColor,material:10});
-            if(S0.field)R.drawMesh('planet-horizon',this.vp,id,{eye:this.eye,light,lightColor,material:10});
-            if(S0.seaY!==null&&!world?.hidesWater)R.drawMesh('planet-sea',this.vp,id,{eye:this.eye,light,lightColor,material:18,tint:[...S0.water.map(v=>Math.min(1,v*1.6)),1],motion:[S0.seaY,.12,0,0],opacity:.96});
-            if(S0.seaY!==null&&S0.field&&!world?.hidesWater)R.drawMesh('planet-sea-far',this.vp,id,{eye:this.eye,light,lightColor,material:18,tint:[...S0.water.map(v=>Math.min(1,v*1.6)),1],motion:[S0.seaY,.12,0,0],opacity:.96});
+            for(let k=0;k<GROUND_LEVELS;k++)R.drawMesh('planet-ground-'+k,this.vp,id,{eye:this.eye,light,lightColor,material:10});
+            if(S0.seaY!==null&&!world?.hidesWater)R.drawMesh('planet-sea',this.vp,seaM,{eye:this.eye,light,lightColor,material:18,tint:[...S0.water.map(v=>Math.min(1,v*1.6)),1],motion:[S0.seaY,.12,sea[0],sea[1]],opacity:.96,depthBias:8});
+            if(S0.seaY!==null&&S0.field&&!world?.hidesWater)R.drawMesh('planet-sea-far',this.vp,seaM,{eye:this.eye,light,lightColor,material:18,tint:[...S0.water.map(v=>Math.min(1,v*1.6)),1],motion:[S0.seaY,.12,sea[0],sea[1]],opacity:.96,depthBias:8});
             // Species in two levels of detail (1.63.0); lower graphics settings draw a share of the individuals.
             this.lifeSplit();
             for(const L of this.groups||[])for(const l of [0,1])if(L.drawn[l])R.drawMesh(L.meshes[l],this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:L.sets[l],instanceMode:L.mode,motion:L.motion,pbr:L.pbr});
@@ -1163,7 +1171,7 @@ export class World {
             const direction=normal(f.map((v,i)=>v+right[i]*(2*x/this.R.w-1)*t*this.R.w/this.R.h+up[i]*(1-2*y/this.R.h)*t));
             const label=this.projections.find(p=>p.depth>0&&Math.hypot(p.x-x,p.y-y)<p.r);if(label)return label;
             // Exploration: the first point where the ray meets the ground or the sea.
-            if(s.explore&&this.surface.heightAt){const S0=this.surface;for(let t=1;t<420;t+=.5){const q=this.eye.map((v,i)=>v+direction[i]*t);if(Math.abs(q[0])>110||Math.abs(q[2])>110)break;const ground=Math.max(S0.heightAt(q[0],q[2]),S0.seaY??-99,S0.clear?S0.clear.roofAt(q[0],q[2]):-99);if(q[1]<=ground)return {type:'ground',point:[q[0],ground,q[2]]};}return null;}
+            if(s.explore&&this.surface.heightAt){const S0=this.surface;for(let t=1;t<900;t+=t<200?.5:2){const q=this.eye.map((v,i)=>v+direction[i]*t);if(Math.abs(q[0])>EDGE||Math.abs(q[2])>EDGE)break;const ground=Math.max(S0.heightAt(q[0],q[2]),S0.seaY??-99,S0.clear?S0.clear.roofAt(q[0],q[2]):-99);if(q[1]<=ground)return {type:'ground',point:[q[0],ground,q[2]]};}return null;}
             let hit=null,near=Infinity;
             for(const station of this.surface.stations){const center=[station.position[0],(station.position[1]+station.labelPosition[1])*.5,station.position[2]],d=raySphere(this.eye,direction,center,station.radius);if(d!==null&&d<near){near=d;hit={type:'station',index:station.index};}}
             return hit;

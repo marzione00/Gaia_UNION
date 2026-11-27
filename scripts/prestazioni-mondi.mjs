@@ -17,13 +17,15 @@ if (MAIN) Object.defineProperty(globalThis, 'crypto', { value: { getRandomValues
 const { counter, QUALITIES, QUALITY_NAMES } = await import('./prestazioni.mjs');
 const { World } = await import('../src/scene/world.js');
 const { planetSurface, planetSpecies, planetGenomes } = await import('../src/worlds/surface.js');
-const { newExplorer, stepExplorer, freeSpot, jumpOf } = await import('../src/worlds/explorer.js');
+const { newExplorer, stepExplorer, freeSpot, jumpOf, passable, toggleRover, ROVER, METRE } = await import('../src/worlds/explorer.js');
 const { worldModels, worldMesh } = await import('../src/worlds/catalogo.js');
 export { QUALITIES };
 
 /** Structural limits of one frame of a landing surface, checked by tests/mondi.test.mjs. */
 export const BUDGET = Object.freeze({ draws: 120, triangles: 1.3e6, instances: 6000, buildMs: 1500, meshMiB: 64 });
-export const VIEWS = Object.freeze({ stazioni: 'camera delle stazioni', esploratore: 'esploratore in corsa' });
+export const VIEWS = Object.freeze({ stazioni: 'camera delle stazioni', esploratore: 'esploratore in corsa', lontano: 'rover a 1,3 km dalla base' });
+/** Distance from the base of the rover of the view «lontano» (1.70.0): 800 units, about 1.3 km. */
+export const FAR = 800;
 const read = p => JSON.parse(fs.readFileSync(new URL('../' + p, import.meta.url), 'utf8'));
 const percentile = (list, q) => { const s = [...list].sort((a, b) => a - b); return s[Math.min(s.length - 1, Math.floor(s.length * q))]; };
 const mean = list => list.reduce((a, b) => a + b, 0) / Math.max(1, list.length);
@@ -53,8 +55,13 @@ export function measureSurface(ctx, i, quality, view, { frames = 60 } = {}) {
     const { R, w } = ctx; R.sceneQuality = quality; w.activatePlanet(i);
     const s = { scene: 'surface', selected: i, time: 30, yaw: 0, pitch: .45, distance: 22, paused: false, lastFrameMs: 1000 / 60 };
     let A = null, env = null;
-    if (view === 'esploratore') {
-        env = w.explorerEnv(); const spot = freeSpot(2, 2, env) || [2, 2]; A = newExplorer(spot[0], spot[1], .6, env);
+    if (view !== 'stazioni') {
+        env = w.explorerEnv(); let spot = freeSpot(2, 2, env) || [2, 2], h = .6;
+        // Far from the base: the first dry point on a circle of FAR units, with the rover heading outwards at
+        // full speed, so the ground keeps moving with it (1.70.0).
+        if (view === 'lontano') for (let k = 0; k < 64; k++) { const a = k / 64 * 2 * Math.PI, x = Math.cos(a) * FAR, z = Math.sin(a) * FAR; if (passable(x, z, x, z, env, ROVER, true)) { spot = [x, z]; h = Math.atan2(-z, x); break; } }
+        A = newExplorer(spot[0], spot[1], h, env);
+        if (view === 'lontano') { A.rover = { x: A.x, z: A.z, h }; toggleRover(A, env); A.speed = ROVER.top * METRE; }
         Object.assign(s, { explore: true, exploreBlend: 1, exploreFocus: [A.x, A.z], avatar: A, chaseOrbit: 0 });
     }
     // The explorer runs straight on and turns away from what stops it.
@@ -62,7 +69,8 @@ export function measureSurface(ctx, i, quality, view, { frames = 60 } = {}) {
         if (A) { const ev = stepExplorer(A, { forward: 1, run: true, turn: A.turning ? 1 : 0 }, 1 / 60, env); A.turning = ev.includes('fermo') ? 40 : Math.max(0, (A.turning || 0) - 1); s.exploreFocus = [A.x, A.z]; }
         R.begin(); w.draw('surface', s, { modules: [] }); s.time += 1 / 60;
     };
-    w.cameraScene = null; for (let k = 0; k < 20; k++) step();
+    // The camera starts at the view, without the flight from the previous one.
+    w.cameraScene = null; w.vp = null; for (let k = 0; k < 20; k++) step();
     const ms = [], draws = [], triangles = [], instances = [];
     for (let k = 0; k < frames; k++) { const t = performance.now(); step(); ms.push(performance.now() - t); draws.push(R.frame.draws); triangles.push(R.frame.triangles); instances.push(R.frame.instances); }
     return { index: i, quality, view, times: ms, ms: { mean: mean(ms), p95: percentile(ms, .95), worst: Math.max(...ms) }, draws: { mean: mean(draws), max: Math.max(...draws) }, triangles: { mean: mean(triangles), max: Math.max(...triangles) }, instances: { max: Math.max(...instances) }, walked: A ? A.walked : 0 };
@@ -90,7 +98,7 @@ export function report({ frames, results, builds, catalogue, explorer, machine, 
     const planets = new Set(results.map(r => r.index)).size;
     L.push('# Prestazioni misurate della serie «Mondi vivi»', '');
     L.push('Questo documento è generato da `node scripts/prestazioni-mondi.mjs`; `tests/mondi.test.mjs` ne controlla la struttura e i limiti. ' +
-        `Le superfici di ${planets} pianeti sono state costruite e disegnate dal codice del sito, con la camera delle stazioni e con la camera che segue l'esploratore mentre corre, alle tre impostazioni grafiche, con l'ecosistema e il giorno in movimento; per ogni vista si misurano ${frames} fotogrammi da 1/60 di secondo dopo 20 fotogrammi di assestamento. ` +
+        `Le superfici di ${planets} pianeti sono state costruite e disegnate dal codice del sito, con la camera delle stazioni, con la camera che segue l'esploratore mentre corre vicino alla base e con quella che segue il rover a 1,3 km dalla base, alle tre impostazioni grafiche, con l'ecosistema e il giorno in movimento; per ogni vista si misurano ${frames} fotogrammi da 1/60 di secondo dopo 20 fotogrammi di assestamento. ` +
         'Al posto della scheda grafica c\'è il contatore di `scripts/prestazioni.mjs`, che applica le regole di `src/renderer.js`: chiamate di disegno, triangoli e istanze sono quelli che il sito invia alla scheda. ' +
         `I tempi sono quelli del processore che prepara il fotogramma, misurati su ${machine}. I tempi della scheda grafica si misurano nel browser aprendo il sito con \`?diagnostica\` nell'indirizzo.`, '');
     L.push('## Un fotogramma di superficie', '');
@@ -103,7 +111,7 @@ export function report({ frames, results, builds, catalogue, explorer, machine, 
     L.push('');
     const hs = sel('high', 'stazioni'), he = sel('high', 'esploratore'), all = results, slow = worst(all, r => r.ms.mean), heavy = worst(all, r => r.triangles.max), busy = worst(all, r => r.draws.max);
     L.push(`Il tempo medio è la media sui pianeti del tempo medio di ciascuno; il 95° percentile e il peggiore riguardano i singoli fotogrammi. Il pianeta più lento da preparare è ${name(slow.index)}, con ${dec(slow.ms.mean, 2)} ms in media (${VIEWS[slow.view]}, ${QUALITY_NAMES[slow.quality]}); il più ricco di triangoli è ${name(heavy.index)}, con ${mega(heavy.triangles.max)}, e quello con più chiamate di disegno ${name(busy.index)}, con ${int(busy.draws.max)}. ` +
-        `Con il dettaglio alto la preparazione richiede in media ${dec(mean(hs.map(r => r.ms.mean)), 2)} ms con la camera delle stazioni e ${dec(mean(he.map(r => r.ms.mean)), 2)} ms con l'esploratore, su 16,7 ms di un fotogramma a 60 al secondo; in corsa l'esploratore sposta la camera, e gli individui si ridistribuiscono fra i due livelli di dettaglio ogni 6 unità.`, '');
+        `Con il dettaglio alto la preparazione richiede in media ${dec(mean(hs.map(r => r.ms.mean)), 2)} ms con la camera delle stazioni, ${dec(mean(he.map(r => r.ms.mean)), 2)} ms con l'esploratore e ${dec(mean(sel('high', 'lontano').map(r => r.ms.mean)), 2)} ms con il rover lontano, su 16,7 ms di un fotogramma a 60 al secondo. In corsa l'esploratore sposta la camera e gli individui si ridistribuiscono fra i due livelli di dettaglio ogni 6 unità; dalla 1.70.0 il terreno segue la camera, e il rover a 10 m/s ricostruisce la griglia più fine ogni 2 unità, cioè circa tre volte al secondo, calcolando soltanto le file di punti nuove.`, '');
     L.push(`Le impostazioni più leggere disegnano sette o quattro individui su dieci e avvicinano i modelli dettagliati alla camera, quindi riducono i triangoli e le istanze; le chiamate di disegno cambiano poco, perché ogni specie, ogni tipo di edificio e ogni figura di abitanti è una chiamata con istanze per livello. I limiti controllati dai test per un fotogramma di superficie sono ${int(BUDGET.draws)} chiamate di disegno, ${mega(BUDGET.triangles)} di triangoli e ${int(BUDGET.instances)} istanze.`, '');
     L.push('## Costruzione di una superficie', '');
     const S = builds.map(b => b.surfaceMs), U = builds.map(b => b.uploadMs), B = builds.map(b => b.bytes / 2 ** 20), big = worst(builds, b => b.bytes), long = worst(builds, b => b.surfaceMs + b.uploadMs);
@@ -122,8 +130,8 @@ export function report({ frames, results, builds, catalogue, explorer, machine, 
     L.push(`Un passo dell'esploratore in corsa, con il controllo del suolo, delle pendenze, dell'acqua e degli edifici, richiede ${dec(explorer, 1)} µs. Il salto si calcola con una formula esatta: ${dec(jumpOf(1).height * 100, 0)} cm sulla Terra, da ${dec(jumpOf(gravity[1]).height * 100, 0)} a ${dec(jumpOf(gravity[0]).height * 100, 0)} cm sui 125 pianeti.`, '');
     L.push('## Pianeti uno per uno', '');
     L.push('Tempo medio di preparazione e chiamate di disegno massime per fotogramma con il dettaglio alto, triangoli massimi e costruzione della superficie.', '');
-    L.push('| Pianeta | Stazioni | Esploratore | Triangoli (massimo) | Costruzione |', '|---|---|---|---|---|');
-    for (const r of hs) { const e = he.find(x => x.index === r.index), b = builds.find(x => x.index === r.index); L.push(`| ${r.index + 1} | ${dec(r.ms.mean, 2)} ms · ${int(r.draws.max)} | ${dec(e.ms.mean, 2)} ms · ${int(e.draws.max)} | ${mega(Math.max(r.triangles.max, e.triangles.max))} | ${b ? int(b.surfaceMs + b.uploadMs) + ' ms' : ''} |`); }
+    L.push('| Pianeta | Stazioni | Esploratore | Rover lontano | Triangoli (massimo) | Costruzione |', '|---|---|---|---|---|---|');
+    for (const r of hs) { const e = he.find(x => x.index === r.index), f = sel('high', 'lontano').find(x => x.index === r.index), b = builds.find(x => x.index === r.index); L.push(`| ${r.index + 1} | ${dec(r.ms.mean, 2)} ms · ${int(r.draws.max)} | ${dec(e.ms.mean, 2)} ms · ${int(e.draws.max)} | ${dec(f.ms.mean, 2)} ms · ${int(f.draws.max)} | ${mega(Math.max(r.triangles.max, e.triangles.max, f.triangles.max))} | ${b ? int(b.surfaceMs + b.uploadMs) + ' ms' : ''} |`); }
     L.push('');
     return L.join('\n');
 }

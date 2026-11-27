@@ -10,7 +10,7 @@ export const vsMesh = `#version 300 es
 layout(location=0) in vec3 aPos;layout(location=1) in vec3 aNormal;layout(location=2) in vec2 aUV;layout(location=3) in vec4 aColor;layout(location=4) in vec4 aPBR;
 // Per-instance data for the planet phenomena: position and scale, colour and heading (or phase).
 layout(location=5) in vec4 aInst;layout(location=6) in vec4 aInstC;
-uniform mat4 uVP,uModel,uLightVP,uReflectionVP;uniform highp int uMaterial,uInstanced;uniform vec4 uMotion;uniform float uTime;out vec3 vNormal,vWorld,vLocal;out vec2 vUV;out vec4 vColor,vPBR,vShadow,vReflection;
+uniform mat4 uVP,uModel,uLightVP,uReflectionVP;uniform highp int uMaterial,uInstanced;uniform vec4 uMotion;uniform float uTime;uniform vec3 uEye;out vec3 vNormal,vWorld,vLocal;out vec2 vUV;out vec4 vColor,vPBR,vShadow,vReflection;
 vec3 turn(vec3 v,float a){float c=cos(a),s=sin(a);return vec3(c*v.x+s*v.z,v.y,-s*v.x+c*v.z);}
 void main(){vec3 vertex=aPos,normal=aNormal;vec4 color=aColor;if(uMaterial==10&&aPBR.w>1.5&&aPBR.w<2.5)vertex.xz*=8.;
  if(uInstanced>0){
@@ -43,8 +43,10 @@ void main(){vec3 vertex=aPos,normal=aNormal;vec4 color=aColor;if(uMaterial==10&&
   if(min(color.r,min(color.g,color.b))>.97)color.rgb*=aInstC.rgb;}
  }
  // Open sea of the phenomenon worlds: tide offset plus three travelling waves.
- if(uMaterial==18&&uInstanced==0){vec2 q=vertex.xz;float t=uTime;vertex.y+=uMotion.x+uMotion.y*(sin(q.x*.21+t*.9)*.5+sin(q.x*.07+q.y*.18-t*.6)*.35+sin(q.y*.33+t*1.3)*.15);
-  float dx=uMotion.y*(cos(q.x*.21+t*.9)*.105+cos(q.x*.07+q.y*.18-t*.6)*.0245),dz=uMotion.y*(cos(q.x*.07+q.y*.18-t*.6)*.063+cos(q.y*.33+t*1.3)*.0495);normal=normalize(vec3(-dx,1.,-dz));}
+ // Waves of the sea; far from the eye (1.70.0) they flatten, so on shallow flats the crests no longer cross the
+ // ground in a regular pattern.
+ if(uMaterial==18&&uInstanced==0){vec2 q=vertex.xz+uMotion.zw;float t=uTime,amp=uMotion.y*(1.-smoothstep(60.,220.,length(uEye-(uModel*vec4(vertex,1.)).xyz)));vertex.y+=uMotion.x+amp*(sin(q.x*.21+t*.9)*.5+sin(q.x*.07+q.y*.18-t*.6)*.35+sin(q.y*.33+t*1.3)*.15);
+  float dx=amp*(cos(q.x*.21+t*.9)*.105+cos(q.x*.07+q.y*.18-t*.6)*.0245),dz=amp*(cos(q.x*.07+q.y*.18-t*.6)*.063+cos(q.y*.33+t*1.3)*.0495);normal=normalize(vec3(-dx,1.,-dz));}
  vec4 p=uModel*vec4(vertex,1.);vWorld=p.xyz;vLocal=aPos;vNormal=normalize(mat3(uModel)*normal);vUV=aUV;vColor=color;vPBR=aPBR;vShadow=uLightVP*p;vReflection=uReflectionVP*p;gl_Position=uVP*p;}`;
 export const fsMesh = `#version 300 es
 precision highp float;
@@ -57,7 +59,7 @@ vec3 dusk(vec3 sky){vec3 c=clamp(1.05-sky/max(max(sky.r,sky.g),max(sky.b,.01))*.
 uniform float uTexWeight,uOpacity,uRim,uEmission,uTime,uSeed,uRadius,uFog,uHasShadow,uMist,uClipBelow,uOcean,uDisguise;uniform vec3 uLightColor;uniform highp int uMaterial;
 ${noise}
 float solarVisibility(vec3 point,vec3 light){float visibility=1.;for(int k=0;k<4;k++){if(k>=uOccluderCount)break;vec3 delta=uOccluder[k].xyz-point;float along=dot(delta,light);if(along>0.){float impact=length(delta-light*along),r=uOccluder[k].w;visibility*=smoothstep(r*.94,r*1.06,impact);}}return visibility;}
-float shadow(vec3 n,vec3 l){if(uHasShadow<.5)return 1.;vec3 p=vShadow.xyz/vShadow.w*.5+.5;if(any(lessThan(p,vec3(0)))||any(greaterThan(p,vec3(1))))return 1.;float b=max(.00065,.0014*(1.-dot(n,l))),s=0.;vec2 texel=1./vec2(textureSize(uShadow,0));for(int x=-1;x<=1;x++)for(int y=-1;y<=1;y++)s+=p.z-b<texture(uShadow,p.xy+vec2(x,y)*texel).r?1.:.24;return s/9.;}
+float shadow(vec3 n,vec3 l){if(uHasShadow<.5)return 1.;vec3 p=vShadow.xyz/vShadow.w*.5+.5;if(any(lessThan(p,vec3(0)))||any(greaterThan(p,vec3(1))))return 1.;float b=max(.00065,.0014*(1.-dot(n,l))),s=0.;vec2 texel=1./vec2(textureSize(uShadow,0));for(int x=-1;x<=1;x++)for(int y=-1;y<=1;y++)s+=p.z-b<texture(uShadow,p.xy+vec2(x,y)*texel).r?1.:.24;return mix(1.,s/9.,smoothstep(0.,.15,min(min(p.x,1.-p.x),min(p.y,1.-p.y))));}
 vec3 shade(vec3 c,vec3 n,vec3 l,vec3 v,float metal,float rough,float visibility){
  float ndl=max(dot(n,l),0.),ndv=max(dot(n,v),.001);vec3 h=normalize(l+v);float ndh=max(dot(n,h),0.),vdh=max(dot(v,h),0.);
  float a=max(.045,rough*rough),a2=a*a,den=ndh*ndh*(a2-1.)+1.;float D=a2/(3.141593*den*den),k=(rough+1.)*(rough+1.)/8.;float G=ndl/(ndl*(1.-k)+k)*ndv/(ndv*(1.-k)+k);vec3 F=mix(vec3(.04),c,metal)+(1.-mix(vec3(.04),c,metal))*pow(1.-vdh,5.);
@@ -71,7 +73,7 @@ void main(){
  // Flat colour for map markers and orbit lines: the tint is the colour, independent of the light.
  if(uMaterial==16){outColor=vec4(uTint.rgb*(.82+.18*abs(dot(n,v))),alpha);return;}
  // Water of the phenomenon worlds (sea and lakes): colour from the instance or the tint, fresnel and sun glint.
- if(uMaterial==18){c=pow(c,vec3(2.2));float a1=vWorld.x*1.7+vWorld.z*.9+uTime*.7,b1=vWorld.z*2.3-vWorld.x*.6-uTime*.5;vec3 nn=normalize(n+vec3(cos(a1)*.05+cos(b1*1.7)*.02,0,sin(b1)*.05+sin(a1*1.9)*.02));
+ if(uMaterial==18){c=pow(c,vec3(2.2));float a1=vWorld.x*1.7+vWorld.z*.9+uTime*.7,b1=vWorld.z*2.3-vWorld.x*.6-uTime*.5,ripple=1.-smoothstep(30.,120.,length(uEye-vWorld));vec3 nn=normalize(n+vec3(cos(a1)*.05+cos(b1*1.7)*.02,0,sin(b1)*.05+sin(a1*1.9)*.02)*ripple);
   float fres=pow(1.-max(0.,dot(nn,v)),4.),glint=pow(max(dot(reflect(-l,nn),v),0.),90.);vec3 col=(c*(.42+.62*max(dot(nn,l),0.)))*uLightColor+vec3(.16,.24,.3)*fres*.6+vec3(1.9,1.7,1.4)*glint*uLightColor;
   float dist=length(uEye-vWorld),fog=1.-exp(-dist*uFog*.8);col=mix(film(col*.78),uFogColor,max(clamp(fog,0.,.8),smoothstep(1250.,1750.,dist)));outColor=vec4(col,alpha*(.86+.14*fres));return;}
  // Soft puffs (steam, spores): opaque towards the centre of each small sphere.

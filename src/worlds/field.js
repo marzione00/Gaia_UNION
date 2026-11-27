@@ -2,11 +2,11 @@
  * (sphereTerrain in src/worlds/orbit-texture.js) is read on the plane tangent to the sphere at the landing
  * site, and the local shapes of the terrain style (styleField in src/worlds/terrain.js) are added on top. The
  * landing surface is the piece of the planet seen from orbit: the same seas, coasts, craters and colours,
- * with the fine relief that a map of the whole planet leaves out. Around the detailed square of the stations,
- * rings of coarser terrain reach the horizon. The half side of the square, 112, is a multiple of the spacing
- * of every ring, so all the edges fall on grid lines. */
+ * with the fine relief that a map of the whole planet leaves out. Since 1.70.0 the ground is drawn by nested
+ * grids that follow the camera (src/worlds/clipmap.js); the half side of the square of the stations, 112, is
+ * still a multiple of the spacing of the rings of 1.62.0, so its edges fall on the lines of a 4-unit grid. */
 import { sphereTerrain } from './orbit-texture.js';
-import { styleField, colorAt } from './terrain.js';
+import { styleField } from './terrain.js';
 
 /** Side of the detailed square in scene units, radians of the sphere per scene unit, and the rings around
  * the square: each doubles the side and the spacing of the one inside it. */
@@ -112,30 +112,4 @@ export function stitch(Y, count, cell, step, at) {
         if (k === a || b === a) continue;
         Y[at(k)] = Y[at(a)] + (Y[at(b)] - Y[at(a)]) * (k - a) / (b - a);
     }
-}
-/** Rings of terrain around the detailed square, as one mesh with the layout of the surface mesh (position,
- * normal, uv, colour, PBR with kind 1 = ground). Each ring is a square grid with a square hole; the points
- * of its outer edge lie on the lines of the next ring, so the rings join without cracks. */
-export function horizonMesh(g, F, rings = RINGS) {
-    const v = [], idx = [];
-    let inner = CORE / 2;
-    rings.forEach((step, level) => {
-        const outer = inner * 2, n = Math.round(2 * outer / step) + 1, X = i => -outer + i * step, Y = new Float32Array(n * n), E = new Float32Array(n * n);
-        for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) { const e = F.E(X(i), X(j)); E[j * n + i] = e; Y[j * n + i] = (e - F.sea) * F.S; }
-        const next = rings[level + 1];
-        if (next) for (const edge of [k => k, k => (n - 1) * n + k, k => k * n, k => k * n + n - 1]) stitch(Y, n, step, next, edge);
-        const base = v.length / 16;
-        for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {
-            const k = j * n + i, hx = (Y[j * n + Math.min(n - 1, i + 1)] - Y[j * n + Math.max(0, i - 1)]) / (2 * step), hz = (Y[Math.min(n - 1, j + 1) * n + i] - Y[Math.max(0, j - 1) * n + i]) / (2 * step);
-            const nn = unit([-hx, 1, -hz]), slope = Math.min(1, Math.hypot(hx, hz) * .9), lava = F.lava(X(i), X(j)), col = colorAt(g, E[k], F.sea, slope, 0, lava).map(c => Math.pow(c, 1.6));
-            v.push(X(i), Y[k], X(j), ...nn, i / (n - 1), j / (n - 1), ...col, 1, 0, .88 - .3 * (g.family === 'arctic'), lava > .3 ? .9 : 0, 1);
-        }
-        for (let j = 0; j < n - 1; j++) for (let i = 0; i < n - 1; i++) {
-            // A quad is skipped when its centre is inside the hole.
-            if (Math.abs(X(i) + step / 2) < inner && Math.abs(X(j) + step / 2) < inner) continue;
-            const a = base + j * n + i; idx.push(a, a + n, a + 1, a + 1, a + n, a + n + 1);
-        }
-        inner = outer;
-    });
-    return { v: new Float32Array(v), i: new Uint32Array(idx), stride: 16, extent: inner };
 }

@@ -36,7 +36,7 @@ import { openStore, grade } from './store.js';
 import { AUTHOR, LICENCE, CREDIT, LICENCE_ROW } from './licenza.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.69.0-catalogo';
+const VERSION = '1.70.0-terreno';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -334,7 +334,9 @@ function exploreTick() {
     if (S.exploreGoal) { input.goal = S.exploreGoal; input.stop = S.exploreStop; }
     const ev = stepExplorer(A, input, dt, env);
     if (ev.includes('arrivato') && !S.groundFollow) S.exploreGoal = null;
-    if (ev.includes('fermo') && S.exploreGoal && !S.groundFollow) { S.exploreGoal = null; say('Il passaggio è chiuso: aggira l’ostacolo.'); }
+    if (ev.includes('fermo') && S.exploreGoal && !S.groundFollow) { S.exploreGoal = null; say(ev.includes('confine') ? 'La meta è oltre il confine della zona di atterraggio.' : 'Il passaggio è chiuso: aggira l’ostacolo.'); }
+    // The zone of the landing site is about 4 km × 4 km (1.70.0): at its edge the explorer stops.
+    if (ev.includes('confine') && Date.now() - (S.edgeSaid || 0) > 6000) { S.edgeSaid = Date.now(); say('Confine della zona di atterraggio, a 2 km dalla base: torna indietro o usa BASE.'); }
     // The camera follows the explorer closely and glides after a quick travel; it turns back behind it while
     // it moves, unless the view is being dragged.
     const far = Math.hypot(S.exploreFocus[0] - A.x, S.exploreFocus[1] - A.z) > 6, kf = far ? k : Math.min(1, dt / .08);
@@ -849,6 +851,10 @@ function jumpSubject() {
     const A = S.avatar, g = W.surface?.genome?.gravity; if (!A || !g) return null;
     return { ground: true, kind: 'salto', name: 'Il salto dell’esploratore', label: 'Stessa spinta, gravità diversa', gravity: g, g0: G0, speed: JUMP, earth: JUMP * JUMP / (2 * G0), last: A.last, jumps: A.jumps };
 }
+/** The base of the landing site: the middle of the four stations. */
+const baseOf = () => { const st = W.surface?.stations || []; return st.length ? [st.reduce((a, s) => a + s.position[0], 0) / st.length, st.reduce((a, s) => a + s.position[2], 0) / st.length] : [14, 28]; };
+/** Quick travel back to the base (1.70.0), from anywhere in the zone of the landing site. */
+function goBase() { const A = S.avatar, env = W.explorerEnv?.(); if (!A || !env) return; const b = baseOf(); if (travelTo(A, b[0], b[1], env, A.mode === 'rover' ? 12 : 8)) { S.exploreGoal = null; S.chaseYaw = S.yaw; say('Di ritorno alla base.'); } }
 /** Lines of the explorer: how it moves, its jump against the Earth's, the scanner and the walk to a goal. */
 function explorerLines(mobile) {
     const A = S.avatar, J = jumpOf(W.surface.genome.gravity), one = v => v.toFixed(1).replace('.', ','), cm = v => Math.round(v * 100) + ' cm', v = Math.abs(A.speed) / METRE;
@@ -856,7 +862,8 @@ function explorerLines(mobile) {
     const jump = A.mode === 'rover' ? 'Per saltare scendi dal rover' : `Salto ${cm(J.height)}, sulla Terra ${cm(J.earth)}` + (A.last > 0 ? ` · ultimo ${cm(A.last)}` : '');
     const I = S.scanInfo, scanner = I ? I.name ? `Scanner: ${I.name}, ${Math.round(I.metres)} m ${I.where}` : 'Scanner: nulla entro circa 40 metri' : mobile ? 'Scanner: tocca SCANNER vicino a specie e luoghi' : 'Scanner: premi F vicino a specie e luoghi';
     const goal = S.exploreGoal ? `Verso la meta: ${Math.round(Math.hypot(S.exploreGoal[0] - A.x, S.exploreGoal[1] - A.z) / METRE)} m` : null;
-    return { tag: 'Esploratore · ' + (A.mode === 'rover' ? 'rover' : 'a piedi'), motion: `${how} · ${one(v)} m/s · gravità ${W.surface.genome.gravity.toFixed(2).replace('.', ',')} g`, jump, scanner, goal };
+    const b = baseOf(), far = Math.hypot(A.x - b[0], A.z - b[1]) / METRE, home = far > 50 ? ` · base a ${far >= 1000 ? (far / 1000).toFixed(2).replace('.', ',') + ' km' : Math.round(far) + ' m'}` : '';
+    return { tag: 'Esploratore · ' + (A.mode === 'rover' ? 'rover' : 'a piedi') + home, motion: `${how} · ${one(v)} m/s · gravità ${W.surface.genome.gravity.toFixed(2).replace('.', ',')} g`, jump, scanner, goal };
 }
 /** The explorer on the ground (1.68.0): its numbers, the jump, rover and scanner buttons and, on phones, the
  * joystick. On phones the card of the entry closes to show them. */
@@ -865,13 +872,14 @@ function explorerHUD(mobile, card, tint) {
     const w = R.w, h = R.h, L = explorerLines(mobile), rover = A.mode === 'rover';
     const jump = (x, y, bw, bh, small) => { U.button('explore-jump', 'SALTA', x, y, bw, bh, () => { S.jumpAsk = true; }, { active: !rover, small, disabled: rover }); U.buttons.at(-1).label = 'Salta con la gravità del pianeta'; };
     if (!mobile) {
-        const x = 35, hw = Math.min(420, w - 35 - 353 - 24), y = h - 262, bw = (hw - 36 - 24) / 4;
+        const x = 35, hw = Math.min(420, w - 35 - 353 - 24), y = h - 262, bw = (hw - 36 - 32) / 5;
         U.panel(x, y, hw, 134, tint, .84); U.tag(L.tag, x + 18, y + 16, C.lime);
         wrapClipText(L.motion, x + 18, y + 36, hw - 36, 'micro', C.pale, 1); wrapClipText(L.goal || L.jump, x + 18, y + 54, hw - 36, 'micro', C.pale, 1); wrapClipText(L.scanner, x + 18, y + 72, hw - 36, 'micro', S.scanInfo?.name ? C.lime : C.muted, 1);
         jump(x + 16, y + 94, bw, 30, true);
         U.button('explore-rover', rover ? 'SCENDI' : 'ROVER', x + 16 + (bw + 8), y + 94, bw, 30, roverToggle, { small: true }); U.buttons.at(-1).label = rover ? 'Scendi dal rover' : 'Sali sul rover';
         U.button('explore-scan', 'SCANNER', x + 16 + 2 * (bw + 8), y + 94, bw, 30, scan, { small: true }); U.buttons.at(-1).label = 'Scanner: registra nel diario la specie o il luogo più vicino';
         U.button('explore-physics', 'FISICA', x + 16 + 3 * (bw + 8), y + 94, bw, 30, () => followGround('salto'), { small: true }); U.buttons.at(-1).label = 'La fisica del salto su questo pianeta';
+        U.button('explore-base', 'BASE', x + 16 + 4 * (bw + 8), y + 94, bw, 30, goBase, { small: true }); U.buttons.at(-1).label = 'Torna alla base con un viaggio rapido';
     } else if (!card) {
         const y = 196; U.panel(18, y, w - 36, 74, tint, .84); U.tag(L.tag, 36, y + 14, C.lime);
         wrapClipText(L.motion, 36, y + 32, w - 72, 'micro', C.pale, 1); wrapClipText(S.scanInfo || !L.goal ? L.scanner : L.goal, 36, y + 51, w - 72, 'micro', S.scanInfo?.name ? C.lime : C.muted, 1);
@@ -881,6 +889,7 @@ function explorerHUD(mobile, card, tint) {
         U.button('explore-scan', 'SCANNER', bx, h - 212, 116, 36, scan, { small: true }); U.buttons.at(-1).label = 'Scanner: registra nel diario la specie o il luogo più vicino';
         U.button('explore-card', 'SCHEDA', bx, h - 168, 116, 36, () => { S.exploreCard = true; }, { small: true }); U.buttons.at(-1).label = 'Apri la scheda della voce scelta';
         U.button('explore-physics', 'FISICA DEL SALTO', 18, y + 82, 150, 28, () => followGround('salto'), { small: true }); U.buttons.at(-1).label = 'La fisica del salto su questo pianeta';
+        U.button('explore-base', 'BASE', 176, y + 82, 80, 28, goBase, { small: true }); U.buttons.at(-1).label = 'Torna alla base con un viaggio rapido';
     }
     const z = stickZone();
     if (z) {
@@ -894,7 +903,7 @@ function exploreUI(m, mobile) {
     const w = R.w, h = R.h, tint = sectorColors[m.sector], list = exploreEntries(), rec = exploreRecord(S.selected);
     // On phones the card of the entry and the controls of the explorer take turns (1.68.0).
     const card = !mobile || S.exploreCard || !!S.groundFollow;
-    title(areaTrail(m, ['SUPERFICIE', 'ESPLORAZIONE']), m.title, mobile ? (card ? 'Tocca il terreno per andarci, trascina per ruotare.' : '') : 'W A S D per camminare, Maiuscolo per correre, spazio per saltare, R per il rover, F per lo scanner.');
+    title(areaTrail(m, ['SUPERFICIE', 'ESPLORAZIONE']), m.title, mobile ? (card ? 'Tocca il terreno per andarci, trascina per ruotare.' : '') : 'W A S D per camminare, Maiuscolo per correre, spazio per saltare, R per il rover, F per lo scanner, B per la base.');
     const px = mobile ? 18 : w - 353, pw = mobile ? w - 36 : 320, ph = mobile ? 300 : Math.min(520, h - 368), py = mobile ? h - 384 : 258;
     explorerHUD(mobile, card, tint);
     // «Che cosa succede» on the ground (1.65.0) takes the place of the exploration panel.
@@ -2181,13 +2190,14 @@ function events() {
             return;
         }
         // Exploration (1.68.0): W A S D or the arrows move the explorer while held, Shift runs, the space bar
-        // jumps, R boards or leaves the rover, F runs the scanner.
+        // jumps, R boards or leaves the rover, F runs the scanner, B goes back to the base (1.70.0).
         if (S.scene === 'surface' && S.explore && S.avatar && !e.ctrlKey && !e.metaKey && !e.altKey) {
             const c = e.key.toLowerCase();
             if (['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright', 'shift'].includes(c)) { held.add(c); e.preventDefault(); return; }
             if (c === ' ') { e.preventDefault(); if (!e.repeat) S.jumpAsk = true; return; }
             if (c === 'r' && !e.repeat) { roverToggle(); return; }
             if (c === 'f' && !e.repeat) { scan(); return; }
+            if (c === 'b' && !e.repeat) { goBase(); return; }
         }
         if (e.key === 'ArrowLeft')
             S.yaw -= .1;
