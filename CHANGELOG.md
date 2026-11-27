@@ -1,3 +1,13 @@
+# 1.71.0: Mondi aperti, biomi della zona
+
+- Seconda versione della serie «Mondi aperti». La zona di atterraggio di ogni pianeta è un mosaico di biomi: da cinque a otto per pianeta fra 46 tipi, scelti nella famiglia del pianeta secondo la densità dell'aria e l'estensione dei mari. Due pianeti non hanno mai lo stesso insieme di biomi.
+- Ogni bioma ha forme, colori e rocce propri: mesa e canyon, saline e campi di ciottoli, coni vulcanici, colate di lava e basalti colonnari, crepacci, morene e ghiaccio azzurro, foreste, paludi e brughiere. Fra due biomi il terreno cambia su circa 175 m.
+- Le celle dei biomi distano circa 510 m: lungo una linea dalla base al confine della zona il primo bioma nuovo arriva in mediana a 573 m, i successivi ogni 439 m.
+- Mari, coste e fondali restano quelli del pianeta visto dall'orbita; attorno alla base il suolo resta quello delle versioni precedenti.
+- Massi, lastre e guglie generati a gruppi attorno alla camera, con la densità di ogni bioma.
+- La scheda dell'esploratore indica il bioma; al primo ingresso un messaggio lo descrive e il diario lo registra fra i biomi attraversati del pianeta. I messaggi lunghi occupano fino a quattro righe, così la descrizione resta leggibile anche sui telefoni.
+- Nuovo `src/worlds/biomes.js`; l'elenco dei biomi e dei pianeti è in `docs/BIOMI.md`, generato da `node scripts/biomi.mjs` e controllato da `tests/biomi.test.mjs`. Descrizione in `docs/GRAPHICS.md`, sezione «Biomi della zona».
+
 # 1.70.0: Mondi aperti, terreno in streaming
 
 - Prima versione della serie «Mondi aperti», alla Starfield: attorno a ogni atterraggio una zona di circa 4 × 4 km da esplorare. Fino alla 1.69.0 l'esploratore restava in un quadrato di circa 320 m di lato.

@@ -3,7 +3,7 @@
  * serves the contact sheet of the 100 planets and, later, the landing surfaces. */
 import { seededRandom } from '../scene/systems.js';
 
-function noiseField(seed) {
+export function noiseField(seed) {
     const r = seededRandom(seed), perm = Array.from({ length: 512 }, (_, i) => i % 256);
     for (let i = 255; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [perm[i], perm[j]] = [perm[j], perm[i]]; }
     for (let i = 0; i < 256; i++) perm[i + 256] = perm[i];
@@ -17,14 +17,15 @@ function noiseField(seed) {
 const smooth = (a, b, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 const gauss = (d, w) => Math.exp(-(d * d) / (w * w));
 /** Random features (cones, craters, rings) placed with a fixed seed, at least `gap` apart. */
-function features(r, count, rmin, rmax, gap = .08) {
+export function features(r, count, rmin, rmax, gap = .08) {
     const out = [];
     for (let k = 0; k < count * 8 && out.length < count; k++) { const f = { x: .08 + r() * .84, y: .08 + r() * .84, R: rmin + r() * (rmax - rmin) }; if (out.every(o => Math.hypot(o.x - f.x, o.y - f.y) > (o.R + f.R) * .7 + gap)) out.push(f); }
     return out;
 }
 
-/** Height of the style at (u, v) in [0, 1]². */
-function styleHeight(style, N, F, u, v) {
+/** Height of the style at (u, v) in [0, 1]²; the features F may lie anywhere (the biomes of 1.71.0 tile them).
+ * With `ramps` the scarps of the ridges rise over a tenth of their spacing, so the ground has no step. */
+export function styleHeight(style, N, F, u, v, ramps = false) {
     const x = u * 6, y = v * 6, f = N.fbm(x, y), warp = N.fbm(x + 4.2, y - 1.3);
     switch (style) {
         case 'colline': { const river = Math.abs(N.fbm(x * .5 + warp, y * .5) - .5); return .3 + .45 * f - .22 * gauss(river, .035); }
@@ -38,17 +39,17 @@ function styleHeight(style, N, F, u, v) {
         case 'mesa': return .25 + .45 * smooth(.5, .54, f + .08 * N.noise(x * 6, y * 6)) + .05 * f;
         case 'crateri': { let h = .45 + .14 * f; for (const c of F) { const d = Math.hypot(u - c.x, v - c.y) / c.R; if (d < 1) h -= .32 * c.R * 4 * (1 - d * d); h += .1 * c.R * 4 * gauss(d - 1, .18); } return h; }
         case 'altopiano': { const crack = Math.abs(N.noise(x * 1.4 + warp * 2, y * 1.4) - .5); return .62 + .1 * f - .3 * gauss(crack, .02); }
-        case 'dorsali': { const line = (x * .7 + y * .3 + warp * 1.6) * 1.6, s = line - Math.floor(line); return .38 + .12 * f + .14 * smooth(.55, .62, s) * (1 - smooth(.62, 1, s)) + .1 * Math.floor(line) / 10; }
+        case 'dorsali': { const line = (x * .7 + y * .3 + warp * 1.6) * 1.6, s = line - Math.floor(line); return .38 + .12 * f + .14 * smooth(.55, .62, s) * (1 - smooth(.62, 1, s)) + .1 * (Math.floor(line) + (ramps ? smooth(.9, 1, s) : 0)) / 10; }
         case 'ghiacciai': { const r = N.ridged(x * .7, y * .7); return .1 + r * .95; }
         case 'banchisa': { const plate = N.noise(x * 2.2, y * 2.2), crack = Math.abs(N.noise(x * 2.2 + 31, y * 2.2 - 7) - .5); return .5 + .03 * plate - .08 * gauss(crack, .03); }
         case 'criovulcani': { let h = .42 + .1 * f; for (const c of F) { const d = Math.hypot(u - c.x, v - c.y) / c.R; h += .35 * c.R * 5 * Math.max(0, 1 - d) ** 1.6 - .15 * c.R * 5 * gauss(d, .18); } return h; }
         case 'vulcani': { let h = .3 + .12 * f; for (const c of F) { const d = Math.hypot(u - c.x, v - c.y) / c.R; h += .55 * c.R * 3.5 * Math.max(0, 1 - d) ** 1.4 - .25 * c.R * 3.5 * gauss(d, .15); } return h; }
         case 'colate': return .32 + .3 * f + .05 * N.noise(x * 8, y * 8);
-        case 'caldera': { const c = F[0], d = Math.hypot(u - c.x, v - c.y) / c.R; return .45 + .12 * f + .28 * gauss(d - 1, .22) - .32 * (d < 1 ? 1 - d * d : 0); }
+        case 'caldera': { let h = .45 + .12 * f; for (const c of F) { const d = Math.hypot(u - c.x, v - c.y) / c.R; h = h + .28 * gauss(d - 1, .22) - .32 * (d < 1 ? 1 - d * d : 0); } return h; }
         default: return f;
     }
 }
-const FEATURES = { atollo: [9, .04, .11], crateri: [14, .025, .12], criovulcani: [4, .05, .1], vulcani: [3, .08, .16], caldera: [1, .3, .34] };
+export const FEATURES = { atollo: [9, .04, .11], crateri: [14, .025, .12], criovulcani: [4, .05, .1], vulcani: [3, .08, .16], caldera: [1, .3, .34] };
 
 /** The style of the genome as a function of (u, v), unclamped and defined beyond [0, 1]²: the shapes of
  * terrainHeights with the same seed and features, for the landing surface (src/worlds/field.js, 1.62.0). */
