@@ -5,6 +5,8 @@ import { INSTRUMENTS } from './navigation/instruments.js';
 import { UNIT_COUNT } from './scene/systems.js';
 import { cleanSolved } from './navigation/expeditions.js';
 import { BIOME } from './worlds/biomes.js';
+/** Kinds of weather of the zone (1.79.0), as in src/worlds/weather.js. */
+const WEATHER = ['sereno', 'nuvoloso', 'pioggia', 'neve', 'nebbia', 'polvere', 'cenere'];
 export const STORE_KEY = 'gaia.beyond-knowledge.v1';
 export function fresh() { return { schema: 1, notes: {}, read: [], quiz: {}, missions: {}, courses: {}, atlas: cleanAtlas(), bookmarks: [], scenarios: [], explore: {}, solved: [], preferences: { quality: 1000000, graphics: 'high', motion: true, explorer: true }, updatedAt: null }; }
 /** Exploration diary: per planet index, the registered species (s0, s1…), places (l0, l1…), the
@@ -37,9 +39,11 @@ export function cleanExplore(value) {
         const n = ids(v.n, x => /^n[0-8]$/.test(x), 9); if (n.length) rec.n = n;
         const f = ids(v.f, x => /^f([1-3]?\d)$/.test(x), 40); if (f.length) rec.f = f;
         const found = ids(v.k, x => /^(r(1[0-8]|\d)|n[0-8]|f([1-3]?\d))$/.test(x), 68); if (found.length) rec.k = found;
+        // e (1.79.0): the kinds of weather met on the planet (src/worlds/weather.js, WEATHER_KINDS).
+        const e = ids(v.e, x => WEATHER.includes(x), 7); if (e.length) rec.e = e;
         // t (1.75.0): the landings of the ship of the explorer on the planet.
         if (whole(v.t, 1e6) && v.t > 0) rec.t = v.t;
-        if (rec.s.length || rec.l.length || m.length || rec.v || rec.p || rec.b || rec.r || rec.n || rec.f || rec.k || rec.t) out[k] = rec;
+        if (rec.s.length || rec.l.length || m.length || rec.v || rec.p || rec.b || rec.r || rec.n || rec.f || rec.k || rec.e || rec.t) out[k] = rec;
     }
     return out;
 }

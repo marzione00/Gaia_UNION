@@ -36,12 +36,13 @@ import { siteModel } from '../worlds/sites.js';
 import { rareModel } from '../worlds/wonders.js';
 import { findModel } from '../worlds/finds.js';
 import { prepareZone, landerMeshes, landerLegs, landerMatrix, landerBlocks, padMesh, LEG, LENGTH, RAMP, LANDER } from '../worlds/lander.js';
-import { SCAN_RANGE } from '../worlds/compass.js';
+import { SCAN_RANGE, axesOf, pointOf } from '../worlds/compass.js';
+import { climateOf, weatherAt, WEATHER_KINDS, EARTH as EARTH_AIR } from '../worlds/weather.js';
 import { bodyMesh } from '../worlds/bodyplan.js';
 import { buildingMesh } from '../worlds/buildings.js';
 import { archMesh, worksMesh, roverMesh, archPalette, typologyOf } from '../worlds/architecture.js';
 import { colonistMesh, colonistSpec, nativeMesh, nativeLegs, GEAR } from '../worlds/people.js';
-import { roverMatrix, EDGE } from '../worlds/explorer.js';
+import { roverMatrix, EDGE, METRE } from '../worlds/explorer.js';
 import { worldMesh, worldLook, meshSize } from '../worlds/catalogo.js';
 import { WALK } from '../worlds/settlements.js';
 import { ecosystem, dayOf, sunAt, gaitHeading, SPEED, HUNT, VIGILANCE } from '../worlds/ecosystem.js';
@@ -104,6 +105,15 @@ export const SITE_TINTS = { abitato: [1, .74, .36, 1], abbandonato: [.72, .7, .6
 export const RARE_TINT = [.42, .95, .78, 1];
 /** Colour of the marks of the minor places of the zone (1.78.0), and the distance within which their names show. */
 export const FIND_TINT = [.86, .9, .62, 1], FIND_MARK = 260;
+/** Weather of the zone (1.79.0): side of the box of particles in front of the eye (units), particles at full strength
+ * for each graphics setting, and how each kind is drawn (mesh, material, colour, opacity, sway in units). */
+export const WEATHER_BOX = 18, WEATHER_COUNT = { high: 1500, balanced: 1000, low: 600 };
+export const WEATHER_LOOK = Object.freeze({
+    pioggia: { mesh: 'weather-streak', material: 17, color: [.82, .86, .92], opacity: .85, size: 1, sway: 0 },
+    neve: { mesh: 'weather-flake', material: 19, color: [.96, .97, 1], opacity: .95, size: 1.6, sway: .35 },
+    polvere: { mesh: 'weather-flake', material: 19, color: null, opacity: .7, size: .8, sway: .5 },
+    cenere: { mesh: 'weather-flake', material: 19, color: [.3, .29, .28], opacity: .9, size: 1.2, sway: .25 }
+});
 /** Drawn radius: the scale is illustrative, so planets of the units are enlarged to be read and
  * picked, ambient bodies slightly. Orbits keep their computed spacing. */
 const clock = () => globalThis.performance?.now() ?? Date.now();
@@ -191,6 +201,14 @@ function orbitMesh(body){
  }
  return mesh(v,ix);
 }
+/** Streak of a raindrop of the weather (1.79.0): a thin box along y, 0.6 units long. */
+const weatherStreak = () => box(.016, .3, .016);
+/** Flake of snow, dust or ash (1.79.0): an octahedron of radius 0.04 with smooth normals. */
+function weatherFlake(r = .04) {
+    const P = [[r, 0, 0], [-r, 0, 0], [0, r, 0], [0, -r, 0], [0, 0, r], [0, 0, -r]], v = [];
+    for (const p of P) v.push(...p, ...p.map(x => x / r), .5, .5, 1, 1, 1, 1);
+    return mesh(v, [0, 2, 4, 4, 2, 1, 1, 2, 5, 5, 2, 0, 4, 3, 0, 1, 3, 4, 5, 3, 1, 0, 3, 5]);
+}
 export function box(sx = 1, sy = 1, sz = 1) {
     const v = [], ix = [];
     const ps = [[-sx, -sy, -sz], [sx, -sy, -sz], [sx, sy, -sz], [-sx, sy, -sz], [-sx, -sy, sz], [sx, -sy, sz], [sx, sy, sz], [-sx, sy, sz]], faces = [[0, 3, 2, 1, 0, 0, -1], [4, 5, 6, 7, 0, 0, 1], [0, 4, 7, 3, -1, 0, 0], [1, 2, 6, 5, 1, 0, 0], [3, 7, 6, 2, 0, 1, 0], [0, 1, 5, 4, 0, -1, 0]];
@@ -264,6 +282,8 @@ export class World {
         this.fov = .84;
         this.vp = null;
         this.activateBiome(7);
+        // A raindrop streak and a flake of the weather (1.79.0): a thin box 0.6 units long and an octahedron.
+        gpu.makeMesh('weather-streak', weatherStreak()); gpu.makeMesh('weather-flake', weatherFlake());
         for (const [id, m] of [['sphere', sphereMesh(48, 32)], ['lowSphere', sphereMesh(14, 10)], ['fineSphere', sphereMesh(144, 96)], ['box', box()], ['ring', annulus()], ['planet-rings',annulus(1.3,2.35,true)]])
             gpu.makeMesh(id, m);
         let r = random(123);
@@ -1161,8 +1181,10 @@ export class World {
         const planet=surface&&this.surface.genome;
         // Day and night on the landing site and the step of the ecosystem (1.65.0).
         if(planet&&this.day)this.skyNow(s);else this.sunNow=null;
+        // The weather of the zone (1.79.0) dims the light and the sky and thickens the fog.
+        this.weatherNow=planet&&this.sunNow?this.weatherTick(s):null;
         const sun=this.sunNow;
-        R.fogColor=sun?sun.fog:planet?this.surface.fog.color:this.surface.fog.color.map(x=>x*.58);R.fogDensity=surface?this.surface.fog.density:0;R.mist=false;
+        R.fogColor=sun?sun.fog:planet?this.surface.fog.color:this.surface.fog.color.map(x=>x*.58);R.fogDensity=surface?Math.max(this.surface.fog.density,this.weatherNow?.fog||0):0;R.mist=false;
         const cosmic=['galaxy','system','orbit'].includes(scene);
         // Inside a system the nebulae are dimmed, so the planets keep their contrast.
         const exposure=scene==='system'?.42:scene==='orbit'?.55:cosmic?.72:1;this.exposure=s.paused||this.exposure===undefined?exposure:this.exposure+(exposure-this.exposure)*.08;
@@ -1275,6 +1297,8 @@ export class World {
                 const t=s.exploreTarget,c=t?.type==='species'?this.liveCentre(t.index):null;
                 if(c)R.drawMesh('ring',this.vp,transform(c[0],c[1]+.3,c[2],7),{eye:this.eye,tint:[.6,.95,.7,1],emission:.7,opacity:.6});
             }
+            // Rain, snow, dust or ash around the eye (1.79.0), after everything else, since they are translucent.
+            this.drawWeather(light);
         }
         else if (scene === 'research') {
             R.drawMesh('research-links', this.vp, transform(), { eye: this.eye, tint: TINTS[1], opacity: .55, emission: .3 });
@@ -1305,6 +1329,42 @@ export class World {
     /** The pad of the base and the ship of the explorer (1.75.0, src/worlds/lander.js): the hull in two levels of
      * detail, the legs made for the ground of each landing and lowered from the hull, the ramp turned about its
      * hinge, and while the thrusters work their plumes and the dust they raise. `s.landerPose` comes from the app. */
+    /** The weather of the zone now (1.79.0, src/worlds/weather.js), from the time since the landing, or the one set by
+     * weatherOverride ({ kind, strength, wind, from }). It dims the light of the sun and the sky by the share of its
+     * kind, blends the fog towards the colour of its haze and gives the density of the fog for its visibility. */
+    weatherTick(s) {
+        const S0=this.surface,sun=this.sunNow;if(this.climate?.index!==S0.index)this.climate=climateOf(S0.index);
+        const C=this.climate,o=this.weatherOverride,W0=weatherAt(C,s.time-(this.landTime??s.time)),W=o?{...W0,...o,sight:o.strength>0&&WEATHER_KINDS[o.kind].sight<Infinity?WEATHER_KINDS[o.kind].sight/Math.max(.05,o.strength):Infinity}:W0,K=WEATHER_KINDS[W.kind];
+        if(!this.weatherAxes||this.weatherAxes.key!==S0.key)this.weatherAxes={key:S0.key,axes:axesOf(S0)};
+        // The wind blows from the bearing `from`: towards the opposite direction, in units of the zone a second.
+        const A=this.weatherAxes.axes,b=(W.from+180)*Math.PI/180,u=[A.north[0]*Math.cos(b)+A.east[0]*Math.sin(b),A.north[1]*Math.cos(b)+A.east[1]*Math.sin(b)],v=W.wind*METRE;
+        const dim=K.dim*W.strength,mix=(a,c,k)=>a.map((x,i)=>x+(c[i]-x)*k),day=.15+.85*sun.daylight;
+        // Dust takes the colour of the rock of the planet, warmed towards ochre.
+        const haze=(K.haze||mix(S0.genome.palette.rock,[.74,.58,.4],.6)).map(x=>x*day);
+        sun.color=sun.color.map(x=>x*(1-dim));sun.fog=mix(sun.fog,haze,Math.min(.85,W.strength*.9));
+        sun.sky={...sun.sky,top:mix(sun.sky.top,haze.map(x=>x*.85),Math.min(.92,K.cover*W.strength)),sun:sun.sky.sun.map(x=>x*Math.max(0,1-dim*1.6))};
+        // Visibility to fog: the shader leaves 5 % of the contrast where distance × density is about 3.
+        const fog=W.sight<Infinity?3/(W.sight*METRE):0;
+        return {...W,label:K.label,name:K.name,windVector:[u[0]*v,u[1]*v],fog,dim,climate:C};
+    }
+    /** Particles of the weather (1.79.0) in a box of WEATHER_BOX units around the eye, as many as the strength asks,
+     * in instance mode 9 of the shader; the instance sets of each kind are made the first time it comes. */
+    drawWeather(light){
+        const W=this.weatherNow,L=W&&WEATHER_LOOK[W.kind],R=this.R;if(!L||W.strength<.02||!R.makeInstances)return;
+        const key='weather-'+W.kind,N=WEATHER_COUNT.high;
+        if(!R.instanceSets?.has(key)){const r=random(9137+W.kind.length*31),d=new Float32Array(N*8);for(let j=0;j<N;j++)d.set([(r()-.5)*WEATHER_BOX,(r()-.5)*WEATHER_BOX,(r()-.5)*WEATHER_BOX,L.size*(.7+.6*r()),L.sway*(.5+r()),0,0,r()*100],j*8);R.makeInstances(key,L.mesh,d);}
+        const C=W.climate,fall=(W.kind==='pioggia'?C.rain.v:W.kind==='neve'?C.snow.v:W.kind==='cenere'?C.ash.v:C.dust.fall)*METRE,day=.25+.75*(this.sunNow?.daylight??1);
+        const color=(L.color||this.surface.genome.palette.rock.map((x,i)=>x*.4+[.74,.58,.4][i]*.6)).map(x=>x*day);
+        const count=Math.round((WEATHER_COUNT[R.sceneQuality]||WEATHER_COUNT.high)*Math.min(1,W.strength*1.15));
+        // The box stands a third of its side in front of the eye, where the particles are seen.
+        const e=this.eye,f=this.target?this.target.map((x,i)=>x-e[i]):[0,0,-1],fl=Math.hypot(...f)||1,center=e.map((x,i)=>x+f[i]/fl*WEATHER_BOX*.35);
+        R.drawMesh(L.mesh,this.vp,IDENTITY,{eye:this.eye,light,material:L.material,instances:key,instanceMode:9,count,center,motion:[fall,WEATHER_BOX,W.windVector[0],W.windVector[1]],tint:[...color,1],opacity:L.opacity,blend:true});
+    }
+    /** «Che cosa succede» for the weather (1.79.0): the subject of src/craft/succede.js. */
+    weatherSubject(){
+        const W=this.weatherNow;if(!W)return null;const C=W.climate;
+        return {ground:true,kind:'meteo',name:W.name,label:Object.keys(C.kinds).length>1?'Meteo della zona':'Senza meteo',weather:W.kind,strength:W.strength,wind:W.wind,from:W.from,fromName:pointOf(W.from),sight:W.sight,left:W.left,kinds:Object.keys(C.kinds),air:C.air,pressure:C.pressure,rain:C.rain,snow:C.snow,dust:C.dust,ash:C.ash,fog:C.fog,earth:EARTH_AIR};
+    }
     drawLander(s,light,lightColor) {
         const R=this.R,S0=this.surface,P=s.landerPose,pad=S0.pad,far=p=>Math.hypot(p[0]-this.eye[0],p[2]-this.eye[2]);
         if(pad&&R.meshes.has('lander-pad')&&far([pad.x,0,pad.z])<1100)R.drawMesh('lander-pad',this.vp,transform(pad.x,pad.y,pad.z),{eye:this.eye,light,lightColor,material:10});

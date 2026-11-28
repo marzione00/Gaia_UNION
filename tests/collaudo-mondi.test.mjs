@@ -71,7 +71,7 @@ test('la pagina della serie «Mondi aperti»: versioni, numeri, mappa dei concet
  const md=read('docs/MONDI_APERTI.md'),graphics=read('docs/GRAPHICS.md'),perf=read('docs/PRESTAZIONI_MONDI.md'),variety=read('docs/VARIETA_MONDI.md');
  for(const r of STYLE)assert.ok(!r.test(md),'MONDI_APERTI.md '+r);assert.ok(md.startsWith('# La serie «Mondi aperti»'));
  // Every version of the series, with a section of docs/GRAPHICS.md or its own file, and a test file that exists.
- const rows=[...md.matchAll(/^\| (1\.7\d\.0) \| .+ \| (.+) \| `(tests\/[\w-]+\.test\.mjs)` \|$/gm)];assert.deepEqual(rows.map(r=>r[1]),['1.70.0','1.71.0','1.72.0','1.73.0','1.74.0','1.75.0','1.76.0','1.77.0','1.78.0']);
+ const rows=[...md.matchAll(/^\| (1\.7\d\.0) \| .+ \| (.+) \| `(tests\/[\w-]+\.test\.mjs)` \|$/gm)];assert.deepEqual(rows.map(r=>r[1]),['1.70.0','1.71.0','1.72.0','1.73.0','1.74.0','1.75.0','1.76.0','1.77.0','1.78.0','1.79.0']);
  for(const r of rows){assert.ok(fs.existsSync(new URL('../'+r[3],import.meta.url)),r[3]);for(const [,sec] of r[2].matchAll(/«([^»]+\(1\.7\d\.0\))»/g))assert.ok(graphics.includes('## '+sec),sec);for(const [,f] of r[2].matchAll(/`(docs\/[\w.]+)`/g))assert.ok(fs.existsSync(new URL('../'+f,import.meta.url)),f);}
  // The units of the concept map exist with these titles.
  const units=new Map(JSON.parse(read('content/catalogue.json')).modules.map(m=>[m.id,m.title]));for(const [,id,title] of md.matchAll(/(physics-\d\d), «([^»]+)»/g))assert.equal(units.get(id),title,id);
@@ -81,6 +81,6 @@ test('la pagina della serie «Mondi aperti»: versioni, numeri, mappa dei concet
  const mesh=perf.match(/^\| Maglie dei modelli \| (\d+) ms \| (\d+) ms \| (\d+) ms \|$/m),fill=perf.match(/da (\d+) a (\d+) fotogrammi, in mediana (\d+)\./);
  assert.ok(md.includes(`richiedono in mediana ${mesh[2]} ms invece dei 570 ms`)&&md.includes(`in mediana in ${fill[3]} fotogrammi`));
  assert.ok(graphics.includes(`in mediana ${mesh[2]} ms, contro i 570 ms della 1.76.0, al più ${mesh[3]} ms contro 993; il terreno lontano arriva in ${fill[1]}-${fill[2]} fotogrammi, in mediana ${fill[3]}`));
- // Eight test files of the series with 41 tests (the minor places since 1.78.0).
- const files=['biomi','vita-biomi','siti','rari','nave','zaino','collaudo-mondi','minori'].map(f=>read(`tests/${f}.test.mjs`));assert.equal(files.reduce((n,t)=>n+(t.match(/^test\(/gm)||[]).length,0),41);assert.ok(md.includes('sono otto, con 41 test'));
+ // Nine test files of the series with 46 tests (the minor places since 1.78.0, the weather since 1.79.0).
+ const files=['biomi','vita-biomi','siti','rari','nave','zaino','collaudo-mondi','minori','meteo'].map(f=>read(`tests/${f}.test.mjs`));assert.equal(files.reduce((n,t)=>n+(t.match(/^test\(/gm)||[]).length,0),46);assert.ok(md.includes('sono nove, con 46 test'));
 });

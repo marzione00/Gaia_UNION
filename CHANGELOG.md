@@ -1,3 +1,11 @@
+# 1.79.0: Mondi aperti, meteo della zona
+
+- Decima versione della serie «Mondi aperti». Ogni zona ha il proprio meteo, ricavato dalla carta d'identità del pianeta: cielo coperto, pioggia dove l'acqua è liquida, neve sui pianeti freddi, nebbia, tempeste di polvere sui pianeti desertici e pioggia di cenere sui vulcanici. I 22 pianeti senza atmosfera restano sereni e senza vento.
+- Dopo l'atterraggio il cielo resta sereno per un minuto, poi il meteo cambia a episodi da 80 a 200 s, che crescono e calano in 20 s, ciascuno con il proprio vento; lo stesso pianeta ripete lo stesso meteo a ogni atterraggio.
+- La luce cala, il cielo si copre, la nebbia prende il colore del fenomeno e accorcia la visibilità fino a 80 m; gocce, fiocchi, polvere e cenere cadono attorno alla camera alla velocità calcolata per il pianeta e vanno con il vento, in una sola chiamata di disegno.
+- Pulsante METEO con il pannello «Che cosa succede»: densità dell'aria ρ = pM/(RT), velocità limite delle gocce e dei fiocchi, soglia del vento per la polvere, legge di Stokes per la cenere, vapore dell'aria satura e spinta del vento sull'esploratore. Messaggio a ogni episodio e meteo osservato nel diario.
+- Nuovi `src/worlds/weather.js`, `scripts/meteo.mjs`, `docs/METEO.md` e `tests/meteo.test.mjs`; modo 9 delle istanze nello shader. Descrizione in `docs/GRAPHICS.md`, sezione «Meteo della zona».
+
 # 1.78.0: Mondi aperti, luoghi minori nelle zone vuote
 
 - Nona versione della serie «Mondi aperti». Le parti di ogni zona più lontane da tutto il resto ospitano da 6 a 40 luoghi minori, 3770 sui 125 pianeti, di 7 tipi: vene di minerale con cristalli o croste, ingressi di grotte, meteoriti di ferro e nichel, fari di navigazione della colonia, trivelle abbandonate dalla prima spedizione, cippi di pietre a secco e, sui pianeti con animali dotati di ossa, scheletri di grandi animali.
