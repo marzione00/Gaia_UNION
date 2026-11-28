@@ -1,3 +1,13 @@
+# 1.75.0: Mondi aperti, atterraggio libero e nave che scende e decolla
+
+- Sesta versione della serie «Mondi aperti». L’esploratore ha una nave, la Navetta Raman del catalogo 3D, lunga 50 m, con quattro gambe che si allungano ciascuna fino al proprio terreno, una rampa sotto lo scafo e quattro motori verticali con getti e polvere.
+- Ogni volta che si scende dallo spazio la nave atterra sulla piazzola della base, un disco in piano di 38 m di raggio scavato nel terreno appena fuori dal quadrato delle stazioni; tutti i 125 pianeti ne hanno una, in mediana a 365 m dalla base.
+- La discesa e il decollo seguono la fisica con il tempo compresso: 670 m di frenata uniforme in 10 s, con una spinta di (a + g)/g volte il peso, e un decollo con spinta doppia del peso, quindi con accelerazione g.
+- Mappa della zona (MAPPA DELLA ZONA, MAPPA, tasto M): i 4 × 4 km con il rilievo, le zone dove la nave può atterrare, la base, la piazzola, la nave e i siti e i luoghi rari noti. Si tocca un punto, la nave cerca entro 300 m un posto dove le gambe reggono, e con ATTERRA QUI l’esploratore sale a bordo, la nave decolla, vola e scende lì, con una camera che segue il volo e i numeri della spinta.
+- Accanto alla nave il pulsante della nave (tasto N) fa decollare per l’orbita; lontano riporta l’esploratore alla rampa. La nave ha una scheda con la fisica del pianeta e un segno sulla bussola; il diario conta gli atterraggi.
+- Corretto: toccare un luogo raro nella vista dell’esploratore lo sceglie come meta, come per siti e luoghi.
+- Nuovo `src/worlds/lander.js`, controllato da `tests/nave.test.mjs`; le prestazioni in `docs/PRESTAZIONI_MONDI.md` contano la nave sulla piazzola. Descrizione in `docs/GRAPHICS.md`, sezione «Atterraggio libero e nave che scende e decolla».
+
 # 1.74.0: Mondi aperti, luoghi naturali rari, bussola e scanner a distanza
 
 - Quinta versione della serie «Mondi aperti». Ogni zona di atterraggio ospita da 3 a 9 luoghi naturali rari, 835 sui 125 pianeti, di 16 tipi: archi di roccia, camini delle fate, sorgenti calde con anelli di microrganismi, terrazze di travertino, crateri giovani, cristalli giganti di gesso, campi di penitenti, ragni di anidride carbonica, banchi di stromatoliti, croste di sale poligonali, monoliti di granito, massi in bilico, foreste pietrificate, laghi di lava, seracchi di ghiaccio azzurro e campi di barcane.

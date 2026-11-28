@@ -13,7 +13,7 @@ import { CHAIN_STATIONS, chainable, chainStation, chainExercises } from './craft
 import { GPU, color, clamp, project, transform, mesh } from './renderer.js';
 import { World, RESEARCH, EDGES, box, FOLLOW_ZOOM, FOLLOW_LIMITS, followFrame, followKey, SITE_TINTS, RARE_TINT } from './scene/world.js';
 import { whatHappens } from './craft/succede.js';
-import { newExplorer, stepExplorer, toggleRover, travelTo, freeSpot, jumpOf, forward as aheadOf, METRE, G0, JUMP } from './worlds/explorer.js';
+import { newExplorer, stepExplorer, toggleRover, travelTo, freeSpot, jumpOf, forward as aheadOf, METRE, G0, JUMP, EDGE } from './worlds/explorer.js';
 import { UI, C, T, ImageCache, caseLabel, DISCIPLINE, fmtNum } from './ui/toolkit.js';
 import { FrameMeter, diagnosticLines, mountDiagnostics } from './ui/diagnostics.js';
 import { DOCUMENTS, docOf, docKey, printedLabel } from './documents.js';
@@ -24,6 +24,7 @@ import { BIOME, biomesOf } from './worlds/biomes.js';
 import { SITE_KINDS, STATES, siteList } from './worlds/sites.js';
 import { RARE_KINDS, rareList } from './worlds/wonders.js';
 import { axesOf, bearingOf, pointOf, compassMarks, detect, distanceText, SCAN_RANGE, SCAN_COOLDOWN, COMPASS_FIELD } from './worlds/compass.js';
+import { LANDER, LANDER_METRES, BOARD, DESCENT, landingSpot, landerPose, landerState, landerStory, cruiseAt, cruiseSeconds, descentSpeed } from './worlds/lander.js';
 import { lifelessReason } from './worlds/species.js';
 import { planetPhysics, physicsRows, physicsText, speciesCount, it as italian } from './worlds/planet-physics.js';
 import { cleanPassages, exploration, linkOpen } from './navigation/passages.js';
@@ -40,7 +41,7 @@ import { openStore, grade } from './store.js';
 import { AUTHOR, LICENCE, CREDIT, LICENCE_ROW } from './licenza.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.74.0-rari';
+const VERSION = '1.75.0-nave';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -96,7 +97,9 @@ function route(scene, extra = {}) {
     // Exploration belongs to one surface: leaving it starts the next visit from the stations.
     if (moved.from !== moved.to && !extra.explore) { saveExplorer(); Object.assign(S, { explore: false, exploreEntry: 0, exploreTrait: 0, exploreFocus: null, exploreGoal: null, exploreBlend: 0, avatar: null, scanTarget: null, scanInfo: null }); held.clear(); stick = null; }
     // The physical card belongs to one orbit view: any other view closes it.
-    if (moved.from !== moved.to) Object.assign(S, { physicsFor: null, physicsPage: 0, follow: null, followZoom: null });
+    if (moved.from !== moved.to) Object.assign(S, { physicsFor: null, physicsPage: 0, follow: null, followZoom: null, zoneMap: null, landerView: null });
+    // The ship comes down again each time the surface is reached from space (1.75.0).
+    if (moved.from !== moved.to && /^(orbit|system|galaxy)/.test(moved.to)) S.lander = null;
     if(scene==='orbit')S.reader=selected().id;
     Object.assign(S, { scroll: 0, menu: false, settings: false, editing: null, hoveredTarget: null, observedBody:null });
     hover.clear(); touchTarget=null; if(U)U.focus=null;
@@ -273,7 +276,7 @@ function galaxyUI() { atlas.draw(U); }
  * session copy changed from the planet panel, which never writes into the laboratory record. */
 const worldSession = { params: {}, x: {} };
 function worldTick() {
-    exploreTick();
+    exploreTick(); landerTick();
     const unit = selected()?.id, pw = ['surface', 'orbit'].includes(S.scene) ? pilotWorld(unit) : null;
     S.worldCamera = S.scene === 'surface' && pw?.camera ? pw.camera : null;
     // On phones the camera looks at the phenomenon instead of the station complex.
@@ -297,8 +300,11 @@ function exploreEntries() {
         // Structures, wrecks and ruins of the zone (1.73.0), with their stories.
         ...(s.sites || []).map((x, k) => ({ type: 'site', index: k, id: x.id, data: x, at: [x.x, x.y, x.z] })),
         // Rare natural places of the zone (1.74.0).
-        ...(s.rares || []).map((x, k) => ({ type: 'rare', index: k, id: x.id, data: x, at: [x.x, x.y, x.z] }))];
+        ...(s.rares || []).map((x, k) => ({ type: 'rare', index: k, id: x.id, data: x, at: [x.x, x.y, x.z] })),
+        // The ship of the explorer (1.75.0), with the physics of its descent and take-off.
+        ...(S.lander?.planet === S.selected ? [{ type: 'ship', index: 0, id: 'nave', data: { name: LANDER.name, story: shipStory(S.selected, s.genome.gravity) }, at: [S.lander.x, S.lander.pose.y, S.lander.z] }] : [])];
 }
+const shipStories = new Map(), shipStory = (i, g) => shipStories.get(i) || shipStories.set(i, landerStory(i, g)).get(i);
 const exploreRecord = index => store.data.explore[String(index)] || { s: [], l: [] };
 /** Sites of planet i (1.73.0): those of the open surface, or those of the planet, made once and kept. */
 const siteCache = new Map();
@@ -321,7 +327,7 @@ function selectEntry(i, fly = true) {
 function selectTarget(t) {
     const list = exploreEntries(), k = list.findIndex(e => e.type === t.type && e.index === t.index); if (k < 0) return;
     if (!S.avatar) { selectEntry(k); return; }
-    selectEntry(k, false); const at = list[k].at; if (at) { S.exploreGoal = [at[0], at[2]]; S.exploreStop = t.type === 'settlement' ? 6 : t.type === 'site' ? 22 : t.type === 'rare' ? Math.min(40, list[k].data.r * .6) : 4; }
+    selectEntry(k, false); const at = list[k].at; if (at) { S.exploreGoal = [at[0], at[2]]; S.exploreStop = t.type === 'settlement' ? 6 : t.type === 'site' ? 22 : t.type === 'rare' ? Math.min(40, list[k].data.r * .6) : t.type === 'ship' ? 18 : 4; }
 }
 function startExplore() { S.explore = true; S.exploreGoal = null; S.exploreCard = R.w >= 850; updateHash(); }
 function stopExplore() { saveExplorer(); S.explore = false; S.groundFollow = null; held.clear(); stick = null; updateHash(); }
@@ -340,6 +346,8 @@ function exploreTick() {
     const env = exploreReady() ? W.explorerEnv() : null; if (!env) return;
     // A new exploration (button or link) puts the explorer beside the stations, facing the current entry.
     if (!S.avatar || S.avatar.planet !== S.selected) startAvatar(env);
+    // On board the ship (1.75.0) the explorer travels with it; the camera of the flight follows the ship.
+    if (S.avatar.aboard) { const P = S.landerPose; if (P) { S.exploreFocus = [P.x, P.z]; Object.assign(S.avatar, { x: P.x, z: P.z }); } S.exploreTarget = null; return; }
     const A = S.avatar, dt = Math.min(.1, (S.lastFrameMs || 16) / 1000), key = c => held.has(c);
     const fwd = (key('w') || key('arrowup') ? 1 : 0) - (key('s') || key('arrowdown') ? 1 : 0), turn = (key('a') || key('arrowleft') ? 1 : 0) - (key('d') || key('arrowright') ? 1 : 0);
     const input = { forward: fwd, turn, run: key('shift'), jump: !!S.jumpAsk }; S.jumpAsk = false;
@@ -444,10 +452,11 @@ function compassHUD(mobile, card) {
     const fx = t[0] - e[0], fz = t[2] - e[2], fl = Math.hypot(fx, fz); if (fl < 1e-6) return;
     const f = [fx / fl, fz / fl], axes = S.compassAxes?.key === s.key ? S.compassAxes.axes : (S.compassAxes = { key: s.key, axes: axesOf(s) }).axes;
     const rec = exploreRecord(S.selected), known = new Set([...(rec.k || []), ...(rec.r || []), ...(rec.n || [])]), b = baseOf(), chosen = exploreEntries()[S.exploreEntry];
-    const points = [{ x: b[0], z: b[1], kind: 'base' }];
+    const points = [{ x: b[0], z: b[1], kind: 'base' }], L = S.lander;
+    if (L?.planet === S.selected) points.push({ x: L.x, z: L.z, kind: 'ship', on: chosen?.type === 'ship' });
     (s.sites || []).forEach((o, k) => { const on = chosen?.type === 'site' && chosen.index === k; if (on || known.has(o.id)) points.push({ x: o.x, z: o.z, kind: 'site', state: o.state, on }); });
     (s.rares || []).forEach((o, k) => { const on = chosen?.type === 'rare' && chosen.index === k; if (on || known.has(o.id)) points.push({ x: o.x, z: o.z, kind: 'rare', on }); });
-    if (chosen?.at && chosen.type !== 'site' && chosen.type !== 'rare') points.push({ x: chosen.at[0], z: chosen.at[2], kind: 'target', on: true });
+    if (chosen?.at && !['site', 'rare', 'ship'].includes(chosen.type)) points.push({ x: chosen.at[0], z: chosen.at[2], kind: 'target', on: true });
     let x0 = 480, x1 = Math.min(R.w - 372, 1000), y = R.h - 86;
     if (mobile) { x0 = 18; x1 = R.w - 18; y = card ? 200 : 318; }
     else if (x1 - x0 < 260) { x0 = 35; x1 = 35 + Math.min(420, R.w - 35 - 353 - 24); y = R.h - 306; }
@@ -457,10 +466,11 @@ function compassHUD(mobile, card) {
     const marks = compassMarks(axes, f, A.x, A.z, points);
     for (const m of marks) if (m.name) U.text(m.name, toX(m.side), y + 4, m.cardinal ? 'mini' : 'micro', m.name === 'N' ? C.lime : m.cardinal ? C.pale : C.muted, { align: 'center' });
     for (const m of marks) {
-        if (m.name || (!m.inside && !m.on && m.kind !== 'base')) continue;
-        const x = toX(m.side), cy = y + 26, c = m.kind === 'base' ? C.cyan : m.kind === 'site' ? SITE_TINTS[m.state] : m.kind === 'rare' ? RARE_TINT : C.pale, z = m.on ? 1.4 : 1;
+        if (m.name || (!m.inside && !m.on && m.kind !== 'base' && m.kind !== 'ship')) continue;
+        const x = toX(m.side), cy = y + 26, c = m.kind === 'base' ? C.cyan : m.kind === 'ship' ? C.amber : m.kind === 'site' ? SITE_TINTS[m.state] : m.kind === 'rare' ? RARE_TINT : C.pale, z = m.on ? 1.4 : 1;
         if (!m.inside) { U.text(m.side < 0 ? '◂' : '▸', x, cy - 8, 'micro', c, { align: 'center' }); continue; }
         if (m.kind === 'base') R.roundRect(x - 4, cy - 4, 8, 8, 1, c);
+        else if (m.kind === 'ship') R.poly([[x, cy - 6], [x + 5, cy + 4], [x - 5, cy + 4]], C.amber);
         else if (m.kind === 'rare') R.poly([[x, cy - 5 * z], [x + 5 * z, cy], [x, cy + 5 * z], [x - 5 * z, cy]], c);
         else if (m.kind === 'site') R.roundRect(x - 4 * z, cy - 4 * z, 8 * z, 8 * z, 4 * z, c);
         else R.roundRect(x - 4.5, cy - 4.5, 9, 9, 4.5, color('#000000', 0), c, 0);
@@ -914,8 +924,11 @@ function surfaceUI() {
     const sw = mobile ? 55 : 124;
     U.button('back-planet',mobile?'ORBITA':'TORNA AL PIANETA',mobile?294:35+4*(sw+8)+12,h-86,mobile?Math.max(65,w-312):190,36,()=>route('orbit'),{small:mobile});
     if (exploreReady()) U.button('explore-start', mobile ? 'ESPLORA' : 'ESPLORA IL PIANETA', mobile ? px + pw - 104 : Math.min(773, w - 220), mobile ? py + 10 : w < 1000 ? h - 132 : h - 86, mobile ? 90 : 200, mobile ? 28 : 36, startExplore, { small: mobile });
+    // The map of the zone (1.75.0): the explorer boards the ship and lands where it is chosen.
+    if (exploreReady() && S.lander) { U.button('zone-map', mobile ? 'MAPPA' : 'MAPPA DELLA ZONA', mobile ? px + pw - 90 : Math.min(773, w - 220), mobile ? py - 40 : w < 1000 ? h - 178 : h - 132, mobile ? 90 : 200, mobile ? 30 : 36, openZoneMap, { small: mobile }); U.buttons.at(-1).label = 'Apri la mappa della zona e scegli dove atterrare con la nave'; }
     for (let i = 0; i < 4; i++)
         U.button('station-' + i, mobile ? String(i + 1) : (i + 1) + ' · ' + short[i], 35 + i * (sw + 8), h - 86, sw, 36, () => S.station = i, { active: S.station === i });
+    zoneMapUI(mobile);
 }
 /** Identifier of the model of an exploration entry in the catalogue (1.69.0): the species, or the first
  * building of the colony or of the village; places have none. */
@@ -930,7 +943,7 @@ function entryModel(e) {
 function stickZone() {
     if (S.scene !== 'surface' || !S.explore || !S.avatar) return null;
     const mobile = R.w < 850; if (mobile ? S.exploreCard || S.groundFollow : !S.touch) return null;
-    return mobile ? { x: 92, y: R.h - 196, r: 56 } : { x: 95, y: R.h - 340, r: 56 };
+    return mobile ? { x: 92, y: R.h - 196, r: 56 } : { x: 95, y: R.h - 372, r: 56 };
 }
 function moveStick(x, y) { const z = stickZone(); if (!z || !stick) return; let dx = (x - z.x) / z.r, dy = (y - z.y) / z.r; const m = Math.hypot(dx, dy); if (m > 1) { dx /= m; dy /= m; } stick.v = [dx, dy]; stick.push = Math.min(1, m); }
 /** The subject «Che cosa succede» of the jump of the explorer (src/craft/succede.js). */
@@ -942,6 +955,185 @@ function jumpSubject() {
 const baseOf = () => { const st = W.surface?.stations || []; return st.length ? [st.reduce((a, s) => a + s.position[0], 0) / st.length, st.reduce((a, s) => a + s.position[2], 0) / st.length] : [14, 28]; };
 /** Quick travel back to the base (1.70.0), from anywhere in the zone of the landing site. */
 function goBase() { const A = S.avatar, env = W.explorerEnv?.(); if (!A || !env) return; const b = baseOf(); if (travelTo(A, b[0], b[1], env, A.mode === 'rover' ? 12 : 8)) { S.exploreGoal = null; S.chaseYaw = S.yaw; say('Di ritorno alla base.'); } }
+/** The ship of the explorer (1.75.0, src/worlds/lander.js). Each time the surface is reached from space it comes
+ * down on the pad of the base; it stays where it lands while the planet is open. The explorer boards it to fly to
+ * another point of the zone, chosen on the map of the zone, or back to the orbit. S.lander holds the flight, from
+ * which landerTick makes, at every frame, the pose that the scene draws (S.landerPose) and, during the flights the
+ * explorer makes, the camera that follows them (S.landerView). */
+function arrival(s) {
+    const pad = s.pad, b = baseOf(), at = pad ? [pad.x, pad.z] : [b[0] - 90, b[1] - 120], h = Math.atan2(at[0] - b[0], at[1] - b[1]);
+    const P = landingSpot(s, at[0], at[1], h, 260); if (!P) return null;
+    return { planet: S.selected, x: P.x, z: P.z, h: P.h, pose: P, phase: S.paused ? 'parked' : 'descent', t0: Date.now(), then: null, cam: false };
+}
+const turnTo = (a, b) => Math.atan2(Math.sin(b - a), Math.cos(b - a));
+function landerTick() {
+    const s = W?.surface;
+    if (S.scene !== 'surface' || !exploreReady() || !s.heightAt || !s.stations?.length) { S.landerPose = null; S.landerView = null; return; }
+    let L = S.lander; if (!L || L.planet !== S.selected) L = S.lander = arrival(s);
+    if (!L) { S.landerPose = null; S.landerView = null; return; }
+    const now = Date.now(), g = s.genome.gravity;
+    if (L.phase === 'cruise') {
+        const C = L.cruise, u = (now - L.t0) / 1000 / C.seconds, p = cruiseAt(C, u), q = cruiseAt(C, u + .02 / C.seconds), k = Math.min(1, u / .35), h = L.h + turnTo(L.h, C.h) * k * k * (3 - 2 * k);
+        S.landerPose = { planet: L.planet, x: p[0], y: p[1], z: p[2], h, legs: 0, ramp: 0, open: 0, thrust: 1.05, dust: 0, drop: L.pose.drop, height: p[1] - s.heightAt(p[0], p[2]), speed: (q[1] - p[1]) / .02, run: Math.hypot(q[0] - p[0], q[2] - p[2]) / .02, left: Math.hypot(C.to[0] - p[0], C.to[2] - p[2]) };
+        if (u >= 1) Object.assign(L, { x: C.to[0], z: C.to[2], h: C.h, pose: C.pose, phase: 'descent', t0: now, then: 'explore', cruise: null });
+    } else {
+        const st = L.state = landerState(L, now, g), P = L.pose;
+        S.landerPose = { planet: L.planet, x: L.x, y: P.y + st.height, z: L.z, h: L.h, legs: st.legs, ramp: P.ramp, open: st.ramp, thrust: st.thrust, dust: st.dust, drop: P.drop, dustAt: [L.x, P.y, L.z], height: st.height, speed: st.speed, run: 0 };
+        if (st.done) landerDone(L, now, s);
+    }
+    S.landerView = S.explore && L.cam && S.lander ? landerView(L, s) : null;
+}
+/** End of a phase: after a descent the ship stands on the ground and the explorer walks down the ramp; after a
+ * climb it flies to the point chosen, or the view goes back to the orbit. */
+function landerDone(L, now, s) {
+    if (L.phase === 'descent') {
+        const rec = store.data.explore[String(L.planet)] ||= { s: [], l: [] }; rec.t = (rec.t || 0) + 1; rec.at = new Date().toISOString(); store.save();
+        L.phase = 'parked'; if (L.then === 'explore') leaveShip(L); L.then = null; L.cam = false;
+    } else if (L.phase === 'ascent' && L.then === 'orbit') {
+        if (S.avatar) S.avatar.aboard = false; S.lander = null; S.landerPose = null; S.landerView = null; route('orbit');
+    } else if (L.phase === 'ascent' && L.then === 'hop') {
+        const D = L.to, from = [L.x, L.pose.y + L.state.height, L.z], to = [D.x, D.y + DESCENT.metres * METRE, D.z];
+        L.cruise = { from, to, v0: L.state.speed, v1: -descentSpeed(), seconds: cruiseSeconds(Math.hypot(to[0] - from[0], to[2] - from[2])), h: D.h, pose: D };
+        L.phase = 'cruise'; L.t0 = now;
+    }
+}
+/** The camera of the flights: on the ground beside the ship for the climb and the descent, looking up at it,
+ * and behind it during the flight. */
+function landerView(L, s) {
+    const P = S.landerPose; if (!P) return null;
+    if (L.phase === 'cruise') {
+        const C = L.cruise, dx = C.to[0] - C.from[0], dz = C.to[2] - C.from[2], n = Math.hypot(dx, dz) || 1, bx = dx / n, bz = dz / n;
+        return { key: 'volo', eye: [P.x - bx * 85 + bz * 28, P.y + 32, P.z - bz * 85 - bx * 28], target: [P.x + bx * 20, P.y + 2, P.z + bz * 20], fov: .74 };
+    }
+    const rx = Math.cos(L.h), rz = -Math.sin(L.h), fx = Math.sin(L.h), fz = Math.cos(L.h), gx = L.x + rx * 64 + fx * 34, gz = L.z + rz * 64 + fz * 34, gy = Math.max(s.heightAt(gx, gz), s.seaY ?? -99) + 6;
+    return { key: L.phase === 'ascent' ? 'salita' : 'discesa', eye: [gx, gy, gz], target: [L.x, Math.min(P.y + 8, gy + 240), L.z], fov: .8 };
+}
+/** The explorer walks down the ramp and on past the stern, then turns to look at the ship; the rover parks beside it. */
+function leaveShip(L) {
+    const A = S.avatar, env = W.explorerEnv?.(); if (!A || !env) return;
+    A.aboard = false; A.mode = 'piedi'; const e = L.pose.end, bx = -Math.sin(L.h), bz = -Math.cos(L.h);
+    // It walks on while the ground is free and has no step higher than 0.9 units, at most 14 units.
+    let out = [e[0], e[2]];
+    for (let d = 1; d <= 14; d++) { const x = e[0] + bx * d, z = e[2] + bz * d; if (env.blocked(x, z) || Math.abs(env.ground(x, z) - env.ground(...out)) > .9 || (env.sea !== null && env.ground(x, z) < env.sea)) break; out = [x, z]; }
+    if (!travelTo(A, out[0], out[1], env, 0)) travelTo(A, e[0], e[2], env, 0);
+    A.h = A.cam = Math.atan2(-(L.z - A.z), L.x - A.x);
+    S.exploreFocus = [A.x, A.z]; S.chaseYaw = S.yaw; S.exploreGoal = null;
+    say(`${LANDER.name} a terra: l’esploratore scende dalla rampa.`);
+}
+/** The explorer boards the ship, which takes off for the orbit (then 'orbit') or for the pose `dest` (then 'hop'). */
+function board(then, dest = null) {
+    const L = S.lander; if (!L || L.phase !== 'parked') return false;
+    const A = S.avatar; if (A) Object.assign(A, { aboard: true, x: L.x, z: L.z, speed: 0, vy: 0 });
+    Object.assign(L, { phase: 'ascent', t0: Date.now(), then, to: dest, cam: true });
+    Object.assign(S, { exploreGoal: null, scanTarget: null, scanInfo: null, groundFollow: null });
+    return true;
+}
+/** Distance of the explorer from the end of the ramp of a ship standing on the ground, or null. */
+const shipGap = () => { const A = S.avatar, L = S.lander; return A && !A.aboard && L?.phase === 'parked' && L.planet === S.selected ? Math.hypot(A.x - L.pose.end[0], A.z - L.pose.end[2]) : null; };
+/** The button of the ship: DECOLLA by the ramp, otherwise NAVE, a quick travel to the ramp. */
+function shipAction() {
+    const A = S.avatar, L = S.lander, gap = shipGap(), env = W.explorerEnv?.(); if (!A || !L || A.aboard || !env) return;
+    if (L.phase !== 'parked') { say('La nave sta ancora atterrando.'); return; }
+    if (gap < BOARD) { board('orbit'); say(`Decollo: i motori danno una spinta doppia del peso e ${LANDER.name} sale verso l’orbita.`); return; }
+    if (travelTo(A, L.pose.end[0], L.pose.end[2], env, 3)) { S.exploreGoal = null; S.chaseYaw = S.yaw; say('Di ritorno alla nave.'); }
+}
+const shipLabel = () => { const g = shipGap(); return g !== null && g < BOARD ? 'DECOLLA' : 'NAVE'; };
+
+/** Map of the zone of the landing site (1.75.0): the colours of the ground with the light of a low sun from the
+ * north-west, grey and darker where the ship cannot land (water, or ground steeper than its legs take: the middle of
+ * each of MAP_CELLS × MAP_CELLS cells is tried with the nose to the north and to the east); the base, the pad, the
+ * ship, the explorer and the sites and rare places known. It is made a few rows at a frame, once a planet. */
+const zoneMaps = new Map(), MAP_PIXELS = 128, MAP_CELLS = 40;
+function zoneMapTick() {
+    const s = W?.surface; if (!S.zoneMap || !s?.heightAt) return;
+    let M = zoneMaps.get(s.key);
+    if (!M) { if (zoneMaps.size > 2) zoneMaps.delete(zoneMaps.keys().next().value); M = { heights: new Float32Array((MAP_PIXELS + 1) ** 2), ok: new Float32Array(MAP_CELLS * MAP_CELLS), row: 0, cell: 0, pixels: null, texture: null }; zoneMaps.set(s.key, M); }
+    if (M.pixels) return M;
+    const t0 = performance.now(), n = MAP_PIXELS + 1, at = k => (k / MAP_PIXELS) * 2 * EDGE - EDGE;
+    while (performance.now() - t0 < 7 && (M.row < n || M.cell < MAP_CELLS * MAP_CELLS)) {
+        if (M.row < n) { for (let i = 0; i < n; i++) M.heights[M.row * n + i] = s.heightAt(at(i), at(M.row)); M.row++; continue; }
+        for (let j = 0; j < 8 && M.cell < MAP_CELLS * MAP_CELLS; j++, M.cell++) { const c = q => ((q + .5) / MAP_CELLS) * 2 * EDGE - EDGE, x = c(M.cell % MAP_CELLS), z = c(Math.floor(M.cell / MAP_CELLS)); M.ok[M.cell] = landerPose(s, x, z, 0).ok || landerPose(s, x, z, Math.PI / 2).ok ? 1 : 0; }
+    }
+    if (M.row < n || M.cell < MAP_CELLS * MAP_CELLS) return M;
+    const F = s.field, px = new Uint8Array(MAP_PIXELS * MAP_PIXELS * 4), step = 2 * EDGE / MAP_PIXELS, water = s.water || [.2, .35, .5];
+    for (let j = 0; j < MAP_PIXELS; j++) for (let i = 0; i < MAP_PIXELS; i++) {
+        const h = (a, b) => M.heights[b * n + a], y = (h(i, j) + h(i + 1, j) + h(i, j + 1) + h(i + 1, j + 1)) / 4, x = at(i + .5), z = at(j + .5);
+        const hx = (h(i + 1, j) + h(i + 1, j + 1) - h(i, j) - h(i, j + 1)) / (2 * step), hz = (h(i, j + 1) + h(i + 1, j + 1) - h(i, j) - h(i + 1, j)) / (2 * step), slope = Math.min(1, Math.hypot(hx, hz) * .9);
+        const wet = s.seaY !== null && y < s.seaY, e = F?.E ? F.E(x, z) : 0, c = wet ? water.map(v => v * (.75 + .25 * Math.max(0, 1 - (s.seaY - y) / 12))) : F?.colour ? F.colour(x, z, e, slope, F.lava ? F.lava(x, z) : 0) : [.5, .5, .5];
+        // The cells where the ship can land, read between their middles; elsewhere the colour fades to grey.
+        const u = Math.max(0, Math.min(MAP_CELLS - 1.001, (i + .5) / MAP_PIXELS * MAP_CELLS - .5)), v = Math.max(0, Math.min(MAP_CELLS - 1.001, (j + .5) / MAP_PIXELS * MAP_CELLS - .5)), i0 = Math.floor(u), j0 = Math.floor(v), fu = u - i0, fv = v - j0;
+        const r = (a, b) => M.ok[b * MAP_CELLS + a], good = (r(i0, j0) * (1 - fu) + r(i0 + 1, j0) * fu) * (1 - fv) + (r(i0, j0 + 1) * (1 - fu) + r(i0 + 1, j0 + 1) * fu) * fv;
+        const shade = wet ? 1 : Math.max(.45, Math.min(1.35, 1 + (hx - hz) * 1.4)), bad = wet ? 0 : Math.max(0, Math.min(1, 1.25 - good * 1.5)), grey = (c[0] + c[1] + c[2]) / 3;
+        for (let q = 0; q < 3; q++) px[(j * MAP_PIXELS + i) * 4 + q] = Math.max(0, Math.min(255, Math.round((c[q] + (grey - c[q]) * .75 * bad) * shade * (1 - .45 * bad) * 255)));
+        px[(j * MAP_PIXELS + i) * 4 + 3] = 255;
+    }
+    M.pixels = px; M.texture = R.uploadPixels ? R.uploadPixels(MAP_PIXELS, MAP_PIXELS, px) : null;
+    return M;
+}
+function openZoneMap() { S.zoneMap = { pick: null, spot: null, note: '' }; }
+/** A point tapped on the map: the nearest point within 189 units (300 m) where the ship can land, with the nose towards
+ * the direction of the flight. */
+function zoneTap(x, y) {
+    const Z = S.zoneMap, s = W.surface, L = S.lander; if (!Z?.rect || !s?.heightAt) return;
+    const [mx, my, size] = Z.rect; if (x < mx || y < my || x > mx + size || y > my + size) return;
+    const px = (x - mx) / size * 2 * EDGE - EDGE, pz = (y - my) / size * 2 * EDGE - EDGE, from = L ? [L.x, L.z] : baseOf();
+    Z.pick = [px, pz];
+    if (Math.hypot(px - from[0], pz - from[1]) < 40) { Z.spot = null; Z.note = 'La nave è già qui: scegli un punto più lontano.'; return; }
+    const P = landingSpot(s, px, pz, Math.atan2(px - from[0], pz - from[1]), 189);
+    if (!P) { Z.spot = null; Z.note = 'Nessun punto adatto entro 300 m: acqua, pendii troppo ripidi o costruzioni. Scegli un altro punto.'; return; }
+    const b = s.field?.biomeAt?.(P.x, P.z)?.name, d = distanceText(Math.hypot(P.x - from[0], P.z - from[1]));
+    Z.spot = P; Z.note = `Punto adatto a ${d} dalla nave${b ? ', ' + b.toLowerCase() : ''}: le gambe compensano fino a ${(Math.max(...P.drop) / METRE).toFixed(1).replace('.', ',')} m di dislivello.`;
+}
+/** ATTERRA QUI: the explorer boards the ship, which flies to the point chosen; from the stations the exploration begins. */
+function landHere() {
+    const Z = S.zoneMap, L = S.lander; if (!Z?.spot || !L) return;
+    if (L.phase !== 'parked') { Z.note = 'La nave sta ancora atterrando: aspetta che sia a terra.'; return; }
+    const env = W.explorerEnv?.(); if (!env) return;
+    if (!S.explore) startExplore();
+    if (!S.avatar || S.avatar.planet !== S.selected) startAvatar(env);
+    if (board('hop', Z.spot)) { S.zoneMap = null; say(`Rotta verso il punto scelto: decollo, volo di ${distanceText(Math.hypot(Z.spot.x - L.x, Z.spot.z - L.z))} e discesa.`); }
+}
+function zoneMapUI(mobile) {
+    const Z = S.zoneMap, s = W.surface; if (!Z || !s?.heightAt) return;
+    const w = R.w, h = R.h, M = zoneMapTick(), size = Math.max(180, Math.min(mobile ? w - 36 : 540, h - (mobile ? 270 : 220))), mx = mobile ? Math.round((w - size) / 2) : Math.round((w - size) / 2), my = mobile ? 112 : 128;
+    Z.rect = [mx, my, size];
+    R.rect(0, 0, w, h, color(T.bg, .74));
+    U.panel(mx - 16, my - 74, size + 32, size + (mobile ? 196 : 150), C.cyan, .95);
+    U.tag('Mappa della zona di atterraggio · 4 × 4 km', mx, my - 56, C.cyan);
+    wrapClipText(Z.note || 'Tocca il punto dove vuoi atterrare. Le zone scure sono acqua o terreno troppo ripido per le gambe della nave.', mx, my - 36, size, 'micro', Z.spot ? C.lime : C.pale, 2);
+    R.rect(mx, my, size, size, color(T.raised, 1));
+    if (M?.texture) R.drawImage(M.texture, mx, my, size, size);
+    else U.text(`Rilievo della mappa… ${Math.round(((M?.row || 0) / (MAP_PIXELS + 1) * .6 + (M?.cell || 0) / MAP_CELLS ** 2 * .4) * 100)}%`, mx + size / 2, my + size / 2 - 8, 'mini', C.pale, { align: 'center' });
+    const toS = (x, z) => [mx + (x + EDGE) / (2 * EDGE) * size, my + (z + EDGE) / (2 * EDGE) * size];
+    // The square of the stations, the pad, the sites and rare places known, the explorer and the ship.
+    const rec = exploreRecord(S.selected), known = new Set([...(rec.k || []), ...(rec.r || []), ...(rec.n || [])]);
+    (s.sites || []).forEach(o => { if (!known.has(o.id)) return; const [x, y] = toS(o.x, o.z); R.roundRect(x - 4, y - 4, 8, 8, 4, SITE_TINTS[o.state]); });
+    (s.rares || []).forEach(o => { if (!known.has(o.id)) return; const [x, y] = toS(o.x, o.z); R.poly([[x, y - 5], [x + 5, y], [x, y + 5], [x - 5, y]], RARE_TINT); });
+    const b = toS(...baseOf()); R.roundRect(b[0] - 5, b[1] - 5, 10, 10, 2, C.cyan); U.text('BASE', b[0] + 8, b[1] - 7, 'micro', C.cyan);
+    if (s.pad) { const p = toS(s.pad.x, s.pad.z); R.roundRect(p[0] - 6, p[1] - 6, 12, 12, 6, color('#000000', 0), C.cyan, 0); }
+    const A = S.avatar; if (A && S.explore && !A.aboard) { const a = toS(A.x, A.z); R.roundRect(a[0] - 4, a[1] - 4, 8, 8, 4, C.lime); }
+    const L = S.lander; if (L) { const q = toS(L.x, L.z), fx = Math.sin(L.h), fz = Math.cos(L.h); R.poly([[q[0] + fx * 9, q[1] + fz * 9], [q[0] - fx * 6 + fz * 5, q[1] - fz * 6 - fx * 5], [q[0] - fx * 6 - fz * 5, q[1] - fz * 6 + fx * 5]], C.amber); }
+    if (Z.pick) { const q = toS(...Z.pick); R.line([q[0] - 7, q[1] - 7], [q[0] + 7, q[1] + 7], C.pale, 2); R.line([q[0] - 7, q[1] + 7], [q[0] + 7, q[1] - 7], C.pale, 2); }
+    if (Z.spot) { const q = toS(Z.spot.x, Z.spot.z); R.roundRect(q[0] - 9, q[1] - 9, 18, 18, 9, color('#000000', 0), C.lime, 0); if (L) { const o = toS(L.x, L.z); R.line(o, q, color(T.line, 1), 1); } }
+    // North, from the course of the sun (src/worlds/compass.js), and a bar of 1 km.
+    const ax = S.compassAxes?.key === s.key ? S.compassAxes.axes : (S.compassAxes = { key: s.key, axes: axesOf(s) }).axes, nx = ax.north[0], nz = ax.north[1], cx = mx + size - 26, cy = my + 30;
+    R.roundRect(cx - 18, cy - 18, 36, 36, 18, color(T.bg, .8), color(T.line, 1)); R.poly([[cx + nx * 13, cy + nz * 13], [cx - nz * 5, cy + nx * 5], [cx + nz * 5, cy - nx * 5]], C.lime); U.text('N', cx - nx * 9, cy - nz * 9 - 6, 'micro', C.pale, { align: 'center' });
+    const km = 1000 * METRE / (2 * EDGE) * size; R.rect(mx + 14, my + size - 18, km, 3, C.pale); U.text('1 km', mx + 14, my + size - 36, 'micro', C.pale);
+    const by = my + size + 14, bw = mobile ? (size - 8) / 2 : 160;
+    U.button('zone-land', 'ATTERRA QUI', mx, by, bw, 36, landHere, { active: !!Z.spot, disabled: !Z.spot || L?.phase !== 'parked' }); U.buttons.at(-1).label = 'Vola fino al punto scelto e atterra';
+    U.button('zone-pad', mobile ? 'PIAZZOLA' : 'PIAZZOLA DELLA BASE', mobile ? mx + bw + 8 : mx + bw + 10, by, bw, 36, () => { if (s.pad) { const q = toS(s.pad.x, s.pad.z); zoneTap(q[0], q[1]); } }, { small: mobile }); U.buttons.at(-1).label = 'Scegli la piazzola della base';
+    U.button('zone-close', 'CHIUDI', mobile ? mx : mx + size - 120, mobile ? by + 44 : by, mobile ? size : 120, 36, () => { S.zoneMap = null; }, { small: mobile }); U.buttons.at(-1).label = 'Chiudi la mappa della zona';
+}
+/** During a flight of the ship: the phase, the height, the vertical speed and the thrust in weights. */
+function flightHUD(mobile, tint) {
+    const P = S.landerPose, L = S.lander; if (!P || !L) return;
+    const w = R.w, x = mobile ? 18 : 35, y = mobile ? 196 : R.h - 262, pw = mobile ? w - 36 : Math.min(500, w - 35 - 353 - 24), one = v => (Math.abs(v) < 9.95 ? v.toFixed(1) : v.toFixed(0)).replace('.', ','), m = v => Math.round(v / METRE);
+    const phase = L.phase === 'ascent' ? (L.then === 'orbit' && !mobile ? 'Decollo verso l’orbita' : 'Decollo') : L.phase === 'cruise' ? (mobile ? 'Volo' : 'Volo verso il punto scelto') : 'Discesa', g = W.surface.genome.gravity;
+    U.panel(x, y, pw, mobile ? 80 : 112, tint, .86); U.tag(LANDER.name + ' · ' + phase, x + 18, y + 16, C.lime);
+    wrapClipText(mobile ? `Quota ${m(P.height)} m · ${one(P.speed / METRE)} m/s in verticale${P.run ? `, ${one(P.run / METRE)} in avanti` : ''}` : `Quota ${m(P.height)} m · velocità verticale ${one(P.speed / METRE)} m/s${P.run ? ` · in avanti ${one(P.run / METRE)} m/s` : ''}`, x + 18, y + 38, pw - 36, 'micro', C.pale, 1);
+    wrapClipText(P.thrust > 0 ? (mobile ? `Spinta ${one(P.thrust)} pesi${P.left ? ` · mancano ${distanceText(P.left)}` : ''}` : `Spinta ${one(P.thrust)} volte il peso, gravità ${g.toFixed(2).replace('.', ',')} g${P.left ? ` · mancano ${distanceText(P.left)}` : ''}`) : 'Motori spenti', x + 18, y + 58, pw - 36, 'micro', C.muted, 1);
+    if (!mobile) wrapClipText(L.phase === 'descent' ? 'Frenata uniforme: la spinta supera il peso finché la nave si ferma a terra.' : L.phase === 'cruise' ? 'In volo i motori reggono il peso e spingono la nave in avanti.' : 'Con una spinta doppia del peso la nave sale con accelerazione g.', x + 18, y + 80, pw - 36, 'micro', C.muted, 1);
+}
 /** Lines of the explorer: how it moves, its jump against the Earth's, the scanner and the walk to a goal. */
 function explorerLines(mobile) {
     const A = S.avatar, J = jumpOf(W.surface.genome.gravity), one = v => v.toFixed(1).replace('.', ','), cm = v => Math.round(v * 100) + ' cm', v = Math.abs(A.speed) / METRE;
@@ -963,8 +1155,8 @@ function explorerHUD(mobile, card, tint) {
     const w = R.w, h = R.h, L = explorerLines(mobile), rover = A.mode === 'rover';
     const jump = (x, y, bw, bh, small) => { U.button('explore-jump', 'SALTA', x, y, bw, bh, () => { S.jumpAsk = true; }, { active: !rover, small, disabled: rover }); U.buttons.at(-1).label = 'Salta con la gravità del pianeta'; };
     if (!mobile) {
-        const x = 35, hw = Math.min(500, w - 35 - 353 - 24), y = h - 262, bw = (hw - 32 - 40) / 6;
-        U.panel(x, y, hw, 134, tint, .84); U.tag(L.tag, x + 18, y + 16, C.lime);
+        const x = 35, hw = Math.min(500, w - 35 - 353 - 24), y = h - 298, bw = (hw - 32 - 40) / 6;
+        U.panel(x, y, hw, 172, tint, .84); U.tag(L.tag, x + 18, y + 16, C.lime);
         wrapClipText(L.motion, x + 18, y + 36, hw - 36, 'micro', C.pale, 1); wrapClipText(L.goal || L.jump, x + 18, y + 54, hw - 36, 'micro', C.pale, 1); wrapClipText(L.scanner, x + 18, y + 72, hw - 36, 'micro', S.scanInfo?.name ? C.lime : C.muted, 1);
         jump(x + 16, y + 94, bw, 30, true);
         U.button('explore-rover', rover ? 'SCENDI' : 'ROVER', x + 16 + (bw + 8), y + 94, bw, 30, roverToggle, { small: true }); U.buttons.at(-1).label = rover ? 'Scendi dal rover' : 'Sali sul rover';
@@ -972,6 +1164,10 @@ function explorerHUD(mobile, card, tint) {
         U.button('explore-physics', 'FISICA', x + 16 + 3 * (bw + 8), y + 94, bw, 30, () => followGround('salto'), { small: true }); U.buttons.at(-1).label = 'La fisica del salto su questo pianeta';
         U.button('explore-base', 'BASE', x + 16 + 4 * (bw + 8), y + 94, bw, 30, goBase, { small: true }); U.buttons.at(-1).label = 'Torna alla base con un viaggio rapido';
         U.button('explore-pulse', 'IMPULSO', x + 16 + 5 * (bw + 8), y + 94, bw, 30, impulse, { small: true }); U.buttons.at(-1).label = 'Impulso dello scanner: rileva siti e luoghi rari entro 1,3 km';
+        // The ship (1.75.0): a quick travel to its ramp, or the take-off beside it; the map of the zone to land elsewhere.
+        const half = (hw - 32 - 8) / 2, ship = shipLabel();
+        U.button('explore-ship', ship === 'DECOLLA' ? 'DECOLLA PER L’ORBITA' : 'TORNA ALLA NAVE', x + 16, y + 132, half, 30, shipAction, { small: true, active: ship === 'DECOLLA' }); U.buttons.at(-1).label = ship === 'DECOLLA' ? 'Sali a bordo e decolla verso l’orbita' : 'Torna alla nave con un viaggio rapido';
+        U.button('zone-map', 'MAPPA DELLA ZONA', x + 16 + half + 8, y + 132, half, 30, openZoneMap, { small: true }); U.buttons.at(-1).label = 'Apri la mappa della zona e scegli dove atterrare';
     } else if (!card) {
         const y = 196; U.panel(18, y, w - 36, 74, tint, .84); U.tag(L.tag, 36, y + 14, C.lime);
         wrapClipText(L.motion, 36, y + 32, w - 72, 'micro', C.pale, 1); wrapClipText(S.scanInfo || !L.goal ? L.scanner : L.goal, 36, y + 51, w - 72, 'micro', S.scanInfo?.name ? C.lime : C.muted, 1);
@@ -981,8 +1177,11 @@ function explorerHUD(mobile, card, tint) {
         U.button('explore-scan', 'SCANNER', bx, h - 212, 116, 36, scan, { small: true }); U.buttons.at(-1).label = 'Scanner: registra nel diario la specie o il luogo più vicino';
         U.button('explore-card', 'SCHEDA', bx, h - 168, 116, 36, () => { S.exploreCard = true; }, { small: true }); U.buttons.at(-1).label = 'Apri la scheda della voce scelta';
         U.button('explore-pulse', 'IMPULSO', bx, h - 124, 116, 34, impulse, { small: true }); U.buttons.at(-1).label = 'Impulso dello scanner: rileva siti e luoghi rari entro 1,3 km';
-        U.button('explore-physics', 'FISICA DEL SALTO', 18, y + 82, 150, 28, () => followGround('salto'), { small: true }); U.buttons.at(-1).label = 'La fisica del salto su questo pianeta';
-        U.button('explore-base', 'BASE', 176, y + 82, 80, 28, goBase, { small: true }); U.buttons.at(-1).label = 'Torna alla base con un viaggio rapido';
+        U.button('explore-physics', 'FISICA', 18, y + 82, 78, 28, () => followGround('salto'), { small: true }); U.buttons.at(-1).label = 'La fisica del salto su questo pianeta';
+        U.button('explore-base', 'BASE', 102, y + 82, 70, 28, goBase, { small: true }); U.buttons.at(-1).label = 'Torna alla base con un viaggio rapido';
+        const ship = shipLabel();
+        U.button('explore-ship', ship, 178, y + 82, 82, 28, shipAction, { small: true, active: ship === 'DECOLLA' }); U.buttons.at(-1).label = ship === 'DECOLLA' ? 'Sali a bordo e decolla verso l’orbita' : 'Torna alla nave con un viaggio rapido';
+        U.button('zone-map', 'MAPPA', 266, y + 82, Math.min(80, w - 18 - 266), 28, openZoneMap, { small: true }); U.buttons.at(-1).label = 'Apri la mappa della zona e scegli dove atterrare';
     }
     const z = stickZone();
     if (z) {
@@ -996,24 +1195,26 @@ function exploreUI(m, mobile) {
     const w = R.w, h = R.h, tint = sectorColors[m.sector], list = exploreEntries(), rec = exploreRecord(S.selected);
     // On phones the card of the entry and the controls of the explorer take turns (1.68.0).
     const card = !mobile || S.exploreCard || !!S.groundFollow;
-    title(areaTrail(m, ['SUPERFICIE', 'ESPLORAZIONE']), m.title, mobile ? (card ? 'Tocca il terreno per andarci, trascina per ruotare.' : '') : 'W A S D per camminare, Maiuscolo per correre, spazio per saltare, R per il rover, F per lo scanner, Q per l’impulso, B per la base.');
+    title(areaTrail(m, ['SUPERFICIE', 'ESPLORAZIONE']), m.title, mobile ? (card ? 'Tocca il terreno per andarci, trascina per ruotare.' : '') : 'W A S D per camminare, Maiuscolo per correre, spazio per saltare, R per il rover, F per lo scanner, Q per l’impulso, B per la base, N per la nave, M per la mappa.');
     const px = mobile ? 18 : w - 353, pw = mobile ? w - 36 : 320, ph = mobile ? 300 : Math.min(520, h - 368), py = mobile ? h - 384 : 258;
-    explorerHUD(mobile, card, tint);
-    if (!S.groundFollow) compassHUD(mobile, card);
+    // On board the ship (1.75.0) its numbers take the place of those of the explorer.
+    const aboard = !!S.avatar?.aboard;
+    if (aboard) flightHUD(mobile, tint); else explorerHUD(mobile, card, tint);
+    if (!S.groundFollow && !aboard) compassHUD(mobile, card);
     // «Che cosa succede» on the ground (1.65.0) takes the place of the exploration panel.
     const ground = S.groundFollow ? (S.groundFollow.k === 'salto' ? jumpSubject() : W.groundSubject(S.groundFollow)) : null;
     if (ground) followPanel({ subject: ground }, tint, stopGround);
-    else if (card) {
+    else if (card && !aboard) {
     U.panel(px, py, pw, ph, tint, .84);
-    const ns = list.filter(e => e.type === 'species').length, np = list.length - ns, e = list[S.exploreEntry] || list[0];
+    const ns = list.filter(e => e.type === 'species').length, np = list.filter(e => e.type !== 'species' && e.type !== 'ship').length, e = list[S.exploreEntry] || list[0];
     if (e) {
-        const done = isRegistered(e, rec), species = e.type === 'species';
+        const ship = e.type === 'ship', done = !ship && isRegistered(e, rec), species = e.type === 'species';
         const site = e.type === 'site', rare = e.type === 'rare';
-        U.tag((species ? 'Specie ' : site ? 'Sito ' : rare ? 'Luogo raro ' : 'Luogo ') + (S.exploreEntry + 1) + ' di ' + list.length + (done && !W.sunNow ? ' · nel diario' : ''), px + 18, py + 18, species ? C.lime : tint);
+        U.tag((species ? 'Specie ' : site ? 'Sito ' : rare ? 'Luogo raro ' : ship ? 'Nave ' : 'Luogo ') + (S.exploreEntry + 1) + ' di ' + list.length + (done && !W.sunNow ? ' · nel diario' : ''), px + 18, py + 18, species ? C.lime : ship ? C.amber : tint);
         wrapClipText(e.data.name, px + 18, py + 44, pw - 36, 'sub', C.pale, 1);
-        U.text(species ? (e.data.kind === 'plant' ? 'Pianta' : e.data.kind === 'fungus' ? 'Fungo' : 'Animale') + ' · ' + e.data.label + ' · ' + e.data.habitatName : site ? STATES[e.data.state] + ' · ' + SITE_KINDS[e.data.kind].label + distanceTo(e.at) : rare ? 'Luogo raro · ' + RARE_KINDS[e.data.kind].label + ' · ' + BIOME[e.data.biome].name + distanceTo(e.at) : PLACE_KINDS[e.data.kind], px + 18, py + 76, 'micro', species ? C.lime : rare ? RARE_TINT : tint);
+        U.text(species ? (e.data.kind === 'plant' ? 'Pianta' : e.data.kind === 'fungus' ? 'Fungo' : 'Animale') + ' · ' + e.data.label + ' · ' + e.data.habitatName : site ? STATES[e.data.state] + ' · ' + SITE_KINDS[e.data.kind].label + distanceTo(e.at) : rare ? 'Luogo raro · ' + RARE_KINDS[e.data.kind].label + ' · ' + BIOME[e.data.biome].name + distanceTo(e.at) : ship ? `Nave dell’esploratore · ${LANDER_METRES} m` + distanceTo(e.at) : PLACE_KINDS[e.data.kind], px + 18, py + 76, 'micro', species ? C.lime : rare ? RARE_TINT : ship ? C.amber : tint);
         // Phones show one trait at a time; wide screens show them all. A site shows its story (1.73.0).
-        const parts = species || e.type === 'settlement' ? e.data.traits : site || rare ? e.data.story : ns ? [e.data.text] : [e.data.text, lifelessReason(W.surface.genome)], bottom = py + ph - 104;
+        const parts = species || e.type === 'settlement' ? e.data.traits : site || rare || ship ? e.data.story : ns ? [e.data.text] : [e.data.text, lifelessReason(W.surface.genome)], bottom = py + ph - 104;
         let y = py + 102;
         if (mobile) {
             const k = Math.min(S.exploreTrait, parts.length - 1); U.wrap(parts[k], px + 18, y, pw - 36, C.pale, 19, 5, 'micro');
@@ -1034,7 +1235,8 @@ function exploreUI(m, mobile) {
         U.button('explore-next', '▸', px + 66, by + 20, 44, 36, () => selectEntry(S.exploreEntry + 1)); U.buttons.at(-1).label = 'Voce successiva';
         // The model of the species or of the settlement in the 3D catalogue (1.69.0).
         const model = entryModel(e);
-        U.button('explore-register', done ? 'NEL DIARIO ✓' : 'REGISTRA NEL DIARIO', px + 118, by + 20, pw - 134 - (model ? 50 : 0), 36, () => register(e), { active: !done, disabled: done });
+        if (ship) { const label = shipLabel(); U.button('explore-register', label === 'DECOLLA' ? 'DECOLLA PER L’ORBITA' : 'TORNA ALLA NAVE', px + 118, by + 20, pw - 134, 36, shipAction, { active: true }); U.buttons.at(-1).label = label === 'DECOLLA' ? 'Sali a bordo e decolla verso l’orbita' : 'Torna alla nave con un viaggio rapido'; }
+        else U.button('explore-register', done ? 'NEL DIARIO ✓' : 'REGISTRA NEL DIARIO', px + 118, by + 20, pw - 134 - (model ? 50 : 0), 36, () => register(e), { active: !done, disabled: done });
         if (model) { U.button('explore-model', '3D', px + pw - 60, by + 20, 44, 36, () => openCraft(model)); U.buttons.at(-1).label = 'Apri il modello 3D di ' + e.data.name + ' nel catalogo'; }
     } else wrapClipText(lifelessReason(W.surface.genome), px + 18, py + 52, pw - 36, 'body', C.pale, 6);
     const sun = W.sunNow, hour = sun ? ` · ore ${String(Math.floor(sun.hour)).padStart(2, '0')}:${String(Math.floor(sun.hour % 1 * 60)).padStart(2, '0')}` : '';
@@ -1047,8 +1249,8 @@ function exploreUI(m, mobile) {
     if (!mobile) {
         U.text('Ipotesi illustrative ricavate dalla carta d’identità del pianeta.', 35, h - 112, 'micro', C.muted);
         for (const p of W.projections) {
-            if (!['place', 'settlement', 'site', 'rare'].includes(p.type) || !Number.isFinite(p.x) || p.depth <= 0) continue;
-            const place = (p.type === 'place' ? W.surface.places : p.type === 'site' ? W.surface.sites : p.type === 'rare' ? W.surface.rares : W.surface.settlements)[p.index], on = S.exploreTarget?.type === p.type && S.exploreTarget.index === p.index, label = (isRegistered({ type: p.type, id: place.id }, exploreRecord(S.selected)) ? '✓ ' : '') + place.name, tw = R.textWidth(label, 'mini') + 24, x = p.x - tw / 2, y = p.y - 34;
+            if (!['place', 'settlement', 'site', 'rare', 'ship'].includes(p.type) || !Number.isFinite(p.x) || p.depth <= 0 || (p.type === 'ship' && aboard)) continue;
+            const place = p.type === 'ship' ? { id: 'nave', name: p.name } : (p.type === 'place' ? W.surface.places : p.type === 'site' ? W.surface.sites : p.type === 'rare' ? W.surface.rares : W.surface.settlements)[p.index], on = S.exploreTarget?.type === p.type && S.exploreTarget.index === p.index, label = (p.type !== 'ship' && isRegistered({ type: p.type, id: place.id }, exploreRecord(S.selected)) ? '✓ ' : '') + place.name, tw = R.textWidth(label, 'mini') + 24, x = p.x - tw / 2, y = p.y - 34;
             if (x < 20 || x + tw > w - 370 || y < 96 || (y < 250 && x < 760) || y > h - 120) continue;
             R.roundRect(x, y, tw, 26, 13, color(T.bg, .88), on ? tint : color(T.line, 1));
             U.text(label, x + 12, y + 6, 'mini', on ? C.pale : C.muted);
@@ -1056,6 +1258,7 @@ function exploreUI(m, mobile) {
     }
     U.button('explore-stop', mobile ? 'STAZIONI' : 'TORNA ALLE STAZIONI', 35, h - 86, mobile ? 120 : 220, 36, stopExplore, { small: mobile });
     U.button('back-planet', mobile ? 'ORBITA' : 'TORNA AL PIANETA', mobile ? w - 140 : 267, h - 86, mobile ? 105 : 190, 36, () => route('orbit'), { small: mobile });
+    zoneMapUI(mobile);
 }
 function researchUI() {
     const w = R.w, h = R.h, n = RESEARCH[S.node], mobile = w < 850;
@@ -1478,7 +1681,9 @@ function exploreLog() {
         const sites = rec.r?.length ? sitesOf(i).filter(x => rec.r.includes(x.id)).map(x => `${x.name} (${SITE_KINDS[x.kind].label})`) : [], seen = sites.length ? 'Siti: ' + sites.join(', ') + '.' : '';
         // The rare places registered (1.74.0), with their kind.
         const rares = rec.n?.length ? raresOf(i).filter(x => rec.n.includes(x.id)).map(x => `${x.name} (${RARE_KINDS[x.kind].label})`) : [], wonders = rares.length ? 'Luoghi rari: ' + rares.join(', ') + '.' : '';
-        rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : '', seen, wonders, measured.length ? 'Misure: ' + measured.join(', ') + '.' : '', trip, biomes, lovelock].filter(Boolean).join(' '));
+        // The landings of the ship (1.75.0).
+        const flights = rec.t ? `Atterraggi della ${LANDER.name}: ${rec.t}.` : '';
+        rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : '', seen, wonders, measured.length ? 'Misure: ' + measured.join(', ') + '.' : '', trip, flights, biomes, lovelock].filter(Boolean).join(' '));
     }
     const total = species.reduce((n, x) => n + x.length, 0) + endemics.reduce((n, x) => n + x.length, 0), totalPlaces = places.reduce((n, x) => n + x.length, 0);
     const head = `Pianeti visitati in superficie: ${landings} su ${genomes.length}. Pianeti con registrazioni: ${planets} su ${genomes.length}. Specie registrate: ${s} su ${total}. Luoghi registrati: ${l} su ${totalPlaces}. Pianeti misurati con gli strumenti della nave: ${measuredPlanets}; strumenti a bordo: ${onBoard(store.data, instrumentSections).size} su ${INSTRUMENTS.length}.${walked + driven ? ` Percorsi a terra: ${walked} m a piedi e ${driven} m in rover.` : ''}`;
@@ -2196,7 +2401,7 @@ function events() {
         const z = stickZone();
         if (z && !b && !stick && Math.hypot(x - z.x, y - z.y) < z.r * 1.35) { stick = { id: e.pointerId, v: [0, 0], push: 0, view: S.avatar.cam + (S.chaseOrbit || 0) }; moveStick(x, y); canvas.setPointerCapture(e.pointerId); return; }
         if (pointer && pointer.id !== e.pointerId && pointer.pointerType === 'touch') return;
-        pointer = { id: e.pointerId, x, y, startX: x, startY: y, moved: false, pointerType:e.pointerType||'mouse', blocked:!!b||(['galaxy','system'].includes(S.scene)&&sceneBlocked(x,y)) };
+        pointer = { id: e.pointerId, x, y, startX: x, startY: y, moved: false, pointerType:e.pointerType||'mouse', blocked:!!b||!!S.zoneMap||(['galaxy','system'].includes(S.scene)&&sceneBlocked(x,y)) };
         hover.clear();S.hoveredTarget=null;
         activeSlider = b?.slider ? b : null;
         if (activeSlider)
@@ -2237,8 +2442,10 @@ function events() {
         if (pointer && e.pointerId !== pointer.id) return;
         if (pointer && !pointer.moved && !activeSlider) {
             const b = U.hit(x, y);
-            if (b)
+            // While the map of the zone is open (1.75.0) only its buttons answer, and a tap on it chooses a point.
+            if (b && (!S.zoneMap || b.id.startsWith('zone-')))
                 U.activate(b, x);
+            else if (S.zoneMap) zoneTap(x, y);
             else if(!pointer.blocked){
                 const hit=W.pick(x,y,S);
                 if(hit?.type==='system'||hit?.type==='planet'){
@@ -2251,7 +2458,7 @@ function events() {
                 else if(hit?.type==='craft'){if(hit.follow)startFollow(hit.follow);else{touchTarget=hit;say([hit.entry.name,...(hit.lines||[])].join(' · '));}}
                 else if(hit?.type==='node')S.node=hit.index;
                 else if(hit?.type==='station')S.station=hit.index;
-                else if(hit?.type==='place'||hit?.type==='settlement'||hit?.type==='site')selectTarget({type:hit.type,index:hit.index});
+                else if(['place','settlement','site','rare','ship'].includes(hit?.type))selectTarget({type:hit.type,index:hit.index});
                 else if(hit?.type==='ground'){const near=W.nearest(hit.point);if(near)selectTarget(near);else{S.exploreGoal=[hit.point[0],hit.point[2]];S.exploreStop=undefined;}}
             }
         }
@@ -2288,6 +2495,7 @@ function events() {
         if (e.target?.tagName === 'BUTTON' && ['Enter', ' '].includes(e.key))
             return;
         if (e.key === 'Escape') {
+            if(S.zoneMap){S.zoneMap=null;return;}
             if(S.scene==='system'&&S.follow&&!S.menu&&!S.settings&&!S.editing){stopFollow();return;}
             if(!S.menu&&!S.settings&&!S.editing)backToParent();
             S.menu = false;
@@ -2303,9 +2511,13 @@ function events() {
         }
         // Exploration (1.68.0): W A S D or the arrows move the explorer while held, Shift runs, the space bar
         // jumps, R boards or leaves the rover, F runs the scanner, B goes back to the base (1.70.0), Q sends the
-        // impulse of the scanner (1.74.0).
+        // impulse of the scanner (1.74.0), N goes back to the ship or takes off beside it, M opens the map of the
+        // zone (1.75.0). On board the ship only M works.
         if (S.scene === 'surface' && S.explore && S.avatar && !e.ctrlKey && !e.metaKey && !e.altKey) {
             const c = e.key.toLowerCase();
+            if (c === 'm' && !e.repeat) { if (S.zoneMap) S.zoneMap = null; else openZoneMap(); return; }
+            if (S.avatar.aboard || S.zoneMap) return;
+            if (c === 'n' && !e.repeat) { shipAction(); return; }
             if (['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright', 'shift'].includes(c)) { held.add(c); e.preventDefault(); return; }
             if (c === ' ') { e.preventDefault(); if (!e.repeat) S.jumpAsk = true; return; }
             if (c === 'r' && !e.repeat) { roverToggle(); return; }

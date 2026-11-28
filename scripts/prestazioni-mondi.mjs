@@ -19,6 +19,7 @@ const { World } = await import('../src/scene/world.js');
 const { planetSurface, planetSpecies, planetGenomes } = await import('../src/worlds/surface.js');
 const { newExplorer, stepExplorer, freeSpot, jumpOf, passable, toggleRover, ROVER, METRE } = await import('../src/worlds/explorer.js');
 const { worldModels, worldMesh } = await import('../src/worlds/catalogo.js');
+const { landingSpot } = await import('../src/worlds/lander.js');
 export { QUALITIES };
 
 /** Structural limits of one frame of a landing surface, checked by tests/mondi.test.mjs. */
@@ -54,6 +55,10 @@ export function buildCost(ctx, i) {
 export function measureSurface(ctx, i, quality, view, { frames = 60 } = {}) {
     const { R, w } = ctx; R.sceneQuality = quality; w.activatePlanet(i);
     const s = { scene: 'surface', selected: i, time: 30, yaw: 0, pitch: .45, distance: 22, paused: false, lastFrameMs: 1000 / 60 };
+    // The ship of the explorer (1.75.0) on the pad of the base: coming down, with plumes and dust, in the view of the
+    // stations, where it arrives; on the ground, with the ramp open, in the other two.
+    const S0 = w.surface, P = S0.pad ? landingSpot(S0, S0.pad.x, S0.pad.z, Math.atan2(S0.pad.x - 14, S0.pad.z - 28)) : null, down = view === 'stazioni';
+    if (P) s.landerPose = { planet: i, x: P.x, y: P.y + (down ? 5 : 0), z: P.z, h: P.h, legs: down ? .9 : 1, ramp: P.ramp, open: down ? 0 : 1, thrust: down ? 1.5 : 0, dust: down ? .8 : 0, drop: P.drop, dustAt: [P.x, P.y, P.z], height: down ? 5 : 0 };
     let A = null, env = null;
     if (view !== 'stazioni') {
         env = w.explorerEnv(); let spot = freeSpot(2, 2, env) || [2, 2], h = .6;
@@ -98,7 +103,7 @@ export function report({ frames, results, builds, catalogue, explorer, machine, 
     const planets = new Set(results.map(r => r.index)).size;
     L.push('# Prestazioni misurate della serie «Mondi vivi»', '');
     L.push('Questo documento è generato da `node scripts/prestazioni-mondi.mjs`; `tests/mondi.test.mjs` ne controlla la struttura e i limiti. ' +
-        `Le superfici di ${planets} pianeti sono state costruite e disegnate dal codice del sito, con la camera delle stazioni, con la camera che segue l'esploratore mentre corre vicino alla base e con quella che segue il rover a 1,3 km dalla base, alle tre impostazioni grafiche, con l'ecosistema e il giorno in movimento; per ogni vista si misurano ${frames} fotogrammi da 1/60 di secondo dopo 20 fotogrammi di assestamento. ` +
+        `Le superfici di ${planets} pianeti sono state costruite e disegnate dal codice del sito, con la camera delle stazioni, con la camera che segue l'esploratore mentre corre vicino alla base e con quella che segue il rover a 1,3 km dalla base, alle tre impostazioni grafiche, con l'ecosistema e il giorno in movimento e con la nave dell'esploratore sulla piazzola della base, in discesa con i getti e la polvere nella vista delle stazioni, a terra con la rampa aperta nelle altre due; per ogni vista si misurano ${frames} fotogrammi da 1/60 di secondo dopo 20 fotogrammi di assestamento. ` +
         'Al posto della scheda grafica c\'è il contatore di `scripts/prestazioni.mjs`, che applica le regole di `src/renderer.js`: chiamate di disegno, triangoli e istanze sono quelli che il sito invia alla scheda. ' +
         `I tempi sono quelli del processore che prepara il fotogramma, misurati su ${machine}. I tempi della scheda grafica si misurano nel browser aprendo il sito con \`?diagnostica\` nell'indirizzo.`, '');
     L.push('## Un fotogramma di superficie', '');
