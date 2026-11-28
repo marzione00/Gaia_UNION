@@ -17,6 +17,7 @@ import { newExplorer, stepExplorer, toggleRover, travelTo, freeSpot, jumpOf, pac
 import { knownPlaces, placeAt, travelTimes, minutesText, PLACE_WORDS } from './worlds/travel.js';
 import { UI, C, T, ImageCache, caseLabel, DISCIPLINE, fmtNum } from './ui/toolkit.js';
 import { FrameMeter, diagnosticLines, mountDiagnostics } from './ui/diagnostics.js';
+import { adaptStep, startGraphics, NAMES as GRAPHICS_NAMES } from './ui/adaptive.js';
 import { DOCUMENTS, docOf, docKey, printedLabel } from './documents.js';
 import { pilotWorld, worldParameters } from './worlds/pilots.js';
 import { planetGenomes, planetSpecies, planetEndemics, planetSurface } from './worlds/surface.js';
@@ -42,7 +43,7 @@ import { openStore, grade } from './store.js';
 import { AUTHOR, LICENCE, CREDIT, LICENCE_ROW } from './licenza.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.76.0-zaino';
+const VERSION = '1.77.0-collaudo';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -54,8 +55,10 @@ async function json(path) {
 }
 function image(path) { return new Promise((yes, no) => { const i = new Image(); i.onload = () => yes(i); i.onerror = () => no(Error('Texture mancante: ' + path)); i.src = asset(path); }); }
 const store = openStore();
-const S = { scene: 'galaxy', selected: 7, system: systemForPlanet(7), hoveredTarget: null, observedBody: null, sector: -1, node: 0, station: 0, quality: MIN_STARS, graphics: store.data.preferences.graphics, yaw: 0, pitch: .45, distance: 60, time: 0, paused: !store.data.preferences.motion || matchMedia('(prefers-reduced-motion: reduce)').matches, scroll: 0, maxScroll: 0, reader: 'math-c08', section: 0, light: false, pdfPage: 245, pdfZoom: 1, lab: 'daisyworld', lum: 1, death: .3, sim: null, sweep: null, labValues: { p: 80, x: 13, base: 'quadratic', a: 1, b: 1, h: 0, k: 0, index: 2, mode: 'root', m1: 1, q1: 0, m2: -1, q2: 5, initial: 100, loss: .1, t: 10, zeroA: -2, zeroB: 1, pole: 3 }, labCompare: null, quizIndex: 0, quizFilter: null, quizMode: 'training', examSubmitted: false, exam: {}, quizSolution: false, catalogPage: 0, query: '', editing: null, journalTab: 'general', menu: false, settings: false, popup: null, loaded: false, contextLost: false, lastFrameMs: 0, toast: '', toastUntil: 0, focusId: null, explore: false, exploreEntry: 0, exploreTrait: 0, exploreFocus: null, exploreGoal: null, exploreTarget: null, exploreBlend: 0 };
+const S = { scene: 'galaxy', selected: 7, system: systemForPlanet(7), hoveredTarget: null, observedBody: null, sector: -1, node: 0, station: 0, quality: MIN_STARS, graphics: startGraphics(store.data.preferences.graphics, store.data.preferences.graphicsSet, matchMedia('(pointer: coarse)').matches, Math.min(globalThis.innerWidth || 1280, globalThis.innerHeight || 800)), yaw: 0, pitch: .45, distance: 60, time: 0, paused: !store.data.preferences.motion || matchMedia('(prefers-reduced-motion: reduce)').matches, scroll: 0, maxScroll: 0, reader: 'math-c08', section: 0, light: false, pdfPage: 245, pdfZoom: 1, lab: 'daisyworld', lum: 1, death: .3, sim: null, sweep: null, labValues: { p: 80, x: 13, base: 'quadratic', a: 1, b: 1, h: 0, k: 0, index: 2, mode: 'root', m1: 1, q1: 0, m2: -1, q2: 5, initial: 100, loss: .1, t: 10, zeroA: -2, zeroB: 1, pole: 3 }, labCompare: null, quizIndex: 0, quizFilter: null, quizMode: 'training', examSubmitted: false, exam: {}, quizSolution: false, catalogPage: 0, query: '', editing: null, journalTab: 'general', menu: false, settings: false, popup: null, loaded: false, contextLost: false, lastFrameMs: 0, toast: '', toastUntil: 0, focusId: null, explore: false, exploreEntry: 0, exploreTrait: 0, exploreFocus: null, exploreGoal: null, exploreTarget: null, exploreBlend: 0 };
 let education, pilotEducation, atlas;
+/** State of the graphics that adapt to the device (1.77.0). */
+const adaptive = {};
 function activeEducation(){return S.scene==='pilot'?pilotEducation:education;}
 function openCourse(id,stage=null){const m=moduleById(id);if(!m)return;selectIndex(m.planetIndex);education.select(id);if(stage!==null)education.setStage(stage);route('mission');}
 function openExternal(url){if(!education.bundle.sources.some(s=>s.url===url))throw Error('Fonte non registrata');window.open(url,'_blank','noopener,noreferrer');}
@@ -2352,7 +2355,7 @@ function overlay() {
         const pw = Math.min(480, w - 32), x = w - pw - 16, y = 111;
         U.panel(x, y, pw, 416, C.cyan, .97);
         U.tag('RENDERING E ACCESSIBILITÀ', x + 19, y + 21);
-        [['high','DETTAGLIO ALTO · 1.000.000 STELLE'],['balanced','BILANCIATO · 1.000.000 STELLE'],['low','LEGGERO · 1.000.000 STELLE']].forEach(([mode,label],i)=>U.button('graphics-'+mode,label,x+18,y+61+i*45,pw-36,36,()=>{S.graphics=mode;store.data.preferences.graphics=mode;store.data.preferences.quality=MIN_STARS;store.save();},{active:S.graphics===mode}));
+        [['high','DETTAGLIO ALTO · 1.000.000 STELLE'],['balanced','BILANCIATO · 1.000.000 STELLE'],['low','LEGGERO · 1.000.000 STELLE']].forEach(([mode,label],i)=>U.button('graphics-'+mode,label,x+18,y+61+i*45,pw-36,36,()=>{S.graphics=mode;store.data.preferences.graphics=mode;store.data.preferences.graphicsSet=true;store.data.preferences.quality=MIN_STARS;store.save();},{active:S.graphics===mode}));
         U.button('toggle-motion', S.paused ? 'ATTIVA IL MOVIMENTO' : 'RIDUCI IL MOVIMENTO', x + 18, y + 208, pw - 36, 36, () => { S.paused = !S.paused; store.data.preferences.motion = !S.paused; store.save(); });
         U.button('open-sources', 'FONTI, MATERIALI E LIMITI', x + 18, y + 254, pw - 36, 36, () => route('sources'));
         U.button('open-access', 'TESTO, CONTRASTO E NAVIGAZIONE', x + 18, y + 300, pw - 36, 44, () => atlas.open('access'));
@@ -2792,6 +2795,8 @@ async function init() {
                 const start = performance.now();
                 draw();
                 meter.add(S.lastFrameMs, performance.now() - start);
+                // Graphics that adapt to the device (1.77.0, src/ui/adaptive.js) until the reader chooses them.
+                if (!store.data.preferences.graphicsSet && !document.hidden) { const q = adaptStep(adaptive, S.graphics, S.lastFrameMs, now, S.scene); if (q) { S.graphics = q; say(`Grafica alleggerita a «${GRAPHICS_NAMES[q]}» per tenere fluide le immagini; si sceglie nelle impostazioni.`); } }
                 if (diagnosticPanel && now - diagnosticTime > 500) { diagnosticTime = now; diagnosticPanel.textContent = diagnosticLines(performanceReport()).join('\n'); }
             }
             catch (err) {

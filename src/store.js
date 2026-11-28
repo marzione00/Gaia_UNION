@@ -60,6 +60,8 @@ export function cleanState(value) {
     // Migrate old point budgets without reducing the galaxy's million stars.
     o.preferences.quality = 1000000;
     o.preferences.graphics = ['high','balanced','low'].includes(value.preferences?.graphics) ? value.preferences.graphics : value.preferences?.quality === 60000 ? 'low' : value.preferences?.quality === 250000 ? 'balanced' : 'high';
+    // graphicsSet (1.77.0): the reader chose the graphics, which then stop adapting to the device.
+    o.preferences.graphicsSet = value.preferences?.graphicsSet === true;
     o.preferences.motion = value.preferences?.motion !== false;
     o.preferences.explorer = value.preferences?.explorer !== false;
     o.missions = cleanMissionRecords(value.missions);

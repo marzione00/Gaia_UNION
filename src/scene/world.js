@@ -71,6 +71,8 @@ export const TOWN_NEAR = 70, TOWN_FAR = 900, FOLK_NEAR = 26, FOLK_FAR = 180, WAL
 /** The explorer of 1.68.0: a colonist with a backpack in the gear of the colony of the planet, drawn in this
  * colour; the stations keep it out within STATION_CLEAR units of their centre. */
 export const EXPLORER_TINT = Object.freeze([.93, .52, .2]), STATION_CLEAR = 2.6;
+/** Grids of the ground built when a surface opens, and milliseconds a frame for the others (1.77.0). */
+export const GROUND_EAGER = 3, GROUND_MS = 10;
 /** Sites (1.73.0) and rare places (1.74.0) of the zone: the light model is built when the camera comes within
  * SITE_REACH, the detailed one within SITE_DETAIL; the detailed model is drawn within ZONE_NEAR of the camera (it
  * returns to the light one beyond ZONE_NEAR + 12), and the light models of each quarter of the zone are merged
@@ -294,7 +296,9 @@ export class World {
             for (const t of [0, 1, 2, 3]) R.deleteMesh?.('zone-far-' + t); this.farTiles = [0, 0, 0, 0];
             // The ground streamed around the camera (1.70.0, src/worlds/clipmap.js): six nested grids up to the
             // horizon, centred here on the view of the stations and moved with the camera at every frame.
-            this.ground = new GroundClipmap(s); for (const k of this.ground.update(2, 2)) R.makeMesh('planet-ground-' + k, this.ground.levels[k].mesh);
+            // Since 1.77.0 the three outer grids, beyond 256 units, are built in the next frames (GROUND_EAGER, GROUND_MS).
+            for (let k = 0; k < GROUND_LEVELS; k++) R.deleteMesh?.('planet-ground-' + k);
+            this.ground = new GroundClipmap(s); for (const k of this.ground.update(2, 2, GROUND_EAGER)) R.makeMesh('planet-ground-' + k, this.ground.levels[k].mesh);
             // Rocks (1.71.0), plants and animals (1.72.0) of the biomes around the camera, in chunks of 64 units, made
             // again when it changes chunk.
             this.rockChunks = new Map(); this.rockKey = null; for (const k of [0, 1, 2]) R.deleteInstances?.('biome-rocks-' + k);
@@ -350,6 +354,13 @@ export class World {
             this.aurora = s.genome.events.includes('aurora');
             this.uploadedPlanet = s.key; this.builtWorld = null; this.towers = s.stations.map(t => t.position); this.terrain = { height: new Map(s.grid.cells.map((p, i) => [String(i), p])) };
         }
+    }
+    /** Builds the outer grids of the ground still pending for at most `ms` milliseconds and uploads those done
+     * (1.77.0). Returns how many grids are still pending. */
+    fillGround(ms) {
+        if (!this.ground?.pending.size) return 0;
+        for (const k of this.ground.fill(ms)) this.R.makeMesh('planet-ground-' + k, this.ground.levels[k].mesh);
+        return this.ground.pending.size;
     }
     /** Sun, light, sky and fog of the landing site at time s.time, and one step of the ecosystem (1.65.0).
      * Below the horizon the light comes from the side opposite the sun, pale blue and dim, as moonlight or
@@ -1170,7 +1181,8 @@ export class World {
             // While the camera flies across the zone (a quick travel) the ground waits: it moves again once the
             // point looked at shifts by less than 8 units a frame, so a flight never rebuilds every grid each frame.
             const focus=this.target||[2,0,2],last=this.groundFocus,jump=last?Math.hypot(focus[0]-last[0],focus[2]-last[1]):0;this.groundFocus=[focus[0],focus[2]];
-            if(this.ground&&jump<8)for(const k of this.ground.update(focus[0],focus[2]))R.makeMesh('planet-ground-'+k,this.ground.levels[k].mesh);
+            if(this.ground&&jump<8)for(const k of this.ground.update(focus[0],focus[2],GROUND_EAGER))R.makeMesh('planet-ground-'+k,this.ground.levels[k].mesh);
+            this.fillGround(GROUND_MS);
             const rk=Math.floor(focus[0]/CHUNK)+','+Math.floor(focus[2]/CHUNK);if(S0.field&&jump<8&&rk!==this.rockKey&&R.makeInstances){this.rockKey=rk;this.zoneChunks(focus);}
             if(this.features?.length&&jump<8)this.zoneModels(focus);
             const sc=[Math.round(focus[0]/8)*8,Math.round(focus[2]/8)*8],cy=S0.heightAt?S0.heightAt(sc[0],sc[1]):0,sea=[Math.round(focus[0]/320)*320,Math.round(focus[2]/320)*320],seaM=transform(sea[0],0,sea[1]);
