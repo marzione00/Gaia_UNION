@@ -13,7 +13,8 @@ import { CHAIN_STATIONS, chainable, chainStation, chainExercises } from './craft
 import { GPU, color, clamp, project, transform, mesh } from './renderer.js';
 import { World, RESEARCH, EDGES, box, FOLLOW_ZOOM, FOLLOW_LIMITS, followFrame, followKey, SITE_TINTS, RARE_TINT } from './scene/world.js';
 import { whatHappens } from './craft/succede.js';
-import { newExplorer, stepExplorer, toggleRover, travelTo, freeSpot, jumpOf, forward as aheadOf, METRE, G0, JUMP, EDGE } from './worlds/explorer.js';
+import { newExplorer, stepExplorer, toggleRover, travelTo, freeSpot, jumpOf, packOf, forward as aheadOf, METRE, G0, JUMP, EDGE, PACK } from './worlds/explorer.js';
+import { knownPlaces, placeAt, travelTimes, minutesText, PLACE_WORDS } from './worlds/travel.js';
 import { UI, C, T, ImageCache, caseLabel, DISCIPLINE, fmtNum } from './ui/toolkit.js';
 import { FrameMeter, diagnosticLines, mountDiagnostics } from './ui/diagnostics.js';
 import { DOCUMENTS, docOf, docKey, printedLabel } from './documents.js';
@@ -41,7 +42,7 @@ import { openStore, grade } from './store.js';
 import { AUTHOR, LICENCE, CREDIT, LICENCE_ROW } from './licenza.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.75.0-nave';
+const VERSION = '1.76.0-zaino';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -350,7 +351,7 @@ function exploreTick() {
     if (S.avatar.aboard) { const P = S.landerPose; if (P) { S.exploreFocus = [P.x, P.z]; Object.assign(S.avatar, { x: P.x, z: P.z }); } S.exploreTarget = null; return; }
     const A = S.avatar, dt = Math.min(.1, (S.lastFrameMs || 16) / 1000), key = c => held.has(c);
     const fwd = (key('w') || key('arrowup') ? 1 : 0) - (key('s') || key('arrowdown') ? 1 : 0), turn = (key('a') || key('arrowleft') ? 1 : 0) - (key('d') || key('arrowright') ? 1 : 0);
-    const input = { forward: fwd, turn, run: key('shift'), jump: !!S.jumpAsk }; S.jumpAsk = false;
+    const input = { forward: fwd, turn, run: key('shift'), jump: !!S.jumpAsk, boost: key(' ') || S.jumpHeld != null }; S.jumpAsk = false;
     // The joystick points where to go on the screen, from the view at the moment it was touched.
     if (stick && stick.push > .12) { input.heading = stick.view + Math.atan2(-stick.v[0], -stick.v[1]); input.push = stick.push; }
     if (fwd || turn || input.heading !== undefined) S.exploreGoal = null;
@@ -362,10 +363,10 @@ function exploreTick() {
     const here = W.surface?.field?.biomeAt?.(A.x, A.z); if (here && here.id !== S.biomeHere) { S.biomeHere = here.id; visitBiome(A.planet, here); }
     // A site of the zone within 60 m (1.73.0) is announced once a visit.
     const site = (W.surface?.sites || []).find(x => Math.hypot(x.x - A.x, x.z - A.z) < 38);
-    if (site && !(S.sitesMet ||= new Set()).has(A.planet + ':' + site.id)) { S.sitesMet.add(A.planet + ':' + site.id); say(`${site.name}, ${SITE_KINDS[site.kind].label}. Lo scanner ne registra la storia nel diario.`); }
+    if (site && !(S.sitesMet ||= new Set()).has(A.planet + ':' + site.id)) { S.sitesMet.add(A.planet + ':' + site.id); discover(site.id); say(`${site.name}, ${SITE_KINDS[site.kind].label}. Lo scanner ne registra la storia nel diario.`); }
     // So is a rare place (1.74.0), at the edge of its ground.
     const rare = (W.surface?.rares || []).find(x => Math.hypot(x.x - A.x, x.z - A.z) < Math.min(60, x.r * .9));
-    if (rare && !(S.sitesMet ||= new Set()).has(A.planet + ':' + rare.id)) { S.sitesMet.add(A.planet + ':' + rare.id); say(`Luogo raro: ${rare.name}, ${RARE_KINDS[rare.kind].label}. Lo scanner ne registra la descrizione nel diario.`); }
+    if (rare && !(S.sitesMet ||= new Set()).has(A.planet + ':' + rare.id)) { S.sitesMet.add(A.planet + ':' + rare.id); discover(rare.id); say(`Luogo raro: ${rare.name}, ${RARE_KINDS[rare.kind].label}. Lo scanner ne registra la descrizione nel diario.`); }
     if (ev.includes('arrivato') && !S.groundFollow) S.exploreGoal = null;
     if (ev.includes('fermo') && S.exploreGoal && !S.groundFollow) { S.exploreGoal = null; say(ev.includes('confine') ? 'La meta è oltre il confine della zona di atterraggio.' : 'Il passaggio è chiuso: aggira l’ostacolo.'); }
     // The zone of the landing site is about 4 km × 4 km (1.70.0): at its edge the explorer stops.
@@ -380,6 +381,12 @@ function exploreTick() {
     if (Date.now() - (A.savedAt || 0) > 8000) saveExplorer();
     const e = exploreEntries()[S.exploreEntry]; S.exploreTarget = e ? { type: e.type, index: e.index } : null;
 }
+/** A site or rare place reached on foot (1.76.0) counts as discovered, as one detected by the impulse: the
+ * compass shows it and the map of the zone offers a quick travel to it. */
+function discover(id) {
+    const rec = store.data.explore[String(S.selected)] ||= { s: [], l: [] }, k = rec.k ||= [];
+    if (!k.includes(id)) { k.push(id); rec.at = new Date().toISOString(); store.save(); }
+}
 /** A new explorer on free ground next to the station view, facing the current entry, with the totals of the
  * diary of the planet. */
 function startAvatar(env) {
@@ -391,7 +398,9 @@ function startAvatar(env) {
 /** Totals of the explorer on the planet for the diary: metres walked and driven, best jump, jumps. */
 function explorerTotals(A = S.avatar) {
     if (!A) return null; const b = A.base;
-    return { w: b.w + Math.round(A.walked), d: b.d + Math.round(A.driven), j: Math.max(b.j, Math.round(A.best * 100)), n: b.n + A.jumps };
+    // z (1.76.0): the highest climb with the jetpack, in centimetres.
+    const p = { w: b.w + Math.round(A.walked), d: b.d + Math.round(A.driven), j: Math.max(b.j, Math.round(A.best * 100)), n: b.n + A.jumps }, z = Math.max(b.z || 0, Math.round((A.packBest || 0) * 100));
+    return z ? { ...p, z } : p;
 }
 /** Writes the totals of the explorer into the diary, when they changed. */
 /** A biome reached for the first time on planet `planet` (1.71.0): kept in the diary and described. */
@@ -407,7 +416,7 @@ function saveExplorer() {
     const A = S.avatar, p = explorerTotals(A); if (!p) return; A.savedAt = Date.now();
     if (p.w + p.d + p.n === 0) return;
     const rec = store.data.explore[String(A.planet)] ||= { s: [], l: [] }, old = rec.p;
-    if (old && old.w === p.w && old.d === p.d && old.j === p.j && old.n === p.n) return;
+    if (old && old.w === p.w && old.d === p.d && old.j === p.j && old.n === p.n && (old.z || 0) === (p.z || 0)) return;
     rec.p = p; store.save();
 }
 /** Distance in metres and direction, relative to the heading of the explorer, of the point q. */
@@ -949,7 +958,7 @@ function moveStick(x, y) { const z = stickZone(); if (!z || !stick) return; let 
 /** The subject «Che cosa succede» of the jump of the explorer (src/craft/succede.js). */
 function jumpSubject() {
     const A = S.avatar, g = W.surface?.genome?.gravity; if (!A || !g) return null;
-    return { ground: true, kind: 'salto', name: 'Il salto dell’esploratore', label: 'Stessa spinta, gravità diversa', gravity: g, g0: G0, speed: JUMP, earth: JUMP * JUMP / (2 * G0), last: A.last, jumps: A.jumps };
+    return { ground: true, kind: 'salto', name: 'Il salto dell’esploratore', label: 'Stessa spinta, gravità diversa', gravity: g, g0: G0, speed: JUMP, earth: JUMP * JUMP / (2 * G0), last: A.last, jumps: A.jumps, pack: { ...packOf(g), last: A.packLast || 0 } };
 }
 /** The base of the landing site: the middle of the four stations. */
 const baseOf = () => { const st = W.surface?.stations || []; return st.length ? [st.reduce((a, s) => a + s.position[0], 0) / st.length, st.reduce((a, s) => a + s.position[2], 0) / st.length] : [14, 28]; };
@@ -1070,19 +1079,66 @@ function zoneMapTick() {
     M.pixels = px; M.texture = R.uploadPixels ? R.uploadPixels(MAP_PIXELS, MAP_PIXELS, px) : null;
     return M;
 }
-function openZoneMap() { S.zoneMap = { pick: null, spot: null, note: '' }; }
-/** A point tapped on the map: the nearest point within 189 units (300 m) where the ship can land, with the nose towards
- * the direction of the flight. */
+function openZoneMap() { S.zoneMap = { pick: null, spot: null, dest: null, note: '', page: 0 }; }
+/** The places known on the open surface, for the map and the quick travel (1.76.0, src/worlds/travel.js). */
+const placesKnown = () => { const s = W.surface, L = S.lander; return s ? knownPlaces(s, exploreRecord(S.selected), L?.planet === S.selected && L.phase === 'parked' ? { name: LANDER.name, x: L.pose.end[0], z: L.pose.end[2] } : null) : []; };
+/** Where the times of the map are counted from: the explorer, or the base from the stations. */
+const travelFrom = () => S.explore && S.avatar && !S.avatar.aboard ? [S.avatar.x, S.avatar.z] : baseOf();
+/** A point tapped on the map. Near a known place it chooses that place (1.76.0), with the times of the way there
+ * and a quick travel; anywhere it looks for the nearest point within 189 units (300 m) where the ship can land,
+ * with the nose towards the direction of the flight. */
 function zoneTap(x, y) {
     const Z = S.zoneMap, s = W.surface, L = S.lander; if (!Z?.rect || !s?.heightAt) return;
     const [mx, my, size] = Z.rect; if (x < mx || y < my || x > mx + size || y > my + size) return;
-    const px = (x - mx) / size * 2 * EDGE - EDGE, pz = (y - my) / size * 2 * EDGE - EDGE, from = L ? [L.x, L.z] : baseOf();
-    Z.pick = [px, pz];
-    if (Math.hypot(px - from[0], pz - from[1]) < 40) { Z.spot = null; Z.note = 'La nave è già qui: scegli un punto più lontano.'; return; }
-    const P = landingSpot(s, px, pz, Math.atan2(px - from[0], pz - from[1]), 189);
-    if (!P) { Z.spot = null; Z.note = 'Nessun punto adatto entro 300 m: acqua, pendii troppo ripidi o costruzioni. Scegli un altro punto.'; return; }
+    const toS = (px, pz) => [mx + (px + EDGE) / (2 * EDGE) * size, my + (pz + EDGE) / (2 * EDGE) * size], dest = placeAt(placesKnown(), toS, x, y, 16);
+    if (dest) { chooseDest(dest); return; }
+    Z.dest = null;
+    const px = (x - mx) / size * 2 * EDGE - EDGE, pz = (y - my) / size * 2 * EDGE - EDGE;
+    Z.pick = [px, pz]; Z.spot = shipSpot(px, pz); Z.note = Z.spot?.note || Z.why;
+}
+/** The point where the ship would land near (x, z), with a note; null with the reason in S.zoneMap.why. */
+function shipSpot(x, z) {
+    const s = W.surface, L = S.lander, Z = S.zoneMap, from = L ? [L.x, L.z] : baseOf();
+    if (Math.hypot(x - from[0], z - from[1]) < 40) { Z.why = 'La nave è già qui: scegli un punto più lontano.'; return null; }
+    const P = landingSpot(s, x, z, Math.atan2(x - from[0], z - from[1]), 189);
+    if (!P) { Z.why = 'Nessun punto adatto entro 300 m: acqua, pendii troppo ripidi o costruzioni. Scegli un altro punto.'; return null; }
     const b = s.field?.biomeAt?.(P.x, P.z)?.name, d = distanceText(Math.hypot(P.x - from[0], P.z - from[1]));
-    Z.spot = P; Z.note = `Punto adatto a ${d} dalla nave${b ? ', ' + b.toLowerCase() : ''}: le gambe compensano fino a ${(Math.max(...P.drop) / METRE).toFixed(1).replace('.', ',')} m di dislivello.`;
+    P.note = `Punto adatto a ${d} dalla nave${b ? ', ' + b.toLowerCase() : ''}: le gambe compensano fino a ${(Math.max(...P.drop) / METRE).toFixed(1).replace('.', ',')} m di dislivello.`;
+    return P;
+}
+/** PIAZZOLA: the ship lands at the middle of the pad of the base. */
+function padPick() { const Z = S.zoneMap, pad = W.surface?.pad; if (!Z || !pad) return; Z.dest = null; Z.pick = [pad.x, pad.z]; Z.spot = shipSpot(pad.x, pad.z); Z.note = Z.spot?.note || Z.why; }
+/** A known place chosen on the map or in its list: the times of the way there, a quick travel and, when the ship
+ * can land near it, a flight. */
+function chooseDest(p) {
+    const Z = S.zoneMap; if (!Z) return;
+    const from = travelFrom(), d = Math.hypot(p.x - from[0], p.z - from[1]), t = travelTimes(d);
+    Z.dest = p; Z.pick = [p.x, p.z]; Z.spot = p.kind === 'nave' ? null : shipSpot(p.x, p.z);
+    Z.note = d < 30 ? `${p.name}, ${PLACE_WORDS[p.kind]}: sei già qui.` : `${p.name}, ${PLACE_WORDS[p.kind]}, a ${distanceText(d)}: a piedi ${minutesText(t.walk)}, di corsa ${minutesText(t.run)}, in rover ${minutesText(t.rover)}.`;
+}
+/** VIAGGIO RAPIDO (1.76.0): the screen fades to black, the explorer stands before the place chosen, facing it,
+ * and the view comes back. From the stations the exploration begins there. */
+function quickTravel() {
+    const Z = S.zoneMap, p = Z?.dest, env = W.explorerEnv?.(); if (!p || !env) return;
+    if (!S.explore) startExplore();
+    if (!S.avatar || S.avatar.planet !== S.selected) startAvatar(env);
+    const A = S.avatar; if (A.aboard) return;
+    S.zoneMap = null;
+    S.fade = { t0: performance.now(), done: false, run() {
+        if (A.mode === 'rover') toggleRover(A, env);
+        if (!travelTo(A, p.x, p.z, env, p.gap)) { say('Viaggio rapido: nessun punto libero vicino a ' + p.name + '.'); return; }
+        S.exploreFocus = [A.x, A.z]; S.exploreGoal = null; S.chaseYaw = S.yaw; S.scanTarget = null; S.scanInfo = null;
+        const k = exploreEntries().findIndex(e => e.id === p.id || (p.kind === 'nave' && e.type === 'ship')); if (k >= 0) selectEntry(k, false);
+        say(`Viaggio rapido: ${p.name}.`);
+    } };
+}
+/** The fade of a quick travel: 0.45 s to black, the move, 0.45 s back. */
+function fadeUI() {
+    const F = S.fade; if (!F) return;
+    const u = (performance.now() - F.t0) / 900;
+    if (u >= .5 && !F.done) { F.done = true; F.run(); }
+    if (u >= 1) { S.fade = null; return; }
+    R.rect(0, 0, R.w, R.h, color(T.bg, Math.min(1, 1 - Math.abs(u * 2 - 1)) ));
 }
 /** ATTERRA QUI: the explorer boards the ship, which flies to the point chosen; from the stations the exploration begins. */
 function landHere() {
@@ -1095,34 +1151,64 @@ function landHere() {
 }
 function zoneMapUI(mobile) {
     const Z = S.zoneMap, s = W.surface; if (!Z || !s?.heightAt) return;
-    const w = R.w, h = R.h, M = zoneMapTick(), size = Math.max(180, Math.min(mobile ? w - 36 : 540, h - (mobile ? 270 : 220))), mx = mobile ? Math.round((w - size) / 2) : Math.round((w - size) / 2), my = mobile ? 112 : 128;
+    // Wide screens show the known places in a list beside the map (1.76.0).
+    const w = R.w, h = R.h, M = zoneMapTick(), list = !mobile && w >= 1100, size = Math.max(180, Math.min(mobile ? w - 36 : 540, h - (mobile ? 270 : 220))), side = list ? 296 : 0, mx = Math.round((w - size - side) / 2), my = mobile ? 112 : 128;
     Z.rect = [mx, my, size];
     R.rect(0, 0, w, h, color(T.bg, .74));
-    U.panel(mx - 16, my - 74, size + 32, size + (mobile ? 196 : 150), C.cyan, .95);
+    U.panel(mx - 16, my - 74, size + 32 + side, size + (mobile ? 196 : 150), C.cyan, .95);
     U.tag('Mappa della zona di atterraggio · 4 × 4 km', mx, my - 56, C.cyan);
-    wrapClipText(Z.note || 'Tocca il punto dove vuoi atterrare. Le zone scure sono acqua o terreno troppo ripido per le gambe della nave.', mx, my - 36, size, 'micro', Z.spot ? C.lime : C.pale, 2);
+    wrapClipText(Z.note || (mobile ? 'Tocca un luogo scoperto per un viaggio rapido o un punto dove atterrare con la nave.' : 'Tocca un luogo scoperto per andarci con un viaggio rapido, o un punto qualsiasi per atterrarci con la nave. Le zone scure sono acqua o terreno troppo ripido per le gambe.'), mx, my - 36, size + side, 'micro', Z.spot || Z.dest ? C.lime : C.pale, 2);
     R.rect(mx, my, size, size, color(T.raised, 1));
     if (M?.texture) R.drawImage(M.texture, mx, my, size, size);
     else U.text(`Rilievo della mappa… ${Math.round(((M?.row || 0) / (MAP_PIXELS + 1) * .6 + (M?.cell || 0) / MAP_CELLS ** 2 * .4) * 100)}%`, mx + size / 2, my + size / 2 - 8, 'mini', C.pale, { align: 'center' });
     const toS = (x, z) => [mx + (x + EDGE) / (2 * EDGE) * size, my + (z + EDGE) / (2 * EDGE) * size];
-    // The square of the stations, the pad, the sites and rare places known, the explorer and the ship.
-    const rec = exploreRecord(S.selected), known = new Set([...(rec.k || []), ...(rec.r || []), ...(rec.n || [])]);
-    (s.sites || []).forEach(o => { if (!known.has(o.id)) return; const [x, y] = toS(o.x, o.z); R.roundRect(x - 4, y - 4, 8, 8, 4, SITE_TINTS[o.state]); });
-    (s.rares || []).forEach(o => { if (!known.has(o.id)) return; const [x, y] = toS(o.x, o.z); R.poly([[x, y - 5], [x + 5, y], [x, y + 5], [x - 5, y]], RARE_TINT); });
-    const b = toS(...baseOf()); R.roundRect(b[0] - 5, b[1] - 5, 10, 10, 2, C.cyan); U.text('BASE', b[0] + 8, b[1] - 7, 'micro', C.cyan);
+    // The known places (src/worlds/travel.js), the pad, the explorer and the ship.
+    const known = placesKnown();
+    for (const p of known) {
+        const [x, y] = toS(p.x, p.z);
+        if (p.kind === 'base') { R.roundRect(x - 5, y - 5, 10, 10, 2, C.cyan); U.text('BASE', x + 8, y - 7, 'micro', C.cyan); }
+        else if (p.kind === 'sito') R.roundRect(x - 4, y - 4, 8, 8, 4, SITE_TINTS[p.state]);
+        else if (p.kind === 'raro') R.poly([[x, y - 5], [x + 5, y], [x, y + 5], [x - 5, y]], RARE_TINT);
+        else if (p.kind !== 'nave') R.roundRect(x - 4, y - 4, 8, 8, 1, C.pale);
+    }
     if (s.pad) { const p = toS(s.pad.x, s.pad.z); R.roundRect(p[0] - 6, p[1] - 6, 12, 12, 6, color('#000000', 0), C.cyan, 0); }
     const A = S.avatar; if (A && S.explore && !A.aboard) { const a = toS(A.x, A.z); R.roundRect(a[0] - 4, a[1] - 4, 8, 8, 4, C.lime); }
     const L = S.lander; if (L) { const q = toS(L.x, L.z), fx = Math.sin(L.h), fz = Math.cos(L.h); R.poly([[q[0] + fx * 9, q[1] + fz * 9], [q[0] - fx * 6 + fz * 5, q[1] - fz * 6 - fx * 5], [q[0] - fx * 6 - fz * 5, q[1] - fz * 6 + fx * 5]], C.amber); }
-    if (Z.pick) { const q = toS(...Z.pick); R.line([q[0] - 7, q[1] - 7], [q[0] + 7, q[1] + 7], C.pale, 2); R.line([q[0] - 7, q[1] + 7], [q[0] + 7, q[1] - 7], C.pale, 2); }
+    if (Z.dest) { const q = toS(Z.dest.x, Z.dest.z), tw = Math.min(220, R.textWidth(Z.dest.name, 'micro') + 16), lx = Math.min(mx + size - tw - 4, Math.max(mx + 4, q[0] - tw / 2)); R.roundRect(q[0] - 10, q[1] - 10, 20, 20, 10, color('#000000', 0), C.pale, 0); R.roundRect(lx, q[1] - 34, tw, 20, 10, color(T.bg, .9), color(T.line, 1)); wrapClipText(Z.dest.name, lx + 8, q[1] - 31, tw - 16, 'micro', C.pale, 1); }
+    else if (Z.pick) { const q = toS(...Z.pick); R.line([q[0] - 7, q[1] - 7], [q[0] + 7, q[1] + 7], C.pale, 2); R.line([q[0] - 7, q[1] + 7], [q[0] + 7, q[1] - 7], C.pale, 2); }
     if (Z.spot) { const q = toS(Z.spot.x, Z.spot.z); R.roundRect(q[0] - 9, q[1] - 9, 18, 18, 9, color('#000000', 0), C.lime, 0); if (L) { const o = toS(L.x, L.z); R.line(o, q, color(T.line, 1), 1); } }
     // North, from the course of the sun (src/worlds/compass.js), and a bar of 1 km.
     const ax = S.compassAxes?.key === s.key ? S.compassAxes.axes : (S.compassAxes = { key: s.key, axes: axesOf(s) }).axes, nx = ax.north[0], nz = ax.north[1], cx = mx + size - 26, cy = my + 30;
     R.roundRect(cx - 18, cy - 18, 36, 36, 18, color(T.bg, .8), color(T.line, 1)); R.poly([[cx + nx * 13, cy + nz * 13], [cx - nz * 5, cy + nx * 5], [cx + nz * 5, cy - nx * 5]], C.lime); U.text('N', cx - nx * 9, cy - nz * 9 - 6, 'micro', C.pale, { align: 'center' });
     const km = 1000 * METRE / (2 * EDGE) * size; R.rect(mx + 14, my + size - 18, km, 3, C.pale); U.text('1 km', mx + 14, my + size - 36, 'micro', C.pale);
-    const by = my + size + 14, bw = mobile ? (size - 8) / 2 : 160;
-    U.button('zone-land', 'ATTERRA QUI', mx, by, bw, 36, landHere, { active: !!Z.spot, disabled: !Z.spot || L?.phase !== 'parked' }); U.buttons.at(-1).label = 'Vola fino al punto scelto e atterra';
-    U.button('zone-pad', mobile ? 'PIAZZOLA' : 'PIAZZOLA DELLA BASE', mobile ? mx + bw + 8 : mx + bw + 10, by, bw, 36, () => { if (s.pad) { const q = toS(s.pad.x, s.pad.z); zoneTap(q[0], q[1]); } }, { small: mobile }); U.buttons.at(-1).label = 'Scegli la piazzola della base';
-    U.button('zone-close', 'CHIUDI', mobile ? mx : mx + size - 120, mobile ? by + 44 : by, mobile ? size : 120, 36, () => { S.zoneMap = null; }, { small: mobile }); U.buttons.at(-1).label = 'Chiudi la mappa della zona';
+    // The list of the known places, nearest first, in pages.
+    const from = travelFrom(), order = known.map(p => ({ p, d: Math.hypot(p.x - from[0], p.z - from[1]) })).sort((a, b) => a.d - b.d);
+    if (list) {
+        const lx = mx + size + 24, lw = side - 24, rows = Math.max(1, Math.floor((size - 64) / 40)), pages = Math.max(1, Math.ceil(order.length / rows)), page = Math.min(Z.page || 0, pages - 1);
+        U.tag(`Luoghi scoperti · ${order.length}`, lx, my + 2, C.cyan);
+        order.slice(page * rows, page * rows + rows).forEach(({ p, d }, j) => { U.button('zone-dest-' + j, `${p.name} · ${distanceText(d)}`, lx, my + 24 + j * 40, lw, 34, () => chooseDest(p), { small: true, active: Z.dest?.id === p.id }); U.buttons.at(-1).label = `${p.name}, ${PLACE_WORDS[p.kind]}, a ${distanceText(d)}`; });
+        if (pages > 1) { U.button('zone-list-prev', '◂', lx, my + size - 34, 44, 34, () => { Z.page = (page + pages - 1) % pages; }); U.text(`${page + 1} di ${pages}`, lx + lw / 2, my + size - 26, 'micro', C.muted, { align: 'center' }); U.button('zone-list-next', '▸', lx + lw - 44, my + size - 34, 44, 34, () => { Z.page = (page + 1) % pages; }); }
+    }
+    const by = my + size + 14, L0 = S.lander, step = k => { if (!order.length) return; const i = order.findIndex(o => o.p.id === Z.dest?.id); chooseDest(order[((i < 0 ? (k > 0 ? -1 : 0) : i) + k + order.length) % order.length].p); };
+    const go = { active: !!Z.dest && !S.avatar?.aboard, disabled: !Z.dest || !!S.avatar?.aboard || Z.dest.kind === 'nave' && !L0 };
+    if (mobile) {
+        const bw = (size - 8) / 2;
+        U.button('zone-land', 'ATTERRA QUI', mx, by, bw, 36, landHere, { active: !!Z.spot, disabled: !Z.spot || L0?.phase !== 'parked' }); U.buttons.at(-1).label = 'Vola fino al punto scelto e atterra';
+        U.button('zone-travel', 'VIAGGIO RAPIDO', mx + bw + 8, by, bw, 36, quickTravel, go); U.buttons.at(-1).label = 'Viaggio rapido fino al luogo scelto';
+        const cw = (size - 24 - 88) / 2;
+        U.button('zone-dest-prev', '◂', mx, by + 44, 44, 36, () => step(-1)); U.buttons.at(-1).label = 'Luogo scoperto precedente';
+        U.button('zone-pad', 'PIAZZOLA', mx + 52, by + 44, cw, 36, padPick, { small: true }); U.buttons.at(-1).label = 'Scegli la piazzola della base';
+        U.button('zone-close', 'CHIUDI', mx + 60 + cw, by + 44, cw, 36, () => { S.zoneMap = null; }, { small: true }); U.buttons.at(-1).label = 'Chiudi la mappa della zona';
+        U.button('zone-dest-next', '▸', mx + size - 44, by + 44, 44, 36, () => step(1)); U.buttons.at(-1).label = 'Luogo scoperto successivo';
+    } else {
+        // Without the list the arrows at the ends of the row go through the known places.
+        const arrows = list ? 0 : 52, bw = (size - 24 - 2 * arrows) / 4, x0 = mx + arrows;
+        if (!list) { U.button('zone-dest-prev', '◂', mx, by, 44, 36, () => step(-1)); U.buttons.at(-1).label = 'Luogo scoperto precedente'; U.button('zone-dest-next', '▸', mx + size - 44, by, 44, 36, () => step(1)); U.buttons.at(-1).label = 'Luogo scoperto successivo'; }
+        U.button('zone-land', 'ATTERRA QUI', x0, by, bw, 36, landHere, { active: !!Z.spot, disabled: !Z.spot || L0?.phase !== 'parked' }); U.buttons.at(-1).label = 'Vola fino al punto scelto e atterra';
+        U.button('zone-travel', 'VIAGGIO RAPIDO', x0 + bw + 8, by, bw, 36, quickTravel, go); U.buttons.at(-1).label = 'Viaggio rapido fino al luogo scelto';
+        U.button('zone-pad', 'PIAZZOLA', x0 + 2 * (bw + 8), by, bw, 36, padPick); U.buttons.at(-1).label = 'Scegli la piazzola della base';
+        U.button('zone-close', 'CHIUDI', x0 + 3 * (bw + 8), by, bw, 36, () => { S.zoneMap = null; }); U.buttons.at(-1).label = 'Chiudi la mappa della zona';
+    }
 }
 /** During a flight of the ship: the phase, the height, the vertical speed and the thrust in weights. */
 function flightHUD(mobile, tint) {
@@ -1137,8 +1223,10 @@ function flightHUD(mobile, tint) {
 /** Lines of the explorer: how it moves, its jump against the Earth's, the scanner and the walk to a goal. */
 function explorerLines(mobile) {
     const A = S.avatar, J = jumpOf(W.surface.genome.gravity), one = v => v.toFixed(1).replace('.', ','), cm = v => Math.round(v * 100) + ' cm', v = Math.abs(A.speed) / METRE;
-    const how = A.mode === 'rover' ? 'Rover' : !A.grounded ? 'In salto' : v > 2.5 ? 'Di corsa' : v > .05 ? 'A piedi' : 'Fermo';
-    const jump = A.mode === 'rover' ? 'Per saltare scendi dal rover' : `Salto ${cm(J.height)}, sulla Terra ${cm(J.earth)}` + (A.last > 0 ? ` · ultimo ${cm(A.last)}` : '');
+    const how = A.mode === 'rover' ? 'Rover' : !A.grounded ? (A.boosting ? 'Zaino acceso' : 'In salto') : v > 2.5 ? 'Di corsa' : v > .05 ? 'A piedi' : 'Fermo';
+    // The jetpack (1.76.0): its charge and, after a flight, the height reached with it.
+    const fuel = Math.round((A.fuel ?? PACK.burn) / PACK.burn * 100), up = A.y - A.take, flight = !A.grounded && A.packed ? ` · quota ${one(Math.max(0, up) / METRE)} m` : A.packLast > 0 ? ` · zaino ${one(A.packLast)} m` : '';
+    const jump = A.mode === 'rover' ? 'Per saltare scendi dal rover' : `Salto ${cm(J.height)}, sulla Terra ${cm(J.earth)}` + (A.last > 0 ? ` · ultimo ${cm(A.last)}` : '') + ` · zaino ${fuel} %` + flight;
     const I = S.scanInfo, scanner = I ? I.name ? `Scanner: ${I.name}, ${Math.round(I.metres)} m ${I.where}` : 'Scanner: nulla entro circa 40 metri' : mobile ? 'Scanner: tocca SCANNER vicino a specie e luoghi' : 'Scanner: premi F vicino a specie e luoghi';
     const goal = S.exploreGoal ? `Verso la meta: ${Math.round(Math.hypot(S.exploreGoal[0] - A.x, S.exploreGoal[1] - A.z) / METRE)} m` : null;
     const b = baseOf(), far = Math.hypot(A.x - b[0], A.z - b[1]) / METRE, home = far > 50 ? ` · base a ${far >= 1000 ? (far / 1000).toFixed(2).replace('.', ',') + ' km' : Math.round(far) + ' m'}` : '';
@@ -1153,7 +1241,9 @@ function explorerLines(mobile) {
 function explorerHUD(mobile, card, tint) {
     const A = S.avatar; if (!A || !W.surface?.genome) return;
     const w = R.w, h = R.h, L = explorerLines(mobile), rover = A.mode === 'rover';
-    const jump = (x, y, bw, bh, small) => { U.button('explore-jump', 'SALTA', x, y, bw, bh, () => { S.jumpAsk = true; }, { active: !rover, small, disabled: rover }); U.buttons.at(-1).label = 'Salta con la gravità del pianeta'; };
+    const jump = (x, y, bw, bh, small) => { U.button('explore-jump', 'SALTA', x, y, bw, bh, () => { S.jumpAsk = true; }, { active: !rover, small, disabled: rover }); U.buttons.at(-1).label = 'Salta con la gravità del pianeta; tieni premuto per accendere lo zaino a reazione';
+        // The charge of the jetpack (1.76.0), as a bar along the bottom of the button.
+        if (!rover) { const f = Math.max(0, Math.min(1, (A.fuel ?? PACK.burn) / PACK.burn)); R.rect(x + 8, y + bh - 6, bw - 16, 3, color(T.ink, .35)); R.rect(x + 8, y + bh - 6, (bw - 16) * f, 3, A.boosting ? C.amber : color(T.ink, .85)); } };
     if (!mobile) {
         const x = 35, hw = Math.min(500, w - 35 - 353 - 24), y = h - 298, bw = (hw - 32 - 40) / 6;
         U.panel(x, y, hw, 172, tint, .84); U.tag(L.tag, x + 18, y + 16, C.lime);
@@ -1195,7 +1285,7 @@ function exploreUI(m, mobile) {
     const w = R.w, h = R.h, tint = sectorColors[m.sector], list = exploreEntries(), rec = exploreRecord(S.selected);
     // On phones the card of the entry and the controls of the explorer take turns (1.68.0).
     const card = !mobile || S.exploreCard || !!S.groundFollow;
-    title(areaTrail(m, ['SUPERFICIE', 'ESPLORAZIONE']), m.title, mobile ? (card ? 'Tocca il terreno per andarci, trascina per ruotare.' : '') : 'W A S D per camminare, Maiuscolo per correre, spazio per saltare, R per il rover, F per lo scanner, Q per l’impulso, B per la base, N per la nave, M per la mappa.');
+    title(areaTrail(m, ['SUPERFICIE', 'ESPLORAZIONE']), m.title, mobile ? (card ? 'Tocca il terreno per andarci, trascina per ruotare.' : '') : 'W A S D per camminare, Maiuscolo per correre, spazio per saltare e, tenuto, per lo zaino; R rover, F scanner, Q impulso, B base, N nave, M mappa.');
     const px = mobile ? 18 : w - 353, pw = mobile ? w - 36 : 320, ph = mobile ? 300 : Math.min(520, h - 368), py = mobile ? h - 384 : 258;
     // On board the ship (1.75.0) its numbers take the place of those of the explorer.
     const aboard = !!S.avatar?.aboard;
@@ -1259,6 +1349,7 @@ function exploreUI(m, mobile) {
     U.button('explore-stop', mobile ? 'STAZIONI' : 'TORNA ALLE STAZIONI', 35, h - 86, mobile ? 120 : 220, 36, stopExplore, { small: mobile });
     U.button('back-planet', mobile ? 'ORBITA' : 'TORNA AL PIANETA', mobile ? w - 140 : 267, h - 86, mobile ? 105 : 190, 36, () => route('orbit'), { small: mobile });
     zoneMapUI(mobile);
+    fadeUI();
 }
 function researchUI() {
     const w = R.w, h = R.h, n = RESEARCH[S.node], mobile = w < 850;
@@ -1674,7 +1765,7 @@ function exploreLog() {
         const sp = [...species[i], ...endemics[i]].filter(x => rec.s.includes(x.id)).map(x => x.name + ' (' + x.label + ')'), pl = places[i].filter(x => rec.l.includes(x.id)).map(x => x.name);
         const d = rec.m?.includes('biofirme') ? diagnosis(physics[i], species[i].length, landed(i)) : null, lovelock = d ? 'Diagnosi di Lovelock: ' + VERDICTS[d.verdict] + (d.outcome === 'da-verificare' ? '' : ', ' + OUTCOMES[d.outcome]) + '.' : '';
         // The explorer on the ground (1.68.0): distances in metres and the best jump against the Earth's 49 cm.
-        const p = rec.p, trip = p ? `Esploratore: ${p.w} m a piedi, ${p.d} m in rover, ${p.n === 1 ? '1 salto' : p.n + ' salti'}${p.n ? ', il più alto di ' + p.j + ' cm (sulla Terra la stessa spinta dà ' + Math.round(JUMP * JUMP / (2 * G0) * 100) + ' cm)' : ''}.` : '';
+        const p = rec.p, trip = p ? `Esploratore: ${p.w} m a piedi, ${p.d} m in rover, ${p.n === 1 ? '1 salto' : p.n + ' salti'}${p.n ? ', il più alto di ' + p.j + ' cm (sulla Terra la stessa spinta dà ' + Math.round(JUMP * JUMP / (2 * G0) * 100) + ' cm)' : ''}${p.z ? `; con lo zaino a reazione è salito fino a ${(p.z / 100).toFixed(1).replace('.', ',')} m` : ''}.` : '';
         // The biomes crossed (1.71.0), in the order of the planet's list, out of the five to eight it has.
         const own = biomesOf(genomes[i]), crossed = own.filter(id => rec.b?.includes(id)).map(id => BIOME[id].name), biomes = crossed.length ? `Biomi attraversati: ${crossed.join(', ')} (${crossed.length} su ${own.length}).` : '';
         // The sites registered (1.73.0), with their kind; the list of a planet other than the open one is made once.
@@ -2401,6 +2492,8 @@ function events() {
         const z = stickZone();
         if (z && !b && !stick && Math.hypot(x - z.x, y - z.y) < z.r * 1.35) { stick = { id: e.pointerId, v: [0, 0], push: 0, view: S.avatar.cam + (S.chaseOrbit || 0) }; moveStick(x, y); canvas.setPointerCapture(e.pointerId); return; }
         if (pointer && pointer.id !== e.pointerId && pointer.pointerType === 'touch') return;
+        // SALTA jumps as soon as it is pressed and, held, fires the jetpack (1.76.0); it has its own finger too.
+        if (b?.id === 'explore-jump' && !b.disabled) { S.jumpAsk = true; S.jumpHeld = e.pointerId; canvas.setPointerCapture(e.pointerId); return; }
         pointer = { id: e.pointerId, x, y, startX: x, startY: y, moved: false, pointerType:e.pointerType||'mouse', blocked:!!b||!!S.zoneMap||(['galaxy','system'].includes(S.scene)&&sceneBlocked(x,y)) };
         hover.clear();S.hoveredTarget=null;
         activeSlider = b?.slider ? b : null;
@@ -2438,6 +2531,7 @@ function events() {
     });
     canvas.addEventListener('pointerup', e => {
         const [x, y] = pointerXY(e);
+        if (S.jumpHeld === e.pointerId) { S.jumpHeld = null; return; }
         if (stick && e.pointerId === stick.id) { stick = null; return; }
         if (pointer && e.pointerId !== pointer.id) return;
         if (pointer && !pointer.moved && !activeSlider) {
@@ -2465,9 +2559,9 @@ function events() {
         pointer = null;
         activeSlider = null;
     });
-    canvas.addEventListener('pointercancel',e=>{if(stick&&e.pointerId===stick.id){stick=null;return;}pointer=null;activeSlider=null;hover.clear();S.hoveredTarget=null;});
+    canvas.addEventListener('pointercancel',e=>{if(S.jumpHeld===e.pointerId){S.jumpHeld=null;return;}if(stick&&e.pointerId===stick.id){stick=null;return;}pointer=null;activeSlider=null;hover.clear();S.hoveredTarget=null;});
     window.addEventListener('keyup', e => { held.delete(e.key.toLowerCase()); if (e.key === 'Shift') held.delete('shift'); });
-    window.addEventListener('blur', () => { held.clear(); stick = null; });
+    window.addEventListener('blur', () => { held.clear(); stick = null; S.jumpHeld = null; });
     canvas.addEventListener('pointerleave',()=>{hoverPointer=null;hover.clear();S.hoveredTarget=null;U.hover=null;});
     canvas.addEventListener('wheel', e => {
         e.preventDefault();
@@ -2519,7 +2613,7 @@ function events() {
             if (S.avatar.aboard || S.zoneMap) return;
             if (c === 'n' && !e.repeat) { shipAction(); return; }
             if (['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright', 'shift'].includes(c)) { held.add(c); e.preventDefault(); return; }
-            if (c === ' ') { e.preventDefault(); if (!e.repeat) S.jumpAsk = true; return; }
+            if (c === ' ') { e.preventDefault(); held.add(' '); if (!e.repeat) S.jumpAsk = true; return; }
             if (c === 'r' && !e.repeat) { roverToggle(); return; }
             if (c === 'f' && !e.repeat) { scan(); return; }
             if (c === 'b' && !e.repeat) { goBase(); return; }
