@@ -1,3 +1,11 @@
+# 1.78.0: Mondi aperti, luoghi minori nelle zone vuote
+
+- Nona versione della serie «Mondi aperti». Le parti di ogni zona più lontane da tutto il resto ospitano da 6 a 40 luoghi minori, 3770 sui 125 pianeti, di 7 tipi: vene di minerale con cristalli o croste, ingressi di grotte, meteoriti di ferro e nichel, fari di navigazione della colonia, trivelle abbandonate dalla prima spedizione, cippi di pietre a secco e, sui pianeti con animali dotati di ossa, scheletri di grandi animali.
+- Ogni luogo minore va sul punto di terraferma più lontano dai luoghi da vedere, finché nessun punto ne dista più di 400 m. Con i luoghi minori il 99,6% della terraferma ha un luogo da vedere entro 500 m, contro l'81% della 1.77.0, e il più vicino è in mediana a 194 m invece di 295.
+- Ogni luogo minore ha tre frasi con un calcolo sui numeri del pianeta: il peso di un metro cubo di minerale, la temperatura della grotta, l'energia del meteorite alla velocità di fuga, l'orizzonte dal faro, la luce della stella su un pannello, il pendolo del primo equipaggio, la legge del quadrato e del cubo per le ossa.
+- Scheda «Luogo minore», registrazione nel diario, scoperta a piedi, impulso dello scanner entro 500 m, segno sulla bussola, viaggio rapido dalla mappa della zona e riga «Luoghi minori» nel diario.
+- Nuovi `src/worlds/finds.js`, `scripts/minori.mjs`, `docs/LUOGHI_MINORI.md` e `tests/minori.test.mjs`; `docs/VARIETA_MONDI.md` conta i luoghi minori. Descrizione in `docs/GRAPHICS.md`, sezione «Luoghi minori nelle zone vuote».
+
 # 1.77.0: Mondi aperti, prestazioni sui telefoni, misure di varietà e collaudo della serie
 
 - Ultima versione della serie «Mondi aperti», ora descritta per la classe in `docs/MONDI_APERTI.md`, con le versioni, il contenuto di una zona, la mappa dei concetti di fisica e il collaudo.

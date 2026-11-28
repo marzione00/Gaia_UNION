@@ -106,7 +106,7 @@ export function reliefOf(list) {
 }
 
 const shuffle = (list, r) => { for (let i = list.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [list[i], list[j]] = [list[j], list[i]]; } return list; };
-const word = r => { let w = ''; for (let k = 0; k < 2; k++) w += SYL[Math.floor(r() * SYL.length)]; return w[0].toUpperCase() + w.slice(1); };
+export const word = r => { let w = ''; for (let k = 0; k < 2; k++) w += SYL[Math.floor(r() * SYL.length)]; return w[0].toUpperCase() + w.slice(1); };
 /** Largest change of height between the point and eight points at distance d around it. */
 const riseAt = (s, x, z, y, d) => Math.max(...Array.from({ length: 8 }, (_, k) => Math.abs(s.heightAt(x + Math.cos(k * Math.PI / 4) * d, z + Math.sin(k * Math.PI / 4) * d) - y)));
 
@@ -268,13 +268,13 @@ function storyOf(o, p, g, s, axes, plants) {
 }
 
 // ─── Models ────────────────────────────────────────────────────────────────────────────────────────────────
-const mix = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t, 1];
-const tint = (c, k) => [Math.min(1, c[0] * k), Math.min(1, c[1] * k), Math.min(1, c[2] * k), 1];
+export const mix = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t, 1];
+export const tint = (c, k) => [Math.min(1, c[0] * k), Math.min(1, c[1] * k), Math.min(1, c[2] * k), 1];
 /** Smooth noise in [-1, 1] from a seed and a point. */
-const wave = (q, x, y, z) => (Math.sin(x * 1.31 + q * 7.3 + Math.sin(z * .87 + q)) * Math.sin(z * 1.17 - q * 3.1 + Math.sin(y * 1.9)) + Math.sin(y * 2.3 + x * .7 + q * 1.7) * .5) / 1.5;
+export const wave = (q, x, y, z) => (Math.sin(x * 1.31 + q * 7.3 + Math.sin(z * .87 + q)) * Math.sin(z * 1.17 - q * 3.1 + Math.sin(y * 1.9)) + Math.sin(y * 2.3 + x * .7 + q * 1.7) * .5) / 1.5;
 /** Parametric surface P(u, v) on an nu × nv grid, with normals from the neighbouring points, turned towards
  * out(u, v, p); colours from col(u, v, p). With `wrap` the grid closes along u. */
-function surf(k, nu, nv, P, col, out, wrap = false) {
+export function surf(k, nu, nv, P, col, out, wrap = false) {
     const cols = wrap ? nu : nu + 1, pts = [];
     for (let j = 0; j <= nv; j++) for (let i = 0; i < cols; i++) pts.push(P(i / nu, j / nv));
     const at = (i, j) => pts[Math.max(0, Math.min(nv, j)) * cols + (wrap ? ((i % cols) + cols) % cols : Math.max(0, Math.min(nu, i)))], ids = [];
@@ -288,7 +288,7 @@ function surf(k, nu, nv, P, col, out, wrap = false) {
     for (let j = 0; j < nv; j++) for (let i = 0; i < nu; i++) { const a = id(i, j), b = id(i + 1, j), c = id(i, j + 1), d = id(i + 1, j + 1); k.i.push(a, b, d, a, d, c); }
 }
 /** Rock: an ellipsoid with radii rx, ry, rz at c, roughened by noise of amplitude `rough`. */
-function lump(k, c, [rx, ry, rz], q, rough, col, level, turn = 0) {
+export function lump(k, c, [rx, ry, rz], q, rough, col, level, turn = 0) {
     const nu = level ? 7 : 16, nv = level ? 5 : 11, cs = Math.cos(turn), sn = Math.sin(turn);
     surf(k, nu, nv, (u, v) => {
         // Two octaves of noise and sharp creases, so the rock has facets and edges.
