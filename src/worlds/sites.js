@@ -292,7 +292,8 @@ export function clearingOf(sites) {
             const at = z => [site.x + z * sn, site.z + z * c];
             return { a: at(len * .7), b: at(-len * 1.9), w: site.kind === 'sonda' ? 3 + len * .9 : 5 + len * .4 };
         }
-        const w = site.kind === 'campo' ? 15 : site.kind === 'rovine' ? 29 : 30;
+        // Rare places (src/worlds/wonders.js) carry the radius of their ground.
+        const w = site.r ?? (site.kind === 'campo' ? 15 : site.kind === 'rovine' ? 29 : 30);
         return { a: [site.x, site.z], b: [site.x, site.z], w };
     });
     return (x, z, margin = 0) => parts.some(({ a, b, w }) => {

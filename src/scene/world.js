@@ -33,6 +33,8 @@ import { tuft, rock, slab, spire, station as stationMesh, seaPlane, seaRing, bea
 import { chunkRocks, CHUNK } from '../worlds/biomes.js';
 import { assemblages, chunkLife, wander } from '../worlds/zone-life.js';
 import { siteList, siteModel, clearingOf } from '../worlds/sites.js';
+import { rareList, rareModel, reliefOf } from '../worlds/wonders.js';
+import { SCAN_RANGE } from '../worlds/compass.js';
 import { bodyMesh } from '../worlds/bodyplan.js';
 import { buildingMesh } from '../worlds/buildings.js';
 import { archMesh, worksMesh, roverMesh, archPalette, typologyOf } from '../worlds/architecture.js';
@@ -68,10 +70,11 @@ export const TOWN_NEAR = 70, TOWN_FAR = 900, FOLK_NEAR = 26, FOLK_FAR = 180, WAL
 /** The explorer of 1.68.0: a colonist with a backpack in the gear of the colony of the planet, drawn in this
  * colour; the stations keep it out within STATION_CLEAR units of their centre. */
 export const EXPLORER_TINT = Object.freeze([.93, .52, .2]), STATION_CLEAR = 2.6;
-/** Sites of the zone (1.73.0): the light model is built when the camera comes within SITE_REACH, the detailed one
- * within SITE_DETAIL; both are drawn as buildings of the settlements, up to TOWN_FAR, with a marker within
- * SITE_MARK. */
-export const SITE_REACH = 1050, SITE_DETAIL = 200, SITE_MARK = 450;
+/** Sites (1.73.0) and rare places (1.74.0) of the zone: the light model is built when the camera comes within
+ * SITE_REACH, the detailed one within SITE_DETAIL; the detailed model is drawn within ZONE_NEAR of the camera (it
+ * returns to the light one beyond ZONE_NEAR + 12), and the light models of each quarter of the zone are merged
+ * in one mesh, so they cost one draw call a quarter. A marker floats over those within SITE_MARK. */
+export const SITE_REACH = 1050, SITE_DETAIL = 200, SITE_MARK = 450, ZONE_NEAR = 70;
 /** Instance data of a list of items (x, y, z, size, r, g, b, heading), eight numbers each. */
 const packItems = l => { const a = new Float32Array(Math.max(1, l.length) * 8); l.forEach((o, i) => a.set([o.x, o.y, o.z, o.s, o.r, o.g, o.b, o.h], i * 8)); return a; };
 export const walkHeading = (h, slope) => (((h % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)) + 7 * (Math.round(Math.max(-.5, Math.min(.5, slope)) * 100) + 50);
@@ -93,6 +96,8 @@ const MESHES = { 'planet-beacon': beacon };
 export const PLACE_TINTS = { vetta: [.95, .82, .45, 1], forma: [.55, .82, .98, 1], costa: [.45, .9, .85, 1], evento: [.95, .55, .85, 1], colonia: [1, .62, .3, 1], villaggio: [.75, .95, .45, 1] };
 /** Markers of the sites of the zone (1.73.0), by state: inhabited, abandoned, wreck, ruin. */
 export const SITE_TINTS = { abitato: [1, .74, .36, 1], abbandonato: [.72, .7, .66, 1], relitto: [.95, .45, .35, 1], rovina: [.78, .66, .95, 1] };
+/** Colour of the marks of the rare places of the zone (1.74.0). */
+export const RARE_TINT = [.42, .95, .78, 1];
 /** Drawn radius: the scale is illustrative, so planets of the units are enlarged to be read and
  * picked, ambient bodies slightly. Orbits keep their computed spacing. */
 const clock = () => globalThis.performance?.now() ?? Date.now();
@@ -277,6 +282,16 @@ export class World {
         this.surface = s; this.biome = s.key;
         if (this.uploadedPlanet !== s.key) {
             const R = this.R;
+            // Structures, wrecks and ruins (1.73.0) and rare places (1.74.0) of the zone, before the ground: the rare
+            // places may shape it (craters, lava pits, hot springs, salt flats, dunes). Their models are built when
+            // the camera comes near (zoneModels).
+            s.sites ||= s.field?.biomes ? siteList(s) : [];
+            if (!s.rares) { s.rares = s.field?.biomes ? rareList(s, s.sites) : []; s.setRelief?.(reliefOf(s.rares)); }
+            s.siteClear ||= clearingOf([...s.sites, ...s.rares]);
+            (this.featureNear || []).forEach((on, j) => { if (on) R.deleteMesh?.('zone-near-' + j); });
+            this.features = [...s.sites.map((o, index) => ({ type: 'site', index, o })), ...s.rares.map((o, index) => ({ type: 'rare', index, o }))];
+            this.featureBuilt = this.features.map(() => 0); this.featureFar = []; this.featureNear = []; this.nearOn = new Set(); this.farDirty = new Set(); this.siteBlocks = [];
+            for (const t of [0, 1, 2, 3]) R.deleteMesh?.('zone-far-' + t); this.farTiles = [0, 0, 0, 0];
             // The ground streamed around the camera (1.70.0, src/worlds/clipmap.js): six nested grids up to the
             // horizon, centred here on the view of the stations and moved with the camera at every frame.
             this.ground = new GroundClipmap(s); for (const k of this.ground.update(2, 2)) R.makeMesh('planet-ground-' + k, this.ground.levels[k].mesh);
@@ -291,8 +306,6 @@ export class World {
             this.population = [...sc.species, ...(s.endemics || []).map((sp, j) => ({ species: sp, instances: [], centre: null, index: sc.species.length + j }))];
             this.planetCounts = [sc.species.reduce((n, p) => n + p.instances.length, 0), sc.rocks.length]; this.lifeAt = null;
             this.lifeSets = s.field?.biomes ? assemblages(s, this.population) : null; this.zoneAnimals = [];
-            // Structures, wrecks and ruins of the zone (1.73.0): their models are built when the camera comes near.
-            s.sites ||= s.field?.biomes ? siteList(s) : []; s.siteClear ||= clearingOf(s.sites); this.siteBuilt = s.sites.map(() => 0); this.siteGroups = []; this.siteBlocks = [];
             if (R.makeInstances) {
                 for (const G of this.groups || []) for (const l of [0, 1]) { R.deleteInstances?.(G.sets[l]); R.deleteMesh?.(G.meshes[l]); }
                 R.makeInstances('planet-rocks', 'world-rock', packItems(sc.rocks));
@@ -933,23 +946,29 @@ export class World {
         V.data??=new Float32Array(8);V.data.set([0,y0,0,k,...L.tint,heading]);R.updateInstances(m.id+'-i',V.data);
         R.drawMesh(m.id,this.vp,IDENTITY,{...draw,instances:m.id+'-i',instanceMode:mode,motion,pbr});
     }
-    /** Models of the sites near the point f (1.73.0), one step a frame, the nearest first: the light model of a
-     * site within SITE_REACH, then its detailed model within SITE_DETAIL. Each site is a group of one instance,
-     * drawn and split as the buildings of the settlements; the circles of its buildings stop the explorer. */
-    siteModels(f){
+    /** Models of the sites (1.73.0) and of the rare places (1.74.0) near the point f, one step a frame, the nearest
+     * first: the light model within SITE_REACH, then the detailed one within SITE_DETAIL. The light models are kept
+     * and merged by quarter of the zone (farTile); the circles of their buildings, stones and rocks stop the
+     * explorer. */
+    zoneModels(f){
         const R=this.R,S0=this.surface;let best=-1,d0=Infinity;
-        S0.sites.forEach((x,j)=>{const d=Math.hypot(x.x-f[0],x.z-f[2]),want=d<SITE_DETAIL?2:d<SITE_REACH?1:0;if(want>this.siteBuilt[j]&&d<d0){d0=d;best=j;}});
+        this.features.forEach((F,j)=>{const d=Math.hypot(F.o.x-f[0],F.o.z-f[2]),want=d<SITE_DETAIL?2:d<SITE_REACH?1:0;if(want>this.featureBuilt[j]&&d<d0){d0=d;best=j;}});
         if(best<0)return;
-        const x=S0.sites[best],name='site-'+best,step=this.siteBuilt[best]+1;
-        if(step===1){
-            const far=siteModel(S0,x,1),items=[{x:x.x,y:x.y,z:x.z,s:1,r:1,g:1,b:1,h:0}],G={meshes:[name+'-mesh-0',name+'-mesh-1'],sets:[name+'-0',name+'-1'],all:packItems(items),items,n:1,drawn:[0,0],mode:1,motion:[0,0,0,0],pbr:[.05,.8,0,4],near:0,far:TOWN_FAR,thin:false,site:best};
-            R.makeMesh(G.meshes[1],far.mesh);R.makeInstances(G.sets[1],G.meshes[1],G.all);
-            this.groups.push(G);this.siteGroups[best]=G;this.siteBlocks.push(...far.blocks);
-        }else{
-            const G=this.siteGroups[best],near=siteModel(S0,x,0);
-            R.makeMesh(G.meshes[0],near.mesh);R.makeInstances(G.sets[0],G.meshes[0],G.all);G.near=TOWN_NEAR;
+        const F=this.features[best],step=this.featureBuilt[best]+1,model=lv=>F.type==='site'?siteModel(S0,F.o,lv):rareModel(S0,F.o,lv);
+        if(step===1){const far=model(1);this.featureFar[best]=far.mesh;this.siteBlocks.push(...far.blocks);if(far.mesh)this.farDirty.add(farTile(F.o));}
+        else{const near=model(0);if(near.mesh){R.makeMesh('zone-near-'+best,near.mesh);this.featureNear[best]=true;}}
+        this.featureBuilt[best]=step;
+    }
+    /** The detailed models within ZONE_NEAR of the camera, and the merged light models of the other ones, made
+     * again for a quarter when one of its models is built or changes level. */
+    zoneSplit(){
+        const R=this.R,e=this.eye;if(!this.features||!e)return;
+        this.features.forEach((F,j)=>{if(!this.featureNear[j])return;const d=Math.hypot(F.o.x-e[0],F.o.z-e[2]),on=this.nearOn.has(j);if(!on&&d<ZONE_NEAR){this.nearOn.add(j);this.farDirty.add(farTile(F.o));}else if(on&&d>ZONE_NEAR+12){this.nearOn.delete(j);this.farDirty.add(farTile(F.o));}});
+        for(const t of this.farDirty){
+            const parts=[];this.features.forEach((F,j)=>{if(this.featureFar[j]&&!this.nearOn.has(j)&&farTile(F.o)===t)parts.push([this.featureFar[j],F.o]);});
+            if(parts.length){R.makeMesh('zone-far-'+t,mergeAt(parts));this.farTiles[t]=1;}else{R.deleteMesh?.('zone-far-'+t);this.farTiles[t]=0;}
         }
-        this.siteBuilt[best]=step;this.lifeAt=null;
+        this.farDirty.clear();
     }
     /** Rocks, plants and animals of the biomes in the chunks within about 200 units of the point f (1.71.0,
      * 1.72.0): chunks already made are kept, the others made with chunkRocks and chunkLife; one instance set per
@@ -1137,7 +1156,7 @@ export class World {
             const focus=this.target||[2,0,2],last=this.groundFocus,jump=last?Math.hypot(focus[0]-last[0],focus[2]-last[1]):0;this.groundFocus=[focus[0],focus[2]];
             if(this.ground&&jump<8)for(const k of this.ground.update(focus[0],focus[2]))R.makeMesh('planet-ground-'+k,this.ground.levels[k].mesh);
             const rk=Math.floor(focus[0]/CHUNK)+','+Math.floor(focus[2]/CHUNK);if(S0.field&&jump<8&&rk!==this.rockKey&&R.makeInstances){this.rockKey=rk;this.zoneChunks(focus);}
-            if(S0.sites?.length&&jump<8&&R.makeInstances)this.siteModels(focus);
+            if(this.features?.length&&jump<8)this.zoneModels(focus);
             const sc=[Math.round(focus[0]/8)*8,Math.round(focus[2]/8)*8],cy=S0.heightAt?S0.heightAt(sc[0],sc[1]):0,sea=[Math.round(focus[0]/320)*320,Math.round(focus[2]/320)*320],seaM=transform(sea[0],0,sea[1]);
             const light=sun?sun.light:S0.light.direction,lightColor=sun?sun.color:S0.light.color,lightVP=mul(ortho,lookAt([sc[0]+light[0]*90,cy+light[1]*90,sc[1]+light[2]*90],[sc[0],cy,sc[1]]));
             R.renderShadow(this.biome+':'+sc.join(','),['planet-ground-0','planet-ground-1'],lightVP);
@@ -1149,6 +1168,11 @@ export class World {
             // Species in two levels of detail (1.63.0); lower graphics settings draw a share of the individuals.
             this.lifeSplit();
             for(const L of this.groups||[])for(const l of [0,1])if(L.drawn[l])R.drawMesh(L.meshes[l],this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:L.sets[l],instanceMode:L.mode,motion:L.motion,pbr:L.pbr});
+            // Sites and rare places of the zone (1.73.0, 1.74.0): one mesh a quarter for the light models, one draw call
+            // for each detailed model near the camera.
+            this.zoneSplit();
+            this.farTiles?.forEach((on,t)=>{if(on)R.drawMesh('zone-far-'+t,this.vp,id,{eye:this.eye,light,lightColor,material:10});});
+            for(const j of this.nearOn||[]){const o=this.features[j].o;R.drawMesh('zone-near-'+j,this.vp,transform(o.x,o.y,o.z),{eye:this.eye,light,lightColor,material:10});}
             // Streets and paths of the settlements (1.64.0).
             if(S0.settlements&&this.groups)R.drawMesh('planet-streets',this.vp,id,{eye:this.eye,light,lightColor,material:10,pbr:[0,.92,0,0]});
             if(S0.settlements&&this.groups&&R.meshes.has('planet-works'))R.drawMesh('planet-works',this.vp,id,{eye:this.eye,light,lightColor,material:10});
@@ -1158,6 +1182,8 @@ export class World {
                 if(A.mode!=='rover'){this.explorerData.set([A.x,A.y,A.z,1,...EXPLORER_TINT,gaitHeading(A.h,A.gait)]);R.updateInstances('explorer',this.explorerData);R.drawMesh('explorer-mesh',this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:'explorer',instanceMode:8,motion:[0,1,0,this.explorerFigure.legs],pbr:[0,.75,0,0]});}
                 const v=A.rover;if(v&&R.meshes.has('planet-rover'))R.drawMesh('planet-rover',this.vp,roverMatrix(v.x,v.y??S0.heightAt(v.x,v.z),v.z,v.h,v.pitch||0,v.roll||0),{eye:this.eye,light,lightColor,material:10});
                 if(s.scanTarget){const c=s.scanTarget;R.drawMesh('ring',this.vp,transform(c[0],c[1]+.3,c[2],1.6+.5*Math.sin(s.time*4)),{eye:this.eye,tint:[.55,.95,1,1],emission:.8,opacity:.7});}
+                // The impulse of the scanner (1.74.0): two rings spread from the explorer to SCAN_RANGE in 1.8 s.
+                if(s.scanPulse){const p=s.scanPulse,t=(Date.now()-p.t)/1800;if(t<1)for(const lag of [0,.07])R.drawMesh('ring',this.vp,transform(p.x,p.y+.6,p.z,6+Math.max(0,t-lag)*SCAN_RANGE),{eye:this.eye,tint:[.55,.95,1,1],emission:.9,opacity:.65*(1-t)});}
             }
             if(R.instanceSets?.has('planet-geyser'))R.drawMesh('lowSphere',this.vp,id,{eye:this.eye,light,material:19,instances:'planet-geyser',instanceMode:2,motion:[.16,10,.7,0],opacity:.32});
             // Shooting stars (1.60.0) on worlds with an atmosphere: a sporadic one every 7 s, one every 0.8 s while
@@ -1200,6 +1226,11 @@ export class World {
                     if(on||d<SITE_MARK)R.drawMesh('lowSphere',this.vp,transform(x.x,top,x.z,on?.8:.6),{eye:this.eye,material:16,tint:SITE_TINTS[x.state]});
                     if(on)R.drawMesh('ring',this.vp,transform(x.x,x.y+.3,x.z,20),{eye:this.eye,tint:SITE_TINTS[x.state],emission:.7,opacity:.75});
                     this.projections.push({type:'site',index:k,...xyToObj(project([x.x,top+1.4,x.z],this.vp,R.w,R.h)),r:28,position:[x.x,x.y,x.z]});});
+                // Rare places (1.74.0): the same marks, in the colour of the natural places.
+                (S0.rares||[]).forEach((x,k)=>{const d=Math.hypot(x.x-this.eye[0],x.z-this.eye[2]);if(d>TOWN_FAR)return;const on=s.exploreTarget?.type==='rare'&&s.exploreTarget.index===k,top=x.y+16;
+                    if(on||d<SITE_MARK)R.drawMesh('lowSphere',this.vp,transform(x.x,top,x.z,on?.8:.6),{eye:this.eye,material:16,tint:RARE_TINT});
+                    if(on)R.drawMesh('ring',this.vp,transform(x.x,x.y+.3,x.z,Math.min(60,x.r*.8)),{eye:this.eye,tint:RARE_TINT,emission:.7,opacity:.75});
+                    this.projections.push({type:'rare',index:k,...xyToObj(project([x.x,top+1.4,x.z],this.vp,R.w,R.h)),r:28,position:[x.x,x.y,x.z]});});
                 const t=s.exploreTarget,c=t?.type==='species'?this.liveCentre(t.index):null;
                 if(c)R.drawMesh('ring',this.vp,transform(c[0],c[1]+.3,c[2],7),{eye:this.eye,tint:[.6,.95,.7,1],emission:.7,opacity:.6});
             }
@@ -1243,6 +1274,8 @@ export class World {
         (this.surface?.places || []).forEach((p, k) => { const d = Math.hypot(p.position[0] - point[0], p.position[2] - point[2]); if (d < d0 + 2) { d0 = d - 2; best = { type: 'place', index: k }; } });
         // A site of the zone (1.73.0) is selected within 25 units of its centre.
         (this.surface?.sites || []).forEach((x, k) => { const d = Math.hypot(x.x - point[0], x.z - point[2]) - 18; if (d < d0) { d0 = d; best = { type: 'site', index: k }; } });
+        // A rare place (1.74.0) within its radius.
+        (this.surface?.rares || []).forEach((x, k) => { const d = Math.hypot(x.x - point[0], x.z - point[2]) - Math.min(30, x.r * .6); if (d < d0) { d0 = d; best = { type: 'rare', index: k }; } });
         // A building or a street of a settlement selects the settlement (1.64.0).
         (this.surface?.settlements || []).forEach((t, k) => { for (const b of t.buildings) { const d = Math.hypot(b.x - point[0], b.z - point[2]) - b.radius; if (d < d0) { d0 = d; best = { type: 'settlement', index: k }; } } });
         return best;
@@ -1276,6 +1309,19 @@ export class World {
     }
 }
 function xyToObj(p) { return { x: p[0], y: p[1], depth: p[2] }; }
+/** Quarter of the zone of a point (0 to 3), for the merged light models of the sites and rare places. */
+const farTile = o => (o.x >= 0 ? 1 : 0) + (o.z >= 0 ? 2 : 0);
+/** One mesh of the kit (16 floats a vertex) from meshes placed at the points o (x, y, z). */
+export function mergeAt(parts) {
+    let nv = 0, ni = 0; for (const [m] of parts) { nv += m.v.length; ni += m.i.length; }
+    const v = new Float32Array(nv), i = new Uint32Array(ni); let ov = 0, oi = 0;
+    for (const [m, o] of parts) {
+        v.set(m.v, ov); for (let k = ov; k < ov + m.v.length; k += 16) { v[k] += o.x; v[k + 1] += o.y; v[k + 2] += o.z; }
+        const base = ov / 16; for (let k = 0; k < m.i.length; k++) i[oi + k] = m.i[k] + base;
+        ov += m.v.length; oi += m.i.length;
+    }
+    return { v, i, stride: 16 };
+}
 /** Belts, comets and the map of distances of a system (1.60.0), computed once and kept on the system. */
 export function minorBodies(system) {
     // `belt` keeps its meaning for the stations (src/craft/placement.js): the outer belt of the systems whose id

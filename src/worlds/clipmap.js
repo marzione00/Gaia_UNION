@@ -7,7 +7,8 @@
  * as the grid of the stations, so there it reproduces the earlier ground exactly. Points are cached in a
  * window per level that wraps round (a toroidal array), so moving by a few units computes only the new rows.
  * The outer edge of every grid is set on the straight lines of the coarser one, with no cracks between them.
- * Since 1.71.0 the colour and roughness of a point come from the biomes of the field (field.colour). */
+ * Since 1.71.0 the colour and roughness of a point come from the biomes of the field (field.colour); since
+ * 1.74.0 the relief of the rare places (reliefAt, src/worlds/wonders.js) is added to the heights of the field. */
 import { colorAt } from './terrain.js';
 import { CORE, stitch } from './field.js';
 
@@ -40,7 +41,7 @@ export class GroundClipmap {
             if (L.hTag[i * 2] !== a || L.hTag[i * 2 + 1] !== b) {
                 const x = a * L.step, z = b * L.step, H = L.heights;
                 if (Math.abs(x) <= h && Math.abs(z) <= h) { const k = (z + h) * n + (x + h); H[i * 3] = grid ? s.heights[k] : s.heightAt(x, z); H[i * 3 + 1] = grid ? grid[k] : F.E(x, z); H[i * 3 + 2] = s.lavaAt ? s.lavaAt(x, z) : 0; }
-                else { const e = F.E(x, z); H[i * 3] = (e - F.sea) * F.S; H[i * 3 + 1] = e; H[i * 3 + 2] = F.lava(x, z); }
+                else { const e = F.E(x, z), y = (e - F.sea) * F.S; H[i * 3] = s.reliefAt ? y + s.reliefAt(x, z, y) : y; H[i * 3 + 1] = e; H[i * 3 + 2] = F.lava(x, z); }
                 L.hTag[i * 2] = a; L.hTag[i * 2 + 1] = b; this.samples++;
             }
             return i;
