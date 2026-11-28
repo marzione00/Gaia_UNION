@@ -133,7 +133,7 @@ test('nave nel mondo: modelli, gambe sul terreno, ostacoli, camera dei voli e ap
  // The camera of the flights replaces the others.
  st.landerView={key:'volo',eye:[P.x+80,P.y+60,P.z],target:[P.x,P.y+50,P.z],fov:.74};const c=w.desiredCamera('surface',st);assert.deepEqual(c.target,st.landerView.target);assert.equal(c.fov,.74);assert.ok(c.eye[1]>=s.heightAt(c.eye[0],c.eye[2])+2);
  const app=read('src/app.js');
- for(const t of ['function landerTick(','function landerDone(','function leaveShip(','function board(','function shipAction(','function zoneMapTick(','function zoneTap(','function landHere(','function zoneMapUI(','function flightHUD(',"U.button('zone-map'","U.button('explore-ship'","'ATTERRA QUI'","c === 'n'","c === 'm'",'Atterraggi della ',"['place','settlement','site','rare','ship'].includes(hit?.type)","exploreTick(); landerTick();","type: 'ship', index: 0"])assert.ok(app.includes(t),t);
+ for(const t of ['function landerTick(','function landerDone(','function leaveShip(','function board(','function shipAction(','function zoneMapTick(','function zoneTap(','function landHere(','function zoneMapUI(','function flightHUD(',"U.button('zone-map'","U.button('explore-ship'","'ATTERRA QUI'","c === 'n'","c === 'm'",'Atterraggi della ',"['place','settlement','site','rare','find','ship'].includes(hit?.type)","exploreTick(); landerTick();","type: 'ship', index: 0"])assert.ok(app.includes(t),t);
  for(const t of ['Tocca il punto dove vuoi atterrare.','Nessun punto adatto entro 300 m: acqua, pendii troppo ripidi o costruzioni. Scegli un altro punto.','La nave sta ancora atterrando.','Frenata uniforme: la spinta supera il peso finché la nave si ferma a terra.'])for(const r of STYLE)assert.ok(!r.test(t),t);
  assert.ok(BOARD>10&&BOARD<40);
 });

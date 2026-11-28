@@ -32,13 +32,14 @@ export function cleanExplore(value) {
         // registered, r0 to r18.
         const b = ids(v.b, x => Object.hasOwn(BIOME, x), 8); if (b.length) rec.b = b;
         const r = ids(v.r, x => /^r(1[0-8]|\d)$/.test(x), 19); if (r.length) rec.r = r;
-        // n (1.74.0): the rare places registered, n0 to n8; k: the sites and rare places detected by the impulse
-        // of the scanner, which the compass shows.
+        // n (1.74.0): the rare places registered, n0 to n8; f (1.78.0): the minor places registered, f0 to f39; k:
+        // the sites, rare places and minor places detected by the impulse of the scanner, which the compass shows.
         const n = ids(v.n, x => /^n[0-8]$/.test(x), 9); if (n.length) rec.n = n;
-        const found = ids(v.k, x => /^(r(1[0-8]|\d)|n[0-8])$/.test(x), 28); if (found.length) rec.k = found;
+        const f = ids(v.f, x => /^f([1-3]?\d)$/.test(x), 40); if (f.length) rec.f = f;
+        const found = ids(v.k, x => /^(r(1[0-8]|\d)|n[0-8]|f([1-3]?\d))$/.test(x), 68); if (found.length) rec.k = found;
         // t (1.75.0): the landings of the ship of the explorer on the planet.
         if (whole(v.t, 1e6) && v.t > 0) rec.t = v.t;
-        if (rec.s.length || rec.l.length || m.length || rec.v || rec.p || rec.b || rec.r || rec.n || rec.k || rec.t) out[k] = rec;
+        if (rec.s.length || rec.l.length || m.length || rec.v || rec.p || rec.b || rec.r || rec.n || rec.f || rec.k || rec.t) out[k] = rec;
     }
     return out;
 }

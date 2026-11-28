@@ -16,6 +16,7 @@ import { CORE } from './field.js';
 import { planetPhysics } from './planet-physics.js';
 import { siteList, clearingOf } from './sites.js';
 import { rareList, reliefOf } from './wonders.js';
+import { findList } from './finds.js';
 
 export const LANDER = CATALOG.find(e => e.id === 's06-6');
 export const LANDER_METRES = parseFloat(LANDER.size.replace(/[^\d.]/g, '')), LENGTH = LANDER_METRES * METRE;
@@ -205,8 +206,9 @@ export function padRelief(pad) {
 /** Sum of two reliefs, the second applied to the ground already changed by the first. */
 export const joinRelief = (a, b) => !a ? b : !b ? a : (x, z, y) => { const d = a(x, z, y); return d + b(x, z, y + d); };
 
-/** Sites, rare places, the pad of the base and the ground they shape (1.73.0 to 1.75.0), in this order, once for
- * each surface: the sites and rare places come before the pad, so they stay where they were. */
+/** Sites, rare places, the pad of the base and the ground they shape (1.73.0 to 1.75.0), then the minor places
+ * (1.78.0), in this order, once for each surface: the sites and rare places come before the pad, so they stay
+ * where they were, and the minor places come last, in the gaps the others leave. */
 export function prepareZone(s) {
     if (s.siteClear) return s;
     s.sites ||= s.field?.biomes ? siteList(s) : [];
@@ -215,7 +217,9 @@ export function prepareZone(s) {
         s.pad = s.field?.biomes && s.setRelief ? padOf(s, clearingOf([...s.sites, ...s.rares])) : null;
         if (s.pad) s.setRelief(joinRelief(s.reliefAt, padRelief(s.pad)));
     }
-    s.siteClear = clearingOf([...s.sites, ...s.rares, ...(s.pad ? [{ x: s.pad.x, z: s.pad.z, r: PAD_R + PAD_BLEND - 6 }] : [])]);
+    // The minor places (1.78.0) fill the parts of the zone farthest from everything else, clear of the pad.
+    s.finds ||= s.field?.biomes ? findList(s) : [];
+    s.siteClear = clearingOf([...s.sites, ...s.rares, ...s.finds, ...(s.pad ? [{ x: s.pad.x, z: s.pad.z, r: PAD_R + PAD_BLEND - 6 }] : [])]);
     return s;
 }
 /** Model of the pad: a slab with its markings, a ring of lamps and four lamp posts, at the origin. */

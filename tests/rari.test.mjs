@@ -107,7 +107,7 @@ test('bussola e impulso dello scanner',()=>{
 test('luoghi rari nel mondo: rilievo, modelli, terreno sgombro, scanner e scheda',()=>{
  const ctx=world('high'),i=data.findIndex(d=>d.rares.some(x=>x.kind==='cratere')&&d.rares.length>=6);buildCost(ctx,i);const {R,w}=ctx,s=w.surface;
  assert.deepEqual(JSON.parse(JSON.stringify(s.rares)),JSON.parse(JSON.stringify(data[i].rares)));assert.equal(typeof s.reliefAt,'function');
- assert.deepEqual(w.features.slice(s.sites.length).map(F=>F.o),s.rares);
+ assert.deepEqual(w.features.slice(s.sites.length,s.sites.length+s.rares.length).map(F=>F.o),s.rares);
  const c=s.rares.find(x=>x.kind==='cratere'),j=s.sites.length+s.rares.indexOf(c);
  assert.ok(s.heightAt(c.x,c.z)<c.y-c.depth*.99);for(const x of s.rares)assert.ok(s.siteClear(x.x,x.z),x.name);
  for(let k=0;k<4;k++)w.zoneModels([c.x,c.y,c.z]);assert.equal(w.featureBuilt[j],2);assert.ok(R.meshes.has('zone-near-'+j));

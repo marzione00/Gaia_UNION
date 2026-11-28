@@ -34,6 +34,7 @@ import { chunkRocks, CHUNK } from '../worlds/biomes.js';
 import { assemblages, chunkLife, wander } from '../worlds/zone-life.js';
 import { siteModel } from '../worlds/sites.js';
 import { rareModel } from '../worlds/wonders.js';
+import { findModel } from '../worlds/finds.js';
 import { prepareZone, landerMeshes, landerLegs, landerMatrix, landerBlocks, padMesh, LEG, LENGTH, RAMP, LANDER } from '../worlds/lander.js';
 import { SCAN_RANGE } from '../worlds/compass.js';
 import { bodyMesh } from '../worlds/bodyplan.js';
@@ -101,6 +102,8 @@ export const PLACE_TINTS = { vetta: [.95, .82, .45, 1], forma: [.55, .82, .98, 1
 export const SITE_TINTS = { abitato: [1, .74, .36, 1], abbandonato: [.72, .7, .66, 1], relitto: [.95, .45, .35, 1], rovina: [.78, .66, .95, 1] };
 /** Colour of the marks of the rare places of the zone (1.74.0). */
 export const RARE_TINT = [.42, .95, .78, 1];
+/** Colour of the marks of the minor places of the zone (1.78.0), and the distance within which their names show. */
+export const FIND_TINT = [.86, .9, .62, 1], FIND_MARK = 260;
 /** Drawn radius: the scale is illustrative, so planets of the units are enlarged to be read and
  * picked, ambient bodies slightly. Orbits keep their computed spacing. */
 const clock = () => globalThis.performance?.now() ?? Date.now();
@@ -291,7 +294,8 @@ export class World {
             // The pad of the base (1.75.0) is levelled after them, clear of both (src/worlds/lander.js).
             prepareZone(s);
             (this.featureNear || []).forEach((on, j) => { if (on) R.deleteMesh?.('zone-near-' + j); });
-            this.features = [...s.sites.map((o, index) => ({ type: 'site', index, o })), ...s.rares.map((o, index) => ({ type: 'rare', index, o }))];
+            // The minor places (1.78.0) follow, with the same two levels of detail.
+            this.features = [...s.sites.map((o, index) => ({ type: 'site', index, o })), ...s.rares.map((o, index) => ({ type: 'rare', index, o })), ...s.finds.map((o, index) => ({ type: 'find', index, o }))];
             this.featureBuilt = this.features.map(() => 0); this.featureFar = []; this.featureNear = []; this.nearOn = new Set(); this.farDirty = new Set(); this.siteBlocks = [];
             for (const t of [0, 1, 2, 3]) R.deleteMesh?.('zone-far-' + t); this.farTiles = [0, 0, 0, 0];
             // The ground streamed around the camera (1.70.0, src/worlds/clipmap.js): six nested grids up to the
@@ -979,9 +983,10 @@ export class World {
      * explorer. */
     zoneModels(f){
         const R=this.R,S0=this.surface;let best=-1,d0=Infinity;
-        this.features.forEach((F,j)=>{const d=Math.hypot(F.o.x-f[0],F.o.z-f[2]),want=d<SITE_DETAIL?2:d<SITE_REACH?1:0;if(want>this.featureBuilt[j]&&d<d0){d0=d;best=j;}});
+        // The minor places (1.78.0) wait for the sites and rare places in reach: small and many, they come last.
+        this.features.forEach((F,j)=>{const d=Math.hypot(F.o.x-f[0],F.o.z-f[2]),want=d<SITE_DETAIL?2:d<SITE_REACH?1:0,rank=F.type==='find'?d+SITE_REACH:d;if(want>this.featureBuilt[j]&&rank<d0){d0=rank;best=j;}});
         if(best<0)return;
-        const F=this.features[best],step=this.featureBuilt[best]+1,model=lv=>F.type==='site'?siteModel(S0,F.o,lv):rareModel(S0,F.o,lv);
+        const F=this.features[best],step=this.featureBuilt[best]+1,model=lv=>F.type==='site'?siteModel(S0,F.o,lv):F.type==='rare'?rareModel(S0,F.o,lv):findModel(S0,F.o,lv);
         if(step===1){const far=model(1);this.featureFar[best]=far.mesh;this.siteBlocks.push(...far.blocks);if(far.mesh)this.farDirty.add(farTile(F.o));}
         else{const near=model(0);if(near.mesh){R.makeMesh('zone-near-'+best,near.mesh);this.featureNear[best]=true;}}
         this.featureBuilt[best]=step;
@@ -1262,6 +1267,11 @@ export class World {
                     if(on||d<SITE_MARK)R.drawMesh('lowSphere',this.vp,transform(x.x,top,x.z,on?.8:.6),{eye:this.eye,material:16,tint:RARE_TINT});
                     if(on)R.drawMesh('ring',this.vp,transform(x.x,x.y+.3,x.z,Math.min(60,x.r*.8)),{eye:this.eye,tint:RARE_TINT,emission:.7,opacity:.75});
                     this.projections.push({type:'rare',index:k,...xyToObj(project([x.x,top+1.4,x.z],this.vp,R.w,R.h)),r:28,position:[x.x,x.y,x.z]});});
+                // Minor places (1.78.0): a marker and a ring only on the one chosen, and a name within FIND_MARK, so
+                // the many small places add no draw calls and few labels.
+                (S0.finds||[]).forEach((x,k)=>{const d=Math.hypot(x.x-this.eye[0],x.z-this.eye[2]),on=s.exploreTarget?.type==='find'&&s.exploreTarget.index===k;if(!on&&d>FIND_MARK)return;const top=x.y+(x.kind==='faro'?x.height+5:9);
+                    if(on){R.drawMesh('lowSphere',this.vp,transform(x.x,top,x.z,.6),{eye:this.eye,material:16,tint:FIND_TINT});R.drawMesh('ring',this.vp,transform(x.x,x.y+.3,x.z,x.r+3),{eye:this.eye,tint:FIND_TINT,emission:.7,opacity:.75});}
+                    this.projections.push({type:'find',index:k,...xyToObj(project([x.x,top+1.4,x.z],this.vp,R.w,R.h)),r:24,position:[x.x,x.y,x.z]});});
                 const t=s.exploreTarget,c=t?.type==='species'?this.liveCentre(t.index):null;
                 if(c)R.drawMesh('ring',this.vp,transform(c[0],c[1]+.3,c[2],7),{eye:this.eye,tint:[.6,.95,.7,1],emission:.7,opacity:.6});
             }
@@ -1330,6 +1340,8 @@ export class World {
         (this.surface?.sites || []).forEach((x, k) => { const d = Math.hypot(x.x - point[0], x.z - point[2]) - 18; if (d < d0) { d0 = d; best = { type: 'site', index: k }; } });
         // A rare place (1.74.0) within its radius.
         (this.surface?.rares || []).forEach((x, k) => { const d = Math.hypot(x.x - point[0], x.z - point[2]) - Math.min(30, x.r * .6); if (d < d0) { d0 = d; best = { type: 'rare', index: k }; } });
+        // A minor place (1.78.0) within a few units of its ground.
+        (this.surface?.finds || []).forEach((x, k) => { const d = Math.hypot(x.x - point[0], x.z - point[2]) - x.r - 3; if (d < d0) { d0 = d; best = { type: 'find', index: k }; } });
         // The ship (1.75.0), within its length.
         const P = this.landerPoseOf; if (P && P.planet === this.surface?.index) { const d = Math.hypot(P.x - point[0], P.z - point[2]) - 14; if (d < d0) { d0 = d; best = { type: 'ship', index: 0 }; } }
         // A building or a street of a settlement selects the settlement (1.64.0).
