@@ -32,8 +32,9 @@ import { LANDING_SITES } from '../worlds/landing-sites.js';
 import { tuft, rock, slab, spire, station as stationMesh, seaPlane, seaRing, beacon, curtain } from '../worlds/geometry.js';
 import { chunkRocks, CHUNK } from '../worlds/biomes.js';
 import { assemblages, chunkLife, wander } from '../worlds/zone-life.js';
-import { siteList, siteModel, clearingOf } from '../worlds/sites.js';
-import { rareList, rareModel, reliefOf } from '../worlds/wonders.js';
+import { siteModel } from '../worlds/sites.js';
+import { rareModel } from '../worlds/wonders.js';
+import { prepareZone, landerMeshes, landerLegs, landerMatrix, landerBlocks, padMesh, LEG, LENGTH, RAMP, LANDER } from '../worlds/lander.js';
 import { SCAN_RANGE } from '../worlds/compass.js';
 import { bodyMesh } from '../worlds/bodyplan.js';
 import { buildingMesh } from '../worlds/buildings.js';
@@ -285,9 +286,8 @@ export class World {
             // Structures, wrecks and ruins (1.73.0) and rare places (1.74.0) of the zone, before the ground: the rare
             // places may shape it (craters, lava pits, hot springs, salt flats, dunes). Their models are built when
             // the camera comes near (zoneModels).
-            s.sites ||= s.field?.biomes ? siteList(s) : [];
-            if (!s.rares) { s.rares = s.field?.biomes ? rareList(s, s.sites) : []; s.setRelief?.(reliefOf(s.rares)); }
-            s.siteClear ||= clearingOf([...s.sites, ...s.rares]);
+            // The pad of the base (1.75.0) is levelled after them, clear of both (src/worlds/lander.js).
+            prepareZone(s);
             (this.featureNear || []).forEach((on, j) => { if (on) R.deleteMesh?.('zone-near-' + j); });
             this.features = [...s.sites.map((o, index) => ({ type: 'site', index, o })), ...s.rares.map((o, index) => ({ type: 'rare', index, o }))];
             this.featureBuilt = this.features.map(() => 0); this.featureFar = []; this.featureNear = []; this.nearOn = new Set(); this.farDirty = new Set(); this.siteBlocks = [];
@@ -337,6 +337,9 @@ export class World {
                 const typ0 = typ || typologyOf(s.genome, s.species.length); this.explorerFigure = colonistSpec('zaino', GEAR[typ0], s.index % 4); this.explorerData = new Float32Array(8);
                 R.makeMesh('explorer-mesh', colonistMesh(this.explorerFigure, 0)); R.makeInstances('explorer', 'explorer-mesh', this.explorerData);
                 R.makeMesh('planet-rover', roverMesh(archPalette(s.genome, typ0), typ0, 0));
+                // The ship of the explorer and the pad of the base (1.75.0); the legs follow the ground of each landing.
+                if (!this.landerReady) { const L = landerMeshes(); L.hulls.forEach((m, l) => R.makeMesh('lander-hull-' + l, m)); R.makeMesh('lander-ramp', L.ramp); R.makeMesh('lander-plume', L.plume); R.makeMesh('lander-flame', L.flame); R.makeMesh('lander-pad', padMesh()); this.landerReady = true; }
+                this.legKey = null; this.dustKey = null; R.deleteInstances?.('lander-dust');
                 R.deleteInstances?.('planet-geyser');
                 const geyser = s.places.find(p => p.event === 'eruzione di geyser');
                 if (geyser) { const r = random(s.index + 77), q = geyser.position; R.makeInstances('planet-geyser', 'lowSphere', packItems(Array.from({ length: 46 }, () => ({ x: q[0] + (r() - .5) * 1.2, y: q[1] + .2, z: q[2] + (r() - .5) * 1.2, s: .7 + r() * .8, r: .92, g: .94, b: .96, h: r() * 6.283 })))); }
@@ -531,9 +534,20 @@ export class World {
                 // Roofs count only inside the footprints of the buildings here.
                 if(chase){const solid=this.surface.clear?.solid,near=(x,z)=>Math.max(this.surface.heightAt(x,z),this.surface.seaY??-99,roof&&solid?.(x,z)?roof(x,z):-99);
                     let keep=1;for(let k=1;k<=24;k++){const t=k/24,q=target.map((v,i)=>v+(eye[i]-v)*t);if(q[1]<near(q[0],q[2])+.3){keep=Math.max(.2,(k-1)/24);break;}}
-                    if(keep<1)eye=target.map((v,i)=>v+(eye[i]-v)*keep);eye[1]=Math.max(eye[1],near(eye[0],eye[2])+1.2);}
+                    if(keep<1)eye=target.map((v,i)=>v+(eye[i]-v)*keep);eye[1]=Math.max(eye[1],near(eye[0],eye[2])+1.2);
+                    // Under the hull of the ship (1.75.0) the camera stays below the keel; beside a hull it would
+                    // enter, it rises over it.
+                    const P=s.landerPose;if(P&&P.planet===this.surface.index&&P.height<.05){const L=landerMeshes(),dx=eye[0]-P.x,dz=eye[2]-P.z,c=Math.cos(P.h),sn=Math.sin(P.h),lx=c*dx-sn*dz,lz=sn*dx+c*dz;
+                        if(Math.abs(lx)<L.half+1&&Math.abs(lz)<LENGTH/2+1.5&&eye[1]<P.y+LEG+L.height){if(target[1]<P.y+LEG){
+                            // With the explorer at the foot of the open ramp and the camera under the hull, behind the ramp,
+                            // the camera moves to the side of the explorer, 7 units across the ship.
+                            const end=L.hinge[2]-RAMP*Math.cos(P.ramp*P.open),tx=target[0]-P.x,tz=target[2]-P.z,ux=c*tx-sn*tz,uz=sn*tx+c*tz;
+                            if(P.open>.5&&Math.abs(ux)<3&&uz>end-3&&uz<L.hinge[2]&&Math.abs(lx)<3&&lz>uz){const qx=lx<0?-7:7,qz=uz+1.5;eye[0]=P.x+c*qx+sn*qz;eye[2]=P.z-sn*qx+c*qz;}
+                            eye[1]=Math.max(near(eye[0],eye[2])+.8,Math.min(eye[1],P.y+LEG-.5));}else eye[1]=P.y+LEG+L.height+2;}}}
                 else{let lift=0;for(const end of [target,...(b>0?[]:this.surface.stations.map(st=>st.position))])for(let k=1;k<20;k++){const t=k/20,x=eye[0]+(end[0]-eye[0])*t,z=eye[2]+(end[2]-eye[2])*t,y=eye[1]+(end[1]-eye[1])*t;lift=Math.max(lift,(ground(x,z)+1.5-y)/(1-t));}
                 eye[1]+=lift;}}
+            // The flights of the ship (1.75.0) have their own camera, chosen by the app (s.landerView).
+            if(gen&&s.landerView){const V=s.landerView;eye=[...V.eye];target=[...V.target];fov=V.fov||.72;eye[1]=Math.max(eye[1],Math.max(this.surface.heightAt(eye[0],eye[2]),this.surface.seaY??-99)+2);}
         }else if(scene==='craft'){
             // The 3D catalogue (1.51.0): one model at the centre with radius 3; on phones it sits above the card.
             const d=(s.distance||11)*Math.max(1,1/(w/h)),p=.12+(s.pitch-.45)*.8;eye=[Math.sin(s.yaw)*d*Math.cos(p),Math.sin(p)*d,Math.cos(s.yaw)*d*Math.cos(p)];target=w<850?[0,-1.8,0]:[0,-.3,0];fov=.62;
@@ -543,7 +557,7 @@ export class World {
         return {eye,target,fov,space,system};
     }
     camera(scene,s) {
-        const desired=this.desiredCamera(scene,s),key=viewKey(scene,s)+(scene==='system'&&s.follow&&this.followed?'|'+followKey(s.follow):''),previous=this.cameraSpace;
+        const desired=this.desiredCamera(scene,s),key=viewKey(scene,s)+(scene==='system'&&s.follow&&this.followed?'|'+followKey(s.follow):'')+(scene==='surface'&&s.landerView?'|nave:'+s.landerView.key:''),previous=this.cameraSpace;
         if(this.cameraScene!==key){
             this.cameraFrom=this.vp?{eye:[...this.eye],target:[...this.target],fov:this.fov,space:this.cameraSpace,system:this.cameraSystem}:null;
             this.cameraProgress=0;this.cameraScene=key;
@@ -1179,12 +1193,13 @@ export class World {
             // The explorer on foot (mode 8 with the biped flag) and its rover, parked or driven (1.68.0).
             const A=s.avatar&&(s.explore||s.exploreBlend>0)?s.avatar:null;
             if(A&&R.instanceSets?.has('explorer')){
-                if(A.mode!=='rover'){this.explorerData.set([A.x,A.y,A.z,1,...EXPLORER_TINT,gaitHeading(A.h,A.gait)]);R.updateInstances('explorer',this.explorerData);R.drawMesh('explorer-mesh',this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:'explorer',instanceMode:8,motion:[0,1,0,this.explorerFigure.legs],pbr:[0,.75,0,0]});}
+                if(A.mode!=='rover'&&!A.aboard){this.explorerData.set([A.x,A.y,A.z,1,...EXPLORER_TINT,gaitHeading(A.h,A.gait)]);R.updateInstances('explorer',this.explorerData);R.drawMesh('explorer-mesh',this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:'explorer',instanceMode:8,motion:[0,1,0,this.explorerFigure.legs],pbr:[0,.75,0,0]});}
                 const v=A.rover;if(v&&R.meshes.has('planet-rover'))R.drawMesh('planet-rover',this.vp,roverMatrix(v.x,v.y??S0.heightAt(v.x,v.z),v.z,v.h,v.pitch||0,v.roll||0),{eye:this.eye,light,lightColor,material:10});
                 if(s.scanTarget){const c=s.scanTarget;R.drawMesh('ring',this.vp,transform(c[0],c[1]+.3,c[2],1.6+.5*Math.sin(s.time*4)),{eye:this.eye,tint:[.55,.95,1,1],emission:.8,opacity:.7});}
                 // The impulse of the scanner (1.74.0): two rings spread from the explorer to SCAN_RANGE in 1.8 s.
                 if(s.scanPulse){const p=s.scanPulse,t=(Date.now()-p.t)/1800;if(t<1)for(const lag of [0,.07])R.drawMesh('ring',this.vp,transform(p.x,p.y+.6,p.z,6+Math.max(0,t-lag)*SCAN_RANGE),{eye:this.eye,tint:[.55,.95,1,1],emission:.9,opacity:.65*(1-t)});}
             }
+            this.drawLander(s,light,lightColor);
             if(R.instanceSets?.has('planet-geyser'))R.drawMesh('lowSphere',this.vp,id,{eye:this.eye,light,material:19,instances:'planet-geyser',instanceMode:2,motion:[.16,10,.7,0],opacity:.32});
             // Shooting stars (1.60.0) on worlds with an atmosphere: a sporadic one every 7 s, one every 0.8 s while
             // the planet crosses the stream of a comet, radiating from one point of the sky.
@@ -1261,11 +1276,34 @@ export class World {
         }
     }
     /** Nearest species (by its individuals) or place within `radius` of a ground point, for exploration. */
+    /** The pad of the base and the ship of the explorer (1.75.0, src/worlds/lander.js): the hull in two levels of
+     * detail, the legs made for the ground of each landing and lowered from the hull, the ramp turned about its
+     * hinge, and while the thrusters work their plumes and the dust they raise. `s.landerPose` comes from the app. */
+    drawLander(s,light,lightColor) {
+        const R=this.R,S0=this.surface,P=s.landerPose,pad=S0.pad,far=p=>Math.hypot(p[0]-this.eye[0],p[2]-this.eye[2]);
+        if(pad&&R.meshes.has('lander-pad')&&far([pad.x,0,pad.z])<1100)R.drawMesh('lander-pad',this.vp,transform(pad.x,pad.y,pad.z),{eye:this.eye,light,lightColor,material:10});
+        this.shipBlocks=null;this.landerPoseOf=P;
+        if(!P||P.planet!==S0.index||!R.meshes.has('lander-hull-0'))return;
+        const L=landerMeshes(),d=far([P.x,0,P.z]),m=landerMatrix(P.x,P.y,P.z,P.h),draw={eye:this.eye,light,lightColor,material:10};if(d>1500)return;
+        R.drawMesh('lander-hull-'+(d<320?0:1),this.vp,m,draw);
+        const key=P.drop.map(v=>v.toFixed(2)).join(',');if(key!==this.legKey){R.deleteMesh?.('lander-legs');R.makeMesh('lander-legs',landerLegs(P.drop));this.legKey=key;}
+        if(P.legs>.02)R.drawMesh('lander-legs',this.vp,landerMatrix(P.x,P.y+(1-P.legs)*4.6,P.z,P.h),draw);
+        if(d<700)R.drawMesh('lander-ramp',this.vp,landerMatrix(P.x,P.y,P.z,P.h,L.hinge,P.ramp*P.open),draw);
+        if(P.thrust>0){R.drawMesh('lander-flame',this.vp,m,{eye:this.eye,light,lightColor,material:10});R.drawMesh('lander-plume',this.vp,m,{eye:this.eye,material:17,blend:true,opacity:Math.min(.95,.5+.2*P.thrust)});}
+        if(P.dust>.01&&P.dustAt){const k=P.dustAt.map(v=>v.toFixed(1)).join(',');
+            if(k!==this.dustKey&&R.makeInstances){R.deleteInstances?.('lander-dust');const r=random(Math.round(P.dustAt[0]*7+P.dustAt[2]*13)),c=S0.genome.palette.rock,items=[];
+                for(let j=0;j<44;j++){const a=r()*Math.PI*2,q=5+r()*13,x=P.dustAt[0]+Math.cos(a)*q,z=P.dustAt[2]+Math.sin(a)*q;items.push({x,y:S0.heightAt(x,z)+.3,z,s:2.2+r()*2.4,r:c[0]*.7+.25,g:c[1]*.7+.23,b:c[2]*.7+.2,h:r()*6.283});}
+                R.makeInstances('lander-dust','lowSphere',packItems(items));this.dustKey=k;}
+            R.drawMesh('lowSphere',this.vp,transform(),{eye:this.eye,light,material:19,instances:'lander-dust',instanceMode:2,motion:[.22,7,3,0],opacity:Math.min(.6,.6*P.dust)});}
+        // The legs stop the explorer while the ship stands on the ground.
+        if(P.height<.05)this.shipBlocks=landerBlocks(P);
+        this.projections.push({type:'ship',index:0,...xyToObj(project([P.x,P.y+L.height*.8,P.z],this.vp,R.w,R.h)),r:24,name:LANDER.name});
+    }
     /** Ground of the explorer (1.68.0, src/worlds/explorer.js): the relief, the sea, the buildings (the streets
      * are free) and the stations of the landing site, and the gravity of the planet. */
     explorerEnv() {
         const S0 = this.surface; if (!S0?.heightAt) return null;
-        if (this.envOf?.key !== S0.key) this.envOf = { key: S0.key, env: { ground: (x, z) => S0.heightAt(x, z), sea: S0.seaY, gravity: S0.genome.gravity, blocked: (x, z) => !!S0.clear?.solid(x, z) || S0.stations.some(st => Math.hypot(st.position[0] - x, st.position[2] - z) < STATION_CLEAR) || (this.siteBlocks || []).some(([bx, bz, br]) => Math.abs(bx - x) < br && Math.abs(bz - z) < br && Math.hypot(bx - x, bz - z) < br) } };
+        if (this.envOf?.key !== S0.key) this.envOf = { key: S0.key, env: { ground: (x, z) => S0.heightAt(x, z), sea: S0.seaY, gravity: S0.genome.gravity, blocked: (x, z) => !!S0.clear?.solid(x, z) || S0.stations.some(st => Math.hypot(st.position[0] - x, st.position[2] - z) < STATION_CLEAR) || (this.siteBlocks || []).some(([bx, bz, br]) => Math.abs(bx - x) < br && Math.abs(bz - z) < br && Math.hypot(bx - x, bz - z) < br) || (this.shipBlocks || []).some(([bx, bz, br]) => Math.hypot(bx - x, bz - z) < br) } };
         return this.envOf.env;
     }
     nearest(point, radius = 7) {
@@ -1276,6 +1314,8 @@ export class World {
         (this.surface?.sites || []).forEach((x, k) => { const d = Math.hypot(x.x - point[0], x.z - point[2]) - 18; if (d < d0) { d0 = d; best = { type: 'site', index: k }; } });
         // A rare place (1.74.0) within its radius.
         (this.surface?.rares || []).forEach((x, k) => { const d = Math.hypot(x.x - point[0], x.z - point[2]) - Math.min(30, x.r * .6); if (d < d0) { d0 = d; best = { type: 'rare', index: k }; } });
+        // The ship (1.75.0), within its length.
+        const P = this.landerPoseOf; if (P && P.planet === this.surface?.index) { const d = Math.hypot(P.x - point[0], P.z - point[2]) - 14; if (d < d0) { d0 = d; best = { type: 'ship', index: 0 }; } }
         // A building or a street of a settlement selects the settlement (1.64.0).
         (this.surface?.settlements || []).forEach((t, k) => { for (const b of t.buildings) { const d = Math.hypot(b.x - point[0], b.z - point[2]) - b.radius; if (d < d0) { d0 = d; best = { type: 'settlement', index: k }; } } });
         return best;

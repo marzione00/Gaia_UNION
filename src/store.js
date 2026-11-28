@@ -9,7 +9,8 @@ export const STORE_KEY = 'gaia.beyond-knowledge.v1';
 export function fresh() { return { schema: 1, notes: {}, read: [], quiz: {}, missions: {}, courses: {}, atlas: cleanAtlas(), bookmarks: [], scenarios: [], explore: {}, solved: [], preferences: { quality: 1000000, graphics: 'high', motion: true, explorer: true }, updatedAt: null }; }
 /** Exploration diary: per planet index, the registered species (s0, s1…), places (l0, l1…), the
  * instruments whose measurements are in the log (m), the biomes crossed (b), the sites (r) and the rare places (n)
- * registered, and those the scanner has detected (k). Planet indices run up to UNIT_COUNT - 1. */
+ * registered, those the scanner has detected (k), and the landings of the ship (t). Planet indices run up to
+ * UNIT_COUNT - 1. */
 export function cleanExplore(value) {
     const out = {};
     if (!value || typeof value !== 'object' || Array.isArray(value)) return out;
@@ -34,7 +35,9 @@ export function cleanExplore(value) {
         // of the scanner, which the compass shows.
         const n = ids(v.n, x => /^n[0-8]$/.test(x), 9); if (n.length) rec.n = n;
         const found = ids(v.k, x => /^(r(1[0-8]|\d)|n[0-8])$/.test(x), 28); if (found.length) rec.k = found;
-        if (rec.s.length || rec.l.length || m.length || rec.v || rec.p || rec.b || rec.r || rec.n || rec.k) out[k] = rec;
+        // t (1.75.0): the landings of the ship of the explorer on the planet.
+        if (whole(v.t, 1e6) && v.t > 0) rec.t = v.t;
+        if (rec.s.length || rec.l.length || m.length || rec.v || rec.p || rec.b || rec.r || rec.n || rec.k || rec.t) out[k] = rec;
     }
     return out;
 }
