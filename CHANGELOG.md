@@ -1,3 +1,14 @@
+# 1.74.0: Mondi aperti, luoghi naturali rari, bussola e scanner a distanza
+
+- Quinta versione della serie «Mondi aperti». Ogni zona di atterraggio ospita da 3 a 9 luoghi naturali rari, 835 sui 125 pianeti, di 16 tipi: archi di roccia, camini delle fate, sorgenti calde con anelli di microrganismi, terrazze di travertino, crateri giovani, cristalli giganti di gesso, campi di penitenti, ragni di anidride carbonica, banchi di stromatoliti, croste di sale poligonali, monoliti di granito, massi in bilico, foreste pietrificate, laghi di lava, seracchi di ghiaccio azzurro e campi di barcane.
+- Ogni tipo compare soltanto nei biomi in cui si forma e dove la fisica del pianeta lo permette, al più una volta per pianeta: alcuni stanno su quasi cento pianeti, il lago di lava su 15. I luoghi rari distano almeno 477 m l’uno dall’altro e 605 m dalla base.
+- Crateri, pozzi di lava, sorgenti calde, saline e dune cambiano il terreno stesso. I modelli, costruiti in codice e illuminati come il suolo, hanno due livelli di dettaglio.
+- Ogni luogo raro ha una descrizione con i numeri del pianeta: la temperatura di ebollizione dell’acqua e quella a cui gela l’anidride carbonica (Clausius e Clapeyron), l’energia di un impatto alla velocità di fuga, la potenza irradiata dalla lava (Stefan e Boltzmann), la pressione alla base di un monolite, il peso di un masso in bilico, l’altezza della stella a mezzogiorno, la direzione del vento. Lo scanner la registra nel diario.
+- Bussola: una striscia con i punti cardinali, la base, la voce scelta e i siti e i luoghi rari rilevati, con la rotta e la distanza; l’est è dove sorge la stella del sito.
+- Scanner a distanza: l’impulso (tasto Q, pulsante IMPULSO) rileva siti e luoghi rari entro 1,3 km e li mette sulla bussola.
+- I modelli lontani di siti e luoghi rari sono uniti per quarto della zona: costano al più quattro chiamate di disegno.
+- Nuovi `src/worlds/wonders.js` e `src/worlds/compass.js`; l’elenco dei luoghi rari è in `docs/LUOGHI_RARI.md`, generato da `node scripts/rari.mjs` e controllato da `tests/rari.test.mjs`. Descrizione in `docs/GRAPHICS.md`, sezione «Luoghi rari, bussola e scanner a distanza».
+
 # 1.73.0: Mondi aperti, strutture abitate e abbandonate, relitti e rovine
 
 - Quarta versione della serie «Mondi aperti». Ogni zona di atterraggio ospita da 14 a 19 siti costruiti, 2043 sui 125 pianeti: 733 strutture abitate, 494 strutture abbandonate, 314 relitti e 502 rovine. I siti distano almeno 445 m l'uno dall'altro e 525 m dalla base; la distanza mediana fra un sito e il più vicino è di 557 m.

@@ -5,7 +5,7 @@ import { chunkRocks, CHUNK } from '../src/worlds/biomes.js';
 import { planetPhysics } from '../src/worlds/planet-physics.js';
 import { CATALOG } from '../src/craft/catalog.js';
 import { EDGE, METRE } from '../src/worlds/explorer.js';
-import { TOWN_NEAR } from '../src/scene/world.js';
+import { ZONE_NEAR } from '../src/scene/world.js';
 import { cleanExplore } from '../src/store.js';
 const { allSites, sitesMarkdown } = await import('../scripts/siti.mjs');
 const { world, measureSurface, buildCost } = await import('../scripts/prestazioni-mondi.mjs');
@@ -93,10 +93,15 @@ test('siti: modelli validi ai due livelli di dettaglio, nello stesso posto',()=>
 test('siti: il mondo costruisce i modelli vicini, il più vicino prima, e lo scanner li trova',()=>{
  const ctx=world('high'),i=99;buildCost(ctx,i);const {R,w}=ctx,s=w.surface;
  assert.deepEqual(s.sites,data[i].sites);
- for(let k=0;k<25;k++)w.siteModels([0,0,0]);
- s.sites.forEach((x,j)=>{const d=Math.hypot(x.x,x.z);assert.equal(w.siteBuilt[j],d<1050?1:0,x.name);});
- const x=s.sites[0];for(let k=0;k<3;k++)w.siteModels([x.x,x.y,x.z]);
- assert.equal(w.siteBuilt[0],2);assert.equal(w.siteGroups[0].near,TOWN_NEAR);assert.ok(R.meshes.has('site-0-mesh-0')&&R.meshes.has('site-0-mesh-1'));
+ // Sites come first among the models of the zone (1.74.0), followed by the rare places.
+ assert.deepEqual(w.features.slice(0,s.sites.length).map(F=>F.o),s.sites);
+ for(let k=0;k<40;k++)w.zoneModels([0,0,0]);
+ s.sites.forEach((x,j)=>{const d=Math.hypot(x.x,x.z);assert.equal(w.featureBuilt[j],d<1050?1:0,x.name);});
+ const x=s.sites[0];for(let k=0;k<3;k++)w.zoneModels([x.x,x.y,x.z]);
+ assert.equal(w.featureBuilt[0],2);assert.ok(R.meshes.has('zone-near-0'));
+ // Within ZONE_NEAR of the camera the detailed model is drawn; the light ones of each quarter are one mesh.
+ w.eye=[x.x+ZONE_NEAR*.3,x.y+12,x.z];w.zoneSplit();assert.ok(w.nearOn.has(0));assert.ok(w.farTiles.some(Boolean));
+ w.eye=[x.x+ZONE_NEAR+20,x.y+12,x.z];w.zoneSplit();assert.ok(!w.nearOn.has(0));
  const [bx,bz]=w.siteBlocks[0];assert.ok(w.explorerEnv().blocked(bx,bz));
  // Rocks, plants and walking animals keep off the ground of the sites: their models and the band of a wreck.
  assert.equal(typeof s.siteClear,'function');

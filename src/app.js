@@ -11,7 +11,7 @@ import { CRAFT, CRAFT_BY_ID, GROUPS, craftList, craftStep, craftCard, craftText 
 import { worldModels, worldCard, WORLD_GROUPS, WORLD_KINDS } from './worlds/catalogo.js';
 import { CHAIN_STATIONS, chainable, chainStation, chainExercises } from './craft/esercizi-catene.js';
 import { GPU, color, clamp, project, transform, mesh } from './renderer.js';
-import { World, RESEARCH, EDGES, box, FOLLOW_ZOOM, FOLLOW_LIMITS, followFrame, followKey } from './scene/world.js';
+import { World, RESEARCH, EDGES, box, FOLLOW_ZOOM, FOLLOW_LIMITS, followFrame, followKey, SITE_TINTS, RARE_TINT } from './scene/world.js';
 import { whatHappens } from './craft/succede.js';
 import { newExplorer, stepExplorer, toggleRover, travelTo, freeSpot, jumpOf, forward as aheadOf, METRE, G0, JUMP } from './worlds/explorer.js';
 import { UI, C, T, ImageCache, caseLabel, DISCIPLINE, fmtNum } from './ui/toolkit.js';
@@ -22,6 +22,8 @@ import { planetGenomes, planetSpecies, planetEndemics, planetSurface } from './w
 import { placeList } from './worlds/places.js';
 import { BIOME, biomesOf } from './worlds/biomes.js';
 import { SITE_KINDS, STATES, siteList } from './worlds/sites.js';
+import { RARE_KINDS, rareList } from './worlds/wonders.js';
+import { axesOf, bearingOf, pointOf, compassMarks, detect, distanceText, SCAN_RANGE, SCAN_COOLDOWN, COMPASS_FIELD } from './worlds/compass.js';
 import { lifelessReason } from './worlds/species.js';
 import { planetPhysics, physicsRows, physicsText, speciesCount, it as italian } from './worlds/planet-physics.js';
 import { cleanPassages, exploration, linkOpen } from './navigation/passages.js';
@@ -38,7 +40,7 @@ import { openStore, grade } from './store.js';
 import { AUTHOR, LICENCE, CREDIT, LICENCE_ROW } from './licenza.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.73.0-siti';
+const VERSION = '1.74.0-rari';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -293,15 +295,20 @@ function exploreEntries() {
     return [...all.map((sp, k) => ({ type: 'species', index: k, id: sp.id, data: sp, at: W.spotOf?.(k) || (sp.kind === 'animal' ? W.liveCentre(k) || pop[k]?.centre || null : pop[k]?.centre || null) })), ...s.places.map((p, k) => ({ type: 'place', index: k, id: p.id, data: p, at: p.position })),
         ...(s.settlements || []).map((p, k) => ({ type: 'settlement', index: k, id: p.id, data: p, at: p.position })),
         // Structures, wrecks and ruins of the zone (1.73.0), with their stories.
-        ...(s.sites || []).map((x, k) => ({ type: 'site', index: k, id: x.id, data: x, at: [x.x, x.y, x.z] }))];
+        ...(s.sites || []).map((x, k) => ({ type: 'site', index: k, id: x.id, data: x, at: [x.x, x.y, x.z] })),
+        // Rare natural places of the zone (1.74.0).
+        ...(s.rares || []).map((x, k) => ({ type: 'rare', index: k, id: x.id, data: x, at: [x.x, x.y, x.z] }))];
 }
 const exploreRecord = index => store.data.explore[String(index)] || { s: [], l: [] };
 /** Sites of planet i (1.73.0): those of the open surface, or those of the planet, made once and kept. */
 const siteCache = new Map();
 const sitesOf = i => W?.surface?.index === i && W.surface.sites ? W.surface.sites : siteCache.get(i) || siteCache.set(i, siteList(planetSurface(i))).get(i);
+/** Rare places of planet i (1.74.0), placed clear of its sites; made once and kept, like the sites. */
+const rareCache = new Map();
+const raresOf = i => W?.surface?.index === i && W.surface.rares ? W.surface.rares : rareCache.get(i) || rareCache.set(i, (() => { const s = planetSurface(i); return rareList(s, siteList(s)); })()).get(i);
 /** Distance of a point from the explorer, for the cards of the sites (1.73.0). */
 const distanceTo = at => { const A = S.avatar; if (!at || !A) return ''; const d = Math.hypot(at[0] - A.x, at[2] - A.z) / METRE; return d < 30 ? ' · qui' : ` · a ${d >= 1000 ? (d / 1000).toFixed(1).replace('.', ',') + ' km' : Math.round(d) + ' m'}`; };
-const isRegistered = (e, rec) => (e.type === 'species' ? rec.s : e.type === 'site' ? rec.r || [] : rec.l).includes(e.id);
+const isRegistered = (e, rec) => (e.type === 'species' ? rec.s : e.type === 'site' ? rec.r || [] : e.type === 'rare' ? rec.n || [] : rec.l).includes(e.id);
 /** Selects entry `i`. With `fly` the explorer reaches it by a quick travel (1.68.0): it stops a few units
  * before it, on free ground, and the camera flies there. */
 function selectEntry(i, fly = true) {
@@ -314,15 +321,15 @@ function selectEntry(i, fly = true) {
 function selectTarget(t) {
     const list = exploreEntries(), k = list.findIndex(e => e.type === t.type && e.index === t.index); if (k < 0) return;
     if (!S.avatar) { selectEntry(k); return; }
-    selectEntry(k, false); const at = list[k].at; if (at) { S.exploreGoal = [at[0], at[2]]; S.exploreStop = t.type === 'settlement' ? 6 : t.type === 'site' ? 22 : 4; }
+    selectEntry(k, false); const at = list[k].at; if (at) { S.exploreGoal = [at[0], at[2]]; S.exploreStop = t.type === 'settlement' ? 6 : t.type === 'site' ? 22 : t.type === 'rare' ? Math.min(40, list[k].data.r * .6) : 4; }
 }
 function startExplore() { S.explore = true; S.exploreGoal = null; S.exploreCard = R.w >= 850; updateHash(); }
 function stopExplore() { saveExplorer(); S.explore = false; S.groundFollow = null; held.clear(); stick = null; updateHash(); }
 function register(e) {
-    const key = String(S.selected), rec = store.data.explore[key] ||= { s: [], l: [] }, list = e.type === 'species' ? rec.s : e.type === 'site' ? rec.r ||= [] : rec.l;
+    const key = String(S.selected), rec = store.data.explore[key] ||= { s: [], l: [] }, list = e.type === 'species' ? rec.s : e.type === 'site' ? rec.r ||= [] : e.type === 'rare' ? rec.n ||= [] : rec.l;
     if (list.includes(e.id)) return;
     list.push(e.id); rec.at = new Date().toISOString(); store.save();
-    say((e.type === 'species' ? 'Specie registrata: ' : e.type === 'site' ? 'Sito registrato: ' : 'Luogo registrato: ') + e.data.name);
+    say((e.type === 'species' ? 'Specie registrata: ' : e.type === 'site' ? 'Sito registrato: ' : e.type === 'rare' ? 'Luogo raro registrato: ' : 'Luogo registrato: ') + e.data.name);
 }
 function exploreTick() {
     if (S.scene !== 'surface') { S.exploreTarget = null; S.exploreBlend = 0; return; }
@@ -348,6 +355,9 @@ function exploreTick() {
     // A site of the zone within 60 m (1.73.0) is announced once a visit.
     const site = (W.surface?.sites || []).find(x => Math.hypot(x.x - A.x, x.z - A.z) < 38);
     if (site && !(S.sitesMet ||= new Set()).has(A.planet + ':' + site.id)) { S.sitesMet.add(A.planet + ':' + site.id); say(`${site.name}, ${SITE_KINDS[site.kind].label}. Lo scanner ne registra la storia nel diario.`); }
+    // So is a rare place (1.74.0), at the edge of its ground.
+    const rare = (W.surface?.rares || []).find(x => Math.hypot(x.x - A.x, x.z - A.z) < Math.min(60, x.r * .9));
+    if (rare && !(S.sitesMet ||= new Set()).has(A.planet + ':' + rare.id)) { S.sitesMet.add(A.planet + ':' + rare.id); say(`Luogo raro: ${rare.name}, ${RARE_KINDS[rare.kind].label}. Lo scanner ne registra la descrizione nel diario.`); }
     if (ev.includes('arrivato') && !S.groundFollow) S.exploreGoal = null;
     if (ev.includes('fermo') && S.exploreGoal && !S.groundFollow) { S.exploreGoal = null; say(ev.includes('confine') ? 'La meta è oltre il confine della zona di atterraggio.' : 'Il passaggio è chiuso: aggira l’ostacolo.'); }
     // The zone of the landing site is about 4 km × 4 km (1.70.0): at its edge the explorer stops.
@@ -410,6 +420,59 @@ function scan() {
     selectEntry(k, false); S.scanTarget = at; S.scanInfo = { name: e.data.name, type: e.type, ...bearing(A, at) };
     const fresh = !isRegistered(e, exploreRecord(S.selected)); register(e);
     if (!fresh) say(`Scanner: ${e.data.name}, già nel diario.`);
+}
+/** The impulse of the scanner (1.74.0): the sites and rare places within SCAN_RANGE (about 1.3 km) are detected,
+ * written in the diary of the planet (k) and shown by the compass; a ring spreads from the explorer. One every
+ * SCAN_COOLDOWN milliseconds. */
+function impulse() {
+    const A = S.avatar, s = W.surface; if (!A || !s) return;
+    const now = Date.now(); if (now - (S.pulseAt || 0) < SCAN_COOLDOWN) { say('Impulso in ricarica.'); return; }
+    S.pulseAt = now; S.scanPulse = { x: A.x, y: A.y, z: A.z, t: now };
+    const found = detect([...(s.sites || []).map(o => ({ ...o, type: 'site' })), ...(s.rares || []).map(o => ({ ...o, type: 'rare' }))], A.x, A.z);
+    const rec = store.data.explore[String(S.selected)] ||= { s: [], l: [] }, k = rec.k ||= [], fresh = found.filter(o => !k.includes(o.id));
+    if (fresh.length) { k.push(...fresh.map(o => o.id)); rec.at = new Date().toISOString(); store.save(); }
+    if (!found.length) { say('Impulso: nessun sito e nessun luogo raro entro 1,3 km.'); return; }
+    const n = found.filter(o => o.type === 'site').length, m = found.length - n, axes = axesOf(s), first = fresh[0];
+    const words = [n ? (n === 1 ? '1 sito' : n + ' siti') : '', m ? (m === 1 ? '1 luogo raro' : m + ' luoghi rari') : ''].filter(Boolean).join(' e ');
+    say(`Impulso: ${words} entro 1,3 km${fresh.length ? `, ${fresh.length === 1 ? 'uno nuovo' : fresh.length + ' nuovi'}` : ''}; la bussola li indica.${first ? ` Il più vicino dei nuovi: ${first.name}, a ${distanceText(Math.hypot(first.x - A.x, first.z - A.z))} verso ${pointOf(bearingOf(axes, first.x - A.x, first.z - A.z))}.` : ''}`);
+}
+/** The compass of the explorer (1.74.0): a strip with the points of the compass within half of COMPASS_FIELD on
+ * either side of the view, the base, the entry chosen and the sites and rare places detected or registered; above
+ * it (below on phones) the heading and the distance and direction of the entry chosen. */
+function compassHUD(mobile, card) {
+    const A = S.avatar, e = W.eye, t = W.target, s = W.surface; if (!A || !e || !t || !s?.genome) return;
+    const fx = t[0] - e[0], fz = t[2] - e[2], fl = Math.hypot(fx, fz); if (fl < 1e-6) return;
+    const f = [fx / fl, fz / fl], axes = S.compassAxes?.key === s.key ? S.compassAxes.axes : (S.compassAxes = { key: s.key, axes: axesOf(s) }).axes;
+    const rec = exploreRecord(S.selected), known = new Set([...(rec.k || []), ...(rec.r || []), ...(rec.n || [])]), b = baseOf(), chosen = exploreEntries()[S.exploreEntry];
+    const points = [{ x: b[0], z: b[1], kind: 'base' }];
+    (s.sites || []).forEach((o, k) => { const on = chosen?.type === 'site' && chosen.index === k; if (on || known.has(o.id)) points.push({ x: o.x, z: o.z, kind: 'site', state: o.state, on }); });
+    (s.rares || []).forEach((o, k) => { const on = chosen?.type === 'rare' && chosen.index === k; if (on || known.has(o.id)) points.push({ x: o.x, z: o.z, kind: 'rare', on }); });
+    if (chosen?.at && chosen.type !== 'site' && chosen.type !== 'rare') points.push({ x: chosen.at[0], z: chosen.at[2], kind: 'target', on: true });
+    let x0 = 480, x1 = Math.min(R.w - 372, 1000), y = R.h - 86;
+    if (mobile) { x0 = 18; x1 = R.w - 18; y = card ? 200 : 318; }
+    else if (x1 - x0 < 260) { x0 = 35; x1 = 35 + Math.min(420, R.w - 35 - 353 - 24); y = R.h - 306; }
+    const wd = x1 - x0, mid = x0 + wd / 2, hgt = 36, toX = side => mid + side / (COMPASS_FIELD / 2) * (wd / 2 - 12), heading = bearingOf(axes, f[0], f[1]);
+    R.roundRect(x0, y, wd, hgt, 10, color(T.bg, .86), color(T.line, 1));
+    for (let a = Math.ceil((heading - COMPASS_FIELD / 2) / 15) * 15; a <= heading + COMPASS_FIELD / 2; a += 15) { const x = toX(a - heading); if (a % 45) R.line([x, y + hgt - 7], [x, y + hgt - 3], C.dim, 1); }
+    const marks = compassMarks(axes, f, A.x, A.z, points);
+    for (const m of marks) if (m.name) U.text(m.name, toX(m.side), y + 4, m.cardinal ? 'mini' : 'micro', m.name === 'N' ? C.lime : m.cardinal ? C.pale : C.muted, { align: 'center' });
+    for (const m of marks) {
+        if (m.name || (!m.inside && !m.on && m.kind !== 'base')) continue;
+        const x = toX(m.side), cy = y + 26, c = m.kind === 'base' ? C.cyan : m.kind === 'site' ? SITE_TINTS[m.state] : m.kind === 'rare' ? RARE_TINT : C.pale, z = m.on ? 1.4 : 1;
+        if (!m.inside) { U.text(m.side < 0 ? '◂' : '▸', x, cy - 8, 'micro', c, { align: 'center' }); continue; }
+        if (m.kind === 'base') R.roundRect(x - 4, cy - 4, 8, 8, 1, c);
+        else if (m.kind === 'rare') R.poly([[x, cy - 5 * z], [x + 5 * z, cy], [x, cy + 5 * z], [x - 5 * z, cy]], c);
+        else if (m.kind === 'site') R.roundRect(x - 4 * z, cy - 4 * z, 8 * z, 8 * z, 4 * z, c);
+        else R.roundRect(x - 4.5, cy - 4.5, 9, 9, 4.5, color('#000000', 0), c, 0);
+        if (m.on) R.roundRect(x - 7 * z, cy - 7 * z, 14 * z, 14 * z, 7 * z, color('#000000', 0), C.pale, 0);
+    }
+    R.poly([[mid - 5, y], [mid + 5, y], [mid, y + 6]], C.lime);
+    // The heading and the entry chosen, with its distance and direction.
+    const at = chosen?.at, d = at ? Math.hypot(at[0] - A.x, at[2] - A.z) : 0;
+    const line = `${Math.round(heading) % 360}° ${pointOf(heading)}` + (at && d > 4 ? ` · ${chosen.data.name} a ${distanceText(d)} verso ${pointOf(bearingOf(axes, at[0] - A.x, at[2] - A.z))}` : '');
+    const tw = Math.min(wd, R.textWidth(line, 'micro') + 24), ly = mobile ? y + hgt + 4 : y - 26;
+    R.roundRect(mid - tw / 2, ly, tw, 22, 11, color(T.bg, .86), color(T.line, 1));
+    wrapClipText(line, mid - tw / 2 + 12, ly + 4, tw - 24, 'micro', C.pale, 1);
 }
 /** Boards or leaves the rover. */
 function roverToggle() {
@@ -900,7 +963,7 @@ function explorerHUD(mobile, card, tint) {
     const w = R.w, h = R.h, L = explorerLines(mobile), rover = A.mode === 'rover';
     const jump = (x, y, bw, bh, small) => { U.button('explore-jump', 'SALTA', x, y, bw, bh, () => { S.jumpAsk = true; }, { active: !rover, small, disabled: rover }); U.buttons.at(-1).label = 'Salta con la gravità del pianeta'; };
     if (!mobile) {
-        const x = 35, hw = Math.min(420, w - 35 - 353 - 24), y = h - 262, bw = (hw - 36 - 32) / 5;
+        const x = 35, hw = Math.min(500, w - 35 - 353 - 24), y = h - 262, bw = (hw - 32 - 40) / 6;
         U.panel(x, y, hw, 134, tint, .84); U.tag(L.tag, x + 18, y + 16, C.lime);
         wrapClipText(L.motion, x + 18, y + 36, hw - 36, 'micro', C.pale, 1); wrapClipText(L.goal || L.jump, x + 18, y + 54, hw - 36, 'micro', C.pale, 1); wrapClipText(L.scanner, x + 18, y + 72, hw - 36, 'micro', S.scanInfo?.name ? C.lime : C.muted, 1);
         jump(x + 16, y + 94, bw, 30, true);
@@ -908,6 +971,7 @@ function explorerHUD(mobile, card, tint) {
         U.button('explore-scan', 'SCANNER', x + 16 + 2 * (bw + 8), y + 94, bw, 30, scan, { small: true }); U.buttons.at(-1).label = 'Scanner: registra nel diario la specie o il luogo più vicino';
         U.button('explore-physics', 'FISICA', x + 16 + 3 * (bw + 8), y + 94, bw, 30, () => followGround('salto'), { small: true }); U.buttons.at(-1).label = 'La fisica del salto su questo pianeta';
         U.button('explore-base', 'BASE', x + 16 + 4 * (bw + 8), y + 94, bw, 30, goBase, { small: true }); U.buttons.at(-1).label = 'Torna alla base con un viaggio rapido';
+        U.button('explore-pulse', 'IMPULSO', x + 16 + 5 * (bw + 8), y + 94, bw, 30, impulse, { small: true }); U.buttons.at(-1).label = 'Impulso dello scanner: rileva siti e luoghi rari entro 1,3 km';
     } else if (!card) {
         const y = 196; U.panel(18, y, w - 36, 74, tint, .84); U.tag(L.tag, 36, y + 14, C.lime);
         wrapClipText(L.motion, 36, y + 32, w - 72, 'micro', C.pale, 1); wrapClipText(S.scanInfo || !L.goal ? L.scanner : L.goal, 36, y + 51, w - 72, 'micro', S.scanInfo?.name ? C.lime : C.muted, 1);
@@ -916,6 +980,7 @@ function explorerHUD(mobile, card, tint) {
         U.button('explore-rover', rover ? 'SCENDI' : 'ROVER', bx, h - 256, 116, 36, roverToggle, { small: true }); U.buttons.at(-1).label = rover ? 'Scendi dal rover' : 'Sali sul rover';
         U.button('explore-scan', 'SCANNER', bx, h - 212, 116, 36, scan, { small: true }); U.buttons.at(-1).label = 'Scanner: registra nel diario la specie o il luogo più vicino';
         U.button('explore-card', 'SCHEDA', bx, h - 168, 116, 36, () => { S.exploreCard = true; }, { small: true }); U.buttons.at(-1).label = 'Apri la scheda della voce scelta';
+        U.button('explore-pulse', 'IMPULSO', bx, h - 124, 116, 34, impulse, { small: true }); U.buttons.at(-1).label = 'Impulso dello scanner: rileva siti e luoghi rari entro 1,3 km';
         U.button('explore-physics', 'FISICA DEL SALTO', 18, y + 82, 150, 28, () => followGround('salto'), { small: true }); U.buttons.at(-1).label = 'La fisica del salto su questo pianeta';
         U.button('explore-base', 'BASE', 176, y + 82, 80, 28, goBase, { small: true }); U.buttons.at(-1).label = 'Torna alla base con un viaggio rapido';
     }
@@ -931,9 +996,10 @@ function exploreUI(m, mobile) {
     const w = R.w, h = R.h, tint = sectorColors[m.sector], list = exploreEntries(), rec = exploreRecord(S.selected);
     // On phones the card of the entry and the controls of the explorer take turns (1.68.0).
     const card = !mobile || S.exploreCard || !!S.groundFollow;
-    title(areaTrail(m, ['SUPERFICIE', 'ESPLORAZIONE']), m.title, mobile ? (card ? 'Tocca il terreno per andarci, trascina per ruotare.' : '') : 'W A S D per camminare, Maiuscolo per correre, spazio per saltare, R per il rover, F per lo scanner, B per la base.');
+    title(areaTrail(m, ['SUPERFICIE', 'ESPLORAZIONE']), m.title, mobile ? (card ? 'Tocca il terreno per andarci, trascina per ruotare.' : '') : 'W A S D per camminare, Maiuscolo per correre, spazio per saltare, R per il rover, F per lo scanner, Q per l’impulso, B per la base.');
     const px = mobile ? 18 : w - 353, pw = mobile ? w - 36 : 320, ph = mobile ? 300 : Math.min(520, h - 368), py = mobile ? h - 384 : 258;
     explorerHUD(mobile, card, tint);
+    if (!S.groundFollow) compassHUD(mobile, card);
     // «Che cosa succede» on the ground (1.65.0) takes the place of the exploration panel.
     const ground = S.groundFollow ? (S.groundFollow.k === 'salto' ? jumpSubject() : W.groundSubject(S.groundFollow)) : null;
     if (ground) followPanel({ subject: ground }, tint, stopGround);
@@ -942,12 +1008,12 @@ function exploreUI(m, mobile) {
     const ns = list.filter(e => e.type === 'species').length, np = list.length - ns, e = list[S.exploreEntry] || list[0];
     if (e) {
         const done = isRegistered(e, rec), species = e.type === 'species';
-        const site = e.type === 'site';
-        U.tag((species ? 'Specie ' : site ? 'Sito ' : 'Luogo ') + (S.exploreEntry + 1) + ' di ' + list.length + (done && !W.sunNow ? ' · nel diario' : ''), px + 18, py + 18, species ? C.lime : tint);
+        const site = e.type === 'site', rare = e.type === 'rare';
+        U.tag((species ? 'Specie ' : site ? 'Sito ' : rare ? 'Luogo raro ' : 'Luogo ') + (S.exploreEntry + 1) + ' di ' + list.length + (done && !W.sunNow ? ' · nel diario' : ''), px + 18, py + 18, species ? C.lime : tint);
         wrapClipText(e.data.name, px + 18, py + 44, pw - 36, 'sub', C.pale, 1);
-        U.text(species ? (e.data.kind === 'plant' ? 'Pianta' : e.data.kind === 'fungus' ? 'Fungo' : 'Animale') + ' · ' + e.data.label + ' · ' + e.data.habitatName : site ? STATES[e.data.state] + ' · ' + SITE_KINDS[e.data.kind].label + distanceTo(e.at) : PLACE_KINDS[e.data.kind], px + 18, py + 76, 'micro', species ? C.lime : tint);
+        U.text(species ? (e.data.kind === 'plant' ? 'Pianta' : e.data.kind === 'fungus' ? 'Fungo' : 'Animale') + ' · ' + e.data.label + ' · ' + e.data.habitatName : site ? STATES[e.data.state] + ' · ' + SITE_KINDS[e.data.kind].label + distanceTo(e.at) : rare ? 'Luogo raro · ' + RARE_KINDS[e.data.kind].label + ' · ' + BIOME[e.data.biome].name + distanceTo(e.at) : PLACE_KINDS[e.data.kind], px + 18, py + 76, 'micro', species ? C.lime : rare ? RARE_TINT : tint);
         // Phones show one trait at a time; wide screens show them all. A site shows its story (1.73.0).
-        const parts = species || e.type === 'settlement' ? e.data.traits : site ? e.data.story : ns ? [e.data.text] : [e.data.text, lifelessReason(W.surface.genome)], bottom = py + ph - 104;
+        const parts = species || e.type === 'settlement' ? e.data.traits : site || rare ? e.data.story : ns ? [e.data.text] : [e.data.text, lifelessReason(W.surface.genome)], bottom = py + ph - 104;
         let y = py + 102;
         if (mobile) {
             const k = Math.min(S.exploreTrait, parts.length - 1); U.wrap(parts[k], px + 18, y, pw - 36, C.pale, 19, 5, 'micro');
@@ -972,7 +1038,7 @@ function exploreUI(m, mobile) {
         if (model) { U.button('explore-model', '3D', px + pw - 60, by + 20, 44, 36, () => openCraft(model)); U.buttons.at(-1).label = 'Apri il modello 3D di ' + e.data.name + ' nel catalogo'; }
     } else wrapClipText(lifelessReason(W.surface.genome), px + 18, py + 52, pw - 36, 'body', C.pale, 6);
     const sun = W.sunNow, hour = sun ? ` · ore ${String(Math.floor(sun.hour)).padStart(2, '0')}:${String(Math.floor(sun.hour % 1 * 60)).padStart(2, '0')}` : '';
-    U.text(`Diario: ${rec.s.length} specie su ${ns} · ${rec.l.length + (rec.r?.length || 0)} luoghi su ${np}${hour}`, px + 18, py + ph - 26, 'micro', C.muted);
+    U.text(`Diario: ${rec.s.length} specie su ${ns} · ${rec.l.length + (rec.r?.length || 0) + (rec.n?.length || 0)} luoghi su ${np}${hour}`, px + 18, py + ph - 26, 'micro', C.muted);
     // The sun of the landing site and, for an animal, its group: both open «Che cosa succede».
     if (sun) { U.button('ground-sun', 'SOLE', px + pw - 16 - 62, py + 10, 62, 26, () => followGround(null), { small: true }); U.buttons.at(-1).label = 'Il sole e il giorno del sito: che cosa succede'; }
     if (e?.type === 'species' && e.data.kind === 'animal' && W.eco) { U.button('ground-follow', 'SEGUI', px + pw - 16 - 62 - 68, py + 10, 62, 26, () => followGround(e.index), { small: true }); U.buttons.at(-1).label = 'Segui ' + e.data.name + ' e guarda che cosa succede'; }
@@ -981,8 +1047,8 @@ function exploreUI(m, mobile) {
     if (!mobile) {
         U.text('Ipotesi illustrative ricavate dalla carta d’identità del pianeta.', 35, h - 112, 'micro', C.muted);
         for (const p of W.projections) {
-            if ((p.type !== 'place' && p.type !== 'settlement' && p.type !== 'site') || !Number.isFinite(p.x) || p.depth <= 0) continue;
-            const place = (p.type === 'place' ? W.surface.places : p.type === 'site' ? W.surface.sites : W.surface.settlements)[p.index], on = S.exploreTarget?.type === p.type && S.exploreTarget.index === p.index, label = (isRegistered({ type: p.type, id: place.id }, exploreRecord(S.selected)) ? '✓ ' : '') + place.name, tw = R.textWidth(label, 'mini') + 24, x = p.x - tw / 2, y = p.y - 34;
+            if (!['place', 'settlement', 'site', 'rare'].includes(p.type) || !Number.isFinite(p.x) || p.depth <= 0) continue;
+            const place = (p.type === 'place' ? W.surface.places : p.type === 'site' ? W.surface.sites : p.type === 'rare' ? W.surface.rares : W.surface.settlements)[p.index], on = S.exploreTarget?.type === p.type && S.exploreTarget.index === p.index, label = (isRegistered({ type: p.type, id: place.id }, exploreRecord(S.selected)) ? '✓ ' : '') + place.name, tw = R.textWidth(label, 'mini') + 24, x = p.x - tw / 2, y = p.y - 34;
             if (x < 20 || x + tw > w - 370 || y < 96 || (y < 250 && x < 760) || y > h - 120) continue;
             R.roundRect(x, y, tw, 26, 13, color(T.bg, .88), on ? tint : color(T.line, 1));
             U.text(label, x + 12, y + 6, 'mini', on ? C.pale : C.muted);
@@ -1400,7 +1466,7 @@ function exploreLog() {
     let s = 0, l = 0, planets = 0, measuredPlanets = 0, landings = 0, walked = 0, driven = 0;
     for (const rec of Object.values(store.data.explore)) { if (rec.v === 1 || rec.s.length) landings++; walked += rec.p?.w || 0; driven += rec.p?.d || 0; }
     for (const [key, rec] of Object.entries(store.data.explore)) {
-        const i = Number(key), m = data.modules[i], measured = (rec.m || []).map(id => INSTRUMENTS.find(x => x.id === id)?.name).filter(Boolean); if (!m || !(rec.s.length + rec.l.length + measured.length + (rec.p ? 1 : 0) + (rec.b?.length || 0) + (rec.r?.length || 0))) continue;
+        const i = Number(key), m = data.modules[i], measured = (rec.m || []).map(id => INSTRUMENTS.find(x => x.id === id)?.name).filter(Boolean); if (!m || !(rec.s.length + rec.l.length + measured.length + (rec.p ? 1 : 0) + (rec.b?.length || 0) + (rec.r?.length || 0) + (rec.n?.length || 0))) continue;
         planets++; s += rec.s.length; l += rec.l.length; if (measured.length) measuredPlanets++;
         const sp = [...species[i], ...endemics[i]].filter(x => rec.s.includes(x.id)).map(x => x.name + ' (' + x.label + ')'), pl = places[i].filter(x => rec.l.includes(x.id)).map(x => x.name);
         const d = rec.m?.includes('biofirme') ? diagnosis(physics[i], species[i].length, landed(i)) : null, lovelock = d ? 'Diagnosi di Lovelock: ' + VERDICTS[d.verdict] + (d.outcome === 'da-verificare' ? '' : ', ' + OUTCOMES[d.outcome]) + '.' : '';
@@ -1410,7 +1476,9 @@ function exploreLog() {
         const own = biomesOf(genomes[i]), crossed = own.filter(id => rec.b?.includes(id)).map(id => BIOME[id].name), biomes = crossed.length ? `Biomi attraversati: ${crossed.join(', ')} (${crossed.length} su ${own.length}).` : '';
         // The sites registered (1.73.0), with their kind; the list of a planet other than the open one is made once.
         const sites = rec.r?.length ? sitesOf(i).filter(x => rec.r.includes(x.id)).map(x => `${x.name} (${SITE_KINDS[x.kind].label})`) : [], seen = sites.length ? 'Siti: ' + sites.join(', ') + '.' : '';
-        rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : '', seen, measured.length ? 'Misure: ' + measured.join(', ') + '.' : '', trip, biomes, lovelock].filter(Boolean).join(' '));
+        // The rare places registered (1.74.0), with their kind.
+        const rares = rec.n?.length ? raresOf(i).filter(x => rec.n.includes(x.id)).map(x => `${x.name} (${RARE_KINDS[x.kind].label})`) : [], wonders = rares.length ? 'Luoghi rari: ' + rares.join(', ') + '.' : '';
+        rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : '', seen, wonders, measured.length ? 'Misure: ' + measured.join(', ') + '.' : '', trip, biomes, lovelock].filter(Boolean).join(' '));
     }
     const total = species.reduce((n, x) => n + x.length, 0) + endemics.reduce((n, x) => n + x.length, 0), totalPlaces = places.reduce((n, x) => n + x.length, 0);
     const head = `Pianeti visitati in superficie: ${landings} su ${genomes.length}. Pianeti con registrazioni: ${planets} su ${genomes.length}. Specie registrate: ${s} su ${total}. Luoghi registrati: ${l} su ${totalPlaces}. Pianeti misurati con gli strumenti della nave: ${measuredPlanets}; strumenti a bordo: ${onBoard(store.data, instrumentSections).size} su ${INSTRUMENTS.length}.${walked + driven ? ` Percorsi a terra: ${walked} m a piedi e ${driven} m in rover.` : ''}`;
@@ -2234,7 +2302,8 @@ function events() {
             return;
         }
         // Exploration (1.68.0): W A S D or the arrows move the explorer while held, Shift runs, the space bar
-        // jumps, R boards or leaves the rover, F runs the scanner, B goes back to the base (1.70.0).
+        // jumps, R boards or leaves the rover, F runs the scanner, B goes back to the base (1.70.0), Q sends the
+        // impulse of the scanner (1.74.0).
         if (S.scene === 'surface' && S.explore && S.avatar && !e.ctrlKey && !e.metaKey && !e.altKey) {
             const c = e.key.toLowerCase();
             if (['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright', 'shift'].includes(c)) { held.add(c); e.preventDefault(); return; }
@@ -2242,6 +2311,7 @@ function events() {
             if (c === 'r' && !e.repeat) { roverToggle(); return; }
             if (c === 'f' && !e.repeat) { scan(); return; }
             if (c === 'b' && !e.repeat) { goBase(); return; }
+            if (c === 'q' && !e.repeat) { impulse(); return; }
         }
         if (e.key === 'ArrowLeft')
             S.yaw -= .1;

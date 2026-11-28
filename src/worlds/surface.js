@@ -32,7 +32,10 @@ export function planetSurface(index, n = GRID) {
     const sample = (A, x, z) => { const fx = Math.max(0, Math.min(n - 1.001, (x + EXTENT / 2) / cell)), fz = Math.max(0, Math.min(n - 1.001, (z + EXTENT / 2) / cell)), i = Math.floor(fx), j = Math.floor(fz), a = fx - i, b = fz - j; return A[j * n + i] * (1 - a) * (1 - b) + A[j * n + i + 1] * a * (1 - b) + A[(j + 1) * n + i] * (1 - a) * b + A[(j + 1) * n + i + 1] * a * b; };
     // Beyond the detailed square the ground is the field itself, as in the rings of the horizon.
     const inside = (x, z) => Math.abs(x) <= EXTENT / 2 && Math.abs(z) <= EXTENT / 2;
-    const heightAt = (x, z) => inside(x, z) ? sample(Y, x, z) : F.Y(x, z), lavaAt = lavaGrid ? (x, z) => inside(x, z) ? sample(lavaGrid, x, z) : F.lava(x, z) : null;
+    // The rare places of the zone (1.74.0, src/worlds/wonders.js) may add a relief to the field outside the square:
+    // craters, lava pits, the basins of hot springs, salt flats and dunes (setRelief).
+    const relief = { at: null }, heightAt = (x, z) => { if (inside(x, z)) return sample(Y, x, z); const y = F.Y(x, z); return relief.at ? y + relief.at(x, z, y) : y; };
+    const lavaAt = lavaGrid ? (x, z) => inside(x, z) ? sample(lavaGrid, x, z) : F.lava(x, z) : null;
     // Four stations on flattened pads, or on platforms where the ground is under water.
     // In a row across the lower left of the default view, below the panels and clear of the centre.
     const centre = [14, 28], across = [.825, -.565], stations = [];
@@ -54,7 +57,8 @@ export function planetSurface(index, n = GRID) {
         // Moons sit right of the screen title, from the centre of the view to its right edge.
         moons: Array.from({ length: g.satellites.moons }, (_, k) => ({ azimuth: .1 + k * .14 + r() * .05, elevation: .06 + r() * .08, size: 4 + r() * 6 })),
         vegetation: ['terrestrial', 'oceanic', 'volcanic'].includes(g.family) ? Math.min(1, density * 1.6) * (g.family === 'volcanic' ? .25 : 1) : 0,
-        species: planetSpecies()[index], endemics: planetEndemics()[index]
+        species: planetSpecies()[index], endemics: planetEndemics()[index],
+        reliefAt: null, setRelief(f) { relief.at = f; this.reliefAt = f; }
     };
     // Points of interest, placed on the final heights (after the station pads).
     out.places = locatePlaces(out, placeList(g));
