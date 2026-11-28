@@ -1,25 +1,24 @@
-# Collaudo GAIA 1.78.0
+# Collaudo GAIA 1.79.0
 
-Eseguito il 28 novembre 2026 sul ramo `feat/luoghi-minori-20261128`, costruito sopra `main` alla versione 1.77.0 (pull request #83), con Node.js 22.
+Eseguito il 28 novembre 2026 sul ramo `feat/meteo-20261128`, costruito sopra `main` alla versione 1.78.0 (pull request #84), con Node.js 22.
 
 | Controllo | Comando | Risultato |
 |---|---|---:|
-| Test Node | `node --test tests/*.test.mjs` | 772 / 772 |
-| Luoghi minori: documento, posizione, copertura, descrizioni, modelli, mondo e app | `node --test tests/minori.test.mjs` | 5 / 5 |
-| Riferimenti e risorse | `node scripts/check.mjs` | 4203 / 4203 |
+| Test Node | `node --test tests/*.test.mjs` | 777 / 777 |
+| Meteo: documento, tipi per pianeta, episodi, fisica, mondo e diario | `node --test tests/meteo.test.mjs` | 5 / 5 |
+| Riferimenti e risorse | `node scripts/check.mjs` | 4211 / 4211 |
 | Distribuzione `dist/` servita via HTTP | `node scripts/http_smoke.mjs` | 314 controlli |
 | Flussi applicativi | `node tools/qa_application_curriculum.mjs` | 283 controlli |
 | Atlante in Chromium | `python3 tools/qa_atlas_browser.py --root dist` | 23 controlli, 125 pianeti esplorabili, nessun errore WebGL |
-| Luoghi minori in Chromium | pianeta 41 dalla distribuzione a 1280 × 800, i sette tipi; lo stesso pianeta dalle sorgenti a 390 × 844 come telefono | modelli dettagliati costruiti, scheda, bussola e messaggio di scoperta; nessun errore di pagina né WebGL |
-| Luoghi minori | `node scripts/minori.mjs` | 3770 luoghi di 7 tipi, da 6 a 40 per zona; zone con il 90° percentile della distanza dal luogo da vedere oltre 800 m: da 10 a 1 |
-| Varietà | `node scripts/varieta.mjs` | 556.697 punti di terraferma sui 125 pianeti; luogo da vedere più vicino in mediana a 194 m (295 nella 1.77.0); 99,6% dei punti con un luogo da vedere entro 500 m (81% nella 1.77.0); 125 zone tutte diverse |
-| Prestazioni | `node scripts/prestazioni-mondi.mjs` | 1125 misure su 125 pianeti; al più 113 chiamate di disegno, 1,20 milioni di triangoli e 4287 istanze per fotogramma; maglie dei modelli in mediana 379 ms, al più 729 ms; terreno lontano in 20-57 fotogrammi; la superficie più lunga in 1363 ms in tutto, sotto il limite di 1500 ms |
+| Meteo in Chromium | sei tipi di meteo forzati e un episodio naturale dalla distribuzione a 1280 × 800; neve e pannello METEO a 390 × 844 come telefono | pioggia, neve, polvere e cenere disegnate attorno alla camera, nebbia e cielo coperto, messaggi e pannello; nessun errore di pagina né WebGL |
+| Meteo | `node scripts/meteo.mjs` | 7 tipi; 103 pianeti con atmosfera, da 2 a 5 tipi ciascuno; 22 pianeti senza atmosfera sempre sereni; gocce da 1,0 a 10,1 m/s (6,5 sulla Terra) |
+| Prestazioni | `node scripts/prestazioni-mondi.mjs` | 1125 misure su 125 pianeti con il cielo sereno dell'arrivo; al più 113 chiamate di disegno, 1,20 milioni di triangoli e 4287 istanze per fotogramma; maglie dei modelli in mediana 317 ms, al più 621 ms; terreno lontano in 16-45 fotogrammi; la superficie più lunga in 1000 ms in tutto |
 
-Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`; misure in `PRESTAZIONI_MONDI.md` e `VARIETA_MONDI.md`, la serie in `MONDI_APERTI.md`, luoghi minori e descrizioni in `LUOGHI_MINORI.md`, luoghi rari in `LUOGHI_RARI.md`, siti e storie in `SITI.md`, biomi e loro vita in `BIOMI.md`, modelli dei mondi in `CATALOGO_MONDI.md`.
+Log: `TEST_NODE.log`, `CHECK.log`, `BUILD.log`, `CHECK.json`, `HTTP_SMOKE.json`; misure in `PRESTAZIONI_MONDI.md` e `VARIETA_MONDI.md`, la serie in `MONDI_APERTI.md`, il meteo dei pianeti in `METEO.md`, luoghi minori in `LUOGHI_MINORI.md`, luoghi rari in `LUOGHI_RARI.md`, siti e storie in `SITI.md`, biomi e loro vita in `BIOMI.md`, modelli dei mondi in `CATALOGO_MONDI.md`.
 
-La versione aggiunge alla serie «Mondi aperti» i luoghi minori nelle parti delle zone più lontane da tutto; è descritta nella sezione «Luoghi minori nelle zone vuote (1.78.0)» di `docs/GRAPHICS.md` e, per la classe, in `docs/MONDI_APERTI.md`. Nelle misure delle prestazioni la camera delle stazioni con il dettaglio alto ha registrato un fotogramma isolato di 115,5 ms; una seconda misura della stessa vista sui 125 pianeti non ha dato alcun fotogramma oltre 20 ms. I modelli dei luoghi minori si costruiscono dopo quelli dei siti e dei luoghi rari, uno per fotogramma, e portano la preparazione media di un fotogramma con la camera delle stazioni da 0,08 a 0,32 ms.
+La versione aggiunge alla serie «Mondi aperti» il meteo della zona; è descritta nella sezione «Meteo della zona (1.79.0)» di `docs/GRAPHICS.md` e, per la classe, in `docs/MONDI_APERTI.md`. Con il meteo più pesante sul pianeta più ricco un fotogramma ha una chiamata di disegno e 1500 istanze in più, entro i limiti (`tests/meteo.test.mjs`). Nelle misure delle prestazioni la camera delle stazioni con il dettaglio alto registra un fotogramma isolato di 110,3 ms: in una misura ripetuta con `node --trace-gc` il fotogramma più lungo della stessa vista, 45 ms, coincide con una raccolta completa della memoria di Node (Mark-Compact) di 42 ms, quindi il picco viene dal processo di misura più che dal disegno.
 
-Collaudo precedente, 1.77.0 (28 novembre 2026, ramo `feat/collaudo-mondi-20261128`): 767 test Node, 4191 controlli di riferimenti e risorse, 314 controlli HTTP, 283 flussi applicativi, 23 controlli dell’atlante; arrivo su una superficie in Chromium senza errori.
+Collaudo precedente, 1.78.0 (28 novembre 2026, ramo `feat/luoghi-minori-20261128`): 772 test Node, 4203 controlli di riferimenti e risorse, 314 controlli HTTP, 283 flussi applicativi, 23 controlli dell’atlante; luoghi minori in Chromium senza errori.
 
 ## Integrazione continua
 
@@ -27,7 +26,7 @@ Il workflow `.github/workflows/pages.yml` esegue su `main` test, controllo delle
 
 ## Controllo del repository
 
-- `main` ha un solo commit radice. Degli 87 rami presenti su GitHub con quello di questo collaudo, 86 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
+- `main` ha un solo commit radice. Degli 88 rami presenti su GitHub con quello di questo collaudo, 87 sono interamente contenuti in `main`; l'unico con commit propri è il ramo di questo collaudo. Due rami senza pull request (`feat/accessible-atlas-20261115` e `feat/atlas-accessible-navigation-20261115`) puntano allo stesso commit, l’unione della pull request #3.
 - Nessuna pull request o segnalazione aperta.
 - Gli autori dei commit usano indirizzi noreply, di GitHub e di Anthropic.
 - Due esecuzioni fallite nella storia di `main`, entrambe superate dai commit successivi: il primo tentativo di pubblicazione (`bacea5c`, errore in `configure-pages`) e l’unione della pull request #5 (`1d6c911`, verifica del sito pubblicato con un numero di versione fisso, corretta in `b7dc1e8`).

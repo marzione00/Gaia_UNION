@@ -26,6 +26,7 @@ import { BIOME, biomesOf } from './worlds/biomes.js';
 import { SITE_KINDS, STATES, siteList } from './worlds/sites.js';
 import { RARE_KINDS, rareList } from './worlds/wonders.js';
 import { FIND_KINDS, FIND_SCAN } from './worlds/finds.js';
+import { WEATHER_KINDS, strengthWord } from './worlds/weather.js';
 import { axesOf, bearingOf, pointOf, compassMarks, detect, distanceText, SCAN_RANGE, SCAN_COOLDOWN, COMPASS_FIELD } from './worlds/compass.js';
 import { LANDER, LANDER_METRES, BOARD, DESCENT, prepareZone, landingSpot, landerPose, landerState, landerStory, cruiseAt, cruiseSeconds, descentSpeed } from './worlds/lander.js';
 import { lifelessReason } from './worlds/species.js';
@@ -44,7 +45,7 @@ import { openStore, grade } from './store.js';
 import { AUTHOR, LICENCE, CREDIT, LICENCE_ROW } from './licenza.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.78.0-minori';
+const VERSION = '1.79.0-meteo';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -379,6 +380,10 @@ function exploreTick() {
     // And a minor place (1.78.0), a few metres from its ground.
     const find = (W.surface?.finds || []).find(x => Math.hypot(x.x - A.x, x.z - A.z) < x.r + 12);
     if (find && !(S.sitesMet ||= new Set()).has(A.planet + ':' + find.id)) { S.sitesMet.add(A.planet + ':' + find.id); discover(find.id); say(`Luogo minore: ${find.name}, ${FIND_KINDS[find.kind].label}. Lo scanner ne registra la descrizione nel diario.`); }
+    // The weather (1.79.0): each episode is announced once, when it gathers strength, with a number of its physics,
+    // and its kind goes into the diary of the planet (e).
+    const M = W.weatherNow;
+    if (M && M.kind !== 'sereno' && M.strength > .3 && S.weatherSaid !== A.planet + ':' + M.episode) { S.weatherSaid = A.planet + ':' + M.episode; weatherSeen(A.planet, M); }
     if (ev.includes('arrivato') && !S.groundFollow) S.exploreGoal = null;
     if (ev.includes('fermo') && S.exploreGoal && !S.groundFollow) { S.exploreGoal = null; say(ev.includes('confine') ? 'La meta è oltre il confine della zona di atterraggio.' : 'Il passaggio è chiuso: aggira l’ostacolo.'); }
     // The zone of the landing site is about 4 km × 4 km (1.70.0): at its edge the explorer stops.
@@ -415,6 +420,14 @@ function explorerTotals(A = S.avatar) {
     return z ? { ...p, z } : p;
 }
 /** Writes the totals of the explorer into the diary, when they changed. */
+/** A kind of weather met on planet `planet` (1.79.0): kept in the diary and announced with a number of its physics. */
+function weatherSeen(planet, M) {
+    const rec = store.data.explore[String(planet)] ||= { s: [], l: [] }, list = rec.e ||= [];
+    if (!list.includes(M.kind)) { list.push(M.kind); rec.at = new Date().toISOString(); store.save(); }
+    const C = M.climate, ms = v => v.toFixed(v < 1 ? 2 : 1).replace('.', ',') + ' m/s', sight = Math.round(M.sight / 10) * 10;
+    const text = { nuvoloso: 'il cielo si copre e la luce cala', pioggia: `comincia a piovere, le gocce cadono a ${ms(C.rain.v)}`, neve: `comincia a nevicare, i fiocchi cadono a ${ms(C.snow.v)}`, nebbia: `sale la nebbia, si vede fino a circa ${sight} m`, polvere: `tempesta di polvere, il vento soffia a ${ms(M.wind)}`, cenere: `cade cenere vulcanica, che scende a ${ms(C.ash.v)}` }[M.kind];
+    say(`Meteo: ${text}. METEO ne spiega la fisica.`);
+}
 /** A biome reached for the first time on planet `planet` (1.71.0): kept in the diary and described. */
 function visitBiome(planet, b) {
     const rec = store.data.explore[String(planet)] ||= { s: [], l: [] }, list = rec.b ||= [];
@@ -1249,7 +1262,10 @@ function explorerLines(mobile) {
     // The biome where the explorer stands (1.71.0): in the title on large screens, at the start of the line of
     // motion on phones, where the title has no room for it.
     const biome = W.surface.field?.biomeAt?.(A.x, A.z)?.name, g = W.surface.genome.gravity.toFixed(2).replace('.', ',');
-    const motion = mobile && biome ? `${biome} · ${how} · ${one(v)} m/s · ${g} g` : `${how} · ${one(v)} m/s · gravità ${g} g`;
+    // The weather (1.79.0): its kind and strength, and on large screens the wind.
+    const M = W.weatherNow, sky = M && M.kind !== 'sereno' && M.strength > .05 ? WEATHER_KINDS[M.kind].label + (strengthWord(M.kind, M.strength) ? ' ' + strengthWord(M.kind, M.strength) : '') : !mobile && M?.wind > 0 ? 'sereno' : '';
+    const meteo = sky ? ' · ' + sky + (!mobile && M.wind > 0 ? `, vento ${Math.round(M.wind)} m/s da ${pointOf(M.from)}` : '') : '';
+    const motion = (mobile && biome ? `${biome} · ${how} · ${one(v)} m/s · ${g} g` : `${how} · ${one(v)} m/s · gravità ${g} g`) + meteo;
     return { tag: 'Esploratore · ' + (A.mode === 'rover' ? 'rover' : 'a piedi') + (biome && !mobile ? ' · ' + biome : '') + home, motion, jump, scanner, goal };
 }
 /** The explorer on the ground (1.68.0): its numbers, the jump, rover and scanner buttons and, on phones, the
@@ -1261,7 +1277,7 @@ function explorerHUD(mobile, card, tint) {
         // The charge of the jetpack (1.76.0), as a bar along the bottom of the button.
         if (!rover) { const f = Math.max(0, Math.min(1, (A.fuel ?? PACK.burn) / PACK.burn)); R.rect(x + 8, y + bh - 6, bw - 16, 3, color(T.ink, .35)); R.rect(x + 8, y + bh - 6, (bw - 16) * f, 3, A.boosting ? C.amber : color(T.ink, .85)); } };
     if (!mobile) {
-        const x = 35, hw = Math.min(500, w - 35 - 353 - 24), y = h - 298, bw = (hw - 32 - 40) / 6;
+        const x = 35, hw = Math.min(500, w - 35 - 353 - 24), y = h - 298, bw = (hw - 32 - 48) / 7;
         U.panel(x, y, hw, 172, tint, .84); U.tag(L.tag, x + 18, y + 16, C.lime);
         wrapClipText(L.motion, x + 18, y + 36, hw - 36, 'micro', C.pale, 1); wrapClipText(L.goal || L.jump, x + 18, y + 54, hw - 36, 'micro', C.pale, 1); wrapClipText(L.scanner, x + 18, y + 72, hw - 36, 'micro', S.scanInfo?.name ? C.lime : C.muted, 1);
         jump(x + 16, y + 94, bw, 30, true);
@@ -1270,6 +1286,8 @@ function explorerHUD(mobile, card, tint) {
         U.button('explore-physics', 'FISICA', x + 16 + 3 * (bw + 8), y + 94, bw, 30, () => followGround('salto'), { small: true }); U.buttons.at(-1).label = 'La fisica del salto su questo pianeta';
         U.button('explore-base', 'BASE', x + 16 + 4 * (bw + 8), y + 94, bw, 30, goBase, { small: true }); U.buttons.at(-1).label = 'Torna alla base con un viaggio rapido';
         U.button('explore-pulse', 'IMPULSO', x + 16 + 5 * (bw + 8), y + 94, bw, 30, impulse, { small: true }); U.buttons.at(-1).label = 'Impulso dello scanner: rileva siti e luoghi rari entro 1,3 km';
+        // The weather of the zone (1.79.0) and its physics.
+        U.button('explore-weather', 'METEO', x + 16 + 6 * (bw + 8), y + 94, bw, 30, () => followGround('meteo'), { small: true }); U.buttons.at(-1).label = 'Il meteo della zona e la sua fisica';
         // The ship (1.75.0): a quick travel to its ramp, or the take-off beside it; the map of the zone to land elsewhere.
         const half = (hw - 32 - 8) / 2, ship = shipLabel();
         U.button('explore-ship', ship === 'DECOLLA' ? 'DECOLLA PER L’ORBITA' : 'TORNA ALLA NAVE', x + 16, y + 132, half, 30, shipAction, { small: true, active: ship === 'DECOLLA' }); U.buttons.at(-1).label = ship === 'DECOLLA' ? 'Sali a bordo e decolla verso l’orbita' : 'Torna alla nave con un viaggio rapido';
@@ -1283,6 +1301,7 @@ function explorerHUD(mobile, card, tint) {
         U.button('explore-scan', 'SCANNER', bx, h - 212, 116, 36, scan, { small: true }); U.buttons.at(-1).label = 'Scanner: registra nel diario la specie o il luogo più vicino';
         U.button('explore-card', 'SCHEDA', bx, h - 168, 116, 36, () => { S.exploreCard = true; }, { small: true }); U.buttons.at(-1).label = 'Apri la scheda della voce scelta';
         U.button('explore-pulse', 'IMPULSO', bx, h - 124, 116, 34, impulse, { small: true }); U.buttons.at(-1).label = 'Impulso dello scanner: rileva siti e luoghi rari entro 1,3 km';
+        U.button('explore-weather', 'METEO', bx, h - 356, 116, 36, () => followGround('meteo'), { small: true }); U.buttons.at(-1).label = 'Il meteo della zona e la sua fisica';
         U.button('explore-physics', 'FISICA', 18, y + 82, 78, 28, () => followGround('salto'), { small: true }); U.buttons.at(-1).label = 'La fisica del salto su questo pianeta';
         U.button('explore-base', 'BASE', 102, y + 82, 70, 28, goBase, { small: true }); U.buttons.at(-1).label = 'Torna alla base con un viaggio rapido';
         const ship = shipLabel();
@@ -1308,7 +1327,7 @@ function exploreUI(m, mobile) {
     if (aboard) flightHUD(mobile, tint); else explorerHUD(mobile, card, tint);
     if (!S.groundFollow && !aboard) compassHUD(mobile, card);
     // «Che cosa succede» on the ground (1.65.0) takes the place of the exploration panel.
-    const ground = S.groundFollow ? (S.groundFollow.k === 'salto' ? jumpSubject() : W.groundSubject(S.groundFollow)) : null;
+    const ground = S.groundFollow ? (S.groundFollow.k === 'salto' ? jumpSubject() : S.groundFollow.k === 'meteo' ? W.weatherSubject() : W.groundSubject(S.groundFollow)) : null;
     if (ground) followPanel({ subject: ground }, tint, stopGround);
     else if (card && !aboard) {
     U.panel(px, py, pw, ph, tint, .84);
@@ -1776,7 +1795,7 @@ function exploreLog() {
     let s = 0, l = 0, planets = 0, measuredPlanets = 0, landings = 0, walked = 0, driven = 0;
     for (const rec of Object.values(store.data.explore)) { if (rec.v === 1 || rec.s.length) landings++; walked += rec.p?.w || 0; driven += rec.p?.d || 0; }
     for (const [key, rec] of Object.entries(store.data.explore)) {
-        const i = Number(key), m = data.modules[i], measured = (rec.m || []).map(id => INSTRUMENTS.find(x => x.id === id)?.name).filter(Boolean); if (!m || !(rec.s.length + rec.l.length + measured.length + (rec.p ? 1 : 0) + (rec.b?.length || 0) + (rec.r?.length || 0) + (rec.n?.length || 0) + (rec.f?.length || 0))) continue;
+        const i = Number(key), m = data.modules[i], measured = (rec.m || []).map(id => INSTRUMENTS.find(x => x.id === id)?.name).filter(Boolean); if (!m || !(rec.s.length + rec.l.length + measured.length + (rec.p ? 1 : 0) + (rec.b?.length || 0) + (rec.r?.length || 0) + (rec.n?.length || 0) + (rec.f?.length || 0) + (rec.e?.length || 0))) continue;
         planets++; s += rec.s.length; l += rec.l.length; if (measured.length) measuredPlanets++;
         const sp = [...species[i], ...endemics[i]].filter(x => rec.s.includes(x.id)).map(x => x.name + ' (' + x.label + ')'), pl = places[i].filter(x => rec.l.includes(x.id)).map(x => x.name);
         const d = rec.m?.includes('biofirme') ? diagnosis(physics[i], species[i].length, landed(i)) : null, lovelock = d ? 'Diagnosi di Lovelock: ' + VERDICTS[d.verdict] + (d.outcome === 'da-verificare' ? '' : ', ' + OUTCOMES[d.outcome]) + '.' : '';
@@ -1790,9 +1809,11 @@ function exploreLog() {
         const rares = rec.n?.length ? raresOf(i).filter(x => rec.n.includes(x.id)).map(x => `${x.name} (${RARE_KINDS[x.kind].label})`) : [], wonders = rares.length ? 'Luoghi rari: ' + rares.join(', ') + '.' : '';
         // The minor places registered (1.78.0), with their kind.
         const finds = rec.f?.length ? findsOf(i).filter(x => rec.f.includes(x.id)).map(x => `${x.name} (${FIND_KINDS[x.kind].label})`) : [], minor = finds.length ? 'Luoghi minori: ' + finds.join(', ') + '.' : '';
+        // The weather met (1.79.0), in the order of the kinds.
+        const seenSky = Object.keys(WEATHER_KINDS).filter(k => rec.e?.includes(k)).map(k => WEATHER_KINDS[k].label), sky = seenSky.length ? 'Meteo osservato: ' + seenSky.join(', ') + '.' : '';
         // The landings of the ship (1.75.0).
         const flights = rec.t ? `Atterraggi della ${LANDER.name}: ${rec.t}.` : '';
-        rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : '', seen, wonders, minor, measured.length ? 'Misure: ' + measured.join(', ') + '.' : '', trip, flights, biomes, lovelock].filter(Boolean).join(' '));
+        rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : '', seen, wonders, minor, sky, measured.length ? 'Misure: ' + measured.join(', ') + '.' : '', trip, flights, biomes, lovelock].filter(Boolean).join(' '));
     }
     const total = species.reduce((n, x) => n + x.length, 0) + endemics.reduce((n, x) => n + x.length, 0), totalPlaces = places.reduce((n, x) => n + x.length, 0);
     const head = `Pianeti visitati in superficie: ${landings} su ${genomes.length}. Pianeti con registrazioni: ${planets} su ${genomes.length}. Specie registrate: ${s} su ${total}. Luoghi registrati: ${l} su ${totalPlaces}. Pianeti misurati con gli strumenti della nave: ${measuredPlanets}; strumenti a bordo: ${onBoard(store.data, instrumentSections).size} su ${INSTRUMENTS.length}.${walked + driven ? ` Percorsi a terra: ${walked} m a piedi e ${driven} m in rover.` : ''}`;

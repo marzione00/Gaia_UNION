@@ -10,7 +10,7 @@ export const vsMesh = `#version 300 es
 layout(location=0) in vec3 aPos;layout(location=1) in vec3 aNormal;layout(location=2) in vec2 aUV;layout(location=3) in vec4 aColor;layout(location=4) in vec4 aPBR;
 // Per-instance data for the planet phenomena: position and scale, colour and heading (or phase).
 layout(location=5) in vec4 aInst;layout(location=6) in vec4 aInstC;
-uniform mat4 uVP,uModel,uLightVP,uReflectionVP;uniform highp int uMaterial,uInstanced;uniform vec4 uMotion;uniform float uTime;uniform vec3 uEye;out vec3 vNormal,vWorld,vLocal;out vec2 vUV;out vec4 vColor,vPBR,vShadow,vReflection;
+uniform mat4 uVP,uModel,uLightVP,uReflectionVP;uniform highp int uMaterial,uInstanced;uniform vec4 uMotion;uniform float uTime;uniform vec3 uEye,uCenter;out vec3 vNormal,vWorld,vLocal;out vec2 vUV;out vec4 vColor,vPBR,vShadow,vReflection;
 vec3 turn(vec3 v,float a){float c=cos(a),s=sin(a);return vec3(c*v.x+s*v.z,v.y,-s*v.x+c*v.z);}
 void main(){vec3 vertex=aPos,normal=aNormal;vec4 color=aColor;if(uMaterial==10&&aPBR.w>1.5&&aPBR.w<2.5)vertex.xz*=8.;
  if(uInstanced>0){
@@ -38,6 +38,15 @@ void main(){vec3 vertex=aPos,normal=aNormal;vec4 color=aColor;if(uMaterial==10&&
   if(uInstanced==5){vec3 f=normalize(aInstC.xyz),x=cross(vec3(0,1,0),f);x=dot(x,x)>1e-8?normalize(x):vec3(1,0,0);vec3 y=cross(f,x);vertex=(x*vertex.x+y*vertex.y+f*vertex.z)*s+base;normal=x*normal.x+y*normal.y+f*normal.z;}
   // 6: glows of the systems (running lights, flames, wakes, goods): colour and opacity come with the instance.
   else if(uInstanced==6){vertex=vertex*s+base;color=aInstC;}
+  // 9: weather of the zone (1.79.0): rain, snow, dust and ash in a box of side uMotion.y centred at uCenter, just in
+  // front of the eye. They fall at uMotion.x units a second, each a little faster or slower, the wind carries them
+  // (uMotion.zw) and they sway by aInstC.x units; each lies along its own motion, so raindrops are streaks, and
+  // near the faces of the box they shrink, so the box has no edge.
+  else if(uInstanced==9){float L=uMotion.y;vec3 vel=vec3(uMotion.z,-uMotion.x,uMotion.w)*(.8+.4*fract(a*3.71));
+   vec3 q=base+vel*uTime+vec3(sin(uTime*1.1+a*5.),0.,cos(uTime*.8+a*3.))*aInstC.x;q=uCenter+mod(q-uCenter+.5*L,L)-.5*L;
+   s*=1.-smoothstep(.6,1.,length(q-uCenter)/(.5*L));
+   vec3 d=normalize(vel-vec3(0,1e-3,0)),x=normalize(abs(d.y)<.999?cross(d,vec3(0,1,0)):vec3(1,0,0)),z=cross(x,d);
+   vertex=(x*vertex.x+d*vertex.y+z*vertex.z)*s+q;normal=x*normal.x+d*normal.y+z*normal.z;}
   else{vertex=turn(vertex,a)*s+base;normal=turn(normal,a);
   // The instance colour replaces only the white parts of a mesh (petals, bodies, water), so centres, stems and legs keep their own colour.
   if(min(color.r,min(color.g,color.b))>.97)color.rgb*=aInstC.rgb;}

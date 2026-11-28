@@ -22,8 +22,13 @@ export const CONCEPT_UNITS = Object.freeze({
     'chemistry-17': 'Velocità di reazione',
 });
 /** Units quoted only by the panel on the ground (1.65.0), besides physics-02, physics-03 and, for the jump of
- * the explorer (1.68.0), physics-04. */
+ * the explorer (1.68.0), physics-04; the weather of the zone (1.79.0) quotes physics-07, physics-14, physics-18
+ * and physics-19. */
 export const GROUND_UNITS = Object.freeze({
+    'physics-07': 'Attrito e vincoli',
+    'physics-14': 'Fluidi e pressione',
+    'physics-18': 'Gas ideali',
+    'physics-19': 'Calore e capacità termica',
     'biology-20': 'Fotosintesi e luce di altre stelle',
     'math-c10': 'Combinatoria, probabilità e statistica',
     'math-p07': 'Probabilità, informazione e fenomeni collettivi',
@@ -250,7 +255,27 @@ function ground(x) {
         if (P) { rows.splice(5, 0, ['Zaino a reazione', `${dec(P.thrust, 0)} m/s² per ${dec(P.burn, 1)} s`], ['Salita con lo zaino', `${dec(P.height, 1)} m, sulla Terra ${dec(P.earth, 1)} m`]); if (P.last > 0) rows[7][1] += ` · zaino ${dec(P.last, 1)} m`; }
         return head('SALTO', rows, concept('physics-04', `L'esploratore lascia il suolo a ${dec(x.speed, 1)} m/s e la gravità del pianeta gli toglie ${dec(a, 2)} m/s di velocità ogni secondo. Sale per v/a = ${dec(x.speed / a, 2)} s fino a h = v²/(2a) = ${dec(x.speed, 1)}²/(2 · ${dec(a, 2)}) = ${dec(h, 2)} m, poi ricade nello stesso tempo. Con la stessa spinta l'altezza va come 1/g: qui è ${compare}.` + pack));
     }
+    if (x.kind === 'meteo') return weather(x, head, concept);
     // The sun of the landing site.
     const h = Math.max(0, x.height), share = Math.sin(h * Math.PI / 180), rows = [['Ora locale', clock(x.hour)], ['Durata del giorno', dec(x.hours, 1) + ' ore'], ['Altezza del sole', dec(x.height, 0) + '°'], ['Latitudine del sito', dec(Math.abs(x.lat), 0) + '° ' + (x.lat >= 0 ? 'nord' : 'sud')], ['Luce sul suolo', x.height > 0 ? dec(share * 100, 0) + ' % del sole allo zenit' : 'notte']];
     return head('SOLE E GIORNO', rows, concept('biology-20', x.height > 0 ? `Un raggio di luce che arriva con un'altezza di ${dec(x.height, 0)}° si distribuisce su una superficie di suolo più ampia: ogni metro quadrato riceve sin ${dec(x.height, 0)}° = ${dec(share, 2)} della luce che riceverebbe con il sole allo zenit. Il modello tiene il sole sull'equatore celeste, come agli equinozi: il giorno dura metà della rotazione a ogni latitudine.` : `Il sole è ${dec(-x.height, 0)}° sotto l'orizzonte: senza luce la fotosintesi si ferma e le piante consumano con la respirazione una parte degli zuccheri prodotti di giorno. Il modello tiene il sole sull'equatore celeste, come agli equinozi: la notte dura metà della rotazione a ogni latitudine.`));
+}
+
+/** The weather of the zone (1.79.0, src/worlds/weather.js): what it does now, the air and the wind, and the physics
+ * of its kind with the numbers of the planet. Speeds in metres a second. */
+const WEATHER_NAMES = { sereno: 'Cielo sereno', nuvoloso: 'Cielo coperto', pioggia: 'Pioggia', neve: 'Neve', nebbia: 'Nebbia', polvere: 'Tempesta di polvere', cenere: 'Pioggia di cenere' };
+function weather(x, head, concept) {
+    const word = x.strength < .4 ? 'debole' : x.strength < .75 ? 'moderata' : 'forte', now = x.weather === 'sereno' ? 'Cielo sereno' : x.weather === 'nuvoloso' ? 'Cielo coperto' : `${WEATHER_NAMES[x.weather]}, intensità ${word}`;
+    const ms = v => dec(v, v < 1 ? 2 : 1) + ' m/s', sight = x.sight === Infinity ? 'oltre 2 km' : x.sight >= 1000 ? dec(x.sight / 1000, 1) + ' km' : dec(x.sight, 0) + ' m';
+    const rows = [['Adesso', now], ['Vento', x.air.rho > 0 ? `${ms(x.wind)} da ${x.fromName}` : 'assente'], ['Visibilità', sight], ['Aria al suolo', x.air.rho > 0 ? `${dec(x.air.rho, x.air.rho < .1 ? 3 : 2)} kg/m³ a ${dec(x.pressure, x.pressure < .1 ? 3 : 2)} bar` : 'nessuna, il cielo resta nero'], ['Qui sono possibili', x.kinds.map(k => k === 'sereno' ? 'sereno' : k === 'nuvoloso' ? 'nubi' : k === 'polvere' ? 'polvere' : k === 'cenere' ? 'cenere' : k).join(', ')]];
+    if (x.air.rho > 0 && x.weather !== 'sereno') rows.push(['Prossimo cambiamento', `fra circa ${dec(Math.max(1, x.left / 60), 0)} min`]);
+    const a = x.air, g = dec(a.g, 2), rho = dec(a.rho, a.rho < .1 ? 3 : 2);
+    if (!(a.rho > 0)) return head('METEO', rows, concept('physics-18', `Qui la pressione al suolo è zero: senza un gas che sostenga nubi, vento e gocce, il meteo non esiste. Il cielo resta nero anche di giorno, perché nessuna molecola diffonde la luce della stella, e la polvere sollevata dall'esploratore ricade senza attrito, con g = ${g} m/s².`));
+    if (x.weather === 'pioggia') return head('METEO', rows, concept('physics-07', `Una goccia di 2 mm accelera finché l'attrito dell'aria, ½ C ρ v² A con C = 0,5, pareggia il peso. Allora v = √(8 r ρ_acqua g / (3 C ρ)) = ${ms(x.rain.v)}, con ρ = ${rho} kg/m³ e g = ${g} m/s²; sulla Terra la stessa goccia cade a ${dec(x.earth.rain, 1)} m/s. Aria più densa la frena, gravità più forte la spinge.`));
+    if (x.weather === 'neve') return head('METEO', rows, concept('physics-07', `Un fiocco di 5 mm è leggero e largo: l'attrito dell'aria pareggia presto il suo peso, e cade a v = √(8 r ρ_fiocco g / (3 C ρ)) = ${ms(x.snow.v)}, con una densità del fiocco di 50 kg/m³ e C = 1,2. Sulla Terra cade a circa ${dec(x.earth.snow, 1)} m/s; con un'aria di ${rho} kg/m³ ${x.snow.v > x.earth.snow ? 'scende più in fretta' : 'scende più piano'}.`));
+    if (x.weather === 'nebbia') return head('METEO', rows, concept('physics-19', `A ${dec(a.T - 273.15, 0)} °C un metro cubo d'aria satura contiene al più ${dec(x.fog.density, x.fog.density < 1 ? 2 : 1)} g di vapore, dalla relazione di Clausius e Clapeyron; sulla Terra a 15 °C sono ${dec(x.earth.fog.density, 1)} g. Quando l'aria si raffredda, il vapore in eccesso condensa in goccioline sospese: è la nebbia, che si dirada quando il suolo si scalda.`));
+    if (x.weather === 'polvere') return head('METEO', rows, concept('physics-14', `Il vento solleva granelli di 0,1 mm quando la velocità d'attrito supera u* = 0,1 √((ρ_g − ρ) g d / ρ) = ${ms(x.dust.friction)}, cioè con un vento di circa ${dec(x.dust.wind, 0)} m/s a 2 m dal suolo; sulla Terra bastano circa ${dec(x.earth.dust.wind, 0)} m/s. In un'aria di ${rho} kg/m³ serve un vento forte: ora soffia a ${ms(x.wind)}.`));
+    if (x.weather === 'cenere') return head('METEO', rows, concept('physics-07', `Un granello di cenere di 50 μm cade piano: per corpi così piccoli l'attrito segue la legge di Stokes, F = 6π η r v, e la velocità di caduta v = 2(ρ_g − ρ) g r² / (9η) vale ${ms(x.ash.v)}, con la viscosità η = ${dec(a.mu * 1e5, 2)}·10⁻⁵ Pa·s. Dipende dalla viscosità dell'aria e quasi per niente dalla sua densità, e il vento porta la cenere lontano.`));
+    const push = .5 * a.rho * x.wind * x.wind * .7, share = push / (100 * a.g) * 100;
+    return head('METEO', rows, concept('physics-18', `L'aria al suolo ha densità ρ = pM/(RT) = ${rho} kg/m³, con una massa molare di ${dec(a.M * 1000, 1)} g/mol e ${dec(a.T, 0)} K; sulla Terra ${dec(x.earth.air.rho, 2)} kg/m³. Il vento di ${ms(x.wind)} spinge l'esploratore con F = ½ ρ v² C A = ${dec(push, push < 10 ? 1 : 0)} N (C = 1, A = 0,7 m²), il ${dec(share, share < 1 ? 2 : 1)}% del suo peso di 100 kg.`));
 }
