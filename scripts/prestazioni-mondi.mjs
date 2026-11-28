@@ -15,7 +15,7 @@ export const SEED = 20261124;
 if (MAIN) Object.defineProperty(globalThis, 'crypto', { value: { getRandomValues: a => a.fill(SEED) }, configurable: true });
 
 const { counter, QUALITIES, QUALITY_NAMES } = await import('./prestazioni.mjs');
-const { World } = await import('../src/scene/world.js');
+const { World, GROUND_MS } = await import('../src/scene/world.js');
 const { planetSurface, planetSpecies, planetGenomes } = await import('../src/worlds/surface.js');
 const { newExplorer, stepExplorer, freeSpot, jumpOf, passable, toggleRover, ROVER, METRE } = await import('../src/worlds/explorer.js');
 const { worldModels, worldMesh } = await import('../src/worlds/catalogo.js');
@@ -49,11 +49,13 @@ export function buildCost(ctx, i) {
     const t0 = performance.now(), s = planetSurface(i), t1 = performance.now();
     w.planetCache ||= new Map(); w.planetCache.set(i, s); w.uploadedPlanet = null;
     w.activatePlanet(i); const t2 = performance.now();
-    return { index: i, surfaceMs: t1 - t0, uploadMs: t2 - t1, bytes: meshBytes(R), meshes: R.meshes.size };
+    // The outer grids of the ground (1.77.0) come in the next frames, GROUND_MS milliseconds at a time.
+    let fillFrames = 0; while (w.ground?.pending.size && fillFrames < 1000) { w.fillGround(GROUND_MS); fillFrames++; }
+    return { index: i, surfaceMs: t1 - t0, uploadMs: t2 - t1, fillMs: performance.now() - t2, fillFrames, bytes: meshBytes(R), meshes: R.meshes.size };
 }
 /** `frames` frames of 1/60 s of the surface of planet `i` from one view, after the camera has settled. */
 export function measureSurface(ctx, i, quality, view, { frames = 60 } = {}) {
-    const { R, w } = ctx; R.sceneQuality = quality; w.activatePlanet(i);
+    const { R, w } = ctx; R.sceneQuality = quality; w.activatePlanet(i); w.fillGround(Infinity);
     const s = { scene: 'surface', selected: i, time: 30, yaw: 0, pitch: .45, distance: 22, paused: false, lastFrameMs: 1000 / 60 };
     // The ship of the explorer (1.75.0) on the pad of the base: coming down, with plumes and dust, in the view of the
     // stations, where it arrives; on the ground, with the ramp open, in the other two.
@@ -120,10 +122,12 @@ export function report({ frames, results, builds, catalogue, explorer, machine, 
     L.push(`Le impostazioni più leggere disegnano sette o quattro individui su dieci e avvicinano i modelli dettagliati alla camera, quindi riducono i triangoli e le istanze; le chiamate di disegno cambiano poco, perché ogni specie, ogni tipo di edificio e ogni figura di abitanti è una chiamata con istanze per livello. I limiti controllati dai test per un fotogramma di superficie sono ${int(BUDGET.draws)} chiamate di disegno, ${mega(BUDGET.triangles)} di triangoli e ${int(BUDGET.instances)} istanze.`, '');
     L.push('## Costruzione di una superficie', '');
     const S = builds.map(b => b.surfaceMs), U = builds.map(b => b.uploadMs), B = builds.map(b => b.bytes / 2 ** 20), big = worst(builds, b => b.bytes), long = worst(builds, b => b.surfaceMs + b.uploadMs);
-    L.push(`Alla prima visita di un pianeta il sito costruisce la superficie dalla carta d'identità (terreno, mari, luoghi, colonia e villaggio, specie) e poi le maglie dei modelli, che carica sulla scheda grafica. Le ultime 3 superfici visitate restano in memoria: tornando su una di esse il sito rifà le maglie e riusa la superficie.`, '');
+    const Fm = builds.map(b => b.fillMs), Ff = builds.map(b => b.fillFrames);
+    L.push(`Alla prima visita di un pianeta il sito costruisce la superficie dalla carta d'identità (terreno, mari, luoghi, colonia e villaggio, specie) e poi le maglie dei modelli, che carica sulla scheda grafica. Le ultime 3 superfici visitate restano in memoria: tornando su una di esse il sito rifà le maglie e riusa la superficie. Dalla 1.77.0 le tre griglie esterne del terreno, oltre 256 unità dal centro della vista, si costruiscono nei fotogrammi seguenti, ${GROUND_MS} ms per fotogramma: da ${int(Math.min(...Ff))} a ${int(Math.max(...Ff))} fotogrammi, in mediana ${int(median(Ff))}.`, '');
     L.push('| Fase | Minimo | Mediana | Massimo |', '|---|---|---|---|');
     L.push(`| Superficie dalla carta | ${int(Math.min(...S))} ms | ${int(median(S))} ms | ${int(Math.max(...S))} ms |`);
     L.push(`| Maglie dei modelli | ${int(Math.min(...U))} ms | ${int(median(U))} ms | ${int(Math.max(...U))} ms |`);
+    L.push(`| Terreno lontano, nei fotogrammi seguenti | ${int(Math.min(...Fm))} ms | ${int(median(Fm))} ms | ${int(Math.max(...Fm))} ms |`);
     L.push(`| Memoria delle maglie e delle istanze | ${dec(Math.min(...B), 1)} MiB | ${dec(median(B), 1)} MiB | ${dec(Math.max(...B), 1)} MiB |`, '');
     L.push(`La superficie più lunga da costruire è quella di ${name(long.index)}, con ${int(long.surfaceMs + long.uploadMs)} ms in tutto, la più pesante in memoria quella di ${name(big.index)}, con ${dec(big.bytes / 2 ** 20, 1)} MiB. La memoria conta 4 byte per ogni numero dei vertici e degli indici e 32 byte per ogni istanza. I limiti dei test sono ${int(BUDGET.buildMs)} ms per la costruzione e ${BUDGET.meshMiB} MiB per la memoria di una superficie.`, '');
     L.push('## Catalogo dei modelli dei mondi', '');

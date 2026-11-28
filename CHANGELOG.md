@@ -1,3 +1,11 @@
+# 1.77.0: Mondi aperti, prestazioni sui telefoni, misure di varietà e collaudo della serie
+
+- Ultima versione della serie «Mondi aperti», ora descritta per la classe in `docs/MONDI_APERTI.md`, con le versioni, il contenuto di una zona, la mappa dei concetti di fisica e il collaudo.
+- Una superficie si apre prima: le griglie del terreno calcolano soltanto i punti che usano e le tre più esterne si costruiscono nei fotogrammi seguenti, 10 ms per fotogramma. Le maglie di una superficie richiedono in mediana 283 ms invece di 570.
+- Grafica che si adatta: un telefono parte con la grafica bilanciata, e ogni dispositivo la alleggerisce di un livello quando i fotogrammi restano sotto circa 30 al secondo, finché non si sceglie una grafica nelle impostazioni.
+- Misure di varietà in `docs/VARIETA_MONDI.md`, generato da `node scripts/varieta.mjs`: il luogo da vedere più vicino è in mediana a 295 m, contando i cambi di bioma il 99% dei punti ha una novità entro 300 m, e le 125 zone sono tutte diverse.
+- Nuovi `src/ui/adaptive.js`, `scripts/varieta.mjs` e `tests/collaudo-mondi.test.mjs`. Descrizione in `docs/GRAPHICS.md`, sezione «Prestazioni sui telefoni, misure di varietà e collaudo della serie».
+
 # 1.76.0: Mondi aperti, zaino a reazione e viaggio rapido fra i luoghi scoperti
 
 - Settima versione della serie «Mondi aperti». Tenendo premuto il salto si accende lo zaino a reazione: 14 m/s² di spinta per al più 1,2 s, ricaricati in 3 s a terra. La spinta meno la gravità dà l’accelerazione netta, quindi lo zaino porta l’esploratore a 18,1 m sui pianeti più leggeri, a 10,1 m sulla Terra e a 5,4 m su quelli più pesanti.

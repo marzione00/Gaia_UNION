@@ -7,7 +7,7 @@ import { EDGE } from '../src/worlds/explorer.js';
 import { LANDING_SITES } from '../src/worlds/landing-sites.js';
 import { planetSurface, surfaceScatter, EXTENT, GRID } from '../src/worlds/surface.js';
 import { HEADER } from '../scripts/landing-sites.mjs';
-import { World, HORIZON } from '../src/scene/world.js';
+import { World, HORIZON, GROUND_EAGER } from '../src/scene/world.js';
 // Terrain of the landing surfaces (1.62.0): the piece of the planet seen from orbit around its landing site;
 // since 1.70.0 streamed around the camera in six nested grids up to the horizon, with no crack where they meet.
 // Planets of every family whose search is quick: the whole file takes about a minute to recompute.
@@ -44,9 +44,10 @@ test('terreno in streaming: sei griglie annidate fino a 2048 unità, senza crepe
  for(const i of [7,36,99]){
   const s=planetSurface(i),G=new GroundClipmap(s);
   for(const [fx,fz] of [[2,2],[613,-298],[EDGE,-EDGE]]){
-   G.update(fx,fz);const at=k=>{const L=G.levels[k],v=L.mesh.v,n=CELLS+1,map=new Map();for(let q=0;q<n*n;q++)map.set(v[q*16]+','+v[q*16+2],v[q*16+1]);return map;};
+   // Only the points the triangles use count: since 1.77.0 those inside the hole of a level are left out.
+   G.update(fx,fz);const used=L=>[...new Set(L.mesh.i)],at=k=>{const L=G.levels[k],v=L.mesh.v,map=new Map();for(const q of used(L))map.set(v[q*16]+','+v[q*16+2],v[q*16+1]);return map;};
    for(const L of G.levels){const [cx,cz]=L.centre;assert.deepEqual([cx,cz],centreOf(L.k,fx,fz));assert.equal(cx%(2*L.step),0);
-    const v=L.mesh.v;let mx=0;for(let q=0;q<v.length;q+=16)mx=Math.max(mx,Math.abs(v[q]-cx),Math.abs(v[q+2]-cz));assert.equal(mx,half(L.k));
+    const v=L.mesh.v;let mx=0;for(const q of used(L))mx=Math.max(mx,Math.abs(v[q*16]-cx),Math.abs(v[q*16+2]-cz));assert.equal(mx,half(L.k));
     // The hole of a level is exactly the square of the level inside it.
     const tri=L.mesh.i.length/3;assert.equal(tri,L.k?2*(CELLS*CELLS-(CELLS/2)**2):2*CELLS*CELLS);
     for(let t=0;t<L.mesh.i.length;t+=3)if(L.k){const I=G.levels[L.k-1],x=(v[L.mesh.i[t]*16]+v[L.mesh.i[t+1]*16]+v[L.mesh.i[t+2]*16])/3,z=(v[L.mesh.i[t]*16+2]+v[L.mesh.i[t+1]*16+2]+v[L.mesh.i[t+2]*16+2])/3;assert.ok(Math.max(Math.abs(x-I.centre[0]),Math.abs(z-I.centre[1]))>half(I.k)-1e-6);}}
@@ -64,7 +65,8 @@ test('terreno in streaming: sei griglie annidate fino a 2048 unità, senza crepe
   assert.equal(same,(n-2)**2);
   // Moving step by step gives the same ground as a new one built at the end: the cache of points wraps round.
   const s0=G.samples,b0=G.built;for(let k=0;k<=240;k++)G.update(2+k/240*900,2-k/240*400);const H=new GroundClipmap(s);H.update(902,-398);
-  G.levels.forEach((L,k)=>{assert.deepEqual(L.centre,H.levels[k].centre);assert.deepEqual(Array.from(L.mesh.v),Array.from(H.levels[k].mesh.v));assert.deepEqual(Array.from(L.mesh.i),Array.from(H.levels[k].mesh.i));});
+  // Since 1.77.0 the points inside the hole of a level are left out: the points its triangles use are the same.
+  G.levels.forEach((L,k)=>{assert.deepEqual(L.centre,H.levels[k].centre);assert.deepEqual(Array.from(L.mesh.i),Array.from(H.levels[k].mesh.i));const used=[...new Set(L.mesh.i)];assert.deepEqual(used.map(q=>Array.from(L.mesh.v.subarray(q*16,q*16+16))),used.map(q=>Array.from(H.levels[k].mesh.v.subarray(q*16,q*16+16))));});
   // Each rebuild of a level computes only a strip of new points, a small share of its window.
   const ds=G.samples-s0,db=G.built-b0;assert.ok(db>200&&ds<db*(CELLS+3)**2*.15,'punti ricalcolati: '+ds+' in '+db+' ricostruzioni');
  }
@@ -83,7 +85,8 @@ test('scena: terreno in streaming e mare lontano in GPU, camera fino all\'orizzo
  const made=new Map(),draws=[];
  const R={w:1600,h:1000,meshes:{has:id=>made.has(id)},makeStars(){},makeMesh(id,m){made.set(id,m);},deleteMesh(id){made.delete(id);},drawMesh(id,vp,model,o={}){draws.push({id,o});},makeInstances(){},updateInstances(){},deleteInstances(){},drawEnvironment(){},drawStars(){},renderShadow(){},starCount:1e6,shadowKey:null,sceneQuality:'high'};
  const biomes=JSON.parse(read('assets/scenes/manifest.json')).biomes,w=new World(R,{},biomes);
- w.activatePlanet(7);for(let k=0;k<LEVELS;k++)assert.ok(made.has('planet-ground-'+k));assert.ok(made.has('planet-sea-far')&&!made.has('planet-terrain'));
+ // Since 1.77.0 the outer grids come in the next frames (fillGround).
+ w.activatePlanet(7);for(let k=0;k<LEVELS;k++)assert.equal(made.has('planet-ground-'+k),k<GROUND_EAGER);w.fillGround(Infinity);for(let k=0;k<LEVELS;k++)assert.ok(made.has('planet-ground-'+k));assert.ok(made.has('planet-sea-far')&&!made.has('planet-terrain'));
  const s={scene:'surface',selected:7,time:10,yaw:0,pitch:.45,distance:22,paused:true};
  w.camera('surface',s);
  // A point 1700 units ahead, on the line of sight, is inside the clip volume.
@@ -92,7 +95,7 @@ test('scena: terreno in streaming e mare lontano in GPU, camera fino all\'orizzo
  // The lines of sight pass over the relief between camera and target and between camera and stations.
  for(const i of [0,25,7]){w.activatePlanet(i);const st={...s,selected:i};w.camera('surface',st);const S=w.surface;
   for(const end of [w.target,...S.stations.map(st=>st.position)])for(let k=1;k<20;k++){const t=k/20,x=w.eye[0]+(end[0]-w.eye[0])*t,z=w.eye[2]+(end[2]-w.eye[2])*t,y=w.eye[1]+(end[1]-w.eye[1])*t;assert.ok(y-Math.max(S.heightAt(x,z),S.seaY??-99)>=1.5-1e-6,'vista coperta sul pianeta '+i);}}
- w.activatePlanet(7);w.camera('surface',s);
+ w.activatePlanet(7);w.fillGround(Infinity);w.camera('surface',s);
  w.draw('surface',s,{modules:[]});for(let k=0;k<LEVELS;k++)assert.ok(draws.some(d=>d.id==='planet-ground-'+k&&d.o.material===10));assert.ok(draws.some(d=>d.id==='planet-sea-far'));
  // The ground and the near sea follow the camera far from the base; the waves keep their place.
  const far={...s,explore:true,exploreFocus:[900,-700],exploreBlend:1};w.cameraScene=null;draws.length=0;w.draw('surface',far,{modules:[]});

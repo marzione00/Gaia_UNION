@@ -8,7 +8,10 @@
  * window per level that wraps round (a toroidal array), so moving by a few units computes only the new rows.
  * The outer edge of every grid is set on the straight lines of the coarser one, with no cracks between them.
  * Since 1.71.0 the colour and roughness of a point come from the biomes of the field (field.colour); since
- * 1.74.0 the relief of the rare places (reliefAt, src/worlds/wonders.js) is added to the heights of the field. */
+ * 1.74.0 the relief of the rare places (reliefAt, src/worlds/wonders.js) is added to the heights of the field.
+ * Since 1.77.0 a level computes only the points its triangles use, leaving out those inside the hole of the
+ * level within it, and the first build of the outer levels may wait: update leaves them pending and fill builds
+ * them a few rows at a time within a budget of milliseconds, from the inside out, so a surface opens sooner. */
 import { colorAt } from './terrain.js';
 import { CORE, stitch } from './field.js';
 
@@ -30,7 +33,7 @@ export function centreOf(k, x, z) { const s = 2 * 2 ** k; return [Math.round(x /
 export class GroundClipmap {
     /** `s` is a landing surface: heightAt, field (E, lava, sea), genome. */
     constructor(s) {
-        this.s = s; this.levels = Array.from({ length: LEVELS }, (_, k) => level(k)); this.samples = 0; this.built = 0;
+        this.s = s; this.levels = Array.from({ length: LEVELS }, (_, k) => level(k)); this.samples = 0; this.built = 0; this.pending = new Set();
         const g = s.genome, F = s.field, h = CORE / 2, n = s.n, grid = s.cell === 1 && s.fieldGrid ? s.fieldGrid : null;
         this.rough = .88 - .3 * (g.family === 'arctic');
         // Height, height of the field for the colour and lava at a point of the lattice of level L. Inside the
@@ -60,17 +63,37 @@ export class GroundClipmap {
         L.rTag[i * 2] = a; L.rTag[i * 2 + 1] = b;
         return o;
     }
-    /** Vertices of level L around its centre: (CELLS + 1)² records; on the outer edge of every level but the
-     * last the points between two points of the coarser grid are set on the line between them. */
-    vertices(L) {
+    /** Vertices of level L around its centre: (CELLS + 1)² records, but those whose four cells all lie in the
+     * hole of the level within it, which no triangle uses (1.77.0); on the outer edge of every level but the last
+     * the points between two points of the coarser grid are set on the line between them. With a deadline
+     * (performance.now) the rows stop when it passes and go on from L.row at the next call; null until done. */
+    vertices(L, deadline = Infinity) {
         const n = CELLS + 1, v = L.v ||= new Float32Array(n * n * FLOATS), [cx, cz] = L.centre, a0 = cx / L.step - CELLS / 2, b0 = cz / L.step - CELLS / 2;
-        for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) { const o = this.record(L, a0 + i, b0 + j); v.set(L.rec.subarray(o, o + FLOATS), (j * n + i) * FLOATS); }
+        const inner = L.k ? this.levels[L.k - 1] : null, h = inner?.centre ? half(inner.k) - L.step / 2 - 1e-9 : -1, [ix, iz] = inner?.centre || [0, 0];
+        for (let j = L.row || 0; j < n; j++) {
+            if (deadline < Infinity && j > (L.row || 0) && performance.now() > deadline) { L.row = j; return null; }
+            const inRow = Math.abs(cz + (j - CELLS / 2) * L.step - iz) < h;
+            for (let i = 0; i < n; i++) { if (inRow && Math.abs(cx + (i - CELLS / 2) * L.step - ix) < h) continue; const o = this.record(L, a0 + i, b0 + j); v.set(L.rec.subarray(o, o + FLOATS), (j * n + i) * FLOATS); }
+        }
+        L.row = 0; L.hole = inner?.centre ? [ix, iz] : null;
         if (L.k < LEVELS - 1) {
             const Y = this.edge ||= new Float32Array(n * n); for (let k = 0; k < n * n; k++) Y[k] = v[k * FLOATS + 1];
             for (const edge of [k => k, k => (n - 1) * n + k, k => k * n, k => k * n + n - 1]) stitch(Y, n, L.step, 2 * L.step, edge);
             for (let k = 0; k < n * n; k++) v[k * FLOATS + 1] = Y[k];
         }
         return v;
+    }
+    /** After the level within L moved and L did not: the points left out inside the old hole that now lie
+     * outside the new one get their records, a strip along the side of the hole (1.77.0). */
+    uncover(L) {
+        const inner = this.levels[L.k - 1], h = half(inner.k) - L.step / 2 - 1e-9, [ox, oz] = L.hole, [ix, iz] = inner.centre, n = CELLS + 1, [cx, cz] = L.centre, a0 = cx / L.step - CELLS / 2, b0 = cz / L.step - CELLS / 2;
+        const j0 = Math.max(0, Math.ceil((oz - h - cz) / L.step + CELLS / 2)), j1 = Math.min(n - 1, Math.floor((oz + h - cz) / L.step + CELLS / 2)), i0 = Math.max(0, Math.ceil((ox - h - cx) / L.step + CELLS / 2)), i1 = Math.min(n - 1, Math.floor((ox + h - cx) / L.step + CELLS / 2));
+        for (let j = j0; j <= j1; j++) {
+            const z = cz + (j - CELLS / 2) * L.step, wasRow = Math.abs(z - oz) < h, inRow = Math.abs(z - iz) < h; if (!wasRow) continue;
+            for (let i = i0; i <= i1; i++) { const x = cx + (i - CELLS / 2) * L.step; if (Math.abs(x - ox) >= h || (inRow && Math.abs(x - ix) < h)) continue; const o = this.record(L, a0 + i, b0 + j); L.v.set(L.rec.subarray(o, o + FLOATS), (j * n + i) * FLOATS); }
+        }
+        // The edge of the level is the same: the stitched heights there do not change.
+        L.hole = [ix, iz];
     }
     /** Triangles of level L: every cell of its grid but those inside the level within it. */
     indices(L) {
@@ -83,15 +106,28 @@ export class GroundClipmap {
         return out.subarray(0, q);
     }
     /** Moves the levels to the focus (x, z). Returns the levels whose mesh changed: those that moved, and the
-     * level outside each of them, whose hole moved. */
-    update(x, z) {
-        const moved = new Set();
+     * level outside each of them, whose hole moved and may need points it left out. Levels from `eager` out that
+     * have never been built wait for fill (1.77.0); a pending level that moves starts again. */
+    update(x, z, eager = LEVELS) {
+        const moved = new Set(), out = [];
         for (const L of this.levels) { const c = centreOf(L.k, x, z); if (!L.centre || L.centre[0] !== c[0] || L.centre[1] !== c[1]) { L.centre = c; moved.add(L.k); } }
         const changed = new Set(); for (const k of moved) { changed.add(k); if (k + 1 < LEVELS) changed.add(k + 1); }
         for (const k of [...changed].sort((a, b) => a - b)) {
-            const L = this.levels[k]; if (moved.has(k) || !L.v) this.vertices(L);
-            L.mesh = { v: L.v, i: this.indices(L), stride: FLOATS }; this.built++;
+            const L = this.levels[k];
+            if (this.pending.has(k) || (k >= eager && !L.mesh)) { this.pending.add(k); L.row = 0; continue; }
+            if (moved.has(k) || !L.v || !L.hole) this.vertices(L); else this.uncover(L);
+            L.mesh = { v: L.v, i: this.indices(L), stride: FLOATS }; this.built++; out.push(k);
         }
-        return [...changed].sort((a, b) => a - b);
+        return out;
+    }
+    /** Builds the pending levels, from the inside out, until `ms` milliseconds have passed. Returns those done. */
+    fill(ms) {
+        const out = [], deadline = performance.now() + ms;
+        for (const k of [...this.pending].sort((a, b) => a - b)) {
+            const L = this.levels[k], v = this.vertices(L, deadline); if (!v) break;
+            L.mesh = { v, i: this.indices(L), stride: FLOATS }; this.built++; this.pending.delete(k); out.push(k);
+            if (performance.now() > deadline) break;
+        }
+        return out;
     }
 }
