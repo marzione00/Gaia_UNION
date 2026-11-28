@@ -18,9 +18,10 @@ import { UI, C, T, ImageCache, caseLabel, DISCIPLINE, fmtNum } from './ui/toolki
 import { FrameMeter, diagnosticLines, mountDiagnostics } from './ui/diagnostics.js';
 import { DOCUMENTS, docOf, docKey, printedLabel } from './documents.js';
 import { pilotWorld, worldParameters } from './worlds/pilots.js';
-import { planetGenomes, planetSpecies, planetEndemics } from './worlds/surface.js';
+import { planetGenomes, planetSpecies, planetEndemics, planetSurface } from './worlds/surface.js';
 import { placeList } from './worlds/places.js';
 import { BIOME, biomesOf } from './worlds/biomes.js';
+import { SITE_KINDS, STATES, siteList } from './worlds/sites.js';
 import { lifelessReason } from './worlds/species.js';
 import { planetPhysics, physicsRows, physicsText, speciesCount, it as italian } from './worlds/planet-physics.js';
 import { cleanPassages, exploration, linkOpen } from './navigation/passages.js';
@@ -37,7 +38,7 @@ import { openStore, grade } from './store.js';
 import { AUTHOR, LICENCE, CREDIT, LICENCE_ROW } from './licenza.js';
 import { simulate, sweep, DEFAULTS } from './models/daisyworld.js';
 import { rectangleModel, transformFunction, radicalValue, intersectLines, exponentialReserve, halfLife, rationalValue, rationalSignAnalysis } from './models/math.js';
-const VERSION = '1.72.0-vita';
+const VERSION = '1.73.0-siti';
 const canvas = document.querySelector('#gaia'), error = document.querySelector('#error'), editor = document.querySelector('#editor'), semantic = document.querySelector('#semantic');
 const files = globalThis.__GAIA_FILES__ || {};
 const initialHash = location.hash;
@@ -290,10 +291,17 @@ function exploreEntries() {
     // The endemic species of the biomes (1.72.0) follow those of the planet; each is sought where it is nearest.
     const s = W.surface, pop = W.population || [], all = [...s.species, ...(s.endemics || [])];
     return [...all.map((sp, k) => ({ type: 'species', index: k, id: sp.id, data: sp, at: W.spotOf?.(k) || (sp.kind === 'animal' ? W.liveCentre(k) || pop[k]?.centre || null : pop[k]?.centre || null) })), ...s.places.map((p, k) => ({ type: 'place', index: k, id: p.id, data: p, at: p.position })),
-        ...(s.settlements || []).map((p, k) => ({ type: 'settlement', index: k, id: p.id, data: p, at: p.position }))];
+        ...(s.settlements || []).map((p, k) => ({ type: 'settlement', index: k, id: p.id, data: p, at: p.position })),
+        // Structures, wrecks and ruins of the zone (1.73.0), with their stories.
+        ...(s.sites || []).map((x, k) => ({ type: 'site', index: k, id: x.id, data: x, at: [x.x, x.y, x.z] }))];
 }
 const exploreRecord = index => store.data.explore[String(index)] || { s: [], l: [] };
-const isRegistered = (e, rec) => (e.type === 'species' ? rec.s : rec.l).includes(e.id);
+/** Sites of planet i (1.73.0): those of the open surface, or those of the planet, made once and kept. */
+const siteCache = new Map();
+const sitesOf = i => W?.surface?.index === i && W.surface.sites ? W.surface.sites : siteCache.get(i) || siteCache.set(i, siteList(planetSurface(i))).get(i);
+/** Distance of a point from the explorer, for the cards of the sites (1.73.0). */
+const distanceTo = at => { const A = S.avatar; if (!at || !A) return ''; const d = Math.hypot(at[0] - A.x, at[2] - A.z) / METRE; return d < 30 ? ' · qui' : ` · a ${d >= 1000 ? (d / 1000).toFixed(1).replace('.', ',') + ' km' : Math.round(d) + ' m'}`; };
+const isRegistered = (e, rec) => (e.type === 'species' ? rec.s : e.type === 'site' ? rec.r || [] : rec.l).includes(e.id);
 /** Selects entry `i`. With `fly` the explorer reaches it by a quick travel (1.68.0): it stops a few units
  * before it, on free ground, and the camera flies there. */
 function selectEntry(i, fly = true) {
@@ -306,15 +314,15 @@ function selectEntry(i, fly = true) {
 function selectTarget(t) {
     const list = exploreEntries(), k = list.findIndex(e => e.type === t.type && e.index === t.index); if (k < 0) return;
     if (!S.avatar) { selectEntry(k); return; }
-    selectEntry(k, false); const at = list[k].at; if (at) { S.exploreGoal = [at[0], at[2]]; S.exploreStop = t.type === 'settlement' ? 6 : 4; }
+    selectEntry(k, false); const at = list[k].at; if (at) { S.exploreGoal = [at[0], at[2]]; S.exploreStop = t.type === 'settlement' ? 6 : t.type === 'site' ? 22 : 4; }
 }
 function startExplore() { S.explore = true; S.exploreGoal = null; S.exploreCard = R.w >= 850; updateHash(); }
 function stopExplore() { saveExplorer(); S.explore = false; S.groundFollow = null; held.clear(); stick = null; updateHash(); }
 function register(e) {
-    const key = String(S.selected), rec = store.data.explore[key] ||= { s: [], l: [] }, list = e.type === 'species' ? rec.s : rec.l;
+    const key = String(S.selected), rec = store.data.explore[key] ||= { s: [], l: [] }, list = e.type === 'species' ? rec.s : e.type === 'site' ? rec.r ||= [] : rec.l;
     if (list.includes(e.id)) return;
     list.push(e.id); rec.at = new Date().toISOString(); store.save();
-    say((e.type === 'species' ? 'Specie registrata: ' : 'Luogo registrato: ') + e.data.name);
+    say((e.type === 'species' ? 'Specie registrata: ' : e.type === 'site' ? 'Sito registrato: ' : 'Luogo registrato: ') + e.data.name);
 }
 function exploreTick() {
     if (S.scene !== 'surface') { S.exploreTarget = null; S.exploreBlend = 0; return; }
@@ -337,6 +345,9 @@ function exploreTick() {
     const ev = stepExplorer(A, input, dt, env);
     // The biome under the explorer (1.71.0): the first visit of each goes into the diary.
     const here = W.surface?.field?.biomeAt?.(A.x, A.z); if (here && here.id !== S.biomeHere) { S.biomeHere = here.id; visitBiome(A.planet, here); }
+    // A site of the zone within 60 m (1.73.0) is announced once a visit.
+    const site = (W.surface?.sites || []).find(x => Math.hypot(x.x - A.x, x.z - A.z) < 38);
+    if (site && !(S.sitesMet ||= new Set()).has(A.planet + ':' + site.id)) { S.sitesMet.add(A.planet + ':' + site.id); say(`${site.name}, ${SITE_KINDS[site.kind].label}. Lo scanner ne registra la storia nel diario.`); }
     if (ev.includes('arrivato') && !S.groundFollow) S.exploreGoal = null;
     if (ev.includes('fermo') && S.exploreGoal && !S.groundFollow) { S.exploreGoal = null; say(ev.includes('confine') ? 'La meta è oltre il confine della zona di atterraggio.' : 'Il passaggio è chiuso: aggira l’ostacolo.'); }
     // The zone of the landing site is about 4 km × 4 km (1.70.0): at its edge the explorer stops.
@@ -931,16 +942,27 @@ function exploreUI(m, mobile) {
     const ns = list.filter(e => e.type === 'species').length, np = list.length - ns, e = list[S.exploreEntry] || list[0];
     if (e) {
         const done = isRegistered(e, rec), species = e.type === 'species';
-        U.tag((species ? 'Specie ' : 'Luogo ') + (S.exploreEntry + 1) + ' di ' + list.length + (done && !W.sunNow ? ' · nel diario' : ''), px + 18, py + 18, species ? C.lime : tint);
+        const site = e.type === 'site';
+        U.tag((species ? 'Specie ' : site ? 'Sito ' : 'Luogo ') + (S.exploreEntry + 1) + ' di ' + list.length + (done && !W.sunNow ? ' · nel diario' : ''), px + 18, py + 18, species ? C.lime : tint);
         wrapClipText(e.data.name, px + 18, py + 44, pw - 36, 'sub', C.pale, 1);
-        U.text(species ? (e.data.kind === 'plant' ? 'Pianta' : e.data.kind === 'fungus' ? 'Fungo' : 'Animale') + ' · ' + e.data.label + ' · ' + e.data.habitatName : PLACE_KINDS[e.data.kind], px + 18, py + 76, 'micro', species ? C.lime : tint);
-        // Phones show one trait at a time; wide screens show them all.
-        const parts = species || e.type === 'settlement' ? e.data.traits : ns ? [e.data.text] : [e.data.text, lifelessReason(W.surface.genome)], bottom = py + ph - 104;
+        U.text(species ? (e.data.kind === 'plant' ? 'Pianta' : e.data.kind === 'fungus' ? 'Fungo' : 'Animale') + ' · ' + e.data.label + ' · ' + e.data.habitatName : site ? STATES[e.data.state] + ' · ' + SITE_KINDS[e.data.kind].label + distanceTo(e.at) : PLACE_KINDS[e.data.kind], px + 18, py + 76, 'micro', species ? C.lime : tint);
+        // Phones show one trait at a time; wide screens show them all. A site shows its story (1.73.0).
+        const parts = species || e.type === 'settlement' ? e.data.traits : site ? e.data.story : ns ? [e.data.text] : [e.data.text, lifelessReason(W.surface.genome)], bottom = py + ph - 104;
         let y = py + 102;
         if (mobile) {
             const k = Math.min(S.exploreTrait, parts.length - 1); U.wrap(parts[k], px + 18, y, pw - 36, C.pale, 19, 5, 'micro');
             if (parts.length > 1) { U.button('explore-trait', 'Caratteristica ' + (k + 1) + ' di ' + parts.length + ' ▸', px + 16, bottom - 8, pw - 32, 28, () => { S.exploreTrait = (k + 1) % parts.length; }, { small: true }); }
-        } else for (const t of parts) { const rows = fittedRows(R, [t], pw - 36, 'mini').filter(Boolean), n = Math.min(rows.length, Math.floor((bottom - y) / 21)); rows.slice(0, n).forEach((row, i) => U.text(row, px + 18, y + i * 21, 'mini', C.pale)); y += n * 21 + 9; if (y > bottom - 21) break; }
+        } else {
+            // Wide screens show all the parts; when they do not fit, as the longer stories of the sites (1.73.0), they
+            // go in pages of whole parts, with a button for the next page.
+            const rowsOf = parts.map(t => fittedRows(R, [t], pw - 36, 'mini').filter(Boolean)), tall = r => r.length * 21 + 9;
+            const fits = rowsOf.reduce((a, r) => a + tall(r), 0) - 9 <= bottom - y, pages = [];
+            if (fits) pages.push(rowsOf.map((_, i) => i));
+            else { let page = [], used = 0; rowsOf.forEach((r, i) => { if (page.length && used + tall(r) - 9 > bottom - 34 - y) { pages.push(page); page = []; used = 0; } page.push(i); used += tall(r); }); pages.push(page); }
+            const k = S.exploreTrait % pages.length, end = fits ? bottom : bottom - 34;
+            for (const i of pages[k]) { const rows = rowsOf[i], n = Math.min(rows.length, Math.floor((end - y) / 21)); rows.slice(0, n).forEach((row, j) => U.text(row, px + 18, y + j * 21, 'mini', C.pale)); y += n * 21 + 9; if (y > end - 21) break; }
+            if (pages.length > 1) U.button('explore-trait', 'Pagina ' + (k + 1) + ' di ' + pages.length + ' ▸', px + 16, bottom - 8, pw - 32, 28, () => { S.exploreTrait = (k + 1) % pages.length; }, { small: true });
+        }
         const by = py + ph - 92;
         U.button('explore-prev', '◂', px + 16, by + 20, 44, 36, () => selectEntry(S.exploreEntry - 1)); U.buttons.at(-1).label = 'Voce precedente';
         U.button('explore-next', '▸', px + 66, by + 20, 44, 36, () => selectEntry(S.exploreEntry + 1)); U.buttons.at(-1).label = 'Voce successiva';
@@ -950,7 +972,7 @@ function exploreUI(m, mobile) {
         if (model) { U.button('explore-model', '3D', px + pw - 60, by + 20, 44, 36, () => openCraft(model)); U.buttons.at(-1).label = 'Apri il modello 3D di ' + e.data.name + ' nel catalogo'; }
     } else wrapClipText(lifelessReason(W.surface.genome), px + 18, py + 52, pw - 36, 'body', C.pale, 6);
     const sun = W.sunNow, hour = sun ? ` · ore ${String(Math.floor(sun.hour)).padStart(2, '0')}:${String(Math.floor(sun.hour % 1 * 60)).padStart(2, '0')}` : '';
-    U.text(`Diario: ${rec.s.length} specie su ${ns} · ${rec.l.length} luoghi su ${np}${hour}`, px + 18, py + ph - 26, 'micro', C.muted);
+    U.text(`Diario: ${rec.s.length} specie su ${ns} · ${rec.l.length + (rec.r?.length || 0)} luoghi su ${np}${hour}`, px + 18, py + ph - 26, 'micro', C.muted);
     // The sun of the landing site and, for an animal, its group: both open «Che cosa succede».
     if (sun) { U.button('ground-sun', 'SOLE', px + pw - 16 - 62, py + 10, 62, 26, () => followGround(null), { small: true }); U.buttons.at(-1).label = 'Il sole e il giorno del sito: che cosa succede'; }
     if (e?.type === 'species' && e.data.kind === 'animal' && W.eco) { U.button('ground-follow', 'SEGUI', px + pw - 16 - 62 - 68, py + 10, 62, 26, () => followGround(e.index), { small: true }); U.buttons.at(-1).label = 'Segui ' + e.data.name + ' e guarda che cosa succede'; }
@@ -959,8 +981,8 @@ function exploreUI(m, mobile) {
     if (!mobile) {
         U.text('Ipotesi illustrative ricavate dalla carta d’identità del pianeta.', 35, h - 112, 'micro', C.muted);
         for (const p of W.projections) {
-            if ((p.type !== 'place' && p.type !== 'settlement') || !Number.isFinite(p.x) || p.depth <= 0) continue;
-            const place = (p.type === 'place' ? W.surface.places : W.surface.settlements)[p.index], on = S.exploreTarget?.type === p.type && S.exploreTarget.index === p.index, label = (exploreRecord(S.selected).l.includes(place.id) ? '✓ ' : '') + place.name, tw = R.textWidth(label, 'mini') + 24, x = p.x - tw / 2, y = p.y - 34;
+            if ((p.type !== 'place' && p.type !== 'settlement' && p.type !== 'site') || !Number.isFinite(p.x) || p.depth <= 0) continue;
+            const place = (p.type === 'place' ? W.surface.places : p.type === 'site' ? W.surface.sites : W.surface.settlements)[p.index], on = S.exploreTarget?.type === p.type && S.exploreTarget.index === p.index, label = (isRegistered({ type: p.type, id: place.id }, exploreRecord(S.selected)) ? '✓ ' : '') + place.name, tw = R.textWidth(label, 'mini') + 24, x = p.x - tw / 2, y = p.y - 34;
             if (x < 20 || x + tw > w - 370 || y < 96 || (y < 250 && x < 760) || y > h - 120) continue;
             R.roundRect(x, y, tw, 26, 13, color(T.bg, .88), on ? tint : color(T.line, 1));
             U.text(label, x + 12, y + 6, 'mini', on ? C.pale : C.muted);
@@ -1378,7 +1400,7 @@ function exploreLog() {
     let s = 0, l = 0, planets = 0, measuredPlanets = 0, landings = 0, walked = 0, driven = 0;
     for (const rec of Object.values(store.data.explore)) { if (rec.v === 1 || rec.s.length) landings++; walked += rec.p?.w || 0; driven += rec.p?.d || 0; }
     for (const [key, rec] of Object.entries(store.data.explore)) {
-        const i = Number(key), m = data.modules[i], measured = (rec.m || []).map(id => INSTRUMENTS.find(x => x.id === id)?.name).filter(Boolean); if (!m || !(rec.s.length + rec.l.length + measured.length + (rec.p ? 1 : 0) + (rec.b?.length || 0))) continue;
+        const i = Number(key), m = data.modules[i], measured = (rec.m || []).map(id => INSTRUMENTS.find(x => x.id === id)?.name).filter(Boolean); if (!m || !(rec.s.length + rec.l.length + measured.length + (rec.p ? 1 : 0) + (rec.b?.length || 0) + (rec.r?.length || 0))) continue;
         planets++; s += rec.s.length; l += rec.l.length; if (measured.length) measuredPlanets++;
         const sp = [...species[i], ...endemics[i]].filter(x => rec.s.includes(x.id)).map(x => x.name + ' (' + x.label + ')'), pl = places[i].filter(x => rec.l.includes(x.id)).map(x => x.name);
         const d = rec.m?.includes('biofirme') ? diagnosis(physics[i], species[i].length, landed(i)) : null, lovelock = d ? 'Diagnosi di Lovelock: ' + VERDICTS[d.verdict] + (d.outcome === 'da-verificare' ? '' : ', ' + OUTCOMES[d.outcome]) + '.' : '';
@@ -1386,7 +1408,9 @@ function exploreLog() {
         const p = rec.p, trip = p ? `Esploratore: ${p.w} m a piedi, ${p.d} m in rover, ${p.n === 1 ? '1 salto' : p.n + ' salti'}${p.n ? ', il più alto di ' + p.j + ' cm (sulla Terra la stessa spinta dà ' + Math.round(JUMP * JUMP / (2 * G0) * 100) + ' cm)' : ''}.` : '';
         // The biomes crossed (1.71.0), in the order of the planet's list, out of the five to eight it has.
         const own = biomesOf(genomes[i]), crossed = own.filter(id => rec.b?.includes(id)).map(id => BIOME[id].name), biomes = crossed.length ? `Biomi attraversati: ${crossed.join(', ')} (${crossed.length} su ${own.length}).` : '';
-        rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : '', measured.length ? 'Misure: ' + measured.join(', ') + '.' : '', trip, biomes, lovelock].filter(Boolean).join(' '));
+        // The sites registered (1.73.0), with their kind; the list of a planet other than the open one is made once.
+        const sites = rec.r?.length ? sitesOf(i).filter(x => rec.r.includes(x.id)).map(x => `${x.name} (${SITE_KINDS[x.kind].label})`) : [], seen = sites.length ? 'Siti: ' + sites.join(', ') + '.' : '';
+        rows.push([m.title.toUpperCase() + ' (' + areaOf(i).name + ').', sp.length ? 'Specie: ' + sp.join(', ') + '.' : '', pl.length ? 'Luoghi: ' + pl.join(', ') + '.' : '', seen, measured.length ? 'Misure: ' + measured.join(', ') + '.' : '', trip, biomes, lovelock].filter(Boolean).join(' '));
     }
     const total = species.reduce((n, x) => n + x.length, 0) + endemics.reduce((n, x) => n + x.length, 0), totalPlaces = places.reduce((n, x) => n + x.length, 0);
     const head = `Pianeti visitati in superficie: ${landings} su ${genomes.length}. Pianeti con registrazioni: ${planets} su ${genomes.length}. Specie registrate: ${s} su ${total}. Luoghi registrati: ${l} su ${totalPlaces}. Pianeti misurati con gli strumenti della nave: ${measuredPlanets}; strumenti a bordo: ${onBoard(store.data, instrumentSections).size} su ${INSTRUMENTS.length}.${walked + driven ? ` Percorsi a terra: ${walked} m a piedi e ${driven} m in rover.` : ''}`;
@@ -2159,7 +2183,7 @@ function events() {
                 else if(hit?.type==='craft'){if(hit.follow)startFollow(hit.follow);else{touchTarget=hit;say([hit.entry.name,...(hit.lines||[])].join(' · '));}}
                 else if(hit?.type==='node')S.node=hit.index;
                 else if(hit?.type==='station')S.station=hit.index;
-                else if(hit?.type==='place'||hit?.type==='settlement')selectTarget({type:hit.type,index:hit.index});
+                else if(hit?.type==='place'||hit?.type==='settlement'||hit?.type==='site')selectTarget({type:hit.type,index:hit.index});
                 else if(hit?.type==='ground'){const near=W.nearest(hit.point);if(near)selectTarget(near);else{S.exploreGoal=[hit.point[0],hit.point[2]];S.exploreStop=undefined;}}
             }
         }

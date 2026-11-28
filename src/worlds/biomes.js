@@ -360,8 +360,8 @@ export function biomeColour(g, b, own, height, sea, slope, wet = 0) {
 export const CHUNK = 64, CHUNK_MOST = 64;
 /** Rocks of the chunk (ci, cj) of surface s, beyond the square of the stations (1.71.0): 64 candidate points
  * from a hash of the chunk, each kept with the share of rocks of the biomes there (rocks[0] / 64), on dry
- * ground; the biome with most weight gives size, shape and colour. Three lists of instances of 8 numbers
- * (x, y, z, size, r, g, b, heading): boulders, slabs and spires. */
+ * ground and away from the sites of the zone (1.73.0, s.siteClear); the biome with most weight gives size, shape
+ * and colour. Three lists of instances of 8 numbers (x, y, z, size, r, g, b, heading): boulders, slabs and spires. */
 export function chunkRocks(s, ci, cj) {
     const F = s.field, g = s.genome, out = [[], [], []]; if (!F?.biomes) return out;
     const B = F.biomes(), seed = g.terrain.seed % 1000003;
@@ -371,6 +371,7 @@ export function chunkRocks(s, ci, cj) {
         const w = B.weights(x, z); let want = 0, top = 0;
         for (let t = 0; t < B.types.length; t++) { want += w[t] * B.types[t].rocks[0]; if (w[t] > w[top]) top = t; }
         if (h(3) * CHUNK_MOST >= want * biomeWeight(Math.hypot(x, z))) continue;
+        if (s.siteClear?.(x, z, 2)) continue;
         const y = s.heightAt(x, z); if (s.seaY !== null && y < s.seaY - .2) continue;
         const b = B.types[top], [, size, shares] = b.rocks, sum = shares[0] + shares[1] + shares[2], u = h(4) * sum, shape = u < shares[0] ? 0 : u < shares[0] + shares[1] ? 1 : 2;
         const sc = size * (.45 + 1.9 * h(5) * h(5)), lit = .55 + .4 * h(6), c = (b.tone ? mix(g.palette.rock, b.tone, .35) : g.palette.rock).map(v => v * lit);

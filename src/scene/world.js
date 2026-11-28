@@ -32,6 +32,7 @@ import { LANDING_SITES } from '../worlds/landing-sites.js';
 import { tuft, rock, slab, spire, station as stationMesh, seaPlane, seaRing, beacon, curtain } from '../worlds/geometry.js';
 import { chunkRocks, CHUNK } from '../worlds/biomes.js';
 import { assemblages, chunkLife, wander } from '../worlds/zone-life.js';
+import { siteList, siteModel, clearingOf } from '../worlds/sites.js';
 import { bodyMesh } from '../worlds/bodyplan.js';
 import { buildingMesh } from '../worlds/buildings.js';
 import { archMesh, worksMesh, roverMesh, archPalette, typologyOf } from '../worlds/architecture.js';
@@ -67,6 +68,10 @@ export const TOWN_NEAR = 70, TOWN_FAR = 900, FOLK_NEAR = 26, FOLK_FAR = 180, WAL
 /** The explorer of 1.68.0: a colonist with a backpack in the gear of the colony of the planet, drawn in this
  * colour; the stations keep it out within STATION_CLEAR units of their centre. */
 export const EXPLORER_TINT = Object.freeze([.93, .52, .2]), STATION_CLEAR = 2.6;
+/** Sites of the zone (1.73.0): the light model is built when the camera comes within SITE_REACH, the detailed one
+ * within SITE_DETAIL; both are drawn as buildings of the settlements, up to TOWN_FAR, with a marker within
+ * SITE_MARK. */
+export const SITE_REACH = 1050, SITE_DETAIL = 200, SITE_MARK = 450;
 /** Instance data of a list of items (x, y, z, size, r, g, b, heading), eight numbers each. */
 const packItems = l => { const a = new Float32Array(Math.max(1, l.length) * 8); l.forEach((o, i) => a.set([o.x, o.y, o.z, o.s, o.r, o.g, o.b, o.h], i * 8)); return a; };
 export const walkHeading = (h, slope) => (((h % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)) + 7 * (Math.round(Math.max(-.5, Math.min(.5, slope)) * 100) + 50);
@@ -86,6 +91,8 @@ function streetMesh(settlements, palette) {
 const MESHES = { 'planet-beacon': beacon };
 /** Colour of the marker of each kind of place. */
 export const PLACE_TINTS = { vetta: [.95, .82, .45, 1], forma: [.55, .82, .98, 1], costa: [.45, .9, .85, 1], evento: [.95, .55, .85, 1], colonia: [1, .62, .3, 1], villaggio: [.75, .95, .45, 1] };
+/** Markers of the sites of the zone (1.73.0), by state: inhabited, abandoned, wreck, ruin. */
+export const SITE_TINTS = { abitato: [1, .74, .36, 1], abbandonato: [.72, .7, .66, 1], relitto: [.95, .45, .35, 1], rovina: [.78, .66, .95, 1] };
 /** Drawn radius: the scale is illustrative, so planets of the units are enlarged to be read and
  * picked, ambient bodies slightly. Orbits keep their computed spacing. */
 const clock = () => globalThis.performance?.now() ?? Date.now();
@@ -284,6 +291,8 @@ export class World {
             this.population = [...sc.species, ...(s.endemics || []).map((sp, j) => ({ species: sp, instances: [], centre: null, index: sc.species.length + j }))];
             this.planetCounts = [sc.species.reduce((n, p) => n + p.instances.length, 0), sc.rocks.length]; this.lifeAt = null;
             this.lifeSets = s.field?.biomes ? assemblages(s, this.population) : null; this.zoneAnimals = [];
+            // Structures, wrecks and ruins of the zone (1.73.0): their models are built when the camera comes near.
+            s.sites ||= s.field?.biomes ? siteList(s) : []; s.siteClear ||= clearingOf(s.sites); this.siteBuilt = s.sites.map(() => 0); this.siteGroups = []; this.siteBlocks = [];
             if (R.makeInstances) {
                 for (const G of this.groups || []) for (const l of [0, 1]) { R.deleteInstances?.(G.sets[l]); R.deleteMesh?.(G.meshes[l]); }
                 R.makeInstances('planet-rocks', 'world-rock', packItems(sc.rocks));
@@ -924,6 +933,24 @@ export class World {
         V.data??=new Float32Array(8);V.data.set([0,y0,0,k,...L.tint,heading]);R.updateInstances(m.id+'-i',V.data);
         R.drawMesh(m.id,this.vp,IDENTITY,{...draw,instances:m.id+'-i',instanceMode:mode,motion,pbr});
     }
+    /** Models of the sites near the point f (1.73.0), one step a frame, the nearest first: the light model of a
+     * site within SITE_REACH, then its detailed model within SITE_DETAIL. Each site is a group of one instance,
+     * drawn and split as the buildings of the settlements; the circles of its buildings stop the explorer. */
+    siteModels(f){
+        const R=this.R,S0=this.surface;let best=-1,d0=Infinity;
+        S0.sites.forEach((x,j)=>{const d=Math.hypot(x.x-f[0],x.z-f[2]),want=d<SITE_DETAIL?2:d<SITE_REACH?1:0;if(want>this.siteBuilt[j]&&d<d0){d0=d;best=j;}});
+        if(best<0)return;
+        const x=S0.sites[best],name='site-'+best,step=this.siteBuilt[best]+1;
+        if(step===1){
+            const far=siteModel(S0,x,1),items=[{x:x.x,y:x.y,z:x.z,s:1,r:1,g:1,b:1,h:0}],G={meshes:[name+'-mesh-0',name+'-mesh-1'],sets:[name+'-0',name+'-1'],all:packItems(items),items,n:1,drawn:[0,0],mode:1,motion:[0,0,0,0],pbr:[.05,.8,0,4],near:0,far:TOWN_FAR,thin:false,site:best};
+            R.makeMesh(G.meshes[1],far.mesh);R.makeInstances(G.sets[1],G.meshes[1],G.all);
+            this.groups.push(G);this.siteGroups[best]=G;this.siteBlocks.push(...far.blocks);
+        }else{
+            const G=this.siteGroups[best],near=siteModel(S0,x,0);
+            R.makeMesh(G.meshes[0],near.mesh);R.makeInstances(G.sets[0],G.meshes[0],G.all);G.near=TOWN_NEAR;
+        }
+        this.siteBuilt[best]=step;this.lifeAt=null;
+    }
     /** Rocks, plants and animals of the biomes in the chunks within about 200 units of the point f (1.71.0,
      * 1.72.0): chunks already made are kept, the others made with chunkRocks and chunkLife; one instance set per
      * shape of rock, and the individuals of the zone join those of the base in the groups of their species. */
@@ -1110,6 +1137,7 @@ export class World {
             const focus=this.target||[2,0,2],last=this.groundFocus,jump=last?Math.hypot(focus[0]-last[0],focus[2]-last[1]):0;this.groundFocus=[focus[0],focus[2]];
             if(this.ground&&jump<8)for(const k of this.ground.update(focus[0],focus[2]))R.makeMesh('planet-ground-'+k,this.ground.levels[k].mesh);
             const rk=Math.floor(focus[0]/CHUNK)+','+Math.floor(focus[2]/CHUNK);if(S0.field&&jump<8&&rk!==this.rockKey&&R.makeInstances){this.rockKey=rk;this.zoneChunks(focus);}
+            if(S0.sites?.length&&jump<8&&R.makeInstances)this.siteModels(focus);
             const sc=[Math.round(focus[0]/8)*8,Math.round(focus[2]/8)*8],cy=S0.heightAt?S0.heightAt(sc[0],sc[1]):0,sea=[Math.round(focus[0]/320)*320,Math.round(focus[2]/320)*320],seaM=transform(sea[0],0,sea[1]);
             const light=sun?sun.light:S0.light.direction,lightColor=sun?sun.color:S0.light.color,lightVP=mul(ortho,lookAt([sc[0]+light[0]*90,cy+light[1]*90,sc[1]+light[2]*90],[sc[0],cy,sc[1]]));
             R.renderShadow(this.biome+':'+sc.join(','),['planet-ground-0','planet-ground-1'],lightVP);
@@ -1165,6 +1193,13 @@ export class World {
                     R.drawMesh('lowSphere',this.vp,transform(q[0],top+2.3,q[2],on?.7:.55),{eye:this.eye,material:16,tint:PLACE_TINTS[t0.kind]});
                     if(on)R.drawMesh('ring',this.vp,transform(q[0],q[1]+.3,q[2],t0.kind==='colonia'?14:10),{eye:this.eye,tint:PLACE_TINTS[t0.kind],emission:.7,opacity:.75});
                     this.projections.push({type:'settlement',index:k,...xyToObj(project([q[0],top+3.6,q[2]],this.vp,R.w,R.h)),r:28,position:q});});
+                // Sites of the zone (1.73.0): a marker over each one within SITE_MARK and over the selected one, a ring
+                // round the selected one; farther sites show their buildings up to TOWN_FAR and, on wide screens, their
+                // names, so the markers add at most a few draw calls.
+                (S0.sites||[]).forEach((x,k)=>{const d=Math.hypot(x.x-this.eye[0],x.z-this.eye[2]);if(d>TOWN_FAR)return;const on=s.exploreTarget?.type==='site'&&s.exploreTarget.index===k,top=x.y+14;
+                    if(on||d<SITE_MARK)R.drawMesh('lowSphere',this.vp,transform(x.x,top,x.z,on?.8:.6),{eye:this.eye,material:16,tint:SITE_TINTS[x.state]});
+                    if(on)R.drawMesh('ring',this.vp,transform(x.x,x.y+.3,x.z,20),{eye:this.eye,tint:SITE_TINTS[x.state],emission:.7,opacity:.75});
+                    this.projections.push({type:'site',index:k,...xyToObj(project([x.x,top+1.4,x.z],this.vp,R.w,R.h)),r:28,position:[x.x,x.y,x.z]});});
                 const t=s.exploreTarget,c=t?.type==='species'?this.liveCentre(t.index):null;
                 if(c)R.drawMesh('ring',this.vp,transform(c[0],c[1]+.3,c[2],7),{eye:this.eye,tint:[.6,.95,.7,1],emission:.7,opacity:.6});
             }
@@ -1199,13 +1234,15 @@ export class World {
      * are free) and the stations of the landing site, and the gravity of the planet. */
     explorerEnv() {
         const S0 = this.surface; if (!S0?.heightAt) return null;
-        if (this.envOf?.key !== S0.key) this.envOf = { key: S0.key, env: { ground: (x, z) => S0.heightAt(x, z), sea: S0.seaY, gravity: S0.genome.gravity, blocked: (x, z) => !!S0.clear?.solid(x, z) || S0.stations.some(st => Math.hypot(st.position[0] - x, st.position[2] - z) < STATION_CLEAR) } };
+        if (this.envOf?.key !== S0.key) this.envOf = { key: S0.key, env: { ground: (x, z) => S0.heightAt(x, z), sea: S0.seaY, gravity: S0.genome.gravity, blocked: (x, z) => !!S0.clear?.solid(x, z) || S0.stations.some(st => Math.hypot(st.position[0] - x, st.position[2] - z) < STATION_CLEAR) || (this.siteBlocks || []).some(([bx, bz, br]) => Math.abs(bx - x) < br && Math.abs(bz - z) < br && Math.hypot(bx - x, bz - z) < br) } };
         return this.envOf.env;
     }
     nearest(point, radius = 7) {
         let best = null, d0 = radius;
         (this.population || []).forEach((p, k) => { for (const o of p.instances.concat(p.zone || [])) { const d = Math.hypot(o.x - point[0], o.z - point[2]); if (d < d0) { d0 = d; best = { type: 'species', index: k }; } } });
         (this.surface?.places || []).forEach((p, k) => { const d = Math.hypot(p.position[0] - point[0], p.position[2] - point[2]); if (d < d0 + 2) { d0 = d - 2; best = { type: 'place', index: k }; } });
+        // A site of the zone (1.73.0) is selected within 25 units of its centre.
+        (this.surface?.sites || []).forEach((x, k) => { const d = Math.hypot(x.x - point[0], x.z - point[2]) - 18; if (d < d0) { d0 = d; best = { type: 'site', index: k }; } });
         // A building or a street of a settlement selects the settlement (1.64.0).
         (this.surface?.settlements || []).forEach((t, k) => { for (const b of t.buildings) { const d = Math.hypot(b.x - point[0], b.z - point[2]) - b.radius; if (d < d0) { d0 = d; best = { type: 'settlement', index: k }; } } });
         return best;

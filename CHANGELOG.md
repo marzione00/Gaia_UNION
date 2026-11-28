@@ -1,3 +1,12 @@
+# 1.73.0: Mondi aperti, strutture abitate e abbandonate, relitti e rovine
+
+- Quarta versione della serie «Mondi aperti». Ogni zona di atterraggio ospita da 14 a 19 siti costruiti, 2043 sui 125 pianeti: 733 strutture abitate, 494 strutture abbandonate, 314 relitti e 502 rovine. I siti distano almeno 445 m l'uno dall'altro e 525 m dalla base; la distanza mediana fra un sito e il più vicino è di 557 m.
+- 14 tipi di sito: avamposti di ricerca, miniere, stazioni meteorologiche, serre e campi stagionali dei nativi; avamposti, miniere e serre abbandonati; relitti di navi e sonde precipitate; rovine di villaggi antichi, fari di atterraggio, osservatori e il campo della prima spedizione. Ogni pianeta ne ha da 12 a 14, e la quota di siti abitati cresce con l'ospitalità del pianeta.
+- I modelli usano gli edifici della colonia del pianeta, invecchiati nei siti abbandonati (inclinati, affondati, impolverati, con le finestre spente e parti crollate), le navi del sistema stellare spezzate in due e bruciate, con una scia di detriti, le sonde con il loro paracadute dove l'aria è abbastanza densa, e cerchi di pietre e muri spezzati per le rovine. Ogni sito ha un modello semplificato da lontano e uno dettagliato da vicino, costruiti quando la camera si avvicina.
+- Ogni sito ha una storia di tre o quattro frasi scritta dai dati del pianeta: temperatura, pressione, effetto serra, gravità, velocità di fuga, flusso della stella, durata dell'anno, bioma e specie endemica, colonia e popolo nativo. Lo scanner la registra nel diario, che elenca i siti di ogni pianeta.
+- Un segnale colorato indica lo stato di ogni sito vicino; la scheda porta l'esploratore fino al sito, e un messaggio annuncia il primo passaggio.
+- Nuovo `src/worlds/sites.js`; l'elenco dei siti e delle storie è in `docs/SITI.md`, generato da `node scripts/siti.mjs` e controllato da `tests/siti.test.mjs`. Descrizione in `docs/GRAPHICS.md`, sezione «Strutture, relitti e rovine».
+
 # 1.72.0: Mondi aperti, flora e fauna dei biomi
 
 - Terza versione della serie «Mondi aperti». Piante e animali vivono in tutta la zona di atterraggio, con densità che cambiano da un bioma all'altro: foreste e paludi fitte, steppe e brughiere rade, saline e ghiaccio azzurro quasi spogli, piante raccolte a chiazze.
