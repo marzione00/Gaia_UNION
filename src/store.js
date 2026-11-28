@@ -24,9 +24,10 @@ export function cleanExplore(value) {
         if (typeof v.at === 'string' && v.at.length < 40) rec.at = v.at;
         // v: the explorer has landed on the planet, which shows the presence of life on its card.
         if (v.v === 1) rec.v = 1;
-        // p (1.68.0): metres walked and driven by the explorer, best jump in centimetres and number of jumps.
+        // p (1.68.0): metres walked and driven by the explorer, best jump in centimetres and number of jumps; z
+        // (1.76.0): the highest climb with the jetpack, in centimetres.
         const whole = (x, top) => Number.isInteger(x) && x >= 0 && x <= top;
-        if (v.p && typeof v.p === 'object' && whole(v.p.w, 1e7) && whole(v.p.d, 1e7) && whole(v.p.j, 1e4) && whole(v.p.n, 1e6) && v.p.w + v.p.d + v.p.n > 0) rec.p = { w: v.p.w, d: v.p.d, j: v.p.j, n: v.p.n };
+        if (v.p && typeof v.p === 'object' && whole(v.p.w, 1e7) && whole(v.p.d, 1e7) && whole(v.p.j, 1e4) && whole(v.p.n, 1e6) && v.p.w + v.p.d + v.p.n > 0) { rec.p = { w: v.p.w, d: v.p.d, j: v.p.j, n: v.p.n }; if (whole(v.p.z, 1e5) && v.p.z > 0) rec.p.z = v.p.z; }
         // b (1.71.0): the biomes crossed by the explorer, at most the eight of a planet; r (1.73.0): the sites
         // registered, r0 to r18.
         const b = ids(v.b, x => Object.hasOwn(BIOME, x), 8); if (b.length) rec.b = b;

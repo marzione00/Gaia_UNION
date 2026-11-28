@@ -18,6 +18,18 @@ const clamp = (x, a, b) => Math.max(a, Math.min(b, x)), wrap = a => Math.atan2(M
  * h = v² / 2a and t = 2v / a, with a = g · 9.81 m/s². */
 export function jumpOf(g) { const a = G0 * g; return { speed: JUMP, accel: a, height: JUMP * JUMP / (2 * a), time: 2 * JUMP / a, earth: JUMP * JUMP / (2 * G0) }; }
 
+/** The jetpack of the explorer (1.76.0): while the jump is held in the air its thrust gives an upward
+ * acceleration of 14 m/s², for at most 1.2 s of burn, which the pack takes back in 3 s on the ground. The net
+ * acceleration is the thrust less the gravity of the planet, so the same pack lifts more where gravity is low. */
+export const PACK = Object.freeze({ thrust: 14, burn: 1.2, refill: 3 });
+/** Highest climb over the take-off with the jetpack burning from the jump to the end of its fuel, with gravity g
+ * (in g): during the burn the net acceleration is a = thrust − g·9.81; then the body coasts up with −g. */
+export function packOf(g) {
+    const G = G0 * g, a = PACK.thrust - G, t = PACK.burn, v1 = JUMP + a * t;
+    const height = a >= 0 || v1 > 0 ? JUMP * t + a * t * t / 2 + v1 * v1 / (2 * G) : JUMP * JUMP / (-2 * a);
+    return { thrust: PACK.thrust, net: a, burn: t, speed: Math.max(0, v1), height, earth: JUMP * t + (PACK.thrust - G0) * t * t / 2 + (JUMP + (PACK.thrust - G0) * t) ** 2 / (2 * G0) };
+}
+
 /** Forward direction of a heading: the models face +x, turned by the heading round the vertical axis. */
 export const forward = h => [Math.cos(h), -Math.sin(h)];
 
@@ -27,7 +39,7 @@ export function newExplorer(x, z, h, env, park = 3) {
     let spot = [x + side[0] * park, z + side[1] * park];
     if (!parkable(spot[0], spot[1], h, env)) spot = freeSpot(x, z, env, ROVER, park, h) || [x, z];
     const rover = { x: spot[0], z: spot[1], h, ...lean(spot[0], spot[1], h, env) };
-    return { x, z, y, vy: 0, h, cam: h, speed: 0, mode: 'piedi', grounded: true, jumping: false, gait: 0, take: y, peak: y, jumps: 0, last: 0, best: 0, walked: 0, driven: 0, pitch: 0, roll: 0, rover };
+    return { x, z, y, vy: 0, h, cam: h, speed: 0, mode: 'piedi', grounded: true, jumping: false, gait: 0, take: y, peak: y, jumps: 0, last: 0, best: 0, walked: 0, driven: 0, pitch: 0, roll: 0, fuel: PACK.burn, boosting: false, packed: false, packLast: 0, packBest: 0, rover };
 }
 
 /** Whether the explorer may step from (x0, z0) to (x, z): inside the map, outside the buildings and the
@@ -40,7 +52,8 @@ export function passable(x, z, x0, z0, env, limits, airborne) {
     return airborne || rise <= Math.tan(limits.slope * Math.PI / 180) * run + 1e-6;
 }
 
-/** One step of `dt` seconds. `input` has forward and turn in [−1, 1], run and jump; a heading with a push,
+/** One step of `dt` seconds. `input` has forward and turn in [−1, 1], run, jump and boost (the jump held, which
+ * fires the jetpack in the air); a heading with a push,
  * from a joystick; or a goal [x, z] that steers the explorer there and a distance `stop` at which it halts.
  * Returns the events of the step: 'salto', 'atterraggio', 'fermo', 'arrivato', and 'confine' at the edge
  * of the zone. */
@@ -80,12 +93,23 @@ export function stepExplorer(a, input, dt, env) {
     if (!rover && input.jump && a.grounded) { a.vy = JUMP * M; a.grounded = false; a.jumping = true; a.take = a.y; a.peak = a.y; a.jumps++; ev.push('salto'); }
     // Walking off a ledge more than 0.6 units high starts a fall with the gravity of the planet.
     if (a.grounded && !rover && ground < a.y - .6) { a.grounded = false; a.jumping = false; a.vy = 0; a.take = a.y; a.peak = a.y; }
+    // The jetpack (1.76.0) burns while the jump is held in the air and fuel is left; a step that empties the tank
+    // burns only for the time that remains.
+    const burn = !rover && !a.grounded && input.boost && a.fuel > 0 ? Math.min(dt, a.fuel) : 0;
+    a.boosting = burn > 0; if (burn) { a.fuel = Math.max(0, a.fuel - burn); if (a.jumping) a.packed = true; }
     if (!a.grounded) {
-        // Exact for a constant acceleration: the top of the arc is y + v² / 2g when the speed changes sign.
-        if (a.vy > 0 && a.vy <= g * dt) a.peak = Math.max(a.peak, a.y + a.vy * a.vy / (2 * g));
-        a.y += a.vy * dt - g * dt * dt / 2; a.vy -= g * dt; a.peak = Math.max(a.peak, a.y);
-        if (a.y <= ground) { a.y = ground; a.vy = 0; a.grounded = true; if (a.jumping) { a.last = (a.peak - a.take) / M; a.best = Math.max(a.best, a.last); } a.jumping = false; ev.push('atterraggio'); }
+        // Exact for a constant acceleration: the top of the arc is y + v² / 2d when the speed changes sign under the
+        // deceleration d, gravity less the thrust of the pack.
+        const T = PACK.thrust * M, d = g - T * burn / dt;
+        if (d > 0 && a.vy > 0 && a.vy <= d * dt) a.peak = Math.max(a.peak, a.y + a.vy * a.vy / (2 * d));
+        a.y += a.vy * dt - g * dt * dt / 2 + (burn ? T * burn * (dt - burn / 2) : 0); a.vy += T * burn - g * dt; a.peak = Math.max(a.peak, a.y);
+        if (a.y <= ground) {
+            a.y = ground; a.vy = 0; a.grounded = true;
+            if (a.jumping) { const h = (a.peak - a.take) / M; if (a.packed) { a.packLast = h; a.packBest = Math.max(a.packBest, h); } else { a.last = h; a.best = Math.max(a.best, h); } }
+            a.jumping = false; a.packed = false; ev.push('atterraggio');
+        }
     } else a.y = ground;
+    if (a.grounded) a.fuel = Math.min(PACK.burn, (a.fuel ?? PACK.burn) + dt * PACK.burn / PACK.refill);
     if (rover) {
         // The rover leans with the ground under its wheels.
         const L0 = lean(a.x, a.z, a.h, env), k = clamp(dt * 8, 0, 1);

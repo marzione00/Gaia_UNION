@@ -1,3 +1,11 @@
+# 1.76.0: Mondi aperti, zaino a reazione e viaggio rapido fra i luoghi scoperti
+
+- Settima versione della serie «Mondi aperti». Tenendo premuto il salto si accende lo zaino a reazione: 14 m/s² di spinta per al più 1,2 s, ricaricati in 3 s a terra. La spinta meno la gravità dà l’accelerazione netta, quindi lo zaino porta l’esploratore a 18,1 m sui pianeti più leggeri, a 10,1 m sulla Terra e a 5,4 m su quelli più pesanti.
+- Fiamme dagli ugelli, carica sul pulsante SALTA e nel riquadro dell’esploratore, camera che segue il volo, salita più alta nel diario e calcolo nella scheda «Fisica» del salto.
+- Viaggio rapido: la mappa della zona elenca i luoghi scoperti (base, nave, insediamenti e luoghi registrati, siti e luoghi rari registrati, rilevati o raggiunti) con la distanza e il tempo a piedi, di corsa e in rover; VIAGGIO RAPIDO porta l’esploratore lì con una dissolvenza.
+- Un sito o un luogo raro raggiunto dall’esploratore conta come scoperto e compare sulla bussola e sulla mappa.
+- Nuovo `src/worlds/travel.js`, controllato con lo zaino da `tests/zaino.test.mjs`. Descrizione in `docs/GRAPHICS.md`, sezione «Zaino a reazione e viaggio rapido fra i luoghi scoperti».
+
 # 1.75.0: Mondi aperti, atterraggio libero e nave che scende e decolla
 
 - Sesta versione della serie «Mondi aperti». L’esploratore ha una nave, la Navetta Raman del catalogo 3D, lunga 50 m, con quattro gambe che si allungano ciascuna fino al proprio terreno, una rampa sotto lo scafo e quattro motori verticali con getti e polvere.

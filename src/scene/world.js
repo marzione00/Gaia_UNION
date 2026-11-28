@@ -335,7 +335,9 @@ export class World {
                 if (colony) R.makeMesh('planet-works', worksMesh(colony));
                 // The explorer and its rover (1.68.0), in the style of the colony or of the colony the planet would have.
                 const typ0 = typ || typologyOf(s.genome, s.species.length); this.explorerFigure = colonistSpec('zaino', GEAR[typ0], s.index % 4); this.explorerData = new Float32Array(8);
-                R.makeMesh('explorer-mesh', colonistMesh(this.explorerFigure, 0)); R.makeInstances('explorer', 'explorer-mesh', this.explorerData);
+                const em = colonistMesh(this.explorerFigure, 0); R.makeMesh('explorer-mesh', em); R.makeInstances('explorer', 'explorer-mesh', this.explorerData);
+                // The two nozzles of the jetpack (1.76.0) under the back of the pack, the rearmost part of the figure.
+                const J = jetMeshes(em); R.makeMesh('jet-flame', J.flame); R.makeMesh('jet-plume', J.plume); this.jetAt = J.at;
                 R.makeMesh('planet-rover', roverMesh(archPalette(s.genome, typ0), typ0, 0));
                 // The ship of the explorer and the pad of the base (1.75.0); the legs follow the ground of each landing.
                 if (!this.landerReady) { const L = landerMeshes(); L.hulls.forEach((m, l) => R.makeMesh('lander-hull-' + l, m)); R.makeMesh('lander-ramp', L.ramp); R.makeMesh('lander-plume', L.plume); R.makeMesh('lander-flame', L.flame); R.makeMesh('lander-pad', padMesh()); this.landerReady = true; }
@@ -518,8 +520,8 @@ export class World {
             // rises by half of a jump; dragging turns it round the explorer. It blends with the station view.
             const chase=gen&&b>0&&!!s.avatar;
             if(chase){
-                const A=s.avatar,S0=this.surface,rover=A.mode==='rover',f=s.exploreFocus,floor=(x,z)=>Math.max(S0.heightAt(x,z),S0.seaY??-99),cd=(rover?12:7.5)*(s.chaseZoom||1),ca=A.cam-Math.PI/2+(s.chaseOrbit||0);
-                const cp=Math.max(.04,Math.min(1.1,(rover?.3:.26)+(s.pitch-.45)*.6)),lift=rover?1.6:1.1,ty2=floor(f[0],f[1])+Math.max(0,A.y-floor(A.x,A.z))*.5+lift;
+                const A=s.avatar,S0=this.surface,rover=A.mode==='rover',f=s.exploreFocus,floor=(x,z)=>Math.max(S0.heightAt(x,z),S0.seaY??-99),cd=(rover?12:7.5)*(s.chaseZoom||1)*(1+Math.min(.6,Math.max(0,A.y-floor(A.x,A.z))/40)),ca=A.cam-Math.PI/2+(s.chaseOrbit||0);
+                const up=Math.max(0,A.y-floor(A.x,A.z)),cp=Math.max(.04,Math.min(1.1,(rover?.3:.26)+(s.pitch-.45)*.6)),lift=rover?1.6:1.1,ty2=floor(f[0],f[1])+(up<=2?up*.5:up-1)+lift;
                 let t2=[f[0],ty2,f[1]];const e2=[f[0]+Math.sin(ca)*cd*Math.cos(cp),ty2+Math.sin(cp)*cd,f[1]+Math.cos(ca)*cd*Math.cos(cp)];
                 // On phones with the card open the explorer shows in the upper half of the screen.
                 if(w<850&&s.exploreCard){const qx=f[0]+Math.sin(ca)*3,qz=f[1]+Math.cos(ca)*3;t2=[qx,floor(qx,qz)+lift*.5,qz];}
@@ -1193,6 +1195,8 @@ export class World {
             // The explorer on foot (mode 8 with the biped flag) and its rover, parked or driven (1.68.0).
             const A=s.avatar&&(s.explore||s.exploreBlend>0)?s.avatar:null;
             if(A&&R.instanceSets?.has('explorer')){
+                // The flames of the jetpack while it burns (1.76.0), flickering in length.
+                if(A.boosting&&A.mode!=='rover'&&!A.aboard&&R.meshes.has('jet-flame')){const c=Math.cos(A.h),sn=Math.sin(A.h),k=.85+.15*Math.sin(s.time*53)+.1*Math.sin(s.time*31),m=new Float32Array([c,0,-sn,0,0,k,0,0,sn,0,c,0,A.x,A.y+this.jetAt[1],A.z,1]);R.drawMesh('jet-flame',this.vp,m,{eye:this.eye,light,lightColor,material:10});R.drawMesh('jet-plume',this.vp,m,{eye:this.eye,material:17,blend:true,opacity:.85});}
                 if(A.mode!=='rover'&&!A.aboard){this.explorerData.set([A.x,A.y,A.z,1,...EXPLORER_TINT,gaitHeading(A.h,A.gait)]);R.updateInstances('explorer',this.explorerData);R.drawMesh('explorer-mesh',this.vp,id,{eye:this.eye,light,lightColor,material:10,instances:'explorer',instanceMode:8,motion:[0,1,0,this.explorerFigure.legs],pbr:[0,.75,0,0]});}
                 const v=A.rover;if(v&&R.meshes.has('planet-rover'))R.drawMesh('planet-rover',this.vp,roverMatrix(v.x,v.y??S0.heightAt(v.x,v.z),v.z,v.h,v.pitch||0,v.roll||0),{eye:this.eye,light,lightColor,material:10});
                 if(s.scanTarget){const c=s.scanTarget;R.drawMesh('ring',this.vp,transform(c[0],c[1]+.3,c[2],1.6+.5*Math.sin(s.time*4)),{eye:this.eye,tint:[.55,.95,1,1],emission:.8,opacity:.7});}
@@ -1377,5 +1381,17 @@ export function basisMatrix(position, axis, side, scale) {
     return new Float32Array([...x.map(v => v * scale), 0, ...y.map(v => v * scale), 0, ...z.map(v => v * scale), 0, ...position, 1]);
 }
 const dec1 = v => v.toFixed(1).replace('.', ','), dec2 = v => (v < 10 ? v.toFixed(2) : v.toFixed(1)).replace('.', ',');
+/** The flames of the jetpack (1.76.0) for the explorer mesh `m`: two nozzles side by side under the back of the
+ * pack, a hot core that shines and a wider soft glow, pointing down from the height of the nozzles (at[1]). */
+export function jetMeshes(m) {
+    let x0 = Infinity; for (let k = 0; k < m.v.length; k += 16) x0 = Math.min(x0, m.v[k]);
+    let y0 = Infinity; for (let k = 0; k < m.v.length; k += 16) if (m.v[k] < x0 + .04) y0 = Math.min(y0, m.v[k + 1]);
+    const at = [x0 + .035, y0], flame = new Kit({ hull: [1, 1, 1, 1], dark: [.12, .12, .13, 1] }), plume = new Kit({ hull: [1, 1, 1, 1], dark: [.12, .12, .13, 1] });
+    for (const z of [-.045, .045]) {
+        flame.push([at[0], 0, z]); flame.dark(); flame.cyl(.03, .024, -.03, .02, 10); flame.glow([1, .86, .55, 1], 3.6); flame.cyl(.026, .005, -.34, -.03, 10, { caps: false }); flame.pop();
+        plume.push([at[0], 0, z]); plume.glow([1, .6, .25, 1], 2.6); plume.cyl(.075, .015, -.75, -.03, 12, { caps: false }); plume.pop();
+    }
+    return { flame: flame.mesh(), plume: plume.mesh(), at };
+}
 /** Identity of a followed object, for the camera transition. */
 export function followKey(f) { return f.kind + ':' + (f.k ?? f.id ?? f.slot ?? '') + (f.visitor ? 'v' : ''); }
